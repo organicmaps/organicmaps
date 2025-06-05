@@ -20,7 +20,7 @@ using CellId = m2::CellId<5>;
 UNIT_TEST(CoverTriangle_Simple)
 {
   vector<CellId> v;
-  covering::Covering<CellId> c(m2::PointD(3*2, 3*2), m2::PointD(4*2, 12*2), m2::PointD(14*2, 3*2));
+  covering::Covering<CellId> c(m2::PointD(3 * 2, 3 * 2), m2::PointD(4 * 2, 12 * 2), m2::PointD(14 * 2, 3 * 2));
   c.OutputToVector(v);
   vector<CellId> e;
   e.push_back(CellId("03"));
@@ -97,14 +97,10 @@ UNIT_TEST(Covering_Append_Simple)
 UNIT_TEST(IntersectCellWithTriangle_EmptyTriangle)
 {
   m2::PointD pt(27.0, 31.0);
-  TEST_EQUAL(covering::CELL_OBJECT_NO_INTERSECTION,
-             covering::IntersectCellWithTriangle(CellId("0"), pt, pt, pt), ());
-  TEST_EQUAL(covering::CELL_OBJECT_NO_INTERSECTION,
-             covering::IntersectCellWithTriangle(CellId("1"), pt, pt, pt), ());
-  TEST_EQUAL(covering::CELL_OBJECT_NO_INTERSECTION,
-             covering::IntersectCellWithTriangle(CellId("2"), pt, pt, pt), ());
-  TEST_EQUAL(covering::OBJECT_INSIDE_CELL,
-             covering::IntersectCellWithTriangle(CellId("3"), pt, pt, pt), ());
+  TEST_EQUAL(covering::CELL_OBJECT_NO_INTERSECTION, covering::IntersectCellWithTriangle(CellId("0"), pt, pt, pt), ());
+  TEST_EQUAL(covering::CELL_OBJECT_NO_INTERSECTION, covering::IntersectCellWithTriangle(CellId("1"), pt, pt, pt), ());
+  TEST_EQUAL(covering::CELL_OBJECT_NO_INTERSECTION, covering::IntersectCellWithTriangle(CellId("2"), pt, pt, pt), ());
+  TEST_EQUAL(covering::OBJECT_INSIDE_CELL, covering::IntersectCellWithTriangle(CellId("3"), pt, pt, pt), ());
 }
 
 UNIT_TEST(Covering_EmptyTriangle)

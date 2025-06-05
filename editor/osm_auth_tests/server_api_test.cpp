@@ -8,15 +8,15 @@
 #include "base/string_utils.hpp"
 
 #include <cstdint>
-#include <string>
 #include <random>
+#include <string>
 
 #include <pugixml.hpp>
 
 namespace osm_auth
 {
-using osm::ServerApi06;
 using osm::OsmOAuth;
+using osm::ServerApi06;
 using namespace pugi;
 
 extern char const * kValidOsmUser;
@@ -53,11 +53,10 @@ ServerApi06 CreateAPI()
 ms::LatLon RandomCoordinate()
 {
   std::random_device rd;
-  return ms::LatLon(std::uniform_real_distribution<>{-89., 89.}(rd),
-                    std::uniform_real_distribution<>{-179., 179.}(rd));
+  return ms::LatLon(std::uniform_real_distribution<>{-89., 89.}(rd), std::uniform_real_distribution<>{-179., 179.}(rd));
 }
 
-} // namespace
+}  // namespace
 
 void DeleteOSMNodeIfExists(ServerApi06 const & api, uint64_t changeSetId, ms::LatLon const & ll)
 {
@@ -84,8 +83,8 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
   XMLFeature node(XMLFeature::Type::Node);
 
   ServerApi06 const api = CreateAPI();
-  uint64_t changeSetId = api.CreateChangeSet({{"created_by", "OMaps Unit Test"},
-                                              {"comment", "For test purposes only."}});
+  uint64_t changeSetId =
+    api.CreateChangeSet({{"created_by", "OMaps Unit Test"}, {"comment", "For test purposes only."}});
   auto const changesetCloser = [&]() { api.CloseChangeSet(changeSetId); };
 
   {
@@ -112,8 +111,8 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
     TEST_EQUAL(node.GetAttribute("version"), "2", ());
 
     // All tags must be specified, because there is no merging of old and new tags.
-    api.UpdateChangeSet(changeSetId, {{"created_by", "OMaps Unit Test"},
-                                      {"comment", "For test purposes only (updated)."}});
+    api.UpdateChangeSet(changeSetId,
+                        {{"created_by", "OMaps Unit Test"}, {"comment", "For test purposes only (updated)."}});
 
     // To retrieve created node, changeset should be closed first.
     // It is done here via Scope Guard.
@@ -126,8 +125,7 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
   TEST_EQUAL(node.GetAttribute("id"), features[0].GetAttribute("id"), ());
 
   // Cleanup - delete unit test node from the server.
-  changeSetId = api.CreateChangeSet({{"created_by", "OMaps Unit Test"},
-                                    {"comment", "For test purposes only."}});
+  changeSetId = api.CreateChangeSet({{"created_by", "OMaps Unit Test"}, {"comment", "For test purposes only."}});
   SCOPE_GUARD(guard, changesetCloser);
   // New changeset has new id.
   node.SetAttribute("changeset", strings::to_string(changeSetId));

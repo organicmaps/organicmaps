@@ -16,28 +16,27 @@ using namespace search;
 using namespace std;
 
 class RankerTest : public SearchTest
-{
-};
+{};
 
 UNIT_CLASS_TEST(RankerTest, ErrorsInStreets)
 {
-  TestStreet mazurova(
-      vector<m2::PointD>{m2::PointD(-0.001, -0.001), m2::PointD(0, 0), m2::PointD(0.001, 0.001)},
-      "Мазурова", "ru");
+  TestStreet mazurova(vector<m2::PointD>{m2::PointD(-0.001, -0.001), m2::PointD(0, 0), m2::PointD(0.001, 0.001)},
+                      "Мазурова", "ru");
   TestBuilding mazurova14(m2::PointD(-0.001, -0.001), "", "14", mazurova.GetName("ru"), "ru");
 
-  TestStreet masherova(
-      vector<m2::PointD>{m2::PointD(-0.001, 0.001), m2::PointD(0, 0), m2::PointD(0.001, -0.001)},
-      "Машерова", "ru");
+  TestStreet masherova(vector<m2::PointD>{m2::PointD(-0.001, 0.001), m2::PointD(0, 0), m2::PointD(0.001, -0.001)},
+                       "Машерова", "ru");
   TestBuilding masherova14(m2::PointD(0.001, 0.001), "", "14", masherova.GetName("ru"), "ru");
 
-  auto id = BuildCountry("Belarus", [&](TestMwmBuilder & builder) {
-    builder.Add(mazurova);
-    builder.Add(mazurova14);
+  auto id = BuildCountry("Belarus",
+                         [&](TestMwmBuilder & builder)
+                         {
+                           builder.Add(mazurova);
+                           builder.Add(mazurova14);
 
-    builder.Add(masherova);
-    builder.Add(masherova14);
-  });
+                           builder.Add(masherova);
+                           builder.Add(masherova14);
+                         });
 
   SetViewport(m2::RectD(m2::PointD(0, 0), m2::PointD(0.001, 0.001)));
   {
@@ -70,20 +69,18 @@ UNIT_CLASS_TEST(RankerTest, UniteSameResults)
   TestCafe cafe1({0.5, 0.5}, "И точка", "ru");
   TestCafe cafe2({0.5, 0.5}, "И точка", "ru");
 
-  auto const worldID = BuildWorld([&](TestMwmBuilder & builder)
-  {
-    builder.Add(city);
-  });
+  auto const worldID = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(city); });
 
-  auto const countryID = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
-  {
-    builder.Add(city);
-    builder.Add(bus1);
-    builder.Add(bus2);
-    builder.Add(bus3);
-    builder.Add(cafe1);
-    builder.Add(cafe2);
-  });
+  auto const countryID = BuildCountry("Wonderland",
+                                      [&](TestMwmBuilder & builder)
+                                      {
+                                        builder.Add(city);
+                                        builder.Add(bus1);
+                                        builder.Add(bus2);
+                                        builder.Add(bus3);
+                                        builder.Add(cafe1);
+                                        builder.Add(cafe2);
+                                      });
 
   SetViewport({0, 0, 2, 2});
   {
@@ -97,19 +94,13 @@ UNIT_CLASS_TEST(RankerTest, UniteSameResults)
 UNIT_CLASS_TEST(RankerTest, PreferCountry)
 {
   std::string const name = "Wonderland";
-  TestCountry wonderland(m2::PointD(9.0, 9.0), name, "en");   // ~1400 km from (0, 0)
+  TestCountry wonderland(m2::PointD(9.0, 9.0), name, "en");  // ~1400 km from (0, 0)
   TestPOI cafe(m2::PointD(0.0, 0.0), name, "en");
   cafe.SetTypes({{"amenity", "cafe"}});
 
-  auto const worldID = BuildWorld([&](TestMwmBuilder & builder)
-  {
-    builder.Add(wonderland);
-  });
+  auto const worldID = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(wonderland); });
 
-  auto const countryID = BuildCountry(name, [&](TestMwmBuilder & builder)
-  {
-    builder.Add(cafe);
-  });
+  auto const countryID = BuildCountry(name, [&](TestMwmBuilder & builder) { builder.Add(cafe); });
 
   SetViewport({0.0, 0.0, 1.0, 1.0});
   {
@@ -123,4 +114,4 @@ UNIT_CLASS_TEST(RankerTest, PreferCountry)
     TEST(OrderedResultsMatch("Wanderland", rules), ());
   }
 }
-} // namespace ranker_test
+}  // namespace ranker_test

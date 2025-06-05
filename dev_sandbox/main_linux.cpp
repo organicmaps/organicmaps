@@ -8,11 +8,11 @@
 #define GLFW_EXPOSE_NATIVE_X11
 #include <GLFW/glfw3native.h>
 
-#include <dlfcn.h>
 #include <X11/X.h>
+#include <dlfcn.h>
 
-#include <vulkan_wrapper.h>
 #include <vulkan/vulkan_xlib.h>
+#include <vulkan_wrapper.h>
 // Workaround for TestFunction::Always compilation issue:
 // /usr/include/X11/X.h:441:33: note: expanded from macro 'Always'
 #undef Always
@@ -33,16 +33,18 @@
 class LinuxVulkanContextFactory : public dp::vulkan::VulkanContextFactory
 {
 public:
-  LinuxVulkanContextFactory() : dp::vulkan::VulkanContextFactory(1, 33, false) {}
+  LinuxVulkanContextFactory()
+    : dp::vulkan::VulkanContextFactory(1, 33, false)
+  {}
 
   void SetSurface(Display * display, Window window)
   {
     VkXlibSurfaceCreateInfoKHR const createInfo = {
-        .sType = VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR,
-        .pNext = nullptr,
-        .flags = 0,
-        .dpy = display,
-        .window = window,
+      .sType = VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR,
+      .pNext = nullptr,
+      .flags = 0,
+      .dpy = display,
+      .window = window,
     };
 
     VkResult statusCode;
@@ -105,13 +107,13 @@ typedef XID GLXPbuffer;
 typedef struct __GLXFBConfig * GLXFBConfig;
 typedef void (*__GLXextproc)(void);
 
-typedef __GLXextproc (*PFNGLXGETPROCADDRESSPROC)(const GLubyte * procName);
+typedef __GLXextproc (*PFNGLXGETPROCADDRESSPROC)(GLubyte const * procName);
 
 typedef int (*PFNXFREE)(void *);
-typedef GLXFBConfig * (*PFNGLXCHOOSEFBCONFIGPROC)(Display *, int, const int *, int *);
-typedef GLXContext (*PFNGLXCREATECONTEXTATTRIBSARB)(Display *, GLXFBConfig, GLXContext, Bool, const int *);
+typedef GLXFBConfig * (*PFNGLXCHOOSEFBCONFIGPROC)(Display *, int, int const *, int *);
+typedef GLXContext (*PFNGLXCREATECONTEXTATTRIBSARB)(Display *, GLXFBConfig, GLXContext, Bool, int const *);
 typedef void (*PFNGLXDESTROYCONTEXT)(Display *, GLXContext);
-typedef GLXPbuffer (*PFNGLXCREATEPBUFFERPROC)(Display *, GLXFBConfig, const int *);
+typedef GLXPbuffer (*PFNGLXCREATEPBUFFERPROC)(Display *, GLXFBConfig, int const *);
 typedef void (*PFNGLXDESTROYPBUFFER)(Display *, GLXPbuffer);
 typedef Bool (*PFNGLXMAKECURRENTPROC)(Display *, GLXDrawable, GLXContext);
 typedef void (*PFNGLXSWAPBUFFERSPROC)(Display *, GLXDrawable);
@@ -121,9 +123,9 @@ struct GLXFunctions
   GLXFunctions()
   {
     std::array<char const *, 3> libs = {
-        "libGLX.so.0",
-        "libGL.so.1",
-        "libGL.so",
+      "libGLX.so.0",
+      "libGL.so.1",
+      "libGL.so",
     };
 
     for (char const * lib : libs)
@@ -202,30 +204,41 @@ class LinuxGLContext : public dp::OGLContext
 public:
   LinuxGLContext(GLXFunctions const & glx, Display * display, Window window, LinuxGLContext * contextToShareWith,
                  bool usePixelBuffer)
-    : m_glx(glx), m_display(display), m_window(window)
+    : m_glx(glx)
+    , m_display(display)
+    , m_window(window)
   {
-    int visualAttribs[] = {
-      GLX_DOUBLEBUFFER, True,
-      GLX_RENDER_TYPE, GLX_RGBA_BIT,
-      GLX_DRAWABLE_TYPE, (usePixelBuffer ? GLX_PBUFFER_BIT : GLX_WINDOW_BIT),
-      GLX_RED_SIZE, 8,
-      GLX_GREEN_SIZE, 8,
-      GLX_BLUE_SIZE, 8,
-      GLX_ALPHA_SIZE, 8,
-      GLX_DEPTH_SIZE, 24,
-      GLX_STENCIL_SIZE, 8,
-      None
-    };
-    int contextAttribs[] = {
-      GLX_CONTEXT_PROFILE_MASK_ARB, GLX_CONTEXT_CORE_PROFILE_BIT_ARB,
-      GLX_CONTEXT_MAJOR_VERSION_ARB, 4, 
-      GLX_CONTEXT_MINOR_VERSION_ARB, 1,
-      None};
+    int visualAttribs[] = {GLX_DOUBLEBUFFER,
+                           True,
+                           GLX_RENDER_TYPE,
+                           GLX_RGBA_BIT,
+                           GLX_DRAWABLE_TYPE,
+                           (usePixelBuffer ? GLX_PBUFFER_BIT : GLX_WINDOW_BIT),
+                           GLX_RED_SIZE,
+                           8,
+                           GLX_GREEN_SIZE,
+                           8,
+                           GLX_BLUE_SIZE,
+                           8,
+                           GLX_ALPHA_SIZE,
+                           8,
+                           GLX_DEPTH_SIZE,
+                           24,
+                           GLX_STENCIL_SIZE,
+                           8,
+                           None};
+    int contextAttribs[] = {GLX_CONTEXT_PROFILE_MASK_ARB,
+                            GLX_CONTEXT_CORE_PROFILE_BIT_ARB,
+                            GLX_CONTEXT_MAJOR_VERSION_ARB,
+                            4,
+                            GLX_CONTEXT_MINOR_VERSION_ARB,
+                            1,
+                            None};
     int fbcount = 0;
     if (GLXFBConfig * config = m_glx.glXChooseFBConfig(display, DefaultScreen(display), visualAttribs, &fbcount))
     {
-      m_context =
-          m_glx.glXCreateContextAttribsARB(display, config[0], contextToShareWith ? contextToShareWith->m_context : 0, True, contextAttribs);
+      m_context = m_glx.glXCreateContextAttribsARB(
+        display, config[0], contextToShareWith ? contextToShareWith->m_context : 0, True, contextAttribs);
       CHECK(m_context != nullptr, ("Failed to create GLX context"));
 
       if (usePixelBuffer)
@@ -292,7 +305,10 @@ private:
 class LinuxContextFactory : public dp::GraphicsContextFactory
 {
 public:
-  LinuxContextFactory(Display * display, Window window) : m_display(display), m_window(window) {}
+  LinuxContextFactory(Display * display, Window window)
+    : m_display(display)
+    , m_window(window)
+  {}
 
   dp::GraphicsContext * GetDrawContext() override
   {

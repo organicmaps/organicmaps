@@ -3,9 +3,7 @@ package app.organicmaps.editor.data;
 import androidx.annotation.Keep;
 
 // Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public class Timespan
+@Keep @SuppressWarnings("unused") public class Timespan
 {
   public final HoursMinutes start;
   public final HoursMinutes end;
@@ -16,8 +14,7 @@ public class Timespan
     this.end = end;
   }
 
-  @Override
-  public String toString()
+  @Override public String toString()
   {
     return start + "-" + end;
   }

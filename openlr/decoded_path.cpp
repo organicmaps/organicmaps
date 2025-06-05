@@ -15,7 +15,7 @@
 
 #define THROW_IF_NODE_IS_EMPTY(node, exc, msg) \
   if (!node)                                   \
-    MYTHROW(exc, msg)
+  MYTHROW(exc, msg)
 
 namespace
 {
@@ -82,8 +82,7 @@ void WriteAsMappingForSpark(std::string const & fileName, std::vector<DecodedPat
 
   if (ofs.fail())
   {
-    MYTHROW(DecodedPathSaveError,
-            ("An error occured while writing file", fileName, strerror(errno)));
+    MYTHROW(DecodedPathSaveError, ("An error occured while writing file", fileName, strerror(errno)));
   }
 }
 
@@ -105,11 +104,9 @@ void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const &
     for (auto it = std::begin(p.m_path); it != std::end(p.m_path); ++it)
     {
       auto const & fid = it->GetFeatureId();
-      ost << fid.m_mwmId.GetInfo()->GetCountryName()
-          << kFieldSep << fid.m_index
-          << kFieldSep << it->GetSegId()
-          << kFieldSep << (it->IsForward() ? "fwd" : "bwd")
-          << kFieldSep << mercator::DistanceOnEarth(GetStart(*it), GetEnd(*it));
+      ost << fid.m_mwmId.GetInfo()->GetCountryName() << kFieldSep << fid.m_index << kFieldSep << it->GetSegId()
+          << kFieldSep << (it->IsForward() ? "fwd" : "bwd") << kFieldSep
+          << mercator::DistanceOnEarth(GetStart(*it), GetEnd(*it));
 
       if (std::next(it) != std::end(p.m_path))
         ost << kSegmentSep;
@@ -135,10 +132,10 @@ void PathFromXML(pugi::xml_node const & node, DataSource const & dataSource, Pat
     LatLonFromXML(e.child("StartJunction"), start);
     LatLonFromXML(e.child("EndJunction"), end);
 
-    p.push_back(Edge::MakeReal(
-        fid, isForward, segmentId,
-        geometry::PointWithAltitude(mercator::FromLatLon(start), geometry::kDefaultAltitudeMeters),
-        geometry::PointWithAltitude(mercator::FromLatLon(end), geometry::kDefaultAltitudeMeters)));
+    p.push_back(
+      Edge::MakeReal(fid, isForward, segmentId,
+                     geometry::PointWithAltitude(mercator::FromLatLon(start), geometry::kDefaultAltitudeMeters),
+                     geometry::PointWithAltitude(mercator::FromLatLon(end), geometry::kDefaultAltitudeMeters)));
   }
 }
 

@@ -2,12 +2,12 @@
 
 #include "routing/speed_camera_ser_des.hpp"
 
-#include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"

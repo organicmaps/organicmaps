@@ -31,8 +31,8 @@
 #endif
 
 #include "pyhelpers/module_version.hpp"
-#include "pyhelpers/vector_uint8.hpp"
 #include "pyhelpers/vector_list_conversion.hpp"
+#include "pyhelpers/vector_uint8.hpp"
 
 #include <boost/python.hpp>
 #include <boost/python/args.hpp>
@@ -116,7 +116,7 @@ struct LocalizableStringAdapter
     out << "[";
     for (auto it = str.begin(); it != str.end(); ++it)
     {
-      out << "'"<< StringUtf8Multilang::GetLangByCode(it->first) << "':'" << it->second << "'";
+      out << "'" << StringUtf8Multilang::GetLangByCode(it->first) << "':'" << it->second << "'";
       auto it2 = it;
       it2++;
       if (it2 != str.end())
@@ -131,20 +131,14 @@ std::string LatLonToString(ms::LatLon const & latLon);
 
 struct PointWithAltitudeAdapter
 {
-  static m2::PointD const & GetPoint(geometry::PointWithAltitude const & ptWithAlt)
-  {
-    return ptWithAlt.GetPoint();
-  }
+  static m2::PointD const & GetPoint(geometry::PointWithAltitude const & ptWithAlt) { return ptWithAlt.GetPoint(); }
 
   static geometry::Altitude GetAltitude(geometry::PointWithAltitude const & ptWithAlt)
   {
     return ptWithAlt.GetAltitude();
   }
 
-  static void SetPoint(geometry::PointWithAltitude & ptWithAlt, m2::PointD const & pt)
-  {
-    ptWithAlt.SetPoint(pt);
-  }
+  static void SetPoint(geometry::PointWithAltitude & ptWithAlt, m2::PointD const & pt) { ptWithAlt.SetPoint(pt); }
 
   static void SetAltitude(geometry::PointWithAltitude & ptWithAlt, geometry::Altitude altitude)
   {
@@ -157,8 +151,7 @@ struct PointWithAltitudeAdapter
     std::ostringstream out;
     out << "["
         << "point:" << LatLonToString(latLon) << ", "
-        << "altitude:" << ptWithAlt.GetAltitude()
-        << "]";
+        << "altitude:" << ptWithAlt.GetAltitude() << "]";
     return out.str();
   }
 };
@@ -173,10 +166,7 @@ struct PropertiesAdapter
     throw std::runtime_error("Property not found. key: " + key);
   }
 
-  static void Set(Properties & props, std::string const & key, std::string const & val)
-  {
-    props[key] = val;
-  }
+  static void Set(Properties & props, std::string const & key, std::string const & val) { props[key] = val; }
 
   static void Delete(Properties & props, std::string const & key)
   {
@@ -212,7 +202,7 @@ struct PropertiesAdapter
     out << "[";
     for (auto it = props.begin(); it != props.end(); ++it)
     {
-      out << "'"<< it->first << "':'" << it->second << "'";
+      out << "'" << it->first << "':'" << it->second << "'";
       auto it2 = it;
       it2++;
       if (it2 != props.end())
@@ -226,10 +216,7 @@ struct PropertiesAdapter
 template <typename T>
 struct VectorAdapter
 {
-  static boost::python::list Get(std::vector<T> const & v)
-  {
-    return pyhelpers::StdVectorToPythonList(v);
-  }
+  static boost::python::list Get(std::vector<T> const & v) { return pyhelpers::StdVectorToPythonList(v); }
 
   static void Set(std::vector<T> & v, boost::python::object const & iterable)
   {
@@ -241,10 +228,7 @@ struct VectorAdapter
     v = pyhelpers::PythonListToStdVector<T>(iterable);
   }
 
-  static void PrintType(std::ostringstream & out, T const & t)
-  {
-    out << t;
-  }
+  static void PrintType(std::ostringstream & out, T const & t) { out << t; }
 
   static std::string ToString(std::vector<T> const & v)
   {
@@ -261,26 +245,26 @@ struct VectorAdapter
   }
 };
 
-template<>
+template <>
 void VectorAdapter<uint8_t>::PrintType(std::ostringstream & out, uint8_t const & t)
 {
   out << static_cast<uint32_t>(t);
 }
 
-template<>
+template <>
 void VectorAdapter<std::string>::PrintType(std::ostringstream & out, std::string const & s)
 {
   out << "'" << s << "'";
 }
 
 std::string TrackLayerToString(TrackLayer const & trackLayer);
-template<>
+template <>
 void VectorAdapter<TrackLayer>::PrintType(std::ostringstream & out, TrackLayer const & t)
 {
   out << TrackLayerToString(t);
 }
 
-template<>
+template <>
 void VectorAdapter<geometry::PointWithAltitude>::PrintType(std::ostringstream & out,
                                                            geometry::PointWithAltitude const & pt)
 {
@@ -288,21 +272,21 @@ void VectorAdapter<geometry::PointWithAltitude>::PrintType(std::ostringstream & 
 }
 
 std::string BookmarkDataToString(BookmarkData const & bm);
-template<>
+template <>
 void VectorAdapter<BookmarkData>::PrintType(std::ostringstream & out, BookmarkData const & bm)
 {
   out << BookmarkDataToString(bm);
 }
 
 std::string TrackDataToString(TrackData const & t);
-template<>
+template <>
 void VectorAdapter<TrackData>::PrintType(std::ostringstream & out, TrackData const & t)
 {
   out << TrackDataToString(t);
 }
 
 std::string CategoryDataToString(CategoryData const & c);
-template<>
+template <>
 void VectorAdapter<CategoryData>::PrintType(std::ostringstream & out, CategoryData const & c)
 {
   out << CategoryDataToString(c);
@@ -386,9 +370,7 @@ std::string ColorDataToString(ColorData const & c)
 {
   std::ostringstream out;
   out << "["
-      << "predefined_color:"
-      << PredefinedColorToString(c.m_predefinedColor)
-      << ", "
+      << "predefined_color:" << PredefinedColorToString(c.m_predefinedColor) << ", "
       << "rgba:" << c.m_rgba << "]";
   return out.str();
 }
@@ -398,8 +380,7 @@ std::string LatLonToString(ms::LatLon const & latLon)
   std::ostringstream out;
   out << "["
       << "lat:" << latLon.m_lat << ", "
-      << "lon:" << latLon.m_lon
-      << "]";
+      << "lon:" << latLon.m_lon << "]";
   return out.str();
 }
 
@@ -432,8 +413,7 @@ std::string BookmarkDataToString(BookmarkData const & bm)
       << "visible:" << (bm.m_visible ? "True" : "False") << ", "
       << "nearest_toponym:'" << bm.m_nearestToponym << "', "
       << "compilations:" << VectorAdapter<uint64_t>::ToString(bm.m_compilations) << ", "
-      << "properties:" << PropertiesAdapter::ToString(bm.m_properties)
-      << "]";
+      << "properties:" << PropertiesAdapter::ToString(bm.m_properties) << "]";
   return out.str();
 }
 
@@ -442,8 +422,7 @@ std::string TrackLayerToString(TrackLayer const & trackLayer)
   std::ostringstream out;
   out << "["
       << "line_width:" << trackLayer.m_lineWidth << ", "
-      << "color:" << ColorDataToString(trackLayer.m_color)
-      << "]";
+      << "color:" << ColorDataToString(trackLayer.m_color) << "]";
   return out.str();
 }
 
@@ -456,12 +435,11 @@ std::string TrackDataToString(TrackData const & t)
       << "description:" << LocalizableStringAdapter::ToString(t.m_description) << ", "
       << "timestamp:" << DebugPrint(t.m_timestamp) << ", "
       << "layers:" << VectorAdapter<TrackLayer>::ToString(t.m_layers) << ", "
-      << "points_with_altitudes:"
-      << VectorAdapter<geometry::PointWithAltitude>::ToString(t.m_pointsWithAltitudes) << ", "
+      << "points_with_altitudes:" << VectorAdapter<geometry::PointWithAltitude>::ToString(t.m_pointsWithAltitudes)
+      << ", "
       << "visible:" << (t.m_visible ? "True" : "False") << ", "
       << "nearest_toponyms:" << VectorAdapter<std::string>::ToString(t.m_nearestToponyms) << ", "
-      << "properties:" << PropertiesAdapter::ToString(t.m_properties)
-      << "]";
+      << "properties:" << PropertiesAdapter::ToString(t.m_properties) << "]";
   return out.str();
 }
 
@@ -499,8 +477,7 @@ std::string CategoryDataToString(CategoryData const & c)
       << "tags:" << VectorAdapter<std::string>::ToString(c.m_tags) << ", "
       << "toponyms:" << VectorAdapter<std::string>::ToString(c.m_toponyms) << ", "
       << "languages:" << LanguagesListToString(c.m_languageCodes) << ", "
-      << "properties:" << PropertiesAdapter::ToString(c.m_properties)
-      << "]";
+      << "properties:" << PropertiesAdapter::ToString(c.m_properties) << "]";
   return out.str();
 }
 
@@ -512,17 +489,13 @@ std::string FileDataToString(FileData const & fd)
       << "category:" << CategoryDataToString(fd.m_categoryData) << ", "
       << "bookmarks:" << VectorAdapter<BookmarkData>::ToString(fd.m_bookmarksData) << ", "
       << "tracks:" << VectorAdapter<TrackData>::ToString(fd.m_tracksData) << ", "
-      << "compilations:" << VectorAdapter<CategoryData>::ToString(fd.m_compilationsData)
-      << "]";
+      << "compilations:" << VectorAdapter<CategoryData>::ToString(fd.m_compilationsData) << "]";
   return out.str();
 }
 
 struct TimestampConverter
 {
-  TimestampConverter()
-  {
-    converter::registry::push_back(&convertible, &construct, type_id<Timestamp>());
-  }
+  TimestampConverter() { converter::registry::push_back(&convertible, &construct, type_id<Timestamp>()); }
 
   static void * convertible(PyObject * objPtr)
   {
@@ -535,8 +508,7 @@ struct TimestampConverter
   static void construct(PyObject * objPtr, converter::rvalue_from_python_stage1_data * data)
   {
     auto const ts = FromSecondsSinceEpoch(extract<uint64_t>(objPtr));
-    void * storage =
-      reinterpret_cast<converter::rvalue_from_python_storage<Timestamp> *>(data)->storage.bytes;
+    void * storage = reinterpret_cast<converter::rvalue_from_python_storage<Timestamp> *>(data)->storage.bytes;
     new (storage) Timestamp(ts);
     data->convertible = storage;
   }
@@ -544,10 +516,7 @@ struct TimestampConverter
 
 struct LatLonConverter
 {
-  LatLonConverter()
-  {
-    converter::registry::push_back(&convertible, &construct, type_id<m2::PointD>());
-  }
+  LatLonConverter() { converter::registry::push_back(&convertible, &construct, type_id<m2::PointD>()); }
 
   static void * convertible(PyObject * objPtr)
   {
@@ -561,17 +530,13 @@ struct LatLonConverter
   {
     ms::LatLon latLon = extract<ms::LatLon>(objPtr);
     m2::PointD pt(mercator::LonToX(latLon.m_lon), mercator::LatToY(latLon.m_lat));
-    void * storage =
-      reinterpret_cast<converter::rvalue_from_python_storage<m2::PointD> *>(data)->storage.bytes;
+    void * storage = reinterpret_cast<converter::rvalue_from_python_storage<m2::PointD> *>(data)->storage.bytes;
     new (storage) m2::PointD(pt);
     data->convertible = storage;
   }
 };
 
-void TranslateRuntimeError(std::runtime_error const & e)
-{
-  PyErr_SetString(PyExc_RuntimeError, e.what());
-}
+void TranslateRuntimeError(std::runtime_error const & e) { PyErr_SetString(PyExc_RuntimeError, e.what()); }
 
 boost::python::list GetLanguages(std::vector<int8_t> const & langs)
 {
@@ -654,8 +619,7 @@ FileData ImportKml(std::string const & str)
   return data;
 }
 
-void LoadClassificatorTypes(std::string const & classificatorFileStr,
-                            std::string const & typesFileStr)
+void LoadClassificatorTypes(std::string const & classificatorFileStr, std::string const & typesFileStr)
 {
   classificator::LoadTypes(classificatorFileStr, typesFileStr);
 }
@@ -783,7 +747,7 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("__len__", &LocalizableString::size)
     .def("clear", &LocalizableString::clear)
     .def("__getitem__", &LocalizableStringAdapter::Get, return_value_policy<copy_const_reference>())
-    .def("__setitem__", &LocalizableStringAdapter::Set, with_custodian_and_ward<1,2>())
+    .def("__setitem__", &LocalizableStringAdapter::Set, with_custodian_and_ward<1, 2>())
     .def("__delitem__", &LocalizableStringAdapter::Delete)
     .def("get_dict", &LocalizableStringAdapter::GetDict)
     .def("set_dict", &LocalizableStringAdapter::SetDict)
@@ -833,7 +797,7 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("__len__", &Properties::size)
     .def("clear", &Properties::clear)
     .def("__getitem__", &PropertiesAdapter::Get, return_value_policy<copy_const_reference>())
-    .def("__setitem__", &PropertiesAdapter::Set, with_custodian_and_ward<1,2>())
+    .def("__setitem__", &PropertiesAdapter::Set, with_custodian_and_ward<1, 2>())
     .def("__delitem__", &PropertiesAdapter::Delete)
     .def("get_dict", &PropertiesAdapter::GetDict)
     .def("set_dict", &PropertiesAdapter::SetDict)
@@ -883,8 +847,7 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("set_list", &VectorAdapter<geometry::PointWithAltitude>::Set)
     .def("__str__", &VectorAdapter<geometry::PointWithAltitude>::ToString);
 
-  class_<std::vector<ms::LatLon>>("LatLonList")
-    .def(vector_indexing_suite<std::vector<ms::LatLon>>());
+  class_<std::vector<ms::LatLon>>("LatLonList").def(vector_indexing_suite<std::vector<ms::LatLon>>());
 
   class_<TrackData>("TrackData")
     .def_readwrite("local_id", &TrackData::m_localId)

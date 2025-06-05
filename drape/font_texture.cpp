@@ -12,7 +12,7 @@
 
 namespace dp
 {
-GlyphPacker::GlyphPacker(const m2::PointU & size)
+GlyphPacker::GlyphPacker(m2::PointU const & size)
   : m_size(size)
 {}
 
@@ -34,8 +34,7 @@ bool GlyphPacker::PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect)
     return false;
   }
 
-  rect = m2::RectU(m_cursor.x, m_cursor.y,
-                   m_cursor.x + width, m_cursor.y + height);
+  rect = m2::RectU(m_cursor.x, m_cursor.y, m_cursor.x + width, m_cursor.y + height);
 
   m_cursor.x += width;
   m_yStep = std::max(height, m_yStep);
@@ -64,7 +63,7 @@ bool GlyphPacker::CanBePacked(uint32_t glyphsCount, uint32_t width, uint32_t hei
   return true;
 }
 
-m2::RectF GlyphPacker::MapTextureCoords(const m2::RectU & pixelRect) const
+m2::RectF GlyphPacker::MapTextureCoords(m2::RectU const & pixelRect) const
 {
   auto const width = static_cast<float>(m_size.x);
   auto const height = static_cast<float>(m_size.y);
@@ -74,10 +73,8 @@ m2::RectF GlyphPacker::MapTextureCoords(const m2::RectU & pixelRect) const
   if (pixelRect.SizeX() != 0 && pixelRect.SizeY() != 0)
     offset = 0.5f;
 
-  return {(pixelRect.minX() + offset) / width,
-          (pixelRect.minY() + offset) / height,
-          (pixelRect.maxX() - offset) / width,
-          (pixelRect.maxY() - offset) / height};
+  return {(pixelRect.minX() + offset) / width, (pixelRect.minY() + offset) / height,
+          (pixelRect.maxX() - offset) / width, (pixelRect.maxY() - offset) / height};
 }
 
 bool GlyphPacker::IsFull() const { return m_isFull; }
@@ -97,8 +94,7 @@ GlyphIndex::~GlyphIndex()
   m_pendingNodes.clear();
 }
 
-std::vector<ref_ptr<Texture::ResourceInfo>> GlyphIndex::MapResources(TGlyphs const & keys,
-                                                                     bool & hasNewResources)
+std::vector<ref_ptr<Texture::ResourceInfo>> GlyphIndex::MapResources(TGlyphs const & keys, bool & hasNewResources)
 {
   std::vector<ref_ptr<Texture::ResourceInfo>> info;
   info.reserve(keys.size());
@@ -130,9 +126,8 @@ ref_ptr<Texture::ResourceInfo> GlyphIndex::MapResource(GlyphFontAndId const & ke
   {
     glyphImage.Destroy();
 
-    LOG(LWARNING, ("Glyphs packer could not pack a glyph with fontIndex =", key.m_fontIndex,
-                   "glyphId =", key.m_glyphId, "w =", glyphImage.m_width, "h =", glyphImage.m_height,
-                   "packerSize =", m_packer.GetSize()));
+    LOG(LWARNING, ("Glyphs packer could not pack a glyph with fontIndex =", key.m_fontIndex, "glyphId =", key.m_glyphId,
+                   "w =", glyphImage.m_width, "h =", glyphImage.m_height, "packerSize =", m_packer.GetSize()));
 
     // TODO(AB): Is it a valid invalid glyph?
     GlyphFontAndId constexpr kInvalidGlyphKey{0, 0};

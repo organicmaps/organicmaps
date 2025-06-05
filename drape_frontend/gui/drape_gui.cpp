@@ -28,15 +28,9 @@ DrapeGui & DrapeGui::Instance()
   return s_gui;
 }
 
-RulerHelper & DrapeGui::GetRulerHelper()
-{
-  return Instance().GetRulerHelperImpl();
-}
+RulerHelper & DrapeGui::GetRulerHelper() { return Instance().GetRulerHelperImpl(); }
 
-dp::FontDecl DrapeGui::GetGuiTextFont()
-{
-  return {df::GetColorConstant(kGuiTextColor), 14};
-}
+dp::FontDecl DrapeGui::GetGuiTextFont() { return {df::GetColorConstant(kGuiTextColor), 14}; }
 
 void DrapeGui::Destroy()
 {
@@ -62,14 +56,11 @@ RulerHelper & DrapeGui::GetRulerHelperImpl()
   return m_impl->m_rulerHelper;
 }
 
-void DrapeGui::ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler)
-{
-  m_onCompassTappedHandler = handler;
-}
+void DrapeGui::ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler) { m_onCompassTappedHandler = handler; }
 
 void DrapeGui::CallOnCompassTappedHandler()
 {
-  if(m_onCompassTappedHandler != nullptr)
+  if (m_onCompassTappedHandler != nullptr)
     m_onCompassTappedHandler();
 }
 }  // namespace gui

@@ -2,16 +2,15 @@
 
 #include "indexer/classificator.hpp"
 
-
 namespace pedestrian_model
 {
 using namespace routing;
 
 // See model specifics in different countries here:
 //   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
-// Document contains proposals for some countries, but we assume that some kinds of roads are ready for pedestrian routing,
-// but not listed in tables in the document. For example, steps are not listed, paths, roads and services features also
-// can be treated as ready for pedestrian routing. These road types were added to lists below.
+// Document contains proposals for some countries, but we assume that some kinds of roads are ready for pedestrian
+// routing, but not listed in tables in the document. For example, steps are not listed, paths, roads and services
+// features also can be treated as ready for pedestrian routing. These road types were added to lists below.
 
 // See road types here:
 //   https://wiki.openstreetmap.org/wiki/Key:highway
@@ -26,36 +25,36 @@ using namespace routing;
 HighwayBasedFactors const kDefaultFactors = GetOneFactorsForBicycleAndPedestrianModel();
 
 HighwayBasedSpeeds const kDefaultSpeeds = {
-    // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}
-    {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
-    {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
-    {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(SpeedKMpH(2.0, 5.0))},
-    {HighwayType::HighwayPrimaryLink, InOutCitySpeedKMpH(SpeedKMpH(2.0, 5.0))},
-    {HighwayType::HighwaySecondary, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0))},
-    {HighwayType::HighwaySecondaryLink, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0))},
-    {HighwayType::HighwayTertiary, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
-    {HighwayType::HighwayTertiaryLink, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
-    {HighwayType::HighwayRoad, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
+  // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}
+  {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
+  {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
+  {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(SpeedKMpH(2.0, 5.0))},
+  {HighwayType::HighwayPrimaryLink, InOutCitySpeedKMpH(SpeedKMpH(2.0, 5.0))},
+  {HighwayType::HighwaySecondary, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0))},
+  {HighwayType::HighwaySecondaryLink, InOutCitySpeedKMpH(SpeedKMpH(3.0, 5.0))},
+  {HighwayType::HighwayTertiary, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
+  {HighwayType::HighwayTertiaryLink, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
+  {HighwayType::HighwayRoad, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
 
-    {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
-    {HighwayType::HighwayUnclassified, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
-    {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
+  {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
+  {HighwayType::HighwayUnclassified, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
+  {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
 
-    {HighwayType::HighwayBridleway, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
-    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(3.0))},
-    {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
+  {HighwayType::HighwayBridleway, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
+  {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(3.0))},
+  {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
 
-    {HighwayType::HighwayTrack, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::HighwayPath, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
-    {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
+  {HighwayType::HighwayTrack, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
+  {HighwayType::HighwayPath, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
+  {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
+  {HighwayType::ManMadePier, InOutCitySpeedKMpH(SpeedKMpH(5.0))},
 
-    // Set 10% higher weight (than default 5) for foot designated ways.
-    {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.5, 5.0))},
-    {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(5.5, 5.0))},
+  // Set 10% higher weight (than default 5) for foot designated ways.
+  {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(SpeedKMpH(5.5, 5.0))},
+  {HighwayType::HighwayFootway, InOutCitySpeedKMpH(SpeedKMpH(5.5, 5.0))},
 
-    /// @todo A car ferry has {10, 10}. Weight = 3 is 60% from reasonable 5 max speed.
-    {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
+  /// @todo A car ferry has {10, 10}. Weight = 3 is 60% from reasonable 5 max speed.
+  {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(3.0, 20.0))},
 };
 
 // https://github.com/organicmaps/organicmaps/issues/2492
@@ -64,29 +63,28 @@ SpeedKMpH constexpr kSpeedOffroadKMpH = {0.5 /* weight */, 3.0 /* eta */};
 
 // Default, no bridleway and cycleway
 VehicleModel::LimitsInitList const kDefaultOptions = {
-    // {HighwayType, passThroughAllowed}
-    {HighwayType::HighwayTrunk, true},
-    {HighwayType::HighwayTrunkLink, true},
-    {HighwayType::HighwayPrimary, true},
-    {HighwayType::HighwayPrimaryLink, true},
-    {HighwayType::HighwaySecondary, true},
-    {HighwayType::HighwaySecondaryLink, true},
-    {HighwayType::HighwayTertiary, true},
-    {HighwayType::HighwayTertiaryLink, true},
-    {HighwayType::HighwayService, true},
-    {HighwayType::HighwayUnclassified, true},
-    {HighwayType::HighwayRoad, true},
-    {HighwayType::HighwayTrack, true},
-    {HighwayType::HighwayPath, true},
-    // HighwayBridleway, HighwayCycleway are missing
-    {HighwayType::HighwayResidential, true},
-    {HighwayType::HighwayLivingStreet, true},
-    {HighwayType::HighwaySteps, true},
-    {HighwayType::HighwayPedestrian, true},
-    {HighwayType::HighwayFootway, true},
-    {HighwayType::ManMadePier, true},
-    {HighwayType::RouteFerry, true}
-};
+  // {HighwayType, passThroughAllowed}
+  {HighwayType::HighwayTrunk, true},
+  {HighwayType::HighwayTrunkLink, true},
+  {HighwayType::HighwayPrimary, true},
+  {HighwayType::HighwayPrimaryLink, true},
+  {HighwayType::HighwaySecondary, true},
+  {HighwayType::HighwaySecondaryLink, true},
+  {HighwayType::HighwayTertiary, true},
+  {HighwayType::HighwayTertiaryLink, true},
+  {HighwayType::HighwayService, true},
+  {HighwayType::HighwayUnclassified, true},
+  {HighwayType::HighwayRoad, true},
+  {HighwayType::HighwayTrack, true},
+  {HighwayType::HighwayPath, true},
+  // HighwayBridleway, HighwayCycleway are missing
+  {HighwayType::HighwayResidential, true},
+  {HighwayType::HighwayLivingStreet, true},
+  {HighwayType::HighwaySteps, true},
+  {HighwayType::HighwayPedestrian, true},
+  {HighwayType::HighwayFootway, true},
+  {HighwayType::ManMadePier, true},
+  {HighwayType::RouteFerry, true}};
 
 // Same as defaults except bridleway and cycleway are allowed.
 VehicleModel::LimitsInitList AllAllowed()
@@ -145,19 +143,16 @@ VehicleModel::SurfaceInitList const kPedestrianSurface = {
 
 namespace routing
 {
-PedestrianModel::PedestrianModel() : PedestrianModel(pedestrian_model::kDefaultOptions)
-{
-}
+PedestrianModel::PedestrianModel()
+  : PedestrianModel(pedestrian_model::kDefaultOptions)
+{}
 
 PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits)
-: PedestrianModel(limits, pedestrian_model::kDefaultSpeeds)
-{
-}
+  : PedestrianModel(limits, pedestrian_model::kDefaultSpeeds)
+{}
 
-PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits,
-                                 HighwayBasedSpeeds const & speeds)
-  : VehicleModel(classif(), limits, pedestrian_model::kPedestrianSurface,
-                {speeds, pedestrian_model::kDefaultFactors})
+PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds)
+  : VehicleModel(classif(), limits, pedestrian_model::kPedestrianSurface, {speeds, pedestrian_model::kDefaultFactors})
 {
   using namespace pedestrian_model;
 
@@ -167,10 +162,10 @@ PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits,
   std::vector<std::string> hwtagYesFoot = {"hwtag", "yesfoot"};
   auto const & cl = classif();
 
-  m_noType = cl.GetTypeByPath({ "hwtag", "nofoot" });
+  m_noType = cl.GetTypeByPath({"hwtag", "nofoot"});
   m_yesType = cl.GetTypeByPath(hwtagYesFoot);
 
-  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesFoot), kDefaultSpeeds.Get(HighwayType::HighwayLivingStreet) }});
+  AddAdditionalRoadTypes(cl, {{std::move(hwtagYesFoot), kDefaultSpeeds.Get(HighwayType::HighwayLivingStreet)}});
 
   // Update max pedestrian speed with possible ferry transfer. See EdgeEstimator::CalcHeuristic.
   SpeedKMpH constexpr kMaxPedestrianSpeedKMpH(60.0);
@@ -194,8 +189,7 @@ PedestrianModel const & PedestrianModel::AllLimitsInstance()
   return instance;
 }
 
-PedestrianModelFactory::PedestrianModelFactory(
-    CountryParentNameGetterFn const & countryParentNameGetterFn)
+PedestrianModelFactory::PedestrianModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)
 {
   using namespace pedestrian_model;
@@ -233,4 +227,4 @@ PedestrianModelFactory::PedestrianModelFactory(
   m_models["United Kingdom"] = make_shared<PedestrianModel>(AllAllowed());
   m_models["United States of America"] = make_shared<PedestrianModel>(AllAllowed());
 }
-}  // routing
+}  // namespace routing

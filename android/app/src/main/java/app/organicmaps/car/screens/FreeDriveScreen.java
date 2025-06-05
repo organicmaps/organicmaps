@@ -8,7 +8,6 @@ import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.NavigationTemplate;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
@@ -21,9 +20,7 @@ public class FreeDriveScreen extends BaseMapScreen
     super(carContext, surfaceRenderer);
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final NavigationTemplate.Builder builder = new NavigationTemplate.Builder();
     builder.setMapActionStrip(UiHelpers.createMapActionStrip(getCarContext(), getSurfaceRenderer()));
@@ -32,11 +29,11 @@ public class FreeDriveScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private ActionStrip createActionStrip()
+  @NonNull private ActionStrip createActionStrip()
   {
     final Action.Builder finishActionBuilder = new Action.Builder();
-    finishActionBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_close)).build());
+    finishActionBuilder.setIcon(
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_close)).build());
     finishActionBuilder.setOnClickListener(this::finish);
 
     final ActionStrip.Builder builder = new ActionStrip.Builder();

@@ -1,6 +1,6 @@
-#import "UIColorRoutines.h"
-#import "UIColor+MapsMeColor.h"
 #import "SwiftBridge.h"
+#import "UIColor+MapsMeColor.h"
+#import "UIColorRoutines.h"
 
 static BOOL isNightMode = NO;
 
@@ -10,10 +10,13 @@ static BOOL isNightMode = NO;
 + (UIColor *)colorFromHexString:(NSString *)hexString
 {
   unsigned rgbValue = 0;
-  NSScanner *scanner = [NSScanner scannerWithString:hexString];
+  NSScanner * scanner = [NSScanner scannerWithString:hexString];
   [scanner setScanLocation:0];
   [scanner scanHexInt:&rgbValue];
-  return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+  return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16) / 255.0
+                         green:((rgbValue & 0xFF00) >> 8) / 255.0
+                          blue:(rgbValue & 0xFF) / 255.0
+                         alpha:1.0];
 }
 
 + (void)setNightMode:(BOOL)mode
@@ -152,23 +155,28 @@ static BOOL isNightMode = NO;
 #pragma clang diagnostic pop
 }
 
-+ (UIColor *)speedLimitRed {
++ (UIColor *)speedLimitRed
+{
   return [UIColor colorWithRed:scaled(224) green:scaled(31) blue:scaled(31) alpha:alpha100];
 }
 
-+ (UIColor *)speedLimitGreen {
++ (UIColor *)speedLimitGreen
+{
   return [UIColor colorWithRed:scaled(1) green:scaled(104) blue:scaled(44) alpha:alpha100];
 }
 
-+ (UIColor *)speedLimitWhite {
++ (UIColor *)speedLimitWhite
+{
   return [UIColor colorWithRed:scaled(255) green:scaled(255) blue:scaled(255) alpha:alpha80];
 }
 
-+ (UIColor *)speedLimitLightGray {
++ (UIColor *)speedLimitLightGray
+{
   return [UIColor colorWithRed:scaled(0) green:scaled(0) blue:scaled(0) alpha:alpha20];
 }
 
-+ (UIColor *)speedLimitDarkGray {
++ (UIColor *)speedLimitDarkGray
+{
   return [UIColor colorWithRed:scaled(51) green:scaled(51) blue:scaled(50) alpha:alpha100];
 }
 @end

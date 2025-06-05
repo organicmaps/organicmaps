@@ -18,12 +18,9 @@ public:
   };
 
   SegmentCorrespondence(SegmentCorrespondence const & sc);
-  SegmentCorrespondence(openlr::LinearSegment const & segment,
-                        uint32_t positiveOffset, uint32_t negativeOffset,
-                        openlr::Path const & matchedPath,
-                        openlr::Path const & fakePath,
-                        openlr::Path const & goldenPath,
-                        pugi::xml_node const & partnerSegmentXML);
+  SegmentCorrespondence(openlr::LinearSegment const & segment, uint32_t positiveOffset, uint32_t negativeOffset,
+                        openlr::Path const & matchedPath, openlr::Path const & fakePath,
+                        openlr::Path const & goldenPath, pugi::xml_node const & partnerSegmentXML);
 
   openlr::Path const & GetMatchedPath() const { return m_matchedPath; }
   bool HasMatchedPath() const { return !m_matchedPath.empty(); }

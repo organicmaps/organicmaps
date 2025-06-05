@@ -20,7 +20,9 @@ namespace descriptions
 class Loader
 {
 public:
-  explicit Loader(DataSource const & dataSource) : m_dataSource(dataSource) {}
+  explicit Loader(DataSource const & dataSource)
+    : m_dataSource(dataSource)
+  {}
 
   std::string GetWikiDescription(FeatureID const & featureId, std::vector<int8_t> const & langPriority);
 

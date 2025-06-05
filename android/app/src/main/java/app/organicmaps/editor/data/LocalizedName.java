@@ -4,9 +4,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 // Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public class LocalizedName
+@Keep @SuppressWarnings("unused") public class LocalizedName
 {
   public int code;
   @NonNull public String name;

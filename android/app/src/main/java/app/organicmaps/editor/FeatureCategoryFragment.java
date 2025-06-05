@@ -6,20 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.editor.data.FeatureCategory;
-import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.widget.ToolbarController;
 import app.organicmaps.util.Language;
 import app.organicmaps.util.Utils;
-
+import app.organicmaps.widget.SearchToolbarController;
+import app.organicmaps.widget.ToolbarController;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -33,41 +30,34 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
     void onFeatureCategorySelected(FeatureCategory category);
   }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_categories, container, false);
   }
 
-  @CallSuper
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @CallSuper @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
     final Bundle args = getArguments();
     if (args != null)
     {
-      mSelectedCategory = Utils.getParcelable(args, FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY,
-          FeatureCategory.class);
+      mSelectedCategory =
+        Utils.getParcelable(args, FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY, FeatureCategory.class);
     }
-    mToolbarController = new SearchToolbarController(view, requireActivity())
-    {
-      @Override
-      protected void onTextChanged(String query)
+    mToolbarController = new SearchToolbarController(view, requireActivity()) {
+      @Override protected void onTextChanged(String query)
       {
         setFilter(query);
       }
     };
-
   }
 
   private void setFilter(String query)
   {
     String locale = Language.getDefaultLocale();
-    String[] creatableTypes = query.isEmpty()
-                              ? Editor.nativeGetAllCreatableFeatureTypes(locale)
-                              : Editor.nativeSearchCreatableFeatureTypes(query, locale);
+    String[] creatableTypes = query.isEmpty() ? Editor.nativeGetAllCreatableFeatureTypes(locale)
+                                              : Editor.nativeSearchCreatableFeatureTypes(query, locale);
 
     FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes);
 
@@ -75,9 +65,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
     getRecyclerView().scrollToPosition(0);
   }
 
-  @NonNull
-  @Override
-  protected FeatureCategoryAdapter createAdapter()
+  @NonNull @Override protected FeatureCategoryAdapter createAdapter()
   {
     String locale = Language.getDefaultLocale();
     String[] creatableTypes = Editor.nativeGetAllCreatableFeatureTypes(locale);
@@ -87,8 +75,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
     return new FeatureCategoryAdapter(this, categories, mSelectedCategory);
   }
 
-  @NonNull
-  private FeatureCategory[] makeFeatureCategoriesFromTypes(@NonNull String[] creatableTypes)
+  @NonNull private FeatureCategory[] makeFeatureCategoriesFromTypes(@NonNull String[] creatableTypes)
   {
     FeatureCategory[] categories = new FeatureCategory[creatableTypes.length];
 

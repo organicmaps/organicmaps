@@ -71,7 +71,7 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"amenity-nightclub", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
   {"shop-bookmaker", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
   {"tourism-theme_park", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
-    
+
   {"amenity-theatre", {kml::BookmarkIcon::Theatre, BookmarkBaseType::Entertainment}},
 
   {"amenity-atm", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
@@ -112,7 +112,7 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"amenity-doctors", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
   {"amenity-hospital", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
   {"emergency-defibrillator", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
-    
+
   {"amenity-pharmacy", {kml::BookmarkIcon::Pharmacy, BookmarkBaseType::Medicine}},
 
   {"natural-bare_rock", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
@@ -170,7 +170,7 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"leisure-sports_centre-shooting", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
   {"leisure-sports_centre-yoga", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
   {"sport", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
-    
+
   {"leisure-stadium", {kml::BookmarkIcon::Stadium, BookmarkBaseType::Entertainment}},
 
   {"leisure-sports_centre-swimming", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
@@ -202,8 +202,7 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"man_made-water_tap", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
   {"natural-spring", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
 
-  {"shop-funeral_directors", {kml::BookmarkIcon::None, BookmarkBaseType::None}}
-};
+  {"shop-funeral_directors", {kml::BookmarkIcon::None, BookmarkBaseType::None}}};
 
 void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
 {
@@ -241,7 +240,8 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
 
       bool const hasTimestamps = geometry.HasTimestampsFor(lineIndex);
       if (hasTimestamps && timestamps.size() != line.size())
-        MYTHROW(kml::DeserializerKml::DeserializeException, ("Timestamps count", timestamps.size(), "doesn't match points count", line.size()));
+        MYTHROW(kml::DeserializerKml::DeserializeException,
+                ("Timestamps count", timestamps.size(), "doesn't match points count", line.size()));
 
       validGeometry.m_lines.emplace_back();
       validGeometry.m_timestamps.emplace_back();
@@ -283,10 +283,7 @@ bool IsBadCharForPath(strings::UniChar c)
 }
 }  // namespace
 
-std::string GetBookmarksDirectory()
-{
-  return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
-}
+std::string GetBookmarksDirectory() { return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks"); }
 
 std::string GetTrashDirectory()
 {
@@ -331,7 +328,8 @@ std::string GenerateUniqueFileName(std::string const & path, std::string name, s
     if (!Platform::IsFileExistsByFullPath(res))
       break;
     suffix = strings::to_string(counter++);
-  } while (true);
+  }
+  while (true);
 
   return res;
 }
@@ -383,7 +381,7 @@ void FillEmptyNames(std::unique_ptr<kml::FileData> & kmlData, std::string const 
     return;
 
   auto const emptyNames = std::count_if(kmlData->m_tracksData.begin(), kmlData->m_tracksData.end(),
-                                  [](const kml::TrackData & t) { return t.m_name.empty(); });
+                                        [](kml::TrackData const & t) { return t.m_name.empty(); });
   if (emptyNames == 0)
     return;
 
@@ -459,8 +457,8 @@ std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
     ZipFileReader::FileList files;
     ZipFileReader::FilesList(filePath, files);
     files.erase(std::remove_if(files.begin(), files.end(),
-        [](auto const & file){ return GetLowercaseFileExt(file.first) != kKmlExtension; }),
-        files.end());
+                               [](auto const & file) { return GetLowercaseFileExt(file.first) != kKmlExtension; }),
+                files.end());
     for (auto const & [kmlFileInZip, size] : files)
     {
       auto const name = base::FileNameFromFullPath(kmlFileInZip);
@@ -593,17 +591,14 @@ bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
   LOG(LINFO, ("Save kml file of type", fileType, "to", file));
-  return base::WriteToTempAndRenameToFile(file, [&kmlData, fileType](std::string const & fileName)
-  {
-    return SaveKmlFile(kmlData, fileName, fileType);
-  });
+  return base::WriteToTempAndRenameToFile(
+    file, [&kmlData, fileType](std::string const & fileName) { return SaveKmlFile(kmlData, fileName, fileType); });
 }
 
 bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file)
 {
   auto const ext = base::GetFileExtension(file);
-  return SaveKmlFileSafe(kmlData, file, ext == kKmbExtension ? KmlFileType::Binary
-                                                             : KmlFileType::Text);
+  return SaveKmlFileSafe(kmlData, file, ext == kKmbExtension ? KmlFileType::Binary : KmlFileType::Text);
 }
 
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType)
@@ -671,7 +666,8 @@ BookmarkBaseType GetBookmarkBaseType(std::vector<uint32_t> const & featureTypes)
       auto const itType = kFeatureTypeToBookmarkMatchInfo.find(typeStr);
       if (itType != kFeatureTypeToBookmarkMatchInfo.cend())
         return itType->second.m_type;
-    } while (TruncType(typeStr));
+    }
+    while (TruncType(typeStr));
   }
   return BookmarkBaseType::None;
 }
@@ -685,7 +681,8 @@ kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type)
     auto const itIcon = kFeatureTypeToBookmarkMatchInfo.find(typeStr);
     if (itIcon != kFeatureTypeToBookmarkMatchInfo.cend())
       return itIcon->second.m_icon;
-  } while (TruncType(typeStr));
+  }
+  while (TruncType(typeStr));
 
   return kml::BookmarkIcon::None;
 }
@@ -719,10 +716,7 @@ std::string GetPreferredBookmarkStr(kml::LocalizableString const & name, feature
   return kml::GetPreferredBookmarkStr(name, regionData, mapLanguageNorm);
 }
 
-std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types)
-{
-  return kml::GetLocalizedFeatureType(types);
-}
+std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types) { return kml::GetLocalizedFeatureType(types); }
 
 std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type)
 {

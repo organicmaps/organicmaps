@@ -57,18 +57,18 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_Subtree)
   uint32_t const cityType = c.GetTypeByPath({"place", "city"});
 
   vector<vector<string>> const expectedPaths = {
-      {"place", "city"},
-      {"place", "city", "capital"},
-      {"place", "city", "capital", "2"},
-      {"place", "city", "capital", "3"},
-      {"place", "city", "capital", "4"},
-      {"place", "city", "capital", "5"},
-      {"place", "city", "capital", "6"},
-      {"place", "city", "capital", "7"},
-      {"place", "city", "capital", "8"},
-      {"place", "city", "capital", "9"},
-      {"place", "city", "capital", "10"},
-      {"place", "city", "capital", "11"},
+    {"place", "city"},
+    {"place", "city", "capital"},
+    {"place", "city", "capital", "2"},
+    {"place", "city", "capital", "3"},
+    {"place", "city", "capital", "4"},
+    {"place", "city", "capital", "5"},
+    {"place", "city", "capital", "6"},
+    {"place", "city", "capital", "7"},
+    {"place", "city", "capital", "8"},
+    {"place", "city", "capital", "9"},
+    {"place", "city", "capital", "10"},
+    {"place", "city", "capital", "11"},
   };
 
   vector<uint32_t> expectedTypes;
@@ -99,6 +99,6 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_StableIndex)
   TEST(c.IsTypeValid(type), ());
   uint32_t const index = c.GetIndexForType(type);
   TEST_EQUAL(index, 357 - 1, ());
-  TEST_NOT_EQUAL(type, c.GetTypeForIndex(356 - 1), ()); // Restored underground-fee
+  TEST_NOT_EQUAL(type, c.GetTypeForIndex(356 - 1), ());  // Restored underground-fee
   TEST_EQUAL(type, c.GetTypeForIndex(357 - 1), ());
 }

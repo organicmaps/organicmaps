@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
@@ -49,18 +48,14 @@ import app.organicmaps.widget.SearchToolbarController;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SearchFragment extends BaseMwmFragment
-                         implements SearchListener,
-                                    CategoriesAdapter.CategoriesUiListener
+public class SearchFragment extends BaseMwmFragment implements SearchListener, CategoriesAdapter.CategoriesUiListener
 {
   private long mLastQueryTimestamp;
-  @NonNull
-  private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
+  @NonNull private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
 
   private static class LastPosition
   {
@@ -83,8 +78,7 @@ public class SearchFragment extends BaseMwmFragment
       super(root, SearchFragment.this.requireActivity());
     }
 
-    @Override
-    protected void onTextChanged(String query)
+    @Override protected void onTextChanged(String query)
     {
       if (!isAdded())
         return;
@@ -107,40 +101,34 @@ public class SearchFragment extends BaseMwmFragment
       runSearch();
     }
 
-    @Override
-    protected boolean onStartSearchClick()
+    @Override protected boolean onStartSearchClick()
     {
       deactivate();
       return true;
     }
 
-    @Override
-    protected int getVoiceInputPrompt()
+    @Override protected int getVoiceInputPrompt()
     {
       return R.string.search_map;
     }
 
-    @Override
-    protected void startVoiceRecognition(Intent intent)
+    @Override protected void startVoiceRecognition(Intent intent)
     {
       startVoiceRecognitionForResult.launch(intent);
     }
 
-    @Override
-    protected boolean supportsVoiceSearch()
+    @Override protected boolean supportsVoiceSearch()
     {
       return true;
     }
 
-    @Override
-    public void onUpClick()
+    @Override public void onUpClick()
     {
       if (!onBackPressed())
         super.onUpClick();
     }
 
-    @Override
-    public void clear()
+    @Override public void clear()
     {
       super.clear();
     }
@@ -150,18 +138,13 @@ public class SearchFragment extends BaseMwmFragment
   private PlaceholderView mResultsPlaceholder;
   private ExtendedFloatingActionButton mShowOnMapFab;
 
-  @NonNull
-  private SearchToolbarController mToolbarController;
+  @NonNull private SearchToolbarController mToolbarController;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private SearchAdapter mSearchAdapter;
+  @SuppressWarnings("NullableProblems") @NonNull private SearchAdapter mSearchAdapter;
 
   private final List<RecyclerView> mAttachedRecyclers = new ArrayList<>();
-  private final RecyclerView.OnScrollListener mRecyclerListener = new RecyclerView.OnScrollListener()
-  {
-    @Override
-    public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
+  private final RecyclerView.OnScrollListener mRecyclerListener = new RecyclerView.OnScrollListener() {
+    @Override public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState)
     {
       if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
         mToolbarController.deactivate();
@@ -171,19 +154,15 @@ public class SearchFragment extends BaseMwmFragment
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
   private String mInitialQuery;
-  @Nullable
-  private String mInitialLocale;
+  @Nullable private String mInitialLocale;
   private boolean mInitialSearchOnMap = false;
 
-  private final ActivityResultLauncher<Intent> startVoiceRecognitionForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult ->
-  {
-    mToolbarController.onVoiceRecognitionResult(activityResult);
-  });
+  private final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
+    registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+      activityResult -> { mToolbarController.onVoiceRecognitionResult(activityResult); });
 
-  private final LocationListener mLocationListener = new LocationListener()
-  {
-    @Override
-    public void onLocationUpdated(Location location)
+  private final LocationListener mLocationListener = new LocationListener() {
+    @Override public void onLocationUpdated(Location location)
     {
       mLastPosition.set(location.getLatitude(), location.getLongitude());
 
@@ -206,9 +185,7 @@ public class SearchFragment extends BaseMwmFragment
     if (fragment == null || fragment.isDetached() || fragment.isRemoving())
     {
       fragment = fm.getFragmentFactory().instantiate(requireActivity().getClassLoader(), fragmentName);
-      fm.beginTransaction()
-        .add(R.id.download_suggest_frame, fragment, fragmentName)
-        .commit();
+      fm.beginTransaction().add(R.id.download_suggest_frame, fragment, fragmentName).commit();
     }
   }
 
@@ -220,9 +197,7 @@ public class SearchFragment extends BaseMwmFragment
     final FragmentManager manager = getChildFragmentManager();
     final Fragment fragment = manager.findFragmentByTag(CountrySuggestFragment.class.getName());
     if (fragment != null && !fragment.isDetached() && !fragment.isRemoving())
-      manager.beginTransaction()
-             .remove(fragment)
-             .commitAllowingStateLoss();
+      manager.beginTransaction().remove(fragment).commitAllowingStateLoss();
   }
 
   private void updateFrames()
@@ -230,8 +205,8 @@ public class SearchFragment extends BaseMwmFragment
     final boolean hasQuery = mToolbarController.hasQuery();
     Toolbar toolbar = mToolbarController.getToolbar();
     AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-    lp.setScrollFlags(hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                                 | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
+    lp.setScrollFlags(
+      hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
     toolbar.setLayoutParams(lp);
 
     UiUtils.showIf(hasQuery, mResultsFrame);
@@ -246,22 +221,17 @@ public class SearchFragment extends BaseMwmFragment
 
   private void updateResultsPlaceholder()
   {
-    final boolean show = !mSearchRunning
-                         && mSearchAdapter.getItemCount() == 0
-                         && mToolbarController.hasQuery();
+    final boolean show = !mSearchRunning && mSearchAdapter.getItemCount() == 0 && mToolbarController.hasQuery();
 
     UiUtils.showIf(show, mResultsPlaceholder);
   }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_search, container, false);
   }
 
-  @CallSuper
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @CallSuper @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     mSearchAdapter = new SearchAdapter(this);
@@ -288,13 +258,12 @@ public class SearchFragment extends BaseMwmFragment
     mResultsPlaceholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
     mSearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
 
-  {
-      @Override
-      public void onChanged()
       {
-        updateResultsPlaceholder();
-      }
-    });
+        @Override public void onChanged()
+        {
+          updateResultsPlaceholder();
+        }
+      });
     mShowOnMapFab = root.findViewById(R.id.show_on_map_fab);
     mShowOnMapFab.setOnClickListener(v -> showAllResultsOnMap());
 
@@ -304,8 +273,7 @@ public class SearchFragment extends BaseMwmFragment
     updateFrames();
     updateResultsPlaceholder();
     ViewCompat.setOnApplyWindowInsetsListener(
-        mResults,
-        new WindowInsetUtils.ScrollableContentInsetsListener(mResults, mShowOnMapFab));
+      mResults, new WindowInsetUtils.ScrollableContentInsetsListener(mResults, mShowOnMapFab));
 
     mToolbarController.activate();
 
@@ -322,8 +290,7 @@ public class SearchFragment extends BaseMwmFragment
       showAllResultsOnMap();
   }
 
-  @Override
-  public void onStart()
+  @Override public void onStart()
   {
     super.onStart();
     mToolbarController.attach(requireActivity());
@@ -333,28 +300,26 @@ public class SearchFragment extends BaseMwmFragment
   {
     super.onResume();
     LocationHelper.from(requireContext()).addListener(mLocationListener);
-    if (mInitialQuery != null) {
+    if (mInitialQuery != null)
+    {
       setQuery(mInitialQuery, false);
       mInitialQuery = null;
     }
   }
 
-  @Override
-  public void onPause()
+  @Override public void onPause()
   {
     LocationHelper.from(requireContext()).removeListener(mLocationListener);
     super.onPause();
   }
 
-  @Override
-  public void onStop()
+  @Override public void onStop()
   {
     super.onStop();
     mToolbarController.detach();
   }
 
-  @Override
-  public void onDestroy()
+  @Override public void onDestroy()
   {
     for (RecyclerView v : mAttachedRecyclers)
       v.removeOnScrollListener(mRecyclerListener);
@@ -364,9 +329,18 @@ public class SearchFragment extends BaseMwmFragment
     super.onDestroy();
   }
 
-  private String getQuery() { return mToolbarController.getQuery(); }
-  private boolean isCategory() { return mToolbarController.isCategory(); }
-  void setQuery(String text, boolean isCategory) { mToolbarController.setQuery(text, isCategory); }
+  private String getQuery()
+  {
+    return mToolbarController.getQuery();
+  }
+  private boolean isCategory()
+  {
+    return mToolbarController.isCategory();
+  }
+  void setQuery(String text, boolean isCategory)
+  {
+    mToolbarController.setQuery(text, isCategory);
+  }
 
   private void readArguments()
   {
@@ -381,7 +355,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
   {
-    for(HiddenCommand command: getHiddenCommands())
+    for (HiddenCommand command : getHiddenCommands())
     {
       if (command.execute(query))
         return true;
@@ -390,16 +364,13 @@ public class SearchFragment extends BaseMwmFragment
     return false;
   }
 
-  @NonNull
-  private List<HiddenCommand> getHiddenCommands()
+  @NonNull private List<HiddenCommand> getHiddenCommands()
   {
     if (mHiddenCommands.isEmpty())
     {
-      mHiddenCommands.addAll(
-          Arrays.asList(new BadStorageCommand("?emulateBadStorage", requireContext()),
-                        new JavaCrashCommand("?emulateJavaCrash"),
-                        new NativeCrashCommand("?emulateNativeCrash"),
-                        new PushTokenCommand("?pushToken")));
+      mHiddenCommands.addAll(Arrays.asList(new BadStorageCommand("?emulateBadStorage", requireContext()),
+        new JavaCrashCommand("?emulateJavaCrash"), new NativeCrashCommand("?emulateNativeCrash"),
+        new PushTokenCommand("?pushToken")));
     }
 
     return mHiddenCommands;
@@ -418,8 +389,8 @@ public class SearchFragment extends BaseMwmFragment
       final String subtitle = (result.description != null) ? result.description.localizedFeatureType : "";
       final String title = TextUtils.isEmpty(result.name) ? subtitle : result.name;
 
-      final MapObject point = MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH,
-          title, subtitle, result.lat, result.lon);
+      final MapObject point =
+        MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH, title, subtitle, result.lat, result.lon);
       RoutingController.get().onPoiSelected(point);
     }
     else
@@ -444,10 +415,10 @@ public class SearchFragment extends BaseMwmFragment
       SearchRecents.add(query, requireContext());
     mLastQueryTimestamp = System.nanoTime();
 
-    SearchEngine.INSTANCE.searchInteractive(
-        query, isCategory(), !TextUtils.isEmpty(mInitialLocale)
-               ? mInitialLocale : app.organicmaps.util.Language.getKeyboardLocale(requireContext()),
-        mLastQueryTimestamp, false /* isMapAndTable */);
+    SearchEngine.INSTANCE.searchInteractive(query, isCategory(),
+      !TextUtils.isEmpty(mInitialLocale) ? mInitialLocale
+                                         : app.organicmaps.util.Language.getKeyboardLocale(requireContext()),
+      mLastQueryTimestamp, false /* isMapAndTable */);
 
     SearchEngine.INSTANCE.setQuery(query);
     Utils.navigateToParent(requireActivity());
@@ -488,13 +459,13 @@ public class SearchFragment extends BaseMwmFragment
     mLastQueryTimestamp = System.nanoTime();
     if (isTabletSearch())
     {
-      SearchEngine.INSTANCE.searchInteractive(requireContext(), getQuery(), isCategory(),
-              mLastQueryTimestamp, true /* isMapAndTable */);
+      SearchEngine.INSTANCE.searchInteractive(
+        requireContext(), getQuery(), isCategory(), mLastQueryTimestamp, true /* isMapAndTable */);
     }
     else
     {
-      if (!SearchEngine.INSTANCE.search(requireContext(), getQuery(), isCategory(),
-              mLastQueryTimestamp, mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
+      if (!SearchEngine.INSTANCE.search(requireContext(), getQuery(), isCategory(), mLastQueryTimestamp,
+            mLastPosition.valid, mLastPosition.lat, mLastPosition.lon))
       {
         return;
       }
@@ -507,9 +478,7 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   // Called from JNI.
-  @SuppressWarnings("unused")
-  @Override
-  public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
+  @SuppressWarnings("unused") @Override public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
   {
     if (!isAdded() || !mToolbarController.hasQuery())
       return;
@@ -518,15 +487,12 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   // Called from JNI.
-  @SuppressWarnings("unused")
-  @Override
-  public void onResultsEnd(long timestamp)
+  @SuppressWarnings("unused") @Override public void onResultsEnd(long timestamp)
   {
     onSearchEnd();
   }
 
-  @Override
-  public void onSearchCategorySelected(@Nullable String category)
+  @Override public void onSearchCategorySelected(@Nullable String category)
   {
     mToolbarController.setQuery(category, true);
   }
@@ -539,8 +505,7 @@ public class SearchFragment extends BaseMwmFragment
     mToolbarController.showProgress(true);
   }
 
-  @Override
-  public boolean onBackPressed()
+  @Override public boolean onBackPressed()
   {
     if (mToolbarController.hasQuery())
     {
@@ -565,7 +530,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private void closeSearch()
   {
-    final Activity activity  = requireActivity();
+    final Activity activity = requireActivity();
     activity.finish();
   }
 
@@ -575,16 +540,14 @@ public class SearchFragment extends BaseMwmFragment
     mAttachedRecyclers.add(recycler);
   }
 
-  @NonNull
-  public SearchToolbarController requireController()
+  @NonNull public SearchToolbarController requireController()
   {
     return mToolbarController;
   }
 
   private static class BadStorageCommand extends HiddenCommand.BaseHiddenCommand
   {
-    @NonNull
-    Context mContext;
+    @NonNull Context mContext;
 
     BadStorageCommand(@NonNull String command, @NonNull Context context)
     {
@@ -592,8 +555,7 @@ public class SearchFragment extends BaseMwmFragment
       mContext = context;
     }
 
-    @Override
-    void executeInternal()
+    @Override void executeInternal()
     {
       SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(mContext, true);
     }
@@ -606,8 +568,7 @@ public class SearchFragment extends BaseMwmFragment
       super(command);
     }
 
-    @Override
-    void executeInternal()
+    @Override void executeInternal()
     {
       throw new RuntimeException("Diagnostic java crash!");
     }
@@ -620,8 +581,7 @@ public class SearchFragment extends BaseMwmFragment
       super(command);
     }
 
-    @Override
-    void executeInternal()
+    @Override void executeInternal()
     {
       Framework.nativeMakeCrash();
     }
@@ -634,9 +594,6 @@ public class SearchFragment extends BaseMwmFragment
       super(command);
     }
 
-    @Override
-    void executeInternal()
-    {
-    }
+    @Override void executeInternal() {}
   }
 }

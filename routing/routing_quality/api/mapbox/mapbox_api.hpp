@@ -4,7 +4,6 @@
 
 #include "routing/routing_quality/api/mapbox/types.hpp"
 
-
 #include <cstdint>
 #include <string>
 #include <utility>

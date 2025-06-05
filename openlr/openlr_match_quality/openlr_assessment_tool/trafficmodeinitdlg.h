@@ -6,7 +6,8 @@
 
 class QLineEdit;
 
-namespace Ui {
+namespace Ui
+{
 class TrafficModeInitDlg;
 }
 
@@ -23,8 +24,7 @@ public:
   std::string GetDataFilePath() const { return m_dataFileName; }
 
 private:
-  void SetFilePathViaDialog(QLineEdit & dest, QString const & title,
-                            QString const & filter = {});
+  void SetFilePathViaDialog(QLineEdit & dest, QString const & title, QString const & filter = {});
 public slots:
   void accept() override;
 

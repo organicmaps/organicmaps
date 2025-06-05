@@ -16,14 +16,13 @@
 
 namespace
 {
-void ReadCommon(std::unique_ptr<Reader> classificator,
-                std::unique_ptr<Reader> types)
+void ReadCommon(std::unique_ptr<Reader> classificator, std::unique_ptr<Reader> types)
 {
   Classificator & c = classif();
   c.Clear();
 
   {
-    //LOG(LINFO, ("Reading classificator"));
+    // LOG(LINFO, ("Reading classificator"));
     ReaderStreamBuf buffer(std::move(classificator));
 
     std::istream s(&buffer);
@@ -31,7 +30,7 @@ void ReadCommon(std::unique_ptr<Reader> classificator,
   }
 
   {
-    //LOG(LINFO, ("Reading types mapping"));
+    // LOG(LINFO, ("Reading types mapping"));
     ReaderStreamBuf buffer(std::move(types));
 
     std::istream s(&buffer);
@@ -57,8 +56,7 @@ void Load()
     if (mapStyle != MapStyleMerged || originMapStyle == MapStyleMerged)
     {
       GetStyleReader().SetCurrentStyle(mapStyle);
-      ReadCommon(p.GetReader("classificator.txt"),
-                 p.GetReader("types.txt"));
+      ReadCommon(p.GetReader("classificator.txt"), p.GetReader("types.txt"));
 
       drule::LoadRules();
     }
@@ -69,12 +67,9 @@ void Load()
   LOG(LDEBUG, ("Reading of classificator finished"));
 }
 
-void LoadTypes(std::string const & classificatorFileStr,
-               std::string const & typesFileStr)
+void LoadTypes(std::string const & classificatorFileStr, std::string const & typesFileStr)
 {
-  ReadCommon(std::make_unique<MemReaderWithExceptions>(classificatorFileStr.data(),
-                                                       classificatorFileStr.size()),
-             std::make_unique<MemReaderWithExceptions>(typesFileStr.data(),
-                                                       typesFileStr.size()));
+  ReadCommon(std::make_unique<MemReaderWithExceptions>(classificatorFileStr.data(), classificatorFileStr.size()),
+             std::make_unique<MemReaderWithExceptions>(typesFileStr.data(), typesFileStr.size()));
 }
 }  // namespace classificator

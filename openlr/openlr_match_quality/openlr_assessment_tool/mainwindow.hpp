@@ -16,7 +16,7 @@ namespace openlr
 class MapWidget;
 class TrafficMode;
 class WebView;
-}
+}  // namespace openlr
 
 namespace df
 {
@@ -52,7 +52,7 @@ private:
   QAction * m_saveTrafficSampleAction = nullptr;
   QAction * m_closeTrafficSampleAction = nullptr;
   QAction * m_startEditingAction = nullptr;
-  QAction * m_commitPathAction  = nullptr;
+  QAction * m_commitPathAction = nullptr;
   QAction * m_cancelPathAction = nullptr;
   QAction * m_ignorePathAction = nullptr;
 

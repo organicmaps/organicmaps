@@ -13,8 +13,8 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 
 #include "platform/measurement_utils.hpp"
 
@@ -38,7 +38,8 @@ using std::string;
 
 char constexpr kDelim[] = ", \t\r\n";
 
-template <class TokenizerT> bool ParseOneSpeedValue(TokenizerT & iter, MaxspeedType & value)
+template <class TokenizerT>
+bool ParseOneSpeedValue(TokenizerT & iter, MaxspeedType & value)
 {
   if (!iter)
     return false;
@@ -82,17 +83,15 @@ class MaxspeedsMwmCollector
     return osmIdIt->second;
   }
 
-  routing::RoadGeometry const & GetRoad(uint32_t fid) const
-  {
-    return m_graph->GetRoadGeometry(fid);
-  }
+  routing::RoadGeometry const & GetRoad(uint32_t fid) const { return m_graph->GetRoadGeometry(fid); }
 
 public:
   MaxspeedsMwmCollector(string const & dataPath, FeatureIdToOsmId const & ft2osm, IndexGraph * graph)
-    : m_dataPath(dataPath), m_ft2osm(ft2osm), m_graph(graph)
+    : m_dataPath(dataPath)
+    , m_ft2osm(ft2osm)
+    , m_graph(graph)
     , m_converter(MaxspeedConverter::Instance())
-  {
-  }
+  {}
 
   void Process(string const & maxspeedCsvPath)
   {
@@ -111,24 +110,19 @@ public:
 
       return &maxspeedIt->second;
     };
-    auto const GetLastIndex = [&](uint32_t fid)
-    {
-      return GetRoad(fid).GetPointsCount() - 2;
-    };
+    auto const GetLastIndex = [&](uint32_t fid) { return GetRoad(fid).GetPointsCount() - 2; };
     auto const GetOpposite = [&](Segment const & seg)
     {
       // Assume that links are connected with main roads in first or last point, always.
       uint32_t const fid = seg.GetFeatureId();
       return Segment(0, fid, seg.GetSegmentIdx() > 0 ? 0 : GetLastIndex(fid), seg.IsForward());
     };
-    auto const GetHighwayType = [&](uint32_t fid)
-    {
-      return GetRoad(fid).GetHighwayType();
-    };
+    auto const GetHighwayType = [&](uint32_t fid) { return GetRoad(fid).GetHighwayType(); };
 
     auto const & converter = GetMaxspeedConverter();
     using HwTypeT = std::optional<routing::HighwayType>;
-    auto const CalculateSpeed = [&](uint32_t parentFID, Maxspeed const & s, HwTypeT hwType) -> std::optional<SpeedInUnits>
+    auto const CalculateSpeed = [&](uint32_t parentFID, Maxspeed const & s,
+                                    HwTypeT hwType) -> std::optional<SpeedInUnits>
     {
       HwTypeT const parentHwType = GetHighwayType(parentFID);
       if (!parentHwType)
@@ -148,121 +142,125 @@ public:
         // Reduce factor from parent road. See DontUseLinksWhenRidingOnMotorway test.
         // 0.85, this factor should be greater than sqrt(2) / 2 - prefer diagonal link to square path.
         return converter.ClosestValidMacro(
-              { base::asserted_cast<MaxspeedType>(std::lround(s.GetForward() * 0.85)), s.GetUnits() });
+          {base::asserted_cast<MaxspeedType>(std::lround(s.GetForward() * 0.85)), s.GetUnits()});
       }
 
       return {};
     };
 
-    ForEachFeature(m_dataPath, [&](FeatureType & ft, uint32_t fid)
-    {
-      if (!routing::IsCarRoad(TypesHolder(ft)))
-        return;
-
-      Maxspeed * maxSpeed = GetSpeed(fid);
-      if (!maxSpeed)
+    ForEachFeature(
+      m_dataPath,
+      [&](FeatureType & ft, uint32_t fid)
+      {
+        if (!routing::IsCarRoad(TypesHolder(ft)))
           return;
 
-      auto const osmID = GetOsmID(fid).GetSerialId();
-
-      if (ft.GetGeomType() != GeomType::Line)
-      {
-        LOG(LWARNING, ("Non linear road with speed for way", osmID));
-        return;
-      }
-
-#define LOG_MAX_SPEED(msg) if (false) LOG(LINFO, msg)
-
-      LOG_MAX_SPEED(("Start osmid =", osmID));
-
-      // Recalculate link speed according to the ingoing highway.
-      // See MaxspeedsCollector::CollectFeature.
-      if (maxSpeed->GetForward() == routing::kCommonMaxSpeedValue)
-      {
-        // Check if we are in unit tests.
-        if (m_graph == nullptr)
+        Maxspeed * maxSpeed = GetSpeed(fid);
+        if (!maxSpeed)
           return;
 
-        // 0 - not updated, 1 - goto next iteration, 2 - updated
-        int status = 0;
+        auto const osmID = GetOsmID(fid).GetSerialId();
 
-        HwTypeT const hwType = GetHighwayType(fid);
-
-        // Check ingoing first, then - outgoing.
-        for (bool direction : { false, true })
+        if (ft.GetGeomType() != GeomType::Line)
         {
-          LOG_MAX_SPEED(("Search dir =", direction));
+          LOG(LWARNING, ("Non linear road with speed for way", osmID));
+          return;
+        }
 
-          Segment seg(0, fid, 0, true);
-          if (direction)
-            seg = GetOpposite(seg);
+#define LOG_MAX_SPEED(msg) \
+  if (false)               \
+  LOG(LINFO, msg)
 
-          std::unordered_set<uint32_t> reviewed;
-          do
+        LOG_MAX_SPEED(("Start osmid =", osmID));
+
+        // Recalculate link speed according to the ingoing highway.
+        // See MaxspeedsCollector::CollectFeature.
+        if (maxSpeed->GetForward() == routing::kCommonMaxSpeedValue)
+        {
+          // Check if we are in unit tests.
+          if (m_graph == nullptr)
+            return;
+
+          // 0 - not updated, 1 - goto next iteration, 2 - updated
+          int status = 0;
+
+          HwTypeT const hwType = GetHighwayType(fid);
+
+          // Check ingoing first, then - outgoing.
+          for (bool direction : {false, true})
           {
-            LOG_MAX_SPEED(("Input seg =", seg));
+            LOG_MAX_SPEED(("Search dir =", direction));
 
-            status = 0;
-            reviewed.insert(seg.GetFeatureId());
+            Segment seg(0, fid, 0, true);
+            if (direction)
+              seg = GetOpposite(seg);
 
-            IndexGraph::SegmentEdgeListT edges;
-            m_graph->GetEdgeList(seg, direction, false /* useRoutingOptions */, edges);
-            for (auto const & e : edges)
+            std::unordered_set<uint32_t> reviewed;
+            do
             {
-              LOG_MAX_SPEED(("Edge =", e));
-              Segment const target = e.GetTarget();
+              LOG_MAX_SPEED(("Input seg =", seg));
 
-              uint32_t const targetFID = target.GetFeatureId();
-              uint64_t const targetOsmID = GetOsmID(targetFID).GetSerialId();
-              LOG_MAX_SPEED(("Edge target =", target, "; osmid =", targetOsmID));
+              status = 0;
+              reviewed.insert(seg.GetFeatureId());
 
-              Maxspeed const * s = GetSpeed(targetFID);
-              if (s)
+              IndexGraph::SegmentEdgeListT edges;
+              m_graph->GetEdgeList(seg, direction, false /* useRoutingOptions */, edges);
+              for (auto const & e : edges)
               {
-                if (routing::IsNumeric(s->GetForward()))
+                LOG_MAX_SPEED(("Edge =", e));
+                Segment const target = e.GetTarget();
+
+                uint32_t const targetFID = target.GetFeatureId();
+                uint64_t const targetOsmID = GetOsmID(targetFID).GetSerialId();
+                LOG_MAX_SPEED(("Edge target =", target, "; osmid =", targetOsmID));
+
+                Maxspeed const * s = GetSpeed(targetFID);
+                if (s)
                 {
-                  auto const speed = CalculateSpeed(targetFID, *s, hwType);
-                  if (speed)
+                  if (routing::IsNumeric(s->GetForward()))
                   {
-                    status = 2;
+                    auto const speed = CalculateSpeed(targetFID, *s, hwType);
+                    if (speed)
+                    {
+                      status = 2;
 
-                    maxSpeed->SetForward(speed->GetSpeed());
-                    maxSpeed->SetUnits(speed->GetUnits());
+                      maxSpeed->SetForward(speed->GetSpeed());
+                      maxSpeed->SetUnits(speed->GetUnits());
 
-                    LOG(LINFO, ("Updated link speed for way", osmID, "with", *maxSpeed, "from", targetOsmID));
-                    break;
+                      LOG(LINFO, ("Updated link speed for way", osmID, "with", *maxSpeed, "from", targetOsmID));
+                      break;
+                    }
                   }
-                }
-                else if (s->GetForward() == routing::kCommonMaxSpeedValue &&
-                         reviewed.size() < 4 &&   // limit with some reasonable transitions
-                         reviewed.find(targetFID) == reviewed.end() &&
-                         hwType == GetHighwayType(targetFID))
-                {
-                  LOG_MAX_SPEED(("Add reviewed"));
+                  else if (s->GetForward() == routing::kCommonMaxSpeedValue &&
+                           reviewed.size() < 4 &&  // limit with some reasonable transitions
+                           reviewed.find(targetFID) == reviewed.end() && hwType == GetHighwayType(targetFID))
+                  {
+                    LOG_MAX_SPEED(("Add reviewed"));
 
-                  // Found another input link. Save it for the next iteration.
-                  status = 1;
-                  seg = GetOpposite(target);
+                    // Found another input link. Save it for the next iteration.
+                    status = 1;
+                    seg = GetOpposite(target);
+                  }
                 }
               }
             }
-          } while (status == 1);
+            while (status == 1);
 
-          if (status == 2)
-            break;
+            if (status == 2)
+              break;
+          }
+
+          if (status == 0)
+          {
+            LOG(LWARNING, ("Didn't find connected edge with speed for way", osmID));
+            return;
+          }
         }
 
-        if (status == 0)
-        {
-          LOG(LWARNING, ("Didn't find connected edge with speed for way", osmID));
-          return;
-        }
-      }
+        LOG_MAX_SPEED(("End osmid =", osmID));
 
-      LOG_MAX_SPEED(("End osmid =", osmID));
-
-      AddSpeed(fid, osmID, *maxSpeed);
-    });
+        AddSpeed(fid, osmID, *maxSpeed);
+      });
   }
 
   void AddSpeed(uint32_t featureID, uint64_t osmID, Maxspeed const & speed)
@@ -301,7 +299,7 @@ public:
       auto & info = m_avgSpeeds[rd.IsInCity() ? 1 : 0][*hwType];
 
       double const lenKM = rd.GetRoadLengthM() / 1000.0;
-      for (auto const & s : { forward, backward })
+      for (auto const & s : {forward, backward})
       {
         if (s.IsNumeric())
         {
@@ -329,8 +327,8 @@ public:
         if (speed < routing::kInvalidSpeed)
         {
           // Store type speeds in Metric system, like VehicleModel profiles.
-          auto const speedInUnits = m_converter.ClosestValidMacro(
-                { static_cast<MaxspeedType>(speed), measurement_utils::Units::Metric });
+          auto const speedInUnits =
+            m_converter.ClosestValidMacro({static_cast<MaxspeedType>(speed), measurement_utils::Units::Metric});
 
           LOG(LINFO, ("*", e.first, "=", speedInUnits));
 
@@ -403,8 +401,7 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
   return true;
 }
 
-void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
-                           FeatureIdToOsmId const & featureIdToOsmId,
+void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath, FeatureIdToOsmId const & featureIdToOsmId,
                            string const & maxspeedsFilename)
 {
   MaxspeedsMwmCollector collector(dataPath, featureIdToOsmId, graph);
@@ -413,8 +410,8 @@ void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
   collector.SerializeMaxspeeds();
 }
 
-void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
-                           string const & osmToFeaturePath, string const & maxspeedsFilename)
+void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath, string const & osmToFeaturePath,
+                           string const & maxspeedsFilename)
 {
   FeatureIdToOsmId featureIdToOsmId;
   ParseWaysFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId);

@@ -9,7 +9,9 @@ namespace routing
 template <typename Vertex, typename Weight>
 struct RoutingResult final
 {
-  RoutingResult() : m_distance(GetAStarWeightZero<Weight>()) {}
+  RoutingResult()
+    : m_distance(GetAStarWeightZero<Weight>())
+  {}
 
   void Clear()
   {
@@ -24,10 +26,7 @@ struct RoutingResult final
 
   struct LessWeight
   {
-    bool operator() (RoutingResult const & l, RoutingResult const & r) const
-    {
-      return l.m_distance < r.m_distance;
-    }
+    bool operator()(RoutingResult const & l, RoutingResult const & r) const { return l.m_distance < r.m_distance; }
   };
 };
 }  // namespace routing

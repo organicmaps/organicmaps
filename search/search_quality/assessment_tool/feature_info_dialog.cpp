@@ -32,8 +32,7 @@ QLabel * MakeSelectableLabel(string const & s)
 }  // namespace
 
 FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & mapObject,
-                                     search::ReverseGeocoder::Address const & address,
-                                     string const & locale)
+                                     search::ReverseGeocoder::Address const & address, string const & locale)
   : QDialog(parent)
 {
   auto * layout = new QGridLayout();

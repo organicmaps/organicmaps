@@ -22,10 +22,7 @@ public:
     return true;
   }
 
-  bool Contains(T const & key) const
-  {
-    return base::IsExist(m_vec, key);
-  }
+  bool Contains(T const & key) const { return base::IsExist(m_vec, key); }
 
 private:
   std::vector<T> m_vec;
@@ -36,18 +33,16 @@ namespace generator
 {
 bool FilterData::IsMatch(Tags const & elementTags, Tags const & tags)
 {
-  return base::AllOf(tags, [&](OsmElement::Tag const & t) {
-    auto const it = base::FindIf(elementTags, [&](OsmElement::Tag const & tag) {
-      return tag.m_key == t.m_key;
-    });
-    return it == std::end(elementTags) ? false : t.m_value == "*" || it->m_value == t.m_value;
-  });
+  return base::AllOf(tags,
+                     [&](OsmElement::Tag const & t)
+                     {
+                       auto const it =
+                         base::FindIf(elementTags, [&](OsmElement::Tag const & tag) { return tag.m_key == t.m_key; });
+                       return it == std::end(elementTags) ? false : t.m_value == "*" || it->m_value == t.m_value;
+                     });
 }
 
-void FilterData::AddSkippedId(uint64_t id)
-{
-  m_skippedIds.insert(id);
-}
+void FilterData::AddSkippedId(uint64_t id) { m_skippedIds.insert(id); }
 
 void FilterData::AddSkippedTags(Tags const & tags)
 {
@@ -56,10 +51,7 @@ void FilterData::AddSkippedTags(Tags const & tags)
     m_skippedTags.emplace(t.m_key, m_rulesStorage.back());
 }
 
-bool FilterData::NeedSkipWithId(uint64_t id) const
-{
-  return m_skippedIds.find(id) != std::end(m_skippedIds);
-}
+bool FilterData::NeedSkipWithId(uint64_t id) const { return m_skippedIds.find(id) != std::end(m_skippedIds); }
 
 bool FilterData::NeedSkipWithTags(Tags const & tags) const
 {
@@ -158,15 +150,9 @@ FilterElements::FilterElements(std::string const & filename)
     LOG(LERROR, ("Cannot parse file", m_filename));
 }
 
-std::shared_ptr<FilterInterface> FilterElements::Clone() const
-{
-  return std::make_shared<FilterElements>(m_filename);
-}
+std::shared_ptr<FilterInterface> FilterElements::Clone() const { return std::make_shared<FilterElements>(m_filename); }
 
-bool FilterElements::IsAccepted(OsmElement const & element) const
-{
-  return !NeedSkip(element);
-}
+bool FilterElements::IsAccepted(OsmElement const & element) const { return !NeedSkip(element); }
 
 bool FilterElements::NeedSkip(OsmElement const & element) const
 {
@@ -179,7 +165,7 @@ bool FilterElements::NeedSkip(OsmElement const & element) const
   }
 }
 
-bool FilterElements::NeedSkip(OsmElement const & element,  FilterData const & fdata) const
+bool FilterElements::NeedSkip(OsmElement const & element, FilterData const & fdata) const
 {
   return fdata.NeedSkipWithId(element.m_id) || fdata.NeedSkipWithTags(element.Tags());
 }

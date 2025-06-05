@@ -65,7 +65,9 @@ private:
 class TileReadStartMessage : public MapShapeMessage
 {
 public:
-  explicit TileReadStartMessage(TileKey const & key) : MapShapeMessage(key) {}
+  explicit TileReadStartMessage(TileKey const & key)
+    : MapShapeMessage(key)
+  {}
   Type GetType() const override { return Type::TileReadStarted; }
   bool IsGraphicsContextDependent() const override { return true; }
 };
@@ -73,7 +75,9 @@ public:
 class TileReadEndMessage : public MapShapeMessage
 {
 public:
-  explicit TileReadEndMessage(TileKey const & key) : MapShapeMessage(key) {}
+  explicit TileReadEndMessage(TileKey const & key)
+    : MapShapeMessage(key)
+  {}
   Type GetType() const override { return Type::TileReadEnded; }
   bool IsGraphicsContextDependent() const override { return true; }
 };
@@ -82,7 +86,8 @@ class MapShapeReadedMessage : public MapShapeMessage
 {
 public:
   MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
-    : MapShapeMessage(key), m_shapes(std::move(shapes))
+    : MapShapeMessage(key)
+    , m_shapes(std::move(shapes))
   {}
 
   Type GetType() const override { return Type::MapShapeReaded; }

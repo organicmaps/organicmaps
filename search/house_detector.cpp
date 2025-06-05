@@ -24,7 +24,6 @@
 
 #include <boost/iterator/transform_iterator.hpp>
 
-
 namespace search
 {
 using namespace std;
@@ -103,18 +102,17 @@ double const STREET_CONNECTION_LENGTH_M = 100.0;
 int const HN_NEARBY_DISTANCE = 4;
 double const STREET_CONNECTION_MAX_ANGLE = math::pi / 2.0;
 size_t const HN_COUNT_FOR_ODD_TEST = 16;
-//double const HN_MIN_READ_OFFSET_M = 50.0;
-//int const HN_NEARBY_INDEX_RANGE = 5;
+// double const HN_MIN_READ_OFFSET_M = 50.0;
+// int const HN_NEARBY_INDEX_RANGE = 5;
 double const HN_MAX_CONNECTION_DIST_M = 300.0;
 
 class StreetCreator
 {
 public:
-  explicit StreetCreator(Street * st) : m_street(st) {}
-  void operator () (m2::PointD const & pt) const
-  {
-    m_street->m_points.push_back(pt);
-  }
+  explicit StreetCreator(Street * st)
+    : m_street(st)
+  {}
+  void operator()(m2::PointD const & pt) const { m_street->m_points.push_back(pt); }
 
 private:
   Street * m_street;
@@ -125,20 +123,17 @@ bool LessStreetDistance(HouseProjection const & p1, HouseProjection const & p2)
   return p1.m_streetDistance < p2.m_streetDistance;
 }
 
-double GetDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
-{
-  return mercator::DistanceOnEarth(p1, p2);
-}
+double GetDistanceMeters(m2::PointD const & p1, m2::PointD const & p2) { return mercator::DistanceOnEarth(p1, p2); }
 
 pair<double, double> GetConnectionAngleAndDistance(bool & isBeg, Street const * s1, Street const * s2)
 {
   m2::PointD const & p1 = isBeg ? s1->m_points.front() : s1->m_points.back();
-  m2::PointD const & p0 = isBeg ? s1->m_points[1] : s1->m_points[s1->m_points.size()-2];
+  m2::PointD const & p0 = isBeg ? s1->m_points[1] : s1->m_points[s1->m_points.size() - 2];
 
   double const d0 = p1.SquaredLength(s2->m_points.front());
   double const d2 = p1.SquaredLength(s2->m_points.back());
   isBeg = (d0 < d2);
-  m2::PointD const & p2 = isBeg ? s2->m_points[1] : s2->m_points[s2->m_points.size()-2];
+  m2::PointD const & p2 = isBeg ? s2->m_points[1] : s2->m_points[s2->m_points.size() - 2];
 
   return make_pair(ang::GetShortestDistance(ang::AngleTo(p0, p1), ang::AngleTo(p1, p2)), min(d0, d2));
 }
@@ -146,7 +141,9 @@ pair<double, double> GetConnectionAngleAndDistance(bool & isBeg, Street const * 
 class HasSecond
 {
 public:
-  explicit HasSecond(set<Street *> const & streets) : m_streets(streets) {}
+  explicit HasSecond(set<Street *> const & streets)
+    : m_streets(streets)
+  {}
 
   template <typename T>
   bool operator()(T const & t) const
@@ -161,7 +158,9 @@ private:
 class HasStreet
 {
 public:
-  explicit HasStreet(set<Street *> const & streets) : m_streets(streets) {}
+  explicit HasStreet(set<Street *> const & streets)
+    : m_streets(streets)
+  {}
 
   bool operator()(MergedStreet const & st) const
   {
@@ -181,14 +180,22 @@ struct ScoredHouse
 {
   House const * house;
   double score;
-  ScoredHouse(House const * h, double s) : house(h), score(s) {}
-  ScoredHouse() : house(0), score(numeric_limits<double>::max()) {}
+  ScoredHouse(House const * h, double s)
+    : house(h)
+    , score(s)
+  {}
+  ScoredHouse()
+    : house(0)
+    , score(numeric_limits<double>::max())
+  {}
 };
 
 class ResultAccumulator
 {
 public:
-  explicit ResultAccumulator(string const & houseNumber) : m_number(houseNumber) {}
+  explicit ResultAccumulator(string const & houseNumber)
+    : m_number(houseNumber)
+  {}
 
   string const & GetFullNumber() const { return m_number.GetNumber(); }
   bool UseOdd() const { return m_useOdd; }
@@ -280,10 +287,7 @@ public:
   House const * GetNearbyCandidate() const { return (HasBestMatch() ? 0 : m_results[3].house); }
 
 private:
-  bool IsBetter(int ind, double dist) const
-  {
-    return m_results[ind].house == 0 || m_results[ind].score > dist;
-  }
+  bool IsBetter(int ind, double dist) const { return m_results[ind].house == 0 || m_results[ind].score > dist; }
 
   ParsedNumber m_number;
   bool m_isOdd = false;
@@ -412,9 +416,10 @@ struct Competitiors
   uint32_t m_chainIndex;
   double m_score;
   Competitiors(uint32_t candidateIndex, uint32_t chainIndex, double score)
-    : m_candidateIndex(candidateIndex), m_chainIndex(chainIndex), m_score(score)
-  {
-  }
+    : m_candidateIndex(candidateIndex)
+    , m_chainIndex(chainIndex)
+    , m_score(score)
+  {}
   bool operator<(Competitiors const & c) const { return m_score < c.m_score; }
 };
 
@@ -471,8 +476,8 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
             double dist = numeric_limits<double>::max();
             for (size_t k = 0; k < houseChains[j].houses.size(); ++k)
             {
-              if (abs(houseChains[j].houses[k]->m_house->GetIntNumber() -
-                      st[candidates[i]]->m_house->GetIntNumber()) <= HN_NEARBY_DISTANCE)
+              if (abs(houseChains[j].houses[k]->m_house->GetIntNumber() - st[candidates[i]]->m_house->GetIntNumber()) <=
+                  HN_NEARBY_DISTANCE)
                 dist = min(dist, GetDistanceMeters(houseChains[j].houses[k]->m_house->GetPosition(),
                                                    st[candidates[i]]->m_house->GetPosition()));
             }
@@ -582,8 +587,7 @@ struct GreaterSecond
   }
 };
 
-void ProduceVoting(vector<ResultAccumulator> const & acc, vector<HouseResult> & res,
-                   MergedStreet const & st)
+void ProduceVoting(vector<ResultAccumulator> const & acc, vector<HouseResult> & res, MergedStreet const & st)
 {
   buffer_vector<pair<House const *, size_t>, 4> voting;
 
@@ -609,7 +613,8 @@ void ProduceVoting(vector<ResultAccumulator> const & acc, vector<HouseResult> & 
 }
 }  // namespace
 
-ParsedNumber::ParsedNumber(string const & number, bool american) : m_fullN(number)
+ParsedNumber::ParsedNumber(string const & number, bool american)
+  : m_fullN(number)
 {
   strings::MakeLowerCaseInplace(m_fullN);
 
@@ -625,9 +630,7 @@ ParsedNumber::ParsedNumber(string const & number, bool american) : m_fullN(numbe
     switch (number[curr])
     {
     case ' ':
-    case '\t':
-      ++curr;
-      break;
+    case '\t': ++curr; break;
     case ',':
     case ';':
       ++curr;
@@ -751,7 +754,8 @@ void Street::Reverse()
 void Street::SortHousesProjection() { sort(m_houses.begin(), m_houses.end(), &LessStreetDistance); }
 
 HouseDetector::HouseDetector(DataSource const & dataSource)
-  : m_loader(dataSource), m_streetNum(0)
+  : m_loader(dataSource)
+  , m_streetNum(0)
 {
   // Default value for conversions.
   SetMetersToMercator(mercator::Bounds::kDegreesInMeter);
@@ -858,10 +862,10 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
 
     // Do clear cache if we have elements that are present in the one set,
     // but not in the other one (set's order is irrelevant).
-    size_t const count = set_intersection(make_transform_iterator(m_id2st.begin(), f),
-                                          make_transform_iterator(m_id2st.end(), f), ids.begin(),
-                                          ids.end(), CounterIterator())
-                             .GetCount();
+    size_t const count =
+      set_intersection(make_transform_iterator(m_id2st.begin(), f), make_transform_iterator(m_id2st.end(), f),
+                       ids.begin(), ids.end(), CounterIterator())
+        .GetCount();
 
     if (count < min(ids.size(), m_id2st.size()))
     {
@@ -926,9 +930,9 @@ int HouseDetector::MergeStreets()
 {
   LOG(LDEBUG, ("MergeStreets() called", m_id2st.size()));
 
-  //#ifdef DEBUG
-  //  KMLFileGuard file("dbg_merged_streets.kml");
-  //#endif
+  // #ifdef DEBUG
+  //   KMLFileGuard file("dbg_merged_streets.kml");
+  // #endif
 
   for (auto it = m_id2st.begin(); it != m_id2st.end(); ++it)
   {
@@ -944,16 +948,16 @@ int HouseDetector::MergeStreets()
   // Put longer streets first (for better house scoring).
   sort(m_streets.begin(), m_streets.end(), MergedStreet::GreaterLength());
 
-  //#ifdef DEBUG
-  //  char const * arrColor[] = { "FFFF0000", "FF00FFFF", "FFFFFF00", "FF0000FF", "FF00FF00",
-  //  "FFFF00FF" };
+  // #ifdef DEBUG
+  //   char const * arrColor[] = { "FFFF0000", "FF00FFFF", "FFFFFF00", "FF0000FF", "FF00FF00",
+  //   "FFFF00FF" };
 
   //  // Write to kml from short to long to get the longest one at the top.
   //  for (int i = int(m_streets.size()) - 1; i >= 0; --i)
   //  {
   //    Streets2KML(file.GetStream(), m_streets[i], arrColor[i % ARRAY_SIZE(arrColor)]);
   //  }
-  //#endif
+  // #endif
 
   LOG(LDEBUG, ("MergeStreets() result", m_streetNum));
   return m_streetNum;
@@ -1094,14 +1098,12 @@ void HouseDetector::ReadHouse(FeatureType & f, Street * st, ProjectionCalculator
   auto const it = m_id2house.find(f.GetID());
   bool const isNew = it == m_id2house.end();
 
-  m2::PointD const pt =
-      isNew ? f.GetLimitRect(FeatureType::BEST_GEOMETRY).Center() : it->second->GetPosition();
+  m2::PointD const pt = isNew ? f.GetLimitRect(FeatureType::BEST_GEOMETRY).Center() : it->second->GetPosition();
 
   HouseProjection pr;
   if (calc.GetProjection(pt, pr) && pr.m_distMeters <= m_houseOffsetM)
   {
-    pr.m_streetDistance =
-        st->GetPrefixLength(pr.m_segIndex) + st->m_points[pr.m_segIndex].Length(pr.m_proj);
+    pr.m_streetDistance = st->GetPrefixLength(pr.m_segIndex) + st->m_points[pr.m_segIndex].Length(pr.m_proj);
 
     House * p;
     if (isNew)
@@ -1129,9 +1131,8 @@ void HouseDetector::ReadHouses(Street * st)
   // offsetMeters));
 
   ProjectionOnStreetCalculator calc(st->m_points);
-  m_loader.ForEachInRect(st->GetLimitRect(m_houseOffsetM), [this, &st, &calc](FeatureType & ft) {
-    ReadHouse<ProjectionOnStreetCalculator>(ft, st, calc);
-  });
+  m_loader.ForEachInRect(st->GetLimitRect(m_houseOffsetM), [this, &st, &calc](FeatureType & ft)
+                         { ReadHouse<ProjectionOnStreetCalculator>(ft, st, calc); });
 
   st->m_length = st->GetLength();
   st->SortHousesProjection();
@@ -1182,8 +1183,7 @@ void HouseDetector::ClearUnusedStreets(vector<FeatureID> const & ids)
   }
 
   m_end2st.erase(remove_if(m_end2st.begin(), m_end2st.end(), HasSecond(streets)), m_end2st.end());
-  m_streets.erase(remove_if(m_streets.begin(), m_streets.end(), HasStreet(streets)),
-                  m_streets.end());
+  m_streets.erase(remove_if(m_streets.begin(), m_streets.end(), HasStreet(streets)), m_streets.end());
 
   for_each(streets.begin(), streets.end(), base::DeleteFunctor());
 }
@@ -1206,7 +1206,7 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<HouseResu
 
   vector<ResultAccumulator> acc(3, ResultAccumulator(houseNumber));
 
-  int offsets[] = { 25, 50, 100, 200, 500 };
+  int offsets[] = {25, 50, 100, 200, 500};
 
   for (size_t i = 0; i < count; ++i)
   {
@@ -1227,7 +1227,7 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<HouseResu
       }
     }
 
-end:
+  end:
     ProduceVoting(acc, res, m_streets[i]);
 
     for (size_t j = 0; j < acc.size(); ++j)
@@ -1240,8 +1240,5 @@ end:
 
 string DebugPrint(HouseProjection const & p) { return p.m_house->GetNumber(); }
 
-string DebugPrint(HouseResult const & r)
-{
-  return r.m_house->GetNumber() + ", " + r.m_street->GetName();
-}
+string DebugPrint(HouseResult const & r) { return r.m_house->GetNumber() + ", " + r.m_street->GetName(); }
 }  // namespace search

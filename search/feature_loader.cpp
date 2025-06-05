@@ -7,7 +7,9 @@
 
 namespace search
 {
-FeatureLoader::FeatureLoader(DataSource const & dataSource) : m_dataSource(dataSource) {}
+FeatureLoader::FeatureLoader(DataSource const & dataSource)
+  : m_dataSource(dataSource)
+{}
 
 std::unique_ptr<FeatureType> FeatureLoader::Load(FeatureID const & id)
 {

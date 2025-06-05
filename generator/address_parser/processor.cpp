@@ -10,7 +10,6 @@
 
 #include "defines.hpp"
 
-
 namespace addr_generator
 {
 
@@ -18,8 +17,7 @@ Processor::Processor(std::string const & dataPath, std::string const & outputPat
   : m_affiliation(dataPath, true /* haveBordersForWholeWorld */)
   , m_workers(numThreads)
   , m_outputPath(outputPath)
-{
-}
+{}
 
 FileWriter & Processor::GetWriter(std::string const & country)
 {
@@ -37,52 +35,53 @@ void Processor::Run(std::istream & is)
   {
     ++total;
 
-    m_workers.SubmitWork([this, &incomplete, copy = std::move(line)]() mutable
-    {
-      std::string_view line = copy;
-
-      // Remove possible trailing "\t\n" (pipe reading from tar).
-      size_t const i = line.rfind(')');
-      if (i == std::string::npos)
+    m_workers.SubmitWork(
+      [this, &incomplete, copy = std::move(line)]() mutable
       {
-        LOG(LWARNING, ("Invalid string:", line));
-        return;
-      }
-      line = line.substr(0, i + 1);
+        std::string_view line = copy;
 
-      tiger::AddressEntry e;
-      if (!tiger::ParseLine(line, e))
-      {
-        LOG(LWARNING, ("Bad entry:", line));
-        return;
-      }
+        // Remove possible trailing "\t\n" (pipe reading from tar).
+        size_t const i = line.rfind(')');
+        if (i == std::string::npos)
+        {
+          LOG(LWARNING, ("Invalid string:", line));
+          return;
+        }
+        line = line.substr(0, i + 1);
 
-      if (e.m_from.empty() || e.m_to.empty() || e.m_street.empty())
-      {
-        ++incomplete;
-        return;
-      }
+        tiger::AddressEntry e;
+        if (!tiger::ParseLine(line, e))
+        {
+          LOG(LWARNING, ("Bad entry:", line));
+          return;
+        }
 
-      std::vector<m2::PointD> points;
-      points.reserve(e.m_geom.size());
-      for (auto const & ll : e.m_geom)
-        points.push_back(mercator::FromLatLon(ll));
+        if (e.m_from.empty() || e.m_to.empty() || e.m_street.empty())
+        {
+          ++incomplete;
+          return;
+        }
 
-      auto const countries = m_affiliation.GetAffiliations(points);
+        std::vector<m2::PointD> points;
+        points.reserve(e.m_geom.size());
+        for (auto const & ll : e.m_geom)
+          points.push_back(mercator::FromLatLon(ll));
 
-      std::vector<int64_t> iPoints;
-      iPoints.reserve(points.size());
-      for (auto const & p : points)
-        iPoints.push_back(PointToInt64Obsolete(p, kPointCoordBits));
+        auto const countries = m_affiliation.GetAffiliations(points);
 
-      std::lock_guard guard(m_mtx);
-      for (auto const & country : countries)
-      {
-        auto & writer = GetWriter(country);
-        e.Save(writer);
-        rw::Write(writer, iPoints);
-      }
-    });
+        std::vector<int64_t> iPoints;
+        iPoints.reserve(points.size());
+        for (auto const & p : points)
+          iPoints.push_back(PointToInt64Obsolete(p, kPointCoordBits));
+
+        std::lock_guard guard(m_mtx);
+        for (auto const & country : countries)
+        {
+          auto & writer = GetWriter(country);
+          e.Save(writer);
+          rw::Write(writer, iPoints);
+        }
+      });
   }
 
   m_workers.WaitingStop();
@@ -90,4 +89,4 @@ void Processor::Run(std::istream & is)
   LOG(LINFO, ("Total entries:", total, "Incomplete:", incomplete));
 }
 
-} // namespace addr_generator
+}  // namespace addr_generator

@@ -19,7 +19,9 @@ struct CellWrapper
   static CellWrapper const kEmpty;
 
   CellWrapper() = default;
-  CellWrapper(m2::RectD const & cell) : m_cell(cell) {}
+  CellWrapper(m2::RectD const & cell)
+    : m_cell(cell)
+  {}
 
   m2::RectD const & GetCell() const { return m_cell; }
   void SetTopLeft(size_t val) { m_topLeft = val; }
@@ -58,8 +60,7 @@ private:
   bool Has(m2::PointI const & xy) const;
   CellWrapper & Get(m2::PointI const & xy);
   CellWrapper & Get(int32_t x, int32_t y);
-  CellWrapper const & TryGet(int32_t x, int32_t y,
-                             CellWrapper const & defaultValue = CellWrapper::kEmpty) const;
+  CellWrapper const & TryGet(int32_t x, int32_t y, CellWrapper const & defaultValue = CellWrapper::kEmpty) const;
 
   void CalcSum();
   std::optional<m2::PointI> FindMax() const;

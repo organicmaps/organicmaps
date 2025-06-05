@@ -24,8 +24,8 @@ class MwmInfo;
 namespace search
 {
 template <typename ToDo>
-void ForEachCategoryType(StringSliceBase const & slice, Locales const & locales,
-                         CategoriesHolder const & categories, ToDo && todo)
+void ForEachCategoryType(StringSliceBase const & slice, Locales const & locales, CategoriesHolder const & categories,
+                         ToDo && todo)
 {
   for (size_t i = 0; i < slice.Size(); ++i)
   {
@@ -68,9 +68,9 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
     request.m_names.push_back(BuildLevenshteinDFA_Category(slice.Get(i)));
     request.SetLangs(locales);
 
-    MatchFeaturesInTrie(request, iterator,
-                        [](uint32_t) { return true; } /* filter */,
-                        [&todo, i](uint32_t type, bool) { todo(i, type); } /* todo */);
+    MatchFeaturesInTrie(
+      request, iterator, [](uint32_t) { return true; } /* filter */,
+      [&todo, i](uint32_t type, bool) { todo(i, type); } /* todo */);
   }
 }
 
@@ -84,24 +84,25 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
                     CategoriesHolder const & catHolder, std::vector<uint32_t> & types)
 {
   types.clear();
-  catHolder.ForEachNameAndType([&](CategoriesHolder::Category::Name const & categorySynonym, uint32_t type)
-  {
-    if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
-      return;
-
-    auto const categoryTokens = NormalizeAndTokenizeString(categorySynonym.m_name);
-
-    if (slice.Size() != categoryTokens.size())
-      return;
-
-    for (size_t i = 0; i < slice.Size(); ++i)
+  catHolder.ForEachNameAndType(
+    [&](CategoriesHolder::Category::Name const & categorySynonym, uint32_t type)
     {
-      if (slice.Get(i) != categoryTokens[i])
+      if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
         return;
-    }
 
-    types.push_back(type);
-  });
+      auto const categoryTokens = NormalizeAndTokenizeString(categorySynonym.m_name);
+
+      if (slice.Size() != categoryTokens.size())
+        return;
+
+      for (size_t i = 0; i < slice.Size(); ++i)
+      {
+        if (slice.Get(i) != categoryTokens[i])
+          return;
+      }
+
+      types.push_back(type);
+    });
 
   return !types.empty();
 }
@@ -113,8 +114,8 @@ std::vector<uint32_t> GetCategoryTypes(std::string const & name, std::string con
 
 using FeatureIndexCallback = std::function<void(FeatureID const &)>;
 // Applies |fn| to each feature index of type from |types| in |rect|.
-void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> const & types,
-                          m2::RectD const & rect, FeatureIndexCallback const & fn);
+void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> const & types, m2::RectD const & rect,
+                          FeatureIndexCallback const & fn);
 
 // Returns true iff |query| contains |categoryEn| synonym.
 bool IsCategorialRequestFuzzy(std::string const & query, std::string const & categoryName);
@@ -124,8 +125,7 @@ void FillRequestFromToken(QueryParams::Token const & token, SearchTrieRequest<DF
 {
   request.m_names.emplace_back(BuildLevenshteinDFA(token.GetOriginal()));
   // Allow misprints for original token only.
-  token.ForEachSynonym([&request](strings::UniString const & s) {
-    request.m_names.emplace_back(strings::LevenshteinDFA(s, 0 /* maxErrors */));
-  });
+  token.ForEachSynonym([&request](strings::UniString const & s)
+                       { request.m_names.emplace_back(strings::LevenshteinDFA(s, 0 /* maxErrors */)); });
 }
 }  // namespace search

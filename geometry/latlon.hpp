@@ -21,7 +21,10 @@ public:
   double m_lon = kInvalid;
 
   LatLon() = default;
-  LatLon(double lat, double lon) : m_lat(lat), m_lon(lon) {}
+  LatLon(double lat, double lon)
+    : m_lat(lat)
+    , m_lon(lon)
+  {}
 
   static LatLon Invalid() { return LatLon(kInvalid, kInvalid); }
   static LatLon Zero() { return LatLon(0.0, 0.0); }

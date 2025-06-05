@@ -69,10 +69,7 @@ void ClampPoint(m2::PointD & pt)
   pt.y = ClampY(pt.y);
 }
 
-double YToLat(double y)
-{
-  return base::RadToDeg(2.0 * atan(tanh(0.5 * base::DegToRad(y))));
-}
+double YToLat(double y) { return base::RadToDeg(2.0 * atan(tanh(0.5 * base::DegToRad(y)))); }
 
 double LatToY(double lat)
 {
@@ -81,10 +78,7 @@ double LatToY(double lat)
   return ClampY(res);
 }
 
-m2::RectD MetersToXY(double lon, double lat, double metersR)
-{
-  return MetersToXY(lon, lat, metersR, metersR);
-}
+m2::RectD MetersToXY(double lon, double lat, double metersR) { return MetersToXY(lon, lat, metersR, metersR); }
 
 m2::RectD RectByCenterXYAndSizeInMeters(double centerX, double centerY, double sizeX, double sizeY)
 {
@@ -101,8 +95,7 @@ m2::RectD RectByCenterXYAndSizeInMeters(m2::PointD const & center, double size)
 
 m2::RectD RectByCenterXYAndOffset(m2::PointD const & center, double offset)
 {
-  return {ClampX(center.x - offset), ClampY(center.y - offset),
-          ClampX(center.x + offset), ClampY(center.y + offset)};
+  return {ClampX(center.x - offset), ClampY(center.y - offset), ClampX(center.x + offset), ClampY(center.y + offset)};
 }
 
 m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
@@ -112,11 +105,11 @@ m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size)
 
 m2::RectD FromLatLon(m2::RectD const & rect)
 {
-  return { FromLatLon(rect.minY(), rect.minX()), FromLatLon(rect.maxY(), rect.maxX()) };
+  return {FromLatLon(rect.minY(), rect.minX()), FromLatLon(rect.maxY(), rect.maxX())};
 }
 
 m2::RectD ToLatLon(m2::RectD const & rect)
 {
-  return { YToLat(rect.minY()), XToLon(rect.minX()), YToLat(rect.maxY()), XToLon(rect.maxX()) };
+  return {YToLat(rect.minY()), XToLon(rect.minX()), YToLat(rect.maxY()), XToLon(rect.maxX())};
 }
 }  // namespace mercator

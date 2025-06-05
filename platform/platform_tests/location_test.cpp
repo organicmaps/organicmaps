@@ -2,7 +2,6 @@
 
 #include "platform/location.hpp"
 
-
 UNIT_TEST(IsLatValid)
 {
   TEST(location::IsLatValid(35.), ());

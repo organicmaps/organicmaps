@@ -4,6 +4,6 @@
 
 namespace search
 {
-static const uint8_t kCategoriesLang = 128;
-static const uint8_t kPostcodesLang = 129;
+static uint8_t const kCategoriesLang = 128;
+static uint8_t const kPostcodesLang = 129;
 }  // namespace search

@@ -63,10 +63,7 @@ UNIT_TEST(Intermediate_Data_way_element_save_load_test)
 
 UNIT_TEST(Intermediate_Data_relation_element_save_load_test)
 {
-  std::vector<RelationElement::Member> testData = {{1, "inner"},
-                                                   {2, "outer"},
-                                                   {3, "unknown"},
-                                                   {4, "inner role"}};
+  std::vector<RelationElement::Member> testData = {{1, "inner"}, {2, "outer"}, {3, "unknown"}, {4, "inner role"}};
 
   RelationElement e1;
 

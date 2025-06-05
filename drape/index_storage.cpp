@@ -35,10 +35,7 @@ void IndexStorage::Resize(uint32_t size)
   m_storage.resize(GetStorageSize(m_size));
 }
 
-uint32_t IndexStorage::Size() const
-{
-  return m_size;
-}
+uint32_t IndexStorage::Size() const { return m_size; }
 
 void * IndexStorage::GetRaw(uint32_t offsetInElements)
 {
@@ -48,22 +45,16 @@ void * IndexStorage::GetRaw(uint32_t offsetInElements)
   return reinterpret_cast<uint16_t *>(m_storage.data()) + offsetInElements;
 }
 
-void const * IndexStorage::GetRawConst() const
-{
-  return static_cast<void const *>(m_storage.data());
-}
+void const * IndexStorage::GetRawConst() const { return static_cast<void const *>(m_storage.data()); }
 
 bool IndexStorage::IsSupported32bit()
 {
   // We do not use 32-bit indices now to reduce size of index buffers.
-  static bool const supports32Bit = false;//GLFunctions::ExtensionsList.IsSupported(GLExtensionsList::UintIndices);
+  static bool const supports32Bit = false;  // GLFunctions::ExtensionsList.IsSupported(GLExtensionsList::UintIndices);
   return supports32Bit;
 }
 
-uint32_t IndexStorage::SizeOfIndex()
-{
-  return IsSupported32bit() ? sizeof(uint32_t) : sizeof(uint16_t);
-}
+uint32_t IndexStorage::SizeOfIndex() { return IsSupported32bit() ? sizeof(uint32_t) : sizeof(uint16_t); }
 
 uint32_t IndexStorage::GetStorageSize(uint32_t elementsCount) const
 {

@@ -14,10 +14,7 @@ namespace search
 {
 using namespace std;
 
-KeywordMatcher::KeywordMatcher()
-{
-  Clear();
-}
+KeywordMatcher::KeywordMatcher() { Clear(); }
 
 void KeywordMatcher::Clear()
 {
@@ -44,8 +41,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const & name)
   return CalcScore(tokens.data(), tokens.size());
 }
 
-KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * tokens,
-                                                size_t count) const
+KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * tokens, size_t count) const
 {
   // Some names can have too many tokens. Trim them.
   count = min(count, kMaxNumTokens);
@@ -117,8 +113,7 @@ KeywordMatcher::Score::Score()
   , m_numQueryTokensAndPrefixMatched(0)
   , m_fullQueryMatched(false)
   , m_prefixMatched(false)
-{
-}
+{}
 
 bool KeywordMatcher::Score::operator<(KeywordMatcher::Score const & s) const
 {
@@ -138,11 +133,9 @@ bool KeywordMatcher::Score::operator<(KeywordMatcher::Score const & s) const
 
 bool KeywordMatcher::Score::operator==(KeywordMatcher::Score const & s) const
 {
-  return m_sumTokenMatchDistance == s.m_sumTokenMatchDistance
-      && m_nameTokensMatched == s.m_nameTokensMatched
-      && m_numQueryTokensAndPrefixMatched == s.m_numQueryTokensAndPrefixMatched
-      && m_fullQueryMatched == s.m_fullQueryMatched
-      && m_prefixMatched == s.m_prefixMatched;
+  return m_sumTokenMatchDistance == s.m_sumTokenMatchDistance && m_nameTokensMatched == s.m_nameTokensMatched &&
+         m_numQueryTokensAndPrefixMatched == s.m_numQueryTokensAndPrefixMatched &&
+         m_fullQueryMatched == s.m_fullQueryMatched && m_prefixMatched == s.m_prefixMatched;
 }
 
 bool KeywordMatcher::Score::LessInTokensLength(Score const & s) const

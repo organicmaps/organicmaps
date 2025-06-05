@@ -1,12 +1,12 @@
 package app.organicmaps.intent;
 
+import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
+
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.IntentCompat;
-
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
 import app.organicmaps.MwmActivity;
@@ -20,16 +20,13 @@ import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.editor.OsmLoginActivity;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.search.SearchActivity;
 import app.organicmaps.sdk.search.SearchEngine;
+import app.organicmaps.search.SearchActivity;
 import app.organicmaps.util.StorageUtils;
 import app.organicmaps.util.concurrency.ThreadPool;
-
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-
-import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
 
 public class Factory
 {
@@ -44,8 +41,7 @@ public class Factory
 
   public static class KmzKmlProcessor implements IntentProcessor
   {
-    @Override
-    public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
+    @Override public boolean process(@NonNull Intent intent, @NonNull MwmActivity activity)
     {
       // See KML/KMZ/KMB intent filters in manifest.
       final List<Uri> uris;
@@ -72,8 +68,7 @@ public class Factory
   {
     private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
 
-    @Override
-    public boolean process(@NonNull Intent intent, @NonNull MwmActivity target)
+    @Override public boolean process(@NonNull Intent intent, @NonNull MwmActivity target)
     {
       final Uri uri = intent.getData();
       if (uri == null)
@@ -81,69 +76,67 @@ public class Factory
 
       switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
       {
-        case RequestType.INCORRECT:
-          return false;
+      case RequestType.INCORRECT: return false;
 
-        case RequestType.MAP:
-          SearchEngine.INSTANCE.cancelInteractiveSearch();
-          Map.executeMapApiRequest();
-          return true;
+      case RequestType.MAP:
+        SearchEngine.INSTANCE.cancelInteractiveSearch();
+        Map.executeMapApiRequest();
+        return true;
 
-        case RequestType.ROUTE:
-          SearchEngine.INSTANCE.cancelInteractiveSearch();
-          final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
-          RoutingController.get().setRouterType(data.mRouterType);
-          final RoutePoint from = data.mPoints[0];
-          final RoutePoint to = data.mPoints[1];
-          RoutingController.get().prepare(MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
-                                                                    from.mName, "", from.mLat, from.mLon),
-                                          MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
-                                                                    to.mName, "", to.mLat, to.mLon));
-          return true;
-        case RequestType.SEARCH:
+      case RequestType.ROUTE:
+        SearchEngine.INSTANCE.cancelInteractiveSearch();
+        final ParsedRoutingData data = Framework.nativeGetParsedRoutingData();
+        RoutingController.get().setRouterType(data.mRouterType);
+        final RoutePoint from = data.mPoints[0];
+        final RoutePoint to = data.mPoints[1];
+        RoutingController.get().prepare(
+          MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT, from.mName, "", from.mLat, from.mLon),
+          MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT, to.mName, "", to.mLat, to.mLon));
+        return true;
+      case RequestType.SEARCH:
+      {
+        SearchEngine.INSTANCE.cancelInteractiveSearch();
+        final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
+        final double[] latlon = Framework.nativeGetParsedCenterLatLon();
+        if (latlon != null)
         {
-          SearchEngine.INSTANCE.cancelInteractiveSearch();
-          final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-          final double[] latlon = Framework.nativeGetParsedCenterLatLon();
-          if (latlon != null)
-          {
-            Framework.nativeStopLocationFollow();
-            Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
-            // We need to update viewport for search api manually because of drape engine
-            // will not notify subscribers when search activity is shown.
-            if (!request.mIsSearchOnMap)
-              Framework.nativeSetSearchViewport(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
-          }
-          SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
-          return true;
+          Framework.nativeStopLocationFollow();
+          Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
+          // We need to update viewport for search api manually because of drape engine
+          // will not notify subscribers when search activity is shown.
+          if (!request.mIsSearchOnMap)
+            Framework.nativeSetSearchViewport(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
         }
-        case RequestType.CROSSHAIR:
+        SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap);
+        return true;
+      }
+      case RequestType.CROSSHAIR:
+      {
+        SearchEngine.INSTANCE.cancelInteractiveSearch();
+        target.showPositionChooserForAPI(Framework.nativeGetParsedAppName());
+
+        final double[] latlon = Framework.nativeGetParsedCenterLatLon();
+        if (latlon != null)
         {
-          SearchEngine.INSTANCE.cancelInteractiveSearch();
-          target.showPositionChooserForAPI(Framework.nativeGetParsedAppName());
-
-          final double[] latlon = Framework.nativeGetParsedCenterLatLon();
-          if (latlon != null)
-          {
-            Framework.nativeStopLocationFollow();
-            Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
-          }
-
-          return true;
-        }
-        case RequestType.OAUTH2:
-        {
-          SearchEngine.INSTANCE.cancelInteractiveSearch();
-
-          final String oauth2code = Framework.nativeGetParsedOAuth2Code();
-          OsmLoginActivity.OAuth2Callback(target, oauth2code);
-
-          return true;
+          Framework.nativeStopLocationFollow();
+          Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
         }
 
-        // Menu and Settings url types should be implemented to support deeplinking.
-        case RequestType.MENU:
-        case RequestType.SETTINGS:
+        return true;
+      }
+      case RequestType.OAUTH2:
+      {
+        SearchEngine.INSTANCE.cancelInteractiveSearch();
+
+        final String oauth2code = Framework.nativeGetParsedOAuth2Code();
+        OsmLoginActivity.OAuth2Callback(target, oauth2code);
+
+        return true;
+      }
+
+      // Menu and Settings url types should be implemented to support deeplinking.
+      case RequestType.MENU:
+      case RequestType.SETTINGS:
       }
 
       return false;

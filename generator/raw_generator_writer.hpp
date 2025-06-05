@@ -14,8 +14,7 @@ namespace generator
 class RawGeneratorWriter
 {
 public:
-  RawGeneratorWriter(std::shared_ptr<FeatureProcessorQueue> const & queue,
-                     std::string const & path);
+  RawGeneratorWriter(std::shared_ptr<FeatureProcessorQueue> const & queue, std::string const & path);
   ~RawGeneratorWriter();
 
   void Run();
@@ -23,8 +22,7 @@ public:
   std::vector<std::string> GetNames();
 
 private:
-  using FeatureBuilderWriter =
-      feature::FeatureBuilderWriter<feature::serialization_policy::MaxAccuracy>;
+  using FeatureBuilderWriter = feature::FeatureBuilderWriter<feature::serialization_policy::MaxAccuracy>;
 
   void Write(std::vector<ProcessedData> const & vecChanks);
 

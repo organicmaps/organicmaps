@@ -11,9 +11,8 @@ public:
   virtual ~FilterInterface() = default;
 
   virtual size_t GetKernelRadius() const = 0;
-  virtual void Process(size_t tileSize, size_t tileOffset,
-               std::vector<ValueType> const & srcValues,
-               std::vector<ValueType> & dstValues, ValueType invalidValue) const = 0;
+  virtual void Process(size_t tileSize, size_t tileOffset, std::vector<ValueType> const & srcValues,
+                       std::vector<ValueType> & dstValues, ValueType invalidValue) const = 0;
 };
 
 template <typename ValueType>
@@ -26,8 +25,7 @@ public:
 
   size_t GetKernelRadius() const override { return m_kernelRadius; }
 
-  void Process(size_t tileSize, size_t tileOffset,
-               std::vector<ValueType> const & srcValues,
+  void Process(size_t tileSize, size_t tileOffset, std::vector<ValueType> const & srcValues,
                std::vector<ValueType> & dstValues, ValueType invalidValue) const override
   {
     ProcessMedian(m_kernelRadius, tileSize, tileOffset, srcValues, dstValues, invalidValue);
@@ -47,8 +45,7 @@ public:
 
   size_t GetKernelRadius() const override { return m_kernel.size() / 2; }
 
-  void Process(size_t tileSize, size_t tileOffset,
-               std::vector<ValueType> const & srcValues,
+  void Process(size_t tileSize, size_t tileOffset, std::vector<ValueType> const & srcValues,
                std::vector<ValueType> & dstValues, ValueType invalidValue) const override
   {
     ProcessWithLinearKernel(m_kernel, tileSize, tileOffset, srcValues, dstValues, invalidValue);
@@ -62,10 +59,8 @@ template <typename ValueType>
 using FiltersSequence = std::vector<std::unique_ptr<FilterInterface<ValueType>>>;
 
 template <typename ValueType>
-std::vector<ValueType> FilterTile(FiltersSequence<ValueType> const & filters,
-                                  ms::LatLon const & leftBottom,
-                                  size_t stepsInDegree, size_t tileSize,
-                                  ValuesProvider<ValueType> & valuesProvider)
+std::vector<ValueType> FilterTile(FiltersSequence<ValueType> const & filters, ms::LatLon const & leftBottom,
+                                  size_t stepsInDegree, size_t tileSize, ValuesProvider<ValueType> & valuesProvider)
 {
   size_t combinedOffset = 0;
   for (auto const & filter : filters)

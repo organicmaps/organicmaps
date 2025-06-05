@@ -2,8 +2,8 @@
 
 #include "platform/platform.hpp"
 
-#include <future>
 #include <functional>
+#include <future>
 #include <utility>
 
 namespace platform
@@ -14,7 +14,7 @@ class SafeCallback;
 // Calls callback on main thread, all params are copied.
 // If not initialized nothing will be done.
 // *NOTE* The class is not thread-safe.
-template <typename R, typename ...Args>
+template <typename R, typename... Args>
 class SafeCallback<R(Args...)>
 {
 public:
@@ -23,13 +23,9 @@ public:
   template <typename Fn>
   SafeCallback(Fn const & fn)
     : m_fn(fn)
-  {
-  }
+  {}
 
-  operator bool() const noexcept
-  {
-    return static_cast<bool>(m_fn);
-  }
+  operator bool() const noexcept { return static_cast<bool>(m_fn); }
 
   void operator()(Args... args) const
   {

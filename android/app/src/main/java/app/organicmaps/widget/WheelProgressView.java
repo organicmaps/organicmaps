@@ -12,12 +12,10 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
@@ -72,7 +70,8 @@ public class WheelProgressView extends AppCompatImageView
 
     typedArray.recycle();
 
-    mPendingDrawable = (AnimationDrawable) ResourcesCompat.getDrawable(getResources(), ThemeUtils.getResource(context, R.attr.wheelPendingAnimation), context.getTheme());
+    mPendingDrawable = (AnimationDrawable) ResourcesCompat.getDrawable(
+      getResources(), ThemeUtils.getResource(context, R.attr.wheelPendingAnimation), context.getTheme());
     Graphics.tint(mPendingDrawable, progressColor);
 
     mBgPaint = new Paint();
@@ -88,10 +87,10 @@ public class WheelProgressView extends AppCompatImageView
     mFgPaint.setAntiAlias(true);
   }
 
-  @NonNull
-  private static Drawable makeCenterDrawable(@NonNull Context context)
+  @NonNull private static Drawable makeCenterDrawable(@NonNull Context context)
   {
-    Drawable normalDrawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_close_spinner, context.getTheme());
+    Drawable normalDrawable =
+      ResourcesCompat.getDrawable(context.getResources(), R.drawable.ic_close_spinner, context.getTheme());
     Drawable wrapped = DrawableCompat.wrap(normalDrawable);
     DrawableCompat.setTint(wrapped.mutate(), ThemeUtils.getColor(context, R.attr.iconTint));
     return normalDrawable;
@@ -103,8 +102,7 @@ public class WheelProgressView extends AppCompatImageView
     invalidate();
   }
 
-  @Override
-  protected void onSizeChanged(int w, int h, int oldw, int oldh)
+  @Override protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
     final int left = getPaddingStart();
     final int top = getPaddingTop();
@@ -119,7 +117,7 @@ public class WheelProgressView extends AppCompatImageView
 
     if (mCenterDrawable instanceof BitmapDrawable)
     {
-      Bitmap bmp = ((BitmapDrawable)mCenterDrawable).getBitmap();
+      Bitmap bmp = ((BitmapDrawable) mCenterDrawable).getBitmap();
       int halfw = bmp.getWidth() / 2;
       int halfh = bmp.getHeight() / 2;
       mCenterDrawable.setBounds(mCenter.x - halfw, mCenter.y - halfh, mCenter.x + halfw, mCenter.y + halfh);
@@ -130,8 +128,7 @@ public class WheelProgressView extends AppCompatImageView
     mIsInit = true;
   }
 
-  @Override
-  protected void onDraw(Canvas canvas)
+  @Override protected void onDraw(Canvas canvas)
   {
     if (mIsInit)
     {
@@ -163,5 +160,4 @@ public class WheelProgressView extends AppCompatImageView
 
     invalidate();
   }
-
 }

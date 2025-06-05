@@ -30,8 +30,7 @@ namespace
 class GenerateTest : public TestWithClassificator
 {
 public:
-  void MakeFeature(TestMwmBuilder & builder, vector<pair<string, string>> const & tags,
-                   m2::PointD const & pt)
+  void MakeFeature(TestMwmBuilder & builder, vector<pair<string, string>> const & tags, m2::PointD const & pt)
   {
     OsmElement e;
     for (auto const & tag : tags)
@@ -78,7 +77,8 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
     types.insert(cl.GetTypeByPath(s));
 
   int count = 0;
-  auto const fn = [&](FeatureType & ft) {
+  auto const fn = [&](FeatureType & ft)
+  {
     ++count;
     ft.ForEachType([&](uint32_t t) { TEST(types.count(t) > 0, (cl.GetReadableObjectName(t))); });
   };

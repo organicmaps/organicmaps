@@ -17,8 +17,8 @@
 #include <QtWidgets/QVBoxLayout>
 
 AboutDialog::AboutDialog(QWidget * parent)
-  : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint |
-            Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint)
+  : QDialog(parent,
+            Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint)
 {
   QIcon icon(":/ui/logo.png");
   setWindowIcon(icon);
@@ -35,7 +35,7 @@ AboutDialog::AboutDialog(QWidget * parent)
   versionLabel->setTextInteractionFlags(Qt::TextSelectableByMouse);
   versionBox->addWidget(versionLabel);
   // TODO: insert maps data version.
-  //versionBox->addWidget(new QLabel(QString("Data: ") + DESIGNER_DATA_VERSION));
+  // versionBox->addWidget(new QLabel(QString("Data: ") + DESIGNER_DATA_VERSION));
 
   QHBoxLayout * hBox = new QHBoxLayout();
   hBox->addWidget(labelIcon);

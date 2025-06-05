@@ -2,7 +2,8 @@
 
 namespace storage
 {
-TestMapFilesDownloader::TestMapFilesDownloader() : HttpMapFilesDownloader()
+TestMapFilesDownloader::TestMapFilesDownloader()
+  : HttpMapFilesDownloader()
 {
   SetServersList({"http://localhost:34568/unit_tests/"});
 }

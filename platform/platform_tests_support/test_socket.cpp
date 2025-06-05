@@ -58,8 +58,7 @@ void TestSocket::SetTimeout(uint32_t milliseconds) { m_timeoutMs = milliseconds;
 size_t TestSocket::ReadServer(vector<uint8_t> & destination)
 {
   unique_lock<mutex> lock(m_outputMutex);
-  m_outputCondition.wait_for(lock, milliseconds(m_timeoutMs),
-                             [this]() { return !m_output.empty(); });
+  m_outputCondition.wait_for(lock, milliseconds(m_timeoutMs), [this]() { return !m_output.empty(); });
 
   size_t const outputSize = m_output.size();
   destination.insert(destination.end(), m_output.begin(), m_output.end());

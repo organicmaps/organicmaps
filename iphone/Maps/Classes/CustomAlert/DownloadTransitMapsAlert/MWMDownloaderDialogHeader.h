@@ -3,8 +3,8 @@
 
 @interface MWMDownloaderDialogHeader : UIView
 
-@property (weak, nonatomic) IBOutlet UIButton * headerButton;
-@property (weak, nonatomic) IBOutlet UIImageView * expandImage;
+@property(weak, nonatomic) IBOutlet UIButton * headerButton;
+@property(weak, nonatomic) IBOutlet UIImageView * expandImage;
 
 + (instancetype)headerForOwnerAlert:(MWMDownloadTransitMapAlert *)alert;
 - (void)layoutSizeLabel;

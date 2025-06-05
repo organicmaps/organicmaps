@@ -12,7 +12,7 @@ UNIT_TEST(Rect)
 {
   m2::RectD rect(0, 0, 500, 300);
 
-  double factor[] = { 0.2, 0.3, 0.5, 0.7, 1.0, 1.3, 1.5, 2.0 };
+  double factor[] = {0.2, 0.3, 0.5, 0.7, 1.0, 1.3, 1.5, 2.0};
   for (size_t i = 0; i < ARRAY_SIZE(factor); ++i)
   {
     m2::RectD r(rect);
@@ -35,5 +35,5 @@ UNIT_TEST(Point)
   TEST(is_equal(start.Move(l, a), m2::PointD(1, 1)), ());
   TEST(is_equal(start.Move(l, math::pi - a), m2::PointD(-1, 1)), ());
   TEST(is_equal(start.Move(l, -math::pi + a), m2::PointD(-1, -1)), ());
-  TEST(is_equal(start.Move(l, - a), m2::PointD(1, -1)), ());
+  TEST(is_equal(start.Move(l, -a), m2::PointD(1, -1)), ());
 }

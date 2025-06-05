@@ -17,27 +17,27 @@
 #include <vector>
 
 #ifdef WITH_GL_MOCK
-# include "base/scope_guard.hpp"
-# include "drape/drape_tests/gl_mock_functions.hpp"
+#include "base/scope_guard.hpp"
+#include "drape/drape_tests/gl_mock_functions.hpp"
 #endif
 
 #ifdef OMIM_OS_IPHONE
-# include <CoreFoundation/CoreFoundation.h>
+#include <CoreFoundation/CoreFoundation.h>
 #endif
 
 #ifndef OMIM_UNIT_TEST_DISABLE_PLATFORM_INIT
-# include "platform/platform.hpp"
+#include "platform/platform.hpp"
 #endif
 
 #if defined(OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP) && !defined(OMIM_OS_IPHONE)
-  #include <QtCore/Qt>
-  #ifdef OMIM_OS_MAC // on Mac OS X native run loop works only for QApplication :(
-    #include <QtWidgets/QApplication>
-    #define QAPP QApplication
-  #else
-    #include <QtCore/QCoreApplication>
-    #define QAPP QCoreApplication
-  #endif
+#include <QtCore/Qt>
+#ifdef OMIM_OS_MAC  // on Mac OS X native run loop works only for QApplication :(
+#include <QtWidgets/QApplication>
+#define QAPP QApplication
+#else
+#include <QtCore/QCoreApplication>
+#define QAPP QCoreApplication
+#endif
 #endif
 
 namespace testing
@@ -50,7 +50,7 @@ void RunEventLoop()
 {
 #if defined(OMIM_OS_IPHONE)
   CFRunLoopRun();
-#elif defined (QAPP)
+#elif defined(QAPP)
   QAPP::exec();
 #endif
 }
@@ -70,10 +70,7 @@ void Wait()
   g_waiter.Reset();
 }
 
-void Notify()
-{
-  g_waiter.Notify();
-}
+void Notify() { g_waiter.Notify(); }
 
 bool g_lastTestOK = true;
 CommandLineOptions g_testingOptions;
@@ -100,18 +97,15 @@ void DisplayOption(ostream & os, char const * option, char const * description)
 
 void DisplayOption(ostream & os, char const * option, char const * value, char const * description)
 {
-  os << "  " << setw(kOptionFieldWidth) << left << (string(option) + value) << " "
-     << description << '\n';
+  os << "  " << setw(kOptionFieldWidth) << left << (string(option) + value) << " " << description << '\n';
 }
 
 void Usage(char const * name)
 {
   cerr << "USAGE: " << name << " [options]\n\n";
   cerr << "OPTIONS:\n";
-  DisplayOption(cerr, kFilterOption, "<ECMA Regexp>",
-                "Run tests with names corresponding to regexp.");
-  DisplayOption(cerr, kSuppressOption, "<ECMA Regexp>",
-                "Do not run tests with names corresponding to regexp.");
+  DisplayOption(cerr, kFilterOption, "<ECMA Regexp>", "Run tests with names corresponding to regexp.");
+  DisplayOption(cerr, kSuppressOption, "<ECMA Regexp>", "Do not run tests with names corresponding to regexp.");
   DisplayOption(cerr, kDataPathOptions, "<Path>", "Path to data files.");
   DisplayOption(cerr, kResourcePathOptions, "<Path>", "Path to resources, styles and classificators.");
   DisplayOption(cerr, kListAllTestsOption, "List all the tests in the test suite and exit.");
@@ -149,10 +143,7 @@ void ParseOptions(int argc, char * argv[], CommandLineOptions & options)
 #endif
 }
 
-CommandLineOptions const & GetTestingOptions()
-{
-  return g_testingOptions;
-}
+CommandLineOptions const & GetTestingOptions() { return g_testingOptions; }
 
 int main(int argc, char * argv[])
 {
@@ -215,16 +206,14 @@ int main(int argc, char * argv[])
   }
 
   int testIndex = 0;
-  for (TestRegister *test = TestRegister::FirstRegister(); test; ++testIndex, test = test->m_next)
+  for (TestRegister * test = TestRegister::FirstRegister(); test; ++testIndex, test = test->m_next)
   {
     auto const & testname = testnames[testIndex];
-    if (g_testingOptions.m_filterRegExp &&
-        !regex_search(testname.begin(), testname.end(), filterRegExp))
+    if (g_testingOptions.m_filterRegExp && !regex_search(testname.begin(), testname.end(), filterRegExp))
     {
       continue;
     }
-    if (g_testingOptions.m_suppressRegExp &&
-        regex_search(testname.begin(), testname.end(), suppressRegExp))
+    if (g_testingOptions.m_suppressRegExp && regex_search(testname.begin(), testname.end(), suppressRegExp))
     {
       continue;
     }
@@ -257,7 +246,7 @@ int main(int argc, char * argv[])
         ++numFailedTests;
       }
     }
-    catch (TestFailureException const & )
+    catch (TestFailureException const &)
     {
       testResults[testIndex] = false;
       ++numFailedTests;

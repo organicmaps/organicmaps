@@ -24,8 +24,7 @@
 class RoutingTest
 {
 public:
-  RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType type,
-              std::set<std::string> const & neededMaps);
+  RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType type, std::set<std::string> const & neededMaps);
 
   virtual ~RoutingTest() = default;
 
@@ -79,12 +78,14 @@ public:
     }
   };
 
-  SimplifiedModelFactory() : m_model(std::make_shared<SimplifiedModel>()) {}
+  SimplifiedModelFactory()
+    : m_model(std::make_shared<SimplifiedModel>())
+  {}
 
   // VehicleModelFactoryInterface overrides:
   std::shared_ptr<routing::VehicleModelInterface> GetVehicleModel() const override { return m_model; }
   std::shared_ptr<routing::VehicleModelInterface> GetVehicleModelForCountry(
-      std::string const & /* country */) const override
+    std::string const & /* country */) const override
   {
     return m_model;
   }
@@ -93,5 +94,5 @@ private:
   std::shared_ptr<SimplifiedModel> const m_model;
 };
 
-void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
-                m2::PointD const & finalPos, routing::Route & route);
+void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos,
+                routing::Route & route);

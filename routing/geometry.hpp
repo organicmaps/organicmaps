@@ -31,15 +31,20 @@ class RoadAttrsGetter;
 class RoadGeometry final
 {
 public:
-  RoadGeometry() : m_isOneWay(false), m_valid(false), m_isPassThroughAllowed(false), m_inCity(false) {}
+  RoadGeometry()
+    : m_isOneWay(false)
+    , m_valid(false)
+    , m_isPassThroughAllowed(false)
+    , m_inCity(false)
+  {}
 
   /// Used in tests.
   using Points = std::vector<m2::PointD>;
   RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points);
 
   /// @param[in] altitudes May be nullptr.
-  void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
-            geometry::Altitudes const * altitudes, RoadAttrsGetter & attrs);
+  void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature, geometry::Altitudes const * altitudes,
+            RoadAttrsGetter & attrs);
 
   SpeedKMpH const & GetSpeed(bool forward) const;
   std::optional<HighwayType> GetHighwayType() const { return m_highwayType; }
@@ -72,10 +77,7 @@ public:
     return pointId == 0 || pointId + 1 == GetPointsCount();
   }
 
-  void SetPassThroughAllowedForTests(bool passThroughAllowed)
-  {
-    m_isPassThroughAllowed = passThroughAllowed;
-  }
+  void SetPassThroughAllowedForTests(bool passThroughAllowed) { m_isPassThroughAllowed = passThroughAllowed; }
 
   bool SuitableForOptions(RoutingOptions avoidRoutingOptions) const
   {
@@ -86,7 +88,7 @@ public:
 
 private:
   std::vector<LatLonWithAltitude> m_junctions;
-  mutable std::vector<double> m_distances;    ///< as cache, @see GetDistance()
+  mutable std::vector<double> m_distances;  ///< as cache, @see GetDistance()
 
   SpeedKMpH m_forwardSpeed;
   SpeedKMpH m_backwardSpeed;
@@ -111,14 +113,13 @@ public:
   using VehicleModelPtrT = std::shared_ptr<VehicleModelInterface>;
 
   /// @param[in] handle should be alive, its caller responsibility to check it.
-  static std::unique_ptr<GeometryLoader> Create(MwmSet::MwmHandle const & handle,
-                                                VehicleModelPtrT const & vehicleModel,
+  static std::unique_ptr<GeometryLoader> Create(MwmSet::MwmHandle const & handle, VehicleModelPtrT const & vehicleModel,
                                                 bool loadAltitudes);
 
   /// This is for stand-alone work.
   /// Use in generator_tool and unit tests.
-  static std::unique_ptr<GeometryLoader> CreateFromFile(
-      std::string const & filePath, VehicleModelPtrT const & vehicleModel);
+  static std::unique_ptr<GeometryLoader> CreateFromFile(std::string const & filePath,
+                                                        VehicleModelPtrT const & vehicleModel);
 };
 
 /// \brief This class supports loading geometry of roads for routing.
@@ -143,10 +144,7 @@ public:
 
   /// \note The reference returned by the method is valid until the next call of GetRoad()
   /// of GetPoint() methods.
-  ms::LatLon const & GetPoint(RoadPoint const & rp)
-  {
-    return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId());
-  }
+  ms::LatLon const & GetPoint(RoadPoint const & rp) { return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId()); }
 
   SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward)
   {

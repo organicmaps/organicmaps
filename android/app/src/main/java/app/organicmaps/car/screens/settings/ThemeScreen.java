@@ -11,7 +11,6 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
@@ -20,21 +19,19 @@ import app.organicmaps.car.util.UiHelpers;
 
 public class ThemeScreen extends BaseMapScreen
 {
-  @NonNull
-  private final CarIcon mRadioButtonIcon;
-  @NonNull
-  private final CarIcon mRadioButtonSelectedIcon;
+  @NonNull private final CarIcon mRadioButtonIcon;
+  @NonNull private final CarIcon mRadioButtonSelectedIcon;
 
   public ThemeScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {
     super(carContext, surfaceRenderer);
-    mRadioButtonIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_unchecked)).build();
-    mRadioButtonSelectedIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_checked)).build();
+    mRadioButtonIcon =
+      new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_unchecked)).build();
+    mRadioButtonSelectedIcon =
+      new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_checked)).build();
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -42,8 +39,7 @@ public class ThemeScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Header createHeader()
+  @NonNull private Header createHeader()
   {
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
@@ -51,8 +47,7 @@ public class ThemeScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private ListTemplate createRadioButtonsTemplate()
+  @NonNull private ListTemplate createRadioButtonsTemplate()
   {
     final ItemList.Builder builder = new ItemList.Builder();
     final ThemeUtils.ThemeMode currentThemeMode = ThemeUtils.getThemeMode(getCarContext());

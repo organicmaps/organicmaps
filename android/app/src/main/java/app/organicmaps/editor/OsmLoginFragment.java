@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -44,8 +43,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     return inflater.inflate(R.layout.fragment_osm_login, container, false);
   }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.login);
@@ -61,16 +59,16 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     if (BuildConfig.FLAVOR.equals("google"))
     {
       // Hide login and password inputs and Forgot password button
-      UiUtils.hide(view.findViewById(R.id.osm_username_container),
-          view.findViewById(R.id.osm_password_container),
-          mLostPasswordButton);
+      UiUtils.hide(view.findViewById(R.id.osm_username_container), view.findViewById(R.id.osm_password_container),
+        mLostPasswordButton);
 
       mLoginButton.setOnClickListener((v) -> loginWithBrowser());
     }
     else
     {
       mLoginButton.setOnClickListener((v) -> login());
-      mLostPasswordButton.setOnClickListener((v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_RECOVER_PASSWORD));
+      mLostPasswordButton.setOnClickListener(
+        (v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_RECOVER_PASSWORD));
     }
 
     String code = readOAuth2CodeFromArguments();
@@ -136,9 +134,9 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   private void onAuthFail()
   {
     new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.editor_login_error_dialog)
-        .setPositiveButton(R.string.ok, null)
-        .show();
+      .setTitle(R.string.editor_login_error_dialog)
+      .setPositiveButton(R.string.ok, null)
+      .show();
   }
 
   private void onAuthSuccess(String oauthToken, String username)
@@ -160,15 +158,11 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
       onAuthFail();
     else
     {
-      ThreadPool.getWorker().execute(() ->
-      {
+      ThreadPool.getWorker().execute(() -> {
         // Finish OAuth2 auth flow and get username for UI.
         final String oauthToken = OsmOAuth.nativeAuthWithOAuth2Code(oauth2code);
         final String username = (oauthToken == null) ? null : OsmOAuth.nativeGetOsmUsername(oauthToken);
-        UiThread.run(() ->
-        {
-          processAuth(oauthToken, username);
-        });
+        UiThread.run(() -> { processAuth(oauthToken, username); });
       });
     }
   }

@@ -1,7 +1,6 @@
 package app.organicmaps.car.screens.search;
 
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -15,14 +14,13 @@ import androidx.car.app.model.SearchTemplate;
 import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.location.LocationHelper;
-import app.organicmaps.sdk.search.SearchListener;
 import app.organicmaps.sdk.search.SearchEngine;
+import app.organicmaps.sdk.search.SearchListener;
 import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.util.Language;
@@ -31,13 +29,10 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
 {
   private final int MAX_RESULTS_SIZE;
 
-  @NonNull
-  private String mQuery = "";
-  @NonNull
-  private String mLocale;
+  @NonNull private String mQuery = "";
+  @NonNull private String mLocale;
 
-  @Nullable
-  private ItemList mResults = null;
+  @Nullable private ItemList mResults = null;
 
   private SearchScreen(@NonNull Builder builder)
   {
@@ -49,9 +44,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     onSearchSubmitted(builder.mQuery);
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final SearchTemplate.Builder builder = new SearchTemplate.Builder(this);
     builder.setHeaderAction(Action.BACK);
@@ -72,8 +65,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     return builder.build();
   }
 
-  @Override
-  public void onSearchTextChanged(@NonNull String searchText)
+  @Override public void onSearchTextChanged(@NonNull String searchText)
   {
     if (mQuery.equals(searchText))
       return;
@@ -98,27 +90,23 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     invalidate();
   }
 
-  @Override
-  public void onSearchSubmitted(@NonNull String searchText)
+  @Override public void onSearchSubmitted(@NonNull String searchText)
   {
     onSearchTextChanged(searchText);
   }
 
-  @Override
-  public void onStart(@NonNull LifecycleOwner owner)
+  @Override public void onStart(@NonNull LifecycleOwner owner)
   {
     SearchEngine.INSTANCE.addListener(this);
   }
 
-  @Override
-  public void onStop(@NonNull LifecycleOwner owner)
+  @Override public void onStop(@NonNull LifecycleOwner owner)
   {
     SearchEngine.INSTANCE.removeListener(this);
     SearchEngine.INSTANCE.cancel();
   }
 
-  @Override
-  public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
+  @Override public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
   {
     final ItemList.Builder builder = new ItemList.Builder();
     builder.setNoItemsMessage(getCarContext().getString(R.string.search_not_found));
@@ -129,17 +117,14 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     invalidate();
   }
 
-  @NonNull
-  private Row createResultItem(@NonNull SearchResult result, int resultIndex)
+  @NonNull private Row createResultItem(@NonNull SearchResult result, int resultIndex)
   {
     final Row.Builder builder = new Row.Builder();
     if (result.type == SearchResult.TYPE_RESULT)
     {
       final String title = result.getTitle(getCarContext());
-      final CharSequence description = SearchUiHelpers.concatenateStrings(
-          SearchUiHelpers.getDistanceText(result),
-          result.description.description,
-          SearchUiHelpers.getOpeningHoursText(getCarContext(), result));
+      final CharSequence description = SearchUiHelpers.concatenateStrings(SearchUiHelpers.getDistanceText(result),
+        result.description.description, SearchUiHelpers.getOpeningHoursText(getCarContext(), result));
       final String region = result.description.region;
       builder.setTitle(title);
       if (!TextUtils.isEmpty(description))
@@ -156,7 +141,8 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     {
       builder.setBrowsable(true);
       builder.setTitle(result.suggestion);
-      builder.setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search)).build());
+      builder.setImage(
+        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search)).build());
       builder.setOnClickListener(() -> onSearchSubmitted(result.suggestion));
     }
     return builder.build();
@@ -164,7 +150,8 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
 
   private boolean loadRecents()
   {
-    final CarIcon iconRecent = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search_recent)).build();
+    final CarIcon iconRecent =
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search_recent)).build();
 
     final ItemList.Builder builder = new ItemList.Builder();
     builder.setNoItemsMessage(getCarContext().getString(R.string.search_history_text));
@@ -184,13 +171,17 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     return recentsSize != 0;
   }
 
-  @NonNull
-  private ActionStrip createActionStrip()
+  @NonNull private ActionStrip createActionStrip()
   {
     final Action.Builder builder = new Action.Builder();
-    builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_show_on_map)).build());
-    builder.setOnClickListener(() ->
-        getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer()).setQuery(mQuery).setLocale(mLocale).build()));
+    builder.setIcon(
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_show_on_map)).build());
+    builder.setOnClickListener(
+      ()
+        -> getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer())
+            .setQuery(mQuery)
+            .setLocale(mLocale)
+            .build()));
 
     return new ActionStrip.Builder().addAction(builder.build()).build();
   }
@@ -200,15 +191,11 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
    */
   public static final class Builder
   {
-    @NonNull
-    private final CarContext mCarContext;
-    @NonNull
-    private final SurfaceRenderer mSurfaceRenderer;
+    @NonNull private final CarContext mCarContext;
+    @NonNull private final SurfaceRenderer mSurfaceRenderer;
 
-    @NonNull
-    private String mQuery = "";
-    @NonNull
-    private String mLocale;
+    @NonNull private String mQuery = "";
+    @NonNull private String mLocale;
 
     public Builder(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
     {
@@ -218,8 +205,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
       mLocale = Language.getKeyboardLocale(mCarContext);
     }
 
-    @NonNull
-    public Builder setQuery(@NonNull String query)
+    @NonNull public Builder setQuery(@NonNull String query)
     {
       mQuery = query;
       return this;
@@ -231,8 +217,7 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
       return this;
     }
 
-    @NonNull
-    public SearchScreen build()
+    @NonNull public SearchScreen build()
     {
       return new SearchScreen(this);
     }

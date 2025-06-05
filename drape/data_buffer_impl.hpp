@@ -42,8 +42,7 @@ public:
 
   void const * Data() const override { return m_buffer->Data(); }
 
-  void UploadData(ref_ptr<GraphicsContext> context, void const * data,
-                  uint32_t elementCount) override
+  void UploadData(ref_ptr<GraphicsContext> context, void const * data, uint32_t elementCount) override
   {
     UNUSED_VALUE(context);
     m_buffer->UploadData(data, elementCount);
@@ -51,8 +50,7 @@ public:
     m_buffer->Seek(newOffset);
   }
 
-  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset,
-             uint32_t elementCount) override
+  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset, uint32_t elementCount) override
   {
     UNUSED_VALUE(context);
     UNUSED_VALUE(elementOffset);
@@ -61,8 +59,7 @@ public:
     return nullptr;
   }
 
-  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
-                  uint32_t elementCount) override
+  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset, uint32_t elementCount) override
   {
     UNUSED_VALUE(destPtr);
     UNUSED_VALUE(srcPtr);
@@ -95,22 +92,19 @@ public:
     return nullptr;
   }
 
-  void UploadData(ref_ptr<GraphicsContext> context, void const * data,
-                  uint32_t elementCount) override
+  void UploadData(ref_ptr<GraphicsContext> context, void const * data, uint32_t elementCount) override
   {
     UNUSED_VALUE(context);
     m_buffer->UploadData(data, elementCount);
   }
 
-  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset,
-             uint32_t elementCount) override
+  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset, uint32_t elementCount) override
   {
     UNUSED_VALUE(context);
     return m_buffer->Map(elementOffset, elementCount);
   }
 
-  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
-                  uint32_t elementCount) override
+  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset, uint32_t elementCount) override
   {
     m_buffer->UpdateData(destPtr, srcPtr, elementOffset, elementCount);
   }

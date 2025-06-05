@@ -18,7 +18,8 @@ public:
   FollowedPolyline() = default;
 
   template <typename Iter>
-  FollowedPolyline(Iter begin, Iter end) : m_poly(begin, end)
+  FollowedPolyline(Iter begin, Iter end)
+    : m_poly(begin, end)
   {
     Update();
     // Initially we do not have intermediate points. Next checkpoint is finish.
@@ -62,7 +63,10 @@ public:
     static size_t constexpr kInvalidIndex = std::numeric_limits<size_t>::max();
 
     Iter() = default;
-    Iter(m2::PointD pt, size_t ind) : m_pt(pt), m_ind(ind) {}
+    Iter(m2::PointD pt, size_t ind)
+      : m_pt(pt)
+      , m_ind(ind)
+    {}
 
     bool IsValid() const { return m_ind != kInvalidIndex; }
 
@@ -93,8 +97,8 @@ public:
   /// \param endIdx The index after the last one in |m_segProj|.
   /// \returns iterator which contains projection point and projection segment index.
   template <typename DistanceFn>
-  Iter GetClosestProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
-                                      size_t startIdx, size_t endIdx) const
+  Iter GetClosestProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn, size_t startIdx,
+                                      size_t endIdx) const
   {
     CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
     CHECK_LESS_OR_EQUAL(startIdx, endIdx, ());
@@ -121,8 +125,7 @@ public:
     return res;
   }
 
-  Iter GetClosestMatchingProjectionInInterval(m2::RectD const & posRect, size_t startIdx,
-                                              size_t endIdx) const;
+  Iter GetClosestMatchingProjectionInInterval(m2::RectD const & posRect, size_t startIdx, size_t endIdx) const;
 
   bool IsFakeSegment(size_t index) const;
 

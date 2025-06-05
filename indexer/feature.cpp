@@ -27,10 +27,7 @@ namespace
 {
 uint32_t constexpr kInvalidOffset = numeric_limits<uint32_t>::max();
 
-bool IsRealGeomOffset(uint32_t offset)
-{
-  return (offset != kInvalidOffset && offset != kGeomOffsetFallback);
-}
+bool IsRealGeomOffset(uint32_t offset) { return (offset != kInvalidOffset && offset != kGeomOffsetFallback); }
 
 // Get an index of inner geometry scale range.
 // @param[in]  scale:
@@ -62,8 +59,7 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale)
 }
 
 // Get an index of outer geometry scale range.
-int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
-                  FeatureType::GeometryOffsets const & offsets)
+int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale, FeatureType::GeometryOffsets const & offsets)
 {
   int const count = loadInfo.GetScalesCount();
   ASSERT_EQUAL(count, static_cast<int>(offsets.size()), ());
@@ -119,8 +115,8 @@ uint32_t CalcOffset(ArrayByteSource const & source, uint8_t const * start)
 
 uint8_t Header(vector<uint8_t> const & data)
 {
- CHECK(!data.empty(), ());
- return data[0];
+  CHECK(!data.empty(), ());
+  return data[0];
 }
 
 void ReadOffsets(SharedLoadInfo const & loadInfo, ArrayByteSource & src, uint8_t mask,
@@ -148,7 +144,10 @@ class BitSource
   uint8_t m_pos;
 
 public:
-  explicit BitSource(uint8_t const * p) : m_ptr(p), m_pos(0) {}
+  explicit BitSource(uint8_t const * p)
+    : m_ptr(p)
+    , m_pos(0)
+  {}
 
   uint8_t Read(uint8_t count)
   {
@@ -195,7 +194,7 @@ FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buf
 {
   CHECK(m_loadInfo, ());
 
-  m_header = Header(m_data); // Parse the header and optional name/layer/addinfo.
+  m_header = Header(m_data);  // Parse the header and optional name/layer/addinfo.
 }
 
 std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject const & emo)
@@ -263,7 +262,7 @@ feature::GeomType FeatureType::GetGeomType() const
   {
   case HeaderGeomType::Line: return GeomType::Line;
   case HeaderGeomType::Area: return GeomType::Area;
-  default: return GeomType::Point; // HeaderGeomType::Point/PointEx
+  default: return GeomType::Point;  // HeaderGeomType::Point/PointEx
   }
 }
 
@@ -287,7 +286,7 @@ void FeatureType::ParseTypes()
     {
       // Possible for newer MWMs with added types.
       LOG(LWARNING, ("Incorrect type index for feature. FeatureID:", m_id, ". Incorrect index:", index,
-                   ". Loaded feature types:", m_types, ". Total count of types:", count));
+                     ". Loaded feature types:", m_types, ". Total count of types:", count));
 
       m_types[i] = c.GetStubType();
     }
@@ -574,7 +573,8 @@ FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
 {
   CHECK(m_loadInfo && m_parsed.m_header2 && !m_parsed.m_triangles, ("Call geometry stats first and once!"));
   int const scalesCount = m_loadInfo->GetScalesCount();
-  ASSERT_LESS_OR_EQUAL(scalesCount, static_cast<int>(DataHeader::kMaxScalesCount), ("MWM has too many geometry scales!"));
+  ASSERT_LESS_OR_EQUAL(scalesCount, static_cast<int>(DataHeader::kMaxScalesCount),
+                       ("MWM has too many geometry scales!"));
   FeatureType::GeomStat res;
 
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
@@ -659,9 +659,7 @@ std::string FeatureType::DebugString()
   m2::PointD keyPoint;
   switch (GetGeomType())
   {
-  case GeomType::Point:
-    keyPoint = m_center;
-    break;
+  case GeomType::Point: keyPoint = m_center; break;
 
   case GeomType::Line:
     if (m_points.empty())
@@ -676,9 +674,7 @@ std::string FeatureType::DebugString()
     keyPoint = (m_triangles[0] + m_triangles[1] + m_triangles[2]) / 3.0;
     break;
 
-  case GeomType::Undefined:
-    ASSERT(false, ());
-    break;
+  case GeomType::Undefined: ASSERT(false, ()); break;
   }
   // Print coordinates in (lat,lon) for better investigation capabilities.
   res += ": " + DebugPrint(keyPoint) + "; " + DebugPrint(mercator::ToLatLon(keyPoint)) + "\n";
@@ -776,13 +772,14 @@ void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, featu
 
   ParseCommon();
 
-  feature::GetPreferredNames({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
+  feature::GetPreferredNames({GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit}, out);
 }
 
 string_view FeatureType::GetReadableName()
 {
   feature::NameParamsOut out;
-  GetReadableName(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentMapLanguage()), out);
+  GetReadableName(false /* allowTranslit */, StringUtf8Multilang::GetLangIndex(languages::GetCurrentMapLanguage()),
+                  out);
   return out.primary;
 }
 
@@ -797,7 +794,7 @@ void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, feature
 
   ParseCommon();
 
-  feature::GetReadableName({ GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit }, out);
+  feature::GetReadableName({GetNames(), mwmInfo->GetRegionData(), deviceLang, allowTranslit}, out);
 }
 
 string const & FeatureType::GetHouseNumber()
@@ -863,6 +860,5 @@ bool FeatureType::HasMetadata(feature::Metadata::EType type)
   if (m_metadata.Has(type))
     return true;
 
-  return base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; }) !=
-         m_metaIds.end();
+  return base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; }) != m_metaIds.end();
 }

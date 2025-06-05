@@ -29,15 +29,12 @@ public:
   inline void SetViewport(m2::RectD const & viewport) { m_viewport = viewport; }
   void SetViewport(ms::LatLon const & ll, double radiusM);
 
-  bool CategoryMatch(std::string const & query, Rules const & rules,
-                     std::string const & locale = "en");
+  bool CategoryMatch(std::string const & query, Rules const & rules, std::string const & locale = "en");
 
-  bool ResultsMatch(std::string const & query, Rules const & rules,
-                    std::string const & locale = "en",
+  bool ResultsMatch(std::string const & query, Rules const & rules, std::string const & locale = "en",
                     Mode mode = Mode::Everywhere);
 
-  bool OrderedResultsMatch(std::string const & query, Rules const & rules,
-                           std::string const & locale = "en",
+  bool OrderedResultsMatch(std::string const & query, Rules const & rules, std::string const & locale = "en",
                            Mode mode = Mode::Everywhere);
 
   bool ResultsMatch(std::vector<Result> const & results, Rules const & rules);
@@ -71,8 +68,7 @@ class SearchTest : public SearchTestBase
 public:
   explicit SearchTest(base::LogLevel logLevel = base::LDEBUG)
     : SearchTestBase(logLevel, true /* mockCountryInfo*/)
-  {
-  }
+  {}
 
   // Registers country in internal records. Note that physical country file may be absent.
   void RegisterCountry(std::string const & name, m2::RectD const & rect);
@@ -90,7 +86,9 @@ public:
     SetTypes({{"amenity", "cafe"}});
   }
 
-  explicit TestCafe(m2::PointD const & center) : TestCafe(center, "cafe", "en") {}
+  explicit TestCafe(m2::PointD const & center)
+    : TestCafe(center, "cafe", "en")
+  {}
 };
 
 class TestHotel : public generator::tests_support::TestPOI
@@ -102,8 +100,10 @@ public:
     SetTypes({{"tourism", "hotel"}});
   }
 
-  explicit TestHotel(m2::PointD const & center) : TestHotel(center, "hotel", "en") {}
+  explicit TestHotel(m2::PointD const & center)
+    : TestHotel(center, "hotel", "en")
+  {}
 };
 
-} // namespace tests_support
-} // namespace search
+}  // namespace tests_support
+}  // namespace search

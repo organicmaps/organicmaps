@@ -30,9 +30,10 @@ void Result::FromFeature(FeatureID const & id, uint32_t mainType, uint32_t match
 }
 
 Result::Result(string str, string && suggest)
-  : m_resultType(Type::PureSuggest), m_str(std::move(str)), m_suggestionStr(std::move(suggest))
-{
-}
+  : m_resultType(Type::PureSuggest)
+  , m_str(std::move(str))
+  , m_suggestionStr(std::move(suggest))
+{}
 
 Result::Result(Result && res, string && suggest)
   : m_id(std::move(res.m_id))
@@ -46,15 +47,9 @@ Result::Result(Result && res, string && suggest)
   m_resultType = m_id.IsValid() ? Type::SuggestFromFeature : Type::PureSuggest;
 }
 
-bool Result::IsSuggest() const
-{
-  return m_resultType == Type::SuggestFromFeature || m_resultType == Type::PureSuggest;
-}
+bool Result::IsSuggest() const { return m_resultType == Type::SuggestFromFeature || m_resultType == Type::PureSuggest; }
 
-bool Result::HasPoint() const
-{
-  return m_resultType != Type::PureSuggest;
-}
+bool Result::HasPoint() const { return m_resultType != Type::PureSuggest; }
 
 FeatureID const & Result::GetFeatureID() const
 {
@@ -71,7 +66,7 @@ uint32_t Result::GetFeatureType() const
 bool Result::IsSameType(uint32_t type) const
 {
   uint8_t const level = ftype::GetLevel(type);
-  for (uint32_t t : { m_mainType, m_matchedType })
+  for (uint32_t t : {m_mainType, m_matchedType})
   {
     ftype::TruncValue(t, level);
     if (t == type)
@@ -133,10 +128,7 @@ string const & Result::GetSuggestionString() const
   return m_suggestionStr;
 }
 
-bool Result::IsEqualSuggest(Result const & r) const
-{
-  return m_suggestionStr == r.m_suggestionStr;
-}
+bool Result::IsEqualSuggest(Result const & r) const { return m_suggestionStr == r.m_suggestionStr; }
 
 bool Result::IsEqualFeature(Result const & r) const
 {
@@ -173,15 +165,9 @@ bool Result::IsEqualFeature(Result const & r) const
   return m_address == r.m_address && PointDistance(m_center, r.m_center) < 10.0;
 }
 
-void Result::AddHighlightRange(pair<uint16_t, uint16_t> const & range)
-{
-  m_hightlightRanges.push_back(range);
-}
+void Result::AddHighlightRange(pair<uint16_t, uint16_t> const & range) { m_hightlightRanges.push_back(range); }
 
-void Result::AddDescHighlightRange(pair<uint16_t, uint16_t> const & range)
-{
-  m_descHightlightRanges.push_back(range);
-}
+void Result::AddDescHighlightRange(pair<uint16_t, uint16_t> const & range) { m_descHightlightRanges.push_back(range); }
 
 pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
 {
@@ -260,10 +246,7 @@ string DebugPrint(Result const & result)
 }
 
 // Results -----------------------------------------------------------------------------------------
-Results::Results()
-{
-  Clear();
-}
+Results::Results() { Clear(); }
 
 bool Results::AddResult(Result && result)
 {
@@ -296,15 +279,9 @@ bool Results::AddResult(Result && result)
   return true;
 }
 
-void Results::AddResultNoChecks(Result && result)
-{
-  InsertResult(m_results.end(), std::move(result));
-}
+void Results::AddResultNoChecks(Result && result) { InsertResult(m_results.end(), std::move(result)); }
 
-void Results::AddBookmarkResult(bookmarks::Result const & result)
-{
-  m_bookmarksResults.push_back(result);
-}
+void Results::AddBookmarkResult(bookmarks::Result const & result) { m_bookmarksResults.push_back(result); }
 
 void Results::Clear()
 {
@@ -324,10 +301,7 @@ size_t Results::GetSuggestsCount() const
   return i;
 }
 
-bookmarks::Results const & Results::GetBookmarksResults() const
-{
-  return m_bookmarksResults;
-}
+bookmarks::Results const & Results::GetBookmarksResults() const { return m_bookmarksResults; }
 
 void Results::InsertResult(vector<Result>::iterator where, Result && result)
 {
@@ -344,8 +318,5 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
   m_results.insert(where, std::move(result));
 }
 
-string DebugPrint(search::Results const & results)
-{
-  return DebugPrintSequence(results.begin(), results.end());
-}
+string DebugPrint(search::Results const & results) { return DebugPrintSequence(results.begin(), results.end()); }
 }  // namespace search

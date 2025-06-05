@@ -13,15 +13,9 @@ namespace gui
 namespace
 {
 #ifdef DEBUG
-bool IsSimple(dp::Anchor anchor)
-{
-  return anchor >= 0 && anchor <= 8;
-}
+bool IsSimple(dp::Anchor anchor) { return anchor >= 0 && anchor <= 8; }
 
-bool IsAnchor(dp::Anchor anchor)
-{
-  return anchor >= 0 && anchor <= 10;
-}
+bool IsAnchor(dp::Anchor anchor) { return anchor >= 0 && anchor <= 10; }
 #endif
 
 dp::Anchor ParseValueAnchor(std::string_view value)
@@ -102,20 +96,11 @@ public:
     }
   }
 
-  void Reset()
-  {
-    m_resolver = PositionResolver();
-  }
+  void Reset() { m_resolver = PositionResolver(); }
 
-  PositionResolver const & GetResolver() const
-  {
-    return m_resolver;
-  }
+  PositionResolver const & GetResolver() const { return m_resolver; }
 
-  void SetElement(Element e)
-  {
-    m_element = e;
-  }
+  void SetElement(Element e) { m_element = e; }
 
 private:
   Element m_element;
@@ -190,17 +175,13 @@ public:
       m_parser.Reset();
       m_inConfiguration = false;
     }
-    else if (element == "ruler" || element == "compass" || element == "copyright" ||
-             element == "country_status")
+    else if (element == "ruler" || element == "compass" || element == "copyright" || element == "country_status")
     {
       m_inElement = false;
     }
   }
 
-  void AddAttr(std::string_view attribute, char const * value)
-  {
-    m_parser.Parse(attribute, value);
-  }
+  void AddAttr(std::string_view attribute, char const * value) { m_parser.Parse(attribute, value); }
 
   void CharData(std::string const &) {}
 
@@ -213,7 +194,7 @@ private:
 
   std::map<EWidget, std::pair<PositionResolver, PositionResolver>> & m_skin;
 };
-}
+}  // namespace
 
 Position PositionResolver::Resolve(int w, int h, double vs) const
 {
@@ -222,47 +203,35 @@ Position PositionResolver::Resolve(int w, int h, double vs) const
   m2::PointF offset = m_offset * vs;
 
   if (m_resolveAnchor & dp::Left)
-   resultX = offset.x;
+    resultX = offset.x;
   else if (m_resolveAnchor & dp::Right)
-   resultX = w - offset.x;
+    resultX = w - offset.x;
   else
-   resultX += offset.x;
+    resultX += offset.x;
 
   if (m_resolveAnchor & dp::Top)
-   resultY = offset.y;
+    resultY = offset.y;
   else if (m_resolveAnchor & dp::Bottom)
-   resultY = h - offset.y;
+    resultY = h - offset.y;
   else
-   resultY += offset.y;
+    resultY += offset.y;
 
   return Position(m2::PointF(resultX, resultY), m_elementAnchor);
 }
 
-void PositionResolver::AddAnchor(dp::Anchor anchor)
-{
-  m_elementAnchor = MergeAnchors(m_elementAnchor, anchor);
-}
+void PositionResolver::AddAnchor(dp::Anchor anchor) { m_elementAnchor = MergeAnchors(m_elementAnchor, anchor); }
 
-void PositionResolver::AddRelative(dp::Anchor anchor)
-{
-  m_resolveAnchor = MergeAnchors(m_resolveAnchor, anchor);
-}
+void PositionResolver::AddRelative(dp::Anchor anchor) { m_resolveAnchor = MergeAnchors(m_resolveAnchor, anchor); }
 
-void PositionResolver::SetOffsetX(float x)
-{
-  m_offset.x = x;
-}
+void PositionResolver::SetOffsetX(float x) { m_offset.x = x; }
 
-void PositionResolver::SetOffsetY(float y)
-{
-  m_offset.y = y;
-}
+void PositionResolver::SetOffsetY(float y) { m_offset.y = y; }
 
 Skin::Skin(ReaderPtr<Reader> const & reader, float visualScale)
   : m_visualScale(visualScale)
 {
   SkinLoader loader(m_resolvers);
-  ReaderSource<ReaderPtr<Reader> > source(reader);
+  ReaderSource<ReaderPtr<Reader>> source(reader);
   if (!ParseXML(source, loader))
     LOG(LERROR, ("Error parsing gui skin"));
 }
@@ -290,9 +259,9 @@ ReaderPtr<Reader> ResolveGuiSkinFile(std::string const & deviceType)
   {
     reader = pl.GetReader("resources-default/" + deviceType + ".ui");
   }
-  catch(FileAbsentException & e)
+  catch (FileAbsentException & e)
   {
-    LOG(LINFO, ("Gui skin for : ", deviceType ,"not found"));
+    LOG(LINFO, ("Gui skin for : ", deviceType, "not found"));
   }
 
   if (!reader)
@@ -301,7 +270,7 @@ ReaderPtr<Reader> ResolveGuiSkinFile(std::string const & deviceType)
     {
       reader = pl.GetReader("resources-default/default.ui");
     }
-    catch(FileAbsentException & e)
+    catch (FileAbsentException & e)
     {
       LOG(LINFO, ("Default gui skin not found"));
       throw e;

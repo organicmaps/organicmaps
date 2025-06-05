@@ -41,7 +41,10 @@ class CollectorInterface
 public:
   friend class CollectorCollection;
 
-  CollectorInterface(std::string const & filename = {}) : m_id(CreateId()), m_filename(filename) {}
+  CollectorInterface(std::string const & filename = {})
+    : m_id(CreateId())
+    , m_filename(filename)
+  {}
   virtual ~CollectorInterface() { CHECK(Platform::RemoveFileIfExists(GetTmpFilename()), (GetTmpFilename())); }
 
   using IDRInterfacePtr = std::shared_ptr<cache::IntermediateDataReaderInterface>;
@@ -82,8 +85,5 @@ private:
 };
 }  // namespace generator
 
-#define IMPLEMENT_COLLECTOR_IFACE(className)                \
-  void Merge(CollectorInterface const & ci) override        \
-  {                                                         \
-    dynamic_cast<className const &>(ci).MergeInto(*this);   \
-  }
+#define IMPLEMENT_COLLECTOR_IFACE(className) \
+  void Merge(CollectorInterface const & ci) override { dynamic_cast<className const &>(ci).MergeInto(*this); }

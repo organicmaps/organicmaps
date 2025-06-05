@@ -27,7 +27,7 @@ class SdfParsingDispatcher
 {
 public:
   explicit SdfParsingDispatcher(StringSet & symbols)
-      : m_symbols(symbols)
+    : m_symbols(symbols)
   {}
 
   bool Push(char const *) { return true; }
@@ -46,12 +46,13 @@ private:
 StringSet GetSymbolsSetFromDrawingRule()
 {
   StringSet symbols;
-  drule::rules().ForEachRule([&symbols](drule::BaseRule const * rule)
-  {
-    SymbolRuleProto const * symbol = rule->GetSymbol();
-    if (symbol && !symbol->name().empty())
-      symbols.insert(symbol->name());
-  });
+  drule::rules().ForEachRule(
+    [&symbols](drule::BaseRule const * rule)
+    {
+      SymbolRuleProto const * symbol = rule->GetSymbol();
+      if (symbol && !symbol->name().empty())
+        symbols.insert(symbol->name());
+    });
   return symbols;
 }
 
@@ -60,7 +61,7 @@ StringSet GetSymbolsSetFromResourcesFile(std::string_view density)
   StringSet symbols;
   SdfParsingDispatcher dispatcher(symbols);
   ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader("symbols.sdf", density);
-  ReaderSource<ReaderPtr<Reader> > source(reader);
+  ReaderSource<ReaderPtr<Reader>> source(reader);
   ParseXML(source, dispatcher);
   return symbols;
 }
@@ -70,30 +71,30 @@ UNIT_TEST(Test_SymbolsConsistency)
 {
   bool res = true;
 
-  std::string_view constexpr densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus" };
+  std::string_view constexpr densities[] = {"mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus"};
 
-  styles::RunForEveryMapStyle([&](MapStyle mapStyle)
-  {
-    StringSet const drawingRuleSymbols = GetSymbolsSetFromDrawingRule();
-
-    for (std::string_view density : densities)
+  styles::RunForEveryMapStyle(
+    [&](MapStyle mapStyle)
     {
-      StringSet const resourceStyles = GetSymbolsSetFromResourcesFile(density);
+      StringSet const drawingRuleSymbols = GetSymbolsSetFromDrawingRule();
 
-      std::vector<std::string> missed;
-      std::set_difference(drawingRuleSymbols.begin(), drawingRuleSymbols.end(),
-                     resourceStyles.begin(), resourceStyles.end(),
-                     back_inserter(missed));
-
-      if (!missed.empty())
+      for (std::string_view density : densities)
       {
-        // We are interested in all set of bugs, therefore we do not stop test here but
-        // continue it just keeping in res that test failed.
-        LOG(LINFO, ("Symbols mismatch: style", mapStyle, ", density", density, ", missed", missed));
-        res = false;
+        StringSet const resourceStyles = GetSymbolsSetFromResourcesFile(density);
+
+        std::vector<std::string> missed;
+        std::set_difference(drawingRuleSymbols.begin(), drawingRuleSymbols.end(), resourceStyles.begin(),
+                            resourceStyles.end(), back_inserter(missed));
+
+        if (!missed.empty())
+        {
+          // We are interested in all set of bugs, therefore we do not stop test here but
+          // continue it just keeping in res that test failed.
+          LOG(LINFO, ("Symbols mismatch: style", mapStyle, ", density", density, ", missed", missed));
+          res = false;
+        }
       }
-    }
-  });
+    });
 
   TEST(res, ());
 }

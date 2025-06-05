@@ -31,67 +31,66 @@ SpeedKMpH constexpr kSpeedDismountKMpH = {2.0 /* weight */, 4.0 /* eta */};
 SpeedKMpH constexpr kSpeedOnFootwayKMpH = {8.0 /* weight */, 10.0 /* eta */};
 
 HighwayBasedSpeeds const kDefaultSpeeds = {
-    // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}
-    // Note that roads with hwtag=yesbicycle get high speed of 0.9 * Cycleway.
-    /// @see Russia_UseTrunk test for Trunk weights.
-    {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(7.0, 17.0), SpeedKMpH(9.0, 19.0))},
-    // Presence of link roads usually means that connected roads are high traffic.
-    // And complex intersections themselves are not nice for cyclists. We can't
-    // easily extrapolate this to the main roads, but at least penalize the link roads a bit.
-    // https://github.com/organicmaps/organicmaps/pull/9692#discussion_r1851442568
-    {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(6.0, 17.0), SpeedKMpH(8.0, 19.0))},
-    {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(SpeedKMpH(10.0, 17.0), SpeedKMpH(12.0, 19.0))},
-    {HighwayType::HighwayPrimaryLink, InOutCitySpeedKMpH(SpeedKMpH(8.0, 17.0), SpeedKMpH(11.0, 19.0))},
-    {HighwayType::HighwaySecondary, InOutCitySpeedKMpH(SpeedKMpH(13.0, 17.0), SpeedKMpH(15.0, 19.0))},
-    {HighwayType::HighwaySecondaryLink, InOutCitySpeedKMpH(SpeedKMpH(11.0, 17.0), SpeedKMpH(13.0, 19.0))},
-    {HighwayType::HighwayTertiary, InOutCitySpeedKMpH(SpeedKMpH(14.0, 17.0), SpeedKMpH(17.0, 19.0))},
-    {HighwayType::HighwayTertiaryLink, InOutCitySpeedKMpH(SpeedKMpH(13.0, 17.0), SpeedKMpH(16.0, 19.0))},
-    {HighwayType::HighwayUnclassified, InOutCitySpeedKMpH(SpeedKMpH(13.0, 17.0), SpeedKMpH(15.0, 19.0))},
-    {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(12.0, 14.0), SpeedKMpH(14.0, 17.0))},
-    {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(13.0, 15.0), SpeedKMpH(15.0, 17.0))},
-    {HighwayType::HighwayRoad, InOutCitySpeedKMpH(SpeedKMpH(11.0, 15.0), SpeedKMpH(14.0, 17.0))},
+  // {highway class : InOutCitySpeedKMpH(in city(weight, eta), out city(weight eta))}
+  // Note that roads with hwtag=yesbicycle get high speed of 0.9 * Cycleway.
+  /// @see Russia_UseTrunk test for Trunk weights.
+  {HighwayType::HighwayTrunk, InOutCitySpeedKMpH(SpeedKMpH(7.0, 17.0), SpeedKMpH(9.0, 19.0))},
+  // Presence of link roads usually means that connected roads are high traffic.
+  // And complex intersections themselves are not nice for cyclists. We can't
+  // easily extrapolate this to the main roads, but at least penalize the link roads a bit.
+  // https://github.com/organicmaps/organicmaps/pull/9692#discussion_r1851442568
+  {HighwayType::HighwayTrunkLink, InOutCitySpeedKMpH(SpeedKMpH(6.0, 17.0), SpeedKMpH(8.0, 19.0))},
+  {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(SpeedKMpH(10.0, 17.0), SpeedKMpH(12.0, 19.0))},
+  {HighwayType::HighwayPrimaryLink, InOutCitySpeedKMpH(SpeedKMpH(8.0, 17.0), SpeedKMpH(11.0, 19.0))},
+  {HighwayType::HighwaySecondary, InOutCitySpeedKMpH(SpeedKMpH(13.0, 17.0), SpeedKMpH(15.0, 19.0))},
+  {HighwayType::HighwaySecondaryLink, InOutCitySpeedKMpH(SpeedKMpH(11.0, 17.0), SpeedKMpH(13.0, 19.0))},
+  {HighwayType::HighwayTertiary, InOutCitySpeedKMpH(SpeedKMpH(14.0, 17.0), SpeedKMpH(17.0, 19.0))},
+  {HighwayType::HighwayTertiaryLink, InOutCitySpeedKMpH(SpeedKMpH(13.0, 17.0), SpeedKMpH(16.0, 19.0))},
+  {HighwayType::HighwayUnclassified, InOutCitySpeedKMpH(SpeedKMpH(13.0, 17.0), SpeedKMpH(15.0, 19.0))},
+  {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(12.0, 14.0), SpeedKMpH(14.0, 17.0))},
+  {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(13.0, 15.0), SpeedKMpH(15.0, 17.0))},
+  {HighwayType::HighwayRoad, InOutCitySpeedKMpH(SpeedKMpH(11.0, 15.0), SpeedKMpH(14.0, 17.0))},
 
-    {HighwayType::HighwayTrack, InOutCitySpeedKMpH(SpeedKMpH(8.0, 12.0), SpeedKMpH(10.0, 14.0))},
-    {HighwayType::HighwayPath, InOutCitySpeedKMpH(SpeedKMpH(6.0, 10.0), SpeedKMpH(7.0, 12.0))},
-    {HighwayType::HighwayBridleway, InOutCitySpeedKMpH(SpeedKMpH(4.0, 10.0), SpeedKMpH(5.0, 12.0))},
+  {HighwayType::HighwayTrack, InOutCitySpeedKMpH(SpeedKMpH(8.0, 12.0), SpeedKMpH(10.0, 14.0))},
+  {HighwayType::HighwayPath, InOutCitySpeedKMpH(SpeedKMpH(6.0, 10.0), SpeedKMpH(7.0, 12.0))},
+  {HighwayType::HighwayBridleway, InOutCitySpeedKMpH(SpeedKMpH(4.0, 10.0), SpeedKMpH(5.0, 12.0))},
 
-    {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(21.0, 18.0), SpeedKMpH(23.0, 20.0))},
-    {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH(SpeedKMpH(12.0, 10.0), SpeedKMpH(14.0, 12.0))},
-    // Steps have obvious inconvenience of a bike in hands.
-    {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(1.0, 1.0))},
-    {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
-    {HighwayType::HighwayFootway, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
-    {HighwayType::ManMadePier, InOutCitySpeedKMpH(kSpeedOnFootwayKMpH)},
-    /// @todo A car ferry has {10, 10}. Weight = 9 is 60% from reasonable 15 average speed.
-    {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(9.0, 20.0))},
+  {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(21.0, 18.0), SpeedKMpH(23.0, 20.0))},
+  {HighwayType::HighwayLivingStreet, InOutCitySpeedKMpH(SpeedKMpH(12.0, 10.0), SpeedKMpH(14.0, 12.0))},
+  // Steps have obvious inconvenience of a bike in hands.
+  {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(1.0, 1.0))},
+  {HighwayType::HighwayPedestrian, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
+  {HighwayType::HighwayFootway, InOutCitySpeedKMpH(kSpeedDismountKMpH)},
+  {HighwayType::ManMadePier, InOutCitySpeedKMpH(kSpeedOnFootwayKMpH)},
+  /// @todo A car ferry has {10, 10}. Weight = 9 is 60% from reasonable 15 average speed.
+  {HighwayType::RouteFerry, InOutCitySpeedKMpH(SpeedKMpH(9.0, 20.0))},
 };
 
 // Default, no bridleway.
 VehicleModel::LimitsInitList const kDefaultOptions = {
-    // {HighwayType, passThroughAllowed}
-    {HighwayType::HighwayTrunk, true},
-    {HighwayType::HighwayTrunkLink, true},
-    {HighwayType::HighwayPrimary, true},
-    {HighwayType::HighwayPrimaryLink, true},
-    {HighwayType::HighwaySecondary, true},
-    {HighwayType::HighwaySecondaryLink, true},
-    {HighwayType::HighwayTertiary, true},
-    {HighwayType::HighwayTertiaryLink, true},
-    {HighwayType::HighwayService, true},
-    {HighwayType::HighwayUnclassified, true},
-    {HighwayType::HighwayRoad, true},
-    {HighwayType::HighwayTrack, true},
-    {HighwayType::HighwayPath, true},
-    // HighwayBridleway is missing
-    {HighwayType::HighwayCycleway, true},
-    {HighwayType::HighwayResidential, true},
-    {HighwayType::HighwayLivingStreet, true},
-    {HighwayType::HighwaySteps, true},
-    {HighwayType::HighwayPedestrian, true},
-    {HighwayType::HighwayFootway, true},
-    {HighwayType::ManMadePier, true},
-    {HighwayType::RouteFerry, true}
-};
+  // {HighwayType, passThroughAllowed}
+  {HighwayType::HighwayTrunk, true},
+  {HighwayType::HighwayTrunkLink, true},
+  {HighwayType::HighwayPrimary, true},
+  {HighwayType::HighwayPrimaryLink, true},
+  {HighwayType::HighwaySecondary, true},
+  {HighwayType::HighwaySecondaryLink, true},
+  {HighwayType::HighwayTertiary, true},
+  {HighwayType::HighwayTertiaryLink, true},
+  {HighwayType::HighwayService, true},
+  {HighwayType::HighwayUnclassified, true},
+  {HighwayType::HighwayRoad, true},
+  {HighwayType::HighwayTrack, true},
+  {HighwayType::HighwayPath, true},
+  // HighwayBridleway is missing
+  {HighwayType::HighwayCycleway, true},
+  {HighwayType::HighwayResidential, true},
+  {HighwayType::HighwayLivingStreet, true},
+  {HighwayType::HighwaySteps, true},
+  {HighwayType::HighwayPedestrian, true},
+  {HighwayType::HighwayFootway, true},
+  {HighwayType::ManMadePier, true},
+  {HighwayType::RouteFerry, true}};
 
 // Same as defaults except trunk and trunk_link are not allowed
 VehicleModel::LimitsInitList NoTrunk()
@@ -188,13 +187,11 @@ namespace routing
 {
 BicycleModel::BicycleModel()
   : BicycleModel(bicycle_model::kDefaultOptions)
-{
-}
+{}
 
 BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits)
   : BicycleModel(limits, bicycle_model::kDefaultSpeeds)
-{
-}
+{}
 
 BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds)
   : VehicleModel(classif(), limits, bicycle_model::kBicycleSurface, {speeds, bicycle_model::kDefaultFactors})
@@ -214,7 +211,7 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
 
   // Assign 90% of max cycleway speed for bicycle=yes to keep choosing most preferred cycleway.
   auto const yesSpeed = kDefaultSpeeds.Get(HighwayType::HighwayCycleway).m_inCity * 0.9;
-  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed) }});
+  AddAdditionalRoadTypes(cl, {{std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed)}});
 
   // Update max speed with possible ferry transfer and bicycle speed downhill.
   // See EdgeEstimator::CalcHeuristic, GetBicycleClimbPenalty.
@@ -223,15 +220,9 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
   m_maxModelSpeed = kMaxBicycleSpeedKMpH;
 }
 
-bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
-{
-  return types.Has(m_bidirBicycleType);
-}
+bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const { return types.Has(m_bidirBicycleType); }
 
-bool BicycleModel::IsBicycleOnedir(feature::TypesHolder const & types) const
-{
-  return types.Has(m_onedirBicycleType);
-}
+bool BicycleModel::IsBicycleOnedir(feature::TypesHolder const & types) const { return types.Has(m_onedirBicycleType); }
 
 SpeedKMpH BicycleModel::GetSpeed(FeatureTypes const & types, SpeedParams const & speedParams) const
 {
@@ -261,13 +252,9 @@ BicycleModel const & BicycleModel::AllLimitsInstance()
 }
 
 // static
-SpeedKMpH BicycleModel::DismountSpeed()
-{
-  return bicycle_model::kSpeedDismountKMpH;
-}
+SpeedKMpH BicycleModel::DismountSpeed() { return bicycle_model::kSpeedDismountKMpH; }
 
-BicycleModelFactory::BicycleModelFactory(
-    CountryParentNameGetterFn const & countryParentNameGetterFn)
+BicycleModelFactory::BicycleModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)
 {
   using namespace bicycle_model;
@@ -295,8 +282,9 @@ BicycleModelFactory::BicycleModelFactory(
   m_models["Philippines"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianSpeed());
   m_models["Poland"] = make_shared<BicycleModel>(NoTrunk());
   m_models["Romania"] = make_shared<BicycleModel>(AllAllowed());
-  // Note. Despite the fact that according to https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
-  // passing through service and living_street with a bicycle is prohibited it's allowed according to Russian traffic rules.
+  // Note. Despite the fact that according to
+  // https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions passing through service and
+  // living_street with a bicycle is prohibited it's allowed according to Russian traffic rules.
   m_models["Russian Federation"] = make_shared<BicycleModel>(kDefaultOptions, NormalPedestrianAndFootwaySpeed());
   m_models["Slovakia"] = make_shared<BicycleModel>(NoTrunk());
   m_models["Spain"] = make_shared<BicycleModel>(NoTrunk(), NormalPedestrianSpeed());
@@ -306,4 +294,4 @@ BicycleModelFactory::BicycleModelFactory(
   m_models["United Kingdom"] = make_shared<BicycleModel>(AllAllowed());
   m_models["United States of America"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianSpeed());
 }
-}  // routing
+}  // namespace routing

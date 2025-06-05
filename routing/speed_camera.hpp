@@ -13,7 +13,9 @@ struct SpeedCameraOnRoute
 {
   SpeedCameraOnRoute() = default;
   SpeedCameraOnRoute(double distFromBegin, uint8_t maxSpeedKmH, m2::PointD const & position)
-    : m_distFromBeginMeters(distFromBegin), m_maxSpeedKmH(maxSpeedKmH), m_position(position)
+    : m_distFromBeginMeters(distFromBegin)
+    , m_maxSpeedKmH(maxSpeedKmH)
+    , m_position(position)
   {}
 
   static uint8_t constexpr kNoSpeedInfo = std::numeric_limits<uint8_t>::max();

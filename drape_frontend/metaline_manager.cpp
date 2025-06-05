@@ -10,21 +10,14 @@
 
 namespace df
 {
-MetalineManager::MetalineManager(ref_ptr<ThreadsCommutator> commutator,
-                                 MapDataProvider & model)
+MetalineManager::MetalineManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model)
   : m_model(model)
   , m_commutator(commutator)
 {}
 
-MetalineManager::~MetalineManager()
-{
-  Stop();
-}
+MetalineManager::~MetalineManager() { Stop(); }
 
-void MetalineManager::Stop()
-{
-  m_activeTasks.FinishAll();
-}
+void MetalineManager::Stop() { m_activeTasks.FinishAll(); }
 
 void MetalineManager::Update(std::set<MwmSet::MwmId> const & mwms)
 {
@@ -36,11 +29,12 @@ void MetalineManager::Update(std::set<MwmSet::MwmId> const & mwms)
       continue;
 
     auto readingTask = std::make_shared<ReadMetalineTask>(m_model, mwm);
-    auto routine = dp::DrapeRoutine::Run([this, readingTask]()
-    {
-      readingTask->Run();
-      OnTaskFinished(readingTask);
-    });
+    auto routine = dp::DrapeRoutine::Run(
+      [this, readingTask]()
+      {
+        readingTask->Run();
+        OnTaskFinished(readingTask);
+      });
 
     if (routine)
       m_activeTasks.Add(std::move(readingTask), std::move(routine));
@@ -67,8 +61,7 @@ void MetalineManager::OnTaskFinished(std::shared_ptr<ReadMetalineTask> const & t
   {
     // Notify frontend renderer.
     LOG(LDEBUG, ("Metalines prepared:", task->GetMwmId()));
-    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<UpdateMetalinesMessage>(),
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<UpdateMetalinesMessage>(),
                               MessagePriority::Normal);
   }
 

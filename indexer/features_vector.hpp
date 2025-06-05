@@ -10,7 +10,10 @@
 #include <memory>
 #include <vector>
 
-namespace feature { class FeaturesOffsetsTable; }
+namespace feature
+{
+class FeaturesOffsetsTable;
+}
 
 /// Note! This class is NOT Thread-Safe.
 /// You should have separate instance of Vector for every thread.
@@ -20,35 +23,36 @@ class FeaturesVector
 
 public:
   FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header,
-                 feature::FeaturesOffsetsTable const * table,
-                 indexer::MetadataDeserializer * metaDeserializer);
+                 feature::FeaturesOffsetsTable const * table, indexer::MetadataDeserializer * metaDeserializer);
 
   std::unique_ptr<FeatureType> GetByIndex(uint32_t index) const;
 
   size_t GetNumFeatures() const;
 
-  template <class ToDo> void ForEach(ToDo && toDo) const
+  template <class ToDo>
+  void ForEach(ToDo && toDo) const
   {
     uint32_t index = 0;
-    m_recordReader->ForEachRecord([&](uint32_t pos, std::vector<uint8_t> && data)
-    {
-      FeatureType ft(&m_loadInfo, std::move(data), m_metaDeserializer);
+    m_recordReader->ForEachRecord(
+      [&](uint32_t pos, std::vector<uint8_t> && data)
+      {
+        FeatureType ft(&m_loadInfo, std::move(data), m_metaDeserializer);
 
-      // We can't properly set MwmId here, because FeaturesVector
-      // works with FileContainerR, not with MwmId/MwmHandle/MwmValue.
-      // But it's OK to set at least feature's index, because it can
-      // be used later for Metadata loading.
-      ft.SetID(FeatureID(MwmSet::MwmId(), index));
-      toDo(ft, m_table ? index++ : pos);
-    });
+        // We can't properly set MwmId here, because FeaturesVector
+        // works with FileContainerR, not with MwmId/MwmHandle/MwmValue.
+        // But it's OK to set at least feature's index, because it can
+        // be used later for Metadata loading.
+        ft.SetID(FeatureID(MwmSet::MwmId(), index));
+        toDo(ft, m_table ? index++ : pos);
+      });
   }
 
-  template <class ToDo> static void ForEachOffset(FilesContainerR const & cont, ToDo && toDo)
+  template <class ToDo>
+  static void ForEachOffset(FilesContainerR const & cont, ToDo && toDo)
   {
     feature::DataHeader header(cont);
     FeaturesVector vec(cont, header);
-    vec.m_recordReader->ForEachRecord(
-        [&](uint32_t pos, std::vector<uint8_t> && /* data */) { toDo(pos); });
+    vec.m_recordReader->ForEachRecord([&](uint32_t pos, std::vector<uint8_t> && /* data */) { toDo(pos); });
   }
 
 private:

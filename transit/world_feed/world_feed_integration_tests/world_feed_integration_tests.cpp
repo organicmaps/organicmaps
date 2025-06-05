@@ -162,33 +162,15 @@ private:
   WorldFeed m_globalFeed;
 };
 
-UNIT_CLASS_TEST(WorldFeedIntegrationTests, MinimalisticFeed)
-{
-  ReadMinimalisticFeed();
-}
+UNIT_CLASS_TEST(WorldFeedIntegrationTests, MinimalisticFeed) { ReadMinimalisticFeed(); }
 
-UNIT_CLASS_TEST(WorldFeedIntegrationTests, RealLifeFeed)
-{
-  ReadRealLifeFeed();
-}
+UNIT_CLASS_TEST(WorldFeedIntegrationTests, RealLifeFeed) { ReadRealLifeFeed(); }
 
-UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithLongItinerary)
-{
-  SplitFeedIntoMultipleRegions();
-}
+UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithLongItinerary) { SplitFeedIntoMultipleRegions(); }
 
-UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithMultipleShapeProjections)
-{
-  ReadFeedWithMultipleShapeProjections();
-}
+UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithMultipleShapeProjections) { ReadFeedWithMultipleShapeProjections(); }
 
-UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithWrongStopsOrder)
-{
-  ReadFeedWithWrongStopsOrder();
-}
+UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithWrongStopsOrder) { ReadFeedWithWrongStopsOrder(); }
 
-UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithBackwardOrder)
-{
-  ReadFeedWithBackwardOrder();
-}
+UNIT_CLASS_TEST(WorldFeedIntegrationTests, FeedWithBackwardOrder) { ReadFeedWithBackwardOrder(); }
 }  // namespace transit

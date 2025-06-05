@@ -4,10 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import java.util.Locale;
 
 public class Language
@@ -15,10 +13,7 @@ public class Language
   // Locale.getLanguage() returns even 3-letter codes, not that we need in the C++ core,
   // so we use locale itself, like zh_CN
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @NonNull
-  public static String getDefaultLocale()
+  @Keep @SuppressWarnings("unused") @NonNull public static String getDefaultLocale()
   {
     String lang = Locale.getDefault().toString();
     if (TextUtils.isEmpty(lang))
@@ -37,11 +32,9 @@ public class Language
 
   // After some testing on Galaxy S4, looks like this method doesn't work on all devices:
   // sometime it always returns the same value as getDefaultLocale()
-  @NonNull
-  public static String getKeyboardLocale(@NonNull Context context)
+  @NonNull public static String getKeyboardLocale(@NonNull Context context)
   {
-    InputMethodManager imm = (InputMethodManager) context
-        .getSystemService(Context.INPUT_METHOD_SERVICE);
+    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
     if (imm == null)
       return getDefaultLocale();
 
@@ -56,6 +49,5 @@ public class Language
     return locale;
   }
 
-  @NonNull
-  public static native String nativeNormalize(@NonNull String locale);
+  @NonNull public static native String nativeNormalize(@NonNull String locale);
 }

@@ -28,8 +28,7 @@ BoundaryPostcodesEnricher::BoundaryPostcodesEnricher(std::string const & boundar
     CHECK(!postcode.empty() && !geometry.empty(), ());
 
     m_boundaryPostcodes.emplace_back(std::move(postcode), std::move(geometry));
-    m_boundariesTree.Add(m_boundaryPostcodes.size() - 1,
-                         m_boundaryPostcodes.back().second.GetRect());
+    m_boundariesTree.Add(m_boundaryPostcodes.size() - 1, m_boundaryPostcodes.back().second.GetRect());
   }
 }
 
@@ -49,14 +48,15 @@ void BoundaryPostcodesEnricher::Enrich(feature::FeatureBuilder & fb) const
     return;
 
   auto const center = fb.GetKeyPoint();
-  m_boundariesTree.ForAnyInRect(m2::RectD(center, center), [&](size_t i)
-  {
-    CHECK_LESS(i, m_boundaryPostcodes.size(), ());
-    if (!m_boundaryPostcodes[i].second.Contains(center))
-      return false;
+  m_boundariesTree.ForAnyInRect(m2::RectD(center, center),
+                                [&](size_t i)
+                                {
+                                  CHECK_LESS(i, m_boundaryPostcodes.size(), ());
+                                  if (!m_boundaryPostcodes[i].second.Contains(center))
+                                    return false;
 
-    params.SetPostcode(m_boundaryPostcodes[i].first);
-    return true;
-  });
+                                  params.SetPostcode(m_boundaryPostcodes[i].first);
+                                  return true;
+                                });
 }
 }  // namespace generator

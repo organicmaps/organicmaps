@@ -19,7 +19,9 @@ public:
   };
 
   HttpUploader() = delete;
-  explicit HttpUploader(HttpPayload const & payload) : m_payload(payload) {}
+  explicit HttpUploader(HttpPayload const & payload)
+    : m_payload(payload)
+  {}
   HttpPayload const & GetPayload() const { return m_payload; }
   Result Upload() const;
 

@@ -12,7 +12,7 @@
 
 using namespace osm;
 
-@interface MWMAuthorizationOSMLoginViewController ()<UITextFieldDelegate>
+@interface MWMAuthorizationOSMLoginViewController () <UITextFieldDelegate>
 
 @property(weak, nonatomic) IBOutlet UITextField * loginTextField;
 @property(weak, nonatomic) IBOutlet UITextField * passwordTextField;
@@ -41,8 +41,14 @@ using namespace osm;
     [self.loginTextField becomeFirstResponder];
 }
 
-- (BOOL)shouldAutorotate { return NO; }
-- (void)checkConnection { self.forgotButton.enabled = Platform::IsConnected(); }
+- (BOOL)shouldAutorotate
+{
+  return NO;
+}
+- (void)checkConnection
+{
+  self.forgotButton.enabled = Platform::IsConnected();
+}
 
 #pragma mark - UITextFieldDelegate
 
@@ -138,7 +144,10 @@ using namespace osm;
   }
 }
 
-- (IBAction)cancel { [self.navigationController popViewControllerAnimated:YES]; }
+- (IBAction)cancel
+{
+  [self.navigationController popViewControllerAnimated:YES];
+}
 - (IBAction)forgotPassword
 {
   [self openUrl:@(OsmOAuth::ServerAuth().GetResetPasswordURL().c_str())];

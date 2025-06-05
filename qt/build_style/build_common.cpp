@@ -63,24 +63,18 @@ bool CopyFile(QString const & oldFile, QString const & newFile)
 void CopyFromResources(QString const & name, QString const & output)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  if (!CopyFile(JoinPathQt({resourceDir, name}),
-                JoinPathQt({output, name})))
+  if (!CopyFile(JoinPathQt({resourceDir, name}), JoinPathQt({output, name})))
   {
-    throw std::runtime_error(std::string("Cannot copy file ") +
-                             name.toStdString() +
-                             " to " + output.toStdString());
+    throw std::runtime_error(std::string("Cannot copy file ") + name.toStdString() + " to " + output.toStdString());
   }
 }
 
 void CopyToResources(QString const & name, QString const & input, QString const & newName)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
-  if (!CopyFile(JoinPathQt({input, name}),
-                JoinPathQt({resourceDir, newName.isEmpty() ? name : newName})))
+  if (!CopyFile(JoinPathQt({input, name}), JoinPathQt({resourceDir, newName.isEmpty() ? name : newName})))
   {
-    throw std::runtime_error(std::string("Cannot copy file ") +
-                             name.toStdString() +
-                             " from " + input.toStdString());
+    throw std::runtime_error(std::string("Cannot copy file ") + name.toStdString() + " from " + input.toStdString());
   }
 }
 
@@ -102,8 +96,7 @@ QString JoinPathQt(std::initializer_list<QString> folders)
   return QDir::cleanPath(result);
 }
 
-QString GetExternalPath(QString const & name, QString const & primaryPath,
-                        QString const & secondaryPath)
+QString GetExternalPath(QString const & name, QString const & primaryPath, QString const & secondaryPath)
 {
   QString const resourceDir = GetPlatform().ResourcesDir().c_str();
   QString path = JoinPathQt({resourceDir, primaryPath, name});
@@ -123,7 +116,4 @@ QString GetExternalPath(QString const & name, QString const & primaryPath,
   return path;
 }
 
-QString GetProtobufEggPath()
-{
-  return GetExternalPath("protobuf-3.3.0-py2.7.egg", "kothic", "../3party/protobuf");
-}
+QString GetProtobufEggPath() { return GetExternalPath("protobuf-3.3.0-py2.7.egg", "kothic", "../3party/protobuf"); }

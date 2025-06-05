@@ -6,10 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -25,8 +23,7 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.ArrowView;
 
-public class DirectionFragment extends BaseMwmDialogFragment
-                            implements LocationListener, SensorListener
+public class DirectionFragment extends BaseMwmDialogFragment implements LocationListener, SensorListener
 {
   private static final String EXTRA_MAP_OBJECT = "MapObject";
 
@@ -38,8 +35,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
 
   private MapObject mMapObject;
 
-  @Override
-  protected int getCustomTheme()
+  @Override protected int getCustomTheme()
   {
     return R.style.MwmTheme_DialogFragment_Fullscreen_Translucent;
   }
@@ -60,8 +56,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
     return root;
   }
 
-  @Override
-  public void onSaveInstanceState(Bundle outState)
+  @Override public void onSaveInstanceState(Bundle outState)
   {
     outState.putParcelable(EXTRA_MAP_OBJECT, mMapObject);
     super.onSaveInstanceState(outState);
@@ -97,9 +92,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
     }
   }
 
-
-  @Override
-  public void onResume()
+  @Override public void onResume()
   {
     super.onResume();
     LocationHelper.from(requireContext()).addListener(this);
@@ -108,50 +101,43 @@ public class DirectionFragment extends BaseMwmDialogFragment
     refreshViews();
   }
 
-  @Override
-  public void onPause()
+  @Override public void onPause()
   {
     super.onPause();
     LocationHelper.from(requireContext()).removeListener(this);
     SensorHelper.from(requireContext()).removeListener(this);
   }
 
-  @Override
-  public void onStop()
+  @Override public void onStop()
   {
     super.onStop();
     ((MwmActivity) requireActivity()).hideOrShowUIWithoutClosingPlacePage(false);
   }
 
-  @Override
-  public void onLocationUpdated(@NonNull Location location)
+  @Override public void onLocationUpdated(@NonNull Location location)
   {
     if (mMapObject != null)
     {
-      final DistanceAndAzimut distanceAndAzimuth =
-          Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
-                                                          location.getLatitude(), location.getLongitude(), 0.0);
+      final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(
+        mMapObject.getLat(), mMapObject.getLon(), location.getLatitude(), location.getLongitude(), 0.0);
       mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
     }
   }
 
-  @Override
-  public void onCompassUpdated(double north)
+  @Override public void onCompassUpdated(double north)
   {
     final Location last = LocationHelper.from(requireContext()).getSavedLocation();
     if (last == null || mMapObject == null)
       return;
 
     final DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimuthFromLatLon(
-        mMapObject.getLat(), mMapObject.getLon(),
-        last.getLatitude(), last.getLongitude(), north);
+      mMapObject.getLat(), mMapObject.getLon(), last.getLatitude(), last.getLongitude(), north);
 
     if (da.getAzimuth() >= 0)
     {
       mAvDirection.setAzimuth(da.getAzimuth());
       final DistanceAndAzimut daAbs = Framework.nativeGetDistanceAndAzimuthFromLatLon(
-          mMapObject.getLat(), mMapObject.getLon(),
-          last.getLatitude(), last.getLongitude(), 0.0);
+        mMapObject.getLat(), mMapObject.getLon(), last.getLatitude(), last.getLongitude(), 0.0);
       mTvAzimuth.setText(StringUtils.formatUsingUsLocale("%.0f°", Math.toDegrees(daAbs.getAzimuth())));
     }
   }

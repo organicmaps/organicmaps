@@ -8,9 +8,8 @@ namespace qt
 {
 
 PopupMenuHolder::PopupMenuHolder(QObject * parent)
-: QObject(parent)
-{
-}
+  : QObject(parent)
+{}
 
 QAction * PopupMenuHolder::addActionImpl(QIcon const & icon, QString const & text, bool checkable)
 {
@@ -32,10 +31,7 @@ QToolButton * PopupMenuHolder::create()
   return m_toolButton;
 }
 
-void PopupMenuHolder::setMainIcon(QIcon const & icon)
-{
-  m_toolButton->setIcon(icon);
-}
+void PopupMenuHolder::setMainIcon(QIcon const & icon) { m_toolButton->setIcon(icon); }
 
 void PopupMenuHolder::setCurrent(size_t idx)
 {
@@ -57,4 +53,4 @@ bool PopupMenuHolder::isChecked(size_t idx)
   return m_actions[idx]->isChecked();
 }
 
-} // namespace qt
+}  // namespace qt

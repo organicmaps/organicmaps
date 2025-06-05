@@ -23,8 +23,8 @@ public:
   virtual ref_ptr<void> GetLineData() = 0;
   virtual uint32_t GetLineSize() = 0;
 
-//  virtual ref_ptr<void> GetJoinData() = 0;
-//  virtual uint32_t GetJoinSize() = 0;
+  //  virtual ref_ptr<void> GetJoinData() = 0;
+  //  virtual uint32_t GetJoinSize() = 0;
 
   virtual dp::BindingInfo const & GetCapBindingInfo() = 0;
   virtual dp::RenderState GetCapState() = 0;
@@ -47,7 +47,8 @@ private:
     return glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar));
   }
 
-  template <class FnT> void ForEachSplineSection(FnT && fn) const;
+  template <class FnT>
+  void ForEachSplineSection(FnT && fn) const;
 
   template <typename TBuilder>
   void Construct(TBuilder & builder) const;
@@ -60,4 +61,3 @@ private:
   mutable bool m_isSimple;
 };
 }  // namespace df
-

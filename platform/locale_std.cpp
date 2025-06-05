@@ -6,9 +6,7 @@ namespace platform
 {
 Locale StdLocale2Locale(std::locale loc)
 {
-  return {"",
-          "",
-          std::use_facet<std::moneypunct<char, true>>(loc).curr_symbol(),
+  return {"", "", std::use_facet<std::moneypunct<char, true>>(loc).curr_symbol(),
           std::string(1, std::use_facet<std::numpunct<char>>(loc).decimal_point()),
           std::string(1, std::use_facet<std::numpunct<char>>(loc).thousands_sep())};
 }
@@ -21,7 +19,7 @@ Locale GetCurrentLocale()
   return StdLocale2Locale(loc);
 }
 
-bool GetLocale(std::string const localeName, Locale& result)
+bool GetLocale(std::string const localeName, Locale & result)
 {
   try
   {
@@ -31,11 +29,10 @@ bool GetLocale(std::string const localeName, Locale& result)
 
     return true;
   }
-  catch(...)
+  catch (...)
   {
     return false;
   }
 }
 
 }  // namespace platform
-

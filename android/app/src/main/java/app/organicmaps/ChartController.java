@@ -5,10 +5,15 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-
+import app.organicmaps.bookmarks.data.BookmarkManager;
+import app.organicmaps.bookmarks.data.ElevationInfo;
+import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.Utils;
+import app.organicmaps.widget.placepage.AxisValueFormatter;
+import app.organicmaps.widget.placepage.CurrentLocationMarkerView;
+import app.organicmaps.widget.placepage.FloatingMarkerView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.MarkerView;
@@ -20,15 +25,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.ElevationInfo;
-import app.organicmaps.widget.placepage.AxisValueFormatter;
-import app.organicmaps.widget.placepage.CurrentLocationMarkerView;
-import app.organicmaps.widget.placepage.FloatingMarkerView;
-import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.Utils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -46,23 +42,12 @@ public class ChartController implements OnChartValueSelectedListener,
   private static final float CUBIC_INTENSITY = 0.2f;
   private static final int CURRENT_POSITION_OUT_OF_TRACK = -1;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private LineChart mChart;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private FloatingMarkerView mFloatingMarkerView;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private MarkerView mCurrentLocationMarkerView;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mMaxAltitude;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mMinAltitude;
-  @NonNull
-  private final Context mContext;
+  @SuppressWarnings("NullableProblems") @NonNull private LineChart mChart;
+  @SuppressWarnings("NullableProblems") @NonNull private FloatingMarkerView mFloatingMarkerView;
+  @SuppressWarnings("NullableProblems") @NonNull private MarkerView mCurrentLocationMarkerView;
+  @SuppressWarnings("NullableProblems") @NonNull private TextView mMaxAltitude;
+  @SuppressWarnings("NullableProblems") @NonNull private TextView mMinAltitude;
+  @NonNull private final Context mContext;
   private long mTrackId = Utils.INVALID_ID;
   private boolean mCurrentPositionOutOfTrack = true;
 
@@ -95,8 +80,8 @@ public class ChartController implements OnChartValueSelectedListener,
     mChart.setExtraTopOffset(0);
     int sideOffset = resources.getDimensionPixelSize(R.dimen.margin_base);
     int topOffset = 0;
-    mChart.setViewPortOffsets(sideOffset, topOffset, sideOffset,
-                              resources.getDimensionPixelSize(R.dimen.margin_base_plus_quarter));
+    mChart.setViewPortOffsets(
+      sideOffset, topOffset, sideOffset, resources.getDimensionPixelSize(R.dimen.margin_base_plus_quarter));
     mChart.getDescription().setEnabled(false);
     mChart.setDrawBorders(false);
     Legend l = mChart.getLegend();
@@ -104,8 +89,7 @@ public class ChartController implements OnChartValueSelectedListener,
     initAxises();
   }
 
-  @SuppressWarnings("unused")
-  public void destroy()
+  @SuppressWarnings("unused") public void destroy()
   {
     BookmarkManager.INSTANCE.setElevationActivePointChangedListener(null);
     BookmarkManager.INSTANCE.setElevationCurrentPositionChangedListener(null);
@@ -113,8 +97,8 @@ public class ChartController implements OnChartValueSelectedListener,
 
   private void highlightChartCurrentLocation()
   {
-    mChart.highlightValues(Collections.singletonList(getCurrentPosHighlight()),
-                           Collections.singletonList(mCurrentLocationMarkerView));
+    mChart.highlightValues(
+      Collections.singletonList(getCurrentPosHighlight()), Collections.singletonList(mCurrentLocationMarkerView));
   }
 
   private void initAxises()
@@ -150,7 +134,7 @@ public class ChartController implements OnChartValueSelectedListener,
     mTrackId = info.getId();
     List<Entry> values = new ArrayList<>();
 
-    for (ElevationInfo.Point point: info.getPoints())
+    for (ElevationInfo.Point point : info.getPoints())
       values.add(new Entry((float) point.getDistance(), point.getAltitude()));
 
     LineDataSet set = new LineDataSet(values, "Elevation_profile_points");
@@ -182,31 +166,28 @@ public class ChartController implements OnChartValueSelectedListener,
     highlightActivePointManually();
   }
 
-  @Override
-  public void onValueSelected(Entry e, Highlight h) {
+  @Override public void onValueSelected(Entry e, Highlight h)
+  {
     mFloatingMarkerView.updateOffsets(e, h);
     Highlight curPos = getCurrentPosHighlight();
 
     if (mCurrentPositionOutOfTrack)
       mChart.highlightValues(Collections.singletonList(h), Collections.singletonList(mFloatingMarkerView));
     else
-      mChart.highlightValues(Arrays.asList(curPos, h), Arrays.asList(mCurrentLocationMarkerView,
-                                                                       mFloatingMarkerView));
+      mChart.highlightValues(Arrays.asList(curPos, h), Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
     if (mTrackId == Utils.INVALID_ID)
       return;
 
     BookmarkManager.INSTANCE.setElevationActivePoint(mTrackId, e.getX());
   }
 
-  @NonNull
-  private Highlight getCurrentPosHighlight()
+  @NonNull private Highlight getCurrentPosHighlight()
   {
     double activeX = BookmarkManager.INSTANCE.getElevationCurPositionDistance(mTrackId);
     return new Highlight((float) activeX, 0f, 0);
   }
 
-  @Override
-  public void onNothingSelected()
+  @Override public void onNothingSelected()
   {
     if (mCurrentPositionOutOfTrack)
       return;
@@ -214,8 +195,7 @@ public class ChartController implements OnChartValueSelectedListener,
     highlightChartCurrentLocation();
   }
 
-  @Override
-  public void onCurrentPositionChanged()
+  @Override public void onCurrentPositionChanged()
   {
     if (mTrackId == Utils.INVALID_ID)
       return;
@@ -225,8 +205,7 @@ public class ChartController implements OnChartValueSelectedListener,
     highlightActivePointManually();
   }
 
-  @Override
-  public void onElevationActivePointChanged()
+  @Override public void onElevationActivePointChanged()
   {
     if (mTrackId == Utils.INVALID_ID)
       return;
@@ -240,8 +219,7 @@ public class ChartController implements OnChartValueSelectedListener,
     mChart.highlightValue(highlight, true);
   }
 
-  @NonNull
-  private Highlight getActivePoint()
+  @NonNull private Highlight getActivePoint()
   {
     double activeX = BookmarkManager.INSTANCE.getElevationActivePointDistance(mTrackId);
     return new Highlight((float) activeX, 0f, 0);

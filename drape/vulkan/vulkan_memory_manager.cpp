@@ -13,25 +13,22 @@ namespace vulkan
 {
 namespace
 {
-std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kMinBlockSizeInBytes =
-{{
+std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kMinBlockSizeInBytes = {{
   1024 * 1024,  // Geometry
   128 * 1024,   // Uniform
   0,            // Staging (no minimal size)
   0,            // Image (no minimal size)
 }};
 
-std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kDesiredSizeInBytes =
-{{
+std::array<uint32_t, VulkanMemoryManager::kResourcesCount> const kDesiredSizeInBytes = {{
   80 * 1024 * 1024,                      // Geometry
   std::numeric_limits<uint32_t>::max(),  // Uniform (unlimited)
   20 * 1024 * 1024,                      // Staging
   100 * 1024 * 1024,                     // Image
 }};
 
-VkMemoryPropertyFlags GetMemoryPropertyFlags(
-    VulkanMemoryManager::ResourceType resourceType,
-    std::optional<VkMemoryPropertyFlags> & fallbackTypeBits)
+VkMemoryPropertyFlags GetMemoryPropertyFlags(VulkanMemoryManager::ResourceType resourceType,
+                                             std::optional<VkMemoryPropertyFlags> & fallbackTypeBits)
 {
   switch (resourceType)
   {
@@ -51,8 +48,7 @@ VkMemoryPropertyFlags GetMemoryPropertyFlags(
     // No fallback.
     return VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
 
-  case VulkanMemoryManager::ResourceType::Count:
-    CHECK(false, ());
+  case VulkanMemoryManager::ResourceType::Count: CHECK(false, ());
   }
   return 0;
 }
@@ -61,18 +57,9 @@ struct LessBlockSize
 {
   using BlockPtrT = drape_ptr<VulkanMemoryManager::MemoryBlock>;
 
-  bool operator()(BlockPtrT const & b1, BlockPtrT const & b2) const
-  {
-    return b1->m_blockSize < b2->m_blockSize;
-  }
-  bool operator()(BlockPtrT const & b1, uint32_t b2) const
-  {
-    return b1->m_blockSize < b2;
-  }
-  bool operator()(uint32_t b1, BlockPtrT const & b2) const
-  {
-    return b1 < b2->m_blockSize;
-  }
+  bool operator()(BlockPtrT const & b1, BlockPtrT const & b2) const { return b1->m_blockSize < b2->m_blockSize; }
+  bool operator()(BlockPtrT const & b1, uint32_t b2) const { return b1->m_blockSize < b2; }
+  bool operator()(uint32_t b1, BlockPtrT const & b2) const { return b1 < b2->m_blockSize; }
 };
 }  // namespace
 
@@ -105,8 +92,8 @@ VulkanMemoryManager::~VulkanMemoryManager()
   ASSERT_EQUAL(m_totalAllocationCounter, 0, ());
 }
 
-std::optional<uint32_t> VulkanMemoryManager::GetMemoryTypeIndex(
-    uint32_t typeBits, VkMemoryPropertyFlags properties) const
+std::optional<uint32_t> VulkanMemoryManager::GetMemoryTypeIndex(uint32_t typeBits,
+                                                                VkMemoryPropertyFlags properties) const
 {
   for (uint32_t i = 0; i < m_memoryProperties.memoryTypeCount; i++)
   {
@@ -125,21 +112,19 @@ uint32_t VulkanMemoryManager::GetOffsetAlignment(ResourceType resourceType) cons
   if (resourceType == ResourceType::Uniform)
   {
     static uint32_t const kUniformAlignment =
-        base::LCM(static_cast<uint32_t>(m_deviceLimits.minUniformBufferOffsetAlignment),
-                  static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
+      base::LCM(static_cast<uint32_t>(m_deviceLimits.minUniformBufferOffsetAlignment),
+                static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
     return kUniformAlignment;
   }
 
-  static uint32_t const kAlignment =
-      base::LCM(static_cast<uint32_t>(m_deviceLimits.minMemoryMapAlignment),
-                static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
+  static uint32_t const kAlignment = base::LCM(static_cast<uint32_t>(m_deviceLimits.minMemoryMapAlignment),
+                                               static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
   return kAlignment;
 }
 
 uint32_t VulkanMemoryManager::GetSizeAlignment(VkMemoryRequirements const & memReqs) const
 {
-  return base::LCM(static_cast<uint32_t>(memReqs.alignment),
-                   static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
+  return base::LCM(static_cast<uint32_t>(memReqs.alignment), static_cast<uint32_t>(m_deviceLimits.nonCoherentAtomSize));
 }
 
 // static
@@ -151,8 +136,7 @@ uint32_t VulkanMemoryManager::GetAligned(uint32_t value, uint32_t alignment)
 }
 
 VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType resourceType,
-                                                                 VkMemoryRequirements memReqs,
-                                                                 uint64_t blockHash)
+                                                                 VkMemoryRequirements memReqs, uint64_t blockHash)
 {
   size_t const intResType = static_cast<size_t>(resourceType);
   auto const alignedSize = GetAligned(static_cast<uint32_t>(memReqs.size), GetSizeAlignment(memReqs));
@@ -171,8 +155,7 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
       {
         block->m_freeOffset = alignedOffset + alignedSize;
         block->m_allocationCounter++;
-        return std::make_shared<Allocation>(resourceType, blockHash, alignedOffset, alignedSize,
-                                            make_ref(block));
+        return std::make_shared<Allocation>(resourceType, blockHash, alignedOffset, alignedSize, make_ref(block));
       }
     }
 
@@ -191,8 +174,7 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
 
       freeBlock->m_freeOffset = alignedSize;
       freeBlock->m_allocationCounter++;
-      auto p = std::make_shared<Allocation>(resourceType, blockHash, 0, alignedSize,
-                                            make_ref(freeBlock));
+      auto p = std::make_shared<Allocation>(resourceType, blockHash, 0, alignedSize, make_ref(freeBlock));
 
       m[blockHash].push_back(std::move(freeBlock));
       return p;
@@ -222,8 +204,8 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
   IncrementTotalAllocationsCount();
 
   CHECK_VK_CALL_EX(vkAllocateMemory(m_device, &memAllocInfo, nullptr, &memory),
-                   ("Requested size =", blockSize, "Allocated sizes =", m_sizes, "Total allocs =", m_totalAllocationCounter,
-                    m_memory[intResType].size(), m_freeBlocks[intResType].size()));
+                   ("Requested size =", blockSize, "Allocated sizes =", m_sizes, "Total allocs =",
+                    m_totalAllocationCounter, m_memory[intResType].size(), m_freeBlocks[intResType].size()));
 
   m_sizes[intResType] += blockSize;
 
@@ -237,8 +219,7 @@ VulkanMemoryManager::AllocationPtr VulkanMemoryManager::Allocate(ResourceType re
   newBlock->m_allocationCounter++;
   newBlock->m_isCoherent = ((flags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) != 0);
 
-  auto p = std::make_shared<Allocation>(resourceType, blockHash, 0, alignedSize,
-                                        make_ref(newBlock));
+  auto p = std::make_shared<Allocation>(resourceType, blockHash, 0, alignedSize, make_ref(newBlock));
   m[blockHash].push_back(std::move(newBlock));
   return p;
 }
@@ -259,10 +240,10 @@ void VulkanMemoryManager::Deallocate(AllocationPtr ptr)
   CHECK(it != m.end(), ());
   auto blockIt = std::find_if(it->second.begin(), it->second.end(),
                               [&ptr](drape_ptr<MemoryBlock> const & b)
-  {
-    ASSERT(ptr->m_memoryBlock != nullptr, ());
-    return b->m_memory == ptr->m_memoryBlock->m_memory;
-  });
+                              {
+                                ASSERT(ptr->m_memoryBlock != nullptr, ());
+                                return b->m_memory == ptr->m_memoryBlock->m_memory;
+                              });
   CHECK(blockIt != it->second.end(), ());
   CHECK_GREATER((*blockIt)->m_allocationCounter, 0, ());
   (*blockIt)->m_allocationCounter--;
@@ -317,25 +298,26 @@ void VulkanMemoryManager::EndDeallocationSession()
       auto & m = p.second;
       m.erase(std::remove_if(m.begin(), m.end(),
                              [this, &fm, i](drape_ptr<MemoryBlock> & b)
-      {
-        if (b->m_allocationCounter != 0)
-          return false;
+                             {
+                               if (b->m_allocationCounter != 0)
+                                 return false;
 
-        if (m_sizes[i] > kDesiredSizeInBytes[i])
-        {
-          CHECK_LESS_OR_EQUAL(b->m_blockSize, m_sizes[i], ());
-          m_sizes[i] -= b->m_blockSize;
-          DecrementTotalAllocationsCount();
-          vkFreeMemory(m_device, b->m_memory, nullptr);
-        }
-        else
-        {
-          auto block = std::move(b);
-          block->m_freeOffset = 0;
-          fm.push_back(std::move(block));
-        }
-        return true;
-      }), m.end());
+                               if (m_sizes[i] > kDesiredSizeInBytes[i])
+                               {
+                                 CHECK_LESS_OR_EQUAL(b->m_blockSize, m_sizes[i], ());
+                                 m_sizes[i] -= b->m_blockSize;
+                                 DecrementTotalAllocationsCount();
+                                 vkFreeMemory(m_device, b->m_memory, nullptr);
+                               }
+                               else
+                               {
+                                 auto block = std::move(b);
+                                 block->m_freeOffset = 0;
+                                 fm.push_back(std::move(block));
+                               }
+                               return true;
+                             }),
+              m.end());
 
       if (m.empty())
         hashesToDelete.push_back(p.first);
@@ -361,9 +343,6 @@ void VulkanMemoryManager::DecrementTotalAllocationsCount()
   --m_totalAllocationCounter;
 }
 
-VkPhysicalDeviceLimits const & VulkanMemoryManager::GetDeviceLimits() const
-{
-  return m_deviceLimits;
-}
+VkPhysicalDeviceLimits const & VulkanMemoryManager::GetDeviceLimits() const { return m_deviceLimits; }
 }  // namespace vulkan
 }  // namespace dp

@@ -9,16 +9,13 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.core.location.LocationListenerCompat;
 import androidx.core.location.LocationManagerCompat;
 import androidx.core.location.LocationRequestCompat;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.util.log.Logger;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,14 +25,12 @@ class AndroidNativeProvider extends BaseLocationProvider
 
   private class NativeLocationListener implements LocationListenerCompat
   {
-    @Override
-    public void onLocationChanged(@NonNull Location location)
+    @Override public void onLocationChanged(@NonNull Location location)
     {
       mListener.onLocationChanged(location);
     }
 
-    @Override
-    public void onProviderDisabled(@NonNull String provider)
+    @Override public void onProviderDisabled(@NonNull String provider)
     {
       Logger.d(TAG, "Disabled location provider: " + provider);
       mProviders.remove(provider);
@@ -43,27 +38,22 @@ class AndroidNativeProvider extends BaseLocationProvider
         mListener.onLocationDisabled();
     }
 
-
-    @Override
-    public void onProviderEnabled(@NonNull String provider)
+    @Override public void onProviderEnabled(@NonNull String provider)
     {
       Logger.d(TAG, "Enabled location provider: " + provider);
       mProviders.add(provider);
     }
 
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras)
+    @Override public void onStatusChanged(String provider, int status, Bundle extras)
     {
       Logger.d(TAG, "Status changed for location provider: " + provider + "; new status = " + status);
     }
   }
 
-  @NonNull
-  private final LocationManager mLocationManager;
+  @NonNull private final LocationManager mLocationManager;
   private final Set<String> mProviders;
 
-  @NonNull
-  final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();
+  @NonNull final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();
 
   AndroidNativeProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
   {
@@ -76,15 +66,15 @@ class AndroidNativeProvider extends BaseLocationProvider
   }
 
   // A permission is checked externally
-  @Override
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
-  public void start(long interval)
+  @Override @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION}) public void start(long interval)
   {
     Logger.d(TAG);
     if (!mProviders.isEmpty())
       throw new IllegalStateException("Already started");
 
-    final LocationRequestCompat locationRequest = new LocationRequestCompat.Builder(interval)
+    final LocationRequestCompat locationRequest =
+      new LocationRequestCompat
+        .Builder(interval)
         // The quality is a hint to providers on how they should weigh power vs accuracy tradeoffs.
         .setQuality(LocationRequestCompat.QUALITY_HIGH_ACCURACY)
         .build();
@@ -110,10 +100,10 @@ class AndroidNativeProvider extends BaseLocationProvider
 
     for (String provider : mProviders)
     {
-      Logger.d(TAG, "Request Android native provider '" + provider
-               + "' to get locations at this interval = " + interval + " ms");
-      LocationManagerCompat.requestLocationUpdates(mLocationManager, provider, locationRequest,
-          mNativeLocationListener, Looper.myLooper());
+      Logger.d(TAG,
+        "Request Android native provider '" + provider + "' to get locations at this interval = " + interval + " ms");
+      LocationManagerCompat.requestLocationUpdates(
+        mLocationManager, provider, locationRequest, mNativeLocationListener, Looper.myLooper());
     }
   }
 

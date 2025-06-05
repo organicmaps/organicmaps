@@ -62,10 +62,7 @@ bool Blending::operator<(Blending const & other) const { return m_isEnabled < ot
 
 bool Blending::operator==(Blending const & other) const { return m_isEnabled == other.m_isEnabled; }
 
-void RenderState::SetColorTexture(ref_ptr<Texture> tex)
-{
-  m_textures[kColorTextureName] = std::move(tex);
-}
+void RenderState::SetColorTexture(ref_ptr<Texture> tex) { m_textures[kColorTextureName] = std::move(tex); }
 
 ref_ptr<Texture> RenderState::GetColorTexture() const
 {
@@ -75,10 +72,7 @@ ref_ptr<Texture> RenderState::GetColorTexture() const
   return nullptr;
 }
 
-void RenderState::SetMaskTexture(ref_ptr<Texture> tex)
-{
-  m_textures[kMaskTextureName] = std::move(tex);
-}
+void RenderState::SetMaskTexture(ref_ptr<Texture> tex) { m_textures[kMaskTextureName] = std::move(tex); }
 
 ref_ptr<Texture> RenderState::GetMaskTexture() const
 {
@@ -88,10 +82,7 @@ ref_ptr<Texture> RenderState::GetMaskTexture() const
   return nullptr;
 }
 
-void RenderState::SetTexture(std::string const & name, ref_ptr<Texture> tex)
-{
-  m_textures[name] = std::move(tex);
-}
+void RenderState::SetTexture(std::string const & name, ref_ptr<Texture> tex) { m_textures[name] = std::move(tex); }
 
 ref_ptr<Texture> RenderState::GetTexture(std::string const & name) const
 {
@@ -101,70 +92,31 @@ ref_ptr<Texture> RenderState::GetTexture(std::string const & name) const
   return nullptr;
 }
 
-std::map<std::string, ref_ptr<Texture>> const & RenderState::GetTextures() const
-{
-  return m_textures;
-}
+std::map<std::string, ref_ptr<Texture>> const & RenderState::GetTextures() const { return m_textures; }
 
-TestFunction RenderState::GetDepthFunction() const
-{
-  return m_depthFunction;
-}
+TestFunction RenderState::GetDepthFunction() const { return m_depthFunction; }
 
-void RenderState::SetDepthFunction(TestFunction depthFunction)
-{
-  m_depthFunction = depthFunction;
-}
+void RenderState::SetDepthFunction(TestFunction depthFunction) { m_depthFunction = depthFunction; }
 
-bool RenderState::GetDepthTestEnabled() const
-{
-  return m_depthTestEnabled;
-}
+bool RenderState::GetDepthTestEnabled() const { return m_depthTestEnabled; }
 
-void RenderState::SetDepthTestEnabled(bool enabled)
-{
-  m_depthTestEnabled = enabled;
-}
+void RenderState::SetDepthTestEnabled(bool enabled) { m_depthTestEnabled = enabled; }
 
-TextureFilter RenderState::GetTextureFilter() const
-{
-  return m_textureFilter;
-}
+TextureFilter RenderState::GetTextureFilter() const { return m_textureFilter; }
 
-void RenderState::SetTextureFilter(TextureFilter filter)
-{
-  m_textureFilter = filter;
-}
+void RenderState::SetTextureFilter(TextureFilter filter) { m_textureFilter = filter; }
 
-bool RenderState::GetDrawAsLine() const
-{
-  return m_drawAsLine;
-}
+bool RenderState::GetDrawAsLine() const { return m_drawAsLine; }
 
-void RenderState::SetDrawAsLine(bool drawAsLine)
-{
-  m_drawAsLine = drawAsLine;
-}
+void RenderState::SetDrawAsLine(bool drawAsLine) { m_drawAsLine = drawAsLine; }
 
-int RenderState::GetLineWidth() const
-{
-  return m_lineWidth;
-}
+int RenderState::GetLineWidth() const { return m_lineWidth; }
 
-void RenderState::SetLineWidth(int width)
-{
-  m_lineWidth = width;
-}
+void RenderState::SetLineWidth(int width) { m_lineWidth = width; }
 
-uint32_t RenderState::GetTextureIndex() const
-{
-  return m_textureIndex;
-}
+uint32_t RenderState::GetTextureIndex() const { return m_textureIndex; }
 
-void RenderState::SetTextureIndex(uint32_t index)
-{
-  m_textureIndex = index;
-}
+void RenderState::SetTextureIndex(uint32_t index) { m_textureIndex = index; }
 
 bool RenderState::operator<(RenderState const & other) const
 {
@@ -192,22 +144,14 @@ bool RenderState::operator<(RenderState const & other) const
 
 bool RenderState::operator==(RenderState const & other) const
 {
-  return m_renderStateExtension->Equal(other.m_renderStateExtension) &&
-         m_gpuProgram == other.m_gpuProgram &&
-         m_gpuProgram3d == other.m_gpuProgram3d &&
-         m_blending == other.m_blending &&
-         m_textures == other.m_textures &&
-         m_textureFilter == other.m_textureFilter &&
-         m_depthFunction == other.m_depthFunction &&
-         m_drawAsLine == other.m_drawAsLine &&
-         m_lineWidth == other.m_lineWidth &&
+  return m_renderStateExtension->Equal(other.m_renderStateExtension) && m_gpuProgram == other.m_gpuProgram &&
+         m_gpuProgram3d == other.m_gpuProgram3d && m_blending == other.m_blending && m_textures == other.m_textures &&
+         m_textureFilter == other.m_textureFilter && m_depthFunction == other.m_depthFunction &&
+         m_drawAsLine == other.m_drawAsLine && m_lineWidth == other.m_lineWidth &&
          m_textureIndex == other.m_textureIndex;
 }
 
-bool RenderState::operator!=(RenderState const & other) const
-{
-  return !operator==(other);
-}
+bool RenderState::operator!=(RenderState const & other) const { return !operator==(other); }
 
 uint8_t TextureState::m_usedSlots = 0;
 
@@ -280,10 +224,7 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
   }
 }
 
-uint8_t TextureState::GetLastUsedSlots()
-{
-  return m_usedSlots;
-}
+uint8_t TextureState::GetLastUsedSlots() { return m_usedSlots; }
 
 void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state)
 {

@@ -15,8 +15,7 @@ std::string const kLastBookmarkCategoryId = "LastBookmarkCategoryId";
 UserMarkIdStorage::UserMarkIdStorage()
   : m_lastUserMarkId(0)
 {
-  m_isJustCreated = !(HasKey(kLastBookmarkCategoryId) && HasKey(kLastBookmarkId) &&
-                      HasKey(kLastTrackId));
+  m_isJustCreated = !(HasKey(kLastBookmarkCategoryId) && HasKey(kLastBookmarkId) && HasKey(kLastTrackId));
   if (m_isJustCreated)
   {
     ResetCategoryId();

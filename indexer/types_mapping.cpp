@@ -46,7 +46,7 @@ void IndexAndTypeMapping::Load(istream & s)
 
 void IndexAndTypeMapping::Add(uint32_t ind, uint32_t type, bool isMainTypeDescription)
 {
-  ASSERT_EQUAL ( ind, m_types.size(), () );
+  ASSERT_EQUAL(ind, m_types.size(), ());
 
   m_types.push_back(type);
   if (isMainTypeDescription)

@@ -57,7 +57,7 @@ public:
       if (colors == nullptr)
         return;
 
-      const char * name = nullptr;
+      char const * name = nullptr;
       json_t * colorInfo = nullptr;
       json_object_foreach(colors, name, colorInfo)
       {
@@ -115,10 +115,7 @@ ColorConstant GetTransitTextColorName(ColorConstant const & localName)
   return kTransitColorPrefix + kTransitTextPrefix + localName;
 }
 
-bool IsTransitColor(ColorConstant const & constant)
-{
-  return constant.starts_with(kTransitColorPrefix);
-}
+bool IsTransitColor(ColorConstant const & constant) { return constant.starts_with(kTransitColorPrefix); }
 
 dp::Color GetColorConstant(ColorConstant const & constant)
 {
@@ -130,8 +127,5 @@ dp::Color GetColorConstant(ColorConstant const & constant)
 
 std::map<std::string, dp::Color> const & GetTransitClearColors() { return TransitColors().GetClearColors(); }
 
-void LoadTransitColors()
-{
-  TransitColors().Load();
-}
+void LoadTransitColors() { TransitColors().Load(); }
 }  // namespace df

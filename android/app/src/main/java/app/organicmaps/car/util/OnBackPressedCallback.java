@@ -21,8 +21,7 @@ public class OnBackPressedCallback extends androidx.activity.OnBackPressedCallba
     mCallback = callback;
   }
 
-  @Override
-  public void handleOnBackPressed()
+  @Override public void handleOnBackPressed()
   {
     mCallback.onBackPressed();
     mScreenManager.pop();

@@ -63,12 +63,10 @@ public:
   CrossBorderGraphSerializer() = delete;
 
   template <class Sink>
-  static void Serialize(CrossBorderGraph const & graph, Sink & sink,
-                        std::shared_ptr<NumMwmIds> numMwmIds);
+  static void Serialize(CrossBorderGraph const & graph, Sink & sink, std::shared_ptr<NumMwmIds> numMwmIds);
 
   template <class Source>
-  static void Deserialize(CrossBorderGraph & graph, Source & src,
-                          std::shared_ptr<NumMwmIds> numMwmIds);
+  static void Deserialize(CrossBorderGraph & graph, Source & src, std::shared_ptr<NumMwmIds> numMwmIds);
 
 private:
   static uint32_t constexpr kVersion = 1;
@@ -77,8 +75,7 @@ private:
   struct Header
   {
     Header() = default;
-    explicit Header(CrossBorderGraph const & graph,
-                    uint32_t version = kVersion);
+    explicit Header(CrossBorderGraph const & graph, uint32_t version = kVersion);
 
     template <class Sink>
     void Serialize(Sink & sink) const;
@@ -161,15 +158,16 @@ void CrossBorderGraphSerializer::Deserialize(CrossBorderGraph & graph, Source & 
 
   std::map<uint32_t, NumMwmId> hashToMwmId;
 
-  numMwmIds->ForEachId([&](NumMwmId id)
-  {
-    std::string const & region = numMwmIds->GetFile(id).GetName();
-    uint32_t const mwmNameHash = Hash(region);
-    // Triggering of this check in runtime means that the latest built mwm set differs from
-    // the previous one ("classic" mwm set which is constant for many years). The solution is to
-    // replace current hash function Hash() and rebuild World.mwm.
-    CHECK(hashToMwmId.emplace(mwmNameHash, id).second, (id, region, mwmNameHash));
-  });
+  numMwmIds->ForEachId(
+    [&](NumMwmId id)
+    {
+      std::string const & region = numMwmIds->GetFile(id).GetName();
+      uint32_t const mwmNameHash = Hash(region);
+      // Triggering of this check in runtime means that the latest built mwm set differs from
+      // the previous one ("classic" mwm set which is constant for many years). The solution is to
+      // replace current hash function Hash() and rebuild World.mwm.
+      CHECK(hashToMwmId.emplace(mwmNameHash, id).second, (id, region, mwmNameHash));
+    });
 
   std::set<uint32_t> mwmNameHashes;
 
@@ -181,10 +179,10 @@ void CrossBorderGraphSerializer::Deserialize(CrossBorderGraph & graph, Source & 
 
   auto readSegEnding = [&](CrossBorderSegmentEnding & ending)
   {
-    double const lat = Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src),
-                                      ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kBitsForDouble);
-    double const lon = Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src),
-                                      ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kBitsForDouble);
+    double const lat =
+      Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kBitsForDouble);
+    double const lon =
+      Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kBitsForDouble);
     ending.m_point = LatLonWithAltitude(ms::LatLon(lat, lon), geometry::kDefaultAltitudeMeters);
 
     NumMwmId index = ReadPrimitiveFromSource<uint16_t>(src);

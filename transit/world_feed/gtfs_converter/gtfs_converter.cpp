@@ -13,11 +13,9 @@
 
 #include <gflags/gflags.h>
 
-DEFINE_string(
-    path_mapping, "",
-    "Path to the mapping file of TransitId to GTFS hash for all transit entities except edges");
-DEFINE_string(path_mapping_edges, "",
-              "Path to the mapping file of TransitId to GTFS hash for edges");
+DEFINE_string(path_mapping, "",
+              "Path to the mapping file of TransitId to GTFS hash for all transit entities except edges");
+DEFINE_string(path_mapping_edges, "", "Path to the mapping file of TransitId to GTFS hash for edges");
 // One of these two paths should be specified: |path_gtfs_feeds| and/or |path_subway_json|.
 DEFINE_string(path_gtfs_feeds, "", "Directory with GTFS feeds subdirectories");
 DEFINE_string(path_subway_json, "", "OMaps json file with subway data from OSM");
@@ -166,8 +164,7 @@ FeedStatus ReadFeed(gtfs::Feed & feed)
 // Reads GTFS feeds from directories in |FLAGS_path_gtfs_feeds|. Converts each feed to the WorldFeed
 // object and saves to the |FLAGS_path_json| path in the new transit line-by-line json format.
 bool ConvertFeeds(transit::IdGenerator & generator, transit::IdGenerator & generatorEdges,
-                  transit::ColorPicker & colorPicker,
-                  feature::CountriesFilesAffiliation & mwmMatcher)
+                  transit::ColorPicker & colorPicker, feature::CountriesFilesAffiliation & mwmMatcher)
 {
   auto const gtfsFeeds = GetGtfsFeedsInDirectory(FLAGS_path_gtfs_feeds);
 
@@ -253,8 +250,7 @@ bool ConvertFeeds(transit::IdGenerator & generator, transit::IdGenerator & gener
 // Reads subway json from |FLAGS_path_subway_json|, converts it to the WorldFeed object and saves
 // to the |FLAGS_path_json| path in the new transit line-by-line json format.
 bool ConvertSubway(transit::IdGenerator & generator, transit::IdGenerator & generatorEdges,
-                   transit::ColorPicker & colorPicker,
-                   feature::CountriesFilesAffiliation & mwmMatcher, bool overwrite)
+                   transit::ColorPicker & colorPicker, feature::CountriesFilesAffiliation & mwmMatcher, bool overwrite)
 {
   transit::WorldFeed globalFeed(generator, generatorEdges, colorPicker, mwmMatcher);
   transit::SubwayConverter converter(FLAGS_path_subway_json, globalFeed);
@@ -289,11 +285,10 @@ int main(int argc, char ** argv)
 
   if ((!FLAGS_path_gtfs_feeds.empty() && !Platform::IsDirectory(FLAGS_path_gtfs_feeds)) ||
       !Platform::IsDirectory(FLAGS_path_json) || !Platform::IsDirectory(FLAGS_path_resources) ||
-      (!FLAGS_path_subway_json.empty() &&
-       !Platform::IsFileExistsByFullPath(FLAGS_path_subway_json)))
+      (!FLAGS_path_subway_json.empty() && !Platform::IsFileExistsByFullPath(FLAGS_path_subway_json)))
   {
-    LOG(LWARNING, ("Some paths set in options are not valid. Check the directories:",
-                   FLAGS_path_gtfs_feeds, FLAGS_path_json, FLAGS_path_resources));
+    LOG(LWARNING, ("Some paths set in options are not valid. Check the directories:", FLAGS_path_gtfs_feeds,
+                   FLAGS_path_json, FLAGS_path_resources));
     gflags::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
     return EXIT_FAILURE;
   }
@@ -304,13 +299,11 @@ int main(int argc, char ** argv)
   GetPlatform().SetResourceDir(FLAGS_path_resources);
   transit::ColorPicker colorPicker;
 
-  feature::CountriesFilesAffiliation mwmMatcher(GetPlatform().ResourcesDir(),
-                                                false /* haveBordersForWholeWorld */);
+  feature::CountriesFilesAffiliation mwmMatcher(GetPlatform().ResourcesDir(), false /* haveBordersForWholeWorld */);
 
   // We convert GTFS feeds to the json format suitable for generator_tool and save it to the
   // corresponding directory.
-  if (!FLAGS_path_gtfs_feeds.empty() &&
-      !ConvertFeeds(generator, generatorEdges, colorPicker, mwmMatcher))
+  if (!FLAGS_path_gtfs_feeds.empty() && !ConvertFeeds(generator, generatorEdges, colorPicker, mwmMatcher))
     return EXIT_FAILURE;
 
   // We mixin data in our "old transit" (in fact subway-only) json format to the resulting files
@@ -318,8 +311,7 @@ int main(int argc, char ** argv)
   // experimental transit section. We use the same id |generator| so ids of subway and GTFS
   // itineraries will not conflict.
   if (!FLAGS_path_subway_json.empty() &&
-      !ConvertSubway(generator, generatorEdges, colorPicker, mwmMatcher,
-                     FLAGS_path_gtfs_feeds.empty() /* overwrite */))
+      !ConvertSubway(generator, generatorEdges, colorPicker, mwmMatcher, FLAGS_path_gtfs_feeds.empty() /* overwrite */))
   {
     return EXIT_FAILURE;
   }

@@ -5,10 +5,10 @@
 
 + (CGFloat)heightForWidth:(CGFloat)width;
 
-@property (nonatomic, readonly) NSUInteger row;
-@property (weak, nonatomic) MWMOpeningHoursSection * section;
-@property (nonatomic) NSIndexPath * indexPathAtInit;
-@property (nonatomic, readonly) BOOL isVisible;
+@property(nonatomic, readonly) NSUInteger row;
+@property(weak, nonatomic) MWMOpeningHoursSection * section;
+@property(nonatomic) NSIndexPath * indexPathAtInit;
+@property(nonatomic, readonly) BOOL isVisible;
 
 - (void)hide;
 

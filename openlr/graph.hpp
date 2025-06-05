@@ -53,6 +53,7 @@ public:
   void GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const;
 
   using EdgeCacheT = std::map<Junction, EdgeListT>;
+
 private:
   routing::MwmDataSource m_dataSource;
   routing::FeaturesRoadGraph m_graph;

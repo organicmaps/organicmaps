@@ -17,25 +17,13 @@ void ParallelAnimation::Init(ScreenBase const & screen, TPropertyCache const & p
     anim->Init(screen, properties);
 }
 
-std::string ParallelAnimation::GetCustomType() const
-{
-  return m_customType;
-}
+std::string ParallelAnimation::GetCustomType() const { return m_customType; }
 
-void ParallelAnimation::SetCustomType(std::string const & type)
-{
-  m_customType = type;
-}
+void ParallelAnimation::SetCustomType(std::string const & type) { m_customType = type; }
 
-Animation::TAnimObjects const & ParallelAnimation::GetObjects() const
-{
-  return m_objects;
-}
+Animation::TAnimObjects const & ParallelAnimation::GetObjects() const { return m_objects; }
 
-bool ParallelAnimation::HasObject(Object object) const
-{
-  return m_objects.find(object) != m_objects.end();
-}
+bool ParallelAnimation::HasObject(Object object) const { return m_objects.find(object) != m_objects.end(); }
 
 Animation::TObjectProperties const & ParallelAnimation::GetProperties(Object object) const
 {
@@ -110,10 +98,7 @@ double ParallelAnimation::GetMinDuration() const
   return minDuration;
 }
 
-bool ParallelAnimation::IsFinished() const
-{
-  return m_animations.empty();
-}
+bool ParallelAnimation::IsFinished() const { return m_animations.empty(); }
 
 bool ParallelAnimation::GetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
@@ -211,4 +196,4 @@ void ParallelAnimation::ObtainObjectProperties()
   }
 }
 
-} // namespace df
+}  // namespace df

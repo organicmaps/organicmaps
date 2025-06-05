@@ -1,5 +1,5 @@
-#include "private.h"
 #include "platform/platform.hpp"
+#include "private.h"
 
 #include "platform/socket.hpp"
 
@@ -59,20 +59,13 @@ std::optional<std::string> GetEnv(char const * var)
   return value;
 }
 
-bool IsDirWritable(std::string const & dir)
-{
-  return ::access(dir.c_str(), W_OK) == 0;
-}
+bool IsDirWritable(std::string const & dir) { return ::access(dir.c_str(), W_OK) == 0; }
 }  // namespace
 
 namespace platform
 {
-std::unique_ptr<Socket> CreateSocket()
-{
-  return std::unique_ptr<Socket>();
-}
-} // namespace platform
-
+std::unique_ptr<Socket> CreateSocket() { return std::unique_ptr<Socket>(); }
+}  // namespace platform
 
 Platform::Platform()
 {
@@ -85,9 +78,8 @@ Platform::Platform()
   CHECK(homeDir, ("Can't retrieve home directory"));
 
   // XDG config directory, usually ~/.config/OMaps/
-  m_settingsDir = JoinPath(
-      QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation).toStdString(),
-      "OMaps");
+  m_settingsDir =
+    JoinPath(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation).toStdString(), "OMaps");
   if (!IsFileExistsByFullPath(JoinPath(m_settingsDir, SETTINGS_FILE_NAME)) && !MkDirRecursively(m_settingsDir))
     MYTHROW(FileSystemException, ("Can't create directory", m_settingsDir));
   m_settingsDir += '/';
@@ -99,14 +91,14 @@ Platform::Platform()
   if (auto const dir = GetEnv("MWM_RESOURCES_DIR"))
     m_resourcesDir = *dir;
   else
-  { // Guess the existing resources directory.
+  {  // Guess the existing resources directory.
     std::string const dirsToScan[] = {
-        "./data",  // symlink in the current folder
-        "../data",  // 'build' folder inside the repo
-        JoinPath(*execDir, "..", "organicmaps", "data"),  // build-omim-{debug,release}
-        JoinPath(*execDir, "..", "share"),  // installed version with packages
-        JoinPath(*execDir, "..", "OMaps"),  // installed version without packages
-        JoinPath(*execDir, "..", "share", "organicmaps", "data"),  // flatpak-build
+      "./data",                                                  // symlink in the current folder
+      "../data",                                                 // 'build' folder inside the repo
+      JoinPath(*execDir, "..", "organicmaps", "data"),           // build-omim-{debug,release}
+      JoinPath(*execDir, "..", "share"),                         // installed version with packages
+      JoinPath(*execDir, "..", "OMaps"),                         // installed version without packages
+      JoinPath(*execDir, "..", "share", "organicmaps", "data"),  // flatpak-build
     };
     for (auto const & dir : dirsToScan)
     {
@@ -125,8 +117,7 @@ Platform::Platform()
     // The writableLocation does the same for AppDataLocation, AppLocalDataLocation,
     // and GenericDataLocation. Provided, that test mode is not enabled, then
     // first it checks ${XDG_DATA_HOME}, if empty then it falls back to ${HOME}/.local/share
-    m_writableDir = JoinPath(QStandardPaths::writableLocation(
-        QStandardPaths::AppDataLocation).toStdString(), "OMaps");
+    m_writableDir = JoinPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString(), "OMaps");
 
     if (!MkDirRecursively(m_writableDir))
       MYTHROW(FileSystemException, ("Can't create writable directory:", m_writableDir));
@@ -140,7 +131,7 @@ Platform::Platform()
     m_resourcesDir = AddSlashIfNeeded(m_resourcesDir);
 
   // Select directory for temporary files.
-  for (auto const & dir : { GetEnv("TMPDIR"), GetEnv("TMP"), GetEnv("TEMP"), {"/tmp"}})
+  for (auto const & dir : {GetEnv("TMPDIR"), GetEnv("TMP"), GetEnv("TEMP"), {"/tmp"}})
   {
     if (dir && IsFileExistsByFullPath(*dir) && IsDirWritable(*dir))
     {
@@ -157,15 +148,9 @@ Platform::Platform()
   LOG(LDEBUG, ("Settings directory:", m_settingsDir));
 }
 
-std::string Platform::DeviceName() const
-{
-  return OMIM_OS_NAME;
-}
+std::string Platform::DeviceName() const { return OMIM_OS_NAME; }
 
-std::string Platform::DeviceModel() const
-{
-  return {};
-}
+std::string Platform::DeviceModel() const { return {}; }
 
 Platform::EConnectionType Platform::ConnectionStatus()
 {
@@ -186,10 +171,7 @@ Platform::EConnectionType Platform::ConnectionStatus()
   return EConnectionType::CONNECTION_WIFI;
 }
 
-Platform::ChargingStatus Platform::GetChargingStatus()
-{
-  return Platform::ChargingStatus::Plugged;
-}
+Platform::ChargingStatus Platform::GetChargingStatus() { return Platform::ChargingStatus::Plugged; }
 
 uint8_t Platform::GetBatteryLevel()
 {

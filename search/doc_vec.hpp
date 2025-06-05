@@ -24,9 +24,9 @@ struct TokenFrequencyPair
 
   template <typename Token>
   TokenFrequencyPair(Token && token, uint64_t frequency)
-    : m_token(std::forward<Token>(token)), m_frequency(frequency)
-  {
-  }
+    : m_token(std::forward<Token>(token))
+    , m_frequency(frequency)
+  {}
 
   bool operator<(TokenFrequencyPair const & rhs) const;
 
@@ -72,10 +72,7 @@ public:
   bool Empty() const { return m_tfs.empty(); }
 
 private:
-  friend std::string DebugPrint(DocVec const & dv)
-  {
-    return "DocVec " + ::DebugPrint(dv.m_tfs);
-  }
+  friend std::string DebugPrint(DocVec const & dv) { return "DocVec " + ::DebugPrint(dv.m_tfs); }
 
   std::vector<TokenFrequencyPair> m_tfs;
 };
@@ -106,7 +103,9 @@ public:
     std::optional<strings::UniString> m_prefix;
   };
 
-  explicit QueryVec(IdfMap & idfs) : m_idfs(&idfs) {}
+  explicit QueryVec(IdfMap & idfs)
+    : m_idfs(&idfs)
+  {}
 
   QueryVec(IdfMap & idfs, Builder const & builder);
 

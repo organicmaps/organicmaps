@@ -6,9 +6,11 @@
 
 @implementation MWMMapSearchResult (Core)
 
-- (instancetype)initWithSearchResult:(storage::DownloaderSearchResult const &)searchResult {
+- (instancetype)initWithSearchResult:(storage::DownloaderSearchResult const &)searchResult
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _countryId = @(searchResult.m_countryId.c_str());
     _matchedName = @(searchResult.m_matchedName.c_str());
   }

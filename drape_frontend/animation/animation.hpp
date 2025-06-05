@@ -52,8 +52,7 @@ public:
       ValuePointD
     };
 
-    PropertyValue()
-    {}
+    PropertyValue() {}
 
     explicit PropertyValue(double value)
       : m_type(Type::ValueD)
@@ -88,9 +87,21 @@ public:
   virtual ~Animation() = default;
 
   virtual void Init(ScreenBase const & screen, TPropertyCache const & properties) {}
-  virtual void OnStart() { if (m_onStartAction != nullptr) m_onStartAction(this); }
-  virtual void OnFinish() { if (m_onFinishAction != nullptr) m_onFinishAction(this); }
-  virtual void Interrupt() { if (m_onInterruptAction != nullptr) m_onInterruptAction(this); }
+  virtual void OnStart()
+  {
+    if (m_onStartAction != nullptr)
+      m_onStartAction(this);
+  }
+  virtual void OnFinish()
+  {
+    if (m_onFinishAction != nullptr)
+      m_onFinishAction(this);
+  }
+  virtual void Interrupt()
+  {
+    if (m_onInterruptAction != nullptr)
+      m_onInterruptAction(this);
+  }
 
   virtual Type GetType() const = 0;
   virtual std::string GetCustomType() const { return std::string(); }
@@ -130,13 +141,15 @@ public:
 
   void SetCouldBeInterrupted(bool enable) { m_couldBeInterrupted = enable; }
   void SetCouldBeBlended(bool enable) { m_couldBeBlended = enable; }
-  
+
   void SetCouldBeRewinded(bool enable) { m_couldBeRewinded = enable; }
   bool CouldBeRewinded() const { return m_couldBeRewinded; }
 
 protected:
-  static void GetCurrentScreen(TPropertyCache const & properties, ScreenBase const & screen, ScreenBase & currentScreen);
-  static bool GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property, PropertyValue & value);
+  static void GetCurrentScreen(TPropertyCache const & properties, ScreenBase const & screen,
+                               ScreenBase & currentScreen);
+  static bool GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property,
+                                PropertyValue & value);
 
   static bool GetMinDuration(Interpolator const & interpolator, double & minDuration);
   static bool GetMaxDuration(Interpolator const & interpolator, double & maxDuration);
@@ -159,5 +172,4 @@ std::string DebugPrint(Animation::Type const & type);
 std::string DebugPrint(Animation::Object const & object);
 std::string DebugPrint(Animation::ObjectProperty const & property);
 
-} // namespace df
-
+}  // namespace df

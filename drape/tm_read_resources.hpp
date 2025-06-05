@@ -21,12 +21,13 @@ inline void ParsePatternsList(std::string const & patternsFile, ToDo && toDo)
   while (std::getline(is, line))
   {
     buffer_vector<double, 8> pattern;
-    strings::Tokenize(line, " ", [&](std::string_view token)
-    {
-      double d = 0.0;
-      VERIFY(strings::to_double(token, d), ());
-      pattern.push_back(d);
-    });
+    strings::Tokenize(line, " ",
+                      [&](std::string_view token)
+                      {
+                        double d = 0.0;
+                        VERIFY(strings::to_double(token, d), ());
+                        pattern.push_back(d);
+                      });
 
     bool isValid = true;
     for (size_t i = 0; i < pattern.size(); i++)
@@ -44,4 +45,4 @@ inline void ParsePatternsList(std::string const & patternsFile, ToDo && toDo)
   }
 }
 
-} // namespace dp::impl
+}  // namespace dp::impl

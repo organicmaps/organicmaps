@@ -22,12 +22,13 @@ public:
       m_cont->erase(m_cont->begin() + m_size, m_cont->end());
   }
   void Reset() { m_cont = nullptr; }
+
 private:
   std::deque<T> * m_cont;
   size_t const m_size;
 };
 
-} // namespace
+}  // namespace
 
 size_t const GpsTrackCollection::kInvalidId = std::numeric_limits<size_t>::max();
 
@@ -62,7 +63,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
   if (0 == added)
   {
     // Invalid timestamp order
-    return std::make_pair(kInvalidId, kInvalidId); // Nothing was added
+    return std::make_pair(kInvalidId, kInvalidId);  // Nothing was added
   }
 
   m_lastId += added;
@@ -96,12 +97,9 @@ std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
   return res;
 }
 
-size_t GpsTrackCollection::GetSize() const
-{
-  return m_items.size();
-}
+size_t GpsTrackCollection::GetSize() const { return m_items.size(); }
 
-const ElevationInfo & GpsTrackCollection::UpdateAndGetElevationInfo()
+ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
 {
   if (!m_elevationInfoDirty)
     return m_elevationInfo;
@@ -116,7 +114,4 @@ const ElevationInfo & GpsTrackCollection::UpdateAndGetElevationInfo()
   return m_elevationInfo;
 }
 
-bool GpsTrackCollection::IsEmpty() const
-{
-  return m_items.empty();
-}
+bool GpsTrackCollection::IsEmpty() const { return m_items.empty(); }

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,8 +26,7 @@ public class FaqFragment extends BaseMwmFragment
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
 
   @NonNull
-  private final DialogInterface.OnClickListener mDialogClickListener = new DialogInterface.OnClickListener()
-  {
+  private final DialogInterface.OnClickListener mDialogClickListener = new DialogInterface.OnClickListener() {
     private void sendGeneralFeedback()
     {
       Utils.sendFeedback(shareLauncher, requireActivity());
@@ -39,13 +37,12 @@ public class FaqFragment extends BaseMwmFragment
       Utils.sendBugReport(shareLauncher, requireActivity(), "", "");
     }
 
-    @Override
-    public void onClick(DialogInterface dialog, int which)
+    @Override public void onClick(DialogInterface dialog, int which)
     {
       switch (which)
       {
-        case 0 -> sendGeneralFeedback();
-        case 1 -> reportBug();
+      case 0 -> sendGeneralFeedback();
+      case 1 -> reportBug();
       }
     }
   };
@@ -57,21 +54,20 @@ public class FaqFragment extends BaseMwmFragment
 
     ViewCompat.setOnApplyWindowInsetsListener(root, WindowInsetUtils.PaddingInsetsListener.excludeTop());
 
-    new WebContainerDelegate(root, Constants.Url.FAQ)
-    {
-      @Override
-      protected void doStartActivity(Intent intent)
+    new WebContainerDelegate(root, Constants.Url.FAQ) {
+      @Override protected void doStartActivity(Intent intent)
       {
         startActivity(intent);
       }
     };
 
     FloatingActionButton feedbackFab = root.findViewById(R.id.feedback_fab);
-    feedbackFab.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+    feedbackFab.setOnClickListener(v
+      -> new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.feedback)
         .setNegativeButton(R.string.cancel, null)
-        .setItems(new CharSequence[] { getString(R.string.feedback_general), getString(R.string.report_a_bug) },
-                  mDialogClickListener)
+        .setItems(new CharSequence[] {getString(R.string.feedback_general), getString(R.string.report_a_bug)},
+          mDialogClickListener)
         .show());
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)

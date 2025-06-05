@@ -27,13 +27,7 @@ inline void FillXmlElement(std::vector<OsmElement::Tag> const & tags, OsmElement
     p->AddTag(t);
 }
 
-inline uint32_t GetType(std::vector<std::string> const & path)
-{
-  return classif().GetTypeByPath(path);
-}
+inline uint32_t GetType(std::vector<std::string> const & path) { return classif().GetTypeByPath(path); }
 
-inline uint32_t GetType(base::StringIL const & lst)
-{
-  return classif().GetTypeByPath(lst);
-}
-} // namespace tests
+inline uint32_t GetType(base::StringIL const & lst) { return classif().GetTypeByPath(lst); }
+}  // namespace tests

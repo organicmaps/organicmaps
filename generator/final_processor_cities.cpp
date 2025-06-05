@@ -1,6 +1,6 @@
 #include "generator/final_processor_cities.hpp"
-#include "generator/final_processor_utils.hpp"
 #include "generator/filter_world.hpp"
+#include "generator/final_processor_utils.hpp"
 #include "generator/place_processor.hpp"
 
 #include <mutex>
@@ -8,14 +8,13 @@
 namespace generator
 {
 
-FinalProcessorCities::FinalProcessorCities(AffiliationInterfacePtr const & affiliation,
-                                           std::string const & mwmPath, size_t threadsCount)
+FinalProcessorCities::FinalProcessorCities(AffiliationInterfacePtr const & affiliation, std::string const & mwmPath,
+                                           size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::Places)
   , m_temporaryMwmPath(mwmPath)
   , m_affiliation(affiliation)
   , m_threadsCount(threadsCount)
-{
-}
+{}
 
 void FinalProcessorCities::Process()
 {
@@ -25,25 +24,29 @@ void FinalProcessorCities::Process()
   auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
 
   PlaceProcessor processor(m_boundariesCollectorFile);
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path)
-  {
-    if (!m_affiliation->HasCountryByName(country))
-      return;
-
-    std::vector<FeatureBuilder> cities;
-    FeatureBuilderWriter writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat(path, [&](FeatureBuilder && fb, uint64_t)
+  ForEachMwmTmp(
+    m_temporaryMwmPath,
+    [&](auto const & country, auto const & path)
     {
-      if (localityChecker.GetType(fb.GetTypes()) < ftypes::LocalityType::City)
-        writer.Write(fb);
-      else
-        cities.emplace_back(std::move(fb));
-    });
+      if (!m_affiliation->HasCountryByName(country))
+        return;
 
-    std::lock_guard<std::mutex> lock(mutex);
-    for (auto & city : cities)
-      processor.Add(std::move(city));
-  }, m_threadsCount);
+      std::vector<FeatureBuilder> cities;
+      FeatureBuilderWriter writer(path, true /* mangleName */);
+      ForEachFeatureRawFormat(path,
+                              [&](FeatureBuilder && fb, uint64_t)
+                              {
+                                if (localityChecker.GetType(fb.GetTypes()) < ftypes::LocalityType::City)
+                                  writer.Write(fb);
+                                else
+                                  cities.emplace_back(std::move(fb));
+                              });
+
+      std::lock_guard<std::mutex> lock(mutex);
+      for (auto & city : cities)
+        processor.Add(std::move(city));
+    },
+    m_threadsCount);
 
   auto const & result = processor.ProcessPlaces();
   AppendToMwmTmp(result, *m_affiliation, m_temporaryMwmPath, m_threadsCount);
@@ -65,4 +68,4 @@ void FinalProcessorCities::Process()
   }
 }
 
-} // namespace generator
+}  // namespace generator

@@ -49,7 +49,8 @@ UNIT_TEST(CapitalsParserTests)
 {
   std::set<uint64_t> capitals;
   CapitalsParserHelper parser(capitals);
-  std::istringstream stream("-21.1343401;-175.201808;1082208696;t\n-16.6934156;-179.87995;242715809;f\n19.0534159;169.919199;448768937;t");
+  std::istringstream stream(
+    "-21.1343401;-175.201808;1082208696;t\n-16.6934156;-179.87995;242715809;f\n19.0534159;169.919199;448768937;t");
   parser.ParseStream(stream);
   TEST(capitals.find(1082208696) != capitals.end(), ());
   TEST(capitals.find(242715809) != capitals.end(), ());
@@ -68,8 +69,7 @@ UNIT_TEST(TagsReplacer_Smoke)
     TestReplacer(source, {{{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}});
   }
   {
-    std::string const source =
-        "  aerodrome:type   =   international   :    aerodrome   =  international   ";
+    std::string const source = "  aerodrome:type   =   international   :    aerodrome   =  international   ";
     TestReplacer(source, {{{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}});
   }
   {
@@ -78,14 +78,13 @@ UNIT_TEST(TagsReplacer_Smoke)
   }
   {
     std::string const source =
-        "natural = forest : natural = wood\n"
-        "# TODO\n"
-        "cliff=yes : natural=cliff | u\n"
-        "\n"
-        "office=travel_agent : shop=travel_agency";
-    TestReplacer(source, {
-        {{"cliff", "yes"}, {{"natural", "cliff"}}},
-        {{"natural", "forest"}, {{"natural", "wood"}}},
-        {{"office", "travel_agent"}, {{"shop", "travel_agency"}}}});
+      "natural = forest : natural = wood\n"
+      "# TODO\n"
+      "cliff=yes : natural=cliff | u\n"
+      "\n"
+      "office=travel_agent : shop=travel_agency";
+    TestReplacer(source, {{{"cliff", "yes"}, {{"natural", "cliff"}}},
+                          {{"natural", "forest"}, {{"natural", "wood"}}},
+                          {{"office", "travel_agent"}, {{"shop", "travel_agency"}}}});
   }
 }

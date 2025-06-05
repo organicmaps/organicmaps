@@ -11,7 +11,7 @@ namespace
 {
 struct less_key
 {
-  bool operator() (drule::Key const & r1, drule::Key const & r2) const
+  bool operator()(drule::Key const & r1, drule::Key const & r2) const
   {
     // assume that unique algo leaves the first element (with max priority), others - go away
     if (r1.m_type == r2.m_type)
@@ -22,12 +22,12 @@ struct less_key
     }
     else
       return (r1.m_type < r2.m_type);
-   }
+  }
 };
 
 struct equal_key
 {
-  bool operator() (drule::Key const & r1, drule::Key const & r2) const
+  bool operator()(drule::Key const & r1, drule::Key const & r2) const
   {
     // many line rules - is ok, other rules - one is enough
     if (r1.m_type == drule::line)
@@ -61,9 +61,7 @@ double CalcAreaBySizeDepth(FeatureType & f)
   // Raw areas' size range is about (1e-11, 3000).
   double const areaSize = r.SizeX() * r.SizeY();
   // Compacted range is approx (-37;13).
-  double constexpr kMinSize = -37,
-                   kMaxSize = 13,
-                   kStretchFactor = kDepthRangeBgBySize / (kMaxSize - kMinSize);
+  double constexpr kMinSize = -37, kMaxSize = 13, kStretchFactor = kDepthRangeBgBySize / (kMaxSize - kMinSize);
 
   // Use log2() to have more precision distinguishing smaller areas.
   /// @todo We still can get here with areaSize == 0.
@@ -77,4 +75,4 @@ double CalcAreaBySizeDepth(FeatureType & f)
   return areaDepth;
 }
 
-}
+}  // namespace drule

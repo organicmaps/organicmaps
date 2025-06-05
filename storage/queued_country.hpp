@@ -22,13 +22,13 @@ public:
     virtual void OnStartDownloading(QueuedCountry const & queuedCountry) = 0;
     virtual void OnDownloadProgress(QueuedCountry const & queuedCountry, downloader::Progress const & progress) = 0;
     virtual void OnDownloadFinished(QueuedCountry const & queuedCountry, downloader::DownloadStatus status) = 0;
+
   protected:
     virtual ~Subscriber() = default;
   };
 
-  QueuedCountry(platform::CountryFile const & countryFile, CountryId const & m_countryId,
-                MapFileType type, int64_t currentDataVersion, std::string const & dataDir,
-                diffs::DiffsSourcePtr const & diffs);
+  QueuedCountry(platform::CountryFile const & countryFile, CountryId const & m_countryId, MapFileType type,
+                int64_t currentDataVersion, std::string const & dataDir, diffs::DiffsSourcePtr const & diffs);
 
   void Subscribe(Subscriber & subscriber);
   void Unsubscribe();

@@ -30,14 +30,12 @@ static NSString * const kUnwingSegueIdentifier = @"UnwindToTTSSettings";
   return [[MWMTextToSpeech tts] availableLanguages].size();
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   Class cls = [SettingsTableViewSelectableCell class];
-  auto cell = static_cast<SettingsTableViewSelectableCell *>(
-      [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-  [cell
-      configWithTitle:@([[MWMTextToSpeech tts] availableLanguages][indexPath.row].second.c_str())];
+  auto cell = static_cast<SettingsTableViewSelectableCell *>([tableView dequeueReusableCellWithCellClass:cls
+                                                                                               indexPath:indexPath]);
+  [cell configWithTitle:@([[MWMTextToSpeech tts] availableLanguages][indexPath.row].second.c_str())];
   return cell;
 }
 

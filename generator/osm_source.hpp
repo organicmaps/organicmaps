@@ -25,7 +25,9 @@ class SourceReader
   struct Deleter
   {
     bool m_needDelete;
-    Deleter(bool needDelete = true) : m_needDelete(needDelete) {}
+    Deleter(bool needDelete = true)
+      : m_needDelete(needDelete)
+    {}
     void operator()(std::istream * s) const
     {
       if (m_needDelete)
@@ -47,8 +49,8 @@ public:
 
 bool GenerateIntermediateData(feature::GenerateInfo & info);
 
-void ProcessOsmElementsFromO5M(SourceReader & stream, std::function<void (OsmElement &&)> const & processor);
-void ProcessOsmElementsFromXML(SourceReader & stream, std::function<void (OsmElement &&)> const & processor);
+void ProcessOsmElementsFromO5M(SourceReader & stream, std::function<void(OsmElement &&)> const & processor);
+void ProcessOsmElementsFromXML(SourceReader & stream, std::function<void(OsmElement &&)> const & processor);
 
 class ProcessorOsmElementsInterface
 {

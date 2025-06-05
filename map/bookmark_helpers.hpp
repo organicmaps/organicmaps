@@ -97,7 +97,7 @@ inline std::string DebugPrint(KmlFileType fileType)
 std::string GetBookmarksDirectory();
 std::string GetTrashDirectory();
 std::string RemoveInvalidSymbols(std::string const & name);
-std::string GenerateUniqueFileName(const std::string & path, std::string name, std::string_view ext = kKmlExtension);
+std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
 std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
 std::string GenerateValidAndUniqueFilePathForGPX(std::string const & fileName);
 std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
@@ -122,7 +122,10 @@ bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file);
 
 void ResetIds(kml::FileData & kmlData);
 
-namespace feature { class TypesHolder; }
+namespace feature
+{
+class TypesHolder;
+}
 void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bmData);
 
 std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData);

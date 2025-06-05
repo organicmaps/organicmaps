@@ -24,9 +24,10 @@ public:
   static void Dump();
 };
 
-} // namespace impl
+}  // namespace impl
 
-template <class T> class SmallList : public buffer_vector<T, 8>
+template <class T>
+class SmallList : public buffer_vector<T, 8>
 {
   using BaseT = buffer_vector<T, 8>;
 
@@ -54,4 +55,4 @@ inline std::string DebugPrint(SmallList<T> const & v)
   return DebugPrint(static_cast<buffer_vector<T, 8> const &>(v));
 }
 
-} // namesapce routing
+}  // namespace routing

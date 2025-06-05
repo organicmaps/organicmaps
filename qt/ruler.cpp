@@ -37,18 +37,14 @@ void Ruler::DrawLine(df::DrapeApi & drapeApi)
 
   drapeApi.RemoveLine(m_id);
   SetId();
-  drapeApi.AddLine(
-      m_id, df::DrapeApiLineData(m_polyline, lightGreyColor).Width(7.0f).ShowPoints(true).ShowId());
+  drapeApi.AddLine(m_id, df::DrapeApiLineData(m_polyline, lightGreyColor).Width(7.0f).ShowPoints(true).ShowId());
 }
 
 void Ruler::EraseLine(df::DrapeApi & drapeApi) { drapeApi.RemoveLine(m_id); }
 
 bool Ruler::IsValidPolyline() { return m_polyline.size() > 1; }
 
-void Ruler::SetDistance()
-{
-  m_sumDistanceM += oblate_spheroid::GetDistance(m_pointsPair[0], m_pointsPair[1]);
-}
+void Ruler::SetDistance() { m_sumDistanceM += oblate_spheroid::GetDistance(m_pointsPair[0], m_pointsPair[1]); }
 
 void Ruler::SetId()
 {

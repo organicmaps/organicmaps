@@ -7,13 +7,11 @@ import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.util.StringUtils;
-
 import java.util.List;
 
 public abstract class DownloadMapsScreen extends BaseScreen
@@ -22,8 +20,7 @@ public abstract class DownloadMapsScreen extends BaseScreen
 
   private boolean mIsCancelActionDisabled = false;
 
-  @NonNull
-  private final List<CountryItem> mMissingMaps;
+  @NonNull private final List<CountryItem> mMissingMaps;
 
   DownloadMapsScreen(@NonNull final DownloadMapsScreenBuilder builder)
   {
@@ -34,9 +31,7 @@ public abstract class DownloadMapsScreen extends BaseScreen
     mMissingMaps = DownloaderHelpers.getCountryItemsFromIds(builder.mMissingMaps);
   }
 
-  @NonNull
-  @Override
-  public final Template onGetTemplate()
+  @NonNull @Override public final Template onGetTemplate()
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getText(getMapsSize(mMissingMaps)));
     final Header.Builder headerBuilder = new Header.Builder();
@@ -52,62 +47,55 @@ public abstract class DownloadMapsScreen extends BaseScreen
     return builder.build();
   }
 
-  @NonNull
-  protected abstract String getTitle();
+  @NonNull protected abstract String getTitle();
 
-  @NonNull
-  protected abstract String getText(@NonNull final String mapsSize);
+  @NonNull protected abstract String getText(@NonNull final String mapsSize);
 
-  @NonNull
-  protected abstract Action getHeaderAction();
+  @NonNull protected abstract Action getHeaderAction();
 
   protected void disableCancelAction()
   {
     mIsCancelActionDisabled = true;
   }
 
-  @NonNull
-  protected List<CountryItem> getMissingMaps()
+  @NonNull protected List<CountryItem> getMissingMaps()
   {
     return mMissingMaps;
   }
 
-  @NonNull
-  private CarIcon getIcon()
+  @NonNull private CarIcon getIcon()
   {
     return new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_download)).build();
   }
 
-  @NonNull
-  private Action getDownloadAction()
+  @NonNull private Action getDownloadAction()
   {
     return new Action.Builder()
-        .setFlags(Action.FLAG_DEFAULT)
-        .setTitle(getCarContext().getString(R.string.download))
-        .setBackgroundColor(Colors.BUTTON_ACCEPT)
-        .setOnClickListener(this::onDownload)
-        .build();
+      .setFlags(Action.FLAG_DEFAULT)
+      .setTitle(getCarContext().getString(R.string.download))
+      .setBackgroundColor(Colors.BUTTON_ACCEPT)
+      .setOnClickListener(this::onDownload)
+      .build();
   }
 
-  @NonNull
-  private Action getCancelAction()
+  @NonNull private Action getCancelAction()
   {
     return new Action.Builder()
-        .setTitle(getCarContext().getString(R.string.cancel))
-        .setOnClickListener(this::finish)
-        .build();
+      .setTitle(getCarContext().getString(R.string.cancel))
+      .setOnClickListener(this::finish)
+      .build();
   }
 
   private void onDownload()
   {
-    getScreenManager().pushForResult(new DownloaderScreen(getCarContext(), mMissingMaps, mIsCancelActionDisabled), result -> {
-      setResult(result);
-      finish();
-    });
+    getScreenManager().pushForResult(
+      new DownloaderScreen(getCarContext(), mMissingMaps, mIsCancelActionDisabled), result -> {
+        setResult(result);
+        finish();
+      });
   }
 
-  @NonNull
-  private String getMapsSize(@NonNull final List<CountryItem> countries)
+  @NonNull private String getMapsSize(@NonNull final List<CountryItem> countries)
   {
     return StringUtils.getFileSizeString(getCarContext(), DownloaderHelpers.getMapsSize(countries));
   }

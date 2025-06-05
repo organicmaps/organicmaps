@@ -30,7 +30,8 @@ char const kOnly[] = "Only";
 char const kNoUTurn[] = "NoUTurn";
 char const kOnlyUTurn[] = "OnlyUTurn";
 
-template <class TokenizerT> bool ParseLineOfWayIds(TokenizerT & iter, std::vector<base::GeoObjectId> & numbers)
+template <class TokenizerT>
+bool ParseLineOfWayIds(TokenizerT & iter, std::vector<base::GeoObjectId> & numbers)
 {
   uint64_t number = 0;
   for (; iter; ++iter)
@@ -52,14 +53,16 @@ RestrictionCollector::RestrictionCollector(std::string const & osmIdsToFeatureId
 
 bool RestrictionCollector::Process(std::string const & restrictionPath)
 {
-  SCOPE_GUARD(clean, [this]() {
-    m_osmIdToFeatureIds.clear();
-    m_restrictions.clear();
-  });
+  SCOPE_GUARD(clean,
+              [this]()
+              {
+                m_osmIdToFeatureIds.clear();
+                m_restrictions.clear();
+              });
 
   if (!ParseRestrictions(restrictionPath))
   {
-    LOG(LWARNING, ("An error happened while parsing restrictions from file:",  restrictionPath));
+    LOG(LWARNING, ("An error happened while parsing restrictions from file:", restrictionPath));
     return false;
   }
 
@@ -117,8 +120,7 @@ bool RestrictionCollector::ParseRestrictions(std::string const & path)
   return true;
 }
 
-Joint::Id RestrictionCollector::GetFirstCommonJoint(uint32_t firstFeatureId,
-                                                    uint32_t secondFeatureId) const
+Joint::Id RestrictionCollector::GetFirstCommonJoint(uint32_t firstFeatureId, uint32_t secondFeatureId) const
 {
   uint32_t const firstLen = m_indexGraph.GetRoadGeometry(firstFeatureId).GetPointsCount();
   uint32_t const secondLen = m_indexGraph.GetRoadGeometry(secondFeatureId).GetPointsCount();
@@ -142,8 +144,7 @@ Joint::Id RestrictionCollector::GetFirstCommonJoint(uint32_t firstFeatureId,
   return Joint::kInvalidId;
 }
 
-bool RestrictionCollector::FeatureHasPointWithCoords(uint32_t featureId,
-                                                     m2::PointD const & coords) const
+bool RestrictionCollector::FeatureHasPointWithCoords(uint32_t featureId, m2::PointD const & coords) const
 {
   auto const & roadGeometry = m_indexGraph.GetRoadGeometry(featureId);
   uint32_t const pointsCount = roadGeometry.GetPointsCount();
@@ -157,8 +158,7 @@ bool RestrictionCollector::FeatureHasPointWithCoords(uint32_t featureId,
   return false;
 }
 
-bool RestrictionCollector::FeaturesAreCross(m2::PointD const & coords,
-                                            uint32_t prev, uint32_t cur) const
+bool RestrictionCollector::FeaturesAreCross(m2::PointD const & coords, uint32_t prev, uint32_t cur) const
 {
   if (coords == kNoCoords)
     return GetFirstCommonJoint(prev, cur) != Joint::kInvalidId;
@@ -177,8 +177,7 @@ Restriction::Type ConvertUTurnToSimpleRestriction(Restriction::Type type)
   // OsmId of |from| member is differ from |to| member.
   // So we "convert" such no_u_turn to any no_* restriction.
   // And we do the same thing with only_u_turn.
-  return type == Restriction::Type::NoUTurn ? Restriction::Type::No
-                                            : Restriction::Type::Only;
+  return type == Restriction::Type::NoUTurn ? Restriction::Type::No : Restriction::Type::Only;
 }
 
 void ConvertToUTurnIfPossible(Restriction::Type & type, m2::PointD const & coords,
@@ -194,17 +193,13 @@ void ConvertToUTurnIfPossible(Restriction::Type & type, m2::PointD const & coord
   // with the same |from| and |to| member with node as |via|):
   //
   // So we "convert" such relations to no_u_turn or only_u_turn restrictions.
-  if (featureIds.size() == 2 &&
-      featureIds.front() == featureIds.back() &&
-      coords != RestrictionCollector::kNoCoords)
+  if (featureIds.size() == 2 && featureIds.front() == featureIds.back() && coords != RestrictionCollector::kNoCoords)
   {
-    type = type == Restriction::Type::No ? Restriction::Type::NoUTurn
-                                         : Restriction::Type::OnlyUTurn;
+    type = type == Restriction::Type::No ? Restriction::Type::NoUTurn : Restriction::Type::OnlyUTurn;
   }
 }
 
-bool RestrictionCollector::CheckAndProcessUTurn(Restriction::Type & restrictionType,
-                                                m2::PointD const & coords,
+bool RestrictionCollector::CheckAndProcessUTurn(Restriction::Type & restrictionType, m2::PointD const & coords,
                                                 std::vector<uint32_t> & featureIds) const
 {
   CHECK(IsUTurnType(restrictionType), ());
@@ -245,10 +240,8 @@ bool RestrictionCollector::CheckAndProcessUTurn(Restriction::Type & restrictionT
     // According to the wiki: via must be at the end or at the beginning of feature.
     // https://wiki.openstreetmap.org/wiki/Relation:restriction
     static auto constexpr kEps = 1e-5;
-    bool const viaIsFirstNode =
-        base::AlmostEqualAbs(coords, mercator::FromLatLon(road.GetPoint(0)), kEps);
-    bool const viaIsLastNode =
-        base::AlmostEqualAbs(coords, mercator::FromLatLon(road.GetPoint(n - 1)), kEps);
+    bool const viaIsFirstNode = base::AlmostEqualAbs(coords, mercator::FromLatLon(road.GetPoint(0)), kEps);
+    bool const viaIsLastNode = base::AlmostEqualAbs(coords, mercator::FromLatLon(road.GetPoint(n - 1)), kEps);
 
     if (viaIsFirstNode)
     {
@@ -268,8 +261,7 @@ bool RestrictionCollector::CheckAndProcessUTurn(Restriction::Type & restrictionT
   return true;
 }
 
-bool RestrictionCollector::IsRestrictionValid(Restriction::Type & restrictionType,
-                                              m2::PointD const & coords,
+bool RestrictionCollector::IsRestrictionValid(Restriction::Type & restrictionType, m2::PointD const & coords,
                                               std::vector<uint32_t> & featureIds) const
 {
   if (featureIds.empty() || !m_indexGraph.IsRoad(featureIds[0]))
@@ -294,8 +286,7 @@ bool RestrictionCollector::IsRestrictionValid(Restriction::Type & restrictionTyp
   return CheckAndProcessUTurn(restrictionType, coords, featureIds);
 }
 
-bool RestrictionCollector::AddRestriction(m2::PointD const & coords,
-                                          Restriction::Type restrictionType,
+bool RestrictionCollector::AddRestriction(m2::PointD const & coords, Restriction::Type restrictionType,
                                           std::vector<base::GeoObjectId> const & osmIds)
 {
   std::vector<uint32_t> featureIds(osmIds.size());
@@ -353,8 +344,7 @@ void FromString(std::string_view str, Restriction::Type & type)
     return;
   }
 
-  CHECK(false,
-        ("Invalid line:", str, "expected:", kNo, "or", kOnly, "or", kNoUTurn, "or", kOnlyUTurn));
+  CHECK(false, ("Invalid line:", str, "expected:", kNo, "or", kOnly, "or", kNoUTurn, "or", kOnlyUTurn));
   UNREACHABLE();
 }
 
@@ -372,12 +362,9 @@ void FromString(std::string_view str, RestrictionWriter::ViaType & type)
     return;
   }
 
-  CHECK(false, ("Invalid line:", str, "expected:", RestrictionWriter::kNodeString,
-                "or", RestrictionWriter::kWayString));
+  CHECK(false,
+        ("Invalid line:", str, "expected:", RestrictionWriter::kNodeString, "or", RestrictionWriter::kWayString));
 }
 
-void FromString(std::string_view str, double & number)
-{
-  CHECK(strings::to_double(str, number), ());
-}
+void FromString(std::string_view str, double & number) { CHECK(strings::to_double(str, number), ()); }
 }  // namespace routing_builder

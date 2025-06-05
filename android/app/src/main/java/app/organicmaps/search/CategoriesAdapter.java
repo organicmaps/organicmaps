@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
@@ -16,26 +15,21 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.search.DisplayedCategories;
 import app.organicmaps.util.ThemeUtils;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ ViewType.CATEGORY })
-  @interface ViewType {
+  @Retention(RetentionPolicy.SOURCE) @IntDef({ViewType.CATEGORY}) @interface ViewType
+  {
     int CATEGORY = 0;
   }
 
-  @StringRes
-  private int[] mCategoryResIds;
-  @DrawableRes
-  private int[] mIconResIds;
+  @StringRes private int[] mCategoryResIds;
+  @DrawableRes private int[] mIconResIds;
 
   private final LayoutInflater mInflater;
   private final Resources mResources;
@@ -79,8 +73,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     }
   }
 
-  @NonNull
-  private static String[] getAllCategories()
+  @NonNull private static String[] getAllCategories()
   {
     String[] searchCategories = DisplayedCategories.getKeys();
     int amountSize = searchCategories.length;
@@ -100,17 +93,14 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   @SuppressLint("DiscouragedApi")
   @StringRes
-  private static int getStringResIdByKey(@NonNull Resources resources, @NonNull String packageName,
-                                         @NonNull String key)
+  private static int getStringResIdByKey(@NonNull Resources resources, @NonNull String packageName, @NonNull String key)
   {
     return resources.getIdentifier(key, "string", packageName);
   }
 
   @SuppressLint("DiscouragedApi")
   @DrawableRes
-  private static int getDrawableResIdByKey(@NonNull Context context,
-                                           @NonNull String packageName,
-                                           @NonNull String key)
+  private static int getDrawableResIdByKey(@NonNull Context context, @NonNull String packageName, @NonNull String key)
   {
     final boolean isNightTheme = ThemeUtils.isNightTheme(context);
     String iconId = "ic_" + key;
@@ -119,16 +109,12 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     return context.getResources().getIdentifier(iconId, "drawable", packageName);
   }
 
-  @Override
-  @ViewType
-  public int getItemViewType(int position)
+  @Override @ViewType public int getItemViewType(int position)
   {
     return ViewType.CATEGORY;
   }
 
-  @NonNull
-  @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @ViewType int viewType)
+  @NonNull @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @ViewType int viewType)
   {
     View view;
     ViewHolder viewHolder;
@@ -146,24 +132,20 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     return viewHolder;
   }
 
-  @Override
-  public void onBindViewHolder(ViewHolder holder, int position)
+  @Override public void onBindViewHolder(ViewHolder holder, int position)
   {
     holder.setTextAndIcon(mCategoryResIds[position], mIconResIds[position]);
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     return mCategoryResIds.length;
   }
 
   class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
-    @NonNull
-    private final TextView mTitle;
-    @NonNull
-    private final View mView;
+    @NonNull private final TextView mTitle;
+    @NonNull private final View mView;
 
     ViewHolder(@NonNull View v, @NonNull TextView tv)
     {
@@ -177,8 +159,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       mView.setOnClickListener(this);
     }
 
-    @Override
-    public final void onClick(View v)
+    @Override public final void onClick(View v)
     {
       final int position = getBindingAdapterPosition();
       onItemClicked(position);
@@ -188,8 +169,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     {
       if (mListener != null)
       {
-        @StringRes
-        int categoryId = mCategoryResIds[position];
+        @StringRes int categoryId = mCategoryResIds[position];
         mListener.onSearchCategorySelected(mResources.getString(categoryId) + " ");
       }
     }
@@ -199,6 +179,5 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       mTitle.setText(textResId);
       mTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(iconResId, 0, 0, 0);
     }
-
   }
 }

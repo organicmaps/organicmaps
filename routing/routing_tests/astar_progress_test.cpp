@@ -19,9 +19,7 @@ UNIT_TEST(DirectedAStarProgressCheck)
   TEST_GREATER(progress.UpdateProgress(middle, finish), 49.0, ());
 
   static auto constexpr kEps = 0.001;
-  TEST_GREATER(progress.UpdateProgress(finish, finish),
-               AStarProgress::kMaxPercent - kEps,
-               ());
+  TEST_GREATER(progress.UpdateProgress(finish, finish), AStarProgress::kMaxPercent - kEps, ());
 
   progress.PushAndDropLastSubProgress();
 }
@@ -79,4 +77,4 @@ UNIT_TEST(BidirectedAStarProgressCheck)
 
   progress.PushAndDropLastSubProgress();
 }
-} //  namespace routing_test
+}  //  namespace routing_test

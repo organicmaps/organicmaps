@@ -1,58 +1,47 @@
 package app.organicmaps.search;
 
 import android.app.Activity;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.core.view.ViewCompat;
-
 import app.organicmaps.sdk.search.SearchEngine;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.util.UiUtils;
 
 public class FloatingSearchToolbarController extends SearchToolbarController
 {
-  @Nullable
-  private VisibilityListener mVisibilityListener;
-  @Nullable
-  private final SearchToolbarListener mListener;
+  @Nullable private VisibilityListener mVisibilityListener;
+  @Nullable private final SearchToolbarListener mListener;
 
   public interface VisibilityListener
   {
     void onSearchVisibilityChanged(boolean visible);
   }
 
-  public FloatingSearchToolbarController(@NonNull Activity activity,
-                                         @Nullable SearchToolbarListener listener)
+  public FloatingSearchToolbarController(@NonNull Activity activity, @Nullable SearchToolbarListener listener)
   {
     super(activity.getWindow().getDecorView(), activity);
     mListener = listener;
     // We only want to detect a click on the input and not allow editing.
     disableQueryEditing();
 
-    ViewCompat.setOnApplyWindowInsetsListener(
-        getToolbar(),
-        PaddingInsetsListener.excludeTop());
+    ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), PaddingInsetsListener.excludeTop());
   }
 
-  @Override
-  public void onUpClick()
+  @Override public void onUpClick()
   {
     if (mListener != null)
       mListener.onSearchUpClick(getQuery());
   }
 
-  @Override
-  protected void onQueryClick(@Nullable String query)
+  @Override protected void onQueryClick(@Nullable String query)
   {
     if (mListener != null)
       mListener.onSearchQueryClick(getQuery());
   }
 
-  @Override
-  protected void onClearClick()
+  @Override protected void onClearClick()
   {
     super.onClearClick();
     if (mListener != null)

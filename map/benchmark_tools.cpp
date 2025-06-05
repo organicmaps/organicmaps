@@ -46,10 +46,8 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
 #ifdef DRAPE_MEASURER_BENCHMARK
     for (auto const & it : handle->m_drapeStatistic)
     {
-      LOG(LINFO, ("\n ***** Report for scenario", it.first, "*****\n",
-                  it.second.ToString(),
+      LOG(LINFO, ("\n ***** Report for scenario", it.first, "*****\n", it.second.ToString(),
                   "\n ***** Report for scenario", it.first, "*****\n"));
-
     }
 #endif
     return;
@@ -57,26 +55,28 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
 
   auto & scenarioData = handle->m_scenariosToRun[handle->m_currentScenario];
 
-  framework->GetDrapeEngine()->RunScenario(std::move(scenarioData),
-                                           [handle](std::string const & name)
-  {
-#ifdef DRAPE_MEASURER_BENCHMARK
-    df::DrapeMeasurer::Instance().Start();
-#endif
-  },
-  [framework, handle](std::string const & name)
-  {
-#ifdef DRAPE_MEASURER_BENCHMARK
-    df::DrapeMeasurer::Instance().Stop();
-    auto const drapeStatistic = df::DrapeMeasurer::Instance().GetDrapeStatistic();
-    handle->m_drapeStatistic.push_back(make_pair(name, drapeStatistic));
-#endif
-    GetPlatform().RunTask(Platform::Thread::Gui, [framework, handle]()
+  framework->GetDrapeEngine()->RunScenario(
+    std::move(scenarioData),
+    [handle](std::string const & name)
     {
-      handle->m_currentScenario++;
-      RunScenario(framework, handle);
+#ifdef DRAPE_MEASURER_BENCHMARK
+      df::DrapeMeasurer::Instance().Start();
+#endif
+    },
+    [framework, handle](std::string const & name)
+    {
+#ifdef DRAPE_MEASURER_BENCHMARK
+      df::DrapeMeasurer::Instance().Stop();
+      auto const drapeStatistic = df::DrapeMeasurer::Instance().GetDrapeStatistic();
+      handle->m_drapeStatistic.push_back(make_pair(name, drapeStatistic));
+#endif
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            [framework, handle]()
+                            {
+                              handle->m_currentScenario++;
+                              RunScenario(framework, handle);
+                            });
     });
-  });
 }
 }  // namespace
 
@@ -91,7 +91,7 @@ void RunGraphicsBenchmark(Framework * framework)
   auto const fn = base::JoinPath(GetPlatform().SettingsDir(), "graphics_benchmark.json");
   if (!GetPlatform().IsFileExistsByFullPath(fn))
     return;
-  
+
   std::string benchmarkData;
   try
   {
@@ -102,7 +102,7 @@ void RunGraphicsBenchmark(Framework * framework)
     LOG(LCRITICAL, ("Error reading benchmark file: ", e.what()));
     return;
   }
-  
+
   std::shared_ptr<BenchmarkHandle> handle = std::make_shared<BenchmarkHandle>();
 
   // Parse scenarios.
@@ -139,7 +139,7 @@ void RunGraphicsBenchmark(Framework * framework)
             json_int_t timeInSeconds = 0;
             FromJSONObject(stepElem, "time", timeInSeconds);
             scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
-                new ScenarioManager::WaitForTimeAction(std::chrono::seconds(timeInSeconds))));
+              new ScenarioManager::WaitForTimeAction(std::chrono::seconds(timeInSeconds))));
           }
           else if (actionType == "centerViewport")
           {
@@ -154,7 +154,7 @@ void RunGraphicsBenchmark(Framework * framework)
             m2::PointD const pt = mercator::FromLatLon(lat, lon);
             points.push_back(pt);
             scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
-                                 new ScenarioManager::CenterViewportAction(pt, static_cast<int>(zoomLevel))));
+              new ScenarioManager::CenterViewportAction(pt, static_cast<int>(zoomLevel))));
           }
         }
       }
@@ -184,18 +184,19 @@ void RunGraphicsBenchmark(Framework * framework)
   if (!handle->m_regionsToDownload.empty())
   {
     framework->GetStorage().Subscribe(
-        [framework, handle](storage::CountryId const & countryId) {
-          if (base::IsExist(handle->m_regionsToDownload, countryId))
+      [framework, handle](storage::CountryId const & countryId)
+      {
+        if (base::IsExist(handle->m_regionsToDownload, countryId))
+        {
+          handle->m_regionsToDownloadCounter++;
+          if (handle->m_regionsToDownloadCounter == handle->m_regionsToDownload.size())
           {
-            handle->m_regionsToDownloadCounter++;
-            if (handle->m_regionsToDownloadCounter == handle->m_regionsToDownload.size())
-            {
-              handle->m_regionsToDownload.clear();
-              RunScenario(framework, handle);
-            }
+            handle->m_regionsToDownload.clear();
+            RunScenario(framework, handle);
           }
-        },
-        [](storage::CountryId const &, downloader::Progress const &) {});
+        }
+      },
+      [](storage::CountryId const &, downloader::Progress const &) {});
 
     for (auto const & countryId : handle->m_regionsToDownload)
       framework->GetStorage().DownloadNode(countryId);

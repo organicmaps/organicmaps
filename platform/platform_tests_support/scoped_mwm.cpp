@@ -16,7 +16,8 @@ namespace platform
 {
 namespace tests_support
 {
-ScopedMwm::ScopedMwm(std::string const & relativePath) : m_file(relativePath, ScopedFile::Mode::Create)
+ScopedMwm::ScopedMwm(std::string const & relativePath)
+  : m_file(relativePath, ScopedFile::Mode::Create)
 {
   FilesContainerW container(m_file.GetFullPath());
 
@@ -37,4 +38,4 @@ ScopedMwm::ScopedMwm(std::string const & relativePath) : m_file(relativePath, Sc
   }
 }
 }  // namespace tests_support
-}  // namespace platfotm
+}  // namespace platform

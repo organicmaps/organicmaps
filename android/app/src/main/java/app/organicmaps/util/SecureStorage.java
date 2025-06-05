@@ -2,7 +2,6 @@ package app.organicmaps.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,10 +24,7 @@ public final class SecureStorage
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  @Nullable
-  public static String load(@NonNull Context context, @NonNull String key)
+  @Keep @SuppressWarnings("unused") @Nullable public static String load(@NonNull Context context, @NonNull String key)
   {
     Logger.d(TAG, "load: key = " + key);
     SharedPreferences prefs = context.getSharedPreferences("secure", Context.MODE_PRIVATE);
@@ -36,9 +32,7 @@ public final class SecureStorage
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  public static void remove(@NonNull Context context, @NonNull String key)
+  @Keep @SuppressWarnings("unused") public static void remove(@NonNull Context context, @NonNull String key)
   {
     Logger.d(TAG, "remove: key = " + key);
     SharedPreferences prefs = context.getSharedPreferences("secure", Context.MODE_PRIVATE);

@@ -11,22 +11,18 @@
 
 #include "geometry/mercator.hpp"
 
-
 namespace generator
 {
 using namespace feature;
 
-std::shared_ptr<FeatureMakerBase> FeatureMakerSimple::Clone() const
-{
-  return std::make_shared<FeatureMakerSimple>();
-}
+std::shared_ptr<FeatureMakerBase> FeatureMakerSimple::Clone() const { return std::make_shared<FeatureMakerSimple>(); }
 
 void FeatureMakerSimple::ParseParams(FeatureBuilderParams & params, OsmElement & p) const
 {
   auto const & cl = classif();
-  ftype::GetNameAndType(&p, params,
-                        [&cl] (uint32_t type) { return cl.IsTypeValid(type); },
-                        [this](OsmElement const * p) { return GetOrigin(*p); });
+  ftype::GetNameAndType(
+    &p, params, [&cl](uint32_t type) { return cl.IsTypeValid(type); },
+    [this](OsmElement const * p) { return GetOrigin(*p); });
 }
 
 std::optional<m2::PointD> FeatureMakerSimple::ReadNode(uint64_t id) const
@@ -143,14 +139,10 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureBuilderParams 
     m_queue.push(std::move(fb));
   };
 
-  helper.GetOuter().ForEachArea(true /* collectID */, [&](auto && pts, auto && ids)
-  {
-    createFB(std::move(pts), ids);
-  });
+  helper.GetOuter().ForEachArea(true /* collectID */, [&](auto && pts, auto && ids) { createFB(std::move(pts), ids); });
 
   return size != m_queue.size();
 }
-
 
 FeatureMaker::FeatureMaker(IDRInterfacePtr const & cache)
   : FeatureMakerSimple(cache)
@@ -158,15 +150,11 @@ FeatureMaker::FeatureMaker(IDRInterfacePtr const & cache)
   m_placeClass = classif().GetTypeByPath({"place"});
 }
 
-std::shared_ptr<FeatureMakerBase> FeatureMaker::Clone() const
-{
-  return std::make_shared<FeatureMaker>();
-}
+std::shared_ptr<FeatureMakerBase> FeatureMaker::Clone() const { return std::make_shared<FeatureMaker>(); }
 
 void FeatureMaker::ParseParams(FeatureBuilderParams & params, OsmElement & p) const
 {
-  ftype::GetNameAndType(&p, params, &feature::IsUsefulType,
-                        [this](OsmElement const * p) { return GetOrigin(*p); });
+  ftype::GetNameAndType(&p, params, &feature::IsUsefulType, [this](OsmElement const * p) { return GetOrigin(*p); });
 }
 
 bool FeatureMaker::BuildFromRelation(OsmElement & p, FeatureBuilderParams const & params)
@@ -194,17 +182,18 @@ bool FeatureMaker::BuildFromRelation(OsmElement & p, FeatureBuilderParams const 
       helper.Build(&p);
 
       double maxArea = 0;
-      helper.GetOuter().ForEachArea(false /* collectID */, [&](auto && pts, auto &&)
-      {
-        m2::RectD rect;
-        CalcRect(pts, rect);
-        double const currArea = rect.Area();
-        if (currArea > maxArea)
-        {
-          center = FeatureBuilder::GetGeometryCenter(pts);
-          maxArea = currArea;
-        }
-      });
+      helper.GetOuter().ForEachArea(false /* collectID */,
+                                    [&](auto && pts, auto &&)
+                                    {
+                                      m2::RectD rect;
+                                      CalcRect(pts, rect);
+                                      double const currArea = rect.Area();
+                                      if (currArea > maxArea)
+                                      {
+                                        center = FeatureBuilder::GetGeometryCenter(pts);
+                                        maxArea = currArea;
+                                      }
+                                    });
     }
 
     if (!center)

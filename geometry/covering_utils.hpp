@@ -28,14 +28,12 @@ enum CellObjectIntersection
 };
 
 template <class CellId>
-CellObjectIntersection IntersectCellWithLine(CellId const cell, m2::PointD const & a,
-                                             m2::PointD const & b)
+CellObjectIntersection IntersectCellWithLine(CellId const cell, m2::PointD const & a, m2::PointD const & b)
 {
   std::pair<uint32_t, uint32_t> const xy = cell.XY();
   uint32_t const r = cell.Radius();
-  m2::PointD const cellCorners[4] = {
-      m2::PointD(xy.first - r, xy.second - r), m2::PointD(xy.first - r, xy.second + r),
-      m2::PointD(xy.first + r, xy.second + r), m2::PointD(xy.first + r, xy.second - r)};
+  m2::PointD const cellCorners[4] = {m2::PointD(xy.first - r, xy.second - r), m2::PointD(xy.first - r, xy.second + r),
+                                     m2::PointD(xy.first + r, xy.second + r), m2::PointD(xy.first + r, xy.second - r)};
   for (int i = 0; i < 4; ++i)
   {
     if (m2::SegmentsIntersect(a, b, cellCorners[i], cellCorners[i == 0 ? 3 : i - 1]))
@@ -47,8 +45,8 @@ CellObjectIntersection IntersectCellWithLine(CellId const cell, m2::PointD const
 }
 
 template <class CellId>
-CellObjectIntersection IntersectCellWithTriangle(CellId const cell, m2::PointD const & a,
-                                                 m2::PointD const & b, m2::PointD const & c)
+CellObjectIntersection IntersectCellWithTriangle(CellId const cell, m2::PointD const & a, m2::PointD const & b,
+                                                 m2::PointD const & c)
 {
   CellObjectIntersection const i1 = IntersectCellWithLine(cell, a, b);
   if (i1 == CELL_OBJECT_INTERSECT)
@@ -75,8 +73,8 @@ CellObjectIntersection IntersectCellWithTriangle(CellId const cell, m2::PointD c
 }
 
 template <class CellId, class CellIdContainerT, typename IntersectF>
-void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdContainerT & out,
-                 int cellDepth, CellId cell)
+void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdContainerT & out, int cellDepth,
+                 CellId cell)
 {
   if (cell.Level() == cellDepth - 1)
   {

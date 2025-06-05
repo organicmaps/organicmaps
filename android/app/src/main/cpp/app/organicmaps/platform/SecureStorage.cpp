@@ -14,8 +14,5 @@ bool SecureStorage::Load(std::string const & key, std::string & value)
   return android::Platform::Instance().GetSecureStorage().Load(key, value);
 }
 
-void SecureStorage::Remove(std::string const & key)
-{
-  android::Platform::Instance().GetSecureStorage().Remove(key);
-}
+void SecureStorage::Remove(std::string const & key) { android::Platform::Instance().GetSecureStorage().Remove(key); }
 }  // namespace platform

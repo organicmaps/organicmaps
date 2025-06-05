@@ -29,9 +29,7 @@ UNIT_TEST(Results_Sorting)
     TEST_EQUAL(result.GetPositionInResults(), std::distance(r.begin(), it), ());
   }
 
-  r.SortBy([](auto const & lhs, auto const & rhs) {
-    return lhs.GetFeatureID().m_index < rhs.GetFeatureID().m_index;
-  });
+  r.SortBy([](auto const & lhs, auto const & rhs) { return lhs.GetFeatureID().m_index < rhs.GetFeatureID().m_index; });
 
   for (auto it = r.begin(); it != r.end(); ++it)
   {

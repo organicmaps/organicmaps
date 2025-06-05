@@ -12,12 +12,18 @@
 #include "drape/render_bucket.hpp"
 
 #include <memory>
-#include <vector>
 #include <string>
+#include <vector>
 
 class ScreenBase;
-namespace dp { class OverlayTree; }
-namespace gpu { class ProgramManager; }
+namespace dp
+{
+class OverlayTree;
+}
+namespace gpu
+{
+class ProgramManager;
+}
 
 namespace df
 {
@@ -52,6 +58,7 @@ private:
 class RenderGroup : public BaseRenderGroup
 {
   using TBase = BaseRenderGroup;
+
 public:
   RenderGroup(dp::RenderState const & state, TileKey const & tileKey);
   ~RenderGroup() override;
@@ -72,8 +79,7 @@ public:
   bool IsPendingOnDelete() const { return m_pendingOnDelete; }
   bool CanBeDeleted() const { return m_canBeDeleted; }
 
-  bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom,
-                                ref_ptr<dp::OverlayTree> tree);
+  bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree);
 
   bool IsUserMark() const;
 
@@ -107,6 +113,7 @@ public:
 class UserMarkRenderGroup : public RenderGroup
 {
   using TBase = RenderGroup;
+
 public:
   UserMarkRenderGroup(dp::RenderState const & state, TileKey const & tileKey);
 

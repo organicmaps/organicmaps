@@ -1,4 +1,4 @@
-@protocol MWMTextToSpeechObserver<NSObject>
+@protocol MWMTextToSpeechObserver <NSObject>
 
 - (void)onTTSStatusUpdated;
 

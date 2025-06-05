@@ -25,28 +25,32 @@ namespace
 {
 struct ClearVisitor
 {
-  template<typename Cont>
-  void operator()(Cont & c, char const * /* name */) const { c.clear(); }
+  template <typename Cont>
+  void operator()(Cont & c, char const * /* name */) const
+  {
+    c.clear();
+  }
 };
 
 struct SortVisitor
 {
-  template<typename Cont>
+  template <typename Cont>
   void operator()(Cont & c, char const * /* name */) const
   {
     sort(c.begin(), c.end());
 
     auto const end = c.end();
-    auto const it = unique(c.begin(), end, [](auto const & l, auto const & r)
-    {
-      if (l == r)
-      {
-        // Print _right_ element as next equal entry.
-        LOG(LINFO, ("Duplicating entry:", r));
-        return true;
-      }
-      return false;
-    });
+    auto const it = unique(c.begin(), end,
+                           [](auto const & l, auto const & r)
+                           {
+                             if (l == r)
+                             {
+                               // Print _right_ element as next equal entry.
+                               LOG(LINFO, ("Duplicating entry:", r));
+                               return true;
+                             }
+                             return false;
+                           });
 
     if (it != end)
     {
@@ -83,7 +87,7 @@ struct CheckSortedVisitor
   }
 };
 
-template<typename T>
+template <typename T>
 void Append(vector<T> const & src, vector<T> & dst)
 {
   dst.insert(dst.end(), src.begin(), src.end());
@@ -143,8 +147,7 @@ void UpdateItems(set<Id> const & ids, vector<Item> & items)
 }
 
 template <class Item>
-void ReadItems(uint32_t start, uint32_t end, string const & name, NonOwningReaderSource & src,
-               vector<Item> & items)
+void ReadItems(uint32_t start, uint32_t end, string const & name, NonOwningReaderSource & src, vector<Item> & items)
 {
   Deserializer<NonOwningReaderSource> deserializer(src);
   CHECK_EQUAL(src.Pos(), start, ("Wrong", TRANSIT_FILE_TAG, "section format. Table name:", name));
@@ -154,13 +157,11 @@ void ReadItems(uint32_t start, uint32_t end, string const & name, NonOwningReade
 }
 }  // namespace
 
-
 // DeserializerFromJson ---------------------------------------------------------------------------
-DeserializerFromJson::DeserializerFromJson(json_t * node,
-                                           OsmIdToFeatureIdsMap const & osmIdToFeatureIds)
-    : m_node(node), m_osmIdToFeatureIds(osmIdToFeatureIds)
-{
-}
+DeserializerFromJson::DeserializerFromJson(json_t * node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds)
+  : m_node(node)
+  , m_osmIdToFeatureIds(osmIdToFeatureIds)
+{}
 
 void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
 {
@@ -169,7 +170,7 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
   // regular method.
   json_t * item = nullptr;
   if (name == nullptr)
-    item = m_node; // Array item case
+    item = m_node;  // Array item case
   else
     item = base::GetJSONObligatoryField(m_node, name);
 
@@ -184,8 +185,7 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   string osmIdStr;
   GetField(osmIdStr, name);
   uint64_t osmIdNum;
-  CHECK(strings::to_uint64(osmIdStr, osmIdNum),
-        ("Cann't convert osm id string:", osmIdStr, "to a number."));
+  CHECK(strings::to_uint64(osmIdStr, osmIdNum), ("Cann't convert osm id string:", osmIdStr, "to a number."));
   base::GeoObjectId const osmId(osmIdNum);
   auto const it = m_osmIdToFeatureIds.find(osmId);
   if (it != m_osmIdToFeatureIds.cend())
@@ -196,8 +196,8 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
     {
       // Note. |osmId| corresponds to several feature ids. It may happen in case of stops,
       // if a stop is present as a relation. It's a rare case.
-      LOG(LWARNING, ("Osm id:", osmId, "( encoded", osmId.GetEncodedId(), ") corresponds to",
-                     it->second.size(), "feature ids."));
+      LOG(LWARNING,
+          ("Osm id:", osmId, "( encoded", osmId.GetEncodedId(), ") corresponds to", it->second.size(), "feature ids."));
     }
     id.SetFeatureId(it->second[0]);
   }
@@ -232,13 +232,15 @@ void GraphData::DeserializeFromJson(base::Json const & root, OsmIdToFeatureIdsMa
   // Note. It's possible that two stops are connected with the same line several times
   // in the same direction. It happens in Oslo metro (T-banen):
   // https://en.wikipedia.org/wiki/Oslo_Metro#/media/File:Oslo_Metro_Map.svg branch 5.
-  base::SortUnique(m_edges,
-                 [](Edge const & e1, Edge const & e2) {
-                   if (e1 != e2)
-                     return e1 < e2;
-                   return e1.GetWeight() < e2.GetWeight();
-                 },
-                 [](Edge const & e1, Edge const & e2) { return e1 == e2; });
+  base::SortUnique(
+    m_edges,
+    [](Edge const & e1, Edge const & e2)
+    {
+      if (e1 != e2)
+        return e1 < e2;
+      return e1.GetWeight() < e2.GetWeight();
+    },
+    [](Edge const & e1, Edge const & e2) { return e1 == e2; });
 }
 
 void GraphData::Serialize(Writer & writer)
@@ -284,46 +286,54 @@ void GraphData::Serialize(Writer & writer)
 
 void GraphData::DeserializeAll(Reader & reader)
 {
-  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
-    ReadStops(src);
-    ReadGates(src);
-    ReadEdges(src);
-    ReadTransfers(src);
-    ReadLines(src);
-    ReadShapes(src);
-    ReadNetworks(src);
-  });
+  DeserializeWith(reader,
+                  [this](NonOwningReaderSource & src)
+                  {
+                    ReadStops(src);
+                    ReadGates(src);
+                    ReadEdges(src);
+                    ReadTransfers(src);
+                    ReadLines(src);
+                    ReadShapes(src);
+                    ReadNetworks(src);
+                  });
 }
 
 void GraphData::DeserializeForRouting(Reader & reader)
 {
-  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
-    ReadStops(src);
-    ReadGates(src);
-    ReadEdges(src);
-    src.Skip(m_header.m_linesOffset - src.Pos());
-    ReadLines(src);
-  });
+  DeserializeWith(reader,
+                  [this](NonOwningReaderSource & src)
+                  {
+                    ReadStops(src);
+                    ReadGates(src);
+                    ReadEdges(src);
+                    src.Skip(m_header.m_linesOffset - src.Pos());
+                    ReadLines(src);
+                  });
 }
 
 void GraphData::DeserializeForRendering(Reader & reader)
 {
-  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
-    ReadStops(src);
-    src.Skip(m_header.m_transfersOffset - src.Pos());
-    ReadTransfers(src);
-    ReadLines(src);
-    ReadShapes(src);
-  });
+  DeserializeWith(reader,
+                  [this](NonOwningReaderSource & src)
+                  {
+                    ReadStops(src);
+                    src.Skip(m_header.m_transfersOffset - src.Pos());
+                    ReadTransfers(src);
+                    ReadLines(src);
+                    ReadShapes(src);
+                  });
 }
 
 void GraphData::DeserializeForCrossMwm(Reader & reader)
 {
-  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
-    ReadStops(src);
-    src.Skip(m_header.m_edgesOffset - src.Pos());
-    ReadEdges(src);
-  });
+  DeserializeWith(reader,
+                  [this](NonOwningReaderSource & src)
+                  {
+                    ReadStops(src);
+                    src.Skip(m_header.m_edgesOffset - src.Pos());
+                    ReadEdges(src);
+                  });
 }
 
 void GraphData::AppendTo(GraphData const & rhs)
@@ -364,8 +374,8 @@ void GraphData::CheckValidSortedUnique() const
 bool GraphData::IsEmpty() const
 {
   // Note. |m_transfers| may be empty if GraphData instance is not empty.
-  return m_stops.empty() || m_gates.empty() || m_edges.empty() || m_lines.empty()
-      || m_shapes.empty() || m_networks.empty();
+  return m_stops.empty() || m_gates.empty() || m_edges.empty() || m_lines.empty() || m_shapes.empty() ||
+         m_networks.empty();
 }
 
 void GraphData::Sort()
@@ -432,7 +442,8 @@ void GraphData::ClipLines(vector<m2::RegionD> const & borders)
     CHECK_EQUAL(ranges.size(), 1, ());
     vector<StopId> const & stopIds = ranges[0];
     auto it = stopIds.begin();
-    while (it != stopIds.end()) {
+    while (it != stopIds.end())
+    {
       while (it != stopIds.end() && stopIdInside.count(*it) == 0)
         ++it;
       auto jt = it;
@@ -445,8 +456,8 @@ void GraphData::ClipLines(vector<m2::RegionD> const & borders)
 
     if (!stopIdsToFill.empty())
     {
-      lines.emplace_back(line.GetId(), line.GetNumber(), line.GetTitle(), line.GetType(),
-                         line.GetColor(), line.GetNetworkId(), stopIdsToFill, line.GetInterval());
+      lines.emplace_back(line.GetId(), line.GetNumber(), line.GetTitle(), line.GetType(), line.GetColor(),
+                         line.GetNetworkId(), stopIdsToFill, line.GetInterval());
     }
   }
 
@@ -476,15 +487,9 @@ void GraphData::ClipNetworks()
   UpdateItems(networkIds, m_networks);
 }
 
-void GraphData::ClipGates()
-{
-  ClipItemsByStops(m_stops, m_gates);
-}
+void GraphData::ClipGates() { ClipItemsByStops(m_stops, m_gates); }
 
-void GraphData::ClipTransfer()
-{
-  ClipItemsByStops(m_stops, m_transfers);
-}
+void GraphData::ClipTransfer() { ClipItemsByStops(m_stops, m_transfers); }
 
 void GraphData::ClipEdges()
 {

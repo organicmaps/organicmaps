@@ -17,8 +17,7 @@ void TestGpsInfo(GpsInfo const & tested, GpsInfo const & expected)
   TEST_EQUAL(tested.m_source, expected.m_source, ());
   TEST(base::AlmostEqualAbs(tested.m_latitude, expected.m_latitude, kEpsilon), ());
   TEST(base::AlmostEqualAbs(tested.m_longitude, expected.m_longitude, kEpsilon), ());
-  TEST(base::AlmostEqualAbs(tested.m_horizontalAccuracy, expected.m_horizontalAccuracy, kEpsilon),
-       ());
+  TEST(base::AlmostEqualAbs(tested.m_horizontalAccuracy, expected.m_horizontalAccuracy, kEpsilon), ());
   TEST(base::AlmostEqualAbs(tested.m_altitude, expected.m_altitude, kEpsilon), ());
   TEST(base::AlmostEqualAbs(tested.m_verticalAccuracy, expected.m_verticalAccuracy, kEpsilon), ());
   TEST(base::AlmostEqualAbs(tested.m_bearing, expected.m_bearing, kEpsilon), ());
@@ -27,15 +26,9 @@ void TestGpsInfo(GpsInfo const & tested, GpsInfo const & expected)
 
 GpsInfo GetGpsInfo(double timestampS, double lat, double lon, double altitude, double speed)
 {
-  return GpsInfo{EAppleNative,
-                 timestampS,
-                 lat,
-                 lon,
-                 10.0 /* m_horizontalAccuracy */,
-                 altitude,
-                 10.0 /* m_verticalAccuracy */,
-                 0.0 /* m_bearing */,
-                 speed};
+  return GpsInfo{
+    EAppleNative,        timestampS, lat, lon, 10.0 /* m_horizontalAccuracy */, altitude, 10.0 /* m_verticalAccuracy */,
+    0.0 /* m_bearing */, speed};
 }
 
 UNIT_TEST(LinearExtrapolation)
@@ -50,22 +43,22 @@ UNIT_TEST(LinearExtrapolation)
 
   // 100 ms after |point2|.
   {
-    GpsInfo const expected = GetGpsInfo(1.1 /* timestampS */, 1.011 /* m_latitude */,
-                                        1.011 /* m_longitude */, 2.1 /* m_altitude */, 12.2 /* m_speed */);
+    GpsInfo const expected = GetGpsInfo(1.1 /* timestampS */, 1.011 /* m_latitude */, 1.011 /* m_longitude */,
+                                        2.1 /* m_altitude */, 12.2 /* m_speed */);
     TestGpsInfo(LinearExtrapolation(loc1, loc2, 100 /* timeAfterPoint2Ms */), expected);
   }
 
   // 200 ms after |point2|.
   {
-    GpsInfo const expected = GetGpsInfo(1.2 /* timestampS */, 1.012 /* m_latitude */,
-                                        1.012 /* m_longitude */, 2.2 /* m_altitude */, 12.4 /* m_speed */);
+    GpsInfo const expected = GetGpsInfo(1.2 /* timestampS */, 1.012 /* m_latitude */, 1.012 /* m_longitude */,
+                                        2.2 /* m_altitude */, 12.4 /* m_speed */);
     TestGpsInfo(LinearExtrapolation(loc1, loc2, 200 /* timeAfterPoint2Ms */), expected);
   }
 
   // 1000 ms after |point2|.
   {
-    GpsInfo const expected = GetGpsInfo(2.0 /* timestampS */, 1.02 /* m_latitude */,
-                                        1.02 /* m_longitude */, 3.0 /* m_altitude */, 14.0 /* m_speed */);
+    GpsInfo const expected = GetGpsInfo(2.0 /* timestampS */, 1.02 /* m_latitude */, 1.02 /* m_longitude */,
+                                        3.0 /* m_altitude */, 14.0 /* m_speed */);
     TestGpsInfo(LinearExtrapolation(loc1, loc2, 1000 /* timeAfterPoint2Ms */), expected);
   }
 }

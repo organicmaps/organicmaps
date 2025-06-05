@@ -11,7 +11,6 @@
 
 #include <string>
 
-
 namespace search
 {
 using namespace std;
@@ -20,8 +19,7 @@ using namespace std;
 /// even if there is no exact street written for this house.
 int constexpr kMaxApproxStreetDistanceM = 100;
 
-FeaturesLayerMatcher::FeaturesLayerMatcher(DataSource const & dataSource,
-                                           base::Cancellable const & cancellable)
+FeaturesLayerMatcher::FeaturesLayerMatcher(DataSource const & dataSource, base::Cancellable const & cancellable)
   : m_context(nullptr)
   , m_postcodes(nullptr)
   , m_reverseGeocoder(dataSource)
@@ -30,8 +28,7 @@ FeaturesLayerMatcher::FeaturesLayerMatcher(DataSource const & dataSource,
   , m_place2address("PlaceToAddresses")
   , m_loader(scales::GetUpperScale(), ReverseGeocoder::kLookupRadiusM)
   , m_cancellable(cancellable)
-{
-}
+{}
 
 void FeaturesLayerMatcher::SetContext(MwmContext * context)
 {
@@ -43,10 +40,7 @@ void FeaturesLayerMatcher::SetContext(MwmContext * context)
   m_loader.SetContext(context);
 }
 
-void FeaturesLayerMatcher::SetPostcodes(CBV const * postcodes)
-{
-  m_postcodes = postcodes;
-}
+void FeaturesLayerMatcher::SetPostcodes(CBV const * postcodes) { m_postcodes = postcodes; }
 
 void FeaturesLayerMatcher::OnQueryFinished()
 {
@@ -57,8 +51,8 @@ void FeaturesLayerMatcher::OnQueryFinished()
   m_loader.OnQueryFinished();
 }
 
-std::vector<uint32_t> const & FeaturesLayerMatcher::GetPlaceAddrFeatures(
-    uint32_t placeId, std::function<CBV ()> const & fn)
+std::vector<uint32_t> const & FeaturesLayerMatcher::GetPlaceAddrFeatures(uint32_t placeId,
+                                                                         std::function<CBV()> const & fn)
 {
   ASSERT(fn, ());
 
@@ -69,12 +63,13 @@ std::vector<uint32_t> const & FeaturesLayerMatcher::GetPlaceAddrFeatures(
     if (!value.m_house2place)
       value.m_house2place = LoadHouseToPlaceTable(value);
 
-    fn().ForEach([&](uint32_t fid)
-    {
-      auto const r = value.m_house2place->Get(fid);
-      if (r && r->m_streetId == placeId)
-        res.first.push_back(fid);
-    });
+    fn().ForEach(
+      [&](uint32_t fid)
+      {
+        auto const r = value.m_house2place->Get(fid);
+        if (r && r->m_streetId == placeId)
+          res.first.push_back(fid);
+      });
 
     ASSERT(base::IsSortedAndUnique(res.first.begin(), res.first.end()), ());
   }
@@ -84,19 +79,17 @@ std::vector<uint32_t> const & FeaturesLayerMatcher::GetPlaceAddrFeatures(
 uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureID const & houseId)
 {
   std::unique_ptr<FeatureType> feature;
-  return GetMatchingStreetImpl(houseId, [&]()
-  {
-    feature = GetByIndex(houseId.m_index);
-    return feature.get();
-  });
+  return GetMatchingStreetImpl(houseId,
+                               [&]()
+                               {
+                                 feature = GetByIndex(houseId.m_index);
+                                 return feature.get();
+                               });
 }
 
 uint32_t FeaturesLayerMatcher::GetMatchingStreet(FeatureType & feature)
 {
-  return GetMatchingStreetImpl(feature.GetID(), [&]()
-  {
-    return &feature;
-  });
+  return GetMatchingStreetImpl(feature.GetID(), [&]() { return &feature; });
 }
 
 FeaturesLayerMatcher::Streets const & FeaturesLayerMatcher::GetNearbyStreets(FeatureType & feature)
@@ -140,8 +133,8 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(FeatureID const & id, Featu
 
   if (edited)
   {
-    auto const ret = find_if(streets.begin(), streets.end(),
-                             [&streetName](Street const & st) { return st.m_name == streetName; });
+    auto const ret =
+      find_if(streets.begin(), streets.end(), [&streetName](Street const & st) { return st.m_name == streetName; });
     if (ret != streets.end())
     {
       result = ret->m_id.m_index;

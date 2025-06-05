@@ -5,52 +5,42 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.dialog.EditTextDialogFragment;
 import app.organicmaps.editor.data.LocalizedStreet;
-
 import java.util.Optional;
 
 public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
 {
   private LocalizedStreet mSelectedString;
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     return super.onCreateView(inflater, container, savedInstanceState);
   }
 
-  @CallSuper
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @CallSuper @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     mSelectedString = Editor.nativeGetStreet();
     super.onViewCreated(view, savedInstanceState);
   }
 
-  @Override
-  public void onSaveInstanceState(@NonNull Bundle outState)
+  @Override public void onSaveInstanceState(@NonNull Bundle outState)
   {
     super.onSaveInstanceState(outState);
     Editor.nativeSetStreet(getStreet());
   }
 
-  @NonNull
-  @Override
-  protected StreetAdapter createAdapter()
+  @NonNull @Override protected StreetAdapter createAdapter()
   {
     return new StreetAdapter(this, Editor.nativeGetNearbyStreets(), mSelectedString);
   }
 
-  @NonNull
-  public LocalizedStreet getStreet()
+  @NonNull public LocalizedStreet getStreet()
   {
     return getAdapter().getSelectedStreet();
   }
@@ -66,10 +56,10 @@ public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
     return text -> saveStreet(new LocalizedStreet(text, ""));
   }
 
-  @NonNull
-  public static EditTextDialogFragment.Validator getStreetValidator()
+  @NonNull public static EditTextDialogFragment.Validator getStreetValidator()
   {
-    return (activity, text) -> {
+    return (activity, text) ->
+    {
       if (TextUtils.isEmpty(text))
         return activity.getString(R.string.empty_street_name_error);
       else

@@ -22,7 +22,9 @@ public:
 class StringSlice : public StringSliceBase
 {
 public:
-  StringSlice(std::vector<String> const & strings) : m_strings(strings) {}
+  StringSlice(std::vector<String> const & strings)
+    : m_strings(strings)
+  {}
 
   virtual String const & Get(size_t i) const override { return m_strings[i]; }
   virtual size_t Size() const override { return m_strings.size(); }

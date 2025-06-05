@@ -52,8 +52,7 @@ gtfs::StopTimes GetFakeStopTimes(std::vector<std::string> const & transitIds)
   return res;
 }
 
-void TestInterval(WeekdaysInterval const & interval, size_t start, size_t end,
-                  osmoh::RuleSequence::Modifier status)
+void TestInterval(WeekdaysInterval const & interval, size_t start, size_t end, osmoh::RuleSequence::Modifier status)
 {
   TEST_EQUAL(interval.m_start, start, ());
   TEST_EQUAL(interval.m_end, end, ());
@@ -70,8 +69,7 @@ void TestExceptionIntervals(gtfs::CalendarDates const & dates, size_t intervalsC
   TEST_EQUAL(openingHours, resOpeningHoursStr, ());
 }
 
-void TestStopsRange(IdList const & stopsOnLine, IdSet const & stopsInRegion, size_t firstIdxPlan,
-                    size_t lastIdxPlan)
+void TestStopsRange(IdList const & stopsOnLine, IdSet const & stopsInRegion, size_t firstIdxPlan, size_t lastIdxPlan)
 {
   auto const & [firstIdxFact, lastIdxFact] = GetStopsRange(stopsOnLine, stopsInRegion);
   TEST_EQUAL(firstIdxFact, firstIdxPlan, ());
@@ -121,19 +119,18 @@ UNIT_TEST(Transit_GTFS_GetTimeOsmoh)
 UNIT_TEST(Transit_GTFS_ServiceDaysExceptions1)
 {
   gtfs::CalendarDates const exceptionDays{
-      {"serviceId1", gtfs::Date(2015, 01, 30), gtfs::CalendarDateException::Removed},
-      {"serviceId1", gtfs::Date(2015, 01, 31), gtfs::CalendarDateException::Removed},
-      {"serviceId1", gtfs::Date(2015, 02, 01), gtfs::CalendarDateException::Removed},
-      {"serviceId1", gtfs::Date(2015, 04, 03), gtfs::CalendarDateException::Added}};
-  TestExceptionIntervals(
-      exceptionDays, 2 /* intervalsCount */,
-      "2015 Apr 03-2015 Apr 03; 2015 Jan 30-2015 Feb 01 closed" /* resOpeningHoursStr */);
+    {"serviceId1", gtfs::Date(2015, 01, 30), gtfs::CalendarDateException::Removed},
+    {"serviceId1", gtfs::Date(2015, 01, 31), gtfs::CalendarDateException::Removed},
+    {"serviceId1", gtfs::Date(2015, 02, 01), gtfs::CalendarDateException::Removed},
+    {"serviceId1", gtfs::Date(2015, 04, 03), gtfs::CalendarDateException::Added}};
+  TestExceptionIntervals(exceptionDays, 2 /* intervalsCount */,
+                         "2015 Apr 03-2015 Apr 03; 2015 Jan 30-2015 Feb 01 closed" /* resOpeningHoursStr */);
 }
 
 UNIT_TEST(Transit_GTFS_ServiceDaysExceptions2)
 {
   gtfs::CalendarDates const exceptionDays{
-      {"serviceId2", gtfs::Date(1999, 11, 14), gtfs::CalendarDateException::Removed}};
+    {"serviceId2", gtfs::Date(1999, 11, 14), gtfs::CalendarDateException::Removed}};
   TestExceptionIntervals(exceptionDays, 1 /* intervalsCount */,
                          "1999 Nov 14-1999 Nov 14 closed" /* resOpeningHoursStr */);
 }
@@ -141,16 +138,15 @@ UNIT_TEST(Transit_GTFS_ServiceDaysExceptions2)
 UNIT_TEST(Transit_GTFS_ServiceDaysExceptions3)
 {
   gtfs::CalendarDates const exceptionDays{
-      {"serviceId2", gtfs::Date(2005, 8, 01), gtfs::CalendarDateException::Added},
-      {"serviceId2", gtfs::Date(2005, 8, 12), gtfs::CalendarDateException::Added},
-      {"serviceId2", gtfs::Date(2005, 10, 11), gtfs::CalendarDateException::Removed},
-      {"serviceId2", gtfs::Date(2005, 10, 12), gtfs::CalendarDateException::Removed},
-      {"serviceId2", gtfs::Date(2005, 10, 13), gtfs::CalendarDateException::Added},
-      {"serviceId2", gtfs::Date(1999, 10, 14), gtfs::CalendarDateException::Removed}};
-  TestExceptionIntervals(
-      exceptionDays, 2 /* intervalsCount */,
-      "2005 Aug 01-2005 Aug 01, 2005 Aug 12-2005 Aug 12, 2005 Oct 13-2005 Oct 13; 2005 Oct 11-2005 "
-      "Oct 12, 1999 Oct 14-1999 Oct 14 closed" /* resOpeningHoursStr */);
+    {"serviceId2", gtfs::Date(2005, 8, 01), gtfs::CalendarDateException::Added},
+    {"serviceId2", gtfs::Date(2005, 8, 12), gtfs::CalendarDateException::Added},
+    {"serviceId2", gtfs::Date(2005, 10, 11), gtfs::CalendarDateException::Removed},
+    {"serviceId2", gtfs::Date(2005, 10, 12), gtfs::CalendarDateException::Removed},
+    {"serviceId2", gtfs::Date(2005, 10, 13), gtfs::CalendarDateException::Added},
+    {"serviceId2", gtfs::Date(1999, 10, 14), gtfs::CalendarDateException::Removed}};
+  TestExceptionIntervals(exceptionDays, 2 /* intervalsCount */,
+                         "2005 Aug 01-2005 Aug 01, 2005 Aug 12-2005 Aug 12, 2005 Oct 13-2005 Oct 13; 2005 Oct 11-2005 "
+                         "Oct 12, 1999 Oct 14-1999 Oct 14 closed" /* resOpeningHoursStr */);
 }
 
 UNIT_TEST(Transit_GTFS_FindStopTimesByTransitId)
@@ -206,8 +202,7 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_Simple)
   // Test that point_A is projected between two existing polyline points and the new point is
   // added in the place of its projection.
   TEST_EQUAL(ResT(1, true),
-               PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */, Direction::Forward, shape), ());
 
   TEST_EQUAL(shape.size(), 5, ());
   TEST_EQUAL(shape[1 /* expectedIndex */], m2::PointD(point_A.x, y), ());
@@ -216,35 +211,31 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_Simple)
   // Expected point projection index is the same.
   // But this projection is not inserted (it is already present).
   TEST_EQUAL(ResT(1, false),
-               PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */, Direction::Forward, shape), ());
   // So the shape size remains the same.
   TEST_EQUAL(shape.size(), 5, ());
 
   // Test that point_B insertion leads to addition of the new projection to the shape.
   TEST_EQUAL(ResT(4, true),
-               PrepareNearestPointOnTrack(point_B, std::nullopt, 1 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_B, std::nullopt, 1 /* prevIndex */, Direction::Forward, shape), ());
 
   // Test that point_C insertion does not lead to the addition of the new projection.
   TEST_EQUAL(ResT(5, false),
-               PrepareNearestPointOnTrack(point_C, std::nullopt, 4 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_C, std::nullopt, 4 /* prevIndex */, Direction::Forward, shape), ());
 
   // Test point_C projection in backward direction.
-  TEST_EQUAL(ResT(5, false),
-               PrepareNearestPointOnTrack(point_C, std::nullopt, shape.size() - 1 /* prevIndex */,
-                                          Direction::Backward, shape), ());
+  TEST_EQUAL(
+    ResT(5, false),
+    PrepareNearestPointOnTrack(point_C, std::nullopt, shape.size() - 1 /* prevIndex */, Direction::Backward, shape),
+    ());
 
   // Test point_B projection in backward direction.
   TEST_EQUAL(ResT(4, false),
-               PrepareNearestPointOnTrack(point_B, std::nullopt, 5 /* prevIndex */,
-                                          Direction::Backward, shape), ());
+             PrepareNearestPointOnTrack(point_B, std::nullopt, 5 /* prevIndex */, Direction::Backward, shape), ());
 
   // Test point_A projection in backward direction.
   TEST_EQUAL(ResT(1, false),
-               PrepareNearestPointOnTrack(point_A, std::nullopt, 4 /* prevIndex */,
-                                          Direction::Backward, shape), ());
+             PrepareNearestPointOnTrack(point_A, std::nullopt, 4 /* prevIndex */, Direction::Backward, shape), ());
 }
 
 // Stop is on approximately the same distance from the segment (0, 1) and segment (1, 2).
@@ -268,8 +259,7 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_DifferentStartIndexes)
   {
     auto shape = referenceShape;
     TEST_EQUAL(ResT(1, true),
-                 PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */,
-                                            Direction::Forward, shape), ());
+               PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */, Direction::Forward, shape), ());
     TEST_EQUAL(shape.size(), 4, ());
     TEST_EQUAL(shape[1 /* expectedIndex */], m2::PointD(0.001, point_A.y), ());
   }
@@ -278,8 +268,7 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_DifferentStartIndexes)
   {
     auto shape = referenceShape;
     TEST_EQUAL(ResT(2, true),
-                 PrepareNearestPointOnTrack(point_A, std::nullopt, 1 /* prevIndex */,
-                                            Direction::Forward, shape), ());
+               PrepareNearestPointOnTrack(point_A, std::nullopt, 1 /* prevIndex */, Direction::Forward, shape), ());
     TEST_EQUAL(shape.size(), 4, ());
     TEST_EQUAL(shape[2 /* expectedIndex */], m2::PointD(point_A.x, 0.002), ());
   }
@@ -307,8 +296,7 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_MaxDistance)
                                 {0.010, 0.0031}, {0.005, 0.0031}, {0.001, 0.0031}};
   m2::PointD const point_A{0.0028, 0.0029};
   TEST_EQUAL(ResT(1, true),
-               PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */, Direction::Forward, shape), ());
 }
 
 /* Complex shape with multiple points on it and multiple stops for projection.
@@ -336,11 +324,11 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_NearCircle)
   using ResT = std::pair<size_t, bool>;
 
   double constexpr kEps = 1e-5;
-  std::vector<m2::PointD> const initialShape{
-      {0.003, 0.001},   {0.003, 0.0015},  {0.0025, 0.002},  {0.002, 0.0025},  {0.001, 0.0025},
-      {0.001, 0.0035},  {0.0015, 0.0045}, {0.0025, 0.005},  {0.0035, 0.0045}, {0.004, 0.0055},
-      {0.0055, 0.0055}, {0.0065, 0.0045}, {0.0065, 0.0035}, {0.0075, 0.0035}, {0.0075, 0.0025},
-      {0.0065, 0.0025}, {0.0065, 0.0015}, {0.004, 0.0015},  {0.004, 0.001}};
+  std::vector<m2::PointD> const initialShape{{0.003, 0.001},   {0.003, 0.0015},  {0.0025, 0.002},  {0.002, 0.0025},
+                                             {0.001, 0.0025},  {0.001, 0.0035},  {0.0015, 0.0045}, {0.0025, 0.005},
+                                             {0.0035, 0.0045}, {0.004, 0.0055},  {0.0055, 0.0055}, {0.0065, 0.0045},
+                                             {0.0065, 0.0035}, {0.0075, 0.0035}, {0.0075, 0.0025}, {0.0065, 0.0025},
+                                             {0.0065, 0.0015}, {0.004, 0.0015},  {0.004, 0.001}};
 
   m2::PointD const point_A{0.0024, 0.0018};
   m2::PointD const point_B{0.002499, 0.00199};
@@ -352,66 +340,56 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_NearCircle)
   // Forward
   auto shape = initialShape;
   TEST_EQUAL(ResT(2, true),
-               PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */, Direction::Forward, shape), ());
   auto const coordA = shape[2];
 
   TEST_EQUAL(ResT(3, false),
-               PrepareNearestPointOnTrack(point_B, std::nullopt, 2 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_B, std::nullopt, 2 /* prevIndex */, Direction::Forward, shape), ());
   auto const coordB = shape[3];
 
   TEST_EQUAL(ResT(10, true),
-               PrepareNearestPointOnTrack(point_C, std::nullopt, 3 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_C, std::nullopt, 3 /* prevIndex */, Direction::Forward, shape), ());
   auto const coordC = shape[10];
 
   TEST_EQUAL(ResT(12, false),
-               PrepareNearestPointOnTrack(point_D, std::nullopt, 10 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_D, std::nullopt, 10 /* prevIndex */, Direction::Forward, shape), ());
   auto const coordD = shape[12];
 
   TEST_EQUAL(ResT(14, true),
-               PrepareNearestPointOnTrack(point_E, std::nullopt, 12 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_E, std::nullopt, 12 /* prevIndex */, Direction::Forward, shape), ());
   auto const coordE = shape[14];
 
   TEST_EQUAL(ResT(20, true),
-               PrepareNearestPointOnTrack(point_F, std::nullopt, 14 /* prevIndex */,
-                                          Direction::Forward, shape), ());
+             PrepareNearestPointOnTrack(point_F, std::nullopt, 14 /* prevIndex */, Direction::Forward, shape), ());
 
   // Backward processing of reversed shape
   shape = initialShape;
   reverse(shape.begin(), shape.end());
-  TEST_EQUAL(ResT(17, true),
-               PrepareNearestPointOnTrack(point_A, std::nullopt, shape.size() - 1/* prevIndex */,
-                                          Direction::Backward, shape), ());
+  TEST_EQUAL(
+    ResT(17, true),
+    PrepareNearestPointOnTrack(point_A, std::nullopt, shape.size() - 1 /* prevIndex */, Direction::Backward, shape),
+    ());
   TEST(base::AlmostEqualAbs(coordA, shape[17], kEps), (coordA, shape[17]));
 
   TEST_EQUAL(ResT(16, false),
-               PrepareNearestPointOnTrack(point_B, std::nullopt, 17 /* prevIndex */,
-                                          Direction::Backward, shape), ());
+             PrepareNearestPointOnTrack(point_B, std::nullopt, 17 /* prevIndex */, Direction::Backward, shape), ());
   TEST(base::AlmostEqualAbs(coordB, shape[16], kEps), (coordA, shape[17]));
 
   TEST_EQUAL(ResT(10, true),
-               PrepareNearestPointOnTrack(point_C, std::nullopt, 16 /* prevIndex */,
-                                          Direction::Backward, shape), ());
+             PrepareNearestPointOnTrack(point_C, std::nullopt, 16 /* prevIndex */, Direction::Backward, shape), ());
   TEST(base::AlmostEqualAbs(coordC, shape[10], kEps), (coordA, shape[17]));
 
   TEST_EQUAL(ResT(8, false),
-               PrepareNearestPointOnTrack(point_D, std::nullopt, 10 /* prevIndex */,
-                                          Direction::Backward, shape), ());
+             PrepareNearestPointOnTrack(point_D, std::nullopt, 10 /* prevIndex */, Direction::Backward, shape), ());
   TEST(base::AlmostEqualAbs(coordD, shape[8], kEps), (coordA, shape[17]));
 
   TEST_EQUAL(ResT(7, true),
-               PrepareNearestPointOnTrack(point_E, std::nullopt, 8 /* prevIndex */,
-                                          Direction::Backward, shape), ());
+             PrepareNearestPointOnTrack(point_E, std::nullopt, 8 /* prevIndex */, Direction::Backward, shape), ());
   TEST(base::AlmostEqualAbs(coordE, shape[7], kEps), (coordA, shape[17]));
 
   // point_F has different position because we do not insert before point 0.
   TEST_EQUAL(ResT(2, true),
-               PrepareNearestPointOnTrack(point_F, std::nullopt, 7 /* prevIndex */,
-                                          Direction::Backward, shape), ());
+             PrepareNearestPointOnTrack(point_F, std::nullopt, 7 /* prevIndex */, Direction::Backward, shape), ());
 }
 
 UNIT_TEST(Transit_ColorPicker)
@@ -438,9 +416,8 @@ UNIT_TEST(Transit_BuildHash1Arg)
 
 UNIT_TEST(IntersectionSimple)
 {
-  auto const & factRes =
-      FindIntersections({{1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}},
-                        {{4.0, 4.0}, {1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}, {4.0, 4.0}});
+  auto const & factRes = FindIntersections({{1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}},
+                                           {{4.0, 4.0}, {1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}, {4.0, 4.0}});
 
   std::pair<LineSegments, LineSegments> planRes{{LineSegment(0, 2)}, {LineSegment(1, 3)}};
   TEST(factRes == planRes, ());
@@ -488,12 +465,10 @@ UNIT_TEST(IntersectionDouble)
 
 UNIT_TEST(IntersectionTriple)
 {
-  auto const & factRes = GetIntersections({1, 2, 3, 6, 6, 6, 7, 8, 6, 6, 9, 10},
-                                          {0, 0, 1, 2, 3, 0, 7, 8, 0, 9, 10, 0});
+  auto const & factRes = GetIntersections({1, 2, 3, 6, 6, 6, 7, 8, 6, 6, 9, 10}, {0, 0, 1, 2, 3, 0, 7, 8, 0, 9, 10, 0});
 
-  std::pair<LineSegments, LineSegments> planRes{
-      {LineSegment(0, 2), LineSegment(6, 7), LineSegment(10, 11)},
-      {LineSegment(2, 4), LineSegment(6, 7), LineSegment(9, 10)}};
+  std::pair<LineSegments, LineSegments> planRes{{LineSegment(0, 2), LineSegment(6, 7), LineSegment(10, 11)},
+                                                {LineSegment(2, 4), LineSegment(6, 7), LineSegment(9, 10)}};
   TEST(factRes == planRes, ());
 }
 
@@ -558,11 +533,11 @@ UNIT_TEST(CalcSegmentOrder)
 
 UNIT_TEST(SplitLineToRegions)
 {
-  TestStopsRange({1, 2, 3, 4, 5} /* stopsOnLine */, {1, 2, 3, 4, 5} /* stopsInRegion */,
-                 0 /* firstIdxPlan */, 4 /* lastIdxPlan */);
-  TestStopsRange({1, 2, 3, 4, 5, 6, 7} /* stopsOnLine */, {1, 2, 3} /* stopsInRegion */,
-                 0 /* firstIdxPlan */, 3 /* lastIdxPlan */);
-  TestStopsRange({1, 2, 3, 4, 5, 6, 7} /* stopsOnLine */, {3, 4} /* stopsInRegion */,
-                 1 /* firstIdxPlan */, 4 /* lastIdxPlan */);
+  TestStopsRange({1, 2, 3, 4, 5} /* stopsOnLine */, {1, 2, 3, 4, 5} /* stopsInRegion */, 0 /* firstIdxPlan */,
+                 4 /* lastIdxPlan */);
+  TestStopsRange({1, 2, 3, 4, 5, 6, 7} /* stopsOnLine */, {1, 2, 3} /* stopsInRegion */, 0 /* firstIdxPlan */,
+                 3 /* lastIdxPlan */);
+  TestStopsRange({1, 2, 3, 4, 5, 6, 7} /* stopsOnLine */, {3, 4} /* stopsInRegion */, 1 /* firstIdxPlan */,
+                 4 /* lastIdxPlan */);
 }
 }  // namespace world_feed_tests

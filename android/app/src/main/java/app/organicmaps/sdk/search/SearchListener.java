@@ -13,15 +13,11 @@ public interface SearchListener
    * @param timestamp Timestamp of search request.
    */
   // Called by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  default void onResultsUpdate(@NonNull SearchResult[] results, long timestamp) {}
+  @Keep @SuppressWarnings("unused") default void onResultsUpdate(@NonNull SearchResult[] results, long timestamp) {}
 
   /**
    * @param timestamp Timestamp of search request.
    */
   // Called by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  default void onResultsEnd(long timestamp) {}
+  @Keep @SuppressWarnings("unused") default void onResultsEnd(long timestamp) {}
 }

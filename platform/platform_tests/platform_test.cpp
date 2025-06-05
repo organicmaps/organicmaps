@@ -67,11 +67,7 @@ UNIT_TEST(WritablePathForFile)
 UNIT_TEST(GetReader)
 {
   char const * NON_EXISTING_FILE = "mgbwuerhsnmbui45efhdbn34.tmp";
-  char const * arr[] = {
-    "resources-mdpi_light/symbols.sdf",
-    "classificator.txt",
-    "minsk-pass.mwm"
-  };
+  char const * arr[] = {"resources-mdpi_light/symbols.sdf", "classificator.txt", "minsk-pass.mwm"};
 
   Platform & p = GetPlatform();
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
@@ -155,26 +151,26 @@ UNIT_TEST(GetFilesByType)
   SCOPE_GUARD(removeTestFile, bind(FileWriter::DeleteFileX, testFile));
 
   CheckFilesPresence(baseDir, Platform::EFileType::Directory,
-  {{
-     kTestDirBaseName, 1 /* present */
-   },
-   {
-     kTestFileBaseName, 0 /* not present */
-   }});
+                     {{
+                        kTestDirBaseName, 1 /* present */
+                      },
+                      {
+                        kTestFileBaseName, 0 /* not present */
+                      }});
   CheckFilesPresence(baseDir, Platform::EFileType::Regular,
-  {{
-     kTestDirBaseName, 0 /* not present */
-   },
-   {
-     kTestFileBaseName, 1 /* present */
-   }});
+                     {{
+                        kTestDirBaseName, 0 /* not present */
+                      },
+                      {
+                        kTestFileBaseName, 1 /* present */
+                      }});
   CheckFilesPresence(baseDir, Platform::EFileType::Directory | Platform::EFileType::Regular,
-  {{
-     kTestDirBaseName, 1 /* present */
-   },
-   {
-     kTestFileBaseName, 1 /* present */
-   }});
+                     {{
+                        kTestDirBaseName, 1 /* present */
+                      },
+                      {
+                        kTestFileBaseName, 1 /* present */
+                      }});
 }
 
 UNIT_TEST(GetFileSize)
@@ -261,9 +257,10 @@ UNIT_TEST(MkDirRecursively)
   using namespace platform::tests_support;
   auto const writablePath = GetPlatform().WritableDir();
   auto const workPath = base::JoinPath(writablePath, "MkDirRecursively");
-  auto const resetDir =  [](std::string const & path) {
+  auto const resetDir = [](std::string const & path)
+  {
     if (Platform::IsFileExistsByFullPath(path) && !Platform::RmDirRecursively(path))
-       return false;
+      return false;
 
     return Platform::MkDirChecked(path);
   };
@@ -293,21 +290,23 @@ UNIT_TEST(Platform_ThreadRunner)
     Platform::ThreadRunner m_runner;
 
     bool called = false;
-    GetPlatform().RunTask(Platform::Thread::File, [&called]
-    {
-      called = true;
-      testing::Notify();
-    });
+    GetPlatform().RunTask(Platform::Thread::File,
+                          [&called]
+                          {
+                            called = true;
+                            testing::Notify();
+                          });
     testing::Wait();
 
     TEST(called, ());
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, []
-  {
-    TEST(false, ("The task must not be posted when thread runner is dead. "
-                 "But app must not be crashed. It is normal behaviour during destruction"));
-  });
+  GetPlatform().RunTask(Platform::Thread::File,
+                        []
+                        {
+                          TEST(false, ("The task must not be posted when thread runner is dead. "
+                                       "But app must not be crashed. It is normal behaviour during destruction"));
+                        });
 }
 
 UNIT_TEST(GetFileCreationTime_GetFileModificationTime)

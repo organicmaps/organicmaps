@@ -23,7 +23,8 @@ namespace feature
 {
 using namespace std;
 
-template <class ContT> string TypesToString(ContT const & holder)
+template <class ContT>
+string TypesToString(ContT const & holder)
 {
   Classificator const & c = classif();
   string s;
@@ -34,17 +35,13 @@ template <class ContT> string TypesToString(ContT const & holder)
   return s;
 }
 
-std::string DebugPrint(TypesHolder const & holder)
-{
-  return TypesToString(holder);
-}
+std::string DebugPrint(TypesHolder const & holder) { return TypesToString(holder); }
 
-TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType())
+TypesHolder::TypesHolder(FeatureType & f)
+  : m_size(0)
+  , m_geomType(f.GetGeomType())
 {
-  f.ForEachType([this](uint32_t type)
-  {
-    Add(type);
-  });
+  f.ForEachType([this](uint32_t type) { Add(type); });
 }
 
 bool TypesHolder::HasWithSubclass(uint32_t type) const
@@ -59,10 +56,7 @@ bool TypesHolder::HasWithSubclass(uint32_t type) const
   return false;
 }
 
-void TypesHolder::Remove(uint32_t type)
-{
-  UNUSED_VALUE(RemoveIf(base::EqualFunctor<uint32_t>(type)));
-}
+void TypesHolder::Remove(uint32_t type) { UNUSED_VALUE(RemoveIf(base::EqualFunctor<uint32_t>(type))); }
 
 bool TypesHolder::Equals(TypesHolder const & other) const
 {
@@ -109,13 +103,11 @@ public:
     return 0;
   }
 
-  template <class ContT> void SortUselessToEnd(ContT & cont) const
+  template <class ContT>
+  void SortUselessToEnd(ContT & cont) const
   {
     // Put "very common" types to the end of possible PP-description types.
-    std::stable_sort(cont.begin(), cont.end(), [this](uint32_t t1, uint32_t t2)
-    {
-      return Score(t1) < Score(t2);
-    });
+    std::stable_sort(cont.begin(), cont.end(), [this](uint32_t t1, uint32_t t2) { return Score(t1) < Score(t2); });
   }
 
 private:
@@ -124,17 +116,9 @@ private:
     // Fill types that will be taken into account last,
     // when we have many types for POI.
     base::StringIL const types1[] = {
-        // 1-arity
-        {"building:part"},
-        {"hwtag"},
-        {"psurface"},
-        {"internet_access"},
-        {"organic"},
-        {"wheelchair"},
-        {"cuisine"},
-        {"recycling"},
-        {"area:highway"},
-        {"fee"},
+      // 1-arity
+      {"building:part"}, {"hwtag"},   {"psurface"},  {"internet_access"}, {"organic"},
+      {"wheelchair"},    {"cuisine"}, {"recycling"}, {"area:highway"},    {"fee"},
     };
 
     Classificator const & c = classif();
@@ -153,17 +137,13 @@ private:
       std::sort(v.begin(), v.end());
   }
 
-  bool IsIn(uint8_t idx, uint32_t t) const
-  {
-    return std::binary_search(m_types[idx].begin(), m_types[idx].end(), t);
-  }
+  bool IsIn(uint8_t idx, uint32_t t) const { return std::binary_search(m_types[idx].begin(), m_types[idx].end(), t); }
 
   vector<uint32_t> m_types[3];
 };
-} // namespace
+}  // namespace
 
-uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType,
-                        FeatureParamsBase const & params)
+uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType, FeatureParamsBase const & params)
 {
   ASSERT(typesCount != 0, ("Feature should have at least one type."));
   ASSERT_LESS_OR_EQUAL(typesCount, kMaxTypesCount, ());
@@ -198,31 +178,26 @@ uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeom
   return header;
 }
 
-void TypesHolder::SortByUseless()
-{
-  UselessTypesChecker::Instance().SortUselessToEnd(*this);
-}
+void TypesHolder::SortByUseless() { UselessTypesChecker::Instance().SortUselessToEnd(*this); }
 
 void TypesHolder::SortBySpec()
 {
   auto const & cl = classif();
-  auto const getPriority = [&cl](uint32_t type)
-  {
-    return cl.GetObject(type)->GetMaxOverlaysPriority();
-  };
+  auto const getPriority = [&cl](uint32_t type) { return cl.GetObject(type)->GetMaxOverlaysPriority(); };
 
   auto const & checker = UselessTypesChecker::Instance();
 
-  std::stable_sort(begin(), end(), [&checker, &getPriority](uint32_t t1, uint32_t t2)
-  {
-    int const p1 = getPriority(t1);
-    int const p2 = getPriority(t2);
-    if (p1 != p2)
-      return p1 > p2;
+  std::stable_sort(begin(), end(),
+                   [&checker, &getPriority](uint32_t t1, uint32_t t2)
+                   {
+                     int const p1 = getPriority(t1);
+                     int const p2 = getPriority(t2);
+                     if (p1 != p2)
+                       return p1 > p2;
 
-    // Score - less is better.
-    return checker.Score(t1) < checker.Score(t2);
-  });
+                     // Score - less is better.
+                     return checker.Score(t1) < checker.Score(t2);
+                   });
 }
 
 vector<string> TypesHolder::ToObjectNames() const
@@ -258,50 +233,36 @@ bool FeatureParamsBase::SetDefaultNameIfEmpty(std::string const & s)
   return true;
 }
 
-bool FeatureParamsBase::operator == (FeatureParamsBase const & rhs) const
+bool FeatureParamsBase::operator==(FeatureParamsBase const & rhs) const
 {
-  return (name == rhs.name && house == rhs.house && ref == rhs.ref &&
-          layer == rhs.layer && rank == rhs.rank);
+  return (name == rhs.name && house == rhs.house && ref == rhs.ref && layer == rhs.layer && rank == rhs.rank);
 }
 
-bool FeatureParamsBase::IsValid() const
-{
-  return layer >= LAYER_LOW && layer <= LAYER_HIGH;
-}
+bool FeatureParamsBase::IsValid() const { return layer >= LAYER_LOW && layer <= LAYER_HIGH; }
 
 string FeatureParamsBase::DebugString() const
 {
   string const utf8name = DebugPrint(name);
   return ((!utf8name.empty() ? "Name:" + utf8name : "") +
           (layer != LAYER_EMPTY ? " Layer:" + DebugPrint((int)layer) : "") +
-          (rank != 0 ? " Rank:" + DebugPrint((int)rank) : "") +
-          (!house.IsEmpty() ? " House:" + house.Get() : "") +
+          (rank != 0 ? " Rank:" + DebugPrint((int)rank) : "") + (!house.IsEmpty() ? " House:" + house.Get() : "") +
           (!ref.empty() ? " Ref:" + ref : ""));
 }
 
-bool FeatureParamsBase::IsEmptyNames() const
-{
-  return name.IsEmpty() && house.IsEmpty() && ref.empty();
-}
+bool FeatureParamsBase::IsEmptyNames() const { return name.IsEmpty() && house.IsEmpty() && ref.empty(); }
 
 namespace
 {
 
-bool IsDummyName(string_view s)
-{
-  return s.empty();
-}
+bool IsDummyName(string_view s) { return s.empty(); }
 
-} // namespace
+}  // namespace
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // FeatureParams implementation
 /////////////////////////////////////////////////////////////////////////////////////////
 
-void FeatureParams::ClearName()
-{
-  name.Clear();
-}
+void FeatureParams::ClearName() { name.Clear(); }
 
 bool FeatureParams::AddName(string_view lang, string_view s)
 {
@@ -320,8 +281,7 @@ bool FeatureParams::LooksLikeHouseNumber(std::string const & hn)
 
   ASSERT(!hn.empty(), ());
   size_t const sz = hn.size();
-  return strings::IsASCIIDigit(hn[0]) ||
-         (sz == 1 && strings::IsASCIILatin(hn[0])) ||
+  return strings::IsASCIIDigit(hn[0]) || (sz == 1 && strings::IsASCIILatin(hn[0])) ||
          std::count_if(hn.begin(), hn.end(), &strings::IsASCIIDigit) > 0.2 * sz;
 }
 
@@ -478,10 +438,7 @@ bool FeatureParams::PopExactType(uint32_t t)
   return m_types.empty();
 }
 
-bool FeatureParams::IsTypeExist(uint32_t t) const
-{
-  return base::IsExist(m_types, t);
-}
+bool FeatureParams::IsTypeExist(uint32_t t) const { return base::IsExist(m_types, t); }
 
 bool FeatureParams::IsTypeExist(uint32_t comp, uint8_t level) const
 {
@@ -508,30 +465,15 @@ bool FeatureParams::IsValid() const
   return FeatureParamsBase::IsValid();
 }
 
-uint8_t FeatureParams::GetHeader() const
-{
-  return CalculateHeader(m_types.size(), GetHeaderGeomType(), *this);
-}
+uint8_t FeatureParams::GetHeader() const { return CalculateHeader(m_types.size(), GetHeaderGeomType(), *this); }
 
-uint32_t FeatureParams::GetIndexForType(uint32_t t)
-{
-  return classif().GetIndexForType(t);
-}
+uint32_t FeatureParams::GetIndexForType(uint32_t t) { return classif().GetIndexForType(t); }
 
-uint32_t FeatureParams::GetTypeForIndex(uint32_t i)
-{
-  return classif().GetTypeForIndex(i);
-}
+uint32_t FeatureParams::GetTypeForIndex(uint32_t i) { return classif().GetTypeForIndex(i); }
 
-void FeatureBuilderParams::SetStreet(string s)
-{
-  m_addrTags.Set(AddressData::Type::Street, std::move(s));
-}
+void FeatureBuilderParams::SetStreet(string s) { m_addrTags.Set(AddressData::Type::Street, std::move(s)); }
 
-std::string_view FeatureBuilderParams::GetStreet() const
-{
-  return m_addrTags.Get(AddressData::Type::Street);
-}
+std::string_view FeatureBuilderParams::GetStreet() const { return m_addrTags.Get(AddressData::Type::Street); }
 
 void FeatureBuilderParams::SetPostcode(string s)
 {
@@ -539,10 +481,7 @@ void FeatureBuilderParams::SetPostcode(string s)
     m_metadata.Set(Metadata::FMD_POSTCODE, std::move(s));
 }
 
-std::string_view FeatureBuilderParams::GetPostcode() const
-{
-  return m_metadata.Get(Metadata::FMD_POSTCODE);
-}
+std::string_view FeatureBuilderParams::GetPostcode() const { return m_metadata.Get(Metadata::FMD_POSTCODE); }
 
 namespace
 {
@@ -597,7 +536,7 @@ public:
   }
 };
 
-} // namespace
+}  // namespace
 
 bool FeatureBuilderParams::RemoveInconsistentTypes()
 {

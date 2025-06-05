@@ -14,8 +14,8 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "base/file_name_utils.hpp"
 #include "base/checked_cast.hpp"
+#include "base/file_name_utils.hpp"
 
 #include <algorithm>
 #include <iomanip>
@@ -52,8 +52,7 @@ geometry::PointWithAltitude RoughJunction(geometry::PointWithAltitude const & j)
 
 routing::Edge RoughEdgeJunctions(routing::Edge const & e)
 {
-  return routing::Edge::MakeReal(e.GetFeatureId(), e.IsForward(), e.GetSegId(),
-                                 RoughJunction(e.GetStartJunction()),
+  return routing::Edge::MakeReal(e.GetFeatureId(), e.IsForward(), e.GetSegId(), RoughJunction(e.GetStartJunction()),
                                  RoughJunction(e.GetEndJunction()));
 }
 
@@ -103,10 +102,8 @@ openlr::Path MakePath(FeatureType const & road, bool const forward)
     auto const from = road.GetPoint(current);
     auto const to = road.GetPoint(next);
     path.push_back(routing::Edge::MakeReal(
-        road.GetID(), forward,
-        base::checked_cast<uint32_t>(current - static_cast<size_t>(!forward)) /* segId */,
-        geometry::PointWithAltitude(from, 0 /* altitude */),
-        geometry::PointWithAltitude(to, 0 /* altitude */)));
+      road.GetID(), forward, base::checked_cast<uint32_t>(current - static_cast<size_t>(!forward)) /* segId */,
+      geometry::PointWithAltitude(from, 0 /* altitude */), geometry::PointWithAltitude(to, 0 /* altitude */)));
   }
 
   RoughJunctionsInPath(path);
@@ -124,8 +121,7 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
 
   LocalCountryFile country(mwmPath, CountryFile(kTestMwm), 0 /* version */);
   ScopedDir testScopedDir(kTestDir);
-  ScopedFile testScopedMwm(base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION),
-                           ScopedFile::Mode::Create);
+  ScopedFile testScopedMwm(base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION), ScopedFile::Mode::Create);
 
   {
     TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
@@ -150,59 +146,65 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
 UNIT_TEST(MakePath_Test)
 {
   std::vector<m2::PointD> const points{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-  WithRoad(points, [&points](DataSource const & dataSource, FeatureType & road) {
-    auto const & id = road.GetID();
-    {
-      openlr::Path const expected{
-          routing::Edge::MakeReal(id, true /* forward */, 0 /* segId*/, points[0], points[1]),
-          routing::Edge::MakeReal(id, true /* forward */, 1 /* segId*/, points[1], points[2]),
-          routing::Edge::MakeReal(id, true /* forward */, 2 /* segId*/, points[2], points[3])};
-      auto const path = MakePath(road, true /* forward */);
-      TEST_EQUAL(path, expected, ());
-    }
-    {
-      openlr::Path const expected{
-          routing::Edge::MakeReal(id, false /* forward */, 2 /* segId*/, points[3], points[2]),
-          routing::Edge::MakeReal(id, false /* forward */, 1 /* segId*/, points[2], points[1]),
-          routing::Edge::MakeReal(id, false /* forward */, 0 /* segId*/, points[1], points[0])};
-      {
-        auto const path = MakePath(road, false /* forward */);
-        TEST_EQUAL(path, expected, ());
-      }
-    }
-  });
+  WithRoad(points,
+           [&points](DataSource const & dataSource, FeatureType & road)
+           {
+             auto const & id = road.GetID();
+             {
+               openlr::Path const expected{
+                 routing::Edge::MakeReal(id, true /* forward */, 0 /* segId*/, points[0], points[1]),
+                 routing::Edge::MakeReal(id, true /* forward */, 1 /* segId*/, points[1], points[2]),
+                 routing::Edge::MakeReal(id, true /* forward */, 2 /* segId*/, points[2], points[3])};
+               auto const path = MakePath(road, true /* forward */);
+               TEST_EQUAL(path, expected, ());
+             }
+             {
+               openlr::Path const expected{
+                 routing::Edge::MakeReal(id, false /* forward */, 2 /* segId*/, points[3], points[2]),
+                 routing::Edge::MakeReal(id, false /* forward */, 1 /* segId*/, points[2], points[1]),
+                 routing::Edge::MakeReal(id, false /* forward */, 0 /* segId*/, points[1], points[0])};
+               {
+                 auto const path = MakePath(road, false /* forward */);
+                 TEST_EQUAL(path, expected, ());
+               }
+             }
+           });
 }
 
 UNIT_TEST(PathSerializeDeserialize_Test)
 {
-  WithRoad({{0, 0}, {0, 1}, {1, 0}, {1, 1}}, [](DataSource const & dataSource, FeatureType & road) {
-    {
-      auto const path = MakePath(road, true /* forward */);
-      TestSerializeDeserialize(path, dataSource);
-    }
-    {
-      auto const path = MakePath(road, false /* forward */);
-      TestSerializeDeserialize(path, dataSource);
-    }
-  });
+  WithRoad({{0, 0}, {0, 1}, {1, 0}, {1, 1}},
+           [](DataSource const & dataSource, FeatureType & road)
+           {
+             {
+               auto const path = MakePath(road, true /* forward */);
+               TestSerializeDeserialize(path, dataSource);
+             }
+             {
+               auto const path = MakePath(road, false /* forward */);
+               TestSerializeDeserialize(path, dataSource);
+             }
+           });
 }
 
 UNIT_TEST(GetPoints_Test)
 {
   vector<m2::PointD> const points{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-  WithRoad(points, [&points](DataSource const &, FeatureType & road) {
-    {
-      auto path = MakePath(road, true /* forward */);
-      // RoughJunctionsInPath(path);
-      TEST_EQUAL(GetPoints(path), points, ());
-    }
-    {
-      auto path = MakePath(road, false /* forward */);
-      // RoughJunctionsInPath(path);
-      auto reversed = points;
-      reverse(begin(reversed), end(reversed));
-      TEST_EQUAL(GetPoints(path), reversed, ());
-    }
-  });
+  WithRoad(points,
+           [&points](DataSource const &, FeatureType & road)
+           {
+             {
+               auto path = MakePath(road, true /* forward */);
+               // RoughJunctionsInPath(path);
+               TEST_EQUAL(GetPoints(path), points, ());
+             }
+             {
+               auto path = MakePath(road, false /* forward */);
+               // RoughJunctionsInPath(path);
+               auto reversed = points;
+               reverse(begin(reversed), end(reversed));
+               TEST_EQUAL(GetPoints(path), reversed, ());
+             }
+           });
 }
 }  // namespace

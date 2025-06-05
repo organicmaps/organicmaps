@@ -11,10 +11,10 @@ UNIT_CLASS_TEST(BenchmarkFixture, Smoke)
 {
   RegisterLocalMapsInViewport(mercator::Bounds::FullRect());
 
-  SetViewport({50.1052, 8.6868}, 10000); // Frankfurt am Main
+  SetViewport({50.1052, 8.6868}, 10000);  // Frankfurt am Main
 
   auto request = MakeRequest("b");
   LOG(LINFO, (request->ResponseTime().count()));
 }
 
-} // namespace benchmark_tests
+}  // namespace benchmark_tests

@@ -18,8 +18,8 @@ namespace generator
 class ProcessorComplex : public FeatureProcessorInterface
 {
 public:
-  explicit ProcessorComplex(std::shared_ptr<FeatureProcessorQueue> const & queue,
-                            std::string const & bordersPath, bool haveBordersForWholeWorld);
+  explicit ProcessorComplex(std::shared_ptr<FeatureProcessorQueue> const & queue, std::string const & bordersPath,
+                            bool haveBordersForWholeWorld);
 
   // FeatureProcessorInterface overrides:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override;

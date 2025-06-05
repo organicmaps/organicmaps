@@ -56,11 +56,9 @@ public:
     header.Serialize(sink);
 
     std::sort(cityRoadFeatureIds.begin(), cityRoadFeatureIds.end());
-    CHECK(adjacent_find(cityRoadFeatureIds.cbegin(), cityRoadFeatureIds.cend()) ==
-        cityRoadFeatureIds.cend(),
+    CHECK(adjacent_find(cityRoadFeatureIds.cbegin(), cityRoadFeatureIds.cend()) == cityRoadFeatureIds.cend(),
           ("City road feature ids should be unique."));
-    succinct::elias_fano::elias_fano_builder builder(cityRoadFeatureIds.back() + 1,
-                                                     cityRoadFeatureIds.size());
+    succinct::elias_fano::elias_fano_builder builder(cityRoadFeatureIds.back() + 1, cityRoadFeatureIds.size());
     for (auto fid : cityRoadFeatureIds)
       builder.push_back(fid);
 
@@ -74,8 +72,8 @@ public:
     header.Serialize(sink);
     sink.Seek(endOffset);
 
-    LOG(LINFO, ("Serialized", cityRoadFeatureIds.size(),
-        "road feature ids in cities. Size:", endOffset - startOffset, "bytes."));
+    LOG(LINFO, ("Serialized", cityRoadFeatureIds.size(), "road feature ids in cities. Size:", endOffset - startOffset,
+                "bytes."));
   }
 
   template <typename Source>

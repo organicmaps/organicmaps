@@ -20,7 +20,7 @@ namespace turns
 {
 class IRoutingResult;
 struct TurnItem;
-}
+}  // namespace turns
 
 enum class RouterResultCode;
 class MwmDataSource;
@@ -36,29 +36,26 @@ public:
   /// \brief Generates all args which are passed by reference.
   /// \param path is points of the route. It should not be empty.
   /// \returns true if fields passed by reference are filled correctly and false otherwise.
-  bool Generate(IndexRoadGraph const & graph,
-                std::vector<geometry::PointWithAltitude> const & path,
-                base::Cancellable const & cancellable,
-                std::vector<RouteSegment> & routeSegments);
+  bool Generate(IndexRoadGraph const & graph, std::vector<geometry::PointWithAltitude> const & path,
+                base::Cancellable const & cancellable, std::vector<RouteSegment> & routeSegments);
   void Clear();
 
   void SetVehicleType(VehicleType const & vehicleType) { m_vehicleType = vehicleType; }
 
 protected:
   /*!
-  * \brief GetTurnDirection makes a primary decision about turns on the route.
-  * \param outgoingSegmentIndex index of an outgoing segments in vector result.GetSegments().
-  * \param turn is used for keeping the result of turn calculation.
-  */
+   * \brief GetTurnDirection makes a primary decision about turns on the route.
+   * \param outgoingSegmentIndex index of an outgoing segments in vector result.GetSegments().
+   * \param turn is used for keeping the result of turn calculation.
+   */
   virtual size_t GetTurnDirection(turns::IRoutingResult const & result, size_t const outgoingSegmentIndex,
-                                  NumMwmIds const & numMwmIds,
-                                  RoutingSettings const & vehicleSettings, turns::TurnItem & turn) = 0;
+                                  NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
+                                  turns::TurnItem & turn) = 0;
   virtual void FixupTurns(std::vector<RouteSegment> & routeSegments) = 0;
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & featureId);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment, bool isForward);
-  void GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
-                                       Edge const & inEdge, uint32_t startSegId, uint32_t endSegId,
-                                       SegmentRange & segmentRange,
+  void GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges, Edge const & inEdge,
+                                       uint32_t startSegId, uint32_t endSegId, SegmentRange & segmentRange,
                                        turns::TurnCandidates & outgoingTurns);
   /// \brief The method gathers sequence of segments according to IsJoint() method
   /// and fills |m_adjacentEdges| and |m_pathSegments|.
@@ -75,8 +72,7 @@ protected:
   VehicleType m_vehicleType = VehicleType::Count;
 
 private:
-  void MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & routeEdges,
-                          std::vector<RouteSegment> & routeSegments);
+  void MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & routeEdges, std::vector<RouteSegment> & routeSegments);
 
   ftypes::IsLinkChecker const & m_linkChecker;
   ftypes::IsRoundAboutChecker const & m_roundAboutChecker;

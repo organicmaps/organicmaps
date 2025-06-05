@@ -4,7 +4,6 @@ import static app.organicmaps.display.DisplayType.Car;
 
 import android.graphics.Rect;
 import android.view.Surface;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.AppManager;
@@ -15,7 +14,6 @@ import androidx.car.app.SurfaceContainer;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.Framework;
 import app.organicmaps.Map;
 import app.organicmaps.MapRenderingListener;
@@ -32,11 +30,9 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   private final CarContext mCarContext;
   private final Map mMap = new Map(Car);
 
-  @NonNull
-  private Rect mVisibleArea = new Rect();
+  @NonNull private Rect mVisibleArea = new Rect();
 
-  @Nullable
-  private Surface mSurface = null;
+  @Nullable private Surface mSurface = null;
 
   private boolean mIsRunning;
 
@@ -49,8 +45,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mMap.setMapRenderingListener(this);
   }
 
-  @Override
-  public void onSurfaceAvailable(@NonNull SurfaceContainer surfaceContainer)
+  @Override public void onSurfaceAvailable(@NonNull SurfaceContainer surfaceContainer)
   {
     Logger.d(TAG, "Surface available " + surfaceContainer);
 
@@ -58,17 +53,12 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
       mSurface.release();
     mSurface = surfaceContainer.getSurface();
 
-    mMap.onSurfaceCreated(
-        mCarContext,
-        mSurface,
-        new Rect(0, 0, surfaceContainer.getWidth(), surfaceContainer.getHeight()),
-        surfaceContainer.getDpi()
-    );
+    mMap.onSurfaceCreated(mCarContext, mSurface,
+      new Rect(0, 0, surfaceContainer.getWidth(), surfaceContainer.getHeight()), surfaceContainer.getDpi());
     mMap.updateBottomWidgetsOffset(mCarContext, -1, -1);
   }
 
-  @Override
-  public void onVisibleAreaChanged(@NonNull Rect visibleArea)
+  @Override public void onVisibleAreaChanged(@NonNull Rect visibleArea)
   {
     Logger.d(TAG, "Visible area changed. visibleArea: " + visibleArea);
     mVisibleArea = visibleArea;
@@ -77,8 +67,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
       Framework.nativeSetVisibleRect(mVisibleArea.left, mVisibleArea.top, mVisibleArea.right, mVisibleArea.bottom);
   }
 
-  @Override
-  public void onStableAreaChanged(@NonNull Rect stableArea)
+  @Override public void onStableAreaChanged(@NonNull Rect stableArea)
   {
     Logger.d(TAG, "Stable area changed. stableArea: " + stableArea);
 
@@ -88,8 +77,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
       Framework.nativeSetVisibleRect(mVisibleArea.left, mVisibleArea.top, mVisibleArea.right, mVisibleArea.bottom);
   }
 
-  @Override
-  public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
+  @Override public void onSurfaceDestroyed(@NonNull SurfaceContainer surfaceContainer)
   {
     Logger.d(TAG, "Surface destroyed");
     if (mSurface != null)
@@ -100,24 +88,21 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mMap.onSurfaceDestroyed(false, true);
   }
 
-  @Override
-  public void onCreate(@NonNull LifecycleOwner owner)
+  @Override public void onCreate(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     mCarContext.getCarService(AppManager.class).setSurfaceCallback(this);
     mMap.onCreate(false);
   }
 
-  @Override
-  public void onStart(@NonNull LifecycleOwner owner)
+  @Override public void onStart(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     mMap.onStart();
     mMap.setCallbackUnsupported(this::reportUnsupported);
   }
 
-  @Override
-  public void onResume(@NonNull LifecycleOwner owner)
+  @Override public void onResume(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     mMap.onResume();
@@ -125,30 +110,26 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
       UiThread.runLater(() -> mMap.updateMyPositionRoutingOffset(0));
   }
 
-  @Override
-  public void onPause(@NonNull LifecycleOwner owner)
+  @Override public void onPause(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     mMap.onPause(mCarContext);
   }
 
-  @Override
-  public void onStop(@NonNull LifecycleOwner owner)
+  @Override public void onStop(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     mMap.onStop();
     mMap.setCallbackUnsupported(null);
   }
 
-  @Override
-  public void onScroll(float distanceX, float distanceY)
+  @Override public void onScroll(float distanceX, float distanceY)
   {
     Logger.d(TAG, "distanceX: " + distanceX + ", distanceY: " + distanceY);
     mMap.onScroll(distanceX, distanceY);
   }
 
-  @Override
-  public void onFling(float velocityX, float velocityY)
+  @Override public void onFling(float velocityX, float velocityY)
   {
     Logger.d(TAG, "velocityX: " + velocityX + ", velocityY: " + velocityY);
   }
@@ -163,8 +144,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     Map.zoomOut();
   }
 
-  @Override
-  public void onScale(float focusX, float focusY, float scaleFactor)
+  @Override public void onScale(float focusX, float focusY, float scaleFactor)
   {
     Logger.d(TAG, "focusX: " + focusX + ", focusY: " + focusY + ", scaleFactor: " + scaleFactor);
     float x = focusX;
@@ -184,8 +164,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     Map.onScale(scaleFactor, x, y, animated);
   }
 
-  @Override
-  public void onClick(float x, float y)
+  @Override public void onClick(float x, float y)
   {
     Logger.d(TAG, "x: " + x + ", y: " + y);
     Map.onClick(x, y);
@@ -237,8 +216,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     CarToast.makeText(mCarContext, message, CarToast.LENGTH_LONG).show();
   }
 
-  @Override
-  public void onRenderingCreated()
+  @Override public void onRenderingCreated()
   {
     UnitLocale.initializeCurrentUnits();
   }

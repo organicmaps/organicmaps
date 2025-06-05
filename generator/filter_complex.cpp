@@ -7,10 +7,7 @@
 
 namespace generator
 {
-std::shared_ptr<FilterInterface> FilterComplex::Clone() const
-{
-  return std::make_shared<FilterComplex>();
-}
+std::shared_ptr<FilterInterface> FilterComplex::Clone() const { return std::make_shared<FilterComplex>(); }
 
 bool FilterComplex::IsAccepted(feature::FeatureBuilder const & fb) const
 {

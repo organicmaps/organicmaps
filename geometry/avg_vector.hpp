@@ -17,7 +17,8 @@ template <class T, size_t Dim>
 class AvgVector
 {
 public:
-  explicit AvgVector(size_t count = 1) : m_count(count)
+  explicit AvgVector(size_t count = 1)
+    : m_count(count)
   {
     static_assert(std::is_floating_point<T>::value, "");
   }

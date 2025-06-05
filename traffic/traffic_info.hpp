@@ -42,10 +42,7 @@ public:
 
     RoadSegmentId(uint32_t fid, uint16_t idx, uint8_t dir);
 
-    bool operator==(RoadSegmentId const & o) const
-    {
-      return m_fid == o.m_fid && m_idx == o.m_idx && m_dir == o.m_dir;
-    }
+    bool operator==(RoadSegmentId const & o) const { return m_fid == o.m_fid && m_idx == o.m_idx && m_dir == o.m_dir; }
 
     bool operator<(RoadSegmentId const & o) const
     {
@@ -103,8 +100,7 @@ public:
   // Adds the unknown values to the partially known coloring map |knownColors|
   // so that the keys of the resulting map are exactly |keys|.
   static void CombineColorings(std::vector<TrafficInfo::RoadSegmentId> const & keys,
-                               TrafficInfo::Coloring const & knownColors,
-                               TrafficInfo::Coloring & result);
+                               TrafficInfo::Coloring const & knownColors, TrafficInfo::Coloring & result);
 
   // Serializes the keys of the coloring map to |result|.
   // The keys are road segments ids which do not change during

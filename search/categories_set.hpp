@@ -15,7 +15,9 @@ namespace search
 class CategoriesSet
 {
 public:
-  CategoriesSet() : m_classificator(classif()) {}
+  CategoriesSet()
+    : m_classificator(classif())
+  {}
 
   inline void Add(uint32_t type) { m_categories.insert(type); }
 

@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MapsAppDelegate : UIResponder<UIApplicationDelegate, DownloadIndicatorProtocol>
+@interface MapsAppDelegate : UIResponder <UIApplicationDelegate, DownloadIndicatorProtocol>
 {
   NSInteger m_activeDownloadsCounter;
   UIBackgroundTaskIdentifier m_backgroundTask;
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic) UIWindow * window;
 
-@property(nonatomic, readonly) MWMCarPlayService *carplayService API_AVAILABLE(ios(12.0));
+@property(nonatomic, readonly) MWMCarPlayService * carplayService API_AVAILABLE(ios(12.0));
 @property(nonatomic, readonly) MapViewController * mapViewController;
 @property(nonatomic, readonly) BOOL isDrapeEngineCreated;
 

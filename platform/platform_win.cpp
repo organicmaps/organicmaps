@@ -2,8 +2,8 @@
 #include "platform/socket.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/scope_guard.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include "coding/file_writer.hpp"
 
@@ -48,11 +48,8 @@ static bool GetPathToBinary(string & outPath)
 
 namespace platform
 {
-std::unique_ptr<Socket> CreateSocket()
-{
-  return std::unique_ptr<Socket>();
-}
-} // namespace platform
+std::unique_ptr<Socket> CreateSocket() { return std::unique_ptr<Socket>(); }
+}  // namespace platform
 
 Platform::Platform()
 {
@@ -111,7 +108,7 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
   return ::GetFileAttributesA(filePath.c_str()) != INVALID_FILE_ATTRIBUTES;
 }
 
-//static
+// static
 void Platform::DisableBackupForFile(string const & filePath) {}
 
 // static
@@ -147,15 +144,9 @@ Platform::EError Platform::GetFileType(string const & path, EFileType & type)
   return ERR_OK;
 }
 
-string Platform::DeviceName() const
-{
-  return OMIM_OS_NAME;
-}
+string Platform::DeviceName() const { return OMIM_OS_NAME; }
 
-string Platform::DeviceModel() const
-{
-  return {};
-}
+string Platform::DeviceModel() const { return {}; }
 
 Platform::EConnectionType Platform::ConnectionStatus()
 {
@@ -163,10 +154,7 @@ Platform::EConnectionType Platform::ConnectionStatus()
   return EConnectionType::CONNECTION_NONE;
 }
 
-Platform::ChargingStatus Platform::GetChargingStatus()
-{
-  return Platform::ChargingStatus::Plugged;
-}
+Platform::ChargingStatus Platform::GetChargingStatus() { return Platform::ChargingStatus::Plugged; }
 
 uint8_t Platform::GetBatteryLevel()
 {
@@ -189,14 +177,12 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
   return STORAGE_OK;
 }
 
-bool Platform::IsDirectoryEmpty(string const & directory)
-{
-  return PathIsDirectoryEmptyA(directory.c_str());
-}
+bool Platform::IsDirectoryEmpty(string const & directory) { return PathIsDirectoryEmptyA(directory.c_str()); }
 
 bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
 {
-  HANDLE hFile = CreateFileA(filePath.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  HANDLE hFile =
+    CreateFileA(filePath.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile != INVALID_HANDLE_VALUE)
   {
     SCOPE_GUARD(autoClose, bind(&CloseHandle, hFile));
@@ -212,7 +198,11 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
 
 namespace
 {
-enum class FileTimeType { Creation, Modification };
+enum class FileTimeType
+{
+  Creation,
+  Modification
+};
 time_t GetFileTime(std::string const & path, FileTimeType fileTimeType)
 {
   HANDLE hFile = CreateFileA(path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
@@ -227,12 +217,8 @@ time_t GetFileTime(std::string const & path, FileTimeType fileTimeType)
 
   switch (fileTimeType)
   {
-  case FileTimeType::Creation:
-    ftCreate = &ft;
-    break;
-  case FileTimeType::Modification:
-    ftLastWrite = &ft;
-    break;
+  case FileTimeType::Creation: ftCreate = &ft; break;
+  case FileTimeType::Modification: ftLastWrite = &ft; break;
   }
 
   if (!GetFileTime(hFile, ftCreate, nullptr, ftLastWrite))
@@ -243,13 +229,10 @@ time_t GetFileTime(std::string const & path, FileTimeType fileTimeType)
   ull.HighPart = ft.dwHighDateTime;
   return static_cast<time_t>(ull.QuadPart / 10000000ULL - 11644473600ULL);
 }
-}
+}  // namespace
 
 // static
-time_t Platform::GetFileCreationTime(std::string const & path)
-{
-  return GetFileTime(path, FileTimeType::Creation);
-}
+time_t Platform::GetFileCreationTime(std::string const & path) { return GetFileTime(path, FileTimeType::Creation); }
 
 // static
 time_t Platform::GetFileModificationTime(std::string const & path)
@@ -257,6 +240,4 @@ time_t Platform::GetFileModificationTime(std::string const & path)
   return GetFileTime(path, FileTimeType::Modification);
 }
 
-void Platform::GetSystemFontNames(FilesList & res) const
-{
-}
+void Platform::GetSystemFontNames(FilesList & res) const {}

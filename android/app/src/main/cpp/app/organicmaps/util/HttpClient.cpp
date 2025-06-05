@@ -23,9 +23,9 @@ SOFTWARE.
 *******************************************************************************/
 #include <jni.h>
 
-#include "app/organicmaps/core/jni_helper.hpp"
 #include "app/organicmaps/core/ScopedEnv.hpp"
 #include "app/organicmaps/core/ScopedLocalRef.hpp"
+#include "app/organicmaps/core/jni_helper.hpp"
 
 #include "platform/http_client.hpp"
 
@@ -33,8 +33,8 @@ SOFTWARE.
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
-#include <string>
 #include <iterator>
+#include <string>
 #include <unordered_map>
 
 DECLARE_EXCEPTION(JniException, RootException);
@@ -51,8 +51,7 @@ void RethrowOnJniException(ScopedEnv & env)
   MYTHROW(JniException, ());
 }
 
-jfieldID GetHttpParamsFieldId(ScopedEnv & env, const char * name,
-                              const char * signature = "Ljava/lang/String;")
+jfieldID GetHttpParamsFieldId(ScopedEnv & env, char const * name, char const * signature = "Ljava/lang/String;")
 {
   return env->GetFieldID(g_httpParamsClazz, name, signature);
 }
@@ -85,8 +84,8 @@ void SetInt(ScopedEnv & env, jobject params, jfieldID const fieldId, int const v
 // Get string value from HttpClient.Params object, throws JniException.
 void GetString(ScopedEnv & env, jobject const params, jfieldID const fieldId, std::string & result)
 {
-  jni::ScopedLocalRef<jstring> const wrappedValue(
-      env.get(), static_cast<jstring>(env->GetObjectField(params, fieldId)));
+  jni::ScopedLocalRef<jstring> const wrappedValue(env.get(),
+                                                  static_cast<jstring>(env->GetObjectField(params, fieldId)));
   RethrowOnJniException(env);
   if (wrappedValue)
     result = jni::ToNativeString(env.get(), wrappedValue.get());
@@ -103,8 +102,8 @@ void SetHeaders(ScopedEnv & env, jobject const params, platform::HttpClient::Hea
   if (headers.empty())
     return;
 
-  static jmethodID const setHeaders = env->GetMethodID(
-      g_httpParamsClazz, "setHeaders", "([Lapp/organicmaps/util/KeyValue;)V");
+  static jmethodID const setHeaders =
+    env->GetMethodID(g_httpParamsClazz, "setHeaders", "([Lapp/organicmaps/util/KeyValue;)V");
 
   RethrowOnJniException(env);
 
@@ -115,11 +114,10 @@ void SetHeaders(ScopedEnv & env, jobject const params, platform::HttpClient::Hea
 
 void LoadHeaders(ScopedEnv & env, jobject const params, platform::HttpClient::Headers & headers)
 {
-  static jmethodID const getHeaders =
-      env->GetMethodID(g_httpParamsClazz, "getHeaders", "()[Ljava/lang/Object;");
+  static jmethodID const getHeaders = env->GetMethodID(g_httpParamsClazz, "getHeaders", "()[Ljava/lang/Object;");
 
   jni::ScopedLocalRef<jobjectArray> const headersArray(
-      env.get(), static_cast<jobjectArray>(env->CallObjectMethod(params, getHeaders)));
+    env.get(), static_cast<jobjectArray>(env->CallObjectMethod(params, getHeaders)));
 
   RethrowOnJniException(env);
 
@@ -134,16 +132,15 @@ class Ids
 public:
   explicit Ids(ScopedEnv & env)
   {
-    m_fieldIds =
-    {{"httpMethod", GetHttpParamsFieldId(env, "httpMethod")},
-    {"inputFilePath", GetHttpParamsFieldId(env, "inputFilePath")},
-    {"outputFilePath", GetHttpParamsFieldId(env, "outputFilePath")},
-    {"cookies", GetHttpParamsFieldId(env, "cookies")},
-    {"receivedUrl", GetHttpParamsFieldId(env, "receivedUrl")},
-    {"followRedirects", GetHttpParamsFieldId(env, "followRedirects", "Z")},
-    {"loadHeaders", GetHttpParamsFieldId(env, "loadHeaders", "Z")},
-    {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")},
-    {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")}};
+    m_fieldIds = {{"httpMethod", GetHttpParamsFieldId(env, "httpMethod")},
+                  {"inputFilePath", GetHttpParamsFieldId(env, "inputFilePath")},
+                  {"outputFilePath", GetHttpParamsFieldId(env, "outputFilePath")},
+                  {"cookies", GetHttpParamsFieldId(env, "cookies")},
+                  {"receivedUrl", GetHttpParamsFieldId(env, "receivedUrl")},
+                  {"followRedirects", GetHttpParamsFieldId(env, "followRedirects", "Z")},
+                  {"loadHeaders", GetHttpParamsFieldId(env, "loadHeaders", "Z")},
+                  {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")},
+                  {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")}};
   }
 
   jfieldID GetId(std::string const & fieldName) const
@@ -173,16 +170,15 @@ bool HttpClient::RunHttpRequest()
   static Ids ids(env);
 
   // Create and fill request params.
-  jni::ScopedLocalRef<jstring> const jniUrl(env.get(),
-                                            jni::ToJavaString(env.get(), m_urlRequested));
+  jni::ScopedLocalRef<jstring> const jniUrl(env.get(), jni::ToJavaString(env.get(), m_urlRequested));
   if (jni::HandleJavaException(env.get()))
     return false;
 
   static jmethodID const httpParamsConstructor =
-      jni::GetConstructorID(env.get(), g_httpParamsClazz, "(Ljava/lang/String;)V");
+    jni::GetConstructorID(env.get(), g_httpParamsClazz, "(Ljava/lang/String;)V");
 
   jni::ScopedLocalRef<jobject> const httpParamsObject(
-      env.get(), env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get()));
+    env.get(), env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get()));
   if (jni::HandleJavaException(env.get()))
     return false;
 
@@ -190,14 +186,14 @@ bool HttpClient::RunHttpRequest()
   static jfieldID const dataField = env->GetFieldID(g_httpParamsClazz, "data", "[B");
   if (!m_bodyData.empty())
   {
-    jni::ScopedLocalRef<jbyteArray> const jniPostData(
-        env.get(), env->NewByteArray(static_cast<jsize>(m_bodyData.size())));
+    jni::ScopedLocalRef<jbyteArray> const jniPostData(env.get(),
+                                                      env->NewByteArray(static_cast<jsize>(m_bodyData.size())));
 
     if (jni::HandleJavaException(env.get()))
       return false;
 
     env->SetByteArrayRegion(jniPostData.get(), 0, static_cast<jsize>(m_bodyData.size()),
-                            reinterpret_cast<const jbyte *>(m_bodyData.data()));
+                            reinterpret_cast<jbyte const *>(m_bodyData.data()));
     if (jni::HandleJavaException(env.get()))
       return false;
 
@@ -216,8 +212,7 @@ bool HttpClient::RunHttpRequest()
     SetString(env, httpParamsObject.get(), ids.GetId("cookies"), m_cookies);
     SetBoolean(env, httpParamsObject.get(), ids.GetId("followRedirects"), m_followRedirects);
     SetBoolean(env, httpParamsObject.get(), ids.GetId("loadHeaders"), m_loadHeaders);
-    SetInt(env, httpParamsObject.get(), ids.GetId("timeoutMillisec"),
-           static_cast<int>(m_timeoutSec * 1000));
+    SetInt(env, httpParamsObject.get(), ids.GetId("timeoutMillisec"), static_cast<int>(m_timeoutSec * 1000));
 
     SetHeaders(env, httpParamsObject.get(), m_headers);
   }
@@ -226,12 +221,11 @@ bool HttpClient::RunHttpRequest()
     return false;
   }
 
-  static jmethodID const httpClientClassRun =
-    env->GetStaticMethodID(g_httpClientClazz, "run",
-        "(Lapp/organicmaps/util/HttpClient$Params;)Lapp/organicmaps/util/HttpClient$Params;");
+  static jmethodID const httpClientClassRun = env->GetStaticMethodID(
+    g_httpClientClazz, "run", "(Lapp/organicmaps/util/HttpClient$Params;)Lapp/organicmaps/util/HttpClient$Params;");
 
-  jni::ScopedLocalRef<jobject> const response(env.get(), env->CallStaticObjectMethod(g_httpClientClazz,
-                                              httpClientClassRun, httpParamsObject.get()));
+  jni::ScopedLocalRef<jobject> const response(
+    env.get(), env->CallStaticObjectMethod(g_httpClientClazz, httpClientClassRun, httpParamsObject.get()));
   if (jni::HandleJavaException(env.get()))
     return false;
 
@@ -247,8 +241,8 @@ bool HttpClient::RunHttpRequest()
   }
 
   // dataField is already cached above.
-  jni::ScopedLocalRef<jbyteArray> const jniData(
-      env.get(), static_cast<jbyteArray>(env->GetObjectField(response, dataField)));
+  jni::ScopedLocalRef<jbyteArray> const jniData(env.get(),
+                                                static_cast<jbyteArray>(env->GetObjectField(response, dataField)));
   if (jni::HandleJavaException(env.get()))
     return false;
   if (jniData)
@@ -256,7 +250,7 @@ bool HttpClient::RunHttpRequest()
     jbyte * buffer = env->GetByteArrayElements(jniData.get(), nullptr);
     if (buffer)
     {
-      m_serverResponse.assign(reinterpret_cast<const char *>(buffer), env->GetArrayLength(jniData.get()));
+      m_serverResponse.assign(reinterpret_cast<char const *>(buffer), env->GetArrayLength(jniData.get()));
       env->ReleaseByteArrayElements(jniData.get(), buffer, JNI_ABORT);
     }
   }

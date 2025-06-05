@@ -21,10 +21,12 @@ public:
   bool CanUse() const { return m_canUse; }
 
 private:
-  NetworkPolicy(bool const canUseNetwork) : m_canUse(canUseNetwork) {}
+  NetworkPolicy(bool const canUseNetwork)
+    : m_canUse(canUseNetwork)
+  {}
 
   bool m_canUse = false;
 };
-  
+
 extern NetworkPolicy GetCurrentNetworkPolicy();
 }  // namespace platform

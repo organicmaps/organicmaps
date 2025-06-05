@@ -15,7 +15,12 @@ public:
   float m_x, m_y;
   static int m_counter;
 
-  vec2() : m_x(0.0f), m_y(0.0f) { m_counter++; }
+  vec2()
+    : m_x(0.0f)
+    , m_y(0.0f)
+  {
+    m_counter++;
+  }
   ~vec2() { m_counter--; }
 };
 

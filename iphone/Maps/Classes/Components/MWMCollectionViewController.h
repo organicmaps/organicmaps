@@ -1,5 +1,5 @@
 #import "MWMController.h"
 
-@interface MWMCollectionViewController : UICollectionViewController<MWMController>
+@interface MWMCollectionViewController : UICollectionViewController <MWMController>
 
 @end

@@ -144,15 +144,9 @@ bool PowerManager::IsFacilityEnabled(Facility const facility) const
   return m_config.m_facilities[static_cast<size_t>(facility)];
 }
 
-FacilitiesState const & PowerManager::GetFacilities() const
-{
-  return m_config.m_facilities;
-}
+FacilitiesState const & PowerManager::GetFacilities() const { return m_config.m_facilities; }
 
-Scheme const & PowerManager::GetScheme() const
-{
-  return m_config.m_scheme;
-}
+Scheme const & PowerManager::GetScheme() const { return m_config.m_scheme; }
 
 void PowerManager::OnBatteryLevelReceived(uint8_t level)
 {
@@ -190,33 +184,32 @@ void PowerManager::Subscribe(Subscriber * subscriber)
   m_subscribers.push_back(subscriber);
 }
 
-void PowerManager::UnsubscribeAll()
-{
-  m_subscribers.clear();
-}
+void PowerManager::UnsubscribeAll() { m_subscribers.clear(); }
 
 bool PowerManager::Save()
 {
-  auto const result =
-      base::WriteToTempAndRenameToFile(GetConfigPath(), [this](std::string const & fileName) {
-        try
-        {
-          FileWriter writer(fileName);
-          coding::SerializerJson<FileWriter> ser(writer);
-          ser(m_config);
-          return true;
-        }
-        catch (base::Json::Exception & ex)
-        {
-          LOG(LERROR, ("Cannot serialize power manager data into file. Exception:", ex.Msg()));
-        }
-        catch (FileWriter::Exception const & ex)
-        {
-          LOG(LERROR, ("Cannot write power manager file. Exception:", ex.Msg()));
-        }
+  auto const result = base::WriteToTempAndRenameToFile(
+    GetConfigPath(),
+    [this](std::string const & fileName)
+    {
+      try
+      {
+        FileWriter writer(fileName);
+        coding::SerializerJson<FileWriter> ser(writer);
+        ser(m_config);
+        return true;
+      }
+      catch (base::Json::Exception & ex)
+      {
+        LOG(LERROR, ("Cannot serialize power manager data into file. Exception:", ex.Msg()));
+      }
+      catch (FileWriter::Exception const & ex)
+      {
+        LOG(LERROR, ("Cannot write power manager file. Exception:", ex.Msg()));
+      }
 
-        return false;
-      });
+      return false;
+    });
 
   if (result)
     return true;

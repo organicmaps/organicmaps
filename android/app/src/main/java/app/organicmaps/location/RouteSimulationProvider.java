@@ -2,9 +2,7 @@ package app.organicmaps.location;
 
 import android.content.Context;
 import android.location.Location;
-
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.concurrency.UiThread;
@@ -25,8 +23,7 @@ class RouteSimulationProvider extends BaseLocationProvider
     mPoints = points;
   }
 
-  @Override
-  public void start(long interval)
+  @Override public void start(long interval)
   {
     Logger.i(TAG);
     if (mActive)
@@ -35,8 +32,7 @@ class RouteSimulationProvider extends BaseLocationProvider
     UiThread.runLater(this::nextPoint);
   }
 
-  @Override
-  public void stop()
+  @Override public void stop()
   {
     Logger.i(TAG);
     mActive = false;

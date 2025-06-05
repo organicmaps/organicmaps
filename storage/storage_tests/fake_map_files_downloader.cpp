@@ -14,7 +14,8 @@ namespace storage
 int64_t const FakeMapFilesDownloader::kBlockSize;
 
 FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner)
-  : m_timestamp(0), m_taskRunner(taskRunner)
+  : m_timestamp(0)
+  , m_taskRunner(taskRunner)
 {
   SetServersList({"http://test-url/"});
 }
@@ -104,15 +105,16 @@ void FakeMapFilesDownloader::DownloadNextChunk(uint64_t timestamp)
   m_writer->Write(kZeroes.data(), bs);
   m_writer->Flush();
 
-  m_taskRunner.PostTask([this, timestamp]()
-  {
-    CHECK_THREAD_CHECKER(m_checker, ());
+  m_taskRunner.PostTask(
+    [this, timestamp]()
+    {
+      CHECK_THREAD_CHECKER(m_checker, ());
 
-    if (timestamp != m_timestamp)
-      return;
+      if (timestamp != m_timestamp)
+        return;
 
-    m_queue.GetFirstCountry().OnDownloadProgress(m_progress);
-  });
+      m_queue.GetFirstCountry().OnDownloadProgress(m_progress);
+    });
   m_taskRunner.PostTask(std::bind(&FakeMapFilesDownloader::DownloadNextChunk, this, timestamp));
 }
 

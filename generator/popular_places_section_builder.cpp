@@ -42,8 +42,7 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
 
     if (popularityIndex > std::numeric_limits<PopularityIndex>::max())
     {
-      LOG(LERROR, ("The popularity index value is higher than max supported value:", srcFilename,
-                   "parsed row:", row));
+      LOG(LERROR, ("The popularity index value is higher than max supported value:", srcFilename, "parsed row:", row));
       return;
     }
 
@@ -60,7 +59,8 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
 
 namespace
 {
-template <class RankGetterT> void BuildPopularPlacesImpl(std::string const & mwmFile, RankGetterT && getter)
+template <class RankGetterT>
+void BuildPopularPlacesImpl(std::string const & mwmFile, RankGetterT && getter)
 {
   bool popularPlaceFound = false;
 
@@ -69,20 +69,21 @@ template <class RankGetterT> void BuildPopularPlacesImpl(std::string const & mwm
   auto const & streetChecker = ftypes::IsWayChecker::Instance();
 
   std::vector<PopularityIndex> content;
-  feature::ForEachFeature(mwmFile, [&](FeatureType & ft, uint32_t featureId)
-  {
-    ASSERT_EQUAL(content.size(), featureId, ());
-    PopularityIndex rank = 0;
+  feature::ForEachFeature(mwmFile,
+                          [&](FeatureType & ft, uint32_t featureId)
+                          {
+                            ASSERT_EQUAL(content.size(), featureId, ());
+                            PopularityIndex rank = 0;
 
-    if (placeChecker(ft) || poiChecker(ft) || streetChecker(ft))
-    {
-      rank = getter(ft, featureId);
-      if (rank > 0)
-        popularPlaceFound = true;
-    }
+                            if (placeChecker(ft) || poiChecker(ft) || streetChecker(ft))
+                            {
+                              rank = getter(ft, featureId);
+                              if (rank > 0)
+                                popularPlaceFound = true;
+                            }
 
-    content.emplace_back(rank);
-  });
+                            content.emplace_back(rank);
+                          });
 
   if (popularPlaceFound)
   {
@@ -97,7 +98,7 @@ PopularityIndex CalcRank(std::string const & str)
   return std::min(1.0, charsNum / 100000.0) * std::numeric_limits<PopularityIndex>::max();
 }
 
-} // namespace
+}  // namespace
 
 void BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
 {
@@ -119,39 +120,40 @@ void BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
   std::vector<int8_t> langPriority;
   langPriority.push_back(StringUtf8Multilang::kEnglishCode);
 
-  BuildPopularPlacesImpl(mwmFile, [&](FeatureType &, uint32_t featureId)
-  {
-    auto const str = deserializer.Deserialize(*readerPtr.GetPtr(), featureId, langPriority);
-    return str.empty() ? 0 : CalcRank(str);
-  });
+  BuildPopularPlacesImpl(mwmFile,
+                         [&](FeatureType &, uint32_t featureId)
+                         {
+                           auto const str = deserializer.Deserialize(*readerPtr.GetPtr(), featureId, langPriority);
+                           return str.empty() ? 0 : CalcRank(str);
+                         });
 }
 
-void BuildPopularPlacesFromWikiDump(std::string const & mwmFile,
-                                    std::string const & wikipediaDir, std::string const & idToWikidataPath)
+void BuildPopularPlacesFromWikiDump(std::string const & mwmFile, std::string const & wikipediaDir,
+                                    std::string const & idToWikidataPath)
 {
   LOG(LINFO, ("Build Popular Places section"));
 
   DescriptionsCollector collector(wikipediaDir, mwmFile, idToWikidataPath);
-  BuildPopularPlacesImpl(mwmFile, [&](FeatureType & ft, uint32_t featureId) -> PopularityIndex
-  {
-    collector(ft.GetMetadata().GetWikiURL(), featureId);
+  BuildPopularPlacesImpl(mwmFile,
+                         [&](FeatureType & ft, uint32_t featureId) -> PopularityIndex
+                         {
+                           collector(ft.GetMetadata().GetWikiURL(), featureId);
 
-    if (collector.m_collection.m_features.empty())
-      return 0;
+                           if (collector.m_collection.m_features.empty())
+                             return 0;
 
-    // If was added
-    auto & data = collector.m_collection.m_features.back();
-    if (data.m_ftIndex == featureId)
-    {
-      for (auto const & [lang, idx] : data.m_strIndices)
-        if (lang == StringUtf8Multilang::kEnglishCode)
-          return CalcRank(collector.m_collection.m_strings[idx]);
-    }
+                           // If was added
+                           auto & data = collector.m_collection.m_features.back();
+                           if (data.m_ftIndex == featureId)
+                           {
+                             for (auto const & [lang, idx] : data.m_strIndices)
+                               if (lang == StringUtf8Multilang::kEnglishCode)
+                                 return CalcRank(collector.m_collection.m_strings[idx]);
+                           }
 
-    return 0;
-  });
+                           return 0;
+                         });
 }
-
 
 PopularPlaces const & GetOrLoadPopularPlaces(std::string const & filename)
 {

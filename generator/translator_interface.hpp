@@ -38,8 +38,5 @@ public:
 };
 }  // namespace generator
 
-#define IMPLEMENT_TRANSLATOR_IFACE(className)               \
-  void Merge(TranslatorInterface const & ti) override       \
-  {                                                         \
-    dynamic_cast<className const &>(ti).MergeInto(*this);   \
-  }
+#define IMPLEMENT_TRANSLATOR_IFACE(className) \
+  void Merge(TranslatorInterface const & ti) override { dynamic_cast<className const &>(ti).MergeInto(*this); }

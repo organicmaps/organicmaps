@@ -17,8 +17,8 @@ using namespace std;
 using namespace strings;
 
 // CategoriesInfo ----------------------------------------------------------------------------------
-CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens,
-                               Locales const & locales, CategoriesHolder const & categories)
+CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens, Locales const & locales,
+                               CategoriesHolder const & categories)
 {
   struct TokenInfo
   {
@@ -29,15 +29,16 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
   QuerySlice slice(tokens);
   vector<TokenInfo> infos(slice.Size());
 
-  ForEachCategoryType(slice, locales, categories, [&](size_t i, uint32_t t)
-  {
-    ASSERT_LESS(i, infos.size(), ());
-    auto & info = infos[i];
+  ForEachCategoryType(slice, locales, categories,
+                      [&](size_t i, uint32_t t)
+                      {
+                        ASSERT_LESS(i, infos.size(), ());
+                        auto & info = infos[i];
 
-    info.m_isCategoryToken = true;
-    if (holder.HasWithSubclass(t))
-      info.m_inFeatureTypes = true;
-  });
+                        info.m_isCategoryToken = true;
+                        if (holder.HasWithSubclass(t))
+                          info.m_inFeatureTypes = true;
+                      });
 
   for (size_t i = 0; i < slice.Size(); ++i)
   {
@@ -47,16 +48,15 @@ CategoriesInfo::CategoriesInfo(feature::TypesHolder const & holder, TokenSlice c
 
   // Note that m_inFeatureTypes implies m_isCategoryToken.
 
-  m_pureCategories = all_of(infos.begin(), infos.end(), [](TokenInfo const & info)
-  {
-    ASSERT(!info.m_inFeatureTypes || info.m_isCategoryToken, ());
-    return info.m_inFeatureTypes;
-  });
+  m_pureCategories = all_of(infos.begin(), infos.end(),
+                            [](TokenInfo const & info)
+                            {
+                              ASSERT(!info.m_inFeatureTypes || info.m_isCategoryToken, ());
+                              return info.m_inFeatureTypes;
+                            });
 
-  m_falseCategories = all_of(infos.begin(), infos.end(), [](TokenInfo const & info)
-  {
-    return !info.m_inFeatureTypes && info.m_isCategoryToken;
-  });
+  m_falseCategories = all_of(infos.begin(), infos.end(),
+                             [](TokenInfo const & info) { return !info.m_inFeatureTypes && info.m_isCategoryToken; });
 }
 
 // ErrorsMade --------------------------------------------------------------------------------------
@@ -70,8 +70,7 @@ string DebugPrint(ErrorsMade const & errorsMade)
 
 namespace impl
 {
-ErrorsMade GetErrorsMade(QueryParams::Token const & token,
-                         strings::UniString const & text, LevenshteinDFA const & dfa)
+ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text, LevenshteinDFA const & dfa)
 {
   if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return text == s; }))
     return ErrorsMade(0);
@@ -84,8 +83,8 @@ ErrorsMade GetErrorsMade(QueryParams::Token const & token,
   return {};
 }
 
-ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token,
-                               strings::UniString const & text, LevenshteinDFA const & dfa)
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text,
+                               LevenshteinDFA const & dfa)
 {
   if (token.AnyOfSynonyms([&text](strings::UniString const & s) { return StartsWith(text, s); }))
     return ErrorsMade(0);
@@ -106,16 +105,17 @@ bool IsStopWord(UniString const & s)
   class StopWordsChecker
   {
     set<UniString> m_set;
+
   public:
     StopWordsChecker()
     {
       // Don't want to put _full_ stopwords list, not to break current ranking.
       // Only 2-letters and the most common.
       char const * arr[] = {
-        "a", "s", "the",  // English
-        "am", "im", "an", // German
-        "d", "da", "de", "di", "du", "la", "le", // French, Spanish, Italian
-        "и", "я"          // Cyrillic
+        "a",  "s",  "the",                          // English
+        "am", "im", "an",                           // German
+        "d",  "da", "de",  "di", "du", "la", "le",  // French, Spanish, Italian
+        "и",  "я"                                   // Cyrillic
       };
       for (char const * s : arr)
         m_set.insert(MakeUniString(s));
@@ -129,11 +129,12 @@ bool IsStopWord(UniString const & s)
 
 TokensVector::TokensVector(string_view name)
 {
-  ForEachNormalizedToken(name, [this](strings::UniString && token)
-  {
-    if (!IsStopWord(token))
-      m_tokens.push_back(std::move(token));
-  });
+  ForEachNormalizedToken(name,
+                         [this](strings::UniString && token)
+                         {
+                           if (!IsStopWord(token))
+                             m_tokens.push_back(std::move(token));
+                         });
 
   Init();
 }
@@ -157,10 +158,8 @@ string DebugPrint(NameScores const & scores)
 {
   ostringstream os;
   os << boolalpha << "NameScores "
-     << "{ m_nameScore: " << DebugPrint(scores.m_nameScore)
-     << ", m_matchedLength: " << scores.m_matchedLength
-     << ", m_errorsMade: " << DebugPrint(scores.m_errorsMade)
-     << ", m_isAltOrOldName: "
+     << "{ m_nameScore: " << DebugPrint(scores.m_nameScore) << ", m_matchedLength: " << scores.m_matchedLength
+     << ", m_errorsMade: " << DebugPrint(scores.m_errorsMade) << ", m_isAltOrOldName: "
      << " }";
   return os.str();
 }

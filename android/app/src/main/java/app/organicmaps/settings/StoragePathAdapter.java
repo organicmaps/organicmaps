@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
-
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -27,26 +26,22 @@ class StoragePathAdapter extends BaseAdapter
     mActivity = activity;
   }
 
-  @Override
-  public int getCount()
+  @Override public int getCount()
   {
     return (mPathManager.mStorages == null ? 0 : mPathManager.mStorages.size());
   }
 
-  @Override
-  public StorageItem getItem(int position)
+  @Override public StorageItem getItem(int position)
   {
     return mPathManager.mStorages.get(position);
   }
 
-  @Override
-  public long getItemId(int position)
+  @Override public long getItemId(int position)
   {
     return position;
   }
 
-  @Override
-  public View getView(int position, View convertView, ViewGroup parent)
+  @Override public View getView(int position, View convertView, ViewGroup parent)
   {
     if (convertView == null)
       convertView = mActivity.getLayoutInflater().inflate(R.layout.item_storage, parent, false);
@@ -57,22 +52,22 @@ class StoragePathAdapter extends BaseAdapter
     checkedView.setChecked(isCurrent);
     checkedView.setEnabled(!item.mIsReadonly && (isStorageBigEnough(position) || isCurrent));
 
-    final String size = mActivity.getString(R.string.maps_storage_free_size,
-                                            Formatter.formatShortFileSize(mActivity, item.mFreeSize),
-                                            Formatter.formatShortFileSize(mActivity, item.mTotalSize));
+    final String size =
+      mActivity.getString(R.string.maps_storage_free_size, Formatter.formatShortFileSize(mActivity, item.mFreeSize),
+        Formatter.formatShortFileSize(mActivity, item.mTotalSize));
 
     SpannableStringBuilder sb = new SpannableStringBuilder(item.mLabel + "\n" + size);
     sb.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(mActivity, android.R.attr.textColorSecondary)),
-               sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_3)),
-               sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      sb.length() - size.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_3)), sb.length() - size.length(),
+      sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     final String path = item.mPath + (item.mIsReadonly ? " (read-only)" : "");
     sb.append("\n").append(path);
     sb.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(mActivity, android.R.attr.textColorSecondary)),
-               sb.length() - path.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_4)),
-               sb.length() - path.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      sb.length() - path.length(), sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    sb.setSpan(new AbsoluteSizeSpan(UiUtils.dimen(mActivity, R.dimen.text_size_body_4)), sb.length() - path.length(),
+      sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
     checkedView.setText(sb);
 

@@ -3,7 +3,6 @@ package app.organicmaps.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import app.organicmaps.BuildConfig;
@@ -80,14 +79,12 @@ public final class Config
     return (float) nativeGetDouble(key, def);
   }
 
-  @NonNull
-  private static String getString(String key)
+  @NonNull private static String getString(String key)
   {
     return getString(key, "");
   }
 
-  @NonNull
-  private static String getString(String key, String def)
+  @NonNull private static String getString(String key, String def)
   {
     return nativeGetString(key, def);
   }
@@ -229,8 +226,7 @@ public final class Config
     setBool(KEY_MISC_LOCATION_REQUESTED);
   }
 
-  @NonNull
-  public static String getCurrentUiTheme(@NonNull Context context)
+  @NonNull public static String getCurrentUiTheme(@NonNull Context context)
   {
     String defaultTheme = MwmApplication.from(context).getString(R.string.theme_default);
     String res = getString(KEY_MISC_UI_THEME, defaultTheme);
@@ -249,12 +245,12 @@ public final class Config
     setString(KEY_MISC_UI_THEME, theme);
   }
 
-  @NonNull
-  public static String getUiThemeSettings(@NonNull Context context)
+  @NonNull public static String getUiThemeSettings(@NonNull Context context)
   {
     String autoTheme = MwmApplication.from(context).getString(R.string.theme_auto);
     String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
-    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res) || ThemeUtils.isNavAutoTheme(context, res))
+    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res)
+        || ThemeUtils.isNavAutoTheme(context, res))
       return res;
 
     return autoTheme;
@@ -279,8 +275,7 @@ public final class Config
     nativeSetLargeFontsSize(value);
   }
 
-  @NonNull
-  public static NetworkPolicy.Type getUseMobileDataSettings()
+  @NonNull public static NetworkPolicy.Type getUseMobileDataSettings()
   {
     int value = getInt(KEY_MISC_USE_MOBILE_DATA, NetworkPolicy.NONE);
 
@@ -342,8 +337,8 @@ public final class Config
   {
     final String url = getString(KEY_DONATE_URL);
     // Enable donations by default if not Google or Huawei. Replace organicmaps.app/donate/ with localized page.
-    if ((url.isEmpty() && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei")) ||
-        url.endsWith("organicmaps.app/donate/"))
+    if ((url.isEmpty() && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei"))
+        || url.endsWith("organicmaps.app/donate/"))
       return context.getString(R.string.translated_om_site_url) + "donate/";
     return url;
   }
@@ -388,10 +383,7 @@ public final class Config
 
   public static void setFirstStartDialogSeen(@NonNull Context context)
   {
-    MwmApplication.prefs(context)
-        .edit()
-        .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true)
-        .apply();
+    MwmApplication.prefs(context).edit().putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true).apply();
   }
 
   public static boolean isSearchHistoryEnabled()
@@ -435,8 +427,7 @@ public final class Config
       setBool(Keys.ENABLED, enabled);
     }
 
-    @NonNull
-    public static String getLanguage()
+    @NonNull public static String getLanguage()
     {
       return getString(Keys.LANGUAGE);
     }
@@ -465,7 +456,6 @@ public final class Config
     {
       setBool(Keys.STREETS, enabled);
     }
-
   }
 
   private static native boolean nativeHasConfigValue(String name);

@@ -13,7 +13,11 @@ class CombinedIterator
   Value const * m_val;
 
 public:
-  CombinedIterator(Iter cur, Iter end, Value const * val) : m_cur(cur), m_end(end), m_val(val) {}
+  CombinedIterator(Iter cur, Iter end, Value const * val)
+    : m_cur(cur)
+    , m_end(end)
+    , m_val(val)
+  {}
 
   Value const & operator*() const
   {
@@ -33,15 +37,11 @@ public:
     return *this;
   }
 
-  bool operator==(CombinedIterator const & other) const
-  {
-    return m_val == other.m_val && m_cur == other.m_cur;
-  }
+  bool operator==(CombinedIterator const & other) const { return m_val == other.m_val && m_cur == other.m_cur; }
 
   bool operator!=(CombinedIterator const & other) const { return !(*this == other); }
 };
 }  // namespace
-
 
 void HighlightResult(QueryTokens const & tokens, strings::UniString const & prefix, Result & res)
 {
@@ -52,17 +52,11 @@ void HighlightResult(QueryTokens const & tokens, strings::UniString const & pref
   CombinedIter end(tokens.end() /* cur */, tokens.end() /* end */, nullptr);
 
   // Highlight Title
-  SearchStringTokensIntersectionRanges(res.GetString(), beg, end,
-                                       [&](std::pair<uint16_t, uint16_t> const & range)
-  {
-    res.AddHighlightRange(range);
-  });
+  SearchStringTokensIntersectionRanges(
+    res.GetString(), beg, end, [&](std::pair<uint16_t, uint16_t> const & range) { res.AddHighlightRange(range); });
 
   // Highlight description.
-  SearchStringTokensIntersectionRanges(res.GetAddress(), beg, end,
-                                       [&](std::pair<uint16_t, uint16_t> const & range)
-  {
-    res.AddDescHighlightRange(range);
-  });
+  SearchStringTokensIntersectionRanges(
+    res.GetAddress(), beg, end, [&](std::pair<uint16_t, uint16_t> const & range) { res.AddDescHighlightRange(range); });
 }
 }  // namespace search

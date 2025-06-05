@@ -37,25 +37,13 @@ bool Interpolator::IsFinished() const
   return m_elapsedTime > (m_duration + m_delay);
 }
 
-void Interpolator::Advance(double elapsedSeconds)
-{
-  m_elapsedTime += elapsedSeconds;
-}
+void Interpolator::Advance(double elapsedSeconds) { m_elapsedTime += elapsedSeconds; }
 
-void Interpolator::Finish()
-{
-  m_elapsedTime = m_duration + m_delay + 1.0;
-}
+void Interpolator::Finish() { m_elapsedTime = m_duration + m_delay + 1.0; }
 
-bool Interpolator::IsActive() const
-{
-  return m_isActive;
-}
+bool Interpolator::IsActive() const { return m_isActive; }
 
-void Interpolator::SetActive(bool active)
-{
-  m_isActive = active;
-}
+void Interpolator::SetActive(bool active) { m_isActive = active; }
 
 void Interpolator::SetMaxDuration(double maxDuration)
 {
@@ -71,15 +59,9 @@ void Interpolator::SetMinDuration(double minDuration)
     m_duration = std::max(m_duration, m_minDuration);
 }
 
-double Interpolator::GetMaxDuration() const
-{
-  return m_maxDuration;
-}
+double Interpolator::GetMaxDuration() const { return m_maxDuration; }
 
-double Interpolator::GetMinDuration() const
-{
-  return m_minDuration;
-}
+double Interpolator::GetMinDuration() const { return m_minDuration; }
 
 double Interpolator::GetT() const
 {
@@ -89,22 +71,16 @@ double Interpolator::GetT() const
   return std::max(m_elapsedTime - m_delay, 0.0) / m_duration;
 }
 
-double Interpolator::GetElapsedTime() const
-{
-  return m_elapsedTime;
-}
+double Interpolator::GetElapsedTime() const { return m_elapsedTime; }
 
-double Interpolator::GetDuration() const
-{
-  return m_duration;
-}
+double Interpolator::GetDuration() const { return m_duration; }
 
 PositionInterpolator::PositionInterpolator()
   : PositionInterpolator(0.0 /* duration */, 0.0 /* delay */, m2::PointD(), m2::PointD())
 {}
 
-PositionInterpolator::PositionInterpolator(double duration, double delay,
-                                           m2::PointD const & startPosition, m2::PointD const & endPosition)
+PositionInterpolator::PositionInterpolator(double duration, double delay, m2::PointD const & startPosition,
+                                           m2::PointD const & endPosition)
   : Interpolator(duration, delay)
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
@@ -118,9 +94,8 @@ PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2:
   : PositionInterpolator(0.0 /* delay */, startPosition, endPosition, convertor)
 {}
 
-PositionInterpolator::PositionInterpolator(double delay,
-                                           m2::PointD const & startPosition, m2::PointD const & endPosition,
-                                           ScreenBase const & convertor)
+PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & startPosition,
+                                           m2::PointD const & endPosition, ScreenBase const & convertor)
   : Interpolator(PositionInterpolator::GetMoveDuration(startPosition, endPosition, convertor), delay)
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
@@ -134,9 +109,8 @@ PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2:
   : PositionInterpolator(0.0 /* delay */, startPosition, endPosition, viewportRect, scale)
 {}
 
-PositionInterpolator::PositionInterpolator(double delay,
-                                           m2::PointD const & startPosition, m2::PointD const & endPosition,
-                                           m2::RectD const & viewportRect, double scale)
+PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & startPosition,
+                                           m2::PointD const & endPosition, m2::RectD const & viewportRect, double scale)
   : Interpolator(PositionInterpolator::GetMoveDuration(startPosition, endPosition, viewportRect, scale), delay)
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
@@ -145,7 +119,7 @@ PositionInterpolator::PositionInterpolator(double delay,
   SetActive((GetDuration() > 0.0) && (m_startPosition != m_endPosition));
 }
 
-//static
+// static
 double PositionInterpolator::GetMoveDuration(double globalDistance, m2::RectD const & viewportRect, double scale)
 {
   double constexpr kMinMoveDuration = 0.2;
@@ -166,21 +140,19 @@ double PositionInterpolator::GetMoveDuration(double globalDistance, m2::RectD co
   return CalcAnimSpeedDuration(pixelLength, pixelSpeed);
 }
 
-//static
+// static
 double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition,
-                              m2::RectD const & viewportRect, double scale)
+                                             m2::RectD const & viewportRect, double scale)
 {
   return GetMoveDuration(endPosition.Length(startPosition), viewportRect, scale);
 }
 
-//static
-double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition,
-                                             m2::PointD const & endPosition,
+// static
+double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition,
                                              ScreenBase const & convertor)
 {
   return GetMoveDuration(startPosition, endPosition, convertor.PixelRectIn3d(), convertor.GetScale());
 }
-
 
 void PositionInterpolator::Advance(double elapsedSeconds)
 {
@@ -282,4 +254,4 @@ void AngleInterpolator::Finish()
   m_angle = m_endAngle;
 }
 
-} // namespace df
+}  // namespace df

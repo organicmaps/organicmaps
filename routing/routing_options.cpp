@@ -31,24 +31,14 @@ RoutingOptions RoutingOptions::LoadCarOptionsFromSettings()
 // static
 void RoutingOptions::SaveCarOptionsToSettings(RoutingOptions options)
 {
-  settings::Set(kAvoidRoutingOptionSettingsForCar,
-                strings::to_string(static_cast<int32_t>(options.GetOptions())));
+  settings::Set(kAvoidRoutingOptionSettingsForCar, strings::to_string(static_cast<int32_t>(options.GetOptions())));
 }
 
-void RoutingOptions::Add(RoutingOptions::Road type)
-{
-  m_options |= static_cast<RoadType>(type);
-}
+void RoutingOptions::Add(RoutingOptions::Road type) { m_options |= static_cast<RoadType>(type); }
 
-void RoutingOptions::Remove(RoutingOptions::Road type)
-{
-  m_options &= ~static_cast<RoadType>(type);
-}
+void RoutingOptions::Remove(RoutingOptions::Road type) { m_options &= ~static_cast<RoadType>(type); }
 
-bool RoutingOptions::Has(RoutingOptions::Road type) const
-{
-  return (m_options & static_cast<RoadType>(type)) != 0;
-}
+bool RoutingOptions::Has(RoutingOptions::Road type) const { return (m_options & static_cast<RoadType>(type)) != 0; }
 
 // RoutingOptionsClassifier ---------------------------------------------------------------------------
 
@@ -57,17 +47,16 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
   Classificator const & c = classif();
 
   pair<vector<string>, RoutingOptions::Road> const types[] = {
-    {{"highway", "motorway"},             RoutingOptions::Road::Motorway},
+    {{"highway", "motorway"}, RoutingOptions::Road::Motorway},
 
-    {{"hwtag", "toll"},                   RoutingOptions::Road::Toll},
+    {{"hwtag", "toll"}, RoutingOptions::Road::Toll},
 
-    {{"route", "ferry"},                  RoutingOptions::Road::Ferry},
+    {{"route", "ferry"}, RoutingOptions::Road::Ferry},
 
-    {{"highway", "track"},                RoutingOptions::Road::Dirty},
-    {{"highway", "road"},                 RoutingOptions::Road::Dirty},
-    {{"psurface", "unpaved_bad"},         RoutingOptions::Road::Dirty},
-    {{"psurface", "unpaved_good"},        RoutingOptions::Road::Dirty}
-  };
+    {{"highway", "track"}, RoutingOptions::Road::Dirty},
+    {{"highway", "road"}, RoutingOptions::Road::Dirty},
+    {{"psurface", "unpaved_bad"}, RoutingOptions::Road::Dirty},
+    {{"psurface", "unpaved_good"}, RoutingOptions::Road::Dirty}};
 
   m_data.Reserve(std::size(types));
   for (auto const & data : types)
@@ -77,7 +66,7 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
 
 optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type) const
 {
-  ftype::TruncValue(type, 2); // in case of highway-motorway-bridge
+  ftype::TruncValue(type, 2);  // in case of highway-motorway-bridge
 
   auto const * res = m_data.Find(type);
   if (res)
@@ -114,7 +103,8 @@ string DebugPrint(RoutingOptions const & routingOptions)
   ss << "RoutingOptions: {";
 
   bool wasAppended = false;
-  auto const append = [&](RoutingOptions::Road road) {
+  auto const append = [&](RoutingOptions::Road road)
+  {
     if (routingOptions.Has(road))
     {
       wasAppended = true;
@@ -140,12 +130,12 @@ string DebugPrint(RoutingOptions::Road type)
 {
   switch (type)
   {
-    case RoutingOptions::Road::Toll: return "toll";
-    case RoutingOptions::Road::Motorway: return "motorway";
-    case RoutingOptions::Road::Ferry: return "ferry";
-    case RoutingOptions::Road::Dirty: return "dirty";
-    case RoutingOptions::Road::Usual: return "usual";
-    case RoutingOptions::Road::Max: return "max";
+  case RoutingOptions::Road::Toll: return "toll";
+  case RoutingOptions::Road::Motorway: return "motorway";
+  case RoutingOptions::Road::Ferry: return "ferry";
+  case RoutingOptions::Road::Dirty: return "dirty";
+  case RoutingOptions::Road::Usual: return "usual";
+  case RoutingOptions::Road::Max: return "max";
   }
 
   UNREACHABLE();
@@ -157,9 +147,6 @@ RoutingOptionSetter::RoutingOptionSetter(RoutingOptions::RoadType roadsMask)
   RoutingOptions::SaveCarOptionsToSettings(RoutingOptions(roadsMask));
 }
 
-RoutingOptionSetter::~RoutingOptionSetter()
-{
-  RoutingOptions::SaveCarOptionsToSettings(m_saved);
-}
+RoutingOptionSetter::~RoutingOptionSetter() { RoutingOptions::SaveCarOptionsToSettings(m_saved); }
 
 }  // namespace routing

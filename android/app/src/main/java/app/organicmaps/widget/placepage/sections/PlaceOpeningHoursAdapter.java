@@ -1,25 +1,23 @@
 package app.organicmaps.widget.placepage.sections;
 
+import static app.organicmaps.editor.data.TimeFormatUtils.formatNonBusinessTime;
+import static app.organicmaps.editor.data.TimeFormatUtils.formatWeekdaysRange;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.editor.data.Timespan;
 import app.organicmaps.editor.data.Timetable;
 import app.organicmaps.util.UiUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
-
-import static app.organicmaps.editor.data.TimeFormatUtils.formatNonBusinessTime;
-import static app.organicmaps.editor.data.TimeFormatUtils.formatWeekdaysRange;
 
 public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningHoursAdapter.ViewHolder>
 {
@@ -75,34 +73,30 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
   public static List<Integer> buildWeekByFirstDay(int firstDayOfWeek)
   {
     if (firstDayOfWeek < 1 || firstDayOfWeek > 7)
-      throw new IllegalArgumentException("First day of week "+firstDayOfWeek+" is out of range [1..7]");
+      throw new IllegalArgumentException("First day of week " + firstDayOfWeek + " is out of range [1..7]");
 
-    final List<Integer> list = Arrays.asList(Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY,
-                                             Calendar.WEDNESDAY, Calendar.THURSDAY, Calendar.FRIDAY,
-                                             Calendar.SATURDAY);
+    final List<Integer> list = Arrays.asList(Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY,
+      Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY);
     Collections.rotate(list, 1 - firstDayOfWeek);
     return list;
   }
 
   public static Timetable findScheduleForWeekDay(Timetable[] tables, int weekDay)
   {
-    for(Timetable tt : tables)
+    for (Timetable tt : tables)
       if (tt.containsWeekday(weekDay))
         return tt;
 
     return null;
   }
 
-  @NonNull
-  @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+  @NonNull @Override public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
-    return new ViewHolder(LayoutInflater.from(parent.getContext())
-                                        .inflate(R.layout.place_page_opening_hours_item, parent, false));
+    return new ViewHolder(
+      LayoutInflater.from(parent.getContext()).inflate(R.layout.place_page_opening_hours_item, parent, false));
   }
 
-  @Override
-  public void onBindViewHolder(@NonNull ViewHolder holder, int position)
+  @Override public void onBindViewHolder(@NonNull ViewHolder holder, int position)
   {
     if (mWeekSchedule == null || position >= mWeekSchedule.size() || position < 0)
       return;
@@ -137,8 +131,7 @@ public class PlaceOpeningHoursAdapter extends RecyclerView.Adapter<PlaceOpeningH
     }
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     return (mWeekSchedule != null ? mWeekSchedule.size() : 0);
   }

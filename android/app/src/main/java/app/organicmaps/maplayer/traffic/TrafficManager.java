@@ -2,28 +2,22 @@ package app.organicmaps.maplayer.traffic;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.util.log.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
 @MainThread
-public enum TrafficManager
-{
+public enum TrafficManager {
   INSTANCE;
 
   private static final String TAG = TrafficManager.class.getSimpleName();
 
-  @NonNull
-  private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
+  @NonNull private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
 
-  @NonNull
-  private TrafficState mState = TrafficState.DISABLED;
+  @NonNull private TrafficState mState = TrafficState.DISABLED;
 
-  @NonNull
-  private final List<TrafficCallback> mCallbacks = new ArrayList<>();
+  @NonNull private final List<TrafficCallback> mCallbacks = new ArrayList<>();
 
   private boolean mInitialized = false;
 
@@ -57,7 +51,7 @@ public enum TrafficManager
     Logger.d(TAG, "Disable traffic");
     TrafficState.nativeDisable();
   }
-  
+
   public boolean isEnabled()
   {
     checkInitialization();
@@ -70,8 +64,8 @@ public enum TrafficManager
 
     if (mCallbacks.contains(callback))
     {
-      throw new IllegalStateException("A callback '" + callback
-                                      + "' is already attached. Check that the 'detachAll' method was called.");
+      throw new IllegalStateException(
+        "A callback '" + callback + "' is already attached. Check that the 'detachAll' method was called.");
     }
     Logger.d(TAG, "Attach callback '" + callback + "'");
     mCallbacks.add(callback);
@@ -89,8 +83,10 @@ public enum TrafficManager
 
     if (mCallbacks.isEmpty())
     {
-      Logger.w(TAG, "There are no attached callbacks. Invoke the 'detachAll' method " +
-               "only when it's really needed!", new Throwable());
+      Logger.w(TAG,
+        "There are no attached callbacks. Invoke the 'detachAll' method "
+          + "only when it's really needed!",
+        new Throwable());
       return;
     }
 
@@ -120,13 +116,10 @@ public enum TrafficManager
 
   private class TrafficStateListener implements TrafficState.StateChangeListener
   {
-    @Override
-    @MainThread
-    public void onTrafficStateChanged(int index)
+    @Override @MainThread public void onTrafficStateChanged(int index)
     {
       TrafficState newTrafficState = TrafficState.values()[index];
-      Logger.d(TAG, "onTrafficStateChanged current state = " + mState +
-               " new value = " + newTrafficState);
+      Logger.d(TAG, "onTrafficStateChanged current state = " + mState + " new value = " + newTrafficState);
 
       if (mState == newTrafficState)
         return;

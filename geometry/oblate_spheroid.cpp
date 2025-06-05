@@ -74,9 +74,7 @@ double GetDistance(ms::LatLon const & point1, ms::LatLon const & point2)
 
     lambdaPrev = lambda;
     lambda = L + (1 - C) * kF * sinAlpha *
-                     (sigma +
-                      C * sinSigma *
-                          (cosDoubleSigmaMid + C * cosSigma * (-1 + 2 * cosDoubleSigmaMidSquare)));
+                   (sigma + C * sinSigma * (cosDoubleSigmaMid + C * cosSigma * (-1 + 2 * cosDoubleSigmaMidSquare)));
   }
 
   // Fallback solution.
@@ -88,18 +86,16 @@ double GetDistance(ms::LatLon const & point1, ms::LatLon const & point2)
 
   double const uSquare = cosAlphaSquare * (aSquare - bSquare) / bSquare;
 
-  double const A = 1.0 + (uSquare / 16384.0) *
-                       (4096.0 + uSquare * (-768.0 + uSquare * (320.0 - 175.0 * uSquare)));
+  double const A = 1.0 + (uSquare / 16384.0) * (4096.0 + uSquare * (-768.0 + uSquare * (320.0 - 175.0 * uSquare)));
 
   double const B = (uSquare / 1024.0) * (256.0 + uSquare * (-128.0 + uSquare * (74.0 - 47 * uSquare)));
 
-  double const deltaSigma =
-      B * sinSigma *
-      (cosDoubleSigmaMid + 0.25 * B *
-                               (cosSigma * (-1.0 + 2.0 * cosDoubleSigmaMidSquare) -
-                                (B / 6.0) * cosDoubleSigmaMid * (-3.0 + 4.0 * Pow2(sinSigma)) *
-                                    (-3.0 + 4 * cosDoubleSigmaMidSquare)));
+  double const deltaSigma = B * sinSigma *
+                            (cosDoubleSigmaMid + 0.25 * B *
+                                                   (cosSigma * (-1.0 + 2.0 * cosDoubleSigmaMidSquare) -
+                                                    (B / 6.0) * cosDoubleSigmaMid * (-3.0 + 4.0 * Pow2(sinSigma)) *
+                                                      (-3.0 + 4 * cosDoubleSigmaMidSquare)));
 
   return kB * A * (sigma - deltaSigma);
 }
-} // namespace oblate_spheroid
+}  // namespace oblate_spheroid

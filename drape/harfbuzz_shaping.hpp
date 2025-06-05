@@ -16,7 +16,11 @@ struct TextSegment
   hb_direction_t m_direction;
 
   TextSegment(int32_t start, int32_t length, hb_script_t script, hb_direction_t direction)
-      : m_start(start), m_length(length), m_script(script), m_direction(direction) {}
+    : m_start(start)
+    , m_length(length)
+    , m_script(script)
+    , m_direction(direction)
+  {}
 };
 
 struct TextSegments
@@ -24,7 +28,7 @@ struct TextSegments
   std::u16string m_text;
   std::vector<TextSegment> m_segments;
   // TODO(AB): Reverse indexes to order segments instead of moving them.
-  //std::vector<size_t> m_segmentsOrder;
+  // std::vector<size_t> m_segmentsOrder;
 };
 
 // Finds segments with common properties suitable for harfbuzz in a single line of text without newlines.

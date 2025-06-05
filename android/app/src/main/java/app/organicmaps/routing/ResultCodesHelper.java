@@ -3,14 +3,11 @@ package app.organicmaps.routing;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Pair;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.location.LocationHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +33,12 @@ public class ResultCodesHelper
   static final int HAS_WARNINGS = 16;
 
   @NonNull
-  public static ResourcesHolder getDialogTitleSubtitle(@NonNull Context context,
-                                                int errorCode, int missingCount)
+  public static ResourcesHolder getDialogTitleSubtitle(@NonNull Context context, int errorCode, int missingCount)
   {
     Resources resources = MwmApplication.from(context).getResources();
     int titleRes = 0;
     List<String> messages = new ArrayList<>();
-    @StringRes
-    int cancelBtnResId = android.R.string.cancel;
+    @StringRes int cancelBtnResId = android.R.string.cancel;
     switch (errorCode)
     {
     case NO_POSITION:
@@ -78,16 +73,12 @@ public class ResultCodesHelper
       titleRes = R.string.dialog_routing_change_intermediate;
       messages.add(resources.getString(R.string.dialog_routing_intermediate_not_determined));
       break;
-    case DIFFERENT_MWM:
-      messages.add(resources.getString(R.string.routing_failed_cross_mwm_building));
-      break;
+    case DIFFERENT_MWM: messages.add(resources.getString(R.string.routing_failed_cross_mwm_building)); break;
     case FILE_TOO_OLD:
       titleRes = R.string.downloader_update_maps;
       messages.add(resources.getString(R.string.downloader_mwm_migration_dialog));
       break;
-    case TRANSIT_ROUTE_NOT_FOUND_NO_NETWORK:
-      messages.add(resources.getString(R.string.transit_not_found));
-      break;
+    case TRANSIT_ROUTE_NOT_FOUND_NO_NETWORK: messages.add(resources.getString(R.string.transit_not_found)); break;
     case TRANSIT_ROUTE_NOT_FOUND_TOO_LONG_PEDESTRIAN:
       titleRes = R.string.dialog_pedestrian_route_is_long_header;
       messages.add(resources.getString(R.string.dialog_pedestrian_route_is_long_message));
@@ -128,8 +119,7 @@ public class ResultCodesHelper
     }
 
     return new ResourcesHolder(
-        new Pair<>(titleRes == 0 ? "" : resources.getString(titleRes), builder.toString()),
-        cancelBtnResId);
+      new Pair<>(titleRes == 0 ? "" : resources.getString(titleRes), builder.toString()), cancelBtnResId);
   }
 
   public static boolean isDownloadable(int resultCode, int missingCount)
@@ -139,13 +129,9 @@ public class ResultCodesHelper
 
     return switch (resultCode)
     {
-      case INCONSISTENT_MWM_ROUTE,
-          ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR,
-          ROUTING_FILE_NOT_EXIST,
-          NEED_MORE_MAPS,
-          ROUTE_NOT_FOUND,
-          FILE_TOO_OLD ->
-          true;
+      case INCONSISTENT_MWM_ROUTE, ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR, ROUTING_FILE_NOT_EXIST, NEED_MORE_MAPS,
+        ROUTE_NOT_FOUND, FILE_TOO_OLD ->
+        true;
       default -> false;
     };
   }
@@ -157,8 +143,7 @@ public class ResultCodesHelper
 
   public static class ResourcesHolder
   {
-    @NonNull
-    private final Pair<String, String> mTitleMessage;
+    @NonNull private final Pair<String, String> mTitleMessage;
 
     private final int mCancelBtnResId;
 
@@ -168,8 +153,7 @@ public class ResultCodesHelper
       mCancelBtnResId = cancelBtnResId;
     }
 
-    @NonNull
-    public Pair<String, String> getTitleMessage()
+    @NonNull public Pair<String, String> getTitleMessage()
     {
       return mTitleMessage;
     }

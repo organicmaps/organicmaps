@@ -3,8 +3,8 @@
 
 #include "shaders/program_manager.hpp"
 
-#include "drape_frontend/debug_rect_renderer.hpp"
 #include "drape/vertex_array_buffer.hpp"
+#include "drape_frontend/debug_rect_renderer.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -16,10 +16,7 @@
 
 namespace df
 {
-void BaseRenderGroup::UpdateAnimation()
-{
-  m_params.m_opacity = 1.0f;
-}
+void BaseRenderGroup::UpdateAnimation() { m_params.m_opacity = 1.0f; }
 
 RenderGroup::RenderGroup(dp::RenderState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
@@ -27,10 +24,7 @@ RenderGroup::RenderGroup(dp::RenderState const & state, df::TileKey const & tile
   , m_canBeDeleted(false)
 {}
 
-RenderGroup::~RenderGroup()
-{
-  m_renderBuckets.clear();
-}
+RenderGroup::~RenderGroup() { m_renderBuckets.clear(); }
 
 void RenderGroup::Update(ScreenBase const & modelView)
 {
@@ -74,8 +68,8 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
                          ScreenBase const & screen, FrameValues const & frameValues,
                          ref_ptr<DebugRectRenderer> debugRectRenderer)
 {
-  auto programPtr = mng->GetProgram(screen.isPerspective() ? m_state.GetProgram3d<gpu::Program>()
-                                                           : m_state.GetProgram<gpu::Program>());
+  auto programPtr =
+    mng->GetProgram(screen.isPerspective() ? m_state.GetProgram3d<gpu::Program>() : m_state.GetProgram<gpu::Program>());
   ASSERT(programPtr != nullptr, ());
   programPtr->Bind();
   dp::ApplyState(context, programPtr, m_state);
@@ -121,18 +115,13 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
     renderBucket->RenderDebug(context, screen, debugRectRenderer);
 }
 
-void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
-{
-  m_renderBuckets.push_back(std::move(bucket));
-}
+void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket) { m_renderBuckets.push_back(std::move(bucket)); }
 
 bool RenderGroup::IsUserMark() const
 {
   auto const depthLayer = GetDepthLayer(m_state);
-  return depthLayer == DepthLayer::UserLineLayer ||
-         depthLayer == DepthLayer::UserMarkLayer ||
-         depthLayer == DepthLayer::RoutingBottomMarkLayer ||
-         depthLayer == DepthLayer::RoutingMarkLayer ||
+  return depthLayer == DepthLayer::UserLineLayer || depthLayer == DepthLayer::UserMarkLayer ||
+         depthLayer == DepthLayer::RoutingBottomMarkLayer || depthLayer == DepthLayer::RoutingMarkLayer ||
          depthLayer == DepthLayer::SearchMarkLayer;
 }
 
@@ -141,7 +130,7 @@ bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, r
   if (!IsPendingOnDelete())
     return false;
 
-  for (size_t i = 0; i < m_renderBuckets.size(); )
+  for (size_t i = 0; i < m_renderBuckets.size();)
   {
     bool const visibleBucket = !canBeDeleted && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
     if (!visibleBucket)
@@ -187,8 +176,7 @@ UserMarkRenderGroup::UserMarkRenderGroup(dp::RenderState const & state, TileKey 
 
   if (program == gpu::Program::BookmarkAnim || program3d == gpu::Program::BookmarkAnimBillboard)
   {
-    m_animation = std::make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* minValue */,
-                                                     1.0 /* maxValue */);
+    m_animation = std::make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* minValue */, 1.0 /* maxValue */);
     m_mapping.AddRangePoint(0.6f, 1.3f);
     m_mapping.AddRangePoint(0.85f, 0.8f);
     m_mapping.AddRangePoint(1.0f, 1.0f);
@@ -206,10 +194,7 @@ void UserMarkRenderGroup::UpdateAnimation()
   }
 }
 
-bool UserMarkRenderGroup::IsUserPoint() const
-{
-  return m_state.GetProgram<gpu::Program>() != gpu::Program::Line;
-}
+bool UserMarkRenderGroup::IsUserPoint() const { return m_state.GetProgram<gpu::Program>() != gpu::Program::Line; }
 
 std::string DebugPrint(RenderGroup const & group)
 {

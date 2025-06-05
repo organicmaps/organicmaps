@@ -1,7 +1,7 @@
 #include "generator/final_processor_country.hpp"
 
-#include "generator/addresses_collector.hpp"
 #include "generator/address_enricher.hpp"
+#include "generator/addresses_collector.hpp"
 #include "generator/affiliation.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
@@ -20,13 +20,12 @@
 #include "geometry/mercator.hpp"
 #include "geometry/region2d/binary_operators.hpp"
 
-
 namespace generator
 {
 using namespace feature;
 
-CountryFinalProcessor::CountryFinalProcessor(AffiliationInterfacePtr affiliations,
-                                             std::string const & temporaryMwmPath, size_t threadsCount)
+CountryFinalProcessor::CountryFinalProcessor(AffiliationInterfacePtr affiliations, std::string const & temporaryMwmPath,
+                                             size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
   , m_temporaryMwmPath(temporaryMwmPath)
   , m_affiliations(std::move(affiliations))
@@ -42,7 +41,7 @@ bool CountryFinalProcessor::IsCountry(std::string const & filename)
 
 void CountryFinalProcessor::Process()
 {
-  //Order();
+  // Order();
 
   /// @todo Make "straight-way" processing. There is no need to make many functions and
   /// many read-write FeatureBuilder ops here.
@@ -64,10 +63,10 @@ void CountryFinalProcessor::Process()
   if (!m_isolinesPath.empty())
     AddIsolines();
 
-  //DropProhibitedSpeedCameras();
+  // DropProhibitedSpeedCameras();
   ProcessBuildingParts();
 
-  //Finish();
+  // Finish();
 }
 
 /*
@@ -96,52 +95,53 @@ void CountryFinalProcessor::ProcessRoundabouts()
   AddressesHolder addresses;
   addresses.Deserialize(m_addrInterpolFilename);
 
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
-  {
-    if (!IsCountry(name))
-      return;
-
-    MiniRoundaboutTransformer transformer(roundabouts.GetData(), *m_affiliations);
-
-    RegionData data;
-    if (ReadRegionData(name, data))
-      transformer.SetLeftHandTraffic(data.Get(RegionData::Type::RD_DRIVING) == "l");
-
-    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
+  ForEachMwmTmp(
+    m_temporaryMwmPath,
+    [&](auto const & name, auto const & path)
     {
-      if (roundabouts.IsRoadExists(fb))
-        transformer.AddRoad(std::move(fb));
-      else
-      {
-        auto const & checker = ftypes::IsAddressInterpolChecker::Instance();
-        // Check HasOsmIds() because we have non-OSM addr:interpolation FBs (Tiger).
-        if (fb.IsLine() && fb.HasOsmIds() && checker(fb.GetTypes()))
+      if (!IsCountry(name))
+        return;
+
+      MiniRoundaboutTransformer transformer(roundabouts.GetData(), *m_affiliations);
+
+      RegionData data;
+      if (ReadRegionData(name, data))
+        transformer.SetLeftHandTraffic(data.Get(RegionData::Type::RD_DRIVING) == "l");
+
+      FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
+      ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(
+        path,
+        [&](FeatureBuilder && fb, uint64_t)
         {
-          if (!addresses.Update(fb))
+          if (roundabouts.IsRoadExists(fb))
+            transformer.AddRoad(std::move(fb));
+          else
           {
-            // Not only invalid interpolation ways, but fancy buildings with interpolation type like here:
-            // https://www.openstreetmap.org/#map=18/39.45672/-77.97516
-            if (fb.RemoveTypesIf(checker))
-              return;
+            auto const & checker = ftypes::IsAddressInterpolChecker::Instance();
+            // Check HasOsmIds() because we have non-OSM addr:interpolation FBs (Tiger).
+            if (fb.IsLine() && fb.HasOsmIds() && checker(fb.GetTypes()))
+            {
+              if (!addresses.Update(fb))
+              {
+                // Not only invalid interpolation ways, but fancy buildings with interpolation type like here:
+                // https://www.openstreetmap.org/#map=18/39.45672/-77.97516
+                if (fb.RemoveTypesIf(checker))
+                  return;
+              }
+            }
+
+            writer.Write(fb);
           }
-        }
+        });
 
-        writer.Write(fb);
-      }
-    });
-
-    // Adds new way features generated from mini-roundabout nodes with those nodes ids.
-    // Transforms points on roads to connect them with these new roundabout junctions.
-    transformer.ProcessRoundabouts([&writer](FeatureBuilder const & fb)
-    {
-      writer.Write(fb);
-    });
-  }, m_threadsCount);
+      // Adds new way features generated from mini-roundabout nodes with those nodes ids.
+      // Transforms points on roads to connect them with these new roundabout junctions.
+      transformer.ProcessRoundabouts([&writer](FeatureBuilder const & fb) { writer.Write(fb); });
+    },
+    m_threadsCount);
 }
 
-bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding,
-                                m4::Tree<m2::RegionI> const & buildingPartsKDTree)
+bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding, m4::Tree<m2::RegionI> const & buildingPartsKDTree)
 {
   m2::RegionI building;
   m2::MultiRegionI partsUnion;
@@ -149,62 +149,64 @@ bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding,
   bool isError = false;
 
   // Make search query by native FeatureBuilder's rect.
-  buildingPartsKDTree.ForEachInRect(fbBuilding.GetLimitRect(), [&](m2::RegionI const & part)
-  {
-    if (isError)
-      return;
-
-    // Lazy initialization that will not occur with high probability
-    if (!building.IsValid())
+  buildingPartsKDTree.ForEachInRect(
+    fbBuilding.GetLimitRect(),
+    [&](m2::RegionI const & part)
     {
-      building = coastlines_generator::CreateRegionI(fbBuilding.GetOuterGeometry());
+      if (isError)
+        return;
 
+      // Lazy initialization that will not occur with high probability
+      if (!building.IsValid())
       {
-        /// @todo Patch to "normalize" region. Our relation multipolygon processor can produce regions
-        /// with 2 directions (CW, CCW) simultaneously, thus area check below will fail.
-        /// @see BuildingRelation, RegionArea_CommonEdges tests.
-        /// Should refactor relation -> FeatureBuilder routine.
-        m2::MultiRegionI rgns;
-        m2::AddRegion(building, rgns);
-        if (rgns.size() != 1)
-          LOG(LWARNING, ("Degenerated polygon splitted:", rgns.size(), fbBuilding.DebugPrintIDs()));
+        building = coastlines_generator::CreateRegionI(fbBuilding.GetOuterGeometry());
 
-        if (!rgns.empty())
         {
-          // Select largest polygon.
-          size_t idx = 0;
-          for (size_t i = 0; i < rgns.size(); ++i)
+          /// @todo Patch to "normalize" region. Our relation multipolygon processor can produce regions
+          /// with 2 directions (CW, CCW) simultaneously, thus area check below will fail.
+          /// @see BuildingRelation, RegionArea_CommonEdges tests.
+          /// Should refactor relation -> FeatureBuilder routine.
+          m2::MultiRegionI rgns;
+          m2::AddRegion(building, rgns);
+          if (rgns.size() != 1)
+            LOG(LWARNING, ("Degenerated polygon splitted:", rgns.size(), fbBuilding.DebugPrintIDs()));
+
+          if (!rgns.empty())
           {
-            uint64_t const s = rgns[i].CalculateArea();
-            if (s > buildingArea)
+            // Select largest polygon.
+            size_t idx = 0;
+            for (size_t i = 0; i < rgns.size(); ++i)
             {
-              buildingArea = s;
-              idx = i;
+              uint64_t const s = rgns[i].CalculateArea();
+              if (s > buildingArea)
+              {
+                buildingArea = s;
+                idx = i;
+              }
             }
+            building.Swap(rgns[idx]);
           }
-          building.Swap(rgns[idx]);
-        }
-        else
-        {
-          isError = true;
-          building = {};
+          else
+          {
+            isError = true;
+            building = {};
+          }
         }
       }
-    }
 
-    // Take parts that smaller than input building outline.
-    // Example of a big building:part as a "stylobate" here:
-    // https://www.openstreetmap.org/way/533683349#map=18/53.93091/27.65261
-    if (0.8 * part.CalculateArea() <= buildingArea)
-      m2::AddRegion(part, partsUnion);
-  });
+      // Take parts that smaller than input building outline.
+      // Example of a big building:part as a "stylobate" here:
+      // https://www.openstreetmap.org/way/533683349#map=18/53.93091/27.65261
+      if (0.8 * part.CalculateArea() <= buildingArea)
+        m2::AddRegion(part, partsUnion);
+    });
 
   if (!building.IsValid())
     return false;
 
   uint64_t const isectArea = m2::Area(m2::IntersectRegions(building, partsUnion));
   // That doesn't work with *very* degenerated polygons like https://www.openstreetmap.org/way/629725974.
-  //CHECK(isectArea * 0.95 <= buildingArea, (isectArea, buildingArea, fbBuilding.DebugPrintIDs()));
+  // CHECK(isectArea * 0.95 <= buildingArea, (isectArea, buildingArea, fbBuilding.DebugPrintIDs()));
 
   // Consider building as consisting of parts if the building footprint is covered with parts at least by 90%.
   return isectArea >= 0.9 * buildingArea;
@@ -216,37 +218,42 @@ void CountryFinalProcessor::ProcessBuildingParts()
   auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
   auto const & buildingHasPartsChecker = ftypes::IsBuildingHasPartsChecker::Instance();
 
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
-  {
-    if (!IsCountry(name))
-      return;
-
-    // All "building:part" regions in MWM
-    m4::Tree<m2::RegionI> buildingPartsKDTree;
-
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
+  ForEachMwmTmp(
+    m_temporaryMwmPath,
+    [&](auto const & name, auto const & path)
     {
-      if (fb.IsArea() && buildingPartChecker(fb.GetTypes()))
-      {
-        // Important trick! Add region by FeatureBuilder's native rect, to make search queries also by FB rects.
-        buildingPartsKDTree.Add(coastlines_generator::CreateRegionI(fb.GetOuterGeometry()), fb.GetLimitRect());
-      }
-    });
+      if (!IsCountry(name))
+        return;
 
-    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
-    {
-      if (fb.IsArea() &&
-          buildingChecker(fb.GetTypes()) &&
-          DoesBuildingConsistOfParts(fb, buildingPartsKDTree))
-      {
-        fb.AddType(buildingHasPartsChecker.GetType());
-        fb.GetParams().FinishAddingTypes();
-      }
+      // All "building:part" regions in MWM
+      m4::Tree<m2::RegionI> buildingPartsKDTree;
 
-      writer.Write(fb);
-    });
-  }, m_threadsCount);
+      ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(
+        path,
+        [&](FeatureBuilder && fb, uint64_t)
+        {
+          if (fb.IsArea() && buildingPartChecker(fb.GetTypes()))
+          {
+            // Important trick! Add region by FeatureBuilder's native rect, to make search queries also by FB rects.
+            buildingPartsKDTree.Add(coastlines_generator::CreateRegionI(fb.GetOuterGeometry()), fb.GetLimitRect());
+          }
+        });
+
+      FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
+      ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(
+        path,
+        [&](FeatureBuilder && fb, uint64_t)
+        {
+          if (fb.IsArea() && buildingChecker(fb.GetTypes()) && DoesBuildingConsistOfParts(fb, buildingPartsKDTree))
+          {
+            fb.AddType(buildingHasPartsChecker.GetType());
+            fb.GetParams().FinishAddingTypes();
+          }
+
+          writer.Write(fb);
+        });
+    },
+    m_threadsCount);
 }
 
 void CountryFinalProcessor::AddIsolines()
@@ -254,44 +261,46 @@ void CountryFinalProcessor::AddIsolines()
   // For generated isolines must be built isolines_info section based on the same
   // binary isolines file.
   IsolineFeaturesGenerator isolineFeaturesGenerator(m_isolinesPath);
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
-  {
-    if (!IsCountry(name))
-      return;
+  ForEachMwmTmp(
+    m_temporaryMwmPath,
+    [&](auto const & name, auto const & path)
+    {
+      if (!IsCountry(name))
+        return;
 
-    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, FileWriter::Op::OP_APPEND);
-    isolineFeaturesGenerator.GenerateIsolines(name, [&](auto const & fb) { writer.Write(fb); });
-  }, m_threadsCount);
+      FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, FileWriter::Op::OP_APPEND);
+      isolineFeaturesGenerator.GenerateIsolines(name, [&](auto const & fb) { writer.Write(fb); });
+    },
+    m_threadsCount);
 }
 
 void CountryFinalProcessor::AddAddresses()
 {
   AddressEnricher::Stats totalStats;
 
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & name, auto const & path)
-  {
-    if (!IsCountry(name))
-      return;
+  ForEachMwmTmp(m_temporaryMwmPath,
+                [&](auto const & name, auto const & path)
+                {
+                  if (!IsCountry(name))
+                    return;
 
-    auto const addrPath = base::JoinPath(m_addressPath, name) + TEMP_ADDR_EXTENSION;
-    if (!Platform::IsFileExistsByFullPath(addrPath))
-      return;
+                  auto const addrPath = base::JoinPath(m_addressPath, name) + TEMP_ADDR_EXTENSION;
+                  if (!Platform::IsFileExistsByFullPath(addrPath))
+                    return;
 
-    AddressEnricher enricher;
+                  AddressEnricher enricher;
 
-    // Collect existing addresses and streets.
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
-    {
-      enricher.AddSrc(std::move(fb));
-    });
+                  // Collect existing addresses and streets.
+                  ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(
+                    path, [&](FeatureBuilder && fb, uint64_t) { enricher.AddSrc(std::move(fb)); });
 
-    // Append new addresses.
-    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, FileWriter::Op::OP_APPEND);
-    enricher.ProcessRawEntries(addrPath, [&writer](FeatureBuilder const & fb) { writer.Write(fb); });
+                  // Append new addresses.
+                  FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, FileWriter::Op::OP_APPEND);
+                  enricher.ProcessRawEntries(addrPath, [&writer](FeatureBuilder const & fb) { writer.Write(fb); });
 
-    LOG(LINFO, (name, enricher.m_stats));
-    totalStats.Add(enricher.m_stats);
-  });
+                  LOG(LINFO, (name, enricher.m_stats));
+                  totalStats.Add(enricher.m_stats);
+                });
 
   LOG(LINFO, ("Total addresses:", totalStats));
 }
@@ -313,38 +322,44 @@ void CountryFinalProcessor::ProcessCoastline()
 void CountryFinalProcessor::AddFakeNodes()
 {
   std::vector<FeatureBuilder> fbs;
-  MixFakeNodes(m_fakeNodesFilename, [&](auto & element)
-  {
-    FeatureBuilder fb;
-    fb.SetCenter(mercator::FromLatLon(element.m_lat, element.m_lon));
-    fb.SetOsmId(base::MakeOsmNode(element.m_id));
-    ftype::GetNameAndType(&element, fb.GetParams());
-    fbs.emplace_back(std::move(fb));
-  });
+  MixFakeNodes(m_fakeNodesFilename,
+               [&](auto & element)
+               {
+                 FeatureBuilder fb;
+                 fb.SetCenter(mercator::FromLatLon(element.m_lat, element.m_lon));
+                 fb.SetOsmId(base::MakeOsmNode(element.m_id));
+                 ftype::GetNameAndType(&element, fb.GetParams());
+                 fbs.emplace_back(std::move(fb));
+               });
   AppendToMwmTmp(fbs, *m_affiliations, m_temporaryMwmPath, m_threadsCount);
 }
 
 void CountryFinalProcessor::DropProhibitedSpeedCameras()
 {
   auto const speedCameraType = classif().GetTypeByPath({"highway", "speed_camera"});
-  ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path)
-  {
-    if (!IsCountry(country))
-      return;
-
-    if (!routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
-      return;
-
-    FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder const & fb, uint64_t)
+  ForEachMwmTmp(
+    m_temporaryMwmPath,
+    [&](auto const & country, auto const & path)
     {
-      // Removing point features with speed cameras type from geometry index for some countries.
-      if (fb.IsPoint() && fb.HasType(speedCameraType))
+      if (!IsCountry(country))
         return;
 
-      writer.Write(fb);
-    });
-  }, m_threadsCount);
+      if (!routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
+        return;
+
+      FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
+      ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path,
+                                                                 [&](FeatureBuilder const & fb, uint64_t)
+                                                                 {
+                                                                   // Removing point features with speed cameras type
+                                                                   // from geometry index for some countries.
+                                                                   if (fb.IsPoint() && fb.HasType(speedCameraType))
+                                                                     return;
+
+                                                                   writer.Write(fb);
+                                                                 });
+    },
+    m_threadsCount);
 }
 
 /*

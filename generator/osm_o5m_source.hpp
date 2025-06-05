@@ -26,13 +26,16 @@ class StreamBuffer
   TReadFunc m_reader;
   TBuffer m_buffer;
   size_t const m_maxBufferSize;
-  size_t m_recap; // recap read bytes
+  size_t m_recap;  // recap read bytes
 
   TBuffer::const_iterator m_position;
 
 public:
   StreamBuffer(TReadFunc reader, size_t readBufferSizeInBytes)
-  : m_reader(reader), m_buffer(readBufferSizeInBytes), m_maxBufferSize(readBufferSizeInBytes), m_recap(0)
+    : m_reader(reader)
+    , m_buffer(readBufferSizeInBytes)
+    , m_maxBufferSize(readBufferSizeInBytes)
+    , m_recap(0)
   {
     Refill();
   }
@@ -109,7 +112,6 @@ private:
   }
 };
 
-
 class O5MSource
 {
 public:
@@ -127,33 +129,35 @@ public:
     Reset = 0xff
   };
 
-  friend std::ostream & operator << (std::ostream & s, EntityType const & type)
+  friend std::ostream & operator<<(std::ostream & s, EntityType const & type)
   {
     switch (type)
     {
-      case EntityType::End:       s << "O5M_CMD_END"; break;
-      case EntityType::Node:      s << "O5M_CMD_NODE"; break;
-      case EntityType::Way:       s << "O5M_CMD_WAY"; break;
-      case EntityType::Relation:  s << "O5M_CMD_REL"; break;
-      case EntityType::BBox:      s << "O5M_CMD_BBOX"; break;
-      case EntityType::Timestamp: s << "O5M_CMD_TSTAMP"; break;
-      case EntityType::Header:    s << "O5M_CMD_HEADER"; break;
-      case EntityType::Sync:      s << "O5M_CMD_SYNC"; break;
-      case EntityType::Jump:      s << "O5M_CMD_JUMP"; break;
-      case EntityType::Reset:     s << "O5M_CMD_RESET"; break;
-      default: return s << "Unknown command: " << std::hex << base::Underlying(type);
+    case EntityType::End: s << "O5M_CMD_END"; break;
+    case EntityType::Node: s << "O5M_CMD_NODE"; break;
+    case EntityType::Way: s << "O5M_CMD_WAY"; break;
+    case EntityType::Relation: s << "O5M_CMD_REL"; break;
+    case EntityType::BBox: s << "O5M_CMD_BBOX"; break;
+    case EntityType::Timestamp: s << "O5M_CMD_TSTAMP"; break;
+    case EntityType::Header: s << "O5M_CMD_HEADER"; break;
+    case EntityType::Sync: s << "O5M_CMD_SYNC"; break;
+    case EntityType::Jump: s << "O5M_CMD_JUMP"; break;
+    case EntityType::Reset: s << "O5M_CMD_RESET"; break;
+    default: return s << "Unknown command: " << std::hex << base::Underlying(type);
     }
     return s;
   }
 
 protected:
-
   struct StringTableRecord
   {
     // This important value got from
     // documentation ( https://wiki.openstreetmap.org/wiki/O5m#Strings ) on O5M format.
     // If change it all will be broken.
-    enum { MaxEntrySize = 252 };
+    enum
+    {
+      MaxEntrySize = 252
+    };
 
     char key[MaxEntrySize];
     char value[MaxEntrySize];
@@ -165,7 +169,10 @@ protected:
     char const * value = nullptr;
 
     KeyValue() = default;
-    KeyValue(char const * k, char const * v) : key(k), value(v) {}
+    KeyValue(char const * k, char const * v)
+      : key(k)
+      , value(v)
+    {}
   };
 
   struct Member
@@ -188,10 +195,9 @@ protected:
   int32_t m_lat = 0;
   uint64_t m_timestamp = 0;
   uint64_t m_changeset = 0;
-  int64_t m_middlePartSize = 0; // Length of the references section
+  int64_t m_middlePartSize = 0;  // Length of the references section
 
 public:
-
   template <typename TValue>
   class SubElements
   {
@@ -208,9 +214,12 @@ public:
       TSubElementGetter m_func;
 
     public:
-      Iterator() : m_reader(nullptr) {}
+      Iterator()
+        : m_reader(nullptr)
+      {}
       explicit Iterator(O5MSource * reader, TSubElementGetter const & func)
-      : m_reader(reader), m_func(func)
+        : m_reader(reader)
+        , m_func(func)
       {
         NextValue();
       }
@@ -218,16 +227,28 @@ public:
       bool operator==(Iterator const & iter) const { return m_reader == iter.m_reader; }
       bool operator!=(Iterator const & iter) const { return !(*this == iter); }
 
-      Iterator & operator++() { NextValue(); return *this; }
+      Iterator & operator++()
+      {
+        NextValue();
+        return *this;
+      }
 
       void NextValue() { m_reader = m_reader ? m_func(&m_val) : nullptr; }
 
       TValue const & operator*() const { return m_val; }
     };
 
-    SubElements(O5MSource * reader, TSubElementGetter const & func) : m_reader(reader), m_func(func) {}
+    SubElements(O5MSource * reader, TSubElementGetter const & func)
+      : m_reader(reader)
+      , m_func(func)
+    {}
 
-    void Skip() { while (m_reader && m_func(nullptr)) { /* no-op */ } }
+    void Skip()
+    {
+      while (m_reader && m_func(nullptr))
+      { /* no-op */
+      }
+    }
 
     Iterator const begin() const { return Iterator(m_reader, m_func); }
     Iterator const end() const { return Iterator(); }
@@ -252,18 +273,14 @@ public:
 
     TRefs Members() const
     {
-      return TRefs((type == EntityType::Relation) ? m_reader : nullptr, [this](Member * val)
-      {
-        return (m_reader) ? m_reader->ReadMember(val) : nullptr;
-      });
+      return TRefs((type == EntityType::Relation) ? m_reader : nullptr,
+                   [this](Member * val) { return (m_reader) ? m_reader->ReadMember(val) : nullptr; });
     }
 
     TNodes Nodes() const
     {
-      return TNodes((type == EntityType::Way) ? m_reader : nullptr, [this](int64_t * val)
-      {
-        return (m_reader) ? m_reader->ReadNd(val) : nullptr;
-      });
+      return TNodes((type == EntityType::Way) ? m_reader : nullptr,
+                    [this](int64_t * val) { return (m_reader) ? m_reader->ReadNd(val) : nullptr; });
     }
 
     TTags Tags() const
@@ -271,10 +288,8 @@ public:
       Members().Skip();
       Nodes().Skip();
       bool const validType = (type == EntityType::Node || type == EntityType::Way || type == EntityType::Relation);
-      return TTags(validType ? m_reader : nullptr, [this](KeyValue * val)
-      {
-        return (m_reader) ? m_reader->ReadStringPair(val) : nullptr;
-      });
+      return TTags(validType ? m_reader : nullptr,
+                   [this](KeyValue * val) { return (m_reader) ? m_reader->ReadStringPair(val) : nullptr; });
     }
 
     void SkipRemainder() const
@@ -285,15 +300,22 @@ public:
       if (!(type == EntityType::Node || type == EntityType::Way || type == EntityType::Relation))
         return;
       if (type == EntityType::Way)
-        while (m_reader->ReadNd(nullptr));
+        while (m_reader->ReadNd(nullptr))
+          ;
       if (type == EntityType::Relation)
-        while (m_reader->ReadMember(nullptr));
+        while (m_reader->ReadMember(nullptr))
+          ;
 
-      while (m_reader->ReadStringPair(nullptr));
+      while (m_reader->ReadStringPair(nullptr))
+        ;
     }
 
-    Entity() : m_reader(nullptr) {}
-    Entity(O5MSource * reader) : m_reader(reader) {}
+    Entity()
+      : m_reader(nullptr)
+    {}
+    Entity(O5MSource * reader)
+      : m_reader(reader)
+    {}
 
   private:
     O5MSource * const m_reader;
@@ -309,7 +331,8 @@ public:
     {
       b = m_buffer.Get();
       ret |= (uint64_t)(b & 0x7f) << (i++ * 7);
-    } while (b & 0x80);
+    }
+    while (b & 0x80);
     size_t const rb = m_buffer.Recap();
     m_remainder -= rb;
     m_middlePartSize -= rb;
@@ -334,27 +357,27 @@ public:
     int64_t current = 0;
     EntityType type = EntityType::Reset;
 
-    switch (kv.key[0]) {
-      case '0':
-      {
-        current = (m_currentNodeRef += delta);
-        type = EntityType::Node;
-        break;
-      }
-      case '1':
-      {
-        current = (m_currentWayRef += delta);
-        type = EntityType::Way;
-        break;
-      }
-      case '2':
-      {
-        current = (m_currentRelationRef += delta);
-        type = EntityType::Relation;
-        break;
-      }
-      default:
-        CHECK(false, ("Unexpected relation type:", kv.key));
+    switch (kv.key[0])
+    {
+    case '0':
+    {
+      current = (m_currentNodeRef += delta);
+      type = EntityType::Node;
+      break;
+    }
+    case '1':
+    {
+      current = (m_currentWayRef += delta);
+      type = EntityType::Way;
+      break;
+    }
+    case '2':
+    {
+      current = (m_currentRelationRef += delta);
+      type = EntityType::Relation;
+      break;
+    }
+    default: CHECK(false, ("Unexpected relation type:", kv.key));
     }
     if (ref)
     {
@@ -401,7 +424,8 @@ public:
       {
         *pBuf = m_buffer.Get();
         sizes[i]++;
-      } while (*(pBuf++));
+      }
+      while (*(pBuf++));
     }
     size_t const rb = m_buffer.Recap();
     m_remainder -= rb;
@@ -478,52 +502,51 @@ public:
     entity->user = nullptr;
     m_middlePartSize = 0;
 
-    m_remainder = ReadVarUInt(); // entity size
+    m_remainder = ReadVarUInt();  // entity size
 
     switch (entity->type)
     {
-      case EntityType::Node:
-      {
-        ReadIdAndVersion(entity);
-        ReadLonLat(entity);
-      }
-      break;
-      case EntityType::Way:
-      {
-        ReadIdAndVersion(entity);
-        m_middlePartSize = ReadVarUInt();
-      }
-      break;
-      case EntityType::Relation:
-      {
-        ReadIdAndVersion(entity);
-        m_middlePartSize = ReadVarUInt();
-      }
-      break;
-      case EntityType::BBox:
-      {
-      }
-      break;
-      case EntityType::Timestamp:
-      {
-        ReadVarUInt();
-      }
-      break;
-      case EntityType::Header:
-      {
-      }
-      break;
-      case EntityType::Sync:
-      {
-      }
-      break;
-      case EntityType::Jump:
-      {
-      }
-      break;
+    case EntityType::Node:
+    {
+      ReadIdAndVersion(entity);
+      ReadLonLat(entity);
+    }
+    break;
+    case EntityType::Way:
+    {
+      ReadIdAndVersion(entity);
+      m_middlePartSize = ReadVarUInt();
+    }
+    break;
+    case EntityType::Relation:
+    {
+      ReadIdAndVersion(entity);
+      m_middlePartSize = ReadVarUInt();
+    }
+    break;
+    case EntityType::BBox:
+    {
+    }
+    break;
+    case EntityType::Timestamp:
+    {
+      ReadVarUInt();
+    }
+    break;
+    case EntityType::Header:
+    {
+    }
+    break;
+    case EntityType::Sync:
+    {
+    }
+    break;
+    case EntityType::Jump:
+    {
+    }
+    break;
 
-      default:
-        break;
+    default: break;
     }
     return this;
   }
@@ -554,15 +577,19 @@ public:
   }
 
 public:
-
   class Iterator
   {
     O5MSource * m_reader;
     Entity m_entity;
 
   public:
-    Iterator() : m_reader(nullptr), m_entity(nullptr) {}
-    Iterator(O5MSource * reader) : m_reader(reader), m_entity(reader)
+    Iterator()
+      : m_reader(nullptr)
+      , m_entity(nullptr)
+    {}
+    Iterator(O5MSource * reader)
+      : m_reader(reader)
+      , m_entity(reader)
     {
       m_reader->Reset();
       NextValue();
@@ -570,7 +597,11 @@ public:
 
     bool operator==(Iterator const & iter) const { return m_reader == iter.m_reader; }
     bool operator!=(Iterator const & iter) const { return !(*this == iter); }
-    Iterator & operator++() { NextValue(); return *this; }
+    Iterator & operator++()
+    {
+      NextValue();
+      return *this;
+    }
 
     void NextValue() { m_reader = m_reader->ReadEntity(&m_entity) ? m_reader : nullptr; }
 
@@ -580,7 +611,8 @@ public:
   Iterator const begin() { return Iterator(this); }
   Iterator const end() { return Iterator(); }
 
-  O5MSource(TReadFunc reader, size_t readBufferSizeInBytes = 60000) : m_buffer(reader, readBufferSizeInBytes)
+  O5MSource(TReadFunc reader, size_t readBufferSizeInBytes = 60000)
+    : m_buffer(reader, readBufferSizeInBytes)
   {
     if (EntityType::Reset != EntityType(m_buffer.Get()))
     {
@@ -608,9 +640,9 @@ public:
     s << EntityType(em.type) << " ID: " << em.id;
     if (em.version)
     {
-//      time_t timestamp = em.timestamp;
-//      tm stm = *gmtime(&timestamp);
-//      s << " Version: " << em.version << " timestamp: " << asctime_r(&stm, "%FT%TZ");
+      //      time_t timestamp = em.timestamp;
+      //      tm stm = *gmtime(&timestamp);
+      //      s << " Version: " << em.version << " timestamp: " << asctime_r(&stm, "%FT%TZ");
 
       s << " Version: " << em.version << " timestamp: " << em.timestamp;
       s << " changeset: " << em.changeset << " uid: " << em.uid << " user: " << em.user;

@@ -7,10 +7,8 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.bookmarks.data.FeatureId;
 import app.organicmaps.util.Distance;
 
@@ -18,9 +16,7 @@ import app.organicmaps.util.Distance;
  * Class instances are created from native code.
  */
 // Used by JNI.
-@Keep
-@SuppressWarnings("unused")
-public class SearchResult
+@Keep @SuppressWarnings("unused") public class SearchResult
 {
   public static final int TYPE_PURE_SUGGEST = 0;
   public static final int TYPE_SUGGEST = 1;
@@ -31,13 +27,10 @@ public class SearchResult
   public static final int OPEN_NOW_YES = 1;
   public static final int OPEN_NOW_NO = 2;
 
-  public static final SearchResult EMPTY = new SearchResult("", "", 0, 0,
-      new int[]{}, new int[]{});
+  public static final SearchResult EMPTY = new SearchResult("", "", 0, 0, new int[] {}, new int[] {});
 
   // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  public static class Description
+  @Keep @SuppressWarnings("unused") public static class Description
   {
     public final FeatureId featureId;
     public final String localizedFeatureType;
@@ -51,9 +44,8 @@ public class SearchResult
     public final int minutesUntilClosed;
     public final boolean hasPopularityHigherPriority;
 
-    public Description(FeatureId featureId, String featureType, String region, Distance distance,
-                       String description, int openNow, int minutesUntilOpen, int minutesUntilClosed,
-                       boolean hasPopularityHigherPriority)
+    public Description(FeatureId featureId, String featureType, String region, Distance distance, String description,
+      int openNow, int minutesUntilOpen, int minutesUntilClosed, boolean hasPopularityHigherPriority)
     {
       this.featureId = featureId;
       this.localizedFeatureType = featureType;
@@ -75,14 +67,15 @@ public class SearchResult
   public final int type;
   public final Description description;
 
-  // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original query in result
+  // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original
+  // query in result
   public final int[] highlightRanges;
   public final int[] descHighlightRanges;
 
-  @NonNull
-  private final Popularity mPopularity;
+  @NonNull private final Popularity mPopularity;
 
-  public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges, int[] descHighlightRanges)
+  public SearchResult(
+    String name, String suggestion, double lat, double lon, int[] highlightRanges, int[] descHighlightRanges)
   {
     this.name = name;
     this.suggestion = suggestion;
@@ -100,7 +93,7 @@ public class SearchResult
   }
 
   public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
-                      int[] descHighlightRanges, @NonNull Popularity popularity)
+    int[] descHighlightRanges, @NonNull Popularity popularity)
   {
     this.type = TYPE_RESULT;
     this.name = name;
@@ -113,8 +106,7 @@ public class SearchResult
     this.descHighlightRanges = descHighlightRanges;
   }
 
-  @NonNull
-  public String getTitle(@NonNull Context context)
+  @NonNull public String getTitle(@NonNull Context context)
   {
     String title = name;
     if (TextUtils.isEmpty(title) && description != null)
@@ -138,8 +130,7 @@ public class SearchResult
     }
   }
 
-  @NonNull
-  public Spannable getFormattedTitle(@NonNull Context context)
+  @NonNull public Spannable getFormattedTitle(@NonNull Context context)
   {
     final String title = getTitle(context);
     final SpannableStringBuilder builder = new SpannableStringBuilder(title);
@@ -156,5 +147,4 @@ public class SearchResult
 
     return builder;
   }
-
 }

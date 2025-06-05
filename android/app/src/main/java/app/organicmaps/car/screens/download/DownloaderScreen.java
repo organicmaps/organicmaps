@@ -1,7 +1,6 @@
 package app.organicmaps.car.screens.download;
 
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.constraints.ConstraintManager;
@@ -10,7 +9,6 @@ import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.R;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.base.BaseScreen;
@@ -18,15 +16,13 @@ import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.concurrency.UiThread;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 class DownloaderScreen extends BaseScreen
 {
-  @NonNull
-  private final Map<String, CountryItem> mMissingMaps;
+  @NonNull private final Map<String, CountryItem> mMissingMaps;
   private final long mTotalSize;
   private final boolean mIsCancelActionDisabled;
   private final boolean mIsAppRefreshEnabled;
@@ -36,10 +32,8 @@ class DownloaderScreen extends BaseScreen
   private boolean mIsDownloadFailed = false;
 
   @NonNull
-  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
-  {
-    @Override
-    public void onStatusChanged(@NonNull final List<MapManager.StorageCallbackData> data)
+  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback() {
+    @Override public void onStatusChanged(@NonNull final List<MapManager.StorageCallbackData> data)
     {
       for (final MapManager.StorageCallbackData item : data)
       {
@@ -70,8 +64,7 @@ class DownloaderScreen extends BaseScreen
         invalidate();
     }
 
-    @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    @Override public void onProgress(String countryId, long localSize, long remoteSize)
     {
       if (!mIsAppRefreshEnabled || TextUtils.isEmpty(countryId))
         return;
@@ -85,7 +78,8 @@ class DownloaderScreen extends BaseScreen
     }
   };
 
-  DownloaderScreen(@NonNull final CarContext carContext, @NonNull final List<CountryItem> missingMaps, final boolean isCancelActionDisabled)
+  DownloaderScreen(@NonNull final CarContext carContext, @NonNull final List<CountryItem> missingMaps,
+    final boolean isCancelActionDisabled)
   {
     super(carContext);
     setMarker(DownloadMapsScreen.MARKER);
@@ -101,8 +95,7 @@ class DownloaderScreen extends BaseScreen
     mIsAppRefreshEnabled = carContext.getCarService(ConstraintManager.class).isAppDrivenRefreshEnabled();
   }
 
-  @Override
-  public void onResume(@NonNull LifecycleOwner owner)
+  @Override public void onResume(@NonNull LifecycleOwner owner)
   {
     if (mSubscriptionSlot == 0)
       mSubscriptionSlot = MapManager.nativeSubscribe(mStorageCallback);
@@ -113,8 +106,7 @@ class DownloaderScreen extends BaseScreen
     }
   }
 
-  @Override
-  public void onPause(@NonNull LifecycleOwner owner)
+  @Override public void onPause(@NonNull LifecycleOwner owner)
   {
     if (!mIsDownloadFailed)
       cancelMapsDownloading();
@@ -125,9 +117,7 @@ class DownloaderScreen extends BaseScreen
     }
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final MessageTemplate.Builder builder = new MessageTemplate.Builder(getText());
     builder.setLoading(true);
@@ -143,8 +133,7 @@ class DownloaderScreen extends BaseScreen
     return builder.build();
   }
 
-  @NonNull
-  private String getText()
+  @NonNull private String getText()
   {
     if (!mIsAppRefreshEnabled)
       return getCarContext().getString(R.string.downloader_loading_ios);
@@ -171,9 +160,9 @@ class DownloaderScreen extends BaseScreen
   {
     mIsDownloadFailed = true;
     final ErrorScreen.Builder builder = new ErrorScreen.Builder(getCarContext())
-        .setTitle(R.string.country_status_download_failed)
-        .setErrorMessage(MapManager.getErrorCodeStrRes(data.errorCode))
-        .setPositiveButton(R.string.downloader_retry, null);
+                                          .setTitle(R.string.country_status_download_failed)
+                                          .setErrorMessage(MapManager.getErrorCodeStrRes(data.errorCode))
+                                          .setPositiveButton(R.string.downloader_retry, null);
     if (!mIsCancelActionDisabled)
       builder.setNegativeButton(R.string.cancel, this::finish);
     getScreenManager().push(builder.build());

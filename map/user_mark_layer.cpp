@@ -1,25 +1,14 @@
 #include "map/user_mark_layer.hpp"
 
-
 UserMarkLayer::UserMarkLayer(UserMark::Type type)
   : m_type(type)
-{
-}
+{}
 
-bool UserMarkLayer::IsVisible() const
-{
-  return m_isVisible;
-}
+bool UserMarkLayer::IsVisible() const { return m_isVisible; }
 
-bool UserMarkLayer::IsVisibilityChanged() const
-{
-  return m_isVisible != m_wasVisible;
-}
+bool UserMarkLayer::IsVisibilityChanged() const { return m_isVisible != m_wasVisible; }
 
-UserMark::Type UserMarkLayer::GetType() const
-{
-  return m_type;
-}
+UserMark::Type UserMarkLayer::GetType() const { return m_type; }
 
 void UserMarkLayer::Clear()
 {
@@ -28,10 +17,7 @@ void UserMarkLayer::Clear()
   m_tracks.clear();
 }
 
-bool UserMarkLayer::IsEmpty() const
-{
-  return m_userMarks.empty() && m_tracks.empty();
-}
+bool UserMarkLayer::IsEmpty() const { return m_userMarks.empty() && m_tracks.empty(); }
 
 void UserMarkLayer::SetIsVisible(bool isVisible)
 {

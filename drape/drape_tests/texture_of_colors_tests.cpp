@@ -5,19 +5,19 @@
 #include "drape/drape_tests/testing_graphics_context.hpp"
 
 #include "drape/gl_constants.hpp"
-#include "drape/texture_of_colors.hpp"
 #include "drape/texture.hpp"
+#include "drape/texture_of_colors.hpp"
 
 #include "drape/drape_tests/gl_mock_functions.hpp"
 
 #include <gmock/gmock.h>
 
 using testing::_;
-using testing::Return;
+using testing::AnyOf;
+using testing::IgnoreResult;
 using testing::InSequence;
 using testing::Invoke;
-using testing::IgnoreResult;
-using testing::AnyOf;
+using testing::Return;
 using namespace dp;
 
 namespace
@@ -48,11 +48,11 @@ void InitOpenGLTextures(int const w, int const h)
 class DummyColorPallete : public ColorPalette
 {
   typedef ColorPalette TBase;
+
 public:
   explicit DummyColorPallete(m2::PointU const & size)
     : TBase(size)
-  {
-  }
+  {}
 
   ref_ptr<Texture::ResourceInfo> MapResource(ColorKey const & key)
   {
@@ -61,7 +61,7 @@ public:
   }
 };
 
-}
+}  // namespace
 
 UNIT_TEST(ColorPalleteMappingTests)
 {
@@ -74,18 +74,15 @@ UNIT_TEST(ColorPalleteMappingTests)
   TEST_NOT_EQUAL(info1, info2, ());
   TEST_EQUAL(info1, info3, ());
 
-  TestRects(info1->GetTexRect(), m2::RectF(1.0f / 32.0f, 1.0f / 16,
-                                           1.0f / 32.0f, 1.0f / 16));
-  TestRects(info2->GetTexRect(), m2::RectF(3.0f / 32.0f, 1.0f / 16,
-                                           3.0f / 32.0f, 1.0f / 16));
-  TestRects(info3->GetTexRect(), m2::RectF(1.0f / 32.0f, 1.0f / 16,
-                                           1.0f / 32.0f, 1.0f / 16));
+  TestRects(info1->GetTexRect(), m2::RectF(1.0f / 32.0f, 1.0f / 16, 1.0f / 32.0f, 1.0f / 16));
+  TestRects(info2->GetTexRect(), m2::RectF(3.0f / 32.0f, 1.0f / 16, 3.0f / 32.0f, 1.0f / 16));
+  TestRects(info3->GetTexRect(), m2::RectF(1.0f / 32.0f, 1.0f / 16, 1.0f / 32.0f, 1.0f / 16));
 
   for (int i = 2; i < 100; ++i)
     cp.MapResource(dp::ColorKey(dp::Color(i, i, i, i)));
 
   TestRects(cp.MapResource(dp::ColorKey(dp::Color(54, 54, 54, 54)))->GetTexRect(),
-                           m2::RectF(13.0f / 32.0f, 7.0f / 16.0f, 13.0f / 32.0f, 7.0f / 16.0f));
+            m2::RectF(13.0f / 32.0f, 7.0f / 16.0f, 13.0f / 32.0f, 7.0f / 16.0f));
 }
 
 UNIT_TEST(ColorPalleteUploadingSingleRow)
@@ -113,34 +110,33 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
     cp.MapResource(dp::ColorKey(dp::Color(0, 0, 0, 0xFF)));
     cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xBB, 0xCC, 0xDD)));
 
-    uint8_t memoryEtalon[] =
-    {
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel (1st row)
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel (1st row)
-      0x00, 0xFF, 0x00, 0x00, // 2 pixel (1st row)
-      0x00, 0xFF, 0x00, 0x00, // 2 pixel (1st row)
-      0x00, 0x00, 0xFF, 0x00, // 3 pixel (1st row)
-      0x00, 0x00, 0xFF, 0x00, // 3 pixel (1st row)
-      0x00, 0x00, 0x00, 0xFF, // 4 pixel (1st row)
-      0x00, 0x00, 0x00, 0xFF, // 4 pixel (1st row)
-      0xAA, 0xBB, 0xCC, 0xDD, // 5 pixel (1st row)
-      0xAA, 0xBB, 0xCC, 0xDD, // 5 pixel (1st row)
+    uint8_t memoryEtalon[] = {
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel (1st row)
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel (1st row)
+      0x00, 0xFF, 0x00, 0x00,  // 2 pixel (1st row)
+      0x00, 0xFF, 0x00, 0x00,  // 2 pixel (1st row)
+      0x00, 0x00, 0xFF, 0x00,  // 3 pixel (1st row)
+      0x00, 0x00, 0xFF, 0x00,  // 3 pixel (1st row)
+      0x00, 0x00, 0x00, 0xFF,  // 4 pixel (1st row)
+      0x00, 0x00, 0x00, 0xFF,  // 4 pixel (1st row)
+      0xAA, 0xBB, 0xCC, 0xDD,  // 5 pixel (1st row)
+      0xAA, 0xBB, 0xCC, 0xDD,  // 5 pixel (1st row)
 
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel (2nd row)
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel (2nd row)
-      0x00, 0xFF, 0x00, 0x00, // 2 pixel (2nd row)
-      0x00, 0xFF, 0x00, 0x00, // 2 pixel (2nd row)
-      0x00, 0x00, 0xFF, 0x00, // 3 pixel (2nd row)
-      0x00, 0x00, 0xFF, 0x00, // 3 pixel (2nd row)
-      0x00, 0x00, 0x00, 0xFF, // 4 pixel (2nd row)
-      0x00, 0x00, 0x00, 0xFF, // 4 pixel (2nd row)
-      0xAA, 0xBB, 0xCC, 0xDD, // 5 pixel (2nd row)
-      0xAA, 0xBB, 0xCC, 0xDD  // 5 pixel (2nd row)
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel (2nd row)
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel (2nd row)
+      0x00, 0xFF, 0x00, 0x00,  // 2 pixel (2nd row)
+      0x00, 0xFF, 0x00, 0x00,  // 2 pixel (2nd row)
+      0x00, 0x00, 0xFF, 0x00,  // 3 pixel (2nd row)
+      0x00, 0x00, 0xFF, 0x00,  // 3 pixel (2nd row)
+      0x00, 0x00, 0x00, 0xFF,  // 4 pixel (2nd row)
+      0x00, 0x00, 0x00, 0xFF,  // 4 pixel (2nd row)
+      0xAA, 0xBB, 0xCC, 0xDD,  // 5 pixel (2nd row)
+      0xAA, 0xBB, 0xCC, 0xDD   // 5 pixel (2nd row)
     };
 
     MemoryComparer cmp(memoryEtalon, ARRAY_SIZE(memoryEtalon));
     EXPECTGL(glTexSubImage2D(0, 0, 10, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
+      .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
     cp.UploadResources(make_ref(&context), make_ref(&texture));
   }
@@ -152,34 +148,33 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
     cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0, 0, 0xFF)));
     cp.MapResource(dp::ColorKey(dp::Color(0x00, 0xBB, 0xCC, 0xDD)));
 
-    uint8_t memoryEtalon[] =
-    {
-      0xFF, 0xAA, 0x00, 0x00, // 1 pixel (1st row)
-      0xFF, 0xAA, 0x00, 0x00, // 1 pixel (1st row)
-      0xAA, 0xFF, 0x00, 0x00, // 2 pixel (1st row)
-      0xAA, 0xFF, 0x00, 0x00, // 2 pixel (1st row)
-      0xAA, 0x00, 0xFF, 0x00, // 3 pixel (1st row)
-      0xAA, 0x00, 0xFF, 0x00, // 3 pixel (1st row)
-      0xAA, 0x00, 0x00, 0xFF, // 4 pixel (1st row)
-      0xAA, 0x00, 0x00, 0xFF, // 4 pixel (1st row)
-      0x00, 0xBB, 0xCC, 0xDD, // 5 pixel (1st row)
-      0x00, 0xBB, 0xCC, 0xDD, // 5 pixel (1st row)
+    uint8_t memoryEtalon[] = {
+      0xFF, 0xAA, 0x00, 0x00,  // 1 pixel (1st row)
+      0xFF, 0xAA, 0x00, 0x00,  // 1 pixel (1st row)
+      0xAA, 0xFF, 0x00, 0x00,  // 2 pixel (1st row)
+      0xAA, 0xFF, 0x00, 0x00,  // 2 pixel (1st row)
+      0xAA, 0x00, 0xFF, 0x00,  // 3 pixel (1st row)
+      0xAA, 0x00, 0xFF, 0x00,  // 3 pixel (1st row)
+      0xAA, 0x00, 0x00, 0xFF,  // 4 pixel (1st row)
+      0xAA, 0x00, 0x00, 0xFF,  // 4 pixel (1st row)
+      0x00, 0xBB, 0xCC, 0xDD,  // 5 pixel (1st row)
+      0x00, 0xBB, 0xCC, 0xDD,  // 5 pixel (1st row)
 
-      0xFF, 0xAA, 0x00, 0x00, // 1 pixel (2nd row)
-      0xFF, 0xAA, 0x00, 0x00, // 1 pixel (2nd row)
-      0xAA, 0xFF, 0x00, 0x00, // 2 pixel (2nd row)
-      0xAA, 0xFF, 0x00, 0x00, // 2 pixel (2nd row)
-      0xAA, 0x00, 0xFF, 0x00, // 3 pixel (2nd row)
-      0xAA, 0x00, 0xFF, 0x00, // 3 pixel (2nd row)
-      0xAA, 0x00, 0x00, 0xFF, // 4 pixel (2nd row)
-      0xAA, 0x00, 0x00, 0xFF, // 4 pixel (2nd row)
-      0x00, 0xBB, 0xCC, 0xDD, // 5 pixel (2nd row)
-      0x00, 0xBB, 0xCC, 0xDD  // 5 pixel (2nd row)
+      0xFF, 0xAA, 0x00, 0x00,  // 1 pixel (2nd row)
+      0xFF, 0xAA, 0x00, 0x00,  // 1 pixel (2nd row)
+      0xAA, 0xFF, 0x00, 0x00,  // 2 pixel (2nd row)
+      0xAA, 0xFF, 0x00, 0x00,  // 2 pixel (2nd row)
+      0xAA, 0x00, 0xFF, 0x00,  // 3 pixel (2nd row)
+      0xAA, 0x00, 0xFF, 0x00,  // 3 pixel (2nd row)
+      0xAA, 0x00, 0x00, 0xFF,  // 4 pixel (2nd row)
+      0xAA, 0x00, 0x00, 0xFF,  // 4 pixel (2nd row)
+      0x00, 0xBB, 0xCC, 0xDD,  // 5 pixel (2nd row)
+      0x00, 0xBB, 0xCC, 0xDD   // 5 pixel (2nd row)
     };
 
     MemoryComparer cmp(memoryEtalon, ARRAY_SIZE(memoryEtalon));
     EXPECTGL(glTexSubImage2D(10, 0, 10, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
+      .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
     cp.UploadResources(make_ref(&context), make_ref(&texture));
   }
@@ -209,22 +204,21 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0, 0, 0)));
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xFF, 0, 0)));
 
-    uint8_t memoryEtalon[] =
-    {
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel
-      0xFF, 0xFF, 0x00, 0x00, // 2 pixel
-      0xFF, 0xFF, 0x00, 0x00, // 2 pixel
+    uint8_t memoryEtalon[] = {
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel
+      0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
+      0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
 
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel
-      0xFF, 0xFF, 0x00, 0x00, // 2 pixel
-      0xFF, 0xFF, 0x00, 0x00  // 2 pixel
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel
+      0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
+      0xFF, 0xFF, 0x00, 0x00   // 2 pixel
     };
 
     MemoryComparer cmp(memoryEtalon, ARRAY_SIZE(memoryEtalon));
     EXPECTGL(glTexSubImage2D(0, 0, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
+      .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
     cp.UploadResources(make_ref(&context), make_ref(&texture));
   }
@@ -235,43 +229,40 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
     cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xAA, 0xAA, 0)));
     cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xAA, 0xAA, 0xAA)));
 
-    uint8_t memoryEtalon1[] =
-    {
-      0xAA, 0x00, 0x00, 0x00, // 1 pixel
-      0xAA, 0x00, 0x00, 0x00, // 1 pixel
-      0xAA, 0xAA, 0x00, 0x00, // 2 pixel
-      0xAA, 0xAA, 0x00, 0x00, // 2 pixel
+    uint8_t memoryEtalon1[] = {
+      0xAA, 0x00, 0x00, 0x00,  // 1 pixel
+      0xAA, 0x00, 0x00, 0x00,  // 1 pixel
+      0xAA, 0xAA, 0x00, 0x00,  // 2 pixel
+      0xAA, 0xAA, 0x00, 0x00,  // 2 pixel
 
-      0xAA, 0x00, 0x00, 0x00, // 1 pixel
-      0xAA, 0x00, 0x00, 0x00, // 1 pixel
-      0xAA, 0xAA, 0x00, 0x00, // 2 pixel
-      0xAA, 0xAA, 0x00, 0x00  // 2 pixel
+      0xAA, 0x00, 0x00, 0x00,  // 1 pixel
+      0xAA, 0x00, 0x00, 0x00,  // 1 pixel
+      0xAA, 0xAA, 0x00, 0x00,  // 2 pixel
+      0xAA, 0xAA, 0x00, 0x00   // 2 pixel
     };
 
-    uint8_t memoryEtalon2[] =
-    {
-      0xAA, 0xAA, 0xAA, 0x00, // 1 pixel
-      0xAA, 0xAA, 0xAA, 0x00, // 1 pixel
-      0xAA, 0xAA, 0xAA, 0xAA, // 2 pixel
-      0xAA, 0xAA, 0xAA, 0xAA, // 2 pixel
+    uint8_t memoryEtalon2[] = {
+      0xAA, 0xAA, 0xAA, 0x00,  // 1 pixel
+      0xAA, 0xAA, 0xAA, 0x00,  // 1 pixel
+      0xAA, 0xAA, 0xAA, 0xAA,  // 2 pixel
+      0xAA, 0xAA, 0xAA, 0xAA,  // 2 pixel
 
-      0xAA, 0xAA, 0xAA, 0x00, // 1 pixel
-      0xAA, 0xAA, 0xAA, 0x00, // 1 pixel
-      0xAA, 0xAA, 0xAA, 0xAA, // 2 pixel
-      0xAA, 0xAA, 0xAA, 0xAA  // 2 pixel
+      0xAA, 0xAA, 0xAA, 0x00,  // 1 pixel
+      0xAA, 0xAA, 0xAA, 0x00,  // 1 pixel
+      0xAA, 0xAA, 0xAA, 0xAA,  // 2 pixel
+      0xAA, 0xAA, 0xAA, 0xAA   // 2 pixel
     };
 
     MemoryComparer cmp1(memoryEtalon1, ARRAY_SIZE(memoryEtalon1));
     EXPECTGL(glTexSubImage2D(4, 0, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp1, &MemoryComparer::cmpSubImage));
+      .WillOnce(Invoke(&cmp1, &MemoryComparer::cmpSubImage));
 
     MemoryComparer cmp2(memoryEtalon2, ARRAY_SIZE(memoryEtalon2));
     EXPECTGL(glTexSubImage2D(0, 2, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp2, &MemoryComparer::cmpSubImage));
+      .WillOnce(Invoke(&cmp2, &MemoryComparer::cmpSubImage));
 
     cp.UploadResources(make_ref(&context), make_ref(&texture));
   }
-
 
   EXPECTGL(glDeleteTexture(1));
 }
@@ -299,22 +290,21 @@ UNIT_TEST(ColorPalleteUploadingMultiplyRow)
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0, 0, 0)));
     cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0, 0, 0)));
 
-    uint8_t memoryEtalon[] =
-    {
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel
-      0xAA, 0x00, 0x00, 0x00, // 2 pixel
-      0xAA, 0x00, 0x00, 0x00, // 2 pixel
+    uint8_t memoryEtalon[] = {
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel
+      0xAA, 0x00, 0x00, 0x00,  // 2 pixel
+      0xAA, 0x00, 0x00, 0x00,  // 2 pixel
 
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel
-      0xFF, 0x00, 0x00, 0x00, // 1 pixel
-      0xAA, 0x00, 0x00, 0x00, // 2 pixel
-      0xAA, 0x00, 0x00, 0x00, // 2 pixel
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel
+      0xFF, 0x00, 0x00, 0x00,  // 1 pixel
+      0xAA, 0x00, 0x00, 0x00,  // 2 pixel
+      0xAA, 0x00, 0x00, 0x00,  // 2 pixel
     };
 
     MemoryComparer cmp(memoryEtalon, ARRAY_SIZE(memoryEtalon));
     EXPECTGL(glTexSubImage2D(0, 0, 4, 2, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
+      .WillOnce(Invoke(&cmp, &MemoryComparer::cmpSubImage));
 
     cp.UploadResources(make_ref(&context), make_ref(&texture));
   }
@@ -325,36 +315,34 @@ UNIT_TEST(ColorPalleteUploadingMultiplyRow)
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xFF, 0xFF, 0)));
     cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xFF, 0xFF, 0xFF)));
 
-    uint8_t memoryEtalon1[] =
-    {
-      0xCC, 0x00, 0x00, 0x00, // 1 pixel
-      0xCC, 0x00, 0x00, 0x00, // 1 pixel
-      0xFF, 0xFF, 0x00, 0x00, // 2 pixel
-      0xFF, 0xFF, 0x00, 0x00, // 2 pixel
+    uint8_t memoryEtalon1[] = {
+      0xCC, 0x00, 0x00, 0x00,  // 1 pixel
+      0xCC, 0x00, 0x00, 0x00,  // 1 pixel
+      0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
+      0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
 
-      0xCC, 0x00, 0x00, 0x00, // 1 pixel
-      0xCC, 0x00, 0x00, 0x00, // 1 pixel
-      0xFF, 0xFF, 0x00, 0x00, // 2 pixel
-      0xFF, 0xFF, 0x00, 0x00, // 2 pixel
+      0xCC, 0x00, 0x00, 0x00,  // 1 pixel
+      0xCC, 0x00, 0x00, 0x00,  // 1 pixel
+      0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
+      0xFF, 0xFF, 0x00, 0x00,  // 2 pixel
 
-      0xFF, 0xFF, 0xFF, 0x00, // 1 pixel
-      0xFF, 0xFF, 0xFF, 0x00, // 1 pixel
-      0xFF, 0xFF, 0xFF, 0xFF, // 2 pixel
-      0xFF, 0xFF, 0xFF, 0xFF, // 2 pixel
+      0xFF, 0xFF, 0xFF, 0x00,  // 1 pixel
+      0xFF, 0xFF, 0xFF, 0x00,  // 1 pixel
+      0xFF, 0xFF, 0xFF, 0xFF,  // 2 pixel
+      0xFF, 0xFF, 0xFF, 0xFF,  // 2 pixel
 
-      0xFF, 0xFF, 0xFF, 0x00, // 1 pixel
-      0xFF, 0xFF, 0xFF, 0x00, // 1 pixel
-      0xFF, 0xFF, 0xFF, 0xFF, // 2 pixel
-      0xFF, 0xFF, 0xFF, 0xFF, // 2 pixel
+      0xFF, 0xFF, 0xFF, 0x00,  // 1 pixel
+      0xFF, 0xFF, 0xFF, 0x00,  // 1 pixel
+      0xFF, 0xFF, 0xFF, 0xFF,  // 2 pixel
+      0xFF, 0xFF, 0xFF, 0xFF,  // 2 pixel
     };
 
     MemoryComparer cmp1(memoryEtalon1, ARRAY_SIZE(memoryEtalon1));
     EXPECTGL(glTexSubImage2D(0, 2, 4, 4, AnyOf(gl_const::GLRGBA, gl_const::GLRGBA8), gl_const::GL8BitOnChannel, _))
-        .WillOnce(Invoke(&cmp1, &MemoryComparer::cmpSubImage));
+      .WillOnce(Invoke(&cmp1, &MemoryComparer::cmpSubImage));
 
     cp.UploadResources(make_ref(&context), make_ref(&texture));
   }
 
   EXPECTGL(glDeleteTexture(1));
 }
-

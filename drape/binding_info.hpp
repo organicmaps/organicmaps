@@ -67,7 +67,9 @@ template <typename TVertex>
 class BindingFiller
 {
 public:
-  explicit BindingFiller(uint8_t count, uint8_t id = 0) : m_info(count, id) {}
+  explicit BindingFiller(uint8_t count, uint8_t id = 0)
+    : m_info(count, id)
+  {}
 
   template <typename TFieldType>
   void FillDecl(std::string const & attrName)

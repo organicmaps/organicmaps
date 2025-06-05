@@ -16,9 +16,15 @@ namespace routing
 class RoadPoint final
 {
 public:
-  RoadPoint() : m_featureId(0), m_pointId(0) {}
+  RoadPoint()
+    : m_featureId(0)
+    , m_pointId(0)
+  {}
 
-  RoadPoint(uint32_t featureId, uint32_t pointId) : m_featureId(featureId), m_pointId(pointId) {}
+  RoadPoint(uint32_t featureId, uint32_t pointId)
+    : m_featureId(featureId)
+    , m_pointId(pointId)
+  {}
 
   uint32_t GetFeatureId() const { return m_featureId; }
 
@@ -31,15 +37,9 @@ public:
     return m_pointId < rp.m_pointId;
   }
 
-  bool operator==(RoadPoint const & rp) const
-  {
-    return m_featureId == rp.m_featureId && m_pointId == rp.m_pointId;
-  }
+  bool operator==(RoadPoint const & rp) const { return m_featureId == rp.m_featureId && m_pointId == rp.m_pointId; }
 
-  bool operator!=(RoadPoint const & rp) const
-  {
-    return !(*this == rp);
-  }
+  bool operator!=(RoadPoint const & rp) const { return !(*this == rp); }
 
   struct Hash
   {

@@ -7,13 +7,11 @@
 namespace routing
 {
 // RoutingSettings ---------------------------------------------------------------------------------
-RoutingSettings::RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute,
-                                 bool soundDirection, double matchingThresholdM,
-                                 bool showTurnAfterNext, double minSpeedForRouteRebuildMpS,
-                                 double finishToleranceM, size_t maxOutgoingPointsCount,
-                                 double minOutgoingDistMeters, size_t maxIngoingPointsCount,
-                                 double minIngoingDistMeters, size_t notSoCloseMaxPointsCount,
-                                 double notSoCloseMaxDistMeters)
+RoutingSettings::RoutingSettings(bool useDirectionForRouteBuilding, bool matchRoute, bool soundDirection,
+                                 double matchingThresholdM, bool showTurnAfterNext, double minSpeedForRouteRebuildMpS,
+                                 double finishToleranceM, size_t maxOutgoingPointsCount, double minOutgoingDistMeters,
+                                 size_t maxIngoingPointsCount, double minIngoingDistMeters,
+                                 size_t notSoCloseMaxPointsCount, double notSoCloseMaxDistMeters)
 
   : m_useDirectionForRouteBuilding(useDirectionForRouteBuilding)
   , m_matchRoute(matchRoute)
@@ -28,8 +26,7 @@ RoutingSettings::RoutingSettings(bool useDirectionForRouteBuilding, bool matchRo
   , m_minIngoingDistMeters(minIngoingDistMeters)
   , m_notSoCloseMaxPointsCount(notSoCloseMaxPointsCount)
   , m_notSoCloseMaxDistMeters(notSoCloseMaxDistMeters)
-{
-}
+{}
 
 RoutingSettings GetRoutingSettings(VehicleType vehicleType)
 {
@@ -91,10 +88,8 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
             100.0 /* m_minIngoingDistMeters */,
             3 /* m_notSoCloseMaxPointsCount */,
             30.0 /* m_notSoCloseMaxDistMeters */};
-  case VehicleType::Count:
-    CHECK(false, ("Can't create GetRoutingSettings for", vehicleType));
+  case VehicleType::Count: CHECK(false, ("Can't create GetRoutingSettings for", vehicleType));
   }
   UNREACHABLE();
 }
 }  // namespace routing
-

@@ -44,8 +44,7 @@ class AltitudeLoaderCached : public AltitudeLoaderBase
 public:
   explicit AltitudeLoaderCached(MwmValue const & mwmValue)
     : AltitudeLoaderBase(mwmValue)
-  {
-  }
+  {}
 
   /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
   /// or the returned vector is empty.

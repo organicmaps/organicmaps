@@ -3,7 +3,6 @@ package app.organicmaps.car.util;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.location.Location;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.car.app.CarContext;
@@ -13,12 +12,10 @@ import androidx.car.app.hardware.info.CarHardwareLocation;
 import androidx.car.app.hardware.info.CarSensors;
 import androidx.car.app.hardware.info.Compass;
 import androidx.core.content.ContextCompat;
-
 import app.organicmaps.Map;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.SensorHelper;
 import app.organicmaps.util.log.Logger;
-
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -26,10 +23,8 @@ public class CarSensorsManager
 {
   private static final String TAG = CarSensorsManager.class.getSimpleName();
 
-  @NonNull
-  private final CarContext mCarContext;
-  @NonNull
-  private final CarSensors mCarSensors;
+  @NonNull private final CarContext mCarContext;
+  @NonNull private final CarSensors mCarSensors;
 
   private boolean mIsCarCompassUsed = true;
   private boolean mIsCarLocationUsed = true;
@@ -40,8 +35,7 @@ public class CarSensorsManager
     mCarSensors = mCarContext.getCarService(CarHardwareManager.class).getCarSensors();
   }
 
-  @RequiresPermission(ACCESS_FINE_LOCATION)
-  public void onStart()
+  @RequiresPermission(ACCESS_FINE_LOCATION) public void onStart()
   {
     final Executor executor = ContextCompat.getMainExecutor(mCarContext);
 
@@ -54,7 +48,8 @@ public class CarSensorsManager
       LocationHelper.from(mCarContext).start();
 
     if (mIsCarLocationUsed)
-      mCarSensors.addCarHardwareLocationListener(CarSensors.UPDATE_RATE_FASTEST, executor, this::onCarLocationDataAvailable);
+      mCarSensors.addCarHardwareLocationListener(
+        CarSensors.UPDATE_RATE_FASTEST, executor, this::onCarLocationDataAvailable);
   }
 
   public void onStop()

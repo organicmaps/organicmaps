@@ -42,7 +42,7 @@
 #include <utility>
 #include <vector>
 
-#include <cstdio>    // popen, tmpnam
+#include <cstdio>  // popen, tmpnam
 
 #ifdef _MSC_VER
 #define popen _popen
@@ -60,7 +60,9 @@ DECLARE_EXCEPTION(PipeCallError, RootException);
 struct ScopedRemoveFile
 {
   ScopedRemoveFile() = default;
-  explicit ScopedRemoveFile(std::string const & fileName) : m_fileName(fileName) {}
+  explicit ScopedRemoveFile(std::string const & fileName)
+    : m_fileName(fileName)
+  {}
 
   ~ScopedRemoveFile()
   {
@@ -80,7 +82,6 @@ static std::string ReadFileAsString(std::string const & filePath)
   return {std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>()};
 }
 
-
 std::string RunCurl(std::string const & cmd)
 {
   FILE * pipe = ::popen(cmd.c_str(), "r");
@@ -95,7 +96,8 @@ std::string RunCurl(std::string const & cmd)
     {
       result.append(arr.data(), read);
     }
-  } while (read == arr.size());
+  }
+  while (read == arr.size());
 
   auto const err = ::pclose(pipe);
   // Exception will be cought in RunHTTPRequest
@@ -141,7 +143,7 @@ HeadersVector ParseHeaders(std::string const & raw)
 bool WriteToFile(std::string const & fileName, std::string const & data)
 {
   std::ofstream ofs(fileName);
-  if(!ofs.is_open())
+  if (!ofs.is_open())
   {
     LOG(LERROR, ("Failed to write into a temporary file."));
     return false;
@@ -301,8 +303,7 @@ bool HttpClient::RunHttpRequest()
 
   for (auto const & header : headers)
   {
-    if (strings::EqualNoCase(header.first, "content-encoding") &&
-        !strings::EqualNoCase(header.second, "identity"))
+    if (strings::EqualNoCase(header.first, "content-encoding") && !strings::EqualNoCase(header.second, "identity"))
     {
       m_serverResponse = Decompress(m_serverResponse, header.second);
       LOG(LDEBUG, ("Response with", header.second, "is decompressed."));

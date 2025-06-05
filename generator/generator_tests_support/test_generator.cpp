@@ -34,9 +34,7 @@ bool MakeFakeBordersFile(std::string const & intemediatePath, std::string const 
   if (code != Platform::EError::ERR_OK && code != Platform::EError::ERR_FILE_ALREADY_EXISTS)
     return false;
 
-  std::vector<m2::PointD> points = {
-    {-180.0, -90.0}, {180.0, -90.0}, {180.0, 90.0}, {-180.0, 90.0}, {-180.0, -90.0}
-  };
+  std::vector<m2::PointD> points = {{-180.0, -90.0}, {180.0, -90.0}, {180.0, 90.0}, {-180.0, 90.0}, {-180.0, -90.0}};
   borders::DumpBorderToPolyFile(borderPath, filename, {m2::RegionD{std::move(points)}});
   return true;
 }
@@ -49,10 +47,7 @@ TestRawGenerator::TestRawGenerator()
   SetupTmpFolder("./raw_generator");
 }
 
-TestRawGenerator::~TestRawGenerator()
-{
-  UNUSED_VALUE(Platform::RmDirRecursively(GetTmpPath()));
-}
+TestRawGenerator::~TestRawGenerator() { UNUSED_VALUE(Platform::RmDirRecursively(GetTmpPath())); }
 
 void TestRawGenerator::SetupTmpFolder(std::string const & tmpPath)
 {
@@ -61,7 +56,8 @@ void TestRawGenerator::SetupTmpFolder(std::string const & tmpPath)
   CHECK(Platform::MkDirChecked(tmpPath), ());
 }
 
-void TestRawGenerator::BuildFB(std::string const & osmFilePath, std::string const & mwmName, bool makeWorld /* = false */)
+void TestRawGenerator::BuildFB(std::string const & osmFilePath, std::string const & mwmName,
+                               bool makeWorld /* = false */)
 {
   m_genInfo.m_nodeStorageType = feature::GenerateInfo::NodeStorageType::Index;
   m_genInfo.m_osmFileName = osmFilePath;
@@ -69,7 +65,7 @@ void TestRawGenerator::BuildFB(std::string const & osmFilePath, std::string cons
 
   CHECK(GenerateIntermediateData(m_genInfo), ());
 
-  //CHECK(MakeFakeBordersFile(GetTmpPath(), mwmName), ());
+  // CHECK(MakeFakeBordersFile(GetTmpPath(), mwmName), ());
 
   m_genInfo.m_tmpDir = m_genInfo.m_targetDir = GetTmpPath();
   m_genInfo.m_fileName = mwmName;
@@ -115,9 +111,7 @@ void TestRawGenerator::BuildRouting(std::string const & mwmName, std::string con
 {
   using namespace routing_builder;
   CountryParentNameGetterFn const parentGetter = [&countryName](std::string const & name)
-  {
-    return (name != countryName ? countryName : std::string());
-  };
+  { return (name != countryName ? countryName : std::string()); };
 
   std::string const filePath = GetMwmPath(mwmName);
   std::string const osmToFeatureFilename = filePath + OSM2FEATURE_FILE_EXTENSION;
@@ -154,10 +148,7 @@ std::string TestRawGenerator::GetCitiesBoundariesPath() const
   return m_genInfo.GetTmpFileName(CITIES_BOUNDARIES_FILE_TAG, ".bin");
 }
 
-bool TestRawGenerator::IsWorld(std::string const & mwmName) const
-{
-  return (mwmName == WORLD_FILE_NAME);
-}
+bool TestRawGenerator::IsWorld(std::string const & mwmName) const { return (mwmName == WORLD_FILE_NAME); }
 
-} // namespace tests_support
-} // namespace generator
+}  // namespace tests_support
+}  // namespace generator

@@ -26,10 +26,7 @@ void MessageAcceptor::EnableMessageFiltering(MessageQueue::FilterMessageFn && fi
   m_messageQueue.EnableMessageFiltering(std::move(filter));
 }
 
-void MessageAcceptor::DisableMessageFiltering()
-{
-  m_messageQueue.DisableMessageFiltering();
-}
+void MessageAcceptor::DisableMessageFiltering() { m_messageQueue.DisableMessageFiltering(); }
 
 void MessageAcceptor::InstantMessageFilter(MessageQueue::FilterMessageFn && filter)
 {
@@ -47,27 +44,15 @@ void MessageAcceptor::CloseQueue()
   m_messageQueue.ClearQuery();
 }
 
-void MessageAcceptor::CancelMessageWaiting()
-{
-  m_messageQueue.CancelWait();
-}
+void MessageAcceptor::CancelMessageWaiting() { m_messageQueue.CancelWait(); }
 
-bool MessageAcceptor::IsInInfinityWaiting() const
-{
-  return m_infinityWaiting;
-}
+bool MessageAcceptor::IsInInfinityWaiting() const { return m_infinityWaiting; }
 
 #ifdef DEBUG_MESSAGE_QUEUE
 
-bool MessageAcceptor::IsQueueEmpty() const
-{
-  return m_messageQueue.IsEmpty();
-}
+bool MessageAcceptor::IsQueueEmpty() const { return m_messageQueue.IsEmpty(); }
 
-size_t MessageAcceptor::GetQueueSize() const
-{
-  return m_messageQueue.GetSize();
-}
+size_t MessageAcceptor::GetQueueSize() const { return m_messageQueue.GetSize(); }
 
 #endif
 }  // namespace df

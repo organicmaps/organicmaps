@@ -13,7 +13,7 @@ UNIT_TEST(World_Capitals)
 {
   classificator::Load();
   auto const capitalType = classif().GetTypeByPath({"place", "city", "capital", "2"});
-  std::set<std::string_view> testCapitals = { "Lisbon", "Warsaw", "Kyiv", "Roseau" };
+  std::set<std::string_view> testCapitals = {"Lisbon", "Warsaw", "Kyiv", "Roseau"};
 
   platform::LocalCountryFile localFile(platform::LocalCountryFile::MakeForTesting(WORLD_FILE_NAME));
 
@@ -32,11 +32,12 @@ UNIT_TEST(World_Capitals)
       continue;
 
     bool found = false;
-    ft->ForEachType([&found, capitalType](uint32_t t)
-    {
-      if (t == capitalType)
-        found = true;
-    });
+    ft->ForEachType(
+      [&found, capitalType](uint32_t t)
+      {
+        if (t == capitalType)
+          found = true;
+      });
 
     if (found)
       ++capitalsCount;

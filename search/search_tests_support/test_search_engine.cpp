@@ -15,12 +15,10 @@ namespace tests_support
 using namespace std;
 
 TestSearchEngine::TestSearchEngine(DataSource & dataSource, Engine::Params const & params, bool mockCountryInfo)
-  : m_infoGetter(mockCountryInfo ?
-                   make_unique<storage::CountryInfoGetterForTesting>() :
-                   storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
+  : m_infoGetter(mockCountryInfo ? make_unique<storage::CountryInfoGetterForTesting>()
+                                 : storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
   , m_engine(dataSource, GetDefaultCategories(), *m_infoGetter, params)
-{
-}
+{}
 
 void TestSearchEngine::InitAffiliations()
 {
@@ -29,9 +27,6 @@ void TestSearchEngine::InitAffiliations()
   m_infoGetter->SetAffiliations(&m_affiliations);
 }
 
-weak_ptr<ProcessorHandle> TestSearchEngine::Search(SearchParams const & params)
-{
-  return m_engine.Search(params);
-}
+weak_ptr<ProcessorHandle> TestSearchEngine::Search(SearchParams const & params) { return m_engine.Search(params); }
 }  // namespace tests_support
 }  // namespace search

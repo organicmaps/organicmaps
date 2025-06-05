@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.view.Surface;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
@@ -29,13 +28,13 @@ public class LocationUtils
     double correction = 0;
     switch (displayOrientation)
     {
-      case Surface.ROTATION_0 ->
-      {
-        return angle;
-      }
-      case Surface.ROTATION_90 -> correction = Math.PI / 2.0;
-      case Surface.ROTATION_180 -> correction = Math.PI;
-      case Surface.ROTATION_270 -> correction = (3.0 * Math.PI / 2.0);
+    case Surface.ROTATION_0 ->
+    {
+      return angle;
+    }
+    case Surface.ROTATION_90 -> correction = Math.PI / 2.0;
+    case Surface.ROTATION_180 -> correction = Math.PI;
+    case Surface.ROTATION_270 -> correction = (3.0 * Math.PI / 2.0);
     }
 
     return correctAngle(angle, correction);
@@ -104,7 +103,7 @@ public class LocationUtils
     try
     {
       return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE)
-             != Settings.Secure.LOCATION_MODE_OFF;
+   != Settings.Secure.LOCATION_MODE_OFF;
     }
     catch (Settings.SettingNotFoundException e)
     {

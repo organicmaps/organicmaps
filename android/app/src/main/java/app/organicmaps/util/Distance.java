@@ -1,17 +1,13 @@
 package app.organicmaps.util;
 
 import android.content.Context;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-
 import app.organicmaps.R;
 
 // Used by JNI.
-@Keep
-@SuppressWarnings("unused")
-public final class Distance
+@Keep @SuppressWarnings("unused") public final class Distance
 {
   public static final Distance EMPTY = new Distance(0.0, "", (byte) 0);
 
@@ -26,8 +22,7 @@ public final class Distance
     Feet(R.string.ft),
     Miles(R.string.mi);
 
-    @StringRes
-    public final int mStringRes;
+    @StringRes public final int mStringRes;
 
     Units(@StringRes int stringRes)
     {
@@ -39,8 +34,7 @@ public final class Distance
   private static final char NON_BREAKING_SPACE = '\u00A0';
 
   public final double mDistance;
-  @NonNull
-  public final String mDistanceStr;
+  @NonNull public final String mDistanceStr;
   public final Units mUnits;
 
   public Distance(double distance, @NonNull String distanceStr, byte unitsIndex)
@@ -55,14 +49,12 @@ public final class Distance
     return mDistance >= 0.0;
   }
 
-  @NonNull
-  public String getUnitsStr(@NonNull final Context context)
+  @NonNull public String getUnitsStr(@NonNull final Context context)
   {
     return context.getString(mUnits.mStringRes);
   }
 
-  @NonNull
-  public String toString(@NonNull final Context context)
+  @NonNull public String toString(@NonNull final Context context)
   {
     if (!isValid())
       return "";
@@ -70,9 +62,7 @@ public final class Distance
     return mDistanceStr + NON_BREAKING_SPACE + getUnitsStr(context);
   }
 
-  @NonNull
-  @Override
-  public String toString()
+  @NonNull @Override public String toString()
   {
     if (!isValid())
       return "";

@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.routing;
 
 import androidx.annotation.DrawableRes;
-
 import app.organicmaps.R;
 
 public enum TransitStepType
@@ -15,16 +14,14 @@ public enum TransitStepType
   MONORAIL(R.drawable.ic_20px_route_planning_monorail),
   RULER(R.drawable.ic_ruler_route);
 
-  @DrawableRes
-  private final int mDrawable;
+  @DrawableRes private final int mDrawable;
 
   TransitStepType(@DrawableRes int drawable)
   {
     mDrawable = drawable;
   }
 
-  @DrawableRes
-  public int getDrawable()
+  @DrawableRes public int getDrawable()
   {
     return mDrawable;
   }

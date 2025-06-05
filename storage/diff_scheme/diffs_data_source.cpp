@@ -2,13 +2,11 @@
 
 #include <algorithm>
 
-
 namespace
 {
 bool IsDiffsAvailable(storage::diffs::NameDiffInfoMap const & diffs)
 {
-  return std::any_of(diffs.cbegin(), diffs.cend(),
-                     [](auto const & d) { return d.second.m_isApplied == false; });
+  return std::any_of(diffs.cbegin(), diffs.cend(), [](auto const & d) { return d.second.m_isApplied == false; });
 }
 }  // namespace
 

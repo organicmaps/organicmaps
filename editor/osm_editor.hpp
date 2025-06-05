@@ -7,8 +7,8 @@
 #include "editor/new_feature_categories.hpp"
 #include "editor/xml_feature.hpp"
 
-#include "indexer/editable_map_object.hpp"
 #include "indexer/edit_journal.hpp"
+#include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
@@ -230,8 +230,8 @@ private:
   void ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point) const;
   FeatureID GetFeatureIdByXmlFeature(FeaturesContainer const & features, editor::XMLFeature const & xml,
                                      MwmId const & mwmId, FeatureStatus status, bool needMigrate) const;
-  void LoadMwmEdits(FeaturesContainer & loadedFeatures, pugi::xml_node const & mwm,
-                    MwmId const & mwmId, bool needMigrate);
+  void LoadMwmEdits(FeaturesContainer & loadedFeatures, pugi::xml_node const & mwm, MwmId const & mwmId,
+                    bool needMigrate);
 
   static bool HaveMapEditsToUpload(FeaturesContainer const & features);
 

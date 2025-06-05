@@ -22,7 +22,7 @@ using namespace generator_tests;
 namespace
 {
 auto const kEmptyValidator = [](auto const &) { return true; };
-}
+}  // namespace
 
 UNIT_TEST(MergeCollector_MergeCase1)
 {

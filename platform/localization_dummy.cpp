@@ -1,5 +1,5 @@
-#include "platform/localization.hpp"
 #include <ctime>
+#include "platform/localization.hpp"
 
 namespace platform
 {

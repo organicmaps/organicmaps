@@ -57,40 +57,39 @@ UNIT_TEST(RoadGraph_NearestEdges)
   }
 
   // We are standing at x junction.
-  geometry::PointWithAltitude const crossPos =
-      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0));
+  geometry::PointWithAltitude const crossPos = geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0));
 
   // Expected outgoing edges.
   IRoadGraph::EdgeListT expectedOutgoing = {
-      Edge::MakeReal(MakeTestFeatureID(0) /* first road */, false /* forward */, 1 /* segId */,
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(-1, 0))),
-      Edge::MakeReal(MakeTestFeatureID(0) /* first road */, true /* forward */, 2 /* segId */,
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(1, 0))),
-      Edge::MakeReal(MakeTestFeatureID(1) /* second road */, false /* forward */, 1 /* segId */,
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, -1))),
-      Edge::MakeReal(MakeTestFeatureID(1) /* second road */, true /* forward */, 2 /* segId */,
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 1))),
+    Edge::MakeReal(MakeTestFeatureID(0) /* first road */, false /* forward */, 1 /* segId */,
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(-1, 0))),
+    Edge::MakeReal(MakeTestFeatureID(0) /* first road */, true /* forward */, 2 /* segId */,
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(1, 0))),
+    Edge::MakeReal(MakeTestFeatureID(1) /* second road */, false /* forward */, 1 /* segId */,
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, -1))),
+    Edge::MakeReal(MakeTestFeatureID(1) /* second road */, true /* forward */, 2 /* segId */,
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0)),
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 1))),
   };
   sort(expectedOutgoing.begin(), expectedOutgoing.end());
 
   // Expected ingoing edges.
   IRoadGraph::EdgeListT expectedIngoing = {
-      Edge::MakeReal(MakeTestFeatureID(0) /* first road */, true /* forward */, 1 /* segId */,
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(-1, 0)),
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0))),
-      Edge::MakeReal(MakeTestFeatureID(0) /* first road */, false /* forward */, 2 /* segId */,
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(1, 0)),
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0))),
-      Edge::MakeReal(MakeTestFeatureID(1) /* second road */, true /* forward */, 1 /* segId */,
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, -1)),
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0))),
-      Edge::MakeReal(MakeTestFeatureID(1) /* second road */, false /* forward */, 2 /* segId */,
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 1)),
-                     geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0))),
+    Edge::MakeReal(MakeTestFeatureID(0) /* first road */, true /* forward */, 1 /* segId */,
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(-1, 0)),
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0))),
+    Edge::MakeReal(MakeTestFeatureID(0) /* first road */, false /* forward */, 2 /* segId */,
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(1, 0)),
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0))),
+    Edge::MakeReal(MakeTestFeatureID(1) /* second road */, true /* forward */, 1 /* segId */,
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, -1)),
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0))),
+    Edge::MakeReal(MakeTestFeatureID(1) /* second road */, false /* forward */, 2 /* segId */,
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 1)),
+                   geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0))),
   };
   sort(expectedIngoing.begin(), expectedIngoing.end());
 

@@ -53,7 +53,7 @@ public:
     void Wait()
     {
       std::unique_lock<std::mutex> lock(m_lock);
-      m_signal.wait(lock, [this]{return !m_blocked;} );
+      m_signal.wait(lock, [this] { return !m_blocked; });
     }
 
   private:
@@ -76,10 +76,7 @@ public:
     : m_blocker(blocker)
   {}
 
-  ~BaseBlockingMessage() override
-  {
-    m_blocker.Signal();
-  }
+  ~BaseBlockingMessage() override { m_blocker.Signal(); }
 
 private:
   Blocker & m_blocker;
@@ -107,7 +104,8 @@ public:
 class FinishTileReadMessage : public Message
 {
 public:
-  template<typename T> FinishTileReadMessage(T && tiles, bool forceUpdateUserMarks)
+  template <typename T>
+  FinishTileReadMessage(T && tiles, bool forceUpdateUserMarks)
     : m_tiles(std::forward<T>(tiles))
     , m_forceUpdateUserMarks(forceUpdateUserMarks)
   {}
@@ -126,8 +124,7 @@ private:
 class FlushRenderBucketMessage : public BaseTileMessage
 {
 public:
-  FlushRenderBucketMessage(TileKey const & key, dp::RenderState const & state,
-                           drape_ptr<dp::RenderBucket> && buffer)
+  FlushRenderBucketMessage(TileKey const & key, dp::RenderState const & state, drape_ptr<dp::RenderBucket> && buffer)
     : BaseTileMessage(key)
     , m_state(state)
     , m_buffer(std::move(buffer))
@@ -149,7 +146,9 @@ template <typename RenderDataType, Message::Type MessageType>
 class FlushRenderDataMessage : public Message
 {
 public:
-  explicit FlushRenderDataMessage(RenderDataType && data) : m_data(std::move(data)) {}
+  explicit FlushRenderDataMessage(RenderDataType && data)
+    : m_data(std::move(data))
+  {}
 
   Type GetType() const override { return MessageType; }
   bool IsGraphicsContextDependent() const override { return true; }
@@ -161,14 +160,14 @@ private:
   RenderDataType m_data;
 };
 
-using FlushOverlaysMessage = FlushRenderDataMessage<TOverlaysRenderData,
-                                                    Message::Type::FlushOverlays>;
+using FlushOverlaysMessage = FlushRenderDataMessage<TOverlaysRenderData, Message::Type::FlushOverlays>;
 
 class InvalidateRectMessage : public Message
 {
 public:
   explicit InvalidateRectMessage(m2::RectD const & rect)
-    : m_rect(rect) {}
+    : m_rect(rect)
+  {}
 
   Type GetType() const override { return Type::InvalidateRect; }
 
@@ -228,7 +227,8 @@ class ChangeUserMarkGroupVisibilityMessage : public Message
 public:
   ChangeUserMarkGroupVisibilityMessage(kml::MarkGroupId groupId, bool isVisible)
     : m_groupId(groupId)
-    , m_isVisible(isVisible) {}
+    , m_isVisible(isVisible)
+  {}
 
   Type GetType() const override { return Type::ChangeUserMarkGroupVisibility; }
 
@@ -243,8 +243,7 @@ private:
 class UpdateUserMarksMessage : public Message
 {
 public:
-  UpdateUserMarksMessage(drape_ptr<IDCollections> && justCreatedIds,
-                         drape_ptr<IDCollections> && removedIds,
+  UpdateUserMarksMessage(drape_ptr<IDCollections> && justCreatedIds, drape_ptr<IDCollections> && removedIds,
                          drape_ptr<UserMarksRenderCollection> && marksRenderParams,
                          drape_ptr<UserLinesRenderCollection> && linesRenderParams)
     : m_justCreatedIds(std::move(justCreatedIds))
@@ -270,8 +269,7 @@ private:
 class UpdateUserMarkGroupMessage : public Message
 {
 public:
-  UpdateUserMarkGroupMessage(kml::MarkGroupId groupId,
-                             drape_ptr<IDCollections> && ids)
+  UpdateUserMarkGroupMessage(kml::MarkGroupId groupId, drape_ptr<IDCollections> && ids)
     : m_groupId(groupId)
     , m_ids(std::move(ids))
   {}
@@ -286,8 +284,7 @@ private:
   drape_ptr<IDCollections> m_ids;
 };
 
-using FlushUserMarksMessage = FlushRenderDataMessage<TUserMarksRenderData,
-                                                     Message::Type::FlushUserMarks>;
+using FlushUserMarksMessage = FlushRenderDataMessage<TUserMarksRenderData, Message::Type::FlushUserMarks>;
 
 class InvalidateUserMarksMessage : public Message
 {
@@ -325,7 +322,7 @@ public:
     , m_needResetOldGui(needResetOldGui)
   {}
 
-  Type GetType() const override { return Type::GuiRecache;}
+  Type GetType() const override { return Type::GuiRecache; }
   bool IsGraphicsContextDependent() const override { return true; }
 
   gui::TWidgetsInitInfo const & GetInitInfo() const { return m_initInfo; }
@@ -362,7 +359,7 @@ private:
   gui::TWidgetsLayoutInfo m_layoutInfo;
 };
 
-class UpdateMyPositionRoutingOffsetMessage: public Message
+class UpdateMyPositionRoutingOffsetMessage : public Message
 {
 public:
   UpdateMyPositionRoutingOffsetMessage(bool useDefault, int offsetY)
@@ -405,8 +402,8 @@ private:
 class SetAddNewPlaceModeMessage : public Message
 {
 public:
-  SetAddNewPlaceModeMessage(bool enable, std::vector<m2::TriangleD> && boundArea,
-                            bool enableKineticScroll, m2::PointD const * optionalPosition)
+  SetAddNewPlaceModeMessage(bool enable, std::vector<m2::TriangleD> && boundArea, bool enableKineticScroll,
+                            m2::PointD const * optionalPosition)
     : m_enable(enable)
     , m_boundArea(std::move(boundArea))
     , m_enableKineticScroll(enableKineticScroll)
@@ -460,10 +457,7 @@ public:
 
   drape_ptr<MyPosition> && AcceptShape() { return std::move(m_shape); }
   drape_ptr<SelectionShape> AcceptSelection() { return std::move(m_selection); }
-  Arrow3d::PreloadedData && AcceptPeloadedArrow3dData()
-  {
-    return std::move(m_preloadedArrow3dData);
-  }
+  Arrow3d::PreloadedData && AcceptPeloadedArrow3dData() { return std::move(m_preloadedArrow3dData); }
 
 private:
   drape_ptr<MyPosition> m_shape;
@@ -510,8 +504,7 @@ private:
 class GpsInfoMessage : public Message
 {
 public:
-  GpsInfoMessage(location::GpsInfo const & info, bool isNavigable,
-                 location::RouteMatchingInfo const & routeInfo)
+  GpsInfoMessage(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo)
     : m_info(info)
     , m_isNavigable(isNavigable)
     , m_routeInfo(routeInfo)
@@ -532,7 +525,8 @@ private:
 class SelectObjectMessage : public Message
 {
 public:
-  struct DismissTag {};
+  struct DismissTag
+  {};
 
   explicit SelectObjectMessage(DismissTag)
     : m_selected(SelectionShape::OBJECT_EMPTY)
@@ -594,8 +588,8 @@ private:
   int const m_recacheId;
 };
 
-using BaseFlushSelectionGeometryMessage = FlushRenderDataMessage<drape_ptr<RenderNode>,
-                                                                 Message::Type::FlushSelectionGeometry>;
+using BaseFlushSelectionGeometryMessage =
+  FlushRenderDataMessage<drape_ptr<RenderNode>, Message::Type::FlushSelectionGeometry>;
 class FlushSelectionGeometryMessage : public BaseFlushSelectionGeometryMessage
 {
 public:
@@ -638,8 +632,7 @@ private:
 class PrepareSubrouteArrowsMessage : public Message
 {
 public:
-  PrepareSubrouteArrowsMessage(dp::DrapeID subrouteId,
-                               std::vector<ArrowBorders> && borders)
+  PrepareSubrouteArrowsMessage(dp::DrapeID subrouteId, std::vector<ArrowBorders> && borders)
     : m_subrouteId(subrouteId)
     , m_borders(std::move(borders))
   {}
@@ -656,9 +649,7 @@ private:
 class CacheSubrouteArrowsMessage : public Message
 {
 public:
-  CacheSubrouteArrowsMessage(dp::DrapeID subrouteId,
-                             std::vector<ArrowBorders> const & borders,
-                             int recacheId)
+  CacheSubrouteArrowsMessage(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders, int recacheId)
     : m_subrouteId(subrouteId)
     , m_borders(borders)
     , m_recacheId(recacheId)
@@ -693,18 +684,16 @@ private:
   bool m_deactivateFollowing;
 };
 
-using FlushSubrouteMessage = FlushRenderDataMessage<drape_ptr<SubrouteData>,
-                                                    Message::Type::FlushSubroute>;
-using FlushSubrouteArrowsMessage = FlushRenderDataMessage<drape_ptr<SubrouteArrowsData>,
-                                                          Message::Type::FlushSubrouteArrows>;
-using FlushSubrouteMarkersMessage = FlushRenderDataMessage<drape_ptr<SubrouteMarkersData>,
-                                                           Message::Type::FlushSubrouteMarkers>;
+using FlushSubrouteMessage = FlushRenderDataMessage<drape_ptr<SubrouteData>, Message::Type::FlushSubroute>;
+using FlushSubrouteArrowsMessage =
+  FlushRenderDataMessage<drape_ptr<SubrouteArrowsData>, Message::Type::FlushSubrouteArrows>;
+using FlushSubrouteMarkersMessage =
+  FlushRenderDataMessage<drape_ptr<SubrouteMarkersData>, Message::Type::FlushSubrouteMarkers>;
 
 class AddRoutePreviewSegmentMessage : public Message
 {
 public:
-  AddRoutePreviewSegmentMessage(dp::DrapeID segmentId, m2::PointD const & startPt,
-                                m2::PointD const & finishPt)
+  AddRoutePreviewSegmentMessage(dp::DrapeID segmentId, m2::PointD const & startPt, m2::PointD const & finishPt)
     : m_segmentId(segmentId)
     , m_startPoint(startPt)
     , m_finishPoint(finishPt)
@@ -769,8 +758,7 @@ public:
 class FollowRouteMessage : public Message
 {
 public:
-  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom,
-                     bool isArrowGlued)
+  FollowRouteMessage(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued)
     : m_preferredZoomLevel(preferredZoomLevel)
     , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
     , m_enableAutoZoom(enableAutoZoom)
@@ -833,7 +821,7 @@ public:
     : m_rect(rect)
   {}
 
-  Type GetType() const override { return Type::SetVisibleViewport;  }
+  Type GetType() const override { return Type::SetVisibleViewport; }
 
   m2::RectD const & GetRect() const { return m_rect; }
 
@@ -910,7 +898,6 @@ private:
   int8_t const m_mapLangIndex;
 };
 
-
 class EnablePerspectiveMessage : public Message
 {
 public:
@@ -943,13 +930,12 @@ private:
   Destination m_destination;
 };
 
-using BaseFlushCirclesPackMessage = FlushRenderDataMessage<drape_ptr<CirclesPackRenderData>,
-                                                           Message::Type::FlushCirclesPack>;
+using BaseFlushCirclesPackMessage =
+  FlushRenderDataMessage<drape_ptr<CirclesPackRenderData>, Message::Type::FlushCirclesPack>;
 class FlushCirclesPackMessage : public BaseFlushCirclesPackMessage
 {
 public:
-  FlushCirclesPackMessage(drape_ptr<CirclesPackRenderData> && renderData,
-                          CacheCirclesPackMessage::Destination dest)
+  FlushCirclesPackMessage(drape_ptr<CirclesPackRenderData> && renderData, CacheCirclesPackMessage::Destination dest)
     : BaseFlushCirclesPackMessage(std::move(renderData))
     , m_destination(dest)
   {}
@@ -963,8 +949,7 @@ private:
 class UpdateGpsTrackPointsMessage : public Message
 {
 public:
-  UpdateGpsTrackPointsMessage(std::vector<GpsTrackPoint> && toAdd,
-                              std::vector<uint32_t> && toRemove)
+  UpdateGpsTrackPointsMessage(std::vector<GpsTrackPoint> && toAdd, std::vector<uint32_t> && toRemove)
     : m_pointsToAdd(std::move(toAdd))
     , m_pointsToRemove(std::move(toRemove))
   {}
@@ -1012,8 +997,7 @@ public:
   using Sizes = std::map<std::string, m2::PointF>;
   using RequestSymbolsSizeCallback = std::function<void(Sizes &&)>;
 
-  RequestSymbolsSizeMessage(std::vector<std::string> const & symbols,
-                            RequestSymbolsSizeCallback const & callback)
+  RequestSymbolsSizeMessage(std::vector<std::string> const & symbols, RequestSymbolsSizeCallback const & callback)
     : m_symbols(symbols)
     , m_callback(callback)
   {}
@@ -1105,8 +1089,7 @@ private:
   TrafficSegmentsColoring m_segmentsColoring;
 };
 
-using FlushTrafficDataMessage = FlushRenderDataMessage<TrafficRenderData,
-                                                       Message::Type::FlushTrafficData>;
+using FlushTrafficDataMessage = FlushRenderDataMessage<TrafficRenderData, Message::Type::FlushTrafficData>;
 
 class ClearTrafficDataMessage : public Message
 {
@@ -1210,8 +1193,7 @@ public:
   Type GetType() const override { return Type::RegenerateTransitScheme; }
 };
 
-using FlushTransitSchemeMessage = FlushRenderDataMessage<TransitRenderData,
-                                                         Message::Type::FlushTransitScheme>;
+using FlushTransitSchemeMessage = FlushRenderDataMessage<TransitRenderData, Message::Type::FlushTransitScheme>;
 
 class DrapeApiAddLinesMessage : public Message
 {
@@ -1286,7 +1268,8 @@ class RemoveCustomFeaturesMessage : public Message
 public:
   RemoveCustomFeaturesMessage() = default;
   explicit RemoveCustomFeaturesMessage(MwmSet::MwmId const & mwmId)
-    : m_mwmId(mwmId), m_removeAll(false)
+    : m_mwmId(mwmId)
+    , m_removeAll(false)
   {}
 
   Type GetType() const override { return Type::RemoveCustomFeatures; }
@@ -1455,10 +1438,7 @@ public:
 
   Type GetType() const override { return Type::Arrow3dRecache; }
 
-  std::optional<Arrow3dCustomDecl> const & GetArrow3dCustomDecl() const
-  {
-    return m_arrow3dCustomDecl;
-  }
+  std::optional<Arrow3dCustomDecl> const & GetArrow3dCustomDecl() const { return m_arrow3dCustomDecl; }
 
 private:
   std::optional<Arrow3dCustomDecl> m_arrow3dCustomDecl;

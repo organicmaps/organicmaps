@@ -3,7 +3,7 @@
 #include "drape/color.hpp"
 #include "drape/glyph_manager.hpp"
 #include "drape/pointers.hpp"
-#include "drape/stipple_pen_resource.hpp"   // for PenPatternT
+#include "drape/stipple_pen_resource.hpp"  // for PenPatternT
 #include "drape/texture.hpp"
 
 #include "base/string_utils.hpp"
@@ -46,14 +46,14 @@ public:
   public:
     uint32_t GetTextureIndex() const { return m_textureIndex; }
     void SetTextureIndex(uint32_t index) { m_textureIndex = index; }
+
   private:
     uint32_t m_textureIndex = 0;
   };
 
   // TODO(AB): Remove?
   class GlyphRegion : public BaseRegion
-  {
-  };
+  {};
 
   class StippleRegion : public BaseRegion
   {
@@ -62,8 +62,7 @@ public:
   };
 
   class ColorRegion : public BaseRegion
-  {
-  };
+  {};
 
   struct Params
   {
@@ -72,7 +71,7 @@ public:
     std::string m_colors;
     std::string m_patterns;
     GlyphManager::Params m_glyphMngParams;
-    std::string m_arrowTexturePath; // maybe empty if no custom texture
+    std::string m_arrowTexturePath;  // maybe empty if no custom texture
     bool m_arrowTextureUseDefaultResourceFolder = false;
   };
 
@@ -117,8 +116,7 @@ public:
   ref_ptr<Texture> GetSMAAAreaTexture() const;
   ref_ptr<Texture> GetSMAASearchTexture() const;
 
-  void InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
-                              std::string const & texturePath = {},
+  void InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context, std::string const & texturePath = {},
                               bool useDefaultResourceFolder = false);
   // Apply must be called on FrontendRenderer.
   void ApplyInvalidatedStaticTextures();
@@ -129,7 +127,7 @@ private:
   struct GlyphGroup
   {
     std::set<GlyphFontAndId> m_glyphKeys;
-    ref_ptr<Texture> m_texture {nullptr};
+    ref_ptr<Texture> m_texture{nullptr};
   };
 
   uint32_t m_maxTextureSize;
@@ -142,7 +140,7 @@ private:
 
   static uint32_t GetNumberOfGlyphsNotInGroup(std::vector<text::GlyphMetrics> const & glyphs, GlyphGroup const & group);
 
-  template<typename TGlyphGroup>
+  template <typename TGlyphGroup>
   void FillResultBuffer(strings::UniString const & text, TGlyphGroup & group, TGlyphsBuffer & regions)
   {
     if (group.m_texture == nullptr)
@@ -151,25 +149,25 @@ private:
     GetGlyphsRegions(group.m_texture, text, regions);
   }
 
-  template<typename TGlyphGroup>
+  template <typename TGlyphGroup>
   void FillResults(strings::UniString const & text, TGlyphsBuffer & buffers, TGlyphGroup & group)
   {
     FillResultBuffer<TGlyphGroup>(text, group, buffers);
   }
 
-  template<typename TGlyphGroup>
+  template <typename TGlyphGroup>
   void FillResults(TMultilineText const & text, TMultilineGlyphsBuffer & buffers, TGlyphGroup & group)
   {
-     buffers.resize(text.size());
-     for (size_t i = 0; i < text.size(); ++i)
-     {
-       strings::UniString const & str = text[i];
-       TGlyphsBuffer & buffer = buffers[i];
-       FillResults<TGlyphGroup>(str, buffer, group);
-     }
+    buffers.resize(text.size());
+    for (size_t i = 0; i < text.size(); ++i)
+    {
+      strings::UniString const & str = text[i];
+      TGlyphsBuffer & buffer = buffers[i];
+      FillResults<TGlyphGroup>(str, buffer, group);
+    }
   }
 
-  template<typename TText, typename TBuffer>
+  template <typename TText, typename TBuffer>
   void CalcGlyphRegions(TText const & text, TBuffer & buffers)
   {
     CHECK(m_isInitialized, ());
@@ -208,7 +206,7 @@ private:
   std::vector<drape_ptr<HWTexture>> m_texturesToCleanup;
 
   base::Timer m_uploadTimer;
-  std::atomic_flag m_nothingToUpload {false};
+  std::atomic_flag m_nothingToUpload{false};
   std::mutex m_calcGlyphsMutex;
 
   // TODO(AB): Make a more robust use of BreakIterator to split strings and get rid of this space glyph.

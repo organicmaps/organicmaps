@@ -4,8 +4,7 @@
 
 namespace generator
 {
-TranslatorsPool::TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original,
-                                 size_t threadCount)
+TranslatorsPool::TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original, size_t threadCount)
   : m_threadPool(threadCount)
 {
   CHECK_GREATER_OR_EQUAL(threadCount, 1, ());
@@ -19,13 +18,14 @@ void TranslatorsPool::Emit(std::vector<OsmElement> && elements)
 {
   std::shared_ptr<TranslatorInterface> translator;
   m_translators.WaitAndPop(translator);
-  m_threadPool.SubmitWork([&, translator, elements = std::move(elements)]() mutable
-  {
-    for (auto const & element : elements)
-      translator->Emit(element);
+  m_threadPool.SubmitWork(
+    [&, translator, elements = std::move(elements)]() mutable
+    {
+      for (auto const & element : elements)
+        translator->Emit(element);
 
-    m_translators.Push(translator);
-  });
+      m_translators.Push(translator);
+    });
 }
 
 bool TranslatorsPool::Finish()
@@ -62,14 +62,16 @@ bool TranslatorsPool::Finish()
     state->left = std::move(left);
     state->right = std::move(right);
 
-    queue.Push(pool.Submit([state = std::move(state)]() mutable {
-      auto leftTranslator = state->left.get();
-      auto rigthTranslator = state->right.get();
-      rigthTranslator->Finish();
-      leftTranslator->Finish();
-      leftTranslator->Merge(*rigthTranslator);
-      return leftTranslator;
-    }));
+    queue.Push(pool.Submit(
+      [state = std::move(state)]() mutable
+      {
+        auto leftTranslator = state->left.get();
+        auto rigthTranslator = state->right.get();
+        rigthTranslator->Finish();
+        leftTranslator->Finish();
+        leftTranslator->Merge(*rigthTranslator);
+        return leftTranslator;
+      }));
   }
 
   std::future<TranslatorPtr> translatorFuture;

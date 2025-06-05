@@ -12,10 +12,9 @@
 
 @interface MWMPlacePageOpeningHoursCell : MWMTableViewCell
 
-@property (nonatomic, readonly) BOOL isClosed;
+@property(nonatomic, readonly) BOOL isClosed;
 
-- (void)configWithDelegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate
-                      info:(NSString *)info;
+- (void)configWithDelegate:(id<MWMPlacePageOpeningHoursCellProtocol>)delegate info:(NSString *)info;
 
 - (CGFloat)cellHeight;
 

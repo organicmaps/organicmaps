@@ -4,12 +4,9 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
-
 import androidx.annotation.NonNull;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -38,7 +35,8 @@ public class StringUtils
    * @param fraction a double value, that represents a fraction of a whole
    * @return correct string representation of percent for different locales
    */
-  public static String formatPercent(double fraction) {
+  public static String formatPercent(double fraction)
+  {
     NumberFormat percentFormat = NumberFormat.getPercentInstance();
     percentFormat.setMaximumFractionDigits(2);
     return percentFormat.format(fraction);
@@ -52,12 +50,9 @@ public class StringUtils
   public static native int nativeFormatSpeed(double metersPerSecond);
   public static native Pair<String, String> nativeFormatSpeedAndUnits(double metersPerSecond);
   public static native Distance nativeFormatDistance(double meters);
-  @NonNull
-  public static native Pair<String, String> nativeGetLocalizedDistanceUnits();
-  @NonNull
-  public static native Pair<String, String> nativeGetLocalizedAltitudeUnits();
-  @NonNull
-  public static native String nativeGetLocalizedSpeedUnits();
+  @NonNull public static native Pair<String, String> nativeGetLocalizedDistanceUnits();
+  @NonNull public static native Pair<String, String> nativeGetLocalizedAltitudeUnits();
+  @NonNull public static native String nativeGetLocalizedSpeedUnits();
 
   /**
    * Formats size in bytes to "x MB" or "x.x GB" format.
@@ -72,7 +67,7 @@ public class StringUtils
   {
     if (size < Constants.GB)
     {
-      int value = (int)((float)size / Constants.MB + 0.5f);
+      int value = (int) ((float) size / Constants.MB + 0.5f);
       if (value == 0)
         value = 1;
 
@@ -86,31 +81,27 @@ public class StringUtils
   public static boolean isRtl()
   {
     Locale defLocale = Locale.getDefault();
-    return Character.getDirectionality(defLocale.getDisplayName(defLocale).charAt(0)) == Character.DIRECTIONALITY_RIGHT_TO_LEFT;
+    return Character.getDirectionality(defLocale.getDisplayName(defLocale).charAt(0))
+ == Character.DIRECTIONALITY_RIGHT_TO_LEFT;
   }
 
-  @NonNull
-  public static String toLowerCase(@NonNull String string)
+  @NonNull public static String toLowerCase(@NonNull String string)
   {
     return string.toLowerCase(Locale.getDefault());
   }
 
-  @NonNull
-  public static String toUpperCase(@NonNull String string)
+  @NonNull public static String toUpperCase(@NonNull String string)
   {
     return string.toUpperCase(Locale.getDefault());
   }
 
   public static class SimpleTextWatcher implements TextWatcher
   {
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) { }
+    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
-    @Override
-    public void afterTextChanged(Editable s) { }
+    @Override public void afterTextChanged(Editable s) {}
   }
 
   private StringUtils() {}

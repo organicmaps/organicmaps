@@ -11,10 +11,7 @@
 
 namespace kml
 {
-bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
-{
-  return lhs.EqualDxDy(rhs, kMwmPointAccuracy);
-}
+bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs) { return lhs.EqualDxDy(rhs, kMwmPointAccuracy); }
 
 bool IsEqual(geometry::PointWithAltitude const & lhs, geometry::PointWithAltitude const & rhs)
 {
@@ -52,7 +49,7 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::Reg
     nameMultilang.AddString(pair.first, pair.second);
 
   feature::NameParamsOut out;
-  feature::GetReadableName({ nameMultilang, regionData, languageNorm, false /* allowTranslit */ }, out);
+  feature::GetReadableName({nameMultilang, regionData, languageNorm, false /* allowTranslit */}, out);
   return std::string(out.primary);
 }
 

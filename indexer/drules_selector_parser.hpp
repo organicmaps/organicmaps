@@ -40,7 +40,9 @@ struct SelectorExpression
   std::string m_tag;
   std::string m_value;
 
-  SelectorExpression() : m_operator(SelectorOperatorUnknown) {}
+  SelectorExpression()
+    : m_operator(SelectorOperatorUnknown)
+  {}
 };
 
 bool ParseSelector(std::string const & str, SelectorExpression & e);

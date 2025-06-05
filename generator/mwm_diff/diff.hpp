@@ -22,8 +22,7 @@ enum class DiffApplicationResult
 // result in the mwm at |newMwmPath|. The diff is stored at |diffPath|.
 // It is assumed that the files at |oldMwmPath| and |newMwmPath| are valid mwms.
 // Returns true on success and false on failure.
-bool MakeDiff(std::string const & oldMwmPath, std::string const & newMwmPath,
-              std::string const & diffPath);
+bool MakeDiff(std::string const & oldMwmPath, std::string const & newMwmPath, std::string const & diffPath);
 
 // Applies the diff at |diffPath| to the mwm at |oldMwmPath|. The resulting
 // mwm is stored at |newMwmPath|.
@@ -32,8 +31,7 @@ bool MakeDiff(std::string const & oldMwmPath, std::string const & newMwmPath,
 // The application process can be stopped via |cancellable| in which case
 // it is up to the caller to clean the partially written file at |diffPath|.
 DiffApplicationResult ApplyDiff(std::string const & oldMwmPath, std::string const & newMwmPath,
-                                std::string const & diffPath,
-                                base::Cancellable const & cancellable);
+                                std::string const & diffPath, base::Cancellable const & cancellable);
 
 std::string DebugPrint(DiffApplicationResult const & result);
 }  // namespace mwm_diff

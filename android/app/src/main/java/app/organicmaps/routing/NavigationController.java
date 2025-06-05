@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,8 +29,7 @@ import app.organicmaps.widget.SpeedLimitView;
 import app.organicmaps.widget.menu.NavMenu;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-public class NavigationController implements TrafficManager.TrafficCallback,
-                                             NavMenu.NavMenuListener
+public class NavigationController implements TrafficManager.TrafficCallback, NavMenu.NavMenuListener
 {
   private final View mFrame;
 
@@ -45,10 +43,8 @@ public class NavigationController implements TrafficManager.TrafficCallback,
   private final View mStreetFrame;
   private final TextView mNextStreet;
 
-  @NonNull
-  private final LanesView mLanesView;
-  @NonNull
-  private final SpeedLimitView mSpeedLimit;
+  @NonNull private final LanesView mLanesView;
+  @NonNull private final SpeedLimitView mSpeedLimit;
 
   private final MapButtonsViewModel mMapButtonsViewModel;
 
@@ -57,15 +53,16 @@ public class NavigationController implements TrafficManager.TrafficCallback,
 
   private void addWindowsInsets(@NonNull View topFrame)
   {
-    ViewCompat.setOnApplyWindowInsetsListener(topFrame.findViewById(R.id.nav_next_turn_container), (view, windowInsets) -> {
-      view.setPadding(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left, view.getPaddingTop(),
-                      view.getPaddingEnd(), view.getPaddingBottom());
-      return windowInsets;
-    });
+    ViewCompat.setOnApplyWindowInsetsListener(
+      topFrame.findViewById(R.id.nav_next_turn_container), (view, windowInsets) -> {
+        view.setPadding(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).left, view.getPaddingTop(),
+          view.getPaddingEnd(), view.getPaddingBottom());
+        return windowInsets;
+      });
   }
 
   public NavigationController(AppCompatActivity activity, View.OnClickListener onSettingsClickListener,
-                              NavMenu.OnMenuSizeChangedListener onMenuSizeChangedListener)
+    NavMenu.OnMenuSizeChangedListener onMenuSizeChangedListener)
   {
     mMapButtonsViewModel = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
 
@@ -99,9 +96,8 @@ public class NavigationController implements TrafficManager.TrafficCallback,
       UiUtils.setViewInsetsPaddingNoBottom(v, windowInsets);
 
       final Insets safeDrawingInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-      nextTurnContainer.setPadding(
-          safeDrawingInsets.left, nextTurnContainer.getPaddingTop(),
-          nextTurnContainer.getPaddingEnd(), nextTurnContainer.getPaddingBottom());
+      nextTurnContainer.setPadding(safeDrawingInsets.left, nextTurnContainer.getPaddingTop(),
+        nextTurnContainer.getPaddingEnd(), nextTurnContainer.getPaddingBottom());
       navigationBarBackground.getLayoutParams().height = safeDrawingInsets.bottom;
       // The gesture navigation bar stays at the bottom in landscape
       // We need to add a background only above the nav menu
@@ -199,62 +195,52 @@ public class NavigationController implements TrafficManager.TrafficCallback,
     mNavMenu.refreshTts();
   }
 
-  @Override
-  public void onEnabled()
+  @Override public void onEnabled()
   {
     // mNavMenu.refreshTraffic();
   }
 
-  @Override
-  public void onDisabled()
+  @Override public void onDisabled()
   {
     // mNavMenu.refreshTraffic();
   }
 
-  @Override
-  public void onWaitingData()
+  @Override public void onWaitingData()
   {
     // no op
   }
 
-  @Override
-  public void onOutdated()
+  @Override public void onOutdated()
   {
     // no op
   }
 
-  @Override
-  public void onNoData()
+  @Override public void onNoData()
   {
     // no op
   }
 
-  @Override
-  public void onNetworkError()
+  @Override public void onNetworkError()
   {
     // no op
   }
 
-  @Override
-  public void onExpiredData()
+  @Override public void onExpiredData()
   {
     // no op
   }
 
-  @Override
-  public void onExpiredApp()
+  @Override public void onExpiredApp()
   {
     // no op
   }
 
-  @Override
-  public void onSettingsClicked()
+  @Override public void onSettingsClicked()
   {
     mOnSettingsClickListener.onClick(null);
   }
 
-  @Override
-  public void onStopClicked()
+  @Override public void onStopClicked()
   {
     RoutingController.get().cancel();
   }
@@ -262,7 +248,8 @@ public class NavigationController implements TrafficManager.TrafficCallback,
   private void updateSpeedLimit(@NonNull final RoutingInfo info)
   {
     final Location location = LocationHelper.from(mFrame.getContext()).getSavedLocation();
-    if (location == null) {
+    if (location == null)
+    {
       mSpeedLimit.setSpeedLimit(0, false);
       return;
     }

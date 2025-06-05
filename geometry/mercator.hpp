@@ -24,10 +24,7 @@ struct Bounds
   static double constexpr kDegreesInMeter = 360.0 / 40008245.0;
   static double constexpr kMetersInDegree = 40008245.0 / 360.0;
 
-  static m2::RectD FullRect()
-  {
-    return m2::RectD(kMinX, kMinY, kMaxX, kMaxY);
-  }
+  static m2::RectD FullRect() { return m2::RectD(kMinX, kMinY, kMaxX, kMaxY); }
 };
 
 inline bool ValidLon(double d) { return base::Between(-180.0, 180.0, d); }

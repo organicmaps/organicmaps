@@ -19,7 +19,10 @@ bool IsAltModifier(QMouseEvent const * const e);
 struct Hotkey
 {
   Hotkey() = default;
-  Hotkey(QKeySequence const & key, char const * slot) : m_key(key), m_slot(slot) {}
+  Hotkey(QKeySequence const & key, char const * slot)
+    : m_key(key)
+    , m_slot(slot)
+  {}
 
   QKeySequence m_key = 0;
   char const * m_slot = nullptr;
@@ -28,4 +31,4 @@ struct Hotkey
 location::GpsInfo MakeGpsInfo(m2::PointD const & point);
 
 void SetDefaultSurfaceFormat(QString const & platformName);
-} // namespace qt::common
+}  // namespace qt::common

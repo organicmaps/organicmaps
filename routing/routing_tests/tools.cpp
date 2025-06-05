@@ -11,8 +11,8 @@ void AsyncGuiThreadTestWithRoutingSession::InitRoutingSession()
 }
 
 void RouteSegmentsFrom(std::vector<Segment> const & segments, std::vector<m2::PointD> const & path,
-                       std::vector<turns::TurnItem> const & turns, std::vector<RouteSegment::RoadNameInfo> const & names,
-                       std::vector<RouteSegment> & routeSegments)
+                       std::vector<turns::TurnItem> const & turns,
+                       std::vector<RouteSegment::RoadNameInfo> const & names, std::vector<RouteSegment> & routeSegments)
 {
   size_t size = segments.size();
   if (size == 0)
@@ -31,7 +31,7 @@ void RouteSegmentsFrom(std::vector<Segment> const & segments, std::vector<m2::Po
   {
     geometry::PointWithAltitude point;
     if (path.size() > 0)
-      point = geometry::PointWithAltitude(path[i+1], geometry::kDefaultAltitudeMeters);
+      point = geometry::PointWithAltitude(path[i + 1], geometry::kDefaultAltitudeMeters);
     Segment segment({0, 0, 0, true});
     if (segments.size() > 0)
       segment = segments[i];

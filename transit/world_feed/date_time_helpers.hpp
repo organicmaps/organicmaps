@@ -27,8 +27,7 @@ struct WeekdaysInterval
 };
 
 // Calculates open/closed intervals for |week|.
-std::vector<WeekdaysInterval> GetOpenCloseIntervals(
-    std::vector<gtfs::CalendarAvailability> const & week);
+std::vector<WeekdaysInterval> GetOpenCloseIntervals(std::vector<gtfs::CalendarAvailability> const & week);
 
 // Sets start or end |date| for |range|.
 void SetOpeningHoursRange(osmoh::MonthdayRange & range, gtfs::Date const & date, bool isStart);
@@ -37,8 +36,7 @@ void SetOpeningHoursRange(osmoh::MonthdayRange & range, gtfs::Date const & date,
 void GetServiceDaysOsmoh(gtfs::CalendarItem const & serviceDays, osmoh::TRuleSequences & rules);
 
 // Extracts open/closed exception service days ranges from |exceptionDays| to |rules|.
-void GetServiceDaysExceptionsOsmoh(gtfs::CalendarDates const & exceptionDays,
-                                   osmoh::TRuleSequences & rules);
+void GetServiceDaysExceptionsOsmoh(gtfs::CalendarDates const & exceptionDays, osmoh::TRuleSequences & rules);
 
 // Adds |srcRules| to |dstRules| if they are not present.
 void MergeRules(osmoh::TRuleSequences & dstRules, osmoh::TRuleSequences const & srcRules);

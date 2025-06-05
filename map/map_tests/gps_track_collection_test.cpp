@@ -45,16 +45,17 @@ UNIT_TEST(GpsTrackCollection_Simple)
 
   TEST_EQUAL(50, collection.GetSize(), ());
 
-  collection.ForEach([&data](location::GpsInfo const & info, size_t id)->bool
-  {
-    TEST(data.end() != data.find(id), ());
-    location::GpsInfo const & originInfo = data[id];
-    TEST_EQUAL(info.m_latitude, originInfo.m_latitude, ());
-    TEST_EQUAL(info.m_longitude, originInfo.m_longitude, ());
-    TEST_EQUAL(info.m_speed, originInfo.m_speed, ());
-    TEST_EQUAL(info.m_timestamp, originInfo.m_timestamp, ());
-    return true;
-  });
+  collection.ForEach(
+    [&data](location::GpsInfo const & info, size_t id) -> bool
+    {
+      TEST(data.end() != data.find(id), ());
+      location::GpsInfo const & originInfo = data[id];
+      TEST_EQUAL(info.m_latitude, originInfo.m_latitude, ());
+      TEST_EQUAL(info.m_longitude, originInfo.m_longitude, ());
+      TEST_EQUAL(info.m_speed, originInfo.m_speed, ());
+      TEST_EQUAL(info.m_timestamp, originInfo.m_timestamp, ());
+      return true;
+    });
 
   auto res = collection.Clear();
   TEST_EQUAL(res.first, 0, ());

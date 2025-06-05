@@ -2,25 +2,19 @@ package app.organicmaps.sdk.routing;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 // Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public final class RoutePointInfo implements Parcelable
+@Keep @SuppressWarnings("unused") public final class RoutePointInfo implements Parcelable
 {
-  public static final Creator<RoutePointInfo> CREATOR = new Creator<>()
-  {
-    @Override
-    public RoutePointInfo createFromParcel(Parcel in)
+  public static final Creator<RoutePointInfo> CREATOR = new Creator<>() {
+    @Override public RoutePointInfo createFromParcel(Parcel in)
     {
       return new RoutePointInfo(in);
     }
 
-    @Override
-    public RoutePointInfo[] newArray(int size)
+    @Override public RoutePointInfo[] newArray(int size)
     {
       return new RoutePointInfo[size];
     }
@@ -31,15 +25,14 @@ public final class RoutePointInfo implements Parcelable
   public final int mIntermediateIndex;
 
   // Called from JNI.
-  @Keep
-  public RoutePointInfo(int markType, int intermediateIndex)
+  @Keep public RoutePointInfo(int markType, int intermediateIndex)
   {
     switch (markType)
     {
-      case 0: mMarkType = RouteMarkType.Start; break;
-      case 1: mMarkType = RouteMarkType.Intermediate; break;
-      case 2: mMarkType = RouteMarkType.Finish; break;
-      default: throw new IllegalArgumentException("Mark type is not valid = " + markType);
+    case 0: mMarkType = RouteMarkType.Start; break;
+    case 1: mMarkType = RouteMarkType.Intermediate; break;
+    case 2: mMarkType = RouteMarkType.Finish; break;
+    default: throw new IllegalArgumentException("Mark type is not valid = " + markType);
     }
 
     mIntermediateIndex = intermediateIndex;
@@ -53,7 +46,7 @@ public final class RoutePointInfo implements Parcelable
 
   private RoutePointInfo(@NonNull Parcel in)
   {
-    //noinspection WrongConstant
+    // noinspection WrongConstant
     this(RouteMarkType.values()[in.readInt()] /* mMarkType */, in.readInt() /* mIntermediateIndex */);
   }
 
@@ -72,14 +65,12 @@ public final class RoutePointInfo implements Parcelable
     return mMarkType == RouteMarkType.Start;
   }
 
-  @Override
-  public int describeContents()
+  @Override public int describeContents()
   {
     return 0;
   }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags)
+  @Override public void writeToParcel(Parcel dest, int flags)
   {
     dest.writeInt(mMarkType.ordinal());
     dest.writeInt(mIntermediateIndex);

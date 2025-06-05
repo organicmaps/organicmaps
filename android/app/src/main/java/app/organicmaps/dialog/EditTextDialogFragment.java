@@ -10,21 +10,19 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.StringUtils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class EditTextDialogFragment extends BaseMwmDialogFragment
 {
@@ -37,8 +35,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   private static final int NO_LIMITED_TEXT_LENGTH = -1;
 
   private String mTitle;
-  @Nullable
-  private String mInitialText;
+  @Nullable private String mInitialText;
   private String mHint;
   private TextInputEditText mEtInput;
   private TextInputLayout mEtInputLayout;
@@ -55,27 +52,26 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   // Interface of dialog input validator.
   public interface Validator
   {
-    @Nullable
-    String validate(@NonNull Activity activity, @Nullable String text);
+    @Nullable String validate(@NonNull Activity activity, @Nullable String text);
   }
 
   public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText,
-                          @Nullable String positiveBtn, @Nullable String negativeBtn,
-                          @NonNull Fragment parent, @Nullable Validator inputValidator)
+    @Nullable String positiveBtn, @Nullable String negativeBtn, @NonNull Fragment parent,
+    @Nullable Validator inputValidator)
   {
     return show(title, initialText, "", positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent, inputValidator);
   }
 
   public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText, @Nullable String hint,
-                          @Nullable String positiveBtn, @Nullable String negativeBtn,
-                          @NonNull Fragment parent, @Nullable Validator inputValidator)
+    @Nullable String positiveBtn, @Nullable String negativeBtn, @NonNull Fragment parent,
+    @Nullable Validator inputValidator)
   {
     return show(title, initialText, hint, positiveBtn, negativeBtn, NO_LIMITED_TEXT_LENGTH, parent, inputValidator);
   }
 
   public static EditTextDialogFragment show(@Nullable String title, @Nullable String initialText, @Nullable String hint,
-                          @Nullable String positiveBtn, @Nullable String negativeBtn, int textLimit,
-                          @NonNull Fragment parent, @Nullable Validator inputValidator)
+    @Nullable String positiveBtn, @Nullable String negativeBtn, int textLimit, @NonNull Fragment parent,
+    @Nullable Validator inputValidator)
   {
     final Bundle args = new Bundle();
     args.putString(ARG_TITLE, title);
@@ -85,8 +81,8 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     args.putString(ARG_HINT, hint);
     args.putInt(ARG_TEXT_LENGTH_LIMIT, textLimit);
     FragmentManager fragmentManager = parent.getChildFragmentManager();
-    final EditTextDialogFragment fragment = (EditTextDialogFragment) fragmentManager.getFragmentFactory()
-      .instantiate(parent.requireActivity().getClassLoader(), EditTextDialogFragment.class.getName());
+    final EditTextDialogFragment fragment = (EditTextDialogFragment) fragmentManager.getFragmentFactory().instantiate(
+      parent.requireActivity().getClassLoader(), EditTextDialogFragment.class.getName());
     fragment.setArguments(args);
     fragment.show(fragmentManager, EditTextDialogFragment.class.getName());
     fragment.mInputValidator = inputValidator;
@@ -99,9 +95,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     mTextSaveListener = textSaveListener;
   }
 
-  @NonNull
-  @Override
-  public Dialog onCreateDialog(Bundle savedInstanceState)
+  @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     final Bundle args = getArguments();
     String positiveButtonText = getString(R.string.ok);
@@ -117,13 +111,15 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     }
 
     AlertDialog editTextDialog = new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setView(buildView())
-        .setNegativeButton(negativeButtonText, null)
-        .setPositiveButton(positiveButtonText, (dialog, which) -> {
-          final String result = mEtInput.getText().toString();
-          processInput(result);
-          dismiss();
-        }).create();
+                                   .setView(buildView())
+                                   .setNegativeButton(negativeButtonText, null)
+                                   .setPositiveButton(positiveButtonText,
+                                     (dialog, which) -> {
+                                       final String result = mEtInput.getText().toString();
+                                       processInput(result);
+                                       dismiss();
+                                     })
+                                   .create();
 
     // Wait till alert is shown to get mPositiveButton.
     editTextDialog.setOnShowListener((dialog) -> {
@@ -135,10 +131,8 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     });
 
     // Setup validation on input edit.
-    mEtInput.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-    {
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count)
+    mEtInput.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
+      @Override public void onTextChanged(CharSequence s, int start, int before, int count)
       {
         final FragmentActivity activity = getActivity();
         if (activity == null)
@@ -173,7 +167,8 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
 
   private View buildView()
   {
-    @SuppressLint("InflateParams") final View root = requireActivity().getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
+    @SuppressLint("InflateParams")
+    final View root = requireActivity().getLayoutInflater().inflate(R.layout.dialog_edit_text, null);
     mEtInputLayout = root.findViewById(R.id.et__input_layout);
     mEtInput = mEtInputLayout.findViewById(R.id.et__input);
     mEtInput.setHint(TextUtils.isEmpty(mHint) ? getString(R.string.name) : mHint);

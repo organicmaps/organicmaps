@@ -7,16 +7,14 @@
 
 namespace df
 {
-RouteBuilder::RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn,
-                           FlushMarkersFn && flushMarkersFn)
+RouteBuilder::RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn, FlushMarkersFn && flushMarkersFn)
   : m_flushFn(std::move(flushFn))
   , m_flushArrowsFn(std::move(flushArrowsFn))
   , m_flushMarkersFn(std::move(flushMarkersFn))
 {}
 
-void RouteBuilder::Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId,
-                         SubrouteConstPtr subroute, ref_ptr<dp::TextureManager> textures,
-                         int recacheId)
+void RouteBuilder::Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId, SubrouteConstPtr subroute,
+                         ref_ptr<dp::TextureManager> textures, int recacheId)
 {
   RouteCacheData cacheData;
   cacheData.m_polyline = subroute->m_polyline;
@@ -29,8 +27,7 @@ void RouteBuilder::Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subro
   ASSERT(!subroute->m_style.empty(), ());
   for (size_t styleIndex = 0; styleIndex < subroute->m_style.size(); ++styleIndex)
   {
-    subrouteData.push_back(RouteShape::CacheRoute(context, subrouteId, subroute,
-                                                  styleIndex, recacheId, textures));
+    subrouteData.push_back(RouteShape::CacheRoute(context, subrouteId, subroute, styleIndex, recacheId, textures));
   }
 
   auto markersData = RouteShape::CacheMarkers(context, subrouteId, subroute, recacheId, textures);
@@ -49,10 +46,7 @@ void RouteBuilder::Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subro
     m_flushMarkersFn(std::move(markersData));
 }
 
-void RouteBuilder::ClearRouteCache()
-{
-  m_routeCache.clear();
-}
+void RouteBuilder::ClearRouteCache() { m_routeCache.clear(); }
 
 void RouteBuilder::BuildArrows(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId,
                                std::vector<ArrowBorders> const & borders, ref_ptr<dp::TextureManager> textures,
@@ -66,8 +60,8 @@ void RouteBuilder::BuildArrows(ref_ptr<dp::GraphicsContext> context, dp::DrapeID
   routeArrowsData->m_subrouteId = subrouteId;
   routeArrowsData->m_pivot = it->second.m_polyline.GetLimitRect().Center();
   routeArrowsData->m_recacheId = recacheId;
-  RouteShape::CacheRouteArrows(context, textures, it->second.m_polyline, borders,
-                               it->second.m_baseDepthIndex, *routeArrowsData.get());
+  RouteShape::CacheRouteArrows(context, textures, it->second.m_polyline, borders, it->second.m_baseDepthIndex,
+                               *routeArrowsData.get());
 
   // Flush route arrows geometry.
   context->Flush();

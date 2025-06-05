@@ -44,9 +44,7 @@ search_base::MemTextIndex BuildMemTextIndex(vector<string> const & docsCollectio
   for (size_t docId = 0; docId < docsCollection.size(); ++docId)
   {
     strings::Tokenize(docsCollection[docId], " ", [&memIndex, docId](std::string_view tok)
-    {
-      memIndex.AddPosting(std::string(tok), static_cast<uint32_t>(docId));
-    });
+                      { memIndex.AddPosting(std::string(tok), static_cast<uint32_t>(docId)); });
   }
 
   return memIndex;
@@ -79,8 +77,8 @@ void TestForEach(Index const & index, Token const & token, vector<uint32_t> cons
 UNIT_TEST(TextIndex_Smoke)
 {
   vector<search_base::Token> const docsCollection = {
-      "a b c",
-      "a c",
+    "a b c",
+    "a c",
   };
 
   auto memIndex = BuildMemTextIndex(docsCollection);
@@ -113,20 +111,19 @@ UNIT_TEST(TextIndex_Smoke)
 UNIT_TEST(TextIndex_UniString)
 {
   vector<std::string> const docsCollectionUtf8s = {
-      "â b ç",
-      "â ç",
+    "â b ç",
+    "â ç",
   };
   vector<strings::UniString> const docsCollection(
-      make_transform_iterator(docsCollectionUtf8s.begin(), &strings::MakeUniString),
-      make_transform_iterator(docsCollectionUtf8s.end(), &strings::MakeUniString));
+    make_transform_iterator(docsCollectionUtf8s.begin(), &strings::MakeUniString),
+    make_transform_iterator(docsCollectionUtf8s.end(), &strings::MakeUniString));
 
   MemTextIndex memIndex;
 
   for (size_t docId = 0; docId < docsCollection.size(); ++docId)
   {
-    auto addToIndex = [&](strings::UniString const & token) {
-      memIndex.AddPosting(strings::ToUtf8(token), static_cast<uint32_t>(docId));
-    };
+    auto addToIndex = [&](strings::UniString const & token)
+    { memIndex.AddPosting(strings::ToUtf8(token), static_cast<uint32_t>(docId)); };
     auto delims = [](strings::UniChar const & c) { return c == ' '; };
     SplitUniString(docsCollection[docId], addToIndex, delims);
   }
@@ -148,14 +145,14 @@ UNIT_TEST(TextIndex_Merging)
 {
   // todo(@m) Arrays? docsCollection[i]
   vector<search_base::Token> const docsCollection1 = {
-      "a b c",
-      "",
-      "d",
+    "a b c",
+    "",
+    "d",
   };
   vector<search_base::Token> const docsCollection2 = {
-      "",
-      "a c",
-      "e",
+    "",
+    "a c",
+    "e",
   };
 
   auto memIndex1 = BuildMemTextIndex(docsCollection1);

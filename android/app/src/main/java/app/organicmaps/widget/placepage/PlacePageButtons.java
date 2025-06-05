@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +18,6 @@ import app.organicmaps.R;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,18 +32,19 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(
+    @NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.pp_buttons_fragment, container, false);
   }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     mButtonsContainer = view.findViewById(R.id.container);
-    final PaddingInsetsListener insetsListener = new PaddingInsetsListener.Builder()
+    final PaddingInsetsListener insetsListener =
+      new PaddingInsetsListener.Builder()
         .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
         .setExcludeTop()
         .build();
@@ -58,22 +57,19 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     createButtons(mViewModel.getCurrentButtons().getValue());
   }
 
-  @Override
-  public void onStart()
+  @Override public void onStart()
   {
     super.onStart();
     mViewModel.getCurrentButtons().observe(requireActivity(), this);
   }
 
-  @Override
-  public void onStop()
+  @Override public void onStop()
   {
     super.onStop();
     mViewModel.getCurrentButtons().removeObserver(this);
   }
 
-  private @NonNull
-  List<PlacePageButton> collectButtons(List<PlacePageButtons.ButtonType> items)
+  private @NonNull List<PlacePageButton> collectButtons(List<PlacePageButtons.ButtonType> items)
   {
     List<PlacePageButton> res = new ArrayList<>();
     int count = items.size();
@@ -91,7 +87,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   private void showMoreBottomSheet()
   {
     MenuBottomSheetFragment.newInstance(PLACEPAGE_MORE_MENU_ID)
-                           .show(getParentFragmentManager(), PLACEPAGE_MORE_MENU_ID);
+      .show(getParentFragmentManager(), PLACEPAGE_MORE_MENU_ID);
   }
 
   private void createButtons(@Nullable List<ButtonType> buttons)
@@ -113,9 +109,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     TextView title = parent.findViewById(R.id.title);
 
     title.setText(current.getTitle());
-    @AttrRes final int tint = current.getType() == ButtonType.BOOKMARK_DELETE
-                              ? R.attr.iconTintActive
-                              : R.attr.iconTint;
+    @AttrRes final int tint = current.getType() == ButtonType.BOOKMARK_DELETE ? R.attr.iconTintActive : R.attr.iconTint;
     icon.setImageDrawable(Graphics.tint(getContext(), current.getIcon(), tint));
     parent.setOnClickListener((view) -> {
       if (current.getType() == ButtonType.MORE)
@@ -126,8 +120,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     return parent;
   }
 
-  @Override
-  public void onChanged(List<ButtonType> buttonTypes)
+  @Override public void onChanged(List<ButtonType> buttonTypes)
   {
     createButtons(buttonTypes);
   }

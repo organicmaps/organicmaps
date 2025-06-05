@@ -54,7 +54,8 @@ void SetVerticalStretch(QWidget & widget, int stretch)
 }  // namespace
 
 SampleView::SampleView(QWidget * parent, Framework & framework)
-  : QWidget(parent), m_framework(framework)
+  : QWidget(parent)
+  , m_framework(framework)
 {
   m_framework.GetBookmarkManager().GetEditSession().SetIsVisible(UserMark::Type::SEARCH, true);
   m_framework.GetBookmarkManager().GetEditSession().SetIsVisible(UserMark::Type::COLORED, true);
@@ -96,8 +97,7 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   }
 
   {
-    auto * layout =
-        BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_relatedQueriesBox);
+    auto * layout = BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_relatedQueriesBox);
     SetVerticalStretch(*m_relatedQueriesBox, 1 /* stretch */);
 
     layout->addWidget(new QLabel(tr("Related queries")));
@@ -110,13 +110,11 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
     auto * layout = BuildSubLayout<QHBoxLayout>(*mainLayout, *this /* parent */);
 
     m_markAllAsRelevant = new QPushButton(tr("Mark all as Relevant"), this /* parent */);
-    connect(m_markAllAsRelevant, &QPushButton::clicked,
-            [this]() { emit OnMarkAllAsRelevantClicked(); });
+    connect(m_markAllAsRelevant, &QPushButton::clicked, [this]() { emit OnMarkAllAsRelevantClicked(); });
     layout->addWidget(m_markAllAsRelevant);
 
     m_markAllAsIrrelevant = new QPushButton(tr("Mark all as Irrelevant"), this /* parent */);
-    connect(m_markAllAsIrrelevant, &QPushButton::clicked,
-            [this]() { emit OnMarkAllAsIrrelevantClicked(); });
+    connect(m_markAllAsIrrelevant, &QPushButton::clicked, [this]() { emit OnMarkAllAsIrrelevantClicked(); });
     layout->addWidget(m_markAllAsIrrelevant);
   }
 
@@ -128,8 +126,7 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   }
 
   {
-    auto * layout =
-        BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_foundResultsBox);
+    auto * layout = BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_foundResultsBox);
     SetVerticalStretch(*m_foundResultsBox, 4 /* stretch */);
 
     {
@@ -145,29 +142,30 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   }
 
   {
-    auto * layout =
-        BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_nonFoundResultsBox);
+    auto * layout = BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_nonFoundResultsBox);
     SetVerticalStretch(*m_nonFoundResultsBox, 2 /* stretch */);
 
     layout->addWidget(new QLabel(tr("Non found results")));
 
     m_nonFoundResults = new ResultsView(*this /* parent */);
     m_nonFoundResults->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_nonFoundResults, &ResultsView::customContextMenuRequested, [&](QPoint pos) {
-      pos = m_nonFoundResults->mapToGlobal(pos);
+    connect(m_nonFoundResults, &ResultsView::customContextMenuRequested,
+            [&](QPoint pos)
+            {
+              pos = m_nonFoundResults->mapToGlobal(pos);
 
-      auto const items = m_nonFoundResults->selectedItems();
-      for (auto const * item : items)
-      {
-        int const row = m_nonFoundResults->row(item);
+              auto const items = m_nonFoundResults->selectedItems();
+              for (auto const * item : items)
+              {
+                int const row = m_nonFoundResults->row(item);
 
-        QMenu menu;
-        auto const * action = menu.addAction("Remove result");
-        connect(action, &QAction::triggered, [this, row]() { OnRemoveNonFoundResult(row); });
+                QMenu menu;
+                auto const * action = menu.addAction("Remove result");
+                connect(action, &QAction::triggered, [this, row]() { OnRemoveNonFoundResult(row); });
 
-        menu.exec(pos);
-      }
-    });
+                menu.exec(pos);
+              }
+            });
     layout->addWidget(m_nonFoundResults);
   }
 
@@ -176,8 +174,7 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   Clear();
 }
 
-void SampleView::SetContents(search::Sample const & sample,
-                             std::optional<m2::PointD> const & position)
+void SampleView::SetContents(search::Sample const & sample, std::optional<m2::PointD> const & position)
 {
   if (!sample.m_query.empty())
   {
@@ -305,8 +302,7 @@ void SampleView::ClearAllResults()
   ClearSearchResultMarks();
 }
 
-void SampleView::SetResultsEdits(ResultsEdits & resultsResultsEdits,
-                                 ResultsEdits & nonFoundResultsEdits)
+void SampleView::SetResultsEdits(ResultsEdits & resultsResultsEdits, ResultsEdits & nonFoundResultsEdits)
 {
   SetResultsEdits(*m_foundResults, resultsResultsEdits);
   SetResultsEdits(*m_nonFoundResults, nonFoundResultsEdits);

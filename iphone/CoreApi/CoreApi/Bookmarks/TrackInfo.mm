@@ -1,15 +1,17 @@
-#import "TrackInfo+Core.h"
 #import "AltitudeFormatter.h"
 #import "DistanceFormatter.h"
 #import "DurationFormatter.h"
+#import "TrackInfo+Core.h"
 
 @implementation TrackInfo
 
-- (BOOL)hasElevationInfo {
+- (BOOL)hasElevationInfo
+{
   return _ascent != 0 || _descent != 0 || _maxElevation != 0 || _minElevation != 0;
 }
 
-+ (TrackInfo *)emptyInfo {
++ (TrackInfo *)emptyInfo
+{
   return [[TrackInfo alloc] init];
 }
 
@@ -17,8 +19,10 @@
 
 @implementation TrackInfo (Core)
 
-- (instancetype)initWithTrackStatistics:(TrackStatistics const &)statistics {
-  if (self = [super init]) {
+- (instancetype)initWithTrackStatistics:(TrackStatistics const &)statistics
+{
+  if (self = [super init])
+  {
     _distance = statistics.m_length;
     _duration = statistics.m_duration;
     _ascent = statistics.m_ascent;

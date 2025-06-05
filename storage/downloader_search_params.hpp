@@ -11,9 +11,9 @@ namespace storage
 struct DownloaderSearchResult
 {
   DownloaderSearchResult(CountryId const & countryId, std::string const & matchedName)
-    : m_countryId(countryId), m_matchedName(matchedName)
-  {
-  }
+    : m_countryId(countryId)
+    , m_matchedName(matchedName)
+  {}
 
   bool operator==(DownloaderSearchResult const & rhs) const
   {
@@ -33,7 +33,9 @@ struct DownloaderSearchResult
 
 struct DownloaderSearchResults
 {
-  DownloaderSearchResults() : m_endMarker(false) {}
+  DownloaderSearchResults()
+    : m_endMarker(false)
+  {}
 
   std::vector<DownloaderSearchResult> m_results;
   std::string m_query;

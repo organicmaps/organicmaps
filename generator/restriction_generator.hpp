@@ -11,8 +11,7 @@ namespace routing_builder
 std::unique_ptr<routing::IndexGraph> CreateIndexGraph(std::string const & mwmPath, std::string const & country,
                                                       CountryParentNameGetterFn const & countryParentNameGetterFn);
 
-void SerializeRestrictions(RestrictionCollector & restrictionCollector,
-                           std::string const & mwmPath);
+void SerializeRestrictions(RestrictionCollector & restrictionCollector, std::string const & mwmPath);
 // This function is the generator tool's interface to building the mwm
 // section which contains road restrictions. (See https://wiki.openstreetmap.org/wiki/Restriction)
 // As long as the restrictions are built later than the road features themselves
@@ -38,8 +37,6 @@ void SerializeRestrictions(RestrictionCollector & restrictionCollector,
 /// \param osmIdsToFeatureIdsPath a binary file with mapping form osm ids to feature ids.
 /// One osm id is mapped to one feature id. The file should be saved with the help of
 /// OsmID2FeatureID class or using a similar way.
-bool BuildRoadRestrictions(routing::IndexGraph & graph,
-                           std::string const & mwmPath,
-                           std::string const & restrictionPath,
-                           std::string const & osmIdsToFeatureIdsPath);
+bool BuildRoadRestrictions(routing::IndexGraph & graph, std::string const & mwmPath,
+                           std::string const & restrictionPath, std::string const & osmIdsToFeatureIdsPath);
 }  // namespace routing_builder

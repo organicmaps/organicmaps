@@ -6,20 +6,19 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
+#include "platform/distance.hpp"
+#include "platform/duration.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"
-#include "platform/utm_mgrs_utils.hpp"
-#include "platform/distance.hpp"
-#include "platform/duration.hpp"
 #include "platform/settings.hpp"
+#include "platform/utm_mgrs_utils.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 
 #include "3party/open-location-code/openlocationcode.h"
-
 
 namespace place_page
 {
@@ -44,8 +43,8 @@ void Info::SetFromFeatureType(FeatureType & ft)
   auto const mwmInfo = GetID().m_mwmId.GetInfo();
   if (mwmInfo)
   {
-    feature::GetPreferredNames({ m_name, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(),
-                               true /* allowTranslit */} , out);
+    feature::GetPreferredNames(
+      {m_name, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(), true /* allowTranslit */}, out);
   }
 
   bool emptyTitle = false;
@@ -81,7 +80,7 @@ void Info::SetFromFeatureType(FeatureType & ft)
       emptyTitle = m_address.empty();
       if (!emptyTitle)
         m_uiTitle = m_address;
-      m_uiAddress.clear();    // already in main title
+      m_uiAddress.clear();  // already in main title
     }
     else
       emptyTitle = true;
@@ -285,9 +284,8 @@ void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string
   else
   {
     m_uiTitle = name;
-    m_uiSubtitle = measurement_utils::FormatLatLon(
-        mercator::YToLat(mercator.y), mercator::XToLon(mercator.x),
-                                                   true /* withComma */);
+    m_uiSubtitle =
+      measurement_utils::FormatLatLon(mercator::YToLat(mercator.y), mercator::XToLon(mercator.x), true /* withComma */);
   }
   m_customName = name;
 }
@@ -322,11 +320,12 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
   kml::LocalizableString bookmarkName;
   if (IsFeature())
   {
-    m_name.ForEach([&bookmarkName](int8_t langCode, std::string_view localName)
-    {
-      if (!localName.empty())
-        bookmarkName[langCode] = localName;
-    });
+    m_name.ForEach(
+      [&bookmarkName](int8_t langCode, std::string_view localName)
+      {
+        if (!localName.empty())
+          bookmarkName[langCode] = localName;
+      });
 
     if (bookmarkName.empty() && IsBuilding() && !m_address.empty())
       kml::SetDefaultStr(bookmarkName, m_address);
@@ -349,31 +348,31 @@ std::string Info::GetFormattedCoordinate(CoordinatesFormat coordsFormat) const
   auto const lon = ll.m_lon;
   switch (coordsFormat)
   {
-    default:
-    case CoordinatesFormat::LatLonDMS: // DMS, comma separated
-      return measurement_utils::FormatLatLonAsDMS(lat, lon, false /*withComma*/, 2);
-    case CoordinatesFormat::LatLonDecimal: // Decimal, comma separated
-      return measurement_utils::FormatLatLon(lat, lon, true /* withComma */);
-    case CoordinatesFormat::OLCFull: // Open location code, long format
-      return openlocationcode::Encode({lat, lon});
-    case CoordinatesFormat::OSMLink: // Link to osm.org
-      return measurement_utils::FormatOsmLink(lat, lon, 14);
-    case CoordinatesFormat::UTM:  // Universal Transverse Mercator
-    {
-      std::string utmCoords = utm_mgrs_utils::FormatUTM(lat, lon);
-      if (utmCoords.empty())
-        return "UTM: N/A";
-      else
-        return "UTM: " + utmCoords;
-    }
-    case CoordinatesFormat::MGRS: // Military Grid Reference System
-    {
-      std::string mgrsCoords = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
-      if (mgrsCoords.empty())
-        return "MGRS: N/A";
-      else
-        return "MGRS: " + mgrsCoords;
-    }
+  default:
+  case CoordinatesFormat::LatLonDMS:  // DMS, comma separated
+    return measurement_utils::FormatLatLonAsDMS(lat, lon, false /*withComma*/, 2);
+  case CoordinatesFormat::LatLonDecimal:  // Decimal, comma separated
+    return measurement_utils::FormatLatLon(lat, lon, true /* withComma */);
+  case CoordinatesFormat::OLCFull:  // Open location code, long format
+    return openlocationcode::Encode({lat, lon});
+  case CoordinatesFormat::OSMLink:  // Link to osm.org
+    return measurement_utils::FormatOsmLink(lat, lon, 14);
+  case CoordinatesFormat::UTM:  // Universal Transverse Mercator
+  {
+    std::string utmCoords = utm_mgrs_utils::FormatUTM(lat, lon);
+    if (utmCoords.empty())
+      return "UTM: N/A";
+    else
+      return "UTM: " + utmCoords;
+  }
+  case CoordinatesFormat::MGRS:  // Military Grid Reference System
+  {
+    std::string mgrsCoords = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
+    if (mgrsCoords.empty())
+      return "MGRS: N/A";
+    else
+      return "MGRS: " + mgrsCoords;
+  }
   }
 }
 

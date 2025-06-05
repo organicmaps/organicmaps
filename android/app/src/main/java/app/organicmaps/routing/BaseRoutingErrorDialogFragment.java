@@ -10,10 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-
 import app.organicmaps.R;
 import app.organicmaps.adapter.DisabledChildSimpleExpandableListAdapter;
 import app.organicmaps.base.BaseMwmDialogFragment;
@@ -21,7 +19,6 @@ import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,26 +43,22 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
 
   private Dialog createDialog(AlertDialog.Builder builder)
   {
-    View view = (mMissingMaps.size() == 1 ? buildSingleMapView(mMissingMaps.get(0))
-                                          : buildMultipleMapView());
+    View view = (mMissingMaps.size() == 1 ? buildSingleMapView(mMissingMaps.get(0)) : buildMultipleMapView());
     builder.setView(view);
     return builder.create();
   }
 
-  @NonNull
-  @Override
-  public Dialog onCreateDialog(Bundle savedInstanceState)
+  @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     parseArguments();
     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setCancelable(true)
-        .setNegativeButton(android.R.string.cancel, null);
+                                           .setCancelable(true)
+                                           .setNegativeButton(android.R.string.cancel, null);
     beforeDialogCreated(builder);
     return createDialog(builder);
   }
 
-  @Override
-  public void onStart()
+  @Override public void onStart()
   {
     super.onStart();
 
@@ -76,8 +69,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     });
   }
 
-  @Override
-  public void onDismiss(DialogInterface dialog)
+  @Override public void onDismiss(DialogInterface dialog)
   {
     if (mCancelled && mCancelRoute)
       RoutingController.get().cancel();
@@ -142,7 +134,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     List<Map<String, String>> countries = new ArrayList<>();
     long size = 0;
 
-    for (CountryItem item: mMissingMaps)
+    for (CountryItem item : mMissingMaps)
     {
       Map<String, String> data = new HashMap<>();
       data.put(COUNTRY_NAME, item.name);
@@ -161,19 +153,10 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     List<List<Map<String, String>>> children = new ArrayList<>();
     children.add(countries);
 
-    return new DisabledChildSimpleExpandableListAdapter(requireActivity(),
-                                                        groups,
-                                                        R.layout.item_missed_map_group,
-                                                        R.layout.item_missed_map,
-                                                        new String[] { GROUP_NAME, GROUP_SIZE },
-                                                        new int[] { R.id.tv__title, R.id.tv__size },
-                                                        children,
-                                                        R.layout.item_missed_map,
-                                                        new String[] { COUNTRY_NAME },
-                                                        new int[] { R.id.tv__title })
-    {
-      @Override
-      public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
+    return new DisabledChildSimpleExpandableListAdapter(requireActivity(), groups, R.layout.item_missed_map_group,
+      R.layout.item_missed_map, new String[] {GROUP_NAME, GROUP_SIZE}, new int[] {R.id.tv__title, R.id.tv__size},
+      children, R.layout.item_missed_map, new String[] {COUNTRY_NAME}, new int[] {R.id.tv__title}) {
+      @Override public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
       {
         View res = super.getGroupView(groupPosition, isExpanded, convertView, parent);
         bindGroup(res);

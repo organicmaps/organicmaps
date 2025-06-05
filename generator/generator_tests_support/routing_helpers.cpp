@@ -57,8 +57,7 @@ void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
   road = it->second;
 }
 
-void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
-                                 RoadGeometry::Points const & points)
+void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed, RoadGeometry::Points const & points)
 {
   auto const it = m_roads.find(featureId);
   CHECK(it == m_roads.end(), ("Already contains feature", featureId));
@@ -76,8 +75,8 @@ void TestGeometryLoader::SetPassThroughAllowed(uint32_t featureId, bool passThro
 std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(std::shared_ptr<TrafficStash> trafficStash)
 {
   auto const carModel = CarModelFactory({}).GetVehicleModel();
-  return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash,
-    nullptr /* DataSource */, nullptr /* NumMwmIds */);
+  return EdgeEstimator::Create(VehicleType::Car, *carModel, trafficStash, nullptr /* DataSource */,
+                               nullptr /* NumMwmIds */);
 }
 
 std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(traffic::TrafficCache const & trafficCache)
@@ -97,11 +96,9 @@ Joint MakeJoint(std::vector<RoadPoint> const & points)
 }
 
 std::unique_ptr<IndexGraph> BuildIndexGraph(std::unique_ptr<TestGeometryLoader> geometryLoader,
-                                            std::shared_ptr<EdgeEstimator> estimator,
-                                            std::vector<Joint> const & joints)
+                                            std::shared_ptr<EdgeEstimator> estimator, std::vector<Joint> const & joints)
 {
-  auto graph = std::make_unique<IndexGraph>(std::make_shared<Geometry>(std::move(geometryLoader)),
-                                       estimator);
+  auto graph = std::make_unique<IndexGraph>(std::make_shared<Geometry>(std::move(geometryLoader)), estimator);
   graph->Import(joints);
   return graph;
 }

@@ -57,8 +57,8 @@ extern "C" int LLVMFuzzerTestOneInput(uint8_t const * data, size_t size)
   Protocol::DataElementsCirc dataElementsCirc(dataElementsVec.cbegin(), dataElementsVec.cend());
 
   Protocol::DecodeHeader(dataVec);
-  for (auto const type : {Protocol::PacketType::Error, Protocol::PacketType::AuthV0,
-                          Protocol::PacketType::DataV0, Protocol::PacketType::DataV1})
+  for (auto const type : {Protocol::PacketType::Error, Protocol::PacketType::AuthV0, Protocol::PacketType::DataV0,
+                          Protocol::PacketType::DataV1})
   {
     Protocol::CreateDataPacket(dataElementsVec, type);
     Protocol::CreateDataPacket(dataElementsCirc, type);

@@ -4,10 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.editor.data.Language;
 
@@ -22,20 +20,17 @@ public class LanguagesAdapter extends RecyclerView.Adapter<LanguagesAdapter.Hold
     mLanguages = languages;
   }
 
-  @Override
-  public Holder onCreateViewHolder(ViewGroup parent, int viewType)
+  @Override public Holder onCreateViewHolder(ViewGroup parent, int viewType)
   {
     return new Holder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_language, parent, false));
   }
 
-  @Override
-  public void onBindViewHolder(Holder holder, int position)
+  @Override public void onBindViewHolder(Holder holder, int position)
   {
     holder.bind(position);
   }
 
-  @Override
-  public int getItemCount()
+  @Override public int getItemCount()
   {
     return mLanguages.length;
   }

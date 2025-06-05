@@ -10,8 +10,8 @@ using namespace routing;
 
 namespace
 {
-  static const m2::PolylineD kTestDirectedPolyline1(std::vector<m2::PointD>{{0.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}});
-  static const m2::PolylineD kTestDirectedPolyline2(std::vector<m2::PointD>{{6.0, 0.0}, {7.0, 0.0}});
+static m2::PolylineD const kTestDirectedPolyline1(std::vector<m2::PointD>{{0.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}});
+static m2::PolylineD const kTestDirectedPolyline2(std::vector<m2::PointD>{{6.0, 0.0}, {7.0, 0.0}});
 }  // namespace
 
 UNIT_TEST(FollowedPolylineAppend)
@@ -73,8 +73,7 @@ UNIT_TEST(FollowedPolylineDistanceCalculationTest)
   // Test full length case.
   FollowedPolyline polyline(kTestDirectedPolyline1.Begin(), kTestDirectedPolyline1.End());
   double distance = polyline.GetDistanceM(polyline.Begin(), polyline.End());
-  double masterDistance = mercator::DistanceOnEarth(kTestDirectedPolyline1.Front(),
-                                                          kTestDirectedPolyline1.Back());
+  double masterDistance = mercator::DistanceOnEarth(kTestDirectedPolyline1.Front(), kTestDirectedPolyline1.Back());
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
   distance = polyline.GetTotalDistanceMeters();
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
@@ -82,8 +81,7 @@ UNIT_TEST(FollowedPolylineDistanceCalculationTest)
   // Test partial length case.
   polyline.UpdateProjection(mercator::RectByCenterXYAndSizeInMeters({3, 0}, 2));
   distance = polyline.GetDistanceM(polyline.GetCurrentIter(), polyline.End());
-  masterDistance = mercator::DistanceOnEarth(kTestDirectedPolyline1.GetPoint(1),
-                                                   kTestDirectedPolyline1.Back());
+  masterDistance = mercator::DistanceOnEarth(kTestDirectedPolyline1.GetPoint(1), kTestDirectedPolyline1.Back());
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
   distance = polyline.GetDistanceToEndMeters();
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
@@ -91,8 +89,7 @@ UNIT_TEST(FollowedPolylineDistanceCalculationTest)
   // Test point in the middle case.
   polyline.UpdateProjection(mercator::RectByCenterXYAndSizeInMeters({4, 0}, 2));
   distance = polyline.GetDistanceM(polyline.GetCurrentIter(), polyline.End());
-  masterDistance = mercator::DistanceOnEarth(m2::PointD(4, 0),
-                                                   kTestDirectedPolyline1.Back());
+  masterDistance = mercator::DistanceOnEarth(m2::PointD(4, 0), kTestDirectedPolyline1.Back());
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
   distance = polyline.GetDistanceToEndMeters();
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
@@ -121,8 +118,7 @@ UNIT_TEST(FollowedPolylineGetDistanceFromBeginM)
   polyline.UpdateProjection(mercator::RectByCenterXYAndSizeInMeters(point, 2));
 
   double const distance = polyline.GetDistanceFromStartMeters();
-  double const masterDistance =
-      mercator::DistanceOnEarth(kTestDirectedPolyline1.Front(), point);
+  double const masterDistance = mercator::DistanceOnEarth(kTestDirectedPolyline1.Front(), point);
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
 }
 }  // namespace routing_test

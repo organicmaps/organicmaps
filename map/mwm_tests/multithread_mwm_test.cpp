@@ -9,7 +9,6 @@
 
 #include <algorithm>
 
-
 namespace multithread_mwm_test
 {
 using SourceT = FeaturesFetcher;
@@ -17,7 +16,9 @@ using SourceT = FeaturesFetcher;
 class FeaturesLoader
 {
 public:
-  explicit FeaturesLoader(SourceT const & src) : m_src(src) {}
+  explicit FeaturesLoader(SourceT const & src)
+    : m_src(src)
+  {}
 
   void operator()()
   {
@@ -28,15 +29,18 @@ public:
       m2::RectD const r = GetRandomRect();
       m_scale = scales::GetScaleLevel(r);
 
-      m_src.ForEachFeature(r, [this](FeatureType & ft)
-      {
-        ft.ParseHeader2();
-        (void)ft.GetOuterGeometryStats();
-        (void)ft.GetOuterTrianglesStats();
+      m_src.ForEachFeature(
+        r,
+        [this](FeatureType & ft)
+        {
+          ft.ParseHeader2();
+          (void)ft.GetOuterGeometryStats();
+          (void)ft.GetOuterTrianglesStats();
 
-        // Force load feature. We check asserts here. There is no any other constrains here.
-        CHECK(!ft.IsEmptyGeometry(m_scale), (ft.GetID()));
-      }, m_scale);
+          // Force load feature. We check asserts here. There is no any other constrains here.
+          CHECK(!ft.IsEmptyGeometry(m_scale), (ft.GetID()));
+        },
+        m_scale);
     }
   }
 
@@ -90,9 +94,6 @@ void RunTest(std::string const & file)
   pool.WaitingStop();
 }
 
-UNIT_TEST(Threading_ForEachFeature)
-{
-  RunTest("minsk-pass");
-}
+UNIT_TEST(Threading_ForEachFeature) { RunTest("minsk-pass"); }
 
-} // namespace multithread_mwm_test
+}  // namespace multithread_mwm_test

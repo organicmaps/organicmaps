@@ -21,11 +21,13 @@ namespace generator
 /// 30, 3,
 /// 40, 4
 /// \param outputFilePath full path to an output file where the mapping is saved.
-void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent,
-                                       std::string const & outputFilePath);
+void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent, std::string const & outputFilePath);
 }  // namespace generator
 
-namespace traffic { class TrafficCache; }
+namespace traffic
+{
+class TrafficCache;
+}
 
 namespace routing
 {
@@ -35,8 +37,7 @@ public:
   // GeometryLoader overrides:
   void Load(uint32_t featureId, routing::RoadGeometry & road) override;
 
-  void AddRoad(uint32_t featureId, bool oneWay, float speed,
-               routing::RoadGeometry::Points const & points);
+  void AddRoad(uint32_t featureId, bool oneWay, float speed, routing::RoadGeometry::Points const & points);
 
   void SetPassThroughAllowed(uint32_t featureId, bool passThroughAllowed);
 
@@ -53,4 +54,3 @@ std::unique_ptr<IndexGraph> BuildIndexGraph(std::unique_ptr<TestGeometryLoader> 
                                             std::shared_ptr<EdgeEstimator> estimator,
                                             std::vector<Joint> const & joints);
 }  // namespace routing
-

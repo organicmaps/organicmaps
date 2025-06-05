@@ -16,10 +16,7 @@ namespace
 
 char const kEnabledKey[] = "GpsTrackingEnabled";
 
-inline std::string GetFilePath()
-{
-  return base::JoinPath(GetPlatform().WritableDir(), GPS_TRACK_FILENAME);
-}
+inline std::string GetFilePath() { return base::JoinPath(GetPlatform().WritableDir(), GPS_TRACK_FILENAME); }
 
 inline bool GetSettingsIsEnabled()
 {
@@ -29,12 +26,9 @@ inline bool GetSettingsIsEnabled()
   return enabled;
 }
 
-inline void SetSettingsIsEnabled(bool enabled)
-{
-  settings::Set(kEnabledKey, enabled);
-}
+inline void SetSettingsIsEnabled(bool enabled) { settings::Set(kEnabledKey, enabled); }
 
-} // namespace
+}  // namespace
 
 GpsTracker & GpsTracker::Instance()
 {
@@ -45,11 +39,10 @@ GpsTracker & GpsTracker::Instance()
 GpsTracker::GpsTracker()
   : m_enabled(GetSettingsIsEnabled())
   , m_track(GetFilePath(), std::make_unique<GpsTrackFilter>())
-{
-}
+{}
 
 void GpsTracker::SetEnabled(bool enabled)
-{  
+{
   if (enabled == m_enabled)
     return;
 
@@ -60,45 +53,21 @@ void GpsTracker::SetEnabled(bool enabled)
     m_track.Clear();
 }
 
-void GpsTracker::Clear()
-{
-  m_track.Clear();
-}
+void GpsTracker::Clear() { m_track.Clear(); }
 
-bool GpsTracker::IsEnabled() const
-{
-  return m_enabled;
-}
+bool GpsTracker::IsEnabled() const { return m_enabled; }
 
-bool GpsTracker::IsEmpty() const
-{
-  return m_track.IsEmpty();
-}
+bool GpsTracker::IsEmpty() const { return m_track.IsEmpty(); }
 
-size_t GpsTracker::GetTrackSize() const
-{
-  return m_track.GetSize();
-}
+size_t GpsTracker::GetTrackSize() const { return m_track.GetSize(); }
 
-TrackStatistics GpsTracker::GetTrackStatistics() const
-{
-  return m_track.GetTrackStatistics();
-}
+TrackStatistics GpsTracker::GetTrackStatistics() const { return m_track.GetTrackStatistics(); }
 
-const ElevationInfo & GpsTracker::GetElevationInfo() const
-{
-  return m_track.GetElevationInfo();
-}
+ElevationInfo const & GpsTracker::GetElevationInfo() const { return m_track.GetElevationInfo(); }
 
-void GpsTracker::Connect(TGpsTrackDiffCallback const & fn)
-{
-  m_track.SetCallback(fn);
-}
+void GpsTracker::Connect(TGpsTrackDiffCallback const & fn) { m_track.SetCallback(fn); }
 
-void GpsTracker::Disconnect()
-{
-  m_track.SetCallback(nullptr);
-}
+void GpsTracker::Disconnect() { m_track.SetCallback(nullptr); }
 
 void GpsTracker::OnLocationUpdated(location::GpsInfo const & info)
 {

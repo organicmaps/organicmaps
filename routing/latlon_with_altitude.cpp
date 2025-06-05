@@ -10,20 +10,14 @@ namespace routing
 std::string DebugPrint(LatLonWithAltitude const & latLonWithAltitude)
 {
   std::stringstream ss;
-  ss << "LatLonWithAltitude(" << DebugPrint(latLonWithAltitude.GetLatLon()) << ", "
-     << latLonWithAltitude.GetAltitude() << ")";
+  ss << "LatLonWithAltitude(" << DebugPrint(latLonWithAltitude.GetLatLon()) << ", " << latLonWithAltitude.GetAltitude()
+     << ")";
   return ss.str();
 }
 
-bool LatLonWithAltitude::operator<(LatLonWithAltitude const & rhs) const
-{
-  return m_latlon < rhs.m_latlon;
-}
+bool LatLonWithAltitude::operator<(LatLonWithAltitude const & rhs) const { return m_latlon < rhs.m_latlon; }
 
-bool LatLonWithAltitude::operator==(LatLonWithAltitude const & rhs) const
-{
-  return m_latlon == rhs.m_latlon;
-}
+bool LatLonWithAltitude::operator==(LatLonWithAltitude const & rhs) const { return m_latlon == rhs.m_latlon; }
 
 geometry::PointWithAltitude LatLonWithAltitude::ToPointWithAltitude() const
 {

@@ -15,8 +15,7 @@ TransitVersion GetVersion(Reader & reader)
     NonOwningReaderSource src(reader);
     uint16_t headerVersion = std::numeric_limits<uint16_t>::max();
     ReadPrimitiveFromSource(src, headerVersion);
-    CHECK_LESS(headerVersion, static_cast<uint16_t>(TransitVersion::Counter),
-               ("Invalid transit header version."));
+    CHECK_LESS(headerVersion, static_cast<uint16_t>(TransitVersion::Counter), ("Invalid transit header version."));
 
     return static_cast<TransitVersion>(headerVersion);
   }

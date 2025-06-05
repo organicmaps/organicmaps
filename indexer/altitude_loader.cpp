@@ -45,8 +45,7 @@ AltitudeLoaderBase::AltitudeLoaderBase(MwmValue const & mwmValue)
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     m_header.Deserialize(src);
 
-    LoadAndMap(m_header.GetAltitudeAvailabilitySize(), src, m_altitudeAvailability,
-               m_altitudeAvailabilityRegion);
+    LoadAndMap(m_header.GetAltitudeAvailabilitySize(), src, m_altitudeAvailability, m_altitudeAvailabilityRegion);
     LoadAndMap(m_header.GetFeatureTableSize(), src, m_featureTable, m_featureTableRegion);
   }
   catch (Reader::OpenException const & e)
@@ -85,11 +84,12 @@ geometry::Altitudes AltitudeLoaderBase::GetAltitudes(uint32_t featureId, size_t 
     Altitudes altitudes;
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     src.Skip(altitudeInfoOffsetInSection);
-    altitudes.Deserialize(m_header.m_minAltitude, pointCount, m_countryFileName, featureId,  src);
+    altitudes.Deserialize(m_header.m_minAltitude, pointCount, m_countryFileName, featureId, src);
 
     // It's filtered on generator stage.
     ASSERT(none_of(altitudes.m_altitudes.begin(), altitudes.m_altitudes.end(),
-           [](geometry::Altitude a) { return a == geometry::kInvalidAltitude; }), (featureId, m_countryFileName));
+                   [](geometry::Altitude a) { return a == geometry::kInvalidAltitude; }),
+           (featureId, m_countryFileName));
 
     return std::move(altitudes.m_altitudes);
   }

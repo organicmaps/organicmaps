@@ -31,10 +31,9 @@ UNIT_TEST(Notes_Smoke)
                                      {mercator::ToLatLon({2, 2}), "Some note2"},
                                      {mercator::ToLatLon({1, 1}), "Some note3"}};
 
-    auto const isEqual = std::equal(
-        result.begin(), result.end(), expected.begin(), [](Note const & lhs, Note const & rhs) {
-          return lhs.m_point.EqualDxDy(rhs.m_point, Notes::kTolerance);
-        });
+    auto const isEqual =
+      std::equal(result.begin(), result.end(), expected.begin(), [](Note const & lhs, Note const & rhs)
+                 { return lhs.m_point.EqualDxDy(rhs.m_point, Notes::kTolerance); });
     TEST(isEqual, ());
   }
 }

@@ -1,11 +1,11 @@
 #pragma once
 
+#include "indexer/edit_journal.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/map_object.hpp"
-#include "indexer/edit_journal.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -19,11 +19,12 @@ namespace osm
 struct EditableProperties
 {
   EditableProperties() = default;
-  EditableProperties(std::vector<feature::Metadata::EType> metadata, bool name,
-                     bool address, bool cuisine)
-    : m_metadata(std::move(metadata)), m_name(name), m_address(address), m_cuisine(cuisine)
-  {
-  }
+  EditableProperties(std::vector<feature::Metadata::EType> metadata, bool name, bool address, bool cuisine)
+    : m_metadata(std::move(metadata))
+    , m_name(name)
+    , m_address(address)
+    , m_cuisine(cuisine)
+  {}
 
   bool IsEditable() const { return m_name || m_address || m_cuisine || !m_metadata.empty(); }
 
@@ -111,7 +112,9 @@ public:
 
   /// @param[in] cuisine is a vector of osm cuisine ids.
 private:
-  template <class T> void SetCuisinesImpl(std::vector<T> const & cuisines);
+  template <class T>
+  void SetCuisinesImpl(std::vector<T> const & cuisines);
+
 public:
   void SetCuisines(std::vector<std::string_view> const & cuisines);
   void SetCuisines(std::vector<std::string> const & cuisines);
@@ -145,8 +148,7 @@ public:
 
   /// See comment for NamesDataSource class.
   static NamesDataSource GetNamesDataSource(StringUtf8Multilang const & source,
-                                            std::vector<int8_t> const & nativeMwmLanguages,
-                                            int8_t const userLanguage);
+                                            std::vector<int8_t> const & nativeMwmLanguages, int8_t const userLanguage);
 
   /// Compares editable fields connected with feature ignoring street.
   friend bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObject const & rhs);

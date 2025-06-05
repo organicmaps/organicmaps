@@ -20,8 +20,9 @@ void Statistics::Add(char const * name, size_t val)
 void Statistics::Dump()
 {
   for (auto const & e : s_map)
-    LOG(LINFO, (e.first, ": count = ", e.second.m_count, "; max = ", e.second.m_max, "; avg = ", e.second.m_sum / double(e.second.m_count)));
+    LOG(LINFO, (e.first, ": count = ", e.second.m_count, "; max = ", e.second.m_max,
+                "; avg = ", e.second.m_sum / double(e.second.m_count)));
 }
 
-} // namespace impl
-} // namesapce routing
+}  // namespace impl
+}  // namespace routing

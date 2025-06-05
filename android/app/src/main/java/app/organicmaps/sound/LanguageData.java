@@ -1,7 +1,6 @@
 package app.organicmaps.sound;
 
 import android.speech.tts.TextToSpeech;
-
 import java.util.Locale;
 
 /**
@@ -10,7 +9,8 @@ import java.util.Locale;
  */
 public class LanguageData
 {
-  static class NotAvailableException extends Exception {
+  static class NotAvailableException extends Exception
+  {
     NotAvailableException(Locale locale)
     {
       super("Locale \"" + locale + "\" is not supported by current TTS engine");
@@ -54,9 +54,7 @@ public class LanguageData
     {
       // Chinese is a special case
       String country = locale.getCountry();
-      return "TW".equals(country) ||
-             "MO".equals(country) ||
-             "HK".equals(country);
+      return "TW".equals(country) || "MO".equals(country) || "HK".equals(country);
     }
 
     return true;
@@ -67,8 +65,7 @@ public class LanguageData
     return this.internalCode.equals(internalCode);
   }
 
-  @Override
-  public String toString()
+  @Override public String toString()
   {
     return name + ": " + locale + ", internal: " + internalCode + (downloaded ? " - " : " - NOT ") + "downloaded";
   }

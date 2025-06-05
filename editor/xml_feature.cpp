@@ -57,13 +57,11 @@ ms::LatLon GetLatLonFromNode(pugi::xml_node const & node)
   ms::LatLon ll;
   if (!strings::to_double(node.attribute("lat").value(), ll.m_lat))
   {
-    MYTHROW(editor::NoLatLon,
-            ("Can't parse lat attribute:", string(node.attribute("lat").value())));
+    MYTHROW(editor::NoLatLon, ("Can't parse lat attribute:", string(node.attribute("lat").value())));
   }
   if (!strings::to_double(node.attribute("lon").value(), ll.m_lon))
   {
-    MYTHROW(editor::NoLatLon,
-            ("Can't parse lon attribute:", string(node.attribute("lon").value())));
+    MYTHROW(editor::NoLatLon, ("Can't parse lon attribute:", string(node.attribute("lon").value())));
   }
   return ll;
 }
@@ -137,10 +135,7 @@ XMLFeature & XMLFeature::operator=(XMLFeature const & feature)
   return *this;
 }
 
-bool XMLFeature::operator==(XMLFeature const & other) const
-{
-  return ToOSMString() == other.ToOSMString();
-}
+bool XMLFeature::operator==(XMLFeature const & other) const { return ToOSMString() == other.ToOSMString(); }
 
 std::vector<XMLFeature> XMLFeature::FromOSM(string const & osmXml)
 {
@@ -178,41 +173,37 @@ string XMLFeature::ToOSMString() const
 void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
 {
   // TODO(mgsergio): Get these alt tags from the config.
-  base::StringIL const alternativeTags[] = {
-    {"phone", "contact:phone", "contact:mobile", "mobile"},
-    {"website", "contact:website", "url"},
-    {"fax", "contact:fax"},
-    {"email", "contact:email"}
-  };
+  base::StringIL const alternativeTags[] = {{"phone", "contact:phone", "contact:mobile", "mobile"},
+                                            {"website", "contact:website", "url"},
+                                            {"fax", "contact:fax"},
+                                            {"email", "contact:email"}};
 
-  featureWithChanges.ForEachTag([&alternativeTags, this](string_view k, string_view v)
-  {
-    // Avoid duplication for similar alternative osm tags.
-    for (auto const & alt : alternativeTags)
+  featureWithChanges.ForEachTag(
+    [&alternativeTags, this](string_view k, string_view v)
     {
-      auto it = alt.begin();
-      ASSERT(it != alt.end(), ());
-      if (k == *it)
+      // Avoid duplication for similar alternative osm tags.
+      for (auto const & alt : alternativeTags)
       {
-        for (auto const & tag : alt)
+        auto it = alt.begin();
+        ASSERT(it != alt.end(), ());
+        if (k == *it)
         {
-          // Reuse already existing tag if it's present.
-          if (HasTag(tag))
+          for (auto const & tag : alt)
           {
-            SetTagValue(tag, v);
-            return;
+            // Reuse already existing tag if it's present.
+            if (HasTag(tag))
+            {
+              SetTagValue(tag, v);
+              return;
+            }
           }
         }
       }
-    }
-    SetTagValue(k, v);
-  });
+      SetTagValue(k, v);
+    });
 }
 
-m2::PointD XMLFeature::GetMercatorCenter() const
-{
-  return mercator::FromLatLon(GetLatLonFromNode(GetRootNode()));
-}
+m2::PointD XMLFeature::GetMercatorCenter() const { return mercator::FromLatLon(GetLatLonFromNode(GetRootNode())); }
 
 ms::LatLon XMLFeature::GetCenter() const
 {
@@ -227,10 +218,7 @@ void XMLFeature::SetCenter(ms::LatLon const & ll)
   SetAttribute("lon", strings::to_string_dac(ll.m_lon, kLatLonTolerance));
 }
 
-void XMLFeature::SetCenter(m2::PointD const & mercatorCenter)
-{
-  SetCenter(mercator::ToLatLon(mercatorCenter));
-}
+void XMLFeature::SetCenter(m2::PointD const & mercatorCenter) { SetCenter(mercator::ToLatLon(mercatorCenter)); }
 
 std::vector<m2::PointD> XMLFeature::GetGeometry() const
 {
@@ -260,7 +248,7 @@ string XMLFeature::GetName(std::string_view lang) const
   if (lang == kDefaultLang || lang.empty())
     return GetTagValue(kDefaultName);
   return GetTagValue(std::string{kDefaultName}.append(kColon).append(lang));
-  //return GetTagValue(suffix.insert(0, kDefaultName));
+  // return GetTagValue(suffix.insert(0, kDefaultName));
 }
 
 string XMLFeature::GetName(uint8_t const langCode) const
@@ -372,10 +360,7 @@ time_t XMLFeature::GetModificationTime() const
   return base::StringToTimestamp(GetRootNode().attribute(kTimestamp).value());
 }
 
-void XMLFeature::SetModificationTime(time_t const time)
-{
-  SetAttribute(kTimestamp, base::TimestampToString(time));
-}
+void XMLFeature::SetModificationTime(time_t const time) { SetAttribute(kTimestamp, base::TimestampToString(time)); }
 
 uint32_t XMLFeature::GetMWMFeatureIndex() const
 {
@@ -383,25 +368,16 @@ uint32_t XMLFeature::GetMWMFeatureIndex() const
   return static_cast<uint32_t>(GetRootNode().attribute(kIndex).as_uint(0));
 }
 
-void XMLFeature::SetMWMFeatureIndex(uint32_t index)
-{
-  SetAttribute(kIndex, strings::to_string(index));
-}
+void XMLFeature::SetMWMFeatureIndex(uint32_t index) { SetAttribute(kIndex, strings::to_string(index)); }
 
 time_t XMLFeature::GetUploadTime() const
 {
   return base::StringToTimestamp(GetRootNode().attribute(kUploadTimestamp).value());
 }
 
-void XMLFeature::SetUploadTime(time_t const time)
-{
-  SetAttribute(kUploadTimestamp, base::TimestampToString(time));
-}
+void XMLFeature::SetUploadTime(time_t const time) { SetAttribute(kUploadTimestamp, base::TimestampToString(time)); }
 
-string XMLFeature::GetUploadStatus() const
-{
-  return GetRootNode().attribute(kUploadStatus).value();
-}
+string XMLFeature::GetUploadStatus() const { return GetRootNode().attribute(kUploadStatus).value(); }
 
 void XMLFeature::SetUploadStatus(string const & status) { SetAttribute(kUploadStatus, status); }
 
@@ -416,9 +392,9 @@ osm::EditJournal XMLFeature::GetEditJournal() const
   Save(ost);
   LOG(LDEBUG, ("Read in XMLFeature:\n", ost.str()));
 
-  auto readEditJournalList = [] (pugi::xml_node & xmlNode, osm::EditJournal & journal, bool isHistory)
+  auto readEditJournalList = [](pugi::xml_node & xmlNode, osm::EditJournal & journal, bool isHistory)
   {
-    auto getAttribute = [] (pugi::xml_node & xmlNode, std::string_view attribute)
+    auto getAttribute = [](pugi::xml_node & xmlNode, std::string_view attribute)
     {
       pugi::xml_attribute xmlValue = xmlNode.attribute(attribute.data());
       if (xmlValue.empty())
@@ -451,50 +427,50 @@ osm::EditJournal XMLFeature::GetEditJournal() const
 
       switch (entry.journalEntryType)
       {
-        case osm::JournalEntryType::TagModification:
-        {
-          osm::TagModData tagModData;
+      case osm::JournalEntryType::TagModification:
+      {
+        osm::TagModData tagModData;
 
-          tagModData.key = getAttribute(xmlData, "key");
-          if (tagModData.key.empty())
-            MYTHROW(editor::InvalidJournalEntry, ("Empty key in TagModData"));
-          tagModData.old_value = getAttribute(xmlData, "old_value");
-          tagModData.new_value = getAttribute(xmlData, "new_value");
+        tagModData.key = getAttribute(xmlData, "key");
+        if (tagModData.key.empty())
+          MYTHROW(editor::InvalidJournalEntry, ("Empty key in TagModData"));
+        tagModData.old_value = getAttribute(xmlData, "old_value");
+        tagModData.new_value = getAttribute(xmlData, "new_value");
 
-          entry.data = tagModData;
-          break;
-        }
-        case osm::JournalEntryType::ObjectCreated:
-        {
-          osm::ObjCreateData objCreateData;
+        entry.data = tagModData;
+        break;
+      }
+      case osm::JournalEntryType::ObjectCreated:
+      {
+        osm::ObjCreateData objCreateData;
 
-          // Feature Type
-          std::string strType = getAttribute(xmlData, "type");
-          if (strType.empty())
-            MYTHROW(editor::InvalidJournalEntry, ("Feature type is empty"));
-          objCreateData.type = classif().GetTypeByReadableObjectName(strType);
-          if (objCreateData.type == IndexAndTypeMapping::INVALID_TYPE)
-            MYTHROW(editor::InvalidJournalEntry, ("Invalid Feature Type:", strType));
+        // Feature Type
+        std::string strType = getAttribute(xmlData, "type");
+        if (strType.empty())
+          MYTHROW(editor::InvalidJournalEntry, ("Feature type is empty"));
+        objCreateData.type = classif().GetTypeByReadableObjectName(strType);
+        if (objCreateData.type == IndexAndTypeMapping::INVALID_TYPE)
+          MYTHROW(editor::InvalidJournalEntry, ("Invalid Feature Type:", strType));
 
-          // GeomType
-          std::string strGeomType = getAttribute(xmlData, "geomType");
-          objCreateData.geomType = feature::TypeFromString(strGeomType);
-          if (objCreateData.geomType != feature::GeomType::Point)
-            MYTHROW(editor::InvalidJournalEntry, ("Invalid geomType (only point features are supported):", strGeomType));
+        // GeomType
+        std::string strGeomType = getAttribute(xmlData, "geomType");
+        objCreateData.geomType = feature::TypeFromString(strGeomType);
+        if (objCreateData.geomType != feature::GeomType::Point)
+          MYTHROW(editor::InvalidJournalEntry, ("Invalid geomType (only point features are supported):", strGeomType));
 
-          // Mercator
-          objCreateData.mercator = mercator::FromLatLon(GetLatLonFromNode(xmlData));
+        // Mercator
+        objCreateData.mercator = mercator::FromLatLon(GetLatLonFromNode(xmlData));
 
-          entry.data = objCreateData;
-          break;
-        }
-        case osm::JournalEntryType::LegacyObject:
-        {
-          osm::LegacyObjData legacyObjData;
-          legacyObjData.version = getAttribute(xmlData, "version");
-          entry.data = legacyObjData;
-          break;
-        }
+        entry.data = objCreateData;
+        break;
+      }
+      case osm::JournalEntryType::LegacyObject:
+      {
+        osm::LegacyObjData legacyObjData;
+        legacyObjData.version = getAttribute(xmlData, "version");
+        entry.data = legacyObjData;
+        break;
+      }
       }
       if (isHistory)
         journal.AddJournalHistoryEntry(entry);
@@ -529,7 +505,7 @@ void XMLFeature::SetEditJournal(osm::EditJournal const & journal)
 {
   LOG(LDEBUG, ("Saving Journal:\n", journal.JournalToString()));
 
-  auto const insertEditJournalList = [] (pugi::xml_node & xmlNode, std::list<osm::JournalEntry> const & journalList)
+  auto const insertEditJournalList = [](pugi::xml_node & xmlNode, std::list<osm::JournalEntry> const & journalList)
   {
     xmlNode.append_attribute("version") = "1.0";
     for (osm::JournalEntry const & entry : journalList)
@@ -541,30 +517,30 @@ void XMLFeature::SetEditJournal(osm::EditJournal const & journal)
       auto xmlData = xmlEntry.append_child("data");
       switch (entry.journalEntryType)
       {
-        case osm::JournalEntryType::TagModification:
-        {
-          osm::TagModData const & tagModData = std::get<osm::TagModData>(entry.data);
-          xmlData.append_attribute("key") = tagModData.key.data();
-          xmlData.append_attribute("old_value") = tagModData.old_value.data();
-          xmlData.append_attribute("new_value") = tagModData.new_value.data();
-          break;
-        }
-        case osm::JournalEntryType::ObjectCreated:
-        {
-          osm::ObjCreateData const & objCreateData = std::get<osm::ObjCreateData>(entry.data);
-          xmlData.append_attribute("type") = classif().GetReadableObjectName(objCreateData.type).data();
-          xmlData.append_attribute("geomType") = ToString(objCreateData.geomType).data();
-          ms::LatLon ll = mercator::ToLatLon(objCreateData.mercator);
-          xmlData.append_attribute("lat") = strings::to_string_dac(ll.m_lat, kLatLonTolerance).data();
-          xmlData.append_attribute("lon") = strings::to_string_dac(ll.m_lon, kLatLonTolerance).data();
-          break;
-        }
-        case osm::JournalEntryType::LegacyObject:
-        {
-          osm::LegacyObjData const & legacyObjData = std::get<osm::LegacyObjData>(entry.data);
-          xmlData.append_attribute("version") = legacyObjData.version.data();
-          break;
-        }
+      case osm::JournalEntryType::TagModification:
+      {
+        osm::TagModData const & tagModData = std::get<osm::TagModData>(entry.data);
+        xmlData.append_attribute("key") = tagModData.key.data();
+        xmlData.append_attribute("old_value") = tagModData.old_value.data();
+        xmlData.append_attribute("new_value") = tagModData.new_value.data();
+        break;
+      }
+      case osm::JournalEntryType::ObjectCreated:
+      {
+        osm::ObjCreateData const & objCreateData = std::get<osm::ObjCreateData>(entry.data);
+        xmlData.append_attribute("type") = classif().GetReadableObjectName(objCreateData.type).data();
+        xmlData.append_attribute("geomType") = ToString(objCreateData.geomType).data();
+        ms::LatLon ll = mercator::ToLatLon(objCreateData.mercator);
+        xmlData.append_attribute("lat") = strings::to_string_dac(ll.m_lat, kLatLonTolerance).data();
+        xmlData.append_attribute("lon") = strings::to_string_dac(ll.m_lon, kLatLonTolerance).data();
+        break;
+      }
+      case osm::JournalEntryType::LegacyObject:
+      {
+        osm::LegacyObjData const & legacyObjData = std::get<osm::LegacyObjData>(entry.data);
+        xmlData.append_attribute("version") = legacyObjData.version.data();
+        break;
+      }
       }
     }
   };
@@ -585,10 +561,7 @@ bool XMLFeature::HasAnyTags() const { return GetRootNode().child("tag"); }
 
 bool XMLFeature::HasTag(string_view key) const { return FindTag(m_document, key); }
 
-bool XMLFeature::HasAttribute(string_view key) const
-{
-  return GetRootNode().attribute(key.data());
-}
+bool XMLFeature::HasAttribute(string_view key) const { return GetRootNode().attribute(key.data()); }
 
 bool XMLFeature::HasKey(string_view key) const { return HasTag(key) || HasAttribute(key); }
 
@@ -629,12 +602,10 @@ void XMLFeature::UpdateOSMTag(std::string_view key, std::string_view value)
   else
   {
     // TODO(mgsergio): Get these alt tags from the config.
-    base::StringIL const alternativeTags[] = {
-        {"phone", "contact:phone", "contact:mobile", "mobile"},
-        {"website", "contact:website", "url"},
-        {"fax", "contact:fax"},
-        {"email", "contact:email"}
-    };
+    base::StringIL const alternativeTags[] = {{"phone", "contact:phone", "contact:mobile", "mobile"},
+                                              {"website", "contact:website", "url"},
+                                              {"fax", "contact:fax"},
+                                              {"email", "contact:email"}};
 
     // Avoid duplication for similar alternative osm tags.
     for (auto const & alt : alternativeTags)
@@ -658,15 +629,11 @@ void XMLFeature::UpdateOSMTag(std::string_view key, std::string_view value)
   }
 }
 
-string XMLFeature::GetAttribute(string const & key) const
-{
-  return GetRootNode().attribute(key.data()).value();
-}
+string XMLFeature::GetAttribute(string const & key) const { return GetRootNode().attribute(key.data()).value(); }
 
 void XMLFeature::SetAttribute(string const & key, string const & value)
 {
-  auto node = HasAttribute(key) ? GetRootNode().attribute(key.data())
-                                : GetRootNode().append_attribute(key.data());
+  auto node = HasAttribute(key) ? GetRootNode().attribute(key.data()) : GetRootNode().append_attribute(key.data());
 
   node.set_value(value.data());
 }
@@ -675,10 +642,7 @@ pugi::xml_node const XMLFeature::GetRootNode() const { return m_document.first_c
 
 pugi::xml_node XMLFeature::GetRootNode() { return m_document.first_child(); }
 
-bool XMLFeature::AttachToParentNode(pugi::xml_node parent) const
-{
-  return !parent.append_copy(GetRootNode()).empty();
-}
+bool XMLFeature::AttachToParentNode(pugi::xml_node parent) const { return !parent.append_copy(GetRootNode()).empty(); }
 
 // static
 string XMLFeature::TypeToString(Type type)
@@ -709,9 +673,7 @@ XMLFeature::Type XMLFeature::StringToType(string const & type)
 void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
 {
   xml.ForEachName([&object](string_view lang, string_view name)
-  {
-    object.SetName(name, StringUtf8Multilang::GetLangIndex(lang));
-  });
+                  { object.SetName(name, StringUtf8Multilang::GetLangIndex(lang)); });
 
   string const house = xml.GetHouse();
   if (!house.empty())
@@ -721,11 +683,12 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
   if (!cuisineStr.empty())
     object.SetCuisines(strings::Tokenize(cuisineStr, ";"));
 
-  xml.ForEachTag([&object](string_view k, string v)
-  {
-    // Skip result because we iterate via *all* tags here.
-    (void)object.UpdateMetadataValue(k, std::move(v));
-  });
+  xml.ForEachTag(
+    [&object](string_view k, string v)
+    {
+      // Skip result because we iterate via *all* tags here.
+      (void)object.UpdateMetadataValue(k, std::move(v));
+    });
 }
 
 XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
@@ -744,9 +707,7 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
   }
 
   object.GetNameMultilang().ForEach([&toFeature](uint8_t const & lang, string_view name)
-  {
-    toFeature.SetName(lang, name);
-  });
+                                    { toFeature.SetName(lang, name); });
 
   string const & house = object.GetHouseNumber();
   if (!house.empty())
@@ -809,13 +770,14 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
     }
   }
 
-  object.ForEachMetadataItem([&toFeature](string_view tag, string_view value)
-  {
-    if (osm::isSocialContactTag(tag) && value.find('/') != std::string::npos)
-      toFeature.SetTagValue(tag, osm::socialContactToURL(tag, value));
-    else
-      toFeature.SetTagValue(tag, value);
-  });
+  object.ForEachMetadataItem(
+    [&toFeature](string_view tag, string_view value)
+    {
+      if (osm::isSocialContactTag(tag) && value.find('/') != std::string::npos)
+        toFeature.SetTagValue(tag, osm::socialContactToURL(tag, value));
+      else
+        toFeature.SetTagValue(tag, value);
+    });
 
   return toFeature;
 }
@@ -854,14 +816,11 @@ XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD merca
 
 bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
 {
-  ASSERT_EQUAL(XMLFeature::Type::Node, xml.GetType(),
-               ("At the moment only new nodes (points) can be created."));
+  ASSERT_EQUAL(XMLFeature::Type::Node, xml.GetType(), ("At the moment only new nodes (points) can be created."));
   object.SetPointType();
   object.SetMercator(xml.GetMercatorCenter());
   xml.ForEachName([&object](string_view lang, string_view name)
-  {
-    object.SetName(name, StringUtf8Multilang::GetLangIndex(lang));
-  });
+                  { object.SetName(name, StringUtf8Multilang::GetLangIndex(lang)); });
 
   string const house = xml.GetHouse();
   if (!house.empty())
@@ -874,51 +833,52 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
   feature::TypesHolder types = object.GetTypes();
 
   Classificator const & cl = classif();
-  xml.ForEachTag([&](string_view k, string_view v)
-  {
-    if (object.UpdateMetadataValue(k, string(v)))
-      return;
-
-    // Cuisines are already processed before this loop.
-    if (k == "cuisine")
-      return;
-
-    // We process recycling_type tag together with "amenity"="recycling" later.
-    // We currently ignore recycling tag because it's our custom tag and we cannot
-    // import it to osm directly.
-    if (k == "recycling" || k == "recycling_type")
-      return;
-
-    uint32_t type = 0;
-    if (k == "amenity" && v == "recycling" && xml.HasTag("recycling_type"))
+  xml.ForEachTag(
+    [&](string_view k, string_view v)
     {
-      auto const typeValue = xml.GetTagValue("recycling_type");
-      if (typeValue == "centre")
-        type = ftypes::IsRecyclingCentreChecker::Instance().GetType();
-      else if (typeValue == "container")
-        type = ftypes::IsRecyclingContainerChecker::Instance().GetType();
-    }
+      if (object.UpdateMetadataValue(k, string(v)))
+        return;
 
-    // Simple heuristics. It works for types converted from osm with short mapcss rules
-    // where k=v from osm is converted to our k-v type (amenity=restaurant, shop=convenience etc.).
-    if (type == 0)
-      type = cl.GetTypeByPathSafe({k, v});
-    if (type == 0)
-      type = cl.GetTypeByPathSafe({k});  // building etc.
-    if (type == 0)
-      type = cl.GetTypeByPathSafe({"amenity", k});  // atm=yes, toilet=yes etc.
+      // Cuisines are already processed before this loop.
+      if (k == "cuisine")
+        return;
 
-    if (type && types.Size() >= feature::kMaxTypesCount)
-      LOG(LERROR, ("Can't add type:", k, v, ". Types limit exceeded."));
-    else if (type)
-      types.Add(type);
-    else
-    {
-      //LOG(LWARNING, ("Can't load/parse type:", k, v));
-      /// @todo Refactor to make one ForEachTag loop. Now we have separate ForEachName,
-      /// so we can't log any suspicious tag here ...
-    }
-  });
+      // We process recycling_type tag together with "amenity"="recycling" later.
+      // We currently ignore recycling tag because it's our custom tag and we cannot
+      // import it to osm directly.
+      if (k == "recycling" || k == "recycling_type")
+        return;
+
+      uint32_t type = 0;
+      if (k == "amenity" && v == "recycling" && xml.HasTag("recycling_type"))
+      {
+        auto const typeValue = xml.GetTagValue("recycling_type");
+        if (typeValue == "centre")
+          type = ftypes::IsRecyclingCentreChecker::Instance().GetType();
+        else if (typeValue == "container")
+          type = ftypes::IsRecyclingContainerChecker::Instance().GetType();
+      }
+
+      // Simple heuristics. It works for types converted from osm with short mapcss rules
+      // where k=v from osm is converted to our k-v type (amenity=restaurant, shop=convenience etc.).
+      if (type == 0)
+        type = cl.GetTypeByPathSafe({k, v});
+      if (type == 0)
+        type = cl.GetTypeByPathSafe({k});  // building etc.
+      if (type == 0)
+        type = cl.GetTypeByPathSafe({"amenity", k});  // atm=yes, toilet=yes etc.
+
+      if (type && types.Size() >= feature::kMaxTypesCount)
+        LOG(LERROR, ("Can't add type:", k, v, ". Types limit exceeded."));
+      else if (type)
+        types.Add(type);
+      else
+      {
+        // LOG(LWARNING, ("Can't load/parse type:", k, v));
+        /// @todo Refactor to make one ForEachTag loop. Now we have separate ForEachName,
+        /// so we can't log any suspicious tag here ...
+      }
+    });
 
   object.SetTypes(types);
   return types.Size() > 0;

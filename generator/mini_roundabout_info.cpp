@@ -11,9 +11,9 @@
 namespace generator
 {
 MiniRoundaboutInfo::MiniRoundaboutInfo(OsmElement const & element)
-  : m_id(element.m_id), m_coord(element.m_lat, element.m_lon)
-{
-}
+  : m_id(element.m_id)
+  , m_coord(element.m_lat, element.m_lon)
+{}
 
 bool MiniRoundaboutInfo::Normalize()
 {

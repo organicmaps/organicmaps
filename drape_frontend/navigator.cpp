@@ -7,9 +7,9 @@
 #include "platform/settings.hpp"
 
 #include "geometry/angles.hpp"
-#include "geometry/transformations.hpp"
-#include "geometry/point2d.hpp"
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/point2d.hpp"
+#include "geometry/transformations.hpp"
 
 #include "base/logging.hpp"
 
@@ -83,20 +83,11 @@ void Navigator::OnSize(int w, int h)
   m_StartScreen = ShrinkAndScaleInto(m_StartScreen, worldR);
 }
 
-m2::PointD Navigator::GtoP(m2::PointD const & pt) const
-{
-  return m_Screen.GtoP(pt);
-}
+m2::PointD Navigator::GtoP(m2::PointD const & pt) const { return m_Screen.GtoP(pt); }
 
-m2::PointD Navigator::PtoG(m2::PointD const & pt) const
-{
-  return m_Screen.PtoG(pt);
-}
+m2::PointD Navigator::PtoG(m2::PointD const & pt) const { return m_Screen.PtoG(pt); }
 
-m2::PointD Navigator::P3dtoP(m2::PointD const & pt) const
-{
-  return m_Screen.P3dtoP(pt);
-}
+m2::PointD Navigator::P3dtoP(m2::PointD const & pt) const { return m_Screen.P3dtoP(pt); }
 
 void Navigator::StartDrag(m2::PointD const & pt)
 {
@@ -143,10 +134,7 @@ void Navigator::StopDrag(m2::PointD const & pt)
   m_InAction = false;
 }
 
-bool Navigator::InAction() const
-{
-  return m_InAction;
-}
+bool Navigator::InAction() const { return m_InAction; }
 
 void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2)
 {
@@ -164,20 +152,17 @@ void Navigator::Scale(m2::PointD const & pixelScaleCenter, double factor)
   ApplyScale(pixelScaleCenter, factor, m_Screen);
 }
 
-bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
-                          m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                          bool skipMinScaleAndBordersCheck, bool doRotateScreen,
+bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2, m2::PointD const & oldPt1,
+                          m2::PointD const & oldPt2, bool skipMinScaleAndBordersCheck, bool doRotateScreen,
                           ScreenBase & screen)
 {
   m2::PointD const center3d = oldPt1;
   m2::PointD const center2d = screen.P3dtoP(center3d);
   m2::PointD const centerG = screen.PtoG(center2d);
-  m2::PointD const offset =  center2d - center3d;
+  m2::PointD const offset = center2d - center3d;
   math::Matrix<double, 3, 3> const newM =
-      screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,
-                                                      newPt1 + offset, newPt2 + offset,
-                                                      doRotateScreen,
-                                                      true);
+    screen.GtoPMatrix() *
+    ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset, newPt1 + offset, newPt2 + offset, doRotateScreen, true);
   ScreenBase tmp = screen;
   tmp.SetGtoPMatrix(newM);
 
@@ -186,10 +171,8 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
     if (doRotateScreen)
     {
       math::Matrix<double, 3, 3> const tmpM =
-        screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset,
-                                                        newPt1 + offset, newPt2 + offset,
-                                                        doRotateScreen,
-                                                        false);
+        screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1 + offset, oldPt2 + offset, newPt1 + offset,
+                                                        newPt2 + offset, doRotateScreen, false);
       tmp.SetGtoPMatrix(tmpM);
     }
     else
@@ -265,9 +248,8 @@ void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2)
 
   m_Screen = PrevScreen;
 
-  if (!ScaleImpl(pt1, pt2, m_LastPt1, m_LastPt2,
-                 pt1.Length(pt2) > m_LastPt1.Length(m_LastPt2),
-                 m_IsRotatingDuringScale, m_Screen))
+  if (!ScaleImpl(pt1, pt2, m_LastPt1, m_LastPt2, pt1.Length(pt2) > m_LastPt1.Length(m_LastPt2), m_IsRotatingDuringScale,
+                 m_Screen))
   {
     m_Screen = PrevScreen;
   }
@@ -282,15 +264,9 @@ void Navigator::StopScale(m2::PointD const & pt1, m2::PointD const & pt2)
   m_InAction = false;
 }
 
-bool Navigator::IsRotatingDuringScale() const
-{
-  return m_IsRotatingDuringScale;
-}
+bool Navigator::IsRotatingDuringScale() const { return m_IsRotatingDuringScale; }
 
-void Navigator::SetAutoPerspective(bool enable)
-{
-  m_Screen.SetAutoPerspective(enable);
-}
+void Navigator::SetAutoPerspective(bool enable) { m_Screen.SetAutoPerspective(enable); }
 
 void Navigator::Enable3dMode()
 {
@@ -301,10 +277,7 @@ void Navigator::Enable3dMode()
     m_Screen.ApplyPerspective(angle, angle, m_Screen.GetAngleFOV());
 }
 
-void Navigator::SetRotationIn3dMode(double rotationAngle)
-{
-  m_Screen.SetRotationAngle(rotationAngle);
-}
+void Navigator::SetRotationIn3dMode(double rotationAngle) { m_Screen.SetRotationAngle(rotationAngle); }
 
 void Navigator::Disable3dMode()
 {
@@ -317,9 +290,8 @@ m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
   double const dx = rect.SizeX();
   double const dy = rect.SizeY();
 
-  return m2::AnyRectD(rect.Center(),
-                      ang::Angle<double>(navigator.Screen().GetAngle()),
-                      m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
+  return m2::AnyRectD(rect.Center(), ang::Angle<double>(navigator.Screen().GetAngle()),
+                      m2::RectD(-dx / 2, -dy / 2, dx / 2, dy / 2));
 }
 
 void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale, double scale3d)
@@ -336,8 +308,7 @@ void CheckMinGlobalRect(m2::RectD & rect, double scale3d)
   CheckMinGlobalRect(rect, p.GetTileSize(), p.GetVisualScale(), scale3d);
 }
 
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale,
-                             uint32_t tileSize, double visualScale, double scale3d)
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale, uint32_t tileSize, double visualScale, double scale3d)
 {
   CheckMinGlobalRect(rect, tileSize, visualScale, scale3d);
   int scale = df::GetDrawTileScale(rect, tileSize, visualScale);

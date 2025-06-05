@@ -9,15 +9,15 @@ namespace spline_test
 {
 using namespace std;
 
-using m2::Spline;
 using m2::PointD;
+using m2::Spline;
 
 void TestPointDDir(PointD const & dst, PointD const & src)
 {
   double const len1 = dst.Length();
   double const len2 = src.Length();
-  TEST_ALMOST_EQUAL_ULPS(dst.x/len1, src.x/len2, ());
-  TEST_ALMOST_EQUAL_ULPS(dst.y/len1, src.y/len2, ());
+  TEST_ALMOST_EQUAL_ULPS(dst.x / len1, src.x / len2, ());
+  TEST_ALMOST_EQUAL_ULPS(dst.y / len1, src.y / len2, ());
 }
 
 UNIT_TEST(SmoothedDirections)

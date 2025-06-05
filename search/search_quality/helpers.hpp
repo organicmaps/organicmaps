@@ -28,7 +28,8 @@ void InitViewport(std::string viewportName, m2::RectD & viewport);
 
 void InitDataSource(FrozenDataSource & dataSource, std::string const & mwmListPath);
 
-std::unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(
-    DataSource & dataSource, std::string const & locale, size_t numThreads);
+std::unique_ptr<search::tests_support::TestSearchEngine> InitSearchEngine(DataSource & dataSource,
+                                                                          std::string const & locale,
+                                                                          size_t numThreads);
 }  // namespace search_quality
 }  // namespace search

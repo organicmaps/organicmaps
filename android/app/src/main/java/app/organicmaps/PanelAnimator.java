@@ -5,25 +5,22 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
-
 import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import org.chromium.base.ObserverList;
-
 import app.organicmaps.util.UiUtils;
+import org.chromium.base.ObserverList;
 
 class PanelAnimator
 {
   private final MwmActivity mActivity;
   private final ObserverList<MwmActivity.LeftAnimationTrackListener> mAnimationTrackListeners = new ObserverList<>();
-  private final ObserverList.RewindableIterator<MwmActivity.LeftAnimationTrackListener> mAnimationTrackIterator = mAnimationTrackListeners.rewindableIterator();
+  private final ObserverList.RewindableIterator<MwmActivity.LeftAnimationTrackListener> mAnimationTrackIterator =
+    mAnimationTrackListeners.rewindableIterator();
   private final View mPanel;
   private final int mWidth;
-  @IntegerRes
-  private final int mDuration;
+  @IntegerRes private final int mDuration;
 
   PanelAnimator(MwmActivity activity)
   {
@@ -50,7 +47,8 @@ class PanelAnimator
   }
 
   /** @param completionListener will be called before the fragment becomes actually visible */
-  public void show(final Class<? extends Fragment> clazz, final Bundle args, @Nullable final Runnable completionListener)
+  public void show(
+    final Class<? extends Fragment> clazz, final Bundle args, @Nullable final Runnable completionListener)
   {
     if (isVisible())
     {
@@ -78,10 +76,8 @@ class PanelAnimator
 
     ValueAnimator animator = ValueAnimator.ofFloat(-mWidth, 0.0f);
     animator.addUpdateListener(this::track);
-    animator.addListener(new UiUtils.SimpleAnimatorListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
+    animator.addListener(new UiUtils.SimpleAnimatorListener() {
+      @Override public void onAnimationEnd(Animator animation)
       {
         mAnimationTrackIterator.rewind();
         while (mAnimationTrackIterator.hasNext())
@@ -109,10 +105,8 @@ class PanelAnimator
 
     ValueAnimator animator = ValueAnimator.ofFloat(0.0f, -mWidth);
     animator.addUpdateListener(this::track);
-    animator.addListener(new UiUtils.SimpleAnimatorListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
+    animator.addListener(new UiUtils.SimpleAnimatorListener() {
+      @Override public void onAnimationEnd(Animator animation)
       {
         UiUtils.hide(mPanel);
 

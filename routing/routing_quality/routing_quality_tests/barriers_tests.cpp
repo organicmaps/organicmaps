@@ -15,14 +15,14 @@ UNIT_TEST(RoutingQuality_Broad_Node_Jamaica)
 {
   TEST(CheckCarRoute({17.94727, -76.25429} /* start */, {17.94499, -76.25459} /* finish */,
                      {{{17.945150, -76.25442}}} /* reference point */),
-      ());
+       ());
 }
 
 UNIT_TEST(RoutingQuality_Broad_Way_Jamaica)
 {
   TEST(CheckCarRoute({18.10260, -76.98374} /* start */, {18.10031, -76.98374} /* finish */,
                      {{{18.10078, -76.98412}}} /* reference point */),
-      ());
+       ());
 }
 
 UNIT_TEST(RoutingQuality_Broad_Node_Spain)

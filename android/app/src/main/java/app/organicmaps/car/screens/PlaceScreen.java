@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.SpannableString;
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -25,7 +24,6 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.MapObject;
@@ -41,25 +39,21 @@ import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.ResultCodesHelper;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.util.Config;
-
 import java.util.Objects;
 
 public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.Callback, RoutingController.Container
 {
   private static final Router ROUTER = Router.Vehicle;
 
-  @Nullable
-  private MapObject mMapObject;
+  @Nullable private MapObject mMapObject;
   private boolean mIsBuildError = false;
 
-  @NonNull
-  private final RoutingController mRoutingController;
+  @NonNull private final RoutingController mRoutingController;
 
-  @NonNull
-  private final OnBackPressedCallback mOnBackPressedCallback;
+  @NonNull private final OnBackPressedCallback mOnBackPressedCallback;
 
   private PlaceScreen(@NonNull Builder builder)
   {
@@ -69,9 +63,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     mOnBackPressedCallback = new OnBackPressedCallback(getCarContext(), this);
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -80,8 +72,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     return builder.build();
   }
 
-  @Override
-  public void onCreate(@NonNull LifecycleOwner owner)
+  @Override public void onCreate(@NonNull LifecycleOwner owner)
   {
     mRoutingController.restore();
     if (mRoutingController.isNavigating() && mRoutingController.getLastRouterType() == ROUTER)
@@ -95,7 +86,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       mRoutingController.restoreRoute();
     else
     {
-      final boolean hasIncorrectEndPoint = mRoutingController.isPlanning() && (!MapObject.same(mMapObject, mRoutingController.getEndPoint()));
+      final boolean hasIncorrectEndPoint =
+        mRoutingController.isPlanning() && (!MapObject.same(mMapObject, mRoutingController.getEndPoint()));
       final boolean hasIncorrectRouterType = mRoutingController.getLastRouterType() != ROUTER;
       final boolean isNotPlanningMode = !mRoutingController.isPlanning();
       if (hasIncorrectRouterType)
@@ -110,14 +102,12 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     }
   }
 
-  @Override
-  public void onResume(@NonNull LifecycleOwner owner)
+  @Override public void onResume(@NonNull LifecycleOwner owner)
   {
     mRoutingController.attach(this);
   }
 
-  @Override
-  public void onDestroy(@NonNull LifecycleOwner owner)
+  @Override public void onDestroy(@NonNull LifecycleOwner owner)
   {
     if (mRoutingController.isPlanning())
       mRoutingController.onSaveState();
@@ -125,8 +115,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       mRoutingController.detach();
   }
 
-  @NonNull
-  private Header createHeader()
+  @NonNull private Header createHeader()
   {
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
@@ -135,16 +124,14 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     return builder.build();
   }
 
-  @NonNull
-  private PaneTemplate createPaneTemplate()
+  @NonNull private PaneTemplate createPaneTemplate()
   {
     final PaneTemplate.Builder builder = new PaneTemplate.Builder(createPane());
     builder.setHeader(createHeader());
     return builder.build();
   }
 
-  @NonNull
-  private Pane createPane()
+  @NonNull private Pane createPane()
   {
     final Pane.Builder builder = new Pane.Builder();
     final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
@@ -159,7 +146,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     if (routingInfo != null)
       builder.addRow(getPlaceRouteInfo(routingInfo));
 
-    final Row placeOpeningHours = UiHelpers.getPlaceOpeningHoursRow(Objects.requireNonNull(mMapObject), getCarContext());
+    final Row placeOpeningHours =
+      UiHelpers.getPlaceOpeningHoursRow(Objects.requireNonNull(mMapObject), getCarContext());
     if (placeOpeningHours != null)
       builder.addRow(placeOpeningHours);
 
@@ -168,8 +156,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     return builder.build();
   }
 
-  @NonNull
-  private Row getPlaceDescription()
+  @NonNull private Row getPlaceDescription()
   {
     Objects.requireNonNull(mMapObject);
 
@@ -185,8 +172,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     return builder.build();
   }
 
-  @NonNull
-  private Row getPlaceRouteInfo(@NonNull RoutingInfo routingInfo)
+  @NonNull private Row getPlaceRouteInfo(@NonNull RoutingInfo routingInfo)
   {
     final Row.Builder builder = new Row.Builder();
 
@@ -195,7 +181,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     builder.setTitle(time);
 
     final SpannableString distance = new SpannableString(" ");
-    distance.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(routingInfo.distToTarget)), 0, 1, SPAN_INCLUSIVE_INCLUSIVE);
+    distance.setSpan(
+      DistanceSpan.create(RoutingHelpers.createDistance(routingInfo.distToTarget)), 0, 1, SPAN_INCLUSIVE_INCLUSIVE);
     distance.setSpan(ForegroundCarColorSpan.create(Colors.DISTANCE), 0, 1, SPAN_EXCLUSIVE_EXCLUSIVE);
     builder.addText(distance);
 
@@ -211,8 +198,10 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     {
       final String phoneNumber = phones.split(";", 1)[0];
       final Action.Builder openDialBuilder = new Action.Builder();
-      openDialBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_phone)).build());
-      openDialBuilder.setOnClickListener(() -> getCarContext().startCarApp(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber))));
+      openDialBuilder.setIcon(
+        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_phone)).build());
+      openDialBuilder.setOnClickListener(
+        () -> getCarContext().startCarApp(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber))));
       builder.addAction(openDialBuilder.build());
     }
 
@@ -224,7 +213,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     startRouteBuilder.setBackgroundColor(Colors.START_NAVIGATION);
     startRouteBuilder.setFlags(Action.FLAG_DEFAULT);
     startRouteBuilder.setTitle(getCarContext().getString(R.string.p2p_start));
-    startRouteBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
+    startRouteBuilder.setIcon(
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
     startRouteBuilder.setOnClickListener(() -> {
       Config.acceptRoutingDisclaimer();
       mRoutingController.start();
@@ -233,13 +223,15 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     builder.addAction(startRouteBuilder.build());
   }
 
-  @NonNull
-  private Action createDrivingOptionsAction()
+  @NonNull private Action createDrivingOptionsAction()
   {
     return new Action.Builder()
-        .setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_settings)).build())
-        .setOnClickListener(() -> getScreenManager().pushForResult(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()), this::onDrivingOptionsResult))
-        .build();
+      .setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_settings)).build())
+      .setOnClickListener(
+        ()
+          -> getScreenManager().pushForResult(
+            new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()), this::onDrivingOptionsResult))
+      .build();
   }
 
   private void onDrivingOptionsResult(@Nullable Object result)
@@ -251,14 +243,12 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     mRoutingController.rebuildLastRoute();
   }
 
-  @Override
-  public void onBackPressed()
+  @Override public void onBackPressed()
   {
     mRoutingController.cancel();
   }
 
-  @Override
-  public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
+  @Override public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
   {
     if (!show)
       return;
@@ -267,8 +257,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       completionListener.run();
   }
 
-  @Override
-  public void showNavigation(boolean show)
+  @Override public void showNavigation(boolean show)
   {
     if (show)
     {
@@ -277,41 +266,36 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     }
   }
 
-  @Override
-  public void onBuiltRoute()
+  @Override public void onBuiltRoute()
   {
     Framework.nativeDeactivateMapSelectionCircle();
     mMapObject = mRoutingController.getEndPoint();
     invalidate();
   }
 
-  @Override
-  public void onPlanningCancelled()
+  @Override public void onPlanningCancelled()
   {
     Framework.nativeDeactivateMapSelectionCircle();
   }
 
-  @Override
-  public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
+  @Override public void onCommonBuildError(int lastResultCode, @NonNull String[] lastMissingMaps)
   {
     if (ResultCodesHelper.isDownloadable(lastResultCode, lastMissingMaps.length))
-      getScreenManager().pushForResult(
-          new DownloadMapsScreenBuilder(getCarContext())
-              .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.BuildRoute)
-              .setMissingMaps(lastMissingMaps)
-              .setResultCode(lastResultCode)
-              .build(),
-          (result) -> {
-            if (Boolean.FALSE.equals(result))
-            {
-              CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
-              mIsBuildError = true;
-            }
-            else
-              mRoutingController.checkAndBuildRoute();
-            invalidate();
+      getScreenManager().pushForResult(new DownloadMapsScreenBuilder(getCarContext())
+                                         .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.BuildRoute)
+                                         .setMissingMaps(lastMissingMaps)
+                                         .setResultCode(lastResultCode)
+                                         .build(),
+        (result) -> {
+          if (Boolean.FALSE.equals(result))
+          {
+            CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
+            mIsBuildError = true;
           }
-      );
+          else
+            mRoutingController.checkAndBuildRoute();
+          invalidate();
+        });
     else
     {
       CarToast.makeText(getCarContext(), R.string.unable_to_calc_alert_title, CarToast.LENGTH_LONG).show();
@@ -320,8 +304,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     }
   }
 
-  @Override
-  public void onDrivingOptionsBuildError()
+  @Override public void onDrivingOptionsBuildError()
   {
     onCommonBuildError(-1, new String[0]);
   }
@@ -331,12 +314,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
    */
   public static final class Builder
   {
-    @NonNull
-    private final CarContext mCarContext;
-    @NonNull
-    private final SurfaceRenderer mSurfaceRenderer;
-    @Nullable
-    private MapObject mMapObject;
+    @NonNull private final CarContext mCarContext;
+    @NonNull private final SurfaceRenderer mSurfaceRenderer;
+    @Nullable private MapObject mMapObject;
 
     public Builder(@NonNull final CarContext carContext, @NonNull final SurfaceRenderer surfaceRenderer)
     {
@@ -350,8 +330,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       return this;
     }
 
-    @NonNull
-    public PlaceScreen build()
+    @NonNull public PlaceScreen build()
     {
       return new PlaceScreen(this);
     }

@@ -18,12 +18,9 @@ class VulkanGpuProgram : public GpuProgram
 public:
   using TextureBindings = std::unordered_map<std::string, int8_t>;
 
-  VulkanGpuProgram(std::string const & programName,
-                   VkPipelineShaderStageCreateInfo const & vertexShader,
-                   VkPipelineShaderStageCreateInfo const & fragmentShader,
-                   VkDescriptorSetLayout descriptorSetLayout,
-                   VkPipelineLayout pipelineLayout,
-                   TextureBindings const & textureBindings)
+  VulkanGpuProgram(std::string const & programName, VkPipelineShaderStageCreateInfo const & vertexShader,
+                   VkPipelineShaderStageCreateInfo const & fragmentShader, VkDescriptorSetLayout descriptorSetLayout,
+                   VkPipelineLayout pipelineLayout, TextureBindings const & textureBindings)
     : GpuProgram(programName)
     , m_vertexShader(vertexShader)
     , m_fragmentShader(fragmentShader)
@@ -35,10 +32,7 @@ public:
   void Bind() override {}
   void Unbind() override {}
 
-  std::array<VkPipelineShaderStageCreateInfo, 2> GetShaders() const
-  {
-    return {{m_vertexShader, m_fragmentShader}};
-  }
+  std::array<VkPipelineShaderStageCreateInfo, 2> GetShaders() const { return {{m_vertexShader, m_fragmentShader}}; }
 
   VkDescriptorSetLayout GetDescriptorSetLayout() const { return m_descriptorSetLayout; }
 

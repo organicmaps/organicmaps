@@ -46,8 +46,7 @@ public:
     , m_features(features)
     , m_exactlyMatchedFeatures(exactlyMatchedFeatures)
     , m_counter(0)
-  {
-  }
+  {}
 
   template <typename Value>
   void operator()(Value const & value, bool exactMatch)
@@ -88,7 +87,8 @@ private:
 class EditedFeaturesHolder
 {
 public:
-  explicit EditedFeaturesHolder(MwmSet::MwmId const & id) : m_id(id)
+  explicit EditedFeaturesHolder(MwmSet::MwmId const & id)
+    : m_id(id)
   {
     auto & editor = Editor::Instance();
     m_deleted = editor.GetFeaturesByStatus(id, FeatureStatus::Deleted);
@@ -189,8 +189,7 @@ pair<bool, bool> MatchesByType(feature::TypesHolder const & types, vector<DFA> c
 }
 
 template <typename DFA>
-pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo,
-                                           SearchTrieRequest<DFA> const & request)
+pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo, SearchTrieRequest<DFA> const & request)
 {
   auto const & th = emo.GetTypes();
 
@@ -201,19 +200,20 @@ pair<bool, bool> MatchFeatureByNameAndType(EditableMapObject const & emo,
     return {true, true};
 
   pair<bool, bool> matchedByName = {false, false};
-  emo.GetNameMultilang().ForEach([&](int8_t lang, string_view name)
-  {
-    if (name.empty() || !request.HasLang(lang))
-      return base::ControlFlow::Continue;
+  emo.GetNameMultilang().ForEach(
+    [&](int8_t lang, string_view name)
+    {
+      if (name.empty() || !request.HasLang(lang))
+        return base::ControlFlow::Continue;
 
-    auto const tokens = NormalizeAndTokenizeString(name);
-    auto const matched = MatchesByName(tokens, request.m_names);
-    matchedByName = {matchedByName.first || matched.first, matchedByName.second || matched.second};
-    if (!matchedByName.second)
-      return base::ControlFlow::Continue;
+      auto const tokens = NormalizeAndTokenizeString(name);
+      auto const matched = MatchesByName(tokens, request.m_names);
+      matchedByName = {matchedByName.first || matched.first, matchedByName.second || matched.second};
+      if (!matchedByName.second)
+        return base::ControlFlow::Continue;
 
-    return base::ControlFlow::Break;
-  });
+      return base::ControlFlow::Break;
+    });
 
   return {matchedByType.first || matchedByName.first, matchedByType.second || matchedByName.second};
 }
@@ -250,21 +250,20 @@ Retrieval::ExtendedFeatures RetrieveAddressFeaturesImpl(Retrieval::TrieRoot<Valu
   FeaturesCollector collector(cancellable, features, exactlyMatchedFeatures);
 
   MatchFeaturesInTrie(
-      request, root,
-      [&holder](Value const & value) {
-        return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(value.m_featureId));
-      } /* filter */,
-      collector);
+    request, root, [&holder](Value const & value)
+    { return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(value.m_featureId)); } /* filter */, collector);
 
-  holder.ForEachModifiedOrCreated([&](EditableMapObject const & emo, uint64_t index) {
-    auto const matched = MatchFeatureByNameAndType(emo, request);
-    if (matched.first)
+  holder.ForEachModifiedOrCreated(
+    [&](EditableMapObject const & emo, uint64_t index)
     {
-      features.emplace_back(index);
-      if (matched.second)
-        exactlyMatchedFeatures.emplace_back(index);
-    }
-  });
+      auto const matched = MatchFeatureByNameAndType(emo, request);
+      if (matched.first)
+      {
+        features.emplace_back(index);
+        if (matched.second)
+          exactlyMatchedFeatures.emplace_back(index);
+      }
+    });
 
   return SortFeaturesAndBuildResult(std::move(features), std::move(exactlyMatchedFeatures));
 }
@@ -281,23 +280,22 @@ Retrieval::ExtendedFeatures RetrievePostcodeFeaturesImpl(Retrieval::TrieRoot<Val
   FeaturesCollector collector(cancellable, features, exactlyMatchedFeatures);
 
   MatchPostcodesInTrie(
-      slice, root,
-      [&holder](Value const & value) {
-        return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(value.m_featureId));
-      } /* filter */,
-      collector);
+    slice, root, [&holder](Value const & value)
+    { return !holder.ModifiedOrDeleted(base::asserted_cast<uint32_t>(value.m_featureId)); } /* filter */, collector);
 
-  holder.ForEachModifiedOrCreated([&](EditableMapObject const & emo, uint64_t index) {
-    if (MatchFeatureByPostcode(emo, slice))
-      features.push_back(index);
-  });
+  holder.ForEachModifiedOrCreated(
+    [&](EditableMapObject const & emo, uint64_t index)
+    {
+      if (MatchFeatureByPostcode(emo, slice))
+        features.push_back(index);
+    });
 
   return SortFeaturesAndBuildResult(std::move(features));
 }
 
 Retrieval::ExtendedFeatures RetrieveGeometryFeaturesImpl(MwmContext const & context,
-                                                         base::Cancellable const & cancellable,
-                                                         m2::RectD const & rect, int scale)
+                                                         base::Cancellable const & cancellable, m2::RectD const & rect,
+                                                         int scale)
 {
   EditedFeaturesHolder holder(context.GetId());
 
@@ -311,11 +309,13 @@ Retrieval::ExtendedFeatures RetrieveGeometryFeaturesImpl(MwmContext const & cont
 
   context.ForEachIndex(coverage, scale, collector);
 
-  holder.ForEachModifiedOrCreated([&](EditableMapObject const & emo, uint64_t index) {
-    auto const center = emo.GetMercator();
-    if (rect.IsPointInside(center))
-      features.push_back(index);
-  });
+  holder.ForEachModifiedOrCreated(
+    [&](EditableMapObject const & emo, uint64_t index)
+    {
+      auto const center = emo.GetMercator();
+      if (rect.IsPointInside(center))
+        features.push_back(index);
+    });
   return SortFeaturesAndBuildResult(std::move(features), std::move(exactlyMatchedFeatures));
 }
 
@@ -342,13 +342,15 @@ struct RetrievePostcodeFeaturesAdaptor
 template <typename Value>
 unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(ModelReaderPtr & reader)
 {
-  return trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<Value>>(
-      SubReaderWrapper<Reader>(reader.GetPtr()), SingleValueSerializer<Value>());
+  return trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<Value>>(SubReaderWrapper<Reader>(reader.GetPtr()),
+                                                                    SingleValueSerializer<Value>());
 }
 }  // namespace
 
 Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cancellable)
-  : m_context(context), m_cancellable(cancellable), m_reader(unique_ptr<ModelReader>())
+  : m_context(context)
+  , m_cancellable(cancellable)
+  , m_reader(unique_ptr<ModelReader>())
 {
   auto const & value = context.m_value;
 
@@ -375,26 +377,24 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
   m_root = ReadTrie<Uint64IndexValue>(m_reader);
 }
 
-Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
-    SearchTrieRequest<UniStringDFA> const & request) const
+Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(SearchTrieRequest<UniStringDFA> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
 Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
-    SearchTrieRequest<PrefixDFAModifier<UniStringDFA>> const & request) const
+  SearchTrieRequest<PrefixDFAModifier<UniStringDFA>> const & request) const
+{
+  return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
+}
+
+Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(SearchTrieRequest<LevenshteinDFA> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }
 
 Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
-    SearchTrieRequest<LevenshteinDFA> const & request) const
-{
-  return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
-}
-
-Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(
-    SearchTrieRequest<PrefixDFAModifier<LevenshteinDFA>> const & request) const
+  SearchTrieRequest<PrefixDFAModifier<LevenshteinDFA>> const & request) const
 {
   return Retrieve<RetrieveAddressFeaturesAdaptor>(request);
 }

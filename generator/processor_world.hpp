@@ -18,8 +18,7 @@ namespace generator
 class ProcessorWorld : public FeatureProcessorInterface
 {
 public:
-  explicit ProcessorWorld(std::shared_ptr<FeatureProcessorQueue> const & queue,
-                          std::string const & popularityFilename);
+  explicit ProcessorWorld(std::shared_ptr<FeatureProcessorQueue> const & queue, std::string const & popularityFilename);
 
   // FeatureProcessorInterface overrides:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override;

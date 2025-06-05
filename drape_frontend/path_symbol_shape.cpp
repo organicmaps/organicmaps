@@ -4,18 +4,17 @@
 
 #include "shaders/programs.hpp"
 
-#include "drape/utils/vertex_decl.hpp"
-#include "drape/glsl_types.hpp"
-#include "drape/glsl_func.hpp"
-#include "drape/overlay_handle.hpp"
 #include "drape/attribute_provider.hpp"
-#include "drape/texture_manager.hpp"
 #include "drape/batcher.hpp"
+#include "drape/glsl_func.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/overlay_handle.hpp"
+#include "drape/texture_manager.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
 namespace df
 {
-PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,
-                                 PathSymbolViewParams const & params)
+PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params)
   : m_params(params)
   , m_spline(spline)
 {}

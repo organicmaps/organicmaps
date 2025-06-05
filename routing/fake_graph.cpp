@@ -16,9 +16,8 @@ void FakeGraph::AddStandaloneVertex(Segment const & newSegment, FakeVertex const
   m_vertexToSegment[newVertex] = newSegment;
 }
 
-void FakeGraph::AddVertex(Segment const & existentSegment, Segment const & newSegment,
-                          FakeVertex const & newVertex, bool isOutgoing, bool isPartOfReal,
-                          Segment const & real)
+void FakeGraph::AddVertex(Segment const & existentSegment, Segment const & newSegment, FakeVertex const & newVertex,
+                          bool isOutgoing, bool isPartOfReal, Segment const & real)
 {
   AddStandaloneVertex(newSegment, newVertex);
   auto const & segmentFrom = isOutgoing ? existentSegment : newSegment;
@@ -34,10 +33,8 @@ void FakeGraph::AddVertex(Segment const & existentSegment, Segment const & newSe
 
 void FakeGraph::AddConnection(Segment const & from, Segment const & to)
 {
-  ASSERT(m_segmentToVertex.find(from) != m_segmentToVertex.end(),
-         ("Segment", from, "does not exist in fake graph."));
-  ASSERT(m_segmentToVertex.find(to) != m_segmentToVertex.end(),
-         ("Segment", to, "does not exist in fake graph."));
+  ASSERT(m_segmentToVertex.find(from) != m_segmentToVertex.end(), ("Segment", from, "does not exist in fake graph."));
+  ASSERT(m_segmentToVertex.find(to) != m_segmentToVertex.end(), ("Segment", to, "does not exist in fake graph."));
   m_outgoing[from].insert(to);
   m_ingoing[to].insert(from);
 }
@@ -47,9 +44,8 @@ void FakeGraph::Append(FakeGraph const & rhs)
   std::map<Segment, FakeVertex> intersection;
   typename std::map<Segment, FakeVertex>::iterator intersectionIt(intersection.begin());
 
-  std::set_intersection(m_segmentToVertex.begin(), m_segmentToVertex.end(),
-                        rhs.m_segmentToVertex.begin(), rhs.m_segmentToVertex.end(),
-                        std::inserter(intersection, intersectionIt),
+  std::set_intersection(m_segmentToVertex.begin(), m_segmentToVertex.end(), rhs.m_segmentToVertex.begin(),
+                        rhs.m_segmentToVertex.end(), std::inserter(intersection, intersectionIt),
                         base::LessBy(&std::pair<Segment, FakeVertex>::first));
 
   size_t countEqual = 0;
@@ -126,10 +122,10 @@ bool FakeGraph::FindSegment(FakeVertex const & vertex, Segment & segment) const
   return true;
 }
 
-void FakeGraph::ConnectLoopToGuideSegments(
-    FakeVertex const & loop, Segment const & guidesSegment,
-    LatLonWithAltitude const & guidesSegmentFrom, LatLonWithAltitude const & guidesSegmentTo,
-    std::vector<std::pair<FakeVertex, Segment>> const & partsOfReal)
+void FakeGraph::ConnectLoopToGuideSegments(FakeVertex const & loop, Segment const & guidesSegment,
+                                           LatLonWithAltitude const & guidesSegmentFrom,
+                                           LatLonWithAltitude const & guidesSegmentTo,
+                                           std::vector<std::pair<FakeVertex, Segment>> const & partsOfReal)
 {
   auto itLoop = m_vertexToSegment.find(loop);
   CHECK(itLoop != m_vertexToSegment.end(), (loop));
@@ -149,8 +145,8 @@ void FakeGraph::ConnectLoopToGuideSegments(
 
     Segment const & directedReal = (newVertex.GetPointFrom() == guidesSegmentTo.GetLatLon() ||
                                     newVertex.GetPointTo() == guidesSegmentFrom.GetLatLon())
-                                       ? backwardReal
-                                       : guidesSegment;
+                                   ? backwardReal
+                                   : guidesSegment;
 
     m_realToFake[directedReal].insert(segment);
 
@@ -161,8 +157,7 @@ void FakeGraph::ConnectLoopToGuideSegments(
       m_vertexToSegment[newVertex] = segment;
     }
 
-    CHECK((newVertex.GetPointFrom() == loopPoint || newVertex.GetPointTo() == loopPoint),
-          (newVertex, loopPoint));
+    CHECK((newVertex.GetPointFrom() == loopPoint || newVertex.GetPointTo() == loopPoint), (newVertex, loopPoint));
 
     auto const & to = (newVertex.GetPointTo() == loopPoint) ? loopSegment : segment;
     auto const & from = (newVertex.GetPointFrom() == loopPoint) ? loopSegment : segment;
@@ -172,8 +167,7 @@ void FakeGraph::ConnectLoopToGuideSegments(
   }
 }
 
-void FakeGraph::ConnectLoopToExistentPartsOfReal(FakeVertex const & loop,
-                                                 Segment const & guidesSegment,
+void FakeGraph::ConnectLoopToExistentPartsOfReal(FakeVertex const & loop, Segment const & guidesSegment,
                                                  Segment const & directedGuidesSegment)
 {
   auto const & loopSegment = m_vertexToSegment[loop];

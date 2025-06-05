@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -22,7 +21,6 @@ import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.util.concurrency.ThreadPool;
 import app.organicmaps.util.concurrency.UiThread;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.text.NumberFormat;
 
 public class ProfileFragment extends BaseMwmToolbarFragment
@@ -40,8 +38,7 @@ public class ProfileFragment extends BaseMwmToolbarFragment
     return inflater.inflate(R.layout.fragment_osm_profile, container, false);
   }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.profile);
@@ -58,18 +55,19 @@ public class ProfileFragment extends BaseMwmToolbarFragment
     mEditsSent = mUserInfoBlock.findViewById(R.id.user_sent_edits);
     mProfileName = mUserInfoBlock.findViewById(R.id.user_profile_name);
     mProfileImage = mUserInfoBlock.findViewById(R.id.user_profile_image);
-    view.findViewById(R.id.about_osm).setOnClickListener((v) -> Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url)));
-    view.findViewById(R.id.osm_history).setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl(requireContext())));
-    view.findViewById(R.id.osm_notes).setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getNotesUrl(requireContext())));
+    view.findViewById(R.id.about_osm)
+      .setOnClickListener((v) -> Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url)));
+    view.findViewById(R.id.osm_history)
+      .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl(requireContext())));
+    view.findViewById(R.id.osm_notes)
+      .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getNotesUrl(requireContext())));
 
     View buttonsContainer = view.findViewById(R.id.buttons_container);
-    ViewCompat.setOnApplyWindowInsetsListener(
-        buttonsContainer,
-        new WindowInsetUtils.PaddingInsetsListener
-            .Builder()
-            .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
-            .setExcludeTop()
-            .build());
+    ViewCompat.setOnApplyWindowInsetsListener(buttonsContainer,
+      new WindowInsetUtils.PaddingInsetsListener.Builder()
+        .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
+        .setExcludeTop()
+        .build());
   }
 
   private void refreshViews()
@@ -114,13 +112,13 @@ public class ProfileFragment extends BaseMwmToolbarFragment
   private void logout()
   {
     new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
-        .setMessage(R.string.osm_log_out_confirmation)
-        .setPositiveButton(R.string.yes, (dialog, which) ->
-        {
+      .setMessage(R.string.osm_log_out_confirmation)
+      .setPositiveButton(R.string.yes,
+        (dialog, which) -> {
           OsmOAuth.clearAuthorization(requireContext());
           refreshViews();
         })
-        .setNegativeButton(R.string.no, null)
-        .show();
+      .setNegativeButton(R.string.no, null)
+      .show();
   }
 }

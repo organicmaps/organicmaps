@@ -22,10 +22,7 @@ void ProgramParams::Init()
 }
 
 // static
-void ProgramParams::Destroy()
-{
-  m_boundParams.clear();
-}
+void ProgramParams::Destroy() { m_boundParams.clear(); }
 
 // static
 std::string ProgramParams::GetBoundParamsName(ref_ptr<dp::GpuProgram> program)

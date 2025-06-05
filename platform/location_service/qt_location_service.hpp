@@ -4,10 +4,12 @@
 
 #include <QGeoPositionInfoSource>
 
-class QtLocationService : public QObject, public location::LocationService
+class QtLocationService
+  : public QObject
+  , public location::LocationService
 {
   Q_OBJECT
-  QGeoPositionInfoSource *m_positionSource;
+  QGeoPositionInfoSource * m_positionSource;
   // Unfortunately when the source is `geoclue2`
   // we would need access to the `Active` D-Bus property
   // https://www.freedesktop.org/software/geoclue/docs

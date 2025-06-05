@@ -10,14 +10,12 @@ import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
-
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +30,7 @@ public class BookmarkCategoriesScreen extends BaseMapScreen
     MAX_CATEGORIES_SIZE = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -42,8 +38,7 @@ public class BookmarkCategoriesScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private Header createHeader()
+  @NonNull private Header createHeader()
   {
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
@@ -51,8 +46,7 @@ public class BookmarkCategoriesScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private ListTemplate createBookmarkCategoriesListTemplate()
+  @NonNull private ListTemplate createBookmarkCategoriesListTemplate()
   {
     final List<BookmarkCategory> bookmarkCategories = getBookmarks();
     final int categoriesSize = Math.min(bookmarkCategories.size(), MAX_CATEGORIES_SIZE);
@@ -65,15 +59,15 @@ public class BookmarkCategoriesScreen extends BaseMapScreen
       Row.Builder itemBuilder = new Row.Builder();
       itemBuilder.setTitle(bookmarkCategory.getName());
       itemBuilder.addText(bookmarkCategory.getDescription());
-      itemBuilder.setOnClickListener(() -> getScreenManager().push(new BookmarksScreen(getCarContext(), getSurfaceRenderer(), bookmarkCategory)));
+      itemBuilder.setOnClickListener(
+        () -> getScreenManager().push(new BookmarksScreen(getCarContext(), getSurfaceRenderer(), bookmarkCategory)));
       itemBuilder.setBrowsable(true);
       builder.addItem(itemBuilder.build());
     }
     return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
 
-  @NonNull
-  private static List<BookmarkCategory> getBookmarks()
+  @NonNull private static List<BookmarkCategory> getBookmarks()
   {
     final List<BookmarkCategory> bookmarkCategories = new ArrayList<>(BookmarkManager.INSTANCE.getCategories());
 

@@ -47,12 +47,12 @@ public:
   bool GetProperty(Object object, ObjectProperty property, PropertyValue & value) const override;
   bool GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const override;
 
-  template<typename T> T const * FindAnimation(Animation::Type type, char const * customType = nullptr) const
+  template <typename T>
+  T const * FindAnimation(Animation::Type type, char const * customType = nullptr) const
   {
     for (auto const & anim : m_animations)
     {
-      if ((anim->GetType() == type) &&
-          (customType == nullptr || anim->GetCustomType() == customType))
+      if ((anim->GetType() == type) && (customType == nullptr || anim->GetCustomType() == customType))
       {
         ASSERT(dynamic_cast<T const *>(anim.get()) != nullptr, ());
         return static_cast<T const *>(anim.get());
@@ -71,4 +71,4 @@ private:
   std::string m_customType;
 };
 
-} // namespace df
+}  // namespace df

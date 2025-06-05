@@ -19,15 +19,9 @@ void CheckSelfIntersections(TIt beg, TIt end, bool res)
   TEST_EQUAL(CheckPolygonSelfIntersections(TRevIt(end), TRevIt(beg)), res, ());
 }
 
-bool OnSegment(P const & p, P const ps[])
-{
-  return IsPointOnSegment(p, ps[0], ps[1]);
-}
+bool OnSegment(P const & p, P const ps[]) { return IsPointOnSegment(p, ps[0], ps[1]); }
 
-bool InsideTriangle(P const & p, P const ps[])
-{
-  return IsPointInsideTriangle(p, ps[0], ps[1], ps[2]);
-}
+bool InsideTriangle(P const & p, P const ps[]) { return IsPointInsideTriangle(p, ps[0], ps[1], ps[2]); }
 
 UNIT_TEST(OrientedS_Smoke)
 {
@@ -151,7 +145,7 @@ UNIT_TEST(Triangle_PointInsidePoint)
 UNIT_TEST(PolygonSelfIntersections_IntersectSmoke)
 {
   {
-    P arr[] = { P(0, 1), P(2, -1), P(2, 1), P(0, -1) };
+    P arr[] = {P(0, 1), P(2, -1), P(2, 1), P(0, -1)};
     CheckSelfIntersections(&arr[0], arr + ARRAY_SIZE(arr), true);
   }
 }
@@ -159,12 +153,12 @@ UNIT_TEST(PolygonSelfIntersections_IntersectSmoke)
 UNIT_TEST(PolygonSelfIntersections_TangentSmoke)
 {
   {
-    P arr[] = { P(0, 1), P(1, 0), P(2, 1), P(2, -1), P(1, 0), P(0, -1) };
+    P arr[] = {P(0, 1), P(1, 0), P(2, 1), P(2, -1), P(1, 0), P(0, -1)};
     CheckSelfIntersections(&arr[0], arr + ARRAY_SIZE(arr), false);
   }
 
   {
-    P arr[] = { P(0, 0), P(2, 0), P(2, 1), P(1, 0), P(0, 1) };
+    P arr[] = {P(0, 0), P(2, 0), P(2, 1), P(1, 0), P(0, 1)};
     CheckSelfIntersections(&arr[0], arr + ARRAY_SIZE(arr), false);
   }
 }

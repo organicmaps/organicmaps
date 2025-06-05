@@ -26,9 +26,8 @@ bool LocalStorage::Save(xml_document const & doc)
 
   std::lock_guard<std::mutex> guard(m_mutex);
 
-  return base::WriteToTempAndRenameToFile(editorFilePath, [&doc](std::string const & fileName) {
-    return doc.save_file(fileName.data(), "  " /* indent */);
-  });
+  return base::WriteToTempAndRenameToFile(
+    editorFilePath, [&doc](std::string const & fileName) { return doc.save_file(fileName.data(), "  " /* indent */); });
 }
 
 bool LocalStorage::Load(xml_document & doc)

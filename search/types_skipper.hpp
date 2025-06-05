@@ -5,7 +5,6 @@
 
 #include "base/buffer_vector.hpp"
 
-
 namespace search
 {
 // Helper functions to determine if a feature should be indexed for search.

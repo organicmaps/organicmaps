@@ -10,7 +10,7 @@
 
 namespace traffic
 {
-using AllMwmTrafficInfo = std::map<MwmSet::MwmId, std::shared_ptr<const traffic::TrafficInfo::Coloring>>;
+using AllMwmTrafficInfo = std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring const>>;
 
 class TrafficCache
 {

@@ -20,14 +20,11 @@ class IndexRoadGraph : public RoadGraphBase
 {
 public:
   IndexRoadGraph(IndexGraphStarter & starter, std::vector<Segment> const & segments,
-                 std::vector<geometry::PointWithAltitude> const & junctions,
-                 MwmDataSource & dataSource);
+                 std::vector<geometry::PointWithAltitude> const & junctions, MwmDataSource & dataSource);
 
   // IRoadGraphBase overrides:
-  virtual void GetOutgoingEdges(geometry::PointWithAltitude const & junction,
-                                EdgeListT & edges) const override;
-  virtual void GetIngoingEdges(geometry::PointWithAltitude const & junction,
-                               EdgeListT & edges) const override;
+  virtual void GetOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges) const override;
+  virtual void GetIngoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges) const override;
   virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const override;
   virtual void GetJunctionTypes(geometry::PointWithAltitude const & junction,
                                 feature::TypesHolder & types) const override;

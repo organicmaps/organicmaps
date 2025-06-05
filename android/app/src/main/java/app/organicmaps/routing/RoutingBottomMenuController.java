@@ -21,13 +21,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.DistanceAndAzimut;
@@ -44,7 +42,6 @@ import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.recycler.DotDividerItemDecoration;
 import app.organicmaps.widget.recycler.MultilineLayoutManager;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,45 +50,28 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private static final String STATE_ALTITUDE_CHART_SHOWN = "altitude_chart_shown";
   private static final String STATE_ERROR = "error";
 
-  @NonNull
-  private final Activity mContext;
-  @NonNull
-  private final View mTimeElevationLine;
-  @NonNull
-  private final View mAltitudeChartFrame;
-  @NonNull
-  private final View mTransitFrame;
-  @NonNull
-  private final TextView mError;
-  @NonNull
-  private final Button mStart;
-  @NonNull
-  private final ImageView mAltitudeChart;
-  @NonNull
-  private final TextView mTime;
-  @NonNull
-  private final TextView mAltitudeDifference;
-  @NonNull
-  private final TextView mTimeVehicle;
-  @Nullable
-  private final TextView mArrival;
-  @NonNull
-  private final View mActionFrame;
-  @NonNull
-  private final TextView mActionMessage;
-  @NonNull
-  private final View mActionButton;
-  @NonNull
-  private final ImageView mActionIcon;
-  @NonNull
-  private final DotDividerItemDecoration mTransitViewDecorator;
+  @NonNull private final Activity mContext;
+  @NonNull private final View mTimeElevationLine;
+  @NonNull private final View mAltitudeChartFrame;
+  @NonNull private final View mTransitFrame;
+  @NonNull private final TextView mError;
+  @NonNull private final Button mStart;
+  @NonNull private final ImageView mAltitudeChart;
+  @NonNull private final TextView mTime;
+  @NonNull private final TextView mAltitudeDifference;
+  @NonNull private final TextView mTimeVehicle;
+  @Nullable private final TextView mArrival;
+  @NonNull private final View mActionFrame;
+  @NonNull private final TextView mActionMessage;
+  @NonNull private final View mActionButton;
+  @NonNull private final ImageView mActionIcon;
+  @NonNull private final DotDividerItemDecoration mTransitViewDecorator;
 
-  @Nullable
-  private final RoutingBottomMenuListener mListener;
+  @Nullable private final RoutingBottomMenuListener mListener;
 
   @NonNull
-  static RoutingBottomMenuController newInstance(@NonNull Activity activity, @NonNull View frame,
-                                                 @NonNull RoutingBottomMenuListener listener)
+  static RoutingBottomMenuController newInstance(
+    @NonNull Activity activity, @NonNull View frame, @NonNull RoutingBottomMenuListener listener)
   {
     View altitudeChartFrame = getViewById(activity, frame, R.id.altitude_chart_panel);
     View timeElevationLine = getViewById(activity, frame, R.id.time_elevation_line);
@@ -105,32 +85,21 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TextView arrival = (TextView) getViewById(activity, frame, R.id.arrival);
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
 
-    return new RoutingBottomMenuController(activity, altitudeChartFrame, timeElevationLine, transitFrame,
-                                           error, start, altitudeChart, time, altitudeDifference,
-                                           timeVehicle, arrival, actionFrame, listener);
+    return new RoutingBottomMenuController(activity, altitudeChartFrame, timeElevationLine, transitFrame, error, start,
+      altitudeChart, time, altitudeDifference, timeVehicle, arrival, actionFrame, listener);
   }
 
-  @NonNull
-  private static View getViewById(@NonNull Activity activity, @NonNull View frame,
-                                  @IdRes int resourceId)
+  @NonNull private static View getViewById(@NonNull Activity activity, @NonNull View frame, @IdRes int resourceId)
   {
     View view = frame.findViewById(resourceId);
     return view == null ? activity.findViewById(resourceId) : view;
   }
 
-  private RoutingBottomMenuController(@NonNull Activity context,
-                                      @NonNull View altitudeChartFrame,
-                                      @NonNull View timeElevationLine,
-                                      @NonNull View transitFrame,
-                                      @NonNull TextView error,
-                                      @NonNull Button start,
-                                      @NonNull ImageView altitudeChart,
-                                      @NonNull TextView time,
-                                      @NonNull TextView altitudeDifference,
-                                      @NonNull TextView timeVehicle,
-                                      @Nullable TextView arrival,
-                                      @NonNull View actionFrame,
-                                      @Nullable RoutingBottomMenuListener listener)
+  private RoutingBottomMenuController(@NonNull Activity context, @NonNull View altitudeChartFrame,
+    @NonNull View timeElevationLine, @NonNull View transitFrame, @NonNull TextView error, @NonNull Button start,
+    @NonNull ImageView altitudeChart, @NonNull TextView time, @NonNull TextView altitudeDifference,
+    @NonNull TextView timeVehicle, @Nullable TextView arrival, @NonNull View actionFrame,
+    @Nullable RoutingBottomMenuListener listener)
   {
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
@@ -155,8 +124,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
     Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
     Resources res = mContext.getResources();
-    mTransitViewDecorator = new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
-                                                         res.getDimensionPixelSize(R.dimen.margin_half));
+    mTransitViewDecorator = new DotDividerItemDecoration(
+      dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base), res.getDimensionPixelSize(R.dimen.margin_half));
     Button manageRouteButton = altitudeChartFrame.findViewById(R.id.btn__manage_route);
     manageRouteButton.setOnClickListener(this);
 
@@ -182,8 +151,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     UiUtils.hide(mAltitudeChartFrame, mTransitFrame);
   }
 
-  @SuppressLint("SetTextI18n")
-  void showTransitInfo(@NonNull TransitRouteInfo info)
+  @SuppressLint("SetTextI18n") void showTransitInfo(@NonNull TransitRouteInfo info)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame);
     showStartButton(false);
@@ -200,8 +168,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     scrollToBottom(rv);
 
     TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
-    totalTimeView.setText(RoutingController.formatRoutingTime(mContext, info.getTotalTime(),
-                                                            R.dimen.text_size_routing_number));
+    totalTimeView.setText(
+      RoutingController.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));
     View dotView = mTransitFrame.findViewById(R.id.dot);
     View pedestrianIcon = mTransitFrame.findViewById(R.id.pedestrian_icon);
     TextView distanceView = mTransitFrame.findViewById(R.id.total_distance);
@@ -209,8 +177,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
     distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
   }
 
-  @SuppressLint("SetTextI18n")
-  void showRulerInfo(@NonNull RouteMarkData[] points, Distance totalLength)
+  @SuppressLint("SetTextI18n") void showRulerInfo(@NonNull RouteMarkData[] points, Distance totalLength)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mAltitudeChartFrame);
     showStartButton(false);
@@ -233,8 +200,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
       UiUtils.hide(rv); // Show only distance between start and finish
 
     TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
-    totalTimeView.setText(mContext.getString(R.string.placepage_distance) + ": " +
-                          totalLength.mDistanceStr + " " + totalLength.getUnitsStr(mContext));
+    totalTimeView.setText(mContext.getString(R.string.placepage_distance) + ": " + totalLength.mDistanceStr + " "
+                          + totalLength.getUnitsStr(mContext));
 
     UiUtils.hide(mTransitFrame, R.id.dot);
     UiUtils.hide(mTransitFrame, R.id.pedestrian_icon);
@@ -249,10 +216,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       RouteMarkData segmentStart = points[i - 1];
       RouteMarkData segmentEnd = points[i];
-      DistanceAndAzimut dist = Framework.nativeGetDistanceAndAzimuthFromLatLon(segmentStart.mLat, segmentStart.mLon, segmentEnd.mLat, segmentEnd.mLon, 0);
+      DistanceAndAzimut dist = Framework.nativeGetDistanceAndAzimuthFromLatLon(
+        segmentStart.mLat, segmentStart.mLon, segmentEnd.mLat, segmentEnd.mLon, 0);
       if (i > 1)
         transitSteps.add(TransitStepInfo.intermediatePoint(i - 2));
-      transitSteps.add(TransitStepInfo.ruler(dist.getDistance().mDistanceStr, dist.getDistance().getUnitsStr(mContext)));
+      transitSteps.add(
+        TransitStepInfo.ruler(dist.getDistance().mDistanceStr, dist.getDistance().getUnitsStr(mContext)));
     }
 
     return transitSteps;
@@ -268,8 +237,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       UiUtils.show(mActionButton);
       Drawable icon = ContextCompat.getDrawable(mContext, R.drawable.ic_location_crosshair);
-      int colorAccent = ContextCompat.getColor(mContext,
-                                               UiUtils.getStyledResourceId(mContext, androidx.appcompat.R.attr.colorAccent));
+      int colorAccent =
+        ContextCompat.getColor(mContext, UiUtils.getStyledResourceId(mContext, androidx.appcompat.R.attr.colorAccent));
       mActionIcon.setImageDrawable(Graphics.tint(icon, colorAccent));
     }
     else
@@ -358,9 +327,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       mAltitudeChart.setImageBitmap(bm);
       UiUtils.show(mAltitudeChart);
-      final String unit = limits.isMetricUnits ? mAltitudeDifference.getResources().getString(R.string.m) : mAltitudeDifference.getResources().getString(R.string.ft);
-      mAltitudeDifference.setText("↗ " + limits.totalAscentString + " " + unit +
-                                  " ↘ " + limits.totalDescentString + " " + unit);
+      final String unit = limits.isMetricUnits ? mAltitudeDifference.getResources().getString(R.string.m)
+                                               : mAltitudeDifference.getResources().getString(R.string.ft);
+      mAltitudeDifference.setText(
+        "↗ " + limits.totalAscentString + " " + unit + " ↘ " + limits.totalDescentString + " " + unit);
       UiUtils.show(mAltitudeDifference);
     }
   }
@@ -401,13 +371,11 @@ final class RoutingBottomMenuController implements View.OnClickListener
       parentScroll.postDelayed(() -> parentScroll.fullScroll(ScrollView.FOCUS_DOWN), 100);
   }
 
-  @NonNull
-  private static Spanned makeSpannedRoutingDetails(@NonNull Context context, @NonNull RoutingInfo routingInfo)
+  @NonNull private static Spanned makeSpannedRoutingDetails(@NonNull Context context, @NonNull RoutingInfo routingInfo)
 
   {
-    CharSequence time = RoutingController.formatRoutingTime(context,
-                                                            routingInfo.totalTimeInSeconds,
-                                                            R.dimen.text_size_routing_number);
+    CharSequence time =
+      RoutingController.formatRoutingTime(context, routingInfo.totalTimeInSeconds, R.dimen.text_size_routing_number);
 
     SpannableStringBuilder builder = new SpannableStringBuilder();
     initTimeBuilderSequence(context, time, builder);
@@ -420,75 +388,50 @@ final class RoutingBottomMenuController implements View.OnClickListener
     return builder;
   }
 
-  private static void initTimeBuilderSequence(@NonNull Context context, @NonNull CharSequence time,
-                                              @NonNull SpannableStringBuilder builder)
+  private static void initTimeBuilderSequence(
+    @NonNull Context context, @NonNull CharSequence time, @NonNull SpannableStringBuilder builder)
   {
     builder.append(time);
 
-    builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
-                    0,
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(context.getResources()
-                                                .getDimensionPixelSize(R.dimen.text_size_routing_number)),
-                    0,
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new StyleSpan(Typeface.BOLD),
-                    0,
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context,
-                                                                android.R.attr.textColorPrimary)),
-                    0,
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)), 0, builder.length(),
+      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(
+      new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)), 0,
+      builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new StyleSpan(Typeface.BOLD), 0, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, android.R.attr.textColorPrimary)), 0,
+      builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 
-  private static void initDotBuilderSequence(@NonNull Context context, @NonNull String dot,
-                                             @NonNull SpannableStringBuilder builder)
+  private static void initDotBuilderSequence(
+    @NonNull Context context, @NonNull String dot, @NonNull SpannableStringBuilder builder)
   {
     builder.append(dot);
     builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
-                    builder.length() - dot.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(context.getResources()
-                                                .getDimensionPixelSize(R.dimen.text_size_routing_number)),
-                    builder.length() - dot.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.length() - dot.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(
+      new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)),
+      builder.length() - dot.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, R.attr.secondary)),
-                    builder.length() - dot.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.length() - dot.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 
-  private static void initDistanceBuilderSequence(@NonNull Context context, @NonNull String arrivalTime,
-                                                  @NonNull SpannableStringBuilder builder)
+  private static void initDistanceBuilderSequence(
+    @NonNull Context context, @NonNull String arrivalTime, @NonNull SpannableStringBuilder builder)
   {
     builder.append(arrivalTime);
     builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
-                    builder.length() - arrivalTime.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(context.getResources()
-                                                .getDimensionPixelSize(R.dimen.text_size_routing_number)),
-                    builder.length() - arrivalTime.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new StyleSpan(Typeface.NORMAL),
-                    builder.length() - arrivalTime.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.length() - arrivalTime.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(
+      new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)),
+      builder.length() - arrivalTime.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new StyleSpan(Typeface.NORMAL), builder.length() - arrivalTime.length(), builder.length(),
+      Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, android.R.attr.textColorPrimary)),
-                    builder.length() - arrivalTime.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.length() - arrivalTime.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 
-  @Override
-  public void onClick(View v)
+  @Override public void onClick(View v)
   {
     final int id = v.getId();
     if (id == R.id.btn__my_position_use)

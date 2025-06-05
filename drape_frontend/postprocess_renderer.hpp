@@ -96,6 +96,7 @@ class StencilWriterGuard
 public:
   StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer, ref_ptr<dp::GraphicsContext> context);
   ~StencilWriterGuard();
+
 private:
   ref_ptr<PostprocessRenderer> const m_renderer;
   ref_ptr<dp::GraphicsContext> const m_context;

@@ -2,8 +2,8 @@
 
 #include "base/logging.hpp"
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace storage
 {
@@ -52,8 +52,8 @@ std::optional<CountryTree> LoadCountriesFromFile(std::string const & path)
   MwmTopCityGeoIds mwmTopCityGeoIds;
   MwmTopCountryGeoIds mwmTopCountryGeoIds;
   CountryTree countries;
-  auto const res = LoadCountriesFromFile(path, countries, affiliations, countryNameSynonyms,
-                                         mwmTopCityGeoIds, mwmTopCountryGeoIds);
+  auto const res =
+    LoadCountriesFromFile(path, countries, affiliations, countryNameSynonyms, mwmTopCityGeoIds, mwmTopCountryGeoIds);
 
   if (res == -1)
     return {};

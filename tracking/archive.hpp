@@ -29,7 +29,6 @@
 #pragma clang diagnostic pop
 #endif
 
-
 namespace tracking
 {
 namespace helpers
@@ -51,7 +50,7 @@ struct Limits
 };
 
 Limits GetLimits(bool isDelta);
-} // namespace helpers
+}  // namespace helpers
 
 struct Packet
 {
@@ -100,8 +99,7 @@ private:
 // Abstract packet traits.
 template <typename Pack>
 struct TraitsPacket
-{
-};
+{};
 
 template <>
 struct TraitsPacket<Packet>
@@ -123,10 +121,8 @@ struct TraitsPacket<Packet>
   {
     auto const lim = helpers::GetLimits(isDelta);
 
-    double const lat =
-        Uint32ToDouble(ReadVarUint<uint32_t>(src), lim.m_minLat, lim.m_maxLat, kCoordBits);
-    double const lon =
-        Uint32ToDouble(ReadVarUint<uint32_t>(src), lim.m_minLon, lim.m_maxLon, kCoordBits);
+    double const lat = Uint32ToDouble(ReadVarUint<uint32_t>(src), lim.m_minLat, lim.m_maxLat, kCoordBits);
+    double const lon = Uint32ToDouble(ReadVarUint<uint32_t>(src), lim.m_minLon, lim.m_maxLon, kCoordBits);
     uint32_t const timestamp = ReadVarUint<uint32_t>(src);
     return Packet(lat, lon, timestamp);
   }
@@ -147,10 +143,7 @@ struct TraitsPacket<Packet>
     return Packet(lat, lon, timestamp);
   }
 
-  static traffic::SpeedGroup GetSpeedGroup(Packet const & packet)
-  {
-    return traffic::SpeedGroup::Unknown;
-  }
+  static traffic::SpeedGroup GetSpeedGroup(Packet const & packet) { return traffic::SpeedGroup::Unknown; }
 };
 
 template <>
@@ -160,8 +153,7 @@ struct TraitsPacket<PacketCar>
   static void Write(Writer & writer, PacketCar const & packet, bool isDelta)
   {
     TraitsPacket<Packet>::Write(writer, packet, isDelta);
-    static_assert(
-        std::is_same<uint8_t, std::underlying_type_t<decltype(packet.m_speedGroup)>>::value, "");
+    static_assert(std::is_same<uint8_t, std::underlying_type_t<decltype(packet.m_speedGroup)>>::value, "");
     WriteVarUint(writer, static_cast<uint8_t>(packet.m_speedGroup));
   }
 
@@ -185,10 +177,7 @@ struct TraitsPacket<PacketCar>
     return PacketCar(base.m_lat, base.m_lon, base.m_timestamp, delta.m_speedGroup);
   }
 
-  static traffic::SpeedGroup GetSpeedGroup(PacketCar const & packet)
-  {
-    return packet.m_speedGroup;
-  }
+  static traffic::SpeedGroup GetSpeedGroup(PacketCar const & packet) { return packet.m_speedGroup; }
 };
 
 template <typename Reader>
@@ -206,8 +195,7 @@ std::vector<uint8_t> InflateToBuffer(Reader & src)
 template <typename Writer>
 void DeflateToDst(Writer & dst, std::vector<uint8_t> const & buf)
 {
-  coding::ZLib::Deflate deflate(coding::ZLib::Deflate::Format::ZLib,
-                                coding::ZLib::Deflate::Level::BestCompression);
+  coding::ZLib::Deflate deflate(coding::ZLib::Deflate::Format::ZLib, coding::ZLib::Deflate::Level::BestCompression);
   std::vector<uint8_t> deflatedBuf;
   deflate(buf.data(), buf.size(), std::back_inserter(deflatedBuf));
   dst.Write(deflatedBuf.data(), deflatedBuf.size());
@@ -215,9 +203,9 @@ void DeflateToDst(Writer & dst, std::vector<uint8_t> const & buf)
 
 template <typename Pack>
 BasicArchive<Pack>::BasicArchive(size_t maxSize, double minDelaySeconds)
-  : m_buffer(maxSize), m_minDelaySeconds(minDelaySeconds)
-{
-}
+  : m_buffer(maxSize)
+  , m_minDelaySeconds(minDelaySeconds)
+{}
 
 template <typename Pack>
 template <typename... PackParameters>
@@ -306,7 +294,7 @@ bool BasicArchive<Pack>::Read(Reader & src)
     // Read with delta.
     while (reader.Size() > 0)
     {
-      Pack const delta = TraitsPacket<Pack>::Read(reader, true  /* isDelta */);
+      Pack const delta = TraitsPacket<Pack>::Read(reader, true /* isDelta */);
       m_buffer.push_back(TraitsPacket<Pack>::Combine(m_buffer.back(), delta));
     }
     return true;

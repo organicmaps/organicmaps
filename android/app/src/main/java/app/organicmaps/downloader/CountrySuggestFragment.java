@@ -9,18 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.location.LocationHelper;
-import app.organicmaps.widget.WheelProgressView;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.UiUtils;
-
+import app.organicmaps.widget.WheelProgressView;
 import java.util.List;
 
 public class CountrySuggestFragment extends BaseMwmFragment implements View.OnClickListener
@@ -39,23 +36,18 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
   private CountryItem mDownloadingCountry;
   private int mListenerSlot;
 
-  @Nullable
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_suggest_country_download, container, false);
   }
 
-  @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
     initViews(view);
-    mListenerSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
-    {
-      @Override
-      public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+    mListenerSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback() {
+      @Override public void onStatusChanged(List<MapManager.StorageCallbackData> data)
       {
         if (!isAdded())
           return;
@@ -72,13 +64,9 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
           switch (item.newStatus)
           {
-          case CountryItem.STATUS_FAILED:
-            updateViews();
-            return;
+          case CountryItem.STATUS_FAILED: updateViews(); return;
 
-          case CountryItem.STATUS_DONE:
-            exitFragment();
-            return;
+          case CountryItem.STATUS_DONE: exitFragment(); return;
           }
 
           break;
@@ -87,8 +75,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
         updateViews();
       }
 
-      @Override
-      public void onProgress(String countryId, long localSize, long remoteSize)
+      @Override public void onProgress(String countryId, long localSize, long remoteSize)
       {
         if (!isAdded())
           return;
@@ -109,8 +96,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     getParentFragment().getChildFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
   }
 
-  @Override
-  public void onResume()
+  @Override public void onResume()
   {
     super.onResume();
 
@@ -125,8 +111,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     updateViews();
   }
 
-  @Override
-  public void onDestroy()
+  @Override public void onDestroy()
   {
     super.onDestroy();
     MapManager.nativeUnsubscribe(mListenerSlot);
@@ -137,9 +122,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     if (mCurrentCountry == null || !isAdded())
       return;
 
-    mBtnDownloadMap.setText(StringUtils.formatUsingUsLocale("%1$s (%2$s)",
-                                          getString(R.string.downloader_download_map),
-                                          StringUtils.getFileSizeString(requireContext(), mCurrentCountry.totalSize)));
+    mBtnDownloadMap.setText(StringUtils.formatUsingUsLocale("%1$s (%2$s)", getString(R.string.downloader_download_map),
+      StringUtils.getFileSizeString(requireContext(), mCurrentCountry.totalSize)));
   }
 
   private void initViews(View view)
@@ -192,13 +176,13 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
   private void updateProgress()
   {
-    String text = getString(R.string.downloader_downloading) + " " + StringUtils.formatPercent(mDownloadingCountry.progress / 100);
+    String text =
+      getString(R.string.downloader_downloading) + " " + StringUtils.formatPercent(mDownloadingCountry.progress / 100);
     mTvProgress.setText(text);
     mWpvDownloadProgress.setProgress(Math.round(mDownloadingCountry.progress));
   }
 
-  @Override
-  public void onClick(View v)
+  @Override public void onClick(View v)
   {
     final int id = v.getId();
     if (id == R.id.btn__download_map)

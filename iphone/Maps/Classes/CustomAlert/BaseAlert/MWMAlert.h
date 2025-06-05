@@ -1,7 +1,7 @@
 @class MWMAlertViewController;
 @interface MWMAlert : UIView
 
-@property(weak, nonatomic) MWMAlertViewController *alertController;
+@property(weak, nonatomic) MWMAlertViewController * alertController;
 
 + (MWMAlert *)locationAlertWithCancelBlock:(MWMVoidBlock)cancelBlock;
 + (MWMAlert *)routingDisclaimerAlertWithOkBlock:(MWMVoidBlock)block;

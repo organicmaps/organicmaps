@@ -22,9 +22,13 @@ class CategoriesIndex
 public:
   using Category = CategoriesHolder::Category;
 
-  CategoriesIndex() : m_catHolder(&GetDefaultCategories()) {}
+  CategoriesIndex()
+    : m_catHolder(&GetDefaultCategories())
+  {}
 
-  explicit CategoriesIndex(CategoriesHolder const & catHolder) : m_catHolder(&catHolder) {}
+  explicit CategoriesIndex(CategoriesHolder const & catHolder)
+    : m_catHolder(&catHolder)
+  {}
 
   CategoriesIndex(CategoriesIndex &&) = default;
   CategoriesIndex & operator=(CategoriesIndex &&) = default;

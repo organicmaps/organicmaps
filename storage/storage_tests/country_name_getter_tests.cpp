@@ -9,7 +9,7 @@ using namespace std;
 UNIT_TEST(CountryNameGetterTest)
 {
   string const shortJson =
-      "\
+    "\
       {\
       \"Russia_Moscow\":\"Москва\",\
       \"Russia_Rostov-on-Don\":\"Ростов-на-Дону\"\

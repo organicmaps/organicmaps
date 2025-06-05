@@ -52,8 +52,7 @@ class FeaturesAndRawGeometryCollector : public FeaturesCollector
   size_t m_rawGeometryCounter = 0;
 
 public:
-  FeaturesAndRawGeometryCollector(std::string const & featuresFileName,
-                                  std::string const & rawGeometryFileName);
+  FeaturesAndRawGeometryCollector(std::string const & featuresFileName, std::string const & rawGeometryFileName);
   ~FeaturesAndRawGeometryCollector() override;
 
   uint32_t Collect(FeatureBuilder const & f) override;

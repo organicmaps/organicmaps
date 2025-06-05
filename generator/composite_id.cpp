@@ -14,14 +14,13 @@ CompositeId::CompositeId(std::string const & str)
 }
 
 CompositeId::CompositeId(base::GeoObjectId mainId, base::GeoObjectId additionalId)
-  : m_mainId(mainId), m_additionalId(additionalId)
-{
-}
+  : m_mainId(mainId)
+  , m_additionalId(additionalId)
+{}
 
 CompositeId::CompositeId(base::GeoObjectId mainId)
   : CompositeId(mainId, base::GeoObjectId() /* additionalId */)
-{
-}
+{}
 
 bool CompositeId::operator<(CompositeId const & other) const
 {
@@ -33,10 +32,7 @@ bool CompositeId::operator==(CompositeId const & other) const
   return std::tie(m_mainId, m_additionalId) == std::tie(other.m_mainId, other.m_additionalId);
 }
 
-bool CompositeId::operator!=(CompositeId const & other) const
-{
-  return !(*this == other);
-}
+bool CompositeId::operator!=(CompositeId const & other) const { return !(*this == other); }
 
 std::string CompositeId::ToString() const
 {
@@ -46,8 +42,5 @@ std::string CompositeId::ToString() const
   return stream.str();
 }
 
-std::string DebugPrint(CompositeId const & id)
-{
-  return DebugPrint(id.m_mainId) + "|" + DebugPrint(id.m_additionalId);
-}
+std::string DebugPrint(CompositeId const & id) { return DebugPrint(id.m_mainId) + "|" + DebugPrint(id.m_additionalId); }
 }  // namespace generator

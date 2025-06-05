@@ -11,8 +11,7 @@ int constexpr kMinInfoVisibleZoom = 1;
 
 TrackInfoMark::TrackInfoMark(m2::PointD const & ptOrg)
   : UserMark(ptOrg, UserMark::TRACK_INFO)
-{
-}
+{}
 
 void TrackInfoMark::SetOffset(m2::PointF const & offset)
 {
@@ -32,10 +31,7 @@ void TrackInfoMark::SetIsVisible(bool isVisible)
   m_isVisible = isVisible;
 }
 
-void TrackInfoMark::SetTrackId(kml::TrackId trackId)
-{
-  m_trackId = trackId;
-}
+void TrackInfoMark::SetTrackId(kml::TrackId trackId) { m_trackId = trackId; }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TrackInfoMark::GetSymbolNames() const
 {
@@ -52,8 +48,7 @@ drape_ptr<df::UserPointMark::SymbolOffsets> TrackInfoMark::GetSymbolOffsets() co
 
 TrackSelectionMark::TrackSelectionMark(m2::PointD const & ptOrg)
   : UserMark(ptOrg, UserMark::TRACK_SELECTION)
-{
-}
+{}
 
 void TrackSelectionMark::SetPosition(m2::PointD const & ptOrg)
 {
@@ -73,20 +68,11 @@ void TrackSelectionMark::SetMinVisibleZoom(int zoom)
   m_minVisibleZoom = zoom;
 }
 
-void TrackSelectionMark::SetTrackId(kml::TrackId trackId)
-{
-  m_trackId = trackId;
-}
+void TrackSelectionMark::SetTrackId(kml::TrackId trackId) { m_trackId = trackId; }
 
-void TrackSelectionMark::SetDistance(double distance)
-{
-  m_distance = distance;
-}
+void TrackSelectionMark::SetDistance(double distance) { m_distance = distance; }
 
-void TrackSelectionMark::SetMyPositionDistance(double distance)
-{
-  m_myPositionDistance = distance;
-}
+void TrackSelectionMark::SetMyPositionDistance(double distance) { m_myPositionDistance = distance; }
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TrackSelectionMark::GetSymbolNames() const
 {
@@ -96,7 +82,4 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TrackSelectionMark::GetSymbolNa
 }
 
 // static
-std::string TrackSelectionMark::GetInitialSymbolName()
-{
-  return kTrackDeselectedSymbolName;
-}
+std::string TrackSelectionMark::GetInitialSymbolName() { return kTrackDeselectedSymbolName; }

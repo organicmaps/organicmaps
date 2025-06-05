@@ -15,9 +15,10 @@ public:
   CellValuePair() = default;
 
   CellValuePair(uint64_t cell, Value value)
-    : m_cellLo(UINT64_LO(cell)), m_cellHi(UINT64_HI(cell)), m_value(value)
-  {
-  }
+    : m_cellLo(UINT64_LO(cell))
+    , m_cellHi(UINT64_HI(cell))
+    , m_value(value)
+  {}
 
   bool operator<(CellValuePair const & rhs) const
   {

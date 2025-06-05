@@ -8,10 +8,10 @@
 
 #include <iostream>
 
-
-int main(int argc, char** argv)
+int main(int argc, char ** argv)
 {
-  if (argc < 2) {
+  if (argc < 2)
+  {
     std::cout << "Converts kmb file(s) to kml\n";
     std::cout << "Usage: " << argv[0] << " path_to_kmb_file [path_to_another_kmb_file...]\n";
     return 1;
@@ -54,6 +54,7 @@ int main(int argc, char** argv)
       return 1;
     }
     std::cout << "Saved converted file as " << filePath << std::endl;
-  } while (--argc > 1);
+  }
+  while (--argc > 1);
   return 0;
 }

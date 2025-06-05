@@ -26,11 +26,10 @@ namespace track_analyzing
 {
 using namespace std;
 
-void FillTable(basic_istream<char> & tableCsvStream, MwmToDataPoints & matchedDataPoints,
-               vector<TableRow> & table)
+void FillTable(basic_istream<char> & tableCsvStream, MwmToDataPoints & matchedDataPoints, vector<TableRow> & table)
 {
-  for (auto const & row : coding::CSVRunner(
-      coding::CSVReader(tableCsvStream, true /* hasHeader */, ',' /* delimiter */)))
+  for (auto const & row :
+       coding::CSVRunner(coding::CSVReader(tableCsvStream, true /* hasHeader */, ',' /* delimiter */)))
   {
     CHECK_EQUAL(row.size(), kTableColumns, (row));
     auto const & mwmName = row[kMwmNameCsvColumn];
@@ -39,13 +38,12 @@ void FillTable(basic_istream<char> & tableCsvStream, MwmToDataPoints & matchedDa
   }
 }
 
-void RemoveKeysSmallValue(MwmToDataPoints & checkedMap, MwmToDataPoints & additionalMap,
-                          uint64_t ignoreDataPointNumber)
+void RemoveKeysSmallValue(MwmToDataPoints & checkedMap, MwmToDataPoints & additionalMap, uint64_t ignoreDataPointNumber)
 {
   CHECK(AreKeysEqual(additionalMap, checkedMap),
         ("Mwms in |checkedMap| and in |additionalMap| should have the same set of keys."));
 
-  for (auto it = checkedMap.begin() ; it != checkedMap.end();)
+  for (auto it = checkedMap.begin(); it != checkedMap.end();)
   {
     auto const dataPointNumberAfterMatching = it->second;
     if (dataPointNumberAfterMatching > ignoreDataPointNumber)
@@ -72,14 +70,13 @@ MwmToDataPointFraction GetMwmToDataPointFraction(MwmToDataPoints const & numberM
   return fractionMapping;
 }
 
-MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
-    MwmToDataPoints const & matchedDataPoints, MwmToDataPointFraction const & distributionFractions)
+MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(MwmToDataPoints const & matchedDataPoints,
+                                                         MwmToDataPointFraction const & distributionFractions)
 {
   CHECK(!matchedDataPoints.empty(), ());
   CHECK(AreKeysEqual(matchedDataPoints, distributionFractions),
         ("Mwms in |matchedDataPoints| and in |distributionFractions| should have the same set of keys."));
-  CHECK(base::AlmostEqualAbs(ValueSum(distributionFractions), 1.0, kSumFractionEps),
-        (ValueSum(distributionFractions)));
+  CHECK(base::AlmostEqualAbs(ValueSum(distributionFractions), 1.0, kSumFractionEps), (ValueSum(distributionFractions)));
 
   auto const matchedFractions = GetMwmToDataPointFraction(matchedDataPoints);
 
@@ -119,7 +116,7 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
   // fraction of data point in the distribution for this mwm (less or equal 1.0) it's possible to
   // calculate the total matched points number which may be used to keep the distribution.
   auto const totalMatchedPointNumberToKeepDistribution =
-      static_cast<uint64_t>(maxRationMatchedDataPointNumber / maxRationDistributionFraction);
+    static_cast<uint64_t>(maxRationMatchedDataPointNumber / maxRationDistributionFraction);
   CHECK_LESS_OR_EQUAL(totalMatchedPointNumberToKeepDistribution, ValueSum(matchedDataPoints), ());
 
   // Having total maximum matched point number which let to keep the distribution
@@ -132,22 +129,19 @@ MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
     auto const & mwm = kv.first;
     auto const fraction = kv.second;
     auto const matchedDataPointsToKeepDistributionForMwm =
-        static_cast<uint64_t>(fraction * totalMatchedPointNumberToKeepDistribution);
+      static_cast<uint64_t>(fraction * totalMatchedPointNumberToKeepDistribution);
     matchedDataPointsToKeepDistribution.emplace(mwm, matchedDataPointsToKeepDistributionForMwm);
 
     if (matchedDataPointsToKeepDistributionForMwm == 0)
     {
-      LOG(LWARNING, ("Zero points should be put to", mwm,
-                     "to keep the distribution. Distribution fraction:", fraction,
-                     "totalMatchedPointNumberToKeepDistribution:",
-                     totalMatchedPointNumberToKeepDistribution));
+      LOG(LWARNING, ("Zero points should be put to", mwm, "to keep the distribution. Distribution fraction:", fraction,
+                     "totalMatchedPointNumberToKeepDistribution:", totalMatchedPointNumberToKeepDistribution));
     }
   }
   return matchedDataPointsToKeepDistribution;
 }
 
-MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && matchedDataPoints,
-                                        MwmToDataPoints && distribution,
+MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && matchedDataPoints, MwmToDataPoints && distribution,
                                         uint64_t ignoreDataPointsNumber)
 {
   // Removing every mwm from |distribution| and |matchedDataPoints| if it has
@@ -188,7 +182,7 @@ void FilterTable(MwmToDataPoints const & balancedDataPointNumbers, vector<TableR
     auto it = balancedDataPointNumbers.find(mwmName);
     if (it == balancedDataPointNumbers.end())
     {
-      mwmRecordsIndices.resize(0); // No indices.
+      mwmRecordsIndices.resize(0);  // No indices.
       continue;
     }
 
@@ -208,9 +202,8 @@ void FilterTable(MwmToDataPoints const & balancedDataPointNumbers, vector<TableR
   table = std::move(balancedTable);
 }
 
-void BalanceDataPoints(basic_istream<char> & tableCsvStream,
-                       basic_istream<char> & distributionCsvStream, uint64_t ignoreDataPointsNumber,
-                       vector<TableRow> & balancedTable)
+void BalanceDataPoints(basic_istream<char> & tableCsvStream, basic_istream<char> & distributionCsvStream,
+                       uint64_t ignoreDataPointsNumber, vector<TableRow> & balancedTable)
 {
   LOG(LINFO, ("Balancing data points..."));
   // Filling a map mwm to DataPoints number according to distribution csv file.
@@ -240,11 +233,12 @@ void BalanceDataPoints(basic_istream<char> & tableCsvStream,
   }
 
   CHECK(AreKeysEqual(distribution, matchedDataPoints),
-        ("Mwms in |distribution| and in |matchedDataPoints| should have the same set of keys.", distribution, matchedDataPoints));
+        ("Mwms in |distribution| and in |matchedDataPoints| should have the same set of keys.", distribution,
+         matchedDataPoints));
 
   // Calculating how many points should have every mwm to keep the |distribution|.
   MwmToDataPoints const balancedDataPointNumber =
-      BalancedDataPointNumber(std::move(matchedDataPoints), std::move(distribution), ignoreDataPointsNumber);
+    BalancedDataPointNumber(std::move(matchedDataPoints), std::move(distribution), ignoreDataPointsNumber);
   uint64_t const totalBalancedDataPointsNumber = ValueSum(balancedDataPointNumber);
   LOG(LINFO, ("Total balanced data points number:", totalBalancedDataPointsNumber));
 
@@ -252,18 +246,15 @@ void BalanceDataPoints(basic_istream<char> & tableCsvStream,
   // Removing some items form |tableCsvStream| (if it's necessary) to correspond to
   // the distribution.
   FilterTable(balancedDataPointNumber, balancedTable);
-  LOG(LINFO, ("Data points have balanced. Total distribution data points number:",
-              totalDistributionDataPointsNumber,
+  LOG(LINFO, ("Data points have balanced. Total distribution data points number:", totalDistributionDataPointsNumber,
               "Total matched data points number:", totalMatchedDataPointsNumber,
               "Total balanced data points number:", totalBalancedDataPointsNumber));
 }
 
-void CmdBalanceCsv(string const & csvPath, string const & distributionPath,
-                   uint64_t ignoreDataPointsNumber)
+void CmdBalanceCsv(string const & csvPath, string const & distributionPath, uint64_t ignoreDataPointsNumber)
 {
-  LOG(LINFO, ("Balancing csv file", csvPath, "with distribution set in", distributionPath,
-              ". If an mwm has", ignoreDataPointsNumber,
-              "data points or less it will not be considered."));
+  LOG(LINFO, ("Balancing csv file", csvPath, "with distribution set in", distributionPath, ". If an mwm has",
+              ignoreDataPointsNumber, "data points or less it will not be considered."));
   ifstream table(csvPath);
   CHECK(table.is_open(), ("Cannot open", csvPath));
   ifstream distribution(distributionPath);

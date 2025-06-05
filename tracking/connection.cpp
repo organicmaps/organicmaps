@@ -12,9 +12,11 @@ uint32_t constexpr kSocketTimeoutMs = 10000;
 
 namespace tracking
 {
-Connection::Connection(std::unique_ptr<platform::Socket> socket, std::string const & host,
-                       uint16_t port, bool isHistorical)
-  : m_socket(std::move(socket)), m_host(host), m_port(port)
+Connection::Connection(std::unique_ptr<platform::Socket> socket, std::string const & host, uint16_t port,
+                       bool isHistorical)
+  : m_socket(std::move(socket))
+  , m_host(host)
+  , m_port(port)
 {
   if (!m_socket)
     return;
@@ -40,8 +42,7 @@ bool Connection::Reconnect()
     return false;
 
   std::string check(std::begin(Protocol::kFail), std::end(Protocol::kFail));
-  bool const isSuccess =
-      m_socket->Read(reinterpret_cast<uint8_t *>(&check[0]), static_cast<uint32_t>(check.size()));
+  bool const isSuccess = m_socket->Read(reinterpret_cast<uint8_t *>(&check[0]), static_cast<uint32_t>(check.size()));
   if (!isSuccess || check != std::string(std::begin(Protocol::kOk), std::end(Protocol::kOk)))
     return false;
 

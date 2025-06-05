@@ -1,7 +1,7 @@
 #import "MWMPlaceDoesntExistAlert.h"
 #import "MWMKeyboard.h"
 
-@interface MWMPlaceDoesntExistAlert ()<MWMKeyboardObserver>
+@interface MWMPlaceDoesntExistAlert () <MWMKeyboardObserver>
 
 @property(weak, nonatomic) IBOutlet UITextField * textField;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * centerHorizontaly;
@@ -14,7 +14,7 @@
 + (instancetype)alertWithBlock:(MWMStringBlock)block
 {
   MWMPlaceDoesntExistAlert * alert =
-      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
+    [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   alert.block = block;
   [MWMKeyboard addObserver:alert];
   return alert;
@@ -23,9 +23,7 @@
 - (IBAction)rightButtonTap
 {
   [self.textField resignFirstResponder];
-  [self close:^{
-    self.block(self.textField.text);
-  }];
+  [self close:^{ self.block(self.textField.text); }];
 }
 
 - (IBAction)leftButtonTap
@@ -42,5 +40,8 @@
   [self layoutIfNeeded];
 }
 
-- (void)onKeyboardWillAnimate { [self setNeedsLayout]; }
+- (void)onKeyboardWillAnimate
+{
+  [self setNeedsLayout];
+}
 @end

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -31,8 +30,7 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
     return inflater.inflate(R.layout.fragment_report, container, false);
   }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.editor_report_problem_title);
@@ -44,8 +42,8 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
     mSave.setOnClickListener(this);
     mSimpleProblems = view.findViewById(R.id.ll__problems);
     mSimpleProblems.findViewById(R.id.problem_not_exist).setOnClickListener(this);
-//    mSimpleProblems.findViewById(R.id.problem_closed_repair).setOnClickListener(this);
-//    mSimpleProblems.findViewById(R.id.problem_duplicated_place).setOnClickListener(this);
+    //    mSimpleProblems.findViewById(R.id.problem_closed_repair).setOnClickListener(this);
+    //    mSimpleProblems.findViewById(R.id.problem_duplicated_place).setOnClickListener(this);
     mSimpleProblems.findViewById(R.id.problem_other).setOnClickListener(this);
     mAdvancedProblem = view.findViewById(R.id.ll__other_problem);
     mProblemInput = mAdvancedProblem.findViewById(R.id.input);
@@ -70,8 +68,7 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
     getToolbarController().onUpClick();
   }
 
-  @Override
-  public void onClick(View v)
+  @Override public void onClick(View v)
   {
     final int id = v.getId();
     if (id == R.id.problem_not_exist)

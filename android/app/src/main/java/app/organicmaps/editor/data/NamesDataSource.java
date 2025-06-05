@@ -10,9 +10,7 @@ import androidx.annotation.Keep;
  * and mandatoryNamesCount - count of names which should be always shown.
  */
 // Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public class NamesDataSource
+@Keep @SuppressWarnings("unused") public class NamesDataSource
 {
   private final LocalizedName[] mNames;
   private final int mMandatoryNamesCount;

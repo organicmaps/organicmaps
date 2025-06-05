@@ -29,7 +29,8 @@ using Id = uint64_t;
 class Doc
 {
 public:
-  Doc(string const & text, string const & lang) : m_lang(StringUtf8Multilang::GetLangIndex(lang))
+  Doc(string const & text, string const & lang)
+    : m_lang(StringUtf8Multilang::GetLangIndex(lang))
   {
     m_tokens = NormalizeAndTokenizeString(text);
   }
@@ -60,23 +61,24 @@ public:
     auto prev = m_index.GetAllIds();
     TEST(base::IsSortedAndUnique(prev.cbegin(), prev.cend()), ());
 
-    ForEachNormalizedToken(query, [&](strings::UniString const & token)
-    {
-      SearchTrieRequest<UniStringDFA> request;
-      request.m_names.emplace_back(token);
-      request.m_langs.insert(StringUtf8Multilang::GetLangIndex(lang));
+    ForEachNormalizedToken(
+      query,
+      [&](strings::UniString const & token)
+      {
+        SearchTrieRequest<UniStringDFA> request;
+        request.m_names.emplace_back(token);
+        request.m_langs.insert(StringUtf8Multilang::GetLangIndex(lang));
 
-      vector<Id> curr;
-      MatchFeaturesInTrie(request, m_index.GetRootIterator(),
-                          [](Id const & /* id */) { return true; } /* filter */,
-                          [&curr](Id const & id, bool /* exactMatch */) { curr.push_back(id); } /* toDo */);
-      base::SortUnique(curr);
+        vector<Id> curr;
+        MatchFeaturesInTrie(
+          request, m_index.GetRootIterator(), [](Id const & /* id */) { return true; } /* filter */,
+          [&curr](Id const & id, bool /* exactMatch */) { curr.push_back(id); } /* toDo */);
+        base::SortUnique(curr);
 
-      vector<Id> intersection;
-      set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(),
-                       back_inserter(intersection));
-      prev = intersection;
-    });
+        vector<Id> intersection;
+        set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(), back_inserter(intersection));
+        prev = intersection;
+      });
 
     return prev;
   }

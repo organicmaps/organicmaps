@@ -50,7 +50,9 @@ public:
 private:
   struct Node
   {
-    Node() : m_isLeaf(false) {}
+    Node()
+      : m_isLeaf(false)
+    {}
 
     // Tries to move from the current node by |c|. If the move can't
     // be made, returns nullptr.

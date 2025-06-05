@@ -13,12 +13,14 @@ CitiesBoundariesChecker::CitiesBoundariesChecker(CitiesBoundaries const & cities
 bool CitiesBoundariesChecker::InCity(m2::PointD const & point) const
 {
   bool result = false;
-  m_tree.ForEachInRect(m2::RectD(point, point), [&](indexer::CityBoundary const & cityBoundary) {
-    if (result)
-      return;
+  m_tree.ForEachInRect(m2::RectD(point, point),
+                       [&](indexer::CityBoundary const & cityBoundary)
+                       {
+                         if (result)
+                           return;
 
-    result = cityBoundary.HasPoint(point);
-  });
+                         result = cityBoundary.HasPoint(point);
+                       });
 
   return result;
 }

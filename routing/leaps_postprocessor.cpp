@@ -25,10 +25,7 @@ public:
     m_intervals.emplace_back(pathInterval);
   }
 
-  std::vector<LeapsPostProcessor::PathInterval> && StealIntervals()
-  {
-    return std::move(m_intervals);
-  }
+  std::vector<LeapsPostProcessor::PathInterval> && StealIntervals() { return std::move(m_intervals); }
 
 private:
   base::NonIntersectingIntervals<size_t> m_nonIntersectingIntervals;
@@ -52,10 +49,9 @@ size_t const LeapsPostProcessor::kMaxStep = 5;
 /// Thus if we look at the first s1, we will find out that a jump to second s1 exists
 /// and we will skip all segments between first and second s1 and the result path will be:
 /// s1, s11, s12, ... , s100
-LeapsPostProcessor::LeapsPostProcessor(std::vector<Segment> const & path,
-                                       IndexGraphStarter & starter)
-  : m_starter(starter),
-    m_bfs(starter)
+LeapsPostProcessor::LeapsPostProcessor(std::vector<Segment> const & path, IndexGraphStarter & starter)
+  : m_starter(starter)
+  , m_bfs(starter)
 {
   std::map<size_t, size_t> jumps;
   std::map<Segment, size_t> segmentToIndex;
@@ -173,8 +169,8 @@ auto LeapsPostProcessor::CalculateIntervalsToRelax() -> std::set<PathInterval, P
   return result;
 }
 
-void LeapsPostProcessor::FillIngoingPaths(
-    Segment const & start, std::map<Segment, LeapsPostProcessor::SegmentData> & segmentsData)
+void LeapsPostProcessor::FillIngoingPaths(Segment const & start,
+                                          std::map<Segment, LeapsPostProcessor::SegmentData> & segmentsData)
 {
   m_bfs.Run(start, false /* isOutgoing */,
             [&segmentsData, this](BFS<IndexGraphStarter>::State const & state)
@@ -188,8 +184,7 @@ void LeapsPostProcessor::FillIngoingPaths(
                 return false;
 
               auto & current = segmentsData[state.m_vertex];
-              current.m_summaryETA =
-                  parent.m_summaryETA + m_starter.CalculateETAWithoutPenalty(state.m_vertex);
+              current.m_summaryETA = parent.m_summaryETA + m_starter.CalculateETAWithoutPenalty(state.m_vertex);
 
               current.m_steps = parent.m_steps + 1;
 
@@ -198,11 +193,16 @@ void LeapsPostProcessor::FillIngoingPaths(
 }
 
 LeapsPostProcessor::SegmentData::SegmentData(size_t steps, double eta)
-  : m_steps(steps), m_summaryETA(eta) {}
+  : m_steps(steps)
+  , m_summaryETA(eta)
+{}
 
-LeapsPostProcessor::PathInterval::PathInterval(double weight, size_t left, size_t right,
-                                               std::vector<Segment> && path)
-  : m_winWeight(weight), m_left(left), m_right(right), m_path(std::move(path)) {}
+LeapsPostProcessor::PathInterval::PathInterval(double weight, size_t left, size_t right, std::vector<Segment> && path)
+  : m_winWeight(weight)
+  , m_left(left)
+  , m_right(right)
+  , m_path(std::move(path))
+{}
 
 bool LeapsPostProcessor::PathInterval::GreaterByWeight::operator()(PathInterval const & lhs,
                                                                    PathInterval const & rhs) const
@@ -212,8 +212,7 @@ bool LeapsPostProcessor::PathInterval::GreaterByWeight::operator()(PathInterval 
 
 bool LeapsPostProcessor::PathInterval::operator<(PathInterval const & rhs) const
 {
-  CHECK(m_left > rhs.m_right || m_right < rhs.m_left ||
-        (m_left == rhs.m_left && m_right == rhs.m_right),
+  CHECK(m_left > rhs.m_right || m_right < rhs.m_left || (m_left == rhs.m_left && m_right == rhs.m_right),
         ("Intervals shouldn't intersect.", *this, rhs));
 
   return m_right < rhs.m_left;
@@ -222,8 +221,7 @@ bool LeapsPostProcessor::PathInterval::operator<(PathInterval const & rhs) const
 std::string DebugPrint(LeapsPostProcessor::PathInterval const & interval)
 {
   std::stringstream ss;
-  ss << "[" << interval.m_left << ", " << interval.m_right << "], weight = "
-     << interval.m_winWeight;
+  ss << "[" << interval.m_left << ", " << interval.m_right << "], weight = " << interval.m_winWeight;
 
   return ss.str();
 }

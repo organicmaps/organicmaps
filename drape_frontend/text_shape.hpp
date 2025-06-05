@@ -17,13 +17,13 @@ class StraightTextLayout;
 class TextShape : public MapShape
 {
 public:
-  TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-            TileKey const & tileKey, m2::PointF const & symbolSize, m2::PointF const & symbolOffset,
-            dp::Anchor symbolAnchor, uint32_t textIndex);
+  TextShape(m2::PointD const & basePoint, TextViewParams const & params, TileKey const & tileKey,
+            m2::PointF const & symbolSize, m2::PointF const & symbolOffset, dp::Anchor symbolAnchor,
+            uint32_t textIndex);
 
-  TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-            TileKey const & tileKey, std::vector<m2::PointF> const & symbolSizes,
-            m2::PointF const & symbolOffset, dp::Anchor symbolAnchor, uint32_t textIndex);
+  TextShape(m2::PointD const & basePoint, TextViewParams const & params, TileKey const & tileKey,
+            std::vector<m2::PointF> const & symbolSizes, m2::PointF const & symbolOffset, dp::Anchor symbolAnchor,
+            uint32_t textIndex);
 
   void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
             ref_ptr<dp::TextureManager> textures) const override;
@@ -33,21 +33,17 @@ public:
   void DisableDisplacing() { m_disableDisplacing = true; }
 
 private:
-  void DrawSubString(ref_ptr<dp::GraphicsContext> context, StraightTextLayout & layout,
-                     dp::FontDecl const & font, glsl::vec2 const & baseOffset,
-                     ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures,
+  void DrawSubString(ref_ptr<dp::GraphicsContext> context, StraightTextLayout & layout, dp::FontDecl const & font,
+                     glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures,
                      bool isPrimary, bool isOptional) const;
 
   void DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context, StraightTextLayout const & layout,
-                          dp::FontDecl const & font,
-                          ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures,
+                          dp::FontDecl const & font, ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures,
                           bool isPrimary, bool isOptional) const;
 
-  void DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
-                             StraightTextLayout const & layout, dp::FontDecl const & font,
-                             ref_ptr<dp::Batcher> batcher,
-                             ref_ptr<dp::TextureManager> textures, bool isPrimary,
-                             bool isOptional) const;
+  void DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context, StraightTextLayout const & layout,
+                             dp::FontDecl const & font, ref_ptr<dp::Batcher> batcher,
+                             ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const;
 
   uint64_t GetOverlayPriority() const;
 

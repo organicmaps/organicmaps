@@ -33,15 +33,15 @@ void ForEachMwmTmp(std::string const & temporaryMwmPath, ToDo && toDo, size_t th
   }
 }
 
-std::vector<std::vector<std::string>> GetAffiliations(
-    std::vector<feature::FeatureBuilder> const & fbs,
-    feature::AffiliationInterface const & affiliation, size_t threadsCount);
+std::vector<std::vector<std::string>> GetAffiliations(std::vector<feature::FeatureBuilder> const & fbs,
+                                                      feature::AffiliationInterface const & affiliation,
+                                                      size_t threadsCount);
 
 // Writes |fbs| to countries mwm.tmp files. Returns affiliations - country matches for |fbs|.
 template <class SerializationPolicy = feature::serialization_policy::MaxAccuracy>
 std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::FeatureBuilder> const & fbs,
-                       feature::AffiliationInterface const & affiliation,
-                       std::string const & temporaryMwmPath, size_t threadsCount = 1)
+                                                     feature::AffiliationInterface const & affiliation,
+                                                     std::string const & temporaryMwmPath, size_t threadsCount = 1)
 {
   auto affiliations = GetAffiliations(fbs, affiliation, threadsCount);
   std::unordered_map<std::string, std::vector<size_t>> countryToFbsIndexes;
@@ -54,13 +54,14 @@ std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::Featur
   base::ComputationalThreadPool pool(threadsCount);
   for (auto && p : countryToFbsIndexes)
   {
-    pool.SubmitWork([&, country = std::move(p.first), indexes = std::move(p.second)]()
-    {
-      auto const path = base::JoinPath(temporaryMwmPath, country + DATA_FILE_EXTENSION_TMP);
-      feature::FeatureBuilderWriter<SerializationPolicy> collector(path, FileWriter::Op::OP_APPEND);
-      for (auto const index : indexes)
-        collector.Write(fbs[index]);
-    });
+    pool.SubmitWork(
+      [&, country = std::move(p.first), indexes = std::move(p.second)]()
+      {
+        auto const path = base::JoinPath(temporaryMwmPath, country + DATA_FILE_EXTENSION_TMP);
+        feature::FeatureBuilderWriter<SerializationPolicy> collector(path, FileWriter::Op::OP_APPEND);
+        for (auto const index : indexes)
+          collector.Write(fbs[index]);
+      });
   }
 
   return affiliations;

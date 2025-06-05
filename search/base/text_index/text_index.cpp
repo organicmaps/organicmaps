@@ -13,9 +13,8 @@ string DebugPrint(TextIndexVersion const & version)
   {
   case TextIndexVersion::V0: return "V0";
   }
-  string ret =
-      "Unknown TextIndexHeader version: " + strings::to_string(static_cast<uint8_t>(version));
+  string ret = "Unknown TextIndexHeader version: " + strings::to_string(static_cast<uint8_t>(version));
   ASSERT(false, (ret));
   return ret;
 }
-}  // namespace search
+}  // namespace search_base

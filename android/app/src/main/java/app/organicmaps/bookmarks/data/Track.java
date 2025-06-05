@@ -1,13 +1,10 @@
 package app.organicmaps.bookmarks.data;
 
 import androidx.annotation.Keep;
-
 import app.organicmaps.util.Distance;
 
 // Called from JNI.
-@Keep
-@SuppressWarnings("unused")
-public class Track
+@Keep @SuppressWarnings("unused") public class Track
 {
   private final long mTrackId;
   private final long mCategoryId;
@@ -24,15 +21,30 @@ public class Track
     mColor = color;
   }
 
-  public String getName() { return mName; }
+  public String getName()
+  {
+    return mName;
+  }
 
-  public Distance getLength() { return mLength;}
+  public Distance getLength()
+  {
+    return mLength;
+  }
 
-  public int getColor() { return mColor; }
+  public int getColor()
+  {
+    return mColor;
+  }
 
-  public long getTrackId() { return mTrackId; }
+  public long getTrackId()
+  {
+    return mTrackId;
+  }
 
-  public long getCategoryId() { return mCategoryId; }
+  public long getCategoryId()
+  {
+    return mCategoryId;
+  }
 
   public String getTrackDescription()
   {

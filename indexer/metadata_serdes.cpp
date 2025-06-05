@@ -62,20 +62,17 @@ unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(Reader & reader)
   Header header;
   header.Read(reader);
 
-  deserializer->m_stringsSubreader =
-      reader.CreateSubReader(header.m_stringsOffset, header.m_stringsSize);
+  deserializer->m_stringsSubreader = reader.CreateSubReader(header.m_stringsOffset, header.m_stringsSize);
   if (!deserializer->m_stringsSubreader)
     return {};
   deserializer->m_strings.InitializeIfNeeded(*deserializer->m_stringsSubreader);
 
-  deserializer->m_mapSubreader =
-      reader.CreateSubReader(header.m_metadataMapOffset, header.m_metadataMapSize);
+  deserializer->m_mapSubreader = reader.CreateSubReader(header.m_metadataMapOffset, header.m_metadataMapSize);
   if (!deserializer->m_mapSubreader)
     return {};
 
   // Decodes block encoded by writeBlockCallback from MetadataBuilder::Freeze.
-  auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize,
-                                     vector<MetaIds> & values)
+  auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize, vector<MetaIds> & values)
   {
     values.resize(blockSize);
     for (size_t i = 0; i < blockSize && source.Size() > 0; ++i)
@@ -110,25 +107,26 @@ std::unique_ptr<MetadataDeserializer> MetadataDeserializer::Load(FilesContainerR
 void MetadataBuilder::Put(uint32_t featureId, feature::Metadata const & meta)
 {
   MetadataDeserializer::MetaIds metaIds;
-  meta.ForEach([&](feature::Metadata::EType type, std::string const & value)
-  {
-    uint32_t id = 0;
-    auto const it = m_stringToId.find(value);
-    if (it != m_stringToId.end())
+  meta.ForEach(
+    [&](feature::Metadata::EType type, std::string const & value)
     {
-      id = it->second;
-      CHECK_LESS_OR_EQUAL(id, m_stringToId.size(), ());
-      CHECK_EQUAL(m_idToString.count(id), 1, ());
-    }
-    else
-    {
-      id = base::asserted_cast<uint32_t>(m_stringToId.size());
-      m_stringToId[value] = id;
-      CHECK(m_idToString.emplace(id, value).second, ());
-      CHECK_EQUAL(m_idToString.size(), m_stringToId.size(), ());
-    }
-    metaIds.emplace_back(type, id);
-  });
+      uint32_t id = 0;
+      auto const it = m_stringToId.find(value);
+      if (it != m_stringToId.end())
+      {
+        id = it->second;
+        CHECK_LESS_OR_EQUAL(id, m_stringToId.size(), ());
+        CHECK_EQUAL(m_idToString.count(id), 1, ());
+      }
+      else
+      {
+        id = base::asserted_cast<uint32_t>(m_stringToId.size());
+        m_stringToId[value] = id;
+        CHECK(m_idToString.emplace(id, value).second, ());
+        CHECK_EQUAL(m_idToString.size(), m_stringToId.size(), ());
+      }
+      metaIds.emplace_back(type, id);
+    });
 
   m_builder.Put(featureId, metaIds);
 }
@@ -156,13 +154,13 @@ void MetadataBuilder::Freeze(Writer & writer) const
     // stringsWriter destructor writes strings section index right after strings.
   }
 
-  header.m_stringsSize =
-      base::asserted_cast<uint32_t>(writer.Pos() - header.m_stringsOffset - startOffset);
+  header.m_stringsSize = base::asserted_cast<uint32_t>(writer.Pos() - header.m_stringsOffset - startOffset);
   bytesWritten = writer.Pos();
   coding::WritePadding(writer, bytesWritten);
 
   header.m_metadataMapOffset = base::asserted_cast<uint32_t>(writer.Pos() - startOffset);
-  auto const writeBlockCallback = [](auto & w, auto begin, auto end) {
+  auto const writeBlockCallback = [](auto & w, auto begin, auto end)
+  {
     for (auto it = begin; it != end; ++it)
     {
       MetadataDeserializer::MetaIds const & metaIds = *it;
@@ -174,15 +172,13 @@ void MetadataBuilder::Freeze(Writer & writer) const
       WriteVarUint(w, metaIds[0].second);
       for (size_t i = 1; i < it->size(); ++i)
       {
-        WriteVarInt(w, static_cast<int32_t>(metaIds[i].second) -
-                           static_cast<int32_t>(metaIds[i - 1].second));
+        WriteVarInt(w, static_cast<int32_t>(metaIds[i].second) - static_cast<int32_t>(metaIds[i - 1].second));
       }
     }
   };
   m_builder.Freeze(writer, writeBlockCallback);
 
-  header.m_metadataMapSize =
-      base::asserted_cast<uint32_t>(writer.Pos() - header.m_metadataMapOffset - startOffset);
+  header.m_metadataMapSize = base::asserted_cast<uint32_t>(writer.Pos() - header.m_metadataMapOffset - startOffset);
 
   auto const endOffset = writer.Pos();
   writer.Seek(startOffset);

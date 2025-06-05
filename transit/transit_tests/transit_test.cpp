@@ -21,7 +21,7 @@ namespace transit
 {
 auto constexpr kTransitHeaderVersion = static_cast<uint16_t>(::transit::TransitVersion::OnlySubway);
 
-template<class S, class D, class Obj>
+template <class S, class D, class Obj>
 void TestCommonSerialization(Obj const & obj)
 {
   vector<uint8_t> buffer;
@@ -45,19 +45,17 @@ void TestSerialization(TransitHeader const & header)
                           FixedSizeDeserializer<ReaderSource<MemReader>>>(header);
 }
 
-template<class Obj>
+template <class Obj>
 void TestSerialization(Obj const & obj)
 {
-  TestCommonSerialization<Serializer<MemWriter<vector<uint8_t>>>,
-                          Deserializer<ReaderSource<MemReader>>>(obj);
+  TestCommonSerialization<Serializer<MemWriter<vector<uint8_t>>>, Deserializer<ReaderSource<MemReader>>>(obj);
 }
 
 UNIT_TEST(Transit_HeaderRewriting)
 {
-  TransitHeader const bigHeader(
-      kTransitHeaderVersion /* version */, 500 /* stopsOffset */, 1000 /* gatesOffset */,
-      200000 /* edgesOffset */, 300000 /* transfersOffset */, 400000 /* linesOffset */,
-      5000000 /* shapesOffset */, 6000000 /* networksOffset */, 700000000 /* endOffset */);
+  TransitHeader const bigHeader(kTransitHeaderVersion /* version */, 500 /* stopsOffset */, 1000 /* gatesOffset */,
+                                200000 /* edgesOffset */, 300000 /* transfersOffset */, 400000 /* linesOffset */,
+                                5000000 /* shapesOffset */, 6000000 /* networksOffset */, 700000000 /* endOffset */);
 
   TransitHeader header;
   vector<uint8_t> buffer;
@@ -106,10 +104,9 @@ UNIT_TEST(Transit_HeaderSerialization)
     TEST(header.IsValid(), (header));
   }
   {
-    TransitHeader header(kTransitHeaderVersion /* version */, 500 /* stopsOffset */,
-                         1000 /* gatesOffset */, 2000 /* edgesOffset */, 3000 /* transfersOffset */,
-                         4000 /* linesOffset */, 5000 /* shapesOffset */, 6000 /* networksOffset */,
-                         7000 /* endOffset */);
+    TransitHeader header(kTransitHeaderVersion /* version */, 500 /* stopsOffset */, 1000 /* gatesOffset */,
+                         2000 /* edgesOffset */, 3000 /* transfersOffset */, 4000 /* linesOffset */,
+                         5000 /* shapesOffset */, 6000 /* networksOffset */, 7000 /* endOffset */);
     TestSerialization(header);
     TEST(header.IsValid(), (header));
   }
@@ -122,17 +119,15 @@ UNIT_TEST(Transit_TransitHeaderValidity)
     TEST(header.IsValid(), (header));
   }
   {
-    TransitHeader const header(kTransitHeaderVersion /* version */, 40 /* stopsOffset */,
-                               44 /* gatesOffset */, 48 /* edgesOffset */, 52 /* transfersOffset */,
-                               56 /* linesOffset */, 60 /* shapesOffset */, 64 /* networksOffset */,
-                               68 /* endOffset */);
+    TransitHeader const header(kTransitHeaderVersion /* version */, 40 /* stopsOffset */, 44 /* gatesOffset */,
+                               48 /* edgesOffset */, 52 /* transfersOffset */, 56 /* linesOffset */,
+                               60 /* shapesOffset */, 64 /* networksOffset */, 68 /* endOffset */);
     TEST(header.IsValid(), (header));
   }
   {
-    TransitHeader const header(kTransitHeaderVersion /* version */, 44 /* stopsOffset */,
-                               40 /* gatesOffset */, 48 /* edgesOffset */, 52 /* transfersOffset */,
-                               56 /* linesOffset */, 60 /* shapesOffset */, 64 /* networksOffset */,
-                               68 /* endOffset */);
+    TransitHeader const header(kTransitHeaderVersion /* version */, 44 /* stopsOffset */, 40 /* gatesOffset */,
+                               48 /* edgesOffset */, 52 /* transfersOffset */, 56 /* linesOffset */,
+                               60 /* shapesOffset */, 64 /* networksOffset */, 68 /* endOffset */);
     TEST(!header.IsValid(), (header));
   }
 }
@@ -187,8 +182,8 @@ UNIT_TEST(Transit_SingleMwmSegmentSerialization)
 
 UNIT_TEST(Transit_GateSerialization)
 {
-  Gate gate(12345678 /* osm id */, 12345 /* feature id */, true /* entrance */, false /* exit */,
-            117 /* weight */, {1, 2, 3} /* stop ids */, {30.0, 50.0} /* point */);
+  Gate gate(12345678 /* osm id */, 12345 /* feature id */, true /* entrance */, false /* exit */, 117 /* weight */,
+            {1, 2, 3} /* stop ids */, {30.0, 50.0} /* point */);
   TestSerialization(gate);
   TEST(gate.IsValid(), (gate));
 }
@@ -222,32 +217,32 @@ UNIT_TEST(Transit_GatesRelational)
 UNIT_TEST(Transit_EdgeSerialization)
 {
   {
-    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
-              false /* transfer */, {ShapeId(1, 2), ShapeId(3, 4), ShapeId(5, 6)} /* shape ids */);
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */, false /* transfer */,
+              {ShapeId(1, 2), ShapeId(3, 4), ShapeId(5, 6)} /* shape ids */);
     TestSerialization(edge);
     TEST(edge.IsValid(), (edge));
   }
   {
-    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
-              false /* transfer */, {ShapeId(1, 2)} /* shape ids */);
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */, false /* transfer */,
+              {ShapeId(1, 2)} /* shape ids */);
     TestSerialization(edge);
     TEST(edge.IsValid(), (edge));
   }
   {
-    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
-              false /* transfer */, {ShapeId(2, 1)} /* shape ids */);
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */, false /* transfer */,
+              {ShapeId(2, 1)} /* shape ids */);
     TestSerialization(edge);
     TEST(edge.IsValid(), (edge));
   }
   {
-    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, kInvalidLineId,
-              true /* transfer */, {} /* shape ids */);
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, kInvalidLineId, true /* transfer */,
+              {} /* shape ids */);
     TestSerialization(edge);
     TEST(edge.IsValid(), (edge));
   }
   {
-    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */,
-              true /* transfer */, {} /* shape ids */);
+    Edge edge(1 /* start stop id */, 2 /* finish stop id */, 123 /* weight */, 11 /* line id */, true /* transfer */,
+              {} /* shape ids */);
     TestSerialization(edge);
     // Note. A transfer edge (transfer == true) with a valid line id is not allowable.
     TEST(!edge.IsValid(), (edge));
@@ -256,8 +251,7 @@ UNIT_TEST(Transit_EdgeSerialization)
 
 UNIT_TEST(Transit_TransferSerialization)
 {
-  Transfer transfer(1 /* id */, {40.0, 35.0} /* point */, {1, 2, 3} /* stop ids */,
-                    {TitleAnchor(16, 0 /* anchor */)});
+  Transfer transfer(1 /* id */, {40.0, 35.0} /* point */, {1, 2, 3} /* stop ids */, {TitleAnchor(16, 0 /* anchor */)});
   TestSerialization(transfer);
   TEST(transfer.IsValid(), (transfer));
 }
@@ -265,23 +259,20 @@ UNIT_TEST(Transit_TransferSerialization)
 UNIT_TEST(Transit_LineSerialization)
 {
   {
-    Line line(1 /* line id */, "2" /* number */, "Линия" /* title */,
-              "subway" /* type */, "red" /* color */, 3 /* network id */, {{1}} /* stop ids */,
-              10 /* interval */);
+    Line line(1 /* line id */, "2" /* number */, "Линия" /* title */, "subway" /* type */, "red" /* color */,
+              3 /* network id */, {{1}} /* stop ids */, 10 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }
   {
-    Line line(10 /* line id */, "11" /* number */, "Линия" /* title */,
-              "subway" /* type */, "green" /* color */, 12 /* network id */,
-              {{13, 14, 15}} /* stop ids */, 15 /* interval */);
+    Line line(10 /* line id */, "11" /* number */, "Линия" /* title */, "subway" /* type */, "green" /* color */,
+              12 /* network id */, {{13, 14, 15}} /* stop ids */, 15 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }
   {
-    Line line(100 /* line id */, "101" /* number */, "Линия" /* title */,
-              "subway" /* type */, "blue" /* color */, 103 /* network id */,
-              {{1, 2, 3}, {7, 8, 9}} /* stop ids */, 15 /* interval */);
+    Line line(100 /* line id */, "101" /* number */, "Линия" /* title */, "subway" /* type */, "blue" /* color */,
+              103 /* network id */, {{1, 2, 3}, {7, 8, 9}} /* stop ids */, 15 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }

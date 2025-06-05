@@ -25,7 +25,7 @@ UNIT_TEST(RoutingQuality_TurkeyIzmirArea)
 UNIT_TEST(RoutingQuality_BosniaAndHerzegovina)
 {
   TEST(CheckCarRoute({42.71401, 18.30412} /* start */, {42.95101, 18.08966} /* finish */,
-                     {{{42.88222,17.9919}}} /* reference track */),
+                     {{{42.88222, 17.9919}}} /* reference track */),
        ());
 }
 
@@ -95,18 +95,22 @@ UNIT_TEST(RoutingQuality_KrasnoyarskBratsk)
 
 UNIT_TEST(RoutingQuality_VoronezhSochi)
 {
-  TEST(CheckCarRoute({51.65487, 39.21293} /* start */, {43.58547, 39.72311} /* finish */,
-                     {{{46.14169, 39.85306}, {45.17069, 39.10869},
-                       {45.02157, 39.12510}, {44.54344, 38.95853}}} /* reference track */),
-       ());
+  TEST(
+    CheckCarRoute(
+      {51.65487, 39.21293} /* start */, {43.58547, 39.72311} /* finish */,
+      {{{46.14169, 39.85306}, {45.17069, 39.10869}, {45.02157, 39.12510}, {44.54344, 38.95853}}} /* reference track */),
+    ());
 }
 
 UNIT_TEST(RoutingQuality_BerlinkaWarsawPoland)
 {
   TEST(CheckCarRoute({54.41616, 20.05675} /* start */, {52.18937, 20.94026} /* finish */,
-                     {{{54.24278, 19.66106}, {54.13679, 19.45166},
-                       {54.06452, 19.62416}, {53.69769, 19.98204},
-                       {53.11194, 20.40002}, {52.62966, 20.38488}}} /* reference track */),
+                     {{{54.24278, 19.66106},
+                       {54.13679, 19.45166},
+                       {54.06452, 19.62416},
+                       {53.69769, 19.98204},
+                       {53.11194, 20.40002},
+                       {52.62966, 20.38488}}} /* reference track */),
        ());
 }
 

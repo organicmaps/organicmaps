@@ -15,11 +15,11 @@
 namespace routing
 {
 RegionsSparseGraph::RegionsSparseGraph(CountryFileGetterFn const & countryFileGetter,
-                                       std::shared_ptr<NumMwmIds> numMwmIds,
-                                       DataSource & dataSource)
-  : m_countryFileGetterFn(countryFileGetter), m_numMwmIds(numMwmIds), m_dataSource(dataSource)
-{
-}
+                                       std::shared_ptr<NumMwmIds> numMwmIds, DataSource & dataSource)
+  : m_countryFileGetterFn(countryFileGetter)
+  , m_numMwmIds(numMwmIds)
+  , m_dataSource(dataSource)
+{}
 
 void RegionsSparseGraph::LoadRegionsSparseGraph()
 {
@@ -66,65 +66,53 @@ std::optional<FakeEnding> RegionsSparseGraph::GetFakeEnding(m2::PointD const & p
 
     auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
 
-    Segment const segment(data.m_start.m_numMwmId, segmentId /* featureId */, 0 /* segmentIdx */,
-                          true /* isForward */);
+    Segment const segment(data.m_start.m_numMwmId, segmentId /* featureId */, 0 /* segmentIdx */, true /* isForward */);
 
-    ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction,
-                                      projectedJunction);
+    ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction, projectedJunction);
   }
 
   return ending;
 }
 
-double GetWeight(CrossBorderSegment const & toSeg, LatLonWithAltitude const & coordFrom,
-                 NumMwmId fromMwm)
+double GetWeight(CrossBorderSegment const & toSeg, LatLonWithAltitude const & coordFrom, NumMwmId fromMwm)
 {
-  auto const & coordTo =
-      toSeg.m_start.m_numMwmId == fromMwm ? toSeg.m_start.m_point : toSeg.m_end.m_point;
+  auto const & coordTo = toSeg.m_start.m_numMwmId == fromMwm ? toSeg.m_start.m_point : toSeg.m_end.m_point;
   CHECK(toSeg.m_start.m_numMwmId == fromMwm || toSeg.m_end.m_numMwmId == fromMwm,
         (fromMwm, toSeg.m_start.m_numMwmId, toSeg.m_end.m_numMwmId, coordTo));
   return toSeg.m_weight + ms::DistanceOnEarth(coordFrom.GetLatLon(), coordTo.GetLatLon());
 }
 
-void RegionsSparseGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
-                                     EdgeListT & edges,
+void RegionsSparseGraph::GetEdgeList(Segment const & segment, bool isOutgoing, EdgeListT & edges,
                                      ms::LatLon const & prevSegFront) const
 {
   auto const & data = GetDataById(segment.GetFeatureId());
 
-  NumMwmId const targetMwm =
-      (segment.IsForward() == isOutgoing) ? data.m_end.m_numMwmId : data.m_start.m_numMwmId;
+  NumMwmId const targetMwm = (segment.IsForward() == isOutgoing) ? data.m_end.m_numMwmId : data.m_start.m_numMwmId;
 
   auto it = m_graph.m_mwms.find(targetMwm);
   if (it == m_graph.m_mwms.end())
     return;
 
-  LatLonWithAltitude const & segCoord =
-      (segment.IsForward() == isOutgoing) ? data.m_end.m_point : data.m_start.m_point;
+  LatLonWithAltitude const & segCoord = (segment.IsForward() == isOutgoing) ? data.m_end.m_point : data.m_start.m_point;
 
   for (auto const & id : it->second)
   {
     auto const outData = GetDataById(id);
     if (id == segment.GetFeatureId())
       continue;
-    LatLonWithAltitude const segFront =
-        segment.IsForward() ? outData.m_end.m_point : outData.m_start.m_point;
+    LatLonWithAltitude const segFront = segment.IsForward() ? outData.m_end.m_point : outData.m_start.m_point;
 
-    auto const weight = isOutgoing
-                            ? RouteWeight(GetWeight(outData, segCoord, targetMwm))
-                            : RouteWeight(ms::DistanceOnEarth(segFront.GetLatLon(), prevSegFront));
+    auto const weight = isOutgoing ? RouteWeight(GetWeight(outData, segCoord, targetMwm))
+                                   : RouteWeight(ms::DistanceOnEarth(segFront.GetLatLon(), prevSegFront));
 
-    auto const outMwm = targetMwm == outData.m_start.m_numMwmId ? outData.m_end.m_numMwmId
-                                                                : outData.m_start.m_numMwmId;
+    auto const outMwm = targetMwm == outData.m_start.m_numMwmId ? outData.m_end.m_numMwmId : outData.m_start.m_numMwmId;
 
-    Segment const edge(outMwm, id /* featureId */, 0 /* segmentIdx */,
-                       segment.IsForward() /* isForward */);
+    Segment const edge(outMwm, id /* featureId */, 0 /* segmentIdx */, segment.IsForward() /* isForward */);
     edges.emplace_back(edge, weight);
   }
 }
 
-routing::LatLonWithAltitude const & RegionsSparseGraph::GetJunction(Segment const & segment,
-                                                                    bool front) const
+routing::LatLonWithAltitude const & RegionsSparseGraph::GetJunction(Segment const & segment, bool front) const
 {
   auto const & data = GetDataById(segment.GetFeatureId());
   return segment.IsForward() == front ? data.m_end.m_point : data.m_start.m_point;

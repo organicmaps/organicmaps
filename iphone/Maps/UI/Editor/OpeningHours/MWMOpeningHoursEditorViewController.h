@@ -8,7 +8,7 @@
 
 @interface MWMOpeningHoursEditorViewController : MWMViewController
 
-@property (copy, nonatomic) NSString * openingHours;
-@property (weak, nonatomic) id<MWMOpeningHoursEditorProtocol> delegate;
+@property(copy, nonatomic) NSString * openingHours;
+@property(weak, nonatomic) id<MWMOpeningHoursEditorProtocol> delegate;
 
 @end

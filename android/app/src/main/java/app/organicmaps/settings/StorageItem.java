@@ -20,8 +20,7 @@ public class StorageItem
     mIsReadonly = isReadonly;
   }
 
-  @Override
-  public boolean equals(Object o)
+  @Override public boolean equals(Object o)
   {
     if (o == this)
       return true;
@@ -31,8 +30,7 @@ public class StorageItem
     return mPath.equals(other.mPath);
   }
 
-  @Override
-  public int hashCode()
+  @Override public int hashCode()
   {
     // Yes, do not put StorageItem to Hash containers, performance will be awful.
     // At least such hash is compatible with hacky equals.

@@ -26,8 +26,7 @@ struct OHSerDesTestFixture
   OHSerDesTestFixture()
     : m_memWriter(m_buffer)
     , m_bitWriter(std::make_unique<BitWriter<MemWriter<Buffer>>>(m_memWriter))
-  {
-  }
+  {}
 
   BitWriter<MemWriter<Buffer>> & GetWriter() { return *m_bitWriter; }
   BitReader<ReaderSource<MemReader>> & GetReader()
@@ -110,8 +109,7 @@ void TestModifier(osmoh::RuleSequence const & rule, osmoh::RuleSequence::Modifie
   TEST_EQUAL(rule.GetModifier(), modifier, ());
 }
 
-void TestTime(osmoh::RuleSequence const & rule, uint32_t startH, uint32_t startM, uint32_t endH,
-              uint32_t endM)
+void TestTime(osmoh::RuleSequence const & rule, uint32_t startH, uint32_t startM, uint32_t endH, uint32_t endM)
 {
   TEST_EQUAL(rule.GetTimes().size(), 1, ());
   auto const & time = rule.GetTimes()[0];
@@ -123,9 +121,8 @@ void TestTime(osmoh::RuleSequence const & rule, uint32_t startH, uint32_t startM
   TEST_EQUAL(time.GetEnd().GetMinutesCount(), endM, ());
 }
 
-void TestMonth(osmoh::RuleSequence const & rule, uint32_t startYear,
-               Month startMonth, osmoh::MonthDay::TDayNum startDay,
-               uint32_t endYear, Month endMonth, osmoh::MonthDay::TDayNum endDay)
+void TestMonth(osmoh::RuleSequence const & rule, uint32_t startYear, Month startMonth,
+               osmoh::MonthDay::TDayNum startDay, uint32_t endYear, Month endMonth, osmoh::MonthDay::TDayNum endDay)
 {
   TEST_EQUAL(rule.GetMonths().size(), 1, ());
   auto const & range = rule.GetMonths().back();
@@ -139,16 +136,15 @@ void TestMonth(osmoh::RuleSequence const & rule, uint32_t startYear,
   TEST_EQUAL(range.GetEnd().GetDayNum(), endDay, ());
 }
 
-void TestMonth(osmoh::RuleSequence const & rule, Month startMonth,
-               osmoh::MonthDay::TDayNum startDay, Month endMonth, osmoh::MonthDay::TDayNum endDay)
+void TestMonth(osmoh::RuleSequence const & rule, Month startMonth, osmoh::MonthDay::TDayNum startDay, Month endMonth,
+               osmoh::MonthDay::TDayNum endDay)
 {
   TestMonth(rule, 0 /* startYear */, startMonth, startDay, 0 /* endYear */, endMonth, endDay);
 }
 
 void TestMonth(osmoh::RuleSequence const & rule, Month startMonth, Month endMonth)
 {
-  TestMonth(rule, 0 /* startYear */, startMonth, 0 /* startDay */, 0 /* endYear*/, endMonth,
-            0 /* endDay */);
+  TestMonth(rule, 0 /* startYear */, startMonth, 0 /* startDay */, 0 /* endYear*/, endMonth, 0 /* endDay */);
 }
 
 UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_EnableTests_1)
@@ -859,4 +855,4 @@ UNIT_CLASS_TEST(OHSerDesTestFixture, OpeningHoursSerDes_InverseMonths_Usage_2)
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::Apr, 20, 20 /* hh */, 00 /* mm */)), ());
   TEST(!oh.IsOpen(GetUnixtimeByDate(2020, Month::May, 20, 20 /* hh */, 00 /* mm */)), ());
 }
-} // namespace opening_hours_serdes_tests
+}  // namespace opening_hours_serdes_tests

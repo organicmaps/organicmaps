@@ -14,8 +14,8 @@ class BatchCallbacks
 {
 public:
   virtual ~BatchCallbacks() = default;
-  virtual void FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & binding,
-                         void const * data, uint32_t count) = 0;
+  virtual void FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & binding, void const * data,
+                         uint32_t count) = 0;
   virtual void * GetIndexStorage(uint32_t indexCount, uint32_t & startIndex) = 0;
   virtual void SubmitIndices(ref_ptr<GraphicsContext> context) = 0;
   virtual uint32_t GetAvailableVertexCount() const = 0;
@@ -35,10 +35,9 @@ public:
   void SetVertexStride(uint8_t vertexStride);
 
 protected:
-  void FlushData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams,
-                 uint32_t vertexCount) const;
-  void FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & info,
-                 void const * data, uint32_t elementCount) const;
+  void FlushData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams, uint32_t vertexCount) const;
+  void FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & info, void const * data,
+                 uint32_t elementCount) const;
   void * GetIndexStorage(uint32_t indexCount, uint32_t & startIndex);
   void SubmitIndices(ref_ptr<GraphicsContext> context);
   uint32_t GetAvailableVertexCount() const;
@@ -98,8 +97,8 @@ public:
 
 protected:
   uint32_t BatchIndexes(ref_ptr<GraphicsContext> context, uint32_t vertexCount);
-  void CalcBatchPortion(uint32_t vertexCount, uint32_t avVertex, uint32_t avIndex,
-                        uint32_t & batchVertexCount, uint32_t & batchIndexCount);
+  void CalcBatchPortion(uint32_t vertexCount, uint32_t avVertex, uint32_t avIndex, uint32_t & batchVertexCount,
+                        uint32_t & batchIndexCount);
   bool IsFullUploaded() const;
 
   virtual uint32_t VtoICount(uint32_t vCount) const;
@@ -120,6 +119,7 @@ public:
   explicit TriangleStripBatch(BatchCallbacks & callbacks);
 
   void BatchData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams) override;
+
 protected:
   void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const override;
 };
@@ -132,6 +132,7 @@ public:
   explicit TriangleFanBatch(BatchCallbacks & callbacks);
 
   void BatchData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams) override;
+
 protected:
   void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const override;
 };

@@ -23,10 +23,7 @@ void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom)
       UNUSED_VALUE(strings::to_int(s->second, score));
     minZoomQuadtree.Add(bm.m_point, ValueType{&bm, score});
   }
-  auto const setMinZoom = [](ValueType & valueType, int minZoom)
-  {
-    valueType.first->m_minZoom = minZoom;
-  };
+  auto const setMinZoom = [](ValueType & valueType, int minZoom) { valueType.first->m_minZoom = minZoom; };
   minZoomQuadtree.SetMinZoom(countPerTile, maxZoom, setMinZoom);
 }
 
@@ -36,7 +33,7 @@ bool MultiGeometry::IsValid() const
   return !m_lines.empty();
 }
 
-void MultiGeometry::Clear() 
+void MultiGeometry::Clear()
 {
   m_lines.clear();
   m_timestamps.clear();

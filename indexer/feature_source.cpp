@@ -13,7 +13,8 @@ std::string ToString(FeatureStatus fs)
   return "Undefined";
 }
 
-FeatureSource::FeatureSource(MwmSet::MwmHandle const & handle) : m_handle(handle)
+FeatureSource::FeatureSource(MwmSet::MwmHandle const & handle)
+  : m_handle(handle)
 {
   if (!m_handle.IsAlive())
     return;
@@ -37,18 +38,14 @@ std::unique_ptr<FeatureType> FeatureSource::GetOriginalFeature(uint32_t index) c
   ASSERT(m_handle.IsAlive(), ());
   ASSERT(m_vector, ());
   auto ft = m_vector->GetByIndex(index);
-  ft->SetID({ GetMwmId(), index });
+  ft->SetID({GetMwmId(), index});
   return ft;
 }
 
-FeatureStatus FeatureSource::GetFeatureStatus(uint32_t index) const
-{
-  return FeatureStatus::Untouched;
-}
+FeatureStatus FeatureSource::GetFeatureStatus(uint32_t index) const { return FeatureStatus::Untouched; }
 
 std::unique_ptr<FeatureType> FeatureSource::GetModifiedFeature(uint32_t index) const { return {}; }
 
 void FeatureSource::ForEachAdditionalFeature(m2::RectD const & rect, int scale,
                                              std::function<void(uint32_t)> const & fn) const
-{
-}
+{}

@@ -7,25 +7,21 @@ ThreadSafeFactory::ThreadSafeFactory(GraphicsContextFactory * factory, bool enab
   , m_enableSharing(enableSharing)
 {}
 
-ThreadSafeFactory::~ThreadSafeFactory()
-{
-  delete m_factory;
-}
+ThreadSafeFactory::~ThreadSafeFactory() { delete m_factory; }
 
 GraphicsContext * ThreadSafeFactory::GetDrawContext()
 {
-  return CreateContext([this](){ return m_factory->GetDrawContext(); },
-                       [this](){ return m_factory->IsUploadContextCreated(); });
+  return CreateContext([this]() { return m_factory->GetDrawContext(); },
+                       [this]() { return m_factory->IsUploadContextCreated(); });
 }
 
 GraphicsContext * ThreadSafeFactory::GetResourcesUploadContext()
 {
-  return CreateContext([this](){ return m_factory->GetResourcesUploadContext(); },
-                       [this](){ return m_factory->IsDrawContextCreated(); });
+  return CreateContext([this]() { return m_factory->GetResourcesUploadContext(); },
+                       [this]() { return m_factory->IsDrawContextCreated(); });
 }
 
-GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn,
-                                                   TIsSeparateCreatedFn const & checkFn)
+GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn, TIsSeparateCreatedFn const & checkFn)
 {
   std::unique_lock<std::mutex> lock(m_condLock);
   GraphicsContext * ctx = createFn();
@@ -40,13 +36,7 @@ GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn
   return ctx;
 }
 
-void ThreadSafeFactory::WaitForInitialization(GraphicsContext * context)
-{
-  m_factory->WaitForInitialization(context);
-}
+void ThreadSafeFactory::WaitForInitialization(GraphicsContext * context) { m_factory->WaitForInitialization(context); }
 
-void ThreadSafeFactory::SetPresentAvailable(bool available)
-{
-  m_factory->SetPresentAvailable(available);
-}
+void ThreadSafeFactory::SetPresentAvailable(bool available) { m_factory->SetPresentAvailable(available); }
 }  // namespace dp

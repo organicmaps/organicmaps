@@ -2,8 +2,8 @@
 
 #include "generator/feature_merger.hpp"
 
-#include "geometry/tree4d.hpp"
 #include "geometry/region2d.hpp"
+#include "geometry/tree4d.hpp"
 
 #include <vector>
 
@@ -35,4 +35,4 @@ namespace coastlines_generator
 {
 /// @param[in]  poly  Closed polygon where poly.frotn() == poly.back() like in FeatureBuilder.
 m2::RegionI CreateRegionI(std::vector<m2::PointD> const & poly);
-} // namespace coastlines_generator
+}  // namespace coastlines_generator

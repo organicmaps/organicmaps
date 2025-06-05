@@ -41,4 +41,4 @@ public:
   friend std::string DebugPrint(CustomKeyValue const & kv);
 };
 
-} // namespace indexer
+}  // namespace indexer

@@ -5,23 +5,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
 import app.organicmaps.dialog.EditTextDialogFragment;
-
 import java.util.List;
 
-public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
-                                         implements ChooseBookmarkCategoryAdapter.CategoryListener
+public class ChooseBookmarkCategoryFragment
+  extends BaseMwmDialogFragment implements ChooseBookmarkCategoryAdapter.CategoryListener
 {
   public static final String CATEGORY_POSITION = "ExtraCategoryPosition";
 
@@ -34,15 +31,12 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   }
   private Listener mListener;
 
-  @Override
-  protected int getStyle()
+  @Override protected int getStyle()
   {
     return STYLE_NO_TITLE;
   }
 
-  @Nullable
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.choose_bookmark_category_fragment, container, false);
     mRecycler = root.findViewById(R.id.recycler);
@@ -50,8 +44,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     return root;
   }
 
-  @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  @Override public void onViewCreated(View view, Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
@@ -63,8 +56,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     mRecycler.setAdapter(mAdapter);
   }
 
-  @Override
-  public void onAttach(Activity activity)
+  @Override public void onAttach(Activity activity)
   {
     if (mListener == null)
     {
@@ -111,8 +103,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     dismiss();
   }
 
-  @Override
-  public void onCategorySet(int categoryPosition)
+  @Override public void onCategorySet(int categoryPosition)
   {
     mAdapter.chooseItem(categoryPosition);
     if (mListener != null)
@@ -123,16 +114,10 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     dismiss();
   }
 
-  @Override
-  public void onCategoryCreate()
+  @Override public void onCategoryCreate()
   {
-    EditTextDialogFragment dialogFragment =
-        EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
-                                    null,
-                                    getString(R.string.ok),
-                                    null,
-                                    this,
-                                    new CategoryValidator());
+    EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(
+      getString(R.string.bookmark_set_name), null, getString(R.string.ok), null, this, new CategoryValidator());
     dialogFragment.setTextSaveListener(this::createCategory);
   }
 }

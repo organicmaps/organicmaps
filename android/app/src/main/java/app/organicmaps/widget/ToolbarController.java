@@ -2,7 +2,6 @@ package app.organicmaps.widget;
 
 import android.app.Activity;
 import android.view.View;
-
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,22 +17,16 @@ import app.organicmaps.util.WindowInsetUtils;
 
 public class ToolbarController
 {
-  @Nullable
-  private  Activity mActivity;
-  @NonNull
-  private final Toolbar mToolbar;
-  @NonNull
-  protected final View.OnClickListener mNavigationClickListener = view -> onUpClick();
+  @Nullable private Activity mActivity;
+  @NonNull private final Toolbar mToolbar;
+  @NonNull protected final View.OnClickListener mNavigationClickListener = view -> onUpClick();
 
   public ToolbarController(@NonNull View root, @NonNull Activity activity)
   {
     mActivity = activity;
     mToolbar = root.findViewById(getToolbarId());
 
-
-    ViewCompat.setOnApplyWindowInsetsListener(
-        getToolbar(),
-        WindowInsetUtils.PaddingInsetsListener.excludeBottom());
+    ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), WindowInsetUtils.PaddingInsetsListener.excludeBottom());
 
     UiUtils.setupNavigationIcon(mToolbar, mNavigationClickListener);
     setSupportActionBar(activity, mToolbar);
@@ -45,8 +38,7 @@ public class ToolbarController
     appCompatActivity.setSupportActionBar(toolbar);
   }
 
-  @IdRes
-  private int getToolbarId()
+  @IdRes private int getToolbarId()
   {
     return R.id.toolbar;
   }
@@ -68,16 +60,13 @@ public class ToolbarController
     return this;
   }
 
-  @SuppressWarnings("ConstantConditions")
-  @NonNull
-  private ActionBar getSupportActionBar()
+  @SuppressWarnings("ConstantConditions") @NonNull private ActionBar getSupportActionBar()
   {
     AppCompatActivity appCompatActivity = (AppCompatActivity) mActivity;
     return appCompatActivity.getSupportActionBar();
   }
 
-  @NonNull
-  public Activity requireActivity()
+  @NonNull public Activity requireActivity()
   {
     if (mActivity == null)
       throw new AssertionError("Activity must be non-null!");
@@ -85,8 +74,7 @@ public class ToolbarController
     return mActivity;
   }
 
-  @NonNull
-  public Toolbar getToolbar()
+  @NonNull public Toolbar getToolbar()
   {
     return mToolbar;
   }

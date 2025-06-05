@@ -10,18 +10,16 @@ namespace
 double GetMinX(std::vector<m2::RectD> const & cells)
 {
   CHECK(!cells.empty(), ());
-  auto const minElementX =
-      std::min_element(std::cbegin(cells), std::cend(cells),
-                       [](auto const & l, auto const & r) { return l.minX() < r.minX(); });
+  auto const minElementX = std::min_element(std::cbegin(cells), std::cend(cells),
+                                            [](auto const & l, auto const & r) { return l.minX() < r.minX(); });
   return minElementX->minX();
 }
 
 double GetMinY(std::vector<m2::RectD> const & cells)
 {
   CHECK(!cells.empty(), ());
-  auto const minElementY =
-      std::min_element(std::cbegin(cells), std::cend(cells),
-                       [](auto const & l, auto const & r) { return l.minY() < r.minY(); });
+  auto const minElementY = std::min_element(std::cbegin(cells), std::cend(cells),
+                                            [](auto const & l, auto const & r) { return l.minY() < r.minY(); });
   return minElementY->minY();
 }
 }  // namespace
@@ -69,10 +67,9 @@ void CellsMerger::CalcSum()
       if (!Has(x, y))
         continue;
       auto & cell = Get(x, y);
-      cell.SetBottomLeft(
-          std::min({TryGet(x - 1, y).GetBottomLeft(), TryGet(x, y - 1).GetBottomLeft(),
-                    TryGet(x - 1, y - 1).GetBottomLeft()}) +
-          1);
+      cell.SetBottomLeft(std::min({TryGet(x - 1, y).GetBottomLeft(), TryGet(x, y - 1).GetBottomLeft(),
+                                   TryGet(x - 1, y - 1).GetBottomLeft()}) +
+                         1);
     }
   }
   // Bottom right
@@ -83,10 +80,9 @@ void CellsMerger::CalcSum()
       if (!Has(x, y))
         continue;
       auto & cell = Get(x, y);
-      cell.SetBottomRight(
-          std::min({TryGet(x + 1, y).GetBottomRight(), TryGet(x, y - 1).GetBottomRight(),
-                    TryGet(x + 1, y - 1).GetBottomRight()}) +
-          1);
+      cell.SetBottomRight(std::min({TryGet(x + 1, y).GetBottomRight(), TryGet(x, y - 1).GetBottomRight(),
+                                    TryGet(x + 1, y - 1).GetBottomRight()}) +
+                          1);
     }
   }
   // Top left
@@ -97,9 +93,9 @@ void CellsMerger::CalcSum()
       if (!Has(x, y))
         continue;
       auto & cell = Get(x, y);
-      cell.SetTopLeft(std::min({TryGet(x - 1, y).GetTopLeft(), TryGet(x, y + 1).GetTopLeft(),
-                                TryGet(x - 1, y + 1).GetTopLeft()}) +
-                      1);
+      cell.SetTopLeft(
+        std::min({TryGet(x - 1, y).GetTopLeft(), TryGet(x, y + 1).GetTopLeft(), TryGet(x - 1, y + 1).GetTopLeft()}) +
+        1);
     }
   }
   // Top right
@@ -110,9 +106,9 @@ void CellsMerger::CalcSum()
       if (!Has(x, y))
         continue;
       auto & cell = Get(x, y);
-      cell.SetTopRight(std::min({TryGet(x + 1, y).GetTopRight(), TryGet(x, y + 1).GetTopRight(),
-                                 TryGet(x + 1, y + 1).GetTopRight()}) +
-                       1);
+      cell.SetTopRight(
+        std::min({TryGet(x + 1, y).GetTopRight(), TryGet(x, y + 1).GetTopRight(), TryGet(x + 1, y + 1).GetTopRight()}) +
+        1);
     }
   }
   for (auto & pair : m_matrix)
@@ -128,8 +124,7 @@ CellWrapper & CellsMerger::Get(m2::PointI const & xy)
 
 CellWrapper & CellsMerger::Get(int32_t x, int32_t y) { return Get({x, y}); }
 
-CellWrapper const & CellsMerger::TryGet(int32_t x, int32_t y,
-                                        CellWrapper const & defaultValue) const
+CellWrapper const & CellsMerger::TryGet(int32_t x, int32_t y, CellWrapper const & defaultValue) const
 {
   auto const it = m_matrix.find({x, y});
   return it == std::cend(m_matrix) ? defaultValue : it->second;
@@ -163,15 +158,14 @@ std::optional<m2::PointI> CellsMerger::FindDirection(m2::PointI const & startXy)
   std::array<std::pair<size_t, m2::PointI>, 4> directionsWithWeight;
   std::array<m2::PointI, 4> const directions{{{1, 1}, {-1, 1}, {1, -1}, {-1, -1}}};
   base::Transform(directions, std::begin(directionsWithWeight),
-                  [&](auto const & direction) {
-                    return std::make_pair(
-                        TryGet(startXy.x + direction.x, startXy.y).GetSum() +
-                            TryGet(startXy.x, startXy.y + direction.y).GetSum() +
-                            TryGet(startXy.x + direction.x, startXy.y + direction.y).GetSum(),
-                        direction);
-                 });
-  auto const direction =
-      std::max_element(std::cbegin(directionsWithWeight), std::cend(directionsWithWeight))->second;
+                  [&](auto const & direction)
+                  {
+                    return std::make_pair(TryGet(startXy.x + direction.x, startXy.y).GetSum() +
+                                            TryGet(startXy.x, startXy.y + direction.y).GetSum() +
+                                            TryGet(startXy.x + direction.x, startXy.y + direction.y).GetSum(),
+                                          direction);
+                  });
+  auto const direction = std::max_element(std::cbegin(directionsWithWeight), std::cend(directionsWithWeight))->second;
   return Has(startXy + direction) ? direction : std::optional<m2::PointI>{};
 }
 
@@ -188,7 +182,7 @@ void CellsMerger::Remove(m2::PointI const & minXy, m2::PointI const & maxXy)
 
 bool CellsMerger::Has(int32_t x, int32_t y) const { return m_matrix.count({x, y}) != 0; }
 
-bool CellsMerger::Has(const m2::PointI & xy) const { return Has(xy.x, xy.y); }
+bool CellsMerger::Has(m2::PointI const & xy) const { return Has(xy.x, xy.y); }
 
 std::optional<m2::PointI> CellsMerger::FindMax() const
 {

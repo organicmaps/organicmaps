@@ -120,8 +120,7 @@ std::string MapboxApi::GetDirectionsURL(Params const & params) const
     coords.emplace_back(mercator::ToLatLon(point));
 
   std::ostringstream oss;
-  oss << kBaseURL << "directions/" << kDirectionsApiVersion << "/"
-      << VehicleTypeToMapboxType(params.m_type) << "/";
+  oss << kBaseURL << "directions/" << kDirectionsApiVersion << "/" << VehicleTypeToMapboxType(params.m_type) << "/";
   oss << LatLonsToString(coords) << "?";
   oss << "access_token=" << GetAccessToken() << "&";
   oss << "overview=simplified&"
@@ -130,4 +129,4 @@ std::string MapboxApi::GetDirectionsURL(Params const & params) const
 
   return oss.str();
 }
-}  // namespace mapbox::api::routing_quality
+}  // namespace routing_quality::api::mapbox

@@ -20,8 +20,8 @@ bool SumWillOverflow(Number lhs, Number rhs)
 namespace routing
 {
 
-int RouteWeight::s_PassThroughPenaltyS = 30*60;   // 30 minutes
-int RouteWeight::s_AccessPenaltyS = 2*60*60;      // 2 hours
+int RouteWeight::s_PassThroughPenaltyS = 30 * 60;  // 30 minutes
+int RouteWeight::s_AccessPenaltyS = 2 * 60 * 60;   // 2 hours
 
 double RouteWeight::ToCrossMwmWeight() const
 {
@@ -38,8 +38,7 @@ RouteWeight RouteWeight::operator+(RouteWeight const & rhs) const
 {
   ASSERT(!SumWillOverflow(m_numPassThroughChanges, rhs.m_numPassThroughChanges),
          (m_numPassThroughChanges, rhs.m_numPassThroughChanges));
-  ASSERT(!SumWillOverflow(m_numAccessChanges, rhs.m_numAccessChanges),
-         (m_numAccessChanges, rhs.m_numAccessChanges));
+  ASSERT(!SumWillOverflow(m_numAccessChanges, rhs.m_numAccessChanges), (m_numAccessChanges, rhs.m_numAccessChanges));
   ASSERT(!SumWillOverflow(m_numAccessConditionalPenalties, rhs.m_numAccessConditionalPenalties),
          (m_numAccessConditionalPenalties, rhs.m_numAccessConditionalPenalties));
 
@@ -53,13 +52,11 @@ RouteWeight RouteWeight::operator-(RouteWeight const & rhs) const
 {
   ASSERT_NOT_EQUAL(m_numPassThroughChanges, std::numeric_limits<int8_t>::min(), ());
   ASSERT_NOT_EQUAL(m_numAccessChanges, std::numeric_limits<int8_t>::min(), ());
-  ASSERT(
-      !SumWillOverflow(m_numPassThroughChanges, static_cast<int8_t>(-rhs.m_numPassThroughChanges)),
-      (m_numPassThroughChanges, -rhs.m_numPassThroughChanges));
+  ASSERT(!SumWillOverflow(m_numPassThroughChanges, static_cast<int8_t>(-rhs.m_numPassThroughChanges)),
+         (m_numPassThroughChanges, -rhs.m_numPassThroughChanges));
   ASSERT(!SumWillOverflow(m_numAccessChanges, static_cast<int8_t>(-rhs.m_numAccessChanges)),
          (m_numAccessChanges, -rhs.m_numAccessChanges));
-  ASSERT(!SumWillOverflow(m_numAccessConditionalPenalties,
-                          static_cast<int8_t>(-rhs.m_numAccessConditionalPenalties)),
+  ASSERT(!SumWillOverflow(m_numAccessConditionalPenalties, static_cast<int8_t>(-rhs.m_numAccessConditionalPenalties)),
          (m_numAccessConditionalPenalties, -rhs.m_numAccessConditionalPenalties));
 
   return RouteWeight(m_weight - rhs.m_weight, m_numPassThroughChanges - rhs.m_numPassThroughChanges,
@@ -72,8 +69,7 @@ RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
 {
   ASSERT(!SumWillOverflow(m_numPassThroughChanges, rhs.m_numPassThroughChanges),
          (m_numPassThroughChanges, rhs.m_numPassThroughChanges));
-  ASSERT(!SumWillOverflow(m_numAccessChanges, rhs.m_numAccessChanges),
-         (m_numAccessChanges, rhs.m_numAccessChanges));
+  ASSERT(!SumWillOverflow(m_numAccessChanges, rhs.m_numAccessChanges), (m_numAccessChanges, rhs.m_numAccessChanges));
   ASSERT(!SumWillOverflow(m_numAccessConditionalPenalties, rhs.m_numAccessConditionalPenalties),
          (m_numAccessConditionalPenalties, rhs.m_numAccessConditionalPenalties));
   m_weight += rhs.m_weight;
@@ -136,18 +132,16 @@ double RouteWeight::GetIntegratedWeight() const
 
 std::ostream & operator<<(std::ostream & os, RouteWeight const & routeWeight)
 {
-  os << "("
-     << static_cast<int32_t>(routeWeight.GetNumPassThroughChanges()) << ", "
+  os << "(" << static_cast<int32_t>(routeWeight.GetNumPassThroughChanges()) << ", "
      << static_cast<int32_t>(routeWeight.m_numAccessChanges) << ", "
-     << static_cast<int32_t>(routeWeight.m_numAccessConditionalPenalties) << ", "
-     << routeWeight.GetWeight() << ", " << routeWeight.GetTransitTime() << ")";
+     << static_cast<int32_t>(routeWeight.m_numAccessConditionalPenalties) << ", " << routeWeight.GetWeight() << ", "
+     << routeWeight.GetTransitTime() << ")";
   return os;
 }
 
 RouteWeight operator*(double lhs, RouteWeight const & rhs)
 {
-  return RouteWeight(lhs * rhs.GetWeight(), rhs.GetNumPassThroughChanges(),
-                     rhs.m_numAccessChanges, rhs.m_numAccessConditionalPenalties,
-                     lhs * rhs.GetTransitTime());
+  return RouteWeight(lhs * rhs.GetWeight(), rhs.GetNumPassThroughChanges(), rhs.m_numAccessChanges,
+                     rhs.m_numAccessConditionalPenalties, lhs * rhs.GetTransitTime());
 }
 }  // namespace routing

@@ -17,9 +17,7 @@ public final class SingleLaneInfo
     mIsActive = isActive;
   }
 
-  @NonNull
-  @Override
-  public String toString()
+  @NonNull @Override public String toString()
   {
     final int initialCapacity = 32;
     StringBuilder sb = new StringBuilder(initialCapacity);

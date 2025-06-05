@@ -75,10 +75,7 @@ void Unpack(char const * p, location::GpsInfo & info)
   info.m_source = static_cast<location::TLocationSource>(source);
 }
 
-inline size_t GetItemOffset(size_t itemIndex)
-{
-  return kHeaderSize + itemIndex * kPointSize;
-}
+inline size_t GetItemOffset(size_t itemIndex) { return kHeaderSize + itemIndex * kPointSize; }
 
 inline size_t GetItemCount(size_t fileSize)
 {
@@ -102,7 +99,7 @@ inline bool ReadVersion(fstream & f, uint32_t & version)
   return f.good();
 }
 
-} // namespace
+}  // namespace
 
 GpsTrackStorage::GpsTrackStorage(string const & filePath)
   : m_filePath(filePath)
@@ -120,7 +117,6 @@ GpsTrackStorage::GpsTrackStorage(string const & filePath)
 
     m_itemCount = 0;
   };
-
 
   // Open existing file
   m_stream.open(m_filePath, ios::in | ios::out | ios::binary);
@@ -175,8 +171,7 @@ void GpsTrackStorage::Append(vector<TItem> const & items)
     return;
 
   // Write position must be after last item position
-  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename fstream::pos_type>(
-                   GetItemOffset(m_itemCount)), ());
+  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename fstream::pos_type>(GetItemOffset(m_itemCount)), ());
 
   vector<char> buff(min(kItemBlockSize, items.size()) * kPointSize);
   for (size_t i = 0; i < items.size();)
@@ -217,8 +212,7 @@ void GpsTrackStorage::Clear()
     MYTHROW(WriteException, ("File:", m_filePath));
 
   // Write position is set to the first item in the file
-  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename fstream::pos_type>(
-                   GetItemOffset(0)), ());
+  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename fstream::pos_type>(GetItemOffset(0)), ());
 }
 
 void GpsTrackStorage::ForEach(std::function<bool(TItem const & item)> const & fn)

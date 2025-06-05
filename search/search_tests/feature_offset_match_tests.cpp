@@ -2,8 +2,8 @@
 
 #include "search/feature_offset_match.hpp"
 
-#include "indexer/trie.hpp"
 #include "indexer/search_string_utils.hpp"
+#include "indexer/trie.hpp"
 
 #include "base/mem_trie.hpp"
 #include "base/string_utils.hpp"
@@ -99,4 +99,4 @@ UNIT_TEST(MatchPrefixInTrieTest)
     TEST(vals.at(1), (vals));
   }
 }
-} // namespace feature_offset_match_tests
+}  // namespace feature_offset_match_tests

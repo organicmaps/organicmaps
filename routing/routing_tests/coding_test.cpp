@@ -64,25 +64,24 @@ namespace routing_test
 {
 UNIT_TEST(ModuleCastTest)
 {
-  ForEachNumber<uint8_t>([](uint8_t number) {
-    auto signedNumber = ModularCast(number);
-    static_assert(std::is_same<decltype(signedNumber), int8_t>::value, "int8_t expected");
-    TEST_EQUAL(static_cast<uint8_t>(signedNumber), number, ("signedNumber:", signedNumber));
-  });
+  ForEachNumber<uint8_t>(
+    [](uint8_t number)
+    {
+      auto signedNumber = ModularCast(number);
+      static_assert(std::is_same<decltype(signedNumber), int8_t>::value, "int8_t expected");
+      TEST_EQUAL(static_cast<uint8_t>(signedNumber), number, ("signedNumber:", signedNumber));
+    });
 }
 
 UNIT_TEST(ZigZagUint8)
 {
-  ForEachNumber<uint8_t>([](uint8_t prev) {
-    ForEachNumber<uint8_t>([&](uint8_t current) { TestZigZag(prev, current); });
-  });
+  ForEachNumber<uint8_t>([](uint8_t prev)
+                         { ForEachNumber<uint8_t>([&](uint8_t current) { TestZigZag(prev, current); }); });
 }
 
 UNIT_TEST(ZigZagInt8)
 {
-  ForEachNumber<int8_t>([](int8_t prev) {
-    ForEachNumber<int8_t>([&](int8_t current) { TestZigZag(prev, current); });
-  });
+  ForEachNumber<int8_t>([](int8_t prev) { ForEachNumber<int8_t>([&](int8_t current) { TestZigZag(prev, current); }); });
 }
 
 UNIT_TEST(ZigZagUint16) { TestZigZagUnsigned<uint16_t>(); }

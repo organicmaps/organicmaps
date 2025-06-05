@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
@@ -13,47 +12,43 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.sdk.search.MapSearchListener;
 import app.organicmaps.sdk.search.SearchEngine;
-import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
-
+import app.organicmaps.widget.PlaceholderView;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapter>
-                             implements OnBackPressListener,
-                                        MenuBottomSheetFragment.MenuBottomSheetInterface
+  implements OnBackPressListener, MenuBottomSheetFragment.MenuBottomSheetInterface
 {
   private DownloaderToolbarController mToolbarController;
 
   private BottomPanel mBottomPanel;
-  @Nullable
-  private DownloaderAdapter mAdapter;
+  @Nullable private DownloaderAdapter mAdapter;
 
   private long mCurrentSearch;
   private boolean mSearchRunning;
 
   private int mSubscriberSlot;
 
-  final ActivityResultLauncher<Intent> startVoiceRecognitionForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> mToolbarController.onVoiceRecognitionResult(activityResult));
+  final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
+    registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+      activityResult -> mToolbarController.onVoiceRecognitionResult(activityResult));
 
   private final RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
-    @Override
-    public void onScrollStateChanged(RecyclerView recyclerView, int newState)
+    @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState)
     {
       if (newState == RecyclerView.SCROLL_STATE_DRAGGING)
         mToolbarController.deactivate();
     }
   };
 
-  private final MapSearchListener mSearchListener = new MapSearchListener()
-  {
+  private final MapSearchListener mSearchListener = new MapSearchListener() {
     // Called from JNI.
     @Keep
     @SuppressWarnings("unused")
@@ -119,9 +114,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     mBottomPanel.update();
   }
 
-  @CallSuper
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState)
+  @CallSuper @Override public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -133,17 +126,14 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
 
     ViewCompat.setOnApplyWindowInsetsListener(view, new DownloaderInsetsListener(view));
 
-    mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
-    {
-      @Override
-      public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+    mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback() {
+      @Override public void onStatusChanged(List<MapManager.StorageCallbackData> data)
       {
         if (isAdded())
           update();
       }
 
-      @Override
-      public void onProgress(String countryId, long localSize, long remoteSize) {}
+      @Override public void onProgress(String countryId, long localSize, long remoteSize) {}
     });
 
     SearchEngine.INSTANCE.addMapListener(mSearchListener);
@@ -161,8 +151,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     update();
   }
 
-  @Override
-  public void onDestroyView()
+  @Override public void onDestroyView()
   {
     super.onDestroyView();
     if (mAdapter != null)
@@ -178,16 +167,14 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     SearchEngine.INSTANCE.removeMapListener(mSearchListener);
   }
 
-  @Override
-  public void onDestroy()
+  @Override public void onDestroy()
   {
     super.onDestroy();
     if (getRecyclerView() != null)
       getRecyclerView().removeOnScrollListener(mScrollListener);
   }
 
-  @Override
-  public boolean onBackPressed()
+  @Override public boolean onBackPressed()
   {
     if (mToolbarController.hasQuery())
     {
@@ -198,15 +185,12 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     return mAdapter != null && mAdapter.goUpwards();
   }
 
-  @Override
-  protected int getLayoutRes()
+  @Override protected int getLayoutRes()
   {
     return R.layout.fragment_downloader;
   }
 
-  @NonNull
-  @Override
-  protected DownloaderAdapter createAdapter()
+  @NonNull @Override protected DownloaderAdapter createAdapter()
   {
     if (mAdapter == null)
       mAdapter = new DownloaderAdapter(this);
@@ -214,22 +198,17 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     return mAdapter;
   }
 
-
-  @NonNull
-  @Override
-  public DownloaderAdapter getAdapter()
+  @NonNull @Override public DownloaderAdapter getAdapter()
   {
     return mAdapter;
   }
 
-  @NonNull
-  String getCurrentRoot()
+  @NonNull String getCurrentRoot()
   {
     return mAdapter != null ? mAdapter.getCurrentRootId() : "";
   }
 
-  @Override
-  protected void setupPlaceholder(@Nullable PlaceholderView placeholder)
+  @Override protected void setupPlaceholder(@Nullable PlaceholderView placeholder)
   {
     if (placeholder == null)
       return;
@@ -237,12 +216,11 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     if (mAdapter != null && mAdapter.isSearchResultsMode())
       placeholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
     else
-      placeholder.setContent(R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
+      placeholder.setContent(
+        R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
   }
 
-  @Override
-  @Nullable
-  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id)
+  @Override @Nullable public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id)
   {
     return mAdapter != null ? mAdapter.getMenuItems() : null;
   }

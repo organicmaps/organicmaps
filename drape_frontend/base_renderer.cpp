@@ -8,7 +8,7 @@ namespace dp
 {
 extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);
 }  // namespace dp
-#define RENDER_FRAME_MEDIATOR(renderFunction) dp::RenderFrameMediator([this]{ renderFunction; })
+#define RENDER_FRAME_MEDIATOR(renderFunction) dp::RenderFrameMediator([this] { renderFunction; })
 #else
 #define RENDER_FRAME_MEDIATOR(renderFunction) renderFunction
 #endif
@@ -33,10 +33,7 @@ BaseRenderer::BaseRenderer(ThreadsCommutator::ThreadName name, Params const & pa
   m_commutator->RegisterThread(m_threadName, this);
 }
 
-void BaseRenderer::StartThread()
-{
-  m_selfThread.Create(CreateRoutine());
-}
+void BaseRenderer::StartThread() { m_selfThread.Create(CreateRoutine()); }
 
 void BaseRenderer::StopThread()
 {
@@ -53,12 +50,9 @@ void BaseRenderer::StopThread()
   // wait for render thread completion
   m_selfThread.Join();
 }
-  
-void BaseRenderer::IterateRenderLoop()
-{
-  RENDER_FRAME_MEDIATOR(IterateRenderLoopImpl());
-}
-  
+
+void BaseRenderer::IterateRenderLoop() { RENDER_FRAME_MEDIATOR(IterateRenderLoopImpl()); }
+
 void BaseRenderer::IterateRenderLoopImpl()
 {
   RenderFrame();
@@ -79,10 +73,7 @@ void BaseRenderer::SetRenderingDisabled(bool const destroySurface)
   SetRenderingEnabled(false);
 }
 
-bool BaseRenderer::IsRenderingEnabled() const
-{
-  return m_isEnabled;
-}
+bool BaseRenderer::IsRenderingEnabled() const { return m_isEnabled; }
 
 void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
 {
@@ -123,10 +114,7 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
   completionCondition.wait(lock, [&notified] { return notified; });
 }
 
-bool BaseRenderer::FilterContextDependentMessage(ref_ptr<Message> msg)
-{
-  return msg->IsGraphicsContextDependent();
-}
+bool BaseRenderer::FilterContextDependentMessage(ref_ptr<Message> msg) { return msg->IsGraphicsContextDependent(); }
 
 void BaseRenderer::CreateContext()
 {
@@ -155,8 +143,7 @@ void BaseRenderer::CheckRenderingEnabled()
     else
     {
       bool const isDrawContext = m_threadName == ThreadsCommutator::RenderThread;
-      context = isDrawContext ? m_contextFactory->GetDrawContext() :
-                                m_contextFactory->GetResourcesUploadContext();
+      context = isDrawContext ? m_contextFactory->GetDrawContext() : m_contextFactory->GetResourcesUploadContext();
       context->SetRenderingEnabled(false);
     }
 

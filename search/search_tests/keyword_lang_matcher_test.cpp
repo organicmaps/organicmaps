@@ -58,4 +58,4 @@ UNIT_TEST(KeywordMatcher_LanguageMatchIsUsedWhenTokenMatchIsTheSame)
   TEST(matcher.CalcScore(LANG_SOME_OTHER, name) < matcher.CalcScore(LANG_HIGH_PRIORITY, name), ());
 }
 
-} // namespace keyword_lang_matcher_test
+}  // namespace keyword_lang_matcher_test

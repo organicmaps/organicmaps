@@ -11,8 +11,8 @@
 #include "generator/restriction_generator.hpp"
 #include "generator/routing_helpers.hpp"
 
-#include "routing/maxspeeds_serialization.hpp"
 #include "routing/maxspeeds.hpp"
+#include "routing/maxspeeds_serialization.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
@@ -94,8 +94,7 @@ void TestMaxspeedsSection(Features const & roads, string const & maxspeedsCsvCon
   TEST(routingGraph, ());
 
   // Creating maxspeed section in test.mwm.
-  BuildMaxspeedsSection(routingGraph.get(), testMwmFullPath, featureIdToOsmId,
-                        base::JoinPath(testDirFullPath, kCsv));
+  BuildMaxspeedsSection(routingGraph.get(), testMwmFullPath, featureIdToOsmId, base::JoinPath(testDirFullPath, kCsv));
 
   // Loading maxspeed section.
   FrozenDataSource dataSource;
@@ -111,7 +110,8 @@ void TestMaxspeedsSection(Features const & roads, string const & maxspeedsCsvCon
   // Testing maxspeed section content.
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(ParseMaxspeeds(base::JoinPath(testDirFullPath, kCsv), osmIdToMaxspeed), ());
-  auto processor = [&](FeatureType & f, uint32_t const & id) {
+  auto processor = [&](FeatureType & f, uint32_t const & id)
+  {
     TEST(IsRoad(feature::TypesHolder(f)), ());
 
     // Looking for maxspeed from csv.
@@ -120,7 +120,7 @@ void TestMaxspeedsSection(Features const & roads, string const & maxspeedsCsvCon
 
     auto const itMaxspeedCsv = osmIdToMaxspeed.find(itOsmId->second);
     if (itMaxspeedCsv == osmIdToMaxspeed.cend())
-      return; // No maxspeed for feature |id|.
+      return;  // No maxspeed for feature |id|.
 
     Maxspeed const maxspeedCsv = itMaxspeedCsv->second;
     Maxspeed const maxspeedMwm = maxspeeds->GetMaxspeed(id);
@@ -201,9 +201,8 @@ UNIT_TEST(Maxspeed_Parse1)
 {
   string const maxspeedsCsvContent = R"(10,Metric,60
                                         11,Metric,90)";
-  OsmIdToMaxspeed const expectedMapping = {
-      {base::MakeOsmWay(10), {Units::Metric, 60, kInvalidSpeed}},
-      {base::MakeOsmWay(11), {Units::Metric, 90, kInvalidSpeed}}};
+  OsmIdToMaxspeed const expectedMapping = {{base::MakeOsmWay(10), {Units::Metric, 60, kInvalidSpeed}},
+                                           {base::MakeOsmWay(11), {Units::Metric, 90, kInvalidSpeed}}};
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
@@ -213,9 +212,8 @@ UNIT_TEST(Maxspeed_Parse2)
 {
   string const maxspeedsCsvContent = R"(10,Metric,60,80
                                         11,Metric,120)";
-  OsmIdToMaxspeed const expectedMapping = {
-      {base::MakeOsmWay(10), {Units::Metric, 60, 80}},
-      {base::MakeOsmWay(11), {Units::Metric, 120, kInvalidSpeed}}};
+  OsmIdToMaxspeed const expectedMapping = {{base::MakeOsmWay(10), {Units::Metric, 60, 80}},
+                                           {base::MakeOsmWay(11), {Units::Metric, 120, kInvalidSpeed}}};
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
@@ -226,9 +224,8 @@ UNIT_TEST(Maxspeed_Parse3)
   string const maxspeedsCsvContent = R"(184467440737095516,Imperial,60,80
                                         184467440737095517,Metric,120)";
 
-  OsmIdToMaxspeed const expectedMapping = {
-      {base::MakeOsmWay(184467440737095516), {Units::Imperial, 60, 80}},
-      {base::MakeOsmWay(184467440737095517), {Units::Metric, 120, kInvalidSpeed}}};
+  OsmIdToMaxspeed const expectedMapping = {{base::MakeOsmWay(184467440737095516), {Units::Imperial, 60, 80}},
+                                           {base::MakeOsmWay(184467440737095517), {Units::Metric, 120, kInvalidSpeed}}};
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
@@ -239,9 +236,8 @@ UNIT_TEST(Maxspeed_Parse4)
   // Note. kNoneMaxSpeed == 65534 and kWalkMaxSpeed == 65533.
   string const maxspeedsCsvContent = R"(1,Metric,200,65534
                                         2,Metric,65533)";
-  OsmIdToMaxspeed const expectedMapping = {
-      {base::MakeOsmWay(1), {Units::Metric, 200, kNoneMaxSpeed}},
-      {base::MakeOsmWay(2), {Units::Metric, kWalkMaxSpeed, kInvalidSpeed}}};
+  OsmIdToMaxspeed const expectedMapping = {{base::MakeOsmWay(1), {Units::Metric, 200, kNoneMaxSpeed}},
+                                           {base::MakeOsmWay(2), {Units::Metric, kWalkMaxSpeed, kInvalidSpeed}}};
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
@@ -250,8 +246,7 @@ UNIT_TEST(Maxspeed_Parse4)
 UNIT_TEST(Maxspeed_Parse5)
 {
   string const maxspeedsCsvContent = R"(2,Metric,10)";
-  OsmIdToMaxspeed const expectedMapping = {
-      {base::MakeOsmWay(2), {Units::Metric, 10, kInvalidSpeed}}};
+  OsmIdToMaxspeed const expectedMapping = {{base::MakeOsmWay(2), {Units::Metric, 10, kInvalidSpeed}}};
 
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
@@ -286,11 +281,10 @@ UNIT_TEST(Maxspeed_ParseBig)
                                         101,Metric,60,90
                                         102,Metric,60
                                         103,Metric,90)";
-  OsmIdToMaxspeed const expectedMapping = {
-      {base::MakeOsmWay(100), {Units::Metric, 200, kNoneMaxSpeed}},
-      {base::MakeOsmWay(101), {Units::Metric, 60, 90}},
-      {base::MakeOsmWay(102), {Units::Metric, 60, kInvalidSpeed}},
-      {base::MakeOsmWay(103), {Units::Metric, 90, kInvalidSpeed}}};
+  OsmIdToMaxspeed const expectedMapping = {{base::MakeOsmWay(100), {Units::Metric, 200, kNoneMaxSpeed}},
+                                           {base::MakeOsmWay(101), {Units::Metric, 60, 90}},
+                                           {base::MakeOsmWay(102), {Units::Metric, 60, kInvalidSpeed}},
+                                           {base::MakeOsmWay(103), {Units::Metric, 90, kInvalidSpeed}}};
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(ParseCsv(maxspeedsCsvContent, osmIdToMaxspeed), ());
   TEST_EQUAL(osmIdToMaxspeed, expectedMapping, ());
@@ -310,9 +304,8 @@ UNIT_TEST(Maxspeed_Section1)
                           {{1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}} /* Points of feature 1 */};
   string const maxspeedsCsvContent = R"(25258932,Metric,60
                                         25258943,Metric,90)";
-  FeatureIdToOsmId const featureIdToOsmId = {
-      {0 /* feature id */, base::MakeOsmWay(25258932)},
-      {1 /* feature id */, base::MakeOsmWay(25258943)}};
+  FeatureIdToOsmId const featureIdToOsmId = {{0 /* feature id */, base::MakeOsmWay(25258932)},
+                                             {1 /* feature id */, base::MakeOsmWay(25258943)}};
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
@@ -323,10 +316,9 @@ UNIT_TEST(Maxspeed_Section2)
                           {{1.0, 2.0}, {1.0, 3.0}} /* Points of feature 2 */};
   string const maxspeedsCsvContent = R"(25258932,Metric,60,40
                                         32424,Metric,120)";
-  FeatureIdToOsmId const featureIdToOsmId = {
-      {0 /* feature id */, base::MakeOsmWay(25258932)},
-      {1 /* feature id */, base::MakeOsmWay(25258943)},
-      {2 /* feature id */, base::MakeOsmWay(32424)}};
+  FeatureIdToOsmId const featureIdToOsmId = {{0 /* feature id */, base::MakeOsmWay(25258932)},
+                                             {1 /* feature id */, base::MakeOsmWay(25258943)},
+                                             {2 /* feature id */, base::MakeOsmWay(32424)}};
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
@@ -339,10 +331,9 @@ UNIT_TEST(Maxspeed_Section3)
   string const maxspeedsCsvContent = R"(25252,Metric,120,65534
                                         258943,Metric,65533
                                         32424,Metric,10,65533)";
-  FeatureIdToOsmId const featureIdToOsmId = {
-      {0 /* feature id */, base::MakeOsmWay(25252)},
-      {1 /* feature id */, base::MakeOsmWay(258943)},
-      {2 /* feature id */, base::MakeOsmWay(32424)}};
+  FeatureIdToOsmId const featureIdToOsmId = {{0 /* feature id */, base::MakeOsmWay(25252)},
+                                             {1 /* feature id */, base::MakeOsmWay(258943)},
+                                             {2 /* feature id */, base::MakeOsmWay(32424)}};
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
@@ -352,9 +343,8 @@ UNIT_TEST(Maxspeed_Section4)
                           {{1.0, 0.0}, {0.0, 0.0}} /* Points of feature 1 */};
   string const maxspeedsCsvContent = R"(50000000000,Imperial,30
                                         50000000001,Imperial,50)";
-  FeatureIdToOsmId const featureIdToOsmId = {
-      {0 /* feature id */, base::MakeOsmWay(50000000000)},
-      {1 /* feature id */, base::MakeOsmWay(50000000001)}};
+  FeatureIdToOsmId const featureIdToOsmId = {{0 /* feature id */, base::MakeOsmWay(50000000000)},
+                                             {1 /* feature id */, base::MakeOsmWay(50000000001)}};
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
@@ -373,12 +363,12 @@ UNIT_TEST(Maxspeed_SectionBig)
                                         300,Imperial,30
                                         400,Imperial,10,20
                                         600,)"
-      "Imperial,50,20\n700,Imperial,10\n";
+                                     "Imperial,50,20\n700,Imperial,10\n";
   FeatureIdToOsmId const featureIdToOsmId = {
-      {0 /* feature id */, base::MakeOsmWay(100)}, {1 /* feature id */, base::MakeOsmWay(200)},
-      {2 /* feature id */, base::MakeOsmWay(300)}, {3 /* feature id */, base::MakeOsmWay(400)},
-      {4 /* feature id */, base::MakeOsmWay(500)}, {5 /* feature id */, base::MakeOsmWay(600)},
-      {6 /* feature id */, base::MakeOsmWay(700)}};
+    {0 /* feature id */, base::MakeOsmWay(100)}, {1 /* feature id */, base::MakeOsmWay(200)},
+    {2 /* feature id */, base::MakeOsmWay(300)}, {3 /* feature id */, base::MakeOsmWay(400)},
+    {4 /* feature id */, base::MakeOsmWay(500)}, {5 /* feature id */, base::MakeOsmWay(600)},
+    {6 /* feature id */, base::MakeOsmWay(700)}};
   TestMaxspeedsSection(roads, maxspeedsCsvContent, featureIdToOsmId);
 }
 
@@ -417,17 +407,22 @@ UNIT_TEST(Maxspeed_CollectorSmoke)
   feature::FeatureBuilder builder;
 
   auto c1 = std::make_shared<MaxspeedsCollector>(filename);
-  c1->CollectFeature(builder, MakeOsmElement(1 /* id */, {{"maxspeed:forward", "50"}} /* tags */, OsmElement::EntityType::Way));
-  c1->CollectFeature(builder, MakeOsmElement(2 /* id */, {{"maxspeed:backward", "50"}} /* tags */, OsmElement::EntityType::Way));
+  c1->CollectFeature(builder,
+                     MakeOsmElement(1 /* id */, {{"maxspeed:forward", "50"}} /* tags */, OsmElement::EntityType::Way));
+  c1->CollectFeature(builder,
+                     MakeOsmElement(2 /* id */, {{"maxspeed:backward", "50"}} /* tags */, OsmElement::EntityType::Way));
 
   builder.SetType(classif().GetTypeByPath({"highway", "motorway_link"}));
-  c1->CollectFeature(builder, MakeOsmElement(3 /* id */, {{"maxspeed:advisory", "70"}} /* tags */, OsmElement::EntityType::Way));
+  c1->CollectFeature(builder,
+                     MakeOsmElement(3 /* id */, {{"maxspeed:advisory", "70"}} /* tags */, OsmElement::EntityType::Way));
 
   builder.SetType(classif().GetTypeByPath({"highway", "trunk"}));
-  c1->CollectFeature(builder, MakeOsmElement(4 /* id */, {{"maxspeed:advisory", "70"}} /* tags */, OsmElement::EntityType::Way));
+  c1->CollectFeature(builder,
+                     MakeOsmElement(4 /* id */, {{"maxspeed:advisory", "70"}} /* tags */, OsmElement::EntityType::Way));
 
   builder.SetType(classif().GetTypeByPath({"highway", "trunk_link"}));
-  c1->CollectFeature(builder, MakeOsmElement(5 /* id */, {{"maxspeed:advisory", "10"}, {"maxspeed", "20"}} /* tags */, OsmElement::EntityType::Way));
+  c1->CollectFeature(builder, MakeOsmElement(5 /* id */, {{"maxspeed:advisory", "10"}, {"maxspeed", "20"}} /* tags */,
+                                             OsmElement::EntityType::Way));
 
   c1->Finish();
   c1->Finalize();
@@ -444,4 +439,4 @@ UNIT_TEST(Maxspeed_CollectorSmoke)
 
   TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(5)].GetForward(), static_cast<MaxspeedType>(20), ());
 }
-} // namespace maxspeeds_tests
+}  // namespace maxspeeds_tests

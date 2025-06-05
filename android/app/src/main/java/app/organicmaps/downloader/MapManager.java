@@ -3,29 +3,23 @@ package app.organicmaps.downloader;
 import android.app.Activity;
 import android.app.Application;
 import android.text.TextUtils;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AlertDialog;
-
 import app.organicmaps.R;
 import app.organicmaps.util.ConnectionState;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-@UiThread
-public final class MapManager
+@UiThread public final class MapManager
 {
   // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  public static class StorageCallbackData
+  @Keep @SuppressWarnings("unused") public static class StorageCallbackData
   {
     public final String countryId;
     public final int newStatus;
@@ -44,30 +38,23 @@ public final class MapManager
   public interface StorageCallback
   {
     // Called from JNI.
-    @Keep
-    @SuppressWarnings("unused")
-    void onStatusChanged(List<StorageCallbackData> data);
+    @Keep @SuppressWarnings("unused") void onStatusChanged(List<StorageCallbackData> data);
 
     // Called from JNI.
-    @Keep
-    @SuppressWarnings("unused")
-    void onProgress(String countryId, long localSize, long remoteSize);
+    @Keep @SuppressWarnings("unused") void onProgress(String countryId, long localSize, long remoteSize);
   }
 
   public interface CurrentCountryChangedListener
   {
     // Called from JNI.
-    @Keep
-    @SuppressWarnings("unused")
-    void onCurrentCountryChanged(String countryId);
+    @Keep @SuppressWarnings("unused") void onCurrentCountryChanged(String countryId);
   }
 
   private static WeakReference<AlertDialog> sCurrentErrorDialog;
 
   private MapManager() {}
 
-  @StringRes
-  public static int getErrorCodeStrRes(final int errorCode)
+  @StringRes public static int getErrorCodeStrRes(final int errorCode)
   {
     return switch (errorCode)
     {
@@ -78,7 +65,7 @@ public final class MapManager
   }
 
   public static void showError(final Activity activity, final StorageCallbackData errorData,
-                               @Nullable final Utils.Proc<Boolean> dialogClickListener)
+    @Nullable final Utils.Proc<Boolean> dialogClickListener)
   {
     if (!nativeIsAutoretryFailed())
       return;
@@ -87,7 +74,7 @@ public final class MapManager
   }
 
   public static void showErrorDialog(final Activity activity, final StorageCallbackData errorData,
-                                     @Nullable final Utils.Proc<Boolean> dialogClickListener)
+    @Nullable final Utils.Proc<Boolean> dialogClickListener)
   {
     if (sCurrentErrorDialog != null)
     {
@@ -97,19 +84,22 @@ public final class MapManager
     }
 
     final AlertDialog dlg = new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.country_status_download_failed)
-        .setMessage(getErrorCodeStrRes(errorData.errorCode))
-        .setNegativeButton(R.string.cancel, (dialog, which) -> {
-          sCurrentErrorDialog = null;
-          if (dialogClickListener != null)
-            dialogClickListener.invoke(false);
-        })
-        .setPositiveButton(R.string.downloader_retry, (dialog, which) -> {
-          Application app = activity.getApplication();
-          ExpandRetryConfirmationListener listener
-              = new ExpandRetryConfirmationListener(dialogClickListener);
-          warn3gAndRetry(activity, errorData.countryId, listener);
-        }).create();
+                              .setTitle(R.string.country_status_download_failed)
+                              .setMessage(getErrorCodeStrRes(errorData.errorCode))
+                              .setNegativeButton(R.string.cancel,
+                                (dialog, which) -> {
+                                  sCurrentErrorDialog = null;
+                                  if (dialogClickListener != null)
+                                    dialogClickListener.invoke(false);
+                                })
+                              .setPositiveButton(R.string.downloader_retry,
+                                (dialog, which) -> {
+                                  Application app = activity.getApplication();
+                                  ExpandRetryConfirmationListener listener =
+                                    new ExpandRetryConfirmationListener(dialogClickListener);
+                                  warn3gAndRetry(activity, errorData.countryId, listener);
+                                })
+                              .create();
     dlg.setCanceledOnTouchOutside(false);
     dlg.show();
     sCurrentErrorDialog = new WeakReference<>(dlg);
@@ -118,10 +108,10 @@ public final class MapManager
   private static void notifyNoSpaceInternal(Activity activity)
   {
     new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.downloader_no_space_title)
-        .setMessage(R.string.downloader_no_space_message)
-        .setPositiveButton(android.R.string.ok, null)
-        .show();
+      .setTitle(R.string.downloader_no_space_title)
+      .setMessage(R.string.downloader_no_space_message)
+      .setPositiveButton(android.R.string.ok, null)
+      .show();
   }
 
   /**
@@ -169,20 +159,22 @@ public final class MapManager
     }
 
     new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.download_over_mobile_header)
-        .setMessage(R.string.download_over_mobile_message)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, (dlg, which) -> {
+      .setTitle(R.string.download_over_mobile_header)
+      .setMessage(R.string.download_over_mobile_message)
+      .setNegativeButton(R.string.cancel, null)
+      .setPositiveButton(R.string.ok,
+        (dlg, which) -> {
           nativeEnableDownloadOn3g();
           onAcceptListener.run();
-        }).show();
+        })
+      .show();
 
     return true;
   }
 
   static boolean warnOn3gUpdate(Activity activity, @Nullable String countryId, @NonNull final Runnable onAcceptListener)
   {
-    //noinspection SimplifiableIfStatement
+    // noinspection SimplifiableIfStatement
     if (TextUtils.isEmpty(countryId) || !notifyNoSpaceToUpdate(activity, countryId))
       return warnOn3gInternal(activity, onAcceptListener);
 
@@ -191,7 +183,7 @@ public final class MapManager
 
   static boolean warnOn3g(Activity activity, @Nullable String countryId, @NonNull final Runnable onAcceptListener)
   {
-    //noinspection SimplifiableIfStatement
+    // noinspection SimplifiableIfStatement
     if (TextUtils.isEmpty(countryId) || !notifyNoSpace(activity, countryId))
       return warnOn3gInternal(activity, onAcceptListener);
 
@@ -203,7 +195,8 @@ public final class MapManager
     return !notifyNoSpace(activity, size) && warnOn3gInternal(activity, onAcceptListener);
   }
 
-  public static boolean warn3gAndDownload(Activity activity, final String countryId, @Nullable final Runnable onAcceptListener)
+  public static boolean warn3gAndDownload(
+    Activity activity, final String countryId, @Nullable final Runnable onAcceptListener)
   {
     return warnOn3g(activity, countryId, () -> {
       if (onAcceptListener != null)
@@ -224,7 +217,8 @@ public final class MapManager
   /**
    * Enqueues failed items under given {@code root} node in downloader.
    */
-  public static void retryDownload(@NonNull String countryId) {
+  public static void retryDownload(@NonNull String countryId)
+  {
     DownloaderService.startForegroundService();
     nativeRetry(countryId);
   }
@@ -232,7 +226,8 @@ public final class MapManager
   /**
    * Enqueues given {@code root} node with its children in downloader.
    */
-  public static void startUpdate(@NonNull String root) {
+  public static void startUpdate(@NonNull String root)
+  {
     DownloaderService.startForegroundService();
     nativeUpdate(root);
   }
@@ -240,7 +235,8 @@ public final class MapManager
   /**
    * Enqueues the given list of nodes and its children in downloader.
    */
-  public static void startDownload(String... countries) {
+  public static void startDownload(String... countries)
+  {
     DownloaderService.startForegroundService();
     for (var countryId : countries)
     {
@@ -251,7 +247,8 @@ public final class MapManager
   /**
    * Enqueues given {@code root} node and its children in downloader.
    */
-  public static void startDownload(@NonNull String countryId) {
+  public static void startDownload(@NonNull String countryId)
+  {
     DownloaderService.startForegroundService();
     nativeDownload(countryId);
   }
@@ -267,17 +264,20 @@ public final class MapManager
   public static native boolean nativeMoveFile(String oldFile, String newFile);
 
   /**
-   * Returns {@code true} if there is enough storage space to download specified amount of data. Or {@code false} otherwise.
+   * Returns {@code true} if there is enough storage space to download specified amount of data. Or {@code false}
+   * otherwise.
    */
   public static native boolean nativeHasSpaceToDownloadAmount(long bytes);
 
   /**
-   * Returns {@code true} if there is enough storage space to download maps with specified {@code root}. Or {@code false} otherwise.
+   * Returns {@code true} if there is enough storage space to download maps with specified {@code root}. Or {@code
+   * false} otherwise.
    */
   public static native boolean nativeHasSpaceToDownloadCountry(String root);
 
   /**
-   * Returns {@code true} if there is enough storage space to update maps with specified {@code root}. Or {@code false} otherwise.
+   * Returns {@code true} if there is enough storage space to update maps with specified {@code root}. Or {@code false}
+   * otherwise.
    */
   public static native boolean nativeHasSpaceToUpdate(String root);
 
@@ -295,7 +295,8 @@ public final class MapManager
    * Retrieves list of country items with its status info.
    * if {@code root} is {@code null}, list of downloaded countries is returned.
    */
-  public static native void nativeListItems(@Nullable String root, double lat, double lon, boolean hasLocation, boolean myMapsMode, List<CountryItem> result);
+  public static native void nativeListItems(
+    @Nullable String root, double lat, double lon, boolean hasLocation, boolean myMapsMode, List<CountryItem> result);
 
   /**
    * Sets following attributes of the given {@code item}:
@@ -372,7 +373,8 @@ public final class MapManager
   public static native void nativeDelete(String root);
 
   /**
-   * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link #nativeUnsubscribe(int)}.
+   * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link
+   * #nativeUnsubscribe(int)}.
    */
   public static native int nativeSubscribe(StorageCallback callback);
 
@@ -398,8 +400,9 @@ public final class MapManager
   public static native boolean nativeHasUnsavedEditorChanges(String root);
 
   /**
-   * Fills given {@code result} list with intermediate nodes from the root node (including) to the given {@code root} (excluding).
-   * For instance, for {@code root == "Florida"} the resulting list is filled with values: {@code { "United States of America", "Countries" }}.
+   * Fills given {@code result} list with intermediate nodes from the root node (including) to the given {@code root}
+   * (excluding). For instance, for {@code root == "Florida"} the resulting list is filled with values: {@code { "United
+   * States of America", "Countries" }}.
    */
   public static native void nativeGetPathTo(String root, List<String> result);
 

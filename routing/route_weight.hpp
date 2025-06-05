@@ -15,7 +15,9 @@ class RouteWeight final
 public:
   RouteWeight() = default;
 
-  explicit constexpr RouteWeight(double weight) : m_weight(weight) {}
+  explicit constexpr RouteWeight(double weight)
+    : m_weight(weight)
+  {}
 
   constexpr RouteWeight(double weight, int8_t numPassThroughChanges, int8_t numAccessChanges,
                         int8_t numAccessConditionalPenalties, double transitTime)
@@ -24,8 +26,7 @@ public:
     , m_numAccessChanges(numAccessChanges)
     , m_numAccessConditionalPenalties(numAccessConditionalPenalties)
     , m_transitTime(transitTime)
-  {
-  }
+  {}
 
   static RouteWeight FromCrossMwmWeight(double weight) { return RouteWeight(weight); }
 
@@ -58,14 +59,13 @@ public:
     ASSERT_NOT_EQUAL(m_numPassThroughChanges, std::numeric_limits<int8_t>::min(), ());
     ASSERT_NOT_EQUAL(m_numAccessChanges, std::numeric_limits<int8_t>::min(), ());
     ASSERT_NOT_EQUAL(m_numAccessConditionalPenalties, std::numeric_limits<int8_t>::min(), ());
-    return RouteWeight(-m_weight, -m_numPassThroughChanges, -m_numAccessChanges,
-                       -m_numAccessConditionalPenalties, -m_transitTime);
+    return RouteWeight(-m_weight, -m_numPassThroughChanges, -m_numAccessChanges, -m_numAccessConditionalPenalties,
+                       -m_transitTime);
   }
 
   bool IsAlmostEqualForTests(RouteWeight const & rhs, double epsilon) const
   {
-    return m_numPassThroughChanges == rhs.m_numPassThroughChanges &&
-           m_numAccessChanges == rhs.m_numAccessChanges &&
+    return m_numPassThroughChanges == rhs.m_numPassThroughChanges && m_numAccessChanges == rhs.m_numAccessChanges &&
            m_numAccessConditionalPenalties == rhs.m_numAccessConditionalPenalties &&
            base::AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) &&
            base::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon);

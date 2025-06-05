@@ -3,14 +3,12 @@ package app.organicmaps.routing;
 import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-
 import androidx.annotation.DimenRes;
 import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
-
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.FeatureId;
@@ -27,18 +25,15 @@ import app.organicmaps.sdk.routing.RoutingLoadPointsListener;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.RoutingProgressListener;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
-import app.organicmaps.widget.placepage.CoordinatesFormat;
 import app.organicmaps.util.StringUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.concurrency.UiThread;
 import app.organicmaps.util.log.Logger;
-
+import app.organicmaps.widget.placepage.CoordinatesFormat;
 import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
 
-
-@androidx.annotation.UiThread
-public class RoutingController
+@androidx.annotation.UiThread public class RoutingController
 {
   private static final String TAG = RoutingController.class.getSimpleName();
 
@@ -84,13 +79,11 @@ public class RoutingController
 
   private static final RoutingController sInstance = new RoutingController();
 
-  @Nullable
-  private Container mContainer;
+  @Nullable private Container mContainer;
 
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
-  @Nullable
-  private RouteMarkType mWaitingPoiPickType = null;
+  @Nullable private RouteMarkType mWaitingPoiPickType = null;
   private int mLastBuildProgress;
   private Router mLastRouterType;
 
@@ -98,28 +91,22 @@ public class RoutingController
   private boolean mContainsCachedResult;
   private int mLastResultCode;
   private String[] mLastMissingMaps;
-  @Nullable
-  private RoutingInfo mCachedRoutingInfo;
-  @Nullable
-  private TransitRouteInfo mCachedTransitRouteInfo;
+  @Nullable private RoutingInfo mCachedRoutingInfo;
+  @Nullable private TransitRouteInfo mCachedTransitRouteInfo;
 
   private int mInvalidRoutePointsTransactionId;
   private int mRemovingIntermediatePointsTransactionId;
 
   @SuppressWarnings("FieldCanBeLocal")
-  private final RoutingListener mRoutingListener = new RoutingListener()
-  {
-    @MainThread
-    @Override
-    public void onRoutingEvent(final int resultCode, @Nullable final String[] missingMaps)
+  private final RoutingListener mRoutingListener = new RoutingListener() {
+    @MainThread @Override public void onRoutingEvent(final int resultCode, @Nullable final String[] missingMaps)
     {
       Logger.d(TAG, "onRoutingEvent(resultCode: " + resultCode + ")");
       mLastResultCode = resultCode;
       mLastMissingMaps = missingMaps;
       mContainsCachedResult = true;
 
-      if (mLastResultCode == ResultCodesHelper.NO_ERROR
-          || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+      if (mLastResultCode == ResultCodesHelper.NO_ERROR || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
       {
         onBuiltRoute();
       }
@@ -145,12 +132,14 @@ public class RoutingController
       mContainer.onBuiltRoute();
   }
 
-  private final RoutingProgressListener mRoutingProgressListener = progress -> {
+  private final RoutingProgressListener mRoutingProgressListener = progress ->
+  {
     mLastBuildProgress = (int) progress;
     updateProgress();
   };
 
-  private final RoutingLoadPointsListener mRoutingLoadPointsListener = success -> {
+  private final RoutingLoadPointsListener mRoutingLoadPointsListener = success ->
+  {
     if (success)
       prepare(getStartPoint(), getEndPoint());
   };
@@ -162,9 +151,7 @@ public class RoutingController
 
   private void processRoutingEvent()
   {
-    if (!mContainsCachedResult ||
-        mContainer == null ||
-        mHasContainerSavedState)
+    if (!mContainsCachedResult || mContainer == null || mHasContainerSavedState)
       return;
 
     mContainsCachedResult = false;
@@ -200,7 +187,8 @@ public class RoutingController
 
   private boolean isDrivingOptionsBuildError()
   {
-    return !ResultCodesHelper.isMoreMapsNeeded(mLastResultCode) && RoutingOptions.hasAnyOptions() && !isRulerRouterType();
+    return !ResultCodesHelper.isMoreMapsNeeded(mLastResultCode) && RoutingOptions.hasAnyOptions()
+ && !isRulerRouterType();
   }
 
   private void setState(State newState)
@@ -274,8 +262,7 @@ public class RoutingController
     mContainer = null;
   }
 
-  @MainThread
-  public void restore()
+  @MainThread public void restore()
   {
     mHasContainerSavedState = false;
     if (isPlanning())
@@ -348,12 +335,10 @@ public class RoutingController
   private void initLastRouteType(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     if (startPoint != null && endPoint != null)
-      mLastRouterType = Router.getBest(startPoint.getLat(), startPoint.getLon(),
-                                       endPoint.getLat(), endPoint.getLon());
+      mLastRouterType = Router.getBest(startPoint.getLat(), startPoint.getLon(), endPoint.getLat(), endPoint.getLon());
   }
 
-  public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
-                      Router routerType)
+  public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint, Router routerType)
   {
     cancel();
     setState(State.PREPARE);
@@ -437,12 +422,10 @@ public class RoutingController
     return false;
   }
 
-  @NonNull
-  private MapObject toMapObject(@NonNull RouteMarkData point)
+  @NonNull private MapObject toMapObject(@NonNull RouteMarkData point)
   {
     return MapObject.createMapObject(FeatureId.EMPTY, point.mIsMyPosition ? MapObject.MY_POSITION : MapObject.POI,
-                         point.mTitle == null ? "" : point.mTitle,
-                         point.mSubtitle == null ? "" : point.mSubtitle, point.mLat, point.mLon);
+      point.mTitle == null ? "" : point.mTitle, point.mSubtitle == null ? "" : point.mSubtitle, point.mLat, point.mLon);
   }
 
   public boolean isStopPointAllowed()
@@ -593,7 +576,8 @@ public class RoutingController
     return mBuildState == BuildState.BUILT;
   }
 
-  public void waitForPoiPick(@NonNull RouteMarkType pointType){
+  public void waitForPoiPick(@NonNull RouteMarkType pointType)
+  {
     mWaitingPoiPickType = pointType;
   }
 
@@ -607,20 +591,17 @@ public class RoutingController
     return mBuildState;
   }
 
-  @Nullable
-  public MapObject getStartPoint()
+  @Nullable public MapObject getStartPoint()
   {
     return getStartOrEndPointByType(RouteMarkType.Start);
   }
 
-  @Nullable
-  public MapObject getEndPoint()
+  @Nullable public MapObject getEndPoint()
   {
     return getStartOrEndPointByType(RouteMarkType.Finish);
   }
 
-  @Nullable
-  private MapObject getStartOrEndPointByType(@NonNull RouteMarkType type)
+  @Nullable private MapObject getStartOrEndPointByType(@NonNull RouteMarkType type)
   {
     RouteMarkData[] points = Framework.nativeGetRoutePoints();
     int size = points.length;
@@ -642,14 +623,12 @@ public class RoutingController
     return null;
   }
 
-  @Nullable
-  public RoutingInfo getCachedRoutingInfo()
+  @Nullable public RoutingInfo getCachedRoutingInfo()
   {
     return mCachedRoutingInfo;
   }
 
-  @Nullable
-  public TransitRouteInfo getCachedTransitInfo()
+  @Nullable public TransitRouteInfo getCachedTransitInfo()
   {
     return mCachedTransitRouteInfo;
   }
@@ -692,8 +671,7 @@ public class RoutingController
    *
    * @return {@code true} if the point was set.
    */
-  @SuppressWarnings("Duplicates")
-  public boolean setStartPoint(@Nullable MapObject point)
+  @SuppressWarnings("Duplicates") public boolean setStartPoint(@Nullable MapObject point)
   {
     Logger.d(TAG, "setStartPoint");
     MapObject startPoint = getStartPoint();
@@ -740,8 +718,7 @@ public class RoutingController
    *
    * @return {@code true} if the point was set.
    */
-  @SuppressWarnings("Duplicates")
-  public boolean setEndPoint(@Nullable MapObject point)
+  @SuppressWarnings("Duplicates") public boolean setEndPoint(@Nullable MapObject point)
   {
     Logger.d(TAG, "setEndPoint");
     MapObject startPoint = getStartPoint();
@@ -775,15 +752,12 @@ public class RoutingController
   private static void addRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
     Pair<String, String> description = getDescriptionForPoint(point);
-    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */,
-                                  type, 0 /* intermediateIndex */,
-                                  point.isMyPosition(),
-                                  point.getLat(), point.getLon(),
-                                  true /* reorderIntermediatePoints */);
+    Framework.nativeAddRoutePoint(description.first /* title */, description.second /* subtitle */, type,
+      0 /* intermediateIndex */, point.isMyPosition(), point.getLat(), point.getLon(),
+      true /* reorderIntermediatePoints */);
   }
 
-  @NonNull
-  private static Pair<String, String> getDescriptionForPoint(@NonNull MapObject point)
+  @NonNull private static Pair<String, String> getDescriptionForPoint(@NonNull MapObject point)
   {
     String title, subtitle = "";
     if (!TextUtils.isEmpty(point.getTitle()))
@@ -895,8 +869,8 @@ public class RoutingController
     return formatRoutingTime(context, seconds, unitsSize, R.dimen.text_size_routing_number);
   }
 
-  public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize,
-                                               @DimenRes int textSize)
+  public static CharSequence formatRoutingTime(
+    Context context, int seconds, @DimenRes int unitsSize, @DimenRes int textSize)
   {
     long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
     long hours = TimeUnit.SECONDS.toHours(seconds);

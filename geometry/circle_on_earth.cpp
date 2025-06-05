@@ -19,17 +19,14 @@ std::vector<m3::PointD> CreateCircleOnNorth(double radiusMeters, double angleSte
   double const stepRad = base::DegToRad(angleStepDegree);
   for (double angleRad = 0; angleRad < 2 * math::pi; angleRad += stepRad)
   {
-    result.emplace_back(circleRadiusMeters * cos(angleRad),
-                        circleRadiusMeters * sin(angleRad),
-                        z);
+    result.emplace_back(circleRadiusMeters * cos(angleRad), circleRadiusMeters * sin(angleRad), z);
   }
   return result;
 }
 
 ms::LatLon FromEarth3dToSpherical(m3::PointD const & vec)
 {
-  ASSERT(base::AlmostEqualAbs(vec.Length(), ms::kEarthRadiusMeters, 1e-5),
-         (vec.Length(), ms::kEarthRadiusMeters));
+  ASSERT(base::AlmostEqualAbs(vec.Length(), ms::kEarthRadiusMeters, 1e-5), (vec.Length(), ms::kEarthRadiusMeters));
 
   double sinLatRad = vec.z / ms::kEarthRadiusMeters;
   sinLatRad = base::Clamp(sinLatRad, -1.0, 1.0);

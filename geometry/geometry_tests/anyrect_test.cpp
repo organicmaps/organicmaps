@@ -29,7 +29,7 @@ UNIT_TEST(AnyRect_TestConvertFrom)
   AnyRectD const r(PointD(100, 100), ang::Angle<double>(math::pi / 6), RectD(0, 0, 10, 10));
 
   double const sqrt3 = sqrt(3.0);
-  TEST(r.ConvertFrom(PointD(50, 0)).EqualDxDy(PointD(100 + 50 * sqrt3 / 2 , 100 + 50 * 1 / 2.0), 10e-5), ());
+  TEST(r.ConvertFrom(PointD(50, 0)).EqualDxDy(PointD(100 + 50 * sqrt3 / 2, 100 + 50 * 1 / 2.0), 10e-5), ());
   TEST(r.ConvertTo(PointD(100 + 50 * sqrt3 / 2, 100 + 50 * 1.0 / 2)).EqualDxDy(PointD(50, 0), 10e-5), ());
 }
 

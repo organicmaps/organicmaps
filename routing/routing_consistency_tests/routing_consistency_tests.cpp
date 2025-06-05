@@ -1,5 +1,5 @@
-#include "testing/testing.hpp"
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
+#include "testing/testing.hpp"
 
 #include "generator/borders.hpp"
 
@@ -25,7 +25,7 @@ using namespace std;
 using storage::CountryInfo;
 
 double constexpr kMinimumRouteDistanceM = 10000.;
-double constexpr kRouteLengthAccuracy =  0.15;
+double constexpr kRouteLengthAccuracy = 0.15;
 
 // Testing stub to make routing test tools linkable.
 static CommandLineOptions g_options;
@@ -82,9 +82,9 @@ bool ParseUserString(string const & incomeString, UserRoutingRecord & result)
 class RouteTester
 {
 public:
-  RouteTester() : m_components(integration::GetVehicleComponents(VehicleType::Car))
-  {
-  }
+  RouteTester()
+    : m_components(integration::GetVehicleComponents(VehicleType::Car))
+  {}
 
   bool BuildRoute(UserRoutingRecord const & record)
   {
@@ -194,6 +194,6 @@ int RunRoutingConsistencyTests(int argc, char ** argv)
 
   return 0;
 }
-}  // namespace testingmain routing_consistency_tests
+}  // namespace routing_consistency_tests
 
 int main(int argc, char ** argv) { return ::routing_consistency_tests::RunRoutingConsistencyTests(argc, argv); }

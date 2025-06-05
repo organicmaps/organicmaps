@@ -40,14 +40,15 @@ std::vector<PointD> BuildConvexHull(std::vector<PointD> points, double eps)
 
   auto const pivot = points[0];
 
-  std::sort(points.begin() + 1, points.end(), [&pivot, &eps](PointD const & lhs, PointD const & rhs)
-  {
-    if (IsCCW(lhs, rhs, pivot, eps))
-      return true;
-    if (IsCCW(rhs, lhs, pivot, eps))
-      return false;
-    return lhs.SquaredLength(pivot) < rhs.SquaredLength(pivot);
-  });
+  std::sort(points.begin() + 1, points.end(),
+            [&pivot, &eps](PointD const & lhs, PointD const & rhs)
+            {
+              if (IsCCW(lhs, rhs, pivot, eps))
+                return true;
+              if (IsCCW(rhs, lhs, pivot, eps))
+                return false;
+              return lhs.SquaredLength(pivot) < rhs.SquaredLength(pivot);
+            });
 
   std::vector<PointD> hull;
 
@@ -64,6 +65,5 @@ std::vector<PointD> BuildConvexHull(std::vector<PointD> points, double eps)
 
 ConvexHull::ConvexHull(std::vector<PointD> const & points, double eps)
   : m_hull(BuildConvexHull(points, eps))
-{
-}
+{}
 }  // namespace m2

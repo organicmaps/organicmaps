@@ -25,9 +25,15 @@ public:
   typedef CellIdT CellId;
   typedef typename CellId::LessLevelOrder LessLevelOrder;
 
-  Covering() : m_Size(0) {}
+  Covering()
+    : m_Size(0)
+  {}
 
-  explicit Covering(CellId cell) : m_Size(1) { m_Covering[cell.Level()].push_back(cell); }
+  explicit Covering(CellId cell)
+    : m_Size(1)
+  {
+    m_Covering[cell.Level()].push_back(cell);
+  }
 
   explicit Covering(std::vector<CellId> const & v)
   {
@@ -41,8 +47,7 @@ public:
   }
 
   // Cover triangle.
-  Covering(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c,
-           int level = CellId::DEPTH_LEVELS - 1)
+  Covering(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c, int level = CellId::DEPTH_LEVELS - 1)
   {
     // TODO: ASSERT(a != b), ASSERT(b != c), ASSERT(a != c) ?
     ASSERT(0 <= level && level <= CellId::DEPTH_LEVELS, (level, CellId::Root()));
@@ -135,15 +140,16 @@ private:
     ASSERT(base::IsSortedAndUnique(a.begin(), a.end(), LessLevelOrder()), (a));
     ASSERT(base::IsSortedAndUnique(b.begin(), b.end(), LessLevelOrder()), (b));
     std::vector<CellId> merged;
-    std::set_union(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(merged),
-                   LessLevelOrder());
+    std::set_union(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(merged), LessLevelOrder());
     a.swap(merged);
   }
 
   template <typename CompareT>
   struct CompareCellsAtLevel
   {
-    explicit CompareCellsAtLevel(int level) : m_Level(level) {}
+    explicit CompareCellsAtLevel(int level)
+      : m_Level(level)
+    {}
 
     bool operator()(CellId id1, CellId id2) const
     {
@@ -195,16 +201,13 @@ private:
     {
       if (m_Covering[parentLevel].empty())
         continue;
-      for (int childLevel = parentLevel + 1; childLevel < static_cast<int>(m_Covering.size());
-           ++childLevel)
+      for (int childLevel = parentLevel + 1; childLevel < static_cast<int>(m_Covering.size()); ++childLevel)
       {
         std::vector<CellId> subtracted;
         CompareCellsAtLevel<LessLevelOrder> comparator(parentLevel);
-        ASSERT(std::is_sorted(m_Covering[childLevel].begin(), m_Covering[childLevel].end(),
-                              comparator),
+        ASSERT(std::is_sorted(m_Covering[childLevel].begin(), m_Covering[childLevel].end(), comparator),
                (m_Covering[childLevel]));
-        ASSERT(std::is_sorted(m_Covering[parentLevel].begin(), m_Covering[parentLevel].end(),
-                              comparator),
+        ASSERT(std::is_sorted(m_Covering[parentLevel].begin(), m_Covering[parentLevel].end(), comparator),
                (m_Covering[parentLevel]));
         SetDifferenceUnlimited(m_Covering[childLevel].begin(), m_Covering[childLevel].end(),
                                m_Covering[parentLevel].begin(), m_Covering[parentLevel].end(),
@@ -229,8 +232,7 @@ private:
         if (i + 3 < a.size())
         {
           CellId const parent = a[i].Parent();
-          if (parent == a[i + 1].Parent() && parent == a[i + 2].Parent() &&
-              parent == a[i + 3].Parent())
+          if (parent == a[i + 1].Parent() && parent == a[i + 2].Parent() && parent == a[i + 3].Parent())
           {
             parents.push_back(parent);
             i += 3;
@@ -263,8 +265,7 @@ private:
   static void CoverTriangleImpl(CoverTriangleInfo const & info, CellId const cell)
   {
     ASSERT_LESS_OR_EQUAL(cell.Level(), info.m_Level, (info.m_A, info.m_B, info.m_C));
-    CellObjectIntersection intersection =
-        IntersectCellWithTriangle(cell, info.m_A, info.m_B, info.m_C);
+    CellObjectIntersection intersection = IntersectCellWithTriangle(cell, info.m_A, info.m_B, info.m_C);
 
     if (intersection == CELL_OBJECT_NO_INTERSECTION)
       return;

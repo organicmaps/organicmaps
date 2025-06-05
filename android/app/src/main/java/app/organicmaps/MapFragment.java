@@ -10,15 +10,12 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ConfigurationHelper;
-
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.display.DisplayType;
 import app.organicmaps.util.log.Logger;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MapFragment extends BaseMwmFragment implements View.OnTouchListener, SurfaceHolder.Callback
@@ -51,8 +48,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     return mMap.isContextCreated();
   }
 
-  @Override
-  public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder)
+  @Override public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder)
   {
     Logger.d(TAG);
     int densityDpi;
@@ -65,22 +61,20 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     mMap.onSurfaceCreated(requireContext(), surfaceHolder.getSurface(), surfaceHolder.getSurfaceFrame(), densityDpi);
   }
 
-  @Override
-  public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
+  @Override public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
   {
     Logger.d(TAG);
-    mMap.onSurfaceChanged(requireContext(), surfaceHolder.getSurface(), surfaceHolder.getSurfaceFrame(), surfaceHolder.isCreating());
+    mMap.onSurfaceChanged(
+      requireContext(), surfaceHolder.getSurface(), surfaceHolder.getSurfaceFrame(), surfaceHolder.isCreating());
   }
 
-  @Override
-  public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder)
+  @Override public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder)
   {
     Logger.d(TAG);
     mMap.onSurfaceDestroyed(requireActivity().isChangingConfigurations(), true);
   }
 
-  @Override
-  public void onAttach(Context context)
+  @Override public void onAttach(Context context)
   {
     Logger.d(TAG);
     super.onAttach(context);
@@ -88,8 +82,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     mMap.setCallbackUnsupported(this::reportUnsupported);
   }
 
-  @Override
-  public void onDetach()
+  @Override public void onDetach()
   {
     Logger.d(TAG);
     super.onDetach();
@@ -97,8 +90,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     mMap.setCallbackUnsupported(null);
   }
 
-  @Override
-  public void onCreate(Bundle b)
+  @Override public void onCreate(Bundle b)
   {
     Logger.d(TAG);
     super.onCreate(b);
@@ -110,32 +102,28 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     mMap.onCreate(launchByDeepLink);
   }
 
-  @Override
-  public void onStart()
+  @Override public void onStart()
   {
     Logger.d(TAG);
     super.onStart();
     mMap.onStart();
   }
 
-  @Override
-  public void onStop()
+  @Override public void onStop()
   {
     Logger.d(TAG);
     super.onStop();
     mMap.onStop();
   }
 
-  @Override
-  public void onPause()
+  @Override public void onPause()
   {
     Logger.d(TAG);
     super.onPause();
     mMap.onPause(requireContext());
   }
 
-  @Override
-  public void onResume()
+  @Override public void onResume()
   {
     Logger.d(TAG);
     super.onResume();
@@ -152,31 +140,30 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     return view;
   }
 
-  @Override
-  public boolean onTouch(View view, MotionEvent event)
+  @Override public boolean onTouch(View view, MotionEvent event)
   {
     int action = event.getActionMasked();
     int pointerIndex = event.getActionIndex();
     switch (action)
     {
-      case MotionEvent.ACTION_POINTER_UP -> action = Map.NATIVE_ACTION_UP;
-      case MotionEvent.ACTION_UP ->
-      {
-        action = Map.NATIVE_ACTION_UP;
-        pointerIndex = 0;
-      }
-      case MotionEvent.ACTION_POINTER_DOWN -> action = Map.NATIVE_ACTION_DOWN;
-      case MotionEvent.ACTION_DOWN ->
-      {
-        action = Map.NATIVE_ACTION_DOWN;
-        pointerIndex = 0;
-      }
-      case MotionEvent.ACTION_MOVE ->
-      {
-        action = Map.NATIVE_ACTION_MOVE;
-        pointerIndex = Map.INVALID_POINTER_MASK;
-      }
-      case MotionEvent.ACTION_CANCEL -> action = Map.NATIVE_ACTION_CANCEL;
+    case MotionEvent.ACTION_POINTER_UP -> action = Map.NATIVE_ACTION_UP;
+    case MotionEvent.ACTION_UP ->
+    {
+      action = Map.NATIVE_ACTION_UP;
+      pointerIndex = 0;
+    }
+    case MotionEvent.ACTION_POINTER_DOWN -> action = Map.NATIVE_ACTION_DOWN;
+    case MotionEvent.ACTION_DOWN ->
+    {
+      action = Map.NATIVE_ACTION_DOWN;
+      pointerIndex = 0;
+    }
+    case MotionEvent.ACTION_MOVE ->
+    {
+      action = Map.NATIVE_ACTION_MOVE;
+      pointerIndex = Map.INVALID_POINTER_MASK;
+    }
+    case MotionEvent.ACTION_CANCEL -> action = Map.NATIVE_ACTION_CANCEL;
     }
     Map.onTouch(action, event, pointerIndex);
     return true;
@@ -191,10 +178,10 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   private void reportUnsupported()
   {
     new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
-        .setMessage(R.string.unsupported_phone)
-        .setCancelable(false)
-        .setPositiveButton(R.string.close, (dlg, which) -> requireActivity().moveTaskToBack(true))
-        .show();
+      .setMessage(R.string.unsupported_phone)
+      .setCancelable(false)
+      .setPositiveButton(R.string.close, (dlg, which) -> requireActivity().moveTaskToBack(true))
+      .show();
   }
 
   private int getDensityDpiOld()

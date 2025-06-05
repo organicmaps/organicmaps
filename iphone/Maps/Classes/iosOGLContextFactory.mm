@@ -2,8 +2,7 @@
 
 size_t constexpr kGLThreadsCount = 2;
 
-iosOGLContextFactory::iosOGLContextFactory(CAEAGLLayer * layer, dp::ApiVersion apiVersion,
-                                           bool presentAvailable)
+iosOGLContextFactory::iosOGLContextFactory(CAEAGLLayer * layer, dp::ApiVersion apiVersion, bool presentAvailable)
   : m_layer(layer)
   , m_apiVersion(apiVersion)
   , m_drawContext(nullptr)
@@ -33,15 +32,9 @@ dp::GraphicsContext * iosOGLContextFactory::GetResourcesUploadContext()
   return m_uploadContext;
 }
 
-bool iosOGLContextFactory::IsDrawContextCreated() const
-{
-  return m_drawContext != nullptr;
-}
+bool iosOGLContextFactory::IsDrawContextCreated() const { return m_drawContext != nullptr; }
 
-bool iosOGLContextFactory::IsUploadContextCreated() const
-{
-  return m_uploadContext != nullptr;
-}
+bool iosOGLContextFactory::IsUploadContextCreated() const { return m_uploadContext != nullptr; }
 
 void iosOGLContextFactory::SetPresentAvailable(bool available)
 {
@@ -75,6 +68,6 @@ void iosOGLContextFactory::WaitForInitialization(dp::GraphicsContext * context)
     }
   }
 
-  if (static_cast<dp::GraphicsContext*>(m_drawContext) == context)
+  if (static_cast<dp::GraphicsContext *>(m_drawContext) == context)
     m_drawContext->SetPresentAvailable(m_presentAvailable);
 }

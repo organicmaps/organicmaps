@@ -17,13 +17,11 @@ pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
 /// Returns value form [-1, 1]. Negative values are used as penalty, positive as score.
 /// |lhs| and |rhs| - triangulated polygons.
 /// Throws NotAPolygon exception when either lhs or rhs is not convertible to a polygon.
-double ScoreTriangulatedGeometries(std::vector<m2::PointD> const & lhs,
-                                   std::vector<m2::PointD> const & rhs);
+double ScoreTriangulatedGeometries(std::vector<m2::PointD> const & lhs, std::vector<m2::PointD> const & rhs);
 /// Deprecated, use ScoreTriangulatedGeometries instead. In the older versions of the editor, the
 /// edits.xml file didn't contain the necessary geometry information, so we cannot restore the
 /// original geometry of a particular feature and thus can't use the new algo that is dependent on
 /// correct feature geometry to calculate scores.
 // TODO(a): To remove it when version 8.0.x is no longer supported.
-double ScoreTriangulatedGeometriesByPoints(std::vector<m2::PointD> const & lhs,
-                                           std::vector<m2::PointD> const & rhs);
-}  // namespace osm
+double ScoreTriangulatedGeometriesByPoints(std::vector<m2::PointD> const & lhs, std::vector<m2::PointD> const & rhs);
+}  // namespace matcher

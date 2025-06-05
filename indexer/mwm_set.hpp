@@ -21,7 +21,10 @@
 #include <utility>
 #include <vector>
 
-namespace feature { class FeaturesOffsetsTable; }
+namespace feature
+{
+class FeaturesOffsetsTable;
+}
 
 /// Information about stored mwm.
 class MwmInfo
@@ -119,7 +122,9 @@ public:
     friend class MwmSet;
 
     MwmId() = default;
-    explicit MwmId(std::shared_ptr<MwmInfo> const & info) : m_info(info) {}
+    explicit MwmId(std::shared_ptr<MwmInfo> const & info)
+      : m_info(info)
+    {}
 
     void Reset() { m_info.reset(); }
     bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
@@ -138,7 +143,9 @@ public:
   };
 
 public:
-  explicit MwmSet(size_t cacheSize = 64) : m_cacheSize(cacheSize) {}
+  explicit MwmSet(size_t cacheSize = 64)
+    : m_cacheSize(cacheSize)
+  {}
   virtual ~MwmSet() = default;
 
   // Mwm handle, which is used to refer to mwm and prevent it from
@@ -180,14 +187,14 @@ public:
 
     Event() = default;
     Event(Type type, platform::LocalCountryFile const & file)
-      : m_type(type), m_file(file)
-    {
-    }
-    Event(Type type, platform::LocalCountryFile const & newFile,
-          platform::LocalCountryFile const & oldFile)
-      : m_type(type), m_file(newFile), m_oldFile(oldFile)
-    {
-    }
+      : m_type(type)
+      , m_file(file)
+    {}
+    Event(Type type, platform::LocalCountryFile const & newFile, platform::LocalCountryFile const & oldFile)
+      : m_type(type)
+      , m_file(newFile)
+      , m_oldFile(oldFile)
+    {}
 
     bool operator==(Event const & rhs) const
     {
@@ -254,8 +261,7 @@ public:
   /// are older than the localFile (in this case mwm handle will point
   /// to just-registered file).
 protected:
-  std::pair<MwmId, RegResult> RegisterImpl(platform::LocalCountryFile const & localFile,
-                                           EventList & events);
+  std::pair<MwmId, RegResult> RegisterImpl(platform::LocalCountryFile const & localFile, EventList & events);
 
 public:
   std::pair<MwmId, RegResult> Register(platform::LocalCountryFile const & localFile);
@@ -304,10 +310,7 @@ public:
   /// Now this function looks like workaround, but it allows to avoid ugly const_cast everywhere..
   /// Client code usually holds const reference to DataSource, but implementation is non-const.
   /// @todo Actually, we need to define, is this behaviour (getting Handle) const or non-const.
-  MwmHandle GetMwmHandleById(MwmId const & id) const
-  {
-    return const_cast<MwmSet *>(this)->GetMwmHandleById(id);
-  }
+  MwmHandle GetMwmHandleById(MwmId const & id) const { return const_cast<MwmSet *>(this)->GetMwmHandleById(id); }
 
 protected:
   virtual std::unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const = 0;
@@ -369,7 +372,7 @@ protected:
 
 private:
   base::ObserverListSafe<Observer> m_observers;
-}; // class MwmSet
+};  // class MwmSet
 
 class MwmValue
 {
@@ -385,15 +388,14 @@ public:
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   void SetTable(MwmInfoEx & info);
 
-  feature::DataHeader const & GetHeader() const  { return m_factory.GetHeader(); }
+  feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
   feature::RegionData const & GetRegionData() const { return m_factory.GetRegionData(); }
   version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
   std::string const & GetCountryFileName() const { return m_file.GetCountryName(); }
 
   bool HasSearchIndex() const { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
   bool HasGeometryIndex() const { return m_cont.IsExist(INDEX_FILE_TAG); }
-}; // class MwmValue
-
+};  // class MwmValue
 
 std::string DebugPrint(MwmSet::RegResult result);
 std::string DebugPrint(MwmSet::Event::Type type);
@@ -401,11 +403,9 @@ std::string DebugPrint(MwmSet::Event const & event);
 
 namespace std
 {
-template <> struct hash<MwmSet::MwmId>
+template <>
+struct hash<MwmSet::MwmId>
 {
-  size_t operator()(MwmSet::MwmId const & id) const
-  {
-    return std::hash<std::shared_ptr<MwmInfo>>()(id.GetInfo());
-  }
+  size_t operator()(MwmSet::MwmId const & id) const { return std::hash<std::shared_ptr<MwmInfo>>()(id.GetInfo()); }
 };
 }  // namespace std

@@ -2,16 +2,13 @@ package app.organicmaps.maplayer.isolines;
 
 import android.app.Application;
 import android.content.Context;
-
 import androidx.annotation.NonNull;
-
 import app.organicmaps.Framework;
 import app.organicmaps.MwmApplication;
 
 public class IsolinesManager
 {
-  @NonNull
-  private final OnIsolinesChangedListener mListener;
+  @NonNull private final OnIsolinesChangedListener mListener;
 
   public IsolinesManager(@NonNull Application application)
   {
@@ -41,8 +38,7 @@ public class IsolinesManager
     registerListener();
   }
 
-  @NonNull
-  public static IsolinesManager from(@NonNull Context context)
+  @NonNull public static IsolinesManager from(@NonNull Context context)
   {
     MwmApplication app = (MwmApplication) context.getApplicationContext();
     return app.getIsolinesManager();

@@ -26,8 +26,7 @@ using namespace std;
 // CitiesBoundariesTable::Boundaries ---------------------------------------------------------------
 bool CitiesBoundariesTable::Boundaries::HasPoint(m2::PointD const & p) const
 {
-  return any_of(m_boundaries.begin(), m_boundaries.end(),
-                [&](CityBoundary const & b) { return b.HasPoint(p, m_eps); });
+  return any_of(m_boundaries.begin(), m_boundaries.end(), [&](CityBoundary const & b) { return b.HasPoint(p, m_eps); });
 }
 
 std::string DebugPrint(CitiesBoundariesTable::Boundaries const & boundaries)
@@ -91,15 +90,16 @@ bool CitiesBoundariesTable::Load()
   m_table.clear();
   m_eps = precision;
   size_t idx = 0, notEmpty = 0;
-  localities.ForEach([&](uint64_t fid)
-  {
-    if (!all[idx].empty())
+  localities.ForEach(
+    [&](uint64_t fid)
     {
-      CHECK(m_table.emplace(base::asserted_cast<uint32_t>(fid), std::move(all[idx])).second, ());
-      ++notEmpty;
-    }
-    ++idx;
-  });
+      if (!all[idx].empty())
+      {
+        CHECK(m_table.emplace(base::asserted_cast<uint32_t>(fid), std::move(all[idx])).second, ());
+        ++notEmpty;
+      }
+      ++idx;
+    });
 
   LOG(LDEBUG, ("Localities count =", idx, "; with boundary =", notEmpty));
   return true;

@@ -3,9 +3,7 @@ package app.organicmaps.car.screens.download;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
-
 import app.organicmaps.routing.ResultCodesHelper;
-
 import java.util.Objects;
 
 public class DownloadMapsScreenBuilder
@@ -19,11 +17,9 @@ public class DownloadMapsScreenBuilder
 
   private DownloaderType mDownloaderType = null;
 
-  @NonNull
-  final CarContext mCarContext;
+  @NonNull final CarContext mCarContext;
 
-  @Nullable
-  String[] mMissingMaps;
+  @Nullable String[] mMissingMaps;
 
   int mResultCode = 0;
 
@@ -32,29 +28,25 @@ public class DownloadMapsScreenBuilder
     mCarContext = carContext;
   }
 
-  @NonNull
-  public DownloadMapsScreenBuilder setDownloaderType(@NonNull DownloaderType downloaderType)
+  @NonNull public DownloadMapsScreenBuilder setDownloaderType(@NonNull DownloaderType downloaderType)
   {
     mDownloaderType = downloaderType;
     return this;
   }
 
-  @NonNull
-  public DownloadMapsScreenBuilder setMissingMaps(@NonNull String[] missingMaps)
+  @NonNull public DownloadMapsScreenBuilder setMissingMaps(@NonNull String[] missingMaps)
   {
     mMissingMaps = missingMaps;
     return this;
   }
 
-  @NonNull
-  public DownloadMapsScreenBuilder setResultCode(int resultCode)
+  @NonNull public DownloadMapsScreenBuilder setResultCode(int resultCode)
   {
     mResultCode = resultCode;
     return this;
   }
 
-  @NonNull
-  public DownloadMapsScreen build()
+  @NonNull public DownloadMapsScreen build()
   {
     Objects.requireNonNull(mDownloaderType);
 

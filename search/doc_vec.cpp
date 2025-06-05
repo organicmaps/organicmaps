@@ -46,14 +46,12 @@ double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs)
 }
 
 // Computes squared L2 norm of vector of tokens + prefix token.
-double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs,
-             optional<strings::UniString> const & prefix)
+double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs, optional<strings::UniString> const & prefix)
 {
   auto result = SqrL2(idfs, tfs);
   if (prefix)
   {
-    result +=
-        GetSqrWeightImpl(idfs, TokenFrequencyPair(*prefix, 1 /* frequency */), true /* isPrefix */);
+    result += GetSqrWeightImpl(idfs, TokenFrequencyPair(*prefix, 1 /* frequency */), true /* isPrefix */);
   }
   return result;
 }
@@ -105,7 +103,8 @@ double DocVec::GetWeight(IdfMap & idfs, size_t i) const
 
 // QueryVec ----------------------------------------------------------------------------------------
 QueryVec::QueryVec(IdfMap & idfs, Builder const & builder)
-  : m_idfs(&idfs), m_prefix(builder.m_prefix)
+  : m_idfs(&idfs)
+  , m_prefix(builder.m_prefix)
 {
   SortAndMerge(builder.m_tokens, m_tfs);
 }
@@ -223,7 +222,6 @@ double QueryVec::GetFullTokenWeight(size_t i)
 double QueryVec::GetPrefixTokenWeight()
 {
   ASSERT(m_prefix, ());
-  return GetWeightImpl(*m_idfs, TokenFrequencyPair(*m_prefix, 1 /* frequency */),
-                       true /* isPrefix */);
+  return GetWeightImpl(*m_idfs, TokenFrequencyPair(*m_prefix, 1 /* frequency */), true /* isPrefix */);
 }
 }  // namespace search

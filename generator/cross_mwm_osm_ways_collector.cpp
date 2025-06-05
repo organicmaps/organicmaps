@@ -18,19 +18,17 @@ namespace generator
 {
 // CrossMwmOsmWaysCollector ------------------------------------------------------------------------
 
-CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(
-    std::string intermediateDir, AffiliationInterfacePtr affiliation)
-  : m_intermediateDir(std::move(intermediateDir)), m_affiliation(std::move(affiliation))
-{
-}
+CrossMwmOsmWaysCollector::CrossMwmOsmWaysCollector(std::string intermediateDir, AffiliationInterfacePtr affiliation)
+  : m_intermediateDir(std::move(intermediateDir))
+  , m_affiliation(std::move(affiliation))
+{}
 
 std::shared_ptr<CollectorInterface> CrossMwmOsmWaysCollector::Clone(IDRInterfacePtr const &) const
 {
   return std::make_shared<CrossMwmOsmWaysCollector>(m_intermediateDir, m_affiliation);
 }
 
-void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb,
-                                              OsmElement const & element)
+void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb, OsmElement const & element)
 {
   if (element.m_type != OsmElement::EntityType::Way)
     return;
@@ -84,8 +82,7 @@ void CrossMwmOsmWaysCollector::CollectFeature(feature::FeatureBuilder const & fb
       // And belongs to both. So we consider such segment as cross mwm segment.
       // So the condition that segment certainly lies inside of mwm is:
       // both points inside and both points belong to only this mwm.
-      if (prevPointIn && curPointIn &&
-          pointsAffiliationsNumber[i] == 1 && pointsAffiliationsNumber[i - 1] == 1)
+      if (prevPointIn && curPointIn && pointsAffiliationsNumber[i] == 1 && pointsAffiliationsNumber[i - 1] == 1)
       {
         continue;
       }
@@ -155,10 +152,7 @@ void CrossMwmOsmWaysCollector::MergeInto(CrossMwmOsmWaysCollector & collector) c
 
 // CrossMwmOsmWaysCollector::Info ------------------------------------------------------------------
 
-bool CrossMwmOsmWaysCollector::CrossMwmInfo::operator<(CrossMwmInfo const & rhs) const
-{
-  return m_osmId < rhs.m_osmId;
-}
+bool CrossMwmOsmWaysCollector::CrossMwmInfo::operator<(CrossMwmInfo const & rhs) const { return m_osmId < rhs.m_osmId; }
 
 // static
 void CrossMwmOsmWaysCollector::CrossMwmInfo::Dump(CrossMwmInfo const & info, std::ofstream & output)
@@ -171,8 +165,8 @@ void CrossMwmOsmWaysCollector::CrossMwmInfo::Dump(CrossMwmInfo const & info, std
 }
 
 // static
-std::set<CrossMwmOsmWaysCollector::CrossMwmInfo>
-CrossMwmOsmWaysCollector::CrossMwmInfo::LoadFromFileToSet(std::string const & path)
+std::set<CrossMwmOsmWaysCollector::CrossMwmInfo> CrossMwmOsmWaysCollector::CrossMwmInfo::LoadFromFileToSet(
+  std::string const & path)
 {
   std::ifstream input(path);
   if (!input)

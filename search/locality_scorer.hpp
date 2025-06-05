@@ -35,8 +35,8 @@ public:
 
   // Leaves at most |limit| elements of |localities|, ordered by their
   // features.
-  void GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx,
-                        CBV const & filter, size_t limit, std::vector<Locality> & localities);
+  void GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx, CBV const & filter, size_t limit,
+                        std::vector<Locality> & localities);
 
 private:
   struct ExLocality

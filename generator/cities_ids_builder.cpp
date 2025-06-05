@@ -11,8 +11,8 @@
 #include "search/localities_source.hpp"
 #include "search/mwm_context.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 
 #include "base/cancellable.hpp"
 #include "base/checked_cast.hpp"
@@ -44,26 +44,27 @@ void WriteCitiesIdsSectionToFile(std::string const & dataPath,
 {
   indexer::FeatureIdToGeoObjectIdBimapMem map;
   auto const localities = generator::GetLocalities(dataPath);
-  localities.ForEach([&](uint64_t fid64) {
-    auto const fid = base::checked_cast<uint32_t>(fid64);
-    auto const it = mapping.find(fid);
-    if (it == mapping.end())
-      return;
-
-    auto const osmId = it->second;
-    if (!map.Add(fid, osmId))
+  localities.ForEach(
+    [&](uint64_t fid64)
     {
-      uint32_t oldFid;
-      base::GeoObjectId oldOsmId;
-      auto const hasOldOsmId = map.GetValue(fid, oldOsmId);
-      auto const hasOldFid = map.GetKey(osmId, oldFid);
+      auto const fid = base::checked_cast<uint32_t>(fid64);
+      auto const it = mapping.find(fid);
+      if (it == mapping.end())
+        return;
 
-      LOG(LWARNING,
-          ("Could not add the pair (", fid, ",", osmId,
-           ") to the cities ids section; old fid:", (hasOldFid ? DebugPrint(oldFid) : "none"),
-           "old osmId:", (hasOldOsmId ? DebugPrint(oldOsmId) : "none")));
-    }
-  });
+      auto const osmId = it->second;
+      if (!map.Add(fid, osmId))
+      {
+        uint32_t oldFid;
+        base::GeoObjectId oldOsmId;
+        auto const hasOldOsmId = map.GetValue(fid, oldOsmId);
+        auto const hasOldFid = map.GetKey(osmId, oldFid);
+
+        LOG(LWARNING, ("Could not add the pair (", fid, ",", osmId,
+                       ") to the cities ids section; old fid:", (hasOldFid ? DebugPrint(oldFid) : "none"),
+                       "old osmId:", (hasOldOsmId ? DebugPrint(oldOsmId) : "none")));
+      }
+    });
 
   FilesContainerW container(dataPath, FileWriter::OP_WRITE_EXISTING);
   // Note that we only store cities ids but nothing stops us from
@@ -73,8 +74,7 @@ void WriteCitiesIdsSectionToFile(std::string const & dataPath,
   indexer::FeatureIdToGeoObjectIdSerDes::Serialize(*sink, map);
   auto const pos1 = sink->Pos();
 
-  LOG(LINFO,
-      ("Serialized cities ids. Number of entries:", map.Size(), "Size in bytes:", pos1 - pos0));
+  LOG(LINFO, ("Serialized cities ids. Number of entries:", map.Size(), "Size in bytes:", pos1 - pos0));
 }
 }  // namespace
 

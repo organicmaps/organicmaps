@@ -1,7 +1,7 @@
 #pragma once
 
-#include "kml/types.hpp"
 #include "kml/serdes_common.hpp"
+#include "kml/types.hpp"
 
 #include "coding/parse_xml.hpp"
 #include "coding/reader.hpp"
@@ -63,8 +63,7 @@ public:
   void CharData(std::string & value);
   /// @}
 
-  bool IsValidAttribute(std::string_view type, std::string const & value,
-                        std::string const & attrInLowerCase) const;
+  bool IsValidAttribute(std::string_view type, std::string const & value, std::string const & attrInLowerCase) const;
 
   static kml::TrackLayer GetDefaultTrackLayer();
 
@@ -82,12 +81,12 @@ private:
 
   void ResetPoint();
   void SetOrigin(std::string const & s);
-  static void ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s,
-                                char const * blockSeparator, char const * coordSeparator);
+  static void ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s, char const * blockSeparator,
+                                char const * coordSeparator);
   void ParseLineString(std::string const & s);
 
   bool MakeValid();
-  void ParseColor(std::string const &value);
+  void ParseColor(std::string const & value);
   bool GetColorForStyle(std::string const & styleUrl, uint32_t & color) const;
   double GetTrackWidthForStyle(std::string const & styleUrl) const;
 

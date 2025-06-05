@@ -9,4 +9,4 @@ namespace oblate_spheroid
 /// Vincenty's solution is much slower but more accurate than ms::DistanceOnEarth from [geometry].
 /// https://en.wikipedia.org/wiki/Vincenty%27s_formulae
 double GetDistance(ms::LatLon const & point1, ms::LatLon const & point2);
-} // namespace
+}  // namespace oblate_spheroid

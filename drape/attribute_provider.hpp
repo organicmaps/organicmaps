@@ -1,7 +1,7 @@
 #pragma once
 
-#include "drape/pointers.hpp"
 #include "drape/binding_info.hpp"
+#include "drape/pointers.hpp"
 
 #include <vector>
 
@@ -21,9 +21,7 @@ public:
 
   void Advance(uint32_t vertexCount);
 
-  void InitStream(uint8_t streamIndex,
-                  BindingInfo const & bindingInfo,
-                  ref_ptr<void> data);
+  void InitStream(uint8_t streamIndex, BindingInfo const & bindingInfo, ref_ptr<void> data);
 
   void Reset(uint32_t vertexCount);
   void UpdateStream(uint8_t streamIndex, ref_ptr<void> data);

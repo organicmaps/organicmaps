@@ -28,7 +28,10 @@ uint32_t constexpr kInvalidFeatureId = std::numeric_limits<uint32_t>::max();
 struct FeatureID
 {
   FeatureID() = default;
-  FeatureID(MwmSet::MwmId const & mwmId, uint32_t index) : m_mwmId(mwmId), m_index(index) {}
+  FeatureID(MwmSet::MwmId const & mwmId, uint32_t index)
+    : m_mwmId(mwmId)
+    , m_index(index)
+  {}
 
   bool IsValid() const { return m_mwmId.IsAlive(); }
 
@@ -39,10 +42,7 @@ struct FeatureID
     return m_index < r.m_index;
   }
 
-  bool operator==(FeatureID const & r) const
-  {
-    return m_mwmId == r.m_mwmId && m_index == r.m_index;
-  }
+  bool operator==(FeatureID const & r) const { return m_mwmId == r.m_mwmId && m_index == r.m_index; }
 
   bool operator!=(FeatureID const & r) const { return !(*this == r); }
 

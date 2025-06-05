@@ -18,9 +18,7 @@ std::string_view const kTypeZero = "zero";
 
 std::string GetIsolineName(int altitude, int step, int minAltitude, int maxAltitude)
 {
-  if (step > 10 ||
-      abs(altitude) % kNamedAltStep == 0 ||
-      maxAltitude - minAltitude <= kNamedAltRange)
+  if (step > 10 || abs(altitude) % kNamedAltStep == 0 || maxAltitude - minAltitude <= kNamedAltRange)
   {
     return strings::to_string(altitude);
   }
@@ -55,11 +53,9 @@ uint32_t IsolineFeaturesGenerator::GetIsolineType(int altitude) const
   return ftype::GetEmptyValue();
 }
 
-void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
-                                                FeaturesCollectFn const & fn) const
+void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName, FeaturesCollectFn const & fn) const
 {
-  auto const isolinesPath = topography_generator::GetIsolinesFilePath(countryName,
-                                                                      m_isolinesDir);
+  auto const isolinesPath = topography_generator::GetIsolinesFilePath(countryName, m_isolinesDir);
   topography_generator::Contours<topography_generator::Altitude> countryIsolines;
   if (!topography_generator::LoadContours(isolinesPath, countryIsolines))
   {
@@ -70,8 +66,8 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
   for (auto & levelIsolines : countryIsolines.m_contours)
   {
     auto const altitude = levelIsolines.first;
-    auto const isolineName = GetIsolineName(altitude, countryIsolines.m_valueStep,
-                                            countryIsolines.m_minValue, countryIsolines.m_maxValue);
+    auto const isolineName =
+      GetIsolineName(altitude, countryIsolines.m_valueStep, countryIsolines.m_minValue, countryIsolines.m_maxValue);
     auto const isolineType = GetIsolineType(altitude);
     if (isolineType == ftype::GetEmptyValue())
     {

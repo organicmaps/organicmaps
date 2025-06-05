@@ -25,13 +25,10 @@
 package app.organicmaps.util;
 
 import android.text.TextUtils;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.util.log.Logger;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -51,9 +48,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
 // Used by JNI.
-@Keep
-@SuppressWarnings("unused")
-public final class HttpClient
+@Keep @SuppressWarnings("unused") public final class HttpClient
 {
   private static final String TAG = HttpClient.class.getSimpleName();
 
@@ -77,11 +72,11 @@ public final class HttpClient
       // NullPointerException, MalformedUrlException, IOException
       // Redirects from http to https or vice versa are not supported by Android implementation.
       // There is also a nasty bug on Androids before 4.4:
-      // if you send any request with Content-Length set, and it is redirected, and your instance is set to automatically follow redirects,
-      // then next (internal) GET request to redirected location will incorrectly have have all headers set from the previous request,
-      // including Content-Length, Content-Type etc. This leads to unexpected hangs and timeout errors, because some servers are
-      // correctly trying to wait for the body if Content-Length is set.
-      // It shows in logs like this:
+      // if you send any request with Content-Length set, and it is redirected, and your instance is set to
+      // automatically follow redirects, then next (internal) GET request to redirected location will incorrectly have
+      // have all headers set from the previous request, including Content-Length, Content-Type etc. This leads to
+      // unexpected hangs and timeout errors, because some servers are correctly trying to wait for the body if
+      // Content-Length is set. It shows in logs like this:
       //
       // java.net.SocketTimeoutException: Read timed out
       //   at org.apache.harmony.xnet.provider.jsse.NativeCrypto.SSL_read(Native Method)
@@ -127,7 +122,8 @@ public final class HttpClient
           final File file = new File(p.inputFilePath);
           connection.setFixedLengthStreamingMode((int) file.length());
           final BufferedInputStream istream = new BufferedInputStream(new FileInputStream(file), STREAM_BUFFER_SIZE);
-          final BufferedOutputStream ostream = new BufferedOutputStream(connection.getOutputStream(), STREAM_BUFFER_SIZE);
+          final BufferedOutputStream ostream =
+            new BufferedOutputStream(connection.getOutputStream(), STREAM_BUFFER_SIZE);
           final byte[] buffer = new byte[STREAM_BUFFER_SIZE];
           int bytesRead;
           while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0)
@@ -141,8 +137,8 @@ public final class HttpClient
       }
       // GET data from the server or receive response body
       p.httpResponseCode = connection.getResponseCode();
-      Logger.d(TAG, "Received HTTP " + p.httpResponseCode + " from server, content encoding = " +
-               connection.getContentEncoding() + ", for request = " + Utils.makeUrlSafe(p.url));
+      Logger.d(TAG, "Received HTTP " + p.httpResponseCode + " from server, content encoding = "
+                      + connection.getContentEncoding() + ", for request = " + Utils.makeUrlSafe(p.url));
 
       if (p.httpResponseCode >= 300 && p.httpResponseCode < 400)
         p.receivedUrl = connection.getHeaderField("Location");
@@ -158,8 +154,8 @@ public final class HttpClient
           if (header.getKey() == null || header.getValue() == null)
             continue;
 
-          p.headers.add(new KeyValue(StringUtils.toLowerCase(header.getKey()), TextUtils.join(", ",
-              header.getValue())));
+          p.headers.add(
+            new KeyValue(StringUtils.toLowerCase(header.getKey()), TextUtils.join(", ", header.getValue())));
         }
       }
       else
@@ -182,7 +178,8 @@ public final class HttpClient
         // gzip encoding is transparently enabled and we can't use Content-Length for
         // body reading if server has gzipped it.
         int bytesRead;
-        while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0) {
+        while ((bytesRead = istream.read(buffer, 0, STREAM_BUFFER_SIZE)) > 0)
+        {
           // Read everything if Content-Length is not known in advance.
           ostream.write(buffer, 0, bytesRead);
         }
@@ -204,8 +201,7 @@ public final class HttpClient
     return p;
   }
 
-  @NonNull
-  private static InputStream getInputStream(@NonNull HttpURLConnection connection) throws IOException
+  @NonNull private static InputStream getInputStream(@NonNull HttpURLConnection connection) throws IOException
   {
     InputStream in;
     try
@@ -227,9 +223,7 @@ public final class HttpClient
   }
 
   // Used by JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  private static class Params
+  @Keep @SuppressWarnings("unused") private static class Params
   {
     public void setHeaders(@NonNull KeyValue[] array)
     {

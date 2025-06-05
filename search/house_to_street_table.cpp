@@ -29,7 +29,8 @@ class EliasFanoMap : public HouseToStreetTable
 public:
   using Map = MapUint32ToValue<uint32_t>;
 
-  explicit EliasFanoMap(unique_ptr<Reader> && reader) : m_reader(std::move(reader))
+  explicit EliasFanoMap(unique_ptr<Reader> && reader)
+    : m_reader(std::move(reader))
   {
     ASSERT(m_reader, ());
     auto readBlockCallback = [](auto & source, uint32_t blockSize, vector<uint32_t> & values)
@@ -55,7 +56,7 @@ public:
     uint32_t fID;
     if (!m_map->Get(houseId, fID))
       return {};
-    return {{ fID, StreetIdType::FeatureId }};
+    return {{fID, StreetIdType::FeatureId}};
   }
 
 private:
@@ -99,7 +100,7 @@ unique_ptr<HouseToStreetTable> LoadHouseTableImpl(MwmValue const & value, std::s
     result = make_unique<DummyTable>();
   return result;
 }
-} // namespace
+}  // namespace
 
 std::unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value)
 {
@@ -112,10 +113,7 @@ std::unique_ptr<HouseToStreetTable> LoadHouseToPlaceTable(MwmValue const & value
 }
 
 // HouseToStreetTableBuilder -----------------------------------------------------------------------
-void HouseToStreetTableBuilder::Put(uint32_t houseId, uint32_t streetId)
-{
-  m_builder.Put(houseId, streetId);
-}
+void HouseToStreetTableBuilder::Put(uint32_t houseId, uint32_t streetId) { m_builder.Put(houseId, streetId); }
 
 void HouseToStreetTableBuilder::Freeze(Writer & writer) const
 {
@@ -146,8 +144,7 @@ void HouseToStreetTableBuilder::Freeze(Writer & writer) const
 
   header.m_tableOffset = base::asserted_cast<uint32_t>(writer.Pos() - startOffset);
   m_builder.Freeze(writer, writeBlockCallback);
-  header.m_tableSize =
-      base::asserted_cast<uint32_t>(writer.Pos() - header.m_tableOffset - startOffset);
+  header.m_tableSize = base::asserted_cast<uint32_t>(writer.Pos() - header.m_tableOffset - startOffset);
 
   auto const endOffset = writer.Pos();
   writer.Seek(startOffset);

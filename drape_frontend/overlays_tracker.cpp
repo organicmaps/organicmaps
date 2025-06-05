@@ -9,8 +9,8 @@ void OverlaysTracker::SetTrackedOverlaysFeatures(std::vector<FeatureID> && ids)
     m_data.insert(std::make_pair(fid, OverlayInfo()));
 }
 
-bool OverlaysTracker::StartTracking(int zoomLevel, bool hasMyPosition,
-                                    m2::PointD const & myPosition, double gpsAccuracy)
+bool OverlaysTracker::StartTracking(int zoomLevel, bool hasMyPosition, m2::PointD const & myPosition,
+                                    double gpsAccuracy)
 {
   if (zoomLevel < kMinZoomLevel)
   {
@@ -41,15 +41,14 @@ void OverlaysTracker::Track(FeatureID const & fid)
   if (it->second.m_status == OverlayStatus::Invisible)
   {
     it->second.m_status = OverlayStatus::Visible;
-    m_events.emplace_back(it->first, static_cast<uint8_t>(m_zoomLevel),
-                          EventClock::now(), m_hasMyPosition,
+    m_events.emplace_back(it->first, static_cast<uint8_t>(m_zoomLevel), EventClock::now(), m_hasMyPosition,
                           m_myPosition, m_gpsAccuracy);
   }
 }
 
 void OverlaysTracker::FinishTracking()
 {
-   ASSERT_GREATER_OR_EQUAL(m_zoomLevel, kMinZoomLevel, ());
+  ASSERT_GREATER_OR_EQUAL(m_zoomLevel, kMinZoomLevel, ());
 
   for (auto & p : m_data)
   {

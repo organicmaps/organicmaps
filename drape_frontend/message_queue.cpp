@@ -49,42 +49,44 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
   switch (priority)
   {
   case MessagePriority::Normal:
-    {
-      m_messages.emplace_back(std::move(message), priority);
-      break;
-    }
+  {
+    m_messages.emplace_back(std::move(message), priority);
+    break;
+  }
   case MessagePriority::High:
+  {
+    auto iter = m_messages.begin();
+    while (iter != m_messages.end() && iter->second > MessagePriority::High)
     {
-      auto iter = m_messages.begin();
-      while (iter != m_messages.end() && iter->second > MessagePriority::High) { iter++; }
-      m_messages.emplace(iter, std::move(message), priority);
-      break;
+      iter++;
     }
+    m_messages.emplace(iter, std::move(message), priority);
+    break;
+  }
   case MessagePriority::UberHighSingleton:
+  {
+    bool found = false;
+    auto iter = m_messages.begin();
+    while (iter != m_messages.end() && iter->second == MessagePriority::UberHighSingleton)
     {
-      bool found = false;
-      auto iter = m_messages.begin();
-      while (iter != m_messages.end() && iter->second == MessagePriority::UberHighSingleton)
+      if (iter->first->GetType() == message->GetType())
       {
-        if (iter->first->GetType() == message->GetType())
-        {
-          found = true;
-          break;
-        }
-        iter++;
+        found = true;
+        break;
       }
+      iter++;
+    }
 
-      if (!found)
-        m_messages.emplace_front(std::move(message), priority);
-      break;
-    }
+    if (!found)
+      m_messages.emplace_front(std::move(message), priority);
+    break;
+  }
   case MessagePriority::Low:
-    {
-      m_lowPriorityMessages.emplace_back(std::move(message));
-      break;
-    }
-  default:
-    ASSERT(false, ("Unknown message priority type"));
+  {
+    m_lowPriorityMessages.emplace_back(std::move(message));
+    break;
+  }
+  default: ASSERT(false, ("Unknown message priority type"));
   }
 
   CancelWaitImpl();
@@ -94,7 +96,7 @@ void MessageQueue::FilterMessagesImpl()
 {
   CHECK(m_filter != nullptr, ());
 
-  for (auto it = m_messages.begin(); it != m_messages.end(); )
+  for (auto it = m_messages.begin(); it != m_messages.end();)
   {
     if (m_filter(make_ref(it->first)))
       it = m_messages.erase(it);
@@ -102,7 +104,7 @@ void MessageQueue::FilterMessagesImpl()
       ++it;
   }
 
-  for (auto it = m_lowPriorityMessages.begin(); it != m_lowPriorityMessages.end(); )
+  for (auto it = m_lowPriorityMessages.begin(); it != m_lowPriorityMessages.end();)
   {
     if (m_filter(make_ref(*it)))
       it = m_lowPriorityMessages.erase(it);

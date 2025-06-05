@@ -41,7 +41,7 @@ public:
 class RenderState
 {
 public:
-  template<typename ProgramType>
+  template <typename ProgramType>
   RenderState(ProgramType gpuProgram, ref_ptr<BaseRenderStateExtension> renderStateExtension)
     : m_renderStateExtension(std::move(renderStateExtension))
     , m_gpuProgram(static_cast<size_t>(gpuProgram))
@@ -50,7 +50,7 @@ public:
     ASSERT(m_renderStateExtension != nullptr, ());
   }
 
-  template<typename RenderStateExtensionType>
+  template <typename RenderStateExtensionType>
   ref_ptr<RenderStateExtensionType> GetRenderStateExtension() const
   {
     ASSERT(dynamic_cast<RenderStateExtensionType *>(m_renderStateExtension.get()) != nullptr, ());
@@ -70,14 +70,23 @@ public:
   void SetBlending(Blending const & blending) { m_blending = blending; }
   Blending const & GetBlending() const { return m_blending; }
 
-  template<typename ProgramType>
-  ProgramType GetProgram() const { return static_cast<ProgramType>(m_gpuProgram); }
+  template <typename ProgramType>
+  ProgramType GetProgram() const
+  {
+    return static_cast<ProgramType>(m_gpuProgram);
+  }
 
-  template<typename ProgramType>
-  void SetProgram3d(ProgramType gpuProgram3d) { m_gpuProgram3d = static_cast<size_t>(gpuProgram3d); }
+  template <typename ProgramType>
+  void SetProgram3d(ProgramType gpuProgram3d)
+  {
+    m_gpuProgram3d = static_cast<size_t>(gpuProgram3d);
+  }
 
-  template<typename ProgramType>
-  ProgramType GetProgram3d() const { return static_cast<ProgramType>(m_gpuProgram3d); }
+  template <typename ProgramType>
+  ProgramType GetProgram3d() const
+  {
+    return static_cast<ProgramType>(m_gpuProgram3d);
+  }
 
   TestFunction GetDepthFunction() const;
   void SetDepthFunction(TestFunction depthFunction);
@@ -121,8 +130,7 @@ private:
 class TextureState
 {
 public:
-  static void ApplyTextures(ref_ptr<GraphicsContext> context, RenderState const & state,
-                            ref_ptr<GpuProgram> program);
+  static void ApplyTextures(ref_ptr<GraphicsContext> context, RenderState const & state, ref_ptr<GpuProgram> program);
   static uint8_t GetLastUsedSlots();
 
 private:

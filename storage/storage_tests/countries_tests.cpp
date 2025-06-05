@@ -9,6 +9,6 @@
 UNIT_TEST(CalculateWorldSHA)
 {
   auto const path = GetPlatform().ResourcesDir();
-  for (char const * country : { WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME })
+  for (char const * country : {WORLD_FILE_NAME, WORLD_COASTS_FILE_NAME})
     LOG(LINFO, (country, coding::SHA1::CalculateBase64(path + country + DATA_FILE_EXTENSION)));
 }

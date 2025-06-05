@@ -20,9 +20,9 @@ std::string RandomString(size_t length)
 {
   /// @todo Used for temp file name, so lower-upper case is strange here, no?
   static std::string_view constexpr kCharset =
-      "0123456789"
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-      "abcdefghijklmnopqrstuvwxyz";
+    "0123456789"
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz";
 
   base::UniformRandom<size_t> rand(0, kCharset.size() - 1);
   std::string str(length, 0);
@@ -30,10 +30,7 @@ std::string RandomString(size_t length)
   return str;
 }
 
-bool IsSpecialDirName(std::string const & dirName)
-{
-  return dirName == "." || dirName == "..";
-}
+bool IsSpecialDirName(std::string const & dirName) { return dirName == "." || dirName == ".."; }
 
 bool GetFileTypeChecked(std::string const & path, Platform::EFileType & type)
 {
@@ -45,31 +42,22 @@ bool GetFileTypeChecked(std::string const & path, Platform::EFileType & type)
   }
   return true;
 }
-} // namespace
+}  // namespace
 
 // static
 Platform::EError Platform::ErrnoToError()
 {
   switch (errno)
   {
-  case ENOENT:
-    return ERR_FILE_DOES_NOT_EXIST;
-  case EACCES:
-    return ERR_ACCESS_FAILED;
-  case ENOTEMPTY:
-    return ERR_DIRECTORY_NOT_EMPTY;
-  case EEXIST:
-    return ERR_FILE_ALREADY_EXISTS;
-  case ENAMETOOLONG:
-    return ERR_NAME_TOO_LONG;
-  case ENOTDIR:
-    return ERR_NOT_A_DIRECTORY;
-  case ELOOP:
-    return ERR_SYMLINK_LOOP;
-  case EIO:
-    return ERR_IO_ERROR;
-  default:
-    return ERR_UNKNOWN;
+  case ENOENT: return ERR_FILE_DOES_NOT_EXIST;
+  case EACCES: return ERR_ACCESS_FAILED;
+  case ENOTEMPTY: return ERR_DIRECTORY_NOT_EMPTY;
+  case EEXIST: return ERR_FILE_ALREADY_EXISTS;
+  case ENAMETOOLONG: return ERR_NAME_TOO_LONG;
+  case ENOTDIR: return ERR_NOT_A_DIRECTORY;
+  case ELOOP: return ERR_SYMLINK_LOOP;
+  case EIO: return ERR_IO_ERROR;
+  default: return ERR_UNKNOWN;
   }
 }
 
@@ -109,10 +97,7 @@ bool Platform::RmDirRecursively(std::string const & dirName)
   return res;
 }
 
-void Platform::SetSettingsDir(std::string const & path)
-{
-  m_settingsDir = base::AddSlashIfNeeded(path);
-}
+void Platform::SetSettingsDir(std::string const & path) { m_settingsDir = base::AddSlashIfNeeded(path); }
 
 std::string Platform::SettingsPathForFile(std::string const & file) const
 {
@@ -146,30 +131,20 @@ std::string Platform::ReadPathForFile(std::string const & file, std::string sear
       ASSERT(!m_settingsDir.empty(), ());
       fullPath = base::JoinPath(m_settingsDir, file);
       break;
-    case 'f':
-      fullPath = file;
-      break;
-    default :
-      CHECK(false, ("Unsupported searchScope:", searchScope));
-      break;
+    case 'f': fullPath = file; break;
+    default: CHECK(false, ("Unsupported searchScope:", searchScope)); break;
     }
     if (IsFileExistsByFullPath(fullPath))
       return fullPath;
   }
 
-  MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope,
-      "\nw: ", m_writableDir, "\nr: ", m_resourcesDir, "\ns: ", m_settingsDir));
+  MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope, "\nw: ", m_writableDir,
+                                "\nr: ", m_resourcesDir, "\ns: ", m_settingsDir));
 }
 
-std::string Platform::MetaServerUrl() const
-{
-  return METASERVER_URL;
-}
+std::string Platform::MetaServerUrl() const { return METASERVER_URL; }
 
-std::string Platform::DefaultUrlsJSON() const
-{
-  return DEFAULT_URLS_JSON;
-}
+std::string Platform::DefaultUrlsJSON() const { return DEFAULT_URLS_JSON; }
 
 bool Platform::RemoveFileIfExists(std::string const & filePath)
 {
@@ -218,15 +193,14 @@ void Platform::GetFontNames(FilesList & res) const
 void Platform::GetFilesByExt(std::string const & directory, std::string_view ext, FilesList & outFiles)
 {
   // Transform extension mask to regexp (.mwm -> \.mwm$)
-  ASSERT ( !ext.empty(), () );
-  ASSERT_EQUAL ( ext[0], '.' , () );
+  ASSERT(!ext.empty(), ());
+  ASSERT_EQUAL(ext[0], '.', ());
   std::string regexp = "\\";
   GetFilesByRegExp(directory, regexp.append(ext).append("$"), outFiles);
 }
 
 // static
-void Platform::GetFilesByType(std::string const & directory, unsigned typeMask,
-                              TFilesWithType & outFiles)
+void Platform::GetFilesByType(std::string const & directory, unsigned typeMask, TFilesWithType & outFiles)
 {
   FilesList allFiles;
   GetFilesByRegExp(directory, ".*", allFiles);
@@ -276,15 +250,9 @@ void Platform::GetFilesRecursively(std::string const & directory, FilesList & fi
   }
 }
 
-void Platform::SetWritableDirForTests(std::string const & path)
-{
-  m_writableDir = base::AddSlashIfNeeded(path);
-}
+void Platform::SetWritableDirForTests(std::string const & path) { m_writableDir = base::AddSlashIfNeeded(path); }
 
-void Platform::SetResourceDir(std::string const & path)
-{
-  m_resourcesDir = base::AddSlashIfNeeded(path);
-}
+void Platform::SetResourceDir(std::string const & path) { m_resourcesDir = base::AddSlashIfNeeded(path); }
 
 // static
 bool Platform::MkDirChecked(std::string const & dirName)
@@ -313,7 +281,7 @@ bool Platform::MkDirRecursively(std::string const & dirName)
 {
   CHECK(!dirName.empty(), ());
 
-  std::string::value_type const sep[] = { base::GetNativeSeparator(), 0};
+  std::string::value_type const sep[] = {base::GetNativeSeparator(), 0};
   std::string path = dirName.starts_with(sep[0]) ? sep : ".";
   for (auto const & t : strings::Tokenize(dirName, sep))
   {
@@ -368,10 +336,7 @@ void Platform::RunThreads()
   m_backgroundThread = std::make_unique<base::DelayedThreadPool>();
 }
 
-void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread)
-{
-  m_guiThread = std::move(guiThread);
-}
+void Platform::SetGuiThread(std::unique_ptr<base::TaskLoop> guiThread) { m_guiThread = std::move(guiThread); }
 
 void Platform::CancelTask(Thread thread, base::TaskLoop::TaskId id)
 {
@@ -394,12 +359,9 @@ std::string DebugPrint(Platform::EError err)
   case Platform::ERR_ACCESS_FAILED: return "Access failed.";
   case Platform::ERR_DIRECTORY_NOT_EMPTY: return "Directory not empty.";
   case Platform::ERR_FILE_ALREADY_EXISTS: return "File already exists.";
-  case Platform::ERR_NAME_TOO_LONG:
-    return "The length of a component of path exceeds {NAME_MAX} characters.";
-  case Platform::ERR_NOT_A_DIRECTORY:
-    return "A component of the path prefix of Path is not a directory.";
-  case Platform::ERR_SYMLINK_LOOP:
-    return "Too many symbolic links were encountered in translating path.";
+  case Platform::ERR_NAME_TOO_LONG: return "The length of a component of path exceeds {NAME_MAX} characters.";
+  case Platform::ERR_NOT_A_DIRECTORY: return "A component of the path prefix of Path is not a directory.";
+  case Platform::ERR_SYMLINK_LOOP: return "Too many symbolic links were encountered in translating path.";
   case Platform::ERR_IO_ERROR: return "An I/O error occurred.";
   case Platform::ERR_UNKNOWN: return "Unknown";
   }

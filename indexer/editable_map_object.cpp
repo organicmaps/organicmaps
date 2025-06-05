@@ -1,10 +1,10 @@
 #include "indexer/editable_map_object.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/edit_journal.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
-#include "indexer/edit_journal.hpp"
 
 #include "platform/preferred_languages.hpp"
 
@@ -22,8 +22,7 @@ using namespace std;
 
 namespace
 {
-bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode,
-                 vector<osm::LocalizedName> & result)
+bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode, vector<osm::LocalizedName> & result)
 {
   if (StringUtf8Multilang::kUnsupportedLanguageCode == langCode)
   {
@@ -31,10 +30,8 @@ bool ExtractName(StringUtf8Multilang const & names, int8_t const langCode,
   }
 
   // Exclude languages that are already present.
-  auto const it = base::FindIf(result, [langCode](osm::LocalizedName const & localizedName)
-  {
-    return localizedName.m_code == langCode;
-  });
+  auto const it = base::FindIf(
+    result, [langCode](osm::LocalizedName const & localizedName) { return localizedName.m_code == langCode; });
 
   if (result.end() != it)
     return false;
@@ -54,16 +51,14 @@ LocalizedName::LocalizedName(int8_t const code, string_view name)
   , m_lang(StringUtf8Multilang::GetLangByCode(code))
   , m_langName(StringUtf8Multilang::GetLangNameByCode(code))
   , m_name(name)
-{
-}
+{}
 
 LocalizedName::LocalizedName(string const & langCode, string const & name)
   : m_code(StringUtf8Multilang::GetLangIndex(langCode))
   , m_lang(StringUtf8Multilang::GetLangByCode(m_code))
   , m_langName(StringUtf8Multilang::GetLangNameByCode(m_code))
   , m_name(name)
-{
-}
+{}
 
 // EditableMapObject -------------------------------------------------------------------------------
 
@@ -103,8 +98,7 @@ NamesDataSource EditableMapObject::GetNamesDataSource()
 
 // static
 NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const & source,
-                                                      vector<int8_t> const & mwmLanguages,
-                                                      int8_t const userLangCode)
+                                                      vector<int8_t> const & mwmLanguages, int8_t const userLangCode)
 {
   NamesDataSource result;
   auto & names = result.names;
@@ -115,17 +109,17 @@ NamesDataSource EditableMapObject::GetNamesDataSource(StringUtf8Multilang const 
     ++mandatoryCount;
 
   // Push other languages.
-  source.ForEach([&names, mandatoryCount](int8_t const code, string_view name)
-  {
-    auto const mandatoryNamesEnd = names.begin() + mandatoryCount;
-    // Exclude languages which are already in container (languages with top priority).
-    auto const it = find_if(
-        names.begin(), mandatoryNamesEnd,
-        [code](LocalizedName const & localizedName) { return localizedName.m_code == code; });
+  source.ForEach(
+    [&names, mandatoryCount](int8_t const code, string_view name)
+    {
+      auto const mandatoryNamesEnd = names.begin() + mandatoryCount;
+      // Exclude languages which are already in container (languages with top priority).
+      auto const it = find_if(names.begin(), mandatoryNamesEnd,
+                              [code](LocalizedName const & localizedName) { return localizedName.m_code == code; });
 
-    if (mandatoryNamesEnd == it)
-      names.emplace_back(code, name);
-  });
+      if (mandatoryNamesEnd == it)
+        names.emplace_back(code, name);
+    });
 
   return result;
 }
@@ -134,44 +128,41 @@ vector<LocalizedStreet> const & EditableMapObject::GetNearbyStreets() const { re
 
 void EditableMapObject::ForEachMetadataItem(function<void(string_view tag, string_view value)> const & fn) const
 {
-  m_metadata.ForEach([&fn](MetadataID type, std::string_view value)
-  {
-    switch (type)
+  m_metadata.ForEach(
+    [&fn](MetadataID type, std::string_view value)
     {
-    // Multilang description may produce several tags with different values.
-    case MetadataID::FMD_DESCRIPTION:
-    {
-      auto const mlDescr = StringUtf8Multilang::FromBuffer(std::string(value));
-      mlDescr.ForEach([&fn](int8_t code, string_view v)
+      switch (type)
       {
-        if (code == StringUtf8Multilang::kDefaultCode)
-          fn("description", v);
-        else
-          fn(string("description:").append(StringUtf8Multilang::GetLangByCode(code)), v);
-      });
-      break;
-    }
-    // Skip non-string values (they are not related to OSM anyway).
-    case MetadataID::FMD_CUSTOM_IDS:
-    case MetadataID::FMD_PRICE_RATES:
-    case MetadataID::FMD_RATINGS:
-    case MetadataID::FMD_EXTERNAL_URI:
-    case MetadataID::FMD_WHEELCHAIR:    // Value is runtime only, data is taken from the classificator types, should not be used to update the OSM database
-      break;
-    default: fn(ToString(type), value); break;
-    }
-  });
+      // Multilang description may produce several tags with different values.
+      case MetadataID::FMD_DESCRIPTION:
+      {
+        auto const mlDescr = StringUtf8Multilang::FromBuffer(std::string(value));
+        mlDescr.ForEach(
+          [&fn](int8_t code, string_view v)
+          {
+            if (code == StringUtf8Multilang::kDefaultCode)
+              fn("description", v);
+            else
+              fn(string("description:").append(StringUtf8Multilang::GetLangByCode(code)), v);
+          });
+        break;
+      }
+      // Skip non-string values (they are not related to OSM anyway).
+      case MetadataID::FMD_CUSTOM_IDS:
+      case MetadataID::FMD_PRICE_RATES:
+      case MetadataID::FMD_RATINGS:
+      case MetadataID::FMD_EXTERNAL_URI:
+      case MetadataID::FMD_WHEELCHAIR:  // Value is runtime only, data is taken from the classificator types, should not
+                                        // be used to update the OSM database
+        break;
+      default: fn(ToString(type), value); break;
+      }
+    });
 }
 
-void EditableMapObject::SetTestId(uint64_t id)
-{
-  m_metadata.Set(feature::Metadata::FMD_TEST_ID, std::to_string(id));
-}
+void EditableMapObject::SetTestId(uint64_t id) { m_metadata.Set(feature::Metadata::FMD_TEST_ID, std::to_string(id)); }
 
-void EditableMapObject::SetEditableProperties(osm::EditableProperties const & props)
-{
-  m_editableProperties = props;
-}
+void EditableMapObject::SetEditableProperties(osm::EditableProperties const & props) { m_editableProperties = props; }
 
 void EditableMapObject::SetName(StringUtf8Multilang const & name) { m_name = name; }
 
@@ -223,15 +214,9 @@ void EditableMapObject::SetTypes(feature::TypesHolder const & types) { m_types =
 void EditableMapObject::SetID(FeatureID const & fid) { m_featureID = fid; }
 void EditableMapObject::SetStreet(LocalizedStreet const & st) { m_street = st; }
 
-void EditableMapObject::SetNearbyStreets(vector<LocalizedStreet> && streets)
-{
-  m_nearbyStreets = std::move(streets);
-}
+void EditableMapObject::SetNearbyStreets(vector<LocalizedStreet> && streets) { m_nearbyStreets = std::move(streets); }
 
-void EditableMapObject::SetHouseNumber(string const & houseNumber)
-{
-  m_houseNumber = houseNumber;
-}
+void EditableMapObject::SetHouseNumber(string const & houseNumber) { m_houseNumber = houseNumber; }
 
 void EditableMapObject::SetPostcode(std::string const & postcode)
 {
@@ -300,10 +285,7 @@ bool EditableMapObject::UpdateMetadataValue(string_view key, string value)
   return true;
 }
 
-void EditableMapObject::SetOpeningHours(std::string oh)
-{
-  m_metadata.Set(MetadataID::FMD_OPEN_HOURS, std::move(oh));
-}
+void EditableMapObject::SetOpeningHours(std::string oh) { m_metadata.Set(MetadataID::FMD_OPEN_HOURS, std::move(oh)); }
 
 void EditableMapObject::SetInternet(feature::Internet internet)
 {
@@ -343,15 +325,9 @@ void EditableMapObject::SetCuisinesImpl(vector<T> const & cuisines)
   m_types.Assign(params.m_types.begin(), params.m_types.end());
 }
 
-void EditableMapObject::SetCuisines(std::vector<std::string_view> const & cuisines)
-{
-  SetCuisinesImpl(cuisines);
-}
+void EditableMapObject::SetCuisines(std::vector<std::string_view> const & cuisines) { SetCuisinesImpl(cuisines); }
 
-void EditableMapObject::SetCuisines(std::vector<std::string> const & cuisines)
-{
-  SetCuisinesImpl(cuisines);
-}
+void EditableMapObject::SetCuisines(std::vector<std::string> const & cuisines) { SetCuisinesImpl(cuisines); }
 
 void EditableMapObject::SetPointType() { m_geomType = feature::GeomType::Point; }
 
@@ -359,11 +335,12 @@ void EditableMapObject::RemoveBlankNames()
 {
   StringUtf8Multilang editedName;
 
-  m_name.ForEach([&editedName](int8_t langCode, string_view name)
-  {
-    if (!name.empty())
-      editedName.AddString(langCode, name);
-  });
+  m_name.ForEach(
+    [&editedName](int8_t langCode, string_view name)
+    {
+      if (!name.empty())
+        editedName.AddString(langCode, name);
+    });
 
   m_name = editedName;
 }
@@ -462,10 +439,7 @@ bool EditableMapObject::ValidatePhoneList(string const & phone)
 
   do
   {
-    last = find_if(curr, phone.end(), [](string::value_type const & ch)
-    {
-      return ch == ',' || ch == ';';
-    });
+    last = find_if(curr, phone.end(), [](string::value_type const & ch) { return ch == ',' || ch == ';'; });
 
     auto digitsCount = 0;
     string const symbols = "+-() ";
@@ -540,8 +514,7 @@ bool EditableMapObject::ValidateLevel(string const & level)
 
   auto constexpr kMinBuildingLevel = -9;
   double result;
-  return strings::to_double(level, result) && result > kMinBuildingLevel &&
-         result <= kMaximumLevelsEditableByUsers;
+  return strings::to_double(level, result) && result > kMinBuildingLevel && result <= kMaximumLevelsEditableByUsers;
 }
 
 // static
@@ -579,30 +552,18 @@ bool EditableMapObject::ValidateName(string const & name)
   return true;
 }
 
-EditJournal const & EditableMapObject::GetJournal() const
-{
-  return m_journal;
-}
+EditJournal const & EditableMapObject::GetJournal() const { return m_journal; }
 
-void EditableMapObject::SetJournal(EditJournal && editJournal)
-{
-  m_journal = std::move(editJournal);
-}
+void EditableMapObject::SetJournal(EditJournal && editJournal) { m_journal = std::move(editJournal); }
 
-EditingLifecycle EditableMapObject::GetEditingLifecycle() const
-{
-  return m_journal.GetEditingLifecycle();
-}
+EditingLifecycle EditableMapObject::GetEditingLifecycle() const { return m_journal.GetEditingLifecycle(); }
 
 void EditableMapObject::MarkAsCreated(uint32_t type, feature::GeomType geomType, m2::PointD mercator)
 {
   m_journal.MarkAsCreated(type, geomType, std::move(mercator));
 }
 
-void EditableMapObject::ClearJournal()
-{
-  m_journal.Clear();
-}
+void EditableMapObject::ClearJournal() { m_journal.Clear(); }
 
 void EditableMapObject::ApplyEditsFromJournal(EditJournal const & editJournal)
 {
@@ -616,92 +577,93 @@ void EditableMapObject::ApplyEditsFromJournal(EditJournal const & editJournal)
 void EditableMapObject::ApplyJournalEntry(JournalEntry const & entry)
 {
   LOG(LDEBUG, ("Applying Journal Entry: ", osm::EditJournal::ToString(entry)));
-  //Todo
+  // Todo
   switch (entry.journalEntryType)
   {
-    case JournalEntryType::TagModification:
+  case JournalEntryType::TagModification:
+  {
+    TagModData const & tagModData = std::get<TagModData>(entry.data);
+
+    // Metadata
+    MetadataID type;
+    if (feature::Metadata::TypeFromString(tagModData.key, type))
     {
-      TagModData const & tagModData = std::get<TagModData>(entry.data);
-
-      //Metadata
-      MetadataID type;
-      if (feature::Metadata::TypeFromString(tagModData.key, type))
+      m_metadata.Set(type, tagModData.new_value);
+      if (type == MetadataID::FMD_INTERNET)
       {
-        m_metadata.Set(type, tagModData.new_value);
-        if (type == MetadataID::FMD_INTERNET)
-        {
-          uint32_t const wifiType = ftypes::IsWifiChecker::Instance().GetType();
-          if (tagModData.new_value == "wifi")
-            m_types.SafeAdd(wifiType);
-          else
-            m_types.Remove(wifiType);
-        }
-        break;
-      }
-
-      //Names
-      int8_t langCode = StringUtf8Multilang::GetCodeByOSMTag(tagModData.key);
-      if (langCode != StringUtf8Multilang::kUnsupportedLanguageCode)
-      {
-        m_name.AddString(langCode, tagModData.new_value);
-        break;
-      }
-
-      if (tagModData.key == "addr:street")
-        m_street.m_defaultName = tagModData.new_value;
-
-      else if (tagModData.key == "addr:housenumber")
-        m_houseNumber = tagModData.new_value;
-
-      else if (tagModData.key == "cuisine")
-      {
-        Classificator const & cl = classif();
-        // Remove old cuisine values
-        vector<std::string_view> oldCuisines = strings::Tokenize(tagModData.old_value, ";");
-        for (std::string_view const & cuisine : oldCuisines)
-          m_types.Remove(cl.GetTypeByPath({string_view("cuisine"), cuisine}));
-        // Add new cuisine values
-        vector<std::string_view> newCuisines = strings::Tokenize(tagModData.new_value, ";");
-        for (std::string_view const & cuisine : newCuisines)
-          m_types.SafeAdd(cl.GetTypeByPath({string_view("cuisine"), cuisine}));
-      }
-      else if (tagModData.key == "diet:vegetarian")
-      {
-        Classificator const & cl = classif();
-        uint32_t const vegetarianType = cl.GetTypeByPath({string_view("cuisine"), "vegetarian"});
-        if (tagModData.new_value == "yes")
-          m_types.SafeAdd(vegetarianType);
+        uint32_t const wifiType = ftypes::IsWifiChecker::Instance().GetType();
+        if (tagModData.new_value == "wifi")
+          m_types.SafeAdd(wifiType);
         else
-          m_types.Remove(vegetarianType);
+          m_types.Remove(wifiType);
       }
-      else if (tagModData.key == "diet:vegan")
-      {
-        Classificator const & cl = classif();
-        uint32_t const veganType = cl.GetTypeByPath({string_view("cuisine"), "vegan"});
-        if (tagModData.new_value == "yes")
-          m_types.SafeAdd(veganType);
-        else
-          m_types.Remove(veganType);
-      }
+      break;
+    }
+
+    // Names
+    int8_t langCode = StringUtf8Multilang::GetCodeByOSMTag(tagModData.key);
+    if (langCode != StringUtf8Multilang::kUnsupportedLanguageCode)
+    {
+      m_name.AddString(langCode, tagModData.new_value);
+      break;
+    }
+
+    if (tagModData.key == "addr:street")
+      m_street.m_defaultName = tagModData.new_value;
+
+    else if (tagModData.key == "addr:housenumber")
+      m_houseNumber = tagModData.new_value;
+
+    else if (tagModData.key == "cuisine")
+    {
+      Classificator const & cl = classif();
+      // Remove old cuisine values
+      vector<std::string_view> oldCuisines = strings::Tokenize(tagModData.old_value, ";");
+      for (std::string_view const & cuisine : oldCuisines)
+        m_types.Remove(cl.GetTypeByPath({string_view("cuisine"), cuisine}));
+      // Add new cuisine values
+      vector<std::string_view> newCuisines = strings::Tokenize(tagModData.new_value, ";");
+      for (std::string_view const & cuisine : newCuisines)
+        m_types.SafeAdd(cl.GetTypeByPath({string_view("cuisine"), cuisine}));
+    }
+    else if (tagModData.key == "diet:vegetarian")
+    {
+      Classificator const & cl = classif();
+      uint32_t const vegetarianType = cl.GetTypeByPath({string_view("cuisine"), "vegetarian"});
+      if (tagModData.new_value == "yes")
+        m_types.SafeAdd(vegetarianType);
       else
-        LOG(LWARNING, ("OSM key \"" , tagModData.key, "\" is unknown, skipped"));
+        m_types.Remove(vegetarianType);
+    }
+    else if (tagModData.key == "diet:vegan")
+    {
+      Classificator const & cl = classif();
+      uint32_t const veganType = cl.GetTypeByPath({string_view("cuisine"), "vegan"});
+      if (tagModData.new_value == "yes")
+        m_types.SafeAdd(veganType);
+      else
+        m_types.Remove(veganType);
+    }
+    else
+      LOG(LWARNING, ("OSM key \"", tagModData.key, "\" is unknown, skipped"));
 
-      break;
-    }
-    case JournalEntryType::ObjectCreated:
-    {
-      ObjCreateData const & objCreatedData = std::get<ObjCreateData>(entry.data);
-      ASSERT_EQUAL(feature::GeomType::Point, objCreatedData.geomType, ("At the moment only new nodes (points) can be created."));
-      SetPointType();
-      SetMercator(objCreatedData.mercator);
-      m_types.Add(objCreatedData.type);
-      break;
-    }
-    case JournalEntryType::LegacyObject:
-    {
-      ASSERT_FAIL(("Legacy Objects can not be loaded from Journal"));
-      break;
-    }
+    break;
+  }
+  case JournalEntryType::ObjectCreated:
+  {
+    ObjCreateData const & objCreatedData = std::get<ObjCreateData>(entry.data);
+    ASSERT_EQUAL(feature::GeomType::Point, objCreatedData.geomType,
+                 ("At the moment only new nodes (points) can be created."));
+    SetPointType();
+    SetMercator(objCreatedData.mercator);
+    m_types.Add(objCreatedData.type);
+    break;
+  }
+  case JournalEntryType::LegacyObject:
+  {
+    ASSERT_FAIL(("Legacy Objects can not be loaded from Journal"));
+    break;
+  }
   }
 }
 
@@ -747,7 +709,7 @@ void EditableMapObject::LogDiffInJournal(EditableMapObject const & unedited_emo)
   std::vector<std::string> new_cuisines = GetCuisines();
   std::vector<std::string> old_cuisines = unedited_emo.GetCuisines();
 
-  auto const findAndErase = [] (std::vector<std::string> & cuisinesPtr, std::string_view s)
+  auto const findAndErase = [](std::vector<std::string> & cuisinesPtr, std::string_view s)
   {
     auto it = std::find(cuisinesPtr.begin(), cuisinesPtr.end(), s);
     if (it != cuisinesPtr.end())

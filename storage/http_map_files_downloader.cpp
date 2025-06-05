@@ -19,7 +19,8 @@ class ErrorHttpRequest : public downloader::HttpRequest
 {
 public:
   explicit ErrorHttpRequest(std::string const & filePath)
-  : HttpRequest(Callback(), Callback()), m_filePath(filePath)
+    : HttpRequest(Callback(), Callback())
+    , m_filePath(filePath)
   {
     m_status = downloader::DownloadStatus::Failed;
   }
@@ -33,10 +34,7 @@ private:
 
 namespace storage
 {
-HttpMapFilesDownloader::~HttpMapFilesDownloader()
-{
-  CHECK_THREAD_CHECKER(m_checker, ());
-}
+HttpMapFilesDownloader::~HttpMapFilesDownloader() { CHECK_THREAD_CHECKER(m_checker, ()); }
 
 void HttpMapFilesDownloader::Download(QueuedCountry && queuedCountry)
 {
@@ -65,9 +63,8 @@ void HttpMapFilesDownloader::Download()
     queuedCountry.OnStartDownloading();
 
     m_request.reset(downloader::HttpRequest::GetFile(
-        urls, path, size,
-        std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
-        std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1)));
+      urls, path, size, std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
+      std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1)));
   }
   else
   {
@@ -115,8 +112,7 @@ QueueInterface const & HttpMapFilesDownloader::GetQueue() const
   return m_queue;
 }
 
-void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCountry,
-                                                 downloader::HttpRequest & request)
+void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCountry, downloader::HttpRequest & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   // Because this method is called deferred on original thread,
@@ -146,8 +142,5 @@ void HttpMapFilesDownloader::OnMapFileDownloadingProgress(QueuedCountry const & 
   queuedCountry.OnDownloadProgress(request.GetProgress());
 }
 
-std::unique_ptr<MapFilesDownloader> GetDownloader()
-{
-  return std::make_unique<HttpMapFilesDownloader>();
-}
+std::unique_ptr<MapFilesDownloader> GetDownloader() { return std::make_unique<HttpMapFilesDownloader>(); }
 }  // namespace storage

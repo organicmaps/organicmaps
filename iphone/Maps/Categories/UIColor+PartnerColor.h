@@ -15,4 +15,3 @@
 + (UIColor *)partner20TextColor;
 
 @end
-

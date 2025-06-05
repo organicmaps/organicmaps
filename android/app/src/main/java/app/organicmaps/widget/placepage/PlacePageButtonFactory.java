@@ -1,7 +1,6 @@
 package app.organicmaps.widget.placepage;
 
 import android.content.Context;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;

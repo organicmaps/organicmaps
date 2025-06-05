@@ -9,46 +9,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import app.organicmaps.Framework;
+import app.organicmaps.R;
+import app.organicmaps.util.StringUtils;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.IMarker;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
-import app.organicmaps.Framework;
-import app.organicmaps.R;
-import app.organicmaps.util.StringUtils;
 
-@SuppressLint("ViewConstructor")
-public class FloatingMarkerView extends RelativeLayout implements IMarker
+@SuppressLint("ViewConstructor") public class FloatingMarkerView extends RelativeLayout implements IMarker
 {
-  @Nullable
-  private Chart mChart;
+  @Nullable private Chart mChart;
   private static final int TRIANGLE_ROTATION_ANGLE = 180;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mImage;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mInfoFloatingContainer;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mAltitudeView;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mDistanceTextView;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mDistanceValueView;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mFloatingTriangle;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mTextContentContainer;
+  @SuppressWarnings("NullableProblems") @NonNull private View mImage;
+  @SuppressWarnings("NullableProblems") @NonNull private View mInfoFloatingContainer;
+  @SuppressWarnings("NullableProblems") @NonNull private TextView mAltitudeView;
+  @SuppressWarnings("NullableProblems") @NonNull private TextView mDistanceTextView;
+  @SuppressWarnings("NullableProblems") @NonNull private TextView mDistanceValueView;
+  @SuppressWarnings("NullableProblems") @NonNull private View mFloatingTriangle;
+  @SuppressWarnings("NullableProblems") @NonNull private View mTextContentContainer;
 
   private float mOffset;
 
@@ -76,17 +58,17 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     LayoutInflater.from(getContext()).inflate(R.layout.floating_marker_view, this, true);
   }
 
-  public void setChartView(@NonNull Chart chart) {
+  public void setChartView(@NonNull Chart chart)
+  {
     mChart = chart;
   }
 
-  @Nullable
-  public Chart getChartView() {
+  @Nullable public Chart getChartView()
+  {
     return mChart;
   }
 
-  @Override
-  protected void onFinishInflate()
+  @Override protected void onFinishInflate()
   {
     super.onFinishInflate();
     mInfoFloatingContainer = findViewById(R.id.info_floating_container);
@@ -100,24 +82,21 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
 
   // runs every time the MarkerView is redrawn, can be used to update the
   // content (user-interface)
-  @Override
-  public void refreshContent(Entry e, Highlight highlight)
+  @Override public void refreshContent(Entry e, Highlight highlight)
   {
     updatePointValues(e);
 
-    measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-            MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+    measure(
+      MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
     layout(0, 0, getMeasuredWidth(), getMeasuredHeight());
   }
 
-  @Override
-  public MPPointF getOffset()
+  @Override public MPPointF getOffset()
   {
     return new MPPointF(mOffset, -getHeight() / 2f);
   }
 
-  @Override
-  public MPPointF getOffsetForDrawingAtPoint(float posX, float posY)
+  @Override public MPPointF getOffsetForDrawingAtPoint(float posX, float posY)
   {
     return getOffset();
   }
@@ -137,10 +116,11 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     float halfImg = Math.abs(mImage.getWidth()) / 2f;
     int wholeText = Math.abs(mInfoFloatingContainer.getWidth());
     float factor = calcHorizontalFactor();
-    return x + (halfImg + wholeText ) * factor >= getChartView().getXChartMax();
+    return x + (halfImg + wholeText) * factor >= getChartView().getXChartMax();
   }
 
-  private float calcHorizontalFactor() {
+  private float calcHorizontalFactor()
+  {
     float delta = getChartView().getXChartMax() - getChartView().getXChartMin();
     return delta / getChartView().getContentRect().width();
   }
@@ -149,7 +129,7 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
   {
     float height = getChartView().getContentRect().height();
     float delta = getChartView().getYMax() - getChartView().getYMin();
-    float factor =  delta / height;
+    float factor = delta / height;
     return factor * mTextContentContainer.getHeight();
   }
 
@@ -184,7 +164,8 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
   private void updatePointValues(@NonNull Entry entry)
   {
     mDistanceTextView.setText(R.string.elevation_profile_distance);
-    mDistanceValueView.setText(StringUtils.nativeFormatDistance(entry.getX()).toString(mDistanceValueView.getContext()));
+    mDistanceValueView.setText(
+      StringUtils.nativeFormatDistance(entry.getX()).toString(mDistanceValueView.getContext()));
     mAltitudeView.setText(Framework.nativeFormatAltitude(entry.getY()));
   }
 
@@ -221,10 +202,8 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     mTextContentContainer.setLayoutParams(textContentParams);
   }
 
-  @Override
-  public void draw(Canvas canvas, float posX, float posY)
+  @Override public void draw(Canvas canvas, float posX, float posY)
   {
-
     MPPointF offset = getOffsetForDrawingAtPoint(posX, posY);
 
     int saveId = canvas.save();

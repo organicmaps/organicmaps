@@ -30,7 +30,10 @@ public:
   struct PointIdPair
   {
     PointIdPair() = default;
-    PointIdPair(m2::PointD const & point, size_t id) : m_point(point), m_id(id) {}
+    PointIdPair(m2::PointD const & point, size_t id)
+      : m_point(point)
+      , m_id(id)
+    {}
     m2::PointD m_point = m2::PointD::Zero();
     size_t m_id = 0;
   };
@@ -38,7 +41,10 @@ public:
   struct RectIdPair
   {
     RectIdPair() = default;
-    RectIdPair(m2::RectD const & rect, size_t id) : m_rect(rect), m_id(id) {}
+    RectIdPair(m2::RectD const & rect, size_t id)
+      : m_rect(rect)
+      , m_id(id)
+    {}
     m2::RectD m_rect;
     size_t m_id = 0;
   };
@@ -81,9 +87,7 @@ public:
       case Event::TYPE_SEGMENT_START: tree.Add(e.m_segment); break;
       case Event::TYPE_POINT:
       {
-        auto const segmentFn = [&](SegmentTree::Segment const & segment) {
-          fn(e.m_point.m_id, segment.m_id);
-        };
+        auto const segmentFn = [&](SegmentTree::Segment const & segment) { fn(e.m_point.m_id, segment.m_id); };
         switch (requestType)
         {
         case RequestType::Any: tree.FindAny(e.m_point.m_x, segmentFn); break;
@@ -100,7 +104,10 @@ private:
   struct PointEvent
   {
     PointEvent() = default;
-    PointEvent(double x, size_t id) : m_x(x), m_id(id) {}
+    PointEvent(double x, size_t id)
+      : m_x(x)
+      , m_id(id)
+    {}
     double m_x = 0;
     size_t m_id = 0;
   };
@@ -117,14 +124,18 @@ private:
     };
 
     Event(Type type, SegmentEvent const & segment, double time)
-      : m_segment(segment), m_time(time), m_type(type)
+      : m_segment(segment)
+      , m_time(time)
+      , m_type(type)
     {
       ASSERT(m_type == TYPE_SEGMENT_START || m_type == TYPE_SEGMENT_END, ());
     }
 
-    Event(PointEvent const & point, double time) : m_point(point), m_time(time), m_type(TYPE_POINT)
-    {
-    }
+    Event(PointEvent const & point, double time)
+      : m_point(point)
+      , m_time(time)
+      , m_type(TYPE_POINT)
+    {}
 
     bool operator<(Event const & rhs) const
     {
@@ -133,7 +144,8 @@ private:
       return m_type < rhs.m_type;
     }
 
-    union {
+    union
+    {
       SegmentEvent m_segment;
       PointEvent m_point;
     };

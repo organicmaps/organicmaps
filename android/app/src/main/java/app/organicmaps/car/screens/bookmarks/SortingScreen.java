@@ -1,7 +1,6 @@
 package app.organicmaps.car.screens.bookmarks;
 
 import android.location.Location;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.car.app.CarContext;
@@ -15,7 +14,6 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.R;
 import app.organicmaps.bookmarks.data.BookmarkCategory;
 import app.organicmaps.bookmarks.data.BookmarkManager;
@@ -23,7 +21,6 @@ import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.location.LocationHelper;
-
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
@@ -31,29 +28,28 @@ class SortingScreen extends BaseMapScreen
 {
   private static final int DEFAULT_SORTING_TYPE = -1;
 
-  @NonNull
-  private final CarIcon mRadioButtonIcon;
-  @NonNull
-  private final CarIcon mRadioButtonSelectedIcon;
+  @NonNull private final CarIcon mRadioButtonIcon;
+  @NonNull private final CarIcon mRadioButtonSelectedIcon;
 
   private final long mBookmarkCategoryId;
   private final @BookmarkManager.SortingType int mLastSortingType;
 
   private @BookmarkManager.SortingType int mNewSortingType;
 
-  public SortingScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer, @NonNull BookmarkCategory bookmarkCategory)
+  public SortingScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer,
+    @NonNull BookmarkCategory bookmarkCategory)
   {
     super(carContext, surfaceRenderer);
-    mRadioButtonIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_unchecked)).build();
-    mRadioButtonSelectedIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_checked)).build();
+    mRadioButtonIcon =
+      new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_unchecked)).build();
+    mRadioButtonSelectedIcon =
+      new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_checked)).build();
 
     mBookmarkCategoryId = bookmarkCategory.getId();
     mLastSortingType = mNewSortingType = getLastSortingType();
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final MapWithContentTemplate.Builder builder = new MapWithContentTemplate.Builder();
     builder.setMapController(UiHelpers.createMapController(getCarContext(), getSurfaceRenderer()));
@@ -61,16 +57,14 @@ class SortingScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @Override
-  public void onStop(@NonNull LifecycleOwner owner)
+  @Override public void onStop(@NonNull LifecycleOwner owner)
   {
     super.onStop(owner);
     final boolean sortingTypeChanged = mNewSortingType != mLastSortingType;
     setResult(sortingTypeChanged);
   }
 
-  @NonNull
-  private Header createHeader()
+  @NonNull private Header createHeader()
   {
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
@@ -78,8 +72,7 @@ class SortingScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @NonNull
-  private ListTemplate createSortingTypesListTemplate()
+  @NonNull private ListTemplate createSortingTypesListTemplate()
   {
     final ListTemplate.Builder builder = new ListTemplate.Builder();
     builder.setHeader(createHeader());
@@ -90,10 +83,12 @@ class SortingScreen extends BaseMapScreen
   }
 
   @NonNull
-  private ItemList createSortingTypesList(@NonNull final @BookmarkManager.SortingType int[] availableSortingTypes, final int lastSortingType)
+  private ItemList createSortingTypesList(
+    @NonNull final @BookmarkManager.SortingType int[] availableSortingTypes, final int lastSortingType)
   {
     final ItemList.Builder builder = new ItemList.Builder();
-    for (int type : IntStream.concat(IntStream.of(DEFAULT_SORTING_TYPE), Arrays.stream(availableSortingTypes)).toArray())
+    for (int type :
+      IntStream.concat(IntStream.of(DEFAULT_SORTING_TYPE), Arrays.stream(availableSortingTypes)).toArray())
     {
       final Row.Builder rowBuilder = new Row.Builder();
       rowBuilder.setTitle(getCarContext().getString(sortingTypeToStringRes(type)));
@@ -116,8 +111,7 @@ class SortingScreen extends BaseMapScreen
     return builder.build();
   }
 
-  @StringRes
-  private int sortingTypeToStringRes(@BookmarkManager.SortingType int sortingType)
+  @StringRes private int sortingTypeToStringRes(@BookmarkManager.SortingType int sortingType)
   {
     return switch (sortingType)
     {
@@ -129,9 +123,7 @@ class SortingScreen extends BaseMapScreen
     };
   }
 
-  @NonNull
-  @BookmarkManager.SortingType
-  private int[] getAvailableSortingTypes()
+  @NonNull @BookmarkManager.SortingType private int[] getAvailableSortingTypes()
   {
     final Location loc = LocationHelper.from(getCarContext()).getSavedLocation();
     final boolean hasMyPosition = loc != null;

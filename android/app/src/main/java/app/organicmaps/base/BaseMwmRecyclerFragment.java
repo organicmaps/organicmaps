@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -25,52 +24,39 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
 {
   private Toolbar mToolbar;
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private RecyclerView mRecycler;
+  @SuppressWarnings("NotNullFieldNotInitialized") @NonNull private RecyclerView mRecycler;
 
-  @Nullable
-  private PlaceholderView mPlaceholder;
+  @Nullable private PlaceholderView mPlaceholder;
 
-  @SuppressWarnings("NotNullFieldNotInitialized")
-  @NonNull
-  private T mAdapter;
+  @SuppressWarnings("NotNullFieldNotInitialized") @NonNull private T mAdapter;
 
   @NonNull
-  private final View.OnClickListener mNavigationClickListener
-      = view -> Utils.navigateToParent(requireActivity());
+  private final View.OnClickListener mNavigationClickListener = view -> Utils.navigateToParent(requireActivity());
 
-  @NonNull
-  protected abstract T createAdapter();
+  @NonNull protected abstract T createAdapter();
 
-  @LayoutRes
-  protected int getLayoutRes()
+  @LayoutRes protected int getLayoutRes()
   {
     return R.layout.fragment_recycler;
   }
 
-  @NonNull
-  protected T getAdapter()
+  @NonNull protected T getAdapter()
   {
     return mAdapter;
   }
 
-  @Override
-  public void onAttach(Context context)
+  @Override public void onAttach(Context context)
   {
     super.onAttach(context);
     Utils.detachFragmentIfCoreNotInitialized(context, this);
   }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
     return inflater.inflate(getLayoutRes(), container, false);
   }
 
-  @CallSuper
-  @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  @CallSuper @Override public void onViewCreated(View view, Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
@@ -100,8 +86,7 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
     return mRecycler;
   }
 
-  @NonNull
-  public PlaceholderView requirePlaceholder()
+  @NonNull public PlaceholderView requirePlaceholder()
   {
     if (mPlaceholder != null)
       return mPlaceholder;

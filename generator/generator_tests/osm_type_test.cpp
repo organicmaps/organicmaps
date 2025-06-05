@@ -2,16 +2,16 @@
 
 #include "generator/generator_tests/types_helper.hpp"
 #include "generator/generator_tests_support/test_with_classificator.hpp"
-#include "generator/osm_element.hpp"
 #include "generator/osm2type.hpp"
+#include "generator/osm_element.hpp"
 #include "generator/tag_admixer.hpp"
 
 #include "routing_common/bicycle_model.hpp"
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
-#include "indexer/feature_data.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/feature_data.hpp"
 
 #include "platform/platform.hpp"
 
@@ -27,8 +27,8 @@ using namespace tests;
 
 using Tags = std::vector<OsmElement::Tag>;
 
-void TestSurfaceTypes(std::string const & surface, std::string const & smoothness,
-                      std::string const & grade, char const * value)
+void TestSurfaceTypes(std::string const & surface, std::string const & smoothness, std::string const & grade,
+                      char const * value)
 {
   OsmElement e;
   e.AddTag("highway", "unclassified");
@@ -49,13 +49,11 @@ void TestSurfaceTypes(std::string const & surface, std::string const & smoothnes
       psurface = rtype.substr(9);
   }
   TEST(params.IsTypeExist(GetType({"psurface", value})),
-        ("Surface:", surface, "Smoothness:", smoothness, "Grade:", grade, "Expected:", value,
-        "Got:", psurface));
+       ("Surface:", surface, "Smoothness:", smoothness, "Grade:", grade, "Expected:", value, "Got:", psurface));
 }
 
-FeatureBuilderParams GetFeatureBuilderParams(
-    Tags const & tags,
-    OsmElement::EntityType type = OsmElement::EntityType::Unknown)
+FeatureBuilderParams GetFeatureBuilderParams(Tags const & tags,
+                                             OsmElement::EntityType type = OsmElement::EntityType::Unknown)
 {
   OsmElement e;
   e.m_type = type;
@@ -69,15 +67,10 @@ FeatureBuilderParams GetFeatureBuilderParams(
   return params;
 }
 
-
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_SkipDummy)
 {
   Tags const tags = {
-    { "abutters", "residential" },
-    { "highway", "primary" },
-    { "osmarender:renderRef", "no" },
-    { "ref", "E51" }
-  };
+    {"abutters", "residential"}, {"highway", "primary"}, {"osmarender:renderRef", "no"}, {"ref", "E51"}};
 
   auto const params = GetFeatureBuilderParams(tags);
 
@@ -88,12 +81,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SkipDummy)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Oneway)
 {
   {
-    Tags const tags = {
-      { "highway", "primary" },
-      { "motorroad", "yes" },
-      { "name", "Каширское шоссе" },
-      { "oneway", "yes" }
-    };
+    Tags const tags = {{"highway", "primary"}, {"motorroad", "yes"}, {"name", "Каширское шоссе"}, {"oneway", "yes"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -103,12 +91,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Oneway)
   }
 
   {
-    Tags const tags = {
-      { "highway", "primary" },
-      { "name", "Каширское шоссе" },
-      { "oneway", "-1" },
-      { "motorroad", "yes" }
-    };
+    Tags const tags = {{"highway", "primary"}, {"name", "Каширское шоссе"}, {"oneway", "-1"}, {"motorroad", "yes"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -122,9 +105,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Location)
 {
   {
     Tags const tags = {
-      { "power", "line" },
-      { "location", "underground" },
-      { "man_made", "pipeline" },
+      {"power", "line"},
+      {"location", "underground"},
+      {"man_made", "pipeline"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -134,8 +117,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Location)
 
   {
     Tags const tags = {
-      { "power", "line" },
-      { "man_made", "pipeline" },
+      {"power", "line"},
+      {"man_made", "pipeline"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -143,14 +126,14 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Location)
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"power", "line"})), ());
     // We don't have drawing rules now for pipeline.
-    //TEST(params.IsTypeExist(GetType({"man_made", "pipeline"})), ());
+    // TEST(params.IsTypeExist(GetType({"man_made", "pipeline"})), ());
   }
 
   {
     Tags const tags = {
-      { "power", "line" },
-      { "location", "overground" },
-      { "man_made", "pipeline" },
+      {"power", "line"},
+      {"location", "overground"},
+      {"man_made", "pipeline"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -163,13 +146,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Location)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Combined)
 {
   Tags const tags = {
-    { "addr:housenumber", "84" },
-    { "addr:postcode", "220100" },
-    { "addr:street", "ул. Максима Богдановича" },
-    { "amenity", "school" },
-    { "building", "yes" },
-    { "name", "Гимназия 15" }
-  };
+    {"addr:housenumber", "84"}, {"addr:postcode", "220100"}, {"addr:street", "ул. Максима Богдановича"},
+    {"amenity", "school"},      {"building", "yes"},         {"name", "Гимназия 15"}};
 
   auto const params = GetFeatureBuilderParams(tags);
 
@@ -189,7 +167,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
   uint32_t const addrType = GetType({"building", "address"});
   {
     // Single house number tag is transformed into address type.
-    Tags const tags = { {"addr:housenumber", "42"} };
+    Tags const tags = {{"addr:housenumber", "42"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -200,15 +178,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
   }
 
   {
-    Tags const tags = {
-      { "addr:conscriptionnumber", "223" },
-      { "addr:housenumber", "223/5" },
-      { "addr:postcode", "11000" },
-      { "addr:street", "Řetězová" },
-      { "addr:streetnumber", "5" },
-      { "source:addr", "uir_adr" },
-      { "uir_adr:ADRESA_KOD", "21717036" }
-    };
+    Tags const tags = {{"addr:conscriptionnumber", "223"}, {"addr:housenumber", "223/5"}, {"addr:postcode", "11000"},
+                       {"addr:street", "Řetězová"},        {"addr:streetnumber", "5"},    {"source:addr", "uir_adr"},
+                       {"uir_adr:ADRESA_KOD", "21717036"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -222,14 +194,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
 
   {
     Tags const tags = {
-      {"addr:city", "Zürich"},
-      {"addr:housenumber", "41"},
-      {"addr:postcode", "8050"},
-      {"addr:street", "Leutschenbachstrasse"},
-      {"entrance", "main"},
-      {"survey:date", "2020-12-17"},
-      {"wheelchair", "no"},
-      {"internet_access", "wlan"},
+      {"addr:city", "Zürich"},   {"addr:housenumber", "41"},
+      {"addr:postcode", "8050"}, {"addr:street", "Leutschenbachstrasse"},
+      {"entrance", "main"},      {"survey:date", "2020-12-17"},
+      {"wheelchair", "no"},      {"internet_access", "wlan"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -246,12 +214,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
 
   {
     Tags const tags = {
-      {"addr:city", "Šķaune"},
-      {"addr:country", "LV"},
-      {"addr:district", "Krāslavas novads"},
-      {"addr:housename", "Rozemnieki"},
-      {"addr:postcode", "LV-5695"},
-      {"addr:subdistrict", "Šķaunes pagasts"},
+      {"addr:city", "Šķaune"},          {"addr:country", "LV"},       {"addr:district", "Krāslavas novads"},
+      {"addr:housename", "Rozemnieki"}, {"addr:postcode", "LV-5695"}, {"addr:subdistrict", "Šķaunes pagasts"},
       {"ref:LV:addr", "104934702"},
     };
 
@@ -292,15 +256,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
 
   {
     Tags const tags = {
-      {"addr:city", "München"},
-      {"addr:country", "DE"},
-      {"addr:housenumber", "27"},
-      {"addr:postcode", "80339"},
-      {"addr:street", "Ligsalzstraße"},
-      {"clothes", "children"},
-      {"disused:shop", "clothes"},
-      {"name", "Westendprinz"},
-      {"operator", "Meike Hannig"},
+      {"addr:city", "München"},    {"addr:country", "DE"},           {"addr:housenumber", "27"},
+      {"addr:postcode", "80339"},  {"addr:street", "Ligsalzstraße"}, {"clothes", "children"},
+      {"disused:shop", "clothes"}, {"name", "Westendprinz"},         {"operator", "Meike Hannig"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -318,17 +276,15 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)
 {
-  Tags const tags = {
-    { "alt_name:vi", "California" },
-    { "is_in", "USA" },
-    { "is_in:continent", "North America" },
-    { "is_in:country", "USA" },
-    { "is_in:country_code", "us" },
-    { "name", "California" },
-    { "place", "state" },
-    { "population", "37253956" },
-    { "ref", "CA" }
-  };
+  Tags const tags = {{"alt_name:vi", "California"},
+                     {"is_in", "USA"},
+                     {"is_in:continent", "North America"},
+                     {"is_in:country", "USA"},
+                     {"is_in:country_code", "us"},
+                     {"name", "California"},
+                     {"place", "state"},
+                     {"population", "37253956"},
+                     {"ref", "CA"}};
 
   auto const params = GetFeatureBuilderParams(tags);
 
@@ -343,36 +299,31 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_AlabamaRiver)
 {
-  Tags const tags1 = {
-    { "NHD:FCode", "55800" },
-    { "NHD:FType", "558" },
-    { "NHD:RESOLUTION", "2" },
-    { "NHD:way_id", "139286586;139286577;139286596;139286565;139286574;139286508;139286600;139286591;139286507;139286505;139286611;139286602;139286594;139286604;139286615;139286616;139286608;139286514;139286511;139286564;139286576;139286521;139286554" },
-    { "attribution", "NHD" },
-    { "boat", "yes" },
-    { "deep_draft", "no" },
-    { "gnis:feature_id", "00517033" },
-    { "name", "Tennessee River" },
-    { "ship", "yes" },
-    { "source", "NHD_import_v0.4_20100913205417" },
-    { "source:deep_draft", "National Transportation Atlas Database 2011" },
-    { "waterway", "river" }
-  };
+  Tags const tags1 = {{"NHD:FCode", "55800"},
+                      {"NHD:FType", "558"},
+                      {"NHD:RESOLUTION", "2"},
+                      {"NHD:way_id",
+                       "139286586;139286577;139286596;139286565;139286574;139286508;139286600;139286591;139286507;"
+                       "139286505;139286611;139286602;139286594;139286604;139286615;139286616;139286608;139286514;"
+                       "139286511;139286564;139286576;139286521;139286554"},
+                      {"attribution", "NHD"},
+                      {"boat", "yes"},
+                      {"deep_draft", "no"},
+                      {"gnis:feature_id", "00517033"},
+                      {"name", "Tennessee River"},
+                      {"ship", "yes"},
+                      {"source", "NHD_import_v0.4_20100913205417"},
+                      {"source:deep_draft", "National Transportation Atlas Database 2011"},
+                      {"waterway", "river"}};
 
   Tags const tags2 = {
-    { "destination", "Ohio River" },
-    { "name", "Tennessee River" },
-    { "type", "waterway" },
-    { "waterway", "river" }
-  };
+    {"destination", "Ohio River"}, {"name", "Tennessee River"}, {"type", "waterway"}, {"waterway", "river"}};
 
-  Tags const tags3 = {
-    { "name", "Tennessee River" },
-    { "network", "inland waterways" },
-    { "route", "boat" },
-    { "ship", "yes" },
-    { "type", "route" }
-  };
+  Tags const tags3 = {{"name", "Tennessee River"},
+                      {"network", "inland waterways"},
+                      {"route", "boat"},
+                      {"ship", "yes"},
+                      {"type", "route"}};
 
   OsmElement e;
   FillXmlElement(tags1, &e);
@@ -391,13 +342,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
   // Smoke test.
   {
     Tags const tags = {
-      { "building", "yes" },
-      { "atm", "yes" },
-      { "shop", "yes" },
-      { "restaurant", "yes" },
-      { "hotel", "yes" },
-      { "toilets", "yes" },
-      { "drinkable", "yes"},
+      {"building", "yes"}, {"atm", "yes"},     {"shop", "yes"},      {"restaurant", "yes"},
+      {"hotel", "yes"},    {"toilets", "yes"}, {"drinkable", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -415,10 +361,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
 
   // Duplicating test.
   {
-    Tags const tags = {
-      { "amenity", "atm" },
-      { "atm", "yes" }
-    };
+    Tags const tags = {{"amenity", "atm"}, {"atm", "yes"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -428,11 +371,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
 
   // "NO" tag test.
   {
-    Tags const tags = {
-      { "building", "yes" },
-      { "shop", "no" },
-      { "atm", "no" }
-    };
+    Tags const tags = {{"building", "yes"}, {"shop", "no"}, {"atm", "no"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -445,8 +384,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
 {
   {
     Tags const tags = {
-      { "capital", "6" },
-      { "place", "city" },
+      {"capital", "6"},
+      {"place", "city"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -457,9 +396,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
 
   {
     Tags const tags = {
-      { "admin_level", "6" },
-      { "capital", "no" },
-      { "place", "city" },
+      {"admin_level", "6"},
+      {"capital", "no"},
+      {"place", "city"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -529,15 +468,12 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_DePlace)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Route)
 {
   {
-    Tags const tags = {
-      { "highway", "motorway" },
-      { "ref", "I 95" }
-    };
+    Tags const tags = {{"highway", "motorway"}, {"ref", "I 95"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
-    TEST(params.IsTypeExist(GetType({ "highway", "motorway" })), ());
+    TEST(params.IsTypeExist(GetType({"highway", "motorway"})), ());
     TEST_EQUAL(params.ref, "I 95", ());
   }
 }
@@ -546,9 +482,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
 {
   {
     Tags const tags = {
-      { "highway", "motorway" },
-      { "bridge", "yes" },
-      { "layer", "2" },
+      {"highway", "motorway"},
+      {"bridge", "yes"},
+      {"layer", "2"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -560,9 +496,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
 
   {
     Tags const tags = {
-      { "highway", "trunk" },
-      { "tunnel", "yes" },
-      { "layer", "-1" },
+      {"highway", "trunk"},
+      {"tunnel", "yes"},
+      {"layer", "-1"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -574,8 +510,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
 
   {
     Tags const tags = {
-      { "highway", "secondary" },
-      { "bridge", "yes" },
+      {"highway", "secondary"},
+      {"bridge", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -602,8 +538,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
 
   {
     Tags const tags = {
-      { "highway", "primary" },
-      { "tunnel", "yes" },
+      {"highway", "primary"},
+      {"tunnel", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -615,7 +551,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
 
   {
     Tags const tags = {
-      { "highway", "living_street" },
+      {"highway", "living_street"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -630,8 +566,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Amenity)
 {
   {
     Tags const tags = {
-      { "amenity", "bbq" },
-      { "fuel", "wood" },
+      {"amenity", "bbq"},
+      {"fuel", "wood"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -645,9 +581,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 {
   {
     Tags const tags = {
-      { "railway", "light_rail" },
-      { "access", "private" },
-      { "oneway", "true" },
+      {"railway", "light_rail"},
+      {"access", "private"},
+      {"oneway", "true"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -658,14 +594,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
   {
     Tags const tags = {
-        {"oneway", "-1"},
-        {"highway", "primary"},
-        {"access", "private"},
-        {"lit", "no"},
-        {"foot", "no"},
-        {"bicycle", "yes"},
-        {"oneway:bicycle", "no"},
-        {"motor_vehicle", "yes"},
+      {"oneway", "-1"}, {"highway", "primary"}, {"access", "private"},    {"lit", "no"},
+      {"foot", "no"},   {"bicycle", "yes"},     {"oneway:bicycle", "no"}, {"motor_vehicle", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -678,14 +608,14 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "bidir_bicycle"})), ());
     // We don't put yescar tag for features that already Yes by default.
-    //TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
+    // TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
   }
 
   {
     Tags const tags = {
-        {"foot", "designated"},
-        {"cycleway", "lane"},
-        {"highway", "primary"},
+      {"foot", "designated"},
+      {"cycleway", "lane"},
+      {"highway", "primary"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -698,10 +628,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
   {
     Tags const tags = {
-        {"foot", "use_sidepath"},
-        {"sidewalk", "left"},
-        {"cycleway:both", "separate"},
-        {"highway", "primary"},
+      {"foot", "use_sidepath"},
+      {"sidewalk", "left"},
+      {"cycleway:both", "separate"},
+      {"highway", "primary"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -711,14 +641,14 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nocycleway"})), ());
     // No cycleway doesn't mean that bicycle is not allowed.
-    //TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
+    // TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
   }
 
   {
     Tags const tags = {
-        {"foot", "unknown"},
-        {"bicycle", "dismount"},
-        {"highway", "bridleway"},
+      {"foot", "unknown"},
+      {"bicycle", "dismount"},
+      {"highway", "bridleway"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -729,9 +659,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
   {
     Tags const tags = {
-        {"motor_vehicle", "yes"},
-        {"motorcar", "no"},
-        {"highway", "track"},
+      {"motor_vehicle", "yes"},
+      {"motorcar", "no"},
+      {"highway", "track"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -743,12 +673,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
   {
     Tags const tags = {
-        {"foot", "no"},
-        {"bicycle", "no"},
-        {"sidewalk:left", "yes"},
-        {"cycleway:right", "yes"},
-        {"highway", "trunk"},
-        {"motorcar", "designated"},
+      {"foot", "no"},       {"bicycle", "no"},          {"sidewalk:left", "yes"}, {"cycleway:right", "yes"},
+      {"highway", "trunk"}, {"motorcar", "designated"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -757,16 +683,12 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
     TEST(params.IsTypeExist(GetType({"highway", "trunk"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nofoot"})), ());
     TEST(params.IsTypeExist(GetType({"hwtag", "nobicycle"})), ());
-    //TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
+    // TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), ());
   }
 
   {
     Tags const tags = {
-        {"foot", "yes"},
-        {"bicycle", "yes"},
-        {"sidewalk", "no"},
-        {"cycleway", "no"},
-        {"highway", "path"},
+      {"foot", "yes"}, {"bicycle", "yes"}, {"sidewalk", "no"}, {"cycleway", "no"}, {"highway", "path"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -779,9 +701,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 
   {
     Tags const tags = {
-        {"sidewalk:both", "no"},
-        {"bicycle_road", "yes"},
-        {"highway", "residential"},
+      {"sidewalk:both", "no"},
+      {"bicycle_road", "yes"},
+      {"highway", "residential"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -892,8 +814,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
 
   {
     Tags const tags = {
-        {"highway", "trunk"},
-        {"smoothness", "intermediate"},
+      {"highway", "trunk"},
+      {"smoothness", "intermediate"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -904,9 +826,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
 
   {
     Tags const tags = {
-        {"highway", "motorway"},
-        {"smoothness", "intermediate"},
-        {"surface", "asphalt"},
+      {"highway", "motorway"},
+      {"smoothness", "intermediate"},
+      {"surface", "asphalt"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -917,8 +839,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
 
   {
     Tags const tags = {
-        {"highway", "track"},
-        {"smoothness", "bad"},
+      {"highway", "track"},
+      {"smoothness", "bad"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -956,7 +878,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
   {
     Tags const tags = {
-      { "route", "ferry" },
+      {"route", "ferry"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -968,16 +890,16 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
   uint32_t const shuttleType = GetType({"route", "shuttle_train"});
   /// @todo Strange, but they are processed by foot/bicycle=yes/no in VehicleModel.
-  //TEST(routing::PedestrianModel::AllLimitsInstance().IsRoadType(shuttleType), ());
-  //TEST(routing::BicycleModel::AllLimitsInstance().IsRoadType(shuttleType), ());
+  // TEST(routing::PedestrianModel::AllLimitsInstance().IsRoadType(shuttleType), ());
+  // TEST(routing::BicycleModel::AllLimitsInstance().IsRoadType(shuttleType), ());
   TEST(routing::CarModel::AllLimitsInstance().IsRoadType(shuttleType), ());
 
   {
     Tags const tags = {
-      { "route", "shuttle_train" },
-      { "bicycle", "yes" },
-      { "foot", "no" },
-      { "motorcar", "yes" },
+      {"route", "shuttle_train"},
+      {"bicycle", "yes"},
+      {"foot", "no"},
+      {"motorcar", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -991,9 +913,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
   {
     Tags const tags = {
-      { "route", "train" },
-      { "shuttle", "yes" },
-      { "motor_vehicle", "yes" },
+      {"route", "train"},
+      {"shuttle", "yes"},
+      {"motor_vehicle", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1005,8 +927,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
   {
     Tags const tags = {
-      { "route", "train" },
-      { "shuttle", "no" },
+      {"route", "train"},
+      {"shuttle", "no"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1016,10 +938,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
   {
     Tags const tags = {
-      { "foot", "no" },
-      { "bicycle", "no" },
-      { "motorcar", "yes" },
-      { "route", "ferry" },
+      {"foot", "no"},
+      {"bicycle", "no"},
+      {"motorcar", "yes"},
+      {"route", "ferry"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1033,9 +955,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 
   {
     Tags const tags = {
-        {"ferry", "path"},
-        {"bicycle", "no"},
-        {"route", "ferry"},
+      {"ferry", "path"},
+      {"bicycle", "no"},
+      {"route", "ferry"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1055,10 +977,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Boundary)
 {
   {
     Tags const tags = {
-      { "admin_level", "4" },
-      { "boundary", "administrative" },
-      { "admin_level", "2" },
-      { "boundary", "administrative" },
+      {"admin_level", "4"},
+      {"boundary", "administrative"},
+      {"admin_level", "2"},
+      {"boundary", "administrative"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1070,8 +992,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Boundary)
 
   {
     Tags const tags = {
-      { "protect_class", "1b" },
-      { "boundary", "protected_area" },
+      {"protect_class", "1b"},
+      {"boundary", "protected_area"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1084,15 +1006,15 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Boundary)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Dibrugarh)
 {
   Tags const tags = {
-    { "AND_a_c", "10001373" },
-    { "addr:city", "Dibrugarh" },
-    { "addr:housenumber", "hotel vishal" },
-    { "addr:postcode", "786001" },
-    { "addr:street", "Marwari Patty,Puja Ghat" },
-    { "name", "Dibrugarh" },
-    { "phone", "03732320016" },
-    { "place", "city" },
-    { "website", "http://www.hotelvishal.in" },
+    {"AND_a_c", "10001373"},
+    {"addr:city", "Dibrugarh"},
+    {"addr:housenumber", "hotel vishal"},
+    {"addr:postcode", "786001"},
+    {"addr:street", "Marwari Patty,Puja Ghat"},
+    {"name", "Dibrugarh"},
+    {"phone", "03732320016"},
+    {"place", "city"},
+    {"website", "http://www.hotelvishal.in"},
   };
 
   auto const params = GetFeatureBuilderParams(tags);
@@ -1108,11 +1030,11 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
 {
   {
     Tags const tags = {
-      { "network", "Московский метрополитен" },
-      { "operator", "ГУП «Московский метрополитен»" },
-      { "railway", "station" },
-      { "station", "subway" },
-      { "transport", "subway" },
+      {"network", "Московский метрополитен"},
+      {"operator", "ГУП «Московский метрополитен»"},
+      {"railway", "station"},
+      {"station", "subway"},
+      {"transport", "subway"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1138,12 +1060,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
 
   {
     Tags const tags = {
-      { "name", "S Landsberger Allee" },
-      { "phone", "030 29743333" },
-      { "public_transport", "stop_position" },
-      { "railway", "station" },
-      { "network", "New York City Subway" },
-      { "station", "light_rail" },
+      {"name", "S Landsberger Allee"}, {"phone", "030 29743333"},           {"public_transport", "stop_position"},
+      {"railway", "station"},          {"network", "New York City Subway"}, {"station", "light_rail"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1154,14 +1072,14 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
 
   {
     Tags const tags = {
-      { "monorail", "yes" },
-      { "name", "Улица Академика Королёва" },
-      { "network", "Московский метрополитен" },
-      { "operator", "ГУП «Московский метрополитен»" },
-      { "public_transport", "stop_position" },
-      { "railway", "station" },
-      { "station", "monorail" },
-      { "transport", "monorail" },
+      {"monorail", "yes"},
+      {"name", "Улица Академика Королёва"},
+      {"network", "Московский метрополитен"},
+      {"operator", "ГУП «Московский метрополитен»"},
+      {"public_transport", "stop_position"},
+      {"railway", "station"},
+      {"station", "monorail"},
+      {"transport", "monorail"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1172,11 +1090,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
 
   {
     Tags const tags = {
-      { "line",	"Northern, Bakerloo" },
-      { "name",	"Charing Cross" },
-      { "network", "London Underground" },
-      { "operator", "TfL" },
-      { "railway", "station" },
+      {"line", "Northern, Bakerloo"}, {"name", "Charing Cross"}, {"network", "London Underground"}, {"operator", "TfL"},
+      {"railway", "station"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1187,25 +1102,25 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
 
   {
     Tags const tags = {
-      { "artist_name", "Архитекторы: Н.Лопато, В.Шкарупин, В.Телепнев Скульптор: Л.Зильбер. Дизайнер: Н.Грибов" },
-      { "colour", "red" },
-      { "int_name", "Frunzienskaja" },
-      { "name", "Фрунзенская" },
-      { "name:be", "Фрунзенская" },
-      { "name:en", "Frunzienskaja" },
-      { "name:ru", "Фрунзенская" },
-      { "network", "Минский метрополитен" },
-      { "operator", "КУП «Минский метрополитен»" },
-      { "public_transport", "stop_position" },
-      { "railway", "station" },
-      { "ref", "218" },
-      { "start_date", "1990-12-31" },
-      { "station", "subway" },
-      { "subway", "yes" },
-      { "transport", "subway" },
-      { "website", "https://metropoliten.by/sxema-linii/54/224/" },
-      { "wheelchair", "no" },
-      { "wikidata", "Q2445504" },
+      {"artist_name", "Архитекторы: Н.Лопато, В.Шкарупин, В.Телепнев Скульптор: Л.Зильбер. Дизайнер: Н.Грибов"},
+      {"colour", "red"},
+      {"int_name", "Frunzienskaja"},
+      {"name", "Фрунзенская"},
+      {"name:be", "Фрунзенская"},
+      {"name:en", "Frunzienskaja"},
+      {"name:ru", "Фрунзенская"},
+      {"network", "Минский метрополитен"},
+      {"operator", "КУП «Минский метрополитен»"},
+      {"public_transport", "stop_position"},
+      {"railway", "station"},
+      {"ref", "218"},
+      {"start_date", "1990-12-31"},
+      {"station", "subway"},
+      {"subway", "yes"},
+      {"transport", "subway"},
+      {"website", "https://metropoliten.by/sxema-linii/54/224/"},
+      {"wheelchair", "no"},
+      {"wikidata", "Q2445504"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1217,26 +1132,26 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
 
   {
     Tags const tags = {
-      { "artist_name", "Архитектор: В. Лопато" },
-      { "colour", "green" },
-      { "int_name", "Jubiliejnaja plošča" },
-      { "layer", "-5" },
-      { "line", "Зеленый Луг" },
-      { "name", "Юбілейная плошча" },
-      { "name:be", "Юбілейная плошча" },
-      { "name:ru", "Юбилейная площадь" },
-      { "network", "Минский метрополитен" },
-      { "operator", "КУП «Минский метрополитен»" },
-      { "public_transport", "stop_position" },
-      { "railway", "station" },
-      { "ref", "316" },
-      { "start_date", "2020-11-06" },
-      { "station", "subway" },
-      { "subway", "yes" },
-      { "transport", "subway" },
-      { "website", "https://metropoliten.by/sxema-linii/91/2781/" },
-      { "wikidata", "Q4365831" },
-      { "wikipedia", "be:Юбілейная плошча (станцыя метро)" },
+      {"artist_name", "Архитектор: В. Лопато"},
+      {"colour", "green"},
+      {"int_name", "Jubiliejnaja plošča"},
+      {"layer", "-5"},
+      {"line", "Зеленый Луг"},
+      {"name", "Юбілейная плошча"},
+      {"name:be", "Юбілейная плошча"},
+      {"name:ru", "Юбилейная площадь"},
+      {"network", "Минский метрополитен"},
+      {"operator", "КУП «Минский метрополитен»"},
+      {"public_transport", "stop_position"},
+      {"railway", "station"},
+      {"ref", "316"},
+      {"start_date", "2020-11-06"},
+      {"station", "subway"},
+      {"subway", "yes"},
+      {"transport", "subway"},
+      {"website", "https://metropoliten.by/sxema-linii/91/2781/"},
+      {"wikidata", "Q4365831"},
+      {"wikipedia", "be:Юбілейная плошча (станцыя метро)"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1250,9 +1165,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_PublicTransport)
 {
   {
     Tags const tags = {
-      { "name", "Платонава" },
-      { "public_transport", "stop_position" },
-      { "tram", "yes" },
+      {"name", "Платонава"},
+      {"public_transport", "stop_position"},
+      {"tram", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags, OsmElement::EntityType::Node);
@@ -1263,9 +1178,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_PublicTransport)
 
   {
     Tags const tags = {
-      { "funicular", "yes" },
-      { "name", "Gare Pfaffenthal-Kirchberg" },
-      { "public_transport", "stop_position" },
+      {"funicular", "yes"},
+      {"name", "Gare Pfaffenthal-Kirchberg"},
+      {"public_transport", "stop_position"},
     };
 
     auto const params = GetFeatureBuilderParams(tags, OsmElement::EntityType::Node);
@@ -1279,7 +1194,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hospital)
 {
   {
     Tags const tags = {
-      { "building", "hospital" },
+      {"building", "hospital"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1290,8 +1205,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hospital)
 
   {
     Tags const tags = {
-      { "building", "yes" },
-      { "amenity", "hospital" },
+      {"building", "yes"},
+      {"amenity", "hospital"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1306,8 +1221,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Entrance)
 {
   {
     Tags const tags = {
-      { "building", "entrance" },
-      { "barrier", "entrance" },
+      {"building", "entrance"},
+      {"barrier", "entrance"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1322,24 +1237,24 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Moscow)
 {
   {
     Tags const tags = {
-      { "addr:country", "RU" },
-      { "addr:region", "Москва" },
-      { "admin_level", "2" },
-      { "alt_name:vi", "Mạc Tư Khoa" },
-      { "capital", "yes" },
-      { "ele", "156" },
-      { "int_name", "Moscow" },
-      { "is_capital", "country" },
-      { "ISO3166-2", "RU-MOW" },
-      { "name", "Москва" },
-      { "note", "эта точка должна быть здесь, в историческом центре Москвы" },
-      { "official_status", "ru:город" },
-      { "okato:user", "none" },
-      { "place", "city" },
-      { "population", "12108257" },
-      { "population:date", "2014-01-01" },
-      { "rank", "0" },
-      { "wikipedia", "ru:Москва" },
+      {"addr:country", "RU"},
+      {"addr:region", "Москва"},
+      {"admin_level", "2"},
+      {"alt_name:vi", "Mạc Tư Khoa"},
+      {"capital", "yes"},
+      {"ele", "156"},
+      {"int_name", "Moscow"},
+      {"is_capital", "country"},
+      {"ISO3166-2", "RU-MOW"},
+      {"name", "Москва"},
+      {"note", "эта точка должна быть здесь, в историческом центре Москвы"},
+      {"official_status", "ru:город"},
+      {"okato:user", "none"},
+      {"place", "city"},
+      {"population", "12108257"},
+      {"population:date", "2014-01-01"},
+      {"rank", "0"},
+      {"wikipedia", "ru:Москва"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1353,15 +1268,13 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Moscow)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Translations)
 {
-  Tags const tags = {
-    { "name", "Paris" },
-    { "name:ru", "Париж" },
-    { "name:en", "Paris" },
-    { "name:en:pronunciation", "ˈpæɹ.ɪs" },
-    { "name:fr:pronunciation", "paʁi" },
-    { "place", "city" },
-    { "population", "2243833" }
-  };
+  Tags const tags = {{"name", "Paris"},
+                     {"name:ru", "Париж"},
+                     {"name:en", "Paris"},
+                     {"name:en:pronunciation", "ˈpæɹ.ɪs"},
+                     {"name:fr:pronunciation", "paʁi"},
+                     {"place", "city"},
+                     {"population", "2243833"}};
 
   auto const params = GetFeatureBuilderParams(tags);
 
@@ -1382,7 +1295,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cuisine)
 {
   {
     Tags const tags = {
-      { "cuisine", "indian ; steak,coffee  shop " },
+      {"cuisine", "indian ; steak,coffee  shop "},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1397,20 +1310,18 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cuisine)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hotel)
 {
   using Type = std::vector<std::string>;
-  std::vector<std::pair<std::vector<Type>, Tags>> const types = {
-    {
-      {{"tourism", "hotel"}},
-      {{"tourism", "hotel"}},
-    },
-    {
-      {{"building"}},
-      {{"building", "hotel"}},
-    },
-    {
-      {{"tourism", "hotel"}},
-      {{"hotel", "yes"}},
-    }
-  };
+  std::vector<std::pair<std::vector<Type>, Tags>> const types = {{
+                                                                   {{"tourism", "hotel"}},
+                                                                   {{"tourism", "hotel"}},
+                                                                 },
+                                                                 {
+                                                                   {{"building"}},
+                                                                   {{"building", "hotel"}},
+                                                                 },
+                                                                 {
+                                                                   {{"tourism", "hotel"}},
+                                                                   {{"hotel", "yes"}},
+                                                                 }};
 
   for (auto const & t : types)
   {
@@ -1424,11 +1335,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hotel)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_OldName)
 {
   {
-    Tags const tags = {
-      {"highway", "residential"},
-      {"name", "Улица Веткина"},
-      {"old_name", "Царская Ветка"}
-    };
+    Tags const tags = {{"highway", "residential"}, {"name", "Улица Веткина"}, {"old_name", "Царская Ветка"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -1462,10 +1369,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
 {
   {
     Tags const tags = {
-      {"tourism", "museum"},
-      {"name", "Московский музей современного искусства"},
-      {"alt_name", "MMOMA"}
-    };
+      {"tourism", "museum"}, {"name", "Московский музей современного искусства"}, {"alt_name", "MMOMA"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -1477,10 +1381,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
   }
   {
     Tags const tags = {
-      {"tourism", "museum"},
-      {"name", "Московский музей современного искусства"},
-      {"alt_name:en", "MMOMA"}
-    };
+      {"tourism", "museum"}, {"name", "Московский музей современного искусства"}, {"alt_name:en", "MMOMA"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -1495,11 +1396,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_AltName)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
 {
   {
-    Tags const tags = {
-      {"place", "city"},
-      {"name", "Tokyo"},
-      {"name:ja_kana", "トウキョウト"}
-    };
+    Tags const tags = {{"place", "city"}, {"name", "Tokyo"}, {"name:ja_kana", "トウキョウト"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -1510,11 +1407,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
     TEST_EQUAL(s, "トウキョウト", ());
   }
   {
-    Tags const tags = {
-      {"place", "city"},
-      {"name", "Tokyo"},
-      {"name:ja-Hira", "とうきょうと"}
-    };
+    Tags const tags = {{"place", "city"}, {"name", "Tokyo"}, {"name:ja-Hira", "とうきょうと"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -1527,11 +1420,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
   }
   {
     Tags const tags = {
-      {"place", "city"},
-      {"name", "Tokyo"},
-      {"name:ja_kana", "トウキョウト"},
-      {"name:ja-Hira", "とうきょうと"}
-    };
+      {"place", "city"}, {"name", "Tokyo"}, {"name:ja_kana", "トウキョウト"}, {"name:ja-Hira", "とうきょうと"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -1544,11 +1433,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameJaKana)
   }
   {
     Tags const tags = {
-      {"place", "city"},
-      {"name", "Tokyo"},
-      {"name:ja-Hira", "とうきょうと"},
-      {"name:ja_kana", "トウキョウト"}
-    };
+      {"place", "city"}, {"name", "Tokyo"}, {"name:ja-Hira", "とうきょうと"}, {"name:ja_kana", "トウキョウト"}};
 
     auto const params = GetFeatureBuilderParams(tags);
 
@@ -1565,8 +1450,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_MergeTags)
 {
   {
     Tags const tags = {
-        {"amenity", "parking"},
-        {"parking", "multi-storey"},
+      {"amenity", "parking"},
+      {"parking", "multi-storey"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1576,8 +1461,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_MergeTags)
   }
   {
     Tags const tags = {
-        {"amenity", "parking"},
-        {"location", "underground"},
+      {"amenity", "parking"},
+      {"location", "underground"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1587,8 +1472,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_MergeTags)
   }
   {
     Tags const tags = {
-        {"amenity", "parking_space"},
-        {"parking", "underground"},
+      {"amenity", "parking_space"},
+      {"parking", "underground"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1602,9 +1487,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ReuseTags)
 {
   {
     Tags const tags = {
-        {"amenity", "parking"},
-        {"access", "private"},
-        {"fee", "yes"},
+      {"amenity", "parking"},
+      {"access", "private"},
+      {"fee", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1620,8 +1505,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_DoNotMergeTags)
 {
   {
     Tags const tags = {
-        {"place", "unknown_place_value"},
-        {"country", "unknown_country_value"},
+      {"place", "unknown_place_value"},
+      {"country", "unknown_country_value"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1630,9 +1515,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_DoNotMergeTags)
   }
   {
     Tags const tags = {
-        {"amenity", "hospital"},
-        {"emergency", "yes"},
-        {"phone", "77777777"},
+      {"amenity", "hospital"},
+      {"emergency", "yes"},
+      {"phone", "77777777"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1643,8 +1528,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_DoNotMergeTags)
   }
   {
     Tags const tags = {
-        {"shop", "unknown_shop_value"},
-        {"photo", "photo_url"},
+      {"shop", "unknown_shop_value"},
+      {"photo", "photo_url"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1658,8 +1543,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_DoNotMergeTags)
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_AerodromeType)
 {
   Tags const tags = {
-      {"aeroway", "aerodrome"},
-      {"aerodrome:type", "international ; public"},
+    {"aeroway", "aerodrome"},
+    {"aerodrome:type", "international ; public"},
   };
 
   auto const params = GetFeatureBuilderParams(tags);
@@ -1673,7 +1558,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_CuisineType)
   {
     // Collapce synonyms to single type.
     Tags const tags = {
-        {"cuisine", "BBQ ; barbeque, barbecue;bbq"},
+      {"cuisine", "BBQ ; barbeque, barbecue;bbq"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1684,7 +1569,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_CuisineType)
   {
     // Replace space with underscore, ignore commas and semicolons.
     Tags const tags = {
-        {"cuisine", ",; ;   ; Fish and  Chips;; , , ;"},
+      {"cuisine", ",; ;   ; Fish and  Chips;; , , ;"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1695,7 +1580,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_CuisineType)
   {
     // Multiple cuisines.
     Tags const tags = {
-        {"cuisine", "Italian Pizza , mediterranean;international,"},
+      {"cuisine", "Italian Pizza , mediterranean;international,"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1735,11 +1620,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_NoExit)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Junctions)
 {
-  for (char const * value : { "yes", "jughandle" })
+  for (char const * value : {"yes", "jughandle"})
   {
-    Tags const tags = {
-        {"junction", value }
-    };
+    Tags const tags = {{"junction", value}};
 
     // Useless now, because they don't have any rules and are not set as an exception.
     auto const params = GetFeatureBuilderParams(tags);
@@ -1752,7 +1635,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Recycling)
 {
   {
     Tags const tags = {
-      {"amenity", "recycling" },
+      {"amenity", "recycling"},
       {"recycling:glass_bottles", "yes"},
       {"recycling:green_waste", "yes"},
     };
@@ -1767,11 +1650,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Recycling)
 
   {
     Tags const tags = {
-      {"amenity", "recycling" },
-      {"recycling_type", "centre"},
-      {"recycling:garden_waste", "no"},
-      {"recycling:organic", "no"},
-      {"recycling:glass", "yes"},
+      {"amenity", "recycling"},    {"recycling_type", "centre"}, {"recycling:garden_waste", "no"},
+      {"recycling:organic", "no"}, {"recycling:glass", "yes"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1783,7 +1663,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Recycling)
 
   {
     Tags const tags = {
-      {"amenity", "recycling" },
+      {"amenity", "recycling"},
       {"recycling_type", "container"},
       {"recycling:metal", "yes"},
       {"recycling:batteries", "yes"},
@@ -1813,7 +1693,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
 
   {
     Tags const tags = {
-      {"amenity", "restaurant" },
+      {"amenity", "restaurant"},
       {"description:ru", "Хорошие настойки"},
     };
 
@@ -1826,7 +1706,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
 
   {
     Tags const tags = {
-      {"amenity", "atm" },
+      {"amenity", "atm"},
       {"operator", "Default"},
       {"operator:en", "English"},
       {"brand::kk", "KK language"},
@@ -1845,11 +1725,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Metadata)
 
   {
     Tags const tags = {
-      {"amenity", "cafe"},
-      {"internet_access", "wlan"},
-      {"internet_access:password", "corrientes4199"},
-      {"name", "Jimbo"},
-      {"wifi", "corrientes4199"},
+      {"amenity", "cafe"}, {"internet_access", "wlan"}, {"internet_access:password", "corrientes4199"},
+      {"name", "Jimbo"},   {"wifi", "corrientes4199"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1864,7 +1741,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Vending)
 {
   {
     Tags const tags = {
-      {"amenity", "vending_machine" },
+      {"amenity", "vending_machine"},
       {"vending", "parcel_pickup;parcel_mail_in"},
     };
 
@@ -1880,7 +1757,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cliff)
   {
     Tags const tags = {
       {"cliff", "yes"},
-      {"natural", "ridge" },
+      {"natural", "ridge"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1894,7 +1771,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Organic)
   {
     Tags const tags = {
       {"organic", "only"},
-      {"amenity", "cafe" },
+      {"amenity", "cafe"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1907,7 +1784,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Organic)
   {
     Tags const tags = {
       {"organic", "no"},
-      {"shop", "bakery" },
+      {"shop", "bakery"},
     };
 
     auto const params = GetFeatureBuilderParams(tags);
@@ -1955,7 +1832,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Internet)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(params.IsTypeExist(GetType({"shop", "clothes" })), (params));
+    TEST(params.IsTypeExist(GetType({"shop", "clothes"})), (params));
     TEST(params.IsTypeExist(GetType({"internet_access", "wlan"})), (params));
   }
 
@@ -1969,7 +1846,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Internet)
     auto const params = GetFeatureBuilderParams(tags);
 
     TEST_EQUAL(params.m_types.size(), 2, (params));
-    TEST(params.IsTypeExist(GetType({"amenity", "internet_cafe" })), (params));
+    TEST(params.IsTypeExist(GetType({"amenity", "internet_cafe"})), (params));
     TEST(params.IsTypeExist(GetType({"internet_access"})), (params));
   }
 }
@@ -2072,48 +1949,78 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_RailwayRail)
     {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "unsupported_value"}}},
 
     // Bridges (note, railway-rail-bridge should be never matched).
-    {{"railway", "rail", "highspeed", "bridge"}, {{"railway", "rail"}, {"highspeed", "positive_value"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail", "highspeed", "bridge"}, {{"railway", "rail"}, {"usage", "main"}, {"highspeed", "positive_value"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail", "tourism", "bridge"}, {{"railway", "rail"}, {"usage", "tourism"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "highspeed", "bridge"},
+     {{"railway", "rail"}, {"highspeed", "positive_value"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "highspeed", "bridge"},
+     {{"railway", "rail"}, {"usage", "main"}, {"highspeed", "positive_value"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "tourism", "bridge"},
+     {{"railway", "rail"}, {"usage", "tourism"}, {"bridge", "positive_value"}}},
     {{"railway", "rail", "main", "bridge"}, {{"railway", "rail"}, {"usage", "main"}, {"bridge", "positive_value"}}},
     {{"railway", "rail", "branch", "bridge"}, {{"railway", "rail"}, {"usage", "branch"}, {"bridge", "positive_value"}}},
     {{"railway", "rail", "branch", "bridge"}, {{"railway", "rail"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail", "utility", "bridge"}, {{"railway", "rail"}, {"usage", "industrial"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail", "utility", "bridge"}, {{"railway", "rail"}, {"usage", "military"}, {"service", "spur"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "utility", "bridge"},
+     {{"railway", "rail"}, {"usage", "industrial"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "utility", "bridge"},
+     {{"railway", "rail"}, {"usage", "military"}, {"service", "spur"}, {"bridge", "positive_value"}}},
     {{"railway", "rail", "spur", "bridge"}, {{"railway", "rail"}, {"service", "spur"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"service", "yard"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"highspeed", "positive_value"}, {"service", "siding"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"usage", "main"}, {"service", "yard"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"usage", "branch"}, {"service", "crossover"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail", "service", "bridge"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "siding"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "service", "bridge"},
+     {{"railway", "rail"}, {"service", "yard"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "service", "bridge"},
+     {{"railway", "rail"}, {"highspeed", "positive_value"}, {"service", "siding"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "service", "bridge"},
+     {{"railway", "rail"}, {"usage", "main"}, {"service", "yard"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "service", "bridge"},
+     {{"railway", "rail"}, {"usage", "branch"}, {"service", "crossover"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail", "service", "bridge"},
+     {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "siding"}, {"bridge", "positive_value"}}},
     // TODO: better match to railway-rail-spur-bridge:
     {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"bridge", "positive_value"}}},
     // TODO: better match following 3 cases to railway-rail-service-bridge:
     {{"railway", "rail"}, {{"railway", "rail"}, {"service", "unsupported_value"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "main"}, {"service", "unsupported_value"}, {"bridge", "positive_value"}}},
-    {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "unsupported_value"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail"},
+     {{"railway", "rail"}, {"usage", "main"}, {"service", "unsupported_value"}, {"bridge", "positive_value"}}},
+    {{"railway", "rail"},
+     {{"railway", "rail"},
+      {"usage", "unsupported_value"},
+      {"service", "unsupported_value"},
+      {"bridge", "positive_value"}}},
 
     // Tunnels (note, railway-rail-tunnel should be never matched).
-    {{"railway", "rail", "highspeed", "tunnel"}, {{"railway", "rail"}, {"highspeed", "positive_value"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail", "highspeed", "tunnel"}, {{"railway", "rail"}, {"usage", "main"}, {"highspeed", "positive_value"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail", "tourism", "tunnel"}, {{"railway", "rail"}, {"usage", "tourism"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "highspeed", "tunnel"},
+     {{"railway", "rail"}, {"highspeed", "positive_value"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "highspeed", "tunnel"},
+     {{"railway", "rail"}, {"usage", "main"}, {"highspeed", "positive_value"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "tourism", "tunnel"},
+     {{"railway", "rail"}, {"usage", "tourism"}, {"tunnel", "positive_value"}}},
     {{"railway", "rail", "main", "tunnel"}, {{"railway", "rail"}, {"usage", "main"}, {"tunnel", "positive_value"}}},
     {{"railway", "rail", "branch", "tunnel"}, {{"railway", "rail"}, {"usage", "branch"}, {"tunnel", "positive_value"}}},
     {{"railway", "rail", "branch", "tunnel"}, {{"railway", "rail"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail", "utility", "tunnel"}, {{"railway", "rail"}, {"usage", "industrial"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail", "utility", "tunnel"}, {{"railway", "rail"}, {"usage", "military"}, {"service", "spur"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "utility", "tunnel"},
+     {{"railway", "rail"}, {"usage", "industrial"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "utility", "tunnel"},
+     {{"railway", "rail"}, {"usage", "military"}, {"service", "spur"}, {"tunnel", "positive_value"}}},
     {{"railway", "rail", "spur", "tunnel"}, {{"railway", "rail"}, {"service", "spur"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"service", "yard"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"highspeed", "positive_value"}, {"service", "siding"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"usage", "main"}, {"service", "yard"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"usage", "branch"}, {"service", "crossover"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail", "service", "tunnel"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "siding"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "service", "tunnel"},
+     {{"railway", "rail"}, {"service", "yard"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "service", "tunnel"},
+     {{"railway", "rail"}, {"highspeed", "positive_value"}, {"service", "siding"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "service", "tunnel"},
+     {{"railway", "rail"}, {"usage", "main"}, {"service", "yard"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "service", "tunnel"},
+     {{"railway", "rail"}, {"usage", "branch"}, {"service", "crossover"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail", "service", "tunnel"},
+     {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "siding"}, {"tunnel", "positive_value"}}},
     // TODO: better match to railway-rail-spur-tunnel:
     {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"tunnel", "positive_value"}}},
     // TODO: better match following 3 cases to railway-rail-service-tunnel:
     {{"railway", "rail"}, {{"railway", "rail"}, {"service", "unsupported_value"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "main"}, {"service", "unsupported_value"}, {"tunnel", "positive_value"}}},
-    {{"railway", "rail"}, {{"railway", "rail"}, {"usage", "unsupported_value"}, {"service", "unsupported_value"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail"},
+     {{"railway", "rail"}, {"usage", "main"}, {"service", "unsupported_value"}, {"tunnel", "positive_value"}}},
+    {{"railway", "rail"},
+     {{"railway", "rail"},
+      {"usage", "unsupported_value"},
+      {"service", "unsupported_value"},
+      {"tunnel", "positive_value"}}},
   };
 
   for (auto const & type : railTypes)
@@ -2742,8 +2649,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
   }
 
   Tags const exTypes = {
-      {"route", "ferry"},
-      {"route", "shuttle_train"},
+    {"route", "ferry"},
+    {"route", "shuttle_train"},
   };
 
   for (auto const & type : exTypes)
@@ -2771,7 +2678,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     //
     // two types (+hwtag yesbicycle) {{"highway", "path", "bicycle"}, {{"highway", "path"}, {"bicycle", "any_value"}}},
     // two types (+hwtag-private) {{"highway", "track", "no-access"}, {{"highway", "track"}, {"access", "no"}}},
-    // two types (+office) {{"tourism", "information", "office"}, {{"tourism", "information"}, {"office", "any_value"}}},
+    // two types (+office) {{"tourism", "information", "office"}, {{"tourism", "information"}, {"office",
+    // "any_value"}}},
     // two types (+sport-*) {{"leisure", "sports_centre"}, {{"leisure", "sports_centre"}, {"sport", "any_value"}}},
     //
     // Manually constructed type, not parsed from osm.
@@ -2797,8 +2705,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"amenity", "place_of_worship", "muslim"}, {{"amenity", "place_of_worship"}, {"religion", "muslim"}}},
     {{"amenity", "place_of_worship", "shinto"}, {{"amenity", "place_of_worship"}, {"religion", "shinto"}}},
     {{"amenity", "place_of_worship", "taoist"}, {{"amenity", "place_of_worship"}, {"religion", "taoist"}}},
-    {{"amenity", "recycling", "centre"}, {{"amenity", "recycling"}, {"recycling_type","centre"}}},
-    {{"amenity", "recycling", "container"}, {{"amenity", "recycling"}, {"recycling_type","container"}}},
+    {{"amenity", "recycling", "centre"}, {{"amenity", "recycling"}, {"recycling_type", "centre"}}},
+    {{"amenity", "recycling", "container"}, {{"amenity", "recycling"}, {"recycling_type", "container"}}},
     {{"amenity", "recycling"}, {{"amenity", "recycling"}}},
     {{"amenity", "parcel_locker"}, {{"amenity", "parcel_locker"}}},
     {{"amenity", "vending_machine", "cigarettes"}, {{"amenity", "vending_machine"}, {"vending", "cigarettes"}}},
@@ -2806,8 +2714,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"amenity", "vending_machine", "condoms"}, {{"amenity", "vending_machine"}, {"vending", "condoms"}}},
     {{"amenity", "vending_machine", "drinks"}, {{"amenity", "vending_machine"}, {"vending", "drinks"}}},
     {{"amenity", "vending_machine", "food"}, {{"amenity", "vending_machine"}, {"vending", "food"}}},
-    {{"amenity", "vending_machine", "parking_tickets"}, {{"amenity", "vending_machine"}, {"vending", "parking_tickets"}}},
-    {{"amenity", "vending_machine", "public_transport_tickets"}, {{"amenity", "vending_machine"}, {"vending", "public_transport_tickets"}}},
+    {{"amenity", "vending_machine", "parking_tickets"},
+     {{"amenity", "vending_machine"}, {"vending", "parking_tickets"}}},
+    {{"amenity", "vending_machine", "public_transport_tickets"},
+     {{"amenity", "vending_machine"}, {"vending", "public_transport_tickets"}}},
     {{"amenity", "vending_machine", "newspapers"}, {{"amenity", "vending_machine"}, {"vending", "newspapers"}}},
     {{"amenity", "vending_machine", "sweets"}, {{"amenity", "vending_machine"}, {"vending", "sweets"}}},
     {{"amenity"}, {{"amenity", "any_value"}}},
@@ -2983,8 +2893,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"railway", "station", "light_rail"}, {{"railway", "station"}, {"transport", "light_rail"}}},
     {{"railway", "station", "monorail"}, {{"railway", "station"}, {"station", "monorail"}}},
     {{"railway", "station", "monorail"}, {{"railway", "station"}, {"transport", "monorail"}}},
-    {{"railway", "station", "subway", "barcelona"}, {{"railway", "station"}, {"station", "subway"}, {"city", "barcelona"}}},
-    {{"railway", "station", "subway", "barcelona"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "barcelona"}}},
+    {{"railway", "station", "subway", "barcelona"},
+     {{"railway", "station"}, {"station", "subway"}, {"city", "barcelona"}}},
+    {{"railway", "station", "subway", "barcelona"},
+     {{"railway", "station"}, {"transport", "subway"}, {"city", "barcelona"}}},
     {{"railway", "station", "subway", "berlin"}, {{"railway", "station"}, {"station", "subway"}, {"city", "berlin"}}},
     {{"railway", "station", "subway", "berlin"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "berlin"}}},
     {{"railway", "station", "subway", "kiev"}, {{"railway", "station"}, {"station", "subway"}, {"city", "kiev"}}},
@@ -2998,7 +2910,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
     {{"railway", "station", "subway", "moscow"}, {{"railway", "station"}, {"station", "subway"}, {"city", "moscow"}}},
     {{"railway", "station", "subway", "moscow"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "moscow"}}},
     {{"railway", "station", "subway", "newyork"}, {{"railway", "station"}, {"station", "subway"}, {"city", "newyork"}}},
-    {{"railway", "station", "subway", "newyork"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "newyork"}}},
+    {{"railway", "station", "subway", "newyork"},
+     {{"railway", "station"}, {"transport", "subway"}, {"city", "newyork"}}},
     {{"railway", "station", "subway", "paris"}, {{"railway", "station"}, {"station", "subway"}, {"city", "paris"}}},
     {{"railway", "station", "subway", "paris"}, {{"railway", "station"}, {"transport", "subway"}, {"city", "paris"}}},
     {{"railway", "station", "subway", "roma"}, {{"railway", "station"}, {"station", "subway"}, {"city", "roma"}}},
@@ -3075,7 +2988,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
     {{"highway", "path"}, {{"highway", "path"}, {"surface", "unpaved"}}},
     {{"highway", "path"}, {{"highway", "path"}, {"surface", "compacted"}, {"smoothness", "bad"}}},
     {{"highway", "path"}, {{"highway", "path"}, {"surface", "gravel"}, {"tracktype", "grade3"}}},
-    {{"highway", "path"}, {{"highway", "path"}, {"surface", "gravel"}, {"tracktype", "grade1"}, {"sac_scale", "hiking"}}},
+    {{"highway", "path"},
+     {{"highway", "path"}, {"surface", "gravel"}, {"tracktype", "grade1"}, {"sac_scale", "hiking"}}},
     {{"highway", "path"}, {{"highway", "path"}, {"smoothness", "good"}, {"tracktype", "grade3"}}},
     {{"highway", "path"}, {{"highway", "path"}, {"tracktype", "grade3"}, {"footway", "sidewalk"}}},
     {{"highway", "path"}, {{"highway", "path"}, {"smoothness", "intermediate"}}},
@@ -3110,14 +3024,17 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
   std::vector<std::pair<std::vector<Type>, Tags>> const complexConversions = {
     // Add an explicit footway to a segregated cycleway.
     {{{"highway", "cycleway"}, {"highway", "footway"}}, {{"highway", "cycleway"}, {"segregated", "yes"}}},
-    {{{"highway", "cycleway"}, {"highway", "footway"}, {"hwtag", "yesfoot"}}, {{"highway", "cycleway"}, {"sidewalk", "right"}}},
+    {{{"highway", "cycleway"}, {"highway", "footway"}, {"hwtag", "yesfoot"}},
+     {{"highway", "cycleway"}, {"sidewalk", "right"}}},
 
     // Segregated path becomes cycleway + footway.
     {{{"highway", "cycleway"}, {"highway", "footway"}}, {{"highway", "path"}, {"segregated", "yes"}}},
-    
+
     // A non-segregated cycleway becomes shared path/footway + bicycle=designated.
-    {{{"highway", "footway", "bicycle"}, {"hwtag", "yesbicycle"}}, {{"highway", "cycleway"}, {"segregated", "no"}, {"foot", "designated"}}},
-    {{{"highway", "path", "bicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "yesfoot"}, {"psurface", "unpaved_good"}}, {{"highway", "cycleway"}, {"foot", "yes"}, {"surface", "unpaved"}}},
+    {{{"highway", "footway", "bicycle"}, {"hwtag", "yesbicycle"}},
+     {{"highway", "cycleway"}, {"segregated", "no"}, {"foot", "designated"}}},
+    {{{"highway", "path", "bicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "yesfoot"}, {"psurface", "unpaved_good"}},
+     {{"highway", "cycleway"}, {"foot", "yes"}, {"surface", "unpaved"}}},
   };
 
   for (auto const & type : complexConversions)
@@ -3136,15 +3053,19 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_PathGrades)
 {
   using Type = std::vector<std::string>;
   std::vector<std::pair<Type, Tags>> const conversions = {
-    {{"highway", "path"}, {{"highway", "path"}, {"sac_scale", "mountain_hiking"}, {"trail_visibility", "intermediate"}}},
-    {{"highway", "path"}, {{"highway", "path"}, {"sac_scale", "unsupported_value"}, {"trail_visibility", "unsupported_value"}}},
+    {{"highway", "path"},
+     {{"highway", "path"}, {"sac_scale", "mountain_hiking"}, {"trail_visibility", "intermediate"}}},
+    {{"highway", "path"},
+     {{"highway", "path"}, {"sac_scale", "unsupported_value"}, {"trail_visibility", "unsupported_value"}}},
 
-    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"sac_scale", "demanding_mountain_hiking"}, {"trail_visibility", "excellent"}}},
-    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"trail_visibility", "bad"}}},    
+    {{"highway", "path", "difficult"},
+     {{"highway", "path"}, {"sac_scale", "demanding_mountain_hiking"}, {"trail_visibility", "excellent"}}},
+    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"trail_visibility", "bad"}}},
 
     {{"highway", "path", "expert"}, {{"highway", "path"}, {"sac_scale", "alpine_hiking"}}},
     {{"highway", "path", "expert"}, {{"highway", "path"}, {"trail_visibility", "horrible"}}},
-    {{"highway", "path", "expert"}, {{"highway", "path"}, {"sac_scale", "difficult_alpine_hiking"}, {"trail_visibility", "no"}}},
+    {{"highway", "path", "expert"},
+     {{"highway", "path"}, {"sac_scale", "difficult_alpine_hiking"}, {"trail_visibility", "no"}}},
   };
 
   for (auto const & type : conversions)
@@ -3160,10 +3081,14 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_MultipleComplexTypesSmoke)
   std::vector<std::pair<std::vector<Type>, Tags>> const complexTypes = {
     {{{"amenity", "parking"}, {"fee", "no"}}, {{"amenity", "parking"}, {"fee", "no"}}},
     {{{"amenity", "parking", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"fee", "any_value"}}},
-    {{{"amenity", "parking", "lane", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"parking", "lane"}, {"fee", "any_value"}}},
-    {{{"amenity", "parking", "multi-storey", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"parking", "multi-storey"}, {"fee", "any_value"}}},
-    {{{"amenity", "parking", "street_side", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"parking", "street_side"}, {"fee", "any_value"}}},
-    {{{"amenity", "parking", "underground", "fee"}, {"fee", "yes"}}, {{"amenity", "parking"}, {"parking", "underground"}, {"fee", "any_value"}}},
+    {{{"amenity", "parking", "lane", "fee"}, {"fee", "yes"}},
+     {{"amenity", "parking"}, {"parking", "lane"}, {"fee", "any_value"}}},
+    {{{"amenity", "parking", "multi-storey", "fee"}, {"fee", "yes"}},
+     {{"amenity", "parking"}, {"parking", "multi-storey"}, {"fee", "any_value"}}},
+    {{{"amenity", "parking", "street_side", "fee"}, {"fee", "yes"}},
+     {{"amenity", "parking"}, {"parking", "street_side"}, {"fee", "any_value"}}},
+    {{{"amenity", "parking", "underground", "fee"}, {"fee", "yes"}},
+     {{"amenity", "parking"}, {"parking", "underground"}, {"fee", "any_value"}}},
   };
 
   for (auto const & type : complexTypes)

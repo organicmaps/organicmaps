@@ -58,8 +58,7 @@ bool Polygon::IsFrozen(size_t a, size_t b) const
   return m_replaced.Intersects(a, b);
 }
 
-void Polygon::AddReplaceInfo(size_t dstFrom, size_t dstTo,
-                             size_t srcFrom, size_t srcTo, size_t srcBorderId,
+void Polygon::AddReplaceInfo(size_t dstFrom, size_t dstTo, size_t srcFrom, size_t srcTo, size_t srcBorderId,
                              bool reversed)
 {
   CHECK_LESS_OR_EQUAL(dstFrom, dstTo, ());

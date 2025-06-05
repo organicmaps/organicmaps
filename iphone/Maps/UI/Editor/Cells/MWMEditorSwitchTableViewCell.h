@@ -3,9 +3,6 @@
 
 @interface MWMEditorSwitchTableViewCell : MWMTableViewCell
 
-- (void)configWithDelegate:(id<MWMEditorCellProtocol>)delegate
-                      icon:(UIImage *)icon
-                      text:(NSString *)text
-                        on:(BOOL)on;
+- (void)configWithDelegate:(id<MWMEditorCellProtocol>)delegate icon:(UIImage *)icon text:(NSString *)text on:(BOOL)on;
 
 @end

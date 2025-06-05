@@ -8,60 +8,82 @@ using namespace power_management;
 
 namespace
 {
-std::unordered_map<Scheme, FacilitiesState> const kSchemeToState =
-{
-  {
-    Scheme::Normal,
-    {{
-       /* Buildings3d */ true, /* PerspectiveView */ true, /* TrackRecording */ true,
-       /* TrafficJams */ true, /* GpsTrackingForTraffic */ true, /* OsmEditsUploading */ true,
-       /* UgcUploading */ true, /* BookmarkCloudUploading */ true, /* MapDownloader */ true,
-     }}
-  },
-  {
-    Scheme::EconomyMedium,
-    {{
-       /* Buildings3d */ true, /* PerspectiveView */ false, /* TrackRecording */ true,
-       /* TrafficJams */ true, /* GpsTrackingForTraffic */ true, /* OsmEditsUploading */ true,
-       /* UgcUploading */ true, /* BookmarkCloudUploading */ false, /* MapDownloader */ true,
-     }}
-  },
-  {
-    Scheme::EconomyMaximum,
-    {{
-       /* Buildings3d */ false, /* PerspectiveView */ false, /* TrackRecording */ false,
-       /* TrafficJams */ false, /* GpsTrackingForTraffic */ false, /* OsmEditsUploading */ false,
-       /* UgcUploading */ false, /* BookmarkCloudUploading */ false, /* MapDownloader */ true,
-     }}
-  },
+std::unordered_map<Scheme, FacilitiesState> const kSchemeToState = {
+  {Scheme::Normal,
+   {{
+     /* Buildings3d */ true,
+     /* PerspectiveView */ true,
+     /* TrackRecording */ true,
+     /* TrafficJams */ true,
+     /* GpsTrackingForTraffic */ true,
+     /* OsmEditsUploading */ true,
+     /* UgcUploading */ true,
+     /* BookmarkCloudUploading */ true,
+     /* MapDownloader */ true,
+   }}},
+  {Scheme::EconomyMedium,
+   {{
+     /* Buildings3d */ true,
+     /* PerspectiveView */ false,
+     /* TrackRecording */ true,
+     /* TrafficJams */ true,
+     /* GpsTrackingForTraffic */ true,
+     /* OsmEditsUploading */ true,
+     /* UgcUploading */ true,
+     /* BookmarkCloudUploading */ false,
+     /* MapDownloader */ true,
+   }}},
+  {Scheme::EconomyMaximum,
+   {{
+     /* Buildings3d */ false,
+     /* PerspectiveView */ false,
+     /* TrackRecording */ false,
+     /* TrafficJams */ false,
+     /* GpsTrackingForTraffic */ false,
+     /* OsmEditsUploading */ false,
+     /* UgcUploading */ false,
+     /* BookmarkCloudUploading */ false,
+     /* MapDownloader */ true,
+   }}},
 };
 
-std::unordered_map<AutoScheme, FacilitiesState> const kAutoSchemeToState =
-{
-  {
-    AutoScheme::Normal,
-    {{
-       /* Buildings3d */ true, /* PerspectiveView */ true, /* TrackRecording */ true,
-       /* TrafficJams */ true, /* GpsTrackingForTraffic */ true, /* OsmEditsUploading */ true,
-       /* UgcUploading */ true, /* BookmarkCloudUploading */ true, /* MapDownloader */ true,
-     }}
-  },
-  {
-    AutoScheme::EconomyMedium,
-    {{
-       /* Buildings3d */ true, /* PerspectiveView */ false, /* TrackRecording */ true,
-       /* TrafficJams */ true, /* GpsTrackingForTraffic */ false, /* OsmEditsUploading */ true,
-       /* UgcUploading */ true, /* BookmarkCloudUploading */ false, /* MapDownloader */ false,
-     }}
-  },
-  {
-    AutoScheme::EconomyMaximum,
-    {{
-       /* Buildings3d */ false, /* PerspectiveView */ false, /* TrackRecording */ false,
-       /* TrafficJams */ false, /* GpsTrackingForTraffic */ false, /* OsmEditsUploading */ false,
-       /* UgcUploading */ false, /* BookmarkCloudUploading */ false, /* MapDownloader */ false,
-     }}
-  },
+std::unordered_map<AutoScheme, FacilitiesState> const kAutoSchemeToState = {
+  {AutoScheme::Normal,
+   {{
+     /* Buildings3d */ true,
+     /* PerspectiveView */ true,
+     /* TrackRecording */ true,
+     /* TrafficJams */ true,
+     /* GpsTrackingForTraffic */ true,
+     /* OsmEditsUploading */ true,
+     /* UgcUploading */ true,
+     /* BookmarkCloudUploading */ true,
+     /* MapDownloader */ true,
+   }}},
+  {AutoScheme::EconomyMedium,
+   {{
+     /* Buildings3d */ true,
+     /* PerspectiveView */ false,
+     /* TrackRecording */ true,
+     /* TrafficJams */ true,
+     /* GpsTrackingForTraffic */ false,
+     /* OsmEditsUploading */ true,
+     /* UgcUploading */ true,
+     /* BookmarkCloudUploading */ false,
+     /* MapDownloader */ false,
+   }}},
+  {AutoScheme::EconomyMaximum,
+   {{
+     /* Buildings3d */ false,
+     /* PerspectiveView */ false,
+     /* TrackRecording */ false,
+     /* TrafficJams */ false,
+     /* GpsTrackingForTraffic */ false,
+     /* OsmEditsUploading */ false,
+     /* UgcUploading */ false,
+     /* BookmarkCloudUploading */ false,
+     /* MapDownloader */ false,
+   }}},
 };
 }  // namespace
 
@@ -75,10 +97,7 @@ FacilitiesState const & GetFacilitiesState(Scheme const scheme)
   return kSchemeToState.at(scheme);
 }
 
-FacilitiesState const & GetFacilitiesState(AutoScheme const autoScheme)
-{
-  return kAutoSchemeToState.at(autoScheme);
-}
+FacilitiesState const & GetFacilitiesState(AutoScheme const autoScheme) { return kAutoSchemeToState.at(autoScheme); }
 
 std::string DebugPrint(Facility const facility)
 {

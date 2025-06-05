@@ -2,7 +2,6 @@ package app.organicmaps.util.concurrency;
 
 import android.os.Handler;
 import android.os.Looper;
-
 import androidx.annotation.Keep;
 
 public class UiThread
@@ -60,9 +59,7 @@ public class UiThread
   }
 
   // Called from JNI.
-  @Keep
-  @SuppressWarnings("unused")
-  private static void forwardToMainThread(final long taskPointer)
+  @Keep @SuppressWarnings("unused") private static void forwardToMainThread(final long taskPointer)
   {
     runLater(() -> nativeProcessTask(taskPointer), 0);
   }

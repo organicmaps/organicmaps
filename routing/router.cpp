@@ -4,7 +4,7 @@ namespace routing
 {
 std::string ToString(RouterType type)
 {
-  switch(type)
+  switch (type)
   {
   case RouterType::Vehicle: return "vehicle";
   case RouterType::Pedestrian: return "pedestrian";
@@ -35,4 +35,4 @@ RouterType FromString(std::string const & str)
 }
 
 std::string DebugPrint(RouterType type) { return ToString(type); }
-} //  namespace routing
+}  //  namespace routing

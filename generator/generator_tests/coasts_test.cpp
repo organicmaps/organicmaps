@@ -27,7 +27,9 @@ static m2::PointU D2I(double x, double y) { return PointDToPointU(m2::PointD(x, 
 class ProcessCoastsBase
 {
 public:
-  explicit ProcessCoastsBase(std::vector<std::string> const & vID) : m_vID(vID) {}
+  explicit ProcessCoastsBase(std::vector<std::string> const & vID)
+    : m_vID(vID)
+  {}
 
 protected:
   bool HasID(FeatureBuilder const & fb) const
@@ -43,7 +45,9 @@ private:
 class DoPrintCoasts : public ProcessCoastsBase
 {
 public:
-  explicit DoPrintCoasts(std::vector<std::string> const & vID) : ProcessCoastsBase(vID) {}
+  explicit DoPrintCoasts(std::vector<std::string> const & vID)
+    : ProcessCoastsBase(vID)
+  {}
 
   void operator()(FeatureBuilder const & fb, uint64_t)
   {
@@ -90,9 +94,9 @@ class DoCopyCoasts : public ProcessCoastsBase
 {
 public:
   DoCopyCoasts(std::string const & fName, std::vector<std::string> const & vID)
-    : ProcessCoastsBase(vID), m_collector(fName)
-  {
-  }
+    : ProcessCoastsBase(vID)
+    , m_collector(fName)
+  {}
 
   void operator()(FeatureBuilder const & fb1, uint64_t)
   {
@@ -116,7 +120,7 @@ UNIT_TEST(CellID_CheckRectPoints)
   {
     Id const cell = Id::FromBitsAndLevel(i, level);
     std::pair<uint32_t, uint32_t> const xy = cell.XY();
-    uint32_t const r = 2*cell.Radius();
+    uint32_t const r = 2 * cell.Radius();
     uint32_t const bound = (1 << level) * r;
 
     double minX, minY, maxX, maxY;

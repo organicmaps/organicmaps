@@ -17,14 +17,15 @@ namespace connector
 // for transit routing.
 struct TransitId
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(TransitId, visitor(m_stop1Id, "stop1_id"),
-                                  visitor(m_stop2Id, "stop2_id"), visitor(m_lineId, "line_id"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TransitId, visitor(m_stop1Id, "stop1_id"), visitor(m_stop2Id, "stop2_id"),
+                                  visitor(m_lineId, "line_id"))
 
   TransitId() = default;
   TransitId(transit::StopId stop1Id, transit::StopId stop2Id, transit::LineId lineId)
-    : m_stop1Id(stop1Id), m_stop2Id(stop2Id), m_lineId(lineId)
-  {
-  }
+    : m_stop1Id(stop1Id)
+    , m_stop2Id(stop2Id)
+    , m_lineId(lineId)
+  {}
 
   bool operator==(TransitId const & rhs) const
   {
@@ -57,8 +58,7 @@ struct HashKey
 
   size_t operator()(TransitId const & key) const
   {
-    return std::hash<uint64_t>()(key.m_stop1Id ^ key.m_stop2Id ^
-                                 static_cast<uint64_t>(key.m_lineId));
+    return std::hash<uint64_t>()(key.m_stop1Id ^ key.m_stop2Id ^ static_cast<uint64_t>(key.m_lineId));
   }
 };
 }  // namespace connector

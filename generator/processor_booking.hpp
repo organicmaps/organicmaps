@@ -18,11 +18,10 @@ template <typename Dataset>
 class ProcessorBooking : public FeatureProcessorInterface
 {
 public:
-  ProcessorBooking(Dataset const & dataset,
-                   std::map<base::GeoObjectId, feature::FeatureBuilder> & features)
-    : m_dataset(dataset), m_features(features)
-  {
-  }
+  ProcessorBooking(Dataset const & dataset, std::map<base::GeoObjectId, feature::FeatureBuilder> & features)
+    : m_dataset(dataset)
+    , m_features(features)
+  {}
 
   // FeatureProcessorInterface overrides:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override

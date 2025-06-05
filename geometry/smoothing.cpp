@@ -8,8 +8,7 @@ namespace
 {
 double constexpr kEps = 1e-5;
 
-void SmoothGeneric(m2::PointD const & pt0, m2::PointD const & pt1,
-                   m2::PointD const & pt2, m2::PointD const & pt3,
+void SmoothGeneric(m2::PointD const & pt0, m2::PointD const & pt1, m2::PointD const & pt2, m2::PointD const & pt3,
                    double alpha, size_t pointsCount, std::vector<m2::PointD> & path)
 {
   if (pt0.EqualDxDy(pt1, kEps) || pt1.EqualDxDy(pt2, kEps) || pt2.EqualDxDy(pt3, kEps))
@@ -46,8 +45,7 @@ void SmoothGeneric(m2::PointD const & pt0, m2::PointD const & pt1,
 }
 
 // The same as SmoothGeneric but optimized for alpha == 0.0.
-void SmoothUniform(m2::PointD const & pt0, m2::PointD const & pt1,
-                   m2::PointD const & pt2, m2::PointD const & pt3,
+void SmoothUniform(m2::PointD const & pt0, m2::PointD const & pt1, m2::PointD const & pt2, m2::PointD const & pt3,
                    size_t pointsCount, std::vector<m2::PointD> & path)
 {
   if (pt0.EqualDxDy(pt1, kEps) || pt1.EqualDxDy(pt2, kEps) || pt2.EqualDxDy(pt3, kEps))
@@ -71,8 +69,7 @@ void SmoothUniform(m2::PointD const & pt0, m2::PointD const & pt1,
 }
 }  // namespace
 
-void SmoothPaths(GuidePointsForSmooth const & guidePoints,
-                 size_t newPointsPerSegmentCount, double smoothAlpha,
+void SmoothPaths(GuidePointsForSmooth const & guidePoints, size_t newPointsPerSegmentCount, double smoothAlpha,
                  std::vector<std::vector<m2::PointD>> & paths)
 {
   ASSERT_EQUAL(guidePoints.size(), paths.size(), ());

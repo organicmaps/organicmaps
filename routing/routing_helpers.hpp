@@ -61,8 +61,7 @@ bool IsRoad(Types const & types)
 
 void FillSegmentInfo(std::vector<double> const & times, std::vector<RouteSegment> & routeSegments);
 
-void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph,
-                      base::Cancellable const & cancellable,
+void ReconstructRoute(DirectionsEngine & engine, IndexRoadGraph const & graph, base::Cancellable const & cancellable,
                       std::vector<geometry::PointWithAltitude> const & path, std::vector<double> const & times,
                       Route & route);
 
@@ -80,9 +79,8 @@ bool RectCoversPolyline(IRoadGraph::PointWithAltitudeVec const & junctions, m2::
 /// of edges,
 /// if graph ends before this number is reached then junction is assumed as not connected to the
 /// world graph.
-bool CheckGraphConnectivity(Segment const & start, bool isOutgoing,
-                            bool useRoutingOptions, size_t limit, WorldGraph & graph,
-                            std::set<Segment> & marked);
+bool CheckGraphConnectivity(Segment const & start, bool isOutgoing, bool useRoutingOptions, size_t limit,
+                            WorldGraph & graph, std::set<Segment> & marked);
 
 struct AStarLengthChecker
 {

@@ -13,7 +13,11 @@ class Point
 {
 public:
   Point() = default;
-  constexpr Point(T x_, T y_, T z_) : x(x_), y(y_), z(z_) {}
+  constexpr Point(T x_, T y_, T z_)
+    : x(x_)
+    , y(y_)
+    , z(z_)
+  {}
 
   T Length() const { return std::sqrt(x * x + y * y + z * z); }
 

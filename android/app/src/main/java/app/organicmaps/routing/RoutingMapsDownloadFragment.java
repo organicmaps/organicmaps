@@ -5,17 +5,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentFactory;
-
 import app.organicmaps.R;
 import app.organicmaps.downloader.CountryItem;
 import app.organicmaps.downloader.MapManager;
-import app.organicmaps.widget.WheelProgressView;
 import app.organicmaps.util.UiUtils;
-
+import app.organicmaps.widget.WheelProgressView;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,8 +25,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
 
   private int mSubscribeSlot;
 
-  @Override
-  void beforeDialogCreated(AlertDialog.Builder builder)
+  @Override void beforeDialogCreated(AlertDialog.Builder builder)
   {
     super.beforeDialogCreated(builder);
     builder.setTitle(R.string.downloading);
@@ -52,16 +48,14 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     return frame;
   }
 
-  @Override
-  View buildSingleMapView(CountryItem map)
+  @Override View buildSingleMapView(CountryItem map)
   {
     View res = setupFrame(super.buildSingleMapView(map));
     bindGroup(res);
     return res;
   }
 
-  @Override
-  View buildMultipleMapView()
+  @Override View buildMultipleMapView()
   {
     return setupFrame(super.buildMultipleMapView());
   }
@@ -91,16 +85,14 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     }
   }
 
-  @Override
-  void bindGroup(View view)
+  @Override void bindGroup(View view)
   {
     WheelProgressView wheel = view.findViewById(R.id.wheel_progress);
     UiUtils.show(wheel);
     updateWheel(wheel);
   }
 
-  @Override
-  public void onDismiss(DialogInterface dialog)
+  @Override public void onDismiss(DialogInterface dialog)
   {
     if (mCancelled)
       for (String item : mMaps)
@@ -109,14 +101,12 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     super.onDismiss(dialog);
   }
 
-  @Override
-  public void onStart()
+  @Override public void onStart()
   {
     super.onStart();
     setCancelable(false);
 
-    mSubscribeSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
-    {
+    mSubscribeSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback() {
       {
         update();
       }
@@ -128,8 +118,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
           updateWheel(wheel);
       }
 
-      @Override
-      public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+      @Override public void onStatusChanged(List<MapManager.StorageCallbackData> data)
       {
         for (MapManager.StorageCallbackData item : data)
           if (mMaps.contains(item.countryId))
@@ -151,8 +140,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
           }
       }
 
-      @Override
-      public void onProgress(String countryId, long localSize, long remoteSize)
+      @Override public void onProgress(String countryId, long localSize, long remoteSize)
       {
         if (mMaps.contains(countryId))
           update();
@@ -160,8 +148,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     });
   }
 
-  @Override
-  public void onStop()
+  @Override public void onStop()
   {
     super.onStop();
 
@@ -172,12 +159,13 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     }
   }
 
-  public static RoutingMapsDownloadFragment create(@NonNull FragmentFactory factory, @NonNull Context context, String[] missingMaps)
+  public static RoutingMapsDownloadFragment create(
+    @NonNull FragmentFactory factory, @NonNull Context context, String[] missingMaps)
   {
     Bundle args = new Bundle();
     args.putStringArray(EXTRA_MISSING_MAPS, missingMaps);
-    final RoutingMapsDownloadFragment res = (RoutingMapsDownloadFragment)
-        factory.instantiate(context.getClassLoader(), RoutingMapsDownloadFragment.class.getName());
+    final RoutingMapsDownloadFragment res = (RoutingMapsDownloadFragment) factory.instantiate(
+      context.getClassLoader(), RoutingMapsDownloadFragment.class.getName());
     res.setArguments(args);
     return res;
   }

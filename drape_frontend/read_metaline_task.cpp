@@ -29,15 +29,15 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
   try
   {
     std::vector<MetalineData> model;
-    ModelReaderPtr reader = FilesContainerR(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map))
-                                            .GetReader(METALINES_FILE_TAG);
+    ModelReaderPtr reader =
+      FilesContainerR(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map)).GetReader(METALINES_FILE_TAG);
     ReaderSrc src(reader.GetPtr());
     auto const version = ReadPrimitiveFromSource<uint8_t>(src);
     if (version == 1)
     {
       for (auto metalineIndex = ReadVarUint<uint32_t>(src); metalineIndex > 0; --metalineIndex)
       {
-        MetalineData data {};
+        MetalineData data{};
         for (auto i = ReadVarUint<uint32_t>(src); i > 0; --i)
         {
           auto const fid = ReadVarInt<int32_t>(src);
@@ -58,34 +58,35 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
   }
 }
 
-std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & model,
-                                                        MetalineData const & metaline)
+std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & model, MetalineData const & metaline)
 {
   auto features = metaline.m_features;
   std::sort(features.begin(), features.end());
 
   std::map<FeatureID, std::vector<m2::PointD>> result;
-  model.ReadFeatures([&metaline, &result](FeatureType & ft)
-  {
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    size_t const count = ft.GetPointsCount();
-
-    std::vector<m2::PointD> featurePoints;
-    featurePoints.reserve(count);
-    featurePoints.push_back(ft.GetPoint(0));
-
-    for (size_t i = 1; i < count; ++i)
+  model.ReadFeatures(
+    [&metaline, &result](FeatureType & ft)
     {
-      auto const & pt = ft.GetPoint(i);
-      if (!featurePoints.back().EqualDxDy(pt, kMwmPointAccuracy))
-        featurePoints.push_back(pt);
-    }
+      ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+      size_t const count = ft.GetPointsCount();
 
-    if (metaline.m_reversed.find(ft.GetID()) != metaline.m_reversed.cend())
-      std::reverse(featurePoints.begin(), featurePoints.end());
+      std::vector<m2::PointD> featurePoints;
+      featurePoints.reserve(count);
+      featurePoints.push_back(ft.GetPoint(0));
 
-    result.emplace(ft.GetID(), std::move(featurePoints));
-  }, features);
+      for (size_t i = 1; i < count; ++i)
+      {
+        auto const & pt = ft.GetPoint(i);
+        if (!featurePoints.back().EqualDxDy(pt, kMwmPointAccuracy))
+          featurePoints.push_back(pt);
+      }
+
+      if (metaline.m_reversed.find(ft.GetID()) != metaline.m_reversed.cend())
+        std::reverse(featurePoints.begin(), featurePoints.end());
+
+      result.emplace(ft.GetID(), std::move(featurePoints));
+    },
+    features);
 
   return result;
 }

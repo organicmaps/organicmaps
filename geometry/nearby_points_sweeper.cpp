@@ -4,9 +4,12 @@ namespace m2
 {
 // NearbyPointsSweeper::Event ----------------------------------------------------------------------
 NearbyPointsSweeper::Event::Event(Type type, double y, double x, size_t index, uint8_t priority)
-  : m_type(type), m_y(y), m_x(x), m_index(index), m_priority(priority)
-{
-}
+  : m_type(type)
+  , m_y(y)
+  , m_x(x)
+  , m_index(index)
+  , m_priority(priority)
+{}
 
 bool NearbyPointsSweeper::Event::operator<(Event const & rhs) const
 {
@@ -26,13 +29,17 @@ bool NearbyPointsSweeper::Event::operator<(Event const & rhs) const
 }
 
 // NearbyPointsSweeper -----------------------------------------------------------------------------
-NearbyPointsSweeper::NearbyPointsSweeper(double eps) : m_xEps(eps), m_yEps(eps)
+NearbyPointsSweeper::NearbyPointsSweeper(double eps)
+  : m_xEps(eps)
+  , m_yEps(eps)
 {
   CHECK_GREATER_OR_EQUAL(m_xEps, 0.0, ());
   CHECK_GREATER_OR_EQUAL(m_yEps, 0.0, ());
 }
 
-NearbyPointsSweeper::NearbyPointsSweeper(double xEps, double yEps) : m_xEps(xEps), m_yEps(yEps)
+NearbyPointsSweeper::NearbyPointsSweeper(double xEps, double yEps)
+  : m_xEps(xEps)
+  , m_yEps(yEps)
 {
   CHECK_GREATER_OR_EQUAL(m_xEps, 0.0, ());
   CHECK_GREATER_OR_EQUAL(m_yEps, 0.0, ());

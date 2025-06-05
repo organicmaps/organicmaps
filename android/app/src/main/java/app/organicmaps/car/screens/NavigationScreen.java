@@ -17,7 +17,6 @@ import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.Framework;
 import app.organicmaps.R;
 import app.organicmaps.car.CarAppService;
@@ -30,14 +29,13 @@ import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.location.LocationHelper;
 import app.organicmaps.location.LocationListener;
-import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sound.TtsPlayer;
 import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.log.Logger;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -47,15 +45,11 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
   public static final String MARKER = NavigationScreen.class.getSimpleName();
 
-  @NonNull
-  private final RoutingController mRoutingController;
-  @NonNull
-  private final NavigationManager mNavigationManager;
-  @NonNull
-  private final LocationListener mLocationListener = (unused) -> updateTrip();
+  @NonNull private final RoutingController mRoutingController;
+  @NonNull private final NavigationManager mNavigationManager;
+  @NonNull private final LocationListener mLocationListener = (unused) -> updateTrip();
 
-  @NonNull
-  private Trip mTrip = new Trip.Builder().setLoading(true).build();
+  @NonNull private Trip mTrip = new Trip.Builder().setLoading(true).build();
 
   // This value is used to decide whether to display the "trip finished" toast or not
   // False: trip is finished -> show toast
@@ -69,12 +63,11 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mRoutingController = RoutingController.get();
   }
 
-  @NonNull
-  @Override
-  public Template onGetTemplate()
+  @NonNull @Override public Template onGetTemplate()
   {
     final NavigationTemplate.Builder builder = new NavigationTemplate.Builder();
-    builder.setBackgroundColor(ThemeUtils.isNightMode(getCarContext()) ? Colors.NAVIGATION_TEMPLATE_BACKGROUND_NIGHT : Colors.NAVIGATION_TEMPLATE_BACKGROUND_DAY);
+    builder.setBackgroundColor(ThemeUtils.isNightMode(getCarContext()) ? Colors.NAVIGATION_TEMPLATE_BACKGROUND_NIGHT
+                                                                       : Colors.NAVIGATION_TEMPLATE_BACKGROUND_DAY);
     builder.setActionStrip(createActionStrip());
     builder.setMapActionStrip(UiHelpers.createMapActionStrip(getCarContext(), getSurfaceRenderer()));
 
@@ -86,8 +79,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     return builder.build();
   }
 
-  @Override
-  public void onStopNavigation()
+  @Override public void onStopNavigation()
   {
     LocationHelper.from(getCarContext()).removeListener(mLocationListener);
     mNavigationCancelled = true;
@@ -101,8 +93,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
    * the lifecycle of the current Session reaches the Lifecycle.Event.ON_DESTROY state.
    * <a href="https://developer.android.com/training/cars/apps/navigation#simulating-navigation">More info</a>
    */
-  @Override
-  public void onAutoDriveEnabled()
+  @Override public void onAutoDriveEnabled()
   {
     Logger.i(TAG);
     final JunctionInfo[] points = Framework.nativeGetRouteJunctionPoints();
@@ -116,17 +107,16 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     locationHelper.startNavigationSimulation(points);
   }
 
-  @Override
-  public void onNavigationCancelled()
+  @Override public void onNavigationCancelled()
   {
     if (!mNavigationCancelled)
-      CarToast.makeText(getCarContext(), getCarContext().getString(R.string.trip_finished), CarToast.LENGTH_LONG).show();
+      CarToast.makeText(getCarContext(), getCarContext().getString(R.string.trip_finished), CarToast.LENGTH_LONG)
+        .show();
     finish();
     getScreenManager().popToRoot();
   }
 
-  @Override
-  public void onCreate(@NonNull LifecycleOwner owner)
+  @Override public void onCreate(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     mRoutingController.attach(this);
@@ -136,19 +126,18 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
     LocationHelper.from(getCarContext()).addListener(mLocationListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
-      NavigationService.startForegroundService(getCarContext(), CarAppService.getCarNotificationExtender(getCarContext()));
+      NavigationService.startForegroundService(
+        getCarContext(), CarAppService.getCarNotificationExtender(getCarContext()));
     updateTrip();
   }
 
-  @Override
-  public void onResume(@NonNull LifecycleOwner owner)
+  @Override public void onResume(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
     mRoutingController.attach(this);
   }
 
-  @Override
-  public void onDestroy(@NonNull LifecycleOwner owner)
+  @Override public void onDestroy(@NonNull LifecycleOwner owner)
   {
     NavigationService.stopService(getCarContext());
     LocationHelper.from(getCarContext()).removeListener(mLocationListener);
@@ -161,11 +150,11 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mNavigationManager.clearNavigationManagerCallback();
   }
 
-  @NonNull
-  private ActionStrip createActionStrip()
+  @NonNull private ActionStrip createActionStrip()
   {
     final Action.Builder stopActionBuilder = new Action.Builder();
-    stopActionBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_close)).build());
+    stopActionBuilder.setIcon(
+      new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_close)).build());
     stopActionBuilder.setOnClickListener(() -> {
       mNavigationCancelled = true;
       mRoutingController.cancel();
@@ -178,8 +167,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     return builder.build();
   }
 
-  @Nullable
-  private TravelEstimate getDestinationTravelEstimate()
+  @Nullable private TravelEstimate getDestinationTravelEstimate()
   {
     if (mTrip.isLoading())
       return null;
@@ -191,10 +179,10 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     return travelEstimates.get(0);
   }
 
-  @NonNull
-  private NavigationTemplate.NavigationInfo getNavigationInfo()
+  @NonNull private NavigationTemplate.NavigationInfo getNavigationInfo()
   {
-    final androidx.car.app.navigation.model.RoutingInfo.Builder builder = new androidx.car.app.navigation.model.RoutingInfo.Builder();
+    final androidx.car.app.navigation.model.RoutingInfo.Builder builder =
+      new androidx.car.app.navigation.model.RoutingInfo.Builder();
 
     if (mTrip.isLoading())
     {
@@ -223,8 +211,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     Logger.d(TAG, "Driving options changed");
   }
 
-  @NonNull
-  private Action createTtsAction()
+  @NonNull private Action createTtsAction()
   {
     final Action.Builder ttsActionBuilder = new Action.Builder();
     @DrawableRes final int imgRes = TtsPlayer.isEnabled() ? R.drawable.ic_voice_on : R.drawable.ic_voice_off;
@@ -250,10 +237,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
    */
   public static final class Builder
   {
-    @NonNull
-    private final CarContext mCarContext;
-    @NonNull
-    private final SurfaceRenderer mSurfaceRenderer;
+    @NonNull private final CarContext mCarContext;
+    @NonNull private final SurfaceRenderer mSurfaceRenderer;
 
     public Builder(@NonNull final CarContext carContext, @NonNull final SurfaceRenderer surfaceRenderer)
     {
@@ -261,8 +246,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
       mSurfaceRenderer = surfaceRenderer;
     }
 
-    @NonNull
-    public NavigationScreen build()
+    @NonNull public NavigationScreen build()
     {
       final NavigationScreen navigationScreen = new NavigationScreen(this);
       navigationScreen.setMarker(MARKER);

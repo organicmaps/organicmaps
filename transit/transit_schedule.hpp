@@ -58,11 +58,14 @@ std::string DebugPrint(Status const & status);
 struct Date
 {
   Date() = default;
-  Date(uint32_t year, uint8_t month, uint16_t day) : m_year(year), m_month(month), m_day(day) {}
+  Date(uint32_t year, uint8_t month, uint16_t day)
+    : m_year(year)
+    , m_month(month)
+    , m_day(day)
+  {}
 
   DECLARE_SCHEDULE_TYPES_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Date, visitor(m_year, "y"), visitor(m_month, "m"),
-                                  visitor(m_day, "d"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Date, visitor(m_year, "y"), visitor(m_month, "m"), visitor(m_day, "d"))
 
   uint32_t m_year = 0;
   uint8_t m_month = 0;
@@ -73,13 +76,13 @@ struct Time
 {
   Time() = default;
   Time(uint8_t hour, uint8_t minute, uint8_t second)
-    : m_hour(hour), m_minute(minute), m_second(second)
-  {
-  }
+    : m_hour(hour)
+    , m_minute(minute)
+    , m_second(second)
+  {}
 
   DECLARE_SCHEDULE_TYPES_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Time, visitor(m_hour, "h"), visitor(m_minute, "m"),
-                                  visitor(m_second, "s"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Time, visitor(m_hour, "h"), visitor(m_minute, "m"), visitor(m_second, "s"))
 
   uint8_t m_hour = 0;
   uint8_t m_minute = 0;
@@ -222,8 +225,7 @@ class Schedule
 public:
   bool operator==(Schedule const & rhs) const;
 
-  void AddDatesInterval(gtfs::CalendarItem const & calendarItem,
-                        gtfs::Frequencies const & frequencies);
+  void AddDatesInterval(gtfs::CalendarItem const & calendarItem, gtfs::Frequencies const & frequencies);
   void AddDateException(gtfs::Date const & date, gtfs::CalendarDateException const & dateException,
                         gtfs::Frequencies const & frequencies);
 
@@ -235,8 +237,7 @@ public:
   DatesExceptions const & GetServiceExceptions() const;
 
   void AddDatesInterval(DatesInterval const & interval, FrequencyIntervals const & frequencies);
-  void AddDateException(DateException const & dateException,
-                        FrequencyIntervals const & frequencies);
+  void AddDateException(DateException const & dateException, FrequencyIntervals const & frequencies);
 
   void SetDefaultFrequency(Frequency const & frequency) { m_defaultFrequency = frequency; }
 

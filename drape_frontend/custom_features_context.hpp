@@ -29,4 +29,4 @@ struct CustomFeaturesContext
 
 using CustomFeaturesContextPtr = std::shared_ptr<CustomFeaturesContext>;
 using CustomFeaturesContextWeakPtr = std::weak_ptr<CustomFeaturesContext>;
-} //  namespace df
+}  //  namespace df

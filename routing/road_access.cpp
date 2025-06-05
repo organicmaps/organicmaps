@@ -31,22 +31,23 @@ std::string DebugPrintKV(KV const & kvs, size_t maxKVToShow)
  * It's called in cross_mwm_section via IndexGraph::CalculateEdgeWeight.
  * Fixed by setting custom time getter in BuildRoutingCrossMwmSection -> FillWeights.
  */
-RoadAccess::RoadAccess() : m_currentTimeGetter([]() { return GetCurrentTimestamp(); }) {}
+RoadAccess::RoadAccess()
+  : m_currentTimeGetter([]() { return GetCurrentTimestamp(); })
+{}
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
-    uint32_t featureId, RouteWeight const & weightToFeature) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t featureId,
+                                                                          RouteWeight const & weightToFeature) const
 {
   return GetAccess(featureId, weightToFeature.GetWeight());
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
-    RoadPoint const & point, RouteWeight const & weightToPoint) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point,
+                                                                          RouteWeight const & weightToPoint) const
 {
   return GetAccess(point, weightToPoint.GetWeight());
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
-    uint32_t featureId, double weight) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t featureId, double weight) const
 {
   auto const itConditional = m_wayToAccessConditional.find(featureId);
   if (itConditional != m_wayToAccessConditional.cend())
@@ -64,8 +65,7 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
   return GetAccessWithoutConditional(featureId);
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
-    RoadPoint const & point, double weight) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point, double weight) const
 {
   auto const itConditional = m_pointToAccessConditional.find(point);
   if (itConditional != m_pointToAccessConditional.cend())
@@ -83,8 +83,7 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
   return GetAccessWithoutConditional(point);
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccessWithoutConditional(
-    uint32_t featureId) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccessWithoutConditional(uint32_t featureId) const
 {
   // todo(@m) This may or may not be too slow. Consider profiling this and using
   // a Bloom filter or anything else that is faster than ska::flat_hash_map
@@ -96,7 +95,7 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccessWithout
 }
 
 std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccessWithoutConditional(
-    RoadPoint const & point) const
+  RoadPoint const & point) const
 {
   auto const it = m_pointToAccess.find(point);
   if (it != m_pointToAccess.cend())
@@ -114,7 +113,7 @@ bool RoadAccess::operator==(RoadAccess const & rhs) const
 
 // static
 std::optional<RoadAccess::Confidence> RoadAccess::GetConfidenceForAccessConditional(
-    time_t momentInTime, osmoh::OpeningHours const & openingHours)
+  time_t momentInTime, osmoh::OpeningHours const & openingHours)
 {
   auto const left = momentInTime - kConfidenceIntervalSeconds / 2;
   auto const right = momentInTime + kConfidenceIntervalSeconds / 2;
@@ -183,11 +182,10 @@ std::string DebugPrint(RoadAccess const & r)
   size_t constexpr kMaxIdsToShow = 10;
 
   std::ostringstream oss;
-  oss << "RoadAccess { WayToAccess " << DebugPrintKV(r.GetWayToAccess(), kMaxIdsToShow)
-      << "; PointToAccess "<< DebugPrintKV(r.GetPointToAccess(), kMaxIdsToShow)
-      << "; WayToAccessConditional "<< DebugPrintKV(r.GetWayToAccessConditional(), kMaxIdsToShow)
-      << "; PointToAccessConditional " << DebugPrintKV(r.GetPointToAccessConditional(), kMaxIdsToShow)
-      << " }";
+  oss << "RoadAccess { WayToAccess " << DebugPrintKV(r.GetWayToAccess(), kMaxIdsToShow) << "; PointToAccess "
+      << DebugPrintKV(r.GetPointToAccess(), kMaxIdsToShow) << "; WayToAccessConditional "
+      << DebugPrintKV(r.GetWayToAccessConditional(), kMaxIdsToShow) << "; PointToAccessConditional "
+      << DebugPrintKV(r.GetPointToAccessConditional(), kMaxIdsToShow) << " }";
   return oss.str();
 }
 

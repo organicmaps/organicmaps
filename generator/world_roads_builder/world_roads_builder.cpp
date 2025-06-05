@@ -16,8 +16,7 @@ double constexpr kMinSegmentLengthM = 200.0;
 double constexpr kHalfSegmentLengthM = kMinSegmentLengthM / 2.0;
 
 // Returns true if roads count between |mwmId1| and |mwmId2| in |graph| exceeds max value.
-bool MwmRoadsAreFilled(routing::NumMwmId const & mwmId1, routing::NumMwmId const & mwmId2,
-                       CrossBorderGraph & graph)
+bool MwmRoadsAreFilled(routing::NumMwmId const & mwmId1, routing::NumMwmId const & mwmId2, CrossBorderGraph & graph)
 {
   auto const it = graph.m_mwms.find(mwmId1);
   if (it == graph.m_mwms.end())
@@ -44,8 +43,7 @@ void WriteEndingToSteam(CrossBorderSegmentEnding const & segEnding, std::ofstrea
   output << kDelim << point.m_lat << kDelim << point.m_lon << kDelim << segEnding.m_numMwmId;
 }
 
-void WriteSegmentToStream(RegionSegmentId const & segId, CrossBorderSegment const & seg,
-                          std::ofstream & output)
+void WriteSegmentToStream(RegionSegmentId const & segId, CrossBorderSegment const & seg, std::ofstream & output)
 {
   CHECK(output.is_open(), ());
 
@@ -58,29 +56,29 @@ void WriteSegmentToStream(RegionSegmentId const & segId, CrossBorderSegment cons
 
 namespace routing
 {
-RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader,
-                             feature::CountriesFilesAffiliation const & mwmMatcher,
+RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader, feature::CountriesFilesAffiliation const & mwmMatcher,
                              std::vector<std::string> const & highways)
 {
   RoadsFromOsm roadsFromOsm;
 
-  ProcessOsmElementsFromO5M(reader, [&roadsFromOsm, &highways](OsmElement && e)
-  {
-    if (e.IsWay())
-    {
-      std::string const & highway = e.GetTag("highway");
+  ProcessOsmElementsFromO5M(reader,
+                            [&roadsFromOsm, &highways](OsmElement && e)
+                            {
+                              if (e.IsWay())
+                              {
+                                std::string const & highway = e.GetTag("highway");
 
-      if (!highway.empty() && base::IsExist(highways, highway))
-      {
-        auto id = e.m_id;
-        roadsFromOsm.m_ways[highway].emplace(id, RoadData({}, std::move(e)));
-      }
-    }
-    else if (e.IsNode())
-    {
-      roadsFromOsm.m_nodes.emplace(e.m_id, ms::LatLon(e.m_lat, e.m_lon));
-    }
-  });
+                                if (!highway.empty() && base::IsExist(highways, highway))
+                                {
+                                  auto id = e.m_id;
+                                  roadsFromOsm.m_ways[highway].emplace(id, RoadData({}, std::move(e)));
+                                }
+                              }
+                              else if (e.IsNode())
+                              {
+                                roadsFromOsm.m_nodes.emplace(e.m_id, ms::LatLon(e.m_lat, e.m_lon));
+                              }
+                            });
 
   LOG(LINFO, ("Extracted", roadsFromOsm.m_nodes.size(), "nodes from OSM."));
 
@@ -111,7 +109,10 @@ RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader,
 
 struct NodePoint
 {
-  NodePoint(m2::PointD const & point, NumMwmId const & mwm) : m_point(point), m_mwm(mwm) {}
+  NodePoint(m2::PointD const & point, NumMwmId const & mwm)
+    : m_point(point)
+    , m_mwm(mwm)
+  {}
 
   m2::PointD m_point;
   NumMwmId m_mwm = 0;
@@ -121,9 +122,9 @@ using NodePoints = std::vector<NodePoint>;
 using CrossBorderIndexes = std::vector<size_t>;
 
 std::pair<NodePoints, CrossBorderIndexes> GetCrossBorderPoints(
-    std::vector<uint64_t> const & nodeIds, std::unordered_map<uint64_t, ms::LatLon> const & nodes,
-    feature::CountriesFilesAffiliation const & mwmMatcher,
-    std::unordered_map<std::string, NumMwmId> const & regionToIdMap)
+  std::vector<uint64_t> const & nodeIds, std::unordered_map<uint64_t, ms::LatLon> const & nodes,
+  feature::CountriesFilesAffiliation const & mwmMatcher,
+  std::unordered_map<std::string, NumMwmId> const & regionToIdMap)
 {
   NodePoints nodePoints;
   CrossBorderIndexes crossBorderIndexes;
@@ -173,8 +174,7 @@ std::pair<NodePoints, CrossBorderIndexes> GetCrossBorderPoints(
   return std::make_pair(nodePoints, crossBorderIndexes);
 }
 
-std::optional<std::pair<m2::PointD, double>> GetPointInMwm(NodePoints const & points, size_t index,
-                                                           bool forward)
+std::optional<std::pair<m2::PointD, double>> GetPointInMwm(NodePoints const & points, size_t index, bool forward)
 {
   auto const & pointOnBorder = points[index];
 
@@ -206,13 +206,11 @@ std::optional<std::pair<m2::PointD, double>> GetPointInMwm(NodePoints const & po
 }
 
 bool FillCrossBorderGraph(CrossBorderGraph & graph, RegionSegmentId & curSegmentId,
-                          std::vector<uint64_t> const & nodeIds,
-                          std::unordered_map<uint64_t, ms::LatLon> const & nodes,
+                          std::vector<uint64_t> const & nodeIds, std::unordered_map<uint64_t, ms::LatLon> const & nodes,
                           feature::CountriesFilesAffiliation const & mwmMatcher,
                           std::unordered_map<std::string, NumMwmId> const & regionToIdMap)
 {
-  auto const & [nodePoints, crossBorderIndexes] =
-      GetCrossBorderPoints(nodeIds, nodes, mwmMatcher, regionToIdMap);
+  auto const & [nodePoints, crossBorderIndexes] = GetCrossBorderPoints(nodeIds, nodes, mwmMatcher, regionToIdMap);
 
   bool insertedRoad = false;
 

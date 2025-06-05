@@ -22,16 +22,19 @@ namespace cuisine_filter
 Description::Description(FeatureType & ft)
 {
   m_types.clear();
-  ft.ForEachType([this](uint32_t t) {
-    if (ftypes::IsCuisineChecker::Instance()(t))
-      m_types.push_back(t);
-  });
+  ft.ForEachType(
+    [this](uint32_t t)
+    {
+      if (ftypes::IsCuisineChecker::Instance()(t))
+        m_types.push_back(t);
+    });
 }
 
-CuisineFilter::ScopedFilter::ScopedFilter(MwmSet::MwmId const & mwmId,
-                                          Descriptions const & descriptions,
+CuisineFilter::ScopedFilter::ScopedFilter(MwmSet::MwmId const & mwmId, Descriptions const & descriptions,
                                           vector<uint32_t> const & types)
-  : m_mwmId(mwmId), m_descriptions(descriptions), m_types(types)
+  : m_mwmId(mwmId)
+  , m_descriptions(descriptions)
+  , m_types(types)
 {
   sort(m_types.begin(), m_types.end());
 }
@@ -41,11 +44,9 @@ bool CuisineFilter::ScopedFilter::Matches(FeatureID const & fid) const
   if (fid.m_mwmId != m_mwmId)
     return false;
 
-  auto it = lower_bound(
-      m_descriptions.begin(), m_descriptions.end(), make_pair(fid.m_index, Description{}),
-      [](pair<uint32_t, Description> const & lhs, pair<uint32_t, Description> const & rhs) {
-        return lhs.first < rhs.first;
-      });
+  auto it = lower_bound(m_descriptions.begin(), m_descriptions.end(), make_pair(fid.m_index, Description{}),
+                        [](pair<uint32_t, Description> const & lhs, pair<uint32_t, Description> const & rhs)
+                        { return lhs.first < rhs.first; });
   if (it == m_descriptions.end() || it->first != fid.m_index)
     return false;
 
@@ -58,10 +59,12 @@ bool CuisineFilter::ScopedFilter::Matches(FeatureID const & fid) const
 }
 
 // CuisineFilter ------------------------------------------------------------------------------------
-CuisineFilter::CuisineFilter(FoodCache & food) : m_food(food) {}
+CuisineFilter::CuisineFilter(FoodCache & food)
+  : m_food(food)
+{}
 
-unique_ptr<CuisineFilter::ScopedFilter> CuisineFilter::MakeScopedFilter(
-    MwmContext const & context, vector<uint32_t> const & types)
+unique_ptr<CuisineFilter::ScopedFilter> CuisineFilter::MakeScopedFilter(MwmContext const & context,
+                                                                        vector<uint32_t> const & types)
 {
   if (types.empty())
     return {};
@@ -82,12 +85,14 @@ CuisineFilter::Descriptions const & CuisineFilter::GetDescriptions(MwmContext co
 
   auto const food = m_food.Get(context);
   auto & descriptions = m_descriptions[mwmId];
-  food.ForEach([&descriptions, &context](uint64_t bit) {
-    auto const id = base::asserted_cast<uint32_t>(bit);
-    auto ft = context.GetFeature(id);
-    if (ft)
-      descriptions.emplace_back(id, Description(*ft));
-  });
+  food.ForEach(
+    [&descriptions, &context](uint64_t bit)
+    {
+      auto const id = base::asserted_cast<uint32_t>(bit);
+      auto ft = context.GetFeature(id);
+      if (ft)
+        descriptions.emplace_back(id, Description(*ft));
+    });
   return descriptions;
 }
 }  // namespace cuisine_filter

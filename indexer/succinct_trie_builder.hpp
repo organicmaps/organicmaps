@@ -45,7 +45,11 @@ struct Node
   // to the key string which leads to this node.
   TValueList m_valueList;
 
-  Node() : l(nullptr), r(nullptr), m_isFinal(false) {}
+  Node()
+    : l(nullptr)
+    , r(nullptr)
+    , m_isFinal(false)
+  {}
 };
 
 template <class TNode, class TReader>

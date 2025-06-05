@@ -14,8 +14,7 @@ using namespace std;
 namespace
 {
 template <typename Container>
-vector<uint8_t> CreateDataPacketImpl(Container const & points,
-                                     tracking::Protocol::PacketType const type)
+vector<uint8_t> CreateDataPacketImpl(Container const & points, tracking::Protocol::PacketType const type)
 {
   vector<uint8_t> buffer;
   MemWriter<decltype(buffer)> writer(buffer);
@@ -101,9 +100,7 @@ string Protocol::DecodeAuthPacket(Protocol::PacketType type, vector<uint8_t> con
   case Protocol::PacketType::AuthV0: return string(begin(data), end(data));
   case Protocol::PacketType::Error:
   case Protocol::PacketType::DataV0:
-  case Protocol::PacketType::DataV1:
-    LOG(LERROR, ("Error decoding AUTH packet. PacketType =", type));
-    break;
+  case Protocol::PacketType::DataV1: LOG(LERROR, ("Error decoding AUTH packet. PacketType =", type)); break;
   }
   return string();
 }
@@ -118,16 +115,10 @@ Protocol::DataElementsVec Protocol::DecodeDataPacket(PacketType type, vector<uin
   {
     switch (type)
     {
-    case Protocol::PacketType::DataV0:
-      Encoder::DeserializeDataPoints(0 /* version */, src, points);
-      break;
-    case Protocol::PacketType::DataV1:
-      Encoder::DeserializeDataPoints(1 /* version */, src, points);
-      break;
+    case Protocol::PacketType::DataV0: Encoder::DeserializeDataPoints(0 /* version */, src, points); break;
+    case Protocol::PacketType::DataV1: Encoder::DeserializeDataPoints(1 /* version */, src, points); break;
     case Protocol::PacketType::Error:
-    case Protocol::PacketType::AuthV0:
-      LOG(LERROR, ("Error decoding DATA packet. PacketType =", type));
-      return {};
+    case Protocol::PacketType::AuthV0: LOG(LERROR, ("Error decoding DATA packet. PacketType =", type)); return {};
     }
     return points;
   }

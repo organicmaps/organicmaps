@@ -17,7 +17,9 @@ class FeatureMakerBase
 public:
   using IDRInterfacePtr = std::shared_ptr<cache::IntermediateDataReaderInterface>;
 
-  explicit FeatureMakerBase(IDRInterfacePtr const & cache = {}) : m_cache(cache) {}
+  explicit FeatureMakerBase(IDRInterfacePtr const & cache = {})
+    : m_cache(cache)
+  {}
   void SetCache(IDRInterfacePtr const & cache) { m_cache = cache; }
 
   virtual ~FeatureMakerBase() = default;

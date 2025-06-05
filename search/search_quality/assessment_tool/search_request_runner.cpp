@@ -11,8 +11,7 @@
 
 using namespace std;
 
-SearchRequestRunner::SearchRequestRunner(Framework & framework, DataSource const & dataSource,
-                                         ContextList & contexts,
+SearchRequestRunner::SearchRequestRunner(Framework & framework, DataSource const & dataSource, ContextList & contexts,
                                          UpdateViewOnResults && updateViewOnResults,
                                          UpdateSampleSearchState && updateSampleSearchState)
   : m_framework(framework)
@@ -20,8 +19,7 @@ SearchRequestRunner::SearchRequestRunner(Framework & framework, DataSource const
   , m_contexts(contexts)
   , m_updateViewOnResults(std::move(updateViewOnResults))
   , m_updateSampleSearchState(std::move(updateSampleSearchState))
-{
-}
+{}
 
 void SearchRequestRunner::InitiateForegroundSearch(size_t index)
 {
@@ -33,8 +31,7 @@ void SearchRequestRunner::InitiateBackgroundSearch(size_t from, size_t to)
   // 1 <= from <= to <= m_contexts.Size().
   if (from < 1 || from > to || to > m_contexts.Size())
   {
-    LOG(LINFO,
-        ("Could not initiate search in the range", from, to, "Total samples:", m_contexts.Size()));
+    LOG(LINFO, ("Could not initiate search in the range", from, to, "Total samples:", m_contexts.Size()));
     return;
   }
 
@@ -163,71 +160,70 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
         }
       }
 
-      LOG(LINFO, ("Request number", index + 1, "has been processed in the",
-                  background ? "background" : "foreground"));
+      LOG(LINFO, ("Request number", index + 1, "has been processed in the", background ? "background" : "foreground"));
     }
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, background, timestamp, index, results,
-                                                  relevances, goldenMatching, actualMatching]
-    {
-      size_t const latestTimestamp = background ? m_backgroundTimestamp : m_foregroundTimestamp;
-      if (timestamp != latestTimestamp)
-        return;
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [this, background, timestamp, index, results, relevances, goldenMatching, actualMatching]
+                          {
+                            size_t const latestTimestamp = background ? m_backgroundTimestamp : m_foregroundTimestamp;
+                            if (timestamp != latestTimestamp)
+                              return;
 
-      auto & context = m_contexts[index];
+                            auto & context = m_contexts[index];
 
-      context.m_foundResults = results;
+                            context.m_foundResults = results;
 
-      if (results.IsEndMarker())
-      {
-        if (results.IsEndedNormal())
-          context.m_searchState = Context::SearchState::Completed;
-        else
-          context.m_searchState = Context::SearchState::Untouched;
-        m_updateSampleSearchState(index);
-      }
+                            if (results.IsEndMarker())
+                            {
+                              if (results.IsEndedNormal())
+                                context.m_searchState = Context::SearchState::Completed;
+                              else
+                                context.m_searchState = Context::SearchState::Untouched;
+                              m_updateSampleSearchState(index);
+                            }
 
-      if (results.IsEndedNormal())
-      {
-        if (!context.m_initialized)
-        {
-          context.m_foundResultsEdits.Reset(relevances);
-          context.m_goldenMatching = goldenMatching;
-          context.m_actualMatching = actualMatching;
+                            if (results.IsEndedNormal())
+                            {
+                              if (!context.m_initialized)
+                              {
+                                context.m_foundResultsEdits.Reset(relevances);
+                                context.m_goldenMatching = goldenMatching;
+                                context.m_actualMatching = actualMatching;
 
-          {
-            vector<optional<ResultsEdits::Relevance>> relevances;
+                                {
+                                  vector<optional<ResultsEdits::Relevance>> relevances;
 
-            auto & nonFound = context.m_nonFoundResults;
-            CHECK(nonFound.empty(), ());
-            for (size_t i = 0; i < context.m_goldenMatching.size(); ++i)
-            {
-              auto const j = context.m_goldenMatching[i];
-              if (j != search::Matcher::kInvalidId)
-                continue;
-              nonFound.push_back(context.m_sample.m_results[i]);
-              relevances.emplace_back(nonFound.back().m_relevance);
-            }
-            context.m_nonFoundResultsEdits.Reset(relevances);
-          }
+                                  auto & nonFound = context.m_nonFoundResults;
+                                  CHECK(nonFound.empty(), ());
+                                  for (size_t i = 0; i < context.m_goldenMatching.size(); ++i)
+                                  {
+                                    auto const j = context.m_goldenMatching[i];
+                                    if (j != search::Matcher::kInvalidId)
+                                      continue;
+                                    nonFound.push_back(context.m_sample.m_results[i]);
+                                    relevances.emplace_back(nonFound.back().m_relevance);
+                                  }
+                                  context.m_nonFoundResultsEdits.Reset(relevances);
+                                }
 
-          context.m_initialized = true;
-        }
+                                context.m_initialized = true;
+                              }
 
-        if (background)
-        {
-          ++m_backgroundNumProcessed;
-          m_backgroundQueryHandles.erase(index);
-          if (m_backgroundNumProcessed == m_backgroundLastIndex - m_backgroundFirstIndex + 1)
-            PrintBackgroundSearchStats();
-          else
-            RunNextBackgroundRequest(timestamp);
-        }
-      }
+                              if (background)
+                              {
+                                ++m_backgroundNumProcessed;
+                                m_backgroundQueryHandles.erase(index);
+                                if (m_backgroundNumProcessed == m_backgroundLastIndex - m_backgroundFirstIndex + 1)
+                                  PrintBackgroundSearchStats();
+                                else
+                                  RunNextBackgroundRequest(timestamp);
+                              }
+                            }
 
-      if (!background)
-        m_updateViewOnResults(results);
-    });
+                            if (!background)
+                              m_updateViewOnResults(results);
+                          });
   };
 
   auto & engine = m_framework.GetSearchAPI().GetEngine();
@@ -239,23 +235,19 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
 
 void SearchRequestRunner::PrintBackgroundSearchStats() const
 {
-  LOG(LINFO, ("All requests from", m_backgroundFirstIndex + 1, "to", m_backgroundLastIndex + 1,
-              "have been processed"));
+  LOG(LINFO, ("All requests from", m_backgroundFirstIndex + 1, "to", m_backgroundLastIndex + 1, "have been processed"));
 
   vector<size_t> vitals;
   vitals.reserve(m_backgroundLastIndex - m_backgroundFirstIndex + 1);
   for (size_t index = m_backgroundFirstIndex; index <= m_backgroundLastIndex; ++index)
   {
     auto const & entries = m_contexts[index].m_foundResultsEdits.GetEntries();
-    bool const foundVital =
-        any_of(entries.begin(), entries.end(), [](ResultsEdits::Entry const & e) {
-          return e.m_currRelevance == search::Sample::Result::Relevance::Vital;
-        });
+    bool const foundVital = any_of(entries.begin(), entries.end(), [](ResultsEdits::Entry const & e)
+                                   { return e.m_currRelevance == search::Sample::Result::Relevance::Vital; });
     if (foundVital)
       vitals.emplace_back(index + 1);
   }
 
-  LOG(LINFO, ("Vital results found:", vitals.size(), "out of",
-              m_backgroundLastIndex - m_backgroundFirstIndex + 1));
+  LOG(LINFO, ("Vital results found:", vitals.size(), "out of", m_backgroundLastIndex - m_backgroundFirstIndex + 1));
   LOG(LINFO, ("Vital results found for these queries (1-based):", vitals));
 }

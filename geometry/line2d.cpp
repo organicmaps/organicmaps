@@ -7,10 +7,7 @@ namespace m2
 {
 namespace
 {
-bool Collinear(PointD const & a, PointD const & b, double eps)
-{
-  return std::fabs(CrossProduct(a, b)) < eps;
-}
+bool Collinear(PointD const & a, PointD const & b, double eps) { return std::fabs(CrossProduct(a, b)) < eps; }
 }  // namespace
 
 std::string DebugPrint(Line2D const & line)

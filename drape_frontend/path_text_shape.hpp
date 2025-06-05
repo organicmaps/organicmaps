@@ -20,8 +20,8 @@ namespace df
 class PathTextShape : public MapShape
 {
 public:
-  PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params,
-                TileKey const & tileKey, uint32_t baseTextIndex);
+  PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params, TileKey const & tileKey,
+                uint32_t baseTextIndex);
   bool CalculateLayout(ref_ptr<dp::TextureManager> textures);
 
   std::vector<double> GetOffsets() const { return m_context->GetOffsets(); }
@@ -33,14 +33,11 @@ public:
 private:
   uint64_t GetOverlayPriority(uint32_t textIndex, size_t textLength) const;
 
-  void DrawPathTextPlain(ref_ptr<dp::GraphicsContext> context,
-                         ref_ptr<dp::TextureManager> textures,
+  void DrawPathTextPlain(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
                          ref_ptr<dp::Batcher> batcher) const;
-  void DrawPathTextOutlined(ref_ptr<dp::GraphicsContext> context,
-                            ref_ptr<dp::TextureManager> textures,
+  void DrawPathTextOutlined(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
                             ref_ptr<dp::Batcher> batcher) const;
-  drape_ptr<dp::OverlayHandle> CreateOverlayHandle(uint32_t textIndex,
-                                                   ref_ptr<dp::TextureManager> textures) const;
+  drape_ptr<dp::OverlayHandle> CreateOverlayHandle(uint32_t textIndex, ref_ptr<dp::TextureManager> textures) const;
 
   m2::SharedSpline m_spline;
   PathTextViewParams m_params;

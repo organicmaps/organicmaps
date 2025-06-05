@@ -2,16 +2,12 @@
 
 namespace android
 {
-  void RenderContext::makeCurrent()
-  {
-  }
+void RenderContext::makeCurrent() {}
 
-  graphics::RenderContext * RenderContext::createShared()
-  {
-    RenderContext * rc = new RenderContext();
-    rc->setResourceManager(resourceManager());
-    return rc;
-  }
+graphics::RenderContext * RenderContext::createShared()
+{
+  RenderContext * rc = new RenderContext();
+  rc->setResourceManager(resourceManager());
+  return rc;
 }
-
-
+}  // namespace android

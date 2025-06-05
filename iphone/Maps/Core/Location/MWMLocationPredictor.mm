@@ -12,9 +12,9 @@ NSUInteger constexpr kMaxPredictionCount = 20;
 
 @property(copy, nonatomic) CLLocation * lastLocation;
 @property(nonatomic) BOOL isLastLocationValid;
-@property (nonatomic) BOOL isLastPositionModeValid;
-@property (nonatomic) NSUInteger predictionsCount;
-@property (copy, nonatomic) TPredictionBlock onPredictionBlock;
+@property(nonatomic) BOOL isLastPositionModeValid;
+@property(nonatomic) NSUInteger predictionsCount;
+@property(copy, nonatomic) TPredictionBlock onPredictionBlock;
 
 @end
 
@@ -45,8 +45,7 @@ NSUInteger constexpr kMaxPredictionCount = 20;
 
 - (BOOL)isActive
 {
-  return self.isLastLocationValid && self.isLastPositionModeValid &&
-         self.predictionsCount < kMaxPredictionCount;
+  return self.isLastLocationValid && self.isLastPositionModeValid && self.predictionsCount < kMaxPredictionCount;
 }
 
 - (void)restart

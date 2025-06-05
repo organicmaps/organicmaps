@@ -16,27 +16,20 @@ using namespace strings;
 
 namespace
 {
-uint64_t GetOsmID(FeatureBuilder const & fb)
-{
-  return fb.GetMostGenericOsmId().GetSerialId();
-}
+uint64_t GetOsmID(FeatureBuilder const & fb) { return fb.GetMostGenericOsmId().GetSerialId(); }
 
 AddressesHolder::AddressInfo FromFB(FeatureBuilder const & fb)
 {
   auto const & params = fb.GetParams();
-  return { params.house.Get(), std::string(params.GetStreet()), std::string(params.GetPostcode()), {} };
+  return {params.house.Get(), std::string(params.GetStreet()), std::string(params.GetPostcode()), {}};
 }
 
 // Current stats:
 // - Total "addr:interpolation:" errors = 270524
 // - "addr:interpolation: Invalid range" = 144594
 // - "addr:interpolation: No beg/end address point" = 89774
-void LogWarning(std::string const & msg, uint64_t id)
-{
-  LOG(LWARNING, ("addr:interpolation: " + msg, id));
-}
-} // namespace
-
+void LogWarning(std::string const & msg, uint64_t id) { LOG(LWARNING, ("addr:interpolation: " + msg, id)); }
+}  // namespace
 
 std::string AddressesHolder::AddressInfo::FormatRange() const
 {
@@ -80,7 +73,6 @@ std::string AddressesHolder::AddressInfo::FormatRange() const
     return ToUtf8(r.m_value);
   }
 }
-
 
 void AddressesHolder::Add(FeatureBuilder const & fb)
 {
@@ -160,11 +152,9 @@ void AddressesHolder::Deserialize(std::string const & filePath)
   }
 }
 
-
 AddressesCollector::AddressesCollector(std::string const & filename)
   : CollectorInterface(filename)
-{
-}
+{}
 
 std::shared_ptr<CollectorInterface> AddressesCollector::Clone(IDRInterfacePtr const & cache) const
 {
@@ -231,4 +221,4 @@ void AddressesCollector::MergeInto(AddressesCollector & collector) const
     collector.m_interpolWays.emplace(e.first, e.second);
 }
 
-} // namespace generator
+}  // namespace generator

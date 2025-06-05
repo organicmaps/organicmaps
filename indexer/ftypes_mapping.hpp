@@ -35,25 +35,15 @@ public:
     return m_mapping.cend();
   }
 
-  ConstIterator End() const
-  {
-    return m_mapping.cend();
-  }
+  ConstIterator End() const { return m_mapping.cend(); }
 
-  bool IsValid(ConstIterator it) const
-  {
-    return it != m_mapping.cend();
-  }
+  bool IsValid(ConstIterator it) const { return it != m_mapping.cend(); }
 
-  bool Contains(feature::TypesHolder const & types) const
-  {
-    return IsValid(Find(types));
-  }
+  bool Contains(feature::TypesHolder const & types) const { return IsValid(Find(types)); }
   template <typename Type, typename... Args>
   void AppendType(Type && type, Args &&... args)
   {
-    m_mapping.emplace(classif().GetTypeByPath(std::forward<Type>(type)),
-                      std::forward<Args>(args)...);
+    m_mapping.emplace(classif().GetTypeByPath(std::forward<Type>(type)), std::forward<Args>(args)...);
   }
 
   template <typename TypesPaths, typename... Args>

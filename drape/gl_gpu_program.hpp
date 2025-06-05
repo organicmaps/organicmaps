@@ -14,8 +14,7 @@ namespace dp
 class GLGpuProgram : public GpuProgram
 {
 public:
-  GLGpuProgram(std::string const & programName,
-               ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader);
+  GLGpuProgram(std::string const & programName, ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader);
   ~GLGpuProgram() override;
 
   void Bind() override;

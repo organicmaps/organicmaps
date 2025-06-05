@@ -1,7 +1,6 @@
 package app.organicmaps.base;
 
 import android.os.Bundle;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,12 +16,9 @@ import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 
 public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
 {
-  @Nullable
-  private String mLastTitle;
+  @Nullable private String mLastTitle;
 
-  @CallSuper
-  @Override
-  protected void onSafeCreate(@Nullable Bundle savedInstanceState)
+  @CallSuper @Override protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);
 
@@ -47,47 +43,40 @@ public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
     UiUtils.showHomeUpButton(toolbar);
   }
 
-  @StringRes
-  protected int getToolbarTitle()
+  @StringRes protected int getToolbarTitle()
   {
     return 0;
   }
 
-  @Override
-  protected Class<? extends Fragment> getFragmentClass()
+  @Override protected Class<? extends Fragment> getFragmentClass()
   {
     throw new RuntimeException("Must be implemented in child classes!");
   }
 
-  @Override
-  protected int getContentLayoutResId()
+  @Override protected int getContentLayoutResId()
   {
     return R.layout.activity_fragment_and_toolbar;
   }
 
-  @Override
-  protected int getFragmentContentResId()
+  @Override protected int getFragmentContentResId()
   {
     return R.id.fragment_container;
   }
 
-  public Fragment stackFragment(@NonNull Class<? extends Fragment> fragmentClass,
-                            @Nullable String title, @Nullable Bundle args)
+  public Fragment stackFragment(
+    @NonNull Class<? extends Fragment> fragmentClass, @Nullable String title, @Nullable Bundle args)
   {
     final int resId = getFragmentContentResId();
     if (resId <= 0 || findViewById(resId) == null)
-      throw new IllegalStateException("Fragment can't be added, since getFragmentContentResId() " +
-          "isn't implemented or returns wrong resourceId.");
+      throw new IllegalStateException("Fragment can't be added, since getFragmentContentResId() "
+                                      + "isn't implemented or returns wrong resourceId.");
 
     String name = fragmentClass.getName();
     final FragmentManager manager = getSupportFragmentManager();
     final FragmentFactory factory = manager.getFragmentFactory();
     final Fragment fragment = factory.instantiate(getClassLoader(), name);
     fragment.setArguments(args);
-    manager.beginTransaction()
-        .replace(resId, fragment, name)
-        .addToBackStack(null)
-        .commitAllowingStateLoss();
+    manager.beginTransaction().replace(resId, fragment, name).addToBackStack(null).commitAllowingStateLoss();
     manager.executePendingTransactions();
 
     if (title != null)
@@ -103,8 +92,7 @@ public abstract class BaseToolbarActivity extends BaseMwmFragmentActivity
     return fragment;
   }
 
-  @Override
-  public void onBackPressed()
+  @Override public void onBackPressed()
   {
     if (mLastTitle != null)
       getToolbar().setTitle(mLastTitle);

@@ -6,13 +6,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.DocumentsContract;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.util.log.Logger;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
@@ -22,7 +20,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
-
 
 public class StorageUtils
 {
@@ -89,8 +86,7 @@ public class StorageUtils
     return success;
   }
 
-  @NonNull
-  public static String getApkPath(@NonNull Context context)
+  @NonNull public static String getApkPath(@NonNull Context context)
   {
     try
     {
@@ -103,28 +99,24 @@ public class StorageUtils
     }
   }
 
-  @NonNull
-  public static String addTrailingSeparator(@NonNull String dir)
+  @NonNull public static String addTrailingSeparator(@NonNull String dir)
   {
     if (!dir.endsWith(File.separator))
       return dir + File.separator;
     return dir;
   }
 
-  @NonNull
-  public static String getSettingsPath(@NonNull Context context)
+  @NonNull public static String getSettingsPath(@NonNull Context context)
   {
     return addTrailingSeparator(context.getFilesDir().getAbsolutePath());
   }
 
-  @NonNull
-  public static String getPrivatePath(@NonNull Context context)
+  @NonNull public static String getPrivatePath(@NonNull Context context)
   {
     return addTrailingSeparator(context.getFilesDir().getAbsolutePath());
   }
 
-  @NonNull
-  public static String getTempPath(@NonNull Context context)
+  @NonNull public static String getTempPath(@NonNull Context context)
   {
     return addTrailingSeparator(context.getCacheDir().getAbsolutePath());
   }
@@ -147,11 +139,10 @@ public class StorageUtils
       throw new IOException("Can't create directory " + path);
   }
 
-  @NonNull
-  public static Uri getUriForFilePath(@NonNull Context context, @NonNull String path)
+  @NonNull public static Uri getUriForFilePath(@NonNull Context context, @NonNull String path)
   {
-    return FileProvider.getUriForFile(context.getApplicationContext(),
-                                      BuildConfig.FILE_PROVIDER_AUTHORITY, new File(path));
+    return FileProvider.getUriForFile(
+      context.getApplicationContext(), BuildConfig.FILE_PROVIDER_AUTHORITY, new File(path));
   }
 
   /**
@@ -174,7 +165,8 @@ public class StorageUtils
 
     return true;
   }
-  public static boolean copyFile(@NonNull ContentResolver resolver, @NonNull Uri from, @NonNull File to) throws IOException
+  public static boolean copyFile(@NonNull ContentResolver resolver, @NonNull Uri from, @NonNull File to)
+    throws IOException
   {
     try (InputStream in = resolver.openInputStream(from))
     {
@@ -185,7 +177,9 @@ public class StorageUtils
     }
   }
 
-  public static boolean copyFile(@NonNull ContentResolver resolver,@NonNull Uri from,@NonNull Uri to) throws IOException {
+  public static boolean copyFile(@NonNull ContentResolver resolver, @NonNull Uri from, @NonNull Uri to)
+    throws IOException
+  {
     try (InputStream in = resolver.openInputStream(from))
     {
       try (OutputStream out = resolver.openOutputStream(to))
@@ -242,8 +236,7 @@ public class StorageUtils
     return dirSize;
   }
 
-  @SuppressWarnings("ResultOfMethodCallIgnored")
-  public static void removeEmptyDirectories(File dir)
+  @SuppressWarnings("ResultOfMethodCallIgnored") public static void removeEmptyDirectories(File dir)
   {
     final File[] list = dir.listFiles();
     if (list == null)
@@ -257,8 +250,7 @@ public class StorageUtils
     }
   }
 
-  @SuppressWarnings("ResultOfMethodCallIgnored")
-  public static boolean removeFilesInDirectory(File dir, File[] files)
+  @SuppressWarnings("ResultOfMethodCallIgnored") public static boolean removeFilesInDirectory(File dir, File[] files)
   {
     try
     {
@@ -269,7 +261,8 @@ public class StorageUtils
       }
       removeEmptyDirectories(dir);
       return true;
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       e.printStackTrace();
       return false;
@@ -277,8 +270,7 @@ public class StorageUtils
   }
 
   @FunctionalInterface
-  public interface UriVisitor
-  {
+  public interface UriVisitor {
     void visit(Uri uri);
   }
 
@@ -287,20 +279,21 @@ public class StorageUtils
    * @param contentResolver contentResolver instance
    * @param rootUri root URI to scan
    */
-  public static void listContentProviderFilesRecursively(ContentResolver contentResolver, Uri rootUri, UriVisitor filter)
+  public static void listContentProviderFilesRecursively(
+    ContentResolver contentResolver, Uri rootUri, UriVisitor filter)
   {
-    Uri rootDir = DocumentsContract.buildChildDocumentsUriUsingTree(rootUri, DocumentsContract.getTreeDocumentId(rootUri));
+    Uri rootDir =
+      DocumentsContract.buildChildDocumentsUriUsingTree(rootUri, DocumentsContract.getTreeDocumentId(rootUri));
     Queue<Uri> directories = new LinkedBlockingQueue<>();
     directories.add(rootDir);
     while (!directories.isEmpty())
     {
       Uri dir = directories.remove();
 
-      try (Cursor cur = contentResolver.query(dir, new String[]{
-          DocumentsContract.Document.COLUMN_DOCUMENT_ID,
-          DocumentsContract.Document.COLUMN_DISPLAY_NAME,
-          DocumentsContract.Document.COLUMN_MIME_TYPE
-      }, null, null, null))
+      try (Cursor cur = contentResolver.query(dir,
+             new String[] {DocumentsContract.Document.COLUMN_DOCUMENT_ID,
+               DocumentsContract.Document.COLUMN_DISPLAY_NAME, DocumentsContract.Document.COLUMN_MIME_TYPE},
+             null, null, null))
       {
         while (cur.moveToNext())
         {

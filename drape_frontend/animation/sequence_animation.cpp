@@ -9,8 +9,7 @@ namespace df
 
 SequenceAnimation::SequenceAnimation()
   : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
-{
-}
+{}
 
 void SequenceAnimation::Init(ScreenBase const & screen, TPropertyCache const & properties)
 {
@@ -22,10 +21,7 @@ std::string SequenceAnimation::GetCustomType() const { return m_customType; }
 
 void SequenceAnimation::SetCustomType(std::string const & type) { m_customType = type; }
 
-Animation::TAnimObjects const & SequenceAnimation::GetObjects() const
-{
-  return m_objects;
-}
+Animation::TAnimObjects const & SequenceAnimation::GetObjects() const { return m_objects; }
 
 bool SequenceAnimation::HasObject(Object object) const
 {
@@ -58,15 +54,9 @@ bool SequenceAnimation::HasTargetProperty(Object object, ObjectProperty property
   return false;
 }
 
-void SequenceAnimation::SetMaxDuration(double maxDuration)
-{
-  ASSERT(false, ("Not implemented"));
-}
+void SequenceAnimation::SetMaxDuration(double maxDuration) { ASSERT(false, ("Not implemented")); }
 
-void SequenceAnimation::SetMinDuration(double minDuration)
-{
-  ASSERT(false, ("Not implemented"));
-}
+void SequenceAnimation::SetMinDuration(double minDuration) { ASSERT(false, ("Not implemented")); }
 
 double SequenceAnimation::GetDuration() const
 {
@@ -104,10 +94,7 @@ double SequenceAnimation::GetMinDuration() const
   return minDuration;
 }
 
-bool SequenceAnimation::IsFinished() const
-{
-  return m_animations.empty();
-}
+bool SequenceAnimation::IsFinished() const { return m_animations.empty(); }
 
 bool SequenceAnimation::GetProperty(Object object, ObjectProperty property, PropertyValue & value) const
 {
@@ -144,10 +131,7 @@ void SequenceAnimation::OnStart()
   Animation::OnStart();
 }
 
-void SequenceAnimation::OnFinish()
-{
-  Animation::OnFinish();
-}
+void SequenceAnimation::OnFinish() { Animation::OnFinish(); }
 
 void SequenceAnimation::Advance(double elapsedSeconds)
 {
@@ -192,4 +176,4 @@ void SequenceAnimation::ObtainObjectProperties()
   }
 }
 
-} // namespace df
+}  // namespace df
