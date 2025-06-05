@@ -7,11 +7,8 @@
 
 #include "geometry/mercator.hpp"
 
-#include "platform/distance.hpp"
 #include "platform/localization.hpp"
-#include "platform/measurement_utils.hpp"
 
-#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 namespace osm

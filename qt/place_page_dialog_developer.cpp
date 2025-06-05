@@ -21,6 +21,7 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
   QGridLayout * grid = new QGridLayout();
   int row = 0;
 
+  /// @todo Many dupicates with PlacePageDialogUser. Factor out some base class.
   auto const addEntry = [grid, &row](std::string const & key, std::string const & value, bool isLink = false)
   {
     grid->addWidget(new QLabel(QString::fromStdString(key)), row, 0);
@@ -82,6 +83,15 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, place_page:
 
   using PropID = osm::MapObject::MetadataID;
 
+  // Route refs
+  if (auto routes = info.FormatRouteRefs(); !routes.empty())
+    addEntry("Routes", routes);
+
+  // Opening hours fragment
+  if (auto openingHours = info.GetOpeningHours(); !openingHours.empty())
+    addEntry(DebugPrint(PropID::FMD_OPEN_HOURS), std::string(openingHours));
+
+  // Cuisine fragment
   if (auto cuisines = info.FormatCuisines(); !cuisines.empty())
     addEntry(DebugPrint(PropID::FMD_CUISINE), cuisines);
 
