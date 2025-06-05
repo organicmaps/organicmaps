@@ -1,5 +1,12 @@
-set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type")
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Release")
+endif ()
+
 option(CMAKE_UNITY_BUILD "Use unity build" ON)
+if (DEFINED ENV{CMAKE_UNITY_BUILD})
+  set(CMAKE_UNITY_BUILD $ENV{CMAKE_UNITY_BUILD})
+endif ()
+
 set(CMAKE_UNITY_BUILD_BATCH_SIZE "50" CACHE STRING "Batch size for unity build")
 option(USE_CCACHE "Use ccache" ON)
 option(WITH_SYSTEM_PROVIDED_3PARTY "Enable compilation with system provided dependencies" OFF)
