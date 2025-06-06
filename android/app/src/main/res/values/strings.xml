@@ -922,4 +922,27 @@
     <string name="uri_open_location_failed">No app installed that can open the location</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in navigation</string>
+
+    <!-- Header of the settings fragment where user configures cloud sync  -->
+    <string name="sync_setting">Configure Bookmarks Sync</string>
+    <string name="sync_setting_summary">Manage cloud storage accounts</string>
+    <!-- Last synced, %s is relative time. e.g. "yesterday" -->
+    <string name="last_synced_relative_time">Last synced: %s</string>
+    <string name="sync_disabled">Sync disabled</string>
+    <!-- SECTION: Login options for adding sync account -->
+    <string name="google_drive">Google Drive</string>
+    <string name="nextcloud">Nextcloud</string>
+    <string name="cloud_sync_accounts">Cloud Sync Accounts</string>
+    <string name="add_sync_account_hint">No cloud storage account linked yet. Add an account to get started.</string>
+    <!-- Button to add Sync Account -->
+    <string name="add_sync_account">Add Account</string>
+    <string name="error_adding_account">Error adding account</string>
+    <string name="account_already_exists">The same account already exists.</string>
+    <string name="enter_nextcloud_url">Enter your Nextcloud server URL</string>
+    <string name="hint_enter_valid_url">Please enter a valid URL.</string>
+    <string name="unrecognized_server_response">"Unrecognized server response: "</string>
+    <!-- Error connecting to the entered url for nextcloud login -->
+    <string name="error_connecting_to_server">Error connecting to the server.</string>
+    <!-- Error message shown during nextcloud login when user enters a url that results in 404 not found -->
+    <string name="make_sure_url_is_nextcloud">Make sure the entered URL points to a valid Nextcloud instance.</string>
 </resources>
