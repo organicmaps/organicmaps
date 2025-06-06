@@ -909,4 +909,5 @@
     <string name="vk">VK</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="saved">Сохранено</string>
 </resources>
