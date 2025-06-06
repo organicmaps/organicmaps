@@ -392,7 +392,7 @@ Java_app_organicmaps_sdk_editor_Editor_nativeCreateNote(JNIEnv * env, jclass cla
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_editor_Editor_nativeCreateStandaloneNote(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon,jstring text)
+Java_app_organicmaps_sdk_editor_Editor_nativeCreateStandaloneNote(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon,jstring text)
 {
     osm::Editor::Instance().CreateStandaloneNote(ms::LatLon(lat, lon), jni::ToNativeString(env, text));
 }
