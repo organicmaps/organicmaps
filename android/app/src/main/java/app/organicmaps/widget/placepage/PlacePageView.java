@@ -1,5 +1,8 @@
 package app.organicmaps.widget.placepage;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -25,6 +28,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import app.organicmaps.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
@@ -56,15 +63,10 @@ import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 public class PlacePageView extends Fragment implements View.OnClickListener,
                                                        View.OnLongClickListener,
@@ -81,7 +83,6 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   private static final String OPENING_HOURS_FRAGMENT_TAG = "OPENING_HOURS_FRAGMENT_TAG";
   private static final String LINKS_FRAGMENT_TAG = "LINKS_FRAGMENT_TAG";
   private static final String NOTE_CONFIRMATION_SHOWN = "NoteConfirmationAlertWasShown";
-
 
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS,
@@ -483,15 +484,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
     if (RoutingController.get().isNavigating() || RoutingController.get().isPlanning())
     {
-      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mAddNote, mEditTopSpace );
-
+      UiUtils.hide(mEditPlace, mAddOrganisation, mAddPlace, mAddNote, mEditTopSpace);
     }
     else
     {
       UiUtils.showIf(Editor.nativeShouldShowEditPlace(), mEditPlace);
       UiUtils.showIf(Editor.nativeShouldShowAddBusiness(), mAddOrganisation);
       UiUtils.showIf(Editor.nativeShouldShowAddPlace(), mAddPlace);
-      UiUtils.showIf(Editor.nativeShouldShowAddPlace() || Editor.nativeShouldShowEditPlace() , mAddNote);
+      UiUtils.showIf(Editor.nativeShouldShowAddPlace() || Editor.nativeShouldShowEditPlace(), mAddNote);
       mEditPlace.setEnabled(Editor.nativeShouldEnableEditPlace());
       mAddOrganisation.setEnabled(Editor.nativeShouldEnableAddPlace());
       mAddPlace.setEnabled(Editor.nativeShouldEnableAddPlace());
@@ -688,8 +688,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
               .putBoolean(NOTE_CONFIRMATION_SHOWN, true)
               .apply();
           if( Editor.nativeShouldShowEditPlace()){
-              //Loads g_editableMapObject based on current selection
-              Editor.nativeStartEdit();
+            Editor.nativeStartEdit();// Loads g_editableMapObject based on current selection
               Editor.nativeCreateNote(noteText);
           }else{
               Editor.nativeCreateStandaloneNote(lat, lon, noteText);

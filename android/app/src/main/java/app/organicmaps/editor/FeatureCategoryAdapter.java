@@ -24,6 +24,10 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
   private final FeatureCategoryFragment mFragment;
   private final FeatureCategory mSelectedCategory;
 
+  public interface FooterListener
+  {
+    void onLeaveNoteClicked();
+  }
   public FeatureCategoryAdapter(@NonNull FeatureCategoryFragment host, @NonNull FeatureCategory[] categories, @Nullable FeatureCategory category)
   {
     mFragment = host;
@@ -54,7 +58,8 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         return new FeatureViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category, parent, false));
       }
       case TYPE_FOOTER -> {
-        return new FooterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category_footer, parent, false));
+        return new FooterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category_footer, parent, false), (FooterListener) mFragment);
+
       }
       default -> {
         throw new IllegalArgumentException("Unsupported");
@@ -104,12 +109,14 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
   protected static class FooterViewHolder extends RecyclerView.ViewHolder
   {
-
-    FooterViewHolder(@NonNull View itemView)
+    FooterViewHolder(@NonNull View itemView, @NonNull FooterListener listener)
     {
       super(itemView);
       TextView categoryUnsuitableText = itemView.findViewById(R.id.editor_category_unsuitable_text);
       categoryUnsuitableText.setMovementMethod(LinkMovementMethod.getInstance());
+
+      View leaveNoteButton = itemView.findViewById(R.id.leave_a_note_button);
+      leaveNoteButton.setOnClickListener(v -> listener.onLeaveNoteClicked());
     }
   }
 
