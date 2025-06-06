@@ -602,9 +602,8 @@
     <string name="error_enter_correct_vk_page">Enter a valid VK username or web address</string>
     <string name="error_enter_correct_line_page">Enter a valid LINE ID or web address</string>
     <string name="placepage_add_place_button">Add Place to OpenStreetMap</string>
-    <string name="placepage_add_note">Leave Note to OpenStreetMap</string>
-    <string name="osm_note_hint">Describe the issue, add details, or suggest an improvement.</string>
-    <string name="error_enter_note">Please enter a note text.</string>
+    <string name="osm_note_hint">Or, alternatively, leave a note to OpenStreetMap community so that someone else can add or fix a place here.</string>
+    <string name="osm_note_toast">Note will be sent to OpenStreetMap</string>
     <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
     <string name="editor_share_to_all_dialog_title">Do you want to send it to all users?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
