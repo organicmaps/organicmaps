@@ -228,6 +228,11 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   [[MapViewController sharedController] presentViewController:routeManager animated:YES completion:nil];
 }
 
+- (IBAction)saveRouteAsTrack:(id)sender {
+  [MWMFrameworkHelper saveRouteAsTrack];
+  [self.baseRoutePreviewStatus setRouteSaved:YES];
+}
+
 #pragma mark - MWMNavigationControlView
 
 - (IBAction)ttsButtonAction {
