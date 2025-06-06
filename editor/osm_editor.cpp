@@ -1189,7 +1189,7 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
 
 void Editor::CreateStandaloneNote(ms::LatLon const & latLon, std::string const & noteText)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker,(""));
+  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
   m_notes->CreateNote(latLon, noteText + "\n");
 }
 
