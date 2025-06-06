@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.browser.customtabs.CustomTabsClient;
 import androidx.core.app.NavUtils;
 import androidx.core.os.BundleCompat;
 import androidx.fragment.app.Fragment;
@@ -48,6 +50,9 @@ import app.organicmaps.sdk.util.log.LogsManager;
 import com.google.android.material.snackbar.Snackbar;
 import java.lang.ref.WeakReference;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Keep
@@ -493,5 +498,35 @@ public class Utils
   {
     final LocalTime time = LocalTime.now().plusSeconds(seconds);
     return StringUtils.formatUsingUsLocale("%d:%02d", time.getHour(), time.getMinute());
+  }
+
+  /**
+   * @return The package name of a browser that supports Custom Tabs, prioritizing the default browser.
+   *   Returns null if Custom Tabs isn't supported by any installed browser.
+   */
+  public static @Nullable String getCustomTabsPackage(Context context)
+  {
+    String packageName = CustomTabsClient.getPackageName(context, Collections.emptyList());
+    if (packageName != null) // The default browser supports Custom Tabs
+      return packageName;
+
+    // Get all apps that can handle VIEW intents and Custom Tab service connections.
+    Intent activityIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"));
+    PackageManager packageManager = context.getPackageManager();
+    List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(
+        activityIntent, Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                            ? PackageManager.MATCH_ALL
+                            : PackageManager.GET_ACTIVITIES | PackageManager.GET_INTENT_FILTERS);
+
+    // Extract package names from ResolveInfo objects
+    List<String> packageNames = new ArrayList<>();
+    for (ResolveInfo info : resolveInfos)
+    {
+      packageNames.add(info.activityInfo.packageName);
+    }
+
+    // Get a package that supports Custom Tabs
+    packageName = CustomTabsClient.getPackageName(context, packageNames, true /* ignore default */);
+    return packageName;
   }
 }
