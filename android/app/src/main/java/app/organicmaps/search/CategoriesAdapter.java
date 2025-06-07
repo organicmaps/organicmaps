@@ -74,7 +74,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     final Activity activity = fragment.requireActivity();
     final String packageName = activity.getPackageName();
 
-    final String[] keys = getAllCategories();
+    final String[] keys = DisplayedCategories.nativeGetKeys();
     final int numKeys = keys.length;
 
     mCategoryResIds = new int[numKeys];
@@ -91,25 +91,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       if (mIconResIds[i] == 0)
         throw new IllegalStateException("Can't get icon resource id for category:" + key);
     }
-  }
-
-  @NonNull
-  private static String[] getAllCategories()
-  {
-    String[] searchCategories = DisplayedCategories.nativeGetKeys();
-    int amountSize = searchCategories.length;
-    String[] allCategories = new String[amountSize];
-
-    for (int i = 0, j = 0; i < amountSize; i++)
-    {
-      if (allCategories[i] == null)
-      {
-        allCategories[i] = searchCategories[j];
-        j++;
-      }
-    }
-
-    return allCategories;
   }
 
   @SuppressLint("DiscouragedApi")
