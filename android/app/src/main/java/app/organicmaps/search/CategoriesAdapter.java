@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +14,14 @@ import android.widget.TextView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.R;
 import app.organicmaps.sdk.search.DisplayedCategories;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Language;
+import app.organicmaps.util.ThemeUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -45,28 +45,16 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   interface CategoriesUiListener
   {
-    void onSearchCategorySelected(@Nullable String category);
+    void onSearchCategorySelected(String category);
   }
 
-  private CategoriesUiListener mListener = null;
-  private boolean mIsLangSupported;
-  private Resources mEnglishResources;
+  private final CategoriesUiListener mListener;
 
   CategoriesAdapter(@NonNull Fragment fragment)
   {
+    mListener = (CategoriesUiListener) fragment;
     mResources = fragment.getResources();
     mInflater = LayoutInflater.from(fragment.requireActivity());
-
-    if (fragment instanceof CategoriesUiListener)
-    {
-      mListener = (CategoriesUiListener) fragment;
-      mIsLangSupported = DisplayedCategories.nativeIsLangSupported(Language.getDefaultLocale());
-
-      Configuration config = new Configuration(mResources.getConfiguration());
-      config.setLocale(new Locale("en"));
-      Context localizedContext = fragment.getContext().createConfigurationContext(config);
-      mEnglishResources = localizedContext.getResources();
-    }
   }
 
   void updateCategories(@NonNull Fragment fragment)
@@ -160,11 +148,38 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     @NonNull
     private final View mView;
 
+    private final boolean mIsLangSupported;
+    private Resources mEnglishResources;  // Lazy-initialized
+
+    // Get locale/language of the translations that are used in the app UI and are visible to the user.
+    // Handles cases when the primary system language translation is not supported by OM yet.
+    // private @NonNull String getResourcesLanguage()
+    // {
+    //   final Configuration c = mResources.getConfiguration();
+    //   return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? c.getLocales().get(0).toString() : c.locale.toString();
+    // }
+
+    private @NonNull String getEnglishString(@StringRes int categoryId)
+    {
+      // Not thread safe, but we don't care, as it should always run on the same thread.
+      if (mEnglishResources == null)
+      {
+        final Configuration newConfig = new Configuration(mResources.getConfiguration());
+        newConfig.setLocale(new Locale("en"));
+        final Context localizedContext = mInflater.getContext().createConfigurationContext(newConfig);
+        mEnglishResources = localizedContext.getResources();
+      }
+      return mEnglishResources.getString(categoryId);
+    }
+
     ViewHolder(@NonNull View v, @NonNull TextView tv)
     {
       super(v);
       mView = v;
       mTitle = tv;
+
+      // TODO(AB): Change Language.getDefaultLocale() to getResourcesLanguage() and pass proper language to the search.
+      mIsLangSupported = DisplayedCategories.nativeIsLangSupported(Language.getDefaultLocale());
     }
 
     void setupClickListeners()
@@ -176,22 +191,16 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     public final void onClick(View v)
     {
       final int position = getBindingAdapterPosition();
-      onItemClicked(position);
-    }
 
-    void onItemClicked(int position)
-    {
-      if (mListener != null)
-      {
-        @StringRes
-        int categoryId = mCategoryResIds[position];
+      @StringRes
+      final int categoryId = mCategoryResIds[position];
 
-        String category = mIsLangSupported ? mResources.getString(categoryId) : mEnglishResources.getString(categoryId);
-
-        /// @todo Pass the correct input language. Now the Core always matches "en" together with "m_inputLocale".
-        /// We expect that Language.getDefaultLocale() will be called further inside.
-        mListener.onSearchCategorySelected(category + " ");
-      }
+      /// @todo Pass the correct input language. Now the Core always matches "en" together with "m_inputLocale".
+      /// We expect that Language.getDefaultLocale() will be called further inside.
+      if (mIsLangSupported)
+        mListener.onSearchCategorySelected(mResources.getString(categoryId) + " "/*, getResourcesLanguage()*/);
+      else
+        mListener.onSearchCategorySelected(getEnglishString(categoryId) + " "/*, "en"*/);
     }
 
     void setTextAndIcon(@StringRes int textResId, @DrawableRes int iconResId)
@@ -199,6 +208,5 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       mTitle.setText(textResId);
       mTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(iconResId, 0, 0, 0);
     }
-
   }
 }
