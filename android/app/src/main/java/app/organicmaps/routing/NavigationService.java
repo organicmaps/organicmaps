@@ -7,12 +7,12 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static app.organicmaps.util.Constants.Vendor.XIAOMI;
 
 import android.annotation.SuppressLint;
-import android.app.ForegroundServiceStartNotAllowedException;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ServiceInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -27,6 +27,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 
 import app.organicmaps.Framework;
@@ -224,21 +225,11 @@ public class NavigationService extends Service implements LocationListener
       return START_NOT_STICKY; // The service will be stopped by stopSelf().
     }
 
-    Logger.i(TAG, "Starting foreground");
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-    {
-      try
-      {
-        startForeground(NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build());
-      } catch (ForegroundServiceStartNotAllowedException e)
-      {
-        Logger.e(TAG, "Oops! ForegroundService is not allowed", e);
-      }
-    }
+    Logger.i(TAG, "Starting Navigation Foreground service");
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+      ServiceCompat.startForeground(this, NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
     else
-    {
-      startForeground(NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build());
-    }
+      ServiceCompat.startForeground(this, NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build(), 0);
 
     final LocationHelper locationHelper = LocationHelper.from(this);
 
