@@ -423,6 +423,7 @@ public class MapButtonsController extends Fragment
         .setAllSides()
         .build();
     ViewCompat.setOnApplyWindowInsetsListener(mFrame, insetsListener);
+    mFrame.post(() -> ViewCompat.requestApplyInsets(mFrame)); // Window insets are not dispatched correctly on older Androids
   }
 
   @Override

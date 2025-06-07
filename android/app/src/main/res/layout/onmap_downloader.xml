@@ -16,7 +16,6 @@
     android:clipChildren="false"
     android:layout_gravity="center"
     android:gravity="center_horizontal"
-    android:backgroundTint="?menuBackground"
     android:background="@drawable/onmap_downloader_background"
     tools:ignore="UselessParent">
 
