@@ -3,6 +3,7 @@
 #import "ProductsConfiguration+Core.h"
 #import "Product+Core.h"
 #import "TrackInfo+Core.h"
+#import "ElevationProfileData+Core.h"
 
 #include "Framework.h"
 
@@ -234,8 +235,8 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().StopTrackRecording();
 }
 
-+ (void)saveTrackRecordingWithName:(nullable NSString *)name {
-  GetFramework().SaveTrackRecordingWithName(name == nil ? "" : name.UTF8String);
++ (void)saveTrackRecordingWithName:(nonnull NSString *)name {
+  GetFramework().SaveTrackRecordingWithName(name.UTF8String);
 }
 
 + (BOOL)isTrackRecordingEnabled {
@@ -244,6 +245,10 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 
 + (BOOL)isTrackRecordingEmpty {
   return GetFramework().IsTrackRecordingEmpty();
+}
+
++ (ElevationProfileData * _Nonnull)trackRecordingElevationInfo {
+  return [[ElevationProfileData alloc] initWithElevationInfo:GetFramework().GetTrackRecordingElevationInfo()];
 }
 
 // MARK: - ProductsManager

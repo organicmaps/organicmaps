@@ -76,6 +76,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 @property(nonatomic, readwrite) MWMMapViewControlsManager *controlsManager;
 @property(nonatomic, readwrite) SearchOnMapManager *searchManager;
+@property(nonatomic, readwrite) TrackRecordingManager *trackRecordingManager;
 
 @property(nonatomic) BOOL disableStandbyOnLocationStateMode;
 
@@ -116,7 +117,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
   return [MapsAppDelegate theApp].mapViewController;
 }
 
-#pragma mark - Map Navigation
+#pragma mark - PlacePage
 
 - (void)showOrUpdatePlacePage:(PlacePageData *)data {
   if (self.searchManager.isSearching)
@@ -124,9 +125,10 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
   self.controlsManager.trafficButtonHidden = YES;
   if (self.placePageVC != nil) {
-    [PlacePageBuilder update:(PlacePageViewController *)self.placePageVC with:data];
+    [PlacePageBuilder update:self.placePageVC with:data];
     return;
   }
+
   [self showPlacePageFor:data];
 }
 
@@ -204,6 +206,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
 }
 
 - (void)hideRegularPlacePage {
+  [self stopObservingTrackRecordingUpdates];
   [self.placePageVC closeAnimatedWithCompletion:^{
     [self.placePageVC.view removeFromSuperview];
     [self.placePageVC willMoveToParentViewController:nil];
@@ -247,6 +250,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
     return;
   }
   PlacePageData * data = [[PlacePageData alloc] initWithLocalizationProvider:[[OpeinigHoursLocalization alloc] init]];
+  [self stopObservingTrackRecordingUpdates];
   [self showOrUpdatePlacePage:data];
 }
 
@@ -424,6 +428,9 @@ NSString *const kSettingsSegue = @"Map2Settings";
   // Added in https://github.com/organicmaps/organicmaps/pull/7333
   // After all users migrate to OAuth2 we can remove next code
   [self migrateOAuthCredentials];
+
+  if (self.trackRecordingManager.isActive)
+    [self showTrackRecordingPlacePage];
 
   /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
   /*
@@ -742,6 +749,12 @@ NSString *const kSettingsSegue = @"Map2Settings";
   return _searchManager;
 }
 
+- (TrackRecordingManager *)trackRecordingManager {
+  if (!_trackRecordingManager)
+    _trackRecordingManager = TrackRecordingManager.shared;
+  return _trackRecordingManager;
+}
+
 - (UIView * _Nullable)searchViewAvailableArea {
   return self.searchManager.viewController.availableAreaView;
 }
@@ -856,6 +869,50 @@ NSString *const kSettingsSegue = @"Map2Settings";
   if (backURL != nil) {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: backURL] options:@{} completionHandler:nil];
   }
+}
+
+// MARK: - Track Recording Place Page
+
+- (void)showTrackRecordingPlacePage {
+  if ([self.trackRecordingManager contains:self]) {
+    [self dismissPlacePage];
+    return;
+  }
+  PlacePageData * placePageData = [[PlacePageData alloc] initWithTrackInfo:self.trackRecordingManager.trackRecordingInfo
+                                                             elevationInfo:self.trackRecordingManager.trackRecordingElevationProfileData];
+  [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
+  [self showOrUpdatePlacePage:placePageData];
+  [self startObservingTrackRecordingUpdatesForPlacePageData:placePageData];
+}
+
+- (void)startObservingTrackRecordingUpdatesForPlacePageData:(PlacePageData *)placePageData {
+  __weak __typeof(self) weakSelf = self;
+  [self.trackRecordingManager addObserver:self
+        recordingIsActiveDidChangeHandler:^(TrackRecordingState state,
+                                            TrackInfo * _Nonnull trackInfo,
+                                            ElevationProfileData * _Nonnull (^ _Nullable elevationData) ()) {
+    __strong __typeof(weakSelf) self = weakSelf;
+
+    switch (state) {
+      case TrackRecordingStateInactive:
+        [self stopObservingTrackRecordingUpdates];
+        [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateClosed];
+        break;
+      case TrackRecordingStateActive:
+        if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive)
+          return;
+        [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
+        [placePageData updateWithTrackInfo:trackInfo
+                             elevationInfo:elevationData()];
+        break;
+    }
+  }];
+}
+
+- (void)stopObservingTrackRecordingUpdates {
+  [self.trackRecordingManager removeObserver:self];
+  if (self.trackRecordingManager.isActive)
+    [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateVisible];
 }
 
 // MARK: - Handle macOS trackpad gestures
