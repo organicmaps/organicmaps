@@ -14,6 +14,8 @@ import android.view.Surface;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import java.util.Objects;
+
 public class LocationUtils
 {
   private LocationUtils() {}
@@ -84,6 +86,9 @@ public class LocationUtils
 
   public static boolean isLocationBetterThanLast(@NonNull Location newLocation, @NonNull Location lastLocation)
   {
+    if (newLocation.getElapsedRealtimeNanos() < lastLocation.getElapsedRealtimeNanos())
+      return false;
+
     // As described in isAccuracySatisfied, GPS may have zero accuracy "for some reasons".
     if (isFromGpsProvider(lastLocation) && lastLocation.getAccuracy() == 0.0f)
       return true;
