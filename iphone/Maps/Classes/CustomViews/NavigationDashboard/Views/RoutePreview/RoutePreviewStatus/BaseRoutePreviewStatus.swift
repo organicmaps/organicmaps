@@ -27,6 +27,18 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     }
   }
 
+  @IBOutlet private weak var saveRouteAsTrackButtonRegular: UIButton! {
+    didSet {
+      configSaveRouteAsTrackButton(saveRouteAsTrackButtonRegular)
+    }
+  }
+
+  @IBOutlet private weak var saveRouteAsTrackButtonCompact: UIButton! {
+    didSet {
+      configSaveRouteAsTrackButton(saveRouteAsTrackButtonCompact)
+    }
+  }
+
   @IBOutlet private var errorBoxBottom: NSLayoutConstraint!
   @IBOutlet private var resultsBoxBottom: NSLayoutConstraint!
   @IBOutlet private var heightBoxBottom: NSLayoutConstraint!
@@ -84,6 +96,12 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     button.setTitle(L("planning_route_manage_route"), for: .normal)
   }
 
+  private func configSaveRouteAsTrackButton(_ button: UIButton) {
+    button.setImagePadding(8)
+    button.setTitle(L("save"), for: .normal)
+    button.setTitle(L("saved"), for: .disabled)
+  }
+
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     updateManageRouteVisibility()
@@ -95,6 +113,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     let isCompact = traitCollection.verticalSizeClass == .compact
     manageRouteBox.isHidden = isCompact || resultsBox.isHidden
     manageRouteButtonCompact?.isHidden = !isCompact
+    saveRouteAsTrackButtonCompact.isHidden = !isCompact
   }
 
   @objc func hide() {
@@ -107,9 +126,7 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     resultsBox.isHidden = true
     heightBox.isHidden = true
     manageRouteBox.isHidden = true
-
     errorLabel.text = message
-
     updateHeight()
   }
 
@@ -130,8 +147,18 @@ final class BaseRoutePreviewStatus: SolidTouchView {
     } else {
       heightBox.isHidden = true
     }
+    setRouteAsTrackButtonEnabled(true)
     updateManageRouteVisibility()
     updateHeight()
+  }
+
+  @objc func setRouteSaved(_ isSaved: Bool) {
+    setRouteAsTrackButtonEnabled(!isSaved)
+  }
+
+  private func setRouteAsTrackButtonEnabled(_ isEnabled: Bool) {
+    saveRouteAsTrackButtonRegular.isEnabled = isEnabled
+    saveRouteAsTrackButtonCompact.isEnabled = isEnabled
   }
 
   private func updateResultsLabel() {

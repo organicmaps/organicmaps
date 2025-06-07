@@ -195,6 +195,10 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().ShowTrack(trackId);
 }
 
++ (void)saveRouteAsTrack {
+  GetFramework().SaveRoute();
+}
+
 + (void)updatePlacePageData {
   GetFramework().UpdatePlacePageInfoForCurrentSelection();
 }
