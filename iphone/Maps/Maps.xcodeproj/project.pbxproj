@@ -4080,6 +4080,7 @@
 				6741AA311BF340DE002C974C /* Frameworks */,
 				4740184523F5BDE900A93C81 /* Embed Frameworks */,
 				ED46DDE22D098A0C007CACD6 /* Embed Foundation Extensions */,
+				ED7077692DDDE6120028271D /* Run SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -4417,6 +4418,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		ED7077692DDDE6120028271D /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\n# Skip SwiftLint in CI environments\nif [[ -n \"${SKIP_SWIFTLINT}\" ]]; then\n    echo \"SwiftLint check skipped by SKIP_SWIFTLINT flag\"\n    exit 0\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint --config \"${SRCROOT}/../.swiftlint.yml\"\nelse\n    echo \"error: SwiftLint not installed. Please install SwiftLint: https://github.com/realm/SwiftLint#installation\"\n    exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6741A9A01BF340DE002C974C /* Sources */ = {
@@ -5179,6 +5201,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 9Z6432XD7L;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5201,6 +5224,7 @@
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z6432XD7L;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
