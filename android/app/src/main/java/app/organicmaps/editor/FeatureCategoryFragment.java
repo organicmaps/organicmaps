@@ -1,32 +1,37 @@
 package app.organicmaps.editor;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import app.organicmaps.Framework;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
+import app.organicmaps.dialog.EditTextDialogFragment;
 import app.organicmaps.editor.data.FeatureCategory;
-import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.widget.ToolbarController;
 import app.organicmaps.util.Language;
 import app.organicmaps.util.Utils;
+import app.organicmaps.widget.SearchToolbarController;
+import app.organicmaps.widget.ToolbarController;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCategoryAdapter>
+public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCategoryAdapter> implements FeatureCategoryAdapter.FooterListener
 {
   private FeatureCategory mSelectedCategory;
   protected ToolbarController mToolbarController;
+  private static final String NOTE_CONFIRMATION_SHOWN = "NoteConfirmationAlertWasShown";
 
   public interface FeatureCategoryListener
   {
@@ -109,5 +114,74 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
       ((FeatureCategoryListener) requireActivity()).onFeatureCategorySelected(category);
     else if (getParentFragment() instanceof FeatureCategoryListener)
       ((FeatureCategoryListener) getParentFragment()).onFeatureCategorySelected(category);
+  }
+
+  @Override
+  public void onLeaveNoteClicked()
+  {
+    if (!OsmOAuth.isAuthorized(requireContext()))
+    {
+      final Intent intent = new Intent(requireActivity(), OsmLoginActivity.class);
+      startActivity(intent);
+      return;
+    }
+
+    final double[] center = Framework.nativeGetScreenRectCenter();
+    final double lat = center[0];
+    final double lon = center[1];
+
+    addNoteInputDialog(lat, lon);
+  }
+
+  private void addNoteInputDialog(double lat, double lon){
+    EditTextDialogFragment dialogFragment =
+        EditTextDialogFragment.show(
+            getString(R.string.placepage_add_note),
+            "",
+            getString(R.string.osm_note_hint),
+            getString(R.string.editor_report_problem_send_button),
+            getString(R.string.cancel),
+            this,
+            getNoteValidator()
+        );
+
+    dialogFragment.setTextSaveListener(noteText -> {
+      if (!MwmApplication.prefs(requireContext().getApplicationContext()).contains(NOTE_CONFIRMATION_SHOWN))
+      {
+        showNoteConfirmationDialog(lat, lon, noteText);
+      }
+      else
+      {
+        Editor.nativeCreateStandaloneNote(lat, lon, noteText);
+        requireActivity().finish();
+      }
+    });
+  }
+
+  private void showNoteConfirmationDialog(double lat, double lon, String noteText)
+  {
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.editor_share_to_all_dialog_title)
+        .setMessage(getString(R.string.editor_share_to_all_dialog_message_1)
+            + " " + getString(R.string.editor_share_to_all_dialog_message_2))
+        .setPositiveButton(android.R.string.ok, (dlg, which) -> {
+          MwmApplication.prefs(requireContext().getApplicationContext()).edit()
+              .putBoolean(NOTE_CONFIRMATION_SHOWN, true)
+              .apply();
+          Editor.nativeCreateStandaloneNote(lat, lon, noteText);
+          requireActivity().finish();
+        })
+        .setNegativeButton(R.string.cancel, null)
+        .show();
+  }
+
+  @NonNull
+  private EditTextDialogFragment.Validator getNoteValidator() {
+    return (activity, text) -> {
+      if (TextUtils.isEmpty(text))
+        return activity.getString(R.string.error_enter_note);
+      else
+        return null;
+    };
   }
 }
