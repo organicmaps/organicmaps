@@ -128,6 +128,7 @@ class PlacePageInfoViewController: UIViewController {
   private var outdoorSeatingView: InfoItemViewController?
   private var driveThroughView: InfoItemViewController?
   private var networkView: InfoItemViewController?
+  private var maxPowerView: InfoItemViewController?
 
   weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -260,6 +261,10 @@ class PlacePageInfoViewController: UIViewController {
 
     if let driveThrough = placePageInfoData.driveThrough {
       driveThroughView = createInfoItem(driveThrough, icon: UIImage(named: "ic_placepage_drive_through"))
+    }
+
+    if let maxPower = placePageInfoData.maxPower {
+      maxPowerView = createInfoItem(maxPower, icon: UIImage(named: "ic_placepage_max_power"))
     }
 
     if let email = placePageInfoData.email {
