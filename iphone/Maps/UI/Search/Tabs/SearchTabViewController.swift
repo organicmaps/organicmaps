@@ -21,10 +21,10 @@ final class SearchTabViewController: TabViewController {
       UserDefaults.standard.set(activeTab.rawValue, forKey: SearchTabViewController.selectedIndexKey)
     }
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     let history = SearchHistoryViewController(frameworkHelper: frameworkHelper,
                                               delegate: self)
     history.title = L("history")
@@ -70,7 +70,10 @@ extension SearchTabViewController: SearchOnMapScrollViewDelegate {
 extension SearchTabViewController: SearchCategoriesViewControllerDelegate {
   func categoriesViewController(_ viewController: SearchCategoriesViewController,
                                 didSelect category: String) {
-    let query = SearchQuery(L(category) + " ", source: .category)
+    let preferredLang = AppInfo.shared().languageId
+    let supportedBySearchLang = MWMSearchFrameworkHelper.isLanguageSupported(preferredLang) ? preferredLang : "en"
+    let searchText = L(category, languageCode: supportedBySearchLang) + " "
+    let query = SearchQuery(searchText, locale: supportedBySearchLang, source: .category)
     delegate?.searchTabController(self, didSearch: query)
   }
 }

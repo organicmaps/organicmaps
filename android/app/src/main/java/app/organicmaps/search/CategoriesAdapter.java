@@ -3,6 +3,7 @@ package app.organicmaps.search;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.search.DisplayedCategories;
 import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.Language;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Locale;
 
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
@@ -45,14 +48,25 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     void onSearchCategorySelected(@Nullable String category);
   }
 
-  private CategoriesUiListener mListener;
+  private CategoriesUiListener mListener = null;
+  private boolean mIsLangSupported;
+  private Resources mEnglishResources;
 
   CategoriesAdapter(@NonNull Fragment fragment)
   {
-    if (fragment instanceof CategoriesUiListener)
-      mListener = (CategoriesUiListener) fragment;
     mResources = fragment.getResources();
     mInflater = LayoutInflater.from(fragment.requireActivity());
+
+    if (fragment instanceof CategoriesUiListener)
+    {
+      mListener = (CategoriesUiListener) fragment;
+      mIsLangSupported = DisplayedCategories.nativeIsLangSupported(Language.getDefaultLocale());
+
+      Configuration config = new Configuration(mResources.getConfiguration());
+      config.setLocale(new Locale("en"));
+      Context localizedContext = fragment.getContext().createConfigurationContext(config);
+      mEnglishResources = localizedContext.getResources();
+    }
   }
 
   void updateCategories(@NonNull Fragment fragment)
@@ -82,7 +96,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   @NonNull
   private static String[] getAllCategories()
   {
-    String[] searchCategories = DisplayedCategories.getKeys();
+    String[] searchCategories = DisplayedCategories.nativeGetKeys();
     int amountSize = searchCategories.length;
     String[] allCategories = new String[amountSize];
 
@@ -190,7 +204,12 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       {
         @StringRes
         int categoryId = mCategoryResIds[position];
-        mListener.onSearchCategorySelected(mResources.getString(categoryId) + " ");
+
+        String category = mIsLangSupported ? mResources.getString(categoryId) : mEnglishResources.getString(categoryId);
+
+        /// @todo Pass the correct input language. Now the Core always matches "en" together with "m_inputLocale".
+        /// We expect that Language.getDefaultLocale() will be called further inside.
+        mListener.onSearchCategorySelected(category + " ");
       }
     }
 

@@ -7,6 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray<NSString *> *)searchCategories;
 
 + (BOOL)isSearchHistoryEmpty;
++ (BOOL)isLanguageSupported:(NSString *)languageCode;
 + (NSArray<NSString *> *)lastSearchQueries;
 + (void)clearSearchHistory;
 
