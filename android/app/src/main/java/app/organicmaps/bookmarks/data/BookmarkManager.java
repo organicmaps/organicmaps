@@ -292,6 +292,12 @@ public enum BookmarkManager
   }
 
   @Nullable
+  public void updateTrackPlacePage(long trackId)
+  {
+    nativeUpdateTrackPlacePage(trackId);
+  }
+
+  @Nullable
   public BookmarkInfo getBookmarkInfo(long bmkId)
   {
     return nativeGetBookmarkInfo(bmkId);
@@ -733,9 +739,9 @@ public enum BookmarkManager
    return nativeGetElevationCurPositionDistance(trackId);
   }
 
-  public void setElevationActivePoint(long trackId, double distance)
+  public void setElevationActivePoint(long trackId, double distance, ElevationInfo.Point point)
   {
-    nativeSetElevationActivePoint(trackId, distance);
+    nativeSetElevationActivePoint(trackId, distance, point.getLatitude(), point.getLongitude());
   }
 
   public double getElevationActivePointDistance(long trackId)
@@ -745,6 +751,9 @@ public enum BookmarkManager
 
   @Nullable
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);
+
+  @Nullable
+  private native void nativeUpdateTrackPlacePage(long trackId);
 
   @Nullable
   private native BookmarkInfo nativeGetBookmarkInfo(long bmkId);
@@ -902,7 +911,7 @@ public enum BookmarkManager
 
   public static native void nativeRemoveElevationCurrentPositionChangedListener();
 
-  private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters);
+  private static native void nativeSetElevationActivePoint(long trackId, double distanceInMeters, double latitude, double longitude);
 
   private static native double nativeGetElevationActivePointDistance(long trackId);
 
@@ -910,6 +919,11 @@ public enum BookmarkManager
 
   public static native void nativeRemoveElevationActiveChangedListener();
 
+  public static native ElevationInfo nativeGetTrackElevationInfo(long trackId);
+
+  public static native boolean nativeIsElevationInfoHasValue(long trackId);
+
+  public static native TrackStatistics nativeGetTrackStatistics(long trackId);
   public interface BookmarksLoadingListener
   {
     default void onBookmarksLoadingStarted() {}
