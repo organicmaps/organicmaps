@@ -380,10 +380,10 @@
     <string name="p2p_reroute_from_current">Deseja planejar uma rota a partir da sua localização atual?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Próxima</string>
-    <string name="editor_time_delete">Apagar horário</string>
+    <string name="editor_time_delete">Apagar Agendamento</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">O dia todo (24 horas)</string>
-    <string name="editor_time_add_closed">Inserir horas sem funcionamento</string>
+    <string name="editor_time_add_closed">Adicionar Horários Não Comerciais</string>
     <string name="editor_report_problem_desription_1">Por favor, descreva o problema em detalhes para que a comunidade OpenStreetMap possa corrigir o erro.</string>
     <string name="editor_report_problem_desription_2">Ou faça-o você mesmo em https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Enviar</string>
@@ -814,4 +814,16 @@
     <string name="long_tap_toast">Toque longamente no mapa novamente para ver a interface</string>
     <string name="google_play_services">Serviços de localização do Google Play</string>
     <string name="dialog_routing_change_intermediate">Incapaz de localizar o ponto intermediário.</string>
+    <string name="editor_hours_closed">Horários Não Comerciais</string>
+    <string name="editor_time_to">Às</string>
+    <string name="editor_time_from">Das</string>
+    <string name="editor_time_open">Aberto</string>
+    <string name="editor_time_title">Horários Comerciais</string>
+    <string name="editor_time_advanced">Modo Avançado</string>
+    <string name="editor_example_values">Exemplo de Valores</string>
+    <string name="editor_correct_mistake">Corrigir erro</string>
+    <string name="editor_add_select_location">Selecionar Localização</string>
+    <string name="editor_time_simple">Modo Simples</string>
+    <string name="editor_time_close">Fechado</string>
+    <string name="editor_time_add">Adicionar Agendamento</string>
 </resources>

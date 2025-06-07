@@ -625,11 +625,11 @@
     <string name="type.leisure.sports_hall">Спартыўная зала</string>
     <string name="type.amenity.bench">Лаўка</string>
     <string name="type.aerialway.cable_car">Канатная дарога</string>
-    <string name="type.aerialway.chair_lift">Крэсельны ліфт</string>
+    <string name="type.aerialway.chair_lift">Крэсельны пад\'ёмнік</string>
     <string name="type.aerialway.drag_lift">Пад\'ёмнік з буксірам</string>
-    <string name="type.aerialway.gondola">Гандоола</string>
+    <string name="type.aerialway.gondola">Гандола</string>
     <string name="type.aerialway.mixed_lift">Змяшаны пад\'ёмнік</string>
-    <string name="type.aerialway.station">Станцыя падвеснай дарогі</string>
+    <string name="type.aerialway.station">Станцыя канатнай дарогі</string>
     <string name="type.amenity.bicycle_rental">Пракат ровараў</string>
     <string name="type.aeroway.terminal">Тэрмінал</string>
     <string name="type.amenity">Аб\'екты інфраструктуры</string>
@@ -644,7 +644,7 @@
     <string name="type.amenity.bus_station">Аўтавакзал</string>
     <string name="type.amenity.childcare">Дзіцячы пакой</string>
     <string name="type.amenity.love_hotel">Любоўны гатэль</string>
-    <string name="type.amenity.cafe">Кавярня</string>
+    <string name="type.amenity.cafe">Кафэ</string>
     <string name="type.amenity.car_rental">Пракат аўтамабіляў</string>
     <string name="type.amenity.car_sharing">Каршэрынг</string>
     <string name="type.amenity.car_wash">Аўтамыйка</string>
@@ -663,7 +663,7 @@
     <string name="type.highway.ladder">Лесвіца</string>
     <string name="type.leisure.firepit">Кастрышча</string>
     <string name="type.man_made.utility_pole">Слуп ЛЭП</string>
-    <string name="type.aerialway">Паветраная дарога</string>
+    <string name="type.aerialway">Паветраны вагон</string>
     <string name="type.amenity.studio">Студыя гуказапісу, тэлестудыя</string>
     <string name="type.amenity.charging_station">Зарадная станцыя</string>
     <string name="type.amenity.telephone">Тэлефон</string>
@@ -705,7 +705,7 @@
     <string name="type.aeroway.helipad">Верталётная пляцоўка</string>
     <string name="type.aeroway.runway">Узлётна-пасадачная паласа</string>
     <string name="type.aeroway.taxiway">Рулёжная дарожка</string>
-    <string name="type.amenity.hospital">Шпіталь</string>
+    <string name="type.amenity.hospital">Бальніца</string>
     <string name="type.amenity.hunting_stand">Паляўнічая вежа</string>
     <string name="type.amenity.marketplace">Рынак</string>
     <string name="type.amenity.pharmacy">Фармацыя</string>
@@ -744,7 +744,7 @@
     <string name="type.amenity.fast_food">Фастфуд</string>
     <string name="type.amenity.food_court">Фуд-корт</string>
     <string name="type.amenity.fountain">Фантан</string>
-    <string name="type.amenity.internet_cafe">Інтэрнэт-кавярня</string>
+    <string name="type.amenity.internet_cafe">Інтэрнэт-кафэ</string>
     <string name="type.amenity.kindergarten">Дзіцячы сад</string>
     <string name="type.amenity.library">Бібліятэка</string>
     <string name="type.amenity.motorcycle_parking">Паркоўка для матацыклаў</string>
@@ -945,4 +945,6 @@
     <string name="type.highway.residential.area">Жылая вуліца</string>
     <string name="type.sport.diving">Дайвінг</string>
     <string name="type.man_made.crane">Кран</string>
+    <string name="type.railway.narrow_gauge.bridge">Мост вузкакалейнай чыгункі</string>
+    <string name="type.shop.chemist">Бытавая хімія</string>
 </resources>
