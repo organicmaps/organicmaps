@@ -341,7 +341,7 @@ public:
     FeatureParams::MakeZero();
   }
 
-  /// @name Used to store address to temporary TEMP_ADDR_EXTENSION file.
+  /// @name Used to store address to temporary TEMP_ADDR_FILE_EXTENSION file.
   /// @{
   void SetAddress(feature::AddressData && addr) { m_addrTags = std::move(addr); }
 

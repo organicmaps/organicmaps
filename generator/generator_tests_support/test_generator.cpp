@@ -125,16 +125,16 @@ void TestRawGenerator::BuildRouting(std::string const & mwmName, std::string con
   routing_builder::BuildRoutingIndex(filePath, countryName, parentGetter);
 
   auto osm2feature = routing::CreateWay2FeatureMapper(filePath, osmToFeatureFilename);
-  BuildRoadAccessInfo(filePath, m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME), *osm2feature);
-  BuildCamerasInfo(filePath, m_genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), osmToFeatureFilename);
+  BuildRoadAccessInfo(filePath, m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILE_NAME), *osm2feature);
+  BuildCamerasInfo(filePath, m_genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILE_NAME), osmToFeatureFilename);
 
   auto routingGraph = CreateIndexGraph(filePath, countryName, parentGetter);
   CHECK(routingGraph, ());
 
-  BuildRoadRestrictions(*routingGraph, filePath, m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME),
+  BuildRoadRestrictions(*routingGraph, filePath, m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILE_NAME),
                         osmToFeatureFilename);
   BuildMaxspeedsSection(routingGraph.get(), filePath, osmToFeatureFilename,
-                        m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME));
+                        m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILE_NAME));
 }
 
 routing::FeatureIdToOsmId TestRawGenerator::LoadFID2OsmID(std::string const & mwmName)

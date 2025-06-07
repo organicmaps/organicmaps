@@ -61,7 +61,7 @@ void ForEachCountry(std::string const & baseDir, ToDo && toDo)
 class PackedBordersGenerator
 {
 public:
-  explicit PackedBordersGenerator(std::string const & baseDir) : m_writer(baseDir + PACKED_POLYGONS_FILE)
+  explicit PackedBordersGenerator(std::string const & baseDir) : m_writer(baseDir + PACKED_POLYGONS_FILE_NAME)
   {
   }
 
@@ -248,7 +248,7 @@ void UnpackBorders(std::string const & baseDir, std::string const & targetDir)
     MYTHROW(FileSystemException, ("Unable to find or create directory", targetDir));
 
   std::vector<storage::CountryDef> countries;
-  FilesContainerR reader(base::JoinPath(baseDir, PACKED_POLYGONS_FILE));
+  FilesContainerR reader(base::JoinPath(baseDir, PACKED_POLYGONS_FILE_NAME));
   ReaderSource<ModelReaderPtr> src(reader.GetReader(PACKED_POLYGONS_INFO_TAG));
   rw::Read(src, countries);
 

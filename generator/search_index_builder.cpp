@@ -602,9 +602,9 @@ bool BuildSearchIndexFromDataFile(std::string const & country, feature::Generate
   if (readContainer.IsExist(SEARCH_INDEX_FILE_TAG) && !forceRebuild)
     return true;
 
-  auto const indexFilePath = filename + "." + SEARCH_INDEX_FILE_TAG EXTENSION_TMP;
-  auto const streetsFilePath = filename + "." + FEATURE2STREET_FILE_TAG EXTENSION_TMP;
-  auto const placesFilePath = filename + "." + FEATURE2PLACE_FILE_TAG EXTENSION_TMP;
+  auto const indexFilePath = filename + "." + SEARCH_INDEX_FILE_TAG TMP_FILE_EXTENSION;
+  auto const streetsFilePath = filename + "." + FEATURE2STREET_FILE_TAG TMP_FILE_EXTENSION;
+  auto const placesFilePath = filename + "." + FEATURE2PLACE_FILE_TAG TMP_FILE_EXTENSION;
   SCOPE_GUARD(indexFileGuard, std::bind(&FileWriter::DeleteFileX, indexFilePath));
   SCOPE_GUARD(streetsFileGuard, std::bind(&FileWriter::DeleteFileX, streetsFilePath));
   SCOPE_GUARD(placesFileGuard, std::bind(&FileWriter::DeleteFileX, placesFilePath));
@@ -621,7 +621,7 @@ bool BuildSearchIndexFromDataFile(std::string const & country, feature::Generate
     {
       FileWriter streetsWriter(streetsFilePath);
       FileWriter placesWriter(placesFilePath);
-      auto const addrsFile = info.GetIntermediateFileName(country + DATA_FILE_EXTENSION, TEMP_ADDR_EXTENSION);
+      auto const addrsFile = info.GetIntermediateFileName(country + DATA_FILE_EXTENSION, TEMP_ADDR_FILE_EXTENSION);
       BuildAddressTable(readContainer, addrsFile, streetsWriter, placesWriter, threadsCount);
       LOG(LINFO, ("Streets table size:", streetsWriter.Size(), "; Places table size:", placesWriter.Size()));
     }

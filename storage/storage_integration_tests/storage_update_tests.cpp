@@ -27,7 +27,7 @@ using namespace storage;
 
 static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
 
-string const kCountriesTxtFile = COUNTRIES_FILE;
+string const kCountriesTxtFile = COUNTRIES_FILE_NAME;
 
 string const kMwmVersion1 = "190830";
 //size_t const kCountriesTxtFileSize1 = 420632;

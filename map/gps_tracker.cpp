@@ -18,7 +18,7 @@ char const kEnabledKey[] = "GpsTrackingEnabled";
 
 inline std::string GetFilePath()
 {
-  return base::JoinPath(GetPlatform().WritableDir(), GPS_TRACK_FILENAME);
+  return base::JoinPath(GetPlatform().WritableDir(), GPS_TRACK_FILE_NAME);
 }
 
 inline bool GetSettingsIsEnabled()
