@@ -1332,7 +1332,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
   if (msg->IsDismiss())
   {
     m_selectionShape->Hide();
-    if (!m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo)
+    if (msg->ShouldRestoreViewport() && !m_myPositionController->IsModeChangeViewport() && m_selectionTrackInfo)
     {
       AddUserEvent(make_unique_dp<SetAnyRectEvent>(m_selectionTrackInfo->m_startRect,
                                                    true /* isAnim */, false /* fitInViewport */,
