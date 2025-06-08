@@ -2057,14 +2057,14 @@ void Framework::DeactivateMapSelection()
     m_currentPlacePageInfo = {};
 
     if (m_drapeEngine != nullptr)
-      m_drapeEngine->DeselectObject();
+      m_drapeEngine->DeselectObject(true);
   }
 }
 
-void Framework::DeactivateMapSelectionCircle()
+void Framework::DeactivateMapSelectionCircle(bool restoreViewport)
 {
     if (m_drapeEngine != nullptr)
-        m_drapeEngine->DeselectObject();
+        m_drapeEngine->DeselectObject(restoreViewport);
 }
 
 void Framework::SwitchFullScreen()

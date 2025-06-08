@@ -534,13 +534,14 @@ class SelectObjectMessage : public Message
 public:
   struct DismissTag {};
 
-  explicit SelectObjectMessage(DismissTag)
+  explicit SelectObjectMessage(DismissTag, bool restoreViewport)
     : m_selected(SelectionShape::OBJECT_EMPTY)
     , m_glbPoint(m2::PointD::Zero())
     , m_isAnim(false)
     , m_isDismiss(true)
     , m_isGeometrySelectionAllowed(false)
     , m_isSelectionShapeVisible(false)
+    , m_restoreViewport(restoreViewport)
   {}
 
   SelectObjectMessage(SelectionShape::ESelectedObject selectedObject, m2::PointD const & glbPoint,
@@ -565,6 +566,7 @@ public:
   bool IsDismiss() const { return m_isDismiss; }
   bool IsGeometrySelectionAllowed() const { return m_isGeometrySelectionAllowed; }
   bool IsSelectionShapeVisible() const { return m_isSelectionShapeVisible; }
+  bool ShouldRestoreViewport() const { return m_restoreViewport; }
 
 private:
   SelectionShape::ESelectedObject m_selected;
@@ -574,6 +576,7 @@ private:
   bool m_isDismiss;
   bool m_isGeometrySelectionAllowed;
   bool m_isSelectionShapeVisible;
+  bool m_restoreViewport;
 };
 
 class CheckSelectionGeometryMessage : public Message
