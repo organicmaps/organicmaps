@@ -562,10 +562,10 @@ void DrapeEngine::SelectObject(SelectionShape::ESelectedObject obj, m2::PointD c
       MessagePriority::Normal);
 }
 
-void DrapeEngine::DeselectObject()
+void DrapeEngine::DeselectObject(bool restoreViewport)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<SelectObjectMessage>(SelectObjectMessage::DismissTag()),
+                                  make_unique_dp<SelectObjectMessage>(SelectObjectMessage::DismissTag(), restoreViewport),
                                   MessagePriority::Normal);
 }
 
