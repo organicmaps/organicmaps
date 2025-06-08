@@ -287,7 +287,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void onBuiltRoute()
   {
-    Framework.nativeDeactivateMapSelectionCircle();
+    Framework.nativeDeactivateMapSelectionCircle(true);
     mMapObject = mRoutingController.getEndPoint();
     invalidate();
   }
@@ -295,7 +295,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void onPlanningCancelled()
   {
-    Framework.nativeDeactivateMapSelectionCircle();
+    Framework.nativeDeactivateMapSelectionCircle(true);
   }
 
   @Override

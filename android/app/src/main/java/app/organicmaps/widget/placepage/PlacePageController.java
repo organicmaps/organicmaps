@@ -225,10 +225,9 @@ public class PlacePageController
 
   private void onHiddenInternal()
   {
-    if (ChoosePositionMode.get() == ChoosePositionMode.None) {
+    if (ChoosePositionMode.get() == ChoosePositionMode.None)
       Framework.nativeDeactivatePopup();
-    }
-    Framework.nativeDeactivateMapSelectionCircle();
+    Framework.nativeDeactivateMapSelectionCircle(false);
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
     resetPlacePageHeightBounds();
     removePlacePageFragments();

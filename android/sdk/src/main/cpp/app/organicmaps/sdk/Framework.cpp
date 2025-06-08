@@ -621,9 +621,9 @@ void Framework::DeactivatePopup()
   m_work.DeactivateMapSelection();
 }
 
-void Framework::DeactivateMapSelectionCircle()
+void Framework::DeactivateMapSelectionCircle(bool restoreViewport)
 {
-  m_work.DeactivateMapSelectionCircle();
+  m_work.DeactivateMapSelectionCircle(restoreViewport);
 }
 
 /*
@@ -1448,9 +1448,9 @@ Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCircle(JNIEnv * env, jclass)
+Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCircle(JNIEnv * env, jclass, jboolean restoreViewport)
 {
-  return g_framework->DeactivateMapSelectionCircle();
+  return g_framework->DeactivateMapSelectionCircle(restoreViewport);
 }
 
 JNIEXPORT void JNICALL
