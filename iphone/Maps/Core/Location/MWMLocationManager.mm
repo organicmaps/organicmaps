@@ -10,6 +10,10 @@
 
 #include "map/gps_tracker.hpp"
 
+#if TARGET_OS_SIMULATOR
+#include "MountainElevationGenerator.hpp"
+#endif
+
 namespace
 {
 using Observer = id<MWMLocationObserver>;
@@ -471,6 +475,25 @@ void setShowLocationAlert(BOOL needShow) {
   // So we filter out such events completely.
   if (location.horizontalAccuracy < 0.)
     return;
+
+#if TARGET_OS_SIMULATOR
+  // There is no simulator < 15.0 in the new XCode.
+  if (@available(iOS 15.0, *))
+  {
+    // iOS Simulator doesn't provide any elevation in its locations. Mock it.
+    static MountainElevationGenerator generator;
+    location = [[CLLocation alloc] initWithCoordinate:location.coordinate
+                                             altitude:generator.NextElevation()
+                                   horizontalAccuracy:location.horizontalAccuracy
+                                     verticalAccuracy:location.horizontalAccuracy
+                                               course:location.course
+                                       courseAccuracy:location.courseAccuracy
+                                                speed:location.speed
+                                        speedAccuracy:location.speedAccuracy
+                                            timestamp:location.timestamp
+                                           sourceInfo:location.sourceInformation];
+  }
+#endif
 
   self.lastLocationStatus = MWMLocationStatusNoError;
   self.locationSource = location::EAppleNative;
