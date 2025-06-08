@@ -185,6 +185,9 @@ tools/unix/maps/settings.sh
 # VS Code
 .vscode
 
+# clangd
+.cache
+
 # AppStore metadata
 screenshots/
 android/src/google/play/listings/
