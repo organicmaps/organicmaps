@@ -663,8 +663,10 @@ text::TextMetrics GlyphManager::ShapeText(std::string_view utf8, int fontPixelHe
     } while (u32CharacterIter != end);
   }
 
+  // Uncomment utf8 printing for debugging if necessary. It crashes JNI with non-modified UTF-8 strings on Android 5 and 6.
+  // See https://github.com/organicmaps/organicmaps/issues/10685
   if (allGlyphs.m_glyphs.empty())
-    LOG(LWARNING, ("No glyphs were found in all fonts for string", utf8));
+    LOG(LWARNING, ("No glyphs were found in all fonts for string with characters in warnings above"/*, utf8*/));
 
   // Empirically measured, may need more tuning.
   size_t constexpr kMaxCacheSize = 50000;
