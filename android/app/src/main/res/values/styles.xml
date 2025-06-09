@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <style name="MwmWidget"/>
 
@@ -130,6 +130,10 @@
     <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title</item>
   </style>
 
+  <style name="AppTheme.Widget.ActionButton" parent="@style/Widget.AppCompat.ActionButton">
+    <item name="textAllCaps">false</item>
+  </style>
+
   <style name="MwmWidget.ToolbarStyle.Light">
     <item name="android:titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title.Light</item>
     <item name="titleTextAppearance">@style/MwmTextAppearance.Toolbar.Title.Light</item>
@@ -143,6 +147,8 @@
     <item name="android:gravity">center_vertical</item>
     <item name="colorAccent">@android:color/white</item>
     <item name="iconTint">@color/white_primary</item>
+    <item name="actionButtonStyle">@style/AppTheme.Widget.ActionButton</item>
+    <item name="actionMenuTextAppearance">@style/MwmTextAppearance.Body1</item>
   </style>
 
   <style name="MwmWidget.ToolbarTheme.Light" parent="MwmWidget.ToolbarTheme">

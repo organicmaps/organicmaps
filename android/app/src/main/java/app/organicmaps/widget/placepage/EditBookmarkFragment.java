@@ -207,17 +207,17 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
     ViewCompat.setOnApplyWindowInsetsListener(toolbar, PaddingInsetsListener.excludeBottom());
 
-    final ImageView imageView = toolbar.findViewById(R.id.save);
+    final TextView textView = toolbar.findViewById(R.id.save);
     switch (mType)
     {
       case TYPE_BOOKMARK ->
       {
-        imageView.setOnClickListener(v -> saveBookmark());
+        textView.setOnClickListener(v -> saveBookmark());
         toolbar.setTitle(R.string.placepage_edit_bookmark_button);
       }
       case TYPE_TRACK ->
       {
-        imageView.setOnClickListener(v -> saveTrack());
+        textView.setOnClickListener(v -> saveTrack());
         toolbar.setTitle(R.string.edit_track);
       }
     }

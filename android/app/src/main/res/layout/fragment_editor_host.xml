@@ -28,15 +28,15 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginEnd="?actionBarSize"
         tools:visibility="gone" />
-
-      <ImageView
-        app:tint="@color/image_view"
+      <TextView
         android:id="@+id/save"
-        android:layout_width="?actionBarSize"
-        android:layout_height="?actionBarSize"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin_base"
+        android:text="@string/save"
+        android:gravity="center"
         android:background="?selectableItemBackgroundBorderless"
-        android:scaleType="centerInside"
-        app:srcCompat="@drawable/ic_done"
+        android:textAppearance="@style/MwmTextAppearance.Body1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
