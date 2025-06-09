@@ -29,7 +29,7 @@ public class AdvancedTimetableFragment extends BaseMwmFragment
   private TextInputEditText mInput;
   private WebView mExample;
   private TextView mExamplesTitle;
-  private static ImageView mSaveButton;
+  private static TextView mSaveButton;
   @Nullable
   private String mInitTimetables;
   @Nullable

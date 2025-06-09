@@ -5,6 +5,5 @@
   <item
     app:showAsAction="always"
     android:id="@+id/done"
-    android:title="@string/done"
-    android:icon="@drawable/ic_done"/>
+    android:title="@string/save" />
 </menu>

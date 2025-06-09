@@ -11,17 +11,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/MwmWidget.ToolbarTheme">
-
-      <ImageView
-        app:tint="@color/image_view"
-        android:id="@+id/save"
-        app:srcCompat="@drawable/ic_done"
-        android:layout_width="?actionBarSize"
-        android:layout_height="?actionBarSize"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_gravity="end|center_vertical"
-        android:scaleType="centerInside"
-        android:contentDescription="@string/save" />
+    <TextView
+      android:id="@+id/save"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="end"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="@string/save"
+      android:gravity="center_vertical"
+      android:padding="@dimen/margin_base"
+      android:text="@string/save"
+      android:textAppearance="@style/MwmTextAppearance.Body1" />
   </androidx.appcompat.widget.Toolbar>
   <FrameLayout
     style="@style/MwmWidget.FrameLayout.Elevation"
