@@ -1,0 +1,100 @@
+included:
+  - Maps
+  - Chart
+  - CoreApi
+  - DatePicker
+
+excluded:
+  - metadata
+
+opt_in_rules:
+  - closure_end_indentation
+  - first_where
+  - discouraged_object_literal
+  - discouraged_optional_boolean
+  - explicit_enum_raw_value
+  - empty_string
+
+// TODO: Enable these rules when the codebase is ready
+disabled_rules:
+  - large_tuple
+  - type_name
+  - identifier_name
+  - file_length
+  - line_length
+  - type_body_length
+  - function_body_length
+  - function_parameter_count
+  - cyclomatic_complexity
+  - nesting
+  - force_cast
+  - force_try
+
+# warning_threshold: 100
+
+reporter: xcode
+
+type_name:
+  min_length: 3
+  max_length: 60
+  excluded:
+    - ^iCloud.*$
+
+identifier_name:
+  min_length: 1
+  max_length: 50
+  allowed_names:
+    - URL
+    - XML
+    - KML
+    - JSON
+    - UI
+  
+file_length:
+  warning: 500
+  error: 1000
+  ignores_comments: true
+  ignores_urls: true
+
+line_length:
+  warning: 200
+  error: 400
+  ignores_comments: true
+  ignores_urls: true
+
+type_body_length:
+  warning: 600
+  error: 1000
+
+function_body_length:
+  warning: 200
+  error: 300
+  ignore_comments: true
+
+function_parameter_count:
+  warning: 6
+  error: 10
+  ignores_default_parameters: true
+
+cyclomatic_complexity:
+  ignores_case_statements: true
+  warning: 15
+  error: 25
+
+nesting:
+  type_level: 4
+  statement_level: 4
+  condition_level: 3
+
+force_cast:
+  severity: warning
+  ignores_optionals: true
+
+force_try:
+  severity: error
+  ignores_optionals: true
+
+excluded_paths:
+  - "**/*.generated.swift"
+  - "**/*.g.swift"
+  - "**/*Mocks.swift"

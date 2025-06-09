@@ -42,6 +42,7 @@ jobs:
       LANGUAGE: en_US.UTF-8
       LC_ALL: en_US.UTF-8
       TEST_RESULTS_BUNDLE_NAME: OMaps-Test-Results
+      SKIP_SWIFTLINT: true
     strategy:
       fail-fast: false
       matrix:
