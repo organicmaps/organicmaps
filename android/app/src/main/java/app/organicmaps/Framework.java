@@ -168,11 +168,6 @@ public class Framework
   public static native void nativeDeactivatePopup();
   public static native void nativeDeactivateMapSelectionCircle(boolean restoreViewport);
 
-  public static void nativeDeactivateMapSelectionCircle()
-  {
-    nativeDeactivateMapSelectionCircle();
-  }
-
   public static native String nativeGetDataFileExt();
 
   public static native String[] nativeGetMovableFilesExts();

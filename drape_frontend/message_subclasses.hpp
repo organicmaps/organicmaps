@@ -534,7 +534,7 @@ class SelectObjectMessage : public Message
 public:
   struct DismissTag {};
 
-  explicit SelectObjectMessage(DismissTag, bool restoreViewport = true)
+  explicit SelectObjectMessage(DismissTag, bool restoreViewport)
     : m_selected(SelectionShape::OBJECT_EMPTY)
     , m_glbPoint(m2::PointD::Zero())
     , m_isAnim(false)

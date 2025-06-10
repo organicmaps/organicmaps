@@ -226,9 +226,8 @@ public class PlacePageController extends Fragment implements
 
   private void onHiddenInternal()
   {
-    if (ChoosePositionMode.get() == ChoosePositionMode.None) {
+    if (ChoosePositionMode.get() == ChoosePositionMode.None)
       Framework.nativeDeactivatePopup();
-    }
     Framework.nativeDeactivateMapSelectionCircle(false);
     PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
     resetPlacePageHeightBounds();
