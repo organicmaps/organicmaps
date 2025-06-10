@@ -76,12 +76,12 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   }
 
   func configure() {
+    view?.isChartViewHidden = false
+
     let kMinPointsToDraw = 3
     guard let profileData, let chartData, chartData.points.count >= kMinPointsToDraw else {
-      view?.isChartViewHidden = true
       return
     }
-    view?.isChartViewHidden = false
     view?.setChartData(ChartPresentationData(chartData, formatter: formatter))
     view?.reloadDescription()
 

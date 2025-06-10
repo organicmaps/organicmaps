@@ -59,7 +59,7 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty) {
                                                                                   andAltitude:point.m_point.GetAltitude()];
     [pointsArray addObject:elevationPoint];
   }
-  return [pointsArray copy];
+  return pointsArray;
 }
 
 @end

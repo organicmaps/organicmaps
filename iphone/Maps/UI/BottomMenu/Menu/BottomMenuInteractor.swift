@@ -76,13 +76,19 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
   }
 
   func toggleTrackRecording() {
+    close()
     switch trackRecorder.recordingState {
     case .active:
       break
     case .inactive:
-      trackRecorder.processAction(.start)
+      trackRecorder.start { result in
+        switch result {
+        case .success:
+          MapViewController.shared()?.showTrackRecordingPlacePage()
+        case .failure:
+          break
+        }
+      }
     }
-    close()
-    MapViewController.shared()?.showTrackRecordingPlacePage()
   }
 }

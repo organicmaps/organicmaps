@@ -9,15 +9,18 @@ enum TrackRecordingAction {
   case stopAndSave(name: String)
 }
 
-enum TrackRecordingError: Error {
+enum LocationError: Error {
   case locationIsProhibited
-  case trackIsEmpty
-  case systemError(Error)
 }
 
-enum TrackRecordingActionResult {
+enum StartTrackRecordingResult {
   case success
-  case error(TrackRecordingError)
+  case failure(Error)
+}
+
+enum StopTrackRecordingResult {
+  case success
+  case trackIsEmpty
 }
 
 @objc
@@ -43,8 +46,6 @@ typealias TrackRecordingStateHandler = (TrackRecordingState, TrackInfo, Elevatio
 
 @objcMembers
 final class TrackRecordingManager: NSObject {
-
-  typealias CompletionHandler = (TrackRecordingActionResult) -> Void
 
   fileprivate struct Observation {
     weak var observer: AnyObject?
@@ -111,20 +112,45 @@ final class TrackRecordingManager: NSObject {
     recordingState == .active
   }
 
-  func processAction(_ action: TrackRecordingAction, completion: (CompletionHandler)? = nil) {
+  func start(completion: ((StartTrackRecordingResult) -> Void)? = nil) {
     do {
-      switch action {
-      case .start:
-        try startRecording()
-      case .stopAndSave(let name):
-        stopRecording()
-        try checkIsTrackNotEmpty()
-        saveTrackRecording(name: name)
+      switch recordingState {
+      case .inactive:
+        try checkIsLocationEnabled()
+        subscribeOnTrackRecordingProgressUpdates()
+        trackRecorder.startTrackRecording()
+        notifyObservers()
+        do {
+          try activityManager?.start(with: trackRecordingInfo)
+        } catch {
+          LOG(.warning, "Failed to start activity manager")
+          handleError(error)
+        }
+      case .active:
+        break
       }
       completion?(.success)
     } catch {
-      handleError(error, completion: completion)
+      handleError(error)
+      completion?(.failure(error))
     }
+  }
+
+  func stopAndSave(withName name: String = "", completion: ((StopTrackRecordingResult) -> Void)? = nil) {
+    unsubscribeFromTrackRecordingProgressUpdates()
+    trackRecorder.stopTrackRecording()
+    trackRecordingInfo = .empty()
+    activityManager?.stop()
+    notifyObservers()
+
+    guard !trackRecorder.isTrackRecordingEmpty() else {
+      Toast.show(withText: L("track_recording_toast_nothing_to_save"))
+      completion?(.trackIsEmpty)
+      return
+    }
+
+    trackRecorder.saveTrackRecording(withName: name)
+    completion?(.success)
   }
 
   // MARK: - Private methods
@@ -136,19 +162,11 @@ final class TrackRecordingManager: NSObject {
                                            object: nil)
   }
 
-  private func checkIsLocationEnabled() throws(TrackRecordingError) {
+  private func checkIsLocationEnabled() throws {
     if locationService.isLocationProhibited() {
-      throw TrackRecordingError.locationIsProhibited
+      throw LocationError.locationIsProhibited
     }
   }
-
-  private func checkIsTrackNotEmpty() throws(TrackRecordingError) {
-    if trackRecorder.isTrackRecordingEmpty() {
-      throw TrackRecordingError.trackIsEmpty
-    }
-  }
-
-  // MARK: - Handle track recording process
 
   private func subscribeOnTrackRecordingProgressUpdates() {
     trackRecorder.setTrackRecordingUpdateHandler { [weak self] info in
@@ -163,51 +181,14 @@ final class TrackRecordingManager: NSObject {
     trackRecorder.setTrackRecordingUpdateHandler(nil)
   }
 
-  // MARK: - Handle Start/Stop event and Errors
-
-  private func startRecording() throws(TrackRecordingError) {
-    switch recordingState {
-    case .inactive:
-      try checkIsLocationEnabled()
-      subscribeOnTrackRecordingProgressUpdates()
-      trackRecorder.startTrackRecording()
-      notifyObservers()
-      do {
-        try activityManager?.start(with: trackRecordingInfo)
-      } catch {
-        LOG(.warning, "Failed to start activity manager")
-        handleError(.systemError(error))
-      }
-    case .active:
-      break
-    }
-  }
-
-  private func stopRecording() {
-    unsubscribeFromTrackRecordingProgressUpdates()
-    trackRecorder.stopTrackRecording()
-    trackRecordingInfo = .empty()
-    activityManager?.stop()
-    notifyObservers()
-  }
-
-  private func saveTrackRecording(name: String) {
-    trackRecorder.saveTrackRecording(withName: name)
-  }
-
-  private func handleError(_ error: TrackRecordingError, completion: (CompletionHandler)? = nil) {
+  private func handleError(_ error: Error) {
     switch error {
-    case TrackRecordingError.locationIsProhibited:
+    case LocationError.locationIsProhibited:
       // Show alert to enable location
       locationService.checkLocationStatus()
-    case TrackRecordingError.trackIsEmpty:
-      Toast.show(withText: L("track_recording_toast_nothing_to_save"))
-    case TrackRecordingError.systemError(let error):
+    default:
       LOG(.error, error.localizedDescription)
       break
-    }
-    DispatchQueue.main.async {
-      completion?(.error(error))
     }
   }
 }

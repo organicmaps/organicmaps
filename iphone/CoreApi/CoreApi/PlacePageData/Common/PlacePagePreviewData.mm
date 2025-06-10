@@ -53,7 +53,6 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
 - (instancetype)initWithTrackInfo:(TrackInfo * _Nonnull)trackInfo {
   self = [super init];
   if (self) {
-    // TODO: (KK) Replace separator with a shared static constant.
     NSString * kSeparator = @" • ";
     _title = [@[trackInfo.duration, trackInfo.distance] componentsJoinedByString:kSeparator];
   }

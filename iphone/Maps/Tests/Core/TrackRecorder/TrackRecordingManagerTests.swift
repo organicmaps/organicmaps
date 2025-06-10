@@ -51,7 +51,7 @@ final class TrackRecordingManagerTests: XCTestCase {
     mockLocationService.locationIsProhibited = false
     mockTrackRecorder.trackRecordingIsEnabled = false
 
-    trackRecordingManager.processAction(.start)
+    trackRecordingManager.start()
 
     XCTAssertTrue(mockTrackRecorder.startTrackRecordingCalled)
     XCTAssertTrue(mockActivityManager.startCalled)
@@ -60,20 +60,21 @@ final class TrackRecordingManagerTests: XCTestCase {
 
   func test_GivenStartRecording_WhenLocationDisabled_ThenShouldFail() {
     mockLocationService.locationIsProhibited = true
-
-    trackRecordingManager.processAction(.start) { result in
+    let expectation = expectation(description: "Location is prohibited")
+    trackRecordingManager.start() { result in
       switch result {
       case .success:
         XCTFail("Should not succeed")
-      case .error(let error):
+      case .failure(let error):
         switch error {
-        case .locationIsProhibited:
-          XCTAssertTrue(true)
+        case LocationError.locationIsProhibited:
+          expectation.fulfill()
         default:
           XCTFail("Unexpected error: \(error)")
         }
       }
     }
+    wait(for: [expectation], timeout: 1.0)
     XCTAssertFalse(self.mockTrackRecorder.startTrackRecordingCalled)
     XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
   }
@@ -82,12 +83,12 @@ final class TrackRecordingManagerTests: XCTestCase {
     mockTrackRecorder.trackRecordingIsEnabled = true
     mockTrackRecorder.trackRecordingIsEmpty = false
 
-    trackRecordingManager.processAction(.stopAndSave(name: "Test Track")) { result in
+    trackRecordingManager.stopAndSave(withName: "Test Track") { result in
       switch result {
       case .success:
         XCTAssertTrue(true)
-      case .error(let error):
-        XCTFail("Unexpected error: \(error)")
+      case .trackIsEmpty:
+        XCTFail("Track should not be empty")
       }
     }
     XCTAssertTrue(mockTrackRecorder.stopTrackRecordingCalled)
@@ -99,20 +100,16 @@ final class TrackRecordingManagerTests: XCTestCase {
   func test_GivenStopRecording_WhenTrackIsEmpty_ThenShouldFail() {
     mockTrackRecorder.trackRecordingIsEnabled = true
     mockTrackRecorder.trackRecordingIsEmpty = true
-
-    trackRecordingManager.processAction(.stopAndSave(name: "Test Track")) { result in
+    let expectation = expectation(description: "Track recording should be empty")
+    trackRecordingManager.stopAndSave(withName: "Test Track") { result in
       switch result {
       case .success:
         XCTFail("Should not succeed")
-      case .error(let error):
-        switch error {
-        case .trackIsEmpty:
-          XCTAssertTrue(true)
-        default:
-          XCTFail("Unexpected error: \(error)")
-        }
+      case .trackIsEmpty:
+        expectation.fulfill()
       }
     }
+    wait(for: [expectation], timeout: 1.0)
     XCTAssertFalse(mockTrackRecorder.saveTrackRecordingCalled)
     XCTAssertTrue(trackRecordingManager.recordingState == .inactive)
   }
