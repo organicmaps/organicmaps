@@ -74,6 +74,14 @@ final class SynchronizationFileWriter {
     let targetLocalFileUrl = cloudMetadataItem.relatedLocalItemUrl(to: localDirectoryUrl)
     fileCoordinator.coordinate(readingItemAt: cloudMetadataItem.fileUrl, writingItemAt: targetLocalFileUrl, error: &coordinationError) { readingUrl, writingUrl in
       do {
+        /* During the synchronization process, when the file in trashed by iCloud,
+         the notification still can contain the already deleted file in the `updated` list instead of `deleted`.
+         In this case, the file replacement should be skipped. */
+        guard fileManager.fileExists(atPath: readingUrl.path) else {
+          LOG(.error, "iCloud file \(readingUrl.lastPathComponent) doesn't exist.")
+          completion(.failure(SynchronizationError.fileUnavailable))
+          return
+        }
         try fileManager.replaceFileSafe(at: writingUrl, with: readingUrl)
         LOG(.debug, "File \(cloudMetadataItem.fileName) is copied to local directory successfully. Start reloading bookmarks...")
         completion(.reloadCategoriesAtURLs([writingUrl]))
@@ -248,7 +256,7 @@ final class SynchronizationFileWriter {
 private extension FileManager {
   func replaceFileSafe(at targetUrl: URL, with sourceUrl: URL) throws {
     guard fileExists(atPath: targetUrl.path) else {
-      LOG(.info, "Source file \(targetUrl.lastPathComponent) doesn't exist. The file will be copied.")
+      LOG(.info, "Target file \(targetUrl.lastPathComponent) doesn't exist. The file will be copied.")
       try copyItem(at: sourceUrl, to: targetUrl)
       return
     }
