@@ -321,6 +321,7 @@ dependencies {
   implementation 'com.google.guava:guava:33.4.8-android'
   implementation 'com.github.devnullorthrow:MPAndroidChart:3.2.0-alpha'
   implementation 'net.jcip:jcip-annotations:1.0'
+  implementation 'net.openid:appauth:0.11.1'
 
   // Test Dependencies
   androidTestImplementation 'androidx.test.ext:junit:1.2.1'
@@ -334,7 +335,10 @@ android.applicationVariants.all { variant ->
   def authority = "\"" + authorityValue + "\""
   variant.buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
   def flavor = variant.getMergedFlavor()
-  flavor.manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
+  flavor.manifestPlaceholders += [
+    FILE_PROVIDER_PLACEHOLDER : authorityValue,
+    appAuthRedirectScheme : variant.applicationId
+  ]
   variant.resValue 'string', 'app_id', variant.applicationId
 }
 

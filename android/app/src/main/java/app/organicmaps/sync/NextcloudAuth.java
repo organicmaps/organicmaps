@@ -41,7 +41,7 @@ public class NextcloudAuth extends AuthState
   {
     if (other instanceof NextcloudAuth)
       return Objects.equals(mServer, ((NextcloudAuth) other).mServer)
-          && Objects.equals(mLoginName, ((NextcloudAuth) other).mLoginName);
+   && Objects.equals(mLoginName, ((NextcloudAuth) other).mLoginName);
     return false;
   }
 
