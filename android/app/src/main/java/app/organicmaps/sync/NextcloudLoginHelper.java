@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,7 +45,7 @@ public class NextcloudLoginHelper
   public static final String TAG = NextcloudLoginHelper.class.getSimpleName();
 
   @MainThread
-  public static void login(Context context, SyncBackend.LoginSuccessCallback callback)
+  public static void login(Context context)
   {
     final AlertDialog dialog =
         new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
@@ -106,16 +107,14 @@ public class NextcloudLoginHelper
               String inputLine;
               StringBuilder response = new StringBuilder();
               while ((inputLine = in.readLine()) != null)
-              {
                 response.append(inputLine);
-              }
               try
               {
                 // example success response: { "poll": {"token": string, "endpoint": string }, "login": string }
                 LoginParams params = new LoginParams(response.toString());
                 new Handler(Looper.getMainLooper()).post(() -> {
                   dialog.dismiss();
-                  loginFlowStepTwo(context, params, callback);
+                  loginFlowStepTwo(context, params);
                 });
               }
               catch (JSONException e)
@@ -148,8 +147,7 @@ public class NextcloudLoginHelper
   }
 
   @MainThread
-  private static void loginFlowStepTwo(Context context, LoginParams loginParams,
-                                       SyncBackend.LoginSuccessCallback loginSuccessCallback)
+  private static void loginFlowStepTwo(Context context, LoginParams loginParams)
   {
     String customTabsPackage = Utils.getCustomTabsPackage(context);
     if (customTabsPackage != null)
@@ -207,10 +205,7 @@ public class NextcloudLoginHelper
                     switch (result)
                     {
                       case Success ->
-                      {
-                        if (loginSuccessCallback != null)
-                          loginSuccessCallback.onLoginSuccess();
-                      }
+                        Toast.makeText(context, R.string.account_connection_success, Toast.LENGTH_SHORT).show();
                       case UnexpectedError -> showErrorDialog(context, ""); // should be fairly impossible
                       case AlreadyExists ->
                         showErrorDialog(context, context.getString(R.string.account_already_exists));
@@ -253,13 +248,13 @@ public class NextcloudLoginHelper
 
   private static void showErrorDialog(Context context, String errorMessage)
   {
-    new Handler(Looper.getMainLooper()).post(() -> {
-      new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
-          .setTitle(R.string.error_adding_account)
-          .setMessage(errorMessage)
-          .setNegativeButton(R.string.ok, null)
-          .show();
-    });
+    new Handler(Looper.getMainLooper())
+        .post(()
+                  -> new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
+                         .setTitle(R.string.error_adding_account)
+                         .setMessage(errorMessage)
+                         .setNegativeButton(R.string.ok, null)
+                         .show());
   }
 
   private static class LoginParams

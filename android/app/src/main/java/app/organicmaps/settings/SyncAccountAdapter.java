@@ -105,10 +105,8 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
       if (mAccountList.get(i).getAccountId() == accountId)
       {
         RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(i);
-        if (holder != null && holder instanceof AccountViewHolder)
-        {
+        if (holder instanceof AccountViewHolder)
           ((AccountViewHolder) holder).setSyncStatus(syncEnabled, lastSynced);
-        }
       }
     }
   }
