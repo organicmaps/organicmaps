@@ -60,6 +60,6 @@
     android:layout_centerHorizontal="true"
     android:gravity="center_horizontal"
     android:layout_marginTop="@dimen/margin_direction_small"
-    android:textSize="@dimen/text_direction_subtitle"
+    android:textSize="@dimen/text_direction_dist"
     tools:text="123.4°"/>
 </RelativeLayout>
