@@ -470,6 +470,20 @@
         android:name="app.organicmaps.MapPlaceholderActivity"/>
     <activity
         android:name="app.organicmaps.car.screens.permissions.RequestPermissionsActivity"/>
+    <activity android:name="net.openid.appauth.RedirectUriReceiverActivity"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="${applicationId}" />
+      </intent-filter>
+    </activity>
+
+    <receiver
+        android:name="app.organicmaps.sync.OAuthReceiver"
+        android:exported="false"/>
+
     <service
         android:name="app.organicmaps.car.CarAppService"
         android:exported="true"

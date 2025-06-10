@@ -522,9 +522,7 @@ public class Utils
     // Extract package names from ResolveInfo objects
     List<String> packageNames = new ArrayList<>();
     for (ResolveInfo info : resolveInfos)
-    {
       packageNames.add(info.activityInfo.packageName);
-    }
 
     // Get a package that supports Custom Tabs
     packageName = CustomTabsClient.getPackageName(context, packageNames, true /* ignore default */);

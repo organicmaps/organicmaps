@@ -32,7 +32,15 @@ public class SyncSettingsFragment
     @Override
     public void onLastSyncChanged(long accountId, long timestamp)
     {
-      mAdapter.updateSyncStatusText(accountId, true, timestamp);
+      new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateSyncStatusText(accountId, true, timestamp));
+    }
+  };
+
+  private final SyncPrefs.AccountsChangedCallback mAccountsChangedCallback = new SyncPrefs.AccountsChangedCallback() {
+    @Override
+    public void onAccountsChanged(List<SyncAccount> newAccounts)
+    {
+      new Handler(Looper.getMainLooper()).post(() -> refreshState(newAccounts));
     }
   };
 
@@ -53,20 +61,23 @@ public class SyncSettingsFragment
   public void onStart()
   {
     super.onStart();
-    refreshState();
-    SyncPrefs.getInstance(getContext()).registerLastSyncedCallback(mLastSyncCallback);
+    SyncPrefs prefs = SyncPrefs.getInstance(getContext());
+    refreshState(prefs.getAccounts());
+    prefs.registerAccountsChangedCallback(mAccountsChangedCallback);
+    prefs.registerLastSyncedCallback(mLastSyncCallback);
   }
 
   @Override
   public void onStop()
   {
     super.onStop();
-    SyncPrefs.getInstance(getContext()).unregisterLastSyncedCallback(mLastSyncCallback);
+    SyncPrefs prefs = SyncPrefs.getInstance(getContext());
+    prefs.unregisterAccountsChangedCallback(mAccountsChangedCallback);
+    prefs.unregisterLastSyncedCallback(mLastSyncCallback);
   }
 
-  private void refreshState()
+  private void refreshState(List<SyncAccount> accounts)
   {
-    List<SyncAccount> accounts = SyncPrefs.getInstance(getContext()).getAccounts();
     mAdapter.updateAccounts(accounts);
     mAddAccountHint.setVisibility(accounts.isEmpty() ? View.VISIBLE : View.GONE);
   }
@@ -131,7 +142,7 @@ public class SyncSettingsFragment
     AlertDialog dialog = builder.setView(listView).create();
     listView.setOnItemClickListener((parent, clickedView, position, id) -> {
       dialog.dismiss();
-      backendTypes[position].login(context, () -> new Handler(Looper.getMainLooper()).post(this::refreshState));
+      backendTypes[position].login(context);
     });
     dialog.show();
   }
