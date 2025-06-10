@@ -251,11 +251,11 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       showTrackDeletionConfirmationDialog()
     case .saveTrackRecording:
       // TODO: (KK) pass name typed by user
-      TrackRecordingManager.shared.processAction(.stopAndSave(name: "")) { [weak self] result in
+      TrackRecordingManager.shared.stopAndSave() { [weak self] result in
         switch result {
         case .success:
           break
-        case .error:
+        case .trackIsEmpty:
           self?.presenter?.closeAnimated()
         }
       }

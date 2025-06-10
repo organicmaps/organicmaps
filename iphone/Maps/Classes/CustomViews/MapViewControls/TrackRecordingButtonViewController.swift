@@ -41,10 +41,7 @@ final class TrackRecordingButtonViewController: MWMViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    // async is for smoother appearance
-    DispatchQueue.main.asyncAfter(deadline: .now() + kDefaultAnimationDuration) {
-      self.setState(self.state, completion: nil)
-    }
+    setState(self.state, completion: nil)
   }
 
   // MARK: - Public methods

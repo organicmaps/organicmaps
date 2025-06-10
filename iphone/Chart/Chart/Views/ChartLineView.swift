@@ -67,7 +67,7 @@ class ChartLineView: UIView {
   }
 
   func setY(min: CGFloat, max: CGFloat, animationStyle: ChartAnimation = .none) {
-    assert(min < max)
+    assert(min <= max)
     minY = min
     maxY = max
     updateGraph(animationStyle: animationStyle)

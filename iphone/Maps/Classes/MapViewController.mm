@@ -892,7 +892,7 @@ NSString *const kSettingsSegue = @"Map2Settings";
                                             TrackInfo * _Nonnull trackInfo,
                                             ElevationProfileData * _Nonnull (^ _Nullable elevationData) ()) {
     __strong __typeof(weakSelf) self = weakSelf;
-
+    if (!self) return;
     switch (state) {
       case TrackRecordingStateInactive:
         [self stopObservingTrackRecordingUpdates];
