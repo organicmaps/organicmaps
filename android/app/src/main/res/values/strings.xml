@@ -936,6 +936,7 @@
     <string name="add_sync_account_hint">No cloud storage account linked yet. Add an account to get started.</string>
     <!-- Button to add Sync Account -->
     <string name="add_sync_account">Add Account</string>
+    <string name="account_connection_success">Account connected successfully.</string>
     <string name="error_adding_account">Error adding account</string>
     <string name="account_already_exists">The same account already exists.</string>
     <string name="enter_nextcloud_url">Enter your Nextcloud server URL</string>
