@@ -72,7 +72,7 @@
 "bookmarks" = "Markagailuak";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Markagailuak eta ibilbideak";
+"bookmarks_and_tracks" = "Markagailuak eta arrastoak";
 
 /* Default bookmark list name */
 "core_my_places" = "Nire tokiak";
@@ -163,7 +163,7 @@
 "load_kmz_successful" = "Markagailuak behar bezala kargatu dira! Mapan edo markagailuak kudeatzeko pantailan aurki ditzakezu.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Ezin izan dira markagailuak kargatu. Fitxategia hondatuta edo akastuna izan daiteke.";
+"load_kmz_failed" = "Ezin izan dira markagailuak kargatu. Fitxategia akastuna izan daiteke.";
 
 /* resource for context menu */
 "edit" = "Editatu";
@@ -172,7 +172,7 @@
 "unknown_current_position" = "Zure kokapena ez da oraindik zehaztu";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Begiratu nire markagailua Organic Maps mapan!";
+"bookmark_share_email_subject" = "Begiratu nire markagailua Organic Maps-en!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Ikusi nire uneko kokapena Organic Maps mapan!";
@@ -732,7 +732,7 @@
 "bookmarks_create_new_group" = "Sortu zerrenda berria";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Inportatu markagailuak eta ibilbideak";
+"bookmarks_import" = "Inportatu markagailuak eta arrastoak";
 "downloader_hide_screen" = "Ezkutatu pantaila";
 "downloader_percent" = "%@ (%@/%@)";
 "downloader_process" = "%@ deskargatzen…";
@@ -973,7 +973,7 @@
 "button_layer_outdoor" = "Landa-eremua";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Esportatu Laster-marka eta Pista guztiak";
+"bookmarks_export" = "Esportatu markagailu eta arrasto guztiak";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Kolorea aldatu";
@@ -1043,10 +1043,10 @@
 "recover_all" = "Guztia berreskuratu";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Ibilbidearen grabaketa";
+"start_track_recording" = "Grabatu arrastoa";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "Gelditu ibilbidearen grabaketa";
+"stop_track_recording" = "Gelditu arrastoaren grabaketa";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
 "stop_without_saving" = "Gelditu gorde gabe";
@@ -1055,8 +1055,8 @@
 "continue_recording" = "Jarraitu grabatzen";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Ibilbidearen grabaketa markagailuetan eta ibilbideetan gorde nahi duzu?";
+"track_recording_alert_title" = "Markagailu eta arrastoetan gorde nahi duzu?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Ibilbidea hutsik dago; ez dago ezer gordetzeko";
+"track_recording_toast_nothing_to_save" = "Arrastoa hutsik dago; ez dago ezer gordetzeko";
 "edit_track" = "Editatu arrastoa";

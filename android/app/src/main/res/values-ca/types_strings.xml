@@ -990,4 +990,5 @@
     <string name="type.shop.hairdresser">Perruqueria</string>
     <string name="type.shop.hardware">Ferreteria</string>
     <string name="type.shop.grocery">Botiga de queviures</string>
+    <string name="type.man_made.crane">Grua</string>
 </resources>

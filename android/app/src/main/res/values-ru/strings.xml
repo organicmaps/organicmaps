@@ -583,7 +583,7 @@
     <string name="editor_share_to_all_dialog_message_2">Редакторы OpenStreetMap проверят изменения и свяжутся с вами, если у них возникнут вопросы.</string>
     <string name="navigation_stop_button">Cтоп</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Запись трека</string>
+    <string name="track_recording">Запущена запись трека</string>
     <!-- For the first routing -->
     <string name="accept">Принять</string>
     <!-- For the first routing -->
@@ -909,4 +909,5 @@
     <string name="vk">VK</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="saved">Сохранено</string>
 </resources>

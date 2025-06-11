@@ -1485,3 +1485,4 @@
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Спортивный зал";
 "type.man_made.crane" = "Кран";
+"type.highway.ladder" = "Лестница";

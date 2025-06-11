@@ -154,7 +154,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Для аўтадамоў";
-"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі з праграмы Organic Maps. Калі ласка, адкрыйце іх, калі ў вас усталяваны Organic Maps. Калі не, спампуйце праграму для вашай прылады iOS альбо Andriod па спасылцы: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
+"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі, яны адкрываюцца праграмай Organic Maps. Калі такая праграма ў вас не ўсталявана, яе можна спампаваць тут: https://omaps.app/get?kmz\n\nПрыемных падарожжаў з Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка закладак";
@@ -208,7 +208,7 @@
 "pref_appearance_light" = "Светлы";
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
-"pref_appearance_dark" = "Цемны";
+"pref_appearance_dark" = "Цёмны";
 
 /* Generic «Off» string */
 "off" = "Выключаны";
@@ -1060,3 +1060,4 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Маршрут пусты - няма чаго захоўваць";
 "edit_track" = "Рэдагаваць маршрут";
+"saved" = "Захавана";

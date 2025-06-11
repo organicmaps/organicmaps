@@ -1373,4 +1373,6 @@
     <string name="type.piste_type.downhill.freeride">Pista da sci fuoripista</string>
     <string name="type.amenity.shelter.lean_to">Riparo a capanna</string>
     <string name="type.aerialway.j.bar">Sciovia ad ancora a J</string>
+    <string name="type.barrier.guard_rail">Barriera stradale</string>
+    <string name="type.highway.ladder">Scala</string>
 </resources>

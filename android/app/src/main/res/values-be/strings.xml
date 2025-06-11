@@ -176,8 +176,7 @@
     <!-- Kml file loading failed -->
     <string name="load_kmz_failed">Не ўдалося загрузіць закладкі. Файл можа быць пашкоджаны або няспраўны.</string>
     <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Прыкладанне не распазнае тып файла:
-\n%1$s</string>
+    <string name="unknown_file_type">Праграма не распазнае тып файла: \n%1$s</string>
     <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
     <string name="failed_to_open_file">Не ўдалося адкрыць файл %1$s
 \n

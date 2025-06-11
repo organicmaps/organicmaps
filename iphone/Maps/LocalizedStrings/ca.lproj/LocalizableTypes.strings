@@ -1490,3 +1490,4 @@
 "type.highway.ladder" = "Escala de mà";
 "type.landuse.plant_nursery" = "Viver";
 "type.sport.diving" = "Salts";
+"type.man_made.crane" = "Grua";

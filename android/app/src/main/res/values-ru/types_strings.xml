@@ -1387,4 +1387,5 @@
     <string name="type.hwtag.private">Частная</string>
     <string name="type.fee.yes">$</string>
     <string name="type.man_made.crane">Кран</string>
+    <string name="type.highway.ladder">Лестница</string>
 </resources>

@@ -76,7 +76,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Grāmatzīmes</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Grāmatzīmes un ceļi</string>
+    <string name="bookmarks_and_tracks">Grāmatzīmes un pēdojumi</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Manas vietas</string>
     <!-- Add bookmark dialog - bookmark name -->
@@ -213,7 +213,7 @@
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">Vai tiešām vēlaties izrakstīties no „OpenStreetMap“ konta?</string>
     <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">Ceļi</string>
+    <string name="tracks_title">Pēdojumi</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Garums</string>
     <string name="share_my_location">Kopīgot manu atrašanās vietu</string>
@@ -566,7 +566,7 @@
     <string name="editor_share_to_all_dialog_message_2">„OpenStreetMap“ redaktori pārskatīs veiktās izmaiņas un jautājumu gadījumā ar jums sazināsies.</string>
     <string name="navigation_stop_button">Apturēt</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">Maršruta reģistrēšana</string>
+    <string name="track_recording">Pēdojums tiek ierakstīts</string>
     <!-- For the first routing -->
     <string name="accept">Pieņemt</string>
     <!-- For the first routing -->
@@ -623,7 +623,7 @@
     </plurals>
     <string name="bookmarks_create_new_group">Izveidot jaunu sarakstu</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Importēt grāmatzīmes un ceļus</string>
+    <string name="bookmarks_import">Importēt grāmatzīmes un pēdojumus</string>
     <string name="bookmarks_error_message_share_general">Programmas kļūdas dēļ kopīgošana neizdevās</string>
     <string name="bookmarks_error_title_share_empty">Kopīgošanas kļūda</string>
     <string name="bookmarks_error_message_share_empty">Nav iespējams kopīgot tukšu sarakstu</string>
@@ -642,9 +642,9 @@
     </plurals>
     <string name="restore">Atjaunot</string>
     <plurals name="tracks">
-        <item quantity="zero">%d ceļu</item>
-        <item quantity="one">%d ceļš</item>
-        <item quantity="other">%d ceļi</item>
+        <item quantity="zero">%d pēdojumu</item>
+        <item quantity="one">%d pēdojums</item>
+        <item quantity="other">%d pēdojumi</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Privātums</string>
@@ -816,7 +816,7 @@
     <string name="browser_not_available">Tīmekļa pārlūkprogramma nav pieejama</string>
     <string name="volume">Skaļums</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Izgūt visus ceļus un grāmatzīmes</string>
+    <string name="bookmarks_export">Izgūt visus pēdojumus un grāmatzīmes</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Runas sintēzes sistēmas iestatījumi</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
@@ -840,14 +840,14 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Lai navigācija būtu pēc iespējas precīzāka, iesakām tālruņa baterijas iesatatījumos izslēgt energotaupības režīmu.</string>
     <string name="choose_color">Izvēlieties krāsu</string>
-    <string name="edit_track">Labot ceļu</string>
+    <string name="edit_track">Labot pēdojumu</string>
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="change_map_locale">Kartes valoda</string>
     <string name="already_donated">Jau esmu ziedojis/usi</string>
     <string name="wikimedia_commons">Vikikrātuve</string>
     <string name="core_placepage_unknown_place">Punkts kartē</string>
     <string name="nav_auto">Automātisks navigācijas laikā</string>
-    <string name="start_track_recording">Ierakstīt ceļu</string>
+    <string name="start_track_recording">Ierakstīt pēdojumu</string>
     <string name="stop_track_recording">Apstādināt ierakstīšanu</string>
     <string name="stop_without_saving">Pārtraukt ierakstīšanu</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
@@ -855,10 +855,10 @@
     <string name="translated_om_site_url">https://organicmaps.app/</string>
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="continue_recording">Turpināt ierakstīt</string>
-    <string name="track_recording_alert_title">Saglabāt ceļu grāmatzīmju sadaļā?</string>
+    <string name="track_recording_alert_title">Saglabāt pēdojumu grāmatzīmju sadaļā?</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="editor_other_info">Piezīme OpenStreetMap brīvprātigajiem (nav obligāts)</string>
-    <string name="track_recording_toast_nothing_to_save">Ceļš ir tukšs – nav ko saglabāt</string>
+    <string name="track_recording_toast_nothing_to_save">Pēdojums ir tukšs – nav ko saglabāt</string>
     <string name="error_no_file_manager_app">Nevar parādīt mapes atlases dialoglodziņu, jo jūsu ierīcē nav instalēta piemērota lietotne. Lūdzu, uzstādiet failu pārvaldnieka lietotni un mēģiniet vēlreiz.</string>
     <string name="uri_open_location_failed">Nav uzstādīta neviena lietotne, kas varētu atvērt atrašanās vietu</string>
     <string name="aa_request_permission_notification">Šai lietotnei ir nepieciešama jūsu atļauja</string>

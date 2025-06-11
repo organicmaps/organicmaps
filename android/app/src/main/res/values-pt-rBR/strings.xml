@@ -380,10 +380,10 @@
     <string name="p2p_reroute_from_current">Deseja planejar uma rota a partir da sua localização atual?</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Próxima</string>
-    <string name="editor_time_delete">Apagar horário</string>
+    <string name="editor_time_delete">Apagar Agendamento</string>
     <!-- Text for allday switch. -->
     <string name="editor_time_allday">O dia todo (24 horas)</string>
-    <string name="editor_time_add_closed">Inserir horas sem funcionamento</string>
+    <string name="editor_time_add_closed">Adicionar Horários Não Comerciais</string>
     <string name="editor_report_problem_desription_1">Por favor, descreva o problema em detalhes para que a comunidade OpenStreetMap possa corrigir o erro.</string>
     <string name="editor_report_problem_desription_2">Ou faça-o você mesmo em https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Enviar</string>
@@ -546,7 +546,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Faça login no OpenStreetMap para carregar automaticamente todas as edições de mapas que você fizer. Saiba mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.</string>
     <string name="dialog_error_storage_title">Problema de acesso ao armazenamento</string>
-    <string name="dialog_error_storage_message">O armazenamento externo não está disponível, é provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">O armazenamento externo não está disponível. É provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emular memória ruim</string>
     <string name="core_entrance">Entrada</string>
     <string name="error_enter_correct_name">Por favor, digite um nome correto</string>
@@ -738,7 +738,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Este aplicativo precisa da sua permissão</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">O Organic Maps no Android Auto precisa de uma permissão de localização para funcionar efetivamente</string>
+    <string name="aa_request_permission_activity_text">O Organic Maps no Android Auto precisa de uma permissão de localização para funcionar corretamente.</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permissão</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -778,7 +778,7 @@
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Não é possível exibir a caixa de diálogo de seleção de pastas porque nenhum aplicativo adequado está instalado no seu dispositivo. Instale um aplicativo gerenciador de arquivos e tente novamente</string>
     <string name="choose_color">Escolher cor</string>
-    <string name="edit_track">Editar trilha</string>
+    <string name="edit_track">Editar trajeto</string>
     <string name="uri_open_location_failed">Nenhum aplicativo instalado que possa abrir o local</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Automático na navegação</string>
@@ -814,4 +814,55 @@
     <string name="long_tap_toast">Toque longamente no mapa novamente para ver a interface</string>
     <string name="google_play_services">Serviços de localização do Google Play</string>
     <string name="dialog_routing_change_intermediate">Incapaz de localizar o ponto intermediário.</string>
+    <string name="editor_hours_closed">Horários Não Comerciais</string>
+    <string name="editor_time_to">Às</string>
+    <string name="editor_time_from">De</string>
+    <string name="editor_time_open">Aberto</string>
+    <string name="editor_time_title">Horários Comerciais</string>
+    <string name="editor_time_advanced">Modo Avançado</string>
+    <string name="editor_example_values">Exemplo de Valores</string>
+    <string name="editor_correct_mistake">Corrigir erro</string>
+    <string name="editor_add_select_location">Selecionar Localização</string>
+    <string name="editor_time_simple">Modo Simples</string>
+    <string name="editor_time_close">Fechado</string>
+    <string name="editor_time_add">Adicionar Agendamento</string>
+    <string name="saved">Salvo</string>
+    <string name="pref_tts_speedcams_auto">Avisar se exceder limite de velocidade</string>
+    <string name="export_file">Exportar KMZ</string>
+    <string name="export_file_gpx">Exportar GPX</string>
+    <string name="building">Edifício</string>
+    <string name="editor_focus_map_on_location">Mova o mapa para colocar a cruz na localização da empresa ou do local.</string>
+    <string name="elevation_profile_difficulty">Dificuldade</string>
+    <string name="privacy">Privacidade</string>
+    <string name="layers_title">Estilos e camadas de mapas</string>
+    <string name="not_signed_in">Não conectado</string>
+    <string name="outdoor_seating">Assentos ao ar livre</string>
+    <string name="level">Andar</string>
+    <string name="elevation_profile_descent">Descida</string>
+    <string name="elevation_profile_ascent">Subida</string>
+    <string name="editor_add_phone">Adicionar número de telefone</string>
+    <string name="prefs_languages_information_off">Para alguns idiomas, você precisa instalar um sintetizador de fala ou um pacote adicional de linguagem da loja de aplicativo (Google Play Market, Samsung Apps).\nAbra as configurações do seu dispositivo → Idioma e entrada → Fala → Saída de texto para fala.\nAqui você pode gerenciar as configurações para o sintetizador de fala (por exemplo, baixar pacote de idioma para usar off-line) e selecionar outro motor de texto-para-fala.</string>
+    <string name="by_name">Por nome</string>
+    <string name="editor_default_language_hint">Como escrito na língua local</string>
+    <string name="volume">Volume</string>
+    <string name="editor_other_info">Nota para os voluntários do OpenStreetMap (opcional)</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap</string>
+    <string name="clear_the_search">Limpar pesquisa</string>
+    <string name="zoom_out">Diminuir o zoom</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="level_value_generic">Andar: %s</string>
+    <string name="social_media">Redes sociais</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="editor_note_hint">Descreva erros no mapa ou coisas que não podem ser editadas com o Organic Maps</string>
+    <string name="operator">Operador: %s</string>
+    <string name="capacity">Capacidade: %s</string>
+    <string name="network">Rede: %s</string>
+    <string name="error_enter_correct_facebook_page">Insira um endereço da Web, conta ou nome de página válidos do Facebook</string>
+    <string name="navigation_stop_button">Pare</string>
+    <string name="tts_info_link">https://organicmaps.app/pt-BR/faq/texto-para-fala-android-tts/</string>
+    <string name="error_enter_correct_line_page">Insira um ID ou endereço web válido do LINE</string>
+    <string name="error_enter_correct_twitter_page">Insira um nome de usuário ou endereço web válido do Twitter/X</string>
+    <string name="error_enter_correct_vk_page">Insira um nome de usuário ou endereço web VK válido</string>
+    <string name="error_enter_correct_instagram_page">Insira um nome de usuário ou endereço web válido do Instagram</string>
 </resources>

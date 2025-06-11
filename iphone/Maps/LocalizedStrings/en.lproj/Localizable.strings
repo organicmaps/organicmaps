@@ -657,7 +657,6 @@
 "day" = "d";
 "placepage_more_button" = "More";
 "book_button" = "Book";
-
 "placepage_call_button" = "Call";
 "placepage_edit_bookmark_button" = "Edit Bookmark";
 "placepage_bookmark_name_hint" = "Bookmark Name";
@@ -1085,3 +1084,4 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 "edit_track" = "Edit Track";
+"saved" = "Saved";

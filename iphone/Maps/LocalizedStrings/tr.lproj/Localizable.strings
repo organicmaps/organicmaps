@@ -1043,20 +1043,21 @@
 "recover_all" = "Tümünü Kurtar";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "GPS izini kaydet";
+"start_track_recording" = "İzi Kaydet";
 
 /* Prompt for stopping a track recording. */
-"stop_track_recording" = "GPS izi kaydını durdur";
+"stop_track_recording" = "İz Kaydını Durdur";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"stop_without_saving" = "Kaydı sil ve durdur";
+"stop_without_saving" = "Kaydetmeden Durdur";
 
 /* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
-"continue_recording" = "Kaydı devam ettir";
+"continue_recording" = "Kaydı Sürdür";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "GPS izi kaydınız yer imleri ve kayıtlı rotalara kaydedilsin mi?";
+"track_recording_alert_title" = "Yer İmleri ve İzlere kaydedilsin mi?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Kaydınız boş - kaydedilecek bir şey yok";
 "edit_track" = "Kaydı Düzenle";
+"saved" = "Kaydedildi";
