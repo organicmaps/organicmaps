@@ -14,6 +14,8 @@ import android.view.Surface;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
+import java.util.Objects;
+
 public class LocationUtils
 {
   private LocationUtils() {}
@@ -82,11 +84,15 @@ public class LocationUtils
     return location.getAccuracy() > 0.0f;
   }
 
+  public static boolean isTimestampJustified(@NonNull Location newLocation, @NonNull Location lastLocation)
+  {
+    //since we are using multiple providers so it might be possible few provide delayed updates
+    //this check discards older updates
+    return newLocation.getElapsedRealtimeNanos() >= lastLocation.getElapsedRealtimeNanos();
+  }
+
   public static boolean isLocationBetterThanLast(@NonNull Location newLocation, @NonNull Location lastLocation)
   {
-    if (newLocation.getElapsedRealtimeNanos() < lastLocation.getElapsedRealtimeNanos())
-      return false;
-
     // As described in isAccuracySatisfied, GPS may have zero accuracy "for some reasons".
     if (isFromGpsProvider(lastLocation) && lastLocation.getAccuracy() == 0.0f)
       return true;
@@ -94,6 +100,16 @@ public class LocationUtils
     double speed = Math.max(DEFAULT_SPEED_MPS, (newLocation.getSpeed() + lastLocation.getSpeed()) / 2.0);
     double lastAccuracy = lastLocation.getAccuracy() + speed * LocationUtils.getTimeDiff(lastLocation, newLocation);
     return newLocation.getAccuracy() < lastAccuracy;
+  }
+
+  public static float clamp(float value, float min, float max)
+  {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  public static boolean isProviderSame(@NonNull Location newLocation, @NonNull Location lastLocation)
+  {
+    return Objects.equals(newLocation.getProvider(), lastLocation.getProvider());
   }
 
   public static boolean areLocationServicesTurnedOn(@NonNull Context context)
