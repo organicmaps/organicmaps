@@ -862,15 +862,15 @@
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">En doğru navigasyon için telefonunuzun pil ayarlarından güç tutum kipini devre dışı bırakmanızı öneririz.</string>
     <!-- Prompt to start recording a track. -->
-    <string name="start_track_recording">GPS izini kaydet</string>
+    <string name="start_track_recording">İzi Kaydet</string>
     <!-- Prompt for stopping a track recording. -->
-    <string name="stop_track_recording">GPS izi kaydını durdur</string>
+    <string name="stop_track_recording">İz Kaydını Durdur</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Kaydı sil ve durdur</string>
+    <string name="stop_without_saving">Kaydetmeden Durdur</string>
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Kaydı devam ettir</string>
+    <string name="continue_recording">Kaydı Sürdür</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">GPS izi kaydınız yer imleri ve kayıtlı rotalara kaydedilsin mi?</string>
+    <string name="track_recording_alert_title">Yer İmleri ve İzlere kaydedilsin mi?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Kaydınız boş - kaydedilecek bir şey yok</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->

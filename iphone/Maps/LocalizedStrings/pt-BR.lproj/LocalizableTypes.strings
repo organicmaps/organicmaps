@@ -161,7 +161,7 @@
 "type.amenity.shelter.lean_to" = "Abrigo tipo alpendre";
 "type.amenity.public_bath" = "Banho público";
 "type.amenity.shower" = "Chuveiro";
-"type.amenity.stripclub" = "Clube de striptease";
+"type.amenity.stripclub" = "Clube";
 "type.amenity.taxi" = "Táxi";
 "type.amenity.telephone" = "Telefone";
 "type.amenity.theatre" = "Teatro";
@@ -632,7 +632,7 @@
 "type.historic.mine" = "Mina Histórica";
 "type.historic.monument" = "Monumento";
 "type.historic.pillory" = "Pelourinho";
-"type.historic.ruins" = "Ruínas";
+"type.historic.ruins" = "Ruínas históricas";
 "type.historic.ship" = "Barco";
 "type.historic.tank" = "Tanque Histórico";
 "type.historic.tomb" = "Túmulo";
@@ -642,7 +642,7 @@
 
 /* Usually a Christian historical cross placed along a road. */
 "type.historic.wayside_cross" = "Cruzeiro";
-"type.historic.wayside_shrine" = "Alminhas";
+"type.historic.wayside_shrine" = "Capela votiva";
 "type.historic.wreck" = "Naufrágio";
 "type.hwtag" = "hwtag";
 "type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
@@ -777,7 +777,7 @@
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Militar";
 "type.military.bunker" = "Búnquer";
-"type.mountain_pass" = "Mountain Pass";
+"type.mountain_pass" = "Passo de Montanha";
 "type.natural" = "Natureza";
 
 /* A rocky land cover. */
@@ -1484,3 +1484,9 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Salão de esportes";
+"type.amenity.studio" = "Estúdio";
+"type.highway.ladder" = "Escada";
+"type.landuse.plant_nursery" = "Viveiro de plantas";
+"type.amenity.love_hotel" = "Hotel";
+"type.barrier.guard_rail" = "Guard Rail";
+"type.leisure.firepit" = "Pira";

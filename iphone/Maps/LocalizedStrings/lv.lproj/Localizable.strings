@@ -72,7 +72,7 @@
 "bookmarks" = "Grāmatzīmes";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Grāmatzīmes un ceļi";
+"bookmarks_and_tracks" = "Grāmatzīmes un pēdojumi";
 
 /* Default bookmark list name */
 "core_my_places" = "Manas vietas";
@@ -193,7 +193,7 @@
 "version" = "„Organic Maps“ versija: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "Ceļi";
+"tracks_title" = "Pēdojumi";
 
 /* Length of track in cell that describes route */
 "length" = "Garums";
@@ -732,7 +732,7 @@
 "bookmarks_create_new_group" = "Izveidot jaunu sarakstu";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Importēt grāmatzīmes un ceļus";
+"bookmarks_import" = "Importēt grāmatzīmes un pēdojumus";
 "downloader_hide_screen" = "Slēpt ekrānu";
 "downloader_percent" = "%@ (%@ no %@)";
 "downloader_process" = "Lejupielādē %@…";
@@ -973,7 +973,7 @@
 "button_layer_outdoor" = "Aktīvā atpūta";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Izgūt visus ceļus un grāmatzīmes";
+"bookmarks_export" = "Izgūt visus pēdojumus un grāmatzīmes";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Mainīt krāsu";
@@ -1043,7 +1043,7 @@
 "recover_all" = "Atjaunot visu";
 
 /* Prompt to start recording a track. */
-"start_track_recording" = "Ierakstīt ceļu";
+"start_track_recording" = "Ierakstīt pēdojumu";
 
 /* Prompt for stopping a track recording. */
 "stop_track_recording" = "Apstādināt ierakstīšanu";
@@ -1055,8 +1055,8 @@
 "continue_recording" = "Turpināt ierakstīt";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Saglabāt ceļu grāmatzīmju sadaļā?";
+"track_recording_alert_title" = "Saglabāt pēdojumu grāmatzīmju sadaļā?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Ceļš ir tukšs – nav ko saglabāt";
-"edit_track" = "Labot ceļu";
+"track_recording_toast_nothing_to_save" = "Pēdojums ir tukšs – nav ko saglabāt";
+"edit_track" = "Labot pēdojumu";

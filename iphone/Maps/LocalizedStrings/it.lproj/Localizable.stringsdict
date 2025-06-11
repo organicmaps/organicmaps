@@ -14,6 +14,8 @@
 			<string>d</string>
 			<key>one</key>
 			<string>%d preferito</string>
+			<key>many</key>
+			<string>%d preferiti</string>
 			<key>other</key>
 			<string>%d preferiti</string>
 		</dict>
@@ -30,6 +32,8 @@
 			<string>d</string>
 			<key>one</key>
 			<string>%d file è stato trovato. Lo vedrai dopo la conversione.</string>
+			<key>many</key>
+			<string>%d file sono stati trovati. Li vedrai dopo la conversione.</string>
 			<key>other</key>
 			<string>%d file sono stati trovati. Li vedrai dopo la conversione.</string>
 		</dict>

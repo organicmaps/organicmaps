@@ -1,13 +1,13 @@
 "type.addr_interpolation" = "Адрас/Блок";
 "type.addr_interpolation.even" = "Адрас/Блок";
 "type.addr_interpolation.odd" = "Адрас/Блок";
-"type.aerialway" = "Паветраная дарога";
+"type.aerialway" = "Паветраны вагон";
 "type.aerialway.cable_car" = "Канатная дарога";
-"type.aerialway.chair_lift" = "Крэсельны ліфт";
+"type.aerialway.chair_lift" = "Крэсельны пад'ёмнік";
 "type.aerialway.drag_lift" = "Пад'ёмнік з буксірам";
-"type.aerialway.gondola" = "Гандоола";
+"type.aerialway.gondola" = "Гандола";
 "type.aerialway.mixed_lift" = "Змяшаны пад'ёмнік";
-"type.aerialway.station" = "Станцыя падвеснай дарогі";
+"type.aerialway.station" = "Станцыя канатнай дарогі";
 "type.aeroway" = "Паветраная інфраструктура";
 "type.aeroway.aerodrome" = "Аэрапорт";
 "type.aeroway.aerodrome.international" = "Міжнародны аэрапорт";
@@ -31,7 +31,7 @@
 "type.amenity.brothel" = "Бардэль";
 "type.amenity.bureau_de_change" = "Абмен валют";
 "type.amenity.bus_station" = "Аўтавакзал";
-"type.amenity.cafe" = "Кавярня";
+"type.amenity.cafe" = "Кафэ";
 "type.amenity.car_rental" = "Пракат аўтамабіляў";
 "type.amenity.motorcycle_rental" = "Пракат матацыклаў";
 "type.amenity.car_sharing" = "Каршэрынг";
@@ -74,10 +74,10 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.amenity.grave_yard.christian" = "Хрысціянскія могілкі";
-"type.amenity.hospital" = "Шпіталь";
+"type.amenity.hospital" = "Бальніца";
 "type.amenity.hunting_stand" = "Паляўнічая вежа";
 "type.amenity.ice_cream" = "Марозіва";
-"type.amenity.internet_cafe" = "Інтэрнэт-кавярня";
+"type.amenity.internet_cafe" = "Інтэрнэт-кафэ";
 "type.amenity.kindergarten" = "Дзіцячы сад";
 "type.amenity.library" = "Бібліятэка";
 "type.amenity.loading_dock" = "Пагрузная платформа";
@@ -928,7 +928,7 @@
 "type.railway.monorail.bridge" = "Monorail Bridge";
 "type.railway.monorail.tunnel" = "Monorail Tunnel";
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
-"type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
+"type.railway.narrow_gauge.bridge" = "Мост вузкакалейнай чыгункі";
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
 "type.railway.platform" = "Чыгуначная платформа";
 "type.railway.preserved" = "Preserved Rail";
@@ -1226,7 +1226,7 @@
 "type.shop.car_repair.tyres" = "Tyre Repair";
 "type.shop.caravan" = "Продаж аўтадамоў";
 "type.shop.carpet" = "Дываны";
-"type.shop.chemist" = "Chemist";
+"type.shop.chemist" = "Бытавая хімія";
 "type.shop.chocolate" = "Крама шакалада";
 "type.shop.clothes" = "Clothes Shop";
 "type.shop.coffee" = "Крама кавы";

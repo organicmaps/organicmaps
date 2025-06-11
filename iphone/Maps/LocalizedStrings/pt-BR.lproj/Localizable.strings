@@ -474,20 +474,20 @@
 "p2p_to_here" = "Para";
 "p2p_only_from_current" = "Só é possível navegar a partir da sua localização atual.";
 "p2p_reroute_from_current" = "Deseja planejar uma rota a partir da sua localização atual?";
-"editor_time_add" = "Adicionar horário";
-"editor_time_delete" = "Apagar horário";
+"editor_time_add" = "Adicionar Agendamento";
+"editor_time_delete" = "Apagar Agendamento";
 
 /* Text for allday switch. */
 "editor_time_allday" = "O dia todo (24 horas)";
 "editor_time_open" = "Aberto";
 "editor_time_close" = "Fechado";
-"editor_time_add_closed" = "Inserir horas sem funcionamento";
-"editor_time_title" = "Horário de funcionamento";
-"editor_time_advanced" = "Modo avançado";
-"editor_time_simple" = "Modo simples";
-"editor_hours_closed" = "Horas sem funcionamento";
-"editor_example_values" = "Valores de exemplo";
-"editor_add_select_location" = "Selecione a localização";
+"editor_time_add_closed" = "Adicionar Horários Não Comerciais";
+"editor_time_title" = "Horários Comerciais";
+"editor_time_advanced" = "Modo Avançado";
+"editor_time_simple" = "Modo Simples";
+"editor_hours_closed" = "Horários Não Comerciais";
+"editor_example_values" = "Exemplo de Valores";
+"editor_add_select_location" = "Selecionar Localização";
 "editor_done_dialog_1" = "Você modificou o mapa-múndi. Não esconda isto! Diga aos seus amigos e edite junto com eles.";
 "share_with_friends" = "Compartilhar com amigos";
 "editor_report_problem_send_button" = "Enviar";
@@ -664,7 +664,7 @@
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Certifique-se de não ter incluído nenhum dado pessoal.";
 "editor_share_to_all_dialog_message_2" = "Os editores do OpenStreetMap verificarão as mudanças e entrarão em contato com você se tiverem alguma dúvida.";
-"navigation_stop_button" = "Parar";
+"navigation_stop_button" = "Pare";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */
 "recent_track_background_dialog_title" = "Desativar gravação da sua rota recente?";
@@ -1059,4 +1059,5 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "A trilha está vazia - não há nada para salvar";
-"edit_track" = "Editar trilha";
+"edit_track" = "Editar trajeto";
+"saved" = "Salvo";

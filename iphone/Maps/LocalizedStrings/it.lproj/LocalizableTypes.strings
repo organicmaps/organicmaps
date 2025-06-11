@@ -596,8 +596,6 @@
 "type.area_highway.track" = "Via";
 "type.area_highway.trunk" = "Strada";
 "type.area_highway.unclassified" = "Via";
-"type.highway.world_level" = "highway-world_level";
-"type.highway.world_towns_level" = "highway-world_towns_level";
 "type.historic" = "Oggetto storico";
 "type.historic.aircraft" = "Aerei storici";
 "type.historic.anchor" = "Ancora storica";
@@ -1484,3 +1482,5 @@
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Palazzetto dello sport";
 "type.railway.preserved" = "Ferrovia storica";
+"type.barrier.guard_rail" = "Barriera stradale";
+"type.highway.ladder" = "Scala";

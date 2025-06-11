@@ -34,7 +34,7 @@
     <string name="type.amenity.casino">Καζίνο</string>
     <string name="type.amenity.gambling">ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ</string>
     <string name="type.leisure.adult_gaming_centre">Κέντρο παιχνιδιών ενηλίκων</string>
-    <string name="type.leisure.amusement_arcade">Στοά</string>
+    <string name="type.leisure.amusement_arcade">Ηλεκτρονικά παιχνίδια</string>
     <string name="type.amenity.charging_station">Σταθμός φόρτισης</string>
     <string name="type.amenity.charging_station.bicycle">Σταθμός φόρτισης ποδηλάτων</string>
     <string name="type.amenity.charging_station.motorcar">Σταθμός φόρτισης αυτοκινήτων</string>
@@ -142,7 +142,7 @@
     <string name="type.amenity.shelter.basic_hut">καταφύγιο bivouac</string>
     <string name="type.amenity.public_bath">Δημόσιο Λουτρό</string>
     <string name="type.amenity.shower">Ντους</string>
-    <string name="type.amenity.stripclub">Stripclub</string>
+    <string name="type.amenity.stripclub">Στριπτιζάδικο</string>
     <string name="type.amenity.taxi">Ταξί</string>
     <string name="type.amenity.telephone">Τηλέφωνο</string>
     <string name="type.amenity.theatre">Θέατρο</string>
@@ -166,7 +166,7 @@
     <string name="type.barrier.city_wall">Τείχος της πόλης</string>
     <string name="type.waterway.ditch">Αποστραγγιστική Τάφρο</string>
     <string name="type.natural.water.moat">Τάφρος</string>
-    <string name="type.natural.water.wastewater">Λυμάτων</string>
+    <string name="type.natural.water.wastewater">Λύματα</string>
     <string name="type.barrier.entrance">Είσοδος</string>
     <string name="type.barrier.gate">Πύλη</string>
     <string name="type.barrier.kissing_gate">Πύλη</string>
@@ -345,7 +345,7 @@
     <string name="type.highway.footway">Διαδρομή</string>
     <string name="type.highway.footway.sidewalk">Πεζοδρόμιο</string>
     <string name="type.highway.footway.crossing">Διάβαση πεζών</string>
-    <string name="type.highway.footway.area">Διαδρομή</string>
+    <string name="type.highway.footway.area">Περιοχή πεζόδρομου</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.footway.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -356,11 +356,11 @@
     <string name="type.highway.living_street.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.living_street.tunnel">Σήραγγα</string>
-    <string name="type.highway.motorway">Οδός</string>
+    <string name="type.highway.motorway">Αυτοκινητόδρομος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
-    <string name="type.highway.motorway.bridge">Γέφυρα</string>
+    <string name="type.highway.motorway.bridge">Γέφυρα αυτοκινητόδρομου</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.motorway.tunnel">Σήραγγα</string>
+    <string name="type.highway.motorway.tunnel">Σήραγγα αυτοκινητόδρομου</string>
     <string name="type.highway.motorway_junction">Έξοδος</string>
     <string name="type.highway.motorway_link">Οδός</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -385,12 +385,12 @@
     <string name="type.highway.pedestrian.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.pedestrian.tunnel">Σήραγγα</string>
-    <string name="type.highway.primary">Οδός</string>
+    <string name="type.highway.primary">Πρωτεύων δρόμος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary.tunnel">Σήραγγα</string>
-    <string name="type.highway.primary_link">Οδός</string>
+    <string name="type.highway.primary_link">Ράμπα πρωτεύοντος δρόμου</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary_link.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -403,19 +403,19 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.residential.tunnel">Σήραγγα</string>
     <string name="type.highway.rest_area">Χώρος ανάπαυσης αυτοκινητιστών</string>
-    <string name="type.highway.road">Οδός</string>
+    <string name="type.highway.road">Δρόμος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.road.bridge">Γέφυρα</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.road.tunnel">Σήραγγα</string>
-    <string name="type.highway.secondary">Οδός</string>
+    <string name="type.highway.secondary">Δευτερεύων δρόμος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.secondary.tunnel">Σήραγγα</string>
-    <string name="type.highway.secondary_link">Οδός</string>
+    <string name="type.highway.secondary_link">Ράμπα δευτερεύοντος δρόμου</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary_link.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -425,7 +425,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.service.bridge">Γέφυρα</string>
     <string name="type.highway.service.driveway">Οδός</string>
-    <string name="type.highway.service.parking_aisle">Οδός</string>
+    <string name="type.highway.service.parking_aisle">Διάδρομος στάθμευσης</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Σήραγγα</string>
     <string name="type.highway.speed_camera">Κάμερα ταχύτητας</string>
@@ -434,22 +434,22 @@
     <string name="type.highway.steps.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.steps.tunnel">Σήραγγα</string>
-    <string name="type.highway.tertiary">Οδός</string>
+    <string name="type.highway.tertiary">Τριτεύων δρόμος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.tertiary.tunnel">Σήραγγα</string>
-    <string name="type.highway.tertiary_link">Οδός</string>
+    <string name="type.highway.tertiary_link">Ράμπα τριτεύοντος δρόμου</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.tertiary_link.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.tertiary_link.tunnel">Σήραγγα</string>
-    <string name="type.highway.track">Οδός</string>
-    <string name="type.highway.track.area">Οδός</string>
+    <string name="type.highway.track">Στίβος</string>
+    <string name="type.highway.track.area">Στίβος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.track.bridge">Γέφυρα</string>
-    <string name="type.highway.track.grade1">Οδός</string>
-    <string name="type.highway.track.no.access">Οδός</string>
+    <string name="type.highway.track.grade1">Στίβος</string>
+    <string name="type.highway.track.no.access">Στίβος</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.track.tunnel">Σήραγγα</string>
     <string name="type.highway.traffic_signals">Φανάρια κυκλοφορίας</string>
@@ -530,7 +530,7 @@
     <string name="type.historic.wreck">Ναυάγιο</string>
     <string name="type.internet_access">Ίντερνετ</string>
     <string name="type.internet_access.wlan">Ίντερνετ</string>
-    <string name="type.landuse.basin">Μια λεκάνη νερού</string>
+    <string name="type.landuse.basin">Λεκανοπέδιο</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Νεκροταφείο</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
@@ -539,26 +539,26 @@
     <string name="type.landuse.farmland">Αγροτική γη</string>
     <string name="type.landuse.flowerbed">Παρτέρι</string>
     <string name="type.landuse.forest">Δάσος</string>
-    <string name="type.landuse.forest.coniferous">Δάσος</string>
-    <string name="type.landuse.forest.deciduous">Δάσος</string>
-    <string name="type.landuse.forest.mixed">Δάσος</string>
-    <string name="type.landuse.grass">Γκαζόν</string>
+    <string name="type.landuse.forest.coniferous">Κωνοφόρο δάσος</string>
+    <string name="type.landuse.forest.deciduous">Φυλλοβόλο δάσος</string>
+    <string name="type.landuse.forest.mixed">Μικτό δάσος</string>
+    <string name="type.landuse.grass">Γρασίδι</string>
     <string name="type.landuse.landfill">Σκουπιδότοπος</string>
     <string name="type.landuse.railway">Σιδηροδρομικές εγκαταστάσεις</string>
-    <string name="type.landuse.reservoir">Νερό</string>
+    <string name="type.landuse.reservoir">Ταμιευτήρας</string>
     <string name="type.leisure.dog_park">Περιοχή για βόλτα σκύλων</string>
     <string name="type.leisure.fitness_centre">Κέντρο γυμναστικής</string>
     <string name="type.leisure.fitness_station">Γυμναστήριο</string>
     <string name="type.leisure.dance">Αίθουσα χορού</string>
-    <string name="type.leisure.garden">Κήπος αναψυχής</string>
-    <string name="type.leisure.garden.residential">Κήπος αναψυχής</string>
+    <string name="type.leisure.garden">Κήπος</string>
+    <string name="type.leisure.garden.residential">Οικιστικός κήπος</string>
     <string name="type.leisure.golf_course">Γήπεδο γκολφ</string>
-    <string name="type.leisure.nature_reserve">Φυσικό απόθεμα</string>
+    <string name="type.leisure.nature_reserve">Προστατευόμενος βιότοπος</string>
     <string name="type.leisure.outdoor_seating">Καθίσματα εξωτερικού χώρου</string>
     <string name="type.leisure.park">Πάρκο</string>
-    <string name="type.leisure.park.no.access">Πάρκο</string>
+    <string name="type.leisure.park.no.access">Ιδιωτικό πάρκο</string>
     <string name="type.leisure.park.permissive">Πάρκο</string>
-    <string name="type.leisure.park.private">Πάρκο</string>
+    <string name="type.leisure.park.private">Ιδιωτικό πάρκο</string>
     <string name="type.leisure.picnic_table">Τραπέζι πικ-νικ</string>
     <string name="type.leisure.pitch">Γήπεδο αθλοπαιδιών</string>
     <string name="type.leisure.playground">Παιδική χαρά</string>
@@ -566,7 +566,7 @@
     <string name="type.leisure.sports_centre">Αθλητικό κέντρο</string>
     <string name="type.sport.climbing">Κέντρο αναρρίχησης</string>
     <string name="type.sport.yoga">Στούντιο γιόγκα</string>
-    <string name="type.leisure.stadium">Γήπεδο</string>
+    <string name="type.leisure.stadium">Στάδιο</string>
     <string name="type.leisure.swimming_pool">Πισίνα</string>
     <string name="type.leisure.swimming_pool.private">Πισίνα</string>
     <string name="type.leisure.water_park">Υδάτινο πάρκο</string>
@@ -602,22 +602,22 @@
     <string name="type.natural.beach.sand">Αμμουδιά</string>
     <string name="type.natural.beach.gravel">Παραλία Χαλίκι</string>
     <string name="type.natural.cape">Ακρωτήρι</string>
-    <string name="type.natural.cave_entrance">Σπήλαιο</string>
+    <string name="type.natural.cave_entrance">Είσοδος σπηλαίου</string>
     <string name="type.natural.cliff">Γκρεμός</string>
     <string name="type.natural.earth_bank">Γκρεμός</string>
     <string name="type.man_made.embankment">Ανάχωμα</string>
-    <string name="type.natural.coastline">Ακτή</string>
-    <string name="type.natural.desert">Ερημος</string>
+    <string name="type.natural.coastline">Ακτογραμμή</string>
+    <string name="type.natural.desert">Έρημος</string>
     <string name="type.natural.geyser">Θερμοπίδακας</string>
     <string name="type.natural.glacier">Παγετώνας</string>
-    <string name="type.natural.grassland">Βοσκότοποι</string>
+    <string name="type.natural.grassland">Βοσκότοπος</string>
     <string name="type.natural.heath">Ρείκι</string>
     <string name="type.natural.hot_spring">Θερμή πηγή</string>
     <string name="type.natural.water.lake">Λίμνη</string>
     <string name="type.natural.water.lock">Θάλαμος κλειδαριάς</string>
     <string name="type.natural.water.pond">Δεξαμενή</string>
-    <string name="type.natural.water.reservoir">Δεξαμενή</string>
-    <string name="type.natural.water.basin">Μια λεκάνη νερού</string>
+    <string name="type.natural.water.reservoir">Ταμιευτήρας</string>
+    <string name="type.natural.water.basin">Λεκανοπέδιο</string>
     <string name="type.natural.water.river">Ποταμός</string>
     <string name="type.natural.land">Στεριά</string>
     <string name="type.natural.meadow">Λιβάδι</string>
@@ -625,14 +625,14 @@
     <string name="type.natural.peak">Κορυφή</string>
     <string name="type.natural.saddle">Σέλα Βουνού</string>
     <string name="type.natural.rock">Πέτρωμα</string>
-    <string name="type.natural.scrub">Θαμνώδες περιοχή</string>
+    <string name="type.natural.scrub">Θαμνώδης περιοχή</string>
     <string name="type.natural.spring">Πηγή νερού</string>
     <string name="type.natural.spring.drinking_water_no">Πηγή νερού</string>
     <string name="type.natural.strait">Πορθμός</string>
     <string name="type.natural.tree_row">Σειρά δέντρων</string>
     <string name="type.natural.vineyard">Αμπελώνας</string>
     <string name="type.natural.volcano">Ηφαίστειο</string>
-    <string name="type.natural.water">Σώμα νερού</string>
+    <string name="type.natural.water">Νερό</string>
     <string name="type.natural.wetland">Υγρότοπος</string>
     <string name="type.natural.wetland.bog">Βάλτος</string>
     <string name="type.natural.wetland.marsh">Έλος</string>
@@ -658,15 +658,15 @@
     <string name="type.place.city.capital.9">Πόλη</string>
     <string name="type.place.continent">Ήπειρος</string>
     <string name="type.place.country">Χώρα</string>
-    <string name="type.place.county">Δήμος</string>
-    <string name="type.place.farm">Αγρόκτημα</string>
+    <string name="type.place.county">Κομητεία</string>
+    <string name="type.place.farm">Φάρμα</string>
     <string name="type.place.hamlet">Χωριουδάκι</string>
     <string name="type.place.island">Νησί</string>
-    <string name="type.place.islet">Νησί</string>
+    <string name="type.place.islet">Νησίδα</string>
     <string name="type.place.isolated_dwelling">Απομονωμένη κατοικία</string>
     <string name="type.place.locality">Τοποθεσία</string>
     <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
-    <string name="type.place.quarter">Γειτονιά</string>
+    <string name="type.place.quarter">Συνοικία</string>
     <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
     <string name="type.place.neighbourhood">Γειτονιά</string>
     <string name="type.place.ocean">Ωκεανός</string>
@@ -692,16 +692,16 @@
     <string name="type.power.substation">Υποσταθμός</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Πυλώνες μεταφοράς ρεύματος</string>
-    <string name="type.railway.funicular">Μονωτικό τρενάκι</string>
-    <string name="type.railway.halt">Σιδηροδρομικός σταθμός</string>
-    <string name="type.railway.level_crossing">Σιδηροδρομική διέλευση</string>
+    <string name="type.railway.funicular">Τελεφερίκ</string>
+    <string name="type.railway.halt">Σιδηροδρομική στάση</string>
+    <string name="type.railway.level_crossing">Ισόπεδη σιδηροδρομική διάβαση</string>
     <string name="type.railway.monorail">Μονοαξονικός σιδηρόδρομος</string>
     <string name="type.railway.rail">Σιδηρόδρομος</string>
     <string name="type.railway.rail.highspeed">Σιδηρόδρομος υψηλής ταχύτητας</string>
     <string name="type.railway.rail.tourism">Τουριστικός σιδηρόδρομος</string>
     <string name="type.railway.rail.main">Σιδηρόδρομος</string>
     <!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
-    <string name="type.railway.rail.branch">Δευτερεύων σιδηροδρομικός σιδηρόδρομος</string>
+    <string name="type.railway.rail.branch">Παρακλάδι σιδηρόδρομου</string>
     <!-- Non-passenger utility tracks: industrial, military, test. -->
     <string name="type.railway.rail.utility">Σιδηρόδρομος κοινής ωφέλειας</string>
     <string name="type.railway.rail.spur">Σιδηροδρομική ατραπός</string>
@@ -724,69 +724,69 @@
     <string name="type.railway.rail.spur.tunnel">Σιδηροδρομική σήραγγα</string>
     <string name="type.railway.rail.service.tunnel">Σιδηροδρομική σήραγγα</string>
     <string name="type.railway.station">Σιδηροδρομικός σταθμός</string>
-    <string name="type.railway.station.funicular">Μονωτικό τρενάκι</string>
-    <string name="type.railway.station.light_rail">Σιδηροδρομικός σταθμός</string>
-    <string name="type.railway.station.light_rail.berlin">Σιδηροδρομικός σταθμός</string>
-    <string name="type.railway.station.light_rail.london">Σιδηροδρομικός σταθμός</string>
-    <string name="type.railway.station.light_rail.porto">Σιδηροδρομικός σταθμός</string>
-    <string name="type.railway.station.monorail">Σιδηροδρομικός σταθμός</string>
-    <string name="type.railway.station.subway">Μετρό</string>
-    <string name="type.railway.station.subway.adana">Μετρό</string>
-    <string name="type.railway.station.subway.algiers">Μετρό</string>
-    <string name="type.railway.station.subway.almaty">Μετρό</string>
-    <string name="type.railway.station.subway.amsterdam">Μετρό</string>
-    <string name="type.railway.station.subway.ankara">Μετρό</string>
-    <string name="type.railway.station.subway.athens">Μετρό</string>
-    <string name="type.railway.station.subway.baku">Μετρό</string>
-    <string name="type.railway.station.subway.bangkok">Μετρό</string>
-    <string name="type.railway.station.subway.barcelona">Μετρό</string>
-    <string name="type.railway.station.subway.beijing">Μετρό</string>
-    <string name="type.railway.station.subway.bengalore">Μετρό</string>
-    <string name="type.railway.station.subway.berlin">Μετρό</string>
-    <string name="type.railway.station.subway.bilbao">Μετρό</string>
-    <string name="type.railway.station.subway.brasilia">Μετρό</string>
-    <string name="type.railway.station.subway.brescia">Μετρό</string>
-    <string name="type.railway.station.subway.brussels">Μετρό</string>
-    <string name="type.railway.station.subway.bucharest">Μετρό</string>
-    <string name="type.railway.station.subway.budapest">Μετρό</string>
-    <string name="type.railway.station.subway.buenos_aires">Μετρό</string>
-    <string name="type.railway.station.subway.bursa">Μετρό</string>
-    <string name="type.railway.station.subway.cairo">Μετρό</string>
-    <string name="type.railway.station.subway.caracas">Μετρό</string>
-    <string name="type.railway.station.subway.catania">Μετρό</string>
-    <string name="type.railway.station.subway.changchun">Μετρό</string>
-    <string name="type.railway.station.subway.chengdu">Μετρό</string>
-    <string name="type.railway.station.subway.chicago">Μετρό</string>
-    <string name="type.railway.station.subway.chongqing">Μετρό</string>
-    <string name="type.railway.station.subway.dalian">Μετρό</string>
-    <string name="type.railway.station.subway.delhi">Μετρό</string>
-    <string name="type.railway.station.subway.dnepro">Μετρό</string>
-    <string name="type.railway.station.subway.dubai">Μετρό</string>
-    <string name="type.railway.station.subway.ekb">Μετρό</string>
-    <string name="type.railway.station.subway.fukuoka">Μετρό</string>
-    <string name="type.railway.station.subway.glasgow">Μετρό</string>
-    <string name="type.railway.station.subway.guangzhou">Μετρό</string>
-    <string name="type.railway.station.subway.hamburg">Μετρό</string>
-    <string name="type.railway.station.subway.helsinki">Μετρό</string>
-    <string name="type.railway.station.subway.hiroshima">Μετρό</string>
-    <string name="type.railway.station.subway.hongkong">Μετρό</string>
-    <string name="type.railway.station.subway.isfahan">Μετρό</string>
-    <string name="type.railway.station.subway.istanbul">Μετρό</string>
-    <string name="type.railway.station.subway.izmir">Μετρό</string>
-    <string name="type.railway.station.subway.kazan">Μετρό</string>
-    <string name="type.railway.station.subway.kharkiv">Μετρό</string>
-    <string name="type.railway.station.subway.kiev">Μετρό</string>
-    <string name="type.railway.station.subway.kobe">Μετρό</string>
-    <string name="type.railway.station.subway.kolkata">Μετρό</string>
-    <string name="type.railway.station.subway.kunming">Μετρό</string>
-    <string name="type.railway.station.subway.kyoto">Μετρό</string>
-    <string name="type.railway.station.subway.la">Μετρό</string>
-    <string name="type.railway.station.subway.lausanne">Μετρό</string>
-    <string name="type.railway.station.subway.lille">Μετρό</string>
-    <string name="type.railway.station.subway.lima">Μετρό</string>
-    <string name="type.railway.station.subway.lisboa">Μετρό</string>
-    <string name="type.railway.station.subway.london">Μετρό</string>
-    <string name="type.railway.station.subway.lyon">Μετρό</string>
+    <string name="type.railway.station.funicular">Τελεφερίκ</string>
+    <string name="type.railway.station.light_rail">Σταθμός ελαφρύ σιδηρόδρομου</string>
+    <string name="type.railway.station.light_rail.berlin">Σταθμός S-Bahn</string>
+    <string name="type.railway.station.light_rail.london">Σταθμός DLR</string>
+    <string name="type.railway.station.light_rail.porto">Μετρό του Πόρτο</string>
+    <string name="type.railway.station.monorail">Σταθμός μονότροχου σιδηρόδρομου</string>
+    <string name="type.railway.station.subway">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.adana">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.algiers">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.almaty">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.amsterdam">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.ankara">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.athens">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.baku">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.bangkok">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.barcelona">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.beijing">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.bengalore">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.berlin">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.bilbao">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.brasilia">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.brescia">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.brussels">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.bucharest">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.budapest">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.buenos_aires">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.bursa">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.cairo">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.caracas">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.catania">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.changchun">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.chengdu">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.chicago">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.chongqing">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.dalian">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.delhi">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.dnepro">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.dubai">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.ekb">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.fukuoka">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.glasgow">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.guangzhou">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.hamburg">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.helsinki">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.hiroshima">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.hongkong">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.isfahan">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.istanbul">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.izmir">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.kazan">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.kharkiv">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.kiev">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.kobe">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.kolkata">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.kunming">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.kyoto">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.la">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.lausanne">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.lille">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.lima">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.lisboa">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.london">Σταθμός μετρό</string>
+    <string name="type.railway.station.subway.lyon">Σταθμός μετρό</string>
     <string name="type.railway.station.subway.madrid">Μετρό</string>
     <string name="type.railway.station.subway.malaga">Μετρό</string>
     <string name="type.railway.station.subway.manila">Μετρό</string>
@@ -989,7 +989,7 @@
     <string name="type.shop.department_store">Πολυκατάστημα</string>
     <string name="type.shop.doityourself">Είδη κιγκαλερίας</string>
     <string name="type.shop.dry_cleaning">Στεγνό καθάρισμα</string>
-    <string name="type.shop.electronics">Ηλεκτρονικά</string>
+    <string name="type.shop.electronics">Μαγαζί ηλεκτρονικών</string>
     <string name="type.shop.erotic">Κατάστημα ερωτικών ειδών</string>
     <string name="type.shop.fabric">Υφασματοπωλείο</string>
     <string name="type.shop.farm">Κατάστημα Αγροτικών Τροφίμων</string>
@@ -1092,7 +1092,7 @@
     <string name="type.sport.handball">Τόπι</string>
     <string name="type.sport.multi">Διάφορα αθλήματα</string>
     <!-- Used to tag a scuba diving site. -->
-    <string name="type.sport.scuba_diving">Κατάδυση</string>
+    <string name="type.sport.scuba_diving">Χώρος καταδύσεων</string>
     <string name="type.sport.shooting">Κυνήγι</string>
     <string name="type.sport.skateboard">Σκέιτμπορντινγκ</string>
     <string name="type.sport.skiing">Χιονοδρόμια</string>
@@ -1103,8 +1103,8 @@
     <string name="type.sport.volleyball">Πετοσφαίριση</string>
     <string name="type.sport.10pin">Μπόουλινγκ</string>
     <string name="type.sport.9pin">Μπόουλινγκ</string>
-    <string name="type.sport.padel">Padel</string>
-    <string name="type.sport.futsal">Futsal</string>
+    <string name="type.sport.padel">Πάντελ</string>
+    <string name="type.sport.futsal">Ποδόσφαιρο σάλας</string>
     <string name="type.sport.ice_hockey">Χόκεϊ στον παγο</string>
     <string name="type.sport.field_hockey">Χόκεϊ επί χόρτου</string>
     <string name="type.sport.badminton">Αντιπτέριση</string>
@@ -1154,7 +1154,7 @@
     <string name="type.waterway.canal">Κανάλι</string>
     <string name="type.waterway.canal.tunnel">Κανάλι</string>
     <string name="type.waterway.fish_pass">Σκάλα ψαριών</string>
-    <string name="type.natural.water.ditch">Αποστραγγιστική Τάφρο</string>
+    <string name="type.natural.water.ditch">Αποστραγγιστική Τάφρος</string>
     <string name="type.waterway.ditch.tunnel">Υπόγειος οχετός</string>
     <string name="type.waterway.drain.tunnel">Υπόγειος οχετός</string>
     <string name="type.waterway.lock_gate">Φράγμα</string>
@@ -1168,7 +1168,7 @@
     <string name="type.wheelchair.limited">Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
     <string name="type.wheelchair.no">Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες</string>
     <string name="type.wheelchair.yes">Εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
-    <string name="type.piste_type.snow_park">Snow Park</string>
+    <string name="type.piste_type.snow_park">Πάρκο χιονιού</string>
     <string name="type.piste_type.hike">Μονοπάτι πεζοπορίας χιονιού</string>
     <string name="type.piste_type.connection">Σύνδεση πίστας</string>
     <string name="type.piste_type.skitour">Μονοπάτι Skitour</string>
@@ -1184,20 +1184,20 @@
     <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
     <string name="type.emergency.emergency_ward_entrance">Είσοδος θαλάμου έκτακτης ανάγκης</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
-    <string name="type.amenity.dojo">Dojo</string>
+    <string name="type.amenity.dojo">Ντότζο</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Αθλητική αίθουσα</string>
-    <string name="type.piste_type.downhill.advanced">Προχωρημένη πίστα κατάβασης σκι</string>
+    <string name="type.piste_type.downhill.advanced">Προχωρημένη πίστα σκι κατάβασης</string>
     <string name="type.piste_type.downhill.advanced.area">Προχωρημένη πίστα σκι κατάβασης</string>
-    <string name="type.piste_type.downhill.easy">Εύκολη πίστα κατάβασης σκι</string>
-    <string name="type.piste_type.downhill.expert">Ειδική πίστα κατάβασης σκι</string>
-    <string name="type.piste_type.downhill.expert.area">Ειδική πίστα κατάβασης σκι</string>
-    <string name="type.piste_type.downhill.area">Κατάβαση πίστας σκι</string>
+    <string name="type.piste_type.downhill.easy">Εύκολη πίστα σκι κατάβασης</string>
+    <string name="type.piste_type.downhill.expert">Ειδική πίστα σκι κατάβασης</string>
+    <string name="type.piste_type.downhill.expert.area">Ειδική πίστα σκι κατάβασης</string>
+    <string name="type.piste_type.downhill.area">Πίστα σκι κατάβασης</string>
     <string name="type.piste_type.downhill.easy.area">Εύκολη πίστα σκι κατάβασης</string>
-    <string name="type.piste_type.downhill">Κατάβαση πίστας σκι</string>
+    <string name="type.piste_type.downhill">Πίστα σκι κατάβασης</string>
     <string name="type.man_made.silo">Σιλό</string>
-    <string name="type.power.pole">Ηλεκτρικός πόλος</string>
-    <string name="type.man_made.utility_pole">Πόλος κοινής ωφέλειας</string>
+    <string name="type.power.pole">Στύλος ρεύματος</string>
+    <string name="type.man_made.utility_pole">Στύλος υπηρεσιών κοινής ωφέλειας</string>
     <string name="type.railway.narrow_gauge.bridge">Σιδηροδρομική γέφυρα στενής γραμμής</string>
     <string name="type.aeroway">Υποδομή εναέριου χώρου</string>
     <string name="type.aeroway.apron">Ποδιά</string>
@@ -1248,4 +1248,73 @@
     <string name="type.area_highway.cycleway">Ποδηλατόδρομος</string>
     <string name="type.aeroway.gate">Πύλη</string>
     <string name="type.amenity.atm">ATM</string>
+    <string name="type.sport.diving">Κατάδυση</string>
+    <string name="type.amenity.food_court">Χώρος εστίασης</string>
+    <string name="type.junction">Διασταύρωση</string>
+    <string name="type.junction.circular">Κυκλικός κόμβος</string>
+    <string name="type.junction.roundabout">Κυκλικός κόμβος</string>
+    <string name="type.landuse">Χρήση γης</string>
+    <string name="type.landuse.construction">Εργοτάξιο</string>
+    <string name="type.landuse.education">Εκπαιδευτική υποδομή</string>
+    <string name="type.landuse.commercial">Εμπορική περιοχή</string>
+    <string name="type.landuse.garages">Χώροι στάθμευσης</string>
+    <string name="type.landuse.greenhouse_horticulture">Θερμοκήπιο</string>
+    <string name="type.landuse.industrial">Βιομηχανική περιοχή</string>
+    <string name="type.landuse.military">Στρατιωτική περιοχή</string>
+    <string name="type.landuse.orchard">Οπωρώνας</string>
+    <string name="type.landuse.quarry">Λατομείο</string>
+    <string name="type.landuse.retail">Περιοχή λιανικής</string>
+    <string name="type.leisure.common">Δημόσια γη</string>
+    <string name="type.landuse.vineyard">Αμπελώνας</string>
+    <string name="type.leisure.miniature_golf">Μίνι γκολφ</string>
+    <string name="type.leisure.marina">Μαρίνα</string>
+    <string name="type.leisure.ice_rink">Παγοδρόμιο</string>
+    <string name="type.leisure.beach_resort">Παραθαλάσσιο θέρετρο</string>
+    <string name="type.man_made.mast">Ιστός</string>
+    <string name="type.man_made.pier">Προβλήτα</string>
+    <string name="type.man_made.pipeline">Αγωγός</string>
+    <string name="type.man_made.pipeline.overground">Υπέργειος αγωγός</string>
+    <string name="type.military">Στρατιωτικό</string>
+    <string name="type.mountain_pass">Ορεινό πέρασμα</string>
+    <string name="type.noexit">Αδιέξοδο</string>
+    <string name="type.organic.yes">Οργανικά</string>
+    <string name="type.power">Ρεύμα</string>
+    <string name="type.power.generator">Γεννήτρια ρεύματος</string>
+    <string name="type.power.line">Καλώδιο ρεύματος</string>
+    <string name="type.power.line.underground">Υπόγειο καλώδιο ρεύματος</string>
+    <string name="type.power.minor_line">Δευτερεύον καλώδιο ρεύματος</string>
+    <string name="type.public_transport">Δημόσια συγκοινωνία</string>
+    <string name="type.railway.abandoned.bridge">Εγκαταλελειμμένη σιδηροδρομική γέφυρα</string>
+    <string name="type.railway.abandoned.tunnel">Εγκαταλελειμμένη σιδηροδρομική σήραγγα</string>
+    <string name="type.railway.construction">Κατασκευή σιδηροδρόμου</string>
+    <string name="type.railway.crossing">Σιδηροδρομική διάβαση</string>
+    <string name="type.railway.disused">Αχρησιμοποίητος σιδηρόδρομος</string>
+    <string name="type.railway.funicular.bridge">Γέφυρα τελεφερίκ</string>
+    <string name="type.railway.funicular.tunnel">Σήραγγα τελεφερίκ</string>
+    <string name="type.railway.light_rail">Ελαφρύς σιδηρόδρομος</string>
+    <string name="type.railway.light_rail.bridge">Γέφυρα ελαφρύ σιδηρόδρομου</string>
+    <string name="type.railway.light_rail.tunnel">Σήραγγα ελαφρύ σιδηρόδρομου</string>
+    <string name="type.piste_type.downhill.intermediate.area">Ενδιάμεση πίστα σκι κατάβασης</string>
+    <string name="type.piste_type.downhill.novice">Αρχάρια πίστα σκι κατάβασης</string>
+    <string name="type.man_made.crane">Γερανός</string>
+    <string name="type.piste_type.downhill.novice.area">Αρχάρια πίστα σκι κατάβασης</string>
+    <string name="type.organic.only">Οργανικά</string>
+    <string name="type.railway">Σιδηρόδρομος</string>
+    <string name="type.public_transport.platform">Πλατφόρμα</string>
+    <string name="type.amenity.love_hotel">Ξενοδοχείο αγάπης</string>
+    <string name="type.amenity.studio">Στούντιο</string>
+    <string name="type.fee.yes">$</string>
+    <string name="type.landuse.residential">Οικιστική περιοχή</string>
+    <string name="type.highway.ladder">Σκάλα</string>
+    <string name="type.landuse.plant_nursery">Φυτώριο</string>
+    <string name="type.leisure.firepit">Εστία φωτιάς</string>
+    <string name="type.landuse.field">Πεδίο</string>
+    <string name="type.landuse.farmyard">Αγρόκτημα</string>
+    <string name="type.leisure.recreation_ground">Χώρος άθλησης και αναψυχής</string>
+    <string name="type.leisure.track">Στίβος</string>
+    <string name="type.leisure.track.area">Στίβος</string>
+    <string name="type.piste_type.downhill.freeride">Ελεύθερη πίστα σκι κατάβασης</string>
+    <string name="type.piste_type.downhill.intermediate">Ενδιάμεση πίστα σκι κατάβασης</string>
+    <string name="type.railway.abandoned">Εγκαταλελειμμένος σιδηρόδρομος</string>
+    <string name="type.barrier.guard_rail">Προστατευτικό κιγκλίδωμα</string>
 </resources>
