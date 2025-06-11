@@ -1,8 +1,12 @@
-• Нові дані OpenStreetMap від 27 лютого
-• Можливість вручну розставляти проміжні точки маршруту
-• Експорт одного вибраного треку зі списку
-• Покращена маршрутизація для велосипедистів
-• Додано системне повідомлення під час завантаження карт, фонові завантаження більше не перериваються
-• Додано миготливий віджет запису треку
+• New OSM data as of June 8
+• Save planned routes as tracks
+• Display plant nurseries, traffic barriers, studios, firepits, ladders, cranes, and love hotels
+• Qingdao metro icons
+• Show azimuth when tapping on a small arrow with distance
+• Fixed crashes and white-on-white text on Android 5&6
+• Fixed search for Lithuanian and other languages
+• Fix location arrow jumps when navigation is active
+• Fixed Cancel Download button
+• Improved translations from Weblate
 
-…більше подробиць на omaps.org/news
+…more at omaps.org/news
