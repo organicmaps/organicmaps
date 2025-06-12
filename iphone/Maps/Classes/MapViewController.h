@@ -7,6 +7,7 @@
 @class MWMMapDownloadDialog;
 @class BookmarksCoordinator;
 @class SearchOnMapManager;
+@class TrackRecordingManager;
 @class SideButtonsArea;
 @class WidgetsArea;
 @class TrafficButtonArea;
@@ -52,16 +53,17 @@
 
 - (void)dismissPlacePage;
 
-@property(nonatomic, readonly) MWMMapViewControlsManager * _Nonnull controlsManager;
-@property(nonatomic, readonly) MWMMapDownloadDialog * _Nonnull downloadDialog;
-@property(nonatomic, readonly) BookmarksCoordinator * _Nonnull bookmarksCoordinator;
-@property(nonatomic, readonly) SearchOnMapManager * _Nonnull searchManager;
+@property(nonatomic, readonly, nonnull) MWMMapViewControlsManager * controlsManager;
+@property(nonatomic, readonly, nonnull) MWMMapDownloadDialog * downloadDialog;
+@property(nonatomic, readonly, nonnull) BookmarksCoordinator * bookmarksCoordinator;
+@property(nonatomic, readonly, nonnull) SearchOnMapManager * searchManager;
+@property(nonatomic, readonly, nonnull) TrackRecordingManager * trackRecordingManager;
 
 @property(nonatomic) MWMMyPositionMode currentPositionMode;
-@property(strong, nonatomic) IBOutlet EAGLView * _Nonnull mapView;
-@property(strong, nonatomic) IBOutlet UIView * _Nonnull controlsView;
-@property(nonatomic) UIView * _Nonnull placePageContainer;
-@property(nonatomic) UIView * _Nonnull searchContainer;
+@property(nonatomic, nonnull) IBOutlet EAGLView * mapView;
+@property(nonatomic, nonnull) IBOutlet UIView * controlsView;
+@property(nonatomic, nonnull) UIView * placePageContainer;
+@property(nonatomic, nonnull) UIView * searchContainer;
 
 @property(weak, nonatomic) IBOutlet SideButtonsArea * sideButtonsArea;
 @property(weak, nonatomic) IBOutlet WidgetsArea * widgetsArea;

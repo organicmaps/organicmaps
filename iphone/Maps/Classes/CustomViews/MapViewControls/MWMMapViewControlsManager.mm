@@ -91,7 +91,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
   [self.trafficButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [self.trackRecordingButton viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.tabBarController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
@@ -271,17 +270,6 @@ NSString *const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   BOOL const isNavigation = self.navigationManager.state == MWMNavigationDashboardStateNavigation;
   _trafficButtonHidden = isNavigation || trafficButtonHidden;
   self.trafficButton.hidden = self.hidden || _trafficButtonHidden;
-}
-
-- (void)setTrackRecordingButtonState:(TrackRecordingButtonState)state {
-  if (!_trackRecordingButton) {
-    _trackRecordingButton = [[TrackRecordingButtonViewController alloc] init];
-  }
-  [self.trackRecordingButton setState:state completion:^{
-    [MWMMapWidgetsHelper updateLayoutForAvailableArea];
-  }];
-  if (state == TrackRecordingButtonStateClosed)
-    _trackRecordingButton = nil;
 }
 
 - (void)setMenuState:(MWMBottomMenuState)menuState {

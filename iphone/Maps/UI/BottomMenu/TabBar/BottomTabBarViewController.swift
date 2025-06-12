@@ -2,6 +2,12 @@
 private let kUDDidShowFirstTimeRoutingEducationalHint = "kUDDidShowFirstTimeRoutingEducationalHint"
 
 class BottomTabBarViewController: UIViewController {
+
+  private enum Constants {
+    static let blinkingDuration = 1.0
+    static let color: (lighter: UIColor, darker: UIColor) = (.red, .red.darker(percent: 0.3))
+  }
+
   var presenter: BottomTabBarPresenterProtocol!
   
   @IBOutlet var searchButton: MWMButton!
@@ -23,8 +29,9 @@ class BottomTabBarViewController: UIViewController {
       updateBadge()
     }
   }
-  var isTrackRecordingEnabled: Bool = false {
+  var trackRecordingState: TrackRecordingState = .inactive {
     didSet {
+      guard trackRecordingState != oldValue else { return }
       updateTrackRecordingButton()
     }
   }
@@ -51,15 +58,6 @@ class BottomTabBarViewController: UIViewController {
       helpButton.setImage(nil, for: .normal)
     }
     updateBadge()
-    updateTrackRecordingButton()
-  }
-  
-  deinit {
-    MWMSearchManager.remove(self)
-  }
-
-  func setTrackRecordingState(_ state: TrackRecordingState) {
-    isTrackRecordingEnabled = state == .active
   }
 
   static func updateAvailableArea(_ frame: CGRect) {
@@ -126,13 +124,14 @@ class BottomTabBarViewController: UIViewController {
   }
 
   private func updateTrackRecordingButton() {
-    guard viewIfLoaded != nil else { return }
-    if isTrackRecordingEnabled {
-      let kBlinkingDuration = 1.0
-      trackRecordingBlinkTimer = Timer.scheduledTimer(withTimeInterval: kBlinkingDuration, repeats: true) { [weak self] _ in
-        guard let self = self else { return }
-        let coloring = self.trackRecordingButton.coloring
-        self.trackRecordingButton.coloring = coloring == .red ? .black : .red
+    if trackRecordingState == .active {
+      var lighter = false
+      trackRecordingBlinkTimer?.invalidate()
+      trackRecordingBlinkTimer = Timer.scheduledTimer(withTimeInterval: Constants.blinkingDuration, repeats: true) { [weak self] _ in
+        UIView.animate(withDuration: Constants.blinkingDuration, animations: {
+          self?.trackRecordingButton.tintColor = lighter ? Constants.color.lighter : Constants.color.darker
+          lighter.toggle()
+        })
       }
     } else {
       trackRecordingBlinkTimer?.invalidate()
