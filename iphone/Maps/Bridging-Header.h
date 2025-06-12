@@ -74,6 +74,7 @@
 #import "SearchOnMapState.h"
 #import "SearchResult.h"
 #import "SwizzleStyle.h"
+#import "TrackRecordingState.h"
 #import "UIButton+Orientation.h"
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+Colors.h"

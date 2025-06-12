@@ -1,9 +1,3 @@
-@objc
-enum TrackRecordingState: Int, Equatable {
-  case inactive
-  case active
-}
-
 enum TrackRecordingAction {
   case start
   case stopAndSave(name: String)
@@ -109,6 +103,10 @@ final class TrackRecordingManager: NSObject {
     recordingState == .active
   }
 
+  func start() {
+    start(completion: nil)
+  }
+
   func start(completion: ((StartTrackRecordingResult) -> Void)? = nil) {
     do {
       switch recordingState {
@@ -125,6 +123,8 @@ final class TrackRecordingManager: NSObject {
         }
       case .active:
         break
+      @unknown default:
+        fatalError()
       }
       completion?(.success)
     } catch {
