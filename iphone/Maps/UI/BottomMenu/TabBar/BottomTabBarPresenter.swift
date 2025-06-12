@@ -17,6 +17,7 @@ class BottomTabBarPresenter: NSObject {
 
 extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
   func configure() {
+    interactor.startObservingTrackRecordingState()
   }
 
   func onSearchButtonPressed() {
