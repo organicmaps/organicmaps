@@ -14,6 +14,7 @@
 #import "MWMPlacePageProtocol.h"
 #import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
+#import "TrackRecordingState.h"
 
 #import <CoreApi/Framework.h>
 #import <CoreApi/MWMFrameworkHelper.h>
