@@ -240,6 +240,20 @@ NSString *const kNavigationControlViewXibName = @"NavigationControlView";
   [MWMTextToSpeech tts].active = !isEnabled;
 }
 
+- (IBAction)trackRecordingButonAction:(id)sender {
+  TrackRecordingManager * manager = TrackRecordingManager.shared;
+  switch (manager.recordingState) {
+    case TrackRecordingStateInactive:
+      [manager start];
+      break;
+    case TrackRecordingStateActive:
+      [[MapViewController sharedController] showTrackRecordingPlacePage];
+      break;
+    default:
+      NSAssert(false, @"Unexpected track recording state.");
+  }
+}
+
 - (IBAction)settingsButtonAction {
   [[MapViewController sharedController] openSettings];
 }

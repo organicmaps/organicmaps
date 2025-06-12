@@ -27,6 +27,12 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
     }
   }
 
+  @IBOutlet weak var trackRecordingButton: UIButton! {
+    didSet {
+      trackRecordingButton.setImage(UIImage(resource: .icMenuBookmarkTrackRecording), for: .normal)
+    }
+  }
+
   private lazy var dimBackground: DimBackground = {
     DimBackground(mainView: self, tapAction: { [weak self] in
       self?.diminish()
@@ -102,6 +108,9 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
 
     MWMTextToSpeech.add(self)
     MapOverlayManager.add(self)
+    TrackRecordingManager.shared.addObserver(self) { [weak self] state, _, _ in
+      self?.trackRecordingButton.tintColor = state == .active ? UIColor.red() : UIColor.blackSecondaryText()
+    }
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

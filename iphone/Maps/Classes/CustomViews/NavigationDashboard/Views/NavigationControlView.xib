@@ -229,11 +229,23 @@
                 <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMT-MI-d8X">
                     <rect key="frame" x="0.0" y="52" width="320" height="64"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="right" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="udk-ZC-Gz0">
-                            <rect key="frame" x="103" y="0.0" width="93" height="64"/>
+                        <stackView opaque="NO" contentMode="right" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="udk-ZC-Gz0">
+                            <rect key="frame" x="44" y="0.0" width="152" height="64"/>
                             <subviews>
+                                <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6v-NB-AKJ" userLabel="Track Recording Button" customClass="MWMButton">
+                                    <rect key="frame" x="0.0" y="10" width="44" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="f6v-NB-AKJ" secondAttribute="height" multiplier="1:1" id="ERa-wJ-0YC"/>
+                                        <constraint firstAttribute="width" constant="44" id="ZwS-wP-bZH"/>
+                                    </constraints>
+                                    <state key="normal" image="ic_menu_bookmark_track_recording"/>
+                                    <state key="selected" image="ic_voice_off"/>
+                                    <connections>
+                                        <action selector="trackRecordingButonAction:" destination="-1" eventType="touchUpInside" id="jVW-We-x99"/>
+                                    </connections>
+                                </button>
                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfb-5v-iWA" customClass="MWMButton">
-                                    <rect key="frame" x="0.0" y="0.0" width="57" height="64"/>
+                                    <rect key="frame" x="52" y="18" width="64" height="28"/>
                                     <state key="normal" image="ic_voice_on"/>
                                     <state key="selected" image="ic_voice_off"/>
                                     <userDefinedRuntimeAttributes>
@@ -244,7 +256,10 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="center" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skM-Xx-3En" userLabel="Settings" customClass="MWMButton">
-                                    <rect key="frame" x="65" y="0.0" width="28" height="64"/>
+                                    <rect key="frame" x="124" y="18" width="28" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="skM-Xx-3En" secondAttribute="height" multiplier="1:1" id="L4Y-X5-7oP"/>
+                                    </constraints>
                                     <state key="normal" image="ic_menu_settings"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="MWMBlack"/>
@@ -255,7 +270,7 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="Bfb-5v-iWA" firstAttribute="width" secondItem="udk-ZC-Gz0" secondAttribute="height" multiplier="57:64" id="Pvi-bX-9ME"/>
+                                <constraint firstItem="Bfb-5v-iWA" firstAttribute="width" secondItem="udk-ZC-Gz0" secondAttribute="height" multiplier="1:1" id="Pvi-bX-9ME"/>
                             </constraints>
                         </stackView>
                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtt-q0-SUx" customClass="MWMStopButton">
@@ -283,7 +298,6 @@
                         <constraint firstItem="mtt-q0-SUx" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" priority="750" constant="14" id="L5z-8y-Duk"/>
                         <constraint firstAttribute="height" constant="64" id="LaX-SD-Kzr"/>
                         <constraint firstItem="mtt-q0-SUx" firstAttribute="leading" secondItem="udk-ZC-Gz0" secondAttribute="trailing" constant="8" id="QSr-OG-Imw"/>
-                        <constraint firstItem="udk-ZC-Gz0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CMT-MI-d8X" secondAttribute="leading" priority="250" constant="8" id="V36-Jb-U8R"/>
                         <constraint firstItem="udk-ZC-Gz0" firstAttribute="top" secondItem="CMT-MI-d8X" secondAttribute="top" id="W8O-lT-eqz"/>
                         <constraint firstAttribute="bottom" secondItem="udk-ZC-Gz0" secondAttribute="bottom" id="bMN-ct-cOQ"/>
                         <constraint firstAttribute="trailing" secondItem="mtt-q0-SUx" secondAttribute="trailing" constant="20" id="huM-XX-MM9"/>
@@ -323,6 +337,7 @@
                 <outlet property="speedWithLegendLabel" destination="LY7-dx-CtV" id="tK9-Em-ztB"/>
                 <outlet property="timeLabel" destination="wEc-R2-1Tv" id="cfd-vS-d1G"/>
                 <outlet property="timePageControl" destination="ppd-rW-dYo" id="U1U-6U-JjR"/>
+                <outlet property="trackRecordingButton" destination="f6v-NB-AKJ" id="IIf-SL-tjO"/>
                 <outlet property="ttsButton" destination="Bfb-5v-iWA" id="GMb-ft-G6X"/>
             </connections>
             <point key="canvasLocation" x="33.600000000000001" y="53.073463268365821"/>
@@ -330,6 +345,7 @@
     </objects>
     <resources>
         <image name="ic_menu" width="48" height="48"/>
+        <image name="ic_menu_bookmark_track_recording" width="432" height="432"/>
         <image name="ic_menu_settings" width="28" height="28"/>
         <image name="ic_voice_off" width="28" height="28"/>
         <image name="ic_voice_on" width="28" height="28"/>
