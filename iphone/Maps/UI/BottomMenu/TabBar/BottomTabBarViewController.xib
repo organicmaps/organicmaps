@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,12 +21,12 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zuH-WU-hiP" customClass="BottomTabBarView" customModule="Organic_Maps" customModuleProvider="target" propertyAccessControl="none">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" id="zuH-WU-hiP" customClass="BottomTabBarView" customModule="Organic_Maps" customModuleProvider="target" propertyAccessControl="none">
             <rect key="frame" x="0.0" y="0.0" width="368" height="102"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AhP-ky-dOP">
-                    <rect key="frame" x="0.0" y="0.0" width="368" height="48"/>
+                    <rect key="frame" x="0.0" y="0.0" width="367.5" height="48"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jAR-wW-hHn" userLabel="Help">
                             <rect key="frame" x="0.0" y="0.0" width="73.5" height="48"/>
@@ -129,7 +129,7 @@
                                         <constraint firstAttribute="width" secondItem="MXy-h4-kqq" secondAttribute="height" id="lXl-PF-HqV"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="ic_menu_bookmark_track_recordign"/>
+                                    <state key="normal" image="ic_menu_bookmark_track_recording"/>
                                     <connections>
                                         <action selector="onTrackRecordingButtonPressed:" destination="-1" eventType="touchUpInside" id="fam-CU-Noz"/>
                                     </connections>
@@ -208,8 +208,8 @@
     <resources>
         <image name="ic_menu" width="48" height="48"/>
         <image name="ic_menu_bookmark_list" width="48" height="48"/>
-        <image name="ic_menu_bookmark_track_recordign" width="432" height="432"/>
+        <image name="ic_menu_bookmark_track_recording" width="432" height="432"/>
         <image name="ic_menu_search" width="48" height="48"/>
-        <image name="logo" width="512" height="512"/>
+        <image name="logo" width="462" height="512"/>
     </resources>
 </document>

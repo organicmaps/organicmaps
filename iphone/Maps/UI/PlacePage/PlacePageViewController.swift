@@ -176,6 +176,7 @@ final class PlacePageScrollView: UIScrollView {
   private func setupLayout(_ layout: IPlacePageLayout) {
     setLayout(layout)
 
+    stackView.spacing = 0
     fillHeader(with: layout.headerViewControllers)
     fillBody(with: layout.bodyViewControllers)
 
