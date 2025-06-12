@@ -112,6 +112,11 @@ final class TrackRecordingManager: NSObject {
     recordingState == .active
   }
 
+  @objc
+  func start() {
+    start(completion: nil)
+  }
+
   func start(completion: ((StartTrackRecordingResult) -> Void)? = nil) {
     do {
       switch recordingState {
