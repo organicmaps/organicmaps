@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.OutOfQuotaPolicy;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 import androidx.work.Worker;
@@ -37,7 +38,10 @@ public class OsmUploadWork extends Worker
     if (Editor.nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
     {
       final Constraints c = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
-      final WorkRequest wr = new OneTimeWorkRequest.Builder(OsmUploadWork.class).setConstraints(c).build();
+      final WorkRequest wr = new OneTimeWorkRequest.Builder(OsmUploadWork.class)
+          .setConstraints(c)
+          .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+          .build();
       WorkManager.getInstance(context).enqueue(wr);
     }
   }
