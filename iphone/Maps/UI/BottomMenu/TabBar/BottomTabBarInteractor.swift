@@ -5,6 +5,7 @@ protocol BottomTabBarInteractorProtocol: AnyObject {
   func openBookmarks()
   func openTrackRecorder()
   func openMenu()
+  func startObservingTrackRecordingState()
 }
 
 class BottomTabBarInteractor {
@@ -13,12 +14,14 @@ class BottomTabBarInteractor {
   private weak var mapViewController: MapViewController?
   private weak var controlsManager: MWMMapViewControlsManager?
   private let searchManager: SearchOnMapManager
+  private let trackRecordingManager: TrackRecordingManager
 
-  init(viewController: UIViewController, mapViewController: MapViewController, controlsManager: MWMMapViewControlsManager) {
+  init(viewController: BottomTabBarViewController, mapViewController: MapViewController, controlsManager: MWMMapViewControlsManager) {
     self.viewController = viewController
     self.mapViewController = mapViewController
     self.controlsManager = controlsManager
     self.searchManager = mapViewController.searchManager
+    self.trackRecordingManager = mapViewController.trackRecordingManager
   }
 }
 
@@ -45,10 +48,18 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
 
   func openTrackRecorder() {
     switch trackRecordingManager.recordingState {
-    case .inactive, .error:
-      trackRecordingManager.processAction(.start)
+    case .inactive:
+      trackRecordingManager.start { [weak self] result in
+        guard let self else { return }
+        switch result {
+        case .failure:
+          break
+        case .success:
+          self.mapViewController?.showTrackRecordingPlacePage()
+        }
+      }
     case .active:
-      trackRecordingManager.processAction(.stop)
+      mapViewController?.showTrackRecordingPlacePage()
     }
   }
 
@@ -64,6 +75,12 @@ extension BottomTabBarInteractor: BottomTabBarInteractorProtocol {
       break;
     case .layers: fallthrough
     @unknown default: fatalError("ERROR: Unexpected MapViewControlsManager's state: \(state)")
+    }
+  }
+
+  func startObservingTrackRecordingState() {
+    self.trackRecordingManager.addObserver(self) { [weak self] state, _, _ in
+      self?.viewController?.trackRecordingState = state
     }
   }
 }
