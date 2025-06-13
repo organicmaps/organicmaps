@@ -221,7 +221,7 @@ class TestAccessFixture
 public:
   TestAccessFixture()
     : m_cache(std::make_shared<IntermediateDataTest>())
-    , m_fileName(generator_tests::GetFileName(ROAD_ACCESS_FILENAME))
+    , m_fileName(generator_tests::GetFileName(ROAD_ACCESS_FILE_NAME))
   {
     classificator::Load();
   }

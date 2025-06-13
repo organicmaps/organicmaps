@@ -116,7 +116,7 @@ template <class DataFacadeT> class MapsMePlugin final : public BasePlugin
 public:
     explicit MapsMePlugin(DataFacadeT *facade, std::string const &baseDir, osrm::NodeDataVectorT const & nodeData)
         : m_descriptorString("mapsme"), m_facade(facade),
-          m_reader(baseDir + '/' + PACKED_POLYGONS_FILE),
+          m_reader(baseDir + '/' + PACKED_POLYGONS_FILE_NAME),
           m_nodeData(nodeData)
     {
 #ifndef MT_STRUCTURES

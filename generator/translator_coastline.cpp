@@ -44,7 +44,7 @@ TranslatorCoastline::TranslatorCoastline(
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<CoastlineFilter>());
   filters->Append(std::make_shared<FilterElements>(
-      base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
+      base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE_NAME)));
   SetFilter(filters);
 }
 
