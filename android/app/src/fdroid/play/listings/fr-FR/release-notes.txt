@@ -1,8 +1,12 @@
-• Nouvelles données OpenStreetMap du 27 février
-• Possibilité d'organiser manuellement les points d'itinéraire intermédiaires
-• Partager une seule piste sélectionnée dans la liste
-• Amélioration du routage pour les vélos
-• Afficher une notification système lors du téléchargement de cartes et ne pas interrompre les téléchargements en arrière-plan
-• Ajout d'un widget d'enregistrement de piste clignotant
+• New OSM data as of June 8
+• Save planned routes as tracks
+• Display plant nurseries, traffic barriers, studios, firepits, ladders, cranes, and love hotels
+• Qingdao metro icons
+• Show azimuth when tapping on a small arrow with distance
+• Fixed crashes and white-on-white text on Android 5&6
+• Fixed search for Lithuanian and other languages
+• Fix location arrow jumps when navigation is active
+• Fixed Cancel Download button
+• Improved translations from Weblate
 
-…plus de détails sur omaps.org/news
+…more at omaps.org/news
