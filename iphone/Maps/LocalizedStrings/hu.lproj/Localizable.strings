@@ -53,7 +53,7 @@
 
 /* Text in About screen */
 "about_proposition_3" = "• Gyors, minimalista – a közösség által fejlesztett";
-"close" = "Bezár";
+"close" = "Bezárás";
 "download" = "Letöltés";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
