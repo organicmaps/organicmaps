@@ -32,6 +32,8 @@ import app.organicmaps.util.LocationUtils;
 import app.organicmaps.util.NetworkPolicy;
 import app.organicmaps.util.log.Logger;
 
+import java.util.HashMap;
+
 public class LocationHelper implements BaseLocationProvider.Listener
 {
   private static final long INTERVAL_FOLLOW_MS = 0;
@@ -41,6 +43,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
   private static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
+  private static final Float SWITCH_THRESHOLD = 0.5f;
 
   @NonNull
   private final Context mContext;
@@ -60,6 +63,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private boolean mActive;
   private Handler mHandler;
   private Runnable mLocationTimeoutRunnable = this::notifyLocationUpdateTimeout;
+  private final HashMap<String, Float> mWeights;
 
   @NonNull
   private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback()
@@ -110,6 +114,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mContext = context;
     mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
     mHandler = new Handler();
+    mWeights = new HashMap<>();
   }
 
   /**
@@ -198,6 +203,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void onLocationChanged(@NonNull Location location)
   {
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " location = " + location);
+    //initialize provider if it updates first time to avoid null pointer exceptions
+    mWeights.putIfAbsent(location.getProvider(), 0f);
+    preformDecay();
 
     if (!isActive())
     {
@@ -213,16 +221,48 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     if (mSavedLocation != null)
     {
+      if (!LocationUtils.isTimestampJustified(location, mSavedLocation))
+        return;
+
       if (!LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
       {
         Logger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
+        updateWeightsOfProviders(mSavedLocation, location);
         return;
+      }
+
+      if (!LocationUtils.isProviderSame(location, mSavedLocation))
+      {
+        updateWeightsOfProviders(location, mSavedLocation);
+        if (mWeights.get(location.getProvider()) - mWeights.get(mSavedLocation.getProvider()) < SWITCH_THRESHOLD)
+          return;
       }
     }
 
     mSavedLocation = location;
     mMyPosition = null;
     notifyLocationUpdated();
+  }
+
+  //reduces weights of all the provider over time to prevents any provider from permanently
+  // staying at the top just because it was good once.
+  private void preformDecay()
+  {
+    for (String p : mWeights.keySet())
+      mWeights.put(p, mWeights.get(p) * 0.95f);
+  }
+
+  private void updateWeightsOfProviders(@NonNull Location acceptedLocation, @NonNull Location rejectedLocation)
+  {
+    Float acceptedLocationProvider = mWeights.get(acceptedLocation.getProvider());
+    Float rejectedLocationProvider = mWeights.get(rejectedLocation.getProvider());
+    if (!LocationUtils.isProviderSame(acceptedLocation, rejectedLocation))
+    {
+      acceptedLocationProvider += 1f;
+      rejectedLocationProvider -= 0.5f;
+      mWeights.put(acceptedLocation.getProvider(), LocationUtils.clamp(acceptedLocationProvider, 0f, 10f));
+      mWeights.put(rejectedLocation.getProvider(), LocationUtils.clamp(rejectedLocationProvider, 0f, 10f));
+    }
   }
 
   // Used by GoogleFusedLocationProvider.
