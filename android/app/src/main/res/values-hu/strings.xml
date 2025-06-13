@@ -49,7 +49,7 @@
     <string name="about_developed_by_enthusiasts">A rajongók és az önkéntesek által létrehozott nyílt forráskódú alkalmazás.</string>
     <!-- The button that opens system location settings -->
     <string name="location_settings">Helymeghatározási beállítások</string>
-    <string name="close">Bezár</string>
+    <string name="close">Bezárás</string>
     <string name="unsupported_phone">Hardveres gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
     <string name="download">Letöltés</string>
     <!-- Used in DownloadResources startup screen -->
