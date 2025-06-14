@@ -4,22 +4,28 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   tools:showIn="@layout/elevation_profile_bottom_sheet">
-  <TextView
-    android:id="@+id/title"
+  <LinearLayout
+    android:id="@+id/title_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_half"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:paddingBottom="@dimen/margin_base"
-    android:textAppearance="?fontHeadline6"
-    tools:text="Xindian Shitoushan Trail" />
-  <include
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/divider_height"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
-    layout="@layout/list_divider" />
+    android:orientation="vertical">
+    <TextView
+      android:id="@+id/title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_base"
+      android:paddingTop="@dimen/margin_half"
+      android:paddingBottom="@dimen/margin_base"
+      android:textAppearance="?fontHeadline6"
+      tools:text="Xindian Shitoushan Trail" />
+    <include
+      layout="@layout/list_divider"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/divider_height"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_base" />
+  </LinearLayout>
   <LinearLayout
     android:id="@+id/chart_container"
     android:layout_width="match_parent"
