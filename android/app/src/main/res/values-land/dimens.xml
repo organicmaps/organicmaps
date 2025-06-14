@@ -17,4 +17,7 @@
 
   <!--About Fragment -->
   <dimen name="about_max_button_width">310dp</dimen>
+
+  <!-- Search Bottom Sheet-->
+  <dimen name="max_search_sheet_width">@dimen/panel_width</dimen>
 </resources>
