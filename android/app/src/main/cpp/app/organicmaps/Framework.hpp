@@ -171,7 +171,7 @@ namespace android
     void ExecuteMapApiRequest();
 
     void DeactivatePopup();
-    void DeactivateMapSelectionCircle();
+    void DeactivateMapSelectionCircle(bool restoreViewport);
 
 //    std::string GetOutdatedCountriesString();
 
