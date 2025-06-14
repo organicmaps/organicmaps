@@ -115,6 +115,37 @@
   </screenshots>
 
   <releases>
+   <release version="2025.06.12-3" date="2025-06-12">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of June 8</li>
+           <li>Less annoying icons for car charging stations</li>
+           <li>Display plant nurseries, crash/traffic barriers, radio/tv/music studios, firepits, ladders, cranes, and love hotels</li>
+           <li>Qingdao metro icons</li>
+           <li>Updated sewing/tailor search synonyms</li>
+           <li>Fixed category search for Lithuanian and other languages</li>
+           <li>Added missing outdoors style to the bundle</li>
+           <li>Fix "About" dialog window flags and content</li>
+        </ul>
+     </description>
+   </release>
+   <release version="2025.05.18-2" date="2025-05-18">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of May 11</li>
+        </ul>
+     </description>
+   </release>
+   <release version="2025.04.21-4" date="2025-04-21">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of April 18</li>
+        </ul>
+     </description>
+   </release>
    <release version="2025.03.02-7" date="2025-03-02">
      <description>
        <p>Highlights:</p>
