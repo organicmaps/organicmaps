@@ -78,7 +78,6 @@
 		3D78157B1F3D89EC0068B6AC /* waiter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D78157A1F3D89EC0068B6AC /* waiter.hpp */; };
 		56290B8A206D0887003892E0 /* lru_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56290B89206D0887003892E0 /* lru_cache.hpp */; };
 		564BB445206E89ED00BDD211 /* fifo_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 564BB444206E89ED00BDD211 /* fifo_cache.hpp */; };
-		564C197F254AF8AF007471CE /* optional_lock_guard_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 564C197E254AF8AF007471CE /* optional_lock_guard_tests.cpp */; };
 		56B1A0751E69DE4D00395022 /* random.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56B1A0721E69DE4D00395022 /* random.hpp */; };
 		56B1A0761E69DE4D00395022 /* small_set.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56B1A0731E69DE4D00395022 /* small_set.hpp */; };
 		670E39441C46C76900E9C0A6 /* sunrise_sunset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E39421C46C76900E9C0A6 /* sunrise_sunset.cpp */; };
@@ -226,7 +225,6 @@
 		56290B8B206D0937003892E0 /* lru_cache_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lru_cache_tests.cpp; sourceTree = "<group>"; };
 		564BB444206E89ED00BDD211 /* fifo_cache.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fifo_cache.hpp; sourceTree = "<group>"; };
 		564BB446206E8A4D00BDD211 /* fifo_cache_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fifo_cache_test.cpp; sourceTree = "<group>"; };
-		564C197E254AF8AF007471CE /* optional_lock_guard_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = optional_lock_guard_tests.cpp; sourceTree = "<group>"; };
 		56B1A0721E69DE4D00395022 /* random.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = random.hpp; sourceTree = "<group>"; };
 		56B1A0731E69DE4D00395022 /* small_set.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = small_set.hpp; sourceTree = "<group>"; };
 		670E39421C46C76900E9C0A6 /* sunrise_sunset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sunrise_sunset.cpp; sourceTree = "<group>"; };
@@ -351,7 +349,6 @@
 				3446C67E1DDCAA6E00146687 /* newtype_test.cpp */,
 				F61B9796229BFDF1000E878B /* non_intersecting_intervals_tests.cpp */,
 				39FD26D51CC65A0E00AFF551 /* observer_list_test.cpp */,
-				564C197E254AF8AF007471CE /* optional_lock_guard_tests.cpp */,
 				39FD26D61CC65A0E00AFF551 /* range_iterator_test.cpp */,
 				3446C67F1DDCAA6E00146687 /* ref_counted_tests.cpp */,
 				39FD26D71CC65A0E00AFF551 /* regexp_test.cpp */,
@@ -702,7 +699,6 @@
 				390F1C12229429A700EA58E3 /* thread_pool_computational_tests.cpp in Sources */,
 				3446C6821DDCAA7400146687 /* newtype_test.cpp in Sources */,
 				FACB768426B8739300810C9C /* checked_cast_tests.cpp in Sources */,
-				564C197F254AF8AF007471CE /* optional_lock_guard_tests.cpp in Sources */,
 				39FD27231CC65AD000AFF551 /* collection_cast_test.cpp in Sources */,
 				39FD272E1CC65AD000AFF551 /* rolling_hash_test.cpp in Sources */,
 				39FD27361CC65AD000AFF551 /* threaded_list_test.cpp in Sources */,
