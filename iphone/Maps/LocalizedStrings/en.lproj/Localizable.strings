@@ -1004,7 +1004,6 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Map";
-"drive_through" = "Drive-through";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Menu Link";
@@ -1045,11 +1044,17 @@
 /* Title for the "Open in Another App" button on the PlacePage. */
 "open_in_app" = "Open in Another App";
 
-/* To indicate if the place proposed self service... */
+/* To indicate if the place has self-service. */
 "self_service" = "Self-service";
 
-/* To indicate if restaurant or other place has outdoor seating */
+/* To indicate if the place has a drive-through. */
+"drive_through" = "Drive-through";
+
+/* To indicate if restaurant or other place has outdoor seating. */
 "outdoor_seating" = "Outdoor seating";
+
+/* To indicate a maximum value. */
+"maximum_value" = "Maximum: %@";
 
 /* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
 "bookmarks_recently_deleted" = "Recently Deleted Lists";
