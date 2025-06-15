@@ -3,10 +3,10 @@ package app.organicmaps.background;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.work.Constraints;
+import androidx.work.ExistingWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-import androidx.work.WorkRequest;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import app.organicmaps.MwmApplication;
@@ -35,8 +35,8 @@ public class OsmUploadWork extends Worker
     if (Editor.nativeHasSomethingToUpload() && OsmOAuth.isAuthorized())
     {
       final Constraints c = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
-      final WorkRequest wr = new OneTimeWorkRequest.Builder(OsmUploadWork.class).setConstraints(c).build();
-      WorkManager.getInstance(context).enqueue(wr);
+      final OneTimeWorkRequest wr = new OneTimeWorkRequest.Builder(OsmUploadWork.class).setConstraints(c).build();
+      WorkManager.getInstance(context).beginUniqueWork("UploadOsmChanges", ExistingWorkPolicy.KEEP, wr).enqueue();
     }
   }
 
