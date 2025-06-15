@@ -1666,6 +1666,16 @@ Java_app_organicmaps_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv * en
   return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatCuisines());
 }
 
+JNIEXPORT jstring JNICALL
+Java_app_organicmaps_Framework_nativeGetActiveObjectFormattedRouteRefs(JNIEnv * env, jclass)
+{
+  ::Framework * frm = g_framework->NativeFramework();
+  if (!frm->HasPlacePageInfo())
+    return {};
+
+  return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatRouteRefs());
+}
+
 JNIEXPORT void JNICALL
 Java_app_organicmaps_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, jint left, jint top, jint right, jint bottom)
 {
