@@ -134,10 +134,6 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Determining your location is necessary for navigation and for saving your recently travelled track.</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>FredokaOne-Regular.ttf</string>
-	</array>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
