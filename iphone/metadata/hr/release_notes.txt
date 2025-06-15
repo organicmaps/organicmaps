@@ -1,31 +1,25 @@
-• New OpenStreetMap data as of February 27
-• Search: split screen to show both the map and the list at the same time
-• Ability to share a single selected track from the list
-• Improved routing for bicycles
-• Added tracks and bookmarks colors into exported GPX files
+We're getting back on track! Now you can save planned routes as tracks and see details about the currently recorded track.
+There is fresh OpenStreetMap data as of June 8, 2025, and also many other improvements:
+
+• Fixed route planning error when the current location was unknown
+• Prevent iCloud sync from failing when the cloud file doesn't exist
+• Fix counter in special "?edits" search command
+• Fix Wikipedia section visibility on the Place page
+• Fully expand the track information page when opened
+• Increased the search screen top inset from the safe area
+• Smoother modal screen and side buttons animation
+• Save planned route as a track
+• Show detailed information about the recording track
+• App translations updates from the Weblate community
 
 Map:
-• Added Hearing Aids shops, Communication Towers, Crosses, Oil/Gas Wells, Gas Flares, Lifeguards, Motorcycle Rentals, Mountain Rescue Stations, Obelisks (as monuments), separate Quarters (were merged with Neighbourhoods before)
-• Outdoors: raised visibility of Huts, Shelters, Hunting Stands, Towers, Cairns, Storage Tanks, Silos
-• Outdoors: added Minor Power Lines, Utility and Power Poles; increased visibility of major Power Lines and Pylons
-• Added captions to named Cliffs, City Walls, Embankments, Power Lines
-• Tuned visibility and priority of some niche shops
+• Less annoying icons for car charging stations
+• Display plant nurseries, crash/traffic barriers, radio/tv/music studios, firepits, ladders, cranes, and love hotels
+• Qingdao metro icons
 
-OSM editor:
-• Added ability to edit "Self-service" and "Outdoor seating" POI attributes
-• Don't hide OSM login page when offline
-• Added icons to address and number of floors input fields
-• Fixed many other bugs, thanks to contributor @map-per who did a lot of under-the-hood work!
-
-Other:
-• Open track's info page automatically upon record finish / track save
-• Show "Add Stop" button for the selected track point when in the navigation mode
-• Voice directions: announce route recalculation
-• Better looking track elevation profiles
-• Made Track Recording live activity widget properly dismissable
-• Don't always default to the subway routing mode when the subway layer is active
-• Fixed bookmarks storing POI name in a wrong language
-• Fixed on-building POIs disappearing when in perspective view
-• Fixed empty speed limit sign displayed in foot navigation
-• Fixed stuck map rotation gesture when zoomed in max
-• iCloud sync bug fixes and some minor UI fixes
+Search:
+• Updated sewing/tailor synonyms
+• Fixed category search for Lithuanian and other languages
+• Fixed search on the map and in the list
+• Fixed search suggestions
+• Search history is not duplicated anymore
