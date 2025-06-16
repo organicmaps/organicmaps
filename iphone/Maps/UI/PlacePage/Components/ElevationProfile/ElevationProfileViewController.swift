@@ -3,6 +3,7 @@ import Chart
 protocol ElevationProfileViewProtocol: AnyObject {
   var presenter: ElevationProfilePresenterProtocol?  { get set }
 
+  var userInteractionEnabled: Bool { get set }
   var isChartViewHidden: Bool { get set }
   var isChartViewInfoHidden: Bool { get set }
 
@@ -116,6 +117,12 @@ final class ElevationProfileViewController: UIViewController {
 // MARK: - ElevationProfileViewProtocol
 
 extension ElevationProfileViewController: ElevationProfileViewProtocol {
+
+  var userInteractionEnabled: Bool {
+    get { chartView.isUserInteractionEnabled }
+    set { chartView.isUserInteractionEnabled = newValue }
+  }
+
   var isChartViewHidden: Bool {
     get { chartView.isHidden }
     set {

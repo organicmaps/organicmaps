@@ -80,10 +80,13 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
     let kMinPointsToDraw = 3
     guard let profileData, let chartData, chartData.points.count >= kMinPointsToDraw else {
+      view?.userInteractionEnabled = false
       return
     }
+
     view?.setChartData(ChartPresentationData(chartData, formatter: formatter))
     view?.reloadDescription()
+    view?.userInteractionEnabled = true
 
     guard !profileData.isTrackRecording else {
       view?.isChartViewInfoHidden = true
