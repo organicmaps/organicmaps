@@ -165,7 +165,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
   {
     SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, ref(mapPath)));
 
-    Storage storage(COUNTRIES_FILE);
+    Storage storage(COUNTRIES_FILE_NAME);
 
     InitStorage(storage, [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {});
     TEST(!storage.IsDownloadInProgress(), ());
@@ -189,7 +189,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
     {
       SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, ref(mapPath)));
 
-      Storage storage(COUNTRIES_FILE);
+      Storage storage(COUNTRIES_FILE_NAME);
 
       auto onProgressFn = [i, j](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
         TEST_EQUAL(countryId, kCountryId, ());
@@ -209,7 +209,7 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
     // Continue downloading.
     coding::SHA1::Hash newHash;
     {
-      Storage storage(COUNTRIES_FILE);
+      Storage storage(COUNTRIES_FILE_NAME);
 
       InitStorage(storage, [](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {});
       TEST(storage.IsDownloadInProgress(), ());

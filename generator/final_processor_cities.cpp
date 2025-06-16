@@ -49,7 +49,7 @@ void FinalProcessorCities::Process()
   AppendToMwmTmp(result, *m_affiliation, m_temporaryMwmPath, m_threadsCount);
 
   {
-    FeatureBuilderWriter writer(base::JoinPath(m_temporaryMwmPath, WORLD_FILE_NAME DATA_FILE_EXTENSION_TMP),
+    FeatureBuilderWriter writer(base::JoinPath(m_temporaryMwmPath, WORLD_FILE_NAME DATA_TMP_FILE_EXTENSION),
                                 FileWriter::Op::OP_APPEND);
     for (auto const & fb : result)
     {

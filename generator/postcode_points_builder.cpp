@@ -207,10 +207,10 @@ bool BuildPostcodePointsWithInfoGetter(std::string const & path, storage::Countr
   if (readContainer.IsExist(POSTCODE_POINTS_FILE_TAG) && !forceRebuild)
     return true;
 
-  auto const postcodesFilePath = filename + "." + POSTCODE_POINTS_FILE_TAG EXTENSION_TMP;
+  auto const postcodesFilePath = filename + "." + POSTCODE_POINTS_FILE_TAG TMP_FILE_EXTENSION;
   // Temporary file used to reverse trie part of postcodes section.
   auto const trieTmpFilePath =
-      filename + "." + POSTCODE_POINTS_FILE_TAG + "_trie" + EXTENSION_TMP;
+      filename + "." + POSTCODE_POINTS_FILE_TAG + "_trie" + TMP_FILE_EXTENSION;
   SCOPE_GUARD(postcodesFileGuard, std::bind(&FileWriter::DeleteFileX, postcodesFilePath));
   SCOPE_GUARD(trieTmpFileGuard, std::bind(&FileWriter::DeleteFileX, trieTmpFilePath));
 

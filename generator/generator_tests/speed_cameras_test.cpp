@@ -120,7 +120,7 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   auto const & genInfo = generator.GetGenInfo();
 
   // Step 3. Build section into mwm.
-  string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
+  string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILE_NAME);
 
   if (!answer.empty())
   {

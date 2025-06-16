@@ -273,7 +273,7 @@ void CountryFinalProcessor::AddAddresses()
     if (!IsCountry(name))
       return;
 
-    auto const addrPath = base::JoinPath(m_addressPath, name) + TEMP_ADDR_EXTENSION;
+    auto const addrPath = base::JoinPath(m_addressPath, name) + TEMP_ADDR_FILE_EXTENSION;
     if (!Platform::IsFileExistsByFullPath(addrPath))
       return;
 

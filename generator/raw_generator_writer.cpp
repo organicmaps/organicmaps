@@ -57,7 +57,7 @@ void RawGeneratorWriter::Write(std::vector<ProcessedData> const & vecChunks)
       auto writerIt = m_writers.find(affiliation);
       if (writerIt == std::cend(m_writers))
       {
-        auto path = base::JoinPath(m_path, affiliation + DATA_FILE_EXTENSION_TMP);
+        auto path = base::JoinPath(m_path, affiliation + DATA_TMP_FILE_EXTENSION);
         LOG(LINFO, ("Start writing to ", path));
         auto writer = std::make_unique<FileWriter>(std::move(path));
         writerIt = m_writers.emplace(affiliation, std::move(writer)).first;

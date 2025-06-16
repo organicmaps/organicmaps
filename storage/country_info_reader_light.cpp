@@ -27,14 +27,14 @@ CountryInfoReader::CountryInfoReader()
 {
   try
   {
-    m_reader = std::make_unique<FilesContainerR>(GetPlatform().GetReader(PACKED_POLYGONS_FILE));
+    m_reader = std::make_unique<FilesContainerR>(GetPlatform().GetReader(PACKED_POLYGONS_FILE_NAME));
     ReaderSource<ModelReaderPtr> src(m_reader->GetReader(PACKED_POLYGONS_INFO_TAG));
     rw::Read(src, m_countries);
   }
   catch (FileReader::Exception const & exception)
   {
     LOG(LERROR,
-        ("Exception while reading file:", PACKED_POLYGONS_FILE, "reason:", exception.what()));
+        ("Exception while reading file:", PACKED_POLYGONS_FILE_NAME, "reason:", exception.what()));
 
     m_reader.reset();
     m_countries.clear();

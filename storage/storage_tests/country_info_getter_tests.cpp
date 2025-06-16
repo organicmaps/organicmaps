@@ -138,7 +138,7 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 UNIT_TEST(CountryInfoGetter_ValidName_Smoke)
 {
   string buffer;
-  ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE)).ReadAsString(buffer);
+  ReaderPtr<Reader>(GetPlatform().GetReader(COUNTRIES_FILE_NAME)).ReadAsString(buffer);
 
   map<string, CountryInfo> id2info;
   storage::LoadCountryFile2CountryInfo(buffer, id2info);
