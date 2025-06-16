@@ -11,7 +11,7 @@ struct NavigationDashboardModalPresentationStepStrategy: ModalPresentationStepSt
     static let compactHeightOffset: CGFloat = 300
     static let fullScreenHeightFactorPortrait: CGFloat = 0.1
     static let halfScreenHeightFactorPortrait: CGFloat = 0.55
-    static let landscapeTopInset: CGFloat = 10
+    static let topInset: CGFloat = 8
   }
 
   typealias Step = NavigationDashboardModalPresentationStep
@@ -78,9 +78,9 @@ struct NavigationDashboardModalPresentationStepStrategy: ModalPresentationStepSt
     if isPortraitOrientation {
       switch step {
       case .expanded:
-        frame.origin.y = containerSize.height * Constants.fullScreenHeightFactorPortrait
+        frame.origin.y = safeAreaInsets.top + Constants.topInset
       case .regular:
-        let maxHeight = containerSize.height * Constants.fullScreenHeightFactorPortrait
+        let maxHeight = safeAreaInsets.top + Constants.topInset
         if regularHeigh != 0 {
           frame.origin.y = max(containerSize.height - regularHeigh, maxHeight)
         } else {
@@ -100,7 +100,7 @@ struct NavigationDashboardModalPresentationStepStrategy: ModalPresentationStepSt
       frame.origin.x = safeAreaInsets.left
       switch step {
       case .expanded, .regular:
-        frame.origin.y = Constants.landscapeTopInset
+        frame.origin.y = Constants.topInset
       case .compact:
         frame.origin.y = containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset)
       case .hidden:
