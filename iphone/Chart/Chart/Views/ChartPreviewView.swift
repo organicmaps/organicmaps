@@ -227,7 +227,7 @@ class ChartPreviewView: ExpandedTouchView {
   }
 
   func setX(min: Int, max: Int) {
-    assert(min < max)
+    guard min < max else { return }
     minX = min
     maxX = max
     updateViewPort()

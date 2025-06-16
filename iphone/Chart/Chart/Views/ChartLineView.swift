@@ -51,7 +51,7 @@ class ChartLineView: UIView {
   }
 
   func setViewport(minX: Int, maxX: Int, minY: CGFloat, maxY: CGFloat, animationStyle: ChartAnimation = .none) {
-    assert(minX < maxX && minY < maxY)
+    guard minX < maxX && minY < maxY else { return }
     self.minX = minX
     self.maxX = maxX
     self.minY = minY
@@ -60,14 +60,14 @@ class ChartLineView: UIView {
   }
 
   func setX(min: Int, max: Int) {
-    assert(min < max)
+    guard min < max else { return }
     minX = min
     maxX = max
     updateGraph()
   }
 
   func setY(min: CGFloat, max: CGFloat, animationStyle: ChartAnimation = .none) {
-    assert(min <= max)
+    guard min < max else { return }
     minY = min
     maxY = max
     updateGraph(animationStyle: animationStyle)
