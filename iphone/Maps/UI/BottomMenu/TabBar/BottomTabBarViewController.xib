@@ -68,8 +68,33 @@
                                 <constraint firstItem="dzf-7Z-N6a" firstAttribute="centerX" secondItem="jAR-wW-hHn" secondAttribute="centerX" id="zUC-VJ-huw"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" id="Bni-Da-2VY" userLabel="Search">
+                        <view contentMode="scaleToFill" id="Ykj-ky-CGV" userLabel="TrackRecording">
                             <rect key="frame" x="73.5" y="0.0" width="73.5" height="48"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXy-h4-kqq" userLabel="TrackRecordingButton" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
+                                    <rect key="frame" x="13" y="0.0" width="48" height="48"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="MXy-h4-kqq" secondAttribute="height" id="lXl-PF-HqV"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="ic_menu_bookmark_track_recording"/>
+                                    <connections>
+                                        <action selector="onTrackRecordingButtonPressed:" destination="-1" eventType="touchUpInside" id="fam-CU-Noz"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <viewLayoutGuide key="safeArea" id="ird-h2-fT0"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="MXy-h4-kqq" firstAttribute="centerX" secondItem="Ykj-ky-CGV" secondAttribute="centerX" id="6je-Ab-XpB"/>
+                                <constraint firstItem="MXy-h4-kqq" firstAttribute="centerY" secondItem="Ykj-ky-CGV" secondAttribute="centerY" id="Vsi-iz-jFT"/>
+                                <constraint firstItem="MXy-h4-kqq" firstAttribute="height" secondItem="Ykj-ky-CGV" secondAttribute="height" id="sUO-pB-X6q"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" id="Bni-Da-2VY" userLabel="Search">
+                            <rect key="frame" x="147" y="0.0" width="73.5" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="No0-ld-JX3" userLabel="SearchButton" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
@@ -94,7 +119,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" id="P21-bX-zyL" userLabel="Bookmarks">
-                            <rect key="frame" x="147" y="0.0" width="73.5" height="48"/>
+                            <rect key="frame" x="220.5" y="0.0" width="73.5" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-ki-3tB" userLabel="BookmarksButton" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
@@ -116,31 +141,6 @@
                                 <constraint firstItem="dgG-ki-3tB" firstAttribute="height" secondItem="P21-bX-zyL" secondAttribute="height" id="Ej4-ay-Ab4"/>
                                 <constraint firstItem="dgG-ki-3tB" firstAttribute="centerY" secondItem="P21-bX-zyL" secondAttribute="centerY" id="Wtc-uP-edm"/>
                                 <constraint firstItem="dgG-ki-3tB" firstAttribute="centerX" secondItem="P21-bX-zyL" secondAttribute="centerX" id="Yqq-l7-p1H"/>
-                            </constraints>
-                        </view>
-                        <view contentMode="scaleToFill" id="Ykj-ky-CGV" userLabel="TrackRecording">
-                            <rect key="frame" x="220.5" y="0.0" width="73.5" height="48"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXy-h4-kqq" userLabel="TrackRecordingButton" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
-                                    <rect key="frame" x="13" y="0.0" width="48" height="48"/>
-                                    <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="MXy-h4-kqq" secondAttribute="height" id="lXl-PF-HqV"/>
-                                    </constraints>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="ic_menu_bookmark_track_recording"/>
-                                    <connections>
-                                        <action selector="onTrackRecordingButtonPressed:" destination="-1" eventType="touchUpInside" id="fam-CU-Noz"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <viewLayoutGuide key="safeArea" id="ird-h2-fT0"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstItem="MXy-h4-kqq" firstAttribute="centerX" secondItem="Ykj-ky-CGV" secondAttribute="centerX" id="6je-Ab-XpB"/>
-                                <constraint firstItem="MXy-h4-kqq" firstAttribute="centerY" secondItem="Ykj-ky-CGV" secondAttribute="centerY" id="Vsi-iz-jFT"/>
-                                <constraint firstItem="MXy-h4-kqq" firstAttribute="height" secondItem="Ykj-ky-CGV" secondAttribute="height" id="sUO-pB-X6q"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" id="DjB-sk-2BR" userLabel="Menu">
