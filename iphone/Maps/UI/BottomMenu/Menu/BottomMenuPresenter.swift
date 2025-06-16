@@ -1,13 +1,10 @@
 protocol BottomMenuPresenterProtocol: UITableViewDelegate, UITableViewDataSource {
   func onClosePressed()
-  func cellToHighlightIndexPath() -> IndexPath?
-  func setCellHighlighted(_ highlighted: Bool)
 }
 
 class BottomMenuPresenter: NSObject {
   enum CellType: Int, CaseIterable {
     case addPlace
-    case recordTrack
     case downloadMaps
     case donate
     case settings
@@ -24,7 +21,6 @@ class BottomMenuPresenter: NSObject {
   private let sections: [Sections]
   private let menuCells: [CellType]
   private let trackRecorder = TrackRecordingManager.shared
-  private var cellToHighlight: CellType?
 
   init(view: BottomMenuViewProtocol,
        interactor: BottomMenuInteractorProtocol,
@@ -34,35 +30,13 @@ class BottomMenuPresenter: NSObject {
     self.sections = sections
     let disableDonate = Settings.donateUrl() == nil
     self.menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
-    self.cellToHighlight = Self.getCellToHighlight()
     super.init()
-  }
-
-  private static func getCellToHighlight() -> CellType? {
-    let featureToHighlightData = DeepLinkHandler.shared.getInAppFeatureHighlightData()
-    guard let featureToHighlightData, featureToHighlightData.urlType == .menu else { return nil }
-    switch featureToHighlightData.feature {
-    case .trackRecorder: return .recordTrack
-    default: return nil
-    }
   }
 }
 
 extension BottomMenuPresenter: BottomMenuPresenterProtocol {
   func onClosePressed() {
     interactor.close()
-  }
-
-  func cellToHighlightIndexPath() -> IndexPath? {
-    // Highlighting is enabled only for the .items section.
-    guard let cellToHighlight,
-          let sectionIndex = sections.firstIndex(of: .items),
-          let cellIndex = menuCells.firstIndex(of: cellToHighlight) else { return nil }
-    return IndexPath(row: cellIndex, section: sectionIndex)
-  }
-
-  func setCellHighlighted(_ highlighted: Bool) {
-    cellToHighlight = nil
   }
 }
 
@@ -99,13 +73,6 @@ extension BottomMenuPresenter {
         cell.configure(imageName: "ic_add_place",
                        title: L("placepage_add_place_button"),
                        enabled: enabled)
-      case .recordTrack:
-        switch trackRecorder.recordingState {
-        case .inactive:
-          cell.configure(imageName: "track_recorder_inactive", title: L("start_track_recording"))
-        case .active:
-          cell.configure(imageName: "track_recorder_active", title: L("stop_track_recording"))
-        }
         return cell
       case .downloadMaps:
         cell.configure(imageName: "ic_menu_download",
@@ -145,8 +112,6 @@ extension BottomMenuPresenter {
       switch menuCells[indexPath.row] {
       case .addPlace:
         interactor.addPlace()
-      case .recordTrack:
-        interactor.toggleTrackRecording()
       case .downloadMaps:
         interactor.downloadMaps()
       case .donate:
