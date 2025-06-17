@@ -8,9 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ElevationProfileData (Core)
 
 - (instancetype)initWithTrackId:(MWMTrackID)trackId
-                  elevationInfo:(ElevationInfo const &)elevationInfo
-                    activePoint:(double)activePoint
-                     myPosition:(double)myPosition;
+                  elevationInfo:(ElevationInfo const &)elevationInfo;
 - (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo;
 
 @end

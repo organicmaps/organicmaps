@@ -2,33 +2,52 @@
 #import "ElevationProfileData+Core.h"
 #import "TrackInfo+Core.h"
 
+@interface PlacePageTrackData ()
+
+@property(nonatomic, readwrite) double activePoint;
+
+@end
+
 @implementation PlacePageTrackData
 
-- (nonnull instancetype)initWithTrackInfo:(TrackInfo *)trackInfo elevationInfo:(ElevationProfileData * _Nullable)elevationInfo {
+- (instancetype)initWithTrackInfo:(TrackInfo *)trackInfo
+                            elevationInfo:(ElevationProfileData * _Nullable)elevationInfo
+                     onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler {
   self = [super init];
   if (self) {
     _trackInfo = trackInfo;
     _elevationProfileData = elevationInfo;
+    _onActivePointChangedHandler = onActivePointChangedHandler;
   }
   return self;
+}
+
+- (void)updateActivePointDistance:(double)distance {
+  self.activePoint = distance;
+  if (self.onActivePointChangedHandler)
+    self.onActivePointChangedHandler();
 }
 
 @end
 
 @implementation PlacePageTrackData (Core)
 
-- (instancetype)initWithTrack:(Track const &)track {
+- (instancetype)initWithTrack:(Track const &)track
+         onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler {
   self = [super init];
   if (self) {
     _trackId = track.GetData().m_id;
     _trackInfo = [[TrackInfo alloc] initWithTrackStatistics:track.GetStatistics()];
+
+    auto const & bm = GetFramework().GetBookmarkManager();
+    _activePoint = bm.GetElevationActivePoint(_trackId);
+    _myPosition = bm.GetElevationMyPosition(_trackId);
+    _onActivePointChangedHandler = onActivePointChangedHandler;
+
     auto const & elevationInfo = track.GetElevationInfo();
     if (track.HasAltitudes() && elevationInfo.has_value()) {
-      auto const & bm = GetFramework().GetBookmarkManager();
       _elevationProfileData = [[ElevationProfileData alloc] initWithTrackId:_trackId
-                                                              elevationInfo:elevationInfo.value()
-                                                                activePoint:bm.GetElevationActivePoint(_trackId)
-                                                                 myPosition:bm.GetElevationMyPosition(_trackId)];
+                                                              elevationInfo:elevationInfo.value()];
     }
   }
   return self;
