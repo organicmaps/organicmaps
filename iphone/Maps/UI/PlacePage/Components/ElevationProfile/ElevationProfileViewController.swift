@@ -63,7 +63,7 @@ final class ElevationProfileViewController: UIViewController {
 // MARK: - Private methods
 
   private func setupViews() {
-    view.styleName = "Background"
+    view.setStyle(.background)
     setupDescriptionCollectionView()
     setupChartView()
   }
@@ -84,6 +84,8 @@ final class ElevationProfileViewController: UIViewController {
     descriptionCollectionView.isScrollEnabled = false
     descriptionCollectionView.contentInset = Constants.descriptionCollectionViewContentInsets
     descriptionCollectionView.translatesAutoresizingMaskIntoConstraints = false
+    descriptionCollectionView.showsHorizontalScrollIndicator = false
+    descriptionCollectionView.showsVerticalScrollIndicator = false
   }
 
   private func layoutViews() {
