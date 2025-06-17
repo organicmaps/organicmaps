@@ -7,6 +7,8 @@ class PlacePageInteractor: NSObject {
   var presenter: PlacePagePresenterProtocol?
   weak var viewController: UIViewController?
   weak var mapViewController: MapViewController?
+  weak var trackActivePointPresenter: TrackActivePointPresenter?
+
   private let bookmarksManager = BookmarksManager.shared()
   private var placePageData: PlacePageData
   private var viewWillAppearIsCalledForTheFirstTime = false
@@ -17,10 +19,12 @@ class PlacePageInteractor: NSObject {
     self.mapViewController = mapViewController
     super.init()
     addToBookmarksManagerObserverList()
+    subscribeOnTrackActivePointUpdates()
   }
 
   deinit {
     removeFromBookmarksManagerObserverList()
+    unsubscribeFromTrackActivePointUpdates()
   }
 
   private func updatePlacePageIfNeeded() {
@@ -47,6 +51,23 @@ class PlacePageInteractor: NSObject {
     @unknown default:
       fatalError("Unknown object type")
     }
+  }
+
+  private func subscribeOnTrackActivePointUpdates() {
+    guard placePageData.objectType == .track, let trackData = placePageData.trackData else { return }
+    bookmarksManager.setElevationActivePointChanged(trackData.trackId) { [weak self] distance in
+      self?.trackActivePointPresenter?.updateActivePoint(distance)
+      trackData.updateActivePointDistance(distance)
+    }
+    bookmarksManager.setElevationMyPositionChanged(trackData.trackId) { [weak self] distance in
+      self?.trackActivePointPresenter?.updateMyPosition(distance)
+    }
+  }
+
+  private func unsubscribeFromTrackActivePointUpdates() {
+    guard placePageData.objectType == .track, let trackData = placePageData.trackData else { return }
+    bookmarksManager.resetElevationActivePointChanged()
+    bookmarksManager.resetElevationMyPositionChanged()
   }
 
   private func addToBookmarksManagerObserverList() {
@@ -309,7 +330,8 @@ extension PlacePageInteractor: ElevationProfileViewControllerDelegate {
 
   func updateMapPoint(_ point: CLLocationCoordinate2D, distance: Double) {
     guard let trackData = placePageData.trackData, trackData.elevationProfileData?.isTrackRecording == false else { return }
-    BookmarksManager.shared().setElevationActivePoint(point, distance: distance, trackId: trackData.trackId)
+    bookmarksManager.setElevationActivePoint(point, distance: distance, trackId: trackData.trackId)
+    placePageData.trackData?.updateActivePointDistance(distance)
   }
 }
 

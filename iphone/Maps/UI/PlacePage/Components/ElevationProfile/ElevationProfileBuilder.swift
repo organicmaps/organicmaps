@@ -1,13 +1,11 @@
 import CoreApi
 
 class ElevationProfileBuilder {
-  static func build(trackInfo: TrackInfo,
-                    elevationProfileData: ElevationProfileData?,
+  static func build(trackData: PlacePageTrackData,
                     delegate: ElevationProfileViewControllerDelegate?) -> ElevationProfileViewController {
     let viewController = ElevationProfileViewController();
     let presenter = ElevationProfilePresenter(view: viewController,
-                                              trackInfo: trackInfo,
-                                              profileData: elevationProfileData,
+                                              trackData: trackData,
                                               delegate: delegate)
     viewController.presenter = presenter
     return viewController

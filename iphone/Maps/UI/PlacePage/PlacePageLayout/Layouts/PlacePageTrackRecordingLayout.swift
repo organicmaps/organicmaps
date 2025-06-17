@@ -39,8 +39,7 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     guard let trackData = placePageData.trackData else {
       return nil
     }
-    return ElevationProfileBuilder.build(trackInfo: trackData.trackInfo,
-                                         elevationProfileData: trackData.elevationProfileData,
+    return ElevationProfileBuilder.build(trackData: trackData,
                                          delegate: interactor)
   }()
 
@@ -86,9 +85,9 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
 
 private extension PlacePageTrackRecordingLayout {
   func updateTrackRecordingRelatedSections() {
-    guard let elevationProfileViewController, let trackInfo = placePageData.trackData?.trackInfo else { return }
+    guard let elevationProfileViewController, let trackData = placePageData.trackData else { return }
     headerViewController.setTitle(placePageData.previewData.title, secondaryTitle: nil)
-    elevationProfileViewController.presenter?.update(trackInfo: trackInfo, profileData: placePageData.trackData?.elevationProfileData)
+    elevationProfileViewController.presenter?.update(with: trackData)
     presenter?.layoutIfNeeded()
   }
 }
