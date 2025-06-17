@@ -137,7 +137,7 @@ extension ElevationProfilePresenter {
     let width = collectionView.width
     let cellHeight = collectionView.height
     let modelsCount = CGFloat(descriptionModels.count)
-    let cellWidth = (width - cellSpacing * (modelsCount - 1) - collectionView.contentInset.right) / modelsCount
+    let cellWidth = (width - cellSpacing * (modelsCount - 1) - collectionView.contentInset.right - collectionView.contentInset.left) / modelsCount
     return CGSize(width: cellWidth, height: cellHeight)
   }
 
