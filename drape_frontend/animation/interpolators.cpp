@@ -4,6 +4,7 @@
 #include "base/assert.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace df
 {
@@ -86,7 +87,11 @@ double Interpolator::GetT() const
   if (IsFinished())
     return 1.0;
 
-  return std::max(m_elapsedTime - m_delay, 0.0) / m_duration;
+  double t = std::max(m_elapsedTime - m_delay, 0.0) / m_duration;
+  
+  // Apply pronounced cubic ease-out curve for more noticeable deceleration
+  // This creates a more dramatic "settling" effect that feels polished
+  return 1.0 - std::pow(1.0 - t, 3.0);  // cubic ease-out
 }
 
 double Interpolator::GetElapsedTime() const
@@ -214,13 +219,34 @@ ScaleInterpolator::ScaleInterpolator(double delay, double startScale, double end
 // static
 double ScaleInterpolator::GetScaleDuration(double startScale, double endScale, bool isAutoZoom)
 {
-  // Resize 2.0 times should be done for 1.2 seconds in autozoom or for 0.2 seconds in usual case.
-  double const kPixelSpeed = isAutoZoom ? (2.0 / 1.2) : (2.0 / 0.2);
-
   if (startScale > endScale)
     std::swap(startScale, endScale);
 
-  return CalcAnimSpeedDuration(endScale / startScale, kPixelSpeed);
+  double const scaleRatio = endScale / startScale;
+  
+  if (isAutoZoom)
+  {
+    // For auto-zoom, use the original calculation but with a reasonable cap
+    double const kPixelSpeed = 2.0 / 1.2;
+    double duration = CalcAnimSpeedDuration(scaleRatio, kPixelSpeed);
+    // Cap at 1.4s to stay safely under kMaxAnimationTimeSec (1.5s)
+    return std::min(duration, 1.4);
+  }
+  else
+  {
+    // For manual zoom (location button), use a smarter scale-aware duration
+    // Base duration scales with zoom levels but caps reasonably
+    double const logRatio = std::log2(scaleRatio);  // zoom levels difference
+    double const baseDuration = 0.4;
+    double const perZoomLevelDuration = 0.2;
+    double duration = baseDuration + logRatio * perZoomLevelDuration;
+    
+    // Ensure minimum duration for any zoom change
+    duration = std::max(duration, 0.3);
+    
+    // Cap at 1.4s to prevent animation killing while allowing longer comfortable animations
+    return std::min(duration, 1.4);
+  }
 }
 
 void ScaleInterpolator::Advance(double elapsedSeconds)
