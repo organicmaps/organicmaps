@@ -424,7 +424,10 @@ public class MapButtonsController extends Fragment
         .build();
     ViewCompat.setOnApplyWindowInsetsListener(mFrame, insetsListener);
     // Fixes insets on older Androids and with a search opened via API on all Androids.
-    mFrame.post(() -> ViewCompat.requestApplyInsets(mFrame));
+    if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.Q)
+      mFrame.postDelayed(() -> ViewCompat.requestApplyInsets(mFrame), 1250);
+    else
+      mFrame.post(() -> ViewCompat.requestApplyInsets(mFrame));
   }
 
   @Override
