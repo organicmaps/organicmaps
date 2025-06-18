@@ -976,6 +976,48 @@ Java_app_organicmaps_Framework_nativeRemovePlacePageActivationListener(JNIEnv *e
   g_placePageActivationListener = nullptr;
 }
 
+JNIEXPORT jlong JNICALL
+Java_app_organicmaps_bookmarks_data_BookmarkManager_nativeFindBookmarkAtPoint(JNIEnv * env, jobject thiz, jdouble lat, jdouble lon)
+{
+LOG(LINFO, ("Native: Searching for bookmark at", lat, lon));
+
+auto * framework = g_framework->NativeFramework();
+
+auto const mercatorPoint = mercator::FromLatLon(lat, lon);
+
+place_page::BuildInfo buildInfo;
+buildInfo.m_mercator = mercatorPoint;
+
+framework->BuildAndSetPlacePageInfo(buildInfo);
+
+if (framework->HasPlacePageInfo())
+{
+auto const & placePageInfo = framework->GetCurrentPlacePageInfo();
+if (placePageInfo.IsBookmark())
+{
+auto bookmarkId = placePageInfo.GetBookmarkId();
+return static_cast<jlong>(bookmarkId);
+}
+}
+
+
+double const searchRadiusM = 2.0;
+auto const & bmManager = framework->GetBookmarkManager();
+
+auto const rect = mercator::RectByCenterXYAndSizeInMeters(mercatorPoint, searchRadiusM);
+m2::AnyRectD searchRect(rect);
+
+auto const * userMark = bmManager.FindNearestUserMark(searchRect);
+
+if (userMark && userMark->GetMarkType() == UserMark::Type::BOOKMARK)
+{
+auto const bookmarkId = userMark->GetId();
+return static_cast<jlong>(bookmarkId);
+}
+
+return -1;
+}
+
 JNIEXPORT jstring JNICALL
 Java_app_organicmaps_Framework_nativeGetGe0Url(JNIEnv * env, jclass, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
 {

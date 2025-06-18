@@ -147,6 +147,27 @@ public enum BookmarkManager
     mOnElevationActivePointChangedListener = listener;
   }
 
+  @Nullable
+  public BookmarkInfo findBookmarkByCoordinates(double lat, double lon, @Nullable String name, @Nullable String categoryName)
+  {
+    long bookmarkId = nativeFindBookmarkAtPoint(lat, lon);
+
+    if (bookmarkId == -1)
+      return null;
+
+    BookmarkInfo info = getBookmarkInfo(bookmarkId);
+
+    if (info != null &&
+        (name == null || name.isEmpty() || name.equals(info.getName())) &&
+        (categoryName == null || categoryName.isEmpty() ||
+            categoryName.equals(getCategoryById(info.getCategoryId()).getName())))
+    {
+      return info;
+    }
+
+    return null;
+  }
+
   // Called from JNI.
   @Keep
   @SuppressWarnings("unused")
@@ -714,7 +735,7 @@ public enum BookmarkManager
         !description.equals(getBookmarkDescription(bookmark.getBookmarkId())))
     {
       setBookmarkParams(bookmark.getBookmarkId(), name,
-                        icon != null ? icon.getColor() : getLastEditedColor(), description);
+          icon != null ? icon.getColor() : getLastEditedColor(), description);
     }
   }
 
@@ -730,7 +751,7 @@ public enum BookmarkManager
 
   public double getElevationCurPositionDistance(long trackId)
   {
-   return nativeGetElevationCurPositionDistance(trackId);
+    return nativeGetElevationCurPositionDistance(trackId);
   }
 
   public void setElevationActivePoint(long trackId, double distance)
@@ -742,6 +763,8 @@ public enum BookmarkManager
   {
     return nativeGetElevationActivePointDistance(trackId);
   }
+
+  private native long nativeFindBookmarkAtPoint(double lat, double lon);
 
   @Nullable
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);

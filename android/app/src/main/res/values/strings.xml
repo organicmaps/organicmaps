@@ -922,4 +922,7 @@
     <string name="uri_open_location_failed">No app installed that can open the location</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in navigation</string>
+    <string name="widget_name">Favorite Place</string>
+    <string name="select_bookmark">Select bookmark</string>
+    <string name="widget_description">Quick access to your favorite places</string>
 </resources>
