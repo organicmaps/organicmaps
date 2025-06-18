@@ -54,7 +54,7 @@ jobs:
           - os: macos-15
             cc: clang
             cxx: clang++
-            developer-dir: /Applications/Xcode_16.app/Contents/Developer
+            developer-dir: /Applications/Xcode_16.4.app/Contents/Developer
         exclude:
           - environment: { unity: OFF }
             cmake-build-type: Release
