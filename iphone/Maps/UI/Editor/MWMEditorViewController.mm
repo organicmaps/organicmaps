@@ -885,13 +885,12 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 {
   self.offscreenCells[(id<NSCopying>)cellClass(MWMEditorCellTypeNote)] = cell;
   self.note = text;
-  [UIView setAnimationsEnabled:NO];
-  [self.tableView refresh];
-  [UIView setAnimationsEnabled:YES];
-  NSIndexPath * ip = [self.tableView indexPathForCell:cell];
-  [self.tableView scrollToRowAtIndexPath:ip
-                        atScrollPosition:UITableViewScrollPositionBottom
-                                animated:YES];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [UIView setAnimationsEnabled:NO];
+    [self.tableView refresh];
+    [self.tableView layoutIfNeeded];
+    [UIView setAnimationsEnabled:YES];
+  });
 }
 
 - (void)cell:(MWMNoteCell *)cell didFinishEditingWithText:(NSString *)text { self.note = text; }
