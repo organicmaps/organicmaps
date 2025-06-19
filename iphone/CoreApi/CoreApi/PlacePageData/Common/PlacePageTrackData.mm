@@ -4,7 +4,7 @@
 
 @interface PlacePageTrackData ()
 
-@property(nonatomic, readwrite) double activePoint;
+@property(nonatomic, readwrite) double activePointDistance;
 
 @end
 
@@ -23,7 +23,7 @@
 }
 
 - (void)updateActivePointDistance:(double)distance {
-  self.activePoint = distance;
+  self.activePointDistance = distance;
   if (self.onActivePointChangedHandler)
     self.onActivePointChangedHandler();
 }
@@ -40,8 +40,8 @@
     _trackInfo = [[TrackInfo alloc] initWithTrackStatistics:track.GetStatistics()];
 
     auto const & bm = GetFramework().GetBookmarkManager();
-    _activePoint = bm.GetElevationActivePoint(_trackId);
-    _myPosition = bm.GetElevationMyPosition(_trackId);
+    _activePointDistance = bm.GetElevationActivePoint(_trackId);
+    _myPositionDistance = bm.GetElevationMyPosition(_trackId);
     _onActivePointChangedHandler = onActivePointChangedHandler;
 
     auto const & elevationInfo = track.GetElevationInfo();

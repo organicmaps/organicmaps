@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) MWMMarkGroupID groupId;
 @property(nonatomic, readwrite, nonnull) TrackInfo * trackInfo;
 @property(nonatomic, readwrite, nullable) ElevationProfileData * elevationProfileData;
-@property(nonatomic, readonly) double activePoint;
-@property(nonatomic, readonly) double myPosition;
+@property(nonatomic, readonly) double activePointDistance;
+@property(nonatomic, readonly) double myPositionDistance;
 @property(nonatomic) MWMVoidBlock onActivePointChangedHandler;
 
 - (instancetype)initWithTrackInfo:(TrackInfo *)trackInfo

@@ -56,16 +56,16 @@ class PlacePageInteractor: NSObject {
   private func subscribeOnTrackActivePointUpdates() {
     guard placePageData.objectType == .track, let trackData = placePageData.trackData else { return }
     bookmarksManager.setElevationActivePointChanged(trackData.trackId) { [weak self] distance in
-      self?.trackActivePointPresenter?.updateActivePoint(distance)
+      self?.trackActivePointPresenter?.updateActivePointDistance(distance)
       trackData.updateActivePointDistance(distance)
     }
     bookmarksManager.setElevationMyPositionChanged(trackData.trackId) { [weak self] distance in
-      self?.trackActivePointPresenter?.updateMyPosition(distance)
+      self?.trackActivePointPresenter?.updateMyPositionDistance(distance)
     }
   }
 
   private func unsubscribeFromTrackActivePointUpdates() {
-    guard placePageData.objectType == .track, let trackData = placePageData.trackData else { return }
+    guard placePageData.trackData?.onActivePointChangedHandler != nil else { return }
     bookmarksManager.resetElevationActivePointChanged()
     bookmarksManager.resetElevationMyPositionChanged()
   }
