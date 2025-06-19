@@ -2,8 +2,8 @@ import Chart
 import CoreApi
 
 protocol TrackActivePointPresenter: AnyObject {
-  func updateActivePoint(_ distance: Double)
-  func updateMyPosition(_ distance: Double)
+  func updateActivePointDistance(_ distance: Double)
+  func updateMyPositionDistance(_ distance: Double)
 }
 
 protocol ElevationProfilePresenterProtocol: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TrackActivePointPresenter {
@@ -71,14 +71,14 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     configure()
   }
 
-  func updateActivePoint(_ distance: Double) {
+  func updateActivePointDistance(_ distance: Double) {
     guard let view, !view.isChartViewInfoHidden else { return }
-    view.setActivePoint(distance)
+    view.setActivePointDistance(distance)
   }
 
-  func updateMyPosition(_ distance: Double) {
+  func updateMyPositionDistance(_ distance: Double) {
     guard let view, !view.isChartViewInfoHidden else { return }
-    view.setMyPosition(distance)
+    view.setMyPositionDistance(distance)
   }
 
   func configure() {
@@ -101,8 +101,8 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
       return
     }
 
-    view?.setActivePoint(trackData.activePoint)
-    view?.setMyPosition(trackData.myPosition)
+    view?.setActivePointDistance(trackData.activePointDistance)
+    view?.setMyPositionDistance(trackData.myPositionDistance)
   }
 
   func onDifficultyButtonPressed() {

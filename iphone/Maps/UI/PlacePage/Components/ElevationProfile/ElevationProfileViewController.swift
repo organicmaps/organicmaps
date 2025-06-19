@@ -8,8 +8,8 @@ protocol ElevationProfileViewProtocol: AnyObject {
   var isChartViewInfoHidden: Bool { get set }
 
   func setChartData(_ data: ChartPresentationData)
-  func setActivePoint(_ distance: Double)
-  func setMyPosition(_ distance: Double)
+  func setActivePointDistance(_ distance: Double)
+  func setMyPositionDistance(_ distance: Double)
   func reloadDescription()
 }
 
@@ -143,11 +143,11 @@ extension ElevationProfileViewController: ElevationProfileViewProtocol {
     chartView.chartData = data
   }
 
-  func setActivePoint(_ distance: Double) {
+  func setActivePointDistance(_ distance: Double) {
     chartView.setSelectedPoint(distance)
   }
 
-  func setMyPosition(_ distance: Double) {
+  func setMyPositionDistance(_ distance: Double) {
     chartView.myPosition = distance
   }
 

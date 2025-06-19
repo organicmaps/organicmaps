@@ -119,7 +119,7 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   if (!self || !rawData().IsTrack())
     return;
   auto const & trackInfo = GetFramework().GetBookmarkManager().GetTrackSelectionInfo(rawData().GetTrackId());
-  auto latlon = mercator::ToLatLon(trackInfo.m_trackPoint);
+  auto const latlon = mercator::ToLatLon(trackInfo.m_trackPoint);
   _locationCoordinate = CLLocationCoordinate2DMake(latlon.m_lat, latlon.m_lon);
   self.previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
 }
