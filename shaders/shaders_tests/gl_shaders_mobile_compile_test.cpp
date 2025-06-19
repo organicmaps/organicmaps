@@ -112,9 +112,23 @@ void TestShaders(dp::ApiVersion apiVersion, std::string const & defines, QString
     TEST(srcFile.open(), ("Temporary file can't be created!"));
     std::string fullSrc;
     if (apiVersion == dp::ApiVersion::OpenGLES3)
-      fullSrc = std::string(gpu::GLES3_SHADER_VERSION) + defines + src.second;
+    {
+      // Use desktop shader version for Linux
+#ifdef OMIM_OS_LINUX
+      if (glslCompiler.contains(kCompilerOpenGLES.c_str()))
+      {
+        fullSrc = std::string(gpu::GL3_SHADER_VERSION) + defines + src.second;
+      }
+      else
+#endif
+      {
+        fullSrc = std::string(gpu::GLES3_SHADER_VERSION) + defines + src.second;
+      }
+    }
     else
+    {
       fullSrc = defines + src.second;
+    }
     WriteShaderToFile(srcFile, fullSrc);
     RunShaderTest(apiVersion, src.first, glslCompiler, srcFile.fileName(), procPrepare, argsPrepare,
                   successChecker, errorLog);
