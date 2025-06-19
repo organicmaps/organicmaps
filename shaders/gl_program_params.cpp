@@ -132,11 +132,11 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_projection", params.m_projection);
   Parameter::CheckApply(guard, "u_pivotTransform", params.m_pivotTransform);
   Parameter::CheckApply(guard, "u_trafficParams", params.m_trafficParams);
-  Parameter::CheckApply(guard, "u_outlineColor", params.m_outlineColor);
+  Parameter::CheckApply(guard, "u_outlineColor", params.m_outlineColorAligned);
   Parameter::CheckApply(guard, "u_outline", params.m_outline);
-  Parameter::CheckApply(guard, "u_lightArrowColor", params.m_lightArrowColor);
+  Parameter::CheckApply(guard, "u_lightArrowColor", params.m_lightArrowColorAligned);
   Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
-  Parameter::CheckApply(guard, "u_darkArrowColor", params.m_darkArrowColor);
+  Parameter::CheckApply(guard, "u_darkArrowColor", params.m_darkArrowColorAligned);
 }
 
 void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
@@ -149,7 +149,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
   Parameter::CheckApply(guard, "u_projection", params.m_projection);
   Parameter::CheckApply(guard, "u_pivotTransform", params.m_pivotTransform);
-  Parameter::CheckApply(guard, "u_params", params.m_params);
+  Parameter::CheckApply(guard, "u_params", params.m_paramsAligned);
   Parameter::CheckApply(guard, "u_lineHalfWidth", params.m_lineHalfWidth);
   Parameter::CheckApply(guard, "u_maxRadius", params.m_maxRadius);
 }
@@ -180,7 +180,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
   Parameter::CheckApply(guard, "u_projection", params.m_projection);
   Parameter::CheckApply(guard, "u_pivotTransform", params.m_pivotTransform);
-  Parameter::CheckApply(guard, "u_position", params.m_position);
+  Parameter::CheckApply(guard, "u_position", params.m_positionAligned);
   Parameter::CheckApply(guard, "u_accuracy", params.m_accuracy);
   Parameter::CheckApply(guard, "u_lineParams", params.m_lineParams);
   Parameter::CheckApply(guard, "u_zScale", params.m_zScale);
