@@ -126,14 +126,29 @@ struct ALIGNMENT TrafficProgramParams
   glsl::mat4 m_projection;
   glsl::mat4 m_pivotTransform;
   glsl::vec4 m_trafficParams;
-  glsl::vec3 m_outlineColor;
-  float m_dummy1; // alignment
-  glsl::vec3 m_lightArrowColor;
-  float m_dummy2; // alignment
-  glsl::vec3 m_darkArrowColor;
-  float m_dummy3; // alignment
+  union
+  {
+    glsl::vec4 m_outlineColorAligned;
+    glsl::vec3 m_outlineColor;
+  };
+  union
+  {
+    glsl::vec4 m_lightArrowColorAligned;
+    glsl::vec3 m_lightArrowColor;
+  };
+  union
+  {
+    glsl::vec4 m_darkArrowColorAligned;
+    glsl::vec3 m_darkArrowColor;
+  };
   float m_outline = 0.0f;
   float m_opacity = 1.0f;
+
+  TrafficProgramParams() 
+    : m_outlineColorAligned(0.0f, 0.0f, 0.0f, 0.0f)
+    , m_lightArrowColorAligned(0.0f, 0.0f, 0.0f, 0.0f)
+    , m_darkArrowColorAligned(0.0f, 0.0f, 0.0f, 0.0f)
+  {}
 
   BIND_PROGRAMS(TrafficProgramParams,
     Program::Traffic,
@@ -146,10 +161,15 @@ struct ALIGNMENT TransitProgramParams
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
   glsl::mat4 m_pivotTransform;
-  glsl::vec3 m_params;
-  float m_dummy1; // alignment
+  union
+  {
+    glsl::vec4 m_paramsAligned;
+    glsl::vec3 m_params;
+  };
   float m_lineHalfWidth = 0.0f;
   float m_maxRadius = 0.0f;
+
+  TransitProgramParams() : m_paramsAligned(0.0f, 0.0f, 0.0f, 0.0f) {}
 
   BIND_PROGRAMS(TransitProgramParams,
     Program::Transit,
@@ -179,13 +199,18 @@ struct ALIGNMENT ShapesProgramParams
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
   glsl::mat4 m_pivotTransform;
-  glsl::vec3 m_position;
-  float m_dummy1; // alignment
+  union
+  {
+    glsl::vec4 m_positionAligned;
+    glsl::vec3 m_position;
+  };
   glsl::vec2 m_lineParams;
   float m_accuracy = 0.0;
   float m_zScale = 1.0f;
   float m_opacity = 1.0f;
   float m_azimut = 0.0;
+
+  ShapesProgramParams() : m_positionAligned(0.0f, 0.0f, 0.0f, 0.0f) {}
 
   BIND_PROGRAMS(ShapesProgramParams,
     Program::Accuracy,
