@@ -863,6 +863,71 @@ UNIT_TEST(Normalize_Special)
   }
 }
 
+
+UNIT_TEST(Normalize_Arabic)
+{
+  {
+    // Test Arabic-Indic digits normalization
+    std::string const utf8       = "٠١٢٣٤٥٦٧٨٩";
+    std::string const normalized = "0123456789";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
+  }
+
+  {
+    // Test Extended Arabic-Indic digits normalization
+    std::string const utf8       = "۰۱۲۳۴۵۶۷۸۹";
+    std::string const normalized = "0123456789";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
+  }
+
+  {
+    // All Arabic Letters (all of these are standalone unicode characters)
+    std::string const utf8       = "ء أ إ ا آ ٱ ٲ ٳ ٵ ب ت ة ۃ ث ج ح خ د ذ ر ز س ش ص ط ظ ع غ ف ق ك ل م ن ه ۀ ۂ ؤ ٶ ٷ و ي ى ئ ٸ ے ۓ";
+    std::string const normalized = "ء ا ا ا ا ا ا ا ا ب ت ه ه ث ج ح خ د ذ ر ز س ش ص ط ظ ع غ ف ق ك ل م ن ه ه ه و و و و ي ي ي ي ے ے";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+  }
+
+  {
+    // Test Removing Arabic Diacritics (Tashkeel), we can add multiple diacritics to the same letter
+    // Each diacritic is a standalone unicode character
+    std::string const utf8       = "هَذِهْٜ تَّجُّرًّبهٌ عَلَىٰ إِزَالْهٍ ألتَشٗكُيٓلُ وَّ ليٙسٝت دقٞيٛقٚه لُغَويًّاً";
+    std::string const normalized = "هذه تجربه علي ازاله التشكيل و ليست دقيقه لغويا";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+  }
+
+  {
+    // Test Removing Arabic Islamic Honorifics
+    // These are standalone unicode characters that can be applied to a letter
+    std::string const utf8       = "صؐلي  عنؑه رحؒمه رضؓي سؔ طؕ الىؖ زؗ اؘ اؙ ؚا";
+    std::string const normalized = "صلي  عنه رحمه رضي س ط الي ز ا ا ا";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+  }
+
+  {
+    // Test Removing Arabic Quranic Annotations
+    // These are standalone unicode characters that can be applied to a letter
+    std::string const utf8       = "نۖ بۗ مۘ لۙا جۛ جۚ سۜ ا۟ ا۠ اۡ مۢ  ۣس  نۤ  ك۪  ك۫  ك۬ مۭ";
+    std::string const normalized = "ن ب م لا ج ج س ا ا ا م  س  ن  ك  ك  ك م";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+  }
+
+  {
+    // Tests Arabic Tatweel (Kashida) normalization
+    // This character is used to elongate text in Arabic script, (used in justifing/aligning text)
+    std::string const utf8       = "اميـــــن";
+    std::string const normalized =      "امين";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+  }
+
+  {
+    // Tests Arabic Comma normalization
+    std::string const utf8       = "،";
+    std::string const normalized = ",";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+  }
+
+}
+
 UNIT_TEST(UniStringToUtf8)
 {
   char constexpr utf8Text[] = "У нас исходники хранятся в Utf8!";

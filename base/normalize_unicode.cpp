@@ -483,22 +483,119 @@ void NormalizeInplace(UniString & s)
               }
             }
             break;
-          case 0x600:
+          case 0x600:  /* Arabic Language */
             {
               switch (static_cast<uint8_t>(c & 0xff))
               {
-              case 0x22: w(r,4,1); break;
-              case 0x23: w(r,4,1); break;
-              case 0x24: w(r,14,1); break;
-              case 0x25: w(r,4,1); break;
-              case 0x26: w(r,11,1); break;
-              case 0x75: w(r,1740,2); break;
-              case 0x76: w(r,1742,2); break;
-              case 0x77: w(r,1720,2); break;
-              case 0x78: w(r,1686,2); break;
-              case 0xc0: w(r,1709,1); break;
-              case 0xc2: w(r,2036,1); break;
-              case 0xd3: w(r,424,1); break;
+              case 0x0c: w(r,1603,1); break;  // ARABIC COMMA
+              case 0x22: w(r,4,1); break;     // ARABIC LETTER ALEF WITH MADDA ABOVE
+              case 0x23: w(r,4,1); break;     // ARABIC LETTER ALEF WITH HAMZA ABOVE
+              case 0x24: w(r,14,1); break;    // ARABIC LETTER WAW WITH HAMZA ABOVE
+              case 0x25: w(r,4,1); break;     // ARABIC LETTER ALEF WITH HAMZA BELOW
+              case 0x26: w(r,11,1); break;    // ARABIC LETTER YEH WITH HAMZA ABOVE
+              case 0x29: w(r,7,1); break;     // ARABIC LETTER TEH MARBUTA
+              case 0x49: w(r,11,1); break;    // ARABIC LETTER ALEF MAKSURA
+              case 0x71: w(r,4,1); break;     // ARABIC LETTER ALEF WASLA
+              case 0x72: w(r,4,1); break;     // ARABIC LETTER ALEF WITH WAVY HAMZA ABOVE
+              case 0x73: w(r,4,1); break;     // ARABIC LETTER ALEF WITH WAVY HAMZA BELOW
+              case 0x75: w(r,1740,1); break;  // ARABIC LETTER HIGH HAMZA ALEF
+              case 0x76: w(r,1742,1); break;  // ARABIC LETTER HIGH HAMZA WAW
+              case 0x77: w(r,1742,1); break;  // ARABIC LETTER U WITH HAMZA ABOVE
+              case 0x78: w(r,1686,1); break;  // ARABIC LETTER HIGH HAMZA YEH
+              case 0xc0: w(r,7,1); break;     // ARABIC LETTER HEH WITH YEH ABOVE
+              case 0xc2: w(r,7,1); break;     // ARABIC LETTER HEH GOAL WITH HAMZA ABOVE
+              case 0xc3: w(r,7,1); break;     // ARABIC LETTER TEH MARBUTA GOAL
+              case 0xd3: w(r,424,1); break;   // ARABIC LETTER YEH BARREE WITH HAMZA ABOVE
+
+
+              //  ARABIC-INDIC DIGITS
+              case 0x60: w(r,172,1); break;  // ARABIC-INDIC DIGIT ZERO
+              case 0x61: w(r,176,1); break;  // ARABIC-INDIC DIGIT ONE
+              case 0x62: w(r,180,1); break;  // ARABIC-INDIC DIGIT TWO
+              case 0x63: w(r,184,1); break;  // ARABIC-INDIC DIGIT THREE
+              case 0x64: w(r,188,1); break;  // ARABIC-INDIC DIGIT FOUR
+              case 0x65: w(r,192,1); break;  // ARABIC-INDIC DIGIT FIVE
+              case 0x66: w(r,196,1); break;  // ARABIC-INDIC DIGIT SIX
+              case 0x67: w(r,200,1); break;  // ARABIC-INDIC DIGIT SEVEN
+              case 0x68: w(r,204,1); break;  // ARABIC-INDIC DIGIT EIGHT
+              case 0x69: w(r,208,1); break;  // ARABIC-INDIC DIGIT NINE
+
+              // EXTENDED ARABIC-INDIC DIGITS
+              case 0xf0: w(r,172,1); break; // EXTENDED ARABIC-INDIC DIGIT ZERO
+              case 0xf1: w(r,176,1); break; // EXTENDED ARABIC-INDIC DIGIT ONE
+              case 0xf2: w(r,180,1); break; // EXTENDED ARABIC-INDIC DIGIT TWO
+              case 0xf3: w(r,184,1); break; // EXTENDED ARABIC-INDIC DIGIT THREE
+              case 0xf4: w(r,188,1); break; // EXTENDED ARABIC-INDIC DIGIT FOUR
+              case 0xf5: w(r,192,1); break; // EXTENDED ARABIC-INDIC DIGIT FIVE
+              case 0xf6: w(r,196,1); break; // EXTENDED ARABIC-INDIC DIGIT SIX
+              case 0xf7: w(r,200,1); break; // EXTENDED ARABIC-INDIC DIGIT SEVEN
+              case 0xf8: w(r,204,1); break; // EXTENDED ARABIC-INDIC DIGIT EIGHT
+              case 0xf9: w(r,208,1); break; // EXTENDED ARABIC-INDIC DIGIT NINE
+
+              // Remove Arabic Diacritics (Tashkeel)
+              case 0x40: break; // ARABIC TATWEEL
+              case 0x4b: break; // ARABIC FATHATAN
+              case 0x4c: break; // ARABIC DAMMATAN
+              case 0x4d: break; // ARABIC KASRATAN
+              case 0x4e: break; // ARABIC FATHA
+              case 0x4f: break; // ARABIC DAMMA
+              case 0x50: break; // ARABIC KASRA
+              case 0x51: break; // ARABIC SHADDA
+              case 0x52: break; // ARABIC SUKUN
+              case 0x53: break; // ARABIC MADDAH ABOVE
+              case 0x54: break; // ARABIC HAMZA ABOVE
+              case 0x55: break; // ARABIC HAMZA BELOW
+              case 0x56: break; // ARABIC SUBSCRIPT ALEF
+              case 0x57: break; // ARABIC INVERTED DAMMA
+              case 0x58: break; // ARABIC MARK NOON GHUNNA
+              case 0x59: break; // ARABIC ZWARAKAY
+              case 0x5a: break; // ARABIC VOWEL SIGN SMALL V ABOVE
+              case 0x5b: break; // ARABIC VOWEL SIGN INVERTED SMALL V ABOVE
+              case 0x5c: break; // ARABIC VOWEL SIGN DOT BELOW
+              case 0x5d: break; // ARABIC REVERSED DAMMA
+              case 0x5e: break; // ARABIC FATHA WITH TWO DOTS
+              case 0x5f: break; // ARABIC WAVY HAMZA BELOW
+              case 0x70: break; // ARABIC LETTER SUPERSCRIPT ALEF
+
+              // Remove Arabic Islamic Honorifics
+              case 0x10: break; // ARABIC SIGN SALLALLAHOU ALAYHE WASSALLAM
+              case 0x11: break; // ARABIC SIGN ALAYHE ASSALLAM
+              case 0x12: break; // ARABIC SIGN RAHMATULLAH ALAYHE
+              case 0x13: break; // ARABIC SIGN RADI ALLAHU ANHU
+              case 0x14: break; // ARABIC SIGN TAKHALLUS
+              case 0x15: break; // ARABIC SMALL HIGH TAH
+              case 0x16: break; // ARABIC SMALL HIGH LIGATURE ALEF WITH LAM WITH YEH
+              case 0x17: break; // ARABIC SMALL HIGH ZAIN
+              case 0x18: break; // ARABIC SMALL FATHA
+              case 0x19: break; // ARABIC SMALL DAMMA
+              case 0x1a: break; // ARABIC SMALL KASRA
+
+              // Remove Arabic Quranic Annotations
+              case 0xd6: break; // ARABIC SMALL HIGH LIGATURE SAD WITH LAM WITH ALEF MAKSURA
+              case 0xd7: break; // ARABIC SMALL HIGH LIGATURE QAF WITH LAM WITH ALEF MAKSURA
+              case 0xd8: break; // ARABIC SMALL HIGH MEEM INITIAL FORM
+              case 0xd9: break; // ARABIC SMALL HIGH LAM ALEF
+              case 0xda: break; // ARABIC SMALL HIGH JEEM
+              case 0xdb: break; // ARABIC SMALL HIGH THREE DOTS
+              case 0xdc: break; // ARABIC SMALL HIGH SEEN
+              case 0xdd: break; // ARABIC END OF AYAH
+              case 0xde: break; // ARABIC START OF RUB EL HIZB
+              case 0xdf: break; // ARABIC SMALL HIGH ROUNDED ZERO
+              case 0xe0: break; // ARABIC SMALL HIGH UPRIGHT RECTANGULAR ZERO
+              case 0xe1: break; // ARABIC SMALL HIGH DOTLESS HEAD OF KHAH
+              case 0xe2: break; // ARABIC SMALL HIGH MEEM ISOLATED FORM
+              case 0xe3: break; // ARABIC SMALL LOW SEEN
+              case 0xe4: break; // ARABIC SMALL HIGH MADDA
+              case 0xe5: break; // ARABIC SMALL WAW
+              case 0xe6: break; // ARABIC SMALL YEH
+              case 0xe7: break; // ARABIC SMALL HIGH YEH
+              case 0xe8: break; // ARABIC SMALL HIGH NOON
+              case 0xe9: break; // ARABIC PLACE OF SAJDAH
+              case 0xea: break; // ARABIC EMPTY CENTRE LOW STOP
+              case 0xeb: break; // ARABIC EMPTY CENTRE HIGH STOP
+              case 0xec: break; // ARABIC ROUNDED HIGH STOP WITH FILLED CENTRE
+              case 0xed: break; // ARABIC SMALL LOW MEEM
+
               default: r.push_back(c);
               }
             }
