@@ -1098,7 +1098,7 @@ static std::string GetNameFromPoint(RouteMarkData const & rmd)
   return rmd.m_title;
 }
 
-void RoutingManager::SaveRoute()
+kml::TrackId RoutingManager::SaveRoute()
 {
   auto points = GetRoutePolyline().GetPolyline().GetPoints();
   auto const routePoints = GetRoutePoints();
@@ -1109,7 +1109,7 @@ void RoutingManager::SaveRoute()
       std::unique(points.begin(), points.end(), [](const m2::PointD & p1, const m2::PointD & p2) { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); }),
       points.end());
 
-  m_bmManager->SaveRoute(points, from, to);
+  return m_bmManager->SaveRoute(points, from, to);
 }
 
 bool RoutingManager::DisableFollowMode()
