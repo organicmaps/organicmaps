@@ -187,6 +187,10 @@
           layout="@layout/item_editor_input"/>
 
         <include
+          android:id="@+id/block_route_ref"
+          layout="@layout/item_editor_input"/>
+          
+        <include
           android:id="@+id/block_website"
           layout="@layout/item_editor_input"/>
 

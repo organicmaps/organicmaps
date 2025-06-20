@@ -80,6 +80,8 @@ public:
 
   std::string FormatRoadShields() const;
 
+  std::string FormatRouteRefs() const;
+
   std::string_view GetOpeningHours() const;
   feature::Internet GetInternet() const;
   int GetStars() const;
