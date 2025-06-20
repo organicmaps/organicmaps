@@ -12,6 +12,11 @@ namespace math
 double constexpr pi = 3.14159265358979323846;
 double constexpr pi2 = pi / 2.0;
 double constexpr pi4 = pi / 4.0;
+
+// Defined in fast_math.cpp
+double Nan();
+double Infinity();
+bool is_finite(double d);
 }  // namespace math
 
 namespace base
