@@ -1,5 +1,7 @@
 final class CircleImageButton: UIButton {
 
+  private static let expandedTappableAreaInsets = UIEdgeInsets(top: -5, left: -5, bottom: -5, right: -5)
+
   private let circleImageView = UIImageView()
 
   override init(frame: CGRect) {
@@ -44,6 +46,11 @@ final class CircleImageButton: UIButton {
   override func layoutSubviews() {
     super.layoutSubviews()
     circleImageView.layer.cornerRadius = circleImageView.bounds.width / 2.0
+  }
+
+  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    let expandedBounds = bounds.inset(by: Self.expandedTappableAreaInsets)
+    return expandedBounds.contains(point)
   }
 
   func setImage(_ image: UIImage?) {
