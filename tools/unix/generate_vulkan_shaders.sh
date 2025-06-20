@@ -29,4 +29,4 @@ fi
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 SHADERS_GENERATOR="$OMIM_PATH/shaders/vulkan_shaders_preprocessor.py"
 
-python3 "$SHADERS_GENERATOR" "$OMIM_PATH/shaders/GL" shader_index.txt programs.hpp program_params.hpp shaders_lib.glsl "$OMIM_PATH/data/vulkan_shaders" "$GLSLC_PATH" "$DEBUG"
+python3 "$SHADERS_GENERATOR" "$OMIM_PATH/shaders/GL" shader_index.txt shaders_lib.glsl "$OMIM_PATH/data/vulkan_shaders" "$GLSLC_PATH" "$DEBUG"

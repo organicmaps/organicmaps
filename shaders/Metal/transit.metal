@@ -9,6 +9,7 @@ typedef struct
   float4x4 u_projection;
   float4x4 u_pivotTransform;
   packed_float3 u_params;
+  float u_dummy1;
   float u_lineHalfWidth;
   float u_maxRadius;
 } Uniforms_T;

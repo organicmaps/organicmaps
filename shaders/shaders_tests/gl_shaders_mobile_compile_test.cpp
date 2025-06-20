@@ -26,9 +26,7 @@
 std::string const kCompilersDir = "shaders_compiler";
 
 #if defined(OMIM_OS_MAC)
-std::string const kMaliCompilerOpenGLES2Dir = "macos/mali_compiler";
 std::string const kMaliCompilerOpenGLES3Dir = "macos/mali_compiler_es3";
-std::string const kCompilerMaliOpenGLES2 = kMaliCompilerOpenGLES2Dir + "/malisc";
 std::string const kCompilerMaliOpenGLES3 = kMaliCompilerOpenGLES3Dir + "/malisc";
 std::string const kCompilerOpenGLES = "macos/glslangValidator";
 #elif defined(OMIM_OS_LINUX)
@@ -114,9 +112,23 @@ void TestShaders(dp::ApiVersion apiVersion, std::string const & defines, QString
     TEST(srcFile.open(), ("Temporary file can't be created!"));
     std::string fullSrc;
     if (apiVersion == dp::ApiVersion::OpenGLES3)
-      fullSrc = std::string(gpu::GLES3_SHADER_VERSION) + defines + src.second;
+    {
+      // Use desktop shader version for Linux
+#ifdef OMIM_OS_LINUX
+      if (glslCompiler.contains(kCompilerOpenGLES.c_str()))
+      {
+        fullSrc = std::string(gpu::GL3_SHADER_VERSION) + defines + src.second;
+      }
+      else
+#endif
+      {
+        fullSrc = std::string(gpu::GLES3_SHADER_VERSION) + defines + src.second;
+      }
+    }
     else
+    {
       fullSrc = defines + src.second;
+    }
     WriteShaderToFile(srcFile, fullSrc);
     RunShaderTest(apiVersion, src.first, glslCompiler, srcFile.fileName(), procPrepare, argsPrepare,
                   successChecker, errorLog);
@@ -152,14 +164,12 @@ void CompileShaders(CompilerData const & compiler, std::string const & additiona
     args << fileName;
   };
 
-  std::string const defines = compiler.m_apiVersion == dp::ApiVersion::OpenGLES3 ?
-    "#define GLES3\n" + additionalDefines : additionalDefines;
-  TestShaders(compiler.m_apiVersion, defines, ".vert", GetVertexShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, additionalDefines, ".vert", GetVertexShaders(compiler.m_apiVersion),
               compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
-  TestShaders(compiler.m_apiVersion, defines, ".frag", GetFragmentShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, additionalDefines, ".frag", GetFragmentShaders(compiler.m_apiVersion),
               compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
 
-  TEST_EQUAL(errorLog.isEmpty(), true, ("Defines:", defines, additionalDefines, "\n", errorLog));
+  TEST_EQUAL(errorLog.isEmpty(), true, ("Defines:", additionalDefines, "\n", errorLog));
 }
 
 UNIT_TEST(MobileCompileShaders_Test)
@@ -167,31 +177,12 @@ UNIT_TEST(MobileCompileShaders_Test)
   base::DelayedThreadPool workerThread(6 /* threadsCount */);
 
   workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES)});
-  });
-
-  workerThread.Push([] {
     CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)});
   });
 
   workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES)},
-      "#define ENABLE_VTF\n");
-  });
-
-  workerThread.Push([] {
     CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)},
       "#define ENABLE_VTF\n");
-  });
-
-  workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES2, GetCompilerPath(kCompilerOpenGLES)},
-      "#define SAMSUNG_GOOGLE_NEXUS\n");
-  });
-
-  workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)},
-      "#define SAMSUNG_GOOGLE_NEXUS\n");
   });
 
   workerThread.Shutdown(base::DelayedThreadPool::Exit::ExecPending);
@@ -239,19 +230,16 @@ void MaliCompileShaders(MaliCompilerData const & compiler, MaliDriverSet const &
          << "-r" << version.m_version << "-c" << version.m_series << "-d" << driverSet.m_driverName
          << fileName;
   };
-  std::string const defines =
-    compiler.m_apiVersion == dp::ApiVersion::OpenGLES3 ? "#define GLES3\n" : "";
   QString const compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  TestShaders(compiler.m_apiVersion, defines, {}, GetVertexShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, "", {}, GetVertexShaders(compiler.m_apiVersion),
               compilerPath, procPrepare, argForming, successChecker, ss);
   shaderType = "-f";
-  TestShaders(compiler.m_apiVersion, defines, {}, GetFragmentShaders(compiler.m_apiVersion),
+  TestShaders(compiler.m_apiVersion, "", {}, GetFragmentShaders(compiler.m_apiVersion),
               compilerPath, procPrepare, argForming, successChecker, ss);
   TEST(errorLog.isEmpty(),
-       (shaderType, version.m_series, version.m_version, driverSet.m_driverName, defines, errorLog));
+       (shaderType, version.m_series, version.m_version, driverSet.m_driverName, "", errorLog));
 
   // MALI GPUs do not support ENABLE_VTF. Do not test it here.
-  // SAMSUNG_GOOGLE_NEXUS doesn't use Mali GPU. Do not test it here.
 }
 
 UNIT_TEST(MALI_MobileCompileShaders_Test)
@@ -474,16 +462,6 @@ UNIT_TEST(MALI_MobileCompileShaders_Test)
   driversES2new.insert(driversES2new.end(), driversES3new.begin(), driversES3new.end());
 
   std::vector<MaliCompilerData> const compilers = {
-#if defined(OMIM_OS_MAC)
-    {dp::ApiVersion::OpenGLES2,
-      GetCompilerPath(kCompilerMaliOpenGLES2),
-      GetCompilerPath(kMaliCompilerOpenGLES2Dir),
-      driversES2old},
-#endif
-    {dp::ApiVersion::OpenGLES2,
-     GetCompilerPath(kCompilerMaliOpenGLES3),
-     GetCompilerPath(kMaliCompilerOpenGLES3Dir),
-     driversES2new},
     {dp::ApiVersion::OpenGLES3,
      GetCompilerPath(kCompilerMaliOpenGLES3),
      GetCompilerPath(kMaliCompilerOpenGLES3Dir),

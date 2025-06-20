@@ -16,8 +16,6 @@
         <file>spinner12.png</file>
         <file>shaders/gl_150.fsh.glsl</file>
         <file>shaders/gl_150.vsh.glsl</file>
-        <file>shaders/gles_200.fsh.glsl</file>
-        <file>shaders/gles_200.vsh.glsl</file>
         <file>shaders/gles_300.fsh.glsl</file>
         <file>shaders/gles_300.vsh.glsl</file>
     </qresource>
