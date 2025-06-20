@@ -23,16 +23,12 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty) {
 @implementation ElevationProfileData (Core)
 
 - (instancetype)initWithTrackId:(MWMTrackID)trackId
-                  elevationInfo:(ElevationInfo const &)elevationInfo
-                    activePoint:(double)activePoint
-                     myPosition:(double)myPosition {
+                  elevationInfo:(ElevationInfo const &)elevationInfo {
   self = [super init];
   if (self) {
     _trackId = trackId;
     _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
     _points = [ElevationProfileData pointsFromElevationInfo:elevationInfo];
-    _activePoint = activePoint;
-    _myPosition = myPosition;
     _isTrackRecording = false;
   }
   return self;

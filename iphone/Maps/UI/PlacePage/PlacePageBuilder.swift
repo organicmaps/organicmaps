@@ -13,7 +13,9 @@
     case .POI, .bookmark:
       layout = PlacePageCommonLayout(interactor: interactor, storyboard: storyboard, data: data)
     case .track:
-      layout = PlacePageTrackLayout(interactor: interactor, storyboard: storyboard, data: data)
+      let trackLayout = PlacePageTrackLayout(interactor: interactor, storyboard: storyboard, data: data)
+      interactor.trackActivePointPresenter = trackLayout.elevationMapViewController?.presenter
+      layout = trackLayout
     case .trackRecording:
       layout = PlacePageTrackRecordingLayout(interactor: interactor, storyboard: storyboard, data: data)
     @unknown default:
@@ -38,7 +40,9 @@
     case .POI, .bookmark:
       layout = PlacePageCommonLayout(interactor: interactor, storyboard: storyboard, data: data)
     case .track:
-      layout = PlacePageTrackLayout(interactor: interactor, storyboard: storyboard, data: data)
+      let trackLayout = PlacePageTrackLayout(interactor: interactor, storyboard: storyboard, data: data)
+      interactor.trackActivePointPresenter = trackLayout.elevationMapViewController?.presenter
+      layout = trackLayout
     case .trackRecording:
       layout = PlacePageTrackRecordingLayout(interactor: interactor, storyboard: storyboard, data: data)
     @unknown default:
