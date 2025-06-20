@@ -1,6 +1,7 @@
 #include "base/string_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -9,7 +10,6 @@
 #include <iterator>
 
 #include <boost/algorithm/string/trim.hpp>
-#include <boost/math/special_functions/fpclassify.hpp>
 #include <fast_double_parser.h>
 
 namespace strings
@@ -34,26 +34,21 @@ double RealConverter<double>(char const * start, char ** stop)
 }
 
 template <typename T>
-bool IsFinite(T t)
-{
-  return boost::math::isfinite(t);
-}
-
-template <typename T>
 bool ToReal(char const * start, T & result)
 {
   // Try faster implementation first.
   double d;
+  // TODO(AB): replace with more robust dependency that doesn't use std::is_finite in the implementation.
   char const * endptr = fast_double_parser::parse_number(start, &d);
   if (endptr == nullptr)
   {
     // Fallback to our implementation, it supports numbers like "1."
     char * stop;
     result = RealConverter<T>(start, &stop);
-    if (*stop == 0 && start != stop && IsFinite(result))
+    if (*stop == 0 && start != stop && math::is_finite(result))
       return true;
   }
-  else if (*endptr == 0 && IsFinite(d))
+  else if (*endptr == 0 && math::is_finite(d))
   {
     result = static_cast<T>(d);
     return true;
@@ -113,11 +108,6 @@ bool to_float(char const * start, float & f)
 bool to_double(char const * start, double & d)
 {
   return ToReal(start, d);
-}
-
-bool is_finite(double d)
-{
-  return IsFinite(d);
 }
 
 UniString MakeLowerCase(UniString s)

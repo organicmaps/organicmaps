@@ -17,7 +17,6 @@
 #include <cmath>
 #include <cstdlib>
 #include <optional>
-#include <unordered_map>
 #include <unordered_set>
 
 namespace
@@ -35,7 +34,7 @@ void RemoveDuplicatesAndKeepOrder(std::vector<T> & vec)
   std::unordered_set<T> seen;
   auto const predicate = [&seen](T const & value)
   {
-    if (seen.find(value) != seen.end())
+    if (seen.contains(value))
       return true;
     seen.insert(value);
     return false;
@@ -78,7 +77,7 @@ bool Prefix2Double(std::string const & str, double & d)
   char const * s = str.c_str();
   // TODO: Replace with a faster and locale-ignored double conversion.
   d = std::strtod(s, &stop);
-  return (s != stop && strings::is_finite(d));
+  return (s != stop && math::is_finite(d));
 }
 
 }  // namespace
@@ -427,8 +426,7 @@ std::string MetadataTagProcessorImpl::ValidateAndFormat_duration(std::string con
         return {};
 
       char const type = v[pos];
-      auto const addHours = convert(type, *op);
-      if (addHours)
+      if (auto const addHours = convert(type, *op))
         hours += *addHours;
       else
         return {};
