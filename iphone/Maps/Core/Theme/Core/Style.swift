@@ -37,6 +37,7 @@ class Style: ExpressibleByDictionaryLiteral {
     case shadowImage
     case textAlignment
     case textContainerInset
+    case imageContainerInsets
     case separatorColor
     case pageIndicatorTintColor
     case currentPageIndicatorTintColor
@@ -274,6 +275,11 @@ extension Style {
   var textContainerInset: UIEdgeInsets? {
     get { return self[.textContainerInset] as? UIEdgeInsets }
     set { params[.textContainerInset] = newValue }
+  }
+
+  var imageContainerInsets: UIEdgeInsets? {
+    get { return self[.imageContainerInsets] as? UIEdgeInsets }
+    set { params[.imageContainerInsets] = newValue }
   }
 
   var separatorColor: UIColor? {
