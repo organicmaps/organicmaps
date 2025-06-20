@@ -101,6 +101,7 @@ std::string DebugPrint(Animation::Type const & type)
   case Animation::Type::MapLinear: return "MapLinear";
   case Animation::Type::MapScale: return "MapScale";
   case Animation::Type::MapFollow: return "MapFollow";
+  case Animation::Type::MapParabolic: return "MapParabolic";
   case Animation::Type::Arrow: return "Arrow";
   case Animation::Type::KineticScroll: return "KineticScroll";
   }

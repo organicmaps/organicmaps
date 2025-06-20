@@ -126,7 +126,7 @@ PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2:
 PositionInterpolator::PositionInterpolator(double delay,
                                            m2::PointD const & startPosition, m2::PointD const & endPosition,
                                            ScreenBase const & convertor)
-  : Interpolator(PositionInterpolator::GetMoveDuration(startPosition, endPosition, convertor), delay)
+  : Interpolator(PositionInterpolator::GetMoveDuration(startPosition, endPosition, convertor.PixelRectIn3d(), convertor.GetScale()), delay)
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
   , m_position(startPosition)

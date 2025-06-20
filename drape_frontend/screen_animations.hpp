@@ -10,6 +10,7 @@ namespace df
 
 extern std::string const kPrettyMoveAnim;
 extern std::string const kPrettyFollowAnim;
+extern std::string const kParabolicFollowAnim;
 extern std::string const kParallelFollowAnim;
 extern std::string const kParallelLinearAnim;
 
@@ -17,6 +18,7 @@ class SequenceAnimation;
 class MapLinearAnimation;
 class MapFollowAnimation;
 class MapScaleAnimation;
+class ParabolicAnimation;
 
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen);
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen,
@@ -36,6 +38,9 @@ drape_ptr<MapFollowAnimation> GetFollowAnimation(ScreenBase const & startScreen,
 
 drape_ptr<MapScaleAnimation> GetScaleAnimation(ScreenBase const & startScreen, m2::PointD pxScaleCenter,
                                                m2::PointD glbScaleCenter, double factor);
+
+drape_ptr<Animation> GetParabolicFollowAnimation(ScreenBase const & startScreen, m2::PointD const & userPos,
+                                                          double targetScale, double targetAngle, m2::PointD const & endPixelPos);
 
 } // namespace df
 

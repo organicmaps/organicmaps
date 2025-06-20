@@ -21,6 +21,8 @@ set(SRC
   animation/opacity_animation.hpp
   animation/parallel_animation.cpp
   animation/parallel_animation.hpp
+  animation/parabolic_animation.cpp
+  animation/parabolic_animation.hpp
   animation/scale_animation.cpp
   animation/scale_animation.hpp
   animation/sequence_animation.cpp
