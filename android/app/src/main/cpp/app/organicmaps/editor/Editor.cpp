@@ -391,6 +391,13 @@ Java_app_organicmaps_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, 
       g_editableMapObject, osm::Editor::NoteProblemType::General, jni::ToNativeString(env, text));
 }
 
+// static void nativeCreateStandaloneNote(double lat, double lon, String text);
+JNIEXPORT void JNICALL
+Java_app_organicmaps_editor_Editor_nativeCreateStandaloneNote(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon,jstring text)
+{
+    osm::Editor::Instance().CreateStandaloneNote(ms::LatLon(lat, lon), jni::ToNativeString(env, text));
+}
+
 // static void nativePlaceDoesNotExist(String comment);
 JNIEXPORT void JNICALL
 Java_app_organicmaps_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz, jstring comment)
