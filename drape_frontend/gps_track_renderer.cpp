@@ -87,16 +87,20 @@ void GpsTrackRenderer::ClearRenderData()
 void GpsTrackRenderer::UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
                                     std::vector<uint32_t> const & toRemove)
 {
-  bool wasChanged = false;
+  bool recreateSpline = false;
   if (!toRemove.empty())
   {
-    auto removePredicate = [&toRemove](GpsTrackPoint const & pt)
+    size_t const szBefore = m_points.size();
+    base::EraseIf(m_points, [&toRemove](GpsTrackPoint const & pt)
     {
       return base::IsExist(toRemove, pt.m_id);
-    };
-    m_points.erase(std::remove_if(m_points.begin(), m_points.end(), removePredicate),
-                   m_points.end());
-    wasChanged = true;
+    });
+
+    if (szBefore > m_points.size())   // if removed any
+    {
+      recreateSpline = true;
+      m_needUpdate = true;
+    }
   }
 
   if (!toAdd.empty())
@@ -104,17 +108,20 @@ void GpsTrackRenderer::UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
     ASSERT(is_sorted(toAdd.begin(), toAdd.end(), GpsPointsSortPredicate), ());
     ASSERT(m_points.empty() || GpsPointsSortPredicate(m_points.back(), toAdd.front()), ());
     m_points.insert(m_points.end(), toAdd.begin(), toAdd.end());
-    wasChanged = true;
+    m_needUpdate = true;
   }
 
-  if (wasChanged)
+  if (recreateSpline)   // Recreate Spline only if Remove (Clear) was invoked.
   {
     m_pointsSpline = m2::Spline(m_points.size());
-    for (size_t i = 0; i < m_points.size(); i++)
-      m_pointsSpline.AddPoint(m_points[i].m_point);
+    for (auto const & p : m_points)
+      m_pointsSpline.AddPoint(p.m_point);
   }
-
-  m_needUpdate = wasChanged;
+  else                  // Simple append points otherwise.
+  {
+    for (auto const & p : toAdd)
+      m_pointsSpline.AddPoint(p.m_point);
+  }
 }
 
 size_t GpsTrackRenderer::GetAvailablePointsCount() const
@@ -315,6 +322,8 @@ void GpsTrackRenderer::Update()
 void GpsTrackRenderer::Clear()
 {
   m_points.clear();
+  m_pointsSpline.Clear();
+
   ClearRenderData();
 }
 }  // namespace df
