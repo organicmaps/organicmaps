@@ -51,6 +51,7 @@ import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
 
@@ -70,6 +71,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
+  private static final String TRACK_FRAGMENT_TAG = "TRACK_FRAGMENT_TAG";
   private static final String PRODUCTS_FRAGMENT_TAG = "PRODUCTS_FRAGMENT_TAG";
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
@@ -337,6 +339,16 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
       refreshMyPosition(loc);
     else
       refreshDistanceToObject(loc);
+    if (mMapObject.isTrack())
+    {
+      UiUtils.hide(mFrame.findViewById(R.id.share_button),
+                   mFrame.findViewById(R.id.ll__place_latlon),
+                   mFrame.findViewById(R.id.ll__place_open_in),
+                   mFrame.findViewById(R.id.ll__place_add),
+                   mTvAzimuth,
+                   mTvDistance,
+                   mAvDirection);
+    }
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag, @IdRes int containerId, boolean enabled)
@@ -380,6 +392,11 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   {
     updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment,
         mMapObject.isBookmark());
+  }
+
+  private void updateTrackView()
+  {
+    updateViewFragment(PlacePageTrackFragment.class, TRACK_FRAGMENT_TAG, R.id.place_page_track_fragment, mMapObject.isTrack());
   }
 
   private boolean hasWikipediaEntry()
@@ -500,6 +517,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
     updateWikipediaView();
     updateBookmarkView();
     updatePhoneView();
+    updateTrackView();
   }
 
   private void refreshWiFi()
@@ -539,6 +557,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
 
   private void refreshDistanceToObject(Location l)
   {
+    if (mMapObject.isTrack())
+      return;
     UiUtils.showIf(l != null, mTvDistance);
     UiUtils.showIf(l != null, mTvAzimuth);
     if (l == null)
@@ -771,7 +791,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener,
   @Override
   public void onCompassUpdated(double north)
   {
-    if (mMapObject == null || mMapObject.isMyPosition())
+    if (mMapObject == null || mMapObject.isMyPosition() || mMapObject.isTrack())
       return;
 
     final Location location = LocationHelper.from(requireContext()).getSavedLocation();
