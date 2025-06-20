@@ -1348,4 +1348,10 @@
     <string name="type.military">Armée</string>
     <string name="type.military.bunker">Casemate</string>
     <string name="type.power.station">Centrale électrique</string>
+    <string name="type.amenity.restaurant">Restaurant</string>
+    <string name="type.highway.world_level">autoroute-niveau_monde</string>
+    <string name="type.amenity.love_hotel">Hôtel d\'amour</string>
+    <string name="type.amenity.studio">Studio</string>
+    <string name="type.highway.world_towns_level">autoroute-monde_villes_niveau</string>
+    <string name="type.hwtag">hwtag</string>
 </resources>

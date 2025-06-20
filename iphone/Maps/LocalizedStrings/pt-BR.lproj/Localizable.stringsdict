@@ -12,12 +12,10 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>one</key>
-			<string>%d favorito</string>
-			<key>many</key>
-			<string>%d favoritos</string>
+			<key>zero</key>
+			<string>marcador</string>
 			<key>other</key>
-			<string>%d favoritos</string>
+			<string>marcadores</string>
 		</dict>
 	</dict>
 	<key>bookmarks_detect_message</key>
@@ -48,6 +46,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>%d trilha</string>
 			<key>other</key>
 			<string>%d trilhas</string>
 		</dict>
