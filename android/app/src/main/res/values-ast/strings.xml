@@ -207,4 +207,5 @@
     <string name="connection_failure">Falló la conexón</string>
     <string name="disk_error_title">Error nel discu</string>
     <string name="splash_subtitle">Datos cartográficos d’OpenStreetMap</string>
+    <string name="drive_through">Serviciu dende’l coche</string>
 </resources>
