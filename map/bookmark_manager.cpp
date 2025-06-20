@@ -1183,6 +1183,8 @@ std::string BookmarkManager::GenerateSavedRouteName(std::string const & from, st
 
 kml::TrackId BookmarkManager::SaveRoute(std::vector<geometry::PointWithAltitude> const & points, std::string const & from, std::string const & to)
 {
+  CHECK(!points.empty(), ("Route points should not be empty"));
+
   kml::MultiGeometry geometry;
   geometry.m_lines.emplace_back();
   geometry.m_timestamps.emplace_back();
