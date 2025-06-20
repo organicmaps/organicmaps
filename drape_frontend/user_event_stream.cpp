@@ -1,6 +1,7 @@
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/animation/follow_animation.hpp"
 #include "drape_frontend/animation/linear_animation.hpp"
+#include "drape_frontend/animation/parabolic_animation.hpp"
 #include "drape_frontend/animation/scale_animation.hpp"
 #include "drape_frontend/animation/parallel_animation.hpp"
 #include "drape_frontend/animation/sequence_animation.hpp"
@@ -553,20 +554,18 @@ bool UserEventStream::SetScreen(ScreenBase const & endScreen, bool isAnim,
   {
     ScreenBase const & screen = GetCurrentScreen();
 
-    drape_ptr<Animation> anim = GetRectAnimation(screen, endScreen);
-    if (!df::IsAnimationAllowed(anim->GetDuration(), screen))
+    // Always use parabolic animation for location movements to get the smooth ballistic effect
+    drape_ptr<Animation> anim = GetParabolicFollowAnimation(screen, endScreen.GetOrg(), endScreen.GetScale(), 
+                                                           endScreen.GetAngle(), endScreen.PixelRectIn3d().Center());
+    
+    // If distance is too far for animation, jump directly to target
+    if (anim == nullptr)
     {
-      anim.reset();
-      double const moveDuration = PositionInterpolator::GetMoveDuration(screen.GetOrg(),
-                                                                        endScreen.GetOrg(), screen);
-      if (moveDuration > kMaxAnimationTimeSec)
-        anim = GetPrettyMoveAnimation(screen, endScreen);
+      ResetMapPlaneAnimations();
+      m_navigator.SetFromScreen(endScreen);
+      return true;
     }
-    else
-    {
-      anim->SetMaxDuration(kMaxAnimationTimeSec);
-    }
-
+    
     if (anim != nullptr)
     {
       if (parallelAnimCreator != nullptr)
@@ -598,19 +597,20 @@ bool UserEventStream::InterruptFollowAnimations(bool force)
     followAnim = m_animationSystem.FindAnimation<SequenceAnimation>(Animation::Type::Sequence, kPrettyFollowAnim.c_str());
 
   if (followAnim == nullptr)
+    followAnim = m_animationSystem.FindAnimation<ParabolicAnimation>(Animation::Type::MapParabolic);
+
+  if (followAnim == nullptr)
     followAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Type::Parallel, kParallelFollowAnim.c_str());
 
   if (followAnim == nullptr)
     followAnim = m_animationSystem.FindAnimation<ParallelAnimation>(Animation::Type::Parallel, kParallelLinearAnim.c_str());
 
-  if (followAnim != nullptr)
+  if (followAnim != nullptr && (followAnim->CouldBeInterrupted() || force))
   {
-    if (force || followAnim->CouldBeInterrupted())
-      ResetAnimations(followAnim->GetType(), followAnim->GetCustomType(), !followAnim->CouldBeInterrupted());
-    else
-      return false;
+    ResetAnimations(followAnim->GetType(), followAnim->GetCustomType(), !followAnim->CouldBeInterrupted());
+    return true;
   }
-  return true;
+  return false;
 }
 
 bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
@@ -620,7 +620,10 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
 {
   // Reset current follow-and-rotate animation if possible.
   if (isAnim && !InterruptFollowAnimations(false /* force */))
-    return false;
+  {
+    // If we can't interrupt gracefully, force interrupt for location button
+    InterruptFollowAnimations(true /* force */);
+  }
 
   ScreenBase const & currentScreen = GetCurrentScreen();
   ScreenBase screen = currentScreen;
@@ -640,19 +643,15 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
 
   if (isAnim)
   {
-    drape_ptr<Animation> anim;
-    double const moveDuration = PositionInterpolator::GetMoveDuration(currentScreen.GetOrg(), screen.GetOrg(),
-                                                                      currentScreen.PixelRectIn3d(),
-                                                                      (currentScreen.GetScale() + screen.GetScale()) / 2.0);
-    if (moveDuration > kMaxAnimationTimeSec)
+    // Always use parabolic animation for smooth location button movement with coordinated zoom and pan
+    drape_ptr<Animation> anim = GetParabolicFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos);
+    
+    // If distance is too far for animation, skip animation and jump directly
+    if (anim == nullptr)
     {
-      // Run pretty move animation if we are far from userPos.
-      anim = GetPrettyFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos);
-    }
-    else
-    {
-      // Run follow-and-rotate animation.
-      anim = GetFollowAnimation(currentScreen, userPos, screen.GetScale(), -azimuth, pixelPos, isAutoScale);
+      ResetMapPlaneAnimations();
+      m_navigator.SetFromScreen(screen);
+      return true;
     }
 
     if (preferredZoomLevel != kDoNotChangeZoom)
