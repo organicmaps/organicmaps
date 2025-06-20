@@ -192,7 +192,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
   private void updateProgress()
   {
-    String text = getString(R.string.downloader_downloading) + " " + StringUtils.formatPercent(mDownloadingCountry.progress / 100);
+    String text = getString(R.string.downloader_downloading) + " " + StringUtils.formatPercent(mDownloadingCountry.progress / 100, true);
     mTvProgress.setText(text);
     mWpvDownloadProgress.setProgress(Math.round(mDownloadingCountry.progress));
   }
