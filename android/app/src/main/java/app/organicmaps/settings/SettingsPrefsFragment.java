@@ -319,7 +319,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       Framework.Params3dMode current = new Framework.Params3dMode();
       Framework.nativeGet3dMode(current);
-      Framework.nativeSet3dMode(current.enabled, (Boolean)newValue);
+      Framework.nativeSet3dMode(current.enabled, (Boolean) newValue);
       return true;
     });
   }
