@@ -51,6 +51,15 @@ class BottomPanel
     }
   };
 
+  private final View.OnClickListener mRetryListener = new View.OnClickListener()
+  {
+    @Override
+    public void onClick(View v)
+    {
+      MapManager.warn3gAndRetry(mFragment.requireActivity(), mFragment.getCurrentRoot(), null);
+    }
+  };
+
   BottomPanel(DownloaderFragment fragment, View frame)
   {
     mFragment = fragment;
@@ -77,6 +86,12 @@ class BottomPanel
   {
     mButton.setText(R.string.downloader_download_all_button);
     mButton.setOnClickListener(mDownloadListener);
+  }
+
+  private void setRetryFailedStates()
+  {
+    mButton.setText(R.string.downloader_retry);
+    mButton.setOnClickListener(mRetryListener);
   }
 
   private void setCancelState()
@@ -108,7 +123,7 @@ class BottomPanel
           } // Special case for "Countries" node when no maps currently downloaded.
           case STATUS_DOWNLOADABLE, STATUS_DONE, STATUS_PARTLY -> show = false;
           case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
-          case STATUS_FAILED -> setDownloadAllState();
+          case STATUS_FAILED -> setRetryFailedStates();
           default -> throw new IllegalArgumentException("Inappropriate status for \"" + root + "\": " + status);
         }
       }
@@ -126,6 +141,7 @@ class BottomPanel
             }
             case STATUS_DONE -> show = false;
             case STATUS_PROGRESS, STATUS_APPLYING, STATUS_ENQUEUED -> setCancelState();
+            case STATUS_FAILED -> setRetryFailedStates();
             default -> setDownloadAllState();
           }
         }
