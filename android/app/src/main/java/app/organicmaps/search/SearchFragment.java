@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -46,6 +47,8 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchToolbarController;
+import app.organicmaps.widget.modalsearch.ModalSearchViewModel;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -58,7 +61,15 @@ public class SearchFragment extends BaseMwmFragment
                          implements SearchListener,
                                     CategoriesAdapter.CategoriesUiListener
 {
+  public static final String ARG_QUERY = "search_query";
+  public static final String ARG_LOCALE = "locale";
+  public static final String ARG_SEARCH_ON_MAP = "search_on_map";
+
+  private static final String STATE_KEY_RESULTS = "state_results";
+
+  private ModalSearchViewModel mViewModel;
   private long mLastQueryTimestamp;
+  private boolean wereResultsRestored = false;
   @NonNull
   private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
 
@@ -78,9 +89,18 @@ public class SearchFragment extends BaseMwmFragment
 
   private class ToolbarController extends SearchToolbarController
   {
-    public ToolbarController(View root)
+    public ToolbarController(View root, boolean isSearchModal)
     {
       super(root, SearchFragment.this.requireActivity());
+      if (isSearchModal) // remove toolbar padding in case the search is modal
+        ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), new WindowInsetUtils.PaddingInsetsListener(false, false, false, false));
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      super.onClick(v);
+      mViewModel.setModalSearchCollapsed(false);
     }
 
     @Override
@@ -92,6 +112,7 @@ public class SearchFragment extends BaseMwmFragment
       if (TextUtils.isEmpty(query))
       {
         mSearchAdapter.clear();
+        mViewModel.setIsQueryEmpty(true);
         stopSearch();
         return;
       }
@@ -104,7 +125,12 @@ public class SearchFragment extends BaseMwmFragment
         return;
       }
 
-      runSearch();
+      mViewModel.setIsQueryEmpty(false);
+
+      if (wereResultsRestored)
+        wereResultsRestored = false;
+      else
+        runSearch();
     }
 
     @Override
@@ -170,6 +196,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
+  private boolean mIsModal;
   private String mInitialQuery;
   @Nullable
   private String mInitialLocale;
@@ -230,12 +257,12 @@ public class SearchFragment extends BaseMwmFragment
     final boolean hasQuery = mToolbarController.hasQuery();
     Toolbar toolbar = mToolbarController.getToolbar();
     AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
-    lp.setScrollFlags(hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                                 | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
+    lp.setScrollFlags(!mIsModal && hasQuery ? AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+                                              | AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL : 0);
     toolbar.setLayoutParams(lp);
 
-    UiUtils.showIf(hasQuery, mResultsFrame);
-    UiUtils.showIf(hasQuery, mShowOnMapFab);
+    UiUtils.showIf(wereResultsRestored || hasQuery, mResultsFrame);
+    UiUtils.showIf(!mIsModal && hasQuery, mShowOnMapFab);
     if (hasQuery)
       hideDownloadSuggest();
     else if (doShowDownloadSuggest())
@@ -248,7 +275,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     final boolean show = !mSearchRunning
                          && mSearchAdapter.getItemCount() == 0
-                         && mToolbarController.hasQuery();
+                         && (wereResultsRestored || mToolbarController.hasQuery());
 
     UiUtils.showIf(show, mResultsPlaceholder);
   }
@@ -256,6 +283,7 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
+    mViewModel = new ViewModelProvider(requireActivity()).get(ModalSearchViewModel.class);
     return inflater.inflate(R.layout.fragment_search, container, false);
   }
 
@@ -271,7 +299,10 @@ public class SearchFragment extends BaseMwmFragment
     View mTabFrame = root.findViewById(R.id.tab_frame);
     ViewPager pager = mTabFrame.findViewById(R.id.pages);
 
-    mToolbarController = new ToolbarController(view);
+    final Fragment modalSearchFragment = requireActivity().getSupportFragmentManager().findFragmentById(R.id.modal_search_container_fragment);
+    mIsModal = modalSearchFragment != null && modalSearchFragment.isAdded();
+
+    mToolbarController = new ToolbarController(view, mIsModal);
     TabLayout tabLayout = root.findViewById(R.id.tabs);
 
     if (Config.isSearchHistoryEnabled())
@@ -301,6 +332,16 @@ public class SearchFragment extends BaseMwmFragment
     mResults.setLayoutManager(new LinearLayoutManager(view.getContext()));
     mResults.setAdapter(mSearchAdapter);
 
+    if (savedInstanceState != null)
+    {
+      SearchResult[] savedSearchResults = (SearchResult[]) savedInstanceState.getParcelableArray(STATE_KEY_RESULTS);
+      if (savedSearchResults != null)
+      {
+        wereResultsRestored = true;
+        mSearchAdapter.refreshData(savedSearchResults);
+      }
+    }
+
     updateFrames();
     updateResultsPlaceholder();
     ViewCompat.setOnApplyWindowInsetsListener(
@@ -320,6 +361,11 @@ public class SearchFragment extends BaseMwmFragment
 
     if (mInitialSearchOnMap)
       showAllResultsOnMap();
+
+    view.findViewById(R.id.query).setOnFocusChangeListener((v, hasFocus) -> {
+      if (hasFocus)
+        mViewModel.setModalSearchCollapsed(false);
+    });
   }
 
   @Override
@@ -354,6 +400,14 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
+  public void onSaveInstanceState(@NonNull Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    if (!mSearchRunning)
+      outState.putParcelableArray(STATE_KEY_RESULTS, mSearchAdapter.getResults());
+  }
+
+  @Override
   public void onDestroy()
   {
     for (RecyclerView v : mAttachedRecyclers)
@@ -374,9 +428,9 @@ public class SearchFragment extends BaseMwmFragment
     if (arguments == null)
       return;
 
-    mInitialQuery = arguments.getString(SearchActivity.EXTRA_QUERY);
-    mInitialLocale = arguments.getString(SearchActivity.EXTRA_LOCALE);
-    mInitialSearchOnMap = arguments.getBoolean(SearchActivity.EXTRA_SEARCH_ON_MAP);
+    mInitialQuery = arguments.getString(ARG_QUERY);
+    mInitialLocale = arguments.getString(ARG_LOCALE);
+    mInitialSearchOnMap = arguments.getBoolean(ARG_SEARCH_ON_MAP);
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
@@ -421,16 +475,12 @@ public class SearchFragment extends BaseMwmFragment
       final MapObject point = MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH,
           title, subtitle, result.lat, result.lon);
       RoutingController.get().onPoiSelected(point);
+      mViewModel.setModalSearchActive(false);
     }
     else
-    {
       SearchEngine.INSTANCE.showResult(resultIndex);
-    }
 
     mToolbarController.deactivate();
-
-    if (requireActivity() instanceof SearchActivity)
-      Utils.navigateToParent(requireActivity());
   }
 
   void showAllResultsOnMap()
@@ -486,7 +536,7 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.INSTANCE.cancel();
 
     mLastQueryTimestamp = System.nanoTime();
-    if (isTabletSearch())
+    if (mIsModal || isTabletSearch())
     {
       SearchEngine.INSTANCE.searchInteractive(requireContext(), getQuery(), isCategory(),
               mLastQueryTimestamp, true /* isMapAndTable */);
@@ -548,19 +598,19 @@ public class SearchFragment extends BaseMwmFragment
       return true;
     }
 
-    boolean isSearchActivity = requireActivity() instanceof SearchActivity;
+    final boolean isModalSearchActive = Boolean.TRUE.equals(mViewModel.getModalSearchActive().getValue());
     mToolbarController.deactivate();
     if (RoutingController.get().isWaitingPoiPick())
     {
       RoutingController.get().onPoiSelected(null);
-      if (isSearchActivity)
-        closeSearch();
-      return !isSearchActivity;
+      if (isModalSearchActive)
+        mViewModel.setModalSearchActive(false);
+      return !isModalSearchActive;
     }
 
-    if (isSearchActivity)
-      closeSearch();
-    return isSearchActivity;
+    if (isModalSearchActive)
+      mViewModel.setModalSearchActive(false);
+    return isModalSearchActive;
   }
 
   private void closeSearch()
