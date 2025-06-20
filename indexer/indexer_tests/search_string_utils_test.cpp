@@ -90,6 +90,7 @@ UNIT_TEST(NormalizeAndSimplifyString_WithOurTambourines)
                         "ăâț", "aat",                   // Romanian
                         "Триу́мф-Пала́с", "триумф-палас", // Russian accent
                         "  a   b  c d ", " a b c d ",   // Multiple spaces
+                        "Лукʼяненка", "Лук'яненка",
                        };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
