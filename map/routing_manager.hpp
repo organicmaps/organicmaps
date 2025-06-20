@@ -142,7 +142,7 @@ public:
   // This method was added because we do not want to break the behaviour that is familiar to our
   // users.
   bool DisableFollowMode();
-  void SaveRoute();
+  kml::TrackId SaveRoute();
 
   void SetRouteBuildingListener(RouteBuildingCallback const & buildingCallback)
   {

@@ -1775,7 +1775,8 @@ bool Framework::IsTrackRecordingEnabled() const
 
 void Framework::SaveRoute()
 {
-  m_routingManager.SaveRoute();
+  auto const trackId = m_routingManager.SaveRoute();
+  ShowTrack(trackId);
 }
 
 void Framework::OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsInfo>> && toAdd,
