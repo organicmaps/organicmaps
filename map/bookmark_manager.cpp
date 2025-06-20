@@ -1181,7 +1181,7 @@ std::string BookmarkManager::GenerateSavedRouteName(std::string const & from, st
   return GenerateTrackRecordingName();
 }
 
-kml::TrackId BookmarkManager::SaveRoute(std::vector<m2::PointD> const & points, std::string const & from, std::string const & to)
+kml::TrackId BookmarkManager::SaveRoute(std::vector<geometry::PointWithAltitude> const & points, std::string const & from, std::string const & to)
 {
   kml::MultiGeometry geometry;
   geometry.m_lines.emplace_back();

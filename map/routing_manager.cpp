@@ -1101,15 +1101,36 @@ static std::string GetNameFromPoint(RouteMarkData const & rmd)
 kml::TrackId RoutingManager::SaveRoute()
 {
   auto points = GetRoutePolyline().GetPolyline().GetPoints();
+  auto const pointsCount = points.size();
+
+  std::vector<geometry::PointWithAltitude> pointsWithAltitudes;
+  pointsWithAltitudes.reserve(pointsCount);
+
+  auto distancesAltitudes = std::make_shared<DistanceAltitude>();
+  if (GetRouteAltitudesAndDistancesM(*distancesAltitudes))
+  {
+    auto const & altitudes = distancesAltitudes->m_altitudes;
+    ASSERT_EQUAL(pointsCount, altitudes.size(), ());
+    for (size_t i = 0; i < pointsCount; ++i)
+      pointsWithAltitudes.emplace_back(points[i], altitudes[i]);
+  }
+  else
+  {
+    for (size_t i = 0; i < pointsCount; ++i)
+      pointsWithAltitudes.emplace_back(points[i]);
+  }
+
+  // remove equal sequential points
+  pointsWithAltitudes.erase(
+               std::unique(pointsWithAltitudes.begin(), pointsWithAltitudes.end(), [](const geometry::PointWithAltitude & p1, const geometry::PointWithAltitude & p2)
+                           { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); }),
+               pointsWithAltitudes.end());
+
   auto const routePoints = GetRoutePoints();
   std::string const from = GetNameFromPoint(routePoints.front());
   std::string const to = GetNameFromPoint(routePoints.back());
-  // remove equal sequential points
-  points.erase(
-      std::unique(points.begin(), points.end(), [](const m2::PointD & p1, const m2::PointD & p2) { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); }),
-      points.end());
 
-  return m_bmManager->SaveRoute(points, from, to);
+  return m_bmManager->SaveRoute(pointsWithAltitudes, from, to);
 }
 
 bool RoutingManager::DisableFollowMode()
