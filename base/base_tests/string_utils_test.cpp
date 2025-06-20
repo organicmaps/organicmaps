@@ -131,22 +131,6 @@ UNIT_TEST(EqualNoCase)
   TEST(strings::EqualNoCase("HaHaHa", "hahaha"), ());
 }
 
-UNIT_TEST(is_finite)
-{
-  using namespace strings;
-
-  TEST(!is_finite(NAN), ());
-  TEST(!is_finite(INFINITY), ());
-  //TEST(!is_finite(DBL_MIN/2.0), ());
-  TEST(!is_finite(DBL_MAX*2.0), ());
-
-  TEST(is_finite(0.0), ());
-  TEST(is_finite(1.0), ());
-  TEST(is_finite(-2.0), ());
-  TEST(is_finite(DBL_MIN), ());
-  TEST(is_finite(DBL_MAX), ());
-}
-
 UNIT_TEST(to_double)
 {
   std::string s;

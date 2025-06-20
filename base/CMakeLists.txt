@@ -28,6 +28,7 @@ set(SRC
   dfa_helpers.hpp
   exception.cpp
   exception.hpp
+  fast_math.cpp
   fifo_cache.hpp
   file_name_utils.cpp
   file_name_utils.hpp
@@ -104,6 +105,10 @@ set(SRC
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+
+# Exception for some of our math to work reliably.
+# Ubuntu x86_64 gcc 14.2.0 ignores -fno-finite-math-only in debug builds without -O1
+set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only;$<$<CONFIG:DEBUG>:-O1>")
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
