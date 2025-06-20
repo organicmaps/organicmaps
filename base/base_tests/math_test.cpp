@@ -164,3 +164,22 @@ UNIT_TEST(Sign)
   TEST_EQUAL(-1, base::Sign(-11), ());
   TEST_EQUAL(-1, base::Sign(-10.4), ());
 }
+
+UNIT_TEST(is_finite)
+{
+  static_assert(std::numeric_limits<double>::has_infinity);
+  static_assert(std::numeric_limits<double>::has_quiet_NaN);
+
+  using math::is_finite, math::Nan, math::Infinity;
+
+  TEST(!is_finite(Nan()), ());
+  TEST(!is_finite(Infinity()), ());
+  TEST(!is_finite(DBL_MAX*2.0), ());
+
+  TEST(is_finite(0.0), ());
+  TEST(is_finite(1.0), ());
+  TEST(is_finite(-2.0), ());
+  TEST(is_finite(DBL_MIN), ());
+  TEST(is_finite(DBL_MAX), ());
+  TEST(is_finite(DBL_MIN/2.0), ("As in cppreference example"));
+}
