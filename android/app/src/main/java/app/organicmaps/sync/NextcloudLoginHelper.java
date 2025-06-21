@@ -89,9 +89,10 @@ public class NextcloudLoginHelper
         btnNext.setEnabled(false);
 
         ThreadPool.getWorker().execute(() -> {
+          HttpURLConnection connection = null;
           try
           {
-            HttpURLConnection connection = InsecureHttpsHelper.openInsecureConnection(initLoginUrl);
+            connection = InsecureHttpsHelper.openInsecureConnection(initLoginUrl);
             connection.setInstanceFollowRedirects(true);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
@@ -138,6 +139,8 @@ public class NextcloudLoginHelper
               editText.setEnabled(true);
               btnNext.setEnabled(true);
             });
+            if (connection != null)
+              connection.disconnect();
           }
         });
       });
