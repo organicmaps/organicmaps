@@ -23,6 +23,7 @@ public class SyncPrefs
   private static final String PREF_NAME_STATE = "SyncState";
 
   private static final String PREF_KEY_ACCOUNTS = "ac";
+  private static final String PREF_KEY_GOOGLE_OAUTH_PARAMS = "googleOAuthUri";
   private static final String PREF_KEY_LAST_ACCOUNT_ID = "lastId";
   private static final String PREF_KEY_PREFIX_ENABLED = "enabled-";
   private static final String PREF_KEY_PREFIX_LAST_SYNCED = "lastSynced-";
@@ -179,13 +180,30 @@ public class SyncPrefs
     mAccountsChangedCallbacks.remove(callback);
   }
 
-  public interface LastSyncCallback {
+  public void setGoogleOauthParams(String params)
+  {
+    prefsAccounts.edit().putString(PREF_KEY_GOOGLE_OAUTH_PARAMS, params).apply();
+  }
+
+  public @Nullable String getGoogleOauthParams()
+  {
+    return prefsAccounts.getString(PREF_KEY_GOOGLE_OAUTH_PARAMS, null);
+  }
+
+  public interface LastSyncCallback
+  {
     void onLastSyncChanged(long accountId, long timestamp);
   }
 
-  public interface AccountsChangedCallback {
+  public interface AccountsChangedCallback
+  {
     void onAccountsChanged(List<SyncAccount> newAccounts);
   }
 
-  public enum AddAccountResult { Success, AlreadyExists, UnexpectedError }
+  public enum AddAccountResult
+  {
+    Success,
+    AlreadyExists,
+    UnexpectedError
+  }
 }
