@@ -1113,7 +1113,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // Explicitly destroy surface before activity recreation.
     if (mMapFragment != null)
-      mMapFragment.destroySurface();
+      mMapFragment.destroySurface(true);
     super.recreate();
   }
 
