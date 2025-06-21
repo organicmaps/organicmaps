@@ -41,9 +41,9 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     mMap.updateMyPositionRoutingOffset(offsetY);
   }
 
-  public void destroySurface()
+  public void destroySurface(boolean activityIsChangingConfigurations)
   {
-    mMap.onSurfaceDestroyed(requireActivity().isChangingConfigurations(), isAdded());
+    mMap.onSurfaceDestroyed(activityIsChangingConfigurations, isAdded());
   }
 
   public boolean isContextCreated()
