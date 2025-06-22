@@ -2,6 +2,7 @@ package app.organicmaps.settings;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
@@ -11,7 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import app.organicmaps.Framework;
 import app.organicmaps.R;
@@ -26,12 +29,15 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.File;
 import java.util.List;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+
 public class StoragePathFragment extends BaseSettingsFragment
 {
   private TextView mHeader;
 
   private StoragePathAdapter mAdapter;
   private StoragePathManager mPathManager;
+  private ActivityResultLauncher<String> requestPermissionLauncher;
 
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
   @Override
@@ -54,6 +60,19 @@ public class StoragePathFragment extends BaseSettingsFragment
 
     shareLauncher = SharingUtils.RegisterLauncher(this);
 
+    // Register the permission launcher
+    requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+      if (isGranted) {
+        // Permission granted, scan storages including OBB
+        mPathManager.scanAvailableStorages();
+        updateList();
+      } else {
+        // Permission denied, scan without OBB directory
+        mPathManager.scanAvailableStorages();
+        updateList();
+      }
+    });
+
     return root;
   }
 
@@ -62,8 +81,19 @@ public class StoragePathFragment extends BaseSettingsFragment
   {
     super.onResume();
     mPathManager.startExternalStorageWatching((items, idx) -> updateList());
-    mPathManager.scanAvailableStorages();
-    updateList();
+    // Check if we need permission on Android 6
+    if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.M) {
+      if (ContextCompat.checkSelfPermission(requireActivity(), READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        requestPermissionLauncher.launch(READ_EXTERNAL_STORAGE);
+      else {
+        mPathManager.scanAvailableStorages();
+        updateList();
+      }
+    } else {
+      // No permission needed for other API levels
+      mPathManager.scanAvailableStorages();
+      updateList();
+    }
   }
 
   @Override

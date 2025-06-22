@@ -37,6 +37,7 @@
     class here by directly calling the PowerManager; this means
     the application must request the Manifest.permission.WAKE_LOCK permission.
   //-->
+  <uses-permission-sdk-23 android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion = "23" />
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
