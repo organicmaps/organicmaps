@@ -441,7 +441,7 @@ public:
   void StartTrackRecording();
   void SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate);
   void StopTrackRecording();
-  void SaveTrackRecordingWithName(std::string const & name);
+  void SaveTrackRecording(std::string const & name, dp::Color const & color, kml::MarkGroupId groupId);
   bool IsTrackRecordingEmpty() const;
   bool IsTrackRecordingEnabled() const;
 

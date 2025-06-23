@@ -431,7 +431,7 @@ public:
   bool IsCompilation(kml::MarkGroupId id) const;
   kml::CompilationType GetCompilationType(kml::MarkGroupId id) const;
 
-  kml::TrackId SaveTrackRecording(std::string trackName);
+  kml::TrackId SaveTrackRecording(std::string trackName, dp::Color const & color, kml::MarkGroupId groupId);
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
 

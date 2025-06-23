@@ -1111,7 +1111,7 @@ kml::CompilationType BookmarkManager::GetCompilationType(kml::MarkGroupId id) co
   return compilation->second->GetCategoryData().m_type;
 }
 
-kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
+kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName, dp::Color const & color, kml::MarkGroupId groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const & tracker = GpsTracker::Instance();
@@ -1141,7 +1141,8 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
   kml::SetDefaultStr(trackData.m_name, trackName);
 
   kml::ColorData colorData;
-  colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
+  colorData.m_rgba = color.GetRGBA();
+
   kml::TrackLayer layer;
   layer.m_color = std::move(colorData);
 
@@ -1152,7 +1153,10 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
 
   auto editSession = GetEditSession();
   auto const track = editSession.CreateTrack(std::move(trackData));
-  auto const groupId = LastEditedBMCategory();
+
+  if (!HasBmCategory(groupId))
+    groupId = LastEditedBMCategory(); /// @todo(KK): create a default category for track recordings
+
   auto const trackId = track->GetId();
   AttachTrack(trackId, groupId);
   return trackId;

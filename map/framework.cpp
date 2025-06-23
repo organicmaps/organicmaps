@@ -1754,9 +1754,9 @@ void Framework::StopTrackRecording()
     m_drapeEngine->ClearGpsTrackPoints();
 }
 
-void Framework::SaveTrackRecordingWithName(std::string const & name)
+void Framework::SaveTrackRecording(std::string const & name, dp::Color const & color, kml::MarkGroupId groupId)
 {
-  auto const trackId = GetBookmarkManager().SaveTrackRecording(name);
+  auto const trackId = GetBookmarkManager().SaveTrackRecording(name, color, groupId);
   if (m_drapeEngine)
     m_drapeEngine->ClearGpsTrackPoints();
   ShowTrack(trackId);
