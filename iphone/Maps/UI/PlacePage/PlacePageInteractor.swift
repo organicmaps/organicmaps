@@ -250,15 +250,13 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       // directly here when the track recovery mechanism will be implemented.
       showTrackDeletionConfirmationDialog()
     case .saveTrackRecording:
-      // TODO: (KK) pass name typed by user
-      TrackRecordingManager.shared.stopAndSave() { [weak self] result in
-        switch result {
-        case .success:
-          break
-        case .trackIsEmpty:
+      let viewController = EditTrackViewController(for: .trackRecording) { [weak self] saved in
+        if !saved {
           self?.presenter?.closeAnimated()
         }
       }
+      let navigationController = MWMNavigationController(rootViewController: viewController)
+      mapViewController?.navigationController?.present(navigationController, animated: true)
     @unknown default:
       fatalError()
     }

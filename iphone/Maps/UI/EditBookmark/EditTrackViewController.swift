@@ -14,37 +14,67 @@ final class EditTrackViewController: MWMTableViewController {
     case bookmarkGroup
     case count
   }
-  
+
+  enum TrackSource: Equatable {
+    case track(trackId: MWMTrackID)
+    case trackRecording
+  }
+
   private var editingCompleted: (Bool) -> Void
 
   private var placePageData: PlacePageData?
+  private let trackSource: TrackSource
   private let trackId: MWMTrackID
-  private var trackTitle: String?
-  private var trackGroupTitle: String?
+  private var trackTitle: String
+  private var trackGroupTitle: String
   private var trackGroupId = FrameworkHelper.invalidCategoryId()
   private var trackColor: UIColor
 
   private let bookmarksManager = BookmarksManager.shared()
 
   @objc
-  init(trackId: MWMTrackID, editCompletion completion: @escaping (Bool) -> Void) {
-    self.trackId = trackId
-    
-    let track = bookmarksManager.track(withId: trackId)
-    self.trackTitle = track.trackName
-    self.trackColor = track.trackColor
+  convenience init(trackId: MWMTrackID, editCompletion completion: @escaping (Bool) -> Void) {
+    self.init(for: .track(trackId: trackId), editCompletion: completion)
+  }
 
-    let category = bookmarksManager.category(forTrackId: trackId)
-    self.trackGroupId = category.categoryId
-    self.trackGroupTitle = category.title
+  init(for source: TrackSource, editCompletion completion: @escaping (Bool) -> Void) {
+    self.trackSource = source
+    switch source {
+    case .track(let trackId):
+      self.trackId = trackId
 
-    self.editingCompleted = completion
+      let track = bookmarksManager.track(withId: trackId)
+      self.trackTitle = track.trackName
+      self.trackColor = track.trackColor
+
+      let category = bookmarksManager.category(forTrackId: trackId)
+      self.trackGroupId = category.categoryId
+      self.trackGroupTitle = category.title
+
+      self.editingCompleted = completion
+
+    case .trackRecording:
+      self.trackId = UInt64.max
+
+      self.trackTitle = FrameworkHelper.generateTrackRecordingName()
+      self.trackColor = FrameworkHelper.generateTrackRecordingColor()
+      self.trackGroupId = FrameworkHelper.getDefaultTrackRecordingsCategory()
+      let category = bookmarksManager.category(withId: self.trackGroupId)
+      self.trackGroupTitle = category.title
+
+      self.editingCompleted = completion
+    }
     super.init(style: .grouped)
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    updateTrackIfNeeded()
+    switch trackSource {
+    case .track:
+      updateTrackIfNeeded()
+    case .trackRecording:
+      break
+    }
   }
 
   deinit {
@@ -58,7 +88,16 @@ final class EditTrackViewController: MWMTableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    title = L("track_title")
+    switch trackSource {
+    case .track:
+      title = L("track_title")
+    case .trackRecording:
+      title = "Save Track Recording"
+      navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                         target: self,
+                                                         action: #selector(close))
+    }
+
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                         target: self,
                                                         action: #selector(onSave))
@@ -92,7 +131,7 @@ final class EditTrackViewController: MWMTableViewController {
       switch InfoSectionRows(rawValue: indexPath.row) {
       case .title:
         let cell = tableView.dequeueReusableCell(cell: BookmarkTitleCell.self, indexPath: indexPath)
-        cell.configure(name: trackTitle ?? "", delegate: self, hint: L("placepage_track_name_hint"))
+        cell.configure(name: trackTitle, delegate: self, hint: L("placepage_track_name_hint"))
         return cell
       case .color:
         let cell = tableView.dequeueDefaultCell(for: indexPath)
@@ -136,12 +175,17 @@ final class EditTrackViewController: MWMTableViewController {
   private func updateTrackIfNeeded() {
     // TODO: Update the track content on the Edit screen instead of closing it when the track gets updated from cloud.
     if !bookmarksManager.hasTrack(trackId) {
-      goBack()
+      close()
     }
   }
 
   private func addToBookmarksManagerObserverList() {
-    bookmarksManager.add(self)
+    switch trackSource {
+    case .track:
+      bookmarksManager.add(self)
+    case .trackRecording:
+      break
+    }
   }
 
   private func removeFromBookmarksManagerObserverList() {
@@ -150,9 +194,19 @@ final class EditTrackViewController: MWMTableViewController {
 
   @objc private func onSave() {
     view.endEditing(true)
-    BookmarksManager.shared().updateTrack(trackId, setGroupId: trackGroupId, color: trackColor, title: trackTitle ?? "")
-    editingCompleted(true)
-    goBack()
+    switch trackSource {
+    case .track:
+      bookmarksManager.updateTrack(trackId, setGroupId: trackGroupId, color: trackColor, title: trackTitle)
+      editingCompleted(true)
+      close()
+    case .trackRecording:
+      let configuration = TrackSavingConfiguration(name: trackTitle, groupId: trackGroupId, color: trackColor)
+      TrackRecordingManager.shared.stopAndSave(with: configuration) { [weak self] result in
+        guard let self else { return }
+        self.editingCompleted(result == .success ? true : false)
+        self.close()
+      }
+    }
   }
 
   private func updateColor(_ color: UIColor) {
@@ -168,10 +222,20 @@ final class EditTrackViewController: MWMTableViewController {
   }
 
   private func openGroupPicker() {
-    let groupViewController = SelectBookmarkGroupViewController(groupName: trackGroupTitle ?? "", groupId: trackGroupId)
+    let groupViewController = SelectBookmarkGroupViewController(groupName: trackGroupTitle, groupId: trackGroupId)
     groupViewController.delegate = self
     let navigationController = UINavigationController(rootViewController: groupViewController)
     present(navigationController, animated: true, completion: nil)
+  }
+
+  @objc
+  private func close() {
+    switch trackSource {
+    case .track:
+      goBack()
+    case .trackRecording:
+      dismiss(animated: true, completion: nil)
+    }
   }
 }
 
@@ -192,8 +256,14 @@ extension EditTrackViewController: MWMButtonCellDelegate {
     case .info:
       break
     case .delete:
-      bookmarksManager.deleteTrack(trackId)
-      goBack()
+      switch trackSource {
+      case .track:
+        bookmarksManager.deleteTrack(trackId)
+      case .trackRecording:
+        // TODO: Handle track recording deletion without saving.
+        break
+      }
+      close()
     default:
       fatalError("Invalid section")
     }
@@ -230,7 +300,7 @@ extension EditTrackViewController: BookmarksObserver {
 
   func onBookmarksCategoryDeleted(_ groupId: MWMMarkGroupID) {
     if trackGroupId == groupId {
-      goBack()
+      close()
     }
   }
 }

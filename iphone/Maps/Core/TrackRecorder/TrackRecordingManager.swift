@@ -4,11 +4,6 @@ enum TrackRecordingState: Int, Equatable {
   case active
 }
 
-enum TrackRecordingAction {
-  case start
-  case stopAndSave(name: String)
-}
-
 enum LocationError: Error {
   case locationIsProhibited
 }
@@ -21,6 +16,20 @@ enum StartTrackRecordingResult {
 enum StopTrackRecordingResult {
   case success
   case trackIsEmpty
+}
+
+
+@objcMembers
+class TrackSavingConfiguration {
+  let name: String
+  let groupId: MWMMarkGroupID
+  let color: UIColor
+
+  init(name: String, groupId: MWMMarkGroupID, color: UIColor) {
+    self.name = name
+    self.groupId = groupId
+    self.color = color
+  }
 }
 
 @objc
@@ -136,7 +145,7 @@ final class TrackRecordingManager: NSObject {
     }
   }
 
-  func stopAndSave(withName name: String = "", completion: ((StopTrackRecordingResult) -> Void)? = nil) {
+  func stopAndSave(with configuration: TrackSavingConfiguration, completion: ((StopTrackRecordingResult) -> Void)? = nil) {
     unsubscribeFromTrackRecordingProgressUpdates()
     trackRecorder.stopTrackRecording()
     trackRecordingInfo = .empty()
@@ -149,7 +158,9 @@ final class TrackRecordingManager: NSObject {
       return
     }
 
-    trackRecorder.saveTrackRecording(withName: name)
+    trackRecorder.saveTrackRecording(withName: configuration.name,
+                                     color: configuration.color,
+                                     groupId: configuration.groupId)
     completion?(.success)
   }
 

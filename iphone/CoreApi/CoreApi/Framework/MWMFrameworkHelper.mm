@@ -4,6 +4,7 @@
 #import "Product+Core.h"
 #import "TrackInfo+Core.h"
 #import "ElevationProfileData+Core.h"
+#import "ColorUtils.h"
 
 #include "Framework.h"
 
@@ -239,8 +240,8 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().StopTrackRecording();
 }
 
-+ (void)saveTrackRecordingWithName:(nonnull NSString *)name {
-  GetFramework().SaveTrackRecordingWithName(name.UTF8String);
++ (void)saveTrackRecordingWithName:(NSString *)name color:(UIColor *)color groupId:(MWMMarkGroupID)groupId {
+  GetFramework().SaveTrackRecording(name.UTF8String, GetColorFromUIColor(color), groupId);
 }
 
 + (BOOL)isTrackRecordingEnabled {
@@ -249,6 +250,20 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 
 + (BOOL)isTrackRecordingEmpty {
   return GetFramework().IsTrackRecordingEmpty();
+}
+
++ (NSString *)generateTrackRecordingName {
+  return [NSString stringWithCString:GetFramework().GetBookmarkManager().GenerateTrackRecordingName().c_str() encoding:NSUTF8StringEncoding];
+}
+
++ (UIColor *)generateTrackRecordingColor {
+  auto const color = GetFramework().GetBookmarkManager().GenerateTrackRecordingColor();
+  return [UIColor colorWithRed:color.GetRedF() green:color.GetGreenF() blue:color.GetBlueF() alpha:1.f];
+}
+
++ (MWMMarkGroupID)getDefaultTrackRecordingsCategory {
+  /// @todo(KK): Replace with a default category for track recordings.
+  return GetFramework().GetBookmarkManager().LastEditedBMCategory();
 }
 
 + (ElevationProfileData * _Nonnull)trackRecordingElevationInfo {

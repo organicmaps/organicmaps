@@ -26,9 +26,13 @@ typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 + (void)startTrackRecording;
 + (void)setTrackRecordingUpdateHandler:(TrackRecordingUpdatedHandler _Nullable)trackRecordingDidUpdate;
 + (void)stopTrackRecording;
-+ (void)saveTrackRecordingWithName:(nonnull NSString *)name;
++ (void)saveTrackRecordingWithName:(NSString *)name color:(UIColor *)color groupId:(MWMMarkGroupID)groupId;
 + (BOOL)isTrackRecordingEnabled;
 + (BOOL)isTrackRecordingEmpty;
++ (NSString *)generateTrackRecordingName;
++ (UIColor *)generateTrackRecordingColor;
++ (MWMMarkGroupID)getDefaultTrackRecordingsCategory;
+
 /// Returns current track recording elevation info.
 /// If the track recording is not in progress, returns empty ElevationProfileData.
 + (ElevationProfileData * _Nonnull)trackRecordingElevationInfo;
