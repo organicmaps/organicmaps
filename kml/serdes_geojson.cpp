@@ -2,44 +2,19 @@
 
 #include "coding/serdes_json.hpp"
 
+#include "base/visitor.hpp"
+
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+
+#include <map>
+#include <string>
+#include <unordered_set>
 
 namespace kml
 {
 namespace geojson
 {
-
-
-struct GeoJsonFeature
-{
-  DECLARE_VISITOR_AND_DEBUG_PRINT(GeoJsonFeature, visitor(m_type, "type"),
-                                  visitor(m_properties, "properties"))
-
-  bool operator==(GeoJsonFeature const & data) const
-  {
-    return m_type == data.m_type && m_properties == data.m_properties;
-  }
-
-  bool operator!=(GeoJsonFeature const & data) const { return !operator==(data); }
-
-  std::string m_type = "Feature";
-  std::map<std::string, std::string> m_properties;
-};
-
-struct GeoJsonData
-{
-  DECLARE_VISITOR_AND_DEBUG_PRINT(GeoJsonData, visitor(m_type, "type"),
-                                  visitor(m_features, "features"))
-
-  bool operator==(GeoJsonData const & data) const
-  {
-    return m_type == data.m_type;
-  }
-
-  bool operator!=(GeoJsonData const & data) const { return !operator==(data); }
-
-  std::string m_type = "FeatureCollection";
-  std::list<GeoJsonFeature> m_features;
-};
 
 void GeojsonWriter::Write(FileData const & fileData)
 {
@@ -47,6 +22,21 @@ void GeojsonWriter::Write(FileData const & fileData)
   coding::SerializerJson<Writer> ser(m_writer);
   ser(data);
 }
+
+/*template <typename ReaderType>
+void GeojsonParser::Parse(ReaderType const & reader)
+{
+  geojson::GeoJsonData data;
+  NonOwningReaderSource source(reader);
+  coding::DeserializerJson des(source);
+  des(data);
+
+  // Copy bookmarks from parsed 'data' into m_fileData.
+  //TODO
+
+  // Copy tracks from parsed 'data' into m_fileData.
+  //TODO
+}*/
 
 }  // namespace geojson
 }  // namespace kml
