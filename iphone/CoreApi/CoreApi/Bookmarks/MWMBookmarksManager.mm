@@ -6,6 +6,7 @@
 #import "MWMCarPlayBookmarkObject.h"
 #import "MWMTrack+Core.h"
 #import "RecentlyDeletedCategory+Core.h"
+#import "ColorUtils.h"
 
 #include "Framework.h"
 
@@ -748,7 +749,7 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   ASSERT(track, ("Invalid track id:", trackId));
 
   auto const currentColor = track->GetColor(0);
-  auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+  auto const newColor = GetColorFromUIColor(color);
 
   if (newColor != currentColor)
     track->SetColor(newColor);
@@ -763,7 +764,7 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
   ASSERT(track, ("Invalid track id:", trackId));
 
   auto const currentColor = track->GetColor(0);
-  auto const newColor = [MWMBookmarksManager getColorFromUIColor:color];
+  auto const newColor = GetColorFromUIColor(color);
 
   if (newColor != currentColor)
     track->SetColor(newColor);
@@ -860,25 +861,6 @@ static KmlFileType convertFileTypeToCore(MWMKmlFileType fileType) {
 
 - (void)resetElevationMyPositionChanged {
   self.bm.SetElevationMyPositionChangedCallback(nullptr);
-}
-
-+ (dp::Color)getColorFromUIColor:(UIColor *)color {
-  CGFloat fRed, fGreen, fBlue, fAlpha;
-  [color getRed:&fRed green:&fGreen blue:&fBlue alpha:&fAlpha];
-
-  const uint8_t red = [self convertColorComponentToHex:fRed];
-  const uint8_t green = [self convertColorComponentToHex:fGreen];
-  const uint8_t blue = [self convertColorComponentToHex:fBlue];
-  const uint8_t alpha = [self convertColorComponentToHex:fAlpha];
-
-  return dp::Color(red, green, blue, alpha);
-}
-
-+ (uint8_t)convertColorComponentToHex:(CGFloat)color {
-  ASSERT_LESS_OR_EQUAL(color, 1.f, ("Extended sRGB color space is not supported"));
-  ASSERT_GREATER_OR_EQUAL(color, 0.f, ("Extended sRGB color space is not supported"));
-  static constexpr uint8_t kMaxChannelValue = 255;
-  return color * kMaxChannelValue;
 }
 
 @end

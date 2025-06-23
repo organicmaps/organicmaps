@@ -89,6 +89,7 @@
 		CE838D282D9D834F00476DD0 /* PlacePagePhone.m in Sources */ = {isa = PBXBuildFile; fileRef = CE838D262D9D834F00476DD0 /* PlacePagePhone.m */; };
 		ED0B1FF42CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED0B1FF52CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */; };
+		ED428FCC2E098CD7009477F9 /* ColorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = ED428FCB2E098CD2009477F9 /* ColorUtils.h */; };
 		ED46DE3A2D09BE21007CACD6 /* PlacePageTrackData.mm in Sources */ = {isa = PBXBuildFile; fileRef = ED46DE382D09BE21007CACD6 /* PlacePageTrackData.mm */; };
 		ED46DE3B2D09BE21007CACD6 /* PlacePageTrackData.h in Headers */ = {isa = PBXBuildFile; fileRef = ED46DE372D09BE21007CACD6 /* PlacePageTrackData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED46DE3C2D09BE21007CACD6 /* PlacePageTrackData+Core.h in Headers */ = {isa = PBXBuildFile; fileRef = ED46DE392D09BE21007CACD6 /* PlacePageTrackData+Core.h */; };
@@ -202,6 +203,7 @@
 		CE838D262D9D834F00476DD0 /* PlacePagePhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlacePagePhone.m; sourceTree = "<group>"; };
 		ED0B1FF22CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeepLinkInAppFeatureHighlightData.h; sourceTree = "<group>"; };
 		ED0B1FF32CAAE3FF006E31A4 /* DeepLinkInAppFeatureHighlightData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DeepLinkInAppFeatureHighlightData.mm; sourceTree = "<group>"; };
+		ED428FCB2E098CD2009477F9 /* ColorUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorUtils.h; sourceTree = "<group>"; };
 		ED46DE372D09BE21007CACD6 /* PlacePageTrackData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlacePageTrackData.h; sourceTree = "<group>"; };
 		ED46DE382D09BE21007CACD6 /* PlacePageTrackData.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageTrackData.mm; sourceTree = "<group>"; };
 		ED46DE392D09BE21007CACD6 /* PlacePageTrackData+Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlacePageTrackData+Core.h"; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 		479F7048234F784B00011E2E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				ED428FCB2E098CD2009477F9 /* ColorUtils.h */,
 				AC6A585628057CC1003EABAF /* StringUtils.h */,
 				479F7049234F785B00011E2E /* MWMTypes.h */,
 				47EEAFF52350CEF6005CF316 /* MWMCommon.h */,
@@ -524,6 +527,7 @@
 				47F0D2152516847F00BC685E /* MWMBookmarksSection.h in Headers */,
 				ED46DE3B2D09BE21007CACD6 /* PlacePageTrackData.h in Headers */,
 				ED46DE3C2D09BE21007CACD6 /* PlacePageTrackData+Core.h in Headers */,
+				ED428FCC2E098CD7009477F9 /* ColorUtils.h in Headers */,
 				47CA68E82506F61300671019 /* MWMTrack.h in Headers */,
 				472602A824092C5B00731135 /* MWMGeoUtil.h in Headers */,
 				47D9019523AC22E500D9364C /* MWMMapUpdateInfo.h in Headers */,
