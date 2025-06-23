@@ -181,6 +181,19 @@ public class Utils
     }
   }
 
+  /*
+   * Check if WebBrowser intent could be opened.
+   */
+  public static boolean isBrowserAvailable(Context context)
+  {
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse("https://osm.org"));
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+    // Check that an app exists to open URL
+    return intent.resolveActivity(context.getPackageManager()) != null;
+  }
+
   public static void showFacebookPage(Activity activity)
   {
     try
