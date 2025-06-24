@@ -739,6 +739,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showPositionChooser(ChoosePositionMode mode, boolean isBusiness, boolean applyPosition)
   {
     closeFloatingToolbarsAndPanels(false);
+    if (mMapFragment != null)
+    {
+      final View mapView = mMapFragment.getView();
+      if (mapView != null)
+      {
+      int width = mapView.getWidth();
+      int height = mapView.getHeight();
+      Framework.nativeSetVisibleRect(0, 0, width, height);
+      }
+    }
     UiUtils.show(mPointChooser);
     mMapButtonsViewModel.setButtonsHidden(true);
     ChoosePositionMode.set(mode, isBusiness, applyPosition);
@@ -751,6 +761,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ChoosePositionMode mode = ChoosePositionMode.get();
     ChoosePositionMode.set(ChoosePositionMode.None, false, false);
     mMapButtonsViewModel.setButtonsHidden(false);
+    Framework.nativeDeactivatePopup();
     refreshLightStatusBar();
     if (mode == ChoosePositionMode.Api)
       finish();

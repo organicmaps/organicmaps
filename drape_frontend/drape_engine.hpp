@@ -173,7 +173,7 @@ public:
   void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
                     FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
                     bool isSelectionShapeVisible);
-  void DeselectObject();
+  void DeselectObject(bool restoreViewport);
 
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
