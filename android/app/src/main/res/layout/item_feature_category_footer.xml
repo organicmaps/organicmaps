@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:layout_gravity="center"
-  android:orientation="vertical"
   android:background="?windowBackgroundForced"
+  android:orientation="vertical"
   android:padding="@dimen/margin_base">
+
   <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,6 +15,7 @@
     android:text="@string/editor_category_unsuitable_title"
     android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
     android:textStyle="bold" />
+
   <TextView
     android:id="@+id/editor_category_unsuitable_text"
     android:layout_width="wrap_content"
@@ -23,4 +24,15 @@
     android:maxWidth="500dp"
     android:text="@string/editor_category_unsuitable_text"
     android:textAppearance="@style/MwmTextAppearance.Body3" />
+
+  <Button
+    android:id="@+id/leave_a_note_button"
+    style="@style/MwmWidget.Button.Accent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:textColor="@android:color/white"
+    android:fontFamily="@string/robotoMedium"
+    android:layout_marginTop="@dimen/margin_base"
+    android:text="@string/placepage_add_note" />
 </LinearLayout>
