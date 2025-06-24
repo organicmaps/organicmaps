@@ -1297,7 +1297,7 @@ Java_app_organicmaps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
 JNIEXPORT jobjectArray JNICALL
 Java_app_organicmaps_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass)
 {
-  vector<m2::PointD> junctionPoints;
+  vector<geometry::PointWithAltitude> junctionPoints;
   if (!frm()->GetRoutingManager().RoutingSession().GetRouteJunctionPoints(junctionPoints))
   {
     LOG(LWARNING, ("Can't get the route junction points"));
