@@ -67,7 +67,8 @@ public class Metadata implements Parcelable
     FMD_WEBSITE_MENU(46),
     FMD_SELF_SERVICE(47),
     FMD_OUTDOOR_SEATING(48),
-    FMD_NETWORK(49);
+    FMD_NETWORK(49),
+    FMD_MAX_POWER(50);
     private final int mMetaType;
 
     MetadataType(int metadataType)
@@ -76,7 +77,7 @@ public class Metadata implements Parcelable
     }
 
     @NonNull
-    public static MetadataType fromInt(@IntRange(from = 1, to = 49) int metaType)
+    public static MetadataType fromInt(@IntRange(from = 1, to = 50) int metaType)
     {
       for (MetadataType type : values())
         if (type.mMetaType == metaType)

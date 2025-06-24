@@ -155,6 +155,7 @@ public:
     FMD_SELF_SERVICE = 47,
     FMD_OUTDOOR_SEATING = 48,
     FMD_NETWORK = 49,
+    FMD_MAX_POWER = 50,
     FMD_COUNT
   };
 

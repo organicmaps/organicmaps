@@ -92,6 +92,7 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
             _outdoorSeating = NSLocalizedString(@"outdoor_seating", nil);
           break;
         case MetadataID::FMD_NETWORK: _network = [NSString stringWithFormat:NSLocalizedString(@"network", nil), ToNSString(value)]; break;
+        case MetadataID::FMD_MAX_POWER: _maxPower = [NSString stringWithFormat:NSLocalizedString(@"maximum_value", nil), ToNSString(value)]; break;
         default:
           break;
       }
