@@ -1,16 +1,26 @@
-attribute vec3 a_position;
-attribute vec2 a_colorTexCoords;
-
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
-uniform mat4 u_pivotTransform;
-uniform float u_zScale;
+layout (location = 0) in vec3 a_position;
+layout (location = 1) in vec2 a_colorTexCoords;
 
 #ifdef ENABLE_VTF
-uniform sampler2D u_colorTex;
-varying LOW_P vec4 v_color;
+layout (location = 0) out LOW_P vec4 v_color;
 #else
-varying vec2 v_colorTexCoords;
+layout (location = 1) out vec2 v_colorTexCoords;
+#endif
+
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec2 u_contrastGamma;
+  float u_opacity;
+  float u_zScale;
+  float u_interpolation;
+  float u_isOutlinePass;
+};
+
+#ifdef ENABLE_VTF
+layout (binding = 1) uniform sampler2D u_colorTex;
 #endif
 
 void main()
@@ -23,9 +33,8 @@ void main()
   gl_Position.y = -gl_Position.y;
   gl_Position.z = (gl_Position.z  + gl_Position.w) * 0.5;
 #endif
-
 #ifdef ENABLE_VTF
-  v_color = texture2D(u_colorTex, a_colorTexCoords);
+  v_color = texture(u_colorTex, a_colorTexCoords);
 #else
   v_colorTexCoords = a_colorTexCoords;
 #endif

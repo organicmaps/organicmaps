@@ -47,15 +47,3 @@ vec2 calcLineTransformedAxisPos(vec2 originalAxisPos, vec2 shiftedPos, mat4 mode
 }
 
 // FS (DO NOT modify this comment, it marks up block of fragment shader functions).
-
-// Because of a bug in OpenGL driver on Samsung Google Nexus this workaround is here.
-// It must be used in shaders which do not have any sampler2D usage.
-vec4 samsungGoogleNexusWorkaround(vec4 color)
-{
-#ifdef SAMSUNG_GOOGLE_NEXUS
-  const float kFakeColorScalar = 0.0;
-  return color + texture2D(u_colorTex, vec2(0.0, 0.0)) * kFakeColorScalar;
-#else
-  return color;
-#endif
-}

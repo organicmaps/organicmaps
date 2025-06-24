@@ -36,7 +36,7 @@ void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
                   glConst & layout, glConst & pixelType)
 {
   auto const apiVersion = context->GetApiVersion();
-  CHECK(apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3, ());
+  CHECK(apiVersion == dp::ApiVersion::OpenGLES3, ());
 
   switch (format)
   {
@@ -45,21 +45,17 @@ void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
     pixelType = gl_const::GL8BitOnChannel;
     return;
 
-  case TextureFormat::Alpha:
-    // On OpenGL ES3 GLAlpha is not supported, we use GLRed instead.
-    layout = apiVersion == dp::ApiVersion::OpenGLES2 ? gl_const::GLAlpha : gl_const::GLRed;
+  case TextureFormat::Red:
+    layout = gl_const::GLRed;
     pixelType = gl_const::GL8BitOnChannel;
     return;
 
   case TextureFormat::RedGreen:
-    // On OpenGL ES2 2-channel textures are not supported.
-    layout = (apiVersion == dp::ApiVersion::OpenGLES2) ? gl_const::GLRGBA : gl_const::GLRedGreen;
+    layout = gl_const::GLRedGreen;
     pixelType = gl_const::GL8BitOnChannel;
     return;
 
   case TextureFormat::DepthStencil:
-    // OpenGLES2 does not support texture-based depth-stencil.
-    CHECK(apiVersion != dp::ApiVersion::OpenGLES2, ());
     layout = gl_const::GLDepthStencil;
     pixelType = gl_const::GLUnsignedInt24_8Type;
     return;

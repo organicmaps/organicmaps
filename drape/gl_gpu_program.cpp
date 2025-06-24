@@ -23,26 +23,14 @@ GLGpuProgram::GLGpuProgram(std::string const & programName,
   if (!GLFunctions::glLinkProgram(m_programID, errorLog))
     LOG(LERROR, ("Program ", programName, " link error = ", errorLog));
 
-  // On Tegra3 glGetActiveUniform isn't work if you detach shaders after linking.
   LoadUniformLocations();
 
-  // On Tegra2 we cannot detach shaders at all.
-  // https://devtalk.nvidia.com/default/topic/528941/alpha-blending-not-working-on-t20-and-t30-under-ice-cream-sandwich/
-  if (!SupportManager::Instance().IsTegraDevice())
-  {
-    GLFunctions::glDetachShader(m_programID, m_vertexShader->GetID());
-    GLFunctions::glDetachShader(m_programID, m_fragmentShader->GetID());
-  }
+  GLFunctions::glDetachShader(m_programID, m_vertexShader->GetID());
+  GLFunctions::glDetachShader(m_programID, m_fragmentShader->GetID());
 }
 
 GLGpuProgram::~GLGpuProgram()
 {
-  if (SupportManager::Instance().IsTegraDevice())
-  {
-    GLFunctions::glDetachShader(m_programID, m_vertexShader->GetID());
-    GLFunctions::glDetachShader(m_programID, m_fragmentShader->GetID());
-  }
-
   GLFunctions::glDeleteProgram(m_programID);
 }
 
@@ -107,7 +95,7 @@ void GLGpuProgram::LoadUniformLocations()
     std::string name;
     GLFunctions::glGetActiveUniform(m_programID, static_cast<uint32_t>(i), &size, &info.m_type, name);
     CHECK(kSupportedTypes.find(info.m_type) != kSupportedTypes.cend(),
-          ("Used uniform has unsupported type. Program =", m_programName, "Type =", info.m_type));
+          ("Used uniform has unsupported type. Program =", m_programName, "; Type =", info.m_type, "; Name =", name));
 
     info.m_location = GLFunctions::glGetUniformLocation(m_programID, name);
     m_uniforms[name] = std::move(info);

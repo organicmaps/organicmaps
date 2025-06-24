@@ -81,7 +81,7 @@ public:
   FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size, glyphMng)
   {
-    DynamicTextureParams const params{size, TextureFormat::Alpha, TextureFilter::Linear, true /* m_usePixelBuffer */};
+    DynamicTextureParams const params{size, TextureFormat::Red, TextureFilter::Linear, true /* m_usePixelBuffer */};
     Init(allocator, make_ref(&m_index), params);
   }
 

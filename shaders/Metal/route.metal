@@ -12,13 +12,13 @@ typedef struct
   float4 u_color;
   float4 u_maskColor;
   float4 u_outlineColor;
+  float4 u_fakeColor;
+  float4 u_fakeOutlineColor;
+  packed_float2 u_fakeBorders;
   packed_float2 u_pattern;
   packed_float2 u_angleCosSin;
   float u_arrowHalfWidth;
   float u_opacity;
-  packed_float2 u_fakeBorders;
-  float4 u_fakeColor;
-  float4 u_fakeOutlineColor;
 } Uniforms_T;
 
 // Route/RouteDash

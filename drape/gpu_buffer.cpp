@@ -87,26 +87,17 @@ void * GPUBuffer::Map(uint32_t elementOffset, uint32_t elementCount)
   m_isMapped = true;
 #endif
 
-  if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES2)
+  if (!IsMapBufferSupported())
   {
     m_mappingOffset = elementOffset;
-    return IsMapBufferSupported() ? GLFunctions::glMapBuffer(glTarget(m_t)) : nullptr;
+    return nullptr;
   }
-  else if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3)
-  {
-    if (!IsMapBufferSupported())
-    {
-      m_mappingOffset = elementOffset;
-      return nullptr;
-    }
-    m_mappingOffset = 0;
-    uint32_t const elementSize = GetElementSize();
-    uint32_t const byteOffset = elementOffset * elementSize;
-    uint32_t const byteCount = elementCount * elementSize;
-    return GLFunctions::glMapBufferRange(glTarget(m_t), byteOffset, byteCount,
-                                         gl_const::GLWriteBufferBit);
-  }
-  return nullptr;
+  m_mappingOffset = 0;
+  uint32_t const elementSize = GetElementSize();
+  uint32_t const byteOffset = elementOffset * elementSize;
+  uint32_t const byteCount = elementCount * elementSize;
+  return GLFunctions::glMapBufferRange(glTarget(m_t), byteOffset, byteCount,
+                                        gl_const::GLWriteBufferBit);
 }
 
 void GPUBuffer::UpdateData(void * gpuPtr, void const * data, uint32_t elementOffset,
