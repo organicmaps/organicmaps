@@ -1,5 +1,6 @@
 package app.organicmaps.sync;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
@@ -20,7 +21,6 @@ public class SyncPrefs
   private static final String TAG = SyncPrefs.class.getSimpleName();
 
   private static final String PREF_NAME_ACCOUNTS = "SyncAccounts";
-  private static final String PREF_NAME_STATE = "SyncState";
 
   private static final String PREF_KEY_ACCOUNTS = "ac";
   private static final String PREF_KEY_GOOGLE_OAUTH_PARAMS = "googleOAuthUri";
@@ -31,18 +31,15 @@ public class SyncPrefs
   private static SyncPrefs instance;
   @NonNull
   private final SharedPreferences prefsAccounts;
-  @NonNull
-  private final SharedPreferences prefsState;
 
   private final CopyOnWriteArrayList<SyncAccount> mAccounts;
   private final Set<LastSyncCallback> mLastSyncCallbacks = new HashSet<>();
   private final Set<AccountsChangedCallback> mAccountsChangedCallbacks = new HashSet<>();
+  private final Set<AccountToggledCallback> mAccountToggledCallbacks = new HashSet<>();
 
-  private SyncPrefs(Context context)
+  private SyncPrefs(Application context)
   {
     prefsAccounts = context.getSharedPreferences(PREF_NAME_ACCOUNTS, Context.MODE_PRIVATE);
-    prefsState = context.getSharedPreferences(PREF_NAME_STATE, Context.MODE_PRIVATE);
-
     Set<String> storedAccounts = prefsAccounts.getStringSet(PREF_KEY_ACCOUNTS, Collections.emptySet());
     mAccounts = new CopyOnWriteArrayList<>(storedAccounts.stream()
                                                .map(accountStr -> {
@@ -63,7 +60,7 @@ public class SyncPrefs
   public static SyncPrefs getInstance(Context context)
   {
     if (instance == null)
-      instance = new SyncPrefs(context.getApplicationContext());
+      instance = new SyncPrefs((Application) context.getApplicationContext());
     return instance;
   }
 
@@ -79,19 +76,38 @@ public class SyncPrefs
 
   public boolean isEnabled(long accountId)
   {
-    return prefsAccounts.getBoolean(getPrefKeyEnabled(accountId), true); // sync is enabled on an account by default
+    return prefsAccounts.getBoolean(getPrefKeyEnabled(accountId), false);
   }
 
-  public void setEnabled(long accountId, boolean enabled)
+  public void setEnabled(SyncAccount account, boolean enabled)
   {
     prefsAccounts.edit()
-        .putBoolean(getPrefKeyEnabled(accountId), enabled)
+        .putBoolean(getPrefKeyEnabled(account.getAccountId()), enabled)
         .apply(); // TODO add auth expiry checks if needed
+    for (AccountToggledCallback callback : mAccountToggledCallbacks)
+    {
+      try
+      {
+        if (enabled)
+          callback.onAccountEnabled(account);
+        else
+          callback.onAccountDisabled(account);
+      }
+      catch (Exception ignored)
+      {}
+    }
   }
 
   public List<SyncAccount> getAccounts()
   {
     return Collections.unmodifiableList(mAccounts);
+  }
+
+  public List<SyncAccount> getEnabledAccounts()
+  {
+    return mAccounts.stream()
+        .filter(account -> isEnabled(account.getAccountId()))
+        .collect(Collectors.toUnmodifiableList());
   }
 
   /**
@@ -130,11 +146,13 @@ public class SyncPrefs
           return AddAccountResult.AlreadyExists; // TODO consider updating tokens to reset session expiry
       }
 
-      SyncAccount newAccount = new SyncAccount(generateNextAccountId(), backendType.getId(), authState);
+      long accountId = generateNextAccountId();
+      SyncAccount newAccount = new SyncAccount(accountId, backendType.getId(), authState);
       mAccounts.add(newAccount);
       Set<String> prefsSet = new HashSet<>(prefsAccounts.getStringSet(PREF_KEY_ACCOUNTS, Collections.emptySet()));
       prefsSet.add(newAccount.toJson().toString());
       prefsAccounts.edit().putStringSet(PREF_KEY_ACCOUNTS, prefsSet).apply();
+      setEnabled(newAccount, false); // Newly added accounts are disabled by default.
       for (AccountsChangedCallback callback : mAccountsChangedCallbacks)
       {
         try
@@ -180,6 +198,11 @@ public class SyncPrefs
     mAccountsChangedCallbacks.remove(callback);
   }
 
+  public void registerAccountToggledCallback(AccountToggledCallback callback)
+  {
+    mAccountToggledCallbacks.add(callback);
+  }
+
   public void setGoogleOauthParams(String params)
   {
     prefsAccounts.edit().putString(PREF_KEY_GOOGLE_OAUTH_PARAMS, params).apply();
@@ -198,6 +221,13 @@ public class SyncPrefs
   public interface AccountsChangedCallback
   {
     void onAccountsChanged(List<SyncAccount> newAccounts);
+  }
+
+  public interface AccountToggledCallback
+  {
+    void onAccountEnabled(SyncAccount account);
+
+    void onAccountDisabled(SyncAccount account);
   }
 
   public enum AddAccountResult

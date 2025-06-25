@@ -148,11 +148,11 @@ public class SyncSettingsFragment
   }
 
   @Override
-  public void onSwitchToggled(long accountId, boolean isChecked)
+  public void onSwitchToggled(SyncAccount account, boolean isChecked)
   {
     SyncPrefs prefs = SyncPrefs.getInstance(getContext());
-    prefs.setEnabled(accountId, isChecked);
-    mAdapter.updateSyncStatusText(accountId, isChecked, prefs.getLastSynced(accountId));
+    prefs.setEnabled(account, isChecked);
+    mAdapter.updateSyncStatusText(account.getAccountId(), isChecked, prefs.getLastSynced(account.getAccountId()));
   }
 
   @Override
