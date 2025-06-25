@@ -1,15 +1,12 @@
 package app.organicmaps.sync;
 
 import androidx.annotation.NonNull;
-import app.organicmaps.sdk.util.log.Logger;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SyncAccount
 {
-  private static final String TAG = SyncAccount.class.getSimpleName();
   private static final String KEY_ACCOUNT_ID = "id";
   private static final String KEY_BACKEND_ID = "back";
   private static final String KEY_AUTH_STATE = "auth";
@@ -41,23 +38,23 @@ public class SyncAccount
     return mAuthState;
   }
 
-  public static SyncAccount fromJson(JSONObject json) throws JSONException, IllegalArgumentException
+  public SyncClient createSyncClient()
+  {
+    return switch (Objects.requireNonNull(BackendType.idToBackendType.get(mBackendTypeId)))
+    {
+      case Nextcloud -> new NextcloudSyncClient((NextcloudAuth) mAuthState);
+      case GoogleDrive -> throw new RuntimeException("TODO implement");
+    };
+  }
+
+  public static SyncAccount fromJson(JSONObject json) throws JSONException
   {
     int backendType = json.getInt(KEY_BACKEND_ID);
-    AuthState authState;
-    try
+    AuthState authState = switch (Objects.requireNonNull(BackendType.idToBackendType.get(backendType)))
     {
-      authState = Objects.requireNonNull(BackendType.idToBackendType.get(backendType))
-                      .getAuthStateClass()
-                      .getConstructor(JSONObject.class)
-                      .newInstance(json.getJSONObject(KEY_AUTH_STATE));
-    }
-    catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException
-           | NullPointerException e)
-    {
-      Logger.e(TAG, "Error creating SyncAccount object", e);
-      throw new IllegalArgumentException(e);
-    }
+      case Nextcloud -> new NextcloudAuth(json.getJSONObject(KEY_AUTH_STATE));
+      case GoogleDrive -> new GoogleDriveAuth(json.getJSONObject(KEY_AUTH_STATE));
+    };
     return new SyncAccount(json.getLong(KEY_ACCOUNT_ID), backendType, authState);
   }
 

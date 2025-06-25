@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sync.SyncAccount;
 import app.organicmaps.sync.SyncPrefs;
+import java.util.Date;
 import java.util.List;
 
 public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.AccountViewHolder>
@@ -71,7 +72,7 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
     holder.accountEnabledSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (mListener != null)
       {
-        mListener.onSwitchToggled(mAccountList.get(holder.getBindingAdapterPosition()).getAccountId(), isChecked);
+        mListener.onSwitchToggled(mAccountList.get(holder.getBindingAdapterPosition()), isChecked);
       }
     });
 
@@ -113,7 +114,7 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
 
   public interface OnAccountInteractionListener
   {
-    void onSwitchToggled(long accountId, boolean isChecked);
+    void onSwitchToggled(SyncAccount account, boolean isChecked);
 
     void onAccountClicked(long accountId);
   }
@@ -142,14 +143,27 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
     public void setSyncStatus(boolean syncEnabled, @Nullable Long lastSynced)
     {
       if (syncEnabled)
-        syncStatusText.setText(syncStatusText.getContext().getString(
-            R.string.last_synced_relative_time,
-            lastSynced == null
-                ? syncStatusText.getContext().getString(R.string.power_managment_setting_never)
-                : DateUtils
-                      .getRelativeTimeSpanString(lastSynced, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS,
-                                                 DateUtils.FORMAT_ABBREV_RELATIVE)
-                      .toString()));
+      {
+        String lastSyncedStr;
+        if (lastSynced == null)
+          lastSyncedStr = syncStatusText.getContext().getString(R.string.power_managment_setting_never);
+        else
+        {
+          // To avoid having to periodically refresh the relative time in case of recent sync,
+          //   show relative time only if last sync occurred more than an hour ago,
+          //   else show the absolute time
+          long currentTime = System.currentTimeMillis();
+          if (currentTime - lastSynced >= DateUtils.HOUR_IN_MILLIS)
+            lastSyncedStr = DateUtils
+                                .getRelativeTimeSpanString(lastSynced, currentTime, DateUtils.MINUTE_IN_MILLIS,
+                                                           DateUtils.FORMAT_ABBREV_RELATIVE)
+                                .toString();
+          else
+            lastSyncedStr = app.organicmaps.sdk.util.DateUtils.getMediumTimeFormatter().format(new Date(lastSynced));
+        }
+        syncStatusText.setText(
+            syncStatusText.getContext().getString(R.string.last_synced_relative_time, lastSyncedStr));
+      }
       else
         syncStatusText.setText(R.string.sync_disabled);
     }
