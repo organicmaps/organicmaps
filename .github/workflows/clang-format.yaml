@@ -1,0 +1,43 @@
+name: clang-format
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'android/app/src/**.java'
+      - '.clang-format'
+      - '.github/workflows/clang-format.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'android/app/src/**.java'
+      - '.clang-format'
+      - '.github/workflows/clang-format.yml'
+
+jobs:
+  check-formatting:
+    runs-on: ubuntu-latest
+    continue-on-error: true  # TODO(AB): Remove this line when ready to enforce formatting.
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install clang-format
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format-19
+          clang-format-19 --version
+
+      - name: Check Java formatting
+        run: |
+          JAVA_FILES=($(find android/app/src -name '*.java'))
+
+          FORMATTING_ISSUES=$(clang-format-19 --dry-run --Werror $JAVA_FILES 2>&1 || true)
+
+          if [ -n "$FORMATTING_ISSUES" ]; then
+            echo "$FORMATTING_ISSUES"
+            echo ""
+            echo "To fix formatting, please run:"
+            echo "  clang-format -i <file>"
+            exit 1
+          fi
