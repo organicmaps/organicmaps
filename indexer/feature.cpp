@@ -187,11 +187,9 @@ uint8_t ReadByte(TSource & src)
 }
 }  // namespace
 
-FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer,
-                         indexer::MetadataDeserializer * metadataDeserializer)
+FeatureType::FeatureType(SharedLoadInfo const * loadInfo, vector<uint8_t> && buffer)
   : m_loadInfo(loadInfo)
   , m_data(std::move(buffer))
-  , m_metadataDeserializer(metadataDeserializer)
 {
   CHECK(m_loadInfo, ());
 
@@ -610,10 +608,10 @@ void FeatureType::ParseMetadata()
   if (m_parsed.m_metadata)
     return;
 
-  CHECK(m_metadataDeserializer, ());
+  CHECK(m_loadInfo->m_metaDeserializer, ());
   try
   {
-    UNUSED_VALUE(m_metadataDeserializer->Get(m_id.m_index, m_metadata));
+    UNUSED_VALUE(m_loadInfo->m_metaDeserializer->Get(m_id.m_index, m_metadata));
   }
   catch (Reader::OpenException const &)
   {
@@ -628,10 +626,10 @@ void FeatureType::ParseMetaIds()
   if (m_parsed.m_metaIds)
     return;
 
-  CHECK(m_metadataDeserializer, ());
+  CHECK(m_loadInfo->m_metaDeserializer, ());
   try
   {
-    UNUSED_VALUE(m_metadataDeserializer->GetIds(m_id.m_index, m_metaIds));
+    UNUSED_VALUE(m_loadInfo->m_metaDeserializer->GetIds(m_id.m_index, m_metaIds));
   }
   catch (Reader::OpenException const &)
   {
@@ -849,7 +847,7 @@ std::string_view FeatureType::GetMetadata(feature::Metadata::EType type)
   {
     auto const it = base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; });
     if (it != m_metaIds.end())
-      meta = m_metadata.Set(type, m_metadataDeserializer->GetMetaById(it->second));
+      meta = m_metadata.Set(type, m_loadInfo->m_metaDeserializer->GetMetaById(it->second));
   }
   return meta;
 }
