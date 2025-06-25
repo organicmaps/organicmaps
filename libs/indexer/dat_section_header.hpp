@@ -22,9 +22,9 @@ public:
     WriteToSink(sink, m_featuresSize);
   }
 
-  void Read(Reader & reader)
+  template <typename Source>
+  void Read(Source & source)
   {
-    NonOwningReaderSource source(reader);
     m_version = static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(source));
     CHECK_EQUAL(static_cast<uint8_t>(m_version), static_cast<uint8_t>(Version::V0), ());
     m_featuresOffset = ReadPrimitiveFromSource<uint32_t>(source);

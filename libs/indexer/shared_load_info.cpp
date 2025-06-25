@@ -6,7 +6,11 @@
 
 namespace feature
 {
-SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header) : m_cont(cont), m_header(header)
+SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header,
+                               indexer::MetadataDeserializer * metaDeserializer)
+  : m_cont(cont)
+  , m_header(header)
+  , m_metaDeserializer(metaDeserializer)
 {}
 
 SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const

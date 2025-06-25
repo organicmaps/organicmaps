@@ -1,9 +1,8 @@
 #include "indexer/mwm_set.hpp"
 
 #include "indexer/features_offsets_table.hpp"
+#include "indexer/metadata_serdes.hpp"  // needed for MwmValue dtor
 #include "indexer/scales.hpp"
-
-#include "coding/reader.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 
@@ -390,6 +389,8 @@ MwmValue::MwmValue(LocalCountryFile const & localFile)
 
   m_header.Load(m_cont);
 }
+
+MwmValue::~MwmValue() {}
 
 void MwmValue::SetTable(MwmInfoEx & info)
 {

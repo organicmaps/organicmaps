@@ -7,6 +7,11 @@
 
 #include "base/macros.hpp"
 
+namespace indexer
+{
+class MetadataDeserializer;
+}
+
 namespace feature
 {
 // This info is created once per FeaturesVector.
@@ -15,7 +20,8 @@ class SharedLoadInfo
 public:
   using Reader = FilesContainerR::TReader;
 
-  SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header);
+  SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header,
+                 indexer::MetadataDeserializer * metaDeserializer);
 
   Reader GetDataReader() const;
   Reader GetGeometryReader(size_t ind) const;
@@ -38,6 +44,9 @@ public:
 private:
   FilesContainerR const & m_cont;
   DataHeader const & m_header;
+
+public:
+  indexer::MetadataDeserializer * m_metaDeserializer;
 
   DISALLOW_COPY_AND_MOVE(SharedLoadInfo);
 };
