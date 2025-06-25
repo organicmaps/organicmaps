@@ -15,7 +15,7 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "base/buffer_vector.hpp"
+#include "base/string_utils.hpp"
 
 #include <set>
 #include <string>

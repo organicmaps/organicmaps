@@ -6,6 +6,8 @@
 #include "platform/local_country_file.hpp"
 #include "platform/mwm_version.hpp"
 
+#include "coding/files_container.hpp"
+
 #include "geometry/rect2d.hpp"
 
 #include "base/macros.hpp"
@@ -25,6 +27,10 @@
 namespace feature
 {
 class FeaturesOffsetsTable;
+}
+namespace indexer
+{
+class MetadataDeserializer;
 }
 
 /// Information about stored mwm.
@@ -387,6 +393,8 @@ public:
 
 public:
   explicit MwmValue(platform::LocalCountryFile const & localFile);
+  ~MwmValue();
+
   void SetTable(MwmInfoEx & info);
 
   feature::DataHeader const & GetHeader() const { return m_header; }
