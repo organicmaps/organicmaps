@@ -1,48 +1,59 @@
 # Configuration file for clang-format, based on docs/CPP_STYLE.md.
-
----
 BasedOnStyle: Google
 
 AccessModifierOffset: -2
+AlignAfterOpenBracket: Align
+AlignArrayOfStructures: Right
+AlignConsecutiveMacros: AcrossEmptyLinesAndComments
+AlignEscapedNewlines: LeftWithLastLine
 AlignOperands: AlignAfterOperator
 AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: true
 BraceWrapping:
   AfterCaseLabel: true
   AfterClass: true
   AfterControlStatement: Always
   AfterEnum: true
+  AfterExternBlock: true
   AfterFunction: true
   AfterNamespace: true
   AfterObjCDeclaration: true
   AfterStruct: true
   AfterUnion: true
-  AfterExternBlock: true
   BeforeCatch: true
   BeforeElse: true
   BeforeLambdaBody: true
   BeforeWhile: true
-  IndentBraces: false
   SplitEmptyFunction: false
-  SplitEmptyRecord: false
   SplitEmptyNamespace: false
+  SplitEmptyRecord: false
+BinPackArguments: true
+BinPackParameters: true
+BreakAfterJavaFieldAnnotations: true
 BreakBeforeBraces: Custom
 BreakConstructorInitializers: BeforeComma
 BreakInheritanceList: BeforeComma
 ColumnLimit: 120
 ConstructorInitializerIndentWidth: 2
-ContinuationIndentWidth: 2
+ContinuationIndentWidth: 4
 DerivePointerAlignment: false
 IncludeBlocks: Preserve
-IndentCaseLabels: false
+IndentAccessModifiers: false
 IndentExternBlock: NoIndent
+InsertBraces: false
 InsertNewlineAtEOF: true
-PackConstructorInitializers: Never
+LambdaBodyIndentation: OuterScope
+PackConstructorInitializers: CurrentLine
 PointerAlignment: Middle
+RemoveBracesLLVM: true
 QualifierAlignment: Right
 SpacesInContainerLiterals: false
 Standard: Latest
 TabWidth: 2
-UseTab: Never
+
+---
+Language: Java
+AllowShortFunctionsOnASingleLine: Empty
