@@ -112,8 +112,6 @@
 		675341021A3F540F00A0A8C3 /* classificator_loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340AD1A3F540F00A0A8C3 /* classificator_loader.hpp */; };
 		675341031A3F540F00A0A8C3 /* classificator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340AE1A3F540F00A0A8C3 /* classificator.cpp */; };
 		675341041A3F540F00A0A8C3 /* classificator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340AF1A3F540F00A0A8C3 /* classificator.hpp */; };
-		675341071A3F540F00A0A8C3 /* data_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340B21A3F540F00A0A8C3 /* data_factory.cpp */; };
-		675341081A3F540F00A0A8C3 /* data_factory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340B31A3F540F00A0A8C3 /* data_factory.hpp */; };
 		675341091A3F540F00A0A8C3 /* data_header.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340B41A3F540F00A0A8C3 /* data_header.cpp */; };
 		6753410A1A3F540F00A0A8C3 /* data_header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340B51A3F540F00A0A8C3 /* data_header.hpp */; };
 		6753410B1A3F540F00A0A8C3 /* drawing_rule_def.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340B61A3F540F00A0A8C3 /* drawing_rule_def.cpp */; };
@@ -345,8 +343,6 @@
 		675340AD1A3F540F00A0A8C3 /* classificator_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = classificator_loader.hpp; sourceTree = "<group>"; };
 		675340AE1A3F540F00A0A8C3 /* classificator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = classificator.cpp; sourceTree = "<group>"; };
 		675340AF1A3F540F00A0A8C3 /* classificator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = classificator.hpp; sourceTree = "<group>"; };
-		675340B21A3F540F00A0A8C3 /* data_factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = data_factory.cpp; sourceTree = "<group>"; };
-		675340B31A3F540F00A0A8C3 /* data_factory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data_factory.hpp; sourceTree = "<group>"; };
 		675340B41A3F540F00A0A8C3 /* data_header.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = data_header.cpp; sourceTree = "<group>"; };
 		675340B51A3F540F00A0A8C3 /* data_header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data_header.hpp; sourceTree = "<group>"; };
 		675340B61A3F540F00A0A8C3 /* drawing_rule_def.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drawing_rule_def.cpp; sourceTree = "<group>"; };
@@ -627,8 +623,6 @@
 				AC7C68A82A5040AC004BB71C /* custom_keyvalue.cpp */,
 				AC7C68A72A5040AC004BB71C /* custom_keyvalue.hpp */,
 				40D62CEE23F2E8BE009A20F5 /* dat_section_header.hpp */,
-				675340B21A3F540F00A0A8C3 /* data_factory.cpp */,
-				675340B31A3F540F00A0A8C3 /* data_factory.hpp */,
 				675340B41A3F540F00A0A8C3 /* data_header.cpp */,
 				675340B51A3F540F00A0A8C3 /* data_header.hpp */,
 				3D928F651D50F9FE001670E0 /* data_source_helpers.cpp */,
@@ -832,7 +826,6 @@
 				34583BCC1C88552100F94664 /* map_object.hpp in Headers */,
 				456E1B1B1F90E5B7009C32E1 /* city_boundary.hpp in Headers */,
 				34664CF41D49FEC1003D7096 /* altitude_loader.hpp in Headers */,
-				675341081A3F540F00A0A8C3 /* data_factory.hpp in Headers */,
 				6753410A1A3F540F00A0A8C3 /* data_header.hpp in Headers */,
 				BBB7061023E46E0100A7F29A /* isolines_info.hpp in Headers */,
 				6753411B1A3F540F00A0A8C3 /* feature_impl.hpp in Headers */,
@@ -1021,7 +1014,6 @@
 				6753411C1A3F540F00A0A8C3 /* shared_load_info.cpp in Sources */,
 				67BC92F41D21476500A4A378 /* string_slice.cpp in Sources */,
 				BBB7060F23E46E0100A7F29A /* isolines_info.cpp in Sources */,
-				675341071A3F540F00A0A8C3 /* data_factory.cpp in Sources */,
 				408FE47724FEB95600F5D06D /* metadata_serdes.cpp in Sources */,
 				34583BCB1C88552100F94664 /* map_object.cpp in Sources */,
 				675B562320D25C9800A521D2 /* feature_source.cpp in Sources */,
