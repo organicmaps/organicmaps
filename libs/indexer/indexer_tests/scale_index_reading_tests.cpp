@@ -5,7 +5,6 @@
 #include "generator/generator_tests_support/test_with_custom_mwms.hpp"
 
 #include "indexer/cell_id.hpp"
-#include "indexer/data_factory.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
@@ -26,9 +25,7 @@
 #include "defines.hpp"
 
 #include <algorithm>
-#include <cstdint>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace scale_index_reading_tests
@@ -95,15 +92,12 @@ UNIT_CLASS_TEST(ScaleIndexReadingTest, Mmap)
   FilesContainerR cont(path);
   feature::DataHeader header(cont);
 
-  IndexFactory factory;
-  factory.Load(cont);
-
   auto const offsetSize = cont.GetAbsoluteOffsetAndSize(INDEX_FILE_TAG);
 
   MmapReader reader(path);
   ReaderPtr<Reader> subReader(reader.CreateSubReader(offsetSize.first, offsetSize.second));
 
-  ScaleIndex<ReaderPtr<Reader>> index(subReader, factory);
+  ScaleIndex<ReaderPtr<Reader>> index(subReader);
 
   auto collectNames = [&](m2::RectD const & rect)
   { return CollectNames(id, index, header.GetLastScale(), header.GetLastScale(), rect); };
