@@ -2,7 +2,6 @@ package app.organicmaps.sdk.util;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.util.Utils;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.security.KeyStore;

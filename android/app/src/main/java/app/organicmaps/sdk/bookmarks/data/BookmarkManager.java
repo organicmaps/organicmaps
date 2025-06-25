@@ -11,7 +11,6 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
-import app.organicmaps.bookmarks.DataChangedListener;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.KeyValue;
 import app.organicmaps.sdk.util.StorageUtils;

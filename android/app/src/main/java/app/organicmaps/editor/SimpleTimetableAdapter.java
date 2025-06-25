@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.editor.OpeningHours;
 import app.organicmaps.sdk.editor.data.HoursMinutes;
-import app.organicmaps.sdk.editor.data.TimeFormatUtils;
+import app.organicmaps.editor.data.TimeFormatUtils;
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.sdk.util.UiUtils;

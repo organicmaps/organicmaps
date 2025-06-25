@@ -28,7 +28,7 @@ import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.editor.OpeningHours;
 import app.organicmaps.sdk.editor.data.LocalizedName;
 import app.organicmaps.sdk.editor.data.LocalizedStreet;
-import app.organicmaps.sdk.editor.data.TimeFormatUtils;
+import app.organicmaps.editor.data.TimeFormatUtils;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;

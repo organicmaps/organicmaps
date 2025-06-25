@@ -8,7 +8,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-import app.organicmaps.MwmApplication;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -31,7 +30,7 @@ public final class BatteryState
     IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
     // Because it's a sticky intent, you don't need to register a BroadcastReceiver
     // by simply calling registerReceiver passing in null
-    Intent batteryStatus = MwmApplication.from(context).registerReceiver(null, filter);
+    Intent batteryStatus = context.getApplicationContext().registerReceiver(null, filter);
     if (batteryStatus == null)
       return new State(0, CHARGING_STATUS_UNKNOWN);
 

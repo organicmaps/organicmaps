@@ -82,8 +82,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
 
     Config.init(mContext);
 
-    mLocationHelper = new LocationHelper(mContext);
     mSensorHelper = new SensorHelper(mContext);
+    mLocationHelper = new LocationHelper(mContext, mSensorHelper);
     mIsolinesManager = new IsolinesManager(mContext);
     mSubwayManager = new SubwayManager(mContext);
   }

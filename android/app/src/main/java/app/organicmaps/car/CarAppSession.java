@@ -112,7 +112,7 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
   {
     Logger.d(TAG);
     mSensorsManager = new CarSensorsManager(getCarContext());
-    mDisplayManager = DisplayManager.from(getCarContext());
+    mDisplayManager = MwmApplication.from(getCarContext()).getDisplayManager();
     mDisplayManager.addListener(DisplayType.Car, this);
     init();
   }

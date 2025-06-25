@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.downloader;
 
 import android.app.Activity;
-import android.app.Application;
 import android.text.TextUtils;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -9,10 +8,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.util.Consumer;
 import app.organicmaps.R;
 import app.organicmaps.downloader.DownloaderService;
 import app.organicmaps.sdk.util.ConnectionState;
-import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -22,7 +21,6 @@ public final class MapManager
 {
   // Used by JNI.
   @Keep
-  @SuppressWarnings("unused")
   public static class StorageCallbackData
   {
     public final String countryId;
@@ -43,12 +41,10 @@ public final class MapManager
   {
     // Called from JNI.
     @Keep
-    @SuppressWarnings("unused")
     void onStatusChanged(List<StorageCallbackData> data);
 
     // Called from JNI.
     @Keep
-    @SuppressWarnings("unused")
     void onProgress(String countryId, long localSize, long remoteSize);
   }
 
@@ -76,7 +72,7 @@ public final class MapManager
   }
 
   public static void showError(final Activity activity, final StorageCallbackData errorData,
-                               @Nullable final Utils.Proc<Boolean> dialogClickListener)
+                               @Nullable final Consumer<Boolean> dialogClickListener)
   {
     if (!nativeIsAutoretryFailed())
       return;
@@ -85,7 +81,7 @@ public final class MapManager
   }
 
   public static void showErrorDialog(final Activity activity, final StorageCallbackData errorData,
-                                     @Nullable final Utils.Proc<Boolean> dialogClickListener)
+                                     @Nullable final Consumer<Boolean> dialogClickListener)
   {
     if (sCurrentErrorDialog != null)
     {
@@ -101,11 +97,10 @@ public final class MapManager
                                                    (dialog, which) -> {
                                                      sCurrentErrorDialog = null;
                                                      if (dialogClickListener != null)
-                                                       dialogClickListener.invoke(false);
+                                                       dialogClickListener.accept(false);
                                                    })
                                 .setPositiveButton(R.string.downloader_retry,
                                                    (dialog, which) -> {
-                                                     Application app = activity.getApplication();
                                                      ExpandRetryConfirmationListener listener =
                                                          new ExpandRetryConfirmationListener(dialogClickListener);
                                                      warn3gAndRetry(activity, errorData.countryId, listener);

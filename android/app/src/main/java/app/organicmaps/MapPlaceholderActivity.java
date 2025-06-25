@@ -22,7 +22,7 @@ public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements D
     super.onSafeCreate(savedInstanceState);
     setContentView(R.layout.activity_map_placeholder);
 
-    mDisplayManager = DisplayManager.from(this);
+    mDisplayManager = MwmApplication.from(this).getDisplayManager();
     mDisplayManager.addListener(DisplayType.Device, this);
 
     findViewById(R.id.btn_continue).setOnClickListener((unused) -> mDisplayManager.changeDisplay(DisplayType.Device));

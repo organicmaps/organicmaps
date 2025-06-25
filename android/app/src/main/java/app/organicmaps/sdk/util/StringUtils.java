@@ -5,7 +5,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
 import androidx.annotation.NonNull;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -74,11 +73,11 @@ public class StringUtils
       if (value == 0)
         value = 1;
 
-      return formatUsingUsLocale("%1$d %2$s", value, MwmApplication.from(context).getString(R.string.mb));
+      return formatUsingUsLocale("%1$d %2$s", value, context.getString(R.string.mb));
     }
 
     float value = ((float) size / Constants.GB);
-    return formatUsingSystemLocale("%1$.1f %2$s", value, MwmApplication.from(context).getString(R.string.gb));
+    return formatUsingSystemLocale("%1$.1f %2$s", value, context.getString(R.string.gb));
   }
 
   public static boolean isRtl()

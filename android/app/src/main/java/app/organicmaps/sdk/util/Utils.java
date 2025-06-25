@@ -2,6 +2,10 @@ package app.organicmaps.sdk.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Build;
 import android.text.TextUtils;
@@ -14,9 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.sdk.util.log.Logger;
+import java.io.Closeable;
+import java.io.IOException;
 import java.text.DecimalFormatSymbols;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Map;
 
 @Keep
 public class Utils
@@ -262,8 +269,75 @@ public class Utils
         return brand;
       return context.getString(nameId);
     }
-    catch (Resources.NotFoundException e)
+    catch (Resources.NotFoundException ignored)
     {}
     return brand;
+  }
+
+  public static void closeSafely(@NonNull Closeable... closeable)
+  {
+    for (Closeable each : closeable)
+    {
+      if (each != null)
+      {
+        try
+        {
+          each.close();
+        }
+        catch (IOException e)
+        {
+          Logger.e(TAG, "Failed to close '" + each + "'", e);
+        }
+      }
+    }
+  }
+
+  public static <K, V> String mapPrettyPrint(Map<K, V> map)
+  {
+    if (map == null)
+      return "[null]";
+    if (map.isEmpty())
+      return "[]";
+
+    String joined = "";
+    for (final K key : map.keySet())
+    {
+      final String keyVal = key + "=" + map.get(key);
+      if (!joined.isEmpty())
+        joined = TextUtils.join(",", new Object[] {joined, keyVal});
+      else
+        joined = keyVal;
+    }
+
+    return "[" + joined + "]";
+  }
+
+  @SuppressWarnings("deprecated")
+  private static @Nullable ResolveInfo resolveActivity(@NonNull PackageManager pm, @NonNull Intent intent, int flags)
+  {
+    return pm.resolveActivity(intent, flags);
+  }
+
+  public static boolean isIntentSupported(@NonNull Context context, @NonNull Intent intent)
+  {
+    final PackageManager pm = context.getPackageManager();
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+      return resolveActivity(pm, intent, 0) != null;
+    return pm.resolveActivity(intent, PackageManager.ResolveInfoFlags.of(0)) != null;
+  }
+
+  @SuppressWarnings("deprecation")
+  private static ApplicationInfo getApplicationInfoOld(@NonNull PackageManager manager, @NonNull String packageName,
+                                                       int flags) throws PackageManager.NameNotFoundException
+  {
+    return manager.getApplicationInfo(packageName, flags);
+  }
+
+  public static ApplicationInfo getApplicationInfo(@NonNull PackageManager manager, @NonNull String packageName,
+                                                   int flags) throws PackageManager.NameNotFoundException
+  {
+    if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+      return getApplicationInfoOld(manager, packageName, flags);
+    return manager.getApplicationInfo(packageName, PackageManager.ApplicationInfoFlags.of(flags));
   }
 }

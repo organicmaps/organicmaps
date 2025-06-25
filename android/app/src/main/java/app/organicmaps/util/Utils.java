@@ -1,5 +1,7 @@
 package app.organicmaps.util;
 
+import static app.organicmaps.sdk.util.Utils.isIntentSupported;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -8,7 +10,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,10 +46,7 @@ import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
 import com.google.android.material.snackbar.Snackbar;
-import java.io.Closeable;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.Map;
 
 @Keep
 public class Utils
@@ -130,20 +128,6 @@ public class Utils
       showSnackbarAbove(view, viewAbove, message);
   }
 
-  @SuppressWarnings("deprecated")
-  private static @Nullable ResolveInfo resolveActivity(@NonNull PackageManager pm, @NonNull Intent intent, int flags)
-  {
-    return pm.resolveActivity(intent, flags);
-  }
-
-  public static boolean isIntentSupported(@NonNull Context context, @NonNull Intent intent)
-  {
-    final PackageManager pm = context.getPackageManager();
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
-      return resolveActivity(pm, intent, 0) != null;
-    return pm.resolveActivity(intent, PackageManager.ResolveInfoFlags.of(0)) != null;
-  }
-
   public static @Nullable Intent makeSystemLocationSettingIntent(@NonNull Context context)
   {
     Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -173,27 +157,6 @@ public class Utils
     final ClipData clip = ClipData.newPlainText("Organic Maps: " + text, text);
     clipboard.setPrimaryClip(clip);
   }
-
-  public static <K, V> String mapPrettyPrint(Map<K, V> map)
-  {
-    if (map == null)
-      return "[null]";
-    if (map.isEmpty())
-      return "[]";
-
-    String joined = "";
-    for (final K key : map.keySet())
-    {
-      final String keyVal = key + "=" + map.get(key);
-      if (!joined.isEmpty())
-        joined = TextUtils.join(",", new Object[] {joined, keyVal});
-      else
-        joined = keyVal;
-    }
-
-    return "[" + joined + "]";
-  }
-
   public static Uri buildMailUri(String to, String subject, String body)
   {
     String uriString = Constants.Url.MAILTO_SCHEME + Uri.encode(to) + Constants.Url.MAIL_SUBJECT + Uri.encode(subject)
@@ -283,24 +246,6 @@ public class Utils
   private static boolean isHttpOrHttpsScheme(@NonNull String url)
   {
     return url.startsWith("http://") || url.startsWith("https://");
-  }
-
-  public static void closeSafely(@NonNull Closeable... closeable)
-  {
-    for (Closeable each : closeable)
-    {
-      if (each != null)
-      {
-        try
-        {
-          each.close();
-        }
-        catch (IOException e)
-        {
-          Logger.e(TAG, "Failed to close '" + each + "'", e);
-        }
-      }
-    }
   }
 
   // subject is optional (could be an empty string).
@@ -420,12 +365,6 @@ public class Utils
 
     return Character.toLowerCase(src.charAt(0)) + src.substring(1);
   }
-
-  public interface Proc<T>
-  {
-    void invoke(@NonNull T param);
-  }
-
   public static String getLocalizedLevel(@NonNull Context context, @Nullable String level)
   {
     if (TextUtils.isEmpty(level))
@@ -504,21 +443,6 @@ public class Utils
     if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N)
       return fromHtmlOld(htmlDescription);
     return Html.fromHtml(htmlDescription, Html.FROM_HTML_MODE_LEGACY);
-  }
-
-  @SuppressWarnings("deprecation")
-  private static ApplicationInfo getApplicationInfoOld(@NonNull PackageManager manager, @NonNull String packageName,
-                                                       int flags) throws PackageManager.NameNotFoundException
-  {
-    return manager.getApplicationInfo(packageName, flags);
-  }
-
-  public static ApplicationInfo getApplicationInfo(@NonNull PackageManager manager, @NonNull String packageName,
-                                                   int flags) throws PackageManager.NameNotFoundException
-  {
-    if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
-      return getApplicationInfoOld(manager, packageName, flags);
-    return manager.getApplicationInfo(packageName, PackageManager.ApplicationInfoFlags.of(flags));
   }
 
   @SuppressWarnings("deprecation")
