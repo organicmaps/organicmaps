@@ -63,4 +63,19 @@ public class NextcloudAuth extends AuthState
   {
     return null;
   }
+
+  String getLoginName()
+  {
+    return mLoginName;
+  }
+
+  String getAppPassword()
+  {
+    return mAppPassword;
+  }
+
+  String getServer()
+  {
+    return mServer;
+  }
 }

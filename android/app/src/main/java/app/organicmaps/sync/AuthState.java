@@ -31,6 +31,4 @@ public abstract class AuthState
    * @return Auth expiry timestamp in seconds; null if not applicable.
    */
   public abstract @Nullable Long getExpiryTimestamp();
-
-  // TODO add abstract method to create a file CRUD client
 }

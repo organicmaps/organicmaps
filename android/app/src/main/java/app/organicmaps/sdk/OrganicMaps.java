@@ -22,6 +22,7 @@ import app.organicmaps.sdk.util.ThemeSwitcher;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.settings.StoragePathManager;
+import app.organicmaps.sync.SyncManager;
 import java.io.IOException;
 
 public final class OrganicMaps implements DefaultLifecycleObserver
@@ -157,6 +158,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     ThemeSwitcher.INSTANCE.initialize(mContext);
     SearchEngine.INSTANCE.initialize();
     BookmarkManager.loadBookmarks();
+    SyncManager.INSTANCE.initialize(mContext);
     TtsPlayer.INSTANCE.initialize(mContext);
     ThemeSwitcher.INSTANCE.restart(false);
     RoutingController.get().initialize(mContext);
