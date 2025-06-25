@@ -1,5 +1,5 @@
-#include "android/app/src/main/cpp/app/organicmaps/sdk/core/jni_helper.hpp"
-#include "android/app/src/main/cpp/app/organicmaps/sdk/core/ScopedLocalRef.hpp"
+#include "android/sdk/src/main/cpp/app/organicmaps/sdk/core/jni_helper.hpp"
+#include "android/sdk/src/main/cpp/app/organicmaps/sdk/core/ScopedLocalRef.hpp"
 
 #include "platform/locale.hpp"
 
