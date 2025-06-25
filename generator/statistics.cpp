@@ -1,7 +1,6 @@
 #include "statistics.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/data_factory.hpp"
 #include "indexer/feature_processor.hpp"
 
 #include "geometry/mercator.hpp"
