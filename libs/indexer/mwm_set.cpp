@@ -384,7 +384,11 @@ MwmValue::MwmValue(LocalCountryFile const & localFile)
   : m_cont(platform::GetCountryReader(localFile, MapFileType::Map))
   , m_file(localFile)
 {
-  m_factory.Load(m_cont);
+  m_version = version::MwmVersion::Read(m_cont);
+  if (m_version.GetFormat() < version::Format::v11)
+    MYTHROW(CorruptedMwmFile, (m_cont.GetFileName()));
+
+  m_header.Load(m_cont);
 }
 
 void MwmValue::SetTable(MwmInfoEx & info)

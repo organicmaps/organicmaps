@@ -1,5 +1,6 @@
 #pragma once
-#include "indexer/data_factory.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/feature_meta.hpp"
 #include "indexer/house_to_street_iface.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -373,19 +374,23 @@ class MwmValue
 {
 public:
   FilesContainerR const m_cont;
-  IndexFactory m_factory;
   platform::LocalCountryFile const m_file;
 
+private:
+  version::MwmVersion m_version;
+  feature::DataHeader m_header;
+
+public:
   std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
   std::unique_ptr<indexer::MetadataDeserializer> m_metaDeserializer;
   std::unique_ptr<HouseToStreetTable> m_house2street, m_house2place;
 
+public:
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   void SetTable(MwmInfoEx & info);
 
-  feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
-  feature::RegionData const & GetRegionData() const { return m_factory.GetRegionData(); }
-  version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
+  feature::DataHeader const & GetHeader() const { return m_header; }
+  version::MwmVersion const & GetMwmVersion() const { return m_version; }
   std::string const & GetCountryFileName() const { return m_file.GetCountryName(); }
 
   bool HasSearchIndex() const { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
