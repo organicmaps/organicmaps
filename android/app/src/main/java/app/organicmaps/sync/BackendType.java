@@ -35,12 +35,6 @@ public enum BackendType implements SyncBackend
     {
       NextcloudLoginHelper.login(context);
     }
-
-    @Override
-    public Class<? extends AuthState> getAuthStateClass()
-    {
-      return NextcloudAuth.class;
-    }
   },
   GoogleDrive {
     @Override
@@ -69,12 +63,6 @@ public enum BackendType implements SyncBackend
         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION)
         .putExtra(GoogleLoginActivity.EXTRA_DO_AUTH, true)
       );
-    }
-
-    @Override
-    public Class<? extends AuthState> getAuthStateClass()
-    {
-      return GoogleDriveAuth.class;
     }
   };
 
