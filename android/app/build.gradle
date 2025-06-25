@@ -47,32 +47,12 @@ if (googleFirebaseServicesEnabled) {
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'ru.cian.huawei-publish-gradle-plugin'
 
-def run(cmd) {
-  def stdout = new ByteArrayOutputStream()
-  exec {
-    commandLine = cmd
-    standardOutput = stdout
-  }
-  return stdout.toString()
-}
-
 
 import com.github.triplet.gradle.androidpublisher.ReleaseStatus
-import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
-
-def getVersion() {
-  def isWindows = DefaultNativePlatform.getCurrentOperatingSystem().isWindows()
-  def bash = isWindows ? 'C:\\Program Files\\Git\\bin\\bash.exe' : 'bash'
-  def versionCode = Integer.parseInt(run([bash, '../../tools/unix/version.sh', 'android_code']).trim())
-  def versionName = run([bash, '../../tools/unix/version.sh', 'android_name']).trim()
-  return new Tuple2(versionCode, versionName)
-}
 
 def getCommitMessage() {
   return run(['git', '--no-pager', 'show', '-s', '--format=%s%n%n%b', 'HEAD']).trim()
 }
-
-def osName = System.properties['os.name'].toLowerCase()
 
 project.ext.appId = 'app.organicmaps'
 project.ext.appName = 'Organic Maps'
@@ -102,13 +82,9 @@ android {
   // All properties are read from gradle.properties file
   compileSdk propCompileSdkVersion.toInteger()
 
-  ndkVersion '28.1.13356709'
-
   defaultConfig {
-    // Default package name is taken from the manifest and should be app.organicmaps
-    def ver = getVersion()
-    versionCode = ver.V1
-    versionName = ver.V2
+    versionCode = rootProject.ext.versionCode
+    versionName = rootProject.ext.versionName
     println('Version: ' + versionName)
     println('VersionCode: ' + versionCode)
     minSdk propMinSdkVersion.toInteger()
@@ -118,60 +94,6 @@ android {
     // Should be customized in flavors.
     buildConfigField 'String', 'REVIEW_URL', '""'
     resourceConfigurations += [project.ext.supportedLocalizations]
-
-    externalNativeBuild {
-      def pchFlag = 'OFF'
-      if (project.hasProperty('pch')) pchFlag = 'ON'
-
-      def njobs = ''
-      if (project.hasProperty('njobs')) njobs = project.getProperty('njobs')
-
-      def enableVulkanDiagnostics = 'OFF'
-      if (project.hasProperty('enableVulkanDiagnostics')) {
-        enableVulkanDiagnostics = project.getProperty('enableVulkanDiagnostics')
-      }
-
-      def enableTrace = 'OFF'
-      if (project.hasProperty('enableTrace')) {
-        enableTrace = project.getProperty('enableTrace')
-      }
-
-      cmake {
-        cppFlags '-fexceptions', '-frtti'
-        // There is no sense to enable sections without gcc's --gc-sections flag.
-        cFlags '-fno-function-sections', '-fno-data-sections',
-               '-Wno-extern-c-compat'
-        arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
-                  "-DOS=$osName", '-DSKIP_TESTS=ON', '-DSKIP_TOOLS=ON', "-DUSE_PCH=$pchFlag",
-                  "-DNJOBS=$njobs", "-DENABLE_VULKAN_DIAGNOSTICS=$enableVulkanDiagnostics",
-                  "-DENABLE_TRACE=$enableTrace"
-        targets 'organicmaps'
-      }
-    }
-
-    // Use, for example, -Parm32 gradle parameter to build only for armeabi-v7a.
-    ndk {
-      abiFilters = new HashSet<>()
-      if (project.hasProperty('arm32') || project.hasProperty('armeabi-v7a')) {
-        abiFilters.add('armeabi-v7a')
-      }
-      if (project.hasProperty('arm64') || project.hasProperty('arm64-v8a')) {
-        abiFilters.add('arm64-v8a')
-      }
-      if (project.hasProperty('x86')) {
-        abiFilters.add('x86')
-      }
-      if (project.hasProperty('x86_64') || project.hasProperty('x64')) {
-        abiFilters.add('x86_64')
-      }
-      if (abiFilters.isEmpty()) {
-        abiFilters.add('armeabi-v7a')
-        abiFilters.add('arm64-v8a')
-        // For the emulator, chromebooks and some Intel Atom devices.
-        abiFilters.add('x86_64')
-      }
-      println('Building for ' + abiFilters + ' archs.')
-    }
 
     setProperty('archivesBaseName', appName.replaceAll('\\s','') + '-' + defaultConfig.versionCode)
   }
@@ -278,16 +200,11 @@ android {
     debug {
       applicationIdSuffix '.debug'   // Allows to install debug and release builds together
       versionNameSuffix '-debug'
-      jniDebuggable true           // Enable jni debug build
       zipAlignEnabled true
       signingConfig signingConfigs.debug
       resValue 'string', 'app_name', 'Debug Organic Maps'
-      // Do not generate separate debug symbols for debug apps, because we don't distribute them.
-      ndk.debugSymbolLevel = 'none'
 
       if (googleFirebaseServicesEnabled) {
-        // Keep debug symbols for test lab.
-        ndk.debugSymbolLevel = 'symbol_table'
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
         }
@@ -302,8 +219,6 @@ android {
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       resValue 'string', 'app_name', project.ext.appName
-      // Full size symbols are too big for Google, 217mb aab vs 95mb.
-      ndk.debugSymbolLevel = 'symbol_table'
 
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
@@ -323,8 +238,6 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       matchingFallbacks = ['debug', 'release']
       resValue 'string', 'app_name', 'Beta Organic Maps'
-      // Full size symbols are too big for Google, 217mb aab vs 95mb.
-      ndk.debugSymbolLevel = 'symbol_table'
 
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
@@ -338,14 +251,6 @@ android {
           serviceCredentialsFile = "$projectDir/firebase-app-distribution.json"
         }
       }
-    }
-  }
-
-  externalNativeBuild {
-    cmake {
-      version '3.22.1+'
-      buildStagingDirectory './nativeOutputs'
-      path '../../CMakeLists.txt'
     }
   }
 
@@ -423,10 +328,6 @@ dependencies {
   testImplementation 'junit:junit:4.13.2'
   testImplementation 'org.mockito:mockito-core:5.15.2'
   testImplementation 'org.mockito:mockito-inline:5.2.0'
-}
-
-tasks.withType(JavaCompile) {
-  options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
 }
 
 android.applicationVariants.all { variant ->
