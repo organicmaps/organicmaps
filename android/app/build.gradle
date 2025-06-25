@@ -38,12 +38,6 @@ buildscript {
   }
 }
 
-repositories {
-  google()
-  mavenCentral()
-  maven { url 'https://www.jitpack.io' } // MPAndroidChart
-}
-
 apply plugin: 'com.android.application'
 if (googleFirebaseServicesEnabled) {
   apply plugin: 'com.google.gms.google-services'
@@ -371,6 +365,8 @@ android {
 }
 
 dependencies {
+  implementation project(':sdk')
+
   coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 
   // Google Play Location Services
