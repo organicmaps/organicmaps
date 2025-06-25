@@ -232,8 +232,8 @@ public final class Config
   @NonNull
   public static String getCurrentUiTheme(@NonNull Context context)
   {
-    String defaultTheme = MwmApplication.from(context).getString(R.string.theme_default);
-    String res = getString(KEY_MISC_UI_THEME, defaultTheme);
+    final String defaultTheme = context.getString(R.string.theme_default);
+    final String res = getString(KEY_MISC_UI_THEME, defaultTheme);
 
     if (ThemeUtils.isValidTheme(context, res))
       return res;
@@ -252,8 +252,8 @@ public final class Config
   @NonNull
   public static String getUiThemeSettings(@NonNull Context context)
   {
-    String autoTheme = MwmApplication.from(context).getString(R.string.theme_auto);
-    String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
+    final String autoTheme = context.getString(R.string.theme_auto);
+    final String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
     if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res)
         || ThemeUtils.isNavAutoTheme(context, res))
       return res;

@@ -9,6 +9,7 @@ import androidx.car.app.CarContext;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.notification.CarPendingIntent;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.api.Const;
 import app.organicmaps.car.CarAppService;
 import app.organicmaps.car.SurfaceRenderer;
@@ -106,7 +107,7 @@ public final class IntentUtils
     {
       final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
       final Screen top = screenManager.getTop();
-      final DisplayManager displayManager = DisplayManager.from(carContext);
+      final DisplayManager displayManager = MwmApplication.from(carContext).getDisplayManager();
       if (!displayManager.isCarDisplayUsed())
         displayManager.changeDisplay(DisplayType.Car);
       if (!(top instanceof NavigationScreen))

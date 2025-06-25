@@ -7,9 +7,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.PopupMenu;
 import androidx.annotation.NonNull;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.util.List;
@@ -21,7 +21,7 @@ public class PlacePageUtils
     parent.post(() -> {
       // Because of the post(), this lambda is called after the car.SurfaceRenderer.onStableAreaChanged() and breaks the
       // visibleRect configuration
-      if (DisplayManager.from(parent.getContext()).isCarDisplayUsed())
+      if (MwmApplication.from(parent.getContext()).getDisplayManager().isCarDisplayUsed())
         return;
       final int screenWidth = parent.getWidth();
       if (placePageDistanceToTop >= viewportMinHeight)

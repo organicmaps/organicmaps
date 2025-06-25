@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
+import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.util.ArrayList;
 

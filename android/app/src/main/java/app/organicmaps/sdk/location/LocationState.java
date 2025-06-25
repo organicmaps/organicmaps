@@ -9,7 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 
 public final class LocationState
 {
-  public static final String LOCATION_TAG = LocationState.class.getPackage().getName();
+  public static final String LOCATION_TAG = LocationState.class.getSimpleName();
 
   public interface ModeChangeListener
   {

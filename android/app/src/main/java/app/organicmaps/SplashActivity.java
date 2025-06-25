@@ -90,7 +90,7 @@ public class SplashActivity extends AppCompatActivity
     });
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
-    if (DisplayManager.from(this).isCarDisplayUsed())
+    if (MwmApplication.from(this).getDisplayManager().isCarDisplayUsed())
     {
       startActivity(new Intent(this, MapPlaceholderActivity.class));
       finish();

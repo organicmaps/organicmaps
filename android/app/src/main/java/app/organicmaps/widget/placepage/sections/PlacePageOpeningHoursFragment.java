@@ -18,7 +18,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.editor.OpeningHours;
-import app.organicmaps.sdk.editor.data.TimeFormatUtils;
+import app.organicmaps.editor.data.TimeFormatUtils;
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.sdk.util.UiUtils;

@@ -544,7 +544,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mShareLauncher = SharingUtils.RegisterLauncher(this);
 
-    mDisplayManager = DisplayManager.from(this);
+    mDisplayManager = MwmApplication.from(this).getDisplayManager();
     if (mDisplayManager.isCarDisplayUsed())
     {
       mRemoveDisplayListener = false;

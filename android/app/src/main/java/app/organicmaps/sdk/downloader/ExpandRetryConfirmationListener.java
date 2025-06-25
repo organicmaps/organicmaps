@@ -1,14 +1,14 @@
 package app.organicmaps.sdk.downloader;
 
 import androidx.annotation.Nullable;
-import app.organicmaps.util.Utils;
+import androidx.core.util.Consumer;
 
 class ExpandRetryConfirmationListener implements Runnable
 {
   @Nullable
-  private final Utils.Proc<Boolean> mDialogClickListener;
+  private final Consumer<Boolean> mDialogClickListener;
 
-  ExpandRetryConfirmationListener(@Nullable Utils.Proc<Boolean> dialogClickListener)
+  ExpandRetryConfirmationListener(@Nullable Consumer<Boolean> dialogClickListener)
   {
     mDialogClickListener = dialogClickListener;
   }
@@ -18,6 +18,6 @@ class ExpandRetryConfirmationListener implements Runnable
   {
     if (mDialogClickListener == null)
       return;
-    mDialogClickListener.invoke(true);
+    mDialogClickListener.accept(true);
   }
 }

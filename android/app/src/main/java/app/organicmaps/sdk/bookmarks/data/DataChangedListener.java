@@ -1,4 +1,4 @@
-package app.organicmaps.bookmarks;
+package app.organicmaps.sdk.bookmarks.data;
 
 public interface DataChangedListener
 {

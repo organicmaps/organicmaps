@@ -41,6 +41,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   @NonNull
   private final Context mContext;
+  @NonNull
+  private final SensorHelper mSensorHelper;
 
   private static final String TAG = LocationState.LOCATION_TAG;
 
@@ -95,9 +97,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
   };
 
-  public LocationHelper(@NonNull Context context)
+  public LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper)
   {
     mContext = context;
+    mSensorHelper = sensorHelper;
     mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
     mHandler = new Handler();
   }
@@ -361,7 +364,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     checkForAgpsUpdates();
 
     if (LocationUtils.checkFineLocationPermission(mContext))
-      MwmApplication.from(mContext).getSensorHelper().start();
+      mSensorHelper.start();
 
     final long oldInterval = mInterval;
     mInterval = calcLocationUpdatesInterval();
@@ -387,7 +390,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     Logger.i(TAG);
     mLocationProvider.stop();
     unsubscribeFromGnssStatusUpdates();
-    MwmApplication.from(mContext).getSensorHelper().stop();
+    mSensorHelper.stop();
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
     mActive = false;
   }

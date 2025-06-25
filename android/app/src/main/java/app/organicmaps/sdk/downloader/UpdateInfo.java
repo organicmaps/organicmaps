@@ -7,7 +7,6 @@ import androidx.annotation.Keep;
  */
 // Called from JNI.
 @Keep
-@SuppressWarnings("unused")
 public final class UpdateInfo
 {
   public final int filesCount;

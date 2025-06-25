@@ -8,9 +8,9 @@ import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.screens.base.BaseScreen;
-import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.display.DisplayType;
 
 public class MapPlaceholderScreen extends BaseScreen
@@ -33,10 +33,12 @@ public class MapPlaceholderScreen extends BaseScreen
     builder.setHeader(headerBuilder.build());
     builder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_phone_android)).build());
-    builder.addAction(new Action.Builder()
-                          .setTitle(getCarContext().getString(R.string.car_continue_in_the_car))
-                          .setOnClickListener(() -> DisplayManager.from(getCarContext()).changeDisplay(DisplayType.Car))
-                          .build());
+    builder.addAction(
+        new Action.Builder()
+            .setTitle(getCarContext().getString(R.string.car_continue_in_the_car))
+            .setOnClickListener(
+                () -> MwmApplication.from(getCarContext()).getDisplayManager().changeDisplay(DisplayType.Car))
+            .build());
 
     return builder.build();
   }

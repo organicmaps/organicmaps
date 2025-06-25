@@ -24,12 +24,6 @@ public final class OpeningHours
   public static native Timetable nativeGetComplementTimetable(Timetable[] timetableSet);
 
   @NonNull
-  public static native Timetable[] nativeAddTimetable(Timetable[] timetableSet);
-
-  @NonNull
-  public static native Timetable[] nativeRemoveTimetable(Timetable[] timetableSet, int timetableIndex);
-
-  @NonNull
   public static native Timetable nativeSetIsFullday(Timetable timetable, boolean isFullday);
 
   @NonNull

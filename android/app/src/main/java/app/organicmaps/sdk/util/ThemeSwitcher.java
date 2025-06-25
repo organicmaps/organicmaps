@@ -140,7 +140,7 @@ public enum ThemeSwitcher
   {
     // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
     // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
-    if (DisplayManager.from(mContext).isCarDisplayUsed())
+    if (MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed())
       return;
     // If rendering is not active we can mark map style, because all graphics
     // will be recreated after rendering activation.
