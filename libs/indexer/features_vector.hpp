@@ -1,12 +1,10 @@
 #pragma once
 
 #include "indexer/feature.hpp"
-#include "indexer/metadata_serdes.hpp"
 #include "indexer/shared_load_info.hpp"
 
 #include "coding/var_record_reader.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -35,7 +33,7 @@ public:
     uint32_t index = 0;
     m_recordReader->ForEachRecord([&](uint32_t pos, std::vector<uint8_t> && data)
     {
-      FeatureType ft(&m_loadInfo, std::move(data), m_metaDeserializer);
+      FeatureType ft(&m_loadInfo, std::move(data));
 
       // We can't properly set MwmId here, because FeaturesVector
       // works with FileContainerR, not with MwmId/MwmHandle/MwmValue.
@@ -57,7 +55,7 @@ public:
 private:
   /// Actually, this ctor is needed only for ForEachOffset call.
   /// Didn't find a better solution without big refactoring.
-  FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header) : m_loadInfo(cont, header)
+  FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header) : m_loadInfo(cont, header, nullptr)
   {
     InitRecordsReader();
   }
@@ -70,7 +68,6 @@ private:
   feature::SharedLoadInfo m_loadInfo;
   std::unique_ptr<RecordReader> m_recordReader;
   feature::FeaturesOffsetsTable const * m_table;
-  indexer::MetadataDeserializer * m_metaDeserializer;
 };
 
 /// Test features vector (reader) that combines all the needed data for stand-alone work.

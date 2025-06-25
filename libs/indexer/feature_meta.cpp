@@ -24,6 +24,34 @@ char constexpr const * kBaseCommonsUrl =
 #endif
 }  // namespace
 
+std::string_view MetadataBase::Get(uint8_t type) const
+{
+  std::string_view sv;
+  auto const it = m_metadata.find(type);
+  if (it != m_metadata.end())
+  {
+    sv = it->second;
+    ASSERT(!sv.empty(), ());
+  }
+  return sv;
+}
+
+std::string_view MetadataBase::Set(uint8_t type, std::string value)
+{
+  std::string_view sv;
+
+  if (value.empty())
+    m_metadata.erase(type);
+  else
+  {
+    auto & res = m_metadata[type];
+    res = std::move(value);
+    sv = res;
+  }
+
+  return sv;
+}
+
 string Metadata::ToWikiURL(std::string v)
 {
   auto const colon = v.find(':');

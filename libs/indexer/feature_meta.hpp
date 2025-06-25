@@ -1,13 +1,9 @@
 #pragma once
 
-#include "indexer/metadata_serdes.hpp"
-
-#include "coding/reader.hpp"
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/stl_helpers.hpp"
 
-#include <algorithm>
 #include <map>
 #include <string>
 #include <vector>
@@ -17,23 +13,10 @@ namespace feature
 class MetadataBase
 {
 public:
-  bool Has(uint8_t type) const
-  {
-    auto const it = m_metadata.find(type);
-    return it != m_metadata.end();
-  }
+  bool Has(uint8_t type) const { return m_metadata.find(type) != m_metadata.end(); }
 
-  std::string_view Get(uint8_t type) const
-  {
-    std::string_view sv;
-    auto const it = m_metadata.find(type);
-    if (it != m_metadata.end())
-    {
-      sv = it->second;
-      ASSERT(!sv.empty(), ());
-    }
-    return sv;
-  }
+  std::string_view Get(uint8_t type) const;
+  std::string_view Set(uint8_t type, std::string value);
 
   inline bool Empty() const { return m_metadata.empty(); }
   inline size_t Size() const { return m_metadata.size(); }
@@ -66,24 +49,6 @@ public:
   void Clear() { m_metadata.clear(); }
 
 protected:
-  friend bool indexer::MetadataDeserializer::Get(uint32_t id, MetadataBase & meta);
-
-  std::string_view Set(uint8_t type, std::string value)
-  {
-    std::string_view sv;
-
-    if (value.empty())
-      m_metadata.erase(type);
-    else
-    {
-      auto & res = m_metadata[type];
-      res = std::move(value);
-      sv = res;
-    }
-
-    return sv;
-  }
-
   /// @todo Change uint8_t to appropriate type when FMD_COUNT reaches 256.
   std::map<uint8_t, std::string> m_metadata;
 };
