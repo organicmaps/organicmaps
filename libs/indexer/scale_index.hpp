@@ -1,11 +1,9 @@
 #pragma once
 
-#include "indexer/data_factory.hpp"
 #include "indexer/interval_index.hpp"
 
 #include "coding/var_serial_vector.hpp"
 
-#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -24,26 +22,24 @@ template <class Reader>
 class ScaleIndex : public ScaleIndexBase
 {
 public:
-  ScaleIndex() = default;
-
-  ScaleIndex(Reader const & reader, IndexFactory const & factory) { Attach(reader, factory); }
+  explicit ScaleIndex(Reader const & reader) { Attach(reader); }
 
   ~ScaleIndex() { Clear(); }
 
   void Clear() { m_IndexForScale.clear(); }
 
-  void Attach(Reader const & reader, IndexFactory const & factory)
+  void Attach(Reader const & reader)
   {
     Clear();
 
     ReaderSource<Reader> source(reader);
     VarSerialVectorReader<Reader> treesReader(source);
     for (uint32_t i = 0; i < treesReader.Size(); ++i)
-      m_IndexForScale.push_back(factory.CreateIndex(treesReader.SubReader(i)));
+      m_IndexForScale.push_back(std::make_unique<IndexT>(treesReader.SubReader(i)));
   }
 
-  void ForEachInIntervalAndScale(uint64_t beg, uint64_t end, int scale,
-                                 std::function<void(uint64_t, uint32_t)> const & fn) const
+  template <class FnT>
+  void ForEachInIntervalAndScale(uint64_t beg, uint64_t end, int scale, FnT && fn) const
   {
     auto const scaleBucket = BucketByScale(scale);
     if (scaleBucket < m_IndexForScale.size())
@@ -52,5 +48,6 @@ public:
   }
 
 private:
-  std::vector<std::unique_ptr<IntervalIndex<Reader, uint32_t>>> m_IndexForScale;
+  using IndexT = IntervalIndex<Reader, uint32_t>;
+  std::vector<std::unique_ptr<IndexT>> m_IndexForScale;
 };

@@ -31,8 +31,6 @@ set(SRC
   cuisines.hpp
   custom_keyvalue.cpp
   custom_keyvalue.hpp
-  data_factory.cpp
-  data_factory.hpp
   data_header.cpp
   data_header.hpp
   data_source.cpp

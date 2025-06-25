@@ -358,8 +358,6 @@ void FeatureType::ParseHeader2()
     // For inner geometry remaining 4 bits are not used.
     if (elemsCount == 0)
       geomScalesMask = bitSource.Read(4);
-    else
-      ASSERT(headerGeomType == HeaderGeomType::Area || elemsCount > 1, ());
   }
 
   ArrayByteSource src(bitSource.RoundPtr());
@@ -414,6 +412,7 @@ void FeatureType::ParseHeader2()
       ReadOffsets(*m_loadInfo, src, geomScalesMask, m_offsets.m_trg);
     }
   }
+
   // Size of the whole header incl. inner geometry / triangles.
   m_innerStats.m_size = CalcOffset(src, m_data.data());
   m_parsed.m_header2 = true;

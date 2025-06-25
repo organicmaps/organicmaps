@@ -18,7 +18,7 @@ MwmContext::MwmContext(MwmSet::MwmHandle handle)
   : m_handle(std::move(handle))
   , m_value(*m_handle.GetValue())
   , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_table.get(), m_value.m_metaDeserializer.get())
-  , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG), m_value.m_factory)
+  , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG))
   , m_centers(m_value)
   , m_editableSource(m_handle)
 {}

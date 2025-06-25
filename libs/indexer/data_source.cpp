@@ -5,7 +5,6 @@
 #include "platform/mwm_version.hpp"
 
 #include <algorithm>
-#include <limits>
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
@@ -15,18 +14,18 @@ namespace
 class ReadMWMFunctor
 {
 public:
-  using Fn = std::function<void(uint32_t, FeatureSource & src)>;
-
-  ReadMWMFunctor(FeatureSourceFactory const & factory, Fn const & fn) : m_factory(factory), m_fn(fn)
-  {
-    m_stop = []() { return false; };
-  }
-
-  ReadMWMFunctor(FeatureSourceFactory const & factory, Fn const & fn, DataSource::StopSearchCallback const & stop)
-    : m_factory(factory)
-    , m_fn(fn)
-    , m_stop(stop)
+  template <class FnT>
+  ReadMWMFunctor(FeatureSourceFactory const & factory, FnT && fn) : m_factory(factory)
+                                                                  , m_fn(std::forward<FnT>(fn))
   {}
+
+  ReadMWMFunctor(FeatureSourceFactory const & factory, DataSource::FeatureCallback const & fn,
+                 DataSource::StopSearchCallback stop = {})
+    : m_factory(factory)
+    , m_stop(std::move(stop))
+  {
+    m_fn = [&fn](uint32_t index, FeatureSource & src) { ReadFeatureType(fn, src, index); };
+  }
 
   // Reads features visible at |scale| covered by |cov| from mwm and applies |m_fn| to them.
   // Feature reading process consists of two steps: untouched (original) features reading and
@@ -51,7 +50,7 @@ public:
 
       // Use last coding scale for covering (see index_builder.cpp).
       covering::Intervals const & intervals = cov.Get<RectId::DEPTH_LEVELS>(lastScale);
-      ScaleIndex<ModelReaderPtr> index(mwmValue->m_cont.GetReader(INDEX_FILE_TAG), mwmValue->m_factory);
+      ScaleIndex<ModelReaderPtr> index(mwmValue->m_cont.GetReader(INDEX_FILE_TAG));
 
       // iterate through intervals
       for (auto const & i : intervals)
@@ -61,7 +60,8 @@ public:
           if (checkUnique(value))
             m_fn(value, *src);
         });
-        if (m_stop())
+
+        if (m_stop && m_stop())
           break;
       }
     }
@@ -75,33 +75,36 @@ public:
 
 private:
   FeatureSourceFactory const & m_factory;
-  Fn m_fn;
+  std::function<void(uint32_t, FeatureSource & src)> m_fn;
   DataSource::StopSearchCallback m_stop;
+
+private:
+  static void ReadFeatureType(DataSource::FeatureCallback const & fn, FeatureSource & src, uint32_t index)
+  {
+    std::unique_ptr<FeatureType> ft;
+    switch (src.GetFeatureStatus(index))
+    {
+    case FeatureStatus::Deleted:
+    case FeatureStatus::Obsolete: return;
+    case FeatureStatus::Created:
+    case FeatureStatus::Modified:
+    {
+      ft = src.GetModifiedFeature(index);
+      break;
+    }
+    case FeatureStatus::Untouched:
+    {
+      ft = src.GetOriginalFeature(index);
+      break;
+    }
+    }
+
+    CHECK(ft, ());
+    fn(*ft);
+  }
 };
 
-void ReadFeatureType(std::function<void(FeatureType &)> const & fn, FeatureSource & src, uint32_t index)
-{
-  std::unique_ptr<FeatureType> ft;
-  switch (src.GetFeatureStatus(index))
-  {
-  case FeatureStatus::Deleted:
-  case FeatureStatus::Obsolete: return;
-  case FeatureStatus::Created:
-  case FeatureStatus::Modified:
-  {
-    ft = src.GetModifiedFeature(index);
-    break;
-  }
-  case FeatureStatus::Untouched:
-  {
-    ft = src.GetOriginalFeature(index);
-    break;
-  }
-  }
-  CHECK(ft, ());
-  fn(*ft);
-}
-}  //  namespace
+}  // namespace
 
 // FeaturesLoaderGuard ---------------------------------------------------------------------
 std::string FeaturesLoaderGuard::GetCountryFileName() const
@@ -161,7 +164,12 @@ std::unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const
   info->m_minScale = static_cast<uint8_t>(scaleR.first);
   info->m_maxScale = static_cast<uint8_t>(scaleR.second);
   info->m_version = value.GetMwmVersion();
-  value.m_factory.MoveRegionData(info->m_data);
+
+  if (value.m_cont.IsExist(REGION_INFO_FILE_TAG))
+  {
+    ReaderSource<FilesContainerR::TReader> src(value.m_cont.GetReader(REGION_INFO_FILE_TAG));
+    info->m_data.Deserialize(src);
+  }
 
   return info;
 }
@@ -234,9 +242,7 @@ void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD c
 
 void DataSource::ForEachInRect(FeatureCallback const & f, m2::RectD const & rect, int scale) const
 {
-  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) { ReadFeatureType(f, src, index); };
-
-  ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
+  ReadMWMFunctor readFunctor(*m_factory, f);
   ForEachInIntervals(readFunctor, covering::ViewportWithLowLevels, rect, scale);
 }
 
@@ -244,17 +250,13 @@ void DataSource::ForClosestToPoint(FeatureCallback const & f, StopSearchCallback
                                    m2::PointD const & center, double sizeM, int scale) const
 {
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(center, sizeM);
-
-  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) { ReadFeatureType(f, src, index); };
-  ReadMWMFunctor readFunctor(*m_factory, readFeatureType, stop);
+  ReadMWMFunctor readFunctor(*m_factory, f, stop);
   ForEachInIntervals(readFunctor, covering::CoveringMode::Spiral, rect, scale);
 }
 
 void DataSource::ForEachInScale(FeatureCallback const & f, int scale) const
 {
-  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) { ReadFeatureType(f, src, index); };
-
-  ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
+  ReadMWMFunctor readFunctor(*m_factory, f);
   ForEachInIntervals(readFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
 }
 
@@ -265,10 +267,7 @@ void DataSource::ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const 
   if (handle.IsAlive())
   {
     covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
-    auto readFeatureType = [&f](uint32_t index, FeatureSource & src) { ReadFeatureType(f, src, index); };
-
-    ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
-    readFunctor(handle, cov, scale);
+    ReadMWMFunctor(*m_factory, f)(handle, cov, scale);
   }
 }
 

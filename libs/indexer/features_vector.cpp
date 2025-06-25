@@ -1,6 +1,5 @@
 #include "features_vector.hpp"
 #include "dat_section_header.hpp"
-#include "data_factory.hpp"
 #include "features_offsets_table.hpp"
 
 #include "platform/constants.hpp"
