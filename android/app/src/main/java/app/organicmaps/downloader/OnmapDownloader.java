@@ -33,6 +33,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final TextView mParent;
   private final TextView mTitle;
   private final TextView mSize;
+  private final TextView mError;
   private final WheelProgressView mProgress;
   private final Button mButton;
 
@@ -53,6 +54,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       {
         if (!item.isLeafNode)
           continue;
+
+        mError.setVisibility(View.GONE);
 
         if (item.newStatus == CountryItem.STATUS_FAILED)
           MapManager.showError(mActivity, item, null);
@@ -173,6 +176,15 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
               }
             }
 
+            if (failed)
+            {
+              mError.setVisibility(View.VISIBLE);
+
+              if (!ConnectionState.INSTANCE.isConnected())
+                mError.setText(mActivity.getString(R.string.common_check_internet_connection_dialog));
+              else
+                mError.setText(mActivity.getString(R.string.download_has_failed));
+            }
             mButton.setText(failed ? R.string.downloader_retry
                                    : R.string.download);
           }
@@ -192,6 +204,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     mParent = mFrame.findViewById(R.id.downloader_parent);
     mTitle = mFrame.findViewById(R.id.downloader_title);
     mSize = mFrame.findViewById(R.id.downloader_size);
+    mError = mFrame.findViewById(R.id.downloader_error);
 
     View controls = mFrame.findViewById(R.id.downloader_controls_frame);
     mProgress = controls.findViewById(R.id.wheel_downloader_progress);
@@ -208,6 +221,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       mCurrentCountry.id, () -> {
       if (mCurrentCountry == null)
         return;
+
+      mError.setVisibility(View.GONE);
 
       boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
       if (retry)
