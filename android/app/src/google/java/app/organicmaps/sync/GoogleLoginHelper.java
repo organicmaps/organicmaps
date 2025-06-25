@@ -68,7 +68,10 @@ public class GoogleLoginHelper
             }
           }
           else
+          {
             Toast.makeText(activity, R.string.error_adding_account, Toast.LENGTH_LONG).show();
+            activity.finish();
+          }
         });
 
     List<Scope> requestedScopes = Arrays.asList(new Scope(Scopes.DRIVE_FILE), new Scope(Scopes.EMAIL));
@@ -91,9 +94,8 @@ public class GoogleLoginHelper
           }
         })
         .addOnFailureListener(e -> {
-          Logger.e(
-              TAG, "Failed to authorize",
-              e); // TODO investigate when this happens (other than when using .setAccount with a non-existing account)
+          Logger.e(TAG, "Failed to authorize", e);
+          // TODO investigate when this happens (other than when using .setAccount with a non-existing account)
           activity.finish();
         });
   }

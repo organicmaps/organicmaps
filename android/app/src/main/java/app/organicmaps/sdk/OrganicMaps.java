@@ -25,6 +25,7 @@ import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
+import app.organicmaps.sync.SyncManager;
 import java.io.IOException;
 
 public final class OrganicMaps implements DefaultLifecycleObserver
@@ -178,6 +179,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     initNativeStrings();
     SearchEngine.INSTANCE.initialize();
     BookmarkManager.loadBookmarks();
+    SyncManager.INSTANCE.initialize(mContext);
     TtsPlayer.INSTANCE.initialize(mContext);
     RoutingController.get().initialize(mLocationHelper);
     TrafficManager.INSTANCE.initialize();

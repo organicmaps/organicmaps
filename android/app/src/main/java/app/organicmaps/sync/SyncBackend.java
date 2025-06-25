@@ -6,7 +6,8 @@ import android.graphics.drawable.Drawable;
 public interface SyncBackend
 {
   /**
-   * @return an integer that denotes the backend type. Persisted to the disk, so must not be changed once the app is released.
+   * @return an integer that denotes the backend type.
+   * Persisted to the disk, so it must not be changed once published.
    */
   int getId();
 
@@ -15,11 +16,4 @@ public interface SyncBackend
   Drawable getIcon(Context context);
 
   void login(Context context);
-
-  Class<? extends AuthState> getAuthStateClass();
-
-  interface LoginSuccessCallback
-  {
-    void onLoginSuccess();
-  }
 }
