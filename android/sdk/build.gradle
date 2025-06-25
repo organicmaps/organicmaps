@@ -1,0 +1,28 @@
+plugins {
+  id 'com.android.library'
+}
+
+android {
+  namespace 'app.organicmaps.sdk'
+  compileSdk propCompileSdkVersion.toInteger()
+
+  defaultConfig {
+    minSdk propMinSdkVersion.toInteger()
+    targetSdk propTargetSdkVersion.toInteger()
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+}
+
+dependencies {
+
+}
