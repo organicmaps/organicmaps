@@ -19,8 +19,8 @@ FeatureSource::FeatureSource(MwmSet::MwmHandle const & handle) : m_handle(handle
     return;
 
   auto const & value = *m_handle.GetValue();
-  m_vector = std::make_unique<FeaturesVector>(value.m_cont, value.GetHeader(), value.m_table.get(),
-                                              value.m_metaDeserializer.get());
+  m_vector = std::make_unique<FeaturesVector>(value.m_cont, value.GetHeader(), value.m_ftTable.get(),
+                                              value.m_relTable.get(), value.m_metaDeserializer.get());
 }
 
 size_t FeatureSource::GetNumFeatures() const

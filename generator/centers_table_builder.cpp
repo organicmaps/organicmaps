@@ -24,7 +24,7 @@ bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebui
       if (!forceRebuild && rcont.IsExist(CENTERS_FILE_TAG))
         return true;
 
-      auto const table = feature::FeaturesOffsetsTable::Load(rcont);
+      auto const table = feature::FeaturesOffsetsTable::Load(rcont, FEATURE_OFFSETS_FILE_TAG);
       if (!table)
       {
         LOG(LERROR, ("Can't load offsets table from:", filename));
@@ -32,7 +32,7 @@ bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebui
       }
 
       feature::DataHeader const header(rcont);
-      FeaturesVector const features(rcont, header, table.get(), nullptr);
+      FeaturesVector const features(rcont, header, table.get(), nullptr, nullptr);
 
       builder.SetGeometryParams(header.GetBounds());
       features.ForEach([&](FeatureType & ft, uint32_t featureId) { builder.Put(featureId, feature::GetCenter(ft)); });

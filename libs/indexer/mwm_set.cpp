@@ -394,12 +394,19 @@ MwmValue::~MwmValue() {}
 
 void MwmValue::SetTable(MwmInfoEx & info)
 {
-  m_table = info.m_table.lock();
-  if (m_table)
-    return;
+  m_ftTable = info.m_ftTable.lock();
+  if (!m_ftTable)
+  {
+    m_ftTable = feature::FeaturesOffsetsTable::Load(m_cont, FEATURE_OFFSETS_FILE_TAG);
+    info.m_ftTable = m_ftTable;
+  }
 
-  m_table = feature::FeaturesOffsetsTable::Load(m_cont);
-  info.m_table = m_table;
+  m_relTable = info.m_relTable.lock();
+  if (!m_relTable && m_cont.IsExist(RELATION_OFFSETS_FILE_TAG))
+  {
+    m_relTable = feature::FeaturesOffsetsTable::Load(m_cont, RELATION_OFFSETS_FILE_TAG);
+    info.m_relTable = m_relTable;
+  }
 }
 
 string DebugPrint(MwmSet::RegResult result)
