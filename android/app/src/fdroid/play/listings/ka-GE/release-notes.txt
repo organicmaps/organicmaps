@@ -1,4 +1,5 @@
 • New OSM data as of June 8
+• Fixed OSM login
 • Save planned routes as tracks
 • Display plant nurseries, traffic barriers, studios, firepits, ladders, cranes, and love hotels
 • Qingdao metro icons
@@ -7,6 +8,6 @@
 • Fixed search for Lithuanian and other languages
 • Fix location arrow jumps when navigation is active
 • Fixed Cancel Download button
-• Improved translations from Weblate
+• Improved translations
 
 …more at omaps.org/news

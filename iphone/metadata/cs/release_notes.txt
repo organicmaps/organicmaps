@@ -1,6 +1,7 @@
 We're getting back on track! Now you can save planned routes as tracks and see details about the currently recorded track.
 There is fresh OpenStreetMap data as of June 8, 2025, and also many other improvements:
 
+• Fixed OpenStreetMap login
 • Fixed route planning error when the current location was unknown
 • Prevent iCloud sync from failing when the cloud file doesn't exist
 • Fix counter in special "?edits" search command
