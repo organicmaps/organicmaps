@@ -521,80 +521,6 @@
             </objects>
             <point key="canvasLocation" x="929" y="655"/>
         </scene>
-        <!--Info Item View Controller-->
-        <scene sceneID="f7X-K7-lgf">
-            <objects>
-                <viewController storyboardIdentifier="InfoItemViewController" id="cJQ-4x-NFc" customClass="InfoItemViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="oz0-2o-icQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LQd-fA-r9c">
-                                <rect key="frame" x="0.0" y="0.0" width="367" height="44"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_operator" translatesAutoresizingMaskIntoConstraints="NO" id="l7d-ck-nSv">
-                                        <rect key="frame" x="0.0" y="8" width="56" height="28"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="dbx-It-HsN"/>
-                                            <constraint firstAttribute="width" constant="56" id="uhV-yT-jBd"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlack"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eU-Fj-XRv" customClass="CopyLabel" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="56" y="10" width="267" height="24"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7B8-M6-Hae" userLabel="Accessory Button">
-                                        <rect key="frame" x="323" y="0.0" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="cKy-lg-gNZ"/>
-                                            <constraint firstAttribute="width" constant="44" id="g6o-VG-fZY"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="Dzf-g4-a7d"/>
-                                    <constraint firstAttribute="bottom" secondItem="8eU-Fj-XRv" secondAttribute="bottom" constant="10" id="Oju-fx-VZb"/>
-                                    <constraint firstItem="8eU-Fj-XRv" firstAttribute="top" secondItem="LQd-fA-r9c" secondAttribute="top" constant="10" id="iCj-QI-o3i"/>
-                                    <constraint firstItem="l7d-ck-nSv" firstAttribute="centerY" secondItem="LQd-fA-r9c" secondAttribute="centerY" id="srg-qZ-iXx"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="xdh-hy-Bxo"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="LQd-fA-r9c" secondAttribute="trailing" constant="8" id="Foi-HR-gnE"/>
-                            <constraint firstItem="LQd-fA-r9c" firstAttribute="top" secondItem="oz0-2o-icQ" secondAttribute="top" id="K4k-Mo-mLZ"/>
-                            <constraint firstAttribute="bottom" secondItem="LQd-fA-r9c" secondAttribute="bottom" id="dC0-Xu-45b"/>
-                            <constraint firstItem="LQd-fA-r9c" firstAttribute="leading" secondItem="oz0-2o-icQ" secondAttribute="leading" id="ggJ-Q6-6Ir"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                    <size key="freeformSize" width="375" height="44"/>
-                    <connections>
-                        <outlet property="accessoryButton" destination="7B8-M6-Hae" id="Idt-3q-OmT"/>
-                        <outlet property="imageView" destination="l7d-ck-nSv" id="Llp-U6-qLx"/>
-                        <outlet property="infoLabel" destination="8eU-Fj-XRv" id="72o-pM-iKo"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4nU-eg-9AS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1565.5999999999999" y="-315.74212893553226"/>
-        </scene>
         <!--Opening Hours View Controller-->
         <scene sceneID="txO-kw-ZRm">
             <objects>
@@ -1209,45 +1135,16 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iB6-kj-Bi1">
                                 <rect key="frame" x="16" y="16" width="343" height="184"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="140"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB7-XJ-Nck">
-                                        <rect key="frame" x="0.0" y="140" width="343" height="44"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XR5-Np-W07">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
-                                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="9" maxY="0.0"/>
-                                                <state key="normal" title="Edit bookmark"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButtonBig"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="onEdit:" destination="cB4-oj-3Tv" eventType="touchUpInside" id="1TN-b8-s90"/>
-                                                </connections>
-                                            </button>
-                                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OUV-mg-G9u">
-                                                <rect key="frame" x="153.5" y="4" width="36" height="36"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="36" id="BVc-KM-8Hg"/>
-                                                    <constraint firstAttribute="width" constant="36" id="ngt-Z5-4pT"/>
-                                                </constraints>
-                                            </imageView>
-                                        </subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB7-XJ-Nck" userLabel="Edit View" customClass="InfoItemView" customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="OUV-mg-G9u" firstAttribute="centerY" secondItem="wB7-XJ-Nck" secondAttribute="centerY" id="4vr-RY-Khl"/>
-                                            <constraint firstItem="XR5-Np-W07" firstAttribute="leading" secondItem="wB7-XJ-Nck" secondAttribute="leading" id="B2T-Yo-3vW"/>
                                             <constraint firstAttribute="height" constant="44" id="Dh1-Jl-owY"/>
-                                            <constraint firstAttribute="bottom" secondItem="XR5-Np-W07" secondAttribute="bottom" id="MeL-ju-0XR"/>
-                                            <constraint firstAttribute="trailing" secondItem="XR5-Np-W07" secondAttribute="trailing" id="WgB-Yd-xBS"/>
-                                            <constraint firstItem="XR5-Np-W07" firstAttribute="top" secondItem="wB7-XJ-Nck" secondAttribute="top" id="Wll-QX-ljL"/>
-                                            <constraint firstItem="OUV-mg-G9u" firstAttribute="centerX" secondItem="wB7-XJ-Nck" secondAttribute="centerX" id="wyh-oj-4AU"/>
                                         </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44" width="343" height="140"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
                                         </userDefinedRuntimeAttributes>
@@ -1269,9 +1166,8 @@
                     </view>
                     <size key="freeformSize" width="375" height="200"/>
                     <connections>
-                        <outlet property="editButton" destination="XR5-Np-W07" id="cUN-mD-Fth"/>
+                        <outlet property="editView" destination="wB7-XJ-Nck" id="iPO-d0-Pw4"/>
                         <outlet property="expandableLabel" destination="5nz-eA-gNS" id="iui-Iu-EiB"/>
-                        <outlet property="spinner" destination="OUV-mg-G9u" id="7Og-Ix-dr7"/>
                         <outlet property="stackView" destination="iB6-kj-Bi1" id="CSH-xH-X4b"/>
                         <outlet property="topConstraint" destination="Afw-Mq-NV9" id="Oth-ao-05T"/>
                     </connections>
@@ -1500,17 +1396,16 @@
     <resources>
         <image name="dialog_btn_press" width="280" height="44"/>
         <image name="ic_arrow_gray_down" width="28" height="28"/>
-        <image name="ic_operator" width="28" height="28"/>
         <image name="ic_placepage_open_hours" width="28" height="28"/>
         <image name="img_direction_light" width="32" height="32"/>
         <systemColor name="separatorColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
