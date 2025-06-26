@@ -25,9 +25,7 @@ extern char const * kValidOsmPassword;
 UNIT_TEST(OSM_ServerAPI_TestUserExists)
 {
   ServerApi06 api(OsmOAuth::DevServerAuth());
-  // FIXME(AB): Uncomment back when HTTP 500 from https://master.apis.dev.openstreetmap.org/user/OrganicMapsTestUser
-  // is fixed.
-  // TEST(api.TestOSMUser(kValidOsmUser), ());
+  TEST(api.TestOSMUser(kValidOsmUser), ());
   TEST(!api.TestOSMUser("donotregisterthisuser"), ());
 }
 
