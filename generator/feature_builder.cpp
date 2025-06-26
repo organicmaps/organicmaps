@@ -646,7 +646,10 @@ void FeatureBuilder::SerializeForMwm(SupportingData & data,
   CHECK(type != GeomType::Undefined, ());
   if (type == GeomType::Point)
   {
-    serial::SavePoint(sink, m_center, params);
+    uint64_t const encoded = coding::EncodePointDeltaAsUint(
+        PointDToPointU(m_center, params.GetCoordBits()), params.GetBasePoint());
+    CHECK_GREATER(bits::NumHiZeroBits64(encoded), 1, ());
+    WriteVarUint(sink, encoded << 1); // save with a dummy test control bit
     return;
   }
 

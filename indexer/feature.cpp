@@ -308,7 +308,15 @@ void FeatureType::ParseCommon()
 
   if (GetGeomType() == GeomType::Point)
   {
-    m_center = serial::LoadPoint(source, m_loadInfo->GetDefGeometryCodingParams());
+    uint64_t decoded = ReadVarUint<uint64_t>(source);
+
+    // Skip dummy test control bit.
+    if (m_loadInfo->m_version >= DatSectionHeader::Version::V1)
+      decoded >>= 1;
+
+    auto const & cp = m_loadInfo->GetDefGeometryCodingParams();
+    m_center = PointUToPointD(coding::DecodePointDeltaFromUint(decoded, cp.GetBasePoint()), cp.GetCoordBits());
+
     m_limitRect.Add(m_center);
   }
 
