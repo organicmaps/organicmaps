@@ -11,16 +11,13 @@
 #include "coding/byte_stream.hpp"
 #include "coding/geometry_coding.hpp"
 #include "coding/read_write_utils.hpp"
-#include "coding/reader.hpp"
 
 #include "geometry/region2d.hpp"
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
-#include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <cstring>
 #include <vector>
 
 namespace feature
@@ -630,7 +627,9 @@ void FeatureBuilder::SerializeForMwm(SupportingData & data, serial::GeometryCodi
   PushBackByteSink<Buffer> sink(data.m_buffer);
   FeatureParams(m_params).Write(sink);
 
-  if (m_params.GetGeomType() == GeomType::Point)
+  GeomType const type = m_params.GetGeomType();
+  CHECK(type != GeomType::Undefined, ());
+  if (type == GeomType::Point)
   {
     serial::SavePoint(sink, m_center, params);
     return;
@@ -640,26 +639,23 @@ void FeatureBuilder::SerializeForMwm(SupportingData & data, serial::GeometryCodi
   uint8_t trgCount = base::asserted_cast<uint8_t>(data.m_innerTrg.size());
   if (trgCount > 0)
   {
-    ASSERT_GREATER(trgCount, 2, ());
+    CHECK_GREATER(trgCount, 2, ());
     trgCount -= 2;
   }
-
-  GeomType const type = m_params.GetGeomType();
 
   {
     BitWriter<PushBackByteSink<Buffer>> bitSink(sink);
 
     if (type == GeomType::Line)
     {
-      bitSink.Write(ptsCount, 4);
-      if (ptsCount == 0)
-        bitSink.Write(data.m_ptsMask, 4);
+      bitSink.Write(ptsCount != 0 ? ptsCount : data.m_ptsMask, 4);
+      bitSink.Write(ptsCount == 0 ? 1 : 0, 1);
     }
-    else if (type == GeomType::Area)
+    else
     {
-      bitSink.Write(trgCount, 4);
-      if (trgCount == 0)
-        bitSink.Write(data.m_trgMask, 4);
+      CHECK_EQUAL(type, GeomType::Area, ());
+      bitSink.Write(trgCount != 0 ? trgCount : data.m_trgMask, 4);
+      bitSink.Write(trgCount == 0 ? 1 : 0, 1);
     }
   }
 
@@ -671,6 +667,7 @@ void FeatureBuilder::SerializeForMwm(SupportingData & data, serial::GeometryCodi
       {
         uint32_t v = data.m_ptsSimpMask;
         int const count = (ptsCount - 2 + 3) / 4;
+        CHECK_LESS(count, 4, ());
         for (int i = 0; i < count; ++i)
         {
           WriteToSink(sink, static_cast<uint8_t>(v));
@@ -683,7 +680,7 @@ void FeatureBuilder::SerializeForMwm(SupportingData & data, serial::GeometryCodi
     else
     {
       auto const & poly = GetOuterGeometry();
-      ASSERT_GREATER(poly.size(), 2, ());
+      CHECK_GREATER(poly.size(), 2, ());
 
       // Store first point once for outer linear features.
       serial::SavePoint(sink, poly[0], params);
@@ -693,8 +690,10 @@ void FeatureBuilder::SerializeForMwm(SupportingData & data, serial::GeometryCodi
       WriteVarUintArray(data.m_ptsOffset, sink);
     }
   }
-  else if (type == GeomType::Area)
+  else
   {
+    CHECK_EQUAL(type, GeomType::Area, ());
+
     if (trgCount > 0)
       serial::SaveInnerTriangles(data.m_innerTrg, params, sink);
     else

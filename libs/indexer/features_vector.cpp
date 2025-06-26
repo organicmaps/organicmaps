@@ -21,7 +21,8 @@ void FeaturesVector::InitRecordsReader()
   feature::DatSectionHeader header;
   header.Read(src);
 
-  CHECK_EQUAL(header.m_version, feature::DatSectionHeader::Version::V0, ());
+  m_loadInfo.m_version = header.m_version;
+
   m_recordReader = std::make_unique<RecordReader>(reader.SubReader(header.m_featuresOffset, header.m_featuresSize));
 }
 
