@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/data_header.hpp"
+#include "indexer/dat_section_header.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/geometry_coding.hpp"
@@ -42,8 +43,10 @@ public:
 private:
   FilesContainerR const & m_cont;
   DataHeader const & m_header;
+
 public:
   indexer::MetadataDeserializer * m_metaDeserializer;
+  feature::DatSectionHeader::Version m_version;
 
   DISALLOW_COPY_AND_MOVE(SharedLoadInfo);
 };
