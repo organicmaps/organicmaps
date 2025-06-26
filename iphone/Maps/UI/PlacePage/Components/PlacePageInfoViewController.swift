@@ -1,4 +1,14 @@
-class InfoItemViewController: UIViewController {
+final class InfoItemView: UIView {
+  private enum Constants {
+    static let imageViewWidth: CGFloat = 56
+    static let imageViewHeight: CGFloat = 28
+    static let accessoryButtonSize: CGFloat = 44
+    static let infoLabelFontSize: CGFloat = 16
+    static let infoLabelTopBottomSpacing: CGFloat = 10
+    static let stackViewSpacing: CGFloat = 0
+    static let viewHeight: CGFloat = 44
+  }
+
   enum Style {
     case regular
     case link
@@ -6,9 +16,9 @@ class InfoItemViewController: UIViewController {
 
   typealias TapHandler = () -> Void
 
-  @IBOutlet var imageView: UIImageView!
-  @IBOutlet var infoLabel: UILabel!
-  @IBOutlet var accessoryButton: UIButton!
+  let imageView = UIImageView()
+  let infoLabel = UILabel()
+  let accessoryButton = UIButton()
 
   private var tapGestureRecognizer: UITapGestureRecognizer!
   private var longPressGestureRecognizer: UILongPressGestureRecognizer!
@@ -19,19 +29,51 @@ class InfoItemViewController: UIViewController {
 
   private var style: Style = .regular
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupView()
+  }
+
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
     setupView()
   }
 
   private func setupView() {
     tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
     longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onLongPress(_:)))
-    view.addGestureRecognizer(tapGestureRecognizer)
-    view.addGestureRecognizer(longPressGestureRecognizer)
-    
+    addGestureRecognizer(tapGestureRecognizer)
+    addGestureRecognizer(longPressGestureRecognizer)
+
+    imageView.contentMode = .scaleAspectFit
     accessoryButton.addTarget(self, action: #selector(onAccessoryButtonTap), for: .touchUpInside)
-    setStyle(style)
+
+    addSubview(imageView)
+    addSubview(infoLabel)
+    addSubview(accessoryButton)
+
+    translatesAutoresizingMaskIntoConstraints = false
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    infoLabel.translatesAutoresizingMaskIntoConstraints = false
+    accessoryButton.translatesAutoresizingMaskIntoConstraints = false
+
+    NSLayoutConstraint.activate([
+      heightAnchor.constraint(equalToConstant: Constants.viewHeight),
+
+      imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+      imageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth),
+      imageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight),
+
+      infoLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
+      infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+      infoLabel.trailingAnchor.constraint(equalTo: accessoryButton.leadingAnchor),
+
+      accessoryButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+      accessoryButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+      accessoryButton.widthAnchor.constraint(equalToConstant: Constants.accessoryButtonSize),
+      accessoryButton.heightAnchor.constraint(equalToConstant: Constants.accessoryButtonSize)
+    ])
   }
 
   @objc
@@ -53,11 +95,11 @@ class InfoItemViewController: UIViewController {
   func setStyle(_ style: Style) {
     switch style {
     case .regular:
-      imageView?.setStyleAndApply(.black)
-      infoLabel?.setFontStyleAndApply(.blackPrimary)
+      imageView.setStyleAndApply(.black)
+      infoLabel.setFontStyleAndApply(.regular16, color: .blackPrimary)
     case .link:
-      imageView?.setStyleAndApply(.blue)
-      infoLabel?.setFontStyleAndApply(.linkBlue)
+      imageView.setStyleAndApply(.blue)
+      infoLabel.setFontStyleAndApply(.regular16, color: .linkBlue)
     }
     accessoryButton.setStyleAndApply(.black)
     self.style = style
@@ -93,41 +135,42 @@ class PlacePageInfoViewController: UIViewController {
   private struct Constants {
     static let coordFormatIdKey = "PlacePageInfoViewController_coordFormatIdKey"
   }
-  private typealias TapHandler = InfoItemViewController.TapHandler
-  private typealias Style = InfoItemViewController.Style
+
+  private typealias TapHandler = InfoItemView.TapHandler
+  private typealias Style = InfoItemView.Style
 
   @IBOutlet var stackView: UIStackView!
 
-  private lazy var openingHoursView: OpeningHoursViewController = {
+  private lazy var openingHoursViewController: OpeningHoursViewController = {
     storyboard!.instantiateViewController(ofType: OpeningHoursViewController.self)
   }()
 
-  private var rawOpeningHoursView: InfoItemViewController?
-  private var phoneViews: [InfoItemViewController] = []
-  private var websiteView: InfoItemViewController?
-  private var websiteMenuView: InfoItemViewController?
-  private var wikipediaView: InfoItemViewController?
-  private var wikimediaCommonsView: InfoItemViewController?
-  private var emailView: InfoItemViewController?
-  private var facebookView: InfoItemViewController?
-  private var instagramView: InfoItemViewController?
-  private var twitterView: InfoItemViewController?
-  private var vkView: InfoItemViewController?
-  private var lineView: InfoItemViewController?
-  private var cuisineView: InfoItemViewController?
-  private var operatorView: InfoItemViewController?
-  private var wifiView: InfoItemViewController?
-  private var atmView: InfoItemViewController?
-  private var addressView: InfoItemViewController?
-  private var levelView: InfoItemViewController?
-  private var coordinatesView: InfoItemViewController?
-  private var openWithAppView: InfoItemViewController?
-  private var capacityView: InfoItemViewController?
-  private var wheelchairView: InfoItemViewController?
-  private var selfServiceView: InfoItemViewController?
-  private var outdoorSeatingView: InfoItemViewController?
-  private var driveThroughView: InfoItemViewController?
-  private var networkView: InfoItemViewController?
+  private var rawOpeningHoursView: InfoItemView?
+  private var phoneViews: [InfoItemView] = []
+  private var websiteView: InfoItemView?
+  private var websiteMenuView: InfoItemView?
+  private var wikipediaView: InfoItemView?
+  private var wikimediaCommonsView: InfoItemView?
+  private var emailView: InfoItemView?
+  private var facebookView: InfoItemView?
+  private var instagramView: InfoItemView?
+  private var twitterView: InfoItemView?
+  private var vkView: InfoItemView?
+  private var lineView: InfoItemView?
+  private var cuisineView: InfoItemView?
+  private var operatorView: InfoItemView?
+  private var wifiView: InfoItemView?
+  private var atmView: InfoItemView?
+  private var addressView: InfoItemView?
+  private var levelView: InfoItemView?
+  private var coordinatesView: InfoItemView?
+  private var openWithAppView: InfoItemView?
+  private var capacityView: InfoItemView?
+  private var wheelchairView: InfoItemView?
+  private var selfServiceView: InfoItemView?
+  private var outdoorSeatingView: InfoItemView?
+  private var driveThroughView: InfoItemView?
+  private var networkView: InfoItemView?
 
   weak var placePageInfoData: PlacePageInfoData!
   weak var delegate: PlacePageInfoViewControllerDelegate?
@@ -138,14 +181,27 @@ class PlacePageInfoViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    stackView.axis = .vertical
+    stackView.alignment = .fill
+    stackView.spacing = 0
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(stackView)
+    NSLayoutConstraint.activate([
+      stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      stackView.topAnchor.constraint(equalTo: view.topAnchor),
+      stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
     setupViews()
   }
 
   // MARK: private
   private func setupViews() {
     if let openingHours = placePageInfoData.openingHours {
-      openingHoursView.openingHours = openingHours
-      addToStack(openingHoursView)
+      openingHoursViewController.openingHours = openingHours
+      addChild(openingHoursViewController)
+      addToStack(openingHoursViewController.view)
+      openingHoursViewController.didMove(toParent: self)
     } else if let openingHoursString = placePageInfoData.openingHoursString {
       rawOpeningHoursView = createInfoItem(openingHoursString, icon: UIImage(named: "ic_placepage_open_hours"))
       rawOpeningHoursView?.infoLabel.numberOfLines = 0
@@ -176,7 +232,7 @@ class PlacePageInfoViewController: UIViewController {
     if let ppOperator = placePageInfoData.ppOperator {
       operatorView = createInfoItem(ppOperator, icon: UIImage(named: "ic_placepage_operator"))
     }
-    
+
     if let network = placePageInfoData.network {
       networkView = createInfoItem(network, icon: UIImage(named: "ic_placepage_network"))
     }
@@ -395,7 +451,7 @@ class PlacePageInfoViewController: UIViewController {
                                      style: .link,
                                      tapHandler: { [weak self] in
       guard let self, let openWithAppView else { return }
-      self.delegate?.didPressOpenInApp(from: openWithAppView.view)
+      self.delegate?.didPressOpenInApp(from: openWithAppView)
     })
   }
 
@@ -405,22 +461,20 @@ class PlacePageInfoViewController: UIViewController {
                               accessoryImage: UIImage? = nil,
                               tapHandler: TapHandler? = nil,
                               longPressHandler: TapHandler? = nil,
-                              accessoryImageTapHandler: TapHandler? = nil) -> InfoItemViewController {
-    let vc = storyboard!.instantiateViewController(ofType: InfoItemViewController.self)
-    addToStack(vc)
-    vc.imageView.image = icon
-    vc.infoLabel.text = info
-    vc.setStyle(style)
-    vc.tapHandler = tapHandler
-    vc.longPressHandler = longPressHandler
-    vc.setAccessory(image: accessoryImage, tapHandler: accessoryImageTapHandler)
-    return vc;
+                              accessoryImageTapHandler: TapHandler? = nil) -> InfoItemView {
+    let view = InfoItemView()
+    addToStack(view)
+    view.imageView.image = icon?.withRenderingMode(.alwaysTemplate)
+    view.infoLabel.text = info
+    view.setStyle(style)
+    view.tapHandler = tapHandler
+    view.longPressHandler = longPressHandler
+    view.setAccessory(image: accessoryImage, tapHandler: accessoryImageTapHandler)
+    return view
   }
 
-  private func addToStack(_ viewController: UIViewController) {
-    addChild(viewController)
-    stackView.addArrangedSubviewWithSeparator(viewController.view, insets: UIEdgeInsets(top: 0, left: 56, bottom: 0, right: 0))
-    viewController.didMove(toParent: self)
+  private func addToStack(_ view: UIView) {
+    stackView.addArrangedSubviewWithSeparator(view, insets: UIEdgeInsets(top: 0, left: 56, bottom: 0, right: 0))
   }
 
   private static let kHttp = "http://"
