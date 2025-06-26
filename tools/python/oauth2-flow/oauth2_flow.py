@@ -37,7 +37,7 @@ def FetchSessionId():
     cookies = SimpleCookie()
     cookies.load(res.headers['Set-Cookie'])
 
-    authToken = FindAuthenticityToken(res.read().decode("utf-8"))
+    authToken = FindAuthenticityToken("/login", res.read().decode("utf-8"))
 
     if authToken is None:
         raise Exception("Can't find 'authenticity_token'")
@@ -116,7 +116,7 @@ def FetchRequestToken(cookies):
         return oauthCode
     else:
         respBody = res.read().decode("utf-8")
-        authToken = FindAuthenticityToken(respBody)
+        authToken = FindAuthenticityToken("/oauth2/authorize", respBody)
         if not authToken:
             print(res.status)
             print(res.headers)
@@ -187,14 +187,15 @@ def FinishAuthorization(code):
     return res.read().decode("utf-8")
 
 
-def FindAuthenticityToken(htmlCode):
-    # search for <input name="authenticity_token" value="...">
-    regex = re.compile(r"\<input\b.+?\bname=\"authenticity_token\".+?\bvalue=\"(.+?)\"")
-    m = regex.search(htmlCode)
-    if m:
-        return m.group(1)
+def FindAuthenticityToken(formAction, htmlCode):
+    # search for <form action="(...)" ... <input name="authenticity_token" value="(...)">
+    regex = re.compile(r'action="(.+?)".*?name="authenticity_token" value="(.+?)"')
+    matches = regex.findall(htmlCode)
 
-    return None
+    for action, token in matches:
+        if action == formAction:
+            return token
+
 
 def FindOauthCode(redirectUri):
     query = urllib.parse.urlparse(redirectUri).query

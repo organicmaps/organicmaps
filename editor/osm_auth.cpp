@@ -19,8 +19,6 @@ using std::string;
 
 constexpr char const * kApiVersion = "/api/0.6";
 
-namespace
-{
 
 string FindAuthenticityToken(std::string const & action, string const & body)
 {
@@ -50,10 +48,10 @@ string FindOauthCode(string const & redirectUri)
   return *oauth2code;
 }
 
-string FindAccessToken(string const & body)
+string FindAccessToken(string const & json)
 {
   // Extract access_token from JSON in format {"access_token":"...", "token_type":"Bearer", "scope":"read_prefs"}
-  const base::Json root(body.c_str());
+  const base::Json root(json.c_str());
 
   if (json_is_object(root.get()))
   {
@@ -76,7 +74,6 @@ string BuildPostRequest(std::initializer_list<std::pair<string, string>> const &
   }
   return result;
 }
-}  // namespace
 
 // static
 bool OsmOAuth::IsValid(string const & ks)
