@@ -115,7 +115,7 @@ private:
   // only in MwmValue::SetTable() method, which, in turn, is called
   // only in the MwmSet critical section, protected by a lock.  So,
   // there's an implicit synchronization on this field.
-  std::weak_ptr<feature::FeaturesOffsetsTable> m_table;
+  std::weak_ptr<feature::FeaturesOffsetsTable> m_ftTable, m_relTable;
 };
 
 class MwmValue;
@@ -387,7 +387,8 @@ private:
   feature::DataHeader m_header;
 
 public:
-  std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
+  // m_ftTable should always present, m_relTable maybe nullptr.
+  std::shared_ptr<feature::FeaturesOffsetsTable> m_ftTable, m_relTable;
   std::unique_ptr<indexer::MetadataDeserializer> m_metaDeserializer;
   std::unique_ptr<HouseToStreetTable> m_house2street, m_house2place;
 

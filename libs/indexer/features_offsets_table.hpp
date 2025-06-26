@@ -66,7 +66,7 @@ public:
   /// Load table by full path to the table file.
   static std::unique_ptr<FeaturesOffsetsTable> Load(std::string const & filePath);
 
-  static std::unique_ptr<FeaturesOffsetsTable> Load(FilesContainerR const & cont);
+  static std::unique_ptr<FeaturesOffsetsTable> Load(FilesContainerR const & cont, std::string const & tag);
   static void Build(FilesContainerR const & cont, std::string const & storePath);
 
   FeaturesOffsetsTable(FeaturesOffsetsTable const &) = delete;

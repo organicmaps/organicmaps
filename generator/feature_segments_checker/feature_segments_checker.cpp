@@ -156,7 +156,8 @@ public:
 
   void operator()(FeatureType & f, uint32_t const & id)
   {
-    f.ParseHeader2();
+    f.ParseAllBeforeGeometry();
+
     if (!GetBicycleModel().IsRoad(feature::TypesHolder(f)))
     {
       ++m_notRoadCount;

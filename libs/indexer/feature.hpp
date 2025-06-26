@@ -1,6 +1,7 @@
 #pragma once
 #include "indexer/feature_data.hpp"
 #include "indexer/metadata_serdes.hpp"
+#include "indexer/route_relation.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
@@ -82,6 +83,8 @@ public:
   FeatureID const & GetID() const { return m_id; }
 
   void ParseHeader2();
+  void ParseRelations();
+  void ParseAllBeforeGeometry() { ParseRelations(); }
   void ResetGeometry();
   void ParseGeometry(int scale);
   void ParseTriangles(int scale);
@@ -195,31 +198,41 @@ public:
   GeomStat GetOuterTrianglesStats();
   //@}
 
+  using RelationIDsV = feature::ShortArray;
+  RelationIDsV const & GetRelations();
+
+  feature::RouteRelationBase ReadRelation(uint32_t id);
+
 private:
   struct ParsedFlags
   {
     bool m_types : 1;
     bool m_common : 1;
     bool m_header2 : 1;
+    bool m_relations : 1;
     bool m_points : 1;
     bool m_triangles : 1;
     bool m_metadata : 1;
     bool m_metaIds : 1;
 
     ParsedFlags() { Reset(); }
-    void Reset() { m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = m_metaIds = false; }
+    void Reset()
+    {
+      m_types = m_common = m_header2 = m_relations = m_points = m_triangles = m_metadata = m_metaIds = false;
+    }
   };
 
   struct Offsets
   {
     uint32_t m_common = 0;
     uint32_t m_header2 = 0;
+    uint32_t m_relations = 0;
     GeometryOffsets m_pts;
     GeometryOffsets m_trg;
 
     void Reset()
     {
-      m_common = m_header2 = 0;
+      m_common = m_header2 = m_relations = 0;
       m_pts.clear();
       m_trg.clear();
     }
@@ -251,6 +264,9 @@ private:
   ParsedFlags m_parsed;
   Offsets m_offsets;
   uint32_t m_ptsSimpMask = 0;
+
+  RelationIDsV m_relationIDs;
+  bool m_hasRelations = false;
 
   InnerGeomStat m_innerStats;
 

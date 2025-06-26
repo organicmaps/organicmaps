@@ -29,7 +29,8 @@ public:
 
       m_src.ForEachFeature(r, [this](FeatureType & ft)
       {
-        ft.ParseHeader2();
+        ft.ParseAllBeforeGeometry();
+
         (void)ft.GetOuterGeometryStats();
         (void)ft.GetOuterTrianglesStats();
 
