@@ -631,7 +631,10 @@ void FeatureBuilder::SerializeForMwm(SupportingData & data, serial::GeometryCodi
   CHECK(type != GeomType::Undefined, ());
   if (type == GeomType::Point)
   {
-    serial::SavePoint(sink, m_center, params);
+    uint64_t const encoded =
+        coding::EncodePointDeltaAsUint(PointDToPointU(m_center, params.GetCoordBits()), params.GetBasePoint());
+    CHECK_GREATER(bits::NumHiZeroBits64(encoded), 1, ());
+    WriteVarUint(sink, encoded << 1);  // Relations control bit
     return;
   }
 
@@ -657,6 +660,9 @@ void FeatureBuilder::SerializeForMwm(SupportingData & data, serial::GeometryCodi
       bitSink.Write(trgCount != 0 ? trgCount : data.m_trgMask, 4);
       bitSink.Write(trgCount == 0 ? 1 : 0, 1);
     }
+
+    // Relations control bit
+    bitSink.Write(0, 1);
   }
 
   if (type == GeomType::Line)

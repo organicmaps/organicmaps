@@ -81,7 +81,7 @@ UNIT_TEST(FeaturesOffsetsTable_ReadWrite)
 
   FeaturesOffsetsTable::Build(baseContainer, indexFile);
 
-  unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Load(baseContainer));
+  unique_ptr<FeaturesOffsetsTable> table(FeaturesOffsetsTable::Load(baseContainer, FEATURE_OFFSETS_FILE_TAG));
   TEST(table.get() && table->size() > minFeaturesCount, ());
 
   unique_ptr<FeaturesOffsetsTable> loadedTable(FeaturesOffsetsTable::Load(indexFile));

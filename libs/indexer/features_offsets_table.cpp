@@ -1,10 +1,7 @@
 #include "indexer/features_offsets_table.hpp"
 
-#include "indexer/dat_section_header.hpp"
 #include "indexer/features_vector.hpp"
 
-#include "platform/local_country_file.hpp"
-#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/files_container.hpp"
@@ -14,11 +11,11 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
+namespace feature
+{
 using namespace platform;
 using namespace std;
 
-namespace feature
-{
 void FeaturesOffsetsTable::Builder::PushOffset(uint32_t const offset)
 {
   ASSERT(m_offsets.empty() || m_offsets.back() < offset, ());
@@ -63,14 +60,14 @@ unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(string const & fileP
 }
 
 // static
-unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(FilesContainerR const & cont)
+unique_ptr<FeaturesOffsetsTable> FeaturesOffsetsTable::Load(FilesContainerR const & cont, std::string const & tag)
 {
   unique_ptr<FeaturesOffsetsTable> table(new FeaturesOffsetsTable());
 
   table->m_file.Open(cont.GetFileName());
-  auto p = cont.GetAbsoluteOffsetAndSize(FEATURE_OFFSETS_FILE_TAG);
+  auto p = cont.GetAbsoluteOffsetAndSize(tag);
   ASSERT(p.first % 4 == 0, (p.first));  // will get troubles in succinct otherwise
-  table->m_handle.Assign(table->m_file.Map(p.first, p.second, FEATURE_OFFSETS_FILE_TAG));
+  table->m_handle.Assign(table->m_file.Map(p.first, p.second, tag));
 
   succinct::mapper::map(table->m_table, table->m_handle.GetData<char>());
   return table;
@@ -80,9 +77,7 @@ void FeaturesOffsetsTable::Build(FilesContainerR const & cont, string const & st
 {
   Builder builder;
   FeaturesVector::ForEachOffset(cont, [&builder](uint32_t offset) { builder.PushOffset(offset); });
-
-  unique_ptr<FeaturesOffsetsTable> table(Build(builder));
-  table->Save(storePath);
+  Build(builder)->Save(storePath);
 }
 
 void FeaturesOffsetsTable::Save(string const & filePath)
@@ -123,7 +118,7 @@ bool BuildOffsetsTable(string const & filePath)
 {
   try
   {
-    string const destPath = filePath + ".offsets";
+    string const destPath = filePath + TMP_OFFSETS_EXT;
     SCOPE_GUARD(fileDeleter, bind(FileWriter::DeleteFileX, destPath));
 
     {
@@ -140,5 +135,4 @@ bool BuildOffsetsTable(string const & filePath)
     return false;
   }
 }
-
 }  // namespace feature

@@ -1,15 +1,18 @@
 #include "indexer/shared_load_info.hpp"
 
 #include "indexer/feature_impl.hpp"
+#include "indexer/features_offsets_table.hpp"
 
 #include "defines.hpp"
 
 namespace feature
 {
 SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header,
+                               feature::FeaturesOffsetsTable const * relTable,
                                indexer::MetadataDeserializer * metaDeserializer)
   : m_cont(cont)
   , m_header(header)
+  , m_relTable(relTable)
   , m_metaDeserializer(metaDeserializer)
 {}
 
@@ -26,6 +29,17 @@ SharedLoadInfo::Reader SharedLoadInfo::GetGeometryReader(size_t ind) const
 SharedLoadInfo::Reader SharedLoadInfo::GetTrianglesReader(size_t ind) const
 {
   return m_cont.GetReader(GetTagForIndex(TRIANGLE_FILE_TAG, ind));
+}
+
+RouteRelationBase SharedLoadInfo::ReadRelation(uint32_t id) const
+{
+  auto reader = m_cont.GetReader(RELATIONS_FILE_TAG);
+  ReaderSource src(reader);
+  src.Skip(m_relTable->GetFeatureOffset(id));
+
+  RouteRelationBase res;
+  res.Read(src);
+  return res;
 }
 
 }  // namespace feature

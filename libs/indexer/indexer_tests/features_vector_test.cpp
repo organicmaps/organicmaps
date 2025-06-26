@@ -48,7 +48,8 @@ UNIT_TEST(FeaturesVectorTest_ParseMetadata)
   TEST(handle.IsAlive(), ());
 
   auto const * value = handle.GetValue();
-  FeaturesVector fv(value->m_cont, value->GetHeader(), value->m_table.get(), value->m_metaDeserializer.get());
+  FeaturesVector fv(value->m_cont, value->GetHeader(), value->m_ftTable.get(), value->m_relTable.get(),
+                    value->m_metaDeserializer.get());
 
   map<string, int> actual;
   fv.ForEach([&](FeatureType & ft, uint32_t index)

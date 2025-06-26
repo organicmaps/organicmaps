@@ -5,10 +5,11 @@
 #include "platform/constants.hpp"
 
 FeaturesVector::FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header,
-                               feature::FeaturesOffsetsTable const * table,
+                               feature::FeaturesOffsetsTable const * ftTable,
+                               feature::FeaturesOffsetsTable const * relTable,
                                indexer::MetadataDeserializer * metaDeserializer)
-  : m_loadInfo(cont, header, metaDeserializer)
-  , m_table(table)
+  : m_loadInfo(cont, header, relTable, metaDeserializer)
+  , m_table(ftTable)
 {
   InitRecordsReader();
 }
@@ -44,9 +45,12 @@ FeaturesVectorTest::FeaturesVectorTest(std::string const & filePath)
 FeaturesVectorTest::FeaturesVectorTest(FilesContainerR const & cont)
   : m_cont(cont)
   , m_header(m_cont)
-  , m_vector(m_cont, m_header, nullptr, nullptr)
+  , m_vector(m_cont, m_header, nullptr, nullptr, nullptr)
 {
-  m_vector.m_table = feature::FeaturesOffsetsTable::Load(m_cont).release();
+  m_vector.m_table = feature::FeaturesOffsetsTable::Load(m_cont, FEATURE_OFFSETS_FILE_TAG).release();
+
+  if (m_cont.IsExist(RELATION_OFFSETS_FILE_TAG))
+    m_vector.m_loadInfo.m_relTable = feature::FeaturesOffsetsTable::Load(m_cont, RELATION_OFFSETS_FILE_TAG).release();
 
   if (m_cont.IsExist(METADATA_FILE_TAG))
     m_vector.m_loadInfo.m_metaDeserializer = indexer::MetadataDeserializer::Load(m_cont).release();
@@ -56,4 +60,5 @@ FeaturesVectorTest::~FeaturesVectorTest()
 {
   delete m_vector.m_table;
   delete m_vector.m_loadInfo.m_metaDeserializer;
+  delete m_vector.m_loadInfo.m_relTable;
 }

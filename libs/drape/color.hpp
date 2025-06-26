@@ -15,6 +15,7 @@ struct Color
   constexpr Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha)
     : Color(red << 24 | green << 16 | blue << 8 | alpha)
   {}
+  constexpr Color(uint8_t red, uint8_t green, uint8_t blue) : Color(red, green, blue, 255) {}
   constexpr Color(uint32_t rgb, uint8_t alpha)
     : Color(ExtractByte(rgb, 2), ExtractByte(rgb, 1), ExtractByte(rgb, 0), alpha)
   {}
@@ -57,6 +58,10 @@ struct Color
   constexpr static Color FromARGB(uint32_t argb)
   {
     return {ExtractByte(argb, 2), ExtractByte(argb, 1), ExtractByte(argb, 0), ExtractByte(argb, 3)};
+  }
+  constexpr static Color FromRGBA(uint32_t rgba)
+  {
+    return {ExtractByte(rgba, 3), ExtractByte(rgba, 2), ExtractByte(rgba, 1), ExtractByte(rgba, 0)};
   }
 
 private:
