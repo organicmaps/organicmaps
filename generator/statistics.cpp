@@ -53,7 +53,7 @@ namespace stats
 
     void operator() (FeatureType & f, uint32_t)
     {
-      f.ParseHeader2();
+      f.ParseAllBeforeGeometry();
 
       FeatureType::InnerGeomStat const innerStats = f.GetInnerStats();
 

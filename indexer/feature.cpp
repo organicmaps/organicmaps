@@ -247,6 +247,7 @@ std::unique_ptr<FeatureType> FeatureType::CreateFromMapObject(osm::MapObject con
   ft->m_parsed.m_types = true;
   ft->m_header = CalculateHeader(emo.GetTypes().Size(), headerGeomType, ft->m_params);
   ft->m_parsed.m_header2 = true;
+  ft->m_parsed.m_relations = true;
 
   ft->m_id = emo.GetID();
   return ft;
@@ -308,7 +309,18 @@ void FeatureType::ParseCommon()
 
   if (GetGeomType() == GeomType::Point)
   {
-    m_center = serial::LoadPoint(source, m_loadInfo->GetDefGeometryCodingParams());
+    uint64_t decoded = ReadVarUint<uint64_t>(source);
+
+    // Skip dummy test control bit.
+    if (m_loadInfo->m_version >= DatSectionHeader::Version::V1)
+    {
+      m_hasRelations = (decoded & 0x1) == 1;
+      decoded >>= 1;
+    }
+
+    auto const & cp = m_loadInfo->GetDefGeometryCodingParams();
+    m_center = PointUToPointD(coding::DecodePointDeltaFromUint(decoded, cp.GetBasePoint()), cp.GetCoordBits());
+
     m_limitRect.Add(m_center);
   }
 
@@ -350,7 +362,10 @@ void FeatureType::ParseHeader2()
 
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
   if (headerGeomType != HeaderGeomType::Line && headerGeomType != HeaderGeomType::Area)
+  {
+    m_offsets.m_relations = m_offsets.m_header2;
     return;
+  }
 
   BitSource bitSource(m_data.data() + m_offsets.m_header2);
   uint8_t elemsCount = bitSource.Read(4);
@@ -372,6 +387,8 @@ void FeatureType::ParseHeader2()
       geomScalesMask = elemsCount;
       elemsCount = 0;
     }
+
+    m_hasRelations = (bitSource.Read(1) == 1);
   }
 
   ArrayByteSource src(bitSource.RoundPtr());
@@ -429,6 +446,23 @@ void FeatureType::ParseHeader2()
     }
   }
 
+  m_offsets.m_relations = CalcOffset(src, m_data.data());
+}
+
+void FeatureType::ParseRelations()
+{
+  if (m_parsed.m_relations)
+    return;
+
+  ParseHeader2();
+
+  ArrayByteSource src(m_data.data() + m_offsets.m_relations);
+
+  if (m_hasRelations)
+    ReadVarUInt32SortedShortArray(src, m_relationIDs);
+
+  m_parsed.m_relations = true;
+
   // Size of the whole header incl. inner geometry / triangles.
   m_innerStats.m_size = CalcOffset(src, m_data.data());
 }
@@ -445,7 +479,7 @@ void FeatureType::ResetGeometry()
   if (GetGeomType() != GeomType::Point)
     m_limitRect = m2::RectD();
 
-  m_parsed.m_header2 = m_parsed.m_points = m_parsed.m_triangles = false;
+  m_parsed.m_relations = m_parsed.m_header2 = m_parsed.m_points = m_parsed.m_triangles = false;
   m_offsets.m_pts.clear();
   m_offsets.m_trg.clear();
   m_ptsSimpMask = 0;
@@ -504,9 +538,9 @@ void FeatureType::ParseGeometry(int scale)
 
 FeatureType::GeomStat FeatureType::GetOuterGeometryStats()
 {
-  CHECK(m_loadInfo && m_parsed.m_header2 && !m_parsed.m_points, ("Call geometry stats first and once!"));
+  CHECK(m_loadInfo && m_parsed.m_relations && !m_parsed.m_points, ());
   size_t const scalesCount = m_loadInfo->GetScalesCount();
-  ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ("MWM has too many geometry scales!"));
+  ASSERT_LESS_OR_EQUAL(scalesCount, DataHeader::kMaxScalesCount, ());
   FeatureType::GeomStat res;
 
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
@@ -579,9 +613,9 @@ void FeatureType::ParseTriangles(int scale)
 
 FeatureType::GeomStat FeatureType::GetOuterTrianglesStats()
 {
-  CHECK(m_loadInfo && m_parsed.m_header2 && !m_parsed.m_triangles, ("Call geometry stats first and once!"));
+  CHECK(m_loadInfo && m_parsed.m_relations && !m_parsed.m_triangles, ());
   int const scalesCount = m_loadInfo->GetScalesCount();
-  ASSERT_LESS_OR_EQUAL(scalesCount, static_cast<int>(DataHeader::kMaxScalesCount), ("MWM has too many geometry scales!"));
+  ASSERT_LESS_OR_EQUAL(scalesCount, static_cast<int>(DataHeader::kMaxScalesCount), ());
   FeatureType::GeomStat res;
 
   auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
@@ -872,4 +906,17 @@ bool FeatureType::HasMetadata(feature::Metadata::EType type)
 
   return base::FindIf(m_metaIds, [&type](auto const & v) { return v.first == type; }) !=
          m_metaIds.end();
+}
+
+FeatureType::RelationIDsV const & FeatureType::GetRelations()
+{
+  ParseRelations();
+  return m_relationIDs;
+}
+
+/// @pre id is from m_relationIDs.
+feature::RouteRelationBase FeatureType::ReadRelation(uint32_t id)
+{
+  ParseRelations();
+  return m_loadInfo->ReadRelation(id);
 }

@@ -18,7 +18,8 @@ class FeaturesVector
 
 public:
   FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header,
-                 feature::FeaturesOffsetsTable const * table,
+                 feature::FeaturesOffsetsTable const * ftTable,
+                 feature::FeaturesOffsetsTable const * relTable,
                  indexer::MetadataDeserializer * metaDeserializer);
 
   std::unique_ptr<FeatureType> GetByIndex(uint32_t index) const;
@@ -53,7 +54,7 @@ private:
   /// Actually, this ctor is needed only for ForEachOffset call.
   /// Didn't find a better solution without big refactoring.
   FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header)
-    : m_loadInfo(cont, header, nullptr)
+    : m_loadInfo(cont, header, nullptr, nullptr)
   {
     InitRecordsReader();
   }
