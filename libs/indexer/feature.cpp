@@ -297,7 +297,6 @@ void FeatureType::ParseCommon()
   if (m_parsed.m_common)
     return;
 
-  CHECK(m_loadInfo, ());
   ParseTypes();
 
   ArrayByteSource source(m_data.data() + m_offsets.m_common);
@@ -342,20 +341,34 @@ void FeatureType::ParseHeader2()
   if (m_parsed.m_header2)
     return;
 
-  CHECK(m_loadInfo, ());
   ParseCommon();
 
-  uint8_t elemsCount = 0, geomScalesMask = 0;
-  BitSource bitSource(m_data.data() + m_offsets.m_header2);
-  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+  m_parsed.m_header2 = true;
 
-  if (headerGeomType == HeaderGeomType::Line || headerGeomType == HeaderGeomType::Area)
+  auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
+  if (headerGeomType != HeaderGeomType::Line && headerGeomType != HeaderGeomType::Area)
+    return;
+
+  BitSource bitSource(m_data.data() + m_offsets.m_header2);
+  uint8_t elemsCount = bitSource.Read(4);
+  uint8_t geomScalesMask = 0;
+
+  if (m_loadInfo->m_version == DatSectionHeader::Version::V0)
   {
-    elemsCount = bitSource.Read(4);
     // For outer geometry read the geom scales (offsets) mask.
     // For inner geometry remaining 4 bits are not used.
     if (elemsCount == 0)
       geomScalesMask = bitSource.Read(4);
+  }
+  else
+  {
+    ASSERT_EQUAL(m_loadInfo->m_version, DatSectionHeader::Version::V1, ());
+    bool const isOuter = (bitSource.Read(1) == 1);
+    if (isOuter)
+    {
+      geomScalesMask = elemsCount;
+      elemsCount = 0;
+    }
   }
 
   ArrayByteSource src(bitSource.RoundPtr());
@@ -370,7 +383,8 @@ void FeatureType::ParseHeader2()
       // first and last points are never simplified/discarded,
       // 2 bits are used per each other point, i.e.
       // 3-6 pts - 1 byte, 7-10 pts - 2b, 11-14 pts - 3b.
-      int const count = ((elemsCount - 2) + 4 - 1) / 4;
+      /// @see FeatureBuilder::SerializeForMwm
+      int const count = (elemsCount - 2 + 3) / 4;
       ASSERT_LESS(count, 4, ());
 
       for (int i = 0; i < count; ++i)
@@ -393,8 +407,9 @@ void FeatureType::ParseHeader2()
       ReadOffsets(*m_loadInfo, src, geomScalesMask, m_offsets.m_pts);
     }
   }
-  else if (headerGeomType == HeaderGeomType::Area)
+  else
   {
+    ASSERT(headerGeomType == HeaderGeomType::Area, ());
     if (elemsCount > 0)
     {
       // Inner geometry (strips).
@@ -413,7 +428,6 @@ void FeatureType::ParseHeader2()
 
   // Size of the whole header incl. inner geometry / triangles.
   m_innerStats.m_size = CalcOffset(src, m_data.data());
-  m_parsed.m_header2 = true;
 }
 
 void FeatureType::ResetGeometry()
@@ -438,7 +452,6 @@ void FeatureType::ParseGeometry(int scale)
 {
   if (!m_parsed.m_points)
   {
-    CHECK(m_loadInfo, ());
     ParseHeader2();
 
     auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);
@@ -539,7 +552,6 @@ void FeatureType::ParseTriangles(int scale)
 {
   if (!m_parsed.m_triangles)
   {
-    CHECK(m_loadInfo, ());
     ParseHeader2();
 
     auto const headerGeomType = static_cast<HeaderGeomType>(Header(m_data) & HEADER_MASK_GEOMTYPE);

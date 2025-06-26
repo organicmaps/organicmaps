@@ -1,5 +1,6 @@
 #pragma once
 
+#include "indexer/dat_section_header.hpp"
 #include "indexer/data_header.hpp"
 
 #include "coding/files_container.hpp"
@@ -47,6 +48,7 @@ private:
 
 public:
   indexer::MetadataDeserializer * m_metaDeserializer;
+  feature::DatSectionHeader::Version m_version;
 
   DISALLOW_COPY_AND_MOVE(SharedLoadInfo);
 };
