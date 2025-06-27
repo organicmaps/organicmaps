@@ -15,7 +15,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
 import app.organicmaps.R;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.util.log.Logger;
 
 // Fix missing root certificates for HTTPS connections on Android 7 and below:
 // https://community.letsencrypt.org/t/letsencrypt-certificates-fails-on-android-phones-running-android-7-or-older/205686

@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import app.organicmaps.base.BaseMwmFragmentActivity;
-import app.organicmaps.display.DisplayChangedListener;
-import app.organicmaps.display.DisplayManager;
-import app.organicmaps.display.DisplayType;
+import app.organicmaps.sdk.display.DisplayChangedListener;
+import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.display.DisplayType;
 
 public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements DisplayChangedListener
 {

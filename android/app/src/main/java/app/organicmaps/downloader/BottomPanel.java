@@ -1,14 +1,27 @@
 package app.organicmaps.downloader;
 
+import static app.organicmaps.sdk.downloader.CountryItem.STATUS_APPLYING;
+import static app.organicmaps.sdk.downloader.CountryItem.STATUS_DONE;
+import static app.organicmaps.sdk.downloader.CountryItem.STATUS_DOWNLOADABLE;
+import static app.organicmaps.sdk.downloader.CountryItem.STATUS_ENQUEUED;
+import static app.organicmaps.sdk.downloader.CountryItem.STATUS_FAILED;
+import static app.organicmaps.sdk.downloader.CountryItem.STATUS_PARTLY;
+import static app.organicmaps.sdk.downloader.CountryItem.STATUS_PROGRESS;
+import static app.organicmaps.sdk.downloader.CountryItem.STATUS_UPDATABLE;
+
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import app.organicmaps.R;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.UiUtils;
 
-import static app.organicmaps.downloader.CountryItem.*;
+import app.organicmaps.R;
+
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.downloader.UpdateInfo;
+import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.UiUtils;
+
 
 class BottomPanel
 {

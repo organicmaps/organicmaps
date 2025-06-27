@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
-import app.organicmaps.util.concurrency.UiThread;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 
 import java.util.ArrayList;
 

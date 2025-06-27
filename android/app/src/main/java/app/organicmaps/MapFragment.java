@@ -16,8 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ConfigurationHelper;
 
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.display.DisplayType;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.display.DisplayType;
+import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.MapRenderingListener;
+import app.organicmaps.sdk.util.log.Logger;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 

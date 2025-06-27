@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import app.organicmaps.R;
-import app.organicmaps.maplayer.traffic.TrafficManager;
+import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 

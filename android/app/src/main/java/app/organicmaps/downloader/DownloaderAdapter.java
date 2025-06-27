@@ -20,11 +20,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import app.organicmaps.MwmActivity;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.location.LocationHelper;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.util.StringUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -573,7 +575,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     if (!mMyMapsMode && CountryItem.isRoot(parent))
     {
-      Location loc = LocationHelper.from(mActivity).getSavedLocation();
+      Location loc = MwmApplication.from(mActivity).getLocationHelper().getSavedLocation();
       hasLocation = (loc != null);
       if (hasLocation)
       {

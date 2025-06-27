@@ -13,14 +13,14 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.Toggle;
 import app.organicmaps.car.util.UiHelpers;
-import app.organicmaps.util.Config;
+import app.organicmaps.sdk.util.Config;
 
 public class SettingsScreen extends BaseMapScreen
 {

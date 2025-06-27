@@ -23,25 +23,25 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.bookmarks.data.FeatureId;
-import app.organicmaps.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.FeatureId;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.downloader.CountrySuggestFragment;
-import app.organicmaps.downloader.MapManager;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.location.LocationListener;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.search.SearchListener;
 import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.sdk.search.SearchResult;
-import app.organicmaps.util.Config;
-import app.organicmaps.util.SharedPropertiesUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.Language;
+import app.organicmaps.sdk.util.SharedPropertiesUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.PlaceholderView;
@@ -332,7 +332,7 @@ public class SearchFragment extends BaseMwmFragment
   public void onResume()
   {
     super.onResume();
-    LocationHelper.from(requireContext()).addListener(mLocationListener);
+    MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
     if (mInitialQuery != null) {
       setQuery(mInitialQuery, false);
       mInitialQuery = null;
@@ -342,7 +342,7 @@ public class SearchFragment extends BaseMwmFragment
   @Override
   public void onPause()
   {
-    LocationHelper.from(requireContext()).removeListener(mLocationListener);
+    MwmApplication.from(requireContext()).getLocationHelper().removeListener(mLocationListener);
     super.onPause();
   }
 
@@ -446,7 +446,7 @@ public class SearchFragment extends BaseMwmFragment
 
     SearchEngine.INSTANCE.searchInteractive(
         query, isCategory(), !TextUtils.isEmpty(mInitialLocale)
-               ? mInitialLocale : app.organicmaps.util.Language.getKeyboardLocale(requireContext()),
+               ? mInitialLocale : Language.getKeyboardLocale(requireContext()),
         mLastQueryTimestamp, false /* isMapAndTable */);
 
     SearchEngine.INSTANCE.setQuery(query);
@@ -506,8 +506,6 @@ public class SearchFragment extends BaseMwmFragment
     updateFrames();
   }
 
-  // Called from JNI.
-  @SuppressWarnings("unused")
   @Override
   public void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
   {
@@ -517,8 +515,6 @@ public class SearchFragment extends BaseMwmFragment
     refreshSearchResults(results);
   }
 
-  // Called from JNI.
-  @SuppressWarnings("unused")
   @Override
   public void onResultsEnd(long timestamp)
   {

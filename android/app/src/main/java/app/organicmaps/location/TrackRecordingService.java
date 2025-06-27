@@ -22,8 +22,11 @@ import androidx.core.content.ContextCompat;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.util.LocationUtils;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.location.TrackRecorder;
+import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.util.log.Logger;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
@@ -53,7 +56,7 @@ public class TrackRecordingService extends Service implements LocationListener
   {
     if (!TrackRecorder.nativeIsTrackRecordingEnabled())
       TrackRecorder.nativeStartTrackRecording();
-    LocationHelper.from(context).restartWithNewMode();
+    MwmApplication.from(context).getLocationHelper().restartWithNewMode();
     ContextCompat.startForegroundService(context, new Intent(context, TrackRecordingService.class));
   }
 
@@ -129,7 +132,7 @@ public class TrackRecordingService extends Service implements LocationListener
     mWarningBuilder = null;
     if (TrackRecorder.nativeIsTrackRecordingEnabled())
       TrackRecorder.nativeStopTrackRecording();
-    LocationHelper.from(this).removeListener(this);
+    MwmApplication.from(this).getLocationHelper().removeListener(this);
     // The notification is cancelled automatically by the system.
   }
 
@@ -165,7 +168,7 @@ public class TrackRecordingService extends Service implements LocationListener
     else
       ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID, getNotificationBuilder(this).build(), 0);
 
-    final LocationHelper locationHelper = LocationHelper.from(this);
+    final LocationHelper locationHelper = MwmApplication.from(this).getLocationHelper();
 
     // Subscribe to location updates. This call is idempotent.
     locationHelper.addListener(this);

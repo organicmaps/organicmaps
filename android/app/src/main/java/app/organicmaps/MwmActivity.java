@@ -46,43 +46,43 @@ import app.organicmaps.api.Const;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.bookmarks.BookmarkCategoriesActivity;
-import app.organicmaps.bookmarks.data.BookmarkManager;
-import app.organicmaps.bookmarks.data.MapObject;
-import app.organicmaps.display.DisplayChangedListener;
-import app.organicmaps.display.DisplayManager;
-import app.organicmaps.display.DisplayType;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.MapRenderingListener;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.display.DisplayChangedListener;
+import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.downloader.DownloaderActivity;
 import app.organicmaps.downloader.DownloaderFragment;
-import app.organicmaps.downloader.MapManager;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.downloader.OnmapDownloader;
-import app.organicmaps.downloader.UpdateInfo;
-import app.organicmaps.editor.Editor;
+import app.organicmaps.sdk.downloader.UpdateInfo;
+import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.editor.EditorActivity;
 import app.organicmaps.editor.EditorHostFragment;
 import app.organicmaps.editor.FeatureCategoryActivity;
 import app.organicmaps.editor.OsmLoginActivity;
-import app.organicmaps.editor.OsmOAuth;
+import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.editor.ReportFragment;
 import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.intent.IntentProcessor;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.location.LocationListener;
-import app.organicmaps.location.LocationState;
-import app.organicmaps.location.SensorHelper;
-import app.organicmaps.location.SensorListener;
-import app.organicmaps.location.TrackRecorder;
+import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.location.LocationListener;
+import app.organicmaps.sdk.location.LocationState;
+import app.organicmaps.sdk.location.SensorListener;
+import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
-import app.organicmaps.maplayer.isolines.IsolinesManager;
-import app.organicmaps.maplayer.isolines.IsolinesState;
+import app.organicmaps.sdk.maplayer.isolines.IsolinesState;
 import app.organicmaps.routing.ManageRouteBottomSheet;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.routing.RouteMarkType;
-import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.routing.RoutingBottomMenuListener;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.routing.RoutingErrorDialogFragment;
@@ -97,24 +97,24 @@ import app.organicmaps.search.SearchActivity;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.search.SearchFragment;
 import app.organicmaps.settings.DrivingOptionsActivity;
-import app.organicmaps.settings.RoadType;
+import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.settings.SettingsActivity;
-import app.organicmaps.settings.UnitLocale;
-import app.organicmaps.util.Config;
-import app.organicmaps.util.LocationUtils;
-import app.organicmaps.util.PowerManagment;
+import app.organicmaps.sdk.settings.UnitLocale;
+import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.LocationUtils;
+import app.organicmaps.sdk.util.PowerManagment;
 import app.organicmaps.util.SharingUtils;
-import app.organicmaps.util.ThemeSwitcher;
+import app.organicmaps.sdk.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.widget.StackedButtonsDialog;
 import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
-import app.organicmaps.widget.placepage.PlacePageData;
+import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -125,10 +125,10 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static app.organicmaps.location.LocationState.FOLLOW;
-import static app.organicmaps.location.LocationState.FOLLOW_AND_ROTATE;
-import static app.organicmaps.location.LocationState.LOCATION_TAG;
-import static app.organicmaps.util.PowerManagment.POWER_MANAGEMENT_TAG;
+import static app.organicmaps.sdk.location.LocationState.FOLLOW;
+import static app.organicmaps.sdk.location.LocationState.FOLLOW_AND_ROTATE;
+import static app.organicmaps.sdk.location.LocationState.LOCATION_TAG;
+import static app.organicmaps.sdk.util.PowerManagment.POWER_MANAGEMENT_TAG;
 
 public class MwmActivity extends BaseMwmFragmentActivity
     implements PlacePageActivationListener,
@@ -265,10 +265,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     checkMeasurementSystem();
   }
 
-  // Called from JNI.
   @Override
   @Keep
-  @SuppressWarnings("unused")
   public void onRenderingInitializationFinished()
   {
     ThemeSwitcher.INSTANCE.restart(true);
@@ -449,7 +447,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void shareMyLocation()
   {
-    final Location loc = LocationHelper.from(this).getSavedLocation();
+    final Location loc = MwmApplication.from(this).getLocationHelper().getSavedLocation();
     if (loc != null)
     {
       SharingUtils.shareLocation(this, loc);
@@ -965,7 +963,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       LocationState.nativeSwitchToNextMode();
     }
 
-    MapObject startPoint = LocationHelper.from(this).getMyPosition();
+    MapObject startPoint = MwmApplication.from(this).getLocationHelper().getMyPosition();
     RoutingController.get().prepare(startPoint, endPoint);
 
     // TODO: check for tablet.
@@ -1120,7 +1118,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mNavigationController.refresh();
     refreshLightStatusBar();
 
-    SensorHelper.from(this).addListener(this);
+    MwmApplication.from(this).getSensorHelper().addListener(this);
   }
 
   @Override
@@ -1144,7 +1142,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
-    SensorHelper.from(this).removeListener(this);
+    MwmApplication.from(this).getSensorHelper().removeListener(this);
     dismissLocationErrorDialog();
     dismissAlertDialog();
     super.onPause();
@@ -1157,9 +1155,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
     RoutingController.get().attach(this);
-    IsolinesManager.from(getApplicationContext()).attach(this::onIsolinesStateChanged);
+    MwmApplication.from(getApplicationContext()).getIsolinesManager().attach(this::onIsolinesStateChanged);
     LocationState.nativeSetListener(this);
-    LocationHelper.from(this).addListener(this);
+    MwmApplication.from(this).getLocationHelper().addListener(this);
     mSearchController.attach(this);
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
   }
@@ -1170,13 +1168,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onStop();
     Framework.nativeRemovePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
-    LocationHelper.from(this).removeListener(this);
+    MwmApplication.from(this).getLocationHelper().removeListener(this);
     if (mDisplayManager.isDeviceDisplayUsed() && !RoutingController.get().isNavigating())
     {
       LocationState.nativeRemoveListener();
       RoutingController.get().detach();
     }
-    IsolinesManager.from(getApplicationContext()).detach();
+    MwmApplication.from(getApplicationContext()).getIsolinesManager().detach();
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());
 
@@ -1273,26 +1271,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return true;
   }
 
-  // Called from JNI.
   @Override
-  @SuppressWarnings("unused")
   public void onPlacePageActivated(@NonNull PlacePageData data)
   {
     // This will open the place page
     mPlacePageViewModel.setMapObject((MapObject) data);
   }
 
-  // Called from JNI.
   @Override
-  @SuppressWarnings("unused")
   public void onPlacePageDeactivated()
   {
     closePlacePage();
   }
 
-  // Called from JNI.
   @Override
-  @SuppressWarnings("unused")
   public void onSwitchFullScreenMode()
   {
     if ((mPanelAnimator != null && mPanelAnimator.isVisible()) || UiUtils.isVisible(mSearchController.getToolbar()))
@@ -1362,7 +1354,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mMapFragment.updateCompassOffset(offsetX, offsetY);
 
-    final double north = SensorHelper.from(this).getSavedNorth();
+    final double north = MwmApplication.from(this).getSensorHelper().getSavedNorth();
     if (!Double.isNaN(north))
       Map.onCompassUpdated(north, true);
   }
@@ -1447,7 +1439,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // +S+F-L -> Hide
     // +S+F+L -> Hide
 
-    MapObject myPosition = LocationHelper.from(this).getMyPosition();
+    MapObject myPosition = MwmApplication.from(this).getLocationHelper().getMyPosition();
 
     if (myPosition != null && controller.getEndPoint() == null)
     {
@@ -1773,7 +1765,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
             (dialog, which) -> controller.swapPoints() :
             (dialog, which) -> {
               // The current location may change while this dialog is still shown on the screen.
-              final MapObject myPosition = LocationHelper.from(this).getMyPosition();
+              final MapObject myPosition = MwmApplication.from(this).getLocationHelper().getMyPosition();
               controller.setStartPoint(myPosition);
             }
         )
@@ -1792,7 +1784,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (controller.isPlanning() || controller.isBuilding() || controller.isErrorEncountered())
       showAddStartOrFinishFrame(controller, true);
 
-    final LocationHelper locationHelper = LocationHelper.from(this);
+    final LocationHelper locationHelper = MwmApplication.from(this).getLocationHelper();
 
     // Check if location was disabled by the user.
     if (LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
@@ -2111,7 +2103,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onUseMyPositionAsStart()
   {
-    RoutingController.get().setStartPoint(LocationHelper.from(this).getMyPosition());
+    RoutingController.get().setStartPoint(MwmApplication.from(this).getLocationHelper().getMyPosition());
   }
 
   @Override

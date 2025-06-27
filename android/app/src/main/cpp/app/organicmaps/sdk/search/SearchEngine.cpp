@@ -1,7 +1,7 @@
-#include "app/organicmaps/Framework.hpp"
-#include "app/organicmaps/UserMarkHelper.hpp"
-#include "app/organicmaps/platform/AndroidPlatform.hpp"
-#include "app/organicmaps/util/Distance.hpp"
+#include "app/organicmaps/sdk/Framework.hpp"
+#include "app/organicmaps/sdk/UserMarkHelper.hpp"
+#include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
+#include "app/organicmaps/sdk/util/Distance.hpp"
 
 #include "map/bookmarks_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
@@ -253,8 +253,8 @@ extern "C"
                     boolean hasPopularityHigherPriority)
     */
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass,
-                                                     "(Lapp/organicmaps/bookmarks/data/FeatureId;"
-                                                     "Ljava/lang/String;Ljava/lang/String;Lapp/organicmaps/util/Distance;"
+                                                     "(Lapp/organicmaps/sdk/bookmarks/data/FeatureId;"
+                                                     "Ljava/lang/String;Ljava/lang/String;Lapp/organicmaps/sdk/util/Distance;"
                                                      "Ljava/lang/String;IIIZ)V");
 
     g_popularityClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/search/Popularity");

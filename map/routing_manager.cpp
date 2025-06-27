@@ -1100,16 +1100,26 @@ static std::string GetNameFromPoint(RouteMarkData const & rmd)
 
 kml::TrackId RoutingManager::SaveRoute()
 {
-  auto points = GetRoutePolyline().GetPolyline().GetPoints();
+  std::vector<geometry::PointWithAltitude> junctions;
+  RoutingSession().GetRouteJunctionPoints(junctions);
+
+  junctions.erase(
+    std::unique(
+      junctions.begin(),
+      junctions.end(),
+      [](const geometry::PointWithAltitude & p1, const geometry::PointWithAltitude & p2)
+      {
+        return AlmostEqualAbs(p1, p2, kMwmPointAccuracy);
+      }
+    ),
+    junctions.end()
+  );
+
   auto const routePoints = GetRoutePoints();
   std::string const from = GetNameFromPoint(routePoints.front());
   std::string const to = GetNameFromPoint(routePoints.back());
-  // remove equal sequential points
-  points.erase(
-      std::unique(points.begin(), points.end(), [](const m2::PointD & p1, const m2::PointD & p2) { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); }),
-      points.end());
 
-  return m_bmManager->SaveRoute(points, from, to);
+  return m_bmManager->SaveRoute(junctions, from, to);
 }
 
 bool RoutingManager::DisableFollowMode()

@@ -2,7 +2,7 @@ package app.organicmaps.sdk.routing;
 
 import androidx.annotation.Keep;
 
-import app.organicmaps.util.Distance;
+import app.organicmaps.sdk.util.Distance;
 
 // Called from JNI.
 @Keep

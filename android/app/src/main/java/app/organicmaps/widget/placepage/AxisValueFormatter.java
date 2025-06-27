@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 
 public class AxisValueFormatter extends DefaultValueFormatter
 {

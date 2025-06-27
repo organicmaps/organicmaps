@@ -11,11 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 
 import app.organicmaps.ChartController;
-import app.organicmaps.Framework;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
-import app.organicmaps.bookmarks.data.ElevationInfo;
+import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.routing.RoutingController;
-import app.organicmaps.util.UiUtils;
+import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.sdk.widget.placepage.PlacePageData;
 
 import java.util.Objects;
 

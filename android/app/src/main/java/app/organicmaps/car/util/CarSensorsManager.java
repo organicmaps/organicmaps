@@ -14,10 +14,9 @@ import androidx.car.app.hardware.info.CarSensors;
 import androidx.car.app.hardware.info.Compass;
 import androidx.core.content.ContextCompat;
 
-import app.organicmaps.Map;
-import app.organicmaps.location.LocationHelper;
-import app.organicmaps.location.SensorHelper;
-import app.organicmaps.util.log.Logger;
+import app.organicmaps.sdk.Map;
+import app.organicmaps.MwmApplication;
+import app.organicmaps.sdk.util.log.Logger;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -48,10 +47,10 @@ public class CarSensorsManager
     if (mIsCarCompassUsed)
       mCarSensors.addCompassListener(CarSensors.UPDATE_RATE_NORMAL, executor, this::onCarCompassDataAvailable);
     else
-      SensorHelper.from(mCarContext).addListener(this::onCompassUpdated);
+      MwmApplication.from(mCarContext).getSensorHelper().addListener(this::onCompassUpdated);
 
-    if (!LocationHelper.from(mCarContext).isActive())
-      LocationHelper.from(mCarContext).start();
+    if (!MwmApplication.from(mCarContext).getLocationHelper().isActive())
+      MwmApplication.from(mCarContext).getLocationHelper().start();
 
     if (mIsCarLocationUsed)
       mCarSensors.addCarHardwareLocationListener(CarSensors.UPDATE_RATE_FASTEST, executor, this::onCarLocationDataAvailable);
@@ -62,7 +61,7 @@ public class CarSensorsManager
     if (mIsCarCompassUsed)
       mCarSensors.removeCompassListener(this::onCarCompassDataAvailable);
     else
-      SensorHelper.from(mCarContext).removeListener(this::onCompassUpdated);
+      MwmApplication.from(mCarContext).getSensorHelper().removeListener(this::onCompassUpdated);
 
     if (mIsCarLocationUsed)
       mCarSensors.removeCarHardwareLocationListener(this::onCarLocationDataAvailable);
@@ -97,7 +96,7 @@ public class CarSensorsManager
     {
       final Location loc = location.getValue();
       if (loc != null)
-        LocationHelper.from(mCarContext).onLocationChanged(loc);
+        MwmApplication.from(mCarContext).getLocationHelper().onLocationChanged(loc);
     }
   }
 
@@ -113,6 +112,6 @@ public class CarSensorsManager
     Logger.d(TAG);
     mIsCarCompassUsed = false;
     mCarSensors.removeCompassListener(this::onCarCompassDataAvailable);
-    SensorHelper.from(mCarContext).addListener(this::onCompassUpdated);
+    MwmApplication.from(mCarContext).getSensorHelper().addListener(this::onCompassUpdated);
   }
 }
