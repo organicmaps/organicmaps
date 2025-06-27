@@ -89,15 +89,17 @@
         android:orientation="horizontal"
         android:gravity="center_vertical" >
         <Button
+          android:layout_weight="1"
           android:id="@+id/btn__manage_route"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           style="@style/MwmWidget.Button"
           android:text="@string/planning_route_manage_route"
           android:drawableStart="@drawable/ic_manage_route"
-          android:drawablePadding="6dp"/>
+          android:drawablePadding="@dimen/margin_quarter_plus"/>
 
         <Button
+          android:layout_weight="0"
           android:id="@+id/btn__save"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
