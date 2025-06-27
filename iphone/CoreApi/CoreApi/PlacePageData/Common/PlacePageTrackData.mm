@@ -32,14 +32,27 @@
 
 @implementation PlacePageTrackData (Core)
 
-- (instancetype)initWithTrack:(Track const &)track
-         onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler {
+- (instancetype)initWithRawData:(place_page::Info const &)rawData
+           onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler {
   self = [super init];
   if (self) {
-    _trackId = track.GetData().m_id;
-    _trackInfo = [[TrackInfo alloc] initWithTrackStatistics:track.GetStatistics()];
-
+    auto const trackPtr = GetFramework().GetBookmarkManager().GetTrack(rawData.GetTrackId());
+    auto const & track = *trackPtr;
     auto const & bm = GetFramework().GetBookmarkManager();
+
+    _trackId = track.GetData().m_id;
+
+    auto const & groupId = track.GetGroupId();
+    if (groupId && bm.HasBmCategory(groupId)) {
+      _groupId = groupId;
+      _trackCategory = [NSString stringWithCString:bm.GetCategoryName(groupId).c_str() encoding:NSUTF8StringEncoding];
+    }
+
+    auto const color = track.GetColor(0);
+    _color = [UIColor colorWithRed:color.GetRedF() green:color.GetGreenF() blue:color.GetBlueF() alpha:1.f];
+
+    _trackDescription = [NSString stringWithCString:track.GetDescription().c_str() encoding:NSUTF8StringEncoding];
+    _trackInfo = [[TrackInfo alloc] initWithTrackStatistics:track.GetStatistics()];
     _activePointDistance = bm.GetElevationActivePoint(_trackId);
     _myPositionDistance = bm.GetElevationMyPosition(_trackId);
     _onActivePointChangedHandler = onActivePointChangedHandler;
