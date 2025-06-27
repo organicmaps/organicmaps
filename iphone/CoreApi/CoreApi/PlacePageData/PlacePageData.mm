@@ -69,12 +69,10 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     }
 
     if (rawData().IsTrack()) {
-      auto const & track = GetFramework().GetBookmarkManager().GetTrack(rawData().GetTrackId());
       __weak auto weakSelf = self;
-      _trackData = [[PlacePageTrackData alloc] initWithTrack:*track onActivePointChanged:^(void) {
+      _trackData = [[PlacePageTrackData alloc] initWithRawData:rawData() onActivePointChanged:^(void) {
         [weakSelf handleActiveTrackSelectionPointChanged];
       }];
-      _isPreviewPlus = track->HasAltitudes();
     }
     _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
 
@@ -144,6 +142,11 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   }
   if (rawData().IsBookmark()) {
     _bookmarkData = [[PlacePageBookmarkData alloc] initWithRawData:rawData()];
+  } else if (rawData().IsTrack()) {
+    __weak auto weakSelf = self;
+    _trackData = [[PlacePageTrackData alloc] initWithRawData:rawData() onActivePointChanged:^(void) {
+      [weakSelf handleActiveTrackSelectionPointChanged];
+    }];
   } else {
     _bookmarkData = nil;
   }
