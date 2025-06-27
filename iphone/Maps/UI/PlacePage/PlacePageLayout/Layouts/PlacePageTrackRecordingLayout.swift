@@ -28,13 +28,6 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     return PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
   }()
 
-  lazy var editTrackViewController: PlacePageEditBookmarkOrTrackViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageEditBookmarkOrTrackViewController.self)
-    vc.view.isHidden = true
-    vc.delegate = interactor
-    return vc
-  }()
-
   lazy var elevationProfileViewController: ElevationProfileViewController? = {
     guard let trackData = placePageData.trackData else {
       return nil

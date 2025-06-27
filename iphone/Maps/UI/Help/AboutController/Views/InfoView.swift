@@ -8,7 +8,6 @@ final class InfoView: UIView {
   init() {
     super.init(frame: .zero)
     self.setupView()
-    self.arrangeViews()
     self.layoutViews()
   }
 
@@ -30,6 +29,8 @@ final class InfoView: UIView {
   }
 
   private func setupView() {
+    setStyle(.background)
+
     stackView.axis = .horizontal
     stackView.distribution = .fill
     stackView.alignment = .center
@@ -43,13 +44,11 @@ final class InfoView: UIView {
     imageView.contentMode = .scaleAspectFit
   }
 
-  private func arrangeViews() {
+  private func layoutViews() {
     addSubview(stackView)
     stackView.addArrangedSubview(imageView)
     stackView.addArrangedSubview(titleLabel)
-  }
 
-  private func layoutViews() {
     stackView.translatesAutoresizingMaskIntoConstraints = false
     imageView.translatesAutoresizingMaskIntoConstraints = false
     titleLabel.translatesAutoresizingMaskIntoConstraints = false
