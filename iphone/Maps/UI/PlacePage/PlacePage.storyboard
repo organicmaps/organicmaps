@@ -391,6 +391,7 @@
         <!--Place Page Info View Controller-->
         <scene sceneID="qdz-ee-nO9">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UlS-Pw-E6a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="PlacePageInfoViewController" id="Ey0-wy-VrR" customClass="PlacePageInfoViewController" customModule="Organic_Maps" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uyH-Qn-86F">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -418,7 +419,6 @@
                         <outlet property="stackView" destination="pmL-HT-I1N" id="33x-d6-3Lw"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UlS-Pw-E6a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="928.79999999999995" y="-289.65517241379314"/>
         </scene>
@@ -1133,21 +1133,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iB6-kj-Bi1">
-                                <rect key="frame" x="16" y="16" width="343" height="184"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB7-XJ-Nck" userLabel="Edit View" customClass="InfoItemView" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Dh1-Jl-owY"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44" width="343" height="140"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GV-eD-5Hj" userLabel="Expandable Label Container">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="156"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="Organic_Maps" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="8" width="343" height="140"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-                                        </userDefinedRuntimeAttributes>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="5nz-eA-gNS" secondAttribute="bottom" constant="8" id="7cq-aw-oEp"/>
+                                            <constraint firstAttribute="trailing" secondItem="5nz-eA-gNS" secondAttribute="trailing" constant="16" id="8bV-Qg-RLL"/>
+                                            <constraint firstItem="5nz-eA-gNS" firstAttribute="top" secondItem="6GV-eD-5Hj" secondAttribute="top" constant="8" id="beB-db-IK0"/>
+                                            <constraint firstItem="5nz-eA-gNS" firstAttribute="leading" secondItem="6GV-eD-5Hj" secondAttribute="leading" constant="16" id="vKl-QO-4lm"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -1155,10 +1167,10 @@
                         <viewLayoutGuide key="safeArea" id="mWF-en-dQX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="top" secondItem="bRD-Uv-Uak" secondAttribute="top" constant="16" id="Afw-Mq-NV9"/>
+                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="top" secondItem="bRD-Uv-Uak" secondAttribute="top" id="Afw-Mq-NV9"/>
                             <constraint firstAttribute="bottom" secondItem="iB6-kj-Bi1" secondAttribute="bottom" id="QQY-yn-M6D"/>
-                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="leading" secondItem="bRD-Uv-Uak" secondAttribute="leading" constant="16" id="tLm-VN-6Uh"/>
-                            <constraint firstAttribute="trailing" secondItem="iB6-kj-Bi1" secondAttribute="trailing" constant="16" id="wOt-k9-l2q"/>
+                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="leading" secondItem="bRD-Uv-Uak" secondAttribute="leading" id="tLm-VN-6Uh"/>
+                            <constraint firstAttribute="trailing" secondItem="iB6-kj-Bi1" secondAttribute="trailing" id="wOt-k9-l2q"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -1168,8 +1180,8 @@
                     <connections>
                         <outlet property="editView" destination="wB7-XJ-Nck" id="iPO-d0-Pw4"/>
                         <outlet property="expandableLabel" destination="5nz-eA-gNS" id="iui-Iu-EiB"/>
+                        <outlet property="expandableLabelContainer" destination="6GV-eD-5Hj" id="JFo-mK-5MC"/>
                         <outlet property="stackView" destination="iB6-kj-Bi1" id="CSH-xH-X4b"/>
-                        <outlet property="topConstraint" destination="Afw-Mq-NV9" id="Oth-ao-05T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcE-Xu-odc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

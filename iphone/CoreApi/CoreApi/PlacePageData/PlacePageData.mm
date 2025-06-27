@@ -35,6 +35,8 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
 @property(nonatomic, readwrite) PlacePagePreviewData *previewData;
 @property(nonatomic, readwrite) CLLocationCoordinate2D locationCoordinate;
 
+- (PlacePageObjectType)objectTypeFromRawData;
+
 @end
 
 @implementation PlacePageData
@@ -68,13 +70,10 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
     }
 
     if (rawData().IsTrack()) {
-      _objectType = PlacePageObjectTypeTrack;
-      auto const & track = GetFramework().GetBookmarkManager().GetTrack(rawData().GetTrackId());
       __weak auto weakSelf = self;
-      _trackData = [[PlacePageTrackData alloc] initWithTrack:*track onActivePointChanged:^(void) {
+      _trackData = [[PlacePageTrackData alloc] initWithRawData:rawData() onActivePointChanged:^(void) {
         [weakSelf handleActiveTrackSelectionPointChanged];
       }];
-      _isPreviewPlus = track->HasAltitudes();
     }
     _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
 
@@ -83,6 +82,8 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
       _mapNodeAttributes = [[MWMStorage sharedStorage] attributesForCountry:@(rawData().GetCountryId().c_str())];
       [[MWMStorage sharedStorage] addObserver:self];
     }
+
+    _objectType = [self objectTypeFromRawData];
 
     m_featureID = rawData().GetID();
     m_mercator = rawData().GetMercator();
@@ -142,12 +143,30 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType) {
   }
   if (rawData().IsBookmark()) {
     _bookmarkData = [[PlacePageBookmarkData alloc] initWithRawData:rawData()];
+  } else if (rawData().IsTrack()) {
+    __weak auto weakSelf = self;
+    _trackData = [[PlacePageTrackData alloc] initWithRawData:rawData() onActivePointChanged:^(void) {
+      [weakSelf handleActiveTrackSelectionPointChanged];
+    }];
   } else {
     _bookmarkData = nil;
   }
   _previewData = [[PlacePagePreviewData alloc] initWithRawData:rawData()];
+  _objectType = [self objectTypeFromRawData];
   if (self.onBookmarkStatusUpdate != nil) {
     self.onBookmarkStatusUpdate();
+  }
+}
+
+- (PlacePageObjectType)objectTypeFromRawData {
+  if (rawData().IsBookmark()) {
+    return PlacePageObjectTypeBookmark;
+  } else if (rawData().IsTrack()) {
+    return PlacePageObjectTypeTrack;
+  } else if (self.trackData) {
+    return PlacePageObjectTypeTrackRecording;
+  } else {
+    return PlacePageObjectTypePOI;
   }
 }
 

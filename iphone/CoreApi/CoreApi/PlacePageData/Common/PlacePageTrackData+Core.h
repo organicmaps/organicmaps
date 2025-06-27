@@ -6,8 +6,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlacePageTrackData (Core)
 
-- (instancetype)initWithTrack:(Track const &)track
-         onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler;
+- (instancetype)initWithRawData:(place_page::Info const &)rawData
+           onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler;
 
 @end
 
