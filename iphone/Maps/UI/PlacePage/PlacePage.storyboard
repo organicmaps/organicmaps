@@ -1133,21 +1133,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iB6-kj-Bi1">
-                                <rect key="frame" x="16" y="16" width="343" height="184"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wB7-XJ-Nck" userLabel="Edit View" customClass="InfoItemView" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="Dh1-Jl-owY"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="Organic_Maps" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44" width="343" height="140"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
-                                        </userDefinedRuntimeAttributes>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GV-eD-5Hj" userLabel="Expandable Label Container">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="156"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5nz-eA-gNS" customClass="ExpandableLabel" customModule="Organic_Maps" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="8" width="343" height="140"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="5nz-eA-gNS" secondAttribute="bottom" constant="8" id="7cq-aw-oEp"/>
+                                            <constraint firstAttribute="trailing" secondItem="5nz-eA-gNS" secondAttribute="trailing" constant="16" id="8bV-Qg-RLL"/>
+                                            <constraint firstItem="5nz-eA-gNS" firstAttribute="top" secondItem="6GV-eD-5Hj" secondAttribute="top" constant="8" id="beB-db-IK0"/>
+                                            <constraint firstItem="5nz-eA-gNS" firstAttribute="leading" secondItem="6GV-eD-5Hj" secondAttribute="leading" constant="16" id="vKl-QO-4lm"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -1155,10 +1167,10 @@
                         <viewLayoutGuide key="safeArea" id="mWF-en-dQX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="top" secondItem="bRD-Uv-Uak" secondAttribute="top" constant="16" id="Afw-Mq-NV9"/>
+                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="top" secondItem="bRD-Uv-Uak" secondAttribute="top" id="Afw-Mq-NV9"/>
                             <constraint firstAttribute="bottom" secondItem="iB6-kj-Bi1" secondAttribute="bottom" id="QQY-yn-M6D"/>
-                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="leading" secondItem="bRD-Uv-Uak" secondAttribute="leading" constant="16" id="tLm-VN-6Uh"/>
-                            <constraint firstAttribute="trailing" secondItem="iB6-kj-Bi1" secondAttribute="trailing" constant="16" id="wOt-k9-l2q"/>
+                            <constraint firstItem="iB6-kj-Bi1" firstAttribute="leading" secondItem="bRD-Uv-Uak" secondAttribute="leading" id="tLm-VN-6Uh"/>
+                            <constraint firstAttribute="trailing" secondItem="iB6-kj-Bi1" secondAttribute="trailing" id="wOt-k9-l2q"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
@@ -1168,8 +1180,8 @@
                     <connections>
                         <outlet property="editView" destination="wB7-XJ-Nck" id="iPO-d0-Pw4"/>
                         <outlet property="expandableLabel" destination="5nz-eA-gNS" id="iui-Iu-EiB"/>
+                        <outlet property="expandableLabelContainer" destination="6GV-eD-5Hj" id="JFo-mK-5MC"/>
                         <outlet property="stackView" destination="iB6-kj-Bi1" id="CSH-xH-X4b"/>
-                        <outlet property="topConstraint" destination="Afw-Mq-NV9" id="Oth-ao-05T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcE-Xu-odc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1399,13 +1411,13 @@
         <image name="ic_placepage_open_hours" width="28" height="28"/>
         <image name="img_direction_light" width="32" height="32"/>
         <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
