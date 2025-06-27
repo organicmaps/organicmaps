@@ -33,7 +33,9 @@
 - (void)openCatalogSingleItem:(PlacePageData *)data atIndex:(NSInteger)index;
 - (void)openCatalogMoreItems:(PlacePageData *)data;
 - (void)addBookmark:(PlacePageData *)data;
+- (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color;
 - (void)removeBookmark:(PlacePageData *)data;
+- (void)updateTrack:(PlacePageData *)data color:(UIColor *)color;
 - (void)removeTrack:(PlacePageData *)data;
 - (void)editBookmark:(PlacePageData *)data;
 - (void)editTrack:(PlacePageData *)data;
@@ -145,8 +147,16 @@
   [[MWMMapViewControlsManager manager].placePageManager addBookmark:data];
 }
 
++ (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color {
+  [[MWMMapViewControlsManager manager].placePageManager updateBookmark:data color:color];
+}
+
 + (void)removeBookmark:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager removeBookmark:data];
+}
+
++ (void)updateTrack:(PlacePageData *)data color:(UIColor *)color {
+  [[MWMMapViewControlsManager manager].placePageManager updateTrack:data color:color];
 }
 
 + (void)removeTrack:(PlacePageData *)data {

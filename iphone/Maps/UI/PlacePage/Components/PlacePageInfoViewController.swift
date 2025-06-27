@@ -1,12 +1,12 @@
 final class InfoItemView: UIView {
   private enum Constants {
-    static let imageViewWidth: CGFloat = 56
-    static let imageViewHeight: CGFloat = 28
-    static let accessoryButtonSize: CGFloat = 44
+    static let viewHeight: CGFloat = 44
+    static let stackViewSpacing: CGFloat = 0
+    static let iconButtonSize: CGFloat = 56
+    static let iconButtonEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
     static let infoLabelFontSize: CGFloat = 16
     static let infoLabelTopBottomSpacing: CGFloat = 10
-    static let stackViewSpacing: CGFloat = 0
-    static let viewHeight: CGFloat = 44
+    static let accessoryButtonSize: CGFloat = 44
   }
 
   enum Style {
@@ -16,15 +16,13 @@ final class InfoItemView: UIView {
 
   typealias TapHandler = () -> Void
 
-  let imageView = UIImageView()
+  let iconButton = UIButton()
   let infoLabel = UILabel()
   let accessoryButton = UIButton()
 
-  private var tapGestureRecognizer: UITapGestureRecognizer!
-  private var longPressGestureRecognizer: UILongPressGestureRecognizer!
-
-  var tapHandler: TapHandler?
-  var longPressHandler: TapHandler?
+  var infoLabelTapHandler: TapHandler?
+  var infoLabelLongPressHandler: TapHandler?
+  var iconButtonTapHandler: TapHandler?
   var accessoryImageTapHandler: TapHandler?
 
   private var style: Style = .regular
@@ -32,59 +30,77 @@ final class InfoItemView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     setupView()
+    layout()
   }
 
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     setupView()
+    layout()
   }
 
   private func setupView() {
-    tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTap))
-    longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onLongPress(_:)))
-    addGestureRecognizer(tapGestureRecognizer)
-    addGestureRecognizer(longPressGestureRecognizer)
+    addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onInfoLabelTap)))
+    addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(onInfoLabelLongPress(_:))))
 
-    imageView.contentMode = .scaleAspectFit
+    infoLabel.lineBreakMode = .byTruncatingTail
+    infoLabel.numberOfLines = 1
+    infoLabel.allowsDefaultTighteningForTruncation = true
+    infoLabel.isUserInteractionEnabled = false
+
+    iconButton.imageView?.contentMode = .scaleAspectFit
+    iconButton.addTarget(self, action: #selector(onIconButtonTap), for: .touchUpInside)
+    iconButton.contentEdgeInsets = Constants.iconButtonEdgeInsets
+
     accessoryButton.addTarget(self, action: #selector(onAccessoryButtonTap), for: .touchUpInside)
+  }
 
-    addSubview(imageView)
+  private func layout() {
+    addSubview(iconButton)
     addSubview(infoLabel)
     addSubview(accessoryButton)
 
     translatesAutoresizingMaskIntoConstraints = false
-    imageView.translatesAutoresizingMaskIntoConstraints = false
+    iconButton.translatesAutoresizingMaskIntoConstraints = false
     infoLabel.translatesAutoresizingMaskIntoConstraints = false
     accessoryButton.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
       heightAnchor.constraint(equalToConstant: Constants.viewHeight),
 
-      imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-      imageView.widthAnchor.constraint(equalToConstant: Constants.imageViewWidth),
-      imageView.heightAnchor.constraint(equalToConstant: Constants.imageViewHeight),
+      iconButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+      iconButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+      iconButton.widthAnchor.constraint(equalToConstant: Constants.iconButtonSize),
+      iconButton.topAnchor.constraint(equalTo: topAnchor),
+      iconButton.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-      infoLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
-      infoLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+      infoLabel.leadingAnchor.constraint(equalTo: iconButton.trailingAnchor),
+      infoLabel.topAnchor.constraint(equalTo: topAnchor),
+      infoLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
       infoLabel.trailingAnchor.constraint(equalTo: accessoryButton.leadingAnchor),
 
       accessoryButton.trailingAnchor.constraint(equalTo: trailingAnchor),
       accessoryButton.centerYAnchor.constraint(equalTo: centerYAnchor),
       accessoryButton.widthAnchor.constraint(equalToConstant: Constants.accessoryButtonSize),
-      accessoryButton.heightAnchor.constraint(equalToConstant: Constants.accessoryButtonSize)
+      accessoryButton.topAnchor.constraint(equalTo: topAnchor),
+      accessoryButton.bottomAnchor.constraint(equalTo: bottomAnchor)
     ])
   }
 
   @objc
-  private func onTap() {
-    tapHandler?()
+  private func onInfoLabelTap() {
+    infoLabelTapHandler?()
   }
 
   @objc
-  private func onLongPress(_ sender: UILongPressGestureRecognizer) {
+  private func onInfoLabelLongPress(_ sender: UILongPressGestureRecognizer) {
     guard sender.state == .began else { return }
-    longPressHandler?()
+    infoLabelLongPressHandler?()
+  }
+
+  @objc
+  private func onIconButtonTap() {
+    iconButtonTapHandler?()
   }
 
   @objc
@@ -95,10 +111,10 @@ final class InfoItemView: UIView {
   func setStyle(_ style: Style) {
     switch style {
     case .regular:
-      imageView.setStyleAndApply(.black)
+      iconButton.setStyleAndApply(.black)
       infoLabel.setFontStyleAndApply(.regular16, color: .blackPrimary)
     case .link:
-      imageView.setStyleAndApply(.blue)
+      iconButton.setStyleAndApply(.blue)
       infoLabel.setFontStyleAndApply(.regular16, color: .linkBlue)
     }
     accessoryButton.setStyleAndApply(.black)
@@ -457,6 +473,7 @@ class PlacePageInfoViewController: UIViewController {
 
   private func createInfoItem(_ info: String,
                               icon: UIImage?,
+                              tapIconHandler: TapHandler? = nil,
                               style: Style = .regular,
                               accessoryImage: UIImage? = nil,
                               tapHandler: TapHandler? = nil,
@@ -464,11 +481,12 @@ class PlacePageInfoViewController: UIViewController {
                               accessoryImageTapHandler: TapHandler? = nil) -> InfoItemView {
     let view = InfoItemView()
     addToStack(view)
-    view.imageView.image = icon?.withRenderingMode(.alwaysTemplate)
+    view.iconButton.setImage(icon?.withRenderingMode(.alwaysTemplate), for: .normal)
+    view.iconButtonTapHandler = tapIconHandler
     view.infoLabel.text = info
     view.setStyle(style)
-    view.tapHandler = tapHandler
-    view.longPressHandler = longPressHandler
+    view.infoLabelTapHandler = tapHandler
+    view.infoLabelLongPressHandler = longPressHandler
     view.setAccessory(image: accessoryImage, tapHandler: accessoryImageTapHandler)
     return view
   }

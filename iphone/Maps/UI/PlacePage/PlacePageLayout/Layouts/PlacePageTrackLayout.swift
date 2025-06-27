@@ -72,8 +72,10 @@ class PlacePageTrackLayout: IPlacePageLayout {
     var viewControllers = [UIViewController]()
 
     viewControllers.append(editTrackViewController)
-    editTrackViewController.view.isHidden = false
-    editTrackViewController.data = .track(trackData)
+    if let trackData = placePageData.trackData {
+      editTrackViewController.view.isHidden = false
+      editTrackViewController.data = .track(trackData)
+    }
 
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       guard let self = self else { return }
