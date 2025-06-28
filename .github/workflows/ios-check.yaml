@@ -67,6 +67,7 @@ jobs:
       - name: Configure XCode cache
         uses: irgaly/xcode-cache@v1
         with:
+          delete-used-deriveddata-cache: ${{ github.ref_name != 'master' }}
           key: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}
 

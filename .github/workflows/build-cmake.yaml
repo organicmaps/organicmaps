@@ -81,6 +81,7 @@ jobs:
             3party/boost
             .git/modules/3party/boost
           key: boost-submodule
+          enableCrossOsArchive: true
 
       - name: Parallel submodules checkout
         run: git submodule update --depth 1 --init --recursive --jobs=20
@@ -120,6 +121,7 @@ jobs:
       - name: Configure ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
+          save: ${{ github.ref_name == 'master' }}
           key: ${{ github.workflow }}-${{ matrix.environment.os }}-${{ matrix.environment.cc }}-${{ matrix.environment.unity }}-${{ matrix.cmake-build-type }}
 
       - name: Configure cmake

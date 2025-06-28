@@ -102,6 +102,7 @@ jobs:
       - name: Configure ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
+          save: ${{ github.ref_name == 'master' }}
           key: ${{ github.workflow }}-${{ matrix.flavor }}
 
       - name: Compile ${{ matrix.flavor }}
