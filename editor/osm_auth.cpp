@@ -20,11 +20,13 @@ using std::string;
 constexpr char const * kApiVersion = "/api/0.6";
 
 
-string FindAuthenticityToken(std::string const & action, string const & body)
+string FindAuthenticityToken(string const & action, string const & body)
 {
   static std::regex const kActionAndTokenRE(R"~(action="(.+?)".*?name="authenticity_token" value="(.+?)")~");
 
-  auto const begin = std::sregex_iterator{body.begin(), body.end(), kActionAndTokenRE};
+  string cleanBody(body);
+  std::erase_if(cleanBody, [](char c) { return c == '\n' || c == '\r'; });
+  auto const begin = std::sregex_iterator{cleanBody.begin(), cleanBody.end(), kActionAndTokenRE};
   auto const end = std::sregex_iterator{};
 
   for (auto it = begin; it != end; ++it)
