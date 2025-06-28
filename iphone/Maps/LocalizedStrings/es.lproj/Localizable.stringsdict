@@ -17,7 +17,7 @@
 			<key>one</key>
 			<string>%d marcador</string>
 			<key>many</key>
-			<string>%d marcadores</string>
+			<string>%d de marcadores</string>
 			<key>other</key>
 			<string>%d marcadores</string>
 		</dict>
@@ -57,7 +57,7 @@
 			<key>one</key>
 			<string>%d trayectos</string>
 			<key>many</key>
-			<string>%d trayectos</string>
+			<string>%d de trayectos</string>
 			<key>other</key>
 			<string>%d trayectos</string>
 		</dict>

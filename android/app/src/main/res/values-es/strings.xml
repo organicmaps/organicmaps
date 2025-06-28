@@ -48,7 +48,7 @@
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">Aplicación de código abierto creada por entusiastas y voluntarios.</string>
     <!-- The button that opens system location settings -->
-    <string name="location_settings">Ajustes de ubicación</string>
+    <string name="location_settings">Configuración de ubicación</string>
     <string name="close">Cerrar</string>
     <string name="unsupported_phone">La aplicación requiere OpenGL acelerado por hardware. Lamentablemente, su dispositivo no es compatible.</string>
     <string name="download">Descargar</string>
@@ -216,7 +216,7 @@
     <string name="length">Longitud</string>
     <string name="share_my_location">Compartir mi ubicación</string>
     <!-- Settings general group in settings screen -->
-    <string name="prefs_group_general">Ajustes generales</string>
+    <string name="prefs_group_general">Configuración general</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Información</string>
     <string name="prefs_group_route">Navegación</string>

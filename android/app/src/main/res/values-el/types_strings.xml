@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- SECTION: Types -->
-    <string name="type.addr_interpolation">Διεύθυνση/Μπλοκ</string>
-    <string name="type.addr_interpolation.even">Διεύθυνση/Μπλοκ</string>
-    <string name="type.addr_interpolation.odd">Διεύθυνση/Μπλοκ</string>
+    <string name="type.addr_interpolation">Διεύθυνση/Τετράγωνο</string>
+    <string name="type.addr_interpolation.even">Διεύθυνση/Τετράγωνο</string>
+    <string name="type.addr_interpolation.odd">Διεύθυνση/Τετράγωνο</string>
     <string name="type.aerialway">Τελεφερίκ</string>
     <string name="type.aerialway.cable_car">Τελεφερίκ</string>
     <string name="type.aerialway.chair_lift">Τελεφερίκ</string>
@@ -12,9 +12,9 @@
     <string name="type.aerialway.mixed_lift">Τελεφερίκ</string>
     <string name="type.aerialway.station">Σταθμός τελεφερίκ</string>
     <string name="type.aeroway.aerodrome">Αεροδρόμιο</string>
-    <string name="type.aeroway.aerodrome.international">Αεροδρόμιο</string>
+    <string name="type.aeroway.aerodrome.international">Διεθνές αεροδρόμιο</string>
     <string name="type.aeroway.helipad">Ελικοδρόμιο</string>
-    <string name="type.amenity">Εγκαταστάσεις υποδομής</string>
+    <string name="type.amenity">Υποδομή</string>
     <string name="type.amenity.arts_centre">Κέντρο καλών τεχνών</string>
     <string name="type.amenity.bank">Τράπεζα</string>
     <string name="type.amenity.bar">Μπαρ</string>
@@ -32,7 +32,7 @@
     <string name="type.amenity.car_sharing">Παραχώρηση αυτοκινήτου</string>
     <string name="type.amenity.car_wash">Καθαρισμός αυτοκινήτων</string>
     <string name="type.amenity.casino">Καζίνο</string>
-    <string name="type.amenity.gambling">ΤΥΧΕΡΑ ΠΑΙΧΝΙΔΙΑ</string>
+    <string name="type.amenity.gambling">Τυχερά παιχνίδια</string>
     <string name="type.leisure.adult_gaming_centre">Κέντρο παιχνιδιών ενηλίκων</string>
     <string name="type.leisure.amusement_arcade">Ηλεκτρονικά παιχνίδια</string>
     <string name="type.amenity.charging_station">Σταθμός φόρτισης</string>
@@ -48,7 +48,7 @@
     <string name="type.amenity.conference_centre">Συνεδριακό Κέντρο</string>
     <string name="type.amenity.courthouse">Δικαστικό μέγαρο</string>
     <string name="type.amenity.dentist">Οδοντίατρος</string>
-    <string name="type.amenity.doctors">Γιατροί</string>
+    <string name="type.amenity.doctors">Γιατρός</string>
     <string name="type.amenity.drinking_water">Πόσιμο νερό</string>
     <string name="type.drinking_water.yes">Πόσιμο νερό</string>
     <string name="type.amenity.driving_school">Σχολή οδήγησης</string>
@@ -57,19 +57,19 @@
     <string name="type.amenity.music_school">Μουσική Σχολή</string>
     <string name="type.amenity.language_school">Σχολή Γλωσσών</string>
     <string name="type.office.diplomatic">Πρεσβεία</string>
-    <string name="type.amenity.fast_food">Ταχυφαγίο</string>
+    <string name="type.amenity.fast_food">Ταχυφαγείο</string>
     <string name="type.amenity.ferry_terminal">Πορθμείο</string>
-    <string name="type.amenity.fire_station">Σταθμός πυρόσβεσης</string>
+    <string name="type.amenity.fire_station">Πυροσβεστικός σταθμός</string>
     <string name="type.amenity.fountain">Συντριβάνι</string>
     <string name="type.amenity.fuel">Βενζινάδικο</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard">Νεκροταφείο</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-    <string name="type.amenity.grave_yard.christian">Νεκροταφείο</string>
+    <string name="type.amenity.grave_yard.christian">Χριστιανικό νεκροταφείο</string>
     <string name="type.amenity.hospital">Νοσοκομείο</string>
     <string name="type.amenity.hunting_stand">Βάση σκόπευσης</string>
     <string name="type.amenity.ice_cream">Παγωτατζίδικο</string>
-    <string name="type.amenity.internet_cafe">Καφετέρια με Ίντερνετ</string>
+    <string name="type.amenity.internet_cafe">Ίντερνετ καφέ</string>
     <string name="type.amenity.kindergarten">Νηπιαγωγείο</string>
     <string name="type.amenity.library">Βιβλιοθήκη</string>
     <string name="type.amenity.loading_dock">Αποβάθρα φόρτωσης</string>
@@ -105,19 +105,19 @@
     <string name="type.amenity.payment_terminal">Τερματικό πληρωμών</string>
     <string name="type.amenity.pharmacy">Φαρμακείο</string>
     <string name="type.amenity.place_of_worship">Χώρος λατρείας</string>
-    <string name="type.amenity.place_of_worship.buddhist">Ναός</string>
+    <string name="type.amenity.place_of_worship.buddhist">Βουδιστικός ναός</string>
     <string name="type.amenity.place_of_worship.christian">Εκκλησία</string>
     <string name="type.amenity.place_of_worship.christian.mormon">Εκκλησία του Ιησού Χριστού των Αγίων των Τελευταίων Ημερών</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Αίθουσα Βασιλείας των Μαρτύρων του Ιεχωβά</string>
-    <string name="type.amenity.place_of_worship.hindu">Ναός</string>
+    <string name="type.amenity.place_of_worship.hindu">Ινδουιστικός ναός</string>
     <string name="type.amenity.place_of_worship.jewish">Συναγωγή</string>
     <string name="type.amenity.place_of_worship.muslim">Τζαμί</string>
-    <string name="type.amenity.place_of_worship.shinto">Ιερό</string>
-    <string name="type.amenity.place_of_worship.taoist">Ναός</string>
+    <string name="type.amenity.place_of_worship.shinto">Σιντοϊστικό ιερό</string>
+    <string name="type.amenity.place_of_worship.taoist">Ταοϊκός ναός</string>
     <string name="type.amenity.police">Αστυνομία</string>
     <string name="type.amenity.post_box">Ταχυδρομική θυρίδα</string>
     <string name="type.amenity.post_office">Ταχυδρομείο</string>
-    <string name="type.amenity.prison">φυλακή</string>
+    <string name="type.amenity.prison">Φυλακή</string>
     <string name="type.amenity.pub">Παμπ</string>
     <string name="type.amenity.public_bookcase">Ανταλλαγή βιβλίων</string>
     <!-- SECTION: Types: Recycling -->
@@ -127,8 +127,8 @@
     <string name="type.recycling.batteries">Μπαταρίες</string>
     <string name="type.recycling.clothes">Παλιά ρούχα</string>
     <string name="type.recycling.glass_bottles">Γυάλινα μπουκάλια</string>
-    <string name="type.recycling.paper">Απορρίμματα χαρτιού</string>
-    <string name="type.recycling.plastic">Πλαστικά απορρίμματα</string>
+    <string name="type.recycling.paper">Χαρτί</string>
+    <string name="type.recycling.plastic">Πλαστικό</string>
     <string name="type.recycling.plastic_bottles">Πλαστικά μπουκάλια</string>
     <string name="type.recycling.scrap_metal">Παλιοσίδερα</string>
     <string name="type.recycling.small_appliances">Ηλεκτρονικά απορρίμματα</string>
@@ -139,11 +139,11 @@
     <!-- A weather shelter by the public transport stop. -->
     <string name="type.amenity.shelter.public_transport">Καταφύγιο</string>
     <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
-    <string name="type.amenity.shelter.basic_hut">καταφύγιο bivouac</string>
+    <string name="type.amenity.shelter.basic_hut">Καταφύγιο μπιβουάκ</string>
     <string name="type.amenity.public_bath">Δημόσιο Λουτρό</string>
     <string name="type.amenity.shower">Ντους</string>
     <string name="type.amenity.stripclub">Στριπτιζάδικο</string>
-    <string name="type.amenity.taxi">Ταξί</string>
+    <string name="type.amenity.taxi">Πιάτσα ταξί</string>
     <string name="type.amenity.telephone">Τηλέφωνο</string>
     <string name="type.amenity.theatre">Θέατρο</string>
     <string name="type.amenity.toilets">Τουαλέτα</string>
@@ -152,8 +152,8 @@
     <string name="type.amenity.university">Πανεπιστήμιο</string>
     <string name="type.amenity.vending_machine.cigarettes">Αυτόματος πωλητής τσιγάρων</string>
     <string name="type.amenity.vending_machine.drinks">Αυτόματος πωλητής ποτών</string>
-    <string name="type.amenity.vending_machine.parking_tickets">Εισιτήρια στάθμευσης</string>
-    <string name="type.amenity.vending_machine.public_transport_tickets">Μηχάνημα αυτόματης πώλησης εισιτηρίων για τα μέσα μαζικής μεταφοράς</string>
+    <string name="type.amenity.vending_machine.parking_tickets">Παρκόμετρο</string>
+    <string name="type.amenity.vending_machine.public_transport_tickets">Μηχάνημα αυτόματης πώλησης εισιτηρίων για ΜΜΕ</string>
     <string name="type.amenity.vehicle_inspection">Έλεγχος οχήματος</string>
     <string name="type.amenity.veterinary">Κτηνίατρος</string>
     <string name="type.amenity.waste_basket">Κάδος απορριμμάτων</string>
@@ -161,10 +161,10 @@
     <string name="type.amenity.water_point">Παροχή νερού</string>
     <string name="type.amenity.water_point.drinking_water_no">Παροχή νερού</string>
     <string name="type.barrier.block">Εμπόδιο</string>
-    <string name="type.barrier.bollard">Πυλώνας</string>
-    <string name="type.barrier.border_control">Έλεγχος συνόρων</string>
+    <string name="type.barrier.bollard">Κολωνάκι</string>
+    <string name="type.barrier.border_control">Συνοριακός έλεγχος</string>
     <string name="type.barrier.city_wall">Τείχος της πόλης</string>
-    <string name="type.waterway.ditch">Αποστραγγιστική Τάφρο</string>
+    <string name="type.waterway.ditch">Αποστραγγιστική τάφρος</string>
     <string name="type.natural.water.moat">Τάφρος</string>
     <string name="type.natural.water.wastewater">Λύματα</string>
     <string name="type.barrier.entrance">Είσοδος</string>
@@ -172,7 +172,7 @@
     <string name="type.barrier.kissing_gate">Πύλη</string>
     <string name="type.barrier.lift_gate">Ανυψούμενη μπάρα</string>
     <string name="type.barrier.stile">Τουρνικέ</string>
-    <string name="type.barrier.turnstile">Πεζοδρόμιο</string>
+    <string name="type.barrier.turnstile">Περιστρεφόμενη πόρτα</string>
     <string name="type.barrier.swing_gate">Ανυψούμενη μπάρα</string>
     <string name="type.barrier.toll_booth">Σταθμός διοδίων</string>
     <string name="type.boundary.national_park">Εθνικό πάρκο</string>
@@ -337,12 +337,12 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.busway.tunnel">Σήραγγα</string>
     <string name="type.highway.bus_stop">Στάση λεωφορείου</string>
-    <string name="type.highway.construction">Οδός υπό κατασκευή</string>
+    <string name="type.highway.construction">Δρόμος υπό κατασκευή</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.cycleway.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.cycleway.tunnel">Σήραγγα</string>
-    <string name="type.highway.footway">Διαδρομή</string>
+    <string name="type.highway.footway">Μονοπάτι πεζών</string>
     <string name="type.highway.footway.sidewalk">Πεζοδρόμιο</string>
     <string name="type.highway.footway.crossing">Διάβαση πεζών</string>
     <string name="type.highway.footway.area">Περιοχή πεζόδρομου</string>
@@ -351,7 +351,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.footway.tunnel">Σήραγγα</string>
     <string name="type.highway.ford">Πέρασμα</string>
-    <string name="type.highway.living_street">Οδός</string>
+    <string name="type.highway.living_street">Οδός ήπιας κυκλοφορίας</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.living_street.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -362,29 +362,29 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway.tunnel">Σήραγγα αυτοκινητόδρομου</string>
     <string name="type.highway.motorway_junction">Έξοδος</string>
-    <string name="type.highway.motorway_link">Οδός</string>
+    <string name="type.highway.motorway_link">Ράμπα αυτοκινητόδρομου</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.motorway_link.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.motorway_link.tunnel">Σήραγγα</string>
-    <string name="type.highway.path">Διαδρομή</string>
+    <string name="type.highway.path">Μονοπάτι</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
-    <string name="type.highway.path.difficult">Δύσκολη ή ελάχιστα ορατή διαδρομή</string>
+    <string name="type.highway.path.difficult">Δύσκολο ή ελάχιστα ορατό μονοπάτι</string>
     <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
     <string name="type.highway.path.expert">Πολύ δύσκολο ή δυσδιάκριτο μονοπάτι</string>
-    <string name="type.highway.path.bicycle">Διαδρομή</string>
-    <string name="type.highway.footway.bicycle">Διαδρομή</string>
+    <string name="type.highway.path.bicycle">Μονοπάτι ποδηλάτου &amp; πεζών</string>
+    <string name="type.highway.footway.bicycle">Μονοπάτι ποδηλάτου &amp; πεζών</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.path.bridge">Γέφυρα</string>
-    <string name="type.highway.path.horse">Διαδρομή</string>
+    <string name="type.highway.path.horse">Μονοπάτι ιππασίας</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.path.tunnel">Σήραγγα</string>
-    <string name="type.highway.pedestrian">Οδός</string>
-    <string name="type.highway.pedestrian.area">Οδός</string>
+    <string name="type.highway.pedestrian">Πεζόδρομος</string>
+    <string name="type.highway.pedestrian.area">Περιοχή πεζών</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
-    <string name="type.highway.pedestrian.bridge">Γέφυρα</string>
+    <string name="type.highway.pedestrian.bridge">Πεζογέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.pedestrian.tunnel">Σήραγγα</string>
+    <string name="type.highway.pedestrian.tunnel">Σήραγγα πεζών</string>
     <string name="type.highway.primary">Πρωτεύων δρόμος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.primary.bridge">Γέφυρα</string>
@@ -396,8 +396,8 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary_link.tunnel">Σήραγγα</string>
     <string name="type.highway.raceway">Πίστα αγώνων</string>
-    <string name="type.highway.residential">Οδός</string>
-    <string name="type.highway.residential.area">Οδός</string>
+    <string name="type.highway.residential">Οικιστική οδός</string>
+    <string name="type.highway.residential.area">Οικιστική οδός</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.residential.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -420,8 +420,8 @@
     <string name="type.highway.secondary_link.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.secondary_link.tunnel">Σήραγγα</string>
-    <string name="type.highway.service">Οδός</string>
-    <string name="type.highway.service.area">Οδός</string>
+    <string name="type.highway.service">Δρόμος εξυπηρέτησης</string>
+    <string name="type.highway.service.area">Δρόμος εξυπηρέτησης</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.service.bridge">Γέφυρα</string>
     <string name="type.highway.service.driveway">Οδός</string>
@@ -429,7 +429,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Σήραγγα</string>
     <string name="type.highway.speed_camera">Κάμερα ταχύτητας</string>
-    <string name="type.highway.steps">Διαδρομή</string>
+    <string name="type.highway.steps">Σκαλιά</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
@@ -444,45 +444,45 @@
     <string name="type.highway.tertiary_link.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.tertiary_link.tunnel">Σήραγγα</string>
-    <string name="type.highway.track">Στίβος</string>
-    <string name="type.highway.track.area">Στίβος</string>
+    <string name="type.highway.track">Αγροτικός δρόμος</string>
+    <string name="type.highway.track.area">Αγροτικός δρόμος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.track.bridge">Γέφυρα</string>
-    <string name="type.highway.track.grade1">Στίβος</string>
-    <string name="type.highway.track.no.access">Στίβος</string>
+    <string name="type.highway.track.grade1">Αγροτικός δρόμος</string>
+    <string name="type.highway.track.no.access">Αγροτικός δρόμος</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.track.tunnel">Σήραγγα</string>
-    <string name="type.highway.traffic_signals">Φανάρια κυκλοφορίας</string>
-    <string name="type.highway.trunk">Οδός</string>
+    <string name="type.highway.traffic_signals">Φανάρια</string>
+    <string name="type.highway.trunk">Κύρια οδική αρτηρία</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk.tunnel">Σήραγγα</string>
-    <string name="type.highway.trunk_link">Οδός</string>
+    <string name="type.highway.trunk_link">Ράμπα εξόδου</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.trunk_link.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.trunk_link.tunnel">Σήραγγα</string>
-    <string name="type.highway.unclassified">Οδός</string>
-    <string name="type.highway.unclassified.area">Οδός</string>
+    <string name="type.highway.unclassified">Τοπικός δρόμος</string>
+    <string name="type.highway.unclassified.area">Τοπικός δρόμος</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.unclassified.bridge">Γέφυρα</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.unclassified.tunnel">Σήραγγα</string>
-    <string name="type.area_highway.footway">Διαδρομή</string>
-    <string name="type.area_highway.living_street">Οδός</string>
-    <string name="type.area_highway.motorway">Οδός</string>
-    <string name="type.area_highway.path">Διαδρομή</string>
-    <string name="type.area_highway.pedestrian">Οδός</string>
-    <string name="type.area_highway.primary">Οδός</string>
-    <string name="type.area_highway.residential">Οδός</string>
-    <string name="type.area_highway.secondary">Οδός</string>
-    <string name="type.area_highway.service">Οδός</string>
-    <string name="type.area_highway.tertiary">Οδός</string>
-    <string name="type.area_highway.steps">Διαδρομή</string>
-    <string name="type.area_highway.track">Οδός</string>
-    <string name="type.area_highway.trunk">Οδός</string>
-    <string name="type.area_highway.unclassified">Οδός</string>
+    <string name="type.area_highway.footway">Μονοπάτι πεζοπορίας</string>
+    <string name="type.area_highway.living_street">Οδός ήπιας κυκλοφορίας</string>
+    <string name="type.area_highway.motorway">Αυτοκινητόδρομος</string>
+    <string name="type.area_highway.path">Μονοπάτι</string>
+    <string name="type.area_highway.pedestrian">Πεζόδρομος</string>
+    <string name="type.area_highway.primary">Πρωτεύων δρόμος</string>
+    <string name="type.area_highway.residential">Οικιστική οδός</string>
+    <string name="type.area_highway.secondary">Δευτερεύων δρόμος</string>
+    <string name="type.area_highway.service">Δρόμος εξυπηρέτησης</string>
+    <string name="type.area_highway.tertiary">Τριτεύων δρόμος</string>
+    <string name="type.area_highway.steps">Σκαλιά</string>
+    <string name="type.area_highway.track">Αγροτικός δρόμος</string>
+    <string name="type.area_highway.trunk">Κύρια οδική αρτηρία</string>
+    <string name="type.area_highway.unclassified">Τοπικός δρόμος</string>
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Ιστορικό αντικείμενο</string>
     <string name="type.historic.aircraft">Ιστορικό αεροσκάφος</string>
@@ -501,27 +501,27 @@
     <string name="type.historic.castle.manor">Αρχοντικό</string>
     <string name="type.historic.castle.palace">Παλάτι</string>
     <string name="type.historic.castle.shiro">Ιαπωνικό κάστρο</string>
-    <string name="type.historic.castle.stately">Κάστρο</string>
+    <string name="type.historic.castle.stately">Κάστρο έπαυλης</string>
     <string name="type.historic.city_gate">Πύλη της πόλης</string>
     <string name="type.historic.citywalls">Τείχος της πόλης</string>
-    <string name="type.historic.fort">Φορτ</string>
+    <string name="type.historic.fort">Οχυρό</string>
     <string name="type.historic.gallows">Αγχόνη</string>
     <string name="type.historic.locomotive">Ιστορική Ατμομηχανή</string>
     <string name="type.historic.memorial">Μνημείο</string>
     <string name="type.historic.memorial.cross">Σταυρός μνήμης</string>
-    <string name="type.historic.memorial.plaque">Μνημείο</string>
-    <string name="type.historic.memorial.sculpture">Μνημείο</string>
-    <string name="type.historic.memorial.statue">Μνημείο</string>
+    <string name="type.historic.memorial.plaque">Αναμνηστική πλακέτα</string>
+    <string name="type.historic.memorial.sculpture">Γλυπτό</string>
+    <string name="type.historic.memorial.statue">Άγαλμα</string>
     <string name="type.historic.memorial.stolperstein">Λίθοι Μνήμης</string>
     <string name="type.historic.stone">Ιστορική Πέτρα</string>
-    <string name="type.historic.memorial.war_memorial">Μνημείο του Αγνώστου Στρατιώτη</string>
+    <string name="type.historic.memorial.war_memorial">Πολεμικό μνημείο</string>
     <string name="type.historic.mine">Ιστορικό Ορυχείο</string>
     <string name="type.historic.monument">Μνημείο</string>
     <string name="type.historic.pillory">Κύφωνας</string>
     <string name="type.historic.ruins">Ερείπια</string>
-    <string name="type.historic.ship">Αξιοθέατο</string>
+    <string name="type.historic.ship">Πλοίο</string>
     <string name="type.historic.tank">Ιστορική δεξαμενή</string>
-    <string name="type.historic.tomb">Αξιοθέατο</string>
+    <string name="type.historic.tomb">Τάφος</string>
     <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
     <string name="type.man_made.cross">Σταυρός</string>
     <!-- Usually a Christian historical cross placed along a road. -->
@@ -534,7 +534,7 @@
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery">Νεκροταφείο</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
-    <string name="type.landuse.cemetery.christian">Νεκροταφείο</string>
+    <string name="type.landuse.cemetery.christian">Χριστιανικό νεκροταφείο</string>
     <string name="type.landuse.churchyard">Αυλόγυρος εκκλησίας</string>
     <string name="type.landuse.farmland">Αγροτική γη</string>
     <string name="type.landuse.flowerbed">Παρτέρι</string>
@@ -695,7 +695,7 @@
     <string name="type.railway.funicular">Τελεφερίκ</string>
     <string name="type.railway.halt">Σιδηροδρομική στάση</string>
     <string name="type.railway.level_crossing">Ισόπεδη σιδηροδρομική διάβαση</string>
-    <string name="type.railway.monorail">Μονοαξονικός σιδηρόδρομος</string>
+    <string name="type.railway.monorail">Μονοτρόχιος σιδηρόδροµος</string>
     <string name="type.railway.rail">Σιδηρόδρομος</string>
     <string name="type.railway.rail.highspeed">Σιδηρόδρομος υψηλής ταχύτητας</string>
     <string name="type.railway.rail.tourism">Τουριστικός σιδηρόδρομος</string>
@@ -1115,23 +1115,23 @@
     <string name="type.tourism.apartment">Διαμέρισμα διακοπών</string>
     <string name="type.tourism.artwork">Έργα τέχνης</string>
     <string name="type.tourism.artwork.architecture">Έργα τέχνης</string>
-    <string name="type.tourism.artwork.painting">Έργα τέχνης</string>
-    <string name="type.tourism.artwork.sculpture">Έργα τέχνης</string>
+    <string name="type.tourism.artwork.painting">Πίνακας ζωγραφικής</string>
+    <string name="type.tourism.artwork.sculpture">Γλυπτό</string>
     <string name="type.tourism.artwork.statue">Έργα τέχνης</string>
-    <string name="type.tourism.attraction">Αξιοθέατα</string>
+    <string name="type.tourism.attraction">Αξιοθέατο</string>
     <string name="type.attraction.amusement_ride">Βόλτα ψυχαγωγίας</string>
     <string name="type.attraction.animal">Περίφραξη ζώων</string>
     <string name="type.attraction.carousel">Στροβιλοδρόμιο</string>
     <string name="type.attraction.historic">Ιστορικό αξιοθέατο</string>
     <string name="type.attraction.maze">Λαβύρινθος</string>
     <string name="type.attraction.roller_coaster">Τρενάκι του λούνα παρκ</string>
-    <string name="type.attraction.water_slide">Διαφάνεια νερού</string>
-    <string name="type.tourism.attraction.specified">Αξιοθέατα</string>
+    <string name="type.attraction.water_slide">Νεροτσουλήθρα</string>
+    <string name="type.tourism.attraction.specified">Αξιοθέατο</string>
     <string name="type.tourism.camp_site">Κάμπινγκ</string>
     <string name="type.tourism.caravan_site">Χώρος για τροχόσπιτα</string>
     <!-- A rentable countryside vacation house. -->
     <string name="type.tourism.chalet">Εξοχικό σπίτι διακοπών</string>
-    <string name="type.tourism.gallery">Αξιοθέατο</string>
+    <string name="type.tourism.gallery">Γκαλερί</string>
     <string name="type.tourism.guest_house">Ξενώνας</string>
     <string name="type.tourism.hostel">Πανδοχείο</string>
     <string name="type.tourism.hotel">Ξενοδοχείο</string>
@@ -1145,29 +1145,29 @@
     <string name="type.tourism.museum">Μουσείο</string>
     <string name="type.tourism.picnic_site">Χώρος εκδρομής</string>
     <string name="type.leisure.resort">Θέρετρο</string>
-    <string name="type.tourism.theme_park">Αξιοθέατο</string>
+    <string name="type.tourism.theme_park">Θεματικό πάρκο</string>
     <string name="type.tourism.viewpoint">Θέα</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
     <string name="type.tourism.wilderness_hut">Καλύβα</string>
     <string name="type.tourism.zoo">Ζωολογικός κήπος</string>
     <string name="type.tourism.zoo.petting">Ζωολογικό κήπο</string>
     <string name="type.waterway.canal">Κανάλι</string>
-    <string name="type.waterway.canal.tunnel">Κανάλι</string>
+    <string name="type.waterway.canal.tunnel">Σήραγγα καναλιού</string>
     <string name="type.waterway.fish_pass">Σκάλα ψαριών</string>
     <string name="type.natural.water.ditch">Αποστραγγιστική Τάφρος</string>
     <string name="type.waterway.ditch.tunnel">Υπόγειος οχετός</string>
     <string name="type.waterway.drain.tunnel">Υπόγειος οχετός</string>
-    <string name="type.waterway.lock_gate">Φράγμα</string>
+    <string name="type.waterway.lock_gate">Θυρόφραγμα</string>
     <string name="type.waterway.river">Ποταμός</string>
     <string name="type.waterway.river.tunnel">Ποταμός</string>
-    <string name="type.waterway.stream">Ποταμός</string>
-    <string name="type.waterway.stream.ephemeral">Ποταμός</string>
-    <string name="type.waterway.stream.intermittent">Ποταμός</string>
-    <string name="type.waterway.stream.tunnel">Ποταμός</string>
+    <string name="type.waterway.stream">Ρέμα</string>
+    <string name="type.waterway.stream.ephemeral">Εφήμερος ποταμός</string>
+    <string name="type.waterway.stream.intermittent">Διακοπτόμενος ποταμός</string>
+    <string name="type.waterway.stream.tunnel">Ρέμα</string>
     <string name="type.waterway.waterfall">Καταρράκτης</string>
-    <string name="type.wheelchair.limited">Μερικώς εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
-    <string name="type.wheelchair.no">Δεν υπάρχει πρόβλεψη για άτομα με ειδικές ανάγκες</string>
-    <string name="type.wheelchair.yes">Εξοπλισμένο για άτομα με ειδικές ανάγκες</string>
+    <string name="type.wheelchair.limited">Περιορισμένη πρόσβαση για άτομα με ειδικές ανάγκες</string>
+    <string name="type.wheelchair.no">Δεν υπάρχει πρόσβαση για άτομα με ειδικές ανάγκες</string>
+    <string name="type.wheelchair.yes">Πλήρης πρόσβαση για άτομα με ειδικές ανάγκες</string>
     <string name="type.piste_type.snow_park">Πάρκο χιονιού</string>
     <string name="type.piste_type.hike">Μονοπάτι πεζοπορίας χιονιού</string>
     <string name="type.piste_type.connection">Σύνδεση πίστας</string>
@@ -1200,7 +1200,7 @@
     <string name="type.man_made.utility_pole">Στύλος υπηρεσιών κοινής ωφέλειας</string>
     <string name="type.railway.narrow_gauge.bridge">Σιδηροδρομική γέφυρα στενής γραμμής</string>
     <string name="type.aeroway">Υποδομή εναέριου χώρου</string>
-    <string name="type.aeroway.apron">Ποδιά</string>
+    <string name="type.aeroway.apron">Χώρος στάθμευσης αεροσκαφών</string>
     <string name="type.aeroway.runway">Αεροδιάδρομος</string>
     <string name="type.aeroway.taxiway">Τροχόδρομος</string>
     <string name="type.aeroway.terminal">Τερματικός σταθμός</string>
@@ -1219,16 +1219,16 @@
     <string name="type.barrier.fence">Φράχτης</string>
     <string name="type.barrier.hedge">Αντιστάθμιση</string>
     <string name="type.barrier.retaining_wall">Τοίχος αντιστήριξης</string>
-    <string name="type.boundary">Όρια</string>
+    <string name="type.boundary">Όριο</string>
     <string name="type.boundary.administrative.2">Εθνικά σύνορα</string>
     <string name="type.cuisine.bubble_tea">Τσάι με φυσαλίδες</string>
     <string name="type.emergency">Έκτακτη ανάγκη</string>
-    <string name="type.highway">Αυτοκινητόδρομος</string>
+    <string name="type.highway">Δρόμος</string>
     <string name="type.highway.bridleway.permissive">Μονοπάτι με χαλινάρι</string>
     <string name="type.highway.cycleway">Ποδηλατόδρομος</string>
     <string name="type.highway.cycleway.permissive">Ποδηλατόδρομος</string>
     <string name="type.highway.elevator">Ανελκυστήρας</string>
-    <string name="type.highway.world_level">αυτοκινητόδρομος-κόσμος_επίπεδο</string>
+    <string name="type.highway.world_level">highway-world_level</string>
     <string name="type.barrier.wall">Τοίχος</string>
     <string name="type.recycling.cans">Κονσερβοκούτια</string>
     <string name="type.barrier">Εμπόδιο</string>
@@ -1237,7 +1237,7 @@
     <string name="type.recycling.shoes">Παπούτσια</string>
     <string name="type.amenity.waste_transfer_station">Σταθμός Μεταφόρτωσης Απορριμμάτων</string>
     <string name="type.recycling.cardboard">Χαρτόνι</string>
-    <string name="type.boundary.administrative">Διοικητικά όρια</string>
+    <string name="type.boundary.administrative">Διοικητικό όριο</string>
     <string name="type.amenity.sanitary_dump_station">Σταθμός απόρριψης δεξαμενής εκμετάλλευσης</string>
     <string name="type.amenity.vending_machine">Μηχανή αυτόματου πωλητή</string>
     <string name="type.highway.services">Περιοχή εξυπηρέτησης</string>
@@ -1317,4 +1317,67 @@
     <string name="type.piste_type.downhill.intermediate">Ενδιάμεση πίστα σκι κατάβασης</string>
     <string name="type.railway.abandoned">Εγκαταλελειμμένος σιδηρόδρομος</string>
     <string name="type.barrier.guard_rail">Προστατευτικό κιγκλίδωμα</string>
+    <string name="type.highway.world_towns_level">highway-world_towns_level</string>
+    <string name="type.landuse.allotments">Κήποι οικοπέδων</string>
+    <string name="type.landuse.brownfield">Εγκαταλελειμμένη έκταση</string>
+    <string name="type.landuse.greenfield">Αναξιοποίητη έκταση</string>
+    <string name="type.landuse.salt_pond">Αλυκή</string>
+    <string name="type.leisure">Αναψυχή</string>
+    <string name="type.landuse.village_green">Έκταση</string>
+    <string name="type.man_made.cairn">Σωρός από πέτρες</string>
+    <string name="type.man_made">Τεχνητό</string>
+    <string name="type.man_made.breakwater">Kυματοθραύστης</string>
+    <string name="type.man_made.flagpole">Ιστός σημαίας</string>
+    <string name="type.man_made.storage_tank">Δεξαμενή αποθήκευσης</string>
+    <string name="type.railway.monorail.bridge">Γέφυρα μονοτρόχιου σιδηρόδροµου</string>
+    <string name="type.railway.monorail.tunnel">Σήραγγα μονοτρόχιου σιδηρόδροµου</string>
+    <string name="type.railway.platform">Σιδηροδρομική πλατφόρμα</string>
+    <string name="type.railway.subway.tunnel">Σήραγγα υπόγειου σιδηρόδρομου</string>
+    <string name="type.railway.tram">Γραμμή τραμ</string>
+    <string name="type.tourism">Τουρισμός</string>
+    <string name="type.barrier.ditch">Χαντάκι</string>
+    <string name="type.waterway.dam">Φράγμα</string>
+    <string name="type.waterway.drain">Οχετός</string>
+    <string name="type.waterway.dock">Ντόκος</string>
+    <string name="type.waterway.weir">Υδατοφράκτης</string>
+    <string name="type.wheelchair">Αναπηρικό αμαξίδιο</string>
+    <string name="type.waterway">Υδάτινη οδός</string>
+    <string name="type.man_made.cutline">Cutline (π.χ. αντιπυρική ζώνη)</string>
+    <string name="type.man_made.wastewater_plant">Μονάδα επεξεργασίας λυμάτων</string>
+    <string name="type.man_made.works">Εργοστάσιο βιομηχανίας</string>
+    <string name="type.railway.tram.tunnel">Σήραγγα τραμ</string>
+    <string name="type.route">Διαδρομή</string>
+    <string name="type.leisure.slipway">Γλίστρα</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.landuse.recreation_ground">Χώρος αναψυχής</string>
+    <string name="type.power.station">Σταθμός ηλεκτροπαραγωγής</string>
+    <string name="type.railway.subway">Γραμμή υπόγειου σιδηρόδρομου</string>
+    <string name="type.railway.subway.bridge">Γέφυρα υπόγειου σιδηρόδρομου</string>
+    <string name="type.railway.tram.bridge">Γέφυρα τραμ</string>
+    <string name="type.attraction.bumper_car">Συγκρουόμενα</string>
+    <string name="type.attraction.big_wheel">Τροχός</string>
+    <string name="type.natural.water.drain">Οχετός</string>
+    <string name="type.hwtag">hwtag</string>
+    <string name="type.hwtag.bidir_bicycle">hwtag-bidir_bicycle</string>
+    <string name="type.hwtag.onedir_bicycle">hwtag-onedir_bicycle</string>
+    <string name="type.hwtag.lit">hwtag-lit</string>
+    <string name="type.hwtag.nofoot">hwtag-nofoot</string>
+    <string name="type.hwtag.oneway">hwtag-oneway</string>
+    <string name="type.hwtag.private">hwtag-private</string>
+    <string name="type.hwtag.yescar">hwtag-yescar</string>
+    <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
+    <string name="type.leisure.hackerspace">Hackerspace</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.psurface.paved_good">psurface-paved_good</string>
+    <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
+    <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
+    <string name="type.hwtag.yesbicycle">hwtag-yesbicycle</string>
+    <string name="type.psurface">psurface</string>
+    <string name="type.psurface.paved_bad">psurface-paved_bad</string>
+    <string name="type.route.shuttle_train">route-shuttle_train</string>
+    <string name="type.route.ferry">Πορθμείο</string>
+    <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
+    <string name="type.hwtag.nocar">hwtag-nocar</string>
+    <string name="type.hwtag.toll">hwtag-toll</string>
+    <string name="type.sport.cricket">Κρίκετ</string>
 </resources>

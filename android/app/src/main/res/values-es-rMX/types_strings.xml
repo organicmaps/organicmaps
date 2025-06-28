@@ -557,4 +557,6 @@
     <string name="type.cuisine.crepe">Crepas</string>
     <string name="type.shop.department_store">Tienda departamental</string>
     <string name="type.shop.grocery">Tienda de abarrotes</string>
+    <string name="type.traffic_calming.bump">Topes</string>
+    <string name="type.traffic_calming.hump">Lomo</string>
 </resources>

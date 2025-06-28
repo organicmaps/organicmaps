@@ -862,4 +862,5 @@
     <string name="comma_separated_pair">%1$s %2$s</string>
     <string name="aa_grant_permissions">Suteikti leidimą</string>
     <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="saved">Įrašyta</string>
 </resources>
