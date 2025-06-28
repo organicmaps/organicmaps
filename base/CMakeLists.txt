@@ -106,8 +106,8 @@ set(SRC
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-# Exception for some of our math to work reliably.
-set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS -fno-finite-math-only)
+# Exception for some of our math to work reliably on newer clang.
+set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS $<$<CXX_COMPILER_ID:AppleClang,Clang>:-fno-finite-math-only>)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
