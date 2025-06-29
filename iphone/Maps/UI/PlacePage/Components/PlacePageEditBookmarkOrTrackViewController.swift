@@ -1,4 +1,6 @@
 protocol PlacePageEditBookmarkOrTrackViewControllerDelegate: AnyObject {
+  func didUpdateColor(_ color: UIColor, for data: PlacePageEditData)
+  func didUpdateCategory(_ category: String, for data: PlacePageEditData)
   func didPressEdit(_ data: PlacePageEditData)
 }
 
@@ -10,9 +12,8 @@ enum PlacePageEditData {
 final class PlacePageEditBookmarkOrTrackViewController: UIViewController {
 
   @IBOutlet var stackView: UIStackView!
-  @IBOutlet var spinner: UIImageView!
-  @IBOutlet var editButton: UIButton!
-  @IBOutlet var topConstraint: NSLayoutConstraint!
+  @IBOutlet var editView: InfoItemView!
+  @IBOutlet var expandableLabelContainer: UIView!
   @IBOutlet var expandableLabel: ExpandableLabel! {
     didSet {
       expandableLabel.font = UIFont.regular14()
@@ -28,6 +29,7 @@ final class PlacePageEditBookmarkOrTrackViewController: UIViewController {
       updateViews()
     }
   }
+  
   weak var delegate: PlacePageEditBookmarkOrTrackViewControllerDelegate?
 
   override func viewDidLoad() {
@@ -44,25 +46,59 @@ final class PlacePageEditBookmarkOrTrackViewController: UIViewController {
 
   private func updateViews() {
     guard let data else { return }
-    editButton.isEnabled = true
+
+    let iconColor: UIColor
+    let category: String?
+    let description: String?
+    let isHtmlDescription: Bool
+
     switch data {
-    case .bookmark(let bookmark):
-      editButton.setTitle(L("placepage_edit_bookmark_button"), for: .normal)
-      if let description = bookmark.bookmarkDescription {
-        if bookmark.isHtmlDescription {
-          setHtmlDescription(description)
-          topConstraint.constant = 16
-        } else {
-          expandableLabel.text = description
-          topConstraint.constant = description.count > 0 ? 16 : 0
+    case .bookmark(let bookmarkData):
+      iconColor = bookmarkData.color.color
+      category = bookmarkData.bookmarkCategory
+      description = bookmarkData.bookmarkDescription
+      isHtmlDescription = bookmarkData.isHtmlDescription
+
+      editView.iconButtonTapHandler = {
+        ColorPicker.shared.present(from: self, pickerType: .bookmarkColorPicker(bookmarkData.color)) { [weak self] color in
+          self?.delegate?.didUpdateColor(color, for: data)
         }
-      } else {
-        topConstraint.constant = 0
       }
-    case .track:
-      editButton.setTitle(L("edit_track"), for: .normal)
-      expandableLabel.isHidden = true
-      topConstraint.constant = 0
+
+    case .track(let trackData):
+      // TODO: pass default color from trackData
+      iconColor = trackData.color ?? UIColor.buttonRed()
+      category = trackData.trackCategory
+      description = trackData.trackDescription
+      isHtmlDescription = false
+
+      editView.iconButtonTapHandler = {
+        ColorPicker.shared.present(from: self, pickerType: .defaultColorPicker(iconColor)) { [weak self] color in
+          self?.delegate?.didUpdateColor(color, for: data)
+        }
+      }
+    }
+
+    let editColorImage = circleImageForColor(iconColor, frameSize: 28, diameter: 22, iconName: "ic_bm_none")
+    editView.iconButton.setImage(editColorImage, for: .normal)
+    editView.infoLabel.text = category
+    editView.setStyle(.link)
+    editView.infoLabelTapHandler = {
+      print("Edit bookmark tapped")
+    }
+    editView.setAccessory(image: UIImage(resource: .ic24PxEdit), tapHandler: {
+      print("Accessory tapped")
+    })
+
+    if let description, !description.isEmpty {
+      expandableLabelContainer.isHidden = false
+      if isHtmlDescription {
+        setHtmlDescription(description)
+      } else {
+        expandableLabel.text = description
+      }
+    } else {
+      expandableLabelContainer.isHidden = true
     }
   }
 
@@ -90,20 +126,6 @@ final class PlacePageEditBookmarkOrTrackViewController: UIViewController {
         self.expandableLabel.attributedText = attributedString
       }
     }
-  }
-
-  private func startSpinner() {
-    editButton.isHidden = true
-    let postfix = UIColor.isNightMode() ? "dark" : "light"
-    spinner.image = UIImage(named: "Spinner_" + postfix)
-    spinner.isHidden = false
-    spinner.startRotation()
-  }
-
-  private func stopSpinner() {
-    editButton.isHidden = false
-    spinner.isHidden = true
-    spinner.stopRotation()
   }
 
   // MARK: -  Actions

@@ -27,7 +27,9 @@
 + (void)openCatalogSingleItem:(PlacePageData *)data atIndex:(NSInteger)index;
 + (void)openCatalogMoreItems:(PlacePageData *)data;
 + (void)addBookmark:(PlacePageData *)data;
++ (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color;
 + (void)removeBookmark:(PlacePageData *)data;
++ (void)updateTrack:(PlacePageData *)data color:(UIColor *)color;
 + (void)removeTrack:(PlacePageData *)data;
 + (void)editBookmark:(PlacePageData *)data;
 + (void)editTrack:(PlacePageData *)data;
