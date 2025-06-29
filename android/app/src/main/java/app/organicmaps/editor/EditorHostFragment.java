@@ -356,8 +356,7 @@ public class EditorHostFragment
 
   private void processEditedFeatures()
   {
-    Context context = requireContext();
-    if (OsmOAuth.isAuthorized(context))
+    if (OsmOAuth.isAuthorized())
     {
       Utils.navigateToParent(requireActivity());
       return;

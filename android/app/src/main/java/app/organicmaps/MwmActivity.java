@@ -330,10 +330,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void migrateOAuthCredentials()
   {
-    if (OsmOAuth.containsOAuth1Credentials(this))
+    if (OsmOAuth.containsOAuth1Credentials())
     {
       // Remove old OAuth v1 secrets
-      OsmOAuth.clearOAuth1Credentials(this);
+      OsmOAuth.clearOAuth1Credentials();
 
       // Notify user to re-login
       dismissAlertDialog();

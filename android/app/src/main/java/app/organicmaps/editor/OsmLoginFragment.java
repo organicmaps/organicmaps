@@ -142,7 +142,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
 
   private void onAuthSuccess(String oauthToken, String username)
   {
-    OsmOAuth.setAuthorization(requireContext(), oauthToken, username);
+    OsmOAuth.setAuthorization(oauthToken, username);
     final Bundle extras = requireActivity().getIntent().getExtras();
     if (extras != null && extras.getBoolean("redirectToProfile", false))
       startActivity(new Intent(requireContext(), ProfileActivity.class));

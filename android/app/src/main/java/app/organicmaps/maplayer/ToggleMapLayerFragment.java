@@ -70,7 +70,7 @@ public class ToggleMapLayerFragment extends Fragment
   {
     Mode mode = item.getMode();
     Context context = v.getContext();
-    SharedPropertiesUtils.setLayerMarkerShownForLayerMode(context, mode);
+    SharedPropertiesUtils.setLayerMarkerShownForLayerMode(mode);
     mode.setEnabled(context, !mode.isEnabled(context));
     mAdapter.notifyDataSetChanged();
     mMapButtonsController.updateLayerButton();
