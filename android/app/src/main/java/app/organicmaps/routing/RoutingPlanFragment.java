@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
@@ -15,7 +13,6 @@ import app.organicmaps.sdk.Router;
 
 public class RoutingPlanFragment extends BaseMwmFragment
 {
-
   private RoutingPlanController mPlanController;
 
   @Override
@@ -23,7 +20,8 @@ public class RoutingPlanFragment extends BaseMwmFragment
   {
     final MwmActivity activity = (MwmActivity) requireActivity();
     View res = inflater.inflate(R.layout.fragment_routing, container, false);
-    mPlanController = new RoutingPlanController(res, activity, activity.startDrivingOptionsForResult, activity, activity);
+    mPlanController =
+        new RoutingPlanController(res, activity, activity.startDrivingOptionsForResult, activity, activity);
     return res;
   }
 
@@ -57,5 +55,4 @@ public class RoutingPlanFragment extends BaseMwmFragment
   {
     mPlanController.showAddFinishFrame();
   }
-
 }

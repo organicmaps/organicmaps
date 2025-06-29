@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.view.Surface;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
@@ -107,7 +106,7 @@ public class LocationUtils
     try
     {
       return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE)
-             != Settings.Secure.LOCATION_MODE_OFF;
+   != Settings.Secure.LOCATION_MODE_OFF;
     }
     catch (Settings.SettingNotFoundException e)
     {

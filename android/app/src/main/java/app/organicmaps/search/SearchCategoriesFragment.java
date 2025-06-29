@@ -2,15 +2,13 @@ package app.organicmaps.search;
 
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 
-public class SearchCategoriesFragment extends BaseMwmRecyclerFragment<CategoriesAdapter>
-    implements CategoriesAdapter.CategoriesUiListener
+public class SearchCategoriesFragment
+    extends BaseMwmRecyclerFragment<CategoriesAdapter> implements CategoriesAdapter.CategoriesUiListener
 {
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState)
@@ -34,7 +32,6 @@ public class SearchCategoriesFragment extends BaseMwmRecyclerFragment<Categories
     return R.layout.fragment_search_categories;
   }
 
-
   @Override
   public void onSearchCategorySelected(String category)
   {
@@ -47,7 +44,7 @@ public class SearchCategoriesFragment extends BaseMwmRecyclerFragment<Categories
     if (!(listener instanceof CategoriesAdapter.CategoriesUiListener))
       return false;
 
-    ((CategoriesAdapter.CategoriesUiListener)listener).onSearchCategorySelected(category);
+    ((CategoriesAdapter.CategoriesUiListener) listener).onSearchCategorySelected(category);
     return true;
   }
 }

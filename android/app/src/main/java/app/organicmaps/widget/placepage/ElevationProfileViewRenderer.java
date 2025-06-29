@@ -5,19 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
-
 import app.organicmaps.ChartController;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
-import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
-
 import java.util.Objects;
 
 @SuppressWarnings("unused") // https://github.com/organicmaps/organicmaps/issues/2829
@@ -75,8 +72,7 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     mMaxAltitude.setText(formatDistance(context, mElevationInfo.getMaxAltitude()));
     mMinAltitude.setText(formatDistance(context, mElevationInfo.getMinAltitude()));
     UiUtils.hideIf(mElevationInfo.getDuration() == 0, mTimeContainer);
-    mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(),
-                                                      (int) mElevationInfo.getDuration(),
+    mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(), (int) mElevationInfo.getDuration(),
                                                       R.dimen.text_size_body_2));
   }
 
@@ -129,14 +125,14 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
 
   public void onSave(@NonNull Bundle outState)
   {
-//    outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mElevationInfo);
+    //    outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mElevationInfo);
   }
 
   public void onRestore(@NonNull Bundle inState)
   {
-//    mElevationInfo = BundleCompat.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA, ElevationInfo.class);
-//    if (mElevationInfo != null)
-//      render(mElevationInfo);
+    //    mElevationInfo = BundleCompat.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA,
+    //    ElevationInfo.class); if (mElevationInfo != null)
+    //      render(mElevationInfo);
   }
 
   public void onHide()
@@ -144,5 +140,4 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     mScrollView.scrollTo(0, 0);
     mChartController.onHide();
   }
-
 }

@@ -11,7 +11,6 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
@@ -28,8 +27,10 @@ public class ThemeScreen extends BaseMapScreen
   public ThemeScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer)
   {
     super(carContext, surfaceRenderer);
-    mRadioButtonIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_unchecked)).build();
-    mRadioButtonSelectedIcon = new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_checked)).build();
+    mRadioButtonIcon =
+        new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_unchecked)).build();
+    mRadioButtonSelectedIcon =
+        new CarIcon.Builder(IconCompat.createWithResource(carContext, R.drawable.ic_radio_button_checked)).build();
   }
 
   @NonNull

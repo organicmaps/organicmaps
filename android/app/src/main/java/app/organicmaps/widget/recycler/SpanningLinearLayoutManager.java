@@ -3,14 +3,12 @@ package app.organicmaps.widget.recycler;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SpanningLinearLayoutManager extends LinearLayoutManager
 {
-
   public SpanningLinearLayoutManager(@NonNull Context context, int orientation, boolean reverseLayout)
   {
     super(context, orientation, reverseLayout);
@@ -23,8 +21,7 @@ public class SpanningLinearLayoutManager extends LinearLayoutManager
   }
 
   @Override
-  public RecyclerView.LayoutParams generateLayoutParams(@NonNull Context c,
-                                                        @NonNull AttributeSet attrs)
+  public RecyclerView.LayoutParams generateLayoutParams(@NonNull Context c, @NonNull AttributeSet attrs)
   {
     return spanLayoutSize(super.generateLayoutParams(c, attrs));
   }

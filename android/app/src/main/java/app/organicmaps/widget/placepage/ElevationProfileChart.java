@@ -3,7 +3,6 @@ package app.organicmaps.widget.placepage;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-
 import com.github.mikephil.charting.charts.LineChart;
 
 public class ElevationProfileChart extends LineChart
@@ -32,6 +31,6 @@ public class ElevationProfileChart extends LineChart
 
   private boolean hasZoom()
   {
-    return getScaleX() < 1  || getScaleY() < 1;
+    return getScaleX() < 1 || getScaleY() < 1;
   }
 }

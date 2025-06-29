@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.util;
 
 import android.util.Log;
-
 import java.lang.reflect.Method;
 
 public class ROMUtils
@@ -26,9 +25,9 @@ public class ROMUtils
 
     // Check common custom ROM properties
     String[] customROMIndicators = {
-            "ro.modversion",
-            "ro.cm.version", // LineageOS/CyanogenMod-specific
-            "ro.lineage.build.version", // LineageOS
+        "ro.modversion",
+        "ro.cm.version", // LineageOS/CyanogenMod-specific
+        "ro.lineage.build.version", // LineageOS
     };
 
     for (String prop : customROMIndicators)

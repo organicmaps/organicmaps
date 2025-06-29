@@ -3,13 +3,11 @@ package app.organicmaps.bookmarks;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseToolbarActivity;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;

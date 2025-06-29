@@ -4,11 +4,9 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.sdk.util.UiUtils;
@@ -26,7 +24,8 @@ public class RoutingPlanInplaceController extends RoutingPlanController
                                       @NonNull RoutingPlanListener routingPlanListener,
                                       @NonNull RoutingBottomMenuListener listener)
   {
-    super(activity.findViewById(R.id.routing_plan_frame), activity, startDrivingOptionsForResult, routingPlanListener, listener);
+    super(activity.findViewById(R.id.routing_plan_frame), activity, startDrivingOptionsForResult, routingPlanListener,
+          listener);
     mRoutingPlanListener = routingPlanListener;
   }
 
@@ -70,8 +69,7 @@ public class RoutingPlanInplaceController extends RoutingPlanController
     ValueAnimator animator =
         ValueAnimator.ofFloat(show ? -getFrame().getHeight() : 0, show ? 0 : -getFrame().getHeight());
     animator.addUpdateListener(animation -> getFrame().setTranslationY((Float) animation.getAnimatedValue()));
-    animator.addListener(new UiUtils.SimpleAnimatorListener()
-    {
+    animator.addListener(new UiUtils.SimpleAnimatorListener() {
       @Override
       public void onAnimationEnd(Animator animation)
       {

@@ -2,7 +2,6 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.Keep;
 
 // TODO consider removal and usage of platform PointF
@@ -40,8 +39,7 @@ public class ParcelablePointD implements Parcelable
     this.y = y;
   }
 
-  public static final Parcelable.Creator<ParcelablePointD> CREATOR = new Parcelable.Creator<>()
-  {
+  public static final Parcelable.Creator<ParcelablePointD> CREATOR = new Parcelable.Creator<>() {
     public ParcelablePointD createFromParcel(Parcel in)
     {
       return new ParcelablePointD(in);
@@ -52,5 +50,4 @@ public class ParcelablePointD implements Parcelable
       return new ParcelablePointD[size];
     }
   };
-
 }

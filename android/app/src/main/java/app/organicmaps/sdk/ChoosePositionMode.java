@@ -14,7 +14,8 @@ public enum ChoosePositionMode
   }
 
   /**
-   * @param isBusiness    selection area will be bounded by building borders, if its true (eg. true for businesses in buildings).
+   * @param isBusiness    selection area will be bounded by building borders, if its true (eg. true for businesses in
+   *     buildings).
    * @param applyPosition if true, map will be animated to currently selected object.
    */
   public static void set(@NonNull ChoosePositionMode mode, boolean isBusiness, boolean applyPosition)
@@ -29,9 +30,7 @@ public enum ChoosePositionMode
 
   private final int mode;
 
-
-  private static native void nativeSet(int mode, boolean isBusiness,
-                                                         boolean applyPosition);
+  private static native void nativeSet(int mode, boolean isBusiness, boolean applyPosition);
 
   private static native int nativeGet();
 }

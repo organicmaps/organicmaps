@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,8 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
-import app.organicmaps.util.Utils;
 import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.PlaceDescriptionActivity;
 import app.organicmaps.widget.placepage.PlacePageUtils;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
@@ -39,7 +38,8 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
   {
     mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.place_page_wikipedia_fragment, container, false);
@@ -78,8 +78,8 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
     if (description.length() > mDescriptionMaxLength)
     {
       description = (Spanned) new SpannableStringBuilder(description)
-          .insert(mDescriptionMaxLength - 3, "...")
-          .subSequence(0, mDescriptionMaxLength);
+                        .insert(mDescriptionMaxLength - 3, "...")
+                        .subSequence(0, mDescriptionMaxLength);
     }
 
     return description;
@@ -87,7 +87,6 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
 
   private void updateViews()
   {
-
     // There are two sources of wiki info in OrganicMaps:
     // wiki links from OpenStreetMaps, and wiki pages explicitly parsed into OrganicMaps.
     // This part hides the DescriptionView if the wiki page has not been parsed.
@@ -99,8 +98,8 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
       mPlaceDescriptionView.setText(getShortDescription());
       final String descriptionString = mPlaceDescriptionView.getText().toString();
       mPlaceDescriptionView.setOnLongClickListener((v) -> {
-          PlacePageUtils.copyToClipboard(requireContext(), mFrame, descriptionString);
-          return true;
+        PlacePageUtils.copyToClipboard(requireContext(), mFrame, descriptionString);
+        return true;
       });
     }
 

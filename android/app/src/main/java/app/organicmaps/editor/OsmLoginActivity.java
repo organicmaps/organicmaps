@@ -3,10 +3,8 @@ package app.organicmaps.editor;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import app.organicmaps.base.BaseMwmFragmentActivity;
 
 public class OsmLoginActivity extends BaseMwmFragmentActivity

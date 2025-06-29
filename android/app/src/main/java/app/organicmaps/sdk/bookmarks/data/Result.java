@@ -2,7 +2,6 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.Nullable;
 
 public class Result implements Parcelable
@@ -40,14 +39,11 @@ public class Result implements Parcelable
   @Override
   public String toString()
   {
-    return "Result{" +
-           "mFilePath='" + mFilePath + '\'' +
-           ", mArchiveId='" + mArchiveId + '\'' +
-           '}';
+    return "Result{"
+  + "mFilePath='" + mFilePath + '\'' + ", mArchiveId='" + mArchiveId + '\'' + '}';
   }
 
-  public static final Creator<Result> CREATOR = new Creator<>()
-  {
+  public static final Creator<Result> CREATOR = new Creator<>() {
     @Override
     public Result createFromParcel(Parcel in)
     {

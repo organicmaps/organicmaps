@@ -6,14 +6,12 @@ import android.os.Build;
 import android.view.Menu;
 import android.view.View;
 import android.widget.PopupMenu;
-
 import androidx.annotation.NonNull;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
-import app.organicmaps.util.Utils;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
 import java.util.List;
 
 public class PlacePageUtils
@@ -21,7 +19,8 @@ public class PlacePageUtils
   static void updateMapViewport(@NonNull View parent, int placePageDistanceToTop, int viewportMinHeight)
   {
     parent.post(() -> {
-      // Because of the post(), this lambda is called after the car.SurfaceRenderer.onStableAreaChanged() and breaks the visibleRect configuration
+      // Because of the post(), this lambda is called after the car.SurfaceRenderer.onStableAreaChanged() and breaks the
+      // visibleRect configuration
       if (DisplayManager.from(parent.getContext()).isCarDisplayUsed())
         return;
       final int screenWidth = parent.getWidth();
@@ -83,8 +82,7 @@ public class PlacePageUtils
     // Starting from API 33, the automatic system control that shows copied text is displayed.
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || keyguardManager.isDeviceLocked())
     {
-      Utils.showSnackbarAbove(snackbarContainer, frame,
-                              context.getString(R.string.copied_to_clipboard, text));
+      Utils.showSnackbarAbove(snackbarContainer, frame, context.getString(R.string.copied_to_clipboard, text));
     }
   }
 
@@ -95,8 +93,7 @@ public class PlacePageUtils
     final String copyText = context.getResources().getString(android.R.string.copy);
     // A menu item can be clicked after PlacePageButtons is removed from the Views hierarchy so
     // let's find a container for the snackbar outside of PlacePageButtons and in advance.
-    final View snackbarTarget = (View)
-            popupAnchor.getRootView().findViewById(R.id.pp_buttons_layout).getParent();
+    final View snackbarTarget = (View) popupAnchor.getRootView().findViewById(R.id.pp_buttons_layout).getParent();
 
     for (int i = 0; i < items.size(); i++)
       menu.add(Menu.NONE, i, i, String.format("%s %s", copyText, items.get(i)));

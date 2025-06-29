@@ -3,18 +3,15 @@ package app.organicmaps.car.screens.search;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.model.CarColor;
 import androidx.car.app.model.DistanceSpan;
 import androidx.car.app.model.ForegroundCarColorSpan;
-
 import app.organicmaps.R;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.sdk.search.SearchResult;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +47,8 @@ public final class SearchUiHelpers
       return "";
 
     final SpannableStringBuilder distance = new SpannableStringBuilder(" ");
-    distance.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(searchResult.description.distance)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    distance.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(searchResult.description.distance)), 0, 1,
+                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     distance.setSpan(ForegroundCarColorSpan.create(Colors.DISTANCE), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     return distance;
   }
@@ -64,31 +62,29 @@ public final class SearchUiHelpers
     CarColor color = Colors.DEFAULT;
     switch (searchResult.description.openNow)
     {
-    case SearchResult.OPEN_NOW_YES:
-      if (searchResult.description.minutesUntilClosed < 60)   // less than 1 hour
-      {
-        final String time = searchResult.description.minutesUntilClosed + " " +
-            carContext.getString(R.string.minute);
-        text = carContext.getString(R.string.closes_in, time);
-        color = Colors.OPENING_HOURS_CLOSES_SOON;
-      }
-      else
-      {
-        text = carContext.getString(R.string.editor_time_open);
-        color = Colors.OPENING_HOURS_OPEN;
-      }
-      break;
-    case SearchResult.OPEN_NOW_NO:
-      if (searchResult.description.minutesUntilOpen < 60) // less than 1 hour
-      {
-        final String time = searchResult.description.minutesUntilOpen + " " +
-            carContext.getString(R.string.minute);
-        text = carContext.getString(R.string.opens_in, time);
-      }
-      else
-        text = carContext.getString(R.string.closed);
-      color = Colors.OPENING_HOURS_CLOSED;
-      break;
+      case SearchResult.OPEN_NOW_YES:
+        if (searchResult.description.minutesUntilClosed < 60) // less than 1 hour
+        {
+          final String time = searchResult.description.minutesUntilClosed + " " + carContext.getString(R.string.minute);
+          text = carContext.getString(R.string.closes_in, time);
+          color = Colors.OPENING_HOURS_CLOSES_SOON;
+        }
+        else
+        {
+          text = carContext.getString(R.string.editor_time_open);
+          color = Colors.OPENING_HOURS_OPEN;
+        }
+        break;
+      case SearchResult.OPEN_NOW_NO:
+        if (searchResult.description.minutesUntilOpen < 60) // less than 1 hour
+        {
+          final String time = searchResult.description.minutesUntilOpen + " " + carContext.getString(R.string.minute);
+          text = carContext.getString(R.string.opens_in, time);
+        }
+        else
+          text = carContext.getString(R.string.closed);
+        color = Colors.OPENING_HOURS_CLOSED;
+        break;
     }
 
     result.append(text);

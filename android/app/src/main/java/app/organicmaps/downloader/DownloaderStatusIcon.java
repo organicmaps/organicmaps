@@ -3,15 +3,13 @@ package app.organicmaps.downloader;
 import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.ImageView;
-
 import androidx.annotation.AttrRes;
 import androidx.annotation.DrawableRes;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.downloader.CountryItem;
-import app.organicmaps.widget.WheelProgressView;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.widget.WheelProgressView;
 
 public class DownloaderStatusIcon
 {
@@ -66,8 +64,10 @@ public class DownloaderStatusIcon
 
   protected void updateIcon(CountryItem country)
   {
-    @AttrRes int iconAttr = selectIcon(country);
-    @DrawableRes int icon = resolveIcon(iconAttr);
+    @AttrRes
+    int iconAttr = selectIcon(country);
+    @DrawableRes
+    int icon = resolveIcon(iconAttr);
 
     mIcon.setImageResource(icon);
   }
@@ -75,8 +75,8 @@ public class DownloaderStatusIcon
   public void update(CountryItem country)
   {
     boolean pending = (country.status == CountryItem.STATUS_ENQUEUED);
-    boolean inProgress = (country.status == CountryItem.STATUS_PROGRESS ||
-                          country.status == CountryItem.STATUS_APPLYING || pending);
+    boolean inProgress =
+        (country.status == CountryItem.STATUS_PROGRESS || country.status == CountryItem.STATUS_APPLYING || pending);
 
     UiUtils.showIf(inProgress, mProgress);
     UiUtils.showIf(!inProgress, mIcon);

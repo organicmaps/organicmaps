@@ -2,12 +2,10 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-
 import app.organicmaps.R;
 
 // Used by JNI.
@@ -26,9 +24,8 @@ public class BookmarkCategory implements Parcelable
   private final int mBookmarksCount;
   private boolean mIsVisible;
 
-  public BookmarkCategory(long id, @NonNull String name, @NonNull String annotation,
-                          @NonNull String description, int tracksCount, int bookmarksCount,
-                           boolean isVisible)
+  public BookmarkCategory(long id, @NonNull String name, @NonNull String annotation, @NonNull String description,
+                          int tracksCount, int bookmarksCount, boolean isVisible)
   {
     mId = id;
     mName = name;
@@ -42,8 +39,10 @@ public class BookmarkCategory implements Parcelable
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
     BookmarkCategory that = (BookmarkCategory) o;
     return mId == that.mId;
   }
@@ -51,7 +50,7 @@ public class BookmarkCategory implements Parcelable
   @Override
   public int hashCode()
   {
-    return (int)(mId ^ (mId >>> 32));
+    return (int) (mId ^ (mId >>> 32));
   }
 
   public long getId()
@@ -147,8 +146,7 @@ public class BookmarkCategory implements Parcelable
     this.mIsVisible = in.readByte() != 0;
   }
 
-  public static final Creator<BookmarkCategory> CREATOR = new Creator<>()
-  {
+  public static final Creator<BookmarkCategory> CREATOR = new Creator<>() {
     @Override
     public BookmarkCategory createFromParcel(Parcel source)
     {

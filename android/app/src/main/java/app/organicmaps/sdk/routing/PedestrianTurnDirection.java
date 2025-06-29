@@ -1,10 +1,8 @@
 package app.organicmaps.sdk.routing;
 
 import android.widget.ImageView;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.R;
 
 public enum PedestrianTurnDirection

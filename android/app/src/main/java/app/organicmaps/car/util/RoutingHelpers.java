@@ -7,7 +7,6 @@ import androidx.car.app.model.Distance;
 import androidx.car.app.navigation.model.LaneDirection;
 import androidx.car.app.navigation.model.Maneuver;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.LaneWay;
 
@@ -35,39 +34,24 @@ public final class RoutingHelpers
     int shape = LaneDirection.SHAPE_UNKNOWN;
     switch (laneWay)
     {
-    case REVERSE:
-      shape = LaneDirection.SHAPE_U_TURN_LEFT;
-      break;
-    case SHARP_LEFT:
-      shape = LaneDirection.SHAPE_SHARP_LEFT;
-      break;
-    case LEFT:
-      shape = LaneDirection.SHAPE_NORMAL_LEFT;
-      break;
-    case SLIGHT_LEFT:
-    case MERGE_TO_LEFT:
-      shape = LaneDirection.SHAPE_SLIGHT_LEFT;
-      break;
-    case SLIGHT_RIGHT:
-    case MERGE_TO_RIGHT:
-      shape = LaneDirection.SHAPE_SLIGHT_RIGHT;
-      break;
-    case THROUGH:
-      shape = LaneDirection.SHAPE_STRAIGHT;
-      break;
-    case RIGHT:
-      shape = LaneDirection.SHAPE_NORMAL_RIGHT;
-      break;
-    case SHARP_RIGHT:
-      shape = LaneDirection.SHAPE_SHARP_RIGHT;
-      break;
+      case REVERSE: shape = LaneDirection.SHAPE_U_TURN_LEFT; break;
+      case SHARP_LEFT: shape = LaneDirection.SHAPE_SHARP_LEFT; break;
+      case LEFT: shape = LaneDirection.SHAPE_NORMAL_LEFT; break;
+      case SLIGHT_LEFT:
+      case MERGE_TO_LEFT: shape = LaneDirection.SHAPE_SLIGHT_LEFT; break;
+      case SLIGHT_RIGHT:
+      case MERGE_TO_RIGHT: shape = LaneDirection.SHAPE_SLIGHT_RIGHT; break;
+      case THROUGH: shape = LaneDirection.SHAPE_STRAIGHT; break;
+      case RIGHT: shape = LaneDirection.SHAPE_NORMAL_RIGHT; break;
+      case SHARP_RIGHT: shape = LaneDirection.SHAPE_SHARP_RIGHT; break;
     }
 
     return LaneDirection.create(shape, isRecommended);
   }
 
   @NonNull
-  public static Maneuver createManeuver(@NonNull final CarContext context, @NonNull CarDirection carDirection, int roundaboutExitNum)
+  public static Maneuver createManeuver(@NonNull final CarContext context, @NonNull CarDirection carDirection,
+                                        int roundaboutExitNum)
   {
     int maneuverType = switch (carDirection)
     {
@@ -81,8 +65,7 @@ public final class RoutingHelpers
       case U_TURN_LEFT -> Maneuver.TYPE_U_TURN_LEFT;
       case U_TURN_RIGHT -> Maneuver.TYPE_U_TURN_RIGHT;
       // TODO (AndrewShkrob): add support for CW (clockwise) directions
-      case ENTER_ROUND_ABOUT, STAY_ON_ROUND_ABOUT, LEAVE_ROUND_ABOUT ->
-          Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
+      case ENTER_ROUND_ABOUT, STAY_ON_ROUND_ABOUT, LEAVE_ROUND_ABOUT -> Maneuver.TYPE_ROUNDABOUT_ENTER_AND_EXIT_CCW;
       case START_AT_THE_END_OF_STREET -> Maneuver.TYPE_DEPART;
       case REACHED_YOUR_DESTINATION -> Maneuver.TYPE_DESTINATION;
       case EXIT_HIGHWAY_TO_LEFT -> Maneuver.TYPE_OFF_RAMP_SLIGHT_LEFT;

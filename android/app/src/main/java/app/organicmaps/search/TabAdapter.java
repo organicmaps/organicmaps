@@ -4,20 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.SparseArray;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.tabs.TabLayout;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.util.Graphics;
 import app.organicmaps.sdk.util.Config;
-
+import app.organicmaps.util.Graphics;
+import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +21,7 @@ class TabAdapter extends FragmentPagerAdapter
 {
   enum Tab
   {
-    HISTORY
-    {
+    HISTORY {
       @Override
       public int getTitleRes()
       {
@@ -40,8 +35,7 @@ class TabAdapter extends FragmentPagerAdapter
       }
     },
 
-    CATEGORIES
-    {
+    CATEGORIES {
       @Override
       public int getTitleRes()
       {
@@ -120,7 +114,7 @@ class TabAdapter extends FragmentPagerAdapter
     this.mTabs = tabs;
     for (Tab tab : Tab.values())
     {
-      if (tab==tab.HISTORY && !Config.isSearchHistoryEnabled())
+      if (tab == tab.HISTORY && !Config.isSearchHistoryEnabled())
         continue;
       mClasses.add(tab.getFragmentClass());
     }
@@ -173,12 +167,13 @@ class TabAdapter extends FragmentPagerAdapter
     Fragment res = mFragments.get(position);
     if (res == null || res.getClass() != mClasses.get(position))
     {
-      //noinspection TryWithIdenticalCatches
+      // noinspection TryWithIdenticalCatches
       try
       {
         res = mClasses.get(position).newInstance();
         mFragments.put(position, res);
-      } catch (InstantiationException ignored)
+      }
+      catch (InstantiationException ignored)
       {}
       catch (IllegalAccessException ignored)
       {}

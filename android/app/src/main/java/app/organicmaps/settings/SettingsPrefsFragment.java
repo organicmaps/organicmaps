@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -13,19 +12,20 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.TwoStatePreference;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.downloader.OnmapDownloader;
-import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.editor.LanguagesFragment;
 import app.organicmaps.editor.ProfileActivity;
-import app.organicmaps.sdk.editor.data.Language;
 import app.organicmaps.help.HelpActivity;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.editor.OsmOAuth;
+import app.organicmaps.sdk.editor.data.Language;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationProviderFactory;
 import app.organicmaps.sdk.routing.RoutingOptions;
+import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.sdk.settings.MapLanguageCode;
 import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.sdk.util.Config;
@@ -33,11 +33,9 @@ import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.PowerManagment;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.ThemeSwitcher;
-import app.organicmaps.util.Utils;
 import app.organicmaps.sdk.util.log.LogsManager;
-import app.organicmaps.sdk.search.SearchRecents;
+import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.util.Locale;
 
 public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements LanguagesFragment.Listener
@@ -127,7 +125,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       }
       else if (key.equals(getString(R.string.pref_tts_screen)))
       {
-        getSettingsActivity().stackFragment(VoiceInstructionsSettingsFragment.class, getString(R.string.pref_tts_enable_title), null);
+        getSettingsActivity().stackFragment(VoiceInstructionsSettingsFragment.class,
+                                            getString(R.string.pref_tts_enable_title), null);
       }
       else if (key.equals(getString(R.string.pref_help)))
       {
@@ -135,7 +134,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       }
       else if (key.equals(getString(R.string.pref_map_locale)))
       {
-        LanguagesFragment langFragment = (LanguagesFragment)getSettingsActivity().stackFragment(LanguagesFragment.class, getString(R.string.change_map_locale), null);
+        LanguagesFragment langFragment = (LanguagesFragment) getSettingsActivity().stackFragment(
+            LanguagesFragment.class, getString(R.string.change_map_locale), null);
         langFragment.setListener(this);
       }
     }
@@ -146,7 +146,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     final Preference pref = getPreference(getString(R.string.pref_large_fonts_size));
 
-    ((TwoStatePreference)pref).setChecked(Config.isLargeFontsSize());
+    ((TwoStatePreference) pref).setChecked(Config.isLargeFontsSize());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       final boolean oldVal = Config.isLargeFontsSize();
       final boolean newVal = (Boolean) newValue;
@@ -161,7 +161,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     final Preference pref = getPreference(getString(R.string.pref_transliteration));
 
-    ((TwoStatePreference)pref).setChecked(Config.isTransliteration());
+    ((TwoStatePreference) pref).setChecked(Config.isTransliteration());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       final boolean oldVal = Config.isTransliteration();
       final boolean newVal = (Boolean) newValue;
@@ -178,7 +178,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
 
     NetworkPolicy.Type curValue = Config.getUseMobileDataSettings();
     if (curValue == NetworkPolicy.Type.NOT_TODAY || curValue == NetworkPolicy.Type.TODAY)
-        curValue = NetworkPolicy.Type.ASK;
+      curValue = NetworkPolicy.Type.ASK;
     mobilePref.setValue(curValue.name());
     mobilePref.setOnPreferenceChangeListener((preference, newValue) -> {
       final String valueStr = (String) newValue;
@@ -196,8 +196,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     int curValue = PowerManagment.getScheme();
     powerManagementPref.setValue(String.valueOf(curValue));
 
-    powerManagementPref.setOnPreferenceChangeListener((preference, newValue) ->
-    {
+    powerManagementPref.setOnPreferenceChangeListener((preference, newValue) -> {
       @PowerManagment.SchemeType
       int scheme = Integer.parseInt((String) newValue);
 
@@ -260,8 +259,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     else
     {
       ((TwoStatePreference) pref).setChecked(Config.useGoogleServices());
-      pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-      {
+      pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
         @SuppressLint("MissingPermission")
         @Override
         public boolean onPreferenceChange(@NonNull Preference preference, Object newValue)
@@ -316,13 +314,14 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     // Read power managements preference.
     final ListPreference powerManagementPref = getPreference(getString(R.string.pref_power_management));
     final String powerManagementValueStr = powerManagementPref.getValue();
-    final Integer powerManagementValue = (powerManagementValueStr!=null) ? Integer.parseInt(powerManagementValueStr) : null;
+    final Integer powerManagementValue =
+        (powerManagementValueStr != null) ? Integer.parseInt(powerManagementValueStr) : null;
     disableOrEnable3DBuildingsForPowerMode(powerManagementValue);
 
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       Framework.Params3dMode current = new Framework.Params3dMode();
       Framework.nativeGet3dMode(current);
-      Framework.nativeSet3dMode(current.enabled, (Boolean)newValue);
+      Framework.nativeSet3dMode(current.enabled, (Boolean) newValue);
       return true;
     });
   }
@@ -409,7 +408,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     final Preference pref = getPreference(getString(R.string.pref_show_zoom_buttons));
 
-    ((TwoStatePreference)pref).setChecked(Config.showZoomButtons());
+    ((TwoStatePreference) pref).setChecked(Config.showZoomButtons());
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       Config.setShowZoomButtons((boolean) newValue);
       return true;
@@ -420,7 +419,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     final Preference pref = getPreference(getString(R.string.pref_munits));
 
-    ((ListPreference)pref).setValue(String.valueOf(UnitLocale.getUnits()));
+    ((ListPreference) pref).setValue(String.valueOf(UnitLocale.getUnits()));
     pref.setOnPreferenceChangeListener((preference, newValue) -> {
       UnitLocale.setUnits(Integer.parseInt((String) newValue));
       return true;
@@ -454,8 +453,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
 
     final boolean isKeepScreenOnEnabled = Config.isKeepScreenOnEnabled();
     ((TwoStatePreference) pref).setChecked(isKeepScreenOnEnabled);
-    pref.setOnPreferenceChangeListener((preference, newValue) ->
-    {
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
       boolean newVal = (Boolean) newValue;
       if (isKeepScreenOnEnabled != newVal)
       {
@@ -472,8 +470,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
 
     final boolean isShowOnLockScreenEnabled = Config.isShowOnLockScreenEnabled();
     ((TwoStatePreference) pref).setChecked(isShowOnLockScreenEnabled);
-    pref.setOnPreferenceChangeListener((preference, newValue) ->
-    {
+    pref.setOnPreferenceChangeListener((preference, newValue) -> {
       boolean newVal = (Boolean) newValue;
       if (isShowOnLockScreenEnabled != newVal)
       {

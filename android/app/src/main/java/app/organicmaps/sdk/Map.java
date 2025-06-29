@@ -4,9 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.Surface;
-
 import androidx.annotation.Nullable;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
@@ -174,8 +172,8 @@ public final class Map
     final LocationHelper locationHelper = MwmApplication.from(context).getLocationHelper();
 
     final boolean firstStart = locationHelper.isInFirstRun();
-    if (!nativeCreateEngine(surface, surfaceDpi, firstStart, mLaunchByDeepLink,
-                            BuildConfig.VERSION_CODE, ROMUtils.isCustomROM()))
+    if (!nativeCreateEngine(surface, surfaceDpi, firstStart, mLaunchByDeepLink, BuildConfig.VERSION_CODE,
+                            ROMUtils.isCustomROM()))
     {
       if (mCallbackUnsupported != null)
         mCallbackUnsupported.report();
@@ -193,7 +191,8 @@ public final class Map
       mMapRenderingListener.onRenderingCreated();
   }
 
-  public void onSurfaceChanged(final Context context, final Surface surface, Rect surfaceFrame, boolean isSurfaceCreating)
+  public void onSurfaceChanged(final Context context, final Surface surface, Rect surfaceFrame,
+                               boolean isSurfaceCreating)
   {
     if (isThemeChangingProcess(context))
     {
@@ -216,7 +215,8 @@ public final class Map
 
   public void onSurfaceDestroyed(boolean activityIsChangingConfigurations, boolean isAdded)
   {
-    Logger.d(TAG, "mSurfaceCreated = " + mSurfaceCreated + ", mSurfaceAttached = " + mSurfaceAttached + ", isAdded = " + isAdded);
+    Logger.d(TAG, "mSurfaceCreated = " + mSurfaceCreated + ", mSurfaceAttached = " + mSurfaceAttached
+                      + ", isAdded = " + isAdded);
     if (!mSurfaceCreated || !mSurfaceAttached || !isAdded)
       return;
 
@@ -303,9 +303,8 @@ public final class Map
     }
     else
     {
-      nativeOnTouch(actionType,
-          event.getPointerId(0), event.getX(0), event.getY(0),
-          event.getPointerId(1), event.getX(1), event.getY(1), pointerIndex);
+      nativeOnTouch(actionType, event.getPointerId(0), event.getX(0), event.getY(0), event.getPointerId(1),
+                    event.getX(1), event.getY(1), pointerIndex);
     }
   }
 
@@ -334,32 +333,30 @@ public final class Map
     updateBottomWidgetsOffset(context, mBottomWidgetOffsetX, mBottomWidgetOffsetY);
     if (mDisplayType == DisplayType.Device)
     {
-      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, UiUtils.dimen(context, R.dimen.margin_base), UiUtils.dimen(context, R.dimen.margin_base) * 2, ANCHOR_LEFT_TOP);
+      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, UiUtils.dimen(context, R.dimen.margin_base),
+                        UiUtils.dimen(context, R.dimen.margin_base) * 2, ANCHOR_LEFT_TOP);
       updateCompassOffset(context, mCurrentCompassOffsetX, mCurrentCompassOffsetY, false);
     }
     else
     {
-      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, (float) mWidth / 2 + UiUtils.dimen(context, R.dimen.margin_base) * 2, UiUtils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
+      nativeSetupWidget(WIDGET_SCALE_FPS_LABEL, (float) mWidth / 2 + UiUtils.dimen(context, R.dimen.margin_base) * 2,
+                        UiUtils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
       updateCompassOffset(context, mWidth, mCurrentCompassOffsetY, true);
     }
   }
 
   private void updateRulerOffset(final Context context, int offsetX, int offsetY)
   {
-    nativeSetupWidget(WIDGET_RULER,
-        UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
-        mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
-        ANCHOR_LEFT_BOTTOM);
+    nativeSetupWidget(WIDGET_RULER, UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
+                      mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY, ANCHOR_LEFT_BOTTOM);
     if (mSurfaceCreated)
       nativeApplyWidgets();
   }
 
   private void updateAttributionOffset(final Context context, int offsetX, int offsetY)
   {
-    nativeSetupWidget(WIDGET_COPYRIGHT,
-        UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
-        mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY,
-        ANCHOR_LEFT_BOTTOM);
+    nativeSetupWidget(WIDGET_COPYRIGHT, UiUtils.dimen(context, R.dimen.margin_ruler) + offsetX,
+                      mHeight - UiUtils.dimen(context, R.dimen.margin_ruler) - offsetY, ANCHOR_LEFT_BOTTOM);
     if (mSurfaceCreated)
       nativeApplyWidgets();
   }
@@ -370,18 +367,14 @@ public final class Map
   }
 
   // Engine
-  private static native boolean nativeCreateEngine(Surface surface, int density,
-                                                   boolean firstLaunch,
-                                                   boolean isLaunchByDeepLink,
-                                                   int appVersionCode,
-                                                   boolean isCustomROM);
+  private static native boolean nativeCreateEngine(Surface surface, int density, boolean firstLaunch,
+                                                   boolean isLaunchByDeepLink, int appVersionCode, boolean isCustomROM);
 
   private static native boolean nativeIsEngineCreated();
 
   private static native void nativeUpdateEngineDpi(int dpi);
 
-  private static native void nativeSetRenderingInitializationFinishedListener(
-      @Nullable MapRenderingListener listener);
+  private static native void nativeSetRenderingInitializationFinishedListener(@Nullable MapRenderingListener listener);
 
   private static native void nativeExecuteMapApiRequest();
 
@@ -418,5 +411,6 @@ public final class Map
 
   private static native void nativeOnScale(double factor, double focusX, double focusY, boolean isAnim);
 
-  private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2, int maskedPointer);
+  private static native void nativeOnTouch(int actionType, int id1, float x1, float y1, int id2, float x2, float y2,
+                                           int maskedPointer);
 }

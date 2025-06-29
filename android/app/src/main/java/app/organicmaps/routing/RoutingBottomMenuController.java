@@ -21,16 +21,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
@@ -38,12 +36,11 @@ import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.routing.TransitStepInfo;
 import app.organicmaps.sdk.util.Distance;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.widget.recycler.DotDividerItemDecoration;
 import app.organicmaps.widget.recycler.MultilineLayoutManager;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -104,32 +101,24 @@ final class RoutingBottomMenuController implements View.OnClickListener
     TextView arrival = (TextView) getViewById(activity, frame, R.id.arrival);
     View actionFrame = getViewById(activity, frame, R.id.routing_action_frame);
 
-    return new RoutingBottomMenuController(activity, altitudeChartFrame, timeElevationLine, transitFrame,
-                                           error, start, altitudeChart, time, altitudeDifference,
-                                           timeVehicle, arrival, actionFrame, listener);
+    return new RoutingBottomMenuController(activity, altitudeChartFrame, timeElevationLine, transitFrame, error, start,
+                                           altitudeChart, time, altitudeDifference, timeVehicle, arrival, actionFrame,
+                                           listener);
   }
 
   @NonNull
-  private static View getViewById(@NonNull Activity activity, @NonNull View frame,
-                                  @IdRes int resourceId)
+  private static View getViewById(@NonNull Activity activity, @NonNull View frame, @IdRes int resourceId)
   {
     View view = frame.findViewById(resourceId);
     return view == null ? activity.findViewById(resourceId) : view;
   }
 
-  private RoutingBottomMenuController(@NonNull Activity context,
-                                      @NonNull View altitudeChartFrame,
-                                      @NonNull View timeElevationLine,
-                                      @NonNull View transitFrame,
-                                      @NonNull TextView error,
-                                      @NonNull Button start,
-                                      @NonNull ImageView altitudeChart,
-                                      @NonNull TextView time,
-                                      @NonNull TextView altitudeDifference,
-                                      @NonNull TextView timeVehicle,
-                                      @Nullable TextView arrival,
-                                      @NonNull View actionFrame,
-                                      @Nullable RoutingBottomMenuListener listener)
+  private RoutingBottomMenuController(@NonNull Activity context, @NonNull View altitudeChartFrame,
+                                      @NonNull View timeElevationLine, @NonNull View transitFrame,
+                                      @NonNull TextView error, @NonNull Button start, @NonNull ImageView altitudeChart,
+                                      @NonNull TextView time, @NonNull TextView altitudeDifference,
+                                      @NonNull TextView timeVehicle, @Nullable TextView arrival,
+                                      @NonNull View actionFrame, @Nullable RoutingBottomMenuListener listener)
   {
     mContext = context;
     mAltitudeChartFrame = altitudeChartFrame;
@@ -154,8 +143,9 @@ final class RoutingBottomMenuController implements View.OnClickListener
     int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
     Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
     Resources res = mContext.getResources();
-    mTransitViewDecorator = new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
-                                                         res.getDimensionPixelSize(R.dimen.margin_half));
+    mTransitViewDecorator =
+        new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
+                                     res.getDimensionPixelSize(R.dimen.margin_half));
     Button manageRouteButton = altitudeChartFrame.findViewById(R.id.btn__manage_route);
     manageRouteButton.setOnClickListener(this);
 
@@ -199,8 +189,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     scrollToBottom(rv);
 
     TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
-    totalTimeView.setText(RoutingController.formatRoutingTime(mContext, info.getTotalTime(),
-                                                            R.dimen.text_size_routing_number));
+    totalTimeView.setText(
+        RoutingController.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));
     View dotView = mTransitFrame.findViewById(R.id.dot);
     View pedestrianIcon = mTransitFrame.findViewById(R.id.pedestrian_icon);
     TextView distanceView = mTransitFrame.findViewById(R.id.total_distance);
@@ -232,8 +222,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
       UiUtils.hide(rv); // Show only distance between start and finish
 
     TextView totalTimeView = mTransitFrame.findViewById(R.id.total_time);
-    totalTimeView.setText(mContext.getString(R.string.placepage_distance) + ": " +
-                          totalLength.mDistanceStr + " " + totalLength.getUnitsStr(mContext));
+    totalTimeView.setText(mContext.getString(R.string.placepage_distance) + ": " + totalLength.mDistanceStr + " "
+                          + totalLength.getUnitsStr(mContext));
 
     UiUtils.hide(mTransitFrame, R.id.dot);
     UiUtils.hide(mTransitFrame, R.id.pedestrian_icon);
@@ -248,10 +238,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       RouteMarkData segmentStart = points[i - 1];
       RouteMarkData segmentEnd = points[i];
-      DistanceAndAzimut dist = Framework.nativeGetDistanceAndAzimuthFromLatLon(segmentStart.mLat, segmentStart.mLon, segmentEnd.mLat, segmentEnd.mLon, 0);
+      DistanceAndAzimut dist = Framework.nativeGetDistanceAndAzimuthFromLatLon(segmentStart.mLat, segmentStart.mLon,
+                                                                               segmentEnd.mLat, segmentEnd.mLon, 0);
       if (i > 1)
         transitSteps.add(TransitStepInfo.intermediatePoint(i - 2));
-      transitSteps.add(TransitStepInfo.ruler(dist.getDistance().mDistanceStr, dist.getDistance().getUnitsStr(mContext)));
+      transitSteps.add(
+          TransitStepInfo.ruler(dist.getDistance().mDistanceStr, dist.getDistance().getUnitsStr(mContext)));
     }
 
     return transitSteps;
@@ -267,8 +259,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       UiUtils.show(mActionButton);
       Drawable icon = ContextCompat.getDrawable(mContext, R.drawable.ic_location_crosshair);
-      int colorAccent = ContextCompat.getColor(mContext,
-                                               UiUtils.getStyledResourceId(mContext, androidx.appcompat.R.attr.colorAccent));
+      int colorAccent = ContextCompat.getColor(
+          mContext, UiUtils.getStyledResourceId(mContext, androidx.appcompat.R.attr.colorAccent));
       mActionIcon.setImageDrawable(Graphics.tint(icon, colorAccent));
     }
     else
@@ -357,9 +349,10 @@ final class RoutingBottomMenuController implements View.OnClickListener
     {
       mAltitudeChart.setImageBitmap(bm);
       UiUtils.show(mAltitudeChart);
-      final String unit = limits.isMetricUnits ? mAltitudeDifference.getResources().getString(R.string.m) : mAltitudeDifference.getResources().getString(R.string.ft);
-      mAltitudeDifference.setText("↗ " + limits.totalAscentString + " " + unit +
-                                  " ↘ " + limits.totalDescentString + " " + unit);
+      final String unit = limits.isMetricUnits ? mAltitudeDifference.getResources().getString(R.string.m)
+                                               : mAltitudeDifference.getResources().getString(R.string.ft);
+      mAltitudeDifference.setText("↗ " + limits.totalAscentString + " " + unit + " ↘ " + limits.totalDescentString + " "
+                                  + unit);
       UiUtils.show(mAltitudeDifference);
     }
   }
@@ -404,9 +397,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   private static Spanned makeSpannedRoutingDetails(@NonNull Context context, @NonNull RoutingInfo routingInfo)
 
   {
-    CharSequence time = RoutingController.formatRoutingTime(context,
-                                                            routingInfo.totalTimeInSeconds,
-                                                            R.dimen.text_size_routing_number);
+    CharSequence time =
+        RoutingController.formatRoutingTime(context, routingInfo.totalTimeInSeconds, R.dimen.text_size_routing_number);
 
     SpannableStringBuilder builder = new SpannableStringBuilder();
     initTimeBuilderSequence(context, time, builder);
@@ -424,24 +416,14 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     builder.append(time);
 
-    builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
-                    0,
-                    builder.length(),
+    builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)), 0, builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(context.getResources()
-                                                .getDimensionPixelSize(R.dimen.text_size_routing_number)),
-                    0,
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new StyleSpan(Typeface.BOLD),
-                    0,
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context,
-                                                                android.R.attr.textColorPrimary)),
-                    0,
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(
+        new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)), 0,
+        builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new StyleSpan(Typeface.BOLD), 0, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, android.R.attr.textColorPrimary)), 0,
+                    builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 
   private static void initDotBuilderSequence(@NonNull Context context, @NonNull String dot,
@@ -449,18 +431,12 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     builder.append(dot);
     builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
-                    builder.length() - dot.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(context.getResources()
-                                                .getDimensionPixelSize(R.dimen.text_size_routing_number)),
-                    builder.length() - dot.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.length() - dot.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(
+        new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)),
+        builder.length() - dot.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, R.attr.secondary)),
-                    builder.length() - dot.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.length() - dot.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 
   private static void initDistanceBuilderSequence(@NonNull Context context, @NonNull String arrivalTime,
@@ -468,22 +444,14 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     builder.append(arrivalTime);
     builder.setSpan(new TypefaceSpan(context.getResources().getString(R.string.robotoMedium)),
-                    builder.length() - arrivalTime.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new AbsoluteSizeSpan(context.getResources()
-                                                .getDimensionPixelSize(R.dimen.text_size_routing_number)),
-                    builder.length() - arrivalTime.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-    builder.setSpan(new StyleSpan(Typeface.NORMAL),
-                    builder.length() - arrivalTime.length(),
-                    builder.length(),
+                    builder.length() - arrivalTime.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(
+        new AbsoluteSizeSpan(context.getResources().getDimensionPixelSize(R.dimen.text_size_routing_number)),
+        builder.length() - arrivalTime.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    builder.setSpan(new StyleSpan(Typeface.NORMAL), builder.length() - arrivalTime.length(), builder.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     builder.setSpan(new ForegroundColorSpan(ThemeUtils.getColor(context, android.R.attr.textColorPrimary)),
-                    builder.length() - arrivalTime.length(),
-                    builder.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    builder.length() - arrivalTime.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
   }
 
   @Override

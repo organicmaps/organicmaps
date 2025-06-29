@@ -3,17 +3,14 @@ package app.organicmaps.sdk.bookmarks.data;
 import android.net.Uri;
 import android.os.Parcel;
 import android.text.TextUtils;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
-
 import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.search.Popularity;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
@@ -28,10 +25,9 @@ import java.util.Objects;
 public class MapObject implements PlacePageData
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH })
+  @IntDef({POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH})
   public @interface MapObjectType
-  {
-  }
+  {}
 
   public static final int POI = 0;
   public static final int API_POINT = 1;
@@ -40,8 +36,9 @@ public class MapObject implements PlacePageData
   public static final int SEARCH = 4;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ OPENING_MODE_PREVIEW, OPENING_MODE_PREVIEW_PLUS, OPENING_MODE_DETAILS, OPENING_MODE_FULL })
-  public @interface OpeningMode {}
+  @IntDef({OPENING_MODE_PREVIEW, OPENING_MODE_PREVIEW_PLUS, OPENING_MODE_DETAILS, OPENING_MODE_FULL})
+  public @interface OpeningMode
+  {}
 
   public static final int OPENING_MODE_PREVIEW = 0;
   public static final int OPENING_MODE_PREVIEW_PLUS = 1;
@@ -69,8 +66,8 @@ public class MapObject implements PlacePageData
   private final RoutePointInfo mRoutePointInfo;
   @OpeningMode
   private final int mOpeningMode;
-//  @NonNull
-//  private final Popularity mPopularity;
+  //  @NonNull
+  //  private final Popularity mPopularity;
   @NonNull
   private final RoadWarningMarkType mRoadWarningMarkType;
   @NonNull
@@ -79,22 +76,19 @@ public class MapObject implements PlacePageData
   private List<String> mRawTypes;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
-                   @Nullable String secondaryTitle, String subtitle, String address,
-                   double lat, double lon, String apiId, @Nullable RoutePointInfo routePointInfo,
-                   @OpeningMode int openingMode, Popularity popularity, @NonNull String description,
-                   int roadWarningType, @Nullable String[] rawTypes)
+                   @Nullable String secondaryTitle, String subtitle, String address, double lat, double lon,
+                   String apiId, @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode,
+                   Popularity popularity, @NonNull String description, int roadWarningType, @Nullable String[] rawTypes)
   {
-    this(featureId, mapObjectType, title, secondaryTitle,
-        subtitle, address, lat, lon, new Metadata(), apiId,
-        routePointInfo, openingMode, popularity, description,
-        roadWarningType, rawTypes);
+    this(featureId, mapObjectType, title, secondaryTitle, subtitle, address, lat, lon, new Metadata(), apiId,
+         routePointInfo, openingMode, popularity, description, roadWarningType, rawTypes);
   }
 
-  public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
-                   String title, @Nullable String secondaryTitle, String subtitle, String address,
-                   double lat, double lon, Metadata metadata, String apiId,
-                   @Nullable RoutePointInfo routePointInfo, @OpeningMode int openingMode, Popularity popularity,
-                   @NonNull String description, int roadWarningType, @Nullable String[] rawTypes)
+  public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
+                   @Nullable String secondaryTitle, String subtitle, String address, double lat, double lon,
+                   Metadata metadata, String apiId, @Nullable RoutePointInfo routePointInfo,
+                   @OpeningMode int openingMode, Popularity popularity, @NonNull String description,
+                   int roadWarningType, @Nullable String[] rawTypes)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -108,7 +102,7 @@ public class MapObject implements PlacePageData
     mApiId = apiId;
     mRoutePointInfo = routePointInfo;
     mOpeningMode = openingMode;
-    //mPopularity = popularity;
+    // mPopularity = popularity;
     mDescription = description;
     mRoadWarningMarkType = RoadWarningMarkType.values()[roadWarningType];
     if (rawTypes != null)
@@ -117,7 +111,8 @@ public class MapObject implements PlacePageData
 
   protected MapObject(@MapObjectType int type, Parcel source)
   {
-    this(Objects.requireNonNull(ParcelCompat.readParcelable(source, FeatureId.class.getClassLoader(), FeatureId.class)), // FeatureId
+    this(Objects.requireNonNull(
+             ParcelCompat.readParcelable(source, FeatureId.class.getClassLoader(), FeatureId.class)), // FeatureId
          type, // MapObjectType
          source.readString(), // Title
          source.readString(), // SecondaryTitle
@@ -127,13 +122,14 @@ public class MapObject implements PlacePageData
          source.readDouble(), // Lon
          ParcelCompat.readParcelable(source, Metadata.class.getClassLoader(), Metadata.class),
          source.readString(), // ApiId;
-         ParcelCompat.readParcelable(source, RoutePointInfo.class.getClassLoader(), RoutePointInfo.class), // RoutePointInfo
+         ParcelCompat.readParcelable(source, RoutePointInfo.class.getClassLoader(),
+                                     RoutePointInfo.class), // RoutePointInfo
          source.readInt(), // mOpeningMode
-         Objects.requireNonNull(ParcelCompat.readParcelable(source, Popularity.class.getClassLoader(), Popularity.class)),
-         Objects.requireNonNull(source.readString()),
-         source.readInt(),
+         Objects.requireNonNull(
+             ParcelCompat.readParcelable(source, Popularity.class.getClassLoader(), Popularity.class)),
+         Objects.requireNonNull(source.readString()), source.readInt(),
          null // mRawTypes
-        );
+    );
 
     mRawTypes = readRawTypes(source);
   }
@@ -142,11 +138,9 @@ public class MapObject implements PlacePageData
   public static MapObject createMapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
                                           @NonNull String title, @NonNull String subtitle, double lat, double lon)
   {
-    return new MapObject(featureId, mapObjectType, title,
-                         "", subtitle, "", lat, lon, null,
-                         "", null, OPENING_MODE_PREVIEW,
-                         Popularity.defaultInstance(), "",
-                         RoadWarningMarkType.UNKNOWN.ordinal(), new String[0]);
+    return new MapObject(featureId, mapObjectType, title, "", subtitle, "", lat, lon, null, "", null,
+                         OPENING_MODE_PREVIEW, Popularity.defaultInstance(), "", RoadWarningMarkType.UNKNOWN.ordinal(),
+                         new String[0]);
   }
 
   @NonNull
@@ -170,20 +164,20 @@ public class MapObject implements PlacePageData
     if (this == other)
       return true;
 
-    //noinspection SimplifiableIfStatement
+    // noinspection SimplifiableIfStatement
     if (getClass() != other.getClass())
       return false;
 
     if (mFeatureId != FeatureId.EMPTY && other.getFeatureId() != FeatureId.EMPTY)
       return mFeatureId.equals(other.getFeatureId());
 
-    return Double.doubleToLongBits(mLon) == Double.doubleToLongBits(other.mLon) &&
-           Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat);
+    return Double.doubleToLongBits(mLon) == Double.doubleToLongBits(other.mLon)
+ && Double.doubleToLongBits(mLat) == Double.doubleToLongBits(other.mLat);
   }
 
   public static boolean same(@Nullable MapObject one, @Nullable MapObject another)
   {
-    //noinspection SimplifiableIfStatement
+    // noinspection SimplifiableIfStatement
     if (one == null && another == null)
       return true;
 
@@ -341,7 +335,8 @@ public class MapObject implements PlacePageData
 
   private static MapObject readFromParcel(Parcel source)
   {
-    @MapObjectType int type = source.readInt();
+    @MapObjectType
+    int type = source.readInt();
     if (type == BOOKMARK)
       return new Bookmark(type, source);
 
@@ -371,7 +366,7 @@ public class MapObject implements PlacePageData
     dest.writeString(mApiId);
     dest.writeParcelable(mRoutePointInfo, 0);
     dest.writeInt(mOpeningMode);
-    //dest.writeParcelable(mPopularity, 0);
+    // dest.writeParcelable(mPopularity, 0);
     dest.writeString(mDescription);
     dest.writeInt(getRoadWarningMarkType().ordinal());
     // All collections are deserialized AFTER non-collection and primitive type objects,
@@ -382,8 +377,10 @@ public class MapObject implements PlacePageData
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
 
     MapObject mapObject = (MapObject) o;
     return mFeatureId.equals(mapObject.mFeatureId);
@@ -395,8 +392,7 @@ public class MapObject implements PlacePageData
     return mFeatureId.hashCode();
   }
 
-  public static final Creator<MapObject> CREATOR = new Creator<>()
-  {
+  public static final Creator<MapObject> CREATOR = new Creator<>() {
     @Override
     public MapObject createFromParcel(Parcel source)
     {

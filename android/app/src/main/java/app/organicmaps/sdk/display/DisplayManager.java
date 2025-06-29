@@ -3,13 +3,10 @@ package app.organicmaps.sdk.display;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.sdk.util.log.Logger;
-
 import java.util.Objects;
 
 public class DisplayManager
@@ -182,8 +179,7 @@ public class DisplayManager
   {
     mHandler.post(() -> firstTask.start(() -> {
       if (secondTask != null)
-        mHandler.post(() -> secondTask.start(() -> {
-        }));
+        mHandler.post(() -> secondTask.start(() -> {}));
     }));
   }
 }

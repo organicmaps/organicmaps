@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.bookmarks.data;
 
 import androidx.annotation.Keep;
-
 import app.organicmaps.sdk.util.Distance;
 
 // Called from JNI.
@@ -24,15 +23,30 @@ public class Track
     mColor = color;
   }
 
-  public String getName() { return mName; }
+  public String getName()
+  {
+    return mName;
+  }
 
-  public Distance getLength() { return mLength;}
+  public Distance getLength()
+  {
+    return mLength;
+  }
 
-  public int getColor() { return mColor; }
+  public int getColor()
+  {
+    return mColor;
+  }
 
-  public long getTrackId() { return mTrackId; }
+  public long getTrackId()
+  {
+    return mTrackId;
+  }
 
-  public long getCategoryId() { return mCategoryId; }
+  public long getCategoryId()
+  {
+    return mCategoryId;
+  }
 
   public String getTrackDescription()
   {

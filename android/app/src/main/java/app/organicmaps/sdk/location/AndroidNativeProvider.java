@@ -9,15 +9,12 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.core.location.LocationListenerCompat;
 import androidx.core.location.LocationManagerCompat;
 import androidx.core.location.LocationRequestCompat;
-
 import app.organicmaps.sdk.util.log.Logger;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +38,6 @@ class AndroidNativeProvider extends BaseLocationProvider
       if (mProviders.isEmpty())
         mListener.onLocationDisabled();
     }
-
 
     @Override
     public void onProviderEnabled(@NonNull String provider)
@@ -83,10 +79,12 @@ class AndroidNativeProvider extends BaseLocationProvider
     if (!mProviders.isEmpty())
       throw new IllegalStateException("Already started");
 
-    final LocationRequestCompat locationRequest = new LocationRequestCompat.Builder(interval)
-        // The quality is a hint to providers on how they should weigh power vs accuracy tradeoffs.
-        .setQuality(LocationRequestCompat.QUALITY_HIGH_ACCURACY)
-        .build();
+    final LocationRequestCompat locationRequest =
+        new LocationRequestCompat
+            .Builder(interval)
+            // The quality is a hint to providers on how they should weigh power vs accuracy tradeoffs.
+            .setQuality(LocationRequestCompat.QUALITY_HIGH_ACCURACY)
+            .build();
 
     // API 31+ provides `fused` provider which aggregates `gps` and `network` and potentially other sensors as well.
     // Unfortunately, certain LineageOS ROMs have broken `fused` provider that pretends to be enabled, but in
@@ -109,10 +107,10 @@ class AndroidNativeProvider extends BaseLocationProvider
 
     for (String provider : mProviders)
     {
-      Logger.d(TAG, "Request Android native provider '" + provider
-               + "' to get locations at this interval = " + interval + " ms");
-      LocationManagerCompat.requestLocationUpdates(mLocationManager, provider, locationRequest,
-          mNativeLocationListener, Looper.myLooper());
+      Logger.d(TAG, "Request Android native provider '" + provider + "' to get locations at this interval = " + interval
+                        + " ms");
+      LocationManagerCompat.requestLocationUpdates(mLocationManager, provider, locationRequest, mNativeLocationListener,
+                                                   Looper.myLooper());
     }
   }
 

@@ -6,19 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.util.Utils;
 
 public class SelfServiceAdapter extends RecyclerView.Adapter<SelfServiceAdapter.ViewHolder>
 {
-  private final String[] mItems = new String[]{"yes", "only", "partially", "no"};
+  private final String[] mItems = new String[] {"yes", "only", "partially", "no"};
   private final SelfServiceFragment mFragment;
   private String mSelectedOption;
-
 
   public SelfServiceAdapter(@NonNull SelfServiceFragment host, @NonNull String selected)
   {
@@ -34,7 +31,8 @@ public class SelfServiceAdapter extends RecyclerView.Adapter<SelfServiceAdapter.
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    return new SelfServiceAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_selection, parent, false));
+    return new SelfServiceAdapter.ViewHolder(
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_selection, parent, false));
   }
 
   @Override

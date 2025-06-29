@@ -3,7 +3,6 @@ package app.organicmaps.sdk.bookmarks.data;
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.GeoUtils;
@@ -61,7 +60,10 @@ public class BookmarkInfo
   }
 
   @NonNull
-  public String getFeatureType() { return mFeatureType; }
+  public String getFeatureType()
+  {
+    return mFeatureType;
+  }
 
   @NonNull
   public String getName()

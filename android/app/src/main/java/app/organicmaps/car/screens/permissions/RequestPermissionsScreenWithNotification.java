@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.car.app.CarContext;
@@ -19,7 +18,6 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.R;
 import app.organicmaps.car.CarAppService;
 import app.organicmaps.car.screens.base.BaseScreen;
@@ -27,7 +25,6 @@ import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-
 import java.util.concurrent.ExecutorService;
 
 public class RequestPermissionsScreenWithNotification extends BaseScreen implements UserActionRequired
@@ -40,7 +37,8 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
   @NonNull
   private final Runnable mPermissionsGrantedCallback;
 
-  public RequestPermissionsScreenWithNotification(@NonNull CarContext carContext, @NonNull Runnable permissionsGrantedCallback)
+  public RequestPermissionsScreenWithNotification(@NonNull CarContext carContext,
+                                                  @NonNull Runnable permissionsGrantedCallback)
   {
     super(carContext);
     mBackgroundExecutor = ThreadPool.getWorker();
@@ -51,14 +49,16 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
   @Override
   public Template onGetTemplate()
   {
-    final MessageTemplate.Builder builder = new MessageTemplate.Builder(getCarContext().getString(R.string.aa_location_permissions_request));
+    final MessageTemplate.Builder builder =
+        new MessageTemplate.Builder(getCarContext().getString(R.string.aa_location_permissions_request));
 
     final Header.Builder headerBuilder = new Header.Builder();
     headerBuilder.setStartHeaderAction(Action.APP_ICON);
     headerBuilder.setTitle(getCarContext().getString(R.string.aa_grant_permissions));
     builder.setHeader(headerBuilder.build());
 
-    builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_location_off)).build());
+    builder.setIcon(
+        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_location_off)).build());
     return builder.build();
   }
 
@@ -105,9 +105,10 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = new Intent(getCarContext(), RequestPermissionsActivity.class);
     final PendingIntent pendingIntent = PendingIntent.getActivity(getCarContext(), 0, contentIntent,
-        PendingIntent.FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
+                                                                  PendingIntent.FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
 
-    final NotificationCompat.Builder builder = new NotificationCompat.Builder(getCarContext(), CarAppService.ANDROID_AUTO_NOTIFICATION_CHANNEL_ID);
+    final NotificationCompat.Builder builder =
+        new NotificationCompat.Builder(getCarContext(), CarAppService.ANDROID_AUTO_NOTIFICATION_CHANNEL_ID);
     builder.setCategory(NotificationCompat.CATEGORY_NAVIGATION)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         .setOngoing(true)

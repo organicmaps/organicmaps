@@ -6,17 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -38,8 +35,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     View root = inflater.inflate(R.layout.fragment_driving_options, container, false);
     initViews(root);
     mRoadTypes = savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ROAD_TYPES)
-                 ? makeRouteTypes(savedInstanceState)
-                 : RoutingOptions.getActiveRoadTypes();
+                   ? makeRouteTypes(savedInstanceState)
+                   : RoutingOptions.getActiveRoadTypes();
     return root;
   }
 
@@ -93,26 +90,22 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   {
     SwitchCompat tollsBtn = root.findViewById(R.id.avoid_tolls_btn);
     tollsBtn.setChecked(RoutingOptions.hasOption(RoadType.Toll));
-    CompoundButton.OnCheckedChangeListener tollBtnListener =
-        new ToggleRoutingOptionListener(RoadType.Toll);
+    CompoundButton.OnCheckedChangeListener tollBtnListener = new ToggleRoutingOptionListener(RoadType.Toll);
     tollsBtn.setOnCheckedChangeListener(tollBtnListener);
 
     SwitchCompat motorwaysBtn = root.findViewById(R.id.avoid_motorways_btn);
     motorwaysBtn.setChecked(RoutingOptions.hasOption(RoadType.Motorway));
-    CompoundButton.OnCheckedChangeListener motorwayBtnListener =
-        new ToggleRoutingOptionListener(RoadType.Motorway);
+    CompoundButton.OnCheckedChangeListener motorwayBtnListener = new ToggleRoutingOptionListener(RoadType.Motorway);
     motorwaysBtn.setOnCheckedChangeListener(motorwayBtnListener);
 
     SwitchCompat ferriesBtn = root.findViewById(R.id.avoid_ferries_btn);
     ferriesBtn.setChecked(RoutingOptions.hasOption(RoadType.Ferry));
-    CompoundButton.OnCheckedChangeListener ferryBtnListener =
-        new ToggleRoutingOptionListener(RoadType.Ferry);
+    CompoundButton.OnCheckedChangeListener ferryBtnListener = new ToggleRoutingOptionListener(RoadType.Ferry);
     ferriesBtn.setOnCheckedChangeListener(ferryBtnListener);
 
     SwitchCompat dirtyRoadsBtn = root.findViewById(R.id.avoid_dirty_roads_btn);
     dirtyRoadsBtn.setChecked(RoutingOptions.hasOption(RoadType.Dirty));
-    CompoundButton.OnCheckedChangeListener dirtyBtnListener =
-        new ToggleRoutingOptionListener(RoadType.Dirty);
+    CompoundButton.OnCheckedChangeListener dirtyBtnListener = new ToggleRoutingOptionListener(RoadType.Dirty);
     dirtyRoadsBtn.setOnCheckedChangeListener(dirtyBtnListener);
   }
 

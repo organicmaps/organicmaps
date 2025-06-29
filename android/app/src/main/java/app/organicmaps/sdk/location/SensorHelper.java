@@ -6,14 +6,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
-
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -48,8 +45,7 @@ public class SensorHelper implements SensorEventListener
       mLastAccuracy = event.accuracy;
       switch (mLastAccuracy)
       {
-        case SensorManager.SENSOR_STATUS_ACCURACY_HIGH:
-          break;
+        case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: break;
         case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM:
           for (SensorListener listener : mListeners)
             listener.onCompassCalibrationRecommended();

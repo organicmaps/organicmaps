@@ -1,7 +1,6 @@
 package app.organicmaps.adapter;
 
 import android.view.View;
-
 import androidx.annotation.NonNull;
 
 public interface OnItemClickListener<T>

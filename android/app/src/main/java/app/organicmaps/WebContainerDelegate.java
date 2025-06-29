@@ -7,9 +7,7 @@ import android.net.Uri;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 import androidx.annotation.NonNull;
-
 import app.organicmaps.base.OnBackPressListener;
 import app.organicmaps.sdk.util.UiUtils;
 
@@ -21,8 +19,7 @@ public abstract class WebContainerDelegate implements OnBackPressListener
   @SuppressLint("SetJavaScriptEnabled")
   private void initWebView(String url)
   {
-    mWebView.setWebViewClient(new WebViewClient()
-    {
+    mWebView.setWebViewClient(new WebViewClient() {
       @Override
       public void onPageFinished(WebView view, String url)
       {
@@ -37,7 +34,7 @@ public abstract class WebContainerDelegate implements OnBackPressListener
         {
           MailTo parser = MailTo.parse(url);
           doStartActivity(new Intent(Intent.ACTION_SEND)
-                              .putExtra(Intent.EXTRA_EMAIL, new String[] { parser.getTo() })
+                              .putExtra(Intent.EXTRA_EMAIL, new String[] {parser.getTo()})
                               .putExtra(Intent.EXTRA_TEXT, parser.getBody())
                               .putExtra(Intent.EXTRA_SUBJECT, parser.getSubject())
                               .putExtra(Intent.EXTRA_CC, parser.getCc())
@@ -46,8 +43,7 @@ public abstract class WebContainerDelegate implements OnBackPressListener
           return true;
         }
 
-        doStartActivity(new Intent(Intent.ACTION_VIEW)
-                            .setData(Uri.parse(url)));
+        doStartActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url)));
         return true;
       }
     });

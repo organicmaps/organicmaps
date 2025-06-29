@@ -1,7 +1,6 @@
 package app.organicmaps.car.screens.download;
 
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
 import androidx.car.app.constraints.ConstraintManager;
@@ -10,7 +9,6 @@ import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.R;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.base.BaseScreen;
@@ -18,7 +16,6 @@ import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +33,7 @@ class DownloaderScreen extends BaseScreen
   private boolean mIsDownloadFailed = false;
 
   @NonNull
-  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
-  {
+  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback() {
     @Override
     public void onStatusChanged(@NonNull final List<MapManager.StorageCallbackData> data)
     {
@@ -85,7 +81,8 @@ class DownloaderScreen extends BaseScreen
     }
   };
 
-  DownloaderScreen(@NonNull final CarContext carContext, @NonNull final List<CountryItem> missingMaps, final boolean isCancelActionDisabled)
+  DownloaderScreen(@NonNull final CarContext carContext, @NonNull final List<CountryItem> missingMaps,
+                   final boolean isCancelActionDisabled)
   {
     super(carContext);
     setMarker(DownloadMapsScreen.MARKER);
@@ -171,9 +168,9 @@ class DownloaderScreen extends BaseScreen
   {
     mIsDownloadFailed = true;
     final ErrorScreen.Builder builder = new ErrorScreen.Builder(getCarContext())
-        .setTitle(R.string.country_status_download_failed)
-        .setErrorMessage(MapManager.getErrorCodeStrRes(data.errorCode))
-        .setPositiveButton(R.string.downloader_retry, null);
+                                            .setTitle(R.string.country_status_download_failed)
+                                            .setErrorMessage(MapManager.getErrorCodeStrRes(data.errorCode))
+                                            .setPositiveButton(R.string.downloader_retry, null);
     if (!mIsCancelActionDisabled)
       builder.setNegativeButton(R.string.cancel, this::finish);
     getScreenManager().push(builder.build());

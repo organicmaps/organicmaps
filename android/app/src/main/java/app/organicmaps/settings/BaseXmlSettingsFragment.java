@@ -3,7 +3,6 @@ package app.organicmaps.settings;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.XmlRes;
@@ -12,7 +11,6 @@ import androidx.core.view.ViewCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
@@ -27,7 +25,7 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
   {
     final T pref = findPreference(key);
     if (pref == null)
-      throw new RuntimeException("Can't get preference by key: "+key);
+      throw new RuntimeException("Can't get preference by key: " + key);
     return pref;
   }
   @Override

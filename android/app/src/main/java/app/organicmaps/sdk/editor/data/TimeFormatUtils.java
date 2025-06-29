@@ -1,13 +1,10 @@
 package app.organicmaps.sdk.editor.data;
 
 import android.content.res.Resources;
-
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.R;
 import app.organicmaps.util.Utils;
-
 import java.text.DateFormatSymbols;
 import java.util.Locale;
 
@@ -59,7 +56,7 @@ public class TimeFormatUtils
     refreshWithCurrentLocale();
     final StringBuilder builder = new StringBuilder(sShortWeekdays[weekdays[0]]);
     boolean iteratingRange;
-    for (int i = 1; i < weekdays.length; )
+    for (int i = 1; i < weekdays.length;)
     {
       iteratingRange = (weekdays[i] == weekdays[i - 1] + 1);
       if (iteratingRange)
@@ -84,7 +81,8 @@ public class TimeFormatUtils
     StringBuilder closedTextBuilder = new StringBuilder();
     boolean firstLine = true;
 
-    for (Timespan cts: closedTimespans) {
+    for (Timespan cts : closedTimespans)
+    {
       if (!firstLine)
         closedTextBuilder.append('\n');
 
@@ -107,8 +105,8 @@ public class TimeFormatUtils
         return resources.getString(R.string.twentyfour_seven);
       if (tt.closedTimespans == null || tt.closedTimespans.length == 0)
         return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString();
-      return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString() +
-             "\n" + formatNonBusinessTime(tt.closedTimespans, resources.getString(R.string.editor_hours_closed));
+      return resources.getString(R.string.daily) + " " + tt.workingTimespan.toWideString() + "\n"
+    + formatNonBusinessTime(tt.closedTimespans, resources.getString(R.string.editor_hours_closed));
     }
 
     // Generate full week multiline string. E.g.
@@ -123,14 +121,13 @@ public class TimeFormatUtils
         weekSchedule.append('\n');
 
       final String weekdays = formatWeekdays(tt);
-      final String openTime = tt.isFullday ?
-                              Utils.unCapitalize(resources.getString(R.string.editor_time_allday)) :
-                              tt.workingTimespan.toWideString();
+      final String openTime = tt.isFullday ? Utils.unCapitalize(resources.getString(R.string.editor_time_allday))
+                                           : tt.workingTimespan.toWideString();
 
       weekSchedule.append(weekdays).append(' ').append(openTime);
       if (tt.closedTimespans != null && tt.closedTimespans.length > 0)
-        weekSchedule.append('\n')
-                    .append(formatNonBusinessTime(tt.closedTimespans, resources.getString(R.string.editor_hours_closed)));
+        weekSchedule.append('\n').append(
+            formatNonBusinessTime(tt.closedTimespans, resources.getString(R.string.editor_hours_closed)));
 
       firstRow = false;
     }

@@ -2,7 +2,6 @@ package app.organicmaps.car;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.Screen;
@@ -11,11 +10,8 @@ import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
-
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.MapPlaceholderScreen;
 import app.organicmaps.car.screens.MapScreen;
@@ -30,23 +26,24 @@ import app.organicmaps.car.util.CurrentCountryChangedListener;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UserActionRequired;
+import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.PlacePageActivationListener;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.display.DisplayChangedListener;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.location.LocationState;
-import app.organicmaps.routing.RoutingController;
-import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CarAppSession extends Session implements DefaultLifecycleObserver,
-    LocationState.ModeChangeListener, DisplayChangedListener, PlacePageActivationListener
+public final class CarAppSession extends Session implements DefaultLifecycleObserver, LocationState.ModeChangeListener,
+                                                            DisplayChangedListener, PlacePageActivationListener
 {
   private static final String TAG = CarAppSession.class.getSimpleName();
 
@@ -167,9 +164,12 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       MwmApplication.from(getCarContext()).initOrganicMaps(() -> {
         Config.setFirstStartDialogSeen(getCarContext());
         if (DownloaderHelpers.isWorldMapsDownloadNeeded())
-          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext()).setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch).build());
+          mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext())
+                                  .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
+                                  .build());
       });
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       mInitFailed = true;
       Logger.e(TAG, "Failed to initialize the app.");
@@ -254,7 +254,8 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
       Framework.nativeDeactivatePopup();
       return;
     }
-    final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(mapObject).build();
+    final PlaceScreen placeScreen =
+        new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(mapObject).build();
     mScreenManager.popToRoot();
     mScreenManager.push(placeScreen);
   }
@@ -282,7 +283,9 @@ public final class CarAppSession extends Session implements DefaultLifecycleObse
     final RoutingController routingController = RoutingController.get();
     if (routingController.isPlanning() || routingController.isNavigating() || routingController.hasSavedRoute())
     {
-      final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer).setMapObject(routingController.getEndPoint()).build();
+      final PlaceScreen placeScreen = new PlaceScreen.Builder(getCarContext(), mSurfaceRenderer)
+                                          .setMapObject(routingController.getEndPoint())
+                                          .build();
       mScreenManager.popToRoot();
       mScreenManager.push(placeScreen);
     }

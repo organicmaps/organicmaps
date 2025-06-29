@@ -6,19 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
-
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.util.UiUtils;
 
-public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
-    implements RadioGroup.OnCheckedChangeListener
+public class ChooseBookmarksSortingTypeFragment
+    extends BaseMwmDialogFragment implements RadioGroup.OnCheckedChangeListener
 {
   private static final String EXTRA_SORTING_TYPES = "sorting_types";
   private static final String EXTRA_CURRENT_SORT_TYPE = "current_sort_type";
@@ -32,17 +30,15 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     void onSort(@BookmarkManager.SortingType int sortingType);
   }
 
-  public static void chooseSortingType(@NonNull @BookmarkManager.SortingType int[] availableTypes,
-                                       int currentType, @NonNull Context context,
-                                       @NonNull FragmentManager manager)
+  public static void chooseSortingType(@NonNull @BookmarkManager.SortingType int[] availableTypes, int currentType,
+                                       @NonNull Context context, @NonNull FragmentManager manager)
   {
     Bundle args = new Bundle();
     args.putIntArray(EXTRA_SORTING_TYPES, availableTypes);
     args.putInt(EXTRA_CURRENT_SORT_TYPE, currentType);
     String name = ChooseBookmarksSortingTypeFragment.class.getName();
-    final ChooseBookmarksSortingTypeFragment fragment = (ChooseBookmarksSortingTypeFragment) manager
-      .getFragmentFactory()
-      .instantiate(context.getClassLoader(), name);
+    final ChooseBookmarksSortingTypeFragment fragment =
+        (ChooseBookmarksSortingTypeFragment) manager.getFragmentFactory().instantiate(context.getClassLoader(), name);
     fragment.setArguments(args);
     fragment.show(manager, name);
   }
@@ -68,14 +64,10 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
     {
       switch (sortingType)
       {
-        case BookmarkManager.SORT_BY_TYPE:
-          return R.id.sort_by_type;
-        case BookmarkManager.SORT_BY_DISTANCE:
-          return R.id.sort_by_distance;
-        case BookmarkManager.SORT_BY_TIME:
-          return R.id.sort_by_time;
-        case BookmarkManager.SORT_BY_NAME:
-          return R.id.sort_by_name;
+        case BookmarkManager.SORT_BY_TYPE: return R.id.sort_by_type;
+        case BookmarkManager.SORT_BY_DISTANCE: return R.id.sort_by_distance;
+        case BookmarkManager.SORT_BY_TIME: return R.id.sort_by_time;
+        case BookmarkManager.SORT_BY_NAME: return R.id.sort_by_name;
       }
     }
     return R.id.sort_by_default;
@@ -117,8 +109,7 @@ public class ChooseBookmarksSortingTypeFragment extends BaseMwmDialogFragment
 
   private void onAttachInternal()
   {
-    mListener = (ChooseSortingTypeListener) (getParentFragment() == null ? getTargetFragment()
-                                                                         : getParentFragment());
+    mListener = (ChooseSortingTypeListener) (getParentFragment() == null ? getTargetFragment() : getParentFragment());
   }
 
   @Override

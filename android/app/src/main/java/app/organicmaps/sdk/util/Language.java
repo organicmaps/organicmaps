@@ -4,10 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import java.util.Locale;
 
 public class Language
@@ -40,8 +38,7 @@ public class Language
   @NonNull
   public static String getKeyboardLocale(@NonNull Context context)
   {
-    InputMethodManager imm = (InputMethodManager) context
-        .getSystemService(Context.INPUT_METHOD_SERVICE);
+    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
     if (imm == null)
       return getDefaultLocale();
 

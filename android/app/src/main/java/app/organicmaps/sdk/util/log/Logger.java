@@ -1,13 +1,10 @@
 package app.organicmaps.sdk.util.log;
 
 import android.util.Log;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.BuildConfig;
-import net.jcip.annotations.ThreadSafe;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +12,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import net.jcip.annotations.ThreadSafe;
 
 @ThreadSafe
 public final class Logger
@@ -94,7 +92,8 @@ public final class Logger
     final StackTraceElement[] stackTrace = new Throwable().getStackTrace();
     // Skip the chain of Logger.x() -> Logger.log() calls.
     int f = 0;
-    for (; f < stackTrace.length && stackTrace[f].getClassName().equals(Logger.class.getName()); f++);
+    for (; f < stackTrace.length && stackTrace[f].getClassName().equals(Logger.class.getName()); f++)
+      ;
     // The stack trace should have at least one non-logger frame, but who wants to crash here if it doesn't?
     if (f == stackTrace.length)
       return "Unknown";
@@ -147,16 +146,11 @@ public final class Logger
   {
     switch (level)
     {
-      case Log.VERBOSE:
-        return 'V';
-      case Log.DEBUG:
-        return 'D';
-      case Log.INFO:
-        return 'I';
-      case Log.WARN:
-        return 'W';
-      case Log.ERROR:
-        return 'E';
+      case Log.VERBOSE: return 'V';
+      case Log.DEBUG: return 'D';
+      case Log.INFO: return 'I';
+      case Log.WARN: return 'W';
+      case Log.ERROR: return 'E';
     }
     assert false : "Unknown log level " + level;
     return '_';

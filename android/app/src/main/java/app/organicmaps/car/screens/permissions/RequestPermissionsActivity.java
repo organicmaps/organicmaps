@@ -7,21 +7,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.sdk.util.LocationUtils;
-
 import java.util.Objects;
 
 public class RequestPermissionsActivity extends BaseMwmFragmentActivity
 {
-  private static final String[] LOCATION_PERMISSIONS = new String[]{ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION};
+  private static final String[] LOCATION_PERMISSIONS = new String[] {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION};
 
   @Nullable
   private ActivityResultLauncher<String[]> mPermissionsRequest;
@@ -34,7 +31,7 @@ public class RequestPermissionsActivity extends BaseMwmFragmentActivity
 
     findViewById(R.id.btn_grant_permissions).setOnClickListener(unused -> openAppPermissionSettings());
     mPermissionsRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
-        (grantedPermissions) -> closeIfPermissionsGranted());
+                                                    (grantedPermissions) -> closeIfPermissionsGranted());
     mPermissionsRequest.launch(LOCATION_PERMISSIONS);
   }
 

@@ -9,13 +9,11 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
@@ -66,13 +64,14 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
   @Override
   public void onDismiss(DialogInterface dialog)
   {
-    if (mNeedMoreMaps && mCancelled) {
+    if (mNeedMoreMaps && mCancelled)
+    {
       mCancelled = false;
 
       /// @todo Actually, should cancel if there is no valid route only.
       // I didn't realize how to distinguish NEED_MORE_MAPS but valid route is present.
       // Should refactor RoutingController states.
-      //RoutingController.get().cancel();
+      // RoutingController.get().cancel();
     }
 
     super.onDismiss(dialog);
@@ -101,8 +100,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     long size = 0;
     for (CountryItem country : mMissingMaps)
     {
-      if (country.status != CountryItem.STATUS_PROGRESS &&
-          country.status != CountryItem.STATUS_APPLYING)
+      if (country.status != CountryItem.STATUS_PROGRESS && country.status != CountryItem.STATUS_APPLYING)
       {
         size += country.totalSize;
       }
@@ -110,8 +108,8 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 
     MapManager.warnOn3g(requireActivity(), size, () -> {
       final FragmentManager manager = requireActivity().getSupportFragmentManager();
-      RoutingMapsDownloadFragment downloader = RoutingMapsDownloadFragment
-          .create(manager.getFragmentFactory(), getAppContextOrThrow(), mMapsArray);
+      RoutingMapsDownloadFragment downloader =
+          RoutingMapsDownloadFragment.create(manager.getFragmentFactory(), getAppContextOrThrow(), mMapsArray);
       downloader.show(manager, downloader.getClass().getSimpleName());
       mCancelled = false;
       dismiss();
@@ -151,8 +149,8 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     Bundle args = new Bundle();
     args.putInt(EXTRA_RESULT_CODE, resultCode);
     args.putStringArray(EXTRA_MISSING_MAPS, missingMaps);
-    RoutingErrorDialogFragment res = (RoutingErrorDialogFragment)
-        factory.instantiate(context.getClassLoader(), RoutingErrorDialogFragment.class.getName());
+    RoutingErrorDialogFragment res = (RoutingErrorDialogFragment) factory.instantiate(
+        context.getClassLoader(), RoutingErrorDialogFragment.class.getName());
     res.setArguments(args);
     return res;
   }

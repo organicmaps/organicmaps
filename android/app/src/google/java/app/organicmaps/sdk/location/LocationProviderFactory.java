@@ -1,13 +1,11 @@
 package app.organicmaps.sdk.location;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.log.Logger;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 public class LocationProviderFactory
 {
@@ -18,7 +16,8 @@ public class LocationProviderFactory
     return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS;
   }
 
-  public static BaseLocationProvider getProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
+  public static BaseLocationProvider getProvider(@NonNull Context context,
+                                                 @NonNull BaseLocationProvider.Listener listener)
   {
     if (isGoogleLocationAvailable(context) && Config.useGoogleServices())
     {

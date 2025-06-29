@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
@@ -22,32 +21,29 @@ import androidx.fragment.app.FragmentManager;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
+import app.organicmaps.intent.Factory;
+import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
-import app.organicmaps.intent.Factory;
-import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
-import app.organicmaps.sdk.util.log.Logger;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.shape.MaterialShapeDrawable;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlacePageController extends Fragment implements
-                                                  PlacePageView.PlacePageViewListener,
-                                                  PlacePageButtons.PlacePageButtonClickListener,
-                                                  MenuBottomSheetFragment.MenuBottomSheetInterface,
-                                                  Observer<MapObject>
+public class PlacePageController
+    extends Fragment implements PlacePageView.PlacePageViewListener, PlacePageButtons.PlacePageButtonClickListener,
+                                MenuBottomSheetFragment.MenuBottomSheetInterface, Observer<MapObject>
 {
   private static final String TAG = PlacePageController.class.getSimpleName();
   private static final String PLACE_PAGE_BUTTONS_FRAGMENT_TAG = "PLACE_PAGE_BUTTONS";
@@ -78,8 +74,7 @@ public class PlacePageController extends Fragment implements
   private ValueAnimator mCustomPeekHeightAnimator;
   private PlacePageRouteSettingsListener mPlacePageRouteSettingsListener;
 
-  private final Observer<Integer> mPlacePageDistanceToTopObserver = new Observer<>()
-  {
+  private final Observer<Integer> mPlacePageDistanceToTopObserver = new Observer<>() {
     private float mPlacePageCornerRadius;
 
     // This updates mPlacePageStatusBarBackground visibility and mPlacePage corner radius
@@ -125,33 +120,34 @@ public class PlacePageController extends Fragment implements
     }
   };
 
-  private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback = new BottomSheetBehavior.BottomSheetCallback()
-  {
-    @Override
-    public void onStateChanged(@NonNull View bottomSheet, int newState)
-    {
-      Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState));
-      if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
-        return;
+  private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
+      new BottomSheetBehavior.BottomSheetCallback() {
+        @Override
+        public void onStateChanged(@NonNull View bottomSheet, int newState)
+        {
+          Logger.d(TAG, "State change, new = " + PlacePageUtils.toString(newState));
+          if (PlacePageUtils.isSettlingState(newState) || PlacePageUtils.isDraggingState(newState))
+            return;
 
-      PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
+          PlacePageUtils.updateMapViewport(mCoordinator, mDistanceToTop, mViewportMinHeight);
 
-      if (PlacePageUtils.isHiddenState(newState))
-        onHiddenInternal();
-    }
+          if (PlacePageUtils.isHiddenState(newState))
+            onHiddenInternal();
+        }
 
-    @Override
-    public void onSlide(@NonNull View bottomSheet, float slideOffset)
-    {
-      stopCustomPeekHeightAnimation();
-      mDistanceToTop = bottomSheet.getTop();
-      mViewModel.setPlacePageDistanceToTop(mDistanceToTop);
-    }
-  };
+        @Override
+        public void onSlide(@NonNull View bottomSheet, float slideOffset)
+        {
+          stopCustomPeekHeightAnimation();
+          mDistanceToTop = bottomSheet.getTop();
+          mViewModel.setPlacePageDistanceToTop(mDistanceToTop);
+        }
+      };
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.place_page_container_fragment, container, false);
   }
@@ -167,7 +163,8 @@ public class PlacePageController extends Fragment implements
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
     mButtonsHeight = (int) res.getDimension(R.dimen.place_page_buttons_height);
     mMaxButtons = res.getInteger(R.integer.pp_buttons_max);
-    mRoutingHeaderHeight = (int) res.getDimension(ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
+    mRoutingHeaderHeight =
+        (int) res.getDimension(ThemeUtils.getResource(requireContext(), androidx.appcompat.R.attr.actionBarSize));
 
     mCoordinator = activity.findViewById(R.id.coordinator);
     mPlacePage = view.findViewById(R.id.placepage);
@@ -189,8 +186,10 @@ public class PlacePageController extends Fragment implements
     ViewCompat.setOnApplyWindowInsetsListener(mPlacePage, (v, windowInsets) -> {
       mCurrentWindowInsets = windowInsets;
       final Insets insets = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-      final ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) mPlacePageStatusBarBackground.getLayoutParams();
-      // Layout calculations are heavy so we compute them once then move the view from behind the place page to the status bar
+      final ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) mPlacePageStatusBarBackground.getLayoutParams();
+      // Layout calculations are heavy so we compute them once then move the view from behind the place page to the
+      // status bar
       layoutParams.height = insets.top;
       layoutParams.width = mPlacePage.getWidth();
       // Make sure the view is centered within the insets as is the place page
@@ -241,11 +240,8 @@ public class PlacePageController extends Fragment implements
     for (int i = mMaxButtons - 1; i < currentItems.size(); i++)
     {
       final PlacePageButton bsItem = PlacePageButtonFactory.createButton(currentItems.get(i), requireActivity());
-      items.add(new MenuBottomSheetItem(
-          bsItem.getTitle(),
-          bsItem.getIcon(),
-          () -> onPlacePageButtonClick(bsItem.getType())
-      ));
+      items.add(
+          new MenuBottomSheetItem(bsItem.getTitle(), bsItem.getIcon(), () -> onPlacePageButtonClick(bsItem.getType())));
     }
     return items;
   }
@@ -281,8 +277,8 @@ public class PlacePageController extends Fragment implements
   {
     final int peekHeight = calculatePeekHeight();
     final Insets insets = mCurrentWindowInsets != null
-            ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            : Insets.NONE;
+                            ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+                            : Insets.NONE;
     // Make sure the place page can reach the peek height
     final int minHeight = Math.max(peekHeight, mFrameHeight);
     // Prevent the place page from showing under the status bar
@@ -314,7 +310,8 @@ public class PlacePageController extends Fragment implements
 
     final int state = mPlacePageBehavior.getState();
     // Do not animate the peek height if the place page should not be collapsed (eg: when returning from editor)
-    final boolean shouldAnimate = !(PlacePageUtils.isExpandedState(state) && !mShouldCollapse) && !PlacePageUtils.isHiddenState(state);
+    final boolean shouldAnimate =
+        !(PlacePageUtils.isExpandedState(state) && !mShouldCollapse) && !PlacePageUtils.isHiddenState(state);
     if (shouldAnimate)
       animatePeekHeight(peekHeight);
     else
@@ -330,7 +327,8 @@ public class PlacePageController extends Fragment implements
    */
   private void animatePeekHeight(int peekHeight)
   {
-    if (mCurrentWindowInsets == null) {
+    if (mCurrentWindowInsets == null)
+    {
       return;
     }
     final int bottomInsets = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
@@ -444,10 +442,10 @@ public class PlacePageController extends Fragment implements
       return;
     final Intent result = new Intent();
     result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
-          .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
-          .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
-          .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
-          .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
+        .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
+        .putExtra(Const.EXTRA_POINT_NAME, mMapObject.getTitle())
+        .putExtra(Const.EXTRA_POINT_ID, mMapObject.getApiId())
+        .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
     requireActivity().setResult(Activity.RESULT_OK, result);
     requireActivity().finish();
   }
@@ -520,17 +518,11 @@ public class PlacePageController extends Fragment implements
 
     if (placePageButtonsFragment != null)
     {
-      fm.beginTransaction()
-        .setReorderingAllowed(true)
-        .remove(placePageButtonsFragment)
-        .commit();
+      fm.beginTransaction().setReorderingAllowed(true).remove(placePageButtonsFragment).commit();
     }
     if (placePageFragment != null)
     {
-      fm.beginTransaction()
-        .setReorderingAllowed(true)
-        .remove(placePageFragment)
-        .commit();
+      fm.beginTransaction().setReorderingAllowed(true).remove(placePageFragment).commit();
     }
     mViewModel.setMapObject(null);
   }
@@ -541,16 +533,16 @@ public class PlacePageController extends Fragment implements
     if (fm.findFragmentByTag(PLACE_PAGE_FRAGMENT_TAG) == null)
     {
       fm.beginTransaction()
-        .setReorderingAllowed(true)
-        .add(R.id.placepage_fragment, PlacePageView.class, null, PLACE_PAGE_FRAGMENT_TAG)
-        .commit();
+          .setReorderingAllowed(true)
+          .add(R.id.placepage_fragment, PlacePageView.class, null, PLACE_PAGE_FRAGMENT_TAG)
+          .commit();
     }
     if (fm.findFragmentByTag(PLACE_PAGE_BUTTONS_FRAGMENT_TAG) == null)
     {
       fm.beginTransaction()
-        .setReorderingAllowed(true)
-        .add(R.id.pp_buttons_fragment, PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG)
-        .commit();
+          .setReorderingAllowed(true)
+          .add(R.id.pp_buttons_fragment, PlacePageButtons.class, null, PLACE_PAGE_BUTTONS_FRAGMENT_TAG)
+          .commit();
     }
   }
 
@@ -582,17 +574,15 @@ public class PlacePageController extends Fragment implements
       if (needToShowRoutingButtons && RoutingController.get().isStopPointAllowed())
         buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
       else
-        buttons.add(mapObject.isBookmark()
-                    ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
-                    : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+        buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
+                                           : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
 
       if (needToShowRoutingButtons)
       {
         buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
         if (RoutingController.get().isStopPointAllowed())
-          buttons.add(mapObject.isBookmark()
-                      ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
-                      : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
+          buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
+                                             : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
       }
     }
     mViewModel.setCurrentButtons(buttons);
@@ -603,21 +593,20 @@ public class PlacePageController extends Fragment implements
   {
     final Activity activity = requireActivity();
     final Intent intent = activity.getIntent();
-    final boolean showBackButton = (intent != null && (Factory.isStartedForApiResult(intent) ||
-        !TextUtils.isEmpty(Framework.nativeGetParsedBackUrl())));
+    final boolean showBackButton =
+        (intent != null
+         && (Factory.isStartedForApiResult(intent) || !TextUtils.isEmpty(Framework.nativeGetParsedBackUrl())));
     mMapObject = mapObject;
     if (mapObject != null)
     {
       setPlacePageInteractions(true);
       // Only collapse the place page if the data is different from the one already available
-      mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState()) || !MapObject.same(mPreviousMapObject, mMapObject);
+      mShouldCollapse = PlacePageUtils.isHiddenState(mPlacePageBehavior.getState())
+                     || !MapObject.same(mPreviousMapObject, mMapObject);
       mPreviousMapObject = mMapObject;
       // Place page will automatically open when the bottom sheet content is loaded so we can compute the peek height
       createPlacePageFragments();
-      updateButtons(
-          mapObject,
-          showBackButton,
-          !mMapObject.isMyPosition());
+      updateButtons(mapObject, showBackButton, !mMapObject.isMyPosition());
     }
     else
       close();

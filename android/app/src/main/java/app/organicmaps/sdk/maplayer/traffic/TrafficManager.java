@@ -2,16 +2,13 @@ package app.organicmaps.sdk.maplayer.traffic;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.util.log.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
 @MainThread
-public enum TrafficManager
-{
+public enum TrafficManager {
   INSTANCE;
 
   private static final String TAG = TrafficManager.class.getSimpleName();
@@ -57,7 +54,7 @@ public enum TrafficManager
     Logger.d(TAG, "Disable traffic");
     TrafficState.nativeDisable();
   }
-  
+
   public boolean isEnabled()
   {
     checkInitialization();
@@ -89,8 +86,10 @@ public enum TrafficManager
 
     if (mCallbacks.isEmpty())
     {
-      Logger.w(TAG, "There are no attached callbacks. Invoke the 'detachAll' method " +
-               "only when it's really needed!", new Throwable());
+      Logger.w(TAG,
+               "There are no attached callbacks. Invoke the 'detachAll' method "
+                   + "only when it's really needed!",
+               new Throwable());
       return;
     }
 
@@ -125,8 +124,7 @@ public enum TrafficManager
     public void onTrafficStateChanged(int index)
     {
       TrafficState newTrafficState = TrafficState.values()[index];
-      Logger.d(TAG, "onTrafficStateChanged current state = " + mState +
-               " new value = " + newTrafficState);
+      Logger.d(TAG, "onTrafficStateChanged current state = " + mState + " new value = " + newTrafficState);
 
       if (mState == newTrafficState)
         return;

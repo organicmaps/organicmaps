@@ -1,7 +1,6 @@
 package app.organicmaps.maplayer;
 
 import app.organicmaps.sdk.maplayer.Mode;
-
 import java.util.ArrayList;
 import java.util.List;
 

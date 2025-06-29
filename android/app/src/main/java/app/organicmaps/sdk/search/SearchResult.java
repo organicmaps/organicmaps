@@ -7,10 +7,8 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.bookmarks.data.FeatureId;
 import app.organicmaps.sdk.util.Distance;
 
@@ -31,8 +29,7 @@ public class SearchResult
   public static final int OPEN_NOW_YES = 1;
   public static final int OPEN_NOW_NO = 2;
 
-  public static final SearchResult EMPTY = new SearchResult("", "", 0, 0,
-      new int[]{}, new int[]{});
+  public static final SearchResult EMPTY = new SearchResult("", "", 0, 0, new int[] {}, new int[] {});
 
   // Used by JNI.
   @Keep
@@ -51,9 +48,8 @@ public class SearchResult
     public final int minutesUntilClosed;
     public final boolean hasPopularityHigherPriority;
 
-    public Description(FeatureId featureId, String featureType, String region, Distance distance,
-                       String description, int openNow, int minutesUntilOpen, int minutesUntilClosed,
-                       boolean hasPopularityHigherPriority)
+    public Description(FeatureId featureId, String featureType, String region, Distance distance, String description,
+                       int openNow, int minutesUntilOpen, int minutesUntilClosed, boolean hasPopularityHigherPriority)
     {
       this.featureId = featureId;
       this.localizedFeatureType = featureType;
@@ -75,14 +71,16 @@ public class SearchResult
   public final int type;
   public final Description description;
 
-  // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original query in result
+  // Consecutive pairs of indexes (each pair contains : start index, length), specifying highlighted matches of original
+  // query in result
   public final int[] highlightRanges;
   public final int[] descHighlightRanges;
 
   @NonNull
   private final Popularity mPopularity;
 
-  public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges, int[] descHighlightRanges)
+  public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges,
+                      int[] descHighlightRanges)
   {
     this.name = name;
     this.suggestion = suggestion;
@@ -156,5 +154,4 @@ public class SearchResult
 
     return builder;
   }
-
 }

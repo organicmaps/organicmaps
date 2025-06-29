@@ -2,7 +2,6 @@ package app.organicmaps.sdk.editor.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.NonNull;
 
 public class FeatureCategory implements Parcelable
@@ -50,8 +49,7 @@ public class FeatureCategory implements Parcelable
     dest.writeString(mLocalizedTypeName);
   }
 
-  public static final Creator<FeatureCategory> CREATOR = new Creator<>()
-  {
+  public static final Creator<FeatureCategory> CREATOR = new Creator<>() {
     @Override
     public FeatureCategory createFromParcel(Parcel source)
     {

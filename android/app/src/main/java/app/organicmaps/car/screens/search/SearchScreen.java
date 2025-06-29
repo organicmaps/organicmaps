@@ -1,7 +1,6 @@
 package app.organicmaps.car.screens.search;
 
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -15,14 +14,13 @@ import androidx.car.app.model.SearchTemplate;
 import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
-import app.organicmaps.sdk.search.SearchListener;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.search.SearchEngine;
+import app.organicmaps.sdk.search.SearchListener;
 import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.sdk.util.Language;
@@ -136,10 +134,9 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     if (result.type == SearchResult.TYPE_RESULT)
     {
       final String title = result.getTitle(getCarContext());
-      final CharSequence description = SearchUiHelpers.concatenateStrings(
-          SearchUiHelpers.getDistanceText(result),
-          result.description.description,
-          SearchUiHelpers.getOpeningHoursText(getCarContext(), result));
+      final CharSequence description =
+          SearchUiHelpers.concatenateStrings(SearchUiHelpers.getDistanceText(result), result.description.description,
+                                             SearchUiHelpers.getOpeningHoursText(getCarContext(), result));
       final String region = result.description.region;
       builder.setTitle(title);
       if (!TextUtils.isEmpty(description))
@@ -156,7 +153,8 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
     {
       builder.setBrowsable(true);
       builder.setTitle(result.suggestion);
-      builder.setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search)).build());
+      builder.setImage(
+          new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search)).build());
       builder.setOnClickListener(() -> onSearchSubmitted(result.suggestion));
     }
     return builder.build();
@@ -164,7 +162,8 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
 
   private boolean loadRecents()
   {
-    final CarIcon iconRecent = new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search_recent)).build();
+    final CarIcon iconRecent =
+        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_search_recent)).build();
 
     final ItemList.Builder builder = new ItemList.Builder();
     builder.setNoItemsMessage(getCarContext().getString(R.string.search_history_text));
@@ -188,9 +187,14 @@ public class SearchScreen extends BaseMapScreen implements SearchTemplate.Search
   private ActionStrip createActionStrip()
   {
     final Action.Builder builder = new Action.Builder();
-    builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_show_on_map)).build());
-    builder.setOnClickListener(() ->
-        getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer()).setQuery(mQuery).setLocale(mLocale).build()));
+    builder.setIcon(
+        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_show_on_map)).build());
+    builder.setOnClickListener(
+        ()
+            -> getScreenManager().push(new SearchOnMapScreen.Builder(getCarContext(), getSurfaceRenderer())
+                                           .setQuery(mQuery)
+                                           .setLocale(mLocale)
+                                           .build()));
 
     return new ActionStrip.Builder().addAction(builder.build()).build();
   }

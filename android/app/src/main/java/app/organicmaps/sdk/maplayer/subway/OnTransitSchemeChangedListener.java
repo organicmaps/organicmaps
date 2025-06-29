@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.maplayer.subway;
 
 import android.content.Context;
-
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;

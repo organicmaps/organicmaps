@@ -2,20 +2,18 @@ package app.organicmaps.search;
 
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.sdk.util.UiUtils;
 
 public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistoryAdapter>
 {
@@ -31,8 +29,9 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
   protected SearchHistoryAdapter createAdapter()
   {
     final SearchToolbarController controller = ((SearchFragment) requireParentFragment()).requireController();
-    final boolean showMyPosition = (RoutingController.get().isWaitingPoiPick() &&
-        MwmApplication.from(requireContext()).getLocationHelper().getMyPosition() != null);
+    final boolean showMyPosition =
+        (RoutingController.get().isWaitingPoiPick()
+         && MwmApplication.from(requireContext()).getLocationHelper().getMyPosition() != null);
     return new SearchHistoryAdapter(controller, showMyPosition);
   }
 
@@ -50,8 +49,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
     mPlaceHolder = view.findViewById(R.id.placeholder);
     mPlaceHolder.setContent(R.string.search_history_title, R.string.search_history_text);
 
-    getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
-    {
+    getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
       @Override
       public void onChanged()
       {

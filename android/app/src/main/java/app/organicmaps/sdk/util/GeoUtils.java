@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.util;
 
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.bookmarks.data.ParcelablePointD;
 
 public class GeoUtils

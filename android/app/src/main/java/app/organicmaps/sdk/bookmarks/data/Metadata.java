@@ -2,11 +2,9 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +21,7 @@ public class Metadata implements Parcelable
     FMD_STARS(5),
     FMD_OPERATOR(6),
     // Removed and is not used in the core. Use FMD_WEBSITE instead.
-    //FMD_URL(7),
+    // FMD_URL(7),
     FMD_WEBSITE(8),
     FMD_INTERNET(9),
     FMD_ELE(10),
@@ -131,8 +129,7 @@ public class Metadata implements Parcelable
     return metadata;
   }
 
-  public static final Creator<Metadata> CREATOR = new Creator<>()
-  {
+  public static final Creator<Metadata> CREATOR = new Creator<>() {
     @Override
     public Metadata createFromParcel(Parcel source)
     {

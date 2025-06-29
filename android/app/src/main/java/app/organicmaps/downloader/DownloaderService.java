@@ -8,17 +8,14 @@ import android.content.Intent;
 import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.IBinder;
-
 import androidx.annotation.Nullable;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
-
-import java.util.List;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.List;
 
 public class DownloaderService extends Service implements MapManager.StorageCallback
 {
@@ -45,7 +42,8 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     var notification = mNotifier.buildProgressNotification();
     Logger.i(TAG, "Starting Downloader Foreground Service");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-      ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+      ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification,
+                                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
     else
       ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification, 0);
 
@@ -75,7 +73,8 @@ public class DownloaderService extends Service implements MapManager.StorageCall
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         {
           stopForeground(Service.STOP_FOREGROUND_DETACH);
-        } else
+        }
+        else
         {
           stopForeground(false);
         }
@@ -87,8 +86,8 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   @Override
   public void onProgress(String countryId, long localSize, long remoteSize)
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-            ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+        && ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
     {
       Logger.w(TAG, "Permission POST_NOTIFICATIONS is not granted, skipping notification");
       return;

@@ -2,13 +2,11 @@ package app.organicmaps.bookmarks;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseToolbarActivity;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
@@ -58,7 +56,8 @@ public class BookmarkListActivity extends BaseToolbarActivity
     return R.layout.bookmarks_activity;
   }
 
-  static void startForResult(@NonNull Fragment fragment, ActivityResultLauncher<Intent> startBookmarkListForResult, @NonNull BookmarkCategory category)
+  static void startForResult(@NonNull Fragment fragment, ActivityResultLauncher<Intent> startBookmarkListForResult,
+                             @NonNull BookmarkCategory category)
   {
     Bundle args = new Bundle();
     Intent intent = new Intent(fragment.requireActivity(), BookmarkListActivity.class);

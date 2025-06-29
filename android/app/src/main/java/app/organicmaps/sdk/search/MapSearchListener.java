@@ -9,8 +9,7 @@ public interface MapSearchListener
   @Keep
   @SuppressWarnings("unused")
   record Result(String countryId, String matchedString)
-  {
-  }
+  {}
 
   // Called from JNI.
   @Keep

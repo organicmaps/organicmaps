@@ -3,11 +3,9 @@ package app.organicmaps.maplayer;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
 

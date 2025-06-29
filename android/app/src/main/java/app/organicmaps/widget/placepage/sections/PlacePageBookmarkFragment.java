@@ -14,7 +14,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -31,8 +30,7 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 
-public class PlacePageBookmarkFragment extends Fragment implements View.OnClickListener,
-                                                                   View.OnLongClickListener,
+public class PlacePageBookmarkFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener,
                                                                    Observer<MapObject>,
                                                                    EditBookmarkFragment.EditBookmarkListener
 {
@@ -47,7 +45,8 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
   {
     mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
     return inflater.inflate(R.layout.place_page_bookmark_fragment, container, false);
@@ -124,11 +123,8 @@ public class PlacePageBookmarkFragment extends Fragment implements View.OnClickL
   public void onClick(View v)
   {
     final FragmentActivity activity = requireActivity();
-    EditBookmarkFragment.editBookmark(currentBookmark.getCategoryId(),
-                                      currentBookmark.getBookmarkId(),
-                                      activity,
-                                      getChildFragmentManager(),
-                                      PlacePageBookmarkFragment.this);
+    EditBookmarkFragment.editBookmark(currentBookmark.getCategoryId(), currentBookmark.getBookmarkId(), activity,
+                                      getChildFragmentManager(), PlacePageBookmarkFragment.this);
   }
 
   @Override

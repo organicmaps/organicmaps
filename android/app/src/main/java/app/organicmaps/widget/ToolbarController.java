@@ -2,7 +2,6 @@ package app.organicmaps.widget;
 
 import android.app.Activity;
 import android.view.View;
-
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +18,7 @@ import app.organicmaps.util.WindowInsetUtils;
 public class ToolbarController
 {
   @Nullable
-  private  Activity mActivity;
+  private Activity mActivity;
   @NonNull
   private final Toolbar mToolbar;
   @NonNull
@@ -30,10 +29,7 @@ public class ToolbarController
     mActivity = activity;
     mToolbar = root.findViewById(getToolbarId());
 
-
-    ViewCompat.setOnApplyWindowInsetsListener(
-        getToolbar(),
-        WindowInsetUtils.PaddingInsetsListener.excludeBottom());
+    ViewCompat.setOnApplyWindowInsetsListener(getToolbar(), WindowInsetUtils.PaddingInsetsListener.excludeBottom());
 
     UiUtils.setupNavigationIcon(mToolbar, mNavigationClickListener);
     setSupportActionBar(activity, mToolbar);

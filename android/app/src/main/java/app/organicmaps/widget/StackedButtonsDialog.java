@@ -5,12 +5,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDialog;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.util.UiUtils;
 
@@ -151,8 +149,7 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
     }
 
     @NonNull
-    public Builder setPositiveButton(@StringRes int resId,
-                                     @Nullable DialogInterface.OnClickListener listener)
+    public Builder setPositiveButton(@StringRes int resId, @Nullable DialogInterface.OnClickListener listener)
     {
       mPositive = mContext.getString(resId);
       mPositiveListener = listener;
@@ -160,8 +157,7 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
     }
 
     @NonNull
-    public Builder setNeutralButton(@StringRes int resId,
-                                    @Nullable DialogInterface.OnClickListener listener)
+    public Builder setNeutralButton(@StringRes int resId, @Nullable DialogInterface.OnClickListener listener)
     {
       mNeutral = mContext.getString(resId);
       mNeutralListener = listener;
@@ -169,8 +165,7 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
     }
 
     @NonNull
-    public Builder setNegativeButton(@StringRes int resId,
-                                     @Nullable DialogInterface.OnClickListener listener)
+    public Builder setNegativeButton(@StringRes int resId, @Nullable DialogInterface.OnClickListener listener)
     {
       mNegative = mContext.getString(resId);
       mNegativeListener = listener;
@@ -187,9 +182,8 @@ public class StackedButtonsDialog extends AppCompatDialog implements View.OnClic
     @NonNull
     public StackedButtonsDialog build()
     {
-      return new StackedButtonsDialog(mContext, mTitle, mMessage, mPositive, mPositiveListener,
-                                      mNeutral, mNeutralListener, mNegative, mNegativeListener,
-                                      mCancelable, mCancelListener);
+      return new StackedButtonsDialog(mContext, mTitle, mMessage, mPositive, mPositiveListener, mNeutral,
+                                      mNeutralListener, mNegative, mNegativeListener, mCancelable, mCancelListener);
     }
   }
 }

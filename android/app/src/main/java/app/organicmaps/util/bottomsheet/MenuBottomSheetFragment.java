@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.WindowCompat;
@@ -16,20 +15,16 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import app.organicmaps.R;
+import app.organicmaps.sdk.util.UiUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
-import app.organicmaps.R;
-import app.organicmaps.sdk.util.UiUtils;
-
 public class MenuBottomSheetFragment extends BottomSheetDialogFragment
 {
-
   @Nullable
   private ArrayList<MenuBottomSheetItem> mMenuBottomSheetItems;
   @Nullable
@@ -60,11 +55,11 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
   {
     return new BottomSheetDialog(requireContext(), getTheme()) {
       @Override
-      public void onAttachedToWindow() {
+      public void onAttachedToWindow()
+      {
         super.onAttachedToWindow();
         Window window = Objects.requireNonNull(getWindow());
-        WindowInsetsControllerCompat insetsController =
-                WindowCompat.getInsetsController(window, window.getDecorView());
+        WindowInsetsControllerCompat insetsController = WindowCompat.getInsetsController(window, window.getDecorView());
         insetsController.setAppearanceLightNavigationBars(false);
       }
     };
@@ -72,7 +67,8 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
 
   @Nullable
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.bottom_sheet, container);
   }
@@ -139,9 +135,9 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     {
       Activity parentActivity = requireActivity();
       if (parentActivity instanceof MenuBottomSheetInterfaceWithHeader)
-        bottomSheetInterfaceWithHeader  = (MenuBottomSheetInterfaceWithHeader) parentActivity;
+        bottomSheetInterfaceWithHeader = (MenuBottomSheetInterfaceWithHeader) parentActivity;
       else if (parentActivity instanceof MenuBottomSheetInterface)
-        bottomSheetInterface  = (MenuBottomSheetInterface) parentActivity;
+        bottomSheetInterface = (MenuBottomSheetInterface) parentActivity;
     }
 
     if (bottomSheetInterface != null)
@@ -180,5 +176,4 @@ public class MenuBottomSheetFragment extends BottomSheetDialogFragment
     @Nullable
     ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id);
   }
-
 }

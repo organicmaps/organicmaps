@@ -11,5 +11,6 @@ public interface MapRenderingListener
   // Called from JNI.
   @Keep
   @SuppressWarnings("unused")
-  default void onRenderingInitializationFinished() {}
+  default void onRenderingInitializationFinished()
+  {}
 }

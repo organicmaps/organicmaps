@@ -3,9 +3,7 @@ package app.organicmaps.sdk.util;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-
 import app.organicmaps.widget.StackedButtonDialogFragment;
-
 import java.util.concurrent.TimeUnit;
 
 @Keep
@@ -15,81 +13,73 @@ public final class NetworkPolicy
   {
     ASK,
 
-    ALWAYS()
-        {
-          @Override
-          public void check(@NonNull FragmentManager fragmentManager,
-                            @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
-          {
-            boolean nowInRoaming = ConnectionState.INSTANCE.isInRoaming();
-            boolean acceptedInRoaming = Config.getMobileDataRoaming();
+    ALWAYS() {
+      @Override
+      public void check(@NonNull FragmentManager fragmentManager, @NonNull NetworkPolicyListener listener,
+                        boolean isDialogAllowed)
+      {
+        boolean nowInRoaming = ConnectionState.INSTANCE.isInRoaming();
+        boolean acceptedInRoaming = Config.getMobileDataRoaming();
 
-            if (nowInRoaming && !acceptedInRoaming)
-              showDialog(fragmentManager, listener);
-            else
-              listener.onResult(new NetworkPolicy(true));
-          }
-        },
+        if (nowInRoaming && !acceptedInRoaming)
+          showDialog(fragmentManager, listener);
+        else
+          listener.onResult(new NetworkPolicy(true));
+      }
+    },
 
-    NEVER()
-        {
-          @Override
-          public void check(@NonNull FragmentManager fragmentManager,
-                            @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
-          {
-            if (isDialogAllowed)
-              showDialog(fragmentManager, listener);
-            else
-              listener.onResult(new NetworkPolicy(false));
-          }
-        },
+    NEVER() {
+      @Override
+      public void check(@NonNull FragmentManager fragmentManager, @NonNull NetworkPolicyListener listener,
+                        boolean isDialogAllowed)
+      {
+        if (isDialogAllowed)
+          showDialog(fragmentManager, listener);
+        else
+          listener.onResult(new NetworkPolicy(false));
+      }
+    },
 
+    NOT_TODAY() {
+      @Override
+      public void check(@NonNull FragmentManager fragmentManager, @NonNull NetworkPolicyListener listener,
+                        boolean isDialogAllowed)
+      {
+        if (isDialogAllowed)
+          showDialog(fragmentManager, listener);
+        else
+          showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(false));
+      }
+    },
 
-    NOT_TODAY()
-        {
-          @Override
-          public void check(@NonNull FragmentManager fragmentManager,
-                            @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
-          {
-            if (isDialogAllowed)
-              showDialog(fragmentManager, listener);
-            else
-              showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(false));
-          }
-        },
+    TODAY() {
+      @Override
+      public void check(@NonNull FragmentManager fragmentManager, @NonNull NetworkPolicyListener listener,
+                        boolean isDialogAllowed)
+      {
+        boolean nowInRoaming = ConnectionState.INSTANCE.isInRoaming();
+        boolean acceptedInRoaming = Config.getMobileDataRoaming();
 
-    TODAY()
-        {
-          @Override
-          public void check(@NonNull FragmentManager fragmentManager,
-                            @NonNull NetworkPolicyListener listener, boolean isDialogAllowed)
-          {
-            boolean nowInRoaming = ConnectionState.INSTANCE.isInRoaming();
-            boolean acceptedInRoaming = Config.getMobileDataRoaming();
+        if (nowInRoaming && !acceptedInRoaming)
+          showDialog(fragmentManager, listener);
+        else
+          showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(true));
+      }
+    };
 
-            if (nowInRoaming && !acceptedInRoaming)
-              showDialog(fragmentManager, listener);
-            else
-              showDialogIfNeeded(fragmentManager, listener, new NetworkPolicy(true));
-          }
-        };
-
-    public void check(@NonNull FragmentManager fragmentManager,
-                      @NonNull final NetworkPolicyListener listener,
+    public void check(@NonNull FragmentManager fragmentManager, @NonNull final NetworkPolicyListener listener,
                       boolean isDialogAllowed)
     {
       showDialog(fragmentManager, listener);
     }
   }
 
-
   public static final int NONE = -1;
 
   private static final String TAG_NETWORK_POLICY = "network_policy";
 
   public static void checkNetworkPolicy(@NonNull FragmentManager fragmentManager,
-                                        @NonNull final NetworkPolicyListener listener,
-                                        boolean isDialogAllowed)
+                                        @NonNull final NetworkPolicyListener listener, boolean isDialogAllowed)
   {
     if (ConnectionState.INSTANCE.isWifiConnected())
     {
@@ -140,8 +130,7 @@ public final class NetworkPolicy
   }
 
   private static void showDialogIfNeeded(@NonNull FragmentManager fragmentManager,
-                                         @NonNull NetworkPolicyListener listener,
-                                         @NonNull NetworkPolicy policy)
+                                         @NonNull NetworkPolicyListener listener, @NonNull NetworkPolicy policy)
   {
     if (isToday())
     {
@@ -151,11 +140,10 @@ public final class NetworkPolicy
     showDialog(fragmentManager, listener);
   }
 
-  private static void showDialog(@NonNull FragmentManager fragmentManager,
-                                 @NonNull NetworkPolicyListener listener)
+  private static void showDialog(@NonNull FragmentManager fragmentManager, @NonNull NetworkPolicyListener listener)
   {
-    StackedButtonDialogFragment dialog = (StackedButtonDialogFragment) fragmentManager
-        .findFragmentByTag(TAG_NETWORK_POLICY);
+    StackedButtonDialogFragment dialog =
+        (StackedButtonDialogFragment) fragmentManager.findFragmentByTag(TAG_NETWORK_POLICY);
     if (dialog != null)
       dialog.dismiss();
 

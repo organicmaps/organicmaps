@@ -1,7 +1,6 @@
 package app.organicmaps.widget.recycler;
 
 import android.view.View;
-
 import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,8 +60,8 @@ public class MultilineLayoutManager extends RecyclerView.LayoutManager
         lineHeight = 0;
       }
       if (reverseLayout)
-        layoutDecoratedWithMargins(child, getWidth() - widthUsed - width, heightUsed,
-                                   getWidth() - widthUsed, heightUsed + height);
+        layoutDecoratedWithMargins(child, getWidth() - widthUsed - width, heightUsed, getWidth() - widthUsed,
+                                   heightUsed + height);
       else
         layoutDecorated(child, widthUsed, heightUsed, widthUsed + width, heightUsed + height);
       widthUsed += width;

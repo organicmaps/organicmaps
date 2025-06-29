@@ -10,18 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -52,8 +49,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
   @Override
   public ManageRouteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.manage_route_list_item,
-                                                                 parent, false);
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.manage_route_list_item, parent, false);
 
     return new ManageRouteViewHolder(view);
   }
@@ -76,8 +72,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
 
       case Intermediate: // Intermediate stop.
         TypedArray iconArray = mContext.getResources().obtainTypedArray(R.array.route_stop_icons);
-        iconId = iconArray.getResourceId(mRoutePoints.get(position).mIntermediateIndex,
-                                         R.drawable.route_point_20);
+        iconId = iconArray.getResourceId(mRoutePoints.get(position).mIntermediateIndex, R.drawable.route_point_20);
         iconArray.recycle();
         break;
 
@@ -124,13 +119,10 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
 
     // Detection of touch events on holder view.
     holder.mItemView.setOnTouchListener((v, event) -> {
-
       if (event.getAction() == MotionEvent.ACTION_DOWN)
       {
-        RectF deleteButtonRect = new RectF(holder.mImageViewDelete.getLeft(),
-                                           holder.mImageViewDelete.getTop(),
-                                           holder.mImageViewDelete.getRight(),
-                                           holder.mImageViewDelete.getBottom());
+        RectF deleteButtonRect = new RectF(holder.mImageViewDelete.getLeft(), holder.mImageViewDelete.getTop(),
+                                           holder.mImageViewDelete.getRight(), holder.mImageViewDelete.getBottom());
 
         if (holder.mImageViewDelete.isShown() && deleteButtonRect.contains(event.getX(), event.getY()))
         {
@@ -177,14 +169,11 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
 
   public void setMyLocationAsStartingPoint(MapObject myLocation)
   {
-    String latLonString = StringUtils.formatUsingUsLocale("%.6f, %.6f",
-                                                          myLocation.getLat(),
-                                                          myLocation.getLon());
+    String latLonString = StringUtils.formatUsingUsLocale("%.6f, %.6f", myLocation.getLat(), myLocation.getLon());
 
     // Replace route point in first position with 'My Position".
-    mRoutePoints.set(0, new RouteMarkData(latLonString, "", RouteMarkType.Start,
-                                          0, true, true, false, myLocation.getLat(),
-                                          myLocation.getLon()));
+    mRoutePoints.set(0, new RouteMarkData(latLonString, "", RouteMarkType.Start, 0, true, true, false,
+                                          myLocation.getLat(), myLocation.getLon()));
 
     // Update data.
     updateRoutePointsData();
@@ -216,7 +205,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
 
   private void updateRoutePointsData()
   {
-    assert(mRoutePoints.size() >= 2);
+    assert (mRoutePoints.size() >= 2);
 
     // Set starting point.
     mRoutePoints.get(0).mPointType = RouteMarkType.Start;

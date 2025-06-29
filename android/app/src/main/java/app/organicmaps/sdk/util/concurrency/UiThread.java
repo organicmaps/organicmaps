@@ -2,7 +2,6 @@ package app.organicmaps.sdk.util.concurrency;
 
 import android.os.Handler;
 import android.os.Looper;
-
 import androidx.annotation.Keep;
 
 public class UiThread

@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -15,21 +14,19 @@ import androidx.car.app.model.ForegroundCarColorSpan;
 import androidx.car.app.model.ItemList;
 import androidx.car.app.model.Row;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.car.util.Colors;
+import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.SortedBlock;
-import app.organicmaps.car.util.Colors;
-import app.organicmaps.car.util.RoutingHelpers;
 import app.organicmaps.sdk.util.Distance;
-import app.organicmaps.util.Graphics;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-
+import app.organicmaps.util.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +60,8 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
   private final long mBookmarkCategoryId;
   private final int mBookmarksListSize;
 
-  public BookmarksLoader(@NonNull CarContext carContext, @NonNull BookmarkCategory bookmarkCategory, @NonNull OnBookmarksLoaded onBookmarksLoaded)
+  public BookmarksLoader(@NonNull CarContext carContext, @NonNull BookmarkCategory bookmarkCategory,
+                         @NonNull OnBookmarksLoaded onBookmarksLoaded)
   {
     final ConstraintManager constraintManager = carContext.getCarService(ConstraintManager.class);
     final int maxCategoriesSize = constraintManager.getContentLimit(ConstraintManager.CONTENT_LIMIT_TYPE_LIST);
@@ -71,7 +69,8 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
     mCarContext = carContext;
     mOnBookmarksLoaded = onBookmarksLoaded;
     mBookmarkCategoryId = bookmarkCategory.getId();
-    mBookmarksListSize = Math.min(bookmarkCategory.getBookmarksCount(), Math.min(maxCategoriesSize, MAX_BOOKMARKS_SIZE));
+    mBookmarksListSize =
+        Math.min(bookmarkCategory.getBookmarksCount(), Math.min(maxCategoriesSize, MAX_BOOKMARKS_SIZE));
   }
 
   public void load()
@@ -161,12 +160,10 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
       final Icon icon = bookmarkInfo.getIcon();
       if (!iconsCache.containsKey(icon))
       {
-        final Drawable drawable = Graphics.drawCircleAndImage(icon.argb(),
-            R.dimen.track_circle_size,
-            icon.getResId(),
-            R.dimen.bookmark_icon_size,
-            mCarContext);
-        final CarIcon carIcon = new CarIcon.Builder(IconCompat.createWithBitmap(Graphics.drawableToBitmap(drawable))).build();
+        final Drawable drawable = Graphics.drawCircleAndImage(icon.argb(), R.dimen.track_circle_size, icon.getResId(),
+                                                              R.dimen.bookmark_icon_size, mCarContext);
+        final CarIcon carIcon =
+            new CarIcon.Builder(IconCompat.createWithBitmap(Graphics.drawableToBitmap(drawable))).build();
         iconsCache.put(icon, carIcon);
       }
       itemBuilder.setImage(Objects.requireNonNull(iconsCache.get(icon)));
@@ -184,7 +181,8 @@ class BookmarksLoader implements BookmarkManager.BookmarksSortingListener
     {
       result.append(" ");
       final Distance distance = bookmark.getDistance(location.getLatitude(), location.getLongitude(), 0.0);
-      result.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(distance)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      result.setSpan(DistanceSpan.create(RoutingHelpers.createDistance(distance)), 0, 1,
+                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       result.setSpan(ForegroundCarColorSpan.create(Colors.DISTANCE), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 

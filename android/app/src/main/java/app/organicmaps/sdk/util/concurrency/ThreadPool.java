@@ -12,11 +12,10 @@ public class ThreadPool
   private final ThreadPoolExecutor mStorage;
   private final ThreadPoolExecutor mWorker;
 
-
   private static ThreadPoolExecutor create(int poolSize, int allowedTime)
   {
-    ThreadPoolExecutor res = new ThreadPoolExecutor(poolSize, poolSize, allowedTime, TimeUnit.SECONDS,
-                                                    new LinkedBlockingQueue<>());
+    ThreadPoolExecutor res =
+        new ThreadPoolExecutor(poolSize, poolSize, allowedTime, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
     res.allowCoreThreadTimeOut(true);
     return res;
   }

@@ -9,20 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
-
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Config;
-import app.organicmaps.util.SharingUtils;
 import app.organicmaps.sdk.util.StorageUtils;
-import app.organicmaps.util.Utils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
+import app.organicmaps.util.SharingUtils;
+import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.io.File;
 import java.util.List;
 
@@ -77,7 +74,8 @@ public class StoragePathFragment extends BaseSettingsFragment
   {
     final long dirSize = StorageUtils.getDirSizeRecursively(new File(Framework.nativeGetWritableDir()),
                                                             StoragePathManager.MOVABLE_FILES_FILTER);
-    mHeader.setText(getString(R.string.maps_storage_downloaded) + ": " + Formatter.formatShortFileSize(requireActivity(), dirSize));
+    mHeader.setText(getString(R.string.maps_storage_downloaded) + ": "
+                    + Formatter.formatShortFileSize(requireActivity(), dirSize));
     mAdapter.update(dirSize);
   }
 
@@ -135,7 +133,8 @@ public class StoragePathFragment extends BaseSettingsFragment
         {
           new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
               .setTitle(R.string.move_maps_error)
-              .setPositiveButton(R.string.report_a_bug,
+              .setPositiveButton(
+                  R.string.report_a_bug,
                   (dlg, which) -> Utils.sendBugReport(shareLauncher, requireActivity(), "Error moving map files", ""))
               .show();
         }

@@ -2,10 +2,8 @@ package app.organicmaps.maplayer.traffic.widget;
 
 import android.app.Activity;
 import android.app.Dialog;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.util.Utils;
@@ -21,8 +19,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   @Nullable
   private Dialog mDialog;
 
-  public TrafficButtonController(@NonNull TrafficButton button,
-                                 @NonNull Activity activity)
+  public TrafficButtonController(@NonNull TrafficButton button, @NonNull Activity activity)
   {
     mButton = button;
     mActivity = activity;
@@ -101,8 +98,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   {
     turnOn();
     Utils.showSnackbar(mActivity, mActivity.findViewById(R.id.coordinator),
-                       mActivity.findViewById(R.id.navigation_frame),
-                       R.string.traffic_data_unavailable);
+                       mActivity.findViewById(R.id.navigation_frame), R.string.traffic_data_unavailable);
   }
 
   @Override
@@ -112,11 +108,11 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
       return;
 
     mDialog = new MaterialAlertDialogBuilder(mActivity, R.style.MwmTheme_AlertDialog)
-        .setMessage(R.string.common_check_internet_connection_dialog)
-        .setPositiveButton(R.string.ok, (dialog, which) -> TrafficManager.INSTANCE.setEnabled(false))
-        .setCancelable(true)
-        .setOnCancelListener(dialog -> TrafficManager.INSTANCE.setEnabled(false))
-        .show();
+                  .setMessage(R.string.common_check_internet_connection_dialog)
+                  .setPositiveButton(R.string.ok, (dialog, which) -> TrafficManager.INSTANCE.setEnabled(false))
+                  .setCancelable(true)
+                  .setOnCancelListener(dialog -> TrafficManager.INSTANCE.setEnabled(false))
+                  .show();
   }
 
   public void destroy()
@@ -130,8 +126,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   {
     turnOn();
     Utils.showSnackbar(mActivity, mActivity.findViewById(R.id.coordinator),
-                       mActivity.findViewById(R.id.navigation_frame),
-                       R.string.traffic_update_maps_text);
+                       mActivity.findViewById(R.id.navigation_frame), R.string.traffic_update_maps_text);
   }
 
   @Override
@@ -139,7 +134,6 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   {
     turnOn();
     Utils.showSnackbar(mActivity, mActivity.findViewById(R.id.coordinator),
-                       mActivity.findViewById(R.id.navigation_frame),
-                       R.string.traffic_update_app);
+                       mActivity.findViewById(R.id.navigation_frame), R.string.traffic_update_app);
   }
 }

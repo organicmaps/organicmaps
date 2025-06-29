@@ -6,20 +6,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.editor.data.FeatureCategory;
-import app.organicmaps.widget.SearchToolbarController;
-import app.organicmaps.widget.ToolbarController;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.util.Utils;
-
+import app.organicmaps.widget.SearchToolbarController;
+import app.organicmaps.widget.ToolbarController;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -48,26 +45,23 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
     final Bundle args = getArguments();
     if (args != null)
     {
-      mSelectedCategory = Utils.getParcelable(args, FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY,
-          FeatureCategory.class);
+      mSelectedCategory =
+          Utils.getParcelable(args, FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY, FeatureCategory.class);
     }
-    mToolbarController = new SearchToolbarController(view, requireActivity())
-    {
+    mToolbarController = new SearchToolbarController(view, requireActivity()) {
       @Override
       protected void onTextChanged(String query)
       {
         setFilter(query);
       }
     };
-
   }
 
   private void setFilter(String query)
   {
     String locale = Language.getDefaultLocale();
-    String[] creatableTypes = query.isEmpty()
-                              ? Editor.nativeGetAllCreatableFeatureTypes(locale)
-                              : Editor.nativeSearchCreatableFeatureTypes(query, locale);
+    String[] creatableTypes = query.isEmpty() ? Editor.nativeGetAllCreatableFeatureTypes(locale)
+                                              : Editor.nativeSearchCreatableFeatureTypes(query, locale);
 
     FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes);
 

@@ -5,7 +5,6 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.app.PendingIntent;
 import android.location.Location;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;

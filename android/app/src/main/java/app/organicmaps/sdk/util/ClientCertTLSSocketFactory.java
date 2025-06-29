@@ -2,14 +2,11 @@ package app.organicmaps.sdk.util;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.util.Utils;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.SecureRandom;
-
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;

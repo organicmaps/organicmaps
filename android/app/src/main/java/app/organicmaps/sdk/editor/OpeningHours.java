@@ -3,7 +3,6 @@ package app.organicmaps.sdk.editor;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.sdk.editor.data.Timespan;
 import app.organicmaps.sdk.editor.data.Timetable;
 
@@ -34,10 +33,12 @@ public final class OpeningHours
   public static native Timetable nativeSetIsFullday(Timetable timetable, boolean isFullday);
 
   @NonNull
-  public static native Timetable[] nativeAddWorkingDay(Timetable[] timetables, int timetableIndex, @IntRange(from = 1, to = 7) int day);
+  public static native Timetable[] nativeAddWorkingDay(Timetable[] timetables, int timetableIndex,
+                                                       @IntRange(from = 1, to = 7) int day);
 
   @NonNull
-  public static native Timetable[] nativeRemoveWorkingDay(Timetable[] timetables, int timetableIndex, @IntRange(from = 1, to = 7) int day);
+  public static native Timetable[] nativeRemoveWorkingDay(Timetable[] timetables, int timetableIndex,
+                                                          @IntRange(from = 1, to = 7) int day);
 
   @NonNull
   public static native Timetable nativeSetOpeningTime(Timetable timetable, Timespan openingTime);

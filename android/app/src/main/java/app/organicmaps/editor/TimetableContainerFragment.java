@@ -8,13 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.sdk.editor.OpeningHours;
@@ -27,22 +25,31 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
 
   private enum Mode
   {
-    SIMPLE
-    {
+    SIMPLE {
       @NonNull
-      String getFragmentClassname() { return SimpleTimetableFragment.class.getName(); }
+      String getFragmentClassname()
+      {
+        return SimpleTimetableFragment.class.getName();
+      }
       @StringRes
-      int getSwitchButtonLabel() { return R.string.editor_time_advanced; }
+      int getSwitchButtonLabel()
+      {
+        return R.string.editor_time_advanced;
+      }
     },
-    ADVANCED
-    {
+    ADVANCED {
       @NonNull
-      String getFragmentClassname() { return AdvancedTimetableFragment.class.getName(); }
+      String getFragmentClassname()
+      {
+        return AdvancedTimetableFragment.class.getName();
+      }
       @StringRes
-      int getSwitchButtonLabel() { return R.string.editor_time_simple; }
+      int getSwitchButtonLabel()
+      {
+        return R.string.editor_time_simple;
+      }
 
-      void setTimetableChangedListener(@NonNull Fragment fragment,
-                                       @NonNull TimetableChangedListener listener)
+      void setTimetableChangedListener(@NonNull Fragment fragment, @NonNull TimetableChangedListener listener)
       {
         ((AdvancedTimetableFragment) fragment).setTimetableChangedListener(listener);
       }
@@ -52,10 +59,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
     abstract String getFragmentClassname();
     @StringRes
     abstract int getSwitchButtonLabel();
-    void setTimetableChangedListener(@NonNull Fragment fragment,
-                                     @NonNull TimetableChangedListener listener)
-    {
-    }
+    void setTimetableChangedListener(@NonNull Fragment fragment, @NonNull TimetableChangedListener listener) {}
     @NonNull
     static TimetableProvider getTimetableProvider(@NonNull Fragment fragment)
     {
@@ -120,8 +124,8 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
   @Override
   public void onTimetableChanged(@Nullable String timetable)
   {
-    boolean isValidTimetable = TextUtils.isEmpty(timetable)
-                               || OpeningHours.nativeTimetablesFromString(timetable) != null;
+    boolean isValidTimetable =
+        TextUtils.isEmpty(timetable) || OpeningHours.nativeTimetablesFromString(timetable) != null;
     UiUtils.showIf(isValidTimetable, mSwitchMode);
     UiUtils.showIf(isValidTimetable, mBottomBar);
   }
@@ -141,8 +145,7 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
 
   private void switchMode()
   {
-    final String filledTimetables = mTimetableProvider != null ? mTimetableProvider.getTimetables()
-                                                               : null;
+    final String filledTimetables = mTimetableProvider != null ? mTimetableProvider.getTimetables() : null;
 
     if (filledTimetables != null && !OpeningHours.nativeIsTimetableStringValid(filledTimetables))
     {
@@ -151,9 +154,9 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
         return;
 
       new MaterialAlertDialogBuilder(activity)
-        .setMessage(R.string.editor_correct_mistake)
-        .setPositiveButton(android.R.string.ok, null)
-        .show();
+          .setMessage(R.string.editor_correct_mistake)
+          .setPositiveButton(android.R.string.ok, null)
+          .show();
       return;
     }
 
@@ -169,9 +172,10 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
     mMode = mode;
     mSwitchMode.setText(mMode.getSwitchButtonLabel());
 
-    if (mFragments[mMode.ordinal()] == null) {
-      mFragments[mMode.ordinal()] = requireActivity().getSupportFragmentManager().getFragmentFactory()
-        .instantiate(requireActivity().getClassLoader(), mMode.getFragmentClassname());
+    if (mFragments[mMode.ordinal()] == null)
+    {
+      mFragments[mMode.ordinal()] = requireActivity().getSupportFragmentManager().getFragmentFactory().instantiate(
+          requireActivity().getClassLoader(), mMode.getFragmentClassname());
     }
     Fragment fragment = mFragments[mMode.ordinal()];
     getChildFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();

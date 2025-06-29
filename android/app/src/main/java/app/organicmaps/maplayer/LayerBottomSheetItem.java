@@ -2,11 +2,9 @@ package app.organicmaps.maplayer;
 
 import android.content.Context;
 import android.view.View;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-
 import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
 import app.organicmaps.sdk.maplayer.Mode;
@@ -25,10 +23,8 @@ public class LayerBottomSheetItem
   @NonNull
   private final OnItemClickListener<LayerBottomSheetItem> mItemClickListener;
 
-  LayerBottomSheetItem(@DrawableRes int enabledStateDrawableResId,
-                       @DrawableRes int disabledStateDrawableResId,
-                       @StringRes int titleResId,
-                       @NonNull Mode mode,
+  LayerBottomSheetItem(@DrawableRes int enabledStateDrawableResId, @DrawableRes int disabledStateDrawableResId,
+                       @StringRes int titleResId, @NonNull Mode mode,
                        @NonNull OnItemClickListener<LayerBottomSheetItem> itemClickListener)
   {
     mEnabledStateDrawableResId = enabledStateDrawableResId;
@@ -38,7 +34,8 @@ public class LayerBottomSheetItem
     mItemClickListener = itemClickListener;
   }
 
-  public static LayerBottomSheetItem create(@NonNull Context mContext, Mode mode, @NonNull OnItemClickListener<LayerBottomSheetItem> layerItemClickListener)
+  public static LayerBottomSheetItem create(@NonNull Context mContext, Mode mode,
+                                            @NonNull OnItemClickListener<LayerBottomSheetItem> layerItemClickListener)
   {
     int disabledResource = 0;
     int enabledResource = 0;

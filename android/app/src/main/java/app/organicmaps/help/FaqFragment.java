@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,8 +26,7 @@ public class FaqFragment extends BaseMwmFragment
   private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
 
   @NonNull
-  private final DialogInterface.OnClickListener mDialogClickListener = new DialogInterface.OnClickListener()
-  {
+  private final DialogInterface.OnClickListener mDialogClickListener = new DialogInterface.OnClickListener() {
     private void sendGeneralFeedback()
     {
       Utils.sendFeedback(shareLauncher, requireActivity());
@@ -57,8 +55,7 @@ public class FaqFragment extends BaseMwmFragment
 
     ViewCompat.setOnApplyWindowInsetsListener(root, WindowInsetUtils.PaddingInsetsListener.excludeTop());
 
-    new WebContainerDelegate(root, Constants.Url.FAQ)
-    {
+    new WebContainerDelegate(root, Constants.Url.FAQ) {
       @Override
       protected void doStartActivity(Intent intent)
       {
@@ -67,12 +64,14 @@ public class FaqFragment extends BaseMwmFragment
     };
 
     FloatingActionButton feedbackFab = root.findViewById(R.id.feedback_fab);
-    feedbackFab.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.feedback)
-        .setNegativeButton(R.string.cancel, null)
-        .setItems(new CharSequence[] { getString(R.string.feedback_general), getString(R.string.report_a_bug) },
-                  mDialogClickListener)
-        .show());
+    feedbackFab.setOnClickListener(
+        v
+        -> new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+               .setTitle(R.string.feedback)
+               .setNegativeButton(R.string.cancel, null)
+               .setItems(new CharSequence[] {getString(R.string.feedback_general), getString(R.string.report_a_bug)},
+                         mDialogClickListener)
+               .show());
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
     {

@@ -10,11 +10,9 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.R;
 
 public class SpeedLimitView extends View
@@ -72,14 +70,15 @@ public class SpeedLimitView extends View
   {
     super(context, attrs);
 
-    try (TypedArray data = context.getTheme()
-        .obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
+    try (TypedArray data = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SpeedLimitView, 0, 0))
     {
-      mBackgroundColor = data.getColor(R.styleable.SpeedLimitView_speedLimitBackgroundColor, DefaultValues.BACKGROUND_COLOR);
+      mBackgroundColor =
+          data.getColor(R.styleable.SpeedLimitView_speedLimitBackgroundColor, DefaultValues.BACKGROUND_COLOR);
       mBorderColor = data.getColor(R.styleable.SpeedLimitView_speedLimitBorderColor, DefaultValues.BORDER_COLOR);
       mAlertColor = data.getColor(R.styleable.SpeedLimitView_speedLimitAlertColor, DefaultValues.ALERT_COLOR);
       mTextColor = data.getColor(R.styleable.SpeedLimitView_speedLimitTextColor, DefaultValues.TEXT_COLOR);
-      mTextAlertColor = data.getColor(R.styleable.SpeedLimitView_speedLimitTextAlertColor, DefaultValues.TEXT_ALERT_COLOR);
+      mTextAlertColor =
+          data.getColor(R.styleable.SpeedLimitView_speedLimitTextAlertColor, DefaultValues.TEXT_ALERT_COLOR);
       if (isInEditMode())
       {
         mSpeedLimit = data.getInt(R.styleable.SpeedLimitView_speedLimitEditModeSpeedLimit, 60);
