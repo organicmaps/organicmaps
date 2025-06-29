@@ -32,7 +32,6 @@ import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ConnectionState;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.sdk.util.log.LogsManager;
 import app.organicmaps.util.Utils;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -52,6 +51,10 @@ public class MwmApplication extends Application implements Application.ActivityL
 
   @Nullable
   private WeakReference<Activity> mTopActivity;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  public static MwmApplication sInstance;
 
   @UiThread
   @Nullable
@@ -103,12 +106,9 @@ public class MwmApplication extends Application implements Application.ActivityL
   }
 
   @NonNull
-  public static MwmApplication sInstance;
-
-  @NonNull
   public static SharedPreferences prefs(@NonNull Context context)
   {
-    return context.getSharedPreferences(context.getString(R.string.pref_file_name), MODE_PRIVATE);
+    return from(context).getOrganicMaps().getPreferences();
   }
 
   @Override
@@ -120,8 +120,6 @@ public class MwmApplication extends Application implements Application.ActivityL
     sInstance = this;
 
     mOrganicMaps = new OrganicMaps(getApplicationContext());
-
-    LogsManager.INSTANCE.initFileLogging(this);
 
     Android7RootCertificateWorkaround.initializeIfNeeded(this);
 

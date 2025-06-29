@@ -6,12 +6,15 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import app.organicmaps.BuildConfig;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
 
 public final class Config
 {
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private static SharedPreferences mPrefs;
+
   private static final String KEY_APP_STORAGE = "StoragePath";
 
   private static final String KEY_DOWNLOADER_AUTO = "AutoDownloadEnabled";
@@ -349,19 +352,19 @@ public final class Config
     return url;
   }
 
-  public static void init(@NonNull Context context)
+  public static void init(@NonNull Context context, @NonNull SharedPreferences prefs)
   {
     PreferenceManager.setDefaultValues(context, R.xml.prefs_main, false);
 
-    final SharedPreferences prefs = MwmApplication.prefs(context);
-    final SharedPreferences.Editor editor = prefs.edit();
+    mPrefs = prefs;
+    final SharedPreferences.Editor editor = mPrefs.edit();
 
     // Update counters.
-    final int launchNumber = prefs.getInt(KEY_APP_LAUNCH_NUMBER, 0);
+    final int launchNumber = mPrefs.getInt(KEY_APP_LAUNCH_NUMBER, 0);
     editor.putInt(KEY_APP_LAUNCH_NUMBER, launchNumber + 1);
     editor.putLong(KEY_APP_LAST_SESSION_TIMESTAMP, System.currentTimeMillis());
     editor.putInt(KEY_APP_LAST_INSTALL_VERSION_CODE, BuildConfig.VERSION_CODE);
-    if (launchNumber == 0 || prefs.getInt(KEY_APP_FIRST_INSTALL_VERSION_CODE, 0) == 0)
+    if (launchNumber == 0 || mPrefs.getInt(KEY_APP_FIRST_INSTALL_VERSION_CODE, 0) == 0)
       editor.putInt(KEY_APP_FIRST_INSTALL_VERSION_CODE, BuildConfig.VERSION_CODE);
 
     // Clean up legacy counters.
@@ -384,12 +387,12 @@ public final class Config
 
   public static boolean isFirstLaunch(@NonNull Context context)
   {
-    return !MwmApplication.prefs(context).getBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, false);
+    return !mPrefs.getBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, false);
   }
 
   public static void setFirstStartDialogSeen(@NonNull Context context)
   {
-    MwmApplication.prefs(context).edit().putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true).apply();
+    mPrefs.edit().putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true).apply();
   }
 
   public static boolean isSearchHistoryEnabled()
