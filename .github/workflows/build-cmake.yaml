@@ -16,7 +16,8 @@ on:
       - README.md
       - android/**
       - iphone/**
-      - data/strings/**
+      - data/countries-strings/**
+      - data/sound-strings/**
       - docs/**
       - packaging/**
       - pyhelpers/**
