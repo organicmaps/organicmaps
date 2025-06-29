@@ -11,7 +11,7 @@
 #include "geometry/any_rect2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "base/string_utils.hpp"
+#include "base/math.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -59,7 +59,7 @@ bool FromStringArray(string const & s, T(&arr)[N])
   size_t count = 0;
   while (count < N && in >> arr[count])
   {
-    if (!strings::is_finite(arr[count]))
+    if (!math::is_finite(arr[count]))
       return false;
     ++count;
   }
