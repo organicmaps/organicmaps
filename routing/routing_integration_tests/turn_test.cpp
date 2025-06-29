@@ -93,6 +93,8 @@ UNIT_TEST(Russia_Moscow_TrikotagniAndPohodniRoundabout_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
+  /// @todo Simple highway=service is now included in turns count.
+  /// Fix OSM on driveway/parking_aisle ?
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
 
@@ -1387,6 +1389,41 @@ UNIT_TEST(UK_Junction_Circular)
   TestTurnCount(route, 2);
   GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::EnterRoundAbout).TestRoundAboutExitNum(3);
   GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+}
+
+UNIT_TEST(Integrated_TurnTest_IncludeServiceRoads)
+{
+  struct Sample
+  {
+    ms::LatLon start, finish;
+    int expectedTurns;
+  };
+  Sample arr[] = {
+    // https://github.com/organicmaps/organicmaps/issues/8892
+    {{50.128011, 14.7100098}, {50.1283017, 14.7119639}, 3},
+    {{50.1283462, 14.7122953}, {50.1280032, 14.7099638}, 3},
+    // https://github.com/organicmaps/organicmaps/issues/5888
+    {{58.8428062, 5.71619759}, {58.8422583, 5.71672851}, 3},
+    // https://github.com/organicmaps/organicmaps/issues/3596
+    {{38.7114203, 0.0365096768}, {38.7103102, 0.0349380496}, 2},
+  };
+
+  for (auto const & s : arr)
+  {
+    using namespace integration;
+    TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Car),
+                                                    mercator::FromLatLon(s.start), {0., 0.},
+                                                    mercator::FromLatLon(s.finish));
+
+    Route const & route = *routeResult.first;
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+    GetNthTurn(route, 0)
+      .TestValid()
+      .TestDirection(CarDirection::EnterRoundAbout)
+      .TestRoundAboutExitNum(s.expectedTurns);
+  }
 }
 
 } // namespace turn_test

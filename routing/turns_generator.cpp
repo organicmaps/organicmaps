@@ -4,7 +4,6 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
-#include "base/stl_helpers.hpp"
 
 namespace routing
 {
@@ -47,7 +46,8 @@ bool CanDiscardTurnByHighwayClass(std::vector<TurnCandidate> const & turnCandida
       continue;
 
     // If route's road is significantly larger than candidate's service road, the candidate can be ignored.
-    if (CalcDiffRoadClasses(maxRouteRoadClass, candidateRoadClass) <= kMinHighwayClassDiffForService && candidateRoadClass == HighwayClass::Service)
+    if (CalcDiffRoadClasses(maxRouteRoadClass, candidateRoadClass) <= kMinHighwayClassDiffForService &&
+        (candidateRoadClass == HighwayClass::Service || candidateRoadClass == HighwayClass::ServiceMinor))
       continue;
 
     return false;
