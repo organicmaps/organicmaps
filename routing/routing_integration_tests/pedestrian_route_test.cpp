@@ -569,18 +569,18 @@ UNIT_TEST(NoTurnOnForkingRoad_TurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetVehicleComponents(VehicleType::Pedestrian),
-      mercator::FromLatLon(55.67505, 37.51851), {0.0, 0.0}, mercator::FromLatLon(55.67488, 37.5178));
+      mercator::FromLatLon(55.67505, 37.51851), {0.0, 0.0}, mercator::FromLatLon(55.6748507, 37.5177359));
 
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestRouteLength(route, 51.2);
+  integration::TestRouteLength(route, 64.655);
 
+  /// @todo t[1].m_pedestrianTurn, PedestrianDirection::TurnRight is redundant here.
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
   TEST_EQUAL(t.size(), 2, ());
-
   TEST_EQUAL(t[0].m_pedestrianTurn, PedestrianDirection::TurnLeft, ());
 }
 
