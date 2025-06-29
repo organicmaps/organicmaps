@@ -87,11 +87,4 @@
   return MWMAvailableAreaAffectDirectionsLeft;
 }
 
-#pragma mark - AvailableArea / TrackRecordingButtonArea
-
-- (MWMAvailableAreaAffectDirections)trackRecordingButtonAreaAffectDirections
-{
-  return MWMAvailableAreaAffectDirectionsRight;
-}
-
 @end

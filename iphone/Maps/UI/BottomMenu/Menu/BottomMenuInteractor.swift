@@ -5,7 +5,6 @@ protocol BottomMenuInteractorProtocol: AnyObject {
   func donate()
   func openSettings()
   func shareLocation(cell: BottomMenuItemCell)
-  func toggleTrackRecording()
 }
 
 @objc protocol BottomMenuDelegate {
@@ -73,23 +72,5 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
     guard let viewController = viewController else { return }
     let vc = ActivityViewController.share(forMyPosition: coordinates)
     vc.present(inParentViewController: viewController, anchorView: cell.anchorView)
-  }
-
-  func toggleTrackRecording() {
-    close()
-    let mapViewController = MapViewController.shared()!
-    switch trackRecorder.recordingState {
-    case .active:
-      mapViewController.showTrackRecordingPlacePage()
-    case .inactive:
-      trackRecorder.start { result in
-        switch result {
-        case .success:
-          mapViewController.showTrackRecordingPlacePage()
-        case .failure:
-          break
-        }
-      }
-    }
   }
 }
