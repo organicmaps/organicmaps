@@ -586,7 +586,7 @@ public class SearchFragment extends BaseMwmFragment implements SearchListener, C
     @Override
     void executeInternal()
     {
-      SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(mContext, true);
+      SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(true);
     }
   }
 

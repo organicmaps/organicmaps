@@ -1,6 +1,7 @@
 package app.organicmaps.sdk;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -8,6 +9,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
@@ -21,6 +23,7 @@ import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.ThemeSwitcher;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.sdk.util.log.LogsManager;
 import app.organicmaps.settings.StoragePathManager;
 import java.io.IOException;
 
@@ -30,6 +33,9 @@ public final class OrganicMaps implements DefaultLifecycleObserver
 
   @NonNull
   private final Context mContext;
+
+  @NonNull
+  private final SharedPreferences mPreferences;
 
   @NonNull
   private final IsolinesManager mIsolinesManager;
@@ -71,6 +77,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   public OrganicMaps(@NonNull Context context)
   {
     mContext = context.getApplicationContext();
+    mPreferences = mContext.getSharedPreferences(context.getString(app.organicmaps.sdk.R.string.pref_file_name),
+                                                 Context.MODE_PRIVATE);
 
     // Set configuration directory as early as possible.
     // Other methods may explicitly use Config, which requires settingsDir to be set.
@@ -80,7 +88,10 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     Logger.d(TAG, "Settings path = " + settingsPath);
     nativeSetSettingsDir(settingsPath);
 
-    Config.init(mContext);
+    Config.init(mContext, mPreferences);
+    OsmOAuth.init(mPreferences);
+    SharedPropertiesUtils.init(mPreferences);
+    LogsManager.INSTANCE.initFileLogging(mContext, mPreferences);
 
     mSensorHelper = new SensorHelper(mContext);
     mLocationHelper = new LocationHelper(mContext, mSensorHelper);
@@ -117,6 +128,12 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     nativeOnTransit(false);
   }
 
+  @NonNull
+  public SharedPreferences getPreferences()
+  {
+    return mPreferences;
+  }
+
   private void initNativePlatform() throws IOException
   {
     if (mPlatformInitialized)
@@ -140,7 +157,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     nativeInitPlatform(mContext, apkPath, writablePath, privatePath, tempPath, app.organicmaps.BuildConfig.FLAVOR,
                        app.organicmaps.BuildConfig.BUILD_TYPE, UiUtils.isTablet(mContext));
     Config.setStoragePath(writablePath);
-    Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled(mContext));
+    Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled());
 
     mPlatformInitialized = true;
     Logger.i(TAG, "Platform initialized");
