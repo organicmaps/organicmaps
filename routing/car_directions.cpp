@@ -6,7 +6,6 @@
 
 #include "geometry/angles.hpp"
 
-#include <limits.h>
 
 namespace routing
 {
@@ -175,8 +174,8 @@ bool KeepRoundaboutTurnByHighwayClass(TurnCandidates const & possibleTurns,
     if (t.m_segment == firstOutgoingSegment)
       continue;
     // For roundabouts of Tertiary and less significant class count every road.
-    // For more significant roundabouts - ignore service roads.
-    if (turnInfo.m_outgoing->m_highwayClass >= HighwayClass::Tertiary || t.m_highwayClass != HighwayClass::Service)
+    // For more significant roundabouts - ignore service roads (driveway, parking_aisle).
+    if (turnInfo.m_outgoing->m_highwayClass >= HighwayClass::Tertiary || t.m_highwayClass != HighwayClass::ServiceMinor)
       return true;
   }
   return false;
@@ -303,7 +302,8 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
       continue;
 
     // If outgoing route's road is significantly larger than candidate's service road, the candidate can be ignored.
-    if (CalcDiffRoadClasses(outgoingRouteRoadClass, candidateRoadClass) <= kMinHighwayClassDiffForService && candidateRoadClass == HighwayClass::Service)
+    if (CalcDiffRoadClasses(outgoingRouteRoadClass, candidateRoadClass) <= kMinHighwayClassDiffForService &&
+        (candidateRoadClass == HighwayClass::Service || candidateRoadClass == HighwayClass::ServiceMinor))
       continue;
 
     // If igngoing and outgoing edges are not links
@@ -445,7 +445,8 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
     return;
 
   // No turns are needed on transported road.
-  if (turnInfo.m_ingoing->m_highwayClass == HighwayClass::Transported && turnInfo.m_outgoing->m_highwayClass == HighwayClass::Transported)
+  if (turnInfo.m_ingoing->m_highwayClass == HighwayClass::Transported &&
+      turnInfo.m_outgoing->m_highwayClass == HighwayClass::Transported)
     return;
 
   Segment firstOutgoingSeg;

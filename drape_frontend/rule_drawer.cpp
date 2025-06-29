@@ -352,18 +352,19 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
 
   if (m_context->IsTrafficEnabled() && m_zoomLevel >= kRoadClass0ZoomLevel)
   {
+    using ftypes::HighwayClass;
     struct Checker
     {
-      std::vector<ftypes::HighwayClass> m_highwayClasses;
+      std::vector<HighwayClass> m_highwayClasses;
       int m_zoomLevel;
       df::RoadClass m_roadClass;
     };
     static Checker const checkers[] = {
-      {{ftypes::HighwayClass::Trunk, ftypes::HighwayClass::Primary},
+      {{HighwayClass::Trunk, HighwayClass::Primary},
        kRoadClass0ZoomLevel, df::RoadClass::Class0},
-      {{ftypes::HighwayClass::Secondary, ftypes::HighwayClass::Tertiary},
+      {{HighwayClass::Secondary, HighwayClass::Tertiary},
        kRoadClass1ZoomLevel, df::RoadClass::Class1},
-      {{ftypes::HighwayClass::LivingStreet, ftypes::HighwayClass::Service},
+      {{HighwayClass::LivingStreet, HighwayClass::Service, HighwayClass::ServiceMinor},
        kRoadClass2ZoomLevel, df::RoadClass::Class2}
     };
 
