@@ -143,7 +143,7 @@ public class RoutingPlanController extends ToolbarController
     //    setupRouterButton(R.id.taxi, R.drawable.ic_taxi, this::onTaxiModeSelected);
     setupRouterButton(R.id.transit, R.drawable.ic_transit, this::onTransitModeSelected);
     setupRouterButton(R.id.bicycle, R.drawable.ic_bike, this::onBicycleModeSelected);
-    setupRouterButton(R.id.ruler, R.drawable.ic_ruler_route, this::onRulerModeSelected);
+    setupRouterButton(R.id.ruler, app.organicmaps.sdk.R.drawable.ic_ruler_route, this::onRulerModeSelected);
   }
 
   private void onTransitModeSelected(@NonNull View v)

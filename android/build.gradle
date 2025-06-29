@@ -28,7 +28,3 @@ rootProject.ext {
     versionCode = ver.V1
     versionName = ver.V2
 }
-
-tasks.withType(JavaCompile).configureEach {
-    options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
-}

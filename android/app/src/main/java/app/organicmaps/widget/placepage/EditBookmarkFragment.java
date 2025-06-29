@@ -343,7 +343,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     if (mIcon != null)
     {
       Drawable circle =
-          Graphics.drawCircleAndImage(mIcon.argb(), R.dimen.track_circle_size, R.drawable.ic_bookmark_none,
+          Graphics.drawCircleAndImage(mIcon.argb(), R.dimen.track_circle_size, app.organicmaps.sdk.R.drawable.ic_bookmark_none,
                                       R.dimen.bookmark_icon_size, requireContext());
       mIvColor.setImageDrawable(circle);
     }
