@@ -27,7 +27,8 @@ public:
     MapScale,
     MapFollow,
     Arrow,
-    KineticScroll
+    KineticScroll,
+    MapParabolic
   };
 
   enum class Object
