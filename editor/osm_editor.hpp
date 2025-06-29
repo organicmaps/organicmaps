@@ -54,6 +54,7 @@ public:
   using InvalidateFn = std::function<void()>;
   using ForEachFeaturesNearByFn = std::function<void(FeatureTypeFn && fn, m2::PointD const & mercator)>;
   using MwmId = MwmSet::MwmId;
+  EditableProperties GetEditablePropertiesForTypes(feature::TypesHolder const & types) const;
 
   struct Delegate
   {
@@ -212,7 +213,6 @@ private:
   bool RemoveFeature(FeatureID const & fid);
 
   FeatureID GenerateNewFeatureId(FeaturesContainer const & features, MwmId const & id) const;
-  EditableProperties GetEditablePropertiesForTypes(feature::TypesHolder const & types) const;
 
   bool FillFeatureInfo(FeatureStatus status, editor::XMLFeature const & xml, FeatureID const & fid,
                        FeatureTypeInfo & fti) const;

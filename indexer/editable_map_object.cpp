@@ -709,6 +709,50 @@ void EditableMapObject::LogDiffInJournal(EditableMapObject const & unedited_emo)
 {
   LOG(LDEBUG, ("Executing LogDiffInJournal"));
 
+  // Category
+  feature::TypesHolder sortedNew = m_types;
+  sortedNew.SortBySpec();
+  uint32_t const newBestType = sortedNew.GetBestType();
+
+  feature::TypesHolder sortedOld = unedited_emo.GetTypes();
+  sortedOld.SortBySpec();
+  uint32_t const oldBestType = sortedOld.GetBestType();
+
+  if (newBestType != 0 && oldBestType != 0 && newBestType != oldBestType)
+  {
+    auto const & cl = classif();
+    std::string const oldReadableName = cl.GetReadableObjectName(oldBestType);
+    std::string const newReadableName = cl.GetReadableObjectName(newBestType);
+
+    // simple parser for tags splits at the first '-'.
+    auto const getTypeComponents = [](std::string const & name) -> std::pair<std::string, std::string>
+    {
+        size_t const firstDash = name.find('-');
+        if (firstDash == std::string::npos)
+          return {};
+        return {name.substr(0, firstDash), name.substr(firstDash + 1)};
+    };
+
+    auto const oldKV = getTypeComponents(oldReadableName);
+    auto const newKV = getTypeComponents(newReadableName);
+
+    // Proceed only if both old and new types could be parsed into a key-value pair.
+    if (!oldKV.first.empty() && !newKV.first.empty())
+    {
+      if (oldKV.first == newKV.first)
+      {
+        //(amenity=restaurant -> amenity=cafe)
+        m_journal.AddTagChange(oldKV.first, oldKV.second, newKV.second);
+      }
+      else
+      {
+        //(amenity=restaurant -> shop=clothes)
+        m_journal.AddTagChange(oldKV.first, oldKV.second, "");
+        m_journal.AddTagChange(newKV.first, "", newKV.second);
+      }
+    }
+  }
+
   // Name
   for (StringUtf8Multilang::Lang language : StringUtf8Multilang::GetSupportedLanguages())
   {
@@ -811,4 +855,27 @@ bool AreObjectsEqualIgnoringStreet(EditableMapObject const & lhs, EditableMapObj
   return true;
 }
 
+void EditableMapObject::ChangeCategory(uint32_t newType, const osm::EditableProperties &newProperties) {
+  auto const id = GetID();
+  auto const mercator = GetMercator();
+  auto nearbyStreets = m_nearbyStreets; // Make a copy
+  auto editableProps = m_editableProperties; // TODO:preserve existing values
+  auto const geomType = GetGeomType();
+
+  *this = {};
+
+  SetID(id);
+  SetMercator(mercator);
+  m_nearbyStreets = std::move(nearbyStreets);
+  m_editableProperties = newProperties; // UI reset
+//      m_editableProperties = std::move(editableProps);
+
+
+  if (geomType == feature::GeomType::Point)
+    SetPointType();
+
+  SetType(newType);
+
+  //TODO(hemanggs):Improve Journaling for category change
+}
 }  // namespace osm
