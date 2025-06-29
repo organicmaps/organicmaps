@@ -22,71 +22,76 @@ namespace
 {
 class HighwayClasses
 {
-  map<uint32_t, ftypes::HighwayClass> m_map;
+  map<uint32_t, HighwayClass> m_map;
 
 public:
   HighwayClasses()
   {
     auto const & c = classif();
-    m_map[c.GetTypeByPath({"route", "ferry"})] = ftypes::HighwayClass::Transported;
-    m_map[c.GetTypeByPath({"route", "shuttle_train"})] = ftypes::HighwayClass::Transported;
+    m_map[c.GetTypeByPath({"route", "ferry"})] = HighwayClass::Transported;
+    m_map[c.GetTypeByPath({"route", "shuttle_train"})] = HighwayClass::Transported;
 
-    m_map[c.GetTypeByPath({"highway", "motorway"})] = ftypes::HighwayClass::Trunk;
-    m_map[c.GetTypeByPath({"highway", "motorway_link"})] = ftypes::HighwayClass::Trunk;
-    m_map[c.GetTypeByPath({"highway", "trunk"})] = ftypes::HighwayClass::Trunk;
-    m_map[c.GetTypeByPath({"highway", "trunk_link"})] = ftypes::HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"highway", "motorway"})] = HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"highway", "motorway_link"})] = HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"highway", "trunk"})] = HighwayClass::Trunk;
+    m_map[c.GetTypeByPath({"highway", "trunk_link"})] = HighwayClass::Trunk;
 
-    m_map[c.GetTypeByPath({"highway", "primary"})] = ftypes::HighwayClass::Primary;
-    m_map[c.GetTypeByPath({"highway", "primary_link"})] = ftypes::HighwayClass::Primary;
+    m_map[c.GetTypeByPath({"highway", "primary"})] = HighwayClass::Primary;
+    m_map[c.GetTypeByPath({"highway", "primary_link"})] = HighwayClass::Primary;
 
-    m_map[c.GetTypeByPath({"highway", "secondary"})] = ftypes::HighwayClass::Secondary;
-    m_map[c.GetTypeByPath({"highway", "secondary_link"})] = ftypes::HighwayClass::Secondary;
+    m_map[c.GetTypeByPath({"highway", "secondary"})] = HighwayClass::Secondary;
+    m_map[c.GetTypeByPath({"highway", "secondary_link"})] = HighwayClass::Secondary;
 
-    m_map[c.GetTypeByPath({"highway", "tertiary"})] = ftypes::HighwayClass::Tertiary;
-    m_map[c.GetTypeByPath({"highway", "tertiary_link"})] = ftypes::HighwayClass::Tertiary;
+    m_map[c.GetTypeByPath({"highway", "tertiary"})] = HighwayClass::Tertiary;
+    m_map[c.GetTypeByPath({"highway", "tertiary_link"})] = HighwayClass::Tertiary;
 
-    m_map[c.GetTypeByPath({"highway", "unclassified"})] = ftypes::HighwayClass::LivingStreet;
-    m_map[c.GetTypeByPath({"highway", "residential"})] = ftypes::HighwayClass::LivingStreet;
-    m_map[c.GetTypeByPath({"highway", "living_street"})] = ftypes::HighwayClass::LivingStreet;
-    m_map[c.GetTypeByPath({"highway", "road"})] = ftypes::HighwayClass::LivingStreet;
+    m_map[c.GetTypeByPath({"highway", "unclassified"})] = HighwayClass::LivingStreet;
+    m_map[c.GetTypeByPath({"highway", "residential"})] = HighwayClass::LivingStreet;
+    m_map[c.GetTypeByPath({"highway", "living_street"})] = HighwayClass::LivingStreet;
+    m_map[c.GetTypeByPath({"highway", "road"})] = HighwayClass::LivingStreet;
 
-    m_map[c.GetTypeByPath({"highway", "service"})] = ftypes::HighwayClass::Service;
-    m_map[c.GetTypeByPath({"highway", "track"})] = ftypes::HighwayClass::Service;
-    m_map[c.GetTypeByPath({"highway", "busway"})] = ftypes::HighwayClass::Service;
-    m_map[c.GetTypeByPath({"man_made", "pier"})] = ftypes::HighwayClass::Service;
+    m_map[c.GetTypeByPath({"highway", "service"})] = HighwayClass::Service;
+    m_map[c.GetTypeByPath({"highway", "track"})] = HighwayClass::Service;
+    m_map[c.GetTypeByPath({"highway", "busway"})] = HighwayClass::Service;
+    m_map[c.GetTypeByPath({"man_made", "pier"})] = HighwayClass::Service;
 
-    m_map[c.GetTypeByPath({"highway", "pedestrian"})] = ftypes::HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "footway"})] = ftypes::HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "bridleway"})] = ftypes::HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "steps"})] = ftypes::HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "cycleway"})] = ftypes::HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "path"})] = ftypes::HighwayClass::Pedestrian;
-    m_map[c.GetTypeByPath({"highway", "construction"})] = ftypes::HighwayClass::Pedestrian;
+    // 3-level types.
+    m_map[c.GetTypeByPath({"highway", "service", "driveway"})] = HighwayClass::ServiceMinor;
+    m_map[c.GetTypeByPath({"highway", "service", "parking_aisle"})] = HighwayClass::ServiceMinor;
+
+    m_map[c.GetTypeByPath({"highway", "pedestrian"})] = HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "footway"})] = HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "bridleway"})] = HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "steps"})] = HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "cycleway"})] = HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "path"})] = HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "construction"})] = HighwayClass::Pedestrian;
   }
 
-  ftypes::HighwayClass Get(uint32_t t) const
+  HighwayClass Get(uint32_t t) const
   {
     auto const it = m_map.find(t);
     if (it == m_map.cend())
-      return ftypes::HighwayClass::Undefined;
+      return HighwayClass::Undefined;
     return it->second;
   }
 };
 
-char const * HighwayClassToString(ftypes::HighwayClass const cls)
+char const * HighwayClassToString(HighwayClass const cls)
 {
   switch (cls)
   {
-  case ftypes::HighwayClass::Undefined: return "Undefined";
-  case ftypes::HighwayClass::Transported: return "Transported";
-  case ftypes::HighwayClass::Trunk: return "Trunk";
-  case ftypes::HighwayClass::Primary: return "Primary";
-  case ftypes::HighwayClass::Secondary: return "Secondary";
-  case ftypes::HighwayClass::Tertiary: return "Tertiary";
-  case ftypes::HighwayClass::LivingStreet: return "LivingStreet";
-  case ftypes::HighwayClass::Service: return "Service";
-  case ftypes::HighwayClass::Pedestrian: return "Pedestrian";
-  case ftypes::HighwayClass::Count: return "Count";
+  case HighwayClass::Undefined: return "Undefined";
+  case HighwayClass::Transported: return "Transported";
+  case HighwayClass::Trunk: return "Trunk";
+  case HighwayClass::Primary: return "Primary";
+  case HighwayClass::Secondary: return "Secondary";
+  case HighwayClass::Tertiary: return "Tertiary";
+  case HighwayClass::LivingStreet: return "LivingStreet";
+  case HighwayClass::Service: return "Service";
+  case HighwayClass::ServiceMinor: return "ServiceMinor";
+  case HighwayClass::Pedestrian: return "Pedestrian";
+  case HighwayClass::Count: return "Count";
   }
   ASSERT(false, ());
   return "";
@@ -121,10 +126,13 @@ HighwayClass GetHighwayClass(feature::TypesHolder const & types)
 
   for (auto t : types)
   {
-    ftype::TruncValue(t, 2);
-    HighwayClass const hc = highwayClasses.Get(t);
-    if (hc != HighwayClass::Undefined)
-      return hc;
+    for (uint8_t level : {3, 2})
+    {
+      ftype::TruncValue(t, level);
+      HighwayClass const hc = highwayClasses.Get(t);
+      if (hc != HighwayClass::Undefined)
+        return hc;
+    }
   }
 
   return HighwayClass::Undefined;

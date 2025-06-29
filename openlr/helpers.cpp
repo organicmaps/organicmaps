@@ -11,8 +11,7 @@
 #include <algorithm>
 #include <optional>
 #include <sstream>
-#include <string>
-#include <type_traits>
+
 
 namespace
 {
@@ -29,6 +28,7 @@ openlr::FunctionalRoadClass HighwayClassToFunctionalRoadClass(ftypes::HighwayCla
   case ftypes::HighwayClass::Tertiary: return openlr::FunctionalRoadClass::FRC3;
   case ftypes::HighwayClass::LivingStreet: return openlr::FunctionalRoadClass::FRC4;
   case ftypes::HighwayClass::Service: return openlr::FunctionalRoadClass::FRC5;
+  case ftypes::HighwayClass::ServiceMinor: return openlr::FunctionalRoadClass::FRC6;
   default: return openlr::FunctionalRoadClass::FRC7;
   }
 }
@@ -45,38 +45,42 @@ optional<Score> GetFrcScore(Graph::Edge const & e, FunctionalRoadClass functiona
 
   auto const hwClass = infoGetter.Get(e.GetFeatureId()).m_hwClass;
 
+  using ftypes::HighwayClass;
+
   switch (functionalRoadClass)
   {
   case FunctionalRoadClass::FRC0:
     // Note. HighwayClass::Trunk means motorway, motorway_link, trunk or trunk_link.
-    return hwClass == ftypes::HighwayClass::Trunk ? optional<Score>(kMaxScoreForFrc) : nullopt;
+    return hwClass == HighwayClass::Trunk ? optional<Score>(kMaxScoreForFrc) : nullopt;
 
   case FunctionalRoadClass::FRC1:
-    return (hwClass == ftypes::HighwayClass::Trunk || hwClass == ftypes::HighwayClass::Primary)
+    return (hwClass == HighwayClass::Trunk || hwClass == HighwayClass::Primary)
                ? optional<Score>(kMaxScoreForFrc)
                : nullopt;
 
   case FunctionalRoadClass::FRC2:
   case FunctionalRoadClass::FRC3:
-    if (hwClass == ftypes::HighwayClass::Secondary || hwClass == ftypes::HighwayClass::Tertiary)
+    if (hwClass == HighwayClass::Secondary || hwClass == HighwayClass::Tertiary)
       return optional<Score>(kMaxScoreForFrc);
 
-    return hwClass == ftypes::HighwayClass::Primary || hwClass == ftypes::HighwayClass::LivingStreet
+    return hwClass == HighwayClass::Primary || hwClass == HighwayClass::LivingStreet
                ? optional<Score>(0)
                : nullopt;
 
   case FunctionalRoadClass::FRC4:
-    if (hwClass == ftypes::HighwayClass::LivingStreet || hwClass == ftypes::HighwayClass::Service)
+    if (hwClass == HighwayClass::LivingStreet || hwClass == HighwayClass::Service)
       return optional<Score>(kMaxScoreForFrc);
 
-    return (hwClass == ftypes::HighwayClass::Tertiary || hwClass == ftypes::HighwayClass::Secondary)
+    return (hwClass == HighwayClass::Tertiary || hwClass == HighwayClass::Secondary)
                ? optional<Score>(0)
                : nullopt;
 
   case FunctionalRoadClass::FRC5:
   case FunctionalRoadClass::FRC6:
   case FunctionalRoadClass::FRC7:
-    return hwClass == ftypes::HighwayClass::LivingStreet || hwClass == ftypes::HighwayClass::Service
+    return (hwClass == HighwayClass::LivingStreet ||
+            hwClass == HighwayClass::Service ||
+            hwClass == HighwayClass::ServiceMinor)
                ? optional<Score>(kMaxScoreForFrc)
                : nullopt;
 

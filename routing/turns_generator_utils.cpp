@@ -1,7 +1,10 @@
 #include "routing/turns_generator_utils.hpp"
-#include "platform/measurement_utils.hpp"
-#include "geometry/mercator.hpp"
 #include "routing/turns.hpp"
+
+#include "platform/measurement_utils.hpp"
+
+#include "geometry/mercator.hpp"
+
 
 namespace routing
 {
@@ -19,7 +22,9 @@ bool IsHighway(HighwayClass hwClass, bool isLink)
 bool IsSmallRoad(HighwayClass hwClass)
 {
   return hwClass == HighwayClass::LivingStreet ||
-         hwClass == HighwayClass::Service || hwClass == HighwayClass::Pedestrian;
+         hwClass == HighwayClass::Service ||
+         hwClass == HighwayClass::ServiceMinor ||
+         hwClass == HighwayClass::Pedestrian;
 }
 
 int CalcDiffRoadClasses(HighwayClass const left, HighwayClass const right)
@@ -120,7 +125,8 @@ double CalcEstimatedTimeToPass(double const distanceMeters, HighwayClass const h
     case HighwayClass::Secondary:     speedKmph = 70.0; break;
     case HighwayClass::Tertiary:      speedKmph = 50.0; break;
     case HighwayClass::LivingStreet:  speedKmph = 20.0; break;
-    case HighwayClass::Service:       speedKmph = 10.0; break;
+    case HighwayClass::Service:
+    case HighwayClass::ServiceMinor:  speedKmph = 10.0; break;
     case HighwayClass::Pedestrian:    speedKmph = 5.0; break;
     default:                          speedKmph = 50.0; break;
   }
