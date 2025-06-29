@@ -1484,3 +1484,11 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Sporthal";
+"type.sport.diving" = "Duiken";
+"type.man_made.crane" = "Kraan";
+"type.amenity.love_hotel" = "Ontmoetingshotel";
+"type.barrier.guard_rail" = "Vangrail";
+"type.highway.ladder" = "Ladder";
+"type.landuse.plant_nursery" = "Plantenkwekerij";
+"type.leisure.firepit" = "Vuurplaats";
+"type.amenity.studio" = "Studio";

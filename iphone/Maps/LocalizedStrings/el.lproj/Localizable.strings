@@ -796,7 +796,7 @@
 "change_driving_options_btn" = "Ρυθμίσεις δρομολόγησης ενεργοποιημένες";
 "toll_road" = "Δρόμος με διόδια";
 "unpaved_road" = "Χωματόδρομος";
-"ferry_crossing" = "Πορθμείο";
+"ferry_crossing" = "Πέρασμα πορθμείου";
 "trip_start" = "Φύγαμε";
 "pick_destination" = "Προορισμός";
 "follow_my_position" = "Κεντράρισμα";
@@ -913,7 +913,7 @@
 "move" = "Μετακίνηση";
 
 /* edit track screen title */
-"track_title" = "Διαδρομή";
+"track_title" = "Ίχνος";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsApp";

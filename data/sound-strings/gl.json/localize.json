@@ -1,0 +1,14 @@
+{
+"make_a_slight_right_turn_street": "NULL",
+"make_a_slight_right_turn_street_verb": "NULL",
+"make_a_right_turn_street": "NULL",
+"make_a_slight_left_turn": "Mantente á esquerda",
+"make_a_left_turn": "Vira á dereita",
+"make_a_u_turn": "Dá a volta",
+"exit": "Saída",
+"you_have_reached_the_destination": "Chegaches.",
+"then": "Despois",
+"dist_direction_onto_street": "%1$s %2$s %3$s",
+"make_a_slight_right_turn": "Mantente á dereita",
+"make_a_right_turn": "Vira á dereita"
+}

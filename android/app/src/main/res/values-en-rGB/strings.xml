@@ -43,4 +43,8 @@
     <string name="downloader_no_space_message">Please delete any unnecessary data</string>
     <string name="login_osm">Login to OpenStreetMap</string>
     <string name="dialog_routing_location_turn_on">Enable location services</string>
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="saved">Saved</string>
 </resources>

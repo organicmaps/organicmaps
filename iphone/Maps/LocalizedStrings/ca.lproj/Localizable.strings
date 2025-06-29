@@ -822,7 +822,7 @@
 /* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
 "network" = "Xarxa: %@";
 "trip_finished" = "Heu arribat!";
-"keyboard_availability_alert" = "El teclat no és disponible mentre conduïu";
+"keyboard_availability_alert" = "El teclat no està disponible quan conduïu";
 "dialog_routing_change_start_carplay" = "No es pot calcular cap ruta des de la vostra ubicació actual";
 "dialog_routing_change_end_carplay" = "No es pot calcular cap ruta a la vostra destinació. Trieu un altre punt";
 "dialog_routing_check_gps_carplay" = "No hi ha senyal GPS. Aneu a un àrea oberta";
@@ -925,7 +925,7 @@
 "translated_om_site_url" = "https://organicmaps.app/ca/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
-"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ca:About";
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ca:About_OpenStreetMap";
 
 /* App Tip #00 */
 "app_tip_00" = "Gràcies per utilitzar els nostres mapes creats per la comunitat!";
@@ -1060,3 +1060,4 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "El recorregut està buit; no hi ha res a desar";
 "edit_track" = "Edita el recorregut";
+"saved" = "Desat";

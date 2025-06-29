@@ -1236,4 +1236,19 @@
     <string name="type.mountain_pass">Passo de Montanha</string>
     <string name="type.natural">Natureza</string>
     <string name="type.leisure.firepit">Pira</string>
+    <string name="type.natural.bare_rock">Zona rochosa</string>
+    <string name="type.natural.shingle">Seixos</string>
+    <string name="type.natural.beach.gravel">Praia de Cascalho</string>
+    <string name="type.natural.bay">Baía</string>
+    <string name="type.natural.beach">Praia</string>
+    <string name="type.natural.beach.sand">Praia de areia</string>
+    <string name="type.natural.desert">Deserto</string>
+    <string name="type.natural.heath">Charneca</string>
+    <string name="type.natural.cape">Cabo</string>
+    <string name="type.natural.cliff">Falésia</string>
+    <string name="type.natural.coastline">Linha costeira</string>
+    <string name="type.natural.grassland">Pastagem</string>
+    <string name="type.man_made.embankment">Talude</string>
+    <string name="type.natural.cave_entrance">Entrada da Caverna</string>
+    <string name="type.natural.earth_bank">Talude de terra</string>
 </resources>

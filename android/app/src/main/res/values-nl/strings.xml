@@ -897,4 +897,5 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="mb">MB</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="saved">Opgeslagen</string>
 </resources>
