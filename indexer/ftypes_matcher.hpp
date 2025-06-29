@@ -635,6 +635,9 @@ enum class HighwayClass
   Tertiary,
   LivingStreet,
   Service,
+  // OSM highway=service type is widely used even for _significant_ roads.
+  // Adding a new type to distinguish mapped driveway or parking_aisle.
+  ServiceMinor,
   Pedestrian,
   Transported,    // Vehicles are transported by train or ferry.
   Count           // This value is used for internals only.
