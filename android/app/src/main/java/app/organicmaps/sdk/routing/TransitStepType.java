@@ -1,7 +1,7 @@
 package app.organicmaps.sdk.routing;
 
 import androidx.annotation.DrawableRes;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 
 public enum TransitStepType
 {
