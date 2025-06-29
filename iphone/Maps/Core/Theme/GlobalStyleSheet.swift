@@ -190,6 +190,7 @@ extension GlobalStyleSheet: IStyleSheet {
         s.tintColor = colors.blackSecondaryText
         s.coloring = MWMButtonColoring.black
         s.cornerRadius = .buttonDefault
+        s.imageContainerInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         s.shadowColor = UIColor(0,0,0,alpha20)
         s.shadowOpacity = 1
         s.shadowOffset = CGSize(width: 0, height: 1)
