@@ -3,7 +3,7 @@ package app.organicmaps.sdk.routing;
 import android.widget.ImageView;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 
 /**
  * IMPORTANT : Order of enum values MUST BE the same as native CarDirection enum.

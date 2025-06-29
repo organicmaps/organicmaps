@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 import com.google.common.base.Objects;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
