@@ -2,24 +2,20 @@ package app.organicmaps.bookmarks;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.KmlFileType;
-import app.organicmaps.util.SharingUtils;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.util.SharingUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public enum BookmarksSharingHelper
 {
@@ -33,7 +29,7 @@ public enum BookmarksSharingHelper
   public void prepareBookmarkCategoryForSharing(@NonNull Activity context, long catId, KmlFileType kmlFileType)
   {
     showProgressDialog(context);
-    BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[]{catId}, kmlFileType);
+    BookmarkManager.INSTANCE.prepareCategoriesForSharing(new long[] {catId}, kmlFileType);
   }
 
   public void prepareTrackForSharing(@NonNull Activity context, long trackId, KmlFileType kmlFileType)
@@ -62,13 +58,13 @@ public enum BookmarksSharingHelper
     switch (result.getCode())
     {
       case BookmarkSharingResult.SUCCESS ->
-          SharingUtils.shareBookmarkFile(context, launcher, result.getSharingPath(), result.getMimeType());
+        SharingUtils.shareBookmarkFile(context, launcher, result.getSharingPath(), result.getMimeType());
       case BookmarkSharingResult.EMPTY_CATEGORY ->
-          new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
-              .setTitle(R.string.bookmarks_error_title_share_empty)
-              .setMessage(R.string.bookmarks_error_message_share_empty)
-              .setPositiveButton(R.string.ok, null)
-              .show();
+        new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
+            .setTitle(R.string.bookmarks_error_title_share_empty)
+            .setMessage(R.string.bookmarks_error_message_share_empty)
+            .setPositiveButton(R.string.ok, null)
+            .show();
       case BookmarkSharingResult.ARCHIVE_ERROR, BookmarkSharingResult.FILE_ERROR ->
       {
         new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)

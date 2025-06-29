@@ -3,7 +3,6 @@ package app.organicmaps.sdk.bookmarks.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
@@ -13,8 +12,7 @@ import androidx.annotation.NonNull;
 /// Just creating in JNI and assigning ..
 public class FeatureId implements Parcelable
 {
-  public static final Creator<FeatureId> CREATOR = new Creator<>()
-  {
+  public static final Creator<FeatureId> CREATOR = new Creator<>() {
     @Override
     public FeatureId createFromParcel(Parcel in)
     {
@@ -96,13 +94,17 @@ public class FeatureId implements Parcelable
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
 
     FeatureId featureId = (FeatureId) o;
 
-    if (mMwmVersion != featureId.mMwmVersion) return false;
-    if (mFeatureIndex != featureId.mFeatureIndex) return false;
+    if (mMwmVersion != featureId.mMwmVersion)
+      return false;
+    if (mFeatureIndex != featureId.mFeatureIndex)
+      return false;
     return mMwmName.equals(featureId.mMwmName);
   }
 
@@ -118,10 +120,7 @@ public class FeatureId implements Parcelable
   @Override
   public String toString()
   {
-    return "FeatureId{" +
-           "mMwmName='" + mMwmName + '\'' +
-           ", mMwmVersion=" + mMwmVersion +
-           ", mFeatureIndex=" + mFeatureIndex +
-           '}';
+    return "FeatureId{"
+  + "mMwmName='" + mMwmName + '\'' + ", mMwmVersion=" + mMwmVersion + ", mFeatureIndex=" + mFeatureIndex + '}';
   }
 }

@@ -2,13 +2,11 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.annotation.SuppressLint;
 import android.os.Parcel;
-
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.os.ParcelCompat;
-
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.search.Popularity;
@@ -33,8 +31,8 @@ public class Bookmark extends MapObject
                   @OpeningMode int openingMode, @NonNull Popularity popularity, @NonNull String description,
                   @Nullable String[] rawTypes)
   {
-    super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
-          routePointInfo, openingMode, popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
+    super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "", routePointInfo, openingMode,
+          popularity, description, RoadWarningMarkType.UNKNOWN.ordinal(), rawTypes);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;

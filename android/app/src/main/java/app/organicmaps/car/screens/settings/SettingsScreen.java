@@ -12,14 +12,13 @@ import androidx.car.app.model.OnClickListener;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
-
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.Toggle;
 import app.organicmaps.car.util.UiHelpers;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Config;
 
 public class SettingsScreen extends BaseMapScreen
@@ -66,7 +65,8 @@ public class SettingsScreen extends BaseMapScreen
     builder.addItem(createRoutingOptionsItem());
     builder.addItem(create3dBuildingsItem());
     builder.addItem(createSharedPrefsToggle(R.string.big_font, Config::isLargeFontsSize, Config::setLargeFontsSize));
-    builder.addItem(createSharedPrefsToggle(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
+    builder.addItem(
+        createSharedPrefsToggle(R.string.transliteration_title, Config::isTransliteration, Config::setTransliteration));
     builder.addItem(createHelpItem());
     return new ListTemplate.Builder().setHeader(createHeader()).setSingleList(builder.build()).build();
   }
@@ -87,7 +87,10 @@ public class SettingsScreen extends BaseMapScreen
   {
     final Row.Builder builder = new Row.Builder();
     builder.setTitle(getCarContext().getString(R.string.driving_options_title));
-    builder.setOnClickListener(() -> getScreenManager().pushForResult(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()), this::setResult));
+    builder.setOnClickListener(
+        ()
+            -> getScreenManager().pushForResult(new DrivingOptionsScreen(getCarContext(), getSurfaceRenderer()),
+                                                this::setResult));
     builder.setBrowsable(true);
     return builder.build();
   }
@@ -98,7 +101,8 @@ public class SettingsScreen extends BaseMapScreen
     final Framework.Params3dMode _3d = new Framework.Params3dMode();
     Framework.nativeGet3dMode(_3d);
 
-    final OnClickListener listener = () -> {
+    final OnClickListener listener = () ->
+    {
       Framework.nativeSet3dMode(_3d.enabled, !_3d.buildings);
       invalidate();
     };
@@ -119,7 +123,8 @@ public class SettingsScreen extends BaseMapScreen
   private Row createSharedPrefsToggle(@StringRes int titleRes, @NonNull PrefsGetter getter, @NonNull PrefsSetter setter)
   {
     final boolean enabled = getter.get();
-    final OnClickListener listener = () -> {
+    final OnClickListener listener = () ->
+    {
       setter.set(!enabled);
       invalidate();
     };

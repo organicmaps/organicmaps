@@ -2,16 +2,13 @@ package app.organicmaps.widget.placepage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-
 import androidx.annotation.NonNull;
-
+import app.organicmaps.R;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.utils.MPPointF;
-import app.organicmaps.R;
 
 @SuppressLint("ViewConstructor")
-public
-class CurrentLocationMarkerView extends MarkerView
+public class CurrentLocationMarkerView extends MarkerView
 {
   /**
    * Constructor. Sets up the MarkerView with a custom layout resource.
@@ -24,7 +21,8 @@ class CurrentLocationMarkerView extends MarkerView
   }
 
   @Override
-  public MPPointF getOffset() {
+  public MPPointF getOffset()
+  {
     return new MPPointF(-(getWidth() / 2f), -getHeight());
   }
 

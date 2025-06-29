@@ -2,7 +2,6 @@ package app.organicmaps.car.screens.base;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.CarContext;
-
 import app.organicmaps.car.SurfaceRenderer;
 
 public abstract class BaseMapScreen extends BaseScreen

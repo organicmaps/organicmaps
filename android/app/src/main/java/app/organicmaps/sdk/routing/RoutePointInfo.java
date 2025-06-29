@@ -2,7 +2,6 @@ package app.organicmaps.sdk.routing;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
@@ -11,8 +10,7 @@ import androidx.annotation.NonNull;
 @SuppressWarnings("unused")
 public final class RoutePointInfo implements Parcelable
 {
-  public static final Creator<RoutePointInfo> CREATOR = new Creator<>()
-  {
+  public static final Creator<RoutePointInfo> CREATOR = new Creator<>() {
     @Override
     public RoutePointInfo createFromParcel(Parcel in)
     {
@@ -53,7 +51,7 @@ public final class RoutePointInfo implements Parcelable
 
   private RoutePointInfo(@NonNull Parcel in)
   {
-    //noinspection WrongConstant
+    // noinspection WrongConstant
     this(RouteMarkType.values()[in.readInt()] /* mMarkType */, in.readInt() /* mIntermediateIndex */);
   }
 

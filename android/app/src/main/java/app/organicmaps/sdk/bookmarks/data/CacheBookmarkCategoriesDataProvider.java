@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.bookmarks.data;
 
 import androidx.annotation.NonNull;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,11 +10,10 @@ class CacheBookmarkCategoriesDataProvider implements BookmarkCategoriesDataProvi
   @Override
   public BookmarkCategory getCategoryById(long categoryId)
   {
-    BookmarkManager.BookmarkCategoriesCache cache
-        = BookmarkManager.INSTANCE.getBookmarkCategoriesCache();
+    BookmarkManager.BookmarkCategoriesCache cache = BookmarkManager.INSTANCE.getBookmarkCategoriesCache();
 
     List<BookmarkCategory> categories = cache.getCategories();
-    for (BookmarkCategory category: categories)
+    for (BookmarkCategory category : categories)
       if (category.getId() == categoryId)
         return category;
 

@@ -11,12 +11,10 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleableRes;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.SingleLaneInfo;
 
@@ -60,13 +58,17 @@ public class LanesView extends View
     try (TypedArray data = context.getTheme().obtainStyledAttributes(attrs, R.styleable.LanesView, 0, 0))
     {
       backgroundColor = getAttrColor(data, R.styleable.LanesView_lanesBackgroundColor, DefaultValues.BACKGROUND_COLOR);
-      mActiveLaneTintColor = getAttrColor(data, R.styleable.LanesView_lanesActiveLaneTintColor, DefaultValues.ACTIVE_LANE_TINT_COLOR);
-      mInactiveLaneTintColor = getAttrColor(data, R.styleable.LanesView_lanesInactiveLaneTintColor, DefaultValues.INACTIVE_LANE_TINT_COLOR);
-      mCornerRadius = (int) Math.max(data.getDimension(R.styleable.LanesView_lanesCornerRadius, DefaultValues.CORNER_RADIUS), 0.0f);
+      mActiveLaneTintColor =
+          getAttrColor(data, R.styleable.LanesView_lanesActiveLaneTintColor, DefaultValues.ACTIVE_LANE_TINT_COLOR);
+      mInactiveLaneTintColor =
+          getAttrColor(data, R.styleable.LanesView_lanesInactiveLaneTintColor, DefaultValues.INACTIVE_LANE_TINT_COLOR);
+      mCornerRadius =
+          (int) Math.max(data.getDimension(R.styleable.LanesView_lanesCornerRadius, DefaultValues.CORNER_RADIUS), 0.0f);
 
       if (isInEditMode())
       {
-        final int lanesCount = Math.max(1, data.getInt(R.styleable.LanesView_lanesEditModeLanesCount, DefaultValues.LANES_COUNT));
+        final int lanesCount =
+            Math.max(1, data.getInt(R.styleable.LanesView_lanesEditModeLanesCount, DefaultValues.LANES_COUNT));
         createLanesForEditMode(lanesCount);
       }
     }
@@ -156,15 +158,15 @@ public class LanesView extends View
   private void createLanesForEditMode(int lanesCount)
   {
     final SingleLaneInfo[] lanes = new SingleLaneInfo[lanesCount];
-    lanes[0] = new SingleLaneInfo(new byte[]{1}, false);
+    lanes[0] = new SingleLaneInfo(new byte[] {1}, false);
     if (lanes.length > 1)
-      lanes[1] = new SingleLaneInfo(new byte[]{3}, false);
+      lanes[1] = new SingleLaneInfo(new byte[] {3}, false);
     for (int i = 2; i <= lanes.length - 1; i++)
-      lanes[i] = new SingleLaneInfo(new byte[]{0}, true);
+      lanes[i] = new SingleLaneInfo(new byte[] {0}, true);
     if (lanes.length > 2)
-      lanes[lanes.length - 2] = new SingleLaneInfo(new byte[]{8}, false);
+      lanes[lanes.length - 2] = new SingleLaneInfo(new byte[] {8}, false);
     if (lanes.length > 3)
-      lanes[lanes.length - 1] = new SingleLaneInfo(new byte[]{9}, false);
+      lanes[lanes.length - 1] = new SingleLaneInfo(new byte[] {9}, false);
 
     setLanes(lanes);
   }

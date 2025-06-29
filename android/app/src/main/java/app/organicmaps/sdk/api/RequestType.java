@@ -1,12 +1,12 @@
 package app.organicmaps.sdk.api;
 
 import androidx.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.SOURCE)
-@IntDef({RequestType.INCORRECT, RequestType.MAP, RequestType.ROUTE, RequestType.SEARCH, RequestType.CROSSHAIR, RequestType.OAUTH2, RequestType.MENU, RequestType.SETTINGS})
+@IntDef({RequestType.INCORRECT, RequestType.MAP, RequestType.ROUTE, RequestType.SEARCH, RequestType.CROSSHAIR,
+         RequestType.OAUTH2, RequestType.MENU, RequestType.SETTINGS})
 public @interface RequestType
 {
   // Represents url_scheme::ParsedMapApi::UrlType from c++ part.

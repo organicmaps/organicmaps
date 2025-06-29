@@ -3,12 +3,8 @@ package app.organicmaps.editor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.R;
 import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.editor.data.Language;
@@ -16,7 +12,8 @@ import app.organicmaps.sdk.editor.data.LocalizedName;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Utils;
-
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 
 public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdapter.Holder>
@@ -63,7 +60,10 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
   }
 
   @NonNull
-  LocalizedName getNameAtPos(int pos) { return mNames.get(pos); }
+  LocalizedName getNameAtPos(int pos)
+  {
+    return mNames.get(pos);
+  }
 
   public int getMandatoryNamesCount()
   {
@@ -105,25 +105,26 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
       super(itemView);
       input = itemView.findViewById(R.id.input);
       inputLayout = itemView.findViewById(R.id.input_layout);
-      input.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-      {
+      input.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count)
         {
-          UiUtils.setInputError(inputLayout, Editor.nativeIsNameValid(s.toString()) ?
-                                                                      Utils.INVALID_ID :
-                                                                      R.string.error_enter_correct_name);
+          UiUtils.setInputError(inputLayout, Editor.nativeIsNameValid(s.toString())
+                                                 ? Utils.INVALID_ID
+                                                 : R.string.error_enter_correct_name);
           mNames.get(getBindingAdapterPosition()).name = s.toString();
         }
       });
 
-      itemView.findViewById(R.id.delete).setOnClickListener(v -> {
-        // TODO(mgsergio): Implement item deletion.
-        // int position = getAdapterPosition();
-        // mHostFragment.removeLocalizedName(position + 1);
-        // mNames.remove(position);
-        // notifyItemRemoved(position);
-      });
+      itemView.findViewById(R.id.delete)
+          .setOnClickListener(v
+                              -> {
+                                  // TODO(mgsergio): Implement item deletion.
+                                  // int position = getAdapterPosition();
+                                  // mHostFragment.removeLocalizedName(position + 1);
+                                  // mNames.remove(position);
+                                  // notifyItemRemoved(position);
+                              });
     }
   }
 }

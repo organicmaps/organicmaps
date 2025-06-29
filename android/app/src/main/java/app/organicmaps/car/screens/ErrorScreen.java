@@ -8,7 +8,6 @@ import androidx.car.app.model.Action;
 import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
-
 import app.organicmaps.R;
 import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.Colors;
@@ -56,17 +55,17 @@ public class ErrorScreen extends BaseScreen implements UserActionRequired
     if (mPositiveButtonText != -1)
     {
       builder.addAction(new Action.Builder()
-          .setBackgroundColor(Colors.BUTTON_ACCEPT)
-          .setTitle(getCarContext().getString(mPositiveButtonText))
-          .setOnClickListener(this::onPositiveButton).build()
-      );
+                            .setBackgroundColor(Colors.BUTTON_ACCEPT)
+                            .setTitle(getCarContext().getString(mPositiveButtonText))
+                            .setOnClickListener(this::onPositiveButton)
+                            .build());
     }
     if (mNegativeButtonText != -1)
     {
       builder.addAction(new Action.Builder()
-          .setTitle(getCarContext().getString(mNegativeButtonText))
-          .setOnClickListener(this::onNegativeButton).build()
-      );
+                            .setTitle(getCarContext().getString(mNegativeButtonText))
+                            .setOnClickListener(this::onNegativeButton)
+                            .build());
     }
 
     return builder.build();

@@ -1,14 +1,13 @@
 package app.organicmaps.editor;
 
 import android.content.Intent;
-
 import androidx.fragment.app.Fragment;
-
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.editor.data.FeatureCategory;
 
-public class FeatureCategoryActivity extends BaseMwmFragmentActivity implements FeatureCategoryFragment.FeatureCategoryListener
+public class FeatureCategoryActivity
+    extends BaseMwmFragmentActivity implements FeatureCategoryFragment.FeatureCategoryListener
 {
   public static final String EXTRA_FEATURE_CATEGORY = "FeatureCategory";
 

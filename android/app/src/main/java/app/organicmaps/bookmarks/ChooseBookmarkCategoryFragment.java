@@ -5,23 +5,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
+import app.organicmaps.dialog.EditTextDialogFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.dialog.EditTextDialogFragment;
-
 import java.util.List;
 
-public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
-                                         implements ChooseBookmarkCategoryAdapter.CategoryListener
+public class ChooseBookmarkCategoryFragment
+    extends BaseMwmDialogFragment implements ChooseBookmarkCategoryAdapter.CategoryListener
 {
   public static final String CATEGORY_POSITION = "ExtraCategoryPosition";
 
@@ -126,13 +123,8 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   @Override
   public void onCategoryCreate()
   {
-    EditTextDialogFragment dialogFragment =
-        EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
-                                    null,
-                                    getString(R.string.ok),
-                                    null,
-                                    this,
-                                    new CategoryValidator());
+    EditTextDialogFragment dialogFragment = EditTextDialogFragment.show(
+        getString(R.string.bookmark_set_name), null, getString(R.string.ok), null, this, new CategoryValidator());
     dialogFragment.setTextSaveListener(this::createCategory);
   }
 }

@@ -18,7 +18,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.AnyRes;
 import androidx.annotation.AttrRes;
@@ -38,9 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.WindowInsetUtils;
-
 import com.google.android.material.textfield.TextInputLayout;
-
 import java.util.Objects;
 
 public final class UiUtils
@@ -56,23 +53,28 @@ public final class UiUtils
   public static class SimpleAnimatorListener implements Animator.AnimatorListener
   {
     @Override
-    public void onAnimationStart(Animator animation) {}
+    public void onAnimationStart(Animator animation)
+    {}
 
     @Override
-    public void onAnimationEnd(Animator animation) {}
+    public void onAnimationEnd(Animator animation)
+    {}
 
     @Override
-    public void onAnimationCancel(Animator animation) {}
+    public void onAnimationCancel(Animator animation)
+    {}
 
     @Override
-    public void onAnimationRepeat(Animator animation) {}
+    public void onAnimationRepeat(Animator animation)
+    {}
   }
 
-  public static void waitLayout(final View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback) {
+  public static void waitLayout(final View view, @NonNull final ViewTreeObserver.OnGlobalLayoutListener callback)
+  {
     view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
       @Override
-      public void onGlobalLayout() {
+      public void onGlobalLayout()
+      {
         // viewTreeObserver can be dead(isAlive() == false), we should get a new one here.
         view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
         callback.onGlobalLayout();
@@ -197,7 +199,8 @@ public final class UiUtils
 
   public static void showHomeUpButton(Toolbar toolbar)
   {
-    toolbar.setNavigationIcon(ThemeUtils.getResource(toolbar.getContext(), androidx.appcompat.R.attr.homeAsUpIndicator));
+    toolbar.setNavigationIcon(
+        ThemeUtils.getResource(toolbar.getContext(), androidx.appcompat.R.attr.homeAsUpIndicator));
   }
 
   public static boolean isTablet(@NonNull Context context)
@@ -221,20 +224,21 @@ public final class UiUtils
 
   public static void updateRedButton(Button button)
   {
-    button.setTextColor(ThemeUtils.getColor(button.getContext(), button.isEnabled() ? R.attr.redButtonTextColor
-                                                                                    : R.attr.redButtonTextColorDisabled));
+    button.setTextColor(ThemeUtils.getColor(
+        button.getContext(), button.isEnabled() ? R.attr.redButtonTextColor : R.attr.redButtonTextColorDisabled));
   }
 
   public static void setInputError(@NonNull TextInputLayout layout, @StringRes int error)
   {
     setInputError(layout, error == 0 ? null : layout.getContext().getString(error));
   }
-  
+
   public static void setInputError(@NonNull TextInputLayout layout, String error)
   {
     layout.getEditText().setError(error);
-    layout.getEditText().setTextColor(error == null ? ThemeUtils.getColor(layout.getContext(), android.R.attr.textColorPrimary)
-                                                 : ContextCompat.getColor(layout.getContext(), R.color.base_red));
+    layout.getEditText().setTextColor(error == null
+                                          ? ThemeUtils.getColor(layout.getContext(), android.R.attr.textColorPrimary)
+                                          : ContextCompat.getColor(layout.getContext(), R.color.base_red));
   }
 
   public static void setFullscreen(@NonNull Activity activity, boolean fullscreen)
@@ -278,9 +282,10 @@ public final class UiUtils
     }
     else
     {
-      @ColorInt final int color = isLight
-                                  ? ResourcesCompat.getColor(activity.getResources(), R.color.bg_statusbar_translucent, null)
-                                  : Color.TRANSPARENT;
+      @ColorInt
+      final int color =
+          isLight ? ResourcesCompat.getColor(activity.getResources(), R.color.bg_statusbar_translucent, null)
+                  : Color.TRANSPARENT;
       window.setStatusBarColor(color);
     }
   }
@@ -288,19 +293,16 @@ public final class UiUtils
   public static void setViewInsetsPaddingBottom(View view, WindowInsetsCompat windowInsets)
   {
     final Insets systemInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-    view.setPaddingRelative(view.getPaddingStart(), view.getPaddingTop(),
-                    view.getPaddingEnd(), systemInsets.bottom);
+    view.setPaddingRelative(view.getPaddingStart(), view.getPaddingTop(), view.getPaddingEnd(), systemInsets.bottom);
   }
 
   public static void setViewInsetsPaddingNoBottom(View view, WindowInsetsCompat windowInsets)
   {
     final Insets systemInsets = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-    view.setPadding(systemInsets.left, systemInsets.top,
-                    systemInsets.right, view.getPaddingBottom());
+    view.setPadding(systemInsets.left, systemInsets.top, systemInsets.right, view.getPaddingBottom());
   }
 
-  public static void setupNavigationIcon(@NonNull Toolbar toolbar,
-                                         @NonNull View.OnClickListener listener)
+  public static void setupNavigationIcon(@NonNull Toolbar toolbar, @NonNull View.OnClickListener listener)
   {
     View customNavigationButton = toolbar.findViewById(R.id.back);
     if (customNavigationButton != null)
@@ -313,8 +315,7 @@ public final class UiUtils
     }
   }
 
-  public static void setupHomeUpButtonAsNavigationIcon(@NonNull Toolbar toolbar,
-                                                       @NonNull View.OnClickListener listener)
+  public static void setupHomeUpButtonAsNavigationIcon(@NonNull Toolbar toolbar, @NonNull View.OnClickListener listener)
   {
     UiUtils.showHomeUpButton(toolbar);
     toolbar.setNavigationOnClickListener(listener);
@@ -342,29 +343,27 @@ public final class UiUtils
     }
   }
 
-  public static void expandTouchAreaForView(@NonNull final View view, final int top, final int left,
-                                            final int bottom, final int right)
+  public static void expandTouchAreaForView(@NonNull final View view, final int top, final int left, final int bottom,
+                                            final int right)
   {
     final View parent = (View) view.getParent();
-    parent.post(() ->
-                {
-                  Rect rect = new Rect();
-                  view.getHitRect(rect);
-                  rect.top -= top;
-                  rect.left -= left;
-                  rect.right += right;
-                  rect.bottom += bottom;
-                  parent.setTouchDelegate(new TouchDelegate(rect, view));
-                });
+    parent.post(() -> {
+      Rect rect = new Rect();
+      view.getHitRect(rect);
+      rect.top -= top;
+      rect.left -= left;
+      rect.right += right;
+      rect.bottom += bottom;
+      parent.setTouchDelegate(new TouchDelegate(rect, view));
+    });
   }
 
   public static void showRecyclerItemView(boolean show, @NonNull View view)
   {
     if (show)
     {
-      view.setLayoutParams(new RecyclerView.LayoutParams(
-          ViewGroup.LayoutParams.MATCH_PARENT,
-          ViewGroup.LayoutParams.WRAP_CONTENT));
+      view.setLayoutParams(
+          new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
       UiUtils.show(view);
     }
     else

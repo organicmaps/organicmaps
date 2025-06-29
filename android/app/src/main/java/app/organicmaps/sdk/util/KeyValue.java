@@ -2,7 +2,6 @@ package app.organicmaps.sdk.util;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import java.io.Serial;
 import java.io.Serializable;
 

@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.maplayer.isolines;
 
 import android.content.Context;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 

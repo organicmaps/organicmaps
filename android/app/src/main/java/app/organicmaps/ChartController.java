@@ -5,10 +5,16 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
+import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.Utils;
+import app.organicmaps.widget.placepage.AxisValueFormatter;
+import app.organicmaps.widget.placepage.CurrentLocationMarkerView;
+import app.organicmaps.widget.placepage.FloatingMarkerView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.MarkerView;
@@ -20,16 +26,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
-import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
-import app.organicmaps.widget.placepage.AxisValueFormatter;
-import app.organicmaps.widget.placepage.CurrentLocationMarkerView;
-import app.organicmaps.widget.placepage.FloatingMarkerView;
-import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.Utils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -151,7 +147,7 @@ public class ChartController implements OnChartValueSelectedListener,
     mTrackId = info.getId();
     List<Entry> values = new ArrayList<>();
 
-    for (ElevationInfo.Point point: info.getPoints())
+    for (ElevationInfo.Point point : info.getPoints())
       values.add(new Entry((float) point.getDistance(), point.getAltitude()));
 
     LineDataSet set = new LineDataSet(values, "Elevation_profile_points");
@@ -184,15 +180,15 @@ public class ChartController implements OnChartValueSelectedListener,
   }
 
   @Override
-  public void onValueSelected(Entry e, Highlight h) {
+  public void onValueSelected(Entry e, Highlight h)
+  {
     mFloatingMarkerView.updateOffsets(e, h);
     Highlight curPos = getCurrentPosHighlight();
 
     if (mCurrentPositionOutOfTrack)
       mChart.highlightValues(Collections.singletonList(h), Collections.singletonList(mFloatingMarkerView));
     else
-      mChart.highlightValues(Arrays.asList(curPos, h), Arrays.asList(mCurrentLocationMarkerView,
-                                                                       mFloatingMarkerView));
+      mChart.highlightValues(Arrays.asList(curPos, h), Arrays.asList(mCurrentLocationMarkerView, mFloatingMarkerView));
     if (mTrackId == Utils.INVALID_ID)
       return;
 

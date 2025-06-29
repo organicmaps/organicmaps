@@ -4,7 +4,6 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
@@ -18,7 +17,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
@@ -68,12 +66,13 @@ public final class CarAppService extends androidx.car.app.CarAppService
       return mCarNotificationExtender;
 
     final Intent intent = new Intent(Intent.ACTION_VIEW)
-        .setComponent(new ComponentName(context, CarAppService.class))
-        .setData(Uri.fromParts(Const.API_SCHEME, CarAppService.API_CAR_HOST, CarAppService.ACTION_SHOW_NAVIGATION_SCREEN));
+                              .setComponent(new ComponentName(context, CarAppService.class))
+                              .setData(Uri.fromParts(Const.API_SCHEME, CarAppService.API_CAR_HOST,
+                                                     CarAppService.ACTION_SHOW_NAVIGATION_SCREEN));
     mCarNotificationExtender = new CarAppExtender.Builder()
-        .setImportance(NotificationManagerCompat.IMPORTANCE_MIN)
-        .setContentIntent(CarPendingIntent.getCarApp(context, intent.hashCode(), intent, 0))
-        .build();
+                                   .setImportance(NotificationManagerCompat.IMPORTANCE_MIN)
+                                   .setContentIntent(CarPendingIntent.getCarApp(context, intent.hashCode(), intent, 0))
+                                   .build();
 
     return mCarNotificationExtender;
   }
@@ -82,9 +81,10 @@ public final class CarAppService extends androidx.car.app.CarAppService
   {
     final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
     final NotificationChannelCompat notificationChannel =
-        new NotificationChannelCompat.Builder(ANDROID_AUTO_NOTIFICATION_CHANNEL_ID, NotificationManagerCompat.IMPORTANCE_MIN)
+        new NotificationChannelCompat
+            .Builder(ANDROID_AUTO_NOTIFICATION_CHANNEL_ID, NotificationManagerCompat.IMPORTANCE_MIN)
             .setName(getString(R.string.car_notification_channel_name))
-            .setLightsEnabled(false)    // less annoying
+            .setLightsEnabled(false) // less annoying
             .setVibrationEnabled(false) // less annoying
             .build();
     notificationManager.createNotificationChannel(notificationChannel);

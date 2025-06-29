@@ -3,7 +3,6 @@ package app.organicmaps.car.util;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.location.Location;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.car.app.CarContext;
@@ -13,11 +12,9 @@ import androidx.car.app.hardware.info.CarHardwareLocation;
 import androidx.car.app.hardware.info.CarSensors;
 import androidx.car.app.hardware.info.Compass;
 import androidx.core.content.ContextCompat;
-
-import app.organicmaps.sdk.Map;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.util.log.Logger;
-
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -53,7 +50,8 @@ public class CarSensorsManager
       MwmApplication.from(mCarContext).getLocationHelper().start();
 
     if (mIsCarLocationUsed)
-      mCarSensors.addCarHardwareLocationListener(CarSensors.UPDATE_RATE_FASTEST, executor, this::onCarLocationDataAvailable);
+      mCarSensors.addCarHardwareLocationListener(CarSensors.UPDATE_RATE_FASTEST, executor,
+                                                 this::onCarLocationDataAvailable);
   }
 
   public void onStop()

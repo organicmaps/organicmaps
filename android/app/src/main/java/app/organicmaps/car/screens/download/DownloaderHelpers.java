@@ -1,20 +1,17 @@
 package app.organicmaps.car.screens.download;
 
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.sdk.downloader.CountryItem;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public final class DownloaderHelpers
 {
-  static final String[] WORLD_MAPS = new String[]{"World", "WorldCoasts"};
+  static final String[] WORLD_MAPS = new String[] {"World", "WorldCoasts"};
 
   // World maps may be missing only in the F-Droid build.
   @SuppressWarnings("ConstantConditions")

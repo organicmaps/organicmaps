@@ -1,17 +1,15 @@
 package app.organicmaps.car.util;
 
 import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.car.app.ScreenManager;
-
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
+import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
-import app.organicmaps.routing.RoutingController;
 
 public class CurrentCountryChangedListener implements MapManager.CurrentCountryChangedListener
 {
@@ -45,12 +43,10 @@ public class CurrentCountryChangedListener implements MapManager.CurrentCountryC
       return;
 
     mPreviousCountryId = countryId;
-    screenManager.push(
-        new DownloadMapsScreenBuilder(mCarContext)
-            .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.View)
-            .setMissingMaps(new String[]{countryId})
-            .build()
-    );
+    screenManager.push(new DownloadMapsScreenBuilder(mCarContext)
+                           .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.View)
+                           .setMissingMaps(new String[] {countryId})
+                           .build());
   }
 
   public void onStart(@NonNull final CarContext carContext)

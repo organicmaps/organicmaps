@@ -4,16 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchRecents;
-import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.util.Graphics;
+import app.organicmaps.widget.SearchToolbarController;
 
 class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.ViewHolder>
 {
@@ -52,12 +50,14 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
     switch (type)
     {
       case TYPE_ITEM:
-        res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_recent, viewGroup, false));
+        res = new ViewHolder(
+            LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_recent, viewGroup, false));
         res.mText.setOnClickListener(v -> mSearchToolbarController.setQuery(res.mText.getText()));
         break;
 
       case TYPE_CLEAR:
-        res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_clear_history, viewGroup, false));
+        res = new ViewHolder(
+            LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_clear_history, viewGroup, false));
         res.mText.setOnClickListener(v -> {
           SearchRecents.clear();
           notifyDataSetChanged();
@@ -65,15 +65,16 @@ class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Vie
         break;
 
       case TYPE_MY_POSITION:
-        res = new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_my_position, viewGroup, false));
+        res = new ViewHolder(
+            LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_search_my_position, viewGroup, false));
         res.mText.setOnClickListener(v -> {
-          RoutingController.get().onPoiSelected(MwmApplication.from(viewGroup.getContext()).getLocationHelper().getMyPosition());
+          RoutingController.get().onPoiSelected(
+              MwmApplication.from(viewGroup.getContext()).getLocationHelper().getMyPosition());
           mSearchToolbarController.onUpClick();
         });
         break;
 
-      default:
-        throw new IllegalArgumentException("Unsupported ViewHolder type given");
+      default: throw new IllegalArgumentException("Unsupported ViewHolder type given");
     }
 
     Graphics.tint(res.mText);

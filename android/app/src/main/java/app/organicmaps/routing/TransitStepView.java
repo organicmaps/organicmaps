@@ -12,7 +12,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
@@ -22,8 +21,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.TransitStepInfo;
 import app.organicmaps.sdk.routing.TransitStepType;
-import app.organicmaps.widget.recycler.MultilineLayoutManager;
 import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.widget.recycler.MultilineLayoutManager;
 
 /**
  * Represents a specific transit step. It displays a transit info, such as a number, color, etc., for
@@ -168,14 +167,14 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
     int vPad = 0;
     if (clearHeight >= drawable.getIntrinsicHeight())
       vPad = (clearHeight - drawable.getIntrinsicHeight()) / 2;
-    int acceptableDrawableHeight = clearHeight >= drawable.getIntrinsicHeight() ? drawable.getIntrinsicHeight()
-                                                                                : clearHeight;
+    int acceptableDrawableHeight =
+        clearHeight >= drawable.getIntrinsicHeight() ? drawable.getIntrinsicHeight() : clearHeight;
     // A transit icon must be squared-shaped. So, if the drawable width is greater than height the
     // drawable will be squeezed horizontally to make it squared-shape.
     int acceptableDrawableWidth = drawable.getIntrinsicWidth() > acceptableDrawableHeight
-                                  ? acceptableDrawableHeight : drawable.getIntrinsicWidth();
-    mDrawableBounds.set(getPaddingStart(), getPaddingTop() + vPad,
-                        acceptableDrawableWidth + getPaddingStart(),
+                                    ? acceptableDrawableHeight
+                                    : drawable.getIntrinsicWidth();
+    mDrawableBounds.set(getPaddingStart(), getPaddingTop() + vPad, acceptableDrawableWidth + getPaddingStart(),
                         getPaddingTop() + vPad + acceptableDrawableHeight);
   }
 
@@ -184,8 +183,7 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
   {
     if (getBackground() == null)
     {
-      canvas.drawRoundRect(mBackgroundBounds, mBackgroundCornerRadius, mBackgroundCornerRadius,
-                           mBackgroundPaint);
+      canvas.drawRoundRect(mBackgroundBounds, mBackgroundCornerRadius, mBackgroundCornerRadius, mBackgroundPaint);
     }
 
     if (mDrawable != null)
@@ -193,16 +191,15 @@ public class TransitStepView extends View implements MultilineLayoutManager.Sque
 
     if (!TextUtils.isEmpty(mText))
     {
-      int yPos = (int) ((getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2)) ;
-      int xPos = mDrawable != null
-                 ? mDrawable.getBounds().right + getPaddingStart()
-                 : (int) ((getWidth() - mTextPaint.measureText(mText)) / 2);
+      int yPos = (int) ((getHeight() / 2) - ((mTextPaint.descent() + mTextPaint.ascent()) / 2));
+      int xPos = mDrawable != null ? mDrawable.getBounds().right + getPaddingStart()
+                                   : (int) ((getWidth() - mTextPaint.measureText(mText)) / 2);
       canvas.drawText(mText, xPos, yPos, mTextPaint);
     }
   }
 
-  private void drawDrawable(@NonNull Context context, @NonNull TransitStepType type,
-                            @NonNull Drawable drawable, @NonNull Canvas canvas)
+  private void drawDrawable(@NonNull Context context, @NonNull TransitStepType type, @NonNull Drawable drawable,
+                            @NonNull Canvas canvas)
   {
     if (type == TransitStepType.PEDESTRIAN)
     {

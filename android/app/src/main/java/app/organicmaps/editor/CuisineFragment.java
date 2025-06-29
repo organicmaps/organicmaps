@@ -1,7 +1,6 @@
 package app.organicmaps.editor;
 
 import androidx.annotation.NonNull;
-
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 
 public class CuisineFragment extends BaseMwmRecyclerFragment<CuisineAdapter>

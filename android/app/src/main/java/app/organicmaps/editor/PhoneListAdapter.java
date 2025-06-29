@@ -5,17 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textfield.TextInputEditText;
 import app.organicmaps.R;
 import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;
-
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,19 +32,20 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
     for (String p : phoneList.split(";"))
     {
       p = p.trim();
-      if (TextUtils.isEmpty(p)) continue;
+      if (TextUtils.isEmpty(p))
+        continue;
       phonesData.add(p);
     }
 
-    if (phonesData.isEmpty()) phonesData.add("");
+    if (phonesData.isEmpty())
+      phonesData.add("");
   }
 
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
-    return new ViewHolder(LayoutInflater.from(parent.getContext())
-                                        .inflate(R.layout.item_phone, parent, false));
+    return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_phone, parent, false));
   }
 
   @Override
@@ -103,12 +101,12 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
 
       mInput = itemView.findViewById(R.id.input);
       final TextInputLayout phoneInput = itemView.findViewById(R.id.phone_input);
-      mInput.addTextChangedListener(new StringUtils.SimpleTextWatcher()
-      {
+      mInput.addTextChangedListener(new StringUtils.SimpleTextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count)
         {
-          UiUtils.setInputError(phoneInput, Editor.nativeIsPhoneValid(s.toString()) ? 0 : R.string.error_enter_correct_phone);
+          UiUtils.setInputError(phoneInput,
+                                Editor.nativeIsPhoneValid(s.toString()) ? 0 : R.string.error_enter_correct_phone);
           PhoneListAdapter.this.updatePhoneItem(mPosition, mInput.getText().toString());
         }
       });
@@ -141,7 +139,8 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
 
   private void updatePhoneItem(int position, String text)
   {
-    if (position == -1) return;
+    if (position == -1)
+      return;
     phonesData.set(position, text);
   }
 

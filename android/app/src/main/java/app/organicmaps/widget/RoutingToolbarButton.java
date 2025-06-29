@@ -2,12 +2,10 @@ package app.organicmaps.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatRadioButton;
-
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
 

@@ -2,9 +2,7 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.Nullable;
-
 import java.net.HttpURLConnection;
 
 public class Error implements Parcelable
@@ -46,14 +44,11 @@ public class Error implements Parcelable
   @Override
   public String toString()
   {
-    return "Error{" +
-           "mHttpCode=" + mHttpCode +
-           ", mMessage='" + mMessage + '\'' +
-           '}';
+    return "Error{"
+  + "mHttpCode=" + mHttpCode + ", mMessage='" + mMessage + '\'' + '}';
   }
 
-  public static final Creator<Error> CREATOR = new Creator<>()
-  {
+  public static final Creator<Error> CREATOR = new Creator<>() {
     @Override
     public Error createFromParcel(Parcel in)
     {

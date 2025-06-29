@@ -11,22 +11,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.FragmentManager;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.tabs.TabLayout;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.sdk.editor.data.HoursMinutes;
 import app.organicmaps.sdk.util.DateUtils;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.tabs.TabLayout;
 
 public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
 {
@@ -44,7 +42,8 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
   private TimePicker mPicker;
   private View mPickerHoursLabel;
 
-  @IntRange(from = 0, to = 1) private int mSelectedTab;
+  @IntRange(from = 0, to = 1)
+  private int mSelectedTab;
   private TabLayout mTabs;
 
   private int mId;
@@ -55,8 +54,8 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     void onHoursMinutesPicked(HoursMinutes from, HoursMinutes to, int id);
   }
 
-  public static void pick(Context context, FragmentManager manager, @NonNull HoursMinutes from, @NonNull HoursMinutes to,
-                          @IntRange(from = 0, to = 1) int selectedPosition, int id)
+  public static void pick(Context context, FragmentManager manager, @NonNull HoursMinutes from,
+                          @NonNull HoursMinutes to, @IntRange(from = 0, to = 1) int selectedPosition, int id)
   {
     final Bundle args = new Bundle();
     args.putParcelable(EXTRA_FROM, from);
@@ -64,8 +63,8 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     args.putInt(EXTRA_SELECT_FIRST, selectedPosition);
     args.putInt(EXTRA_ID, id);
 
-    final HoursMinutesPickerFragment fragment = (HoursMinutesPickerFragment) manager.getFragmentFactory()
-      .instantiate(context.getClassLoader(), HoursMinutesPickerFragment.class.getName());
+    final HoursMinutesPickerFragment fragment = (HoursMinutesPickerFragment) manager.getFragmentFactory().instantiate(
+        context.getClassLoader(), HoursMinutesPickerFragment.class.getName());
     fragment.setArguments(args);
     fragment.show(manager, null);
   }
@@ -76,25 +75,25 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
   {
     readArgs();
     final View root = createView();
-    //noinspection ConstantConditions
+    // noinspection ConstantConditions
     mTabs.getTabAt(mSelectedTab).select();
 
-    @StyleRes final int theme = ThemeUtils.isNightTheme(requireContext()) ?
-        R.style.MwmMain_DialogFragment_TimePicker_Night :
-        R.style.MwmMain_DialogFragment_TimePicker;
+    @StyleRes
+    final int theme = ThemeUtils.isNightTheme(requireContext()) ? R.style.MwmMain_DialogFragment_TimePicker_Night
+                                                                : R.style.MwmMain_DialogFragment_TimePicker;
     final AlertDialog dialog = new MaterialAlertDialogBuilder(requireActivity(), theme)
-        .setView(root)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, null)
-        .setCancelable(true)
-        .create();
+                                   .setView(root)
+                                   .setNegativeButton(R.string.cancel, null)
+                                   .setPositiveButton(R.string.ok, null)
+                                   .setCancelable(true)
+                                   .create();
 
     dialog.setOnShowListener(dialogInterface -> {
       mOkButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
       mOkButton.setOnClickListener(v -> {
         if (mSelectedTab == TAB_FROM)
         {
-          //noinspection ConstantConditions
+          // noinspection ConstantConditions
           mTabs.getTabAt(TAB_TO).select();
           return;
         }
@@ -141,17 +140,16 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     mTabs = root.findViewById(R.id.tabs);
     TextView tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
     tabView.setText(getResources().getString(R.string.editor_time_from));
-    final ColorStateList textColor = AppCompatResources.getColorStateList(requireContext(),
-        ThemeUtils.isNightTheme(requireContext()) ? R.color.accent_color_selector_night
-                                                  : R.color.accent_color_selector);
+    final ColorStateList textColor = AppCompatResources.getColorStateList(
+        requireContext(), ThemeUtils.isNightTheme(requireContext()) ? R.color.accent_color_selector_night
+                                                                    : R.color.accent_color_selector);
     tabView.setTextColor(textColor);
     mTabs.addTab(mTabs.newTab().setCustomView(tabView), true);
     tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
     tabView.setText(getResources().getString(R.string.editor_time_to));
     tabView.setTextColor(textColor);
     mTabs.addTab(mTabs.newTab().setCustomView(tabView), true);
-    mTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
-    {
+    mTabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
       @Override
       public void onTabSelected(TabLayout.Tab tab)
       {
@@ -166,10 +164,12 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
       }
 
       @Override
-      public void onTabUnselected(TabLayout.Tab tab) {}
+      public void onTabUnselected(TabLayout.Tab tab)
+      {}
 
       @Override
-      public void onTabReselected(TabLayout.Tab tab) {}
+      public void onTabReselected(TabLayout.Tab tab)
+      {}
     });
 
     return root;
@@ -178,8 +178,8 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
   private void saveHoursMinutes()
   {
     boolean is24HourFormat = DateUtils.is24HourFormat(requireContext());
-    final HoursMinutes hoursMinutes = new HoursMinutes(mPicker.getCurrentHour(),
-                                                       mPicker.getCurrentMinute(), is24HourFormat);
+    final HoursMinutes hoursMinutes =
+        new HoursMinutes(mPicker.getCurrentHour(), mPicker.getCurrentMinute(), is24HourFormat);
     if (mSelectedTab == TAB_FROM)
       mFrom = hoursMinutes;
     else

@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.editor.PhoneListAdapter;
@@ -56,7 +54,8 @@ public class PhoneFragment extends BaseMwmFragment implements View.OnClickListen
   {
     if (view.getId() == R.id.tv__append_phone)
     {
-      if (mAdapter != null) mAdapter.appendPhone();
+      if (mAdapter != null)
+        mAdapter.appendPhone();
     }
   }
 }

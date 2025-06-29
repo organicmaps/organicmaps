@@ -2,7 +2,6 @@ package app.organicmaps.sdk;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 
 public interface PlacePageActivationListener

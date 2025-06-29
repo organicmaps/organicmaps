@@ -7,7 +7,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
@@ -15,30 +14,28 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
-
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-
 import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.downloader.DownloaderNotifier;
-import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.location.TrackRecordingService;
+import app.organicmaps.routing.NavigationService;
+import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.location.TrackRecorder;
-import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
-import app.organicmaps.routing.NavigationService;
-import app.organicmaps.routing.RoutingController;
-import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ConnectionState;
-import app.organicmaps.util.Utils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
+import app.organicmaps.util.Utils;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 public class MwmApplication extends Application implements Application.ActivityLifecycleCallbacks
 {
@@ -146,8 +143,7 @@ public class MwmApplication extends Application implements Application.ActivityL
     });
   }
 
-  private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver()
-  {
+  private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {
     @Override
     public void onStart(@NonNull LifecycleOwner owner)
     {

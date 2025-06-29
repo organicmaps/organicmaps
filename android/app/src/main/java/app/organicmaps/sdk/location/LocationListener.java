@@ -2,7 +2,6 @@ package app.organicmaps.sdk.location;
 
 import android.app.PendingIntent;
 import android.location.Location;
-
 import androidx.annotation.NonNull;
 
 public interface LocationListener

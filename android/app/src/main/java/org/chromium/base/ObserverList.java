@@ -6,12 +6,10 @@ package org.chromium.base;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
@@ -32,220 +30,259 @@ import javax.annotation.concurrent.NotThreadSafe;
  * @param <E> The type of observers that this list should hold.
  */
 @NotThreadSafe
-public class ObserverList<E> implements Iterable<E> {
-    /** Extended iterator interface that provides rewind functionality. */
-    public interface RewindableIterator<E> extends Iterator<E> {
-        /**
-         * Rewind the iterator back to the beginning.
-         *
-         * If we need to iterate multiple times, we can avoid iterator object reallocation by using
-         * this method.
-         */
-        public void rewind();
-    }
-
-    public final List<E> mObservers = new ArrayList<E>();
-    private int mIterationDepth;
-    private int mCount;
-    private boolean mNeedsCompact;
-
+public class ObserverList<E> implements Iterable<E>
+{
+  /** Extended iterator interface that provides rewind functionality. */
+  public interface RewindableIterator<E> extends Iterator<E>
+  {
     /**
-     * Add an observer to the list.
-     * <p/>
-     * An observer should not be added to the same list more than once. If an iteration is already
-     * in progress, this observer will be not be visible during that iteration.
+     * Rewind the iterator back to the beginning.
      *
-     * @return true if the observer list changed as a result of the call.
+     * If we need to iterate multiple times, we can avoid iterator object reallocation by using
+     * this method.
      */
-    public boolean addObserver(@Nullable E obs) {
-        // Avoid adding null elements to the list as they may be removed on a compaction.
-        if (obs == null || mObservers.contains(obs)) {
-            return false;
-        }
+    public void rewind();
+  }
 
-        // Structurally modifying the underlying list here. This means we
-        // cannot use the underlying list's iterator to iterate over the list.
-        boolean result = mObservers.add(obs);
-        assert result;
+  public final List<E> mObservers = new ArrayList<E>();
+  private int mIterationDepth;
+  private int mCount;
+  private boolean mNeedsCompact;
 
-        ++mCount;
-        return true;
+  /**
+   * Add an observer to the list.
+   * <p/>
+   * An observer should not be added to the same list more than once. If an iteration is already
+   * in progress, this observer will be not be visible during that iteration.
+   *
+   * @return true if the observer list changed as a result of the call.
+   */
+  public boolean addObserver(@Nullable E obs)
+  {
+    // Avoid adding null elements to the list as they may be removed on a compaction.
+    if (obs == null || mObservers.contains(obs))
+    {
+      return false;
     }
 
-    /**
-     * Remove an observer from the list if it is in the list.
-     *
-     * @return true if an element was removed as a result of this call.
-     */
-    public boolean removeObserver(@Nullable E obs) {
-        if (obs == null) {
-            return false;
-        }
+    // Structurally modifying the underlying list here. This means we
+    // cannot use the underlying list's iterator to iterate over the list.
+    boolean result = mObservers.add(obs);
+    assert result;
 
-        int index = mObservers.indexOf(obs);
-        if (index == -1) {
-            return false;
-        }
+    ++mCount;
+    return true;
+  }
 
-        if (mIterationDepth == 0) {
-            // No one is iterating over the list.
-            mObservers.remove(index);
-        } else {
-            mNeedsCompact = true;
-            mObservers.set(index, null);
-        }
-        --mCount;
-        assert mCount >= 0;
-
-        return true;
+  /**
+   * Remove an observer from the list if it is in the list.
+   *
+   * @return true if an element was removed as a result of this call.
+   */
+  public boolean removeObserver(@Nullable E obs)
+  {
+    if (obs == null)
+    {
+      return false;
     }
 
-    public boolean hasObserver(@Nullable E obs) {
-        if (obs == null) {
-            return false;
-        }
-
-        return mObservers.contains(obs);
+    int index = mObservers.indexOf(obs);
+    if (index == -1)
+    {
+      return false;
     }
 
-    public void clear() {
-        mCount = 0;
+    if (mIterationDepth == 0)
+    {
+      // No one is iterating over the list.
+      mObservers.remove(index);
+    }
+    else
+    {
+      mNeedsCompact = true;
+      mObservers.set(index, null);
+    }
+    --mCount;
+    assert mCount >= 0;
 
-        if (mIterationDepth == 0) {
-            mObservers.clear();
-            return;
-        }
+    return true;
+  }
 
-        int size = mObservers.size();
-        mNeedsCompact |= size != 0;
-        for (int i = 0; i < size; i++) {
-            mObservers.set(i, null);
-        }
+  public boolean hasObserver(@Nullable E obs)
+  {
+    if (obs == null)
+    {
+      return false;
     }
 
-    @NonNull
+    return mObservers.contains(obs);
+  }
+
+  public void clear()
+  {
+    mCount = 0;
+
+    if (mIterationDepth == 0)
+    {
+      mObservers.clear();
+      return;
+    }
+
+    int size = mObservers.size();
+    mNeedsCompact |= size != 0;
+    for (int i = 0; i < size; i++)
+    {
+      mObservers.set(i, null);
+    }
+  }
+
+  @NonNull
+  @Override
+  public Iterator<E> iterator()
+  {
+    return new ObserverListIterator();
+  }
+
+  /**
+   * It's the same as {@link ObserverList#iterator()} but the return type is
+   * {@link RewindableIterator}. Use this iterator type if you need to use
+   * {@link RewindableIterator#rewind()}.
+   */
+  public RewindableIterator<E> rewindableIterator()
+  {
+    return new ObserverListIterator();
+  }
+
+  /**
+   * Returns the number of observers currently registered in the ObserverList.
+   * This is equivalent to the number of non-empty spaces in |mObservers|.
+   */
+  public int size()
+  {
+    return mCount;
+  }
+
+  /** Returns true if the ObserverList contains no observers. */
+  public boolean isEmpty()
+  {
+    return mCount == 0;
+  }
+
+  /**
+   * Compact the underlying list be removing null elements.
+   * <p/>
+   * Should only be called when mIterationDepth is zero.
+   */
+  private void compact()
+  {
+    assert mIterationDepth == 0;
+    for (int i = mObservers.size() - 1; i >= 0; i--)
+    {
+      if (mObservers.get(i) == null)
+      {
+        mObservers.remove(i);
+      }
+    }
+  }
+
+  private void incrementIterationDepth()
+  {
+    mIterationDepth++;
+  }
+
+  private void decrementIterationDepthAndCompactIfNeeded()
+  {
+    mIterationDepth--;
+    assert mIterationDepth >= 0;
+    if (mIterationDepth > 0)
+      return;
+    if (!mNeedsCompact)
+      return;
+    mNeedsCompact = false;
+    compact();
+  }
+
+  /**
+   * Returns the size of the underlying storage of the ObserverList.
+   * It will take into account the empty spaces inside |mObservers|.
+   */
+  private int capacity()
+  {
+    return mObservers.size();
+  }
+
+  private E getObserverAt(int index)
+  {
+    return mObservers.get(index);
+  }
+
+  private class ObserverListIterator implements RewindableIterator<E>
+  {
+    private int mListEndMarker;
+    private int mIndex;
+    private boolean mIsExhausted;
+
+    private ObserverListIterator()
+    {
+      ObserverList.this.incrementIterationDepth();
+      mListEndMarker = ObserverList.this.capacity();
+    }
+
     @Override
-    public Iterator<E> iterator() {
-        return new ObserverListIterator();
+    public void rewind()
+    {
+      compactListIfNeeded();
+      ObserverList.this.incrementIterationDepth();
+      mListEndMarker = ObserverList.this.capacity();
+      mIsExhausted = false;
+      mIndex = 0;
     }
 
-    /**
-     * It's the same as {@link ObserverList#iterator()} but the return type is
-     * {@link RewindableIterator}. Use this iterator type if you need to use
-     * {@link RewindableIterator#rewind()}.
-     */
-    public RewindableIterator<E> rewindableIterator() {
-        return new ObserverListIterator();
+    @Override
+    public boolean hasNext()
+    {
+      int lookupIndex = mIndex;
+      while (lookupIndex < mListEndMarker && ObserverList.this.getObserverAt(lookupIndex) == null)
+      {
+        lookupIndex++;
+      }
+      if (lookupIndex < mListEndMarker)
+        return true;
+
+      // We have reached the end of the list, allow for compaction.
+      compactListIfNeeded();
+      return false;
     }
 
-    /**
-     * Returns the number of observers currently registered in the ObserverList.
-     * This is equivalent to the number of non-empty spaces in |mObservers|.
-     */
-    public int size() {
-        return mCount;
+    @Override
+    public E next()
+    {
+      // Advance if the current element is null.
+      while (mIndex < mListEndMarker && ObserverList.this.getObserverAt(mIndex) == null)
+      {
+        mIndex++;
+      }
+      if (mIndex < mListEndMarker)
+        return ObserverList.this.getObserverAt(mIndex++);
+
+      // We have reached the end of the list, allow for compaction.
+      compactListIfNeeded();
+      throw new NoSuchElementException();
     }
 
-    /** Returns true if the ObserverList contains no observers. */
-    public boolean isEmpty() {
-        return mCount == 0;
+    @Override
+    public void remove()
+    {
+      throw new UnsupportedOperationException();
     }
 
-    /**
-     * Compact the underlying list be removing null elements.
-     * <p/>
-     * Should only be called when mIterationDepth is zero.
-     */
-    private void compact() {
-        assert mIterationDepth == 0;
-        for (int i = mObservers.size() - 1; i >= 0; i--) {
-            if (mObservers.get(i) == null) {
-                mObservers.remove(i);
-            }
-        }
+    private void compactListIfNeeded()
+    {
+      if (!mIsExhausted)
+      {
+        mIsExhausted = true;
+        ObserverList.this.decrementIterationDepthAndCompactIfNeeded();
+      }
     }
-
-    private void incrementIterationDepth() {
-        mIterationDepth++;
-    }
-
-    private void decrementIterationDepthAndCompactIfNeeded() {
-        mIterationDepth--;
-        assert mIterationDepth >= 0;
-        if (mIterationDepth > 0) return;
-        if (!mNeedsCompact) return;
-        mNeedsCompact = false;
-        compact();
-    }
-
-    /**
-     * Returns the size of the underlying storage of the ObserverList.
-     * It will take into account the empty spaces inside |mObservers|.
-     */
-    private int capacity() {
-        return mObservers.size();
-    }
-
-    private E getObserverAt(int index) {
-        return mObservers.get(index);
-    }
-
-    private class ObserverListIterator implements RewindableIterator<E> {
-        private int mListEndMarker;
-        private int mIndex;
-        private boolean mIsExhausted;
-
-        private ObserverListIterator() {
-            ObserverList.this.incrementIterationDepth();
-            mListEndMarker = ObserverList.this.capacity();
-        }
-
-        @Override
-        public void rewind() {
-            compactListIfNeeded();
-            ObserverList.this.incrementIterationDepth();
-            mListEndMarker = ObserverList.this.capacity();
-            mIsExhausted = false;
-            mIndex = 0;
-        }
-
-        @Override
-        public boolean hasNext() {
-            int lookupIndex = mIndex;
-            while (lookupIndex < mListEndMarker
-                    && ObserverList.this.getObserverAt(lookupIndex) == null) {
-                lookupIndex++;
-            }
-            if (lookupIndex < mListEndMarker) return true;
-
-            // We have reached the end of the list, allow for compaction.
-            compactListIfNeeded();
-            return false;
-        }
-
-        @Override
-        public E next() {
-            // Advance if the current element is null.
-            while (mIndex < mListEndMarker && ObserverList.this.getObserverAt(mIndex) == null) {
-                mIndex++;
-            }
-            if (mIndex < mListEndMarker) return ObserverList.this.getObserverAt(mIndex++);
-
-            // We have reached the end of the list, allow for compaction.
-            compactListIfNeeded();
-            throw new NoSuchElementException();
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-
-        private void compactListIfNeeded() {
-            if (!mIsExhausted) {
-                mIsExhausted = true;
-                ObserverList.this.decrementIterationDepthAndCompactIfNeeded();
-            }
-        }
-    }
+  }
 }

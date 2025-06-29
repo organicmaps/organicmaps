@@ -3,21 +3,19 @@ package app.organicmaps.sdk.location;
 import android.annotation.SuppressLint;
 import android.net.SSLCertificateSocketFactory;
 import android.os.SystemClock;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.sdk.util.log.Logger;
-
-import javax.net.SocketFactory;
-import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
 
 /**
  * Implements interface that will be used by the core for
@@ -132,7 +130,7 @@ class PlatformSocket
     // Trusting to any ssl certificate factory that will be used in
     // debug mode, for testing purposes only.
     if (BuildConfig.DEBUG)
-      //TODO: implement the custom KeyStore to make the self-signed certificates work
+      // TODO: implement the custom KeyStore to make the self-signed certificates work
       return SSLCertificateSocketFactory.getInsecure(0, null);
 
     return SSLSocketFactory.getDefault();
@@ -150,10 +148,12 @@ class PlatformSocket
     {
       mSocket.close();
       Logger.d(TAG, "Socket has been closed: " + this + "\n");
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       Logger.e(TAG, "Failed to close socket: " + this + "\n");
-    } finally
+    }
+    finally
     {
       mSocket = null;
     }
@@ -194,19 +194,21 @@ class PlatformSocket
 
           Logger.d(TAG, "Read bytes count = " + read + "\n");
           readBytes += read;
-        } catch (SocketTimeoutException e)
+        }
+        catch (SocketTimeoutException e)
         {
           long readingTime = SystemClock.elapsedRealtime() - startTime;
           Logger.e(TAG, "Socked timeout has occurred after " + readingTime + " (ms)\n ");
           if (readingTime > mTimeout)
           {
-            Logger.e(TAG, "Socket wrapper timeout has occurred, requested count = " +
-                     (count - readBytes) + ", readBytes = " + readBytes + "\n");
+            Logger.e(TAG, "Socket wrapper timeout has occurred, requested count = " + (count - readBytes)
+                              + ", readBytes = " + readBytes + "\n");
             break;
           }
         }
       }
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       Logger.e(TAG, "Failed to read data from socket: " + this + "\n");
     }
@@ -230,11 +232,13 @@ class PlatformSocket
       out.write(data, 0, count);
       Logger.d(TAG, count + " bytes are written\n");
       return true;
-    } catch (SocketTimeoutException e)
+    }
+    catch (SocketTimeoutException e)
     {
       long writingTime = SystemClock.elapsedRealtime() - startTime;
       Logger.e(TAG, "Socked timeout has occurred after " + writingTime + " (ms)\n");
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       Logger.e(TAG, "Failed to write data to socket: " + this + "\n");
     }
@@ -270,7 +274,8 @@ class PlatformSocket
     try
     {
       socket.setSoTimeout(millis);
-    } catch (SocketException e)
+    }
+    catch (SocketException e)
     {
       Logger.e(TAG, "Failed to set system socket timeout: " + millis + "ms, " + this + "\n");
     }
@@ -279,10 +284,7 @@ class PlatformSocket
   @Override
   public String toString()
   {
-    return "PlatformSocket{" +
-           "mSocket=" + mSocket +
-           ", mHost='" + mHost + '\'' +
-           ", mPort=" + mPort +
-           '}';
+    return "PlatformSocket{"
+  + "mSocket=" + mSocket + ", mHost='" + mHost + '\'' + ", mPort=" + mPort + '}';
   }
 }

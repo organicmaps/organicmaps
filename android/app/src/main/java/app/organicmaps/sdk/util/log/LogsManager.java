@@ -13,20 +13,15 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Debug;
 import android.util.Log;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.util.ROMUtils;
 import app.organicmaps.sdk.util.StringUtils;
-
-import net.jcip.annotations.ThreadSafe;
-
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,6 +29,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import net.jcip.annotations.ThreadSafe;
 
 /**
  * By default uses Android's system logger.
@@ -171,9 +167,9 @@ public final class LogsManager
     // Only Debug builds log DEBUG level to Android system log.
     nativeToggleCoreDebugLogs(enabled || BuildConfig.DEBUG);
     MwmApplication.prefs(mApplication)
-                  .edit()
-                  .putBoolean(mApplication.getString(R.string.pref_enable_logging), enabled)
-                  .apply();
+        .edit()
+        .putBoolean(mApplication.getString(R.string.pref_enable_logging), enabled)
+        .apply();
     Log.i(TAG, "Logging to " + (enabled ? "logs folder " + mLogsFolder : "system log"));
   }
 
@@ -235,14 +231,16 @@ public final class LogsManager
 
     final DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
     final StringBuilder sb = new StringBuilder(512);
-    sb.append("Datetime: ").append(fmt.format(new Date()))
-      .append("\n\nAndroid version: ")
-      .append(Build.VERSION.CODENAME.equals("REL") ? Build.VERSION.RELEASE : Build.VERSION.CODENAME)
-      .append(" (API ").append(Build.VERSION.SDK_INT).append(')');
+    sb.append("Datetime: ")
+        .append(fmt.format(new Date()))
+        .append("\n\nAndroid version: ")
+        .append(Build.VERSION.CODENAME.equals("REL") ? Build.VERSION.RELEASE : Build.VERSION.CODENAME)
+        .append(" (API ")
+        .append(Build.VERSION.SDK_INT)
+        .append(')');
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
       sb.append(", security patch level: ").append(Build.VERSION.SECURITY_PATCH);
-    sb.append(", os.version: ").append(System.getProperty("os.version", "N/A"))
-      .append("\nDevice: ");
+    sb.append(", os.version: ").append(System.getProperty("os.version", "N/A")).append("\nDevice: ");
     if (!StringUtils.toLowerCase(Build.MODEL).startsWith(StringUtils.toLowerCase(Build.MANUFACTURER)))
       sb.append(Build.MANUFACTURER).append(' ');
     sb.append(Build.MODEL).append(" (").append(Build.DEVICE).append(')');
@@ -250,10 +248,15 @@ public final class LogsManager
     sb.append("\nSupported ABIs:");
     for (String abi : Build.SUPPORTED_ABIS)
       sb.append(' ').append(abi);
-    sb.append("\nApp version: ").append(BuildConfig.APPLICATION_ID).append(' ').append(BuildConfig.VERSION_NAME)
-      .append("\nLocale: ").append(Locale.getDefault())
-      .append("\nNetworks: ");
-    final ConnectivityManager manager = (ConnectivityManager) mApplication.getSystemService(Context.CONNECTIVITY_SERVICE);
+    sb.append("\nApp version: ")
+        .append(BuildConfig.APPLICATION_ID)
+        .append(' ')
+        .append(BuildConfig.VERSION_NAME)
+        .append("\nLocale: ")
+        .append(Locale.getDefault())
+        .append("\nNetworks: ");
+    final ConnectivityManager manager =
+        (ConnectivityManager) mApplication.getSystemService(Context.CONNECTIVITY_SERVICE);
     if (manager != null)
     {
       for (Network network : manager.getAllNetworks())
@@ -263,15 +266,18 @@ public final class LogsManager
       }
     }
     sb.append("\nLocation providers:");
-    final LocationManager locMngr = (android.location.LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
+    final LocationManager locMngr =
+        (android.location.LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
     if (locMngr != null)
       for (String provider : locMngr.getProviders(true))
         sb.append(' ').append(provider);
 
     sb.append("\nLocation permissions:");
-    if (ContextCompat.checkSelfPermission(mApplication, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+    if (ContextCompat.checkSelfPermission(mApplication, Manifest.permission.ACCESS_COARSE_LOCATION)
+        == PackageManager.PERMISSION_GRANTED)
       sb.append(' ').append("coarse");
-    if (ContextCompat.checkSelfPermission(mApplication, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+    if (ContextCompat.checkSelfPermission(mApplication, Manifest.permission.ACCESS_FINE_LOCATION)
+        == PackageManager.PERMISSION_GRANTED)
       sb.append(' ').append("fine");
 
     sb.append("\n\n");
@@ -293,25 +299,25 @@ public final class LogsManager
 
     final StringBuilder log = new StringBuilder(256);
     log.append("Memory info: ")
-       .append(" Debug.getNativeHeapSize() = ")
-       .append(Debug.getNativeHeapSize() / 1024)
-       .append("KB; Debug.getNativeHeapAllocatedSize() = ")
-       .append(Debug.getNativeHeapAllocatedSize() / 1024)
-       .append("KB; Debug.getNativeHeapFreeSize() = ")
-       .append(Debug.getNativeHeapFreeSize() / 1024)
-       .append("KB; debugMI.getTotalPrivateDirty() = ")
-       .append(debugMI.getTotalPrivateDirty())
-       .append("KB; debugMI.getTotalPss() = ")
-       .append(debugMI.getTotalPss())
-       .append("KB; mi.availMem = ")
-       .append(mi.availMem / 1024)
-       .append("KB; mi.threshold = ")
-       .append(mi.threshold / 1024)
-       .append("KB; mi.lowMemory = ")
-       .append(mi.lowMemory)
-       .append("; mi.totalMem = ")
-       .append(mi.totalMem / 1024)
-       .append("KB;");
+        .append(" Debug.getNativeHeapSize() = ")
+        .append(Debug.getNativeHeapSize() / 1024)
+        .append("KB; Debug.getNativeHeapAllocatedSize() = ")
+        .append(Debug.getNativeHeapAllocatedSize() / 1024)
+        .append("KB; Debug.getNativeHeapFreeSize() = ")
+        .append(Debug.getNativeHeapFreeSize() / 1024)
+        .append("KB; debugMI.getTotalPrivateDirty() = ")
+        .append(debugMI.getTotalPrivateDirty())
+        .append("KB; debugMI.getTotalPss() = ")
+        .append(debugMI.getTotalPss())
+        .append("KB; mi.availMem = ")
+        .append(mi.availMem / 1024)
+        .append("KB; mi.threshold = ")
+        .append(mi.threshold / 1024)
+        .append("KB; mi.lowMemory = ")
+        .append(mi.lowMemory)
+        .append("; mi.totalMem = ")
+        .append(mi.totalMem / 1024)
+        .append("KB;");
 
     return log.toString();
   }

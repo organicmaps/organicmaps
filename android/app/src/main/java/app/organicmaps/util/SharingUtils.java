@@ -2,34 +2,31 @@ package app.organicmaps.util;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ComponentName;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Pair;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
 import app.organicmaps.SplashActivity;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.log.Logger;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SharingUtils
 {
@@ -46,9 +43,7 @@ public class SharingUtils
     public String mMail = "";
     public String mFileName = "";
 
-    ShareInfo()
-    {
-    }
+    ShareInfo() {}
 
     ShareInfo(@NonNull String mimeType, String subject, String text, String mail, String fileName)
     {
@@ -81,11 +76,17 @@ public class SharingUtils
       mSource = source;
     }
 
-    Intent GetIntent() {return mIntent;}
-    Uri GetSourceFile() {return mSource;}
+    Intent GetIntent()
+    {
+      return mIntent;
+    }
+    Uri GetSourceFile()
+    {
+      return mSource;
+    }
   }
 
-  public static class SharingContract extends ActivityResultContract<SharingIntent, Pair<Uri,Uri>>
+  public static class SharingContract extends ActivityResultContract<SharingIntent, Pair<Uri, Uri>>
   {
     static private Uri sourceUri;
 
@@ -98,7 +99,7 @@ public class SharingUtils
     }
 
     @Override
-    public Pair<Uri,Uri> parseResult(int resultCode, Intent intent)
+    public Pair<Uri, Uri> parseResult(int resultCode, Intent intent)
     {
       if (resultCode == Activity.RESULT_OK && intent != null)
       {
@@ -110,9 +111,7 @@ public class SharingUtils
   }
 
   // This utility class has only static methods
-  private SharingUtils()
-  {
-  }
+  private SharingUtils() {}
 
   public static void shareLocation(@NonNull Context context, @NonNull Location loc)
   {
@@ -122,10 +121,10 @@ public class SharingUtils
     final String subject = context.getString(R.string.share);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    final String geoUrl = Framework.nativeGetGeoUri(loc.getLatitude(), loc.getLongitude(), Framework
-        .nativeGetDrawScale(), "");
-    final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework
-        .nativeGetDrawScale(), "");
+    final String geoUrl =
+        Framework.nativeGetGeoUri(loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), "");
+    final String httpUrl =
+        Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.nativeGetDrawScale(), "");
     final String text = geoUrl + "\n" + httpUrl;
     intent.putExtra(Intent.EXTRA_TEXT, text);
 
@@ -137,15 +136,14 @@ public class SharingUtils
     Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setType(TEXT_MIME_TYPE);
 
-    final String subject = object.isMyPosition() ?
-                           context.getString(R.string.my_position_share_email_subject) :
-                           context.getString(R.string.bookmark_share_email_subject);
+    final String subject = object.isMyPosition() ? context.getString(R.string.my_position_share_email_subject)
+                                                 : context.getString(R.string.bookmark_share_email_subject);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    final String geoUrl = Framework.nativeGetGeoUri(object.getLat(), object.getLon(),
-                                                    object.getScale(), object.getName());
-    final String httpUrl = Framework.getHttpGe0Url(object.getLat(), object.getLon(),
-                                                   object.getScale(), object.getName());
+    final String geoUrl =
+        Framework.nativeGetGeoUri(object.getLat(), object.getLon(), object.getScale(), object.getName());
+    final String httpUrl =
+        Framework.getHttpGe0Url(object.getLat(), object.getLon(), object.getScale(), object.getName());
     final String text = geoUrl + "\n" + httpUrl;
     intent.putExtra(Intent.EXTRA_TEXT, text);
 
@@ -160,10 +158,10 @@ public class SharingUtils
     final String subject = context.getString(R.string.bookmark_share_email_subject);
     intent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    final String geoUrl = Framework.nativeGetGe0Url(bookmark.getLat(), bookmark.getLon(),
-                                                    bookmark.getScale(), bookmark.getName());
-    final String httpUrl = Framework.getHttpGe0Url(bookmark.getLat(), bookmark.getLon(),
-                                                   bookmark.getScale(), bookmark.getName());
+    final String geoUrl =
+        Framework.nativeGetGe0Url(bookmark.getLat(), bookmark.getLon(), bookmark.getScale(), bookmark.getName());
+    final String httpUrl =
+        Framework.getHttpGe0Url(bookmark.getLat(), bookmark.getLon(), bookmark.getScale(), bookmark.getName());
     StringBuilder text = new StringBuilder();
     text.append(bookmark.getName());
     if (!TextUtils.isEmpty(bookmark.getAddress()))
@@ -182,7 +180,7 @@ public class SharingUtils
 
   private static void ProcessShareResult(@NonNull ContentResolver resolver, Pair<Uri, Uri> result)
   {
-    if (resolver!=null && result != null)
+    if (resolver != null && result != null)
     {
       Uri sourceUri = result.first;
       Uri destinationUri = result.second;
@@ -201,16 +199,12 @@ public class SharingUtils
   public static ActivityResultLauncher<SharingIntent> RegisterLauncher(@NonNull Fragment fragment)
   {
     return fragment.registerForActivityResult(
-      new SharingContract(),
-      result -> ProcessShareResult(fragment.requireContext().getContentResolver(), result)
-    );
+        new SharingContract(), result -> ProcessShareResult(fragment.requireContext().getContentResolver(), result));
   }
   public static ActivityResultLauncher<SharingIntent> RegisterLauncher(@NonNull AppCompatActivity activity)
   {
-    return activity.registerForActivityResult(
-      new SharingContract(),
-      result -> ProcessShareResult(activity.getContentResolver(), result)
-    );
+    return activity.registerForActivityResult(new SharingContract(),
+                                              result -> ProcessShareResult(activity.getContentResolver(), result));
   }
 
   public static void shareFile(Context context, ActivityResultLauncher<SharingIntent> launcher, ShareInfo info)
@@ -220,7 +214,7 @@ public class SharingUtils
     if (!info.mSubject.isEmpty())
       intent.putExtra(Intent.EXTRA_SUBJECT, info.mSubject);
     if (!info.mMail.isEmpty())
-      intent.putExtra(Intent.EXTRA_EMAIL, new String[]{info.mMail});
+      intent.putExtra(Intent.EXTRA_EMAIL, new String[] {info.mMail});
     if (!info.mText.isEmpty())
       intent.putExtra(Intent.EXTRA_TEXT, info.mText);
 
@@ -238,15 +232,17 @@ public class SharingUtils
       // https://developer.android.com/reference/androidx/core/content/FileProvider#include-the-permission-in-an-intent
       intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-      if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
+      if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1)
+      {
         intent.setClipData(ClipData.newRawUri("", fileUri));
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        | Intent.FLAG_ACTIVITY_NEW_TASK);
       }
 
       Intent saveIntent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
       saveIntent.setType(info.mMimeType);
 
-      final String fileName = fileUri.getPathSegments().get(fileUri.getPathSegments().size()-1);
+      final String fileName = fileUri.getPathSegments().get(fileUri.getPathSegments().size() - 1);
       saveIntent.putExtra(Intent.EXTRA_TITLE, fileName);
 
       Intent[] extraIntents = {saveIntent};
@@ -254,7 +250,7 @@ public class SharingUtils
       // Prevent sharing to ourselves (supported from API Level 24).
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
       {
-        ComponentName[] excludeSelf = { new ComponentName(context, SplashActivity.class) };
+        ComponentName[] excludeSelf = {new ComponentName(context, SplashActivity.class)};
         chooser.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, excludeSelf);
       }
 
@@ -266,7 +262,8 @@ public class SharingUtils
     launcher.launch(sharingIntent);
   }
 
-  public static void shareBookmarkFile(Context context, ActivityResultLauncher<SharingIntent> launcher, String fileName, String mimeType)
+  public static void shareBookmarkFile(Context context, ActivityResultLauncher<SharingIntent> launcher, String fileName,
+                                       String mimeType)
   {
     final String subject = context.getString(R.string.share_bookmarks_email_subject);
     final String text = context.getString(R.string.share_bookmarks_email_body);

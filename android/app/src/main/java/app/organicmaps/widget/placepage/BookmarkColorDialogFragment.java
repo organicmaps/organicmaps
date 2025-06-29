@@ -6,16 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
-
 import androidx.annotation.NonNull;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
 import app.organicmaps.bookmarks.IconsAdapter;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.util.List;
 
 public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
@@ -59,7 +56,8 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
     adapter.chooseItem(mIconColor);
 
     @SuppressLint("InflateParams")
-    final GridView gView = (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
+    final GridView gView =
+        (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
     gView.setAdapter(adapter);
     gView.setOnItemClickListener((arg0, who, pos, id) -> {
       if (mColorSetListener != null)
@@ -69,5 +67,4 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
 
     return gView;
   }
-
 }

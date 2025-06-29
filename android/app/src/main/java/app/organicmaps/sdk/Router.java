@@ -48,6 +48,5 @@ public enum Router
 
   private static native int nativeGetLastUsed();
 
-  private static native int nativeGetBest(double srcLat, double srcLon,
-                                          double dstLat, double dstLon);
+  private static native int nativeGetBest(double srcLat, double srcLon, double dstLat, double dstLon);
 }

@@ -7,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.util.Graphics;
-
 import java.util.List;
 
 public class IconsAdapter extends ArrayAdapter<Icon>
@@ -42,18 +40,13 @@ public class IconsAdapter extends ArrayAdapter<Icon>
     Drawable circle;
     if (icon.getColor() == mCheckedIconColor)
     {
-      circle = Graphics.drawCircleAndImage(getItem(position).argb(),
-                                           R.dimen.track_circle_size,
-                                           R.drawable.ic_bookmark_none,
-                                           R.dimen.bookmark_icon_size,
-                                           getContext());
-
+      circle = Graphics.drawCircleAndImage(getItem(position).argb(), R.dimen.track_circle_size,
+                                           R.drawable.ic_bookmark_none, R.dimen.bookmark_icon_size, getContext());
     }
     else
     {
-      circle = Graphics.drawCircle(getItem(position).argb(),
-                                   R.dimen.select_color_circle_size,
-                                   getContext().getResources());
+      circle =
+          Graphics.drawCircle(getItem(position).argb(), R.dimen.select_color_circle_size, getContext().getResources());
     }
     holder.icon.setImageDrawable(circle);
     return convertView;

@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
@@ -31,10 +30,10 @@ import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.base.BaseMwmFragmentActivity;
+import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
-import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ConnectionState;
@@ -44,7 +43,6 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -80,8 +78,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private int mCountryDownloadListenerSlot;
 
-  private final LocationListener mLocationListener = new LocationListener()
-  {
+  private final LocationListener mLocationListener = new LocationListener() {
     @Override
     public void onLocationUpdated(Location location)
     {
@@ -116,34 +113,33 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   };
 
-  private final app.organicmaps.sdk.DownloadResourcesLegacyActivity.Listener mResourcesDownloadListener = new app.organicmaps.sdk.DownloadResourcesLegacyActivity.Listener()
-  {
-    @Override
-    public void onProgress(final int percent)
-    {
-      if (!isFinishing())
-        mProgress.setProgressCompat(percent, true);
-    }
+  private final app.organicmaps.sdk.DownloadResourcesLegacyActivity.Listener mResourcesDownloadListener =
+      new app.organicmaps.sdk.DownloadResourcesLegacyActivity.Listener() {
+        @Override
+        public void onProgress(final int percent)
+        {
+          if (!isFinishing())
+            mProgress.setProgressCompat(percent, true);
+        }
 
-    @Override
-    public void onFinish(final int errorCode)
-    {
-      if (isFinishing())
-        return;
+        @Override
+        public void onFinish(final int errorCode)
+        {
+          if (isFinishing())
+            return;
 
-      if (errorCode == ERR_DOWNLOAD_SUCCESS)
-      {
-        final int res = nativeStartNextFileDownload(mResourcesDownloadListener);
-        if (res == ERR_NO_MORE_FILES)
-          finishFilesDownload(res);
-      }
-      else
-        finishFilesDownload(errorCode);
-    }
-  };
+          if (errorCode == ERR_DOWNLOAD_SUCCESS)
+          {
+            final int res = nativeStartNextFileDownload(mResourcesDownloadListener);
+            if (res == ERR_NO_MORE_FILES)
+              finishFilesDownload(res);
+          }
+          else
+            finishFilesDownload(errorCode);
+        }
+      };
 
-  private final MapManager.StorageCallback mCountryDownloadListener = new MapManager.StorageCallback()
-  {
+  private final MapManager.StorageCallback mCountryDownloadListener = new MapManager.StorageCallback() {
     @Override
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
@@ -154,14 +150,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
         switch (item.newStatus)
         {
-        case CountryItem.STATUS_DONE:
-          mAreResourcesDownloaded = true;
-          showMap();
-          return;
+          case CountryItem.STATUS_DONE:
+            mAreResourcesDownloaded = true;
+            showMap();
+            return;
 
-        case CountryItem.STATUS_FAILED:
-          MapManager.showError(DownloadResourcesLegacyActivity.this, item, null);
-          return;
+          case CountryItem.STATUS_FAILED:
+            MapManager.showError(DownloadResourcesLegacyActivity.this, item, null);
+            return;
         }
       }
     }
@@ -236,8 +232,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private void setDownloadMessage(int bytesToDownload)
   {
-    mTvMessage.setText(getString(R.string.download_resources,
-                                 StringUtils.getFileSizeString(this, bytesToDownload)));
+    mTvMessage.setText(getString(R.string.download_resources, StringUtils.getFileSizeString(this, bytesToDownload)));
   }
 
   private boolean prepareFilesDownload(boolean showMap)
@@ -373,7 +368,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         CountryItem item = CountryItem.fill(mCurrentCountry);
         UiUtils.hide(mChbDownloadCountry);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
-        mProgress.setMax((int)item.totalSize);
+        mProgress.setMax((int) item.totalSize);
         mProgress.setProgressCompat(0, true);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);
@@ -397,8 +392,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     if (mAlertDialog != null && mAlertDialog.isShowing())
       return;
 
-    @StringRes final int titleId;
-    @StringRes final int messageId = switch (result)
+    @StringRes
+    final int titleId;
+    @StringRes
+    final int messageId = switch (result)
     {
       case ERR_NOT_ENOUGH_FREE_SPACE ->
       {
@@ -413,8 +410,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       case ERR_DOWNLOAD_ERROR ->
       {
         titleId = R.string.connection_failure;
-        yield (ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
-                                                      : R.string.common_check_internet_connection_dialog);
+        yield(ConnectionState.INSTANCE.isConnected() ? R.string.download_has_failed
+                                                     : R.string.common_check_internet_connection_dialog);
       }
       case ERR_DISK_ERROR ->
       {
@@ -425,16 +422,17 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     };
 
     mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(titleId)
-        .setMessage(messageId)
-        .setCancelable(true)
-        .setOnCancelListener((dialog) -> setAction(PAUSE))
-        .setPositiveButton(R.string.try_again, (dialog, which) -> {
-          setAction(TRY_AGAIN);
-          onTryAgainClicked();
-        })
-        .setOnDismissListener(dialog -> mAlertDialog = null)
-        .show();
+                       .setTitle(titleId)
+                       .setMessage(messageId)
+                       .setCancelable(true)
+                       .setOnCancelListener((dialog) -> setAction(PAUSE))
+                       .setPositiveButton(R.string.try_again,
+                                          (dialog, which) -> {
+                                            setAction(TRY_AGAIN);
+                                            onTryAgainClicked();
+                                          })
+                       .setOnDismissListener(dialog -> mAlertDialog = null)
+                       .show();
   }
 
   @Override

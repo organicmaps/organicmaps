@@ -7,13 +7,11 @@ import androidx.car.app.model.Header;
 import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.car.screens.base.BaseScreen;
 import app.organicmaps.car.util.Colors;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.util.StringUtils;
-
 import java.util.List;
 
 public abstract class DownloadMapsScreen extends BaseScreen
@@ -100,10 +98,11 @@ public abstract class DownloadMapsScreen extends BaseScreen
 
   private void onDownload()
   {
-    getScreenManager().pushForResult(new DownloaderScreen(getCarContext(), mMissingMaps, mIsCancelActionDisabled), result -> {
-      setResult(result);
-      finish();
-    });
+    getScreenManager().pushForResult(new DownloaderScreen(getCarContext(), mMissingMaps, mIsCancelActionDisabled),
+                                     result -> {
+                                       setResult(result);
+                                       finish();
+                                     });
   }
 
   @NonNull

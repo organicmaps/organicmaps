@@ -3,12 +3,10 @@ package app.organicmaps.util;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.TypedValue;
-
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.util.Config;
 
@@ -38,7 +36,7 @@ public final class ThemeUtils
   {
     int styleRef = getResource(context, style);
 
-    int[] attrs = new int[] { attr };
+    int[] attrs = new int[] {attr};
     TypedArray ta = context.getTheme().obtainStyledAttributes(styleRef, attrs);
     ta.getValue(0, VALUE_BUFFER);
     ta.recycle();
@@ -88,7 +86,7 @@ public final class ThemeUtils
   {
     String navAutoTheme = context.getString(R.string.theme_nav_auto);
     return navAutoTheme.equals(theme);
-}
+  }
 
   public static boolean isValidTheme(@NonNull Context context, String theme)
   {

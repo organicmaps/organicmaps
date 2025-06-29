@@ -3,83 +3,73 @@ package app.organicmaps.sdk.maplayer.traffic;
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-
 import java.util.List;
 
 @SuppressWarnings("unused")
-enum TrafficState
-{
-  DISABLED
-      {
-        @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
-        {
-          callback.onDisabled();
-        }
-      },
+enum TrafficState {
+  DISABLED {
+    @Override
+    protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
+    {
+      callback.onDisabled();
+    }
+  },
 
-  ENABLED
-      {
-        @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
-        {
-          callback.onEnabled();
-        }
-      },
+  ENABLED {
+    @Override
+    protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
+    {
+      callback.onEnabled();
+    }
+  },
 
-  WAITING_DATA
-      {
-        @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
-        {
-          callback.onWaitingData();
-        }
-      },
+  WAITING_DATA {
+    @Override
+    protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
+    {
+      callback.onWaitingData();
+    }
+  },
 
-  OUTDATED
-      {
-        @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
-        {
-          callback.onOutdated();
-        }
-      },
+  OUTDATED {
+    @Override
+    protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
+    {
+      callback.onOutdated();
+    }
+  },
 
-  NO_DATA
-      {
-        @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
-        {
-          callback.onNoData();
-        }
-      },
+  NO_DATA {
+    @Override
+    protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
+    {
+      callback.onNoData();
+    }
+  },
 
-  NETWORK_ERROR
-      {
-        @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
-        {
-          callback.onNetworkError();
-        }
-      },
+  NETWORK_ERROR {
+    @Override
+    protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
+    {
+      callback.onNetworkError();
+    }
+  },
 
-  EXPIRED_DATA
-      {
-        @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
-        {
-          callback.onExpiredData();
-        }
-      },
+  EXPIRED_DATA {
+    @Override
+    protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
+    {
+      callback.onExpiredData();
+    }
+  },
 
-  EXPIRED_APP
-      {
-        @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
-        {
-          callback.onExpiredApp();
-        }
-      };
+  EXPIRED_APP {
+    @Override
+    protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
+    {
+      callback.onExpiredApp();
+    }
+  };
 
   public void activate(@NonNull List<TrafficManager.TrafficCallback> trafficCallbacks)
   {

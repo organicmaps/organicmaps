@@ -2,7 +2,6 @@ package app.organicmaps.car.screens.download;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.model.Action;
-
 import app.organicmaps.R;
 
 class DownloadMapsForViewScreen extends DownloadMapsScreen

@@ -12,7 +12,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
-
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DimenRes;
@@ -20,9 +19,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
-
 import app.organicmaps.R;
-
 import java.util.Objects;
 
 public final class Graphics
@@ -45,9 +42,8 @@ public final class Graphics
   }
 
   @NonNull
-  public static Drawable drawCircleAndImage(int color, @DimenRes int sizeResId,
-                                            @DrawableRes int imageResId, @DimenRes int sizeImgResId,
-                                            @NonNull Context context)
+  public static Drawable drawCircleAndImage(int color, @DimenRes int sizeResId, @DrawableRes int imageResId,
+                                            @DimenRes int sizeImgResId, @NonNull Context context)
   {
     final Resources res = context.getResources();
     final int size = res.getDimensionPixelSize(sizeResId);
@@ -92,7 +88,7 @@ public final class Graphics
 
   public static Drawable tint(Context context, @DrawableRes int resId, @AttrRes int tintAttr)
   {
-    //noinspection deprecation
+    // noinspection deprecation
     return tint(context, AppCompatResources.getDrawable(context, resId), tintAttr);
   }
 

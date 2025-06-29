@@ -13,28 +13,27 @@ import androidx.car.app.model.CarIcon;
 import androidx.car.app.model.Row;
 import androidx.car.app.navigation.model.MapController;
 import androidx.core.graphics.drawable.IconCompat;
-
-import app.organicmaps.sdk.Map;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.settings.SettingsScreen;
+import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.editor.OpeningHours;
 import app.organicmaps.sdk.editor.data.Timetable;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.util.Utils;
-
 import java.util.Calendar;
 
 public final class UiHelpers
 {
   @NonNull
-  public static ActionStrip createSettingsActionStrip(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer)
+  public static ActionStrip createSettingsActionStrip(@NonNull BaseMapScreen mapScreen,
+                                                      @NonNull SurfaceRenderer surfaceRenderer)
   {
     return new ActionStrip.Builder().addAction(createSettingsAction(mapScreen, surfaceRenderer)).build();
   }
@@ -48,7 +47,8 @@ public final class UiHelpers
     final Action panAction = new Action.Builder(Action.PAN).build();
     final Action location = createLocationButton(context);
     final Action zoomIn = new Action.Builder().setIcon(iconPlus).setOnClickListener(surfaceRenderer::onZoomIn).build();
-    final Action zoomOut = new Action.Builder().setIcon(iconMinus).setOnClickListener(surfaceRenderer::onZoomOut).build();
+    final Action zoomOut =
+        new Action.Builder().setIcon(iconMinus).setOnClickListener(surfaceRenderer::onZoomOut).build();
     return new ActionStrip.Builder()
         .addAction(panAction)
         .addAction(zoomIn)
@@ -70,35 +70,42 @@ public final class UiHelpers
   }
 
   @NonNull
-  public static Action createSettingsActionForResult(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer, @NonNull OnScreenResultListener onScreenResultListener)
+  public static Action createSettingsActionForResult(@NonNull BaseMapScreen mapScreen,
+                                                     @NonNull SurfaceRenderer surfaceRenderer,
+                                                     @NonNull OnScreenResultListener onScreenResultListener)
   {
     return createSettingsAction(mapScreen, surfaceRenderer, onScreenResultListener);
   }
 
   @NonNull
-  private static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer, @Nullable OnScreenResultListener onScreenResultListener)
+  private static Action createSettingsAction(@NonNull BaseMapScreen mapScreen, @NonNull SurfaceRenderer surfaceRenderer,
+                                             @Nullable OnScreenResultListener onScreenResultListener)
   {
     final CarContext context = mapScreen.getCarContext();
-    final CarIcon iconSettings = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_settings)).build();
+    final CarIcon iconSettings =
+        new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_settings)).build();
 
-    return new Action.Builder().setIcon(iconSettings).setOnClickListener(() -> {
-      // Action.onClickListener for the Screen A maybe called even if the Screen B is shown now.
-      // We need to check it
-      // This may happen when we use PopToRootHack:
-      //   * ScreenManager.popToRoot()
-      //   * The root screen (A) is shown for a while
-      //   * User clicks on some action
-      //   * ScreenManager.push(new Screen())
-      //   * New screen (B) is displayed now
-      //   * Action.onClickListener is called for action from root screen (A)
-      if (mapScreen.getScreenManager().getTop() != mapScreen)
-        return;
-      final Screen settingsScreen = new SettingsScreen(context, surfaceRenderer);
-      if (onScreenResultListener != null)
-        mapScreen.getScreenManager().pushForResult(settingsScreen, onScreenResultListener);
-      else
-        mapScreen.getScreenManager().push(settingsScreen);
-    }).build();
+    return new Action.Builder()
+        .setIcon(iconSettings)
+        .setOnClickListener(() -> {
+          // Action.onClickListener for the Screen A maybe called even if the Screen B is shown now.
+          // We need to check it
+          // This may happen when we use PopToRootHack:
+          //   * ScreenManager.popToRoot()
+          //   * The root screen (A) is shown for a while
+          //   * User clicks on some action
+          //   * ScreenManager.push(new Screen())
+          //   * New screen (B) is displayed now
+          //   * Action.onClickListener is called for action from root screen (A)
+          if (mapScreen.getScreenManager().getTop() != mapScreen)
+            return;
+          final Screen settingsScreen = new SettingsScreen(context, surfaceRenderer);
+          if (onScreenResultListener != null)
+            mapScreen.getScreenManager().pushForResult(settingsScreen, onScreenResultListener);
+          else
+            mapScreen.getScreenManager().push(settingsScreen);
+        })
+        .build();
   }
 
   @Nullable
@@ -112,7 +119,8 @@ public final class UiHelpers
       return null;
 
     final Row.Builder builder = new Row.Builder();
-    builder.setImage(new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_operating_hours)).build());
+    builder.setImage(
+        new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_operating_hours)).build());
 
     if (isEmptyTT)
       builder.setTitle(ohStr);
@@ -159,25 +167,28 @@ public final class UiHelpers
     final int locationMode = Map.isEngineCreated() ? LocationState.getMode() : LocationState.NOT_FOLLOW_NO_POSITION;
     CarColor tintColor = Colors.DEFAULT;
 
-    @DrawableRes int drawableRes;
+    @DrawableRes
+    int drawableRes;
     switch (locationMode)
     {
-    case LocationState.PENDING_POSITION, LocationState.NOT_FOLLOW_NO_POSITION -> drawableRes = R.drawable.ic_location_off;
-    case LocationState.NOT_FOLLOW -> drawableRes = R.drawable.ic_not_follow;
-    case LocationState.FOLLOW ->
-    {
-      drawableRes = R.drawable.ic_follow;
-      tintColor = Colors.LOCATION_TINT;
-    }
-    case LocationState.FOLLOW_AND_ROTATE ->
-    {
-      drawableRes = R.drawable.ic_follow_and_rotate;
-      tintColor = Colors.LOCATION_TINT;
-    }
-    default -> throw new IllegalArgumentException("Invalid button mode: " + locationMode);
+      case LocationState.PENDING_POSITION, LocationState.NOT_FOLLOW_NO_POSITION ->
+        drawableRes = R.drawable.ic_location_off;
+      case LocationState.NOT_FOLLOW -> drawableRes = R.drawable.ic_not_follow;
+      case LocationState.FOLLOW ->
+      {
+        drawableRes = R.drawable.ic_follow;
+        tintColor = Colors.LOCATION_TINT;
+      }
+      case LocationState.FOLLOW_AND_ROTATE ->
+      {
+        drawableRes = R.drawable.ic_follow_and_rotate;
+        tintColor = Colors.LOCATION_TINT;
+      }
+      default -> throw new IllegalArgumentException("Invalid button mode: " + locationMode);
     }
 
-    final CarIcon icon = new CarIcon.Builder(IconCompat.createWithResource(context, drawableRes)).setTint(tintColor).build();
+    final CarIcon icon =
+        new CarIcon.Builder(IconCompat.createWithResource(context, drawableRes)).setTint(tintColor).build();
     builder.setIcon(icon);
     builder.setOnClickListener(() -> {
       LocationState.nativeSwitchToNextMode();

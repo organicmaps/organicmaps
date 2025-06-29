@@ -5,17 +5,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentFactory;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
-import app.organicmaps.widget.WheelProgressView;
 import app.organicmaps.sdk.util.UiUtils;
-
+import app.organicmaps.widget.WheelProgressView;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -115,8 +112,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     super.onStart();
     setCancelable(false);
 
-    mSubscribeSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
-    {
+    mSubscribeSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback() {
       {
         update();
       }
@@ -172,12 +168,13 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
     }
   }
 
-  public static RoutingMapsDownloadFragment create(@NonNull FragmentFactory factory, @NonNull Context context, String[] missingMaps)
+  public static RoutingMapsDownloadFragment create(@NonNull FragmentFactory factory, @NonNull Context context,
+                                                   String[] missingMaps)
   {
     Bundle args = new Bundle();
     args.putStringArray(EXTRA_MISSING_MAPS, missingMaps);
-    final RoutingMapsDownloadFragment res = (RoutingMapsDownloadFragment)
-        factory.instantiate(context.getClassLoader(), RoutingMapsDownloadFragment.class.getName());
+    final RoutingMapsDownloadFragment res = (RoutingMapsDownloadFragment) factory.instantiate(
+        context.getClassLoader(), RoutingMapsDownloadFragment.class.getName());
     res.setArguments(args);
     return res;
   }

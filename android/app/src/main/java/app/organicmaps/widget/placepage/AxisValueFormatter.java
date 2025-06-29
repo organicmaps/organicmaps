@@ -1,10 +1,9 @@
 package app.organicmaps.widget.placepage;
 
 import androidx.annotation.NonNull;
-
+import app.organicmaps.sdk.Framework;
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
-import app.organicmaps.sdk.Framework;
 
 public class AxisValueFormatter extends DefaultValueFormatter
 {

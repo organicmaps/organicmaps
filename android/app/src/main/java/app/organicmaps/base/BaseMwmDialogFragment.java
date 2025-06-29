@@ -3,12 +3,10 @@ package app.organicmaps.base;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.DialogFragment;
-
 import app.organicmaps.R;
 import app.organicmaps.util.ThemeUtils;
 
@@ -38,7 +36,7 @@ public class BaseMwmDialogFragment extends DialogFragment
     int style = getStyle();
     int theme = getCustomTheme();
     if (style != STYLE_NORMAL || theme != 0)
-      //noinspection WrongConstant
+      // noinspection WrongConstant
       setStyle(style, theme);
   }
 
@@ -62,5 +60,4 @@ public class BaseMwmDialogFragment extends DialogFragment
       throw new IllegalStateException("Before call this method make sure that the context exists");
     return (Application) context.getApplicationContext();
   }
-
 }

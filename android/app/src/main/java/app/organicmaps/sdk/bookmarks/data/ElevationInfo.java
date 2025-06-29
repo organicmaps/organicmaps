@@ -2,12 +2,9 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,9 +27,8 @@ public class ElevationInfo implements PlacePageData
   private final int mDifficulty;
   private final long mDuration;
 
-  public ElevationInfo(long trackId, @NonNull String name,
-                       @NonNull Point[] points, int ascent, int descent, int minAltitude,
-                       int maxAltitude, int difficulty, long duration)
+  public ElevationInfo(long trackId, @NonNull String name, @NonNull Point[] points, int ascent, int descent,
+                       int minAltitude, int maxAltitude, int difficulty, long duration)
   {
     mId = trackId;
     mName = name;
@@ -155,8 +151,7 @@ public class ElevationInfo implements PlacePageData
       mAltitude = in.readInt();
     }
 
-    public static final Creator<Point> CREATOR = new Creator<>()
-    {
+    public static final Creator<Point> CREATOR = new Creator<>() {
       @Override
       public Point createFromParcel(Parcel in)
       {
@@ -194,8 +189,7 @@ public class ElevationInfo implements PlacePageData
     }
   }
 
-  public static final Creator<ElevationInfo> CREATOR = new Creator<>()
-  {
+  public static final Creator<ElevationInfo> CREATOR = new Creator<>() {
     @Override
     public ElevationInfo createFromParcel(Parcel in)
     {

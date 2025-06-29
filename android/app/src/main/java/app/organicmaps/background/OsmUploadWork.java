@@ -1,7 +1,6 @@
 package app.organicmaps.background;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.work.Constraints;
 import androidx.work.NetworkType;
@@ -17,7 +16,6 @@ import app.organicmaps.sdk.util.log.Logger;
 
 public class OsmUploadWork extends Worker
 {
-
   private static final String TAG = OsmUploadWork.class.getSimpleName();
   private final Context mContext;
   private final WorkerParameters mWorkerParameters;

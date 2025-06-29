@@ -1,9 +1,7 @@
 package app.organicmaps.base;
 
 import android.content.Context;
-
 import androidx.fragment.app.Fragment;
-
 import app.organicmaps.util.Utils;
 
 public class BaseMwmFragment extends Fragment implements OnBackPressListener
@@ -20,5 +18,4 @@ public class BaseMwmFragment extends Fragment implements OnBackPressListener
   {
     return false;
   }
-
 }

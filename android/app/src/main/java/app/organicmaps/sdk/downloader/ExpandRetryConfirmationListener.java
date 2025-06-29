@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.downloader;
 
 import androidx.annotation.Nullable;
-
 import app.organicmaps.util.Utils;
 
 class ExpandRetryConfirmationListener implements Runnable

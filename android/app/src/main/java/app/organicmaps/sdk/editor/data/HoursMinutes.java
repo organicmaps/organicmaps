@@ -2,13 +2,10 @@ package app.organicmaps.sdk.editor.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.util.StringUtils;
-
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -23,8 +20,8 @@ public class HoursMinutes implements Parcelable
 
   // 24 hours or even 25 and higher values are used in OSM data and passed here from JNI calls.
   // Example: 18:00-24:00
-  public HoursMinutes(@IntRange(from = 0, to = 24) long hours,
-                      @IntRange(from = 0, to = 59) long minutes, boolean is24HourFormat)
+  public HoursMinutes(@IntRange(from = 0, to = 24) long hours, @IntRange(from = 0, to = 59) long minutes,
+                      boolean is24HourFormat)
   {
     this.hours = hours;
     this.minutes = minutes;
@@ -64,8 +61,7 @@ public class HoursMinutes implements Parcelable
     dest.writeByte((byte) (m24HourFormat ? 1 : 0));
   }
 
-  public static final Creator<HoursMinutes> CREATOR = new Creator<>()
-  {
+  public static final Creator<HoursMinutes> CREATOR = new Creator<>() {
     @Override
     public HoursMinutes createFromParcel(Parcel in)
     {

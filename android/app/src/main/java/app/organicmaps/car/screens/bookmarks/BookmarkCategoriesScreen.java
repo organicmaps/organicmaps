@@ -10,14 +10,12 @@ import androidx.car.app.model.ListTemplate;
 import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
-
 import app.organicmaps.R;
-import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
-import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
-
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +63,8 @@ public class BookmarkCategoriesScreen extends BaseMapScreen
       Row.Builder itemBuilder = new Row.Builder();
       itemBuilder.setTitle(bookmarkCategory.getName());
       itemBuilder.addText(bookmarkCategory.getDescription());
-      itemBuilder.setOnClickListener(() -> getScreenManager().push(new BookmarksScreen(getCarContext(), getSurfaceRenderer(), bookmarkCategory)));
+      itemBuilder.setOnClickListener(
+          () -> getScreenManager().push(new BookmarksScreen(getCarContext(), getSurfaceRenderer(), bookmarkCategory)));
       itemBuilder.setBrowsable(true);
       builder.addItem(itemBuilder.build());
     }

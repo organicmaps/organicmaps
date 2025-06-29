@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.CallSuper;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.base.OnBackPressListener;
@@ -21,16 +19,14 @@ import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.search.MapSearchListener;
 import app.organicmaps.sdk.search.SearchEngine;
-import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
-
+import app.organicmaps.widget.PlaceholderView;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapter>
-                             implements OnBackPressListener,
-                                        MenuBottomSheetFragment.MenuBottomSheetInterface
+    implements OnBackPressListener, MenuBottomSheetFragment.MenuBottomSheetInterface
 {
   private DownloaderToolbarController mToolbarController;
 
@@ -43,7 +39,9 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
 
   private int mSubscriberSlot;
 
-  final ActivityResultLauncher<Intent> startVoiceRecognitionForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> mToolbarController.onVoiceRecognitionResult(activityResult));
+  final ActivityResultLauncher<Intent> startVoiceRecognitionForResult =
+      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                                activityResult -> mToolbarController.onVoiceRecognitionResult(activityResult));
 
   private final RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
     @Override
@@ -54,8 +52,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     }
   };
 
-  private final MapSearchListener mSearchListener = new MapSearchListener()
-  {
+  private final MapSearchListener mSearchListener = new MapSearchListener() {
     @Keep
     @Override
     public void onMapSearchResults(@NonNull Result[] results, long timestamp, boolean isLast)
@@ -133,8 +130,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
 
     ViewCompat.setOnApplyWindowInsetsListener(view, new DownloaderInsetsListener(view));
 
-    mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
-    {
+    mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback() {
       @Override
       public void onStatusChanged(List<MapManager.StorageCallbackData> data)
       {
@@ -143,7 +139,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
       }
 
       @Override
-      public void onProgress(String countryId, long localSize, long remoteSize) {}
+      public void onProgress(String countryId, long localSize, long remoteSize)
+      {}
     });
 
     SearchEngine.INSTANCE.addMapListener(mSearchListener);
@@ -214,7 +211,6 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     return mAdapter;
   }
 
-
   @NonNull
   @Override
   public DownloaderAdapter getAdapter()
@@ -237,7 +233,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     if (mAdapter != null && mAdapter.isSearchResultsMode())
       placeholder.setContent(R.string.search_not_found, R.string.search_not_found_query);
     else
-      placeholder.setContent(R.string.downloader_no_downloaded_maps_title, R.string.downloader_no_downloaded_maps_message);
+      placeholder.setContent(R.string.downloader_no_downloaded_maps_title,
+                             R.string.downloader_no_downloaded_maps_message);
   }
 
   @Override

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -18,12 +17,11 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.util.UiUtils;
-import app.organicmaps.util.Utils;
-import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
+import app.organicmaps.util.Utils;
+import app.organicmaps.util.WindowInsetUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.text.NumberFormat;
 
 public class ProfileFragment extends BaseMwmToolbarFragment
@@ -59,15 +57,17 @@ public class ProfileFragment extends BaseMwmToolbarFragment
     mEditsSent = mUserInfoBlock.findViewById(R.id.user_sent_edits);
     mProfileName = mUserInfoBlock.findViewById(R.id.user_profile_name);
     mProfileImage = mUserInfoBlock.findViewById(R.id.user_profile_image);
-    view.findViewById(R.id.about_osm).setOnClickListener((v) -> Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url)));
-    view.findViewById(R.id.osm_history).setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl(requireContext())));
-    view.findViewById(R.id.osm_notes).setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getNotesUrl(requireContext())));
+    view.findViewById(R.id.about_osm)
+        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url)));
+    view.findViewById(R.id.osm_history)
+        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl(requireContext())));
+    view.findViewById(R.id.osm_notes)
+        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getNotesUrl(requireContext())));
 
     View buttonsContainer = view.findViewById(R.id.buttons_container);
     ViewCompat.setOnApplyWindowInsetsListener(
         buttonsContainer,
-        new WindowInsetUtils.PaddingInsetsListener
-            .Builder()
+        new WindowInsetUtils.PaddingInsetsListener.Builder()
             .setInsetsTypeMask(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout())
             .setExcludeTop()
             .build());
@@ -116,11 +116,11 @@ public class ProfileFragment extends BaseMwmToolbarFragment
   {
     new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
         .setMessage(R.string.osm_log_out_confirmation)
-        .setPositiveButton(R.string.yes, (dialog, which) ->
-        {
-          OsmOAuth.clearAuthorization(requireContext());
-          refreshViews();
-        })
+        .setPositiveButton(R.string.yes,
+                           (dialog, which) -> {
+                             OsmOAuth.clearAuthorization(requireContext());
+                             refreshViews();
+                           })
         .setNegativeButton(R.string.no, null)
         .show();
   }

@@ -1,16 +1,12 @@
 package app.organicmaps.bookmarks;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
-
 import java.util.List;
 
-public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHolder>
-    extends RecyclerView.Adapter<V>
+public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V>
 {
   @NonNull
   private final Context mContext;
@@ -54,6 +50,5 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
     if (position < 0 || position > categories.size() - 1)
       throw new ArrayIndexOutOfBoundsException(position);
     return categories.get(position);
-
   }
 }

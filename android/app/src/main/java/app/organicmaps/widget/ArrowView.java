@@ -3,7 +3,6 @@ package app.organicmaps.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 
@@ -43,4 +42,3 @@ public class ArrowView extends AppCompatImageView
     canvas.restore();
   }
 }
-

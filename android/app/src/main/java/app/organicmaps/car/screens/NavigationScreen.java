@@ -17,8 +17,6 @@ import androidx.car.app.navigation.model.TravelEstimate;
 import androidx.car.app.navigation.model.Trip;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.car.CarAppService;
@@ -29,16 +27,16 @@ import app.organicmaps.car.util.Colors;
 import app.organicmaps.car.util.RoutingUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
+import app.organicmaps.routing.NavigationService;
+import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.routing.JunctionInfo;
-import app.organicmaps.routing.NavigationService;
-import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -75,7 +73,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public Template onGetTemplate()
   {
     final NavigationTemplate.Builder builder = new NavigationTemplate.Builder();
-    builder.setBackgroundColor(ThemeUtils.isNightMode(getCarContext()) ? Colors.NAVIGATION_TEMPLATE_BACKGROUND_NIGHT : Colors.NAVIGATION_TEMPLATE_BACKGROUND_DAY);
+    builder.setBackgroundColor(ThemeUtils.isNightMode(getCarContext()) ? Colors.NAVIGATION_TEMPLATE_BACKGROUND_NIGHT
+                                                                       : Colors.NAVIGATION_TEMPLATE_BACKGROUND_DAY);
     builder.setActionStrip(createActionStrip());
     builder.setMapActionStrip(UiHelpers.createMapActionStrip(getCarContext(), getSurfaceRenderer()));
 
@@ -121,7 +120,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onNavigationCancelled()
   {
     if (!mNavigationCancelled)
-      CarToast.makeText(getCarContext(), getCarContext().getString(R.string.trip_finished), CarToast.LENGTH_LONG).show();
+      CarToast.makeText(getCarContext(), getCarContext().getString(R.string.trip_finished), CarToast.LENGTH_LONG)
+          .show();
     finish();
     getScreenManager().popToRoot();
   }
@@ -137,7 +137,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
     MwmApplication.from(getCarContext()).getLocationHelper().addListener(mLocationListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
-      NavigationService.startForegroundService(getCarContext(), CarAppService.getCarNotificationExtender(getCarContext()));
+      NavigationService.startForegroundService(getCarContext(),
+                                               CarAppService.getCarNotificationExtender(getCarContext()));
     updateTrip();
   }
 
@@ -166,7 +167,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private ActionStrip createActionStrip()
   {
     final Action.Builder stopActionBuilder = new Action.Builder();
-    stopActionBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_close)).build());
+    stopActionBuilder.setIcon(
+        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_close)).build());
     stopActionBuilder.setOnClickListener(() -> {
       mNavigationCancelled = true;
       mRoutingController.cancel();
@@ -195,7 +197,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @NonNull
   private NavigationTemplate.NavigationInfo getNavigationInfo()
   {
-    final androidx.car.app.navigation.model.RoutingInfo.Builder builder = new androidx.car.app.navigation.model.RoutingInfo.Builder();
+    final androidx.car.app.navigation.model.RoutingInfo.Builder builder =
+        new androidx.car.app.navigation.model.RoutingInfo.Builder();
 
     if (mTrip.isLoading())
     {
@@ -228,7 +231,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private Action createTtsAction()
   {
     final Action.Builder ttsActionBuilder = new Action.Builder();
-    @DrawableRes final int imgRes = TtsPlayer.isEnabled() ? R.drawable.ic_voice_on : R.drawable.ic_voice_off;
+    @DrawableRes
+    final int imgRes = TtsPlayer.isEnabled() ? R.drawable.ic_voice_on : R.drawable.ic_voice_off;
     ttsActionBuilder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), imgRes)).build());
     ttsActionBuilder.setOnClickListener(() -> {
       TtsPlayer.setEnabled(!TtsPlayer.isEnabled());

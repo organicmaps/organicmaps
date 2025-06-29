@@ -1,9 +1,7 @@
 package app.organicmaps.sdk.maplayer.subway;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.Framework;
 
 public class SubwayManager
@@ -11,7 +9,8 @@ public class SubwayManager
   @NonNull
   private final OnTransitSchemeChangedListener mSchemeChangedListener;
 
-  public SubwayManager(@NonNull Context context) {
+  public SubwayManager(@NonNull Context context)
+  {
     mSchemeChangedListener = new OnTransitSchemeChangedListener.Default(context);
   }
 

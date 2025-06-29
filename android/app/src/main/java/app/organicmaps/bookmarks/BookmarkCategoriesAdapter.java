@@ -7,16 +7,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-
 import java.util.List;
 
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<RecyclerView.ViewHolder>
@@ -122,8 +119,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
       case TYPE_ACTION_HEADER ->
       {
         HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-        headerViewHolder.setAction(mMassOperationAction,
-                                   BookmarkManager.INSTANCE.areAllCategoriesInvisible());
+        headerViewHolder.setAction(mMassOperationAction, BookmarkManager.INSTANCE.areAllCategoriesInvisible());
         headerViewHolder.getText().setText(R.string.bookmark_lists);
       }
       case TYPE_CATEGORY_ITEM ->
@@ -191,7 +187,6 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
 
   private int toCategoryPosition(int adapterPosition)
   {
-
     int type = getItemViewType(adapterPosition);
     if (type != TYPE_CATEGORY_ITEM)
       throw new AssertionError("An element at specified position is not category!");

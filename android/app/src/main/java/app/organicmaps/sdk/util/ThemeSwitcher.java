@@ -5,21 +5,18 @@ import android.app.UiModeManager;
 import android.content.Context;
 import android.location.Location;
 import android.os.Build;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
-
-import java.util.Calendar;
-
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapStyle;
+import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.util.ThemeUtils;
+import java.util.Calendar;
 
 public enum ThemeSwitcher
 {
@@ -28,8 +25,7 @@ public enum ThemeSwitcher
   private static final long CHECK_INTERVAL_MS = 30 * 60 * 1000;
   private static boolean mRendererActive = false;
 
-  private final Runnable mAutoThemeChecker = new Runnable()
-  {
+  private final Runnable mAutoThemeChecker = new Runnable() {
     @Override
     public void run()
     {

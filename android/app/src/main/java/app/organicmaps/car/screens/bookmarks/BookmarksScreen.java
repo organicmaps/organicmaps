@@ -12,12 +12,11 @@ import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.R;
-import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.util.UiHelpers;
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 
 public class BookmarksScreen extends BaseMapScreen
 {
@@ -32,7 +31,8 @@ public class BookmarksScreen extends BaseMapScreen
 
   private boolean mIsOnSortingScreen = false;
 
-  public BookmarksScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer, @NonNull BookmarkCategory bookmarkCategory)
+  public BookmarksScreen(@NonNull CarContext carContext, @NonNull SurfaceRenderer surfaceRenderer,
+                         @NonNull BookmarkCategory bookmarkCategory)
   {
     super(carContext, surfaceRenderer);
     mBookmarkCategory = bookmarkCategory;
@@ -90,7 +90,8 @@ public class BookmarksScreen extends BaseMapScreen
     builder.setIcon(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_sort)).build());
     builder.setOnClickListener(() -> {
       mIsOnSortingScreen = true;
-      getScreenManager().pushForResult(new SortingScreen(getCarContext(), getSurfaceRenderer(), mBookmarkCategory), this::onSortingResult);
+      getScreenManager().pushForResult(new SortingScreen(getCarContext(), getSurfaceRenderer(), mBookmarkCategory),
+                                       this::onSortingResult);
     });
     return builder.build();
   }

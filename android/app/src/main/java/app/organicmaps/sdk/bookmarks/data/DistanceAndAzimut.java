@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.bookmarks.data;
 
 import androidx.annotation.Keep;
-
 import app.organicmaps.sdk.util.Distance;
 
 // Used by JNI.

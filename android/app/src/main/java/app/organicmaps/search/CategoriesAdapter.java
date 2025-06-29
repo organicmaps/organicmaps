@@ -10,19 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.search.DisplayedCategories;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.util.ThemeUtils;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Locale;
@@ -30,8 +27,9 @@ import java.util.Locale;
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ ViewType.CATEGORY })
-  @interface ViewType {
+  @IntDef({ViewType.CATEGORY})
+  @interface ViewType
+  {
     int CATEGORY = 0;
   }
 
@@ -83,17 +81,14 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   @SuppressLint("DiscouragedApi")
   @StringRes
-  private static int getStringResIdByKey(@NonNull Resources resources, @NonNull String packageName,
-                                         @NonNull String key)
+  private static int getStringResIdByKey(@NonNull Resources resources, @NonNull String packageName, @NonNull String key)
   {
     return resources.getIdentifier(key, "string", packageName);
   }
 
   @SuppressLint("DiscouragedApi")
   @DrawableRes
-  private static int getDrawableResIdByKey(@NonNull Context context,
-                                           @NonNull String packageName,
-                                           @NonNull String key)
+  private static int getDrawableResIdByKey(@NonNull Context context, @NonNull String packageName, @NonNull String key)
   {
     final boolean isNightTheme = ThemeUtils.isNightTheme(context);
     String iconId = "ic_" + key;
@@ -149,7 +144,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     private final View mView;
 
     private final boolean mIsLangSupported;
-    private Resources mEnglishResources;  // Lazy-initialized
+    private Resources mEnglishResources; // Lazy-initialized
 
     // Get locale/language of the translations that are used in the app UI and are visible to the user.
     // Handles cases when the primary system language translation is not supported by OM yet.
@@ -198,9 +193,9 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       /// @todo Pass the correct input language. Now the Core always matches "en" together with "m_inputLocale".
       /// We expect that Language.getDefaultLocale() will be called further inside.
       if (mIsLangSupported)
-        mListener.onSearchCategorySelected(mResources.getString(categoryId) + " "/*, getResourcesLanguage()*/);
+        mListener.onSearchCategorySelected(mResources.getString(categoryId) + " " /*, getResourcesLanguage()*/);
       else
-        mListener.onSearchCategorySelected(getEnglishString(categoryId) + " "/*, "en"*/);
+        mListener.onSearchCategorySelected(getEnglishString(categoryId) + " " /*, "en"*/);
     }
 
     void setTextAndIcon(@StringRes int textResId, @DrawableRes int iconResId)

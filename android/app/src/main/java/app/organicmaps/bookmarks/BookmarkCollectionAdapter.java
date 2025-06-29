@@ -3,18 +3,15 @@ package app.organicmaps.bookmarks;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.R;
 import app.organicmaps.adapter.OnItemClickListener;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.util.UiUtils;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
@@ -22,8 +19,9 @@ import java.util.List;
 public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_HEADER_ITEM, TYPE_CATEGORY_ITEM })
-  public @interface SectionType { }
+  @IntDef({TYPE_HEADER_ITEM, TYPE_CATEGORY_ITEM})
+  public @interface SectionType
+  {}
 
   private final static int TYPE_CATEGORY_ITEM = BookmarkManager.CATEGORY;
   private final static int TYPE_HEADER_ITEM = 3;
@@ -63,11 +61,10 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     }
   }
 
-  BookmarkCollectionAdapter(@NonNull BookmarkCategory bookmarkCategory,
-                            @NonNull List<BookmarkCategory> itemsCategories)
+  BookmarkCollectionAdapter(@NonNull BookmarkCategory bookmarkCategory, @NonNull List<BookmarkCategory> itemsCategories)
   {
     mBookmarkCategory = bookmarkCategory;
-    //noinspection AssignmentOrReturnOfFieldWithMutableType
+    // noinspection AssignmentOrReturnOfFieldWithMutableType
     mItemsCategory = itemsCategories;
 
     mSectionCount = 0;
@@ -93,7 +90,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   @NonNull
   private List<BookmarkCategory> getItemsListByType(@SectionType int type)
   {
-      return mItemsCategory;
+    return mItemsCategory;
   }
 
   @NonNull
@@ -129,18 +126,15 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
   @NonNull
   @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
-                                                    @SectionType int viewType)
+  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @SectionType int viewType)
   {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     RecyclerView.ViewHolder holder = null;
 
     if (viewType == TYPE_HEADER_ITEM)
-      holder = new Holders.HeaderViewHolder(inflater.inflate(R.layout.item_bookmark_group_list_header,
-                                                             parent, false));
+      holder = new Holders.HeaderViewHolder(inflater.inflate(R.layout.item_bookmark_group_list_header, parent, false));
     if (viewType == TYPE_CATEGORY_ITEM)
-      holder = new Holders.CollectionViewHolder(inflater.inflate(R.layout.item_bookmark_collection,
-                                                                 parent, false));
+      holder = new Holders.CollectionViewHolder(inflater.inflate(R.layout.item_bookmark_collection, parent, false));
 
     if (holder == null)
       throw new AssertionError("Unsupported view type: " + viewType);
@@ -170,8 +164,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     throw new AssertionError("Position not found: " + position);
   }
 
-  private void bindCollectionHolder(RecyclerView.ViewHolder holder, SectionPosition position,
-                                    @SectionType int type)
+  private void bindCollectionHolder(RecyclerView.ViewHolder holder, SectionPosition position, @SectionType int type)
   {
     final BookmarkCategory category = getGroupByPosition(position, type);
     Holders.CollectionViewHolder collectionViewHolder = (Holders.CollectionViewHolder) holder;
@@ -188,8 +181,7 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
   private void bindHeaderHolder(@NonNull RecyclerView.ViewHolder holder, int nextSectionPosition)
   {
     Holders.HeaderViewHolder headerViewHolder = (Holders.HeaderViewHolder) holder;
-    headerViewHolder.getText()
-                    .setText(holder.itemView.getResources().getString(R.string.bookmarks));
+    headerViewHolder.getText().setText(holder.itemView.getResources().getString(R.string.bookmarks));
     final boolean visibility = !BookmarkManager.INSTANCE.areAllCategoriesVisible();
     headerViewHolder.setAction(mMassOperationAction, visibility);
     updateVisibility(headerViewHolder.itemView);
@@ -251,4 +243,3 @@ public class BookmarkCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     }
   }
 }
-

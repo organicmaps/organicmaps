@@ -1,16 +1,18 @@
 package app.organicmaps.intent;
 
+import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
+
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.IntentCompat;
-
-import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.Map;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.editor.OsmLoginActivity;
+import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.api.ParsedRoutingData;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
@@ -18,18 +20,13 @@ import app.organicmaps.sdk.api.RoutePoint;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.FeatureId;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.editor.OsmLoginActivity;
-import app.organicmaps.routing.RoutingController;
-import app.organicmaps.search.SearchActivity;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
-
+import app.organicmaps.search.SearchActivity;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-
-import static app.organicmaps.api.Const.EXTRA_PICK_POINT;
 
 public class Factory
 {
@@ -81,8 +78,7 @@ public class Factory
 
       switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
       {
-        case RequestType.INCORRECT:
-          return false;
+        case RequestType.INCORRECT: return false;
 
         case RequestType.MAP:
           SearchEngine.INSTANCE.cancelInteractiveSearch();
@@ -95,10 +91,9 @@ public class Factory
           RoutingController.get().setRouterType(data.mRouterType);
           final RoutePoint from = data.mPoints[0];
           final RoutePoint to = data.mPoints[1];
-          RoutingController.get().prepare(MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
-                                                                    from.mName, "", from.mLat, from.mLon),
-                                          MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT,
-                                                                    to.mName, "", to.mLat, to.mLon));
+          RoutingController.get().prepare(
+              MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT, from.mName, "", from.mLat, from.mLon),
+              MapObject.createMapObject(FeatureId.EMPTY, MapObject.API_POINT, to.mName, "", to.mLat, to.mLon));
           return true;
         case RequestType.SEARCH:
         {

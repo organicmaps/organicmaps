@@ -9,16 +9,14 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-
 import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-
 import app.organicmaps.R;
-import app.organicmaps.util.InputUtils;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.InputUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SearchToolbarController extends ToolbarController implements View.OnClickListener
@@ -40,8 +38,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
   private final View mVoiceInput;
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(requireActivity());
   @NonNull
-  private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher()
-  {
+  private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher() {
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count)
     {
@@ -50,8 +47,7 @@ public class SearchToolbarController extends ToolbarController implements View.O
     }
   };
 
-  public SearchToolbarController(@NonNull View root,
-                                 @NonNull Activity activity)
+  public SearchToolbarController(@NonNull View root, @NonNull Activity activity)
   {
     super(root, activity);
     mToolbarContainer = getToolbar().findViewById(R.id.toolbar_container);
@@ -60,17 +56,14 @@ public class SearchToolbarController extends ToolbarController implements View.O
     mQuery = mSearchContainer.findViewById(R.id.query);
     mQuery.setOnClickListener(this);
     mQuery.addTextChangedListener(mTextWatcher);
-    mQuery.setOnEditorActionListener(
-        (v, actionId, event) ->
-        {
-          boolean isSearchDown = (event != null &&
-                                  event.getAction() == KeyEvent.ACTION_DOWN &&
-                                  event.getKeyCode() == KeyEvent.KEYCODE_SEARCH);
+    mQuery.setOnEditorActionListener((v, actionId, event) -> {
+      boolean isSearchDown =
+          (event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_SEARCH);
 
-          boolean isSearchAction = (actionId == EditorInfo.IME_ACTION_SEARCH);
+      boolean isSearchAction = (actionId == EditorInfo.IME_ACTION_SEARCH);
 
-          return (isSearchDown || isSearchAction) && onStartSearchClick();
-        });
+      return (isSearchDown || isSearchAction) && onStartSearchClick();
+    });
     mProgress = mSearchContainer.findViewById(R.id.progress);
     mVoiceInput = mSearchContainer.findViewById(R.id.voice_input);
     mVoiceInput.setOnClickListener(this);
@@ -129,12 +122,11 @@ public class SearchToolbarController extends ToolbarController implements View.O
   {
     try
     {
-      startVoiceRecognition(InputUtils.createIntentForVoiceRecognition(
-          requireActivity().getString(getVoiceInputPrompt())));
+      startVoiceRecognition(
+          InputUtils.createIntentForVoiceRecognition(requireActivity().getString(getVoiceInputPrompt())));
     }
     catch (ActivityNotFoundException e)
-    {
-    }
+    {}
   }
 
   protected @StringRes int getVoiceInputPrompt()
@@ -153,7 +145,10 @@ public class SearchToolbarController extends ToolbarController implements View.O
   {
     return (UiUtils.isVisible(mSearchContainer) ? mQuery.getText().toString() : "");
   }
-  public boolean isCategory() { return mFromCategory; }
+  public boolean isCategory()
+  {
+    return mFromCategory;
+  }
 
   public void setQuery(CharSequence query, boolean fromCategory)
   {
@@ -162,7 +157,10 @@ public class SearchToolbarController extends ToolbarController implements View.O
     if (!TextUtils.isEmpty(query))
       mQuery.setSelection(query.length());
   }
-  public void setQuery(CharSequence query) { setQuery(query, false); }
+  public void setQuery(CharSequence query)
+  {
+    setQuery(query, false);
+  }
 
   public void clear()
   {
@@ -212,16 +210,16 @@ public class SearchToolbarController extends ToolbarController implements View.O
 
   public void onVoiceRecognitionResult(ActivityResult activityResult)
   {
-      if(activityResult.getResultCode() == Activity.RESULT_OK)
+    if (activityResult.getResultCode() == Activity.RESULT_OK)
+    {
+      if (activityResult.getData() == null)
       {
-        if (activityResult.getData() == null)
-        {
-          return;
-        }
-        String recognitionResult = InputUtils.getBestRecognitionResult(activityResult.getData());
-        if (!TextUtils.isEmpty(recognitionResult))
-          setQuery(recognitionResult);
+        return;
       }
+      String recognitionResult = InputUtils.getBestRecognitionResult(activityResult.getData());
+      if (!TextUtils.isEmpty(recognitionResult))
+        setQuery(recognitionResult);
+    }
   }
 
   public void setHint(@StringRes int hint)

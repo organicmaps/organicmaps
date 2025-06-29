@@ -7,16 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.BuildConfig;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.DateUtils;
@@ -45,8 +44,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     mDonateUrl = Config.getDonateUrl(requireContext());
     View root = inflater.inflate(R.layout.about, container, false);
 
-    ((TextView) root.findViewById(R.id.version))
-        .setText(BuildConfig.VERSION_NAME);
+    ((TextView) root.findViewById(R.id.version)).setText(BuildConfig.VERSION_NAME);
 
     final boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
@@ -82,7 +80,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     {
       if (Config.isNY())
         donateView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_christmas_tree, 0,
-            R.drawable.ic_christmas_tree, 0);
+                                                                   R.drawable.ic_christmas_tree, 0);
       setupItem(R.id.donate, isLandscape, root);
     }
 
@@ -94,8 +92,10 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     setupItem(R.id.copyright, false, root);
     View termOfUseView = root.findViewById(R.id.term_of_use_link);
     View privacyPolicyView = root.findViewById(R.id.privacy_policy);
-    termOfUseView.setOnClickListener(v -> Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "terms/"));
-    privacyPolicyView.setOnClickListener(v -> Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "privacy/"));
+    termOfUseView.setOnClickListener(
+        v -> Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "terms/"));
+    privacyPolicyView.setOnClickListener(
+        v -> Utils.openUrl(requireActivity(), getResources().getString(R.string.translated_om_site_url) + "privacy/"));
 
     shareLauncher = SharingUtils.RegisterLauncher(this);
 

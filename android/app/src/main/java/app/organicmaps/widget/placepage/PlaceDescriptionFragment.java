@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -13,7 +12,6 @@ import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
-
 import java.util.Objects;
 
 public class PlaceDescriptionFragment extends BaseMwmFragment
@@ -29,14 +27,12 @@ public class PlaceDescriptionFragment extends BaseMwmFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mDescription = Objects.requireNonNull(requireArguments()
-                                                 .getString(EXTRA_DESCRIPTION));
+    mDescription = Objects.requireNonNull(requireArguments().getString(EXTRA_DESCRIPTION));
   }
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                           @Nullable Bundle savedInstanceState)
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_place_description, container, false);
     WebView webView = root.findViewById(R.id.webview);

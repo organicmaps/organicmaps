@@ -2,13 +2,10 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import app.organicmaps.sdk.content.DataSource;
-
 import java.util.List;
 
-public class CategoryDataSource extends RecyclerView.AdapterDataObserver implements
-                                                                         DataSource<BookmarkCategory>
+public class CategoryDataSource extends RecyclerView.AdapterDataObserver implements DataSource<BookmarkCategory>
 {
   @NonNull
   private BookmarkCategory mCategory;

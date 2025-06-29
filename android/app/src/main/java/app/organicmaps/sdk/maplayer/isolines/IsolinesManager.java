@@ -1,9 +1,7 @@
 package app.organicmaps.sdk.maplayer.isolines;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
-
 import app.organicmaps.sdk.Framework;
 
 public class IsolinesManager

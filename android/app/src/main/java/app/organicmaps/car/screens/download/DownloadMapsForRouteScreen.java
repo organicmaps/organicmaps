@@ -2,10 +2,8 @@ package app.organicmaps.car.screens.download;
 
 import androidx.annotation.NonNull;
 import androidx.car.app.model.Action;
-
 import app.organicmaps.R;
 import app.organicmaps.routing.ResultCodesHelper;
-
 import java.util.Objects;
 
 class DownloadMapsForRouteScreen extends DownloadMapsScreen
@@ -17,8 +15,11 @@ class DownloadMapsForRouteScreen extends DownloadMapsScreen
   {
     super(builder);
 
-    mTitle = ResultCodesHelper.getDialogTitleSubtitle(builder.mCarContext, builder.mResultCode, Objects.requireNonNull(builder.mMissingMaps).length)
-        .getTitleMessage().first;
+    mTitle = ResultCodesHelper
+                 .getDialogTitleSubtitle(builder.mCarContext, builder.mResultCode,
+                                         Objects.requireNonNull(builder.mMissingMaps).length)
+                 .getTitleMessage()
+                 .first;
   }
 
   @NonNull
@@ -35,7 +36,8 @@ class DownloadMapsForRouteScreen extends DownloadMapsScreen
     final int mapsCount = getMissingMaps().size();
     if (mapsCount == 1)
       return DownloaderHelpers.getCountryName(getMissingMaps().get(0)) + "\n" + mapsSize;
-    return getCarContext().getString(R.string.downloader_status_maps) + " (" + getMissingMaps().size() + "): " + mapsSize;
+    return getCarContext().getString(R.string.downloader_status_maps) + " (" + getMissingMaps().size()
+  + "): " + mapsSize;
   }
 
   @NonNull

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -37,8 +36,7 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
   private T mAdapter;
 
   @NonNull
-  private final View.OnClickListener mNavigationClickListener
-      = view -> Utils.navigateToParent(requireActivity());
+  private final View.OnClickListener mNavigationClickListener = view -> Utils.navigateToParent(requireActivity());
 
   @NonNull
   protected abstract T createAdapter();

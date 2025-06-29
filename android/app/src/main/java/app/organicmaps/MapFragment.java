@@ -10,17 +10,14 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ConfigurationHelper;
-
 import app.organicmaps.base.BaseMwmFragment;
-import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.MapRenderingListener;
+import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.util.log.Logger;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MapFragment extends BaseMwmFragment implements View.OnTouchListener, SurfaceHolder.Callback
@@ -71,7 +68,8 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height)
   {
     Logger.d(TAG);
-    mMap.onSurfaceChanged(requireContext(), surfaceHolder.getSurface(), surfaceHolder.getSurfaceFrame(), surfaceHolder.isCreating());
+    mMap.onSurfaceChanged(requireContext(), surfaceHolder.getSurface(), surfaceHolder.getSurfaceFrame(),
+                          surfaceHolder.isCreating());
   }
 
   @Override

@@ -5,7 +5,6 @@ import static app.organicmaps.sdk.util.ConnectionState.Type.NONE;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,8 +61,7 @@ public enum ConnectionState
   @Nullable
   public NetworkInfo getActiveNetwork()
   {
-    ConnectivityManager manager =
-        ((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE));
+    ConnectivityManager manager = ((ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE));
     if (manager == null)
       return null;
 

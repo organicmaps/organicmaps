@@ -2,7 +2,6 @@ package app.organicmaps.sdk.routing;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +28,8 @@ public final class TransitRouteInfo
   private final TransitStepInfo[] mSteps;
 
   private TransitRouteInfo(@NonNull String totalDistance, @NonNull String totalDistanceUnits, int totalTimeInSec,
-                          @NonNull String totalPedestrianDistance, @NonNull String totalPedestrianDistanceUnits,
-                          int totalPedestrianTimeInSec, @NonNull TransitStepInfo[] steps)
+                           @NonNull String totalPedestrianDistance, @NonNull String totalPedestrianDistanceUnits,
+                           int totalPedestrianTimeInSec, @NonNull TransitStepInfo[] steps)
   {
     mTotalDistance = totalDistance;
     mTotalDistanceUnits = totalDistanceUnits;

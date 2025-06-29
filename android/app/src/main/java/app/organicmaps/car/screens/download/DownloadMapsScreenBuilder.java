@@ -3,9 +3,7 @@ package app.organicmaps.car.screens.download;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
-
 import app.organicmaps.routing.ResultCodesHelper;
-
 import java.util.Objects;
 
 public class DownloadMapsScreenBuilder

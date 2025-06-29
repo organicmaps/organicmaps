@@ -8,15 +8,12 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-
 import app.organicmaps.BuildConfig;
 import app.organicmaps.sdk.util.log.Logger;
-
 import java.text.DecimalFormatSymbols;
 import java.util.Currency;
 import java.util.Locale;
@@ -40,7 +37,7 @@ public class Utils
   @Nullable
   public static String getCurrencyCode()
   {
-    Locale[] locales = { Locale.getDefault(), Locale.US };
+    Locale[] locales = {Locale.getDefault(), Locale.US};
     for (Locale locale : locales)
     {
       Currency currency = getCurrencyForLocale(locale);
@@ -81,7 +78,6 @@ public class Utils
   {
     return Locale.getDefault().getLanguage();
   }
-
 
   // Called from JNI.
   @Keep
@@ -178,8 +174,9 @@ public class Utils
   @NonNull
   public static String getMyPositionBookmarkName(@NonNull Context context)
   {
-    return DateUtils.formatDateTime(context, System.currentTimeMillis(),
-                                    DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
+    return DateUtils.formatDateTime(
+        context, System.currentTimeMillis(),
+        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
   }
 
   // Called from JNI.
@@ -238,8 +235,7 @@ public class Utils
     if (TextUtils.isEmpty(type))
       return "";
 
-    String key = "type." + type.replace('-', '.')
-                               .replace(':', '_');
+    String key = "type." + type.replace('-', '.').replace(':', '_');
     return getLocalizedFeatureByKey(context, key);
   }
 
@@ -267,8 +263,7 @@ public class Utils
       return context.getString(nameId);
     }
     catch (Resources.NotFoundException e)
-    {
-    }
+    {}
     return brand;
   }
 }

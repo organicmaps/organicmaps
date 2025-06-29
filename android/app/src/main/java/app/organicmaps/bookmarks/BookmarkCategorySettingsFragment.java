@@ -12,21 +12,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.util.Utils;
-
 import app.organicmaps.util.InputUtils;
+import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
 import java.util.Objects;
 
 public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
@@ -50,14 +46,13 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
   {
     super.onCreate(savedInstanceState);
     final Bundle args = requireArguments();
-    mCategory = Objects.requireNonNull(Utils.getParcelable(args,
-        BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
+    mCategory = Objects.requireNonNull(
+        Utils.getParcelable(args, BookmarkCategorySettingsActivity.EXTRA_BOOKMARK_CATEGORY, BookmarkCategory.class));
   }
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                           @Nullable Bundle savedInstanceState)
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_bookmark_category_settings, container, false);
     setHasOptionsMenu(true);
@@ -71,13 +66,13 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
     TextInputLayout clearNameBtn = root.findViewById(R.id.edit_list_name_input);
     clearNameBtn.setEndIconOnClickListener(v -> clearAndFocus(mEditCategoryNameView));
     mEditCategoryNameView.setText(mCategory.getName());
-    InputFilter[] f = { new InputFilter.LengthFilter(TEXT_LENGTH_LIMIT) };
+    InputFilter[] f = {new InputFilter.LengthFilter(TEXT_LENGTH_LIMIT)};
     mEditCategoryNameView.setFilters(f);
     mEditCategoryNameView.requestFocus();
-    mEditCategoryNameView.addTextChangedListener(new TextWatcher()
-    {
+    mEditCategoryNameView.addTextChangedListener(new TextWatcher() {
       @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+      {}
 
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
@@ -86,7 +81,8 @@ public class BookmarkCategorySettingsFragment extends BaseMwmToolbarFragment
       }
 
       @Override
-      public void afterTextChanged(Editable editable) {}
+      public void afterTextChanged(Editable editable)
+      {}
     });
     mEditDescView = root.findViewById(R.id.edit_description);
     mEditDescView.setText(mCategory.getDescription());

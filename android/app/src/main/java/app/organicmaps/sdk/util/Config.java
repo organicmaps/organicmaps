@@ -3,7 +3,6 @@ package app.organicmaps.sdk.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import app.organicmaps.BuildConfig;
@@ -255,7 +254,8 @@ public final class Config
   {
     String autoTheme = MwmApplication.from(context).getString(R.string.theme_auto);
     String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
-    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res) || ThemeUtils.isNavAutoTheme(context, res))
+    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res)
+        || ThemeUtils.isNavAutoTheme(context, res))
       return res;
 
     return autoTheme;
@@ -343,8 +343,8 @@ public final class Config
   {
     final String url = getString(KEY_DONATE_URL);
     // Enable donations by default if not Google or Huawei. Replace organicmaps.app/donate/ with localized page.
-    if ((url.isEmpty() && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei")) ||
-        url.endsWith("organicmaps.app/donate/"))
+    if ((url.isEmpty() && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei"))
+        || url.endsWith("organicmaps.app/donate/"))
       return context.getString(R.string.translated_om_site_url) + "donate/";
     return url;
   }
@@ -389,10 +389,7 @@ public final class Config
 
   public static void setFirstStartDialogSeen(@NonNull Context context)
   {
-    MwmApplication.prefs(context)
-        .edit()
-        .putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true)
-        .apply();
+    MwmApplication.prefs(context).edit().putBoolean(KEY_MISC_FIRST_START_DIALOG_SEEN, true).apply();
   }
 
   public static boolean isSearchHistoryEnabled()
@@ -466,7 +463,6 @@ public final class Config
     {
       setBool(Keys.STREETS, enabled);
     }
-
   }
 
   private static native boolean nativeHasConfigValue(String name);

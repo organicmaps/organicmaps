@@ -24,8 +24,8 @@ public final class TransitStepInfo
   private final int mColor;
   private final int mIntermediateIndex;
 
-  private TransitStepInfo(int type, @Nullable String distance, @Nullable String distanceUnits,
-                          int timeInSec, @Nullable String number, int color, int intermediateIndex)
+  private TransitStepInfo(int type, @Nullable String distance, @Nullable String distanceUnits, int timeInSec,
+                          @Nullable String number, int color, int intermediateIndex)
   {
     mType = TransitStepType.values()[type];
     mDistance = distance;

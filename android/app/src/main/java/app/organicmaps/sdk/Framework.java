@@ -1,12 +1,10 @@
 package app.organicmaps.sdk;
 
 import android.graphics.Bitmap;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
-
 import app.organicmaps.sdk.api.ParsedRoutingData;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
@@ -18,14 +16,13 @@ import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingInfo;
-import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.routing.RoutingListener;
 import app.organicmaps.sdk.routing.RoutingLoadPointsListener;
 import app.organicmaps.sdk.routing.RoutingProgressListener;
 import app.organicmaps.sdk.routing.RoutingRecommendationListener;
+import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.settings.SpeedCameraMode;
 import app.organicmaps.sdk.util.Constants;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,8 +60,8 @@ public class Framework
 
   public static String getHttpGe0Url(double lat, double lon, double zoomLevel, String name)
   {
-    return nativeGetGe0Url(lat, lon, zoomLevel, name).replaceFirst(
-            Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
+    return nativeGetGe0Url(lat, lon, zoomLevel, name)
+        .replaceFirst(Constants.Url.SHORT_SHARE_PREFIX, Constants.Url.HTTP_SHARE_PREFIX);
   }
 
   /**
@@ -74,14 +71,12 @@ public class Framework
    * @return Bitmap if there's pedestrian or bicycle route and null otherwise.
    */
   @Nullable
-  public static Bitmap generateRouteAltitudeChart(int width, int height,
-                                                  @NonNull RouteAltitudeLimits limits)
+  public static Bitmap generateRouteAltitudeChart(int width, int height, @NonNull RouteAltitudeLimits limits)
   {
     if (width <= 0 || height <= 0)
       return null;
 
-    final int[] altitudeChartBits = Framework.nativeGenerateRouteAltitudeChartBits(width, height,
-                                                                                   limits);
+    final int[] altitudeChartBits = Framework.nativeGenerateRouteAltitudeChartBits(width, height, limits);
     if (altitudeChartBits == null)
       return null;
 
@@ -102,9 +97,12 @@ public class Framework
   @Size(2)
   public static native double[] nativeGetScreenRectCenter();
 
-  public static native DistanceAndAzimut nativeGetDistanceAndAzimuth(double dstMerX, double dstMerY, double srcLat, double srcLon, double north);
+  public static native DistanceAndAzimut nativeGetDistanceAndAzimuth(double dstMerX, double dstMerY, double srcLat,
+                                                                     double srcLon, double north);
 
-  public static native DistanceAndAzimut nativeGetDistanceAndAzimuthFromLatLon(double dstLat, double dstLon, double srcLat, double srcLon, double north);
+  public static native DistanceAndAzimut nativeGetDistanceAndAzimuthFromLatLon(double dstLat, double dstLon,
+                                                                               double srcLat, double srcLon,
+                                                                               double north);
 
   public static native String nativeFormatLatLon(double lat, double lon, int coordFormat);
 
@@ -121,20 +119,20 @@ public class Framework
 
   public static native void nativeRemovePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
 
-//  @UiThread
-//  public static native String nativeGetOutdatedCountriesString();
-//
-//  @UiThread
-//  @NonNull
-//  public static native String[] nativeGetOutdatedCountries();
-//
-//  @UiThread
-//  @DoAfterUpdate
-//  public static native int nativeToDoAfterUpdate();
-//
-//  public static native boolean nativeIsDataVersionChanged();
-//
-//  public static native void nativeUpdateSavedDataVersion();
+  //  @UiThread
+  //  public static native String nativeGetOutdatedCountriesString();
+  //
+  //  @UiThread
+  //  @NonNull
+  //  public static native String[] nativeGetOutdatedCountries();
+  //
+  //  @UiThread
+  //  @DoAfterUpdate
+  //  public static native int nativeToDoAfterUpdate();
+  //
+  //  public static native boolean nativeIsDataVersionChanged();
+  //
+  //  public static native void nativeUpdateSavedDataVersion();
 
   private static native long nativeGetDataVersion();
 
@@ -160,7 +158,8 @@ public class Framework
   public static native ParsedSearchRequest nativeGetParsedSearchRequest();
   public static native @Nullable String nativeGetParsedAppName();
   public static native @Nullable String nativeGetParsedOAuth2Code();
-  @Nullable @Size(2)
+  @Nullable
+  @Size(2)
   public static native double[] nativeGetParsedCenterLatLon();
   public static native @Nullable String nativeGetParsedBackUrl();
 
@@ -205,7 +204,8 @@ public class Framework
   public static native JunctionInfo[] nativeGetRouteJunctionPoints();
 
   @Nullable
-  public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height, RouteAltitudeLimits routeAltitudeLimits);
+  public static native final int[] nativeGenerateRouteAltitudeChartBits(int width, int height,
+                                                                        RouteAltitudeLimits routeAltitudeLimits);
 
   // When an end user is going to a turn he gets sound turn instructions.
   // If C++ part wants the client to pronounce an instruction nativeGenerateTurnNotifications returns
@@ -235,14 +235,12 @@ public class Framework
 
   public static void addRoutePoint(RouteMarkData point, boolean reorderIntermediatePoints)
   {
-    Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType,
-                                  point.mIntermediateIndex, point.mIsMyPosition,
-                                  point.mLat, point.mLon, reorderIntermediatePoints);
+    Framework.nativeAddRoutePoint(point.mTitle, point.mSubtitle, point.mPointType, point.mIntermediateIndex,
+                                  point.mIsMyPosition, point.mLat, point.mLon, reorderIntermediatePoints);
   }
 
   public static native void nativeAddRoutePoint(String title, String subtitle, @NonNull RouteMarkType markType,
-                                                int intermediateIndex, boolean isMyPosition,
-                                                double lat, double lon,
+                                                int intermediateIndex, boolean isMyPosition, double lat, double lon,
                                                 boolean reorderIntermediatePoints);
 
   public static native void nativeRemoveRoutePoints();

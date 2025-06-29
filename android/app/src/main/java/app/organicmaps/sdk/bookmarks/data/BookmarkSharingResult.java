@@ -3,7 +3,6 @@ package app.organicmaps.sdk.bookmarks.data;
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -13,8 +12,9 @@ import java.lang.annotation.RetentionPolicy;
 public class BookmarkSharingResult
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SUCCESS, EMPTY_CATEGORY, ARCHIVE_ERROR, FILE_ERROR })
-  public @interface Code {}
+  @IntDef({SUCCESS, EMPTY_CATEGORY, ARCHIVE_ERROR, FILE_ERROR})
+  public @interface Code
+  {}
 
   public static final int SUCCESS = 0;
   public static final int EMPTY_CATEGORY = 1;
@@ -33,7 +33,8 @@ public class BookmarkSharingResult
   @SuppressWarnings("unused")
   private final String mMimeType;
 
-  public BookmarkSharingResult(long[] categoriesIds, @Code int code, @NonNull String sharingPath, @NonNull String mimeType, @NonNull String errorString)
+  public BookmarkSharingResult(long[] categoriesIds, @Code int code, @NonNull String sharingPath,
+                               @NonNull String mimeType, @NonNull String errorString)
   {
     mCategoriesIds = categoriesIds;
     mCode = code;

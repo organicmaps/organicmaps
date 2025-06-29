@@ -2,7 +2,6 @@ package app.organicmaps.sdk.search;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
@@ -49,8 +48,7 @@ public class Popularity implements Parcelable
     this.mType = Type.values()[tmpMPopularity];
   }
 
-  public static final Creator<Popularity> CREATOR = new Creator<>()
-  {
+  public static final Creator<Popularity> CREATOR = new Creator<>() {
     @Override
     public Popularity createFromParcel(Parcel source)
     {

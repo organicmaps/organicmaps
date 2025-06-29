@@ -1,7 +1,6 @@
 package app.organicmaps.downloader;
 
 import androidx.fragment.app.Fragment;
-
 import app.organicmaps.base.BaseMwmFragmentActivity;
 import app.organicmaps.base.OnBackPressListener;
 
@@ -18,7 +17,8 @@ public class DownloaderActivity extends BaseMwmFragmentActivity
   @Override
   public void onBackPressed()
   {
-    OnBackPressListener fragment = (OnBackPressListener)getSupportFragmentManager().findFragmentById(getFragmentContentResId());
+    OnBackPressListener fragment =
+        (OnBackPressListener) getSupportFragmentManager().findFragmentById(getFragmentContentResId());
     if (!fragment.onBackPressed())
       super.onBackPressed();
   }

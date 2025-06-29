@@ -6,10 +6,8 @@ import androidx.car.app.model.CarIcon;
 import androidx.car.app.suggestion.SuggestionManager;
 import androidx.car.app.suggestion.model.Suggestion;
 import androidx.core.graphics.drawable.IconCompat;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.search.SearchRecents;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +20,13 @@ public final class SuggestionsHelpers
     context.getCarService(SuggestionManager.class).updateSuggestions(createSuggestionsList(context));
   }
 
-  // TODO: Currently utilizing search history entries; potential future addition to include "Home" and "Work" marks once supported.
+  // TODO: Currently utilizing search history entries; potential future addition to include "Home" and "Work" marks once
+  // supported.
   @NonNull
   private static List<Suggestion> createSuggestionsList(@NonNull final CarContext context)
   {
-    final CarIcon iconRecent = new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_search_recent)).build();
+    final CarIcon iconRecent =
+        new CarIcon.Builder(IconCompat.createWithResource(context, R.drawable.ic_search_recent)).build();
     final List<Suggestion> suggestions = new ArrayList<>();
 
     SearchRecents.refresh();

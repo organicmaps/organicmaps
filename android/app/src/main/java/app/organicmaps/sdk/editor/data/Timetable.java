@@ -14,7 +14,8 @@ public class Timetable
   public final boolean isFullday;
   public final int[] weekdays;
 
-  public Timetable(@NonNull Timespan workingTime, @NonNull Timespan[] closedHours, boolean isFullday, @NonNull int[] weekdays)
+  public Timetable(@NonNull Timespan workingTime, @NonNull Timespan[] closedHours, boolean isFullday,
+                   @NonNull int[] weekdays)
   {
     this.workingTimespan = workingTime;
     this.closedTimespans = closedHours;
@@ -42,13 +43,11 @@ public class Timetable
   public String toString()
   {
     StringBuilder stringBuilder = new StringBuilder();
-    stringBuilder.append("Working timespan : ").append(workingTimespan).append("\n")
-                 .append("Closed timespans : ");
+    stringBuilder.append("Working timespan : ").append(workingTimespan).append("\n").append("Closed timespans : ");
     for (Timespan timespan : closedTimespans)
       stringBuilder.append(timespan).append("   ");
     stringBuilder.append("\n");
-    stringBuilder.append("Fullday : ").append(isFullday).append("\n")
-                 .append("Weekdays : ");
+    stringBuilder.append("Fullday : ").append(isFullday).append("\n").append("Weekdays : ");
     for (int i : weekdays)
       stringBuilder.append(i);
     return stringBuilder.toString();

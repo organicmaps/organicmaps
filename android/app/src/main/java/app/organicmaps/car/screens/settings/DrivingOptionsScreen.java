@@ -12,7 +12,6 @@ import androidx.car.app.model.Row;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.lifecycle.LifecycleOwner;
-
 import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
@@ -20,7 +19,6 @@ import app.organicmaps.car.util.Toggle;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,16 +26,12 @@ public class DrivingOptionsScreen extends BaseMapScreen
 {
   public static final Object DRIVING_OPTIONS_RESULT_CHANGED = 0x1;
 
-  private record DrivingOption(RoadType roadType, @StringRes int text)
-  {
-  }
+  private record DrivingOption(RoadType roadType, @StringRes int text) {}
 
-  private final DrivingOption[] mDrivingOptions = {
-      new DrivingOption(RoadType.Toll, R.string.avoid_tolls),
-      new DrivingOption(RoadType.Dirty, R.string.avoid_unpaved),
-      new DrivingOption(RoadType.Ferry, R.string.avoid_ferry),
-      new DrivingOption(RoadType.Motorway, R.string.avoid_motorways)
-  };
+  private final DrivingOption[] mDrivingOptions = {new DrivingOption(RoadType.Toll, R.string.avoid_tolls),
+                                                   new DrivingOption(RoadType.Dirty, R.string.avoid_unpaved),
+                                                   new DrivingOption(RoadType.Ferry, R.string.avoid_ferry),
+                                                   new DrivingOption(RoadType.Motorway, R.string.avoid_motorways)};
 
   @NonNull
   private final Map<RoadType, Boolean> mInitialDrivingOptionsState = new HashMap<>();
@@ -64,7 +58,8 @@ public class DrivingOptionsScreen extends BaseMapScreen
   {
     for (final DrivingOption drivingOption : mDrivingOptions)
     {
-      if (Boolean.TRUE.equals(mInitialDrivingOptionsState.get(drivingOption.roadType)) != RoutingOptions.hasOption(drivingOption.roadType))
+      if (Boolean.TRUE.equals(mInitialDrivingOptionsState.get(drivingOption.roadType))
+          != RoutingOptions.hasOption(drivingOption.roadType))
       {
         setResult(DRIVING_OPTIONS_RESULT_CHANGED);
         return;
@@ -93,7 +88,8 @@ public class DrivingOptionsScreen extends BaseMapScreen
   @NonNull
   private Row createDrivingOptionsToggle(RoadType roadType, @StringRes int title)
   {
-    final OnClickListener listener = () -> {
+    final OnClickListener listener = () ->
+    {
       if (RoutingOptions.hasOption(roadType))
         RoutingOptions.removeOption(roadType);
       else
