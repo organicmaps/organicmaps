@@ -5,8 +5,6 @@ import static app.organicmaps.sdk.util.Config.KEY_PREF_STATISTICS;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
-import androidx.preference.PreferenceManager;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.maplayer.Mode;
 import java.io.IOException;
@@ -17,27 +15,34 @@ public final class SharedPropertiesUtils
   private static final String PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING = "ShowEmulateBadStorageSetting";
   private static final String PREFS_SHOULD_SHOW_LAYER_MARKER_FOR = "ShouldShowGuidesLayerMarkerFor";
 
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private static SharedPreferences mPrefs;
+
   // Utils class
   private SharedPropertiesUtils()
   {
     throw new IllegalStateException("Try instantiate utility class SharedPropertiesUtils");
   }
 
-  public static boolean isStatisticsEnabled(@NonNull Context context)
+  public static void init(@NonNull SharedPreferences prefs)
   {
-    return MwmApplication.prefs(context).getBoolean(KEY_PREF_STATISTICS, true);
+    mPrefs = prefs;
   }
 
-  public static void setShouldShowEmulateBadStorageSetting(@NonNull Context context, boolean show)
+  public static boolean isStatisticsEnabled()
   {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MwmApplication.from(context));
-    prefs.edit().putBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, show).apply();
+    return mPrefs.getBoolean(KEY_PREF_STATISTICS, true);
   }
 
-  public static boolean shouldShowEmulateBadStorageSetting(@NonNull Context context)
+  public static void setShouldShowEmulateBadStorageSetting(boolean show)
   {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MwmApplication.from(context));
-    return prefs.getBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, false);
+    mPrefs.edit().putBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, show).apply();
+  }
+
+  public static boolean shouldShowEmulateBadStorageSetting()
+  {
+    return mPrefs.getBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, false);
   }
 
   /**
@@ -46,38 +51,28 @@ public final class SharedPropertiesUtils
    */
   public static void emulateBadExternalStorage(@NonNull Context context) throws IOException
   {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MwmApplication.from(context));
-    String key = MwmApplication.from(context).getString(R.string.pref_emulate_bad_external_storage);
-    if (prefs.getBoolean(key, false))
+    final String key = context.getString(R.string.pref_emulate_bad_external_storage);
+    if (mPrefs.getBoolean(key, false))
     {
       // Emulate one time only -> reset setting to run normally next time.
-      prefs.edit().putBoolean(key, false).apply();
+      mPrefs.edit().putBoolean(key, false).apply();
       throw new IOException("Bad external storage error injection");
     }
   }
 
-  public static boolean shouldShowNewMarkerForLayerMode(@NonNull Context context, @NonNull Mode mode)
+  public static boolean shouldShowNewMarkerForLayerMode(@NonNull Mode mode)
   {
     return switch (mode)
     {
       case SUBWAY, TRAFFIC, ISOLINES -> false;
-      default ->
-        getBoolean(context, PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name().toLowerCase(Locale.ENGLISH), true);
+      default -> mPrefs.getBoolean(PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name().toLowerCase(Locale.ENGLISH), true);
     };
   }
 
-  public static void setLayerMarkerShownForLayerMode(@NonNull Context context, @NonNull Mode mode)
+  public static void setLayerMarkerShownForLayerMode(@NonNull Mode mode)
   {
-    putBoolean(context, PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name().toLowerCase(Locale.ENGLISH), false);
-  }
-
-  private static boolean getBoolean(@NonNull Context context, @NonNull String key, boolean defValue)
-  {
-    return MwmApplication.prefs(context).getBoolean(key, defValue);
-  }
-
-  private static void putBoolean(@NonNull Context context, @NonNull String key, boolean value)
-  {
-    MwmApplication.prefs(context).edit().putBoolean(key, value).apply();
+    mPrefs.edit()
+        .putBoolean(PREFS_SHOULD_SHOW_LAYER_MARKER_FOR + mode.name().toLowerCase(Locale.ENGLISH), false)
+        .apply();
   }
 }

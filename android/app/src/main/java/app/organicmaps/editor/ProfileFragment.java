@@ -60,9 +60,9 @@ public class ProfileFragment extends BaseMwmToolbarFragment
     view.findViewById(R.id.about_osm)
         .setOnClickListener((v) -> Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url)));
     view.findViewById(R.id.osm_history)
-        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl(requireContext())));
+        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl()));
     view.findViewById(R.id.osm_notes)
-        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getNotesUrl(requireContext())));
+        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getNotesUrl()));
 
     View buttonsContainer = view.findViewById(R.id.buttons_container);
     ViewCompat.setOnApplyWindowInsetsListener(
@@ -75,7 +75,7 @@ public class ProfileFragment extends BaseMwmToolbarFragment
 
   private void refreshViews()
   {
-    if (OsmOAuth.isAuthorized(requireContext()))
+    if (OsmOAuth.isAuthorized())
     {
       // Update the number of uploaded changesets from OSM.
       ThreadPool.getWorker().execute(() -> {
@@ -84,9 +84,9 @@ public class ProfileFragment extends BaseMwmToolbarFragment
           UiUtils.show(mProfileInfoLoading);
           UiUtils.hide(mUserInfoBlock);
         }
-        final int profileEditCount = OsmOAuth.getOsmChangesetsCount(requireContext(), getParentFragmentManager());
-        final String profileUsername = OsmOAuth.getUsername(requireContext());
-        final Bitmap profilePicture = OsmOAuth.getProfilePicture(requireContext());
+        final int profileEditCount = OsmOAuth.getOsmChangesetsCount(getParentFragmentManager());
+        final String profileUsername = OsmOAuth.getUsername();
+        final Bitmap profilePicture = OsmOAuth.getProfilePicture();
 
         UiThread.run(() -> {
           mEditsSent.setText(NumberFormat.getInstance().format(profileEditCount));
@@ -118,7 +118,7 @@ public class ProfileFragment extends BaseMwmToolbarFragment
         .setMessage(R.string.osm_log_out_confirmation)
         .setPositiveButton(R.string.yes,
                            (dialog, which) -> {
-                             OsmOAuth.clearAuthorization(requireContext());
+                             OsmOAuth.clearAuthorization();
                              refreshViews();
                            })
         .setNegativeButton(R.string.no, null)
