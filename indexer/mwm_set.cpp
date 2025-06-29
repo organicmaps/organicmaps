@@ -1,9 +1,8 @@
 #include "indexer/mwm_set.hpp"
 
 #include "indexer/features_offsets_table.hpp"
+#include "indexer/metadata_serdes.hpp"    // needed for MwmValue dtor
 #include "indexer/scales.hpp"
-
-#include "coding/reader.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 
@@ -408,8 +407,14 @@ void MwmSet::ClearCache(MwmId const & id)
 MwmValue::MwmValue(LocalCountryFile const & localFile)
   : m_cont(platform::GetCountryReader(localFile, MapFileType::Map)), m_file(localFile)
 {
-  m_factory.Load(m_cont);
+  m_version = version::MwmVersion::Read(m_cont);
+  if (m_version.GetFormat() < version::Format::v11)
+    MYTHROW(CorruptedMwmFile, (m_cont.GetFileName()));
+
+  m_header.Load(m_cont);
 }
+
+MwmValue::~MwmValue() {}
 
 void MwmValue::SetTable(MwmInfoEx & info)
 {
