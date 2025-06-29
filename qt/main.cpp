@@ -94,7 +94,8 @@ public:
       // Redirecting std::cerr to a log file.
       m_cerrDefaultStreambuf = std::cerr.rdbuf();
       m_cerrOfstream.open(".\\mapsme.log", std::ios::trunc);
-      std::cerr.rdbuf(m_cerrOfstream.rdbuf());
+      if (m_cerrOfstream.is_open())
+        std::cerr.rdbuf(m_cerrOfstream.rdbuf());
 
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
