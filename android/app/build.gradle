@@ -198,11 +198,11 @@ android {
 
   buildTypes {
     debug {
-      applicationIdSuffix '.debug'   // Allows to install debug and release builds together
-      versionNameSuffix '-debug'
+      applicationIdSuffix ".${getGitBranchName()}.debug"
+      versionNameSuffix "-debug"
       zipAlignEnabled true
       signingConfig signingConfigs.debug
-      resValue 'string', 'app_name', 'Debug Organic Maps'
+      resValue 'string', 'app_name', "Debug OM - ${getGitBranchName()}"
 
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
@@ -215,8 +215,6 @@ android {
       signingConfig signingConfigs.release
       minifyEnabled true
       shrinkResources true
-      // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
-      // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       resValue 'string', 'app_name', project.ext.appName
 
@@ -228,31 +226,28 @@ android {
     }
 
     beta {
-      applicationIdSuffix '.beta'
-      versionNameSuffix '-beta'
+      applicationIdSuffix ".${getGitBranchName()}.beta"
+      versionNameSuffix "-beta"
       signingConfig signingConfigs.release
       minifyEnabled true
       shrinkResources true
-      // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
-      // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       matchingFallbacks = ['debug', 'release']
-      resValue 'string', 'app_name', 'Beta Organic Maps'
+      resValue 'string', 'app_name', "Beta OM - ${getGitBranchName()}"
 
       if (googleFirebaseServicesEnabled) {
         firebaseCrashlytics {
           nativeSymbolUploadEnabled true
         }
         firebaseAppDistribution {
-          // A new beta release is created for each commit.
-          // Use the last commit message for the release notes.
           releaseNotes = getCommitMessage()
-          groups = 'qa' // Notify only selected people.
+          groups = 'qa'
           serviceCredentialsFile = "$projectDir/firebase-app-distribution.json"
         }
       }
     }
   }
+
 
   // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk.
   // TODO: Load all minor files via separate call to ReadAsString which can correctly handle compressed files in zip containers.
@@ -401,5 +396,18 @@ huaweiPublish {
       }
       releaseNotes = new ru.cian.huawei.publish.ReleaseNotesExtension(releaseDescriptions, true)
     }
+  }
+}
+def getGitBranchName() {
+  def branchName = ""
+  try {
+    def proc = "git rev-parse --abbrev-ref HEAD".execute()
+    proc.in.eachLine { line -> branchName = line }
+    proc.err.eachLine { line -> println "Error getting git branch: " + line }
+    proc.waitFor()
+    return branchName.replaceAll("[^a-zA-Z0-9_]", "_")
+  } catch (e) {
+    println "Could not get git branch name: " + e.getMessage()
+    return "default"
   }
 }
