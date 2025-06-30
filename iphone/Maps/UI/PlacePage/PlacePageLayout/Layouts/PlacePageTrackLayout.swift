@@ -94,15 +94,6 @@ class PlacePageTrackLayout: IPlacePageLayout {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
     steps.append(.closed(-scrollHeight))
-    guard elevationMapViewController != nil else {
-      steps.append(.full(0))
-      return steps
-    }
-    guard let previewView = previewViewController.view else {
-      return steps
-    }
-    let previewFrame = scrollView.convert(previewView.bounds, from: previewView)
-    steps.append(.preview(previewFrame.maxY - scrollHeight))
     steps.append(.full(0))
     return steps
   }
