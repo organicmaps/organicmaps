@@ -27,7 +27,7 @@ package app.organicmaps.sdk.util;
 import android.text.TextUtils;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-import app.organicmaps.downloader.Android7RootCertificateWorkaround;
+import app.organicmaps.sdk.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

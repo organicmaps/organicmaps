@@ -3,7 +3,6 @@ package app.organicmaps.sdk.downloader;
 import android.os.AsyncTask;
 import android.util.Base64;
 import androidx.annotation.Keep;
-import app.organicmaps.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.Utils;

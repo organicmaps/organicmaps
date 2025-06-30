@@ -1,8 +1,8 @@
-package app.organicmaps.downloader;
+package app.organicmaps.sdk.downloader;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.InputStream;
 import java.net.HttpURLConnection;

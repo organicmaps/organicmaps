@@ -15,7 +15,6 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import app.organicmaps.background.OsmUploadWork;
-import app.organicmaps.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.routing.NavigationService;
@@ -122,8 +121,6 @@ public class MwmApplication extends Application implements Application.ActivityL
     mOrganicMaps = new OrganicMaps(getApplicationContext());
 
     LogsManager.INSTANCE.initFileLogging(this);
-
-    Android7RootCertificateWorkaround.initializeIfNeeded(this);
 
     ConnectionState.INSTANCE.initialize(this);
 
