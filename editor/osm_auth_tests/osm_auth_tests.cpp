@@ -51,46 +51,46 @@ UNIT_TEST(OSM_Auth_ForgotPassword)
 UNIT_TEST(OAuth_Token_parse)
 {
   auto token = osm::FindAuthenticityToken("/oauth2/authorize",
-  "<div class=\"col-auto mx-1\"><form action=\"/oauth2/authorize\" accept-charset=\"UTF-8\" method=\"post\">"
-  "  <input type=\"hidden\" name=\"authenticity_token\" value=\"J5senhh\" />\n"
-  "  <input value=\"om://oauth2/osm/callback\" type=\"hidden\" name=\"redirect_uri\" />\n"
-  "  <input type=\"submit\" name=\"commit\" value=\"Authorize\" class=\"btn btn-primary\" />\n"
-  "</form></div>\n");
+  R"(<div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
+    <input type="hidden" name="authenticity_token" value="J5senhh" />
+    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
+    <input type="submit" name="commit" value="Authorize" class="btn btn-primary" />
+  </form></div>)");
 
   TEST_EQUAL(token, "J5senhh", ("Invalid token"));
 
   // Two tokens. One for "Allow" other for "Deny". Always pick the first one.
   token = osm::FindAuthenticityToken("/oauth2/authorize",
-  "<div class=\"col-auto mx-1\"><form action=\"/oauth2/authorize\" accept-charset=\"UTF-8\" method=\"post\">\n"
-  "  <input type=\"hidden\" name=\"authenticity_token\" value=\"lRFbEQN0d2r7XeFq\" />\n"
-  "  <input value=\"om://oauth2/osm/callback\" type=\"hidden\" name=\"redirect_uri\" />\n"
-  "  <input type=\"submit\" name=\"commit\" value=\"Authorize\" class=\"btn btn-primary\" />\n"
-  "</form></div>\n"
-   "<div class=\"col-auto mx-1\"><form action=\"/oauth2/authorize\" accept-charset=\"UTF-8\" method=\"post\">\n"
-   "  <input type=\"hidden\" name=\"_method\" value=\"delete\" />\n"
-   "  <input type=\"hidden\" name=\"authenticity_token\" value=\"J5senhh\" />\n"
-   "  <input value=\"om://oauth2/osm/callback\" type=\"hidden\" name=\"redirect_uri\" />\n"
-   "  <input type=\"submit\" name=\"commit\" value=\"Deny\" class=\"btn btn-secondary\" />\n"
-   "</form></div>\n");
+  R"(<div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
+    <input type="hidden" name="authenticity_token" value="lRFbEQN0d2r7XeFq" />
+    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
+    <input type="submit" name="commit" value="Authorize" class="btn btn-primary" />
+  </form></div>
+  <div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
+    <input type="hidden" name="_method" value="delete" />
+    <input type="hidden" name="authenticity_token" value="J5senhh" />
+    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
+    <input type="submit" name="commit" value="Deny" class="btn btn-secondary" />
+  </form></div>)");
 
   TEST_EQUAL(token, "lRFbEQN0d2r7XeFq", ("Invalid token"));
 
   // Three forms: one for language, two for OAuth
   token = osm::FindAuthenticityToken("/oauth2/authorize",
-   "<div class=\"modal-body px-1\"><form action=\"/preferences/basic\" accept-charset=\"UTF-8\" method=\"post\">\n"
-   "  <input type=\"hidden\" name=\"_method\" value=\"put\" />\n"
-   "  <input type=\"hidden\" name=\"authenticity_token\" value=\"8h-snCINM3O\" />\n"
-   "</form></div>\n"   "<div class=\"col-auto mx-1\"><form action=\"/oauth2/authorize\" accept-charset=\"UTF-8\" method=\"post\">\n"
-   "  <input type=\"hidden\" name=\"authenticity_token\" value=\"8DDeqYcFHUIjw\" />\n"
-   "  <input value=\"om://oauth2/osm/callback\" type=\"hidden\" name=\"redirect_uri\" />\n"
-   "  <input type=\"submit\" name=\"commit\" value=\"Authorize\" class=\"btn btn-primary\" />\n"
-   "</form></div>\n"
-   "<div class=\"col-auto mx-1\"><form action=\"/oauth2/authorize\" accept-charset=\"UTF-8\" method=\"post\">\n"
-   "  <input type=\"hidden\" name=\"_method\" value=\"delete\" />\n"
-   "  <input type=\"hidden\" name=\"authenticity_token\" value=\"4RbveLjuvOXlok9Q\" />\n"
-   "  <input value=\"om://oauth2/osm/callback\" type=\"hidden\" name=\"redirect_uri\" />\n"
-   "  <input type=\"submit\" name=\"commit\" value=\"Deny\" class=\"btn btn-secondary\" />\n"
-   "</form></div>\n");
+  R"(<div class="modal-body px-1"><form action="/preferences/basic" accept-charset="UTF-8" method="post">
+    <input type="hidden" name="_method" value="put" />
+    <input type="hidden" name="authenticity_token" value="8h-snCINM3O" />
+  </form></div>\n"   "<div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
+    <input type="hidden" name="authenticity_token" value="8DDeqYcFHUIjw" />
+    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
+    <input type="submit" name="commit" value="Authorize" class="btn btn-primary" />
+  </form></div>
+  <div class="col-auto mx-1"><form action="/oauth2/authorize" accept-charset="UTF-8" method="post">
+    <input type="hidden" name="_method" value="delete" />
+    <input type="hidden" name="authenticity_token" value="4RbveLjuvOXlok9Q" />
+    <input value="om://oauth2/osm/callback" type="hidden" name="redirect_uri" />
+    <input type="submit" name="commit" value="Deny" class="btn btn-secondary" />
+  </form></div>)");
 
   TEST_EQUAL(token, "8DDeqYcFHUIjw", ("Invalid token"));
 }
@@ -107,13 +107,13 @@ UNIT_TEST(OAuth_FindOauthCode) {
 }
 
 UNIT_TEST(OAuth_FindAccessToken) {
-  auto token = osm::FindAccessToken("{\"access_token\":\"vAK5XMBJeUDsF3xxFHt0\", \"token_type\":\"Bearer\", \"scope\":\"read_prefs\"}");
+  auto token = osm::FindAccessToken(R"({"access_token":"vAK5XMBJeUDsF3xxFHt0", "token_type":"Bearer", "scope":"read_prefs"})");
   TEST_EQUAL(token, "vAK5XMBJeUDsF3xxFHt0", ("Invalid access_token"));
 
-  token = osm::FindAccessToken("{\"token_type\":\"Bearer\", \"scope\":\"read_prefs\", \"access_token\":\"W1xgY0CtTDz0klQGa4Yp\"}");
+  token = osm::FindAccessToken(R"({"token_type":"Bearer", "scope":"read_prefs", "access_token":"W1xgY0CtTDz0klQGa4Yp"})");
   TEST_EQUAL(token, "W1xgY0CtTDz0klQGa4Yp", ("Invalid access_token"));
 
-  token = osm::FindAccessToken("{\"token_type\":\"Bearer\", \"scope\":\"read_prefs\", \"some_other_token\":\"9cMyxvsOrM\"}");
+  token = osm::FindAccessToken(R"({"token_type":"Bearer", "scope":"read_prefs", "some_other_token":"9cMyxvsOrM"})");
   TEST_EQUAL(token, std::string{}, ("access_token should not be found"));
 }
 
