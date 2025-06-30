@@ -29,8 +29,7 @@ void RouteBuilder::Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subro
   ASSERT(!subroute->m_style.empty(), ());
   for (size_t styleIndex = 0; styleIndex < subroute->m_style.size(); ++styleIndex)
   {
-    subrouteData.push_back(RouteShape::CacheRoute(context, subrouteId, subroute,
-                                                  styleIndex, recacheId, textures));
+    subrouteData.push_back(RouteShape::CacheRoute(context, subrouteId, subroute, styleIndex, recacheId));
   }
 
   auto markersData = RouteShape::CacheMarkers(context, subrouteId, subroute, recacheId, textures);

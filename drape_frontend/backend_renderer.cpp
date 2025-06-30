@@ -387,7 +387,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       drape_ptr<CirclesPackRenderData> data = make_unique_dp<CirclesPackRenderData>();
       data->m_pointsCount = msg->GetPointsCount();
       CHECK(m_context != nullptr, ());
-      CirclesPackShape::Draw(m_context, m_texMng, *data.get());
+      CirclesPackShape::Draw(m_context, *data.get());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<FlushCirclesPackMessage>(
                                   std::move(data), msg->GetDestination()),
