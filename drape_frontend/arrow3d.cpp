@@ -306,11 +306,6 @@ Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManage
 {
   m_state.SetDepthTestEnabled(true);
 
-  // Workaround for OpenGL: some devices require any texture to be set in the rendering pipeline.
-  auto const apiVersion = context->GetApiVersion();
-  if (apiVersion == dp::ApiVersion::OpenGLES3)
-    m_state.SetColorTexture(texMng->GetSymbolsTexture());
-
   m_isValid = preloadedData.m_meshData.has_value();
 
   // Init arrow mesh.
