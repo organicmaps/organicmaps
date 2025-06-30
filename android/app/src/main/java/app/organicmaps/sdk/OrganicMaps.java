@@ -8,6 +8,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
@@ -81,6 +82,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     nativeSetSettingsDir(settingsPath);
 
     Config.init(mContext);
+
+    Android7RootCertificateWorkaround.initializeIfNeeded(mContext);
 
     mSensorHelper = new SensorHelper(mContext);
     mLocationHelper = new LocationHelper(mContext, mSensorHelper);
