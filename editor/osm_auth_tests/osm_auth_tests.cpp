@@ -14,7 +14,7 @@ char const * kValidOsmPassword = "12345678";
 static constexpr char const * kInvalidOsmPassword = "123";
 static constexpr char const * kForgotPasswordEmail = "osmtest1@organicmaps.app";
 
-/*UNIT_TEST(OSM_Auth_InvalidLogin)
+UNIT_TEST(OSM_Auth_InvalidLogin)
 {
   OsmOAuth auth = OsmOAuth::DevServerAuth();
   bool result;
@@ -33,7 +33,7 @@ UNIT_TEST(OSM_Auth_Login)
   OsmOAuth::Response const perm = auth.Request("/permissions");
   TEST_EQUAL(perm.first, OsmOAuth::HTTP::OK, ("permission request ok"));
   TEST_NOT_EQUAL(perm.second.find("write_api"), std::string::npos, ("can write to api"));
-}*/
+}
 
 /*
 UNIT_TEST(OSM_Auth_ForgotPassword)
