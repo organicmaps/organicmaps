@@ -90,7 +90,8 @@ public class Icon implements Parcelable
       R.drawable.ic_bookmark_none, // pharmacy
       R.drawable.ic_bookmark_none, // stadium
       R.drawable.ic_bookmark_none, // theatre
-      R.drawable.ic_bookmark_none // information
+      R.drawable.ic_bookmark_none, // information
+      R.drawable.ic_bookmark_none  // ChargingStation
   };
 
   @PredefinedColor
