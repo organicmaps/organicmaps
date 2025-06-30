@@ -20,15 +20,14 @@ using std::string;
 constexpr char const * kApiVersion = "/api/0.6";
 
 
-string FindAuthenticityToken(string const & action, string const & body)
+string FindAuthenticityToken(string const & action, string body)
 {
   static std::regex const kActionAndTokenRE(R"~(action="(.+?)".*?name="authenticity_token" value="(.+?)")~");
 
   // Regex doesn't support multiline matches. Need to remove all line endings from the body.
-  string cleanBody(body);
-  std::erase_if(cleanBody, [](char c) { return c == '\n' || c == '\r'; });
+  std::erase_if(body, [](char c) { return c == '\n' || c == '\r'; });
 
-  auto const begin = std::sregex_iterator{cleanBody.begin(), cleanBody.end(), kActionAndTokenRE};
+  auto const begin = std::sregex_iterator{body.begin(), body.end(), kActionAndTokenRE};
   auto const end = std::sregex_iterator{};
 
   for (auto it = begin; it != end; ++it)

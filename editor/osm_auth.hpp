@@ -152,7 +152,7 @@ private:
 };
 
 
-std::string FindAuthenticityToken(std::string const & action, std::string const & body);
+std::string FindAuthenticityToken(std::string const & action, std::string body);
 std::string FindOauthCode(std::string const & redirectUri);
 std::string FindAccessToken(std::string const & json);
 std::string BuildPostRequest(std::initializer_list<std::pair<std::string, std::string>> const & params);
