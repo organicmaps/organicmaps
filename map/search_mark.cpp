@@ -47,6 +47,7 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   Playground,
   Bank,
   Fuel,
+  ChargingStation,
   ShopAlcohol,
   ShopButcher,
   ShopClothes,
@@ -116,6 +117,7 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-playground",             // Playground.
     "search-result-bank",                   // Bank.
     "search-result-fuel",                   // Fuel.
+    "search-result-charging_station",       // ChargingStation.
     "search-result-shop-alcohol",           // ShopAlcohol.
     "search-result-shop-butcher",           // ShopButcher.
     "search-result-shop-clothes",           // ShopClothes.
@@ -221,6 +223,9 @@ private:
       {{"amenity", "bank"},          SearchMarkType::Bank},
       {{"shop", "money_lender"},     SearchMarkType::Bank},
       {{"amenity", "fuel"},          SearchMarkType::Fuel},
+      {{"amenity", "charging_station"},                 SearchMarkType::ChargingStation},
+      {{"amenity", "charging_station", "bicycle"},      SearchMarkType::ChargingStation},
+      {{"amenity", "charging_station", "motorcar"},     SearchMarkType::ChargingStation},
       {{"shop", "alcohol"},          SearchMarkType::ShopAlcohol},
       {{"shop", "beverages"},        SearchMarkType::ShopAlcohol},
       {{"shop", "wine"},             SearchMarkType::ShopAlcohol},
