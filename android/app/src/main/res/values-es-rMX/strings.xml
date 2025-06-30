@@ -18,7 +18,7 @@
     <!-- Generic «Auto» string -->
     <string name="auto">Automático</string>
     <!-- Settings «Route» category: «Test Voice Directions» title -->
-    <string name="pref_tts_test_voice_title">Pruebe las instrucciones de voz (TTS, Text-To-Speech)</string>
+    <string name="pref_tts_test_voice_title">Probar indicaciones de voz (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
     <string name="pref_tts_playing_test_voice">Verifique el volumen o la configuración de texto a voz del sistema si no escucha la voz ahora.</string>
     <!-- Preference title -->
@@ -125,16 +125,16 @@
     <string name="power_managment_description">Si el modo de ahorro de energía está activado, la aplicación desactivará las funciones de ahorro de energía, en función de la carga actual del teléfono</string>
     <string name="power_managment_setting_never">Nunca</string>
     <string name="power_managment_setting_auto">Automático</string>
-    <string name="power_managment_setting_manual_max">Máximo ahorro de energía</string>
+    <string name="power_managment_setting_manual_max">Siempre</string>
     <string name="enable_logging_warning_message">Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.</string>
     <string name="access_rules_author_only">Se edita en línea</string>
-    <string name="driving_options_title">Ajustes de desvío</string>
+    <string name="driving_options_title">Opciones de enrutamiento</string>
     <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
-    <string name="unable_to_calc_alert_subtitle">Desafortunadamente, no pudimos construir una ruta con las opciones seleccionadas. Cambie la configuración y vuelva a intentarlo</string>
-    <string name="define_to_avoid_btn">Configurar rutas de desvío</string>
+    <string name="unable_to_calc_alert_subtitle">No se pudo encontrar una ruta. Quizá se deba a las opciones de enrutamiento o a datos faltantes en OpenStreetMap. Revise sus opciones de enrutamiento y vuelva a intentarlo.</string>
+    <string name="define_to_avoid_btn">Defina los caminos para evitar</string>
     <string name="change_driving_options_btn">Opciones de enrutamiento activadas</string>
     <string name="toll_road">Carretera de peaje</string>
-    <string name="unpaved_road">Camino de tierra</string>
+    <string name="unpaved_road">Camino sin pavimentar</string>
     <string name="ferry_crossing">Cruce de ferri</string>
     <!-- A generic "Yes" button in dialogs -->
     <string name="yes">Sí</string>
@@ -214,4 +214,16 @@
     <string name="back">Atrás</string>
     <string name="cancel">Cancelar</string>
     <string name="enable_logging">Activar registros</string>
+    <string name="saved">Guardado</string>
+    <string name="start_track_recording">Grabar trayecto</string>
+    <string name="track_recording_alert_title">¿Guardar en Marcadores y trayectos?</string>
+    <string name="track_recording_toast_nothing_to_save">El trayecto está vacío; no hay nada que guardar</string>
+    <string name="settings">Configuración</string>
+    <string name="pref_zoom_title">Botones de zum</string>
+    <string name="bookmarks_import">Importar marcadores y trayectos</string>
+    <string name="edit_track">Editar trayecto</string>
+    <string name="pref_map_auto_zoom">Zum automático</string>
+    <string name="dialog_routing_intermediate_not_determined">Ajuste la parada intermedia.</string>
+    <string name="stop_track_recording">Detener grabación de trayecto</string>
+    <string name="big_font">Aumentar tamaño del texto en el mapa</string>
 </resources>

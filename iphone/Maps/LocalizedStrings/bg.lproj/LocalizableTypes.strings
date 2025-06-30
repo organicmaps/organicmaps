@@ -408,7 +408,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.cycleway.tunnel" = "Тунел";
 "type.highway.elevator" = "Асансьор";
-"type.highway.footway" = "Пътек";
+"type.highway.footway" = "Пътека";
 "type.highway.footway.sidewalk" = "Тротоар";
 "type.highway.footway.crossing" = "Пешеходно пресичане";
 "type.highway.footway.area" = "Пешеходно поле";

@@ -1484,3 +1484,11 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "体育馆";
+"type.sport.diving" = "潜水";
+"type.amenity.studio" = "演播厅";
+"type.barrier.guard_rail" = "交通护栏";
+"type.amenity.love_hotel" = "情侣酒店";
+"type.man_made.crane" = "起重机";
+"type.highway.ladder" = "梯子";
+"type.landuse.plant_nursery" = "苗圃";
+"type.leisure.firepit" = "火坑";

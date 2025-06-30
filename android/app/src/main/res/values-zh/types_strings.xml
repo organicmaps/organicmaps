@@ -1395,4 +1395,12 @@
     <string name="type.hwtag.nobicycle">禁止自行车标签</string>
     <string name="type.hwtag.private">私有道路标签</string>
     <string name="type.route.shuttle_train">穿梭列车</string>
+    <string name="type.sport.diving">潜水</string>
+    <string name="type.man_made.crane">起重机</string>
+    <string name="type.amenity.love_hotel">情侣酒店</string>
+    <string name="type.amenity.studio">演播厅</string>
+    <string name="type.barrier.guard_rail">交通护栏</string>
+    <string name="type.highway.ladder">梯子</string>
+    <string name="type.landuse.plant_nursery">苗圃</string>
+    <string name="type.leisure.firepit">火坑</string>
 </resources>

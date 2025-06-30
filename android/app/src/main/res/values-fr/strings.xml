@@ -898,4 +898,5 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="navigation_stop_button">Stop</string>
+    <string name="saved">Sauvé</string>
 </resources>

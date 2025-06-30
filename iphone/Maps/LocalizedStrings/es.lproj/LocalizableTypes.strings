@@ -606,7 +606,7 @@
 "type.historic.boundary_stone" = "Hito fronterizo";
 "type.historic.cannon" = "Cañón";
 "type.historic.castle" = "Castillo";
-"type.historic.castle.castrum" = "Castrum";
+"type.historic.castle.castrum" = "Fortificación romana";
 "type.historic.castle.defensive" = "Castillo defensivo";
 "type.historic.castle.fortified_church" = "Iglesia fortificada";
 "type.historic.castle.fortress" = "Fortaleza";

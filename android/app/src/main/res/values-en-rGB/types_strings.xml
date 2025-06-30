@@ -286,4 +286,7 @@
     <string name="type.tourism.caravan_site">Caravan Park</string>
     <string name="type.power.pole">Power Pole</string>
     <string name="type.man_made.utility_pole">Utility Pole</string>
+    <string name="type.addr_interpolation">Address/Block</string>
+    <string name="type.addr_interpolation.even">Address/Block</string>
+    <string name="type.addr_interpolation.odd">Address/Block</string>
 </resources>

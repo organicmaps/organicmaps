@@ -207,4 +207,18 @@
     <string name="connection_failure">Falló la conexón</string>
     <string name="disk_error_title">Error nel discu</string>
     <string name="splash_subtitle">Datos cartográficos d’OpenStreetMap</string>
+    <string name="drive_through">Serviciu dende’l coche</string>
+    <string name="unable_to_calc_alert_subtitle">Nun pudo alcontrase una ruta. Quiciabes se deba a les opciones d’encaminamientu o a datos faltantes n’OpenStreetMap. Revisa les tos opciones d’encaminamientu y vuelvi intentalo.</string>
+    <string name="mobile_data_option_always">Usar siempres</string>
+    <string name="driving_options_title">Opciones d’encaminamientu</string>
+    <string name="track_recording_toast_nothing_to_save">El trayeutu ta baleru; nun hai nada pa guardar</string>
+    <string name="add_new_set">Amestar llista nueva</string>
+    <string name="maps_storage_removable">Tarxeta SD</string>
+    <string name="learn_more">Deprende más</string>
+    <string name="mountains">Montes</string>
+    <string name="animals">Animales</string>
+    <string name="shops">Tiendes</string>
+    <string name="pref_tts_test_voice_title">Probar indicaciones de voz (TTS, Text-To-Speech)</string>
+    <string name="car_used_on_the_phone_screen">Agora tas utilizando Organic Maps na pantalla del teléfonu</string>
+    <string name="car_used_on_the_car_screen">Agora tas utilizando Organic Maps na pantalla del coche</string>
 </resources>
