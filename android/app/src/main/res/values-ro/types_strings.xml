@@ -108,7 +108,6 @@
     <string name="type.amenity.post_office">Oficiu poștal</string>
     <string name="type.amenity.prison">Închisoare</string>
     <string name="type.amenity.public_bookcase">Bibliotecă</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Centru de reciclare</string>
     <string name="type.amenity.recycling">Containere pentru reciclare</string>
@@ -314,7 +313,6 @@
     <string name="type.healthcare.psychotherapist">Psihoterapie</string>
     <string name="type.healthcare.sample_collection">Eșantionare</string>
     <string name="type.healthcare.speech_therapist">Logopedie</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Pod</string>
@@ -472,7 +470,6 @@
     <string name="type.area_highway.track">Stradă</string>
     <string name="type.area_highway.trunk">Stradă</string>
     <string name="type.area_highway.unclassified">Stradă</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Obiect istoric</string>
     <string name="type.historic.aircraft">Avioane istorice</string>
@@ -1167,4 +1164,9 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Sală de sport</string>
+    <string name="type.aerialway">Cale aeriană</string>
+    <string name="type.aerialway.cable_car">Telecabină</string>
+    <string name="type.aerialway.drag_lift">Telescaun</string>
+    <string name="type.aerialway.gondola">Gondolă</string>
+    <string name="type.aerialway.chair_lift">Telescaun</string>
 </resources>

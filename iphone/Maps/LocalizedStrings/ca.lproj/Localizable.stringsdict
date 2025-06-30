@@ -17,7 +17,7 @@
 			<key>one</key>
 			<string>%d marcador</string>
 			<key>many</key>
-			<string>%d marcadors</string>
+			<string>%d de marcadors</string>
 			<key>other</key>
 			<string>%d marcadors</string>
 		</dict>
@@ -33,13 +33,13 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>S'han trobat %d fitxers. Podeu veure'ls després de la conversió.</string>
+			<string>No s’ha trobat cap fitxer.</string>
 			<key>one</key>
-			<string>S'ha trobat %d fitxer. Podeu veure'l després de la conversió.</string>
+			<string>S’ha trobat %d fitxer. Podreu veure’l després de la conversió.</string>
 			<key>many</key>
-			<string>S'han trobat %d fitxers. Podeu veure'ls després de la conversió.</string>
+			<string>S’han trobat %d de fitxers. Podreu veure’ls després de la conversió.</string>
 			<key>other</key>
-			<string>S'han trobat %d fitxers. Podeu veure'ls després de la conversió.</string>
+			<string>S’han trobat %d fitxers. Podreu veure’ls després de la conversió.</string>
 		</dict>
 	</dict>
 	<key>tracks</key>
@@ -57,7 +57,7 @@
 			<key>one</key>
 			<string>%d recorregut</string>
 			<key>many</key>
-			<string>%d recorreguts</string>
+			<string>%d de recorreguts</string>
 			<key>other</key>
 			<string>%d recorreguts</string>
 		</dict>

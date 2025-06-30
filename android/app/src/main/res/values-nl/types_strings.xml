@@ -1394,4 +1394,12 @@
     <string name="type.highway.world_towns_level">highway-world_towns_level</string>
     <string name="type.leisure.hackerspace">Hackerspace</string>
     <string name="type.amenity.food_court">Food court</string>
+    <string name="type.sport.diving">Duiken</string>
+    <string name="type.man_made.crane">Kraan</string>
+    <string name="type.amenity.studio">Studio</string>
+    <string name="type.barrier.guard_rail">Vangrail</string>
+    <string name="type.landuse.plant_nursery">Plantenkwekerij</string>
+    <string name="type.leisure.firepit">Vuurplaats</string>
+    <string name="type.highway.ladder">Ladder</string>
+    <string name="type.amenity.love_hotel">Ontmoetingshotel</string>
 </resources>

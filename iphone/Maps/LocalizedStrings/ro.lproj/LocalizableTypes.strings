@@ -1,11 +1,11 @@
 "type.addr_interpolation" = "Adresă/Bloc";
 "type.addr_interpolation.even" = "Adresă/Bloc";
 "type.addr_interpolation.odd" = "Adresă/Bloc";
-"type.aerialway" = "Aerialway";
-"type.aerialway.cable_car" = "Cable Car";
-"type.aerialway.chair_lift" = "Chair Lift";
-"type.aerialway.drag_lift" = "Drag Lift";
-"type.aerialway.gondola" = "Gondola";
+"type.aerialway" = "Cale aeriană";
+"type.aerialway.cable_car" = "Telecabină";
+"type.aerialway.chair_lift" = "Telescaun";
+"type.aerialway.drag_lift" = "Telescaun";
+"type.aerialway.gondola" = "Gondolă";
 "type.aerialway.mixed_lift" = "Mixed Lift";
 "type.aerialway.station" = "Stație de teleferic";
 "type.aeroway" = "Airspace Infrastructure";

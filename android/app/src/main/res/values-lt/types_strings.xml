@@ -95,4 +95,8 @@
     <string name="type.addr_interpolation.even">Adresas / blokas</string>
     <string name="type.aerialway">Keltuvas</string>
     <string name="type.addr_interpolation.odd">Adresas / blokas</string>
+    <string name="type.aerialway.chair_lift">Kėdė Liftas</string>
+    <string name="type.aerialway.drag_lift">Pasipriešinimas Liftas</string>
+    <string name="type.amenity.clinic">Klinika</string>
+    <string name="type.aeroway.gate">Vartai</string>
 </resources>

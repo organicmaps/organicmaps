@@ -184,4 +184,19 @@
     <string name="type.power.generator">Xenerador d’enerxía</string>
     <string name="type.power.generator.solar">Xenerador solar</string>
     <string name="type.place.region">Rexón</string>
+    <string name="type.man_made.surveillance">Cámara de vixilancia</string>
+    <string name="type.place.county">Condáu</string>
+    <string name="type.place.continent">Continente</string>
+    <string name="type.office.telecommunication">Operador de telecomunicaciones</string>
+    <string name="type.office.ngo">Organización non gubernamental</string>
+    <string name="type.healthcare.alternative">Medicina alternativa</string>
+    <string name="type.emergency.phone">Teléfonu d’emerxencies</string>
+    <string name="type.natural.geyser">Guéiser</string>
+    <string name="type.natural.water.river">Ríu</string>
+    <string name="type.natural.beach">Sablera</string>
+    <string name="type.traffic_calming">Pacificación del tráficu</string>
+    <string name="type.tourism.theme_park">Parque temáticu</string>
+    <string name="type.tourism.zoo.petting">Zoolóxicu interactivu</string>
+    <string name="type.tourism.zoo">Zoolóxicu</string>
+    <string name="type.historic.castle.castrum">Fortificación romana</string>
 </resources>

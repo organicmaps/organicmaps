@@ -3,8 +3,8 @@
 "type.addr_interpolation.odd" = "Adresas / blokas";
 "type.aerialway" = "Keltuvas";
 "type.aerialway.cable_car" = "Cable Car";
-"type.aerialway.chair_lift" = "Chair Lift";
-"type.aerialway.drag_lift" = "Drag Lift";
+"type.aerialway.chair_lift" = "Kėdė Liftas";
+"type.aerialway.drag_lift" = "Pasipriešinimas Liftas";
 "type.aerialway.gondola" = "Gondola";
 "type.aerialway.mixed_lift" = "Mixed Lift";
 "type.aerialway.station" = "Aerialway Station";
@@ -12,7 +12,7 @@
 "type.aeroway.aerodrome" = "Airport";
 "type.aeroway.aerodrome.international" = "International Airport";
 "type.aeroway.apron" = "Apron";
-"type.aeroway.gate" = "Gate";
+"type.aeroway.gate" = "Vartai";
 "type.aeroway.helipad" = "Helipad";
 "type.aeroway.runway" = "Runway";
 "type.aeroway.taxiway" = "Taxiway";
@@ -46,7 +46,7 @@
 "type.amenity.childcare" = "Nursery";
 "type.amenity.cinema" = "Cinema";
 "type.leisure.bowling_alley" = "Bowling Alley";
-"type.amenity.clinic" = "Clinic";
+"type.amenity.clinic" = "Klinika";
 "type.amenity.college" = "College";
 "type.amenity.community_centre" = "Community Centre";
 "type.amenity.compressed_air" = "Compressed Air";

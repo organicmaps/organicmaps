@@ -648,7 +648,7 @@
     <string name="type.emergency.fire_hydrant">Пожарен кран</string>
     <string name="type.entrance">Вход</string>
     <string name="type.highway">Магистрала</string>
-    <string name="type.highway.footway">Пътек</string>
+    <string name="type.highway.footway">Пътека</string>
     <string name="type.railway.subway_entrance.kolkata">Вход ма метро</string>
     <string name="type.railway.subway_entrance.mecca">Вход ма метро</string>
     <string name="type.railway.subway_entrance.panama">Вход ма метро</string>
