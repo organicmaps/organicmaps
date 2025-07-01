@@ -101,7 +101,8 @@ extension NavigationDashboard {
         }
 
       case .updateDrivingOptionsState(let state):
-        print("RoutePreview: updateDrivingOptionsState \(state)")
+        LOG(.info, "RoutePreview: updateDrivingOptionsState \(state)")
+        viewModel = viewModel.copyWith(routingOptions: RoutingOptions())
 
       case let .show(points, routerType):
         viewModel = viewModel.copyWith(routePoints: NavigationDashboard.RoutePoints(points: points),

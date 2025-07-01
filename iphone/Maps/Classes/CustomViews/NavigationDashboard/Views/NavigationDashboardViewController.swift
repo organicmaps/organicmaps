@@ -39,6 +39,7 @@ final class NavigationDashboardViewController: UIViewController {
   private let transportTransitStepsView = TransportTransitStepsView()
   private let elevationProfileView = ElevationProfileView()
   private let settingsButton = UIButton(type: .system)
+  private let settingsBadge = BadgeWithNumber()
   private var routePointsView = RoutePointsView()
   private let startButton = StartRouteButton()
   private var navigationInfoView: NavigationInfoView!
@@ -214,6 +215,8 @@ final class NavigationDashboardViewController: UIViewController {
     settingsButton.setStyle(.blue)
     settingsButton.setImage(UIImage(resource: .icMenuSettings), for: .normal)
     settingsButton.addTarget(self, action: #selector(didTapSettingsButton), for: .touchUpInside)
+    settingsBadge.badgeAddTo(settingsButton)
+    settingsBadge.isHidden = true
   }
 
   @objc
@@ -370,11 +373,13 @@ extension NavigationDashboardViewController {
       transportTransitStepsView.setNavigationInfo(isError ? nil : viewModel.entity)
       elevationProfileView.setImage(isError ? nil : viewModel.elevationInfo?.image)
       routePointsView.setRoutePoints(viewModel.routePoints)
+      settingsBadge.isHidden = !viewModel.routingOptions.hasOptions
+      settingsBadge.number = viewModel.routingOptions.enabledOptionsCount
     }
 
     navigationInfoView.state = viewModel.navigationInfo.state
     navigationInfoView.availableArea = viewModel.navigationInfo.availableArea
-    
+
     startButton.setState(viewModel.startButtonState)
 
     updatePresentationStepHeights()

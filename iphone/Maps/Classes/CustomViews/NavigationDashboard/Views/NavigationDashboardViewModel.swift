@@ -4,6 +4,7 @@ enum NavigationDashboard {
     let routePoints: RoutePoints
     let routerType: MWMRouterType
     let entity: MWMNavigationDashboardEntity
+    let routingOptions: RoutingOptions
     let elevationInfo: ElevationInfo?
     let navigationInfo: NavigationInfo
     let estimates: NSAttributedString
@@ -32,6 +33,7 @@ extension NavigationDashboard.ViewModel {
     routePoints: .empty,
     routerType: .vehicle,
     entity: MWMNavigationDashboardEntity(),
+    routingOptions: RoutingOptions(),
     elevationInfo: nil,
     navigationInfo: .hidden,
     estimates: NSAttributedString(),
@@ -47,6 +49,7 @@ extension NavigationDashboard.ViewModel {
     routePoints: NavigationDashboard.RoutePoints? = nil,
     routerType: MWMRouterType? = nil,
     entity: MWMNavigationDashboardEntity? = nil,
+    routingOptions: RoutingOptions? = nil,
     elevationInfo: NavigationDashboard.ElevationInfo?? = nil,
     navigationInfo: NavigationDashboard.NavigationInfo? = nil,
     estimates: NSAttributedString? = nil,
@@ -61,6 +64,7 @@ extension NavigationDashboard.ViewModel {
       routePoints: routePoints ?? self.routePoints,
       routerType: routerType ?? self.routerType,
       entity: entity ?? self.entity,
+      routingOptions: routingOptions ?? self.routingOptions,
       elevationInfo: elevationInfo ?? self.elevationInfo,
       navigationInfo: navigationInfo ?? self.navigationInfo.copyWith(dashboardState: self.dashboardState),
       estimates: estimates ?? self.estimates,
@@ -129,5 +133,11 @@ private extension MWMNavigationDashboardState {
 extension CGRect {
   static var screenBounds: CGRect {
     return UIScreen.main.bounds
+  }
+}
+
+extension RoutingOptions {
+  var enabledOptionsCount: Int {
+    [avoidToll, avoidDirty, avoidFerry, avoidMotorway].filter { $0 }.count
   }
 }
