@@ -523,6 +523,7 @@
 		EDC91B982DC23B06008BF257 /* ModalPresentationStepStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC91B972DC23B06008BF257 /* ModalPresentationStepStrategy.swift */; };
 		EDC91B9A2DC23B5B008BF257 /* NavigationDashboardModalPresentationStepStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC91B992DC23B5B008BF257 /* NavigationDashboardModalPresentationStepStrategy.swift */; };
 		EDCA7CDF2D317DF9003366CE /* StyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCA7CDE2D317DF9003366CE /* StyleSheet.swift */; };
+		EDE049A22E14270600F0E102 /* BadgeWithNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE049A12E14270600F0E102 /* BadgeWithNumber.swift */; };
 		EDE243DD2B6D2E640057369B /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243D52B6CF3980057369B /* AboutController.swift */; };
 		EDE243E52B6D3F400057369B /* OSMView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E42B6D3F400057369B /* OSMView.swift */; };
 		EDE243E72B6D55610057369B /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE243E02B6D3EA00057369B /* InfoView.swift */; };
@@ -1538,6 +1539,7 @@
 		EDC91B972DC23B06008BF257 /* ModalPresentationStepStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationStepStrategy.swift; sourceTree = "<group>"; };
 		EDC91B992DC23B5B008BF257 /* NavigationDashboardModalPresentationStepStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardModalPresentationStepStrategy.swift; sourceTree = "<group>"; };
 		EDCA7CDE2D317DF9003366CE /* StyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSheet.swift; sourceTree = "<group>"; };
+		EDE049A12E14270600F0E102 /* BadgeWithNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeWithNumber.swift; sourceTree = "<group>"; };
 		EDE243D52B6CF3980057369B /* AboutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
 		EDE243E02B6D3EA00057369B /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		EDE243E42B6D3F400057369B /* OSMView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSMView.swift; sourceTree = "<group>"; };
@@ -2385,6 +2387,7 @@
 				4767CDA720AB401000BD8166 /* LinkTextView.swift */,
 				4788739120EE326400F6826B /* VerticallyAlignedButton.swift */,
 				FA85D44D279B738F00B858E9 /* CopyableLabel.swift */,
+				EDE049A12E14270600F0E102 /* BadgeWithNumber.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -4464,6 +4467,7 @@
 				34D3B04F1E38A20C004100F9 /* Bundle+Init.swift in Sources */,
 				34AB666E1FC5AA330078E451 /* TransportTransitStepsCollectionView.swift in Sources */,
 				993DF11E23F6BDB100AC231A /* UITextViewRenderer.swift in Sources */,
+				EDE049A22E14270600F0E102 /* BadgeWithNumber.swift in Sources */,
 				F6E2FF5A1E097BA00083EBEC /* MWMNightModeController.m in Sources */,
 				471A7BB8247FE3C300A0D4C1 /* URL+Query.swift in Sources */,
 				47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */,
