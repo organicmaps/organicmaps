@@ -84,9 +84,12 @@ final class PlacePagePreviewViewController: UIViewController {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
                                                  attributes: [.foregroundColor : UIColor.blackSecondaryText(),
                                                               .font : UIFont.regular14()]))
+        subtitleLabel.attributedText = subtitleString
+        subtitleContainerView.isHidden = false
+      } else {
+        subtitleLabel.text = nil
+        subtitleContainerView.isHidden = true
       }
-
-      subtitleLabel.attributedText = subtitleString
     }
 
     placePageDirectionView = subtitleDirectionView
