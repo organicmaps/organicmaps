@@ -95,11 +95,8 @@ set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
 execute_process(
-  COMMAND mkdir -p ${RESOURCES_FOLDER}/shaders_compiler
-  COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac.icns ${RESOURCES_FOLDER}
-  COMMAND cp ${PROJECT_SOURCE_DIR}/res/designer.icns ${RESOURCES_FOLDER}
+    COMMAND mkdir -p ${RESOURCES_FOLDER}/shaders_compiler
 )
-
 function(copy_resources)
   foreach(file ${ARGN})
     execute_process(
@@ -140,7 +137,7 @@ install(DIRECTORY ${OMIM_ROOT}/data DESTINATION ${CMAKE_INSTALL_PREFIX}/share/or
 
 if (PLATFORM_LINUX)
   install(FILES ${OMIM_ROOT}/packaging/app.organicmaps.desktop.metainfo.xml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/metainfo/)
-  install(FILES ${OMIM_ROOT}/qt/res/app.organicmaps.desktop.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/)
+  install(FILES ${OMIM_ROOT}/qt/res/linux/app.organicmaps.desktop.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/)
   install(FILES ${OMIM_ROOT}/qt/res/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/512x512/apps/ RENAME organicmaps.png)
 endif()
 
@@ -153,6 +150,15 @@ if (PLATFORM_MAC)
   execute_process(
     COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler/macos ${RESOURCES_FOLDER}/shaders_compiler
   )
+  if (BUILD_DESIGNER)
+    execute_process(
+        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/designer.icns ${RESOURCES_FOLDER}
+    )
+  else ()
+    execute_process(
+        COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/mac.icns ${RESOURCES_FOLDER}
+    )
+  endif ()
 elseif (PLATFORM_LINUX)
   execute_process(
     COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler/linux ${RESOURCES_FOLDER}/shaders_compiler
@@ -166,17 +172,17 @@ if (PLATFORM_MAC)
     set(BUNDLE_VERSION ${APP_VERSION})
   endif()
 
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/Info.plist.in ${CMAKE_CURRENT_SOURCE_DIR}/res/Info.plist)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/mac/Info.plist.in ${CMAKE_CURRENT_BINARY_DIR}/generated/Info.plist)
 
   set_target_properties(${PROJECT_NAME}
     PROPERTIES
       OUTPUT_NAME ${BUNDLE_NAME}
-      MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/res/Info.plist
+      MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/generated/Info.plist
   )
 endif()
 
 if (PLATFORM_WIN)
-  target_sources(${PROJECT_NAME} PRIVATE res/windows.rc)
+  target_sources(${PROJECT_NAME} PRIVATE res/windows/windows.rc)
 endif()
 
 if (BUILD_DESIGNER)
@@ -239,7 +245,7 @@ if (BUILD_DESIGNER)
   set(CPACK_GENERATOR DragNDrop)
   set(CPACK_DMG_FORMAT UDZO)
   set(CPACK_DMG_VOLUME_NAME ${BUNDLE_NAME})
-  set(CPACK_PACKAGE_ICON ${PROJECT_SOURCE_DIR}/res/designer.icns)
+  set(CPACK_PACKAGE_ICON ${PROJECT_SOURCE_DIR}/res/mac/designer.icns)
   include(CPack)
 elseif (BUILD_STANDALONE)
   add_custom_command(TARGET desktop POST_BUILD
