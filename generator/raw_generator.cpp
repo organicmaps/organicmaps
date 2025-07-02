@@ -176,7 +176,7 @@ bool RawGenerator::Execute()
 RawGenerator::FinalProcessorPtr RawGenerator::CreateCoslineFinalProcessor()
 {
   auto finalProcessor = std::make_shared<CoastlineFinalProcessor>(
-      m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_FILE_EXTENSION_TMP), m_threadsCount);
+      m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME, DATA_TMP_FILE_EXTENSION), m_threadsCount);
   finalProcessor->SetCoastlinesFilenames(
       m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
       m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION));
@@ -189,10 +189,10 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
   auto finalProcessor = std::make_shared<CountryFinalProcessor>(affiliations, m_genInfo.m_tmpDir, m_threadsCount);
   finalProcessor->SetIsolinesDir(m_genInfo.m_isolinesDir);
   finalProcessor->SetAddressesDir(m_genInfo.m_addressesDir);
-  finalProcessor->SetMiniRoundabouts(m_genInfo.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME));
-  finalProcessor->SetAddrInterpolation(m_genInfo.GetIntermediateFileName(ADDR_INTERPOL_FILENAME));
+  finalProcessor->SetMiniRoundabouts(m_genInfo.GetIntermediateFileName(MINI_ROUNDABOUTS_FILE_NAME));
+  finalProcessor->SetAddrInterpolation(m_genInfo.GetIntermediateFileName(ADDR_INTERPOL_FILE_NAME));
   if (addAds)
-    finalProcessor->SetFakeNodes(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_NODES_FILE));
+    finalProcessor->SetFakeNodes(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_NODES_FILE_NAME));
 
   if (m_genInfo.m_emitCoasts)
   {
@@ -201,7 +201,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(
         m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME));
   }
 
-  finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME));
+  finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILE_NAME));
   return finalProcessor;
 }
 
@@ -222,7 +222,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateWorldFinalProcessor(bool cut
 RawGenerator::FinalProcessorPtr RawGenerator::CreatePlacesFinalProcessor(AffiliationInterfacePtr const & affiliations)
 {
   auto finalProcessor = std::make_shared<FinalProcessorCities>(affiliations, m_genInfo.m_tmpDir, m_threadsCount);
-  finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME),
+  finalProcessor->SetCityBoundariesFiles(m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILE_NAME),
                                          m_genInfo.m_citiesBoundariesFilename);
   return finalProcessor;
 }
@@ -275,9 +275,9 @@ bool RawGenerator::GenerateFilteredFeatures()
   m_names = rawGeneratorWriter.GetNames();
   /// @todo: compare to the input list of countries loaded in borders::LoadCountriesList().
   if (m_names.empty())
-    LOG(LWARNING, ("No feature data " DATA_FILE_EXTENSION_TMP " files were generated for any country!"));
+    LOG(LWARNING, ("No feature data " DATA_TMP_FILE_EXTENSION " files were generated for any country!"));
   else
-    LOG(LINFO, ("Feature data " DATA_FILE_EXTENSION_TMP " files were written for following countries:", m_names));
+    LOG(LINFO, ("Feature data " DATA_TMP_FILE_EXTENSION " files were written for following countries:", m_names));
 
   return true;
 }

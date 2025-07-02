@@ -23,12 +23,12 @@ template <typename ToDo>
 void ForEachMwmTmp(std::string const & temporaryMwmPath, ToDo && toDo, size_t threadsCount = 1)
 {
   Platform::FilesList fileList;
-  Platform::GetFilesByExt(temporaryMwmPath, DATA_FILE_EXTENSION_TMP, fileList);
+  Platform::GetFilesByExt(temporaryMwmPath, DATA_TMP_FILE_EXTENSION, fileList);
   base::ComputationalThreadPool pool(threadsCount);
   for (auto const & filename : fileList)
   {
     auto countryName = filename;
-    strings::ReplaceLast(countryName, DATA_FILE_EXTENSION_TMP, "");
+    strings::ReplaceLast(countryName, DATA_TMP_FILE_EXTENSION, "");
     pool.SubmitWork(std::forward<ToDo>(toDo), countryName, base::JoinPath(temporaryMwmPath, filename));
   }
 }
@@ -56,7 +56,7 @@ std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::Featur
   {
     pool.SubmitWork([&, country = std::move(p.first), indexes = std::move(p.second)]()
     {
-      auto const path = base::JoinPath(temporaryMwmPath, country + DATA_FILE_EXTENSION_TMP);
+      auto const path = base::JoinPath(temporaryMwmPath, country + DATA_TMP_FILE_EXTENSION);
       feature::FeatureBuilderWriter<SerializationPolicy> collector(path, FileWriter::Op::OP_APPEND);
       for (auto const index : indexes)
         collector.Write(fbs[index]);

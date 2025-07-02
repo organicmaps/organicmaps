@@ -29,12 +29,12 @@ namespace feature
 {
 bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
 {
-  /// @todo How LEAP_SPEEDS_FILE was generated before? It's always absent now.
-  if (Platform::IsFileExistsByFullPath(LEAP_SPEEDS_FILE))
+  /// @todo How LEAP_SPEEDS_FILE_NAME was generated before? It's always absent now.
+  if (Platform::IsFileExistsByFullPath(LEAP_SPEEDS_FILE_NAME))
   {
     try
     {
-      auto crossMwmDataReader = GetPlatform().GetReader(LEAP_SPEEDS_FILE);
+      auto crossMwmDataReader = GetPlatform().GetReader(LEAP_SPEEDS_FILE_NAME);
       std::string crossMwmDataBuffer;
       crossMwmDataReader->ReadAsString(crossMwmDataBuffer);
       base::Json crossMwmData(crossMwmDataBuffer.data());
@@ -50,24 +50,24 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
     }
     catch (FileAbsentException const & e)
     {
-      LOG(LERROR, ("Error missing file", LEAP_SPEEDS_FILE, ":", e.Msg()));
+      LOG(LERROR, ("Error missing file", LEAP_SPEEDS_FILE_NAME, ":", e.Msg()));
       return false;
     }
     catch (Reader::Exception const & e)
     {
-      LOG(LERROR, ("Error reading", LEAP_SPEEDS_FILE, ":", e.Msg()));
+      LOG(LERROR, ("Error reading", LEAP_SPEEDS_FILE_NAME, ":", e.Msg()));
       return false;
     }
     catch (base::Json::Exception const & e)
     {
-      LOG(LERROR, ("Error parsing JSON in", LEAP_SPEEDS_FILE, ":", e.Msg()));
+      LOG(LERROR, ("Error parsing JSON in", LEAP_SPEEDS_FILE_NAME, ":", e.Msg()));
       return false;
     }
   }
 
   try
   {
-    auto reader = GetPlatform().GetReader(COUNTRIES_META_FILE);
+    auto reader = GetPlatform().GetReader(COUNTRIES_META_FILE_NAME);
     std::string buffer;
     reader->ReadAsString(buffer);
     base::Json root(buffer.data());
@@ -134,11 +134,11 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("Error reading", COUNTRIES_META_FILE, ":", e.Msg()));
+    LOG(LERROR, ("Error reading", COUNTRIES_META_FILE_NAME, ":", e.Msg()));
   }
   catch (base::Json::Exception const & e)
   {
-    LOG(LERROR, ("Error parsing JSON in", COUNTRIES_META_FILE, ":", e.Msg()));
+    LOG(LERROR, ("Error parsing JSON in", COUNTRIES_META_FILE_NAME, ":", e.Msg()));
   }
   return false;
 }

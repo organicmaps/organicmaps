@@ -97,7 +97,7 @@ struct GenerateInfo
   }
 
   std::string GetTmpFileName(std::string const & fileName,
-                             std::string const & ext = DATA_FILE_EXTENSION_TMP) const
+                             std::string const & ext = DATA_TMP_FILE_EXTENSION) const
   {
     return base::JoinPath(m_tmpDir, fileName + ext);
   }

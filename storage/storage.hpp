@@ -296,7 +296,7 @@ public:
   /// * create a instance of Storage with a special countries.txt and |dataDir|
   /// * download some maps to WritableDir/|dataDir|
   /// * destroy the instance of Storage and move the downloaded maps to proper place
-  Storage(std::string const & pathToCountriesFile = COUNTRIES_FILE,
+  Storage(std::string const & pathToCountriesFile = COUNTRIES_FILE_NAME,
           std::string const & dataDir = std::string());
 
   /// \brief This constructor should be used for testing only.

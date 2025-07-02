@@ -62,7 +62,7 @@ TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, DataHeader::Ma
   : m_file(file)
   , m_type(type)
   , m_collector(
-        std::make_unique<FeaturesCollector>(m_file.GetPath(MapFileType::Map) + EXTENSION_TMP))
+        std::make_unique<FeaturesCollector>(m_file.GetPath(MapFileType::Map) + TMP_FILE_EXTENSION))
   , m_version(version)
 {
 }
@@ -178,7 +178,7 @@ void TestMwmBuilder::Finish()
           ("Can't build postcodes section."));
   }
 
-  UNUSED_VALUE(base::DeleteFileX(path + TEMP_ADDR_EXTENSION));
+  UNUSED_VALUE(base::DeleteFileX(path + TEMP_ADDR_FILE_EXTENSION));
 
   if (m_type == DataHeader::MapType::World)
   {

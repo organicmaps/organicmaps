@@ -46,7 +46,7 @@ public:
                      RegionData const & regionData, uint32_t versionDate)
     : FeaturesCollector(info.GetTargetFileName(name, FEATURES_FILE_TAG))
     , m_filename(info.GetTargetFileName(name))
-    , m_boundaryPostcodesEnricher(info.GetIntermediateFileName(BOUNDARY_POSTCODES_FILENAME))
+    , m_boundaryPostcodesEnricher(info.GetIntermediateFileName(BOUNDARY_POSTCODES_FILE_NAME))
     , m_header(header)
     , m_regionData(regionData)
     , m_versionDate(versionDate)
@@ -58,7 +58,7 @@ public:
       m_trgFile.push_back(std::make_unique<TmpFile>(info.GetIntermediateFileName(name, TRIANGLE_FILE_TAG + postfix)));
     }
 
-    m_addrFile = std::make_unique<FileWriter>(info.GetIntermediateFileName(name + DATA_FILE_EXTENSION, TEMP_ADDR_EXTENSION));
+    m_addrFile = std::make_unique<FileWriter>(info.GetIntermediateFileName(name + DATA_FILE_EXTENSION, TEMP_ADDR_FILE_EXTENSION));
   }
 
   void Finish() override

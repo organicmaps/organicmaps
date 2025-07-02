@@ -62,7 +62,7 @@ FeatureBuilderParams GetFeatureBuilderParams(
   FillXmlElement(tags, &e);
   FeatureBuilderParams params;
 
-  static TagReplacer tagReplacer(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE));
+  static TagReplacer tagReplacer(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE_NAME));
   tagReplacer.Process(e);
 
   ftype::GetNameAndType(&e, params);

@@ -322,7 +322,7 @@ void DrawWidget::VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVer
     if (fromPackedPolygon)
     {
       std::vector<storage::CountryDef> countries;
-      FilesContainerR reader(base::JoinPath(GetPlatform().ResourcesDir(), PACKED_POLYGONS_FILE));
+      FilesContainerR reader(base::JoinPath(GetPlatform().ResourcesDir(), PACKED_POLYGONS_FILE_NAME));
       ReaderSource<ModelReaderPtr> src(reader.GetReader(PACKED_POLYGONS_INFO_TAG));
       rw::Read(src, countries);
 

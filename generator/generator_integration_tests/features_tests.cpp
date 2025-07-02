@@ -338,12 +338,12 @@ public:
     m_genInfo.m_emitCoasts = true;
     m_genInfo.m_citiesBoundariesFilename =
         m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
-    auto const cameraToWays = m_genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
-    auto const cityBoundaries = m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME);
-    auto const maxSpeeds = m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME);
-    auto const metalines = m_genInfo.GetIntermediateFileName(METALINES_FILENAME);
-    auto const restrictions = m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
-    auto const roadAccess = m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
+    auto const cameraToWays = m_genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILE_NAME);
+    auto const cityBoundaries = m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILE_NAME);
+    auto const maxSpeeds = m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILE_NAME);
+    auto const metalines = m_genInfo.GetIntermediateFileName(METALINES_FILE_NAME);
+    auto const restrictions = m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILE_NAME);
+    auto const roadAccess = m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILE_NAME);
 
     for (auto const & generatedFile :
          {cameraToWays, cityBoundaries, maxSpeeds, metalines, restrictions, roadAccess,
@@ -444,10 +444,10 @@ private:
     m_genInfo.m_idToWikidataFilename = m_genInfo.GetIntermediateFileName("wiki_urls.csv");
     DecompressZipArchive(base::JoinPath(platform.WritableDir(), archiveName + ".zip"), m_testPath);
 
-    m_mixedNodesFilenames.first = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE);
-    m_mixedNodesFilenames.second = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE "_");
-    m_mixedTagsFilenames.first = base::JoinPath(platform.ResourcesDir(), MIXED_TAGS_FILE);
-    m_mixedTagsFilenames.second = base::JoinPath(platform.ResourcesDir(), MIXED_TAGS_FILE "_");
+    m_mixedNodesFilenames.first = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE_NAME);
+    m_mixedNodesFilenames.second = base::JoinPath(platform.ResourcesDir(), MIXED_NODES_FILE_NAME "_");
+    m_mixedTagsFilenames.first = base::JoinPath(platform.ResourcesDir(), MIXED_TAGS_FILE_NAME);
+    m_mixedTagsFilenames.second = base::JoinPath(platform.ResourcesDir(), MIXED_TAGS_FILE_NAME "_");
 
     CHECK_EQUAL(
         std::rename(m_mixedNodesFilenames.first.c_str(), m_mixedNodesFilenames.second.c_str()), 0,

@@ -90,3 +90,8 @@ Copyright: 2020-2021, Olga Khlopkova <mesozoic.drones@gmail.com>
            2020, Vladimir Byko-Ianko <bykoianko@gmail.com>
            2020, mesozoic-drones <mesozoic.drones@gmail.com>
 License: MIT
+
+Files: codegen/*
+Copyright: 2025, Veniamin Gvozdikov
+           2025, Organic Maps (formerly OMaps) contributors
+License: AGPL-3.0-or-later

@@ -329,11 +329,11 @@ int main(int argc, char ** argv)
   Platform & pl = GetPlatform();
   pl.SetWritableDirForTests(argv[1]);
 
-  string countriesFile = COUNTRIES_FILE;
+  string countriesFile = COUNTRIES_FILE_NAME;
   if (argc > 2)
   {
     pl.SetResourceDir(argv[2]);
-    countriesFile = base::JoinPath(argv[2], COUNTRIES_FILE);
+    countriesFile = base::JoinPath(argv[2], COUNTRIES_FILE_NAME);
   }
 
   storage::Storage storage(countriesFile, argv[1]);

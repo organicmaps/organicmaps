@@ -43,7 +43,7 @@ void RegionInfoGetter::LoadCountriesTree()
   CountryNameSynonyms countryNameSynonyms;
   MwmTopCityGeoIds mwmTopCityGeoIds;
   MwmTopCountryGeoIds mwmTopCountryGeoIds;
-  LoadCountriesFromFile(COUNTRIES_FILE, m_countries, affiliations, countryNameSynonyms,
+  LoadCountriesFromFile(COUNTRIES_FILE_NAME, m_countries, affiliations, countryNameSynonyms,
                         mwmTopCityGeoIds, mwmTopCountryGeoIds);
 }
 
