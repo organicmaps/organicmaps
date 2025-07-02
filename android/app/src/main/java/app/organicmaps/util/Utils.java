@@ -213,17 +213,31 @@ public class Utils
     if (TextUtils.isEmpty(url))
       return;
 
-    final Intent intent = new Intent(Intent.ACTION_VIEW);
     Uri uri =
         isHttpOrHttpsScheme(url) ? Uri.parse(url) : new Uri.Builder().scheme("http").appendEncodedPath(url).build();
+
+    Utils.openUri(context, uri, R.string.browser_not_available);
+  }
+
+  /**
+   * Attempts to open a URI in another app via the system app chooser.
+   * @param context the app context
+   * @param uri the URI to open.
+   * @param failMessage string id: message to show in a toast when the system can't find an app to open with.
+   */
+  public static void openUri(@NonNull Context context, @NonNull Uri uri, Integer failMessage)
+  {
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(uri);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
     try
     {
       context.startActivity(intent);
     }
     catch (ActivityNotFoundException e)
     {
-      Toast.makeText(context, context.getString(R.string.browser_not_available), Toast.LENGTH_LONG).show();
+      Toast.makeText(context, failMessage, Toast.LENGTH_SHORT).show();
       Logger.e(TAG, "ActivityNotFoundException", e);
     }
     catch (AndroidRuntimeException e)
@@ -232,28 +246,6 @@ public class Utils
       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       context.startActivity(intent);
     }
-  }
-
-  /**
-   * Attempts to open a URI in another app via the system app chooser.
-   * @param context the app context
-   * @param uri the URI to open.
-   * @param failMessage string id: message to show in a toast when the system can't find an app to open with.
-   * @param action (optional) the Intent action to use. If none is provided, defaults to Intent.ACTION_VIEW.
-   */
-  public static void openUri(@NonNull Context context, @NonNull Uri uri, Integer failMessage, @NonNull String... action)
-  {
-    final String act = (action != null && action.length > 0 && action[0] != null) ? action[0] : Intent.ACTION_VIEW;
-    final Intent intent = new Intent(act);
-    intent.setData(uri);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-    // https://developer.android.com/guide/components/intents-common
-    // check that an app exists to open with, otherwise it'll crash
-    if (intent.resolveActivity(context.getPackageManager()) != null)
-      context.startActivity(intent);
-    else
-      Toast.makeText(context, failMessage, Toast.LENGTH_SHORT).show();
   }
 
   private static boolean isHttpOrHttpsScheme(@NonNull String url)
