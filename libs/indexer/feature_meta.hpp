@@ -46,7 +46,7 @@ public:
     for (auto const & it : m_metadata)
     {
       WriteVarUint(sink, static_cast<uint32_t>(it.first));
-      utils::WriteString(sink, it.second);
+      rw::WriteNonEmpty(sink, it.second);
     }
   }
 
@@ -57,7 +57,7 @@ public:
     for (size_t i = 0; i < sz; ++i)
     {
       auto const key = ReadVarUint<uint32_t>(src);
-      utils::ReadString(src, m_metadata[key]);
+      rw::ReadNonEmpty(src, m_metadata[key]);
     }
   }
 

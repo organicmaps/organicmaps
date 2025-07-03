@@ -22,7 +22,7 @@ BoundaryPostcodesEnricher::BoundaryPostcodesEnricher(std::string const & boundar
   while (src.Size() > 0)
   {
     std::string postcode;
-    utils::ReadString(src, postcode);
+    rw::ReadNonEmpty(src, postcode);
     std::vector<m2::PointD> geometry;
     rw::ReadVectorOfPOD(src, geometry);
     CHECK(!postcode.empty() && !geometry.empty(), ());
