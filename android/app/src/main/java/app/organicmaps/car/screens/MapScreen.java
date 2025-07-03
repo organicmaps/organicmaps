@@ -111,7 +111,7 @@ public class MapScreen extends BaseMapScreen
   private Item createBookmarksItem()
   {
     final CarIcon iconBookmarks =
-        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_bookmarks)).build();
+        new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_bookmarks_and_tracks)).build();
 
     final GridItem.Builder builder = new GridItem.Builder();
     builder.setImage(iconBookmarks);
