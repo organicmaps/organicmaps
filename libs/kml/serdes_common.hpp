@@ -1,6 +1,7 @@
 #pragma once
 
 #include "coding/string_utf8_multilang.hpp"
+#include "coding/writer.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
