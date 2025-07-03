@@ -58,7 +58,7 @@ public:
   vector<Id> StrictQuery(string const & query, string const & lang) const
   {
     auto prev = m_index.GetAllIds();
-    TEST(base::IsSortedAndUnique(prev.cbegin(), prev.cend()), ());
+    TEST(base::IsSortedAndUnique(prev), ());
 
     ForEachNormalizedToken(query, [&](strings::UniString const & token)
     {
