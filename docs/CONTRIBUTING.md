@@ -48,7 +48,7 @@ Check the [map styling instructions](STYLES.md) and work on adding new map featu
 ### Code Contributions
 
 Please follow instructions in [INSTALL.md](INSTALL.md) to set up your development environment.
-You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks. If you want to focus on the most important issues, please check [this label](https://github.com/organicmaps/organicmaps/labels/Frequently%20Reported%20by%20Users) or our [Milestones](https://github.com/organicmaps/organicmaps/milestones).
+You will find a list of issues for new contributors [here](https://github.com/organicmaps/organicmaps/labels/Good%20first%20issue) to help you get started with simple tasks. If you want to focus on the most important issues, please check [this label](https://github.com/organicmaps/organicmaps/labels/Frequently%20User%20Reported) or our [Milestones](https://github.com/organicmaps/organicmaps/milestones).
 
 **We do not assign issues to first-time contributors.** Any such request notifies our contributors and the development team, and creates unnecessary noise that distracts us from the work. Just make a PR - and it will be reviewed.
 
