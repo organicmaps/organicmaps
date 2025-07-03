@@ -6,4 +6,4 @@
   style="@style/MwmWidget.MapButton.Square"
   app:shapeAppearanceOverlay="@style/MwmWidget.MapButton.Square"
   android:contentDescription="@string/bookmarks"
-  app:srcCompat="@drawable/ic_bookmarks" />
+  app:srcCompat="@drawable/ic_bookmarks_and_tracks" />

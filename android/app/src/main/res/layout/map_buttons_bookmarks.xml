@@ -5,4 +5,4 @@
   android:id="@+id/btn_bookmarks"
   style="@style/MwmWidget.MapButton"
   android:contentDescription="@string/bookmarks"
-  app:srcCompat="@drawable/ic_bookmarks" />
+  app:srcCompat="@drawable/ic_bookmarks_and_tracks" />
