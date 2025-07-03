@@ -50,7 +50,7 @@ std::string_view GetUnitsGroupingSeparator(Locale const & locale)
 
 bool IsUnitsOrderValid(std::initializer_list<Duration::Units> units)
 {
-  return base::IsSortedAndUnique(units.begin(), units.end());
+  return base::IsSortedAndUnique(units);
 }
 }  // namespace
 
