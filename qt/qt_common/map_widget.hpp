@@ -97,7 +97,6 @@ protected:
   void wheelEvent(QWheelEvent * e) override;
 
   Framework & m_framework;
-  bool m_apiOpenGLES3;
   bool m_screenshotMode;
   ScaleSlider * m_slider;
   SliderState m_sliderState;

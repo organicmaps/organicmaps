@@ -539,8 +539,7 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::GraphicsContext> context,
 
 drape_ptr<df::SubrouteData> RouteShape::CacheRoute(ref_ptr<dp::GraphicsContext> context,
                                                    dp::DrapeID subrouteId, SubrouteConstPtr subroute,
-                                                   size_t styleIndex, int recacheId,
-                                                   ref_ptr<dp::TextureManager> textures)
+                                                   size_t styleIndex, int recacheId)
 {
   size_t startIndex;
   size_t endIndex;
@@ -596,7 +595,6 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(ref_ptr<dp::GraphicsContext> 
 
   auto state = CreateRenderState(subroute->m_style[styleIndex].m_pattern.m_isDashed ?
                                  gpu::Program::RouteDash : gpu::Program::Route, DepthLayer::GeometryLayer);
-  state.SetColorTexture(textures->GetSymbolsTexture());
 
   for (auto & data : geometryBufferData)
   {

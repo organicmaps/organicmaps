@@ -395,7 +395,7 @@ private:
 public:
   struct DrapeCreationParams
   {
-    dp::ApiVersion m_apiVersion = dp::ApiVersion::OpenGLES2;
+    dp::ApiVersion m_apiVersion = dp::ApiVersion::OpenGLES3;
     float m_visualScale = 1.0f;
     int m_surfaceWidth = 0;
     int m_surfaceHeight = 0;

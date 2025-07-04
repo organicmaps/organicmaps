@@ -25,7 +25,7 @@ MTLPixelFormat UnpackFormat(TextureFormat format)
   switch (format)
   {
   case TextureFormat::RGBA8: return MTLPixelFormatRGBA8Unorm;
-  case TextureFormat::Alpha: return MTLPixelFormatA8Unorm;
+  case TextureFormat::Red: return MTLPixelFormatA8Unorm; // TODO: change to R8, fix shaders
   case TextureFormat::RedGreen: return MTLPixelFormatRG8Unorm;
   case TextureFormat::DepthStencil: return MTLPixelFormatDepth32Float_Stencil8;
   case TextureFormat::Depth: return MTLPixelFormatDepth32Float;
