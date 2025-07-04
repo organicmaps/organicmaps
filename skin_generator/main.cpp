@@ -4,9 +4,7 @@
 #include <iostream>
 
 #include <QApplication>
-#include <QtCore/QFile>
 #include <QtCore/QString>
-#include <QtCore/QHash>
 
 #include <gflags/gflags.h>
 
@@ -33,7 +31,7 @@ int main(int argc, char *argv[])
     tools::SkinGenerator gen;
 
     std::vector<QSize> symbolSizes;
-    symbolSizes.emplace_back(QSize(FLAGS_symbolWidth, FLAGS_symbolHeight));
+    symbolSizes.emplace_back(FLAGS_symbolWidth, FLAGS_symbolHeight);
 
     std::vector<std::string> suffixes;
     suffixes.push_back(FLAGS_skinSuffix);

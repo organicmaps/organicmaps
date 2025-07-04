@@ -2,7 +2,6 @@
 
 #include "map/style_tests/helpers.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/map_style_reader.hpp"
@@ -27,16 +26,23 @@ class SdfParsingDispatcher
 {
 public:
   explicit SdfParsingDispatcher(StringSet & symbols)
-      : m_symbols(symbols)
-  {}
+    : m_symbols(symbols) {}
 
-  bool Push(char const *) { return true; }
-  void Pop(char const *) {}
-  void CharData(std::string const &) {}
-  void AddAttr(char const * attribute, char const * value)
+  void Load(const ReaderPtr<Reader> & source) const
   {
-    if (0 == std::strcmp(attribute, "name"))
-      m_symbols.insert(value);
+    std::string data;
+    source.ReadAsString(data);
+    auto it = data.begin();
+    for (int i = 0; i < 3; i++)
+      it = std::find(it, data.end(), '\n') + 1;
+    while (it != data.end())
+    {
+      it = std::find(it, data.end(), '\n'); // EOL pos
+      auto name_begin_it = std::find(std::make_reverse_iterator(it), std::make_reverse_iterator(data.begin()), ';').
+          base();
+      m_symbols.insert(std::string(name_begin_it, it));
+      ++it;
+    }
   }
 
 private:
@@ -60,8 +66,7 @@ StringSet GetSymbolsSetFromResourcesFile(std::string_view density)
   StringSet symbols;
   SdfParsingDispatcher dispatcher(symbols);
   ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader("symbols.sdf", density);
-  ReaderSource<ReaderPtr<Reader> > source(reader);
-  ParseXML(source, dispatcher);
+  dispatcher.Load(reader);
   return symbols;
 }
 
@@ -70,7 +75,7 @@ UNIT_TEST(Test_SymbolsConsistency)
 {
   bool res = true;
 
-  std::string_view constexpr densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus" };
+  std::string_view constexpr densities[] = {"mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus"};
 
   styles::RunForEveryMapStyle([&](MapStyle mapStyle)
   {
@@ -82,8 +87,8 @@ UNIT_TEST(Test_SymbolsConsistency)
 
       std::vector<std::string> missed;
       std::set_difference(drawingRuleSymbols.begin(), drawingRuleSymbols.end(),
-                     resourceStyles.begin(), resourceStyles.end(),
-                     back_inserter(missed));
+                          resourceStyles.begin(), resourceStyles.end(),
+                          back_inserter(missed));
 
       if (!missed.empty())
       {
@@ -97,4 +102,4 @@ UNIT_TEST(Test_SymbolsConsistency)
 
   TEST(res, ());
 }
-}  // namespace style_symbols_consistency_tests
+} // namespace style_symbols_consistency_tests

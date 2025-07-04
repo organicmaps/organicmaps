@@ -2,12 +2,8 @@
 
 #include "indexer/map_style_reader.hpp"
 
-#include "platform/platform.hpp"
-
 #include "coding/reader.hpp"
 #include "coding/parse_xml.hpp"
-
-#include "base/string_utils.hpp"
 
 #include "3party/stb_image/stb_image.h"
 
@@ -30,75 +26,65 @@ using TSymbolsLoadingFailure = std::function<void(std::string const &)>;
 class DefinitionLoader
 {
 public:
-  DefinitionLoader(TDefinitionInserter const & definitionInserter, bool convertToUV)
-    : m_definitionInserter(definitionInserter)
+  DefinitionLoader(TDefinitionInserter definitionInserter, bool convertToUV)
+    : m_definitionInserter(std::move(definitionInserter))
     , m_convertToUV(convertToUV)
     , m_width(0)
     , m_height(0)
   {}
 
-  bool Push(char const * /*element*/) { return true; }
-
-  void Pop(std::string_view element)
+  void Load(const ReaderPtr<Reader>& source)
   {
-    if (element == "symbol")
-    {
-      ASSERT(!m_name.empty(), ());
-      ASSERT(m_rect.IsValid(), ());
-      ASSERT(m_definitionInserter != nullptr, ());
-      m_definitionInserter(m_name, m_rect);
+    std::string data;
+    source.ReadAsString(data);
 
-      m_name = "";
-      m_rect.MakeEmpty();
+    int minX, minY, maxX, maxY;
+    m2::RectF rect;
+    auto it = data.begin();
+
+    // Read dimensions from first two lines
+    it = std::find(it, data.end(), '\n') + 1; // Skip first comment
+    auto semicolonPos = std::find(it, data.end(), ';');
+    std::string_view sview(it, semicolonPos);
+    std::from_chars(sview.data(), sview.data() + sview.size(), m_width);
+
+    it = semicolonPos + 1;
+    semicolonPos = std::find(it, data.end(), '\n');
+    sview = std::string_view(it, semicolonPos);
+    std::from_chars(sview.data(), sview.data() + sview.size(), m_height);
+
+    it = std::find(semicolonPos + 1, data.end(), '\n') + 1; // Skip second comment
+
+    float const scalarX = m_convertToUV ? static_cast<float>(m_width) : 1.0f;
+    float const scalarY = m_convertToUV ? static_cast<float>(m_height) : 1.0f;
+
+    // Parse each symbol definition line
+    while (it != data.end())
+    {
+      // Parse coordinates
+      for (int * coord : {&minX, &minY, &maxX, &maxY})
+      {
+        semicolonPos = std::find(it, data.end(), ';');
+        sview = std::string_view(it, semicolonPos);
+        std::from_chars(sview.data(), sview.data() + sview.size(), *coord);
+        it = semicolonPos + 1;
+      }
+
+      // Get symbol name
+      auto newlinePos = std::find(it, data.end(), '\n');
+
+      rect.setMinX(minX / scalarX);
+      rect.setMinY(minY / scalarY);
+      rect.setMaxX(maxX / scalarX);
+      rect.setMaxY(maxY / scalarY);
+
+      m_definitionInserter(/* name */ std::string(it, newlinePos), rect);
+
+      if (newlinePos == data.end())
+        break;
+      it = newlinePos + 1;
     }
   }
-
-  void AddAttr(std::string_view attribute, char const * value)
-  {
-    if (attribute == "name")
-      m_name = value;
-    else
-    {
-      int v;
-      if (!strings::to_int(value, v))
-        return;
-
-      if (attribute == "minX")
-      {
-        ASSERT(m_width != 0, ());
-        float const scalar = m_convertToUV ? static_cast<float>(m_width) : 1.0f;
-        m_rect.setMinX(v / scalar);
-      }
-      else if (attribute == "minY")
-      {
-        ASSERT(m_height != 0, ());
-        float const scalar = m_convertToUV ? static_cast<float>(m_height) : 1.0f;
-        m_rect.setMinY(v / scalar);
-      }
-      else if (attribute == "maxX")
-      {
-        ASSERT(m_width != 0, ());
-        float const scalar = m_convertToUV ? static_cast<float>(m_width) : 1.0f;
-        m_rect.setMaxX(v / scalar);
-      }
-      else if (attribute == "maxY")
-      {
-        ASSERT(m_height != 0, ());
-        float const scalar = m_convertToUV ? static_cast<float>(m_height) : 1.0f;
-        m_rect.setMaxY(v / scalar);
-      }
-      else if (attribute == "height")
-      {
-        m_height = v;
-      }
-      else if (attribute == "width")
-      {
-        m_width = v;
-      }
-    }
-  }
-
-  void CharData(std::string const &) {}
 
   uint32_t GetWidth() const { return m_width; }
   uint32_t GetHeight() const { return m_height; }
@@ -109,9 +95,6 @@ private:
 
   uint32_t m_width;
   uint32_t m_height;
-
-  std::string m_name;
-  m2::RectF m_rect;
 };
 
 void LoadSymbols(std::string const & skinPathName, std::string const & textureName,
@@ -128,17 +111,11 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
 
   try
   {
-    DefinitionLoader loader(definitionInserter, convertToUV);
-
     {
       ReaderPtr<Reader> reader =
           GetStyleReader().GetResourceReader(textureName + ".sdf", skinPathName);
-      ReaderSource<ReaderPtr<Reader>> source(reader);
-      if (!ParseXML(source, loader))
-      {
-        failureHandler("Error parsing skin");
-        return;
-      }
+      DefinitionLoader loader(definitionInserter, convertToUV);
+      loader.Load(reader);
 
       width = loader.GetWidth();
       height = loader.GetHeight();
@@ -147,7 +124,7 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
     {
       ReaderPtr<Reader> reader =
           GetStyleReader().GetResourceReader(textureName + ".png", skinPathName);
-      size_t const size = static_cast<size_t>(reader.Size());
+      size_t const size = reader.Size();
       rawData.resize(size);
       reader.Read(0, &rawData[0], size);
     }
