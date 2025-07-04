@@ -9,8 +9,6 @@ android {
   ndkVersion '28.1.13356709'
 
   defaultConfig {
-    versionCode = rootProject.ext.versionCode
-    versionName = rootProject.ext.versionName
 
     minSdk propMinSdkVersion.toInteger()
     targetSdk propTargetSdkVersion.toInteger()
@@ -72,7 +70,6 @@ android {
 
   buildTypes {
     debug {
-      versionNameSuffix '-debug'
       jniDebuggable true // Enable jni debug build
     }
     release {
@@ -80,7 +77,6 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
     beta {
-      versionNameSuffix '-beta'
       minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       matchingFallbacks = ['debug', 'release']
