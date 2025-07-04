@@ -89,6 +89,8 @@ android {
     resourceConfigurations += [project.ext.supportedLocalizations]
 
     setProperty('archivesBaseName', appName.replaceAll('\\s','') + '-' + defaultConfig.versionCode)
+
+    ndk.debugSymbolLevel = 'full'
   }
 
   flavorDimensions += 'default'
