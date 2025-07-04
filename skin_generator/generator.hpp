@@ -3,18 +3,11 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/packer.hpp"
 
-#include "coding/writer.hpp"
-
-#include "base/base.hpp"
-
 #include <QtGui/QPainter>
-#include <QtGui/QImage>
 #include <QtCore/QFileInfo>
 #include <QtCore/QSize>
 #include <QtSvg/QSvgRenderer>
 
-#include <cstdint>
-#include <map>
 #include <string>
 #include <vector>
 
@@ -32,11 +25,6 @@ public:
     QString m_symbolID;
 
     m2::Packer::handle_t m_handle = {};
-
-    SymbolInfo() {}
-    SymbolInfo(QSize size, QString const & fullFileName, QString const & symbolID)
-      : m_size(size), m_fullFileName(fullFileName), m_symbolID(symbolID)
-    {}
   };
 
   using TSymbols = std::vector<SymbolInfo>;
@@ -56,13 +44,13 @@ public:
                       std::vector<QSize> const & symbolSizes,
                       std::vector<std::string> const & suffix);
   bool RenderPages(uint32_t maxSize);
-  bool WriteToFileNewStyle(std::string const & skinName);
+  [[nodiscard]] bool WriteToFileNewStyle(std::string const & skinName) const;
 
 private:
   QSvgRenderer m_svgRenderer;
   using TSkinPages = std::vector<SkinPageInfo>;
   TSkinPages m_pages;
-  bool m_overflowDetected;
+  bool m_overflowDetected = false;
 
   void MarkOverflow();
 };
