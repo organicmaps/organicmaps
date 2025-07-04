@@ -3,15 +3,15 @@ plugins {
 }
 
 android {
-  namespace 'app.organicmaps.sdk'
-  compileSdk propCompileSdkVersion.toInteger()
+  namespace = 'app.organicmaps.sdk'
+  compileSdk = propCompileSdkVersion.toInteger()
 
-  ndkVersion '28.1.13356709'
+  ndkVersion = '28.1.13356709'
 
   defaultConfig {
 
-    minSdk propMinSdkVersion.toInteger()
-    targetSdk propTargetSdkVersion.toInteger()
+    minSdk = propMinSdkVersion.toInteger()
+    targetSdk = propTargetSdkVersion.toInteger()
 
     externalNativeBuild {
       def pchFlag = 'OFF'
@@ -85,7 +85,7 @@ android {
 
   externalNativeBuild {
     cmake {
-      version '3.22.1+'
+      version = '3.22.1+'
       buildStagingDirectory './nativeOutputs'
       path '../../CMakeLists.txt'
     }

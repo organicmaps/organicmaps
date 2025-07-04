@@ -58,10 +58,10 @@ project.ext.appId = 'app.organicmaps'
 project.ext.appName = 'Organic Maps'
 
 android {
-  namespace 'app.organicmaps'
+  namespace = 'app.organicmaps'
 
   // TODO: it should not be here, but in sdk/build.gradle. But for some reason it should be specified here as well.
-  ndkVersion '28.1.13356709'
+  ndkVersion = '28.1.13356709'
 
   buildFeatures {
     dataBinding = true
@@ -76,22 +76,22 @@ android {
   }
 
   // All properties are read from gradle.properties file
-  compileSdk propCompileSdkVersion.toInteger()
+  compileSdk = propCompileSdkVersion.toInteger()
 
   defaultConfig {
     versionCode = rootProject.ext.versionCode
     versionName = rootProject.ext.versionName
     println('Version: ' + versionName)
     println('VersionCode: ' + versionCode)
-    minSdk propMinSdkVersion.toInteger()
-    targetSdk propTargetSdkVersion.toInteger()
+    minSdk = propMinSdkVersion.toInteger()
+    targetSdk = propTargetSdkVersion.toInteger()
     applicationId project.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
     // Should be customized in flavors.
     buildConfigField 'String', 'REVIEW_URL', '""'
     resourceConfigurations += [project.ext.supportedLocalizations]
 
-    setProperty('archivesBaseName', appName.replaceAll('\\s','') + '-' + defaultConfig.versionCode)
+    base.archivesName = appName.replaceAll('\\s','') + '-' + defaultConfig.versionCode
 
     ndk.debugSymbolLevel = 'full'
   }
@@ -140,10 +140,10 @@ android {
   splits.abi {
     boolean enabled = project.hasProperty('splitApk')
     println ('Create separate apks: ' + enabled)
-    enable enabled
+    enable = enabled
     reset()
     include 'x86', 'armeabi-v7a', 'arm64-v8a', 'x86_64'
-    universalApk true
+    universalApk = true
   }
 
   lint {
@@ -156,7 +156,7 @@ android {
     disable 'CustomSplashScreen'
     // https://github.com/organicmaps/organicmaps/issues/3610
     disable 'InsecureBaseConfiguration'
-    abortOnError true
+    abortOnError = true
   }
 
   gradle.projectsEvaluated {
@@ -199,7 +199,7 @@ android {
       applicationIdSuffix '.debug'   // Allows to install debug and release builds together
       versionNameSuffix '-debug'
       zipAlignEnabled true
-      signingConfig signingConfigs.debug
+      signingConfig = signingConfigs.debug
       resValue 'string', 'app_name', 'Debug Organic Maps'
 
       if (googleFirebaseServicesEnabled) {
@@ -210,9 +210,9 @@ android {
     }
 
     release {
-      signingConfig signingConfigs.release
+      signingConfig = signingConfigs.release
       minifyEnabled true
-      shrinkResources true
+      shrinkResources = true
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -228,9 +228,9 @@ android {
     beta {
       applicationIdSuffix '.beta'
       versionNameSuffix '-beta'
-      signingConfig signingConfigs.release
+      signingConfig = signingConfigs.release
       minifyEnabled true
-      shrinkResources true
+      shrinkResources = true
       // Includes the default ProGuard rules files that are packaged with the Android Gradle plugin.
       // To learn more, go to the documentation section about R8 configuration files.
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -255,12 +255,12 @@ android {
   // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk.
   // TODO: Load all minor files via separate call to ReadAsString which can correctly handle compressed files in zip containers.
   androidResources {
-    ignoreAssetsPattern '!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~'
+    ignoreAssetsPattern = '!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~'
     noCompress = ['txt', 'bin', 'html', 'png', 'json', 'mwm', 'ttf', 'sdf', 'ui', 'config', 'csv', 'spv', 'obj']
   }
 
   compileOptions {
-    coreLibraryDesugaringEnabled true
+    coreLibraryDesugaringEnabled = true
 
     sourceCompatibility JavaVersion.VERSION_17
     targetCompatibility JavaVersion.VERSION_17
