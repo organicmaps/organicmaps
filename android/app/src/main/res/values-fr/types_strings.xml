@@ -1402,4 +1402,5 @@
     <string name="type.waterway.canal">Canal</string>
     <string name="type.waterway.canal.tunnel">Tunnel du canal</string>
     <string name="type.wheelchair">Fauteuil roulant</string>
+    <string name="type.railway.station.subway.qingdao">Station de Métro</string>
 </resources>

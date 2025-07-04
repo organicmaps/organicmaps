@@ -221,4 +221,5 @@
     <string name="pref_tts_test_voice_title">Probar indicaciones de voz (TTS, Text-To-Speech)</string>
     <string name="car_used_on_the_phone_screen">Agora tas utilizando Organic Maps na pantalla del teléfonu</string>
     <string name="car_used_on_the_car_screen">Agora tas utilizando Organic Maps na pantalla del coche</string>
+    <string name="not_shared">Priváu</string>
 </resources>

@@ -294,7 +294,7 @@
     <string name="type.cuisine.hungarian">Húngara</string>
     <string name="type.cuisine.ice_cream">Xeados</string>
     <string name="type.cuisine.indian">Hindú</string>
-    <string name="type.cuisine.indonesian">Indonesia</string>
+    <string name="type.cuisine.indonesian">Cociña indonesia</string>
     <string name="type.cuisine.international">Internacional</string>
     <string name="type.cuisine.irish">Irlandesa</string>
     <string name="type.cuisine.italian">Italiana</string>
@@ -306,7 +306,7 @@
     <string name="type.cuisine.lebanese">Libanesa</string>
     <string name="type.cuisine.local">Local</string>
     <string name="type.cuisine.malagasy">Malgache</string>
-    <string name="type.cuisine.malaysian">Malaisia</string>
+    <string name="type.cuisine.malaysian">Cociña malaia</string>
     <string name="type.cuisine.mediterranean">Mediterránea</string>
     <string name="type.cuisine.mexican">Mexicana</string>
     <string name="type.cuisine.moroccan">Marroquí</string>
@@ -1300,4 +1300,12 @@
     <string name="type.emergency.emergency_ward_entrance">Entrada a urxencias</string>
     <string name="type.amenity.dojo">Dojo</string>
     <string name="type.leisure.sports_hall">Pavillón deportivo</string>
+    <string name="type.amenity.love_hotel">Hotel para parellas</string>
+    <string name="type.amenity.studio">Estudio</string>
+    <string name="type.barrier.guard_rail">Barreira de contención</string>
+    <string name="type.highway.ladder">Escaleira</string>
+    <string name="type.landuse.plant_nursery">Viveiro de plantas</string>
+    <string name="type.leisure.firepit">Fogar (para cacharela)</string>
+    <string name="type.sport.diving">Mergullo</string>
+    <string name="type.man_made.crane">Guindastre</string>
 </resources>

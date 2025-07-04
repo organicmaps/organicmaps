@@ -559,4 +559,9 @@
     <string name="type.shop.grocery">Tienda de abarrotes</string>
     <string name="type.traffic_calming.bump">Topes</string>
     <string name="type.traffic_calming.hump">Lomo</string>
+    <string name="type.railway.platform">Andén ferroviario</string>
+    <string name="type.highway.residential">Calle urbana</string>
+    <string name="type.shop.erotic">Tienda erótica</string>
+    <string name="type.shop.copyshop">Copistería</string>
+    <string name="type.historic.castle.castrum">Fortificación romana</string>
 </resources>

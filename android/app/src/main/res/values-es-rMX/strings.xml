@@ -102,7 +102,7 @@
     <string name="terms_of_use">Términos de uso</string>
     <string name="button_layer_traffic">Tráfico</string>
     <string name="button_layer_subway">Metro</string>
-    <string name="layers_title">Estilos y capas de mapas</string>
+    <string name="layers_title">Estilos y capas del mapa</string>
     <string name="subway_data_unavailable">El mapa del metro no está disponible</string>
     <string name="bookmarks_empty_list_title">Esta lista está vacía</string>
     <string name="bookmarks_empty_list_message">Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella</string>

@@ -289,4 +289,27 @@
     <string name="type.addr_interpolation">Address/Block</string>
     <string name="type.addr_interpolation.even">Address/Block</string>
     <string name="type.addr_interpolation.odd">Address/Block</string>
+    <string name="type.amenity.love_hotel">Love Hotel</string>
+    <string name="type.amenity.studio">Studio</string>
+    <string name="type.barrier.guard_rail">Guard Rail</string>
+    <string name="type.highway.ladder">Ladder</string>
+    <string name="type.landuse.plant_nursery">Plant Nursery</string>
+    <string name="type.leisure.firepit">Firepit</string>
+    <string name="type.sport.diving">Diving</string>
+    <string name="type.man_made.crane">Crane</string>
+    <string name="type.amenity.ice_cream">Ice Cream</string>
+    <string name="type.amenity.parking.lane.private">Private Lane Parking</string>
+    <string name="type.craft.photographer">Photographer</string>
+    <string name="type.cuisine.noodles">Noodles</string>
+    <string name="type.healthcare.laboratory">Medical Laboratory</string>
+    <string name="type.highway.residential.tunnel">Tunnel</string>
+    <string name="type.man_made.silo">Silo</string>
+    <string name="type.power.plant.gas">Gas Turbine Power Plant</string>
+    <string name="type.railway.narrow_gauge.bridge">Narrow Gauge Rail Bridge</string>
+    <string name="type.railway.rail.branch.bridge">Railway Bridge</string>
+    <string name="type.shop.chemist">Chemist</string>
+    <string name="type.sport.padel">Padel</string>
+    <string name="type.tourism.information.visitor_centre">Visitor Centre</string>
+    <string name="type.tourism.viewpoint">Viewpoint</string>
+    <string name="type.railway.station.subway.qingdao">Metro Station</string>
 </resources>

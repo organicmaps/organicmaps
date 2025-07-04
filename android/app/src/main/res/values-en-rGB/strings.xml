@@ -47,4 +47,7 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="saved">Saved</string>
+    <string name="trip_finished">You have arrived!</string>
+    <string name="share_my_location">Share My Location</string>
+    <string name="dialog_routing_select_closer_end">Please select a destination point located closer to a road.</string>
 </resources>

@@ -1026,7 +1026,7 @@
 "type.railway.station.subway.lille" = "Metro";
 "type.railway.station.subway.lima" = "Metro";
 "type.railway.station.subway.lisboa" = "Metro";
-"type.railway.station.subway.london" = "Metro";
+"type.railway.station.subway.london" = "Stanice metra";
 "type.railway.station.subway.lyon" = "Metro";
 "type.railway.station.subway.madrid" = "Metro";
 "type.railway.station.subway.malaga" = "Metro";
@@ -1492,3 +1492,4 @@
 "type.amenity.studio" = "Studio";
 "type.sport.diving" = "Potápění";
 "type.man_made.crane" = "Jeřáb";
+"type.railway.station.subway.qingdao" = "Stanice metra";

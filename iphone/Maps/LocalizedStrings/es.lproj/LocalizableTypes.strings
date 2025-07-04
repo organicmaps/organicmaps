@@ -482,7 +482,7 @@
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.primary_link.tunnel" = "Túnel";
 "type.highway.raceway" = "Circuito";
-"type.highway.residential" = "Calle residencial";
+"type.highway.residential" = "Calle urbana";
 "type.highway.residential.area" = "Calle residencial";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -930,7 +930,7 @@
 "type.railway.narrow_gauge" = "Vía férrea estrecha";
 "type.railway.narrow_gauge.bridge" = "Puente de vía férrea estrecha";
 "type.railway.narrow_gauge.tunnel" = "Túnel de vía férrea estrecha";
-"type.railway.platform" = "Plataforma de vía férrea";
+"type.railway.platform" = "Andén ferroviario";
 "type.railway.preserved" = "Raíl conservado";
 "type.railway.preserved.bridge" = "Puente ferroviario conservado";
 "type.railway.preserved.tunnel" = "Túnel ferroviario conservado";
@@ -990,7 +990,7 @@
 "type.railway.station.subway.brussels" = "Estación de metro";
 "type.railway.station.subway.bucharest" = "Estación de metro";
 "type.railway.station.subway.budapest" = "Estación de metro";
-"type.railway.station.subway.buenos_aires" = "Estación de metro";
+"type.railway.station.subway.buenos_aires" = "Estación de subte";
 "type.railway.station.subway.bursa" = "Estación de metro";
 "type.railway.station.subway.cairo" = "Estación de metro";
 "type.railway.station.subway.caracas" = "Estación de metro";
@@ -1107,7 +1107,7 @@
 "type.railway.subway_entrance.brussels" = "Entrada al metro";
 "type.railway.subway_entrance.bucharest" = "Entrada al metro";
 "type.railway.subway_entrance.budapest" = "Entrada al metro";
-"type.railway.subway_entrance.buenos_aires" = "Entrada al metro";
+"type.railway.subway_entrance.buenos_aires" = "Entrada al subte";
 "type.railway.subway_entrance.bursa" = "Entrada al metro";
 "type.railway.subway_entrance.cairo" = "Entrada al metro";
 "type.railway.subway_entrance.caracas" = "Entrada al metro";
@@ -1233,7 +1233,7 @@
 "type.shop.computer" = "Tienda de informática";
 "type.shop.confectionery" = "Confitería";
 "type.shop.convenience" = "Tienda de barrio";
-"type.shop.copyshop" = "Centro de copiado";
+"type.shop.copyshop" = "Copistería";
 "type.shop.cosmetics" = "Tienda de cosméticos";
 "type.shop.curtain" = "Cortinas";
 "type.shop.deli" = "Tienda de delicatessen";
@@ -1241,7 +1241,7 @@
 "type.shop.doityourself" = "Tienda de bricolaje";
 "type.shop.dry_cleaning" = "Tintorería";
 "type.shop.electronics" = "Electrónica";
-"type.shop.erotic" = "Sex Shop";
+"type.shop.erotic" = "Tienda erótica";
 "type.shop.fabric" = "Tienda de telas";
 "type.shop.farm" = "Tienda de alimentos de granja";
 "type.shop.fashion_accessories" = "Accesorios de moda";
@@ -1492,3 +1492,4 @@
 "type.landuse.plant_nursery" = "Vivero";
 "type.leisure.firepit" = "Fogón";
 "type.man_made.crane" = "Grúa";
+"type.railway.station.subway.qingdao" = "Estación de metro";
