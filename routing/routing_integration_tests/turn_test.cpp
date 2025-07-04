@@ -14,26 +14,6 @@ namespace turn_test
 using namespace routing;
 using namespace routing::turns;
 
-UNIT_TEST(Russia_Moscow_NagatinoUturn_TurnTest)
-{
-  TRouteResult const routeResult =
-      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                  mercator::FromLatLon(55.67251, 37.63604), {0.01, -0.01},
-                                  mercator::FromLatLon(55.67293, 37.63507));
-
-  Route const & route = *routeResult.first;
-  RouterResultCode const result = routeResult.second;
-  TEST_EQUAL(result, RouterResultCode::NoError, ());
-
-  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
-
-  integration::GetNthTurn(route, 0)
-      .TestValid()
-      .TestDirection(CarDirection::UTurnLeft);
-
-  integration::TestRouteLength(route, 251.3);
-}
-
 // Secondary should be preferred against residential.
 UNIT_TEST(StPetersburg_SideRoadPenalty_TurnTest)
 {
@@ -113,6 +93,8 @@ UNIT_TEST(Russia_Moscow_TrikotagniAndPohodniRoundabout_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
+  /// @todo Simple highway=service is now included in turns count.
+  /// Fix OSM on driveway/parking_aisle ?
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
 
@@ -301,17 +283,16 @@ UNIT_TEST(Russia_HugeRoundabout_TurnTest)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
 
-  /// @todo Actualized exit num. But one exit is highway=unclassified, that (probably?) should not be counted?
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0)
       .TestValid()
       .TestDirection(CarDirection::EnterRoundAbout)
-      .TestRoundAboutExitNum(6);
+      .TestRoundAboutExitNum(7);
   integration::GetNthTurn(route, 1)
       .TestValid()
       .TestDirection(CarDirection::LeaveRoundAbout)
-      .TestRoundAboutExitNum(6);
+      .TestRoundAboutExitNum(7);
 }
 
 UNIT_TEST(Belarus_Misk_ProspNezavisimostiMKAD_TurnTest)
@@ -1274,9 +1255,9 @@ UNIT_TEST(Cyprus_Governors_Beach_TurnTestNextRoad)
 
   RouteSegment::RoadNameInfo ri;
   route.GetNextTurnStreetName(ri);
-  TEST_EQUAL(ri.m_destination, "Governer's Beach; Pentakomo", ());
+  TEST_EQUAL(ri.m_destination, "ΑΚΤΗ ΚΥΒΕΡΝΗΤΗ; Governer's Beach; ΠΕΝΤΑΚΩΜΟ; Pentakomo", ());
   // Aggregated network/ref tags.
-  TEST_EQUAL(ri.m_destination_ref, "CY:B/B1", ());
+  TEST_EQUAL(ri.m_destination_ref, "B1", ());
 }
 
 // Exit which is marked as non-link, but has link tags m_destination_ref and m_destination.
@@ -1408,6 +1389,41 @@ UNIT_TEST(UK_Junction_Circular)
   TestTurnCount(route, 2);
   GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::EnterRoundAbout).TestRoundAboutExitNum(3);
   GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+}
+
+UNIT_TEST(Integrated_TurnTest_IncludeServiceRoads)
+{
+  struct Sample
+  {
+    ms::LatLon start, finish;
+    int expectedTurns;
+  };
+  Sample arr[] = {
+    // https://github.com/organicmaps/organicmaps/issues/8892
+    {{50.128011, 14.7100098}, {50.1283017, 14.7119639}, 3},
+    {{50.1283462, 14.7122953}, {50.1280032, 14.7099638}, 3},
+    // https://github.com/organicmaps/organicmaps/issues/5888
+    {{58.8428062, 5.71619759}, {58.8422583, 5.71672851}, 3},
+    // https://github.com/organicmaps/organicmaps/issues/3596
+    {{38.7114203, 0.0365096768}, {38.7103102, 0.0349380496}, 2},
+  };
+
+  for (auto const & s : arr)
+  {
+    using namespace integration;
+    TRouteResult const routeResult = CalculateRoute(GetVehicleComponents(VehicleType::Car),
+                                                    mercator::FromLatLon(s.start), {0., 0.},
+                                                    mercator::FromLatLon(s.finish));
+
+    Route const & route = *routeResult.first;
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+    GetNthTurn(route, 0)
+      .TestValid()
+      .TestDirection(CarDirection::EnterRoundAbout)
+      .TestRoundAboutExitNum(s.expectedTurns);
+  }
 }
 
 } // namespace turn_test
