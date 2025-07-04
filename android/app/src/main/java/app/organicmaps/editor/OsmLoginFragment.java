@@ -57,7 +57,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     mProgress = view.findViewById(R.id.osm_login_progress);
     final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
 
-    if (BuildConfig.FLAVOR.equals("google"))
+    if (BuildConfig.FLAVOR.equals("google") && Utils.isBrowserAvailable(requireContext()))
     {
       // Hide login and password inputs and Forgot password button
       UiUtils.hide(view.findViewById(R.id.osm_username_container), view.findViewById(R.id.osm_password_container),
