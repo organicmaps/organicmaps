@@ -72,8 +72,10 @@ class PlacePageTrackLayout: IPlacePageLayout {
     var viewControllers = [UIViewController]()
 
     viewControllers.append(editTrackViewController)
-    editTrackViewController.view.isHidden = false
-    editTrackViewController.data = .track(trackData)
+    if let trackData = placePageData.trackData {
+      editTrackViewController.view.isHidden = false
+      editTrackViewController.data = .track(trackData)
+    }
 
     placePageData.onBookmarkStatusUpdate = { [weak self] in
       guard let self = self else { return }
@@ -92,15 +94,6 @@ class PlacePageTrackLayout: IPlacePageLayout {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
     steps.append(.closed(-scrollHeight))
-    guard elevationMapViewController != nil else {
-      steps.append(.full(0))
-      return steps
-    }
-    guard let previewView = previewViewController.view else {
-      return steps
-    }
-    let previewFrame = scrollView.convert(previewView.bounds, from: previewView)
-    steps.append(.preview(previewFrame.maxY - scrollHeight))
     steps.append(.full(0))
     return steps
   }

@@ -1,4 +1,5 @@
 protocol PlacePageEditBookmarkOrTrackViewControllerDelegate: AnyObject {
+  func didUpdate(color: UIColor, category: MWMMarkGroupID, for data: PlacePageEditData)
   func didPressEdit(_ data: PlacePageEditData)
 }
 
@@ -10,16 +11,11 @@ enum PlacePageEditData {
 final class PlacePageEditBookmarkOrTrackViewController: UIViewController {
 
   @IBOutlet var stackView: UIStackView!
-  @IBOutlet var spinner: UIImageView!
-  @IBOutlet var editButton: UIButton!
-  @IBOutlet var topConstraint: NSLayoutConstraint!
+  @IBOutlet var editView: InfoItemView!
+  @IBOutlet var expandableLabelContainer: UIView!
   @IBOutlet var expandableLabel: ExpandableLabel! {
     didSet {
-      expandableLabel.font = UIFont.regular14()
-      expandableLabel.textColor = UIColor.blackPrimaryText()
-      expandableLabel.numberOfLines = 5
-      expandableLabel.expandColor = UIColor.linkBlue()
-      expandableLabel.expandText = L("placepage_more_button")
+      updateExpandableLabelStyle()
     }
   }
 
@@ -28,6 +24,7 @@ final class PlacePageEditBookmarkOrTrackViewController: UIViewController {
       updateViews()
     }
   }
+  
   weak var delegate: PlacePageEditBookmarkOrTrackViewControllerDelegate?
 
   override func viewDidLoad() {
@@ -40,29 +37,114 @@ final class PlacePageEditBookmarkOrTrackViewController: UIViewController {
     updateViews()
   }
 
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if #available(iOS 13.0, *), traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+      applyTheme()
+    }
+  }
+
   // MARK: - Private methods
 
   private func updateViews() {
     guard let data else { return }
-    editButton.isEnabled = true
+
+    let iconColor: UIColor
+    let category: String?
+    let description: String?
+    let isHtmlDescription: Bool
+
     switch data {
-    case .bookmark(let bookmark):
-      editButton.setTitle(L("placepage_edit_bookmark_button"), for: .normal)
-      if let description = bookmark.bookmarkDescription {
-        if bookmark.isHtmlDescription {
-          setHtmlDescription(description)
-          topConstraint.constant = 16
-        } else {
-          expandableLabel.text = description
-          topConstraint.constant = description.count > 0 ? 16 : 0
-        }
+    case .bookmark(let bookmarkData):
+      iconColor = bookmarkData.color.color
+      category = bookmarkData.bookmarkCategory
+      description = bookmarkData.bookmarkDescription
+      isHtmlDescription = bookmarkData.isHtmlDescription
+    case .track(let trackData):
+      iconColor = trackData.color ?? UIColor.buttonRed()
+      category = trackData.trackCategory
+      description = trackData.trackDescription
+      isHtmlDescription = false
+    }
+
+    let editColorImage = circleImageForColor(iconColor, frameSize: 28, diameter: 22, iconName: "ic_bm_none")
+    editView.iconButton.setImage(editColorImage, for: .normal)
+    editView.infoLabel.text = category
+    editView.setStyle(.link)
+
+    editView.iconButtonTapHandler = { [weak self] in
+      guard let self else { return }
+      self.showColorPicker()
+    }
+    editView.infoLabelTapHandler = { [weak self] in
+      guard let self else { return }
+      self.showGroupPicker()
+    }
+    editView.setAccessory(image: UIImage(resource: .ic24PxEdit), tapHandler: { [weak self] in
+      guard let self, let data = self.data else { return }
+      self.delegate?.didPressEdit(data)
+    })
+
+    if let description, !description.isEmpty {
+      expandableLabelContainer.isHidden = false
+      if isHtmlDescription {
+        setHtmlDescription(description)
       } else {
-        topConstraint.constant = 0
+        expandableLabel.text = description
       }
-    case .track:
-      editButton.setTitle(L("edit_track"), for: .normal)
-      expandableLabel.isHidden = true
-      topConstraint.constant = 0
+      updateExpandableLabelStyle()
+    } else {
+      expandableLabelContainer.isHidden = true
+    }
+  }
+
+  private func updateExpandableLabelStyle() {
+    expandableLabel.font = UIFont.regular14()
+    expandableLabel.textColor = UIColor.blackPrimaryText()
+    expandableLabel.numberOfLines = 5
+    expandableLabel.expandColor = UIColor.linkBlue()
+    expandableLabel.expandText = L("placepage_more_button")
+  }
+
+  private func showColorPicker() {
+    guard let data else { return }
+    switch data {
+    case .bookmark(let bookmarkData):
+      ColorPicker.shared.present(from: self, pickerType: .bookmarkColorPicker(bookmarkData.color)) { [weak self] color in
+        self?.update(color: color)
+      }
+    case .track(let trackData):
+      ColorPicker.shared.present(from: self, pickerType: .defaultColorPicker(trackData.color ?? .buttonRed())) { [weak self] color in
+        self?.update(color: color)
+      }
+    }
+  }
+
+  private func showGroupPicker() {
+    guard let data else { return }
+    let groupId: MWMMarkGroupID
+    let groupName: String?
+    switch data {
+    case .bookmark(let bookmarkData):
+      groupId = bookmarkData.bookmarkGroupId
+      groupName = bookmarkData.bookmarkCategory
+    case .track(let trackData):
+      groupId = trackData.groupId
+      groupName = trackData.trackCategory
+    }
+    let groupViewController = SelectBookmarkGroupViewController(groupName: groupName ?? "", groupId: groupId)
+    let navigationController = UINavigationController(rootViewController: groupViewController)
+    groupViewController.delegate = self
+    present(navigationController, animated: true, completion: nil)
+  }
+
+  private func update(color: UIColor? = nil, category: MWMMarkGroupID? = nil) {
+    guard let data else { return }
+    switch data {
+    case .bookmark(let bookmarkData):
+      delegate?.didUpdate(color: color ?? bookmarkData.color.color, category: category ?? bookmarkData.bookmarkGroupId, for: data)
+    case .track(let trackData):
+      delegate?.didUpdate(color: color ?? trackData.color!, category: category ?? trackData.groupId, for: data)
     }
   }
 
@@ -91,25 +173,14 @@ final class PlacePageEditBookmarkOrTrackViewController: UIViewController {
       }
     }
   }
+}
 
-  private func startSpinner() {
-    editButton.isHidden = true
-    let postfix = UIColor.isNightMode() ? "dark" : "light"
-    spinner.image = UIImage(named: "Spinner_" + postfix)
-    spinner.isHidden = false
-    spinner.startRotation()
-  }
-
-  private func stopSpinner() {
-    editButton.isHidden = false
-    spinner.isHidden = true
-    spinner.stopRotation()
-  }
-
-  // MARK: -  Actions
-
-  @IBAction func onEdit(_ sender: UIButton) {
-    guard let data else { return }
-    delegate?.didPressEdit(data)
+// MARK: - SelectBookmarkGroupViewControllerDelegate
+extension PlacePageEditBookmarkOrTrackViewController: SelectBookmarkGroupViewControllerDelegate {
+  func bookmarkGroupViewController(_ viewController: SelectBookmarkGroupViewController,
+                                   didSelect groupTitle: String,
+                                   groupId: MWMMarkGroupID) {
+    viewController.dismiss(animated: true)
+    update(category: groupId)
   }
 }

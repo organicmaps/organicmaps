@@ -121,8 +121,11 @@ std::string Info::FormatSubtitle(bool withTypes, bool withMainType) const
     result += sv;
   };
 
+  /// @todo(KK): Remove, when the category name will be displayed in the "Edit cell" on the Place Page on the specific platform.
+  #if !defined(TARGET_OS_IPHONE)
   if (IsBookmark())
     append(m_bookmarkCategoryName);
+  #endif
 
   if (!withTypes)
     return result;
@@ -239,7 +242,10 @@ void Info::SetTitlesForBookmark()
   m_uiTitle = GetBookmarkName();
 
   std::vector<std::string> subtitle;
+  /// @todo(KK): Remove, when the category name will be displayed in the "edit" of the cell on the Place Page on the specific platform.
+  #if !defined(TARGET_OS_IPHONE)
   subtitle.push_back(m_bookmarkCategoryName);
+  #endif
   if (!m_bookmarkData.m_featureTypes.empty())
     subtitle.push_back(GetLocalizedFeatureType(m_bookmarkData.m_featureTypes));
   m_uiSubtitle = strings::JoinStrings(subtitle, feature::kFieldsSeparator);
@@ -258,7 +264,10 @@ void Info::SetCustomName(std::string const & name)
 void Info::SetTitlesForTrack(Track const & track)
 {
   m_uiTitle = track.GetName();
+  /// @todo(KK): Remove, when the category name will be displayed in the "Edit cell" on the Place Page on the specific platform.
+  #if !defined(TARGET_OS_IPHONE)
   m_uiSubtitle = m_bookmarkCategoryName;
+  #endif
 
   std::vector<std::string> statistics;
   auto const length = track.GetLengthMeters();

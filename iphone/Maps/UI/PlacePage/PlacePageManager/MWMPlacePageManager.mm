@@ -180,11 +180,27 @@ using namespace storage;
   [data updateBookmarkStatus];
 }
 
+- (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color category:(MWMMarkGroupID)category {
+  MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];
+  auto const & markId = data.bookmarkData.bookmarkId;
+  [bookmarksManager updateBookmark:markId setGroupId:category title:data.previewData.title color:color description:data.bookmarkData.bookmarkDescription];
+  [MWMFrameworkHelper updatePlacePageData];
+  [data updateBookmarkStatus];
+}
+
 - (void)removeBookmark:(PlacePageData *)data
 {
   auto &f = GetFramework();
   f.GetBookmarkManager().GetEditSession().DeleteBookmark(data.bookmarkData.bookmarkId);
   [MWMFrameworkHelper updateAfterDeleteBookmark];
+  [data updateBookmarkStatus];
+}
+
+- (void)updateTrack:(PlacePageData *)data color:(UIColor *)color category:(MWMMarkGroupID)category {
+  MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];
+  auto const & trackId = data.trackData.trackId;
+  [bookmarksManager updateTrack:trackId setGroupId:category color:color title:data.previewData.title];
+  [MWMFrameworkHelper updatePlacePageData];
   [data updateBookmarkStatus];
 }
 

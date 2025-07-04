@@ -198,6 +198,16 @@ extension PlacePageInteractor: PlacePageButtonsViewControllerDelegate {
 // MARK: - PlacePageEditBookmarkOrTrackViewControllerDelegate
 
 extension PlacePageInteractor: PlacePageEditBookmarkOrTrackViewControllerDelegate {
+  func didUpdate(color: UIColor, category: MWMMarkGroupID, for data: PlacePageEditData) {
+    switch data {
+    case .bookmark(let bookmarkData):
+      let bookmarkColor = BookmarkColor.bookmarkColor(from: color) ?? bookmarkData.color
+      MWMPlacePageManagerHelper.updateBookmark(placePageData, color: bookmarkColor, category: category)
+    case .track(let trackData):
+      MWMPlacePageManagerHelper.updateTrack(placePageData, color: color, category: category)
+    }
+  }
+  
   func didPressEdit(_ data: PlacePageEditData) {
     switch data {
     case .bookmark:
