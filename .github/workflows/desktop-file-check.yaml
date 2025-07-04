@@ -3,7 +3,7 @@ on:
   workflow_dispatch: # Manual trigger
   pull_request:
     paths:
-      - qt/res/app.organicmaps.desktop.desktop
+      - qt/res/linux/app.organicmaps.desktop.desktop
       - .github/workflows/desktop-file-check.yaml  # Run check on self change
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 1
           sparse-checkout: |
-            qt/res/app.organicmaps.desktop.desktop
+            qt/res/linux/app.organicmaps.desktop.desktop
 
       - name: Install desktop-file-validate tool
         shell: bash
@@ -27,4 +27,4 @@ jobs:
 
       - name: Validate desktop file
         shell: bash
-        run: desktop-file-validate qt/res/app.organicmaps.desktop.desktop && echo "Successfully validated .desktop file"
+        run: desktop-file-validate qt/res/linux/app.organicmaps.desktop.desktop && echo "Successfully validated .desktop file"
