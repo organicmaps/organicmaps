@@ -880,7 +880,6 @@ NSString *const kSettingsSegue = @"Map2Settings";
   }
   PlacePageData * placePageData = [[PlacePageData alloc] initWithTrackInfo:self.trackRecordingManager.trackRecordingInfo
                                                              elevationInfo:self.trackRecordingManager.trackRecordingElevationProfileData];
-  [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
   [self showOrUpdatePlacePage:placePageData];
   [self startObservingTrackRecordingUpdatesForPlacePageData:placePageData];
 }
@@ -896,12 +895,10 @@ NSString *const kSettingsSegue = @"Map2Settings";
     switch (state) {
       case TrackRecordingStateInactive:
         [self stopObservingTrackRecordingUpdates];
-        [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateClosed];
         break;
       case TrackRecordingStateActive:
         if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive)
           return;
-        [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
         [placePageData updateWithTrackInfo:trackInfo
                              elevationInfo:elevationData()];
         break;
@@ -911,8 +908,6 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 - (void)stopObservingTrackRecordingUpdates {
   [self.trackRecordingManager removeObserver:self];
-  if (self.trackRecordingManager.isActive)
-    [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateVisible];
 }
 
 // MARK: - Handle macOS trackpad gestures
