@@ -202,8 +202,7 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   return result;
 }
 
-DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program)
-{
+DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program) {
   CHECK(std::this_thread::get_id() == m_renderers[ThreadType::Frontend], ());
 
   DescriptorSetGroup s;
@@ -212,25 +211,44 @@ DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanG
 
   // Find a pool with available sets.
   uint32_t poolIndex = 0;
-  while (poolIndex < m_descriptorPools.size() && m_descriptorPools[poolIndex].m_availableSetsCount == 0)
-    ++poolIndex;
-
-  // No such a pool, create one.
-  if (poolIndex == m_descriptorPools.size())
+  while (poolIndex <= m_descriptorPools.size())
   {
-    CreateDescriptorPool();
-    poolIndex = m_descriptorPools.size() - 1;
+    // No such a pool, create one.
+    if (poolIndex == m_descriptorPools.size())
+      CreateDescriptorPool();
+
+    // No available sets in the pool, try next one.
+    if (m_descriptorPools[poolIndex].m_availableSetsCount == 0)
+    {
+      poolIndex++;
+      continue;
+    }
+
+    // Allocate a descriptor set.
+    allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+    allocInfo.descriptorPool = m_descriptorPools[poolIndex].m_pool;
+    s.m_descriptorPoolIndex = poolIndex;
+    allocInfo.pSetLayouts = &layout;
+    allocInfo.descriptorSetCount = 1;
+
+    // Decrease the available sets count.
+    m_descriptorPools[poolIndex].m_availableSetsCount--;
+
+    auto const r = vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet);
+    if (r == VK_ERROR_FRAGMENTED_POOL || r == VK_ERROR_OUT_OF_POOL_MEMORY)
+    {
+      poolIndex++;
+      m_descriptorPools[poolIndex].m_availableSetsCount++;
+    }
+    else if (r != VK_SUCCESS)
+    {
+      CHECK_VK_CALL(r);
+    }
+    else
+    {
+      break;
+    }
   }
-
-  // Allocate a descriptor set.
-  allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-  allocInfo.descriptorPool = m_descriptorPools[poolIndex].m_pool;
-  s.m_descriptorPoolIndex = poolIndex;
-  allocInfo.pSetLayouts = &layout;
-  allocInfo.descriptorSetCount = 1;
-
-  // Decrease the available sets count.
-  m_descriptorPools[poolIndex].m_availableSetsCount--;
 
   TRACE_COUNTER("[drape][vulkan] Descriptor pools", static_cast<int64_t>(m_descriptorPools.size()));
 #ifdef ENABLE_TRACE
@@ -240,7 +258,6 @@ DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanG
   TRACE_COUNTER("[drape][vulkan] Descriptor sets", usedDescriptorsSets);
 #endif
 
-  CHECK_VK_CALL(vkAllocateDescriptorSets(m_device, &allocInfo, &s.m_descriptorSet));
   return s;
 }
 
