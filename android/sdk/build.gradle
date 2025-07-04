@@ -14,7 +14,6 @@ android {
 
     minSdk propMinSdkVersion.toInteger()
     targetSdk propTargetSdkVersion.toInteger()
-    ndk.debugSymbolLevel = 'symbol_table'
 
     externalNativeBuild {
       def pchFlag = 'OFF'
