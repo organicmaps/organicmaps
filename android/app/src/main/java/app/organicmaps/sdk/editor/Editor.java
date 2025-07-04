@@ -48,7 +48,6 @@ public final class Editor
     if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
       nativeUploadChanges(OsmOAuth.getAuthToken(context), BuildConfig.VERSION_NAME, BuildConfig.APPLICATION_ID);
   }
-
   public static native boolean nativeShouldShowEditPlace();
   public static native boolean nativeShouldShowAddBusiness();
   public static native boolean nativeShouldShowAddPlace();
@@ -158,6 +157,11 @@ public final class Editor
   {
     nativeCreateMapObject(category.getType());
   }
+  /**
+   * Resets the currently edited feature to a blank state with a new primary category,
+   * preserving its ID and location. This is used when changing a POI's category.
+   */
+  public static native void nativeChangeCategory(@NonNull String type);
   public static native void nativeCreateMapObject(@NonNull String type);
   public static native void nativeCreateNote(String text);
   public static native void nativePlaceDoesNotExist(@NonNull String comment);

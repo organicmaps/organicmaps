@@ -25,6 +25,7 @@ import app.organicmaps.sdk.editor.data.Language;
 import app.organicmaps.sdk.editor.data.LocalizedName;
 import app.organicmaps.sdk.editor.data.LocalizedStreet;
 import app.organicmaps.sdk.editor.data.NamesDataSource;
+import app.organicmaps.sdk.editor.data.FeatureCategory;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditorHostFragment
-    extends BaseMwmToolbarFragment implements View.OnClickListener, LanguagesFragment.Listener
+    extends BaseMwmToolbarFragment implements View.OnClickListener, LanguagesFragment.Listener, FeatureCategoryFragment.FeatureCategoryListener
 {
   private boolean mIsNewObject;
   @Nullable
@@ -51,7 +52,8 @@ public class EditorHostFragment
     CUISINE,
     LANGUAGE,
     PHONE,
-    SELF_SERVICE
+    SELF_SERVICE,
+    CATEGORY
   }
 
   private Mode mMode;
@@ -94,6 +96,14 @@ public class EditorHostFragment
     sNames.add(name);
   }
 
+  protected void editCategory()
+  {
+    final Bundle args = new Bundle();
+    args.putParcelable(FeatureCategoryActivity.EXTRA_FEATURE_CATEGORY,
+      new FeatureCategory(Editor.nativeGetCategory(), ""));
+    editWithFragment(Mode.CATEGORY, R.string.editor_edit_place_category_title, args, FeatureCategoryFragment.class, false);
+  }
+
   public int getMandatoryNamesCount()
   {
     return mMandatoryNamesCount;
@@ -117,6 +127,14 @@ public class EditorHostFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
     return inflater.inflate(R.layout.fragment_editor_host, container, false);
+  }
+
+  @Override
+  public void onFeatureCategorySelected(FeatureCategory category)
+  {
+    Editor.nativeChangeCategory(category.getType());
+    fillNames();
+    editMapObject();
   }
 
   @CallSuper

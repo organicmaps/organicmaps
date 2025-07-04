@@ -97,6 +97,7 @@ public:
   void SetTypes(feature::TypesHolder const & types);
   void SetID(FeatureID const & fid);
 
+  void ChangeCategory(uint32_t newType, osm::EditableProperties const & newProperties);
   void SetStreet(LocalizedStreet const & st);
   void SetNearbyStreets(std::vector<LocalizedStreet> && streets);
   void SetHouseNumber(std::string const & houseNumber);

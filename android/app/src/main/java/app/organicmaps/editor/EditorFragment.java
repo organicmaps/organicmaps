@@ -407,6 +407,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   private void initViews(View view)
   {
     final View categoryBlock = view.findViewById(R.id.category);
+    categoryBlock.setOnClickListener(this);
     // TODO show icon and fill it when core will implement that
     UiUtils.hide(categoryBlock.findViewById(R.id.icon));
     mCategory = categoryBlock.findViewById(R.id.name);
@@ -534,7 +535,9 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   public void onClick(View v)
   {
     final int id = v.getId();
-    if (id == R.id.edit_opening_hours || id == R.id.empty_opening_hours || id == R.id.opening_hours)
+    if (id == R.id.category)
+      mParent.editCategory();
+    else if (id == R.id.edit_opening_hours || id == R.id.empty_opening_hours || id == R.id.opening_hours)
       mParent.editTimetable();
     else if (id == R.id.phone || id == R.id.edit_phone)
       mParent.editPhone();

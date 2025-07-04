@@ -178,6 +178,18 @@ Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowEditPlace(JNIEnv *, jclas
   return g_framework->GetPlacePageInfo().ShouldShowEditPlace();
 }
 
+JNIEXPORT void JNICALL
+Java_app_organicmaps_sdk_editor_Editor_nativeChangeCategory(JNIEnv * env, jclass, jstring jType)
+{
+  auto const & editor = osm::Editor::Instance();
+  auto const type = classif().GetTypeByReadableObjectName(jni::ToNativeString(env, jType));
+  feature::TypesHolder newTypes;
+  newTypes.Assign(type);
+  auto const newProperties = editor.GetEditablePropertiesForTypes(newTypes);
+
+  g_editableMapObject.ChangeCategory(type, newProperties);
+}
+
 JNIEXPORT jboolean JNICALL
 Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddBusiness(JNIEnv *, jclass)
 {
