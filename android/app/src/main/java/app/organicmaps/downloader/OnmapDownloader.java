@@ -139,7 +139,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           mProgress.setPending(false);
           mProgress.setProgress(Math.round(mCurrentCountry.progress));
           sizeText = mActivity.getString(R.string.downloader_downloading) + " "
-                   + StringUtils.formatPercent(mCurrentCountry.progress / 100);
+                   + StringUtils.formatPercent(mCurrentCountry.progress / 100, true);
         }
         else
         {

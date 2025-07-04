@@ -32,12 +32,15 @@ public class StringUtils
    * — formatPercent(0.37) will return 37%
    *
    * @param fraction a double value, that represents a fraction of a whole
+   * @param fixedFractionDigits if true, prints 13.00% instead of 13%
    * @return correct string representation of percent for different locales
    */
-  public static String formatPercent(double fraction)
+  public static String formatPercent(double fraction, boolean fixedFractionDigits)
   {
     NumberFormat percentFormat = NumberFormat.getPercentInstance();
     percentFormat.setMaximumFractionDigits(2);
+    if (fixedFractionDigits)
+      percentFormat.setMinimumFractionDigits(2);
     return percentFormat.format(fraction);
   }
 

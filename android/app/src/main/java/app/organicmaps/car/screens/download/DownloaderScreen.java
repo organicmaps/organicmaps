@@ -147,7 +147,7 @@ class DownloaderScreen extends BaseScreen
       return getCarContext().getString(R.string.downloader_loading_ios);
 
     final long downloadedSize = getDownloadedSize();
-    final String progressPercent = StringUtils.formatPercent((double) downloadedSize / mTotalSize);
+    final String progressPercent = StringUtils.formatPercent((double) downloadedSize / mTotalSize, true);
     final String totalSizeStr = StringUtils.getFileSizeString(getCarContext(), mTotalSize);
     final String downloadedSizeStr = StringUtils.getFileSizeString(getCarContext(), downloadedSize);
 
