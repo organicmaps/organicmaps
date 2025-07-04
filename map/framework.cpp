@@ -904,7 +904,7 @@ void Framework::ShowTrack(kml::TrackId trackId)
   es.SetIsVisible(track->GetGroupId(), true /* visible */);
 
   if (m_drapeEngine)
-    m_drapeEngine->SetModelViewCenter(rect.Center(), scales::GetScaleLevel(rect), true /* isAnim */, true /* trackVisibleViewport */);
+    m_drapeEngine->SetModelViewRect(rect, true, scales::GetScaleLevel(rect), true /* isAnim */, true /* trackVisibleViewport */);
 
   ActivateMapSelection();
 }
