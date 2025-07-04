@@ -7,19 +7,17 @@ plugins {
 }
 
 def run(cmd) {
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine = cmd
-        standardOutput = stdout
+    def output = providers.exec {
+       commandLine = cmd
     }
-    return stdout.toString()
+    return output.standardOutput.asText.get().trim()
 }
 
 def getVersion() {
     def isWindows = DefaultNativePlatform.getCurrentOperatingSystem().isWindows()
     def bash = isWindows ? 'C:\\Program Files\\Git\\bin\\bash.exe' : 'bash'
-    def versionCode = Integer.parseInt(run([bash, '../tools/unix/version.sh', 'android_code']).trim())
-    def versionName = run([bash, '../tools/unix/version.sh', 'android_name']).trim()
+    def versionCode = Integer.parseInt(run([bash, '../tools/unix/version.sh', 'android_code']))
+    def versionName = run([bash, '../tools/unix/version.sh', 'android_name'])
     return new Tuple2(versionCode, versionName)
 }
 
