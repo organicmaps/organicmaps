@@ -1403,4 +1403,5 @@
     <string name="type.barrier.guard_rail">Захисна огорожа</string>
     <string name="type.sport.diving">Дайвінг</string>
     <string name="type.man_made.crane">Кран</string>
+    <string name="type.railway.station.subway.qingdao">Станція метро</string>
 </resources>

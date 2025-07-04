@@ -393,7 +393,7 @@
 "type.cuisine.hungarian" = "Húngara";
 "type.cuisine.ice_cream" = "Xeados";
 "type.cuisine.indian" = "Hindú";
-"type.cuisine.indonesian" = "Indonesia";
+"type.cuisine.indonesian" = "Cociña indonesia";
 "type.cuisine.international" = "Internacional";
 "type.cuisine.irish" = "Irlandesa";
 "type.cuisine.italian" = "Italiana";
@@ -405,7 +405,7 @@
 "type.cuisine.lebanese" = "Libanesa";
 "type.cuisine.local" = "Local";
 "type.cuisine.malagasy" = "Malgache";
-"type.cuisine.malaysian" = "Malaisia";
+"type.cuisine.malaysian" = "Cociña malaia";
 "type.cuisine.mediterranean" = "Mediterránea";
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Marroquí";
@@ -1298,3 +1298,11 @@
 "type.emergency.emergency_ward_entrance" = "Entrada a urxencias";
 "type.amenity.dojo" = "Dojo";
 "type.leisure.sports_hall" = "Pavillón deportivo";
+"type.amenity.love_hotel" = "Hotel para parellas";
+"type.amenity.studio" = "Estudio";
+"type.barrier.guard_rail" = "Barreira de contención";
+"type.highway.ladder" = "Escaleira";
+"type.landuse.plant_nursery" = "Viveiro de plantas";
+"type.leisure.firepit" = "Fogar (para cacharela)";
+"type.sport.diving" = "Mergullo";
+"type.man_made.crane" = "Guindastre";

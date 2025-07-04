@@ -775,7 +775,7 @@
     <string name="type.railway.station.subway.lille">Metro</string>
     <string name="type.railway.station.subway.lima">Metro</string>
     <string name="type.railway.station.subway.lisboa">Metro</string>
-    <string name="type.railway.station.subway.london">Metro</string>
+    <string name="type.railway.station.subway.london">Stanice metra</string>
     <string name="type.railway.station.subway.lyon">Metro</string>
     <string name="type.railway.station.subway.madrid">Metro</string>
     <string name="type.railway.station.subway.malaga">Metro</string>
@@ -1399,4 +1399,5 @@
     <string name="type.highway.ladder">Žebřík</string>
     <string name="type.sport.diving">Potápění</string>
     <string name="type.man_made.crane">Jeřáb</string>
+    <string name="type.railway.station.subway.qingdao">Stanice metra</string>
 </resources>

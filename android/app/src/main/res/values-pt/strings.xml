@@ -839,4 +839,6 @@
     <string name="uri_open_location_failed">Nenhuma aplicação instalada que possa abrir a localização</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto na navegação</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
 </resources>

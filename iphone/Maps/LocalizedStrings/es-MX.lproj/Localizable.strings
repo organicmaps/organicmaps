@@ -752,7 +752,7 @@
 "privacy_policy" = "Política de Privacidad";
 "terms_of_use" = "Términos de uso";
 "button_layer_subway" = "Metro";
-"layers_title" = "Estilos y capas de mapas";
+"layers_title" = "Estilos y capas del mapa";
 "subway_data_unavailable" = "El mapa del metro no está disponible";
 "title_error_downloading_bookmarks" = "Ocurrió un error";
 "popular_place" = "Popular";

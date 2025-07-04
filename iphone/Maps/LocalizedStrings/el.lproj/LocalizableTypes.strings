@@ -690,7 +690,7 @@
 "type.landuse.greenhouse_horticulture" = "Θερμοκήπιο";
 "type.landuse.industrial" = "Βιομηχανική περιοχή";
 "type.landuse.landfill" = "Σκουπιδότοπος";
-"type.landuse.meadow" = "Meadow";
+"type.landuse.meadow" = "Βοσκότοπος";
 "type.landuse.military" = "Στρατιωτική περιοχή";
 "type.landuse.orchard" = "Οπωρώνας";
 "type.landuse.quarry" = "Λατομείο";
@@ -927,13 +927,13 @@
 "type.railway.monorail" = "Μονοτρόχιος σιδηρόδροµος";
 "type.railway.monorail.bridge" = "Γέφυρα μονοτρόχιου σιδηρόδροµου";
 "type.railway.monorail.tunnel" = "Σήραγγα μονοτρόχιου σιδηρόδροµου";
-"type.railway.narrow_gauge" = "Narrow Gauge Rail";
+"type.railway.narrow_gauge" = "Σιδηρόδρομος στενού εύρους";
 "type.railway.narrow_gauge.bridge" = "Σιδηροδρομική γέφυρα στενής γραμμής";
-"type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
+"type.railway.narrow_gauge.tunnel" = "Σήραγγα σιδηρόδρομου στενού εύρους";
 "type.railway.platform" = "Σιδηροδρομική πλατφόρμα";
-"type.railway.preserved" = "Preserved Rail";
-"type.railway.preserved.bridge" = "Preserved Rail Bridge";
-"type.railway.preserved.tunnel" = "Preserved Rail Tunnel";
+"type.railway.preserved" = "Διατηρητέος σιδηρόδρομος";
+"type.railway.preserved.bridge" = "Γέφυρα διατηρητέου σιδηρόδρομου";
+"type.railway.preserved.tunnel" = "Σήραγγα διατηρητέου σιδηρόδρομου";
 "type.railway.rail" = "Σιδηρόδρομος";
 "type.railway.rail.highspeed" = "Σιδηρόδρομος υψηλής ταχύτητας";
 "type.railway.rail.tourism" = "Τουριστικός σιδηρόδρομος";
@@ -1224,13 +1224,13 @@
 "type.shop.car_parts" = "Εξαρτήματα αυτοκινήτου";
 "type.shop.car_repair" = "Συνεργείο αυτοκινήτων";
 "type.shop.car_repair.tyres" = "Βουλκανιζατέρ";
-"type.shop.caravan" = "RV Dealership";
+"type.shop.caravan" = "Αντιπροσωπεία τροχόσπιτων";
 "type.shop.carpet" = "Χαλιά";
 "type.shop.chemist" = "Χημικά προϊόντα";
 "type.shop.chocolate" = "Σοκολατοποιία";
 "type.shop.clothes" = "Κατάστημα ρούχων";
 "type.shop.coffee" = "Καφεκοπτείο";
-"type.shop.computer" = "Κατάστημα πληροφορικής";
+"type.shop.computer" = "Κατάστημα υπολογιστών";
 "type.shop.confectionery" = "Γλυκά";
 "type.shop.convenience" = "Ψιλικατζίδικο";
 "type.shop.copyshop" = "Φωτοτυπείο";
@@ -1277,14 +1277,14 @@
 "type.shop.outdoor" = "Εξοπλισμός υπαίθρου";
 "type.shop.outpost" = "Σημείο παραλαβής";
 "type.shop.pasta" = "Κατάστημα ζυμαρικών";
-"type.shop.pastry" = "Ζύμη";
+"type.shop.pastry" = "Πατισερί";
 "type.shop.pawnbroker" = "Ενεχυροδανειστήριο";
 "type.shop.pet" = "Κατάστημα για κατοικίδια";
 "type.shop.pet_grooming" = "Περιποίηση κατοικίδιων ζώων";
 "type.shop.photo" = "Φωτογραφείο";
 "type.shop.rental" = "Κατάστημα ενοικίασης";
 "type.shop.rental.bicycle" = "Κατάστημα ενοικίασης ποδηλάτων";
-"type.shop.seafood" = "Κατάστημα με θαλασσινά";
+"type.shop.seafood" = "Ιχθυοπωλείο";
 "type.shop.second_hand" = "Κατάστημα μεταχειρισμένων";
 "type.shop.shoes" = "Υποδηματοπωλείο";
 "type.shop.sports" = "Αθλητικά είδη";
@@ -1300,19 +1300,19 @@
 "type.shop.video" = "Βίντεο Κλαμπ";
 "type.shop.video_games" = "Κατάστημα βιντεοπαιχνιδιών";
 "type.shop.wine" = "Οινοπωλείο";
-"type.shop.agrarian" = "Αγροτικό κατάστημα";
+"type.shop.agrarian" = "Γεωργικά είδη";
 "type.shop.antiques" = "Αντίκες";
 "type.shop.appliance" = "Κατάστημα οικιακών συσκευών";
 
 /* maybe change to Art Gallery for en-US when supported */
-"type.shop.art" = "Κατάστημα Τεχνών";
-"type.shop.baby_goods" = "Παιδικό κατάστημα";
+"type.shop.art" = "Κατάστημα έργων τέχνης";
+"type.shop.baby_goods" = "Βρεφικά είδη";
 "type.shop.bag" = "Κατάστημα τσαντών";
 "type.shop.bed" = "Κατάστημα κρεβατιών";
 "type.shop.boutique" = "Μπουτίκ";
 "type.shop.charity" = "Φιλανθρωπικό κατάστημα";
 "type.shop.cheese" = "Τυροκομείο";
-"type.shop.craft" = "Τέχνες και χειροτεχνήματα";
+"type.shop.craft" = "Προμήθειες χειροτεχνίας";
 "type.shop.dairy" = "Γαλακτοκομικά προϊόντα";
 "type.shop.electrical" = "Μαγαζί ηλεκτρικών ειδών";
 "type.shop.fishing" = "Κατάστημα ψαρέματος";
@@ -1320,16 +1320,16 @@
 "type.shop.lottery" = "Λαχεία";
 "type.shop.medical_supply" = "Ιατρικά Είδη";
 "type.shop.nutrition_supplements" = "Συμπληρώματα Διατροφής";
-"type.shop.paint" = "Βαφές";
-"type.shop.perfumery" = "Αρωματοποιία";
-"type.shop.sewing" = "Είδη Ραπτικής";
+"type.shop.paint" = "Χρωματοπωλείο";
+"type.shop.perfumery" = "Αρωματοπωλείο";
+"type.shop.sewing" = "Είδη ραπτικής";
 "type.shop.storage_rental" = "Ενοικίαση αποθηκευτικού χώρου";
 "type.shop.tobacco" = "Καπνός";
-"type.shop.trade" = "Εμπόριο Προμήθειες";
+"type.shop.trade" = "Προμήθειες εμπορίου";
 "type.shop.watches" = "Ρολόγια";
 "type.shop.wholesale" = "Κατάστημα χονδρικής";
 "type.sport" = "Αθλητισμός";
-"type.sport.american_football" = "αμερικάνικο ποδόσφαιρο";
+"type.sport.american_football" = "Αμερικάνικο ποδόσφαιρο";
 "type.sport.archery" = "Τοξοβολία";
 "type.sport.athletics" = "Στίβος";
 "type.sport.australian_football" = "Αυστραλιανό ποδόσφαιρο";
@@ -1343,12 +1343,12 @@
 "type.sport.equestrian" = "Ιππασία";
 "type.sport.golf" = "Γκολφ";
 "type.sport.gymnastics" = "Γυμναστική";
-"type.sport.handball" = "Τόπι";
+"type.sport.handball" = "Χειροσφαίριση";
 "type.sport.multi" = "Διάφορα αθλήματα";
 
 /* Used to tag a scuba diving site. */
 "type.sport.scuba_diving" = "Χώρος καταδύσεων";
-"type.sport.shooting" = "Κυνήγι";
+"type.sport.shooting" = "Σκοποβολή";
 "type.sport.skateboard" = "Σκέιτμπορντινγκ";
 "type.sport.skiing" = "Χιονοδρόμια";
 "type.sport.soccer" = "Ποδόσφαιρο";
@@ -1403,18 +1403,18 @@
 "type.tourism.information.visitor_centre" = "Κέντρο Επισκεπτών";
 "type.tourism.motel" = "Μοτέλ";
 "type.tourism.museum" = "Μουσείο";
-"type.tourism.picnic_site" = "Χώρος εκδρομής";
+"type.tourism.picnic_site" = "Χώρος πικνίκ";
 "type.leisure.resort" = "Θέρετρο";
 "type.tourism.theme_park" = "Θεματικό πάρκο";
-"type.tourism.viewpoint" = "Θέα";
+"type.tourism.viewpoint" = "Σημείο με θέα";
 
 /* Typically more basic, not staffed and free (compared to alpine_hut). */
-"type.tourism.wilderness_hut" = "Καλύβα";
+"type.tourism.wilderness_hut" = "Καλύβα στην ερημιά";
 "type.tourism.zoo" = "Ζωολογικός κήπος";
-"type.tourism.zoo.petting" = "Ζωολογικό κήπο";
-"type.traffic_calming" = "Traffic Calming";
-"type.traffic_calming.bump" = "Traffic Bump";
-"type.traffic_calming.hump" = "Traffic Hump";
+"type.tourism.zoo.petting" = "Ζωολογικός κήπος για παιδιά";
+"type.traffic_calming" = "Ανακούφιση κυκλοφορίας";
+"type.traffic_calming.bump" = "Μικρότερο σαμαράκι δρόμου";
+"type.traffic_calming.hump" = "Σαμαράκι δρόμου";
 "type.waterway" = "Υδάτινη οδός";
 "type.waterway.canal" = "Κανάλι";
 "type.waterway.canal.tunnel" = "Σήραγγα καναλιού";
@@ -1458,9 +1458,9 @@
 "type.piste_type.downhill.intermediate.area" = "Ενδιάμεση πίστα σκι κατάβασης";
 "type.piste_type.downhill.novice" = "Αρχάρια πίστα σκι κατάβασης";
 "type.piste_type.downhill.novice.area" = "Αρχάρια πίστα σκι κατάβασης";
-"type.piste_type.nordic" = "Nordic Ski Trail";
-"type.piste_type.sled" = "Sledding Piste";
-"type.piste_type.sled.area" = "Sledding Piste";
+"type.piste_type.nordic" = "Διαδρομή σκανδιναβικού σκι";
+"type.piste_type.sled" = "Πίστα για έλκηθρο";
+"type.piste_type.sled.area" = "Πίστα για έλκηθρο";
 "type.piste_type.snow_park" = "Πάρκο χιονιού";
 "type.piste_type.hike" = "Μονοπάτι πεζοπορίας χιονιού";
 "type.piste_type.connection" = "Σύνδεση πίστας";
@@ -1492,3 +1492,4 @@
 "type.man_made.crane" = "Γερανός";
 "type.landuse.plant_nursery" = "Φυτώριο";
 "type.leisure.firepit" = "Εστία φωτιάς";
+"type.railway.station.subway.qingdao" = "Σταθμός Μετρό";

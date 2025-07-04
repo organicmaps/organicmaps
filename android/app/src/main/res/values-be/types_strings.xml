@@ -947,4 +947,5 @@
     <string name="type.man_made.crane">Кран</string>
     <string name="type.railway.narrow_gauge.bridge">Мост вузкакалейнай чыгункі</string>
     <string name="type.shop.chemist">Бытавая хімія</string>
+    <string name="type.railway.station.subway.qingdao">Станцыя Метро</string>
 </resources>

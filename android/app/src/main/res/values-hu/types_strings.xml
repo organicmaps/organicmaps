@@ -1399,4 +1399,5 @@
     <string name="type.highway.ladder">Létra</string>
     <string name="type.sport.diving">Búvárkodás</string>
     <string name="type.man_made.crane">Daru</string>
+    <string name="type.railway.station.subway.qingdao">Metróállomás</string>
 </resources>

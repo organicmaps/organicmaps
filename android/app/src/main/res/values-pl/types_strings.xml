@@ -1382,4 +1382,20 @@
     <string name="type.amenity.studio">Studio</string>
     <string name="type.landuse.plant_nursery">Szkółka roślin</string>
     <string name="type.leisure.firepit">Ognisko</string>
+    <string name="type.railway.station.subway.qingdao">Stacja metra</string>
+    <string name="type.sport.diving">Nurkowanie</string>
+    <string name="type.piste_type.downhill">Narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.area">Narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.advanced">Zaawansowana narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.advanced.area">Zaawansowana narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.easy">Łatwa narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.easy.area">Łatwa narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.expert">Narciarska trasa zjazdowa dla ekspertów</string>
+    <string name="type.piste_type.downhill.expert.area">Narciarska trasa zjazdowa dla ekspertów</string>
+    <string name="type.piste_type.downhill.freeride">Narciarska trasa zjazdowa freeride</string>
+    <string name="type.piste_type.downhill.intermediate">Średniozaawansowana narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.intermediate.area">Średniozaawansowana narciarska trasa zjazdowa</string>
+    <string name="type.piste_type.downhill.novice">Narciarska trasa zjazdowa dla nowicjuszy</string>
+    <string name="type.piste_type.downhill.novice.area">Narciarska trasa zjazdowa dla nowicjuszy</string>
+    <string name="type.man_made.crane">Dźwig</string>
 </resources>

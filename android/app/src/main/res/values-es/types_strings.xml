@@ -447,7 +447,7 @@
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.primary_link.tunnel">Túnel</string>
     <string name="type.highway.raceway">Circuito</string>
-    <string name="type.highway.residential">Calle residencial</string>
+    <string name="type.highway.residential">Calle urbana</string>
     <string name="type.highway.residential.area">Calle residencial</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.residential.bridge">Puente</string>
@@ -818,7 +818,7 @@
     <string name="type.railway.light_rail">Tren ligero</string>
     <string name="type.railway.monorail">Monorraíl</string>
     <string name="type.railway.narrow_gauge">Vía férrea estrecha</string>
-    <string name="type.railway.platform">Plataforma de vía férrea</string>
+    <string name="type.railway.platform">Andén ferroviario</string>
     <string name="type.railway.rail">Ferrocarril</string>
     <string name="type.railway.rail.highspeed">Ferrocarril de alta velocidad</string>
     <string name="type.railway.rail.tourism">Ferrocarril turístico</string>
@@ -872,7 +872,7 @@
     <string name="type.railway.station.subway.brussels">Estación de metro</string>
     <string name="type.railway.station.subway.bucharest">Estación de metro</string>
     <string name="type.railway.station.subway.budapest">Estación de metro</string>
-    <string name="type.railway.station.subway.buenos_aires">Estación de metro</string>
+    <string name="type.railway.station.subway.buenos_aires">Estación de subte</string>
     <string name="type.railway.station.subway.bursa">Estación de metro</string>
     <string name="type.railway.station.subway.cairo">Estación de metro</string>
     <string name="type.railway.station.subway.caracas">Estación de metro</string>
@@ -989,7 +989,7 @@
     <string name="type.railway.subway_entrance.brussels">Entrada al metro</string>
     <string name="type.railway.subway_entrance.bucharest">Entrada al metro</string>
     <string name="type.railway.subway_entrance.budapest">Entrada al metro</string>
-    <string name="type.railway.subway_entrance.buenos_aires">Entrada al metro</string>
+    <string name="type.railway.subway_entrance.buenos_aires">Entrada al subte</string>
     <string name="type.railway.subway_entrance.bursa">Entrada al metro</string>
     <string name="type.railway.subway_entrance.cairo">Entrada al metro</string>
     <string name="type.railway.subway_entrance.caracas">Entrada al metro</string>
@@ -1114,7 +1114,7 @@
     <string name="type.shop.computer">Tienda de informática</string>
     <string name="type.shop.confectionery">Confitería</string>
     <string name="type.shop.convenience">Tienda de barrio</string>
-    <string name="type.shop.copyshop">Centro de copiado</string>
+    <string name="type.shop.copyshop">Copistería</string>
     <string name="type.shop.cosmetics">Tienda de cosméticos</string>
     <string name="type.shop.curtain">Cortinas</string>
     <string name="type.shop.deli">Tienda de delicatessen</string>
@@ -1122,7 +1122,7 @@
     <string name="type.shop.doityourself">Tienda de bricolaje</string>
     <string name="type.shop.dry_cleaning">Tintorería</string>
     <string name="type.shop.electronics">Electrónica</string>
-    <string name="type.shop.erotic">Sex Shop</string>
+    <string name="type.shop.erotic">Tienda erótica</string>
     <string name="type.shop.fabric">Tienda de telas</string>
     <string name="type.shop.farm">Tienda de alimentos de granja</string>
     <string name="type.shop.fashion_accessories">Accesorios de moda</string>
@@ -1403,4 +1403,5 @@
     <string name="type.landuse.plant_nursery">Vivero</string>
     <string name="type.leisure.firepit">Fogón</string>
     <string name="type.man_made.crane">Grúa</string>
+    <string name="type.railway.station.subway.qingdao">Estación de metro</string>
 </resources>
