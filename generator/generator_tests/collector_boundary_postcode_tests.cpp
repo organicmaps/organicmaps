@@ -105,7 +105,7 @@ unordered_map<string, vector<m2::PointD>> Read(string const & dumpFilename)
   while (src.Size() > 0)
   {
     string postcode;
-    utils::ReadString(src, postcode);
+    rw::ReadNonEmpty(src, postcode);
     vector<m2::PointD> geometry;
     rw::ReadVectorOfPOD(src, geometry);
     result.emplace(std::move(postcode), std::move(geometry));

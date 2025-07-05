@@ -1,25 +1,36 @@
 #pragma once
 
 #include "indexer/data_header.hpp"
+#include "indexer/dat_section_header.hpp"
+#include "indexer/route_relation.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/geometry_coding.hpp"
 
 #include "base/macros.hpp"
 
+
+namespace indexer { class MetadataDeserializer; }
+
 namespace feature
 {
+class FeaturesOffsetsTable;
+
 // This info is created once per FeaturesVector.
 class SharedLoadInfo
 {
 public:
   using Reader = FilesContainerR::TReader;
 
-  SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header);
+  SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header,
+                 feature::FeaturesOffsetsTable const * relTable,
+                 indexer::MetadataDeserializer * metaDeserializer);
 
   Reader GetDataReader() const;
   Reader GetGeometryReader(size_t ind) const;
   Reader GetTrianglesReader(size_t ind) const;
+
+  RouteRelationBase ReadRelation(uint32_t id) const;
 
   serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
   {
@@ -38,6 +49,11 @@ public:
 private:
   FilesContainerR const & m_cont;
   DataHeader const & m_header;
+
+public:
+  feature::FeaturesOffsetsTable const * m_relTable;
+  indexer::MetadataDeserializer * m_metaDeserializer;
+  feature::DatSectionHeader::Version m_version;
 
   DISALLOW_COPY_AND_MOVE(SharedLoadInfo);
 };

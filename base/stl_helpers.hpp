@@ -323,6 +323,12 @@ bool IsSortedAndUnique(Iter beg, Iter end, Compare comp)
   return true;
 }
 
+template <typename ContT>
+bool IsSortedAndUnique(ContT const & cont)
+{
+  return IsSortedAndUnique(cont.begin(), cont.end(), std::less<>());
+}
+
 template <typename Iter, typename Compare>
 Iter RemoveIfKeepValid(Iter beg, Iter end, Compare comp)
 {
@@ -345,12 +351,6 @@ Iter RemoveIfKeepValid(Iter beg, Iter end, Compare comp)
   }
 
   return end;
-}
-
-template <typename Iter>
-bool IsSortedAndUnique(Iter beg, Iter end)
-{
-  return IsSortedAndUnique(beg, end, std::less<typename std::iterator_traits<Iter>::value_type>());
 }
 
 struct DeleteFunctor

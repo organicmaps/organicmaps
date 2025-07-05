@@ -1,9 +1,12 @@
 #pragma once
-#include "indexer/data_factory.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/feature_meta.hpp"
 #include "indexer/house_to_street_iface.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/mwm_version.hpp"
+
+#include "coding/files_container.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -22,6 +25,7 @@
 #include <vector>
 
 namespace feature { class FeaturesOffsetsTable; }
+namespace indexer { class MetadataDeserializer; }
 
 /// Information about stored mwm.
 class MwmInfo
@@ -105,7 +109,7 @@ private:
   // only in MwmValue::SetTable() method, which, in turn, is called
   // only in the MwmSet critical section, protected by a lock.  So,
   // there's an implicit synchronization on this field.
-  std::weak_ptr<feature::FeaturesOffsetsTable> m_table;
+  std::weak_ptr<feature::FeaturesOffsetsTable> m_ftTable, m_relTable;
 };
 
 class MwmValue;
@@ -375,19 +379,26 @@ class MwmValue
 {
 public:
   FilesContainerR const m_cont;
-  IndexFactory m_factory;
   platform::LocalCountryFile const m_file;
 
-  std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
+private:
+  version::MwmVersion m_version;
+  feature::DataHeader m_header;
+
+public:
+  // m_ftTable should always present, m_relTable maybe nullptr.
+  std::shared_ptr<feature::FeaturesOffsetsTable> m_ftTable, m_relTable;
   std::unique_ptr<indexer::MetadataDeserializer> m_metaDeserializer;
   std::unique_ptr<HouseToStreetTable> m_house2street, m_house2place;
 
+public:
   explicit MwmValue(platform::LocalCountryFile const & localFile);
+  ~MwmValue();
+
   void SetTable(MwmInfoEx & info);
 
-  feature::DataHeader const & GetHeader() const  { return m_factory.GetHeader(); }
-  feature::RegionData const & GetRegionData() const { return m_factory.GetRegionData(); }
-  version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
+  feature::DataHeader const & GetHeader() const  { return m_header; }
+  version::MwmVersion const & GetMwmVersion() const { return m_version; }
   std::string const & GetCountryFileName() const { return m_file.GetCountryName(); }
 
   bool HasSearchIndex() const { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }

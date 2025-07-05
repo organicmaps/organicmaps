@@ -42,7 +42,7 @@ void TestConcurrentAccessToFeatures(string const & mwm)
   auto const handle = dataSource.GetMwmHandleByCountryFile(countryFile);
   TEST(handle.IsAlive(), (local));
 
-  auto const featureNumber = handle.GetValue()->m_table->size();
+  auto const featureNumber = handle.GetValue()->m_ftTable->size();
   // Note. If hardware_concurrency() returns 0 it means that number of core is not defined.
   // If hardware_concurrency() returns 1 it means that only one core is available.
   // In the both cases 2 threads should be used for this test.

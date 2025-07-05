@@ -89,7 +89,7 @@ public:
 
       m_version = Version::V0;
     }
-    ASSERT(std::is_sorted(std::cbegin(m_data), std::cend(m_data)), ());
+    CHECK(base::IsSortedAndUnique(m_data), ());
   }
 
 private:

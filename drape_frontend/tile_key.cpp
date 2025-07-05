@@ -5,6 +5,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <sstream>
 
 namespace df

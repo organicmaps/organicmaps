@@ -1,7 +1,6 @@
 #include "statistics.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/data_factory.hpp"
 #include "indexer/feature_processor.hpp"
 
 #include "geometry/mercator.hpp"
@@ -54,7 +53,7 @@ namespace stats
 
     void operator() (FeatureType & f, uint32_t)
     {
-      f.ParseHeader2();
+      f.ParseAllBeforeGeometry();
 
       FeatureType::InnerGeomStat const innerStats = f.GetInnerStats();
 

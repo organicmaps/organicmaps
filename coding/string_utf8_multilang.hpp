@@ -1,46 +1,35 @@
 #pragma once
 
-#include "coding/reader.hpp"
+#include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
-#include "coding/writer.hpp"
 
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/control_flow.hpp"
 
-#include <map>
 #include <string>
 #include <string_view>
 #include <vector>
 
-namespace utils
+namespace rw
 {
-template <class TSink, bool EnableExceptions = false>
-void WriteString(TSink & sink, std::string const & s)
+template <class TSink>
+void WriteNonEmpty(TSink & sink, std::string const & s)
 {
-  if (EnableExceptions && s.empty())
-    MYTHROW(Writer::WriteException, ("String is empty"));
-  else
-    CHECK(!s.empty(), ());
-
+  CHECK(!s.empty(), ());
   size_t const sz = s.size();
   WriteVarUint(sink, static_cast<uint32_t>(sz - 1));
   sink.Write(s.c_str(), sz);
 }
 
-template <class TSource, bool EnableExceptions = false>
-void ReadString(TSource & src, std::string & s)
+template <class TSource>
+void ReadNonEmpty(TSource & src, std::string & s)
 {
   uint32_t const sz = ReadVarUint<uint32_t>(src) + 1;
   s.resize(sz);
   src.Read(&s[0], sz);
-
-  if (EnableExceptions && s.empty())
-    MYTHROW(Reader::ReadException, ("String is empty"));
-  else
-    CHECK(!s.empty(), ());
 }
-}  // namespace utils
+} // namespace rw
 
 // A class to store strings in multiple languages.
 // May be used e.g. to store several translations of a feature's name.
@@ -204,15 +193,14 @@ public:
   /// @name Used for serdes.
   /// @{
   template <class TSink>
-  void Write(TSink & sink) const
+  void WriteNonEmpty(TSink & sink) const
   {
-    utils::WriteString(sink, m_s);
+    rw::WriteNonEmpty(sink, m_s);
   }
-
   template <class TSource>
-  void Read(TSource & src)
+  void ReadNonEmpty(TSource & src)
   {
-    utils::ReadString(src, m_s);
+    rw::ReadNonEmpty(src, m_s);
   }
 
   std::string const & GetBuffer() const { return m_s; }

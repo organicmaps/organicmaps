@@ -76,7 +76,7 @@ std::vector<uint32_t> const & FeaturesLayerMatcher::GetPlaceAddrFeatures(
         res.first.push_back(fid);
     });
 
-    ASSERT(base::IsSortedAndUnique(res.first.begin(), res.first.end()), ());
+    ASSERT(base::IsSortedAndUnique(res.first), ());
   }
   return res.first;
 }
