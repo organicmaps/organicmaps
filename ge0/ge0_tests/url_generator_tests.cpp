@@ -345,7 +345,7 @@ UNIT_TEST(GenerateShortShowMapUrl_UnicodeMixedWithOtherChars)
 UNIT_TEST(GenerateGeoUri_SmokeTest)
 {
   string res = GenerateGeoUri(33.8904075, 35.5066454, 16.5, "Falafel M. Sahyoun");
-  TEST_EQUAL("geo:33.8904075,35.5066454?z=16.5(Falafel%20M.%20Sahyoun)", res, ());
+  TEST_EQUAL("geo:33.8904075,35.5066454?z=16.5&q=33.8904075,35.5066454(Falafel%20M.%20Sahyoun)", res, ());
 
   // geo:33.8904075,35.5066454?z=16.5(Falafel%20M.%20Sahyoun)
   // geo:33.890408,35.506645?z=16.5(Falafel%20M.%20Sahyoun)
