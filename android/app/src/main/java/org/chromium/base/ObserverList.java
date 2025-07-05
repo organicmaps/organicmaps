@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import javax.annotation.concurrent.NotThreadSafe;
-
 /**
  * A container for a list of observers.
  * <p/>
@@ -29,7 +27,6 @@ import javax.annotation.concurrent.NotThreadSafe;
  *
  * @param <E> The type of observers that this list should hold.
  */
-@NotThreadSafe
 public class ObserverList<E> implements Iterable<E>
 {
   /** Extended iterator interface that provides rewind functionality. */
