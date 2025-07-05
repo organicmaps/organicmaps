@@ -948,4 +948,8 @@
     <string name="type.railway.narrow_gauge.bridge">Мост вузкакалейнай чыгункі</string>
     <string name="type.shop.chemist">Бытавая хімія</string>
     <string name="type.railway.station.subway.qingdao">Станцыя Метро</string>
+    <string name="type.shop.convenience">Крама</string>
+    <string name="type.shop.supermarket">Супермаркет</string>
+    <string name="type.shop.mall">Гандлёвы цэнтр</string>
+    <string name="type.shop.bakery">Пякарня</string>
 </resources>

@@ -1211,7 +1211,7 @@
 "type.route.shuttle_train" = "route-shuttle_train";
 "type.shop" = "Shop";
 "type.shop.alcohol" = "Liquor Shop";
-"type.shop.bakery" = "Bakery";
+"type.shop.bakery" = "Пякарня";
 "type.shop.bathroom_furnishing" = "Мэбля для ванных пакояў";
 "type.shop.beauty" = "Beauty Shop";
 "type.shop.beverages" = "Напоі";
@@ -1232,7 +1232,7 @@
 "type.shop.coffee" = "Крама кавы";
 "type.shop.computer" = "Computer Store";
 "type.shop.confectionery" = "Candy Shop";
-"type.shop.convenience" = "Convenience Store";
+"type.shop.convenience" = "Крама";
 "type.shop.copyshop" = "Copyshop";
 "type.shop.cosmetics" = "Касметыка";
 "type.shop.curtain" = "Шторы";
@@ -1264,7 +1264,7 @@
 "type.shop.kiosk" = "Kiosk";
 "type.shop.kitchen" = "Крама для кухні";
 "type.shop.laundry" = "Laundry";
-"type.shop.mall" = "Mall";
+"type.shop.mall" = "Гандлёвы цэнтр";
 "type.shop.massage" = "Massage Salon";
 "type.shop.mobile_phone" = "Cell Phone Store";
 "type.shop.money_lender" = "Ліхвяр";
@@ -1289,7 +1289,7 @@
 "type.shop.shoes" = "Shoe Shop";
 "type.shop.sports" = "Sports Shop";
 "type.shop.stationery" = "Stationery Shop";
-"type.shop.supermarket" = "Supermarket";
+"type.shop.supermarket" = "Супермаркет";
 "type.shop.tattoo" = "Tattoo Parlour";
 "type.shop.tea" = "Крама гарбаты";
 "type.shop.ticket" = "Ticket Shop";
