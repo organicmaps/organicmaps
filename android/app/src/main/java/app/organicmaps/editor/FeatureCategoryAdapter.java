@@ -21,6 +21,12 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
   private final FeatureCategoryFragment mFragment;
   private final FeatureCategory mSelectedCategory;
 
+  public interface FooterListener
+  {
+    void onNoteTextChanged(String newText);
+    void onSendNoteClicked();
+  }
+
   public FeatureCategoryAdapter(@NonNull FeatureCategoryFragment host, @NonNull FeatureCategory[] categories,
                                 @Nullable FeatureCategory category)
   {
@@ -57,7 +63,7 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
       case TYPE_FOOTER ->
       {
         return new FooterViewHolder(
-            LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category_footer, parent, false));
+            LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category_footer, parent, false), (FooterListener) mFragment);
       }
       default ->
       {
@@ -72,6 +78,10 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     if (holder instanceof FeatureViewHolder)
     {
       ((FeatureViewHolder) holder).bind(position);
+    }
+    else if (holder instanceof FooterViewHolder)
+    {
+      ((FooterViewHolder) holder).bind(mFragment.getPendingNoteText());
     }
   }
 
@@ -108,11 +118,33 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
   protected static class FooterViewHolder extends RecyclerView.ViewHolder
   {
-    FooterViewHolder(@NonNull View itemView)
+    private final com.google.android.material.textfield.TextInputEditText mNoteEditText;
+    private final View mSendNoteButton;
+
+    FooterViewHolder(@NonNull View itemView, @NonNull FooterListener listener)
     {
       super(itemView);
       TextView categoryUnsuitableText = itemView.findViewById(R.id.editor_category_unsuitable_text);
       categoryUnsuitableText.setMovementMethod(LinkMovementMethod.getInstance());
+      mNoteEditText = itemView.findViewById(R.id.note_edit_text);
+      mSendNoteButton = itemView.findViewById(R.id.send_note_button);
+      mSendNoteButton.setOnClickListener(v -> listener.onSendNoteClicked());
+      mNoteEditText.addTextChangedListener(new app.organicmaps.sdk.util.StringUtils.SimpleTextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count)
+        {
+          listener.onNoteTextChanged(s.toString());
+        }
+      });
+    }
+    public void bind(String pendingNoteText)
+    {
+      if (!mNoteEditText.getText().toString().equals(pendingNoteText))
+      {
+        mNoteEditText.setText(pendingNoteText);
+        if (pendingNoteText != null)
+          mNoteEditText.setSelection(pendingNoteText.length());
+      }
     }
   }
 
