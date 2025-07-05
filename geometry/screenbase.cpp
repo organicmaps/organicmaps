@@ -218,18 +218,18 @@ void ScreenBase::SetAngle(double angle)
   UpdateDependentParameters();
 }
 
-int ScreenBase::GetWidth() const { return math::SignedRound(m_PixelRect.SizeX()); }
+int ScreenBase::GetWidth() const { return std::lround(m_PixelRect.SizeX()); }
 
-int ScreenBase::GetHeight() const { return math::SignedRound(m_PixelRect.SizeY()); }
+int ScreenBase::GetHeight() const { return std::lround(m_PixelRect.SizeY()); }
 
 ScreenBase::MatrixT ScreenBase::CalcTransform(m2::PointD const & oldPt1,
                                                     m2::PointD const & oldPt2,
                                                     m2::PointD const & newPt1,
-                                                    m2::PointD const & newPt2, 
+                                                    m2::PointD const & newPt2,
                                                     bool allowRotate,
                                                     bool allowScale)
 {
-  
+
   double const s = allowScale ? newPt1.Length(newPt2) / oldPt1.Length(oldPt2) : 1.0;
   double const a = allowRotate ? ang::AngleTo(newPt1, newPt2) - ang::AngleTo(oldPt1, oldPt2) : 0.0;
 

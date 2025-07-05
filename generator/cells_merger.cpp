@@ -4,6 +4,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace
 {
@@ -42,8 +43,8 @@ CellsMerger::CellsMerger(std::vector<m2::RectD> && cells)
   auto const sideSize = cells.front().SizeX();
   for (auto const & cell : cells)
   {
-    auto const xIdx = static_cast<int32_t>(std::round((cell.minX() - minX) / sideSize));
-    auto const yIdx = static_cast<int32_t>(std::round((cell.minY() - minY) / sideSize));
+    int32_t const xIdx = std::lround((cell.minX() - minX) / sideSize);
+    int32_t const yIdx = std::lround((cell.minY() - minY) / sideSize);
     m_matrix.emplace(m2::PointI{xIdx, yIdx}, cell);
     m_maxX = std::max(m_maxX, xIdx);
     m_maxY = std::max(m_maxY, yIdx);

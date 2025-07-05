@@ -6,6 +6,8 @@
 
 #include "base/assert.hpp"
 
+#include <cmath>
+
 namespace platform
 {
 using namespace measurement_utils;

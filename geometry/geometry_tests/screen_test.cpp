@@ -5,28 +5,28 @@
 
 #include "testing/testing.hpp"
 
+#include <cmath>
 
-using namespace test;
-
-namespace
+namespace screen_test
 {
-  void check_set_from_rect(ScreenBase & screen, int width, int height)
-  {
-    screen.OnSize(0, 0, width, height);
+using test::is_equal;
 
-    m2::PointD b1(0.0, 0.0);
-    m2::PointD b2(300.0, 300.0);
-    screen.SetFromRect(m2::AnyRectD(m2::RectD(b1, b2)));
+static void check_set_from_rect(ScreenBase & screen, int width, int height)
+{
+  screen.OnSize(0, 0, width, height);
 
-    b1 = screen.GtoP(b1);
-    b2 = screen.GtoP(b2);
+  m2::PointD b1(0.0, 0.0);
+  m2::PointD b2(300.0, 300.0);
+  screen.SetFromRect(m2::AnyRectD(m2::RectD(b1, b2)));
 
-    // check that we are in boundaries.
-    TEST(math::Between(0, width, math::SignedRound(b1.x)), ());
-    TEST(math::Between(0, width, math::SignedRound(b2.x)), ());
-    TEST(math::Between(0, height, math::SignedRound(b1.y)), ());
-    TEST(math::Between(0, height, math::SignedRound(b2.y)), ());
-  }
+  b1 = screen.GtoP(b1);
+  b2 = screen.GtoP(b2);
+
+  // check that we are in boundaries.
+  TEST(math::Between(0, width, static_cast<int>(std::lround(b1.x))), ());
+  TEST(math::Between(0, width, static_cast<int>(std::lround(b2.x))), ());
+  TEST(math::Between(0, height, static_cast<int>(std::lround(b1.y))), ());
+  TEST(math::Between(0, height, static_cast<int>(std::lround(b2.y))), ());
 }
 
 UNIT_TEST(ScreenBase_P2G2P)
@@ -221,3 +221,4 @@ UNIT_TEST(ScreenBase_CombineTransforms)
   TEST(is_equal(p1, pp1), (p1, pp1));
   TEST(is_equal(p2, pp2), (p2, pp2));
 }
+}  // namespace screen_test

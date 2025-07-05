@@ -921,7 +921,7 @@ double GetRadiusByPopulationForRouting(uint64_t p, LocalityType localityType)
 
 uint64_t GetPopulationByRadius(double r)
 {
-  return math::SignedRound(pow(r / 550.0, 3.6));
+  return std::lround(pow(r / 550.0, 3.6));
 }
 
 }  // namespace ftypes
