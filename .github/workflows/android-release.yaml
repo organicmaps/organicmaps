@@ -81,6 +81,14 @@ jobs:
           fetch-depth: 100 # enough to get all commits for the current day
           ref: 'refs/tags/${{ needs.tag.outputs.tag }}'
 
+      - name: Restore Boost submodule from cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
       - name: Check tag
         shell: bash
         run: |

@@ -14,10 +14,6 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
-      - name: Parallel submodules checkout
-        shell: bash
-        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
-
       - name: Checkout screenshots
         uses: actions/checkout@v4
         with:
