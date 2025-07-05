@@ -1,6 +1,9 @@
 package app.organicmaps.sdk.bookmarks.data;
 
-//used by JNI
+import androidx.annotation.Keep;
+
+// Used by JNI
+@Keep
 public class TrackStatistics
 {
   private final double m_length;
@@ -10,7 +13,9 @@ public class TrackStatistics
   private final int m_minElevation;
   private final int m_maxElevation;
 
-  public TrackStatistics(double length, double duration, double ascent, double descent, int minElevation, int maxElevation)
+  @Keep
+  public TrackStatistics(double length, double duration, double ascent, double descent, int minElevation,
+                         int maxElevation)
   {
     m_length = length;
     m_duration = duration;
