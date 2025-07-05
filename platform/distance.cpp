@@ -6,6 +6,8 @@
 
 #include "base/assert.hpp"
 
+#include <cmath>
+
 namespace platform
 {
 using namespace measurement_utils;
@@ -182,7 +184,7 @@ Distance Distance::GetFormattedDistance() const
     res = res.To(res.m_units == Units::Meters ? Units::Kilometers : Units::Miles);
 
     // For distances of 10.0 high units and over round to a whole number, e.g. 9.98 -> 10, 10.9 -> 11
-    uint8_t const precision = (std::round(res.m_distance * 10) / 10 >= 10.0) ? 0 : 1;
+    uint8_t const precision = (std::lround(res.m_distance * 10) / 10 >= 10.0) ? 0 : 1;
     return { WithPrecision(res.m_distance, precision), res.m_units };
   }
 

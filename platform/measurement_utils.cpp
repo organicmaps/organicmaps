@@ -113,7 +113,7 @@ std::string FormatLatLonAsDMSImpl(double value, char positive, char negative, in
   // Seconds
   d = d * 60.0;
   if (dac == 0)
-    d = SignedRound(d);
+    d = std::round(d);
 
   d = std::modf(d, &i);
   sstream << std::setw(2) << i;
@@ -200,7 +200,7 @@ double MpsToUnits(double metersPerSecond, Units units)
 
 int FormatSpeed(double metersPerSecond, Units units)
 {
-  return static_cast<int>(std::round(MpsToUnits(metersPerSecond, units)));
+  return std::lround(MpsToUnits(metersPerSecond, units));
 }
 
 std::string FormatSpeedNumeric(double metersPerSecond, Units units)
@@ -214,8 +214,8 @@ std::string FormatOsmLink(double lat, double lon, int zoom)
 
   // Same as (lon + 180) / 360 * 1UL << 32, but without warnings.
   double constexpr factor = (1 << 30) / 90.0;
-  uint32_t const x = round((lon + 180.0) * factor);
-  uint32_t const y = round((lat + 90.0) * factor * 2.0);
+  uint32_t const x = std::lround((lon + 180.0) * factor);
+  uint32_t const y = std::lround((lat + 90.0) * factor * 2.0);
   uint64_t const code = bits::BitwiseMerge(y, x);
   std::string osmUrl = "https://osm.org/go/";
 
@@ -228,7 +228,7 @@ std::string FormatOsmLink(double lat, double lon, int zoom)
 
   for (int i = 0; i < (zoom + 8) % 3; ++i)
     osmUrl += "-";
-  // ?m tells OSM to display a marker 
+  // ?m tells OSM to display a marker
   return osmUrl + "?m";
 }
 

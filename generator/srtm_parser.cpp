@@ -8,6 +8,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <cmath>
 #include <fstream>
 #include <iomanip>
 #include <sstream>
@@ -116,8 +117,8 @@ geometry::Altitude SrtmTile::GetHeight(ms::LatLon const & coord) const
     lt += 1;
   lt = 1 - lt;  // from North to South
 
-  auto const row = static_cast<size_t>(std::round(kArcSecondsInDegree * lt));
-  auto const col = static_cast<size_t>(std::round(kArcSecondsInDegree * ln));
+  auto const row = std::lround(kArcSecondsInDegree * lt);
+  auto const col = std::lround(kArcSecondsInDegree * ln);
 
   size_t const ix = row * (kArcSecondsInDegree + 1) + col;
 

@@ -14,6 +14,7 @@
 #include "base/thread_pool_computational.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <fstream>
 #include <set>
 #include <vector>
@@ -185,8 +186,8 @@ public:
     double lt = pos.m_lat - m_bottomLat;
     lt = 1 - lt;  // From North to South, the same direction as inside the SRTM tiles.
 
-    auto const row = static_cast<size_t>(std::round(kArcSecondsInDegree * lt));
-    auto const col = static_cast<size_t>(std::round(kArcSecondsInDegree * ln));
+    auto const row = std::lround(kArcSecondsInDegree * lt);
+    auto const col = std::lround(kArcSecondsInDegree * ln);
 
     auto const ix = row * (kArcSecondsInDegree + 1) + col;
     CHECK(ix < m_values.size(), (pos));

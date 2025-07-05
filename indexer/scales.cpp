@@ -2,9 +2,9 @@
 
 #include "indexer/feature_algo.hpp"
 #include "geometry/mercator.hpp"
-#include "base/math.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace scales
 {
@@ -33,12 +33,12 @@ namespace scales
 
   int GetScaleLevel(double ratio)
   {
-    return base::SignedRound(GetScaleLevelD(ratio));
+    return std::lround(GetScaleLevelD(ratio));
   }
 
   int GetScaleLevel(m2::RectD const & r)
   {
-    return base::SignedRound(GetScaleLevelD(r));
+    return std::lround(GetScaleLevelD(r));
   }
 
   namespace
