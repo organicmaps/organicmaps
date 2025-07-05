@@ -32,7 +32,7 @@ public class OsmUploadWork extends Worker
    */
   public static void startActionUploadOsmChanges(@NonNull Context context)
   {
-    if (Editor.nativeHasSomethingToUpload() && OsmOAuth.isAuthorized(context))
+    if (Editor.nativeHasSomethingToUpload() && OsmOAuth.isAuthorized())
     {
       final Constraints c = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
       final WorkRequest wr = new OneTimeWorkRequest.Builder(OsmUploadWork.class).setConstraints(c).build();
@@ -44,13 +44,12 @@ public class OsmUploadWork extends Worker
   @Override
   public Result doWork()
   {
-    final MwmApplication app = MwmApplication.from(mContext);
-    if (!app.getOrganicMaps().arePlatformAndCoreInitialized())
+    if (!MwmApplication.from(mContext).getOrganicMaps().arePlatformAndCoreInitialized())
     {
       Logger.w(TAG, "Application is not initialized, ignoring " + mWorkerParameters);
       return Result.failure();
     }
-    Editor.uploadChanges(mContext);
+    Editor.uploadChanges();
     return Result.success();
   }
 }

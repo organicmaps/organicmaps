@@ -1,6 +1,5 @@
 package app.organicmaps.sdk.editor;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
@@ -8,7 +7,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
 import androidx.fragment.app.FragmentManager;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.sdk.util.NetworkPolicy;
 
 public final class OsmOAuth
@@ -28,7 +26,9 @@ public final class OsmOAuth
     }
   }
 
-  public static final int OK = 0;
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private static SharedPreferences mPrefs;
 
   private static final String PREF_OSM_TOKEN = "OsmToken"; // Unused after migration from OAuth1 to OAuth2
   private static final String PREF_OSM_SECRET = "OsmSecret"; // Unused after migration from OAuth1 to OAuth2
@@ -38,51 +38,50 @@ public final class OsmOAuth
 
   public static final String URL_PARAM_VERIFIER = "oauth_verifier";
 
-  public static boolean isAuthorized(@NonNull Context context)
+  public static void init(@NonNull SharedPreferences prefs)
   {
-    return MwmApplication.prefs(context).contains(PREF_OSM_OAUTH2_TOKEN);
+    mPrefs = prefs;
   }
 
-  public static boolean containsOAuth1Credentials(@NonNull Context context)
+  public static boolean isAuthorized()
   {
-    SharedPreferences prefs = MwmApplication.prefs(context);
-    return prefs.contains(PREF_OSM_TOKEN) && prefs.contains(PREF_OSM_SECRET);
+    return mPrefs.contains(PREF_OSM_OAUTH2_TOKEN);
   }
 
-  public static void clearOAuth1Credentials(@NonNull Context context)
+  public static boolean containsOAuth1Credentials()
   {
-    MwmApplication.prefs(context).edit().remove(PREF_OSM_TOKEN).remove(PREF_OSM_SECRET).apply();
+    return mPrefs.contains(PREF_OSM_TOKEN) && mPrefs.contains(PREF_OSM_SECRET);
   }
 
-  public static String getAuthToken(@NonNull Context context)
+  public static void clearOAuth1Credentials()
   {
-    return MwmApplication.prefs(context).getString(PREF_OSM_OAUTH2_TOKEN, "");
+    mPrefs.edit().remove(PREF_OSM_TOKEN).remove(PREF_OSM_SECRET).apply();
   }
 
-  public static String getUsername(@NonNull Context context)
+  public static String getAuthToken()
   {
-    return MwmApplication.prefs(context).getString(PREF_OSM_USERNAME, "");
+    return mPrefs.getString(PREF_OSM_OAUTH2_TOKEN, "");
   }
 
-  public static Bitmap getProfilePicture(@NonNull Context context)
+  public static String getUsername()
+  {
+    return mPrefs.getString(PREF_OSM_USERNAME, "");
+  }
+
+  public static Bitmap getProfilePicture()
   {
     // TODO(HB): load and store image in cache here
     return null;
   }
 
-  public static void setAuthorization(@NonNull Context context, String oauthToken, String username)
+  public static void setAuthorization(String oauthToken, String username)
   {
-    MwmApplication.prefs(context)
-        .edit()
-        .putString(PREF_OSM_OAUTH2_TOKEN, oauthToken)
-        .putString(PREF_OSM_USERNAME, username)
-        .apply();
+    mPrefs.edit().putString(PREF_OSM_OAUTH2_TOKEN, oauthToken).putString(PREF_OSM_USERNAME, username).apply();
   }
 
-  public static void clearAuthorization(@NonNull Context context)
+  public static void clearAuthorization()
   {
-    MwmApplication.prefs(context)
-        .edit()
+    mPrefs.edit()
         .remove(PREF_OSM_TOKEN)
         .remove(PREF_OSM_SECRET)
         .remove(PREF_OSM_USERNAME)
@@ -90,14 +89,16 @@ public final class OsmOAuth
         .apply();
   }
 
-  public static String getHistoryUrl(@NonNull Context context)
+  @NonNull
+  public static String getHistoryUrl()
   {
-    return nativeGetHistoryUrl(getUsername(context));
+    return nativeGetHistoryUrl(getUsername());
   }
 
-  public static String getNotesUrl(@NonNull Context context)
+  @NonNull
+  public static String getNotesUrl()
   {
-    return nativeGetNotesUrl(getUsername(context));
+    return nativeGetNotesUrl(getUsername());
   }
 
   /*
@@ -144,21 +145,20 @@ public final class OsmOAuth
   private static native int nativeGetOsmChangesetsCount(String oauthToken);
 
   @WorkerThread
-  public static int getOsmChangesetsCount(@NonNull Context context, @NonNull FragmentManager fm)
+  public static int getOsmChangesetsCount(@NonNull FragmentManager fm)
   {
     final int[] editsCount = {-1};
     NetworkPolicy.checkNetworkPolicy(fm, policy -> {
       if (!policy.canUseNetwork())
         return;
 
-      final String token = getAuthToken(context);
+      final String token = getAuthToken();
       editsCount[0] = OsmOAuth.nativeGetOsmChangesetsCount(token);
     });
-    final SharedPreferences prefs = MwmApplication.prefs(context);
     if (editsCount[0] < 0)
-      return prefs.getInt(PREF_OSM_CHANGESETS_COUNT, 0);
+      return mPrefs.getInt(PREF_OSM_CHANGESETS_COUNT, 0);
 
-    prefs.edit().putInt(PREF_OSM_CHANGESETS_COUNT, editsCount[0]).apply();
+    mPrefs.edit().putInt(PREF_OSM_CHANGESETS_COUNT, editsCount[0]).apply();
     return editsCount[0];
   }
 }

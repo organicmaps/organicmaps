@@ -93,9 +93,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   private void updateProfileSettingsPrefsSummary()
   {
     final Preference pref = getPreference(getString(R.string.pref_osm_profile));
-    if (OsmOAuth.isAuthorized(requireContext()))
+    if (OsmOAuth.isAuthorized())
     {
-      final String username = OsmOAuth.getUsername(requireContext());
+      final String username = OsmOAuth.getUsername();
       pref.setSummary(username);
     }
     else
@@ -230,7 +230,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     if (pref == null)
       return;
 
-    if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting(requireContext()))
+    if (!SharedPropertiesUtils.shouldShowEmulateBadStorageSetting())
       removePreference(getString(R.string.pref_settings_general), pref);
     else
       pref.setVisible(true);
