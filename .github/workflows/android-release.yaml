@@ -132,6 +132,12 @@ jobs:
           ./gradlew bundleGoogleRelease publishGoogleReleaseBundle
         if: ${{ matrix.flavor == 'google' }}
 
+      - name: Upload universal release apk to GitHub artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OrganicMaps-${{ needs.tag.outputs.code }}-google-release.aab
+          path: ./app/build/outputs/bundle/googleRelease/OrganicMaps-${{ needs.tag.outputs.code }}-google-release.aab
+
       - name: Compile and upload to Huawei AppGallery
         shell: bash
         working-directory: android
@@ -165,7 +171,7 @@ jobs:
           } > ${{ runner.temp }}/release-notes.txt
 
       - name: Upload universal APK to GitHub
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: ${{ matrix.flavor == 'web' }}
         with:
           body_path: ${{ runner.temp }}/release-notes.txt
