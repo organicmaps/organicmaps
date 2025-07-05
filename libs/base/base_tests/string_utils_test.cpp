@@ -269,7 +269,11 @@ UNIT_TEST(to_uint)
   TEST(strings::to_uint("AF", i, 16), ());
   TEST_EQUAL(175, i, ());
 
+  TEST(strings::to_uint(std::string_view("C8"), i, 16), ());
+  TEST_EQUAL(200, i, ());
+
   TEST(!strings::to_uint("AXF", i, 16), ());
+  TEST(!strings::to_uint(std::string_view("AXF"), i, 16), ());
 
   uint8_t i8;
   TEST(!strings::to_uint(std::string_view("256"), i8), ());
