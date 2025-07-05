@@ -246,10 +246,10 @@ UNIT_TEST(CanadaBridgeCrossToEdwardIsland)
 UNIT_TEST(ParisCrossDestinationInForwardHeapCase)
 {
   // Forward.
-  // Updated after fixing primary/trunk factors. Route looks good, but it differs from OSRM/Valhalla/GraphHopper.
+  // Updated after fixing primary/trunk factors. Route looks good, but it differs from Valhalla.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
       FromLatLon(49.85015, 2.24296), {0., 0.},
-      FromLatLon(48.85458, 2.36291), 128749);
+      FromLatLon(48.85458, 2.36291), 132906);
 
   // Backward.
   // OM makes the same as GraphHopper and Valhalla. OSRM makes a bit shorter route.
@@ -269,11 +269,11 @@ UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
 
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
-  TestRouteLength(route, 391659);
+  TestRouteLength(route, 391699);
 
   // https://www.openstreetmap.org/directions?engine=graphhopper_car&route=54.800%2C32.055%3B55.753%2C37.602
   // Middle between GraphHopper and OSRM
-  TestRouteTime(route, 18607.2);
+  TestRouteTime(route, 19079.5);
 }
 
 UNIT_TEST(Russia_Moscow_Leningradskiy39GeroevPanfilovtsev22TimeTest)
@@ -287,7 +287,7 @@ UNIT_TEST(Russia_Moscow_Leningradskiy39GeroevPanfilovtsev22TimeTest)
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
   TestRouteLength(route, 14276.3);
-  TestRouteTime(route, 1126.09);
+  TestRouteTime(route, 1163.63);
 }
 
 UNIT_TEST(Russia_Moscow_Leningradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -1028,6 +1028,18 @@ UNIT_TEST(USA_UseDirt_WithMaxspeed)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
                                    FromLatLon(42.3889581, 19.7812567), {0., 0.},
                                    FromLatLon(42.3878106, 19.7831402), 247.139);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/8507
+UNIT_TEST(Norway_MotorVehicleBackward_No)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(59.91734, 10.75949), {0., 0.},
+                                   FromLatLon(59.91877, 10.75936), 1091.88);
+
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car),
+                                   FromLatLon(59.919597, 10.759392), {0., 0.},
+                                   FromLatLon(59.92056, 10.759317), 419);
 }
 
 } // namespace route_test
