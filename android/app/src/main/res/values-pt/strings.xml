@@ -841,4 +841,9 @@
     <string name="nav_auto">Auto na navegação</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
+    <string name="maps_storage_internal">Armazenamento interno privado</string>
+    <string name="maps_storage_shared">Armazenamento interno partilhado</string>
+    <string name="maps_storage_external">Armazenamento externo partilhado</string>
+    <string name="maps_storage_removable">Cartão SD</string>
+    <string name="maps_storage_free_size">%1$s livres de %2$s</string>
 </resources>

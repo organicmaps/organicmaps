@@ -144,7 +144,7 @@
 "type.cuisine.barbecue" = "Grill";
 "type.cuisine.bavarian" = "Bæverskt";
 "type.cuisine.bubble_tea" = "Perlute";
-"type.cuisine.buschenschank" = "Buschenschank";
+"type.cuisine.buschenschank" = "Buschenschank (austurrískt)";
 "type.cuisine.chinese" = "Kínverskt";
 "type.cuisine.croatian" = "Króatískt";
 "type.cuisine.filipino" = "Filipeyskt";
@@ -157,7 +157,7 @@
 "type.cuisine.indonesian" = "Indonesískt";
 "type.cuisine.irish" = "Írskt";
 "type.cuisine.italian" = "Ítalskt";
-"type.cuisine.heuriger" = "Heuriger";
+"type.cuisine.heuriger" = "Heuriger (Austurrísk vínkrá)";
 "type.cuisine.kebab" = "Kebab";
 "type.cuisine.japanese" = "Japanskt";
 "type.cuisine.korean" = "Kóreskt";
@@ -1306,3 +1306,4 @@
 "type.highway.ladder" = "Stigi";
 "type.sport.diving" = "Köfun";
 "type.man_made.crane" = "Krani";
+"type.railway.station.subway.qingdao" = "Neðanjarðarlestarstöð";
