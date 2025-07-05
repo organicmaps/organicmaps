@@ -1,7 +1,8 @@
-#include "coding/varint.hpp"
 #include "testing/testing.hpp"
 
 #include "coding/byte_stream.hpp"
+#include "coding/reader.hpp"
+#include "coding/varint.hpp"
 
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
@@ -183,5 +184,31 @@ UNIT_TEST(ReadVarInt64Array)
       TEST_EQUAL(pEnd, &data[0] + data.size(), ("GivenSize", data.size()));
       TEST_EQUAL(result, testValues, ("GivenSize", data.size()));
     }
+  }
+}
+
+UNIT_TEST(VarInt_ShortSortedArray)
+{
+  uint32_t constexpr maxVal = (uint32_t(1) << 30) - 1;
+  std::vector<uint32_t> samples[] = {
+      {0},
+      {10, 10000},
+      {maxVal - 2, maxVal - 1, maxVal},
+  };
+
+  for (auto const & s : samples)
+  {
+    std::vector<uint8_t> buffer;
+    PushBackByteSink sink(buffer);
+
+    WriteVarUInt32SortedShortArray(s, sink);
+
+    MemReader reader(buffer.data(), buffer.size());
+    ReaderSource src(reader);
+
+    std::vector<uint32_t> actual;
+    ReadVarUInt32SortedShortArray(src, actual);
+
+    TEST_EQUAL(s, actual, ());
   }
 }
