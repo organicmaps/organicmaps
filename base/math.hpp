@@ -104,12 +104,6 @@ bool Between(T const a, T const b, T const x)
   return a <= x && x <= b;
 }
 
-// This function is deprecated. Use std::round instead.
-inline int SignedRound(double x)
-{
-  return x > 0.0 ? static_cast<int>(x + 0.5) : static_cast<int>(x - 0.5);
-}
-
 // Computes x^n.
 template <typename T>
 T PowUint(T x, uint64_t n)

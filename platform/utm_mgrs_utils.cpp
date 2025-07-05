@@ -152,8 +152,8 @@ std::string UTMtoStr(UTMPoint const & point)
   // last 5 digits of UTM and MGRS coordinates could differ (inaccuracy is no more then 1 meter).
   // Some UTM converters truncate easting and northing instead of rounding. Consider this option.
   return std::to_string(point.zoneNumber) + point.zoneLetter + ' ' +
-         std::to_string(static_cast<int>(std::round(point.easting))) + ' ' +
-         std::to_string(static_cast<int>(std::round(point.northing)));
+         std::to_string(std::lround(point.easting)) + ' ' +
+         std::to_string(std::lround(point.northing));
 }
 
 // Build 2 chars string with MGRS 100k designator.

@@ -5,6 +5,7 @@
 #include "base/logging.hpp"
 #include "base/shared_buffer_manager.hpp"
 
+#include <cmath>
 #include <cstring>
 #include <iomanip>
 #include <numeric>
@@ -122,7 +123,7 @@ void StipplePenRasterizator::RasterizeTriangle(uint8_t * pixels) const
 
   while (trgH > 0)
   {
-    uint8_t const base = std::round(trgH * tan);
+    uint8_t const base = std::lround(trgH * tan);
     uint32_t const left = (m_patternLength - base) / 2;
     memset(pixels + 1, 0, left);
     memset(pixels + left + 1, 255, base);

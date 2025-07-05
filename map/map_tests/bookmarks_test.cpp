@@ -1644,12 +1644,12 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
-  auto const points = {geometry::PointWithAltitude({0.0, 0.0}, 0.0), geometry::PointWithAltitude({0.001, 0.001}, 0.001)};
+  auto const points = {geometry::PointWithAltitude({0.0, 0.0}, 0.0), geometry::PointWithAltitude({0.001, 0.001}, 0)};
   auto const trackId = bmManager.SaveRoute(points, "London", "Paris");
   auto const * track = bmManager.GetTrack(trackId);
   TEST_EQUAL(track->GetName(), "London - Paris", ());
   auto const line = track->GetData().m_geometry.m_lines[0];
-  std::vector const expectedLine = {{geometry::PointWithAltitude(m2::PointD(0.0, 0.0), 0.0), geometry::PointWithAltitude(m2::PointD(0.001, 0.001), 0.001)}};
+  std::vector const expectedLine = {{geometry::PointWithAltitude(m2::PointD(0.0, 0.0), 0.0), geometry::PointWithAltitude(m2::PointD(0.001, 0.001), 0)}};
   TEST_EQUAL(line, expectedLine, ());
 }
 

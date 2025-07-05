@@ -9,6 +9,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include <cmath>
 #include <map>
 #include <mutex>
 
@@ -22,7 +23,7 @@ using PenPatternT = buffer_vector<uint16_t, 2>;
 
 inline uint16_t PatternFloat2Pixel(double d)
 {
-  auto const px = static_cast<uint16_t>(std::round(d));
+  uint16_t const px = std::lround(d);
   //ASSERT(px > 0, (d));
   return px > 0 ? px : 1;
 }
