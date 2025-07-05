@@ -56,6 +56,14 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
+      - name: Restore Boost submodule from cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
       - name: Parallel submodules checkout
         shell: bash
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(sysctl -n hw.logicalcpu) * 20))
@@ -69,6 +77,7 @@ jobs:
         with:
           key: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}
+          delete-used-deriveddata-cache: true
 
       - name: Build and Run Tests (Debug)
         if: matrix.buildType == 'Debug'
