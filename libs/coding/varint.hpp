@@ -3,13 +3,10 @@
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
-#include "base/base.hpp"
 #include "base/bits.hpp"
 #include "base/exception.hpp"
 #include "base/stl_helpers.hpp"
 
-#include <cstddef>
-#include <cstdint>
 #include <type_traits>
 
 // Writes any unsigned integer type using optimal bytes count, platform-independent.
@@ -296,6 +293,53 @@ void const * ReadVarUint64Array(void const * pBeg, size_t count, F f)
 template <class Cont, class Sink>
 void WriteVarUintArray(Cont const & v, Sink & sink)
 {
-  for (size_t i = 0; i != v.size(); ++i)
-    WriteVarUint(sink, v[i]);
+  for (auto e : v)
+    WriteVarUint(sink, e);
 }
+
+/// @name Special functions to read/write varint array when each value stores a control bit "has next".
+/// Useful for short (>90% have 1 value) arrays.
+/// @{
+template <class Sink>
+void WriteVarUInt32SortedShortArray(std::vector<uint32_t> const & cont, Sink & sink)
+{
+  CHECK(!cont.empty(), ());
+  CHECK(base::IsSortedAndUnique(cont), ());
+
+  uint32_t prev = 0;
+  size_t const sz = cont.size();
+  for (size_t i = 0; i < sz; ++i)
+  {
+    uint32_t v = cont[i] - prev;
+    prev = cont[i];
+
+    CHECK((v & (uint32_t(3) << 30)) == 0, ());  // leading 2 bits are zeros
+    v <<= 1;
+    // set 1-bit if have a next value
+    if (i + 1 < sz)
+      v |= 0x1;
+
+    WriteVarUint(sink, v);
+  }
+}
+
+/// @todo Refactor on raw pointers (same as ReadXXX functions above).
+/// ArrayByteSource isn't as fast as pointers :)
+template <class Source, class ContT>
+void ReadVarUInt32SortedShortArray(Source & src, ContT & cont)
+{
+  cont.clear();
+
+  bool hasNext = false;
+  uint32_t prev = 0;
+  do
+  {
+    uint32_t const v = ReadVarUint<uint32_t>(src);
+    hasNext = (v & 0x1) != 0;
+
+    prev += (v >> 1);
+    cont.push_back(prev);
+  }
+  while (hasNext);
+}
+/// @}
