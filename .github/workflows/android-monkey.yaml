@@ -52,6 +52,14 @@ jobs:
         with:
           fetch-depth: 100 # enough to get all commits for the current day
 
+      - name: Restore Boost submodule from cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
       - name: Parallel submodules checkout
         shell: bash
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
