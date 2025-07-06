@@ -1241,13 +1241,13 @@ amenity-parking-street_side-fee                     # icon z18- (also has captio
 === 150
 
 landuse-commercial                                  # caption z17-
-landuse-construction                                # caption z15- (also has area z15-)
+landuse-construction                                # caption z15- (also has area z14-)
 landuse-farmyard                                    # caption z15- (also has area z10-)
-landuse-industrial                                  # caption z15- (also has area z15-)
-landuse-industrial-mine                             # icon z15- (also has caption(optional) z15-, area z15-)
-landuse-landfill                                    # icon z15- (also has caption(optional) z15-, area z15-)
-landuse-quarry                                      # icon z15- (also has caption(optional) z15-, area z15-)
-landuse-railway                                     # caption z15- (also has area z15-)
+landuse-industrial                                  # caption z15- (also has area z14-)
+landuse-industrial-mine                             # icon z15- (also has caption(optional) z15-, area z14-)
+landuse-landfill                                    # icon z15- (also has caption(optional) z15-, area z14-)
+landuse-quarry                                      # icon z15- (also has caption(optional) z15-, area z14-)
+landuse-railway                                     # caption z15- (also has area z14-)
 landuse-residential                                 # caption z17-
 leisure-common                                      # caption z17-
 leisure-slipway                                     # caption z17-
@@ -2157,9 +2157,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-parking-street_side-fee                   # caption(optional) z18- (also has icon z18-, area z17-)
 # === -9850
 
-# landuse-industrial-mine                           # caption(optional) z15- (also has icon z15-, area z15-)
-# landuse-landfill                                  # caption(optional) z15- (also has icon z15-, area z15-)
-# landuse-quarry                                    # caption(optional) z15- (also has icon z15-, area z15-)
+# landuse-industrial-mine                           # caption(optional) z15- (also has icon z15-, area z14-)
+# landuse-landfill                                  # caption(optional) z15- (also has icon z15-, area z14-)
+# landuse-quarry                                    # caption(optional) z15- (also has icon z15-, area z14-)
 # man_made-petroleum_well                           # caption(optional) z18- (also has icon z17-)
 # power-generator-wind                              # caption(optional) z18- (also has icon z15-)
 # === -9880

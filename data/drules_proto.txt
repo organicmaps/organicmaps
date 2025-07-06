@@ -47864,6 +47864,20 @@ cont {
 cont {
   name: "landuse-construction"
   element {
+    scale: 13
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
+  element {
     scale: 15
     area {
       color: 15000299
@@ -49576,6 +49590,20 @@ cont {
 cont {
   name: "landuse-garages"
   element {
+    scale: 13
+    area {
+      color: 15000299
+      priority: 110
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15000299
+      priority: 110
+    }
+  }
+  element {
     scale: 15
     area {
       color: 15000299
@@ -49687,6 +49715,20 @@ cont {
 cont {
   name: "landuse-industrial"
   element {
+    scale: 13
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
+  element {
     scale: 15
     area {
       color: 15000299
@@ -49773,6 +49815,20 @@ cont {
 }
 cont {
   name: "landuse-industrial-mine"
+  element {
+    scale: 13
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
   element {
     scale: 15
     area {
@@ -49896,6 +49952,20 @@ cont {
 }
 cont {
   name: "landuse-landfill"
+  element {
+    scale: 13
+    area {
+      color: 15000299
+      priority: -1780
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15000299
+      priority: -1780
+    }
+  }
   element {
     scale: 15
     area {
@@ -50572,6 +50642,20 @@ cont {
 cont {
   name: "landuse-quarry"
   element {
+    scale: 13
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
+  element {
     scale: 15
     area {
       color: 15000299
@@ -50694,6 +50778,20 @@ cont {
 }
 cont {
   name: "landuse-railway"
+  element {
+    scale: 13
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
+  element {
+    scale: 14
+    area {
+      color: 15000299
+      priority: -1950
+    }
+  }
   element {
     scale: 15
     area {

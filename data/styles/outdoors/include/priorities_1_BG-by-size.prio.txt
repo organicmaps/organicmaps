@@ -34,7 +34,7 @@ leisure-swimming_pool                               # area z13- (also has icon z
 leisure-swimming_pool-private                       # area z13- (also has icon z17-, caption(optional) z17-)
 === 230
 
-landuse-landfill                                    # area z15- (also has icon z15-, caption(optional) z15-)
+landuse-landfill                                    # area z13- (also has icon z15-, caption(optional) z15-)
 === 220
 
 leisure-playground                                  # area z16- (also has icon z17-, caption(optional) z17-)
@@ -134,11 +134,11 @@ landuse-forest-mixed                                # area z10- (also has icon z
 === 60
 
 landuse-churchyard                                  # area z15-
-landuse-construction                                # area z15- (also has caption z15-)
-landuse-industrial                                  # area z15- (also has caption z15-)
-landuse-industrial-mine                             # area z15- (also has icon z15-, caption(optional) z15-)
-landuse-quarry                                      # area z15- (also has icon z15-, caption(optional) z15-)
-landuse-railway                                     # area z15- (also has caption z15-)
+landuse-construction                                # area z13- (also has caption z15-)
+landuse-industrial                                  # area z13- (also has caption z15-)
+landuse-industrial-mine                             # area z13- (also has icon z15-, caption(optional) z15-)
+landuse-quarry                                      # area z13- (also has icon z15-, caption(optional) z15-)
+landuse-railway                                     # area z13- (also has caption z15-)
 === 50
 
 amenity-college                                     # area z15- (also has icon z16-, caption(optional) z16-)
