@@ -73,6 +73,23 @@ line[waterway][tunnel]
 {width: 0;}
 
 
+/* 7.LANDUSE */
+
+/* 7.1 Industrial */
+
+area|z13-[landuse=industrial],
+area|z13-[landuse=construction],
+area|z13-[landuse=landfill],
+area|z13-[landuse=railway],
+area|z13-[landuse=quarry],
+area|z13-[landuse=garages],
+{fill-color: @industrial; fill-opacity: 1;}
+
+
+/* 8.BUILDINGS */
+
+/* 8.1 Pier, dam, areal bridge, cutline */
+
 line|z13-[man_made=cutline],
 {width: 1.7; color: @green0; opacity: 0.6;}
 line|z14[man_made=cutline],
@@ -86,6 +103,7 @@ line|z17[man_made=cutline],
 line|z18-[man_made=cutline],
 {width: 8;}
 
+/* 8.3 Barriers, cliffs */
 
 line|z15-[barrier=fence],
 line|z15-[barrier=wall],

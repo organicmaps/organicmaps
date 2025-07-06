@@ -342,13 +342,7 @@ area|z14-[area:highway=living_street],
 area|z14-[amenity=grave_yard],
 area|z14-[landuse=cemetery],
 area|z14-[amenity=university],
-area|z15-[landuse=garages],
-area|z15-[landuse=industrial],
-area|z15-[landuse=construction],
 area|z15-[landuse=churchyard],
-area|z15-[landuse=landfill],
-area|z15-[landuse=railway],
-area|z15-[landuse=quarry],
 area|z15-[leisure=pitch],
 area|z15-[leisure=stadium],
 area|z15-[leisure=track][area?],
@@ -365,13 +359,13 @@ area|z16-[leisure=playground],
 
 /* 7.1 Industrial */
 
-area|z15-[landuse=industrial],
-area|z15-[landuse=construction],
-area|z15-[landuse=landfill],
-area|z15-[landuse=railway],
-area|z15-[landuse=quarry],
-area|z15-[landuse=garages],
-{fill-color: @industrial;}
+area|z14-[landuse=industrial],
+area|z14-[landuse=construction],
+area|z14-[landuse=landfill],
+area|z14-[landuse=railway],
+area|z14-[landuse=quarry],
+area|z14-[landuse=garages],
+{fill-color: @industrial; fill-opacity: 1;}
 
 /* 7.2 Hospital */
 
