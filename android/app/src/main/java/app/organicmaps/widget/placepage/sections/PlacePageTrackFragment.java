@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
@@ -17,15 +16,12 @@ import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.util.UiUtils;
-import app.organicmaps.widget.placepage.EditBookmarkFragment;
 import app.organicmaps.widget.placepage.ElevationProfileViewRenderer;
 import app.organicmaps.widget.placepage.PlacePageStateListener;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 
 public class PlacePageTrackFragment extends Fragment implements PlacePageStateListener,
                                                                 Observer<MapObject>,
-                                                                View.OnClickListener,
-                                                                EditBookmarkFragment.EditBookmarkListener,
                                                                 BookmarkManager.OnElevationActivePointChangedListener,
                                                                 BookmarkManager.OnElevationCurrentPositionChangedListener
 {
@@ -35,7 +31,6 @@ public class PlacePageTrackFragment extends Fragment implements PlacePageStateLi
   private ElevationProfileViewRenderer mElevationProfileViewRenderer;
   private View mFrame;
   private View mElevationProfileView;
-  private View editTrack;
 
   @Nullable
   @Override
@@ -54,8 +49,6 @@ public class PlacePageTrackFragment extends Fragment implements PlacePageStateLi
     mFrame = view;
     mElevationProfileView = mFrame.findViewById(R.id.elevation_profile);
     mElevationProfileViewRenderer.initialize(mElevationProfileView);
-    editTrack = mFrame.findViewById(R.id.tv__track_edit);
-    editTrack.setOnClickListener(this);
   }
 
   @Override
@@ -98,23 +91,6 @@ public class PlacePageTrackFragment extends Fragment implements PlacePageStateLi
       }
       else UiUtils.hide(mElevationProfileView);
     }
-  }
-
-  @Override
-  public void onClick(View view)
-  {
-    final FragmentActivity activity = requireActivity();
-    EditBookmarkFragment.editTrack(mTrack.getCategoryId(),
-                                   mTrack.getTrackId(),
-                                   activity,
-                                   getChildFragmentManager(),
-                                   PlacePageTrackFragment.this);
-  }
-
-  @Override
-  public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
-  {
-    BookmarkManager.INSTANCE.updateTrackPlacePage(bookmarkId);
   }
 
   @Override

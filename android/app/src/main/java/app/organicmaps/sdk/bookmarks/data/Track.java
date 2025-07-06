@@ -2,7 +2,6 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.routing.RoutePointInfo;
@@ -15,10 +14,10 @@ import app.organicmaps.sdk.util.Distance;
 public class Track extends MapObject
 {
   private final long mTrackId;
-  private final long mCategoryId;
+  private long mCategoryId;
   private final String mName;
   private final Distance mLength;
-  private final int mColor;
+  private int mColor;
   @Nullable
   private ElevationInfo mElevationInfo;
   @Nullable
@@ -49,6 +48,19 @@ public class Track extends MapObject
     mColor = color;
     mName = title;
     mLength = length;
+  }
+
+  //modifying this categoryId will not change the core data
+  //its just for temporary changes
+  public void setCategoryId(@NonNull long categoryId)
+  {
+    mCategoryId = categoryId;
+  }
+
+  public void setColor(@NonNull int color)
+  {
+    mColor = color;
+    BookmarkManager.INSTANCE.changeTrackColor(getTrackId(), color);
   }
 
   public String getName()

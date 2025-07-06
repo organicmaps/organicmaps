@@ -8,15 +8,4 @@
   <include
     android:id="@+id/elevation_profile"
     layout="@layout/elevation_profile_bottom_sheet" />
-  <include layout="@layout/place_page_fat_shadow" />
-  <TextView
-    android:id="@+id/tv__track_edit"
-    style="@style/PlacePageMetadataText.Button"
-    android:layout_height="@dimen/height_block_base"
-    android:background="?clickableBackground"
-    android:gravity="center"
-    android:paddingStart="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_base"
-    android:text="@string/edit_track" />
-  <include layout="@layout/divider_horizontal" />
 </LinearLayout>
