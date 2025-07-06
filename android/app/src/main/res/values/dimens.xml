@@ -46,6 +46,8 @@
   <dimen name="place_page_width">320dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
   <dimen name="place_page_top_button">40dp</dimen>
+  <dimen name="place_page_icon_size">32dp</dimen>
+  <dimen name="place_page_icon_mark_size">20dp</dimen>
 
   <dimen name="downloader_status_size">40dp</dimen>
   <dimen name="search_progress_size">32dp</dimen>
