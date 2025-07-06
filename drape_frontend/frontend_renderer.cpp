@@ -839,21 +839,19 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_dragBoundArea = msg->AcceptBoundArea();
       if (msg->IsEnabled())
       {
-        if (!m_dragBoundArea.empty())
+        auto const pt = msg->GetOptionalPosition();
+        if (pt || m_dragBoundArea.empty())
         {
-          PullToBoundArea(true /* randomPlace */, true /* applyZoom */);
+            int zoom = kDoNotChangeZoom;
+            if (GetCurrentZoom() < scales::GetAddNewPlaceScale())
+              zoom = scales::GetAddNewPlaceScale();
+            AddUserEvent(make_unique_dp<SetCenterEvent>(pt ? *pt : m_userEventStream.GetCurrentScreen().GlobalRect().Center(),
+                                                      zoom, true /* isAnim */, false /* trackVisibleViewport */,
+                                                      nullptr /* parallelAnimCreator */));
         }
         else
         {
-          // Exact position for POI or screen's center for Add place on map.
-          int zoom = kDoNotChangeZoom;
-          if (GetCurrentZoom() < scales::GetAddNewPlaceScale())
-            zoom = scales::GetAddNewPlaceScale();
-
-          auto const pt = msg->GetOptionalPosition();
-          AddUserEvent(make_unique_dp<SetCenterEvent>(pt ? *pt : m_userEventStream.GetCurrentScreen().GlobalRect().Center(),
-                                                      zoom, true /* isAnim */, false /* trackVisibleViewport */,
-                                                      nullptr /* parallelAnimCreator */));
+          PullToBoundArea(true /* randomPlace */, true /* applyZoom */);
         }
       }
       break;
