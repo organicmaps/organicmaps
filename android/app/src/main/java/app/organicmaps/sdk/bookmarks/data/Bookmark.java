@@ -2,6 +2,7 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.annotation.SuppressLint;
 import android.os.Parcel;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -11,6 +12,8 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.routing.RoutePointInfo;
 import app.organicmaps.sdk.search.Popularity;
 import app.organicmaps.sdk.util.Constants;
+
+import static app.organicmaps.sdk.bookmarks.data.Icon.BOOKMARK_ICON_TYPE_NONE;
 
 // TODO consider refactoring to remove hack with MapObject unmarshalling itself and Bookmark at the same time.
 // Used by JNI.
@@ -108,6 +111,13 @@ public class Bookmark extends MapObject
   {
     BookmarkManager.INSTANCE.notifyCategoryChanging(this, catId);
     mCategoryId = catId;
+  }
+
+  public void setIconColor(@Icon.PredefinedColor int color)
+  {
+    Icon icon = new Icon(color, BOOKMARK_ICON_TYPE_NONE);
+    BookmarkManager.INSTANCE.notifyParametersUpdating(this, getName(), icon, getBookmarkDescription());
+    mIcon = icon;
   }
 
   public void setParams(@NonNull String title, @Nullable Icon icon, @NonNull String description)
