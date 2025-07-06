@@ -565,7 +565,7 @@ public class PlacePageView extends Fragment
 
   private void addOrganisation()
   {
-    ((MwmActivity) requireActivity()).showPositionChooserForEditor(true, false);
+    ((MwmActivity) requireActivity()).showPositionChooserForEditor(true, true);
   }
 
   private void addPlace()
