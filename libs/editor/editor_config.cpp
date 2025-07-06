@@ -3,6 +3,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <cstring>
 #include <string>
 #include <unordered_map>
 
