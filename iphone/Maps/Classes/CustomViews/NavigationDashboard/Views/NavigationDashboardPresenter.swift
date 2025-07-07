@@ -49,7 +49,7 @@ extension NavigationDashboard {
         case false:
           // Skip presentation step updates when the screen is presented
           if viewModel.presentationStep == .hidden {
-            let step: NavigationDashboardModalPresentationStep = hidden ? .hidden : .regular
+            let step: NavigationDashboardModalPresentationStep = (hidden ? .hidden : .compact)
             viewModel = viewModel.copyWith(presentationStep: step.forNavigationState(viewModel.dashboardState))
           }
           // Show side buttons if it is not in navigation state
@@ -107,9 +107,8 @@ extension NavigationDashboard {
       case let .show(points, routerType):
         viewModel = viewModel.copyWith(routePoints: NavigationDashboard.RoutePoints(points: points),
                                        routerType: routerType)
-        // TODO: (KK) When the presentation state is compact before hiding the screen, it should be compact after showing points, not regular.
         if !isSearchOpened && viewModel.presentationStep == .hidden {
-          viewModel = viewModel.copyWith(presentationStep: .regular.forNavigationState(viewModel.dashboardState))
+          viewModel = viewModel.copyWith(presentationStep: .compact.forNavigationState(viewModel.dashboardState))
         }
 
       case .showError(let errorMessage):

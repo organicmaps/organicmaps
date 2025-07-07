@@ -48,7 +48,6 @@ final class NavigationDashboardViewController: UIViewController {
   var interactor: NavigationDashboard.Interactor?
   private var presentationStepStrategy = NavigationDashboardModalPresentationStepStrategy()
   private var presentationStepsController: StepsController!
-  private var presentationStepsUpdateDebounceWorkItem: DispatchWorkItem?
 
   // MARK: - Init
   init() {
@@ -79,7 +78,6 @@ final class NavigationDashboardViewController: UIViewController {
     self.navigationControlView = navigationControlView
   }
 
-  // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupView()
@@ -237,7 +235,7 @@ final class NavigationDashboardViewController: UIViewController {
     routePointsView.interactor = interactor
   }
 
-  // MARK: - Layout Constraints
+  // MARK: - Layout
   private func layout() {
     view.addSubview(availableAreaView)
     availableAreaView.addSubview(grabberView)
@@ -308,31 +306,23 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func updatePresentationStepHeights() {
-    presentationStepsUpdateDebounceWorkItem?.cancel()
-    let workItem = DispatchWorkItem { [weak self] in
-      guard let self else { return }
-      self.availableAreaView.layoutIfNeeded()
-      UIView.animate(withDuration: kDefaultAnimationDuration) {
-        let regularHeight = self.routePointsView.contentBottom.y +
-          self.startButton.frame.height +
-          Constants.startButtonSpacing
-        self.presentationStepStrategy.regularHeigh = regularHeight
+    availableAreaView.layoutIfNeeded()
+    let regularHeight = routePointsView.contentBottom.y
+    + startButton.frame.height
+    + Constants.startButtonSpacing
 
-        let estimatesBottomPoint = CGPoint(x: self.estimatesView.origin.x,
-                                           y: self.estimatesView.frame.maxY)
-        let compactHeight = self.estimatesView.convert(estimatesBottomPoint,
-                                                       to: self.availableAreaView).y +
-          self.startButton.frame.height +
-          Constants.startButtonSpacing
+    let compactHeight = routePointsView.origin.y
+    + startButton.frame.height
+    + Constants.startButtonSpacing
 
-        self.presentationStepStrategy.compactHeight = compactHeight
-        self.presentationStepsController.stepStrategy = self.presentationStepStrategy
-        self.updateFrameOfPresentedViewInContainerView()
-      }
+    print("Setting regular height: \(regularHeight), compact height: \(compactHeight)")
+
+    presentationStepStrategy.regularHeigh = regularHeight
+    presentationStepStrategy.compactHeight = compactHeight
+    presentationStepsController.stepStrategy = presentationStepStrategy
+    UIView.animate(withDuration: kDefaultAnimationDuration) {
+      self.updateFrameOfPresentedViewInContainerView()
     }
-    presentationStepsUpdateDebounceWorkItem = workItem
-    DispatchQueue.main.asyncAfter(deadline: .now() + kDefaultAnimationDuration / 2,
-                                  execute: workItem)
   }
 
   private func close() {

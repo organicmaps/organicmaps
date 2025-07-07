@@ -39,7 +39,7 @@ final class TransportTransitStepsView: SolidTouchView {
       stepsCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.contentInsets.bottom),
       stepsCollectionViewHeight
     ])
-    layoutSubviews()
+    layoutIfNeeded()
   }
 
   func setNavigationInfo(_ navigationInfo: MWMNavigationDashboardEntity?) {
@@ -53,16 +53,14 @@ final class TransportTransitStepsView: SolidTouchView {
   }
 
   private func updateHeight() {
-    stepsCollectionView.layoutIfNeeded()
-    DispatchQueue.main.async {
-      self.animateConstraints(animations: {
-        self.stepsCollectionViewHeight.constant = self.stepsCollectionView.collectionViewLayout.collectionViewContentSize.height
-      })
-    }
+    layoutIfNeeded()
+    animateConstraints(animations: {
+      self.stepsCollectionViewHeight.constant = self.stepsCollectionView.collectionViewLayout.collectionViewContentSize.height
+    })
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
-    layoutSubviews()
+    layoutIfNeeded()
   }
 }
