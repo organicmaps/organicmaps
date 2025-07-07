@@ -7,6 +7,7 @@
 
 #include "coding/reader.hpp"
 
+#include "base/math.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
@@ -180,7 +181,7 @@ public:
     return {true, base::TaskLoop::kNoId};
   }
 
-  void ExecuteTasks() 
+  void ExecuteTasks()
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     for (auto & task : m_tasks)
@@ -276,7 +277,7 @@ int main(int argc, char * argv[])
       .m_visualScale = visualScale,
       .m_surfaceWidth = fbWidth,
       .m_surfaceHeight = fbHeight,
-      .m_renderInjectionHandler = [&](ref_ptr<dp::GraphicsContext> context, 
+      .m_renderInjectionHandler = [&](ref_ptr<dp::GraphicsContext> context,
                                       ref_ptr<dp::TextureManager> textureManager,
                                       ref_ptr<gpu::ProgramManager> programManager,
                                       bool shutdown)
@@ -359,9 +360,9 @@ int main(int argc, char * argv[])
       framework.OnSize(fbWidth, fbHeight);
     }
   };
-  glfwSetWindowContentScaleCallback(window, [](GLFWwindow *, float xscale, float yscale) 
-  { 
-    handlers.onContentScale(xscale, yscale); 
+  glfwSetWindowContentScaleCallback(window, [](GLFWwindow *, float xscale, float yscale)
+  {
+    handlers.onContentScale(xscale, yscale);
   });
 
   // Location handler
@@ -384,7 +385,7 @@ int main(int argc, char * argv[])
                             .m_bearing = bearingEnabled ? bearing : -1.0f});
       if (bearingEnabled)
       {
-        framework.OnCompassUpdate(location::CompassInfo{.m_bearing = base::DegToRad(bearing)});
+        framework.OnCompassUpdate(location::CompassInfo{.m_bearing = math::DegToRad(bearing)});
       }
     }
   };
@@ -517,9 +518,9 @@ int main(int argc, char * argv[])
           GetTouchEvent(framework, x, y, touchMods, df::TouchEvent::TOUCH_MOVE));
     }
   };
-  glfwSetCursorPosCallback(window, [](GLFWwindow *, double x, double y) 
-  { 
-    handlers.onMouseMove(x, y); 
+  glfwSetCursorPosCallback(window, [](GLFWwindow *, double x, double y)
+  {
+    handlers.onMouseMove(x, y);
   });
 
   // Handle scroll.

@@ -195,8 +195,8 @@ public:
   void SetSizesToIncludePoint(Point<T> const & pt)
   {
     Point<T> const c = Center();
-    T const dx = base::Abs(pt.x - c.x);
-    T const dy = base::Abs(pt.y - c.y);
+    T const dx = math::Abs(pt.x - c.x);
+    T const dy = math::Abs(pt.y - c.y);
 
     m_minX = c.x - dx;
     m_minY = c.y - dy;
@@ -287,6 +287,12 @@ using RectD = Rect<double>;
 using RectU = Rect<unsigned>;
 using RectU32 = Rect<uint32_t>;
 using RectI = Rect<int>;
+
+template <typename T>
+bool AlmostEqualAbs(Rect<T> const & a, Rect<T> const & b, double eps)
+{
+  return AlmostEqualAbs(a.LeftTop(), b.LeftTop(), eps) && AlmostEqualAbs(a.RightBottom(), b.RightBottom(), eps);
+}
 
 template <typename T>
 bool IsEqual(Rect<T> const & r1, Rect<T> const & r2, double epsX, double epsY)

@@ -1162,7 +1162,8 @@ UNIT_CLASS_TEST(StorageTest, CalcLimitRect)
   m2::RectD const expectedBoundingBox = {-8.6689 /* minX */, 19.32443 /* minY */,
                                          11.99734 /* maxX */, 45.23 /* maxY */};
 
-  TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
+  static double constexpr kEpsilon = 1e-2;
+  TEST(AlmostEqualAbs(boundingBox, expectedBoundingBox, kEpsilon), ());
 }
 
 UNIT_TEST(StorageTest_CountriesNamesTest)
