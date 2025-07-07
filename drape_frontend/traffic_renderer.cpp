@@ -15,6 +15,7 @@
 
 #include <array>
 #include <algorithm>
+#include <cmath>
 #include <utility>
 
 namespace df
@@ -323,7 +324,7 @@ bool TrafficRenderer::CanBeRenderedAsLine(RoadClass const & roadClass, int zoomL
   if (it == lineDrawerEnd)
     return false;
 
-  width = std::max(1, base::SignedRound(TrafficRenderer::GetPixelWidthInternal(roadClass, zoomLevel)));
+  width = std::max(1l, std::lround(TrafficRenderer::GetPixelWidthInternal(roadClass, zoomLevel)));
   return width <= dp::SupportManager::Instance().GetMaxLineWidth();
 }
 }  // namespace df

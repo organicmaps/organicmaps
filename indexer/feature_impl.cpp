@@ -1,18 +1,19 @@
 #include "indexer/feature_impl.hpp"
 
-#include "base/math.hpp"
+#include <algorithm>
+#include <cmath>
 
 namespace feature
 {
 
 uint8_t PopulationToRank(uint64_t p)
 {
-  return static_cast<uint8_t>(std::min(0xFF, base::SignedRound(log(double(p)) / log(1.1))));
+  return std::min(0xFFl, std::lround(std::log(double(p)) / std::log(1.1)));
 }
 
 uint64_t RankToPopulation(uint8_t r)
 {
-  return static_cast<uint64_t>(pow(1.1, r));
+  return static_cast<uint64_t>(std::pow(1.1, r));
 }
 
 } // namespace feature

@@ -23,6 +23,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <fstream>
 #include <sstream>
 #include <utility>
