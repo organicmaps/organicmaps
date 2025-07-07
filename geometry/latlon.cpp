@@ -27,7 +27,7 @@ std::string DebugPrint(LatLon const & t)
   return out.str();
 }
 
-bool AlmostEqualAbs(LatLon const & ll1, LatLon const & ll2, double const & eps)
+bool AlmostEqualAbs(LatLon const & ll1, LatLon const & ll2, double eps)
 {
   return ::AlmostEqualAbs(ll1.m_lat, ll2.m_lat, eps) &&
          ::AlmostEqualAbs(ll1.m_lon, ll2.m_lon, eps);

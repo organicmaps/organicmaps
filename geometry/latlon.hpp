@@ -38,7 +38,7 @@ public:
   };
 };
 
-bool AlmostEqualAbs(LatLon const & ll1, LatLon const & ll2, double const & eps);
+bool AlmostEqualAbs(LatLon const & ll1, LatLon const & ll2, double eps);
 
 std::string DebugPrint(LatLon const & t);
 }  // namespace ms

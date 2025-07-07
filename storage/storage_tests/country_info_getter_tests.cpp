@@ -12,7 +12,6 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
@@ -27,11 +26,13 @@
 #include <utility>
 #include <vector>
 
+namespace country_info_getter_tests
+{
 using namespace storage;
 using namespace std;
 
-namespace
-{
+static double constexpr kRectCompareEpsilon = 1e-2;
+
 bool IsEmptyName(map<string, CountryInfo> const & id2info, string const & id)
 {
   auto const it = id2info.find(id);
@@ -75,7 +76,6 @@ Cont Flatten(vector<Cont> const & cs)
     res.insert(res.end(), c.begin(), c.end());
   return res;
 }
-}  // namespace
 
 UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
 {
@@ -224,7 +224,7 @@ UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
   m2::RectD const expectedBoundingBox = {9.205259 /* minX */, -18.34456 /* minY */,
                                          24.08212 /* maxX */, -4.393187 /* maxY */};
 
-  TEST(AlmostEqualRectsAbs(boundingBox, expectedBoundingBox), ());
+  TEST(AlmostEqualAbs(boundingBox, expectedBoundingBox, kRectCompareEpsilon), ());
 }
 
 UNIT_TEST(CountryInfoGetter_RegionRects)
@@ -245,7 +245,7 @@ UNIT_TEST(CountryInfoGetter_RegionRects)
     for (auto const & region : regions)
       region.ForEachPoint([&](m2::PointD const & point) { rect.Add(point); });
 
-    TEST(AlmostEqualRectsAbs(rect, countries[i].m_rect), (rect, countries[i].m_rect));
+    TEST(AlmostEqualAbs(rect, countries[i].m_rect, kRectCompareEpsilon), (rect, countries[i].m_rect));
   }
 }
 
@@ -424,3 +424,4 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
                 avgTimeByCountry[longest]));
   }
 }
+}  // namespace country_info_getter_tests

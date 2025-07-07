@@ -234,7 +234,7 @@ std::string DebugPrint(Point<T> const & p)
 template <typename T>
 bool AlmostEqualAbs(Point<T> const & a, Point<T> const & b, double eps)
 {
-  return ::AlmostEqualAbs(a.x, b.x, eps) && ::AlmostEqualAbs(a.y, b.y, eps);
+  return ::AlmostEqualAbs(a.x, b.x, static_cast<T>(eps)) && ::AlmostEqualAbs(a.y, b.y, static_cast<T>(eps));
 }
 
 template <typename T>

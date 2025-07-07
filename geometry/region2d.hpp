@@ -25,16 +25,14 @@ struct DefEqualFloat
   template <typename Point>
   bool EqualPoints(Point const & p1, Point const & p2) const
   {
-    static_assert(std::is_floating_point<typename Point::value_type>::value, "");
-
-    return ::AlmostEqualAbs(p1.x, p2.x, static_cast<typename Point::value_type>(kPrecision)) &&
-           ::AlmostEqualAbs(p1.y, p2.y, static_cast<typename Point::value_type>(kPrecision));
+    static_assert(std::is_floating_point<typename Point::value_type>::value);
+    return AlmostEqualAbs(p1, p2, kPrecision);
   }
 
   template <typename Coord>
   bool EqualZeroSquarePrecision(Coord val) const
   {
-    static_assert(std::is_floating_point<Coord>::value, "");
+    static_assert(std::is_floating_point<Coord>::value);
 
     return ::AlmostEqualAbs(val, 0.0, kPrecision * kPrecision);
   }

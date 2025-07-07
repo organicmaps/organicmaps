@@ -14,6 +14,7 @@
 
 namespace traffic_test
 {
+using coding::TrafficGPSEncoder;
 using std::vector;
 
 double CalculateLength(vector<TrafficGPSEncoder::DataPoint> const & path)

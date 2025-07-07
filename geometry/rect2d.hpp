@@ -289,6 +289,12 @@ using RectU32 = Rect<uint32_t>;
 using RectI = Rect<int>;
 
 template <typename T>
+bool AlmostEqualAbs(Rect<T> const & a, Rect<T> const & b, double eps)
+{
+  return AlmostEqualAbs(a.LeftTop(), b.LeftTop(), eps) && AlmostEqualAbs(a.RightBottom(), b.RightBottom(), eps);
+}
+
+template <typename T>
 bool IsEqual(Rect<T> const & r1, Rect<T> const & r2, double epsX, double epsY)
 {
   Rect<T> r = r1;
