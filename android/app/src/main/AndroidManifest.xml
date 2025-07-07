@@ -377,6 +377,7 @@
 
     <activity
         android:name="app.organicmaps.downloader.DownloaderActivity"
+        android:enableOnBackInvokedCallback="true"
         android:configChanges="orientation|screenLayout|screenSize"
         android:screenOrientation="fullUser"
         android:label="@string/download_maps"
