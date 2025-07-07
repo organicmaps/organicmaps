@@ -4,9 +4,10 @@ final class TransportOptionsView: UIView {
     static let transportOptionsItemSize = CGSize(width: 40, height: 40)
   }
 
-  private var collectionView: UICollectionView!
+  private var stackView: UIStackView!
   private var transportOptions: [MWMRouterType] = []
   private var selectedRouterType: MWMRouterType = .vehicle
+  private var optionButtons: [CircleImageButton] = []
 
   weak var interactor: NavigationDashboard.Interactor?
 
@@ -22,76 +23,74 @@ final class TransportOptionsView: UIView {
   }
 
   private func setupView() {
-    let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal
-    collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    collectionView.backgroundColor = .clear
-    collectionView.dataSource = self
-    collectionView.delegate = self
-    collectionView.showsHorizontalScrollIndicator = false
-    collectionView.showsVerticalScrollIndicator = false
-    collectionView.isScrollEnabled = false
-    collectionView.allowsMultipleSelection = false
-    collectionView.register(cell: TransportOptionCollectionViewCell.self)
+    stackView = UIStackView()
+    stackView.axis = .horizontal
+    stackView.alignment = .center
+    stackView.distribution = .equalSpacing
+    stackView.spacing = 0
+    addSubview(stackView)
   }
 
   private func layout() {
-    addSubview(collectionView)
-    collectionView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
-      collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-      collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-      collectionView.topAnchor.constraint(equalTo: topAnchor),
-      collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+      stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+      stackView.topAnchor.constraint(equalTo: topAnchor),
+      stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
     ])
   }
 
   func set(transportOptions: [MWMRouterType], selectedRouterType: MWMRouterType) {
-    guard self.transportOptions != transportOptions || self.selectedRouterType != selectedRouterType else {
+    let optionsChanged = self.transportOptions != transportOptions
+    let selectionChanged = self.selectedRouterType != selectedRouterType
+    guard optionsChanged || selectionChanged else {
       return
     }
     self.transportOptions = transportOptions
     self.selectedRouterType = selectedRouterType
-    reload()
+    if optionsChanged {
+      reload()
+    } else if selectionChanged {
+      updateSelection()
+    }
   }
 
   func reload() {
-    collectionView.reloadData()
-  }
-}
-
-// MARK: - UICollectionViewDataSource, UICollectionViewDelegate
-extension TransportOptionsView: UICollectionViewDataSource, UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    transportOptions.count
-  }
-
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(cell: TransportOptionCollectionViewCell.self, indexPath: indexPath)
-    let routerType = transportOptions[indexPath.item]
-    cell.configure(with: routerType)
-    if self.selectedRouterType == routerType {
-      collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-      cell.isSelected = true
+    stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+    optionButtons.removeAll()
+    for (index, routerType) in transportOptions.enumerated() {
+      let button = CircleImageButton(frame: CGRect(origin: .zero, size: Constants.transportOptionsItemSize))
+      let isSelected = routerType == selectedRouterType
+      button.setImage(routerType.image(for: isSelected), style: isSelected ? GlobalStyleSheet.blue : .black)
+      button.tag = index
+      button.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
+      stackView.addArrangedSubview(button)
+      optionButtons.append(button)
     }
-    return cell
   }
 
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let routerType = transportOptions[indexPath.item]
+  private func updateSelection() {
+    for (index, routerType) in transportOptions.enumerated() {
+      let isSelected = routerType == selectedRouterType
+      let button = optionButtons[safe: index]
+      button?.setImage(routerType.image(for: isSelected), style: isSelected ? GlobalStyleSheet.blue : .black)
+    }
+  }
+
+  @objc private func optionButtonTapped(_ sender: UIButton) {
+    let index = sender.tag
+    guard index < transportOptions.count else { return }
+    let routerType = transportOptions[index]
+    guard selectedRouterType != routerType else { return }
+    selectedRouterType = routerType
+    updateSelection()
     interactor?.process(.selectRouterType(routerType))
   }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
-extension TransportOptionsView: UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    Constants.transportOptionsItemSize
-  }
-
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    let cellsCount = CGFloat(transportOptions.count)
-    let size = (collectionView.width - Constants.transportOptionsItemSize.width * cellsCount) / (cellsCount - 1)
-    return size
+private extension Array {
+  subscript(safe index: Int) -> Element? {
+    return indices.contains(index) ? self[index] : nil
   }
 }

@@ -24,7 +24,6 @@ final class CircleImageButton: UIButton {
 
   private func setupView() {
     backgroundColor = .clear
-    circleImageView.setStyle(.ppHeaderCircleIcon)
     circleImageView.contentMode = .scaleAspectFill
     circleImageView.clipsToBounds = true
     circleImageView.isUserInteractionEnabled = false
@@ -53,7 +52,11 @@ final class CircleImageButton: UIButton {
     return expandedBounds.contains(point)
   }
 
-  func setImage(_ image: UIImage?) {
+  func setImage(_ image: UIImage?, style: StyleStringRepresentable = PlacePageStyleSheet.ppHeaderCircleIcon) {
     circleImageView.image = image
+    circleImageView.setStyleAndApply(style)
   }
+
+  @available(*, unavailable)
+  override func setImage(_ image: UIImage?, for state: UIControl.State) {}
 }
