@@ -9,14 +9,14 @@ final class NavigationDashboardViewController: UIViewController {
     static let grabberWidth: CGFloat = 36
     static let grabberTopInset: CGFloat = 5
 
-    static let backButtonInsets = UIEdgeInsets(top: 4, left: 16, bottom: 0, right: 16)
-    static let backButtonSize: CGSize = CGSize(width: 24, height: 40)
+    static let closeButtonInsets = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: -16)
+    static let closeButtonSize: CGSize = CGSize(width: 28, height: 28)
 
     static let settingsButtonSize: CGFloat = 32
     static let settingsButtonInsetRight: CGFloat = -16
     static let settingsButtonSpacing: CGFloat = 8
 
-    static let transportOptionsCollectionInsets = UIEdgeInsets(top: 6, left: 16, bottom: 0, right: -16)
+    static let transportOptionsCollectionInsets = UIEdgeInsets(top: 6, left: 16, bottom: 0, right: -36)
     static let transportOptionsCollectionHeight: CGFloat = 44
 
     static let routePointsInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
@@ -31,7 +31,7 @@ final class NavigationDashboardViewController: UIViewController {
   // MARK: - UI Components
   private let availableAreaView = SearchOnMapAreaView()
   private let grabberView = UIView()
-  private let backButton = UIButton(type: .system)
+  private let closeButton = CircleImageButton()
   private var transportOptionsView = TransportOptionsView()
   private let estimatesStackView = UIStackView()
   private let routeStatusStackView = UIStackView()
@@ -126,7 +126,7 @@ final class NavigationDashboardViewController: UIViewController {
     view.backgroundColor = .clear
     setupAvailableView()
     setupGrabberView()
-    setupBackButton()
+    setupCloseButton()
     setupEstimatesView()
     setupRouteStatusView()
     setupSettingsButton()
@@ -188,16 +188,10 @@ final class NavigationDashboardViewController: UIViewController {
     }
   }
 
-  private func setupBackButton() {
-    backButton.setImage(UIImage(resource: .icNavBarBack), for: .normal)
-    backButton.matchInterfaceOrientation()
-    backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
-    backButton.setStyle(.black)
-  }
-
-  @objc
-  private func didTapBackButton() {
-    interactor?.process(.goBack)
+  private func setupCloseButton() {
+    closeButton.setImage(UIImage(resource: .icClose))
+    closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
+    closeButton.setStyle(.black)
   }
 
   private func setupEstimatesView() {
@@ -217,6 +211,11 @@ final class NavigationDashboardViewController: UIViewController {
     settingsButton.addTarget(self, action: #selector(didTapSettingsButton), for: .touchUpInside)
     settingsBadge.badgeAddTo(settingsButton)
     settingsBadge.isHidden = true
+  }
+
+  @objc
+  private func didTapCloseButton() {
+    interactor?.process(.goBack)
   }
 
   @objc
@@ -242,7 +241,7 @@ final class NavigationDashboardViewController: UIViewController {
   private func layout() {
     view.addSubview(availableAreaView)
     availableAreaView.addSubview(grabberView)
-    availableAreaView.addSubview(backButton)
+    availableAreaView.addSubview(closeButton)
     availableAreaView.addSubview(transportOptionsView)
 
     estimatesStackView.addArrangedSubview(estimatesView)
@@ -257,7 +256,7 @@ final class NavigationDashboardViewController: UIViewController {
     view.addSubview(startButton)
 
     grabberView.translatesAutoresizingMaskIntoConstraints = false
-    backButton.translatesAutoresizingMaskIntoConstraints = false
+    closeButton.translatesAutoresizingMaskIntoConstraints = false
     transportOptionsView.translatesAutoresizingMaskIntoConstraints = false
     routeStatusStackView.translatesAutoresizingMaskIntoConstraints = false
     settingsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -265,7 +264,7 @@ final class NavigationDashboardViewController: UIViewController {
     startButton.translatesAutoresizingMaskIntoConstraints = false
 
     routeStatusStackView.setContentHuggingPriority(.defaultHigh, for: .vertical)
-    backButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+    closeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     settingsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
     NSLayoutConstraint.activate([
@@ -274,13 +273,13 @@ final class NavigationDashboardViewController: UIViewController {
       grabberView.topAnchor.constraint(equalTo: availableAreaView.topAnchor, constant: Constants.grabberTopInset),
       grabberView.heightAnchor.constraint(equalToConstant: Constants.grabberHeight),
 
-      backButton.leadingAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.leadingAnchor, constant: Constants.backButtonInsets.left),
-      backButton.widthAnchor.constraint(equalToConstant: Constants.backButtonSize.width),
-      backButton.heightAnchor.constraint(equalToConstant: Constants.backButtonSize.height),
-      backButton.centerYAnchor.constraint(equalTo: transportOptionsView.centerYAnchor),
+      closeButton.trailingAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.trailingAnchor, constant: Constants.closeButtonInsets.right),
+      closeButton.topAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.topAnchor, constant: Constants.closeButtonInsets.top),
+      closeButton.widthAnchor.constraint(equalToConstant: Constants.closeButtonSize.width),
+      closeButton.heightAnchor.constraint(equalToConstant: Constants.closeButtonSize.height),
 
-      transportOptionsView.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: Constants.transportOptionsCollectionInsets.left),
-      transportOptionsView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.transportOptionsCollectionInsets.right),
+      transportOptionsView.leadingAnchor.constraint(equalTo: availableAreaView.safeAreaLayoutGuide.leadingAnchor, constant: Constants.transportOptionsCollectionInsets.left),
+      transportOptionsView.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: Constants.transportOptionsCollectionInsets.right),
       transportOptionsView.topAnchor.constraint(equalTo: grabberView.bottomAnchor, constant: Constants.transportOptionsCollectionInsets.top),
       transportOptionsView.heightAnchor.constraint(equalToConstant: Constants.transportOptionsCollectionHeight),
 
