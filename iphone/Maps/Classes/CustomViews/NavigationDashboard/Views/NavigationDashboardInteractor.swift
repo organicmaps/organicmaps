@@ -197,33 +197,10 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
           return
         }
         let attributes = BaseRoutePreviewStatus.elevationAttributes
-        let ascentImageString: NSAttributedString
-        let descentImageString: NSAttributedString
-        if #available(iOS 13.0, *) {
-          let imageFrame = CGRect(x: 0, y: -4, width: 20, height: 20)
-          let imageColor = UIColor.linkBlue()
-          let ascentImage = NSTextAttachment()
-          ascentImage.image = UIImage(resource: .icEmAscent24)
-            .withRenderingMode(.alwaysTemplate)
-            .withTintColor(imageColor)
-          ascentImage.bounds = imageFrame
-          let descentImage = NSTextAttachment()
-          descentImage.image = UIImage(resource: .icEmDescent24)
-            .withRenderingMode(.alwaysTemplate)
-            .withTintColor(imageColor)
-          descentImage.bounds = imageFrame
-          ascentImageString = NSAttributedString(attachment: ascentImage)
-          descentImageString = NSAttributedString(attachment: descentImage)
-        } else {
-          ascentImageString = NSAttributedString(string: "↗", attributes: attributes)
-          descentImageString = NSAttributedString(string: "↘", attributes: attributes)
-        }
         let elevation = NSMutableAttributedString(string: "")
         elevation.append(MWMNavigationDashboardEntity.estimateDot())
-        elevation.append(ascentImageString)
-        elevation.append(NSAttributedString(string: " \(totalAscent)  ", attributes: attributes))
-        elevation.append(descentImageString)
-        elevation.append(NSAttributedString(string: " \(totalDescent)", attributes: attributes))
+        elevation.append(NSAttributedString(string: "▲ \(totalAscent)  ", attributes: attributes))
+        elevation.append(NSAttributedString(string: "▼ \(totalDescent)", attributes: attributes))
         let elevationInfo = NavigationDashboard.ElevationInfo(estimates: elevation, image: image)
         self.process(.updateElevationInfo(elevationInfo))
       }
