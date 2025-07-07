@@ -1,6 +1,5 @@
 #include "drape/vulkan/vulkan_context_factory.hpp"
 
-#include "drape/drape_diagnostics.hpp"
 #include "drape/support_manager.hpp"
 #include "drape/vulkan/vulkan_pipeline.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
@@ -8,9 +7,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/src_point.hpp"
 
-#include <array>
 #include <vector>
 
 namespace dp
@@ -168,7 +165,8 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
   dp::SupportManager::Version driverVersion{VK_VERSION_MAJOR(gpuProperties.driverVersion),
                                             VK_VERSION_MINOR(gpuProperties.driverVersion),
                                             VK_VERSION_PATCH(gpuProperties.driverVersion)};
-  if (dp::SupportManager::Instance().IsVulkanForbidden(gpuProperties.deviceName, apiVersion, driverVersion, isCustomROM))
+  if (dp::SupportManager::Instance().IsVulkanForbidden(gpuProperties.deviceName, apiVersion, driverVersion,
+                                                       isCustomROM, sdkVersion))
   {
     LOG_ERROR_VK("GPU/Driver configuration is not supported.");
     return;
