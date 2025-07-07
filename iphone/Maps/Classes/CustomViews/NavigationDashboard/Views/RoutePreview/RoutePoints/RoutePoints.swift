@@ -38,10 +38,9 @@ extension NavigationDashboard.RoutePoints {
   func title(for index: Int) -> String {
     switch index {
     case 0:
-      // TODO: localize
-      return start?.title ?? L("from")
+      return start?.title ?? L("p2p_from_here")
     case count - 1:
-      return finish?.title ?? L("to")
+      return finish?.title ?? L("p2p_to_here")
     default:
       return intermediate[index - 1].title
     }
@@ -54,7 +53,7 @@ extension NavigationDashboard.RoutePoints {
   func image(for index: Int) -> UIImage {
     switch index {
     case 0:
-      return UIImage(resource: .icRouteManagerMyPosition)
+      return UIImage(resource: .icRouteManagerStart)
     case count - 1:
       return UIImage(resource: .icRouteManagerFinish)
     default:
@@ -64,9 +63,6 @@ extension NavigationDashboard.RoutePoints {
   }
 
   func imageStyle(for index: Int) -> GlobalStyleSheet {
-    switch index {
-    case 0: return .blue
-    default: return .black
-    }
+    .black
   }
 }
