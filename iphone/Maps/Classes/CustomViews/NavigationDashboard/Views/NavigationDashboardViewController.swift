@@ -24,6 +24,8 @@ final class NavigationDashboardViewController: UIViewController {
     static let routeStatusInsets = UIEdgeInsets(top: 8, left: 16, bottom: 0, right: -16)
     static let routeStatusStackSpacing: CGFloat = 4
     static let startButtonSpacing: CGFloat = 4
+
+    static let routePointsDiscoverabilityPadding: CGFloat = 28
   }
 
   typealias StepsController = ModalPresentationStepsController<NavigationDashboardModalPresentationStep>
@@ -314,6 +316,7 @@ final class NavigationDashboardViewController: UIViewController {
     let compactHeight = routePointsView.origin.y
     + startButton.frame.height
     + Constants.startButtonSpacing
+    + Constants.routePointsDiscoverabilityPadding
 
     presentationStepStrategy.regularHeigh = regularHeight
     presentationStepStrategy.compactHeight = compactHeight
