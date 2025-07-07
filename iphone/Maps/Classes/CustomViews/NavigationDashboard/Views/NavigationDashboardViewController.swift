@@ -213,7 +213,7 @@ final class NavigationDashboardViewController: UIViewController {
 
   @objc
   private func didTapCloseButton() {
-    interactor?.process(.goBack)
+    interactor?.process(.close)
   }
 
   @objc
@@ -314,8 +314,6 @@ final class NavigationDashboardViewController: UIViewController {
     let compactHeight = routePointsView.origin.y
     + startButton.frame.height
     + Constants.startButtonSpacing
-
-    print("Setting regular height: \(regularHeight), compact height: \(compactHeight)")
 
     presentationStepStrategy.regularHeigh = regularHeight
     presentationStepStrategy.compactHeight = compactHeight

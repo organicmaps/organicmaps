@@ -103,10 +103,6 @@ extension NavigationDashboard {
       case .didUpdatePresentationStep(let step):
         return .updatePresentationStep(step)
 
-      case .goBack:
-        router.stopRouting()
-        return .goBack
-
       case .close:
         router.stopRouting()
         return .close

@@ -15,7 +15,6 @@ extension NavigationDashboard {
     case showNavigationDashboard
     case setHidden(Bool)
     case showError(String)
-    case goBack
     case close
   }
 }

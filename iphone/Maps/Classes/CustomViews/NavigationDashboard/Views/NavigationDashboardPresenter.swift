@@ -2,6 +2,7 @@ extension NavigationDashboard {
   final class Presenter: NSObject {
     private weak var view: NavigationDashboardViewController?
     private var viewModel: ViewModel = .initial
+    private var latestVisiblePresentationStep: NavigationDashboardModalPresentationStep = .compact
     private var isSearchOpened: Bool = false
     private let placePageManagerHelper: MWMPlacePageManagerHelper.Type
 
@@ -13,8 +14,12 @@ extension NavigationDashboard {
     }
 
     func process(_ response: Response) {
+      guard viewModel.dashboardState != .closed else { return }
       let newViewModel = resolve(action: response, with: viewModel)
       if viewModel != newViewModel {
+        if newViewModel.presentationStep != .hidden {
+          latestVisiblePresentationStep = newViewModel.presentationStep
+        }
         viewModel = newViewModel
         view?.render(newViewModel)
       }
@@ -31,10 +36,6 @@ extension NavigationDashboard {
         viewModel = viewModel.copyWith(navigationInfo: navigationInfo,
                                        dashboardState: state)
 
-      case .goBack:
-        viewModel = viewModel.copyWith(dashboardState: .closed)
-        placePageManagerHelper.recoverPlacePage()
-
       case .close:
         viewModel = viewModel.copyWith(dashboardState: .closed)
 
@@ -49,8 +50,8 @@ extension NavigationDashboard {
         case false:
           // Skip presentation step updates when the screen is presented
           if viewModel.presentationStep == .hidden {
-            let step: NavigationDashboardModalPresentationStep = (hidden ? .hidden : .compact)
-            viewModel = viewModel.copyWith(presentationStep: step.forNavigationState(viewModel.dashboardState))
+            let step: NavigationDashboardModalPresentationStep = (hidden ? .hidden : latestVisiblePresentationStep).forNavigationState(viewModel.dashboardState)
+            viewModel = viewModel.copyWith(presentationStep: step)
           }
           // Show side buttons if it is not in navigation state
           if viewModel.dashboardState != .navigation {
@@ -100,15 +101,15 @@ extension NavigationDashboard {
           fatalError("Unknown search state: \(state)")
         }
 
-      case .updateDrivingOptionsState(let state):
-        LOG(.info, "RoutePreview: updateDrivingOptionsState \(state)")
+      case .updateDrivingOptionsState(_):
         viewModel = viewModel.copyWith(routingOptions: RoutingOptions())
 
       case let .show(points, routerType):
         viewModel = viewModel.copyWith(routePoints: NavigationDashboard.RoutePoints(points: points),
                                        routerType: routerType)
         if !isSearchOpened && viewModel.presentationStep == .hidden {
-          viewModel = viewModel.copyWith(presentationStep: .compact.forNavigationState(viewModel.dashboardState))
+          let step = latestVisiblePresentationStep.forNavigationState(viewModel.dashboardState)
+          viewModel = viewModel.copyWith(presentationStep: step)
         }
 
       case .showError(let errorMessage):

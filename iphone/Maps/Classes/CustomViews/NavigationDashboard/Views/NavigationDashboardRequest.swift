@@ -24,7 +24,6 @@ extension NavigationDashboard {
 
     case didUpdatePresentationStep(NavigationDashboardModalPresentationStep)
     case setHidden(Bool)
-    case goBack
     case close
   }
 }
