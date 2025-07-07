@@ -76,6 +76,7 @@
       android:backupInForeground="true"
       android:fullBackupContent="@xml/backup_content"
       android:dataExtractionRules="@xml/backup_content_v31"
+      android:enableOnBackInvokedCallback="false"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:localeConfig="@xml/locales_config"
