@@ -51,6 +51,8 @@ landuse-cemetery-christian                          # area z14- (also has icon z
 === 180
 
 highway-pedestrian-area                             # area z14- (also has line z13-, pathtext z14-)
+tourism-camp_site
+leisure-resort
 === 170
 
 highway-footway-area                                # area z14- (also has line z15-, pathtext z15-)
