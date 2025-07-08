@@ -31,7 +31,7 @@ extension NavigationDashboard.ViewModel {
   static let initial = NavigationDashboard.ViewModel(
     transportOptions: MWMRouterType.allCases,
     routePoints: .empty,
-    routerType: .vehicle,
+    routerType: MWMRouter.type(),
     entity: MWMNavigationDashboardEntity(),
     routingOptions: RoutingOptions(),
     elevationInfo: nil,
