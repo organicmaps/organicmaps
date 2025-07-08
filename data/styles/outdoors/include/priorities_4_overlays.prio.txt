@@ -377,18 +377,18 @@ amenity-fuel                                        # icon z14- (also has captio
 highway-services                                    # icon z14- (also has caption(optional) z14-)
 === 4250
 
-amenity-place_of_worship-buddhist                   # icon z14- (also has caption(optional) z14-, area z16-)
-amenity-place_of_worship-christian                  # icon z14- (also has caption(optional) z14-, area z16-)
-amenity-place_of_worship-christian-jehovahs_witness  # icon z14- (also has caption(optional) z14-, area z16-)
-amenity-place_of_worship-christian-mormon           # icon z14- (also has caption(optional) z14-, area z16-)
-amenity-place_of_worship-hindu                      # icon z14- (also has caption(optional) z14-, area z16-)
-amenity-place_of_worship-jewish                     # icon z14- (also has caption(optional) z14-, area z16-)
-amenity-place_of_worship-muslim                     # icon z14- (also has caption(optional) z14-, area z16-)
-amenity-place_of_worship-shinto                     # icon z14- (also has caption(optional) z14-, area z16-)
-amenity-place_of_worship-taoist                     # icon z14- (also has caption(optional) z14-, area z16-)
+amenity-place_of_worship-buddhist                   # icon z14- (also has caption(optional) z14-, area z14-)
+amenity-place_of_worship-christian                  # icon z14- (also has caption(optional) z14-, area z14-)
+amenity-place_of_worship-christian-jehovahs_witness  # icon z14- (also has caption(optional) z14-, area z14-)
+amenity-place_of_worship-christian-mormon           # icon z14- (also has caption(optional) z14-, area z14-)
+amenity-place_of_worship-hindu                      # icon z14- (also has caption(optional) z14-, area z14-)
+amenity-place_of_worship-jewish                     # icon z14- (also has caption(optional) z14-, area z14-)
+amenity-place_of_worship-muslim                     # icon z14- (also has caption(optional) z14-, area z14-)
+amenity-place_of_worship-shinto                     # icon z14- (also has caption(optional) z14-, area z14-)
+amenity-place_of_worship-taoist                     # icon z14- (also has caption(optional) z14-, area z14-)
 === 4200
 
-amenity-place_of_worship                            # icon z14- (also has caption(optional) z14-, area z16-)
+amenity-place_of_worship                            # icon z14- (also has caption(optional) z14-, area z14-)
 historic-memorial                                   # icon z15- (also has caption(optional) z15-)
 === 4150
 
@@ -414,7 +414,7 @@ tourism-wilderness_hut                              # icon z12- (also has captio
 === 3900
 
 highway-rest_area                                   # icon z14- (also has caption(optional) z15-)
-tourism-camp_site                                   # icon z13- (also has caption(optional) z13-)
+tourism-camp_site                                   # icon z13- (also has caption(optional) z13-, area z13-)
 tourism-caravan_site                                # icon z13- (also has caption(optional) z13-)
 tourism-chalet                                      # icon z14- (also has caption(optional) z14-)
 === 3800
@@ -748,7 +748,7 @@ piste:type-snow_park                                # caption z15- (also has are
 === 2770
 
 amenity-townhall                                    # icon z16- (also has caption(optional) z16-)
-leisure-resort                                      # icon z16- (also has caption(optional) z16-)
+leisure-resort                                      # icon z16- (also has caption(optional) z16-, area z15-)
 tourism-hotel                                       # icon z16- (also has caption(optional) z16-)
 === 2750
 
@@ -1006,7 +1006,7 @@ amenity-shelter                                     # icon z12- (also has captio
 amenity-shelter-public_transport                    # icon z14- (also has caption(optional) z14-)
 emergency-lifeguard                                 # icon z14- (also has caption(optional) z18-)
 leisure-fitness_station                             # icon z17- (also has caption(optional) z17-)
-leisure-playground                                  # icon z17- (also has caption(optional) z17-, area z16-)
+leisure-playground                                  # icon z17- (also has caption(optional) z17-, area z15-)
 natural-cliff                                       # pathtext z14- (also has line z12-)
 === 1500
 
@@ -1526,18 +1526,18 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # highway-services                                  # caption(optional) z14- (also has icon z14-)
 # === -5750
 
-# amenity-place_of_worship-buddhist                 # caption(optional) z14- (also has icon z14-, area z16-)
-# amenity-place_of_worship-christian                # caption(optional) z14- (also has icon z14-, area z16-)
-# amenity-place_of_worship-christian-jehovahs_witness  # caption(optional) z14- (also has icon z14-, area z16-)
-# amenity-place_of_worship-christian-mormon         # caption(optional) z14- (also has icon z14-, area z16-)
-# amenity-place_of_worship-hindu                    # caption(optional) z14- (also has icon z14-, area z16-)
-# amenity-place_of_worship-jewish                   # caption(optional) z14- (also has icon z14-, area z16-)
-# amenity-place_of_worship-muslim                   # caption(optional) z14- (also has icon z14-, area z16-)
-# amenity-place_of_worship-shinto                   # caption(optional) z14- (also has icon z14-, area z16-)
-# amenity-place_of_worship-taoist                   # caption(optional) z14- (also has icon z14-, area z16-)
+# amenity-place_of_worship-buddhist                 # caption(optional) z14- (also has icon z14-, area z14-)
+# amenity-place_of_worship-christian                # caption(optional) z14- (also has icon z14-, area z14-)
+# amenity-place_of_worship-christian-jehovahs_witness  # caption(optional) z14- (also has icon z14-, area z14-)
+# amenity-place_of_worship-christian-mormon         # caption(optional) z14- (also has icon z14-, area z14-)
+# amenity-place_of_worship-hindu                    # caption(optional) z14- (also has icon z14-, area z14-)
+# amenity-place_of_worship-jewish                   # caption(optional) z14- (also has icon z14-, area z14-)
+# amenity-place_of_worship-muslim                   # caption(optional) z14- (also has icon z14-, area z14-)
+# amenity-place_of_worship-shinto                   # caption(optional) z14- (also has icon z14-, area z14-)
+# amenity-place_of_worship-taoist                   # caption(optional) z14- (also has icon z14-, area z14-)
 # === -5800
 
-# amenity-place_of_worship                          # caption(optional) z14- (also has icon z14-, area z16-)
+# amenity-place_of_worship                          # caption(optional) z14- (also has icon z14-, area z14-)
 # historic-memorial                                 # caption(optional) z15- (also has icon z15-)
 # === -5850
 
@@ -1563,7 +1563,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -6100
 
 # highway-rest_area                                 # caption(optional) z15- (also has icon z14-)
-# tourism-camp_site                                 # caption(optional) z13- (also has icon z13-)
+# tourism-camp_site                                 # caption(optional) z13- (also has icon z13-, area z13-)
 # tourism-caravan_site                              # caption(optional) z13- (also has icon z13-)
 # tourism-chalet                                    # caption(optional) z14- (also has icon z14-)
 # === -6200
@@ -1722,7 +1722,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -7150
 
 # amenity-townhall                                  # caption(optional) z16- (also has icon z16-)
-# leisure-resort                                    # caption(optional) z16- (also has icon z16-)
+# leisure-resort                                    # caption(optional) z16- (also has icon z16-, area z15-)
 # tourism-hotel                                     # caption(optional) z16- (also has icon z16-)
 # === -7250
 
@@ -1961,7 +1961,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # amenity-shelter-public_transport                  # caption(optional) z14- (also has icon z14-)
 # emergency-lifeguard                               # caption(optional) z18- (also has icon z14-)
 # leisure-fitness_station                           # caption(optional) z17- (also has icon z17-)
-# leisure-playground                                # caption(optional) z17- (also has icon z17-, area z16-)
+# leisure-playground                                # caption(optional) z17- (also has icon z17-, area z15-)
 # === -8500
 
 # sport-american_football                           # caption(optional) z17- (also has icon z17-)
