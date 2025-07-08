@@ -17,16 +17,16 @@
 leisure-stadium                                     # area z15- (also has icon z13-, caption(optional) z13-)
 === 250
 
-amenity-place_of_worship                            # area z16- (also has icon z14-, caption(optional) z14-)
-amenity-place_of_worship-buddhist                   # area z16- (also has icon z14-, caption(optional) z14-)
-amenity-place_of_worship-christian                  # area z16- (also has icon z14-, caption(optional) z14-)
-amenity-place_of_worship-christian-jehovahs_witness  # area z16- (also has icon z14-, caption(optional) z14-)
-amenity-place_of_worship-christian-mormon           # area z16- (also has icon z14-, caption(optional) z14-)
-amenity-place_of_worship-hindu                      # area z16- (also has icon z14-, caption(optional) z14-)
-amenity-place_of_worship-jewish                     # area z16- (also has icon z14-, caption(optional) z14-)
-amenity-place_of_worship-muslim                     # area z16- (also has icon z14-, caption(optional) z14-)
-amenity-place_of_worship-shinto                     # area z16- (also has icon z14-, caption(optional) z14-)
-amenity-place_of_worship-taoist                     # area z16- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship                            # area z14- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-buddhist                   # area z14- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-christian                  # area z14- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-christian-jehovahs_witness  # area z14- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-christian-mormon           # area z14- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-hindu                      # area z14- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-jewish                     # area z14- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-muslim                     # area z14- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-shinto                     # area z14- (also has icon z14-, caption(optional) z14-)
+amenity-place_of_worship-taoist                     # area z14- (also has icon z14-, caption(optional) z14-)
 === 240
 
 amenity-doctors                                     # area z14- (also has icon z17-, caption(optional) z17-)
@@ -51,8 +51,8 @@ landuse-cemetery-christian                          # area z14- (also has icon z
 === 180
 
 highway-pedestrian-area                             # area z14- (also has line z13-, pathtext z14-)
-tourism-camp_site
-leisure-resort
+leisure-resort                                      # area z15- (also has icon z16-, caption(optional) z16-)
+tourism-camp_site                                   # area z13- (also has icon z13-, caption(optional) z13-)
 === 170
 
 highway-footway-area                                # area z14- (also has line z11-, pathtext z13-)
