@@ -1,0 +1,50 @@
+name: Update caches
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 3party/boost
+      - .github/workflows/update-caches.yml
+
+jobs:
+  update-caches:
+    name: Update Caches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Remove outdated caches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          # Add more keys as needed: cache1,cache-abc*,another-key
+          # If a key ends with *, it matches all caches whose key starts with the prefix before *.
+          CACHE_KEYS: boost-submodule
+        run: |
+          set -e
+          IFS=',' read -ra keys <<< "$CACHE_KEYS"
+          for key in "${keys[@]}"; do
+            if [[ "$key" == *'*' ]]; then
+              prefix="${key%\*}"
+              cache_ids=$(gh api repos/${{ github.repository }}/actions/caches --paginate -q ".actions_caches[] | select(.key | startswith(\"$prefix\")) | .id")
+            else
+              cache_ids=$(gh api repos/${{ github.repository }}/actions/caches --paginate -q ".actions_caches[] | select(.key==\"$key\") | .id")
+            fi
+            for id in $cache_ids; do
+              echo "Deleting cache id $id for key $key"
+              gh api --method DELETE repos/${{ github.repository }}/actions/caches/$id
+            done
+          done
+
+      - name: Add Boost submodule to cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
+      - name: Parallel submodules checkout
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
