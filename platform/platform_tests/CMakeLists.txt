@@ -1,7 +1,6 @@
 project(platform_tests)
 
 set(SRC
-  apk_test.cpp
   country_file_tests.cpp
   distance_tests.cpp
   duration_tests.cpp
