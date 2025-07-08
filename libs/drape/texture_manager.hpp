@@ -10,8 +10,7 @@
 #include "base/timer.hpp"
 
 #include <atomic>
-#include <cstdint>
-#include <list>
+#include <map>
 #include <mutex>
 #include <string>
 #include <vector>
@@ -111,7 +110,7 @@ public:
 
   ref_ptr<Texture> GetSymbolsTexture() const;
   ref_ptr<Texture> GetTrafficArrowTexture() const;
-  ref_ptr<Texture> GetHatchingTexture() const;
+  ref_ptr<Texture> GetHatchingTexture(std::string_view key) const;
   ref_ptr<Texture> GetArrowTexture() const;
   ref_ptr<Texture> GetSMAAAreaTexture() const;
   ref_ptr<Texture> GetSMAASearchTexture() const;
@@ -187,11 +186,12 @@ private:
   std::vector<drape_ptr<Texture>> m_symbolTextures;
   drape_ptr<Texture> m_stipplePenTexture;
   drape_ptr<Texture> m_colorTexture;
-  std::list<drape_ptr<Texture>> m_glyphTextures;
+  std::vector<drape_ptr<Texture>> m_glyphTextures;
   mutable std::mutex m_glyphTexturesMutex;
 
+  std::map<std::string_view, drape_ptr<Texture>> m_hatchingTextures;
+
   drape_ptr<Texture> m_trafficArrowTexture;
-  drape_ptr<Texture> m_hatchingTexture;
   drape_ptr<Texture> m_arrowTexture;
   drape_ptr<Texture> m_smaaAreaTexture;
   drape_ptr<Texture> m_smaaSearchTexture;
