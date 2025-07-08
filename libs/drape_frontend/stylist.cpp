@@ -6,6 +6,8 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
 
+#include "drape/hatching_decl.hpp"
+
 #include <algorithm>
 #include <limits>
 
@@ -28,16 +30,39 @@ IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
   };
   for (auto const & sl : arr2)
     m_types.push_back(c.GetTypeByPath(sl));
+
+  base::StringIL const arrDash[] = {
+      {"natural", "wetland"},
+  };
+  for (auto const & sl : arrDash)
+    m_dashTypes.push_back(c.GetTypeByPath(sl));
 }
 
-bool IsHatchingTerritoryChecker::IsMatched(uint32_t type) const
+std::string_view IsHatchingTerritoryChecker::GetHatch(uint32_t type) const
 {
   // Matching with subtypes (see Stylist_IsHatching test).
 
   auto const iEnd3 = m_types.begin() + m_type3end;
   if (std::find(m_types.begin(), iEnd3, PrepareToMatch(type, 3)) != iEnd3)
-    return true;
-  return std::find(iEnd3, m_types.end(), PrepareToMatch(type, 2)) != m_types.end();
+    return dp::k45dHatching;
+  if (std::find(iEnd3, m_types.end(), PrepareToMatch(type, 2)) != m_types.end())
+    return dp::k45dHatching;
+
+  if (base::IsExist(m_dashTypes, PrepareToMatch(type, 2)))
+    return dp::kDashHatching;
+
+  return {};
+}
+
+std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const & types) const
+{
+  for (uint32_t t : types)
+  {
+    auto s = GetHatch(t);
+    if (!s.empty())
+      return s;
+  }
+  return {};
 }
 
 void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,

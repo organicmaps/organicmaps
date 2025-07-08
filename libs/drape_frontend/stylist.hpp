@@ -7,7 +7,6 @@
 
 #include "base/buffer_vector.hpp"
 
-#include <functional>
 #include <string>
 
 class FeatureType;
@@ -27,10 +26,15 @@ class IsHatchingTerritoryChecker : public ftypes::BaseChecker
 public:
   DECLARE_CHECKER_INSTANCE(IsHatchingTerritoryChecker);
 
+  std::string_view GetHatch(uint32_t type) const;
+  std::string_view GetHatch(feature::TypesHolder const & types) const;
+
 protected:
-  bool IsMatched(uint32_t type) const override;
+  bool IsMatched(uint32_t type) const override { return !GetHatch(type).empty(); }
 
 private:
+  // BaseChecker::m_types for 45d hatch.
+  std::vector<uint32_t> m_dashTypes;  // for dash hatch
   size_t m_type3end;
 };
 
