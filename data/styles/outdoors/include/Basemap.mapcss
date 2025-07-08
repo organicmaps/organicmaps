@@ -85,6 +85,11 @@ area|z13-[landuse=quarry],
 area|z13-[landuse=garages],
 {fill-color: @industrial; fill-opacity: 1;}
 
+/* 7.5 Pedestrian areas */
+
+area|z13-[tourism=camp_site],
+{fill-opacity: 1; fill-color: @leisure;}
+
 
 /* 8.BUILDINGS */
 

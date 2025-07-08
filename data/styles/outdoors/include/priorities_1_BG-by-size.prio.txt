@@ -37,7 +37,7 @@ leisure-swimming_pool-private                       # area z13- (also has icon z
 landuse-landfill                                    # area z13- (also has icon z15-, caption(optional) z15-)
 === 220
 
-leisure-playground                                  # area z16- (also has icon z17-, caption(optional) z17-)
+leisure-playground                                  # area z15- (also has icon z17-, caption(optional) z17-)
 === 200
 
 amenity-fountain                                    # area z16- (also has icon z16-, caption(optional) z16-)
@@ -51,6 +51,8 @@ landuse-cemetery-christian                          # area z14- (also has icon z
 === 180
 
 highway-pedestrian-area                             # area z14- (also has line z13-, pathtext z14-)
+tourism-camp_site
+leisure-resort
 === 170
 
 highway-footway-area                                # area z14- (also has line z11-, pathtext z13-)
