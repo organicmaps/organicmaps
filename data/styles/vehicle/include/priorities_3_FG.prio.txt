@@ -355,6 +355,11 @@ building-has_parts                                  # area z15- (also has captio
 building-train_station                              # area z15- (also has caption z18-)
 === 50
 
+natural-wetland
+natural-wetland-bog
+natural-wetland-marsh
+=== 40
+
 man_made-breakwater                                 # line z15- and area z13-
 man_made-pier                                       # line z15- and area z13-
 waterway-dam                                        # line z15- and area z15-

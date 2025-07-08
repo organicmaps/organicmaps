@@ -445,6 +445,11 @@ isoline-step_500                                    # line z11- (also has pathte
 isoline-zero                                        # line z15- (also has pathtext z17-)
 === 60
 
+natural-wetland
+natural-wetland-bog
+natural-wetland-marsh
+=== 40
+
 man_made-breakwater                                 # line z14- and area z12- (also has caption z17-)
 man_made-pier                                       # line z14- and area z12- (also has caption z17-)
 waterway-dam                                        # line z14- and area z14- (also has pathtext z15-)
