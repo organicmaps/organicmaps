@@ -106,21 +106,32 @@ def apply_diff(drules, diff):
 
 if __name__ == '__main__':
   if len(sys.argv) <= 3:
-    print('Usage: {} <drules1.bin> <drules2.bin> <drules_out.bin> [drules_out.txt]'.format(sys.argv[0]))
+    print(f'Usage: {sys.argv[0]} <drules1.bin> <drules2.bin> [drules3.bin ...] <drules_out.bin> [drules_out.txt]')
     sys.exit(1)
 
-  drules1 = drules_struct_pb2.ContainerProto()
-  drules1.ParseFromString(open(sys.argv[1], mode='rb').read())
-  drules2 = drules_struct_pb2.ContainerProto()
-  drules2.ParseFromString(open(sys.argv[2], mode='rb').read())
+  drules_out_txt = None
+  if sys.argv[-1].endswith('txt'):
+    drules_out_txt = sys.argv[-1]
+    sys.argv = sys.argv[:-1]
+  drules_out_bin = sys.argv[-1]
+  drules_list = sys.argv[1:-1]
 
-  zooms1 = read_drules(drules1)
-  zooms2 = read_drules(drules2)
-  diff = create_diff(zooms1, zooms2)
-  merged = apply_diff(drules1, diff)
+  print(f'Merging {drules_list} into {drules_out_bin}({drules_out_txt if drules_out_txt else "no text output"})')
 
-  with open(sys.argv[3], 'wb') as f:
+  drules_merged = drules_struct_pb2.ContainerProto()
+  drules_merged.ParseFromString(open(drules_list[0], mode='rb').read())
+  merged = drules_merged
+
+  for drules_path in drules_list[1:]:
+    drules = drules_struct_pb2.ContainerProto()
+    drules.ParseFromString(open(drules_path, mode='rb').read())
+    zooms1 = read_drules(merged)
+    zooms2 = read_drules(drules)
+    diff = create_diff(zooms1, zooms2)
+    merged = apply_diff(merged, diff)
+
+  with open(drules_out_bin, 'wb') as f:
     f.write(merged.SerializeToString())
-  if len(sys.argv) > 4:
-    with open(sys.argv[4], 'wb') as f:
+  if drules_out_txt:
+    with open(drules_out_txt, 'wb') as f:
       f.write(str(merged).encode('utf-8'))
