@@ -189,6 +189,7 @@ public class Utils
     final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(Uri.parse("https://osm.org"));
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.addCategory(Intent.CATEGORY_BROWSABLE);
 
     // Check that an app exists to open URL
     return intent.resolveActivity(context.getPackageManager()) != null;
@@ -230,22 +231,12 @@ public class Utils
     final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(uri);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.addCategory(Intent.CATEGORY_BROWSABLE);
 
-    try
-    {
+    if (intent.resolveActivity(context.getPackageManager()) != null)
       context.startActivity(intent);
-    }
-    catch (ActivityNotFoundException e)
-    {
+    else
       Toast.makeText(context, failMessage, Toast.LENGTH_SHORT).show();
-      Logger.e(TAG, "ActivityNotFoundException", e);
-    }
-    catch (AndroidRuntimeException e)
-    {
-      Logger.e(TAG, "AndroidRuntimeException", e);
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      context.startActivity(intent);
-    }
   }
 
   private static boolean isHttpOrHttpsScheme(@NonNull String url)
