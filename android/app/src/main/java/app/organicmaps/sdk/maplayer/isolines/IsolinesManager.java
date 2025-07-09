@@ -1,18 +1,12 @@
 package app.organicmaps.sdk.maplayer.isolines;
 
-import android.content.Context;
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.Framework;
 
 public class IsolinesManager
 {
   @NonNull
-  private final OnIsolinesChangedListener mListener;
-
-  public IsolinesManager(@NonNull Context context)
-  {
-    mListener = new OnIsolinesChangedListener(context);
-  }
+  private final OnIsolinesChangedListener mListener = new OnIsolinesChangedListener();
 
   static public boolean isEnabled()
   {

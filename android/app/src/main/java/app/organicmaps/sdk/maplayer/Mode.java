@@ -6,7 +6,6 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
-import app.organicmaps.sdk.util.ThemeSwitcher;
 
 public enum Mode
 {
@@ -61,7 +60,8 @@ public enum Mode
     public void setEnabled(@NonNull Context context, boolean isEnabled)
     {
       Framework.nativeSetOutdoorsLayerEnabled(isEnabled);
-      ThemeSwitcher.INSTANCE.restart(true);
+      // TODO: ThemeSwitcher is outside sdk package. Properly fix dependencies
+      // ThemeSwitcher.INSTANCE.restart(true);
     }
   };
 
