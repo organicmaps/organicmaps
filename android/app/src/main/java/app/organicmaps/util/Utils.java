@@ -181,6 +181,20 @@ public class Utils
     }
   }
 
+  /*
+   * Check if WebBrowser intent could be opened.
+   */
+  public static boolean isBrowserAvailable(Context context)
+  {
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse("https://osm.org"));
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+    // Check that an app exists to open URL
+    return intent.resolveActivity(context.getPackageManager()) != null;
+  }
+
   public static void showFacebookPage(Activity activity)
   {
     try
@@ -200,25 +214,10 @@ public class Utils
     if (TextUtils.isEmpty(url))
       return;
 
-    final Intent intent = new Intent(Intent.ACTION_VIEW);
     Uri uri =
         isHttpOrHttpsScheme(url) ? Uri.parse(url) : new Uri.Builder().scheme("http").appendEncodedPath(url).build();
-    intent.setData(uri);
-    try
-    {
-      context.startActivity(intent);
-    }
-    catch (ActivityNotFoundException e)
-    {
-      Toast.makeText(context, context.getString(R.string.browser_not_available), Toast.LENGTH_LONG).show();
-      Logger.e(TAG, "ActivityNotFoundException", e);
-    }
-    catch (AndroidRuntimeException e)
-    {
-      Logger.e(TAG, "AndroidRuntimeException", e);
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      context.startActivity(intent);
-    }
+
+    Utils.openUri(context, uri, R.string.browser_not_available);
   }
 
   /**
@@ -226,17 +225,14 @@ public class Utils
    * @param context the app context
    * @param uri the URI to open.
    * @param failMessage string id: message to show in a toast when the system can't find an app to open with.
-   * @param action (optional) the Intent action to use. If none is provided, defaults to Intent.ACTION_VIEW.
    */
-  public static void openUri(@NonNull Context context, @NonNull Uri uri, Integer failMessage, @NonNull String... action)
+  public static void openUri(@NonNull Context context, @NonNull Uri uri, Integer failMessage)
   {
-    final String act = (action != null && action.length > 0 && action[0] != null) ? action[0] : Intent.ACTION_VIEW;
-    final Intent intent = new Intent(act);
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(uri);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.addCategory(Intent.CATEGORY_BROWSABLE);
 
-    // https://developer.android.com/guide/components/intents-common
-    // check that an app exists to open with, otherwise it'll crash
     if (intent.resolveActivity(context.getPackageManager()) != null)
       context.startActivity(intent);
     else
