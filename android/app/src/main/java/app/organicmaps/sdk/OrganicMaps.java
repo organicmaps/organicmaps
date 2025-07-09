@@ -7,7 +7,6 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import app.organicmaps.R;
-import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.downloader.Android7RootCertificateWorkaround;
@@ -17,16 +16,16 @@ import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
+import app.organicmaps.sdk.settings.StoragePathManager;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.StorageUtils;
-import app.organicmaps.sdk.util.ThemeSwitcher;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
-import app.organicmaps.settings.StoragePathManager;
 import java.io.IOException;
 
 public final class OrganicMaps implements DefaultLifecycleObserver
@@ -101,7 +100,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
 
     mSensorHelper = new SensorHelper(mContext);
     mLocationHelper = new LocationHelper(mContext, mSensorHelper);
-    mIsolinesManager = new IsolinesManager(mContext);
+    mIsolinesManager = new IsolinesManager();
     mSubwayManager = new SubwayManager(mContext);
   }
 
@@ -177,12 +176,10 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     nativeInitFramework(onComplete);
 
     initNativeStrings();
-    ThemeSwitcher.INSTANCE.initialize(mContext);
     SearchEngine.INSTANCE.initialize();
     BookmarkManager.loadBookmarks();
     TtsPlayer.INSTANCE.initialize(mContext);
-    ThemeSwitcher.INSTANCE.restart(false);
-    RoutingController.get().initialize(mContext);
+    RoutingController.get().initialize(mLocationHelper);
     TrafficManager.INSTANCE.initialize();
     mSubwayManager.initialize();
     mIsolinesManager.initialize();

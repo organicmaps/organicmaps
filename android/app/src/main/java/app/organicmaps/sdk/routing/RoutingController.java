@@ -1,38 +1,19 @@
-package app.organicmaps.routing;
+package app.organicmaps.sdk.routing;
 
-import android.content.Context;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import androidx.annotation.DimenRes;
 import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
-import app.organicmaps.MwmApplication;
-import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.FeatureId;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.sdk.routing.ResultCodes;
-import app.organicmaps.sdk.routing.RouteMarkData;
-import app.organicmaps.sdk.routing.RouteMarkType;
-import app.organicmaps.sdk.routing.RoutePointInfo;
-import app.organicmaps.sdk.routing.RouteRecommendationType;
-import app.organicmaps.sdk.routing.RoutingInfo;
-import app.organicmaps.sdk.routing.RoutingListener;
-import app.organicmaps.sdk.routing.RoutingLoadPointsListener;
-import app.organicmaps.sdk.routing.RoutingOptions;
-import app.organicmaps.sdk.routing.RoutingProgressListener;
-import app.organicmaps.sdk.routing.TransitRouteInfo;
-import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.util.Utils;
-import app.organicmaps.widget.placepage.CoordinatesFormat;
-import java.time.LocalTime;
-import java.util.concurrent.TimeUnit;
+import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
 
 @androidx.annotation.UiThread
 public class RoutingController
@@ -114,7 +95,7 @@ public class RoutingController
       mLastMissingMaps = missingMaps;
       mContainsCachedResult = true;
 
-      if (mLastResultCode == ResultCodes.NO_ERROR || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+      if (mLastResultCode == ResultCodes.NO_ERROR || resultCode == ResultCodes.NEED_MORE_MAPS)
       {
         onBuiltRoute();
       }
@@ -180,7 +161,7 @@ public class RoutingController
       return;
     }
 
-    if (!ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+    if (mLastResultCode != ResultCodes.NEED_MORE_MAPS)
     {
       setBuildState(BuildState.ERROR);
       mLastBuildProgress = 0;
@@ -195,8 +176,7 @@ public class RoutingController
 
   private boolean isDrivingOptionsBuildError()
   {
-    return !ResultCodesHelper.isMoreMapsNeeded(mLastResultCode) && RoutingOptions.hasAnyOptions()
- && !isRulerRouterType();
+    return mLastResultCode != ResultCodes.NEED_MORE_MAPS && RoutingOptions.hasAnyOptions() && !isRulerRouterType();
   }
 
   private void setState(State newState)
@@ -250,7 +230,7 @@ public class RoutingController
     mContainer = container;
   }
 
-  public void initialize(@NonNull Context context)
+  public void initialize(@NonNull LocationHelper locationHelper)
   {
     mLastRouterType = Router.getLastUsed();
     mInvalidRoutePointsTransactionId = Framework.nativeInvalidRoutePointsTransactionId();
@@ -260,7 +240,7 @@ public class RoutingController
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
     Framework.nativeSetRoutingRecommendationListener(recommendation -> UiThread.run(() -> {
       if (recommendation == RouteRecommendationType.RebuildAfterPointsLoading)
-        setStartPoint(MwmApplication.from(context).getLocationHelper().getMyPosition());
+        setStartPoint(locationHelper.getMyPosition());
     }));
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
   }
@@ -557,7 +537,7 @@ public class RoutingController
     return mLastRouterType == Router.Vehicle;
   }
 
-  boolean isRulerRouterType()
+  public boolean isRulerRouterType()
   {
     return mLastRouterType == Router.Ruler;
   }
@@ -882,27 +862,5 @@ public class RoutingController
     }
 
     mWaitingPoiPickType = null;
-  }
-  public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize)
-  {
-    return formatRoutingTime(context, seconds, unitsSize, R.dimen.text_size_routing_number);
-  }
-
-  public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize,
-                                               @DimenRes int textSize)
-  {
-    long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
-    long hours = TimeUnit.SECONDS.toHours(seconds);
-    String min = context.getString(R.string.minute);
-    String hour = context.getString(R.string.hour);
-    SpannableStringBuilder displayedH = Utils.formatTime(context, textSize, unitsSize, String.valueOf(hours), hour);
-    SpannableStringBuilder displayedM = Utils.formatTime(context, textSize, unitsSize, String.valueOf(minutes), min);
-    return hours == 0 ? displayedM : TextUtils.concat(displayedH + "\u00A0", displayedM);
-  }
-
-  static String formatArrivalTime(int seconds)
-  {
-    final LocalTime time = LocalTime.now().plusSeconds(seconds);
-    return StringUtils.formatUsingUsLocale("%d:%02d", time.getHour(), time.getMinute());
   }
 }

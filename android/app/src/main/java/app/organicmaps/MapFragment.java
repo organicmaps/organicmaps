@@ -23,7 +23,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class MapFragment extends BaseMwmFragment implements View.OnTouchListener, SurfaceHolder.Callback
 {
   private static final String TAG = MapFragment.class.getSimpleName();
-  private final Map mMap = new Map(DisplayType.Device);
+
+  @SuppressWarnings("NonNullFieldNotInitialized")
+  @NonNull
+  private Map mMap;
 
   public void updateCompassOffset(int offsetX, int offsetY)
   {
@@ -84,6 +87,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   {
     Logger.d(TAG);
     super.onAttach(context);
+    mMap = new Map(DisplayType.Device, MwmApplication.from(requireContext()).getLocationHelper());
     mMap.setMapRenderingListener((MapRenderingListener) context);
     mMap.setCallbackUnsupported(this::reportUnsupported);
   }

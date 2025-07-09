@@ -1,4 +1,4 @@
-package app.organicmaps.widget.placepage;
+package app.organicmaps.sdk.widget.placepage;
 
 public enum CoordinatesFormat
 {

@@ -244,7 +244,7 @@ public final class Config
     return defaultTheme;
   }
 
-  static void setCurrentUiTheme(@NonNull Context context, @NonNull String theme)
+  public static void setCurrentUiTheme(@NonNull Context context, @NonNull String theme)
   {
     if (getCurrentUiTheme(context).equals(theme))
       return;
