@@ -1,4 +1,4 @@
-package app.organicmaps.settings;
+package app.organicmaps.sdk.settings;
 
 /**
  * Represents storage option.

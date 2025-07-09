@@ -1,4 +1,4 @@
-package app.organicmaps.sdk.util;
+package app.organicmaps.util;
 
 import android.app.Activity;
 import android.app.UiModeManager;
@@ -10,12 +10,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.DownloaderStatusIcon;
-import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapStyle;
-import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-import app.organicmaps.util.ThemeUtils;
 import java.util.Calendar;
 
 public enum ThemeSwitcher
@@ -156,6 +155,7 @@ public enum ThemeSwitcher
    *
    * @return theme_light/dark string
    */
+  @NonNull
   private String calcAutoTheme()
   {
     String defaultTheme = mContext.getResources().getString(R.string.theme_default);
