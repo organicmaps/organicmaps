@@ -32,7 +32,7 @@ double const kMaxUpdateLocationInvervalSec = 30.0;
 double const kMaxBlockAutoZoomTimeSec = 10.0;
 
 int const kZoomThreshold = 10;
-int const kMaxScaleZoomLevel = 16;
+int const kMaxScaleZoomLevel = 13;
 int const kDefaultAutoZoom = 16;
 double const kUnknownAutoZoom = -1.0;
 
@@ -552,6 +552,11 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
 
 bool MyPositionController::UpdateViewportWithAutoZoom()
 {
+  // Don't apply auto-zoom if there's an active map plane animation to prevent
+  // jarring interference with ongoing location button zoom animations
+  if (AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
+    return false;
+    
   double const autoScale = m_enablePerspectiveInRouting ? m_autoScale3d : m_autoScale2d;
   if (autoScale > 0.0 && m_mode == location::FollowAndRotate &&
       m_isInRouting && m_enableAutoZoomInRouting && !m_needBlockAutoZoom)
