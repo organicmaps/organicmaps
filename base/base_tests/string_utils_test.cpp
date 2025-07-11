@@ -23,7 +23,7 @@ UNIT_TEST(LowerUniChar)
 {
   // Load unicode case folding table.
 
-  static char constexpr kFile[] = "./data/CaseFolding.test";
+  static char constexpr kFile[] = "./data/test_data/CaseFolding.test";
   std::ifstream file(kFile);
   TEST(file.is_open(), (kFile));
 
