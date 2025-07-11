@@ -804,6 +804,7 @@ amenity-cinema                                      # icon z17- (also has captio
 amenity-fountain                                    # icon z16- (also has caption(optional) z16-, area z16-)
 amenity-nightclub                                   # icon z16- (also has caption(optional) z16-)
 amenity-post_office                                 # icon z17- (also has caption(optional) z17-)
+office-diplomatic
 attraction-amusement_ride                           # icon z17- (also has caption(optional) z17-)
 attraction-animal                                   # icon z17- (also has caption(optional) z17-)
 attraction-big_wheel                                # icon z17- (also has caption(optional) z17-)
@@ -1141,7 +1142,6 @@ healthcare-speech_therapist                         # icon z17- (also has captio
 leisure-adult_gaming_centre                         # icon z17- (also has caption(optional) z17-)
 leisure-amusement_arcade                            # icon z17- (also has caption(optional) z17-)
 office-company                                      # icon z18- (also has caption(optional) z18-)
-office-diplomatic                                   # icon z17- (also has caption(optional) z17-)
 office-ngo                                          # icon z18- (also has caption(optional) z18-)
 office-telecommunication                            # icon z18- (also has caption(optional) z18-)
 shop-agrarian                                       # icon z18- (also has caption(optional) z18-)
