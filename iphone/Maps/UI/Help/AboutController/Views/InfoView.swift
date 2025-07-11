@@ -29,7 +29,7 @@ final class InfoView: UIView {
   }
 
   private func setupView() {
-    setStyle(.background)
+    setStyle(.clearBackground)
 
     stackView.axis = .horizontal
     stackView.distribution = .fill
