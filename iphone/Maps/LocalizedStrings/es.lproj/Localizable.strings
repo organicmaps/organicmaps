@@ -870,7 +870,7 @@
 "medicine" = "Medicina";
 "search_in_the_list" = "Buscar en la lista";
 "religious_places" = "Lugares sagrados";
-"transit_not_found" = "Navegación en Metro aún no disponible en esta región";
+"transit_not_found" = "La navegación en metro aún no está disponible en esta región";
 "dialog_pedestrian_route_is_long_header" = "No se encontró ninguna ruta de metro";
 "dialog_pedestrian_route_is_long_message" = "Elija un punto de inicio o fin de ruta más cercano a una estación de metro";
 "button_layer_isolines" = "Alturas";
@@ -989,7 +989,7 @@
 "bugreport_alert_message" = "¿Quiere enviar un informe de error a los desarrolladores?\nDependemos de nuestros usuarios, ya que Organic Maps no recoge ninguna información sobre errores de forma automática. ¡Gracias de antemano por apoyar a Organic Maps!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_title" = "Activar la sincronización con iCloud";
+"enable_icloud_synchronization_title" = "Activar sincronización con iCloud";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
 "enable_icloud_synchronization_message" = "La sincronización con iCloud es una función experimental en desarrollo. Asegúrese de haber realizado una copia de respaldo de todos sus marcadores y trayectos.";

@@ -172,7 +172,7 @@
 "unknown_current_position" = "A sua localização ainda não foi determinada";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Veja o meu marcador no mapa do Organic Maps.";
+"bookmark_share_email_subject" = "Veja o meu marcador no mapa do Organic Maps!";
 
 /* Subject for emailed position */
 "my_position_share_email_subject" = "Veja a minha localização atual no mapa Organic Maps!";
@@ -414,7 +414,7 @@
 "dialog_routing_disclaimer_priority" = "— As condições da estrada, as leis de trânsito e os sinais de trânsito têm sempre prioridade sobre as indicações de navegação;";
 "dialog_routing_disclaimer_precision" = "— O mapa pode estar desatualizado e o trajeto indicado pode não ser a melhor para chegar ao destino;";
 "dialog_routing_disclaimer_recommendations" = "— Os trajetos indicados devem ser considerados apenas como sugestões;";
-"dialog_routing_disclaimer_borders" = "— Use com cautela em rotas de zonas fronteiriças: as rotas criadas pela nossa aplicação podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;";
+"dialog_routing_disclaimer_borders" = "— Use com cautela em rotas de zonas fronteiriças: as rotas criadas pela nossa aplicação podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.";
 "dialog_routing_disclaimer_beware" = "Fique sempre atento nas estradas!";
 "dialog_routing_check_gps" = "Verifique o sinal do GPS";
 "dialog_routing_error_location_not_found" = "O trajeto não foi criado porque não foi possível identificar as coordenadas do GPS.";
@@ -683,7 +683,7 @@
 "mobile_data_dialog" = "Utilizar os dados móveis para mostrar informações detalhadas?";
 "mobile_data_option_always" = "Utilizar sempre";
 "mobile_data_option_today" = "Apenas hoje";
-"mobile_data_option_not_today" = "Não utilizar hoje";
+"mobile_data_option_not_today" = "Não usar hoje";
 "mobile_data" = "Dados móveis";
 
 /* NOTE to translators: please synchronize your translation with the English one. */
@@ -700,7 +700,7 @@
 "traffic_data_unavailable" = "Os dados de tráfego não estão disponíveis";
 "enable_logging" = "Ativar o histórico";
 "log_file_size" = "Tamanho do ficheiro de registo: %@";
-"transliteration_title" = "Transliteração para o latim";
+"transliteration_title" = "Transliteração para o alfabeto latino";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Saída";
@@ -774,7 +774,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "Nunca avisar";
 "power_managment_title" = "Modo de economia de energia";
-"power_managment_description" = "Se o modo automático estiver ativado, a aplicação vai desativar as funções que consomem energia, dependendo da carga atual do telemóvel";
+"power_managment_description" = "Tente reduzir o consumo de energia em detrimento de algumas funcionalidades.";
 "power_managment_setting_never" = "Nunca";
 "power_managment_setting_auto" = "Automático";
 "power_managment_setting_manual_max" = "Máxima economia de energia";
@@ -791,7 +791,7 @@
 "avoid_ferry" = "Evitar ferribotes";
 "avoid_motorways" = "Evitar autoestradas";
 "unable_to_calc_alert_title" = "Não foi possível calcular a rota";
-"unable_to_calc_alert_subtitle" = "Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente";
+"unable_to_calc_alert_subtitle" = "Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente.";
 "define_to_avoid_btn" = "Definir as estradas a evitar";
 "change_driving_options_btn" = "Configurações de direção ativadas";
 "toll_road" = "Estrada com portagem";
@@ -922,7 +922,7 @@
 "instagram_url" = "https://www.instagram.com/organicmaps.app";
 
 /* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
-"translated_om_site_url" = "https://organicmaps.app/";
+"translated_om_site_url" = "https://organicmaps.app/pt/";
 
 /* Link to OSM wiki for Editor, Profile and About pages */
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Pt:Sobre_o_OpenStreetMap";
@@ -980,7 +980,7 @@
 
 /* Main screen title "Map" displayed in the navigation back button's menu. */
 "map" = "Mapa";
-"drive_through" = "Drive-through";
+"drive_through" = "Servizo ao volante";
 
 /* Restaurant or other food place's menu URL field in the Editor */
 "website_menu" = "Link do menu";
@@ -1060,3 +1060,4 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "O trajeto está vazio - não há nada para guardar";
 "edit_track" = "Editar trajeto";
+"saved" = "Guardado";

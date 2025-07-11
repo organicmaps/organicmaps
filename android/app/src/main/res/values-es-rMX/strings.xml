@@ -185,8 +185,8 @@
     <string name="religious_places">Sitios religiosos</string>
     <string name="select_list">Seleccionar lista</string>
     <string name="transit_not_found">Navegación por metro aún no disponible en esta región</string>
-    <string name="dialog_pedestrian_route_is_long_header">Ruta de metro no encontrada</string>
-    <string name="dialog_pedestrian_route_is_long_message">Elija el punto de inicio o fin de ruta más cercano al metro</string>
+    <string name="dialog_pedestrian_route_is_long_header">No se encontró ninguna ruta de metro</string>
+    <string name="dialog_pedestrian_route_is_long_message">Elija un punto de inicio o fin de ruta más cercano a una estación de metro</string>
     <string name="button_layer_isolines">Alturas</string>
     <string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualice o descargue el mapa del área deseada</string>
     <string name="isolines_location_error_dialog">La altitud de relieve no está aún disponible en esta región</string>

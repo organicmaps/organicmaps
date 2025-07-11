@@ -750,7 +750,7 @@
     <string name="search_in_the_list">Buscar en la lista</string>
     <string name="religious_places">Lugares sagrados</string>
     <string name="select_list">Seleccionar lista</string>
-    <string name="transit_not_found">Navegación en Metro aún no disponible en esta región</string>
+    <string name="transit_not_found">La navegación en metro aún no está disponible en esta región</string>
     <string name="dialog_pedestrian_route_is_long_header">No se encontró ninguna ruta de metro</string>
     <string name="dialog_pedestrian_route_is_long_message">Elija un punto de inicio o fin de ruta más cercano a una estación de metro</string>
     <string name="button_layer_isolines">Alturas</string>

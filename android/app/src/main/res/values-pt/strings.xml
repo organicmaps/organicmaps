@@ -90,7 +90,7 @@
     <!-- Header of settings activity where user defines storage path -->
     <string name="maps_storage">Guardar mapas em</string>
     <!-- Detailed description of Maps Storage settings button -->
-    <string name="maps_storage_summary">Selecione o local onde os mapas devem ser descarregados</string>
+    <string name="maps_storage_summary">Selecione o local onde os mapas devem ser descarregados.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapas</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -183,7 +183,7 @@
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
     <string name="my_position_share_sms">Veja onde estou agora. Abra a hiperligação: %1$s ou %2$s Não tem um mapa offline instalado? Descarregue em https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
-    <string name="bookmark_share_email_subject">Veja o meu marcador no mapa do Organic Maps.</string>
+    <string name="bookmark_share_email_subject">Veja o meu marcador no mapa do Organic Maps!</string>
     <!-- Subject for emailed position -->
     <string name="my_position_share_email_subject">Veja a minha localização atual no mapa Organic Maps!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
@@ -352,7 +352,7 @@
     <string name="dialog_routing_disclaimer_priority">— As condições da estrada, as leis de trânsito e os sinais de trânsito têm sempre prioridade sobre as indicações de navegação;</string>
     <string name="dialog_routing_disclaimer_precision">— O mapa pode estar desatualizado e o trajeto indicado pode não ser a melhor para chegar ao destino;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Os trajetos indicados devem ser considerados apenas como sugestões;</string>
-    <string name="dialog_routing_disclaimer_borders">— Use com cautela em rotas de zonas fronteiriças: as rotas criadas pela nossa aplicação podem algumas vezes cruzar fronteiras nacionais em locais não autorizados;</string>
+    <string name="dialog_routing_disclaimer_borders">— Use com cautela em rotas de zonas fronteiriças: as rotas criadas pela nossa aplicação podem algumas vezes cruzar fronteiras nacionais em locais não autorizados.</string>
     <string name="dialog_routing_disclaimer_beware">Fique sempre atento nas estradas!</string>
     <string name="dialog_routing_check_gps">Verifique o sinal do GPS</string>
     <string name="dialog_routing_error_location_not_found">O trajeto não foi criado porque não foi possível identificar as coordenadas do GPS.</string>
@@ -560,7 +560,7 @@
     <string name="mobile_data_dialog">Utilizar os dados móveis para mostrar informações detalhadas?</string>
     <string name="mobile_data_option_always">Utilizar sempre</string>
     <string name="mobile_data_option_today">Apenas hoje</string>
-    <string name="mobile_data_option_not_today">Não utilizar hoje</string>
+    <string name="mobile_data_option_not_today">Não usar hoje</string>
     <string name="mobile_data">Dados móveis</string>
     <!-- NOTE to translators: please synchronize your translation with the English one. -->
     <string name="mobile_data_description">Para visualizar informações detalhadas sobre os locais, tais como fotografias, preços e avaliações, é necessário acesso à internet móvel.</string>
@@ -575,9 +575,9 @@
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">Opinão geral</string>
     <string name="prefs_languages_information">Utilizamos o sistema TTS para as instruções de voz. Muitos dispositivos Android usam o Google TTS, pode transferir ou atualizá-lo a partir do Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
-    <string name="prefs_languages_information_off">Para alguns idiomas, precisará de instalar outro sintetizador de voz ou um pacote de idiomas adicional a partir da loja de aplicações (Google Play, Galaxy Store, App Gallery, FDroid). Abra as Configurações do seu dispositivo → Idioma e entrada → Voz → Saída de texto para voz. Aqui pode gerir as configurações de síntese de voz (por exemplo, transferir um pacote de idioma para poder utilizá-lo sem estar ligado à Internet) ou selecionar outro motor de texto para voz.</string>
+    <string name="prefs_languages_information_off">Para alguns idiomas, precisará de instalar outro sintetizador de voz ou um pacote de idiomas adicional a partir da loja de aplicações (Google Play, Galaxy Store, App Gallery, FDroid). \nAbra as Configurações do seu dispositivo → Idioma e entrada → Voz → Saída de texto para voz. \nAqui pode gerir as configurações de síntese de voz (por exemplo, transferir um pacote de idioma para poder utilizá-lo sem estar ligado à Internet) ou selecionar outro motor de texto para voz.</string>
     <string name="prefs_languages_information_off_link">Para obter mais informações, consulte este guia.</string>
-    <string name="transliteration_title">Transliteração para o latim</string>
+    <string name="transliteration_title">Transliteração para o alfabeto latino</string>
     <string name="learn_more">Saber mais</string>
     <!-- Subway exits for public transport marks on the map -->
     <string name="core_exit">Saída</string>
@@ -592,7 +592,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Por favor, faz o login no OpenStreetMap para carregar automaticamente todas as tuas edições de mapas. Sabe mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.</string>
     <string name="dialog_error_storage_title">Problema de acesso ao armazenamento</string>
-    <string name="dialog_error_storage_message">O armazenamento externo não está disponível. Provavelmente porque o cartão SD foi removido, danificado ou o sistema de ficheiros é apenas para leitura. Verifique e contacte-nos através do email support\@organicmaps.app</string>
+    <string name="dialog_error_storage_message">O armazenamento externo não está disponível. Provavelmente porque o cartão SD foi removido, danificado ou o sistema de ficheiros é apenas para leitura. Verifique e contacte-nos através do email support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emular o armazenamento defeituoso</string>
     <string name="core_entrance">Entrada</string>
     <string name="error_enter_correct_name">Introduza um nome correto</string>
@@ -602,6 +602,7 @@
     <string name="bookmark_lists_show_all">Mostrar tudo</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d favorito</item>
+        <item quantity="many">%d de favoritos</item>
         <item quantity="other">%d favoritos</item>
     </plurals>
     <string name="bookmarks_create_new_group">Criar nova lista</string>
@@ -620,11 +621,13 @@
     <string name="profile">Perfil no OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
         <item quantity="one">%d ficheiro encontrado. Pode vê-lo depois da conversão.</item>
+        <item quantity="many">%d de ficheiros encontrados. Pode vê-los depois da conversão.</item>
         <item quantity="other">%d ficheiros encontrados. Pode vê-los depois da conversão.</item>
     </plurals>
     <string name="restore">Restaurar</string>
     <plurals name="tracks">
         <item quantity="one">%d trajeto</item>
+        <item quantity="many">%d de trajetos</item>
         <item quantity="other">%d trajetos</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
@@ -655,7 +658,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">Nunca avisar</string>
     <string name="power_managment_title">Modo de economia de energia</string>
-    <string name="power_managment_description">Se o modo automático estiver ativado, a aplicação vai desativar as funções que consomem energia, dependendo da carga atual do telemóvel</string>
+    <string name="power_managment_description">Tente reduzir o consumo de energia em detrimento de algumas funcionalidades.</string>
     <string name="power_managment_setting_never">Nunca</string>
     <string name="power_managment_setting_auto">Automático</string>
     <string name="power_managment_setting_manual_max">Máxima economia de energia</string>
@@ -670,7 +673,7 @@
     <string name="avoid_ferry">Evitar ferribotes</string>
     <string name="avoid_motorways">Evitar autoestradas</string>
     <string name="unable_to_calc_alert_title">Não foi possível calcular a rota</string>
-    <string name="unable_to_calc_alert_subtitle">Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente</string>
+    <string name="unable_to_calc_alert_subtitle">Infelizmente não foi possível criar o percurso com as opções selecionadas. Altere as opções e tente novamente.</string>
     <string name="define_to_avoid_btn">Definir as estradas a evitar</string>
     <string name="change_driving_options_btn">Configurações de direção ativadas</string>
     <string name="toll_road">Estrada com portagem</string>
@@ -802,7 +805,7 @@
     <string name="pref_tts_open_system_settings">Definições do sistema de síntese de voz</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
     <string name="pref_tts_no_system_tts">Não foram encontradas definições de síntese de voz. Tens a certeza de que o teu dispositivo é compatível?</string>
-    <string name="drive_through">Drive-through</string>
+    <string name="drive_through">Servizo ao volante</string>
     <string name="clear_the_search">Limpar a pesquisa</string>
     <string name="zoom_in">Ampliar</string>
     <!-- Accessibility text for the zoom-out button on the map -->
@@ -833,7 +836,7 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">O trajeto está vazio - não há nada para guardar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">Não é possível apresentar a caixa de diálogo de seleção de pastas porque não está instalada nenhuma aplicação adequada no seu dispositivo. Instale uma aplicação de gestão de ficheiros e tente novamente</string>
+    <string name="error_no_file_manager_app">Não é possível apresentar a caixa de diálogo de seleção de pastas porque não está instalada nenhuma aplicação adequada no seu dispositivo. Instale uma aplicação de gestão de ficheiros e tente novamente.</string>
     <string name="choose_color">Escolher cor</string>
     <string name="edit_track">Editar trajeto</string>
     <string name="uri_open_location_failed">Nenhuma aplicação instalada que possa abrir a localização</string>
@@ -841,4 +844,45 @@
     <string name="nav_auto">Auto na navegação</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
+    <string name="maps_storage_internal">Armazenamento interno privado</string>
+    <string name="maps_storage_shared">Armazenamento interno partilhado</string>
+    <string name="maps_storage_external">Armazenamento externo partilhado</string>
+    <string name="maps_storage_removable">Cartão SD</string>
+    <string name="maps_storage_free_size">%1$s livres de %2$s</string>
+    <string name="move_maps_error">Erro ao mover ficheiros de mapa</string>
+    <string name="menu">Menu</string>
+    <string name="github">GitHub</string>
+    <string name="telegram">Telegram</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+    <string name="opens_in">Abrir em %s</string>
+    <string name="closes_in">Fecha em %s</string>
+    <string name="empty_street_name_error">Por favor, introduza um nome da rua</string>
+    <string name="editor_add_phone">Adicionar telefone</string>
+    <string name="level_value_generic">Nível: %s</string>
+    <string name="delete_place_empty_comment_error">Por favor indique o motivo da exclusão do local</string>
+    <string name="error_enter_correct_facebook_page">Introduza um endereço web, conta ou nome de página válidos do Facebook</string>
+    <string name="error_enter_correct_instagram_page">Introduza um endereço web válido ou um nome de conta do Instagram</string>
+    <string name="error_enter_correct_twitter_page">Introduza um endereço web válido ou um nome de conta do Twitter</string>
+    <string name="error_enter_correct_vk_page">Introduza um endereço web válido ou um nome de conta do VK</string>
+    <string name="error_enter_correct_line_page">Introduza um endereço web ou ID LINE válido</string>
+    <string name="saved">Guardado</string>
+    <string name="disk_error">Não é possível criar pasta e mover ficheiros na memória interna do dispositivo ou no cartão SD</string>
+    <string name="disk_error_title">Erro de disco</string>
+    <string name="disconnect_usb_cable_title">Desligue o cabo USB</string>
+    <string name="enable_show_on_lock_screen">Mostrar no ecrã de bloqueio</string>
+    <string name="enable_show_on_lock_screen_description">Quando ativado, não precisa de desbloquear o dispositivo para executar a aplicação.</string>
+    <string name="change_map_locale">Idioma do mapa</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="translated_om_site_url">https://organicmaps.app/pt/</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
 </resources>

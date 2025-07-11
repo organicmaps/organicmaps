@@ -875,7 +875,7 @@
     <string name="type.landuse.recreation_ground">Зона адпачынку</string>
     <string name="type.landuse.retail">Гандлёвая зона</string>
     <string name="type.landuse.salt_pond">Саляная сажалка</string>
-    <string name="type.landuse.village_green">Парк</string>
+    <string name="type.landuse.village_green">Зялёная зона</string>
     <string name="type.leisure.dog_park">Сабачы парк</string>
     <string name="type.cuisine.georgian">Грузінскі</string>
     <string name="type.cuisine.grill">Грыль</string>
@@ -948,4 +948,22 @@
     <string name="type.railway.narrow_gauge.bridge">Мост вузкакалейнай чыгункі</string>
     <string name="type.shop.chemist">Бытавая хімія</string>
     <string name="type.railway.station.subway.qingdao">Станцыя Метро</string>
+    <string name="type.shop.convenience">Крама</string>
+    <string name="type.shop.supermarket">Супермаркет</string>
+    <string name="type.shop.mall">Гандлёвы цэнтр</string>
+    <string name="type.shop.bakery">Пякарня</string>
+    <string name="type.leisure.ice_rink">Каток</string>
+    <string name="type.leisure.park">Парк</string>
+    <string name="type.leisure.park.permissive">Парк</string>
+    <string name="type.leisure.park.no.access">Прыватны парк</string>
+    <string name="type.leisure.park.private">Прыватны парк</string>
+    <string name="type.leisure.pitch">Спартыўная пляцоўка</string>
+    <string name="type.leisure.sauna">Саўна</string>
+    <string name="type.leisure.stadium">Стадыён</string>
+    <string name="type.man_made.tower">Вежа</string>
+    <string name="type.man_made.water_tower">Воданапорная вежа</string>
+    <string name="type.mapswithme">mapswithme</string>
+    <string name="type.military.bunker">Бункер</string>
+    <string name="type.office">Офіс</string>
+    <string name="type.mapswithme.grid">mapswithme-grid</string>
 </resources>

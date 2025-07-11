@@ -222,4 +222,9 @@
     <string name="car_used_on_the_phone_screen">Agora tas utilizando Organic Maps na pantalla del teléfonu</string>
     <string name="car_used_on_the_car_screen">Agora tas utilizando Organic Maps na pantalla del coche</string>
     <string name="not_shared">Priváu</string>
+    <string name="translated_om_site_url">https://organicmaps.app/ast</string>
+    <string name="transit_not_found">La navegación per metro nesta rexón tovía nun ta disponible</string>
+    <string name="elevation_profile_min_elevation">Elevación mín.</string>
+    <string name="elevation_profile_max_elevation">Elevación máx.</string>
+    <string name="core_exit">Salida</string>
 </resources>

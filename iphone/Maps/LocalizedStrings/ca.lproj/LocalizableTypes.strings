@@ -327,7 +327,7 @@
 "type.cuisine.mexican" = "Mexicana";
 "type.cuisine.moroccan" = "Marroquina";
 "type.cuisine.noodles" = "Fideus xinesos";
-"type.cuisine.oriental" = "Cuina de l'Àsia oriental";
+"type.cuisine.oriental" = "Cuina de l’Àsia oriental";
 "type.cuisine.pancake" = "Pancake";
 "type.cuisine.pasta" = "Pasta";
 "type.cuisine.persian" = "Persa";
@@ -356,7 +356,7 @@
 "type.emergency" = "Emergències";
 "type.emergency.assembly_point" = "Punt de reunió d’emergència";
 "type.emergency.defibrillator" = "Desfibril·lador";
-"type.emergency.fire_hydrant" = "Boca d'incendis";
+"type.emergency.fire_hydrant" = "Boca d’incendis";
 "type.emergency.phone" = "Telèfon d’emergència";
 
 /* A place where a lifeguard is on duty. */
@@ -392,7 +392,7 @@
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.bridleway.tunnel" = "Túnel";
-"type.highway.busway" = "Carretera dedicada a l'autobús";
+"type.highway.busway" = "Carretera dedicada a l’autobús";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.busway.bridge" = "Pont";
@@ -431,10 +431,10 @@
 "type.highway.motorway" = "Autopista";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.motorway.bridge" = "Pont de l'autopista";
+"type.highway.motorway.bridge" = "Pont de l’autopista";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.motorway.tunnel" = "Túnel de l'autopista";
+"type.highway.motorway.tunnel" = "Túnel de l’autopista";
 "type.highway.motorway_junction" = "Sortida de la carretera";
 "type.highway.motorway_link" = "Accés d’autopista";
 
@@ -520,8 +520,8 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Pont";
-"type.highway.service.driveway" = "Entrada d'entrada";
-"type.highway.service.parking_aisle" = "Passadís d'aparcament";
+"type.highway.service.driveway" = "Pas de vehicles";
+"type.highway.service.parking_aisle" = "Passadís d’aparcament";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Túnel";
@@ -728,7 +728,7 @@
 "type.leisure.sauna" = "Sauna";
 "type.leisure.slipway" = "Varrador";
 "type.leisure.sports_centre" = "Centre esportiu";
-"type.sport.climbing" = "Centre d'escalada";
+"type.sport.climbing" = "Centre d’escalada";
 "type.sport.yoga" = "Estudi de ioga";
 "type.leisure.stadium" = "Estadi";
 "type.leisure.swimming_pool" = "Piscina";
@@ -765,10 +765,10 @@
 
 /* A tower/mast constructed to burn off excess gas. */
 "type.man_made.flare" = "Flama de gas";
-"type.man_made.wastewater_plant" = "Estació de tractament d'aigües residuals";
-"type.man_made.water_tap" = "Aixeta d'aigua";
-"type.man_made.water_tap.drinking_water_no" = "Aixeta d'aigua";
-"type.man_made.water_tower" = "Torre d'aigua";
+"type.man_made.wastewater_plant" = "Estació de tractament d’aigües residuals";
+"type.man_made.water_tap" = "Aixeta d’aigua";
+"type.man_made.water_tap.drinking_water_no" = "Aixeta d’aigua";
+"type.man_made.water_tower" = "Torre d’aigua";
 "type.man_made.water_well" = "Pou d’aigua";
 "type.man_made.water_well.drinking_water_no" = "Pou d’aigua";
 "type.man_made.windmill" = "Molí de vent";
@@ -829,10 +829,10 @@
 "type.natural.wetland.marsh" = "Aiguamoll";
 "type.noexit" = "Atzucac";
 "type.office" = "Oficina";
-"type.office.company" = "Oficina d'empresa";
+"type.office.company" = "Oficina d’empresa";
 "type.office.estate_agent" = "Agent immobiliari";
 "type.office.government" = "Oficina governamental";
-"type.office.insurance" = "Oficina d'assegurances";
+"type.office.insurance" = "Oficina d’assegurances";
 "type.office.lawyer" = "Advocat";
 "type.office.ngo" = "Organització no-governamental";
 "type.office.telecommunication" = "Operador de telecomunicacions";
@@ -889,7 +889,7 @@
 "type.power.plant.coal" = "Central elèctrica de carbó";
 "type.power.plant.gas" = "Central elèctrica de turbina de gas";
 "type.power.plant.hydro" = "Central hidroelèctrica";
-"type.power.plant.solar" = "Central d'energia solar";
+"type.power.plant.solar" = "Central d’energia solar";
 "type.power.plant.wind" = "Central eòlica";
 "type.power.station" = "Central elèctrica";
 "type.power.substation" = "Subestació";
@@ -943,7 +943,7 @@
 "type.railway.rail.branch" = "Ferrocarril secundari";
 
 /* Non-passenger utility tracks: industrial, military, test. */
-"type.railway.rail.utility" = "Ferrocarril d'utilitat";
+"type.railway.rail.utility" = "Ferrocarril d’utilitat";
 "type.railway.rail.spur" = "Espoló de ferrocarril";
 
 /* Short service tracks: siding, yard, crossover. */
@@ -1230,7 +1230,7 @@
 "type.shop.chocolate" = "Xocolateria";
 "type.shop.clothes" = "Botiga de roba";
 "type.shop.coffee" = "Cafeteria";
-"type.shop.computer" = "Botiga d'informàtica";
+"type.shop.computer" = "Botiga d’informàtica";
 "type.shop.confectionery" = "Botiga de llaminadures";
 "type.shop.convenience" = "Botiga a l’abast";
 "type.shop.copyshop" = "Còpies";
@@ -1243,7 +1243,7 @@
 "type.shop.electronics" = "Botiga d’electrònica";
 "type.shop.erotic" = "Botiga eròtica";
 "type.shop.fabric" = "Botiga de teixits";
-"type.shop.farm" = "Botiga d'aliments de granja";
+"type.shop.farm" = "Botiga d’aliments de granja";
 "type.shop.fashion_accessories" = "Complements de moda";
 "type.shop.florist" = "Floristeria";
 "type.shop.funeral_directors" = "Funeraris";
@@ -1255,11 +1255,11 @@
 "type.shop.grocery" = "Botiga de queviures";
 "type.shop.hairdresser" = "Perruqueria";
 "type.shop.hardware" = "Ferreteria";
-"type.shop.health_food" = "Botiga d'aliments saludables";
+"type.shop.health_food" = "Botiga d’aliments saludables";
 "type.shop.hearing_aids" = "Botiga d’aparells auditius";
 "type.shop.herbalist" = "Herbolari";
 "type.shop.hifi" = "Àudio HiFi";
-"type.shop.houseware" = "Botiga d'articles per a la llar";
+"type.shop.houseware" = "Botiga d’articles per a la llar";
 "type.shop.jewelry" = "Joieria";
 "type.shop.kiosk" = "Quiosc";
 "type.shop.kitchen" = "Botiga de cuina";
@@ -1271,15 +1271,15 @@
 "type.shop.motorcycle" = "Botiga de motocicletes";
 "type.shop.motorcycle_repair" = "Reparació de motos";
 "type.shop.music" = "Botiga de discos";
-"type.shop.musical_instrument" = "Botiga d'instruments musicals";
+"type.shop.musical_instrument" = "Botiga d’instruments musicals";
 "type.shop.newsagent" = "Quiosc de diaris";
 "type.shop.optician" = "Òptica";
-"type.shop.outdoor" = "Botiga d'equipament per a l'aire lliure";
+"type.shop.outdoor" = "Botiga d’equipament per a l’aire lliure";
 "type.shop.outpost" = "Punt de recollida";
 "type.shop.pasta" = "Botiga de pasta";
 "type.shop.pastry" = "Forn de pa";
 "type.shop.pawnbroker" = "Empenyorador";
-"type.shop.pet" = "Botiga d'animals";
+"type.shop.pet" = "Botiga d’animals";
 "type.shop.pet_grooming" = "Peluca de mascotes";
 "type.shop.photo" = "Botiga de fotografia";
 "type.shop.rental" = "Botiga de lloguer";
@@ -1301,33 +1301,33 @@
 "type.shop.video_games" = "Botiga de videojocs";
 "type.shop.wine" = "Botiga de vins";
 "type.shop.agrarian" = "Botiga agrícola";
-"type.shop.antiques" = "Botiga d'antiguitats";
+"type.shop.antiques" = "Botiga d’antiguitats";
 "type.shop.appliance" = "Botiga d’electrodomèstics";
 
 /* maybe change to Art Gallery for en-US when supported */
 "type.shop.art" = "Botiga d’art";
-"type.shop.baby_goods" = "Botiga d'articles per a nadons";
+"type.shop.baby_goods" = "Botiga d’articles per a nadons";
 "type.shop.bag" = "Botiga de bosses";
 "type.shop.bed" = "Botiga de llits";
 "type.shop.boutique" = "Boutique";
 "type.shop.charity" = "Botiga benèfica";
 "type.shop.cheese" = "Botiga de formatges";
-"type.shop.craft" = "Botiga de materials d'artesania";
+"type.shop.craft" = "Botiga de materials d’artesania";
 "type.shop.dairy" = "Botiga de productes làctics";
 "type.shop.electrical" = "Electrodomèstics Botiga de subministraments";
 "type.shop.fishing" = "Botiga de pesca";
-"type.shop.interior_decoration" = "Botiga de decoració d'interiors";
+"type.shop.interior_decoration" = "Botiga de decoració d’interiors";
 "type.shop.lottery" = "Bitllets de loteria";
 "type.shop.medical_supply" = "Botiga de subministraments mèdics";
 "type.shop.nutrition_supplements" = "Botiga de suplements nutricionals";
 "type.shop.paint" = "Botiga de pintura";
 "type.shop.perfumery" = "Perfumeria";
 "type.shop.sewing" = "Botiga de subministraments de costura";
-"type.shop.storage_rental" = "Lloguer d'emmagatzematge";
+"type.shop.storage_rental" = "Lloguer d’emmagatzematge";
 "type.shop.tobacco" = "Botiga de tabac";
 "type.shop.trade" = "Subministraments comercials";
 "type.shop.watches" = "Botiga de rellotges";
-"type.shop.wholesale" = "Botiga a l'engròs";
+"type.shop.wholesale" = "Botiga a l’engròs";
 "type.sport" = "Esport";
 "type.sport.american_football" = "Futbol americà";
 "type.sport.archery" = "Tir amb arc";
@@ -1397,7 +1397,7 @@
 "type.tourism.hotel" = "Hotel";
 "type.tourism.information" = "Informació turística";
 "type.tourism.information.board" = "Tauler informatiu";
-"type.tourism.information.guidepost" = "Pal d'orientació";
+"type.tourism.information.guidepost" = "Pal d’orientació";
 "type.tourism.information.map" = "Mapa turístic";
 "type.tourism.information.office" = "Oficina de turisme";
 "type.tourism.information.visitor_centre" = "Centre de visitants";
@@ -1445,19 +1445,19 @@
 "type.aerialway.platter" = "Telescensor de plataforma";
 "type.aerialway.rope_tow" = "Remolc de corda";
 "type.aerialway.t.bar" = "Telescensor en forma de T";
-"type.piste_type.downhill" = "Pista d'esquí alpí";
-"type.piste_type.downhill.area" = "Pista d'esquí alpí";
-"type.piste_type.downhill.advanced" = "Pista d'esquí alpí avançada";
-"type.piste_type.downhill.advanced.area" = "Pista d'esquí alpí avançada";
-"type.piste_type.downhill.easy" = "Pista d'esquí alpí fàcil";
-"type.piste_type.downhill.easy.area" = "Pista d'esquí alpí fàcil";
-"type.piste_type.downhill.expert" = "Pista d'esquí alpí experta";
-"type.piste_type.downhill.expert.area" = "Pista d'esquí alpí experta";
-"type.piste_type.downhill.freeride" = "Pista d'esquí alpí freeride";
-"type.piste_type.downhill.intermediate" = "Intermedi Pista d'esquí alpí";
-"type.piste_type.downhill.intermediate.area" = "Pista d'esquí alpí intermedi";
-"type.piste_type.downhill.novice" = "Pista d'esquí alpí per a principiants";
-"type.piste_type.downhill.novice.area" = "Pista d'esquí alpí per a principiants";
+"type.piste_type.downhill" = "Pista d’esquí alpí";
+"type.piste_type.downhill.area" = "Pista d’esquí alpí";
+"type.piste_type.downhill.advanced" = "Pista d’esquí alpí avançada";
+"type.piste_type.downhill.advanced.area" = "Pista d’esquí alpí avançada";
+"type.piste_type.downhill.easy" = "Pista d’esquí alpí fàcil";
+"type.piste_type.downhill.easy.area" = "Pista d’esquí alpí fàcil";
+"type.piste_type.downhill.expert" = "Pista d’esquí alpí experta";
+"type.piste_type.downhill.expert.area" = "Pista d’esquí alpí experta";
+"type.piste_type.downhill.freeride" = "Pista d’esquí alpí freeride";
+"type.piste_type.downhill.intermediate" = "Intermedi Pista d’esquí alpí";
+"type.piste_type.downhill.intermediate.area" = "Pista d’esquí alpí intermedi";
+"type.piste_type.downhill.novice" = "Pista d’esquí alpí per a principiants";
+"type.piste_type.downhill.novice.area" = "Pista d’esquí alpí per a principiants";
 "type.piste_type.nordic" = "Pista d’esquí nòrdic";
 "type.piste_type.sled" = "Pista de trineu";
 "type.piste_type.sled.area" = "Pista de trineu";
@@ -1477,7 +1477,7 @@
 "type.amenity.social_facility" = "Servei social";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance */
-"type.emergency.emergency_ward_entrance" = "Entrada d'urgències";
+"type.emergency.emergency_ward_entrance" = "Entrada d’urgències";
 
 /* https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo */
 "type.amenity.dojo" = "Dojo";

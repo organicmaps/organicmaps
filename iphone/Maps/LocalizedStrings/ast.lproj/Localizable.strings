@@ -178,3 +178,13 @@
 "car_used_on_the_phone_screen" = "Agora tas utilizando Organic Maps na pantalla del teléfonu";
 "car_used_on_the_car_screen" = "Agora tas utilizando Organic Maps na pantalla del coche";
 "pref_tts_test_voice_title" = "Probar indicaciones de voz (TTS, Text-To-Speech)";
+"translated_om_site_url" = "https://organicmaps.app/ast";
+"transit_not_found" = "La navegación per metro nesta rexón tovía nun ta disponible";
+"enable_icloud_synchronization_title" = "Activar sincronización col iCloud";
+"elevation_profile_diff_level_easy" = "Fácil";
+"elevation_profile_diff_level_moderate" = "Moderáu";
+"elevation_profile_diff_level_hard" = "Difícil";
+"downloader_updating_ios" = "Anovando";
+"elevation_profile_min_elevation" = "Elevación mín.";
+"elevation_profile_max_elevation" = "Elevación máx.";
+"core_exit" = "Salida";
