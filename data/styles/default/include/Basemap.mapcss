@@ -430,6 +430,11 @@ area|z16-[railway=platform],
 area|z14-[amenity=place_of_worship],
 area|z15-[tourism=camp_site],
 area|z15-[leisure=resort],
+area|z15-[landuse=retail],
+area|z16-[amenity=marketplace],
+area|z16-[leisure=water_park],
+area|z15-[highway=rest_area],
+area|z14-[highway=services],
 {fill-opacity: 1; fill-color: @leisure;}
 
 /* 7.6 Airports */
