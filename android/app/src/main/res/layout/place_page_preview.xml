@@ -5,8 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:orientation="vertical"
-  android:paddingBottom="@dimen/margin_quarter">
+  android:orientation="vertical">
   <include
     android:id="@+id/pull_icon_container"
     layout="@layout/bottom_sheet_handle" />
@@ -182,5 +181,54 @@
         </LinearLayout>
       </LinearLayout>
     </LinearLayout>
+  </LinearLayout>
+  <LinearLayout
+    android:id="@+id/category_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <include layout="@layout/place_page_shadow_gap" />
+    <include layout="@layout/divider_horizontal" />
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_block_base"
+      android:background="?ppBackground">
+      <ImageView
+        android:id="@+id/item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:background="?clickableBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="5dp" />
+      <TextView
+        android:id="@+id/tv__category"
+        style="@style/PlacePageMetadataText.Button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@id/edit_Bookmark"
+        android:layout_toEndOf="@id/item_icon"
+        android:background="?clickableBackground"
+        android:paddingStart="@dimen/margin_quarter"
+        android:paddingEnd="@dimen/margin_quarter"
+        android:textAllCaps="false"
+        tools:text="@string/categories" />
+      <ImageView
+        android:id="@+id/edit_Bookmark"
+        style="@style/MwmWidget.Editor.MetadataIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="?clickableBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_edit" />
+    </RelativeLayout>
   </LinearLayout>
 </LinearLayout>
