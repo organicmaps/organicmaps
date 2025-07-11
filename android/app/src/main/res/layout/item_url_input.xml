@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+    android:orientation="vertical"
+  android:layout_margin="@dimen/margin_half">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/margin_half"
+        app:tint="?iconTint"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_website" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_url_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/margin_half"
+        android:windowBackground="@android:color/transparent"
+        android:layout_weight="1"
+        android:hint="https://example.com"
+        android:inputType="textUri"
+        tools:ignore="HardcodedText" />
+</LinearLayout>
+  <TextView
+      android:id="@+id/tv_url_input_error"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingHorizontal="@dimen/margin_base_plus"
+      android:visibility="gone"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textColor="@color/base_red"
+      android:maxLines="5"
+      android:ellipsize="end"
+      tools:text="Unrecognized server response. Make sure the url points
+       to a valid Nextcloud instance. Some very long random response."
+      tools:visibility="visible"
+    />
+  <ProgressBar
+      android:id="@+id/pb_url_input"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_half"
+      android:visibility="gone"
+      style="?android:attr/progressBarStyleHorizontal"
+      android:indeterminateOnly="true"
+    />
+</LinearLayout>
