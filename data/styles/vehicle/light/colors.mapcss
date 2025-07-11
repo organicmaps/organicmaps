@@ -87,6 +87,8 @@
 @green5: #C6D9AB;
 @green6: #888C38;
 
+@leisure: #FAEFE1;
+
 /* BUILDINGS */
 @housenumber: #65655E;
 @building_label: #61615A;

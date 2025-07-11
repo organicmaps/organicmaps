@@ -50,6 +50,12 @@ landuse-cemetery                                    # area z14- (also has icon z
 landuse-cemetery-christian                          # area z14- (also has icon z15-, caption(optional) z15-)
 === 180
 
+amenity-marketplace
+highway-rest_area
+highway-services
+landuse-retail
+leisure-water_park
+
 highway-pedestrian-area                             # area z14- (also has line z13-, pathtext z14-)
 leisure-resort                                      # area z15- (also has icon z16-, caption(optional) z16-)
 tourism-camp_site                                   # area z15- (also has icon z16-, caption(optional) z16-)

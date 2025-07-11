@@ -339,7 +339,9 @@ area|z16-[landuse=cemetery]
 
 /* 7.5 Pedestrian areas */
 
-
+area|z14-[highway=rest_area],
+area|z12-[highway=services],
+{fill-opacity: 1; fill-color: @leisure;}
 
 /* 7.6 Airports */
 

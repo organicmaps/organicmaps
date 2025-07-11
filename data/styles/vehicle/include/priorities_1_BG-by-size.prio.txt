@@ -42,6 +42,9 @@ landuse-cemetery-christian                          # area z14-
 aeroway-terminal                                    # area z14- (also has caption z15-)
 === 110
 
+highway-rest_area
+highway-services
+
 leisure-swimming_pool                               # area z13-
 leisure-swimming_pool-private                       # area z13-
 === 100
