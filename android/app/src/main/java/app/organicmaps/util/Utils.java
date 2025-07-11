@@ -233,10 +233,21 @@ public class Utils
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     intent.addCategory(Intent.CATEGORY_BROWSABLE);
 
-    if (intent.resolveActivity(context.getPackageManager()) != null)
+    try
+    {
       context.startActivity(intent);
-    else
-      Toast.makeText(context, failMessage, Toast.LENGTH_SHORT).show();
+    }
+    catch (ActivityNotFoundException e)
+    {
+      Toast.makeText(context, context.getString(failMessage), Toast.LENGTH_LONG).show();
+      Logger.e(TAG, "ActivityNotFoundException", e);
+    }
+    catch (AndroidRuntimeException e)
+    {
+      Logger.e(TAG, "AndroidRuntimeException", e);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      context.startActivity(intent);
+    }
   }
 
   private static boolean isHttpOrHttpsScheme(@NonNull String url)
