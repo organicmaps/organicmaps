@@ -781,9 +781,7 @@ UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  /// @todo Temporary fix until the construction will be finished.
-  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
-  //integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
+  integration::TestTurnCount(route, 6 /* expectedTurnCount */);
 }
 
 // Test on the route from TTK (primary) to a link.
