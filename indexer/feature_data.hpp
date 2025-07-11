@@ -176,7 +176,7 @@ struct FeatureParamsBase
     using namespace feature;
 
     if (header & HEADER_MASK_HAS_NAME)
-      name.Write(sink);
+      name.WriteNonEmpty(sink);
 
     if (header & HEADER_MASK_HAS_LAYER)
       WriteToSink(sink, layer);
@@ -190,7 +190,7 @@ struct FeatureParamsBase
         WriteToSink(sink, rank);
         break;
       case HeaderGeomType::Line:
-        utils::WriteString(sink, ref);
+        rw::WriteNonEmpty(sink, ref);
         break;
       case HeaderGeomType::Area:
       case HeaderGeomType::PointEx:
@@ -206,7 +206,7 @@ struct FeatureParamsBase
     using namespace feature;
 
     if (header & HEADER_MASK_HAS_NAME)
-      name.Read(src);
+      name.ReadNonEmpty(src);
 
     if (header & HEADER_MASK_HAS_LAYER)
       layer = ReadPrimitiveFromSource<int8_t>(src);
@@ -220,7 +220,7 @@ struct FeatureParamsBase
         rank = ReadPrimitiveFromSource<uint8_t>(src);
         break;
       case HeaderGeomType::Line:
-        utils::ReadString(src, ref);
+        rw::ReadNonEmpty(src, ref);
         break;
       case HeaderGeomType::Area:
       case HeaderGeomType::PointEx:

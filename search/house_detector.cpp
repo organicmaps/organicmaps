@@ -848,7 +848,7 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
 {
   // LOG(LDEBUG, ("IDs = ", ids));
 
-  ASSERT(base::IsSortedAndUnique(ids.begin(), ids.end()), ());
+  ASSERT(base::IsSortedAndUnique(ids), ());
 
   // Check if the cache is obsolete and need to be cleared.
   if (!m_id2st.empty())

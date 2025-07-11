@@ -18,6 +18,7 @@
 #include "base/thread_pool_computational.hpp"
 
 #include <algorithm>
+#include <iostream>
 #include <future>
 #include <tuple>
 

@@ -4,6 +4,7 @@
 
 #define DATA_FILE_EXTENSION ".mwm"
 #define DATA_FILE_EXTENSION_TMP ".mwm.tmp"
+#define RELATIONS_FILE_EXTENSION_TMP ".rels.tmp"
 #define DIFF_FILE_EXTENSION ".mwmdiff"
 #define DIFF_APPLYING_FILE_EXTENSION ".diff.applying"
 #define FONT_FILE_EXTENSION ".ttf"
@@ -22,8 +23,11 @@
 #define OFFSET_EXT ".offs"
 #define ID2REL_EXT ".id2rel"
 
+auto constexpr TMP_OFFSETS_EXT = OFFSET_EXT EXTENSION_TMP;
+
 #define CENTERS_FILE_TAG "centers"
 #define FEATURES_FILE_TAG "features"
+#define RELATIONS_FILE_TAG "relations"
 #define GEOMETRY_FILE_TAG "geom"
 #define TRIANGLE_FILE_TAG "trg"
 #define INDEX_FILE_TAG "idx"
@@ -36,7 +40,7 @@
 #define POSTCODE_POINTS_FILE_TAG "postcode_points"
 #define POSTCODES_FILE_TAG "postcodes"
 #define CITIES_BOUNDARIES_FILE_TAG "cities_boundaries"
-#define FEATURE_TO_OSM_FILE_TAG "feature_to_osm"
+#define FEATURE_TO_OSM_FILE_TAG "feature_to_osm"  // not used in prod
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
 #define METADATA_FILE_TAG "meta"
@@ -46,6 +50,7 @@
 #define ROUTING_FILE_TAG "routing"
 #define CROSS_MWM_FILE_TAG "cross_mwm"
 #define FEATURE_OFFSETS_FILE_TAG "offs"
+#define RELATION_OFFSETS_FILE_TAG "rel_offs"
 #define SEARCH_RANKS_FILE_TAG "ranks"
 #define POPULARITY_RANKS_FILE_TAG "popularity"
 #define REGION_INFO_FILE_TAG "rgninfo"

@@ -31,8 +31,6 @@ set(SRC
   cuisines.hpp
   custom_keyvalue.cpp
   custom_keyvalue.hpp
-  data_factory.cpp
-  data_factory.hpp
   data_header.cpp
   data_header.hpp
   data_source.cpp
@@ -105,10 +103,11 @@ set(SRC
   metadata_serdes.hpp
   mwm_set.cpp
   mwm_set.hpp
-  postcodes_matcher.cpp  # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
-  postcodes_matcher.hpp  # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
+  postcodes_matcher.cpp  # it's in indexer EditableMapObject depends on postcodes_matcher
+  postcodes_matcher.hpp  # it's in indexer EditableMapObject depends on postcodes_matcher
   rank_table.cpp
   rank_table.hpp
+  route_relation.hpp
   road_shields_parser.cpp
   road_shields_parser.hpp
   scale_index.hpp
