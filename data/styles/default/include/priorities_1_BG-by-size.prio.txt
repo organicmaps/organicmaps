@@ -135,7 +135,7 @@ landuse-forest-deciduous                            # area z10- (also has icon z
 landuse-forest-mixed                                # area z10- (also has icon z13-, caption(optional) z14-)
 === 60
 
-landuse-churchyard                                  # area z15-
+landuse-religious                                   # area z15-
 landuse-construction                                # area z14- (also has caption z15-)
 landuse-industrial                                  # area z14- (also has caption z15-)
 landuse-industrial-mine                             # area z14- (also has icon z15-, caption(optional) z15-)

@@ -672,7 +672,7 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Hilerria";
-"type.landuse.churchyard" = "Hilerria";
+"type.landuse.religious" = "Hilerria";
 "type.landuse.commercial" = "Komertzial-gunea";
 "type.landuse.construction" = "Eraikitze-gunea";
 "type.landuse.education" = "Hezkuntza-azpiegitura";

@@ -1116,7 +1116,7 @@
     <string name="type.landuse.allotments">Horts</string>
     <string name="type.landuse.basin">Conca</string>
     <string name="type.landuse.brownfield">Camp industrial</string>
-    <string name="type.landuse.churchyard">Cementiri</string>
+    <string name="type.landuse.religious">Cementiri</string>
     <string name="type.landuse.commercial">Zona comercial</string>
     <string name="type.landuse.construction">Zona de construcció</string>
     <string name="type.landuse.education">Instal·lació educativa</string>

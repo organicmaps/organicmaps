@@ -671,7 +671,7 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Kristlik surnuaed";
-"type.landuse.churchyard" = "Kirikuaed";
+"type.landuse.religious" = "Kirikuaed";
 "type.landuse.commercial" = "Ärimaa";
 "type.landuse.construction" = "Ehitusala";
 "type.landuse.education" = "Haridusasutuse maaala";

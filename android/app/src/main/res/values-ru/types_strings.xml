@@ -594,7 +594,7 @@
     <string name="type.landuse.cemetery">Кладбище</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Христианское кладбище</string>
-    <string name="type.landuse.churchyard">Церковный двор</string>
+    <string name="type.landuse.religious">Церковный двор</string>
     <string name="type.landuse.commercial">Коммерческая застройка</string>
     <string name="type.landuse.construction">Стройка</string>
     <string name="type.landuse.education">Образовательные учреждения</string>

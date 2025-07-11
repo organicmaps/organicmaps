@@ -584,7 +584,7 @@
     <string name="type.landuse.cemetery">Cintorín</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Kresťanský cintorín</string>
-    <string name="type.landuse.churchyard">Cintorín</string>
+    <string name="type.landuse.religious">Cintorín</string>
     <string name="type.landuse.commercial">Komerčná oblasť</string>
     <string name="type.landuse.construction">Stavenisko</string>
     <string name="type.landuse.education">Vzdelávacia inštitúcia</string>

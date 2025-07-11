@@ -520,7 +520,7 @@
     <string name="type.landuse.cemetery">Cimitir</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Cimitir</string>
-    <string name="type.landuse.churchyard">Curtea Bisericii</string>
+    <string name="type.landuse.religious">Curtea Bisericii</string>
     <string name="type.landuse.farmland">Teren arabil</string>
     <string name="type.landuse.flowerbed">Pat de flori</string>
     <string name="type.landuse.forest">Pădure</string>

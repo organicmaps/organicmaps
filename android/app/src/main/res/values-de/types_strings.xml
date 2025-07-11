@@ -577,7 +577,7 @@
     <string name="type.landuse.cemetery">Friedhof</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Friedhof</string>
-    <string name="type.landuse.churchyard">Kirchhof</string>
+    <string name="type.landuse.religious">Kirchhof</string>
     <string name="type.landuse.commercial">Gewerbegebiet</string>
     <string name="type.landuse.construction">Baustelle</string>
     <string name="type.landuse.education">Bildungseinrichtung</string>

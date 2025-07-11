@@ -442,7 +442,7 @@
     <string name="type.landuse.cemetery">قبرستان</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">قبرستان</string>
-    <string name="type.landuse.churchyard">حیاط کلیسا</string>
+    <string name="type.landuse.religious">حیاط کلیسا</string>
     <string name="type.landuse.farmland">زمین کشاورزی</string>
     <string name="type.landuse.flowerbed">باغچه</string>
     <string name="type.landuse.forest">جنگل</string>

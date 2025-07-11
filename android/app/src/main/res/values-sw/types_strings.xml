@@ -278,7 +278,7 @@
     <string name="type.historic.wayside_shrine">Kaburi la njia</string>
     <string name="type.historic.wreck">Ajali ya meli</string>
     <string name="type.landuse.basin">Bonde la Maji</string>
-    <string name="type.landuse.churchyard">Sehemu ya kanisa</string>
+    <string name="type.landuse.religious">Sehemu ya kanisa</string>
     <string name="type.landuse.farmland">Shamba</string>
     <string name="type.landuse.flowerbed">Kitanda cha maua</string>
     <string name="type.landuse.grass">Bustani</string>

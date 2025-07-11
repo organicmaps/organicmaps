@@ -153,7 +153,7 @@
     <!-- SECTION: Types: Historic -->
     <string name="type.junction.circular">Glorieta</string>
     <string name="type.junction.roundabout">Glorieta</string>
-    <string name="type.landuse.churchyard">Camposanto</string>
+    <string name="type.landuse.religious">Camposanto</string>
     <string name="type.landuse.farmland">Terreno agrícola</string>
     <string name="type.landuse.grass">Césped</string>
     <string name="type.landuse.landfill">Vertedero</string>

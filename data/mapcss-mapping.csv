@@ -1448,7 +1448,7 @@ amenity|parking_space;1326;
 amenity|parking_space|underground;[amenity=parking_space][parking=underground];;name;int_name;1327;
 amenity|parking_space|private;[amenity=parking_space][access=private];;name;int_name;1328;
 amenity|parking_space|permissive;[amenity=parking_space][access=permissive];;name;int_name;1329;
-landuse|churchyard;1330;
+landuse|religious;1330;
 isoline|step_1000;1331;
 isoline|step_500;1332;
 isoline|step_100;1333;

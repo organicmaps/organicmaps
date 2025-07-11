@@ -592,7 +592,7 @@
     <string name="type.landuse.cemetery">مقبرة</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">مقبرة مسيحية</string>
-    <string name="type.landuse.churchyard">فناء الكنيسة</string>
+    <string name="type.landuse.religious">فناء الكنيسة</string>
     <string name="type.landuse.commercial">منطقة تجارية</string>
     <string name="type.landuse.construction">منطقة بناء</string>
     <string name="type.landuse.education">مؤسسة تعليمية</string>

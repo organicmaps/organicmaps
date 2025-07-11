@@ -672,7 +672,7 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "基督教墓地";
-"type.landuse.churchyard" = "教堂庭院";
+"type.landuse.religious" = "教堂庭院";
 "type.landuse.commercial" = "商业区";
 "type.landuse.construction" = "建设区域";
 "type.landuse.education" = "教育设施";

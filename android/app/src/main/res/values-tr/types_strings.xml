@@ -586,7 +586,7 @@
     <string name="type.landuse.cemetery">Mezarlık</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Hristiyan Mezarlığı</string>
-    <string name="type.landuse.churchyard">Kilise Bölgesi</string>
+    <string name="type.landuse.religious">Kilise Bölgesi</string>
     <string name="type.landuse.commercial">Ticari Alan</string>
     <string name="type.landuse.construction">Yapı</string>
     <string name="type.landuse.farmland">Tarım Arazileri</string>

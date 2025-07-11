@@ -521,7 +521,7 @@
     <string name="type.landuse.cemetery">Pemakaman</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Pemakaman</string>
-    <string name="type.landuse.churchyard">Halaman gereja</string>
+    <string name="type.landuse.religious">Halaman gereja</string>
     <string name="type.landuse.farmland">Lahan pertanian</string>
     <string name="type.landuse.flowerbed">Hamparan bunga</string>
     <string name="type.landuse.forest">Hutan</string>

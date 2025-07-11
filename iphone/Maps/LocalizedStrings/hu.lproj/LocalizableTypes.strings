@@ -652,7 +652,7 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Keresztény temető";
-"type.landuse.churchyard" = "Templomkert";
+"type.landuse.religious" = "Templomkert";
 "type.landuse.commercial" = "Üzleti terület";
 "type.landuse.construction" = "Építési terület";
 "type.landuse.education" = "Oktatási létesítmény";
