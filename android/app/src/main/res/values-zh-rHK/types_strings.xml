@@ -592,7 +592,7 @@
     <string name="type.landuse.cemetery">墓地</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">基督教墓地</string>
-    <string name="type.landuse.churchyard">教堂庭院</string>
+    <string name="type.landuse.religious">教堂庭院</string>
     <string name="type.landuse.commercial">商業區</string>
     <string name="type.landuse.construction">建設區域</string>
     <string name="type.landuse.education">教育設施</string>

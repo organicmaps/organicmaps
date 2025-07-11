@@ -751,7 +751,7 @@
     <string name="type.area_highway.unclassified">Малък път</string>
     <string name="type.junction.circular">Кръгово</string>
     <string name="type.junction.roundabout">Кръгово</string>
-    <string name="type.landuse.churchyard">Църковен двор</string>
+    <string name="type.landuse.religious">Църковен двор</string>
     <string name="type.man_made.silo">Складова кула</string>
     <string name="type.area_highway.primary">Главен път</string>
     <string name="type.highway.service">Обслужващ път</string>

@@ -523,7 +523,7 @@
     <string name="type.landuse.cemetery">Begravningsplats</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Begravningsplats</string>
-    <string name="type.landuse.churchyard">Kyrkogård</string>
+    <string name="type.landuse.religious">Kyrkogård</string>
     <string name="type.landuse.farmland">Jordbruksmark</string>
     <string name="type.landuse.flowerbed">Rabatt</string>
     <string name="type.landuse.forest">Skog</string>

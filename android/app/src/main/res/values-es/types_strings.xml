@@ -594,7 +594,7 @@
     <string name="type.landuse.cemetery">Cementerio</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Cementerio cristiano</string>
-    <string name="type.landuse.churchyard">Camposanto</string>
+    <string name="type.landuse.religious">Camposanto</string>
     <string name="type.landuse.commercial">Zona comercial</string>
     <string name="type.landuse.construction">Construcción</string>
     <string name="type.landuse.education">Instalaciones educativas</string>

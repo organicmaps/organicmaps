@@ -525,7 +525,7 @@
     <string name="type.landuse.cemetery">Hřbitov</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Hřbitov</string>
-    <string name="type.landuse.churchyard">Nádvoří kostela</string>
+    <string name="type.landuse.religious">Nádvoří kostela</string>
     <string name="type.landuse.farmland">Orná půda</string>
     <string name="type.landuse.flowerbed">Záhon</string>
     <string name="type.landuse.forest">Les</string>

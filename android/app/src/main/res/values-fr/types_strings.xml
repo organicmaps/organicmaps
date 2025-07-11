@@ -576,7 +576,7 @@
     <string name="type.landuse.cemetery">Cimetière</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Cimetière chrétien</string>
-    <string name="type.landuse.churchyard">Cour d\'église</string>
+    <string name="type.landuse.religious">Cour d\'église</string>
     <string name="type.landuse.commercial">Zone commerciale</string>
     <string name="type.landuse.construction">Chantier de construction</string>
     <string name="type.landuse.education">Établissements éducatifs</string>

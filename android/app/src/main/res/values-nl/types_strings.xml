@@ -588,7 +588,7 @@
     <string name="type.landuse.cemetery">Begraafplaats</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Christelijke begraafplaats</string>
-    <string name="type.landuse.churchyard">Kerkhof</string>
+    <string name="type.landuse.religious">Kerkhof</string>
     <string name="type.landuse.commercial">Commercieel gebied</string>
     <string name="type.landuse.construction">Bouwplaats</string>
     <string name="type.landuse.education">Educatieve voorzieningen</string>

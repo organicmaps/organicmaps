@@ -1121,7 +1121,7 @@
     <string name="type.historic.memorial.cross">Krossminnismerki</string>
     <string name="type.historic.memorial.plaque">Minningarskjöldur</string>
     <string name="type.landuse.cemetery.christian">Kristinn grafreitur</string>
-    <string name="type.landuse.churchyard">Kirkjugarður</string>
+    <string name="type.landuse.religious">Kirkjugarður</string>
     <string name="type.landuse.education">Menntastofnun</string>
     <string name="type.landuse.forest.deciduous">Laufskógur</string>
     <string name="type.landuse.forest.mixed">Blandaður skógur</string>

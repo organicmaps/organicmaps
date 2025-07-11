@@ -672,7 +672,7 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "ख्रिश्चन स्मशानभूमी";
-"type.landuse.churchyard" = "Churchyard";
+"type.landuse.religious" = "Churchyard";
 "type.landuse.commercial" = "व्यावसायिक क्षेत्र";
 "type.landuse.construction" = "बांधकाम";
 "type.landuse.education" = "शैक्षणिक सुविधा";

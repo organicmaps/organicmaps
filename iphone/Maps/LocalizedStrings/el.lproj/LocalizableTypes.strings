@@ -672,7 +672,7 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Χριστιανικό νεκροταφείο";
-"type.landuse.churchyard" = "Αυλόγυρος εκκλησίας";
+"type.landuse.religious" = "Αυλόγυρος εκκλησίας";
 "type.landuse.commercial" = "Εμπορική περιοχή";
 "type.landuse.construction" = "Εργοτάξιο";
 "type.landuse.education" = "Εκπαιδευτική υποδομή";

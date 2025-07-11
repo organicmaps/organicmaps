@@ -530,7 +530,7 @@
     <string name="type.landuse.cemetery">Bãi tha ma</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.landuse.cemetery.christian">Bãi tha ma</string>
-    <string name="type.landuse.churchyard">Nhà thờ</string>
+    <string name="type.landuse.religious">Nhà thờ</string>
     <string name="type.landuse.farmland">Đất nông nghiệp</string>
     <string name="type.landuse.flowerbed">Giường hoa</string>
     <string name="type.landuse.forest">Rừng</string>

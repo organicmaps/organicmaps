@@ -2455,7 +2455,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
     {"landuse", "allotments"},
     {"landuse", "basin"},
     {"landuse", "cemetery"},
-    {"landuse", "churchyard"},
+    {"landuse", "religious"},
     {"landuse", "commercial"},
     {"landuse", "construction"},
     {"landuse", "farmland"},
@@ -3114,7 +3114,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_HighwayTypesConversion)
 
     // Segregated path becomes cycleway + footway.
     {{{"highway", "cycleway"}, {"highway", "footway"}}, {{"highway", "path"}, {"segregated", "yes"}}},
-    
+
     // A non-segregated cycleway becomes shared path/footway + bicycle=designated.
     {{{"highway", "footway", "bicycle"}, {"hwtag", "yesbicycle"}}, {{"highway", "cycleway"}, {"segregated", "no"}, {"foot", "designated"}}},
     {{{"highway", "path", "bicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "yesfoot"}, {"psurface", "unpaved_good"}}, {{"highway", "cycleway"}, {"foot", "yes"}, {"surface", "unpaved"}}},
@@ -3140,7 +3140,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_PathGrades)
     {{"highway", "path"}, {{"highway", "path"}, {"sac_scale", "unsupported_value"}, {"trail_visibility", "unsupported_value"}}},
 
     {{"highway", "path", "difficult"}, {{"highway", "path"}, {"sac_scale", "demanding_mountain_hiking"}, {"trail_visibility", "excellent"}}},
-    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"trail_visibility", "bad"}}},    
+    {{"highway", "path", "difficult"}, {{"highway", "path"}, {"trail_visibility", "bad"}}},
 
     {{"highway", "path", "expert"}, {{"highway", "path"}, {"sac_scale", "alpine_hiking"}}},
     {{"highway", "path", "expert"}, {{"highway", "path"}, {"trail_visibility", "horrible"}}},

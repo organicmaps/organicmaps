@@ -619,7 +619,7 @@
 "type.junction.roundabout" = "Rotonda";
 "type.landuse.cemetery" = "Cemiterio";
 "type.landuse.cemetery.christian" = "Cemiterio cristián";
-"type.landuse.churchyard" = "Camposanto";
+"type.landuse.religious" = "Camposanto";
 "type.landuse.commercial" = "Zona comercial";
 "type.landuse.construction" = "Construción";
 "type.landuse.education" = "Instalacións educativas";

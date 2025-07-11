@@ -735,7 +735,7 @@
     <string name="type.hwtag.nobicycle">hwtag-nobicycle</string>
     <string name="type.hwtag.nocar">hwtag-nocar</string>
     <string name="type.hwtag.nofoot">hwtag-nofoot</string>
-    <string name="type.landuse.churchyard">Цвінтар</string>
+    <string name="type.landuse.religious">Цвінтар</string>
     <string name="type.landuse.commercial">Камерцыйная зона</string>
     <string name="type.landuse.forest.coniferous">Хвойны лес</string>
     <string name="type.landuse.industrial">Прамысловая зона</string>

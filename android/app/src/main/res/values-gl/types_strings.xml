@@ -542,7 +542,7 @@
     <string name="type.landuse.brownfield">Solar abandonado</string>
     <string name="type.landuse.cemetery">Cemiterio</string>
     <string name="type.landuse.cemetery.christian">Cemiterio cristián</string>
-    <string name="type.landuse.churchyard">Camposanto</string>
+    <string name="type.landuse.religious">Camposanto</string>
     <string name="type.landuse.commercial">Zona comercial</string>
     <string name="type.landuse.construction">Construción</string>
     <string name="type.landuse.education">Instalacións educativas</string>

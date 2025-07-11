@@ -672,7 +672,7 @@
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
 "type.landuse.cemetery.christian" = "Хришћанско гробље";
-"type.landuse.churchyard" = "Двориште цркве";
+"type.landuse.religious" = "Двориште цркве";
 "type.landuse.commercial" = "Кмерцијална област";
 "type.landuse.construction" = "Градилиште";
 "type.landuse.education" = "Образовна установа";

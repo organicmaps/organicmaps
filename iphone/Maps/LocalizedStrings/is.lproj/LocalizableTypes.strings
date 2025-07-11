@@ -291,7 +291,7 @@
 "type.historic.locomotive" = "Söguleg gufulest";
 "type.historic.memorial.cross" = "Krossminnismerki";
 "type.historic.memorial.plaque" = "Minningarskjöldur";
-"type.landuse.churchyard" = "Kirkjugarður";
+"type.landuse.religious" = "Kirkjugarður";
 "type.landuse.forest.deciduous" = "Laufskógur";
 "type.landuse.forest.mixed" = "Blandaður skógur";
 "type.man_made.pipeline.overground" = "Leiðsla ofanjarðar";
