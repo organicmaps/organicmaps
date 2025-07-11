@@ -1426,6 +1426,7 @@
 "type.tourism.information.map" = "Tourist Map";
 "type.tourism.information.office" = "Tourist Office";
 "type.tourism.information.visitor_centre" = "Visitor Centre";
+"type.amenity.ranger_station" = "Ranger Station";
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Museum";
 "type.tourism.picnic_site" = "Picnic Site";

@@ -137,15 +137,17 @@ UNIT_TEST(IsAttractionsChecker)
   Classificator const & c = classif();
   auto const & checker = ftypes::AttractionsChecker::Instance();
 
-  auto const isTourismInfo = [ethalon = c.GetTypeByPath({"tourism", "information"})](uint32_t t)
-  {
-    ftype::TruncValue(t, 2);
-    return t == ethalon;
+  base::StringIL arrExceptions[] = {
+    {"tourism", "information"},
+    {"amenity", "ranger_station"},
   };
+  std::vector<uint32_t> exceptions;
+  for (auto e : arrExceptions)
+    exceptions.push_back(c.GetTypeByPath(e));
 
   for (uint32_t const t : search::GetCategoryTypes("sights", "en", GetDefaultCategories()))
   {
-    if (!isTourismInfo(t))
+    if (!base::IsExist(exceptions, ftype::Trunc(t, 2)))
       TEST(checker(t), (c.GetFullObjectName(t)));
   }
 }

@@ -13456,7 +13456,7 @@ vi:Bao vây động vật
 zh-Hans:动物围栏
 zh-Hant:動物圍欄
 
-tourism-information-office|@category_tourism
+tourism-information-office|amenity-ranger_station|@category_tourism
 en:4Tourist Office
 ru:3Туристический офис|туристическая информация
 bg:3Туристически офис|туризъм|информация
@@ -13494,7 +13494,7 @@ sk:3Turistické informačné centrum
 fa:دفتر گردشگری
 mr:पर्यटन कार्यालय
 
-tourism-information-visitor_centre|@category_tourism
+tourism-information-visitor_centre|amenity-ranger_station|@category_tourism
 en:3Visitor Centre
 ar:مركز الزوار
 be:Цэнтр для наведвальнікаў

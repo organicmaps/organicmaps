@@ -462,6 +462,7 @@ node|z15-[historic=ship],
 node|z16-[tourism=information],
 node|z15-[tourism=information][information=office],
 node|z15-[tourism=information][information=visitor_centre],
+node|z15-[amenity=ranger_station],
 node|z16-[historic=aircraft],
 node|z16-[historic=tank],
 node|z16-[historic=wreck],
@@ -664,6 +665,9 @@ node|z16-[tourism=information][information=guidepost]
 {icon-image: guidepost.svg;text-offset: 1;icon-min-distance: 10;}
 node|z16-[tourism=information][information=map]
 {icon-image: map.svg;text-offset: 1;icon-min-distance: 10;}
+
+node|z15-[amenity=ranger_station],
+{icon-image: ranger-station-m.svg; icon-min-distance: 10;}
 
 node|z16-[historic=boundary_stone],
 area|z16-[historic=boundary_stone],
