@@ -1169,6 +1169,7 @@ shop-watches                                        # icon z18- (also has captio
 shop-wholesale                                      # icon z18- (also has caption(optional) z18-)
 === 500
 
+post_office-post_partner
 amenity-shower                                      # icon z17- (also has caption(optional) z17-)
 amenity-toilets                                     # icon z15- (also has caption(optional) z18-)
 man_made-embankment                                 # pathtext z18- (also has line z16-)

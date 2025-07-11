@@ -129,6 +129,7 @@
     <string name="type.amenity.police">Police</string>
     <string name="type.amenity.post_box">Mailbox</string>
     <string name="type.amenity.post_office">Post Office</string>
+    <string name="type.post_office.post_partner">Post Partner</string>
     <string name="type.amenity.prison">Prison</string>
     <string name="type.amenity.pub">Pub</string>
     <string name="type.amenity.public_bookcase">Book Exchange</string>
