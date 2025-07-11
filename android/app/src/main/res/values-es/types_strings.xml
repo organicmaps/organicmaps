@@ -475,7 +475,7 @@
     <string name="type.highway.service.area">Vía de servicio</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.service.bridge">Puente de carretera de servicio</string>
-    <string name="type.highway.service.driveway">Vía de servicio</string>
+    <string name="type.highway.service.driveway">Paso vehicular</string>
     <string name="type.highway.service.parking_aisle">Pasillo de aparcamiento</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Túnel de vía de servicio</string>

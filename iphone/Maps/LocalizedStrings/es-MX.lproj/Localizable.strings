@@ -871,8 +871,8 @@
 "search_in_the_list" = "Buscar en la lista";
 "religious_places" = "Sitios religiosos";
 "transit_not_found" = "Navegación por metro aún no disponible en esta región";
-"dialog_pedestrian_route_is_long_header" = "Ruta de metro no encontrada";
-"dialog_pedestrian_route_is_long_message" = "Elija el punto de inicio o fin de ruta más cercano al metro";
+"dialog_pedestrian_route_is_long_header" = "No se encontró ninguna ruta de metro";
+"dialog_pedestrian_route_is_long_message" = "Elija un punto de inicio o fin de ruta más cercano a una estación de metro";
 "button_layer_isolines" = "Alturas";
 "isolines_activation_error_dialog" = "Para usar la altitud de relieve, actualice o descargue el mapa del área deseada";
 "isolines_location_error_dialog" = "La altitud de relieve no está aún disponible en esta región";
@@ -989,10 +989,10 @@
 "bugreport_alert_message" = "¿Quiere enviar un informe de error a los desarrolladores?\nDependemos de nuestros usuarios, ya que Organic Maps no recoge ninguna información sobre errores de forma automática. ¡Gracias de antemano por apoyar a Organic Maps!";
 
 /* Title for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_title" = "Activar la sincronización con iCloud";
+"enable_icloud_synchronization_title" = "Activar sincronización con iCloud";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "La sincronización de iCloud es una función experimental en desarrollo. Asegúrese de haber realizado un respaldo de todos sus marcadores y pistas.";
+"enable_icloud_synchronization_message" = "La sincronización de iCloud es una función experimental en desarrollo. Asegúrese de haber realizado un respaldo de todos sus marcadores y trayectos.";
 
 /* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud está desactivado";

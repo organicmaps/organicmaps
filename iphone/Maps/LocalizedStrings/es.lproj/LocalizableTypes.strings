@@ -520,7 +520,7 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Puente de carretera de servicio";
-"type.highway.service.driveway" = "Vía de servicio";
+"type.highway.service.driveway" = "Paso vehicular";
 "type.highway.service.parking_aisle" = "Pasillo de aparcamiento";
 
 /* These translations are used for all type.highway.*.tunnel. */

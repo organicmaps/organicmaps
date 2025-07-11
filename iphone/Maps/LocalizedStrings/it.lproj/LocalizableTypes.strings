@@ -739,7 +739,7 @@
 "type.man_made.breakwater" = "Frangiflutti";
 "type.man_made.cairn" = "Tumulo";
 "type.man_made.chimney" = "Ciminiera industriale";
-"type.man_made.cutline" = "Cutline";
+"type.man_made.cutline" = "Linea di taglio";
 "type.man_made.survey_point" = "Punto geodetico";
 "type.man_made.flagpole" = "Alza bandiera";
 "type.man_made.lighthouse" = "Faro";
@@ -1484,3 +1484,12 @@
 "type.railway.preserved" = "Ferrovia storica";
 "type.barrier.guard_rail" = "Barriera stradale";
 "type.highway.ladder" = "Scala";
+"type.amenity.love_hotel" = "Love Hotel";
+"type.highway.world_towns_level" = "highway-world_towns_level";
+"type.landuse.plant_nursery" = "Vivaio";
+"type.leisure.firepit" = "Focolare";
+"type.railway.station.subway.qingdao" = "Stazione della metropolitana";
+"type.amenity.studio" = "Studio";
+"type.highway.world_level" = "highway-world_level";
+"type.sport.diving" = "Tuffi";
+"type.man_made.crane" = "Gru";

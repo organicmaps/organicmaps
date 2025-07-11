@@ -573,7 +573,7 @@
     <string name="type.cuisine.brazilian">Brasilískt</string>
     <string name="type.cuisine.breakfast">Morgunverður</string>
     <string name="type.cuisine.burger">Hamborgarar</string>
-    <string name="type.cuisine.buschenschank">Buschenschank</string>
+    <string name="type.cuisine.buschenschank">Buschenschank (austurrískt)</string>
     <string name="type.cuisine.cake">Kökur</string>
     <string name="type.cuisine.caribbean">Karíbahafs</string>
     <string name="type.cuisine.chicken">Kjúklingar</string>
@@ -593,7 +593,7 @@
     <string name="type.cuisine.german">Þýskt</string>
     <string name="type.cuisine.greek">Grískt</string>
     <string name="type.cuisine.grill">Grillstaður</string>
-    <string name="type.cuisine.heuriger">Heuriger</string>
+    <string name="type.cuisine.heuriger">Heuriger (Austurrísk vínkrá)</string>
     <string name="type.cuisine.hotdog">Pylsur</string>
     <string name="type.cuisine.hungarian">Ungverskt</string>
     <string name="type.cuisine.ice_cream">Ís</string>
@@ -1308,4 +1308,5 @@
     <string name="type.highway.ladder">Stigi</string>
     <string name="type.sport.diving">Köfun</string>
     <string name="type.man_made.crane">Krani</string>
+    <string name="type.railway.station.subway.qingdao">Neðanjarðarlestarstöð</string>
 </resources>

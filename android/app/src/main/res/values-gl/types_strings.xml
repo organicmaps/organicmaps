@@ -1308,4 +1308,5 @@
     <string name="type.leisure.firepit">Fogar (para cacharela)</string>
     <string name="type.sport.diving">Mergullo</string>
     <string name="type.man_made.crane">Guindastre</string>
+    <string name="type.railway.station.subway.qingdao">Estación de metro</string>
 </resources>

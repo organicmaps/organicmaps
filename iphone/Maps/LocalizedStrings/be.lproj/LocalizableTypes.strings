@@ -700,7 +700,7 @@
 "type.landuse.residential" = "Жылы раён";
 "type.landuse.retail" = "Гандлёвая зона";
 "type.landuse.salt_pond" = "Саляная сажалка";
-"type.landuse.village_green" = "Парк";
+"type.landuse.village_green" = "Зялёная зона";
 "type.landuse.vineyard" = "Вінаграднік";
 "type.leisure" = "Месца адпачынку";
 "type.leisure.common" = "Грамадская зямля";
@@ -713,24 +713,24 @@
 "type.leisure.golf_course" = "Golf Course";
 "type.leisure.miniature_golf" = "Мінігольф";
 "type.leisure.hackerspace" = "Хакерская прастора";
-"type.leisure.ice_rink" = "Ice Rink";
+"type.leisure.ice_rink" = "Каток";
 "type.leisure.marina" = "Прычал";
 "type.leisure.nature_reserve" = "Nature Reserve";
 "type.leisure.outdoor_seating" = "Месцы на адкрытым паветры";
-"type.leisure.park" = "Park";
-"type.leisure.park.no.access" = "Park";
-"type.leisure.park.permissive" = "Park";
-"type.leisure.park.private" = "Park";
+"type.leisure.park" = "Парк";
+"type.leisure.park.no.access" = "Прыватны парк";
+"type.leisure.park.permissive" = "Парк";
+"type.leisure.park.private" = "Прыватны парк";
 "type.leisure.picnic_table" = "Стол для пікніка";
-"type.leisure.pitch" = "Sport Pitch";
+"type.leisure.pitch" = "Спартыўная пляцоўка";
 "type.leisure.playground" = "Playground";
 "type.leisure.recreation_ground" = "Recreation Ground";
-"type.leisure.sauna" = "Sauna";
+"type.leisure.sauna" = "Саўна";
 "type.leisure.slipway" = "Slipway";
 "type.leisure.sports_centre" = "Sports Center";
 "type.sport.climbing" = "Скаладром";
 "type.sport.yoga" = "Ёга";
-"type.leisure.stadium" = "Stadium";
+"type.leisure.stadium" = "Стадыён";
 "type.leisure.swimming_pool" = "Басейн";
 "type.leisure.swimming_pool.private" = "Басейн";
 "type.leisure.track" = "Track";
@@ -752,7 +752,7 @@
 "type.man_made.silo" = "Сілас";
 "type.man_made.storage_tank" = "Рэзервуар";
 "type.man_made.surveillance" = "Surveillance Camera";
-"type.man_made.tower" = "Tower";
+"type.man_made.tower" = "Вежа";
 
 /* A huge telecommunications tower. Often a local monument or a landmark. */
 "type.man_made.communications_tower" = "Вежа сувязі";
@@ -768,7 +768,7 @@
 "type.man_made.wastewater_plant" = "Wastewater Treatment Plant";
 "type.man_made.water_tap" = "Water Tap";
 "type.man_made.water_tap.drinking_water_no" = "Water Tap";
-"type.man_made.water_tower" = "Water Tower";
+"type.man_made.water_tower" = "Воданапорная вежа";
 "type.man_made.water_well" = "Water Well";
 "type.man_made.water_well.drinking_water_no" = "Water Well";
 "type.man_made.windmill" = "Windmill";
@@ -776,7 +776,7 @@
 "type.mapswithme" = "mapswithme";
 "type.mapswithme.grid" = "mapswithme-grid";
 "type.military" = "Military";
-"type.military.bunker" = "Bunker";
+"type.military.bunker" = "Бункер";
 "type.mountain_pass" = "Перавал";
 "type.natural" = "Прырода";
 
@@ -828,7 +828,7 @@
 "type.natural.wetland.bog" = "Тарфянік";
 "type.natural.wetland.marsh" = "Балота";
 "type.noexit" = "Dead End";
-"type.office" = "Office";
+"type.office" = "Офіс";
 "type.office.company" = "Company Office";
 "type.office.estate_agent" = "Estate Agent";
 "type.office.government" = "Government Office";
@@ -1211,7 +1211,7 @@
 "type.route.shuttle_train" = "route-shuttle_train";
 "type.shop" = "Shop";
 "type.shop.alcohol" = "Liquor Shop";
-"type.shop.bakery" = "Bakery";
+"type.shop.bakery" = "Пякарня";
 "type.shop.bathroom_furnishing" = "Мэбля для ванных пакояў";
 "type.shop.beauty" = "Beauty Shop";
 "type.shop.beverages" = "Напоі";
@@ -1232,7 +1232,7 @@
 "type.shop.coffee" = "Крама кавы";
 "type.shop.computer" = "Computer Store";
 "type.shop.confectionery" = "Candy Shop";
-"type.shop.convenience" = "Convenience Store";
+"type.shop.convenience" = "Крама";
 "type.shop.copyshop" = "Copyshop";
 "type.shop.cosmetics" = "Касметыка";
 "type.shop.curtain" = "Шторы";
@@ -1264,7 +1264,7 @@
 "type.shop.kiosk" = "Kiosk";
 "type.shop.kitchen" = "Крама для кухні";
 "type.shop.laundry" = "Laundry";
-"type.shop.mall" = "Mall";
+"type.shop.mall" = "Гандлёвы цэнтр";
 "type.shop.massage" = "Massage Salon";
 "type.shop.mobile_phone" = "Cell Phone Store";
 "type.shop.money_lender" = "Ліхвяр";
@@ -1289,7 +1289,7 @@
 "type.shop.shoes" = "Shoe Shop";
 "type.shop.sports" = "Sports Shop";
 "type.shop.stationery" = "Stationery Shop";
-"type.shop.supermarket" = "Supermarket";
+"type.shop.supermarket" = "Супермаркет";
 "type.shop.tattoo" = "Tattoo Parlour";
 "type.shop.tea" = "Крама гарбаты";
 "type.shop.ticket" = "Ticket Shop";
