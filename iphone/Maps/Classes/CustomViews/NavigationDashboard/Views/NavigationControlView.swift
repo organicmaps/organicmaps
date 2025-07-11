@@ -268,8 +268,4 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MapO
   override var widgetsAreaAffectDirections: MWMAvailableAreaAffectDirections {
     return alternative(iPhone: .bottom, iPad: [])
   }
-
-  override var trackRecordingButtonAreaAffectDirections: MWMAvailableAreaAffectDirections {
-    return .bottom
-  }
 }

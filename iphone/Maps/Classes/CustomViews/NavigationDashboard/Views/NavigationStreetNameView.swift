@@ -10,8 +10,4 @@ final class NavigationStreetNameView: SolidTouchView {
   override var sideButtonsAreaAffectDirections: MWMAvailableAreaAffectDirections {
     return .top
   }
-
-  override var trackRecordingButtonAreaAffectDirections: MWMAvailableAreaAffectDirections {
-    return .top
-  }
 }
