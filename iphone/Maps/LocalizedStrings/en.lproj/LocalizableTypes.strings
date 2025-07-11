@@ -132,6 +132,7 @@
 "type.amenity.police" = "Police";
 "type.amenity.post_box" = "Mailbox";
 "type.amenity.post_office" = "Post Office";
+"type.post_office.post_partner" = "Post Partner";
 "type.amenity.prison" = "Prison";
 "type.amenity.pub" = "Pub";
 "type.amenity.public_bookcase" = "Book Exchange";

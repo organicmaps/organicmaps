@@ -6606,7 +6606,7 @@ sk:3Poštová schránka|3schránka
 sw:Sanduku la posta
 fa:صندوق پست
 
-amenity-post_office|@category_post
+amenity-post_office|post_office-post_partner|@category_post
 en:3Post Office|U+2709|U+1F3E3|U+1F4E8|U+1F4E9|U+1F3E4|U+1F4EF
 ru:3Почтовое отделение
 be:3Паштовае аддзяленне

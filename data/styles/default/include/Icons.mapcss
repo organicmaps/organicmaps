@@ -1029,6 +1029,8 @@ node|z17-[amenity=bicycle_repair_station],
 area|z17-[amenity=bicycle_repair_station],
 node|z17-[amenity=post_office],
 area|z17-[amenity=post_office],
+node|z18-[post_office=post_partner],
+area|z18-[post_office=post_partner],
 node|z17-[power=station],
 area|z17-[power=station],
 node|z17-[man_made=works],
@@ -1706,9 +1708,13 @@ area|z18-[amenity=bicycle_repair_station]
 
 node|z17-[amenity=post_office],
 area|z17-[amenity=post_office],
+node|z18-[post_office=post_partner],
+area|z18-[post_office=post_partner],
 {icon-image: mail-m.svg;}
 node|z18-[amenity=post_office],
 area|z18-[amenity=post_office],
+node|z18-[post_office=post_partner],
+area|z18-[post_office=post_partner],
 {font-size: 11;}
 node|z18-[amenity=post_box],
 area|z18-[amenity=post_box],
