@@ -25,6 +25,7 @@ area|z14-[man_made=water_well],
 node|z15-[tourism=information],
 node|z14-[tourism=information][information=office],
 node|z14-[tourism=information][information=visitor_centre],
+node|z14-[amenity=ranger_station],
 node|z14-[man_made=flagpole],
 node|z14-[man_made=mast],
 node|z14-[man_made=silo],
@@ -333,6 +334,9 @@ node|z15-[tourism=information][information=guidepost],
 {icon-image: guidepost.svg;}
 node|z15-[tourism=information][information=map],
 {icon-image: map.svg;}
+
+node|z14-[amenity=ranger_station],
+{icon-image: ranger-station-m.svg; icon-min-distance: 10;}
 
 node|z14-[man_made=survey_point],
 {icon-image: survey_point-m.svg; font-size: 11;}

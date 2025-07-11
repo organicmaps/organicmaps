@@ -360,6 +360,7 @@ railway-subway_entrance-spb                         # icon z15- (also has captio
 historic-monument                                   # icon z13- (also has caption(optional) z13-)
 tourism-information-office                          # icon z15- (also has caption(optional) z15-)
 tourism-information-visitor_centre                  # icon z15- (also has caption(optional) z15-)
+amenity-ranger_station
 === 4400
 
 amenity-community_centre                            # icon z15- (also has caption(optional) z15-)
@@ -1508,6 +1509,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # historic-monument                                 # caption(optional) z13- (also has icon z13-)
 # tourism-information-office                        # caption(optional) z15- (also has icon z15-)
 # tourism-information-visitor_centre                # caption(optional) z15- (also has icon z15-)
+# amenity-ranger_station
 # === -5600
 
 # amenity-community_centre                          # caption(optional) z15- (also has icon z15-)
