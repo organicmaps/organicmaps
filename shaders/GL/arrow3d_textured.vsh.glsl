@@ -1,13 +1,17 @@
-attribute vec3 a_pos;
-attribute vec3 a_normal;
-attribute vec2 a_texCoords;
+layout (location = 0) in vec3 a_pos;
+layout (location = 1) in vec3 a_normal;
+layout (location = 2) in vec2 a_texCoords;
 
-uniform mat4 u_transform;
-uniform mat4 u_normalTransform;
-uniform vec2 u_texCoordFlipping;
+layout (location = 0) out vec3 v_normal;
+layout (location = 1) out vec2 v_texCoords;
 
-varying vec3 v_normal;
-varying vec2 v_texCoords;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_transform;
+  mat4 u_normalTransform;
+  vec4 u_color;
+  vec2 u_texCoordFlipping;
+};
 
 void main()
 {

@@ -1,16 +1,19 @@
-attribute vec3 a_position;
-attribute vec4 a_normal;
-attribute vec4 a_color;
+layout (location = 0) in vec3 a_position;
+layout (location = 1) in vec4 a_normal;
+layout (location = 2) in vec4 a_color;
 
-uniform mat4 u_modelView;
-uniform mat4 u_projection;
-uniform mat4 u_pivotTransform;
+layout (location = 0) out vec3 v_radius;
+layout (location = 1) out vec4 v_color;
 
-uniform float u_lineHalfWidth;
-uniform float u_maxRadius;
-
-varying vec3 v_radius;
-varying vec4 v_color;
+layout (binding = 0) uniform UBO
+{
+  mat4 u_modelView;
+  mat4 u_projection;
+  mat4 u_pivotTransform;
+  vec4 u_params;
+  float u_lineHalfWidth;
+  float u_maxRadius;
+};
 
 void main()
 {

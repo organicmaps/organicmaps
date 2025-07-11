@@ -208,8 +208,7 @@ public:
 
   static drape_ptr<df::SubrouteData> CacheRoute(ref_ptr<dp::GraphicsContext> context,
                                                 dp::DrapeID subrouteId, SubrouteConstPtr subroute,
-                                                size_t styleIndex, int recacheId,
-                                                ref_ptr<dp::TextureManager> textures);
+                                                size_t styleIndex, int recacheId);
 
   static drape_ptr<df::SubrouteMarkersData> CacheMarkers(ref_ptr<dp::GraphicsContext> context,
                                                          dp::DrapeID subrouteId,
