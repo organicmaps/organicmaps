@@ -28,7 +28,8 @@ NSString * const kLoggerSubsystem = [[NSBundle mainBundle] bundleIdentifier];
 NSString * const kLoggerCategory = @"OM";
 NSString * const kLogFileName = @"log.txt";
 NSString * const kZipLogFileExtension = @"zip";
-NSString * const kLogFilePath = [[NSFileManager.defaultManager temporaryDirectory] URLByAppendingPathComponent:kLogFileName].path;
+NSString * const kLogFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
+                                 stringByAppendingPathComponent:kLogFileName];
 // TODO: (KK) Review and change this limit after some testing.
 NSUInteger const kMaxLogFileSize = 1024 * 1024 * 100; // 100 MB;
 
@@ -225,13 +226,13 @@ bool AssertMessage(base::SrcPoint const & src, std::string const & message)
 }
 
 + (NSURL *)getZippedLogFile:(NSString *)logFilePath {
-  NSString * zipFilePath = [[logFilePath stringByDeletingPathExtension] stringByAppendingPathExtension:kZipLogFileExtension];
+  NSString * zipFileName = [[logFilePath.lastPathComponent stringByDeletingPathExtension] stringByAppendingPathExtension:kZipLogFileExtension];
+  NSString * zipFilePath = [[NSFileManager.defaultManager temporaryDirectory] URLByAppendingPathComponent:zipFileName].path;
   auto const success = CreateZipFromFiles({logFilePath.UTF8String}, zipFilePath.UTF8String);
   if (!success) {
     LOG(LERROR, ("Failed to zip log file:", kLogFilePath.UTF8String, ". The original file will be returned."));
     return [NSURL fileURLWithPath:logFilePath];
   }
-  [self removeFileAtPath:kLogFilePath];
   return [NSURL fileURLWithPath:zipFilePath];
 }
 
