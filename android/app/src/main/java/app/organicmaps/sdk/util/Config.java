@@ -255,13 +255,13 @@ public final class Config
   @NonNull
   public static String getUiThemeSettings(@NonNull Context context)
   {
-    final String autoTheme = context.getString(R.string.theme_auto);
-    final String res = getString(KEY_MISC_UI_THEME_SETTINGS, autoTheme);
+    final String defaultTheme = context.getString(R.string.theme_nav_auto);
+    final String res = getString(KEY_MISC_UI_THEME_SETTINGS, defaultTheme);
     if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res)
         || ThemeUtils.isNavAutoTheme(context, res))
       return res;
 
-    return autoTheme;
+    return defaultTheme;
   }
 
   public static boolean setUiThemeSettings(@NonNull Context context, String theme)
