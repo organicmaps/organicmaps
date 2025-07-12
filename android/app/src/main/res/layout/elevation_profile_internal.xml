@@ -38,16 +38,16 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
     android:minHeight="@dimen/elevation_profile_chart_info_min_height"
     android:orientation="horizontal"
     android:baselineAligned="false">
     <LinearLayout
       android:layout_width="0dp"
       android:layout_height="match_parent"
-      android:layout_marginEnd="@dimen/margin_quarter"
+      android:layout_marginEnd="@dimen/margin_half_plus"
       android:layout_weight="1"
       android:background="?elevationProfilePropertyBg"
       android:gravity="center_horizontal"
@@ -61,23 +61,22 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_eighth"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/elevation_profile_ascent"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
+        android:textAppearance="@style/MwmTextAppearance.Body6" />
       <TextView
         android:id="@+id/ascent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
+        android:textAppearance="@style/MwmTextAppearance.Body5"
         android:fontFamily="@string/robotoMedium"
         tools:text="10000 m" />
     </LinearLayout>
     <LinearLayout
       android:layout_width="0dp"
       android:layout_height="match_parent"
-      android:layout_marginEnd="@dimen/margin_quarter"
+      android:layout_marginEnd="@dimen/margin_half_plus"
       android:layout_weight="1"
       android:background="?elevationProfilePropertyBg"
       android:gravity="center_horizontal"
@@ -95,19 +94,19 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/elevation_profile_descent"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
+        android:textAppearance="@style/MwmTextAppearance.Body6" />
       <TextView
         android:id="@+id/descent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
+        android:textAppearance="@style/MwmTextAppearance.Body5"
         android:fontFamily="@string/robotoMedium"
         tools:text="10000 m" />
     </LinearLayout>
     <LinearLayout
       android:layout_width="0dp"
       android:layout_height="match_parent"
-      android:layout_marginEnd="@dimen/margin_quarter"
+      android:layout_marginEnd="@dimen/margin_half_plus"
       android:layout_weight="1"
       android:background="?elevationProfilePropertyBg"
       android:gravity="center_horizontal"
@@ -125,12 +124,12 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/elevation_profile_max_elevation"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
+        android:textAppearance="@style/MwmTextAppearance.Body6" />
       <TextView
         android:id="@+id/max_altitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
+        android:textAppearance="@style/MwmTextAppearance.Body5"
         android:fontFamily="@string/robotoMedium"
         tools:text="10000 m" />
     </LinearLayout>
@@ -154,12 +153,12 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/elevation_profile_min_elevation"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
+        android:textAppearance="@style/MwmTextAppearance.Body6" />
       <TextView
         android:id="@+id/min_altitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
+        android:textAppearance="@style/MwmTextAppearance.Body5"
         android:fontFamily="@string/robotoMedium"
         tools:text="10000 m" />
     </LinearLayout>
@@ -167,7 +166,7 @@
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_quarter_plus"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginEnd="@dimen/margin_base"
     android:orientation="horizontal">

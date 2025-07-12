@@ -8,7 +8,9 @@
   <app.organicmaps.widget.placepage.ElevationProfileChart
     android:id="@+id/elevation_profile_chart"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentEnd="true" />
   <app.organicmaps.widget.placepage.FloatingMarkerView
     android:id="@+id/floating_marker"
     android:visibility="gone"

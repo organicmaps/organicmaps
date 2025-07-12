@@ -37,9 +37,6 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
   private TextView mAltitudeView;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private TextView mDistanceTextView;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private TextView mDistanceValueView;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -93,7 +90,6 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
     mTextContentContainer = findViewById(R.id.floating_text_container);
     mFloatingTriangle = findViewById(R.id.floating_triangle);
     mImage = findViewById(R.id.image);
-    mDistanceTextView = findViewById(R.id.distance_text);
     mAltitudeView = findViewById(R.id.altitude);
     mDistanceValueView = findViewById(R.id.distance_value);
   }
@@ -184,7 +180,6 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
 
   private void updatePointValues(@NonNull Entry entry)
   {
-    mDistanceTextView.setText(R.string.elevation_profile_distance);
     mDistanceValueView.setText(
         StringUtils.nativeFormatDistance(entry.getX()).toString(mDistanceValueView.getContext()));
     mAltitudeView.setText(Framework.nativeFormatAltitude(entry.getY()));
