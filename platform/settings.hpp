@@ -12,7 +12,6 @@ namespace settings
 extern std::string_view kMeasurementUnits;
 extern std::string_view kDeveloperMode;
 extern std::string_view kMapLanguageCode;
-extern std::string_view kNightMode;
 // The following two settings are configured externally at the metaserver.
 extern std::string_view kDonateUrl;
 extern std::string_view kNY;

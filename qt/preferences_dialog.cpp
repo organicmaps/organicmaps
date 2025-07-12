@@ -152,20 +152,15 @@ namespace qt
 
       nightModeRadioBox->setLayout(layout);
 
-      int i;
-      if (!settings::Get(settings::kNightMode, i))
-      {
-        i = static_cast<int>(MapStyleIsDark(framework.GetMapStyle()) ? NightMode::On : NightMode::Off);
-        settings::Set(settings::kNightMode, i);
-      }
-      nightModeGroup->button(i)->setChecked(true);
+      int const btn = MapStyleIsDark(framework.GetMapStyle()) ? 1 : 0;
+      nightModeGroup->button(btn)->setChecked(true);
 
       void (QButtonGroup::* buttonClicked)(int) = &QButtonGroup::idClicked;
       connect(nightModeGroup, buttonClicked, [&framework](int i)
       {
-        NightMode nightMode = static_cast<NightMode>(i);
-        settings::Set(settings::kNightMode, i);
-        framework.SetMapStyle((nightMode == NightMode::Off) ? GetLightMapStyleVariant(framework.GetMapStyle()) : GetDarkMapStyleVariant(framework.GetMapStyle()));
+        auto const currStyle = framework.GetMapStyle();
+        framework.SetMapStyle((i == 0) ? GetLightMapStyleVariant(currStyle) :
+                                         GetDarkMapStyleVariant(currStyle));
       });
     }
 
