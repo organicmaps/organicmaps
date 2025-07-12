@@ -51,8 +51,8 @@ final class BaseRoutePreviewStatus: SolidTouchView {
 
   static let elevationAttributes: [NSAttributedString.Key: Any] =
                                         [
-                                          .foregroundColor: UIColor.linkBlue(),
-                                          .font: UIFont.medium14()
+                                          .foregroundColor: UIColor.blackSecondaryText(),
+                                          .font: UIFont.medium16()
                                         ]
 
   var elevation: NSAttributedString? {

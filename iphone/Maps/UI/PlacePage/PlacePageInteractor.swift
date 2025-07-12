@@ -1,6 +1,6 @@
 protocol PlacePageInteractorProtocol: AnyObject {
   func viewWillAppear()
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
+  func updateTopBound(_ bound: CGFloat)
 }
 
 class PlacePageInteractor: NSObject {
@@ -89,8 +89,8 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
     updatePlacePageIfNeeded()
   }
 
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
-    mapViewController?.setPlacePageTopBound(bound, duration: duration)
+  func updateTopBound(_ bound: CGFloat) {
+    mapViewController?.setPlacePageTopBound(bound)
   }
 }
 
