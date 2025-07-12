@@ -504,8 +504,8 @@
 "type.highway.primary_link.bridge" = "Puente";
 "type.highway.primary_link.tunnel" = "Túnel";
 "type.highway.raceway" = "Circuito";
-"type.highway.residential" = "Cale residencial";
-"type.highway.residential.area" = "Rúa residencial";
+"type.highway.residential" = "Rúa urbana";
+"type.highway.residential.area" = "Rúa urbana";
 "type.highway.residential.bridge" = "Puente";
 "type.highway.residential.tunnel" = "Túnel de rúa residencial";
 "type.highway.rest_area" = "Área de descanso";

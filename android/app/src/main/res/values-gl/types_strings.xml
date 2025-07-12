@@ -410,8 +410,8 @@
     <string name="type.highway.primary_link.bridge">Puente</string>
     <string name="type.highway.primary_link.tunnel">Túnel</string>
     <string name="type.highway.raceway">Circuito</string>
-    <string name="type.highway.residential">Cale residencial</string>
-    <string name="type.highway.residential.area">Rúa residencial</string>
+    <string name="type.highway.residential">Rúa urbana</string>
+    <string name="type.highway.residential.area">Rúa urbana</string>
     <string name="type.highway.residential.bridge">Puente</string>
     <string name="type.highway.residential.tunnel">Túnel de rúa residencial</string>
     <string name="type.highway.rest_area">Área de descanso</string>

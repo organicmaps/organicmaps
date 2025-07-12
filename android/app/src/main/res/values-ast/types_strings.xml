@@ -436,4 +436,5 @@
     <string name="type.railway.subway.bridge">Ponte de la llinia del metro</string>
     <string name="type.railway.subway.tunnel">Túnel de la llinia del metro</string>
     <string name="type.entrance.exit">Salida</string>
+    <string name="type.highway.residential.area">Cai urbana</string>
 </resources>
