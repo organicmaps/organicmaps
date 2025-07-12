@@ -82,19 +82,32 @@ public:
   class InitializeFinalize : public FinalizeBase
   {
     FILE * m_errFile;
+    std::ofstream m_cerrOfstream;
+    std::streambuf * m_cerrDefaultStreambuf;
     base::ScopedLogLevelChanger const m_debugLog;
   public:
     InitializeFinalize() : m_debugLog(LDEBUG)
     {
+      static char const * const kLogFileName = ".\\organicmaps.log";
       // App runs without error console under win32.
-      m_errFile = ::freopen(".\\mapsme.log", "w", stderr);
+      m_errFile = ::freopen(kLogFileName, "w", stderr);
+
+      // Redirecting std::cerr to a log file.
+      m_cerrDefaultStreambuf = std::cerr.rdbuf();
+      m_cerrOfstream.open(kLogFileName, std::ios::trunc);
+      if (m_cerrOfstream.is_open())
+        std::cerr.rdbuf(m_cerrOfstream.rdbuf());
 
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     }
     ~InitializeFinalize()
     {
-      ::fclose(m_errFile);
+      if (m_cerrDefaultStreambuf)
+        std::cerr.rdbuf(m_cerrDefaultStreambuf);
+      
+      if (m_errFile)
+        ::fclose(m_errFile);
     }
   };
 #else
