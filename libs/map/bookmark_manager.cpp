@@ -2527,11 +2527,13 @@ void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::Cate
                                              bool autoSave /* = true */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK_NOT_EQUAL(m_categories.count(groupId), 0, ());
+  auto it = m_categories.find(groupId);
+  CHECK(it != m_categories.end(), ());
+
   // The current implementation reloads the provided group.
   /// @todo implement more accurate merging instead of full reloading
   ClearGroup(groupId);
-  m_categories.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), autoSave));
+  it->second.reset(new BookmarkCategory(std::move(data), autoSave));
   m_changesTracker.OnAddGroup(groupId);
 }
 
