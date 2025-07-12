@@ -966,4 +966,8 @@
     <string name="type.military.bunker">Бункер</string>
     <string name="type.office">Офіс</string>
     <string name="type.mapswithme.grid">mapswithme-grid</string>
+    <string name="type.shop.bicycle">Крама ровараў</string>
+    <string name="type.tourism.museum">Музей</string>
+    <string name="type.tourism.attraction">Славутасць</string>
+    <string name="type.attraction.big_wheel">Кола агляду</string>
 </resources>

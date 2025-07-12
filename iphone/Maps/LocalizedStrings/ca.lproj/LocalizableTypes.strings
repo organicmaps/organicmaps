@@ -857,7 +857,7 @@
 "type.place.hamlet" = "Vilatge";
 "type.place.island" = "Illa";
 "type.place.islet" = "Illot";
-"type.place.isolated_dwelling" = "Aïllat Habitatge";
+"type.place.isolated_dwelling" = "Habitatge aïllat";
 "type.place.locality" = "Localitat";
 
 /* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
@@ -1314,7 +1314,7 @@
 "type.shop.cheese" = "Botiga de formatges";
 "type.shop.craft" = "Botiga de materials d’artesania";
 "type.shop.dairy" = "Botiga de productes làctics";
-"type.shop.electrical" = "Electrodomèstics Botiga de subministraments";
+"type.shop.electrical" = "Botiga de subministraments elèctrics";
 "type.shop.fishing" = "Botiga de pesca";
 "type.shop.interior_decoration" = "Botiga de decoració d’interiors";
 "type.shop.lottery" = "Bitllets de loteria";
@@ -1324,7 +1324,7 @@
 "type.shop.perfumery" = "Perfumeria";
 "type.shop.sewing" = "Botiga de subministraments de costura";
 "type.shop.storage_rental" = "Lloguer d’emmagatzematge";
-"type.shop.tobacco" = "Botiga de tabac";
+"type.shop.tobacco" = "Tabaqueria";
 "type.shop.trade" = "Subministraments comercials";
 "type.shop.watches" = "Botiga de rellotges";
 "type.shop.wholesale" = "Botiga a l’engròs";

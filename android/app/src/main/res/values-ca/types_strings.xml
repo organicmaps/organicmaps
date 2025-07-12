@@ -1182,7 +1182,7 @@
     <string name="type.office.insurance">Oficina d’assegurances</string>
     <string name="type.office.lawyer">Advocat</string>
     <string name="type.place.farm">Granja</string>
-    <string name="type.place.isolated_dwelling">Aïllat Habitatge</string>
+    <string name="type.place.isolated_dwelling">Habitatge aïllat</string>
     <string name="type.place.locality">Localitat</string>
     <string name="type.place.quarter">Zona / Sector</string>
     <string name="type.place.town">Poble gran</string>
@@ -1287,7 +1287,7 @@
     <string name="type.shop.cheese">Botiga de formatges</string>
     <string name="type.shop.craft">Botiga de materials d’artesania</string>
     <string name="type.shop.dairy">Botiga de productes làctics</string>
-    <string name="type.shop.electrical">Electrodomèstics Botiga de subministraments</string>
+    <string name="type.shop.electrical">Botiga de subministraments elèctrics</string>
     <string name="type.shop.fishing">Botiga de pesca</string>
     <string name="type.shop.interior_decoration">Botiga de decoració d’interiors</string>
     <string name="type.shop.lottery">Bitllets de loteria</string>
@@ -1297,7 +1297,7 @@
     <string name="type.shop.perfumery">Perfumeria</string>
     <string name="type.shop.sewing">Botiga de subministraments de costura</string>
     <string name="type.shop.storage_rental">Lloguer d’emmagatzematge</string>
-    <string name="type.shop.tobacco">Botiga de tabac</string>
+    <string name="type.shop.tobacco">Tabaqueria</string>
     <string name="type.shop.trade">Subministraments comercials</string>
     <string name="type.shop.watches">Botiga de rellotges</string>
     <string name="type.shop.wholesale">Botiga a l’engròs</string>

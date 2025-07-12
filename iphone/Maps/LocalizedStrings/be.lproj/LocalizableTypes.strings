@@ -1215,7 +1215,7 @@
 "type.shop.bathroom_furnishing" = "Мэбля для ванных пакояў";
 "type.shop.beauty" = "Beauty Shop";
 "type.shop.beverages" = "Напоі";
-"type.shop.bicycle" = "Bicycle Shop";
+"type.shop.bicycle" = "Крама ровараў";
 "type.shop.bookmaker" = "Bookmaker";
 "type.shop.books" = "Bookstore";
 "type.shop.butcher" = "Butcher";
@@ -1375,11 +1375,11 @@
 "type.tourism.artwork.painting" = "Painting";
 "type.tourism.artwork.sculpture" = "Sculpture";
 "type.tourism.artwork.statue" = "Statue";
-"type.tourism.attraction" = "Attraction";
+"type.tourism.attraction" = "Славутасць";
 "type.attraction.amusement_ride" = "Атракцыён";
 "type.attraction.animal" = "Вальера для жывёл";
 "type.attraction.bumper_car" = "Bumper Car";
-"type.attraction.big_wheel" = "Big Wheel";
+"type.attraction.big_wheel" = "Кола агляду";
 "type.attraction.carousel" = "Карусель";
 "type.attraction.historic" = "Гістарычная славутасць";
 "type.attraction.maze" = "Лабірынт";
@@ -1402,7 +1402,7 @@
 "type.tourism.information.office" = "Турыстычны офіс";
 "type.tourism.information.visitor_centre" = "Цэнтр для наведвальнікаў";
 "type.tourism.motel" = "Motel";
-"type.tourism.museum" = "Museum";
+"type.tourism.museum" = "Музей";
 "type.tourism.picnic_site" = "Picnic Site";
 "type.leisure.resort" = "Resort";
 "type.tourism.theme_park" = "Theme Park";

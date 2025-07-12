@@ -434,3 +434,4 @@
 "type.railway.subway.bridge" = "Ponte de la llinia del metro";
 "type.railway.subway.tunnel" = "Túnel de la llinia del metro";
 "type.entrance.exit" = "Salida";
+"type.highway.residential.area" = "Cai urbana";

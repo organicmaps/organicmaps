@@ -118,7 +118,6 @@
     <string name="type.amenity.post_office">Postkontor</string>
     <string name="type.amenity.prison">Fengsel</string>
     <string name="type.amenity.public_bookcase">Bokhylle</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Resirkuleringssenter</string>
     <string name="type.amenity.recycling">Gjenvinningsbeholder</string>
@@ -326,7 +325,6 @@
     <string name="type.healthcare.psychotherapist">Psykoterapi</string>
     <string name="type.healthcare.sample_collection">Prøvetaking</string>
     <string name="type.healthcare.speech_therapist">Snakketerapi</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway.bridleway">Ridevei</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -489,7 +487,6 @@
     <string name="type.area_highway.track">Traktor/Skogsbilvei</string>
     <string name="type.area_highway.trunk">Riksvei</string>
     <string name="type.area_highway.unclassified">Småvei</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historisk gjenstand</string>
     <string name="type.historic.aircraft">Historisk fly</string>
