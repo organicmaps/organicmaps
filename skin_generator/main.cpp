@@ -4,9 +4,7 @@
 #include <iostream>
 
 #include <QApplication>
-#include <QtCore/QFile>
 #include <QtCore/QString>
-#include <QtCore/QHash>
 
 #include <gflags/gflags.h>
 
@@ -23,7 +21,7 @@ DEFINE_int32(maxSize, 4096, "max width/height of output textures");
 
 int main(int argc, char *argv[])
 {
-// Used to lock the hash seed, so the order of XML attributes is always the same.
+  // Used to lock the hash seed, so the order of XML attributes is always the same.
   QHashSeed::setDeterministicGlobalSeed();
   try
   {
@@ -33,7 +31,7 @@ int main(int argc, char *argv[])
     tools::SkinGenerator gen;
 
     std::vector<QSize> symbolSizes;
-    symbolSizes.emplace_back(QSize(FLAGS_symbolWidth, FLAGS_symbolHeight));
+    symbolSizes.emplace_back(FLAGS_symbolWidth, FLAGS_symbolHeight);
 
     std::vector<std::string> suffixes;
     suffixes.push_back(FLAGS_skinSuffix);

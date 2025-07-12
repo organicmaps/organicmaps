@@ -44,12 +44,11 @@ echo "Exporting transit colors..."
 python3 "$OMIM_PATH/tools/python/transit/transit_colors_export.py" \
   "$DATA_PATH/colors.txt" > /dev/null
 
-echo "Merging default and vehicle styles..."
+echo "Merging styles..."
 python3 "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
-  "$DATA_PATH/drules_proto_default_light.bin" "$DATA_PATH/drules_proto_vehicle_light.bin" \
-  "$DATA_PATH/drules_proto.bin.tmp" > /dev/null
-echo "Merging in outdoors style..."
-python3 "$OMIM_PATH/tools/python/stylesheet/drules_merge.py" \
-  "$DATA_PATH/drules_proto.bin.tmp" "$DATA_PATH/drules_proto_outdoors_light.bin" \
-  "$DATA_PATH/drules_proto.bin" "$DATA_PATH/drules_proto.txt" > /dev/null
-rm "$DATA_PATH/drules_proto.bin.tmp" || true
+  "$DATA_PATH/drules_proto_default_light.bin" \
+  "$DATA_PATH/drules_proto_vehicle_light.bin" \
+  "$DATA_PATH/drules_proto_outdoors_light.bin" \
+  "$DATA_PATH/drules_proto.bin" \
+  "$DATA_PATH/drules_proto.txt" \
+   > /dev/null
