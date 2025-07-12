@@ -1,25 +1,20 @@
 #include "generator.hpp"
 
 #include "base/logging.hpp"
-#include "base/math.hpp"
 
 #include <algorithm>
 #include <fstream>
 #include <functional>
-#include <iostream>
 #include <iterator>
 
-#include <QtXml/QDomElement>
-#include <QtXml/QDomDocument>
 #include <QtCore/QDir>
 
 namespace tools
 {
 namespace
 {
-
-static constexpr double kLargeIconSize = 24.0;  // Size of the -l SVG icons
-static constexpr double kMediumIconSize = 18.0; // size of the -m SVG icons
+constexpr double kLargeIconSize = 24.0;  // Size of the -l SVG icons
+constexpr double kMediumIconSize = 18.0; // size of the -m SVG icons
 
 struct GreaterHeight
 {
@@ -221,37 +216,27 @@ void SkinGenerator::MarkOverflow()
   m_overflowDetected = true;
 }
 
-bool SkinGenerator::WriteToFileNewStyle(std::string const &skinName)
+bool SkinGenerator::WriteToFileNewStyle(std::string const &skinName) const
 {
-  QDomDocument doc = QDomDocument("skin");
-  QDomElement rootElem = doc.createElement("root");
-  doc.appendChild(rootElem);
-
-  for (auto const & p : m_pages)
-  {
-    QDomElement fileNode = doc.createElement("file");
-    fileNode.setAttribute("width", p.m_width);
-    fileNode.setAttribute("height", p.m_height);
-    rootElem.appendChild(fileNode);
-
-    for (auto const & s : p.m_symbols)
-    {
-      m2::RectU r = p.m_packer.find(s.m_handle).second;
-      QDomElement symbol = doc.createElement("symbol");
-      symbol.setAttribute("minX", r.minX());
-      symbol.setAttribute("minY", r.minY());
-      symbol.setAttribute("maxX", r.maxX());
-      symbol.setAttribute("maxY", r.maxY());
-      symbol.setAttribute("name", s.m_symbolID.toLower());
-      fileNode.appendChild(symbol);
-    }
-  }
   QFile file(QString(skinName.c_str()));
   if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate))
     return false;
+
   QTextStream ts(&file);
   ts.setEncoding(QStringConverter::Utf8);
-  ts << doc.toString();
+  for (auto const & p : m_pages)
+  {
+    ts << "#width;height\n";
+    ts << p.m_width << ";" << p.m_height << "\n";
+
+    ts << "#minX;minY;maxX;maxY;name\n";
+    for (auto const & s : p.m_symbols)
+    {
+      m2::RectU const & r = p.m_packer.find(s.m_handle).second;
+      ts << r.minX() << ";" << r.minY() << ";" << r.maxX() << ";" << r.maxY() << ";"
+          << s.m_symbolID.toLower() << "\n";
+    }
+  }
   return true;
 }
 } // namespace tools
