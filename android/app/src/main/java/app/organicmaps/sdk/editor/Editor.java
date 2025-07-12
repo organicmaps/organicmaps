@@ -161,6 +161,7 @@ public final class Editor
   public static native void nativeCreateNote(String text);
   public static native void nativePlaceDoesNotExist(@NonNull String comment);
   public static native void nativeRollbackMapObject();
+  public static native void nativeCreateStandaloneNote(double lat, double lon, String text);
 
   /**
    * @return all cuisines keys.
