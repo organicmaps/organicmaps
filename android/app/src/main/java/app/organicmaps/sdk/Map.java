@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.Surface;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.BuildConfig;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.location.LocationHelper;
@@ -53,7 +53,11 @@ public final class Map
   public static final int INVALID_POINTER_MASK = 0xFF;
   public static final int INVALID_TOUCH_ID = -1;
 
+  @NonNull
   private final DisplayType mDisplayType;
+
+  @NonNull
+  private final LocationHelper mLocationHelper;
 
   private int mCurrentCompassOffsetX;
   private int mCurrentCompassOffsetY;
@@ -75,9 +79,10 @@ public final class Map
 
   private static int sCurrentDpi = 0;
 
-  public Map(DisplayType mapType)
+  public Map(@NonNull DisplayType mapType, @NonNull LocationHelper locationHelper)
   {
     mDisplayType = mapType;
+    mLocationHelper = locationHelper;
     onCreate(false);
   }
 
@@ -169,9 +174,7 @@ public final class Map
     mRequireResize = false;
     setupWidgets(context, surfaceFrame.width(), surfaceFrame.height());
 
-    final LocationHelper locationHelper = MwmApplication.from(context).getLocationHelper();
-
-    final boolean firstStart = locationHelper.isInFirstRun();
+    final boolean firstStart = mLocationHelper.isInFirstRun();
     if (!nativeCreateEngine(surface, surfaceDpi, firstStart, mLaunchByDeepLink, BuildConfig.VERSION_CODE,
                             ROMUtils.isCustomROM()))
     {
@@ -182,7 +185,7 @@ public final class Map
     sCurrentDpi = surfaceDpi;
 
     if (firstStart)
-      UiThread.runLater(locationHelper::onExitFromFirstRun);
+      UiThread.runLater(mLocationHelper::onExitFromFirstRun);
 
     mSurfaceCreated = true;
     mSurfaceAttached = true;

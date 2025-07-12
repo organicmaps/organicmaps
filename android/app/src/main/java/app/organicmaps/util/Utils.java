@@ -41,12 +41,15 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.Distance;
+import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
 import com.google.android.material.snackbar.Snackbar;
 import java.lang.ref.WeakReference;
+import java.time.LocalTime;
+import java.util.concurrent.TimeUnit;
 
 @Keep
 public class Utils
@@ -265,7 +268,7 @@ public class Utils
   {
     subject = "Organic Maps Bugreport" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
     LogsManager.INSTANCE.zipLogs(
-        new SupportInfoWithLogsCallback(launcher, activity, subject, body, Constants.Email.SUPPORT));
+        new SupportInfoWithLogsCallback(launcher, activity, subject, body, BuildConfig.SUPPORT_MAIL));
   }
 
   // TODO: Don't send logs with general feedback, send system information only (version, device name, connectivity,
@@ -274,7 +277,7 @@ public class Utils
                                   @NonNull Activity activity)
   {
     LogsManager.INSTANCE.zipLogs(
-        new SupportInfoWithLogsCallback(launcher, activity, "Organic Maps Feedback", "", Constants.Email.SUPPORT));
+        new SupportInfoWithLogsCallback(launcher, activity, "Organic Maps Feedback", "", BuildConfig.SUPPORT_MAIL));
   }
 
   public static void navigateToParent(@NonNull Activity activity)
@@ -465,5 +468,31 @@ public class Utils
     if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
       return getPackageInfoOld(manager, packageName, flags);
     return manager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(flags));
+  }
+
+  @NonNull
+  public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize)
+  {
+    return formatRoutingTime(context, seconds, unitsSize, R.dimen.text_size_routing_number);
+  }
+
+  @NonNull
+  public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize,
+                                               @DimenRes int textSize)
+  {
+    long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
+    long hours = TimeUnit.SECONDS.toHours(seconds);
+    String min = context.getString(R.string.minute);
+    String hour = context.getString(R.string.hour);
+    SpannableStringBuilder displayedH = Utils.formatTime(context, textSize, unitsSize, String.valueOf(hours), hour);
+    SpannableStringBuilder displayedM = Utils.formatTime(context, textSize, unitsSize, String.valueOf(minutes), min);
+    return hours == 0 ? displayedM : TextUtils.concat(displayedH + "\u00A0", displayedM);
+  }
+
+  @NonNull
+  public static String formatArrivalTime(int seconds)
+  {
+    final LocalTime time = LocalTime.now().plusSeconds(seconds);
+    return StringUtils.formatUsingUsLocale("%d:%02d", time.getHour(), time.getMinute());
   }
 }

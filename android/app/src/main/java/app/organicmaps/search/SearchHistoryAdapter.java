@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
-import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.widget.SearchToolbarController;

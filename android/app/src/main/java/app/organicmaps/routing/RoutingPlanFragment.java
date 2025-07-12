@@ -10,6 +10,7 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.routing.RoutingController;
 
 public class RoutingPlanFragment extends BaseMwmFragment
 {

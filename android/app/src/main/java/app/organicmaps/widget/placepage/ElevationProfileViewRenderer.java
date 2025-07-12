@@ -10,11 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import app.organicmaps.ChartController;
 import app.organicmaps.R;
-import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
+import app.organicmaps.util.Utils;
 import java.util.Objects;
 
 @SuppressWarnings("unused") // https://github.com/organicmaps/organicmaps/issues/2829
@@ -72,8 +72,8 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     mMaxAltitude.setText(formatDistance(context, mElevationInfo.getMaxAltitude()));
     mMinAltitude.setText(formatDistance(context, mElevationInfo.getMinAltitude()));
     UiUtils.hideIf(mElevationInfo.getDuration() == 0, mTimeContainer);
-    mTime.setText(RoutingController.formatRoutingTime(mTitle.getContext(), (int) mElevationInfo.getDuration(),
-                                                      R.dimen.text_size_body_2));
+    mTime.setText(
+        Utils.formatRoutingTime(mTitle.getContext(), (int) mElevationInfo.getDuration(), R.dimen.text_size_body_2));
   }
 
   @NonNull

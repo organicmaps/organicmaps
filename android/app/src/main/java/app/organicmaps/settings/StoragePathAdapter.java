@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import app.organicmaps.R;
+import app.organicmaps.sdk.settings.StorageItem;
+import app.organicmaps.sdk.settings.StoragePathManager;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.ThemeUtils;
 

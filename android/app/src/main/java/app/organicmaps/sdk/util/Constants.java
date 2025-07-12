@@ -1,7 +1,5 @@
 package app.organicmaps.sdk.util;
 
-import app.organicmaps.BuildConfig;
-
 public final class Constants
 {
   public static final int KB = 1024;
@@ -35,13 +33,6 @@ public final class Constants
     public static final String OSM_RECOVER_PASSWORD = "https://www.openstreetmap.org/user/forgot-password";
 
     private Url() {}
-  }
-
-  public static class Email
-  {
-    public static final String SUPPORT = BuildConfig.SUPPORT_MAIL;
-
-    private Email() {}
   }
 
   public static class Package
