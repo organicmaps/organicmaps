@@ -83,6 +83,7 @@
   <dimen name="elevation_profile_height">80dp</dimen>
   <dimen name="elevation_profile_half_height">40dp</dimen>
   <dimen name="elevation_profile_dot_levels_margin">3dp</dimen>
+  <dimen name="elevation_profile_marker_width">25dp</dimen>
   <dimen name="map_button_size">48dp</dimen>
   <dimen name="map_button_icon_size">32dp</dimen>
   <dimen name="map_button_arrow_icon_size">34dp</dimen>
