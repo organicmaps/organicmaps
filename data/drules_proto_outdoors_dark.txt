@@ -3605,6 +3605,73 @@ cont {
   }
 }
 cont {
+  name: "amenity-bicycle_parking-covered"
+  element {
+    scale: 17
+    symbol {
+      name: "bicycle-parking-covered-m"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "bicycle-parking-covered-m"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "bicycle-parking-covered-m"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "bicycle-parking-covered-m"
+      priority: 250
+    }
+    caption {
+      primary {
+        height: 10
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9750
+    }
+  }
+}
+cont {
   name: "amenity-bicycle_rental"
   element {
     scale: 17
