@@ -121,7 +121,8 @@ public class FloatingMarkerView extends RelativeLayout implements IMarker
   public void updateOffsets(@NonNull Entry entry, @NonNull Highlight highlight)
   {
     updateVertical(entry);
-    final float halfImg = Math.abs(mImage.getWidth()) / 2f;
+    final float halfImg = mImage.getResources()
+                                .getDimensionPixelSize(R.dimen.elevation_profile_marker_width) / 2f;
     boolean isLeftToRightDirection = isInvertedOrder(highlight);
     mOffset = isLeftToRightDirection ? -getWidth() + halfImg : -halfImg;
     updateHorizontal(highlight);

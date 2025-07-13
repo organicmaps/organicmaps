@@ -9,8 +9,8 @@
   tools:ignore="Overdraw">
   <ImageView
     android:id="@+id/image"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/elevation_profile_marker_width"
+    android:layout_height="@dimen/elevation_profile_marker_width"
     android:layout_centerVertical="true"
     app:srcCompat="@drawable/ic_graph_point" />
   <RelativeLayout
