@@ -28,6 +28,7 @@
     <string name="type.amenity.bbq">Barbecue Grill</string>
     <string name="type.amenity.bench">Bench</string>
     <string name="type.amenity.bicycle_parking">Bicycle Parking</string>
+    <string name="type.amenity.bicycle_parking.covered">Covered Bicycle Parking</string>
     <string name="type.amenity.bicycle_rental">Bicycle Rental</string>
     <string name="type.amenity.bicycle_repair_station">Bicycle Repair Station</string>
     <string name="type.amenity.biergarten">Biergarten</string>

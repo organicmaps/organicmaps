@@ -29,6 +29,7 @@
 "type.amenity.bbq" = "Barbecue Grill";
 "type.amenity.bench" = "Bench";
 "type.amenity.bicycle_parking" = "Bicycle Parking";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
 "type.amenity.bicycle_rental" = "Bicycle Rental";
 "type.amenity.bicycle_repair_station" = "Bicycle Repair Station";
 "type.amenity.biergarten" = "Biergarten";
