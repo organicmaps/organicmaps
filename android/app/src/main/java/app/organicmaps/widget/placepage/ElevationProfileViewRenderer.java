@@ -18,7 +18,6 @@ import app.organicmaps.sdk.util.UiUtils;
 
 import java.util.Objects;
 
-@SuppressWarnings("unused") // https://github.com/organicmaps/organicmaps/issues/2829
 public class ElevationProfileViewRenderer implements PlacePageStateListener
 {
   // Must be correspond to map/elevation_info.hpp constants.
