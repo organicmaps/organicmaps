@@ -1743,3 +1743,4 @@ railway|subway_entrance|shenzhen;[railway=subway_entrance][city=shenzhen];;name;
 shop|hearing_aids;1622;
 railway|station|subway|qingdao;[railway=station][transport=subway][city=qingdao],[railway=station][station=subway][city=qingdao];;name;int_name;1623;
 railway|subway_entrance|qingdao;[railway=subway_entrance][city=qingdao];;name;int_name;1624;
+amenity|bicycle_parking|covered;[amenity=bicycle_parking][covered=yes];;;;1625;
