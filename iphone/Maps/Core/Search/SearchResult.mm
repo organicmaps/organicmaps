@@ -36,18 +36,19 @@
     if (result.IsSuggest())
       _suggestion = @(result.GetSuggestionString().c_str());
 
-    auto const & pivot = result.GetFeatureCenter();
-    _point = CGPointMake(pivot.x, pivot.y);
-    auto const location = mercator::ToLatLon(pivot);
-    _coordinate = CLLocationCoordinate2DMake(location.m_lat, location.m_lon);
+    _distanceText = nil;
+    if (result.HasPoint()) {
+      auto const center = result.GetFeatureCenter();
+      _point = CGPointMake(center.x, center.y);
+      auto const [centerLat, centerLon] = mercator::ToLatLon(center);
+      _coordinate = CLLocationCoordinate2DMake(centerLat, centerLon);
 
-    CLLocation * lastLocation = [MWMLocationManager lastLocation];
-    if (lastLocation && result.HasPoint()) {
-      double distanceInMeters = mercator::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
-      std::string distanceStr = platform::Distance::CreateFormatted(distanceInMeters).ToString();
-      _distanceText = @(distanceStr.c_str());
-    } else {
-      _distanceText = nil;
+      CLLocation * lastLocation = [MWMLocationManager lastLocation];
+      if (lastLocation) {
+        double const distanceM = mercator::DistanceOnEarth(lastLocation.mercator, center);
+        std::string const distanceStr = platform::Distance::CreateFormatted(distanceM).ToString();
+        _distanceText = @(distanceStr.c_str());
+      }
     }
 
     switch (result.IsOpenNow()) {
