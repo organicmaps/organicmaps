@@ -1,0 +1,82 @@
+name: Styles
+on:
+  pull_request:
+    paths:
+      - .github/workflows/styles.yml
+      - data/resources*
+      - data/styles*
+      - data/drules*
+      - data/mapcss*
+      - skin_generator/
+      - tools/kothic/
+      - tools/python/stylesheet/
+      - tools/unix/generate_drules.sh
+      - tools/unix/generate_styles.sh
+      - tools/unix/generate_symbols.sh
+
+jobs:
+  check_styles:
+    name: Styles up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Boost submodule from cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Install dependencies
+        run: |
+          sudo apt update -y
+          sudo apt install -y \
+            optipng \
+            libharfbuzz-dev \
+            libxrandr-dev \
+            libxinerama-dev \
+            libxcursor-dev \
+            libxi-dev \
+            qt6-base-dev \
+            libqt6svg6-dev \
+            qt6-positioning-dev \
+            libqt6positioning6-plugins \
+            libqt6positioning6
+          
+          python -m pip install --upgrade pip
+          pip install protobuf==3.20.3
+
+      - name: Prepare skin generator tool
+        env:
+          BUILD_DIR: out/release
+        run: |
+          ./configure.sh
+          mkdir -p ${{ env.BUILD_DIR }}
+          cd ${{ env.BUILD_DIR }}
+          cmake ${{ github.workspace }}
+          make skin_generator_tool -j$(nproc)
+
+      - name: Generate styles
+        run: |
+          ./tools/unix/generate_styles.sh
+
+      - name: Check generated files
+        run: |
+          if [[ -n "$(git status -s)" ]]; then
+            echo "::error::Generated files are not up to date. Please run style generation scripts locally, test the result, and commit the changes in a separate [regenerated] commit."
+            echo "::group::Modified files"
+            git status -s >> $GITHUB_STEP_SUMMARY
+            git status -s
+            echo "::endgroup::"
+            
+            echo "::group::Diff"
+            git diff --color=always
+            echo "::endgroup::"
+            exit 1
+          fi
