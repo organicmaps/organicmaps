@@ -83,13 +83,17 @@ public class PlacePageTrackFragment extends Fragment implements PlacePageStateLi
     // This callback would be called before the fragment had time to be destroyed
     if (mapObject != null && mapObject.isTrack())
     {
-      mTrack = (Track) mapObject;
-      if (mTrack.isElevationInfoHasValue())
+      Track track = (Track) mapObject;
+      if (track.isElevationInfoHasValue())
       {
-        mElevationProfileViewRenderer.render(mTrack);
-        UiUtils.show(mElevationProfileView);
+        if (mTrack == null || mTrack.getTrackId() != track.getTrackId())
+        {
+          mElevationProfileViewRenderer.render(track);
+          UiUtils.show(mElevationProfileView);
+        }
       }
       else UiUtils.hide(mElevationProfileView);
+      mTrack = track;
     }
   }
 
