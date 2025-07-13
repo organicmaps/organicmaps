@@ -190,6 +190,12 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     nativeShowResult(index);
   }
 
+  @MainThread
+  public void updateViewportWithLastResults()
+  {
+    nativeUpdateViewportWithLastResults();
+  }
+
   public void initialize()
   {
     nativeInit();
@@ -224,4 +230,6 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native void nativeCancelEverywhereSearch();
 
   private static native void nativeCancelAllSearches();
+
+  private static native void nativeUpdateViewportWithLastResults();
 }
