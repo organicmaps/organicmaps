@@ -161,7 +161,7 @@ see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). You can [help in many ways](ht
 Please join our beta program, suggest your features, and report bugs:
 
 - [iOS Beta (TestFlight)](https://testflight.apple.com/join/lrKCl08I)
-- [Android Beta (Firebase)](https://appdistribution.firebase.dev/i/2f0fee463107b137)
+- [Android Beta (Firebase)](https://appdistribution.firebase.dev/i/f3e918f9abc40c9c)
 
 ## Feedback
 
