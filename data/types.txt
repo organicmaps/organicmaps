@@ -1622,3 +1622,4 @@ amenity|recycling|container
 *shop|hearing_aids
 *railway|station|subway|qingdao
 *railway|subway_entrance|qingdao
+*amenity|bicycle_parking|covered

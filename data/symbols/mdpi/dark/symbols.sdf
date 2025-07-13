@@ -552,30 +552,31 @@
   <symbol maxX="529" maxY="389" minX="510" minY="370" name="cairn-m"/>
   <symbol maxX="548" maxY="389" minX="529" minY="370" name="bicycle-rental"/>
   <symbol maxX="567" maxY="389" minX="548" minY="370" name="bicycle-parking-m"/>
-  <symbol maxX="586" maxY="389" minX="567" minY="370" name="anchor-m"/>
-  <symbol maxX="604" maxY="388" minX="586" minY="370" name="subway-yokohama-s"/>
-  <symbol maxX="625" maxY="388" minX="604" minY="370" name="subway-yerevan-s"/>
-  <symbol maxX="643" maxY="388" minX="625" minY="370" name="subway-wuhan-s"/>
-  <symbol maxX="661" maxY="388" minX="643" minY="370" name="subway-washington-s"/>
-  <symbol maxX="679" maxY="388" minX="661" minY="370" name="subway-warszawa-s"/>
-  <symbol maxX="695" maxY="388" minX="679" minY="370" name="subway-warsaw-s"/>
-  <symbol maxX="713" maxY="388" minX="695" minY="370" name="subway-volgograd-s"/>
-  <symbol maxX="731" maxY="388" minX="713" minY="370" name="subway-vienna-s"/>
-  <symbol maxX="749" maxY="388" minX="731" minY="370" name="subway-valencia-s"/>
-  <symbol maxX="767" maxY="388" minX="749" minY="370" name="subway-ubahn-m"/>
-  <symbol maxX="785" maxY="388" minX="767" minY="370" name="subway-tyneandwear-s"/>
-  <symbol maxX="803" maxY="388" minX="785" minY="370" name="subway-tokyo-s"/>
-  <symbol maxX="821" maxY="388" minX="803" minY="370" name="subway-tianjin-s"/>
-  <symbol maxX="839" maxY="388" minX="821" minY="370" name="subway-tashkent-s"/>
-  <symbol maxX="859" maxY="388" minX="839" minY="370" name="subway-taoyuan-s"/>
-  <symbol maxX="877" maxY="388" minX="859" minY="370" name="subway-stockholm-s"/>
-  <symbol maxX="895" maxY="388" minX="877" minY="370" name="subway-sofia-s"/>
-  <symbol maxX="913" maxY="388" minX="895" minY="370" name="subway-singapore-s"/>
-  <symbol maxX="931" maxY="388" minX="913" minY="370" name="subway-shiraz-s"/>
-  <symbol maxX="949" maxY="388" minX="931" minY="370" name="subway-shanghai-s"/>
-  <symbol maxX="969" maxY="388" minX="949" minY="370" name="subway-seattle-m"/>
-  <symbol maxX="987" maxY="388" minX="969" minY="370" name="subway-saopaulo-s"/>
-  <symbol maxX="1005" maxY="388" minX="987" minY="370" name="subway-santodomingo-s"/>
+  <symbol maxX="586" maxY="389" minX="567" minY="370" name="bicycle-parking-covered-m"/>
+  <symbol maxX="605" maxY="389" minX="586" minY="370" name="anchor-m"/>
+  <symbol maxX="623" maxY="388" minX="605" minY="370" name="subway-yokohama-s"/>
+  <symbol maxX="644" maxY="388" minX="623" minY="370" name="subway-yerevan-s"/>
+  <symbol maxX="662" maxY="388" minX="644" minY="370" name="subway-wuhan-s"/>
+  <symbol maxX="680" maxY="388" minX="662" minY="370" name="subway-washington-s"/>
+  <symbol maxX="698" maxY="388" minX="680" minY="370" name="subway-warszawa-s"/>
+  <symbol maxX="714" maxY="388" minX="698" minY="370" name="subway-warsaw-s"/>
+  <symbol maxX="732" maxY="388" minX="714" minY="370" name="subway-volgograd-s"/>
+  <symbol maxX="750" maxY="388" minX="732" minY="370" name="subway-vienna-s"/>
+  <symbol maxX="768" maxY="388" minX="750" minY="370" name="subway-valencia-s"/>
+  <symbol maxX="786" maxY="388" minX="768" minY="370" name="subway-ubahn-m"/>
+  <symbol maxX="804" maxY="388" minX="786" minY="370" name="subway-tyneandwear-s"/>
+  <symbol maxX="822" maxY="388" minX="804" minY="370" name="subway-tokyo-s"/>
+  <symbol maxX="840" maxY="388" minX="822" minY="370" name="subway-tianjin-s"/>
+  <symbol maxX="858" maxY="388" minX="840" minY="370" name="subway-tashkent-s"/>
+  <symbol maxX="878" maxY="388" minX="858" minY="370" name="subway-taoyuan-s"/>
+  <symbol maxX="896" maxY="388" minX="878" minY="370" name="subway-stockholm-s"/>
+  <symbol maxX="914" maxY="388" minX="896" minY="370" name="subway-sofia-s"/>
+  <symbol maxX="932" maxY="388" minX="914" minY="370" name="subway-singapore-s"/>
+  <symbol maxX="950" maxY="388" minX="932" minY="370" name="subway-shiraz-s"/>
+  <symbol maxX="968" maxY="388" minX="950" minY="370" name="subway-shanghai-s"/>
+  <symbol maxX="988" maxY="388" minX="968" minY="370" name="subway-seattle-m"/>
+  <symbol maxX="1006" maxY="388" minX="988" minY="370" name="subway-saopaulo-s"/>
+  <symbol maxX="1024" maxY="388" minX="1006" minY="370" name="subway-santodomingo-s"/>
   <symbol maxX="21" maxY="409" minX="0" minY="391" name="subway-santiago-s"/>
   <symbol maxX="39" maxY="409" minX="21" minY="391" name="subway-samara-s"/>
   <symbol maxX="57" maxY="409" minX="39" minY="391" name="subway-rome-m"/>
