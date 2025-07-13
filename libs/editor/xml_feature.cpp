@@ -4,6 +4,7 @@
 #include "indexer/editable_map_object.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
+#include "editor/type_to_osm_mapper.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -777,49 +778,41 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
   if (serializeType)
   {
     feature::TypesHolder th = object.GetTypes();
-    // TODO(mgsergio): Use correct sorting instead of SortBySpec based on the config.
     th.SortBySpec();
-    // TODO(mgsergio): Either improve "OSM"-compatible serialization for more complex types,
-    // or save all our types directly, to restore and reuse them in migration of modified features.
-    for (uint32_t const type : th)
+
+    if (!th.Empty())
     {
-      if (ftypes::IsCuisineChecker::Instance()(type))
-        continue;
+      // Get the primary OM type.
+      uint32_t const mainType = th.GetBestType();
+      string const strType = classif().GetReadableObjectName(mainType);
 
-      if (ftypes::IsRecyclingTypeChecker::Instance()(type))
-        continue;
+      // Get the corresponding OSM tags
+      auto const osmTags = editor::TypeToOsmMapper::Instance().GetPrimaryOsmTags(strType);
 
-      if (ftypes::IsRecyclingCentreChecker::Instance()(type))
+      if (!osmTags.empty())
       {
-        toFeature.SetTagValue("amenity", "recycling");
-        toFeature.SetTagValue("recycling_type", "centre");
-        continue;
-      }
-      if (ftypes::IsRecyclingContainerChecker::Instance()(type))
-      {
-        toFeature.SetTagValue("amenity", "recycling");
-        toFeature.SetTagValue("recycling_type", "container");
-        continue;
-      }
-
-      string const strType = classif().GetReadableObjectName(type);
-      strings::SimpleTokenizer iter(strType, "-");
-      string_view const k = *iter;
-      if (++iter)
-      {
-        // First (main) type is always stored as "k=amenity v=restaurant".
-        // Any other "k=amenity v=atm" is replaced by "k=atm v=yes".
-        if (toFeature.GetTagValue(k).empty())
-          toFeature.SetTagValue(k, *iter);
-        else
-          toFeature.SetTagValue(*iter, kYes);
+        for (auto const & tag : osmTags)
+        {
+          toFeature.SetTagValue(tag.first, tag.second);
+        }
       }
       else
       {
-        // We're editing building, generic craft, shop, office, amenity etc.
-        // Skip it's serialization.
-        // TODO(mgsergio): Correcly serialize all types back and forth.
-        LOG(LDEBUG, ("Skipping type serialization:", k));
+        // Fallback to old logic for types not found
+        LOG(LWARNING, ("No OSM tag mapping found for OM type:", strType, ". Using legacy serialization."));
+        strings::SimpleTokenizer iter(strType, "-");
+        string_view const k = *iter;
+        if (++iter)
+        {
+          if (toFeature.GetTagValue(k).empty())
+            toFeature.SetTagValue(k, *iter);
+          else
+            toFeature.SetTagValue(*iter, "yes");
+        }
+        else
+        {
+          LOG(LDEBUG, ("Skipping type serialization:", k));
+        }
       }
     }
   }
@@ -841,27 +834,26 @@ XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD merca
   XMLFeature toFeature(XMLFeature::Type::Node);
   toFeature.SetCenter(mercator);
 
-  // Set Type
-  if (ftypes::IsRecyclingCentreChecker::Instance()(type))
+  string const strType = classif().GetReadableObjectName(type);
+
+  // Get the corresponding OSM tags
+  auto const osmTags = editor::TypeToOsmMapper::Instance().GetPrimaryOsmTags(strType);
+
+  if (!osmTags.empty())
   {
-    toFeature.SetTagValue("amenity", "recycling");
-    toFeature.SetTagValue("recycling_type", "centre");
-  }
-  else if (ftypes::IsRecyclingContainerChecker::Instance()(type))
-  {
-    toFeature.SetTagValue("amenity", "recycling");
-    toFeature.SetTagValue("recycling_type", "container");
+    for (auto const & tag : osmTags)
+    {
+      toFeature.SetTagValue(tag.first, tag.second);
+    }
   }
   else
   {
-    string const strType = classif().GetReadableObjectName(type);
+    // Fallback to old logic for types not found
+    LOG(LWARNING, ("No OSM tag mapping found for OM type:", strType, "in TypeToXML. Using legacy serialization."));
     strings::SimpleTokenizer iter(strType, "-");
     string_view const k = *iter;
-
     CHECK(++iter, ("Processing Type failed: ", strType));
-    // Main type is always stored as "k=amenity v=restaurant".
     toFeature.SetTagValue(k, *iter);
-
     ASSERT(!(++iter), ("Can not process 3-arity/complex types: ", strType));
   }
   return toFeature;
@@ -884,45 +876,36 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
     object.SetCuisines(strings::Tokenize(cuisineStr, ";"));
 
   feature::TypesHolder types = object.GetTypes();
-
   Classificator const & cl = classif();
-  xml.ForEachTag([&](string_view k, string_view v)
+
+  // Exception to avoid false mapping of "amenity=recycling" "recycling_type=container" to legacy OM type: "amenity-recycling_container" instead of "amenity-recycling-container"
+  if (xml.GetTagValue("amenity") == "recycling" && xml.GetTagValue("recycling_type") == "container")
   {
-    if (object.UpdateMetadataValue(k, string(v)))
-      return;
+    types.Add(cl.GetTypeByPath({"amenity", "recycling", "container"}));
+    xml.ForEachTag([&](string_view k, string_view v) {
+        object.UpdateMetadataValue(k, string(v));
+    });
+    object.SetTypes(types);
+    return types.Size() > 0;
+  }
 
-    // Cuisines are already processed before this loop.
-    if (k == "cuisine")
-      return;
+  TypeToOsmMapper::OsmTags typeDefiningTags;
+  xml.ForEachTag([&typeDefiningTags](string_view k, string_view v)
+ {
+     feature::Metadata::EType tempMeta;
+     if (k.starts_with("name") || k.starts_with("addr:") || k == "cuisine" ||
+         feature::Metadata::TypeFromString(k, tempMeta))
+     {
+       return;
+     }
+     typeDefiningTags.emplace_back(string(k), string(v));
+ });
 
-    // We process recycling_type tag together with "amenity"="recycling" later.
-    // We currently ignore recycling tag because it's our custom tag and we cannot
-    // import it to osm directly.
-    if (k == "recycling" || k == "recycling_type")
-      return;
-
-    uint32_t type = 0;
-    if (k == "amenity" && v == "recycling" && xml.HasTag("recycling_type"))
-    {
-      auto const typeValue = xml.GetTagValue("recycling_type");
-      if (typeValue == "centre")
-        type = ftypes::IsRecyclingCentreChecker::Instance().GetType();
-      else if (typeValue == "container")
-        type = ftypes::IsRecyclingContainerChecker::Instance().GetType();
-    }
-
-    // Simple heuristics. It works for types converted from osm with short mapcss rules
-    // where k=v from osm is converted to our k-v type (amenity=restaurant, shop=convenience etc.).
-    if (type == 0)
-      type = cl.GetTypeByPathSafe({k, v});
-    if (type == 0)
-      type = cl.GetTypeByPathSafe({k});  // building etc.
-    if (type == 0)
-      type = cl.GetTypeByPathSafe({"amenity", k});  // atm=yes, toilet=yes etc.
-
-    if (type && types.Size() >= feature::kMaxTypesCount)
-      LOG(LERROR, ("Can't add type:", k, v, ". Types limit exceeded."));
-    else if (type)
+  std::string omTypeStr = TypeToOsmMapper::Instance().GetOmType(typeDefiningTags);
+  if (!omTypeStr.empty())
+  {
+    uint32_t type = cl.GetTypeByReadableObjectName(omTypeStr);
+    if (type != Classificator::INVALID_TYPE)
       types.Add(type);
     else
     {
@@ -930,6 +913,11 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
       /// @todo Refactor to make one ForEachTag loop. Now we have separate ForEachName,
       /// so we can't log any suspicious tag here ...
     }
+  }
+
+  // Parse metadata attributes
+  xml.ForEachTag([&](string_view k, string_view v) {
+      object.UpdateMetadataValue(k, string(v));
   });
 
   object.SetTypes(types);

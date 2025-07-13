@@ -203,7 +203,47 @@ endif()
 # Used in qt/ and shaders/
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
+# Generate OM type to OSM tag mapping file used by the editor
+set(TAG_MAPPING_SCRIPT ${OMIM_ROOT}/tools/python/generate_tag_mapping.py)
+set(TAG_MAPPING_INPUT_CSV ${OMIM_ROOT}/data/mapcss-mapping.csv)
+set(TAG_MAPPING_OUTPUT_JSON ${OMIM_ROOT}/android/app/src/main/assets/om_type_to_osm_tags.json)
+add_custom_command(
+  OUTPUT ${TAG_MAPPING_OUTPUT_JSON}
+  COMMAND
+    ${Python3_EXECUTABLE} ${TAG_MAPPING_SCRIPT}
+    --input ${TAG_MAPPING_INPUT_CSV}
+    --output ${TAG_MAPPING_OUTPUT_JSON}
+  DEPENDS
+    ${TAG_MAPPING_SCRIPT}
+    ${TAG_MAPPING_INPUT_CSV}
+  COMMENT "Generating OM type to OSM tags mapping..."
+  VERBATIM
+)
+add_custom_target(GenerateTagMapping DEPENDS ${TAG_MAPPING_OUTPUT_JSON})
+
 add_subdirectory(libs)
+add_subdirectory(base)
+add_subdirectory(coding)
+add_subdirectory(descriptions)
+add_subdirectory(drape)
+add_subdirectory(drape_frontend)
+add_subdirectory(editor)
+add_subdirectory(ge0)
+add_subdirectory(generator/mwm_diff)
+add_subdirectory(geometry)
+add_subdirectory(indexer)
+add_subdirectory(kml)
+add_subdirectory(map)
+add_subdirectory(cppjansson)
+add_subdirectory(platform)
+add_subdirectory(routing)
+add_subdirectory(routing_common)
+add_subdirectory(search)
+add_subdirectory(shaders)
+add_subdirectory(storage)
+add_subdirectory(tracking)
+add_subdirectory(traffic)
+add_subdirectory(transit)
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(dev_sandbox)
