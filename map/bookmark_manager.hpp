@@ -50,6 +50,7 @@ public:
   using KMLDataCollectionPtr = std::shared_ptr<KMLDataCollection>;
 
   using BookmarksChangedCallback = std::function<void()>;
+  using FileChangedCallback = std::function<void(std::string const &)>;
   using CategoriesChangedCallback = std::function<void()>;
   using ElevationActivePointChangedCallback = std::function<void()>;
   using ElevationMyPositionChangedCallback = std::function<void()>;
@@ -180,6 +181,7 @@ public:
                                storage::CountryInfoGetter const & infoGetter);
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
+  void SetFileChangedCallback(FileChangedCallback && callback);
   void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
   void SetAsyncLoadingCallbacks(AsyncLoadingCallbacks && callbacks);
   bool IsAsyncLoadingInProgress() const { return m_asyncLoadingInProgress; }
@@ -275,6 +277,7 @@ public:
 
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
+  std::vector<std::string> GetLoadedCategoryPaths() const;
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
   kml::CategoryData const & GetCategoryData(kml::MarkGroupId categoryId) const;
@@ -436,6 +439,10 @@ public:
   dp::Color GenerateTrackRecordingColor() const;
 
   kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> const & points, std::string const & from, std::string const & to);
+
+  /// Gives the category name and filename a suffix, blocking the calling thread until file operations are
+  /// complete. Must not be called from the Gui or File threads.
+  void AddSuffixToCategoryName(std::string const & filePath);
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
@@ -741,6 +748,7 @@ private:
   std::mutex m_regionAddressMutex;
 
   BookmarksChangedCallback m_bookmarksChangedCallback;
+  FileChangedCallback m_fileChangedCallback;
   CategoriesChangedCallback m_categoriesChangedCallback;
   ElevationActivePointChangedCallback m_elevationActivePointChanged;
   ElevationMyPositionChangedCallback m_elevationMyPositionChanged;

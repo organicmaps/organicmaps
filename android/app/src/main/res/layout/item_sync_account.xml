@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_half"
+    app:cardCornerRadius="@dimen/cardview_default_radius"
+    app:cardElevation="@dimen/cardview_default_elevation">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_base">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+      <ImageView
+          android:id="@+id/iv_account"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          tools:src="@drawable/ic_nextcloud" />
+
+      <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="12dp"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Username" />
+
+        <TextView
+            android:id="@+id/tv_backend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="14sp"
+            tools:text="https://nextcloud.some-very-long-string.com" />
+      </LinearLayout>
+
+      <androidx.appcompat.widget.SwitchCompat
+          android:id="@+id/switch_enable_sync"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_sync_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            tools:text="Last synced: 2 hours ago" />
+
+        <TextView
+            android:id="@+id/tv_auth_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:visibility="visible"
+            tools:text="Session expires in 2 days" />
+      </LinearLayout>
+    </LinearLayout>
+  </LinearLayout>
+<!--  TODO add a remove account option -->
+</androidx.cardview.widget.CardView>
