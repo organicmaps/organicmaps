@@ -1375,67 +1375,40 @@ void Framework::ShowSearchResult(search::Result const & res, bool animation)
   SelectSearchResult(res, animation);
 }
 
-size_t Framework::ShowSearchResults(search::Results const & results)
+void Framework::UpdateViewport(search::Results const & results)
 {
-  using namespace search;
-
-  size_t count = results.GetCount();
-  if (count == 0)
-    return 0;
-
-  if (count == 1)
-  {
-    Result const & r = results[0];
-    if (!r.IsSuggest())
-      ShowSearchResult(r);
-    else
-      return 0;
-  }
-
-  FillSearchResultsMarks(true /* clear */, results);
-
   // Setup viewport according to results.
   m2::AnyRectD viewport = m_currentModelView.GlobalRect();
   m2::PointD const center = viewport.Center();
 
   double minDistance = numeric_limits<double>::max();
-  int minInd = -1;
-  for (size_t i = 0; i < count; ++i)
+  search::Result const * res = nullptr;
+  for (auto const & r : results)
   {
-    Result const & r = results[i];
     if (r.HasPoint())
     {
       double const dist = center.SquaredLength(r.GetFeatureCenter());
       if (dist < minDistance)
       {
         minDistance = dist;
-        minInd = static_cast<int>(i);
+        res = &r;
       }
     }
   }
 
-  if (minInd != -1)
+  if (res)
   {
-    m2::PointD const pt = results[minInd].GetFeatureCenter();
-
-    if (m_currentModelView.isPerspective())
-    {
-      StopLocationFollow();
-      SetViewportCenter(pt);
-      return count;
-    }
-
+    m2::PointD const pt = res->GetFeatureCenter();
     if (!viewport.IsPointInside(pt))
     {
       viewport.SetSizesToIncludePoint(pt);
+      double constexpr factor = 0.05;
+      viewport.Inflate(viewport.GetLocalRect().SizeX() * factor, viewport.GetLocalRect().SizeY() * factor);
+
       StopLocationFollow();
+      ShowRect(viewport);
     }
   }
-
-  // Graphics engine can be recreated (on Android), so we always set up viewport here.
-  ShowRect(viewport);
-
-  return count;
 }
 
 void Framework::FillSearchResultsMarks(bool clear, search::Results const & results)
@@ -1563,7 +1536,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
       m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(),
       isAutozoomEnabled, simplifiedTrafficColors, std::nullopt /* arrow3dCustomDecl */,
-      std::move(overlaysShowStatsFn), std::move(onGraphicsContextInitialized), 
+      std::move(overlaysShowStatsFn), std::move(onGraphicsContextInitialized),
       std::move(params.m_renderInjectionHandler));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(std::move(p));

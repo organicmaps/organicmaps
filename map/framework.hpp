@@ -489,7 +489,7 @@ public:
   // search result.
   void ShowSearchResult(search::Result const & res, bool animation = true);
 
-  size_t ShowSearchResults(search::Results const & results);
+  void UpdateViewport(search::Results const & results);
 
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIterT end, bool clear);
@@ -612,7 +612,7 @@ private:
 
   /// This function can be used for enabling some experimental features for routing.
   bool ParseRoutingDebugCommand(search::SearchParams const & params);
-    
+
   bool ParseAllTypesDebugCommand(search::SearchParams const & params);
 
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;

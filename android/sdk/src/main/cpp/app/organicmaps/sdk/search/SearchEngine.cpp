@@ -372,4 +372,10 @@ extern "C"
   {
     g_framework->NativeFramework()->GetSearchAPI().CancelAllSearches();
   }
+
+  JNIEXPORT void JNICALL
+  Java_app_organicmaps_sdk_search_SearchEngine_nativeUpdateViewportWithLastResults(JNIEnv * env, jclass clazz)
+  {
+    g_framework->NativeFramework()->UpdateViewport(g_results);
+  }
 } // extern "C"
