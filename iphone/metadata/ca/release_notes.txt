@@ -1,25 +1,19 @@
-We're getting back on track! Now you can save planned routes as tracks and see details about the currently recorded track.
-There is fresh OpenStreetMap data as of June 8, 2025, and also many other improvements:
+• Fresh OSM map data as of July 8
+• Any imported or recorded track can be selected by tapping on it on the map
+• Now you can edit (or delete) the recorded track immediately after saving it
+• Improved bookmark and track editing: change the color and the list directly from the Track Information Page
+• Improved search for the Arabic language
+• Display campsite and resort areas, see industrial zones earlier
+• Secondary roads at roundabouts are not ignored for voice directions
+• Save elevation/altitude (if it is present) when saving a route
+• New Bookmarks and Tracks icon on the map to help users find their recorded or imported tracks
+• Charging stations now have their own distinguishable icon on the map and in the search
+• Improved zooming on a selected track
+• Expanded tap area for buttons
+• Fixed jumping OSM notes when typing text
+• Show "Add Place" button for businesses
+• Updated translations, you can help fix wrong or missing translations here: https://hosted.weblate.org/projects/organicmaps/
 
-• Fixed route planning error when the current location was unknown
-• Prevent iCloud sync from failing when the cloud file doesn't exist
-• Fix counter in special "?edits" search command
-• Fix Wikipedia section visibility on the Place page
-• Fully expand the track information page when opened
-• Increased the search screen top inset from the safe area
-• Smoother modal screen and side buttons animation
-• Save planned route as a track
-• Show detailed information about the recording track
-• App translations updates from the Weblate community
+Did you know that you can join a beta-testing program and preview upcoming features sooner? Here is the sign-up link: https://testflight.apple.com/join/lrKCl08I
 
-Map:
-• Less annoying icons for car charging stations
-• Display plant nurseries, crash/traffic barriers, radio/tv/music studios, firepits, ladders, cranes, and love hotels
-• Qingdao metro icons
-
-Search:
-• Updated sewing/tailor synonyms
-• Fixed category search for Lithuanian and other languages
-• Fixed search on the map and in the list
-• Fixed search suggestions
-• Search history is not duplicated anymore
+The detailed changelog for this release is available at our website: https://organicmaps.app/news/

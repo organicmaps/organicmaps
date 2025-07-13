@@ -1,25 +1,19 @@
-We're getting back on track! Now you can save planned routes as tracks and see details about the currently recorded track.
-There is fresh OpenStreetMap data as of June 8, 2025, and also many other improvements:
+• 7月8日時点の新しいOSMマップデータ
+• インポートまたは記録されたトラックは、マップ上でタップして選択できます
+• 保存後すぐに記録されたトラックを編集（または削除）できるようになりました
+• ブックマークとトラックの編集が改善されました：トラック情報ページから直接色とリストを変更できます
+• アラビア語の検索機能が改善されました
+• キャンプ場やリゾート地域を表示し、工業地帯をより早く表示します
+• ラウンドアバウトでの二次道路は音声案内で無視されません
+• ルート保存時に標高/高度を保存します（存在する場合）
+• ユーザーが記録またはインポートしたトラックを見つけやすくするため、マップ上の新しいブックマークとトラックのアイコン
+• 充電ステーションがマップと検索で独自の識別可能なアイコンを持つようになりました
+• 選択されたトラックでのズーム機能が改善されました
+• ボタンのタップエリアを拡張しました
+• テキスト入力時にOSMノートがジャンプする問題を修正しました
+• ビジネス向けに「場所を追加」ボタンを表示します
+• 翻訳を更新しました。間違いや不足している翻訳の修正にご協力ください：https://hosted.weblate.org/projects/organicmaps/
 
-• Fixed route planning error when the current location was unknown
-• Prevent iCloud sync from failing when the cloud file doesn't exist
-• Fix counter in special "?edits" search command
-• Fix Wikipedia section visibility on the Place page
-• Fully expand the track information page when opened
-• Increased the search screen top inset from the safe area
-• Smoother modal screen and side buttons animation
-• Save planned route as a track
-• Show detailed information about the recording track
-• App translations updates from the Weblate community
+ベータテストプログラムに参加して、今後の機能をいち早くプレビューできることをご存知ですか？こちらがサインアップリンクです：https://testflight.apple.com/join/lrKCl08I
 
-Map:
-• Less annoying icons for car charging stations
-• Display plant nurseries, crash/traffic barriers, radio/tv/music studios, firepits, ladders, cranes, and love hotels
-• Qingdao metro icons
-
-Search:
-• Updated sewing/tailor synonyms
-• Fixed category search for Lithuanian and other languages
-• Fixed search on the map and in the list
-• Fixed search suggestions
-• Search history is not duplicated anymore
+このリリースの詳細な変更ログは当社のウェブサイトで利用できます：https://organicmaps.app/news/

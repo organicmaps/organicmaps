@@ -1,12 +1,10 @@
-• New OSM data as of June 8
-• Save planned routes as tracks
-• Display plant nurseries, traffic barriers, studios, firepits, ladders, cranes, and love hotels
-• Qingdao metro icons
-• Show azimuth when tapping on a small arrow with distance
-• Fixed crashes and white-on-white text on Android 5&6
-• Fixed search for Lithuanian and other languages
-• Fix location arrow jumps when navigation is active
-• Fixed Cancel Download button
-• Improved translations from Weblate
+• Données OSM au 8 juillet
+• Recherche améliorée pour l'arabe
+• Afficher zones de camping et de villégiature, voir zones industrielles plus tôt
+• Ne pas ignorer routes secondaires aux rond-points
+• Nouvelles icônes pour stations de recharge
+• Sauvegarder données d'élévation lors de la sauvegarde d'itinéraire
+• Corrigé bouton "Réessayer le téléchargement échoué"
+• Corrigé éditions OSM dupliquées
 
-…more at omaps.org/news
+…plus sur omaps.org/fr/news

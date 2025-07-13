@@ -1,25 +1,19 @@
-We're getting back on track! Now you can save planned routes as tracks and see details about the currently recorded track.
-There is fresh OpenStreetMap data as of June 8, 2025, and also many other improvements:
+• Données cartographiques OSM fraîches au 8 juillet
+• Toute piste importée ou enregistrée peut être sélectionnée en appuyant dessus sur la carte
+• Vous pouvez maintenant modifier (ou supprimer) la piste enregistrée immédiatement après l'avoir sauvegardée
+• Édition améliorée des favoris et des pistes : changez la couleur et la liste directement depuis la page d'informations de la piste
+• Recherche améliorée pour la langue arabe
+• Affichage des zones de camping et de villégiature, visualisation des zones industrielles plus tôt
+• Les routes secondaires aux rond-points ne sont pas ignorées pour les instructions vocales
+• Sauvegarde de l'élévation/altitude (si elle est présente) lors de la sauvegarde d'un itinéraire
+• Nouvelle icône Favoris et Pistes sur la carte pour aider les utilisateurs à trouver leurs pistes enregistrées ou importées
+• Les stations de recharge ont maintenant leur propre icône distinctive sur la carte et dans la recherche
+• Zoom amélioré sur une piste sélectionnée
+• Zone de toucher élargie pour les boutons
+• Correction des notes OSM qui sautent lors de la saisie de texte
+• Affichage du bouton "Ajouter un lieu" pour les entreprises
+• Traductions mises à jour, vous pouvez aider à corriger les traductions incorrectes ou manquantes ici : https://hosted.weblate.org/projects/organicmaps/
 
-• Fixed route planning error when the current location was unknown
-• Prevent iCloud sync from failing when the cloud file doesn't exist
-• Fix counter in special "?edits" search command
-• Fix Wikipedia section visibility on the Place page
-• Fully expand the track information page when opened
-• Increased the search screen top inset from the safe area
-• Smoother modal screen and side buttons animation
-• Save planned route as a track
-• Show detailed information about the recording track
-• App translations updates from the Weblate community
+Saviez-vous que vous pouvez rejoindre un programme de test bêta et prévisualiser les fonctionnalités à venir plus tôt ? Voici le lien d'inscription : https://testflight.apple.com/join/lrKCl08I
 
-Map:
-• Less annoying icons for car charging stations
-• Display plant nurseries, crash/traffic barriers, radio/tv/music studios, firepits, ladders, cranes, and love hotels
-• Qingdao metro icons
-
-Search:
-• Updated sewing/tailor synonyms
-• Fixed category search for Lithuanian and other languages
-• Fixed search on the map and in the list
-• Fixed search suggestions
-• Search history is not duplicated anymore
+Le journal des modifications détaillé pour cette version est disponible sur notre site web : https://organicmaps.app/news/

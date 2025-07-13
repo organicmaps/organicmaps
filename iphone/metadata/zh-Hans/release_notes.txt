@@ -1,25 +1,19 @@
-We're getting back on track! Now you can save planned routes as tracks and see details about the currently recorded track.
-There is fresh OpenStreetMap data as of June 8, 2025, and also many other improvements:
+• 截至7月8日的最新OSM地图数据
+• 任何导入或记录的轨迹都可以通过在地图上点击来选择
+• 现在您可以在保存后立即编辑（或删除）记录的轨迹
+• 改进了书签和轨迹编辑：直接从轨迹信息页面更改颜色和列表
+• 改进了阿拉伯语搜索功能
+• 显示露营地和度假村区域，更早显示工业区
+• 环形交叉路口的次要道路在语音导航中不会被忽略
+• 保存路线时保存海拔/高度（如果存在）
+• 地图上新的书签和轨迹图标，帮助用户找到他们记录或导入的轨迹
+• 充电站现在在地图和搜索中有自己独特的图标
+• 改进了选定轨迹的缩放功能
+• 扩大了按钮的触摸区域
+• 修复了输入文本时OSM笔记跳跃的问题
+• 为企业显示"添加地点"按钮
+• 更新了翻译，您可以在这里帮助修复错误或缺失的翻译：https://hosted.weblate.org/projects/organicmaps/
 
-• Fixed route planning error when the current location was unknown
-• Prevent iCloud sync from failing when the cloud file doesn't exist
-• Fix counter in special "?edits" search command
-• Fix Wikipedia section visibility on the Place page
-• Fully expand the track information page when opened
-• Increased the search screen top inset from the safe area
-• Smoother modal screen and side buttons animation
-• Save planned route as a track
-• Show detailed information about the recording track
-• App translations updates from the Weblate community
+您知道可以加入测试版程序并更早预览即将推出的功能吗？这是注册链接：https://testflight.apple.com/join/lrKCl08I
 
-Map:
-• Less annoying icons for car charging stations
-• Display plant nurseries, crash/traffic barriers, radio/tv/music studios, firepits, ladders, cranes, and love hotels
-• Qingdao metro icons
-
-Search:
-• Updated sewing/tailor synonyms
-• Fixed category search for Lithuanian and other languages
-• Fixed search on the map and in the list
-• Fixed search suggestions
-• Search history is not duplicated anymore
+此版本的详细更改日志可在我们的网站上查看：https://organicmaps.app/news/
