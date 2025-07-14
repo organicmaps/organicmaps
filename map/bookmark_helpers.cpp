@@ -134,7 +134,10 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"leisure-nature_reserve", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
   {"leisure-park", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
 
-  {"amenity-bicycle_parking", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+  {"amenity-bicycle_parking", {kml::BookmarkIcon::BicycleParking, BookmarkBaseType::Parking}},
+  {"amenity-bicycle_parking-covered", {kml::BookmarkIcon::BicycleParkingCovered, BookmarkBaseType::Parking}},
+  {"amenity-bicycle_rental", {kml::BookmarkIcon::BicycleRental, BookmarkBaseType::Parking}},
+
   {"amenity-motorcycle_parking", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
   {"amenity-parking", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
   {"highway-services", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
