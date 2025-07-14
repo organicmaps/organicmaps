@@ -45,6 +45,19 @@ void TestMaxULPs()
 }
 }  // namespace
 
+UNIT_TEST(round_lround_smoke)
+{
+  TEST_EQUAL(std::round(0.4), 0.0, ());
+  TEST_EQUAL(std::round(0.6), 1.0, ());
+  TEST_EQUAL(std::round(-0.4), 0.0, ());
+  TEST_EQUAL(std::round(-0.6), -1.0, ());
+
+  TEST_EQUAL(std::lround(0.4), 0l, ());
+  TEST_EQUAL(std::lround(0.6), 1l, ());
+  TEST_EQUAL(std::lround(-0.4), 0l, ());
+  TEST_EQUAL(std::lround(-0.6), -1l, ());
+}
+
 UNIT_TEST(PowUInt)
 {
   TEST_EQUAL(PowUint(3, 10), 59049, ());
