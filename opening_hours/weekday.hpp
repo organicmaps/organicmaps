@@ -4,7 +4,7 @@
 
 namespace om::opening_hours
 {
-enum class Weekday : uint8_t
+enum class Weekday
 {
   Monday = 0,
   Tuesday,

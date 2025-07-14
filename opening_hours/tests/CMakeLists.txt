@@ -1,7 +1,8 @@
 project(opening_hours_new_tests)
 
 set(SRC
-    parser_test.cpp
+    hourminutes_test.cpp
+    tokenizer_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
