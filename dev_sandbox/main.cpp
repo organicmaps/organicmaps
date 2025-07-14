@@ -11,6 +11,8 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "std/target_os.hpp"
 
 #include <chrono>
@@ -613,6 +615,14 @@ int main(int argc, char * argv[])
     ImGui::Text("My positon mode: %s", GetMyPoisitionText(framework.GetMyPositionMode()).data());
     if (ImGui::Button("Next Position Mode"))
       framework.SwitchMyPositionNextMode();
+    ImGui::NewLine();
+    ImGui::Separator();
+    ImGui::NewLine();
+    float visualScale = df::VisualParams::Instance().GetVisualScale();
+    ImGui::Text("Visual Scale: ");
+    if (ImGui::SliderFloat(" ", &visualScale, df::VisualParams::kMdpiScale,
+                           df::VisualParams::kXxxhdpiScale))
+      framework.UpdateVisualScale(visualScale);
     ImGui::NewLine();
     ImGui::Separator();
     ImGui::NewLine();

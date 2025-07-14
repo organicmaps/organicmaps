@@ -10,6 +10,8 @@
 #include "drape/texture_of_colors.hpp"
 #include "drape/tm_read_resources.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "base/math.hpp"
 
 #include <algorithm>
@@ -404,6 +406,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
 void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
 {
   CHECK(m_isInitialized, ());
+  m_resPostfix = df::VisualParams::Instance().GetResourcePostfix();
 
   // Here we need invalidate only textures which can be changed in map style switch.
   // Now we update only symbol textures, if we need update other textures they must be added here.

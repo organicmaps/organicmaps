@@ -981,6 +981,11 @@ void DrapeEngine::UpdateVisualScale(double vs, bool needStopRendering)
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<RecoverContextDependentResourcesMessage>(),
                                   MessagePriority::Normal);
+  // Calling UpdateMapStyle() to reload resources for correct visual scale.
+  // This call updates only symbols textures. Other "scale-dependent" resources remain unchanged.
+  // TODO: A proper fix is still needed.
+  if (GetApiVersion() == dp::ApiVersion::Vulkan)
+    UpdateMapStyle();
 }
 
 void DrapeEngine::UpdateMyPositionRoutingOffset(bool useDefault, int offsetY)
