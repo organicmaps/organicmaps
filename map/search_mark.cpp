@@ -72,6 +72,9 @@ enum SearchMarkPoint::SearchMarkType : uint8_t
   Pharmacy,
   DrinkingWater,
   DrinkingWaterNo,
+  BicycleParking,
+  BicycleParkingCovered,
+  BicycleRental,
 
   NotFound,  // Service value used in developer tools.
   Count
@@ -142,6 +145,9 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-pharmacy",               // Pharmacy.
     "search-result-drinking-water",         // DrinkingWater.
     "search-result-drinking-water-no",      // DrinkingWaterNo.
+    "search-result-bicycle_parking",        // BicycleParking.
+    "search-result-bicycle_parking-covered",// BicycleParkingCovered.
+    "search-result-bicycle_rental",         // BicycleRental.
 
     
     "non-found-search-result",  // NotFound.
@@ -284,6 +290,9 @@ private:
       {{"man_made", "water_tap", "drinking_water_no"},      SearchMarkType::DrinkingWaterNo},
       {{"man_made", "water_well", "drinking_water_no"},     SearchMarkType::DrinkingWaterNo},
       {{"natural", "spring", "drinking_water_no"},          SearchMarkType::DrinkingWaterNo},
+      {{"amenity", "bicycle_parking"},                      SearchMarkType::BicycleParking},
+      {{"amenity", "bicycle_parking", "covered"},           SearchMarkType::BicycleParkingCovered},
+      {{"amenity", "bicycle_rental"},                       SearchMarkType::BicycleRental},
     };
 
     m_searchMarkTypes.reserve(std::size(table));
