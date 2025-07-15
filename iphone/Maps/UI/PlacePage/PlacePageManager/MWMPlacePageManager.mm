@@ -1,4 +1,5 @@
 #import "MWMPlacePageManager.h"
+#import "MWMNavigationDashboardManager.h"
 #import "CLLocation+Mercator.h"
 #import "MWMActivityViewController.h"
 #import "MWMLocationHelpers.h"
@@ -78,8 +79,22 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
 }
 
 - (void)routeAddStop:(PlacePageData *)data {
-  MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:0];
-  [MWMRouter addPointAndRebuild:point];
+  MWMNavigationDashboardManager * navigationManager = [MWMNavigationDashboardManager sharedManager];
+  if (navigationManager.shouldAppendNewPoints) {
+    MWMRoutePoint * newFinishPoint = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:0];
+    [MWMRouter continueRouteToPointAndRebuild:newFinishPoint];
+  } else if (navigationManager.selectedRoutePoint) {
+    MWMRoutePoint * pointToReplace = navigationManager.selectedRoutePoint;
+    MWMRoutePoint * withPoint = [self routePoint:data
+                                        withType:pointToReplace.type
+                               intermediateIndex:pointToReplace.intermediateIndex];
+    [MWMRouter replacePointAndRebuild:pointToReplace withPoint:withPoint];
+    pointToReplace = nil;
+  } else {
+    MWMRoutePoint * pointBeforeFinish = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:0];
+    [MWMRouter addPointAndRebuild:pointBeforeFinish];
+  }
+
   [self.searchManager close];
   [self closePlacePage];
 }

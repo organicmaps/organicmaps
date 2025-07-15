@@ -36,14 +36,16 @@ extension NavigationDashboard {
         return .none
 
       case let .selectRoutePoint(point):
+        delegate?.routePreviewDidSelect(point, shouldAppend: false)
         searchManager.startSearching(isRouting: false)
-        if let textToSearch = point?.title {
+        if let textToSearch = point.title {
           let searchText = SearchQuery(textToSearch, source: .typedText)
           searchManager.searchText(searchText)
         }
         return .setHidden(true)
 
       case .addRoutePointButtonDidTap:
+        delegate?.routePreviewDidSelect(nil, shouldAppend: true)
         searchManager.startSearching(isRouting: false)
         return .setHidden(true)
 
@@ -82,6 +84,9 @@ extension NavigationDashboard {
         return .updateNavigationInfoAvailableArea(frame)
 
       case .updateSearchState(let state):
+        if state == .closed {
+          delegate?.routePreviewDidSelect(nil, shouldAppend: false)
+        }
         return .updateSearchState(state)
 
       case .updateDrivingOptionsState(let state):
@@ -114,7 +119,7 @@ extension NavigationDashboard {
 // MARK: - NavigationDashboardView
 extension NavigationDashboard.Interactor: NavigationDashboardView {
   func setHidden(_ hidden: Bool) {
-    process(.setHidden(true))
+    process(.setHidden(hidden))
   }
 
   func onNavigationInfoUpdated(_ entity: MWMNavigationDashboardEntity) {

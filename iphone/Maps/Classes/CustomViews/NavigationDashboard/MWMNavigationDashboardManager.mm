@@ -16,6 +16,8 @@
 @property(copy, nonatomic) NSDictionary * etaSecondaryAttributes;
 @property(copy, nonatomic) NSString * errorMessage;
 @property(copy, nonatomic) MWMNavigationDashboardEntity * entity;
+@property(nonatomic, readwrite, nullable) MWMRoutePoint * selectedRoutePoint;
+@property(nonatomic, readwrite) BOOL shouldAppendNewPoints;
 
 @property(weak, nonatomic) id<NavigationDashboardView> navigationDashboardView;
 @property(weak, nonatomic) MapViewController * parentViewController;
@@ -202,6 +204,11 @@
 
 - (void)routePreviewDidPressDrivingOptions {
   [[MapViewController sharedController] openDrivingOptions];
+}
+
+- (void)routePreviewDidSelectPoint:(MWMRoutePoint * _Nullable)point shouldAppend:(BOOL)shouldAppend {
+  self.selectedRoutePoint = point;
+  self.shouldAppendNewPoints = shouldAppend;
 }
 
 - (void)ttsButtonDidTap {

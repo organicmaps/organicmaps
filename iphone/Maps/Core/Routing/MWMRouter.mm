@@ -210,9 +210,37 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   [self rebuildWithBestRouter:NO];
 }
 
++ (void)replacePointAndRebuild:(MWMRoutePoint *)point withPoint:(MWMRoutePoint *)newPoint {
+  if (!point) {
+    NSAssert(NO, @"Source point can not be nil");
+    return;
+  }
+  if (!newPoint) {
+    NSAssert(NO, @"Target point can not be nil");
+    return;
+  }
+  switch (point.type) {
+    case MWMRoutePointTypeStart:
+      [self buildFromPoint:newPoint bestRouter:NO];
+      break;
+    case MWMRoutePointTypeFinish:
+      [self buildToPoint:newPoint bestRouter:NO];
+      break;
+    case MWMRoutePointTypeIntermediate:
+      RouteMarkData pt = point.routeMarkData;
+      auto & routingManager = GetFramework().GetRoutingManager();
+      routingManager.RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
+      RouteMarkData newPt = newPoint.routeMarkData;
+      routingManager.AddRoutePoint(std::move(newPt), NO /* reorderIntermediatePoints */);
+      [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
+      [self rebuildWithBestRouter:NO];
+  }
+}
+
 + (void)removePoints {
   GetFramework().GetRoutingManager().RemoveRoutePoints();
 }
+
 + (void)addPoint:(MWMRoutePoint *)point {
   if (!point) {
     NSAssert(NO, @"Point can not be nil");
@@ -222,6 +250,18 @@ char const *kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeIm
   RouteMarkData pt = point.routeMarkData;
   GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
   [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
+}
+
++ (void)continueRouteToPointAndRebuild:(MWMRoutePoint *)point {
+  if (!point) {
+    NSAssert(NO, @"Point can not be nil");
+    return;
+  }
+
+  RouteMarkData pt = point.routeMarkData;
+  GetFramework().GetRoutingManager().ContinueRouteToPoint(std::move(pt));
+  [[MWMNavigationDashboardManager sharedManager] onRoutePointsUpdated];
+  [self rebuildWithBestRouter:NO];
 }
 
 + (void)addPointAndRebuild:(MWMRoutePoint *)point {

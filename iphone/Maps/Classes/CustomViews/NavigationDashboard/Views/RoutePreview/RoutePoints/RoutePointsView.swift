@@ -100,8 +100,9 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
     case routePoints.count:
       break // Add point cell
     default:
-      let point = routePoints[indexPath.item]
-      interactor?.process(.selectRoutePoint(point))
+      if let point = routePoints[indexPath.item] {
+        interactor?.process(.selectRoutePoint(point))
+      }
       break
     }
   }

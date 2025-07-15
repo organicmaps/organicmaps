@@ -9,9 +9,10 @@ typedef NS_ENUM(NSInteger, MWMDrivingOptionsState) {
   MWMDrivingOptionsStateChange
 };
 
-@protocol MWMRoutePreviewDelegate;
+@class MWMRoutePoint;
 
-@protocol RoutePreviewView <NSObject>
+@protocol MWMRoutePreviewDelegate;
+@protocol RoutePreviewView <NSObject>;
 
 @property(nonatomic) MWMDrivingOptionsState drivingOptionsState;
 @property(weak, nonatomic) id<MWMRoutePreviewDelegate> delegate;
@@ -38,6 +39,7 @@ typedef NS_ENUM(NSInteger, MWMDrivingOptionsState) {
 
 - (void)routePreviewDidPressDrivingOptions;
 - (void)routingStartButtonDidTap;
+- (void)routePreviewDidSelectPoint:(MWMRoutePoint * _Nullable)point  shouldAppend:(BOOL)shouldAppend;
 
 @end
 
