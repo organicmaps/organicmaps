@@ -24,6 +24,11 @@ namespace ftype
   uint8_t GetValue(uint32_t type, uint8_t level);
   void PopValue(uint32_t & type);
   void TruncValue(uint32_t & type, uint8_t level);
+  inline uint32_t Trunc(uint32_t type, uint8_t level)
+  {
+    TruncValue(type, level);
+    return type;
+  }
   uint8_t GetLevel(uint32_t type);
 }
 
