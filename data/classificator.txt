@@ -147,6 +147,7 @@ world  +
         pub  -
         public_bath  -
         public_bookcase  -
+        ranger_station  -
         recycling  +
             centre  -
             container  -
@@ -623,7 +624,6 @@ world  +
         cemetery  +
             christian  -
             {}
-        churchyard  -
         commercial  -
         construction  -
         education  -
@@ -653,6 +653,7 @@ world  +
         quarry  -
         railway  -
         recreation_ground  -
+        religious  -
         reservoir  -
         residential  -
         retail  -
@@ -876,6 +877,9 @@ world  +
         suburb  -
         town  -
         village  -
+        {}
+    post_office  +
+        post_partner  -
         {}
     power  +
         generator  +

@@ -1327,7 +1327,7 @@ tourism|attraction
 *amenity|parking_space|underground
 *amenity|parking_space|private
 *amenity|parking_space|permissive
-*landuse|churchyard
+*landuse|religious
 *isoline|step_1000
 *isoline|step_500
 *isoline|step_100
@@ -1623,3 +1623,5 @@ amenity|recycling|container
 *railway|station|subway|qingdao
 *railway|subway_entrance|qingdao
 *amenity|bicycle_parking|covered
+*post_office|post_partner
+*amenity|ranger_station

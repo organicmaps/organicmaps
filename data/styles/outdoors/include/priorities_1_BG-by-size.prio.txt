@@ -50,14 +50,13 @@ landuse-cemetery                                    # area z14- (also has icon z
 landuse-cemetery-christian                          # area z14- (also has icon z15-, caption(optional) z15-)
 === 180
 
-amenity-marketplace
-highway-rest_area
-highway-services
-landuse-retail
-leisure-water_park
-
+amenity-marketplace                                 # area z16- (also has icon z16-, caption(optional) z16-)
 highway-pedestrian-area                             # area z14- (also has line z13-, pathtext z14-)
+highway-rest_area                                   # area z15- (also has icon z14-, caption(optional) z15-)
+highway-services                                    # area z14- (also has icon z14-, caption(optional) z14-)
+landuse-retail                                      # area z15-
 leisure-resort                                      # area z15- (also has icon z16-, caption(optional) z16-)
+leisure-water_park                                  # area z16- (also has icon z16-, caption(optional) z16-)
 tourism-camp_site                                   # area z13- (also has icon z13-, caption(optional) z13-)
 === 170
 
@@ -141,12 +140,12 @@ landuse-forest-deciduous                            # area z10- (also has icon z
 landuse-forest-mixed                                # area z10- (also has icon z12-, caption(optional) z13-)
 === 60
 
-landuse-religious                                   # area z15-
 landuse-construction                                # area z13- (also has caption z15-)
 landuse-industrial                                  # area z13- (also has caption z15-)
 landuse-industrial-mine                             # area z13- (also has icon z15-, caption(optional) z15-)
 landuse-quarry                                      # area z13- (also has icon z15-, caption(optional) z15-)
 landuse-railway                                     # area z13- (also has caption z15-)
+landuse-religious                                   # area z15-
 === 50
 
 amenity-college                                     # area z15- (also has icon z16-, caption(optional) z16-)
