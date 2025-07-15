@@ -62,11 +62,11 @@ highway-motorway_junction                           # caption z15-
 highway-primary_link                                # pathtext z11- (also has shield::shield z11-, line z11-, line(casing) z14-)
 highway-primary_link-bridge                         # pathtext z11- (also has shield::shield z11-, line z11-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
 highway-primary_link-tunnel                         # pathtext z11- (also has shield::shield z11-, line z11-, line(casing) z14-)
-highway-services                                    # icon z12- (also has caption(optional) z13-)
+highway-services                                    # icon z12- (also has caption(optional) z13-, area z12-)
 === 4200
 
 highway-ford                                        # icon z14-
-highway-rest_area                                   # icon z14- (also has caption(optional) z14-)
+highway-rest_area                                   # icon z14- (also has caption(optional) z14-, area z14-)
 highway-secondary                                   # pathtext z10- (also has shield::shield z12-, line z10-, line(casing) z14-)
 highway-secondary-bridge                            # pathtext z10- (also has shield::shield z12-, line z10-, line::bridgeblack z14-, line::bridgewhite z14-, line(casing) z14-)
 highway-secondary-tunnel                            # pathtext z10- (also has shield::shield z12-, line z10-, line(casing) z14-)
@@ -716,8 +716,8 @@ amenity-parcel_locker                               # icon z17- (also has captio
 amenity-police                                      # icon z17-
 amenity-post_office                                 # icon z17- (also has caption(optional) z17-)
 amenity-toilets                                     # icon z17- (also has caption(optional) z17-)
-shop-motorcycle
-post_office-post_partner
+post_office-post_partner                            # icon z18- (also has caption(optional) z18-)
+shop-motorcycle                                     # icon z17-
 === 200
 
 highway-traffic_signals                             # icon z15-
@@ -748,10 +748,10 @@ entrance-main                                       # icon z18- (also has captio
 # They follow the order of their correspoding icons.
 #
 
-# highway-services                                  # caption(optional) z13- (also has icon z12-)
+# highway-services                                  # caption(optional) z13- (also has icon z12-, area z12-)
 # === -5800
 
-# highway-rest_area                                 # caption(optional) z14- (also has icon z14-)
+# highway-rest_area                                 # caption(optional) z14- (also has icon z14-, area z14-)
 # === -5850
 
 # aeroway-aerodrome-international                   # caption(optional) z10- (also has icon z7-, area z10-)
@@ -1198,6 +1198,7 @@ entrance-main                                       # icon z18- (also has captio
 # amenity-parcel_locker                             # caption(optional) z17- (also has icon z17-)
 # amenity-post_office                               # caption(optional) z17- (also has icon z17-)
 # amenity-toilets                                   # caption(optional) z17- (also has icon z17-)
+# post_office-post_partner                          # caption(optional) z18- (also has icon z18-)
 # === -9800
 
 # leisure-park-no-access                            # caption(optional) z14- (also has icon z14-, area z10-)
