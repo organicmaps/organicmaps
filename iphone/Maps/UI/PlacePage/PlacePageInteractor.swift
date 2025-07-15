@@ -259,7 +259,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       }
     case .opentable:
       fatalError("Opentable is not supported and will be deleted")
-    case .routeAddStop:
+    case .routeAddStop, .routeReplaceStop:
       MWMPlacePageManagerHelper.routeAddStop(placePageData)
     case .routeFrom:
       MWMPlacePageManagerHelper.route(from: placePageData)
