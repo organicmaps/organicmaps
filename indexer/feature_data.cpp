@@ -417,9 +417,7 @@ void FeatureParams::SetRwSubwayType(char const * cityName)
 
   for (size_t i = 0; i < m_types.size(); ++i)
   {
-    uint32_t t = m_types[i];
-    ftype::TruncValue(t, 2);
-    if (t == src)
+    if (ftype::Trunc(m_types[i], 2) == src)
     {
       m_types[i] = dest;
       break;
@@ -492,9 +490,7 @@ uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
 {
   for (uint32_t const type : m_types)
   {
-    uint32_t t = type;
-    ftype::TruncValue(t, level);
-    if (t == comp)
+    if (ftype::Trunc(type, level) == comp)
       return type;
   }
   return ftype::GetEmptyValue();

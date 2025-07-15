@@ -95,10 +95,9 @@ string GetWheelchairType(FeatureType & f)
 {
   static const uint32_t wheelchair = classif().GetTypeByPath({"wheelchair"});
   string result;
-  f.ForEachType([&result](uint32_t type) {
-    uint32_t truncated = type;
-    ftype::TruncValue(truncated, 1);
-    if (truncated == wheelchair)
+  f.ForEachType([&result](uint32_t type)
+  {
+    if (ftype::Trunc(type, 1) == wheelchair)
     {
       string fullName = classif().GetReadableObjectName(type);
       auto pos = fullName.find("-");

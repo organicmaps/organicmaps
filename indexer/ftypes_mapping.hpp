@@ -23,10 +23,7 @@ public:
     {
       for (auto level = ftype::GetLevel(t); level; --level)
       {
-        auto truncatedType = t;
-        ftype::TruncValue(truncatedType, level);
-        auto const it = m_mapping.find(truncatedType);
-
+        auto const it = m_mapping.find(ftype::Trunc(t, level));
         if (it != m_mapping.cend())
           return it;
       }
