@@ -630,7 +630,6 @@ drape_ptr<df::SubrouteMarkersData> RouteShape::CacheMarkers(ref_ptr<dp::Graphics
     return nullptr;
 
   auto state = CreateRenderState(gpu::Program::RouteMarker, DepthLayer::GeometryLayer);
-  state.SetColorTexture(textures->GetSymbolsTexture());
 
   // Batching.
   {
