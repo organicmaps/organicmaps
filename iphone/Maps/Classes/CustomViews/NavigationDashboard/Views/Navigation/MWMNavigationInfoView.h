@@ -13,7 +13,6 @@ typedef NS_ENUM(NSUInteger, NavigationSearchState) {
 
 typedef NS_ENUM(NSUInteger, MWMNavigationInfoViewState) {
   MWMNavigationInfoViewStateHidden,
-  MWMNavigationInfoViewStatePrepare,
   MWMNavigationInfoViewStateNavigation
 };
 

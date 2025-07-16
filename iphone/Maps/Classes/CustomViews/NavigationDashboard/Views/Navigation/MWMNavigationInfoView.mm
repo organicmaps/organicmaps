@@ -22,7 +22,7 @@ CGFloat constexpr kSearchButtonsViewWidthPortrait = 200;
 CGFloat constexpr kSearchButtonsViewHeightLandscape = 56;
 CGFloat constexpr kSearchButtonsViewWidthLandscape = 286;
 CGFloat constexpr kSearchButtonsSideSize = 44;
-CGFloat constexpr kSearchButtonsBottomOffset = 6;
+CGFloat constexpr kSearchButtonsBottomOffset = 32;
 CGFloat constexpr kBaseTurnsTopOffset = 28;
 CGFloat constexpr kShiftedTurnsTopOffset = 8;
 
@@ -145,28 +145,21 @@ BOOL defaultOrientation(CGSize const &size) {
     [toastView configWithIsStart:YES withLocationButton:NO];
 }
 
-- (void)updateSideButtonsAvailableArea:(CGRect)frame animated:(BOOL)animated {
+- (void)updateSideButtonsAvailableArea:(CGRect)frame {
   CGFloat const height = frame.size.height;
   if (height == 0)
     return;
+  CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+  CGFloat bottomOffset = screenHeight - height + kSearchButtonsBottomOffset;
 
-  CGFloat const screenHeight = [UIScreen mainScreen].bounds.size.height;
-  CGFloat const bottomOffset = screenHeight - height + kSearchButtonsBottomOffset;
   self.searchMainButtonBottomConstraint.constant = bottomOffset;
-  [UIView animateWithDuration:animated ? kDefaultAnimationDuration : 0
-                        delay:0
-                      options:UIViewAnimationOptionBeginFromCurrentState
-                   animations:^{
-    [self layoutIfNeeded];
-  }
-                   completion:nil];
-
-  CGFloat const topSafeAreaInset = UIApplication.sharedApplication.delegate.window.safeAreaInsets.top;
-  BOOL isOutOfBounds = height < topSafeAreaInset + kSearchButtonsSideSize + kSearchButtonsViewHeightPortrait;
-  [UIView animateWithDuration:kDefaultAnimationDuration
-                   animations:^{
+  BOOL isOutOfBounds = height < kSearchButtonsViewHeightPortrait;
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
     self.searchMainButton.alpha = isOutOfBounds ? 0.0 : 1.0;
     self.bookmarksButton.alpha = isOutOfBounds ? 0.0 : 1.0;
+  } completion:^(BOOL finished) {
+    self.searchMainButton.hidden = isOutOfBounds;
+    self.bookmarksButton.hidden = isOutOfBounds;
   }];
 }
 
@@ -212,11 +205,7 @@ BOOL defaultOrientation(CGSize const &size) {
       [self setSearchState:NavigationSearchStateMinimizedNormal animated:YES];
       break;
     case NavigationSearchStateMinimizedNormal:
-      if (self.state == MWMNavigationInfoViewStatePrepare) {
-        [self.searchManager startSearchingWithIsRouting:YES];
-      } else {
-        [self setSearchState:NavigationSearchStateMaximized animated:YES];
-      }
+      [self setSearchState:NavigationSearchStateMaximized animated:YES];
       break;
     case NavigationSearchStateMinimizedSearch:
     case NavigationSearchStateMinimizedGas:
@@ -237,6 +226,7 @@ BOOL defaultOrientation(CGSize const &size) {
     NSString * locale = [[AppInfo sharedInfo] languageId];
     // Category request from navigation search wheel.
     SearchQuery * query = [[SearchQuery alloc] init:text locale:locale source:SearchTextSourceCategory];
+    [MWMSearch setSearchMode:SearchModeViewport];
     [MWMSearch searchQuery:query];
     [self setSearchState:state animated:YES];
   };
@@ -477,12 +467,6 @@ BOOL defaultOrientation(CGSize const &size) {
         [MWMLocationManager addObserver:self];
       else
         [MWMLocationManager removeObserver:self];
-      break;
-    case MWMNavigationInfoViewStatePrepare:
-      self.isVisible = YES;
-      [self setStreetNameVisible:NO];
-      [self setTurnsViewVisible:NO];
-      [MWMLocationManager addObserver:self];
       break;
   }
 }

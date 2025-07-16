@@ -125,7 +125,6 @@ private extension MWMNavigationDashboardState {
   var navigationInfo: MWMNavigationInfoViewState {
     switch self {
     case .navigation: return .navigation
-    case .prepare, .planning, .ready: return .prepare
     default: return .hidden
     }
   }
