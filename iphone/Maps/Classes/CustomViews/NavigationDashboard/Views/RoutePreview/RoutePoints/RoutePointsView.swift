@@ -2,9 +2,9 @@ final class RoutePointsView: UIView {
 
   private enum Constants {
     static let routePointsInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
-    static let routePointsVerticalSpacing: CGFloat = 6
-    static let routePointCellHeight: CGFloat = 52
-    static let addRoutePointCellHeight: CGFloat = 30
+    static let routePointsVerticalSpacing: CGFloat = 0
+    static let routePointCellHeight: CGFloat = 44
+    static let addRoutePointCellHeight: CGFloat = 40
     static let compactVerticalSizeBottomContentInset: CGFloat = 86 // Save button height + safe area inset
   }
 
@@ -173,6 +173,15 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
 private extension NavigationDashboard.RoutePoints {
   func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RoutePointCollectionViewCell.ViewModel {
     let point = self[index]
+    let maskedCorners: CACornerMask
+    switch point?.type {
+    case .start:
+      maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    case .intermediate, .none:
+      maskedCorners = []
+    case .finish:
+      maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
     return RoutePointCollectionViewCell.ViewModel(
       title: title(for: index),
       subtitle: subtitle(for: index),
@@ -180,6 +189,8 @@ private extension NavigationDashboard.RoutePoints {
       imageStyle: imageStyle(for: index),
       isPlaceholder: point == nil,
       isCloseButtonVisible: point?.type == .intermediate,
+      addSeparator: point?.type != .finish,
+      maskedCorners: maskedCorners,
       onCloseHandler: onCloseHandler)
   }
 }

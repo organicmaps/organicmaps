@@ -219,15 +219,15 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func setupBottomMenuActions() {
-    searchButton.setStyle(.flatNormalGrayButton)
+    searchButton.setStyle(.flatNormalGrayButtonBig)
     searchButton.setImage(UIImage(resource: .icMenuSearch), for: .normal)
     searchButton.addTarget(self, action: #selector(didTapSearchButton), for: .touchUpInside)
 
-    bookmarksButton.setStyle(.flatNormalGrayButton)
+    bookmarksButton.setStyle(.flatNormalGrayButtonBig)
     bookmarksButton.setImage(UIImage(resource: .icMenuBookmarkList), for: .normal)
     bookmarksButton.addTarget(self, action: #selector(didTapBookmarksButton), for: .touchUpInside)
 
-    saveRouteAsTrackButton.setStyle(.flatNormalGrayButton)
+    saveRouteAsTrackButton.setStyle(.flatNormalGrayButtonBig)
     saveRouteAsTrackButton.setImage(UIImage(resource: .ic24PxImport), for: .normal)
     saveRouteAsTrackButton.addTarget(self, action: #selector(didTapSaveRouteAsTrackButton), for: .touchUpInside)
 

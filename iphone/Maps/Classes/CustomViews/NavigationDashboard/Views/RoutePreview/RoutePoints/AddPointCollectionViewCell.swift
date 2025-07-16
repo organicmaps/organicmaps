@@ -19,8 +19,9 @@ final class AddPointCollectionViewCell: UICollectionViewCell {
   }
 
   private func setupView() {
-    plusButton.setImage(UIImage(resource: .icAdd), for: .normal)
-    plusButton.setImage(UIImage(resource: .icAddHighlighted), for: .highlighted)
+    plusButton.setStyle(.flatNormalTransButton)
+    plusButton.setImage(UIImage(resource: .icAddButton), for: .normal)
+    plusButton.setTitle(L("placepage_add_stop"), for: .normal)
     plusButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
   }
 
@@ -31,7 +32,6 @@ final class AddPointCollectionViewCell: UICollectionViewCell {
       plusButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.trailingInsets),
       plusButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
       plusButton.heightAnchor.constraint(equalTo: contentView.heightAnchor),
-      plusButton.widthAnchor.constraint(equalTo: contentView.heightAnchor)
     ])
   }
 

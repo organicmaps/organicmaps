@@ -7,18 +7,20 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     let imageStyle: GlobalStyleSheet
     let isPlaceholder: Bool
     let isCloseButtonVisible: Bool
+    let addSeparator: Bool
+    let maskedCorners: CACornerMask
     let onCloseHandler: (() -> Void)?
   }
 
   private enum Constants {
     static let logoSize: CGFloat = 28
-    static let contentBackgroundInsets = UIEdgeInsets(top: 2, left: 12, bottom: 2, right: 12)
+    static let contentBackgroundInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     static let logoSizeRatio: CGFloat = 1.0
     static let logoImageLeadingInset: CGFloat = 12
     static let reorderButtonSize: CGFloat = 24
     static let closeButtonSize: CGFloat = 24
     static let horizontalSpacing: CGFloat = 12
-    static let titleToReorderSpacing: CGFloat = 12
+    static let horizontalSpacingSmall: CGFloat = 5
   }
 
   private let logoImageView = UIImageView()
@@ -27,6 +29,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   private let textStackView = UIStackView()
   private let reorderButton = UIButton(type: .system)
   private let closeButton = UIButton(type: .system)
+  private var separatorView: UIView?
   private var didTapClose: (() -> Void)?
 
   override init(frame: CGRect) {
@@ -46,6 +49,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
     contentBackgroundView.setStyle(.pressBackground)
     contentBackgroundView.layer.setCornerRadius(.buttonDefault)
+    separatorView = contentBackgroundView.addSeparator(.bottom)
 
     textStackView.axis = .vertical
     textStackView.alignment = .leading
@@ -60,11 +64,11 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
   private func layout() {
     contentView.addSubview(contentBackgroundView)
-    contentView.addSubview(reorderButton)
+    textStackView.addArrangedSubview(titleLabel)
     contentBackgroundView.addSubview(logoImageView)
     contentBackgroundView.addSubview(textStackView)
-    textStackView.addArrangedSubview(titleLabel)
     contentBackgroundView.addSubview(closeButton)
+    contentBackgroundView.addSubview(reorderButton)
 
     logoImageView.translatesAutoresizingMaskIntoConstraints = false
     contentBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,9 +77,9 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     closeButton.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      contentBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.contentBackgroundInsets.left),
+      contentBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.contentBackgroundInsets.left),
       contentBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.contentBackgroundInsets.top),
-      contentBackgroundView.trailingAnchor.constraint(equalTo: reorderButton.leadingAnchor, constant: -Constants.contentBackgroundInsets.right),
+      contentBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.contentBackgroundInsets.right),
       contentBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.contentBackgroundInsets.bottom),
 
       logoImageView.leadingAnchor.constraint(equalTo: contentBackgroundView.leadingAnchor, constant: Constants.logoImageLeadingInset),
@@ -83,17 +87,16 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       logoImageView.widthAnchor.constraint(equalToConstant: Constants.logoSize),
       logoImageView.heightAnchor.constraint(equalToConstant: Constants.logoSize),
 
-      textStackView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: Constants.titleToReorderSpacing),
+      textStackView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: Constants.horizontalSpacing),
       textStackView.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
       textStackView.trailingAnchor.constraint(lessThanOrEqualTo: closeButton.leadingAnchor, constant: -Constants.horizontalSpacing),
 
-      closeButton.trailingAnchor.constraint(equalTo: contentBackgroundView.trailingAnchor, constant: -Constants.horizontalSpacing),
+      closeButton.trailingAnchor.constraint(equalTo: reorderButton.leadingAnchor, constant: -Constants.horizontalSpacingSmall),
       closeButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
       closeButton.widthAnchor.constraint(equalToConstant: Constants.closeButtonSize),
       closeButton.heightAnchor.constraint(equalToConstant: Constants.closeButtonSize),
 
-      reorderButton.leadingAnchor.constraint(equalTo: contentBackgroundView.trailingAnchor, constant: Constants.horizontalSpacing),
-      reorderButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.horizontalSpacing),
+      reorderButton.trailingAnchor.constraint(equalTo: contentBackgroundView.trailingAnchor, constant: -Constants.horizontalSpacing),
       reorderButton.centerYAnchor.constraint(equalTo: contentBackgroundView.centerYAnchor),
       reorderButton.widthAnchor.constraint(equalToConstant: Constants.reorderButtonSize),
       reorderButton.heightAnchor.constraint(equalToConstant: Constants.reorderButtonSize),
@@ -107,6 +110,8 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     didTapClose = viewModel.onCloseHandler
     titleLabel.setFontStyleAndApply(.semibold14, color:  viewModel.isPlaceholder ? .blackSecondary : .blackPrimary)
     closeButton.isHidden = !viewModel.isCloseButtonVisible
+    contentBackgroundView.layer.maskedCorners = viewModel.maskedCorners
+    separatorView?.isHidden = !viewModel.addSeparator
   }
 
   func updateImage(with image: UIImage, style: GlobalStyleSheet) {
