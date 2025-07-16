@@ -5,7 +5,7 @@ final class RoutePointsView: UIView {
     static let routePointsVerticalSpacing: CGFloat = 6
     static let routePointCellHeight: CGFloat = 52
     static let addRoutePointCellHeight: CGFloat = 30
-    static let bottomContentInset: CGFloat = 200
+    static let compactVerticalSizeBottomContentInset: CGFloat = 86 // Save button height + safe area inset
   }
 
   private var collectionView: UICollectionView!
@@ -34,6 +34,15 @@ final class RoutePointsView: UIView {
     }, completion: nil)
   }
 
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    updateCollectionViewInset()
+  }
+
+  private func updateCollectionViewInset() {
+    collectionView.contentInset.bottom = traitCollection.verticalSizeClass == .compact ? Constants.compactVerticalSizeBottomContentInset : 0
+  }
+
   private func setupView() {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .vertical
@@ -46,9 +55,9 @@ final class RoutePointsView: UIView {
     collectionView.dropDelegate = self
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.contentInset.bottom = Constants.bottomContentInset
     collectionView.register(cell: RouteStopCollectionViewCell.self)
     collectionView.register(cell: AddItemCollectionViewCell.self)
+    updateCollectionViewInset()
   }
 
   private func layout() {
