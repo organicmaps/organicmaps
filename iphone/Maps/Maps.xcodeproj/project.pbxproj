@@ -459,8 +459,6 @@
 		ED2D745E2D1433DE00660FBF /* TrackRecordingActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D745D2D1433DE00660FBF /* TrackRecordingActivityManager.swift */; };
 		ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D74302D14337500660FBF /* TrackRecordingLiveActivityAttributes.swift */; };
 		ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2D742D2D14337500660FBF /* LiveActivityManager.swift */; };
-		ED2E328E2D10500900807A08 /* TrackRecordingButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46DD922D06F804007CACD6 /* TrackRecordingButtonArea.swift */; };
-		ED2E32912D10501700807A08 /* TrackRecordingButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49D76F2CF0E3A8004AF27E /* TrackRecordingButtonViewController.swift */; };
 		ED3EAC202B03C88100220A4A /* BottomTabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */; };
 		ED43B8BD2C12063500D07BAA /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */; };
 		ED46DDCE2D098A0B007CACD6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */; };
@@ -1419,13 +1417,11 @@
 		ED2D745D2D1433DE00660FBF /* TrackRecordingActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingActivityManager.swift; sourceTree = "<group>"; };
 		ED3EAC1F2B03C88100220A4A /* BottomTabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBarButton.swift; sourceTree = "<group>"; };
 		ED43B8BC2C12063500D07BAA /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
-		ED46DD922D06F804007CACD6 /* TrackRecordingButtonArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingButtonArea.swift; sourceTree = "<group>"; };
 		ED46DDCC2D098A0B007CACD6 /* OMapsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OMapsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED46DDCD2D098A0B007CACD6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		ED46DDCF2D098A0B007CACD6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		ED48BBB817C2B1E2003E7E92 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		ED48BBB917C2B1E2003E7E92 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
-		ED49D76F2CF0E3A8004AF27E /* TrackRecordingButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingButtonViewController.swift; sourceTree = "<group>"; };
 		ED4DC7732CAEDECC0029B338 /* ProductButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductButton.swift; sourceTree = "<group>"; };
 		ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewController.swift; sourceTree = "<group>"; };
 		ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
@@ -2578,7 +2574,6 @@
 		34BC72091B0DECAE0012A34B /* MapViewControls */ = {
 			isa = PBXGroup;
 			children = (
-				ED49D76F2CF0E3A8004AF27E /* TrackRecordingButtonViewController.swift */,
 				340537621BBED98600D452C6 /* MWMMapViewControlsCommon.h */,
 				34BC72101B0DECAE0012A34B /* MWMMapViewControlsManager.h */,
 				34BC72111B0DECAE0012A34B /* MWMMapViewControlsManager.mm */,
@@ -2637,7 +2632,6 @@
 				34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */,
 				340708631F2905A500029ECC /* NavigationInfoArea.swift */,
 				9989272F2449DE1500260CE2 /* TabBarArea.swift */,
-				ED46DD922D06F804007CACD6 /* TrackRecordingButtonArea.swift */,
 			);
 			path = AvailableArea;
 			sourceTree = "<group>";
@@ -4468,7 +4462,6 @@
 				993DF0CC23F6BD0600AC231A /* ElevationDetailsPresenter.swift in Sources */,
 				EDFE1A4A2DF1989700FDEA38 /* UIAlertController+UnknownCurrentPosition.swift in Sources */,
 				34AB666B1FC5AA330078E451 /* TransportTransitCell.swift in Sources */,
-				ED2E32912D10501700807A08 /* TrackRecordingButtonViewController.swift in Sources */,
 				47E8163323B17734008FD836 /* MWMStorage+UI.m in Sources */,
 				993DF11123F6BDB100AC231A /* UILabelRenderer.swift in Sources */,
 				34AB66471FC5AA330078E451 /* RouteManagerTableView.swift in Sources */,
@@ -4675,7 +4668,6 @@
 				ED83880F2D54DEB3002A0536 /* UIImage+FilledWithColor.swift in Sources */,
 				47B9065221C7FA400079C85E /* MWMWebImage.m in Sources */,
 				47A13CAD24BE9AA500027D4F /* DatePickerViewRenderer.swift in Sources */,
-				ED2E328E2D10500900807A08 /* TrackRecordingButtonArea.swift in Sources */,
 				F6E2FE7C1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.mm in Sources */,
 				340E1EFB1E2F614400CE49BF /* Storyboard.swift in Sources */,
 				34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */,

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23091" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23079"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,138 +16,200 @@
                 <outlet property="helpButton" destination="dzf-7Z-N6a" id="ORg-VO-5ar"/>
                 <outlet property="moreButton" destination="svD-yi-GrZ" id="kjk-ZW-nZN"/>
                 <outlet property="searchButton" destination="No0-ld-JX3" id="m5F-UT-j94"/>
+                <outlet property="trackRecordingButton" destination="MXy-h4-kqq" id="hFV-r8-R24"/>
                 <outlet property="view" destination="zuH-WU-hiP" id="eoa-4I-wKs"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zuH-WU-hiP" customClass="BottomTabBarView" customModule="Organic_Maps" customModuleProvider="target" propertyAccessControl="none">
-            <rect key="frame" x="0.0" y="0.0" width="373" height="84"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" id="zuH-WU-hiP" customClass="BottomTabBarView" customModule="Organic_Maps" customModuleProvider="target" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="368" height="102"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vum-s3-PHx" userLabel="MainButtons" customClass="ExtendedBottomTabBarContainerView" customModule="Organic_Maps" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="373" height="48"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AhP-ky-dOP">
+                    <rect key="frame" x="0.0" y="0.0" width="367.5" height="48"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6a" userLabel="Help" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
-                            <rect key="frame" x="22.5" y="0.0" width="48" height="48"/>
-                            <accessibility key="accessibilityConfiguration" identifier="helpButton"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jAR-wW-hHn" userLabel="Help">
+                            <rect key="frame" x="0.0" y="0.0" width="73.5" height="48"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-7Z-N6a" userLabel="HelpButton" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
+                                    <rect key="frame" x="13" y="0.0" width="48" height="48"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="helpButton"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="dzf-7Z-N6a" secondAttribute="height" id="qNJ-0K-sK0"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                    <inset key="imageEdgeInsets" minX="9" minY="9" maxX="9" maxY="9"/>
+                                    <state key="normal" image="logo"/>
+                                    <connections>
+                                        <action selector="onHelpButtonPressed:" destination="-1" eventType="touchUpInside" id="1gx-P2-sRJ"/>
+                                    </connections>
+                                </button>
+                                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0pe-0n-d1F" userLabel="HelpBadge">
+                                    <rect key="frame" x="45" y="6" width="10" height="10"/>
+                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                                    </accessibility>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="10" id="FgD-lk-SxR"/>
+                                        <constraint firstAttribute="width" constant="10" id="OwT-jV-hqZ"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Badge"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="dzf-7Z-N6a" secondAttribute="height" id="qNJ-0K-sK0"/>
+                                <constraint firstItem="dzf-7Z-N6a" firstAttribute="centerY" secondItem="jAR-wW-hHn" secondAttribute="centerY" id="Ap3-FW-MI6"/>
+                                <constraint firstItem="0pe-0n-d1F" firstAttribute="bottom" secondItem="dzf-7Z-N6a" secondAttribute="centerY" constant="-8" id="XvB-KP-XHb"/>
+                                <constraint firstItem="0pe-0n-d1F" firstAttribute="leading" secondItem="dzf-7Z-N6a" secondAttribute="centerX" constant="8" id="ejU-uI-K81"/>
+                                <constraint firstItem="dzf-7Z-N6a" firstAttribute="height" secondItem="jAR-wW-hHn" secondAttribute="height" id="yBH-bv-hjG"/>
+                                <constraint firstItem="dzf-7Z-N6a" firstAttribute="centerX" secondItem="jAR-wW-hHn" secondAttribute="centerX" id="zUC-VJ-huw"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                            <inset key="imageEdgeInsets" minX="9" minY="9" maxX="9" maxY="9"/>
-                            <state key="normal" image="logo"/>
-                            <connections>
-                                <action selector="onHelpButtonPressed:" destination="-1" eventType="touchUpInside" id="1gx-P2-sRJ"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="No0-ld-JX3" userLabel="Search" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
-                            <rect key="frame" x="116" y="0.0" width="48" height="48"/>
-                            <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="No0-ld-JX3" secondAttribute="height" id="2bW-fc-Hsh"/>
-                            </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="ic_menu_search"/>
-                            <connections>
-                                <action selector="onSearchButtonPressed:" destination="-1" eventType="touchUpInside" id="0D5-RB-HBQ"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-ki-3tB" userLabel="Bookmarks" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
-                            <rect key="frame" x="209" y="0.0" width="48" height="48"/>
-                            <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="dgG-ki-3tB" secondAttribute="height" id="o3b-it-lrV"/>
-                            </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="ic_menu_bookmark_list"/>
-                            <connections>
-                                <action selector="onBookmarksButtonPressed:" destination="-1" eventType="touchUpInside" id="9Z1-eg-xth"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svD-yi-GrZ" userLabel="Menu" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
-                            <rect key="frame" x="302.5" y="0.0" width="48" height="48"/>
-                            <accessibility key="accessibilityConfiguration" identifier="menuButton"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="svD-yi-GrZ" secondAttribute="height" id="gmG-3a-Mqe"/>
-                            </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="ic_menu"/>
-                            <connections>
-                                <action selector="onMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="rzb-y4-nR1"/>
-                            </connections>
-                        </button>
-                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDI-ZC-4wx" userLabel="DownloadBadge">
-                            <rect key="frame" x="329.5" y="11" width="10" height="10"/>
-                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <accessibility key="accessibilityConfiguration">
-                                <accessibilityTraits key="traits" notEnabled="YES"/>
-                            </accessibility>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="10" id="tEP-Xi-qnU"/>
-                                <constraint firstAttribute="height" constant="10" id="wNg-5Z-7AO"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Badge"/>
-                            </userDefinedRuntimeAttributes>
                         </view>
-                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0pe-0n-d1F" userLabel="HelpBadge">
-                            <rect key="frame" x="49.5" y="11" width="10" height="10"/>
-                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <accessibility key="accessibilityConfiguration">
-                                <accessibilityTraits key="traits" notEnabled="YES"/>
-                            </accessibility>
+                        <view contentMode="scaleToFill" id="Bni-Da-2VY" userLabel="Search">
+                            <rect key="frame" x="73.5" y="0.0" width="73.5" height="48"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="No0-ld-JX3" userLabel="SearchButton" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
+                                    <rect key="frame" x="13" y="0.0" width="48" height="48"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="No0-ld-JX3" secondAttribute="height" id="2bW-fc-Hsh"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="ic_menu_search"/>
+                                    <connections>
+                                        <action selector="onSearchButtonPressed:" destination="-1" eventType="touchUpInside" id="0D5-RB-HBQ"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <viewLayoutGuide key="safeArea" id="R1O-Jm-AuS"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="10" id="FgD-lk-SxR"/>
-                                <constraint firstAttribute="width" constant="10" id="OwT-jV-hqZ"/>
+                                <constraint firstItem="No0-ld-JX3" firstAttribute="centerY" secondItem="Bni-Da-2VY" secondAttribute="centerY" id="1nY-pz-Iwo"/>
+                                <constraint firstItem="No0-ld-JX3" firstAttribute="height" secondItem="Bni-Da-2VY" secondAttribute="height" id="Mki-K8-PuJ"/>
+                                <constraint firstItem="No0-ld-JX3" firstAttribute="centerX" secondItem="Bni-Da-2VY" secondAttribute="centerX" id="s5M-n4-MHR"/>
                             </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Badge"/>
-                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view contentMode="scaleToFill" id="P21-bX-zyL" userLabel="Bookmarks">
+                            <rect key="frame" x="147" y="0.0" width="73.5" height="48"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgG-ki-3tB" userLabel="BookmarksButton" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
+                                    <rect key="frame" x="13" y="0.0" width="48" height="48"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="dgG-ki-3tB" secondAttribute="height" id="o3b-it-lrV"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="ic_menu_bookmark_list"/>
+                                    <connections>
+                                        <action selector="onBookmarksButtonPressed:" destination="-1" eventType="touchUpInside" id="9Z1-eg-xth"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <viewLayoutGuide key="safeArea" id="4P9-nh-Bry"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="dgG-ki-3tB" firstAttribute="height" secondItem="P21-bX-zyL" secondAttribute="height" id="Ej4-ay-Ab4"/>
+                                <constraint firstItem="dgG-ki-3tB" firstAttribute="centerY" secondItem="P21-bX-zyL" secondAttribute="centerY" id="Wtc-uP-edm"/>
+                                <constraint firstItem="dgG-ki-3tB" firstAttribute="centerX" secondItem="P21-bX-zyL" secondAttribute="centerX" id="Yqq-l7-p1H"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" id="Ykj-ky-CGV" userLabel="TrackRecording">
+                            <rect key="frame" x="220.5" y="0.0" width="73.5" height="48"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXy-h4-kqq" userLabel="TrackRecordingButton" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
+                                    <rect key="frame" x="13" y="0.0" width="48" height="48"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="searchButton"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="MXy-h4-kqq" secondAttribute="height" id="lXl-PF-HqV"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="ic_menu_bookmark_track_recording"/>
+                                    <connections>
+                                        <action selector="onTrackRecordingButtonPressed:" destination="-1" eventType="touchUpInside" id="fam-CU-Noz"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <viewLayoutGuide key="safeArea" id="ird-h2-fT0"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="MXy-h4-kqq" firstAttribute="centerX" secondItem="Ykj-ky-CGV" secondAttribute="centerX" id="6je-Ab-XpB"/>
+                                <constraint firstItem="MXy-h4-kqq" firstAttribute="centerY" secondItem="Ykj-ky-CGV" secondAttribute="centerY" id="Vsi-iz-jFT"/>
+                                <constraint firstItem="MXy-h4-kqq" firstAttribute="height" secondItem="Ykj-ky-CGV" secondAttribute="height" id="sUO-pB-X6q"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" id="DjB-sk-2BR" userLabel="Menu">
+                            <rect key="frame" x="294" y="0.0" width="73.5" height="48"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svD-yi-GrZ" userLabel="MenuButton" customClass="BottomTabBarButton" customModule="Organic_Maps" customModuleProvider="target">
+                                    <rect key="frame" x="13" y="0.0" width="48" height="48"/>
+                                    <accessibility key="accessibilityConfiguration" identifier="menuButton"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="svD-yi-GrZ" secondAttribute="height" id="gmG-3a-Mqe"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="ic_menu"/>
+                                    <connections>
+                                        <action selector="onMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="rzb-y4-nR1"/>
+                                    </connections>
+                                </button>
+                                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDI-ZC-4wx" userLabel="DownloadBadge">
+                                    <rect key="frame" x="45" y="6" width="10" height="10"/>
+                                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                                    </accessibility>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="10" id="tEP-Xi-qnU"/>
+                                        <constraint firstAttribute="height" constant="10" id="wNg-5Z-7AO"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Badge"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <viewLayoutGuide key="safeArea" id="T45-ID-NKx"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="uDI-ZC-4wx" firstAttribute="leading" secondItem="svD-yi-GrZ" secondAttribute="centerX" constant="8" id="1CO-my-gWL"/>
+                                <constraint firstItem="svD-yi-GrZ" firstAttribute="centerX" secondItem="DjB-sk-2BR" secondAttribute="centerX" id="Ce4-Jv-5PO"/>
+                                <constraint firstItem="uDI-ZC-4wx" firstAttribute="bottom" secondItem="svD-yi-GrZ" secondAttribute="centerY" constant="-8" id="XTm-hT-7nN"/>
+                                <constraint firstItem="svD-yi-GrZ" firstAttribute="centerY" secondItem="DjB-sk-2BR" secondAttribute="centerY" id="mRd-wo-JfT"/>
+                                <constraint firstItem="svD-yi-GrZ" firstAttribute="height" secondItem="DjB-sk-2BR" secondAttribute="height" id="sOW-J0-Jkm"/>
+                            </constraints>
                         </view>
                     </subviews>
-                    <accessibility key="accessibilityConfiguration" identifier="MainButtons"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="48" id="69A-eu-uLp"/>
-                        <constraint firstItem="No0-ld-JX3" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="8nL-zT-Y7b"/>
-                        <constraint firstItem="No0-ld-JX3" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="9eR-I7-7at"/>
-                        <constraint firstItem="0pe-0n-d1F" firstAttribute="centerX" secondItem="dzf-7Z-N6a" secondAttribute="centerX" constant="8" id="Ab0-g9-N4P"/>
-                        <constraint firstItem="svD-yi-GrZ" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="Fde-um-JL6"/>
-                        <constraint firstItem="dgG-ki-3tB" firstAttribute="centerX" secondItem="vum-s3-PHx" secondAttribute="centerX" multiplier="1.25" id="Jc7-nc-elY"/>
-                        <constraint firstItem="dgG-ki-3tB" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="JjT-sc-hIY"/>
-                        <constraint firstItem="svD-yi-GrZ" firstAttribute="centerX" secondItem="vum-s3-PHx" secondAttribute="centerX" multiplier="1.75" id="Q0b-gd-HwS"/>
-                        <constraint firstItem="dgG-ki-3tB" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="Rs8-Hl-CAc"/>
-                        <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerX" secondItem="svD-yi-GrZ" secondAttribute="centerX" constant="8" id="XNb-Ba-Hn7"/>
-                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="Zug-zY-KIX"/>
-                        <constraint firstItem="0pe-0n-d1F" firstAttribute="centerY" secondItem="dzf-7Z-N6a" secondAttribute="centerY" constant="-8" id="pgw-rN-LCe"/>
-                        <constraint firstItem="svD-yi-GrZ" firstAttribute="centerY" secondItem="vum-s3-PHx" secondAttribute="centerY" id="sja-hO-YY3"/>
-                        <constraint firstItem="No0-ld-JX3" firstAttribute="centerX" secondItem="vum-s3-PHx" secondAttribute="centerX" multiplier="0.75" id="tDb-w1-ueQ"/>
-                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="centerX" secondItem="vum-s3-PHx" secondAttribute="centerX" multiplier="0.25" id="u3G-gY-98J"/>
-                        <constraint firstItem="dzf-7Z-N6a" firstAttribute="height" secondItem="vum-s3-PHx" secondAttribute="height" id="yTg-8g-H1p"/>
-                        <constraint firstItem="uDI-ZC-4wx" firstAttribute="centerY" secondItem="svD-yi-GrZ" secondAttribute="centerY" constant="-8" id="yq3-ui-IaL"/>
+                        <constraint firstAttribute="height" constant="48" id="ZIk-Bv-e9c"/>
                     </constraints>
-                </view>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="aaw-Hz-zma"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vum-s3-PHx" firstAttribute="top" secondItem="zuH-WU-hiP" secondAttribute="top" id="PQS-ro-25e"/>
-                <constraint firstItem="vum-s3-PHx" firstAttribute="leading" secondItem="zuH-WU-hiP" secondAttribute="leading" id="kza-JN-Dul"/>
-                <constraint firstAttribute="trailing" secondItem="vum-s3-PHx" secondAttribute="trailing" id="sM6-P2-rN9"/>
+                <constraint firstItem="AhP-ky-dOP" firstAttribute="leading" secondItem="aaw-Hz-zma" secondAttribute="leading" id="57L-bk-NNk"/>
+                <constraint firstItem="aaw-Hz-zma" firstAttribute="trailing" secondItem="AhP-ky-dOP" secondAttribute="trailing" id="6aB-xy-hDi"/>
+                <constraint firstAttribute="top" secondItem="AhP-ky-dOP" secondAttribute="top" id="IiX-UC-GXc"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="mainButtonsView" destination="vum-s3-PHx" id="fBi-DA-orA"/>
-            </connections>
-            <point key="canvasLocation" x="72" y="254"/>
+            <point key="canvasLocation" x="-37.681159420289859" y="256.47321428571428"/>
         </view>
     </objects>
     <resources>
         <image name="ic_menu" width="48" height="48"/>
         <image name="ic_menu_bookmark_list" width="48" height="48"/>
+        <image name="ic_menu_bookmark_track_recording" width="432" height="432"/>
         <image name="ic_menu_search" width="48" height="48"/>
-        <image name="logo" width="512" height="512"/>
+        <image name="logo" width="462" height="512"/>
     </resources>
 </document>
