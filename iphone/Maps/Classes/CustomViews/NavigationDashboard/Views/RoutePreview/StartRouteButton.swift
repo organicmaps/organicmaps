@@ -9,7 +9,7 @@ final class StartRouteButton: UIView {
 
   private enum Constants {
     static let buttonHeight: CGFloat = 44
-    static let buttonInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    static let buttonInsets = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)
     static let buttonTitle = L("Start")
     static let animationDuration: TimeInterval = kDefaultAnimationDuration / 2
   }
