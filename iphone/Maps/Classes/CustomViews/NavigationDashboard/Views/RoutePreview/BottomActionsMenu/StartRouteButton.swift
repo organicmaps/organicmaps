@@ -4,12 +4,9 @@ final class StartRouteButton: UIView {
     case enabled
     case loading
     case disabled
-    case hidden
   }
 
   private enum Constants {
-    static let buttonHeight: CGFloat = 44
-    static let buttonInsets = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)
     static let buttonTitle = L("Start")
     static let animationDuration: TimeInterval = kDefaultAnimationDuration / 2
   }
@@ -25,7 +22,6 @@ final class StartRouteButton: UIView {
       return UIActivityIndicatorView(style: .white)
     }
   }()
-  private var onTapAction: (() -> Void)?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -38,21 +34,9 @@ final class StartRouteButton: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  // Prevent touches from being passed to the touch transparent view
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {}
-
   private func setupView() {
-    setStyle(.background)
-
-    layer.shadowColor = UIColor.black.cgColor
-    layer.shadowOffset = CGSize(width: 0, height: -3)
-    layer.shadowOpacity = 0.1
-    layer.shadowRadius = 3
-    layer.masksToBounds = false
-
     button.setTitle(Constants.buttonTitle, for: .normal)
     button.setStyle(.flatNormalButtonBig)
-    button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
 
     activityIndicator.hidesWhenStopped = true
@@ -64,23 +48,18 @@ final class StartRouteButton: UIView {
     addSubview(activityIndicator)
 
     NSLayoutConstraint.activate([
-      button.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: Constants.buttonInsets.left),
-      button.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -Constants.buttonInsets.right),
-      button.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: Constants.buttonInsets.top),
-      button.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Constants.buttonInsets.bottom),
-      button.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+      button.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+      button.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+      button.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+      button.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
 
       activityIndicator.centerXAnchor.constraint(equalTo: button.centerXAnchor),
       activityIndicator.centerYAnchor.constraint(equalTo: button.centerYAnchor)
     ])
   }
 
-  func setOnTapAction(_ action: @escaping () -> Void) {
-    onTapAction = action
-  }
-
-  @objc private func buttonTapped() {
-    onTapAction?()
+  func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
+    button.addTarget(target, action: action, for: controlEvents)
   }
 
   func setState(_ state: State) {
@@ -96,35 +75,15 @@ final class StartRouteButton: UIView {
         self.button.setTitle(Constants.buttonTitle, for: .normal)
         self.activityIndicator.stopAnimating()
         self.button.isEnabled = true
-        self.alpha = 1.0
       case .loading:
         self.button.setTitle(nil, for: .normal)
         self.activityIndicator.startAnimating()
         self.button.isEnabled = false
-        self.alpha = 1.0
       case .disabled:
         self.button.setTitle(Constants.buttonTitle, for: .normal)
         self.activityIndicator.stopAnimating()
         self.button.isEnabled = false
-        self.alpha = 1.0
-      case .hidden:
-        self.alpha = 0.0
       }
     })
-  }
-
-  func setHidden(_ hidden: Bool) {
-    UIView.animate(withDuration: Constants.animationDuration) {
-      self.alpha = hidden ? 0 : 1
-    } completion: { _ in
-      self.isHidden = hidden
-    }
-  }
-
-  func setShadowVisible(_ visible: Bool) {
-    guard state != .hidden else { return }
-    UIView.animate(withDuration: Constants.animationDuration) {
-      self.layer.shadowOpacity = visible ? 0.1 : 0
-    }
   }
 }

@@ -76,10 +76,11 @@ extension NavigationDashboard.ViewModel {
     )
   }
 
+  var isBottomActionsMenuHidden: Bool {
+    routerType == .ruler || presentationStep == .hidden
+  }
+
   var startButtonState: StartRouteButton.State {
-    if routerType == .ruler || presentationStep == .hidden {
-      return .hidden
-    }
     if routePoints.count < 2 || routePoints.start == nil || routePoints.finish == nil || dashboardState == .error {
       return .disabled
     }

@@ -43,7 +43,11 @@ final class NavigationDashboardViewController: UIViewController {
   private let settingsButton = UIButton(type: .system)
   private let settingsBadge = BadgeWithNumber()
   private var routePointsView = RoutePointsView()
-  private let startButton = StartRouteButton()
+  private let bottomActionsMenu = RouteActionsBottomMenuView()
+  private let searchButton = UIButton()
+  private let bookmarksButton = UIButton()
+  private let saveRouteAsTrackButton = UIButton()
+  private let startRouteButton = StartRouteButton()
   private var navigationInfoView: NavigationInfoView!
   private var navigationControlView: NavigationControlView!
 
@@ -94,7 +98,7 @@ final class NavigationDashboardViewController: UIViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     let routePointsBottomPoint = availableAreaView.convert(routePointsView.contentBottom, to: view)
-    startButton.setShadowVisible(routePointsBottomPoint.y + Constants.startButtonSpacing > startButton.origin.y)
+    bottomActionsMenu.setShadowVisible(routePointsBottomPoint.y + Constants.startButtonSpacing > bottomActionsMenu.origin.y)
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -130,7 +134,7 @@ final class NavigationDashboardViewController: UIViewController {
     setupEstimatesView()
     setupRouteStatusView()
     setupSettingsButton()
-    setupStartButton()
+    setupBottomMenuActions()
     setupTransportOptionsView()
     setupRoutePointsView()
     setupGestureRecognizers()
@@ -153,9 +157,6 @@ final class NavigationDashboardViewController: UIViewController {
         self.interactor?.process(.close)
       case .didUpdateFrame(let frame):
         self.interactor?.process(.updatePresentationFrame(frame))
-        let sideButtonsAvailableArea = CGRect(origin: .zero,
-                                              size: CGSize(width: frame.width, height: frame.origin.y))
-        self.navigationInfoView.updateSideButtonsAvailableArea(sideButtonsAvailableArea, animated: true)
       case .didUpdateStep(let step):
         self.interactor?.process(.didUpdatePresentationStep(step))
         break
@@ -213,6 +214,37 @@ final class NavigationDashboardViewController: UIViewController {
     settingsBadge.isHidden = true
   }
 
+  private func setupTransportOptionsView() {
+    transportOptionsView.interactor = interactor
+  }
+
+  private func setupBottomMenuActions() {
+    searchButton.setStyle(.flatNormalGrayButton)
+    searchButton.setImage(UIImage(resource: .icMenuSearch), for: .normal)
+    searchButton.addTarget(self, action: #selector(didTapSearchButton), for: .touchUpInside)
+
+    bookmarksButton.setStyle(.flatNormalGrayButton)
+    bookmarksButton.setImage(UIImage(resource: .icMenuBookmarkList), for: .normal)
+    bookmarksButton.addTarget(self, action: #selector(didTapBookmarksButton), for: .touchUpInside)
+
+    saveRouteAsTrackButton.setStyle(.flatNormalGrayButton)
+    saveRouteAsTrackButton.setImage(UIImage(resource: .ic24PxImport), for: .normal)
+    saveRouteAsTrackButton.addTarget(self, action: #selector(didTapSaveRouteAsTrackButton), for: .touchUpInside)
+
+    startRouteButton.addTarget(self, action: #selector(didTapStartRouteButton), for: .touchUpInside)
+
+    bottomActionsMenu.addActionView(searchButton)
+    bottomActionsMenu.addActionView(bookmarksButton)
+    bottomActionsMenu.addActionView(saveRouteAsTrackButton)
+    bottomActionsMenu.addActionView(startRouteButton)
+  }
+
+  private func setupRoutePointsView() {
+    routePointsView.interactor = interactor
+  }
+
+  // MARK: - Actions
+
   @objc
   private func didTapCloseButton() {
     interactor?.process(.close)
@@ -223,18 +255,27 @@ final class NavigationDashboardViewController: UIViewController {
     interactor?.process(.settingsButtonDidTap)
   }
 
-  private func setupTransportOptionsView() {
-    transportOptionsView.interactor = interactor
+  @objc
+  private func didTapSearchButton() {
+    print(#function)
+//    interactor?.process(.searchButtonDidTap)
   }
 
-  private func setupStartButton() {
-    startButton.setOnTapAction { [weak self] in
-      self?.interactor?.process(.startButtonDidTap)
-    }
+  @objc
+  private func didTapBookmarksButton() {
+    print(#function)
+//    interactor?.process(.bookmarksButtonDidTap)
   }
 
-  private func setupRoutePointsView() {
-    routePointsView.interactor = interactor
+  @objc
+  private func didTapSaveRouteAsTrackButton() {
+    print(#function)
+//    interactor?.process(.saveRouteAsTrackButtonDidTap)
+  }
+
+  @objc
+  private func didTapStartRouteButton() {
+    interactor?.process(.startButtonDidTap)
   }
 
   // MARK: - Layout
@@ -253,7 +294,7 @@ final class NavigationDashboardViewController: UIViewController {
     availableAreaView.addSubview(routeStatusStackView)
 
     availableAreaView.addSubview(routePointsView)
-    view.addSubview(startButton)
+    view.addSubview(bottomActionsMenu)
 
     grabberView.translatesAutoresizingMaskIntoConstraints = false
     closeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -261,7 +302,7 @@ final class NavigationDashboardViewController: UIViewController {
     routeStatusStackView.translatesAutoresizingMaskIntoConstraints = false
     settingsButton.translatesAutoresizingMaskIntoConstraints = false
     routePointsView.translatesAutoresizingMaskIntoConstraints = false
-    startButton.translatesAutoresizingMaskIntoConstraints = false
+    bottomActionsMenu.translatesAutoresizingMaskIntoConstraints = false
 
     routeStatusStackView.setContentHuggingPriority(.defaultHigh, for: .vertical)
     closeButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -295,9 +336,9 @@ final class NavigationDashboardViewController: UIViewController {
       routePointsView.topAnchor.constraint(equalTo: routeStatusStackView.bottomAnchor, constant: Constants.routePointsInsets.top),
       routePointsView.bottomAnchor.constraint(equalTo: availableAreaView.bottomAnchor, constant: Constants.routePointsInsets.bottom),
 
-      startButton.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor),
-      startButton.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor),
-      startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      bottomActionsMenu.leadingAnchor.constraint(equalTo: availableAreaView.leadingAnchor),
+      bottomActionsMenu.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor),
+      bottomActionsMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor),
     ])
     presentationStepsController.setInitialState()
   }
@@ -310,11 +351,11 @@ final class NavigationDashboardViewController: UIViewController {
   private func updatePresentationStepHeights() {
     availableAreaView.layoutIfNeeded()
     let regularHeight = routePointsView.contentBottom.y
-    + startButton.frame.height
+    + bottomActionsMenu.frame.height
     + Constants.startButtonSpacing
 
     let compactHeight = routePointsView.origin.y
-    + startButton.frame.height
+    + bottomActionsMenu.frame.height
     + Constants.startButtonSpacing
     + Constants.routePointsDiscoverabilityPadding
 
@@ -327,7 +368,7 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func close() {
-    startButton.setState(.hidden)
+    bottomActionsMenu.setHidden(true)
     willMove(toParent: nil)
     presentationStepsController.close { [weak self] in
       self?.view.removeFromSuperview()
@@ -370,7 +411,8 @@ extension NavigationDashboardViewController {
     navigationInfoView.state = viewModel.navigationInfo.state
     navigationInfoView.availableArea = viewModel.navigationInfo.availableArea
 
-    startButton.setState(viewModel.startButtonState)
+    bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
+    startRouteButton.setState(viewModel.startButtonState)
 
     updatePresentationStepHeights()
     presentationStepsController.setStep(viewModel.presentationStep)
