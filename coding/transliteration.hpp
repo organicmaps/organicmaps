@@ -35,8 +35,7 @@ public:
   bool Transliterate(std::string_view sv, int8_t langCode, std::string & out) const;
 
   // Transliterates |str| with |transliteratorId|, ignores mode.
-  bool TransliterateForce(std::string const & str, std::string const & transliteratorId,
-                          std::string & out) const;
+  bool TransliterateForce(std::string const & str, std::string const & transliteratorId, std::string & out) const;
 
 private:
   struct TransliteratorInfo;

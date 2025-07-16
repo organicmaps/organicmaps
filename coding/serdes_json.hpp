@@ -28,20 +28,16 @@ namespace traits
 namespace impl
 {
 template <typename T>
-auto is_iterable_checker(int) -> decltype(
-  std::begin(std::declval<T>()),
-  std::end(std::declval<T>()),
-  ++std::declval<decltype(std::begin(std::declval<T>())) &>(),
-  std::true_type {});
+auto is_iterable_checker(int)
+    -> decltype(std::begin(std::declval<T>()), std::end(std::declval<T>()),
+                ++std::declval<decltype(std::begin(std::declval<T>())) &>(), std::true_type{});
 
 template <typename T>
 std::false_type is_iterable_checker(...);
 
 template <typename T>
-auto is_dynamic_sequence_checker(int) -> decltype(
-  std::declval<T &>().resize(0),
-  std::declval<T &>()[0],
-  std::true_type {});
+auto is_dynamic_sequence_checker(int)
+    -> decltype(std::declval<T &>().resize(0), std::declval<T &>()[0], std::true_type{});
 
 template <typename T>
 std::false_type is_dynamic_sequence_checker(...);
@@ -67,13 +63,13 @@ template <typename T>
 using EnableIfNotEnum = std::enable_if_t<!std::is_enum<T>::value>;
 
 template <typename T>
-using EnableIfVectorOrDeque = std::enable_if_t<traits::is_dynamic_sequence<T>::value &&
-                                               !std::is_same<std::string, T>::value>;
+using EnableIfVectorOrDeque =
+    std::enable_if_t<traits::is_dynamic_sequence<T>::value && !std::is_same<std::string, T>::value>;
 
 template <typename T>
 using EnableIfNotVectorOrDeque = std::enable_if_t<!traits::is_dynamic_sequence<T>::value>;
 
-template<typename Sink>
+template <typename Sink>
 class SerializerJson
 {
 public:
@@ -122,7 +118,8 @@ public:
   template <typename T, EnableIfIterable<T> * = nullptr>
   void operator()(T const & src, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONArray(), name, [this, &src] {
+    NewScopeWith(base::NewJSONArray(), name, [this, &src]
+    {
       for (auto const & v : src)
         (*this)(v);
     });
@@ -131,7 +128,8 @@ public:
   template <typename R>
   void operator()(std::unique_ptr<R> const & r, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &r] {
+    NewScopeWith(base::NewJSONObject(), name, [this, &r]
+    {
       CHECK(r, ());
       r->Visit(*this);
     });
@@ -140,7 +138,8 @@ public:
   template <typename R>
   void operator()(std::shared_ptr<R> const & r, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &r] {
+    NewScopeWith(base::NewJSONObject(), name, [this, &r]
+    {
       CHECK(r, ());
       r->Visit(*this);
     });
@@ -159,7 +158,8 @@ public:
 
   void operator()(m2::PointD const & p, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &p] {
+    NewScopeWith(base::NewJSONObject(), name, [this, &p]
+    {
       (*this)(p.x, "x");
       (*this)(p.y, "y");
     });
@@ -167,7 +167,8 @@ public:
 
   void operator()(ms::LatLon const & ll, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &ll] {
+    NewScopeWith(base::NewJSONObject(), name, [this, &ll]
+    {
       (*this)(ll.m_lat, "lat");
       (*this)(ll.m_lon, "lon");
     });
@@ -176,7 +177,8 @@ public:
   template <typename Key, typename Value>
   void operator()(std::pair<Key, Value> const & p, char const * name = nullptr)
   {
-    NewScopeWith(base::NewJSONObject(), name, [this, &p] {
+    NewScopeWith(base::NewJSONObject(), name, [this, &p]
+    {
       (*this)(p.first, "key");
       (*this)(p.second, "value");
     });
@@ -222,8 +224,7 @@ public:
   using Exception = base::Json::Exception;
 
   template <typename Source,
-            typename std::enable_if<!std::is_convertible<Source, std::string>::value,
-                                    Source>::type * = nullptr>
+            typename std::enable_if<!std::is_convertible<Source, std::string>::value, Source>::type * = nullptr>
   explicit DeserializerJson(Source & source)
   {
     auto const size = static_cast<size_t>(source.Size());
@@ -233,15 +234,9 @@ public:
     m_json = m_jsonObject.get();
   }
 
-  explicit DeserializerJson(std::string const & source)
-    : m_jsonObject(source), m_json(m_jsonObject.get())
-  {
-  }
+  explicit DeserializerJson(std::string const & source) : m_jsonObject(source), m_json(m_jsonObject.get()) {}
 
-  explicit DeserializerJson(char const * buffer)
-    : m_jsonObject(buffer), m_json(m_jsonObject.get())
-  {
-  }
+  explicit DeserializerJson(char const * buffer) : m_jsonObject(buffer), m_json(m_jsonObject.get()) {}
 
   explicit DeserializerJson(json_t * json) : m_json(json) {}
 
@@ -313,15 +308,12 @@ public:
     json_t * outerContext = SaveContext(name);
 
     if (!json_is_array(m_json))
-    {
-      MYTHROW(base::Json::Exception,
-              ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
-    }
+      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
 
     if (N != json_array_size(m_json))
     {
-      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array of size", N,
-                                      "but size is", json_array_size(m_json)));
+      MYTHROW(base::Json::Exception,
+              ("The field", name, "must contain a json array of size", N, "but size is", json_array_size(m_json)));
     }
 
     for (size_t index = 0; index < N; ++index)
@@ -341,10 +333,7 @@ public:
     json_t * outerContext = SaveContext(name);
 
     if (!json_is_array(m_json))
-    {
-      MYTHROW(base::Json::Exception,
-              ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
-    }
+      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
 
     size_t const size = json_array_size(m_json);
     for (size_t index = 0; index < size; ++index)

@@ -25,4 +25,4 @@ struct RecommendedFilteringParams
   /// @}
 };
 
-} // namespace search
+}  // namespace search

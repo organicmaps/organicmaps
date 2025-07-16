@@ -20,11 +20,11 @@
   SettingsTableViewSelectableCell * selectedCell = nil;
   switch ([MWMSettings theme])
   {
-  case MWMThemeVehicleDay: NSAssert(false, @"Invalid case");
-  case MWMThemeDay: selectedCell = self.off; break;
-  case MWMThemeVehicleNight: NSAssert(false, @"Invalid case");
-  case MWMThemeNight: selectedCell = self.on; break;
-  case MWMThemeAuto: selectedCell = self.autoSwitch; break;
+    case MWMThemeVehicleDay: NSAssert(false, @"Invalid case");
+    case MWMThemeDay: selectedCell = self.off; break;
+    case MWMThemeVehicleNight: NSAssert(false, @"Invalid case");
+    case MWMThemeNight: selectedCell = self.on; break;
+    case MWMThemeAuto: selectedCell = self.autoSwitch; break;
   }
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
   self.selectedCell = selectedCell;

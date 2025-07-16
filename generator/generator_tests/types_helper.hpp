@@ -36,4 +36,4 @@ inline uint32_t GetType(base::StringIL const & lst)
 {
   return classif().GetTypeByPath(lst);
 }
-} // namespace tests
+}  // namespace tests

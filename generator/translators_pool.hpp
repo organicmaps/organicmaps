@@ -15,8 +15,7 @@ namespace generator
 class TranslatorsPool
 {
 public:
-  explicit TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original,
-                           size_t threadCount);
+  explicit TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original, size_t threadCount);
 
   void Emit(std::vector<OsmElement> && elements);
   bool Finish();

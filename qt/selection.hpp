@@ -23,4 +23,4 @@ enum class SelectionMode
   // Should be the last
   Cancelled,
 };
-} // namespace qt
+}  // namespace qt

@@ -35,10 +35,7 @@ public:
     memcpy(p, m_data.get() + static_cast<size_t>(pos) + m_offset, size);
   }
 
-  BufferReader SubReader(uint64_t pos, uint64_t size) const
-  {
-    return BufferReader(*this, pos, size);
-  }
+  BufferReader SubReader(uint64_t pos, uint64_t size) const { return BufferReader(*this, pos, size); }
 
   std::unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const
   {
@@ -47,8 +44,7 @@ public:
   }
 
 private:
-  BufferReader(BufferReader const & src, uint64_t pos, uint64_t size)
-    : m_data(src.m_data)
+  BufferReader(BufferReader const & src, uint64_t pos, uint64_t size) : m_data(src.m_data)
   {
     ASSERT_LESS_OR_EQUAL(pos + size, src.Size(), (pos, size));
 
@@ -67,7 +63,7 @@ private:
 
   struct Deleter
   {
-    void operator() (char * p) { delete [] p; }
+    void operator()(char * p) { delete[] p; }
   };
 
   std::shared_ptr<char> m_data;

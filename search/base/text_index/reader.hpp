@@ -50,8 +50,8 @@ public:
       return;
     CHECK_LESS(tokenId + 1, m_postingsStarts.size(), ());
 
-    ReaderSource<FileReader> source(m_fileReader.SubReader(
-        m_postingsStarts[tokenId], m_postingsStarts[tokenId + 1] - m_postingsStarts[tokenId]));
+    ReaderSource<FileReader> source(
+        m_fileReader.SubReader(m_postingsStarts[tokenId], m_postingsStarts[tokenId + 1] - m_postingsStarts[tokenId]));
 
     uint32_t last = 0;
     while (source.Size() > 0)

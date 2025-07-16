@@ -52,9 +52,9 @@ enum class Version : uint8_t
 class Serializer
 {
 public:
-  explicit Serializer(IsolinesInfo && info): m_info(info) {}
+  explicit Serializer(IsolinesInfo && info) : m_info(info) {}
 
-  template<typename Sink>
+  template <typename Sink>
   void Serialize(Sink & sink)
   {
     WriteToSink(sink, static_cast<std::underlying_type_t<Version>>(Version::Latest));
@@ -70,21 +70,20 @@ private:
 class Deserializer
 {
 public:
-  explicit Deserializer(IsolinesInfo & info): m_info(info) {}
+  explicit Deserializer(IsolinesInfo & info) : m_info(info) {}
 
-  template<typename Reader>
+  template <typename Reader>
   bool Deserialize(Reader & reader)
   {
     NonOwningReaderSource source(reader);
-    auto const version = static_cast<Version>(
-        ReadPrimitiveFromSource<std::underlying_type_t<Version>>(source));
+    auto const version = static_cast<Version>(ReadPrimitiveFromSource<std::underlying_type_t<Version>>(source));
 
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
     CHECK(subReader, ());
 
     switch (version)
     {
-    case Version::V0: return DeserializeV0(*subReader);
+      case Version::V0: return DeserializeV0(*subReader);
     }
     UNREACHABLE();
 
@@ -92,7 +91,7 @@ public:
   }
 
 private:
-  template<typename Reader>
+  template <typename Reader>
   bool DeserializeV0(Reader & reader)
   {
     NonOwningReaderSource source(reader);
@@ -105,6 +104,5 @@ private:
   IsolinesInfo & m_info;
 };
 
-bool LoadIsolinesInfo(DataSource const & dataSource, MwmSet::MwmId const & mwmId,
-                      IsolinesInfo & info);
+bool LoadIsolinesInfo(DataSource const & dataSource, MwmSet::MwmId const & mwmId, IsolinesInfo & info);
 }  // namespace isolines

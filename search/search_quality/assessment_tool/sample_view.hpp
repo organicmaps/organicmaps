@@ -42,8 +42,7 @@ public:
                                 std::vector<ResultsEdits::Entry> const & entries);
   void ClearSearchResultMarks();
 
-  void SetResultsEdits(ResultsEdits & resultsResultsEdits,
-                       ResultsEdits & nonFoundResultsResultsEdits);
+  void SetResultsEdits(ResultsEdits & resultsResultsEdits, ResultsEdits & nonFoundResultsResultsEdits);
 
   void OnUselessnessChanged(bool isUseless);
 

@@ -1,5 +1,5 @@
-#import "Common.h"
 #import "MWMZoomButtonsView.h"
+#import "Common.h"
 #import "MWMMapViewControlsCommon.h"
 
 static CGFloat const kZoomViewOffsetToTopBound = 12.0;
@@ -7,9 +7,9 @@ static CGFloat const kZoomViewOffsetToBottomBound = 40.0;
 static CGFloat const kZoomViewOffsetToFrameBound = 294.0;
 static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
-@interface MWMZoomButtonsView()
+@interface MWMZoomButtonsView ()
 
-@property (nonatomic) CGRect defaultBounds;
+@property(nonatomic) CGRect defaultBounds;
 
 @end
 
@@ -39,7 +39,8 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 
 - (void)layoutYPosition
 {
-  CGFloat const maxY = MIN(self.superview.height - kZoomViewOffsetToFrameBound, self.bottomBound - kZoomViewOffsetToBottomBound);
+  CGFloat const maxY =
+      MIN(self.superview.height - kZoomViewOffsetToFrameBound, self.bottomBound - kZoomViewOffsetToBottomBound);
   self.minY = MAX(maxY - self.height, self.topBound + kZoomViewOffsetToTopBound);
 }
 
@@ -59,7 +60,8 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
 {
   CGFloat const hideBound = kZoomViewHideBoundPercent * self.superview.height;
   BOOL const isHidden = self.alpha == 0.0;
-  BOOL const willHide = (self.bottomBound < hideBound) || (self.defaultBounds.size.height > self.bottomBound - self.topBound);
+  BOOL const willHide =
+      (self.bottomBound < hideBound) || (self.defaultBounds.size.height > self.bottomBound - self.topBound);
   if (willHide)
   {
     if (!isHidden)
@@ -84,15 +86,12 @@ static CGFloat const kZoomViewHideBoundPercent = 0.4;
     if (!hidden)
       self.hidden = NO;
     [self layoutXPosition:!hidden];
-    [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount) animations:^
-    {
-      [self layoutXPosition:hidden];
-    }
-    completion:^(BOOL finished)
-    {
-      if (hidden)
-        self.hidden = YES;
-    }];
+    [UIView animateWithDuration:framesDuration(kMenuViewHideFramesCount)
+        animations:^{ [self layoutXPosition:hidden]; }
+        completion:^(BOOL finished) {
+          if (hidden)
+            self.hidden = YES;
+        }];
   }
   else
   {

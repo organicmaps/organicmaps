@@ -24,8 +24,7 @@ public:
 
   template <typename V, impl::IsConvertibleGuard<V, Type> = nullptr>
   constexpr explicit NewType(V const & v) : m_value(v)
-  {
-  }
+  {}
 
   constexpr NewType() = default;
 
@@ -155,8 +154,8 @@ std::string SimpleDebugPrint(NewType<Type, Tag> const & nt)
 }  // namespace newtype_default_output
 }  // namespace base
 
-#define NEWTYPE(REPR, NAME) \
-  struct NAME##_tag;        \
+#define NEWTYPE(REPR, NAME)                    \
+  struct NAME##_tag;                           \
   using NAME = base::NewType<REPR, NAME##_tag>
 
 #define NEWTYPE_SIMPLE_OUTPUT(NAME)                                     \

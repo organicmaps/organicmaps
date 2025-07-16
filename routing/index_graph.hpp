@@ -52,22 +52,18 @@ public:
              RoutingOptions routingOptions = RoutingOptions());
 
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
-  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
-                   bool useRoutingOptions, SegmentEdgeListT & edges,
-                   Parents<Segment> const & parents = {}) const;
-  void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                   SegmentEdgeListT & edges,
+  void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing, bool useRoutingOptions,
+                   SegmentEdgeListT & edges, Parents<Segment> const & parents = {}) const;
+  void GetEdgeList(Segment const & segment, bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges,
                    Parents<Segment> const & parents = {}) const;
 
-  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
-                   Segment const & parent, bool isOutgoing, JointEdgeListT & edges,
-                   WeightListT & parentWeights, Parents<JointSegment> const & parents) const;
-  void GetEdgeList(JointSegment const & parentJoint, Segment const & parent, bool isOutgoing,
-                   JointEdgeListT & edges, WeightListT & parentWeights,
+  void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData, Segment const & parent,
+                   bool isOutgoing, JointEdgeListT & edges, WeightListT & parentWeights,
                    Parents<JointSegment> const & parents) const;
+  void GetEdgeList(JointSegment const & parentJoint, Segment const & parent, bool isOutgoing, JointEdgeListT & edges,
+                   WeightListT & parentWeights, Parents<JointSegment> const & parents) const;
 
-  std::optional<JointEdge> GetJointEdgeByLastPoint(Segment const & parent,
-                                                   Segment const & firstChild, bool isOutgoing,
+  std::optional<JointEdge> GetJointEdgeByLastPoint(Segment const & parent, Segment const & firstChild, bool isOutgoing,
                                                    uint32_t lastPoint) const;
 
   Joint::Id GetJointId(RoadPoint const & rp) const { return m_roadIndex.GetJointId(rp); }
@@ -94,10 +90,7 @@ public:
   void SetUTurnRestrictions(std::vector<RestrictionUTurn> && noUTurnRestrictions);
   void SetRoadAccess(RoadAccess && roadAccess);
 
-  void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp)
-  {
-    m_roadIndex.PushFromSerializer(jointId, rp);
-  }
+  void PushFromSerializer(Joint::Id jointId, RoadPoint const & rp) { m_roadIndex.PushFromSerializer(jointId, rp); }
 
   template <typename F>
   void ForEachRoad(F && f) const
@@ -113,8 +106,7 @@ public:
 
   bool IsJoint(RoadPoint const & roadPoint) const;
   bool IsJointOrEnd(Segment const & segment, bool fromStart) const;
-  void GetLastPointsForJoint(SegmentListT const & children, bool isOutgoing,
-                             PointIdListT & lastPoints) const;
+  void GetLastPointsForJoint(SegmentListT const & children, bool isOutgoing, PointIdListT & lastPoints) const;
 
   WorldGraphMode GetMode() const;
   ms::LatLon const & GetPoint(Segment const & segment, bool front) const
@@ -126,9 +118,7 @@ public:
   /// We pass |parentFeatureId| and don't use |parent.GetFeatureId()| because
   /// |parent| can be fake sometimes but |parentFeatureId| is almost non-fake.
   template <typename ParentVertex>
-  bool IsRestricted(ParentVertex const & parent,
-                    uint32_t parentFeatureId,
-                    uint32_t currentFeatureId, bool isOutgoing,
+  bool IsRestricted(ParentVertex const & parent, uint32_t parentFeatureId, uint32_t currentFeatureId, bool isOutgoing,
                     Parents<ParentVertex> const & parents) const;
 
   bool IsUTurnAndRestricted(Segment const & parent, Segment const & child, bool isOutgoing) const;
@@ -137,36 +127,35 @@ public:
   /// @param[in]  prevWeight used for fetching access:conditional.
   /// I suppose :) its time when user will be at the end of |from| (|to| if \a isOutgoing == false) segment.
   /// @return Transition weight + |to| (|from| if \a isOutgoing == false) segment's weight.
-  RouteWeight CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing,
-                                  Segment const & from, Segment const & to,
+  RouteWeight CalculateEdgeWeight(EdgeEstimator::Purpose purpose, bool isOutgoing, Segment const & from,
+                                  Segment const & to,
                                   std::optional<RouteWeight const> const & prevWeight = std::nullopt) const;
 
   template <typename T>
-  void SetCurrentTimeGetter(T && t) { m_currentTimeGetter = std::forward<T>(t); }
+  void SetCurrentTimeGetter(T && t)
+  {
+    m_currentTimeGetter = std::forward<T>(t);
+  }
 
 private:
   void GetEdgeListImpl(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
-                       bool useRoutingOptions, bool useAccessConditional,
-                       SegmentEdgeListT & edges, Parents<Segment> const & parents) const;
+                       bool useRoutingOptions, bool useAccessConditional, SegmentEdgeListT & edges,
+                       Parents<Segment> const & parents) const;
 
-  void GetEdgeListImpl(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
-                       Segment const & parent, bool isOutgoing, bool useAccessConditional,
-                       JointEdgeListT & edges, WeightListT & parentWeights,
+  void GetEdgeListImpl(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData, Segment const & parent,
+                       bool isOutgoing, bool useAccessConditional, JointEdgeListT & edges, WeightListT & parentWeights,
                        Parents<JointSegment> const & parents) const;
 
-  void GetNeighboringEdges(astar::VertexData<Segment, RouteWeight> const & fromVertexData,
-                           RoadPoint const & rp, bool isOutgoing, bool useRoutingOptions,
-                           SegmentEdgeListT & edges, Parents<Segment> const & parents,
-                           bool useAccessConditional) const;
-  void GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> const & fromVertexData,
-                          Segment const & to, bool isOutgoing, SegmentEdgeListT & edges,
-                          Parents<Segment> const & parents, bool useAccessConditional) const;
+  void GetNeighboringEdges(astar::VertexData<Segment, RouteWeight> const & fromVertexData, RoadPoint const & rp,
+                           bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges,
+                           Parents<Segment> const & parents, bool useAccessConditional) const;
+  void GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> const & fromVertexData, Segment const & to,
+                          bool isOutgoing, SegmentEdgeListT & edges, Parents<Segment> const & parents,
+                          bool useAccessConditional) const;
 
   struct PenaltyData
   {
-    PenaltyData(bool passThroughAllowed, bool isFerry)
-      : m_passThroughAllowed(passThroughAllowed),
-        m_isFerry(isFerry) {}
+    PenaltyData(bool passThroughAllowed, bool isFerry) : m_passThroughAllowed(passThroughAllowed), m_isFerry(isFerry) {}
 
     bool m_passThroughAllowed;
     bool m_isFerry;
@@ -181,21 +170,17 @@ private:
   RouteWeight GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v,
                            std::optional<RouteWeight> const & prevWeight) const;
 
-  void GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId,
-                                       bool isOutgoing, SegmentListT & children) const;
+  void GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId, bool isOutgoing,
+                                       SegmentListT & children) const;
   void GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, SegmentListT & children) const;
   void ReconstructJointSegment(astar::VertexData<JointSegment, RouteWeight> const & parentVertexData,
-                               Segment const & parent,
-                               SegmentListT const & firstChildren,
-                               PointIdListT const & lastPointIds,
-                               bool isOutgoing,
-                               JointEdgeListT & jointEdges,
-                               WeightListT & parentWeights,
-                               Parents<JointSegment> const & parents) const;
+                               Segment const & parent, SegmentListT const & firstChildren,
+                               PointIdListT const & lastPointIds, bool isOutgoing, JointEdgeListT & jointEdges,
+                               WeightListT & parentWeights, Parents<JointSegment> const & parents) const;
 
   template <typename AccessPositionType>
-  bool IsAccessNoForSure(AccessPositionType const & accessPositionType,
-                         RouteWeight const & weight, bool useAccessConditional) const;
+  bool IsAccessNoForSure(AccessPositionType const & accessPositionType, RouteWeight const & weight,
+                         bool useAccessConditional) const;
 
   std::shared_ptr<Geometry> m_geometry;
   std::shared_ptr<EdgeEstimator> m_estimator;
@@ -221,27 +206,22 @@ private:
   RoadAccess m_roadAccess;
   RoutingOptions m_avoidRoutingOptions;
 
-  std::function<time_t()> m_currentTimeGetter = []() {
-    return GetCurrentTimestamp();
-  };
+  std::function<time_t()> m_currentTimeGetter = []() { return GetCurrentTimestamp(); };
 };
 
 template <typename AccessPositionType>
-bool IndexGraph::IsAccessNoForSure(AccessPositionType const & accessPositionType,
-                                   RouteWeight const & weight, bool useAccessConditional) const
+bool IndexGraph::IsAccessNoForSure(AccessPositionType const & accessPositionType, RouteWeight const & weight,
+                                   bool useAccessConditional) const
 {
-  auto const [accessType, confidence] =
-      useAccessConditional ? m_roadAccess.GetAccess(accessPositionType, weight)
-                           : m_roadAccess.GetAccessWithoutConditional(accessPositionType);
+  auto const [accessType, confidence] = useAccessConditional
+                                          ? m_roadAccess.GetAccess(accessPositionType, weight)
+                                          : m_roadAccess.GetAccessWithoutConditional(accessPositionType);
   return accessType == RoadAccess::Type::No && confidence == RoadAccess::Confidence::Sure;
 }
 
 template <typename ParentVertex>
-bool IndexGraph::IsRestricted(ParentVertex const & parent,
-                              uint32_t parentFeatureId,
-                              uint32_t currentFeatureId,
-                              bool isOutgoing,
-                              Parents<ParentVertex> const & parents) const
+bool IndexGraph::IsRestricted(ParentVertex const & parent, uint32_t parentFeatureId, uint32_t currentFeatureId,
+                              bool isOutgoing, Parents<ParentVertex> const & parents) const
 {
   if (parentFeatureId == currentFeatureId)
     return false;
@@ -295,11 +275,8 @@ bool IndexGraph::IsRestricted(ParentVertex const & parent,
     for (size_t i = 1; i < restriction.size(); ++i)
     {
       ASSERT_GREATER_OR_EQUAL(i, 1, ("Unexpected overflow."));
-      if (i - 1 == parentsFromCurrent.size()
-          && !appendNextParent(parentsFromCurrent.back(), parentsFromCurrent))
-      {
+      if (i - 1 == parentsFromCurrent.size() && !appendNextParent(parentsFromCurrent.back(), parentsFromCurrent))
         break;
-      }
 
       if (parentsFromCurrent.back().GetFeatureId() != restriction[i])
         break;

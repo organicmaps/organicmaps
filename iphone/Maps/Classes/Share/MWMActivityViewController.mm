@@ -4,18 +4,20 @@
 
 @interface MWMActivityViewController ()
 
-@property(weak, nonatomic) UIViewController *ownerViewController;
-@property(weak, nonatomic) UIView *anchorView;
+@property(weak, nonatomic) UIViewController * ownerViewController;
+@property(weak, nonatomic) UIView * anchorView;
 
 @end
 
 @implementation MWMActivityViewController
 
-- (instancetype)initWithActivityItem:(id<UIActivityItemSource>)activityItem {
+- (instancetype)initWithActivityItem:(id<UIActivityItemSource>)activityItem
+{
   return [self initWithActivityItems:@[activityItem]];
 }
 
-- (instancetype)initWithActivityItems:(NSArray *)activityItems {
+- (instancetype)initWithActivityItems:(NSArray *)activityItems
+{
   self = [super initWithActivityItems:activityItems applicationActivities:nil];
   if (self)
     self.excludedActivityTypes = @[
@@ -25,43 +27,47 @@
   return self;
 }
 
-+ (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location {
-  MWMShareActivityItem *item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
-  MWMActivityViewController *shareVC = [[self alloc] initWithActivityItem:item];
++ (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location
+{
+  MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
+  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItem:item];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
   return shareVC;
 }
 
-+ (instancetype)shareControllerForPlacePage:(PlacePageData *)data {
-  MWMShareActivityItem *item = [[MWMShareActivityItem alloc] initForPlacePage:data];
-  MWMActivityViewController *shareVC = [[self alloc] initWithActivityItem:item];
++ (instancetype)shareControllerForPlacePage:(PlacePageData *)data
+{
+  MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePage:data];
+  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItem:item];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
   return shareVC;
 }
 
 + (instancetype)shareControllerForURL:(NSURL *)url
                               message:(NSString *)message
-                    completionHandler:(UIActivityViewControllerCompletionWithItemsHandler)completionHandler {
-  NSMutableArray *items = [NSMutableArray arrayWithObject:message];
-  if (url) {
+                    completionHandler:(UIActivityViewControllerCompletionWithItemsHandler)completionHandler
+{
+  NSMutableArray * items = [NSMutableArray arrayWithObject:message];
+  if (url)
     [items addObject:url];
-  }
 
-  MWMActivityViewController *shareVC = [[self alloc] initWithActivityItems:items.copy];
+  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:items.copy];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypePostToFacebook];
   shareVC.completionWithItemsHandler = completionHandler;
   return shareVC;
 }
 
-+ (instancetype)shareControllerForEditorViral {
-  MWMEditorViralActivityItem *item = [[MWMEditorViralActivityItem alloc] init];
-  UIImage *image = [UIImage imageNamed:@"img_sharing_editor"];
-  MWMActivityViewController *vc = [[self alloc] initWithActivityItems:@[item, image]];
++ (instancetype)shareControllerForEditorViral
+{
+  MWMEditorViralActivityItem * item = [[MWMEditorViralActivityItem alloc] init];
+  UIImage * image = [UIImage imageNamed:@"img_sharing_editor"];
+  MWMActivityViewController * vc = [[self alloc] initWithActivityItems:@[item, image]];
   vc.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionDown;
   return vc;
 }
 
-- (void)presentInParentViewController:(UIViewController *)parentVC anchorView:(UIView *)anchorView {
+- (void)presentInParentViewController:(UIViewController *)parentVC anchorView:(UIView *)anchorView
+{
   self.ownerViewController = parentVC;
   self.anchorView = anchorView;
   self.popoverPresentationController.sourceView = anchorView;

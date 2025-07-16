@@ -15,7 +15,7 @@ class EditableMapObject;
 
 @interface MWMObjectsCategorySelectorController : MWMViewController
 
-@property (weak, nonatomic) id<MWMObjectsCategorySelectorDelegate> delegate;
+@property(weak, nonatomic) id<MWMObjectsCategorySelectorDelegate> delegate;
 
 - (void)setSelectedCategory:(std::string const &)type;
 

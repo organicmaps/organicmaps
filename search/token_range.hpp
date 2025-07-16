@@ -15,8 +15,7 @@ class TokenRange final
 {
 public:
   TokenRange() = default;
-  TokenRange(size_t begin, size_t end)
-    : m_begin(static_cast<uint8_t>(begin)), m_end(static_cast<uint8_t>(end))
+  TokenRange(size_t begin, size_t end) : m_begin(static_cast<uint8_t>(begin)), m_end(static_cast<uint8_t>(end))
 
   {
     ASSERT_LESS_OR_EQUAL(begin, kMaxNumTokens, ());
@@ -54,10 +53,7 @@ public:
     return m_end < rhs.m_end;
   }
 
-  inline bool operator==(TokenRange const & rhs) const
-  {
-    return m_begin == rhs.m_begin && m_end == rhs.m_end;
-  }
+  inline bool operator==(TokenRange const & rhs) const { return m_begin == rhs.m_begin && m_end == rhs.m_end; }
 
   inline size_t Begin() const { return m_begin; }
   inline size_t End() const { return m_end; }

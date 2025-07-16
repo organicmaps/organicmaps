@@ -15,16 +15,15 @@
 #include <vector>
 
 #if defined(__clang__)
- #pragma clang diagnostic push
- #pragma clang diagnostic ignored "-Wunused-private-field"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
 
 #include "3party/succinct/rs_bit_vector.hpp"
 
 #if defined(__clang__)
-  #pragma clang diagnostic pop
+#pragma clang diagnostic pop
 #endif
-
 
 namespace trie
 {
@@ -39,7 +38,8 @@ public:
   using TValue = typename TValueReader::ValueType;
 
   TopologyAndOffsets(TReader const & reader, TValueReader const & valueReader)
-    : m_reader(reader), m_valueReader(valueReader)
+    : m_reader(reader)
+    , m_valueReader(valueReader)
   {
     Parse();
   }
@@ -142,11 +142,12 @@ public:
   using TValue = typename TValueReader::ValueType;
   using TCommonData = TopologyAndOffsets<TReader, TValueReader>;
 
-  SuccinctTrieIterator(TReader const & reader, std::shared_ptr<TCommonData> common,
-                       uint32_t nodeBitPosition)
-    : m_reader(reader), m_common(common), m_nodeBitPosition(nodeBitPosition), m_valuesRead(false)
-  {
-  }
+  SuccinctTrieIterator(TReader const & reader, std::shared_ptr<TCommonData> common, uint32_t nodeBitPosition)
+    : m_reader(reader)
+    , m_common(common)
+    , m_nodeBitPosition(nodeBitPosition)
+    , m_valuesRead(false)
+  {}
 
   std::unique_ptr<SuccinctTrieIterator> Clone() const
   {
@@ -159,15 +160,11 @@ public:
     ASSERT_EQUAL(m_common->GetTopology()[m_nodeBitPosition - 1], 1, (m_nodeBitPosition));
 
     // rank(x) returns the number of ones in [0, x) but we count bit positions from 1
-    uint32_t childBitPosition =
-        base::asserted_cast<uint32_t>(2 * m_common->GetTopology().rank(m_nodeBitPosition));
+    uint32_t childBitPosition = base::asserted_cast<uint32_t>(2 * m_common->GetTopology().rank(m_nodeBitPosition));
     if (i == 1)
       ++childBitPosition;
-    if (childBitPosition > 2 * m_common->NumNodes() ||
-        m_common->GetTopology()[childBitPosition - 1] == 0)
-    {
+    if (childBitPosition > 2 * m_common->NumNodes() || m_common->GetTopology()[childBitPosition - 1] == 0)
       return nullptr;
-    }
     return std::make_unique<SuccinctTrieIterator>(m_reader, m_common, childBitPosition);
   }
 
@@ -228,13 +225,13 @@ private:
       return;
     m_valuesRead = true;
     // Back to 0-based indices.
-    uint32_t m_nodeId =
-        base::checked_cast<uint32_t>(m_common->GetTopology().rank(m_nodeBitPosition) - 1);
+    uint32_t m_nodeId = base::checked_cast<uint32_t>(m_common->GetTopology().rank(m_nodeBitPosition) - 1);
     if (!m_common->NodeIsFinal(m_nodeId))
       return;
     uint32_t offset = m_common->Offset(m_nodeId);
     uint32_t size = m_common->ValueListSize(m_nodeId);
-    ReaderPtr<TReader> subReaderPtr(std::unique_ptr<TReader>(static_cast<TReader*>(m_reader.CreateSubReader(offset, size).release())));
+    ReaderPtr<TReader> subReaderPtr(
+        std::unique_ptr<TReader>(static_cast<TReader *>(m_reader.CreateSubReader(offset, size).release())));
     ReaderSource<ReaderPtr<TReader>> src(subReaderPtr);
     while (src.Size() > 0)
     {
@@ -256,8 +253,8 @@ private:
 };
 
 template <typename TReader, typename TValueReader>
-std::unique_ptr<SuccinctTrieIterator<TReader, TValueReader>> ReadSuccinctTrie(
-    TReader const & reader, TValueReader valueReader = TValueReader())
+std::unique_ptr<SuccinctTrieIterator<TReader, TValueReader>> ReadSuccinctTrie(TReader const & reader,
+                                                                              TValueReader valueReader = TValueReader())
 {
   using TCommonData = TopologyAndOffsets<TReader, TValueReader>;
   using TIter = SuccinctTrieIterator<TReader, TValueReader>;

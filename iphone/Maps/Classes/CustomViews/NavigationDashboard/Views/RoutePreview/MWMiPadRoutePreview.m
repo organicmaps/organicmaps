@@ -1,6 +1,6 @@
 #import "MWMiPadRoutePreview.h"
-#import "MWMRouter.h"
 #import "MWMAvailableAreaAffectDirection.h"
+#import "MWMRouter.h"
 
 @interface MWMRoutePreview ()
 
@@ -41,10 +41,14 @@
 
 #pragma mark - SolidTouchView
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {}
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {}
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {}
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {}
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{}
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{}
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{}
 #pragma mark - AvailableArea / VisibleArea
 
 - (MWMAvailableAreaAffectDirections)visibleAreaAffectDirections

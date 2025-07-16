@@ -25,7 +25,8 @@ public:
   std::string const & GetPath() const { return m_path; }
   std::string GetHostAndPath() const { return m_host + '/' + m_path; }
 
-  template <class FnT> void ForEachParam(FnT && fn) const
+  template <class FnT>
+  void ForEachParam(FnT && fn) const
   {
     for (auto const & p : m_params)
       fn(p.first, p.second);

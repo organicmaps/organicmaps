@@ -22,7 +22,6 @@ struct Notification;
 class GetTtsText
 {
 public:
-
   std::string GetTurnNotification(Notification const & notification) const;
 
   std::string GetRecalculatingNotification() const;

@@ -21,30 +21,18 @@ template <typename Bounds, typename CellId>
 class CellIdConverter
 {
 public:
-  static double XToCellIdX(double x)
-  {
-    return (x - Bounds::kMinX) / StepX();
-  }
-  static double YToCellIdY(double y)
-  {
-    return (y - Bounds::kMinY) / StepY();
-  }
+  static double XToCellIdX(double x) { return (x - Bounds::kMinX) / StepX(); }
+  static double YToCellIdY(double y) { return (y - Bounds::kMinY) / StepY(); }
 
-  static double CellIdXToX(double  x)
-  {
-    return (x*StepX() + Bounds::kMinX);
-  }
-  static double CellIdYToY(double y)
-  {
-    return (y*StepY() + Bounds::kMinY);
-  }
+  static double CellIdXToX(double x) { return (x * StepX() + Bounds::kMinX); }
+  static double CellIdYToY(double y) { return (y * StepY() + Bounds::kMinY); }
 
   static CellId ToCellId(double x, double y)
   {
     uint32_t const ix = static_cast<uint32_t>(XToCellIdX(x));
     uint32_t const iy = static_cast<uint32_t>(YToCellIdY(y));
     CellId id = CellId::FromXY(ix, iy, CellId::DEPTH_LEVELS - 1);
-#if 0 // DEBUG
+#if 0  // DEBUG
     std::pair<uint32_t, uint32_t> ixy = id.XY();
     ASSERT(Abs(ixy.first  - ix) <= 1, (x, y, id, ixy));
     ASSERT(Abs(ixy.second - iy) <= 1, (x, y, id, ixy));
@@ -65,7 +53,7 @@ public:
       id1 = id1.Parent();
       id2 = id2.Parent();
     }
-#if 0 // DEBUG
+#if 0  // DEBUG
     double minX, minY, maxX, maxY;
     GetCellBounds(id1, minX, minY, maxX, maxY);
     ASSERT(math::Between(minX, maxX, x1), (x1, minX, maxX));
@@ -82,8 +70,7 @@ public:
     return m2::PointD(CellIdXToX(xy.first), CellIdYToY(xy.second));
   }
 
-  static void GetCellBounds(CellId id,
-                            double & minX, double & minY, double & maxX, double & maxY)
+  static void GetCellBounds(CellId id, double & minX, double & minY, double & maxX, double & maxY)
   {
     std::pair<uint32_t, uint32_t> const xy = id.XY();
     uint32_t const r = id.Radius();
@@ -94,13 +81,7 @@ public:
   }
 
 private:
-  inline static double StepX()
-  {
-    return static_cast<double>(Bounds::kRangeX) / CellId::MAX_COORD;
-  }
+  inline static double StepX() { return static_cast<double>(Bounds::kRangeX) / CellId::MAX_COORD; }
 
-  inline static double StepY()
-  {
-    return static_cast<double>(Bounds::kRangeY) / CellId::MAX_COORD;
-  }
+  inline static double StepY() { return static_cast<double>(Bounds::kRangeY) / CellId::MAX_COORD; }
 };

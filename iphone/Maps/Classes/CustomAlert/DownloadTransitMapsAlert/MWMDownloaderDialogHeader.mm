@@ -5,12 +5,12 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
 
 @interface MWMDownloaderDialogHeader ()
 
-@property (weak, nonatomic) IBOutlet UILabel * title;
-@property (weak, nonatomic) IBOutlet UILabel * size;
-@property (weak, nonatomic) IBOutlet UIView * dividerView;
-@property (weak, nonatomic) MWMDownloadTransitMapAlert * ownerAlert;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * sizeTrailing;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint * titleLeading;
+@property(weak, nonatomic) IBOutlet UILabel * title;
+@property(weak, nonatomic) IBOutlet UILabel * size;
+@property(weak, nonatomic) IBOutlet UIView * dividerView;
+@property(weak, nonatomic) MWMDownloadTransitMapAlert * ownerAlert;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * sizeTrailing;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * titleLeading;
 
 @end
 
@@ -19,8 +19,7 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
 + (instancetype)headerForOwnerAlert:(MWMDownloadTransitMapAlert *)alert
 {
   MWMDownloaderDialogHeader * header =
-      [NSBundle.mainBundle loadNibNamed:kDownloaderDialogHeaderNibName owner:nil options:nil]
-          .firstObject;
+      [NSBundle.mainBundle loadNibNamed:kDownloaderDialogHeaderNibName owner:nil options:nil].firstObject;
   header.ownerAlert = alert;
   return header;
 }
@@ -30,10 +29,11 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
   BOOL const currentState = sender.selected;
   sender.selected = !currentState;
   self.dividerView.hidden = currentState;
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-    self.expandImage.transform = sender.selected ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+                   animations:^{
+                     self.expandImage.transform =
+                         sender.selected ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformIdentity;
+                   }];
   [self.ownerAlert showDownloadDetail:sender];
 }
 

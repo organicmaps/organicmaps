@@ -17,7 +17,7 @@ namespace network_policy
 {
 void SetStage(Stage stage)
 {
-  NSUserDefaults *ud = NSUserDefaults.standardUserDefaults;
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setInteger:stage forKey:kNetworkingPolicyStage];
   [ud setObject:[NSDate dateWithTimeIntervalSinceNow:kSessionDurationSeconds] forKey:kNetworkingPolicyTimeStamp];
 }
@@ -42,17 +42,17 @@ bool CanUseNetwork()
   using ct = Platform::EConnectionType;
   switch (GetPlatform().ConnectionStatus())
   {
-  case ct::CONNECTION_NONE: return false;
-  case ct::CONNECTION_WIFI: return true;
-  case ct::CONNECTION_WWAN:
-    switch (GetStage())
-    {
-    case Stage::Ask: return false;
-    case Stage::Always: return true;
-    case Stage::Never: return false;
-    case Stage::Today: return IsActivePolicyDate();
-    case Stage::NotToday: return false;
-    }
+    case ct::CONNECTION_NONE: return false;
+    case ct::CONNECTION_WIFI: return true;
+    case ct::CONNECTION_WWAN:
+      switch (GetStage())
+      {
+        case Stage::Ask: return false;
+        case Stage::Always: return true;
+        case Stage::Never: return false;
+        case Stage::Today: return IsActivePolicyDate();
+        case Stage::NotToday: return false;
+      }
   }
 }
 }  // namespace network_policy

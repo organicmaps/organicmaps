@@ -1,8 +1,8 @@
 #import "MWMSearchCommonCell.h"
 #import "CLLocation+Mercator.h"
 #import "MWMLocationManager.h"
-#import "SwiftBridge.h"
 #import "SearchResult.h"
+#import "SwiftBridge.h"
 
 @interface MWMSearchCommonCell ()
 
@@ -17,7 +17,8 @@
 
 @implementation MWMSearchCommonCell
 
-- (void)configureWith:(SearchResult * _Nonnull)result isPartialMatching:(BOOL)isPartialMatching {
+- (void)configureWith:(SearchResult * _Nonnull)result isPartialMatching:(BOOL)isPartialMatching
+{
   [super configureWith:result isPartialMatching:isPartialMatching];
   self.locationLabel.text = result.addressText;
   [self.locationLabel sizeToFit];
@@ -33,23 +34,20 @@
   self.separatorInset = UIEdgeInsetsMake(0, kSearchCellSeparatorInset, 0, 0);
 }
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
   [super layoutSubviews];
   [self.iconImageView.layer setCornerRadius:self.iconImageView.height / 2];
 }
 
-- (NSDictionary *)selectedTitleAttributes {
-  return @{
-    NSForegroundColorAttributeName : [UIColor blackPrimaryText],
-    NSFontAttributeName : [UIFont bold17]
-  };
+- (NSDictionary *)selectedTitleAttributes
+{
+  return @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont bold17]};
 }
 
-- (NSDictionary *)unselectedTitleAttributes {
-  return @{
-    NSForegroundColorAttributeName : [UIColor blackPrimaryText],
-    NSFontAttributeName : [UIFont regular17]
-  };
+- (NSDictionary *)unselectedTitleAttributes
+{
+  return @{NSForegroundColorAttributeName: [UIColor blackPrimaryText], NSFontAttributeName: [UIFont regular17]};
 }
 
 @end

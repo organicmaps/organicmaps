@@ -1,8 +1,8 @@
 #pragma once
 
 #include "drape/drape_global.hpp"
-#include "drape/oglcontext.hpp"
 #include "drape/gl_includes.hpp"
+#include "drape/oglcontext.hpp"
 
 #import <QuartzCore/CAEAGLLayer.h>
 
@@ -11,8 +11,8 @@
 class iosOGLContext : public dp::OGLContext
 {
 public:
-  iosOGLContext(CAEAGLLayer * layer, dp::ApiVersion apiVersion,
-                iosOGLContext * contextToShareWith, bool needBuffers = false);
+  iosOGLContext(CAEAGLLayer * layer, dp::ApiVersion apiVersion, iosOGLContext * contextToShareWith,
+                bool needBuffers = false);
   ~iosOGLContext();
 
   void MakeCurrent() override;
@@ -37,6 +37,6 @@ private:
   GLuint m_depthBufferId;
   GLuint m_frameBufferId;
   //@} buffers
-  
+
   std::atomic<bool> m_presentAvailable;
 };

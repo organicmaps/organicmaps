@@ -41,12 +41,9 @@ struct HeaderSerVisitor
 template <typename Source>
 struct HeaderDesVisitor
 {
-  HeaderDesVisitor(Source & source): m_source(source) {}
+  HeaderDesVisitor(Source & source) : m_source(source) {}
 
-  void operator()(uint64_t & v, char const * /* name */ = nullptr)
-  {
-    v = ReadPrimitiveFromSource<uint64_t>(m_source);
-  }
+  void operator()(uint64_t & v, char const * /* name */ = nullptr) { v = ReadPrimitiveFromSource<uint64_t>(m_source); }
 
   template <typename R>
   void operator()(R & r, char const * /* name */ = nullptr)

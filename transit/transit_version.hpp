@@ -23,13 +23,12 @@ inline std::string DebugPrint(TransitVersion version)
 {
   switch (version)
   {
-  case TransitVersion::OnlySubway: return "OnlySubway";
-  case TransitVersion::AllPublicTransport: return "AllPublicTransport";
-  case TransitVersion::Counter: return "Counter";
+    case TransitVersion::OnlySubway: return "OnlySubway";
+    case TransitVersion::AllPublicTransport: return "AllPublicTransport";
+    case TransitVersion::Counter: return "Counter";
   }
 
-  LOG(LERROR,
-      ("Unknown version:", static_cast<std::underlying_type<TransitVersion>::type>(version)));
+  LOG(LERROR, ("Unknown version:", static_cast<std::underlying_type<TransitVersion>::type>(version)));
   UNREACHABLE();
 }
 }  // namespace transit

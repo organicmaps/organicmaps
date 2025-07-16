@@ -47,66 +47,66 @@ public:
     {
       switch (event.m_type)
       {
-      case Event::TYPE_SEGMENT_START:
-      {
-        if (line.empty())
+        case Event::TYPE_SEGMENT_START:
         {
-          line.insert({event.m_x, event.m_index, event.m_priority});
+          if (line.empty())
+          {
+            line.insert({event.m_x, event.m_index, event.m_priority});
+            break;
+          }
+
+          auto it =
+              line.upper_bound({event.m_x, std::numeric_limits<size_t>::max(), std::numeric_limits<uint8_t>::max()});
+
+          bool add = true;
+          while (true)
+          {
+            if (line.empty())
+              break;
+
+            if (it == line.end())
+            {
+              --it;
+              continue;
+            }
+
+            double const x = it->m_x;
+            if (fabs(x - event.m_x) <= m_xEps)
+            {
+              if (it->m_priority >= event.m_priority)
+              {
+                add = false;
+                break;
+              }
+              // New event has higher priority than an existing event nearby.
+              it = line.erase(it);
+            }
+
+            if (x + m_xEps < event.m_x)
+              break;
+
+            if (it == line.begin())
+              break;
+
+            --it;
+          }
+
+          if (add)
+            line.insert({event.m_x, event.m_index, event.m_priority});
+
           break;
         }
 
-        auto it = line.upper_bound(
-            {event.m_x, std::numeric_limits<size_t>::max(), std::numeric_limits<uint8_t>::max()});
-
-        bool add = true;
-        while (true)
+        case Event::TYPE_SEGMENT_END:
         {
-          if (line.empty())
-            break;
-
-          if (it == line.end())
+          auto it = line.find({event.m_x, event.m_index, event.m_priority});
+          if (it != line.end())
           {
-            --it;
-            continue;
+            emitter(event.m_index);
+            line.erase(it);
           }
-
-          double const x = it->m_x;
-          if (fabs(x - event.m_x) <= m_xEps)
-          {
-            if (it->m_priority >= event.m_priority)
-            {
-              add = false;
-              break;
-            }
-            // New event has higher priority than an existing event nearby.
-            it = line.erase(it);
-          }
-
-          if (x + m_xEps < event.m_x)
-            break;
-
-          if (it == line.begin())
-            break;
-
-          --it;
+          break;
         }
-
-        if (add)
-          line.insert({event.m_x, event.m_index, event.m_priority});
-
-        break;
-      }
-
-      case Event::TYPE_SEGMENT_END:
-      {
-        auto it = line.find({event.m_x, event.m_index, event.m_priority});
-        if (it != line.end())
-        {
-          emitter(event.m_index);
-          line.erase(it);
-        }
-        break;
-      }
       };
     }
 

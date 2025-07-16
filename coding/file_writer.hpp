@@ -1,8 +1,8 @@
 #pragma once
 
-#include "coding/writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/write_to_sink.hpp"
+#include "coding/writer.hpp"
 
 #include "base/assert.hpp"
 #include "base/macros.hpp"
@@ -34,8 +34,7 @@ public:
     OP_APPEND = 3
   };
 
-  explicit FileWriter(std::string const & fileName,
-                      Op operation = OP_WRITE_TRUNCATE);
+  explicit FileWriter(std::string const & fileName, Op operation = OP_WRITE_TRUNCATE);
   FileWriter(FileWriter && rhs) = default;
 
   virtual ~FileWriter() noexcept(false);
@@ -59,10 +58,7 @@ protected:
 class FilesContainerWriter : public FileWriter
 {
 public:
-  FilesContainerWriter(std::string const & fileName, Op operation)
-    : FileWriter(fileName, operation)
-  {
-  }
+  FilesContainerWriter(std::string const & fileName, Op operation) : FileWriter(fileName, operation) {}
 
   void WritePaddingByEnd(size_t factor) { WritePadding(Size(), factor); }
   void WritePaddingByPos(size_t factor) { WritePadding(Pos(), factor); }
@@ -83,8 +79,7 @@ class TruncatingFileWriter : public FilesContainerWriter
 public:
   explicit TruncatingFileWriter(std::string const & fileName)
     : FilesContainerWriter(fileName, FileWriter::OP_WRITE_EXISTING)
-  {
-  }
+  {}
 
   TruncatingFileWriter(TruncatingFileWriter && rhs) = default;
 

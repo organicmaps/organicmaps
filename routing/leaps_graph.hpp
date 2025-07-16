@@ -21,10 +21,8 @@ public:
 
   // AStarGraph overrides:
   // @{
-  void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                            EdgeListT & edges) override;
-  void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                           EdgeListT & edges) override;
+  void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & edges) override;
+  void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & edges) override;
   RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) override;
   RouteWeight GetAStarWeightEpsilon() override;
   // @}

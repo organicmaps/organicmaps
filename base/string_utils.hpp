@@ -4,8 +4,8 @@
 #include "base/checked_cast.hpp"
 
 #include <algorithm>
-#include <charconv>
 #include <cerrno>
+#include <charconv>
 #include <cstdint>
 #include <cstdlib>
 #include <iomanip>
@@ -39,8 +39,7 @@ public:
 
   template <typename Iter>
   UniString(Iter b, Iter e) : BaseT(b, e)
-  {
-  }
+  {}
 
   bool IsEqualAscii(char const * s) const;
 
@@ -131,17 +130,25 @@ std::string ToUtf8(UniString const & s);
 std::u16string ToUtf16(std::string_view utf8);
 bool IsASCIIString(std::string_view sv);
 bool IsASCIIDigit(UniChar c);
-template <class StringT> bool IsASCIINumeric(StringT const & str)
+template <class StringT>
+bool IsASCIINumeric(StringT const & str)
 {
   return !std::empty(str) && std::all_of(std::begin(str), std::end(str), &IsASCIIDigit);
 }
-inline bool IsASCIINumeric(char const * s) { return IsASCIINumeric(std::string_view(s)); }
+inline bool IsASCIINumeric(char const * s)
+{
+  return IsASCIINumeric(std::string_view(s));
+}
 bool IsASCIISpace(UniChar c);
 bool IsASCIILatin(UniChar c);
 
-inline std::string DebugPrint(UniString const & s) { return ToUtf8(s); }
+inline std::string DebugPrint(UniString const & s)
+{
+  return ToUtf8(s);
+}
 
-template <typename DelimFn, typename Iter> class TokenizeIteratorBase
+template <typename DelimFn, typename Iter>
+class TokenizeIteratorBase
 {
 public:
   using difference_type = std::ptrdiff_t;
@@ -150,15 +157,23 @@ public:
   // Hack to get buffer pointer from any iterator.
   // Deliberately made non-static to simplify the call like this->ToCharPtr.
   char const * ToCharPtr(char const * p) const { return p; }
-  template <class T> auto ToCharPtr(T const & i) const { return ToCharPtr(i.base()); }
+  template <class T>
+  auto ToCharPtr(T const & i) const
+  {
+    return ToCharPtr(i.base());
+  }
 };
 
 template <typename DelimFn, typename Iter, bool KeepEmptyTokens = false>
 class TokenizeIterator : public TokenizeIteratorBase<DelimFn, Iter>
 {
 public:
-  template <class InIterT> TokenizeIterator(InIterT beg, InIterT end, DelimFn const & delimFn)
-    : m_start(beg), m_end(beg), m_finish(end), m_delimFn(delimFn)
+  template <class InIterT>
+  TokenizeIterator(InIterT beg, InIterT end, DelimFn const & delimFn)
+    : m_start(beg)
+    , m_end(beg)
+    , m_finish(end)
+    , m_delimFn(delimFn)
   {
     Move();
   }
@@ -231,8 +246,13 @@ template <typename DelimFn, typename Iter>
 class TokenizeIterator<DelimFn, Iter, true /* KeepEmptyTokens */> : public TokenizeIteratorBase<DelimFn, Iter>
 {
 public:
-  template <class InIterT> TokenizeIterator(InIterT beg, InIterT end, DelimFn const & delimFn)
-    : m_start(beg), m_end(beg), m_finish(end), m_delimFn(delimFn), m_finished(false)
+  template <class InIterT>
+  TokenizeIterator(InIterT beg, InIterT end, DelimFn const & delimFn)
+    : m_start(beg)
+    , m_end(beg)
+    , m_finish(end)
+    , m_delimFn(delimFn)
+    , m_finished(false)
   {
     while (m_end != m_finish && !m_delimFn(*m_end))
       ++m_end;
@@ -259,10 +279,7 @@ public:
     if (!*this && !rhs)
       return true;
     if (*this && rhs)
-    {
-      return m_start == rhs.m_start && m_end == rhs.m_end && m_finish == rhs.m_finish &&
-             m_finished == rhs.m_finished;
-    }
+      return m_start == rhs.m_start && m_end == rhs.m_end && m_finish == rhs.m_finish && m_finished == rhs.m_finished;
     return false;
   }
 
@@ -320,15 +337,16 @@ public:
   bool operator()(UniChar c) const;
 };
 
-template <class StringT> class SimpleTokenizer : public
-    TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<typename StringT::const_iterator>, false /* KeepEmptyTokens */>
+template <class StringT>
+class SimpleTokenizer
+  : public TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<typename StringT::const_iterator>,
+                            false /* KeepEmptyTokens */>
 {
-  using BaseT = TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<typename StringT::const_iterator>, false /* KeepEmptyTokens */>;
+  using BaseT = TokenizeIterator<SimpleDelimiter, ::utf8::unchecked::iterator<typename StringT::const_iterator>,
+                                 false /* KeepEmptyTokens */>;
+
 public:
-  SimpleTokenizer(StringT const & str, SimpleDelimiter const & delims)
-    : BaseT(str.begin(), str.end(), delims)
-  {
-  }
+  SimpleTokenizer(StringT const & str, SimpleDelimiter const & delims) : BaseT(str.begin(), str.end(), delims) {}
 };
 
 template <typename TFunctor>
@@ -362,22 +380,19 @@ UniChar LastUniChar(std::string const & s);
 //@{
 namespace internal
 {
-template <typename T, typename = std::enable_if_t<std::is_signed<T>::value &&
-                                                  sizeof(T) < sizeof(long long)>>
+template <typename T, typename = std::enable_if_t<std::is_signed<T>::value && sizeof(T) < sizeof(long long)>>
 long IntConverter(char const * start, char ** stop, int base)
 {
   return std::strtol(start, stop, base);
 }
 
-template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value &&
-                                                  sizeof(T) < sizeof(unsigned long long)>>
+template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value && sizeof(T) < sizeof(unsigned long long)>>
 unsigned long IntConverter(char const * start, char ** stop, int base)
 {
   return std::strtoul(start, stop, base);
 }
 
-template <typename T, typename = std::enable_if_t<std::is_signed<T>::value &&
-                                                  sizeof(T) == sizeof(long long)>>
+template <typename T, typename = std::enable_if_t<std::is_signed<T>::value && sizeof(T) == sizeof(long long)>>
 long long IntConverter(char const * start, char ** stop, int base)
 {
 #ifdef OMIM_OS_WINDOWS_NATIVE
@@ -387,8 +402,8 @@ long long IntConverter(char const * start, char ** stop, int base)
 #endif
 }
 
-template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value &&
-                                                  sizeof(T) == sizeof(unsigned long long)>>
+template <typename T,
+          typename = std::enable_if_t<std::is_unsigned<T>::value && sizeof(T) == sizeof(unsigned long long)>>
 unsigned long long IntConverter(char const * start, char ** stop, int base)
 {
 #ifdef OMIM_OS_WINDOWS_NATIVE
@@ -398,8 +413,7 @@ unsigned long long IntConverter(char const * start, char ** stop, int base)
 #endif
 }
 
-template <typename T,
-          typename = std::enable_if_t<std::is_integral<T>::value>>
+template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
 bool ToInteger(char const * start, T & result, int base = 10)
 {
   char * stop;
@@ -407,8 +421,7 @@ bool ToInteger(char const * start, T & result, int base = 10)
 
   auto const v = IntConverter<T>(start, &stop, base);
 
-  if (errno == EINVAL || errno == ERANGE || *stop != 0 || start == stop ||
-      !base::IsCastValid<T>(v))
+  if (errno == EINVAL || errno == ERANGE || *stop != 0 || start == stop || !base::IsCastValid<T>(v))
   {
     errno = 0;
     return false;
@@ -510,19 +523,19 @@ bool ToInteger(char const * start, T & result, int base = 10)
   return to_double(s.c_str(), d);
 }
 
-
 namespace impl
 {
-template <typename T> bool from_sv(std::string_view sv, T & t)
+template <typename T>
+bool from_sv(std::string_view sv, T & t)
 {
   auto const end = sv.data() + sv.size();
   auto const res = std::from_chars(sv.data(), end, t);
-  return (res.ec != std::errc::invalid_argument && res.ec != std::errc::result_out_of_range &&
-          res.ptr == end);
+  return (res.ec != std::errc::invalid_argument && res.ec != std::errc::result_out_of_range && res.ptr == end);
 }
-} // namespace impl
+}  // namespace impl
 
-template <class T> inline bool to_uint(std::string_view sv, T & i)
+template <class T>
+inline bool to_uint(std::string_view sv, T & i)
 {
   static_assert(std::is_unsigned<T>::value, "");
   return impl::from_sv(sv, i);
@@ -535,11 +548,16 @@ inline bool to_double(std::string_view sv, double & d)
 }
 //@}
 
-
 /// @name From numeric to string.
 //@{
-inline std::string to_string(std::string const & s) { return s; }
-inline std::string to_string(char const * s) { return s; }
+inline std::string to_string(std::string const & s)
+{
+  return s;
+}
+inline std::string to_string(char const * s)
+{
+  return s;
+}
 template <typename T>
 std::string to_string(T t)
 {
@@ -554,17 +572,32 @@ template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
   return internal::ToInteger(s.c_str(), i);
 }
 
-[[nodiscard]] inline bool to_any(std::string const & s, float & f) { return to_float(s, f); }
-[[nodiscard]] inline bool to_any(std::string const & s, double & d) { return to_double(s, d); }
+[[nodiscard]] inline bool to_any(std::string const & s, float & f)
+{
+  return to_float(s, f);
+}
+[[nodiscard]] inline bool to_any(std::string const & s, double & d)
+{
+  return to_double(s, d);
+}
 [[nodiscard]] inline bool to_any(std::string const & s, std::string & result)
 {
   result = s;
   return true;
 }
 
-inline std::string to_string(int32_t i) { return std::to_string(i); }
-inline std::string to_string(int64_t i) { return std::to_string(i); }
-inline std::string to_string(uint64_t i) { return std::to_string(i); }
+inline std::string to_string(int32_t i)
+{
+  return std::to_string(i);
+}
+inline std::string to_string(int64_t i)
+{
+  return std::to_string(i);
+}
+inline std::string to_string(uint64_t i)
+{
+  return std::to_string(i);
+}
 /// Use this function to get string with fixed count of
 /// "Digits after comma".
 std::string to_string_dac(double d, int dac);
@@ -609,8 +642,8 @@ bool IsHTML(std::string const & utf8);
 bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mismatchedCount);
 
 template <typename Iterator, typename Delimiter>
-typename std::iterator_traits<Iterator>::value_type
-JoinStrings(Iterator begin, Iterator end, Delimiter const & delimiter)
+typename std::iterator_traits<Iterator>::value_type JoinStrings(Iterator begin, Iterator end,
+                                                                Delimiter const & delimiter)
 {
   if (begin == end)
     return {};

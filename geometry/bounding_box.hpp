@@ -40,10 +40,7 @@ public:
     return points;
   }
 
-  bool operator==(BoundingBox const & rhs) const
-  {
-    return m_min == rhs.m_min && m_max == rhs.m_max;
-  }
+  bool operator==(BoundingBox const & rhs) const { return m_min == rhs.m_min && m_max == rhs.m_max; }
 
   DECLARE_VISITOR(visitor(m_min, "min"), visitor(m_max, "max"))
   DECLARE_DEBUG_PRINT(BoundingBox)

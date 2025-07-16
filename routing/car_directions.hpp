@@ -2,8 +2,8 @@
 
 #include "routing/directions_engine.hpp"
 
-#include "routing_common/num_mwm_id.hpp"
 #include "routing/route.hpp"
+#include "routing_common/num_mwm_id.hpp"
 
 #include <map>
 #include <memory>
@@ -19,8 +19,8 @@ public:
 
 protected:
   virtual size_t GetTurnDirection(turns::IRoutingResult const & result, size_t const outgoingSegmentIndex,
-                                  NumMwmIds const & numMwmIds,
-                                  RoutingSettings const & vehicleSettings, turns::TurnItem & turn);
+                                  NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
+                                  turns::TurnItem & turn);
   virtual void FixupTurns(std::vector<RouteSegment> & routeSegments);
 };
 
@@ -38,8 +38,7 @@ void FixupCarTurns(std::vector<RouteSegment> & routeSegments);
  * \warning |currentSegment| must be greater than 0.
  */
 size_t CheckUTurnOnRoute(turns::IRoutingResult const & result, size_t const outgoingSegmentIndex,
-                         NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
-                         turns::TurnItem & turn);
+                         NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings, turns::TurnItem & turn);
 
 /*!
  * \brief Calculates a turn instruction if the ingoing edge or (and) the outgoing edge belongs to a

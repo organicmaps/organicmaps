@@ -7,11 +7,11 @@ class WritableDirChanger
 public:
   enum class SettingsDirPolicy
   {
-    UseDefault, UseWritableDir
+    UseDefault,
+    UseWritableDir
   };
 
-  WritableDirChanger(std::string const & testDir,
-                     SettingsDirPolicy settingsDirPolicy = SettingsDirPolicy::UseDefault);
+  WritableDirChanger(std::string const & testDir, SettingsDirPolicy settingsDirPolicy = SettingsDirPolicy::UseDefault);
   ~WritableDirChanger();
 
 private:

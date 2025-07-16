@@ -36,8 +36,7 @@ protected:
 private:
   class FileReaderData;
 
-  FileReader(FileReader const & reader, uint64_t offset, uint64_t size, uint32_t logPageSize,
-             uint32_t logPageCount);
+  FileReader(FileReader const & reader, uint64_t offset, uint64_t size, uint32_t logPageSize, uint32_t logPageCount);
 
   // Throws an exception if a (pos, size) read would result in an out-of-bounds access.
   void CheckPosAndSize(uint64_t pos, uint64_t size) const;

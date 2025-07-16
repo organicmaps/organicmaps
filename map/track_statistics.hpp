@@ -27,6 +27,7 @@ struct TrackStatistics
   std::string GetFormattedMaxElevation() const;
 
   void AddGpsInfoPoint(location::GpsInfo const & point);
+
 private:
   void AddPoints(Points const & points);
   void AddTimestamps(Timestamps const & timestamps);

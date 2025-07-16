@@ -33,9 +33,7 @@ public:
   using CellFeaturePair = CellValuePair<uint32_t>;
 
   CellFeatureBucketTuple() : m_bucket(0) {}
-  CellFeatureBucketTuple(CellFeaturePair const & p, uint32_t bucket) : m_pair(p), m_bucket(bucket)
-  {
-  }
+  CellFeatureBucketTuple(CellFeaturePair const & p, uint32_t bucket) : m_pair(p), m_bucket(bucket) {}
 
   bool operator<(CellFeatureBucketTuple const & rhs) const
   {
@@ -97,8 +95,7 @@ public:
       auto scale = node.m_minScale;
       // Do not filter high level objects. Including metro and country names.
       static auto const maximumIgnoredZoom =
-          feature::GetDrawableScaleRange(classif().GetTypeByPath({"railway", "station", "subway"}))
-              .first;
+          feature::GetDrawableScaleRange(classif().GetTypeByPath({"railway", "station", "subway"})).first;
 
       if (maximumIgnoredZoom < 0 || scale <= maximumIgnoredZoom)
       {
@@ -115,11 +112,11 @@ public:
         m2::RectD const displacementRect(node.m_center, node.m_center);
         bool isDisplaced = false;
         acceptedNodes.ForEachInRect(m2::Inflate(displacementRect, {delta, delta}),
-            [&isDisplaced, &node, &squaredDelta, &scale](DisplaceableNode const & rhs)
-            {
-              if (node.m_center.SquaredLength(rhs.m_center) < squaredDelta && rhs.m_maxScale > scale)
-                isDisplaced = true;
-            });
+                                    [&isDisplaced, &node, &squaredDelta, &scale](DisplaceableNode const & rhs)
+        {
+          if (node.m_center.SquaredLength(rhs.m_center) < squaredDelta && rhs.m_maxScale > scale)
+            isDisplaced = true;
+        });
         if (isDisplaced)
           continue;
 
@@ -169,10 +166,8 @@ private:
 
       float depth = 0;
       for (auto const & k : keys)
-      {
         if (depth < k.m_priority)
           depth = k.m_priority;
-      }
 
       // @todo: make sure features are prioritised the same way as in the run-time displacer,
       // see overlay_handle.cpp::CalculateOverlayPriority()
@@ -214,4 +209,4 @@ private:
   Sorter & m_sorter;
   std::vector<DisplaceableNode> m_storage;
 };
-} // namespace covering
+}  // namespace covering

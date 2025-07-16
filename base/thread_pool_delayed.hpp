@@ -90,12 +90,10 @@ private:
   struct DelayedTask
   {
     template <typename T>
-    DelayedTask(TaskId id, TimePoint const & when, T && task)
-      : m_id(id)
-      , m_when(when)
-      , m_task(std::forward<T>(task))
-    {
-    }
+    DelayedTask(TaskId id, TimePoint const & when, T && task) : m_id(id)
+                                                              , m_when(when)
+                                                              , m_task(std::forward<T>(task))
+    {}
 
     bool operator<(DelayedTask const & rhs) const
     {
@@ -120,9 +118,9 @@ private:
   using ImmediateQueue = LinkedMap<TaskId, Task>;
 
   using DelayedValue = std::shared_ptr<DelayedTask>;
-  class DelayedQueue : public BidirectionalMap<TaskId, DelayedValue,
-                                              std::unordered_map, std::hash<TaskId>,
-                                              std::multimap, DeRef<DelayedValue>>
+  class DelayedQueue
+    : public BidirectionalMap<TaskId, DelayedValue, std::unordered_map, std::hash<TaskId>, std::multimap,
+                              DeRef<DelayedValue>>
   {
   public:
     Value const & GetFirstValue() const

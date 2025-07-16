@@ -7,4 +7,4 @@ namespace search
 
 QueryString MakeQueryString(std::string s);
 
-} // namespace search
+}  // namespace search

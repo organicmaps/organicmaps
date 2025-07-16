@@ -63,8 +63,7 @@ public:
   auto Submit(F && func, Args &&... args) -> std::future<decltype(func(args...))>
   {
     using ResultType = decltype(func(args...));
-    std::packaged_task<ResultType()> task(std::bind(std::forward<F>(func),
-                                                    std::forward<Args>(args)...));
+    std::packaged_task<ResultType()> task(std::bind(std::forward<F>(func), std::forward<Args>(args)...));
     std::future<ResultType> result(task.get_future());
     {
       std::unique_lock lock(m_mutex);
@@ -128,9 +127,7 @@ private:
       FunctionType task;
       {
         std::unique_lock lock(m_mutex);
-        m_condition.wait(lock, [&] {
-          return m_done || !m_queue.empty();
-        });
+        m_condition.wait(lock, [&] { return m_done || !m_queue.empty(); });
 
         if (m_done && m_queue.empty())
           return;
@@ -154,4 +151,4 @@ private:
   ThreadsJoiner<> m_joiner;
 };
 
-} // namespace base
+}  // namespace base

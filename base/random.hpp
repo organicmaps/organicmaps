@@ -5,7 +5,8 @@
 
 namespace base
 {
-template <class T> class UniformRandom
+template <class T>
+class UniformRandom
 {
   static_assert(std::is_integral<T>::value);
 
@@ -19,4 +20,4 @@ public:
 
   T operator()() { return m_distr(m_gen); }
 };
-} // namespace base
+}  // namespace base

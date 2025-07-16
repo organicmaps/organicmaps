@@ -53,8 +53,7 @@ class VulkanObjectManager
 {
 public:
   VulkanObjectManager(VkDevice device, VkPhysicalDeviceLimits const & deviceLimits,
-                      VkPhysicalDeviceMemoryProperties const & memoryProperties,
-                      uint32_t queueFamilyIndex);
+                      VkPhysicalDeviceMemoryProperties const & memoryProperties, uint32_t queueFamilyIndex);
   ~VulkanObjectManager();
 
   enum ThreadType
@@ -68,8 +67,7 @@ public:
 
   void SetCurrentInflightFrameIndex(uint32_t index);
 
-  VulkanObject CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
-                            uint32_t sizeInBytes, uint64_t batcherHash);
+  VulkanObject CreateBuffer(VulkanMemoryManager::ResourceType resourceType, uint32_t sizeInBytes, uint64_t batcherHash);
   VulkanObject CreateImage(VkImageUsageFlags usageFlags, VkFormat format, VkImageTiling tiling,
                            VkImageAspectFlags aspectFlags, uint32_t width, uint32_t height);
   DescriptorSetGroup CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program);

@@ -24,31 +24,58 @@ struct Bounds
   static double constexpr kDegreesInMeter = 360.0 / 40008245.0;
   static double constexpr kMetersInDegree = 40008245.0 / 360.0;
 
-  static m2::RectD FullRect()
-  {
-    return m2::RectD(kMinX, kMinY, kMaxX, kMaxY);
-  }
+  static m2::RectD FullRect() { return m2::RectD(kMinX, kMinY, kMaxX, kMaxY); }
 };
 
-inline bool ValidLon(double d) { return math::Between(-180.0, 180.0, d); }
-inline bool ValidLat(double d) { return math::Between(-90.0, 90.0, d); }
+inline bool ValidLon(double d)
+{
+  return math::Between(-180.0, 180.0, d);
+}
+inline bool ValidLat(double d)
+{
+  return math::Between(-90.0, 90.0, d);
+}
 
-inline bool ValidX(double d) { return math::Between(Bounds::kMinX, Bounds::kMaxX, d); }
-inline bool ValidY(double d) { return math::Between(Bounds::kMinY, Bounds::kMaxY, d); }
+inline bool ValidX(double d)
+{
+  return math::Between(Bounds::kMinX, Bounds::kMaxX, d);
+}
+inline bool ValidY(double d)
+{
+  return math::Between(Bounds::kMinY, Bounds::kMaxY, d);
+}
 
-inline double ClampX(double d) { return math::Clamp(d, Bounds::kMinX, Bounds::kMaxX); }
-inline double ClampY(double d) { return math::Clamp(d, Bounds::kMinY, Bounds::kMaxY); }
+inline double ClampX(double d)
+{
+  return math::Clamp(d, Bounds::kMinX, Bounds::kMaxX);
+}
+inline double ClampY(double d)
+{
+  return math::Clamp(d, Bounds::kMinY, Bounds::kMaxY);
+}
 
 void ClampPoint(m2::PointD & pt);
 
 double YToLat(double y);
 double LatToY(double lat);
 
-inline double XToLon(double x) { return x; }
-inline double LonToX(double lon) { return lon; }
+inline double XToLon(double x)
+{
+  return x;
+}
+inline double LonToX(double lon)
+{
+  return lon;
+}
 
-inline double MetersToMercator(double meters) { return meters * Bounds::kDegreesInMeter; }
-inline double MercatorToMeters(double mercator) { return mercator * Bounds::kMetersInDegree; }
+inline double MetersToMercator(double meters)
+{
+  return meters * Bounds::kDegreesInMeter;
+}
+inline double MercatorToMeters(double mercator)
+{
+  return mercator * Bounds::kMetersInDegree;
+}
 
 /// @name Get rect for center point (lon, lat) and dimensions in meters.
 /// @return mercator rect.
@@ -63,12 +90,21 @@ m2::RectD RectByCenterXYAndOffset(m2::PointD const & center, double offset);
 
 m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetersR, double latMetersR);
 
-inline m2::PointD FromLatLon(double lat, double lon) { return m2::PointD(LonToX(lon), LatToY(lat)); }
-inline m2::PointD FromLatLon(ms::LatLon const & point) { return FromLatLon(point.m_lat, point.m_lon); }
+inline m2::PointD FromLatLon(double lat, double lon)
+{
+  return m2::PointD(LonToX(lon), LatToY(lat));
+}
+inline m2::PointD FromLatLon(ms::LatLon const & point)
+{
+  return FromLatLon(point.m_lat, point.m_lon);
+}
 
 m2::RectD RectByCenterLatLonAndSizeInMeters(double lat, double lon, double size);
 
-inline ms::LatLon ToLatLon(m2::PointD const & point) { return {YToLat(point.y), XToLon(point.x)}; }
+inline ms::LatLon ToLatLon(m2::PointD const & point)
+{
+  return {YToLat(point.y), XToLon(point.x)};
+}
 
 m2::RectD FromLatLon(m2::RectD const & rect);
 m2::RectD ToLatLon(m2::RectD const & rect);

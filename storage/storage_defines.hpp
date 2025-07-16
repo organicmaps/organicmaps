@@ -29,7 +29,7 @@ using CountryNameSynonyms = std::unordered_map<std::string, CountryId>;
 using MwmTopCityGeoIds = std::unordered_map<CountryId, base::GeoObjectId>;
 using MwmTopCountryGeoIds = std::unordered_map<CountryId, std::vector<base::GeoObjectId>>;
 
-extern const storage::CountryId kInvalidCountryId;
+extern storage::CountryId const kInvalidCountryId;
 
 // @TODO(bykoianko) Check in country tree if the countryId is valid.
 bool IsCountryIdValid(CountryId const & countryId);
@@ -77,22 +77,16 @@ std::string DebugPrint(NodeErrorCode status);
 
 struct StatusAndError
 {
-  StatusAndError(NodeStatus nodeStatus, NodeErrorCode nodeError)
-    : status(nodeStatus), error(nodeError)
-  {
-  }
+  StatusAndError(NodeStatus nodeStatus, NodeErrorCode nodeError) : status(nodeStatus), error(nodeError) {}
 
-  bool operator==(StatusAndError const & other) const
-  {
-    return other.status == status && other.error == error;
-  }
+  bool operator==(StatusAndError const & other) const { return other.status == status && other.error == error; }
 
   NodeStatus status;
   NodeErrorCode error;
-  };
-  std::string DebugPrint(StatusAndError statusAndError);
+};
+std::string DebugPrint(StatusAndError statusAndError);
 
-  StatusAndError ParseStatus(Status innerStatus);
+StatusAndError ParseStatus(Status innerStatus);
 }  // namespace storage
 
 using DownloadFn = std::function<void(storage::CountryId const &)>;

@@ -73,8 +73,7 @@ private:
   /// junctions.
   bool FeaturesAreCross(m2::PointD const & coords, uint32_t prev, uint32_t cur) const;
 
-  bool IsRestrictionValid(Restriction::Type & restrictionType,
-                          m2::PointD const & coords,
+  bool IsRestrictionValid(Restriction::Type & restrictionType, m2::PointD const & coords,
                           std::vector<uint32_t> & featureIds) const;
 
   bool CheckAndProcessUTurn(Restriction::Type & restrictionType, m2::PointD const & coords,
@@ -89,8 +88,7 @@ private:
   /// \note This method should be called to add a restriction when feature ids of the restriction
   /// are unknown. The feature ids should be set later with a call of |SetFeatureId(...)| method.
   /// \returns true if restriction is add and false otherwise.
-  bool AddRestriction(m2::PointD const & coords, Restriction::Type type,
-                      std::vector<base::GeoObjectId> const & osmIds);
+  bool AddRestriction(m2::PointD const & coords, Restriction::Type type, std::vector<base::GeoObjectId> const & osmIds);
 
   std::vector<Restriction> m_restrictions;
   routing::OsmIdToFeatureIds m_osmIdToFeatureIds;

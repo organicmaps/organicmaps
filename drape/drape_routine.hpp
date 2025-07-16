@@ -46,15 +46,9 @@ public:
 
   using ResultPtr = std::shared_ptr<Result>;
 
-  static void Init()
-  {
-    Instance(true /* reinitialize*/);
-  }
+  static void Init() { Instance(true /* reinitialize*/); }
 
-  static void Shutdown()
-  {
-    Instance().FinishAll();
-  }
+  static void Shutdown() { Instance().FinishAll(); }
 
   template <typename Task>
   static ResultPtr Run(Task && t)
@@ -76,7 +70,8 @@ public:
   static ResultPtr RunDelayed(base::DelayedThreadPool::Duration const & duration, Task && t)
   {
     ResultPtr result(new Result(Instance().GetNextId()));
-    auto const pushResult = Instance().m_workerThread.PushDelayed(duration, [result, t = std::forward<Task>(t)]() mutable
+    auto const pushResult =
+        Instance().m_workerThread.PushDelayed(duration, [result, t = std::forward<Task>(t)]() mutable
     {
       t();
       Instance().Notify(result->Finish());
@@ -109,7 +104,8 @@ private:
   static DrapeRoutine & Instance(bool reinitialize = false)
   {
     static std::unique_ptr<DrapeRoutine> instance;
-    if (!instance || reinitialize) {
+    if (!instance || reinitialize)
+    {
       if (instance)
         instance->FinishAll();
       instance = std::unique_ptr<DrapeRoutine>(new DrapeRoutine());
@@ -137,10 +133,7 @@ private:
     std::unique_lock<std::mutex> lock(m_mutex);
     if (m_finished)
       return;
-    m_condition.wait(lock, [this, id]()
-    {
-      return m_finished || m_finishedIds.find(id) != m_finishedIds.end();
-    });
+    m_condition.wait(lock, [this, id]() { return m_finished || m_finishedIds.find(id) != m_finishedIds.end(); });
     m_finishedIds.erase(id);
   }
 
@@ -175,15 +168,13 @@ class ActiveTasks
     DrapeRoutine::ResultPtr m_result;
 
     ActiveTask(std::shared_ptr<TaskType> && task, DrapeRoutine::ResultPtr && result)
-      : m_task(std::move(task)), m_result(std::move(result))
+      : m_task(std::move(task))
+      , m_result(std::move(result))
     {}
   };
 
 public:
-  ~ActiveTasks()
-  {
-    FinishAll();
-  }
+  ~ActiveTasks() { FinishAll(); }
 
   void Add(std::shared_ptr<TaskType> && task, DrapeRoutine::ResultPtr && result)
   {
@@ -196,9 +187,9 @@ public:
   void Remove(std::shared_ptr<TaskType> const & task)
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    m_tasks.erase(std::remove_if(m_tasks.begin(), m_tasks.end(),
-                  [task](ActiveTask const & t) { return t.m_task == task; }),
-                  m_tasks.end());
+    m_tasks.erase(
+        std::remove_if(m_tasks.begin(), m_tasks.end(), [task](ActiveTask const & t) { return t.m_task == task; }),
+        m_tasks.end());
   }
 
   void FinishAll()

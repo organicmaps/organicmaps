@@ -33,8 +33,7 @@ class WorldMapGenerator
     std::map<uint32_t, size_t> m_mapTypes;
 
   public:
-    explicit EmitterImpl(std::string const & worldFilename)
-      : m_output(worldFilename)
+    explicit EmitterImpl(std::string const & worldFilename) : m_output(worldFilename)
     {
       LOG_SHORT(LINFO, ("Output World file:", worldFilename));
     }
@@ -46,16 +45,16 @@ class WorldMapGenerator
       std::stringstream ss;
       ss << std::endl;
       for (auto const & p : m_mapTypes)
-        ss << c.GetReadableObjectName(p.first) << " : " <<  p.second << std::endl;
+        ss << c.GetReadableObjectName(p.first) << " : " << p.second << std::endl;
       LOG_SHORT(LINFO, ("World types:", ss.str()));
     }
 
     // This functor is called by m_merger after merging linear features.
     void operator()(feature::FeatureBuilder const & fb) override
     {
-      static const uint32_t ferryType = classif().GetTypeByPath({"route", "ferry"});
-      static const uint32_t boundaryType = classif().GetTypeByPath({"boundary", "administrative"});
-      static const uint32_t highwayType = classif().GetTypeByPath({"highway"});
+      static uint32_t const ferryType = classif().GetTypeByPath({"route", "ferry"});
+      static uint32_t const boundaryType = classif().GetTypeByPath({"boundary", "administrative"});
+      static uint32_t const highwayType = classif().GetTypeByPath({"highway"});
 
       int thresholdLevel = scales::GetUpperWorldScale();
       if (fb.HasType(ferryType) || fb.HasType(boundaryType, 2))
@@ -83,10 +82,7 @@ class WorldMapGenerator
         ++m_mapTypes[type];
     }
 
-    bool NeedPushToWorld(feature::FeatureBuilder const & fb) const
-    {
-      return generator::FilterWorld::IsGoodScale(fb);
-    }
+    bool NeedPushToWorld(feature::FeatureBuilder const & fb) const { return generator::FilterWorld::IsGoodScale(fb); }
 
     void PushSure(feature::FeatureBuilder const & fb)
     {
@@ -112,17 +108,18 @@ public:
   {
     // Do not strip last types for given tags,
     // for example, do not cut 'admin_level' in  'boundary-administrative-XXX'.
-    char const * arr1[][3] = {{"boundary", "administrative", "2"},
-                              {"boundary", "administrative", "3"},
-                              {"boundary", "administrative", "4"}};
+    char const * arr1[][3] = {
+        {"boundary", "administrative", "2"},
+        {"boundary", "administrative", "3"},
+        {"boundary", "administrative", "4"}
+    };
 
     for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
       m_typesCorrector.SetDontNormalizeType(arr1[i]);
 
     // Merge motorways into trunks.
     // TODO : merge e.g. highway-trunk_link into highway-trunk?
-    char const * marr1[2] = {"highway", "motorway"},
-               * marr2[2] = {"highway", "trunk"};
+    char const *marr1[2] = {"highway", "motorway"}, *marr2[2] = {"highway", "trunk"};
     m_typesCorrector.SetMappingTypes(marr1, marr2);
 
     if (popularPlacesFilename.empty())
@@ -172,22 +169,21 @@ public:
   {
     switch (fb.GetGeomType())
     {
-    case feature::GeomType::Line:
-    {
-      MergedFeatureBuilder * p = m_typesCorrector(fb);
-      if (p)
-        m_merger(p);
-      return false;
-    }
-    case feature::GeomType::Area:
-    {
-      /// @todo Initial area threshold to push area objects into World.mwm
-      auto const & geometry = fb.GetOuterGeometry();
-      if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.0025)
+      case feature::GeomType::Line:
+      {
+        MergedFeatureBuilder * p = m_typesCorrector(fb);
+        if (p)
+          m_merger(p);
         return false;
-    }
-    default:
-      break;
+      }
+      case feature::GeomType::Area:
+      {
+        /// @todo Initial area threshold to push area objects into World.mwm
+        auto const & geometry = fb.GetOuterGeometry();
+        if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.0025)
+          return false;
+      }
+      default: break;
     }
 
     if (feature::PreprocessForWorldMap(fb))

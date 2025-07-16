@@ -23,8 +23,8 @@ public:
   struct Vertex
   {
     Vertex() = default;
-    Vertex(glsl::vec3 const & pos, glsl::vec2 const & color, glsl::vec2 const & outline,
-           glsl::vec2 const & normal, glsl::vec2 const & mask)
+    Vertex(glsl::vec3 const & pos, glsl::vec2 const & color, glsl::vec2 const & outline, glsl::vec2 const & normal,
+           glsl::vec2 const & mask)
       : m_position(pos)
       , m_colorTexCoord(color)
       , m_outlineColorTexCoord(outline)
@@ -52,8 +52,7 @@ public:
   };
 
   static dp::TGlyphs CacheStaticText(std::string const & text, char const * delim, dp::Anchor anchor,
-                              dp::FontDecl const & font, ref_ptr<dp::TextureManager> mng,
-                              LabelResult & result);
+                                     dp::FontDecl const & font, ref_ptr<dp::TextureManager> mng, LabelResult & result);
 };
 
 class MutableLabel
@@ -62,8 +61,7 @@ public:
   struct StaticVertex
   {
     StaticVertex() = default;
-    StaticVertex(glsl::vec3 const & position, glsl::vec2 const & color,
-                 glsl::vec2 const & outlineColor)
+    StaticVertex(glsl::vec3 const & position, glsl::vec2 const & color, glsl::vec2 const & outlineColor)
       : m_position(position)
       , m_color(color)
       , m_outline(outlineColor)
@@ -79,10 +77,7 @@ public:
   struct DynamicVertex
   {
     DynamicVertex() = default;
-    DynamicVertex(glsl::vec2 const & normal, glsl::vec2 const & mask)
-      : m_normal(normal)
-      , m_maskTexCoord(mask)
-    {}
+    DynamicVertex(glsl::vec2 const & normal, glsl::vec2 const & mask) : m_normal(normal), m_maskTexCoord(mask) {}
 
     static dp::BindingInfo const & GetBindingInfo();
 
@@ -114,8 +109,7 @@ public:
     m2::RectF m_boundRect;
   };
 
-  void Precache(PrecacheParams const & params, PrecacheResult & result,
-                ref_ptr<dp::TextureManager> mng);
+  void Precache(PrecacheParams const & params, PrecacheResult & result, ref_ptr<dp::TextureManager> mng);
 
   void SetText(LabelResult & result, std::string text, ref_ptr<dp::TextureManager> mng);
 
@@ -141,8 +135,7 @@ class MutableLabelHandle : public Handle
 public:
   MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot);
 
-  MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
-                     ref_ptr<dp::TextureManager> textures);
+  MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, ref_ptr<dp::TextureManager> textures);
 
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
 
@@ -180,8 +173,8 @@ public:
   };
 
   // Return maximum pixel size.
-  static m2::PointF Draw(ref_ptr<dp::GraphicsContext> context, Params const & params,
-                         ref_ptr<dp::TextureManager> mng, dp::Batcher::TFlushFn && flushFn);
+  static m2::PointF Draw(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<dp::TextureManager> mng,
+                         dp::Batcher::TFlushFn && flushFn);
 };
 
 class StaticLabelHandle : public Handle

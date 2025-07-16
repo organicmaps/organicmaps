@@ -50,8 +50,7 @@ private:
   /// \brief Checks whether we can replace points from segment: [curLeftPointId, curRightPointId]
   /// of |curBorderId| to points from another border in order to get rid of empty space
   /// between curBorder and anotherBorder.
-  base::ControlFlow TryToReplace(size_t curBorderId, size_t & curLeftPointId,
-                                 size_t curRightPointId);
+  base::ControlFlow TryToReplace(size_t curBorderId, size_t & curLeftPointId, size_t curRightPointId);
 
   bool HasLinkAt(size_t curBorderId, size_t pointId);
 

@@ -13,7 +13,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-
 namespace base
 {
 class Cancellable;
@@ -81,9 +80,8 @@ private:
     FillRequestFromToken(token, request);
     request.m_langs.insert(StringUtf8Multilang::kDefaultCode);
 
-    MatchFeaturesInTrie(
-        request, m_index.GetRootIterator(), [](Id const & /* id */) { return true; } /* filter */,
-        std::forward<Fn>(fn));
+    MatchFeaturesInTrie(request, m_index.GetRootIterator(), [](Id const & /* id */) { return true; } /* filter */,
+                        std::forward<Fn>(fn));
   }
 
   QueryVec GetQueryVec(IdfMap & idfs, QueryParams const & params) const;

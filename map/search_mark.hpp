@@ -13,11 +13,11 @@
 
 #include <functional>
 #include <map>
+#include <mutex>
 #include <optional>
 #include <set>
 #include <string>
 #include <vector>
-#include <mutex>
 
 class BookmarkManager;
 
@@ -110,9 +110,9 @@ public:
   void OnActivate(FeatureID const & featureId);
   void OnDeactivate(FeatureID const & featureId);
 
-//  void SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey);
-//  void SetUnavailable(std::vector<FeatureID> const & features, std::string const & reasonKey);
-//  bool IsUnavailable(FeatureID const & id) const;
+  //  void SetUnavailable(SearchMarkPoint & mark, std::string const & reasonKey);
+  //  void SetUnavailable(std::vector<FeatureID> const & features, std::string const & reasonKey);
+  //  bool IsUnavailable(FeatureID const & id) const;
 
   void SetVisited(FeatureID const & id);
   bool IsVisited(FeatureID const & id) const;
@@ -139,6 +139,6 @@ private:
   std::set<FeatureID> m_visitedSearchMarks;
   FeatureID m_selectedFeature;
 
-//  mutable std::mutex m_lock;
-//  std::map<FeatureID, std::string /* SearchMarkPoint::m_reason */> m_unavailable;
+  //  mutable std::mutex m_lock;
+  //  std::map<FeatureID, std::string /* SearchMarkPoint::m_reason */> m_unavailable;
 };

@@ -83,8 +83,8 @@ public:
   };
 
   // Doesn't take ownership of dataSource and categories.
-  Engine(DataSource & dataSource, CategoriesHolder const & categories,
-         storage::CountryInfoGetter const & infoGetter, Params const & params);
+  Engine(DataSource & dataSource, CategoriesHolder const & categories, storage::CountryInfoGetter const & infoGetter,
+         Params const & params);
   ~Engine();
 
   // Posts search request to the queue and returns its handle.
@@ -117,10 +117,8 @@ public:
   void OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksDeleted(std::vector<bookmarks::Id> const & marks);
-  void OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId,
-                                  std::vector<bookmarks::Id> const & marks);
-  void OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId,
-                                    std::vector<bookmarks::Id> const & marks);
+  void OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId, std::vector<bookmarks::Id> const & marks);
+  void OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId, std::vector<bookmarks::Id> const & marks);
 
 private:
   struct Message
@@ -134,7 +132,9 @@ private:
     };
 
     template <typename Gn>
-    Message(Type type, Gn && gn) : m_type(type), m_fn(std::forward<Gn>(gn)) {}
+    Message(Type type, Gn && gn) : m_type(type)
+                                 , m_fn(std::forward<Gn>(gn))
+    {}
 
     void operator()(Processor & processor) { m_fn(processor); }
 

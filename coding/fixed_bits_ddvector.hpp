@@ -23,13 +23,11 @@
 /// sorted by index parameter.
 /// Component is stored and used in host's endianness, without any conversions.
 
-template
-<
-  size_t Bits,                /// number of fixed bits
-  class TReader,              /// reader with random offset read functions
-  typename TSize = uint32_t,  /// vector index type (platform independent)
-  typename TValue = uint32_t  /// vector value type (platform independent)
->
+template <size_t Bits,                /// number of fixed bits
+          class TReader,              /// reader with random offset read functions
+          typename TSize = uint32_t,  /// vector index type (platform independent)
+          typename TValue = uint32_t  /// vector value type (platform independent)
+          >
 class FixedBitsDDVector
 {
   static_assert(std::is_unsigned<TSize>::value, "");
@@ -56,10 +54,7 @@ class FixedBitsDDVector
 
   using TBlock = uint32_t;
 
-  static uint64_t AlignBytesCount(uint64_t count)
-  {
-    return std::max(count, static_cast<uint64_t>(sizeof(TBlock)));
-  }
+  static uint64_t AlignBytesCount(uint64_t count) { return std::max(count, static_cast<uint64_t>(sizeof(TBlock))); }
 
   static TBlock constexpr kMask = (1 << Bits) - 1;
   static TBlock constexpr kLargeValue = kMask - 1;
@@ -75,11 +70,10 @@ class FixedBitsDDVector
   FixedBitsDDVector(TReader const & bitsReader, TReader const & vecReader, TSize size)
     : m_bits(bitsReader)
     , m_vector(vecReader)
-  #ifdef DEBUG
+#ifdef DEBUG
     , m_size(size)
-  #endif
-  {
-  }
+#endif
+  {}
 
 public:
   static std::unique_ptr<TSelf> Create(TReader const & reader)
@@ -90,8 +84,8 @@ public:
     uint64_t const off2 = AlignBytesCount((size * Bits + CHAR_BIT - 1) / CHAR_BIT) + off1;
 
     // We cannot use make_unique here because contsructor is private.
-    return std::unique_ptr<TSelf>(new TSelf(reader.SubReader(off1, off2 - off1),
-                                            reader.SubReader(off2, reader.Size() - off2), size));
+    return std::unique_ptr<TSelf>(
+        new TSelf(reader.SubReader(off1, off2 - off1), reader.SubReader(off2, reader.Size() - off2), size));
   }
 
   bool Get(TSize index, TValue & value) const
@@ -114,7 +108,8 @@ public:
     return true;
   }
 
-  template <class TWriter> class Builder
+  template <class TWriter>
+  class Builder
   {
     using TData = std::vector<uint8_t>;
     using TempWriter = PushBackByteSink<TData>;
@@ -133,10 +128,7 @@ public:
   public:
     using ValueType = TValue;
 
-    explicit Builder(TWriter & writer)
-      : m_writer(m_data), m_bits(new TBits(m_writer)), m_finalWriter(writer)
-    {
-    }
+    explicit Builder(TWriter & writer) : m_writer(m_data), m_bits(new TBits(m_writer)), m_finalWriter(writer) {}
 
     ~Builder()
     {

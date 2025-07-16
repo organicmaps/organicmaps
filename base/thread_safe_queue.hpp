@@ -38,7 +38,7 @@ public:
   void WaitAndPop(T & value)
   {
     std::unique_lock lk(m_mutex);
-    m_cond.wait(lk, [this]{ return !m_queue.empty(); });
+    m_cond.wait(lk, [this] { return !m_queue.empty(); });
     value = std::move(m_queue.front());
     m_queue.pop();
   }
@@ -52,7 +52,6 @@ public:
     value = std::move(m_queue.front());
     m_queue.pop();
     return true;
-
   }
 
   bool Empty() const

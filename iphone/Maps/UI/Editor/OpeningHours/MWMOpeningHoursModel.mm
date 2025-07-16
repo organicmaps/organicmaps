@@ -1,5 +1,5 @@
-#import <CoreApi/MWMOpeningHoursCommon.h>
 #import "MWMOpeningHoursModel.h"
+#import <CoreApi/MWMOpeningHoursCommon.h>
 
 #include "editor/ui2oh.hpp"
 
@@ -7,9 +7,9 @@ extern UITableViewRowAnimation const kMWMOpeningHoursEditorRowAnimation = UITabl
 
 @interface MWMOpeningHoursModel () <MWMOpeningHoursSectionProtocol>
 
-@property (weak, nonatomic) id<MWMOpeningHoursModelProtocol> delegate;
+@property(weak, nonatomic) id<MWMOpeningHoursModelProtocol> delegate;
 
-@property (nonatomic) NSMutableArray<MWMOpeningHoursSection *> * sections;
+@property(nonatomic) NSMutableArray<MWMOpeningHoursSection *> * sections;
 
 @end
 
@@ -37,11 +37,8 @@ using namespace osmoh;
 
 - (void)refreshSectionsIndexes
 {
-  [self.sections enumerateObjectsUsingBlock:^(MWMOpeningHoursSection * _Nonnull section,
-                                              NSUInteger idx, BOOL * _Nonnull stop)
-  {
-    [section refreshIndex:idx];
-  }];
+  [self.sections enumerateObjectsUsingBlock:^(MWMOpeningHoursSection * _Nonnull section, NSUInteger idx,
+                                              BOOL * _Nonnull stop) { [section refreshIndex:idx]; }];
 }
 
 - (void)addSchedule
@@ -81,10 +78,8 @@ using namespace osmoh;
 - (void)updateActiveSection:(NSUInteger)index
 {
   for (MWMOpeningHoursSection * section in self.sections)
-  {
     if (section.index != index)
       section.selectedRow = nil;
-  }
 }
 
 - (ui::TimeTableSet::Proxy)timeTableProxy:(NSUInteger)index

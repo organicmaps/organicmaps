@@ -32,55 +32,117 @@ AssertFailedFn SetAssertFunction(AssertFailedFn fn);
     ASSERT_CRASH();
 
 // TODO: Evaluate X only once in CHECK().
-#define CHECK(X, msg) do { if (X) {} else { \
-  ASSERT_FAIL(::base::Message("CHECK("#X")", ::base::Message msg));} } while(false)
+#define CHECK(X, msg)                                                     \
+  do                                                                      \
+  {                                                                       \
+    if (X)                                                                \
+    {}                                                                    \
+    else                                                                  \
+    {                                                                     \
+      ASSERT_FAIL(::base::Message("CHECK(" #X ")", ::base::Message msg)); \
+    }                                                                     \
+  }                                                                       \
+  while (false)
 
-#define CHECK_EQUAL(X, Y, msg) do { if ((X) == (Y)) {} else { \
-  ASSERT_FAIL(::base::Message("CHECK("#X" == "#Y")", \
-                              ::base::Message(X, Y), \
-                              ::base::Message msg));} } while (false)
+#define CHECK_EQUAL(X, Y, msg)                                                                             \
+  do                                                                                                       \
+  {                                                                                                        \
+    if ((X) == (Y))                                                                                        \
+    {}                                                                                                     \
+    else                                                                                                   \
+    {                                                                                                      \
+      ASSERT_FAIL(::base::Message("CHECK(" #X " == " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                      \
+  }                                                                                                        \
+  while (false)
 
-#define CHECK_NOT_EQUAL(X, Y, msg) do { if ((X) != (Y)) {} else { \
-  ASSERT_FAIL(::base::Message("CHECK("#X" != "#Y")", \
-                              ::base::Message(X, Y), \
-                              ::base::Message msg));} } while (false)
+#define CHECK_NOT_EQUAL(X, Y, msg)                                                                         \
+  do                                                                                                       \
+  {                                                                                                        \
+    if ((X) != (Y))                                                                                        \
+    {}                                                                                                     \
+    else                                                                                                   \
+    {                                                                                                      \
+      ASSERT_FAIL(::base::Message("CHECK(" #X " != " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                      \
+  }                                                                                                        \
+  while (false)
 
-#define CHECK_LESS(X, Y, msg) do { if ((X) < (Y)) {} else { \
-  ASSERT_FAIL(::base::Message("CHECK("#X" < "#Y")", \
-                              ::base::Message(X, Y), \
-                              ::base::Message msg));} } while (false)
+#define CHECK_LESS(X, Y, msg)                                                                             \
+  do                                                                                                      \
+  {                                                                                                       \
+    if ((X) < (Y))                                                                                        \
+    {}                                                                                                    \
+    else                                                                                                  \
+    {                                                                                                     \
+      ASSERT_FAIL(::base::Message("CHECK(" #X " < " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                     \
+  }                                                                                                       \
+  while (false)
 
-#define CHECK_LESS_OR_EQUAL(X, Y, msg) do { if ((X) <= (Y)) {} else { \
-  ASSERT_FAIL(::base::Message("CHECK("#X" <= "#Y")", \
-                              ::base::Message(X, Y), \
-                              ::base::Message msg));} } while (false)
+#define CHECK_LESS_OR_EQUAL(X, Y, msg)                                                                     \
+  do                                                                                                       \
+  {                                                                                                        \
+    if ((X) <= (Y))                                                                                        \
+    {}                                                                                                     \
+    else                                                                                                   \
+    {                                                                                                      \
+      ASSERT_FAIL(::base::Message("CHECK(" #X " <= " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                      \
+  }                                                                                                        \
+  while (false)
 
-#define CHECK_GREATER(X, Y, msg) do { if ((X) > (Y)) {} else { \
-  ASSERT_FAIL(::base::Message("CHECK("#X" > "#Y")", \
-                              ::base::Message(X, Y), \
-                              ::base::Message msg));} } while (false)
+#define CHECK_GREATER(X, Y, msg)                                                                          \
+  do                                                                                                      \
+  {                                                                                                       \
+    if ((X) > (Y))                                                                                        \
+    {}                                                                                                    \
+    else                                                                                                  \
+    {                                                                                                     \
+      ASSERT_FAIL(::base::Message("CHECK(" #X " > " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                     \
+  }                                                                                                       \
+  while (false)
 
-#define CHECK_GREATER_OR_EQUAL(X, Y, msg) do { if ((X) >= (Y)) {} else { \
-  ASSERT_FAIL(::base::Message("CHECK("#X" >= "#Y")", \
-                              ::base::Message(X, Y), \
-                              ::base::Message msg));} } while (false)
+#define CHECK_GREATER_OR_EQUAL(X, Y, msg)                                                                  \
+  do                                                                                                       \
+  {                                                                                                        \
+    if ((X) >= (Y))                                                                                        \
+    {}                                                                                                     \
+    else                                                                                                   \
+    {                                                                                                      \
+      ASSERT_FAIL(::base::Message("CHECK(" #X " >= " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                      \
+  }                                                                                                        \
+  while (false)
 
-#define CHECK_OR_CALL(fail, call, X, msg) do { if (X) {} else { \
-  if (fail) {\
-    ASSERT_FAIL(::base::Message(::base::Message("CHECK("#X")"), \
-                                ::base::Message msg)); \
-  } else { \
-    call(); \
-  } } } while (false)
+#define CHECK_OR_CALL(fail, call, X, msg)                                                    \
+  do                                                                                         \
+  {                                                                                          \
+    if (X)                                                                                   \
+    {}                                                                                       \
+    else                                                                                     \
+    {                                                                                        \
+      if (fail)                                                                              \
+      {                                                                                      \
+        ASSERT_FAIL(::base::Message(::base::Message("CHECK(" #X ")"), ::base::Message msg)); \
+      }                                                                                      \
+      else                                                                                   \
+      {                                                                                      \
+        call();                                                                              \
+      }                                                                                      \
+    }                                                                                        \
+  }                                                                                          \
+  while (false)
 
 #ifdef DEBUG
-#define ASSERT(X, msg) CHECK(X, msg)
-#define VERIFY(X, msg) CHECK(X, msg)
-#define ASSERT_EQUAL(X, Y, msg) CHECK_EQUAL(X, Y, msg)
-#define ASSERT_NOT_EQUAL(X, Y, msg) CHECK_NOT_EQUAL(X, Y, msg)
-#define ASSERT_LESS(X, Y, msg) CHECK_LESS(X, Y, msg)
-#define ASSERT_LESS_OR_EQUAL(X, Y, msg) CHECK_LESS_OR_EQUAL(X, Y, msg)
-#define ASSERT_GREATER(X, Y, msg) CHECK_GREATER(X, Y, msg)
+#define ASSERT(X, msg)                     CHECK(X, msg)
+#define VERIFY(X, msg)                     CHECK(X, msg)
+#define ASSERT_EQUAL(X, Y, msg)            CHECK_EQUAL(X, Y, msg)
+#define ASSERT_NOT_EQUAL(X, Y, msg)        CHECK_NOT_EQUAL(X, Y, msg)
+#define ASSERT_LESS(X, Y, msg)             CHECK_LESS(X, Y, msg)
+#define ASSERT_LESS_OR_EQUAL(X, Y, msg)    CHECK_LESS_OR_EQUAL(X, Y, msg)
+#define ASSERT_GREATER(X, Y, msg)          CHECK_GREATER(X, Y, msg)
 #define ASSERT_GREATER_OR_EQUAL(X, Y, msg) CHECK_GREATER_OR_EQUAL(X, Y, msg)
 #else
 #define ASSERT(X, msg)
@@ -100,6 +162,7 @@ AssertFailedFn SetAssertFunction(AssertFailedFn fn);
   {                                           \
     CHECK(false, ("Unreachable statement.")); \
     std::abort();                             \
-  } while (false)
+  }                                           \
+  while (false)
 
 // NOLINTEND(misc-static-assert)

@@ -1,13 +1,13 @@
 #pragma once
 
 #include "kml/header_binary.hpp"
+#include "kml/types.hpp"
 #include "kml/types_v3.hpp"
 #include "kml/types_v6.hpp"
 #include "kml/types_v7.hpp"
 #include "kml/types_v8.hpp"
 #include "kml/types_v8mm.hpp"
 #include "kml/types_v9mm.hpp"
-#include "kml/types.hpp"
 #include "kml/visitors.hpp"
 
 #include "coding/text_storage.hpp"
@@ -127,14 +127,12 @@ protected:
 
 template <typename T, typename = void>
 struct HasCompilationsData : std::false_type
-{
-};
+{};
 
 template <typename T>
 struct HasCompilationsData<T, std::void_t<decltype(T::m_compilationsData)>>
   : std::is_same<decltype(T::m_compilationsData), std::vector<CategoryData>>
-{
-};
+{};
 
 class DeserializerKml
 {
@@ -150,9 +148,8 @@ public:
     NonOwningReaderSource source(reader);
     m_header.m_version = ReadPrimitiveFromSource<Version>(source);
 
-    if (m_header.m_version != Version::V2 && m_header.m_version != Version::V3 &&
-        m_header.m_version != Version::V4 && m_header.m_version != Version::V5 &&
-        m_header.m_version != Version::V6 && m_header.m_version != Version::V7 &&
+    if (m_header.m_version != Version::V2 && m_header.m_version != Version::V3 && m_header.m_version != Version::V4 &&
+        m_header.m_version != Version::V5 && m_header.m_version != Version::V6 && m_header.m_version != Version::V7 &&
         m_header.m_version != Version::V8 && m_header.m_version != Version::V9)
     {
       MYTHROW(DeserializeException, ("Incorrect file version."));
@@ -167,84 +164,84 @@ public:
 
     switch (m_header.m_version)
     {
-    case Version::Latest:
-    {
-      DeserializeFileData(subReader, m_data);
-      break;
-    }
-    case Version::V8:
-    {
-      FileDataV8 dataV8;
-      dataV8.m_deviceId = m_data.m_deviceId;
-      dataV8.m_serverId = m_data.m_serverId;
-      DeserializeFileData(subReader, dataV8);
+      case Version::Latest:
+      {
+        DeserializeFileData(subReader, m_data);
+        break;
+      }
+      case Version::V8:
+      {
+        FileDataV8 dataV8;
+        dataV8.m_deviceId = m_data.m_deviceId;
+        dataV8.m_serverId = m_data.m_serverId;
+        DeserializeFileData(subReader, dataV8);
 
-      m_data = dataV8.ConvertToLatestVersion();
-      break;
-    }
-    case Version::V8MM:
-    {
-      FileDataV8MM dataV8MM;
-      dataV8MM.m_deviceId = m_data.m_deviceId;
-      dataV8MM.m_serverId = m_data.m_serverId;
-      DeserializeFileData(subReader, dataV8MM);
+        m_data = dataV8.ConvertToLatestVersion();
+        break;
+      }
+      case Version::V8MM:
+      {
+        FileDataV8MM dataV8MM;
+        dataV8MM.m_deviceId = m_data.m_deviceId;
+        dataV8MM.m_serverId = m_data.m_serverId;
+        DeserializeFileData(subReader, dataV8MM);
 
-      m_data = dataV8MM.ConvertToLatestVersion();
-      break;
-    }
-    case Version::V9MM:
-    {
-      FileDataV9MM dataV9MM;
-      dataV9MM.m_deviceId = m_data.m_deviceId;
-      dataV9MM.m_serverId = m_data.m_serverId;
-      DeserializeFileData(subReader, dataV9MM);
+        m_data = dataV8MM.ConvertToLatestVersion();
+        break;
+      }
+      case Version::V9MM:
+      {
+        FileDataV9MM dataV9MM;
+        dataV9MM.m_deviceId = m_data.m_deviceId;
+        dataV9MM.m_serverId = m_data.m_serverId;
+        DeserializeFileData(subReader, dataV9MM);
 
-      m_data = dataV9MM.ConvertToLatestVersion();
-      break;
-    }
-    case Version::V7:
-    {
-      FileDataV7 dataV7;
-      dataV7.m_deviceId = m_data.m_deviceId;
-      dataV7.m_serverId = m_data.m_serverId;
-      DeserializeFileData(subReader, dataV7);
+        m_data = dataV9MM.ConvertToLatestVersion();
+        break;
+      }
+      case Version::V7:
+      {
+        FileDataV7 dataV7;
+        dataV7.m_deviceId = m_data.m_deviceId;
+        dataV7.m_serverId = m_data.m_serverId;
+        DeserializeFileData(subReader, dataV7);
 
-      m_data = dataV7.ConvertToLatestVersion();
-      break;
-    }
-    case Version::V6:
-    case Version::V5:
-    case Version::V4:
-    {
-      // NOTE: v.4, v.5 and v.6 are binary compatible.
-      FileDataV6 dataV6;
-      dataV6.m_deviceId = m_data.m_deviceId;
-      dataV6.m_serverId = m_data.m_serverId;
-      DeserializeFileData(subReader, dataV6);
+        m_data = dataV7.ConvertToLatestVersion();
+        break;
+      }
+      case Version::V6:
+      case Version::V5:
+      case Version::V4:
+      {
+        // NOTE: v.4, v.5 and v.6 are binary compatible.
+        FileDataV6 dataV6;
+        dataV6.m_deviceId = m_data.m_deviceId;
+        dataV6.m_serverId = m_data.m_serverId;
+        DeserializeFileData(subReader, dataV6);
 
-      m_data = dataV6.ConvertToLatestVersion();
-      break;
-    }
-    case Version::V3:
-    case Version::V2:
-    {
-      // NOTE: v.2 and v.3 are binary compatible.
-      FileDataV3 dataV3;
-      dataV3.m_deviceId = m_data.m_deviceId;
-      dataV3.m_serverId = m_data.m_serverId;
-      DeserializeFileData(subReader, dataV3);
+        m_data = dataV6.ConvertToLatestVersion();
+        break;
+      }
+      case Version::V3:
+      case Version::V2:
+      {
+        // NOTE: v.2 and v.3 are binary compatible.
+        FileDataV3 dataV3;
+        dataV3.m_deviceId = m_data.m_deviceId;
+        dataV3.m_serverId = m_data.m_serverId;
+        DeserializeFileData(subReader, dataV3);
 
-      // Migrate bookmarks (it's necessary ony for v.2).
-      if (m_header.m_version == Version::V2)
-        MigrateBookmarksV2(dataV3);
+        // Migrate bookmarks (it's necessary ony for v.2).
+        if (m_header.m_version == Version::V2)
+          MigrateBookmarksV2(dataV3);
 
-      m_data = dataV3.ConvertToLatestVersion();
-      break;
-    }
-    default:
-    {
-      UNREACHABLE();
-    }
+        m_data = dataV3.ConvertToLatestVersion();
+        break;
+      }
+      default:
+      {
+        UNREACHABLE();
+      }
     }
   }
 
@@ -263,9 +260,8 @@ private:
       // Check if file has Opensource V8/V9 or MapsMe V8/V9 format.
       // Actual V8/V9 format has 6 offsets (uint64_t) in header. While V8MM/V9MM has 5 offsets.
       // It means that first section (usually categories) has offset 0x28 = 40 = 5 * 8.
-      if (m_header.m_categoryOffset == 0x28 || m_header.m_bookmarksOffset == 0x28 ||
-          m_header.m_tracksOffset == 0x28 || m_header.m_stringsOffset == 0x28 ||
-          m_header.m_compilationsOffset == 0x28)
+      if (m_header.m_categoryOffset == 0x28 || m_header.m_bookmarksOffset == 0x28 || m_header.m_tracksOffset == 0x28 ||
+          m_header.m_stringsOffset == 0x28 || m_header.m_compilationsOffset == 0x28)
       {
         m_header.m_version = (m_header.m_version == Version::V8 ? Version::V8MM : Version::V9MM);
         LOG(LINFO, ("KMB file has version", m_header.m_version));
@@ -279,8 +275,7 @@ private:
   }
 
   template <typename ReaderType>
-  std::unique_ptr<Reader> CreateSubReader(ReaderType const & reader,
-                                          uint64_t startPos, uint64_t endPos)
+  std::unique_ptr<Reader> CreateSubReader(ReaderType const & reader, uint64_t startPos, uint64_t endPos)
   {
     ASSERT(m_initialized, ());
     ASSERT_GREATER_OR_EQUAL(endPos, startPos, ());

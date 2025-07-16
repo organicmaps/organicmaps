@@ -30,7 +30,7 @@ class TokenSlice;
 class Retrieval
 {
 public:
-  template<typename Value>
+  template <typename Value>
   using TrieRoot = trie::Iterator<ValueList<Value>>;
   using Features = search::CBV;
 
@@ -40,14 +40,12 @@ public:
     ExtendedFeatures(ExtendedFeatures const &) = default;
     ExtendedFeatures(ExtendedFeatures &&) = default;
 
-    explicit ExtendedFeatures(Features const & cbv) : m_features(cbv), m_exactMatchingFeatures(cbv)
-    {
-    }
+    explicit ExtendedFeatures(Features const & cbv) : m_features(cbv), m_exactMatchingFeatures(cbv) {}
 
     ExtendedFeatures(Features && features, Features && exactMatchingFeatures)
-      : m_features(std::move(features)), m_exactMatchingFeatures(std::move(exactMatchingFeatures))
-    {
-    }
+      : m_features(std::move(features))
+      , m_exactMatchingFeatures(std::move(exactMatchingFeatures))
+    {}
 
     ExtendedFeatures & operator=(ExtendedFeatures const &) = default;
     ExtendedFeatures & operator=(ExtendedFeatures &&) = default;
@@ -56,8 +54,7 @@ public:
     {
       ExtendedFeatures result;
       result.m_features = m_features.Intersect(rhs.m_features);
-      result.m_exactMatchingFeatures =
-          m_exactMatchingFeatures.Intersect(rhs.m_exactMatchingFeatures);
+      result.m_exactMatchingFeatures = m_exactMatchingFeatures.Intersect(rhs.m_exactMatchingFeatures);
       return result;
     }
 
@@ -77,9 +74,8 @@ public:
 
     void ForEach(std::function<void(uint32_t, bool)> const & f) const
     {
-      m_features.ForEach([&](uint64_t id) {
-        f(base::asserted_cast<uint32_t>(id), m_exactMatchingFeatures.HasBit(id));
-      });
+      m_features.ForEach([&](uint64_t id)
+      { f(base::asserted_cast<uint32_t>(id), m_exactMatchingFeatures.HasBit(id)); });
     }
 
     Features m_features;
@@ -89,14 +85,12 @@ public:
   Retrieval(MwmContext const & context, base::Cancellable const & cancellable);
 
   // Following functions retrieve all features matching to |request| from the search index.
-  ExtendedFeatures RetrieveAddressFeatures(
-      SearchTrieRequest<strings::UniStringDFA> const & request) const;
+  ExtendedFeatures RetrieveAddressFeatures(SearchTrieRequest<strings::UniStringDFA> const & request) const;
 
   ExtendedFeatures RetrieveAddressFeatures(
       SearchTrieRequest<strings::PrefixDFAModifier<strings::UniStringDFA>> const & request) const;
 
-  ExtendedFeatures RetrieveAddressFeatures(
-      SearchTrieRequest<strings::LevenshteinDFA> const & request) const;
+  ExtendedFeatures RetrieveAddressFeatures(SearchTrieRequest<strings::LevenshteinDFA> const & request) const;
 
   ExtendedFeatures RetrieveAddressFeatures(
       SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> const & request) const;

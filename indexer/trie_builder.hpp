@@ -47,9 +47,8 @@
 namespace trie
 {
 template <typename Sink, typename ChildIter, typename ValueList, typename Serializer>
-void WriteNode(Sink & sink, Serializer const & serializer, TrieChar baseChar,
-               ValueList const & valueList, ChildIter const begChild, ChildIter const endChild,
-               bool isRoot = false)
+void WriteNode(Sink & sink, Serializer const & serializer, TrieChar baseChar, ValueList const & valueList,
+               ChildIter const begChild, ChildIter const endChild, bool isRoot = false)
 {
   uint32_t const valueCount = base::asserted_cast<uint32_t>(valueList.Size());
   if (begChild == endChild && !isRoot)
@@ -69,8 +68,7 @@ void WriteNode(Sink & sink, Serializer const & serializer, TrieChar baseChar,
     return;
   }
   uint32_t const childCount = base::asserted_cast<uint32_t>(endChild - begChild);
-  uint8_t const header =
-      static_cast<uint32_t>((std::min(valueCount, 3U) << 6) + std::min(childCount, 63U));
+  uint8_t const header = static_cast<uint32_t>((std::min(valueCount, 3U) << 6) + std::min(childCount, 63U));
   sink.Write(&header, 1);
   if (valueCount >= 3)
     WriteVarUint(sink, valueCount);
@@ -120,9 +118,7 @@ void WriteNode(Sink & sink, Serializer const & serializer, TrieChar baseChar,
 
 struct ChildInfo
 {
-  ChildInfo(bool isLeaf, uint32_t size, TrieChar c) : m_isLeaf(isLeaf), m_size(size), m_edge(1, c)
-  {
-  }
+  ChildInfo(bool isLeaf, uint32_t size, TrieChar c) : m_isLeaf(isLeaf), m_size(size), m_edge(1, c) {}
 
   uint32_t Size() const { return m_size; }
   bool IsLeaf() const { return m_isLeaf; }
@@ -171,15 +167,14 @@ struct NodeInfo
 };
 
 template <typename Sink, typename ValueList, typename Serializer>
-void WriteNodeReverse(Sink & sink, Serializer const & serializer, TrieChar baseChar,
-                      NodeInfo<ValueList> & node, bool isRoot = false)
+void WriteNodeReverse(Sink & sink, Serializer const & serializer, TrieChar baseChar, NodeInfo<ValueList> & node,
+                      bool isRoot = false)
 {
   using OutStorage = buffer_vector<uint8_t, 64>;
   OutStorage out;
   PushBackByteSink<OutStorage> outSink(out);
   node.FinalizeValueList();
-  WriteNode(outSink, serializer, baseChar, node.m_valueList, node.m_children.rbegin(),
-            node.m_children.rend(), isRoot);
+  WriteNode(outSink, serializer, baseChar, node.m_valueList, node.m_children.rbegin(), node.m_children.rend(), isRoot);
   std::reverse(out.begin(), out.end());
   sink.Write(out.data(), out.size());
 }
@@ -204,8 +199,8 @@ void PopNodes(Sink & sink, Serializer const & serializer, Nodes & nodes, size_t 
     else
     {
       WriteNodeReverse(sink, serializer, node.m_char, node);
-      prevNode.m_children.emplace_back(
-          node.m_children.empty(), static_cast<uint32_t>(sink.Pos() - node.m_begPos), node.m_char);
+      prevNode.m_children.emplace_back(node.m_children.empty(), static_cast<uint32_t>(sink.Pos() - node.m_begPos),
+                                       node.m_char);
     }
 
     nodes.pop_back();

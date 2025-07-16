@@ -1,7 +1,7 @@
 #pragma once
 
-#include "openlr/helpers.hpp"
 #include "openlr/graph.hpp"
+#include "openlr/helpers.hpp"
 #include "openlr/openlr_model.hpp"
 #include "openlr/road_info_getter.hpp"
 #include "openlr/score_types.hpp"
@@ -23,21 +23,22 @@ class ScoreCandidatePointsGetter;
 class ScoreCandidatePathsGetter
 {
 public:
-  ScoreCandidatePathsGetter(ScoreCandidatePointsGetter & pointsGetter, Graph & graph,
-                            RoadInfoGetter & infoGetter, v2::Stats & stat)
-    : m_pointsGetter(pointsGetter), m_graph(graph), m_infoGetter(infoGetter), m_stats(stat)
-  {
-  }
+  ScoreCandidatePathsGetter(ScoreCandidatePointsGetter & pointsGetter, Graph & graph, RoadInfoGetter & infoGetter,
+                            v2::Stats & stat)
+    : m_pointsGetter(pointsGetter)
+    , m_graph(graph)
+    , m_infoGetter(infoGetter)
+    , m_stats(stat)
+  {}
 
-  bool GetLineCandidatesForPoints(std::vector<LocationReferencePoint> const & points,
-                                  LinearSegmentSource source,
+  bool GetLineCandidatesForPoints(std::vector<LocationReferencePoint> const & points, LinearSegmentSource source,
                                   std::vector<ScorePathVec> & lineCandidates);
 
 private:
   struct Link
   {
-    Link(std::shared_ptr<Link> const & parent, Graph::Edge const & edge, double distanceM,
-         Score pointScore, Score rfcScore)
+    Link(std::shared_ptr<Link> const & parent, Graph::Edge const & edge, double distanceM, Score pointScore,
+         Score rfcScore)
       : m_parent(parent)
       , m_edge(edge)
       , m_distanceM(distanceM)
@@ -69,8 +70,7 @@ private:
       , m_pointScore(pointScore)
       , m_roadScore(rfcScore)
       , m_bearingScore(bearingScore)
-    {
-    }
+    {}
 
     bool operator>(CandidatePath const & o) const { return GetScore() > o.GetScore(); }
 
@@ -97,23 +97,18 @@ private:
   /// \brief Fills |allPaths| with paths near start or finish point starting from |startLines|.
   /// To extract a path from |allPaths| a item from |allPaths| should be taken,
   /// then should be taken the member |m_parent| of the item and so on till the beginning.
-  void GetAllSuitablePaths(ScoreEdgeVec const & startLines, LinearSegmentSource source,
-                           bool isLastPoint, double bearDistM,
-                           FunctionalRoadClass functionalRoadClass, FormOfWay formOfWay,
-                           double distanceToNextPointM,
-                           std::vector<std::shared_ptr<Link>> & allPaths);
+  void GetAllSuitablePaths(ScoreEdgeVec const & startLines, LinearSegmentSource source, bool isLastPoint,
+                           double bearDistM, FunctionalRoadClass functionalRoadClass, FormOfWay formOfWay,
+                           double distanceToNextPointM, std::vector<std::shared_ptr<Link>> & allPaths);
 
-  void GetBestCandidatePaths(std::vector<std::shared_ptr<Link>> const & allPaths,
-                             LinearSegmentSource source, bool isLastPoint, uint32_t requiredBearing,
-                             double bearDistM, m2::PointD const & startPoint,
-                             ScorePathVec & candidates);
+  void GetBestCandidatePaths(std::vector<std::shared_ptr<Link>> const & allPaths, LinearSegmentSource source,
+                             bool isLastPoint, uint32_t requiredBearing, double bearDistM,
+                             m2::PointD const & startPoint, ScorePathVec & candidates);
 
-  void GetLineCandidates(openlr::LocationReferencePoint const & p, LinearSegmentSource source,
-                         bool isLastPoint, double distanceToNextPointM,
-                         ScoreEdgeVec const & edgeCandidates, ScorePathVec & candidates);
+  void GetLineCandidates(openlr::LocationReferencePoint const & p, LinearSegmentSource source, bool isLastPoint,
+                         double distanceToNextPointM, ScoreEdgeVec const & edgeCandidates, ScorePathVec & candidates);
 
-  bool GetBearingScore(BearingPointsSelector const & pointsSelector,
-                       ScoreCandidatePathsGetter::Link const & part,
+  bool GetBearingScore(BearingPointsSelector const & pointsSelector, ScoreCandidatePathsGetter::Link const & part,
                        m2::PointD const & bearStartPoint, uint32_t requiredBearing, Score & score);
 
   ScoreCandidatePointsGetter & m_pointsGetter;

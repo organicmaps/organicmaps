@@ -71,7 +71,7 @@ private:
 class FilterElements : public FilterInterface
 {
 public:
-  explicit FilterElements(const std::string & filename);
+  explicit FilterElements(std::string const & filename);
 
   // FilterInterface overrides:
   std::shared_ptr<FilterInterface> Clone() const override;

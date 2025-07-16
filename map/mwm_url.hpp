@@ -1,7 +1,7 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
 #include "geometry/latlon.hpp"
+#include "geometry/point2d.hpp"
 
 #include <string>
 #include <vector>
@@ -122,10 +122,8 @@ public:
   }
 
 private:
-  void ParseMapParam(std::string const & key, std::string const & value,
-                     bool & correctOrder);
-  void ParseRouteParam(std::string const & key, std::string const & value,
-                       std::vector<std::string_view> & pattern);
+  void ParseMapParam(std::string const & key, std::string const & value, bool & correctOrder);
+  void ParseRouteParam(std::string const & key, std::string const & value, std::vector<std::string_view> & pattern);
   void ParseSearchParam(std::string const & key, std::string const & value);
   void ParseInAppFeatureHighlightParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);

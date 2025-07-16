@@ -12,8 +12,5 @@ public:
     return FindResource(key, dummy);
   }
 
-  virtual ref_ptr<ResourceInfo> FindResource(Key const & /*key*/, bool & /*newResource*/)
-  {
-    return nullptr;
-  }
+  virtual ref_ptr<ResourceInfo> FindResource(Key const & /*key*/, bool & /*newResource*/) { return nullptr; }
 };

@@ -10,8 +10,7 @@
 
 namespace poly_borders
 {
-std::shared_ptr<platform::tests_support::ScopedFile>
-CreatePolyBorderFileByPolygon(std::string const & relativeDirPath,
-                              std::string const & name,
-                              std::vector<std::vector<m2::PointD>> const & polygons);
+std::shared_ptr<platform::tests_support::ScopedFile> CreatePolyBorderFileByPolygon(
+    std::string const & relativeDirPath, std::string const & name,
+    std::vector<std::vector<m2::PointD>> const & polygons);
 }  // namespace poly_borders

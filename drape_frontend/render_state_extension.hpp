@@ -47,17 +47,17 @@ inline std::string DebugPrint(DepthLayer layer)
 {
   switch (layer)
   {
-  case DepthLayer::GeometryLayer: return "GeometryLayer";
-  case DepthLayer::Geometry3dLayer: return "Geometry3dLayer";
-  case DepthLayer::UserLineLayer: return "UserLineLayer";
-  case DepthLayer::OverlayLayer: return "OverlayLayer";
-  case DepthLayer::TransitSchemeLayer: return "TransitSchemeLayer";
-  case DepthLayer::UserMarkLayer: return "UserMarkLayer";
-  case DepthLayer::RoutingBottomMarkLayer: return "RoutingBottomMarkLayer";
-  case DepthLayer::RoutingMarkLayer: return "RoutingMarkLayer";
-  case DepthLayer::SearchMarkLayer: return "SearchMarkLayer";
-  case DepthLayer::GuiLayer: return "GuiLayer";
-  case DepthLayer::LayersCount: CHECK(false, ("Try to output LayersCount"));
+    case DepthLayer::GeometryLayer: return "GeometryLayer";
+    case DepthLayer::Geometry3dLayer: return "Geometry3dLayer";
+    case DepthLayer::UserLineLayer: return "UserLineLayer";
+    case DepthLayer::OverlayLayer: return "OverlayLayer";
+    case DepthLayer::TransitSchemeLayer: return "TransitSchemeLayer";
+    case DepthLayer::UserMarkLayer: return "UserMarkLayer";
+    case DepthLayer::RoutingBottomMarkLayer: return "RoutingBottomMarkLayer";
+    case DepthLayer::RoutingMarkLayer: return "RoutingMarkLayer";
+    case DepthLayer::SearchMarkLayer: return "SearchMarkLayer";
+    case DepthLayer::GuiLayer: return "GuiLayer";
+    case DepthLayer::LayersCount: CHECK(false, ("Try to output LayersCount"));
   }
   CHECK(false, ("Unknown layer"));
   return {};

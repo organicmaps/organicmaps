@@ -6,9 +6,11 @@
 
 @implementation PlacePageButtonsData (Core)
 
-- (instancetype)initWithRawData:(place_page::Info const &)rawData {
+- (instancetype)initWithRawData:(place_page::Info const &)rawData
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _showAddPlace = rawData.ShouldShowAddPlace() || rawData.ShouldShowAddBusiness();
     _showEditPlace = rawData.ShouldShowEditPlace();
     _enableAddPlace = rawData.ShouldEnableAddPlace();

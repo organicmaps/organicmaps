@@ -54,24 +54,23 @@ public:
     using HeaderType = uint16_t;
     enum class Bits : HeaderType
     {
-      Year     = 1U << 0U,
-      Month    = 1U << 1U,
+      Year = 1U << 0U,
+      Month = 1U << 1U,
       MonthDay = 1U << 2U,
-      WeekDay  = 1U << 3U,
-      Hours    = 1U << 4U,
-      Minutes  = 1U << 5U,
-      Off      = 1U << 6U,
-      Holiday  = 1U << 7U,
+      WeekDay = 1U << 3U,
+      Hours = 1U << 4U,
+      Minutes = 1U << 5U,
+      Off = 1U << 6U,
+      Holiday = 1U << 7U,
 
-      Max      = 1U << 8U
+      Max = 1U << 8U
     };
 
     static inline uint8_t constexpr kBitsSize = 8;
     static_assert(base::Underlying(Bits::Max) == 1U << kBitsSize,
                   "It's seems header's size has been changed. Need to change |kBitsSize| member.");
 
-    static_assert(kBitsSize <= 8,
-                  "Header's size is more than 1 byte, be careful about section weight.");
+    static_assert(kBitsSize <= 8, "Header's size is more than 1 byte, be careful about section weight.");
 
     /// \brief Returns true if feature takes only two values (0 or 1).
     static bool IsBinaryFeature(Header::Bits feature);
@@ -155,8 +154,7 @@ private:
 
 // OpeningHoursSerDes::Header ----------------------------------------------------------------------
 template <typename Writer>
-void OpeningHoursSerDes::Header::Serialize(BitWriter<Writer> & writer,
-                                           OpeningHoursSerDes::Header header)
+void OpeningHoursSerDes::Header::Serialize(BitWriter<Writer> & writer, OpeningHoursSerDes::Header header)
 {
   writer.Write(header.GetValue(), Header::GetBitsSize());
 }
@@ -169,8 +167,7 @@ OpeningHoursSerDes::Header OpeningHoursSerDes::Header::Deserialize(BitReader<Rea
 
 // OpeningHoursSerDes ------------------------------------------------------------------------------
 template <typename Writer>
-bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
-                                   osmoh::OpeningHours const & openingHours)
+bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours)
 {
   if (!IsSerializable(openingHours))
     return false;
@@ -179,8 +176,7 @@ bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
 }
 
 template <typename Writer>
-bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
-                                   std::string const & openingHoursString)
+bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, std::string const & openingHoursString)
 {
   osmoh::OpeningHours const oh(openingHoursString);
   if (!oh.IsValid())
@@ -190,8 +186,7 @@ bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
 }
 
 template <typename Writer>
-bool OpeningHoursSerDes::SerializeImpl(BitWriter<Writer> & writer,
-                                       osmoh::OpeningHours const & openingHours)
+bool OpeningHoursSerDes::SerializeImpl(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours)
 {
   CheckSupportedFeatures();
 
@@ -248,10 +243,8 @@ osmoh::OpeningHours OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader)
 
     osmoh::RuleSequence rule;
     for (auto const supportedFeature : m_supportedFeatures)
-    {
       if (header.IsSet(supportedFeature))
         Deserialize(reader, supportedFeature, rule);
-    }
 
     rules.emplace_back(std::move(rule));
   }
@@ -266,103 +259,102 @@ osmoh::OpeningHours OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader)
 }
 
 template <typename Writer>
-bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, Header::Bits type,
-                                   osmoh::RuleSequence const & rule)
+bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, Header::Bits type, osmoh::RuleSequence const & rule)
 {
   uint8_t start = 0;
   uint8_t end = 0;
 
   switch (type)
   {
-  case Header::Bits::Year:
-  {
-    uint16_t startYear = 0;
-    uint16_t endYear = 0;
-    if (rule.GetYears().size() == 1)
+    case Header::Bits::Year:
     {
-      startYear = rule.GetYears().back().GetStart();
-      endYear = rule.GetYears().back().GetEnd();
-    }
-    else if (rule.GetMonths().size() == 1)
-    {
-      startYear = rule.GetMonths().back().GetStart().GetYear();
-      endYear = rule.GetMonths().back().GetEnd().GetYear();
-    }
-    else
-    {
-      UNREACHABLE();
-    }
+      uint16_t startYear = 0;
+      uint16_t endYear = 0;
+      if (rule.GetYears().size() == 1)
+      {
+        startYear = rule.GetYears().back().GetStart();
+        endYear = rule.GetYears().back().GetEnd();
+      }
+      else if (rule.GetMonths().size() == 1)
+      {
+        startYear = rule.GetMonths().back().GetStart().GetYear();
+        endYear = rule.GetMonths().back().GetEnd().GetYear();
+      }
+      else
+      {
+        UNREACHABLE();
+      }
 
-    if (!CheckYearRange(startYear, endYear))
-      return false;
+      if (!CheckYearRange(startYear, endYear))
+        return false;
 
-    start = base::checked_cast<uint8_t>(startYear - kYearBias);
-    end = base::checked_cast<uint8_t>(endYear - kYearBias);
-    break;
-  }
-  case Header::Bits::Month:
-  {
-    CHECK_EQUAL(rule.GetMonths().size(), 1, ());
-    auto const startMonth = rule.GetMonths().back().GetStart().GetMonth();
-    auto const endMonth = rule.GetMonths().back().GetEnd().GetMonth();
-    start = base::checked_cast<uint8_t>(base::Underlying(startMonth));
-    end = base::checked_cast<uint8_t>(base::Underlying(endMonth));
-    break;
-  }
-  case Header::Bits::MonthDay:
-  {
-    CHECK_EQUAL(rule.GetMonths().size(), 1, ());
-    start = rule.GetMonths().back().GetStart().GetDayNum();
-    end = rule.GetMonths().back().GetEnd().GetDayNum();
-    break;
-  }
-  case Header::Bits::WeekDay:
-  {
-    CHECK_EQUAL(rule.GetWeekdays().GetWeekdayRanges().size(), 1, ());
-    auto const startWeekday = rule.GetWeekdays().GetWeekdayRanges().back().GetStart();
-    auto const endWeekday = rule.GetWeekdays().GetWeekdayRanges().back().GetEnd();
-    start = base::checked_cast<uint8_t>(base::Underlying(startWeekday));
-    end = base::checked_cast<uint8_t>(base::Underlying(endWeekday));
-    break;
-  }
-  case Header::Bits::Hours:
-  {
-    CHECK(rule.GetTimes().size() == 1 || rule.IsTwentyFourHours(), ());
-    if (rule.IsTwentyFourHours())
-    {
-      start = 0;
-      end = 24;
-    }
-    else
-    {
-      start = rule.GetTimes().back().GetStart().GetHoursCount();
-      end = rule.GetTimes().back().GetEnd().GetHoursCount();
-    }
-    break;
-  }
-  case Header::Bits::Minutes:
-  {
-    CHECK(rule.GetTimes().size() == 1 || rule.IsTwentyFourHours(), ());
-    if (rule.IsTwentyFourHours())
+      start = base::checked_cast<uint8_t>(startYear - kYearBias);
+      end = base::checked_cast<uint8_t>(endYear - kYearBias);
       break;
-    start = rule.GetTimes().back().GetStart().GetMinutesCount();
-    end = rule.GetTimes().back().GetEnd().GetMinutesCount();
-    break;
-  }
-  case Header::Bits::Off:
-  {
-    start = rule.GetModifier() == osmoh::RuleSequence::Modifier::Closed;
-    end = 0;
-    break;
-  }
-  case Header::Bits::Holiday:
-  {
-    CHECK_EQUAL(rule.GetWeekdays().GetHolidays().size(), 1, ());
-    start = rule.GetWeekdays().GetHolidays().back().IsPlural();
-    end = 0;
-    break;
-  }
-  case Header::Bits::Max: UNREACHABLE();
+    }
+    case Header::Bits::Month:
+    {
+      CHECK_EQUAL(rule.GetMonths().size(), 1, ());
+      auto const startMonth = rule.GetMonths().back().GetStart().GetMonth();
+      auto const endMonth = rule.GetMonths().back().GetEnd().GetMonth();
+      start = base::checked_cast<uint8_t>(base::Underlying(startMonth));
+      end = base::checked_cast<uint8_t>(base::Underlying(endMonth));
+      break;
+    }
+    case Header::Bits::MonthDay:
+    {
+      CHECK_EQUAL(rule.GetMonths().size(), 1, ());
+      start = rule.GetMonths().back().GetStart().GetDayNum();
+      end = rule.GetMonths().back().GetEnd().GetDayNum();
+      break;
+    }
+    case Header::Bits::WeekDay:
+    {
+      CHECK_EQUAL(rule.GetWeekdays().GetWeekdayRanges().size(), 1, ());
+      auto const startWeekday = rule.GetWeekdays().GetWeekdayRanges().back().GetStart();
+      auto const endWeekday = rule.GetWeekdays().GetWeekdayRanges().back().GetEnd();
+      start = base::checked_cast<uint8_t>(base::Underlying(startWeekday));
+      end = base::checked_cast<uint8_t>(base::Underlying(endWeekday));
+      break;
+    }
+    case Header::Bits::Hours:
+    {
+      CHECK(rule.GetTimes().size() == 1 || rule.IsTwentyFourHours(), ());
+      if (rule.IsTwentyFourHours())
+      {
+        start = 0;
+        end = 24;
+      }
+      else
+      {
+        start = rule.GetTimes().back().GetStart().GetHoursCount();
+        end = rule.GetTimes().back().GetEnd().GetHoursCount();
+      }
+      break;
+    }
+    case Header::Bits::Minutes:
+    {
+      CHECK(rule.GetTimes().size() == 1 || rule.IsTwentyFourHours(), ());
+      if (rule.IsTwentyFourHours())
+        break;
+      start = rule.GetTimes().back().GetStart().GetMinutesCount();
+      end = rule.GetTimes().back().GetEnd().GetMinutesCount();
+      break;
+    }
+    case Header::Bits::Off:
+    {
+      start = rule.GetModifier() == osmoh::RuleSequence::Modifier::Closed;
+      end = 0;
+      break;
+    }
+    case Header::Bits::Holiday:
+    {
+      CHECK_EQUAL(rule.GetWeekdays().GetHolidays().size(), 1, ());
+      start = rule.GetWeekdays().GetHolidays().back().IsPlural();
+      end = 0;
+      break;
+    }
+    case Header::Bits::Max: UNREACHABLE();
   }
 
   if (!SerializeValue(writer, type, start))
@@ -375,8 +367,7 @@ bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, Header::Bits type
 }
 
 template <typename Reader>
-void OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader,
-                                     OpeningHoursSerDes::Header::Bits type,
+void OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader, OpeningHoursSerDes::Header::Bits type,
                                      osmoh::RuleSequence & rule)
 {
   uint8_t const start = reader.Read(GetBitsNumber(type));
@@ -386,122 +377,121 @@ void OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader,
 
   switch (type)
   {
-  case Header::Bits::Year:
-  {
-    osmoh::YearRange range;
-    range.SetStart(start + kYearBias);
-    range.SetEnd(end + kYearBias);
-    rule.SetYears({range});
-    break;
-  }
-  case Header::Bits::Month:
-  {
-    osmoh::MonthDay startMonth;
-    startMonth.SetMonth(static_cast<osmoh::MonthDay::Month>(start));
-
-    osmoh::MonthDay endMonth;
-    endMonth.SetMonth(static_cast<osmoh::MonthDay::Month>(end));
-
-    if (rule.HasYears())
+    case Header::Bits::Year:
     {
-      CHECK_EQUAL(rule.GetYears().size(), 1, ());
-      startMonth.SetYear(rule.GetYears().back().GetStart());
-      endMonth.SetYear(rule.GetYears().back().GetEnd());
-      rule.SetYears({});
+      osmoh::YearRange range;
+      range.SetStart(start + kYearBias);
+      range.SetEnd(end + kYearBias);
+      rule.SetYears({range});
+      break;
     }
+    case Header::Bits::Month:
+    {
+      osmoh::MonthDay startMonth;
+      startMonth.SetMonth(static_cast<osmoh::MonthDay::Month>(start));
 
-    osmoh::MonthdayRange range;
-    range.SetStart(startMonth);
-    range.SetEnd(endMonth);
-    rule.SetMonths({range});
-    break;
-  }
-  case Header::Bits::MonthDay:
-  {
-    CHECK_EQUAL(rule.GetMonths().size(), 1, ());
-    auto range = rule.GetMonths().back();
+      osmoh::MonthDay endMonth;
+      endMonth.SetMonth(static_cast<osmoh::MonthDay::Month>(end));
 
-    auto startMonth = range.GetStart();
-    auto endMonth = range.GetEnd();
+      if (rule.HasYears())
+      {
+        CHECK_EQUAL(rule.GetYears().size(), 1, ());
+        startMonth.SetYear(rule.GetYears().back().GetStart());
+        endMonth.SetYear(rule.GetYears().back().GetEnd());
+        rule.SetYears({});
+      }
 
-    startMonth.SetDayNum(start);
-    endMonth.SetDayNum(end);
+      osmoh::MonthdayRange range;
+      range.SetStart(startMonth);
+      range.SetEnd(endMonth);
+      rule.SetMonths({range});
+      break;
+    }
+    case Header::Bits::MonthDay:
+    {
+      CHECK_EQUAL(rule.GetMonths().size(), 1, ());
+      auto range = rule.GetMonths().back();
 
-    range.SetStart(startMonth);
-    range.SetEnd(endMonth);
+      auto startMonth = range.GetStart();
+      auto endMonth = range.GetEnd();
 
-    rule.SetMonths({range});
-    break;
-  }
-  case Header::Bits::WeekDay:
-  {
-    osmoh::WeekdayRange range;
+      startMonth.SetDayNum(start);
+      endMonth.SetDayNum(end);
 
-    auto const startWeekday = static_cast<osmoh::Weekday>(start);
-    range.SetStart(startWeekday);
+      range.SetStart(startMonth);
+      range.SetEnd(endMonth);
 
-    auto const endWeekday = static_cast<osmoh::Weekday>(end);
-    range.SetEnd(endWeekday);
+      rule.SetMonths({range});
+      break;
+    }
+    case Header::Bits::WeekDay:
+    {
+      osmoh::WeekdayRange range;
 
-    osmoh::Weekdays weekdays;
-    weekdays.SetWeekdayRanges({range});
-    rule.SetWeekdays(weekdays);
-    break;
-  }
-  case Header::Bits::Hours:
-  {
-    osmoh::Timespan range;
-    auto hm = range.GetStart().GetHourMinutes();
-    hm.SetHours(osmoh::HourMinutes::THours(start));
-    range.GetStart().SetHourMinutes(hm);
+      auto const startWeekday = static_cast<osmoh::Weekday>(start);
+      range.SetStart(startWeekday);
 
-    hm = range.GetEnd().GetHourMinutes();
-    hm.SetHours(osmoh::HourMinutes::THours(end));
-    range.GetEnd().SetHourMinutes(hm);
+      auto const endWeekday = static_cast<osmoh::Weekday>(end);
+      range.SetEnd(endWeekday);
 
-    rule.SetTimes({range});
-    break;
-  }
-  case Header::Bits::Minutes:
-  {
-    CHECK_EQUAL(rule.GetTimes().size(), 1, ());
-    osmoh::Timespan range = rule.GetTimes().back();
+      osmoh::Weekdays weekdays;
+      weekdays.SetWeekdayRanges({range});
+      rule.SetWeekdays(weekdays);
+      break;
+    }
+    case Header::Bits::Hours:
+    {
+      osmoh::Timespan range;
+      auto hm = range.GetStart().GetHourMinutes();
+      hm.SetHours(osmoh::HourMinutes::THours(start));
+      range.GetStart().SetHourMinutes(hm);
 
-    range.GetStart().GetHourMinutes().SetMinutes(osmoh::HourMinutes::TMinutes(start));
-    range.GetEnd().GetHourMinutes().SetMinutes(osmoh::HourMinutes::TMinutes(end));
-    rule.SetTimes({range});
-    break;
-  }
-  case Header::Bits::Off:
-  {
-    CHECK(start == 0 || start == 1, (start));
-    CHECK_EQUAL(end, 0, ());
-    if (start)
-      rule.SetModifier(osmoh::RuleSequence::Modifier::Closed);
-    break;
-  }
-  case Header::Bits::Holiday:
-  {
-    CHECK(start == 0 || start == 1, (start));
-    CHECK_EQUAL(end, 0, ());
-    auto const plural = static_cast<bool>(start);
+      hm = range.GetEnd().GetHourMinutes();
+      hm.SetHours(osmoh::HourMinutes::THours(end));
+      range.GetEnd().SetHourMinutes(hm);
 
-    osmoh::Holiday holiday;
-    holiday.SetPlural(plural);
+      rule.SetTimes({range});
+      break;
+    }
+    case Header::Bits::Minutes:
+    {
+      CHECK_EQUAL(rule.GetTimes().size(), 1, ());
+      osmoh::Timespan range = rule.GetTimes().back();
 
-    osmoh::Weekdays weekdays;
-    weekdays.SetHolidays({holiday});
+      range.GetStart().GetHourMinutes().SetMinutes(osmoh::HourMinutes::TMinutes(start));
+      range.GetEnd().GetHourMinutes().SetMinutes(osmoh::HourMinutes::TMinutes(end));
+      rule.SetTimes({range});
+      break;
+    }
+    case Header::Bits::Off:
+    {
+      CHECK(start == 0 || start == 1, (start));
+      CHECK_EQUAL(end, 0, ());
+      if (start)
+        rule.SetModifier(osmoh::RuleSequence::Modifier::Closed);
+      break;
+    }
+    case Header::Bits::Holiday:
+    {
+      CHECK(start == 0 || start == 1, (start));
+      CHECK_EQUAL(end, 0, ());
+      auto const plural = static_cast<bool>(start);
 
-    rule.SetWeekdays({weekdays});
-    break;
-  }
-  case Header::Bits::Max: UNREACHABLE();
+      osmoh::Holiday holiday;
+      holiday.SetPlural(plural);
+
+      osmoh::Weekdays weekdays;
+      weekdays.SetHolidays({holiday});
+
+      rule.SetWeekdays({weekdays});
+      break;
+    }
+    case Header::Bits::Max: UNREACHABLE();
   }
 }
 
 template <typename Writer>
-bool OpeningHoursSerDes::SerializeValue(BitWriter<Writer> & writer, Header::Bits type,
-                                        uint8_t value)
+bool OpeningHoursSerDes::SerializeValue(BitWriter<Writer> & writer, Header::Bits type, uint8_t value)
 {
   uint8_t const bitsNumber = GetBitsNumber(type);
   if (value >= 1U << bitsNumber)
@@ -512,8 +502,7 @@ bool OpeningHoursSerDes::SerializeValue(BitWriter<Writer> & writer, Header::Bits
 }
 
 template <typename Writer>
-void OpeningHoursSerDes::SerializeRuleHeader(BitWriter<Writer> & writer,
-                                             osmoh::RuleSequence const & rule)
+void OpeningHoursSerDes::SerializeRuleHeader(BitWriter<Writer> & writer, osmoh::RuleSequence const & rule)
 {
   Header const header = CreateHeader(rule);
   Header::Serialize(writer, header);

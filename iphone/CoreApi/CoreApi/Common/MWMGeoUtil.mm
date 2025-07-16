@@ -1,12 +1,12 @@
 #import "MWMGeoUtil.h"
 
-#include "geometry/mercator.hpp"
 #include "geometry/angles.hpp"
+#include "geometry/mercator.hpp"
 
 #include "platform/locale.hpp"
 #include "platform/localization.hpp"
-#include "platform/settings.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/settings.hpp"
 
 @implementation Measure
 
@@ -31,34 +31,39 @@
   let speedString = formatter.string(from: speedMeasurement)
 */
 
-- (NSString*) valueAsString {
+- (NSString *)valueAsString
+{
   auto const outString = measurement_utils::ToStringPrecision(self.value, self.value >= 10.0 ? 0 : 1);
   return [NSString stringWithUTF8String:outString.c_str()];
 }
 
-- (instancetype)initAsSpeed:(double) mps {
-    self = [super init];
-    if (self) {
-      auto units = measurement_utils::Units::Metric;
-      settings::TryGet(settings::kMeasurementUnits, units);
-      _value = measurement_utils::MpsToUnits(mps, units);
+- (instancetype)initAsSpeed:(double)mps
+{
+  self = [super init];
+  if (self)
+  {
+    auto units = measurement_utils::Units::Metric;
+    settings::TryGet(settings::kMeasurementUnits, units);
+    _value = measurement_utils::MpsToUnits(mps, units);
 
-      _unit = @(platform::GetLocalizedSpeedUnits(units).c_str());
-    }
-    return self;
+    _unit = @(platform::GetLocalizedSpeedUnits(units).c_str());
+  }
+  return self;
 }
 
 @end
 
 @implementation MWMGeoUtil
 
-+ (float)angleAtPoint:(CLLocationCoordinate2D)p1 toPoint:(CLLocationCoordinate2D)p2 {
++ (float)angleAtPoint:(CLLocationCoordinate2D)p1 toPoint:(CLLocationCoordinate2D)p2
+{
   auto mp1 = mercator::FromLatLon(p1.latitude, p1.longitude);
   auto mp2 = mercator::FromLatLon(p2.latitude, p2.longitude);
   return ang::AngleTo(mp1, mp2);
 }
 
-+ (NSString *)formattedOsmLinkForCoordinate:(CLLocationCoordinate2D)coordinate zoomLevel:(int)zoomLevel {
++ (NSString *)formattedOsmLinkForCoordinate:(CLLocationCoordinate2D)coordinate zoomLevel:(int)zoomLevel
+{
   auto const link = measurement_utils::FormatOsmLink(coordinate.latitude, coordinate.longitude, zoomLevel);
   return [NSString stringWithCString:link.c_str() encoding:NSUTF8StringEncoding];
 }

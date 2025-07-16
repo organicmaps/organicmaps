@@ -32,13 +32,9 @@ public:
   void EnableCellularDownload(bool enabled);
   bool IsCellularDownloadEnabled();
 
-  inline bool IsAutoRetryDownloadFailed() const
-  {
-    return m_downloadRetryFailed || m_autoRetryCounter == 0;
-  }
+  inline bool IsAutoRetryDownloadFailed() const { return m_downloadRetryFailed || m_autoRetryCounter == 0; }
 
   // DownloadingPolicy overrides:
   bool IsDownloadingAllowed() override;
-  void ScheduleRetry(storage::CountriesSet const & failedCountries,
-                     TProcessFunc const & func) override;
+  void ScheduleRetry(storage::CountriesSet const & failedCountries, TProcessFunc const & func) override;
 };

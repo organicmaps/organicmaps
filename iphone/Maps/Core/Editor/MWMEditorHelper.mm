@@ -15,26 +15,22 @@
   }
   else
   {
-    auto const lambda = [completionHandler](osm::Editor::UploadResult result) {
+    auto const lambda = [completionHandler](osm::Editor::UploadResult result)
+    {
       switch (result)
       {
-      case osm::Editor::UploadResult::Success:
-        completionHandler(UIBackgroundFetchResultNewData);
-        break;
-      case osm::Editor::UploadResult::Error:
-        completionHandler(UIBackgroundFetchResultFailed);
-        break;
-      case osm::Editor::UploadResult::NothingToUpload:
-        completionHandler(UIBackgroundFetchResultNoData);
-        break;
+        case osm::Editor::UploadResult::Success: completionHandler(UIBackgroundFetchResultNewData); break;
+        case osm::Editor::UploadResult::Error: completionHandler(UIBackgroundFetchResultFailed); break;
+        case osm::Editor::UploadResult::NothingToUpload: completionHandler(UIBackgroundFetchResultNoData); break;
       }
     };
     std::string const oauthToken = osm_auth_ios::AuthorizationGetCredentials();
     osm::Editor::Instance().UploadChanges(
         oauthToken,
-        {{"created_by",
-          std::string("Organic Maps " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
-         {"bundle_id", NSBundle.mainBundle.bundleIdentifier.UTF8String}},
+        {
+            {"created_by", std::string("Organic Maps " OMIM_OS_NAME " ") + AppInfo.sharedInfo.bundleVersion.UTF8String},
+            { "bundle_id",                                             NSBundle.mainBundle.bundleIdentifier.UTF8String}
+    },
         lambda);
   }
 }

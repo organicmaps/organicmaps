@@ -32,7 +32,8 @@ public:
     std::pair<uint64_t, uint64_t> GetHNRange() const;
     /// @}
 
-    template <class TSink> void Save(TSink & sink) const
+    template <class TSink>
+    void Save(TSink & sink) const
     {
       rw::Write(sink, m_from);
       rw::Write(sink, m_to);
@@ -42,7 +43,8 @@ public:
       WriteToSink(sink, static_cast<uint8_t>(m_interpol));
     }
 
-    template <class TSource> void Load(TSource & src)
+    template <class TSource>
+    void Load(TSource & src)
     {
       rw::Read(src, m_from);
       rw::Read(src, m_to);
@@ -62,7 +64,7 @@ public:
 
   void AddSrc(feature::FeatureBuilder && fb);
 
-  using TFBCollectFn = std::function<void (feature::FeatureBuilder &&)>;
+  using TFBCollectFn = std::function<void(feature::FeatureBuilder &&)>;
   void ProcessRawEntries(std::string const & path, TFBCollectFn const & fn);
 
   // Public for tests.
@@ -99,4 +101,4 @@ private:
   std::map<feature::InterpolType, uint32_t> m_interpolType;
 };
 
-} // namespace generator
+}  // namespace generator

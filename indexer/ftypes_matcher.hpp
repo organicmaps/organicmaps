@@ -10,8 +10,12 @@
 #include <string>
 #include <vector>
 
-#define DECLARE_CHECKER_INSTANCE(CheckerType) static CheckerType const & Instance() { \
-                                              static CheckerType const inst; return inst; }
+#define DECLARE_CHECKER_INSTANCE(CheckerType) \
+  static CheckerType const & Instance()       \
+  {                                           \
+    static CheckerType const inst;            \
+    return inst;                              \
+  }
 
 namespace ftypes
 {
@@ -41,6 +45,7 @@ public:
 class IsPeakChecker : public BaseChecker
 {
   IsPeakChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsPeakChecker);
 };
@@ -48,6 +53,7 @@ public:
 class IsATMChecker : public BaseChecker
 {
   IsATMChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsATMChecker);
 };
@@ -55,6 +61,7 @@ public:
 class IsSpeedCamChecker : public BaseChecker
 {
   IsSpeedCamChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsSpeedCamChecker);
 };
@@ -106,6 +113,7 @@ public:
 class IsRailwayStationChecker : public BaseChecker
 {
   IsRailwayStationChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsRailwayStationChecker);
 };
@@ -199,6 +207,7 @@ public:
 class IsAddressObjectChecker : public BaseChecker
 {
   IsAddressObjectChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsAddressObjectChecker);
 };
@@ -206,6 +215,7 @@ public:
 class IsAddressChecker : public BaseChecker
 {
   IsAddressChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsAddressChecker);
 };
@@ -213,6 +223,7 @@ public:
 class IsVillageChecker : public BaseChecker
 {
   IsVillageChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsVillageChecker);
 };
@@ -220,6 +231,7 @@ public:
 class IsOneWayChecker : public BaseChecker
 {
   IsOneWayChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsOneWayChecker);
 
@@ -229,6 +241,7 @@ public:
 class IsRoundAboutChecker : public BaseChecker
 {
   IsRoundAboutChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsRoundAboutChecker);
 };
@@ -236,6 +249,7 @@ public:
 class IsLinkChecker : public BaseChecker
 {
   IsLinkChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsLinkChecker);
 };
@@ -243,6 +257,7 @@ public:
 class IsBuildingChecker : public BaseChecker
 {
   IsBuildingChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsBuildingChecker);
 };
@@ -250,6 +265,7 @@ public:
 class IsBuildingPartChecker : public ftypes::BaseChecker
 {
   IsBuildingPartChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsBuildingPartChecker);
 };
@@ -257,6 +273,7 @@ public:
 class IsBuildingHasPartsChecker : public ftypes::BaseChecker
 {
   IsBuildingHasPartsChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsBuildingHasPartsChecker);
 
@@ -266,6 +283,7 @@ public:
 class IsIsolineChecker : public BaseChecker
 {
   IsIsolineChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsIsolineChecker);
 };
@@ -273,10 +291,10 @@ public:
 class IsPisteChecker : public BaseChecker
 {
   IsPisteChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsPisteChecker);
 };
-
 
 class OneLevelPOIChecker : public ftypes::BaseChecker
 {
@@ -302,17 +320,21 @@ public:
   DECLARE_CHECKER_INSTANCE(IsPoiChecker);
 
   bool operator()(FeatureType & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
-  template <class T> bool operator()(T const & t) const { return m_oneLevel(t) || m_twoLevel(t); }
+  template <class T>
+  bool operator()(T const & t) const
+  {
+    return m_oneLevel(t) || m_twoLevel(t);
+  }
 
 private:
   OneLevelPOIChecker const m_oneLevel;
   TwoLevelPOIChecker const m_twoLevel;
 };
 
-
 class IsAmenityChecker : public BaseChecker
 {
   IsAmenityChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsAmenityChecker);
 
@@ -324,6 +346,7 @@ class AttractionsChecker : public BaseChecker
   size_t m_additionalTypesStart;
 
   AttractionsChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(AttractionsChecker);
 
@@ -334,6 +357,7 @@ public:
 class IsPlaceChecker : public BaseChecker
 {
   IsPlaceChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsPlaceChecker);
 };
@@ -343,6 +367,7 @@ class IsBridgeOrTunnelChecker : public BaseChecker
   virtual bool IsMatched(uint32_t type) const override;
 
   IsBridgeOrTunnelChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsBridgeOrTunnelChecker);
 };
@@ -350,6 +375,7 @@ public:
 class IsIslandChecker : public BaseChecker
 {
   IsIslandChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsIslandChecker);
 };
@@ -357,6 +383,7 @@ public:
 class IsLandChecker : public BaseChecker
 {
   IsLandChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsLandChecker);
 
@@ -366,6 +393,7 @@ public:
 class IsCoastlineChecker : public BaseChecker
 {
   IsCoastlineChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsCoastlineChecker);
 
@@ -375,6 +403,7 @@ public:
 class IsHotelChecker : public BaseChecker
 {
   IsHotelChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsHotelChecker);
 };
@@ -384,6 +413,7 @@ public:
 class IsWifiChecker : public BaseChecker
 {
   IsWifiChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsWifiChecker);
 
@@ -393,26 +423,26 @@ public:
 class IsEatChecker : public BaseChecker
 {
 public:
-//  enum class Type
-//  {
-//    Cafe = 0,
-//    FastFood,
-//    Restaurant,
-//    Bar,
-//    Pub,
-//    Biergarten,
+  //  enum class Type
+  //  {
+  //    Cafe = 0,
+  //    FastFood,
+  //    Restaurant,
+  //    Bar,
+  //    Pub,
+  //    Biergarten,
 
-//    Count
-//  };
+  //    Count
+  //  };
 
   DECLARE_CHECKER_INSTANCE(IsEatChecker);
 
-//  Type GetType(uint32_t t) const;
+  //  Type GetType(uint32_t t) const;
 
 private:
   IsEatChecker();
 
-//  std::array<uint32_t, base::Underlying(Type::Count)> m_eat2clType;
+  //  std::array<uint32_t, base::Underlying(Type::Count)> m_eat2clType;
 };
 
 class IsCuisineChecker : public BaseChecker
@@ -450,6 +480,7 @@ public:
 class IsCapitalChecker : public BaseChecker
 {
   IsCapitalChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsCapitalChecker);
 };
@@ -457,6 +488,7 @@ public:
 class IsPublicTransportStopChecker : public BaseChecker
 {
   IsPublicTransportStopChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsPublicTransportStopChecker);
 };
@@ -464,6 +496,7 @@ public:
 class IsTaxiChecker : public BaseChecker
 {
   IsTaxiChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsTaxiChecker);
 };
@@ -471,6 +504,7 @@ public:
 class IsMotorwayJunctionChecker : public BaseChecker
 {
   IsMotorwayJunctionChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsMotorwayJunctionChecker);
 };
@@ -479,6 +513,7 @@ public:
 class IsWayWithDurationChecker : public BaseChecker
 {
   IsWayWithDurationChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsWayWithDurationChecker);
 };
@@ -511,7 +546,8 @@ class IsLocalityChecker : public BaseChecker
 public:
   LocalityType GetType(uint32_t t) const;
 
-  template <class Types> LocalityType GetType(Types const & types) const
+  template <class Types>
+  LocalityType GetType(Types const & types) const
   {
     for (uint32_t const t : types)
     {
@@ -527,10 +563,10 @@ public:
   DECLARE_CHECKER_INSTANCE(IsLocalityChecker);
 };
 
-
 class IsCountryChecker : public BaseChecker
 {
   IsCountryChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsCountryChecker);
 };
@@ -538,6 +574,7 @@ public:
 class IsStateChecker : public BaseChecker
 {
   IsStateChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsStateChecker);
 };
@@ -545,6 +582,7 @@ public:
 class IsCityTownOrVillageChecker : public BaseChecker
 {
   IsCityTownOrVillageChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsCityTownOrVillageChecker);
 };
@@ -590,7 +628,8 @@ class IsAddressInterpolChecker : public BaseChecker
 public:
   DECLARE_CHECKER_INSTANCE(IsAddressInterpolChecker);
 
-  template <class Range> feature::InterpolType GetInterpolType(Range const & range) const
+  template <class Range>
+  feature::InterpolType GetInterpolType(Range const & range) const
   {
     for (uint32_t t : range)
     {
@@ -607,12 +646,8 @@ public:
     return feature::InterpolType::None;
   }
 
-  feature::InterpolType GetInterpolType(FeatureType & ft) const
-  {
-    return GetInterpolType(feature::TypesHolder(ft));
-  }
+  feature::InterpolType GetInterpolType(FeatureType & ft) const { return GetInterpolType(feature::TypesHolder(ft)); }
 };
-
 
 /// @name Get city radius and population.
 /// @param r Radius in meters.
@@ -639,8 +674,8 @@ enum class HighwayClass
   // Adding a new type to distinguish mapped driveway or parking_aisle.
   ServiceMinor,
   Pedestrian,
-  Transported,    // Vehicles are transported by train or ferry.
-  Count           // This value is used for internals only.
+  Transported,  // Vehicles are transported by train or ferry.
+  Count         // This value is used for internals only.
 };
 
 std::string DebugPrint(HighwayClass const cls);

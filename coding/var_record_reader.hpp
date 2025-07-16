@@ -24,7 +24,8 @@ public:
     return buffer;
   }
 
-  template <class FnT> void ForEachRecord(FnT && fn) const
+  template <class FnT>
+  void ForEachRecord(FnT && fn) const
   {
     ReaderSource source(m_reader);
     while (source.Size() > 0)

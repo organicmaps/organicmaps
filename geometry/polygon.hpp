@@ -38,16 +38,15 @@ template <typename IsVisibleF>
 size_t FindSingleStrip(size_t n, IsVisibleF isVisible)
 {
   for (size_t i = 0; i < n; ++i)
-  {
     if (FindSingleStripForIndex(i, n, isVisible))
       return i;
-  }
 
   return n;
 }
 
 #ifdef DEBUG
-template <typename IterT> bool TestPolygonPreconditions(IterT beg, IterT end)
+template <typename IterT>
+bool TestPolygonPreconditions(IterT beg, IterT end)
 {
   ASSERT_GREATER(std::distance(beg, end), 2, ());
   ASSERT(!AlmostEqualULPs(*beg, *(--end)), ());
@@ -56,7 +55,8 @@ template <typename IterT> bool TestPolygonPreconditions(IterT beg, IterT end)
 #endif
 
 /// Is polygon [beg, end) has CCW orientation.
-template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
+template <typename IterT>
+bool IsPolygonCCW(IterT beg, IterT end)
 {
   ASSERT(TestPolygonPreconditions(beg, end), ());
 
@@ -72,8 +72,8 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
     }
   }
 
-  double cp = m2::robust::OrientedS(*base::PrevIterInCycle(iRes, beg, end), *iRes,
-                                    *base::NextIterInCycle(iRes, beg, end));
+  double cp =
+      m2::robust::OrientedS(*base::PrevIterInCycle(iRes, beg, end), *iRes, *base::NextIterInCycle(iRes, beg, end));
   if (cp != 0.0)
     return (cp > 0.0);
 
@@ -90,7 +90,7 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
 
   IterT iPrev = base::PrevIterInCycle(iRes, beg, end);
   IterT iNext = base::NextIterInCycle(iRes, beg, end);
-  cp =  m2::robust::OrientedS(*iPrev, *iRes, *iNext);
+  cp = m2::robust::OrientedS(*iPrev, *iRes, *iNext);
 
   // Feel free to comment this assert when debugging generator tool.
   // It fires on degenerated polygons which a lot in OSM.
@@ -122,45 +122,45 @@ bool IsDiagonalVisible(IterT beg, IterT end, IterT i0, IterT i1)
   return true;
 }
 
-template <typename IterT> class IsDiagonalVisibleFunctor
+template <typename IterT>
+class IsDiagonalVisibleFunctor
 {
   IterT m_Beg, m_End;
+
 public:
   IsDiagonalVisibleFunctor(IterT beg, IterT end) : m_Beg(beg), m_End(end) {}
 
-  bool operator () (size_t a, size_t b) const
-  {
-    return IsDiagonalVisible(m_Beg, m_End, m_Beg + a, m_Beg + b);
-  }
+  bool operator()(size_t a, size_t b) const { return IsDiagonalVisible(m_Beg, m_End, m_Beg + a, m_Beg + b); }
 };
 
 namespace polygon_detail
 {
-  template <typename F> class StripEmitter
+template <typename F>
+class StripEmitter
+{
+  F & m_f;
+  int m_order;
+
+public:
+  StripEmitter(F & f) : m_f(f), m_order(0) {}
+
+  bool operator()(size_t a, size_t b)
   {
-    F & m_f;
-    int m_order;
-
-  public:
-    StripEmitter(F & f) : m_f(f), m_order(0) {}
-
-    bool operator () (size_t a, size_t b)
+    if (m_order == 0)
     {
-      if (m_order == 0)
-      {
-        m_f(b);
-        m_f(a);
-        m_order = 1;
-      }
-      else
-      {
-        m_f(m_order == 1 ? b : a);
-        m_order = -m_order;
-      }
-      return true;
+      m_f(b);
+      m_f(a);
+      m_order = 1;
     }
-  };
-}
+    else
+    {
+      m_f(m_order == 1 ? b : a);
+      m_order = -m_order;
+    }
+    return true;
+  }
+};
+}  // namespace polygon_detail
 
 /// Make single strip for the range of points [beg, end), started with index = i.
 template <typename F>
@@ -171,7 +171,8 @@ void MakeSingleStripFromIndex(size_t i, size_t n, F && f)
   FindSingleStripForIndex(i, n, polygon_detail::StripEmitter<F>(f));
 }
 
-template <class TIter> double GetPolygonArea(TIter beg, TIter end)
+template <class TIter>
+double GetPolygonArea(TIter beg, TIter end)
 {
   double area = 0.0;
 

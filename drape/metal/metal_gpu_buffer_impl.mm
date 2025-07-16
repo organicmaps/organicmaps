@@ -8,8 +8,8 @@ namespace dp
 {
 namespace metal
 {
-MetalGPUBuffer::MetalGPUBuffer(ref_ptr<GraphicsContext> context, void const * data,
-                               uint8_t elementSize, uint32_t capacity)
+MetalGPUBuffer::MetalGPUBuffer(ref_ptr<GraphicsContext> context, void const * data, uint8_t elementSize,
+                               uint32_t capacity)
   : BufferBase(elementSize, capacity)
 {
   Resize(context, data, capacity);
@@ -19,9 +19,8 @@ void MetalGPUBuffer::UploadData(void const * data, uint32_t elementCount)
 {
   uint32_t const currentSize = GetCurrentSize();
   uint8_t const elementSize = GetElementSize();
-  ASSERT(GetCapacity() >= elementCount + currentSize,
-         ("Not enough memory to upload ", elementCount, " elements"));
-  
+  ASSERT(GetCapacity() >= elementCount + currentSize, ("Not enough memory to upload ", elementCount, " elements"));
+
   uint32_t const byteOffset = currentSize * elementSize;
   uint32_t const sizeInBytes = elementCount * elementSize;
   uint8_t * gpuPtr = static_cast<uint8_t *>([m_metalBuffer contents]) + byteOffset;
@@ -38,8 +37,7 @@ void * MetalGPUBuffer::Map(uint32_t elementOffset, uint32_t elementCount)
   return bufferPointer;
 }
 
-void MetalGPUBuffer::UpdateData(void * gpuPtr, void const * data,
-                                uint32_t elementOffset, uint32_t elementCount)
+void MetalGPUBuffer::UpdateData(void * gpuPtr, void const * data, uint32_t elementOffset, uint32_t elementCount)
 {
   uint32_t const elementSize = GetElementSize();
   uint32_t const byteOffset = elementOffset * elementSize;
@@ -52,27 +50,20 @@ void MetalGPUBuffer::UpdateData(void * gpuPtr, void const * data,
 void MetalGPUBuffer::Resize(ref_ptr<MetalBaseContext> context, void const * data, uint32_t elementCount)
 {
   BufferBase::Resize(elementCount);
-  
+
   id<MTLDevice> device = context->GetMetalDevice();
   uint32_t const sizeInBytes = GetCapacity() * GetElementSize();
   if (data != nil)
-  {
-    m_metalBuffer = [device newBufferWithBytes:data
-                                        length:sizeInBytes
-                                       options:MTLResourceCPUCacheModeWriteCombined];
-  }
+    m_metalBuffer = [device newBufferWithBytes:data length:sizeInBytes options:MTLResourceCPUCacheModeWriteCombined];
   else
-  {
-    m_metalBuffer = [device newBufferWithLength:sizeInBytes
-                                       options:MTLResourceCPUCacheModeWriteCombined];
-  }
-  
+    m_metalBuffer = [device newBufferWithLength:sizeInBytes options:MTLResourceCPUCacheModeWriteCombined];
+
   // If we have already set up data, we have to call SetDataSize.
   if (data != nullptr)
     SetDataSize(elementCount);
 }
 }  // namespace metal
-  
+
 drape_ptr<DataBufferBase> DataBuffer::CreateImplForMetal(ref_ptr<GraphicsContext> context, void const * data,
                                                          uint8_t elementSize, uint32_t capacity)
 {

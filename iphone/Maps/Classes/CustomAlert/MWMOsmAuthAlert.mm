@@ -1,5 +1,5 @@
-#import "MWMAlertViewController.h"
 #import "MWMOsmAuthAlert.h"
+#import "MWMAlertViewController.h"
 
 #include "editor/osm_auth.hpp"
 
@@ -12,33 +12,26 @@ extern NSString * const kMap2GoogleLoginSegue;
 
 + (instancetype)alert
 {
-  MWMOsmAuthAlert * alert =
-      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
+  MWMOsmAuthAlert * alert = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   return alert;
 }
 
 - (IBAction)facebookTap
 {
-  [self close:^{
-    [self.alertController.ownerViewController performSegueWithIdentifier:kMap2FBLoginSegue
-                                                                  sender:nil];
-  }];
+  [self close:^{ [self.alertController.ownerViewController performSegueWithIdentifier:kMap2FBLoginSegue sender:nil]; }];
 }
 
 - (IBAction)googleTap
 {
   [self close:^{
-    [self.alertController.ownerViewController performSegueWithIdentifier:kMap2GoogleLoginSegue
-                                                                  sender:nil];
+    [self.alertController.ownerViewController performSegueWithIdentifier:kMap2GoogleLoginSegue sender:nil];
   }];
 }
 
 - (IBAction)osmTap
 {
-  [self close:^{
-    [self.alertController.ownerViewController performSegueWithIdentifier:kMap2OsmLoginSegue
-                                                                  sender:nil];
-  }];
+  [self
+      close:^{ [self.alertController.ownerViewController performSegueWithIdentifier:kMap2OsmLoginSegue sender:nil]; }];
 }
 
 - (IBAction)signUpTap

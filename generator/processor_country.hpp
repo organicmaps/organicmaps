@@ -26,7 +26,7 @@ private:
 
   std::shared_ptr<AffiliationsFeatureLayer> m_affiliationsLayer;
   std::shared_ptr<LayerBase> m_processingChain;
-  //std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
+  // std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
 };
 
 }  // namespace generator

@@ -93,8 +93,8 @@ public:
   /// \param endIdx The index after the last one in |m_segProj|.
   /// \returns iterator which contains projection point and projection segment index.
   template <typename DistanceFn>
-  Iter GetClosestProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
-                                      size_t startIdx, size_t endIdx) const
+  Iter GetClosestProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn, size_t startIdx,
+                                      size_t endIdx) const
   {
     CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
     CHECK_LESS_OR_EQUAL(startIdx, endIdx, ());
@@ -121,8 +121,7 @@ public:
     return res;
   }
 
-  Iter GetClosestMatchingProjectionInInterval(m2::RectD const & posRect, size_t startIdx,
-                                              size_t endIdx) const;
+  Iter GetClosestMatchingProjectionInInterval(m2::RectD const & posRect, size_t startIdx, size_t endIdx) const;
 
   bool IsFakeSegment(size_t index) const;
 

@@ -95,10 +95,7 @@ public:
   static bool IsServiceLang(std::string_view lang);
 
   // These names require separate search/street processing.
-  static bool IsAltOrOldName(int8_t langCode)
-  {
-    return langCode == kAltNameCode || langCode == kOldNameCode;
-  }
+  static bool IsAltOrOldName(int8_t langCode) { return langCode == kAltNameCode || langCode == kOldNameCode; }
 
   /// @returns kUnsupportedLanguageCode if language is not recognized.
   static int8_t GetLangIndex(std::string_view lang);

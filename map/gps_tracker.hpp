@@ -19,12 +19,11 @@ public:
   bool IsEmpty() const;
   size_t GetTrackSize() const;
   TrackStatistics GetTrackStatistics() const;
-  const ElevationInfo & GetElevationInfo() const;
+  ElevationInfo const & GetElevationInfo() const;
 
   using TGpsTrackDiffCallback =
       std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                         std::pair<size_t, size_t> const & toRemove,
-                         TrackStatistics const & trackStatistics)>;
+                         std::pair<size_t, size_t> const & toRemove, TrackStatistics const & trackStatistics)>;
 
   void Connect(TGpsTrackDiffCallback const & fn);
   void Disconnect();

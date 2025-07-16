@@ -28,4 +28,4 @@ struct Hotkey
 location::GpsInfo MakeGpsInfo(m2::PointD const & point);
 
 void SetDefaultSurfaceFormat(QString const & platformName);
-} // namespace qt::common
+}  // namespace qt::common

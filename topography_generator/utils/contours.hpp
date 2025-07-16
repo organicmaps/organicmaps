@@ -7,8 +7,8 @@
 
 #include "indexer/scales.hpp"
 
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 namespace topography_generator
 {
@@ -27,12 +27,12 @@ struct Contours
   ValueType m_minValue = 0;
   ValueType m_maxValue = 0;
   ValueType m_valueStep = 0;
-  size_t m_invalidValuesCount = 0; // for debug purpose only.
+  size_t m_invalidValuesCount = 0;  // for debug purpose only.
 };
 
 template <typename ValueType>
-void CropContours(m2::RectD & rect, std::vector<m2::RegionD> & regions, size_t maxLength,
-                  size_t valueStepFactor, Contours<ValueType> & contours)
+void CropContours(m2::RectD & rect, std::vector<m2::RegionD> & regions, size_t maxLength, size_t valueStepFactor,
+                  Contours<ValueType> & contours)
 {
   static_assert(std::is_integral<ValueType>::value, "Only integral types are supported.");
 
@@ -90,8 +90,7 @@ void SimplifyContours(int simplificationZoom, Contours<ValueType> & contours)
     for (auto & contour : levelContours.second)
     {
       std::vector<m2::PointD> contourSimple;
-      feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint(),
-                              simplificationZoom, contour, contourSimple);
+      feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint(), simplificationZoom, contour, contourSimple);
       CHECK_GREATER(contourSimple.size(), 1, ());
       // Discard closed lines which are degenerate (<=3 points) or too small for the requested zoom level.
       /// @todo it doesn't fix all cases as the simplification algo

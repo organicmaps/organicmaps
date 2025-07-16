@@ -14,9 +14,8 @@ jobjectArray CreateJunctionInfoArray(JNIEnv * env, std::vector<geometry::PointWi
 
   return jni::ToJavaArray(env, junctionClazz, junctionPoints,
                           [](JNIEnv * env, geometry::PointWithAltitude const & pointWithAltitude)
-                          {
-                            auto & point = pointWithAltitude.GetPoint();
-                            return env->NewObject(junctionClazz, junctionConstructor, mercator::YToLat(point.y),
-                                                  mercator::XToLon(point.x));
-                          });
+  {
+    auto & point = pointWithAltitude.GetPoint();
+    return env->NewObject(junctionClazz, junctionConstructor, mercator::YToLat(point.y), mercator::XToLon(point.x));
+  });
 }

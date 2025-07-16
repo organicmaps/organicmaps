@@ -37,8 +37,8 @@ public:
 
   static NotificationManager CreateNotificationManagerForTesting(
       uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters,
-      uint32_t minDistToSayNotificationMeters, measurement_utils::Units lengthUnits,
-      std::string const & engShortJson, uint32_t notificationTimeSecond, double speedMeterPerSecond);
+      uint32_t minDistToSayNotificationMeters, measurement_utils::Units lengthUnits, std::string const & engShortJson,
+      uint32_t notificationTimeSecond, double speedMeterPerSecond);
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
@@ -75,8 +75,7 @@ public:
   /// \param distanceToTurnMeters is distance to the next turn in meters.
   /// \param turnNotifications is a parameter to fill it if it's necessary.
   /// \note The client implies turnNotifications does not contain empty strings.
-  void GenerateTurnNotifications(std::vector<TurnItemDist> const & turns,
-                                 std::vector<std::string> & turnNotifications);
+  void GenerateTurnNotifications(std::vector<TurnItemDist> const & turns, std::vector<std::string> & turnNotifications);
 
   /// Reset states which reflects current route position.
   /// The method shall be called after creating a new route or after rerouting.

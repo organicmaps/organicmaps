@@ -42,10 +42,8 @@ public:
   uint64_t UncompressedSize() const { return m_uncompressedFileSize; }
 
   /// @warning Can also throw Writer::OpenException and Writer::WriteException
-  static void UnzipFile(std::string const & zipContainer, std::string const & fileInZip,
-                        Delegate & delegate);
-  static void UnzipFile(std::string const & zipContainer, std::string const & fileInZip,
-                        std::string const & outPath);
+  static void UnzipFile(std::string const & zipContainer, std::string const & fileInZip, Delegate & delegate);
+  static void UnzipFile(std::string const & zipContainer, std::string const & fileInZip, std::string const & outPath);
 
   static void FilesList(std::string const & zipContainer, FileList & filesList);
 

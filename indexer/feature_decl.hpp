@@ -39,10 +39,7 @@ struct FeatureID
     return m_index < r.m_index;
   }
 
-  bool operator==(FeatureID const & r) const
-  {
-    return m_mwmId == r.m_mwmId && m_index == r.m_index;
-  }
+  bool operator==(FeatureID const & r) const { return m_mwmId == r.m_mwmId && m_index == r.m_index; }
 
   bool operator!=(FeatureID const & r) const { return !(*this == r); }
 

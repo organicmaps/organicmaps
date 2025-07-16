@@ -25,24 +25,23 @@ public:
     PartOfReal,
   };
 
-  FakeVertex(NumMwmId numMwmId, LatLonWithAltitude const & from,
-             LatLonWithAltitude const & to, Type type)
-    : m_numMwmId(numMwmId), m_from(from), m_to(to), m_type(type)
-  {
-  }
+  FakeVertex(NumMwmId numMwmId, LatLonWithAltitude const & from, LatLonWithAltitude const & to, Type type)
+    : m_numMwmId(numMwmId)
+    , m_from(from)
+    , m_to(to)
+    , m_type(type)
+  {}
 
   FakeVertex() = default;
 
   bool operator==(FakeVertex const & rhs) const
   {
-    return std::tie(m_numMwmId, m_from, m_to, m_type) ==
-           std::tie(rhs.m_numMwmId, rhs.m_from, rhs.m_to, rhs.m_type);
+    return std::tie(m_numMwmId, m_from, m_to, m_type) == std::tie(rhs.m_numMwmId, rhs.m_from, rhs.m_to, rhs.m_type);
   }
 
   bool operator<(FakeVertex const & rhs) const
   {
-    return std::tie(m_type, m_from, m_to, m_numMwmId) <
-           std::tie(rhs.m_type, rhs.m_from, rhs.m_to,rhs.m_numMwmId);
+    return std::tie(m_type, m_from, m_to, m_numMwmId) < std::tie(rhs.m_type, rhs.m_from, rhs.m_to, rhs.m_numMwmId);
   }
 
   LatLonWithAltitude const & GetJunctionFrom() const { return m_from; }
@@ -51,8 +50,8 @@ public:
   ms::LatLon const & GetPointTo() const { return m_to.GetLatLon(); }
   Type GetType() const { return m_type; }
 
-  DECLARE_VISITOR(visitor(m_numMwmId, "m_numMwmId"), visitor(m_from, "m_from"),
-                  visitor(m_to, "m_to"), visitor(m_type, "m_type"))
+  DECLARE_VISITOR(visitor(m_numMwmId, "m_numMwmId"), visitor(m_from, "m_from"), visitor(m_to, "m_to"),
+                  visitor(m_type, "m_type"))
   DECLARE_DEBUG_PRINT(FakeVertex)
 
 private:
@@ -68,8 +67,8 @@ inline std::string DebugPrint(FakeVertex::Type type)
 {
   switch (type)
   {
-  case FakeVertex::Type::PureFake: return "PureFake";
-  case FakeVertex::Type::PartOfReal: return "PartOfReal";
+    case FakeVertex::Type::PureFake: return "PureFake";
+    case FakeVertex::Type::PartOfReal: return "PartOfReal";
   }
   CHECK(false, ("Unreachable"));
   return "UnknownFakeVertexType";

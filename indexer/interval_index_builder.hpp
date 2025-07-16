@@ -37,7 +37,8 @@ class IntervalIndexBuilder
 {
 public:
   IntervalIndexBuilder(uint32_t keyBits, uint32_t leafBytes, uint32_t bitsPerLevel = 8)
-    : m_BitsPerLevel(bitsPerLevel), m_LeafBytes(leafBytes)
+    : m_BitsPerLevel(bitsPerLevel)
+    , m_LeafBytes(leafBytes)
   {
     CHECK_GREATER(leafBytes, 0, ());
     CHECK_LESS(keyBits, 63, ());
@@ -134,10 +135,7 @@ public:
         prev = it->GetCell();
       }
       if (maxCount > 0)
-      {
-        LOG(LINFO, ("Most populous cell:", maxCount, mostPopulousCell.GetCell(),
-                    mostPopulousCell.GetValue()));
-      }
+        LOG(LINFO, ("Most populous cell:", maxCount, mostPopulousCell.GetCell(), mostPopulousCell.GetValue()));
     }
 
     uint32_t const keyBits = 8 * m_LeafBytes + m_Levels * m_BitsPerLevel;
@@ -157,7 +155,7 @@ public:
     std::vector<uint8_t> bitmapSerial, listSerial;
     bitmapSerial.reserve(1024);
     listSerial.reserve(1024);
-    PushBackByteSink<std::vector<uint8_t> > bitmapSink(bitmapSerial), listSink(listSerial);
+    PushBackByteSink<std::vector<uint8_t>> bitmapSink(bitmapSerial), listSink(listSerial);
     WriteBitmapNode(bitmapSink, offset, childSizes);
     WriteListNode(listSink, offset, childSizes);
     if (bitmapSerial.size() <= listSerial.size())
@@ -175,9 +173,8 @@ public:
   }
 
   template <class Writer, typename CellIdValueIter>
-  void BuildLevel(Writer & writer, CellIdValueIter const & beg, CellIdValueIter const & end,
-                  int level, uint32_t const * childSizesBeg, uint32_t const * childSizesEnd,
-                  std::vector<uint32_t> & sizes)
+  void BuildLevel(Writer & writer, CellIdValueIter const & beg, CellIdValueIter const & end, int level,
+                  uint32_t const * childSizesBeg, uint32_t const * childSizesEnd, std::vector<uint32_t> & sizes)
   {
     UNUSED_VALUE(childSizesEnd);
     ASSERT_GREATER(level, 0, ());
@@ -200,7 +197,7 @@ public:
       }
 
       nextChildOffset += *childSizesBeg;
-      expandedSizes[key & m_LastBitsMask] +=  *childSizesBeg;
+      expandedSizes[key & m_LastBitsMask] += *childSizesBeg;
       ++childSizesBeg;
       prevKey = key;
     }
@@ -275,8 +272,7 @@ private:
 };
 
 template <class Writer, typename CellIdValueIter>
-void BuildIntervalIndex(CellIdValueIter const & beg, CellIdValueIter const & end, Writer & writer,
-                        uint32_t keyBits)
+void BuildIntervalIndex(CellIdValueIter const & beg, CellIdValueIter const & end, Writer & writer, uint32_t keyBits)
 {
   IntervalIndexBuilder(keyBits, 1).BuildIndex(writer, beg, end);
 }

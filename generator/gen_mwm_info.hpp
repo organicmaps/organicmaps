@@ -73,8 +73,8 @@ public:
       auto const version = static_cast<Version>(ReadPrimitiveFromSource<VersionType>(src));
       switch (version)
       {
-      case Version::V1: rw::ReadVectorOfPOD(src, m_data); break;
-      default: UNREACHABLE();
+        case Version::V1: rw::ReadVectorOfPOD(src, m_data); break;
+        default: UNREACHABLE();
       }
     }
     else

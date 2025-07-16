@@ -35,7 +35,7 @@ public:
   void BindHotkeys(QWidget & parent);
   void BindSlider(ScaleSlider & slider);
   void CreateEngine();
-  void grabGestures(const QList<Qt::GestureType> &gestures);
+  void grabGestures(QList<Qt::GestureType> const & gestures);
 
 signals:
   void OnContextMenuRequested(QPoint const & p);
@@ -53,7 +53,6 @@ public slots:
   void MoveUpSmooth();
   void MoveDown();
   void MoveDownSmooth();
-
 
   void ScaleChanged(int action);
   void SliderPressed();
@@ -89,7 +88,6 @@ protected:
   void paintGL() override;
   void resizeGL(int width, int height) override;
 
-
   void mouseDoubleClickEvent(QMouseEvent * e) override;
   void mousePressEvent(QMouseEvent * e) override;
   void mouseMoveEvent(QMouseEvent * e) override;
@@ -113,4 +111,4 @@ protected:
   std::unique_ptr<QOpenGLBuffer> m_vbo;
 };
 
-} // namespace qt::common
+}  // namespace qt::common

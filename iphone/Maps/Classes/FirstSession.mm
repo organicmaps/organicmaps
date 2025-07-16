@@ -22,33 +22,34 @@
  SOFTWARE.
  *******************************************************************************/
 
-#if ! __has_feature(objc_arc)
+#if !__has_feature(objc_arc)
 #error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
 
 #import "FirstSession.h"
 
-#include <utility> // std::pair
 #include <sys/xattr.h>
+#include <utility>  // std::pair
 
-#import <CoreFoundation/CoreFoundation.h>
 #import <CoreFoundation/CFURL.h>
+#import <CoreFoundation/CoreFoundation.h>
 #import <Foundation/NSURL.h>
 #if (TARGET_OS_IPHONE > 0)  // Works for all iOS devices, including iPad.
+#import <UIKit/UIApplication.h>
 #import <UIKit/UIDevice.h>
 #import <UIKit/UIScreen.h>
-#import <UIKit/UIApplication.h>
 #import <UIKit/UIWebView.h>
 #endif  // TARGET_OS_IPHONE
 
-#import <sys/socket.h>
-#import <netinet/in.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <netinet/in.h>
+#import <sys/socket.h>
 
-namespace {
+namespace
+{
 // Key for app unique installation id in standardUserDefaults.
 NSString * const kAlohalyticsInstallationId = @"AlohalyticsInstallationId";
-} // namespace
+}  // namespace
 
 // Keys for NSUserDefaults.
 static NSString * const kInstalledVersionKey = @"AlohalyticsInstalledVersion";
@@ -64,38 +65,49 @@ static NSString * gInstallationId = nil;
 
 @implementation FirstSession
 
-+ (void)setup:(NSArray *)serverUrls withLaunchOptions:(NSDictionary *)options {
++ (void)setup:(NSArray *)serverUrls withLaunchOptions:(NSDictionary *)options
+{
 #if (TARGET_OS_IPHONE > 0)
   NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
   Class cls = [FirstSession class];
-  [nc addObserver:cls selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-  [nc addObserver:cls selector:@selector(applicationWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
-#endif // TARGET_OS_IPHONE
+  [nc addObserver:cls
+         selector:@selector(applicationDidEnterBackground:)
+             name:UIApplicationDidEnterBackgroundNotification
+           object:nil];
+  [nc addObserver:cls
+         selector:@selector(applicationWillTerminate:)
+             name:UIApplicationWillTerminateNotification
+           object:nil];
+#endif  // TARGET_OS_IPHONE
   // INIT
   [self installationId];
 }
 #if (TARGET_OS_IPHONE > 0)
-+ (void)applicationDidEnterBackground:(NSNotification *)notification {
-  if (gIsFirstSession) {
++ (void)applicationDidEnterBackground:(NSNotification *)notification
+{
+  if (gIsFirstSession)
     gIsFirstSession = NO;
-  }
 }
 
-+ (void)applicationWillTerminate:(NSNotification *)notification {
++ (void)applicationWillTerminate:(NSNotification *)notification
+{
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-#endif // TARGET_OS_IPHONE
+#endif  // TARGET_OS_IPHONE
 
 #pragma mark Utility methods
 
-+ (BOOL)isFirstSession {
++ (BOOL)isFirstSession
+{
   return [self installationId] != nil && gIsFirstSession;
 }
 
-+ (NSDate *)firstLaunchDate {
++ (NSDate *)firstLaunchDate
+{
   NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
   NSDate * date = [ud objectForKey:kFirstLaunchDateKey];
-  if (!date) {
+  if (!date)
+  {
     // Non-standard situation: this method is called before calling setup. Return current date.
     date = [NSDate date];
     [ud setObject:date forKey:kFirstLaunchDateKey];
@@ -103,42 +115,51 @@ static NSString * gInstallationId = nil;
   return date;
 }
 
-+ (NSInteger)totalSecondsSpentInTheApp {
++ (NSInteger)totalSecondsSpentInTheApp
+{
   NSInteger seconds = [[NSUserDefaults standardUserDefaults] integerForKey:kTotalSecondsInTheApp];
   // Take into an account currently active session.
-  if (gSessionStartTime) {
+  if (gSessionStartTime)
     seconds += static_cast<NSInteger>(-gSessionStartTime.timeIntervalSinceNow);
-  }
   return seconds;
 }
 
 // Internal helper, returns nil for invalid paths.
-+ (NSDate *)fileCreationDate:(NSString *)fullPath {
++ (NSDate *)fileCreationDate:(NSString *)fullPath
+{
   NSDictionary * attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:nil];
   return attributes ? [attributes objectForKey:NSFileCreationDate] : nil;
 }
 
-+ (NSDate *)installDate {
-  return [FirstSession fileCreationDate:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]];
++ (NSDate *)installDate
+{
+  return [FirstSession
+      fileCreationDate:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]];
 }
 
-+ (NSDate *)updateDate {
++ (NSDate *)updateDate
+{
   return [FirstSession fileCreationDate:[[NSBundle mainBundle] resourcePath]];
 }
 
-+ (NSDate *)buildDate {
++ (NSDate *)buildDate
+{
   return [FirstSession fileCreationDate:[[NSBundle mainBundle] executablePath]];
 }
 
-+ (NSString *)installationId {
-  if (gInstallationId == nil) {
++ (NSString *)installationId
+{
+  if (gInstallationId == nil)
+  {
     gIsFirstSession = NO;
     NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
     gInstallationId = [ud stringForKey:kAlohalyticsInstallationId];
-    if (gInstallationId == nil) {
+    if (gInstallationId == nil)
+    {
       CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
       // All iOS IDs start with I:
-      gInstallationId = [@"I:" stringByAppendingString:(NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuid))];
+      gInstallationId =
+          [@"I:" stringByAppendingString:(NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, uuid))];
       CFRelease(uuid);
       [ud setValue:gInstallationId forKey:kAlohalyticsInstallationId];
       gIsFirstSession = YES;

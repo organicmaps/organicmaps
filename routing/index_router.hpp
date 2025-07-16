@@ -31,7 +31,10 @@
 #include <string>
 #include <vector>
 
-namespace traffic { class TrafficCache; }
+namespace traffic
+{
+class TrafficCache;
+}
 
 namespace routing
 {
@@ -65,8 +68,7 @@ public:
     m2::PointD const m_direction;
   };
 
-  IndexRouter(VehicleType vehicleType, bool loadAltitudes,
-              CountryParentNameGetterFn const & countryParentNameGetterFn,
+  IndexRouter(VehicleType vehicleType, bool loadAltitudes, CountryParentNameGetterFn const & countryParentNameGetterFn,
               TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
               std::shared_ptr<NumMwmIds> numMwmIds, std::unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
               traffic::TrafficCache const & trafficCache, DataSource & dataSource);
@@ -78,43 +80,36 @@ public:
   void ClearState() override;
 
   void SetGuides(GuidesTracks && guides) override;
-  RouterResultCode CalculateRoute(Checkpoints const & checkpoints,
-                                  m2::PointD const & startDirection, bool adjustToPrevRoute,
-                                  RouterDelegate const & delegate, Route & route) override;
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                                  bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route) override;
 
-  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction,
-                                   double radius, EdgeProj & proj) override;
+  bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
+                                   EdgeProj & proj) override;
 
   bool GetBestOutgoingEdges(m2::PointD const & checkpoint, WorldGraph & graph, std::vector<Edge> & edges);
 
   VehicleType GetVehicleType() const { return m_vehicleType; }
 
 private:
-  RouterResultCode CalculateSubrouteJointsMode(IndexGraphStarter & starter,
-                                               RouterDelegate const & delegate,
+  RouterResultCode CalculateSubrouteJointsMode(IndexGraphStarter & starter, RouterDelegate const & delegate,
                                                std::shared_ptr<AStarProgress> const & progress,
                                                std::vector<Segment> & subroute);
-  RouterResultCode CalculateSubrouteNoLeapsMode(IndexGraphStarter & starter,
-                                                RouterDelegate const & delegate,
+  RouterResultCode CalculateSubrouteNoLeapsMode(IndexGraphStarter & starter, RouterDelegate const & delegate,
                                                 std::shared_ptr<AStarProgress> const & progress,
                                                 std::vector<Segment> & subroute);
-  RouterResultCode CalculateSubrouteLeapsOnlyMode(Checkpoints const & checkpoints,
-                                                  size_t subrouteIdx, IndexGraphStarter & starter,
-                                                  RouterDelegate const & delegate,
+  RouterResultCode CalculateSubrouteLeapsOnlyMode(Checkpoints const & checkpoints, size_t subrouteIdx,
+                                                  IndexGraphStarter & starter, RouterDelegate const & delegate,
                                                   std::shared_ptr<AStarProgress> const & progress,
                                                   std::vector<Segment> & subroute);
 
-  RouterResultCode DoCalculateRoute(Checkpoints const & checkpoints,
-                                    m2::PointD const & startDirection,
+  RouterResultCode DoCalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                                     RouterDelegate const & delegate, Route & route);
   RouterResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
-                                     RouterDelegate const & delegate,
-                                     std::shared_ptr<AStarProgress> const & progress,
+                                     RouterDelegate const & delegate, std::shared_ptr<AStarProgress> const & progress,
                                      IndexGraphStarter & graph, std::vector<Segment> & subroute,
                                      bool guidesActive = false);
 
-  RouterResultCode AdjustRoute(Checkpoints const & checkpoints,
-                               m2::PointD const & startDirection,
+  RouterResultCode AdjustRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                                RouterDelegate const & delegate, Route & route);
 
   std::unique_ptr<WorldGraph> MakeWorldGraph();
@@ -186,8 +181,8 @@ private:
                           std::vector<Segment> & bestSegments, bool & bestSegmentIsAlmostCodirectional);
 
     bool FindBestEdges(m2::PointD const & checkpoint, m2::PointD const & direction, bool isOutgoing,
-                       double closestEdgesRadiusM,
-                       std::vector<Edge> & bestEdges, bool & bestSegmentIsAlmostCodirectional);
+                       double closestEdgesRadiusM, std::vector<Edge> & bestEdges,
+                       bool & bestSegmentIsAlmostCodirectional);
   };
 
   using RoutingResultT = RoutingResult<Segment, RouteWeight>;
@@ -199,34 +194,32 @@ private:
 
   public:
     RoutesCalculator(IndexGraphStarter & starter, RouterDelegate const & delegate)
-      : m_starter(starter), m_delegate(delegate) {}
+      : m_starter(starter)
+      , m_delegate(delegate)
+    {}
 
     using ProgressPtrT = std::shared_ptr<AStarProgress>;
-    RoutingResultT const * Calc(Segment const & beg, Segment const & end,
-                                ProgressPtrT const & progress, double progressCoef);
+    RoutingResultT const * Calc(Segment const & beg, Segment const & end, ProgressPtrT const & progress,
+                                double progressCoef);
     // Makes JointSingleMwm first and Joints then, if first attempt was failed.
-    RoutingResultT const * Calc2Times(Segment const & beg, Segment const & end,
-                                      ProgressPtrT const & progress, double progressCoef);
+    RoutingResultT const * Calc2Times(Segment const & beg, Segment const & end, ProgressPtrT const & progress,
+                                      double progressCoef);
   };
 
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
-  RouterResultCode ProcessLeapsJoints(std::vector<Segment> const & input,
-                                      IndexGraphStarter & starter,
-                                      std::shared_ptr<AStarProgress> const & progress,
-                                      RoutesCalculator & calculator,
+  RouterResultCode ProcessLeapsJoints(std::vector<Segment> const & input, IndexGraphStarter & starter,
+                                      std::shared_ptr<AStarProgress> const & progress, RoutesCalculator & calculator,
                                       RoutingResultT & result);
 
-  RouterResultCode RedressRoute(std::vector<Segment> const & segments,
-                                base::Cancellable const & cancellable, IndexGraphStarter & starter,
-                                Route & route);
+  RouterResultCode RedressRoute(std::vector<Segment> const & segments, base::Cancellable const & cancellable,
+                                IndexGraphStarter & starter, Route & route);
 
   bool AreSpeedCamerasProhibited(NumMwmId mwmID) const;
   bool AreMwmsNear(IndexGraphStarter const & starter) const;
   bool DoesTransitSectionExist(NumMwmId numMwmId);
 
-  RouterResultCode ConvertTransitResult(std::set<NumMwmId> const & mwmIds,
-                                        RouterResultCode resultCode);
+  RouterResultCode ConvertTransitResult(std::set<NumMwmId> const & mwmIds, RouterResultCode resultCode);
 
   /// \brief Fills |speedcamProhibitedMwms| with mwms which are crossed by |segments|
   /// where speed cameras are prohibited.
@@ -238,9 +231,9 @@ private:
   {
     switch (result)
     {
-    case AStarAlgorithm<Vertex, Edge, Weight>::Result::NoPath: return RouterResultCode::RouteNotFound;
-    case AStarAlgorithm<Vertex, Edge, Weight>::Result::Cancelled: return RouterResultCode::Cancelled;
-    case AStarAlgorithm<Vertex, Edge, Weight>::Result::OK: return RouterResultCode::NoError;
+      case AStarAlgorithm<Vertex, Edge, Weight>::Result::NoPath: return RouterResultCode::RouteNotFound;
+      case AStarAlgorithm<Vertex, Edge, Weight>::Result::Cancelled: return RouterResultCode::Cancelled;
+      case AStarAlgorithm<Vertex, Edge, Weight>::Result::OK: return RouterResultCode::NoError;
     }
     UNREACHABLE();
   }
@@ -255,17 +248,15 @@ private:
   }
 
   void SetupAlgorithmMode(IndexGraphStarter & starter, bool guidesActive = false) const;
-  uint32_t ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints,
-                                      WorldGraph & graph);
+  uint32_t ConnectTracksOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints, WorldGraph & graph);
 
-  void ConnectCheckpointsOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints,
-                                       WorldGraph & graph);
+  void ConnectCheckpointsOnGuidesToOsm(std::vector<m2::PointD> const & checkpoints, WorldGraph & graph);
 
   void AddGuidesOsmConnectionsToGraphStarter(size_t checkpointIdxFrom, size_t checkpointIdxTo,
                                              IndexGraphStarter & starter);
 
-  void AppendPartsOfReal(LatLonWithAltitude const & point1, LatLonWithAltitude const & point2,
-                         uint32_t & startIdx, ConnectionToOsm & link);
+  void AppendPartsOfReal(LatLonWithAltitude const & point1, LatLonWithAltitude const & point2, uint32_t & startIdx,
+                         ConnectionToOsm & link);
 
   std::vector<Segment> GetBestOutgoingSegments(m2::PointD const & checkpoint, WorldGraph & graph);
 

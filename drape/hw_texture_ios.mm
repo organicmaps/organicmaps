@@ -14,25 +14,24 @@
 #include <boost/gil/algorithm.hpp>
 #include <boost/gil/typedefs.hpp>
 
-using boost::gil::gray8c_pixel_t;
-using boost::gil::gray8_pixel_t;
-using boost::gil::gray8c_view_t;
-using boost::gil::gray8_view_t;
-using boost::gil::rgba8c_pixel_t;
-using boost::gil::rgba8_pixel_t;
-using boost::gil::rgba8c_view_t;
-using boost::gil::rgba8_view_t;
-using boost::gil::interleaved_view;
-using boost::gil::subimage_view;
 using boost::gil::copy_pixels;
+using boost::gil::gray8_pixel_t;
+using boost::gil::gray8_view_t;
+using boost::gil::gray8c_pixel_t;
+using boost::gil::gray8c_view_t;
+using boost::gil::interleaved_view;
+using boost::gil::rgba8_pixel_t;
+using boost::gil::rgba8_view_t;
+using boost::gil::rgba8c_pixel_t;
+using boost::gil::rgba8c_view_t;
+using boost::gil::subimage_view;
 
 namespace dp
 {
 HWTextureAllocatorApple::HWTextureAllocatorApple()
 {
-  CVReturn cvRetval = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, nullptr,
-                                                   [EAGLContext currentContext],
-                                                   nullptr, &m_textureCache);
+  CVReturn cvRetval = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, nullptr, [EAGLContext currentContext], nullptr,
+                                                   &m_textureCache);
 
   CHECK_EQUAL(cvRetval, kCVReturnSuccess, ());
 }
@@ -42,14 +41,12 @@ HWTextureAllocatorApple::~HWTextureAllocatorApple()
   CFRelease(m_textureCache);
 }
 
-CVPixelBufferRef HWTextureAllocatorApple::CVCreatePixelBuffer(uint32_t width, uint32_t height,
-                                                              dp::TextureFormat format)
+CVPixelBufferRef HWTextureAllocatorApple::CVCreatePixelBuffer(uint32_t width, uint32_t height, dp::TextureFormat format)
 {
-  NSDictionary * attrs = [NSDictionary dictionaryWithObjectsAndKeys:
-                            [NSDictionary dictionary], kCVPixelBufferIOSurfacePropertiesKey,
-                            [NSNumber numberWithInt:16], kCVPixelBufferBytesPerRowAlignmentKey,
-                            [NSNumber numberWithBool:YES], kCVPixelBufferOpenGLESCompatibilityKey,
-                            nil];
+  NSDictionary * attrs = [NSDictionary
+      dictionaryWithObjectsAndKeys:[NSDictionary dictionary], kCVPixelBufferIOSurfacePropertiesKey,
+                                   [NSNumber numberWithInt:16], kCVPixelBufferBytesPerRowAlignmentKey,
+                                   [NSNumber numberWithBool:YES], kCVPixelBufferOpenGLESCompatibilityKey, nil];
 
   CFDictionaryRef attrsRef = (__bridge CFDictionaryRef)attrs;
 
@@ -57,17 +54,14 @@ CVPixelBufferRef HWTextureAllocatorApple::CVCreatePixelBuffer(uint32_t width, ui
   CVReturn cvRetval = 0;
   switch (format)
   {
-  case dp::TextureFormat::RGBA8:
-    cvRetval = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32BGRA,
-                                   attrsRef, &result);
-    break;
-  case dp::TextureFormat::Alpha:
-    cvRetval = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_OneComponent8,
-                                   attrsRef, &result);
-    break;
-  default:
-    ASSERT(false, ());
-    break;
+    case dp::TextureFormat::RGBA8:
+      cvRetval = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32BGRA, attrsRef, &result);
+      break;
+    case dp::TextureFormat::Alpha:
+      cvRetval =
+          CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_OneComponent8, attrsRef, &result);
+      break;
+    default: ASSERT(false, ()); break;
   }
 
   CHECK_EQUAL(cvRetval, kCVReturnSuccess, ());
@@ -84,9 +78,9 @@ CVOpenGLESTextureRef HWTextureAllocatorApple::CVCreateTexture(CVPixelBufferRef b
                                                               glConst layout, glConst pixelType)
 {
   CVOpenGLESTextureRef texture;
-  CVReturn cvRetval = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, m_textureCache, buffer,
-                                                                   nullptr, gl_const::GLTexture2D, layout,
-                                                                   width, height, layout, pixelType, 0, &texture);
+  CVReturn cvRetval = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, m_textureCache, buffer, nullptr,
+                                                                   gl_const::GLTexture2D, layout, width, height, layout,
+                                                                   pixelType, 0, &texture);
 
   CHECK_EQUAL(cvRetval, kCVReturnSuccess, ());
 
@@ -123,8 +117,7 @@ HWTextureApple::HWTextureApple(ref_ptr<HWTextureAllocatorApple> allocator)
   , m_texture(nullptr)
   , m_allocator(nullptr)
   , m_directPointer(nullptr)
-{
-}
+{}
 
 HWTextureApple::~HWTextureApple()
 {
@@ -144,8 +137,7 @@ void HWTextureApple::Create(ref_ptr<dp::GraphicsContext> context, Params const &
 
   glConst layout, pixelType;
   UnpackFormat(context, params.m_format, layout, pixelType);
-  m_texture = m_allocator->CVCreateTexture(m_directBuffer, params.m_width, params.m_height,
-                                         layout, pixelType);
+  m_texture = m_allocator->CVCreateTexture(m_directBuffer, params.m_width, params.m_height, layout, pixelType);
 
   m_textureID = CVOpenGLESTextureGetName(m_texture);
   GLFunctions::glBindTexture(m_textureID);
@@ -163,26 +155,23 @@ void HWTextureApple::Create(ref_ptr<dp::GraphicsContext> context, Params const &
   Unlock();
 }
 
-void HWTextureApple::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
-                                uint32_t width, uint32_t height, ref_ptr<void> data)
+void HWTextureApple::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width,
+                                uint32_t height, ref_ptr<void> data)
 {
   uint8_t bytesPerPixel = GetBytesPerPixel(GetFormat());
   Lock();
   if (bytesPerPixel == 1)
   {
     gray8c_view_t srcView = interleaved_view(width, height, (gray8c_pixel_t *)data.get(), width);
-    gray8_view_t dstView = interleaved_view(m_params.m_width, m_params.m_height,
-                                            (gray8_pixel_t *)m_directPointer, m_params.m_width);
+    gray8_view_t dstView =
+        interleaved_view(m_params.m_width, m_params.m_height, (gray8_pixel_t *)m_directPointer, m_params.m_width);
     gray8_view_t subDstView = subimage_view(dstView, x, y, width, height);
     copy_pixels(srcView, subDstView);
   }
   else if (bytesPerPixel == 4)
   {
-    rgba8c_view_t srcView = interleaved_view(width, height,
-                                             (rgba8c_pixel_t *)data.get(),
-                                             width * bytesPerPixel);
-    rgba8_view_t dstView = interleaved_view(m_params.m_width, m_params.m_height,
-                                            (rgba8_pixel_t *)m_directPointer,
+    rgba8c_view_t srcView = interleaved_view(width, height, (rgba8c_pixel_t *)data.get(), width * bytesPerPixel);
+    rgba8_view_t dstView = interleaved_view(m_params.m_width, m_params.m_height, (rgba8_pixel_t *)m_directPointer,
                                             m_params.m_width * bytesPerPixel);
     rgba8_view_t subDstView = subimage_view(dstView, x, y, width, height);
     copy_pixels(srcView, subDstView);
@@ -197,7 +186,7 @@ void HWTextureApple::Bind(ref_ptr<dp::GraphicsContext> context) const
   if (m_textureID != 0)
     GLFunctions::glBindTexture(GetID());
 }
-  
+
 void HWTextureApple::SetFilter(TextureFilter filter)
 {
   ASSERT(Validate(), ());
@@ -209,20 +198,19 @@ void HWTextureApple::SetFilter(TextureFilter filter)
     GLFunctions::glTexParameter(gl_const::GLMagFilter, f);
   }
 }
-  
+
 bool HWTextureApple::Validate() const
 {
   return GetID() != 0;
 }
-  
+
 void HWTextureApple::Lock()
 {
   ASSERT(m_directPointer == nullptr, ());
 
   CHECK_EQUAL(CVPixelBufferLockBaseAddress(m_directBuffer, 0), kCVReturnSuccess, ());
 
-  ASSERT_EQUAL(CVPixelBufferGetBytesPerRow(m_directBuffer),
-               m_params.m_width * GetBytesPerPixel(m_params.m_format), ());
+  ASSERT_EQUAL(CVPixelBufferGetBytesPerRow(m_directBuffer), m_params.m_width * GetBytesPerPixel(m_params.m_format), ());
   m_directPointer = CVPixelBufferGetBaseAddress(m_directBuffer);
 }
 

@@ -14,4 +14,4 @@ inline double VisualScale(double exactDensityDPI)
   // Returns one in that case to keep readable text on the map.
   return std::max(1.35, exactDensityDPI / 160.0);
 }
-} //  namespace dp
+}  //  namespace dp

@@ -34,7 +34,10 @@ public:
   MinZoomQuadtree(Less const & less) : m_less{less} {}
 
   template <typename V>
-  void Add(m2::PointD const & point, V && value) { m_quadtree.emplace_back(point, std::forward<V>(value)); }
+  void Add(m2::PointD const & point, V && value)
+  {
+    m_quadtree.emplace_back(point, std::forward<V>(value));
+  }
 
   void Clear() { m_quadtree.clear(); }
 
@@ -57,8 +60,7 @@ public:
 
     // `spacing` is an characteristic interval between values on the map as if they spaced
     // uniformly across the map providing required density (i.e. "count per tile area").
-    double spacing = std::min(mercator::Bounds::kRangeX / bbox.SizeX(),
-                              mercator::Bounds::kRangeY / bbox.SizeY());
+    double spacing = std::min(mercator::Bounds::kRangeX / bbox.SizeX(), mercator::Bounds::kRangeY / bbox.SizeY());
     spacing /= std::sqrt(countPerTile);
 
     // `spacing` value decomposed into a normalized fraction and an integral power of two.
@@ -72,10 +74,8 @@ public:
 
     auto const setMaxZoom = [&](auto const treeBeg, auto const treeEnd)
     {
-      auto const topRanked = std::max_element(treeBeg, treeEnd, [&](auto const & lhs, auto const & rhs)
-      {
-        return m_less(lhs.m_value, rhs.m_value);
-      });
+      auto const topRanked = std::max_element(
+          treeBeg, treeEnd, [&](auto const & lhs, auto const & rhs) { return m_less(lhs.m_value, rhs.m_value); });
       auto const setMaxZoom = [&](auto & elem) { setMinZoom(elem.m_value, maxZoom); };
       std::for_each(treeBeg, topRanked, setMaxZoom);
       std::for_each(std::next(topRanked), treeEnd, setMaxZoom);
@@ -106,8 +106,7 @@ public:
 
     int constexpr depthMax = std::numeric_limits<uint32_t>::digits;
     uint64_t constexpr firstLevelMask = uint64_t{0b11} << ((depthMax - 1) * 2);
-    auto const traverse = [&](auto const & traverse, auto const treeBeg, auto const treeEnd,
-                              int depth) -> Element *
+    auto const traverse = [&](auto const & traverse, auto const treeBeg, auto const treeEnd, int depth) -> Element *
     {
       if (treeBeg == treeEnd)
         return nullptr;
@@ -123,9 +122,7 @@ public:
       uint64_t const quadIncrement = treeLevelMask & (treeLevelMask >> 1);
       uint64_t quadIndex = 0;
       auto const quadMaskEqual = [&](auto const & elem) -> bool
-      {
-        return (elem.m_zCurveCoord & treeLevelMask) == quadIndex;
-      };
+      { return (elem.m_zCurveCoord & treeLevelMask) == quadIndex; };
       auto quadBeg = treeBeg;
       for (int quadrant = 0; quadrant < 4; ++quadrant)
       {
@@ -157,9 +154,8 @@ private:
   struct Element
   {
     template <typename V>
-    Element(m2::PointD const & point, V && value)
-      : m_point{point}
-      , m_value{std::forward<V>(value)}
+    Element(m2::PointD const & point, V && value) : m_point{point}
+                                                  , m_value{std::forward<V>(value)}
     {}
 
     bool operator<(Element const & rhs) const { return m_zCurveCoord < rhs.m_zCurveCoord; }

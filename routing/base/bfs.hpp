@@ -27,10 +27,9 @@ public:
     Vertex m_parent;
   };
 
-  explicit BFS(Graph & graph): m_graph(graph) {}
+  explicit BFS(Graph & graph) : m_graph(graph) {}
 
-  void Run(Vertex const & start, bool isOutgoing,
-           std::function<bool(State const &)> && onVisitCallback);
+  void Run(Vertex const & start, bool isOutgoing, std::function<bool(State const &)> && onVisitCallback);
 
   std::vector<Vertex> ReconstructPath(Vertex from, bool reverse);
 
@@ -40,15 +39,12 @@ private:
 };
 
 template <typename Graph>
-void BFS<Graph>::Run(Vertex const & start, bool isOutgoing,
-                     std::function<bool(State const &)> && onVisitCallback)
+void BFS<Graph>::Run(Vertex const & start, bool isOutgoing, std::function<bool(State const &)> && onVisitCallback)
 {
   m_parents.clear();
 
   m_parents.emplace(start, start);
-  SCOPE_GUARD(removeStart, [&]() {
-    m_parents.erase(start);
-  });
+  SCOPE_GUARD(removeStart, [&]() { m_parents.erase(start); });
 
   std::queue<Vertex> queue;
   queue.emplace(start);

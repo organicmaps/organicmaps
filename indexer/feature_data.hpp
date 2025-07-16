@@ -18,135 +18,135 @@ class FeatureType;
 
 namespace feature
 {
-  enum HeaderMask
+enum HeaderMask
+{
+  HEADER_MASK_TYPE = 7U,
+  HEADER_MASK_HAS_NAME = 1U << 3,
+  HEADER_MASK_HAS_LAYER = 1U << 4,
+  HEADER_MASK_GEOMTYPE = 3U << 5,
+  HEADER_MASK_HAS_ADDINFO = 1U << 7
+};
+
+enum class HeaderGeomType : uint8_t
+{
+  /// Coding geometry feature type in 2 bits.
+  Point = 0,         /// point feature (addinfo = rank)
+  Line = 1U << 5,    /// linear feature (addinfo = ref)
+  Area = 1U << 6,    /// area feature (addinfo = house)
+  PointEx = 3U << 5  /// point feature (addinfo = house)
+};
+
+static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1;  // 8, because there should be no features with 0 types
+
+enum Layer : int8_t
+{
+  LAYER_LOW = -10,
+  LAYER_EMPTY = 0,
+  LAYER_HIGH = 10
+};
+
+class TypesHolder
+{
+public:
+  using Types = std::array<uint32_t, kMaxTypesCount>;
+
+  TypesHolder() = default;
+  explicit TypesHolder(GeomType geomType) : m_geomType(geomType) {}
+  explicit TypesHolder(FeatureType & f);
+
+  void Assign(uint32_t type)
   {
-    HEADER_MASK_TYPE = 7U,
-    HEADER_MASK_HAS_NAME = 1U << 3,
-    HEADER_MASK_HAS_LAYER = 1U << 4,
-    HEADER_MASK_GEOMTYPE = 3U << 5,
-    HEADER_MASK_HAS_ADDINFO = 1U << 7
-  };
+    m_types[0] = type;
+    m_size = 1;
+  }
 
-  enum class HeaderGeomType : uint8_t
+  template <class IterT>
+  void Assign(IterT beg, IterT end)
   {
-    /// Coding geometry feature type in 2 bits.
-    Point = 0,         /// point feature (addinfo = rank)
-    Line = 1U << 5,    /// linear feature (addinfo = ref)
-    Area = 1U << 6,    /// area feature (addinfo = house)
-    PointEx = 3U << 5  /// point feature (addinfo = house)
-  };
+    m_size = std::distance(beg, end);
+    CHECK_LESS_OR_EQUAL(m_size, kMaxTypesCount, ());
+    std::copy(beg, end, m_types.begin());
+  }
 
-  static constexpr int kMaxTypesCount = HEADER_MASK_TYPE + 1; // 8, because there should be no features with 0 types
-
-  enum Layer : int8_t
+  void Add(uint32_t type)
   {
-    LAYER_LOW = -10,
-    LAYER_EMPTY = 0,
-    LAYER_HIGH = 10
-  };
+    CHECK_LESS(m_size, kMaxTypesCount, ());
+    m_types[m_size++] = type;
+  }
 
-  class TypesHolder
+  void SafeAdd(uint32_t type)
   {
-  public:
-    using Types = std::array<uint32_t, kMaxTypesCount>;
-
-    TypesHolder() = default;
-    explicit TypesHolder(GeomType geomType) : m_geomType(geomType) {}
-    explicit TypesHolder(FeatureType & f);
-
-    void Assign(uint32_t type)
+    if (!Has(type))
     {
-      m_types[0] = type;
-      m_size = 1;
+      if (m_size < kMaxTypesCount)
+        Add(type);
+      else
+        LOG(LWARNING, ("Type could not be added, MaxTypesCount exceeded"));
     }
+  }
 
-    template <class IterT> void Assign(IterT beg, IterT end)
-    {
-      m_size = std::distance(beg, end);
-      CHECK_LESS_OR_EQUAL(m_size, kMaxTypesCount, ());
-      std::copy(beg, end, m_types.begin());
-    }
+  GeomType GetGeomType() const { return m_geomType; }
 
-    void Add(uint32_t type)
-    {
-      CHECK_LESS(m_size, kMaxTypesCount, ());
-      m_types[m_size++] = type;
-    }
+  size_t Size() const { return m_size; }
+  bool Empty() const { return (m_size == 0); }
 
-    void SafeAdd(uint32_t type)
-    {
-      if (!Has(type))
-      {
-        if (m_size < kMaxTypesCount)
-          Add(type);
-        else
-          LOG(LWARNING, ("Type could not be added, MaxTypesCount exceeded"));
-      }
-    }
+  uint32_t front() const
+  {
+    ASSERT(m_size > 0, ());
+    return m_types[0];
+  }
+  auto begin() const { return m_types.cbegin(); }
+  auto end() const { return m_types.cbegin() + m_size; }
+  auto begin() { return m_types.begin(); }
+  auto end() { return m_types.begin() + m_size; }
 
-    GeomType GetGeomType() const { return m_geomType; }
+  /// Assume that m_types is already sorted by SortBySpec function.
+  uint32_t GetBestType() const
+  {
+    // 0 - is an empty type.
+    return (m_size > 0 ? m_types[0] : 0);
+  }
 
-    size_t Size() const { return m_size; }
-    bool Empty() const { return (m_size == 0); }
+  bool Has(uint32_t type) const { return base::IsExist(*this, type); }
 
-    uint32_t front() const
-    {
-      ASSERT(m_size > 0, ());
-      return m_types[0];
-    }
-    auto begin() const { return m_types.cbegin(); }
-    auto end() const { return m_types.cbegin() + m_size; }
-    auto begin() { return m_types.begin(); }
-    auto end() { return m_types.begin() + m_size; }
+  // More _natural_ way of checking than Has, including subclass types hierarchy.
+  // "railway-station-subway" holder returns true for "railway-station" input.
+  bool HasWithSubclass(uint32_t type) const;
 
-    /// Assume that m_types is already sorted by SortBySpec function.
-    uint32_t GetBestType() const
-    {
-      // 0 - is an empty type.
-      return (m_size > 0 ? m_types[0] : 0);
-    }
+  template <typename Fn>
+  bool RemoveIf(Fn && fn)
+  {
+    size_t const oldSize = m_size;
 
-    bool Has(uint32_t type) const { return base::IsExist(*this, type); }
+    auto const e = std::remove_if(begin(), end(), std::forward<Fn>(fn));
+    m_size = std::distance(begin(), e);
 
-    // More _natural_ way of checking than Has, including subclass types hierarchy.
-    // "railway-station-subway" holder returns true for "railway-station" input.
-    bool HasWithSubclass(uint32_t type) const;
+    return (m_size != oldSize);
+  }
 
-    template <typename Fn>
-    bool RemoveIf(Fn && fn)
-    {
-      size_t const oldSize = m_size;
+  void Remove(uint32_t type);
 
-      auto const e = std::remove_if(begin(), end(), std::forward<Fn>(fn));
-      m_size = std::distance(begin(), e);
+  /// Used in tests only to check UselessTypesChecker
+  /// (which is used in the generator to discard least important types if max types count is exceeded).
+  void SortByUseless();
 
-      return (m_size != oldSize);
-    }
+  /// Sort types by it's specification (more detailed type goes first). Should be used in client app.
+  void SortBySpec();
 
-    void Remove(uint32_t type);
+  bool Equals(TypesHolder const & other) const;
 
-    /// Used in tests only to check UselessTypesChecker
-    /// (which is used in the generator to discard least important types if max types count is exceeded).
-    void SortByUseless();
+  std::vector<std::string> ToObjectNames() const;
 
-    /// Sort types by it's specification (more detailed type goes first). Should be used in client app.
-    void SortBySpec();
+private:
+  Types m_types = {};
+  size_t m_size = 0;
 
-    bool Equals(TypesHolder const & other) const;
+  GeomType m_geomType = GeomType::Undefined;
+};
 
-    std::vector<std::string> ToObjectNames() const;
+std::string DebugPrint(TypesHolder const & holder);
 
-  private:
-    Types m_types = {};
-    size_t m_size = 0;
-
-    GeomType m_geomType = GeomType::Undefined;
-  };
-
-  std::string DebugPrint(TypesHolder const & holder);
-
-  uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType,
-                          FeatureParamsBase const & params);
+uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType, FeatureParamsBase const & params);
 }  // namespace feature
 
 struct FeatureParamsBase
@@ -162,7 +162,7 @@ struct FeatureParamsBase
   void MakeZero();
   bool SetDefaultNameIfEmpty(std::string const & s);
 
-  bool operator == (FeatureParamsBase const & rhs) const;
+  bool operator==(FeatureParamsBase const & rhs) const;
 
   bool IsValid() const;
   std::string DebugString() const;
@@ -186,16 +186,10 @@ struct FeatureParamsBase
       auto const headerGeomType = static_cast<HeaderGeomType>(header & HEADER_MASK_GEOMTYPE);
       switch (headerGeomType)
       {
-      case HeaderGeomType::Point:
-        WriteToSink(sink, rank);
-        break;
-      case HeaderGeomType::Line:
-        utils::WriteString(sink, ref);
-        break;
-      case HeaderGeomType::Area:
-      case HeaderGeomType::PointEx:
-        house.Write(sink);
-        break;
+        case HeaderGeomType::Point: WriteToSink(sink, rank); break;
+        case HeaderGeomType::Line: utils::WriteString(sink, ref); break;
+        case HeaderGeomType::Area:
+        case HeaderGeomType::PointEx: house.Write(sink); break;
       }
     }
   }
@@ -216,16 +210,10 @@ struct FeatureParamsBase
       auto const headerGeomType = static_cast<HeaderGeomType>(header & HEADER_MASK_GEOMTYPE);
       switch (headerGeomType)
       {
-      case HeaderGeomType::Point:
-        rank = ReadPrimitiveFromSource<uint8_t>(src);
-        break;
-      case HeaderGeomType::Line:
-        utils::ReadString(src, ref);
-        break;
-      case HeaderGeomType::Area:
-      case HeaderGeomType::PointEx:
-        house.Read(src);
-        break;
+        case HeaderGeomType::Point: rank = ReadPrimitiveFromSource<uint8_t>(src); break;
+        case HeaderGeomType::Line: utils::ReadString(src, ref); break;
+        case HeaderGeomType::Area:
+        case HeaderGeomType::PointEx: house.Read(src); break;
       }
     }
   }
@@ -256,7 +244,12 @@ public:
   /// the special subway type for the correspondent city.
   void SetRwSubwayType(char const * cityName);
 
-  enum TypesResult { TYPES_GOOD, TYPES_EMPTY, TYPES_EXCEED_MAX };
+  enum TypesResult
+  {
+    TYPES_GOOD,
+    TYPES_EMPTY,
+    TYPES_EXCEED_MAX
+  };
   TypesResult FinishAddingTypesEx();
   bool FinishAddingTypes() { return FinishAddingTypesEx() != TYPES_EMPTY; }
 
@@ -348,7 +341,8 @@ public:
   void SetStreet(std::string s);
   std::string_view GetStreet() const;
 
-  template <class TSink> void SerializeAddress(TSink & sink) const
+  template <class TSink>
+  void SerializeAddress(TSink & sink) const
   {
     m_addrTags.SerializeForMwmTmp(sink);
   }

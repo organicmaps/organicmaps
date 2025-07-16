@@ -4,7 +4,6 @@
 
 #include <base/macros.hpp>
 
-
 class UserMarkLayer
 {
 public:

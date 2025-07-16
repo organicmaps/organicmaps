@@ -45,16 +45,16 @@ enum class RouterResultCode
 
 enum class SessionState
 {
-  NoValidRoute,       // No valid route: no route after application launching or the route was removed.
-  RouteBuilding,      // We requested a route and wait when it will be built. User may be following
-                      // the previous route.
-  RouteNotStarted,    // Route is built but the user isn't on it.
-  OnRoute,            // User follows the route.
-  RouteNeedRebuild,   // User left the route.
-  RouteFinished,      // Destination point is reached but the session isn't closed.
-  RouteNoFollowing,   // Route is built but following mode has been disabled.
-  RouteRebuilding,    // We requested a route rebuild and wait when it will be rebuilt.
-                      // User may following the previous route.
+  NoValidRoute,      // No valid route: no route after application launching or the route was removed.
+  RouteBuilding,     // We requested a route and wait when it will be built. User may be following
+                     // the previous route.
+  RouteNotStarted,   // Route is built but the user isn't on it.
+  OnRoute,           // User follows the route.
+  RouteNeedRebuild,  // User left the route.
+  RouteFinished,     // Destination point is reached but the session isn't closed.
+  RouteNoFollowing,  // Route is built but following mode has been disabled.
+  RouteRebuilding,   // We requested a route rebuild and wait when it will be rebuilt.
+                     // User may following the previous route.
 };
 
 /*
@@ -89,23 +89,23 @@ inline std::string ToString(RouterResultCode code)
 {
   switch (code)
   {
-  case RouterResultCode::NoError: return "NoError";
-  case RouterResultCode::Cancelled: return "Cancelled";
-  case RouterResultCode::NoCurrentPosition: return "NoCurrentPosition";
-  case RouterResultCode::InconsistentMWMandRoute: return "InconsistentMWMandRoute";
-  case RouterResultCode::RouteFileNotExist: return "RouteFileNotExist";
-  case RouterResultCode::StartPointNotFound: return "StartPointNotFound";
-  case RouterResultCode::EndPointNotFound: return "EndPointNotFound";
-  case RouterResultCode::PointsInDifferentMWM: return "PointsInDifferentMWM";
-  case RouterResultCode::RouteNotFound: return "RouteNotFound";
-  case RouterResultCode::InternalError: return "InternalError";
-  case RouterResultCode::NeedMoreMaps: return "NeedMoreMaps";
-  case RouterResultCode::FileTooOld: return "FileTooOld";
-  case RouterResultCode::IntermediatePointNotFound: return "IntermediatePointNotFound";
-  case RouterResultCode::TransitRouteNotFoundNoNetwork: return "TransitRouteNotFoundNoNetwork";
-  case RouterResultCode::TransitRouteNotFoundTooLongPedestrian: return "TransitRouteNotFoundTooLongPedestrian";
-  case RouterResultCode::RouteNotFoundRedressRouteError: return "RouteNotFoundRedressRouteError";
-  case RouterResultCode::HasWarnings: return "HasWarnings";
+    case RouterResultCode::NoError: return "NoError";
+    case RouterResultCode::Cancelled: return "Cancelled";
+    case RouterResultCode::NoCurrentPosition: return "NoCurrentPosition";
+    case RouterResultCode::InconsistentMWMandRoute: return "InconsistentMWMandRoute";
+    case RouterResultCode::RouteFileNotExist: return "RouteFileNotExist";
+    case RouterResultCode::StartPointNotFound: return "StartPointNotFound";
+    case RouterResultCode::EndPointNotFound: return "EndPointNotFound";
+    case RouterResultCode::PointsInDifferentMWM: return "PointsInDifferentMWM";
+    case RouterResultCode::RouteNotFound: return "RouteNotFound";
+    case RouterResultCode::InternalError: return "InternalError";
+    case RouterResultCode::NeedMoreMaps: return "NeedMoreMaps";
+    case RouterResultCode::FileTooOld: return "FileTooOld";
+    case RouterResultCode::IntermediatePointNotFound: return "IntermediatePointNotFound";
+    case RouterResultCode::TransitRouteNotFoundNoNetwork: return "TransitRouteNotFoundNoNetwork";
+    case RouterResultCode::TransitRouteNotFoundTooLongPedestrian: return "TransitRouteNotFoundTooLongPedestrian";
+    case RouterResultCode::RouteNotFoundRedressRouteError: return "RouteNotFoundRedressRouteError";
+    case RouterResultCode::HasWarnings: return "HasWarnings";
   }
 
   std::string result = "Unknown RouterResultCode: " + std::to_string(static_cast<int>(code));

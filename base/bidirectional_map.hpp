@@ -7,10 +7,8 @@ namespace base
 {
 // A bidirectional map to store a one-to-one correspondence between
 // keys and values.
-template <typename K, typename V,
-          template <typename ...> typename KToVMap = std::unordered_map,
-          typename KToVHashOrComparator = std::hash<K>,
-          template <typename ...> typename VToKMap = std::unordered_map,
+template <typename K, typename V, template <typename...> typename KToVMap = std::unordered_map,
+          typename KToVHashOrComparator = std::hash<K>, template <typename...> typename VToKMap = std::unordered_map,
           typename VToKHashOrComparator = std::hash<V>>
 class BidirectionalMap
 {

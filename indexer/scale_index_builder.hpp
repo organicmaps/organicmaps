@@ -26,7 +26,6 @@
 #include <utility>
 #include <vector>
 
-
 namespace covering
 {
 template <class TDisplacementManager>
@@ -56,8 +55,8 @@ public:
   void operator()(Feature & ft, uint32_t index) const
   {
     m_scalesIdx = 0;
-    uint32_t const minScaleClassif = std::min(
-        scales::GetUpperScale(), feature::GetMinDrawableScaleClassifOnly(feature::TypesHolder(ft)));
+    uint32_t const minScaleClassif =
+        std::min(scales::GetUpperScale(), feature::GetMinDrawableScaleClassifOnly(feature::TypesHolder(ft)));
     // The classificator won't allow this feature to be drawable for smaller
     // scales so the first buckets can be safely skipped.
     // todo(@pimenov) Parallelizing this loop may be helpful.
@@ -71,9 +70,7 @@ public:
 
       // Check feature's geometry and visibility.
       if (!FeatureShouldBeIndexed(ft, static_cast<int>(bucket), bucket == minScaleClassif /* needReset */))
-      {
         continue;
-      }
 
       std::vector<int64_t> const cells = covering::CoverFeature(ft, m_codingDepth, 250);
       m_displacement.Add(cells, bucket, ft, index);
@@ -124,8 +121,8 @@ private:
 };
 
 template <class FeaturesVector, class Writer>
-void IndexScales(feature::DataHeader const & header, FeaturesVector const & features,
-                 Writer & writer, std::string const &)
+void IndexScales(feature::DataHeader const & header, FeaturesVector const & features, Writer & writer,
+                 std::string const &)
 {
   // TODO: Make scale bucketing dynamic.
 
@@ -134,9 +131,7 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
   std::vector<CellFeatureBucketTuple> cellsToFeaturesAllBuckets;
   {
     auto const PushCFT = [&cellsToFeaturesAllBuckets](CellFeatureBucketTuple const & v)
-    {
-      cellsToFeaturesAllBuckets.push_back(v);
-    };
+    { cellsToFeaturesAllBuckets.push_back(v); };
     using TDisplacementManager = DisplacementManager<decltype(PushCFT)>;
 
     // Single-point features are heuristically rearranged and filtered to simplify
@@ -146,8 +141,7 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
     TDisplacementManager manager(PushCFT);
     std::vector<uint32_t> featuresInBucket(bucketsCount);
     std::vector<uint32_t> cellsInBucket(bucketsCount);
-    features.ForEach(
-        FeatureCoverer<TDisplacementManager>(header, manager, featuresInBucket, cellsInBucket));
+    features.ForEach(FeatureCoverer<TDisplacementManager>(header, manager, featuresInBucket, cellsInBucket));
     manager.Displace();
     std::sort(cellsToFeaturesAllBuckets.begin(), cellsToFeaturesAllBuckets.end());
 
@@ -177,8 +171,7 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
 
     SubWriter<Writer> subWriter(writer);
     LOG(LINFO, ("Building interval index for bucket:", bucket));
-    BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,
-                       RectId::DEPTH_LEVELS * 2 + 1);
+    BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter, RectId::DEPTH_LEVELS * 2 + 1);
 
     recordWriter.FinishRecord();
   }

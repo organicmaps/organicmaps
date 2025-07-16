@@ -49,10 +49,7 @@ public:
     bool m_knownPosition = false;
 
     MyPosition() = default;
-    MyPosition(m2::PointD const & position)
-      : m_position(position),
-        m_knownPosition(true)
-    {}
+    MyPosition(m2::PointD const & position) : m_position(position), m_knownPosition(true) {}
   };
 
   using TrafficStateChangedFn = std::function<void(TrafficState)>;

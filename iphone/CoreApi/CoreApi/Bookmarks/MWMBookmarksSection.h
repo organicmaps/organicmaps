@@ -8,9 +8,9 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(BookmarksSection)
 @interface MWMBookmarksSection : NSObject
 
-@property(nonatomic, readonly) NSString *sectionName;
-@property(nonatomic, readonly, nullable) NSArray<MWMBookmark *> *bookmarks;
-@property(nonatomic, readonly, nullable) NSArray<MWMTrack *> *tracks;
+@property(nonatomic, readonly) NSString * sectionName;
+@property(nonatomic, readonly, nullable) NSArray<MWMBookmark *> * bookmarks;
+@property(nonatomic, readonly, nullable) NSArray<MWMTrack *> * tracks;
 
 - (instancetype)initWithTitle:(NSString *)title
                     bookmarks:(nullable NSArray<MWMBookmark *> *)bookmarks

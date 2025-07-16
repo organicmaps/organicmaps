@@ -1,10 +1,10 @@
 #import "MWMEditorTextTableViewCell.h"
 #import "MWMEditorCommon.h"
-#import "UIImageView+Coloring.h"
 #import "SwiftBridge.h"
+#import "UIImageView+Coloring.h"
 static CGFloat const kErrorLabelDefaultTopSpace = 4.;
 
-@interface MWMEditorTextTableViewCell ()<UITextFieldDelegate>
+@interface MWMEditorTextTableViewCell () <UITextFieldDelegate>
 
 @property(weak, nonatomic) IBOutlet UIImageView * icon;
 @property(weak, nonatomic, readwrite) IBOutlet UITextField * textField;
@@ -49,13 +49,13 @@ static CGFloat const kErrorLabelDefaultTopSpace = 4.;
 {
   self.delegate = delegate;
   self.icon.image = icon;
-  [self.icon setStyleNameAndApply: @"MWMBlack"];
+  [self.icon setStyleNameAndApply:@"MWMBlack"];
   self.icon.hidden = (icon == nil);
 
   self.textField.text = text;
-  self.textField.attributedPlaceholder = [[NSAttributedString alloc]
-      initWithString:placeholder
-          attributes:@{NSForegroundColorAttributeName : [UIColor blackHintText]}];
+  self.textField.attributedPlaceholder =
+      [[NSAttributedString alloc] initWithString:placeholder
+                                      attributes:@{NSForegroundColorAttributeName: [UIColor blackHintText]}];
   self.errorLabel.text = errorMessage;
   self.textField.keyboardType = keyboardType;
   self.textField.backgroundColor = UIColor.clearColor;
@@ -70,13 +70,13 @@ static CGFloat const kErrorLabelDefaultTopSpace = 4.;
   {
     self.labelHeight.priority = UILayoutPriorityDefaultHigh;
     self.errorLabelTopSpace.constant = 0.;
-    [self.contentView setStyleNameAndApply: @"Background"];
+    [self.contentView setStyleNameAndApply:@"Background"];
   }
   else
   {
     self.labelHeight.priority = UILayoutPriorityDefaultLow;
     self.errorLabelTopSpace.constant = kErrorLabelDefaultTopSpace;
-    [self.contentView setStyleNameAndApply: @"ErrorBackground"];
+    [self.contentView setStyleNameAndApply:@"ErrorBackground"];
   }
   [self layoutIfNeeded];
 }

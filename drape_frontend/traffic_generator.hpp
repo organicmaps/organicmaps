@@ -24,7 +24,7 @@
 
 namespace dp
 {
-  class GraphicsContext;
+class GraphicsContext;
 }  // namespace dp
 
 namespace df
@@ -45,8 +45,7 @@ struct TrafficSegmentID
   MwmSet::MwmId m_mwmId;
   traffic::TrafficInfo::RoadSegmentId m_segmentId;
 
-  TrafficSegmentID(MwmSet::MwmId const & mwmId,
-                   traffic::TrafficInfo::RoadSegmentId const & segmentId)
+  TrafficSegmentID(MwmSet::MwmId const & mwmId, traffic::TrafficInfo::RoadSegmentId const & segmentId)
     : m_mwmId(mwmId)
     , m_segmentId(segmentId)
   {}
@@ -77,8 +76,8 @@ struct TrafficSegmentGeometry
   {}
 };
 
-using TrafficSegmentsGeometryValue = std::vector<std::pair<traffic::TrafficInfo::RoadSegmentId,
-                                                           TrafficSegmentGeometry>>;
+using TrafficSegmentsGeometryValue =
+    std::vector<std::pair<traffic::TrafficInfo::RoadSegmentId, TrafficSegmentGeometry>>;
 using TrafficSegmentsGeometry = std::map<MwmSet::MwmId, TrafficSegmentsGeometryValue>;
 using TrafficSegmentsColoring = std::map<MwmSet::MwmId, traffic::TrafficInfo::Coloring>;
 
@@ -107,8 +106,7 @@ struct TrafficStaticVertex
   using TTexCoord = glsl::vec4;
 
   TrafficStaticVertex() = default;
-  TrafficStaticVertex(TPosition const & position, TNormal const & normal,
-                      TTexCoord const & colorTexCoord)
+  TrafficStaticVertex(TPosition const & position, TNormal const & normal, TTexCoord const & colorTexCoord)
     : m_position(position)
     , m_normal(normal)
     , m_colorTexCoord(colorTexCoord)
@@ -141,8 +139,7 @@ struct TrafficCircleStaticVertex
   using TTexCoord = glsl::vec2;
 
   TrafficCircleStaticVertex() = default;
-  TrafficCircleStaticVertex(TPosition const & position, TNormal const & normal,
-                            TTexCoord const & colorTexCoord)
+  TrafficCircleStaticVertex(TPosition const & position, TNormal const & normal, TTexCoord const & colorTexCoord)
     : m_position(position)
     , m_normal(normal)
     , m_colorTexCoord(colorTexCoord)
@@ -212,20 +209,18 @@ private:
   };
 
   void GenerateSegment(RoadClass roadClass, dp::TextureManager::ColorRegion const & colorRegion,
-                       m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                       bool generateCircles, float depth, float vOffset, float minU,
-                       bool isLeftHand, std::vector<TrafficStaticVertex> & staticGeometry,
+                       m2::PolylineD const & polyline, m2::PointD const & tileCenter, bool generateCircles, float depth,
+                       float vOffset, float minU, bool isLeftHand, std::vector<TrafficStaticVertex> & staticGeometry,
                        std::vector<TrafficCircleStaticVertex> & circlesGeometry);
-  void GenerateLineSegment(dp::TextureManager::ColorRegion const & colorRegion,
-                           m2::PolylineD const & polyline, m2::PointD const & tileCenter, float depth,
+  void GenerateLineSegment(dp::TextureManager::ColorRegion const & colorRegion, m2::PolylineD const & polyline,
+                           m2::PointD const & tileCenter, float depth,
                            std::vector<TrafficLineStaticVertex> & staticGeometry);
   void FillColorsCache(ref_ptr<dp::TextureManager> textures);
 
   void FlushGeometry(TrafficBatcherKey const & key, dp::RenderState const & state,
                      drape_ptr<dp::RenderBucket> && buffer);
   void GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
-                                TileKey const & tileKey,
-                                TrafficSegmentsGeometryValue const & geometry,
+                                TileKey const & tileKey, TrafficSegmentsGeometryValue const & geometry,
                                 traffic::TrafficInfo::Coloring const & coloring,
                                 ref_ptr<dp::TextureManager> texturesMgr);
 

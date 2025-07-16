@@ -33,10 +33,7 @@ public:
       return m_id < rhs.m_id;
     }
 
-    bool operator==(Segment const & rhs) const
-    {
-      return m_id == rhs.m_id && m_from == rhs.m_from && m_to == rhs.m_to;
-    }
+    bool operator==(Segment const & rhs) const { return m_id == rhs.m_id && m_from == rhs.m_from && m_to == rhs.m_to; }
 
     // *NOTE* Do not change these values without care - current code
     // depends on default values.

@@ -19,10 +19,7 @@ struct CityBoundary
 
   explicit CityBoundary(std::vector<m2::PointD> const & ps) : m_bbox(ps), m_cbox(ps), m_dbox(ps) {}
 
-  bool HasPoint(m2::PointD const & p) const
-  {
-    return m_bbox.HasPoint(p) && m_dbox.HasPoint(p) && m_cbox.HasPoint(p);
-  }
+  bool HasPoint(m2::PointD const & p) const { return m_bbox.HasPoint(p) && m_dbox.HasPoint(p) && m_cbox.HasPoint(p); }
 
   bool HasPoint(double x, double y) const { return HasPoint(m2::PointD(x, y)); }
 

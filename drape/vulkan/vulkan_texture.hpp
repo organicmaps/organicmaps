@@ -23,14 +23,14 @@ public:
 class VulkanTexture : public HWTexture
 {
   using Base = HWTexture;
+
 public:
   explicit VulkanTexture(ref_ptr<VulkanTextureAllocator>) {}
   ~VulkanTexture() override;
 
-  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-              ref_ptr<void> data) override;
-  void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width,
-                  uint32_t height, ref_ptr<void> data) override;
+  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data) override;
+  void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                  ref_ptr<void> data) override;
   void Bind(ref_ptr<dp::GraphicsContext> context) const override;
   void SetFilter(TextureFilter filter) override;
   bool Validate() const override;
@@ -40,10 +40,8 @@ public:
   SamplerKey GetSamplerKey() const;
   VkImageLayout GetCurrentLayout() const { return m_currentLayout; }
 
-  void MakeImageLayoutTransition(VkCommandBuffer commandBuffer,
-                                 VkImageLayout newLayout,
-                                 VkPipelineStageFlags srcStageMask,
-                                 VkPipelineStageFlags dstStageMask) const;
+  void MakeImageLayoutTransition(VkCommandBuffer commandBuffer, VkImageLayout newLayout,
+                                 VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask) const;
 
 private:
   ref_ptr<VulkanObjectManager> m_objectManager;

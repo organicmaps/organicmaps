@@ -22,9 +22,7 @@ class GpxWriter
 public:
   DECLARE_EXCEPTION(WriteGpxException, RootException);
 
-  explicit GpxWriter(Writer & writer)
-    : m_writer(writer)
-  {}
+  explicit GpxWriter(Writer & writer) : m_writer(writer) {}
 
   void Write(FileData const & fileData);
 
@@ -37,9 +35,7 @@ class SerializerGpx
 public:
   DECLARE_EXCEPTION(SerializeException, RootException);
 
-  explicit SerializerGpx(FileData const & fileData)
-    : m_fileData(fileData)
-  {}
+  explicit SerializerGpx(FileData const & fileData) : m_fileData(fileData) {}
 
   template <typename Sink>
   void Serialize(Sink & sink)
@@ -87,7 +83,7 @@ private:
   GeometryType m_geometryType;
   MultiGeometry m_geometry;
   uint32_t m_color;
-  uint32_t m_globalColor; // To support OSMAnd extensions with single color per GPX file
+  uint32_t m_globalColor;  // To support OSMAnd extensions with single color per GPX file
 
   std::string m_name;
   std::string m_description;

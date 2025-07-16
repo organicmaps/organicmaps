@@ -14,9 +14,7 @@ struct CustomFeaturesContext
 {
   CustomFeatures const m_features;
 
-  explicit CustomFeaturesContext(CustomFeatures && features)
-    : m_features(std::move(features))
-  {}
+  explicit CustomFeaturesContext(CustomFeatures && features) : m_features(std::move(features)) {}
 
   bool NeedDiscardGeometry(FeatureID const & id) const
   {
@@ -29,4 +27,4 @@ struct CustomFeaturesContext
 
 using CustomFeaturesContextPtr = std::shared_ptr<CustomFeaturesContext>;
 using CustomFeaturesContextWeakPtr = std::weak_ptr<CustomFeaturesContext>;
-} //  namespace df
+}  //  namespace df

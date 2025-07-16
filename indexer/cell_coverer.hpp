@@ -46,11 +46,10 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxLevel, std::vect
     ASSERT(rect.IsValid(), ());
   }
 
-  auto const commonCell = CellIdConverter<Bounds, CellId>::Cover2PointsWithCell(
-      rect.minX(), rect.minY(), rect.maxX(), rect.maxY());
+  auto const commonCell =
+      CellIdConverter<Bounds, CellId>::Cover2PointsWithCell(rect.minX(), rect.minY(), rect.maxX(), rect.maxY());
 
-  std::priority_queue<CellId, buffer_vector<CellId, SPLIT_RECT_CELLS_COUNT>,
-                      typename CellId::GreaterLevelOrder>
+  std::priority_queue<CellId, buffer_vector<CellId, SPLIT_RECT_CELLS_COUNT>, typename CellId::GreaterLevelOrder>
       cellQueue;
   cellQueue.push(commonCell);
 
@@ -75,12 +74,10 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxLevel, std::vect
     if (cellQueue.size() + result.size() + count <= cellsCount)
     {
       for (size_t i = 0; i < count; ++i)
-      {
         if (rect.IsRectInside(arr[i].second))
           result.push_back(arr[i].first);
         else
           cellQueue.push(arr[i].first);
-      }
     }
     else
     {
@@ -150,25 +147,25 @@ void CoverSpiral(m2::RectD rect, int maxLevel, std::vector<CellId> & result)
   // |maxCount| may be adjusted after testing to ensure better quality-performance tradeoff.
   uint32_t constexpr maxCount = 64;
 
-  auto const nextDirection = [](Direction direction) {
-    return static_cast<Direction>((static_cast<uint8_t>(direction) + 1) % 4);
-  };
+  auto const nextDirection = [](Direction direction)
+  { return static_cast<Direction>((static_cast<uint8_t>(direction) + 1) % 4); };
 
-  auto const nextCoords = [](std::pair<int32_t, int32_t> const & xy, Direction direction, uint32_t step) {
+  auto const nextCoords = [](std::pair<int32_t, int32_t> const & xy, Direction direction, uint32_t step)
+  {
     auto res = xy;
     switch (direction)
     {
-    case Direction::Right: res.first += step; break;
-    case Direction::Down: res.second -= step; break;
-    case Direction::Left: res.first -= step; break;
-    case Direction::Up: res.second += step; break;
+      case Direction::Right: res.first += step; break;
+      case Direction::Down: res.second -= step; break;
+      case Direction::Left: res.first -= step; break;
+      case Direction::Up: res.second += step; break;
     }
     return res;
   };
 
-  auto const coordsAreValid = [](std::pair<int32_t, int32_t> const & xy) {
-    return xy.first >= 0 && xy.second >= 0 &&
-           static_cast<decltype(CellId::MAX_COORD)>(xy.first) <= CellId::MAX_COORD &&
+  auto const coordsAreValid = [](std::pair<int32_t, int32_t> const & xy)
+  {
+    return xy.first >= 0 && xy.second >= 0 && static_cast<decltype(CellId::MAX_COORD)>(xy.first) <= CellId::MAX_COORD &&
            static_cast<decltype(CellId::MAX_COORD)>(xy.second) <= CellId::MAX_COORD;
   };
 

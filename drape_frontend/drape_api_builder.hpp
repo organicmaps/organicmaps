@@ -22,8 +22,7 @@ struct DrapeApiRenderProperty
 class DrapeApiBuilder
 {
 public:
-  void BuildLines(ref_ptr<dp::GraphicsContext> context, DrapeApi::TLines & lines,
-                  ref_ptr<dp::TextureManager> textures,
+  void BuildLines(ref_ptr<dp::GraphicsContext> context, DrapeApi::TLines & lines, ref_ptr<dp::TextureManager> textures,
                   std::vector<drape_ptr<DrapeApiRenderProperty>> & properties);
 };
 }  // namespace df

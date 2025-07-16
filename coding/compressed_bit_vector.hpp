@@ -48,8 +48,7 @@ public:
                                                        CompressedBitVector const & rhs);
 
   // Unites two bit vectors.
-  static std::unique_ptr<CompressedBitVector> Union(CompressedBitVector const & lhs,
-                                                    CompressedBitVector const & rhs);
+  static std::unique_ptr<CompressedBitVector> Union(CompressedBitVector const & lhs, CompressedBitVector const & rhs);
 
   static bool IsEmpty(std::unique_ptr<CompressedBitVector> const & cbv);
 
@@ -156,10 +155,8 @@ public:
   {
     base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(f));
     for (auto const & position : m_positions)
-    {
       if (wrapper(position) == base::ControlFlow::Break)
         return;
-    }
   }
 
   // CompressedBitVector overrides:
@@ -183,8 +180,7 @@ class CompressedBitVectorBuilder
 public:
   // Chooses a strategy to store the bit vector with bits from setBits set to one
   // and returns a pointer to a class that fits best.
-  static std::unique_ptr<CompressedBitVector> FromBitPositions(
-      std::vector<uint64_t> const & setBits);
+  static std::unique_ptr<CompressedBitVector> FromBitPositions(std::vector<uint64_t> const & setBits);
   static std::unique_ptr<CompressedBitVector> FromBitPositions(std::vector<uint64_t> && setBits);
 
   // Chooses a strategy to store the bit vector with bits from a bitmap obtained
@@ -207,22 +203,21 @@ public:
   static std::unique_ptr<CompressedBitVector> DeserializeFromSource(TSource & src)
   {
     uint8_t header = ReadPrimitiveFromSource<uint8_t>(src);
-    CompressedBitVector::StorageStrategy strat =
-        static_cast<CompressedBitVector::StorageStrategy>(header);
+    CompressedBitVector::StorageStrategy strat = static_cast<CompressedBitVector::StorageStrategy>(header);
     switch (strat)
     {
-    case CompressedBitVector::StorageStrategy::Dense:
-    {
-      std::vector<uint64_t> bitGroups;
-      rw::ReadVectorOfPOD(src, bitGroups);
-      return DenseCBV::BuildFromBitGroups(std::move(bitGroups));
-    }
-    case CompressedBitVector::StorageStrategy::Sparse:
-    {
-      std::vector<uint64_t> setBits;
-      rw::ReadVectorOfPOD(src, setBits);
-      return std::make_unique<SparseCBV>(std::move(setBits));
-    }
+      case CompressedBitVector::StorageStrategy::Dense:
+      {
+        std::vector<uint64_t> bitGroups;
+        rw::ReadVectorOfPOD(src, bitGroups);
+        return DenseCBV::BuildFromBitGroups(std::move(bitGroups));
+      }
+      case CompressedBitVector::StorageStrategy::Sparse:
+      {
+        std::vector<uint64_t> setBits;
+        rw::ReadVectorOfPOD(src, setBits);
+        return std::make_unique<SparseCBV>(std::move(setBits));
+      }
     }
     return std::unique_ptr<CompressedBitVector>();
   }
@@ -240,18 +235,18 @@ public:
     CompressedBitVector::StorageStrategy strat = cbv.GetStorageStrategy();
     switch (strat)
     {
-    case CompressedBitVector::StorageStrategy::Dense:
-    {
-      DenseCBV const & denseCBV = static_cast<DenseCBV const &>(cbv);
-      denseCBV.ForEach(f);
-      return;
-    }
-    case CompressedBitVector::StorageStrategy::Sparse:
-    {
-      SparseCBV const & sparseCBV = static_cast<SparseCBV const &>(cbv);
-      sparseCBV.ForEach(f);
-      return;
-    }
+      case CompressedBitVector::StorageStrategy::Dense:
+      {
+        DenseCBV const & denseCBV = static_cast<DenseCBV const &>(cbv);
+        denseCBV.ForEach(f);
+        return;
+      }
+      case CompressedBitVector::StorageStrategy::Sparse:
+      {
+        SparseCBV const & sparseCBV = static_cast<SparseCBV const &>(cbv);
+        sparseCBV.ForEach(f);
+        return;
+      }
     }
   }
 };
@@ -263,10 +258,7 @@ public:
   {
     static constexpr uint64_t kBase = 127;
     uint64_t hash = 0;
-    CompressedBitVectorEnumerator::ForEach(cbv, [&hash](uint64_t i)
-                                           {
-                                             hash = hash * kBase + i + 1;
-                                           });
+    CompressedBitVectorEnumerator::ForEach(cbv, [&hash](uint64_t i) { hash = hash * kBase + i + 1; });
     return hash;
   }
 };

@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DurationFormatter: NSObject
+@interface DurationFormatter : NSObject
 
 + (NSString *)durationStringFromTimeInterval:(NSTimeInterval)timeInterval NS_SWIFT_NAME(durationString(from:));
 

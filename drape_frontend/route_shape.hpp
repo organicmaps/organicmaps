@@ -5,9 +5,9 @@
 #include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 
+#include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/utils/vertex_decl.hpp"
-#include "drape/pointers.hpp"
 
 #include "traffic/speed_groups.hpp"
 
@@ -54,17 +54,13 @@ struct RoutePattern
 {
   RoutePattern() = default;
 
-  RoutePattern(double dashLength, double gapLength)
-    : m_isDashed(true)
-    , m_dashLength(dashLength)
-    , m_gapLength(gapLength)
+  RoutePattern(double dashLength, double gapLength) : m_isDashed(true), m_dashLength(dashLength), m_gapLength(gapLength)
   {}
 
-  bool operator == (RoutePattern const & pattern) const
+  bool operator==(RoutePattern const & pattern) const
   {
     double const kEps = 1e-5;
-    return m_isDashed == pattern.m_isDashed &&
-           std::fabs(m_dashLength - pattern.m_dashLength) < kEps &&
+    return m_isDashed == pattern.m_isDashed && std::fabs(m_dashLength - pattern.m_dashLength) < kEps &&
            std::fabs(m_gapLength - pattern.m_gapLength) < kEps;
   }
 
@@ -82,10 +78,7 @@ enum class SubrouteStyleType
 struct SubrouteStyle
 {
   SubrouteStyle() = default;
-  explicit SubrouteStyle(df::ColorConstant const & color)
-    : m_color(color)
-    , m_outlineColor(color)
-  {}
+  explicit SubrouteStyle(df::ColorConstant const & color) : m_color(color), m_outlineColor(color) {}
   SubrouteStyle(df::ColorConstant const & color, df::ColorConstant const & outlineColor)
     : m_color(color)
     , m_outlineColor(outlineColor)
@@ -104,8 +97,7 @@ struct SubrouteStyle
 
   bool operator==(SubrouteStyle const & style) const
   {
-    return m_color == style.m_color && m_outlineColor == style.m_outlineColor &&
-           m_pattern == style.m_pattern;
+    return m_color == style.m_color && m_outlineColor == style.m_outlineColor && m_pattern == style.m_pattern;
   }
 
   bool operator!=(SubrouteStyle const & style) const { return !operator==(style); }
@@ -159,9 +151,7 @@ using SubrouteConstPtr = std::shared_ptr<Subroute const>;
 
 struct RouteRenderProperty
 {
-  RouteRenderProperty()
-    : m_state(CreateRenderState(gpu::Program::Route, DepthLayer::GeometryLayer))
-  {}
+  RouteRenderProperty() : m_state(CreateRenderState(gpu::Program::Route, DepthLayer::GeometryLayer)) {}
 
   dp::RenderState m_state;
   std::vector<drape_ptr<dp::RenderBucket>> m_buckets;
@@ -185,9 +175,11 @@ struct SubrouteData : public BaseSubrouteData
   double m_distanceOffset = 0.0;
 };
 
-struct SubrouteArrowsData : public BaseSubrouteData {};
+struct SubrouteArrowsData : public BaseSubrouteData
+{};
 
-struct SubrouteMarkersData : public BaseSubrouteData {};
+struct SubrouteMarkersData : public BaseSubrouteData
+{};
 
 struct ArrowBorders
 {
@@ -206,28 +198,23 @@ public:
   using MV = gpu::RouteMarkerVertex;
   using MarkersGeometryBuffer = gpu::VBUnknownSizeT<MV>;
 
-  static drape_ptr<df::SubrouteData> CacheRoute(ref_ptr<dp::GraphicsContext> context,
-                                                dp::DrapeID subrouteId, SubrouteConstPtr subroute,
-                                                size_t styleIndex, int recacheId,
+  static drape_ptr<df::SubrouteData> CacheRoute(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId,
+                                                SubrouteConstPtr subroute, size_t styleIndex, int recacheId,
                                                 ref_ptr<dp::TextureManager> textures);
 
-  static drape_ptr<df::SubrouteMarkersData> CacheMarkers(ref_ptr<dp::GraphicsContext> context,
-                                                         dp::DrapeID subrouteId,
+  static drape_ptr<df::SubrouteMarkersData> CacheMarkers(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId,
                                                          SubrouteConstPtr subroute, int recacheId,
                                                          ref_ptr<dp::TextureManager> textures);
 
-  static void CacheRouteArrows(ref_ptr<dp::GraphicsContext> context,
-                               ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
-                               std::vector<ArrowBorders> const & borders, double baseDepthIndex,
-                               SubrouteArrowsData & routeArrowsData);
+  static void CacheRouteArrows(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng,
+                               m2::PolylineD const & polyline, std::vector<ArrowBorders> const & borders,
+                               double baseDepthIndex, SubrouteArrowsData & routeArrowsData);
 
 private:
-  template<typename GeometryBufferType>
+  template <typename GeometryBufferType>
   struct GeometryBufferData
   {
-    GeometryBufferData()
-      : m_boundingBox(m2::RectD::GetEmptyRect())
-    {}
+    GeometryBufferData() : m_boundingBox(m2::RectD::GetEmptyRect()) {}
 
     GeometryBufferType m_geometry;
     GeometryBufferType m_joinsGeometry;
@@ -239,13 +226,12 @@ private:
   static void PrepareArrowGeometry(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
                                    m2::RectF const & texRect, float depthStep, float depth,
                                    GeometryBufferData<ArrowGeometryBuffer> & geometryBufferData);
-  static void PrepareMarkersGeometry(std::vector<SubrouteMarker> const & markers,
-                                     m2::PointD const & pivot, float baseDepth,
-                                     MarkersGeometryBuffer & geometry);
+  static void PrepareMarkersGeometry(std::vector<SubrouteMarker> const & markers, m2::PointD const & pivot,
+                                     float baseDepth, MarkersGeometryBuffer & geometry);
 
-  static void BatchGeometry(ref_ptr<dp::GraphicsContext> context, dp::RenderState const & state,
-                            ref_ptr<void> geometry, uint32_t geomSize, ref_ptr<void> joinsGeometry,
-                            uint32_t joinsGeomSize, m2::RectD const & boundingBox,
-                            dp::BindingInfo const & bindingInfo, RouteRenderProperty & property);
+  static void BatchGeometry(ref_ptr<dp::GraphicsContext> context, dp::RenderState const & state, ref_ptr<void> geometry,
+                            uint32_t geomSize, ref_ptr<void> joinsGeometry, uint32_t joinsGeomSize,
+                            m2::RectD const & boundingBox, dp::BindingInfo const & bindingInfo,
+                            RouteRenderProperty & property);
 };
 }  // namespace df

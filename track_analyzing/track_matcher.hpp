@@ -22,8 +22,7 @@ namespace track_analyzing
 class TrackMatcher final
 {
 public:
-  TrackMatcher(storage::Storage const & storage, routing::NumMwmId mwmId,
-               platform::CountryFile const & countryFile);
+  TrackMatcher(storage::Storage const & storage, routing::NumMwmId mwmId, platform::CountryFile const & countryFile);
 
   void MatchTrack(std::vector<DataPoint> const & track, std::vector<MatchedTrack> & matchedTracks);
 
@@ -35,9 +34,7 @@ private:
   class Candidate final
   {
   public:
-    Candidate(routing::Segment segment, double distance) : m_segment(segment), m_distance(distance)
-    {
-    }
+    Candidate(routing::Segment segment, double distance) : m_segment(segment), m_distance(distance) {}
 
     routing::Segment const & GetSegment() const { return m_segment; }
     double GetDistance() const { return m_distance; }
@@ -57,17 +54,14 @@ private:
     DataPoint const & GetDataPoint() const { return m_dataPoint; }
     routing::Segment const & GetSegment() const { return m_segment; }
     bool HasCandidates() const { return !m_candidates.empty(); }
-    void FillCandidatesWithNearbySegments(DataSource const & dataSource,
-                                          routing::IndexGraph const & graph,
-                                          routing::VehicleModelInterface const & vehicleModel,
-                                          routing::NumMwmId mwmId);
+    void FillCandidatesWithNearbySegments(DataSource const & dataSource, routing::IndexGraph const & graph,
+                                          routing::VehicleModelInterface const & vehicleModel, routing::NumMwmId mwmId);
     void FillCandidates(Step const & previousStep, routing::IndexGraph & graph);
     void ChooseSegment(Step const & nextStep, routing::IndexGraph & indexGraph);
     void ChooseNearestSegment();
 
   private:
-    void AddCandidate(routing::Segment const & segment, double distance,
-                      routing::IndexGraph const & graph);
+    void AddCandidate(routing::Segment const & segment, double distance, routing::IndexGraph const & graph);
 
     DataPoint m_dataPoint;
     m2::PointD m_point;

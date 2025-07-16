@@ -60,4 +60,4 @@ private:
 
   std::string m_logTag;
 };
-} // namespace generator
+}  // namespace generator

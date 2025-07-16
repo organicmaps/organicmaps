@@ -1,7 +1,7 @@
 #pragma once
 
-#include "indexer/house_to_street_iface.hpp"
 #include "indexer/feature_decl.hpp"
+#include "indexer/house_to_street_iface.hpp"
 
 #include "storage/storage_defines.hpp"
 
@@ -37,10 +37,7 @@ class ReverseGeocoder
     std::string m_name;
 
     Object() : m_distanceMeters(-1.0) {}
-    Object(FeatureID const & id, double dist, std::string_view name)
-      : m_id(id), m_distanceMeters(dist), m_name(name)
-    {
-    }
+    Object(FeatureID const & id, double dist, std::string_view name) : m_id(id), m_distanceMeters(dist), m_name(name) {}
 
     inline bool IsValid() const { return m_id.IsValid(); }
   };
@@ -58,11 +55,10 @@ public:
     StringUtf8Multilang m_multilangName;
 
     Street() = default;
-    Street(FeatureID const & id, double dist, std::string_view name,
-           StringUtf8Multilang const & multilangName)
-      : Object(id, dist, name), m_multilangName(multilangName)
-    {
-    }
+    Street(FeatureID const & id, double dist, std::string_view name, StringUtf8Multilang const & multilangName)
+      : Object(id, dist, name)
+      , m_multilangName(multilangName)
+    {}
   };
   using Place = Street;
 
@@ -74,11 +70,10 @@ public:
     // There are no houses in (0, 0) coordinates.
     Building() : m_center(0, 0) {}
 
-    Building(FeatureID const & id, double dist, std::string const & number,
-             m2::PointD const & center)
-      : Object(id, dist, number), m_center(center)
-    {
-    }
+    Building(FeatureID const & id, double dist, std::string const & number, m2::PointD const & center)
+      : Object(id, dist, number)
+      , m_center(center)
+    {}
   };
 
   struct Address
@@ -113,19 +108,17 @@ public:
 
   /// Returns a feature id of street from |streets| whose name best matches |keyName|
   /// or empty value if the match was not found.
-  static std::optional<uint32_t> GetMatchedStreetIndex(std::string_view keyName,
-                                                       std::vector<Street> const & streets);
+  static std::optional<uint32_t> GetMatchedStreetIndex(std::string_view keyName, std::vector<Street> const & streets);
 
   /// @return Sorted by distance streets vector for the specified MwmId.
   /// Parameter |includeSquaresAndSuburbs| needed for backward compatibility:
   /// existing mwms operate on streets without squares and suburbs.
-  static std::vector<Street> GetNearbyStreets(
-      search::MwmContext & context, m2::PointD const & center, double radiusM = kLookupRadiusM);
+  static std::vector<Street> GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
+                                              double radiusM = kLookupRadiusM);
   std::vector<Street> GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center) const;
   std::vector<Street> GetNearbyStreets(FeatureType & ft) const;
 
-  static std::vector<Place> GetNearbyPlaces(
-      search::MwmContext & context, m2::PointD const & center, double radiusM);
+  static std::vector<Place> GetNearbyPlaces(search::MwmContext & context, m2::PointD const & center, double radiusM);
 
   /// @return feature street name.
   /// Returns empty string when there is no street the feature belongs to.
@@ -154,11 +147,9 @@ public:
   bool GetExactAddress(FeatureID const & fid, Address & addr) const;
 
   /// Returns the nearest region address where mwm or exact city is known.
-  static RegionAddress GetNearbyRegionAddress(m2::PointD const & center,
-                                              storage::CountryInfoGetter const & infoGetter,
+  static RegionAddress GetNearbyRegionAddress(m2::PointD const & center, storage::CountryInfoGetter const & infoGetter,
                                               CityFinder & cityFinder);
-  std::string GetLocalizedRegionAddress(RegionAddress const & addr,
-                                        RegionInfoGetter const & nameGetter) const;
+  std::string GetLocalizedRegionAddress(RegionAddress const & addr, RegionInfoGetter const & nameGetter) const;
 
 private:
   /// Helper class to incapsulate house 2 street table reloading.
@@ -166,9 +157,9 @@ private:
   {
   public:
     explicit HouseTable(DataSource const & dataSource, bool placeAsStreet = false)
-      : m_dataSource(dataSource), m_placeAsStreet(placeAsStreet)
-    {
-    }
+      : m_dataSource(dataSource)
+      , m_placeAsStreet(placeAsStreet)
+    {}
     std::optional<HouseToStreetTable::Result> Get(FeatureID const & fid);
 
   private:
@@ -178,14 +169,12 @@ private:
   };
 
   /// Ignores changes from editor if |ignoreEdits| is true.
-  bool GetNearbyAddress(HouseTable & table, Building const & bld, bool ignoreEdits,
-                        Address & addr) const;
+  bool GetNearbyAddress(HouseTable & table, Building const & bld, bool ignoreEdits, Address & addr) const;
 
   /// @return Sorted by distance houses vector with valid house number.
-  void GetNearbyBuildings(m2::PointD const & center, double maxDistanceM,
-                          std::vector<Building> & buildings) const;
+  void GetNearbyBuildings(m2::PointD const & center, double maxDistanceM, std::vector<Building> & buildings) const;
 
   static Building FromFeature(FeatureType & ft, double distMeters);
 };
 
-} // namespace search
+}  // namespace search

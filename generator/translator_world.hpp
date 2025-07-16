@@ -23,8 +23,7 @@ class TranslatorWorld : public Translator
 {
 public:
   explicit TranslatorWorld(std::shared_ptr<FeatureProcessorInterface> const & processor,
-                           std::shared_ptr<cache::IntermediateData> const & cache,
-                           feature::GenerateInfo const & info);
+                           std::shared_ptr<cache::IntermediateData> const & cache, feature::GenerateInfo const & info);
 
   // TranslatorInterface overrides:
   void Preprocess(OsmElement & element) override;

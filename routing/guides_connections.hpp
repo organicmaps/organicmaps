@@ -43,8 +43,7 @@ struct CheckpointTrackProj
 {
   CheckpointTrackProj() = default;
   CheckpointTrackProj(kml::MarkGroupId guideId, size_t trackIdx, size_t trackPointIdx,
-                      geometry::PointWithAltitude const & projectedPoint,
-                      double distToProjectedPointM);
+                      geometry::PointWithAltitude const & projectedPoint, double distToProjectedPointM);
   // Guide id.
   kml::MarkGroupId m_guideId = 0;
   // Index of the track belonging to |m_guideId|.
@@ -80,8 +79,7 @@ public:
   void OverwriteFakeEnding(size_t checkpointIdx, FakeEnding const & newFakeEnding);
 
   // Merge existing |srcFakeEnding| with |dstFakeEnding|.
-  static void ExtendFakeEndingProjections(FakeEnding const & srcFakeEnding,
-                                          FakeEnding & dstFakeEnding);
+  static void ExtendFakeEndingProjections(FakeEnding const & srcFakeEnding, FakeEnding & dstFakeEnding);
 
   // Returns guides graph |m_graph| for index graph starter.
   GuidesGraph const & GetGuidesGraph() const;
@@ -109,16 +107,15 @@ public:
 
 private:
   // Fills |ConnectionToOsm| for checkpoints for its further attachment to the roads graph.
-  void AddConnectionToOsm(size_t checkpointIdx, Segment const & real,
-                          geometry::PointWithAltitude const & loop, bool fromCheckpoint);
+  void AddConnectionToOsm(size_t checkpointIdx, Segment const & real, geometry::PointWithAltitude const & loop,
+                          bool fromCheckpoint);
 
   // Attaches checkpoints to the nearest guides tracks if possible.
   void PullCheckpointsToTracks(std::vector<m2::PointD> const & checkpoints);
 
   // Attaches terminal point on the track to the terminal checkpoint: start to start;
   // finish - to finish.
-  void AddTerminalGuidePoint(size_t checkpointIdx, size_t neighbourIdx,
-                             m2::PointD const & curPoint);
+  void AddTerminalGuidePoint(size_t checkpointIdx, size_t neighbourIdx, m2::PointD const & curPoint);
 
   // Attaches neighbour terminal checkpoints for those which are already attached.
   void PullAdditionalCheckpointsToTracks(std::vector<m2::PointD> const & checkpoints);

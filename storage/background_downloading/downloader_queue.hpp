@@ -18,36 +18,23 @@ class BackgroundDownloaderQueue : public QueueInterface
 public:
   using ForEachTaskInfoTypeFunction = std::function<void(TaskInfo const & info)>;
 
-  bool IsEmpty() const override
-  {
-    return m_queue.empty();
-  }
+  bool IsEmpty() const override { return m_queue.empty(); }
 
-  size_t Count() const override
-  {
-    return m_queue.size();
-  }
+  size_t Count() const override { return m_queue.size(); }
 
-  bool Contains(CountryId const & country) const override
-  {
-    return m_queue.find(country) != m_queue.cend();
-  }
+  bool Contains(CountryId const & country) const override { return m_queue.find(country) != m_queue.cend(); }
 
   void ForEachCountry(ForEachCountryFunction const & fn) const override
   {
     for (auto const & item : m_queue)
-    {
       fn(item.second.m_queuedCountry);
-    }
   }
 
   void ForEachTaskInfo(ForEachTaskInfoTypeFunction const & fn) const
   {
     for (auto const & item : m_queue)
-    {
       if (item.second.m_taskInfo)
         fn(*item.second.m_taskInfo);
-    }
   }
 
   void Append(QueuedCountry && country)
@@ -74,20 +61,11 @@ public:
     return it->second.m_taskInfo;
   }
 
-  QueuedCountry & GetCountryById(CountryId const & countryId)
-  {
-    return m_queue.at(countryId).m_queuedCountry;
-  }
+  QueuedCountry & GetCountryById(CountryId const & countryId) { return m_queue.at(countryId).m_queuedCountry; }
 
-  void Remove(CountryId const & countryId)
-  {
-    m_queue.erase(countryId);
-  }
+  void Remove(CountryId const & countryId) { m_queue.erase(countryId); }
 
-  void Clear()
-  {
-    m_queue.clear();
-  }
+  void Clear() { m_queue.clear(); }
 
 private:
   struct TaskData

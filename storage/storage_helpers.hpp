@@ -31,6 +31,5 @@ bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage
 m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter);
 
-MwmSize GetRemoteSize(diffs::DiffsDataSource const & diffsDataSource,
-                      platform::CountryFile const & file);
+MwmSize GetRemoteSize(diffs::DiffsDataSource const & diffsDataSource, platform::CountryFile const & file);
 }  // namespace storage

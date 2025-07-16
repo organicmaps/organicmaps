@@ -12,8 +12,9 @@ bool LoadTreeAsText(std::istream & s, ToDo & toDo)
 {
   std::string name;
   s >> name;
-  ASSERT ( !name.empty(), ("Error in classificator file") );
-  if (name == "{}") return false;
+  ASSERT(!name.empty(), ("Error in classificator file"));
+  if (name == "{}")
+    return false;
 
   // set key name
   toDo.Name(name);
@@ -41,9 +42,9 @@ bool LoadTreeAsText(std::istream & s, ToDo & toDo)
       }
     }
 
-    ASSERT ( i <= 128, ("too many features at level = ", name) );
+    ASSERT(i <= 128, ("too many features at level = ", name));
   }
 
   return true;
 }
-}
+}  // namespace tree

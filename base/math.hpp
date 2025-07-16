@@ -2,9 +2,9 @@
 
 #include "base/assert.hpp"
 
-#include <algorithm>    // std::max
+#include <algorithm>  // std::max
 #include <cmath>
-#include <functional>   // std::hash
+#include <functional>  // std::hash
 #include <type_traits>
 
 namespace math
@@ -25,9 +25,8 @@ T Abs(T x)
   return (x < 0 ? -x : x);
 }
 
-template <typename Number,
-          typename EnableIf = typename std::enable_if_t<
-              std::is_integral_v<Number> || std::is_floating_point_v<Number>, void>>
+template <typename Number, typename EnableIf = typename std::enable_if_t<
+                               std::is_integral_v<Number> || std::is_floating_point_v<Number>, void>>
 int constexpr Sign(Number const number) noexcept
 {
   return number == 0 ? 0 : number > 0 ? 1 : -1;
@@ -110,10 +109,8 @@ T PowUint(T x, uint64_t n)
 {
   T res = 1;
   for (T t = x; n > 0; n >>= 1, t *= t)
-  {
     if (n & 1)
       res *= t;
-  }
   return res;
 }
 
@@ -150,16 +147,14 @@ inline uint32_t NextPowOf2(uint32_t v)
 }
 
 // Greatest Common Divisor.
-template <typename Number,
-          typename EnableIf = typename std::enable_if_t<std::is_integral_v<Number>, void>>
+template <typename Number, typename EnableIf = typename std::enable_if_t<std::is_integral_v<Number>, void>>
 Number constexpr GCD(Number const a, Number const b)
 {
   return b == 0 ? a : GCD(b, a % b);
 }
 
 // Least Common Multiple.
-template <typename Number,
-          typename EnableIf = typename std::enable_if_t<std::is_integral_v<Number>, void>>
+template <typename Number, typename EnableIf = typename std::enable_if_t<std::is_integral_v<Number>, void>>
 Number constexpr LCM(Number const a, Number const b)
 {
   return a / GCD(a, b) * b;

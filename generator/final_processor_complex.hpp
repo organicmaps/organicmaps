@@ -21,8 +21,7 @@ namespace generator
 class ComplexFinalProcessor : public FinalProcessorIntermediateMwmInterface
 {
 public:
-  ComplexFinalProcessor(std::string const & mwmTmpPath, std::string const & outFilename,
-                        size_t threadsCount);
+  ComplexFinalProcessor(std::string const & mwmTmpPath, std::string const & outFilename, size_t threadsCount);
 
   void SetGetMainTypeFunction(hierarchy::GetMainTypeFn const & getMainType);
   void SetFilter(std::shared_ptr<FilterInterface> const & filter);
@@ -36,8 +35,7 @@ public:
   void Process() override;
 
 private:
-  std::unique_ptr<hierarchy::HierarchyEntryEnricher> CreateEnricher(
-      std::string const & countryName) const;
+  std::unique_ptr<hierarchy::HierarchyEntryEnricher> CreateEnricher(std::string const & countryName) const;
   void WriteLines(std::vector<HierarchyEntry> const & lines);
   std::unordered_map<base::GeoObjectId, feature::FeatureBuilder> RemoveRelationBuildingParts(
       std::vector<feature::FeatureBuilder> & fbs);

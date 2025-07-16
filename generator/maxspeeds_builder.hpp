@@ -17,7 +17,7 @@ namespace routing
 {
 class IndexGraph;
 using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
-} // namesoace routing
+}  // namespace routing
 
 namespace routing_builder
 {
@@ -26,8 +26,7 @@ namespace routing_builder
 bool ParseMaxspeeds(std::string const & filePath, routing::OsmIdToMaxspeed & osmIdToMaxspeed);
 
 void BuildMaxspeedsSection(routing::IndexGraph * graph, std::string const & dataPath,
-                           routing::FeatureIdToOsmId const & featureIdToOsmId,
-                           std::string const & maxspeedsFilename);
+                           routing::FeatureIdToOsmId const & featureIdToOsmId, std::string const & maxspeedsFilename);
 
 /// \brief Builds maxspeeds section in mwm with |dataPath|. This section contains max speed limits
 /// if they are available in file |maxspeedsFilename|.

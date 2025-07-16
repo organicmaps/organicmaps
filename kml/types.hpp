@@ -45,25 +45,25 @@ inline std::string DebugPrint(PredefinedColor color)
 {
   switch (color)
   {
-  using enum kml::PredefinedColor;
-  case None: return "None";
-  case Red: return "Red";
-  case Blue: return "Blue";
-  case Purple: return "Purple";
-  case Yellow: return "Yellow";
-  case Pink: return "Pink";
-  case Brown: return "Brown";
-  case Green: return "Green";
-  case Orange: return "Orange";
-  case DeepPurple: return "DeepPurple";
-  case LightBlue: return "LightBlue";
-  case Cyan: return "Cyan";
-  case Teal: return "Teal";
-  case Lime: return "Lime";
-  case DeepOrange: return "DeepOrange";
-  case Gray: return "Gray";
-  case BlueGray: return "BlueGray";
-  case Count: return {};
+    using enum kml::PredefinedColor;
+    case None: return "None";
+    case Red: return "Red";
+    case Blue: return "Blue";
+    case Purple: return "Purple";
+    case Yellow: return "Yellow";
+    case Pink: return "Pink";
+    case Brown: return "Brown";
+    case Green: return "Green";
+    case Orange: return "Orange";
+    case DeepPurple: return "DeepPurple";
+    case LightBlue: return "LightBlue";
+    case Cyan: return "Cyan";
+    case Teal: return "Teal";
+    case Lime: return "Lime";
+    case DeepOrange: return "DeepOrange";
+    case Gray: return "Gray";
+    case BlueGray: return "BlueGray";
+    case Count: return {};
   }
   UNREACHABLE();
 }
@@ -72,25 +72,25 @@ inline dp::Color ColorFromPredefinedColor(PredefinedColor color)
 {
   switch (color)
   {
-  using enum kml::PredefinedColor;
-  case Red: return dp::Color(229, 27, 35, 255);
-  case Pink: return dp::Color(255, 65, 130, 255);
-  case Purple: return dp::Color(155, 36, 178, 255);
-  case DeepPurple: return dp::Color(102, 57, 191, 255);
-  case Blue: return dp::Color(0, 102, 204, 255);
-  case LightBlue: return dp::Color(36, 156, 242, 255);
-  case Cyan: return dp::Color(20, 190, 205, 255);
-  case Teal: return dp::Color(0, 165, 140, 255);
-  case Green: return dp::Color(60, 140, 60, 255);
-  case Lime: return dp::Color(147, 191, 57, 255);
-  case Yellow: return dp::Color(255, 200, 0, 255);
-  case Orange: return dp::Color(255, 150, 0, 255);
-  case DeepOrange: return dp::Color(240, 100, 50, 255);
-  case Brown: return dp::Color(128, 70, 51, 255);
-  case Gray: return dp::Color(115, 115, 115, 255);
-  case BlueGray: return dp::Color(89, 115, 128, 255);
-  case None:
-  case Count: return ColorFromPredefinedColor(kml::PredefinedColor::Red);
+    using enum kml::PredefinedColor;
+    case Red: return dp::Color(229, 27, 35, 255);
+    case Pink: return dp::Color(255, 65, 130, 255);
+    case Purple: return dp::Color(155, 36, 178, 255);
+    case DeepPurple: return dp::Color(102, 57, 191, 255);
+    case Blue: return dp::Color(0, 102, 204, 255);
+    case LightBlue: return dp::Color(36, 156, 242, 255);
+    case Cyan: return dp::Color(20, 190, 205, 255);
+    case Teal: return dp::Color(0, 165, 140, 255);
+    case Green: return dp::Color(60, 140, 60, 255);
+    case Lime: return dp::Color(147, 191, 57, 255);
+    case Yellow: return dp::Color(255, 200, 0, 255);
+    case Orange: return dp::Color(255, 150, 0, 255);
+    case DeepOrange: return dp::Color(240, 100, 50, 255);
+    case Brown: return dp::Color(128, 70, 51, 255);
+    case Gray: return dp::Color(115, 115, 115, 255);
+    case BlueGray: return dp::Color(89, 115, 128, 255);
+    case None:
+    case Count: return ColorFromPredefinedColor(kml::PredefinedColor::Red);
   }
   UNREACHABLE();
 }
@@ -114,14 +114,14 @@ inline std::string DebugPrint(AccessRules accessRules)
 {
   switch (accessRules)
   {
-  using enum kml::AccessRules;
-  case Local: return "Local";
-  case Public: return "Public";
-  case DirectLink: return "DirectLink";
-  case P2P: return "P2P";
-  case Paid: return "Paid";
-  case AuthorOnly: return "AuthorOnly";
-  case Count: return {};
+    using enum kml::AccessRules;
+    case Local: return "Local";
+    case Public: return "Public";
+    case DirectLink: return "DirectLink";
+    case P2P: return "P2P";
+    case Paid: return "Paid";
+    case AuthorOnly: return "AuthorOnly";
+    case Count: return {};
   }
   UNREACHABLE();
 }
@@ -138,10 +138,10 @@ inline std::string DebugPrint(CompilationType compilationType)
 {
   switch (compilationType)
   {
-  using enum kml::CompilationType;
-  case Category: return "Category";
-  case Collection: return "Collection";
-  case Day: return "Day";
+    using enum kml::CompilationType;
+    case Category: return "Category";
+    case Collection: return "Collection";
+    case Day: return "Day";
   }
   UNREACHABLE();
 }
@@ -196,45 +196,45 @@ inline std::string ToString(BookmarkIcon icon)
 {
   switch (icon)
   {
-  using enum kml::BookmarkIcon;
-  case None: return "None";
-  case Hotel: return "Hotel";
-  case Animals: return "Animals";
-  case Buddhism: return "Buddhism";
-  case Building: return "Building";
-  case Christianity: return "Christianity";
-  case Entertainment: return "Entertainment";
-  case Exchange: return "Exchange";
-  case Food: return "Food";
-  case Gas: return "Gas";
-  case Judaism: return "Judaism";
-  case Medicine: return "Medicine";
-  case Mountain: return "Mountain";
-  case Museum: return "Museum";
-  case Islam: return "Islam";
-  case Park: return "Park";
-  case Parking: return "Parking";
-  case Shop: return "Shop";
-  case Sights: return "Sights";
-  case Swim: return "Swim";
-  case Water: return "Water";
-  case Bar: return "Bar";
-  case Transport: return "Transport";
-  case Viewpoint: return "Viewpoint";
-  case Sport: return "Sport";
-  case Pub: return "Pub";
-  case Art: return "Art";
-  case Bank: return "Bank";
-  case Cafe: return "Cafe";
-  case Pharmacy: return "Pharmacy";
-  case Stadium: return "Stadium";
-  case Theatre: return "Theatre";
-  case Information: return "Information";
-  case ChargingStation: return "ChargingStation";
-  case BicycleParking: return "BicycleParking";
-  case BicycleParkingCovered: return "BicycleParkingCovered";
-  case BicycleRental: return "BicycleRental";
-  case Count: return {};
+    using enum kml::BookmarkIcon;
+    case None: return "None";
+    case Hotel: return "Hotel";
+    case Animals: return "Animals";
+    case Buddhism: return "Buddhism";
+    case Building: return "Building";
+    case Christianity: return "Christianity";
+    case Entertainment: return "Entertainment";
+    case Exchange: return "Exchange";
+    case Food: return "Food";
+    case Gas: return "Gas";
+    case Judaism: return "Judaism";
+    case Medicine: return "Medicine";
+    case Mountain: return "Mountain";
+    case Museum: return "Museum";
+    case Islam: return "Islam";
+    case Park: return "Park";
+    case Parking: return "Parking";
+    case Shop: return "Shop";
+    case Sights: return "Sights";
+    case Swim: return "Swim";
+    case Water: return "Water";
+    case Bar: return "Bar";
+    case Transport: return "Transport";
+    case Viewpoint: return "Viewpoint";
+    case Sport: return "Sport";
+    case Pub: return "Pub";
+    case Art: return "Art";
+    case Bank: return "Bank";
+    case Cafe: return "Cafe";
+    case Pharmacy: return "Pharmacy";
+    case Stadium: return "Stadium";
+    case Theatre: return "Theatre";
+    case Information: return "Information";
+    case ChargingStation: return "ChargingStation";
+    case BicycleParking: return "BicycleParking";
+    case BicycleParkingCovered: return "BicycleParkingCovered";
+    case BicycleRental: return "BicycleRental";
+    case Count: return {};
   }
   UNREACHABLE();
 }
@@ -243,8 +243,7 @@ inline std::string ToString(BookmarkIcon icon)
 // will affect previous kmb versions, where this structure was used.
 struct ColorData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(ColorData, visitor(m_predefinedColor, "predefinedColor"),
-                                  visitor(m_rgba, "rgba"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(ColorData, visitor(m_predefinedColor, "predefinedColor"), visitor(m_rgba, "rgba"))
 
   bool operator==(ColorData const & data) const
   {
@@ -265,43 +264,27 @@ struct ColorData
 // in case of any changes of its binary format.
 struct BookmarkData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkData, visitor(m_id, "id"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_featureTypes, "featureTypes"),
-                                  visitor(m_customName, "customName"),
-                                  visitor(m_color, "color"),
-                                  visitor(m_icon, "icon"),
-                                  visitor(m_viewportScale, "viewportScale"),
-                                  visitor(m_timestamp, "timestamp"),
-                                  visitor(m_point, "point"),
-                                  visitor(m_boundTracks, "boundTracks"),
-                                  visitor(m_visible, "visible"),
-                                  visitor(m_nearestToponym, "nearestToponym"),
-                                  visitor(m_minZoom, "minZoom"),
-                                  visitor(m_compilations, "compilations"),
-                                  visitor(m_properties, "properties"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkData, visitor(m_id, "id"), visitor(m_name, "name"),
+                                  visitor(m_description, "description"), visitor(m_featureTypes, "featureTypes"),
+                                  visitor(m_customName, "customName"), visitor(m_color, "color"),
+                                  visitor(m_icon, "icon"), visitor(m_viewportScale, "viewportScale"),
+                                  visitor(m_timestamp, "timestamp"), visitor(m_point, "point"),
+                                  visitor(m_boundTracks, "boundTracks"), visitor(m_visible, "visible"),
+                                  visitor(m_nearestToponym, "nearestToponym"), visitor(m_minZoom, "minZoom"),
+                                  visitor(m_compilations, "compilations"), visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName,
-                      m_nearestToponym, m_properties)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName, m_nearestToponym, m_properties)
 
   bool operator==(BookmarkData const & data) const
   {
-    return m_id == data.m_id && m_name == data.m_name &&
-           m_description == data.m_description &&
-           m_color == data.m_color && m_icon == data.m_icon &&
-           m_viewportScale == data.m_viewportScale &&
-           IsEqual(m_timestamp, data.m_timestamp) &&
-           m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) &&
-           m_featureTypes == data.m_featureTypes &&
-           m_customName == data.m_customName &&
-           m_boundTracks == data.m_boundTracks &&
-           m_visible == data.m_visible &&
-           m_nearestToponym == data.m_nearestToponym &&
-           m_minZoom == data.m_minZoom &&
-           m_compilations == data.m_compilations &&
-           m_properties == data.m_properties;
+    return m_id == data.m_id && m_name == data.m_name && m_description == data.m_description &&
+           m_color == data.m_color && m_icon == data.m_icon && m_viewportScale == data.m_viewportScale &&
+           IsEqual(m_timestamp, data.m_timestamp) && m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) &&
+           m_featureTypes == data.m_featureTypes && m_customName == data.m_customName &&
+           m_boundTracks == data.m_boundTracks && m_visible == data.m_visible &&
+           m_nearestToponym == data.m_nearestToponym && m_minZoom == data.m_minZoom &&
+           m_compilations == data.m_compilations && m_properties == data.m_properties;
   }
 
   bool operator!=(BookmarkData const & data) const { return !operator==(data); }
@@ -345,8 +328,7 @@ struct BookmarkData
 // will affect previous kmb versions, where this structure was used.
 struct TrackLayer
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(TrackLayer, visitor(m_lineWidth, "lineWidth"),
-                                  visitor(m_color, "color"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TrackLayer, visitor(m_lineWidth, "lineWidth"), visitor(m_color, "color"))
 
   bool operator==(TrackLayer const & layer) const
   {
@@ -402,16 +384,11 @@ struct MultiGeometry
 
 struct TrackData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(TrackData, visitor(m_id, "id"),
-                                  visitor(m_localId, "localId"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_layers, "layers"),
-                                  visitor(m_timestamp, "timestamp"),
-                                  visitor(m_geometry, "geometry"),
-                                  visitor(m_visible, "visible"),
-                                  visitor(m_nearestToponyms, "nearestToponyms"),
-                                  visitor(m_properties, "properties"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TrackData, visitor(m_id, "id"), visitor(m_localId, "localId"),
+                                  visitor(m_name, "name"), visitor(m_description, "description"),
+                                  visitor(m_layers, "layers"), visitor(m_timestamp, "timestamp"),
+                                  visitor(m_geometry, "geometry"), visitor(m_visible, "visible"),
+                                  visitor(m_nearestToponyms, "nearestToponyms"), visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_nearestToponyms, m_properties)
@@ -419,10 +396,9 @@ struct TrackData
   bool operator==(TrackData const & data) const
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
-           m_description == data.m_description && m_layers == data.m_layers &&
-           IsEqual(m_timestamp, data.m_timestamp) && m_geometry == data.m_geometry &&
-           m_visible == data.m_visible && m_nearestToponyms == data.m_nearestToponyms &&
-           m_properties == data.m_properties;
+           m_description == data.m_description && m_layers == data.m_layers && IsEqual(m_timestamp, data.m_timestamp) &&
+           m_geometry == data.m_geometry && m_visible == data.m_visible &&
+           m_nearestToponyms == data.m_nearestToponyms && m_properties == data.m_properties;
   }
 
   bool operator!=(TrackData const & data) const { return !operator==(data); }
@@ -454,41 +430,29 @@ struct TrackData
 // in case of any changes of its binary format.
 struct CategoryData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_id, "id"),
-                                  visitor(m_compilationId, "compilationId"),
-                                  visitor(m_type, "type"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_imageUrl, "imageUrl"),
-                                  visitor(m_annotation, "annotation"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_visible, "visible"),
-                                  visitor(m_authorName, "authorName"),
-                                  visitor(m_authorId, "authorId"),
-                                  visitor(m_rating, "rating"),
-                                  visitor(m_reviewsNumber, "reviewsNumber"),
-                                  visitor(m_lastModified, "lastModified"),
-                                  visitor(m_accessRules, "accessRules"),
-                                  visitor(m_tags, "tags"),
-                                  visitor(m_toponyms, "toponyms"),
-                                  visitor(m_languageCodes, "languageCodes"),
-                                  visitor(m_properties, "properties"),
-                                  VISITOR_COLLECTABLE)
+  DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_id, "id"), visitor(m_compilationId, "compilationId"),
+                                  visitor(m_type, "type"), visitor(m_name, "name"), visitor(m_imageUrl, "imageUrl"),
+                                  visitor(m_annotation, "annotation"), visitor(m_description, "description"),
+                                  visitor(m_visible, "visible"), visitor(m_authorName, "authorName"),
+                                  visitor(m_authorId, "authorId"), visitor(m_rating, "rating"),
+                                  visitor(m_reviewsNumber, "reviewsNumber"), visitor(m_lastModified, "lastModified"),
+                                  visitor(m_accessRules, "accessRules"), visitor(m_tags, "tags"),
+                                  visitor(m_toponyms, "toponyms"), visitor(m_languageCodes, "languageCodes"),
+                                  visitor(m_properties, "properties"), VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_annotation, m_description,
-                      m_imageUrl, m_authorName, m_authorId, m_tags, m_toponyms, m_properties)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_annotation, m_description, m_imageUrl, m_authorName, m_authorId,
+                      m_tags, m_toponyms, m_properties)
 
   bool operator==(CategoryData const & data) const
   {
     double constexpr kEps = 1e-5;
-    return m_id == data.m_id && m_compilationId == data.m_compilationId &&
-           m_type == data.m_type && m_name == data.m_name && m_imageUrl == data.m_imageUrl &&
-           m_annotation == data.m_annotation && m_description == data.m_description &&
-           m_visible == data.m_visible && m_accessRules == data.m_accessRules &&
+    return m_id == data.m_id && m_compilationId == data.m_compilationId && m_type == data.m_type &&
+           m_name == data.m_name && m_imageUrl == data.m_imageUrl && m_annotation == data.m_annotation &&
+           m_description == data.m_description && m_visible == data.m_visible && m_accessRules == data.m_accessRules &&
            m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
            fabs(m_rating - data.m_rating) < kEps && m_reviewsNumber == data.m_reviewsNumber &&
-           IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags &&
-           m_toponyms == data.m_toponyms && m_languageCodes == data.m_languageCodes &&
-           m_properties == data.m_properties;
+           IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags && m_toponyms == data.m_toponyms &&
+           m_languageCodes == data.m_languageCodes && m_properties == data.m_properties;
   }
 
   bool operator!=(CategoryData const & data) const { return !operator==(data); }
@@ -535,10 +499,8 @@ struct CategoryData
 
 struct FileData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_serverId, "serverId"),
-                                  visitor(m_categoryData, "category"),
-                                  visitor(m_bookmarksData, "bookmarks"),
-                                  visitor(m_tracksData, "tracks"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_serverId, "serverId"), visitor(m_categoryData, "category"),
+                                  visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"),
                                   visitor(m_compilationsData, "compilations"))
 
   bool operator==(FileData const & data) const

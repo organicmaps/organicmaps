@@ -21,8 +21,7 @@ struct OverlayShowEvent
   bool m_hasMyPosition;
   m2::PointD m_myPosition;
   double m_gpsAccuracy;
-  OverlayShowEvent(FeatureID const & feature, uint8_t zoomLevel,
-                   EventTimestamp const & timestamp, bool hasMyPosition,
+  OverlayShowEvent(FeatureID const & feature, uint8_t zoomLevel, EventTimestamp const & timestamp, bool hasMyPosition,
                    m2::PointD const & myPosition, double gpsAccuracy)
     : m_feature(feature)
     , m_zoomLevel(zoomLevel)
@@ -44,8 +43,7 @@ public:
 
   void SetTrackedOverlaysFeatures(std::vector<FeatureID> && ids);
 
-  bool StartTracking(int zoomLevel, bool hasMyPosition,
-                     m2::PointD const & myPosition, double gpsAccuracy);
+  bool StartTracking(int zoomLevel, bool hasMyPosition, m2::PointD const & myPosition, double gpsAccuracy);
   void Track(FeatureID const & fid);
   void FinishTracking();
 

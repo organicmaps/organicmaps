@@ -43,7 +43,9 @@ namespace routing
 /// \breaf This class is responsible for the route built in the program.
 /// \note All method of this class should be called from ui thread if there's no
 /// a special note near a method.
-class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficCache
+class RoutingSession
+  : public traffic::TrafficObserver
+  , public traffic::TrafficCache
 {
   friend struct UnitClass_AsyncGuiThreadTestWithRoutingSession_TestFollowRoutePercentTest;
 
@@ -52,16 +54,14 @@ public:
 
   void Init(PointCheckCallback const & pointCheckCallback);
 
-  void SetRouter(std::unique_ptr<IRouter> && router,
-                 std::unique_ptr<AbsentRegionsFinder> && finder);
+  void SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<AbsentRegionsFinder> && finder);
 
   /// @param[in] checkpoints in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
   void BuildRoute(Checkpoints const & checkpoints, uint32_t timeoutSec);
   void RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & readyCallback,
-                    NeedMoreMapsCallback const & needMoreMapsCallback,
-                    RemoveRouteCallback const & removeRouteCallback, uint32_t timeoutSec,
-                    SessionState routeRebuildingState, bool adjustToPrevRoute);
+                    NeedMoreMapsCallback const & needMoreMapsCallback, RemoveRouteCallback const & removeRouteCallback,
+                    uint32_t timeoutSec, SessionState routeRebuildingState, bool adjustToPrevRoute);
 
   m2::PointD GetStartPoint() const;
   m2::PointD GetEndPoint() const;
@@ -101,8 +101,7 @@ public:
   SessionState OnLocationPositionChanged(location::GpsInfo const & info);
   void GetRouteFollowingInfo(FollowingInfo & info) const;
 
-  bool MatchLocationToRoute(location::GpsInfo & location,
-                            location::RouteMatchingInfo & routeMatchingInfo);
+  bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo);
   void MatchLocationToRoadGraph(location::GpsInfo & location);
   // Get traffic speed for the current route position.
   // Returns SpeedGroup::Unknown if any trouble happens: position doesn't match with route or something else.
@@ -125,8 +124,7 @@ public:
   bool EnableFollowMode();
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);
-  void SetRoutingCallbacks(ReadyCallback const & buildReadyCallback,
-                           ReadyCallback const & rebuildReadyCallback,
+  void SetRoutingCallbacks(ReadyCallback const & buildReadyCallback, ReadyCallback const & rebuildReadyCallback,
                            NeedMoreMapsCallback const & needMoreMapsCallback,
                            RemoveRouteCallback const & removeRouteCallback);
   void SetProgressCallback(ProgressCallback const & progressCallback);
@@ -180,9 +178,7 @@ private:
     RoutingSession & m_rs;
     ReadyCallback m_callback;
 
-    DoReadyCallback(RoutingSession & rs, ReadyCallback const & cb)
-        : m_rs(rs), m_callback(cb)
-    {}
+    DoReadyCallback(RoutingSession & rs, ReadyCallback const & cb) : m_rs(rs), m_callback(cb) {}
 
     void operator()(std::shared_ptr<Route> const & route, RouterResultCode e);
   };
@@ -233,8 +229,8 @@ private:
   // Passed distance on route including reroutes
   double m_passedDistanceOnRouteMeters = 0.0;
   // Rerouting count
-  int m_routingRebuildCount = -1; // -1 for the first rebuild called in BuildRoute().
-  int m_routingRebuildAnnounceCount = 0; // track TTS announcement state (ignore the first build)
+  int m_routingRebuildCount = -1;         // -1 for the first rebuild called in BuildRoute().
+  int m_routingRebuildAnnounceCount = 0;  // track TTS announcement state (ignore the first build)
   mutable double m_lastCompletionPercent = 0.0;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);

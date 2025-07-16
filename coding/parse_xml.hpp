@@ -20,8 +20,7 @@ public:
     , m_numRead(0)
     , m_source(source)
     , m_parser(dispatcher, useCharData)
-  {
-  }
+  {}
 
   bool Read()
   {
@@ -65,7 +64,6 @@ private:
   Source & m_source;
 };
 
-
 template <typename XMLDispatcher, typename Source>
 bool ParseXML(Source & source, XMLDispatcher & dispatcher, bool useCharData = false)
 {
@@ -73,7 +71,8 @@ bool ParseXML(Source & source, XMLDispatcher & dispatcher, bool useCharData = fa
   XMLSequenceParser<decltype(adapter), XMLDispatcher> parser(adapter, dispatcher, useCharData);
   try
   {
-    while (parser.Read()) /* empty */;
+    while (parser.Read()) /* empty */
+      ;
   }
   catch (std::exception const & e)
   {

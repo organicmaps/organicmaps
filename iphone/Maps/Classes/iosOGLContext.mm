@@ -5,8 +5,8 @@
 #include "base/assert.hpp"
 #include "base/logging.cpp"
 
-iosOGLContext::iosOGLContext(CAEAGLLayer * layer, dp::ApiVersion apiVersion,
-                             iosOGLContext * contextToShareWith, bool needBuffers)
+iosOGLContext::iosOGLContext(CAEAGLLayer * layer, dp::ApiVersion apiVersion, iosOGLContext * contextToShareWith,
+                             bool needBuffers)
   : m_apiVersion(apiVersion)
   , m_layer(layer)
   , m_nativeContext(NULL)
@@ -22,16 +22,11 @@ iosOGLContext::iosOGLContext(CAEAGLLayer * layer, dp::ApiVersion apiVersion,
     api = kEAGLRenderingAPIOpenGLES3;
   else
     api = kEAGLRenderingAPIOpenGLES2;
-  
+
   if (contextToShareWith != NULL)
-  {
-    m_nativeContext = [[EAGLContext alloc] initWithAPI:api
-                                           sharegroup: contextToShareWith->m_nativeContext.sharegroup];
-  }
+    m_nativeContext = [[EAGLContext alloc] initWithAPI:api sharegroup:contextToShareWith->m_nativeContext.sharegroup];
   else
-  {
     m_nativeContext = [[EAGLContext alloc] initWithAPI:api];
-  }
 }
 
 iosOGLContext::~iosOGLContext()
@@ -42,7 +37,7 @@ iosOGLContext::~iosOGLContext()
 void iosOGLContext::MakeCurrent()
 {
   ASSERT(m_nativeContext != NULL, ());
-  [EAGLContext setCurrentContext: m_nativeContext];
+  [EAGLContext setCurrentContext:m_nativeContext];
 
   if (m_needBuffers && !m_hasBuffers)
     InitBuffers();
@@ -57,16 +52,16 @@ void iosOGLContext::Present()
 {
   ASSERT(m_nativeContext != NULL, ());
   ASSERT(m_renderBufferId, ());
-  GLenum const discards[] = { GL_DEPTH_ATTACHMENT, GL_COLOR_ATTACHMENT0 };
+  GLenum const discards[] = {GL_DEPTH_ATTACHMENT, GL_COLOR_ATTACHMENT0};
   if (m_apiVersion == dp::ApiVersion::OpenGLES3)
     GLCHECK(glInvalidateFramebuffer(GL_FRAMEBUFFER, 1, discards));
   else
     GLCHECK(glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards));
 
   glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
-  
+
   if (m_presentAvailable)
-    [m_nativeContext presentRenderbuffer: GL_RENDERBUFFER];
+    [m_nativeContext presentRenderbuffer:GL_RENDERBUFFER];
 
   if (m_apiVersion == dp::ApiVersion::OpenGLES3)
     GLCHECK(glInvalidateFramebuffer(GL_FRAMEBUFFER, 1, discards + 1));
@@ -113,7 +108,7 @@ void iosOGLContext::InitBuffers()
     glGenRenderbuffers(1, &m_renderBufferId);
     glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferId);
 
-    [m_nativeContext renderbufferStorage:GL_RENDERBUFFER fromDrawable: m_layer];
+    [m_nativeContext renderbufferStorage:GL_RENDERBUFFER fromDrawable:m_layer];
     // color
 
     // Depth
@@ -132,7 +127,7 @@ void iosOGLContext::InitBuffers()
     glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_renderBufferId);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depthBufferId);
-    
+
     GLint fbStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (fbStatus != GL_FRAMEBUFFER_COMPLETE)
       LOG(LERROR, ("Incomplete framebuffer:", fbStatus));

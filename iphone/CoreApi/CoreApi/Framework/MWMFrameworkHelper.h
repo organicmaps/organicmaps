@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, ProductsPopupCloseReason) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^SearchInDownloaderCompletions)(NSArray<MWMMapSearchResult *> *results, BOOL finished);
+typedef void (^SearchInDownloaderCompletions)(NSArray<MWMMapSearchResult *> * results, BOOL finished);
 typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 
 @protocol TrackRecorder
@@ -47,7 +47,7 @@ typedef void (^TrackRecordingUpdatedHandler)(TrackInfo * _Nonnull trackInfo);
 @end
 
 NS_SWIFT_NAME(FrameworkHelper)
-@interface MWMFrameworkHelper : NSObject<TrackRecorder, ProductsManager>
+@interface MWMFrameworkHelper : NSObject <TrackRecorder, ProductsManager>
 
 + (void)processFirstLaunch:(BOOL)hasLocation;
 + (void)setVisibleViewport:(CGRect)rect scaleFactor:(CGFloat)scale;
@@ -58,7 +58,7 @@ NS_SWIFT_NAME(FrameworkHelper)
 + (MWMMarkGroupID)invalidCategoryId;
 + (void)zoomMap:(MWMZoomMode)mode;
 + (void)moveMap:(UIOffset)offset;
-+ (void)scrollMap:(double)distanceX :(double) distanceY;
++ (void)scrollMap:(double)distanceX:(double)distanceY;
 + (void)deactivateMapSelection;
 + (void)switchMyPositionMode;
 + (void)stopLocationFollow;

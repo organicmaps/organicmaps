@@ -19,8 +19,8 @@
 
   switch ([MWMSettings measurementUnits])
   {
-  case MWMUnitsMetric: self.selectedCell = self.kilometers; break;
-  case MWMUnitsImperial: self.selectedCell = self.miles; break;
+    case MWMUnitsMetric: self.selectedCell = self.kilometers; break;
+    case MWMUnitsImperial: self.selectedCell = self.miles; break;
   }
 }
 

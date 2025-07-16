@@ -1,34 +1,35 @@
 #import "MWMRoutingManager.h"
-#import "MWMLocationManager.h"
-#import "MWMLocationObserver.h"
+#import "MWMCoreRouterType.h"
+#import "MWMCoreUnits.h"
 #import "MWMFrameworkListener.h"
 #import "MWMFrameworkObservers.h"
-#import "MWMCoreRouterType.h"
+#import "MWMLocationManager.h"
+#import "MWMLocationObserver.h"
 #import "MWMRoutePoint+CPP.h"
-#import "MWMCoreUnits.h"
 #import "SwiftBridge.h"
 
 #include <CoreApi/Framework.h>
 
-@interface MWMRoutingManager()<MWMFrameworkRouteBuilderObserver, MWMLocationObserver>
+@interface MWMRoutingManager () <MWMFrameworkRouteBuilderObserver, MWMLocationObserver>
 @property(nonatomic, readonly) RoutingManager & rm;
-@property(strong, nonatomic) NSHashTable<id<MWMRoutingManagerListener>> *listeners;
+@property(strong, nonatomic) NSHashTable<id<MWMRoutingManagerListener>> * listeners;
 @end
 
 @implementation MWMRoutingManager
 
-+ (MWMRoutingManager *)routingManager {
++ (MWMRoutingManager *)routingManager
+{
   static MWMRoutingManager * routingManager;
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    routingManager = [[self alloc] initManager];
-  });
+  dispatch_once(&onceToken, ^{ routingManager = [[self alloc] initManager]; });
   return routingManager;
 }
 
-- (instancetype)initManager {
+- (instancetype)initManager
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     self.listeners = [NSHashTable<id<MWMRoutingManagerListener>> weakObjectsHashTable];
     [MWMFrameworkListener addObserver:self];
     [MWMLocationManager addObserver:self];
@@ -36,15 +37,18 @@
   return self;
 }
 
-- (RoutingManager &)rm {
+- (RoutingManager &)rm
+{
   return GetFramework().GetRoutingManager();
 }
 
-- (routing::SpeedCameraManager &)scm {
+- (routing::SpeedCameraManager &)scm
+{
   return self.rm.GetSpeedCamManager();
 }
 
-- (MWMRoutePoint *)startPoint {
+- (MWMRoutePoint *)startPoint
+{
   auto const routePoints = self.rm.GetRoutePoints();
   if (routePoints.empty())
     return nil;
@@ -54,7 +58,8 @@
   return nil;
 }
 
-- (MWMRoutePoint *)endPoint {
+- (MWMRoutePoint *)endPoint
+{
   auto const routePoints = self.rm.GetRoutePoints();
   if (routePoints.empty())
     return nil;
@@ -64,19 +69,23 @@
   return nil;
 }
 
-- (BOOL)isOnRoute {
+- (BOOL)isOnRoute
+{
   return self.rm.IsRoutingFollowing();
 }
 
-- (BOOL)isRoutingActive {
+- (BOOL)isRoutingActive
+{
   return self.rm.IsRoutingActive();
 }
 
-- (BOOL)isRouteFinished {
+- (BOOL)isRouteFinished
+{
   return self.rm.IsRouteFinished();
 }
 
-- (MWMRouteInfo *)routeInfo {
+- (MWMRouteInfo *)routeInfo
+{
   if (!self.isRoutingActive)
     return nil;
   routing::FollowingInfo info;
@@ -90,181 +99,195 @@
   NSInteger roundExitNumber = 0;
   if (info.m_turn == routing::turns::CarDirection::EnterRoundAbout ||
       info.m_turn == routing::turns::CarDirection::StayOnRoundAbout ||
-      info.m_turn == routing::turns::CarDirection::LeaveRoundAbout) {
+      info.m_turn == routing::turns::CarDirection::LeaveRoundAbout)
+  {
     roundExitNumber = info.m_exitNum;
   }
 
-  MWMRouteInfo *objCInfo = [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
-                                                     targetDistance: info.m_distToTarget.GetDistance()
-                                                     targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
-                                                       distanceToTurn:info.m_distToTurn.GetDistance()
-                                                       turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
-                                                           streetName:@(info.m_nextStreetName.c_str())
-                                                        turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
-                                                    nextTurnImageName:[self turnImageName:info.m_nextTurn isPrimary:NO]
-                                                             speedMps:speedMps
-                                                        speedLimitMps:info.m_speedLimitMps
-                                                      roundExitNumber:roundExitNumber];
+  MWMRouteInfo * objCInfo =
+      [[MWMRouteInfo alloc] initWithTimeToTarget:info.m_time
+                                  targetDistance:info.m_distToTarget.GetDistance()
+                                targetUnitsIndex:static_cast<UInt8>(info.m_distToTarget.GetUnits())
+                                  distanceToTurn:info.m_distToTurn.GetDistance()
+                                  turnUnitsIndex:static_cast<UInt8>(info.m_distToTurn.GetUnits())
+                                      streetName:@(info.m_nextStreetName.c_str())
+                                   turnImageName:[self turnImageName:info.m_turn isPrimary:YES]
+                               nextTurnImageName:[self turnImageName:info.m_nextTurn isPrimary:NO]
+                                        speedMps:speedMps
+                                   speedLimitMps:info.m_speedLimitMps
+                                 roundExitNumber:roundExitNumber];
   return objCInfo;
 }
 
-- (MWMRouterType)type {
+- (MWMRouterType)type
+{
   return routerType(self.rm.GetRouter());
 }
 
-- (void)addListener:(id<MWMRoutingManagerListener>)listener {
+- (void)addListener:(id<MWMRoutingManagerListener>)listener
+{
   [self.listeners addObject:listener];
 }
 
-- (void)removeListener:(id<MWMRoutingManagerListener>)listener {
+- (void)removeListener:(id<MWMRoutingManagerListener>)listener
+{
   [self.listeners removeObject:listener];
 }
 
-- (void)stopRoutingAndRemoveRoutePoints:(BOOL)flag {
+- (void)stopRoutingAndRemoveRoutePoints:(BOOL)flag
+{
   self.rm.CloseRouting(flag);
 }
 
-- (void)deleteSavedRoutePoints {
+- (void)deleteSavedRoutePoints
+{
   self.rm.DeleteSavedRoutePoints();
 }
 
-- (void)applyRouterType:(MWMRouterType)type {
+- (void)applyRouterType:(MWMRouterType)type
+{
   self.rm.SetRouter(coreRouterType(type));
 }
 
-- (void)addRoutePoint:(MWMRoutePoint *)point {
+- (void)addRoutePoint:(MWMRoutePoint *)point
+{
   RouteMarkData startPt = point.routeMarkData;
   self.rm.AddRoutePoint(std::move(startPt));
 }
 
-- (void)saveRoute {
+- (void)saveRoute
+{
   self.rm.SaveRoutePoints();
 }
 
-- (void)buildRouteWithDidFailError:(NSError * __autoreleasing  __nullable *)errorPtr {
+- (void)buildRouteWithDidFailError:(NSError * __autoreleasing __nullable *)errorPtr
+{
   auto const & points = self.rm.GetRoutePoints();
   auto const pointsCount = points.size();
 
-  if (pointsCount > 1) {
+  if (pointsCount > 1)
+  {
     self.rm.BuildRoute();
-  } else {
-    if (errorPtr) {
-      if (pointsCount == 0) {
-        *errorPtr = [NSError errorWithDomain:@"omaps.app.routing"
-                                        code:MWMRouterResultCodeStartPointNotFound
-                                    userInfo:nil];
-      } else {
-        auto const & routePoint = points.front();
-        MWMRouterResultCode code;
-        if (routePoint.m_pointType == RouteMarkType::Start) {
-          code = MWMRouterResultCodeEndPointNotFound;
-        } else {
-          code = MWMRouterResultCodeStartPointNotFound;
-        }
-        *errorPtr = [NSError errorWithDomain:@"omaps.app.routing"
-                                        code:code
-                                    userInfo:nil];
-      }
+  }
+  else if (errorPtr)
+  {
+    if (pointsCount == 0)
+    {
+      *errorPtr = [NSError errorWithDomain:@"omaps.app.routing"
+                                      code:MWMRouterResultCodeStartPointNotFound
+                                  userInfo:nil];
+    }
+    else
+    {
+      auto const & routePoint = points.front();
+      MWMRouterResultCode code;
+      if (routePoint.m_pointType == RouteMarkType::Start)
+        code = MWMRouterResultCodeEndPointNotFound;
+      else
+        code = MWMRouterResultCodeStartPointNotFound;
+      *errorPtr = [NSError errorWithDomain:@"omaps.app.routing" code:code userInfo:nil];
     }
   }
 }
 
-- (void)startRoute {
+- (void)startRoute
+{
   [self saveRoute];
   self.rm.FollowRoute();
 }
 
-- (MWMSpeedCameraManagerMode)speedCameraMode {
+- (MWMSpeedCameraManagerMode)speedCameraMode
+{
   auto const mode = self.scm.GetMode();
-  switch (mode) {
-    case routing::SpeedCameraManagerMode::Auto:
-      return MWMSpeedCameraManagerModeAuto;
-    case routing::SpeedCameraManagerMode::Always:
-      return MWMSpeedCameraManagerModeAlways;
-    default:
-      return MWMSpeedCameraManagerModeNever;
+  switch (mode)
+  {
+    case routing::SpeedCameraManagerMode::Auto: return MWMSpeedCameraManagerModeAuto;
+    case routing::SpeedCameraManagerMode::Always: return MWMSpeedCameraManagerModeAlways;
+    default: return MWMSpeedCameraManagerModeNever;
   }
 }
 
-- (void)setSpeedCameraMode:(MWMSpeedCameraManagerMode)mode {
-  switch (mode) {
-    case MWMSpeedCameraManagerModeAuto:
-      self.scm.SetMode(routing::SpeedCameraManagerMode::Auto);
-      break;
-    case MWMSpeedCameraManagerModeAlways:
-      self.scm.SetMode(routing::SpeedCameraManagerMode::Always);
-      break;
-    default:
-      self.scm.SetMode(routing::SpeedCameraManagerMode::Never);
+- (void)setSpeedCameraMode:(MWMSpeedCameraManagerMode)mode
+{
+  switch (mode)
+  {
+    case MWMSpeedCameraManagerModeAuto: self.scm.SetMode(routing::SpeedCameraManagerMode::Auto); break;
+    case MWMSpeedCameraManagerModeAlways: self.scm.SetMode(routing::SpeedCameraManagerMode::Always); break;
+    default: self.scm.SetMode(routing::SpeedCameraManagerMode::Never);
   }
 }
 
-- (void)setOnNewTurnCallback:(MWMVoidBlock)callback {
-  self.rm.RoutingSession().SetOnNewTurnCallback([callback] {
-    callback();
-  });
+- (void)setOnNewTurnCallback:(MWMVoidBlock)callback
+{
+  self.rm.RoutingSession().SetOnNewTurnCallback([callback] { callback(); });
 }
 
-- (void)resetOnNewTurnCallback {
+- (void)resetOnNewTurnCallback
+{
   self.rm.RoutingSession().SetOnNewTurnCallback(nullptr);
 }
 
 #pragma mark - MWMFrameworkRouteBuilderObserver implementation
 
 - (void)processRouteBuilderEvent:(routing::RouterResultCode)code
-                       countries:(const storage::CountriesSet &)absentCountries {
+                       countries:(const storage::CountriesSet &)absentCountries
+{
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
   MWMRouterResultCode objCCode = MWMRouterResultCode(code);
-  NSMutableArray<NSString *> *objCAbsentCountries = [NSMutableArray new];
+  NSMutableArray<NSString *> * objCAbsentCountries = [NSMutableArray new];
   std::for_each(absentCountries.begin(), absentCountries.end(), ^(std::string const & str) {
     id nsstr = [NSString stringWithUTF8String:str.c_str()];
     [objCAbsentCountries addObject:nsstr];
   });
-  for (id<MWMRoutingManagerListener> object in objects) {
-    [object processRouteBuilderEventWithCode:objCCode
-                                   countries:objCAbsentCountries];
-  }
+  for (id<MWMRoutingManagerListener> object in objects)
+    [object processRouteBuilderEventWithCode:objCCode countries:objCAbsentCountries];
 }
 
-- (void)speedCameraShowedUpOnRoute:(double)speedLimit {
+- (void)speedCameraShowedUpOnRoute:(double)speedLimit
+{
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
-  for (id<MWMRoutingManagerListener> object in objects) {
-    if (speedLimit == routing::SpeedCameraOnRoute::kNoSpeedInfo) {
+  for (id<MWMRoutingManagerListener> object in objects)
+  {
+    if (speedLimit == routing::SpeedCameraOnRoute::kNoSpeedInfo)
+    {
       [object updateCameraInfo:YES speedLimitMps:-1];
-    } else {
+    }
+    else
+    {
       auto const metersPerSecond = measurement_utils::KmphToMps(speedLimit);
       [object updateCameraInfo:YES speedLimitMps:metersPerSecond];
     }
   }
 }
 
-- (void)speedCameraLeftVisibleArea {
+- (void)speedCameraLeftVisibleArea
+{
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
-  for (id<MWMRoutingManagerListener> object in objects) {
+  for (id<MWMRoutingManagerListener> object in objects)
     [object updateCameraInfo:NO speedLimitMps:-1];
-  }
 }
 
 #pragma mark - MWMLocationObserver implementation
 
-- (void)onLocationUpdate:(CLLocation *)location {
+- (void)onLocationUpdate:(CLLocation *)location
+{
   NSMutableArray<NSString *> * turnNotifications = [NSMutableArray array];
   std::vector<std::string> notifications;
   auto announceStreets = [NSUserDefaults.standardUserDefaults boolForKey:@"UserDefaultsNeedToEnableStreetNamesTTS"];
   self.rm.GenerateNotifications(notifications, announceStreets);
-  for (auto const & text : notifications) {
+  for (auto const & text : notifications)
     [turnNotifications addObject:@(text.c_str())];
-  }
   NSArray<id<MWMRoutingManagerListener>> * objects = self.listeners.allObjects;
-  for (id<MWMRoutingManagerListener> object in objects) {
+  for (id<MWMRoutingManagerListener> object in objects)
     [object didLocationUpdate:turnNotifications];
-  }
 }
 
-- (NSString *)turnImageName:(routing::turns::CarDirection)turn isPrimary:(BOOL)isPrimary {
+- (NSString *)turnImageName:(routing::turns::CarDirection)turn isPrimary:(BOOL)isPrimary
+{
   using namespace routing::turns;
-  NSString *imageName = nil;
-  switch (turn) {
+  NSString * imageName = nil;
+  switch (turn)
+  {
     case CarDirection::ExitHighwayToRight: imageName = @"ic_cp_exit_highway_to_right"; break;
     case CarDirection::TurnSlightRight: imageName = @"ic_cp_slight_right"; break;
     case CarDirection::TurnRight: imageName = @"ic_cp_simple_right"; break;
@@ -284,9 +307,8 @@
     case CarDirection::Count:
     case CarDirection::None: imageName = isPrimary ? @"ic_cp_straight" : nil; break;
   }
-  if (!isPrimary && imageName != nil) {
+  if (!isPrimary && imageName != nil)
     imageName = [NSString stringWithFormat:@"%@_then", imageName];
-  }
   return imageName;
 }
 

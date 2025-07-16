@@ -18,7 +18,7 @@ using namespace routing;
 
 struct SimpleEdge
 {
-  SimpleEdge() = default;   // needed for buffer_vector only
+  SimpleEdge() = default;  // needed for buffer_vector only
   SimpleEdge(uint32_t to, double weight) : m_to(to), m_weight(weight) {}
 
   uint32_t GetTarget() const { return m_to; }
@@ -37,9 +37,7 @@ public:
 
   double GetSpeedKMpH(Edge const & edge, SpeedParams const & speedParams) const
   {
-    double const speedKMpH =
-        (edge.IsFake() ? GetMaxSpeedKMpH()
-                       : GetSpeedKMpH(edge.GetFeatureId(), speedParams));
+    double const speedKMpH = (edge.IsFake() ? GetMaxSpeedKMpH() : GetSpeedKMpH(edge.GetFeatureId(), speedParams));
     ASSERT_LESS_OR_EQUAL(speedKMpH, GetMaxSpeedKMpH(), ());
     return speedKMpH;
   }
@@ -53,10 +51,8 @@ public:
 
   // AStarGraph overrides
   // @{
-  void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                           EdgeListT & adj) override;
-  void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                            EdgeListT & adj) override;
+  void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & adj) override;
+  void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & adj) override;
   double HeuristicCostEstimate(Vertex const & v, Vertex const & w) override;
   // @}
 
@@ -102,4 +98,4 @@ public:
 };
 
 std::string DebugPrint(TestAStarBidirectionalAlgo::Result const & result);
-}  // namespace routing_tests
+}  // namespace routing_test

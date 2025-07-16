@@ -1,8 +1,8 @@
+#import <CoreApi/AppInfo.h>
+#import <CoreApi/Framework.h>
+#import <CoreApi/MWMCommon.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import <CoreApi/Framework.h>
-#import <CoreApi/AppInfo.h>
-#import <CoreApi/MWMCommon.h>
 #import "MWMSearch+CoreSpotlight.h"
 #import "MWMSettings.h"
 
@@ -23,14 +23,15 @@
 
   for (auto const & categoryKey : categoriesKeys)
   {
-    CSSearchableItemAttributeSet * attrSet = [[CSSearchableItemAttributeSet alloc]
-        initWithItemContentType:static_cast<NSString *>(kUTTypeItem)];
+    CSSearchableItemAttributeSet * attrSet =
+        [[CSSearchableItemAttributeSet alloc] initWithItemContentType:static_cast<NSString *>(kUTTypeItem)];
 
     NSString * categoryName = nil;
     NSMutableDictionary<NSString *, NSString *> * localizedStrings = [@{} mutableCopy];
 
     categories.ForEachSynonym(categoryKey, [&localizedStrings, &localeLanguageId, &categoryName](
-                                               std::string const & name, std::string const & locale) {
+                                               std::string const & name, std::string const & locale)
+    {
       NSString * nsName = @(name.c_str());
       NSString * nsLocale = @(locale.c_str());
       if ([localeLanguageId isEqualToString:nsLocale])
@@ -47,10 +48,9 @@
     UIImage * image = [UIImage imageNamed:imageName];
     attrSet.thumbnailData = UIImagePNGRepresentation(image);
 
-    CSSearchableItem * item =
-        [[CSSearchableItem alloc] initWithUniqueIdentifier:categoryKeyString
-                                          domainIdentifier:@"omaps.app.categories"
-                                              attributeSet:attrSet];
+    CSSearchableItem * item = [[CSSearchableItem alloc] initWithUniqueIdentifier:categoryKeyString
+                                                                domainIdentifier:@"omaps.app.categories"
+                                                                    attributeSet:attrSet];
     [items addObject:item];
   }
 
@@ -60,8 +60,7 @@
            if (error)
            {
              NSError * err = error;
-             LOG(LERROR,
-                 ("addCategoriesToSpotlight failed: ", err.localizedDescription.UTF8String));
+             LOG(LERROR, ("addCategoriesToSpotlight failed: ", err.localizedDescription.UTF8String));
            }
            else
            {

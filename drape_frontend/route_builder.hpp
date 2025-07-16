@@ -15,8 +15,8 @@
 
 namespace dp
 {
-  class TextureManager;
-  class GraphicsContext;
+class TextureManager;
+class GraphicsContext;
 }  // namespace dp
 
 namespace df
@@ -28,8 +28,7 @@ public:
   using FlushArrowsFn = std::function<void(drape_ptr<SubrouteArrowsData> &&)>;
   using FlushMarkersFn = std::function<void(drape_ptr<SubrouteMarkersData> &&)>;
 
-  RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn,
-               FlushMarkersFn && flushMarkersFn);
+  RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn, FlushMarkersFn && flushMarkersFn);
 
   void Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId, SubrouteConstPtr subroute,
              ref_ptr<dp::TextureManager> textures, int recacheId);

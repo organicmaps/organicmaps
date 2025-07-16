@@ -10,10 +10,8 @@
 namespace topography_generator
 {
 template <typename ValueType>
-void GetExtendedTile(ms::LatLon const & leftBottom, size_t stepsInDegree,
-                     size_t tileSize, size_t tileSizeExtension,
-                     ValuesProvider<ValueType> & valuesProvider,
-                     std::vector<ValueType> & extTileValues)
+void GetExtendedTile(ms::LatLon const & leftBottom, size_t stepsInDegree, size_t tileSize, size_t tileSizeExtension,
+                     ValuesProvider<ValueType> & valuesProvider, std::vector<ValueType> & extTileValues)
 {
   size_t const extendedTileSize = tileSize + 2 * tileSizeExtension;
   extTileValues.resize(extendedTileSize * extendedTileSize);
@@ -22,19 +20,16 @@ void GetExtendedTile(ms::LatLon const & leftBottom, size_t stepsInDegree,
   double const offset = step * tileSizeExtension;
 
   // Store values from North to South.
-  ms::LatLon startPos = ms::LatLon(leftBottom.m_lat + 1.0 + offset,
-                                   leftBottom.m_lon - offset);
+  ms::LatLon startPos = ms::LatLon(leftBottom.m_lat + 1.0 + offset, leftBottom.m_lon - offset);
   for (size_t i = 0; i < extendedTileSize; ++i)
   {
     for (size_t j = 0; j < extendedTileSize; ++j)
     {
-      auto pos = ms::LatLon(startPos.m_lat - i * step,
-                            startPos.m_lon + j * step);
+      auto pos = ms::LatLon(startPos.m_lat - i * step, startPos.m_lon + j * step);
       auto val = valuesProvider.GetValue(pos);
 
-      if (val == valuesProvider.GetInvalidValue() &&
-          ((i < tileSizeExtension) || (i >= tileSizeExtension + tileSize) ||
-           (j < tileSizeExtension) || (j >= tileSizeExtension + tileSize)))
+      if (val == valuesProvider.GetInvalidValue() && ((i < tileSizeExtension) || (i >= tileSizeExtension + tileSize) ||
+                                                      (j < tileSizeExtension) || (j >= tileSizeExtension + tileSize)))
       {
         auto const ni = std::max(std::min(i, tileSizeExtension + tileSize - 1), tileSizeExtension);
         auto const nj = std::max(std::min(j, tileSizeExtension + tileSize - 1), tileSizeExtension);
@@ -49,8 +44,7 @@ void GetExtendedTile(ms::LatLon const & leftBottom, size_t stepsInDegree,
 
 template <typename ValueType>
 void ProcessWithLinearKernel(std::vector<double> const & kernel, size_t tileSize, size_t tileOffset,
-                             std::vector<ValueType> const & srcValues,
-                             std::vector<ValueType> & dstValues,
+                             std::vector<ValueType> const & srcValues, std::vector<ValueType> & dstValues,
                              ValueType invalidValue)
 {
   auto const kernelSize = kernel.size();
@@ -84,9 +78,7 @@ void ProcessWithLinearKernel(std::vector<double> const & kernel, size_t tileSize
       }
     }
     for (size_t j = tileOffset; j < tileSize - tileOffset; ++j)
-    {
       dstValues[i * tileSize + j] = tempValues[j];
-    }
   }
 
   for (size_t j = tileOffset; j < tileSize - tileOffset; ++j)
@@ -112,17 +104,13 @@ void ProcessWithLinearKernel(std::vector<double> const & kernel, size_t tileSize
       }
     }
     for (size_t i = tileOffset; i < tileSize - tileOffset; ++i)
-    {
       dstValues[i * tileSize + j] = tempValues[i];
-    }
   }
 }
 
 template <typename ValueType>
-void ProcessWithSquareKernel(std::vector<double> const & kernel, size_t kernelSize,
-                             size_t tileSize, size_t tileOffset,
-                             std::vector<ValueType> const & srcValues,
-                             std::vector<ValueType> & dstValues,
+void ProcessWithSquareKernel(std::vector<double> const & kernel, size_t kernelSize, size_t tileSize, size_t tileOffset,
+                             std::vector<ValueType> const & srcValues, std::vector<ValueType> & dstValues,
                              ValueType invalidValue)
 {
   CHECK_EQUAL(kernelSize * kernelSize, kernel.size(), ());
@@ -161,10 +149,8 @@ void ProcessWithSquareKernel(std::vector<double> const & kernel, size_t kernelSi
 }
 
 template <typename ValueType>
-void ProcessMedian(size_t kernelRadius, size_t tileSize, size_t tileOffset,
-                   std::vector<ValueType> const & srcValues,
-                   std::vector<ValueType> & dstValues,
-                   ValueType invalidValue)
+void ProcessMedian(size_t kernelRadius, size_t tileSize, size_t tileOffset, std::vector<ValueType> const & srcValues,
+                   std::vector<ValueType> & dstValues, ValueType invalidValue)
 {
   CHECK_LESS_OR_EQUAL(kernelRadius, tileOffset, ());
   CHECK_GREATER(tileSize, tileOffset * 2, ());

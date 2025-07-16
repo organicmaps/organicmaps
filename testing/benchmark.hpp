@@ -13,9 +13,10 @@ class BenchmarkNTimes
 {
 public:
   BenchmarkNTimes(int repeatCount, double maxSecondsToSucceed)
-    : m_repeatCount(repeatCount), m_maxSecondsToSucceed(maxSecondsToSucceed), m_iteration(0)
-  {
-  }
+    : m_repeatCount(repeatCount)
+    , m_maxSecondsToSucceed(maxSecondsToSucceed)
+    , m_iteration(0)
+  {}
 
   ~BenchmarkNTimes()
   {
@@ -29,7 +30,8 @@ public:
       /*
         if (secondsElapsed / m_repeatCount * 1000 >= 10)
           std::cout << static_cast<int>(secondsElapsed / m_repeatCount * 1000) << "ms each";
-        else */ if (secondsElapsed / m_repeatCount * 1000000 >= 10)
+        else */
+      if (secondsElapsed / m_repeatCount * 1000000 >= 10)
         std::cout << static_cast<int>(secondsElapsed / m_repeatCount * 1000000) << "us each";
       else
         std::cout << static_cast<int>(secondsElapsed / m_repeatCount * 1000000000) << "ns each";

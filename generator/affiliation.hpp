@@ -20,7 +20,6 @@ public:
   virtual std::vector<std::string> GetAffiliations(m2::PointD const & point) const = 0;
 
   virtual bool HasCountryByName(std::string const & name) const = 0;
-
 };
 
 class CountriesFilesAffiliation : public AffiliationInterface

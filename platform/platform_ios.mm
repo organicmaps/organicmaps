@@ -43,8 +43,7 @@ Platform::Platform()
   m_resourcesDir = path.UTF8String;
   m_resourcesDir += "/";
 
-  NSArray * dirPaths =
-      NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSArray * dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString * docsDir = dirPaths.firstObject;
   m_writableDir = docsDir.UTF8String;
   m_writableDir += "/";
@@ -64,21 +63,18 @@ Platform::Platform()
   UIDevice * device = UIDevice.currentDevice;
   device.batteryMonitoringEnabled = YES;
 
-  LOG(LINFO, ("Device:", device.model.UTF8String, "SystemName:",
-              device.systemName.UTF8String, "SystemVersion:",
-              device.systemVersion.UTF8String));
+  LOG(LINFO, ("Device:", device.model.UTF8String, "SystemName:", device.systemName.UTF8String,
+              "SystemVersion:", device.systemVersion.UTF8String));
 }
 
-//static
+// static
 void Platform::DisableBackupForFile(std::string const & filePath)
 {
   // We need to disable iCloud backup for downloaded files.
   // This is the reason for rejecting from the AppStore
   // https://developer.apple.com/library/iOS/qa/qa1719/_index.html
-  CFURLRef url = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault,
-                                                         reinterpret_cast<unsigned char const *>(filePath.c_str()),
-                                                         filePath.size(),
-                                                         0);
+  CFURLRef url = CFURLCreateFromFileSystemRepresentation(
+      kCFAllocatorDefault, reinterpret_cast<unsigned char const *>(filePath.c_str()), filePath.size(), 0);
   CFErrorRef err;
   BOOL valueRaw = YES;
   CFNumberRef value = CFNumberCreate(kCFAllocatorDefault, kCFNumberCharType, &valueRaw);
@@ -120,22 +116,27 @@ std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::
                                       READER_CHUNK_LOG_COUNT);
 }
 
-int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
+int Platform::VideoMemoryLimit() const
+{
+  return 8 * 1024 * 1024;
+}
 
-int Platform::PreCachingDepth() const { return 2; }
+int Platform::PreCachingDepth() const
+{
+  return 2;
+}
 
 std::string Platform::GetMemoryInfo() const
 {
   struct task_basic_info info;
   mach_msg_type_number_t size = sizeof(info);
-  kern_return_t const kerr =
-      task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
+  kern_return_t const kerr = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
   std::stringstream ss;
   if (kerr == KERN_SUCCESS)
   {
     ss << "Memory info: Resident_size = " << info.resident_size / 1024
-       << "KB; virtual_size = " << info.resident_size / 1024
-       << "KB; suspend_count = " << info.suspend_count << " policy = " << info.policy;
+       << "KB; virtual_size = " << info.resident_size / 1024 << "KB; suspend_count = " << info.suspend_count
+       << " policy = " << info.policy;
   }
   else
   {
@@ -144,7 +145,10 @@ std::string Platform::GetMemoryInfo() const
   return ss.str();
 }
 
-std::string Platform::DeviceName() const { return UIDevice.currentDevice.name.UTF8String; }
+std::string Platform::DeviceName() const
+{
+  return UIDevice.currentDevice.name.UTF8String;
+}
 
 std::string Platform::DeviceModel() const
 {
@@ -198,8 +202,8 @@ Platform::EConnectionType Platform::ConnectionStatus()
   CFRelease(reachability);
   if (!gotFlags || ((flags & kSCNetworkReachabilityFlagsReachable) == 0))
     return EConnectionType::CONNECTION_NONE;
-  SCNetworkReachabilityFlags userActionRequired = kSCNetworkReachabilityFlagsConnectionRequired |
-                                                  kSCNetworkReachabilityFlagsInterventionRequired;
+  SCNetworkReachabilityFlags userActionRequired =
+      kSCNetworkReachabilityFlagsConnectionRequired | kSCNetworkReachabilityFlagsInterventionRequired;
   if ((flags & userActionRequired) == userActionRequired)
     return EConnectionType::CONNECTION_NONE;
   if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
@@ -212,10 +216,10 @@ Platform::ChargingStatus Platform::GetChargingStatus()
 {
   switch (UIDevice.currentDevice.batteryState)
   {
-  case UIDeviceBatteryStateUnknown: return Platform::ChargingStatus::Unknown;
-  case UIDeviceBatteryStateUnplugged: return Platform::ChargingStatus::Unplugged;
-  case UIDeviceBatteryStateCharging:
-  case UIDeviceBatteryStateFull: return Platform::ChargingStatus::Plugged;
+    case UIDeviceBatteryStateUnknown: return Platform::ChargingStatus::Unknown;
+    case UIDeviceBatteryStateUnplugged: return Platform::ChargingStatus::Unplugged;
+    case UIDeviceBatteryStateCharging:
+    case UIDeviceBatteryStateFull: return Platform::ChargingStatus::Plugged;
   }
 }
 
@@ -241,15 +245,12 @@ void Platform::SetupMeasurementSystem() const
   auto units = measurement_utils::Units::Metric;
   if (settings::Get(settings::kMeasurementUnits, units))
     return;
-  BOOL const isMetric =
-      [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
+  BOOL const isMetric = [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
   units = isMetric ? measurement_utils::Units::Metric : measurement_utils::Units::Imperial;
   settings::Set(settings::kMeasurementUnits, units);
 }
 
-void Platform::GetSystemFontNames(FilesList & res) const
-{
-}
+void Platform::GetSystemFontNames(FilesList & res) const {}
 
 // static
 time_t Platform::GetFileCreationTime(std::string const & path)

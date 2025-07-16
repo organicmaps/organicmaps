@@ -38,10 +38,7 @@ template <>
 struct hash<Uint64IndexValue>
 {
 public:
-  size_t operator()(Uint64IndexValue const & value) const
-  {
-    return std::hash<uint64_t>{}(value.m_featureId);
-  }
+  size_t operator()(Uint64IndexValue const & value) const { return std::hash<uint64_t>{}(value.m_featureId); }
 };
 }  // namespace std
 
@@ -137,8 +134,7 @@ public:
   // A better approach is to make Serialize/Deserialize responsible for
   // every part of serialization and as such it should not need valueCount.
   template <typename Source>
-  void Deserialize(Source & src, uint32_t valueCount,
-                   SingleValueSerializer<Value> const & /* serializer */)
+  void Deserialize(Source & src, uint32_t valueCount, SingleValueSerializer<Value> const & /* serializer */)
   {
     if (valueCount > 0)
       m_cbv = coding::CompressedBitVectorBuilder::DeserializeFromSource(src);
@@ -160,8 +156,8 @@ public:
   {
     if (IsEmpty())
       return;
-    coding::CompressedBitVectorEnumerator::ForEach(
-        *m_cbv, [&toDo](uint64_t const bitPosition) { toDo(Value(bitPosition)); });
+    coding::CompressedBitVectorEnumerator::ForEach(*m_cbv,
+                                                   [&toDo](uint64_t const bitPosition) { toDo(Value(bitPosition)); });
   }
 
 private:
@@ -202,8 +198,7 @@ public:
   }
 
   template <typename Source>
-  void Deserialize(Source & src, uint64_t valueCount,
-                   SingleValueSerializer<Value> const & /* serializer */)
+  void Deserialize(Source & src, uint64_t valueCount, SingleValueSerializer<Value> const & /* serializer */)
   {
     CHECK_LESS_OR_EQUAL(valueCount, 1, ());
     m_empty = valueCount == 0;

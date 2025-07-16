@@ -7,16 +7,14 @@
 #include <queue>
 #endif
 
-template <typename T, typename HashT> class RabinKarpRollingHasher
+template <typename T, typename HashT>
+class RabinKarpRollingHasher
 {
 public:
   using value_type = T;
   using hash_type = HashT;
 
-  explicit RabinKarpRollingHasher(HashT multiplier)
-    : m_multiplier(multiplier)
-  {
-  }
+  explicit RabinKarpRollingHasher(HashT multiplier) : m_multiplier(multiplier) {}
 
   template <typename Iter>
   hash_type Init(Iter it, uint64_t windowSize)
@@ -25,7 +23,8 @@ public:
     m_windowSize = windowSize;
     m_removeMultiplier = math::PowUint(m_multiplier, m_windowSize - 1);
 #ifdef DEBUG
-    while (!m_queue.empty()) m_queue.pop();
+    while (!m_queue.empty())
+      m_queue.pop();
 #endif
     m_hash = 0;
     for (uint64_t i = 0; i < m_windowSize; ++it, ++i)
@@ -66,15 +65,13 @@ private:
 class RabinKarpRollingHasher32 : public RabinKarpRollingHasher<uint32_t, uint32_t>
 {
 public:
-  RabinKarpRollingHasher32()
-    : RabinKarpRollingHasher(1103515245U) {}
+  RabinKarpRollingHasher32() : RabinKarpRollingHasher(1103515245U) {}
 };
 
 class RabinKarpRollingHasher64 : public RabinKarpRollingHasher<uint64_t, uint64_t>
 {
 public:
-  RabinKarpRollingHasher64()
-    : RabinKarpRollingHasher(6364136223846793005ULL) {}
+  RabinKarpRollingHasher64() : RabinKarpRollingHasher(6364136223846793005ULL) {}
 };
 
 using RollingHasher32 = RabinKarpRollingHasher32;

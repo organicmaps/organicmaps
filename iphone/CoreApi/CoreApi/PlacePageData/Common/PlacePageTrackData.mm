@@ -1,5 +1,5 @@
-#import "PlacePageTrackData+Core.h"
 #import "ElevationProfileData+Core.h"
+#import "PlacePageTrackData+Core.h"
 #import "TrackInfo+Core.h"
 
 @interface PlacePageTrackData ()
@@ -11,10 +11,12 @@
 @implementation PlacePageTrackData
 
 - (instancetype)initWithTrackInfo:(TrackInfo *)trackInfo
-                            elevationInfo:(ElevationProfileData * _Nullable)elevationInfo
-                     onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler {
+                    elevationInfo:(ElevationProfileData * _Nullable)elevationInfo
+             onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _trackInfo = trackInfo;
     _elevationProfileData = elevationInfo;
     _onActivePointChangedHandler = onActivePointChangedHandler;
@@ -22,7 +24,8 @@
   return self;
 }
 
-- (void)updateActivePointDistance:(double)distance {
+- (void)updateActivePointDistance:(double)distance
+{
   self.activePointDistance = distance;
   if (self.onActivePointChangedHandler)
     self.onActivePointChangedHandler();
@@ -33,9 +36,11 @@
 @implementation PlacePageTrackData (Core)
 
 - (instancetype)initWithRawData:(place_page::Info const &)rawData
-           onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler {
+           onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     auto const trackPtr = GetFramework().GetBookmarkManager().GetTrack(rawData.GetTrackId());
     auto const & track = *trackPtr;
     auto const & bm = GetFramework().GetBookmarkManager();
@@ -43,7 +48,8 @@
     _trackId = track.GetData().m_id;
 
     auto const & groupId = track.GetGroupId();
-    if (groupId && bm.HasBmCategory(groupId)) {
+    if (groupId && bm.HasBmCategory(groupId))
+    {
       _groupId = groupId;
       _trackCategory = [NSString stringWithCString:bm.GetCategoryName(groupId).c_str() encoding:NSUTF8StringEncoding];
     }
@@ -58,7 +64,8 @@
     _onActivePointChangedHandler = onActivePointChangedHandler;
 
     auto const & elevationInfo = track.GetElevationInfo();
-    if (track.HasAltitudes() && elevationInfo.has_value()) {
+    if (track.HasAltitudes() && elevationInfo.has_value())
+    {
       _elevationProfileData = [[ElevationProfileData alloc] initWithTrackId:_trackId
                                                               elevationInfo:elevationInfo.value()];
     }

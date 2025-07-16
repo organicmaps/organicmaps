@@ -24,10 +24,8 @@ using Similarity = double;
 
 namespace metrics
 {
-Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline polyline,
-                                             Waypoints const & waypoints);
-Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline const & polyline,
-                                             ReferenceRoutes && candidates);
+Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline polyline, Waypoints const & waypoints);
+Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline const & polyline, ReferenceRoutes && candidates);
 }  // namespace metrics
 
 /// \brief Checks how many reference waypoints the route contains.
@@ -37,6 +35,5 @@ Similarity CheckWaypoints(Params const & params, ReferenceRoutes && referenceRou
 /// \returns true if route from |start| to |finish| fully conforms one of |candidates|
 /// and false otherwise.
 bool CheckRoute(Params const & params, ReferenceRoutes && referenceRoutes);
-bool CheckCarRoute(ms::LatLon const & start, ms::LatLon const & finish,
-                   ReferenceRoutes && referenceRoutes);
+bool CheckCarRoute(ms::LatLon const & start, ms::LatLon const & finish, ReferenceRoutes && referenceRoutes);
 }  // namespace routing_quality

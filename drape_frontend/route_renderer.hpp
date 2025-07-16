@@ -14,9 +14,9 @@
 #include <chrono>
 #include <functional>
 #include <string>
-#include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 namespace df
 {
@@ -58,29 +58,25 @@ public:
   explicit RouteRenderer(PreviewPointsRequestCallback && previewPointsRequest);
 
   void PrepareRouteArrows(ScreenBase const & screen, PrepareRouteArrowsCallback const & prepareCallback);
-  void CacheRouteArrows(ScreenBase const & screen, dp::DrapeID subrouteId,
-                        std::vector<ArrowBorders> && arrowBorders,
+  void CacheRouteArrows(ScreenBase const & screen, dp::DrapeID subrouteId, std::vector<ArrowBorders> && arrowBorders,
                         CacheRouteArrowsCallback const & cacheCallback);
 
-  void RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                   ScreenBase const & screen, bool trafficShown, FrameValues const & frameValues);
+  void RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                   bool trafficShown, FrameValues const & frameValues);
 
-  void AddSubrouteData(ref_ptr<dp::GraphicsContext> context,
-                       drape_ptr<SubrouteData> && subrouteData, ref_ptr<gpu::ProgramManager> mng);
+  void AddSubrouteData(ref_ptr<dp::GraphicsContext> context, drape_ptr<SubrouteData> && subrouteData,
+                       ref_ptr<gpu::ProgramManager> mng);
   Subroutes const & GetSubroutes() const;
 
   void RemoveSubrouteData(dp::DrapeID subrouteId);
 
-  void AddSubrouteArrowsData(ref_ptr<dp::GraphicsContext> context,
-                             drape_ptr<SubrouteArrowsData> && subrouteArrowsData,
+  void AddSubrouteArrowsData(ref_ptr<dp::GraphicsContext> context, drape_ptr<SubrouteArrowsData> && subrouteArrowsData,
                              ref_ptr<gpu::ProgramManager> mng);
 
   void AddSubrouteMarkersData(ref_ptr<dp::GraphicsContext> context,
-                              drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
-                              ref_ptr<gpu::ProgramManager> mng);
+                              drape_ptr<SubrouteMarkersData> && subrouteMarkersData, ref_ptr<gpu::ProgramManager> mng);
 
-  void AddPreviewRenderData(ref_ptr<dp::GraphicsContext> context,
-                            drape_ptr<CirclesPackRenderData> && renderData,
+  void AddPreviewRenderData(ref_ptr<dp::GraphicsContext> context, drape_ptr<CirclesPackRenderData> && renderData,
                             ref_ptr<gpu::ProgramManager> mng);
 
   void UpdatePreview(ScreenBase const & screen);
@@ -105,8 +101,8 @@ public:
 
 private:
   void RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                      SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
-                      ScreenBase const & screen, bool trafficShown, FrameValues const & frameValues);
+                      SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex, ScreenBase const & screen,
+                      bool trafficShown, FrameValues const & frameValues);
   void RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                             SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                             FrameValues const & frameValues);

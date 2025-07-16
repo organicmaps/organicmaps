@@ -43,9 +43,8 @@ public:
 
   std::vector<Id> GetAllIds() const
   {
-    return WithIds([&](std::vector<Id> & ids) {
-      m_trie.ForEachInTrie([&](Token const & /* token */, Id const & id) { ids.push_back(id); });
-    });
+    return WithIds([&](std::vector<Id> & ids)
+    { m_trie.ForEachInTrie([&](Token const & /* token */, Id const & id) { ids.push_back(id); }); });
   }
 
   size_t GetNumDocs(int8_t lang, strings::UniString const & token, bool prefix) const
@@ -59,11 +58,10 @@ public:
       return numDocs;
     }
 
-    return WithIds([&](std::vector<Id> & ids) {
-             m_trie.ForEachInSubtree(
-                 key, [&](Token const & /* token */, Id const & id) { ids.push_back(id); });
-           })
-        .size();
+    return WithIds([&](std::vector<Id> & ids)
+    {
+      m_trie.ForEachInSubtree(key, [&](Token const & /* token */, Id const & id) { ids.push_back(id); });
+    }).size();
   }
 
 private:
@@ -78,7 +76,8 @@ private:
   template <typename Doc, typename Fn>
   void ForEachToken(Id const & /*id*/, Doc const & doc, Fn && fn)
   {
-    doc.ForEachToken([&](int8_t lang, Token const & token) {
+    doc.ForEachToken([&](int8_t lang, Token const & token)
+    {
       if (lang >= 0)
         fn(AddLang(lang, token));
     });

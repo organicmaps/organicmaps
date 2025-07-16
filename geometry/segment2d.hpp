@@ -37,8 +37,7 @@ bool IsPointOnSegmentEps(PointD const & pt, PointD const & p1, PointD const & p2
 bool IsPointOnSegment(PointD const & pt, PointD const & p1, PointD const & p2);
 
 /// \returns true if segments (p1, p2) and (p3, p4) are intersected and false otherwise.
-bool SegmentsIntersect(PointD const & p1, PointD const & p2, PointD const & p3,
-                       PointD const & p4);
+bool SegmentsIntersect(PointD const & p1, PointD const & p2, PointD const & p3, PointD const & p4);
 
 /// \breif Intersects two segments and finds an intersection point if any.
 /// \note |eps| applies for collinearity and for PointD errors.

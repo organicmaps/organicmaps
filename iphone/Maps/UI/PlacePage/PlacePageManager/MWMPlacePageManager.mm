@@ -3,10 +3,10 @@
 #import "MWMActivityViewController.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
+#import "MWMMapViewControlsManager+AddPlace.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMStorage+UI.h"
 #import "SwiftBridge.h"
-#import "MWMMapViewControlsManager+AddPlace.h"
 
 #import <CoreApi/Framework.h>
 #import <CoreApi/StringUtils.h>
@@ -25,81 +25,85 @@ using namespace storage;
 
 @implementation MWMPlacePageManager
 
-- (BOOL)isPPShown {
+- (BOOL)isPPShown
+{
   return GetFramework().HasPlacePageInfo();
 }
 
-- (void)closePlacePage { GetFramework().DeactivateMapSelection(); }
+- (void)closePlacePage
+{
+  GetFramework().DeactivateMapSelection();
+}
 
-- (void)routeFrom:(PlacePageData *)data {
-  MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:0];
+- (void)routeFrom:(PlacePageData *)data
+{
+  MWMRoutePoint * point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:0];
   [MWMRouter buildFromPoint:point bestRouter:YES];
   [self closePlacePage];
 }
 
-- (void)routeTo:(PlacePageData *)data {
-  if ([MWMRouter isOnRoute]) {
+- (void)routeTo:(PlacePageData *)data
+{
+  if ([MWMRouter isOnRoute])
     [MWMRouter stopRouting];
-  }
 
-  if ([MWMMapOverlayManager transitEnabled]) {
+  if ([MWMMapOverlayManager transitEnabled])
     [MWMRouter setType:MWMRouterTypePublicTransport];
-  }
 
-  MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:0];
+  MWMRoutePoint * point = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:0];
   [MWMRouter buildToPoint:point bestRouter:YES];
   [self closePlacePage];
 }
 
-- (void)routeAddStop:(PlacePageData *)data {
-  MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:0];
+- (void)routeAddStop:(PlacePageData *)data
+{
+  MWMRoutePoint * point = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:0];
   [MWMRouter addPointAndRebuild:point];
   [self closePlacePage];
 }
 
-- (void)routeRemoveStop:(PlacePageData *)data {
-  MWMRoutePoint *point = nil;
+- (void)routeRemoveStop:(PlacePageData *)data
+{
+  MWMRoutePoint * point = nil;
   auto const intermediateIndex = GetFramework().GetCurrentPlacePageInfo().GetIntermediateIndex();
-  switch (GetFramework().GetCurrentPlacePageInfo().GetRouteMarkType()) {
-  case RouteMarkType::Start:
-    point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:intermediateIndex];
-    break;
-  case RouteMarkType::Finish:
-    point = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:intermediateIndex];
-    break;
-  case RouteMarkType::Intermediate:
-    point = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:intermediateIndex];
-    break;
+  switch (GetFramework().GetCurrentPlacePageInfo().GetRouteMarkType())
+  {
+    case RouteMarkType::Start:
+      point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:intermediateIndex];
+      break;
+    case RouteMarkType::Finish:
+      point = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:intermediateIndex];
+      break;
+    case RouteMarkType::Intermediate:
+      point = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:intermediateIndex];
+      break;
   }
   [MWMRouter removePointAndRebuild:point];
   [self closePlacePage];
 }
 
 - (MWMRoutePoint *)routePointWithData:(PlacePageData *)data
-                                 pointType:(MWMRoutePointType)type
+                            pointType:(MWMRoutePointType)type
                     intermediateIndex:(size_t)intermediateIndex
 {
-  if (data.isMyPosition) {
+  if (data.isMyPosition)
     return [[MWMRoutePoint alloc] initWithLastLocationAndType:type intermediateIndex:intermediateIndex];
-  }
 
-  NSString *title = nil;
-  if (data.previewData.title.length > 0) {
+  NSString * title = nil;
+  if (data.previewData.title.length > 0)
     title = data.previewData.title;
-  } else if (data.previewData.secondarySubtitle.length > 0) {
+  else if (data.previewData.secondarySubtitle.length > 0)
     title = data.previewData.secondarySubtitle;
-  } else if (data.previewData.subtitle.length > 0) {
+  else if (data.previewData.subtitle.length > 0)
     title = data.previewData.subtitle;
-  } else if (data.bookmarkData != nil) {
+  else if (data.bookmarkData != nil)
     title = data.bookmarkData.externalTitle;
-  } else {
+  else
     title = L(@"core_placepage_unknown_place");
-  }
 
   NSString * subtitle = nil;
-  if (data.previewData.subtitle.length > 0 && ![title isEqualToString:data.previewData.subtitle]) {
+  if (data.previewData.subtitle.length > 0 && ![title isEqualToString:data.previewData.subtitle])
     subtitle = data.previewData.subtitle;
-  }
 
   return [[MWMRoutePoint alloc] initWithPoint:location_helpers::ToMercator(data.locationCoordinate)
                                         title:title
@@ -110,30 +114,26 @@ using namespace storage;
 
 - (MWMRoutePoint *)routePoint:(PlacePageData *)data
                      withType:(MWMRoutePointType)type
-                    intermediateIndex:(size_t)intermediateIndex
+            intermediateIndex:(size_t)intermediateIndex
 {
-  if (data.isMyPosition) {
-    return [[MWMRoutePoint alloc] initWithLastLocationAndType:type
-                                            intermediateIndex:intermediateIndex];
-  }
+  if (data.isMyPosition)
+    return [[MWMRoutePoint alloc] initWithLastLocationAndType:type intermediateIndex:intermediateIndex];
 
-  NSString *title = nil;
-  if (data.previewData.title.length > 0) {
+  NSString * title = nil;
+  if (data.previewData.title.length > 0)
     title = data.previewData.title;
-  } else if (data.previewData.secondarySubtitle.length > 0) {
+  else if (data.previewData.secondarySubtitle.length > 0)
     title = data.previewData.secondarySubtitle;
-  } else if (data.previewData.subtitle.length > 0) {
+  else if (data.previewData.subtitle.length > 0)
     title = data.previewData.subtitle;
-  } else if (data.bookmarkData != nil) {
+  else if (data.bookmarkData != nil)
     title = data.bookmarkData.externalTitle;
-  } else {
+  else
     title = L(@"core_placepage_unknown_place");
-  }
 
   NSString * subtitle = nil;
-  if (data.previewData.subtitle.length > 0 && ![title isEqualToString:data.previewData.subtitle]) {
+  if (data.previewData.subtitle.length > 0 && ![title isEqualToString:data.previewData.subtitle])
     subtitle = data.previewData.subtitle;
-  }
 
   return [[MWMRoutePoint alloc] initWithPoint:location_helpers::ToMercator(data.locationCoordinate)
                                         title:title
@@ -158,20 +158,20 @@ using namespace storage;
   [[MWMMapViewControlsManager manager] addPlace:NO position:&position];
 }
 
-- (void)addBookmark:(PlacePageData *)data {
-  auto &f = GetFramework();
-  auto &bmManager = f.GetBookmarkManager();
-  auto &info = f.GetCurrentPlacePageInfo();
+- (void)addBookmark:(PlacePageData *)data
+{
+  auto & f = GetFramework();
+  auto & bmManager = f.GetBookmarkManager();
+  auto & info = f.GetCurrentPlacePageInfo();
   auto const categoryId = f.LastEditedBMCategory();
   kml::BookmarkData bmData;
   bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
   bmData.m_point = info.GetMercator();
-  if (info.IsFeature()) {
+  if (info.IsFeature())
     SaveFeatureTypes(info.GetTypes(), bmData);
-  }
   auto editSession = bmManager.GetEditSession();
-  auto const *bookmark = editSession.CreateBookmark(std::move(bmData), categoryId);
+  auto const * bookmark = editSession.CreateBookmark(std::move(bmData), categoryId);
 
   auto buildInfo = info.GetBuildInfo();
   buildInfo.m_match = place_page::BuildInfo::Match::Everything;
@@ -180,22 +180,28 @@ using namespace storage;
   [data updateBookmarkStatus];
 }
 
-- (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color category:(MWMMarkGroupID)category {
+- (void)updateBookmark:(PlacePageData *)data color:(MWMBookmarkColor)color category:(MWMMarkGroupID)category
+{
   MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];
-  [bookmarksManager updateBookmark:data.bookmarkData.bookmarkId setGroupId:category title:data.previewData.title color:color description:data.bookmarkData.bookmarkDescription];
+  [bookmarksManager updateBookmark:data.bookmarkData.bookmarkId
+                        setGroupId:category
+                             title:data.previewData.title
+                             color:color
+                       description:data.bookmarkData.bookmarkDescription];
   [MWMFrameworkHelper updatePlacePageData];
   [data updateBookmarkStatus];
 }
 
 - (void)removeBookmark:(PlacePageData *)data
 {
-  auto &f = GetFramework();
+  auto & f = GetFramework();
   f.GetBookmarkManager().GetEditSession().DeleteBookmark(data.bookmarkData.bookmarkId);
   [MWMFrameworkHelper updateAfterDeleteBookmark];
   [data updateBookmarkStatus];
 }
 
-- (void)updateTrack:(PlacePageData *)data color:(UIColor *)color category:(MWMMarkGroupID)category {
+- (void)updateTrack:(PlacePageData *)data color:(UIColor *)color category:(MWMMarkGroupID)category
+{
   MWMBookmarksManager * bookmarksManager = [MWMBookmarksManager sharedManager];
   [bookmarksManager updateTrack:data.trackData.trackId setGroupId:category color:color title:data.previewData.title];
   [MWMFrameworkHelper updatePlacePageData];
@@ -204,35 +210,40 @@ using namespace storage;
 
 - (void)removeTrack:(PlacePageData *)data
 {
-  auto &f = GetFramework();
+  auto & f = GetFramework();
   f.GetBookmarkManager().GetEditSession().DeleteTrack(data.trackData.trackId);
 }
 
-- (void)call:(PlacePagePhone *)phone {
+- (void)call:(PlacePagePhone *)phone
+{
   NSURL * _Nullable phoneURL = phone.url;
-  if (phoneURL && [UIApplication.sharedApplication canOpenURL:phoneURL]) {
+  if (phoneURL && [UIApplication.sharedApplication canOpenURL:phoneURL])
     [UIApplication.sharedApplication openURL:phoneURL options:@{} completionHandler:nil];
-  }
 }
 
-- (void)editBookmark:(PlacePageData *)data {
-  MWMEditBookmarkController *editBookmarkController = [[UIStoryboard instance:MWMStoryboardMain]
-                                                       instantiateViewControllerWithIdentifier:@"MWMEditBookmarkController"];
+- (void)editBookmark:(PlacePageData *)data
+{
+  MWMEditBookmarkController * editBookmarkController =
+      [[UIStoryboard instance:MWMStoryboardMain] instantiateViewControllerWithIdentifier:@"MWMEditBookmarkController"];
   [editBookmarkController configureWithPlacePageData:data];
   [[MapViewController sharedController].navigationController pushViewController:editBookmarkController animated:YES];
 }
 
-- (void)editTrack:(PlacePageData *)data {
-  if (data.objectType != PlacePageObjectTypeTrack) {
+- (void)editTrack:(PlacePageData *)data
+{
+  if (data.objectType != PlacePageObjectTypeTrack)
+  {
     ASSERT_FAIL("editTrack called for non-track object");
     return;
   }
-  EditTrackViewController * editTrackController = [[EditTrackViewController alloc] initWithTrackId:data.trackData.trackId editCompletion:^(BOOL edited) {
-    if (!edited)
-      return;
-    [MWMFrameworkHelper updatePlacePageData];
-    [data updateBookmarkStatus];
-  }];
+  EditTrackViewController * editTrackController =
+      [[EditTrackViewController alloc] initWithTrackId:data.trackData.trackId
+                                        editCompletion:^(BOOL edited) {
+                                          if (!edited)
+                                            return;
+                                          [MWMFrameworkHelper updatePlacePageData];
+                                          [data updateBookmarkStatus];
+                                        }];
   [[MapViewController sharedController].navigationController pushViewController:editTrackController animated:YES];
 }
 
@@ -241,67 +252,86 @@ using namespace storage;
   [self.ownerViewController openFullPlaceDescriptionWithHtml:htmlString];
 }
 
-- (void)avoidDirty {
+- (void)avoidDirty
+{
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeDirty];
   [self closePlacePage];
 }
 
-- (void)avoidFerry {
+- (void)avoidFerry
+{
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeFerry];
   [self closePlacePage];
 }
 
-- (void)avoidToll {
+- (void)avoidToll
+{
   [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeToll];
   [self closePlacePage];
 }
 
-- (void)openWebsite:(PlacePageData *)data {
+- (void)openWebsite:(PlacePageData *)data
+{
   [self.ownerViewController openUrl:data.infoData.website externally:YES];
 }
 
-- (void)openWebsiteMenu:(PlacePageData *)data {
+- (void)openWebsiteMenu:(PlacePageData *)data
+{
   [self.ownerViewController openUrl:data.infoData.websiteMenu externally:YES];
 }
 
-- (void)openWikipedia:(PlacePageData *)data {
+- (void)openWikipedia:(PlacePageData *)data
+{
   [self.ownerViewController openUrl:data.infoData.wikipedia externally:YES];
 }
 
-- (void)openWikimediaCommons:(PlacePageData *)data {
+- (void)openWikimediaCommons:(PlacePageData *)data
+{
   [self.ownerViewController openUrl:data.infoData.wikimediaCommons externally:YES];
 }
 
-- (void)openFacebook:(PlacePageData *)data {
-  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, [data.infoData.facebook UTF8String]);
+- (void)openFacebook:(PlacePageData *)data
+{
+  std::string const fullUrl =
+      osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, [data.infoData.facebook UTF8String]);
   [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
-- (void)openInstagram:(PlacePageData *)data {
-  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, [data.infoData.instagram UTF8String]);
+- (void)openInstagram:(PlacePageData *)data
+{
+  std::string const fullUrl =
+      osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, [data.infoData.instagram UTF8String]);
   [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
-- (void)openTwitter:(PlacePageData *)data {
-  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_TWITTER, [data.infoData.twitter UTF8String]);
+- (void)openTwitter:(PlacePageData *)data
+{
+  std::string const fullUrl =
+      osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_TWITTER, [data.infoData.twitter UTF8String]);
   [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
-- (void)openVk:(PlacePageData *)data {
-  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_VK, [data.infoData.vk UTF8String]);
+- (void)openVk:(PlacePageData *)data
+{
+  std::string const fullUrl =
+      osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_VK, [data.infoData.vk UTF8String]);
   [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
-- (void)openLine:(PlacePageData *)data {
-  std::string const fullUrl = osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_LINE, [data.infoData.line UTF8String]);
+- (void)openLine:(PlacePageData *)data
+{
+  std::string const fullUrl =
+      osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_LINE, [data.infoData.line UTF8String]);
   [self.ownerViewController openUrl:ToNSString(fullUrl) externally:YES];
 }
 
-- (void)openEmail:(PlacePageData *)data {
+- (void)openEmail:(PlacePageData *)data
+{
   [MailComposer sendEmailWithSubject:nil body:nil toRecipients:@[data.infoData.email] attachmentFileURL:nil];
 }
 
-- (void)openElevationDifficultPopup:(PlacePageData *)data {
+- (void)openElevationDifficultPopup:(PlacePageData *)data
+{
   auto difficultyPopup = [ElevationDetailsBuilder buildWithData:data];
   [[MapViewController sharedController] presentViewController:difficultyPopup animated:YES completion:nil];
 }
@@ -310,15 +340,21 @@ using namespace storage;
 
 - (void)updateAvailableArea:(CGRect)frame
 {
-//  auto data = self.data;
-//  if (data)
-//    [self.layout updateAvailableArea:frame];
+  //  auto data = self.data;
+  //  if (data)
+  //    [self.layout updateAvailableArea:frame];
 }
 
 #pragma mark - MWMFeatureHolder
 
-- (FeatureID const &)featureId { return GetFramework().GetCurrentPlacePageInfo().GetID(); }
+- (FeatureID const &)featureId
+{
+  return GetFramework().GetCurrentPlacePageInfo().GetID();
+}
 
-- (MapViewController *)ownerViewController { return [MapViewController sharedController]; }
+- (MapViewController *)ownerViewController
+{
+  return [MapViewController sharedController];
+}
 
 @end

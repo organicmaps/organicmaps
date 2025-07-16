@@ -9,8 +9,7 @@
 class BufferedFileWriter : public FileWriter
 {
 public:
-  explicit BufferedFileWriter(std::string const & fileName, Op operation = OP_WRITE_TRUNCATE,
-                              size_t bufferSize = 4096);
+  explicit BufferedFileWriter(std::string const & fileName, Op operation = OP_WRITE_TRUNCATE, size_t bufferSize = 4096);
 
   ~BufferedFileWriter() noexcept(false) override;
 

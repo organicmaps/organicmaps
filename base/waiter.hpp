@@ -47,10 +47,7 @@ public:
     m_event.notify_all();
   }
 
-  void Reset()
-  {
-    SetNotified(false);
-  }
+  void Reset() { SetNotified(false); }
 
 private:
   void SetNotified(bool notified)
@@ -68,12 +65,12 @@ inline std::string DebugPrint(Waiter::Result result)
 {
   switch (result)
   {
-  case Waiter::Result::PreviouslyNotified: return "PreviouslyNotified";
-  case Waiter::Result::NoTimeout: return "NoTimeout";
-  case Waiter::Result::Timeout: return "Timeout";
-  default: ASSERT(false, ("Unsupported value"));
+    case Waiter::Result::PreviouslyNotified: return "PreviouslyNotified";
+    case Waiter::Result::NoTimeout: return "NoTimeout";
+    case Waiter::Result::Timeout: return "Timeout";
+    default: ASSERT(false, ("Unsupported value"));
   }
 
   return {};
 }
-} // namespace base
+}  // namespace base

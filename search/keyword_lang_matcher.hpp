@@ -43,17 +43,12 @@ public:
   void ForEachLanguage(Fn && fn) const
   {
     for (auto const & langs : m_languagePriorities)
-    {
       for (int8_t lang : langs)
         fn(lang);
-    }
   }
 
   // Store references to keywords from source array of strings.
-  inline void SetKeywords(QueryString const & query)
-  {
-    m_keywordMatcher.SetKeywords(query);
-  }
+  inline void SetKeywords(QueryString const & query) { m_keywordMatcher.SetKeywords(query); }
 
   // Returns the Score of the name (greater is better).
   Score CalcScore(int8_t lang, std::string_view name) const;

@@ -22,10 +22,8 @@ void loopWrappers(Observers * observers, TLoopBlock block)
 {
   dispatch_async(dispatch_get_main_queue(), ^{
     for (Observer observer in observers)
-    {
       if (observer)
         block(observer);
-    }
   });
 }
 }  // namespace
@@ -43,9 +41,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
 {
   static MWMFrameworkListener * listener;
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    listener = [[super alloc] initListener];
-  });
+  dispatch_once(&onceToken, ^{ listener = [[super alloc] initListener]; });
   return listener;
 }
 
@@ -91,41 +87,47 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   using namespace storage;
   Observers * observers = self.routeBuildingObservers;
   auto & rm = GetFramework().GetRoutingManager();
-  rm.SetRouteBuildingListener(
-      [observers](RouterResultCode code, CountriesSet const & absentCountries) {
-        loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer) {
-          [observer processRouteBuilderEvent:code countries:absentCountries];
-        });
-      });
-  rm.SetRouteProgressListener([observers](float progress) {
-    loopWrappers(observers, [progress](TRouteBuildingObserver observer) {
+  rm.SetRouteBuildingListener([observers](RouterResultCode code, CountriesSet const & absentCountries)
+  {
+    loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer)
+    { [observer processRouteBuilderEvent:code countries:absentCountries]; });
+  });
+  rm.SetRouteProgressListener([observers](float progress)
+  {
+    loopWrappers(observers, [progress](TRouteBuildingObserver observer)
+    {
       if ([observer respondsToSelector:@selector(processRouteBuilderProgress:)])
         [observer processRouteBuilderProgress:progress];
     });
   });
-  rm.SetRouteRecommendationListener([observers](RoutingManager::Recommendation recommendation) {
+  rm.SetRouteRecommendationListener([observers](RoutingManager::Recommendation recommendation)
+  {
     MWMRouterRecommendation rec;
     switch (recommendation)
     {
-    case RoutingManager::Recommendation::RebuildAfterPointsLoading:
-      rec = MWMRouterRecommendationRebuildAfterPointsLoading;
-      break;
+      case RoutingManager::Recommendation::RebuildAfterPointsLoading:
+        rec = MWMRouterRecommendationRebuildAfterPointsLoading;
+        break;
     }
-    loopWrappers(observers, [rec](TRouteBuildingObserver observer) {
+    loopWrappers(observers, [rec](TRouteBuildingObserver observer)
+    {
       if ([observer respondsToSelector:@selector(processRouteRecommendation:)])
         [observer processRouteRecommendation:rec];
     });
   });
-  rm.SetRouteSpeedCamShowListener([observers](m2::PointD const & point, double cameraSpeedKmPH) {
-    loopWrappers(observers, [cameraSpeedKmPH](TRouteBuildingObserver observer) {
+  rm.SetRouteSpeedCamShowListener([observers](m2::PointD const & point, double cameraSpeedKmPH)
+  {
+    loopWrappers(observers, [cameraSpeedKmPH](TRouteBuildingObserver observer)
+    {
       if ([observer respondsToSelector:@selector(speedCameraShowedUpOnRoute:)])
-          [observer speedCameraShowedUpOnRoute:cameraSpeedKmPH];
+        [observer speedCameraShowedUpOnRoute:cameraSpeedKmPH];
     });
   });
-  rm.SetRouteSpeedCamsClearListener([observers]() {
+  rm.SetRouteSpeedCamsClearListener([observers]()
+  {
     loopWrappers(observers, ^(TRouteBuildingObserver observer) {
       if ([observer respondsToSelector:@selector(speedCameraLeftVisibleArea)])
-          [observer speedCameraLeftVisibleArea];
+        [observer speedCameraLeftVisibleArea];
     });
   });
 }
@@ -136,20 +138,18 @@ void loopWrappers(Observers * observers, TLoopBlock block)
 {
   Observers * observers = self.drapeObservers;
   auto & f = GetFramework();
-  f.SetCurrentCountryChangedListener([observers](CountryId const & countryId) {
+  f.SetCurrentCountryChangedListener([observers](CountryId const & countryId)
+  {
     for (TDrapeObserver observer in observers)
-    {
       if ([observer respondsToSelector:@selector(processViewportCountryEvent:)])
         [observer processViewportCountryEvent:countryId];
-    }
   });
 
-  f.SetViewportListener([observers](ScreenBase const & screen) {
+  f.SetViewportListener([observers](ScreenBase const & screen)
+  {
     for (TDrapeObserver observer in observers)
-    {
       if ([observer respondsToSelector:@selector(processViewportChangedEvent)])
         [observer processViewportChangedEvent];
-    }
   });
 }
 

@@ -2,10 +2,10 @@
 
 @interface MWMOpeningHoursTimeSelectorTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIDatePicker * openTimePicker;
-@property (weak, nonatomic) IBOutlet UIDatePicker * closeTimePicker;
+@property(weak, nonatomic) IBOutlet UIDatePicker * openTimePicker;
+@property(weak, nonatomic) IBOutlet UIDatePicker * closeTimePicker;
 
-@property (nonatomic) NSCalendar * calendar;
+@property(nonatomic) NSCalendar * calendar;
 
 @end
 
@@ -40,7 +40,7 @@
 - (IBAction)openValueChanged
 {
   NSDate * date = self.openTimePicker.date;
-  NSCalendarUnit const  components = NSCalendarUnitHour | NSCalendarUnitMinute;
+  NSCalendarUnit const components = NSCalendarUnitHour | NSCalendarUnitMinute;
   self.section.cachedStartTime = [self.calendar components:components fromDate:date];
 }
 

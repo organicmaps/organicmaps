@@ -6,7 +6,8 @@ namespace coding
 {
 
 /// Simple sparse vector for better memory usage.
-template <class Value> class SparseVector
+template <class Value>
+class SparseVector
 {
   succinct::rs_bit_vector m_bits;
   std::vector<Value> m_values;
@@ -19,30 +20,26 @@ public:
   bool Has(uint64_t i) const { return m_bits[i]; }
   Value const & Get(uint64_t i) const { return m_values[m_bits.rank(i)]; }
 
-  size_t GetMemorySize() const
-  {
-    return m_values.capacity() * sizeof(Value) + m_bits.size() / 8;
-  }
+  size_t GetMemorySize() const { return m_values.capacity() * sizeof(Value) + m_bits.size() / 8; }
 
 private:
   SparseVector(std::vector<Value> && values, succinct::bit_vector_builder & bitsBuilder)
-    : m_bits(&bitsBuilder), m_values(std::move(values))
-  {
-  }
+    : m_bits(&bitsBuilder)
+    , m_values(std::move(values))
+  {}
 
-  template <class T> friend class SparseVectorBuilder;
+  template <class T>
+  friend class SparseVectorBuilder;
 };
 
-template <class Value> class SparseVectorBuilder
+template <class Value>
+class SparseVectorBuilder
 {
   succinct::bit_vector_builder m_bitsBuilder;
   std::vector<Value> m_values;
 
 public:
-  explicit SparseVectorBuilder(size_t reserveSize = 0)
-  {
-    m_bitsBuilder.reserve(reserveSize);
-  }
+  explicit SparseVectorBuilder(size_t reserveSize = 0) { m_bitsBuilder.reserve(reserveSize); }
 
   void PushEmpty() { m_bitsBuilder.push_back(false); }
   void PushValue(Value v)
@@ -61,4 +58,4 @@ public:
   }
 };
 
-} // namespace coding
+}  // namespace coding

@@ -16,8 +16,7 @@ namespace search
 {
 class CitiesBoundariesTable
 {
-  friend void GetCityBoundariesInRectForTesting(CitiesBoundariesTable const &,
-                                                m2::RectD const & rect,
+  friend void GetCityBoundariesInRectForTesting(CitiesBoundariesTable const &, m2::RectD const & rect,
                                                 std::vector<uint32_t> & featureIds);
 
 public:
@@ -26,10 +25,8 @@ public:
   public:
     Boundaries() = default;
 
-    Boundaries(std::vector<indexer::CityBoundary> const & boundaries, double eps)
-      : m_boundaries(boundaries), m_eps(eps)
-    {
-    }
+    Boundaries(std::vector<indexer::CityBoundary> const & boundaries, double eps) : m_boundaries(boundaries), m_eps(eps)
+    {}
 
     // Returns true iff |p| is inside any of the regions bounded by
     // |*this|.
@@ -48,7 +45,8 @@ public:
 
     size_t GetCount() const { return m_boundaries.size(); }
 
-    template <class FnT> void ForEachBoundary(FnT && fn) const
+    template <class FnT>
+    void ForEachBoundary(FnT && fn) const
     {
       for (size_t i = 0; i < m_boundaries.size(); ++i)
         fn(m_boundaries[i], i);

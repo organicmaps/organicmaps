@@ -15,8 +15,14 @@
 #include <vector>
 
 class FeatureType;
-namespace feature { class FeatureBuilder; }
-namespace osm { class Editor; }
+namespace feature
+{
+class FeatureBuilder;
+}
+namespace osm
+{
+class Editor;
+}
 
 namespace generator
 {
@@ -76,12 +82,11 @@ private:
 class TestPlace : public TestFeature
 {
 public:
-  TestPlace(m2::PointD const & center, std::string const & name, std::string const & lang,
-            uint32_t type, uint8_t rank = 0);
-  TestPlace(m2::PointD const & center, StringUtf8Multilang const & name,
-            uint32_t type, uint8_t rank);
-  TestPlace(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang,
-            uint32_t type, uint8_t rank);
+  TestPlace(m2::PointD const & center, std::string const & name, std::string const & lang, uint32_t type,
+            uint8_t rank = 0);
+  TestPlace(m2::PointD const & center, StringUtf8Multilang const & name, uint32_t type, uint8_t rank);
+  TestPlace(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang, uint32_t type,
+            uint8_t rank);
 
   // TestFeature overrides:
   void Serialize(feature::FeatureBuilder & fb) const override;
@@ -116,6 +121,7 @@ public:
 class TestCity : public TestPlace
 {
   static uint32_t GetCityType();
+
 public:
   TestCity(m2::PointD const & center, std::string const & name, std::string const & lang, uint8_t rank);
   TestCity(m2::PointD const & center, StringUtf8Multilang const & name, uint8_t rank);
@@ -167,10 +173,8 @@ class TestPOI : public TestFeature
 public:
   TestPOI(m2::PointD const & center, std::string const & name, std::string const & lang);
 
-  static std::pair<TestPOI, FeatureID> AddWithEditor(osm::Editor & editor,
-                                                     MwmSet::MwmId const & mwmId,
-                                                     std::string const & enName,
-                                                     m2::PointD const & pt);
+  static std::pair<TestPOI, FeatureID> AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
+                                                     std::string const & enName, m2::PointD const & pt);
 
   // TestFeature overrides:
   void Serialize(feature::FeatureBuilder & fb) const override;
@@ -217,10 +221,7 @@ public:
   std::string ToDebugString() const override;
 
   void SetType(uint32_t type) { m_type = type; }
-  void SetPlace(std::string_view place)
-  {
-    m_addr.Set(feature::AddressData::Type::Place, place);
-  }
+  void SetPlace(std::string_view place) { m_addr.Set(feature::AddressData::Type::Place, place); }
 
 private:
   std::string m_houseNumber;

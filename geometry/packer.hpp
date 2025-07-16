@@ -15,10 +15,7 @@ namespace m2
 template <typename pair_t>
 struct first_less
 {
-  bool operator()(pair_t const & first, pair_t const & second)
-  {
-    return first.first < second.first;
-  }
+  bool operator()(pair_t const & first, pair_t const & second) { return first.first < second.first; }
 };
 
 /// The simplest row-by-row packer.
@@ -29,9 +26,8 @@ class Packer
 public:
   using overflowFn = std::function<void()>;
 
-  using overflowFns =
-      std::priority_queue<std::pair<size_t, overflowFn>, std::vector<std::pair<size_t, overflowFn>>,
-                          first_less<std::pair<size_t, overflowFn>>>;
+  using overflowFns = std::priority_queue<std::pair<size_t, overflowFn>, std::vector<std::pair<size_t, overflowFn>>,
+                                          first_less<std::pair<size_t, overflowFn>>>;
 
   using handle_t = uint32_t;
   using find_result_t = std::pair<bool, m2::RectU>;

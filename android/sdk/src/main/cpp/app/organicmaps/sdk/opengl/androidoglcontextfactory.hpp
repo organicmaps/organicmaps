@@ -1,7 +1,7 @@
 #pragma once
 
-#include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "androidoglcontext.hpp"
+#include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "drape/graphics_context_factory.hpp"
 
 #include "base/src_point.hpp"
@@ -47,7 +47,7 @@ private:
 
   EGLSurface m_windowSurface;
   EGLSurface m_pixelbufferSurface;
-  EGLConfig  m_config;
+  EGLConfig m_config;
 
   ANativeWindow * m_nativeWindow;
   EGLDisplay m_display;

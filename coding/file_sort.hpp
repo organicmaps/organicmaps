@@ -4,8 +4,8 @@
 #include "coding/file_writer.hpp"
 
 #include "base/base.hpp"
-#include "base/logging.hpp"
 #include "base/exception.hpp"
+#include "base/logging.hpp"
 
 #include <algorithm>
 #include <cstdlib>
@@ -22,7 +22,8 @@ struct Sorter
 {
   LessT m_Less;
   Sorter(LessT lessF) : m_Less(lessF) {}
-  template <typename IterT> void operator() (IterT beg, IterT end) const
+  template <typename IterT>
+  void operator()(IterT beg, IterT end) const
   {
     std::sort(beg, end, m_Less);
   }
@@ -36,8 +37,7 @@ template <typename T,                                        // Item type.
 class FileSorter
 {
 public:
-  FileSorter(size_t bufferBytes, std::string const & tmpFileName, OutputSinkT & outputSink,
-             LessT fLess = LessT())
+  FileSorter(size_t bufferBytes, std::string const & tmpFileName, OutputSinkT & outputSink, LessT fLess = LessT())
     : m_TmpFileName(tmpFileName)
     , m_BufferCapacity(std::max(size_t(16), bufferBytes / sizeof(T)))
     , m_OutputSink(outputSink)
@@ -90,11 +90,11 @@ public:
       {
         SortAndFinish();
       }
-      catch(RootException const & e)
+      catch (RootException const & e)
       {
         LOG(LERROR, (e.Msg()));
       }
-      catch(std::exception const & e)
+      catch (std::exception const & e)
       {
         LOG(LERROR, (e.what()));
       }
@@ -113,8 +113,7 @@ private:
   };
 
   using PriorityQueue =
-      std::priority_queue<std::pair<T, uint32_t>, std::vector<std::pair<T, uint32_t>>,
-                          ItemIndexPairGreater>;
+      std::priority_queue<std::pair<T, uint32_t>, std::vector<std::pair<T, uint32_t>>, ItemIndexPairGreater>;
 
   void FlushToTmpFile()
   {

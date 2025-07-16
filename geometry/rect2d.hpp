@@ -50,14 +50,14 @@ public:
     , m_minY(std::min(p1.y, p2.y))
     , m_maxX(std::max(p1.x, p2.x))
     , m_maxY(std::max(p1.y, p2.y))
-  {
-  }
+  {}
 
   template <typename U>
-  explicit Rect(Rect<U> const & src)
-    : m_minX(src.minX()), m_minY(src.minY()), m_maxX(src.maxX()), m_maxY(src.maxY())
-  {
-  }
+  explicit Rect(Rect<U> const & src) : m_minX(src.minX())
+                                     , m_minY(src.minY())
+                                     , m_maxX(src.maxX())
+                                     , m_maxY(src.maxY())
+  {}
 
   static Rect GetEmptyRect() { return Rect(); }
 
@@ -141,8 +141,7 @@ public:
 
   bool IsIntersect(Rect const & r) const
   {
-    return !((m_maxX < r.m_minX) || (m_minX > r.m_maxX) || (m_maxY < r.m_minY) ||
-             (m_minY > r.m_maxY));
+    return !((m_maxX < r.m_minX) || (m_minX > r.m_maxX) || (m_maxY < r.m_minY) || (m_minY > r.m_maxY));
   }
 
   bool IsPointInside(Point<T> const & pt) const
@@ -152,8 +151,7 @@ public:
 
   bool IsRectInside(Rect<T> const & rect) const
   {
-    return (IsPointInside(Point<T>(rect.minX(), rect.minY())) &&
-            IsPointInside(Point<T>(rect.maxX(), rect.maxY())));
+    return (IsPointInside(Point<T>(rect.minX(), rect.minY())) && IsPointInside(Point<T>(rect.maxX(), rect.maxY())));
   }
 
   Point<T> Center() const { return Point<T>((m_minX + m_maxX) / 2.0, (m_minY + m_maxY) / 2.0); }
@@ -326,8 +324,8 @@ m2::Rect<T> const Add(m2::Rect<T> const & r, m2::Point<T> const & p)
 template <typename T>
 m2::Rect<T> const Add(m2::Rect<T> const & r1, m2::Rect<T> const & r2)
 {
-  return m2::Rect<T>(std::min(r2.minX(), r1.minX()), std::min(r2.minY(), r1.minY()),
-                     std::max(r2.maxX(), r1.maxX()), std::max(r2.maxY(), r1.maxY()));
+  return m2::Rect<T>(std::min(r2.minX(), r1.minX()), std::min(r2.minY(), r1.minY()), std::max(r2.maxX(), r1.maxX()),
+                     std::max(r2.maxY(), r1.maxY()));
 }
 
 template <typename T>
@@ -358,10 +356,8 @@ template <typename T, typename TCollection>
 bool HasIntersection(m2::Rect<T> const & rect, TCollection const & geometry)
 {
   for (auto const & g : geometry)
-  {
     if (rect.IsIntersect(g))
       return true;
-  }
   return false;
 }
 

@@ -17,4 +17,4 @@ public:
 
   static Hash CalculateForString(std::string_view str);
 };
-}  // coding
+}  // namespace coding

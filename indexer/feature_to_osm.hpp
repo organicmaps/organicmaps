@@ -53,23 +53,15 @@ public:
       return;
 
     if (m_mapNodes != nullptr)
-    {
-      m_mapNodes->ForEach(
-          [&](uint32_t fid, uint64_t serialId) { fn(fid, base::MakeOsmNode(serialId)); });
-    }
+      m_mapNodes->ForEach([&](uint32_t fid, uint64_t serialId) { fn(fid, base::MakeOsmNode(serialId)); });
     if (m_mapWays != nullptr)
-    {
-      m_mapWays->ForEach(
-          [&](uint32_t fid, uint64_t serialId) { fn(fid, base::MakeOsmWay(serialId)); });
-    }
+      m_mapWays->ForEach([&](uint32_t fid, uint64_t serialId) { fn(fid, base::MakeOsmWay(serialId)); });
     if (m_mapRelations != nullptr)
-    {
-      m_mapRelations->ForEach(
-          [&](uint32_t fid, uint64_t serialId) { fn(fid, base::MakeOsmRelation(serialId)); });
-    }
+      m_mapRelations->ForEach([&](uint32_t fid, uint64_t serialId) { fn(fid, base::MakeOsmRelation(serialId)); });
   }
 
   using Id2OsmMapT = MapUint32ToValue<uint64_t>;
+
 private:
   DataSource const & m_dataSource;
   MwmSet::MwmId m_mwmId;
@@ -190,21 +182,21 @@ public:
 
     switch (kLatestVersion)
     {
-    case Version::V0:
-    {
-      HeaderV0 header;
-      header.Write(sink);
-      EnsurePadding(sink, startPos);
+      case Version::V0:
+      {
+        HeaderV0 header;
+        header.Write(sink);
+        EnsurePadding(sink, startPos);
 
-      SerializeV0(sink, map, header);
+        SerializeV0(sink, map, header);
 
-      auto savedPos = sink.Pos();
-      sink.Seek(startPos + kHeaderOffset);
-      header.Write(sink);
-      sink.Seek(savedPos);
-    }
-      return;
-    default: UNREACHABLE();
+        auto savedPos = sink.Pos();
+        sink.Seek(startPos + kHeaderOffset);
+        header.Write(sink);
+        sink.Seek(savedPos);
+      }
+        return;
+      default: UNREACHABLE();
     }
   }
 
@@ -231,21 +223,20 @@ public:
 
     switch (version)
     {
-    case Version::V0:
-    {
-      HeaderV0 header;
-      header.Read(src);
-      coding::SkipPadding(src);
-      DeserializeV0(*src.CreateSubReader(), header, map);
-    }
-      return true;
-    default: LOG(LINFO, ("Unable to deserialize FeatureToOsm map: unknown version")); return false;
+      case Version::V0:
+      {
+        HeaderV0 header;
+        header.Read(src);
+        coding::SkipPadding(src);
+        DeserializeV0(*src.CreateSubReader(), header, map);
+      }
+        return true;
+      default: LOG(LINFO, ("Unable to deserialize FeatureToOsm map: unknown version")); return false;
     }
   }
 
   template <typename Sink>
-  static void SerializeV0(Sink & sink, FeatureIdToGeoObjectIdBimapMem const & map,
-                          HeaderV0 & header)
+  static void SerializeV0(Sink & sink, FeatureIdToGeoObjectIdBimapMem const & map, HeaderV0 & header)
   {
     using Type = base::GeoObjectId::Type;
     auto const startPos = base::checked_cast<uint32_t>(sink.Pos());
@@ -262,14 +253,15 @@ public:
   }
 
   template <typename Sink>
-  static void SerializeV0(Sink & sink, base::GeoObjectId::Type type,
-                          FeatureIdToGeoObjectIdBimapMem const & map, uint32_t & offset)
+  static void SerializeV0(Sink & sink, base::GeoObjectId::Type type, FeatureIdToGeoObjectIdBimapMem const & map,
+                          uint32_t & offset)
   {
     offset = base::checked_cast<uint32_t>(sink.Pos());
     std::vector<std::pair<uint32_t, base::GeoObjectId>> entries;
     entries.reserve(map.Size());
     type = NormalizedType(type);
-    map.ForEachEntry([&entries, type](uint32_t const fid, base::GeoObjectId gid) {
+    map.ForEachEntry([&entries, type](uint32_t const fid, base::GeoObjectId gid)
+    {
       if (NormalizedType(gid.GetType()) == type)
         entries.emplace_back(fid, gid);
     });
@@ -289,8 +281,7 @@ public:
   using Id2OsmMapT = FeatureIdToGeoObjectIdOneWay::Id2OsmMapT;
 
   template <typename Reader>
-  static void DeserializeV0(Reader & reader, HeaderV0 const & header,
-                            FeatureIdToGeoObjectIdOneWay & map)
+  static void DeserializeV0(Reader & reader, HeaderV0 const & header, FeatureIdToGeoObjectIdOneWay & map)
   {
     auto const nodesSize = header.m_waysOffset - header.m_nodesOffset;
     auto const waysSize = header.m_relationsOffset - header.m_waysOffset;
@@ -306,8 +297,7 @@ public:
   }
 
   template <typename Reader>
-  static void DeserializeV0(Reader & reader, HeaderV0 const & header,
-                            FeatureIdToGeoObjectIdBimapMem & memMap)
+  static void DeserializeV0(Reader & reader, HeaderV0 const & header, FeatureIdToGeoObjectIdBimapMem & memMap)
   {
     using Type = base::GeoObjectId::Type;
 
@@ -317,23 +307,18 @@ public:
     auto const waysSize = header.m_relationsOffset - header.m_waysOffset;
     auto const relationsSize = header.m_typesSentinelOffset - header.m_relationsOffset;
 
-    DeserializeV0ToMem(*reader.CreateSubReader(header.m_nodesOffset, nodesSize),
-                       Type::ObsoleteOsmNode, memMap);
-    DeserializeV0ToMem(*reader.CreateSubReader(header.m_waysOffset, waysSize), Type::ObsoleteOsmWay,
+    DeserializeV0ToMem(*reader.CreateSubReader(header.m_nodesOffset, nodesSize), Type::ObsoleteOsmNode, memMap);
+    DeserializeV0ToMem(*reader.CreateSubReader(header.m_waysOffset, waysSize), Type::ObsoleteOsmWay, memMap);
+    DeserializeV0ToMem(*reader.CreateSubReader(header.m_relationsOffset, relationsSize), Type::ObsoleteOsmRelation,
                        memMap);
-    DeserializeV0ToMem(*reader.CreateSubReader(header.m_relationsOffset, relationsSize),
-                       Type::ObsoleteOsmRelation, memMap);
   }
 
   template <typename Reader>
-  static void DeserializeV0ToMem(Reader & reader, base::GeoObjectId::Type type,
-                                 FeatureIdToGeoObjectIdBimapMem & memMap)
+  static void DeserializeV0ToMem(Reader & reader, base::GeoObjectId::Type type, FeatureIdToGeoObjectIdBimapMem & memMap)
   {
     auto const map = MapUint32ToValue<uint64_t>::Load(reader, ReadBlockCallback);
     CHECK(map, ());
-    map->ForEach([&](uint32_t fid, uint64_t & serialId) {
-      memMap.Add(fid, base::GeoObjectId(type, serialId));
-    });
+    map->ForEach([&](uint32_t fid, uint64_t & serialId) { memMap.Add(fid, base::GeoObjectId(type, serialId)); });
   }
 
 private:
@@ -349,15 +334,14 @@ private:
     using Type = base::GeoObjectId::Type;
     switch (type)
     {
-    case Type::ObsoleteOsmNode: return Type::OsmNode;
-    case Type::ObsoleteOsmWay: return Type::OsmWay;
-    case Type::ObsoleteOsmRelation: return Type::OsmRelation;
-    default: return type;
+      case Type::ObsoleteOsmNode: return Type::OsmNode;
+      case Type::ObsoleteOsmWay: return Type::OsmWay;
+      case Type::ObsoleteOsmRelation: return Type::OsmRelation;
+      default: return type;
     }
   }
 
-  static void ReadBlockCallback(NonOwningReaderSource & src, uint32_t blockSize,
-                                std::vector<uint64_t> & values)
+  static void ReadBlockCallback(NonOwningReaderSource & src, uint32_t blockSize, std::vector<uint64_t> & values)
   {
     values.reserve(blockSize);
     while (src.Size() > 0)

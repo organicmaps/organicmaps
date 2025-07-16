@@ -11,15 +11,14 @@ namespace style
 {
 // Fixes icons which are not supported by Organic Maps.
 std::string GetSupportedStyle(std::string const & style);
-}  // style
+}  // namespace style
 
 class ApiMarkPoint : public UserMark
 {
 public:
   ApiMarkPoint(m2::PointD const & ptOrg);
 
-  ApiMarkPoint(std::string const & name, std::string const & id, std::string const & style,
-               m2::PointD const & ptOrg);
+  ApiMarkPoint(std::string const & name, std::string const & id, std::string const & style, m2::PointD const & ptOrg);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   df::ColorConstant GetColorConstant() const override;

@@ -6,7 +6,6 @@
 #include "geometry/region2d.hpp"
 #include "geometry/tree4d.hpp"
 
-
 class WaterBoundaryChecker
 {
   struct RegionTraits
@@ -101,50 +100,50 @@ public:
 
       switch (state)
       {
-      case ProcessState::Initial:
-      {
-        if (inWater)
+        case ProcessState::Initial:
         {
-          state = ProcessState::Water;
-        }
-        else
-        {
-          points.push_back(p);
-          state = ProcessState::Earth;
-        }
-        break;
-      }
-      case ProcessState::Water:
-      {
-        if (inWater)
-        {
-          // do nothing
-        }
-        else
-        {
-          points.push_back(p);
-          state = ProcessState::Earth;
-        }
-        break;
-      }
-      case ProcessState::Earth:
-      {
-        if (inWater)
-        {
-          if (points.size() > 1)
+          if (inWater)
           {
-            parts.push_back(boundary);
-            parts.back().AssignPoints(std::move(points));
+            state = ProcessState::Water;
           }
-          points.clear();
-          state = ProcessState::Water;
+          else
+          {
+            points.push_back(p);
+            state = ProcessState::Earth;
+          }
+          break;
         }
-        else
+        case ProcessState::Water:
         {
-          points.push_back(p);
+          if (inWater)
+          {
+            // do nothing
+          }
+          else
+          {
+            points.push_back(p);
+            state = ProcessState::Earth;
+          }
+          break;
         }
-        break;
-      }
+        case ProcessState::Earth:
+        {
+          if (inWater)
+          {
+            if (points.size() > 1)
+            {
+              parts.push_back(boundary);
+              parts.back().AssignPoints(std::move(points));
+            }
+            points.clear();
+            state = ProcessState::Water;
+          }
+          else
+          {
+            points.push_back(p);
+          }
+          break;
+        }
       }
     }
 

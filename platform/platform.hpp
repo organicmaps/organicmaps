@@ -140,8 +140,7 @@ public:
   /// @return full path to file in user's writable directory
   std::string WritablePathForFile(std::string const & file) const;
   /// Uses m_writeableDir [w], m_resourcesDir [r], m_settingsDir [s].
-  std::string ReadPathForFile(std::string const & file,
-                              std::string searchScope = std::string()) const;
+  std::string ReadPathForFile(std::string const & file, std::string searchScope = std::string()) const;
 
   /// @return resource dir (on some platforms it's differ from Writable dir)
   std::string const & ResourcesDir() const
@@ -200,8 +199,7 @@ public:
   /// @param[in] file name or full path which we want to read
   /// @param[in] searchScope looks for file in dirs in given order: \n
   /// [w]ritable, [r]esources, [s]ettings, by [f]ull path, [e]xternal resources,
-  std::unique_ptr<ModelReader> GetReader(std::string const & file,
-                                         std::string searchScope = std::string()) const;
+  std::unique_ptr<ModelReader> GetReader(std::string const & file, std::string searchScope = std::string()) const;
 
   /// @name File operations
   //@{
@@ -210,14 +208,11 @@ public:
   /// @param directory directory path with slash at the end
   //@{
   /// @param ext files extension to find, like ".mwm".
-  static void GetFilesByExt(std::string const & directory, std::string_view ext,
-                            FilesList & outFiles);
-  static void GetFilesByRegExp(std::string const & directory, std::string const & regexp,
-                               FilesList & outFiles);
+  static void GetFilesByExt(std::string const & directory, std::string_view ext, FilesList & outFiles);
+  static void GetFilesByRegExp(std::string const & directory, std::string const & regexp, FilesList & outFiles);
   //@}
 
-  static void GetFilesByType(std::string const & directory, unsigned typeMask,
-                             TFilesWithType & outFiles);
+  static void GetFilesByType(std::string const & directory, unsigned typeMask, TFilesWithType & outFiles);
 
   static void GetFilesRecursively(std::string const & directory, FilesList & filesList);
 
@@ -251,7 +246,7 @@ public:
 
   // Please note, that number of active cores can vary at runtime.
   // DO NOT assume for the same return value between calls.
-  static unsigned CpuCores() ;
+  static unsigned CpuCores();
 
   void GetFontNames(FilesList & res) const;
 
@@ -306,28 +301,25 @@ public:
     ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
     switch (thread)
     {
-    case Thread::File: return m_fileThread->Push(std::forward<Task>(task));
-    case Thread::Network: return m_networkThread->Push(std::forward<Task>(task));
-    case Thread::Gui: return m_guiThread->Push(std::forward<Task>(task));
-    case Thread::Background: return m_backgroundThread->Push(std::forward<Task>(task));
+      case Thread::File: return m_fileThread->Push(std::forward<Task>(task));
+      case Thread::Network: return m_networkThread->Push(std::forward<Task>(task));
+      case Thread::Gui: return m_guiThread->Push(std::forward<Task>(task));
+      case Thread::Background: return m_backgroundThread->Push(std::forward<Task>(task));
     }
     UNREACHABLE();
   }
 
   template <typename Task>
-  base::TaskLoop::PushResult RunDelayedTask(
-      Thread thread, base::DelayedThreadPool::Duration const & delay, Task && task)
+  base::TaskLoop::PushResult RunDelayedTask(Thread thread, base::DelayedThreadPool::Duration const & delay,
+                                            Task && task)
   {
     ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
     switch (thread)
     {
-    case Thread::File: return m_fileThread->PushDelayed(delay, std::forward<Task>(task));
-    case Thread::Network: return m_networkThread->PushDelayed(delay, std::forward<Task>(task));
-    case Thread::Gui:
-      CHECK(false, ("Delayed tasks for gui thread are not supported yet"));
-      return {};
-    case Thread::Background:
-      return m_backgroundThread->PushDelayed(delay, std::forward<Task>(task));
+      case Thread::File: return m_fileThread->PushDelayed(delay, std::forward<Task>(task));
+      case Thread::Network: return m_networkThread->PushDelayed(delay, std::forward<Task>(task));
+      case Thread::Gui: CHECK(false, ("Delayed tasks for gui thread are not supported yet")); return {};
+      case Thread::Background: return m_backgroundThread->PushDelayed(delay, std::forward<Task>(task));
     }
     UNREACHABLE();
   }

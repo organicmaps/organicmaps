@@ -120,7 +120,9 @@ struct ColoredSymbolViewParams : CommonOverlayViewParams
 {
   enum class Shape
   {
-    Rectangle, Circle, RoundedRectangle
+    Rectangle,
+    Circle,
+    RoundedRectangle
   };
 
   Shape m_shape = Shape::Circle;

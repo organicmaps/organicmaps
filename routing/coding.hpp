@@ -21,10 +21,7 @@ T ReadDelta(BitReader<Source> & reader)
   static_assert(std::is_unsigned<T>::value, "T should be an unsigned type");
   uint64_t const decoded = coding::DeltaCoder::Decode(reader);
   if (decoded > std::numeric_limits<T>::max())
-  {
-    MYTHROW(CorruptedDataException,
-            ("Decoded value", decoded, "out of limit", std::numeric_limits<T>::max()));
-  }
+    MYTHROW(CorruptedDataException, ("Decoded value", decoded, "out of limit", std::numeric_limits<T>::max()));
 
   return static_cast<T>(decoded);
 }
@@ -46,10 +43,7 @@ T ReadGamma(BitReader<Source> & reader)
   static_assert(std::is_unsigned<T>::value, "T should be an unsigned type");
   uint64_t const decoded = coding::GammaCoder::Decode(reader);
   if (decoded > std::numeric_limits<T>::max())
-  {
-    MYTHROW(CorruptedDataException,
-            ("Decoded value", decoded, "out of limit", std::numeric_limits<T>::max()));
-  }
+    MYTHROW(CorruptedDataException, ("Decoded value", decoded, "out of limit", std::numeric_limits<T>::max()));
 
   return static_cast<T>(decoded);
 }

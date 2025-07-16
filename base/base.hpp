@@ -18,17 +18,17 @@ static_assert(MY_DEBUG_DEFINED ^ MY_RELEASE_DEFINED, "Either Debug or Release sh
 
 // #define DEBUG macro, which should be used with #ifdef.
 #if !MY_RELEASE_DEFINED
-  #ifndef DEBUG
-    #define DEBUG 1
-  #endif
+#ifndef DEBUG
+#define DEBUG 1
+#endif
 #endif
 
 #ifdef DEBUG
 // #include "internal/debug_new.hpp"
 // TODO: STL debug mode.
-  #define IF_DEBUG_ELSE(a, b) (a)
+#define IF_DEBUG_ELSE(a, b) (a)
 #else
-  #define IF_DEBUG_ELSE(a, b) (b)
+#define IF_DEBUG_ELSE(a, b) (b)
 #endif
 
 // platform macroses

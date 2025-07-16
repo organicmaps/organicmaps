@@ -42,9 +42,8 @@ m2::CellId<DEPTH_LEVELS> GetRectIdAsIs(m2::RectD const & r)
   double const eps = kMwmPointAccuracy;
   using Converter = CellIdConverter<mercator::Bounds, m2::CellId<DEPTH_LEVELS>>;
 
-  return Converter::Cover2PointsWithCell(
-      mercator::ClampX(r.minX() + eps), mercator::ClampY(r.minY() + eps),
-      mercator::ClampX(r.maxX() - eps), mercator::ClampY(r.maxY() - eps));
+  return Converter::Cover2PointsWithCell(mercator::ClampX(r.minX() + eps), mercator::ClampY(r.minY() + eps),
+                                         mercator::ClampX(r.maxX() - eps), mercator::ClampY(r.maxY() - eps));
 }
 
 // Calculate cell coding depth according to max visual scale for mwm.
@@ -79,8 +78,8 @@ void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Inter
   Intervals intervals;
   for (auto const & id : ids)
   {
-    AppendLowerLevels<DEPTH_LEVELS>(
-        id, cellDepth, [&intervals](Interval const & interval) { intervals.push_back(interval); });
+    AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth,
+                                    [&intervals](Interval const & interval) { intervals.push_back(interval); });
   }
 
   SortAndMergeIntervals(intervals, res);
@@ -116,20 +115,19 @@ public:
     {
       switch (m_mode)
       {
-      case ViewportWithLowLevels:
-        CoverViewportAndAppendLowerLevels<DEPTH_LEVELS>(m_rect, cellDepth, m_res[ind]);
-        break;
+        case ViewportWithLowLevels:
+          CoverViewportAndAppendLowerLevels<DEPTH_LEVELS>(m_rect, cellDepth, m_res[ind]);
+          break;
 
-      case LowLevelsOnly:
-      {
-        m2::CellId<DEPTH_LEVELS> id = GetRectIdAsIs<DEPTH_LEVELS>(m_rect);
-        while (id.Level() >= cellDepth)
-          id = id.Parent();
-        AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, [this, ind](Interval const & interval) {
-          m_res[ind].push_back(interval);
-        });
+        case LowLevelsOnly:
+        {
+          m2::CellId<DEPTH_LEVELS> id = GetRectIdAsIs<DEPTH_LEVELS>(m_rect);
+          while (id.Level() >= cellDepth)
+            id = id.Parent();
+          AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth,
+                                          [this, ind](Interval const & interval) { m_res[ind].push_back(interval); });
 
-        // Check for optimal result intervals.
+          // Check for optimal result intervals.
 #if 0
         size_t oldSize = m_res[ind].size();
         Intervals res;
@@ -138,35 +136,33 @@ public:
           LOG(LINFO, ("Old =", oldSize, "; New =", res.size()));
         res.swap(m_res[ind]);
 #endif
-        break;
-      }
-
-      case FullCover:
-        m_res[ind].push_back(
-            Intervals::value_type(0, static_cast<int64_t>((uint64_t{1} << 63) - 1)));
-        break;
-
-      case Spiral:
-      {
-        std::vector<m2::CellId<DEPTH_LEVELS>> ids;
-        CoverSpiral<mercator::Bounds, m2::CellId<DEPTH_LEVELS>>(m_rect, cellDepth - 1, ids);
-
-        std::set<Interval> uniqueIds;
-        auto insertInterval = [this, ind, &uniqueIds](Interval const & interval) {
-          if (uniqueIds.insert(interval).second)
-            m_res[ind].push_back(interval);
-        };
-
-        for (auto const & id : ids)
-        {
-          if (cellDepth > id.Level())
-            AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, insertInterval);
+          break;
         }
-      }
+
+        case FullCover:
+          m_res[ind].push_back(Intervals::value_type(0, static_cast<int64_t>((uint64_t{1} << 63) - 1)));
+          break;
+
+        case Spiral:
+        {
+          std::vector<m2::CellId<DEPTH_LEVELS>> ids;
+          CoverSpiral<mercator::Bounds, m2::CellId<DEPTH_LEVELS>>(m_rect, cellDepth - 1, ids);
+
+          std::set<Interval> uniqueIds;
+          auto insertInterval = [this, ind, &uniqueIds](Interval const & interval)
+          {
+            if (uniqueIds.insert(interval).second)
+              m_res[ind].push_back(interval);
+          };
+
+          for (auto const & id : ids)
+            if (cellDepth > id.Level())
+              AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, insertInterval);
+        }
       }
     }
 
     return m_res[ind];
   }
 };
-}
+}  // namespace covering

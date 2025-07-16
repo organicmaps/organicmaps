@@ -33,8 +33,7 @@ public:
 
     Count
   };
-  static size_t constexpr kResourcesCount =
-      static_cast<uint32_t>(VulkanMemoryManager::ResourceType::Count);
+  static size_t constexpr kResourcesCount = static_cast<uint32_t>(VulkanMemoryManager::ResourceType::Count);
 
   struct MemoryBlock
   {
@@ -54,8 +53,8 @@ public:
     ResourceType const m_resourceType;
     ref_ptr<MemoryBlock> m_memoryBlock;
 
-    Allocation(ResourceType resourceType, uint64_t blockHash, uint32_t offset,
-               uint32_t size, ref_ptr<MemoryBlock> memoryBlock)
+    Allocation(ResourceType resourceType, uint64_t blockHash, uint32_t offset, uint32_t size,
+               ref_ptr<MemoryBlock> memoryBlock)
       : m_blockHash(blockHash)
       , m_alignedOffset(offset)
       , m_alignedSize(size)
@@ -66,8 +65,7 @@ public:
 
   using AllocationPtr = std::shared_ptr<Allocation>;
 
-  AllocationPtr Allocate(ResourceType resourceType, VkMemoryRequirements memReqs,
-                         uint64_t blockHash);
+  AllocationPtr Allocate(ResourceType resourceType, VkMemoryRequirements memReqs, uint64_t blockHash);
   void BeginDeallocationSession();
   void Deallocate(AllocationPtr ptr);
   void EndDeallocationSession();
@@ -79,8 +77,7 @@ public:
   VkPhysicalDeviceLimits const & GetDeviceLimits() const;
 
 private:
-  std::optional<uint32_t> GetMemoryTypeIndex(uint32_t typeBits,
-                                             VkMemoryPropertyFlags properties) const;
+  std::optional<uint32_t> GetMemoryTypeIndex(uint32_t typeBits, VkMemoryPropertyFlags properties) const;
   void IncrementTotalAllocationsCount();
   void DecrementTotalAllocationsCount();
 

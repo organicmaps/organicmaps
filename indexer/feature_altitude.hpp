@@ -45,10 +45,7 @@ struct AltitudeHeader
   }
 
   // Methods below return sizes of parts of altitude section in bytes.
-  size_t GetAltitudeAvailabilitySize() const
-  {
-    return m_featureTableOffset - sizeof(AltitudeHeader);
-  }
+  size_t GetAltitudeAvailabilitySize() const { return m_featureTableOffset - sizeof(AltitudeHeader); }
 
   size_t GetFeatureTableSize() const { return m_altitudesOffset - m_featureTableOffset; }
 
@@ -89,8 +86,7 @@ public:
     for (auto const altitude : m_altitudes)
     {
       CHECK_LESS_OR_EQUAL(minAltitude, altitude, ());
-      uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(altitude) -
-                                                static_cast<int32_t>(prevAltitude));
+      uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(altitude) - static_cast<int32_t>(prevAltitude));
       // Making serialized value greater than zero.
       CHECK(coding::DeltaCoder::Encode(bits, delta + 1), ());
       prevAltitude = altitude;
@@ -98,8 +94,8 @@ public:
   }
 
   template <class TSource>
-  void Deserialize(geometry::Altitude minAltitude, size_t pointCount,
-                   std::string const & countryFileName, uint32_t featureId, TSource & src)
+  void Deserialize(geometry::Altitude minAltitude, size_t pointCount, std::string const & countryFileName,
+                   uint32_t featureId, TSource & src)
   {
     ASSERT_NOT_EQUAL(pointCount, 0, ());
 

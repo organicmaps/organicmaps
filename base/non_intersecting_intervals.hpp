@@ -64,15 +64,14 @@ bool NonIntersectingIntervals<T>::AddInterval(T left, T right)
 }
 
 template <typename T>
-NonIntersectingIntervals<T>::Interval::Interval(T left, T right)
-  : m_left(left), m_right(right)
+NonIntersectingIntervals<T>::Interval::Interval(T left, T right) : m_left(left)
+                                                                 , m_right(right)
 {
   CHECK_LESS_OR_EQUAL(left, right, ());
 }
 
 template <typename T>
-bool NonIntersectingIntervals<T>::Interval::LessByLeftEnd::operator()(Interval const & lhs,
-                                                                      Interval const & rhs) const
+bool NonIntersectingIntervals<T>::Interval::LessByLeftEnd::operator()(Interval const & lhs, Interval const & rhs) const
 {
   return lhs.m_left < rhs.m_left;
 }
@@ -82,4 +81,4 @@ bool NonIntersectingIntervals<T>::Interval::Intersects(Interval const & rhs) con
 {
   return std::max(m_left, rhs.m_left) <= std::min(m_right, rhs.m_right);
 }
-}  // namespace coding
+}  // namespace base

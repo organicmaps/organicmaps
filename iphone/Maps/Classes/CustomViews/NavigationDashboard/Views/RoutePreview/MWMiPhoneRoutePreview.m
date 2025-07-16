@@ -39,9 +39,7 @@
   NSLayoutYAxisAnchor * selfAnchor = isVisible ? self.topAnchor : self.bottomAnchor;
   CGFloat constant = 0;
   if (isVisible)
-  {
     topAnchor = sv.topAnchor;
-  }
   self.verticalConstraint = [selfAnchor constraintEqualToAnchor:topAnchor constant:constant];
   self.verticalConstraint.active = YES;
   [super setIsVisible:isVisible];

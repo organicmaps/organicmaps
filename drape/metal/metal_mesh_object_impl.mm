@@ -1,7 +1,7 @@
 #import <MetalKit/MetalKit.h>
 
-#include "drape/metal/metal_base_context.hpp"
 #include "drape/mesh_object.hpp"
+#include "drape/metal/metal_base_context.hpp"
 #include "drape/pointers.hpp"
 
 #include "base/assert.hpp"
@@ -20,9 +20,9 @@ MTLPrimitiveType GetPrimitiveType(MeshObject::DrawPrimitive primitive)
 {
   switch (primitive)
   {
-  case MeshObject::DrawPrimitive::Triangles: return MTLPrimitiveTypeTriangle;
-  case MeshObject::DrawPrimitive::TriangleStrip: return MTLPrimitiveTypeTriangleStrip;
-  case MeshObject::DrawPrimitive::LineStrip: return MTLPrimitiveTypeLineStrip;
+    case MeshObject::DrawPrimitive::Triangles: return MTLPrimitiveTypeTriangle;
+    case MeshObject::DrawPrimitive::TriangleStrip: return MTLPrimitiveTypeTriangleStrip;
+    case MeshObject::DrawPrimitive::LineStrip: return MTLPrimitiveTypeLineStrip;
   }
   CHECK(false, ("Unsupported type"));
 }
@@ -31,22 +31,20 @@ MTLPrimitiveType GetPrimitiveType(MeshObject::DrawPrimitive primitive)
 class MetalMeshObjectImpl : public MeshObjectImpl
 {
 public:
-  MetalMeshObjectImpl(ref_ptr<dp::MeshObject> mesh)
-    : m_mesh(std::move(mesh))
-  {}
-  
+  MetalMeshObjectImpl(ref_ptr<dp::MeshObject> mesh) : m_mesh(std::move(mesh)) {}
+
   void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program) override
   {
     ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
     id<MTLDevice> device = metalContext->GetMetalDevice();
-    
+
     m_geometryBuffers.resize(m_mesh->m_buffers.size());
     for (size_t i = 0; i < m_mesh->m_buffers.size(); i++)
-    { 
+    {
       auto const sizeInBytes = m_mesh->m_buffers[i]->GetSizeInBytes();
       if (sizeInBytes == 0)
         continue;
-      
+
       m_geometryBuffers[i] = [device newBufferWithBytes:m_mesh->m_buffers[i]->GetData()
                                                  length:sizeInBytes
                                                 options:MTLResourceCPUCacheModeWriteCombined];
@@ -69,7 +67,7 @@ public:
       m_indexBuffer.label = @"MeshIB";
     }
   }
-  
+
   void Reset() override
   {
     m_geometryBuffers.clear();
@@ -80,11 +78,11 @@ public:
   {
     UNUSED_VALUE(context);
     CHECK_LESS(bufferInd, static_cast<uint32_t>(m_geometryBuffers.size()), ());
-    
+
     auto & buffer = m_mesh->m_buffers[bufferInd];
     auto const sizeInBytes = buffer->GetSizeInBytes();
     CHECK(sizeInBytes != 0, ());
-    
+
     uint8_t * bufferPointer = (uint8_t *)[m_geometryBuffers[bufferInd] contents];
     memcpy(bufferPointer, buffer->GetData(), sizeInBytes);
   }
@@ -93,41 +91,37 @@ public:
   {
     UNUSED_VALUE(context);
     CHECK(m_indexBuffer != nil, ());
-    
+
     auto const sizeInBytes = m_mesh->m_indices.size() * sizeof(uint16_t);
     CHECK(sizeInBytes != 0, ());
 
     uint8_t * bufferPointer = (uint8_t *)[m_indexBuffer contents];
     memcpy(bufferPointer, m_mesh->m_indices.data(), sizeInBytes);
   }
-  
+
   void Bind(ref_ptr<dp::GpuProgram> program) override {}
-  
+
   void Unbind() override {}
-  
-  void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount,
-                      uint32_t startVertex) override
+
+  void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount, uint32_t startVertex) override
   {
     ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
     if (!metalContext->HasAppliedPipelineState())
       return;
-    
+
     id<MTLRenderCommandEncoder> encoder = metalContext->GetCommandEncoder();
     for (size_t i = 0; i < m_geometryBuffers.size(); i++)
       [encoder setVertexBuffer:m_geometryBuffers[i] offset:0 atIndex:i];
-    
-    [encoder drawPrimitives:GetPrimitiveType(m_mesh->m_drawPrimitive) 
-                vertexStart:startVertex
-                vertexCount:vertexCount];
+
+    [encoder drawPrimitives:GetPrimitiveType(m_mesh->m_drawPrimitive) vertexStart:startVertex vertexCount:vertexCount];
   }
 
-  void DrawPrimitivesIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, 
-                            uint32_t startIndex) override
+  void DrawPrimitivesIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, uint32_t startIndex) override
   {
     ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
     if (!metalContext->HasAppliedPipelineState())
       return;
-    
+
     id<MTLRenderCommandEncoder> encoder = metalContext->GetCommandEncoder();
     for (size_t i = 0; i < m_geometryBuffers.size(); i++)
       [encoder setVertexBuffer:m_geometryBuffers[i] offset:0 atIndex:i];
@@ -139,7 +133,7 @@ public:
                        indexBuffer:m_indexBuffer
                  indexBufferOffset:startIndex * sizeof(uint16_t)];
   }
-  
+
 private:
   ref_ptr<dp::MeshObject> m_mesh;
   std::vector<id<MTLBuffer>> m_geometryBuffers;

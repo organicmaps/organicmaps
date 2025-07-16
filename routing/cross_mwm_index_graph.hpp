@@ -48,8 +48,7 @@ void AssertConnectorIsFound(NumMwmId neighbor, bool isConnectorFound)
 
 template <>
 inline void AssertConnectorIsFound<TransitId>(NumMwmId /* neighbor */, bool /* isConnectorFound */)
-{
-}
+{}
 }  // namespace connector
 
 template <typename CrossMwmId>
@@ -59,9 +58,9 @@ public:
   using ReaderSourceFile = ReaderSource<FilesContainerR::TReader>;
 
   CrossMwmIndexGraph(MwmDataSource & dataSource, VehicleType vehicleType)
-    : m_dataSource(dataSource), m_vehicleType(vehicleType)
-  {
-  }
+    : m_dataSource(dataSource)
+    , m_vehicleType(vehicleType)
+  {}
 
   bool IsTransition(Segment const & s, bool isOutgoing)
   {
@@ -69,7 +68,8 @@ public:
     return c.IsTransition(s, isOutgoing);
   }
 
-  template <class FnT> void ForEachTransitSegmentId(NumMwmId numMwmId, uint32_t featureId, FnT && fn)
+  template <class FnT>
+  void ForEachTransitSegmentId(NumMwmId numMwmId, uint32_t featureId, FnT && fn)
   {
     GetCrossMwmConnectorWithTransitions(numMwmId).ForEachTransitSegmentId(featureId, fn);
   }
@@ -144,10 +144,10 @@ public:
     return c.GetWeightSure(from, to);
   }
 
-//  void Clear()
-//  {
-//    m_connectors.clear();
-//  }
+  //  void Clear()
+  //  {
+  //    m_connectors.clear();
+  //  }
   void Purge()
   {
     ConnectersMapT tmp;
@@ -163,17 +163,13 @@ public:
       return it->second;
 
     return Deserialize(numMwmId, [this](CrossMwmConnectorBuilder<CrossMwmId> & builder, auto & src)
-    {
-      builder.DeserializeTransitions(m_vehicleType, src);
-    });
+    { builder.DeserializeTransitions(m_vehicleType, src); });
   }
 
-  void LoadCrossMwmConnectorWithTransitions(NumMwmId numMwmId)
-  {
-    GetCrossMwmConnectorWithTransitions(numMwmId);
-  }
+  void LoadCrossMwmConnectorWithTransitions(NumMwmId numMwmId) { GetCrossMwmConnectorWithTransitions(numMwmId); }
 
-  template <class FnT> void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
+  template <class FnT>
+  void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
   {
     auto const & connector = GetCrossMwmConnectorWithTransitions(numMwmId);
 
@@ -184,7 +180,7 @@ public:
 private:
   std::vector<m2::PointD> GetFeaturePointsBySegment(MwmSet::MwmId const & mwmId, Segment const & segment)
   {
-    auto ft = m_dataSource.GetFeature({ mwmId, segment.GetFeatureId() });
+    auto ft = m_dataSource.GetFeature({mwmId, segment.GetFeatureId()});
     ft->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     size_t const count = ft->GetPointsCount();
@@ -204,10 +200,10 @@ private:
     if (!s1.IsRealSegment() || !s2.IsRealSegment())
       return true;
 
-    static_assert(std::is_same<CrossMwmId, base::GeoObjectId>::value ||
-                  std::is_same<CrossMwmId, connector::TransitId>::value,
-                  "Be careful of usage other ids here. "
-                  "Make sure, there is not crash with your new CrossMwmId");
+    static_assert(
+        std::is_same<CrossMwmId, base::GeoObjectId>::value || std::is_same<CrossMwmId, connector::TransitId>::value,
+        "Be careful of usage other ids here. "
+        "Make sure, there is not crash with your new CrossMwmId");
 
     ASSERT_NOT_EQUAL(s1.GetMwmId(), s2.GetMwmId(), ());
 
@@ -226,10 +222,8 @@ private:
       return false;
 
     for (uint32_t i = 0; i < geo1.size(); ++i)
-    {
       if (!AlmostEqualAbs(geo1[i], geo2[i], kMwmPointAccuracy))
         return false;
-    }
 
     return true;
   }
@@ -240,10 +234,8 @@ private:
     if (c.WeightsWereLoaded())
       return c;
 
-    return Deserialize(numMwmId,  [](CrossMwmConnectorBuilder<CrossMwmId> & builder, auto & src)
-    {
-      builder.DeserializeWeights(src);
-    });
+    return Deserialize(
+        numMwmId, [](CrossMwmConnectorBuilder<CrossMwmId> & builder, auto & src) { builder.DeserializeWeights(src); });
   }
 
   /// \brief Deserializes connectors for an mwm with |numMwmId|.

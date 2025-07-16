@@ -17,9 +17,11 @@ namespace common
 {
 class MapWidget;
 }
-}
+}  // namespace qt
 
-class MainView : public QMainWindow, public View
+class MainView
+  : public QMainWindow
+  , public View
 {
   Q_OBJECT
 
@@ -31,9 +33,8 @@ public:
   void SetSamples(ContextList::SamplesSlice const & samples) override;
   void OnSearchStarted() override;
   void OnSearchCompleted() override;
-  void ShowSample(size_t sampleIndex, search::Sample const & sample,
-                  std::optional<m2::PointD> const & position, bool isUseless,
-                  bool hasEdits) override;
+  void ShowSample(size_t sampleIndex, search::Sample const & sample, std::optional<m2::PointD> const & position,
+                  bool isUseless, bool hasEdits) override;
 
   void AddFoundResults(search::Results const & results) override;
   void ShowNonFoundResults(std::vector<search::Sample::Result> const & results,
@@ -45,8 +46,7 @@ public:
   void MoveViewportToResult(search::Sample::Result const & result) override;
   void MoveViewportToRect(m2::RectD const & rect) override;
 
-  void OnResultChanged(size_t sampleIndex, ResultType type,
-                       ResultsEdits::Update const & update) override;
+  void OnResultChanged(size_t sampleIndex, ResultType type, ResultsEdits::Update const & update) override;
   void SetResultsEdits(size_t sampleIndex, ResultsEdits & foundResultsResultsEdits,
                        ResultsEdits & nonFoundResultsResultsEdits) override;
   void OnSampleChanged(size_t sampleIndex, bool isUseless, bool hasEdits) override;
@@ -77,9 +77,9 @@ private:
   {
     switch (state)
     {
-    case State::BeforeSearch: return "BeforeSearch";
-    case State::Search: return "Search";
-    case State::AfterSearch: return "AfterSearch";
+      case State::BeforeSearch: return "BeforeSearch";
+      case State::Search: return "Search";
+      case State::AfterSearch: return "AfterSearch";
     }
   }
 

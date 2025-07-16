@@ -6,7 +6,7 @@
 
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                                      delegate:(id<NSURLSessionDataDelegate>)delegate
-                            completionHandler:(void (^)(NSData * data, NSURLResponse * response,
-                                                        NSError * error))completionHandler;
+                            completionHandler:
+                                (void (^)(NSData * data, NSURLResponse * response, NSError * error))completionHandler;
 
 @end

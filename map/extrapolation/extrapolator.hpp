@@ -11,15 +11,13 @@ namespace extrapolation
 {
 /// \brief Returns extrapolated position after |point2| in |timeAfterPoint2Ms|.
 /// \note |timeAfterPoint2Ms| should be reasonably small (several seconds maximum).
-location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
-                                      location::GpsInfo const & gpsInfo2,
+location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1, location::GpsInfo const & gpsInfo2,
                                       uint64_t timeAfterPoint2Ms);
 
 /// \returns true if linear extrapolation based on |info1| and |info2| should be done.
 /// \param info1 location information about point gotten before last one.
 /// \param info2 the latest location information.
-bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1,
-                                   location::GpsInfo const & info2);
+bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::GpsInfo const & info2);
 
 /// \brief This class implements linear extrapolation based on methods LinearExtrapolation()
 /// and AreCoordsGoodForExtrapolation(). The idea implemented in this class is

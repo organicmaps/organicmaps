@@ -30,15 +30,14 @@
   CFReadStreamRef readStream;
   CFWriteStreamRef writeStream;
 
-  CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), (UInt32)port, &readStream,
-                                     &writeStream);
+  CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)(host), (UInt32)port, &readStream, &writeStream);
 
   NSDictionary * settings = @{
 #ifndef RELEASE
-                              (id)kCFStreamSSLValidatesCertificateChain : @NO,
+    (id)kCFStreamSSLValidatesCertificateChain: @NO,
 #endif
-                              (id)kCFStreamSSLLevel : (id)kCFStreamSocketSecurityLevelNegotiatedSSL
-                              };
+    (id)kCFStreamSSLLevel: (id)kCFStreamSocketSecurityLevelNegotiatedSSL
+  };
 
   CFReadStreamSetProperty(readStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
   CFWriteStreamSetProperty(writeStream, kCFStreamPropertySSLSettings, (CFTypeRef)settings);
@@ -175,7 +174,10 @@ std::unique_ptr<Socket> CreateSocket()
   return std::make_unique<PlatformSocket>();
 }
 
-PlatformSocket::PlatformSocket() { m_socketImpl = [[SocketImpl alloc] init]; }
+PlatformSocket::PlatformSocket()
+{
+  m_socketImpl = [[SocketImpl alloc] init];
+}
 
 PlatformSocket::~PlatformSocket()
 {
@@ -188,7 +190,10 @@ bool PlatformSocket::Open(std::string const & host, uint16_t port)
   return [m_socketImpl open:@(host.c_str()) port:port];
 }
 
-void PlatformSocket::Close() { [m_socketImpl close]; }
+void PlatformSocket::Close()
+{
+  [m_socketImpl close];
+}
 
 bool PlatformSocket::Read(uint8_t * data, uint32_t count)
 {
@@ -200,5 +205,8 @@ bool PlatformSocket::Write(uint8_t const * data, uint32_t count)
   return [m_socketImpl write:data count:count];
 }
 
-void PlatformSocket::SetTimeout(uint32_t milliseconds) { m_socketImpl.timeout = milliseconds; }
+void PlatformSocket::SetTimeout(uint32_t milliseconds)
+{
+  m_socketImpl.timeout = milliseconds;
+}
 }  // namespace platform

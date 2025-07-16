@@ -58,8 +58,7 @@ private:
   bool Has(m2::PointI const & xy) const;
   CellWrapper & Get(m2::PointI const & xy);
   CellWrapper & Get(int32_t x, int32_t y);
-  CellWrapper const & TryGet(int32_t x, int32_t y,
-                             CellWrapper const & defaultValue = CellWrapper::kEmpty) const;
+  CellWrapper const & TryGet(int32_t x, int32_t y, CellWrapper const & defaultValue = CellWrapper::kEmpty) const;
 
   void CalcSum();
   std::optional<m2::PointI> FindMax() const;

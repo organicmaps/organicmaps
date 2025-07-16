@@ -24,8 +24,7 @@ template <typename Point>
 class ParametrizedSegment
 {
 public:
-  static_assert(std::numeric_limits<typename Point::value_type>::is_signed,
-                "Unsigned points are not supported");
+  static_assert(std::numeric_limits<typename Point::value_type>::is_signed, "Unsigned points are not supported");
 
   ParametrizedSegment(Point const & p0, Point const & p1) : m_p0(p0), m_p1(p1)
   {

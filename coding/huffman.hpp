@@ -83,7 +83,7 @@ public:
     Code() : bits(0), len(0) {}
     Code(uint32_t bits, size_t len) : bits(bits), len(len) {}
 
-    bool operator<(const Code & o) const
+    bool operator<(Code const & o) const
     {
       if (bits != o.bits)
         return bits < o.bits;
@@ -224,9 +224,13 @@ private:
     bool isLeaf;
 
     Node(uint32_t symbol, uint32_t freq, bool isLeaf)
-        : l(nullptr), r(nullptr), symbol(symbol), freq(freq), depth(0), isLeaf(isLeaf)
-    {
-    }
+      : l(nullptr)
+      , r(nullptr)
+      , symbol(symbol)
+      , freq(freq)
+      , depth(0)
+      , isLeaf(isLeaf)
+    {}
   };
 
   struct NodeComparator

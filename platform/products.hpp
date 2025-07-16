@@ -1,11 +1,12 @@
 #pragma once
 
+#include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
-#include <optional>
-#include <mutex>
 
-namespace products {
+namespace products
+{
 
 struct ProductsConfig
 {
@@ -16,9 +17,7 @@ struct ProductsConfig
     std::string m_link;
 
   public:
-    Product(std::string const & title, std::string const & link)
-    : m_title(title), m_link(link)
-    {}
+    Product(std::string const & title, std::string const & link) : m_title(title), m_link(link) {}
 
     std::string const & GetTitle() const { return m_title; }
     std::string const & GetLink() const { return m_link; }
@@ -61,4 +60,4 @@ inline std::optional<ProductsConfig> GetProductsConfiguration()
   return ProductsSettings::Instance().Get();
 }
 
-} // namespace products
+}  // namespace products

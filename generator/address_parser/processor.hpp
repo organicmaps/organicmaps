@@ -29,4 +29,4 @@ public:
   void Run(std::istream & is);
 };
 
-} // namespace addr_generator
+}  // namespace addr_generator

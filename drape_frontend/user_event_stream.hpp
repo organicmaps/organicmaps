@@ -5,9 +5,9 @@
 
 #include "drape/pointers.hpp"
 
+#include "geometry/any_rect2d.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
-#include "geometry/any_rect2d.hpp"
 
 #include "base/timer.hpp"
 
@@ -53,8 +53,8 @@ public:
 struct Touch
 {
   m2::PointF m_location = m2::PointF::Zero();
-  int64_t m_id = -1; // if id == -1 then touch is invalid
-  float m_force = 0.0; // relative force of touch [0.0 - 1.0]
+  int64_t m_id = -1;    // if id == -1 then touch is invalid
+  float m_force = 0.0;  // relative force of touch [0.0 - 1.0]
 
   friend std::string DebugPrint(Touch const & t);
 };
@@ -62,11 +62,7 @@ struct Touch
 class TouchEvent : public UserEvent
 {
 public:
-  TouchEvent()
-    : m_type(TOUCH_CANCEL)
-    , m_timeStamp(base::Timer::LocalTime())
-    , m_pointersMask(0xFFFF)
-  {}
+  TouchEvent() : m_type(TOUCH_CANCEL), m_timeStamp(base::Timer::LocalTime()), m_pointersMask(0xFFFF) {}
 
   enum ETouchType
   {
@@ -117,7 +113,7 @@ private:
 
   ETouchType m_type;
   std::array<Touch, 2> m_touches;  // array of all touches
-  double m_timeStamp; // seconds
+  double m_timeStamp;              // seconds
   uint16_t m_pointersMask;
 };
 
@@ -145,11 +141,7 @@ private:
 class MoveEvent : public UserEvent
 {
 public:
-  MoveEvent(double factorX, double factorY, bool isAnim)
-    : m_factorX(factorX)
-    , m_factorY(factorY)
-    , m_isAnim(isAnim)
-  {}
+  MoveEvent(double factorX, double factorY, bool isAnim) : m_factorX(factorX), m_factorY(factorY), m_isAnim(isAnim) {}
 
   EventType GetType() const override { return UserEvent::EventType::Move; }
 
@@ -166,8 +158,7 @@ private:
 class SetCenterEvent : public UserEvent
 {
 public:
-  SetCenterEvent(m2::PointD const & center, int zoom,
-                 bool isAnim, bool trackVisibleViewport,
+  SetCenterEvent(m2::PointD const & center, int zoom, bool isAnim, bool trackVisibleViewport,
                  TAnimationCreator const & parallelAnimCreator)
     : m_center(center)
     , m_zoom(zoom)
@@ -177,15 +168,14 @@ public:
     , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
-  SetCenterEvent(double scaleFactor, m2::PointD const & center,
-                 bool isAnim, bool trackVisibleViewport,
+  SetCenterEvent(double scaleFactor, m2::PointD const & center, bool isAnim, bool trackVisibleViewport,
                  TAnimationCreator const & parallelAnimCreator)
-      : m_center(center)
-      , m_zoom(-1)
-      , m_scaleFactor(scaleFactor)
-      , m_isAnim(isAnim)
-      , m_trackVisibleViewport(trackVisibleViewport)
-      , m_parallelAnimCreator(parallelAnimCreator)
+    : m_center(center)
+    , m_zoom(-1)
+    , m_scaleFactor(scaleFactor)
+    , m_isAnim(isAnim)
+    , m_trackVisibleViewport(trackVisibleViewport)
+    , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
   EventType GetType() const override { return UserEvent::EventType::SetCenter; }
@@ -198,10 +188,10 @@ public:
   TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
 
 private:
-  m2::PointD m_center; // center point in mercator
-  int m_zoom; // if zoom == -1, then zoom level will not change
-  double m_scaleFactor; // this parameter is used when zoom == -1,
-                        // if scaleFactor <= 0.0, then scale will not change
+  m2::PointD m_center;   // center point in mercator
+  int m_zoom;            // if zoom == -1, then zoom level will not change
+  double m_scaleFactor;  // this parameter is used when zoom == -1,
+                         // if scaleFactor <= 0.0, then scale will not change
   bool m_isAnim;
   bool m_trackVisibleViewport;
   TAnimationCreator m_parallelAnimCreator;
@@ -210,8 +200,8 @@ private:
 class SetRectEvent : public UserEvent
 {
 public:
-  SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim,
-               bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator)
+  SetRectEvent(m2::RectD const & rect, bool rotate, int zoom, bool isAnim, bool useVisibleViewport,
+               TAnimationCreator const & parallelAnimCreator)
     : m_rect(rect)
     , m_applyRotation(rotate)
     , m_zoom(zoom)
@@ -230,9 +220,9 @@ public:
   TAnimationCreator const & GetParallelAnimCreator() const { return m_parallelAnimCreator; }
 
 private:
-  m2::RectD m_rect; // destination mercator rect
-  bool m_applyRotation; // if true, current rotation will be apply to m_rect
-  int m_zoom; // if zoom == -1, then zoom level will'n change
+  m2::RectD m_rect;      // destination mercator rect
+  bool m_applyRotation;  // if true, current rotation will be apply to m_rect
+  int m_zoom;            // if zoom == -1, then zoom level will'n change
   bool m_isAnim;
   bool m_useVisibleViewport;
   TAnimationCreator m_parallelAnimCreator;
@@ -265,8 +255,7 @@ private:
 class FollowAndRotateEvent : public UserEvent
 {
 public:
-  FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
-                       double azimuth, double autoScale,
+  FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero, double azimuth, double autoScale,
                        TAnimationCreator const & parallelAnimCreator)
     : m_userPos(userPos)
     , m_pixelZero(pixelZero)
@@ -279,8 +268,7 @@ public:
     , m_parallelAnimCreator(parallelAnimCreator)
   {}
 
-  FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
-                       double azimuth, int preferredZoomLevel,
+  FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero, double azimuth, int preferredZoomLevel,
                        bool isAnim, Animation::TAction const & onFinishAction,
                        TAnimationCreator const & parallelAnimCreator)
     : m_userPos(userPos)
@@ -321,9 +309,7 @@ private:
 class SetAutoPerspectiveEvent : public UserEvent
 {
 public:
-  explicit SetAutoPerspectiveEvent(bool isAutoPerspective)
-    : m_isAutoPerspective(isAutoPerspective)
-  {}
+  explicit SetAutoPerspectiveEvent(bool isAutoPerspective) : m_isAutoPerspective(isAutoPerspective) {}
 
   EventType GetType() const override { return UserEvent::EventType::AutoPerspective; }
 
@@ -372,9 +358,7 @@ private:
 class SetVisibleViewportEvent : public UserEvent
 {
 public:
-  explicit SetVisibleViewportEvent(m2::RectD const & rect)
-    : m_rect(rect)
-  {}
+  explicit SetVisibleViewportEvent(m2::RectD const & rect) : m_rect(rect) {}
 
   EventType GetType() const override { return UserEvent::EventType::VisibleViewport; }
 
@@ -387,9 +371,7 @@ private:
 class ScrollEvent : public UserEvent
 {
 public:
-  ScrollEvent(double distanceX, double distanceY)
-    : m_distanceX(distanceX), m_distanceY(distanceY)
-  {}
+  ScrollEvent(double distanceX, double distanceY) : m_distanceX(distanceX), m_distanceY(distanceY) {}
 
   EventType GetType() const override { return UserEvent::EventType::Scroll; }
 
@@ -405,7 +387,7 @@ private:
 class ActiveFrameEvent : public UserEvent
 {
 public:
-  explicit ActiveFrameEvent(){}
+  explicit ActiveFrameEvent() {}
 
   EventType GetType() const override { return UserEvent::EventType::ActiveFrame; }
 };
@@ -437,8 +419,8 @@ public:
 
     virtual void OnTouchMapAction(TouchEvent::ETouchType touchType, bool isMapTouch) = 0;
 
-    virtual bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
-                                      bool needOffset, m2::PointD & gOffset) = 0;
+    virtual bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, bool needOffset,
+                                      m2::PointD & gOffset) = 0;
   };
 
   UserEventStream();
@@ -477,7 +459,7 @@ public:
   static char const * DOUBLE_TAP_AND_HOLD;
   static char const * END_DOUBLE_TAP_AND_HOLD;
 
-  using TTestBridge = std::function<void (char const * action)>;
+  using TTestBridge = std::function<void(char const * action)>;
   void SetTestBridge(TTestBridge const & fn) { m_testFn = fn; }
 #endif
 
@@ -492,16 +474,15 @@ private:
   bool OnScroll(ref_ptr<ScrollEvent> scrollEvent);
 
   bool SetAngle(double azimuth, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
-  bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim,
-               bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator = nullptr);
-  bool SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport,
-               bool useVisibleViewport, TAnimationCreator const & parallelAnimCreator = nullptr);
+  bool SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
+               TAnimationCreator const & parallelAnimCreator = nullptr);
+  bool SetRect(m2::AnyRectD const & rect, bool isAnim, bool fitInViewport, bool useVisibleViewport,
+               TAnimationCreator const & parallelAnimCreator = nullptr);
 
-  bool SetScreen(ScreenBase const & screen, bool isAnim,
-                 TAnimationCreator const & parallelAnimCreator = nullptr);
-  bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos,
-                          double azimuth, int preferredZoomLevel, double autoScale,
-                          bool isAnim, bool isAutoScale, Animation::TAction const & onFinishAction = nullptr,
+  bool SetScreen(ScreenBase const & screen, bool isAnim, TAnimationCreator const & parallelAnimCreator = nullptr);
+  bool SetFollowAndRotate(m2::PointD const & userPos, m2::PointD const & pixelPos, double azimuth,
+                          int preferredZoomLevel, double autoScale, bool isAnim, bool isAutoScale,
+                          Animation::TAction const & onFinishAction = nullptr,
                           TAnimationCreator const & parallelAnimCreator = nullptr);
   void SetAutoPerspective(bool isAutoPerspective);
 
@@ -546,8 +527,8 @@ private:
 
   void ApplyAnimations();
   void ResetAnimations(Animation::Type animType, bool rewind = true, bool finishAll = false);
-  void ResetAnimations(Animation::Type animType, std::string const & customType,
-                       bool rewind = true, bool finishAll = false);
+  void ResetAnimations(Animation::Type animType, std::string const & customType, bool rewind = true,
+                       bool finishAll = false);
   void ResetMapPlaneAnimations();
   bool InterruptFollowAnimations(bool force);
 

@@ -16,12 +16,14 @@ void Swap(T & a, T & b)
   swap(a, b);
 }
 
-
 template <class T, size_t N>
 class buffer_vector
 {
 private:
-  enum { USE_DYNAMIC = N + 1 };
+  enum
+  {
+    USE_DYNAMIC = N + 1
+  };
   // TODO (@gmoryes) consider std::aligned_storage
   T m_static[N];
   size_t m_size;
@@ -47,7 +49,7 @@ private:
     m_size = newSize;
   }
 
-  static constexpr size_t SwitchCapacity() { return 3*N/2 + 1; }
+  static constexpr size_t SwitchCapacity() { return 3 * N / 2 + 1; }
 
 public:
   typedef T value_type;
@@ -58,10 +60,7 @@ public:
   typedef T * iterator;
 
   buffer_vector() : m_size(0) {}
-  explicit buffer_vector(size_t n) : m_size(0)
-  {
-    resize(n);
-  }
+  explicit buffer_vector(size_t n) : m_size(0) { resize(n); }
 
   buffer_vector(std::initializer_list<T> init) : m_size(0)
   {
@@ -243,10 +242,10 @@ public:
 
   T const * begin() const { return data(); }
   T const * cbegin() const { return data(); }
-  T       * begin()       { return data(); }
+  T * begin() { return data(); }
   T const * end() const { return data() + size(); }
   T const * cend() const { return data() + size(); }
-  T       * end()       { return data() + size(); }
+  T * end() { return data() + size(); }
   //@}
 
   bool empty() const { return (IsDynamic() ? m_dynamic.empty() : m_size == 0); }
@@ -304,7 +303,7 @@ public:
       if (m_size < N)
       {
         m_static[m_size] = std::move(t);
-        ++m_size; // keep basic exception safety here
+        ++m_size;  // keep basic exception safety here
         return;
       }
       else
@@ -333,24 +332,22 @@ public:
     {
       m_dynamic.emplace_back(std::forward<Args>(args)...);
     }
+    else if (m_size < N)
+    {
+      m_static[m_size] = value_type(std::forward<Args>(args)...);
+      ++m_size;  // keep basic exception safety here
+    }
     else
     {
-      if (m_size < N)
-      {
-        m_static[m_size] = value_type(std::forward<Args>(args)...);
-        ++m_size; // keep basic exception safety here
-      }
-      else
-      {
-        // Construct value first in case of reallocation and m_vec.emplace_back(m_vec[0]).
-        value_type value(std::forward<Args>(args)...);
-        SwitchToDynamic(SwitchCapacity());
-        m_dynamic.push_back(std::move(value));
-      }
+      // Construct value first in case of reallocation and m_vec.emplace_back(m_vec[0]).
+      value_type value(std::forward<Args>(args)...);
+      SwitchToDynamic(SwitchCapacity());
+      m_dynamic.push_back(std::move(value));
     }
   }
 
-  template <typename TIt> void insert(const_iterator where, TIt beg, TIt end)
+  template <typename TIt>
+  void insert(const_iterator where, TIt beg, TIt end)
   {
     size_t const pos = base::asserted_cast<size_t>(where - data());
     ASSERT_LESS_OR_EQUAL(pos, size(), ());
@@ -365,10 +362,8 @@ public:
     if (m_size + n <= N)
     {
       if (pos != m_size)
-      {
         for (size_t i = m_size - 1; i >= pos && i < m_size; --i)
           Swap(m_static[i], m_static[i + n]);
-      }
 
       m_size += n;
       T * writableWhere = &m_static[0] + pos;
@@ -383,10 +378,7 @@ public:
     }
   }
 
-  void insert(const_iterator where, value_type const & value)
-  {
-    insert(where, &value, &value + 1);
-  }
+  void insert(const_iterator where, value_type const & value) { insert(where, &value, &value + 1); }
 
   template <class Fn>
   void erase_if(Fn && fn)
@@ -405,9 +397,7 @@ public:
 
     auto const numToErase = std::distance(first, last);
     for (; first != end() - numToErase; ++first)
-    {
       Swap(*first, *(first + numToErase));
-    }
     resize(std::distance(begin(), first));
   }
   void erase(iterator it) { erase(it, it + 1); }
@@ -483,7 +473,8 @@ typename buffer_vector<T, N>::const_iterator end(buffer_vector<T, N> const & v)
 }
 }  // namespace std
 
-template <class Dest, class Src> void assign_range(Dest & dest, Src const & src)
+template <class Dest, class Src>
+void assign_range(Dest & dest, Src const & src)
 {
   dest.assign(std::begin(src), std::end(src));
 }

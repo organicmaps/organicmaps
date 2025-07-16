@@ -13,8 +13,8 @@
 #include <map>
 #include <memory>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace descriptions
 {
@@ -59,10 +59,10 @@ class Serializer
 public:
   /// \param descriptions A non-empty unsorted collection of feature descriptions.
   ///                     FeatureDescription::m_description must contain non-empty translations.
-  explicit Serializer(DescriptionsCollection && descriptions)
-    : m_collection(std::move(descriptions))
+  explicit Serializer(DescriptionsCollection && descriptions) : m_collection(std::move(descriptions))
   {
-    std::sort(m_collection.m_features.begin(), m_collection.m_features.end(), base::LessBy(&FeatureDescription::m_ftIndex));
+    std::sort(m_collection.m_features.begin(), m_collection.m_features.end(),
+              base::LessBy(&FeatureDescription::m_ftIndex));
   }
 
   template <typename Sink>
@@ -197,10 +197,8 @@ public:
     for (LangCode const lang : langPriority)
     {
       for (auto const & meta : langMeta)
-      {
         if (lang == meta.first)
           return m_stringsReader.ExtractString(*stringsSubReader, meta.second);
-      }
     }
 
     return {};

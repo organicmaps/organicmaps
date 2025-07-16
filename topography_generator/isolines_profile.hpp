@@ -21,10 +21,10 @@ struct IsolinesProfile
   uint32_t m_alitudesStep = 10;
   uint8_t m_latLonStepFactor = 1;
   uint32_t m_maxIsolinesLength = 1000;
-  uint8_t m_simplificationZoom = 17; // Value == 0 disables simplification.
-  uint8_t m_medianFilterR = 1; // Value == 0 disables filter.
-  double m_gaussianFilterStDev = 2.0; // Value == 0.0 disables filter.
-  double m_gaussianFilterRFactor = 1.0; // Value == 0.0 disables filter.
+  uint8_t m_simplificationZoom = 17;     // Value == 0 disables simplification.
+  uint8_t m_medianFilterR = 1;           // Value == 0 disables filter.
+  double m_gaussianFilterStDev = 2.0;    // Value == 0.0 disables filter.
+  double m_gaussianFilterRFactor = 1.0;  // Value == 0.0 disables filter.
 
   DECLARE_VISITOR_AND_DEBUG_PRINT(IsolinesProfile, visitor(m_alitudesStep, "alitudesStep"),
                                   visitor(m_latLonStepFactor, "latLonStepFactor"),
@@ -45,18 +45,14 @@ struct IsolinesProfilesCollection
 struct TileCoord
 {
   TileCoord() = default;
-  TileCoord(int bottomLat, int leftLon): m_leftLon(leftLon), m_bottomLat(bottomLat) {}
+  TileCoord(int bottomLat, int leftLon) : m_leftLon(leftLon), m_bottomLat(bottomLat) {}
 
   int32_t m_leftLon = 0;
   int32_t m_bottomLat = 0;
 
-  bool operator==(TileCoord const & rhs) const
-  {
-    return m_leftLon == rhs.m_leftLon && m_bottomLat == rhs.m_bottomLat;
-  }
+  bool operator==(TileCoord const & rhs) const { return m_leftLon == rhs.m_leftLon && m_bottomLat == rhs.m_bottomLat; }
 
-  DECLARE_VISITOR_AND_DEBUG_PRINT(TileCoord, visitor(m_bottomLat, "bottomLat"),
-                                   visitor(m_leftLon, "leftLon"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TileCoord, visitor(m_bottomLat, "bottomLat"), visitor(m_leftLon, "leftLon"))
 };
 
 struct TileCoordHash
@@ -94,7 +90,7 @@ struct CountriesToGenerate
   DECLARE_VISITOR_AND_DEBUG_PRINT(CountriesToGenerate, visitor(m_countryParams, "countryParams"))
 };
 
-template<typename DataType>
+template <typename DataType>
 bool Serialize(std::string const & fileName, DataType const & data)
 {
   try
@@ -115,7 +111,7 @@ bool Serialize(std::string const & fileName, DataType const & data)
   return false;
 }
 
-template<typename DataType>
+template <typename DataType>
 bool Deserialize(std::string const & fileName, DataType & data)
 {
   try

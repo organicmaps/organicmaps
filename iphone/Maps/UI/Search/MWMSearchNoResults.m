@@ -13,19 +13,19 @@ static CGFloat const kExtraCompactHeight = 52;
 
 @implementation MWMSearchNoResults
 
-+ (instancetype)viewWithImage:(UIImage *)image title:(NSString *)title text:(NSString *)text {
-  MWMSearchNoResults * view =
-      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
-  if (title) {
++ (instancetype)viewWithImage:(UIImage *)image title:(NSString *)title text:(NSString *)text
+{
+  MWMSearchNoResults * view = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
+  if (title)
     view.title.text = title;
-  } else {
+  else
     [view.title removeFromSuperview];
-  }
   view.text.text = text;
   return view;
 }
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
   [super layoutSubviews];
   self.frame = self.superview.bounds;
   BOOL compact = self.height < kCompactHeight;

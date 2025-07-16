@@ -25,7 +25,7 @@ jobjectArray CreateLanesInfo(JNIEnv * env, std::vector<routing::FollowingInfo::S
     env->SetByteArrayRegion(singleLane.get(), 0, laneSize, lanes[j].m_lane.data());
 
     jni::TScopedLocalRef singleLaneInfo(
-      env, env->NewObject(laneClass, ctorSingleLaneInfoID, singleLane.get(), lanes[j].m_isRecommended));
+        env, env->NewObject(laneClass, ctorSingleLaneInfoID, singleLane.get(), lanes[j].m_isRecommended));
     ASSERT(singleLaneInfo.get(), (jni::DescribeException()));
     env->SetObjectArrayElement(jLanes, j, singleLaneInfo.get());
   }

@@ -33,7 +33,7 @@ public:
 
   DescriptionsCollectionBuilderStat()
   {
-    CHECK_EQUAL(m_langsStat.size(), StringUtf8Multilang::kMaxSupportedLanguages , ());
+    CHECK_EQUAL(m_langsStat.size(), StringUtf8Multilang::kMaxSupportedLanguages, ());
   }
 
   std::string LangStatisticsToString() const;
@@ -67,11 +67,13 @@ class DescriptionsCollector
 public:
   DescriptionsCollector(std::string const & wikipediaDir, std::string const & mwmFile,
                         std::string const & idToWikidataPath = {})
-  : m_wikidataHelper(mwmFile, idToWikidataPath), m_wikipediaDir(wikipediaDir), m_mwmFile(mwmFile)
+    : m_wikidataHelper(mwmFile, idToWikidataPath)
+    , m_wikipediaDir(wikipediaDir)
+    , m_mwmFile(mwmFile)
   {}
 
-  void operator() (FeatureType & ft, uint32_t featureId);
-  void operator() (std::string const & wikiUrl, uint32_t featureId);
+  void operator()(FeatureType & ft, uint32_t featureId);
+  void operator()(std::string const & wikiUrl, uint32_t featureId);
 
   static std::string MakePathForWikipedia(std::string const & wikipediaDir, std::string wikipediaUrl);
   static std::string MakePathForWikidata(std::string const & wikipediaDir, std::string const & wikidataId);

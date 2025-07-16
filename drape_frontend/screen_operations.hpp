@@ -20,12 +20,11 @@ bool IsScaleAllowableIn3d(int scale);
 
 double CalculateScale(m2::RectD const & pixelRect, m2::RectD const & localRect);
 
-m2::PointD CalculateCenter(ScreenBase const & screen, m2::PointD const & userPos,
-                           m2::PointD const & pixelPos, double azimuth);
-m2::PointD CalculateCenter(double scale, m2::RectD const & pixelRect,
-                           m2::PointD const & userPos, m2::PointD const & pixelPos,
+m2::PointD CalculateCenter(ScreenBase const & screen, m2::PointD const & userPos, m2::PointD const & pixelPos,
                            double azimuth);
+m2::PointD CalculateCenter(double scale, m2::RectD const & pixelRect, m2::PointD const & userPos,
+                           m2::PointD const & pixelPos, double azimuth);
 
 bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase & screen);
 
-} // namespace df
+}  // namespace df

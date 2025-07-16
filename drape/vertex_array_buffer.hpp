@@ -34,8 +34,7 @@ public:
   virtual bool Bind() = 0;
   virtual void Unbind() = 0;
   virtual void BindBuffers(BuffersMap const & buffers) const = 0;
-  virtual void RenderRange(ref_ptr<GraphicsContext> context,
-                           bool drawAsLine, IndicesRange const & range) = 0;
+  virtual void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine, IndicesRange const & range) = 0;
 
   virtual void AddBindingInfo(dp::BindingInfo const & bindingInfo) {}
 };
@@ -54,6 +53,7 @@ class VertexArrayBuffer
 {
   friend class metal::MetalVertexArrayBufferImpl;
   friend class vulkan::VulkanVertexArrayBufferImpl;
+
 public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize, uint64_t batcherHash);
   ~VertexArrayBuffer();
@@ -74,12 +74,10 @@ public:
   uint32_t GetDynamicBufferOffset(BindingInfo const & bindingInfo);
   uint32_t GetIndexCount() const;
 
-  void UploadData(ref_ptr<GraphicsContext> context, BindingInfo const & bindingInfo,
-                  void const * data, uint32_t count);
+  void UploadData(ref_ptr<GraphicsContext> context, BindingInfo const & bindingInfo, void const * data, uint32_t count);
   void UploadIndices(ref_ptr<GraphicsContext> context, void const * data, uint32_t count);
 
-  void ApplyMutation(ref_ptr<GraphicsContext> context,
-                     ref_ptr<IndexBufferMutator> indexMutator,
+  void ApplyMutation(ref_ptr<GraphicsContext> context, ref_ptr<IndexBufferMutator> indexMutator,
                      ref_ptr<AttributeBufferMutator> attrMutator);
 
   void ResetChangingTracking() { m_isChanged = false; }
@@ -111,8 +109,7 @@ private:
   // Definition of this method is in a separate .cpp-file.
   drape_ptr<VertexArrayBufferImpl> CreateImplForVulkan(ref_ptr<GraphicsContext> context,
                                                        ref_ptr<VertexArrayBuffer> buffer,
-                                                       BindingInfoArray && bindingInfo,
-                                                       uint8_t bindingInfoCount);
+                                                       BindingInfoArray && bindingInfo, uint8_t bindingInfoCount);
 
   uint32_t const m_dataBufferSize;
   uint64_t const m_batcherHash;

@@ -18,13 +18,9 @@ public:
     using TokenType = BaseContext::TokenType;
 
     explicit Parse(std::vector<TokenType> const & types, bool category = false);
-    explicit Parse(std::vector<std::pair<TokenType, TokenRange>> const & ranges,
-                   bool category = false);
+    explicit Parse(std::vector<std::pair<TokenType, TokenRange>> const & ranges, bool category = false);
 
-    bool operator==(Parse const & rhs) const
-    {
-      return m_ranges == rhs.m_ranges && m_category == rhs.m_category;
-    }
+    bool operator==(Parse const & rhs) const { return m_ranges == rhs.m_ranges && m_category == rhs.m_category; }
 
     bool operator<(Parse const & rhs) const
     {
@@ -37,7 +33,7 @@ public:
     bool m_category = false;
   };
 
-  template <typename ...Args>
+  template <typename... Args>
   void EmitParse(Args &&... args)
   {
     m_parses.emplace_back(std::forward<Args>(args)...);

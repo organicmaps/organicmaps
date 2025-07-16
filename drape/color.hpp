@@ -14,12 +14,10 @@ struct Color
   constexpr explicit Color(uint32_t rgba) : m_rgba(rgba) {}
   constexpr Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha)
     : Color(red << 24 | green << 16 | blue << 8 | alpha)
-  {
-  }
+  {}
   constexpr Color(uint32_t rgb, uint8_t alpha)
     : Color(ExtractByte(rgb, 2), ExtractByte(rgb, 1), ExtractByte(rgb, 0), alpha)
-  {
-  }
+  {}
 
   constexpr uint8_t GetRed() const { return ExtractByte(m_rgba, 3); }
   constexpr uint8_t GetGreen() const { return ExtractByte(m_rgba, 2); }

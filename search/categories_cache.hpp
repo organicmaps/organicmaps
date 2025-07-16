@@ -18,8 +18,7 @@ class CategoriesCache
 {
 public:
   template <typename TypesSource>
-  CategoriesCache(TypesSource const & source, base::Cancellable const & cancellable)
-    : m_cancellable(cancellable)
+  CategoriesCache(TypesSource const & source, base::Cancellable const & cancellable) : m_cancellable(cancellable)
   {
     source.ForEachType([this](uint32_t type) { m_categories.Add(type); });
   }

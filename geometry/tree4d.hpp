@@ -37,8 +37,7 @@ class Tree
 
     bool IsIntersect(m2::RectD const & r) const
     {
-      return !((m_pts[2] <= r.minX()) || (m_pts[0] >= r.maxX()) || (m_pts[3] <= r.minY()) ||
-               (m_pts[1] >= r.maxY()));
+      return !((m_pts[2] <= r.minX()) || (m_pts[0] >= r.maxX()) || (m_pts[3] <= r.minY()) || (m_pts[1] >= r.maxY()));
     }
 
     bool operator==(Value const & r) const { return (m_val == r.m_val); }
@@ -47,8 +46,7 @@ class Tree
     {
       std::ostringstream out;
 
-      out << DebugPrint(m_val) << ", (" << m_pts[0] << ", " << m_pts[1] << ", " << m_pts[2] << ", "
-          << m_pts[3] << ")";
+      out << DebugPrint(m_val) << ", (" << m_pts[0] << ", " << m_pts[1] << ", " << m_pts[2] << ", " << m_pts[3] << ")";
 
       return out.str();
     }
@@ -77,17 +75,15 @@ class Tree
   class for_each_helper
   {
   public:
-    for_each_helper(m2::RectD const & r, ToDo && toDo) : m_rect(r), m_toDo(std::forward<ToDo>(toDo))
-    {
-    }
+    for_each_helper(m2::RectD const & r, ToDo && toDo) : m_rect(r), m_toDo(std::forward<ToDo>(toDo)) {}
 
     bool ScanLeft(size_t plane, Value const & v) const
     {
       switch (plane & 3)  // % 4
       {
-      case 2: return m_rect.minX() < v[2];
-      case 3: return m_rect.minY() < v[3];
-      default: return true;
+        case 2: return m_rect.minX() < v[2];
+        case 3: return m_rect.minY() < v[3];
+        default: return true;
       }
     }
 
@@ -95,9 +91,9 @@ class Tree
     {
       switch (plane & 3)  // % 4
       {
-      case 0: return m_rect.maxX() > v[0];
-      case 1: return m_rect.maxY() > v[1];
-      default: return true;
+        case 0: return m_rect.maxX() > v[0];
+        case 1: return m_rect.maxY() > v[1];
+        default: return true;
       }
     }
 
@@ -153,14 +149,15 @@ private:
     bool skip = false;
     std::vector<Value const *> isect;
 
-    m_tree.for_each(GetFunctor(rect, [&](Value const & v) {
+    m_tree.for_each(GetFunctor(rect, [&](Value const & v)
+    {
       if (skip)
         return;
 
       switch (comp(obj, v.m_val))
       {
-      case 1: isect.push_back(&v); break;
-      case -1: skip = true; break;
+        case 1: isect.push_back(&v); break;
+        case -1: skip = true; break;
       }
     }));
 
@@ -177,14 +174,14 @@ public:
   template <typename Compare>
   void ReplaceAllInRect(T const & obj, Compare comp)
   {
-    ReplaceImpl(obj, GetLimitRect(obj),
-                [&comp](T const & t1, T const & t2) { return comp(t1, t2) ? 1 : -1; });
+    ReplaceImpl(obj, GetLimitRect(obj), [&comp](T const & t1, T const & t2) { return comp(t1, t2) ? 1 : -1; });
   }
 
   template <typename Equal, typename Compare>
   void ReplaceEqualInRect(T const & obj, Equal eq, Compare comp)
   {
-    ReplaceImpl(obj, GetLimitRect(obj), [&](T const & t1, T const & t2) {
+    ReplaceImpl(obj, GetLimitRect(obj), [&](T const & t1, T const & t2)
+    {
       if (eq(t1, t2))
         return comp(t1, t2) ? 1 : -1;
       else
@@ -215,10 +212,8 @@ public:
   bool ForAny(ToDo && toDo) const
   {
     for (Value const & v : m_tree)
-    {
       if (toDo(v.m_val))
         return true;
-    }
 
     return false;
   }
@@ -234,10 +229,8 @@ public:
   bool FindNode(ToDo && toDo) const
   {
     for (Value const & v : m_tree)
-    {
       if (toDo(v.m_val))
         return true;
-    }
 
     return false;
   }

@@ -26,9 +26,8 @@ public:
   static double constexpr kXxhdpiScale = 3.0;
   static double constexpr kXxxhdpiScale = 3.5;
 
-  static_assert(kMdpiScale < kHdpiScale && kHdpiScale < kXhdpiScale &&
-                kXhdpiScale < k6plusScale && k6plusScale < kXxhdpiScale &&
-                kXxhdpiScale < kXxxhdpiScale && kXxxhdpiScale <= kMaxVisualScale);
+  static_assert(kMdpiScale < kHdpiScale && kHdpiScale < kXhdpiScale && kXhdpiScale < k6plusScale &&
+                k6plusScale < kXxhdpiScale && kXxhdpiScale < kXxxhdpiScale && kXxxhdpiScale <= kMaxVisualScale);
 
   static void Init(double vs, uint32_t tileSize);
   static VisualParams & Instance();
@@ -72,7 +71,7 @@ private:
 
   uint32_t m_tileSize = 0;
   double m_visualScale = 0.0;
-  double m_poiExtendScale = 0.1; // Found empirically.
+  double m_poiExtendScale = 0.1;  // Found empirically.
   std::atomic<double> m_fontScale = 1.0;
 
   DISALLOW_COPY_AND_MOVE(VisualParams);
@@ -107,7 +106,8 @@ uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight);
 
 void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float & lerpCoef);
 
-template <class T> class ArrayView
+template <class T>
+class ArrayView
 {
   T const * m_arr;
   size_t m_size;
@@ -115,7 +115,10 @@ template <class T> class ArrayView
 public:
   using value_type = T;
 
-  template <class ArrayT> ArrayView(ArrayT const & arr) : m_arr(arr.data()), m_size(arr.size()) {}
+  template <class ArrayT>
+  ArrayView(ArrayT const & arr) : m_arr(arr.data())
+                                , m_size(arr.size())
+  {}
 
   ArrayView(ArrayView const &) = default;
   ArrayView(ArrayView &&) = default;
@@ -133,8 +136,8 @@ public:
   }
 };
 
-template <class ArrayT> typename ArrayT::value_type
-InterpolateByZoomLevels(int index, float lerpCoef, ArrayT const & values)
+template <class ArrayT>
+typename ArrayT::value_type InterpolateByZoomLevels(int index, float lerpCoef, ArrayT const & values)
 {
   ASSERT_GREATER_OR_EQUAL(index, 0, ());
   if (index + 1 < static_cast<int>(values.size()))

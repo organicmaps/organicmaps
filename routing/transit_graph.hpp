@@ -37,8 +37,7 @@ public:
   static bool IsTransitFeature(uint32_t featureId);
   static bool IsTransitSegment(Segment const & segment);
 
-  TransitGraph(::transit::TransitVersion transitVersion, NumMwmId numMwmId,
-               std::shared_ptr<EdgeEstimator> estimator);
+  TransitGraph(::transit::TransitVersion transitVersion, NumMwmId numMwmId, std::shared_ptr<EdgeEstimator> estimator);
 
   ::transit::TransitVersion GetTransitVersion() const;
 
@@ -47,8 +46,7 @@ public:
   RouteWeight GetTransferPenalty(Segment const & from, Segment const & to) const;
 
   using EdgeListT = SmallList<SegmentEdge>;
-  void GetTransitEdges(Segment const & segment, bool isOutgoing,
-                       EdgeListT & edges) const;
+  void GetTransitEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const;
   std::set<Segment> const & GetFake(Segment const & real) const;
   bool FindReal(Segment const & fake, Segment & real) const;
 
@@ -72,26 +70,25 @@ private:
   // Adds gate to fake graph. Also adds gate to temporary stopToBack, stopToFront maps used while
   // TransitGraph::Fill.
   void AddGate(transit::Gate const & gate, FakeEnding const & ending,
-               std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
-               bool isEnter, StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
+               std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
+               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
 
   void AddGate(::transit::experimental::Gate const & gate, FakeEnding const & ending,
                std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
                StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
 
   void AddStop(::transit::experimental::Stop const & stop, FakeEnding const & ending,
-               std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
-               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
+               std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, StopToSegmentsMap & stopToBack,
+               StopToSegmentsMap & stopToFront);
 
   // Adds transit edge to fake graph, returns corresponding transit segment. Also adds gate to
   // temporary stopToBack, stopToFront maps used while TransitGraph::Fill.
-  Segment AddEdge(transit::Edge const & edge,
-                  std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
+  Segment AddEdge(transit::Edge const & edge, std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                   StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
 
   Segment AddEdge(::transit::experimental::Edge const & edge,
-                  std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
-                  StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront);
+                  std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, StopToSegmentsMap & stopToBack,
+                  StopToSegmentsMap & stopToFront);
 
   // Adds connections to fake graph.
   void AddConnections(StopToSegmentsMap const & connections, StopToSegmentsMap const & stopToBack,
@@ -114,12 +111,12 @@ private:
   std::map<::transit::TransitId, ::transit::Schedule> m_transferPenaltiesPT;
 };
 
-void MakeGateEndings(std::vector<transit::Gate> const & gates, NumMwmId mwmId,
-                     IndexGraph & indexGraph, TransitGraph::Endings & gateEndings);
+void MakeGateEndings(std::vector<transit::Gate> const & gates, NumMwmId mwmId, IndexGraph & indexGraph,
+                     TransitGraph::Endings & gateEndings);
 
-void MakeGateEndings(std::vector<::transit::experimental::Gate> const & gates, NumMwmId mwmId,
-                     IndexGraph & indexGraph, TransitGraph::Endings & gateEndings);
+void MakeGateEndings(std::vector<::transit::experimental::Gate> const & gates, NumMwmId mwmId, IndexGraph & indexGraph,
+                     TransitGraph::Endings & gateEndings);
 
-void MakeStopEndings(std::vector<::transit::experimental::Stop> const & stops, NumMwmId mwmId,
-                     IndexGraph & indexGraph, TransitGraph::Endings & gateEndings);
+void MakeStopEndings(std::vector<::transit::experimental::Stop> const & stops, NumMwmId mwmId, IndexGraph & indexGraph,
+                     TransitGraph::Endings & gateEndings);
 }  // namespace routing

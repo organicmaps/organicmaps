@@ -19,9 +19,9 @@
 
 #include <set>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
-#include <tuple>
 
 namespace dp
 {
@@ -46,9 +46,7 @@ struct OverlayID
 
   OverlayID() = default;
 
-  explicit OverlayID(FeatureID const & featureId)
-    : m_featureId(featureId)
-  {}
+  explicit OverlayID(FeatureID const & featureId) : m_featureId(featureId) {}
 
   OverlayID(FeatureID const & featureId, kml::MarkId markId, m2::PointI const & tileCoords, uint32_t index)
     : m_featureId(featureId)
@@ -57,45 +55,30 @@ struct OverlayID
     , m_index(index)
   {}
 
-  bool IsValid() const
-  {
-    return m_featureId.IsValid() || m_markId != kml::kInvalidMarkId;
-  }
+  bool IsValid() const { return m_featureId.IsValid() || m_markId != kml::kInvalidMarkId; }
 
   static OverlayID GetLowerKey(FeatureID const & featureID)
   {
-    return {featureID, 0, {-1, -1}, 0};
+    return {
+        featureID, 0, {-1, -1},
+          0
+    };
   }
 
-  auto AsTupleOfRefs() const
-  {
-    return std::tie(m_featureId, m_markId, m_tileCoords, m_index);
-  }
+  auto AsTupleOfRefs() const { return std::tie(m_featureId, m_markId, m_tileCoords, m_index); }
 
-  bool operator==(OverlayID const & overlayId) const
-  {
-    return AsTupleOfRefs() == overlayId.AsTupleOfRefs();
-  }
+  bool operator==(OverlayID const & overlayId) const { return AsTupleOfRefs() == overlayId.AsTupleOfRefs(); }
 
-  bool operator!=(OverlayID const & overlayId) const
-  {
-    return !operator ==(overlayId);
-  }
+  bool operator!=(OverlayID const & overlayId) const { return !operator==(overlayId); }
 
-  bool operator<(OverlayID const & overlayId) const
-  {
-    return AsTupleOfRefs() < overlayId.AsTupleOfRefs();
-  }
+  bool operator<(OverlayID const & overlayId) const { return AsTupleOfRefs() < overlayId.AsTupleOfRefs(); }
 
-  bool operator>(OverlayID const & overlayId) const
-  {
-    return overlayId < *this;
-  }
+  bool operator>(OverlayID const & overlayId) const { return overlayId < *this; }
 
   friend std::string DebugPrint(OverlayID const & overlayId)
   {
-    return strings::to_string(overlayId.m_featureId.m_index) + "-" +
-           strings::to_string(overlayId.m_markId) + "-" + strings::to_string(overlayId.m_index);
+    return strings::to_string(overlayId.m_featureId.m_index) + "-" + strings::to_string(overlayId.m_markId) + "-" +
+           strings::to_string(overlayId.m_index);
   }
 };
 
@@ -104,8 +87,7 @@ class OverlayHandle
 public:
   using Rects = std::vector<m2::RectF>;
 
-  OverlayHandle(OverlayID const & id, dp::Anchor anchor,
-                uint64_t priority, uint8_t minVisibleScale, bool isBillboard);
+  OverlayHandle(OverlayID const & id, dp::Anchor anchor, uint64_t priority, uint8_t minVisibleScale, bool isBillboard);
 
   virtual ~OverlayHandle() = default;
 
@@ -205,14 +187,8 @@ private:
     {
       return node1.first.GetID() < node2.first.GetID();
     }
-    bool operator()(uint8_t node1, TOffsetNode const & node2) const
-    {
-      return node1 < node2.first.GetID();
-    }
-    bool operator()(TOffsetNode const & node1, uint8_t node2) const
-    {
-      return node1.first.GetID() < node2;
-    }
+    bool operator()(uint8_t node1, TOffsetNode const & node2) const { return node1 < node2.first.GetID(); }
+    bool operator()(TOffsetNode const & node1, uint8_t node2) const { return node1.first.GetID() < node2; }
   };
 
   struct OffsetNodeFinder;
@@ -239,9 +215,8 @@ class SquareHandle : public OverlayHandle
   using TBase = OverlayHandle;
 
 public:
-  SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
-               m2::PointD const & pxSize, m2::PointD const & pxOffset, uint64_t priority,
-               bool isBound, int minVisibleScale, bool isBillboard);
+  SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot, m2::PointD const & pxSize,
+               m2::PointD const & pxOffset, uint64_t priority, bool isBound, int minVisibleScale, bool isBillboard);
 
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
   void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;

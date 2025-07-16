@@ -22,16 +22,19 @@ static inline DeeplinkUrlType deeplinkUrlType(url_scheme::ParsedMapApi::UrlType 
 
 @implementation DeepLinkParser
 
-+ (DeeplinkUrlType)parseAndSetApiURL:(NSURL *)url {
-  Framework &f = GetFramework();
++ (DeeplinkUrlType)parseAndSetApiURL:(NSURL *)url
+{
+  Framework & f = GetFramework();
   return deeplinkUrlType(f.ParseAndSetApiURL(url.absoluteString.UTF8String));
 }
 
-+ (void)executeMapApiRequest {
++ (void)executeMapApiRequest
+{
   GetFramework().ExecuteMapApiRequest();
 }
 
-+ (void)addBookmarksFile:(NSURL *)url {
++ (void)addBookmarksFile:(NSURL *)url
+{
   // iOS doesn't create temporary files on import at least in Safari and Files.
   GetFramework().AddBookmarksFile(url.path.UTF8String, false /* isTemporaryFile */);
 }

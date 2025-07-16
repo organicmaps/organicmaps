@@ -27,9 +27,7 @@ struct Geometry
 
 struct Route
 {
-  DECLARE_VISITOR(visitor(m_geometry, "geometry"),
-                  visitor(m_duration, "duration"),
-                  visitor(m_distance, "distance"))
+  DECLARE_VISITOR(visitor(m_geometry, "geometry"), visitor(m_duration, "duration"), visitor(m_distance, "distance"))
 
   Geometry m_geometry;
   double m_duration = 0.0;

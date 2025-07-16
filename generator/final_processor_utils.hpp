@@ -33,23 +33,21 @@ void ForEachMwmTmp(std::string const & temporaryMwmPath, ToDo && toDo, size_t th
   }
 }
 
-std::vector<std::vector<std::string>> GetAffiliations(
-    std::vector<feature::FeatureBuilder> const & fbs,
-    feature::AffiliationInterface const & affiliation, size_t threadsCount);
+std::vector<std::vector<std::string>> GetAffiliations(std::vector<feature::FeatureBuilder> const & fbs,
+                                                      feature::AffiliationInterface const & affiliation,
+                                                      size_t threadsCount);
 
 // Writes |fbs| to countries mwm.tmp files. Returns affiliations - country matches for |fbs|.
 template <class SerializationPolicy = feature::serialization_policy::MaxAccuracy>
 std::vector<std::vector<std::string>> AppendToMwmTmp(std::vector<feature::FeatureBuilder> const & fbs,
-                       feature::AffiliationInterface const & affiliation,
-                       std::string const & temporaryMwmPath, size_t threadsCount = 1)
+                                                     feature::AffiliationInterface const & affiliation,
+                                                     std::string const & temporaryMwmPath, size_t threadsCount = 1)
 {
   auto affiliations = GetAffiliations(fbs, affiliation, threadsCount);
   std::unordered_map<std::string, std::vector<size_t>> countryToFbsIndexes;
   for (size_t i = 0; i < fbs.size(); ++i)
-  {
     for (auto const & country : affiliations[i])
       countryToFbsIndexes[country].emplace_back(i);
-  }
 
   base::ComputationalThreadPool pool(threadsCount);
   for (auto && p : countryToFbsIndexes)

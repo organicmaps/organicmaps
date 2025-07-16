@@ -7,8 +7,8 @@
 
 #include "platform/localization.hpp"
 
-#include "indexer/validate_and_format_contacts.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/validate_and_format_contacts.hpp"
 
 #include "map/place_page_info.hpp"
 
@@ -16,7 +16,8 @@ using namespace place_page;
 using namespace osm;
 
 /// Get localized metadata value string when string format is "type.feature.value".
-NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::string const & value) {
+NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::string const & value)
+{
   return ToNSString(platform::GetLocalizedTypeName(feature::ToString(metaID) + "." + value));
 }
 
@@ -26,7 +27,8 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
 
 @implementation PlacePageInfoData (Core)
 
-- (instancetype)initWithRawData:(Info const &)rawData ohLocalization:(id<IOpeningHoursLocalization>)localization {
+- (instancetype)initWithRawData:(Info const &)rawData ohLocalization:(id<IOpeningHoursLocalization>)localization
+{
   self = [super init];
   if (self)
   {
@@ -42,19 +44,19 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
       {
         case MetadataID::FMD_OPEN_HOURS:
           _openingHoursString = ToNSString(value);
-          _openingHours = [[OpeningHours alloc] initWithRawString:_openingHoursString
-                                                     localization:localization];
+          _openingHours = [[OpeningHours alloc] initWithRawString:_openingHoursString localization:localization];
           break;
         case MetadataID::FMD_PHONE_NUMBER:
         {
-          NSArray<NSString *> *phones = [ToNSString(value) componentsSeparatedByString:@";"];
-          NSMutableArray<PlacePagePhone *> *placePhones = [NSMutableArray new];
+          NSArray<NSString *> * phones = [ToNSString(value) componentsSeparatedByString:@";"];
+          NSMutableArray<PlacePagePhone *> * placePhones = [NSMutableArray new];
           [phones enumerateObjectsUsingBlock:^(NSString * _Nonnull phone, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString *filteredDigits = [[phone componentsSeparatedByCharactersInSet:
-                                         [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
-                                        componentsJoinedByString:@""];
-            NSString *resultNumber = [phone hasPrefix:@"+"] ? [NSString stringWithFormat:@"+%@", filteredDigits] : filteredDigits;
-            NSURL *phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
+            NSString * filteredDigits =
+                [[phone componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
+                    componentsJoinedByString:@""];
+            NSString * resultNumber =
+                [phone hasPrefix:@"+"] ? [NSString stringWithFormat:@"+%@", filteredDigits] : filteredDigits;
+            NSURL * phoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", resultNumber]];
 
             [placePhones addObject:[PlacePagePhone placePagePhoneWithPhone:phone andURL:phoneUrl]];
           }];
@@ -73,13 +75,17 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
         case MetadataID::FMD_CONTACT_TWITTER: _twitter = ToNSString(value); break;
         case MetadataID::FMD_CONTACT_VK: _vk = ToNSString(value); break;
         case MetadataID::FMD_CONTACT_LINE: _line = ToNSString(value); break;
-        case MetadataID::FMD_OPERATOR: _ppOperator = [NSString stringWithFormat:NSLocalizedString(@"operator", nil), ToNSString(value)]; break;
+        case MetadataID::FMD_OPERATOR:
+          _ppOperator = [NSString stringWithFormat:NSLocalizedString(@"operator", nil), ToNSString(value)];
+          break;
         case MetadataID::FMD_INTERNET:
-          _wifiAvailable = (rawData.GetInternet() == feature::Internet::No)
-              ? NSLocalizedString(@"no_available", nil) : NSLocalizedString(@"yes_available", nil);
+          _wifiAvailable = (rawData.GetInternet() == feature::Internet::No) ? NSLocalizedString(@"no_available", nil)
+                                                                            : NSLocalizedString(@"yes_available", nil);
           break;
         case MetadataID::FMD_LEVEL: _level = ToNSString(value); break;
-        case MetadataID::FMD_CAPACITY: _capacity = [NSString stringWithFormat:NSLocalizedString(@"capacity", nil), ToNSString(value)]; break;
+        case MetadataID::FMD_CAPACITY:
+          _capacity = [NSString stringWithFormat:NSLocalizedString(@"capacity", nil), ToNSString(value)];
+          break;
         case MetadataID::FMD_WHEELCHAIR: _wheelchair = ToNSString(platform::GetLocalizedTypeName(value)); break;
         case MetadataID::FMD_DRIVE_THROUGH:
           if (value == "yes")
@@ -91,21 +97,24 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
           if (value == "yes")
             _outdoorSeating = NSLocalizedString(@"outdoor_seating", nil);
           break;
-        case MetadataID::FMD_NETWORK: _network = [NSString stringWithFormat:NSLocalizedString(@"network", nil), ToNSString(value)]; break;
-        default:
+        case MetadataID::FMD_NETWORK:
+          _network = [NSString stringWithFormat:NSLocalizedString(@"network", nil), ToNSString(value)];
           break;
+        default: break;
       }
     });
 
     _atm = rawData.HasAtm() ? NSLocalizedString(@"type.amenity.atm", nil) : nil;
 
     _address = rawData.GetSecondarySubtitle().empty() ? nil : @(rawData.GetSecondarySubtitle().c_str());
-    _coordFormats = @[@(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str()),
-                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDecimal).c_str()),
-                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OLCFull).c_str()),
-                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OSMLink).c_str()),
-                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::UTM).c_str()),
-                      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::MGRS).c_str())];
+    _coordFormats = @[
+      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str()),
+      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDecimal).c_str()),
+      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OLCFull).c_str()),
+      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::OSMLink).c_str()),
+      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::UTM).c_str()),
+      @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::MGRS).c_str())
+    ];
   }
   return self;
 }

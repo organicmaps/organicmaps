@@ -1,6 +1,6 @@
 #pragma once
-#include "coding/endianness.hpp"
 #include "coding/byte_stream.hpp"
+#include "coding/endianness.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 
@@ -29,15 +29,18 @@ public:
     return 1 << (bitsPerLevel - 3);
   }
 
-  enum { kVersion = 1 };
+  enum
+  {
+    kVersion = 1
+  };
 };
 
 template <class ReaderT, typename Value>
 class IntervalIndex : public IntervalIndexBase
 {
   typedef IntervalIndexBase base_t;
-public:
 
+public:
   explicit IntervalIndex(ReaderT const & reader) : m_Reader(reader)
   {
     ReaderSource<ReaderT> src(reader);
@@ -48,10 +51,7 @@ public:
         m_LevelOffsets.push_back(ReadPrimitiveFromSource<uint32_t>(src));
   }
 
-  uint64_t KeyEnd() const
-  {
-    return 1ULL << (m_Header.m_Levels * m_Header.m_BitsPerLevel + m_Header.m_LeafBytes * 8);
-  }
+  uint64_t KeyEnd() const { return 1ULL << (m_Header.m_Levels * m_Header.m_BitsPerLevel + m_Header.m_LeafBytes * 8); }
 
   template <typename F>
   void ForEach(F const & f, uint64_t beg, uint64_t end) const
@@ -66,16 +66,14 @@ public:
         end = KeyEnd();
       --end;  // end is inclusive in ForEachImpl().
       ForEachNode(f, beg, end, m_Header.m_Levels, 0,
-                  m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels],
-                  0 /* started keyBase */);
+                  m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels], 0 /* started keyBase */);
     }
   }
 
 private:
   template <typename F>
-  void ForEachLeaf(F const & f, uint64_t const beg, uint64_t const end,
-      uint32_t const offset, uint32_t const size,
-      uint64_t keyBase /* discarded part of object key value in the parent nodes*/) const
+  void ForEachLeaf(F const & f, uint64_t const beg, uint64_t const end, uint32_t const offset, uint32_t const size,
+                   uint64_t keyBase /* discarded part of object key value in the parent nodes*/) const
   {
     buffer_vector<uint8_t, 1024> data;
     data.resize(size);
@@ -99,9 +97,8 @@ private:
   }
 
   template <typename F>
-  void ForEachNode(F const & f, uint64_t beg, uint64_t end, int level,
-      uint32_t offset, uint32_t size,
-      uint64_t keyBase /* discarded part of object key value in the parent nodes */) const
+  void ForEachNode(F const & f, uint64_t beg, uint64_t end, int level, uint32_t offset, uint32_t size,
+                   uint64_t keyBase /* discarded part of object key value in the parent nodes */) const
   {
     ASSERT(size > 0, ());
     offset += m_LevelOffsets[level];
@@ -147,8 +144,7 @@ private:
           childOffset += childSize;
         }
       }
-      ASSERT(end0 != (static_cast<uint32_t>(1) << m_Header.m_BitsPerLevel) - 1 ||
-             src.Ptr() == data.data() + size,
+      ASSERT(end0 != (static_cast<uint32_t>(1) << m_Header.m_BitsPerLevel) - 1 || src.Ptr() == data.data() + size,
              (beg, end, beg0, end0, offset, size, src.Ptr(), data.data()));
     }
     else

@@ -36,14 +36,14 @@ namespace transit
 {
 namespace experimental
 {
-#define DECLARE_TRANSIT_TYPES_FRIENDS                 \
-  template <class Sink>                               \
-  friend class routing::transit::Serializer;          \
-  template <class Source>                             \
-  friend class routing::transit::Deserializer;        \
-  template <typename Sink>                            \
-  friend class routing::transit::FixedSizeSerializer; \
-  template <typename Sink>                            \
+#define DECLARE_TRANSIT_TYPES_FRIENDS                   \
+  template <class Sink>                                 \
+  friend class routing::transit::Serializer;            \
+  template <class Source>                               \
+  friend class routing::transit::Deserializer;          \
+  template <typename Sink>                              \
+  friend class routing::transit::FixedSizeSerializer;   \
+  template <typename Sink>                              \
   friend class routing::transit::FixedSizeDeserializer;
 
 using FeatureId = uint32_t;
@@ -66,8 +66,7 @@ public:
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(SingleMwmSegment, visitor(m_featureId, "feature_id"),
-                                  visitor(m_segmentIdx, "segment_idx"),
-                                  visitor(m_forward, "forward"))
+                                  visitor(m_segmentIdx, "segment_idx"), visitor(m_forward, "forward"))
 
   FeatureId m_featureId = kInvalidFeatureId;
   uint32_t m_segmentIdx = 0;
@@ -94,8 +93,7 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(IdBundle, visitor(m_featureId, "feature_id"),
-                                  visitor(m_osmId, "osm_id"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(IdBundle, visitor(m_featureId, "feature_id"), visitor(m_osmId, "osm_id"))
 
   FeatureId m_featureId = kInvalidFeatureId;
   OsmId m_osmId = kInvalidOsmId;
@@ -109,13 +107,13 @@ struct TransitHeader
   bool IsValid() const;
 
   DECLARE_TRANSIT_TYPES_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(
-      TransitHeader, visitor(m_version, "version"), visitor(m_reserve, "reserve"),
-      visitor(m_stopsOffset, "stops"), visitor(m_gatesOffset, "gatesOffset"),
-      visitor(m_edgesOffset, "edgesOffset"), visitor(m_transfersOffset, "transfersOffset"),
-      visitor(m_linesOffset, "linesOffset"), visitor(m_linesMetadataOffset, "linesMetadataOffset"),
-      visitor(m_shapesOffset, "shapesOffset"), visitor(m_routesOffset, "routesOffset"),
-      visitor(m_networksOffset, "networksOffset"), visitor(m_endOffset, "endOffset"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TransitHeader, visitor(m_version, "version"), visitor(m_reserve, "reserve"),
+                                  visitor(m_stopsOffset, "stops"), visitor(m_gatesOffset, "gatesOffset"),
+                                  visitor(m_edgesOffset, "edgesOffset"), visitor(m_transfersOffset, "transfersOffset"),
+                                  visitor(m_linesOffset, "linesOffset"),
+                                  visitor(m_linesMetadataOffset, "linesMetadataOffset"),
+                                  visitor(m_shapesOffset, "shapesOffset"), visitor(m_routesOffset, "routesOffset"),
+                                  visitor(m_networksOffset, "networksOffset"), visitor(m_endOffset, "endOffset"))
 
   uint16_t m_version = 0;
   uint16_t m_reserve = 0;
@@ -177,8 +175,7 @@ public:
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Route, visitor(m_id, "id"), visitor(m_networkId, "network_id"),
-                                  visitor(m_routeType, "type"), visitor(m_title, "title"),
-                                  visitor(m_color, "color"))
+                                  visitor(m_routeType, "type"), visitor(m_title, "title"), visitor(m_color, "color"))
   TransitId m_id = kInvalidTransitId;
   TransitId m_networkId = kInvalidTransitId;
   std::string m_routeType;
@@ -190,8 +187,8 @@ class Line
 {
 public:
   Line() = default;
-  Line(TransitId id, TransitId routeId, ShapeLink const & shapeLink, std::string const & title,
-       IdList const & stopIds, Schedule const & schedule);
+  Line(TransitId id, TransitId routeId, ShapeLink const & shapeLink, std::string const & title, IdList const & stopIds,
+       Schedule const & schedule);
 
   bool operator<(Line const & rhs) const;
   bool operator==(Line const & rhs) const;
@@ -234,8 +231,7 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(LineMetadata, visitor(m_id, "id"),
-                                  visitor(m_segmentsOrder, "segments_order"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(LineMetadata, visitor(m_id, "id"), visitor(m_segmentsOrder, "segments_order"))
   TransitId m_id = kInvalidTransitId;
   LineSegmentsOrder m_segmentsOrder;
 };
@@ -244,8 +240,8 @@ class Stop
 {
 public:
   Stop();
-  Stop(TransitId id, FeatureId featureId, OsmId osmId, std::string const & title,
-       TimeTable const & timetable, m2::PointD const & point, IdList const & transferIds);
+  Stop(TransitId id, FeatureId featureId, OsmId osmId, std::string const & title, TimeTable const & timetable,
+       m2::PointD const & point, IdList const & transferIds);
   explicit Stop(TransitId id);
 
   bool operator<(Stop const & rhs) const;
@@ -350,9 +346,8 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPES_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_stop1Id, "stop1_id"),
-                                  visitor(m_stop2Id, "stop2_id"), visitor(m_weight, "weight"),
-                                  visitor(m_isTransfer, "is_transfer"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_stop1Id, "stop1_id"), visitor(m_stop2Id, "stop2_id"),
+                                  visitor(m_weight, "weight"), visitor(m_isTransfer, "is_transfer"),
                                   visitor(m_lineId, "line_id"), visitor(m_shapeLink, "shape_link"))
 
   TransitId m_stop1Id = kInvalidTransitId;

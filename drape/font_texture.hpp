@@ -29,7 +29,9 @@ private:
   bool m_isFull = false;
 };
 
-class GlyphKey : public GlyphFontAndId, public Texture::Key
+class GlyphKey
+  : public GlyphFontAndId
+  , public Texture::Key
 {
 public:
   Texture::ResourceType GetType() const override { return Texture::ResourceType::Glyph; }
@@ -39,9 +41,7 @@ public:
 class GlyphInfo : public Texture::ResourceInfo
 {
 public:
-  explicit GlyphInfo(m2::RectF const & texRect)
-    : ResourceInfo(texRect)
-  {}
+  explicit GlyphInfo(m2::RectF const & texRect) : ResourceInfo(texRect) {}
 
   Texture::ResourceType GetType() const override { return Texture::ResourceType::Glyph; }
 };
@@ -93,10 +93,7 @@ public:
     return m_indexer->MapResource(key, hasNewResources);
   }
 
-  bool HasEnoughSpace(uint32_t newKeysCount) const override
-  {
-    return m_index.CanBeGlyphPacked(newKeysCount);
-  }
+  bool HasEnoughSpace(uint32_t newKeysCount) const override { return m_index.CanBeGlyphPacked(newKeysCount); }
 
 private:
   GlyphIndex m_index;

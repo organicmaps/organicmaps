@@ -31,16 +31,15 @@ public:
 
   routing::FeatureIdToOsmId LoadFID2OsmID(std::string const & mwmName);
 
-  template <class FnT> void ForEachFB(std::string const & mwmName, FnT && fn)
+  template <class FnT>
+  void ForEachFB(std::string const & mwmName, FnT && fn)
   {
     using namespace feature;
-    ForEachFeatureRawFormat(m_genInfo.GetTmpFileName(mwmName), [&fn](FeatureBuilder const & fb, uint64_t)
-    {
-      fn(fb);
-    });
+    ForEachFeatureRawFormat(m_genInfo.GetTmpFileName(mwmName), [&fn](FeatureBuilder const & fb, uint64_t) { fn(fb); });
   }
 
-  template <class FnT> void ForEachFeature(std::string const & mwmName, FnT && fn)
+  template <class FnT>
+  void ForEachFeature(std::string const & mwmName, FnT && fn)
   {
     FrozenDataSource dataSource;
     auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(GetMwmPath(mwmName)));
@@ -61,5 +60,5 @@ public:
   static char const * kWikidataFilename;
 };
 
-} // namespace tests_support
-} // namespace generator
+}  // namespace tests_support
+}  // namespace generator

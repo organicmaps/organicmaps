@@ -41,8 +41,8 @@ public:
   static bool IsVulkanForbidden();
   static bool IsVulkanForbidden(std::string const & deviceName, Version apiVersion, Version driverVersion,
                                 bool isCustomROM, int sdkVersion);
-  static bool IsVulkanTexturePartialUpdateBuggy(int sdkVersion, std::string const & deviceName,
-                                                Version apiVersion, Version driverVersion);
+  static bool IsVulkanTexturePartialUpdateBuggy(int sdkVersion, std::string const & deviceName, Version apiVersion,
+                                                Version driverVersion);
 
 private:
   struct Configuration;

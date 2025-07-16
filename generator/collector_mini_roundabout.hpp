@@ -31,10 +31,8 @@ protected:
   void ForEachMiniRoundabout(Fn && toDo)
   {
     for (auto & p : m_miniRoundabouts)
-    {
       if (m_miniRoundaboutsExceptions.count(p.first) == 0)
         toDo(p.second);
-    }
   }
 
 private:

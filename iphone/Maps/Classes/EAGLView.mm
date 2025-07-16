@@ -1,8 +1,7 @@
 #import "EAGLView.h"
-#import "iosOGLContextFactory.h"
 #import "MWMMapWidgets.h"
 #import "SwiftBridge.h"
-
+#import "iosOGLContextFactory.h"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -15,16 +14,16 @@
 #include <CoreApi/Framework.h>
 
 #ifdef OMIM_METAL_AVAILABLE
-#import "MetalContextFactory.h"
 #import <MetalKit/MetalKit.h>
+#import "MetalContextFactory.h"
 #endif
 
 namespace dp
 {
-  class GraphicsContextFactory;
+class GraphicsContextFactory;
 }
 
-@interface EAGLView()
+@interface EAGLView ()
 {
   dp::ApiVersion m_apiVersion;
   drape_ptr<dp::GraphicsContextFactory> m_factory;
@@ -50,22 +49,19 @@ double getExactDPI(double contentScaleFactor)
 
   switch (UI_USER_INTERFACE_IDIOM())
   {
-    case UIUserInterfaceIdiomPhone:
-      return iPhoneDPI * contentScaleFactor;
-    case UIUserInterfaceIdiomPad:
-      return iPadDPI * contentScaleFactor;
-    default:
-      return mDPI * contentScaleFactor;
+    case UIUserInterfaceIdiomPhone: return iPhoneDPI * contentScaleFactor;
+    case UIUserInterfaceIdiomPad: return iPadDPI * contentScaleFactor;
+    default: return mDPI * contentScaleFactor;
   }
 }
-} //  namespace
+}  //  namespace
 
 + (dp::ApiVersion)getSupportedApiVersion
 {
   static dp::ApiVersion apiVersion = dp::ApiVersion::Invalid;
   if (apiVersion != dp::ApiVersion::Invalid)
     return apiVersion;
-  
+
 #ifdef OMIM_METAL_AVAILABLE
   if (GetFramework().LoadPreferredGraphicsAPI() == dp::ApiVersion::Metal)
   {
@@ -74,7 +70,7 @@ double getExactDPI(double contentScaleFactor)
       apiVersion = dp::ApiVersion::Metal;
   }
 #endif
-  
+
   if (apiVersion == dp::ApiVersion::Invalid)
   {
     EAGLContext * tempContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
@@ -83,7 +79,7 @@ double getExactDPI(double contentScaleFactor)
     else
       apiVersion = dp::ApiVersion::OpenGLES2;
   }
-  
+
   return apiVersion;
 }
 
@@ -118,7 +114,7 @@ double getExactDPI(double contentScaleFactor)
 
   // Correct retina display support in renderbuffer.
   self.contentScaleFactor = [[UIScreen mainScreen] nativeScale];
-  
+
   if (m_apiVersion == dp::ApiVersion::Metal)
   {
 #ifdef OMIM_METAL_AVAILABLE
@@ -132,20 +128,18 @@ double getExactDPI(double contentScaleFactor)
   {
     CAEAGLLayer * layer = (CAEAGLLayer *)self.layer;
     layer.opaque = YES;
-    layer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
-                                 kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
+    layer.drawableProperties =
+        @{kEAGLDrawablePropertyRetainedBacking: @NO, kEAGLDrawablePropertyColorFormat: kEAGLColorFormatRGBA8};
   }
   auto & f = GetFramework();
-  f.SetGraphicsContextInitializationHandler([self]() {
-    self.graphicContextInitialized = YES;
-  });
+  f.SetGraphicsContextInitializationHandler([self]() { self.graphicContextInitialized = YES; });
 }
 
 - (void)createDrapeEngine
 {
   CGSize const objcSize = [self pixelSize];
   m2::PointU const s = m2::PointU(static_cast<uint32_t>(objcSize.width), static_cast<uint32_t>(objcSize.height));
-  
+
   if (m_apiVersion == dp::ApiVersion::Metal)
   {
 #ifdef OMIM_METAL_AVAILABLE
@@ -155,7 +149,7 @@ double getExactDPI(double contentScaleFactor)
   else
   {
     m_factory = make_unique_dp<dp::ThreadSafeFactory>(
-      new iosOGLContextFactory((CAEAGLLayer *)self.layer, m_apiVersion, m_presentAvailable));
+        new iosOGLContextFactory((CAEAGLLayer *)self.layer, m_apiVersion, m_presentAvailable));
   }
   [self createDrapeEngineWithWidth:s.x height:s.y];
 }
@@ -164,7 +158,7 @@ double getExactDPI(double contentScaleFactor)
 {
   LOG(LINFO, ("CreateDrapeEngine Started", width, height, m_apiVersion));
   CHECK(m_factory != nullptr, ());
-  
+
   Framework::DrapeCreationParams p;
   p.m_apiVersion = m_apiVersion;
   p.m_surfaceWidth = width;
@@ -183,7 +177,7 @@ double getExactDPI(double contentScaleFactor)
 - (CGSize)pixelSize
 {
   CGSize const s = self.bounds.size;
-  
+
   CGFloat const w = s.width * self.contentScaleFactor;
   CGFloat const h = s.height * self.contentScaleFactor;
   return CGSizeMake(w, h);
@@ -221,12 +215,14 @@ double getExactDPI(double contentScaleFactor)
   return _widgetsManager;
 }
 
-- (void)updateVisualScaleTo:(CGFloat)visualScale {
+- (void)updateVisualScaleTo:(CGFloat)visualScale
+{
   main_visualScale = df::VisualParams::Instance().GetVisualScale();
   GetFramework().UpdateVisualScale(visualScale);
 }
 
-- (void)updateVisualScaleToMain {
+- (void)updateVisualScaleToMain
+{
   GetFramework().UpdateVisualScale(main_visualScale);
 }
 

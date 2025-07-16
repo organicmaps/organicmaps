@@ -78,20 +78,18 @@ public:
     {
       switch (e.m_type)
       {
-      case Event::TYPE_SEGMENT_START: tree.Add(e.m_segment); break;
-      case Event::TYPE_POINT:
-      {
-        auto const segmentFn = [&](SegmentTree::Segment const & segment) {
-          fn(e.m_point.m_id, segment.m_id);
-        };
-        switch (requestType)
+        case Event::TYPE_SEGMENT_START: tree.Add(e.m_segment); break;
+        case Event::TYPE_POINT:
         {
-        case RequestType::Any: tree.FindAny(e.m_point.m_x, segmentFn); break;
-        case RequestType::All: tree.FindAll(e.m_point.m_x, segmentFn); break;
+          auto const segmentFn = [&](SegmentTree::Segment const & segment) { fn(e.m_point.m_id, segment.m_id); };
+          switch (requestType)
+          {
+            case RequestType::Any: tree.FindAny(e.m_point.m_x, segmentFn); break;
+            case RequestType::All: tree.FindAll(e.m_point.m_x, segmentFn); break;
+          }
         }
-      }
-      break;
-      case Event::TYPE_SEGMENT_END: tree.Erase(e.m_segment); break;
+        break;
+        case Event::TYPE_SEGMENT_END: tree.Erase(e.m_segment); break;
       }
     }
   }
@@ -116,15 +114,12 @@ private:
       TYPE_SEGMENT_END,
     };
 
-    Event(Type type, SegmentEvent const & segment, double time)
-      : m_segment(segment), m_time(time), m_type(type)
+    Event(Type type, SegmentEvent const & segment, double time) : m_segment(segment), m_time(time), m_type(type)
     {
       ASSERT(m_type == TYPE_SEGMENT_START || m_type == TYPE_SEGMENT_END, ());
     }
 
-    Event(PointEvent const & point, double time) : m_point(point), m_time(time), m_type(TYPE_POINT)
-    {
-    }
+    Event(PointEvent const & point, double time) : m_point(point), m_time(time), m_type(TYPE_POINT) {}
 
     bool operator<(Event const & rhs) const
     {
@@ -133,7 +128,8 @@ private:
       return m_type < rhs.m_type;
     }
 
-    union {
+    union
+    {
       SegmentEvent m_segment;
       PointEvent m_point;
     };

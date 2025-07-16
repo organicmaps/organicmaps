@@ -82,8 +82,8 @@ private:
 };
 }  // namespace generator
 
-#define IMPLEMENT_COLLECTOR_IFACE(className)                \
-  void Merge(CollectorInterface const & ci) override        \
-  {                                                         \
-    dynamic_cast<className const &>(ci).MergeInto(*this);   \
+#define IMPLEMENT_COLLECTOR_IFACE(className)              \
+  void Merge(CollectorInterface const & ci) override      \
+  {                                                       \
+    dynamic_cast<className const &>(ci).MergeInto(*this); \
   }

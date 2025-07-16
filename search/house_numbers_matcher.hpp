@@ -35,10 +35,7 @@ struct Token
   Token & operator=(Token &&) = default;
   Token & operator=(Token const &) = default;
 
-  bool operator==(Token const & rhs) const
-  {
-    return m_type == rhs.m_type && m_value == rhs.m_value;
-  }
+  bool operator==(Token const & rhs) const { return m_type == rhs.m_type && m_value == rhs.m_value; }
 
   bool operator!=(Token const & rhs) const { return !(*this == rhs); }
 
@@ -73,7 +70,8 @@ void ParseQuery(strings::UniString const & query, bool queryIsPrefix, TokensT & 
 /// @{
 bool HouseNumbersMatch(strings::UniString const & houseNumber, TokensT const & queryParse);
 bool HouseNumbersMatchConscription(strings::UniString const & houseNumber, TokensT const & queryParse);
-bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse, feature::InterpolType interpol);
+bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse,
+                            feature::InterpolType interpol);
 /// @}
 
 // Returns true if |s| looks like a house number.

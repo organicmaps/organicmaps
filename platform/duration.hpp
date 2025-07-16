@@ -2,9 +2,9 @@
 
 #include "platform/localization.hpp"
 
-#include <string>
-#include <set>
 #include <chrono>
+#include <set>
+#include <string>
 
 namespace platform
 {
@@ -27,9 +27,10 @@ public:
   std::string GetPlatformLocalizedString() const;
 
 private:
-  const std::chrono::seconds m_seconds;
+  std::chrono::seconds const m_seconds;
 
-  std::string GetString(std::initializer_list<Units> units, std::string_view unitSeparator, std::string_view groupingSeparator) const;
+  std::string GetString(std::initializer_list<Units> units, std::string_view unitSeparator,
+                        std::string_view groupingSeparator) const;
 };
 
 std::string DebugPrint(Duration::Units units);

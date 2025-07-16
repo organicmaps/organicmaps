@@ -12,8 +12,8 @@
 // TestRegister is static to avoid this warning:
 // No previous extern declaration for non-static variable 'g_testRegister_TESTNAME'
 // note: declare 'static' if the variable is not intended to be used outside of this translation unit
-#define UNIT_TEST(name)                                                  \
-  void UnitTest_##name();                                                \
+#define UNIT_TEST(name)                                                         \
+  void UnitTest_##name();                                                       \
   static TestRegister g_testRegister_##name(#name, __FILE__, &UnitTest_##name); \
   void UnitTest_##name()
 
@@ -70,189 +70,186 @@ CommandLineOptions const & GetTestingOptions();
   do                                                                                     \
   {                                                                                      \
     if (X)                                                                               \
-    {                                                                                    \
-    }                                                                                    \
+    {}                                                                                   \
     else                                                                                 \
     {                                                                                    \
       ::base::OnTestFailed(SRC(), ::base::Message("TEST(" #X ")", ::base::Message msg)); \
     }                                                                                    \
-  } while (0)
+  }                                                                                      \
+  while (0)
 
-#define TEST_EQUAL(X, Y, msg)                                                                      \
-  do                                                                                               \
-  {                                                                                                \
-    if ((X) == (Y))                                                                                \
-    {                                                                                              \
-    }                                                                                              \
-    else                                                                                           \
-    {                                                                                              \
-      ::base::OnTestFailed(SRC(), ::base::Message("TEST(" #X " == " #Y ")", ::base::Message(X, Y), \
-                                                  ::base::Message msg));                           \
-    }                                                                                              \
-  } while (0)
+#define TEST_EQUAL(X, Y, msg)                                                                                      \
+  do                                                                                                               \
+  {                                                                                                                \
+    if ((X) == (Y))                                                                                                \
+    {}                                                                                                             \
+    else                                                                                                           \
+    {                                                                                                              \
+      ::base::OnTestFailed(SRC(),                                                                                  \
+                           ::base::Message("TEST(" #X " == " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                              \
+  }                                                                                                                \
+  while (0)
 
-#define TEST_NOT_EQUAL(X, Y, msg)                                                                  \
-  do                                                                                               \
-  {                                                                                                \
-    if ((X) != (Y))                                                                                \
-    {                                                                                              \
-    }                                                                                              \
-    else                                                                                           \
-    {                                                                                              \
-      ::base::OnTestFailed(SRC(), ::base::Message("TEST(" #X " != " #Y ")", ::base::Message(X, Y), \
-                                                  ::base::Message msg));                           \
-    }                                                                                              \
-  } while (0)
+#define TEST_NOT_EQUAL(X, Y, msg)                                                                                  \
+  do                                                                                                               \
+  {                                                                                                                \
+    if ((X) != (Y))                                                                                                \
+    {}                                                                                                             \
+    else                                                                                                           \
+    {                                                                                                              \
+      ::base::OnTestFailed(SRC(),                                                                                  \
+                           ::base::Message("TEST(" #X " != " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                              \
+  }                                                                                                                \
+  while (0)
 
-#define TEST_LESS(X, Y, msg)                                                                      \
-  do                                                                                              \
-  {                                                                                               \
-    if ((X) < (Y))                                                                                \
-    {                                                                                             \
-    }                                                                                             \
-    else                                                                                          \
-    {                                                                                             \
-      ::base::OnTestFailed(SRC(), ::base::Message("TEST(" #X " < " #Y ")", ::base::Message(X, Y), \
-                                                  ::base::Message msg));                          \
-    }                                                                                             \
-  } while (0)
+#define TEST_LESS(X, Y, msg)                                                                                      \
+  do                                                                                                              \
+  {                                                                                                               \
+    if ((X) < (Y))                                                                                                \
+    {}                                                                                                            \
+    else                                                                                                          \
+    {                                                                                                             \
+      ::base::OnTestFailed(SRC(),                                                                                 \
+                           ::base::Message("TEST(" #X " < " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                             \
+  }                                                                                                               \
+  while (0)
 
-#define TEST_LESS_OR_EQUAL(X, Y, msg)                                                              \
-  do                                                                                               \
-  {                                                                                                \
-    if ((X) <= (Y))                                                                                \
-    {                                                                                              \
-    }                                                                                              \
-    else                                                                                           \
-    {                                                                                              \
-      ::base::OnTestFailed(SRC(), ::base::Message("TEST(" #X " <= " #Y ")", ::base::Message(X, Y), \
-                                                  ::base::Message msg));                           \
-    }                                                                                              \
-  } while (0)
+#define TEST_LESS_OR_EQUAL(X, Y, msg)                                                                              \
+  do                                                                                                               \
+  {                                                                                                                \
+    if ((X) <= (Y))                                                                                                \
+    {}                                                                                                             \
+    else                                                                                                           \
+    {                                                                                                              \
+      ::base::OnTestFailed(SRC(),                                                                                  \
+                           ::base::Message("TEST(" #X " <= " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                              \
+  }                                                                                                                \
+  while (0)
 
-#define TEST_GREATER(X, Y, msg)                                                                   \
-  do                                                                                              \
-  {                                                                                               \
-    if ((X) > (Y))                                                                                \
-    {                                                                                             \
-    }                                                                                             \
-    else                                                                                          \
-    {                                                                                             \
-      ::base::OnTestFailed(SRC(), ::base::Message("TEST(" #X " > " #Y ")", ::base::Message(X, Y), \
-                                                  ::base::Message msg));                          \
-    }                                                                                             \
-  } while (0)
+#define TEST_GREATER(X, Y, msg)                                                                                   \
+  do                                                                                                              \
+  {                                                                                                               \
+    if ((X) > (Y))                                                                                                \
+    {}                                                                                                            \
+    else                                                                                                          \
+    {                                                                                                             \
+      ::base::OnTestFailed(SRC(),                                                                                 \
+                           ::base::Message("TEST(" #X " > " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                             \
+  }                                                                                                               \
+  while (0)
 
-#define TEST_GREATER_OR_EQUAL(X, Y, msg)                                                           \
-  do                                                                                               \
-  {                                                                                                \
-    if ((X) >= (Y))                                                                                \
-    {                                                                                              \
-    }                                                                                              \
-    else                                                                                           \
-    {                                                                                              \
-      ::base::OnTestFailed(SRC(), ::base::Message("TEST(" #X " >= " #Y ")", ::base::Message(X, Y), \
-                                                  ::base::Message msg));                           \
-    }                                                                                              \
-  } while (0)
+#define TEST_GREATER_OR_EQUAL(X, Y, msg)                                                                           \
+  do                                                                                                               \
+  {                                                                                                                \
+    if ((X) >= (Y))                                                                                                \
+    {}                                                                                                             \
+    else                                                                                                           \
+    {                                                                                                              \
+      ::base::OnTestFailed(SRC(),                                                                                  \
+                           ::base::Message("TEST(" #X " >= " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                              \
+  }                                                                                                                \
+  while (0)
 
-#define TEST_ALMOST_EQUAL_ULPS(X, Y, msg)                                                       \
-  do                                                                                            \
-  {                                                                                             \
-    if (AlmostEqualULPs(X, Y))                                                          \
-    {                                                                                           \
-    }                                                                                           \
-    else                                                                                        \
-    {                                                                                           \
-      ::base::OnTestFailed(SRC(), ::base::Message("TEST(AlmostEqualULPs(" #X ", " #Y ")", \
-                                                  ::base::Message(X, Y), ::base::Message msg)); \
-    }                                                                                           \
-  } while (0)
+#define TEST_ALMOST_EQUAL_ULPS(X, Y, msg)                                                                              \
+  do                                                                                                                   \
+  {                                                                                                                    \
+    if (AlmostEqualULPs(X, Y))                                                                                         \
+    {}                                                                                                                 \
+    else                                                                                                               \
+    {                                                                                                                  \
+      ::base::OnTestFailed(                                                                                            \
+          SRC(), ::base::Message("TEST(AlmostEqualULPs(" #X ", " #Y ")", ::base::Message(X, Y), ::base::Message msg)); \
+    }                                                                                                                  \
+  }                                                                                                                    \
+  while (0)
 
-#define TEST_NOT_ALMOST_EQUAL_ULPS(X, Y, msg)                                                    \
-  do                                                                                             \
-  {                                                                                              \
-    if (!AlmostEqualULPs(X, Y))                                                          \
-    {                                                                                            \
-    }                                                                                            \
-    else                                                                                         \
-    {                                                                                            \
-      ::base::OnTestFailed(SRC(), ::base::Message("TEST(!AlmostEqualULPs(" #X ", " #Y ")", \
-                                                  ::base::Message(X, Y), ::base::Message msg));  \
-    }                                                                                            \
-  } while (0)
+#define TEST_NOT_ALMOST_EQUAL_ULPS(X, Y, msg)                                                                     \
+  do                                                                                                              \
+  {                                                                                                               \
+    if (!AlmostEqualULPs(X, Y))                                                                                   \
+    {}                                                                                                            \
+    else                                                                                                          \
+    {                                                                                                             \
+      ::base::OnTestFailed(SRC(), ::base::Message("TEST(!AlmostEqualULPs(" #X ", " #Y ")", ::base::Message(X, Y), \
+                                                  ::base::Message msg));                                          \
+    }                                                                                                             \
+  }                                                                                                               \
+  while (0)
 
-#define TEST_ALMOST_EQUAL_ABS(X, Y, eps, msg)                                                      \
-  do                                                                                               \
-  {                                                                                                \
-    if (AlmostEqualAbs(X, Y, eps))                                                         \
-    {                                                                                              \
-    }                                                                                              \
-    else                                                                                           \
-    {                                                                                              \
-      ::base::OnTestFailed(SRC(),                                                                  \
-                           ::base::Message("TEST(!AlmostEqualAbs(" #X ", " #Y ", " #eps ")", \
-                           ::base::Message(X, Y, eps), ::base::Message msg));                      \
-    }                                                                                              \
-  } while (0)
+#define TEST_ALMOST_EQUAL_ABS(X, Y, eps, msg)                                                        \
+  do                                                                                                 \
+  {                                                                                                  \
+    if (AlmostEqualAbs(X, Y, eps))                                                                   \
+    {}                                                                                               \
+    else                                                                                             \
+    {                                                                                                \
+      ::base::OnTestFailed(SRC(), ::base::Message("TEST(!AlmostEqualAbs(" #X ", " #Y ", " #eps ")",  \
+                                                  ::base::Message(X, Y, eps), ::base::Message msg)); \
+    }                                                                                                \
+  }                                                                                                  \
+  while (0)
 
 // TODO(AlexZ): Add more cool macroses (or switch all unit tests to gtest).
-#define TEST_THROW(X, exception, msg)                                                           \
-  do                                                                                            \
-  {                                                                                             \
-    bool expected_exception = false;                                                            \
-    try                                                                                         \
-    {                                                                                           \
-      X;                                                                                        \
-    }                                                                                           \
-    catch (std::exception const &)                                                              \
-    {                                                                                           \
-      expected_exception = true;                                                                \
-    }                                                                                           \
-    catch (...)                                                                                 \
-    {                                                                                           \
-      ::base::OnTestFailed(                                                                     \
-          SRC(), ::base::Message("Unexpected exception at TEST(" #X ")", ::base::Message msg)); \
-    }                                                                                           \
-    if (!expected_exception)                                                                    \
-      ::base::OnTestFailed(SRC(), ::base::Message("Expected exception " #exception              \
-                                                  " was not thrown in TEST(" #X ")",            \
-                                                  ::base::Message msg));                        \
-  } while (0)
+#define TEST_THROW(X, exception, msg)                                                                                 \
+  do                                                                                                                  \
+  {                                                                                                                   \
+    bool expected_exception = false;                                                                                  \
+    try                                                                                                               \
+    {                                                                                                                 \
+      X;                                                                                                              \
+    }                                                                                                                 \
+    catch (std::exception const &)                                                                                    \
+    {                                                                                                                 \
+      expected_exception = true;                                                                                      \
+    }                                                                                                                 \
+    catch (...)                                                                                                       \
+    {                                                                                                                 \
+      ::base::OnTestFailed(SRC(), ::base::Message("Unexpected exception at TEST(" #X ")", ::base::Message msg));      \
+    }                                                                                                                 \
+    if (!expected_exception)                                                                                          \
+      ::base::OnTestFailed(SRC(), ::base::Message("Expected exception " #exception " was not thrown in TEST(" #X ")", \
+                                                  ::base::Message msg));                                              \
+  }                                                                                                                   \
+  while (0)
 
-#define TEST_NO_THROW(X, msg)                                                                   \
-  do                                                                                            \
-  {                                                                                             \
-    try                                                                                         \
-    {                                                                                           \
-      X;                                                                                        \
-    }                                                                                           \
-    catch (RootException const & ex)                                                            \
-    {                                                                                           \
-      ::base::OnTestFailed(SRC(),                                                               \
-                           ::base::Message("Unexpected exception at TEST(" #X ")",              \
-                           ::base::Message(ex.Msg()), ::base::Message msg));                    \
-    }                                                                                           \
-    catch (...)                                                                                 \
-    {                                                                                           \
-      ::base::OnTestFailed(                                                                     \
-          SRC(), ::base::Message("Unexpected exception at TEST(" #X ")", ::base::Message msg)); \
-    }                                                                                           \
-  } while (0)
+#define TEST_NO_THROW(X, msg)                                                                                        \
+  do                                                                                                                 \
+  {                                                                                                                  \
+    try                                                                                                              \
+    {                                                                                                                \
+      X;                                                                                                             \
+    }                                                                                                                \
+    catch (RootException const & ex)                                                                                 \
+    {                                                                                                                \
+      ::base::OnTestFailed(SRC(), ::base::Message("Unexpected exception at TEST(" #X ")", ::base::Message(ex.Msg()), \
+                                                  ::base::Message msg));                                             \
+    }                                                                                                                \
+    catch (...)                                                                                                      \
+    {                                                                                                                \
+      ::base::OnTestFailed(SRC(), ::base::Message("Unexpected exception at TEST(" #X ")", ::base::Message msg));     \
+    }                                                                                                                \
+  }                                                                                                                  \
+  while (0)
 
-#define TEST_ANY_THROW(X, msg)                                                                 \
-  do                                                                                           \
-  {                                                                                            \
-    bool was_exception = false;                                                                \
-    try                                                                                        \
-    {                                                                                          \
-      X;                                                                                       \
-    }                                                                                          \
-    catch (...)                                                                                \
-    {                                                                                          \
-      was_exception = true;                                                                    \
-    }                                                                                          \
-    if (!was_exception)                                                                        \
-      ::base::OnTestFailed(SRC(), ::base::Message("No exceptions were thrown in TEST(" #X ")", \
-                                                  ::base::Message msg));                       \
-  } while (0)
+#define TEST_ANY_THROW(X, msg)                                                                                        \
+  do                                                                                                                  \
+  {                                                                                                                   \
+    bool was_exception = false;                                                                                       \
+    try                                                                                                               \
+    {                                                                                                                 \
+      X;                                                                                                              \
+    }                                                                                                                 \
+    catch (...)                                                                                                       \
+    {                                                                                                                 \
+      was_exception = true;                                                                                           \
+    }                                                                                                                 \
+    if (!was_exception)                                                                                               \
+      ::base::OnTestFailed(SRC(), ::base::Message("No exceptions were thrown in TEST(" #X ")", ::base::Message msg)); \
+  }                                                                                                                   \
+  while (0)

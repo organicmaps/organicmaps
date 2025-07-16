@@ -4,8 +4,8 @@
 #include "generator/feature_builder.hpp"
 #include "generator/osm_element.hpp"
 
-#include "coding/reader.hpp"
 #include "coding/read_write_utils.hpp"
+#include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 
 #include <map>
@@ -105,4 +105,4 @@ private:
 // Read an intermediate file from MetalinesBuilder and convert it to an mwm section.
 bool WriteMetalinesSection(std::string const & mwmPath, std::string const & metalinesPath,
                            std::string const & osmIdsToFeatureIdsPath);
-} // namespace feature
+}  // namespace feature

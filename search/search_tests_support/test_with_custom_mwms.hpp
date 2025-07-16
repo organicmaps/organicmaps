@@ -21,10 +21,7 @@ namespace tests_support
 class TestWithCustomMwms : public generator::tests_support::TestWithCustomMwms
 {
 public:
-  TestWithCustomMwms()
-  {
-    editor::tests_support::SetUpEditorForTesting(std::make_unique<EditorDelegate>(m_dataSource));
-  }
+  TestWithCustomMwms() { editor::tests_support::SetUpEditorForTesting(std::make_unique<EditorDelegate>(m_dataSource)); }
 
   ~TestWithCustomMwms() override { editor::tests_support::TearDownEditorForTesting(); }
 

@@ -33,7 +33,7 @@ enum class WorldGraphMode
   Joints,          // Mode for building route with jumps between Joints.
   JointSingleMwm,  // Like |SingleMwm|, but in |Joints| mode.
 
-  Undefined        // Default mode, until initialization.
+  Undefined  // Default mode, until initialization.
 };
 
 class WorldGraph
@@ -48,20 +48,17 @@ public:
 
   virtual ~WorldGraph() = default;
 
-  virtual void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData,
-                           bool isOutgoing, bool useRoutingOptions, bool useAccessConditional,
-                           SegmentEdgeListT & edges) = 0;
-  virtual void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & vertexData,
-                           Segment const & segment, bool isOutgoing, bool useAccessConditional,
-                           JointEdgeListT & edges,
+  virtual void GetEdgeList(astar::VertexData<Segment, RouteWeight> const & vertexData, bool isOutgoing,
+                           bool useRoutingOptions, bool useAccessConditional, SegmentEdgeListT & edges) = 0;
+  virtual void GetEdgeList(astar::VertexData<JointSegment, RouteWeight> const & vertexData, Segment const & segment,
+                           bool isOutgoing, bool useAccessConditional, JointEdgeListT & edges,
                            WeightListT & parentWeights) = 0;
 
   bool IsRegionsGraphMode() const { return m_isRegionsGraphMode; }
 
   void SetRegionsGraphMode(bool isRegionsGraphMode) { m_isRegionsGraphMode = isRegionsGraphMode; }
 
-  void GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions,
-                   SegmentEdgeListT & edges);
+  void GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges);
 
   // Checks whether path length meets restrictions. Restrictions may depend on the distance from
   // start to finish of the route.
@@ -81,8 +78,7 @@ public:
 
   virtual RouteWeight HeuristicCostEstimate(ms::LatLon const & from, ms::LatLon const & to) = 0;
 
-  virtual RouteWeight CalcSegmentWeight(Segment const & segment,
-                                        EdgeEstimator::Purpose purpose) = 0;
+  virtual RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) = 0;
 
   virtual RouteWeight CalcLeapWeight(ms::LatLon const & from, ms::LatLon const & to, NumMwmId mwmId) const = 0;
 
@@ -106,7 +102,7 @@ public:
   virtual bool AreWavesConnectible(Parents<Segment> & forwardParents, Segment const & commonVertex,
                                    Parents<Segment> & backwardParents);
 
-  using FakeConverterT = std::function<void (JointSegment &)>;
+  using FakeConverterT = std::function<void(JointSegment &)>;
   virtual bool AreWavesConnectible(Parents<JointSegment> & forwardParents, JointSegment const & commonVertex,
                                    Parents<JointSegment> & backwardParents,
                                    FakeConverterT const & fakeFeatureConverter);
@@ -119,14 +115,12 @@ public:
 
   virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) = 0;
   virtual CrossMwmGraph & GetCrossMwmGraph();
-  virtual void GetTwinsInner(Segment const & segment, bool isOutgoing,
-                             std::vector<Segment> & twins) = 0;
+  virtual void GetTwinsInner(Segment const & segment, bool isOutgoing, std::vector<Segment> & twins) = 0;
 
   virtual RouteWeight GetCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2);
 
 protected:
-  void GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                SegmentEdgeListT & edges);
+  void GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges);
 
   bool m_isRegionsGraphMode = false;
 };

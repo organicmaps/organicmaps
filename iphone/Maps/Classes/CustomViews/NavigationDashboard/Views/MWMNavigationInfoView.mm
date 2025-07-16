@@ -28,24 +28,27 @@ CGFloat constexpr kShiftedTurnsTopOffset = 8;
 NSTimeInterval constexpr kCollapseSearchTimeout = 5.0;
 
 std::map<NavigationSearchState, NSString *> const kSearchStateButtonImageNames{
-  {NavigationSearchState::Maximized, @"ic_routing_search"},
-  {NavigationSearchState::MinimizedNormal, @"ic_routing_search"},
-  {NavigationSearchState::MinimizedSearch, @"ic_routing_search_off"},
-  {NavigationSearchState::MinimizedGas, @"ic_routing_fuel_off"},
-  {NavigationSearchState::MinimizedParking, @"ic_routing_parking_off"},
-  {NavigationSearchState::MinimizedEat, @"ic_routing_eat_off"},
-  {NavigationSearchState::MinimizedFood, @"ic_routing_food_off"},
-  {NavigationSearchState::MinimizedATM, @"ic_routing_atm_off"}};
+    {       NavigationSearchState::Maximized,      @"ic_routing_search"},
+    { NavigationSearchState::MinimizedNormal,      @"ic_routing_search"},
+    { NavigationSearchState::MinimizedSearch,  @"ic_routing_search_off"},
+    {    NavigationSearchState::MinimizedGas,    @"ic_routing_fuel_off"},
+    {NavigationSearchState::MinimizedParking, @"ic_routing_parking_off"},
+    {    NavigationSearchState::MinimizedEat,     @"ic_routing_eat_off"},
+    {   NavigationSearchState::MinimizedFood,    @"ic_routing_food_off"},
+    {    NavigationSearchState::MinimizedATM,     @"ic_routing_atm_off"}
+};
 
 std::map<NavigationSearchState, NSString *> const kSearchButtonRequest{
-  {NavigationSearchState::MinimizedGas, L(@"category_fuel")},
-  {NavigationSearchState::MinimizedParking, L(@"category_parking")},
-  {NavigationSearchState::MinimizedEat, L(@"category_eat")},
-  {NavigationSearchState::MinimizedFood, L(@"category_food")},
-  {NavigationSearchState::MinimizedATM, L(@"category_atm")}};
+    {    NavigationSearchState::MinimizedGas,    L(@"category_fuel")},
+    {NavigationSearchState::MinimizedParking, L(@"category_parking")},
+    {    NavigationSearchState::MinimizedEat,     L(@"category_eat")},
+    {   NavigationSearchState::MinimizedFood,    L(@"category_food")},
+    {    NavigationSearchState::MinimizedATM,     L(@"category_atm")}
+};
 
-BOOL defaultOrientation(CGSize const &size) {
-  CGSize const &mapViewSize = [MapViewController sharedController].view.frame.size;
+BOOL defaultOrientation(CGSize const & size)
+{
+  CGSize const & mapViewSize = [MapViewController sharedController].view.frame.size;
   CGFloat const minWidth = MIN(mapViewSize.width, mapViewSize.height);
   return IPAD || (size.height > size.width && size.width >= minWidth);
 }
@@ -53,54 +56,55 @@ BOOL defaultOrientation(CGSize const &size) {
 
 @interface MWMNavigationInfoView () <MWMLocationObserver>
 
-@property(weak, nonatomic) IBOutlet UIView *streetNameView;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *streetNameTopOffsetConstraint;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *streetNameViewHideOffset;
-@property(weak, nonatomic) IBOutlet UILabel *streetNameLabel;
-@property(weak, nonatomic) IBOutlet UIView *turnsView;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *turnsViewHideOffset;
-@property(weak, nonatomic) IBOutlet UIImageView *nextTurnImageView;
-@property(weak, nonatomic) IBOutlet UILabel *roundTurnLabel;
-@property(weak, nonatomic) IBOutlet UILabel *distanceToNextTurnLabel;
-@property(weak, nonatomic) IBOutlet UIView *secondTurnView;
-@property(weak, nonatomic) IBOutlet UIImageView *secondTurnImageView;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *turnsWidth;
+@property(weak, nonatomic) IBOutlet UIView * streetNameView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * streetNameTopOffsetConstraint;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * streetNameViewHideOffset;
+@property(weak, nonatomic) IBOutlet UILabel * streetNameLabel;
+@property(weak, nonatomic) IBOutlet UIView * turnsView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsViewHideOffset;
+@property(weak, nonatomic) IBOutlet UIImageView * nextTurnImageView;
+@property(weak, nonatomic) IBOutlet UILabel * roundTurnLabel;
+@property(weak, nonatomic) IBOutlet UILabel * distanceToNextTurnLabel;
+@property(weak, nonatomic) IBOutlet UIView * secondTurnView;
+@property(weak, nonatomic) IBOutlet UIImageView * secondTurnImageView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsWidth;
 
-@property(weak, nonatomic) IBOutlet UIView *searchButtonsView;
-@property(weak, nonatomic) IBOutlet MWMButton *searchMainButton;
-@property(weak, nonatomic) IBOutlet MWMButton *bookmarksButton;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *searchButtonsViewHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *searchButtonsViewWidth;
-@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *searchLandscapeConstraints;
-@property(nonatomic) IBOutletCollection(UIButton) NSArray *searchButtons;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *searchButtonsSideSize;
-@property(weak, nonatomic) IBOutlet MWMButton *searchGasButton;
-@property(weak, nonatomic) IBOutlet MWMButton *searchParkingButton;
-@property(weak, nonatomic) IBOutlet MWMButton *searchEatButton;
-@property(weak, nonatomic) IBOutlet MWMButton *searchFoodButton;
-@property(weak, nonatomic) IBOutlet MWMButton *searchATMButton;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *turnsTopOffset;
+@property(weak, nonatomic) IBOutlet UIView * searchButtonsView;
+@property(weak, nonatomic) IBOutlet MWMButton * searchMainButton;
+@property(weak, nonatomic) IBOutlet MWMButton * bookmarksButton;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewHeight;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsViewWidth;
+@property(nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray * searchLandscapeConstraints;
+@property(nonatomic) IBOutletCollection(UIButton) NSArray * searchButtons;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * searchButtonsSideSize;
+@property(weak, nonatomic) IBOutlet MWMButton * searchGasButton;
+@property(weak, nonatomic) IBOutlet MWMButton * searchParkingButton;
+@property(weak, nonatomic) IBOutlet MWMButton * searchEatButton;
+@property(weak, nonatomic) IBOutlet MWMButton * searchFoodButton;
+@property(weak, nonatomic) IBOutlet MWMButton * searchATMButton;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * turnsTopOffset;
 
-@property(weak, nonatomic) IBOutlet MWMNavigationAddPointToastView *toastView;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint *toastViewHideOffset;
+@property(weak, nonatomic) IBOutlet MWMNavigationAddPointToastView * toastView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * toastViewHideOffset;
 
 @property(nonatomic, readwrite) NavigationSearchState searchState;
 @property(nonatomic) BOOL isVisible;
 
-@property(weak, nonatomic) MWMNavigationDashboardEntity *navigationInfo;
+@property(weak, nonatomic) MWMNavigationDashboardEntity * navigationInfo;
 
 @property(nonatomic) BOOL hasLocation;
 
-@property(nonatomic) NSLayoutConstraint *topConstraint;
-@property(nonatomic) NSLayoutConstraint *leftConstraint;
-@property(nonatomic) NSLayoutConstraint *widthConstraint;
-@property(nonatomic) NSLayoutConstraint *heightConstraint;
+@property(nonatomic) NSLayoutConstraint * topConstraint;
+@property(nonatomic) NSLayoutConstraint * leftConstraint;
+@property(nonatomic) NSLayoutConstraint * widthConstraint;
+@property(nonatomic) NSLayoutConstraint * heightConstraint;
 
 @end
 
 @implementation MWMNavigationInfoView
 
-- (void)updateToastView {
+- (void)updateToastView
+{
   // -S-F-L -> Start
   // -S-F+L -> Finish
   // -S+F-L -> Start
@@ -114,7 +118,8 @@ BOOL defaultOrientation(CGSize const &size) {
   BOOL const hasFinish = ([MWMRouter finishPoint] != nil);
   self.hasLocation = ([MWMLocationManager lastLocation] != nil);
 
-  if (hasStart && hasFinish) {
+  if (hasStart && hasFinish)
+  {
     [self setToastViewHidden:YES];
     return;
   }
@@ -123,12 +128,14 @@ BOOL defaultOrientation(CGSize const &size) {
 
   auto toastView = self.toastView;
 
-  if (hasStart) {
+  if (hasStart)
+  {
     [toastView configWithIsStart:NO withLocationButton:NO];
     return;
   }
 
-  if (hasFinish) {
+  if (hasFinish)
+  {
     [toastView configWithIsStart:YES withLocationButton:self.hasLocation];
     return;
   }
@@ -139,19 +146,22 @@ BOOL defaultOrientation(CGSize const &size) {
     [toastView configWithIsStart:YES withLocationButton:NO];
 }
 
-- (SearchOnMapManager *)searchManager {
+- (SearchOnMapManager *)searchManager
+{
   return [MapViewController sharedController].searchManager;
 }
 
-- (IBAction)openSearch {
+- (IBAction)openSearch
+{
   BOOL const isStart = self.toastView.isStart;
 
-  [self.searchManager setRoutingTooltip:
-    isStart ? SearchOnMapRoutingTooltipSearchStart : SearchOnMapRoutingTooltipSearchFinish ];
+  [self.searchManager
+      setRoutingTooltip:isStart ? SearchOnMapRoutingTooltipSearchStart : SearchOnMapRoutingTooltipSearchFinish];
   [self.searchManager startSearchingWithIsRouting:YES];
 }
 
-- (IBAction)addLocationRoutePoint {
+- (IBAction)addLocationRoutePoint
+{
   NSAssert(![MWMRouter startPoint], @"Action button is active while start point is available");
   NSAssert([MWMLocationManager lastLocation], @"Action button is active while my location is not available");
 
@@ -162,18 +172,19 @@ BOOL defaultOrientation(CGSize const &size) {
 
 #pragma mark - Search
 
-- (IBAction)searchMainButtonTouchUpInside {
-  switch (self.searchState) {
+- (IBAction)searchMainButtonTouchUpInside
+{
+  switch (self.searchState)
+  {
     case NavigationSearchState::Maximized:
       [self.searchManager startSearchingWithIsRouting:YES];
       [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
       break;
     case NavigationSearchState::MinimizedNormal:
-      if (self.state == MWMNavigationInfoViewStatePrepare) {
+      if (self.state == MWMNavigationInfoViewStatePrepare)
         [self.searchManager startSearchingWithIsRouting:YES];
-      } else {
+      else
         [self setSearchState:NavigationSearchState::Maximized animated:YES];
-      }
       break;
     case NavigationSearchState::MinimizedSearch:
     case NavigationSearchState::MinimizedGas:
@@ -188,7 +199,8 @@ BOOL defaultOrientation(CGSize const &size) {
   }
 }
 
-- (IBAction)searchButtonTouchUpInside:(MWMButton *)sender {
+- (IBAction)searchButtonTouchUpInside:(MWMButton *)sender
+{
   auto const body = ^(NavigationSearchState state) {
     NSString * text = [kSearchButtonRequest.at(state) stringByAppendingString:@" "];
     NSString * locale = [[AppInfo sharedInfo] languageId];
@@ -210,78 +222,99 @@ BOOL defaultOrientation(CGSize const &size) {
     body(NavigationSearchState::MinimizedATM);
 }
 
-- (IBAction)bookmarksButtonTouchUpInside {
+- (IBAction)bookmarksButtonTouchUpInside
+{
   [[MapViewController sharedController].bookmarksCoordinator open];
 }
 
-- (void)collapseSearchOnTimer {
+- (void)collapseSearchOnTimer
+{
   [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
 }
 
-- (void)layoutSearch {
+- (void)layoutSearch
+{
   BOOL const defaultView = defaultOrientation(self.availableArea.size);
   CGFloat alpha = 0;
   CGFloat searchButtonsSideSize = 0;
   self.searchButtonsViewWidth.constant = 0;
   self.searchButtonsViewHeight.constant = 0;
-  if (self.searchState == NavigationSearchState::Maximized) {
+  if (self.searchState == NavigationSearchState::Maximized)
+  {
     alpha = 1;
     searchButtonsSideSize = kSearchButtonsSideSize;
     self.searchButtonsViewWidth.constant =
-      defaultView ? kSearchButtonsViewWidthPortrait : kSearchButtonsViewWidthLandscape;
+        defaultView ? kSearchButtonsViewWidthPortrait : kSearchButtonsViewWidthLandscape;
     self.searchButtonsViewHeight.constant =
-      defaultView ? kSearchButtonsViewHeightPortrait : kSearchButtonsViewHeightLandscape;
+        defaultView ? kSearchButtonsViewHeightPortrait : kSearchButtonsViewHeightLandscape;
   }
-  for (UIButton *searchButton in self.searchButtons)
+  for (UIButton * searchButton in self.searchButtons)
     searchButton.alpha = alpha;
   UILayoutPriority const priority = (defaultView ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh);
-  for (NSLayoutConstraint *constraint in self.searchLandscapeConstraints)
+  for (NSLayoutConstraint * constraint in self.searchLandscapeConstraints)
     constraint.priority = priority;
   self.searchButtonsSideSize.constant = searchButtonsSideSize;
 }
 
 #pragma mark - MWMNavigationDashboardManager
 
-- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info {
+- (void)onNavigationInfoUpdated:(MWMNavigationDashboardEntity *)info
+{
   self.navigationInfo = info;
   if (self.state != MWMNavigationInfoViewStateNavigation)
     return;
-  if (info.streetName.length != 0) {
+  if (info.streetName.length != 0)
+  {
     [self setStreetNameVisible:YES];
     self.streetNameLabel.text = info.streetName;
-  } else {
+  }
+  else
+  {
     [self setStreetNameVisible:NO];
   }
-  if (info.turnImage) {
+  if (info.turnImage)
+  {
     [self setTurnsViewVisible:YES];
     self.nextTurnImageView.image = info.turnImage;
 
-    if (info.roundExitNumber == 0) {
+    if (info.roundExitNumber == 0)
+    {
       self.roundTurnLabel.hidden = YES;
-    } else {
+    }
+    else
+    {
       self.roundTurnLabel.hidden = NO;
       self.roundTurnLabel.text = @(info.roundExitNumber).stringValue;
     }
 
-    NSDictionary *turnNumberAttributes =
-      @{NSForegroundColorAttributeName: [UIColor white], NSFontAttributeName: IPAD ? [UIFont bold36] : [UIFont bold28]};
-    NSDictionary *turnLegendAttributes =
-      @{NSForegroundColorAttributeName: [UIColor white], NSFontAttributeName: IPAD ? [UIFont bold24] : [UIFont bold16]};
+    NSDictionary * turnNumberAttributes = @{
+      NSForegroundColorAttributeName: [UIColor white],
+      NSFontAttributeName: IPAD ? [UIFont bold36] : [UIFont bold28]
+    };
+    NSDictionary * turnLegendAttributes = @{
+      NSForegroundColorAttributeName: [UIColor white],
+      NSFontAttributeName: IPAD ? [UIFont bold24] : [UIFont bold16]
+    };
 
-    NSMutableAttributedString *distance = [[NSMutableAttributedString alloc] initWithString:info.distanceToTurn
-                                                                                 attributes:turnNumberAttributes];
+    NSMutableAttributedString * distance = [[NSMutableAttributedString alloc] initWithString:info.distanceToTurn
+                                                                                  attributes:turnNumberAttributes];
     [distance appendAttributedString:[[NSAttributedString alloc]
-                                       initWithString:[NSString stringWithFormat:@" %@", info.turnUnits]
-                                           attributes:turnLegendAttributes]];
+                                         initWithString:[NSString stringWithFormat:@" %@", info.turnUnits]
+                                             attributes:turnLegendAttributes]];
 
     self.distanceToNextTurnLabel.attributedText = distance;
-    if (info.nextTurnImage) {
+    if (info.nextTurnImage)
+    {
       self.secondTurnView.hidden = NO;
       self.secondTurnImageView.image = info.nextTurnImage;
-    } else {
+    }
+    else
+    {
       self.secondTurnView.hidden = YES;
     }
-  } else {
+  }
+  else
+  {
     [self setTurnsViewVisible:NO];
   }
   [self setNeedsLayout];
@@ -289,7 +322,8 @@ BOOL defaultOrientation(CGSize const &size) {
 
 #pragma mark - MWMLocationObserver
 
-- (void)onLocationUpdate:(CLLocation *)location {
+- (void)onLocationUpdate:(CLLocation *)location
+{
   BOOL const hasLocation = ([MWMLocationManager lastLocation] != nil);
   if (self.hasLocation != hasLocation)
     [self updateToastView];
@@ -297,34 +331,39 @@ BOOL defaultOrientation(CGSize const &size) {
 
 #pragma mark - SolidTouchView
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
   if (self.searchState == NavigationSearchState::Maximized)
     return;
   [super touchesBegan:touches withEvent:event];
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
   if (self.searchState == NavigationSearchState::Maximized)
     return;
   [super touchesMoved:touches withEvent:event];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
   if (self.searchState == NavigationSearchState::Maximized)
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
   else
     [super touchesEnded:touches withEvent:event];
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
   if (self.searchState == NavigationSearchState::Maximized)
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:YES];
   else
     [super touchesCancelled:touches withEvent:event];
 }
 
-- (void)configLayout {
-  UIView *ov = self.superview;
+- (void)configLayout
+{
+  UIView * ov = self.superview;
   self.translatesAutoresizingMaskIntoConstraints = NO;
 
   self.topConstraint = [self.topAnchor constraintEqualToAnchor:ov.topAnchor];
@@ -339,11 +378,14 @@ BOOL defaultOrientation(CGSize const &size) {
 }
 
 // Additional spacing for devices with a small top safe area (such as SE or when the device is in landscape mode).
-- (CGFloat)additionalStreetNameTopOffset {
-  return MapsAppDelegate.theApp.window.safeAreaInsets.top <= 20 ? 10 : 0;;
+- (CGFloat)additionalStreetNameTopOffset
+{
+  return MapsAppDelegate.theApp.window.safeAreaInsets.top <= 20 ? 10 : 0;
+  ;
 }
 
-- (void)refreshLayout {
+- (void)refreshLayout
+{
   dispatch_async(dispatch_get_main_queue(), ^{
     if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
       self.streetNameLabel.numberOfLines = 1;
@@ -360,12 +402,11 @@ BOOL defaultOrientation(CGSize const &size) {
       [self layoutSearch];
       self.turnsTopOffset.constant = availableArea.origin.y > 0 ? kShiftedTurnsTopOffset : kBaseTurnsTopOffset;
       self.searchButtonsView.layer.cornerRadius =
-        (defaultOrientation(availableArea.size) ? kSearchButtonsViewHeightPortrait
-                                                : kSearchButtonsViewHeightLandscape) /
-        2;
-      if (@available(iOS 13.0, *)) {
+          (defaultOrientation(availableArea.size) ? kSearchButtonsViewHeightPortrait
+                                                  : kSearchButtonsViewHeightLandscape) /
+          2;
+      if (@available(iOS 13.0, *))
         self.searchButtonsView.layer.cornerCurve = kCACornerCurveContinuous;
-      }
       self.streetNameTopOffsetConstraint.constant = self.additionalStreetNameTopOffset;
     }];
   });
@@ -373,45 +414,56 @@ BOOL defaultOrientation(CGSize const &size) {
 
 #pragma mark - Properties
 
-- (void)setAvailableArea:(CGRect)availableArea {
+- (void)setAvailableArea:(CGRect)availableArea
+{
   if (CGRectEqualToRect(_availableArea, availableArea))
     return;
   _availableArea = availableArea;
   [self refreshLayout];
 }
 
-- (void)setSearchState:(NavigationSearchState)searchState animated:(BOOL)animated {
+- (void)setSearchState:(NavigationSearchState)searchState animated:(BOOL)animated
+{
   self.searchState = searchState;
   auto block = ^{
     [self layoutSearch];
     [self layoutIfNeeded];
   };
-  if (animated) {
+  if (animated)
+  {
     [self layoutIfNeeded];
     [UIView animateWithDuration:kDefaultAnimationDuration animations:block];
-  } else {
+  }
+  else
+  {
     block();
   }
   SEL const collapseSelector = @selector(collapseSearchOnTimer);
   [NSObject cancelPreviousPerformRequestsWithTarget:self selector:collapseSelector object:self];
-  if (self.searchState == NavigationSearchState::Maximized) {
+  if (self.searchState == NavigationSearchState::Maximized)
+  {
     [self.superview bringSubviewToFront:self];
     [self performSelector:collapseSelector withObject:self afterDelay:kCollapseSearchTimeout];
-  } else {
+  }
+  else
+  {
     [self.superview sendSubviewToBack:self];
   }
 }
 
-- (void)setSearchState:(NavigationSearchState)searchState {
+- (void)setSearchState:(NavigationSearchState)searchState
+{
   _searchState = searchState;
   self.searchMainButton.imageName = kSearchStateButtonImageNames.at(searchState);
 }
 
-- (void)setState:(MWMNavigationInfoViewState)state {
+- (void)setState:(MWMNavigationInfoViewState)state
+{
   if (_state == state)
     return;
   _state = state;
-  switch (state) {
+  switch (state)
+  {
     case MWMNavigationInfoViewStateHidden:
       self.isVisible = NO;
       [self setToastViewHidden:YES];
@@ -433,25 +485,29 @@ BOOL defaultOrientation(CGSize const &size) {
   }
 }
 
-- (void)setStreetNameVisible:(BOOL)isVisible {
+- (void)setStreetNameVisible:(BOOL)isVisible
+{
   self.streetNameView.hidden = !isVisible;
   self.streetNameViewHideOffset.priority = isVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 }
 
-- (void)setTurnsViewVisible:(BOOL)isVisible {
+- (void)setTurnsViewVisible:(BOOL)isVisible
+{
   self.turnsView.hidden = !isVisible;
   self.turnsViewHideOffset.priority = isVisible ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 }
 
-- (void)setIsVisible:(BOOL)isVisible {
+- (void)setIsVisible:(BOOL)isVisible
+{
   if (_isVisible == isVisible)
     return;
   _isVisible = isVisible;
   [self setNeedsLayout];
-  if (isVisible) {
+  if (isVisible)
+  {
     [self setSearchState:NavigationSearchState::MinimizedNormal animated:NO];
     self.turnsWidth.constant = IPAD ? kTurnsiPadWidth : kTurnsiPhoneWidth;
-    UIView *sv = self.ownerView;
+    UIView * sv = self.ownerView;
     NSAssert(sv != nil, @"Superview can't be nil");
     if ([sv.subviews containsObject:self])
       return;
@@ -459,32 +515,30 @@ BOOL defaultOrientation(CGSize const &size) {
     [self configLayout];
   }
   [UIView animateWithDuration:kDefaultAnimationDuration
-    animations:^{
-      [self layoutIfNeeded];
-    }
-    completion:^(BOOL finished) {
-      if (!isVisible)
-        [self removeFromSuperview];
-    }];
+      animations:^{ [self layoutIfNeeded]; }
+      completion:^(BOOL finished) {
+        if (!isVisible)
+          [self removeFromSuperview];
+      }];
 }
 
-- (void)setToastViewHidden:(BOOL)hidden {
+- (void)setToastViewHidden:(BOOL)hidden
+{
   if (!hidden)
     self.toastView.hidden = NO;
   [self setNeedsLayout];
   self.toastViewHideOffset.priority = (hidden ? UILayoutPriorityDefaultHigh : UILayoutPriorityDefaultLow);
   [UIView animateWithDuration:kDefaultAnimationDuration
-    animations:^{
-      [self layoutIfNeeded];
-    }
-    completion:^(BOOL finished) {
-      if (hidden)
-        self.toastView.hidden = YES;
-    }];
+      animations:^{ [self layoutIfNeeded]; }
+      completion:^(BOOL finished) {
+        if (hidden)
+          self.toastView.hidden = YES;
+      }];
 }
 
 // MARK: Update Theme
-- (void)applyTheme {
+- (void)applyTheme
+{
   [self setSearchState:_searchState];
 }
 @end

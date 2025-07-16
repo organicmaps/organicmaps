@@ -1,5 +1,5 @@
-#import "MWMMyPositionMode.h"
 #import "MWMLocationObserver.h"
+#import "MWMMyPositionMode.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_SWIFT_NAME(LocationManager)
-@interface MWMLocationManager : NSObject<LocationService>
+@interface MWMLocationManager : NSObject <LocationService>
 
 + (void)start;
 + (void)stop;
@@ -33,9 +33,8 @@ NS_SWIFT_NAME(LocationManager)
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
-    __attribute__((unavailable("call +manager instead")));
-+ (instancetype) new __attribute__((unavailable("call +manager instead")));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +manager instead")));
++ (instancetype)new __attribute__((unavailable("call +manager instead")));
 
 @end
 

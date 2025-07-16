@@ -9,14 +9,17 @@ namespace base
 
 /// Consider using as a replacement of unordered_map (map) when:
 /// - very small amount of elements (<8)
-template <class Key, class Value> class SmallMapBase
+template <class Key, class Value>
+class SmallMapBase
 {
 public:
   using ValueType = std::pair<Key, Value>;
 
   SmallMapBase() = default;
   SmallMapBase(std::initializer_list<ValueType> init) : m_map(std::move(init)) {}
-  template <class Iter> SmallMapBase(Iter beg, Iter end) : m_map(beg, end) {}
+  template <class Iter>
+  SmallMapBase(Iter beg, Iter end) : m_map(beg, end)
+  {}
 
   bool operator==(SmallMapBase const & rhs) const { return m_map == rhs.m_map; }
 
@@ -26,10 +29,8 @@ public:
   Value const * Find(Key const & k) const
   {
     for (auto const & e : m_map)
-    {
       if (e.first == k)
         return &e.second;
-    }
     return nullptr;
   }
 
@@ -43,7 +44,8 @@ protected:
 /// Consider using as a replacement of unordered_map (map) when:
 /// - initialize and don't modify
 /// - relatively small amount of elements (8-128)
-template <class Key, class Value> class SmallMap : public SmallMapBase<Key, Value>
+template <class Key, class Value>
+class SmallMap : public SmallMapBase<Key, Value>
 {
   using BaseT = SmallMapBase<Key, Value>;
 
@@ -51,13 +53,9 @@ public:
   using ValueType = typename BaseT::ValueType;
 
   SmallMap() = default;
-  SmallMap(std::initializer_list<ValueType> init)
-    : BaseT(std::move(init))
-  {
-    FinishBuilding();
-  }
-  template <class Iter> SmallMap(Iter beg, Iter end)
-    : BaseT(beg, end)
+  SmallMap(std::initializer_list<ValueType> init) : BaseT(std::move(init)) { FinishBuilding(); }
+  template <class Iter>
+  SmallMap(Iter beg, Iter end) : BaseT(beg, end)
   {
     FinishBuilding();
   }
@@ -65,20 +63,14 @@ public:
   void FinishBuilding()
   {
     auto & theMap = this->m_map;
-    std::sort(theMap.begin(), theMap.end(), [](ValueType const & l, ValueType const & r)
-    {
-      return l.first < r.first;
-    });
+    std::sort(theMap.begin(), theMap.end(), [](ValueType const & l, ValueType const & r) { return l.first < r.first; });
   }
 
   Value const * Find(Key const & k) const
   {
     auto const & theMap = this->m_map;
     auto const it = std::lower_bound(theMap.cbegin(), theMap.cend(), k,
-                                     [](ValueType const & l, Key const & r)
-    {
-      return l.first < r;
-    });
+                                     [](ValueType const & l, Key const & r) { return l.first < r; });
 
     if (it != theMap.cend() && it->first == k)
       return &(it->second);
@@ -89,10 +81,7 @@ public:
   {
     auto & theMap = this->m_map;
     auto it = std::lower_bound(theMap.begin(), theMap.end(), k,
-                               [](ValueType const & l, Key const & r)
-    {
-      return l.first < r;
-    });
+                               [](ValueType const & l, Key const & r) { return l.first < r; });
 
     ASSERT(it != theMap.end() && it->first == k, ());
     it->second = std::move(v);
@@ -106,4 +95,4 @@ public:
   }
 };
 
-} // namespace base
+}  // namespace base

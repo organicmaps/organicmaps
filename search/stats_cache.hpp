@@ -18,14 +18,11 @@ class Cache
   size_t m_accesses;
   size_t m_misses;
 
-  size_t m_emptyQueriesCount;       /// empty queries count at a row
-  std::string m_name;               /// cache name for print functions
+  size_t m_emptyQueriesCount;  /// empty queries count at a row
+  std::string m_name;          /// cache name for print functions
 
 public:
-  explicit Cache(std::string const & name)
-    : m_accesses(0), m_misses(0), m_emptyQueriesCount(0), m_name(name)
-  {
-  }
+  explicit Cache(std::string const & name) : m_accesses(0), m_misses(0), m_emptyQueriesCount(0), m_name(name) {}
 
   std::pair<Value &, bool> Get(Key const & key)
   {
@@ -50,8 +47,8 @@ public:
   {
     if (m_accesses != 0)
     {
-      LOG(LDEBUG, ("Cache", m_name, "Queries =", m_accesses, "From cache =", m_accesses - m_misses,
-                   "Added =", m_misses));
+      LOG(LDEBUG,
+          ("Cache", m_name, "Queries =", m_accesses, "From cache =", m_accesses - m_misses, "Added =", m_misses));
       m_accesses = m_misses = 0;
       m_emptyQueriesCount = 0;
     }

@@ -10,4 +10,4 @@ class CountryInfoGetter;
 
 std::unique_ptr<CountryInfoGetter> CreateCountryInfoGetter();
 
-} // namespace storage
+}  // namespace storage

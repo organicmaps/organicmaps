@@ -18,10 +18,7 @@ struct DrapeApiLineData
 {
   DrapeApiLineData() = default;
 
-  DrapeApiLineData(std::vector<m2::PointD> const & points,
-                   dp::Color const & color)
-    : m_points(points)
-    , m_color(color)
+  DrapeApiLineData(std::vector<m2::PointD> const & points, dp::Color const & color) : m_points(points), m_color(color)
   {}
 
   DrapeApiLineData & ShowPoints(bool markPoints)

@@ -91,11 +91,11 @@ struct ScopedLogAbortLevelChanger
 };
 }  // namespace base
 
+using base::LCRITICAL;
 using base::LDEBUG;
+using base::LERROR;
 using base::LINFO;
 using base::LWARNING;
-using base::LERROR;
-using base::LCRITICAL;
 using base::NUM_LOG_LEVELS;
 
 // Logging macro.
@@ -105,7 +105,8 @@ using base::NUM_LOG_LEVELS;
   {                                                          \
     if ((level) >= ::base::g_LogLevel)                       \
       ::base::LogMessage(level, SRC(), ::base::Message msg); \
-  } while (false)
+  }                                                          \
+  while (false)
 
 // Logging macro with short info (without entry point)
 #define LOG_SHORT(level, msg)                                           \
@@ -113,14 +114,16 @@ using base::NUM_LOG_LEVELS;
   {                                                                     \
     if ((level) >= ::base::g_LogLevel)                                  \
       ::base::LogMessage(level, base::SrcPoint(), ::base::Message msg); \
-  } while (false)
+  }                                                                     \
+  while (false)
 
 // Provides logging despite of |g_LogLevel|.
-#define LOG_FORCE(level, msg)                                         \
-  do                                                                  \
-  {                                                                   \
-    ::base::LogMessage(level, SRC(), ::base::Message msg);            \
-  } while (false)                                                     \
+#define LOG_FORCE(level, msg)                              \
+  do                                                       \
+  {                                                        \
+    ::base::LogMessage(level, SRC(), ::base::Message msg); \
+  }                                                        \
+  while (false)
 
 // Conditional log. Logs @msg with level @level in case when @X returns false.
 #define CLOG(level, X, msg)                                     \
@@ -128,4 +131,5 @@ using base::NUM_LOG_LEVELS;
   {                                                             \
     if (!(X))                                                   \
       LOG(level, (SRC(), "CLOG(" #X ")", ::base::Message msg)); \
-  } while (false)
+  }                                                             \
+  while (false)

@@ -67,7 +67,9 @@ struct FontDecl
 {
   FontDecl() = default;
   FontDecl(Color const & color, float size, Color const & outlineColor = Color::Transparent())
-    : m_color(color), m_outlineColor(outlineColor), m_size(size)
+    : m_color(color)
+    , m_outlineColor(outlineColor)
+    , m_size(size)
   {}
 
   Color m_color = Color::Transparent();
@@ -100,11 +102,11 @@ inline std::string DebugPrint(dp::ApiVersion apiVersion)
 {
   switch (apiVersion)
   {
-  case dp::ApiVersion::Invalid: return "Invalid";
-  case dp::ApiVersion::OpenGLES2: return "OpenGLES2";
-  case dp::ApiVersion::OpenGLES3: return "OpenGLES3";
-  case dp::ApiVersion::Metal: return "Metal";
-  case dp::ApiVersion::Vulkan: return "Vulkan";
+    case dp::ApiVersion::Invalid: return "Invalid";
+    case dp::ApiVersion::OpenGLES2: return "OpenGLES2";
+    case dp::ApiVersion::OpenGLES3: return "OpenGLES3";
+    case dp::ApiVersion::Metal: return "Metal";
+    case dp::ApiVersion::Vulkan: return "Vulkan";
   }
   return "Unknown";
 }
@@ -140,8 +142,6 @@ inline dp::ApiVersion ApiVersionFromString(std::string const & str)
 
 class GraphicsContext;
 class TextureManager;
-using RenderInjectionHandler = std::function<void(ref_ptr<dp::GraphicsContext>, 
-                                                  ref_ptr<TextureManager>, 
-                                                  ref_ptr<gpu::ProgramManager>,
-                                                  bool shutdown)>;
+using RenderInjectionHandler = std::function<void(ref_ptr<dp::GraphicsContext>, ref_ptr<TextureManager>,
+                                                  ref_ptr<gpu::ProgramManager>, bool shutdown)>;
 }  // namespace dp

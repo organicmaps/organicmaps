@@ -24,7 +24,7 @@ struct FeaturesLayer
   // Non-owning ptr to a sorted vector of features.
   std::vector<uint32_t> const * m_sortedFeatures = nullptr;
   // Fetch vector of Features, described by this layer (used for CITY, SUBURB).
-  std::function<CBV ()> m_getFeatures;
+  std::function<CBV()> m_getFeatures;
 
   strings::UniString m_subQuery;
   TokenRange m_tokenRange;

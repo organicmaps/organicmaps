@@ -29,11 +29,10 @@ public:
   // the sample result number i.
   // actualMatching[j] is the index of the sample in |golden| that matches
   // the golden result number j.
-  void Match(Sample const & goldenSample, std::vector<Result> const & actual,
-             std::vector<size_t> & goldenMatching, std::vector<size_t> & actualMatching);
+  void Match(Sample const & goldenSample, std::vector<Result> const & actual, std::vector<size_t> & goldenMatching,
+             std::vector<size_t> & actualMatching);
 
-  bool Matches(strings::UniString const & query, Sample::Result const & golden,
-               Result const & actual);
+  bool Matches(strings::UniString const & query, Sample::Result const & golden, Result const & actual);
   bool Matches(strings::UniString const & query, Sample::Result const & golden, FeatureType & ft);
 
 private:

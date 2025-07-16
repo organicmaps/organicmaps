@@ -18,18 +18,13 @@
   self.title = L(@"mobile_data");
 
   SettingsTableViewSelectableCell * selected;
-  switch ([MWMNetworkPolicy sharedPolicy].permission) {
-    case MWMNetworkPolicyPermissionAlways:
-      selected = self.always;
-      break;
-    case MWMNetworkPolicyPermissionNever:
-      selected = self.never;
-      break;
+  switch ([MWMNetworkPolicy sharedPolicy].permission)
+  {
+    case MWMNetworkPolicyPermissionAlways: selected = self.always; break;
+    case MWMNetworkPolicyPermissionNever: selected = self.never; break;
     case MWMNetworkPolicyPermissionToday:
     case MWMNetworkPolicyPermissionNotToday:
-    case MWMNetworkPolicyPermissionAsk:
-      selected = self.ask;
-      break;
+    case MWMNetworkPolicyPermissionAsk: selected = self.ask; break;
   }
   selected.accessoryType = UITableViewCellAccessoryCheckmark;
   self.selected = selected;

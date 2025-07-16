@@ -36,19 +36,23 @@ StopId constexpr kInvalidStopId = std::numeric_limits<StopId>::max();
 TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max();
 Weight constexpr kInvalidWeight = std::numeric_limits<Weight>::max();
 
-#define DECLARE_TRANSIT_TYPE_FRIENDS                                                  \
-  template <class Sink> friend class Serializer;                                      \
-  template <class Source> friend class Deserializer;                                  \
-  friend class DeserializerFromJson;                                                  \
-  template <typename Sink> friend class FixedSizeSerializer;                          \
-  template <typename Sink> friend class FixedSizeDeserializer;                        \
+#define DECLARE_TRANSIT_TYPE_FRIENDS  \
+  template <class Sink>               \
+  friend class Serializer;            \
+  template <class Source>             \
+  friend class Deserializer;          \
+  friend class DeserializerFromJson;  \
+  template <typename Sink>            \
+  friend class FixedSizeSerializer;   \
+  template <typename Sink>            \
+  friend class FixedSizeDeserializer;
 
 struct TransitHeader
 {
   TransitHeader() { Reset(); }
   TransitHeader(uint16_t version, uint32_t stopsOffset, uint32_t gatesOffset, uint32_t edgesOffset,
-                uint32_t transfersOffset, uint32_t linesOffset, uint32_t shapesOffset,
-                uint32_t networksOffset, uint32_t endOffset);
+                uint32_t transfersOffset, uint32_t linesOffset, uint32_t shapesOffset, uint32_t networksOffset,
+                uint32_t endOffset);
 
   void Reset();
   bool IsEqualForTesting(TransitHeader const & header) const;
@@ -56,12 +60,11 @@ struct TransitHeader
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(
-      TransitHeader, visitor(m_version, "version"), visitor(m_reserve, "reserve"),
-      visitor(m_stopsOffset, "stops"), visitor(m_gatesOffset, "gatesOffset"),
-      visitor(m_edgesOffset, "edgesOffset"), visitor(m_transfersOffset, "transfersOffset"),
-      visitor(m_linesOffset, "linesOffset"), visitor(m_shapesOffset, "shapesOffset"),
-      visitor(m_networksOffset, "networksOffset"), visitor(m_endOffset, "endOffset"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TransitHeader, visitor(m_version, "version"), visitor(m_reserve, "reserve"),
+                                  visitor(m_stopsOffset, "stops"), visitor(m_gatesOffset, "gatesOffset"),
+                                  visitor(m_edgesOffset, "edgesOffset"), visitor(m_transfersOffset, "transfersOffset"),
+                                  visitor(m_linesOffset, "linesOffset"), visitor(m_shapesOffset, "shapesOffset"),
+                                  visitor(m_networksOffset, "networksOffset"), visitor(m_endOffset, "endOffset"))
 
 public:
   uint16_t m_version;
@@ -98,8 +101,7 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FeatureIdentifiers, visitor(m_osmId, "osm_id"),
-                                  visitor(m_featureId, "feature_id"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FeatureIdentifiers, visitor(m_osmId, "osm_id"), visitor(m_featureId, "feature_id"))
 
   OsmId m_osmId = kInvalidOsmId;
   FeatureId m_featureId = kInvalidFeatureId;
@@ -121,8 +123,7 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(TitleAnchor, visitor(m_minZoom, "min_zoom"),
-                                  visitor(m_anchor, "anchor"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TitleAnchor, visitor(m_minZoom, "min_zoom"), visitor(m_anchor, "anchor"))
 
   uint8_t m_minZoom = scales::UPPER_STYLE_SCALE;
   Anchor m_anchor = kInvalidAnchor;
@@ -133,10 +134,9 @@ class Stop
 public:
   NEWTYPE(StopId, WrappedStopId);
 
-  Stop() : m_featureIdentifiers(true /* serializeFeatureIdOnly */){};
-  Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId,
-       std::vector<LineId> const & lineIds, m2::PointD const & point,
-       std::vector<TitleAnchor> const & titleAnchors);
+  Stop() : m_featureIdentifiers(true /* serializeFeatureIdOnly */) {};
+  Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
+       m2::PointD const & point, std::vector<TitleAnchor> const & titleAnchors);
   explicit Stop(StopId id) : m_id(id), m_featureIdentifiers(true /* serializeFeatureIdOnly */) {}
 
   bool operator<(Stop const & rhs) const { return m_id < rhs.m_id; }
@@ -154,17 +154,15 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"),
-                                  visitor(m_featureIdentifiers, "osm_id"),
-                                  visitor(m_transferId, "transfer_id"),
-                                  visitor(m_lineIds, "line_ids"), visitor(m_point, "point"),
-                                  visitor(m_titleAnchors, "title_anchors"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Stop, visitor(m_id, "id"), visitor(m_featureIdentifiers, "osm_id"),
+                                  visitor(m_transferId, "transfer_id"), visitor(m_lineIds, "line_ids"),
+                                  visitor(m_point, "point"), visitor(m_titleAnchors, "title_anchors"))
 
   WrappedStopId m_id = WrappedStopId(kInvalidStopId);
   FeatureIdentifiers m_featureIdentifiers;
   TransferId m_transferId = kInvalidTransferId;
   std::vector<LineId> m_lineIds;
-  m2::PointD m_point {0.0, 0.0};
+  m2::PointD m_point{0.0, 0.0};
   std::vector<TitleAnchor> m_titleAnchors;
 };
 NEWTYPE_SIMPLE_OUTPUT(Stop::WrappedStopId)
@@ -184,8 +182,7 @@ public:
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(SingleMwmSegment, visitor(m_featureId, "feature_id"),
-                                  visitor(m_segmentIdx, "segment_idx"),
-                                  visitor(m_forward, "forward"))
+                                  visitor(m_segmentIdx, "segment_idx"), visitor(m_forward, "forward"))
 
   FeatureId m_featureId = kInvalidFeatureId;
   uint32_t m_segmentIdx = 0;
@@ -195,9 +192,9 @@ private:
 class Gate
 {
 public:
-  Gate() : m_featureIdentifiers(false /* serializeFeatureIdOnly */){};
-  Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, Weight weight,
-       std::vector<StopId> const & stopIds, m2::PointD const & point);
+  Gate() : m_featureIdentifiers(false /* serializeFeatureIdOnly */) {};
+  Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, Weight weight, std::vector<StopId> const & stopIds,
+       m2::PointD const & point);
 
   bool operator<(Gate const & rhs) const;
   bool operator==(Gate const & rhs) const;
@@ -218,9 +215,8 @@ private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Gate, visitor(m_featureIdentifiers, "osm_id"),
                                   visitor(m_bestPedestrianSegment, "best_pedestrian_segment"),
-                                  visitor(m_entrance, "entrance"), visitor(m_exit, "exit"),
-                                  visitor(m_weight, "weight"), visitor(m_stopIds, "stop_ids"),
-                                  visitor(m_point, "point"))
+                                  visitor(m_entrance, "entrance"), visitor(m_exit, "exit"), visitor(m_weight, "weight"),
+                                  visitor(m_stopIds, "stop_ids"), visitor(m_point, "point"))
 
   // |m_featureIdentifiers| contains feature id of a feature which represents gates. Usually it's a
   // point feature.
@@ -252,8 +248,7 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(ShapeId, visitor(m_stop1Id, "stop1_id"),
-                                  visitor(m_stop2Id, "stop2_id"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(ShapeId, visitor(m_stop1Id, "stop1_id"), visitor(m_stop2Id, "stop2_id"))
 
   StopId m_stop1Id = kInvalidStopId;
   StopId m_stop2Id = kInvalidStopId;
@@ -321,10 +316,9 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_stop1Id, "stop1_id"),
-                                  visitor(m_stop2Id, "stop2_id"), visitor(m_weight, "weight"),
-                                  visitor(m_lineId, "line_id"), visitor(m_flags, "transfer"),
-                                  visitor(m_shapeIds, "shape_ids"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Edge, visitor(m_stop1Id, "stop1_id"), visitor(m_stop2Id, "stop2_id"),
+                                  visitor(m_weight, "weight"), visitor(m_lineId, "line_id"),
+                                  visitor(m_flags, "transfer"), visitor(m_shapeIds, "shape_ids"))
 
   WrappedEdgeId m_stop1Id = WrappedEdgeId(kInvalidStopId);
   StopId m_stop2Id = kInvalidStopId;
@@ -355,8 +349,7 @@ public:
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
   DECLARE_VISITOR_AND_DEBUG_PRINT(Transfer, visitor(m_id, "id"), visitor(m_point, "point"),
-                                  visitor(m_stopIds, "stop_ids"),
-                                  visitor(m_titleAnchors, "title_anchors"))
+                                  visitor(m_stopIds, "stop_ids"), visitor(m_titleAnchors, "title_anchors"))
 
   StopId m_id = kInvalidStopId;
   m2::PointD m_point;
@@ -405,10 +398,10 @@ public:
 
 private:
   DECLARE_TRANSIT_TYPE_FRIENDS
-  DECLARE_VISITOR_AND_DEBUG_PRINT(Line, visitor(m_id, "id"), visitor(m_number, "number"),
-                                  visitor(m_title, "title"), visitor(m_type, "type"),
-                                  visitor(m_color, "color"), visitor(m_networkId, "network_id"),
-                                  visitor(m_stopIds, "stop_ids"), visitor(m_interval, "interval"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(Line, visitor(m_id, "id"), visitor(m_number, "number"), visitor(m_title, "title"),
+                                  visitor(m_type, "type"), visitor(m_color, "color"),
+                                  visitor(m_networkId, "network_id"), visitor(m_stopIds, "stop_ids"),
+                                  visitor(m_interval, "interval"))
 
   LineId m_id = kInvalidLineId;
   std::string m_number;
@@ -424,10 +417,7 @@ class Shape
 {
 public:
   Shape() = default;
-  Shape(ShapeId const & id, std::vector<m2::PointD> const & polyline)
-    : m_id(id), m_polyline(polyline)
-  {
-  }
+  Shape(ShapeId const & id, std::vector<m2::PointD> const & polyline) : m_id(id), m_polyline(polyline) {}
 
   bool operator<(Shape const & rhs) const { return m_id < rhs.m_id; }
   bool operator==(Shape const & rhs) const { return m_id == rhs.m_id; }
@@ -496,8 +486,7 @@ void CheckValidSortedUnique(std::vector<Item> const & items, std::string const &
   CheckUnique(items, name);
 }
 
-EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,
-                       std::vector<ShapeId> const & shapeIds);
+EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2, std::vector<ShapeId> const & shapeIds);
 
 #undef DECLARE_TRANSIT_TYPE_FRIENDS
 }  // namespace transit

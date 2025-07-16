@@ -23,26 +23,27 @@ struct GlyphMetrics
   int32_t m_yOffset;
   int32_t m_xAdvance;
   // yAdvance is used only in vertical text layouts and is 0 for horizontal texts.
-  int32_t m_yAdvance {0};
+  int32_t m_yAdvance{0};
 
-  bool operator==(GlyphMetrics const & other) const
-  {
-    return m_key == other.m_key;
-  }
+  bool operator==(GlyphMetrics const & other) const { return m_key == other.m_key; }
 };
 
 // TODO(AB): Move to a separate file?
 struct TextMetrics
 {
-  int32_t m_lineWidthInPixels {0};
-  int32_t m_maxLineHeightInPixels {0};
+  int32_t m_lineWidthInPixels{0};
+  int32_t m_maxLineHeightInPixels{0};
   std::vector<GlyphMetrics> m_glyphs;
   // Used for SplitText.
-  bool m_isRTL {false};
+  bool m_isRTL{false};
 
-  void AddGlyphMetrics(int16_t font, uint16_t glyphId, int32_t xOffset, int32_t yOffset, int32_t xAdvance, int32_t height)
+  void AddGlyphMetrics(int16_t font, uint16_t glyphId, int32_t xOffset, int32_t yOffset, int32_t xAdvance,
+                       int32_t height)
   {
-    m_glyphs.push_back({{font, glyphId}, xOffset, yOffset, xAdvance});
+    m_glyphs.push_back({
+        {font, glyphId},
+        xOffset, yOffset, xAdvance
+    });
 
     if (m_glyphs.size() == 1)
       xAdvance -= xOffset;

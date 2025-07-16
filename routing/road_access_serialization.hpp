@@ -37,9 +37,9 @@ public:
 
   enum class Header : uint32_t
   {
-    TheFirstVersionRoadAccess = 0, // Version of section roadaccess in 2017.
-    WithoutAccessConditional = 1,  // Section roadaccess before conditional was implemented.
-    WithAccessConditional = 2      // Section roadaccess with conditional.
+    TheFirstVersionRoadAccess = 0,  // Version of section roadaccess in 2017.
+    WithoutAccessConditional = 1,   // Section roadaccess before conditional was implemented.
+    WithAccessConditional = 2       // Section roadaccess with conditional.
   };
 
   RoadAccessSerializer() = delete;
@@ -60,21 +60,18 @@ public:
 
     switch (header)
     {
-    case Header::TheFirstVersionRoadAccess:
-      break; // Version of 2017. Unsupported.
-    case Header::WithoutAccessConditional:
-      DeserializeAccess(src, vehicleType, roadAccess);
-      break;
-    case Header::WithAccessConditional:
-      DeserializeAccess(src, vehicleType, roadAccess);
+      case Header::TheFirstVersionRoadAccess: break;  // Version of 2017. Unsupported.
+      case Header::WithoutAccessConditional: DeserializeAccess(src, vehicleType, roadAccess); break;
+      case Header::WithAccessConditional:
+        DeserializeAccess(src, vehicleType, roadAccess);
 
-      /// @todo By VNG: WTF?
-      // access:conditional should be switch off for release 10.0 and probably for the next one.
-      // It means that they should be switch off for cross_mwm section generation and for runtime.
-      // To switch on access:conditional the line below should be uncommented.
-      // Also tests in routing/routing_tests/road_access_test.cpp should be uncommented.
-      // DeserializeAccessConditional(src, vehicleType, roadAccess);
-      break;
+        /// @todo By VNG: WTF?
+        // access:conditional should be switch off for release 10.0 and probably for the next one.
+        // It means that they should be switch off for cross_mwm section generation and for runtime.
+        // To switch on access:conditional the line below should be uncommented.
+        // Also tests in routing/routing_tests/road_access_test.cpp should be uncommented.
+        // DeserializeAccessConditional(src, vehicleType, roadAccess);
+        break;
     }
   }
 
@@ -89,16 +86,10 @@ private:
       return {featureId, 0 /* wildcard pointId for way access */};
     }
 
-    static AccessPosition MakePointAccess(uint32_t featureId, uint32_t pointId)
-    {
-      return {featureId, pointId + 1};
-    }
+    static AccessPosition MakePointAccess(uint32_t featureId, uint32_t pointId) { return {featureId, pointId + 1}; }
 
     AccessPosition() = default;
-    AccessPosition(uint32_t featureId, uint32_t pointId)
-      : m_featureId(featureId), m_pointId(pointId)
-    {
-    }
+    AccessPosition(uint32_t featureId, uint32_t pointId) : m_featureId(featureId), m_pointId(pointId) {}
 
     bool operator<(AccessPosition const & rhs) const
     {
@@ -134,8 +125,7 @@ private:
     for (size_t i = 0; i < static_cast<size_t>(VehicleType::Count); ++i)
     {
       auto const pos = sink.Pos();
-      SerializeOneVehicleType(sink, roadAccessByType[i].GetWayToAccess(),
-                              roadAccessByType[i].GetPointToAccess());
+      SerializeOneVehicleType(sink, roadAccessByType[i].GetWayToAccess(), roadAccessByType[i].GetPointToAccess());
       sectionSizes[i] = base::checked_cast<uint32_t>(sink.Pos() - pos);
     }
 
@@ -177,8 +167,7 @@ private:
   }
 
   template <class Sink>
-  static void SerializeAccessConditional(Sink & sink,
-                                         RoadAccessByVehicleType const & roadAccessByType)
+  static void SerializeAccessConditional(Sink & sink, RoadAccessByVehicleType const & roadAccessByType)
   {
     auto const sectionSizesPos = sink.Pos();
     std::array<uint32_t, static_cast<size_t>(VehicleType::Count)> sectionSizes;
@@ -205,8 +194,7 @@ private:
   }
 
   template <class Source>
-  static void DeserializeAccessConditional(Source & src, VehicleType vehicleType,
-                                           RoadAccess & roadAccess)
+  static void DeserializeAccessConditional(Source & src, VehicleType vehicleType, RoadAccess & roadAccess)
   {
     std::array<uint32_t, static_cast<size_t>(VehicleType::Count)> sectionSizes{};
     static_assert(static_cast<int>(VehicleType::Count) == 4,
@@ -230,17 +218,14 @@ private:
       PointToAccessConditional pointToAccessConditional;
       DeserializeConditionalOneVehicleType(src, wayToAccessConditional, pointToAccessConditional);
 
-      roadAccess.SetAccessConditional(std::move(wayToAccessConditional),
-                                      std::move(pointToAccessConditional));
+      roadAccess.SetAccessConditional(std::move(wayToAccessConditional), std::move(pointToAccessConditional));
     }
   }
 
   template <typename Sink>
-  static void SerializeOneVehicleType(Sink & sink, WayToAccess const & wayToAccess,
-                                      PointToAccess const & pointToAccess)
+  static void SerializeOneVehicleType(Sink & sink, WayToAccess const & wayToAccess, PointToAccess const & pointToAccess)
   {
-    std::array<std::vector<Segment>, static_cast<size_t>(RoadAccess::Type::Count)>
-        segmentsByRoadAccessType;
+    std::array<std::vector<Segment>, static_cast<size_t>(RoadAccess::Type::Count)> segmentsByRoadAccessType;
     for (auto const & kv : wayToAccess)
     {
       segmentsByRoadAccessType[static_cast<size_t>(kv.second)].push_back(
@@ -263,8 +248,7 @@ private:
   }
 
   template <typename Source>
-  static void DeserializeOneVehicleType(Source & src, WayToAccess & wayToAccess,
-                                        PointToAccess & pointToAccess)
+  static void DeserializeOneVehicleType(Source & src, WayToAccess & wayToAccess, PointToAccess & pointToAccess)
   {
     wayToAccess.clear();
     pointToAccess.clear();
@@ -287,8 +271,7 @@ private:
         else
         {
           // For nodes we store |pointId + 1| because 0 is reserved for wildcard segmentIdx.
-          pointToAccess[RoadPoint(seg.GetFeatureId(), seg.GetSegmentIdx() - 1)] =
-              static_cast<RoadAccess::Type>(i);
+          pointToAccess[RoadPoint(seg.GetFeatureId(), seg.GetSegmentIdx() - 1)] = static_cast<RoadAccess::Type>(i);
         }
       }
     }
@@ -297,9 +280,8 @@ private:
   using PositionToAccessConditional = std::pair<AccessPosition, RoadAccess::Conditional::Access>;
 
   template <typename Sink>
-  static void SerializeConditionalOneVehicleType(
-      Sink & sink, WayToAccessConditional const & wayToAccessConditional,
-      PointToAccessConditional const & pointToAccessConditional)
+  static void SerializeConditionalOneVehicleType(Sink & sink, WayToAccessConditional const & wayToAccessConditional,
+                                                 PointToAccessConditional const & pointToAccessConditional)
   {
     auto constexpr kAccessTypesCount = static_cast<size_t>(RoadAccess::Type::Count);
     std::array<std::vector<PositionToAccessConditional>, kAccessTypesCount> positionsByAccessType;
@@ -314,8 +296,7 @@ private:
     // For nodes we store |pointId + 1| because 0 is reserved for wildcard segmentIdx.
     for (auto const & [roadPoint, conditional] : pointToAccessConditional)
     {
-      auto const position =
-          AccessPosition::MakePointAccess(roadPoint.GetFeatureId(), roadPoint.GetPointId());
+      auto const position = AccessPosition::MakePointAccess(roadPoint.GetFeatureId(), roadPoint.GetPointId());
 
       for (auto const & access : conditional.GetAccesses())
         positionsByAccessType[static_cast<size_t>(access.m_type)].emplace_back(position, access);
@@ -323,21 +304,20 @@ private:
 
     for (auto & positionsConditional : positionsByAccessType)
     {
-      std::sort(positionsConditional.begin(), positionsConditional.end(),
-                [](auto const & lhs, auto const & rhs) {
-                  auto const & lhsAccessPosition = lhs.first;
-                  auto const & rhsAccessPosition = rhs.first;
-                  return lhsAccessPosition < rhsAccessPosition;
-                });
+      std::sort(positionsConditional.begin(), positionsConditional.end(), [](auto const & lhs, auto const & rhs)
+      {
+        auto const & lhsAccessPosition = lhs.first;
+        auto const & rhsAccessPosition = rhs.first;
+        return lhsAccessPosition < rhsAccessPosition;
+      });
 
       SerializePositionsAccessConditional(sink, positionsConditional);
     }
   }
 
   template <typename Source>
-  static void DeserializeConditionalOneVehicleType(
-      Source & src, WayToAccessConditional & wayToAccessConditional,
-      PointToAccessConditional & pointToAccessConditional)
+  static void DeserializeConditionalOneVehicleType(Source & src, WayToAccessConditional & wayToAccessConditional,
+                                                   PointToAccessConditional & pointToAccessConditional)
   {
     wayToAccessConditional.clear();
     pointToAccessConditional.clear();
@@ -379,8 +359,7 @@ private:
     for (size_t i = 0; i < segments.size(); ++i)
     {
       auto const & seg = segments[i];
-      CHECK_EQUAL(seg.GetMwmId(), kFakeNumMwmId,
-                  ("Numeric mwm ids are temporary and must not be serialized."));
+      CHECK_EQUAL(seg.GetMwmId(), kFakeNumMwmId, ("Numeric mwm ids are temporary and must not be serialized."));
       featureIds[i] = seg.GetFeatureId();
       segmentIndices[i] = seg.GetSegmentIdx();
       isForward[i] = seg.IsForward();

@@ -20,8 +20,10 @@ public:
     Locality(std::string const & placeType, OsmElement const & elem);
 
     // Used in cpp module only.
-    template <class Sink> void Serialize(Sink & sink) const;
-    template <class Source> void Deserialize(Source & src);
+    template <class Sink>
+    void Serialize(Sink & sink) const;
+    template <class Source>
+    void Deserialize(Source & src);
 
     /// @param[in]  placeName Original Node place's name if available to match.
     /// @return Is this boundary better than rhs.
@@ -69,7 +71,8 @@ public:
   void Add(IDType id, Locality && loc, IDType nodeID);
 
   /// @note Mutable function!
-  template <class FnT> void ForEachLocality(FnT && fn)
+  template <class FnT>
+  void ForEachLocality(FnT && fn)
   {
     for (auto & loc : m_data)
       fn(loc);

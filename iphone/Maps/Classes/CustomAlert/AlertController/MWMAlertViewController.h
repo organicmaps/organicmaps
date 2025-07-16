@@ -6,13 +6,13 @@
 
 + (nonnull MWMAlertViewController *)activeAlertController;
 
-@property(weak, nonatomic, readonly) UIViewController *_Null_unspecified ownerViewController;
+@property(weak, nonatomic, readonly) UIViewController * _Null_unspecified ownerViewController;
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock needToRebuild:(BOOL)needToRebuild;
 - (void)presentRoutingDisclaimerAlertWithOkBlock:(nonnull nonnull MWMVoidBlock)block;
 - (void)presentDisabledLocationAlert;
-- (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock _Nonnull )cancelBlock;
+- (void)presentLocationAlertWithCancelBlock:(MWMVoidBlock _Nonnull)cancelBlock;
 - (void)presentLocationServicesDisabledAlert;
 - (void)presentLocationServiceNotSupportedAlert;
 - (void)presentNoConnectionAlert;
@@ -56,8 +56,8 @@
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));
 + (nonnull instancetype)new __attribute__((unavailable("call -initWithViewController: instead!")));
 - (nonnull instancetype)initWithCoder:(nonnull NSCoder *)aDecoder
-  __attribute__((unavailable("call -initWithViewController: instead!")));
+    __attribute__((unavailable("call -initWithViewController: instead!")));
 - (nonnull instancetype)initWithNibName:(nullable NSString *)nibNameOrNil
                                  bundle:(nullable NSBundle *)nibBundleOrNil
-  __attribute__((unavailable("call -initWithViewController: instead!")));
+    __attribute__((unavailable("call -initWithViewController: instead!")));
 @end

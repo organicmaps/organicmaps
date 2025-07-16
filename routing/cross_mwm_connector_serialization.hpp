@@ -32,21 +32,28 @@ static uint8_t constexpr kOsmIdBits = 64;
 static uint8_t constexpr kStopIdBits = 64;
 static uint8_t constexpr kLineIdBits = 32;
 
-inline uint32_t constexpr CalcBitsPerTransitId() { return 2 * kStopIdBits + kLineIdBits; }
+inline uint32_t constexpr CalcBitsPerTransitId()
+{
+  return 2 * kStopIdBits + kLineIdBits;
+}
 
-template <typename CrossMwmId> uint32_t constexpr GetFeaturesOffset() noexcept;
-template <> uint32_t constexpr GetFeaturesOffset<base::GeoObjectId>() noexcept
+template <typename CrossMwmId>
+uint32_t constexpr GetFeaturesOffset() noexcept;
+template <>
+uint32_t constexpr GetFeaturesOffset<base::GeoObjectId>() noexcept
 {
   return 0;
 }
-template <> uint32_t constexpr GetFeaturesOffset<TransitId>() noexcept
+template <>
+uint32_t constexpr GetFeaturesOffset<TransitId>() noexcept
 {
   return FakeFeatureIds::kTransitGraphFeaturesStart;
 }
 }  // namespace connector
 
 /// Builder class for deserialization.
-template <typename CrossMwmId> class CrossMwmConnectorBuilder
+template <typename CrossMwmId>
+class CrossMwmConnectorBuilder
 {
 protected:
   using ConnectorT = CrossMwmConnector<CrossMwmId>;
@@ -61,18 +68,14 @@ public:
   explicit CrossMwmConnectorBuilder(ConnectorT & c) : m_c(c) {}
 
   /// Called only in cross-mwm-graph when deserialization connectors.
-  void ApplyNumerationOffset()
-  {
-    m_featureNumerationOffset = connector::GetFeaturesOffset<CrossMwmId>();
-  }
+  void ApplyNumerationOffset() { m_featureNumerationOffset = connector::GetFeaturesOffset<CrossMwmId>(); }
 
-  void AddTransition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx,
-                     bool oneWay, bool forwardIsEnter)
+  void AddTransition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx, bool oneWay,
+                     bool forwardIsEnter)
   {
     featureId += m_featureNumerationOffset;
 
-    typename ConnectorT::Transition transition(m_c.m_entersCount, m_c.m_exitsCount,
-                                               crossMwmId, oneWay, forwardIsEnter);
+    typename ConnectorT::Transition transition(m_c.m_entersCount, m_c.m_exitsCount, crossMwmId, oneWay, forwardIsEnter);
 
     if (forwardIsEnter)
       ++m_c.m_entersCount;
@@ -110,16 +113,15 @@ protected:
   public:
     Transition() = default;
 
-    Transition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx,
-               VehicleMask roadMask, VehicleMask oneWayMask, bool forwardIsEnter)
+    Transition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx, VehicleMask roadMask,
+               VehicleMask oneWayMask, bool forwardIsEnter)
       : m_crossMwmId(crossMwmId)
       , m_featureId(featureId)
       , m_segmentIdx(segmentIdx)
       , m_roadMask(roadMask)
       , m_oneWayMask(oneWayMask)
       , m_forwardIsEnter(forwardIsEnter)
-    {
-    }
+    {}
 
     template <class Sink>
     static void WriteCrossMwmId(base::GeoObjectId const & id, uint8_t bits, BitWriter<Sink> & w)
@@ -237,9 +239,8 @@ public:
 
     if (src.Pos() != weightsOffset)
     {
-      MYTHROW(CorruptedDataException,
-              ("Wrong position", src.Pos(), "after decoding transitions, expected:",
-               weightsOffset, "size:", header.GetSizeTransitions()));
+      MYTHROW(CorruptedDataException, ("Wrong position", src.Pos(), "after decoding transitions, expected:",
+                                       weightsOffset, "size:", header.GetSizeTransitions()));
     }
 
     for (Section const & section : header.GetSections())
@@ -255,14 +256,14 @@ public:
 
       if (base::checked_cast<size_t>(section.GetNumEnters()) != numEnters)
       {
-        MYTHROW(CorruptedDataException, ("Mismatch enters number, section:", section.GetNumEnters(),
-                                         ", connector:", numEnters));
+        MYTHROW(CorruptedDataException,
+                ("Mismatch enters number, section:", section.GetNumEnters(), ", connector:", numEnters));
       }
 
       if (base::checked_cast<size_t>(section.GetNumExits()) != numExits)
       {
-        MYTHROW(CorruptedDataException, ("Mismatch exits number, section:", section.GetNumExits(),
-                                         ", connector:", numExits));
+        MYTHROW(CorruptedDataException,
+                ("Mismatch exits number, section:", section.GetNumExits(), ", connector:", numExits));
       }
 
       m_c.m_weights.m_offset = weightsOffset;
@@ -275,10 +276,7 @@ public:
     m_c.m_weights.m_loadState = connector::WeightsLoadState::NotExists;
   }
 
-  void DeserializeWeights(FilesContainerR::TReader & reader)
-  {
-    DeserializeWeights(*(reader.GetPtr()));
-  }
+  void DeserializeWeights(FilesContainerR::TReader & reader) { DeserializeWeights(*(reader.GetPtr())); }
 
   /// @param[in]  reader  Initialized reader for the whole section (makes Skip inside).
   template <class Reader>
@@ -301,7 +299,6 @@ public:
 
       Weight prev = 1;
       for (size_t i = 0; i < amount; ++i)
-      {
         if (bitReader.Read(1) != kNoRouteBit)
         {
           Weight const delta = ReadDelta<Weight>(bitReader) - 1;
@@ -311,28 +308,28 @@ public:
         }
         else
           builder.PushEmpty();
-      }
 
       m_c.m_weights.m_v1 = builder.Build();
     }
     else
     {
       m_c.m_weights.m_reader = reader.CreateSubReader(m_c.m_weights.m_offset, reader.Size() - m_c.m_weights.m_offset);
-      m_c.m_weights.m_v2 = MapUint32ToValue<Weight>::Load(*(m_c.m_weights.m_reader),
-        [granularity = m_c.m_weights.m_granularity](NonOwningReaderSource & source, uint32_t blockSize,
-                                                    std::vector<Weight> & values)
+      m_c.m_weights.m_v2 = MapUint32ToValue<Weight>::Load(
+          *(m_c.m_weights.m_reader),
+          [granularity = m_c.m_weights.m_granularity](NonOwningReaderSource & source, uint32_t blockSize,
+                                                      std::vector<Weight> & values)
+      {
+        values.resize(blockSize);
+
+        uint32_t prev = ReadVarUint<uint32_t>(source);
+        values[0] = granularity * prev;
+
+        for (size_t i = 1; i < blockSize && source.Size() > 0; ++i)
         {
-          values.resize(blockSize);
-
-          uint32_t prev = ReadVarUint<uint32_t>(source);
-          values[0] = granularity * prev;
-
-          for (size_t i = 1; i < blockSize && source.Size() > 0; ++i)
-          {
-            prev += ReadVarInt<int32_t>(source);
-            values[i] = granularity * prev;
-          }
-        });
+          prev += ReadVarInt<int32_t>(source);
+          values[i] = granularity * prev;
+        }
+      });
     }
 
     m_c.m_weights.m_loadState = connector::WeightsLoadState::Loaded;
@@ -345,8 +342,8 @@ protected:
       return false;
 
     bool const isOneWay = (transition.GetOneWayMask() & requiredMask) != 0;
-    AddTransition(transition.GetCrossMwmId(), transition.GetFeatureId(),
-                  transition.GetSegmentIdx(), isOneWay, transition.ForwardIsEnter());
+    AddTransition(transition.GetCrossMwmId(), transition.GetFeatureId(), transition.GetSegmentIdx(), isOneWay,
+                  transition.ForwardIsEnter());
     return true;
   }
 
@@ -372,9 +369,11 @@ protected:
     Section() = default;
 
     Section(uint64_t size, uint32_t numEnters, uint32_t numExits, VehicleType vehicleType)
-      : m_size(size), m_numEnters(numEnters), m_numExits(numExits), m_vehicleType(vehicleType)
-    {
-    }
+      : m_size(size)
+      , m_numEnters(numEnters)
+      , m_numExits(numExits)
+      , m_vehicleType(vehicleType)
+    {}
 
     template <class Sink>
     void Serialize(Sink & sink) const
@@ -416,8 +415,7 @@ protected:
       , m_sizeTransitions(sizeTransitions)
       , m_bitsPerCrossMwmId(bitsPerCrossMwmId)
       , m_bitsPerMask(bitsPerMask)
-    {
-    }
+    {}
 
     template <class Sink>
     void Serialize(Sink & sink) const
@@ -440,8 +438,8 @@ protected:
       m_version = ReadPrimitiveFromSource<decltype(m_version)>(src);
       if (m_version > kLastVersion)
       {
-        MYTHROW(CorruptedDataException, ("Unknown cross mwm section version ", m_version,
-                                         ", current version ", kLastVersion));
+        MYTHROW(CorruptedDataException,
+                ("Unknown cross mwm section version ", m_version, ", current version ", kLastVersion));
       }
 
       m_numTransitions = ReadPrimitiveFromSource<decltype(m_numTransitions)>(src);
@@ -522,10 +520,7 @@ private:
     MemWriter writer(buffer);
     builder.Freeze(writer, [](auto & writer, auto beg, auto end)
     {
-      auto const NextStoredValue = [&beg]()
-      {
-        return (*beg++ + BaseT::kGranularity - 1) / BaseT::kGranularity;
-      };
+      auto const NextStoredValue = [&beg]() { return (*beg++ + BaseT::kGranularity - 1) / BaseT::kGranularity; };
 
       Weight prev = NextStoredValue();
       WriteVarUint(writer, prev);
@@ -541,8 +536,8 @@ private:
 public:
   CrossMwmConnectorBuilderEx() : BaseT(m_connector) {}
 
-  void AddTransition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx,
-                     VehicleMask roadMask, VehicleMask oneWayMask, bool forwardIsEnter)
+  void AddTransition(CrossMwmId const & crossMwmId, uint32_t featureId, uint32_t segmentIdx, VehicleMask roadMask,
+                     VehicleMask oneWayMask, bool forwardIsEnter)
   {
     m_transitions.emplace_back(crossMwmId, featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter);
   }
@@ -558,8 +553,7 @@ public:
     WriteTransitions(bitsPerCrossMwmId, bitsPerMask, transitionsBuf);
 
     typename BaseT::Header header(base::checked_cast<uint32_t>(m_transitions.size()),
-                                  base::checked_cast<uint64_t>(transitionsBuf.size()),
-                                  bitsPerCrossMwmId, bitsPerMask);
+                                  base::checked_cast<uint64_t>(transitionsBuf.size()), bitsPerCrossMwmId, bitsPerMask);
 
     std::vector<uint8_t> weightsBuf;
     if (!m_weights.empty())
@@ -567,8 +561,8 @@ public:
       std::sort(m_weights.begin(), m_weights.end(), base::LessBy(&IdxWeightT::first));
       WriteWeights(weightsBuf);
 
-      header.AddSection(typename BaseT::Section(
-                        weightsBuf.size(), m_connector.GetNumEnters(), m_connector.GetNumExits(), m_vehicleType));
+      header.AddSection(typename BaseT::Section(weightsBuf.size(), m_connector.GetNumEnters(),
+                                                m_connector.GetNumExits(), m_vehicleType));
     }
 
     // Use buffer serialization above, because BaseT::Header is not plain (vector<Section>)
@@ -581,10 +575,7 @@ public:
   typename BaseT::ConnectorT const & PrepareConnector(VehicleType requiredVehicle)
   {
     m_vehicleType = requiredVehicle;
-    BaseT::FillTransitions(m_transitions.size(), m_vehicleType, [this](size_t i)
-    {
-      return m_transitions[i];
-    });
+    BaseT::FillTransitions(m_transitions.size(), m_vehicleType, [this](size_t i) { return m_transitions[i]; });
     return m_connector;
   }
 

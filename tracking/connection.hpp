@@ -15,7 +15,10 @@
 #pragma clang diagnostic pop
 #endif
 
-namespace platform { class Socket; }
+namespace platform
+{
+class Socket;
+}
 
 namespace tracking
 {
@@ -24,8 +27,7 @@ using DataPoint = coding::TrafficGPSEncoder::DataPoint;
 class Connection final
 {
 public:
-  Connection(std::unique_ptr<platform::Socket> socket, std::string const & host, uint16_t port,
-             bool isHistorical);
+  Connection(std::unique_ptr<platform::Socket> socket, std::string const & host, uint16_t port, bool isHistorical);
   bool Reconnect();
   void Shutdown();
   bool Send(boost::circular_buffer<DataPoint> const & points);

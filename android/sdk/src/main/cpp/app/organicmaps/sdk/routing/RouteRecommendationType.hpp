@@ -32,7 +32,7 @@ jobject GetRouteRecommendationType(JNIEnv * env, RoutingManager::Recommendation 
 {
   switch (recommendation)
   {
-  case RoutingManager::Recommendation::RebuildAfterPointsLoading: return GetRebuildAfterPointsLoading(env);
-  default: ASSERT_FAIL("Unknown recommendation type");
+    case RoutingManager::Recommendation::RebuildAfterPointsLoading: return GetRebuildAfterPointsLoading(env);
+    default: ASSERT_FAIL("Unknown recommendation type");
   }
 }

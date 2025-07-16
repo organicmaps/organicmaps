@@ -40,7 +40,8 @@ public:
 
   std::set<std::string> const & GetKeys() const { return m_keys; }
 
-  template <class FnT> void ForEachNameByKey(std::string_view key, FnT && fn) const
+  template <class FnT>
+  void ForEachNameByKey(std::string_view key, FnT && fn) const
   {
     auto const it = m_keyToName.find(key);
     if (it == m_keyToName.end())
@@ -63,7 +64,7 @@ private:
     using is_transparent = void;
 
     // std::size_t operator()(const char* str) const        { return hash_type{}(str); }
-    size_t operator()(std::string_view str) const   { return hash_type{}(str); }
+    size_t operator()(std::string_view str) const { return hash_type{}(str); }
     size_t operator()(std::string const & str) const { return hash_type{}(str); }
   };
 
@@ -74,7 +75,8 @@ private:
 std::string DebugPrint(BrandsHolder::Brand::Name const & name);
 BrandsHolder const & GetDefaultBrands();
 
-template <class FnT> void ForEachLocalizedBrands(std::string_view brand, FnT && fn)
+template <class FnT>
+void ForEachLocalizedBrands(std::string_view brand, FnT && fn)
 {
   bool processed = false;
   /// Localized brands are not working as expected now because we store raw names from OSM, not brand IDs.

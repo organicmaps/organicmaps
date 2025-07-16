@@ -25,8 +25,7 @@ public:
   IndexGraphSerializer() = delete;
 
   template <class Sink>
-  static void Serialize(IndexGraph const & graph,
-                        std::unordered_map<uint32_t, VehicleMask> const & masks, Sink & sink)
+  static void Serialize(IndexGraph const & graph, std::unordered_map<uint32_t, VehicleMask> const & masks, Sink & sink)
   {
     Header header(graph);
     JointIdEncoder jointEncoder;
@@ -39,8 +38,11 @@ public:
       Joint::Id const begin = jointEncoder.GetCount();
       serializer.PreSerialize(graph, masks, jointEncoder);
       header.AddSection({
-          serializer.GetBufferSize(), static_cast<uint32_t>(serializer.GetNumRoads()), begin,
-          jointEncoder.GetCount(), serializer.GetMask(),
+          serializer.GetBufferSize(),
+          static_cast<uint32_t>(serializer.GetNumRoads()),
+          begin,
+          jointEncoder.GetCount(),
+          serializer.GetMask(),
       });
     }
 
@@ -93,9 +95,8 @@ public:
           Joint::Id const jointId = jointIdDecoder.Read(reader);
           if (jointId >= section.GetEndJointId())
           {
-            MYTHROW(CorruptedDataException,
-                    ("Invalid jointId =", jointId, ", end =", section.GetEndJointId(), ", mask =",
-                     mask, ", pointId =", pointId, ", featureId =", featureId));
+            MYTHROW(CorruptedDataException, ("Invalid jointId =", jointId, ", end =", section.GetEndJointId(),
+                                             ", mask =", mask, ", pointId =", pointId, ", featureId =", featureId));
           }
 
           jointsFilter.Push(jointId, RoadPoint(featureId, pointId));
@@ -104,16 +105,14 @@ public:
 
       if (jointIdDecoder.GetCount() != section.GetEndJointId())
       {
-        MYTHROW(CorruptedDataException,
-                ("Invalid decoder count =", jointIdDecoder.GetCount(), ", expected =",
-                 section.GetEndJointId(), ", mask =", mask));
+        MYTHROW(CorruptedDataException, ("Invalid decoder count =", jointIdDecoder.GetCount(),
+                                         ", expected =", section.GetEndJointId(), ", mask =", mask));
       }
 
       if (src.Pos() != expectedEndPos)
       {
-        MYTHROW(CorruptedDataException,
-                ("Wrong position", src.Pos(), "after decoding section", mask, "expected",
-                 expectedEndPos, "section size =", section.GetSize()));
+        MYTHROW(CorruptedDataException, ("Wrong position", src.Pos(), "after decoding section", mask, "expected",
+                                         expectedEndPos, "section size =", section.GetSize()));
       }
     }
 
@@ -151,15 +150,13 @@ private:
   public:
     Section() = default;
 
-    Section(uint64_t size, uint32_t numRoads, Joint::Id beginJointId, Joint::Id endJointId,
-            VehicleMask mask)
+    Section(uint64_t size, uint32_t numRoads, Joint::Id beginJointId, Joint::Id endJointId, VehicleMask mask)
       : m_size(size)
       , m_numRoads(numRoads)
       , m_beginJointId(beginJointId)
       , m_endJointId(endJointId)
       , m_mask(mask)
-    {
-    }
+    {}
 
     template <class Sink>
     void Serialize(Sink & sink) const
@@ -200,10 +197,7 @@ private:
   public:
     Header() = default;
 
-    explicit Header(IndexGraph const & graph)
-      : m_numRoads(graph.GetNumRoads()), m_numJoints(graph.GetNumJoints())
-    {
-    }
+    explicit Header(IndexGraph const & graph) : m_numRoads(graph.GetNumRoads()), m_numJoints(graph.GetNumJoints()) {}
 
     template <class Sink>
     void Serialize(Sink & sink) const
@@ -266,8 +260,8 @@ private:
       {
         Joint::Id const convertedId = it->second;
         CHECK_LESS(convertedId, m_count,
-                   ("Duplicate joint id should be less than count, convertedId =", convertedId,
-                    ", count =", m_count, ", originalId =", originalId));
+                   ("Duplicate joint id should be less than count, convertedId =", convertedId, ", count =", m_count,
+                    ", originalId =", originalId));
         writer.Write(kRepeatJointIdBit, 1);
         // m_count - convertedId is less than convertedId in general.
         // So write this delta to save file space.
@@ -346,7 +340,8 @@ private:
 
     // Joints number is large.
     // Therefore point id and joint id are stored in same space to save some memory.
-    union Point {
+    union Point
+    {
       uint32_t pointId;
       Joint::Id jointId;
     };
@@ -385,8 +380,7 @@ private:
     std::vector<uint8_t> m_buffer;
   };
 
-  static VehicleMask GetRoadMask(std::unordered_map<uint32_t, VehicleMask> const & masks,
-                                 uint32_t featureId);
+  static VehicleMask GetRoadMask(std::unordered_map<uint32_t, VehicleMask> const & masks, uint32_t featureId);
   static uint32_t ConvertJointsNumber(uint32_t jointsNumber);
   static void PrepareSectionSerializers(IndexGraph const & graph,
                                         std::unordered_map<uint32_t, VehicleMask> const & masks,

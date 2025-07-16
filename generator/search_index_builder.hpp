@@ -5,8 +5,8 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include <string>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 namespace indexer
 {
@@ -22,13 +22,12 @@ public:
   {
     auto it = m_map.find(key);
     if (it != m_map.end())
-    {
       for (auto const & v : it->second)
         toDo(v);
-    }
   }
 
-  template <class Types> static bool CanApply(Types const & types)
+  template <class Types>
+  static bool CanApply(Types const & types)
   {
     auto const type = ftypes::IsLocalityChecker::Instance().GetType(types);
     return (type == ftypes::LocalityType::Country || type == ftypes::LocalityType::State);
@@ -42,6 +41,6 @@ private:
 // An attempt to rewrite the search index of an old mwm may result in a future crash
 // when using search because this function does not update mwm's version. This results
 // in version mismatch when trying to read the index.
-bool BuildSearchIndexFromDataFile(std::string const & country, feature::GenerateInfo const & info,
-                                  bool forceRebuild, uint32_t threadsCount);
+bool BuildSearchIndexFromDataFile(std::string const & country, feature::GenerateInfo const & info, bool forceRebuild,
+                                  uint32_t threadsCount);
 }  // namespace indexer

@@ -18,9 +18,9 @@ inline std::string DebugPrint(YesNoUnknown value)
 {
   switch (value)
   {
-  case Unknown: return "Unknown";
-  case Yes: return "Yes";
-  case No: return "No";
+    case Unknown: return "Unknown";
+    case Yes: return "Yes";
+    case No: return "No";
   }
 }
 }  // namespace osm

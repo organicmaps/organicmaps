@@ -49,8 +49,8 @@ public:
   {
     switch (version)
     {
-    case Version::V0: V0::Serialize(sink, forest); break;
-    default: UNREACHABLE();
+      case Version::V0: V0::Serialize(sink, forest); break;
+      default: UNREACHABLE();
     }
   }
 
@@ -59,8 +59,8 @@ public:
   {
     switch (version)
     {
-    case Version::V0: V0::Deserialize(src, forest); break;
-    default: UNREACHABLE();
+      case Version::V0: V0::Deserialize(src, forest); break;
+      default: UNREACHABLE();
     }
   }
 
@@ -89,7 +89,8 @@ private:
     template <typename Sink>
     static void Serialize(Sink & sink, tree_node::types::Ptr<Ids> const & tree)
     {
-      tree_node::PreOrderVisit(tree, [&](auto const & node) {
+      tree_node::PreOrderVisit(tree, [&](auto const & node)
+      {
         coding_utils::WriteCollectionPrimitive(sink, node->GetData());
         auto const size = base::checked_cast<coding_utils::CollectionSizeType>(node->GetChildren().size());
         WriteVarUint(sink, size);
@@ -100,7 +101,8 @@ private:
     static void Deserialize(Src & src, tree_node::types::Ptr<Ids> & tree)
     {
       std::function<void(tree_node::types::Ptr<Ids> &)> deserializeTree;
-      deserializeTree = [&](auto & tree) {
+      deserializeTree = [&](auto & tree)
+      {
         Ids ids;
         coding_utils::ReadCollectionPrimitive(src, std::back_inserter(ids));
         tree = tree_node::MakeTreeNode(std::move(ids));

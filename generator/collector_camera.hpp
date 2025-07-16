@@ -28,7 +28,6 @@ class TestCameraCollector;
 /// for more details about input string.
 std::optional<double> GetMaxSpeedKmPH(std::string const & maxSpeedString);
 
-
 class CameraCollector : public generator::CollectorInterface
 {
   friend class TestCameraCollector;
@@ -72,7 +71,8 @@ protected:
 
   void FillCameraInWays();
 
-  template <typename Fn> void ForEachCamera(Fn && toDo)
+  template <typename Fn>
+  void ForEachCamera(Fn && toDo)
   {
     for (auto & p : m_speedCameras)
       toDo(p.second);

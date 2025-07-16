@@ -8,12 +8,12 @@ MWMRouterTransitType convertType(TransitType type)
 {
   switch (type)
   {
-  case TransitType::IntermediatePoint: return MWMRouterTransitTypeIntermediatePoint;
-  case TransitType::Pedestrian: return MWMRouterTransitTypePedestrian;
-  case TransitType::Subway: return MWMRouterTransitTypeSubway;
-  case TransitType::Train: return MWMRouterTransitTypeTrain;
-  case TransitType::LightRail: return MWMRouterTransitTypeLightRail;
-  case TransitType::Monorail: return MWMRouterTransitTypeMonorail;
+    case TransitType::IntermediatePoint: return MWMRouterTransitTypeIntermediatePoint;
+    case TransitType::Pedestrian: return MWMRouterTransitTypePedestrian;
+    case TransitType::Subway: return MWMRouterTransitTypeSubway;
+    case TransitType::Train: return MWMRouterTransitTypeTrain;
+    case TransitType::LightRail: return MWMRouterTransitTypeLightRail;
+    case TransitType::Monorail: return MWMRouterTransitTypeMonorail;
   }
 
   // This is temporary solution for compiling iOS project after adding new

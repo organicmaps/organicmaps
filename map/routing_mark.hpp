@@ -93,13 +93,13 @@ public:
   bool RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void RemoveRoutePoints();
   void RemoveIntermediateRoutePoints();
-  bool MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
-                      RouteMarkType destType, size_t destIntermediateIndex);
+  bool MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType destType,
+                      size_t destIntermediateIndex);
   void PassRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   void SetFollowingMode(bool enabled);
 
 private:
-  using TRoutePointCallback = std::function<void (RouteMarkPoint * mark)>;
+  using TRoutePointCallback = std::function<void(RouteMarkPoint * mark)>;
   void ForEachIntermediatePoint(TRoutePointCallback const & fn);
 
   BookmarkManager & m_manager;

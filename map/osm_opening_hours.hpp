@@ -22,14 +22,10 @@ inline std::string DebugPrint(EPlaceState state)
 {
   switch (state)
   {
-    case EPlaceState::Open:
-      return "EPlaceState::Open";
-    case EPlaceState::OpenSoon:
-      return "EPlaceState::OpenSoon";
-    case EPlaceState::Closed:
-      return "EPlaceState::Closed";
-    case EPlaceState::CloseSoon:
-      return "EPlaceState::CloseSoon";
+    case EPlaceState::Open: return "EPlaceState::Open";
+    case EPlaceState::OpenSoon: return "EPlaceState::OpenSoon";
+    case EPlaceState::Closed: return "EPlaceState::Closed";
+    case EPlaceState::CloseSoon: return "EPlaceState::CloseSoon";
   }
   UNREACHABLE();
 }
@@ -41,7 +37,11 @@ inline EPlaceState PlaceStateCheck(std::string const & openingHours, time_t time
   auto future = std::chrono::system_clock::from_time_t(timestamp);
   future += std::chrono::minutes(15);
 
-  enum {OPEN = 0, CLOSED = 1};
+  enum
+  {
+    OPEN = 0,
+    CLOSED = 1
+  };
 
   size_t nowState = OPEN;
   size_t futureState = OPEN;
@@ -54,8 +54,10 @@ inline EPlaceState PlaceStateCheck(std::string const & openingHours, time_t time
     futureState = oh.IsOpen(std::chrono::system_clock::to_time_t(future)) ? OPEN : CLOSED;
   }
 
-  EPlaceState state[2][2] = {{EPlaceState::Open, EPlaceState::CloseSoon},
-                             {EPlaceState::OpenSoon, EPlaceState::Closed}};
+  EPlaceState state[2][2] = {
+      {    EPlaceState::Open, EPlaceState::CloseSoon},
+      {EPlaceState::OpenSoon,    EPlaceState::Closed}
+  };
 
   return state[nowState][futureState];
 }

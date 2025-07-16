@@ -33,8 +33,8 @@ struct Restriction
   /// * driving along the restriction is prohibited (No)
   enum class Type
   {
-    No,        // Going according such restriction is prohibited.
-    Only,      // Only going according such restriction is permitted.
+    No,    // Going according such restriction is prohibited.
+    Only,  // Only going according such restriction is permitted.
 
     NoUTurn,   // Making U-turn from a feature to the same one according
                // to such restriction is prohibited.
@@ -57,8 +57,10 @@ using RestrictionVec = std::vector<std::vector<uint32_t>>;
 
 struct RestrictionUTurn
 {
-  RestrictionUTurn(uint32_t featureId, bool viaIsFirstPoint) :
-    m_featureId(featureId), m_viaIsFirstPoint(viaIsFirstPoint) {}
+  RestrictionUTurn(uint32_t featureId, bool viaIsFirstPoint)
+    : m_featureId(featureId)
+    , m_viaIsFirstPoint(viaIsFirstPoint)
+  {}
 
   uint32_t m_featureId;
   bool m_viaIsFirstPoint;
@@ -98,20 +100,19 @@ struct RestrictionHeader
     //  Supporting version 0 for backward compatibility should be removed later.
     switch (m_version)
     {
-    case 0:
-    {
-      m_restrictionCount[Restriction::Type::NoUTurn] = 0;
-      m_restrictionCount[Restriction::Type::OnlyUTurn] = 0;
-      break;
-    }
-    case 1:
-    {
-      m_restrictionCount[Restriction::Type::NoUTurn] = ReadPrimitiveFromSource<uint32_t>(src);
-      m_restrictionCount[Restriction::Type::OnlyUTurn] = ReadPrimitiveFromSource<uint32_t>(src);
-      break;
-    }
-    default:
-      CHECK(false, ("Wrong restrictions version in header:", m_version));
+      case 0:
+      {
+        m_restrictionCount[Restriction::Type::NoUTurn] = 0;
+        m_restrictionCount[Restriction::Type::OnlyUTurn] = 0;
+        break;
+      }
+      case 1:
+      {
+        m_restrictionCount[Restriction::Type::NoUTurn] = ReadPrimitiveFromSource<uint32_t>(src);
+        m_restrictionCount[Restriction::Type::OnlyUTurn] = ReadPrimitiveFromSource<uint32_t>(src);
+        break;
+      }
+      default: CHECK(false, ("Wrong restrictions version in header:", m_version));
     }
   }
 
@@ -131,8 +132,7 @@ public:
   static uint32_t constexpr kUTurnAtTheBeginMask = 1U << 31;
 
   template <class Sink>
-  static void Serialize(RestrictionHeader const & header,
-                        std::vector<Restriction>::iterator begin,
+  static void Serialize(RestrictionHeader const & header, std::vector<Restriction>::iterator begin,
                         std::vector<Restriction>::iterator end, Sink & sink)
   {
     auto const firstOnlyIt = begin + header.GetNumberOf(Restriction::Type::No);
@@ -147,12 +147,9 @@ public:
   }
 
   template <class Source>
-  static void Deserialize(RestrictionHeader const & header,
-                          RestrictionVec & restrictionsNo,
-                          RestrictionVec & restrictionsOnly,
-                          std::vector<RestrictionUTurn> & restrictionsNoUTurn,
-                          std::vector<RestrictionUTurn> & restrictionsOnlyUTurn,
-                          Source & src)
+  static void Deserialize(RestrictionHeader const & header, RestrictionVec & restrictionsNo,
+                          RestrictionVec & restrictionsOnly, std::vector<RestrictionUTurn> & restrictionsNoUTurn,
+                          std::vector<RestrictionUTurn> & restrictionsOnlyUTurn, Source & src)
   {
     DeserializeNotUTurn(header, header.GetNumberOf(Restriction::Type::No), restrictionsNo, src);
     DeserializeNotUTurn(header, header.GetNumberOf(Restriction::Type::Only), restrictionsOnly, src);
@@ -187,20 +184,17 @@ private:
       CHECK_EQUAL(type, begin->m_type, ());
 
       Restriction const & restriction = *begin;
-      CHECK_GREATER_OR_EQUAL(restriction.m_featureIds.size(), 2,
-                             ("No sense in zero or one link restrictions."));
+      CHECK_GREATER_OR_EQUAL(restriction.m_featureIds.size(), 2, ("No sense in zero or one link restrictions."));
 
-      coding::DeltaCoder::Encode(
-          bits, restriction.m_featureIds.size() - 1 /* number of link is two or more */);
+      coding::DeltaCoder::Encode(bits, restriction.m_featureIds.size() - 1 /* number of link is two or more */);
 
       CHECK_LESS_OR_EQUAL(prevFirstLinkFeatureId, restriction.m_featureIds[0], ());
-      coding::DeltaCoder::Encode(bits, restriction.m_featureIds[0] - prevFirstLinkFeatureId +
-                                           1 /* making it greater than zero */);
+      coding::DeltaCoder::Encode(
+          bits, restriction.m_featureIds[0] - prevFirstLinkFeatureId + 1 /* making it greater than zero */);
       for (size_t i = 1; i < restriction.m_featureIds.size(); ++i)
       {
-        uint32_t const delta =
-            bits::ZigZagEncode(static_cast<int32_t>(restriction.m_featureIds[i]) -
-                               static_cast<int32_t>(restriction.m_featureIds[i - 1]));
+        uint32_t const delta = bits::ZigZagEncode(static_cast<int32_t>(restriction.m_featureIds[i]) -
+                                                  static_cast<int32_t>(restriction.m_featureIds[i - 1]));
         coding::DeltaCoder::Encode(bits, delta + 1 /* making it greater than zero */);
       }
       prevFirstLinkFeatureId = restriction.m_featureIds[0];
@@ -208,8 +202,8 @@ private:
   }
 
   template <class Source>
-  static bool DeserializeNotUTurn(RestrictionHeader const & header,
-                                  uint32_t count, RestrictionVec & result, Source & src)
+  static bool DeserializeNotUTurn(RestrictionHeader const & header, uint32_t count, RestrictionVec & result,
+                                  Source & src)
   {
     uint32_t prevFirstLinkFeatureId = 0;
     BitReader<Source> bits(src);
@@ -221,8 +215,7 @@ private:
         LOG(LERROR, ("Decoded link restriction number is zero."));
         return false;
       }
-      auto const numLinks =
-          static_cast<size_t>(biasedLinkNumber + 1 /* number of link is two or more */);
+      auto const numLinks = static_cast<size_t>(biasedLinkNumber + 1 /* number of link is two or more */);
 
       std::vector<uint32_t> restriction(numLinks);
       auto const biasedFirstFeatureId = coding::DeltaCoder::Decode(bits);
@@ -243,8 +236,7 @@ private:
         }
 
         uint32_t const delta = base::asserted_cast<uint32_t>(biasedDelta - 1);
-        restriction[j] =
-            static_cast<uint32_t>(bits::ZigZagDecode(delta) + restriction[j - 1]);
+        restriction[j] = static_cast<uint32_t>(bits::ZigZagDecode(delta) + restriction[j - 1]);
       }
 
       prevFirstLinkFeatureId = restriction[0];
@@ -267,8 +259,8 @@ private:
   /// \param end is an iterator to the element after the last element to serialize.
   /// \note All restrictions should have the same type.
   template <class Sink>
-  static void SerializeUTurn(std::vector<Restriction>::iterator begin,
-                             std::vector<Restriction>::iterator end, Sink & sink)
+  static void SerializeUTurn(std::vector<Restriction>::iterator begin, std::vector<Restriction>::iterator end,
+                             Sink & sink)
   {
     if (begin == end)
       return;
@@ -283,8 +275,7 @@ private:
     for (; begin != end; ++begin)
     {
       CHECK_EQUAL(type, begin->m_type, ());
-      CHECK_EQUAL(begin->m_featureIds.size(), 1,
-                  ("UTurn restrictions must consists of 1 feature."));
+      CHECK_EQUAL(begin->m_featureIds.size(), 1, ("UTurn restrictions must consists of 1 feature."));
 
       auto featureId = static_cast<int32_t>(begin->m_featureIds.back());
       featureId = bits::ZigZagEncode(featureId);
@@ -308,9 +299,7 @@ private:
   }
 
   template <class Source>
-  static bool DeserializeUTurn(uint32_t count,
-                               std::vector<RestrictionUTurn> & result,
-                               Source & src)
+  static bool DeserializeUTurn(uint32_t count, std::vector<RestrictionUTurn> & result, Source & src)
   {
     uint32_t prevFeatureId = 0;
     BitReader<Source> bits(src);

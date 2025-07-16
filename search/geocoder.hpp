@@ -98,9 +98,8 @@ public:
   };
 
   Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
-           CategoriesHolder const & categories, CitiesBoundariesTable const & citiesBoundaries,
-           PreRanker & preRanker, LocalitiesCaches & localitiesCaches,
-           base::Cancellable const & cancellable);
+           CategoriesHolder const & categories, CitiesBoundariesTable const & citiesBoundaries, PreRanker & preRanker,
+           LocalitiesCaches & localitiesCaches, base::Cancellable const & cancellable);
   ~Geocoder();
 
   // Sets search query params.
@@ -195,8 +194,8 @@ private:
 
   void InitLayer(Model::Type type, TokenRange const & tokenRange, FeaturesLayer & layer);
 
-  void FillLocalityCandidates(BaseContext const & ctx, CBV const & filter,
-                              size_t const maxNumLocalities, std::vector<Locality> & preLocalities);
+  void FillLocalityCandidates(BaseContext const & ctx, CBV const & filter, size_t const maxNumLocalities,
+                              std::vector<Locality> & preLocalities);
 
   void FillLocalitiesTable(BaseContext const & ctx);
 
@@ -241,8 +240,7 @@ private:
   // Tries to do geocoding in a limited scope, assuming that knowledge
   // about high-level features, like cities or countries, is
   // incorporated into |filter|.
-  void LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter,
-                     CentersFilter const & centers);
+  void LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter, CentersFilter const & centers);
 
   template <typename Fn>
   void WithPostcodes(BaseContext & ctx, Fn && fn);
@@ -253,8 +251,7 @@ private:
   // Matches suburbs and streets inside suburbs like |GreedilyMatchStreets|.
   void GreedilyMatchStreetsWithSuburbs(BaseContext & ctx, CentersFilter const & centers);
 
-  void CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
-                                             StreetsMatcher::Prediction const & prediction,
+  void CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx, StreetsMatcher::Prediction const & prediction,
                                              CentersFilter const & centers, bool makeRelaxed);
 
   void ProcessStreets(BaseContext & ctx, CentersFilter const & centers, CBV const & streets);
@@ -274,17 +271,15 @@ private:
   // Finds all paths through layers and emits reachable features from the lowest layer.
   void FindPaths(BaseContext & ctx);
 
-  void TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::MwmId const & mwmId,
-                   uint32_t ftId, Model::Type type, TokenRange const & tokenRange);
+  void TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
+                   Model::Type type, TokenRange const & tokenRange);
 
   // Forms result and feeds it to |m_preRanker|.
-  void EmitResult(BaseContext & ctx, FeatureID const & id, Model::Type type,
-                  TokenRange const & tokenRange, IntersectionResult const * geoParts,
-                  bool allTokensUsed, bool exactMatch);
-  void EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange,
-                  bool allTokensUsed, bool exactMatch);
-  void EmitResult(BaseContext & ctx, City const & city, TokenRange const & tokenRange,
-                  bool allTokensUsed);
+  void EmitResult(BaseContext & ctx, FeatureID const & id, Model::Type type, TokenRange const & tokenRange,
+                  IntersectionResult const * geoParts, bool allTokensUsed, bool exactMatch);
+  void EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange, bool allTokensUsed,
+                  bool exactMatch);
+  void EmitResult(BaseContext & ctx, City const & city, TokenRange const & tokenRange, bool allTokensUsed);
 
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all

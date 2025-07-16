@@ -31,22 +31,16 @@ private:
 class TraceSection
 {
 public:
-  inline TraceSection(char const * section) noexcept
-  {
-    Trace::Instance().BeginSection(section);
-  }
+  inline TraceSection(char const * section) noexcept { Trace::Instance().BeginSection(section); }
 
-  inline ~TraceSection() noexcept
-  {
-    Trace::Instance().EndSection();
-  }
+  inline ~TraceSection() noexcept { Trace::Instance().EndSection(); }
 };
 }  // namespace platform
 
 #if defined(ENABLE_TRACE) && defined(OMIM_OS_ANDROID)
-#define TRACE_SECTION(section) platform::TraceSection ___section(section)
+#define TRACE_SECTION(section)     platform::TraceSection ___section(section)
 #define TRACE_COUNTER(name, value) platform::Trace::Instance().SetCounter(name, value)
 #else
-#define TRACE_SECTION(section) static_cast<void>(0)
+#define TRACE_SECTION(section)     static_cast<void>(0)
 #define TRACE_COUNTER(name, value) static_cast<void>(0)
 #endif

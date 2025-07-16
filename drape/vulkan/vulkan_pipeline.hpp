@@ -22,11 +22,11 @@ public:
     void SetDepthTestFunction(TestFunction depthFunction);
     void SetStencilTestEnabled(bool enabled);
     void SetStencilFunction(StencilFace face, TestFunction stencilFunction);
-    void SetStencilActions(StencilFace face, StencilAction stencilFailAction,
-                           StencilAction depthFailAction, StencilAction passAction);
+    void SetStencilActions(StencilFace face, StencilAction stencilFailAction, StencilAction depthFailAction,
+                           StencilAction passAction);
     bool operator<(DepthStencilKey const & rhs) const;
     bool operator!=(DepthStencilKey const & rhs) const;
-    
+
     bool m_depthEnabled = false;
     bool m_stencilEnabled = false;
     TestFunction m_depthFunction = TestFunction::Always;

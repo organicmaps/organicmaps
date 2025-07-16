@@ -101,9 +101,9 @@ public:
   };
 
   MapUint32ToValue(Reader & reader, ReadBlockCallback const & readBlockCallback)
-    : m_reader(reader), m_readBlockCallback(readBlockCallback)
-  {
-  }
+    : m_reader(reader)
+    , m_readBlockCallback(readBlockCallback)
+  {}
 
   /// @name Tries to get |value| for key identified by |id|.
   /// @returns false if table does not have entry for this id.
@@ -284,8 +284,7 @@ public:
     }
 
     {
-      succinct::elias_fano::elias_fano_builder builder(offsets.empty() ? 0 : offsets.back() + 1,
-                                                       offsets.size());
+      succinct::elias_fano::elias_fano_builder builder(offsets.empty() ? 0 : offsets.back() + 1, offsets.size());
       for (auto const & offset : offsets)
         builder.push_back(offset);
 

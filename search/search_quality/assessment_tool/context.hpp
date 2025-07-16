@@ -26,13 +26,12 @@ struct Context
     Completed
   };
 
-  Context(ResultsEdits::OnUpdate onFoundResultsUpdate,
-          ResultsEdits::OnUpdate onNonFoundResultsUpdate, SampleEdits::OnUpdate onSampleUpdate)
+  Context(ResultsEdits::OnUpdate onFoundResultsUpdate, ResultsEdits::OnUpdate onNonFoundResultsUpdate,
+          SampleEdits::OnUpdate onSampleUpdate)
     : m_foundResultsEdits(onFoundResultsUpdate)
     , m_nonFoundResultsEdits(onNonFoundResultsUpdate)
     , m_sampleEdits(onSampleUpdate)
-  {
-  }
+  {}
 
   void AddNonFoundResult(search::Sample::Result const & result)
   {
@@ -94,17 +93,11 @@ public:
 
     bool IsValid() const { return m_contexts != nullptr; }
 
-    std::string GetLabel(size_t index) const
-    {
-      return strings::ToUtf8((*m_contexts)[index].m_sample.m_query);
-    }
+    std::string GetLabel(size_t index) const { return strings::ToUtf8((*m_contexts)[index].m_sample.m_query); }
 
     bool IsChanged(size_t index) const { return (*m_contexts)[index].HasChanges(); }
 
-    Context::SearchState GetSearchState(size_t index) const
-    {
-      return (*m_contexts)[index].m_searchState;
-    }
+    Context::SearchState GetSearchState(size_t index) const { return (*m_contexts)[index].m_searchState; }
 
     bool IsUseless(size_t index) const { return (*m_contexts)[index].m_sampleEdits.m_currUseless; }
 
@@ -117,8 +110,7 @@ public:
   using OnResultsUpdate = std::function<void(size_t index, ResultsEdits::Update const & update)>;
   using OnSampleUpdate = std::function<void(size_t index)>;
 
-  ContextList(OnResultsUpdate onResultsUpdate, OnResultsUpdate onNonFoundResultsUpdate,
-              OnSampleUpdate onSampleUpdate);
+  ContextList(OnResultsUpdate onResultsUpdate, OnResultsUpdate onNonFoundResultsUpdate, OnSampleUpdate onSampleUpdate);
 
   void Resize(size_t size);
   size_t Size() const { return m_contexts.size(); }

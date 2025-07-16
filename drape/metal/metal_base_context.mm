@@ -10,8 +10,8 @@
 #include <algorithm>
 #include <functional>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace dp
 {
@@ -31,10 +31,10 @@ MetalBaseContext::MetalBaseContext(id<MTLDevice> device, m2::PointU const & scre
   m_renderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionClear;
   m_renderPassDescriptor.stencilAttachment.storeAction = MTLStoreActionStore;
   m_renderPassDescriptor.stencilAttachment.clearStencil = 0;
-  
+
   RecreateDepthTexture(screenSize);
 }
-  
+
 void MetalBaseContext::RecreateDepthTexture(m2::PointU const & screenSize)
 {
   if (screenSize.x == 0 || screenSize.y == 0)
@@ -42,7 +42,7 @@ void MetalBaseContext::RecreateDepthTexture(m2::PointU const & screenSize)
     m_depthTexture.reset();
     return;
   }
-  
+
   m_depthTexture = make_unique_dp<MetalTexture>(nullptr /* allocator */);
   HWTexture::Params params;
   params.m_width = screenSize.x;
@@ -51,7 +51,7 @@ void MetalBaseContext::RecreateDepthTexture(m2::PointU const & screenSize)
   params.m_isRenderTarget = true;
   m_depthTexture->Create(make_ref(this), params, nullptr /* data */);
 }
-  
+
 void MetalBaseContext::Init(dp::ApiVersion apiVersion)
 {
   CHECK(apiVersion == dp::ApiVersion::Metal, ());
@@ -62,7 +62,7 @@ ApiVersion MetalBaseContext::GetApiVersion() const
 {
   return dp::ApiVersion::Metal;
 }
-  
+
 std::string MetalBaseContext::GetRendererName() const
 {
   return std::string([m_device.name UTF8String]);
@@ -102,39 +102,34 @@ std::string MetalBaseContext::GetRendererVersion() const
     features.emplace_back(MTLFeatureSet_iOS_GPUFamily4_v2, "iOS_GPUFamily4_v2");
     features.emplace_back(MTLFeatureSet_iOS_GPUFamily5_v1, "iOS_GPUFamily5_v1");
 #endif
-    std::sort(features.begin(), features.end(), [](auto const & s1, auto const & s2)
-    {
-      return s1.first > s2.first;
-    });
+    std::sort(features.begin(), features.end(), [](auto const & s1, auto const & s2) { return s1.first > s2.first; });
   }
-  
+
   for (auto featureSet : features)
-  {
     if ([m_device supportsFeatureSet:featureSet.first])
       return featureSet.second;
-  }
   return "Unknown";
 }
-  
+
 void MetalBaseContext::PushDebugLabel(std::string const & label)
 {
   if (m_currentCommandEncoder == nil)
     return;
   [m_currentCommandEncoder pushDebugGroup:@(label.c_str())];
 }
-  
+
 void MetalBaseContext::PopDebugLabel()
 {
   if (m_currentCommandEncoder == nil)
     return;
   [m_currentCommandEncoder popDebugGroup];
 }
-  
+
 void MetalBaseContext::Resize(int w, int h)
 {
   if (m_depthTexture && m_depthTexture->GetWidth() == w && m_depthTexture->GetHeight() == h)
     return;
-  
+
   RecreateDepthTexture(m2::PointU(w, h));
 }
 
@@ -152,7 +147,7 @@ void MetalBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
     m_frameCommandBuffer = [m_commandQueue commandBuffer];
     m_frameCommandBuffer.label = @"Frame command buffer";
   }
-  
+
   if (!m_currentFramebuffer)
   {
     // Use default(system) framebuffer and depth-stencil.
@@ -164,11 +159,11 @@ void MetalBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   else
   {
     ref_ptr<Framebuffer> framebuffer = m_currentFramebuffer;
-    
+
     ASSERT(dynamic_cast<MetalTexture *>(framebuffer->GetTexture()->GetHardwareTexture().get()) != nullptr, ());
     ref_ptr<MetalTexture> colorAttachment = framebuffer->GetTexture()->GetHardwareTexture();
     m_renderPassDescriptor.colorAttachments[0].texture = colorAttachment->GetTexture();
-    
+
     auto const depthStencilRef = framebuffer->GetDepthStencilRef();
     if (depthStencilRef != nullptr)
     {
@@ -186,12 +181,12 @@ void MetalBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       m_renderPassDescriptor.stencilAttachment.texture = nil;
     }
   }
-  
+
   CHECK(m_currentCommandEncoder == nil, ("Current command encoder was not finished."));
   m_currentCommandEncoder = [m_frameCommandBuffer renderCommandEncoderWithDescriptor:m_renderPassDescriptor];
   m_currentCommandEncoder.label = @(framebufferLabel.c_str());
   [m_currentCommandEncoder pushDebugGroup:@(framebufferLabel.c_str())];
-  
+
   // Default rendering options.
   [m_currentCommandEncoder setFrontFacingWinding:MTLWindingClockwise];
   [m_currentCommandEncoder setCullMode:MTLCullModeBack];
@@ -202,9 +197,9 @@ void MetalBaseContext::SetClearColor(dp::Color const & color)
 {
   m_cleaner.SetClearColor(color);
   m_renderPassDescriptor.colorAttachments[0].clearColor =
-    MTLClearColorMake(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());
+      MTLClearColorMake(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());
 }
-  
+
 void MetalBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
 {
   if (m_currentCommandEncoder != nil)
@@ -215,54 +210,56 @@ void MetalBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
       m_cleaner.ClearColor(make_ref(this), m_currentCommandEncoder);
     else if (clearBits & ClearBits::DepthBit)
       m_cleaner.ClearDepth(make_ref(this), m_currentCommandEncoder);
-    
+
     if (clearBits & ClearBits::StencilBit)
       CHECK(false, ("Stencil clearing is not implemented"));
   }
   else
   {
-    // Here, if we do not clear attachments, we load data ONLY if we store it afterwards, otherwise we use 'DontCare' option
-    // to improve performance.
+    // Here, if we do not clear attachments, we load data ONLY if we store it afterwards, otherwise we use 'DontCare'
+    // option to improve performance.
     if (clearBits & ClearBits::ColorBit)
       m_renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
     else
-      m_renderPassDescriptor.colorAttachments[0].loadAction = (storeBits & ClearBits::ColorBit) ? MTLLoadActionLoad : MTLLoadActionDontCare;
-    
+      m_renderPassDescriptor.colorAttachments[0].loadAction =
+          (storeBits & ClearBits::ColorBit) ? MTLLoadActionLoad : MTLLoadActionDontCare;
+
     if (clearBits & ClearBits::DepthBit)
       m_renderPassDescriptor.depthAttachment.loadAction = MTLLoadActionClear;
     else
-      m_renderPassDescriptor.depthAttachment.loadAction = (storeBits & ClearBits::DepthBit) ? MTLLoadActionLoad : MTLLoadActionDontCare;
-    
+      m_renderPassDescriptor.depthAttachment.loadAction =
+          (storeBits & ClearBits::DepthBit) ? MTLLoadActionLoad : MTLLoadActionDontCare;
+
     if (clearBits & ClearBits::StencilBit)
       m_renderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionClear;
     else
-      m_renderPassDescriptor.stencilAttachment.loadAction = (storeBits & ClearBits::StencilBit) ? MTLLoadActionLoad : MTLLoadActionDontCare;
-    
+      m_renderPassDescriptor.stencilAttachment.loadAction =
+          (storeBits & ClearBits::StencilBit) ? MTLLoadActionLoad : MTLLoadActionDontCare;
+
     // Apply storing mode.
     if (storeBits & ClearBits::ColorBit)
       m_renderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
     else
       m_renderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionDontCare;
-    
+
     if (storeBits & ClearBits::DepthBit)
       m_renderPassDescriptor.depthAttachment.storeAction = MTLStoreActionStore;
     else
       m_renderPassDescriptor.depthAttachment.storeAction = MTLStoreActionDontCare;
-    
+
     if (storeBits & ClearBits::StencilBit)
       m_renderPassDescriptor.stencilAttachment.storeAction = MTLStoreActionStore;
     else
       m_renderPassDescriptor.stencilAttachment.storeAction = MTLStoreActionDontCare;
   }
 }
-  
+
 void MetalBaseContext::SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
   id<MTLRenderCommandEncoder> encoder = GetCommandEncoder();
-  [encoder setViewport:(MTLViewport){ static_cast<double>(x), static_cast<double>(y),
-                                      static_cast<double>(w), static_cast<double>(h),
-                                      0.0, 1.0 }];
-  [encoder setScissorRect:(MTLScissorRect){ x, y, w, h }];
+  [encoder setViewport:(MTLViewport){static_cast<double>(x), static_cast<double>(y), static_cast<double>(w),
+                                     static_cast<double>(h), 0.0, 1.0}];
+  [encoder setScissorRect:(MTLScissorRect){x, y, w, h}];
 }
 
 void MetalBaseContext::SetScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
@@ -272,12 +269,16 @@ void MetalBaseContext::SetScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h
   {
     uint32_t const rpWidth = m_renderPassDescriptor.colorAttachments[0].texture.width;
     uint32_t const rpHeight = m_renderPassDescriptor.colorAttachments[0].texture.height;
-    if (x < 0) x = 0;
-    if (y < 0) y = 0;
-    if (x + w > rpWidth) w = rpWidth - x;
-    if (y + h > rpHeight) h = rpHeight - y;
+    if (x < 0)
+      x = 0;
+    if (y < 0)
+      y = 0;
+    if (x + w > rpWidth)
+      w = rpWidth - x;
+    if (y + h > rpHeight)
+      h = rpHeight - y;
 
-    [encoder setScissorRect:(MTLScissorRect){ x, y, w, h }];
+    [encoder setScissorRect:(MTLScissorRect){x, y, w, h}];
   }
 }
 
@@ -301,10 +302,8 @@ void MetalBaseContext::SetStencilFunction(dp::StencilFace face, dp::TestFunction
   m_currentDepthStencilKey.SetStencilFunction(face, stencilFunction);
 }
 
-void MetalBaseContext::SetStencilActions(dp::StencilFace face,
-                                         dp::StencilAction stencilFailAction,
-                                         dp::StencilAction depthFailAction,
-                                         dp::StencilAction passAction)
+void MetalBaseContext::SetStencilActions(dp::StencilFace face, dp::StencilAction stencilFailAction,
+                                         dp::StencilAction depthFailAction, dp::StencilAction passAction)
 {
   m_currentDepthStencilKey.SetStencilActions(face, stencilFailAction, depthFailAction, passAction);
 }
@@ -312,14 +311,14 @@ void MetalBaseContext::SetStencilActions(dp::StencilFace face,
 void MetalBaseContext::SetCullingEnabled(bool enabled)
 {
   id<MTLRenderCommandEncoder> encoder = GetCommandEncoder();
-  [encoder setCullMode: (enabled ? MTLCullModeBack : MTLCullModeNone)];
+  [encoder setCullMode:(enabled ? MTLCullModeBack : MTLCullModeNone)];
 }
-  
+
 id<MTLDevice> MetalBaseContext::GetMetalDevice() const
 {
   return m_device;
 }
-  
+
 id<MTLRenderCommandEncoder> MetalBaseContext::GetCommandEncoder() const
 {
   CHECK(m_currentCommandEncoder != nil, ("Probably encoding commands were called before ApplyFramebuffer."));
@@ -331,41 +330,41 @@ id<MTLCommandBuffer> MetalBaseContext::GetCommandBuffer() const
   CHECK(m_frameCommandBuffer != nil, ("Probably encoding commands were called before ApplyFramebuffer."));
   return m_frameCommandBuffer;
 }
-  
+
 id<MTLDepthStencilState> MetalBaseContext::GetDepthStencilState()
 {
   return m_metalStates.GetDepthStencilState(m_device, m_currentDepthStencilKey);
 }
-  
+
 id<MTLRenderPipelineState> MetalBaseContext::GetPipelineState(ref_ptr<GpuProgram> program, bool blendingEnabled)
 {
   CHECK(m_currentCommandEncoder != nil, ("Probably encoding commands were called before ApplyFramebuffer."));
-  
+
   id<MTLTexture> colorTexture = m_renderPassDescriptor.colorAttachments[0].texture;
   // It can be nil in the case when Metal drawable is absent (e.g. finish rendering in background).
   if (colorTexture == nil)
     return nil;
-  
+
   id<MTLTexture> depthTexture = m_renderPassDescriptor.depthAttachment.texture;
   MTLPixelFormat depthStencilFormat = (depthTexture != nil) ? depthTexture.pixelFormat : MTLPixelFormatInvalid;
-  
+
   MetalStates::PipelineKey const key(program, colorTexture.pixelFormat, depthStencilFormat, blendingEnabled);
   return m_metalStates.GetPipelineState(m_device, key);
 }
-  
+
 id<MTLSamplerState> MetalBaseContext::GetSamplerState(TextureFilter filter, TextureWrapping wrapSMode,
                                                       TextureWrapping wrapTMode)
 {
   MetalStates::SamplerKey const key(filter, wrapSMode, wrapTMode);
   return m_metalStates.GetSamplerState(m_device, key);
 }
-  
+
 bool MetalBaseContext::BeginRendering()
 {
   CHECK(m_currentCommandEncoder == nil, ("Current command encoder was not finished."));
   return true;
 }
-  
+
 void MetalBaseContext::EndRendering()
 {
   FinishCurrentEncoding();
@@ -376,27 +375,27 @@ void MetalBaseContext::Present()
   RequestFrameDrawable();
   if (m_frameDrawable)
     [m_frameCommandBuffer presentDrawable:m_frameDrawable];
-  
+
   [m_frameCommandBuffer commit];
   m_frameDrawable = nil;
   [m_frameCommandBuffer waitUntilCompleted];
   m_frameCommandBuffer = nil;
 }
-  
+
 void MetalBaseContext::RequestFrameDrawable()
 {
   if (m_frameDrawable != nil)
     return;
-  
+
   CHECK(m_drawableRequest != nullptr, ());
   m_frameDrawable = m_drawableRequest();
 }
-  
+
 void MetalBaseContext::ResetFrameDrawable()
 {
   if (m_frameDrawable == nil)
     return;
-  
+
   m_frameDrawable = nil;
   RequestFrameDrawable();
 }
@@ -408,7 +407,7 @@ void MetalBaseContext::FinishCurrentEncoding()
   m_currentCommandEncoder = nil;
   m_lastPipelineState = nil;
 }
-  
+
 void MetalBaseContext::SetSystemPrograms(drape_ptr<GpuProgram> && programClearColor,
                                          drape_ptr<GpuProgram> && programClearDepth,
                                          drape_ptr<GpuProgram> && programClearColorAndDepth)
@@ -416,24 +415,24 @@ void MetalBaseContext::SetSystemPrograms(drape_ptr<GpuProgram> && programClearCo
   m_cleaner.Init(make_ref(this), std::move(programClearColor), std::move(programClearDepth),
                  std::move(programClearColorAndDepth));
 }
-  
+
 void MetalBaseContext::ApplyPipelineState(id<MTLRenderPipelineState> state)
 {
   m_lastPipelineState = state;
   if (state != nil)
     [GetCommandEncoder() setRenderPipelineState:state];
 }
-  
+
 bool MetalBaseContext::HasAppliedPipelineState() const
 {
   return m_lastPipelineState != nil;
 }
-  
+
 void MetalBaseContext::ResetPipelineStatesCache()
 {
   m_metalStates.ResetPipelineStatesCache();
 }
-  
+
 void MetalBaseContext::DebugSynchronizeWithCPU()
 {
   FinishCurrentEncoding();
@@ -444,7 +443,7 @@ void MetalBaseContext::DebugSynchronizeWithCPU()
   m_frameCommandBuffer = nil;
 }
 
-MTLRenderPassDescriptor * MetalBaseContext::GetRenderPassDescriptor() const 
+MTLRenderPassDescriptor * MetalBaseContext::GetRenderPassDescriptor() const
 {
   return m_renderPassDescriptor;
 }

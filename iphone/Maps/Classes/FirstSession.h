@@ -28,11 +28,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Foundation/Foundation.h>
 #import <Foundation/NSDate.h>
-#import <TargetConditionals.h> // TARGET_OS_IPHONE
+#import <TargetConditionals.h>  // TARGET_OS_IPHONE
 
 #if (TARGET_OS_IPHONE > 0)
-#import <UIKit/UIApplication.h> // enum UIBackgroundFetchResult
-#endif // TARGET_OS_IPHONE
+#import <UIKit/UIApplication.h>  // enum UIBackgroundFetchResult
+#endif                           // TARGET_OS_IPHONE
 
 @interface FirstSession : NSObject
 // Should be called in application:didFinishLaunchingWithOptions: or in application:willFinishLaunchingWithOptions:

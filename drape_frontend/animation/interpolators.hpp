@@ -21,7 +21,7 @@ public:
 
   static double constexpr kInvalidDuration = -1.0;
   void SetMaxDuration(double maxDuration);
-  void SetMinDuration(double minDuration); 
+  void SetMinDuration(double minDuration);
   double GetMaxDuration() const;
   double GetMinDuration() const;
 
@@ -41,27 +41,23 @@ private:
   bool m_isActive;
 };
 
-class PositionInterpolator: public Interpolator
+class PositionInterpolator : public Interpolator
 {
   using TBase = Interpolator;
 
 public:
   PositionInterpolator();
-  PositionInterpolator(double duration, double delay,
-                       m2::PointD const & startPosition, m2::PointD const & endPosition);
+  PositionInterpolator(double duration, double delay, m2::PointD const & startPosition, m2::PointD const & endPosition);
 
-  PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition,
+  PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition, ScreenBase const & convertor);
+
+  PositionInterpolator(double delay, m2::PointD const & startPosition, m2::PointD const & endPosition,
                        ScreenBase const & convertor);
 
-  PositionInterpolator(double delay,
-                       m2::PointD const & startPosition, m2::PointD const & endPosition,
-                       ScreenBase const & convertor);
+  PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition, m2::RectD const & viewportRect,
+                       double scale);
 
-  PositionInterpolator(m2::PointD const & startPosition, m2::PointD const & endPosition,
-                       m2::RectD const & viewportRect, double scale);
-
-  PositionInterpolator(double delay,
-                       m2::PointD const & startPosition, m2::PointD const & endPosition,
+  PositionInterpolator(double delay, m2::PointD const & startPosition, m2::PointD const & endPosition,
                        m2::RectD const & viewportRect, double scale);
 
   static double GetMoveDuration(double globalDistance, m2::RectD const & viewportRect, double scale);
@@ -85,7 +81,7 @@ private:
   m2::PointD m_position;
 };
 
-class ScaleInterpolator: public Interpolator
+class ScaleInterpolator : public Interpolator
 {
   using TBase = Interpolator;
 
@@ -110,7 +106,7 @@ private:
   double m_scale;
 };
 
-class AngleInterpolator: public Interpolator
+class AngleInterpolator : public Interpolator
 {
   using TBase = Interpolator;
 
@@ -136,4 +132,4 @@ private:
   double m_angle;
 };
 
-} // namespace df
+}  // namespace df

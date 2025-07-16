@@ -1,7 +1,7 @@
 #pragma once
 
-#include "drape/glsl_types.hpp"
 #include "drape/binding_info.hpp"
+#include "drape/glsl_types.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -17,8 +17,10 @@ struct BaseVertex
   using TTexCoord = glsl::vec2;
 };
 
-template <class T> using VBUnknownSizeT = buffer_vector<T, 128>;
-template <class T> using VBReservedSizeT = std::vector<T>;
+template <class T>
+using VBUnknownSizeT = buffer_vector<T, 128>;
+template <class T>
+using VBReservedSizeT = std::vector<T>;
 
 struct AreaVertex : BaseVertex
 {
@@ -34,7 +36,7 @@ struct AreaVertex : BaseVertex
 struct Area3dVertex : BaseVertex
 {
   Area3dVertex() = default;
-  Area3dVertex(TPosition const & position, const TPosition & normal, TTexCoord const & colorTexCoord);
+  Area3dVertex(TPosition const & position, TPosition const & normal, TTexCoord const & colorTexCoord);
 
   TPosition m_position;
   TNormal3d m_normal;
@@ -48,8 +50,7 @@ struct HatchingAreaVertex : BaseVertex
   using TMaskTexCoord = glsl::vec2;
 
   HatchingAreaVertex() = default;
-  HatchingAreaVertex(TPosition const & position, TTexCoord const & colorTexCoord,
-                     TMaskTexCoord const & maskTexCoord);
+  HatchingAreaVertex(TPosition const & position, TTexCoord const & colorTexCoord, TMaskTexCoord const & maskTexCoord);
 
   TPosition m_position;
   TTexCoord m_colorTexCoord;
@@ -73,8 +74,8 @@ struct SolidTexturingVertex : BaseVertex
 struct MaskedTexturingVertex : BaseVertex
 {
   MaskedTexturingVertex() = default;
-  MaskedTexturingVertex(TPosition3d const & position, TNormal const & normal,
-                        TTexCoord const & colorTexCoord, TTexCoord const & maskTexCoord);
+  MaskedTexturingVertex(TPosition3d const & position, TNormal const & normal, TTexCoord const & colorTexCoord,
+                        TTexCoord const & maskTexCoord);
   TPosition3d m_position;
   TNormal m_normal;
   TTexCoord m_colorTexCoord;
@@ -146,8 +147,8 @@ struct DashedLineVertex : BaseVertex
   using TMaskTexCoord = glsl::vec4;
 
   DashedLineVertex() = default;
-  DashedLineVertex(TPosition const & position, TNormal const & normal,
-                   TTexCoord const & color, TMaskTexCoord const & mask);
+  DashedLineVertex(TPosition const & position, TNormal const & normal, TTexCoord const & color,
+                   TMaskTexCoord const & mask);
 
   TPosition m_position;
   TNormal m_normal;
@@ -163,8 +164,7 @@ struct RouteVertex : BaseVertex
   using TColor = glsl::vec4;
 
   RouteVertex() = default;
-  RouteVertex(TPosition const & position, TNormal const & normal,
-              TLength const & length, TColor const & color);
+  RouteVertex(TPosition const & position, TNormal const & normal, TLength const & length, TColor const & color);
 
   TPosition m_position;
   TNormal m_normal;
@@ -181,8 +181,7 @@ struct RouteMarkerVertex : BaseVertex
   using TColor = glsl::vec4;
 
   RouteMarkerVertex() = default;
-  RouteMarkerVertex(TPosition const & position, TNormal const & normal,
-                    TColor const & color);
+  RouteMarkerVertex(TPosition const & position, TNormal const & normal, TColor const & color);
 
   TPosition m_position;
   TNormal m_normal;
@@ -197,8 +196,7 @@ struct ColoredSymbolVertex : BaseVertex
   using TTexCoord = glsl::vec4;
 
   ColoredSymbolVertex() = default;
-  ColoredSymbolVertex(TPosition const & position, TNormal const & normal,
-                      TTexCoord const & colorTexCoord);
+  ColoredSymbolVertex(TPosition const & position, TNormal const & normal, TTexCoord const & colorTexCoord);
 
   TPosition m_position;
   TNormal m_normal;
@@ -207,4 +205,4 @@ struct ColoredSymbolVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
-} // namespace gpu
+}  // namespace gpu

@@ -19,16 +19,16 @@
 #error regenerate this file with a newer version of protoc.
 #endif
 
-#include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/arenastring.h>
-#include <google/protobuf/generated_message_table_driven.h>
-#include <google/protobuf/generated_message_util.h>
-#include <google/protobuf/metadata_lite.h>
-#include <google/protobuf/message_lite.h>
-#include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_util.h>
+#include <google/protobuf/generated_message_table_driven.h>
+#include <google/protobuf/generated_message_util.h>
+#include <google/protobuf/io/coded_stream.h>
+#include <google/protobuf/message_lite.h>
+#include <google/protobuf/metadata_lite.h>
+#include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 // @@protoc_insertion_point(includes)
 class AreaRuleProto;
 class AreaRuleProtoDefaultTypeInternal;
@@ -79,13 +79,15 @@ class SymbolRuleProto;
 class SymbolRuleProtoDefaultTypeInternal;
 extern SymbolRuleProtoDefaultTypeInternal _SymbolRuleProto_default_instance_;
 
-namespace protobuf_indexer_2fdrules_5fstruct_2eproto {
+namespace protobuf_indexer_2fdrules_5fstruct_2eproto
+{
 // Internal implementation detail -- do not call these.
-struct TableStruct {
-  static const ::google::protobuf::internal::ParseTableField entries[];
-  static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[];
-  static const ::google::protobuf::uint32 offsets[];
+struct TableStruct
+{
+  static ::google::protobuf::internal::ParseTableField const entries[];
+  static ::google::protobuf::internal::AuxillaryParseTableField const aux[];
+  static ::google::protobuf::internal::ParseTable const schema[];
+  static ::google::protobuf::uint32 const offsets[];
   static void InitDefaultsImpl();
   static void Shutdown();
 };
@@ -93,7 +95,8 @@ void AddDescriptors();
 void InitDefaults();
 }  // namespace protobuf_indexer_2fdrules_5fstruct_2eproto
 
-enum LineJoin {
+enum LineJoin
+{
   ROUNDJOIN = 0,
   BEVELJOIN = 1,
   NOJOIN = 2,
@@ -101,11 +104,12 @@ enum LineJoin {
   LineJoin_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool LineJoin_IsValid(int value);
-const LineJoin LineJoin_MIN = ROUNDJOIN;
-const LineJoin LineJoin_MAX = NOJOIN;
-const int LineJoin_ARRAYSIZE = LineJoin_MAX + 1;
+LineJoin const LineJoin_MIN = ROUNDJOIN;
+LineJoin const LineJoin_MAX = NOJOIN;
+int const LineJoin_ARRAYSIZE = LineJoin_MAX + 1;
 
-enum LineCap {
+enum LineCap
+{
   ROUNDCAP = 0,
   BUTTCAP = 1,
   SQUARECAP = 2,
@@ -113,68 +117,65 @@ enum LineCap {
   LineCap_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool LineCap_IsValid(int value);
-const LineCap LineCap_MIN = ROUNDCAP;
-const LineCap LineCap_MAX = SQUARECAP;
-const int LineCap_ARRAYSIZE = LineCap_MAX + 1;
+LineCap const LineCap_MIN = ROUNDCAP;
+LineCap const LineCap_MAX = SQUARECAP;
+int const LineCap_ARRAYSIZE = LineCap_MAX + 1;
 
 // ===================================================================
 
-class DashDotProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:DashDotProto) */ {
- public:
+class DashDotProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:DashDotProto) */
+{
+public:
   DashDotProto();
   virtual ~DashDotProto();
 
-  DashDotProto(const DashDotProto& from);
+  DashDotProto(DashDotProto const & from);
 
-  inline DashDotProto& operator=(const DashDotProto& from) {
+  inline DashDotProto & operator=(DashDotProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const DashDotProto& default_instance();
+  static DashDotProto const & default_instance();
 
-  static inline const DashDotProto* internal_default_instance() {
-    return reinterpret_cast<const DashDotProto*>(
-               &_DashDotProto_default_instance_);
+  static inline DashDotProto const * internal_default_instance()
+  {
+    return reinterpret_cast<DashDotProto const *>(&_DashDotProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    0;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 0;
 
-  void Swap(DashDotProto* other);
+  void Swap(DashDotProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline DashDotProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline DashDotProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  DashDotProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const DashDotProto& from);
-  void MergeFrom(const DashDotProto& from);
+  DashDotProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(DashDotProto const & from);
+  void MergeFrom(DashDotProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(DashDotProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(DashDotProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -184,26 +185,23 @@ class DashDotProto : public ::google::protobuf::MessageLite /* @@protoc_insertio
   // repeated double dd = 1;
   int dd_size() const;
   void clear_dd();
-  static const int kDdFieldNumber = 1;
+  static int const kDdFieldNumber = 1;
   double dd(int index) const;
   void set_dd(int index, double value);
   void add_dd(double value);
-  const ::google::protobuf::RepeatedField< double >&
-      dd() const;
-  ::google::protobuf::RepeatedField< double >*
-      mutable_dd();
+  ::google::protobuf::RepeatedField<double> const & dd() const;
+  ::google::protobuf::RepeatedField<double> * mutable_dd();
 
   // double offset = 2;
   void clear_offset();
-  static const int kOffsetFieldNumber = 2;
+  static int const kOffsetFieldNumber = 2;
   double offset() const;
   void set_offset(double value);
 
   // @@protoc_insertion_point(class_scope:DashDotProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::google::protobuf::RepeatedField< double > dd_;
+  ::google::protobuf::RepeatedField<double> dd_;
   mutable int _dd_cached_byte_size_;
   double offset_;
   mutable int _cached_size_;
@@ -211,62 +209,59 @@ class DashDotProto : public ::google::protobuf::MessageLite /* @@protoc_insertio
 };
 // -------------------------------------------------------------------
 
-class PathSymProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:PathSymProto) */ {
- public:
+class PathSymProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:PathSymProto) */
+{
+public:
   PathSymProto();
   virtual ~PathSymProto();
 
-  PathSymProto(const PathSymProto& from);
+  PathSymProto(PathSymProto const & from);
 
-  inline PathSymProto& operator=(const PathSymProto& from) {
+  inline PathSymProto & operator=(PathSymProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const PathSymProto& default_instance();
+  static PathSymProto const & default_instance();
 
-  static inline const PathSymProto* internal_default_instance() {
-    return reinterpret_cast<const PathSymProto*>(
-               &_PathSymProto_default_instance_);
+  static inline PathSymProto const * internal_default_instance()
+  {
+    return reinterpret_cast<PathSymProto const *>(&_PathSymProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    1;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 1;
 
-  void Swap(PathSymProto* other);
+  void Swap(PathSymProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline PathSymProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline PathSymProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  PathSymProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const PathSymProto& from);
-  void MergeFrom(const PathSymProto& from);
+  PathSymProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(PathSymProto const & from);
+  void MergeFrom(PathSymProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(PathSymProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(PathSymProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -275,33 +270,32 @@ class PathSymProto : public ::google::protobuf::MessageLite /* @@protoc_insertio
 
   // string name = 1;
   void clear_name();
-  static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  #if LANG_CXX11
-  void set_name(::std::string&& value);
-  #endif
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
+  static int const kNameFieldNumber = 1;
+  ::std::string const & name() const;
+  void set_name(::std::string const & value);
+#if LANG_CXX11
+  void set_name(::std::string && value);
+#endif
+  void set_name(const char * value);
+  void set_name(char const * value, size_t size);
+  ::std::string * mutable_name();
+  ::std::string * release_name();
+  void set_allocated_name(::std::string * name);
 
   // double step = 2;
   void clear_step();
-  static const int kStepFieldNumber = 2;
+  static int const kStepFieldNumber = 2;
   double step() const;
   void set_step(double value);
 
   // double offset = 3;
   void clear_offset();
-  static const int kOffsetFieldNumber = 3;
+  static int const kOffsetFieldNumber = 3;
   double offset() const;
   void set_offset(double value);
 
   // @@protoc_insertion_point(class_scope:PathSymProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   double step_;
@@ -311,62 +305,59 @@ class PathSymProto : public ::google::protobuf::MessageLite /* @@protoc_insertio
 };
 // -------------------------------------------------------------------
 
-class LineRuleProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:LineRuleProto) */ {
- public:
+class LineRuleProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:LineRuleProto) */
+{
+public:
   LineRuleProto();
   virtual ~LineRuleProto();
 
-  LineRuleProto(const LineRuleProto& from);
+  LineRuleProto(LineRuleProto const & from);
 
-  inline LineRuleProto& operator=(const LineRuleProto& from) {
+  inline LineRuleProto & operator=(LineRuleProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const LineRuleProto& default_instance();
+  static LineRuleProto const & default_instance();
 
-  static inline const LineRuleProto* internal_default_instance() {
-    return reinterpret_cast<const LineRuleProto*>(
-               &_LineRuleProto_default_instance_);
+  static inline LineRuleProto const * internal_default_instance()
+  {
+    return reinterpret_cast<LineRuleProto const *>(&_LineRuleProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    2;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 2;
 
-  void Swap(LineRuleProto* other);
+  void Swap(LineRuleProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline LineRuleProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline LineRuleProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  LineRuleProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const LineRuleProto& from);
-  void MergeFrom(const LineRuleProto& from);
+  LineRuleProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(LineRuleProto const & from);
+  void MergeFrom(LineRuleProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(LineRuleProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(LineRuleProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -376,57 +367,56 @@ class LineRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inserti
   // .DashDotProto dashdot = 3;
   bool has_dashdot() const;
   void clear_dashdot();
-  static const int kDashdotFieldNumber = 3;
-  const ::DashDotProto& dashdot() const;
-  ::DashDotProto* mutable_dashdot();
-  ::DashDotProto* release_dashdot();
-  void set_allocated_dashdot(::DashDotProto* dashdot);
+  static int const kDashdotFieldNumber = 3;
+  ::DashDotProto const & dashdot() const;
+  ::DashDotProto * mutable_dashdot();
+  ::DashDotProto * release_dashdot();
+  void set_allocated_dashdot(::DashDotProto * dashdot);
 
   // .PathSymProto pathsym = 5;
   bool has_pathsym() const;
   void clear_pathsym();
-  static const int kPathsymFieldNumber = 5;
-  const ::PathSymProto& pathsym() const;
-  ::PathSymProto* mutable_pathsym();
-  ::PathSymProto* release_pathsym();
-  void set_allocated_pathsym(::PathSymProto* pathsym);
+  static int const kPathsymFieldNumber = 5;
+  ::PathSymProto const & pathsym() const;
+  ::PathSymProto * mutable_pathsym();
+  ::PathSymProto * release_pathsym();
+  void set_allocated_pathsym(::PathSymProto * pathsym);
 
   // double width = 1;
   void clear_width();
-  static const int kWidthFieldNumber = 1;
+  static int const kWidthFieldNumber = 1;
   double width() const;
   void set_width(double value);
 
   // uint32 color = 2;
   void clear_color();
-  static const int kColorFieldNumber = 2;
+  static int const kColorFieldNumber = 2;
   ::google::protobuf::uint32 color() const;
   void set_color(::google::protobuf::uint32 value);
 
   // int32 priority = 4;
   void clear_priority();
-  static const int kPriorityFieldNumber = 4;
+  static int const kPriorityFieldNumber = 4;
   ::google::protobuf::int32 priority() const;
   void set_priority(::google::protobuf::int32 value);
 
   // .LineJoin join = 6;
   void clear_join();
-  static const int kJoinFieldNumber = 6;
+  static int const kJoinFieldNumber = 6;
   ::LineJoin join() const;
   void set_join(::LineJoin value);
 
   // .LineCap cap = 7;
   void clear_cap();
-  static const int kCapFieldNumber = 7;
+  static int const kCapFieldNumber = 7;
   ::LineCap cap() const;
   void set_cap(::LineCap value);
 
   // @@protoc_insertion_point(class_scope:LineRuleProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::DashDotProto* dashdot_;
-  ::PathSymProto* pathsym_;
+  ::DashDotProto * dashdot_;
+  ::PathSymProto * pathsym_;
   double width_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
@@ -437,62 +427,59 @@ class LineRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inserti
 };
 // -------------------------------------------------------------------
 
-class LineDefProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:LineDefProto) */ {
- public:
+class LineDefProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:LineDefProto) */
+{
+public:
   LineDefProto();
   virtual ~LineDefProto();
 
-  LineDefProto(const LineDefProto& from);
+  LineDefProto(LineDefProto const & from);
 
-  inline LineDefProto& operator=(const LineDefProto& from) {
+  inline LineDefProto & operator=(LineDefProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const LineDefProto& default_instance();
+  static LineDefProto const & default_instance();
 
-  static inline const LineDefProto* internal_default_instance() {
-    return reinterpret_cast<const LineDefProto*>(
-               &_LineDefProto_default_instance_);
+  static inline LineDefProto const * internal_default_instance()
+  {
+    return reinterpret_cast<LineDefProto const *>(&_LineDefProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    3;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 3;
 
-  void Swap(LineDefProto* other);
+  void Swap(LineDefProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline LineDefProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline LineDefProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  LineDefProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const LineDefProto& from);
-  void MergeFrom(const LineDefProto& from);
+  LineDefProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(LineDefProto const & from);
+  void MergeFrom(LineDefProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(LineDefProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(LineDefProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -502,51 +489,50 @@ class LineDefProto : public ::google::protobuf::MessageLite /* @@protoc_insertio
   // .DashDotProto dashdot = 3;
   bool has_dashdot() const;
   void clear_dashdot();
-  static const int kDashdotFieldNumber = 3;
-  const ::DashDotProto& dashdot() const;
-  ::DashDotProto* mutable_dashdot();
-  ::DashDotProto* release_dashdot();
-  void set_allocated_dashdot(::DashDotProto* dashdot);
+  static int const kDashdotFieldNumber = 3;
+  ::DashDotProto const & dashdot() const;
+  ::DashDotProto * mutable_dashdot();
+  ::DashDotProto * release_dashdot();
+  void set_allocated_dashdot(::DashDotProto * dashdot);
 
   // .PathSymProto pathsym = 4;
   bool has_pathsym() const;
   void clear_pathsym();
-  static const int kPathsymFieldNumber = 4;
-  const ::PathSymProto& pathsym() const;
-  ::PathSymProto* mutable_pathsym();
-  ::PathSymProto* release_pathsym();
-  void set_allocated_pathsym(::PathSymProto* pathsym);
+  static int const kPathsymFieldNumber = 4;
+  ::PathSymProto const & pathsym() const;
+  ::PathSymProto * mutable_pathsym();
+  ::PathSymProto * release_pathsym();
+  void set_allocated_pathsym(::PathSymProto * pathsym);
 
   // double width = 1;
   void clear_width();
-  static const int kWidthFieldNumber = 1;
+  static int const kWidthFieldNumber = 1;
   double width() const;
   void set_width(double value);
 
   // uint32 color = 2;
   void clear_color();
-  static const int kColorFieldNumber = 2;
+  static int const kColorFieldNumber = 2;
   ::google::protobuf::uint32 color() const;
   void set_color(::google::protobuf::uint32 value);
 
   // .LineJoin join = 6;
   void clear_join();
-  static const int kJoinFieldNumber = 6;
+  static int const kJoinFieldNumber = 6;
   ::LineJoin join() const;
   void set_join(::LineJoin value);
 
   // .LineCap cap = 7;
   void clear_cap();
-  static const int kCapFieldNumber = 7;
+  static int const kCapFieldNumber = 7;
   ::LineCap cap() const;
   void set_cap(::LineCap value);
 
   // @@protoc_insertion_point(class_scope:LineDefProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::DashDotProto* dashdot_;
-  ::PathSymProto* pathsym_;
+  ::DashDotProto * dashdot_;
+  ::PathSymProto * pathsym_;
   double width_;
   ::google::protobuf::uint32 color_;
   int join_;
@@ -556,62 +542,59 @@ class LineDefProto : public ::google::protobuf::MessageLite /* @@protoc_insertio
 };
 // -------------------------------------------------------------------
 
-class AreaRuleProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:AreaRuleProto) */ {
- public:
+class AreaRuleProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:AreaRuleProto) */
+{
+public:
   AreaRuleProto();
   virtual ~AreaRuleProto();
 
-  AreaRuleProto(const AreaRuleProto& from);
+  AreaRuleProto(AreaRuleProto const & from);
 
-  inline AreaRuleProto& operator=(const AreaRuleProto& from) {
+  inline AreaRuleProto & operator=(AreaRuleProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const AreaRuleProto& default_instance();
+  static AreaRuleProto const & default_instance();
 
-  static inline const AreaRuleProto* internal_default_instance() {
-    return reinterpret_cast<const AreaRuleProto*>(
-               &_AreaRuleProto_default_instance_);
+  static inline AreaRuleProto const * internal_default_instance()
+  {
+    return reinterpret_cast<AreaRuleProto const *>(&_AreaRuleProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    4;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 4;
 
-  void Swap(AreaRuleProto* other);
+  void Swap(AreaRuleProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline AreaRuleProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline AreaRuleProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  AreaRuleProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const AreaRuleProto& from);
-  void MergeFrom(const AreaRuleProto& from);
+  AreaRuleProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(AreaRuleProto const & from);
+  void MergeFrom(AreaRuleProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(AreaRuleProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(AreaRuleProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -621,29 +604,28 @@ class AreaRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inserti
   // .LineDefProto border = 2;
   bool has_border() const;
   void clear_border();
-  static const int kBorderFieldNumber = 2;
-  const ::LineDefProto& border() const;
-  ::LineDefProto* mutable_border();
-  ::LineDefProto* release_border();
-  void set_allocated_border(::LineDefProto* border);
+  static int const kBorderFieldNumber = 2;
+  ::LineDefProto const & border() const;
+  ::LineDefProto * mutable_border();
+  ::LineDefProto * release_border();
+  void set_allocated_border(::LineDefProto * border);
 
   // uint32 color = 1;
   void clear_color();
-  static const int kColorFieldNumber = 1;
+  static int const kColorFieldNumber = 1;
   ::google::protobuf::uint32 color() const;
   void set_color(::google::protobuf::uint32 value);
 
   // int32 priority = 3;
   void clear_priority();
-  static const int kPriorityFieldNumber = 3;
+  static int const kPriorityFieldNumber = 3;
   ::google::protobuf::int32 priority() const;
   void set_priority(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:AreaRuleProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::LineDefProto* border_;
+  ::LineDefProto * border_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
   mutable int _cached_size_;
@@ -651,62 +633,59 @@ class AreaRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inserti
 };
 // -------------------------------------------------------------------
 
-class SymbolRuleProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:SymbolRuleProto) */ {
- public:
+class SymbolRuleProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:SymbolRuleProto) */
+{
+public:
   SymbolRuleProto();
   virtual ~SymbolRuleProto();
 
-  SymbolRuleProto(const SymbolRuleProto& from);
+  SymbolRuleProto(SymbolRuleProto const & from);
 
-  inline SymbolRuleProto& operator=(const SymbolRuleProto& from) {
+  inline SymbolRuleProto & operator=(SymbolRuleProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const SymbolRuleProto& default_instance();
+  static SymbolRuleProto const & default_instance();
 
-  static inline const SymbolRuleProto* internal_default_instance() {
-    return reinterpret_cast<const SymbolRuleProto*>(
-               &_SymbolRuleProto_default_instance_);
+  static inline SymbolRuleProto const * internal_default_instance()
+  {
+    return reinterpret_cast<SymbolRuleProto const *>(&_SymbolRuleProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    5;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 5;
 
-  void Swap(SymbolRuleProto* other);
+  void Swap(SymbolRuleProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline SymbolRuleProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline SymbolRuleProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  SymbolRuleProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const SymbolRuleProto& from);
-  void MergeFrom(const SymbolRuleProto& from);
+  SymbolRuleProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(SymbolRuleProto const & from);
+  void MergeFrom(SymbolRuleProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(SymbolRuleProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(SymbolRuleProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -715,39 +694,38 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inser
 
   // string name = 1;
   void clear_name();
-  static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  #if LANG_CXX11
-  void set_name(::std::string&& value);
-  #endif
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
+  static int const kNameFieldNumber = 1;
+  ::std::string const & name() const;
+  void set_name(::std::string const & value);
+#if LANG_CXX11
+  void set_name(::std::string && value);
+#endif
+  void set_name(const char * value);
+  void set_name(char const * value, size_t size);
+  ::std::string * mutable_name();
+  ::std::string * release_name();
+  void set_allocated_name(::std::string * name);
 
   // int32 apply_for_type = 2;
   void clear_apply_for_type();
-  static const int kApplyForTypeFieldNumber = 2;
+  static int const kApplyForTypeFieldNumber = 2;
   ::google::protobuf::int32 apply_for_type() const;
   void set_apply_for_type(::google::protobuf::int32 value);
 
   // int32 priority = 3;
   void clear_priority();
-  static const int kPriorityFieldNumber = 3;
+  static int const kPriorityFieldNumber = 3;
   ::google::protobuf::int32 priority() const;
   void set_priority(::google::protobuf::int32 value);
 
   // int32 min_distance = 4;
   void clear_min_distance();
-  static const int kMinDistanceFieldNumber = 4;
+  static int const kMinDistanceFieldNumber = 4;
   ::google::protobuf::int32 min_distance() const;
   void set_min_distance(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:SymbolRuleProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::int32 apply_for_type_;
@@ -758,62 +736,59 @@ class SymbolRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inser
 };
 // -------------------------------------------------------------------
 
-class CaptionDefProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:CaptionDefProto) */ {
- public:
+class CaptionDefProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:CaptionDefProto) */
+{
+public:
   CaptionDefProto();
   virtual ~CaptionDefProto();
 
-  CaptionDefProto(const CaptionDefProto& from);
+  CaptionDefProto(CaptionDefProto const & from);
 
-  inline CaptionDefProto& operator=(const CaptionDefProto& from) {
+  inline CaptionDefProto & operator=(CaptionDefProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const CaptionDefProto& default_instance();
+  static CaptionDefProto const & default_instance();
 
-  static inline const CaptionDefProto* internal_default_instance() {
-    return reinterpret_cast<const CaptionDefProto*>(
-               &_CaptionDefProto_default_instance_);
+  static inline CaptionDefProto const * internal_default_instance()
+  {
+    return reinterpret_cast<CaptionDefProto const *>(&_CaptionDefProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    6;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 6;
 
-  void Swap(CaptionDefProto* other);
+  void Swap(CaptionDefProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline CaptionDefProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline CaptionDefProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  CaptionDefProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const CaptionDefProto& from);
-  void MergeFrom(const CaptionDefProto& from);
+  CaptionDefProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(CaptionDefProto const & from);
+  void MergeFrom(CaptionDefProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(CaptionDefProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(CaptionDefProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -822,57 +797,56 @@ class CaptionDefProto : public ::google::protobuf::MessageLite /* @@protoc_inser
 
   // string text = 6;
   void clear_text();
-  static const int kTextFieldNumber = 6;
-  const ::std::string& text() const;
-  void set_text(const ::std::string& value);
-  #if LANG_CXX11
-  void set_text(::std::string&& value);
-  #endif
-  void set_text(const char* value);
-  void set_text(const char* value, size_t size);
-  ::std::string* mutable_text();
-  ::std::string* release_text();
-  void set_allocated_text(::std::string* text);
+  static int const kTextFieldNumber = 6;
+  ::std::string const & text() const;
+  void set_text(::std::string const & value);
+#if LANG_CXX11
+  void set_text(::std::string && value);
+#endif
+  void set_text(const char * value);
+  void set_text(char const * value, size_t size);
+  ::std::string * mutable_text();
+  ::std::string * release_text();
+  void set_allocated_text(::std::string * text);
 
   // int32 height = 1;
   void clear_height();
-  static const int kHeightFieldNumber = 1;
+  static int const kHeightFieldNumber = 1;
   ::google::protobuf::int32 height() const;
   void set_height(::google::protobuf::int32 value);
 
   // uint32 color = 2;
   void clear_color();
-  static const int kColorFieldNumber = 2;
+  static int const kColorFieldNumber = 2;
   ::google::protobuf::uint32 color() const;
   void set_color(::google::protobuf::uint32 value);
 
   // uint32 stroke_color = 3;
   void clear_stroke_color();
-  static const int kStrokeColorFieldNumber = 3;
+  static int const kStrokeColorFieldNumber = 3;
   ::google::protobuf::uint32 stroke_color() const;
   void set_stroke_color(::google::protobuf::uint32 value);
 
   // int32 offset_x = 4;
   void clear_offset_x();
-  static const int kOffsetXFieldNumber = 4;
+  static int const kOffsetXFieldNumber = 4;
   ::google::protobuf::int32 offset_x() const;
   void set_offset_x(::google::protobuf::int32 value);
 
   // int32 offset_y = 5;
   void clear_offset_y();
-  static const int kOffsetYFieldNumber = 5;
+  static int const kOffsetYFieldNumber = 5;
   ::google::protobuf::int32 offset_y() const;
   void set_offset_y(::google::protobuf::int32 value);
 
   // bool is_optional = 7;
   void clear_is_optional();
-  static const int kIsOptionalFieldNumber = 7;
+  static int const kIsOptionalFieldNumber = 7;
   bool is_optional() const;
   void set_is_optional(bool value);
 
   // @@protoc_insertion_point(class_scope:CaptionDefProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr text_;
   ::google::protobuf::int32 height_;
@@ -886,62 +860,59 @@ class CaptionDefProto : public ::google::protobuf::MessageLite /* @@protoc_inser
 };
 // -------------------------------------------------------------------
 
-class CaptionRuleProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:CaptionRuleProto) */ {
- public:
+class CaptionRuleProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:CaptionRuleProto) */
+{
+public:
   CaptionRuleProto();
   virtual ~CaptionRuleProto();
 
-  CaptionRuleProto(const CaptionRuleProto& from);
+  CaptionRuleProto(CaptionRuleProto const & from);
 
-  inline CaptionRuleProto& operator=(const CaptionRuleProto& from) {
+  inline CaptionRuleProto & operator=(CaptionRuleProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const CaptionRuleProto& default_instance();
+  static CaptionRuleProto const & default_instance();
 
-  static inline const CaptionRuleProto* internal_default_instance() {
-    return reinterpret_cast<const CaptionRuleProto*>(
-               &_CaptionRuleProto_default_instance_);
+  static inline CaptionRuleProto const * internal_default_instance()
+  {
+    return reinterpret_cast<CaptionRuleProto const *>(&_CaptionRuleProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    7;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 7;
 
-  void Swap(CaptionRuleProto* other);
+  void Swap(CaptionRuleProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline CaptionRuleProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline CaptionRuleProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  CaptionRuleProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const CaptionRuleProto& from);
-  void MergeFrom(const CaptionRuleProto& from);
+  CaptionRuleProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(CaptionRuleProto const & from);
+  void MergeFrom(CaptionRuleProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(CaptionRuleProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(CaptionRuleProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -951,95 +922,91 @@ class CaptionRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inse
   // .CaptionDefProto primary = 1;
   bool has_primary() const;
   void clear_primary();
-  static const int kPrimaryFieldNumber = 1;
-  const ::CaptionDefProto& primary() const;
-  ::CaptionDefProto* mutable_primary();
-  ::CaptionDefProto* release_primary();
-  void set_allocated_primary(::CaptionDefProto* primary);
+  static int const kPrimaryFieldNumber = 1;
+  ::CaptionDefProto const & primary() const;
+  ::CaptionDefProto * mutable_primary();
+  ::CaptionDefProto * release_primary();
+  void set_allocated_primary(::CaptionDefProto * primary);
 
   // .CaptionDefProto secondary = 2;
   bool has_secondary() const;
   void clear_secondary();
-  static const int kSecondaryFieldNumber = 2;
-  const ::CaptionDefProto& secondary() const;
-  ::CaptionDefProto* mutable_secondary();
-  ::CaptionDefProto* release_secondary();
-  void set_allocated_secondary(::CaptionDefProto* secondary);
+  static int const kSecondaryFieldNumber = 2;
+  ::CaptionDefProto const & secondary() const;
+  ::CaptionDefProto * mutable_secondary();
+  ::CaptionDefProto * release_secondary();
+  void set_allocated_secondary(::CaptionDefProto * secondary);
 
   // int32 priority = 3;
   void clear_priority();
-  static const int kPriorityFieldNumber = 3;
+  static int const kPriorityFieldNumber = 3;
   ::google::protobuf::int32 priority() const;
   void set_priority(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:CaptionRuleProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::CaptionDefProto* primary_;
-  ::CaptionDefProto* secondary_;
+  ::CaptionDefProto * primary_;
+  ::CaptionDefProto * secondary_;
   ::google::protobuf::int32 priority_;
   mutable int _cached_size_;
   friend struct protobuf_indexer_2fdrules_5fstruct_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
 
-class CircleRuleProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:CircleRuleProto) */ {
- public:
+class CircleRuleProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:CircleRuleProto) */
+{
+public:
   CircleRuleProto();
   virtual ~CircleRuleProto();
 
-  CircleRuleProto(const CircleRuleProto& from);
+  CircleRuleProto(CircleRuleProto const & from);
 
-  inline CircleRuleProto& operator=(const CircleRuleProto& from) {
+  inline CircleRuleProto & operator=(CircleRuleProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const CircleRuleProto& default_instance();
+  static CircleRuleProto const & default_instance();
 
-  static inline const CircleRuleProto* internal_default_instance() {
-    return reinterpret_cast<const CircleRuleProto*>(
-               &_CircleRuleProto_default_instance_);
+  static inline CircleRuleProto const * internal_default_instance()
+  {
+    return reinterpret_cast<CircleRuleProto const *>(&_CircleRuleProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    8;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 8;
 
-  void Swap(CircleRuleProto* other);
+  void Swap(CircleRuleProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline CircleRuleProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline CircleRuleProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  CircleRuleProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const CircleRuleProto& from);
-  void MergeFrom(const CircleRuleProto& from);
+  CircleRuleProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(CircleRuleProto const & from);
+  void MergeFrom(CircleRuleProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(CircleRuleProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(CircleRuleProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -1049,35 +1016,34 @@ class CircleRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inser
   // .LineDefProto border = 3;
   bool has_border() const;
   void clear_border();
-  static const int kBorderFieldNumber = 3;
-  const ::LineDefProto& border() const;
-  ::LineDefProto* mutable_border();
-  ::LineDefProto* release_border();
-  void set_allocated_border(::LineDefProto* border);
+  static int const kBorderFieldNumber = 3;
+  ::LineDefProto const & border() const;
+  ::LineDefProto * mutable_border();
+  ::LineDefProto * release_border();
+  void set_allocated_border(::LineDefProto * border);
 
   // double radius = 1;
   void clear_radius();
-  static const int kRadiusFieldNumber = 1;
+  static int const kRadiusFieldNumber = 1;
   double radius() const;
   void set_radius(double value);
 
   // uint32 color = 2;
   void clear_color();
-  static const int kColorFieldNumber = 2;
+  static int const kColorFieldNumber = 2;
   ::google::protobuf::uint32 color() const;
   void set_color(::google::protobuf::uint32 value);
 
   // int32 priority = 4;
   void clear_priority();
-  static const int kPriorityFieldNumber = 4;
+  static int const kPriorityFieldNumber = 4;
   ::google::protobuf::int32 priority() const;
   void set_priority(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:CircleRuleProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::LineDefProto* border_;
+  ::LineDefProto * border_;
   double radius_;
   ::google::protobuf::uint32 color_;
   ::google::protobuf::int32 priority_;
@@ -1086,62 +1052,59 @@ class CircleRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inser
 };
 // -------------------------------------------------------------------
 
-class PathTextRuleProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:PathTextRuleProto) */ {
- public:
+class PathTextRuleProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:PathTextRuleProto) */
+{
+public:
   PathTextRuleProto();
   virtual ~PathTextRuleProto();
 
-  PathTextRuleProto(const PathTextRuleProto& from);
+  PathTextRuleProto(PathTextRuleProto const & from);
 
-  inline PathTextRuleProto& operator=(const PathTextRuleProto& from) {
+  inline PathTextRuleProto & operator=(PathTextRuleProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const PathTextRuleProto& default_instance();
+  static PathTextRuleProto const & default_instance();
 
-  static inline const PathTextRuleProto* internal_default_instance() {
-    return reinterpret_cast<const PathTextRuleProto*>(
-               &_PathTextRuleProto_default_instance_);
+  static inline PathTextRuleProto const * internal_default_instance()
+  {
+    return reinterpret_cast<PathTextRuleProto const *>(&_PathTextRuleProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    9;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 9;
 
-  void Swap(PathTextRuleProto* other);
+  void Swap(PathTextRuleProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline PathTextRuleProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline PathTextRuleProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  PathTextRuleProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const PathTextRuleProto& from);
-  void MergeFrom(const PathTextRuleProto& from);
+  PathTextRuleProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(PathTextRuleProto const & from);
+  void MergeFrom(PathTextRuleProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(PathTextRuleProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(PathTextRuleProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -1151,95 +1114,91 @@ class PathTextRuleProto : public ::google::protobuf::MessageLite /* @@protoc_ins
   // .CaptionDefProto primary = 1;
   bool has_primary() const;
   void clear_primary();
-  static const int kPrimaryFieldNumber = 1;
-  const ::CaptionDefProto& primary() const;
-  ::CaptionDefProto* mutable_primary();
-  ::CaptionDefProto* release_primary();
-  void set_allocated_primary(::CaptionDefProto* primary);
+  static int const kPrimaryFieldNumber = 1;
+  ::CaptionDefProto const & primary() const;
+  ::CaptionDefProto * mutable_primary();
+  ::CaptionDefProto * release_primary();
+  void set_allocated_primary(::CaptionDefProto * primary);
 
   // .CaptionDefProto secondary = 2;
   bool has_secondary() const;
   void clear_secondary();
-  static const int kSecondaryFieldNumber = 2;
-  const ::CaptionDefProto& secondary() const;
-  ::CaptionDefProto* mutable_secondary();
-  ::CaptionDefProto* release_secondary();
-  void set_allocated_secondary(::CaptionDefProto* secondary);
+  static int const kSecondaryFieldNumber = 2;
+  ::CaptionDefProto const & secondary() const;
+  ::CaptionDefProto * mutable_secondary();
+  ::CaptionDefProto * release_secondary();
+  void set_allocated_secondary(::CaptionDefProto * secondary);
 
   // int32 priority = 3;
   void clear_priority();
-  static const int kPriorityFieldNumber = 3;
+  static int const kPriorityFieldNumber = 3;
   ::google::protobuf::int32 priority() const;
   void set_priority(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:PathTextRuleProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::CaptionDefProto* primary_;
-  ::CaptionDefProto* secondary_;
+  ::CaptionDefProto * primary_;
+  ::CaptionDefProto * secondary_;
   ::google::protobuf::int32 priority_;
   mutable int _cached_size_;
   friend struct protobuf_indexer_2fdrules_5fstruct_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
 
-class ShieldRuleProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ShieldRuleProto) */ {
- public:
+class ShieldRuleProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ShieldRuleProto) */
+{
+public:
   ShieldRuleProto();
   virtual ~ShieldRuleProto();
 
-  ShieldRuleProto(const ShieldRuleProto& from);
+  ShieldRuleProto(ShieldRuleProto const & from);
 
-  inline ShieldRuleProto& operator=(const ShieldRuleProto& from) {
+  inline ShieldRuleProto & operator=(ShieldRuleProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const ShieldRuleProto& default_instance();
+  static ShieldRuleProto const & default_instance();
 
-  static inline const ShieldRuleProto* internal_default_instance() {
-    return reinterpret_cast<const ShieldRuleProto*>(
-               &_ShieldRuleProto_default_instance_);
+  static inline ShieldRuleProto const * internal_default_instance()
+  {
+    return reinterpret_cast<ShieldRuleProto const *>(&_ShieldRuleProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    10;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 10;
 
-  void Swap(ShieldRuleProto* other);
+  void Swap(ShieldRuleProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline ShieldRuleProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline ShieldRuleProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  ShieldRuleProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const ShieldRuleProto& from);
-  void MergeFrom(const ShieldRuleProto& from);
+  ShieldRuleProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(ShieldRuleProto const & from);
+  void MergeFrom(ShieldRuleProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(ShieldRuleProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(ShieldRuleProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -1248,49 +1207,48 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inser
 
   // int32 height = 1;
   void clear_height();
-  static const int kHeightFieldNumber = 1;
+  static int const kHeightFieldNumber = 1;
   ::google::protobuf::int32 height() const;
   void set_height(::google::protobuf::int32 value);
 
   // uint32 color = 2;
   void clear_color();
-  static const int kColorFieldNumber = 2;
+  static int const kColorFieldNumber = 2;
   ::google::protobuf::uint32 color() const;
   void set_color(::google::protobuf::uint32 value);
 
   // uint32 stroke_color = 3;
   void clear_stroke_color();
-  static const int kStrokeColorFieldNumber = 3;
+  static int const kStrokeColorFieldNumber = 3;
   ::google::protobuf::uint32 stroke_color() const;
   void set_stroke_color(::google::protobuf::uint32 value);
 
   // int32 priority = 4;
   void clear_priority();
-  static const int kPriorityFieldNumber = 4;
+  static int const kPriorityFieldNumber = 4;
   ::google::protobuf::int32 priority() const;
   void set_priority(::google::protobuf::int32 value);
 
   // int32 min_distance = 5;
   void clear_min_distance();
-  static const int kMinDistanceFieldNumber = 5;
+  static int const kMinDistanceFieldNumber = 5;
   ::google::protobuf::int32 min_distance() const;
   void set_min_distance(::google::protobuf::int32 value);
 
   // uint32 text_color = 6;
   void clear_text_color();
-  static const int kTextColorFieldNumber = 6;
+  static int const kTextColorFieldNumber = 6;
   ::google::protobuf::uint32 text_color() const;
   void set_text_color(::google::protobuf::uint32 value);
 
   // uint32 text_stroke_color = 7;
   void clear_text_stroke_color();
-  static const int kTextStrokeColorFieldNumber = 7;
+  static int const kTextStrokeColorFieldNumber = 7;
   ::google::protobuf::uint32 text_stroke_color() const;
   void set_text_stroke_color(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:ShieldRuleProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
   ::google::protobuf::int32 height_;
   ::google::protobuf::uint32 color_;
@@ -1304,62 +1262,59 @@ class ShieldRuleProto : public ::google::protobuf::MessageLite /* @@protoc_inser
 };
 // -------------------------------------------------------------------
 
-class DrawElementProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:DrawElementProto) */ {
- public:
+class DrawElementProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:DrawElementProto) */
+{
+public:
   DrawElementProto();
   virtual ~DrawElementProto();
 
-  DrawElementProto(const DrawElementProto& from);
+  DrawElementProto(DrawElementProto const & from);
 
-  inline DrawElementProto& operator=(const DrawElementProto& from) {
+  inline DrawElementProto & operator=(DrawElementProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const DrawElementProto& default_instance();
+  static DrawElementProto const & default_instance();
 
-  static inline const DrawElementProto* internal_default_instance() {
-    return reinterpret_cast<const DrawElementProto*>(
-               &_DrawElementProto_default_instance_);
+  static inline DrawElementProto const * internal_default_instance()
+  {
+    return reinterpret_cast<DrawElementProto const *>(&_DrawElementProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    11;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 11;
 
-  void Swap(DrawElementProto* other);
+  void Swap(DrawElementProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline DrawElementProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline DrawElementProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  DrawElementProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const DrawElementProto& from);
-  void MergeFrom(const DrawElementProto& from);
+  DrawElementProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(DrawElementProto const & from);
+  void MergeFrom(DrawElementProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(DrawElementProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(DrawElementProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -1369,171 +1324,165 @@ class DrawElementProto : public ::google::protobuf::MessageLite /* @@protoc_inse
   // repeated .LineRuleProto lines = 2;
   int lines_size() const;
   void clear_lines();
-  static const int kLinesFieldNumber = 2;
-  const ::LineRuleProto& lines(int index) const;
-  ::LineRuleProto* mutable_lines(int index);
-  ::LineRuleProto* add_lines();
-  ::google::protobuf::RepeatedPtrField< ::LineRuleProto >*
-      mutable_lines();
-  const ::google::protobuf::RepeatedPtrField< ::LineRuleProto >&
-      lines() const;
+  static int const kLinesFieldNumber = 2;
+  ::LineRuleProto const & lines(int index) const;
+  ::LineRuleProto * mutable_lines(int index);
+  ::LineRuleProto * add_lines();
+  ::google::protobuf::RepeatedPtrField<::LineRuleProto> * mutable_lines();
+  ::google::protobuf::RepeatedPtrField<::LineRuleProto> const & lines() const;
 
   // repeated string apply_if = 9;
   int apply_if_size() const;
   void clear_apply_if();
-  static const int kApplyIfFieldNumber = 9;
-  const ::std::string& apply_if(int index) const;
-  ::std::string* mutable_apply_if(int index);
-  void set_apply_if(int index, const ::std::string& value);
-  #if LANG_CXX11
-  void set_apply_if(int index, ::std::string&& value);
-  #endif
-  void set_apply_if(int index, const char* value);
-  void set_apply_if(int index, const char* value, size_t size);
-  ::std::string* add_apply_if();
-  void add_apply_if(const ::std::string& value);
-  #if LANG_CXX11
-  void add_apply_if(::std::string&& value);
-  #endif
-  void add_apply_if(const char* value);
-  void add_apply_if(const char* value, size_t size);
-  const ::google::protobuf::RepeatedPtrField< ::std::string>& apply_if() const;
-  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_apply_if();
+  static int const kApplyIfFieldNumber = 9;
+  ::std::string const & apply_if(int index) const;
+  ::std::string * mutable_apply_if(int index);
+  void set_apply_if(int index, ::std::string const & value);
+#if LANG_CXX11
+  void set_apply_if(int index, ::std::string && value);
+#endif
+  void set_apply_if(int index, const char * value);
+  void set_apply_if(int index, char const * value, size_t size);
+  ::std::string * add_apply_if();
+  void add_apply_if(::std::string const & value);
+#if LANG_CXX11
+  void add_apply_if(::std::string && value);
+#endif
+  void add_apply_if(const char * value);
+  void add_apply_if(char const * value, size_t size);
+  ::google::protobuf::RepeatedPtrField<::std::string> const & apply_if() const;
+  ::google::protobuf::RepeatedPtrField<::std::string> * mutable_apply_if();
 
   // .AreaRuleProto area = 3;
   bool has_area() const;
   void clear_area();
-  static const int kAreaFieldNumber = 3;
-  const ::AreaRuleProto& area() const;
-  ::AreaRuleProto* mutable_area();
-  ::AreaRuleProto* release_area();
-  void set_allocated_area(::AreaRuleProto* area);
+  static int const kAreaFieldNumber = 3;
+  ::AreaRuleProto const & area() const;
+  ::AreaRuleProto * mutable_area();
+  ::AreaRuleProto * release_area();
+  void set_allocated_area(::AreaRuleProto * area);
 
   // .SymbolRuleProto symbol = 4;
   bool has_symbol() const;
   void clear_symbol();
-  static const int kSymbolFieldNumber = 4;
-  const ::SymbolRuleProto& symbol() const;
-  ::SymbolRuleProto* mutable_symbol();
-  ::SymbolRuleProto* release_symbol();
-  void set_allocated_symbol(::SymbolRuleProto* symbol);
+  static int const kSymbolFieldNumber = 4;
+  ::SymbolRuleProto const & symbol() const;
+  ::SymbolRuleProto * mutable_symbol();
+  ::SymbolRuleProto * release_symbol();
+  void set_allocated_symbol(::SymbolRuleProto * symbol);
 
   // .CaptionRuleProto caption = 5;
   bool has_caption() const;
   void clear_caption();
-  static const int kCaptionFieldNumber = 5;
-  const ::CaptionRuleProto& caption() const;
-  ::CaptionRuleProto* mutable_caption();
-  ::CaptionRuleProto* release_caption();
-  void set_allocated_caption(::CaptionRuleProto* caption);
+  static int const kCaptionFieldNumber = 5;
+  ::CaptionRuleProto const & caption() const;
+  ::CaptionRuleProto * mutable_caption();
+  ::CaptionRuleProto * release_caption();
+  void set_allocated_caption(::CaptionRuleProto * caption);
 
   // .CircleRuleProto circle = 6;
   bool has_circle() const;
   void clear_circle();
-  static const int kCircleFieldNumber = 6;
-  const ::CircleRuleProto& circle() const;
-  ::CircleRuleProto* mutable_circle();
-  ::CircleRuleProto* release_circle();
-  void set_allocated_circle(::CircleRuleProto* circle);
+  static int const kCircleFieldNumber = 6;
+  ::CircleRuleProto const & circle() const;
+  ::CircleRuleProto * mutable_circle();
+  ::CircleRuleProto * release_circle();
+  void set_allocated_circle(::CircleRuleProto * circle);
 
   // .PathTextRuleProto path_text = 7;
   bool has_path_text() const;
   void clear_path_text();
-  static const int kPathTextFieldNumber = 7;
-  const ::PathTextRuleProto& path_text() const;
-  ::PathTextRuleProto* mutable_path_text();
-  ::PathTextRuleProto* release_path_text();
-  void set_allocated_path_text(::PathTextRuleProto* path_text);
+  static int const kPathTextFieldNumber = 7;
+  ::PathTextRuleProto const & path_text() const;
+  ::PathTextRuleProto * mutable_path_text();
+  ::PathTextRuleProto * release_path_text();
+  void set_allocated_path_text(::PathTextRuleProto * path_text);
 
   // .ShieldRuleProto shield = 8;
   bool has_shield() const;
   void clear_shield();
-  static const int kShieldFieldNumber = 8;
-  const ::ShieldRuleProto& shield() const;
-  ::ShieldRuleProto* mutable_shield();
-  ::ShieldRuleProto* release_shield();
-  void set_allocated_shield(::ShieldRuleProto* shield);
+  static int const kShieldFieldNumber = 8;
+  ::ShieldRuleProto const & shield() const;
+  ::ShieldRuleProto * mutable_shield();
+  ::ShieldRuleProto * release_shield();
+  void set_allocated_shield(::ShieldRuleProto * shield);
 
   // int32 scale = 1;
   void clear_scale();
-  static const int kScaleFieldNumber = 1;
+  static int const kScaleFieldNumber = 1;
   ::google::protobuf::int32 scale() const;
   void set_scale(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:DrawElementProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::LineRuleProto > lines_;
-  ::google::protobuf::RepeatedPtrField< ::std::string> apply_if_;
-  ::AreaRuleProto* area_;
-  ::SymbolRuleProto* symbol_;
-  ::CaptionRuleProto* caption_;
-  ::CircleRuleProto* circle_;
-  ::PathTextRuleProto* path_text_;
-  ::ShieldRuleProto* shield_;
+  ::google::protobuf::RepeatedPtrField<::LineRuleProto> lines_;
+  ::google::protobuf::RepeatedPtrField<::std::string> apply_if_;
+  ::AreaRuleProto * area_;
+  ::SymbolRuleProto * symbol_;
+  ::CaptionRuleProto * caption_;
+  ::CircleRuleProto * circle_;
+  ::PathTextRuleProto * path_text_;
+  ::ShieldRuleProto * shield_;
   ::google::protobuf::int32 scale_;
   mutable int _cached_size_;
   friend struct protobuf_indexer_2fdrules_5fstruct_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
 
-class ClassifElementProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ClassifElementProto) */ {
- public:
+class ClassifElementProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ClassifElementProto) */
+{
+public:
   ClassifElementProto();
   virtual ~ClassifElementProto();
 
-  ClassifElementProto(const ClassifElementProto& from);
+  ClassifElementProto(ClassifElementProto const & from);
 
-  inline ClassifElementProto& operator=(const ClassifElementProto& from) {
+  inline ClassifElementProto & operator=(ClassifElementProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const ClassifElementProto& default_instance();
+  static ClassifElementProto const & default_instance();
 
-  static inline const ClassifElementProto* internal_default_instance() {
-    return reinterpret_cast<const ClassifElementProto*>(
-               &_ClassifElementProto_default_instance_);
+  static inline ClassifElementProto const * internal_default_instance()
+  {
+    return reinterpret_cast<ClassifElementProto const *>(&_ClassifElementProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    12;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 12;
 
-  void Swap(ClassifElementProto* other);
+  void Swap(ClassifElementProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline ClassifElementProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline ClassifElementProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  ClassifElementProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const ClassifElementProto& from);
-  void MergeFrom(const ClassifElementProto& from);
+  ClassifElementProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(ClassifElementProto const & from);
+  void MergeFrom(ClassifElementProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(ClassifElementProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(ClassifElementProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -1543,96 +1492,90 @@ class ClassifElementProto : public ::google::protobuf::MessageLite /* @@protoc_i
   // repeated .DrawElementProto element = 2;
   int element_size() const;
   void clear_element();
-  static const int kElementFieldNumber = 2;
-  const ::DrawElementProto& element(int index) const;
-  ::DrawElementProto* mutable_element(int index);
-  ::DrawElementProto* add_element();
-  ::google::protobuf::RepeatedPtrField< ::DrawElementProto >*
-      mutable_element();
-  const ::google::protobuf::RepeatedPtrField< ::DrawElementProto >&
-      element() const;
+  static int const kElementFieldNumber = 2;
+  ::DrawElementProto const & element(int index) const;
+  ::DrawElementProto * mutable_element(int index);
+  ::DrawElementProto * add_element();
+  ::google::protobuf::RepeatedPtrField<::DrawElementProto> * mutable_element();
+  ::google::protobuf::RepeatedPtrField<::DrawElementProto> const & element() const;
 
   // string name = 1;
   void clear_name();
-  static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  #if LANG_CXX11
-  void set_name(::std::string&& value);
-  #endif
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
+  static int const kNameFieldNumber = 1;
+  ::std::string const & name() const;
+  void set_name(::std::string const & value);
+#if LANG_CXX11
+  void set_name(::std::string && value);
+#endif
+  void set_name(const char * value);
+  void set_name(char const * value, size_t size);
+  ::std::string * mutable_name();
+  ::std::string * release_name();
+  void set_allocated_name(::std::string * name);
 
   // @@protoc_insertion_point(class_scope:ClassifElementProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::DrawElementProto > element_;
+  ::google::protobuf::RepeatedPtrField<::DrawElementProto> element_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   mutable int _cached_size_;
   friend struct protobuf_indexer_2fdrules_5fstruct_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
 
-class ColorElementProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ColorElementProto) */ {
- public:
+class ColorElementProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ColorElementProto) */
+{
+public:
   ColorElementProto();
   virtual ~ColorElementProto();
 
-  ColorElementProto(const ColorElementProto& from);
+  ColorElementProto(ColorElementProto const & from);
 
-  inline ColorElementProto& operator=(const ColorElementProto& from) {
+  inline ColorElementProto & operator=(ColorElementProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const ColorElementProto& default_instance();
+  static ColorElementProto const & default_instance();
 
-  static inline const ColorElementProto* internal_default_instance() {
-    return reinterpret_cast<const ColorElementProto*>(
-               &_ColorElementProto_default_instance_);
+  static inline ColorElementProto const * internal_default_instance()
+  {
+    return reinterpret_cast<ColorElementProto const *>(&_ColorElementProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    13;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 13;
 
-  void Swap(ColorElementProto* other);
+  void Swap(ColorElementProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline ColorElementProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline ColorElementProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  ColorElementProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const ColorElementProto& from);
-  void MergeFrom(const ColorElementProto& from);
+  ColorElementProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(ColorElementProto const & from);
+  void MergeFrom(ColorElementProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(ColorElementProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(ColorElementProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -1641,39 +1584,38 @@ class ColorElementProto : public ::google::protobuf::MessageLite /* @@protoc_ins
 
   // string name = 1;
   void clear_name();
-  static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  #if LANG_CXX11
-  void set_name(::std::string&& value);
-  #endif
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
+  static int const kNameFieldNumber = 1;
+  ::std::string const & name() const;
+  void set_name(::std::string const & value);
+#if LANG_CXX11
+  void set_name(::std::string && value);
+#endif
+  void set_name(const char * value);
+  void set_name(char const * value, size_t size);
+  ::std::string * mutable_name();
+  ::std::string * release_name();
+  void set_allocated_name(::std::string * name);
 
   // uint32 color = 2;
   void clear_color();
-  static const int kColorFieldNumber = 2;
+  static int const kColorFieldNumber = 2;
   ::google::protobuf::uint32 color() const;
   void set_color(::google::protobuf::uint32 value);
 
   // float x = 3;
   void clear_x();
-  static const int kXFieldNumber = 3;
+  static int const kXFieldNumber = 3;
   float x() const;
   void set_x(float value);
 
   // float y = 4;
   void clear_y();
-  static const int kYFieldNumber = 4;
+  static int const kYFieldNumber = 4;
   float y() const;
   void set_y(float value);
 
   // @@protoc_insertion_point(class_scope:ColorElementProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::uint32 color_;
@@ -1684,62 +1626,59 @@ class ColorElementProto : public ::google::protobuf::MessageLite /* @@protoc_ins
 };
 // -------------------------------------------------------------------
 
-class ColorsElementProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ColorsElementProto) */ {
- public:
+class ColorsElementProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ColorsElementProto) */
+{
+public:
   ColorsElementProto();
   virtual ~ColorsElementProto();
 
-  ColorsElementProto(const ColorsElementProto& from);
+  ColorsElementProto(ColorsElementProto const & from);
 
-  inline ColorsElementProto& operator=(const ColorsElementProto& from) {
+  inline ColorsElementProto & operator=(ColorsElementProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const ColorsElementProto& default_instance();
+  static ColorsElementProto const & default_instance();
 
-  static inline const ColorsElementProto* internal_default_instance() {
-    return reinterpret_cast<const ColorsElementProto*>(
-               &_ColorsElementProto_default_instance_);
+  static inline ColorsElementProto const * internal_default_instance()
+  {
+    return reinterpret_cast<ColorsElementProto const *>(&_ColorsElementProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    14;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 14;
 
-  void Swap(ColorsElementProto* other);
+  void Swap(ColorsElementProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline ColorsElementProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline ColorsElementProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  ColorsElementProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const ColorsElementProto& from);
-  void MergeFrom(const ColorsElementProto& from);
+  ColorsElementProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(ColorsElementProto const & from);
+  void MergeFrom(ColorsElementProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(ColorsElementProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(ColorsElementProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -1749,81 +1688,75 @@ class ColorsElementProto : public ::google::protobuf::MessageLite /* @@protoc_in
   // repeated .ColorElementProto value = 1;
   int value_size() const;
   void clear_value();
-  static const int kValueFieldNumber = 1;
-  const ::ColorElementProto& value(int index) const;
-  ::ColorElementProto* mutable_value(int index);
-  ::ColorElementProto* add_value();
-  ::google::protobuf::RepeatedPtrField< ::ColorElementProto >*
-      mutable_value();
-  const ::google::protobuf::RepeatedPtrField< ::ColorElementProto >&
-      value() const;
+  static int const kValueFieldNumber = 1;
+  ::ColorElementProto const & value(int index) const;
+  ::ColorElementProto * mutable_value(int index);
+  ::ColorElementProto * add_value();
+  ::google::protobuf::RepeatedPtrField<::ColorElementProto> * mutable_value();
+  ::google::protobuf::RepeatedPtrField<::ColorElementProto> const & value() const;
 
   // @@protoc_insertion_point(class_scope:ColorsElementProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::ColorElementProto > value_;
+  ::google::protobuf::RepeatedPtrField<::ColorElementProto> value_;
   mutable int _cached_size_;
   friend struct protobuf_indexer_2fdrules_5fstruct_2eproto::TableStruct;
 };
 // -------------------------------------------------------------------
 
-class ContainerProto : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ContainerProto) */ {
- public:
+class ContainerProto
+  : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:ContainerProto) */
+{
+public:
   ContainerProto();
   virtual ~ContainerProto();
 
-  ContainerProto(const ContainerProto& from);
+  ContainerProto(ContainerProto const & from);
 
-  inline ContainerProto& operator=(const ContainerProto& from) {
+  inline ContainerProto & operator=(ContainerProto const & from)
+  {
     CopyFrom(from);
     return *this;
   }
 
-  static const ContainerProto& default_instance();
+  static ContainerProto const & default_instance();
 
-  static inline const ContainerProto* internal_default_instance() {
-    return reinterpret_cast<const ContainerProto*>(
-               &_ContainerProto_default_instance_);
+  static inline ContainerProto const * internal_default_instance()
+  {
+    return reinterpret_cast<ContainerProto const *>(&_ContainerProto_default_instance_);
   }
-  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
-    15;
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages = 15;
 
-  void Swap(ContainerProto* other);
+  void Swap(ContainerProto * other);
 
   // implements Message ----------------------------------------------
 
-  inline ContainerProto* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline ContainerProto * New() const PROTOBUF_FINAL { return New(NULL); }
 
-  ContainerProto* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from)
-    PROTOBUF_FINAL;
-  void CopyFrom(const ContainerProto& from);
-  void MergeFrom(const ContainerProto& from);
+  ContainerProto * New(::google::protobuf::Arena * arena) const PROTOBUF_FINAL;
+  void CheckTypeAndMergeFrom(::google::protobuf::MessageLite const & from) PROTOBUF_FINAL;
+  void CopyFrom(ContainerProto const & from);
+  void MergeFrom(ContainerProto const & from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
   size_t ByteSizeLong() const PROTOBUF_FINAL;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(::google::protobuf::io::CodedInputStream * input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(::google::protobuf::io::CodedOutputStream * output) const PROTOBUF_FINAL;
   void DiscardUnknownFields();
   int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
-  private:
+
+private:
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(ContainerProto* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
+  void InternalSwap(ContainerProto * other);
 
+private:
+  inline ::google::protobuf::Arena * GetArenaNoVirtual() const { return NULL; }
+  inline void * MaybeArenaPtr() const { return NULL; }
+
+public:
   ::std::string GetTypeName() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
@@ -1833,35 +1766,31 @@ class ContainerProto : public ::google::protobuf::MessageLite /* @@protoc_insert
   // repeated .ClassifElementProto cont = 1;
   int cont_size() const;
   void clear_cont();
-  static const int kContFieldNumber = 1;
-  const ::ClassifElementProto& cont(int index) const;
-  ::ClassifElementProto* mutable_cont(int index);
-  ::ClassifElementProto* add_cont();
-  ::google::protobuf::RepeatedPtrField< ::ClassifElementProto >*
-      mutable_cont();
-  const ::google::protobuf::RepeatedPtrField< ::ClassifElementProto >&
-      cont() const;
+  static int const kContFieldNumber = 1;
+  ::ClassifElementProto const & cont(int index) const;
+  ::ClassifElementProto * mutable_cont(int index);
+  ::ClassifElementProto * add_cont();
+  ::google::protobuf::RepeatedPtrField<::ClassifElementProto> * mutable_cont();
+  ::google::protobuf::RepeatedPtrField<::ClassifElementProto> const & cont() const;
 
   // .ColorsElementProto colors = 2;
   bool has_colors() const;
   void clear_colors();
-  static const int kColorsFieldNumber = 2;
-  const ::ColorsElementProto& colors() const;
-  ::ColorsElementProto* mutable_colors();
-  ::ColorsElementProto* release_colors();
-  void set_allocated_colors(::ColorsElementProto* colors);
+  static int const kColorsFieldNumber = 2;
+  ::ColorsElementProto const & colors() const;
+  ::ColorsElementProto * mutable_colors();
+  ::ColorsElementProto * release_colors();
+  void set_allocated_colors(::ColorsElementProto * colors);
 
   // @@protoc_insertion_point(class_scope:ContainerProto)
- private:
-
+private:
   ::google::protobuf::internal::InternalMetadataWithArenaLite _internal_metadata_;
-  ::google::protobuf::RepeatedPtrField< ::ClassifElementProto > cont_;
-  ::ColorsElementProto* colors_;
+  ::google::protobuf::RepeatedPtrField<::ClassifElementProto> cont_;
+  ::ColorsElementProto * colors_;
   mutable int _cached_size_;
   friend struct protobuf_indexer_2fdrules_5fstruct_2eproto::TableStruct;
 };
 // ===================================================================
-
 
 // ===================================================================
 
@@ -1869,45 +1798,52 @@ class ContainerProto : public ::google::protobuf::MessageLite /* @@protoc_insert
 // DashDotProto
 
 // repeated double dd = 1;
-inline int DashDotProto::dd_size() const {
+inline int DashDotProto::dd_size() const
+{
   return dd_.size();
 }
-inline void DashDotProto::clear_dd() {
+inline void DashDotProto::clear_dd()
+{
   dd_.Clear();
 }
-inline double DashDotProto::dd(int index) const {
+inline double DashDotProto::dd(int index) const
+{
   // @@protoc_insertion_point(field_get:DashDotProto.dd)
   return dd_.Get(index);
 }
-inline void DashDotProto::set_dd(int index, double value) {
+inline void DashDotProto::set_dd(int index, double value)
+{
   dd_.Set(index, value);
   // @@protoc_insertion_point(field_set:DashDotProto.dd)
 }
-inline void DashDotProto::add_dd(double value) {
+inline void DashDotProto::add_dd(double value)
+{
   dd_.Add(value);
   // @@protoc_insertion_point(field_add:DashDotProto.dd)
 }
-inline const ::google::protobuf::RepeatedField< double >&
-DashDotProto::dd() const {
+inline ::google::protobuf::RepeatedField<double> const & DashDotProto::dd() const
+{
   // @@protoc_insertion_point(field_list:DashDotProto.dd)
   return dd_;
 }
-inline ::google::protobuf::RepeatedField< double >*
-DashDotProto::mutable_dd() {
+inline ::google::protobuf::RepeatedField<double> * DashDotProto::mutable_dd()
+{
   // @@protoc_insertion_point(field_mutable_list:DashDotProto.dd)
   return &dd_;
 }
 
 // double offset = 2;
-inline void DashDotProto::clear_offset() {
+inline void DashDotProto::clear_offset()
+{
   offset_ = 0;
 }
-inline double DashDotProto::offset() const {
+inline double DashDotProto::offset() const
+{
   // @@protoc_insertion_point(field_get:DashDotProto.offset)
   return offset_;
 }
-inline void DashDotProto::set_offset(double value) {
-  
+inline void DashDotProto::set_offset(double value)
+{
   offset_ = value;
   // @@protoc_insertion_point(field_set:DashDotProto.offset)
 }
@@ -1917,82 +1853,89 @@ inline void DashDotProto::set_offset(double value) {
 // PathSymProto
 
 // string name = 1;
-inline void PathSymProto::clear_name() {
+inline void PathSymProto::clear_name()
+{
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& PathSymProto::name() const {
+inline ::std::string const & PathSymProto::name() const
+{
   // @@protoc_insertion_point(field_get:PathSymProto.name)
   return name_.GetNoArena();
 }
-inline void PathSymProto::set_name(const ::std::string& value) {
-  
+inline void PathSymProto::set_name(::std::string const & value)
+{
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:PathSymProto.name)
 }
 #if LANG_CXX11
-inline void PathSymProto::set_name(::std::string&& value) {
-  
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+inline void PathSymProto::set_name(::std::string && value)
+{
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:PathSymProto.name)
 }
 #endif
-inline void PathSymProto::set_name(const char* value) {
+inline void PathSymProto::set_name(const char * value)
+{
   GOOGLE_DCHECK(value != NULL);
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:PathSymProto.name)
 }
-inline void PathSymProto::set_name(const char* value, size_t size) {
-  
+inline void PathSymProto::set_name(char const * value, size_t size)
+{
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                   ::std::string(reinterpret_cast<char const *>(value), size));
   // @@protoc_insertion_point(field_set_pointer:PathSymProto.name)
 }
-inline ::std::string* PathSymProto::mutable_name() {
-  
+inline ::std::string * PathSymProto::mutable_name()
+{
   // @@protoc_insertion_point(field_mutable:PathSymProto.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* PathSymProto::release_name() {
+inline ::std::string * PathSymProto::release_name()
+{
   // @@protoc_insertion_point(field_release:PathSymProto.name)
-  
+
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void PathSymProto::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
-    
-  } else {
-    
-  }
+inline void PathSymProto::set_allocated_name(::std::string * name)
+{
+  if (name != NULL)
+  {}
+  else
+  {}
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:PathSymProto.name)
 }
 
 // double step = 2;
-inline void PathSymProto::clear_step() {
+inline void PathSymProto::clear_step()
+{
   step_ = 0;
 }
-inline double PathSymProto::step() const {
+inline double PathSymProto::step() const
+{
   // @@protoc_insertion_point(field_get:PathSymProto.step)
   return step_;
 }
-inline void PathSymProto::set_step(double value) {
-  
+inline void PathSymProto::set_step(double value)
+{
   step_ = value;
   // @@protoc_insertion_point(field_set:PathSymProto.step)
 }
 
 // double offset = 3;
-inline void PathSymProto::clear_offset() {
+inline void PathSymProto::clear_offset()
+{
   offset_ = 0;
 }
-inline double PathSymProto::offset() const {
+inline double PathSymProto::offset() const
+{
   // @@protoc_insertion_point(field_get:PathSymProto.offset)
   return offset_;
 }
-inline void PathSymProto::set_offset(double value) {
-  
+inline void PathSymProto::set_offset(double value)
+{
   offset_ = value;
   // @@protoc_insertion_point(field_set:PathSymProto.offset)
 }
@@ -2002,149 +1945,165 @@ inline void PathSymProto::set_offset(double value) {
 // LineRuleProto
 
 // double width = 1;
-inline void LineRuleProto::clear_width() {
+inline void LineRuleProto::clear_width()
+{
   width_ = 0;
 }
-inline double LineRuleProto::width() const {
+inline double LineRuleProto::width() const
+{
   // @@protoc_insertion_point(field_get:LineRuleProto.width)
   return width_;
 }
-inline void LineRuleProto::set_width(double value) {
-  
+inline void LineRuleProto::set_width(double value)
+{
   width_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.width)
 }
 
 // uint32 color = 2;
-inline void LineRuleProto::clear_color() {
+inline void LineRuleProto::clear_color()
+{
   color_ = 0u;
 }
-inline ::google::protobuf::uint32 LineRuleProto::color() const {
+inline ::google::protobuf::uint32 LineRuleProto::color() const
+{
   // @@protoc_insertion_point(field_get:LineRuleProto.color)
   return color_;
 }
-inline void LineRuleProto::set_color(::google::protobuf::uint32 value) {
-  
+inline void LineRuleProto::set_color(::google::protobuf::uint32 value)
+{
   color_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.color)
 }
 
 // .DashDotProto dashdot = 3;
-inline bool LineRuleProto::has_dashdot() const {
+inline bool LineRuleProto::has_dashdot() const
+{
   return this != internal_default_instance() && dashdot_ != NULL;
 }
-inline void LineRuleProto::clear_dashdot() {
-  if (GetArenaNoVirtual() == NULL && dashdot_ != NULL) delete dashdot_;
+inline void LineRuleProto::clear_dashdot()
+{
+  if (GetArenaNoVirtual() == NULL && dashdot_ != NULL)
+    delete dashdot_;
   dashdot_ = NULL;
 }
-inline const ::DashDotProto& LineRuleProto::dashdot() const {
+inline ::DashDotProto const & LineRuleProto::dashdot() const
+{
   // @@protoc_insertion_point(field_get:LineRuleProto.dashdot)
-  return dashdot_ != NULL ? *dashdot_
-                         : *::DashDotProto::internal_default_instance();
+  return dashdot_ != NULL ? *dashdot_ : *::DashDotProto::internal_default_instance();
 }
-inline ::DashDotProto* LineRuleProto::mutable_dashdot() {
-  
-  if (dashdot_ == NULL) {
+inline ::DashDotProto * LineRuleProto::mutable_dashdot()
+{
+  if (dashdot_ == NULL)
     dashdot_ = new ::DashDotProto;
-  }
   // @@protoc_insertion_point(field_mutable:LineRuleProto.dashdot)
   return dashdot_;
 }
-inline ::DashDotProto* LineRuleProto::release_dashdot() {
+inline ::DashDotProto * LineRuleProto::release_dashdot()
+{
   // @@protoc_insertion_point(field_release:LineRuleProto.dashdot)
-  
-  ::DashDotProto* temp = dashdot_;
+
+  ::DashDotProto * temp = dashdot_;
   dashdot_ = NULL;
   return temp;
 }
-inline void LineRuleProto::set_allocated_dashdot(::DashDotProto* dashdot) {
+inline void LineRuleProto::set_allocated_dashdot(::DashDotProto * dashdot)
+{
   delete dashdot_;
   dashdot_ = dashdot;
-  if (dashdot) {
-    
-  } else {
-    
-  }
+  if (dashdot)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:LineRuleProto.dashdot)
 }
 
 // int32 priority = 4;
-inline void LineRuleProto::clear_priority() {
+inline void LineRuleProto::clear_priority()
+{
   priority_ = 0;
 }
-inline ::google::protobuf::int32 LineRuleProto::priority() const {
+inline ::google::protobuf::int32 LineRuleProto::priority() const
+{
   // @@protoc_insertion_point(field_get:LineRuleProto.priority)
   return priority_;
 }
-inline void LineRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+inline void LineRuleProto::set_priority(::google::protobuf::int32 value)
+{
   priority_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.priority)
 }
 
 // .PathSymProto pathsym = 5;
-inline bool LineRuleProto::has_pathsym() const {
+inline bool LineRuleProto::has_pathsym() const
+{
   return this != internal_default_instance() && pathsym_ != NULL;
 }
-inline void LineRuleProto::clear_pathsym() {
-  if (GetArenaNoVirtual() == NULL && pathsym_ != NULL) delete pathsym_;
+inline void LineRuleProto::clear_pathsym()
+{
+  if (GetArenaNoVirtual() == NULL && pathsym_ != NULL)
+    delete pathsym_;
   pathsym_ = NULL;
 }
-inline const ::PathSymProto& LineRuleProto::pathsym() const {
+inline ::PathSymProto const & LineRuleProto::pathsym() const
+{
   // @@protoc_insertion_point(field_get:LineRuleProto.pathsym)
-  return pathsym_ != NULL ? *pathsym_
-                         : *::PathSymProto::internal_default_instance();
+  return pathsym_ != NULL ? *pathsym_ : *::PathSymProto::internal_default_instance();
 }
-inline ::PathSymProto* LineRuleProto::mutable_pathsym() {
-  
-  if (pathsym_ == NULL) {
+inline ::PathSymProto * LineRuleProto::mutable_pathsym()
+{
+  if (pathsym_ == NULL)
     pathsym_ = new ::PathSymProto;
-  }
   // @@protoc_insertion_point(field_mutable:LineRuleProto.pathsym)
   return pathsym_;
 }
-inline ::PathSymProto* LineRuleProto::release_pathsym() {
+inline ::PathSymProto * LineRuleProto::release_pathsym()
+{
   // @@protoc_insertion_point(field_release:LineRuleProto.pathsym)
-  
-  ::PathSymProto* temp = pathsym_;
+
+  ::PathSymProto * temp = pathsym_;
   pathsym_ = NULL;
   return temp;
 }
-inline void LineRuleProto::set_allocated_pathsym(::PathSymProto* pathsym) {
+inline void LineRuleProto::set_allocated_pathsym(::PathSymProto * pathsym)
+{
   delete pathsym_;
   pathsym_ = pathsym;
-  if (pathsym) {
-    
-  } else {
-    
-  }
+  if (pathsym)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:LineRuleProto.pathsym)
 }
 
 // .LineJoin join = 6;
-inline void LineRuleProto::clear_join() {
+inline void LineRuleProto::clear_join()
+{
   join_ = 0;
 }
-inline ::LineJoin LineRuleProto::join() const {
+inline ::LineJoin LineRuleProto::join() const
+{
   // @@protoc_insertion_point(field_get:LineRuleProto.join)
-  return static_cast< ::LineJoin >(join_);
+  return static_cast<::LineJoin>(join_);
 }
-inline void LineRuleProto::set_join(::LineJoin value) {
-  
+inline void LineRuleProto::set_join(::LineJoin value)
+{
   join_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.join)
 }
 
 // .LineCap cap = 7;
-inline void LineRuleProto::clear_cap() {
+inline void LineRuleProto::clear_cap()
+{
   cap_ = 0;
 }
-inline ::LineCap LineRuleProto::cap() const {
+inline ::LineCap LineRuleProto::cap() const
+{
   // @@protoc_insertion_point(field_get:LineRuleProto.cap)
-  return static_cast< ::LineCap >(cap_);
+  return static_cast<::LineCap>(cap_);
 }
-inline void LineRuleProto::set_cap(::LineCap value) {
-  
+inline void LineRuleProto::set_cap(::LineCap value)
+{
   cap_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.cap)
 }
@@ -2154,135 +2113,149 @@ inline void LineRuleProto::set_cap(::LineCap value) {
 // LineDefProto
 
 // double width = 1;
-inline void LineDefProto::clear_width() {
+inline void LineDefProto::clear_width()
+{
   width_ = 0;
 }
-inline double LineDefProto::width() const {
+inline double LineDefProto::width() const
+{
   // @@protoc_insertion_point(field_get:LineDefProto.width)
   return width_;
 }
-inline void LineDefProto::set_width(double value) {
-  
+inline void LineDefProto::set_width(double value)
+{
   width_ = value;
   // @@protoc_insertion_point(field_set:LineDefProto.width)
 }
 
 // uint32 color = 2;
-inline void LineDefProto::clear_color() {
+inline void LineDefProto::clear_color()
+{
   color_ = 0u;
 }
-inline ::google::protobuf::uint32 LineDefProto::color() const {
+inline ::google::protobuf::uint32 LineDefProto::color() const
+{
   // @@protoc_insertion_point(field_get:LineDefProto.color)
   return color_;
 }
-inline void LineDefProto::set_color(::google::protobuf::uint32 value) {
-  
+inline void LineDefProto::set_color(::google::protobuf::uint32 value)
+{
   color_ = value;
   // @@protoc_insertion_point(field_set:LineDefProto.color)
 }
 
 // .DashDotProto dashdot = 3;
-inline bool LineDefProto::has_dashdot() const {
+inline bool LineDefProto::has_dashdot() const
+{
   return this != internal_default_instance() && dashdot_ != NULL;
 }
-inline void LineDefProto::clear_dashdot() {
-  if (GetArenaNoVirtual() == NULL && dashdot_ != NULL) delete dashdot_;
+inline void LineDefProto::clear_dashdot()
+{
+  if (GetArenaNoVirtual() == NULL && dashdot_ != NULL)
+    delete dashdot_;
   dashdot_ = NULL;
 }
-inline const ::DashDotProto& LineDefProto::dashdot() const {
+inline ::DashDotProto const & LineDefProto::dashdot() const
+{
   // @@protoc_insertion_point(field_get:LineDefProto.dashdot)
-  return dashdot_ != NULL ? *dashdot_
-                         : *::DashDotProto::internal_default_instance();
+  return dashdot_ != NULL ? *dashdot_ : *::DashDotProto::internal_default_instance();
 }
-inline ::DashDotProto* LineDefProto::mutable_dashdot() {
-  
-  if (dashdot_ == NULL) {
+inline ::DashDotProto * LineDefProto::mutable_dashdot()
+{
+  if (dashdot_ == NULL)
     dashdot_ = new ::DashDotProto;
-  }
   // @@protoc_insertion_point(field_mutable:LineDefProto.dashdot)
   return dashdot_;
 }
-inline ::DashDotProto* LineDefProto::release_dashdot() {
+inline ::DashDotProto * LineDefProto::release_dashdot()
+{
   // @@protoc_insertion_point(field_release:LineDefProto.dashdot)
-  
-  ::DashDotProto* temp = dashdot_;
+
+  ::DashDotProto * temp = dashdot_;
   dashdot_ = NULL;
   return temp;
 }
-inline void LineDefProto::set_allocated_dashdot(::DashDotProto* dashdot) {
+inline void LineDefProto::set_allocated_dashdot(::DashDotProto * dashdot)
+{
   delete dashdot_;
   dashdot_ = dashdot;
-  if (dashdot) {
-    
-  } else {
-    
-  }
+  if (dashdot)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:LineDefProto.dashdot)
 }
 
 // .PathSymProto pathsym = 4;
-inline bool LineDefProto::has_pathsym() const {
+inline bool LineDefProto::has_pathsym() const
+{
   return this != internal_default_instance() && pathsym_ != NULL;
 }
-inline void LineDefProto::clear_pathsym() {
-  if (GetArenaNoVirtual() == NULL && pathsym_ != NULL) delete pathsym_;
+inline void LineDefProto::clear_pathsym()
+{
+  if (GetArenaNoVirtual() == NULL && pathsym_ != NULL)
+    delete pathsym_;
   pathsym_ = NULL;
 }
-inline const ::PathSymProto& LineDefProto::pathsym() const {
+inline ::PathSymProto const & LineDefProto::pathsym() const
+{
   // @@protoc_insertion_point(field_get:LineDefProto.pathsym)
-  return pathsym_ != NULL ? *pathsym_
-                         : *::PathSymProto::internal_default_instance();
+  return pathsym_ != NULL ? *pathsym_ : *::PathSymProto::internal_default_instance();
 }
-inline ::PathSymProto* LineDefProto::mutable_pathsym() {
-  
-  if (pathsym_ == NULL) {
+inline ::PathSymProto * LineDefProto::mutable_pathsym()
+{
+  if (pathsym_ == NULL)
     pathsym_ = new ::PathSymProto;
-  }
   // @@protoc_insertion_point(field_mutable:LineDefProto.pathsym)
   return pathsym_;
 }
-inline ::PathSymProto* LineDefProto::release_pathsym() {
+inline ::PathSymProto * LineDefProto::release_pathsym()
+{
   // @@protoc_insertion_point(field_release:LineDefProto.pathsym)
-  
-  ::PathSymProto* temp = pathsym_;
+
+  ::PathSymProto * temp = pathsym_;
   pathsym_ = NULL;
   return temp;
 }
-inline void LineDefProto::set_allocated_pathsym(::PathSymProto* pathsym) {
+inline void LineDefProto::set_allocated_pathsym(::PathSymProto * pathsym)
+{
   delete pathsym_;
   pathsym_ = pathsym;
-  if (pathsym) {
-    
-  } else {
-    
-  }
+  if (pathsym)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:LineDefProto.pathsym)
 }
 
 // .LineJoin join = 6;
-inline void LineDefProto::clear_join() {
+inline void LineDefProto::clear_join()
+{
   join_ = 0;
 }
-inline ::LineJoin LineDefProto::join() const {
+inline ::LineJoin LineDefProto::join() const
+{
   // @@protoc_insertion_point(field_get:LineDefProto.join)
-  return static_cast< ::LineJoin >(join_);
+  return static_cast<::LineJoin>(join_);
 }
-inline void LineDefProto::set_join(::LineJoin value) {
-  
+inline void LineDefProto::set_join(::LineJoin value)
+{
   join_ = value;
   // @@protoc_insertion_point(field_set:LineDefProto.join)
 }
 
 // .LineCap cap = 7;
-inline void LineDefProto::clear_cap() {
+inline void LineDefProto::clear_cap()
+{
   cap_ = 0;
 }
-inline ::LineCap LineDefProto::cap() const {
+inline ::LineCap LineDefProto::cap() const
+{
   // @@protoc_insertion_point(field_get:LineDefProto.cap)
-  return static_cast< ::LineCap >(cap_);
+  return static_cast<::LineCap>(cap_);
 }
-inline void LineDefProto::set_cap(::LineCap value) {
-  
+inline void LineDefProto::set_cap(::LineCap value)
+{
   cap_ = value;
   // @@protoc_insertion_point(field_set:LineDefProto.cap)
 }
@@ -2292,68 +2265,75 @@ inline void LineDefProto::set_cap(::LineCap value) {
 // AreaRuleProto
 
 // uint32 color = 1;
-inline void AreaRuleProto::clear_color() {
+inline void AreaRuleProto::clear_color()
+{
   color_ = 0u;
 }
-inline ::google::protobuf::uint32 AreaRuleProto::color() const {
+inline ::google::protobuf::uint32 AreaRuleProto::color() const
+{
   // @@protoc_insertion_point(field_get:AreaRuleProto.color)
   return color_;
 }
-inline void AreaRuleProto::set_color(::google::protobuf::uint32 value) {
-  
+inline void AreaRuleProto::set_color(::google::protobuf::uint32 value)
+{
   color_ = value;
   // @@protoc_insertion_point(field_set:AreaRuleProto.color)
 }
 
 // .LineDefProto border = 2;
-inline bool AreaRuleProto::has_border() const {
+inline bool AreaRuleProto::has_border() const
+{
   return this != internal_default_instance() && border_ != NULL;
 }
-inline void AreaRuleProto::clear_border() {
-  if (GetArenaNoVirtual() == NULL && border_ != NULL) delete border_;
+inline void AreaRuleProto::clear_border()
+{
+  if (GetArenaNoVirtual() == NULL && border_ != NULL)
+    delete border_;
   border_ = NULL;
 }
-inline const ::LineDefProto& AreaRuleProto::border() const {
+inline ::LineDefProto const & AreaRuleProto::border() const
+{
   // @@protoc_insertion_point(field_get:AreaRuleProto.border)
-  return border_ != NULL ? *border_
-                         : *::LineDefProto::internal_default_instance();
+  return border_ != NULL ? *border_ : *::LineDefProto::internal_default_instance();
 }
-inline ::LineDefProto* AreaRuleProto::mutable_border() {
-  
-  if (border_ == NULL) {
+inline ::LineDefProto * AreaRuleProto::mutable_border()
+{
+  if (border_ == NULL)
     border_ = new ::LineDefProto;
-  }
   // @@protoc_insertion_point(field_mutable:AreaRuleProto.border)
   return border_;
 }
-inline ::LineDefProto* AreaRuleProto::release_border() {
+inline ::LineDefProto * AreaRuleProto::release_border()
+{
   // @@protoc_insertion_point(field_release:AreaRuleProto.border)
-  
-  ::LineDefProto* temp = border_;
+
+  ::LineDefProto * temp = border_;
   border_ = NULL;
   return temp;
 }
-inline void AreaRuleProto::set_allocated_border(::LineDefProto* border) {
+inline void AreaRuleProto::set_allocated_border(::LineDefProto * border)
+{
   delete border_;
   border_ = border;
-  if (border) {
-    
-  } else {
-    
-  }
+  if (border)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:AreaRuleProto.border)
 }
 
 // int32 priority = 3;
-inline void AreaRuleProto::clear_priority() {
+inline void AreaRuleProto::clear_priority()
+{
   priority_ = 0;
 }
-inline ::google::protobuf::int32 AreaRuleProto::priority() const {
+inline ::google::protobuf::int32 AreaRuleProto::priority() const
+{
   // @@protoc_insertion_point(field_get:AreaRuleProto.priority)
   return priority_;
 }
-inline void AreaRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+inline void AreaRuleProto::set_priority(::google::protobuf::int32 value)
+{
   priority_ = value;
   // @@protoc_insertion_point(field_set:AreaRuleProto.priority)
 }
@@ -2363,96 +2343,105 @@ inline void AreaRuleProto::set_priority(::google::protobuf::int32 value) {
 // SymbolRuleProto
 
 // string name = 1;
-inline void SymbolRuleProto::clear_name() {
+inline void SymbolRuleProto::clear_name()
+{
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SymbolRuleProto::name() const {
+inline ::std::string const & SymbolRuleProto::name() const
+{
   // @@protoc_insertion_point(field_get:SymbolRuleProto.name)
   return name_.GetNoArena();
 }
-inline void SymbolRuleProto::set_name(const ::std::string& value) {
-  
+inline void SymbolRuleProto::set_name(::std::string const & value)
+{
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:SymbolRuleProto.name)
 }
 #if LANG_CXX11
-inline void SymbolRuleProto::set_name(::std::string&& value) {
-  
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+inline void SymbolRuleProto::set_name(::std::string && value)
+{
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:SymbolRuleProto.name)
 }
 #endif
-inline void SymbolRuleProto::set_name(const char* value) {
+inline void SymbolRuleProto::set_name(const char * value)
+{
   GOOGLE_DCHECK(value != NULL);
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:SymbolRuleProto.name)
 }
-inline void SymbolRuleProto::set_name(const char* value, size_t size) {
-  
+inline void SymbolRuleProto::set_name(char const * value, size_t size)
+{
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                   ::std::string(reinterpret_cast<char const *>(value), size));
   // @@protoc_insertion_point(field_set_pointer:SymbolRuleProto.name)
 }
-inline ::std::string* SymbolRuleProto::mutable_name() {
-  
+inline ::std::string * SymbolRuleProto::mutable_name()
+{
   // @@protoc_insertion_point(field_mutable:SymbolRuleProto.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SymbolRuleProto::release_name() {
+inline ::std::string * SymbolRuleProto::release_name()
+{
   // @@protoc_insertion_point(field_release:SymbolRuleProto.name)
-  
+
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SymbolRuleProto::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
-    
-  } else {
-    
-  }
+inline void SymbolRuleProto::set_allocated_name(::std::string * name)
+{
+  if (name != NULL)
+  {}
+  else
+  {}
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:SymbolRuleProto.name)
 }
 
 // int32 apply_for_type = 2;
-inline void SymbolRuleProto::clear_apply_for_type() {
+inline void SymbolRuleProto::clear_apply_for_type()
+{
   apply_for_type_ = 0;
 }
-inline ::google::protobuf::int32 SymbolRuleProto::apply_for_type() const {
+inline ::google::protobuf::int32 SymbolRuleProto::apply_for_type() const
+{
   // @@protoc_insertion_point(field_get:SymbolRuleProto.apply_for_type)
   return apply_for_type_;
 }
-inline void SymbolRuleProto::set_apply_for_type(::google::protobuf::int32 value) {
-  
+inline void SymbolRuleProto::set_apply_for_type(::google::protobuf::int32 value)
+{
   apply_for_type_ = value;
   // @@protoc_insertion_point(field_set:SymbolRuleProto.apply_for_type)
 }
 
 // int32 priority = 3;
-inline void SymbolRuleProto::clear_priority() {
+inline void SymbolRuleProto::clear_priority()
+{
   priority_ = 0;
 }
-inline ::google::protobuf::int32 SymbolRuleProto::priority() const {
+inline ::google::protobuf::int32 SymbolRuleProto::priority() const
+{
   // @@protoc_insertion_point(field_get:SymbolRuleProto.priority)
   return priority_;
 }
-inline void SymbolRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+inline void SymbolRuleProto::set_priority(::google::protobuf::int32 value)
+{
   priority_ = value;
   // @@protoc_insertion_point(field_set:SymbolRuleProto.priority)
 }
 
 // int32 min_distance = 4;
-inline void SymbolRuleProto::clear_min_distance() {
+inline void SymbolRuleProto::clear_min_distance()
+{
   min_distance_ = 0;
 }
-inline ::google::protobuf::int32 SymbolRuleProto::min_distance() const {
+inline ::google::protobuf::int32 SymbolRuleProto::min_distance() const
+{
   // @@protoc_insertion_point(field_get:SymbolRuleProto.min_distance)
   return min_distance_;
 }
-inline void SymbolRuleProto::set_min_distance(::google::protobuf::int32 value) {
-  
+inline void SymbolRuleProto::set_min_distance(::google::protobuf::int32 value)
+{
   min_distance_ = value;
   // @@protoc_insertion_point(field_set:SymbolRuleProto.min_distance)
 }
@@ -2462,138 +2451,153 @@ inline void SymbolRuleProto::set_min_distance(::google::protobuf::int32 value) {
 // CaptionDefProto
 
 // int32 height = 1;
-inline void CaptionDefProto::clear_height() {
+inline void CaptionDefProto::clear_height()
+{
   height_ = 0;
 }
-inline ::google::protobuf::int32 CaptionDefProto::height() const {
+inline ::google::protobuf::int32 CaptionDefProto::height() const
+{
   // @@protoc_insertion_point(field_get:CaptionDefProto.height)
   return height_;
 }
-inline void CaptionDefProto::set_height(::google::protobuf::int32 value) {
-  
+inline void CaptionDefProto::set_height(::google::protobuf::int32 value)
+{
   height_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.height)
 }
 
 // uint32 color = 2;
-inline void CaptionDefProto::clear_color() {
+inline void CaptionDefProto::clear_color()
+{
   color_ = 0u;
 }
-inline ::google::protobuf::uint32 CaptionDefProto::color() const {
+inline ::google::protobuf::uint32 CaptionDefProto::color() const
+{
   // @@protoc_insertion_point(field_get:CaptionDefProto.color)
   return color_;
 }
-inline void CaptionDefProto::set_color(::google::protobuf::uint32 value) {
-  
+inline void CaptionDefProto::set_color(::google::protobuf::uint32 value)
+{
   color_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.color)
 }
 
 // uint32 stroke_color = 3;
-inline void CaptionDefProto::clear_stroke_color() {
+inline void CaptionDefProto::clear_stroke_color()
+{
   stroke_color_ = 0u;
 }
-inline ::google::protobuf::uint32 CaptionDefProto::stroke_color() const {
+inline ::google::protobuf::uint32 CaptionDefProto::stroke_color() const
+{
   // @@protoc_insertion_point(field_get:CaptionDefProto.stroke_color)
   return stroke_color_;
 }
-inline void CaptionDefProto::set_stroke_color(::google::protobuf::uint32 value) {
-  
+inline void CaptionDefProto::set_stroke_color(::google::protobuf::uint32 value)
+{
   stroke_color_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.stroke_color)
 }
 
 // int32 offset_x = 4;
-inline void CaptionDefProto::clear_offset_x() {
+inline void CaptionDefProto::clear_offset_x()
+{
   offset_x_ = 0;
 }
-inline ::google::protobuf::int32 CaptionDefProto::offset_x() const {
+inline ::google::protobuf::int32 CaptionDefProto::offset_x() const
+{
   // @@protoc_insertion_point(field_get:CaptionDefProto.offset_x)
   return offset_x_;
 }
-inline void CaptionDefProto::set_offset_x(::google::protobuf::int32 value) {
-  
+inline void CaptionDefProto::set_offset_x(::google::protobuf::int32 value)
+{
   offset_x_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.offset_x)
 }
 
 // int32 offset_y = 5;
-inline void CaptionDefProto::clear_offset_y() {
+inline void CaptionDefProto::clear_offset_y()
+{
   offset_y_ = 0;
 }
-inline ::google::protobuf::int32 CaptionDefProto::offset_y() const {
+inline ::google::protobuf::int32 CaptionDefProto::offset_y() const
+{
   // @@protoc_insertion_point(field_get:CaptionDefProto.offset_y)
   return offset_y_;
 }
-inline void CaptionDefProto::set_offset_y(::google::protobuf::int32 value) {
-  
+inline void CaptionDefProto::set_offset_y(::google::protobuf::int32 value)
+{
   offset_y_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.offset_y)
 }
 
 // string text = 6;
-inline void CaptionDefProto::clear_text() {
+inline void CaptionDefProto::clear_text()
+{
   text_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& CaptionDefProto::text() const {
+inline ::std::string const & CaptionDefProto::text() const
+{
   // @@protoc_insertion_point(field_get:CaptionDefProto.text)
   return text_.GetNoArena();
 }
-inline void CaptionDefProto::set_text(const ::std::string& value) {
-  
+inline void CaptionDefProto::set_text(::std::string const & value)
+{
   text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:CaptionDefProto.text)
 }
 #if LANG_CXX11
-inline void CaptionDefProto::set_text(::std::string&& value) {
-  
-  text_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+inline void CaptionDefProto::set_text(::std::string && value)
+{
+  text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:CaptionDefProto.text)
 }
 #endif
-inline void CaptionDefProto::set_text(const char* value) {
+inline void CaptionDefProto::set_text(const char * value)
+{
   GOOGLE_DCHECK(value != NULL);
-  
+
   text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:CaptionDefProto.text)
 }
-inline void CaptionDefProto::set_text(const char* value, size_t size) {
-  
+inline void CaptionDefProto::set_text(char const * value, size_t size)
+{
   text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                   ::std::string(reinterpret_cast<char const *>(value), size));
   // @@protoc_insertion_point(field_set_pointer:CaptionDefProto.text)
 }
-inline ::std::string* CaptionDefProto::mutable_text() {
-  
+inline ::std::string * CaptionDefProto::mutable_text()
+{
   // @@protoc_insertion_point(field_mutable:CaptionDefProto.text)
   return text_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* CaptionDefProto::release_text() {
+inline ::std::string * CaptionDefProto::release_text()
+{
   // @@protoc_insertion_point(field_release:CaptionDefProto.text)
-  
+
   return text_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void CaptionDefProto::set_allocated_text(::std::string* text) {
-  if (text != NULL) {
-    
-  } else {
-    
-  }
+inline void CaptionDefProto::set_allocated_text(::std::string * text)
+{
+  if (text != NULL)
+  {}
+  else
+  {}
   text_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), text);
   // @@protoc_insertion_point(field_set_allocated:CaptionDefProto.text)
 }
 
 // bool is_optional = 7;
-inline void CaptionDefProto::clear_is_optional() {
+inline void CaptionDefProto::clear_is_optional()
+{
   is_optional_ = false;
 }
-inline bool CaptionDefProto::is_optional() const {
+inline bool CaptionDefProto::is_optional() const
+{
   // @@protoc_insertion_point(field_get:CaptionDefProto.is_optional)
   return is_optional_;
 }
-inline void CaptionDefProto::set_is_optional(bool value) {
-  
+inline void CaptionDefProto::set_is_optional(bool value)
+{
   is_optional_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.is_optional)
 }
@@ -2603,93 +2607,101 @@ inline void CaptionDefProto::set_is_optional(bool value) {
 // CaptionRuleProto
 
 // .CaptionDefProto primary = 1;
-inline bool CaptionRuleProto::has_primary() const {
+inline bool CaptionRuleProto::has_primary() const
+{
   return this != internal_default_instance() && primary_ != NULL;
 }
-inline void CaptionRuleProto::clear_primary() {
-  if (GetArenaNoVirtual() == NULL && primary_ != NULL) delete primary_;
+inline void CaptionRuleProto::clear_primary()
+{
+  if (GetArenaNoVirtual() == NULL && primary_ != NULL)
+    delete primary_;
   primary_ = NULL;
 }
-inline const ::CaptionDefProto& CaptionRuleProto::primary() const {
+inline ::CaptionDefProto const & CaptionRuleProto::primary() const
+{
   // @@protoc_insertion_point(field_get:CaptionRuleProto.primary)
-  return primary_ != NULL ? *primary_
-                         : *::CaptionDefProto::internal_default_instance();
+  return primary_ != NULL ? *primary_ : *::CaptionDefProto::internal_default_instance();
 }
-inline ::CaptionDefProto* CaptionRuleProto::mutable_primary() {
-  
-  if (primary_ == NULL) {
+inline ::CaptionDefProto * CaptionRuleProto::mutable_primary()
+{
+  if (primary_ == NULL)
     primary_ = new ::CaptionDefProto;
-  }
   // @@protoc_insertion_point(field_mutable:CaptionRuleProto.primary)
   return primary_;
 }
-inline ::CaptionDefProto* CaptionRuleProto::release_primary() {
+inline ::CaptionDefProto * CaptionRuleProto::release_primary()
+{
   // @@protoc_insertion_point(field_release:CaptionRuleProto.primary)
-  
-  ::CaptionDefProto* temp = primary_;
+
+  ::CaptionDefProto * temp = primary_;
   primary_ = NULL;
   return temp;
 }
-inline void CaptionRuleProto::set_allocated_primary(::CaptionDefProto* primary) {
+inline void CaptionRuleProto::set_allocated_primary(::CaptionDefProto * primary)
+{
   delete primary_;
   primary_ = primary;
-  if (primary) {
-    
-  } else {
-    
-  }
+  if (primary)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:CaptionRuleProto.primary)
 }
 
 // .CaptionDefProto secondary = 2;
-inline bool CaptionRuleProto::has_secondary() const {
+inline bool CaptionRuleProto::has_secondary() const
+{
   return this != internal_default_instance() && secondary_ != NULL;
 }
-inline void CaptionRuleProto::clear_secondary() {
-  if (GetArenaNoVirtual() == NULL && secondary_ != NULL) delete secondary_;
+inline void CaptionRuleProto::clear_secondary()
+{
+  if (GetArenaNoVirtual() == NULL && secondary_ != NULL)
+    delete secondary_;
   secondary_ = NULL;
 }
-inline const ::CaptionDefProto& CaptionRuleProto::secondary() const {
+inline ::CaptionDefProto const & CaptionRuleProto::secondary() const
+{
   // @@protoc_insertion_point(field_get:CaptionRuleProto.secondary)
-  return secondary_ != NULL ? *secondary_
-                         : *::CaptionDefProto::internal_default_instance();
+  return secondary_ != NULL ? *secondary_ : *::CaptionDefProto::internal_default_instance();
 }
-inline ::CaptionDefProto* CaptionRuleProto::mutable_secondary() {
-  
-  if (secondary_ == NULL) {
+inline ::CaptionDefProto * CaptionRuleProto::mutable_secondary()
+{
+  if (secondary_ == NULL)
     secondary_ = new ::CaptionDefProto;
-  }
   // @@protoc_insertion_point(field_mutable:CaptionRuleProto.secondary)
   return secondary_;
 }
-inline ::CaptionDefProto* CaptionRuleProto::release_secondary() {
+inline ::CaptionDefProto * CaptionRuleProto::release_secondary()
+{
   // @@protoc_insertion_point(field_release:CaptionRuleProto.secondary)
-  
-  ::CaptionDefProto* temp = secondary_;
+
+  ::CaptionDefProto * temp = secondary_;
   secondary_ = NULL;
   return temp;
 }
-inline void CaptionRuleProto::set_allocated_secondary(::CaptionDefProto* secondary) {
+inline void CaptionRuleProto::set_allocated_secondary(::CaptionDefProto * secondary)
+{
   delete secondary_;
   secondary_ = secondary;
-  if (secondary) {
-    
-  } else {
-    
-  }
+  if (secondary)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:CaptionRuleProto.secondary)
 }
 
 // int32 priority = 3;
-inline void CaptionRuleProto::clear_priority() {
+inline void CaptionRuleProto::clear_priority()
+{
   priority_ = 0;
 }
-inline ::google::protobuf::int32 CaptionRuleProto::priority() const {
+inline ::google::protobuf::int32 CaptionRuleProto::priority() const
+{
   // @@protoc_insertion_point(field_get:CaptionRuleProto.priority)
   return priority_;
 }
-inline void CaptionRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+inline void CaptionRuleProto::set_priority(::google::protobuf::int32 value)
+{
   priority_ = value;
   // @@protoc_insertion_point(field_set:CaptionRuleProto.priority)
 }
@@ -2699,82 +2711,91 @@ inline void CaptionRuleProto::set_priority(::google::protobuf::int32 value) {
 // CircleRuleProto
 
 // double radius = 1;
-inline void CircleRuleProto::clear_radius() {
+inline void CircleRuleProto::clear_radius()
+{
   radius_ = 0;
 }
-inline double CircleRuleProto::radius() const {
+inline double CircleRuleProto::radius() const
+{
   // @@protoc_insertion_point(field_get:CircleRuleProto.radius)
   return radius_;
 }
-inline void CircleRuleProto::set_radius(double value) {
-  
+inline void CircleRuleProto::set_radius(double value)
+{
   radius_ = value;
   // @@protoc_insertion_point(field_set:CircleRuleProto.radius)
 }
 
 // uint32 color = 2;
-inline void CircleRuleProto::clear_color() {
+inline void CircleRuleProto::clear_color()
+{
   color_ = 0u;
 }
-inline ::google::protobuf::uint32 CircleRuleProto::color() const {
+inline ::google::protobuf::uint32 CircleRuleProto::color() const
+{
   // @@protoc_insertion_point(field_get:CircleRuleProto.color)
   return color_;
 }
-inline void CircleRuleProto::set_color(::google::protobuf::uint32 value) {
-  
+inline void CircleRuleProto::set_color(::google::protobuf::uint32 value)
+{
   color_ = value;
   // @@protoc_insertion_point(field_set:CircleRuleProto.color)
 }
 
 // .LineDefProto border = 3;
-inline bool CircleRuleProto::has_border() const {
+inline bool CircleRuleProto::has_border() const
+{
   return this != internal_default_instance() && border_ != NULL;
 }
-inline void CircleRuleProto::clear_border() {
-  if (GetArenaNoVirtual() == NULL && border_ != NULL) delete border_;
+inline void CircleRuleProto::clear_border()
+{
+  if (GetArenaNoVirtual() == NULL && border_ != NULL)
+    delete border_;
   border_ = NULL;
 }
-inline const ::LineDefProto& CircleRuleProto::border() const {
+inline ::LineDefProto const & CircleRuleProto::border() const
+{
   // @@protoc_insertion_point(field_get:CircleRuleProto.border)
-  return border_ != NULL ? *border_
-                         : *::LineDefProto::internal_default_instance();
+  return border_ != NULL ? *border_ : *::LineDefProto::internal_default_instance();
 }
-inline ::LineDefProto* CircleRuleProto::mutable_border() {
-  
-  if (border_ == NULL) {
+inline ::LineDefProto * CircleRuleProto::mutable_border()
+{
+  if (border_ == NULL)
     border_ = new ::LineDefProto;
-  }
   // @@protoc_insertion_point(field_mutable:CircleRuleProto.border)
   return border_;
 }
-inline ::LineDefProto* CircleRuleProto::release_border() {
+inline ::LineDefProto * CircleRuleProto::release_border()
+{
   // @@protoc_insertion_point(field_release:CircleRuleProto.border)
-  
-  ::LineDefProto* temp = border_;
+
+  ::LineDefProto * temp = border_;
   border_ = NULL;
   return temp;
 }
-inline void CircleRuleProto::set_allocated_border(::LineDefProto* border) {
+inline void CircleRuleProto::set_allocated_border(::LineDefProto * border)
+{
   delete border_;
   border_ = border;
-  if (border) {
-    
-  } else {
-    
-  }
+  if (border)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:CircleRuleProto.border)
 }
 
 // int32 priority = 4;
-inline void CircleRuleProto::clear_priority() {
+inline void CircleRuleProto::clear_priority()
+{
   priority_ = 0;
 }
-inline ::google::protobuf::int32 CircleRuleProto::priority() const {
+inline ::google::protobuf::int32 CircleRuleProto::priority() const
+{
   // @@protoc_insertion_point(field_get:CircleRuleProto.priority)
   return priority_;
 }
-inline void CircleRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+inline void CircleRuleProto::set_priority(::google::protobuf::int32 value)
+{
   priority_ = value;
   // @@protoc_insertion_point(field_set:CircleRuleProto.priority)
 }
@@ -2784,93 +2805,101 @@ inline void CircleRuleProto::set_priority(::google::protobuf::int32 value) {
 // PathTextRuleProto
 
 // .CaptionDefProto primary = 1;
-inline bool PathTextRuleProto::has_primary() const {
+inline bool PathTextRuleProto::has_primary() const
+{
   return this != internal_default_instance() && primary_ != NULL;
 }
-inline void PathTextRuleProto::clear_primary() {
-  if (GetArenaNoVirtual() == NULL && primary_ != NULL) delete primary_;
+inline void PathTextRuleProto::clear_primary()
+{
+  if (GetArenaNoVirtual() == NULL && primary_ != NULL)
+    delete primary_;
   primary_ = NULL;
 }
-inline const ::CaptionDefProto& PathTextRuleProto::primary() const {
+inline ::CaptionDefProto const & PathTextRuleProto::primary() const
+{
   // @@protoc_insertion_point(field_get:PathTextRuleProto.primary)
-  return primary_ != NULL ? *primary_
-                         : *::CaptionDefProto::internal_default_instance();
+  return primary_ != NULL ? *primary_ : *::CaptionDefProto::internal_default_instance();
 }
-inline ::CaptionDefProto* PathTextRuleProto::mutable_primary() {
-  
-  if (primary_ == NULL) {
+inline ::CaptionDefProto * PathTextRuleProto::mutable_primary()
+{
+  if (primary_ == NULL)
     primary_ = new ::CaptionDefProto;
-  }
   // @@protoc_insertion_point(field_mutable:PathTextRuleProto.primary)
   return primary_;
 }
-inline ::CaptionDefProto* PathTextRuleProto::release_primary() {
+inline ::CaptionDefProto * PathTextRuleProto::release_primary()
+{
   // @@protoc_insertion_point(field_release:PathTextRuleProto.primary)
-  
-  ::CaptionDefProto* temp = primary_;
+
+  ::CaptionDefProto * temp = primary_;
   primary_ = NULL;
   return temp;
 }
-inline void PathTextRuleProto::set_allocated_primary(::CaptionDefProto* primary) {
+inline void PathTextRuleProto::set_allocated_primary(::CaptionDefProto * primary)
+{
   delete primary_;
   primary_ = primary;
-  if (primary) {
-    
-  } else {
-    
-  }
+  if (primary)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:PathTextRuleProto.primary)
 }
 
 // .CaptionDefProto secondary = 2;
-inline bool PathTextRuleProto::has_secondary() const {
+inline bool PathTextRuleProto::has_secondary() const
+{
   return this != internal_default_instance() && secondary_ != NULL;
 }
-inline void PathTextRuleProto::clear_secondary() {
-  if (GetArenaNoVirtual() == NULL && secondary_ != NULL) delete secondary_;
+inline void PathTextRuleProto::clear_secondary()
+{
+  if (GetArenaNoVirtual() == NULL && secondary_ != NULL)
+    delete secondary_;
   secondary_ = NULL;
 }
-inline const ::CaptionDefProto& PathTextRuleProto::secondary() const {
+inline ::CaptionDefProto const & PathTextRuleProto::secondary() const
+{
   // @@protoc_insertion_point(field_get:PathTextRuleProto.secondary)
-  return secondary_ != NULL ? *secondary_
-                         : *::CaptionDefProto::internal_default_instance();
+  return secondary_ != NULL ? *secondary_ : *::CaptionDefProto::internal_default_instance();
 }
-inline ::CaptionDefProto* PathTextRuleProto::mutable_secondary() {
-  
-  if (secondary_ == NULL) {
+inline ::CaptionDefProto * PathTextRuleProto::mutable_secondary()
+{
+  if (secondary_ == NULL)
     secondary_ = new ::CaptionDefProto;
-  }
   // @@protoc_insertion_point(field_mutable:PathTextRuleProto.secondary)
   return secondary_;
 }
-inline ::CaptionDefProto* PathTextRuleProto::release_secondary() {
+inline ::CaptionDefProto * PathTextRuleProto::release_secondary()
+{
   // @@protoc_insertion_point(field_release:PathTextRuleProto.secondary)
-  
-  ::CaptionDefProto* temp = secondary_;
+
+  ::CaptionDefProto * temp = secondary_;
   secondary_ = NULL;
   return temp;
 }
-inline void PathTextRuleProto::set_allocated_secondary(::CaptionDefProto* secondary) {
+inline void PathTextRuleProto::set_allocated_secondary(::CaptionDefProto * secondary)
+{
   delete secondary_;
   secondary_ = secondary;
-  if (secondary) {
-    
-  } else {
-    
-  }
+  if (secondary)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:PathTextRuleProto.secondary)
 }
 
 // int32 priority = 3;
-inline void PathTextRuleProto::clear_priority() {
+inline void PathTextRuleProto::clear_priority()
+{
   priority_ = 0;
 }
-inline ::google::protobuf::int32 PathTextRuleProto::priority() const {
+inline ::google::protobuf::int32 PathTextRuleProto::priority() const
+{
   // @@protoc_insertion_point(field_get:PathTextRuleProto.priority)
   return priority_;
 }
-inline void PathTextRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+inline void PathTextRuleProto::set_priority(::google::protobuf::int32 value)
+{
   priority_ = value;
   // @@protoc_insertion_point(field_set:PathTextRuleProto.priority)
 }
@@ -2880,99 +2909,113 @@ inline void PathTextRuleProto::set_priority(::google::protobuf::int32 value) {
 // ShieldRuleProto
 
 // int32 height = 1;
-inline void ShieldRuleProto::clear_height() {
+inline void ShieldRuleProto::clear_height()
+{
   height_ = 0;
 }
-inline ::google::protobuf::int32 ShieldRuleProto::height() const {
+inline ::google::protobuf::int32 ShieldRuleProto::height() const
+{
   // @@protoc_insertion_point(field_get:ShieldRuleProto.height)
   return height_;
 }
-inline void ShieldRuleProto::set_height(::google::protobuf::int32 value) {
-  
+inline void ShieldRuleProto::set_height(::google::protobuf::int32 value)
+{
   height_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.height)
 }
 
 // uint32 color = 2;
-inline void ShieldRuleProto::clear_color() {
+inline void ShieldRuleProto::clear_color()
+{
   color_ = 0u;
 }
-inline ::google::protobuf::uint32 ShieldRuleProto::color() const {
+inline ::google::protobuf::uint32 ShieldRuleProto::color() const
+{
   // @@protoc_insertion_point(field_get:ShieldRuleProto.color)
   return color_;
 }
-inline void ShieldRuleProto::set_color(::google::protobuf::uint32 value) {
-  
+inline void ShieldRuleProto::set_color(::google::protobuf::uint32 value)
+{
   color_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.color)
 }
 
 // uint32 stroke_color = 3;
-inline void ShieldRuleProto::clear_stroke_color() {
+inline void ShieldRuleProto::clear_stroke_color()
+{
   stroke_color_ = 0u;
 }
-inline ::google::protobuf::uint32 ShieldRuleProto::stroke_color() const {
+inline ::google::protobuf::uint32 ShieldRuleProto::stroke_color() const
+{
   // @@protoc_insertion_point(field_get:ShieldRuleProto.stroke_color)
   return stroke_color_;
 }
-inline void ShieldRuleProto::set_stroke_color(::google::protobuf::uint32 value) {
-  
+inline void ShieldRuleProto::set_stroke_color(::google::protobuf::uint32 value)
+{
   stroke_color_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.stroke_color)
 }
 
 // int32 priority = 4;
-inline void ShieldRuleProto::clear_priority() {
+inline void ShieldRuleProto::clear_priority()
+{
   priority_ = 0;
 }
-inline ::google::protobuf::int32 ShieldRuleProto::priority() const {
+inline ::google::protobuf::int32 ShieldRuleProto::priority() const
+{
   // @@protoc_insertion_point(field_get:ShieldRuleProto.priority)
   return priority_;
 }
-inline void ShieldRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+inline void ShieldRuleProto::set_priority(::google::protobuf::int32 value)
+{
   priority_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.priority)
 }
 
 // int32 min_distance = 5;
-inline void ShieldRuleProto::clear_min_distance() {
+inline void ShieldRuleProto::clear_min_distance()
+{
   min_distance_ = 0;
 }
-inline ::google::protobuf::int32 ShieldRuleProto::min_distance() const {
+inline ::google::protobuf::int32 ShieldRuleProto::min_distance() const
+{
   // @@protoc_insertion_point(field_get:ShieldRuleProto.min_distance)
   return min_distance_;
 }
-inline void ShieldRuleProto::set_min_distance(::google::protobuf::int32 value) {
-  
+inline void ShieldRuleProto::set_min_distance(::google::protobuf::int32 value)
+{
   min_distance_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.min_distance)
 }
 
 // uint32 text_color = 6;
-inline void ShieldRuleProto::clear_text_color() {
+inline void ShieldRuleProto::clear_text_color()
+{
   text_color_ = 0u;
 }
-inline ::google::protobuf::uint32 ShieldRuleProto::text_color() const {
+inline ::google::protobuf::uint32 ShieldRuleProto::text_color() const
+{
   // @@protoc_insertion_point(field_get:ShieldRuleProto.text_color)
   return text_color_;
 }
-inline void ShieldRuleProto::set_text_color(::google::protobuf::uint32 value) {
-  
+inline void ShieldRuleProto::set_text_color(::google::protobuf::uint32 value)
+{
   text_color_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.text_color)
 }
 
 // uint32 text_stroke_color = 7;
-inline void ShieldRuleProto::clear_text_stroke_color() {
+inline void ShieldRuleProto::clear_text_stroke_color()
+{
   text_stroke_color_ = 0u;
 }
-inline ::google::protobuf::uint32 ShieldRuleProto::text_stroke_color() const {
+inline ::google::protobuf::uint32 ShieldRuleProto::text_stroke_color() const
+{
   // @@protoc_insertion_point(field_get:ShieldRuleProto.text_stroke_color)
   return text_stroke_color_;
 }
-inline void ShieldRuleProto::set_text_stroke_color(::google::protobuf::uint32 value) {
-  
+inline void ShieldRuleProto::set_text_stroke_color(::google::protobuf::uint32 value)
+{
   text_stroke_color_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.text_stroke_color)
 }
@@ -2982,348 +3025,385 @@ inline void ShieldRuleProto::set_text_stroke_color(::google::protobuf::uint32 va
 // DrawElementProto
 
 // int32 scale = 1;
-inline void DrawElementProto::clear_scale() {
+inline void DrawElementProto::clear_scale()
+{
   scale_ = 0;
 }
-inline ::google::protobuf::int32 DrawElementProto::scale() const {
+inline ::google::protobuf::int32 DrawElementProto::scale() const
+{
   // @@protoc_insertion_point(field_get:DrawElementProto.scale)
   return scale_;
 }
-inline void DrawElementProto::set_scale(::google::protobuf::int32 value) {
-  
+inline void DrawElementProto::set_scale(::google::protobuf::int32 value)
+{
   scale_ = value;
   // @@protoc_insertion_point(field_set:DrawElementProto.scale)
 }
 
 // repeated .LineRuleProto lines = 2;
-inline int DrawElementProto::lines_size() const {
+inline int DrawElementProto::lines_size() const
+{
   return lines_.size();
 }
-inline void DrawElementProto::clear_lines() {
+inline void DrawElementProto::clear_lines()
+{
   lines_.Clear();
 }
-inline const ::LineRuleProto& DrawElementProto::lines(int index) const {
+inline ::LineRuleProto const & DrawElementProto::lines(int index) const
+{
   // @@protoc_insertion_point(field_get:DrawElementProto.lines)
   return lines_.Get(index);
 }
-inline ::LineRuleProto* DrawElementProto::mutable_lines(int index) {
+inline ::LineRuleProto * DrawElementProto::mutable_lines(int index)
+{
   // @@protoc_insertion_point(field_mutable:DrawElementProto.lines)
   return lines_.Mutable(index);
 }
-inline ::LineRuleProto* DrawElementProto::add_lines() {
+inline ::LineRuleProto * DrawElementProto::add_lines()
+{
   // @@protoc_insertion_point(field_add:DrawElementProto.lines)
   return lines_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::LineRuleProto >*
-DrawElementProto::mutable_lines() {
+inline ::google::protobuf::RepeatedPtrField<::LineRuleProto> * DrawElementProto::mutable_lines()
+{
   // @@protoc_insertion_point(field_mutable_list:DrawElementProto.lines)
   return &lines_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::LineRuleProto >&
-DrawElementProto::lines() const {
+inline ::google::protobuf::RepeatedPtrField<::LineRuleProto> const & DrawElementProto::lines() const
+{
   // @@protoc_insertion_point(field_list:DrawElementProto.lines)
   return lines_;
 }
 
 // .AreaRuleProto area = 3;
-inline bool DrawElementProto::has_area() const {
+inline bool DrawElementProto::has_area() const
+{
   return this != internal_default_instance() && area_ != NULL;
 }
-inline void DrawElementProto::clear_area() {
-  if (GetArenaNoVirtual() == NULL && area_ != NULL) delete area_;
+inline void DrawElementProto::clear_area()
+{
+  if (GetArenaNoVirtual() == NULL && area_ != NULL)
+    delete area_;
   area_ = NULL;
 }
-inline const ::AreaRuleProto& DrawElementProto::area() const {
+inline ::AreaRuleProto const & DrawElementProto::area() const
+{
   // @@protoc_insertion_point(field_get:DrawElementProto.area)
-  return area_ != NULL ? *area_
-                         : *::AreaRuleProto::internal_default_instance();
+  return area_ != NULL ? *area_ : *::AreaRuleProto::internal_default_instance();
 }
-inline ::AreaRuleProto* DrawElementProto::mutable_area() {
-  
-  if (area_ == NULL) {
+inline ::AreaRuleProto * DrawElementProto::mutable_area()
+{
+  if (area_ == NULL)
     area_ = new ::AreaRuleProto;
-  }
   // @@protoc_insertion_point(field_mutable:DrawElementProto.area)
   return area_;
 }
-inline ::AreaRuleProto* DrawElementProto::release_area() {
+inline ::AreaRuleProto * DrawElementProto::release_area()
+{
   // @@protoc_insertion_point(field_release:DrawElementProto.area)
-  
-  ::AreaRuleProto* temp = area_;
+
+  ::AreaRuleProto * temp = area_;
   area_ = NULL;
   return temp;
 }
-inline void DrawElementProto::set_allocated_area(::AreaRuleProto* area) {
+inline void DrawElementProto::set_allocated_area(::AreaRuleProto * area)
+{
   delete area_;
   area_ = area;
-  if (area) {
-    
-  } else {
-    
-  }
+  if (area)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.area)
 }
 
 // .SymbolRuleProto symbol = 4;
-inline bool DrawElementProto::has_symbol() const {
+inline bool DrawElementProto::has_symbol() const
+{
   return this != internal_default_instance() && symbol_ != NULL;
 }
-inline void DrawElementProto::clear_symbol() {
-  if (GetArenaNoVirtual() == NULL && symbol_ != NULL) delete symbol_;
+inline void DrawElementProto::clear_symbol()
+{
+  if (GetArenaNoVirtual() == NULL && symbol_ != NULL)
+    delete symbol_;
   symbol_ = NULL;
 }
-inline const ::SymbolRuleProto& DrawElementProto::symbol() const {
+inline ::SymbolRuleProto const & DrawElementProto::symbol() const
+{
   // @@protoc_insertion_point(field_get:DrawElementProto.symbol)
-  return symbol_ != NULL ? *symbol_
-                         : *::SymbolRuleProto::internal_default_instance();
+  return symbol_ != NULL ? *symbol_ : *::SymbolRuleProto::internal_default_instance();
 }
-inline ::SymbolRuleProto* DrawElementProto::mutable_symbol() {
-  
-  if (symbol_ == NULL) {
+inline ::SymbolRuleProto * DrawElementProto::mutable_symbol()
+{
+  if (symbol_ == NULL)
     symbol_ = new ::SymbolRuleProto;
-  }
   // @@protoc_insertion_point(field_mutable:DrawElementProto.symbol)
   return symbol_;
 }
-inline ::SymbolRuleProto* DrawElementProto::release_symbol() {
+inline ::SymbolRuleProto * DrawElementProto::release_symbol()
+{
   // @@protoc_insertion_point(field_release:DrawElementProto.symbol)
-  
-  ::SymbolRuleProto* temp = symbol_;
+
+  ::SymbolRuleProto * temp = symbol_;
   symbol_ = NULL;
   return temp;
 }
-inline void DrawElementProto::set_allocated_symbol(::SymbolRuleProto* symbol) {
+inline void DrawElementProto::set_allocated_symbol(::SymbolRuleProto * symbol)
+{
   delete symbol_;
   symbol_ = symbol;
-  if (symbol) {
-    
-  } else {
-    
-  }
+  if (symbol)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.symbol)
 }
 
 // .CaptionRuleProto caption = 5;
-inline bool DrawElementProto::has_caption() const {
+inline bool DrawElementProto::has_caption() const
+{
   return this != internal_default_instance() && caption_ != NULL;
 }
-inline void DrawElementProto::clear_caption() {
-  if (GetArenaNoVirtual() == NULL && caption_ != NULL) delete caption_;
+inline void DrawElementProto::clear_caption()
+{
+  if (GetArenaNoVirtual() == NULL && caption_ != NULL)
+    delete caption_;
   caption_ = NULL;
 }
-inline const ::CaptionRuleProto& DrawElementProto::caption() const {
+inline ::CaptionRuleProto const & DrawElementProto::caption() const
+{
   // @@protoc_insertion_point(field_get:DrawElementProto.caption)
-  return caption_ != NULL ? *caption_
-                         : *::CaptionRuleProto::internal_default_instance();
+  return caption_ != NULL ? *caption_ : *::CaptionRuleProto::internal_default_instance();
 }
-inline ::CaptionRuleProto* DrawElementProto::mutable_caption() {
-  
-  if (caption_ == NULL) {
+inline ::CaptionRuleProto * DrawElementProto::mutable_caption()
+{
+  if (caption_ == NULL)
     caption_ = new ::CaptionRuleProto;
-  }
   // @@protoc_insertion_point(field_mutable:DrawElementProto.caption)
   return caption_;
 }
-inline ::CaptionRuleProto* DrawElementProto::release_caption() {
+inline ::CaptionRuleProto * DrawElementProto::release_caption()
+{
   // @@protoc_insertion_point(field_release:DrawElementProto.caption)
-  
-  ::CaptionRuleProto* temp = caption_;
+
+  ::CaptionRuleProto * temp = caption_;
   caption_ = NULL;
   return temp;
 }
-inline void DrawElementProto::set_allocated_caption(::CaptionRuleProto* caption) {
+inline void DrawElementProto::set_allocated_caption(::CaptionRuleProto * caption)
+{
   delete caption_;
   caption_ = caption;
-  if (caption) {
-    
-  } else {
-    
-  }
+  if (caption)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.caption)
 }
 
 // .CircleRuleProto circle = 6;
-inline bool DrawElementProto::has_circle() const {
+inline bool DrawElementProto::has_circle() const
+{
   return this != internal_default_instance() && circle_ != NULL;
 }
-inline void DrawElementProto::clear_circle() {
-  if (GetArenaNoVirtual() == NULL && circle_ != NULL) delete circle_;
+inline void DrawElementProto::clear_circle()
+{
+  if (GetArenaNoVirtual() == NULL && circle_ != NULL)
+    delete circle_;
   circle_ = NULL;
 }
-inline const ::CircleRuleProto& DrawElementProto::circle() const {
+inline ::CircleRuleProto const & DrawElementProto::circle() const
+{
   // @@protoc_insertion_point(field_get:DrawElementProto.circle)
-  return circle_ != NULL ? *circle_
-                         : *::CircleRuleProto::internal_default_instance();
+  return circle_ != NULL ? *circle_ : *::CircleRuleProto::internal_default_instance();
 }
-inline ::CircleRuleProto* DrawElementProto::mutable_circle() {
-  
-  if (circle_ == NULL) {
+inline ::CircleRuleProto * DrawElementProto::mutable_circle()
+{
+  if (circle_ == NULL)
     circle_ = new ::CircleRuleProto;
-  }
   // @@protoc_insertion_point(field_mutable:DrawElementProto.circle)
   return circle_;
 }
-inline ::CircleRuleProto* DrawElementProto::release_circle() {
+inline ::CircleRuleProto * DrawElementProto::release_circle()
+{
   // @@protoc_insertion_point(field_release:DrawElementProto.circle)
-  
-  ::CircleRuleProto* temp = circle_;
+
+  ::CircleRuleProto * temp = circle_;
   circle_ = NULL;
   return temp;
 }
-inline void DrawElementProto::set_allocated_circle(::CircleRuleProto* circle) {
+inline void DrawElementProto::set_allocated_circle(::CircleRuleProto * circle)
+{
   delete circle_;
   circle_ = circle;
-  if (circle) {
-    
-  } else {
-    
-  }
+  if (circle)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.circle)
 }
 
 // .PathTextRuleProto path_text = 7;
-inline bool DrawElementProto::has_path_text() const {
+inline bool DrawElementProto::has_path_text() const
+{
   return this != internal_default_instance() && path_text_ != NULL;
 }
-inline void DrawElementProto::clear_path_text() {
-  if (GetArenaNoVirtual() == NULL && path_text_ != NULL) delete path_text_;
+inline void DrawElementProto::clear_path_text()
+{
+  if (GetArenaNoVirtual() == NULL && path_text_ != NULL)
+    delete path_text_;
   path_text_ = NULL;
 }
-inline const ::PathTextRuleProto& DrawElementProto::path_text() const {
+inline ::PathTextRuleProto const & DrawElementProto::path_text() const
+{
   // @@protoc_insertion_point(field_get:DrawElementProto.path_text)
-  return path_text_ != NULL ? *path_text_
-                         : *::PathTextRuleProto::internal_default_instance();
+  return path_text_ != NULL ? *path_text_ : *::PathTextRuleProto::internal_default_instance();
 }
-inline ::PathTextRuleProto* DrawElementProto::mutable_path_text() {
-  
-  if (path_text_ == NULL) {
+inline ::PathTextRuleProto * DrawElementProto::mutable_path_text()
+{
+  if (path_text_ == NULL)
     path_text_ = new ::PathTextRuleProto;
-  }
   // @@protoc_insertion_point(field_mutable:DrawElementProto.path_text)
   return path_text_;
 }
-inline ::PathTextRuleProto* DrawElementProto::release_path_text() {
+inline ::PathTextRuleProto * DrawElementProto::release_path_text()
+{
   // @@protoc_insertion_point(field_release:DrawElementProto.path_text)
-  
-  ::PathTextRuleProto* temp = path_text_;
+
+  ::PathTextRuleProto * temp = path_text_;
   path_text_ = NULL;
   return temp;
 }
-inline void DrawElementProto::set_allocated_path_text(::PathTextRuleProto* path_text) {
+inline void DrawElementProto::set_allocated_path_text(::PathTextRuleProto * path_text)
+{
   delete path_text_;
   path_text_ = path_text;
-  if (path_text) {
-    
-  } else {
-    
-  }
+  if (path_text)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.path_text)
 }
 
 // .ShieldRuleProto shield = 8;
-inline bool DrawElementProto::has_shield() const {
+inline bool DrawElementProto::has_shield() const
+{
   return this != internal_default_instance() && shield_ != NULL;
 }
-inline void DrawElementProto::clear_shield() {
-  if (GetArenaNoVirtual() == NULL && shield_ != NULL) delete shield_;
+inline void DrawElementProto::clear_shield()
+{
+  if (GetArenaNoVirtual() == NULL && shield_ != NULL)
+    delete shield_;
   shield_ = NULL;
 }
-inline const ::ShieldRuleProto& DrawElementProto::shield() const {
+inline ::ShieldRuleProto const & DrawElementProto::shield() const
+{
   // @@protoc_insertion_point(field_get:DrawElementProto.shield)
-  return shield_ != NULL ? *shield_
-                         : *::ShieldRuleProto::internal_default_instance();
+  return shield_ != NULL ? *shield_ : *::ShieldRuleProto::internal_default_instance();
 }
-inline ::ShieldRuleProto* DrawElementProto::mutable_shield() {
-  
-  if (shield_ == NULL) {
+inline ::ShieldRuleProto * DrawElementProto::mutable_shield()
+{
+  if (shield_ == NULL)
     shield_ = new ::ShieldRuleProto;
-  }
   // @@protoc_insertion_point(field_mutable:DrawElementProto.shield)
   return shield_;
 }
-inline ::ShieldRuleProto* DrawElementProto::release_shield() {
+inline ::ShieldRuleProto * DrawElementProto::release_shield()
+{
   // @@protoc_insertion_point(field_release:DrawElementProto.shield)
-  
-  ::ShieldRuleProto* temp = shield_;
+
+  ::ShieldRuleProto * temp = shield_;
   shield_ = NULL;
   return temp;
 }
-inline void DrawElementProto::set_allocated_shield(::ShieldRuleProto* shield) {
+inline void DrawElementProto::set_allocated_shield(::ShieldRuleProto * shield)
+{
   delete shield_;
   shield_ = shield;
-  if (shield) {
-    
-  } else {
-    
-  }
+  if (shield)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.shield)
 }
 
 // repeated string apply_if = 9;
-inline int DrawElementProto::apply_if_size() const {
+inline int DrawElementProto::apply_if_size() const
+{
   return apply_if_.size();
 }
-inline void DrawElementProto::clear_apply_if() {
+inline void DrawElementProto::clear_apply_if()
+{
   apply_if_.Clear();
 }
-inline const ::std::string& DrawElementProto::apply_if(int index) const {
+inline ::std::string const & DrawElementProto::apply_if(int index) const
+{
   // @@protoc_insertion_point(field_get:DrawElementProto.apply_if)
   return apply_if_.Get(index);
 }
-inline ::std::string* DrawElementProto::mutable_apply_if(int index) {
+inline ::std::string * DrawElementProto::mutable_apply_if(int index)
+{
   // @@protoc_insertion_point(field_mutable:DrawElementProto.apply_if)
   return apply_if_.Mutable(index);
 }
-inline void DrawElementProto::set_apply_if(int index, const ::std::string& value) {
+inline void DrawElementProto::set_apply_if(int index, ::std::string const & value)
+{
   // @@protoc_insertion_point(field_set:DrawElementProto.apply_if)
   apply_if_.Mutable(index)->assign(value);
 }
 #if LANG_CXX11
-inline void DrawElementProto::set_apply_if(int index, ::std::string&& value) {
+inline void DrawElementProto::set_apply_if(int index, ::std::string && value)
+{
   // @@protoc_insertion_point(field_set:DrawElementProto.apply_if)
   apply_if_.Mutable(index)->assign(std::move(value));
 }
 #endif
-inline void DrawElementProto::set_apply_if(int index, const char* value) {
+inline void DrawElementProto::set_apply_if(int index, const char * value)
+{
   GOOGLE_DCHECK(value != NULL);
   apply_if_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:DrawElementProto.apply_if)
 }
-inline void DrawElementProto::set_apply_if(int index, const char* value, size_t size) {
-  apply_if_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
+inline void DrawElementProto::set_apply_if(int index, char const * value, size_t size)
+{
+  apply_if_.Mutable(index)->assign(reinterpret_cast<char const *>(value), size);
   // @@protoc_insertion_point(field_set_pointer:DrawElementProto.apply_if)
 }
-inline ::std::string* DrawElementProto::add_apply_if() {
+inline ::std::string * DrawElementProto::add_apply_if()
+{
   // @@protoc_insertion_point(field_add_mutable:DrawElementProto.apply_if)
   return apply_if_.Add();
 }
-inline void DrawElementProto::add_apply_if(const ::std::string& value) {
+inline void DrawElementProto::add_apply_if(::std::string const & value)
+{
   apply_if_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:DrawElementProto.apply_if)
 }
 #if LANG_CXX11
-inline void DrawElementProto::add_apply_if(::std::string&& value) {
+inline void DrawElementProto::add_apply_if(::std::string && value)
+{
   apply_if_.Add(std::move(value));
   // @@protoc_insertion_point(field_add:DrawElementProto.apply_if)
 }
 #endif
-inline void DrawElementProto::add_apply_if(const char* value) {
+inline void DrawElementProto::add_apply_if(const char * value)
+{
   GOOGLE_DCHECK(value != NULL);
   apply_if_.Add()->assign(value);
   // @@protoc_insertion_point(field_add_char:DrawElementProto.apply_if)
 }
-inline void DrawElementProto::add_apply_if(const char* value, size_t size) {
-  apply_if_.Add()->assign(reinterpret_cast<const char*>(value), size);
+inline void DrawElementProto::add_apply_if(char const * value, size_t size)
+{
+  apply_if_.Add()->assign(reinterpret_cast<char const *>(value), size);
   // @@protoc_insertion_point(field_add_pointer:DrawElementProto.apply_if)
 }
-inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
-DrawElementProto::apply_if() const {
+inline ::google::protobuf::RepeatedPtrField<::std::string> const & DrawElementProto::apply_if() const
+{
   // @@protoc_insertion_point(field_list:DrawElementProto.apply_if)
   return apply_if_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::std::string>*
-DrawElementProto::mutable_apply_if() {
+inline ::google::protobuf::RepeatedPtrField<::std::string> * DrawElementProto::mutable_apply_if()
+{
   // @@protoc_insertion_point(field_mutable_list:DrawElementProto.apply_if)
   return &apply_if_;
 }
@@ -3333,84 +3413,92 @@ DrawElementProto::mutable_apply_if() {
 // ClassifElementProto
 
 // string name = 1;
-inline void ClassifElementProto::clear_name() {
+inline void ClassifElementProto::clear_name()
+{
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& ClassifElementProto::name() const {
+inline ::std::string const & ClassifElementProto::name() const
+{
   // @@protoc_insertion_point(field_get:ClassifElementProto.name)
   return name_.GetNoArena();
 }
-inline void ClassifElementProto::set_name(const ::std::string& value) {
-  
+inline void ClassifElementProto::set_name(::std::string const & value)
+{
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:ClassifElementProto.name)
 }
 #if LANG_CXX11
-inline void ClassifElementProto::set_name(::std::string&& value) {
-  
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+inline void ClassifElementProto::set_name(::std::string && value)
+{
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:ClassifElementProto.name)
 }
 #endif
-inline void ClassifElementProto::set_name(const char* value) {
+inline void ClassifElementProto::set_name(const char * value)
+{
   GOOGLE_DCHECK(value != NULL);
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ClassifElementProto.name)
 }
-inline void ClassifElementProto::set_name(const char* value, size_t size) {
-  
+inline void ClassifElementProto::set_name(char const * value, size_t size)
+{
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                   ::std::string(reinterpret_cast<char const *>(value), size));
   // @@protoc_insertion_point(field_set_pointer:ClassifElementProto.name)
 }
-inline ::std::string* ClassifElementProto::mutable_name() {
-  
+inline ::std::string * ClassifElementProto::mutable_name()
+{
   // @@protoc_insertion_point(field_mutable:ClassifElementProto.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* ClassifElementProto::release_name() {
+inline ::std::string * ClassifElementProto::release_name()
+{
   // @@protoc_insertion_point(field_release:ClassifElementProto.name)
-  
+
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ClassifElementProto::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
-    
-  } else {
-    
-  }
+inline void ClassifElementProto::set_allocated_name(::std::string * name)
+{
+  if (name != NULL)
+  {}
+  else
+  {}
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:ClassifElementProto.name)
 }
 
 // repeated .DrawElementProto element = 2;
-inline int ClassifElementProto::element_size() const {
+inline int ClassifElementProto::element_size() const
+{
   return element_.size();
 }
-inline void ClassifElementProto::clear_element() {
+inline void ClassifElementProto::clear_element()
+{
   element_.Clear();
 }
-inline const ::DrawElementProto& ClassifElementProto::element(int index) const {
+inline ::DrawElementProto const & ClassifElementProto::element(int index) const
+{
   // @@protoc_insertion_point(field_get:ClassifElementProto.element)
   return element_.Get(index);
 }
-inline ::DrawElementProto* ClassifElementProto::mutable_element(int index) {
+inline ::DrawElementProto * ClassifElementProto::mutable_element(int index)
+{
   // @@protoc_insertion_point(field_mutable:ClassifElementProto.element)
   return element_.Mutable(index);
 }
-inline ::DrawElementProto* ClassifElementProto::add_element() {
+inline ::DrawElementProto * ClassifElementProto::add_element()
+{
   // @@protoc_insertion_point(field_add:ClassifElementProto.element)
   return element_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::DrawElementProto >*
-ClassifElementProto::mutable_element() {
+inline ::google::protobuf::RepeatedPtrField<::DrawElementProto> * ClassifElementProto::mutable_element()
+{
   // @@protoc_insertion_point(field_mutable_list:ClassifElementProto.element)
   return &element_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::DrawElementProto >&
-ClassifElementProto::element() const {
+inline ::google::protobuf::RepeatedPtrField<::DrawElementProto> const & ClassifElementProto::element() const
+{
   // @@protoc_insertion_point(field_list:ClassifElementProto.element)
   return element_;
 }
@@ -3420,96 +3508,105 @@ ClassifElementProto::element() const {
 // ColorElementProto
 
 // string name = 1;
-inline void ColorElementProto::clear_name() {
+inline void ColorElementProto::clear_name()
+{
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& ColorElementProto::name() const {
+inline ::std::string const & ColorElementProto::name() const
+{
   // @@protoc_insertion_point(field_get:ColorElementProto.name)
   return name_.GetNoArena();
 }
-inline void ColorElementProto::set_name(const ::std::string& value) {
-  
+inline void ColorElementProto::set_name(::std::string const & value)
+{
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:ColorElementProto.name)
 }
 #if LANG_CXX11
-inline void ColorElementProto::set_name(::std::string&& value) {
-  
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+inline void ColorElementProto::set_name(::std::string && value)
+{
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:ColorElementProto.name)
 }
 #endif
-inline void ColorElementProto::set_name(const char* value) {
+inline void ColorElementProto::set_name(const char * value)
+{
   GOOGLE_DCHECK(value != NULL);
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ColorElementProto.name)
 }
-inline void ColorElementProto::set_name(const char* value, size_t size) {
-  
+inline void ColorElementProto::set_name(char const * value, size_t size)
+{
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                   ::std::string(reinterpret_cast<char const *>(value), size));
   // @@protoc_insertion_point(field_set_pointer:ColorElementProto.name)
 }
-inline ::std::string* ColorElementProto::mutable_name() {
-  
+inline ::std::string * ColorElementProto::mutable_name()
+{
   // @@protoc_insertion_point(field_mutable:ColorElementProto.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* ColorElementProto::release_name() {
+inline ::std::string * ColorElementProto::release_name()
+{
   // @@protoc_insertion_point(field_release:ColorElementProto.name)
-  
+
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void ColorElementProto::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
-    
-  } else {
-    
-  }
+inline void ColorElementProto::set_allocated_name(::std::string * name)
+{
+  if (name != NULL)
+  {}
+  else
+  {}
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:ColorElementProto.name)
 }
 
 // uint32 color = 2;
-inline void ColorElementProto::clear_color() {
+inline void ColorElementProto::clear_color()
+{
   color_ = 0u;
 }
-inline ::google::protobuf::uint32 ColorElementProto::color() const {
+inline ::google::protobuf::uint32 ColorElementProto::color() const
+{
   // @@protoc_insertion_point(field_get:ColorElementProto.color)
   return color_;
 }
-inline void ColorElementProto::set_color(::google::protobuf::uint32 value) {
-  
+inline void ColorElementProto::set_color(::google::protobuf::uint32 value)
+{
   color_ = value;
   // @@protoc_insertion_point(field_set:ColorElementProto.color)
 }
 
 // float x = 3;
-inline void ColorElementProto::clear_x() {
+inline void ColorElementProto::clear_x()
+{
   x_ = 0;
 }
-inline float ColorElementProto::x() const {
+inline float ColorElementProto::x() const
+{
   // @@protoc_insertion_point(field_get:ColorElementProto.x)
   return x_;
 }
-inline void ColorElementProto::set_x(float value) {
-  
+inline void ColorElementProto::set_x(float value)
+{
   x_ = value;
   // @@protoc_insertion_point(field_set:ColorElementProto.x)
 }
 
 // float y = 4;
-inline void ColorElementProto::clear_y() {
+inline void ColorElementProto::clear_y()
+{
   y_ = 0;
 }
-inline float ColorElementProto::y() const {
+inline float ColorElementProto::y() const
+{
   // @@protoc_insertion_point(field_get:ColorElementProto.y)
   return y_;
 }
-inline void ColorElementProto::set_y(float value) {
-  
+inline void ColorElementProto::set_y(float value)
+{
   y_ = value;
   // @@protoc_insertion_point(field_set:ColorElementProto.y)
 }
@@ -3519,31 +3616,36 @@ inline void ColorElementProto::set_y(float value) {
 // ColorsElementProto
 
 // repeated .ColorElementProto value = 1;
-inline int ColorsElementProto::value_size() const {
+inline int ColorsElementProto::value_size() const
+{
   return value_.size();
 }
-inline void ColorsElementProto::clear_value() {
+inline void ColorsElementProto::clear_value()
+{
   value_.Clear();
 }
-inline const ::ColorElementProto& ColorsElementProto::value(int index) const {
+inline ::ColorElementProto const & ColorsElementProto::value(int index) const
+{
   // @@protoc_insertion_point(field_get:ColorsElementProto.value)
   return value_.Get(index);
 }
-inline ::ColorElementProto* ColorsElementProto::mutable_value(int index) {
+inline ::ColorElementProto * ColorsElementProto::mutable_value(int index)
+{
   // @@protoc_insertion_point(field_mutable:ColorsElementProto.value)
   return value_.Mutable(index);
 }
-inline ::ColorElementProto* ColorsElementProto::add_value() {
+inline ::ColorElementProto * ColorsElementProto::add_value()
+{
   // @@protoc_insertion_point(field_add:ColorsElementProto.value)
   return value_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::ColorElementProto >*
-ColorsElementProto::mutable_value() {
+inline ::google::protobuf::RepeatedPtrField<::ColorElementProto> * ColorsElementProto::mutable_value()
+{
   // @@protoc_insertion_point(field_mutable_list:ColorsElementProto.value)
   return &value_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ColorElementProto >&
-ColorsElementProto::value() const {
+inline ::google::protobuf::RepeatedPtrField<::ColorElementProto> const & ColorsElementProto::value() const
+{
   // @@protoc_insertion_point(field_list:ColorsElementProto.value)
   return value_;
 }
@@ -3553,71 +3655,79 @@ ColorsElementProto::value() const {
 // ContainerProto
 
 // repeated .ClassifElementProto cont = 1;
-inline int ContainerProto::cont_size() const {
+inline int ContainerProto::cont_size() const
+{
   return cont_.size();
 }
-inline void ContainerProto::clear_cont() {
+inline void ContainerProto::clear_cont()
+{
   cont_.Clear();
 }
-inline const ::ClassifElementProto& ContainerProto::cont(int index) const {
+inline ::ClassifElementProto const & ContainerProto::cont(int index) const
+{
   // @@protoc_insertion_point(field_get:ContainerProto.cont)
   return cont_.Get(index);
 }
-inline ::ClassifElementProto* ContainerProto::mutable_cont(int index) {
+inline ::ClassifElementProto * ContainerProto::mutable_cont(int index)
+{
   // @@protoc_insertion_point(field_mutable:ContainerProto.cont)
   return cont_.Mutable(index);
 }
-inline ::ClassifElementProto* ContainerProto::add_cont() {
+inline ::ClassifElementProto * ContainerProto::add_cont()
+{
   // @@protoc_insertion_point(field_add:ContainerProto.cont)
   return cont_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::ClassifElementProto >*
-ContainerProto::mutable_cont() {
+inline ::google::protobuf::RepeatedPtrField<::ClassifElementProto> * ContainerProto::mutable_cont()
+{
   // @@protoc_insertion_point(field_mutable_list:ContainerProto.cont)
   return &cont_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ClassifElementProto >&
-ContainerProto::cont() const {
+inline ::google::protobuf::RepeatedPtrField<::ClassifElementProto> const & ContainerProto::cont() const
+{
   // @@protoc_insertion_point(field_list:ContainerProto.cont)
   return cont_;
 }
 
 // .ColorsElementProto colors = 2;
-inline bool ContainerProto::has_colors() const {
+inline bool ContainerProto::has_colors() const
+{
   return this != internal_default_instance() && colors_ != NULL;
 }
-inline void ContainerProto::clear_colors() {
-  if (GetArenaNoVirtual() == NULL && colors_ != NULL) delete colors_;
+inline void ContainerProto::clear_colors()
+{
+  if (GetArenaNoVirtual() == NULL && colors_ != NULL)
+    delete colors_;
   colors_ = NULL;
 }
-inline const ::ColorsElementProto& ContainerProto::colors() const {
+inline ::ColorsElementProto const & ContainerProto::colors() const
+{
   // @@protoc_insertion_point(field_get:ContainerProto.colors)
-  return colors_ != NULL ? *colors_
-                         : *::ColorsElementProto::internal_default_instance();
+  return colors_ != NULL ? *colors_ : *::ColorsElementProto::internal_default_instance();
 }
-inline ::ColorsElementProto* ContainerProto::mutable_colors() {
-  
-  if (colors_ == NULL) {
+inline ::ColorsElementProto * ContainerProto::mutable_colors()
+{
+  if (colors_ == NULL)
     colors_ = new ::ColorsElementProto;
-  }
   // @@protoc_insertion_point(field_mutable:ContainerProto.colors)
   return colors_;
 }
-inline ::ColorsElementProto* ContainerProto::release_colors() {
+inline ::ColorsElementProto * ContainerProto::release_colors()
+{
   // @@protoc_insertion_point(field_release:ContainerProto.colors)
-  
-  ::ColorsElementProto* temp = colors_;
+
+  ::ColorsElementProto * temp = colors_;
   colors_ = NULL;
   return temp;
 }
-inline void ContainerProto::set_allocated_colors(::ColorsElementProto* colors) {
+inline void ContainerProto::set_allocated_colors(::ColorsElementProto * colors)
+{
   delete colors_;
   colors_ = colors;
-  if (colors) {
-    
-  } else {
-    
-  }
+  if (colors)
+  {}
+  else
+  {}
   // @@protoc_insertion_point(field_set_allocated:ContainerProto.colors)
 }
 
@@ -3652,16 +3762,20 @@ inline void ContainerProto::set_allocated_colors(::ColorsElementProto* colors) {
 
 // -------------------------------------------------------------------
 
-
 // @@protoc_insertion_point(namespace_scope)
 
-
 #ifndef SWIG
-namespace google {
-namespace protobuf {
+namespace google
+{
+namespace protobuf
+{
 
-template <> struct is_proto_enum< ::LineJoin> : ::google::protobuf::internal::true_type {};
-template <> struct is_proto_enum< ::LineCap> : ::google::protobuf::internal::true_type {};
+template <>
+struct is_proto_enum<::LineJoin> : ::google::protobuf::internal::true_type
+{};
+template <>
+struct is_proto_enum<::LineCap> : ::google::protobuf::internal::true_type
+{};
 
 }  // namespace protobuf
 }  // namespace google

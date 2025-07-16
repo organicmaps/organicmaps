@@ -34,9 +34,6 @@ namespace std
 template <>
 struct hash<generator::CompositeId>
 {
-  size_t operator()(generator::CompositeId const & id) const
-  {
-    return math::Hash(id.m_mainId, id.m_additionalId);
-  }
+  size_t operator()(generator::CompositeId const & id) const { return math::Hash(id.m_mainId, id.m_additionalId); }
 };
 }  // namespace std

@@ -76,9 +76,11 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 
 + (MWMTheme)theme
 {
-  if ([MWMCarPlayService shared].isCarplayActivated) {
+  if ([MWMCarPlayService shared].isCarplayActivated)
+  {
     UIUserInterfaceStyle style = [[MWMCarPlayService shared] interfaceStyle];
-    switch (style) {
+    switch (style)
+    {
       case UIUserInterfaceStyleLight: return MWMThemeDay;
       case UIUserInterfaceStyleDark: return MWMThemeNight;
       case UIUserInterfaceStyleUnspecified: break;
@@ -108,7 +110,10 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
   return enabled;
 }
 
-+ (void)setRoutingDisclaimerApproved { settings::Set(kRoutingDisclaimerApprovedKey, true); }
++ (void)setRoutingDisclaimerApproved
+{
+  settings::Set(kRoutingDisclaimerApprovedKey, true);
+}
 + (NSString *)spotlightLocaleLanguageId
 {
   return [NSUserDefaults.standardUserDefaults stringForKey:kSpotlightLocaleLanguageId];
@@ -120,13 +125,19 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
   [ud setObject:spotlightLocaleLanguageId forKey:kSpotlightLocaleLanguageId];
 }
 
-+ (BOOL)largeFontSize { return GetFramework().LoadLargeFontsSize(); }
++ (BOOL)largeFontSize
+{
+  return GetFramework().LoadLargeFontsSize();
+}
 + (void)setLargeFontSize:(BOOL)largeFontSize
 {
   GetFramework().SetLargeFontsSize(static_cast<bool>(largeFontSize));
 }
 
-+ (BOOL)transliteration { return GetFramework().LoadTransliteration(); }
++ (BOOL)transliteration
+{
+  return GetFramework().LoadTransliteration();
+}
 + (void)setTransliteration:(BOOL)transliteration
 {
   bool const isTransliteration = static_cast<bool>(transliteration);
@@ -166,21 +177,23 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
 + (void)setICLoudSynchronizationEnabled:(BOOL)iCLoudSyncEnabled
 {
   [NSUserDefaults.standardUserDefaults setBool:iCLoudSyncEnabled forKey:kiCLoudSynchronizationEnabledKey];
-  [NSNotificationCenter.defaultCenter postNotificationName:NSNotification.iCloudSynchronizationDidChangeEnabledState object:nil];
+  [NSNotificationCenter.defaultCenter postNotificationName:NSNotification.iCloudSynchronizationDidChangeEnabledState
+                                                    object:nil];
 }
 
-+ (void)initializeLogging {
++ (void)initializeLogging
+{
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    [self setFileLoggingEnabled:[self isFileLoggingEnabled]];
-  });
+  dispatch_once(&onceToken, ^{ [self setFileLoggingEnabled:[self isFileLoggingEnabled]]; });
 }
 
-+ (BOOL)isFileLoggingEnabled {
++ (BOOL)isFileLoggingEnabled
+{
   return [NSUserDefaults.standardUserDefaults boolForKey:kUDFileLoggingEnabledKey];
 }
 
-+ (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled {
++ (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
+{
   [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
   [Logger setFileLoggingEnabled:fileLoggingEnabled];
 }

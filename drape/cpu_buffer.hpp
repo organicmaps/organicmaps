@@ -10,6 +10,7 @@ namespace dp
 class CPUBuffer : public BufferBase
 {
   using TBase = BufferBase;
+
 public:
   CPUBuffer(uint8_t elementSize, uint32_t capacity);
   ~CPUBuffer() override;

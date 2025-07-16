@@ -9,19 +9,24 @@
 
 TTSTester * ttsTester;
 
-- (void)setUp {
+- (void)setUp
+{
   ttsTester = [[TTSTester alloc] init];
 }
 
-- (void)testTestStringsWithEnglish {
-  XCTAssertTrue([[ttsTester getTestStrings:@"en-US"] containsObject: @"Thank you for using our community-built maps!"]);
+- (void)testTestStringsWithEnglish
+{
+  XCTAssertTrue([[ttsTester getTestStrings:@"en-US"] containsObject:@"Thank you for using our community-built maps!"]);
 }
 
-- (void)testTestStringsWithGerman {
-  XCTAssertTrue([[ttsTester getTestStrings:@"de-DE"] containsObject: @"Danke, dass du unsere von der Community erstellten Karten benutzt!"]);
+- (void)testTestStringsWithGerman
+{
+  XCTAssertTrue([[ttsTester getTestStrings:@"de-DE"]
+      containsObject:@"Danke, dass du unsere von der Community erstellten Karten benutzt!"]);
 }
 
-- (void)testTestStringsWithInvalidLanguage {
+- (void)testTestStringsWithInvalidLanguage
+{
   XCTAssertNil([ttsTester getTestStrings:@"xxx"]);
 }
 

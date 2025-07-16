@@ -2,9 +2,9 @@
 
 #include <CoreApi/Framework.h>
 #import <CoreApi/PlacePageData.h>
-#import <CoreApi/PlacePagePreviewData.h>
 #import <CoreApi/PlacePageInfoData.h>
 #import <CoreApi/PlacePagePhone.h>
+#import <CoreApi/PlacePagePreviewData.h>
 #import <LinkPresentation/LPLinkMetadata.h>
 
 NSString * httpGe0Url(NSString * shortUrl)
@@ -15,7 +15,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 
 @interface MWMShareActivityItem ()
 
-@property(nonatomic) PlacePageData *data;
+@property(nonatomic) PlacePageData * data;
 @property(nonatomic) CLLocationCoordinate2D location;
 @property(nonatomic) BOOL isMyPosition;
 
@@ -41,7 +41,8 @@ NSString * httpGe0Url(NSString * shortUrl)
   return nil;
 }
 
-- (instancetype)initForPlacePage:(PlacePageData *)data {
+- (instancetype)initForPlacePage:(PlacePageData *)data
+{
   self = [super init];
   if (self)
   {
@@ -56,8 +57,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 {
   auto & f = GetFramework();
 
-  auto const title = ^NSString *(PlacePageData *data)
-  {
+  auto const title = ^NSString *(PlacePageData * data) {
     if (!data || data.isMyPosition)
       return L(@"core_my_position");
     else if (data.previewData.title.length > 0)
@@ -70,9 +70,9 @@ NSString * httpGe0Url(NSString * shortUrl)
       return @"";
   };
 
-  ms::LatLon const ll = self.data ? ms::LatLon(self.data.locationCoordinate.latitude,
-                                               self.data.locationCoordinate.longitude)
-                                    : ms::LatLon(self.location.latitude, self.location.longitude);
+  ms::LatLon const ll = self.data
+                          ? ms::LatLon(self.data.locationCoordinate.latitude, self.data.locationCoordinate.longitude)
+                          : ms::LatLon(self.location.latitude, self.location.longitude);
   std::string const & s = f.CodeGe0url(ll.m_lat, ll.m_lon, f.GetDrawScale(), title(self.data).UTF8String);
 
   NSString * url = @(s.c_str());
@@ -104,7 +104,8 @@ NSString * httpGe0Url(NSString * shortUrl)
   return [self subjectDefault];
 }
 
-- (LPLinkMetadata *)activityViewControllerLinkMetadata:(UIActivityViewController *)activityViewController API_AVAILABLE(ios(13.0))
+- (LPLinkMetadata *)activityViewControllerLinkMetadata:(UIActivityViewController *)activityViewController
+    API_AVAILABLE(ios(13.0))
 {
   LPLinkMetadata * metadata = [[LPLinkMetadata alloc] init];
   metadata.originalURL = [NSURL URLWithString:[self url:NO]];
@@ -118,9 +119,9 @@ NSString * httpGe0Url(NSString * shortUrl)
 - (NSString *)itemForTwitter
 {
   NSString * shortUrl = [self url:YES];
-  return [NSString stringWithFormat:@"%@\n%@", httpGe0Url(shortUrl),
-                                    self.isMyPosition ? L(@"my_position_share_email_subject")
-                                                      : self.data.previewData.title];
+  return [NSString
+      stringWithFormat:@"%@\n%@", httpGe0Url(shortUrl),
+                       self.isMyPosition ? L(@"my_position_share_email_subject") : self.data.previewData.title];
 }
 
 - (NSString *)itemDefaultWithActivityType:(NSString *)activityType
@@ -132,28 +133,24 @@ NSString * httpGe0Url(NSString * shortUrl)
     BOOL const hasSubject = [activityType isEqualToString:UIActivityTypeMail];
     if (hasSubject)
       return [NSString stringWithFormat:@"%@ %@", url, ge0Url];
-    return [NSString
-        stringWithFormat:@"%@ %@\n%@", L(@"my_position_share_email_subject"), url, ge0Url];
+    return [NSString stringWithFormat:@"%@ %@\n%@", L(@"my_position_share_email_subject"), url, ge0Url];
   }
 
-  NSMutableArray *phones = [NSMutableArray new];
-  [self.data.infoData.phones enumerateObjectsUsingBlock:^(PlacePagePhone * _Nonnull phone, NSUInteger idx, BOOL * _Nonnull stop) {
-    [phones addObject:phone.phone];
-  }];
+  NSMutableArray * phones = [NSMutableArray new];
+  [self.data.infoData.phones enumerateObjectsUsingBlock:^(PlacePagePhone * _Nonnull phone, NSUInteger idx,
+                                                          BOOL * _Nonnull stop) { [phones addObject:phone.phone]; }];
 
   NSMutableString * result = [L(@"sharing_call_action_look") mutableCopy];
   std::vector<NSString *> strings{self.data.previewData.title,
-                                 self.data.previewData.subtitle,
-                                 self.data.previewData.secondarySubtitle,
-                                 [phones componentsJoinedByString:@"; "],
-                                 url,
-                                 ge0Url};
+                                  self.data.previewData.subtitle,
+                                  self.data.previewData.secondarySubtitle,
+                                  [phones componentsJoinedByString:@"; "],
+                                  url,
+                                  ge0Url};
 
   for (auto const & str : strings)
-  {
     if (str.length)
       [result appendString:[NSString stringWithFormat:@"\n%@", str]];
-  }
 
   return result;
 }
@@ -162,8 +159,7 @@ NSString * httpGe0Url(NSString * shortUrl)
 
 - (NSString *)subjectDefault
 {
-  return self.isMyPosition ? L(@"my_position_share_email_subject")
-                           : L(@"bookmark_share_email_subject");
+  return self.isMyPosition ? L(@"my_position_share_email_subject") : L(@"bookmark_share_email_subject");
 }
 
 @end

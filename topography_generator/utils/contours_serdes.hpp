@@ -2,8 +2,8 @@
 
 #include "topography_generator/utils/contours.hpp"
 
-#include "coding/file_writer.hpp"
 #include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
 #include "coding/geometry_coding.hpp"
 #include "coding/internal/file_data.hpp"
 
@@ -13,7 +13,7 @@ template <typename ValueType>
 class SerializerContours
 {
 public:
-  explicit SerializerContours(Contours<ValueType> && contours): m_contours(std::move(contours)) {}
+  explicit SerializerContours(Contours<ValueType> && contours) : m_contours(std::move(contours)) {}
 
   template <typename Sink>
   void Serialize(Sink & sink)
@@ -31,8 +31,7 @@ public:
 
 private:
   template <typename Sink>
-  void SerializeContours(Sink & sink, ValueType value,
-                         std::vector<topography_generator::Contour> const & contours)
+  void SerializeContours(Sink & sink, ValueType value, std::vector<topography_generator::Contour> const & contours)
   {
     WriteToSink(sink, value);
     WriteToSink(sink, static_cast<uint32_t>(contours.size()));
@@ -81,7 +80,7 @@ public:
 
 private:
   void DeserializeContours(NonOwningReaderSource & source, ValueType & value,
-                            std::vector<topography_generator::Contour> & contours)
+                           std::vector<topography_generator::Contour> & contours)
   {
     value = ReadPrimitiveFromSource<ValueType>(source);
     size_t const contoursCount = ReadPrimitiveFromSource<uint32_t>(source);
@@ -90,8 +89,7 @@ private:
       DeserializeContour(source, contour);
   }
 
-  void DeserializeContour(NonOwningReaderSource & source,
-                          topography_generator::Contour & contour)
+  void DeserializeContour(NonOwningReaderSource & source, topography_generator::Contour & contour)
   {
     serial::GeometryCodingParams codingParams;
     codingParams.Load(source);
@@ -102,8 +100,7 @@ private:
 };
 
 template <typename ValueType>
-bool SaveContrours(std::string const & filePath,
-                   Contours<ValueType> && contours)
+bool SaveContrours(std::string const & filePath, Contours<ValueType> && contours)
 {
   auto const tmpFilePath = filePath + ".tmp";
   try

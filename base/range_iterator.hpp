@@ -16,9 +16,17 @@ template <typename TCounter>
 struct RangeIterator
 {
   explicit RangeIterator(TCounter const current) : m_current(current) {}
-  RangeIterator & operator++() { ++m_current; return *this; }
+  RangeIterator & operator++()
+  {
+    ++m_current;
+    return *this;
+  }
   RangeIterator operator++(int) { return RangeIterator(m_current++); }
-  RangeIterator & operator--() { --m_current; return *this; }
+  RangeIterator & operator--()
+  {
+    --m_current;
+    return *this;
+  }
   RangeIterator operator--(int) { return RangeIterator(m_current--); }
   bool operator==(RangeIterator const & it) const { return m_current == it.m_current; }
   bool operator!=(RangeIterator const & it) const { return !(*this == it); }
@@ -40,7 +48,7 @@ struct iterator_traits<base::RangeIterator<T>>
   using reference = T;
   using iterator_category = std::bidirectional_iterator_tag;
 };
-} // namespace std
+}  // namespace std
 
 namespace base
 {
@@ -51,11 +59,7 @@ struct RangeWrapper
   using iterator_base = RangeIterator<value_type>;
   using iterator = std::conditional_t<forward, iterator_base, std::reverse_iterator<iterator_base>>;
 
-  RangeWrapper(TCounter const from, TCounter const to):
-      m_begin(from),
-      m_end(to)
-  {
-  }
+  RangeWrapper(TCounter const from, TCounter const to) : m_begin(from), m_end(to) {}
 
   iterator begin() const { return iterator(iterator_base(m_begin)); }
   iterator end() const { return iterator(iterator_base(m_end)); }
