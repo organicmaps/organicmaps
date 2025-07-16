@@ -1,4 +1,4 @@
-final class RouteStopCollectionViewCell: UICollectionViewCell {
+final class RoutePointCollectionViewCell: UICollectionViewCell {
 
   struct ViewModel {
     let title: String

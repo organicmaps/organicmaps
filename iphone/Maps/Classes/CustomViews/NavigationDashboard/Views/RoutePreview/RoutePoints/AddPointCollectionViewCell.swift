@@ -1,4 +1,4 @@
-final class AddItemCollectionViewCell: UICollectionViewCell {
+final class AddPointCollectionViewCell: UICollectionViewCell {
 
   private enum Constants {
     static let trailingInsets = CGFloat(16)

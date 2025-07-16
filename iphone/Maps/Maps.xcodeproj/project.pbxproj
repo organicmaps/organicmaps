@@ -454,9 +454,9 @@
 		ED4DC7782CAEDECC0029B338 /* ProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7732CAEDECC0029B338 /* ProductButton.swift */; };
 		ED4DC7792CAEDECC0029B338 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4DC7742CAEDECC0029B338 /* ProductsViewController.swift */; };
 		ED4F4F292D9558C2006AD910 /* NavigationDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F282D9558C2006AD910 /* NavigationDashboardViewController.swift */; };
-		ED4F4F392D9AF887006AD910 /* RouteStopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F382D9AF887006AD910 /* RouteStopCollectionViewCell.swift */; };
+		ED4F4F392D9AF887006AD910 /* RoutePointCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F382D9AF887006AD910 /* RoutePointCollectionViewCell.swift */; };
 		ED4F4F3B2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */; };
-		ED4F4F3F2D9C1793006AD910 /* AddItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F3E2D9C1792006AD910 /* AddItemCollectionViewCell.swift */; };
+		ED4F4F3F2D9C1793006AD910 /* AddPointCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F3E2D9C1792006AD910 /* AddPointCollectionViewCell.swift */; };
 		ED4F4F4D2D9E6CA0006AD910 /* NavigationDashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F4A2D9E6C94006AD910 /* NavigationDashboardInteractor.swift */; };
 		ED4F4F4F2D9E7B8E006AD910 /* NavigationDashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F4E2D9E7B8E006AD910 /* NavigationDashboardBuilder.swift */; };
 		ED4F4F512D9E8854006AD910 /* NavigationDashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F502D9E8854006AD910 /* NavigationDashboardPresenter.swift */; };
@@ -1410,9 +1410,9 @@
 		ED4DC7752CAEDECC0029B338 /* ProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
 		ED4F4F282D9558C2006AD910 /* NavigationDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardViewController.swift; sourceTree = "<group>"; };
 		ED4F4F372D9AC4B5006AD910 /* SearchOnMapState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchOnMapState.h; sourceTree = "<group>"; };
-		ED4F4F382D9AF887006AD910 /* RouteStopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStopCollectionViewCell.swift; sourceTree = "<group>"; };
+		ED4F4F382D9AF887006AD910 /* RoutePointCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointCollectionViewCell.swift; sourceTree = "<group>"; };
 		ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportOptionCollectionViewCell.swift; sourceTree = "<group>"; };
-		ED4F4F3E2D9C1792006AD910 /* AddItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		ED4F4F3E2D9C1792006AD910 /* AddPointCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPointCollectionViewCell.swift; sourceTree = "<group>"; };
 		ED4F4F4A2D9E6C94006AD910 /* NavigationDashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardInteractor.swift; sourceTree = "<group>"; };
 		ED4F4F4E2D9E7B8E006AD910 /* NavigationDashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardBuilder.swift; sourceTree = "<group>"; };
 		ED4F4F502D9E8854006AD910 /* NavigationDashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardPresenter.swift; sourceTree = "<group>"; };
@@ -3178,8 +3178,8 @@
 			children = (
 				ED4F4F782DA7A6AF006AD910 /* RoutePoints.swift */,
 				ED18EF8A2DBAA62700B383A0 /* RoutePointsView.swift */,
-				ED4F4F382D9AF887006AD910 /* RouteStopCollectionViewCell.swift */,
-				ED4F4F3E2D9C1792006AD910 /* AddItemCollectionViewCell.swift */,
+				ED4F4F382D9AF887006AD910 /* RoutePointCollectionViewCell.swift */,
+				ED4F4F3E2D9C1792006AD910 /* AddPointCollectionViewCell.swift */,
 			);
 			path = RoutePoints;
 			sourceTree = "<group>";
@@ -4524,7 +4524,7 @@
 				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				EDFDFB482B7139670013A44C /* SocialMedia.swift in Sources */,
-				ED4F4F392D9AF887006AD910 /* RouteStopCollectionViewCell.swift in Sources */,
+				ED4F4F392D9AF887006AD910 /* RoutePointCollectionViewCell.swift in Sources */,
 				993DF0B523F6B2EF00AC231A /* PlacePageTrackLayout.swift in Sources */,
 				44360A0D2A7D34990016F412 /* TransportRuler.swift in Sources */,
 				CD6E8677226774C700D1EDF7 /* CPConstants.swift in Sources */,
@@ -4875,7 +4875,7 @@
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.m in Sources */,
-				ED4F4F3F2D9C1793006AD910 /* AddItemCollectionViewCell.swift in Sources */,
+				ED4F4F3F2D9C1793006AD910 /* AddPointCollectionViewCell.swift in Sources */,
 				3454D7E31E07F045004AF2AD /* UITextView+RuntimeAttributes.m in Sources */,
 				F6A2184A1CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */,
 				993DF10923F6BDB100AC231A /* IFonts.swift in Sources */,

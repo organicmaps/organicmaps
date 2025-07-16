@@ -55,8 +55,8 @@ final class RoutePointsView: UIView {
     collectionView.dropDelegate = self
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.register(cell: RouteStopCollectionViewCell.self)
-    collectionView.register(cell: AddItemCollectionViewCell.self)
+    collectionView.register(cell: RoutePointCollectionViewCell.self)
+    collectionView.register(cell: AddPointCollectionViewCell.self)
     updateCollectionViewInset()
   }
 
@@ -87,13 +87,13 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     switch indexPath.item {
     case routePoints.count:
-      let cell = collectionView.dequeueReusableCell(cell: AddItemCollectionViewCell.self, indexPath: indexPath)
+      let cell = collectionView.dequeueReusableCell(cell: AddPointCollectionViewCell.self, indexPath: indexPath)
       cell.didTapAction = { [weak self] in
         self?.interactor?.process(.addRoutePointButtonDidTap)
       }
       return cell
     default:
-      let cell = collectionView.dequeueReusableCell(cell: RouteStopCollectionViewCell.self, indexPath: indexPath)
+      let cell = collectionView.dequeueReusableCell(cell: RoutePointCollectionViewCell.self, indexPath: indexPath)
       let routePoints = routePoints
       cell.configure(with: routePoints.cellViewModel(for: indexPath.item, onCloseHandler: { [weak self] in
         if let point = routePoints[indexPath.item] {
@@ -171,9 +171,9 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
 }
 
 private extension NavigationDashboard.RoutePoints {
-  func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RouteStopCollectionViewCell.ViewModel {
+  func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RoutePointCollectionViewCell.ViewModel {
     let point = self[index]
-    return RouteStopCollectionViewCell.ViewModel(
+    return RoutePointCollectionViewCell.ViewModel(
       title: title(for: index),
       subtitle: subtitle(for: index),
       image: image(for: index),
