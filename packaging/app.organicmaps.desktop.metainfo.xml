@@ -115,6 +115,17 @@
   </screenshots>
 
   <releases>
+   <release version="2025.07.13-9" date="2025-07-13">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of July 8</li>
+           <li>Display campsite and resort areas, see industrial zones earlier</li>
+           <li>Do not ignore secondary roads at roundabouts</li>
+           <li>Charging stations now have their own distinguishable icon on the map and in the search</li>
+        </ul>
+     </description>
+   </release>
    <release version="2025.06.12-3" date="2025-06-12">
      <description>
        <p>Highlights:</p>
