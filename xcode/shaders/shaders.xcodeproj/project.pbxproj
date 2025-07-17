@@ -154,7 +154,7 @@
 		456660EC20E25AA90085E8C1 /* gl_program_params_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gl_program_params_tests.cpp; sourceTree = "<group>"; };
 		456660ED20E25AA90085E8C1 /* gl_shaders_desktop_compile_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gl_shaders_desktop_compile_tests.cpp; sourceTree = "<group>"; };
 		456660EE20E25AA90085E8C1 /* gl_shaders_mobile_compile_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gl_shaders_mobile_compile_test.cpp; sourceTree = "<group>"; };
-		456660F220E25AD40085E8C1 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		456660F220E25AD40085E8C1 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		456660F520E25E2E0085E8C1 /* libdrape.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdrape.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		456660F820E25E4C0085E8C1 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		456660FC20E25EDD0085E8C1 /* libexpat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libexpat.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,8 +163,8 @@
 		4566610220E25EEF0085E8C1 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4566610420E25EF70085E8C1 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4566610620E25F560085E8C1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		4566610820E25F790085E8C1 /* test_main_loop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = test_main_loop.hpp; path = ../../qt_tstfrm/test_main_loop.hpp; sourceTree = "<group>"; };
-		4566610920E25F790085E8C1 /* test_main_loop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_main_loop.cpp; path = ../../qt_tstfrm/test_main_loop.cpp; sourceTree = "<group>"; };
+		4566610820E25F790085E8C1 /* test_main_loop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = test_main_loop.hpp; path = ../../../libs/qt_tstfrm/test_main_loop.hpp; sourceTree = "<group>"; };
+		4566610920E25F790085E8C1 /* test_main_loop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_main_loop.cpp; path = ../../../libs/qt_tstfrm/test_main_loop.cpp; sourceTree = "<group>"; };
 		4577B28221F2088800864FAC /* vulkan_program_pool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_program_pool.cpp; sourceTree = "<group>"; };
 		4577B28321F2088800864FAC /* vulkan_program_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_program_params.cpp; sourceTree = "<group>"; };
 		4577B28421F2088800864FAC /* vulkan_program_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vulkan_program_params.hpp; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 				4577B28521F2088800864FAC /* vulkan_program_pool.hpp */,
 			);
 			name = shaders;
-			path = ../../shaders;
+			path = ../../libs/shaders;
 			sourceTree = "<group>";
 		};
 		4566608E20E2562C0085E8C1 /* GL */ = {
@@ -360,7 +360,7 @@
 				456660F220E25AD40085E8C1 /* testingmain.cpp */,
 			);
 			name = shaders_tests;
-			path = ../../shaders/shaders_tests;
+			path = ../../libs/shaders/shaders_tests;
 			sourceTree = "<group>";
 		};
 		456660F420E25E2E0085E8C1 /* Frameworks */ = {
@@ -518,96 +518,96 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../../shaders/GL/area.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/area3d.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/area3d_outline.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/arrow3d.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/arrow3d.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/arrow3d_outline.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/arrow3d_shadow.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/arrow3d_shadow.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/circle.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/circle.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/circle_point.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/circle_point.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/colored_symbol.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/colored_symbol.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/colored_symbol_billboard.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/dashed_line.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/dashed_line.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/debug_rect.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/debug_rect.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/hatching_area.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/hatching_area.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/line.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/line.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/masked_texturing.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/masked_texturing.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/masked_texturing_billboard.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/my_position.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/path_symbol.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/position_accuracy3d.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/route.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/route.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/route_arrow.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/route_arrow.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/route_dash.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/route_marker.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/route_marker.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/ruler.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/screen_quad.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/selection_line.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/selection_line.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/shader_index.txt",
-				"${SRCROOT}/../../shaders/GL/shaders_lib.glsl",
-				"${SRCROOT}/../../shaders/GL/smaa_blending_weight.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/smaa_blending_weight.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/smaa_edges.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/smaa_edges.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/smaa_final.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/smaa_final.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/solid_color.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/text.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/text.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/text_billboard.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/text_outlined.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/text_outlined_billboard.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/text_outlined_gui.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/texturing.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/texturing.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/texturing3d.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/texturing_billboard.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/texturing_gui.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/traffic.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/traffic.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/traffic_circle.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/traffic_circle.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/traffic_line.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/traffic_line.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/transit.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/transit.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/transit_circle.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/transit_circle.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/transit_marker.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/transit_marker.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/user_mark.fsh.glsl",
-				"${SRCROOT}/../../shaders/GL/user_mark.vsh.glsl",
-				"${SRCROOT}/../../shaders/GL/user_mark_billboard.vsh.glsl",
-				"${SRCROOT}/../../shaders/gl_shaders_preprocessor.py",
-				"$(SRCROOT)/../../shaders/GL/shader_index.txt",
-				"$(SRCROOT)/../../shaders/programs.hpp",
-				"$(SRCROOT)/../../shaders/GL/shaders_lib.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/area.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/area3d.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/area3d_outline.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/arrow3d.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/arrow3d.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/arrow3d_outline.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/arrow3d_shadow.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/arrow3d_shadow.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/circle.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/circle.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/circle_point.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/circle_point.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/colored_symbol.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/colored_symbol.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/colored_symbol_billboard.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/dashed_line.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/dashed_line.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/debug_rect.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/debug_rect.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/hatching_area.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/hatching_area.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/line.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/line.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/masked_texturing.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/masked_texturing.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/masked_texturing_billboard.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/my_position.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/path_symbol.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/position_accuracy3d.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/route.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/route.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/route_arrow.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/route_arrow.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/route_dash.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/route_marker.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/route_marker.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/ruler.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/screen_quad.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/selection_line.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/selection_line.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/shader_index.txt",
+				"${OMIM_ROOT}/libs/shaders/GL/shaders_lib.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/smaa_blending_weight.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/smaa_blending_weight.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/smaa_edges.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/smaa_edges.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/smaa_final.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/smaa_final.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/solid_color.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/text.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/text.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/text_billboard.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/text_outlined.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/text_outlined_billboard.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/text_outlined_gui.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/texturing.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/texturing.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/texturing3d.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/texturing_billboard.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/texturing_gui.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/traffic.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/traffic.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/traffic_circle.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/traffic_circle.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/traffic_line.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/traffic_line.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/transit.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/transit.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/transit_circle.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/transit_circle.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/transit_marker.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/transit_marker.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/user_mark.fsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/user_mark.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/GL/user_mark_billboard.vsh.glsl",
+				"${OMIM_ROOT}/libs/shaders/gl_shaders_preprocessor.py",
+				"${OMIM_ROOT}/libs/shaders/GL/shader_index.txt",
+				"${OMIM_ROOT}/libs/shaders/programs.hpp",
+				"${OMIM_ROOT}/libs/shaders/GL/shaders_lib.glsl",
 			);
 			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/../../shaders/gl_shaders.hpp",
-				"$(SRCROOT)/../../shaders/gl_shaders.cpp",
+				"${OMIM_ROOT}/libs/shaders/gl_shaders.hpp",
+				"${OMIM_ROOT}/libs/shaders/gl_shaders.cpp",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Without this check shaders library is always rebuilt in XCode 13.\n# See https://stackoverflow.com/a/69481200/1209392\nif [ $ACTION != \"indexbuild\" ]; then\npython3 ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders\nfi\n";
+			shellScript = "# Without this check shaders library is always rebuilt in XCode 13.\n# See https://stackoverflow.com/a/69481200/1209392\nif [ $ACTION != \"indexbuild\" ]; then\npython3 ${OMIM_ROOT}/libs/shaders/gl_shaders_preprocessor.py ${OMIM_ROOT}/libs/shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${OMIM_ROOT}/libs/shaders gl_shaders\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

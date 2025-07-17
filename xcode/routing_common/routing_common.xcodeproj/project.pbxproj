@@ -43,7 +43,7 @@
 		671E78911E6A3C9C00B2859B /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		671E78961E6A3DA700B2859B /* routing_common_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = routing_common_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		671E78AD1E6A3FDB00B2859B /* vehicle_model_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vehicle_model_test.cpp; sourceTree = "<group>"; };
-		671E78AF1E6A3FEF00B2859B /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		671E78AF1E6A3FEF00B2859B /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		F6E4ECDF223AB60600C8A79A /* car_model_coefs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = car_model_coefs.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,7 +104,7 @@
 				671E78871E6A3C5D00B2859B /* vehicle_model.hpp */,
 			);
 			name = routing_common;
-			path = ../../routing_common;
+			path = ../../libs/routing_common;
 			sourceTree = "<group>";
 		};
 		671E78971E6A3DA800B2859B /* routing_common_tests */ = {
@@ -115,7 +115,7 @@
 				671E78AD1E6A3FDB00B2859B /* vehicle_model_test.cpp */,
 			);
 			name = routing_common_tests;
-			path = ../../routing_common/routing_common_tests;
+			path = ../../libs/routing_common/routing_common_tests;
 			sourceTree = "<group>";
 		};
 		671E78B41E6A404F00B2859B /* Frameworks */ = {

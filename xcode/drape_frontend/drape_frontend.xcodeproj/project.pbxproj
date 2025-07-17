@@ -615,7 +615,7 @@
 				670947901BDF9BE1005014C0 /* visual_params.hpp */,
 			);
 			name = drape_frontend;
-			path = ../../drape_frontend;
+			path = ../../libs/drape_frontend;
 			sourceTree = "<group>";
 		};
 		670948051BDF9C0D005014C0 /* animation */ = {

@@ -13,7 +13,7 @@ if (${PLATFORM_MAC})
     ../iphone/Maps/Classes/MetalContextFactory.mm
   )
 
-  file(GLOB_RECURSE SHADER_SOURCES_FILES ${OMIM_ROOT}/shaders/Metal/*.metal)
+  file(GLOB_RECURSE SHADER_SOURCES_FILES ${OMIM_ROOT}/libs/shaders/Metal/*.metal)
   add_metal_shader_library(shaders_metal
     ${SHADER_SOURCES_FILES}
   )

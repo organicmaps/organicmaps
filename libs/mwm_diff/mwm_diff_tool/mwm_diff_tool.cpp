@@ -1,4 +1,4 @@
-#include "generator/mwm_diff/diff.hpp"
+#include "mwm_diff/diff.hpp"
 
 #include "base/cancellable.hpp"
 

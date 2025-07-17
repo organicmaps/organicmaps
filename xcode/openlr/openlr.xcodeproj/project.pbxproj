@@ -145,7 +145,7 @@
 				671E790F1E6A502200B2859B /* way_point.hpp */,
 			);
 			name = openlr;
-			path = ../../openlr;
+			path = ../../tools/openlr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
