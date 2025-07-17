@@ -430,7 +430,7 @@ public:
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
 
-  kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> const & points, std::string const & from,
+  kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> points, std::string const & from,
                          std::string const & to);
 
 private:

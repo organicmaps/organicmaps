@@ -1163,32 +1163,25 @@ std::string BookmarkManager::GenerateSavedRouteName(std::string const & from, st
   return GenerateTrackRecordingName();
 }
 
-kml::TrackId BookmarkManager::SaveRoute(std::vector<geometry::PointWithAltitude> const & points,
-                                        std::string const & from, std::string const & to)
+kml::TrackId BookmarkManager::SaveRoute(std::vector<geometry::PointWithAltitude> points, std::string const & from,
+                                        std::string const & to)
 {
   CHECK(!points.empty(), ("Route points should not be empty"));
 
-  kml::MultiGeometry geometry;
-  geometry.m_lines.emplace_back();
-  geometry.m_timestamps.emplace_back();
-  auto & line = geometry.m_lines.back();
-
-  for (auto const & pt : points)
-    line.emplace_back(pt);
-
   kml::TrackData trackData;
-  trackData.m_geometry = std::move(geometry);
+  trackData.m_geometry.m_lines.push_back(std::move(points));
+  trackData.m_geometry.m_timestamps.emplace_back();
 
-  auto trackName = GenerateSavedRouteName(from, to);
-  kml::SetDefaultStr(trackData.m_name, trackName);
+  kml::SetDefaultStr(trackData.m_name, GenerateSavedRouteName(from, to));
 
   kml::ColorData colorData;
   colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
   kml::TrackLayer layer;
   layer.m_color = colorData;
-  std::vector<kml::TrackLayer> m_layers;
-  m_layers.emplace_back(layer);
-  trackData.m_layers = std::move(m_layers);
+
+  std::vector<kml::TrackLayer> layers;
+  layers.emplace_back(layer);
+  trackData.m_layers = std::move(layers);
 
   trackData.m_timestamp = kml::TimestampClock::now();
 
