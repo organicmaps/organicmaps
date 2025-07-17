@@ -56,7 +56,7 @@
 		45E4559420584ABA00D9F45E /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		45E455ED20584DCB00D9F45E /* kml_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kml_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E455FF20584DEF00D9F45E /* serdes_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_tests.cpp; sourceTree = "<group>"; };
-		45E456122058508C00D9F45E /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		45E456122058508C00D9F45E /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		464344F2294F952700984CB7 /* gpx_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gpx_tests.cpp; sourceTree = "<group>"; };
 		464BD0FB294546B20011955A /* serdes_gpx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_gpx.cpp; sourceTree = "<group>"; };
 		464BD0FC294546B20011955A /* serdes_gpx.hpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.h; path = serdes_gpx.hpp; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 				45E4559120584ABA00D9F45E /* visitors.hpp */,
 			);
 			name = kml;
-			path = ../../kml;
+			path = ../../libs/kml;
 			sourceTree = "<group>";
 		};
 		45E455EE20584DCC00D9F45E /* kml_tests */ = {
@@ -169,7 +169,7 @@
 				464344F2294F952700984CB7 /* gpx_tests.cpp */,
 			);
 			name = kml_tests;
-			path = ../../kml/kml_tests;
+			path = ../../libs/kml/kml_tests;
 			sourceTree = "<group>";
 		};
 		45E4560220584E1C00D9F45E /* Frameworks */ = {

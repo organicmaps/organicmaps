@@ -75,7 +75,7 @@
 				7168E916294CBB91005BA468 /* cppjansson.hpp */,
 			);
 			name = cppjansson;
-			path = ../../cppjansson;
+			path = ../../libs/cppjansson;
 			sourceTree = "<group>";
 		};
 		71D730FC294CC4B400F3EEC2 /* Frameworks */ = {

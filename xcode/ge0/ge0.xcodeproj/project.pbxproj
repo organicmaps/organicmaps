@@ -12,16 +12,16 @@
 		391A145E23E0FC8400A448F4 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145D23E0FC8400A448F4 /* libcoding.a */; };
 		391A146023E0FC8700A448F4 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A145F23E0FC8700A448F4 /* libbase.a */; };
 		391A146623E0FC9A00A448F4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 391A146523E0FC9A00A448F4 /* libz.tbd */; };
-		39C29BD023E19B3C009ECB47 /* parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39C29BCC23E19B3C009ECB47 /* parser.hpp */; };
-		39C29BD123E19B3C009ECB47 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C29BCD23E19B3C009ECB47 /* parser.cpp */; };
-		39C29BD223E19B3C009ECB47 /* url_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39C29BCE23E19B3C009ECB47 /* url_generator.hpp */; };
-		39C29BD323E19B3C009ECB47 /* url_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C29BCF23E19B3C009ECB47 /* url_generator.cpp */; };
-		AC3F14BF279C6D8C00AFEC02 /* geo_url_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC3F14BA279C524D00AFEC02 /* geo_url_parser.cpp */; };
-		AC3F14C0279C6D9500AFEC02 /* geo_url_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC3F14B9279C524D00AFEC02 /* geo_url_parser.hpp */; };
 		AC3F14C2279C6DEB00AFEC02 /* geo_url_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC3F14C1279C6DEB00AFEC02 /* geo_url_tests.cpp */; };
 		FACB76A526B8939C00810C9C /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB76A426B8939C00810C9C /* testingmain.cpp */; };
 		FACB76A626B893A000810C9C /* url_generator_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB76A226B8937800810C9C /* url_generator_tests.cpp */; };
 		FACB76A726B893A300810C9C /* parser_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB76A326B8937800810C9C /* parser_tests.cpp */; };
+		FAEE27C22E29B6AF00855F79 /* geo_url_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEE27BB2E29B6AF00855F79 /* geo_url_parser.cpp */; };
+		FAEE27C52E29B6AF00855F79 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEE27BD2E29B6AF00855F79 /* parser.cpp */; };
+		FAEE27C62E29B6AF00855F79 /* url_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAEE27BF2E29B6AF00855F79 /* url_generator.cpp */; };
+		FAEE27C72E29B6AF00855F79 /* geo_url_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FAEE27BA2E29B6AF00855F79 /* geo_url_parser.hpp */; };
+		FAEE27C82E29B6AF00855F79 /* url_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FAEE27BE2E29B6AF00855F79 /* url_generator.hpp */; };
+		FAEE27C92E29B6AF00855F79 /* parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FAEE27BC2E29B6AF00855F79 /* parser.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,17 +32,18 @@
 		391A145D23E0FC8400A448F4 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		391A145F23E0FC8700A448F4 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		391A146523E0FC9A00A448F4 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		39C29BCC23E19B3C009ECB47 /* parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = parser.hpp; path = ../../ge0/parser.hpp; sourceTree = "<group>"; };
-		39C29BCD23E19B3C009ECB47 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = parser.cpp; path = ../../ge0/parser.cpp; sourceTree = "<group>"; };
-		39C29BCE23E19B3C009ECB47 /* url_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = url_generator.hpp; path = ../../ge0/url_generator.hpp; sourceTree = "<group>"; };
-		39C29BCF23E19B3C009ECB47 /* url_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = url_generator.cpp; path = ../../ge0/url_generator.cpp; sourceTree = "<group>"; };
 		675347171A40577A00A0A8C3 /* libge0.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libge0.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC3F14B9279C524D00AFEC02 /* geo_url_parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = geo_url_parser.hpp; path = ../../ge0/geo_url_parser.hpp; sourceTree = "<group>"; };
-		AC3F14BA279C524D00AFEC02 /* geo_url_parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = geo_url_parser.cpp; path = ../../ge0/geo_url_parser.cpp; sourceTree = "<group>"; };
 		AC3F14C1279C6DEB00AFEC02 /* geo_url_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geo_url_tests.cpp; sourceTree = "<group>"; };
 		FACB76A226B8937800810C9C /* url_generator_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = url_generator_tests.cpp; sourceTree = "<group>"; };
 		FACB76A326B8937800810C9C /* parser_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parser_tests.cpp; sourceTree = "<group>"; };
-		FACB76A426B8939C00810C9C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		FACB76A426B8939C00810C9C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
+		FAEE27B92E29B6AF00855F79 /* ge0.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = ge0.php; sourceTree = "<group>"; };
+		FAEE27BA2E29B6AF00855F79 /* geo_url_parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = geo_url_parser.hpp; sourceTree = "<group>"; };
+		FAEE27BB2E29B6AF00855F79 /* geo_url_parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = geo_url_parser.cpp; sourceTree = "<group>"; };
+		FAEE27BC2E29B6AF00855F79 /* parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = parser.hpp; sourceTree = "<group>"; };
+		FAEE27BD2E29B6AF00855F79 /* parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = "<group>"; };
+		FAEE27BE2E29B6AF00855F79 /* url_generator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = url_generator.hpp; sourceTree = "<group>"; };
+		FAEE27BF2E29B6AF00855F79 /* url_generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = url_generator.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,13 +83,8 @@
 		6753470E1A40577A00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
-				AC3F14BA279C524D00AFEC02 /* geo_url_parser.cpp */,
-				AC3F14B9279C524D00AFEC02 /* geo_url_parser.hpp */,
+				FAEE27C02E29B6AF00855F79 /* ge0 */,
 				FACB76A026B8937800810C9C /* ge0_tests */,
-				39C29BCD23E19B3C009ECB47 /* parser.cpp */,
-				39C29BCC23E19B3C009ECB47 /* parser.hpp */,
-				39C29BCF23E19B3C009ECB47 /* url_generator.cpp */,
-				39C29BCE23E19B3C009ECB47 /* url_generator.hpp */,
 				34763F471DBE28F800D370CF /* common-debug.xcconfig */,
 				34763F481DBE28F800D370CF /* common-release.xcconfig */,
 				675347181A40577A00A0A8C3 /* Products */,
@@ -114,8 +110,23 @@
 				FACB76A326B8937800810C9C /* parser_tests.cpp */,
 			);
 			name = ge0_tests;
-			path = ../../ge0/ge0_tests;
+			path = ../../libs/ge0/ge0_tests;
 			sourceTree = "<group>";
+		};
+		FAEE27C02E29B6AF00855F79 /* ge0 */ = {
+			isa = PBXGroup;
+			children = (
+				FAEE27B92E29B6AF00855F79 /* ge0.php */,
+				FAEE27BA2E29B6AF00855F79 /* geo_url_parser.hpp */,
+				FAEE27BB2E29B6AF00855F79 /* geo_url_parser.cpp */,
+				FAEE27BC2E29B6AF00855F79 /* parser.hpp */,
+				FAEE27BD2E29B6AF00855F79 /* parser.cpp */,
+				FAEE27BE2E29B6AF00855F79 /* url_generator.hpp */,
+				FAEE27BF2E29B6AF00855F79 /* url_generator.cpp */,
+			);
+			name = ge0;
+			path = ../../libs/ge0;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -124,9 +135,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39C29BD223E19B3C009ECB47 /* url_generator.hpp in Headers */,
-				39C29BD023E19B3C009ECB47 /* parser.hpp in Headers */,
-				AC3F14C0279C6D9500AFEC02 /* geo_url_parser.hpp in Headers */,
+				FAEE27C72E29B6AF00855F79 /* geo_url_parser.hpp in Headers */,
+				FAEE27C82E29B6AF00855F79 /* url_generator.hpp in Headers */,
+				FAEE27C92E29B6AF00855F79 /* parser.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,9 +242,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39C29BD123E19B3C009ECB47 /* parser.cpp in Sources */,
-				AC3F14BF279C6D8C00AFEC02 /* geo_url_parser.cpp in Sources */,
-				39C29BD323E19B3C009ECB47 /* url_generator.cpp in Sources */,
+				FAEE27C22E29B6AF00855F79 /* geo_url_parser.cpp in Sources */,
+				FAEE27C52E29B6AF00855F79 /* parser.cpp in Sources */,
+				FAEE27C62E29B6AF00855F79 /* url_generator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

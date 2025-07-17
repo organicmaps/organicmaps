@@ -5,7 +5,7 @@ QT_PATH[arch=arm64] = /opt/homebrew/opt/qt@6
 BOOST_ROOT = $(OMIM_ROOT)/3party/boost
 
 // jansson is included in many libs, and is also used in headers (leaks to other libs)
-HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(BOOST_ROOT) $(OMIM_ROOT)/3party/jansson $(OMIM_ROOT)/3party/jansson/jansson/src $(OMIM_ROOT)/3party/utfcpp/source
+HEADER_SEARCH_PATHS = $(inherited) $(OMIM_ROOT) $(OMIM_ROOT)/libs $(BOOST_ROOT) $(OMIM_ROOT)/3party/jansson $(OMIM_ROOT)/3party/jansson/jansson/src $(OMIM_ROOT)/3party/utfcpp/source
 FRAMEWORK_SEARCH_PATHS[sdk=macosx*] = $(QT_PATH)/lib
 
 // Deployment target

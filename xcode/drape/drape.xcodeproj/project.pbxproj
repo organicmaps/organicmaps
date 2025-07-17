@@ -479,7 +479,7 @@
 				4577B24321F2034200864FAC /* vulkan */,
 			);
 			name = drape;
-			path = ../../drape;
+			path = ../../libs/drape;
 			sourceTree = SOURCE_ROOT;
 		};
 		6729A55C1A69213A007D5872 /* utils */ = {

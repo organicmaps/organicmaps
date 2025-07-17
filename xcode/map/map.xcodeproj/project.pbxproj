@@ -201,7 +201,7 @@
 		674A29CE1B26FCFE001A525C /* kmz_unarchive_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kmz_unarchive_test.cpp; sourceTree = "<group>"; };
 		674A29CF1B26FCFE001A525C /* mwm_url_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_url_tests.cpp; sourceTree = "<group>"; };
 		674A29DF1B26FD1C001A525C /* map_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = map_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		674A29EE1B26FD5F001A525C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		674A29EE1B26FD5F001A525C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		674A2A351B27011A001A525C /* working_time_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = working_time_tests.cpp; sourceTree = "<group>"; };
 		674A2A371B2715FB001A525C /* osm_opening_hours.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_opening_hours.hpp; sourceTree = "<group>"; };
 		674C385F1BFF3095000D603B /* user_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user_mark.cpp; sourceTree = "<group>"; };
@@ -323,7 +323,7 @@
 				3DA571EF20C19262007BDE27 /* interactive_search_test.cpp */,
 			);
 			name = map_integration_tests;
-			path = ../../map/map_integration_tests;
+			path = ../../libs/map/map_integration_tests;
 			sourceTree = "<group>";
 		};
 		3DEE1AD921EE03B400054A91 /* power_management */ = {
@@ -362,7 +362,7 @@
 				ED85D1CF2D5F508700D8075D /* track_statistics_tests.cpp */,
 			);
 			name = map_tests;
-			path = ../../map/map_tests;
+			path = ../../libs/map/map_tests;
 			sourceTree = "<group>";
 		};
 		675345B21A4054AD00A0A8C3 = {
@@ -464,7 +464,7 @@
 				3D4E99811FB462B60025B48C /* viewport_search_params.hpp */,
 			);
 			name = map;
-			path = ../../map;
+			path = ../../libs/map;
 			sourceTree = "<group>";
 		};
 		BB4E5F201FCC663700A77250 /* transit */ = {

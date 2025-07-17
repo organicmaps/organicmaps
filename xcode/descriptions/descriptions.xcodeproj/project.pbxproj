@@ -61,7 +61,7 @@
 				B7A5517221CAFB2800789B7E /* serdes.hpp */,
 			);
 			name = descriptions;
-			path = ../../descriptions;
+			path = ../../libs/descriptions;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */

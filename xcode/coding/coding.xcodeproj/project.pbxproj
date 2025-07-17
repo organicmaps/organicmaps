@@ -185,7 +185,7 @@
 		34A72A431DBE4989003D1F5F /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34A72A441DBE4989003D1F5F /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
 		3949168F1BAC3A5F002A8C4F /* coding_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coding_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3949171F1BAC3BE0002A8C4F /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		3949171F1BAC3BE0002A8C4F /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		394917221BAC3C2F002A8C4F /* huffman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = huffman.cpp; sourceTree = "<group>"; };
 		394917231BAC3C2F002A8C4F /* huffman.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = huffman.hpp; sourceTree = "<group>"; };
 		3954E00D233500E90007FDE4 /* files_container.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = files_container.hpp; sourceTree = "<group>"; };
@@ -419,7 +419,7 @@
 				395D1A91207BBBAC001164A5 /* zlib_test.cpp */,
 			);
 			name = coding_tests;
-			path = ../../coding/coding_tests;
+			path = ../../libs/coding/coding_tests;
 			sourceTree = "<group>";
 		};
 		670D04B21B0BA9050013A7AC /* internal */ = {
@@ -543,7 +543,7 @@
 				34A129D21DF99E43001B4531 /* zlib.hpp */,
 			);
 			name = coding;
-			path = ../../coding;
+			path = ../../libs/coding;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
