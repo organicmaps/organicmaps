@@ -61,8 +61,4 @@ extension NavigationDashboard.RoutePoints {
       return UIImage(named: imageName) ?? UIImage(resource: .routePoint20)
     }
   }
-
-  func imageStyle(for index: Int) -> GlobalStyleSheet {
-    .black
-  }
 }

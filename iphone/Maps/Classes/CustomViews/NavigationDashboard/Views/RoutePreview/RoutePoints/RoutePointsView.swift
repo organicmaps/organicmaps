@@ -1,10 +1,7 @@
 final class RoutePointsView: UIView {
 
   private enum Constants {
-    static let routePointsInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
-    static let routePointsVerticalSpacing: CGFloat = 0
-    static let routePointCellHeight: CGFloat = 44
-    static let addRoutePointCellHeight: CGFloat = 40
+    static let cellHeight: CGFloat = 44
     static let compactVerticalSizeBottomContentInset: CGFloat = 86 // Save button height + safe area inset
   }
 
@@ -56,7 +53,6 @@ final class RoutePointsView: UIView {
     collectionView.dataSource = self
     collectionView.delegate = self
     collectionView.register(cell: RoutePointCollectionViewCell.self)
-    collectionView.register(cell: AddPointCollectionViewCell.self)
     updateCollectionViewInset()
   }
 
@@ -85,34 +81,27 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(cell: RoutePointCollectionViewCell.self, indexPath: indexPath)
     switch indexPath.item {
     case routePoints.count:
-      let cell = collectionView.dequeueReusableCell(cell: AddPointCollectionViewCell.self, indexPath: indexPath)
-      cell.didTapAction = { [weak self] in
-        self?.interactor?.process(.addRoutePointButtonDidTap)
-      }
-      return cell
+      cell.configure(with: .addPoint)
     default:
-      let cell = collectionView.dequeueReusableCell(cell: RoutePointCollectionViewCell.self, indexPath: indexPath)
-      let routePoints = routePoints
-      cell.configure(with: routePoints.cellViewModel(for: indexPath.item, onCloseHandler: { [weak self] in
-        if let point = routePoints[indexPath.item] {
+      let viewModel = routePoints.cellViewModel(for: indexPath.item, onCloseHandler: { [weak self] in
+        if let point = self?.routePoints[indexPath.item] {
           self?.interactor?.process(.deleteRoutePoint(point))
         }
-      }))
-      return cell
+      })
+      cell.configure(with: viewModel)
     }
+    return cell
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     switch indexPath.item {
     case routePoints.count:
-      break // Add point cell
+      interactor?.process(.addRoutePointButtonDidTap)
     default:
-      if let point = routePoints[indexPath.item] {
-        interactor?.process(.selectRoutePoint(point))
-      }
-      break
+      interactor?.process(.selectRoutePoint(routePoints[indexPath.item]))
     }
   }
 }
@@ -120,14 +109,11 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension RoutePointsView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let isAddPointCell = indexPath.item == routePoints.count
-    let height = isAddPointCell ? Constants.addRoutePointCellHeight : Constants.routePointCellHeight
-    return CGSize(width: collectionView.bounds.width,
-                  height: height)
+    CGSize(width: collectionView.bounds.width, height: Constants.cellHeight)
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    Constants.routePointsVerticalSpacing
+    0
   }
 }
 
@@ -171,26 +157,23 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
 }
 
 private extension NavigationDashboard.RoutePoints {
-  func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RoutePointCollectionViewCell.ViewModel {
+  func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RoutePointCollectionViewCell.CellType {
     let point = self[index]
     let maskedCorners: CACornerMask
     switch point?.type {
     case .start:
       maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-    case .intermediate, .none:
+    default:
       maskedCorners = []
-    case .finish:
-      maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
-    return RoutePointCollectionViewCell.ViewModel(
+    let viewModel = RoutePointCollectionViewCell.PointViewModel(
       title: title(for: index),
-      subtitle: subtitle(for: index),
       image: image(for: index),
-      imageStyle: imageStyle(for: index),
-      isPlaceholder: point == nil,
-      isCloseButtonVisible: point?.type == .intermediate,
-      addSeparator: point?.type != .finish,
+      showCloseButton: point?.type == .intermediate,
       maskedCorners: maskedCorners,
-      onCloseHandler: onCloseHandler)
+      isPlaceholder: point == nil,
+      onCloseHandler: onCloseHandler
+    )
+    return .point(viewModel)
   }
 }

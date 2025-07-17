@@ -456,12 +456,10 @@
 		ED4F4F292D9558C2006AD910 /* NavigationDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F282D9558C2006AD910 /* NavigationDashboardViewController.swift */; };
 		ED4F4F392D9AF887006AD910 /* RoutePointCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F382D9AF887006AD910 /* RoutePointCollectionViewCell.swift */; };
 		ED4F4F3B2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */; };
-		ED4F4F3F2D9C1793006AD910 /* AddPointCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F3E2D9C1792006AD910 /* AddPointCollectionViewCell.swift */; };
 		ED4F4F4D2D9E6CA0006AD910 /* NavigationDashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F4A2D9E6C94006AD910 /* NavigationDashboardInteractor.swift */; };
 		ED4F4F4F2D9E7B8E006AD910 /* NavigationDashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F4E2D9E7B8E006AD910 /* NavigationDashboardBuilder.swift */; };
 		ED4F4F512D9E8854006AD910 /* NavigationDashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F502D9E8854006AD910 /* NavigationDashboardPresenter.swift */; };
 		ED4F4F532D9E888E006AD910 /* NavigationDashboardRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F522D9E888E006AD910 /* NavigationDashboardRequest.swift */; };
-		ED4F4F6C2DA56C61006AD910 /* StartRouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */; };
 		ED4F4F752DA7A65F006AD910 /* NavigationDashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F742DA7A65F006AD910 /* NavigationDashboardViewModel.swift */; };
 		ED4F4F792DA7A6AF006AD910 /* RoutePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F4F782DA7A6AF006AD910 /* RoutePoints.swift */; };
 		ED5BAF4B2D688F5B0088D7B1 /* SearchOnMapHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */; };
@@ -484,6 +482,8 @@
 		ED79A5D72BDF8D6100952D1F /* SynchronizationStateResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5CF2BDF8D6100952D1F /* SynchronizationStateResolver.swift */; };
 		ED79A5D82BDF8D6100952D1F /* LocalDirectoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED79A5D02BDF8D6100952D1F /* LocalDirectoryMonitor.swift */; };
 		ED7CCC4F2C1362E300E2A737 /* FileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7CCC4E2C1362E300E2A737 /* FileType.swift */; };
+		ED7D85EC2E2A55ED0026BCC4 /* RouteActionsBottomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D85E92E2A55ED0026BCC4 /* RouteActionsBottomMenuView.swift */; };
+		ED7D85ED2E2A55ED0026BCC4 /* StartRouteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D85EA2E2A55ED0026BCC4 /* StartRouteButton.swift */; };
 		ED808D0F2C38407800D52585 /* CircleImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED808D0E2C38407800D52585 /* CircleImageButton.swift */; };
 		ED810EC52D566E9B00ECDE2C /* SearchOnMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */; };
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
@@ -1412,12 +1412,10 @@
 		ED4F4F372D9AC4B5006AD910 /* SearchOnMapState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchOnMapState.h; sourceTree = "<group>"; };
 		ED4F4F382D9AF887006AD910 /* RoutePointCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointCollectionViewCell.swift; sourceTree = "<group>"; };
 		ED4F4F3A2D9AF913006AD910 /* TransportOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportOptionCollectionViewCell.swift; sourceTree = "<group>"; };
-		ED4F4F3E2D9C1792006AD910 /* AddPointCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPointCollectionViewCell.swift; sourceTree = "<group>"; };
 		ED4F4F4A2D9E6C94006AD910 /* NavigationDashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardInteractor.swift; sourceTree = "<group>"; };
 		ED4F4F4E2D9E7B8E006AD910 /* NavigationDashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardBuilder.swift; sourceTree = "<group>"; };
 		ED4F4F502D9E8854006AD910 /* NavigationDashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardPresenter.swift; sourceTree = "<group>"; };
 		ED4F4F522D9E888E006AD910 /* NavigationDashboardRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardRequest.swift; sourceTree = "<group>"; };
-		ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRouteButton.swift; sourceTree = "<group>"; };
 		ED4F4F742DA7A65F006AD910 /* NavigationDashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardViewModel.swift; sourceTree = "<group>"; };
 		ED4F4F782DA7A6AF006AD910 /* RoutePoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePoints.swift; sourceTree = "<group>"; };
 		ED5BAF4A2D688F5A0088D7B1 /* SearchOnMapHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapHeaderView.swift; sourceTree = "<group>"; };
@@ -1445,6 +1443,8 @@
 		ED79A5CF2BDF8D6100952D1F /* SynchronizationStateResolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronizationStateResolver.swift; sourceTree = "<group>"; };
 		ED79A5D02BDF8D6100952D1F /* LocalDirectoryMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalDirectoryMonitor.swift; sourceTree = "<group>"; };
 		ED7CCC4E2C1362E300E2A737 /* FileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileType.swift; sourceTree = "<group>"; };
+		ED7D85E92E2A55ED0026BCC4 /* RouteActionsBottomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteActionsBottomMenuView.swift; sourceTree = "<group>"; };
+		ED7D85EA2E2A55ED0026BCC4 /* StartRouteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRouteButton.swift; sourceTree = "<group>"; };
 		ED808D0E2C38407800D52585 /* CircleImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImageButton.swift; sourceTree = "<group>"; };
 		ED810EC42D566E9B00ECDE2C /* SearchOnMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOnMapTests.swift; sourceTree = "<group>"; };
 		ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDetailedSwitchCell.swift; sourceTree = "<group>"; };
@@ -2501,11 +2501,11 @@
 				ED5E024F2D92AC9300A5CC7B /* RoutePreviewView.h */,
 				EDC6707F2DD23E7600CC0691 /* EstimatesView.swift */,
 				ED18EF862DBA954900B383A0 /* ElevationProfileView.swift */,
-				ED4F4F6B2DA56C61006AD910 /* StartRouteButton.swift */,
 				ED1024332DD7391D00F5352E /* RoutePoints */,
 				ED1024322DD7390200F5352E /* TransportOptions */,
 				34AB65EC1FC5AA320078E451 /* RoutePreviewStatus */,
 				34AB65ED1FC5AA320078E451 /* TransportTransitSteps */,
+				ED7D85EB2E2A55ED0026BCC4 /* BottomActionsMenu */,
 			);
 			path = RoutePreview;
 			sourceTree = "<group>";
@@ -3179,7 +3179,6 @@
 				ED4F4F782DA7A6AF006AD910 /* RoutePoints.swift */,
 				ED18EF8A2DBAA62700B383A0 /* RoutePointsView.swift */,
 				ED4F4F382D9AF887006AD910 /* RoutePointCollectionViewCell.swift */,
-				ED4F4F3E2D9C1792006AD910 /* AddPointCollectionViewCell.swift */,
 			);
 			path = RoutePoints;
 			sourceTree = "<group>";
@@ -3299,6 +3298,15 @@
 				ED79A5CD2BDF8D6100952D1F /* SynchronizationError.swift */,
 			);
 			path = iCloud;
+			sourceTree = "<group>";
+		};
+		ED7D85EB2E2A55ED0026BCC4 /* BottomActionsMenu */ = {
+			isa = PBXGroup;
+			children = (
+				ED7D85E92E2A55ED0026BCC4 /* RouteActionsBottomMenuView.swift */,
+				ED7D85EA2E2A55ED0026BCC4 /* StartRouteButton.swift */,
+			);
+			path = BottomActionsMenu;
 			sourceTree = "<group>";
 		};
 		ED810EC02D566E6F00ECDE2C /* UI */ = {
@@ -4428,7 +4436,6 @@
 				994F790723E85C5900660E75 /* DifficultyView.swift in Sources */,
 				34AB66651FC5AA330078E451 /* TransportTransitTrain.swift in Sources */,
 				FA85D44E279B738F00B858E9 /* CopyableLabel.swift in Sources */,
-				ED4F4F6C2DA56C61006AD910 /* StartRouteButton.swift in Sources */,
 				993DF11C23F6BDB100AC231A /* UITableViewHeaderFooterViewRenderer.swift in Sources */,
 				99A906E623F6F7030005872B /* OpeningHoursViewController.swift in Sources */,
 				343064411E9FDC7300DC7665 /* SearchIndex.swift in Sources */,
@@ -4685,6 +4692,8 @@
 				995739062355CAC40019AEE7 /* ImageViewCrossDisolve.swift in Sources */,
 				ED83880F2D54DEB3002A0536 /* UIImage+FilledWithColor.swift in Sources */,
 				47B9065221C7FA400079C85E /* MWMWebImage.m in Sources */,
+				ED7D85EC2E2A55ED0026BCC4 /* RouteActionsBottomMenuView.swift in Sources */,
+				ED7D85ED2E2A55ED0026BCC4 /* StartRouteButton.swift in Sources */,
 				ED4F4F4D2D9E6CA0006AD910 /* NavigationDashboardInteractor.swift in Sources */,
 				47A13CAD24BE9AA500027D4F /* DatePickerViewRenderer.swift in Sources */,
 				ED2E328E2D10500900807A08 /* TrackRecordingButtonArea.swift in Sources */,
@@ -4875,7 +4884,6 @@
 				337F98B221D3BAE600C8AC27 /* SearchCategoriesViewController.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.m in Sources */,
-				ED4F4F3F2D9C1793006AD910 /* AddPointCollectionViewCell.swift in Sources */,
 				3454D7E31E07F045004AF2AD /* UITextView+RuntimeAttributes.m in Sources */,
 				F6A2184A1CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */,
 				993DF10923F6BDB100AC231A /* IFonts.swift in Sources */,

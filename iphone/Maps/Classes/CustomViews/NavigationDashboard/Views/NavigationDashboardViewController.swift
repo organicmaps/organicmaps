@@ -19,13 +19,13 @@ final class NavigationDashboardViewController: UIViewController {
     static let transportOptionsCollectionInsets = UIEdgeInsets(top: 6, left: 16, bottom: 0, right: -36)
     static let transportOptionsCollectionHeight: CGFloat = 44
 
-    static let routePointsInsets = UIEdgeInsets(top: 8, left: 0, bottom: -8, right: 0)
+    static let routePointsInsets = UIEdgeInsets(top: 8, left: 16, bottom: -8, right: -16)
 
     static let routeStatusInsets = UIEdgeInsets(top: 8, left: 16, bottom: 0, right: -16)
     static let routeStatusStackSpacing: CGFloat = 4
     static let startButtonSpacing: CGFloat = 4
 
-    static let routePointsDiscoverabilityPadding: CGFloat = 28
+    static let routePointsDiscoverabilityPadding: CGFloat = 20
   }
 
   typealias StepsController = ModalPresentationStepsController<NavigationDashboardModalPresentationStep>
