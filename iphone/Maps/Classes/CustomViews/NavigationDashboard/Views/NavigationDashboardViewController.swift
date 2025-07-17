@@ -252,20 +252,17 @@ final class NavigationDashboardViewController: UIViewController {
 
   @objc
   private func didTapSearchButton() {
-    print(#function)
-//    interactor?.process(.searchButtonDidTap)
+    interactor?.process(.searchButtonDidTap)
   }
 
   @objc
   private func didTapBookmarksButton() {
-    print(#function)
-//    interactor?.process(.bookmarksButtonDidTap)
+    interactor?.process(.bookmarksButtonDidTap)
   }
 
   @objc
   private func didTapSaveRouteAsTrackButton() {
-    print(#function)
-//    interactor?.process(.saveRouteAsTrackButtonDidTap)
+    interactor?.process(.saveRouteAsTrackButtonDidTap)
   }
 
   @objc

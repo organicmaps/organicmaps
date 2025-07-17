@@ -7,12 +7,16 @@ extension NavigationDashboard {
     case showError(String)
 
     case selectRouterType(MWMRouterType)
-    case selectRoutePoint(MWMRoutePoint)
+    case selectRoutePoint(MWMRoutePoint?)
     case deleteRoutePoint(MWMRoutePoint)
     case moveRoutePoint(from: Int, to: Int)
+    
     case addRoutePointButtonDidTap
     case startButtonDidTap
     case settingsButtonDidTap
+    case searchButtonDidTap
+    case bookmarksButtonDidTap
+    case saveRouteAsTrackButtonDidTap
 
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateNavigationInfo(MWMNavigationDashboardEntity)

@@ -4,16 +4,20 @@ extension NavigationDashboard {
     private let router: MWMRouter.Type
     private let mapViewController: MapViewController
     private let searchManager: SearchOnMapManager
+    private let frameworkHelper: FrameworkHelper.Type
+
     weak var delegate: MWMRoutePreviewDelegate?
 
     init(presenter: Presenter,
          router: MWMRouter.Type = MWMRouter.self,
          mapViewController: MapViewController = MapViewController.shared()!,
-         searchManager: SearchOnMapManager = MapViewController.shared()!.searchManager) {
+         searchManager: SearchOnMapManager = MapViewController.shared()!.searchManager,
+         frameworkHelper: FrameworkHelper.Type = FrameworkHelper.self) {
       self.presenter = presenter
       self.router = router
       self.mapViewController = mapViewController
       self.searchManager = searchManager
+      self.frameworkHelper = frameworkHelper
       super.init()
     }
 
@@ -38,9 +42,8 @@ extension NavigationDashboard {
       case let .selectRoutePoint(point):
         delegate?.routePreviewDidSelect(point, shouldAppend: false)
         searchManager.startSearching(isRouting: false)
-        if let textToSearch = point.title {
-          let searchText = SearchQuery(textToSearch, source: .typedText)
-          searchManager.searchText(searchText)
+        if let point, !point.isMyPosition, let textToSearch = point.title {
+          searchManager.searchText(SearchQuery(textToSearch, source: .typedText))
         }
         return .setHidden(true)
 
@@ -69,6 +72,18 @@ extension NavigationDashboard {
 
       case .settingsButtonDidTap:
         delegate?.routePreviewDidPressDrivingOptions()
+        return .none
+
+      case .searchButtonDidTap:
+        searchManager.startSearching(isRouting: false)
+        return .setHidden(true)
+
+      case .bookmarksButtonDidTap:
+        mapViewController.bookmarksCoordinator.open()
+        return .none
+
+      case .saveRouteAsTrackButtonDidTap:
+        frameworkHelper.saveRouteAsTrack()
         return .none
 
       case let .updateRouteBuildingProgress(progress, routerType):
