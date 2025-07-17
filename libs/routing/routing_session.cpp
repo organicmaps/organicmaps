@@ -1,8 +1,5 @@
 #include "routing/routing_session.hpp"
 
-#include "routing/routing_helpers.hpp"
-#include "routing/speed_camera.hpp"
-
 #include "platform/distance.hpp"
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
@@ -789,15 +786,12 @@ bool RoutingSession::GetRouteJunctionPoints(std::vector<geometry::PointWithAltit
     return false;
 
   auto const & segments = m_route->GetRouteSegments();
+  CHECK(!segments.empty(), ());
+
   routeJunctionPoints.reserve(segments.size());
+  for (auto const & s : segments)
+    routeJunctionPoints.push_back(s.GetJunction());
 
-  for (size_t i = 0; i < segments.size(); ++i)
-  {
-    auto const & junction = segments[i].GetJunction();
-    routeJunctionPoints.push_back(junction);
-  }
-
-  ASSERT_EQUAL(routeJunctionPoints.size(), routeJunctionPoints.size(), ());
   return true;
 }
 
