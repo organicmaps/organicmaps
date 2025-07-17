@@ -18,7 +18,11 @@ fi
 export PYTHONDONTWRITEBYTECODE=1
 
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
-OUT_PATH="$OMIM_PATH/out/release"
+
+if [ -z "${OUT_PATH}" ]; then
+  OUT_PATH="$OMIM_PATH/out/release"
+fi
+
 SKIN_GENERATOR="${SKIN_GENERATOR:-$OUT_PATH/skin_generator_tool}"
 DATA_PATH="$OMIM_PATH/data"
 
