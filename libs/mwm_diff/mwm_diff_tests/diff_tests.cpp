@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/mwm_diff/diff.hpp"
+#include "mwm_diff/diff.hpp"
 
 #include "platform/platform.hpp"
 

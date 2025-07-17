@@ -212,7 +212,7 @@
 		675341061C58C4C9002CF0D9 /* location_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = location_test.cpp; sourceTree = "<group>"; };
 		675341071C58C4C9002CF0D9 /* measurement_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = measurement_tests.cpp; sourceTree = "<group>"; };
 		675341081C58C4C9002CF0D9 /* platform_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform_test.cpp; sourceTree = "<group>"; };
-		675341141C58C4D8002CF0D9 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		675341141C58C4D8002CF0D9 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		675343781A3F5CF500A0A8C3 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		675343861A3F5D5900A0A8C3 /* location_service/apple_location_service.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = location_service/apple_location_service.mm; sourceTree = "<group>"; };
 		675343881A3F5D5900A0A8C3 /* chunks_download_strategy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chunks_download_strategy.cpp; sourceTree = "<group>"; };
@@ -339,7 +339,7 @@
 				44CAB5F52A1F926800819330 /* utm_mgrs_utils_tests.cpp */,
 			);
 			name = platform_tests;
-			path = ../../platform/platform_tests;
+			path = ../../libs/platform/platform_tests;
 			sourceTree = "<group>";
 		};
 		675340E41C58C43A002CF0D9 /* platform_tests_support */ = {
@@ -359,7 +359,7 @@
 				67247FFC1C60BD6500EDE56A /* writable_dir_changer.hpp */,
 			);
 			name = platform_tests_support;
-			path = ../../platform/platform_tests_support;
+			path = ../../libs/platform/platform_tests_support;
 			sourceTree = "<group>";
 		};
 		6753436F1A3F5CF500A0A8C3 = {
@@ -483,7 +483,7 @@
 				44DC51072A1F91EA00B6562E /* utm_mgrs_utils.cpp */,
 			);
 			name = platform;
-			path = ../../platform;
+			path = ../../libs/platform;
 			sourceTree = SOURCE_ROOT;
 		};
 		678338A91C6DF4BD00FD6263 /* Resources */ = {

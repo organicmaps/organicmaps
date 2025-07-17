@@ -445,7 +445,7 @@
 		671C62171AE9227C00076BD0 /* latlon_match_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon_match_test.cpp; sourceTree = "<group>"; };
 		671C62181AE9227C00076BD0 /* locality_finder_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locality_finder_test.cpp; sourceTree = "<group>"; };
 		671C621B1AE9227C00076BD0 /* string_match_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_match_test.cpp; sourceTree = "<group>"; };
-		671C62241AE9229A00076BD0 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		671C62241AE9229A00076BD0 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		675346B01A4055CF00A0A8C3 /* libsearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsearch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		675346BE1A40560D00A0A8C3 /* algos.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algos.hpp; sourceTree = "<group>"; };
 		675346BF1A40560D00A0A8C3 /* approximate_string_match.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = approximate_string_match.cpp; sourceTree = "<group>"; };
@@ -687,7 +687,7 @@
 				405DB10620FF472300EE3824 /* utils_test.cpp */,
 			);
 			name = search_integration_tests;
-			path = ../../search/search_integration_tests;
+			path = ../../libs/search/search_integration_tests;
 			sourceTree = "<group>";
 		};
 		671C620D1AE9225100076BD0 /* search_tests */ = {
@@ -720,7 +720,7 @@
 				44CAB5F72A1F928200819330 /* utm_mgrs_coords_match_test.cpp */,
 			);
 			name = search_tests;
-			path = ../../search/search_tests;
+			path = ../../libs/search/search_tests;
 			sourceTree = "<group>";
 		};
 		675346A71A4055CF00A0A8C3 = {
@@ -898,7 +898,7 @@
 				44A871B92A1F917400A80D62 /* utm_mgrs_coords_match.hpp */,
 			);
 			name = search;
-			path = ../../search;
+			path = ../../libs/search;
 			sourceTree = "<group>";
 		};
 		6796248E1D10134200AE4E3C /* search_tests_support */ = {
@@ -915,7 +915,7 @@
 				39AEF84F1FB45DA100943FC9 /* test_with_custom_mwms.hpp */,
 			);
 			name = search_tests_support;
-			path = ../../search/search_tests_support;
+			path = ../../libs/search/search_tests_support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

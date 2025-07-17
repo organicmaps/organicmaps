@@ -213,7 +213,7 @@
 		39FD26E11CC65A0E00AFF551 /* threads_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = threads_test.cpp; sourceTree = "<group>"; };
 		39FD26E21CC65A0E00AFF551 /* timegm_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timegm_test.cpp; sourceTree = "<group>"; };
 		39FD26E31CC65A0E00AFF551 /* timer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer_test.cpp; sourceTree = "<group>"; };
-		39FD27011CC65A2800AFF551 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		39FD27011CC65A2800AFF551 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		39FD27071CC65A7100AFF551 /* base_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = base_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D08987824810A0B00837783 /* linked_map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = linked_map.hpp; sourceTree = "<group>"; };
 		3D08987A24810A1300837783 /* linked_map_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = linked_map_tests.cpp; sourceTree = "<group>"; };
@@ -375,7 +375,7 @@
 				39F995E220F55B8A0034F977 /* visitor_tests.cpp */,
 			);
 			name = base_tests;
-			path = ../../base/base_tests;
+			path = ../../libs/base/base_tests;
 			sourceTree = "<group>";
 		};
 		6753416E1A3F57BF00A0A8C3 = {
@@ -498,7 +498,7 @@
 				3D78157A1F3D89EC0068B6AC /* waiter.hpp */,
 			);
 			name = base;
-			path = ../../base;
+			path = ../../libs/base;
 			sourceTree = SOURCE_ROOT;
 		};
 		675345381A3F6F5E00A0A8C3 /* internal */ = {

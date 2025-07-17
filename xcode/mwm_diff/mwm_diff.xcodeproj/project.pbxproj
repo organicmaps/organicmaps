@@ -55,7 +55,7 @@
 				4586D0E31F48139400DF9CE5 /* diff.hpp */,
 			);
 			name = mwm_diff;
-			path = ../../generator/mwm_diff;
+			path = ../../libs/mwm_diff;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
