@@ -3,12 +3,14 @@ final class EstimatesView: UIView {
     static let animationDuration: TimeInterval = kDefaultAnimationDuration / 2
   }
 
-  enum State {
+  enum State: Equatable {
+    case none
     case estimates(NSAttributedString)
     case loading
     case error(String)
   }
 
+  private var state: State = .none
   private let estimatesLabel = UILabel()
 
   init() {
@@ -34,12 +36,17 @@ final class EstimatesView: UIView {
   }
 
   func setState(_ state: State) {
+    guard self.state != state else { return }
     UIView.transition(with: self,
                       duration: Constants.animationDuration,
                       options: .transitionCrossDissolve,
                       animations: { [weak self] in
       guard let self else { return }
       switch state {
+      case .none:
+        self.estimatesLabel.alpha = 0.0
+        self.estimatesLabel.text = nil
+        self.estimatesLabel.attributedText = nil
       case .error(let errorMessage):
         self.estimatesLabel.alpha = 1.0
         self.estimatesLabel.attributedText = NSAttributedString(string: errorMessage, attributes: [
