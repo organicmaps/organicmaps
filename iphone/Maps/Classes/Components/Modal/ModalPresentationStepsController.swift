@@ -29,6 +29,7 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
   var hiddenFrame: CGRect { frame(for: .hidden) }
 
   private var initialTranslationY: CGFloat = .zero
+  private var isPanning: Bool = false
 
   init(presentedView: UIView,
        containerViewController: UIViewController,
@@ -65,6 +66,7 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
     switch gesture.state {
     case .began:
       initialTranslationY = presentedView.frame.origin.y
+      isPanning = true
     case .changed:
       let newY = max(max(initialTranslationY + translation.y, 0), maxAvailableFrame.origin.y)
       currentFrame.origin.y = newY
@@ -96,9 +98,8 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
     }
   }
 
-  func setStep(_ step: Step,
-               completion: (() -> Void)? = nil) {
-    guard currentStep != step else { return }
+  func setStep(_ step: Step, forced: Bool = false, completion: (() -> Void)? = nil) {
+    guard currentStep != step || (forced && !isPanning) else { return }
     setStep(step, animation: .slide, completion: completion)
   }
 
@@ -114,7 +115,8 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
 
     ModalPresentationAnimator.animate(with: animation) {
       presentedView.frame = frame
-    } completion: { _ in
+    } completion: { [weak self] _ in
+      self?.isPanning = false
       completion?()
     }
   }

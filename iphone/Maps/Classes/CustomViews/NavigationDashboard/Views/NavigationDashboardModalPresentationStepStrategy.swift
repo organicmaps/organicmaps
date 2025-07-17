@@ -5,7 +5,7 @@ enum NavigationDashboardModalPresentationStep: Int, ModalPresentationStep {
   case hidden
 }
 
-struct NavigationDashboardModalPresentationStepStrategy: ModalPresentationStepStrategy {
+final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationStepStrategy {
   private enum Constants {
     static let iPadWidth: CGFloat = 350
     static let compactHeightOffset: CGFloat = 300
@@ -15,6 +15,10 @@ struct NavigationDashboardModalPresentationStepStrategy: ModalPresentationStepSt
   }
 
   typealias Step = NavigationDashboardModalPresentationStep
+
+  static func == (lhs: NavigationDashboardModalPresentationStepStrategy, rhs: NavigationDashboardModalPresentationStepStrategy) -> Bool {
+    lhs.regularHeigh == rhs.regularHeigh && lhs.compactHeight == rhs.compactHeight
+  }
 
   var regularHeigh: CGFloat = .zero
   var compactHeight: CGFloat = .zero

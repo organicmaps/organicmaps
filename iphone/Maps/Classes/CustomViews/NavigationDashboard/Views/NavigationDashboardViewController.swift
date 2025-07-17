@@ -90,11 +90,6 @@ final class NavigationDashboardViewController: UIViewController {
     layout()
   }
 
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    view.layoutIfNeeded()
-  }
-
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     let routePointsBottomPoint = availableAreaView.convert(routePointsView.contentBottom, to: view)
@@ -348,7 +343,7 @@ final class NavigationDashboardViewController: UIViewController {
     view.layoutIfNeeded()
   }
 
-  private func updatePresentationStepHeights() {
+  private func updatePresentationStep(_ step: NavigationDashboardModalPresentationStep) {
     availableAreaView.layoutIfNeeded()
     let regularHeight = routePointsView.contentBottom.y
     + bottomActionsMenu.frame.height
@@ -359,12 +354,10 @@ final class NavigationDashboardViewController: UIViewController {
     + Constants.startButtonSpacing
     + Constants.routePointsDiscoverabilityPadding
 
+    let shouldForceContentFrameUpdate = presentationStepStrategy.regularHeigh != regularHeight || presentationStepStrategy.compactHeight != compactHeight
     presentationStepStrategy.regularHeigh = regularHeight
     presentationStepStrategy.compactHeight = compactHeight
-    presentationStepsController.stepStrategy = presentationStepStrategy
-    UIView.animate(withDuration: kDefaultAnimationDuration) {
-      self.updateFrameOfPresentedViewInContainerView()
-    }
+    presentationStepsController.setStep(step, forced: shouldForceContentFrameUpdate)
   }
 
   private func close() {
@@ -414,7 +407,6 @@ extension NavigationDashboardViewController {
     bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
     startRouteButton.setState(viewModel.startButtonState)
 
-    updatePresentationStepHeights()
-    presentationStepsController.setStep(viewModel.presentationStep)
+    updatePresentationStep(viewModel.presentationStep)
   }
 }
