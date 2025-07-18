@@ -513,19 +513,19 @@ bool ToInteger(char const * start, T & result, int base = 10)
 
 namespace impl
 {
-template <typename T> bool from_sv(std::string_view sv, T & t)
+template <typename T> bool from_sv(std::string_view sv, T & t, int base = 10)
 {
   auto const end = sv.data() + sv.size();
-  auto const res = std::from_chars(sv.data(), end, t);
+  auto const res = std::from_chars(sv.data(), end, t, base);
   return (res.ec != std::errc::invalid_argument && res.ec != std::errc::result_out_of_range &&
           res.ptr == end);
 }
 } // namespace impl
 
-template <class T> inline bool to_uint(std::string_view sv, T & i)
+template <class T> inline bool to_uint(std::string_view sv, T & i, int base = 10)
 {
   static_assert(std::is_unsigned<T>::value, "");
-  return impl::from_sv(sv, i);
+  return impl::from_sv(sv, i, base);
 }
 
 inline bool to_double(std::string_view sv, double & d)

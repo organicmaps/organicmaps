@@ -58,7 +58,7 @@ void BoundaryPostcodeCollector::Save()
   FileWriter writer(GetFilename());
   for (auto const & p : m_data)
   {
-    utils::WriteString(writer, p.first);
+    rw::WriteNonEmpty(writer, p.first);
     rw::WriteVectorOfPOD(writer, p.second);
   }
 }

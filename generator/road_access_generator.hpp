@@ -14,7 +14,6 @@
 #include <optional>
 #include <set>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 namespace routing
@@ -71,7 +70,7 @@ template <class Sink> void Save(Sink & sink, ConditionalRAVectorT const & ac)
   for (auto const & e : ac)
   {
     Save(sink, e.m_accessType);
-    utils::WriteString(sink, e.m_openingHours);
+    rw::WriteNonEmpty(sink, e.m_openingHours);
   }
 }
 
@@ -82,7 +81,7 @@ template <class Source> void Load(Source & src, ConditionalRAVectorT & vec)
   for (uint32_t i = 0; i < count; ++i)
   {
     Load(src, vec[i].m_accessType);
-    utils::ReadString(src, vec[i].m_openingHours);
+    rw::ReadNonEmpty(src, vec[i].m_openingHours);
   }
 }
 

@@ -200,8 +200,7 @@ void BuildRoadAltitudes(std::string const & mwmPath, AltitudeGetter & altitudeGe
     }
     {
       // Altitude offsets serialization.
-      CHECK(std::is_sorted(offsets.begin(), offsets.end()), ());
-      CHECK(adjacent_find(offsets.begin(), offsets.end()) == offsets.end(), ());
+      CHECK(base::IsSortedAndUnique(offsets), ());
 
       succinct::elias_fano::elias_fano_builder builder(offsets.back(), offsets.size());
       for (uint32_t offset : offsets)

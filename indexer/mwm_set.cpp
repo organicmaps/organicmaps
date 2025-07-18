@@ -1,9 +1,8 @@
 #include "indexer/mwm_set.hpp"
 
 #include "indexer/features_offsets_table.hpp"
+#include "indexer/metadata_serdes.hpp"    // needed for MwmValue dtor
 #include "indexer/scales.hpp"
-
-#include "coding/reader.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 
@@ -408,17 +407,30 @@ void MwmSet::ClearCache(MwmId const & id)
 MwmValue::MwmValue(LocalCountryFile const & localFile)
   : m_cont(platform::GetCountryReader(localFile, MapFileType::Map)), m_file(localFile)
 {
-  m_factory.Load(m_cont);
+  m_version = version::MwmVersion::Read(m_cont);
+  if (m_version.GetFormat() < version::Format::v11)
+    MYTHROW(CorruptedMwmFile, (m_cont.GetFileName()));
+
+  m_header.Load(m_cont);
 }
+
+MwmValue::~MwmValue() {}
 
 void MwmValue::SetTable(MwmInfoEx & info)
 {
-  m_table = info.m_table.lock();
-  if (m_table)
-    return;
+  m_ftTable = info.m_ftTable.lock();
+  if (!m_ftTable)
+  {
+    m_ftTable = feature::FeaturesOffsetsTable::Load(m_cont, FEATURE_OFFSETS_FILE_TAG);
+    info.m_ftTable = m_ftTable;
+  }
 
-  m_table = feature::FeaturesOffsetsTable::Load(m_cont);
-  info.m_table = m_table;
+  m_relTable = info.m_relTable.lock();
+  if (!m_relTable && m_cont.IsExist(RELATION_OFFSETS_FILE_TAG))
+  {
+    m_relTable = feature::FeaturesOffsetsTable::Load(m_cont, RELATION_OFFSETS_FILE_TAG);
+    info.m_relTable = m_relTable;
+  }
 }
 
 string DebugPrint(MwmSet::RegResult result)
