@@ -159,7 +159,7 @@ VkFormat VulkanFormatUnpacker::Unpack(TextureFormat format)
   switch (format)
   {
   case TextureFormat::RGBA8: return VK_FORMAT_R8G8B8A8_UNORM;
-  case TextureFormat::Alpha: return VK_FORMAT_R8_UNORM;
+  case TextureFormat::Red: return VK_FORMAT_R8_UNORM;
   case TextureFormat::RedGreen: return VK_FORMAT_R8G8_UNORM;
 #if defined(OMIM_OS_MAC)
   case TextureFormat::DepthStencil: return VK_FORMAT_D32_SFLOAT_S8_UINT;

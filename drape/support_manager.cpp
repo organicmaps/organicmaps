@@ -32,31 +32,8 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
   m_rendererVersion = context->GetRendererVersion();
   LOG(LINFO, ("Renderer =", m_rendererName, "| Api =", context->GetApiVersion(), "| Version =", m_rendererVersion));
 
-  m_isSamsungGoogleNexus = (m_rendererName == "PowerVR SGX 540" &&
-                            m_rendererVersion.find("GOOGLENEXUS.ED945322") != std::string::npos);
-  if (m_isSamsungGoogleNexus)
-    LOG(LINFO, ("Samsung Google Nexus detected."));
-
-  if (m_rendererName.find("Adreno") != std::string::npos)
-  {
-    std::array<std::string_view, 5> constexpr models = { "200", "203", "205", "220", "225" };
-    for (auto const & model : models)
-    {
-      if (m_rendererName.find(model) != std::string::npos)
-      {
-        LOG(LINFO, ("Adreno 200 device detected."));
-        m_isAdreno200 = true;
-        break;
-      }
-    }
-  }
-
-  m_isTegra = (m_rendererName.find("Tegra") != std::string::npos);
-  if (m_isTegra)
-    LOG(LINFO, ("NVidia Tegra device detected."));
-
   auto const apiVersion = context->GetApiVersion();
-  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  if (apiVersion == dp::ApiVersion::OpenGLES3)
   {
     m_maxLineWidth = static_cast<float>(std::max(1, GLFunctions::glGetMaxLineWidth()));
     m_maxTextureSize = static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));

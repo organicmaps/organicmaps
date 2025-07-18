@@ -81,7 +81,7 @@ double getExactDPI(double contentScaleFactor)
     if (tempContext != nil)
       apiVersion = dp::ApiVersion::OpenGLES3;
     else
-      apiVersion = dp::ApiVersion::OpenGLES2;
+      CHECK(false, ("OpenGL ES3 is not supported"));
   }
   
   return apiVersion;

@@ -139,7 +139,7 @@ public:
   StipplePenTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size)
   {
-    TBase::DynamicTextureParams params{size, TextureFormat::Alpha, TextureFilter::Nearest,
+    TBase::DynamicTextureParams params{size, TextureFormat::Red, TextureFilter::Nearest,
                                        false /* m_usePixelBuffer */};
     TBase::Init(allocator, make_ref(&m_index), params);
   }

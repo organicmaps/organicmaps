@@ -28,10 +28,9 @@ struct CirclesPackStaticVertex
   TNormal m_normal;
 };
 
-dp::RenderState GetCirclesPackState(ref_ptr<dp::TextureManager> texMng)
+dp::RenderState GetCirclesPackState()
 {
   auto state = CreateRenderState(gpu::Program::CirclePoint, DepthLayer::OverlayLayer);
-  state.SetColorTexture(texMng->GetSymbolsTexture());
   state.SetDepthTestEnabled(false);
   return state;
 }
@@ -139,8 +138,7 @@ size_t CirclesPackHandle::GetPointsCount() const
   return m_buffer.size() / dp::Batcher::VertexPerQuad;
 }
 
-void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> texMng,
-                            CirclesPackRenderData & data)
+void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, CirclesPackRenderData & data)
 {
   ASSERT_NOT_EQUAL(data.m_pointsCount, 0, ());
 
@@ -178,7 +176,7 @@ void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
                       make_ref(staticVertexData.data()));
   provider.InitStream(1 /* stream index */, GetCirclesPackDynamicBindingInfo(),
                       make_ref(dynamicVertexData.data()));
-  batcher.InsertListOfStrip(context, GetCirclesPackState(texMng), make_ref(&provider),
+  batcher.InsertListOfStrip(context, GetCirclesPackState(), make_ref(&provider),
                             std::move(handle), kVerticesInPoint);
 
   context->Flush();
