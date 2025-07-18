@@ -28,21 +28,23 @@ enum NavigationDashboard {
 }
 
 extension NavigationDashboard.ViewModel {
-  static let initial = NavigationDashboard.ViewModel(
-    transportOptions: MWMRouterType.allCases,
-    routePoints: .empty,
-    routerType: MWMRouter.type(),
-    entity: MWMNavigationDashboardEntity(),
-    routingOptions: RoutingOptions(),
-    elevationInfo: nil,
-    navigationInfo: .hidden,
-    estimates: NSAttributedString(),
-    dashboardState: .hidden,
-    presentationStep: .hidden,
-    progress: 0,
-    navigationSearchState: nil,
-    errorMessage: nil
-  )
+  static var initial: Self {
+    NavigationDashboard.ViewModel(
+      transportOptions: MWMRouterType.allCases,
+      routePoints: .empty,
+      routerType: MWMRouter.type(),
+      entity: MWMNavigationDashboardEntity(),
+      routingOptions: RoutingOptions(),
+      elevationInfo: nil,
+      navigationInfo: .hidden,
+      estimates: NSAttributedString(),
+      dashboardState: .hidden,
+      presentationStep: .hidden,
+      progress: 0,
+      navigationSearchState: nil,
+      errorMessage: nil
+    )
+  }
 
   func copyWith(
     transportOptions: [MWMRouterType]? = nil,
