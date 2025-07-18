@@ -51,12 +51,13 @@ struct TransportOptionsSegmentedControlView: View {
 
   @Namespace private var animation
   private let selectedOptionId = "selectedOptionId"
+  private let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
 
   var body: some View {
     HStack(spacing: Constants.spacing) {
       ForEach(viewModel.options, id: \.self) { type in
         Button {
-          UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+          impactGenerator.impactOccurred()
           withAnimation {
             viewModel.selected = type
           }

@@ -50,6 +50,7 @@ final class NavigationDashboardViewController: UIViewController {
   private let startRouteButton = StartRouteButton()
   private var navigationInfoView: NavigationInfoView!
   private var navigationControlView: NavigationControlView!
+  private let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
 
   var interactor: NavigationDashboard.Interactor?
   private var presentationStepStrategy = NavigationDashboardModalPresentationStepStrategy()
@@ -133,6 +134,7 @@ final class NavigationDashboardViewController: UIViewController {
     setupTransportOptionsView()
     setupRoutePointsView()
     setupGestureRecognizers()
+    impactGenerator.prepare()
   }
 
   private func configureModalPresentation() {
@@ -252,21 +254,25 @@ final class NavigationDashboardViewController: UIViewController {
 
   @objc
   private func didTapSearchButton() {
+    impactGenerator.impactOccurred()
     interactor?.process(.searchButtonDidTap)
   }
 
   @objc
   private func didTapBookmarksButton() {
+    impactGenerator.impactOccurred()
     interactor?.process(.bookmarksButtonDidTap)
   }
 
   @objc
   private func didTapSaveRouteAsTrackButton() {
+    impactGenerator.impactOccurred()
     interactor?.process(.saveRouteAsTrackButtonDidTap)
   }
 
   @objc
   private func didTapStartRouteButton() {
+    impactGenerator.impactOccurred()
     interactor?.process(.startButtonDidTap)
   }
 
