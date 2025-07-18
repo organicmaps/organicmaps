@@ -186,7 +186,7 @@
 		67247FCA1C60BA8A00EDE56A /* task_runner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = task_runner.hpp; sourceTree = "<group>"; };
 		67247FCB1C60BA8A00EDE56A /* test_map_files_downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_map_files_downloader.cpp; sourceTree = "<group>"; };
 		67247FCC1C60BA8A00EDE56A /* test_map_files_downloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_map_files_downloader.hpp; sourceTree = "<group>"; };
-		67247FD71C60BA9900EDE56A /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		67247FD71C60BA9900EDE56A /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		6724800E1C60CE7300EDE56A /* storage_group_download_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_group_download_tests.cpp; sourceTree = "<group>"; };
 		6724800F1C60CE7300EDE56A /* storage_http_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_http_tests.cpp; sourceTree = "<group>"; };
 		6741251A1B4C05FA00A3E828 /* map_files_downloader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_files_downloader.hpp; sourceTree = "<group>"; };
@@ -293,7 +293,7 @@
 				67247FD71C60BA9900EDE56A /* testingmain.cpp */,
 			);
 			name = storage_tests;
-			path = ../../storage/storage_tests;
+			path = ../../libs/storage/storage_tests;
 			sourceTree = "<group>";
 		};
 		672480071C60CE3D00EDE56A /* storage_integration_tests */ = {
@@ -310,7 +310,7 @@
 				56D8CB981CAC17A80003F420 /* test_defines.hpp */,
 			);
 			name = storage_integration_tests;
-			path = ../../storage/storage_integration_tests;
+			path = ../../libs/storage/storage_integration_tests;
 			sourceTree = "<group>";
 		};
 		675342D71A3F59EF00A0A8C3 = {
@@ -388,7 +388,7 @@
 				675343041A3F5A2600A0A8C3 /* storage.hpp */,
 			);
 			name = storage;
-			path = ../../storage;
+			path = ../../libs/storage;
 			sourceTree = "<group>";
 		};
 		676C83F81C6387D000DC9603 /* Resources */ = {

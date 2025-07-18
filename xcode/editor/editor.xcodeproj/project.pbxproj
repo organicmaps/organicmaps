@@ -95,7 +95,7 @@
 		3496ABD41DC2034900C5DDBA /* opening_hours_ui_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opening_hours_ui_test.cpp; sourceTree = "<group>"; };
 		3496ABD61DC2034900C5DDBA /* ui2oh_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ui2oh_test.cpp; sourceTree = "<group>"; };
 		3496ABD81DC2034900C5DDBA /* xml_feature_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml_feature_test.cpp; sourceTree = "<group>"; };
-		3496AC011DC2047D00C5DDBA /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		3496AC011DC2047D00C5DDBA /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		3496AC041DC204B700C5DDBA /* editor.config */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		34F5586E1DBF49B200A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F5586F1DBF49B200A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 				34583BBE1C8854C100F94664 /* yes_no_unknown.hpp */,
 			);
 			name = editor;
-			path = ../../editor;
+			path = ../../libs/editor;
 			sourceTree = SOURCE_ROOT;
 		};
 		3496ABD01DC2032800C5DDBA /* editor_tests */ = {
@@ -273,7 +273,7 @@
 				3496ABD81DC2034900C5DDBA /* xml_feature_test.cpp */,
 			);
 			name = editor_tests;
-			path = ../../editor/editor_tests;
+			path = ../../libs/editor/editor_tests;
 			sourceTree = "<group>";
 		};
 		3496ABEA1DC2041800C5DDBA /* Frameworks */ = {
@@ -309,7 +309,7 @@
 				6715560D20BF01EE002BA3B4 /* helpers.hpp */,
 			);
 			name = editor_tests_support;
-			path = ../../editor/editor_tests_support;
+			path = ../../libs/editor/editor_tests_support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -11,17 +11,17 @@
       location = "container:common.xcconfig">
    </FileRef>
    <Group
-      location = "group:../std"
+      location = "group:../libs/std"
       name = "std">
       <FileRef
-         location = "group:../std/target_os.hpp">
+         location = "group:../libs/std/target_os.hpp">
       </FileRef>
       <FileRef
-         location = "group:../std/windows.hpp">
+         location = "group:../libs/std/windows.hpp">
       </FileRef>
    </Group>
    <Group
-      location = "container:../pyhelpers"
+      location = "container:../libs/pyhelpers"
       name = "pyhelpers">
       <FileRef
          location = "group:pair.hpp">
@@ -85,7 +85,7 @@
          location = "container:tess2/tess2.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:vulkan_wrapper/vulkan_wrapper.xcodeproj">
+         location = "container:vulkan_wrapper/vulkan_wrapper.xcodeproj">
       </FileRef>
    </Group>
    <FileRef
@@ -146,7 +146,7 @@
       location = "container:search/search.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:shaders/shaders.xcodeproj">
+      location = "container:shaders/shaders.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:storage/storage.xcodeproj">
@@ -158,7 +158,7 @@
       location = "container:traffic/traffic.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:transit/transit.xcodeproj">
+      location = "container:transit/transit.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../iphone/Chart/Chart.xcodeproj">

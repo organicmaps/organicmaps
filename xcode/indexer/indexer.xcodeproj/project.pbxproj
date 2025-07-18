@@ -327,7 +327,7 @@
 		670C61071AB065B100C38A8C /* sort_and_merge_intervals_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sort_and_merge_intervals_test.cpp; sourceTree = "<group>"; };
 		670C610A1AB065B100C38A8C /* test_type.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_type.cpp; sourceTree = "<group>"; };
 		670C610B1AB065B100C38A8C /* visibility_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = visibility_test.cpp; sourceTree = "<group>"; };
-		670C611F1AB065E100C38A8C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		670C611F1AB065E100C38A8C /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		670C61251AB0661100C38A8C /* indexer_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = indexer_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		670C61581AB0691900C38A8C /* features_offsets_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = features_offsets_table.cpp; sourceTree = "<group>"; };
 		670C61591AB0691900C38A8C /* features_offsets_table.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = features_offsets_table.hpp; sourceTree = "<group>"; };
@@ -570,7 +570,7 @@
 				3D452AF71EE6D9F5009EAB9B /* wheelchair_tests.cpp */,
 			);
 			name = indexer_tests;
-			path = ../../indexer/indexer_tests;
+			path = ../../libs/indexer/indexer_tests;
 			sourceTree = "<group>";
 		};
 		675340911A3F53CB00A0A8C3 = {
@@ -738,7 +738,7 @@
 				FA7F9B82273F32680093EA08 /* validate_and_format_contacts.hpp */,
 			);
 			name = indexer;
-			path = ../../indexer;
+			path = ../../libs/indexer;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */

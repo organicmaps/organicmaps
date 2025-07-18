@@ -196,7 +196,7 @@
 		670F293B1BA9D2E700F2ABF4 /* tree_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tree_test.cpp; sourceTree = "<group>"; };
 		670F293C1BA9D2E700F2ABF4 /* vector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector_test.cpp; sourceTree = "<group>"; };
 		670F295C1BA9D39A00F2ABF4 /* geometry_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geometry_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		670F297E1BA9D41E00F2ABF4 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		670F297E1BA9D41E00F2ABF4 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../../libs/testing/testingmain.cpp; sourceTree = "<group>"; };
 		671C2D5422AFD904008B2B8B /* meter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = meter.hpp; sourceTree = "<group>"; };
 		6741AA9E1BF35476002C974C /* latlon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon.cpp; sourceTree = "<group>"; };
 		6741AA9F1BF35476002C974C /* latlon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = latlon.hpp; sourceTree = "<group>"; };
@@ -307,7 +307,7 @@
 				670F293C1BA9D2E700F2ABF4 /* vector_test.cpp */,
 			);
 			name = geometry_tests;
-			path = ../../geometry/geometry_tests;
+			path = ../../libs/geometry/geometry_tests;
 			sourceTree = "<group>";
 		};
 		675344881A3F684600A0A8C3 = {
@@ -401,7 +401,7 @@
 				347F336F1C454205009758CC /* triangle2d.hpp */,
 			);
 			name = geometry;
-			path = ../../geometry;
+			path = ../../libs/geometry;
 			sourceTree = SOURCE_ROOT;
 		};
 		675344DA1A3F68E200A0A8C3 /* region2d */ = {

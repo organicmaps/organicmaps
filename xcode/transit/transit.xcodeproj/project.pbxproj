@@ -91,7 +91,7 @@
 				D55B290624CACF9E000E2EBE /* transit_version.hpp */,
 			);
 			name = transit;
-			path = ../../transit;
+			path = ../../libs/transit;
 			sourceTree = "<group>";
 		};
 		D56AD1D624CB02BF0057F2E0 /* experimental */ = {

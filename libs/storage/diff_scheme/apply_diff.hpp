@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generator/mwm_diff/diff.hpp"
+#include "mwm_diff/diff.hpp"
 
 #include "storage/storage_defines.hpp"
 
