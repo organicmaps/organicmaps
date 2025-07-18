@@ -200,6 +200,11 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
   }
 
   // TODO: (KK) elevation info should be removed when the new elevation chart with all statistics will be implemented
+  static let elevationAttributes: [NSAttributedString.Key: Any] = [
+    .foregroundColor: UIColor.blackSecondaryText(),
+    .font: UIFont.medium16()
+  ]
+
   private func buildElevationInfoIfNeeded() {
     guard router.hasRouteAltitude() else {
       presenter.process(.updateElevationInfo(nil))
@@ -212,7 +217,7 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
           self.process(.updateElevationInfo(nil))
           return
         }
-        let attributes = BaseRoutePreviewStatus.elevationAttributes
+        let attributes = Self.elevationAttributes
         let elevation = NSMutableAttributedString(string: "")
         elevation.append(MWMNavigationDashboardEntity.estimateDot())
         elevation.append(NSAttributedString(string: "▲ \(totalAscent)  ", attributes: attributes))
