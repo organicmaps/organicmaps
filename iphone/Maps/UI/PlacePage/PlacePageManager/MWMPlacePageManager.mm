@@ -1,4 +1,5 @@
 #import "MWMPlacePageManager.h"
+#import "MWMNavigationDashboardManager.h"
 #import "CLLocation+Mercator.h"
 #import "MWMActivityViewController.h"
 #import "MWMLocationHelpers.h"
@@ -25,19 +26,39 @@ using namespace storage;
 
 @implementation MWMPlacePageManager
 
+std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
+
 - (BOOL)isPPShown {
   return GetFramework().HasPlacePageInfo();
 }
 
-- (void)closePlacePage { GetFramework().DeactivateMapSelection(); }
+- (SearchOnMapManager *)searchManager {
+  return MapViewController.sharedController.searchManager;
+}
+
+- (void)recoverPlacePage {
+  if (placePageBuildInfoToRecover.has_value()) {
+    GetFramework().BuildAndSetPlacePageInfo(placePageBuildInfoToRecover.value());
+    placePageBuildInfoToRecover.reset();
+  }
+}
+
+- (void)closePlacePage {
+  GetFramework().DeactivateMapSelection();
+}
 
 - (void)routeFrom:(PlacePageData *)data {
+  [self savePlacePageBuildInfoToRecover];
+
   MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeStart intermediateIndex:0];
   [MWMRouter buildFromPoint:point bestRouter:YES];
+  [self.searchManager close];
   [self closePlacePage];
 }
 
 - (void)routeTo:(PlacePageData *)data {
+  [self savePlacePageBuildInfoToRecover];
+
   if ([MWMRouter isOnRoute]) {
     [MWMRouter stopRouting];
   }
@@ -48,12 +69,33 @@ using namespace storage;
 
   MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:0];
   [MWMRouter buildToPoint:point bestRouter:YES];
+  [self.searchManager close];
   [self closePlacePage];
 }
 
+- (void)savePlacePageBuildInfoToRecover {
+  if (!placePageBuildInfoToRecover.has_value())
+    placePageBuildInfoToRecover = GetFramework().GetCurrentPlacePageInfo().GetBuildInfo();
+}
+
 - (void)routeAddStop:(PlacePageData *)data {
-  MWMRoutePoint *point = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:0];
-  [MWMRouter addPointAndRebuild:point];
+  MWMNavigationDashboardManager * navigationManager = [MWMNavigationDashboardManager sharedManager];
+  if (navigationManager.shouldAppendNewPoints) {
+    MWMRoutePoint * newFinishPoint = [self routePoint:data withType:MWMRoutePointTypeFinish intermediateIndex:0];
+    [MWMRouter continueRouteToPointAndRebuild:newFinishPoint];
+  } else if (navigationManager.selectedRoutePoint) {
+    MWMRoutePoint * pointToReplace = navigationManager.selectedRoutePoint;
+    MWMRoutePoint * withPoint = [self routePoint:data
+                                        withType:pointToReplace.type
+                               intermediateIndex:pointToReplace.intermediateIndex];
+    [MWMRouter replacePointAndRebuild:pointToReplace withPoint:withPoint];
+    pointToReplace = nil;
+  } else {
+    MWMRoutePoint * pointBeforeFinish = [self routePoint:data withType:MWMRoutePointTypeIntermediate intermediateIndex:0];
+    [MWMRouter addPointAndRebuild:pointBeforeFinish];
+  }
+
+  [self.searchManager close];
   [self closePlacePage];
 }
 

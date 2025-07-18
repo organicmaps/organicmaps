@@ -1,6 +1,6 @@
 protocol PlacePageInteractorProtocol: AnyObject {
   func viewWillAppear()
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval)
+  func updateTopBound(_ bound: CGFloat)
 }
 
 class PlacePageInteractor: NSObject {
@@ -89,8 +89,8 @@ extension PlacePageInteractor: PlacePageInteractorProtocol {
     updatePlacePageIfNeeded()
   }
 
-  func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
-    mapViewController?.setPlacePageTopBound(bound, duration: duration)
+  func updateTopBound(_ bound: CGFloat) {
+    mapViewController?.setPlacePageTopBound(bound)
   }
 }
 
@@ -259,7 +259,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       }
     case .opentable:
       fatalError("Opentable is not supported and will be deleted")
-    case .routeAddStop:
+    case .routeAddStop, .routeReplaceStop:
       MWMPlacePageManagerHelper.routeAddStop(placePageData)
     case .routeFrom:
       MWMPlacePageManagerHelper.route(from: placePageData)

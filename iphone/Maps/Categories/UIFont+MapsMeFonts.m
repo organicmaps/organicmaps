@@ -23,5 +23,6 @@
 + (UIFont *)bold28 { return [UIFont boldSystemFontOfSize:28]; }
 + (UIFont *)bold36 { return [UIFont boldSystemFontOfSize:26]; }
 + (UIFont *)semibold16 { return [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold]; }
++ (UIFont *)semibold17 { return [UIFont systemFontOfSize:17 weight:UIFontWeightSemibold]; }
 
 @end
