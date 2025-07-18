@@ -47,7 +47,15 @@ jobs:
             cc: clang-18
             cxx: clang++-18
 
+          - os: ubuntu-24.04-arm
+            cc: clang-18
+            cxx: clang++-18
+
           - os: ubuntu-24.04
+            cc: gcc-14
+            cxx: g++-14
+
+          - os: ubuntu-24.04-arm
             cc: gcc-14
             cxx: g++-14
 
