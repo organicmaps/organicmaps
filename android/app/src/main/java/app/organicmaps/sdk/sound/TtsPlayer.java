@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.sound;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,9 +9,9 @@ import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.text.TextUtils;
+import android.util.Pair;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.R;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
@@ -42,6 +41,9 @@ public enum TtsPlayer
   private static final Locale DEFAULT_LOCALE = Locale.US;
   private static final float SPEECH_RATE = 1.0f;
   private static final int TTS_SPEAK_DELAY_MILLIS = 50;
+
+  @Nullable
+  private static List<Pair<String, String>> sSupportedLanguages = null;
 
   public static Runnable sOnReloadCallback = null;
 
@@ -286,19 +288,15 @@ public enum TtsPlayer
 
   private boolean getUsableLanguages(List<LanguageData> outList)
   {
-    Resources resources = mContext.getResources();
-    String[] codes = resources.getStringArray(R.array.tts_languages_supported);
-    String[] names = resources.getStringArray(R.array.tts_language_names);
-
-    for (int i = 0; i < codes.length; i++)
+    for (final Pair<String, String> langNamePair : getSupportedLanguages())
     {
       try
       {
-        outList.add(new LanguageData(codes[i], names[i], mTts));
+        outList.add(new LanguageData(langNamePair.first, langNamePair.second, mTts));
       }
-      catch (LanguageData.NotAvailableException ignored)
+      catch (LanguageData.NotAvailableException ex)
       {
-        Logger.w(TAG, "Failed to get usable languages " + ignored.getMessage());
+        Logger.w(TAG, "Failed to get usable languages " + ex.getMessage());
       }
       catch (IllegalArgumentException e)
       {
@@ -351,8 +349,20 @@ public enum TtsPlayer
     return res;
   }
 
+  @NonNull
+  private List<Pair<String, String>> getSupportedLanguages()
+  {
+    if (sSupportedLanguages == null)
+    {
+      sSupportedLanguages = nativeGetSupportedLanguages();
+    }
+    return sSupportedLanguages;
+  }
+
   private native static void nativeEnableTurnNotifications(boolean enable);
   private native static boolean nativeAreTurnNotificationsEnabled();
   private native static void nativeSetTurnNotificationsLocale(String code);
   private native static String nativeGetTurnNotificationsLocale();
+  @NonNull
+  private native static List<Pair<String, String>> nativeGetSupportedLanguages();
 }
