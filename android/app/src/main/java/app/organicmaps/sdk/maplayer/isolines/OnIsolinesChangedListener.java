@@ -1,33 +1,22 @@
 package app.organicmaps.sdk.maplayer.isolines;
 
-import android.content.Context;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 class OnIsolinesChangedListener
 {
-  @NonNull
-  private final Context mContext;
+  @Nullable
   private IsolinesErrorDialogListener mListener;
-
-  OnIsolinesChangedListener(@NonNull Context app)
-  {
-    mContext = app;
-  }
 
   // Called from JNI.
   @Keep
   @SuppressWarnings("unused")
   public void onStateChanged(int type)
   {
-    IsolinesState state = IsolinesState.values()[type];
     if (mListener == null)
-    {
-      state.activate(mContext, null, null);
       return;
-    }
-
-    mListener.onStateChanged(state);
+    mListener.onStateChanged(IsolinesState.values()[type]);
   }
 
   public void attach(@NonNull IsolinesErrorDialogListener listener)

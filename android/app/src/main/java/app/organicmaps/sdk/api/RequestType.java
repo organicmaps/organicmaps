@@ -10,12 +10,12 @@ import java.lang.annotation.RetentionPolicy;
 public @interface RequestType
 {
   // Represents url_scheme::ParsedMapApi::UrlType from c++ part.
-  public static final int INCORRECT = 0;
-  public static final int MAP = 1;
-  public static final int ROUTE = 2;
-  public static final int SEARCH = 3;
-  public static final int CROSSHAIR = 4;
-  public static final int OAUTH2 = 5;
-  public static final int MENU = 6;
-  public static final int SETTINGS = 7;
+  int INCORRECT = 0;
+  int MAP = 1;
+  int ROUTE = 2;
+  int SEARCH = 3;
+  int CROSSHAIR = 4;
+  int OAUTH2 = 5;
+  int MENU = 6;
+  int SETTINGS = 7;
 }

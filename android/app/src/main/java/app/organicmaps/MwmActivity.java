@@ -73,7 +73,6 @@ import app.organicmaps.routing.ManageRouteBottomSheet;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutingBottomMenuListener;
-import app.organicmaps.routing.RoutingController;
 import app.organicmaps.routing.RoutingErrorDialogFragment;
 import app.organicmaps.routing.RoutingPlanFragment;
 import app.organicmaps.routing.RoutingPlanInplaceController;
@@ -99,6 +98,7 @@ import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesState;
 import app.organicmaps.sdk.routing.RouteMarkType;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.settings.RoadType;
@@ -106,7 +106,6 @@ import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.PowerManagment;
-import app.organicmaps.sdk.util.ThemeSwitcher;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
@@ -116,6 +115,7 @@ import app.organicmaps.search.SearchFragment;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.util.SharingUtils;
+import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
@@ -728,9 +728,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       final View mapView = mMapFragment.getView();
       if (mapView != null)
       {
-      int width = mapView.getWidth();
-      int height = mapView.getHeight();
-      Framework.nativeSetVisibleRect(0, 0, width, height);
+        int width = mapView.getWidth();
+        int height = mapView.getHeight();
+        Framework.nativeSetVisibleRect(0, 0, width, height);
       }
     }
     UiUtils.show(mPointChooser);
@@ -1053,21 +1053,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void onIsolinesStateChanged(@NonNull IsolinesState type)
   {
-    if (type != IsolinesState.EXPIREDDATA)
+    if (type == IsolinesState.NODATA)
     {
-      type.activate(this, findViewById(R.id.coordinator), findViewById(R.id.menu_frame));
-      return;
+      Toast.makeText(this, R.string.isolines_location_error_dialog, Toast.LENGTH_SHORT).show();
     }
 
-    dismissAlertDialog();
-    mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-                       .setTitle(R.string.downloader_update_maps)
-                       .setMessage(R.string.isolines_activation_error_dialog)
-                       .setPositiveButton(R.string.ok,
-                                          (dialog, which) -> startActivity(new Intent(this, DownloaderActivity.class)))
-                       .setNegativeButton(R.string.cancel, null)
-                       .setOnDismissListener(dialog -> mAlertDialog = null)
-                       .show();
+    if (type == IsolinesState.EXPIREDDATA)
+    {
+      mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+                         .setTitle(R.string.downloader_update_maps)
+                         .setMessage(R.string.isolines_activation_error_dialog)
+                         .setPositiveButton(
+                             R.string.ok, (dialog, which) -> startActivity(new Intent(this, DownloaderActivity.class)))
+                         .setNegativeButton(R.string.cancel, null)
+                         .setOnDismissListener(dialog -> mAlertDialog = null)
+                         .show();
+    }
   }
 
   @Override

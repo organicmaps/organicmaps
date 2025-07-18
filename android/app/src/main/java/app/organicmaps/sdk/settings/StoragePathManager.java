@@ -1,4 +1,4 @@
-package app.organicmaps.settings;
+package app.organicmaps.sdk.settings;
 
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -28,7 +28,7 @@ public class StoragePathManager
   private static final String TAG = StoragePathManager.class.getSimpleName();
   private static final String DATA_FILE_EXT = Framework.nativeGetDataFileExt();
   private static final String[] MOVABLE_EXTS = Framework.nativeGetMovableFilesExts();
-  static final FilenameFilter MOVABLE_FILES_FILTER = (dir, filename) ->
+  public static final FilenameFilter MOVABLE_FILES_FILTER = (dir, filename) ->
   {
     for (String ext : MOVABLE_EXTS)
       if (filename.endsWith(ext))
@@ -37,7 +37,7 @@ public class StoragePathManager
     return false;
   };
 
-  interface OnStorageListChangedListener
+  public interface OnStorageListChangedListener
   {
     void onStorageListChanged(List<StorageItem> storageItems, int currentStorageIndex);
   }
