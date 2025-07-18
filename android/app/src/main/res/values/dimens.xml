@@ -46,6 +46,8 @@
   <dimen name="place_page_width">320dp</dimen>
   <dimen name="place_page_buttons_height">56dp</dimen>
   <dimen name="place_page_top_button">40dp</dimen>
+  <dimen name="place_page_icon_size">32dp</dimen>
+  <dimen name="place_page_icon_mark_size">20dp</dimen>
 
   <dimen name="downloader_status_size">40dp</dimen>
   <dimen name="search_progress_size">32dp</dimen>
@@ -75,12 +77,13 @@
   <dimen name="viewport_min_width">300dp</dimen>
   <dimen name="elevation_profile_peek_height">260dp</dimen>
   <dimen name="elevation_profile_chart_min_height">144dp</dimen>
-  <dimen name="elevation_profile_chart_info_min_height">68dp</dimen>
+  <dimen name="elevation_profile_chart_info_min_height">54dp</dimen>
   <dimen name="elevation_profile_difficulty_dot_size">10dp</dimen>
   <dimen name="elevation_profile_content_height">144dp</dimen>
-  <dimen name="elevation_profile_height">108dp</dimen>
-  <dimen name="elevation_profile_half_height">54dp</dimen>
+  <dimen name="elevation_profile_height">80dp</dimen>
+  <dimen name="elevation_profile_half_height">40dp</dimen>
   <dimen name="elevation_profile_dot_levels_margin">3dp</dimen>
+  <dimen name="elevation_profile_marker_width">25dp</dimen>
   <dimen name="map_button_size">48dp</dimen>
   <dimen name="map_button_icon_size">32dp</dimen>
   <dimen name="map_button_arrow_icon_size">34dp</dimen>
