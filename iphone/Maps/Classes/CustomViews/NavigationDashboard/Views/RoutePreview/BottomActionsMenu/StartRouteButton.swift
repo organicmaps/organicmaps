@@ -12,7 +12,7 @@ final class StartRouteButton: UIView {
   }
 
   private let button = UIButton(type: .system)
-  private var state: State = .disabled
+  private var state: State = .enabled
   private let activityIndicator: UIActivityIndicatorView = {
     if #available(iOS 13.0, *) {
       let activity = UIActivityIndicatorView(style: .medium)
