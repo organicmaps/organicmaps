@@ -162,7 +162,7 @@ public:
     void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
     void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,
                                    std::string const & value);
-    
+
     /// Removes the category from the list of categories and deletes the related file.
     /// @param permanently If true, the file will be removed from the disk. If false, the file will be marked as deleted and moved into a trash.
     bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
@@ -378,7 +378,7 @@ public:
 
   bool HasRecentlyDeletedBookmark() const { return m_recentlyDeletedBookmark.operator bool(); };
   void ResetRecentlyDeletedBookmark();
-  
+
   size_t GetRecentlyDeletedCategoriesCount() const;
   BookmarkManager::KMLDataCollectionPtr GetRecentlyDeletedCategories();
   bool IsRecentlyDeletedCategory(std::string const & filePath) const;
@@ -435,7 +435,8 @@ public:
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
 
-  kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> const & points, std::string const & from, std::string const & to);
+  kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> points,
+                         std::string const & from, std::string const & to);
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
