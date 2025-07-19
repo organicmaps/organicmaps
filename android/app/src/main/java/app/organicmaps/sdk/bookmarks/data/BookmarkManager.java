@@ -41,8 +41,6 @@ public enum BookmarkManager {
   // These values have to match the values of kml::CompilationType from kml/types.hpp
   public static final int CATEGORY = 0;
 
-  public static final List<Icon> ICONS = new ArrayList<>();
-
   private static final String[] BOOKMARKS_EXTENSIONS = Framework.nativeGetBookmarksFilesExts();
 
   private static final String TAG = BookmarkManager.class.getSimpleName();
@@ -69,26 +67,6 @@ public enum BookmarkManager {
 
   @Nullable
   private OnElevationActivePointChangedListener mOnElevationActivePointChangedListener;
-
-  static
-  {
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_RED, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_PINK, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_PURPLE, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_DEEPPURPLE, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_BLUE, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_LIGHTBLUE, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_CYAN, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_TEAL, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_GREEN, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_LIME, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_YELLOW, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_ORANGE, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_DEEPORANGE, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_BROWN, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_GRAY, Icon.BOOKMARK_ICON_TYPE_NONE));
-    ICONS.add(new Icon(Icon.PREDEFINED_COLOR_BLUEGRAY, Icon.BOOKMARK_ICON_TYPE_NONE));
-  }
 
   public void toggleCategoryVisibility(@NonNull BookmarkCategory category)
   {
@@ -342,7 +320,7 @@ public enum BookmarkManager {
     nativeShowBookmarkCategoryOnMap(catId);
   }
 
-  @Icon.PredefinedColor
+  @PredefinedColors.Color
   public int getLastEditedColor()
   {
     return nativeGetLastEditedColor();
@@ -618,7 +596,7 @@ public enum BookmarkManager {
     return nativeGetBookmarkXY(bookmarkId);
   }
 
-  @Icon.PredefinedColor
+  @PredefinedColors.Color
   public int getBookmarkColor(@IntRange(from = 0) long bookmarkId)
   {
     return nativeGetBookmarkColor(bookmarkId);
@@ -652,7 +630,7 @@ public enum BookmarkManager {
   }
 
   public void setBookmarkParams(@IntRange(from = 0) long bookmarkId, @NonNull String name,
-                                @Icon.PredefinedColor int color, @NonNull String descr)
+                                @PredefinedColors.Color int color, @NonNull String descr)
   {
     nativeSetBookmarkParams(bookmarkId, name, color, descr);
   }
@@ -808,7 +786,7 @@ public enum BookmarkManager {
   @Nullable
   private native Bookmark nativeAddBookmarkToLastEditedCategory(double lat, double lon);
 
-  @Icon.PredefinedColor
+  @PredefinedColors.Color
   private native int nativeGetLastEditedColor();
 
   private static native void nativeLoadBookmarksFile(@NonNull String path, boolean isTemporaryFile);
@@ -874,7 +852,7 @@ public enum BookmarkManager {
   @NonNull
   private static native ParcelablePointD nativeGetBookmarkXY(@IntRange(from = 0) long bookmarkId);
 
-  @Icon.PredefinedColor
+  @PredefinedColors.Color
   private static native int nativeGetBookmarkColor(@IntRange(from = 0) long bookmarkId);
 
   private static native int nativeGetBookmarkIcon(@IntRange(from = 0) long bookmarkId);
@@ -889,12 +867,13 @@ public enum BookmarkManager {
   private static native String nativeEncode2Ge0Url(@IntRange(from = 0) long bookmarkId, boolean addName);
 
   private static native void nativeSetBookmarkParams(@IntRange(from = 0) long bookmarkId, @NonNull String name,
-                                                     @Icon.PredefinedColor int color, @NonNull String descr);
+                                                     @PredefinedColors.Color int color, @NonNull String descr);
 
-  private static native void nativeChangeTrackColor(@IntRange(from = 0) long trackId, @Icon.PredefinedColor int color);
+  private static native void nativeChangeTrackColor(@IntRange(from = 0) long trackId,
+                                                    @PredefinedColors.Color int color);
 
   private static native void nativeSetTrackParams(@IntRange(from = 0) long trackId, @NonNull String name,
-                                                  @Icon.PredefinedColor int color, @NonNull String descr);
+                                                  @PredefinedColors.Color int color, @NonNull String descr);
 
   private static native void nativeChangeBookmarkCategory(@IntRange(from = 0) long oldCatId,
                                                           @IntRange(from = 0) long newCatId,

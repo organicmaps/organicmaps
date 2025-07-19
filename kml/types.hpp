@@ -15,7 +15,6 @@
 
 namespace kml
 {
-/// @note Important! Should be synced with android/app/src/main/java/app/organicmaps/bookmarks/data/Icon.java
 enum class PredefinedColor : uint8_t
 {
   None = 0,

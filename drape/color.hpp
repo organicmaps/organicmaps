@@ -26,6 +26,11 @@ struct Color
   constexpr uint8_t GetBlue() const { return ExtractByte(m_rgba, 1); }
   constexpr uint8_t GetAlpha() const { return ExtractByte(m_rgba, 0); }
   constexpr uint32_t GetRGBA() const { return m_rgba; }
+  constexpr uint32_t GetARGB() const
+  {
+    return (static_cast<uint32_t>(GetAlpha()) << 24) | (static_cast<uint32_t>(GetRed()) << 16) |
+           (static_cast<uint32_t>(GetGreen()) << 8) | static_cast<uint32_t>(GetBlue());
+  }
 
   constexpr float GetRedF() const { return ChannelToFloat(GetRed()); }
   constexpr float GetGreenF() const { return ChannelToFloat(GetGreen()); }

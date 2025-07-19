@@ -27,6 +27,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
 import app.organicmaps.sdk.bookmarks.data.BookmarkInfo;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.Icon;
+import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Graphics;
@@ -304,7 +305,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
     final Bundle args = new Bundle();
     if (mTrack != null)
-      args.putInt(BookmarkColorDialogFragment.ICON_TYPE, mTrack.getColor());
+      args.putInt(BookmarkColorDialogFragment.ICON_TYPE, PredefinedColors.getPredefinedColorIndex(mColor));
     else
       args.putInt(BookmarkColorDialogFragment.ICON_TYPE, mIcon.getColor());
     final FragmentManager manager = getChildFragmentManager();
@@ -317,17 +318,16 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     {
       case TYPE_BOOKMARK ->
         dialogFragment.setOnColorSetListener(colorPos -> {
-          final Icon newIcon = BookmarkManager.ICONS.get(colorPos);
-          if (mIcon.getColor() == newIcon.getColor())
+          if (mIcon != null & mIcon.getColor() == colorPos)
             return;
 
-          mIcon = newIcon;
+          mIcon = new Icon(colorPos);
           refreshColorMarker();
         });
       case TYPE_TRACK ->
         dialogFragment.setOnColorSetListener(colorPos -> {
           int from = mTrack.getColor();
-          int to = BookmarkManager.ICONS.get(colorPos).argb();
+          int to = PredefinedColors.getColor(colorPos);
           if (from == to)
             return;
           mColor = to;
@@ -342,9 +342,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   {
     if (mIcon != null)
     {
-      Drawable circle =
-          Graphics.drawCircleAndImage(mIcon.argb(), R.dimen.track_circle_size, app.organicmaps.sdk.R.drawable.ic_bookmark_none,
-                                      R.dimen.bookmark_icon_size, requireContext());
+      Drawable circle = Graphics.drawCircleAndImage(mIcon.argb(), R.dimen.track_circle_size,
+                                                    app.organicmaps.sdk.R.drawable.ic_bookmark_none,
+                                                    R.dimen.bookmark_icon_size, requireContext());
       mIvColor.setImageDrawable(circle);
     }
   }

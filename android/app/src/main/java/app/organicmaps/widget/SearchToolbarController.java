@@ -240,7 +240,8 @@ public class SearchToolbarController extends ToolbarController implements View.O
   }
 
   @NonNull
-  public OnBackPressedCallback getBackPressedCallback() {
+  public OnBackPressedCallback getBackPressedCallback()
+  {
     return mBackPressedCallback;
   }
 }
