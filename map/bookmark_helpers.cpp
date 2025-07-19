@@ -48,6 +48,14 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"amenity-pub", {kml::BookmarkIcon::Pub, BookmarkBaseType::Food}},
   {"amenity-cafe", {kml::BookmarkIcon::Cafe, BookmarkBaseType::Food}},
 
+  {"amenity-bbq", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+  {"amenity-food_court", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+  {"amenity-restaurant", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+  {"leisure-picnic_table", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+  {"tourism-picnic_site", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+
+  {"amenity-fast_food", {kml::BookmarkIcon::FastFood, BookmarkBaseType::Food}},
+
   {"amenity-place_of_worship-buddhist", {kml::BookmarkIcon::Buddhism, BookmarkBaseType::ReligiousPlace}},
 
   {"amenity-college", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
@@ -79,14 +87,6 @@ std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo =
   {"shop-money_lender", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
 
   {"amenity-bureau_de_change", {kml::BookmarkIcon::Exchange, BookmarkBaseType::Exchange}},
-
-  {"amenity-bbq", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"amenity-cafe", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"amenity-fast_food", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"amenity-food_court", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"amenity-restaurant", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"leisure-picnic_table", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"tourism-picnic_site", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
 
   {"amenity-charging_station", {kml::BookmarkIcon::ChargingStation, BookmarkBaseType::Gas}},
   {"amenity-charging_station-bicycle", {kml::BookmarkIcon::ChargingStation, BookmarkBaseType::Gas}},
