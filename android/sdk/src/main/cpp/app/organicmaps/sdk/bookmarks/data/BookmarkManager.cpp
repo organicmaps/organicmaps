@@ -855,7 +855,7 @@ JNIEXPORT jobject JNICALL
 Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetBookmarkXY(
   JNIEnv * env, jclass, jlong bmk)
 {
-  return jni::GetNewParcelablePointD(env, getBookmark(bmk)->GetPivot());
+  return jni::GetNewPointF(env, getBookmark(bmk)->GetPivot());
 }
 
 JNIEXPORT jdouble JNICALL

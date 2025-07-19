@@ -12,6 +12,6 @@ JNIEXPORT jobject JNICALL
   auto const latLon = mercator::ToLatLon(mercPoint);
   auto const latlonPoint = m2::PointD(latLon.m_lat, latLon.m_lon);
 
-  return jni::GetNewParcelablePointD(env, latlonPoint);
+  return jni::GetNewPointF(env, latlonPoint);
 }
 }

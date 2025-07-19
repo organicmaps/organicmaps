@@ -266,15 +266,15 @@ std::string DescribeException()
   return {};
 }
 
-jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point)
+jobject GetNewPointF(JNIEnv * env, m2::PointD const & point)
 {
-  jclass klass = env->FindClass("app/organicmaps/sdk/bookmarks/data/ParcelablePointD");
+  jclass klass = env->FindClass("android/graphics/PointF");
   ASSERT ( klass, () );
-  jmethodID methodID = GetConstructorID(env, klass, "(DD)V");
+  jmethodID methodID = GetConstructorID(env, klass, "(FF)V");
 
   return env->NewObject(klass, methodID,
-                        static_cast<jdouble>(point.x),
-                        static_cast<jdouble>(point.y));
+                        static_cast<jfloat>(point.x),
+                        static_cast<jfloat>(point.y));
 }
 
 jobject GetNewPoint(JNIEnv * env, m2::PointD const & point)

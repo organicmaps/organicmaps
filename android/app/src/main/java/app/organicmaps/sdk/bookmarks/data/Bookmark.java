@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.bookmarks.data;
 
 import android.annotation.SuppressLint;
+import android.graphics.PointF;
 import android.os.Parcel;
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
@@ -38,7 +39,7 @@ public class Bookmark extends MapObject
     mBookmarkId = bookmarkId;
     mIcon = getIconInternal();
 
-    final ParcelablePointD ll = BookmarkManager.INSTANCE.getBookmarkXY(mBookmarkId);
+    final PointF ll = BookmarkManager.INSTANCE.getBookmarkXY(mBookmarkId);
     mMerX = ll.x;
     mMerY = ll.y;
 
