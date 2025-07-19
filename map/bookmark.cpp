@@ -51,6 +51,7 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
   case kml::BookmarkIcon::BicycleParking: return "bicycle_parking";
   case kml::BookmarkIcon::BicycleParkingCovered: return "bicycle_parking_covered";
   case kml::BookmarkIcon::BicycleRental: return "bicycle_rental";
+  case kml::BookmarkIcon::FastFood: return "fast_food";
   case kml::BookmarkIcon::Count:
     ASSERT(false, ("Invalid bookmark icon type"));
     return {};
