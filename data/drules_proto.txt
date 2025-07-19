@@ -6281,7 +6281,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "fastfood-m"
+      name: "restaurant-m"
       priority: 4050
       min_distance: 28
     }
@@ -6298,7 +6298,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "fastfood-m"
+      name: "restaurant-m"
       priority: 4050
       min_distance: 12
     }
@@ -6315,7 +6315,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "fastfood-m"
+      name: "restaurant-m"
       priority: 4050
       min_distance: 12
     }
@@ -6332,7 +6332,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "fastfood-m"
+      name: "restaurant-m"
       priority: 4050
       min_distance: 12
     }
@@ -6349,7 +6349,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "fastfood-m"
+      name: "restaurant-m"
       priority: 4050
       min_distance: 12
     }
@@ -6366,7 +6366,7 @@ cont {
   element {
     scale: 20
     symbol {
-      name: "fastfood-m"
+      name: "restaurant-m"
       priority: 4050
       min_distance: 12
     }
