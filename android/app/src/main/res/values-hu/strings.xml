@@ -17,7 +17,7 @@
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mérföld</string>
     <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Saját helyzet</string>
+    <string name="core_my_position">Saját tartózkodási helyszín</string>
     <!-- Update maps later button text -->
     <string name="later">Később</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -29,7 +29,7 @@
     <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
     <string name="limited_accuracy">Korlátozott pontosság</string>
     <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
-    <string name="precise_location_is_disabled_long_text">A pontos navigáció érdekében engedélyezze a beállításokban a Pontos helymeghatározás opciót.</string>
+    <string name="precise_location_is_disabled_long_text">A pontos navigáció érdekében engedélyezze a beállításokban a pontos helymeghatározást.</string>
     <!-- View and button titles for accessibility -->
     <string name="zoom_to_country">Megjelenítés a térképen</string>
     <!-- Message to display at the center of the screen when the country download has failed -->
@@ -182,13 +182,13 @@
     <!-- Alert message that downloading is in progress. -->
     <string name="downloading_is_active">A térkép letöltése folyamatban van.</string>
     <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
-    <string name="my_position_share_sms">Tekintse meg a helyzetemet az Organic Maps alkalmazásban! %1$s vagy %2$s. Nincs offline térképe? Töltse le innen: https://omaps.app/get</string>
+    <string name="my_position_share_sms">Tekintse meg a tartózkodási helyszínemet az Organic Maps alkalmazásban! %1$s vagy %2$s. Nincs offline térképe? Töltse le innen: https://omaps.app/get</string>
     <!-- Subject for emailed bookmark -->
     <string name="bookmark_share_email_subject">Tekintse meg a térképjelzőmet az Organic Maps alkalmazásban!</string>
     <!-- Subject for emailed position -->
-    <string name="my_position_share_email_subject">Tekintse meg a helyzetemet az Organic Maps alkalmazásban!</string>
+    <string name="my_position_share_email_subject">Tekintse meg a tartózkodási helyszínemet az Organic Maps alkalmazásban!</string>
     <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
-    <string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt tartózkodom: %1$s. Kattintson a következő hivatkozásra: %2$s, vagy ide: %3$s, hogy megtekintse a helyzetemet a térképen.\n\nKöszönöm!</string>
+    <string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt tartózkodom: %1$s. Kattintson a következő hivatkozásra: %2$s, vagy ide: %3$s, hogy megtekintse a tartózkodási helyszínemet a térképen.\n\nKöszönöm!</string>
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Megosztás</string>
     <!-- Share by email button text, also used in editor and About. -->
@@ -205,7 +205,7 @@
     <string name="tracks_title">Nyomvonalak</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Hossz</string>
-    <string name="share_my_location">Saját helyzet megosztása</string>
+    <string name="share_my_location">Saját tartózkodási helyszín megosztása</string>
     <!-- Settings information group in settings screen -->
     <string name="prefs_group_information">Információk</string>
     <string name="prefs_group_route">Navigáció</string>
@@ -307,7 +307,7 @@
     <!-- Text for routing error dialog -->
     <string name="routing_not_enough_space">Nincs elegendő tárhely</string>
     <!-- location service disabled -->
-    <string name="enable_location_services">Kapcsolja be a helyzetmeghatározási szolgáltatást</string>
+    <string name="enable_location_services">Kapcsolja be a helymeghatározási szolgáltatást</string>
     <string name="save">Mentés</string>
     <string name="create">létrehozás</string>
     <!-- red color -->
@@ -593,7 +593,7 @@
     <string name="bookmark_lists_show_all">Összes megjelenítése</string>
     <plurals name="bookmarks_places">
         <item quantity="one">%d könyvjelző</item>
-        <item quantity="other">%d könyvjelzők</item>
+        <item quantity="other">%d könyvjelző</item>
     </plurals>
     <string name="bookmarks_create_new_group">Új lista létrehozása</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
@@ -650,7 +650,7 @@
     <string name="power_managment_setting_never">Soha</string>
     <string name="power_managment_setting_auto">Amikor az akkumulátor lemerül</string>
     <string name="power_managment_setting_manual_max">Mindig</string>
-    <string name="enable_logging_warning_message">Ha ideiglenesen engedélyezi ezt az opciót, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.</string>
+    <string name="enable_logging_warning_message">Ha ideiglenesen engedélyezi ezt a beállítást, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.</string>
     <string name="access_rules_author_only">Szerkesztés online</string>
     <string name="driving_options_title">Útvonaltervezési beállítások</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -734,7 +734,7 @@
     <string name="elevation_profile_time">Idő:</string>
     <string name="isolines_toast_zooms_1_10">Nagyítás az izovonalak felfedezéséhez</string>
     <string name="downloader_loading_ios">Letöltés</string>
-    <string name="enable_keep_screen_on">Tartsa a képernyőt bekapcsolva</string>
+    <string name="enable_keep_screen_on">Képernyő bekapcsolva tartása</string>
     <!-- Description in preferences -->
     <string name="enable_keep_screen_on_description">Ha engedélyezve van, a képernyő mindig be lesz kapcsolva a térkép megjelenítésekor.</string>
     <!-- A preference title; keep short! -->
@@ -825,7 +825,7 @@
     <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
     <string name="continue_recording">Rögzítés folytatása</string>
     <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Elmenti a könyvjelzők és nyomvonalakba?</string>
+    <string name="track_recording_alert_title">Menti a könyvjelzők és nyomvonalakba?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">A nyomvonal üres – nincs mit menteni</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -852,7 +852,7 @@
     <string name="opens_in">Kinyit %s múlva</string>
     <string name="mb">MB</string>
     <string name="gb">GB</string>
-    <string name="current_location_unknown_error_title">A jelenlegi helyzet ismeretlen.</string>
+    <string name="current_location_unknown_error_title">A jelenlegi tartózkodási helyszín ismeretlen.</string>
     <string name="disk_error">Nem lehet mappát létrehozni és fájlokat áthelyezni az eszköz belső memóriájában vagy az SD-kártyán</string>
     <string name="disk_error_title">Lemezhiba</string>
     <string name="twitter">X (Twitter)</string>
@@ -873,5 +873,5 @@
     <string name="error_enter_correct_facebook_page">Adjon meg egy érvényes Facebook-webcímet, fiók- vagy oldalnevet</string>
     <string name="error_enter_correct_twitter_page">Adjon meg egy érvényes X (Twitter) felhasználónevet vagy webcímet</string>
     <string name="error_enter_correct_instagram_page">Adjon meg egy érvényes Instagram felhasználónevet vagy webcímet</string>
-    <string name="saved">Elmentve</string>
+    <string name="saved">Mentve</string>
 </resources>

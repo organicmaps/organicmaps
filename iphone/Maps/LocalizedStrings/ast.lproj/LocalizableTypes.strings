@@ -434,3 +434,16 @@
 "type.railway.subway.bridge" = "Ponte de la llinia del metro";
 "type.railway.subway.tunnel" = "Túnel de la llinia del metro";
 "type.entrance.exit" = "Salida";
+"type.highway.residential.area" = "Cai urbana";
+"type.area_highway.residential" = "Cai urbana";
+"type.aeroway.terminal" = "Terminal";
+"type.highway.service.driveway" = "Entrada vehicular";
+"type.amenity.parking_entrance" = "Entrada al aparcaderu";
+"type.amenity.parking_entrance.private" = "Entrada al aparcaderu priváu";
+"type.amenity.parking_entrance.permissive" = "Entrada al aparcaderu";
+"type.amenity.bicycle_parking.covered" = "Aparcaderu pa bicicletes atecháu";
+"type.sport.archery" = "Tiru con arcu";
+"type.sport.athletics" = "Atletismu";
+"type.sport.equestrian" = "Deportes ecuestres";
+"type.sport" = "Deporte";
+"type.highway.services" = "Área de servicios";

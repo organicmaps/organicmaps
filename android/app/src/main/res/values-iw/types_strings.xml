@@ -127,7 +127,6 @@
     <string name="type.amenity.prison">בית כלא</string>
     <string name="type.amenity.pub">פאב</string>
     <string name="type.amenity.public_bookcase">כוננית ספרים ציבורית</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">מרכז מיחזור</string>
     <string name="type.amenity.recycling">מיכל מיחזור</string>
@@ -370,7 +369,6 @@
     <string name="type.healthcare.psychotherapist">פסיכותרפיה</string>
     <string name="type.healthcare.sample_collection">מרכז איסוף דגימות</string>
     <string name="type.healthcare.speech_therapist">ריפוי בדיבור</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">כביש</string>
     <string name="type.highway.bridleway">שביל סוסים</string>
@@ -536,7 +534,6 @@
     <string name="type.area_highway.track">מסלול</string>
     <string name="type.area_highway.trunk">כביש בין עירוני</string>
     <string name="type.area_highway.unclassified">כביש לא מסומן/מזערי</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">חפץ היסטורי</string>
     <string name="type.historic.aircraft">מטוס היסטורי</string>
