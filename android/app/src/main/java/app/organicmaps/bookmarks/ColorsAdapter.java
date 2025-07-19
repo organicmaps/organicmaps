@@ -8,15 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import app.organicmaps.R;
-import app.organicmaps.sdk.bookmarks.data.Icon;
+import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import app.organicmaps.util.Graphics;
 import java.util.List;
+import java.util.Objects;
 
-public class IconsAdapter extends ArrayAdapter<Icon>
+public class ColorsAdapter extends ArrayAdapter<Integer>
 {
+  @PredefinedColors.Color
   private int mCheckedIconColor;
 
-  public IconsAdapter(Context context, List<Icon> list)
+  public ColorsAdapter(Context context, List<Integer> list)
   {
     super(context, 0, 0, list);
   }
@@ -35,19 +37,20 @@ public class IconsAdapter extends ArrayAdapter<Icon>
     else
       holder = (SpinnerViewHolder) convertView.getTag();
 
-    final Icon icon = getItem(position);
+    @PredefinedColors.Color
+    final int color = Objects.requireNonNull(getItem(position));
 
     Drawable circle;
-    if (icon.getColor() == mCheckedIconColor)
+    if (color == mCheckedIconColor)
     {
-      circle = Graphics.drawCircleAndImage(getItem(position).argb(), R.dimen.track_circle_size,
+      circle = Graphics.drawCircleAndImage(PredefinedColors.getColor(mCheckedIconColor), R.dimen.track_circle_size,
                                            app.organicmaps.sdk.R.drawable.ic_bookmark_none, R.dimen.bookmark_icon_size,
                                            getContext());
     }
     else
     {
-      circle =
-          Graphics.drawCircle(getItem(position).argb(), R.dimen.select_color_circle_size, getContext().getResources());
+      circle = Graphics.drawCircle(PredefinedColors.getColor(color), R.dimen.select_color_circle_size,
+                                   getContext().getResources());
     }
     holder.icon.setImageDrawable(circle);
     return convertView;
