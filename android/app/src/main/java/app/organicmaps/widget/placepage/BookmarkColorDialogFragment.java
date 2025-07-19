@@ -9,9 +9,8 @@ import android.widget.GridView;
 import androidx.annotation.NonNull;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
-import app.organicmaps.bookmarks.IconsAdapter;
-import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.bookmarks.data.Icon;
+import app.organicmaps.bookmarks.ColorsAdapter;
+import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.List;
 
@@ -19,11 +18,12 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
 {
   public static final String ICON_TYPE = "ExtraIconType";
 
+  @PredefinedColors.Color
   private int mIconColor;
 
   public interface OnBookmarkColorChangeListener
   {
-    void onBookmarkColorSet(int colorPos);
+    void onBookmarkColorSet(@PredefinedColors.Color int color);
   }
 
   private OnBookmarkColorChangeListener mColorSetListener;
@@ -49,19 +49,20 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
     mColorSetListener = listener;
   }
 
+  @NonNull
   private View buildView()
   {
-    final List<Icon> icons = BookmarkManager.ICONS;
-    final IconsAdapter adapter = new IconsAdapter(requireActivity(), icons);
+    final List<Integer> colors = PredefinedColors.getAllPredefinedColors();
+    final ColorsAdapter adapter = new ColorsAdapter(requireActivity(), colors);
     adapter.chooseItem(mIconColor);
 
     @SuppressLint("InflateParams")
     final GridView gView =
         (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
     gView.setAdapter(adapter);
-    gView.setOnItemClickListener((arg0, who, pos, id) -> {
+    gView.setOnItemClickListener((parent, view, predefinedColor, id) -> {
       if (mColorSetListener != null)
-        mColorSetListener.onBookmarkColorSet(pos);
+        mColorSetListener.onBookmarkColorSet(predefinedColor);
       dismiss();
     });
 

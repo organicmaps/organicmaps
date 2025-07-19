@@ -532,16 +532,10 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetTrack(
 
   ASSERT(nTrack, ("Track must not be null with id:)", trackId));
 
-  dp::Color nColor = nTrack->GetColor(0);
-
-  jint androidColor = shift(nColor.GetAlpha(), 24) +
-                      shift(nColor.GetRed(), 16) +
-                      shift(nColor.GetGreen(), 8) +
-                      nColor.GetBlue();
-
-  return env->NewObject(trackClazz, cId,
-                        trackId, static_cast<jlong>(nTrack->GetGroupId()), jni::ToJavaString(env, nTrack->GetName()),
-                        ToJavaDistance(env, platform::Distance::CreateFormatted(nTrack->GetLengthMeters())), androidColor);
+  return env->NewObject(trackClazz, cId, trackId, static_cast<jlong>(nTrack->GetGroupId()),
+                        jni::ToJavaString(env, nTrack->GetName()),
+                        ToJavaDistance(env, platform::Distance::CreateFormatted(nTrack->GetLengthMeters())),
+                        nTrack->GetColor(0).GetARGB());
 }
 
 JNIEXPORT jlong JNICALL

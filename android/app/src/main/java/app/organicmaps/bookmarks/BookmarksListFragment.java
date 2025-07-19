@@ -36,6 +36,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.CategoryDataSource;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.bookmarks.data.KmlFileType;
+import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import app.organicmaps.sdk.bookmarks.data.SortedBlock;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.search.BookmarkSearchListener;
@@ -592,7 +593,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (mTrack == null)
       return;
     final Bundle args = new Bundle();
-    args.putInt(BookmarkColorDialogFragment.ICON_TYPE, Icon.getColorPosition(mTrack.getColor()));
+    args.putInt(BookmarkColorDialogFragment.ICON_TYPE, PredefinedColors.getPredefinedColorIndex(mTrack.getColor()));
     final FragmentManager manager = getChildFragmentManager();
     String className = BookmarkColorDialogFragment.class.getName();
     final FragmentFactory factory = manager.getFragmentFactory();
@@ -601,7 +602,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     dialogFragment.setArguments(args);
     dialogFragment.setOnColorSetListener((colorPos) -> {
       int from = mTrack.getColor();
-      int to = BookmarkManager.ICONS.get(colorPos).argb();
+      int to = PredefinedColors.getColor(colorPos);
       if (from == to)
         return;
       BookmarkManager.INSTANCE.changeTrackColor(mTrack.getTrackId(), to);
