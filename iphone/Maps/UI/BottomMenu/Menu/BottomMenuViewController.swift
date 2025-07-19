@@ -27,18 +27,10 @@ class BottomMenuViewController: MWMViewController {
     
     tableView.layer.setCornerRadius(.buttonDefault, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
     tableView.sectionFooterHeight = 0
-    
     tableView.dataSource = presenter
     tableView.delegate = presenter
     tableView.registerNib(cell: BottomMenuItemCell.self)
     tableView.registerNib(cell: BottomMenuLayersCell.self)
-  }
-
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    if let cellToHighlight = presenter?.cellToHighlightIndexPath() {
-      tableView.cellForRow(at: cellToHighlight)?.highlight()
-    }
   }
 
   override func viewDidLayoutSubviews() {

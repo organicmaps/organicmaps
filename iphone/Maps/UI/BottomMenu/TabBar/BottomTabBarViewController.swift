@@ -2,11 +2,18 @@
 private let kUDDidShowFirstTimeRoutingEducationalHint = "kUDDidShowFirstTimeRoutingEducationalHint"
 
 class BottomTabBarViewController: UIViewController {
+
+  private enum Constants {
+    static let blinkingDuration = 1.0
+    static let color: (lighter: UIColor, darker: UIColor) = (.red, .red.darker(percent: 0.3))
+  }
+
   var presenter: BottomTabBarPresenterProtocol!
   
   @IBOutlet var searchButton: MWMButton!
   @IBOutlet var helpButton: MWMButton!
   @IBOutlet var bookmarksButton: MWMButton!
+  @IBOutlet var trackRecordingButton: BottomTabBarButton!
   @IBOutlet var moreButton: MWMButton!
   @IBOutlet var downloadBadge: UIView!
   @IBOutlet var helpBadge: UIView!
@@ -22,9 +29,19 @@ class BottomTabBarViewController: UIViewController {
       updateBadge()
     }
   }
+  var trackRecordingState: TrackRecordingState = .inactive {
+    didSet {
+      guard trackRecordingState != oldValue else { return }
+      updateTrackRecordingButton()
+    }
+  }
+
+  private var trackRecordingBlinkTimer: Timer?
+
   var tabBarView: BottomTabBarView {
     return view as! BottomTabBarView
   }
+
   @objc static var controller: BottomTabBarViewController? {
     return MWMMapViewControlsManager.manager()?.tabBarController
   }
@@ -42,7 +59,7 @@ class BottomTabBarViewController: UIViewController {
     }
     updateBadge()
   }
-  
+
   static func updateAvailableArea(_ frame: CGRect) {
     BottomTabBarViewController.controller?.updateAvailableArea(frame)
   }
@@ -62,6 +79,10 @@ class BottomTabBarViewController: UIViewController {
   
   @IBAction func onBookmarksButtonPressed(_ sender: Any) {
     presenter.onBookmarksButtonPressed()
+  }
+
+  @IBAction func onTrackRecordingButtonPressed(_ sender: Any) {
+    presenter.onTrackRecordingButtonPressed()
   }
   
   @IBAction func onMenuButtonPressed(_ sender: Any) {
@@ -100,6 +121,23 @@ class BottomTabBarViewController: UIViewController {
   private func updateBadge() {
     downloadBadge.isHidden = isApplicationBadgeHidden
     helpBadge.isHidden = !needsToShowHelpBadge()
+  }
+
+  private func updateTrackRecordingButton() {
+    if trackRecordingState == .active {
+      var lighter = false
+      trackRecordingBlinkTimer?.invalidate()
+      trackRecordingBlinkTimer = Timer.scheduledTimer(withTimeInterval: Constants.blinkingDuration, repeats: true) { [weak self] _ in
+        UIView.animate(withDuration: Constants.blinkingDuration, animations: {
+          self?.trackRecordingButton.tintColor = lighter ? Constants.color.lighter : Constants.color.darker
+          lighter.toggle()
+        })
+      }
+    } else {
+      trackRecordingBlinkTimer?.invalidate()
+      trackRecordingBlinkTimer = nil
+      trackRecordingButton.coloring = .black
+    }
   }
 }
 

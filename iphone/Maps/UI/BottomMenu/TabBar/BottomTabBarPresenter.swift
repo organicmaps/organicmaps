@@ -3,6 +3,7 @@ protocol BottomTabBarPresenterProtocol: AnyObject {
   func onSearchButtonPressed()
   func onHelpButtonPressed(withBadge: Bool)
   func onBookmarksButtonPressed()
+  func onTrackRecordingButtonPressed()
   func onMenuButtonPressed()
 }
 
@@ -16,6 +17,7 @@ class BottomTabBarPresenter: NSObject {
 
 extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
   func configure() {
+    interactor.startObservingTrackRecordingState()
   }
 
   func onSearchButtonPressed() {
@@ -28,6 +30,10 @@ extension BottomTabBarPresenter: BottomTabBarPresenterProtocol {
 
   func onBookmarksButtonPressed() {
     interactor.openBookmarks()
+  }
+
+  func onTrackRecordingButtonPressed() {
+    interactor.openTrackRecorder()
   }
 
   func onMenuButtonPressed() {
