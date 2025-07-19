@@ -28,6 +28,7 @@ namespace df
 {
 int constexpr kTransitSchemeMinZoomLevel = 10;
 float constexpr kTransitLineHalfWidth = 0.8f;
+float constexpr kTransitLineCasingHalfWidth = 0.5f;
 std::array<float, 20> constexpr kTransitLinesWidthInPixel =
 {
   // 1   2     3     4     5     6     7     8     9    10
@@ -38,6 +39,7 @@ std::array<float, 20> constexpr kTransitLinesWidthInPixel =
 
 namespace
 {
+float constexpr kCasingLineDepth = -1.0f;
 float constexpr kBaseLineDepth = 0.0f;
 float constexpr kDepthPerLine = 1.0f;
 float constexpr kBaseMarkerDepth = 300.0f;
@@ -57,6 +59,8 @@ std::string const kTransitMarkTextOutline = "TransitMarkPrimaryTextOutline";
 std::string const kTransitTransferOuterColor = "TransitTransferOuterMarker";
 std::string const kTransitTransferInnerColor = "TransitTransferInnerMarker";
 std::string const kTransitStopInnerColor = "TransitStopInnerMarker";
+/// @todo(pastk): make the casing color configurable in styles.
+auto const kCasingColor = dp::Color(255, 255, 255, 140);
 
 float constexpr kTransitMarkTextSize = 11.0f;
 
@@ -429,7 +433,7 @@ void TransitSchemeBuilder::GenerateLinesSubway(MwmSchemeData const & scheme, dp:
         shape.second.m_forwardLines.size() + shape.second.m_backwardLines.size();
     float shapeOffset =
         -static_cast<float>(linesCount / 2) * 2.0f - static_cast<float>(linesCount % 2) + 1.0f;
-    size_t constexpr shapeOffsetIncrement = 2.0f;
+    float constexpr shapeOffsetIncrement = 2.0f;
 
     std::vector<std::pair<dp::Color, routing::transit::LineId>> coloredLines;
 
@@ -458,6 +462,8 @@ void TransitSchemeBuilder::GenerateLinesSubway(MwmSchemeData const & scheme, dp:
 
       GenerateLine(context, shape.second.m_polyline, scheme.m_pivot, colorConst, shapeOffset,
                    kTransitLineHalfWidth, depth, batcher);
+      GenerateLine(context, shape.second.m_polyline, scheme.m_pivot, kCasingColor, shapeOffset,
+                   kTransitLineHalfWidth + kTransitLineCasingHalfWidth, kCasingLineDepth, batcher);
 
       shapeOffset += shapeOffsetIncrement;
     }
@@ -1127,8 +1133,7 @@ void TransitSchemeBuilder::GenerateLine(ref_ptr<dp::GraphicsContext> context,
   using TV = TransitStaticVertex;
 
   TGeometryBuffer geometry;
-  auto const color = glsl::vec4(colorConst.GetRedF(), colorConst.GetGreenF(), colorConst.GetBlueF(),
-                                1.0f /* alpha */);
+  auto const color = glsl::vec4(colorConst.GetRedF(), colorConst.GetGreenF(), colorConst.GetBlueF(), colorConst.GetAlphaF());
   size_t const kAverageSize = path.size() * 6;
   size_t const kAverageCapSize = 12;
   geometry.reserve(kAverageSize + kAverageCapSize * 2);
