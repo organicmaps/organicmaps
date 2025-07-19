@@ -25,7 +25,7 @@
 "type.highway.track" = "Pista";
 "type.highway.trunk.tunnel" = "Túnel";
 "type.highway.trunk_link" = "Enlace de vía troncal";
-"type.area_highway.residential" = "Rúa residencial";
+"type.area_highway.residential" = "Rúa urbana";
 "type.historic.citywalls" = "Muralla";
 "type.historic.fort" = "Forte";
 "type.hwtag.nobicycle" = "hwtag-nobicycle";
@@ -504,8 +504,8 @@
 "type.highway.primary_link.bridge" = "Puente";
 "type.highway.primary_link.tunnel" = "Túnel";
 "type.highway.raceway" = "Circuito";
-"type.highway.residential" = "Cale residencial";
-"type.highway.residential.area" = "Rúa residencial";
+"type.highway.residential" = "Rúa urbana";
+"type.highway.residential.area" = "Rúa urbana";
 "type.highway.residential.bridge" = "Puente";
 "type.highway.residential.tunnel" = "Túnel de rúa residencial";
 "type.highway.rest_area" = "Área de descanso";
@@ -522,7 +522,7 @@
 "type.highway.service" = "Vía de servizo";
 "type.highway.service.area" = "Vía de servizo";
 "type.highway.service.bridge" = "Puente de estrada de servizo";
-"type.highway.service.driveway" = "Vía de servizo";
+"type.highway.service.driveway" = "Entrada vehicular";
 "type.highway.service.parking_aisle" = "Corredor de estacionamento";
 "type.highway.service.tunnel" = "Túnel de vía de servizo";
 "type.highway.services" = "Área de servizo";
@@ -1307,3 +1307,4 @@
 "type.sport.diving" = "Mergullo";
 "type.man_made.crane" = "Guindastre";
 "type.railway.station.subway.qingdao" = "Estación de metro";
+"type.amenity.bicycle_parking.covered" = "Aparcamento de bicicletas teitado";

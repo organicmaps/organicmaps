@@ -32,6 +32,8 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
+			<key>zero</key>
+			<string>файлов не найдено.</string>
 			<key>one</key>
 			<string>%d файл был найден. Вы увидите его после конвертации.</string>
 			<key>few</key>
