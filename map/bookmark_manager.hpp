@@ -2,7 +2,6 @@
 
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
-#include "map/elevation_info.hpp"
 #include "map/track.hpp"
 #include "map/user_mark_layer.hpp"
 
@@ -162,7 +161,7 @@ public:
     void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
     void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,
                                    std::string const & value);
-    
+
     /// Removes the category from the list of categories and deletes the related file.
     /// @param permanently If true, the file will be removed from the disk. If false, the file will be marked as deleted and moved into a trash.
     bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
@@ -269,7 +268,7 @@ public:
 
   kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
-  void UpdateBookmarkCategory(kml::MarkGroupId & groupId, kml::CategoryData && data, bool autoSave);
+  void UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data, bool autoSave);
 
   BookmarkCategory * CreateBookmarkCompilation(kml::CategoryData && data);
 
@@ -378,7 +377,7 @@ public:
 
   bool HasRecentlyDeletedBookmark() const { return m_recentlyDeletedBookmark.operator bool(); };
   void ResetRecentlyDeletedBookmark();
-  
+
   size_t GetRecentlyDeletedCategoriesCount() const;
   BookmarkManager::KMLDataCollectionPtr GetRecentlyDeletedCategories();
   bool IsRecentlyDeletedCategory(std::string const & filePath) const;
