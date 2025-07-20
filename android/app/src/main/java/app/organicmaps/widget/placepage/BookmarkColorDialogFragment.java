@@ -60,9 +60,9 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
     final GridView gView =
         (GridView) LayoutInflater.from(requireActivity()).inflate(R.layout.fragment_color_grid, null);
     gView.setAdapter(adapter);
-    gView.setOnItemClickListener((parent, view, predefinedColor, id) -> {
+    gView.setOnItemClickListener((parent, view, pos, id) -> {
       if (mColorSetListener != null)
-        mColorSetListener.onBookmarkColorSet(predefinedColor);
+        mColorSetListener.onBookmarkColorSet(adapter.getItem(pos));
       dismiss();
     });
 
