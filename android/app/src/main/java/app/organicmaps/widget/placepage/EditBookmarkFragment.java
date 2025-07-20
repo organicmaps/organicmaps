@@ -305,9 +305,12 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
     final Bundle args = new Bundle();
     if (mTrack != null)
-      args.putInt(BookmarkColorDialogFragment.ICON_TYPE, PredefinedColors.getPredefinedColorIndex(mColor));
+      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(mColor));
     else
-      args.putInt(BookmarkColorDialogFragment.ICON_TYPE, mIcon.getColor());
+    {
+      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, mIcon.getColor());
+      args.putInt(BookmarkColorDialogFragment.ICON_RES, mIcon.getResId());
+    }
     final FragmentManager manager = getChildFragmentManager();
     String className = BookmarkColorDialogFragment.class.getName();
     final FragmentFactory factory = manager.getFragmentFactory();
@@ -321,7 +324,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
           if (mIcon != null && mIcon.getColor() == colorPos)
             return;
 
-          mIcon = new Icon(colorPos);
+          mIcon = new Icon(colorPos, mIcon.getType());
           refreshColorMarker();
         });
       case TYPE_TRACK ->
@@ -342,9 +345,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   {
     if (mIcon != null)
     {
-      Drawable circle = Graphics.drawCircleAndImage(mIcon.argb(), R.dimen.track_circle_size,
-                                                    app.organicmaps.sdk.R.drawable.ic_bookmark_none,
-                                                    R.dimen.bookmark_icon_size, requireContext());
+      final Drawable circle = Graphics.drawCircleAndImage(mIcon.argb(), R.dimen.track_circle_size, mIcon.getResId(),
+                                                          R.dimen.bookmark_icon_size, requireContext());
       mIvColor.setImageDrawable(circle);
     }
   }

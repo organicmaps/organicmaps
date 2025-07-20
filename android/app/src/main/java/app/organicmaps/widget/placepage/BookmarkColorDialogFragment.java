@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmDialogFragment;
@@ -16,10 +17,14 @@ import java.util.List;
 
 public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
 {
-  public static final String ICON_TYPE = "ExtraIconType";
+  public static final String ICON_COLOR = "ExtraIconColor";
+  public static final String ICON_RES = "ExtraIconRes";
 
   @PredefinedColors.Color
   private int mIconColor;
+
+  @DrawableRes
+  private int mIconResId = app.organicmaps.sdk.R.drawable.ic_bookmark_none;
 
   public interface OnBookmarkColorChangeListener
   {
@@ -35,7 +40,12 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     if (getArguments() != null)
-      mIconColor = getArguments().getInt(ICON_TYPE);
+    {
+      if (getArguments().containsKey(ICON_COLOR))
+        mIconColor = getArguments().getInt(ICON_COLOR);
+      if (getArguments().containsKey(ICON_RES))
+        mIconResId = getArguments().getInt(ICON_RES);
+    }
 
     return new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
         .setView(buildView())
@@ -53,7 +63,7 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
   private View buildView()
   {
     final List<Integer> colors = PredefinedColors.getAllPredefinedColors();
-    final ColorsAdapter adapter = new ColorsAdapter(requireActivity(), colors);
+    final ColorsAdapter adapter = new ColorsAdapter(requireActivity(), colors, mIconResId);
     adapter.chooseItem(mIconColor);
 
     @SuppressLint("InflateParams")
