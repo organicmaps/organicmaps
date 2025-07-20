@@ -274,20 +274,16 @@ dependencies {
 
   // Google Play Location Services
   //
-  // Please add symlinks to google/java/app/organicmaps/location and google/java/app/organicmaps/sync for each new gms-enabled flavor below:
+  // Please add symlinks to google/java/app/organicmaps/location for each new gms-enabled flavor below:
   // ```
-  // mkdir -p src/$flavor/java/app/organicmaps/sdk/
-  // ln -sf ../../../../../google/java/app/organicmaps/sdk/location src/$flavor/java/app/organicmaps/sdk/
-  // ln -sf ../../../../google/java/app/organicmaps/sync src/$flavor/java/app/organicmaps/
-  // ls -la src/$flavor/java/app/organicmaps/sdk/location/GoogleFusedLocationProvider.java
+  // mkdir -p src/$flavor/java/app/organicmaps/
+  // ln -sf ../../../../google/java/app/organicmaps/location src/$flavor/java/app/organicmaps/
+  // ls -la src/$flavor/java/app/organicmaps/location/GoogleFusedLocationProvider.java
   // ```
   //
   webImplementation 'com.google.android.gms:play-services-location:21.3.0'
   googleImplementation 'com.google.android.gms:play-services-location:21.3.0'
   huaweiImplementation 'com.google.android.gms:play-services-location:21.3.0'
-  webImplementation 'com.google.android.gms:play-services-auth:21.3.0'
-  googleImplementation 'com.google.android.gms:play-services-auth:21.3.0'
-  huaweiImplementation 'com.google.android.gms:play-services-auth:21.3.0'
   // This is the microG project's re-implementation which is permissible on
   // F-droid because it's Apache-2.0.
   fdroidImplementation 'org.microg.gms:play-services-location:0.3.6.244735'
