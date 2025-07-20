@@ -2,7 +2,7 @@
 
 #include <jni.h>
 
-namespace predefined_colors
+namespace icon
 {
 jint registerNativeMethods(JNIEnv * env);
-}  // namespace predefined_colors
+}  // namespace icon

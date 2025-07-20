@@ -145,7 +145,6 @@ inline std::string DebugPrint(CompilationType compilationType)
   UNREACHABLE();
 }
 
-/// @note Important! Should be synced with android/app/src/main/java/app/organicmaps/bookmarks/data/Icon.java
 enum class BookmarkIcon : uint16_t
 {
   None = 0,

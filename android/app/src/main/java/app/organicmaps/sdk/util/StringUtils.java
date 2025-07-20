@@ -11,6 +11,10 @@ import java.util.Locale;
 
 public class StringUtils
 {
+  public static String toSnakeCase(String input)
+  {
+    return input.replaceAll("([a-z])([A-Z]+)", "$1_$2").toLowerCase();
+  }
   public static String formatUsingUsLocale(String pattern, Object... args)
   {
     return String.format(Locale.US, pattern, args);
