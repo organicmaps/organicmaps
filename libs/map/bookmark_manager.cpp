@@ -13,8 +13,6 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
-#include "indexer/classificator.hpp"
-
 #include "geometry/mercator.hpp"
 
 #include "coding/file_reader.hpp"
@@ -31,7 +29,6 @@
 #include <algorithm>
 #include <chrono>
 #include <limits>
-#include <sstream>
 #include <unordered_map>
 
 namespace
@@ -622,6 +619,13 @@ void BookmarkManager::NotifyChanges(bool saveChangesOnDisk)
     engine->InvalidateUserMarks();
     m_drapeChangesTracker.ResetChanges();
   }
+}
+
+void BookmarkManager::UpdateBookmarksTextPlacement()
+{
+  df::DrapeEngineLockGuard lock(m_drapeEngine);
+  if (lock)
+    lock.Get()->UpdateBookmarksTextPlacement(&m_drapeChangesTracker);
 }
 
 kml::MarkIdSet const & BookmarkManager::GetUserMarkIds(kml::MarkGroupId groupId) const
