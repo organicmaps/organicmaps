@@ -318,7 +318,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     {
       case TYPE_BOOKMARK ->
         dialogFragment.setOnColorSetListener(colorPos -> {
-          if (mIcon != null & mIcon.getColor() == colorPos)
+          if (mIcon != null && mIcon.getColor() == colorPos)
             return;
 
           mIcon = new Icon(colorPos);
