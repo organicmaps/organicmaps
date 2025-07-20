@@ -5159,7 +5159,8 @@ zh-Hans:摩托车租赁
 zh-Hant:摩托車租賃
 
 amenity-cinema|@category_entertainment
-en:3Cinema|U+1F3A6|U+1F3AC
+en:3Cinema|Film|U+1F3A6|U+1F3AC|
+en-US:Theater|Movie Theater
 ru:Кинотеатр|3кино
 bg:3Кино|кинотеатър|филм|прожекция
 ar:سينما
@@ -10134,7 +10135,7 @@ mr:इमारत|बिल्डिंग|वाडा
 
 # First keyword should match [police] definition in strings.txt!
 @category_police
-en:4Police
+en:4Police|Cop
 ru:4Полиция|милиция
 be:4Паліцыя|міліція
 bg:4Полиция
