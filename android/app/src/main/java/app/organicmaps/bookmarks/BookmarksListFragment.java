@@ -593,7 +593,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
     if (mTrack == null)
       return;
     final Bundle args = new Bundle();
-    args.putInt(BookmarkColorDialogFragment.ICON_TYPE, PredefinedColors.getPredefinedColorIndex(mTrack.getColor()));
+    args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(mTrack.getColor()));
     final FragmentManager manager = getChildFragmentManager();
     String className = BookmarkColorDialogFragment.class.getName();
     final FragmentFactory factory = manager.getFragmentFactory();
