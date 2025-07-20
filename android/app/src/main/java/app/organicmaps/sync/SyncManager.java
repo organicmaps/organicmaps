@@ -85,24 +85,14 @@ public enum SyncManager
 
     mSyncPrefs = SyncPrefs.getInstance(context);
     for (SyncAccount account : mSyncPrefs.getEnabledAccounts())
-    {
-      if (account.getBackendType() == BackendType.GoogleDrive)
-        Toast.makeText(context, "Google Drive sync won't work yet. TODO", Toast.LENGTH_LONG)
-            .show(); // TODO write the client and remove the check.
-      else
-        mSyncers.put(account, new Syncer(context, account));
-    }
+      mSyncers.put(account, new Syncer(context, account));
 
     final Context appContext = context.getApplicationContext();
     mSyncPrefs.registerAccountToggledCallback(new SyncPrefs.AccountToggledCallback() {
       @Override
       public void onAccountEnabled(SyncAccount account)
       {
-        if (account.getBackendType() == BackendType.GoogleDrive)
-          Toast.makeText(context, "Google Drive sync won't work yet. TODO", Toast.LENGTH_LONG)
-              .show(); // TODO write the client and remove the check.
-        else
-          mSyncers.put(account, new Syncer(appContext, account));
+        mSyncers.put(account, new Syncer(appContext, account));
       }
 
       @Override

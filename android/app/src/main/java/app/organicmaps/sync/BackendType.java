@@ -1,7 +1,6 @@
 package app.organicmaps.sync;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import androidx.appcompat.content.res.AppCompatResources;
 import app.organicmaps.R;
@@ -34,35 +33,6 @@ public enum BackendType implements SyncBackend
     public void login(Context context)
     {
       NextcloudLoginHelper.login(context);
-    }
-  },
-  GoogleDrive {
-    @Override
-    public int getId()
-    {
-      return 1;
-    }
-
-    @Override
-    public String getDisplayName(Context context)
-    {
-      return context.getString(R.string.google_drive);
-    }
-
-    @Override
-    public Drawable getIcon(Context context)
-    {
-      return AppCompatResources.getDrawable(context, R.drawable.ic_google_drive);
-    }
-
-    @Override
-    public void login(Context context)
-    {
-      context.startActivity(
-        new Intent(context, GoogleLoginActivity.class)
-        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION)
-        .putExtra(GoogleLoginActivity.EXTRA_DO_AUTH, true)
-      );
     }
   };
 

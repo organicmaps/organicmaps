@@ -43,7 +43,6 @@ public class SyncAccount
     return switch (Objects.requireNonNull(BackendType.idToBackendType.get(mBackendTypeId)))
     {
       case Nextcloud -> new NextcloudSyncClient((NextcloudAuth) mAuthState);
-      case GoogleDrive -> throw new RuntimeException("TODO implement");
     };
   }
 
@@ -53,7 +52,6 @@ public class SyncAccount
     AuthState authState = switch (Objects.requireNonNull(BackendType.idToBackendType.get(backendType)))
     {
       case Nextcloud -> new NextcloudAuth(json.getJSONObject(KEY_AUTH_STATE));
-      case GoogleDrive -> new GoogleDriveAuth(json.getJSONObject(KEY_AUTH_STATE));
     };
     return new SyncAccount(json.getLong(KEY_ACCOUNT_ID), backendType, authState);
   }
