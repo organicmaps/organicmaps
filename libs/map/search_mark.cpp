@@ -4,7 +4,6 @@
 
 #include "drape_frontend/drape_engine.hpp"
 
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/platform.hpp"
@@ -357,11 +356,6 @@ float SearchMarkPoint::GetSymbolOpacity() const
 df::ColorConstant SearchMarkPoint::GetColorConstant() const
 {
   return kColorConstant;
-}
-
-drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
-{
-  return {};
 }
 
 int SearchMarkPoint::GetMinTitleZoom() const

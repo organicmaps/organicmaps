@@ -115,7 +115,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     mapLanguageComboBox->setMaxVisibleItems(10);
     StringUtf8Multilang::Languages const & supportedLanguages =
         StringUtf8Multilang::GetSupportedLanguages(/* includeServiceLangs */ false);
-    QStringList languagesList = QStringList();
+    QStringList languagesList;
     for (auto const & language : supportedLanguages)
       languagesList << QString::fromStdString(std::string(language.m_name));
 
@@ -131,6 +131,30 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     {
       auto const & mapLanguageCode = std::string(supportedLanguages[index].m_code);
       framework.SetMapLanguageCode(mapLanguageCode);
+    });
+  }
+
+  QLabel * bookmarksPlacementLabel = new QLabel("Bookmark's text placement");
+  QComboBox * bookmarksPlacementCB = new QComboBox();
+  {
+    using namespace settings;
+
+    QStringList lst;
+    for (int i = 0; i < static_cast<int>(Placement::Count); ++i)
+      lst << QString::fromStdString(ToString(static_cast<Placement>(i)));
+
+    bookmarksPlacementCB->addItems(lst);
+
+    Placement s;
+    if (Get(kBookmarksTextPlacement, s))
+      bookmarksPlacementCB->setCurrentText(QString::fromStdString(ToString(s)));
+    else
+      bookmarksPlacementCB->setCurrentIndex(0);
+
+    connect(bookmarksPlacementCB, &QComboBox::activated, [&framework](int index)
+    {
+      settings::Set(kBookmarksTextPlacement, static_cast<Placement>(index));
+      framework.UpdateBookmarksTextPlacement();
     });
   }
 
@@ -192,6 +216,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   finalLayout->addWidget(developerModeCheckBox);
   finalLayout->addWidget(mapLanguageLabel);
   finalLayout->addWidget(mapLanguageComboBox);
+  finalLayout->addWidget(bookmarksPlacementLabel);
+  finalLayout->addWidget(bookmarksPlacementCB);
   finalLayout->addWidget(nightModeRadioBox);
 #ifdef BUILD_DESIGNER
   finalLayout->addWidget(indexRegenCheckBox);

@@ -5,8 +5,6 @@
 
 #include "base/string_utils.hpp"
 
-#include <sstream>
-
 namespace
 {
 std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
@@ -100,6 +98,42 @@ void Bookmark::SetIsVisible(bool isVisible)
 {
   SetDirty();
   m_isVisible = isVisible;
+}
+
+drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Placement p) const
+{
+  if (p == settings::Placement::None)
+    return nullptr;
+
+  dp::TitleDecl title;
+  switch (p)
+  {
+  case settings::Placement::Right: title.m_anchor = dp::Left; break;
+  case settings::Placement::Bottom: title.m_anchor = dp::Top; break;
+  default: UNREACHABLE();
+  }
+
+  title.m_primaryTextFont.m_color = df::GetColorConstant(GetColorConstant());
+  title.m_primaryTextFont.m_outlineColor = dp::Color::White();
+  title.m_primaryTextFont.m_size = 11;  // most frequent font size in styles
+  title.m_primaryText = GetPreferredName();
+  title.m_primaryOffset.x = 1;
+
+  auto titles = make_unique_dp<TitlesInfo>();
+  titles->push_back(std::move(title));
+  return titles;
+}
+
+df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
+{
+  if (p == settings::Placement::None)
+    return df::DepthLayer::UserMarkLayer;
+
+  // Texts:
+  // - UserMarkLayer, aren't visible at all
+  // - RoutingMarkLayer, displaced by Feature's texts
+  // - SearchMarkLayer, overlapped with each other :)
+  return df::DepthLayer::SearchMarkLayer;
 }
 
 dp::Anchor Bookmark::GetAnchor() const
