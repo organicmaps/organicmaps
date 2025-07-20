@@ -2,7 +2,6 @@
 
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
-#include "map/elevation_info.hpp"
 #include "map/track.hpp"
 #include "map/user_mark_layer.hpp"
 
@@ -432,6 +431,8 @@ public:
 
   kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> points, std::string const & from,
                          std::string const & to);
+
+  void UpdateBookmarksTextPlacement();
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider

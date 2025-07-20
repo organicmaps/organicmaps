@@ -3,7 +3,6 @@
 #include "traffic/traffic_info.hpp"
 
 #include "drape_frontend/backend_renderer.hpp"
-#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/drape_engine_params.hpp"
 #include "drape_frontend/drape_hints.hpp"
@@ -23,12 +22,10 @@
 #include "transit/transit_display_info.hpp"
 
 #include "platform/location.hpp"
+#include "platform/placement_settings.hpp"
 
-#include "geometry/polyline2d.hpp"
 #include "geometry/screenbase.hpp"
 #include "geometry/triangle2d.hpp"
-
-#include "base/strings_bundle.hpp"
 
 #include <atomic>
 #include <functional>
@@ -145,8 +142,9 @@ public:
 
   void ClearUserMarksGroup(kml::MarkGroupId groupId);
   void ChangeVisibilityUserMarksGroup(kml::MarkGroupId groupId, bool isVisible);
-  void UpdateUserMarks(UserMarksProvider * provider, bool firstTime);
   void InvalidateUserMarks();
+  void UpdateBookmarksTextPlacement(UserMarksProvider * provider);
+  void UpdateUserMarks(UserMarksProvider * provider, bool firstTime);
 
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr);
   void SetRenderingDisabled(bool const destroySurface);
@@ -259,7 +257,7 @@ private:
 
   dp::DrapeID GenerateDrapeID();
 
-  static drape_ptr<UserMarkRenderParams> GenerateMarkRenderInfo(UserPointMark const * mark);
+  drape_ptr<UserMarkRenderParams> GenerateMarkRenderInfo(UserPointMark const * mark) const;
   static drape_ptr<UserLineRenderParams> GenerateLineRenderInfo(UserLineMark const * mark);
 
   drape_ptr<FrontendRenderer> m_frontend;
@@ -284,6 +282,8 @@ private:
   std::atomic<dp::DrapeID> m_drapeIdGenerator = 0;
 
   double m_startBackgroundTime = 0;
+
+  settings::Placement m_bookmarksTextPlacement = settings::Placement::None;
 
   friend class DrapeApi;
 };

@@ -12,7 +12,7 @@
 
 #include "indexer/feature_decl.hpp"
 
-#include "geometry/polyline2d.hpp"
+#include "platform/placement_settings.hpp"
 
 #include <vector>
 
@@ -58,14 +58,20 @@ public:
   kml::MarkId GetId() const { return m_id; }
   virtual kml::MarkGroupId GetGroupId() const = 0;
 
+  /// @todo Add/modify current functions if you have some new requirements ..
+  /// Probably, we can fix it by adding some type-based UM (Providers) processing.
   virtual m2::PointD const & GetPivot() const = 0;
   virtual m2::PointD GetPixelOffset() const = 0;
   virtual dp::Anchor GetAnchor() const = 0;
   virtual bool GetDepthTestEnabled() const = 0;
   virtual float GetDepth() const = 0;
-  virtual DepthLayer GetDepthLayer() const = 0;
   virtual bool IsVisible() const = 0;
+
+  virtual DepthLayer GetDepthLayer() const = 0;
   virtual drape_ptr<TitlesInfo> GetTitleDecl() const = 0;
+  virtual DepthLayer GetDepthLayerEx(settings::Placement) const { return GetDepthLayer(); }
+  virtual drape_ptr<TitlesInfo> GetTitleDeclEx(settings::Placement) const { return GetTitleDecl(); }
+
   virtual drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const = 0;
   virtual drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const = 0;
   virtual drape_ptr<SymbolSizes> GetSymbolSizes() const = 0;

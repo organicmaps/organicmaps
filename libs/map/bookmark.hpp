@@ -53,6 +53,9 @@ public:
   uint8_t GetScale() const;
   void SetScale(uint8_t scale);
 
+  drape_ptr<TitlesInfo> GetTitleDeclEx(settings::Placement p) const override;
+  df::DepthLayer GetDepthLayerEx(settings::Placement p) const override;
+
   dp::Anchor GetAnchor() const override;
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 
