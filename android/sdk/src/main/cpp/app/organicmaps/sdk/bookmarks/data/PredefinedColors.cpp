@@ -21,7 +21,7 @@ Java_app_organicmaps_sdk_bookmarks_data_PredefinedColors_nativeGetPredefinedColo
 
 namespace
 {
-JNINativeMethod const methods[] = {
+JNINativeMethod const predefinedColorsMethods[] = {
     {"nativeGetPredefinedColors", "()[I",
      reinterpret_cast<void *>(&Java_app_organicmaps_sdk_bookmarks_data_PredefinedColors_nativeGetPredefinedColors)},
 };
@@ -35,6 +35,6 @@ jint registerNativeMethods(JNIEnv * env)
   if (clazz == nullptr)
     return JNI_ERR;
 
-  return env->RegisterNatives(clazz, methods, std::size(methods));
+  return env->RegisterNatives(clazz, predefinedColorsMethods, std::size(predefinedColorsMethods));
 }
 }  // namespace predefined_colors
