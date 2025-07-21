@@ -21,6 +21,7 @@ import app.organicmaps.routing.NavigationService;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.countryinfo.CurrentCountryInfoManager;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationState;
@@ -84,6 +85,12 @@ public class MwmApplication extends Application implements Application.ActivityL
   public SensorHelper getSensorHelper()
   {
     return getOrganicMaps().getSensorHelper();
+  }
+
+  @NonNull
+  public CurrentCountryInfoManager getCurrentCountryInfoManager()
+  {
+    return getOrganicMaps().getCurrentCountryInfoManager();
   }
 
   @NonNull

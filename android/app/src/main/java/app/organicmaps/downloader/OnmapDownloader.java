@@ -6,12 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.countryinfo.CurrentCountryInfoManager;
+import app.organicmaps.sdk.countryinfo.OnCurrentCountryChangedListener;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.Config;
@@ -33,6 +36,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   private final TextView mSize;
   private final WheelProgressView mProgress;
   private final Button mButton;
+
+  @NonNull
+  private final CurrentCountryInfoManager mCountryInfoManager;
 
   private int mStorageSubscriptionSlot;
 
@@ -75,15 +81,12 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     }
   };
 
-  private final MapManager.CurrentCountryChangedListener mCountryChangedListener =
-      new MapManager.CurrentCountryChangedListener() {
-        @Override
-        public void onCurrentCountryChanged(String countryId)
-        {
-          mCurrentCountry = (TextUtils.isEmpty(countryId) ? null : CountryItem.fill(countryId));
-          updateState(true);
-        }
-      };
+  private final OnCurrentCountryChangedListener mCountryChangedListener = (countryInfo) ->
+  {
+    final String countryId = countryInfo.countryId();
+    mCurrentCountry = (TextUtils.isEmpty(countryId) ? null : CountryItem.fill(countryId));
+    updateState(true);
+  };
 
   public void updateState(boolean shouldAutoDownload)
   {
@@ -181,6 +184,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
   public OnmapDownloader(MwmActivity activity)
   {
     mActivity = activity;
+    mCountryInfoManager = MwmApplication.from(activity).getCurrentCountryInfoManager();
     mFrame = activity.findViewById(R.id.onmap_downloader);
     mParent = mFrame.findViewById(R.id.downloader_parent);
     mTitle = mFrame.findViewById(R.id.downloader_title);
@@ -240,7 +244,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       MapManager.nativeUnsubscribe(mStorageSubscriptionSlot);
       mStorageSubscriptionSlot = 0;
 
-      MapManager.nativeUnsubscribeOnCountryChanged();
+      mCountryInfoManager.removeListener(mCountryChangedListener);
     }
   }
 
@@ -250,7 +254,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     {
       mStorageSubscriptionSlot = MapManager.nativeSubscribe(mStorageCallback);
 
-      MapManager.nativeSubscribeOnCountryChanged(mCountryChangedListener);
+      mCountryInfoManager.addListener(mCountryChangedListener);
     }
   }
 

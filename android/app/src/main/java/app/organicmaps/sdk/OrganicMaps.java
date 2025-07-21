@@ -9,6 +9,8 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.countryinfo.CurrentCountryInfoManager;
+import app.organicmaps.sdk.countryinfo.CurrentCountryInfoManagerImpl;
 import app.organicmaps.sdk.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.location.LocationHelper;
@@ -48,6 +50,9 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   @NonNull
   private final SensorHelper mSensorHelper;
 
+  @NonNull
+  private final CurrentCountryInfoManagerImpl mCurrentCountryInfoManager;
+
   private volatile boolean mFrameworkInitialized;
   private volatile boolean mPlatformInitialized;
 
@@ -75,6 +80,12 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     return mIsolinesManager;
   }
 
+  @NonNull
+  public CurrentCountryInfoManager getCurrentCountryInfoManager()
+  {
+    return mCurrentCountryInfoManager;
+  }
+
   public OrganicMaps(@NonNull Context context)
   {
     mContext = context.getApplicationContext();
@@ -100,6 +111,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     mLocationHelper = new LocationHelper(mContext, mSensorHelper);
     mIsolinesManager = new IsolinesManager(mContext);
     mSubwayManager = new SubwayManager(mContext);
+    mCurrentCountryInfoManager = new CurrentCountryInfoManagerImpl();
   }
 
   /**
@@ -183,6 +195,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     TrafficManager.INSTANCE.initialize();
     mSubwayManager.initialize();
     mIsolinesManager.initialize();
+    mCurrentCountryInfoManager.initialize();
     ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
     Logger.i(TAG, "Framework initialized");

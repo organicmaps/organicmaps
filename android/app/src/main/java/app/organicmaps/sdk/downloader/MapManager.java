@@ -48,14 +48,6 @@ public final class MapManager
     void onProgress(String countryId, long localSize, long remoteSize);
   }
 
-  public interface CurrentCountryChangedListener
-  {
-    // Called from JNI.
-    @Keep
-    @SuppressWarnings("unused")
-    void onCurrentCountryChanged(String countryId);
-  }
-
   private static WeakReference<AlertDialog> sCurrentErrorDialog;
 
   private MapManager() {}
@@ -392,16 +384,6 @@ public final class MapManager
    * @param slot Slot ID returned from {@link #nativeSubscribe(StorageCallback)} while registering.
    */
   public static native void nativeUnsubscribe(int slot);
-
-  /**
-   * Sets callback about current country change. Single subscriber only.
-   */
-  public static native void nativeSubscribeOnCountryChanged(CurrentCountryChangedListener listener);
-
-  /**
-   * Removes callback about current country change.
-   */
-  public static native void nativeUnsubscribeOnCountryChanged();
 
   /**
    * Determines if there are unsaved editor changes present for given {@code root}.

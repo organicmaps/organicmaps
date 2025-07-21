@@ -5,23 +5,31 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.car.app.ScreenManager;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreenBuilder;
 import app.organicmaps.routing.RoutingController;
+import app.organicmaps.sdk.countryinfo.CountryInfo;
+import app.organicmaps.sdk.countryinfo.CurrentCountryInfoManager;
+import app.organicmaps.sdk.countryinfo.OnCurrentCountryChangedListener;
 import app.organicmaps.sdk.downloader.CountryItem;
-import app.organicmaps.sdk.downloader.MapManager;
 
-public class CurrentCountryChangedListener implements MapManager.CurrentCountryChangedListener
+public class CurrentCountryChangedListener implements OnCurrentCountryChangedListener
 {
   @Nullable
   private CarContext mCarContext;
 
   @Nullable
+  private CurrentCountryInfoManager mCurrentCountryInfoManager;
+
+  @Nullable
   private String mPreviousCountryId;
 
   @Override
-  public void onCurrentCountryChanged(@Nullable String countryId)
+  public void onCurrentCountryChanged(@NonNull CountryInfo countryInfo)
   {
+    final String countryId = countryInfo.countryId();
+
     if (TextUtils.isEmpty(countryId))
     {
       mPreviousCountryId = countryId;
@@ -52,12 +60,15 @@ public class CurrentCountryChangedListener implements MapManager.CurrentCountryC
   public void onStart(@NonNull final CarContext carContext)
   {
     mCarContext = carContext;
-    MapManager.nativeSubscribeOnCountryChanged(this);
+    mCurrentCountryInfoManager = MwmApplication.from(mCarContext).getCurrentCountryInfoManager();
+    mCurrentCountryInfoManager.addListener(this);
   }
 
   public void onStop()
   {
-    MapManager.nativeUnsubscribeOnCountryChanged();
+    assert mCurrentCountryInfoManager != null;
+    mCurrentCountryInfoManager.removeListener(this);
+    mCurrentCountryInfoManager = null;
     mCarContext = null;
   }
 }

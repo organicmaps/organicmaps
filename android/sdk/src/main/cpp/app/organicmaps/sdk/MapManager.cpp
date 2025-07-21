@@ -48,8 +48,6 @@ struct TBatchedData
   {}
 };
 
-jobject g_countryChangedListener = nullptr;
-
 DECLARE_THREAD_CHECKER(g_batchingThreadChecker);
 std::unordered_map<jobject, std::vector<TBatchedData>> g_batchedCallbackData;
 bool g_isBatched;
@@ -468,36 +466,6 @@ JNIEXPORT void JNICALL
 Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsubscribe(JNIEnv * env, jclass clazz, jint slot)
 {
   GetStorage().Unsubscribe(slot);
-}
-
-// static void nativeSubscribeOnCountryChanged(CurrentCountryChangedListener listener);
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_downloader_MapManager_nativeSubscribeOnCountryChanged(JNIEnv * env, jclass clazz, jobject listener)
-{
-  ASSERT(!g_countryChangedListener, ());
-  g_countryChangedListener = env->NewGlobalRef(listener);
-
-  auto const callback = [](storage::CountryId const & countryId) {
-    JNIEnv * env = jni::GetEnv();
-    jmethodID methodID = jni::GetMethodID(env, g_countryChangedListener, "onCurrentCountryChanged", "(Ljava/lang/String;)V");
-    env->CallVoidMethod(g_countryChangedListener, methodID, jni::TScopedLocalRef(env, jni::ToJavaString(env, countryId)).get());
-  };
-
-  storage::CountryId const & prev = g_framework->NativeFramework()->GetLastReportedCountry();
-  g_framework->NativeFramework()->SetCurrentCountryChangedListener(callback);
-
-  // Report previous value
-  callback(prev);
-}
-
-// static void nativeUnsubscribeOnCountryChanged();
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_downloader_MapManager_nativeUnsubscribeOnCountryChanged(JNIEnv * env, jclass clazz)
-{
-  g_framework->NativeFramework()->SetCurrentCountryChangedListener(nullptr);
-
-  env->DeleteGlobalRef(g_countryChangedListener);
-  g_countryChangedListener = nullptr;
 }
 
 // static boolean nativeHasUnsavedEditorChanges(String root);

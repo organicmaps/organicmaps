@@ -123,6 +123,8 @@ public final class CountryItem implements Comparable<CountryItem>
       directParentId = "";
   }
 
+  /// @Deprecated Move to CountryInfo class
+  @Deprecated
   @NonNull
   public static CountryItem fill(String countryId)
   {

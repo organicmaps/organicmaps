@@ -42,6 +42,11 @@ set(SRC
   app/organicmaps/sdk/core/jni_helper.cpp
   app/organicmaps/sdk/core/jni_java_methods.cpp
   app/organicmaps/sdk/core/logging.cpp
+  app/organicmaps/sdk/countryinfo/CountryInfo.cpp
+  app/organicmaps/sdk/countryinfo/CountryInfo.hpp
+  app/organicmaps/sdk/countryinfo/CurrentCountryInfoManagerImpl.cpp
+  app/organicmaps/sdk/countryinfo/DriverPosition.cpp
+  app/organicmaps/sdk/countryinfo/DriverPosition.hpp
   app/organicmaps/sdk/bookmarks/data/BookmarkManager.cpp
   app/organicmaps/sdk/bookmarks/data/Icon.cpp
   app/organicmaps/sdk/bookmarks/data/Icon.hpp
