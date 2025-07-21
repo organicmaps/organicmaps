@@ -15,7 +15,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
+import app.organicmaps.sdk.util.concurrency.ThreadPool;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sync.BackendType;
+import app.organicmaps.sync.NextcloudLoginHelper;
 import app.organicmaps.sync.SyncAccount;
 import app.organicmaps.sync.SyncPrefs;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -25,6 +28,7 @@ import java.util.List;
 public class SyncSettingsFragment
     extends BaseSettingsFragment implements SyncAccountAdapter.OnAccountInteractionListener
 {
+  private static final String TAG = SyncSettingsFragment.class.getSimpleName();
   private SyncAccountAdapter mAdapter;
   private View mAddAccountHint;
 
@@ -65,6 +69,7 @@ public class SyncSettingsFragment
     refreshState(prefs.getAccounts());
     prefs.registerAccountsChangedCallback(mAccountsChangedCallback);
     prefs.registerLastSyncedCallback(mLastSyncCallback);
+    pollNextcloudAuth();
   }
 
   @Override
@@ -165,5 +170,26 @@ public class SyncSettingsFragment
   protected int getLayoutRes()
   {
     return R.layout.fragment_prefs_sync;
+  }
+
+  private void pollNextcloudAuth()
+  {
+    final Context context = getContext();
+    SyncPrefs syncPrefs = SyncPrefs.getInstance(context);
+    String pollParamsStr = syncPrefs.getNextcloudPollParams();
+    if (pollParamsStr == null)
+      return;
+    try
+    {
+      NextcloudLoginHelper.PollParams pollParams = NextcloudLoginHelper.PollParams.fromString(pollParamsStr);
+      ThreadPool.getWorker().execute(() -> {
+        if (!NextcloudLoginHelper.storeAuthStateIfAvailable(context, pollParams))
+          syncPrefs.setNextcloudPollParams(null);
+      });
+    }
+    catch (Exception e)
+    {
+      Logger.e(TAG, "Error trying to parse stored Nextcloud auth poll parameters", e);
+    }
   }
 }
