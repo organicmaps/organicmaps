@@ -669,6 +669,7 @@ world  +
         common  -
         dance  -
         dog_park  -
+        escape_game  -
         firepit  -
         fitness_centre  -
         fitness_station  -

@@ -49613,6 +49613,73 @@ cont {
   }
 }
 cont {
+  name: "leisure-escape_game"
+  element {
+    scale: 17
+    symbol {
+      name: "escape_game-m"
+      priority: 1600
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "escape_game-m"
+      priority: 1600
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "escape_game-m"
+      priority: 1600
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "escape_game-m"
+      priority: 1600
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+}
+cont {
   name: "leisure-firepit"
   element {
     scale: 18
