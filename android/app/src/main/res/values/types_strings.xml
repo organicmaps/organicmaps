@@ -650,6 +650,7 @@
     <string name="type.leisure">Leisure</string>
     <string name="type.leisure.common">Public Land</string>
     <string name="type.leisure.dog_park">Dog Park</string>
+    <string name="type.leisure.escape_game">Escape Room</string>
     <string name="type.leisure.fitness_centre">Fitness Centre</string>
     <string name="type.leisure.fitness_station">Fitness Station</string>
     <string name="type.leisure.dance">Dance Hall</string>
