@@ -18948,3 +18948,45 @@ zh-Hant:義大利麵
 attraction-amusement_ride|attraction-carousel|attraction-roller_coaster|attraction-maze|attraction-historic|attraction-big_wheel|attraction-bumper_car|@category_children
 en:Attraction
 ru:Аттракцион
+
+leisure-escape_game
+en:4Escape Room|quest|game
+ar:غرفة الهروب
+be:4Квест-пакой
+bg:Ескейп стая
+ca:Escape room
+cs:Úniková místnost
+da:Escape room
+de:Escape room
+el:Δωμάτιο απόδρασης
+es:Escape room
+et:Põgenemistuba
+eu:Ihes gela
+fa:اتاق فرار
+fi:Pakohuone
+fr:Salle d'évasion
+he:חדר בריחה
+hi:एस्केप रूम
+hu:Szabadulószoba
+id:Ruang petualangan
+it:Escape room
+ja:脱出ゲーム
+ko:방탈출
+lv:Kvestu istaba
+mr:एस्केप रूम
+nb:Escape room
+nl:Escaperoom
+pl:Pokój zagadek
+pt:Sala de fuga
+pt-BR:Sala de fuga
+ro:Cameră de evadare
+ru:4Квест-комната
+sk:Úniková miestnosť
+sv:Escaperoom
+sw:Chumba cha kutoroka
+th:ห้องเกมปริศนา
+tr:Kaçış odası
+uk:4Квест-кімната
+vi:Phòng giải đố
+zh-Hans:密室逃脱
+zh-Hant:密室逃脫
