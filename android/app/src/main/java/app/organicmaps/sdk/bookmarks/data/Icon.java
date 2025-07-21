@@ -1,5 +1,6 @@
 package app.organicmaps.sdk.bookmarks.data;
 
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.ColorInt;
@@ -18,7 +19,7 @@ public class Icon implements Parcelable
   static final int BOOKMARK_ICON_TYPE_NONE = 0;
 
   @DrawableRes
-  private static final int[] TYPE_ICONS = GetTypeIcons();
+  private static int[] sTypeIcons = null;
 
   @PredefinedColors.Color
   private final int mColor;
@@ -69,7 +70,9 @@ public class Icon implements Parcelable
   @DrawableRes
   public int getResId()
   {
-    return TYPE_ICONS[mType];
+    // loadDefaultIcons should be called
+    assert (sTypeIcons != null);
+    return sTypeIcons[mType];
   }
 
   @Override
@@ -100,30 +103,25 @@ public class Icon implements Parcelable
     }
   };
 
-  @NonNull
-  @DrawableRes
-  private static int[] GetTypeIcons()
+  static public void loadDefaultIcons(@NonNull Resources resources, @NonNull String packageName)
   {
     final String[] names = nativeGetBookmarkIconNames();
     int[] icons = new int[names.length];
     for (int i = 0; i < names.length; i++)
     {
       final String name = StringUtils.toSnakeCase(names[i]);
-      try
-      {
-        icons[i] = app.organicmaps.sdk.R.drawable.class.getField("ic_bookmark_" + name).getInt(null);
-      }
-      catch (NoSuchFieldException | IllegalAccessException e)
+      icons[i] = resources.getIdentifier("ic_bookmark_" + name, "drawable", packageName);
+      if (icons[i] == 0)
       {
         Logger.e(TAG, "Error getting icon for " + name);
         // Force devs to add an icon for each bookmark type.
         if (BuildConfig.DEBUG)
-          throw new RuntimeException("Error getting icon for " + name, e);
+          throw new RuntimeException("Error getting icon for " + name);
         icons[i] = app.organicmaps.sdk.R.drawable.ic_bookmark_none; // Fallback icon
       }
     }
 
-    return icons;
+    sTypeIcons = icons;
   }
 
   @FastNative

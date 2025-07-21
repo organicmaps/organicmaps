@@ -9,6 +9,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.location.LocationHelper;
@@ -95,6 +96,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     LogsManager.INSTANCE.initFileLogging(mContext, mPreferences);
 
     Android7RootCertificateWorkaround.initializeIfNeeded(mContext);
+
+    Icon.loadDefaultIcons(mContext.getResources(), mContext.getPackageName());
 
     mSensorHelper = new SensorHelper(mContext);
     mLocationHelper = new LocationHelper(mContext, mSensorHelper);
