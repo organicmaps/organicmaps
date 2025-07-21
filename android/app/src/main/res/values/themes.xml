@@ -61,6 +61,10 @@
     <item name="android:windowTitleStyle">@style/MwmTheme.DialogTitleStyle.Light</item>
   </style>
 
+  <style name="MwmTheme.AlertDialog.Transparent" parent="MwmTheme.AlertDialog">
+    <item name="android:background">#00000000</item>
+  </style>
+
   <style name="MwmTheme.DialogTitleBase">
     <item name="android:textSize">@dimen/text_size_alert_dialog_title</item>
     <item name="android:fontFamily">@string/robotoMedium</item>
