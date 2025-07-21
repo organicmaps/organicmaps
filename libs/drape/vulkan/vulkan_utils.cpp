@@ -1,6 +1,7 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include <array>
+#include <string>
 
 namespace dp
 {
@@ -22,7 +23,7 @@ static bool gUse32bitDepth8bitStencil = false;
 
 void DebugName::Init(VkInstance instance, VkDevice device)
 {
-  vkSetDebugUtilsObjectNameEXT = 
+  vkSetDebugUtilsObjectNameEXT =
     (PFN_vkSetDebugUtilsObjectNameEXT)vkGetInstanceProcAddr(instance, "vkSetDebugUtilsObjectNameEXT");
   m_device = device;
 }
@@ -95,6 +96,8 @@ std::string GetVulkanResultString(VkResult result)
   case VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR: return "VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR";
   case VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR: return "VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR";
   case VK_INCOMPATIBLE_SHADER_BINARY_EXT: return "VK_INCOMPATIBLE_SHADER_BINARY_EXT";
+  case VK_PIPELINE_BINARY_MISSING_KHR: return "VK_PIPELINE_BINARY_MISSING_KHR";
+  case VK_ERROR_NOT_ENOUGH_SPACE_KHR: return "VK_ERROR_NOT_ENOUGH_SPACE_KHR";
   }
   UNREACHABLE();
   return "Unknown result";

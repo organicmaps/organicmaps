@@ -12,7 +12,6 @@
 #include <X11/X.h>
 
 #include <vulkan_wrapper.h>
-#include <vulkan/vulkan_xlib.h>
 // Workaround for TestFunction::Always compilation issue:
 // /usr/include/X11/X.h:441:33: note: expanded from macro 'Always'
 #undef Always
