@@ -24,6 +24,7 @@ public class SyncPrefs
 
   private static final String PREF_KEY_ACCOUNTS = "ac";
   private static final String PREF_KEY_LAST_ACCOUNT_ID = "lastId";
+  private static final String PREF_KEY_NC_POLL = "ncPollParams";
   private static final String PREF_KEY_PREFIX_ENABLED = "enabled-";
   private static final String PREF_KEY_PREFIX_LAST_SYNCED = "lastSynced-";
   @Nullable
@@ -200,6 +201,16 @@ public class SyncPrefs
   public void registerAccountToggledCallback(AccountToggledCallback callback)
   {
     mAccountToggledCallbacks.add(callback);
+  }
+
+  public void setNextcloudPollParams(@Nullable String params)
+  {
+    prefsAccounts.edit().putString(PREF_KEY_NC_POLL, params).apply();
+  }
+
+  public @Nullable String getNextcloudPollParams()
+  {
+    return prefsAccounts.getString(PREF_KEY_NC_POLL, null);
   }
 
   public interface LastSyncCallback
