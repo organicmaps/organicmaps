@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AlertDialog;
 import androidx.browser.customtabs.CustomTabsCallback;
 import androidx.browser.customtabs.CustomTabsClient;
@@ -48,7 +49,7 @@ public class NextcloudLoginHelper
   public static void login(Context context)
   {
     final AlertDialog dialog =
-        new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
+        new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog_Transparent)
             .setTitle(context.getString(R.string.enter_nextcloud_url))
             .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
             .setPositiveButton(R.string.next_button, null)
@@ -67,13 +68,13 @@ public class NextcloudLoginHelper
         final String initLoginUrl;
         try
         {
-          final URL url = new URL(input);
+          // Prepend "https://" if scheme (https://datatracker.ietf.org/doc/html/rfc3986#section-3.1) not specified
+          String inputUrl = input.matches("^[a-zA-Z][a-zA-Z0-9+.-]*://.*") ? input : "https://" + input;
+          final URL url = new URL(inputUrl);
           String baseUrl = url.getProtocol() + "://" + url.getHost();
           int port = url.getPort();
           if (port != -1)
-          {
             baseUrl += ":" + port;
-          }
           initLoginUrl = baseUrl + "/index.php/login/v2";
         }
         catch (MalformedURLException e)
@@ -111,11 +112,14 @@ public class NextcloudLoginHelper
                 response.append(inputLine);
               try
               {
-                // example success response: { "poll": {"token": string, "endpoint": string }, "login": string }
-                LoginParams params = new LoginParams(response.toString());
+                // success response format: { "poll": {"token": string, "endpoint": string }, "login": string }
+                final JSONObject responseJson = new JSONObject(response.toString());
+                PollParams params = PollParams.fromJson(responseJson.getJSONObject("poll"));
+                String loginUrl = responseJson.getString("login");
+
                 new Handler(Looper.getMainLooper()).post(() -> {
                   dialog.dismiss();
-                  loginFlowStepTwo(context, params);
+                  loginFlowStepTwo(context, params, loginUrl);
                 });
               }
               catch (JSONException e)
@@ -150,8 +154,19 @@ public class NextcloudLoginHelper
   }
 
   @MainThread
-  private static void loginFlowStepTwo(Context context, LoginParams loginParams)
+  private static void loginFlowStepTwo(Context context, PollParams pollParams, String loginUrl)
   {
+    try
+    {
+      // CustomTabsCallback cannot be relied upon for some browsers,
+      // Firefox being a notable example (https://bugzilla.mozilla.org/show_bug.cgi?id=1972417)
+      // So this is needed as a fallback even in the case of Custom Tabs being available.
+      SyncPrefs.getInstance(context).setNextcloudPollParams(pollParams.asString());
+    }
+    catch (JSONException e)
+    {
+      Logger.e(TAG, "Impossible error stringifying Nextcloud PollParams", e);
+    }
     String customTabsPackage = Utils.getCustomTabsPackage(context);
     if (customTabsPackage != null)
     {
@@ -167,57 +182,12 @@ public class NextcloudLoginHelper
             public void onNavigationEvent(int navigationEvent, @Nullable Bundle extras)
             {
               super.onNavigationEvent(navigationEvent, extras);
-              if (mLoginComplete)
-                return;
-              if (navigationEvent == CustomTabsCallback.NAVIGATION_FINISHED)
+              if (!mLoginComplete && navigationEvent == CustomTabsCallback.NAVIGATION_FINISHED)
               {
                 // The user might have finished authentication. Poll to check the same.
                 ThreadPool.getWorker().execute(() -> {
-                  try
-                  {
-                    HttpURLConnection connection = InsecureHttpsHelper.openInsecureConnection(loginParams.pollEndpoint);
-                    connection.setRequestMethod("POST");
-                    connection.setRequestProperty("Accept", "application/json");
-                    connection.setDoOutput(true);
-                    try (OutputStream os = connection.getOutputStream())
-                    {
-                      byte[] body = ("token=" + loginParams.pollToken).getBytes(StandardCharsets.UTF_8);
-                      os.write(body, 0, body.length);
-                    }
-                    final int responseCode = connection.getResponseCode();
-                    if (responseCode / 100 != 2)
-                      return;
-                    StringBuilder response = new StringBuilder();
-                    try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream())))
-                    {
-                      String inputLine;
-                      while ((inputLine = in.readLine()) != null)
-                        response.append(inputLine);
-                    }
-                    if (response.toString().isEmpty())
-                      return;
-                    // success response format: { "poll": {"token": string, "endpoint": string }, "login": string }
-                    JSONObject responseJson = new JSONObject(response.toString());
-                    NextcloudAuth authState = new NextcloudAuth(responseJson);
-                    SyncPrefs.AddAccountResult result =
-                        SyncPrefs.getInstance(context).addAccount(BackendType.Nextcloud, authState);
-                    if (context instanceof Activity)
-                      context.startActivity(
-                          new Intent(context, context.getClass()).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
-                    mLoginComplete = true;
-                    switch (result)
-                    {
-                      case Success ->
-                        Toast.makeText(context, R.string.account_connection_success, Toast.LENGTH_SHORT).show();
-                      case UnexpectedError -> showErrorDialog(context, ""); // should be fairly impossible
-                      case AlreadyExists ->
-                        showErrorDialog(context, context.getString(R.string.account_already_exists));
-                    }
-                  }
-                  catch (Exception e)
-                  {
-                    Logger.e(TAG, "Failed to poll Nextcloud auth status", e);
-                  }
+                  if (storeAuthStateIfAvailable(context, pollParams))
+                    mLoginComplete = true; // prevents unnecessary checks
                 });
               }
             }
@@ -229,11 +199,12 @@ public class NextcloudLoginHelper
               new CustomTabsIntent
                   .Builder(session)
                   // Set initial custom tabs height to 90% of total display height
+                  // Certain browsers like Firefox don't respect this though
                   .setInitialActivityHeightPx(UiUtils.getDisplayTotalHeight(context) * 9 / 10)
                   .build();
 
           customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          customTabsIntent.launchUrl(context, Uri.parse(loginParams.loginUrl));
+          customTabsIntent.launchUrl(context, Uri.parse(loginUrl));
         }
 
         @Override
@@ -245,7 +216,17 @@ public class NextcloudLoginHelper
     }
     else
     {
-      throw new RuntimeException("TODO implement");
+      Intent intent = new Intent(Intent.ACTION_VIEW)
+                          .setData(Uri.parse(loginUrl))
+                          .addCategory(Intent.CATEGORY_BROWSABLE)
+                          .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      if (intent.resolveActivity(context.getPackageManager()) != null)
+        context.startActivity(intent);
+      else
+      {
+        Logger.w(TAG, "No app found to handle Nextcloud login url: " + loginUrl);
+        Toast.makeText(context, R.string.browser_not_available, Toast.LENGTH_SHORT).show();
+      }
     }
   }
 
@@ -260,23 +241,95 @@ public class NextcloudLoginHelper
                          .show());
   }
 
-  private static class LoginParams
+  /**
+   * @return {@code true} iff the the poll was consumed, i.e. the server sent authentication state.
+   * Does not guarantee that the account will get added.
+   */
+  @WorkerThread
+  public static boolean storeAuthStateIfAvailable(Context context, PollParams pollParams)
   {
-    private final String pollToken;
-    private final String pollEndpoint;
-    private final String loginUrl;
-
-    /**
-     * @param rawServerJsonResponse Raw string of a json of the form { "poll": {"token": string, "endpoint": string },
-     *     "login": string }
-     */
-    private LoginParams(String rawServerJsonResponse) throws JSONException
+    try
     {
-      JSONObject jsonResponse = new JSONObject(rawServerJsonResponse);
-      JSONObject pollObject = jsonResponse.getJSONObject("poll");
-      this.pollToken = pollObject.getString("token");
-      this.pollEndpoint = pollObject.getString("endpoint");
-      this.loginUrl = jsonResponse.getString("login");
+      HttpURLConnection connection = InsecureHttpsHelper.openInsecureConnection(pollParams.endpoint);
+      connection.setRequestMethod("POST");
+      connection.setRequestProperty("Accept", "application/json");
+      connection.setDoOutput(true);
+      try (OutputStream os = connection.getOutputStream())
+      {
+        byte[] body = ("token=" + pollParams.token).getBytes(StandardCharsets.UTF_8);
+        os.write(body, 0, body.length);
+      }
+      final int responseCode = connection.getResponseCode();
+      if (responseCode / 100 != 2)
+        return false;
+      StringBuilder response = new StringBuilder();
+      try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream())))
+      {
+        String inputLine;
+        while ((inputLine = in.readLine()) != null)
+          response.append(inputLine);
+      }
+      if (response.toString().isEmpty())
+        return false;
+      // success response format: { "server": string, "loginName": string, "appPassword": string }
+      JSONObject responseJson = new JSONObject(response.toString());
+      NextcloudAuth authState = new NextcloudAuth(responseJson);
+      SyncPrefs syncPrefs = SyncPrefs.getInstance(context);
+      SyncPrefs.AddAccountResult result = syncPrefs.addAccount(BackendType.Nextcloud, authState);
+      syncPrefs.setNextcloudPollParams(null);
+      if (context instanceof Activity)
+      {
+        Intent returnIntent = new Intent(context, context.getClass());
+        context.startActivity(returnIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT));
+      }
+      switch (result)
+      {
+        case Success ->
+          new Handler(Looper.getMainLooper())
+              .post(() -> Toast.makeText(context, R.string.account_connection_success, Toast.LENGTH_SHORT).show());
+        case UnexpectedError -> showErrorDialog(context, ""); // should be fairly impossible
+        case AlreadyExists -> showErrorDialog(context, context.getString(R.string.account_already_exists));
+      }
+      return true;
+    }
+    catch (Exception e)
+    {
+      Logger.e(TAG, "Failed to poll Nextcloud auth status", e);
+      return false;
+    }
+  }
+
+  public static class PollParams
+  {
+    private static final String KEY_TOKEN = "token";
+    private static final String KEY_ENDPOINT = "endpoint";
+    private final String token;
+    private final String endpoint;
+
+    private PollParams(String token, String endpoint)
+    {
+      this.token = token;
+      this.endpoint = endpoint;
+    }
+
+    /// {"token": string, "endpoint": string }
+    public static PollParams fromJson(JSONObject json) throws JSONException
+    {
+      return new PollParams(json.getString(KEY_TOKEN), json.getString(KEY_ENDPOINT));
+    }
+
+    public static PollParams fromString(String jsonString) throws JSONException
+    {
+      return fromJson(new JSONObject(jsonString));
+    }
+
+    @NonNull
+    public String asString() throws JSONException
+    {
+      JSONObject json = new JSONObject();
+      json.put(KEY_TOKEN, token);
+      json.put(KEY_ENDPOINT, endpoint);
+      return json.toString();
     }
   }
 }
