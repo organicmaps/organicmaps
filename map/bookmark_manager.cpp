@@ -2193,7 +2193,11 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, KmlFileType::Text))
           base::DeleteFileX(kmlFileToLoad);
         else
+        {
+          if (m_fileChangedCallback)
+            m_fileChangedCallback(kmlFileToLoad);
           collection->emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
+        }
       }
     }
 

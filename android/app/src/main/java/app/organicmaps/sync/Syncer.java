@@ -3,10 +3,11 @@ package app.organicmaps.sync;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.util.StorageUtils;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.util.FileUtils;
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -71,7 +72,7 @@ public class Syncer
           true); // To avoid incorrect cache of changed files if process is killed in between the sync process.
       if (cloudHasChanges)
       {
-        final HashMap<String, String> cloudFilesMap = mSyncClient.fetchBmFilesStateMap(); // mutable
+        final CloudFilesState cloudFilesState = mSyncClient.fetchCloudFilesState(); // mutable
         while (!mChangedFiles.isEmpty())
         {
           final String locallyChangedFile = mChangedFiles.iterator().next();
@@ -80,14 +81,16 @@ public class Syncer
           try
           {
             final boolean localFileExists = new File(locallyChangedFile).exists();
-            final boolean remoteFileExists = cloudFilesMap.containsKey(cloudName);
+            final boolean remoteFileExists = cloudFilesState.doesFileExist(cloudName);
             switch (FilePairExistence.get(localFileExists, remoteFileExists))
             {
               case Both ->
               {
-                final String cloudSideChecksum = Objects.requireNonNull(cloudName);
+                final String cloudSideChecksum = cloudFilesState.omBookmarkFiles().get(cloudName);
+                // cloudSideChecksum is null if that file is user uploaded. In that case it is guaranteed that
+                // the file is out of sync with (and in fact different from) the local file.
                 final String lastSyncedChecksum = mLocalState.getCachedChecksum(locallyChangedFile);
-                if (cloudSideChecksum.equals(lastSyncedChecksum))
+                if (cloudSideChecksum != null && cloudSideChecksum.equals(lastSyncedChecksum))
                 {
                   // No conflicts. No other device has edited the file, so upload the file overwriting the original.
                   final byte[] fileBytes = FileUtils.readFileSafe(locallyChangedFile);
@@ -99,7 +102,7 @@ public class Syncer
                   {
                     editSession.putBookmarkFile(cloudName, fileBytes, currentChecksum);
                     mLocalState.setCachedChecksum(locallyChangedFile, currentChecksum);
-                    cloudFilesMap.put(cloudName, currentChecksum);
+                    cloudFilesState.omBookmarkFiles().put(cloudName, currentChecksum);
                   }
                 }
                 else
@@ -140,30 +143,32 @@ public class Syncer
                   // device after it was last synced on the cloud (lastSyncedChecksum is stale).
                   editSession.putBookmarkFile(cloudName, fileBytes, currentChecksum);
                   mLocalState.setCachedChecksum(locallyChangedFile, currentChecksum);
-                  cloudFilesMap.put(cloudName, currentChecksum);
+                  cloudFilesState.omBookmarkFiles().put(cloudName, currentChecksum);
                 }
               }
               case OnlyRemote ->
               {
-                final String cloudSideChecksum = Objects.requireNonNull(cloudFilesMap.get(cloudName)); // non null
-                final String lastSyncedChecksum = mLocalState.getCachedChecksum(locallyChangedFile); // nullable
+                final String cloudSideChecksum = cloudFilesState.omBookmarkFiles().get(cloudName);
+                // cloudSideChecksum is null if the file was user-uploaded
+                final String lastSyncedChecksum = mLocalState.getCachedChecksum(locallyChangedFile);
 
-                if (cloudSideChecksum.equals(lastSyncedChecksum))
+                if (cloudSideChecksum != null && cloudSideChecksum.equals(lastSyncedChecksum))
                 {
                   // The local file was deleted on this device, and was last sent to the cloud from this device itself.
                   // Thus the cloud copy needs to be deleted.
                   editSession.deleteBookmarksFile(cloudName);
                   mLocalState.eraseCachedChecksum(locallyChangedFile);
-                  cloudFilesMap.remove(cloudName);
+                  cloudFilesState.omBookmarkFiles().remove(cloudName);
                 }
                 // else (comment)
-                // The file either never existed locally in the first place, or was deleted when it
-                // was in conflict with the cloud version. Hence, we'll just download cloud file.
+                // The file was deleted locally, but it was not in sync with its cloud counterpart
+                // at the time it was deleted. Hence, we'll just download cloud file.
                 // Since downloads will be taken care of outside this switch block, we have
                 // nothing to do here.
               }
-              case Neither
-                  -> // The file exists neither locally nor on the cloud. Some other device might have deleted the file.
+              case Neither ->
+                // The file exists neither locally nor on the cloud.
+                // Some other device might have deleted the file.
                 mLocalState.eraseCachedChecksum(locallyChangedFile);
             }
           }
@@ -175,24 +180,26 @@ public class Syncer
         } // now no file is marked as changed
 
         // Every file now inside mLocalState.getAllCachedChecksums() should also be
-        // present in cloudFilesMap, unless it was deleted from the cloud (with its
-        // contents being the same as the local file). Hence, such a local file can
-        // be safely deleted
+        // present in cloudFilesState.omBookmarkFiles(), unless it was deleted from
+        // the cloud (with its contents being the same as the local file).
+        // Hence, such a local file can be safely deleted.
         final Map<String, String> cachedChecksums = mLocalState.getAllCachedChecksums(); // immutable
         for (String filePath : cachedChecksums.keySet())
         {
           final String cloudName = getCloudBmNameFromFilepath(filePath);
-          if (!cloudFilesMap.containsKey(cloudName))
+          if (!cloudFilesState.omBookmarkFiles().containsKey(cloudName))
           {
             SyncManager.deleteCategorySilent(filePath);
             SyncManager.INSTANCE.notifyOtherSyncers(mAccountId, filePath);
           }
         }
-        // Now we carry out the download stage: iterate through cloud files and download
-        // any checksum-mismatch files, overwriting locals.
+
+        // Now we carry out the download stage: This is done in two steps:
+
+        // Step 1 of 2. Iterate through OM-uploaded files and download any checksum-mismatch files, overwriting locals.
         File bmDir = SyncManager.INSTANCE.getBookmarksDir();
         File tempDir = new File(StorageUtils.getTempPath(MwmApplication.sInstance));
-        for (Map.Entry<String, String> cloudFileEntry : cloudFilesMap.entrySet())
+        for (Map.Entry<String, String> cloudFileEntry : cloudFilesState.omBookmarkFiles().entrySet())
         {
           final String cloudFileName = cloudFileEntry.getKey();
           final String cloudFileChecksum = cloudFileEntry.getValue();
@@ -221,9 +228,27 @@ public class Syncer
             mLocalState.setCachedChecksum(localFilePath, downloadedFileChecksum);
             SyncManager.INSTANCE.notifyOtherSyncers(mAccountId, localFilePath);
             SyncManager.reloadBookmark(localFilePath);
-            if (mSyncClient.isChecksumSentinel(cloudFileChecksum))
-              editSession.explicitlySetChecksum(cloudFileName, downloadedFileChecksum);
           }
+        }
+
+        // Step 2 of 2. Download user-uploaded files and load them, and delete those files from the cloud.
+        //              The deletion is done because the files, if successfully imported, will be synced later
+        //              as OM-uploaded files, so there's no need of the files being in the cloud.
+        //              It is thus intended for user-uploaded files to disappear from the cloud when a device
+        //              first syncs those files. They will be reuploaded by the same device, which may not happen
+        //              in this performSync() call, but in the next one.
+
+        for (String userFilename : cloudFilesState.userUploadedFiles())
+        {
+          File tempFile = getLocalBmFileFromCloudName(tempDir, userFilename);
+          mSyncClient.downloadBookmarkFile(userFilename, tempFile);
+          // We now schedule this file to be loaded
+          UiThread.run(()->BookmarkManager.INSTANCE.loadBookmarksFile(tempFile.getPath(), true));
+          editSession.deleteBookmarksFile(userFilename);
+          // This is a small window when if OM is closed, a user-uploaded bookmark file does not
+          // get loaded despite the file being valid, and the file is deleted from the cloud.
+          // TODO(savsch) this can be prevented by creating a new folder, and checking on every app start
+          //   to make sure each file within it is loaded (and then deleted)
         }
       } // cloudHasChanges
       else
