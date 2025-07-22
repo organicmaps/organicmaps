@@ -2,6 +2,7 @@
 
 #include "base/assert.hpp"
 
+#include <bit>
 #include <cstdint>
 #include <limits>
 #include <type_traits>

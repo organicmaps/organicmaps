@@ -1,6 +1,5 @@
 #include "drape/vulkan/vulkan_texture.hpp"
 #include "drape/vulkan/vulkan_base_context.hpp"
-#include "drape/vulkan/vulkan_staging_buffer.hpp"
 
 drape_ptr<dp::HWTextureAllocator> CreateVulkanAllocator()
 {

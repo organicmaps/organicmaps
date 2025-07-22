@@ -47,8 +47,6 @@ struct VulkanObject
   }
 };
 
-class VulkanStagingBuffer;
-
 class VulkanObjectManager
 {
 public:
