@@ -10,7 +10,8 @@ extension NavigationDashboard {
     case updatePresentationStep(NavigationDashboardModalPresentationStep)
     case updateNavigationInfoAvailableArea(CGRect)
     case updateSearchState(SearchOnMapState)
-    case updateDrivingOptionsState(MWMDrivingOptionsState)
+    case updateDrivingOptionsState(RoutingOptions)
+    case setRouteAsTrackSaved
 
     case showNavigationDashboard
     case setHidden(Bool)

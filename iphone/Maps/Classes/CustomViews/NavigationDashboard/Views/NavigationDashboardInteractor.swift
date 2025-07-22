@@ -84,7 +84,7 @@ extension NavigationDashboard {
 
       case .saveRouteAsTrackButtonDidTap:
         frameworkHelper.saveRouteAsTrack()
-        return .none
+        return .setRouteAsTrackSaved
 
       case let .updateRouteBuildingProgress(progress, routerType):
         return .updateRouteBuildingProgress(progress, routerType: routerType)
@@ -104,8 +104,9 @@ extension NavigationDashboard {
         }
         return .updateSearchState(state)
 
-      case .updateDrivingOptionsState(let state):
-        return .updateDrivingOptionsState(state)
+      case .updateDrivingOptionsState(_):
+        let routingOptions = RoutingOptions()
+        return .updateDrivingOptionsState(routingOptions)
 
       case let .moveRoutePoint(from, to):
         router.movePoint(at: from, to: to)

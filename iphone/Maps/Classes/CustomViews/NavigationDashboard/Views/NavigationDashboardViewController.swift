@@ -267,6 +267,7 @@ final class NavigationDashboardViewController: UIViewController {
   @objc
   private func didTapSaveRouteAsTrackButton() {
     impactGenerator.impactOccurred()
+    saveRouteAsTrackButton.isEnabled = false
     interactor?.process(.saveRouteAsTrackButtonDidTap)
   }
 
@@ -402,6 +403,7 @@ extension NavigationDashboardViewController {
       routePointsView.setRoutePoints(viewModel.routePoints)
       settingsBadge.isHidden = !viewModel.routingOptions.hasOptions
       settingsBadge.number = viewModel.routingOptions.enabledOptionsCount
+      saveRouteAsTrackButton.isEnabled = viewModel.canSaveRouteAsTrack
     }
 
     navigationInfoView.state = viewModel.navigationInfo.state

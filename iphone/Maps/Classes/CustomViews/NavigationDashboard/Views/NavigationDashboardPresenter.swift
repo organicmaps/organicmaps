@@ -101,16 +101,24 @@ extension NavigationDashboard {
           fatalError("Unknown search state: \(state)")
         }
 
-      case .updateDrivingOptionsState(_):
-        viewModel = viewModel.copyWith(routingOptions: RoutingOptions())
+      case .updateDrivingOptionsState(let routingOptions):
+        viewModel = viewModel.copyWith(routingOptions: routingOptions)
 
       case let .show(points, routerType):
-        viewModel = viewModel.copyWith(routePoints: NavigationDashboard.RoutePoints(points: points),
-                                       routerType: routerType)
+        var canSaveRouteAsTrack = true
+        if !viewModel.canSaveRouteAsTrack {
+          canSaveRouteAsTrack = !(viewModel.routePoints.points == points && viewModel.routerType == routerType)
+        }
+        viewModel = viewModel.copyWith(routePoints: RoutePoints(points: points),
+                                       routerType: routerType,
+                                       canSaveRouteAsTrack: canSaveRouteAsTrack)
         if !isSearchOpened && viewModel.presentationStep == .hidden {
           let step = latestVisiblePresentationStep.forNavigationState(viewModel.dashboardState)
           viewModel = viewModel.copyWith(presentationStep: step)
         }
+
+      case .setRouteAsTrackSaved:
+        viewModel = viewModel.copyWith(canSaveRouteAsTrack: false)
 
       case .showError(let errorMessage):
         viewModel = viewModel.copyWith(errorMessage: errorMessage)

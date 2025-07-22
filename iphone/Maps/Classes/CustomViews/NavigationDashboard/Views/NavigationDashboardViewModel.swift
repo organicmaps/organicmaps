@@ -12,6 +12,7 @@ enum NavigationDashboard {
     let presentationStep: NavigationDashboardModalPresentationStep
     let progress: CGFloat
     let navigationSearchState: NavigationSearchState?
+    let canSaveRouteAsTrack: Bool
     let errorMessage: String?
   }
   
@@ -42,6 +43,7 @@ extension NavigationDashboard.ViewModel {
       presentationStep: .hidden,
       progress: 0,
       navigationSearchState: nil,
+      canSaveRouteAsTrack: false,
       errorMessage: nil
     )
   }
@@ -59,6 +61,7 @@ extension NavigationDashboard.ViewModel {
     presentationStep: NavigationDashboardModalPresentationStep? = nil,
     progress: CGFloat? = nil,
     navigationSearchState: NavigationSearchState? = nil,
+    canSaveRouteAsTrack: Bool? = nil,
     errorMessage: String? = nil
   ) -> NavigationDashboard.ViewModel {
     return NavigationDashboard.ViewModel(
@@ -74,6 +77,7 @@ extension NavigationDashboard.ViewModel {
       presentationStep: presentationStep ?? self.presentationStep,
       progress: progress ?? self.progress,
       navigationSearchState: navigationSearchState,
+      canSaveRouteAsTrack: canSaveRouteAsTrack ?? self.canSaveRouteAsTrack,
       errorMessage: errorMessage ?? self.errorMessage
     )
   }
