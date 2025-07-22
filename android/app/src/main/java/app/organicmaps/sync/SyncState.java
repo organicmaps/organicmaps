@@ -43,7 +43,7 @@ public class SyncState
           && entry.getValue().equals(mChecksumCalculator.computeChecksum(entry.getKey())))
         changedFiles.remove(entry.getKey());
       else
-        changedFiles.add(entry.getKey());
+        changedFiles.add(entry.getKey()); // To detect deleted-since-last-synced files
     }
     setChangedFiles(changedFiles);
     setChangedFilesCacheOutdated(false);
@@ -114,7 +114,8 @@ public class SyncState
     mMetadataPrefs.edit().putString(PREF_KEY_ROOT_DIR_STATE, state).apply();
   }
 
-  public static interface ChecksumCalculator {
+  public interface ChecksumCalculator
+  {
     String computeChecksum(String filePath);
   }
 }
