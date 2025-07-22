@@ -6,8 +6,6 @@
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
-#include "base/macros.hpp"
-#include "base/math.hpp"
 
 namespace
 {
@@ -80,35 +78,32 @@ void GpsTrackFilter::Process(std::vector<location::GpsInfo> const & inPoints,
     if (!currInfo.HasSpeed())
       continue;
 
-    if (m_countAcceptedInfo < 2 || currInfo.m_timestamp < GetLastAcceptedInfo().m_timestamp)
+    if (m_countAcceptedInfo == 0 || (IsGoodPoint(currInfo) && (m_countLastInfo < 2 || IsGoodVector(currInfo))))
     {
-      AddLastInfo(currInfo);
+      outPoints.emplace_back(currInfo);
       AddLastAcceptedInfo(currInfo);
-      continue;
-    }
-
-    if (IsGoodPoint(currInfo))
-    {
-      double const predictionDistance = GetDistance(m_lastInfo[1], m_lastInfo[0]);  // meters
-      double const realDistance = GetDistance(m_lastInfo[0], currInfo);             // meters
-
-      m2::PointD const predictionDirection = GetDirection(m_lastInfo[1], m_lastInfo[0]);
-      m2::PointD const realDirection = GetDirection(m_lastInfo[0], currInfo);
-
-      // Cosine of angle between prediction direction and real direction is
-      double const cosine = m2::DotProduct(predictionDirection, realDirection);
-
-      // Acceptable angle must be from 0 to 45 or from 0 to -45.
-      // Acceptable distance must be not great than 2x than predicted, otherwise it is jump.
-      if (cosine >= kCosine45degrees && realDistance <= std::max(kClosePointDistanceMeters, 2. * predictionDistance))
-      {
-        outPoints.emplace_back(currInfo);
-        AddLastAcceptedInfo(currInfo);
-      }
     }
 
     AddLastInfo(currInfo);
   }
+}
+
+bool GpsTrackFilter::IsGoodVector(location::GpsInfo const & info) const
+{
+  ASSERT_GREATER(m_countLastInfo, 1, ());
+
+  double const predictionDistance = GetDistance(m_lastInfo[1], m_lastInfo[0]);  // meters
+  double const realDistance = GetDistance(m_lastInfo[0], info);                 // meters
+
+  m2::PointD const predictionDirection = GetDirection(m_lastInfo[1], m_lastInfo[0]);
+  m2::PointD const realDirection = GetDirection(m_lastInfo[0], info);
+
+  // Cosine of angle between prediction direction and real direction is
+  double const cosine = m2::DotProduct(predictionDirection, realDirection);
+
+  // Acceptable angle must be from 0 to 45 or from 0 to -45.
+  // Acceptable distance must be not great than 2x than predicted, otherwise it is jump.
+  return (cosine >= kCosine45degrees && realDistance <= std::max(kClosePointDistanceMeters, 2. * predictionDistance));
 }
 
 bool GpsTrackFilter::IsGoodPoint(location::GpsInfo const & info) const
@@ -119,6 +114,11 @@ bool GpsTrackFilter::IsGoodPoint(location::GpsInfo const & info) const
 
   auto const & lastInfo = GetLastInfo();
   auto const & lastAcceptedInfo = GetLastAcceptedInfo();
+
+  // Time spend to move from the last point to the current point, sec:
+  double const timeFromLast = info.m_timestamp - lastInfo.m_timestamp;
+  if (timeFromLast <= 0.0)
+    return false;
 
   // Distance in meters between last accepted and current point is, meters:
   double const distanceFromLastAccepted = GetDistance(lastAcceptedInfo, info);
@@ -134,11 +134,6 @@ bool GpsTrackFilter::IsGoodPoint(location::GpsInfo const & info) const
 
   // Distance in meters between last and current point is, meters:
   double const distanceFromLast = GetDistance(lastInfo, info);
-
-  // Time spend to move from the last point to the current point, sec:
-  double const timeFromLast = info.m_timestamp - lastInfo.m_timestamp;
-  if (timeFromLast <= 0.0)
-    return false;
 
   // Speed to move from the last point to the current point
   double const speedFromLast = distanceFromLast / timeFromLast;
@@ -167,12 +162,12 @@ void GpsTrackFilter::AddLastInfo(location::GpsInfo const & info)
 {
   m_lastInfo[1] = m_lastInfo[0];
   m_lastInfo[0] = info;
-  m_countLastInfo += 1;
+  ++m_countLastInfo;
 }
 
 void GpsTrackFilter::AddLastAcceptedInfo(location::GpsInfo const & info)
 {
   m_lastAcceptedInfo[1] = m_lastAcceptedInfo[0];
   m_lastAcceptedInfo[0] = info;
-  m_countAcceptedInfo += 1;
+  ++m_countAcceptedInfo;
 }

@@ -2,9 +2,6 @@
 
 #include "platform/location.hpp"
 
-#include "geometry/latlon.hpp"
-
-#include <cstddef>
 #include <vector>
 
 class IGpsTrackFilter
@@ -35,6 +32,7 @@ public:
 
 private:
   bool IsGoodPoint(location::GpsInfo const & info) const;
+  bool IsGoodVector(location::GpsInfo const & info) const;
 
   location::GpsInfo const & GetLastInfo() const;
   location::GpsInfo const & GetLastAcceptedInfo() const;
