@@ -72,7 +72,7 @@ using TScopedLocalObjectArrayRef = ScopedLocalRef<jobjectArray>;
 using TScopedLocalIntArrayRef = ScopedLocalRef<jintArray>;
 using TScopedLocalByteArrayRef = ScopedLocalRef<jbyteArray>;
 
-jobject GetNewParcelablePointD(JNIEnv * env, m2::PointD const & point);
+jobject GetNewPointF(JNIEnv * env, m2::PointD const & point);
 
 jobject GetNewPoint(JNIEnv * env, m2::PointD const & point);
 jobject GetNewPoint(JNIEnv * env, m2::PointI const & point);

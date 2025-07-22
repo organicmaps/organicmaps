@@ -2,6 +2,7 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.graphics.PointF;
 import android.net.Uri;
 import android.provider.OpenableColumns;
 import androidx.annotation.IntDef;
@@ -591,7 +592,7 @@ public enum BookmarkManager {
   }
 
   @NonNull
-  public ParcelablePointD getBookmarkXY(@IntRange(from = 0) long bookmarkId)
+  public PointF getBookmarkXY(@IntRange(from = 0) long bookmarkId)
   {
     return nativeGetBookmarkXY(bookmarkId);
   }
@@ -850,7 +851,7 @@ public enum BookmarkManager {
   private static native String nativeGetBookmarkFeatureType(@IntRange(from = 0) long bookmarkId);
 
   @NonNull
-  private static native ParcelablePointD nativeGetBookmarkXY(@IntRange(from = 0) long bookmarkId);
+  private static native PointF nativeGetBookmarkXY(@IntRange(from = 0) long bookmarkId);
 
   @PredefinedColors.Color
   private static native int nativeGetBookmarkColor(@IntRange(from = 0) long bookmarkId);

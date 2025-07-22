@@ -1,5 +1,6 @@
 package app.organicmaps.sdk.bookmarks.data;
 
+import android.graphics.PointF;
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -26,7 +27,7 @@ public class BookmarkInfo
   @NonNull
   private final String mAddress;
   @NonNull
-  private final ParcelablePointD mLatLonPoint;
+  private final PointF mLatLonPoint;
 
   public BookmarkInfo(@IntRange(from = 0) long categoryId, @IntRange(from = 0) long bookmarkId)
   {
@@ -36,7 +37,7 @@ public class BookmarkInfo
     mFeatureType = BookmarkManager.INSTANCE.getBookmarkFeatureType(mBookmarkId);
     mIcon = new Icon(BookmarkManager.INSTANCE.getBookmarkColor(mBookmarkId),
                      BookmarkManager.INSTANCE.getBookmarkIcon(mBookmarkId));
-    final ParcelablePointD ll = BookmarkManager.INSTANCE.getBookmarkXY(mBookmarkId);
+    final PointF ll = BookmarkManager.INSTANCE.getBookmarkXY(mBookmarkId);
     mMerX = ll.x;
     mMerY = ll.y;
     mScale = BookmarkManager.INSTANCE.getBookmarkScale(mBookmarkId);
