@@ -29,14 +29,9 @@ public abstract class SyncClient
   public abstract String fetchBookmarksDirState() throws SyncOpException;
 
   /**
-   * @return The filename-to-checksum map of each bookmark file on the server. Neither
-   * the keys nor the values be null.
-   * <p>
-   * For backends where checksum can't be determined for
-   * files not uploaded from Organic Maps, return a sentinel value for such files.
-   * See {@link #isChecksumSentinel}
+   * See {@link CloudFilesState}
    */
-  public abstract HashMap<String, String> fetchBmFilesStateMap() throws SyncOpException;
+  public abstract CloudFilesState fetchCloudFilesState() throws SyncOpException;
 
   /**
    * Blocks until complete.
@@ -62,26 +57,12 @@ public abstract class SyncClient
      */
     public abstract void putBookmarkFile(String fileName, byte[] fileBytes, String checksum) throws SyncOpException;
 
-    public abstract void deleteBookmarksFile(String fileName) throws SyncOpException;
-
     /**
-     * Should only be overridden for backends where checksum can't be determined
-     * for files not uploaded from Organic Maps (i.e. user uploaded files).
-     * @see #isChecksumSentinel(String)
+     * Can be called for OM-uploaded as well as user-uploaded files.
      */
-    public void explicitlySetChecksum(String fileName, String checksum) {}
+    public abstract void deleteBookmarksFile(String fileName) throws SyncOpException;
 
     @Override
     public abstract void close();
-  }
-
-  /**
-   * Should only be overridden for backends where checksum can't be determined
-   * for files not uploaded from Organic Maps (i.e. user uploaded files).
-   * @see #fetchBmFilesStateMap()
-   */
-  public boolean isChecksumSentinel(String checksum)
-  {
-    return false;
   }
 }

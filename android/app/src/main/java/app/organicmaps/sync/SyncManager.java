@@ -3,7 +3,6 @@ package app.organicmaps.sync;
 import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.widget.Toast;
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;

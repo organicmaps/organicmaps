@@ -2121,7 +2121,11 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
         if (!SaveKmlFileSafe(*kmlData, kmlFileToLoad, KmlFileType::Text))
           base::DeleteFileX(kmlFileToLoad);
         else
+        {
+          if (m_fileChangedCallback)
+            m_fileChangedCallback(kmlFileToLoad);
           collection->emplace_back(std::move(kmlFileToLoad), std::move(kmlData));
+        }
       }
     }
 
@@ -3099,32 +3103,29 @@ void BookmarkManager::AddSuffixToCategoryName(std::string const & filePath)
 {
   std::promise<void> promise;
   std::future<void> future = promise.get_future();
-  GetPlatform().RunTask(Platform::Thread::File,
-                        [this, &filePath, &promise]()
-                        {
-                          auto const bmDir = GetBookmarksDirectory();
-                          auto const newPath =
-                            GenerateUniqueFileName(bmDir, base::FileNameFromFullPath(filePath), kKmlExtension);
-                          base::MoveFileX(filePath, newPath);
-                          GetPlatform().RunTask(Platform::Thread::Gui,
-                                                [this, &filePath, &promise, newPath = std::move(newPath)]()
-                                                {
-                                                  auto groupId = GetCategoryByFileName(filePath);
-                                                  if (groupId != kml::kInvalidMarkGroupId)
-                                                  {
-                                                    auto * group = GetBmCategory(groupId);
-                                                    group->SetFileName(newPath);
-                                                    kml::CategoryData const & categoryData = group->GetCategoryData();
-                                                    auto originalName = kml::GetDefaultStr(categoryData.m_name);
-                                                    int counter = 1;
-                                                    auto uniqueName = originalName + strings::to_string(counter);
-                                                    while (IsUsedCategoryName(uniqueName))
-                                                      uniqueName = originalName + strings::to_string(++counter);
-                                                    GetEditSession().SetCategoryName(groupId, uniqueName);
-                                                  }
-                                                  promise.set_value();
-                                                });
-                        });
+  GetPlatform().RunTask(Platform::Thread::File, [this, &filePath, &promise]()
+  {
+    auto const bmDir = GetBookmarksDirectory();
+    auto newPath = GenerateUniqueFileName(bmDir, base::FileNameFromFullPath(filePath), kKmlExtension);
+    base::MoveFileX(filePath, newPath);
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, &filePath, &promise, newPath = std::move(newPath)]()
+    {
+      auto groupId = GetCategoryByFileName(filePath);
+      if (groupId != kml::kInvalidMarkGroupId)
+      {
+        auto * group = GetBmCategory(groupId);
+        group->SetFileName(newPath);
+        kml::CategoryData const & categoryData = group->GetCategoryData();
+        auto originalName = kml::GetDefaultStr(categoryData.m_name);
+        int counter = 1;
+        auto uniqueName = originalName + strings::to_string(counter);
+        while (IsUsedCategoryName(uniqueName))
+          uniqueName = originalName + strings::to_string(++counter);
+        GetEditSession().SetCategoryName(groupId, uniqueName);
+      }
+      promise.set_value();
+    });
+  });
   future.get();
 }
 
