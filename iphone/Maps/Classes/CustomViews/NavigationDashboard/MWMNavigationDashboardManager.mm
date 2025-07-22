@@ -39,13 +39,12 @@
 }
 
 - (id<NavigationDashboardView>)navigationDashboardView {
-  auto navigationDashboardView = _navigationDashboardView;
-  if (navigationDashboardView)
-    return navigationDashboardView;
+  if (_navigationDashboardView)
+    return _navigationDashboardView;
   NavigationDashboardViewController * routePreviewViewController = [NavigationDashboardBuilder buildWithDelegate:self];
   [routePreviewViewController addTo:self.parentViewController];
   _navigationDashboardView = routePreviewViewController.interactor;
-  return navigationDashboardView;
+  return _navigationDashboardView;
 }
 
 - (SearchOnMapManager *)searchManager {
