@@ -284,11 +284,11 @@ public class NextcloudLoginHelper
       }
       switch (result)
       {
-        case Success ->
-          new Handler(Looper.getMainLooper())
-              .post(() -> Toast.makeText(context, R.string.account_connection_success, Toast.LENGTH_SHORT).show());
-        case UnexpectedError -> showErrorDialog(context, ""); // should be fairly impossible
-        case AlreadyExists -> showErrorDialog(context, context.getString(R.string.account_already_exists));
+      case Success ->
+        new Handler(Looper.getMainLooper())
+            .post(() -> Toast.makeText(context, R.string.account_connection_success, Toast.LENGTH_SHORT).show());
+      case UnexpectedError -> showErrorDialog(context, ""); // should be fairly impossible
+      case AlreadyExists -> showErrorDialog(context, context.getString(R.string.account_already_exists));
       }
       return true;
     }

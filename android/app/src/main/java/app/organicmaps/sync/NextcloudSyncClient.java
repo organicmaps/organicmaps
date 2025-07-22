@@ -21,6 +21,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -182,7 +183,7 @@ public class NextcloudSyncClient extends SyncClient
   }
 
   @Override
-  public HashMap<String, String> fetchBmFilesStateMap() throws SyncOpException
+  public CloudFilesState fetchCloudFilesState() throws SyncOpException
   {
     RequestBody body = RequestBody.create("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
                                               + "<d:propfind xmlns:d=\"DAV:\" xmlns:oc=\"http://owncloud.org/ns\">"
@@ -222,7 +223,7 @@ public class NextcloudSyncClient extends SyncClient
       parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, true);
       parser.setInput(Objects.requireNonNull(response.body()).byteStream(), null);
 
-      HashMap<String, String> result = new HashMap<>();
+      CloudFilesState result = new CloudFilesState(new HashMap<>(), new HashSet<>());
       int eventType = parser.getEventType();
       while (eventType != XmlPullParser.END_DOCUMENT)
       {
@@ -244,30 +245,34 @@ public class NextcloudSyncClient extends SyncClient
             else if (eventType == XmlPullParser.START_TAG && "href".equals(parser.getName())
                      && XMLNS_DAV.equals(parser.getNamespace()))
             {
+              // noinspection CharsetObjectCanBeUsed
               String href = URLDecoder.decode(trimQuotes(readText(parser)), "UTF-8");
               String name = "";
               if (href != null)
                 name = href.substring(href.lastIndexOf("/") + 1);
-              if (name.endsWith(".kml")) // Non kml files are ignored as of now.
+              if (name.matches("(?i).*\\.(kml|gpx|kmb|kmz)$"))
                 fileName = name;
             }
 
             if (fileName != null)
-              result.put(fileName, sha1);
+              result.omBookmarkFiles().put(fileName, sha1); // User uploaded files will be filtered later
 
             eventType = parser.next();
           }
         }
         eventType = parser.next();
-      }
-      Logger.i(TAG, result.size() + " kml files found in cloud dir.");
+      } // Parse xml response complete.
 
-      for (Map.Entry<String, String> entry : result.entrySet())
+      for (Map.Entry<String, String> entry : result.omBookmarkFiles().entrySet())
       {
-        if (entry.getValue() == null) // Should be the case for user-uploaded files
-          entry.setValue(recalculateHash(entry.getKey()));
+        if (entry.getValue() == null || !entry.getKey().endsWith(".kml")) // Should be the case for user-uploaded files
+          result.userUploadedFiles().add(entry.getKey());
       }
+      for (String userUploadedFile : result.userUploadedFiles())
+        result.omBookmarkFiles().remove(userUploadedFile);
 
+      Logger.i(TAG, "Found " + result.omBookmarkFiles().size() + " OM-uploaded files, and "
+                        + result.userUploadedFiles().size() + " user-uploaded files in the cloud dir.");
       return result;
     }
     catch (IOException e)
@@ -279,31 +284,6 @@ public class NextcloudSyncClient extends SyncClient
     {
       Logger.e(TAG, "Error parsing XML while trying to fetch bookmark files' state.", e);
       throw new SyncOpException.UnexpectedException(e.getLocalizedMessage());
-    }
-  }
-
-  private String recalculateHash(String bmFileName) throws SyncOpException
-  {
-    Request request = new Request.Builder()
-                          .url(getBmUri(bmFileName).toString())
-                          .header("X-Recalculate-Hash", "sha1")
-                          .method("PATCH", null)
-                          .header("Authorization", mAuthorization)
-                          .build();
-
-    try (Response response = SyncManager.INSTANCE.getInsecureOkHttpClient().newCall(request).execute())
-    {
-      String checksum = response.header("OC-Checksum", null);
-      if (checksum == null)
-        throw new SyncOpException.UnexpectedException("nextcloud-recalculate-hash unsupported");
-
-      Logger.i(TAG, "Recalculated checksum: " + checksum);
-      return checksum.substring("SHA1:".length()).trim().toLowerCase();
-    }
-    catch (IOException e)
-    {
-      Logger.e(TAG, "Error sending recalculate-hash request", e);
-      throw new SyncOpException.NetworkException();
     }
   }
 
@@ -547,7 +527,8 @@ public class NextcloudSyncClient extends SyncClient
       {
         try
         {
-          return new SimpleDateFormat(value, Locale.US).parse(value).toInstant().toEpochMilli();
+          SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+          return Objects.requireNonNull(sdf.parse(value)).toInstant().toEpochMilli();
         }
         catch (ParseException ignored)
         {}
