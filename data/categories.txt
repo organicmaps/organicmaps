@@ -18990,3 +18990,45 @@ uk:4Квест-кімната
 vi:Phòng giải đố
 zh-Hans:密室逃脱
 zh-Hant:密室逃脫
+
+amenity-luggage_locker
+en:Luggage|locker|storage
+ar:خزانة الأمتعة
+be:5Камера захоўвання|шафка|4багаж
+bg:Багажно шкафче
+ca:Armari d'equipatge
+cs:Skříňka na zavazadla
+da:Bagageskab
+de:Gepäckschließfach
+el:Θυρίδα αποσκευών
+es:Consigna de equipajes
+et:Pagasiruum
+eu:Ekipajearen aldagela
+fa:قفل چمدان
+fi:Matkatavaralokero
+fr:Consigne à bagages
+he:ארון המזוודות
+hi:सामान लॉकर
+hu:Poggyászmegőrző
+id:Loker Bagasi
+it:Armadietto per i bagagli
+ja:荷物ロッカー
+ko:수하물 보관함
+lv:Bagāžas skapītis
+mr:सामान लॉकर
+nb:Bagasjeskap
+nl:Bagagekluis
+pl:Schowek na bagaż
+pt:Cacifo para bagagens
+pt-BR:Armário de bagagem
+ro:Dulap pentru bagaje
+ru:5Камера хранения|4багаж
+sk:Skrinka na batožinu
+sv:Bagageförvaring
+sw:Locker ya mizigo
+th:ตู้เก็บกระเป๋า
+tr:Bagaj Dolabı
+uk:5Камера схову|4багаж
+vi:Tủ khóa hành lý
+zh-Hans:行李寄存柜
+zh-Hant:行李寄存櫃

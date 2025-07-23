@@ -197,3 +197,5 @@ attraction=train : attraction=amusement_ride
 attraction=swing_carousel : attraction=amusement_ride
 attraction=drop_tower : attraction=amusement_ride
 attraction=dark_ride : attraction=amusement_ride
+
+amenity=left_luggage : amenity=luggage_locker
