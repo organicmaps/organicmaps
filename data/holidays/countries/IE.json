@@ -1,0 +1,42 @@
+[
+  {
+    "date": "2025-01-01",
+    "name": "New Year's Day"
+  },
+  {
+    "date": "2025-02-03",
+    "name": "Saint Brigid's Day"
+  },
+  {
+    "date": "2025-03-17",
+    "name": "Saint Patrick's Day"
+  },
+  {
+    "date": "2025-04-21",
+    "name": "Easter Monday"
+  },
+  {
+    "date": "2025-05-05",
+    "name": "May Day"
+  },
+  {
+    "date": "2025-06-02",
+    "name": "June Bank Holiday"
+  },
+  {
+    "date": "2025-08-04",
+    "name": "August Bank Holiday"
+  },
+  {
+    "date": "2025-10-27",
+    "name": "October Bank Holiday"
+  },
+  {
+    "date": "2025-12-25",
+    "name": "Christmas Day"
+  },
+  {
+    "date": "2025-12-26",
+    "name": "Saint Stephen's Day"
+  }
+]
