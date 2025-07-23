@@ -25,7 +25,7 @@ public:
   template <typename T>
   void RefPtr(T * refPtr)
   {
-    RefPtrNamed(static_cast<void*>(refPtr), typeid(refPtr).name());
+    RefPtrNamed(static_cast<void *>(refPtr), typeid(refPtr).name());
   }
 
   void DerefPtr(void * p);
@@ -56,7 +56,8 @@ public:
   }
 };
 
-template<typename T> using drape_ptr = std::unique_ptr<T, DpPointerDeleter>;
+template <typename T>
+using drape_ptr = std::unique_ptr<T, DpPointerDeleter>;
 #else
 template <typename T>
 using drape_ptr = std::unique_ptr<T>;
@@ -68,12 +69,11 @@ drape_ptr<T> make_unique_dp(Args &&... args)
   return drape_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
-template<typename T>
+template <typename T>
 class ref_ptr
 {
 public:
-  ref_ptr() noexcept
-    : m_ptr(nullptr)
+  ref_ptr() noexcept : m_ptr(nullptr)
   {
 #if defined(TRACK_POINTERS)
     m_isOwnerUnique = false;
@@ -94,8 +94,7 @@ public:
 #endif
   }
 
-  ref_ptr(ref_ptr const & rhs) noexcept
-    : m_ptr(rhs.m_ptr)
+  ref_ptr(ref_ptr const & rhs) noexcept : m_ptr(rhs.m_ptr)
   {
 #if defined(TRACK_POINTERS)
     m_isOwnerUnique = rhs.m_isOwnerUnique;
@@ -126,12 +125,12 @@ public:
 
   T * operator->() const { return m_ptr; }
 
-  template<typename TResult>
+  template <typename TResult>
   operator ref_ptr<TResult>() const
   {
     TResult * res;
 
-    if constexpr(std::is_base_of<TResult, T>::value || std::is_void<TResult>::value)
+    if constexpr (std::is_base_of<TResult, T>::value || std::is_void<TResult>::value)
       res = m_ptr;
     else
     {
@@ -211,7 +210,7 @@ public:
   T * get() const { return m_ptr; }
 
 private:
-  T* m_ptr;
+  T * m_ptr;
 #if defined(TRACK_POINTERS)
   bool m_isOwnerUnique;
 #endif
@@ -237,7 +236,7 @@ ref_ptr<T> make_ref(drape_ptr<T> const & drapePtr)
 }
 
 template <typename T>
-ref_ptr<T> make_ref(T* ptr)
+ref_ptr<T> make_ref(T * ptr)
 {
 #if defined(TRACK_POINTERS)
   return ref_ptr<T>(ptr, false /* isOwnerUnique */);

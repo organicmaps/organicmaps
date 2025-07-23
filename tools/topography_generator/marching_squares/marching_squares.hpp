@@ -12,9 +12,8 @@ template <typename ValueType>
 class MarchingSquares
 {
 public:
-  MarchingSquares(ms::LatLon const & leftBottom, ms::LatLon const & rightTop,
-                  double step, ValueType valueStep, ValuesProvider<ValueType> & valuesProvider,
-                  std::string const & debugId)
+  MarchingSquares(ms::LatLon const & leftBottom, ms::LatLon const & rightTop, double step, ValueType valueStep,
+                  ValuesProvider<ValueType> & valuesProvider, std::string const & debugId)
     : m_leftBottom(leftBottom)
     , m_rightTop(rightTop)
     , m_step(step)
@@ -51,14 +50,12 @@ public:
       contoursBuilder.BeginLine();
       for (size_t j = 0; j < m_stepsCountLon; ++j)
       {
-        auto const leftBottom = ms::LatLon(m_leftBottom.m_lat + m_step * i,
-                                           m_leftBottom.m_lon + m_step * j);
+        auto const leftBottom = ms::LatLon(m_leftBottom.m_lat + m_step * i, m_leftBottom.m_lon + m_step * j);
         // Use std::min to prevent floating-point number precision error.
         auto const rightTop = ms::LatLon(std::min(leftBottom.m_lat + m_step, m_rightTop.m_lat),
                                          std::min(leftBottom.m_lon + m_step, m_rightTop.m_lon));
 
-        Square<ValueType> square(leftBottom, rightTop, result.m_minValue, m_valueStep,
-                                 m_valuesProvider, m_debugId);
+        Square<ValueType> square(leftBottom, rightTop, result.m_minValue, m_valueStep, m_valuesProvider, m_debugId);
         square.GenerateSegments(contoursBuilder);
       }
       auto const isLastLine = i == m_stepsCountLat - 1;
@@ -78,8 +75,7 @@ private:
     {
       for (size_t j = 0; j <= m_stepsCountLon; ++j)
       {
-        auto const pos = ms::LatLon(m_leftBottom.m_lat + m_step * i,
-                                    m_leftBottom.m_lon + m_step * j);
+        auto const pos = ms::LatLon(m_leftBottom.m_lat + m_step * i, m_leftBottom.m_lon + m_step * j);
         auto const value = m_valuesProvider.GetValue(pos);
         if (value == m_valuesProvider.GetInvalidValue())
         {

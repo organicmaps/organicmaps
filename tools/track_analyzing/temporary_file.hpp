@@ -13,10 +13,7 @@ public:
 
   ~TemporaryFile();
 
-  std::string const & GetFilePath() const
-  {
-    return m_filePath;
-  }
+  std::string const & GetFilePath() const { return m_filePath; }
 
   void WriteData(std::string const & data);
 

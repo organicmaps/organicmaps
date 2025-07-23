@@ -1,8 +1,8 @@
 #pragma once
 
-#include "indexer/ftypes_matcher.hpp"
 #include "indexer/drawing_rule_def.hpp"
 #include "indexer/drawing_rules.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "base/buffer_vector.hpp"
@@ -12,7 +12,10 @@
 
 class FeatureType;
 
-namespace drule { class BaseRule; }
+namespace drule
+{
+class BaseRule;
+}
 
 namespace df
 {
@@ -20,10 +23,13 @@ namespace df
 class IsHatchingTerritoryChecker : public ftypes::BaseChecker
 {
   IsHatchingTerritoryChecker();
+
 public:
   DECLARE_CHECKER_INSTANCE(IsHatchingTerritoryChecker);
+
 protected:
   bool IsMatched(uint32_t type) const override;
+
 private:
   size_t m_type3end;
 };

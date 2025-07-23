@@ -10,7 +10,10 @@
 #include <ostream>
 #include <string>
 
-namespace feature { class TypesHolder; }
+namespace feature
+{
+class TypesHolder;
+}
 
 namespace search
 {

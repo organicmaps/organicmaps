@@ -37,7 +37,7 @@ uint64_t GenUniqueId()
 
 vector<m2::PointD> MakePoly(m2::RectD const & rect)
 {
-  return { rect.LeftBottom(), rect.RightBottom(), rect.RightTop(), rect.LeftTop(), rect.LeftBottom() };
+  return {rect.LeftBottom(), rect.RightBottom(), rect.RightTop(), rect.LeftTop(), rect.LeftBottom()};
 }
 
 StringUtf8Multilang MakeName(string const & name, string const & lang)
@@ -54,16 +54,25 @@ StringUtf8Multilang MakeName(string const & name, string const & lang)
 }  // namespace
 
 // TestFeature -------------------------------------------------------------------------------------
-TestFeature::TestFeature() : m_id(GenUniqueId()), m_center(0, 0), m_type(Type::Unknown) { Init(); }
+TestFeature::TestFeature() : m_id(GenUniqueId()), m_center(0, 0), m_type(Type::Unknown)
+{
+  Init();
+}
 
 TestFeature::TestFeature(StringUtf8Multilang name)
-  : m_id(GenUniqueId()), m_center(0, 0), m_type(Type::Unknown), m_names(std::move(name))
+  : m_id(GenUniqueId())
+  , m_center(0, 0)
+  , m_type(Type::Unknown)
+  , m_names(std::move(name))
 {
   Init();
 }
 
 TestFeature::TestFeature(m2::PointD const & center, StringUtf8Multilang name)
-  : m_id(GenUniqueId()), m_center(center), m_type(Type::Point), m_names(std::move(name))
+  : m_id(GenUniqueId())
+  , m_center(center)
+  , m_type(Type::Point)
+  , m_names(std::move(name))
 {
   Init();
 }
@@ -75,7 +84,11 @@ TestFeature::TestFeature(m2::RectD const & boundary, StringUtf8Multilang name)
 }
 
 TestFeature::TestFeature(vector<m2::PointD> geometry, StringUtf8Multilang name, Type type)
-  : m_id(GenUniqueId()), m_center(0, 0), m_geometry(std::move(geometry)), m_type(type), m_names(std::move(name))
+  : m_id(GenUniqueId())
+  , m_center(0, 0)
+  , m_geometry(std::move(geometry))
+  , m_type(type)
+  , m_names(std::move(name))
 {
   ASSERT(!m_geometry.empty(), ());
   Init();
@@ -145,23 +158,25 @@ void TestFeature::Serialize(FeatureBuilder & fb) const
 }
 
 // TestPlace -------------------------------------------------------------------------------------
-TestPlace::TestPlace(m2::PointD const & center, string const & name, string const & lang,
-                     uint32_t type, uint8_t rank /* = 0 */)
-  : TestFeature(center, MakeName(name, lang)), m_type(type), m_rank(rank)
-{
-}
+TestPlace::TestPlace(m2::PointD const & center, string const & name, string const & lang, uint32_t type,
+                     uint8_t rank /* = 0 */)
+  : TestFeature(center, MakeName(name, lang))
+  , m_type(type)
+  , m_rank(rank)
+{}
 
-TestPlace::TestPlace(m2::PointD const & center, StringUtf8Multilang const & name,
-                     uint32_t type, uint8_t rank)
-  : TestFeature(center, name), m_type(type), m_rank(rank)
-{
-}
+TestPlace::TestPlace(m2::PointD const & center, StringUtf8Multilang const & name, uint32_t type, uint8_t rank)
+  : TestFeature(center, name)
+  , m_type(type)
+  , m_rank(rank)
+{}
 
 TestPlace::TestPlace(std::vector<m2::PointD> const & boundary, std::string const & name, std::string const & lang,
                      uint32_t type, uint8_t rank)
-  : TestFeature(boundary, MakeName(name, lang), Type::Area), m_type(type), m_rank(rank)
-{
-}
+  : TestFeature(boundary, MakeName(name, lang), Type::Area)
+  , m_type(type)
+  , m_rank(rank)
+{}
 
 void TestPlace::Serialize(FeatureBuilder & fb) const
 {
@@ -191,13 +206,11 @@ TestCountry::TestCountry(m2::PointD const & center, std::string const & name, st
 
 TestState::TestState(m2::PointD const & center, string const & name, string const & lang)
   : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "state"}))
-{
-}
+{}
 
 TestSea::TestSea(m2::PointD const & center, std::string const & name, std::string const & lang)
   : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "sea"}))
-{
-}
+{}
 
 uint32_t TestCity::GetCityType()
 {
@@ -206,40 +219,35 @@ uint32_t TestCity::GetCityType()
 
 TestCity::TestCity(m2::PointD const & center, string const & name, string const & lang, uint8_t rank)
   : TestPlace(center, name, lang, GetCityType(), rank)
-{
-}
+{}
 
 TestCity::TestCity(m2::PointD const & center, StringUtf8Multilang const & name, uint8_t rank)
   : TestPlace(center, name, GetCityType(), rank)
-{
-}
+{}
 
 TestCity::TestCity(vector<m2::PointD> const & boundary, string const & name, string const & lang, uint8_t rank)
   : TestPlace(boundary, name, lang, GetCityType(), rank)
-{
-}
+{}
 
 TestVillage::TestVillage(m2::PointD const & center, string const & name, string const & lang, uint8_t rank)
   : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "village"}), rank)
-{
-}
+{}
 
 TestSuburb::TestSuburb(m2::PointD const & center, string const & name, string const & lang)
   : TestPlace(center, name, lang, classif().GetTypeByPath({"place", "suburb"}))
-{
-}
+{}
 
 // TestStreet --------------------------------------------------------------------------------------
 TestStreet::TestStreet(vector<m2::PointD> const & points, string const & name, string const & lang)
   : TestFeature(points, MakeName(name, lang), Type::Line)
 {
-  SetType({ "highway", "living_street" });
+  SetType({"highway", "living_street"});
 }
 
 TestStreet::TestStreet(vector<m2::PointD> const & points, StringUtf8Multilang const & name)
   : TestFeature(points, name, Type::Line)
 {
-  SetType({ "highway", "living_street" });
+  SetType({"highway", "living_street"});
 }
 
 void TestStreet::SetType(base::StringIL const & e)
@@ -266,8 +274,7 @@ string TestStreet::ToDebugString() const
 // TestSquare --------------------------------------------------------------------------------------
 TestSquare::TestSquare(m2::RectD const & rect, string const & name, string const & lang)
   : TestFeature(rect, MakeName(name, lang))
-{
-}
+{}
 
 void TestSquare::Serialize(FeatureBuilder & fb) const
 {
@@ -288,7 +295,9 @@ string TestSquare::ToDebugString() const
 TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & lang)
   : TestFeature(center, MakeName(name, lang))
 {
-  SetTypes({{"railway", "station"}});
+  SetTypes({
+      {"railway", "station"}
+  });
 }
 
 // static
@@ -354,9 +363,9 @@ void TestPOI::SetTypes(std::initializer_list<base::StringIL> const & types)
 // TestMultilingualPOI -----------------------------------------------------------------------------
 TestMultilingualPOI::TestMultilingualPOI(m2::PointD const & center, string const & defaultName,
                                          std::map<string, string> const & multilingualNames)
-  : TestPOI(center, defaultName, "default"), m_multilingualNames(multilingualNames)
-{
-}
+  : TestPOI(center, defaultName, "default")
+  , m_multilingualNames(multilingualNames)
+{}
 
 void TestMultilingualPOI::Serialize(FeatureBuilder & fb) const
 {
@@ -382,21 +391,22 @@ string TestMultilingualPOI::ToDebugString() const
 }
 
 // TestBuilding ------------------------------------------------------------------------------------
-TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
-                           string const & houseNumber, string const & lang)
-  : TestFeature(center, MakeName(name, lang)), m_houseNumber(houseNumber)
-{
-}
+TestBuilding::TestBuilding(m2::PointD const & center, string const & name, string const & houseNumber,
+                           string const & lang)
+  : TestFeature(center, MakeName(name, lang))
+  , m_houseNumber(houseNumber)
+{}
 
-TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
-                           string const & houseNumber, string_view street, string const & lang)
-  : TestFeature(center, MakeName(name, lang)), m_houseNumber(houseNumber)
+TestBuilding::TestBuilding(m2::PointD const & center, string const & name, string const & houseNumber,
+                           string_view street, string const & lang)
+  : TestFeature(center, MakeName(name, lang))
+  , m_houseNumber(houseNumber)
 {
   m_addr.Set(AddressData::Type::Street, street);
 }
 
-TestBuilding::TestBuilding(m2::RectD const & boundary, string const & name,
-                           string const & houseNumber, string_view street, string const & lang)
+TestBuilding::TestBuilding(m2::RectD const & boundary, string const & name, string const & houseNumber,
+                           string_view street, string const & lang)
   : TestFeature(boundary, MakeName(name, lang))
   , m_houseNumber(houseNumber)
 {
@@ -422,16 +432,14 @@ void TestBuilding::Serialize(FeatureBuilder & fb) const
 string TestBuilding::ToDebugString() const
 {
   ostringstream os;
-  os << "TestBuilding [" << DebugPrint(m_names) << ", " << m_houseNumber << ", "
-     << DebugPrint(m_center) << "]";
+  os << "TestBuilding [" << DebugPrint(m_names) << ", " << m_houseNumber << ", " << DebugPrint(m_center) << "]";
   return os.str();
 }
 
 // TestPark ----------------------------------------------------------------------------------------
 TestPark::TestPark(vector<m2::PointD> const & boundary, string const & name, string const & lang)
   : TestFeature(boundary, MakeName(name, lang), Type::Area)
-{
-}
+{}
 
 void TestPark::Serialize(FeatureBuilder & fb) const
 {
@@ -452,8 +460,7 @@ string TestPark::ToDebugString() const
 // TestRoad ----------------------------------------------------------------------------------------
 TestRoad::TestRoad(vector<m2::PointD> const & points, string const & name, string const & lang)
   : TestFeature(points, MakeName(name, lang), Type::Line)
-{
-}
+{}
 
 void TestRoad::Serialize(FeatureBuilder & fb) const
 {
@@ -471,6 +478,9 @@ string TestRoad::ToDebugString() const
 }
 
 // Functions ---------------------------------------------------------------------------------------
-string DebugPrint(TestFeature const & feature) { return feature.ToDebugString(); }
+string DebugPrint(TestFeature const & feature)
+{
+  return feature.ToDebugString();
+}
 }  // namespace tests_support
 }  // namespace generator

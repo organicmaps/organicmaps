@@ -68,7 +68,10 @@ kml::FileData GenerateKmlFileData()
   result.m_categoryData.m_tags = {"mountains", "ski", "snowboard"};
   result.m_categoryData.m_toponyms = {"12345", "54321"};
   result.m_categoryData.m_languageCodes = {1, 2, 8};
-  result.m_categoryData.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
+  result.m_categoryData.m_properties = {
+      {"property1", "value1"},
+      {"property2", "value2"}
+  };
 
   kml::BookmarkData bookmarkData;
   bookmarkData.m_name[kDefaultLang] = "Test bookmark";
@@ -87,9 +90,11 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_visible = false;
   bookmarkData.m_nearestToponym = "12345";
   bookmarkData.m_minZoom = 10;
-  bookmarkData.m_properties = {{"bm_property1", "value1"},
-                               {"bm_property2", "value2"},
-                               {"score", "5"}};
+  bookmarkData.m_properties = {
+      {"bm_property1", "value1"},
+      {"bm_property2", "value2"},
+      {       "score",      "5"}
+  };
   bookmarkData.m_compilations = {1, 2, 3, 4, 5};
   result.m_bookmarksData.emplace_back(std::move(bookmarkData));
 
@@ -99,17 +104,24 @@ kml::FileData GenerateKmlFileData()
   trackData.m_name[kRuLang] = "Тестовый трек";
   trackData.m_description[kDefaultLang] = "Test track description";
   trackData.m_description[kRuLang] = "Тестовое описание трека";
-  trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
-                        {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
+  trackData.m_layers = {
+      {6.0, {kml::PredefinedColor::None, 0xff0000ff}},
+      {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}
+  };
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
   trackData.m_geometry.AddLine({
-    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
+      {{45.9242, 56.8679}, 1},
+      {{45.2244, 56.2786}, 2},
+      {{45.1964, 56.9832}, 3}
   });
 
   trackData.m_visible = false;
   trackData.m_nearestToponyms = {"12345", "54321", "98765"};
-  trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
+  trackData.m_properties = {
+      {"tr_property1", "value1"},
+      {"tr_property2", "value2"}
+  };
   result.m_tracksData.emplace_back(std::move(trackData));
 
   kml::CategoryData compilationData1;
@@ -132,7 +144,10 @@ kml::FileData GenerateKmlFileData()
   compilationData1.m_tags = {"mountains", "ski"};
   compilationData1.m_toponyms = {"8", "9"};
   compilationData1.m_languageCodes = {1, 2, 8};
-  compilationData1.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
+  compilationData1.m_properties = {
+      {"property1", "value1"},
+      {"property2", "value2"}
+  };
   result.m_compilationsData.push_back(std::move(compilationData1));
 
   kml::CategoryData compilationData2;
@@ -155,7 +170,10 @@ kml::FileData GenerateKmlFileData()
   compilationData2.m_tags = {"mountains", "bike"};
   compilationData2.m_toponyms = {"10", "11"};
   compilationData2.m_languageCodes = {1, 2, 8};
-  compilationData2.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
+  compilationData2.m_properties = {
+      {"property1", "value1"},
+      {"property2", "value2"}
+  };
   result.m_compilationsData.push_back(std::move(compilationData2));
 
   return result;
@@ -167,7 +185,9 @@ kml::FileData GenerateKmlFileDataForTrackWithoutTimestamps()
   auto & trackData = data.m_tracksData[0];
   trackData.m_geometry.Clear();
   trackData.m_geometry.AddLine({
-    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
+      {{45.9242, 56.8679}, 1},
+      {{45.2244, 56.2786}, 2},
+      {{45.1964, 56.9832}, 3}
   });
   trackData.m_geometry.AddTimestamps({});
   return data;
@@ -181,19 +201,24 @@ kml::FileData GenerateKmlFileDataForTrackWithTimestamps()
 
   // track 1 (without timestamps)
   trackData.m_geometry.AddLine({
-    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
+      {{45.9242, 56.8679}, 1},
+      {{45.2244, 56.2786}, 2},
+      {{45.1964, 56.9832}, 3}
   });
   trackData.m_geometry.AddTimestamps({});
 
   // track 2
   trackData.m_geometry.AddLine({
-    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}
+      {{45.9242, 56.8679}, 1},
+      {{45.2244, 56.2786}, 2},
+      {{45.1964, 56.9832}, 3}
   });
   trackData.m_geometry.AddTimestamps({0.0, 1.0, 2.0});
 
   // track 3
   trackData.m_geometry.AddLine({
-    {{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}
+      {{45.9242, 56.8679}, 1},
+      {{45.2244, 56.2786}, 2}
   });
   trackData.m_geometry.AddTimestamps({0.0, 1.0});
   return data;
@@ -207,28 +232,30 @@ UNIT_TEST(Kml_Deserialization_Text_Bin_Memory)
 
   kml::FileData dataFromText;
   TEST_NO_THROW(
-  {
-    kml::DeserializerKml des(dataFromText);
-    MemReader reader(kTextKml, strlen(kTextKml));
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(dataFromText);
+        MemReader reader(kTextKml, strlen(kTextKml));
+        des.Deserialize(reader);
+      },
+      ());
 
-// TODO: uncomment to output bytes to the log.
-//  std::vector<uint8_t> buffer;
-//  {
-//    kml::binary::SerializerKml ser(dataFromText);
-//    MemWriter<decltype(buffer)> sink(buffer);
-//    ser.Serialize(sink);
-//  }
-//  LOG(LINFO, (FormatBytesFromBuffer(buffer)));
+  // TODO: uncomment to output bytes to the log.
+  //  std::vector<uint8_t> buffer;
+  //  {
+  //    kml::binary::SerializerKml ser(dataFromText);
+  //    MemWriter<decltype(buffer)> sink(buffer);
+  //    ser.Serialize(sink);
+  //  }
+  //  LOG(LINFO, (FormatBytesFromBuffer(buffer)));
 
   kml::FileData dataFromBin;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKml.data(), kBinKml.size());
-    kml::binary::DeserializerKml des(dataFromBin);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKml.data(), kBinKml.size());
+        kml::binary::DeserializerKml des(dataFromBin);
+        des.Deserialize(reader);
+      },
+      ());
 
   TEST_EQUAL(dataFromText, dataFromBin, ());
 }
@@ -295,26 +322,29 @@ UNIT_TEST(Kml_Deserialization_Text_File)
   std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
   TEST_NO_THROW(
-  {
-    FileWriter file(kmlFile);
-    file.Write(kTextKml, strlen(kTextKml));
-  }, ());
+      {
+        FileWriter file(kmlFile);
+        file.Write(kTextKml, strlen(kTextKml));
+      },
+      ());
 
   kml::FileData dataFromFile;
   TEST_NO_THROW(
-  {
-    kml::DeserializerKml des(dataFromFile);
-    FileReader reader(kmlFile);
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(dataFromFile);
+        FileReader reader(kmlFile);
+        des.Deserialize(reader);
+      },
+      ());
 
   kml::FileData dataFromText;
   TEST_NO_THROW(
-  {
-    kml::DeserializerKml des(dataFromText);
-    MemReader reader(kTextKml, strlen(kTextKml));
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(dataFromText);
+        MemReader reader(kTextKml, strlen(kTextKml));
+        des.Deserialize(reader);
+      },
+      ());
   TEST_EQUAL(dataFromFile, dataFromText, ());
 }
 
@@ -324,26 +354,29 @@ UNIT_TEST(Kml_Deserialization_Bin_File)
   std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
   TEST_NO_THROW(
-  {
-    FileWriter file(kmbFile);
-    file.Write(kBinKml.data(), kBinKml.size());
-  }, ());
+      {
+        FileWriter file(kmbFile);
+        file.Write(kBinKml.data(), kBinKml.size());
+      },
+      ());
 
   kml::FileData dataFromFile;
   TEST_NO_THROW(
-  {
-    kml::binary::DeserializerKml des(dataFromFile);
-    FileReader reader(kmbFile);
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::binary::DeserializerKml des(dataFromFile);
+        FileReader reader(kmbFile);
+        des.Deserialize(reader);
+      },
+      ());
 
   kml::FileData dataFromBin;
   TEST_NO_THROW(
-  {
-    kml::binary::DeserializerKml des(dataFromBin);
-    MemReader reader(kBinKml.data(), kBinKml.size());
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::binary::DeserializerKml des(dataFromBin);
+        MemReader reader(kBinKml.data(), kBinKml.size());
+        des.Deserialize(reader);
+      },
+      ());
 
   TEST_EQUAL(dataFromFile, dataFromBin, ());
 }
@@ -357,19 +390,21 @@ UNIT_TEST(Kml_Serialization_Bin_File)
   std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
   TEST_NO_THROW(
-  {
-    kml::binary::SerializerKml ser(data);
-    FileWriter writer(kmbFile);
-    ser.Serialize(writer);
-  }, ());
+      {
+        kml::binary::SerializerKml ser(data);
+        FileWriter writer(kmbFile);
+        ser.Serialize(writer);
+      },
+      ());
 
   kml::FileData dataFromFile;
   TEST_NO_THROW(
-  {
-    kml::binary::DeserializerKml des(dataFromFile);
-    FileReader reader(kmbFile);
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::binary::DeserializerKml des(dataFromFile);
+        FileReader reader(kmbFile);
+        des.Deserialize(reader);
+      },
+      ());
 
   TEST_EQUAL(data, dataFromFile, ());
 }
@@ -387,37 +422,40 @@ UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
   std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
   TEST_NO_THROW(
-  {
-    kml::SerializerKml ser(data);
-    FileWriter sink(kmlFile);
-    ser.Serialize(sink);
-  }, ());
+      {
+        kml::SerializerKml ser(data);
+        FileWriter sink(kmlFile);
+        ser.Serialize(sink);
+      },
+      ());
 
-// TODO: uncomment to output KML to the log.
-//  std::string buffer;
-//  {
-//    kml::SerializerKml ser(data);
-//    MemWriter<decltype(buffer)> sink(buffer);
-//    ser.Serialize(sink);
-//  }
-//  LOG(LINFO, (buffer));
+  // TODO: uncomment to output KML to the log.
+  //  std::string buffer;
+  //  {
+  //    kml::SerializerKml ser(data);
+  //    MemWriter<decltype(buffer)> sink(buffer);
+  //    ser.Serialize(sink);
+  //  }
+  //  LOG(LINFO, (buffer));
 
   kml::FileData dataFromGeneratedFile;
   TEST_NO_THROW(
-  {
-    kml::DeserializerKml des(dataFromGeneratedFile);
-    FileReader reader(kmlFile);
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(dataFromGeneratedFile);
+        FileReader reader(kmlFile);
+        des.Deserialize(reader);
+      },
+      ());
   TEST_EQUAL(dataFromGeneratedFile, data, ());
 
   kml::FileData dataFromFile;
   TEST_NO_THROW(
-  {
-    kml::DeserializerKml des(dataFromFile);
-    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/generated.kml"));
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(dataFromFile);
+        FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/generated.kml"));
+        des.Deserialize(reader);
+      },
+      ());
   TEST_EQUAL(dataFromFile, data, ());
 
   std::string dataFromFileBuffer;
@@ -444,28 +482,31 @@ UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)
   std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
   SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
   TEST_NO_THROW(
-  {
-    kml::SerializerKml ser(data);
-    FileWriter sink(kmlFile);
-    ser.Serialize(sink);
-  }, ());
+      {
+        kml::SerializerKml ser(data);
+        FileWriter sink(kmlFile);
+        ser.Serialize(sink);
+      },
+      ());
 
   kml::FileData dataFromGeneratedFile;
   TEST_NO_THROW(
-  {
-    kml::DeserializerKml des(dataFromGeneratedFile);
-    FileReader reader(kmlFile);
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(dataFromGeneratedFile);
+        FileReader reader(kmlFile);
+        des.Deserialize(reader);
+      },
+      ());
   TEST_EQUAL(dataFromGeneratedFile, data, ());
 
   kml::FileData dataFromFile;
   TEST_NO_THROW(
-  {
-    kml::DeserializerKml des(dataFromFile);
-    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/generated_mixed_tracks.kml"));
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(dataFromFile);
+        FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/generated_mixed_tracks.kml"));
+        des.Deserialize(reader);
+      },
+      ());
   TEST_EQUAL(dataFromFile, data, ());
 }
 
@@ -474,19 +515,21 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V3_And_V4)
 {
   kml::FileData dataFromBinV3;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV3.data(), kBinKmlV3.size());
-    kml::binary::DeserializerKml des(dataFromBinV3);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV3.data(), kBinKmlV3.size());
+        kml::binary::DeserializerKml des(dataFromBinV3);
+        des.Deserialize(reader);
+      },
+      ());
 
   kml::FileData dataFromBinV4;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV4.data(), kBinKmlV4.size());
-    kml::binary::DeserializerKml des(dataFromBinV4);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV4.data(), kBinKmlV4.size());
+        kml::binary::DeserializerKml des(dataFromBinV4);
+        des.Deserialize(reader);
+      },
+      ());
   TEST_EQUAL(dataFromBinV3, dataFromBinV4, ());
 }
 
@@ -494,40 +537,43 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
 {
   kml::FileData dataFromBinV6;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV6.data(), kBinKmlV6.size());
-    kml::binary::DeserializerKml des(dataFromBinV6);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV6.data(), kBinKmlV6.size());
+        kml::binary::DeserializerKml des(dataFromBinV6);
+        des.Deserialize(reader);
+      },
+      ());
 
   kml::FileData dataFromBinV7;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
-    kml::binary::DeserializerKml des(dataFromBinV7);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
+        kml::binary::DeserializerKml des(dataFromBinV7);
+        des.Deserialize(reader);
+      },
+      ());
   TEST_EQUAL(dataFromBinV6, dataFromBinV7, ());
 }
-
 
 UNIT_TEST(Kml_Deserialization_From_Bin_V7_And_V8)
 {
   kml::FileData dataFromBinV7;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
-    kml::binary::DeserializerKml des(dataFromBinV7);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV7.data(), kBinKmlV7.size());
+        kml::binary::DeserializerKml des(dataFromBinV7);
+        des.Deserialize(reader);
+      },
+      ());
 
   kml::FileData dataFromBinV8;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
-    kml::binary::DeserializerKml des(dataFromBinV8);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+        kml::binary::DeserializerKml des(dataFromBinV8);
+        des.Deserialize(reader);
+      },
+      ());
   TEST_EQUAL(dataFromBinV7, dataFromBinV8, ());
 }
 
@@ -535,22 +581,24 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V8_And_V8MM)
 {
   kml::FileData dataFromBinV8;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
-    kml::binary::DeserializerKml des(dataFromBinV8);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+        kml::binary::DeserializerKml des(dataFromBinV8);
+        des.Deserialize(reader);
+      },
+      ());
 
   kml::FileData dataFromBinV8MM;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV8MM.data(), kBinKmlV8MM.size());
-    kml::binary::DeserializerKml des(dataFromBinV8MM);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV8MM.data(), kBinKmlV8MM.size());
+        kml::binary::DeserializerKml des(dataFromBinV8MM);
+        des.Deserialize(reader);
+      },
+      ());
 
-// Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
-// because new format has less properties and different m_id. Compare some properties here:
+  // Can't compare dataFromBinV8.m_categoryData and dataFromBinV8MM.m_categoryData directly
+  // because new format has less properties and different m_id. Compare some properties here:
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_name, dataFromBinV8MM.m_categoryData.m_name, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_description, dataFromBinV8MM.m_categoryData.m_description, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_annotation, dataFromBinV8MM.m_categoryData.m_annotation, ());
@@ -569,19 +617,21 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
 {
   kml::FileData dataFromBinV8;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
-    kml::binary::DeserializerKml des(dataFromBinV8);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV8.data(), kBinKmlV8.size());
+        kml::binary::DeserializerKml des(dataFromBinV8);
+        des.Deserialize(reader);
+      },
+      ());
 
   kml::FileData dataFromBinV9MM;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlV9MM.data(), kBinKmlV9MM.size());
-    kml::binary::DeserializerKml des(dataFromBinV9MM);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlV9MM.data(), kBinKmlV9MM.size());
+        kml::binary::DeserializerKml des(dataFromBinV9MM);
+        des.Deserialize(reader);
+      },
+      ());
 
   // Can't compare dataFromBinV8.m_categoryData and dataFromBinV9MM.m_categoryData directly
   // because new format has less properties and different m_id. Compare some properties here:
@@ -595,10 +645,12 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_tags, dataFromBinV9MM.m_categoryData.m_tags, ());
   TEST_EQUAL(dataFromBinV8.m_categoryData.m_properties, dataFromBinV9MM.m_categoryData.m_properties, ());
 
-  dataFromBinV8.m_bookmarksData[0].m_id = dataFromBinV9MM.m_bookmarksData[0].m_id; // V8 and V9MM bookmarks have different IDs. Fix ID value manually.
+  dataFromBinV8.m_bookmarksData[0].m_id =
+      dataFromBinV9MM.m_bookmarksData[0].m_id;  // V8 and V9MM bookmarks have different IDs. Fix ID value manually.
   TEST_EQUAL(dataFromBinV8.m_bookmarksData, dataFromBinV9MM.m_bookmarksData, ());
 
-  dataFromBinV8.m_tracksData[0].m_id = dataFromBinV9MM.m_tracksData[0].m_id; // V8 and V9MM tracks have different IDs. Fix ID value manually.
+  dataFromBinV8.m_tracksData[0].m_id =
+      dataFromBinV9MM.m_tracksData[0].m_id;  // V8 and V9MM tracks have different IDs. Fix ID value manually.
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV9MM.m_tracksData, ());
 }
 
@@ -606,11 +658,12 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V9MM_With_MultiGeometry)
 {
   kml::FileData dataFromBinV9MM;
   TEST_NO_THROW(
-  {
-    MemReader reader(kBinKmlMultiGeometryV9MM.data(), kBinKmlMultiGeometryV9MM.size());
-    kml::binary::DeserializerKml des(dataFromBinV9MM);
-    des.Deserialize(reader);
-  }, ());
+      {
+        MemReader reader(kBinKmlMultiGeometryV9MM.data(), kBinKmlMultiGeometryV9MM.size());
+        kml::binary::DeserializerKml des(dataFromBinV9MM);
+        des.Deserialize(reader);
+      },
+      ());
 
   TEST_EQUAL(dataFromBinV9MM.m_tracksData.size(), 1, ());
 
@@ -689,10 +742,7 @@ UNIT_TEST(Kml_Ver_2_3)
     </kml>)";
 
   kml::FileData fData;
-  TEST_NO_THROW(
-  {
-    kml::DeserializerKml(fData).Deserialize(MemReader(data));
-  }, ());
+  TEST_NO_THROW({ kml::DeserializerKml(fData).Deserialize(MemReader(data)); }, ());
 
   TEST_EQUAL(fData.m_tracksData.size(), 1, ());
   auto const & geom = fData.m_tracksData[0].m_geometry;
@@ -736,10 +786,7 @@ UNIT_TEST(Kml_Placemark_contains_both_Bookmark_and_Track_data)
 </kml>)";
 
   kml::FileData fData;
-  TEST_NO_THROW(
-  {
-    kml::DeserializerKml(fData).Deserialize(MemReader(input));
-  }, ());
+  TEST_NO_THROW({ kml::DeserializerKml(fData).Deserialize(MemReader(input)); }, ());
 
   TEST_EQUAL(fData.m_bookmarksData.size(), 2, ());
   TEST_EQUAL(fData.m_tracksData.size(), 2, ());
@@ -772,10 +819,7 @@ UNIT_TEST(Fix_Invisible_Color_Bug_In_Gpx_Tracks)
 </kml>)";
 
   kml::FileData fData;
-  TEST_NO_THROW(
-  {
-    kml::DeserializerKml(fData).Deserialize(MemReader(input));
-  }, ());
+  TEST_NO_THROW({ kml::DeserializerKml(fData).Deserialize(MemReader(input)); }, ());
 
   TEST_EQUAL(fData.m_tracksData.size(), 2, ());
   TEST_EQUAL(fData.m_tracksData[0].m_layers.size(), 1, ());
@@ -788,11 +832,13 @@ UNIT_TEST(Kml_Tracks_With_Different_Points_And_Timestamps_Order)
 {
   kml::FileData dataFromFile;
   TEST_NO_THROW(
-  {
-    kml::DeserializerKml des(dataFromFile);
-    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_with_timestams_different_orders.kml"));
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(dataFromFile);
+        FileReader reader(
+            GetPlatform().TestsDataPathForFile("test_data/kml/track_with_timestams_different_orders.kml"));
+        des.Deserialize(reader);
+      },
+      ());
 
   TEST_EQUAL(dataFromFile.m_tracksData.size(), 1, ());
   auto const & geom = dataFromFile.m_tracksData[0].m_geometry;
@@ -810,11 +856,12 @@ UNIT_TEST(Kml_Track_Points_And_Timestamps_Sizes_Mismatch)
 {
   kml::FileData dataFromFile;
   TEST_ANY_THROW(
-  {
-    kml::DeserializerKml des(dataFromFile);
-    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_with_timestamps_mismatch.kml"));
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(dataFromFile);
+        FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_with_timestamps_mismatch.kml"));
+        des.Deserialize(reader);
+      },
+      ());
   TEST_EQUAL(dataFromFile.m_tracksData.size(), 0, ());
 }
 
@@ -840,10 +887,7 @@ UNIT_TEST(Kml_Import_OpenTracks)
 </kml>)";
 
   kml::FileData fData;
-  TEST_NO_THROW(
-  {
-    kml::DeserializerKml(fData).Deserialize(MemReader(input));
-  }, ());
+  TEST_NO_THROW({ kml::DeserializerKml(fData).Deserialize(MemReader(input)); }, ());
 
   {
     TEST_EQUAL(fData.m_tracksData.size(), 1, ());
@@ -858,11 +902,12 @@ UNIT_TEST(Kml_Import_OpenTracks)
 
   fData = {};
   TEST_NO_THROW(
-  {
-    kml::DeserializerKml des(fData);
-    FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_from_OpenTracks.kml"));
-    des.Deserialize(reader);
-  }, ());
+      {
+        kml::DeserializerKml des(fData);
+        FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_from_OpenTracks.kml"));
+        des.Deserialize(reader);
+      },
+      ());
 
   {
     TEST_EQUAL(fData.m_tracksData.size(), 1, ());
@@ -896,10 +941,7 @@ UNIT_TEST(Kml_BadTracks)
 </kml>)";
 
   kml::FileData fData;
-  TEST_NO_THROW(
-  {
-    kml::DeserializerKml(fData).Deserialize(MemReader(input));
-  }, ());
+  TEST_NO_THROW({ kml::DeserializerKml(fData).Deserialize(MemReader(input)); }, ());
 
   {
     TEST_EQUAL(fData.m_tracksData.size(), 1, ());

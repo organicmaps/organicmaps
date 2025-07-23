@@ -20,16 +20,16 @@ TypesSkipper::TypesSkipper()
   /// and natural-water-pond/lake?
   // POIs like natural-spring, waterway-waterfall, highway-bus_stop are saved from skipping by the TwoLevelPOIChecker().
   StringIL const arrSkipEmptyName1[] = {
-    {"area:highway"}, {"building"}, {"highway"}, {"landuse"}, {"natural"}, {"office"}, {"place"}, {"waterway"},
+      {"area:highway"}, {"building"}, {"highway"}, {"landuse"}, {"natural"}, {"office"}, {"place"}, {"waterway"},
   };
   for (auto const & e : arrSkipEmptyName1)
     m_skipIfEmptyName[0].push_back(c.GetTypeByPath(e));
 
   StringIL const arrSkipEmptyName2[] = {
-    {"man_made", "chimney"},
-    {"man_made", "flagpole"},
-    {"man_made", "mast"},
-    {"man_made", "water_tower"},
+      {"man_made",     "chimney"},
+      {"man_made",    "flagpole"},
+      {"man_made",        "mast"},
+      {"man_made", "water_tower"},
   };
   for (auto const & e : arrSkipEmptyName2)
     m_skipIfEmptyName[1].push_back(c.GetTypeByPath(e));
@@ -38,7 +38,8 @@ TypesSkipper::TypesSkipper()
 
   // Do not index "entrance" only features.
   StringIL const arrSkipSpecialNames1[] = {
-    {"entrance"}, {"wheelchair"},
+      {"entrance"},
+      {"wheelchair"},
   };
   for (auto const & e : arrSkipSpecialNames1)
     m_skipSpecialNames[0].push_back(c.GetTypeByPath(e));
@@ -85,10 +86,8 @@ bool TypesSkipper::SkipSpecialNames(feature::TypesHolder const & types, std::str
     return false;
 
   for (auto type : types)
-  {
     if (!HasType(m_skipSpecialNames[0], type))
       return false;
-  }
   return true;
 }
 

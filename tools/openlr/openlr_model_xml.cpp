@@ -20,9 +20,7 @@ bool IntegerFromXML(pugi::xml_node const & node, Value & value)
 {
   if (!node)
     return false;
-  value = static_cast<Value>(is_signed<Value>::value
-                             ? node.text().as_int()
-                             : node.text().as_uint());
+  value = static_cast<Value>(is_signed<Value>::value ? node.text().as_int() : node.text().as_uint());
   return true;
 }
 
@@ -33,11 +31,8 @@ std::optional<double> DoubleFromXML(pugi::xml_node const & node)
 
 bool GetLatLon(pugi::xml_node const & node, int32_t & lat, int32_t & lon)
 {
-  if (!IntegerFromXML(node.child("olr:latitude"), lat) ||
-      !IntegerFromXML(node.child("olr:longitude"), lon))
-  {
+  if (!IntegerFromXML(node.child("olr:latitude"), lat) || !IntegerFromXML(node.child("olr:longitude"), lon))
     return false;
-  }
 
   return true;
 }
@@ -49,9 +44,8 @@ bool TableValueFromXML(pugi::xml_node const & node, Value & value)
 {
   if (!node)
     return false;
-  value = static_cast<Value>(is_signed<Value>::value
-                             ? node.attribute("olr:code").as_int()
-                             : node.attribute("olr:code").as_uint());
+  value = static_cast<Value>(is_signed<Value>::value ? node.attribute("olr:code").as_int()
+                                                     : node.attribute("olr:code").as_uint());
   return true;
 }
 
@@ -65,7 +59,6 @@ pugi::xml_node GetCoordinates(pugi::xml_node const & node)
 {
   return node.select_node(".//coordinates").node();
 }
-
 
 bool IsLocationReferenceTag(pugi::xml_node const & node)
 {
@@ -119,8 +112,7 @@ std::optional<ms::LatLon> LatLonFormXML(pugi::xml_node const & node)
   return lat && lon ? ms::LatLon(*lat, *lon) : ms::LatLon::Zero();
 }
 
-bool CoordinateFromXML(pugi::xml_node const & node, ms::LatLon const & prevCoord,
-                       ms::LatLon & latLon)
+bool CoordinateFromXML(pugi::xml_node const & node, ms::LatLon const & prevCoord, ms::LatLon & latLon)
 {
   int32_t lat, lon;
   if (!GetLatLon(node.child("olr:coordinate"), lat, lon))
@@ -136,8 +128,7 @@ bool CoordinateFromXML(pugi::xml_node const & node, ms::LatLon const & prevCoord
   return true;
 }
 
-bool LinePropertiesFromXML(pugi::xml_node const & linePropNode,
-                           openlr::LocationReferencePoint & locPoint)
+bool LinePropertiesFromXML(pugi::xml_node const & linePropNode, openlr::LocationReferencePoint & locPoint)
 {
   if (!linePropNode)
   {
@@ -166,8 +157,7 @@ bool LinePropertiesFromXML(pugi::xml_node const & linePropNode,
   return true;
 }
 
-bool PathPropertiesFromXML(pugi::xml_node const & locPointNode,
-                           openlr::LocationReferencePoint & locPoint)
+bool PathPropertiesFromXML(pugi::xml_node const & locPointNode, openlr::LocationReferencePoint & locPoint)
 {
   // Last point does not contain path properties.
   if (strcmp(locPointNode.name(), "olr:last") == 0)
@@ -203,8 +193,7 @@ bool PathPropertiesFromXML(pugi::xml_node const & locPointNode,
   return true;
 }
 
-bool LocationReferencePointFromXML(pugi::xml_node const & locPointNode,
-                                   openlr::LocationReferencePoint & locPoint)
+bool LocationReferencePointFromXML(pugi::xml_node const & locPointNode, openlr::LocationReferencePoint & locPoint)
 {
   if (!FirstCoordinateFromXML(locPointNode, locPoint.m_latLon))
   {
@@ -216,8 +205,7 @@ bool LocationReferencePointFromXML(pugi::xml_node const & locPointNode,
          PathPropertiesFromXML(locPointNode, locPoint);
 }
 
-bool LocationReferencePointFromXML(pugi::xml_node const & locPointNode,
-                                   ms::LatLon const & firstPoint,
+bool LocationReferencePointFromXML(pugi::xml_node const & locPointNode, ms::LatLon const & firstPoint,
                                    openlr::LocationReferencePoint & locPoint)
 {
   if (!CoordinateFromXML(locPointNode, firstPoint, locPoint.m_latLon))
@@ -230,8 +218,7 @@ bool LocationReferencePointFromXML(pugi::xml_node const & locPointNode,
          PathPropertiesFromXML(locPointNode, locPoint);
 }
 
-bool LinearLocationReferenceFromXML(pugi::xml_node const & locRefNode,
-                                    openlr::LinearLocationReference & locRef)
+bool LinearLocationReferenceFromXML(pugi::xml_node const & locRefNode, openlr::LinearLocationReference & locRef)
 {
   if (!locRefNode)
   {
@@ -256,8 +243,7 @@ bool LinearLocationReferenceFromXML(pugi::xml_node const & locRefNode,
 
   {
     openlr::LocationReferencePoint point;
-    if (!LocationReferencePointFromXML(locRefNode.child("olr:last"),
-                                       locRef.m_points.back().m_latLon, point))
+    if (!LocationReferencePointFromXML(locRefNode.child("olr:last"), locRef.m_points.back().m_latLon, point))
       return false;
     locRef.m_points.push_back(point);
   }
@@ -268,7 +254,7 @@ bool LinearLocationReferenceFromXML(pugi::xml_node const & locRefNode,
     return false;
   }
 
-  if(!ParseValueIfExists(locRefNode.child("olr:negativeOffset"), locRef.m_negativeOffsetMeters))
+  if (!ParseValueIfExists(locRefNode.child("olr:negativeOffset"), locRef.m_negativeOffsetMeters))
   {
     LOG(LERROR, ("Can't parse negative offset"));
     return false;

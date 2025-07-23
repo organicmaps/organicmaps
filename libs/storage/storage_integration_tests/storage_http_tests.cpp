@@ -43,22 +43,21 @@ string const GetMwmFullPath(string const & countryId, string const & version)
 
 string const GetDownloadingFullPath(string const & countryId, string const & version)
 {
-  return base::JoinPath(
-      GetPlatform().WritableDir(), version,
-      kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
+  return base::JoinPath(GetPlatform().WritableDir(), version,
+                        kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
 }
 
 string const GetResumeFullPath(string const & countryId, string const & version)
 {
-  return base::JoinPath(
-      GetPlatform().WritableDir(), version,
-      kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
+  return base::JoinPath(GetPlatform().WritableDir(), version,
+                        kCountryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION RESUME_FILE_EXTENSION);
 }
 
 void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
                  Storage::ProgressFunction const & progress)
 {
-  auto const changeCountryFunction = [&](CountryId const & /* countryId */) {
+  auto const changeCountryFunction = [&](CountryId const & /* countryId */)
+  {
     if (!storage.IsDownloadInProgress())
     {
       // End wait for downloading complete.
@@ -76,11 +75,10 @@ class StorageHttpTest
 {
 public:
   StorageHttpTest()
-    : m_writableDirChanger(kMapTestDir),
-      m_version(strings::to_string(m_storage.GetCurrentDataVersion())),
-      m_cleanupVersionDir(m_version)
-  {
-  }
+    : m_writableDirChanger(kMapTestDir)
+    , m_version(strings::to_string(m_storage.GetCurrentDataVersion()))
+    , m_cleanupVersionDir(m_version)
+  {}
 
 protected:
   WritableDirChanger const m_writableDirChanger;
@@ -91,15 +89,13 @@ protected:
 
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 {
-  auto const progressFunction = [this](CountryId const & countryId,
-                                       downloader::Progress const & progress) {
+  auto const progressFunction = [this](CountryId const & countryId, downloader::Progress const & progress)
+  {
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
-    TEST_EQUAL(progress.m_bytesDownloaded,
-               nodeAttrs.m_downloadingProgress.m_bytesDownloaded, (countryId));
-    TEST_EQUAL(progress.m_bytesTotal,
-               nodeAttrs.m_downloadingProgress.m_bytesTotal, (countryId));
+    TEST_EQUAL(progress.m_bytesDownloaded, nodeAttrs.m_downloadingProgress.m_bytesDownloaded, (countryId));
+    TEST_EQUAL(progress.m_bytesTotal, nodeAttrs.m_downloadingProgress.m_bytesTotal, (countryId));
     TEST_EQUAL(countryId, kCountryId, (countryId));
   };
 
@@ -132,15 +128,13 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
 {
-  auto const progressFunction = [this](CountryId const & countryId,
-                                       downloader::Progress const & progress) {
+  auto const progressFunction = [this](CountryId const & countryId, downloader::Progress const & progress)
+  {
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
-    TEST_EQUAL(progress.m_bytesDownloaded,
-               nodeAttrs.m_downloadingProgress.m_bytesDownloaded, (countryId));
-    TEST_EQUAL(progress.m_bytesTotal,
-               nodeAttrs.m_downloadingProgress.m_bytesTotal, (countryId));
+    TEST_EQUAL(progress.m_bytesDownloaded, nodeAttrs.m_downloadingProgress.m_bytesDownloaded, (countryId));
+    TEST_EQUAL(progress.m_bytesTotal, nodeAttrs.m_downloadingProgress.m_bytesTotal, (countryId));
   };
 
   InitStorage(m_storage, UpdateWithoutChecks, progressFunction);
@@ -168,8 +162,7 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
   CountriesVec availChildren;
   m_storage.GetChildrenInGroups(m_storage.GetRootId(), downloadedChildren, availChildren);
 
-  CountriesVec const expectedDownloadedChildren = {"Argentina", kDisputedCountryId2,
-                                                   kDisputedCountryId1};
+  CountriesVec const expectedDownloadedChildren = {"Argentina", kDisputedCountryId2, kDisputedCountryId1};
   TEST_EQUAL(downloadedChildren, expectedDownloadedChildren, ());
   TEST_EQUAL(availChildren.size(), 223, ());
 

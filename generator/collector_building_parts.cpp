@@ -59,8 +59,7 @@ void BuildingPartsCollector::BuildingParts::Write(FileWriter & writer, BuildingP
 }
 
 // static
-BuildingPartsCollector::BuildingParts BuildingPartsCollector::BuildingParts::Read(
-    ReaderSource<FileReader> & src)
+BuildingPartsCollector::BuildingParts BuildingPartsCollector::BuildingParts::Read(ReaderSource<FileReader> & src)
 {
   BuildingParts bp;
   auto const first = base::GeoObjectId(ReadPrimitiveFromSource<uint64_t>(src));
@@ -78,8 +77,7 @@ BuildingPartsCollector::BuildingPartsCollector(std::string const & filename, IDR
   : CollectorInterface(filename)
   , m_cache(cache)
   , m_writer(std::make_unique<FileWriter>(GetTmpFilename()))
-{
-}
+{}
 
 std::shared_ptr<CollectorInterface> BuildingPartsCollector::Clone(IDRInterfacePtr const & cache) const
 {
@@ -107,8 +105,7 @@ void BuildingPartsCollector::CollectFeature(feature::FeatureBuilder const & fb, 
   }
 }
 
-std::vector<base::GeoObjectId> BuildingPartsCollector::FindAllBuildingParts(
-    base::GeoObjectId const & id)
+std::vector<base::GeoObjectId> BuildingPartsCollector::FindAllBuildingParts(base::GeoObjectId const & id)
 {
   std::vector<base::GeoObjectId> buildingParts;
   RelationElement relation;
@@ -119,16 +116,12 @@ std::vector<base::GeoObjectId> BuildingPartsCollector::FindAllBuildingParts(
   }
 
   for (auto const & v : relation.m_ways)
-  {
     if (v.second == "part")
       buildingParts.emplace_back(base::MakeOsmWay(v.first));
-  }
 
   for (auto const & v : relation.m_relations)
-  {
     if (v.second == "part")
       buildingParts.emplace_back(base::MakeOsmRelation(v.first));
-  }
   return buildingParts;
 }
 
@@ -143,22 +136,23 @@ base::GeoObjectId BuildingPartsCollector::FindTopRelation(base::GeoObjectId elId
   if (elId.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay)
   {
     m_cache->ForEachRelationByWayCached(serialId, wrapper);
-    it = base::FindIf(elements, [&](auto const & idRelation) {
-      return idRelation.second.GetWayRole(serialId) == "outline";
-    });
+    it = base::FindIf(elements,
+                      [&](auto const & idRelation) { return idRelation.second.GetWayRole(serialId) == "outline"; });
   }
   else if (elId.GetType() == base::GeoObjectId::Type::ObsoleteOsmRelation)
   {
     m_cache->ForEachRelationByRelationCached(serialId, wrapper);
-    it = base::FindIf(elements, [&](auto const & idRelation) {
-      return idRelation.second.GetRelationRole(serialId) == "outline";
-    });
+    it = base::FindIf(
+        elements, [&](auto const & idRelation) { return idRelation.second.GetRelationRole(serialId) == "outline"; });
   }
 
   return it != std::end(elements) ? base::MakeOsmRelation(it->first) : base::GeoObjectId();
 }
 
-void BuildingPartsCollector::Finish() { m_writer.reset(); }
+void BuildingPartsCollector::Finish()
+{
+  m_writer.reset();
+}
 
 void BuildingPartsCollector::Save()
 {
@@ -197,8 +191,7 @@ BuildingToBuildingPartsMap::BuildingToBuildingPartsMap(std::string const & filen
     auto const buildingParts = BuildingPartsCollector::BuildingParts::Read(src);
     m_buildingParts.insert(std::end(m_buildingParts), std::begin(buildingParts.m_buildingParts),
                            std::end(buildingParts.m_buildingParts));
-    m_outlineToBuildingPart.emplace_back(buildingParts.m_id,
-                                         std::move(buildingParts.m_buildingParts));
+    m_outlineToBuildingPart.emplace_back(buildingParts.m_id, std::move(buildingParts.m_buildingParts));
   }
 
   m_outlineToBuildingPart.shrink_to_fit();
@@ -212,12 +205,10 @@ bool BuildingToBuildingPartsMap::HasBuildingPart(base::GeoObjectId const & id)
   return std::binary_search(std::cbegin(m_buildingParts), std::cend(m_buildingParts), id);
 }
 
-std::vector<base::GeoObjectId> const & BuildingToBuildingPartsMap::GetBuildingPartsByOutlineId(
-    CompositeId const & id)
+std::vector<base::GeoObjectId> const & BuildingToBuildingPartsMap::GetBuildingPartsByOutlineId(CompositeId const & id)
 {
-  auto const it =
-      std::lower_bound(std::cbegin(m_outlineToBuildingPart), std::cend(m_outlineToBuildingPart), id,
-                       [](auto const & lhs, auto const & rhs) { return lhs.first < rhs; });
+  auto const it = std::lower_bound(std::cbegin(m_outlineToBuildingPart), std::cend(m_outlineToBuildingPart), id,
+                                   [](auto const & lhs, auto const & rhs) { return lhs.first < rhs; });
 
   if (it != std::cend(m_outlineToBuildingPart) && it->first == id)
     return it->second;

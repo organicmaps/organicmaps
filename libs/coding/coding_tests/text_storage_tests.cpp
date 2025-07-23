@@ -61,7 +61,9 @@ UNIT_TEST(TextStorage_Smoke)
 
 UNIT_TEST(TextStorage_Simple)
 {
-  vector<string> const strings = {{"", "Hello", "Hello, World!", "Hola mundo", "Smoke test"}};
+  vector<string> const strings = {
+      {"", "Hello", "Hello, World!", "Hola mundo", "Smoke test"}
+  };
 
   vector<uint8_t> buffer;
   DumpStrings(strings, 10 /* blockSize */, buffer);

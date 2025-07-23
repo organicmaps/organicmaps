@@ -42,8 +42,7 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
 
     if (popularityIndex > std::numeric_limits<PopularityIndex>::max())
     {
-      LOG(LERROR, ("The popularity index value is higher than max supported value:", srcFilename,
-                   "parsed row:", row));
+      LOG(LERROR, ("The popularity index value is higher than max supported value:", srcFilename, "parsed row:", row));
       return;
     }
 
@@ -60,7 +59,8 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
 
 namespace
 {
-template <class RankGetterT> void BuildPopularPlacesImpl(std::string const & mwmFile, RankGetterT && getter)
+template <class RankGetterT>
+void BuildPopularPlacesImpl(std::string const & mwmFile, RankGetterT && getter)
 {
   bool popularPlaceFound = false;
 
@@ -97,7 +97,7 @@ PopularityIndex CalcRank(std::string const & str)
   return std::min(1.0, charsNum / 100000.0) * std::numeric_limits<PopularityIndex>::max();
 }
 
-} // namespace
+}  // namespace
 
 void BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
 {
@@ -126,8 +126,8 @@ void BuildPopularPlacesFromDescriptions(std::string const & mwmFile)
   });
 }
 
-void BuildPopularPlacesFromWikiDump(std::string const & mwmFile,
-                                    std::string const & wikipediaDir, std::string const & idToWikidataPath)
+void BuildPopularPlacesFromWikiDump(std::string const & mwmFile, std::string const & wikipediaDir,
+                                    std::string const & idToWikidataPath)
 {
   LOG(LINFO, ("Build Popular Places section"));
 
@@ -151,7 +151,6 @@ void BuildPopularPlacesFromWikiDump(std::string const & mwmFile,
     return 0;
   });
 }
-
 
 PopularPlaces const & GetOrLoadPopularPlaces(std::string const & filename)
 {

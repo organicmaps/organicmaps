@@ -6,7 +6,6 @@
 #include <map>
 #include <vector>
 
-
 class IndexAndTypeMapping
 {
 public:
@@ -16,10 +15,7 @@ public:
 
   static constexpr uint32_t INVALID_TYPE = 0;
   /// @return INVALID_TYPE If \a ind is out of bounds.
-  uint32_t GetType(uint32_t ind) const
-  {
-    return ind < m_types.size() ? m_types[ind] : INVALID_TYPE;
-  }
+  uint32_t GetType(uint32_t ind) const { return ind < m_types.size() ? m_types[ind] : INVALID_TYPE; }
 
   uint32_t GetIndex(uint32_t t) const;
 

@@ -6,8 +6,7 @@ using namespace std;
 
 namespace
 {
-void UpdateNumEdits(ResultsEdits::Entry const & entry, ResultsEdits::Relevance const & r,
-                    size_t & numEdits)
+void UpdateNumEdits(ResultsEdits::Entry const & entry, ResultsEdits::Relevance const & r, size_t & numEdits)
 {
   if (entry.m_currRelevance != entry.m_origRelevance && r == entry.m_origRelevance)
   {
@@ -41,9 +40,7 @@ void SampleEdits::Apply()
 }
 
 // ResultsEdits::Editor ----------------------------------------------------------------------------
-ResultsEdits::Editor::Editor(ResultsEdits & parent, size_t index) : m_parent(parent), m_index(index)
-{
-}
+ResultsEdits::Editor::Editor(ResultsEdits & parent, size_t index) : m_parent(parent), m_index(index) {}
 
 bool ResultsEdits::Editor::Set(Relevance relevance)
 {
@@ -55,7 +52,10 @@ optional<ResultsEdits::Relevance> const & ResultsEdits::Editor::Get() const
   return m_parent.Get(m_index).m_currRelevance;
 }
 
-bool ResultsEdits::Editor::HasChanges() const { return m_parent.HasChanges(m_index); }
+bool ResultsEdits::Editor::HasChanges() const
+{
+  return m_parent.HasChanges(m_index);
+}
 
 ResultsEdits::Entry::Type ResultsEdits::Editor::GetType() const
 {
@@ -65,7 +65,8 @@ ResultsEdits::Entry::Type ResultsEdits::Editor::GetType() const
 // ResultsEdits ------------------------------------------------------------------------------------
 void ResultsEdits::Apply()
 {
-  WithObserver(Update::MakeAll(), [this]() {
+  WithObserver(Update::MakeAll(), [this]()
+  {
     for (auto & entry : m_entries)
     {
       entry.m_origRelevance = entry.m_currRelevance;
@@ -77,7 +78,8 @@ void ResultsEdits::Apply()
 
 void ResultsEdits::Reset(vector<optional<ResultsEdits::Relevance>> const & relevances)
 {
-  WithObserver(Update::MakeAll(), [this, &relevances]() {
+  WithObserver(Update::MakeAll(), [this, &relevances]()
+  {
     m_entries.resize(relevances.size());
     for (size_t i = 0; i < m_entries.size(); ++i)
     {
@@ -93,7 +95,8 @@ void ResultsEdits::Reset(vector<optional<ResultsEdits::Relevance>> const & relev
 
 bool ResultsEdits::SetRelevance(size_t index, Relevance relevance)
 {
-  return WithObserver(Update::MakeSingle(index), [this, index, relevance]() {
+  return WithObserver(Update::MakeSingle(index), [this, index, relevance]()
+  {
     CHECK_LESS(index, m_entries.size(), ());
 
     auto & entry = m_entries[index];
@@ -107,7 +110,8 @@ bool ResultsEdits::SetRelevance(size_t index, Relevance relevance)
 
 void ResultsEdits::SetAllRelevances(Relevance relevance)
 {
-  WithObserver(Update::MakeAll(), [this, relevance]() {
+  WithObserver(Update::MakeAll(), [this, relevance]()
+  {
     for (auto & entry : m_entries)
     {
       UpdateNumEdits(entry, relevance, m_numEdits);
@@ -119,7 +123,8 @@ void ResultsEdits::SetAllRelevances(Relevance relevance)
 void ResultsEdits::Add(Relevance relevance)
 {
   auto const index = m_entries.size();
-  WithObserver(Update::MakeAdd(index), [&]() {
+  WithObserver(Update::MakeAdd(index), [&]()
+  {
     m_entries.emplace_back(relevance, Entry::Type::Created);
     ++m_numEdits;
   });
@@ -127,7 +132,8 @@ void ResultsEdits::Add(Relevance relevance)
 
 void ResultsEdits::Delete(size_t index)
 {
-  return WithObserver(Update::MakeDelete(index), [this, index]() {
+  return WithObserver(Update::MakeDelete(index), [this, index]()
+  {
     CHECK_LESS(index, m_entries.size(), ());
 
     auto & entry = m_entries[index];
@@ -143,7 +149,8 @@ void ResultsEdits::Delete(size_t index)
 
 void ResultsEdits::Resurrect(size_t index)
 {
-  return WithObserver(Update::MakeResurrect(index), [this, index]() {
+  return WithObserver(Update::MakeResurrect(index), [this, index]()
+  {
     CHECK_LESS(index, m_entries.size(), ());
 
     auto & entry = m_entries[index];
@@ -186,13 +193,17 @@ ResultsEdits::Entry const & ResultsEdits::Get(size_t index) const
 
 void ResultsEdits::Clear()
 {
-  WithObserver(Update::MakeAll(), [this]() {
+  WithObserver(Update::MakeAll(), [this]()
+  {
     m_entries.clear();
     m_numEdits = 0;
   });
 }
 
-bool ResultsEdits::HasChanges() const { return m_numEdits != 0; }
+bool ResultsEdits::HasChanges() const
+{
+  return m_numEdits != 0;
+}
 
 bool ResultsEdits::HasChanges(size_t index) const
 {

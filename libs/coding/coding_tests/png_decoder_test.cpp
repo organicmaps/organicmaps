@@ -6,7 +6,8 @@
 
 using namespace std;
 
-void loadFile(vector<unsigned char> & buffer, string const & filename) //designed for loading files from hard disk in an std::vector
+void loadFile(vector<unsigned char> & buffer,
+              string const & filename)  // designed for loading files from hard disk in an std::vector
 {
   ifstream file(filename.c_str(), ios::in | ios::binary | ios::ate);
 
@@ -21,7 +22,7 @@ void loadFile(vector<unsigned char> & buffer, string const & filename) //designe
   if (size > 0)
   {
     buffer.resize((size_t)size);
-    file.read((char*)(&buffer[0]), size);
+    file.read((char *)(&buffer[0]), size);
   }
   else
     buffer.clear();
@@ -29,16 +30,16 @@ void loadFile(vector<unsigned char> & buffer, string const & filename) //designe
 
 UNIT_TEST(PngDecode)
 {
-//  // load and decode
-//  vector<unsigned char> buffer, image;
-//  loadFile(buffer, "../../data/font_0.png");
-//  unsigned long w, h;
-//  int error = DecodePNG(image, w, h, buffer.empty() ? 0 : &buffer[0], (unsigned long)buffer.size());
-//
-//  // if there's an error, display it
-//  TEST_EQUAL(error, 0, ());
-//  // the pixels are now in the vector "image", use it as texture, draw it, ...
-//  TEST_GREATER(image.size(), 4, ("Image is empty???"));
-//  TEST_EQUAL(w, 1024, ());
-//  TEST_EQUAL(h, 1024, ());
+  //  // load and decode
+  //  vector<unsigned char> buffer, image;
+  //  loadFile(buffer, "../../data/font_0.png");
+  //  unsigned long w, h;
+  //  int error = DecodePNG(image, w, h, buffer.empty() ? 0 : &buffer[0], (unsigned long)buffer.size());
+  //
+  //  // if there's an error, display it
+  //  TEST_EQUAL(error, 0, ());
+  //  // the pixels are now in the vector "image", use it as texture, draw it, ...
+  //  TEST_GREATER(image.size(), 4, ("Image is empty???"));
+  //  TEST_EQUAL(w, 1024, ());
+  //  TEST_EQUAL(h, 1024, ());
 }

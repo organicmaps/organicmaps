@@ -4,8 +4,7 @@
 
 namespace generator
 {
-TranslatorsPool::TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original,
-                                 size_t threadCount)
+TranslatorsPool::TranslatorsPool(std::shared_ptr<TranslatorInterface> const & original, size_t threadCount)
   : m_threadPool(threadCount)
 {
   CHECK_GREATER_OR_EQUAL(threadCount, 1, ());
@@ -62,7 +61,8 @@ bool TranslatorsPool::Finish()
     state->left = std::move(left);
     state->right = std::move(right);
 
-    queue.Push(pool.Submit([state = std::move(state)]() mutable {
+    queue.Push(pool.Submit([state = std::move(state)]() mutable
+    {
       auto leftTranslator = state->left.get();
       auto rigthTranslator = state->right.get();
       rigthTranslator->Finish();

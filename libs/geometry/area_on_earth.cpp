@@ -50,9 +50,9 @@ double AreaOnEarth(LatLon const & ll1, LatLon const & ll2, LatLon const & ll3)
   ASSERT(::AlmostEqualAbs(c.Length(), 1.0, 1e-5), ());
 
   double constexpr lengthMultiplication = 1.0;  // a.Length() * b.Length() * c.Length()
-  double const abc = m3::DotProduct(a, b);  // * c.Length() == 1
-  double const acb = m3::DotProduct(a, c);  // * b.Length() == 1
-  double const bca = m3::DotProduct(b, c);  // * a.Length() == 1
+  double const abc = m3::DotProduct(a, b);      // * c.Length() == 1
+  double const acb = m3::DotProduct(a, c);      // * b.Length() == 1
+  double const bca = m3::DotProduct(b, c);      // * a.Length() == 1
 
   double const tanFromHalfSolidAngle = triple / (lengthMultiplication + abc + acb + bca);
   double const halfSolidAngle = atan(tanFromHalfSolidAngle);

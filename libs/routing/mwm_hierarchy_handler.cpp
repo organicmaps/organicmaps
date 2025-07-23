@@ -14,18 +14,14 @@ inline size_t constexpr kCrossCountryPenaltyS = 60 * 60 * 2;
 using CountrySetT = std::unordered_set<std::string_view>;
 
 // The Eurasian Economic Union (EAEU) list of countries.
-CountrySetT kEAEU = {
-  "Armenia", "Belarus", "Kazakhstan", "Kyrgyzstan", "Russian Federation"
-};
+CountrySetT kEAEU = {"Armenia", "Belarus", "Kazakhstan", "Kyrgyzstan", "Russian Federation"};
 
 // The Schengen Area list of countries.
-CountrySetT kSchengenArea = {
-    "Austria", "Belgium",       "Czech Republic", "Denmark",    "Estonia",  "Finland",
-    "France",  "Germany",       "Greece",         "Hungary",    "Iceland",  "Italy",
-    "Latvia",  "Liechtenstein", "Lithuania",      "Luxembourg", "Malta",    "Netherlands",
-    "Norway",  "Poland",        "Portugal",       "Slovakia",   "Slovenia", "Spain",
-    "Sweden",  "Switzerland",   "Croatia"
-};
+CountrySetT kSchengenArea = {"Austria", "Belgium",       "Czech Republic", "Denmark",    "Estonia",  "Finland",
+                             "France",  "Germany",       "Greece",         "Hungary",    "Iceland",  "Italy",
+                             "Latvia",  "Liechtenstein", "Lithuania",      "Luxembourg", "Malta",    "Netherlands",
+                             "Norway",  "Poland",        "Portugal",       "Slovakia",   "Slovenia", "Spain",
+                             "Sweden",  "Switzerland",   "Croatia"};
 
 std::string_view kIreland = "Ireland";
 std::string_view kNorthernIrelandMwm = "UK_Northern Ireland";
@@ -33,15 +29,14 @@ std::string_view kNorthernIrelandMwm = "UK_Northern Ireland";
 // In fact, there is no _total_ border control on major roads between Israel and Palestine (UN boundary), except:
 // - Gaza, strict access/barrier restrictions should be mapped, no transit traffic.
 // - West bank wall (https://www.openstreetmap.org/relation/1410327), access/barrier restrictions should be mapped.
-CountrySetT kIsraelAndPalestine = { "Israel Region", "Palestine Region" };
+CountrySetT kIsraelAndPalestine = {"Israel Region", "Palestine Region"};
 std::string_view kJerusalemMwm = "Jerusalem";
 
 bool IsInSet(CountrySetT const & theSet, std::string const & country)
 {
   return theSet.find(country) != theSet.end();
 }
-} // namespace
-
+}  // namespace
 
 /// @return Top level hierarchy name for MWMs \a mwmName.
 /// @note May be empty for the disputed territories.
@@ -62,11 +57,10 @@ std::string GetCountryByMwmName(std::string const & mwmName, CountryParentNameGe
   return country;
 }
 
-MwmHierarchyHandler::MwmHierarchyHandler(std::shared_ptr<NumMwmIds> numMwmIds,
-                                         CountryParentNameGetterFn parentGetterFn)
-  : m_numMwmIds(std::move(numMwmIds)), m_countryParentNameGetterFn(std::move(parentGetterFn))
-{
-}
+MwmHierarchyHandler::MwmHierarchyHandler(std::shared_ptr<NumMwmIds> numMwmIds, CountryParentNameGetterFn parentGetterFn)
+  : m_numMwmIds(std::move(numMwmIds))
+  , m_countryParentNameGetterFn(std::move(parentGetterFn))
+{}
 
 std::string MwmHierarchyHandler::GetMwmName(NumMwmId mwmId) const
 {
@@ -112,11 +106,8 @@ bool MwmHierarchyHandler::HasCrossBorderPenalty(NumMwmId mwmId1, NumMwmId mwmId2
   if (country1 == country2)
     return false;
 
-  if ((country1 == kIreland && mwm2 == kNorthernIrelandMwm) ||
-      (country2 == kIreland && mwm1 == kNorthernIrelandMwm))
-  {
+  if ((country1 == kIreland && mwm2 == kNorthernIrelandMwm) || (country2 == kIreland && mwm1 == kNorthernIrelandMwm))
     return false;
-  }
 
   if (IsInSet(kIsraelAndPalestine, country1) && IsInSet(kIsraelAndPalestine, country2))
     return false;

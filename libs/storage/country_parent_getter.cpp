@@ -2,8 +2,7 @@
 
 namespace storage
 {
-CountryParentGetter::CountryParentGetter(std::string const & countriesFile,
-                                         std::string const & countriesDir)
+CountryParentGetter::CountryParentGetter(std::string const & countriesFile, std::string const & countriesDir)
 {
   if (countriesFile.empty())
     m_storage = std::make_shared<Storage>();

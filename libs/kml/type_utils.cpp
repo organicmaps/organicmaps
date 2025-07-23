@@ -52,7 +52,7 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::Reg
     nameMultilang.AddString(pair.first, pair.second);
 
   feature::NameParamsOut out;
-  feature::GetReadableName({ nameMultilang, regionData, languageNorm, false /* allowTranslit */ }, out);
+  feature::GetReadableName({nameMultilang, regionData, languageNorm, false /* allowTranslit */}, out);
   return std::string(out.primary);
 }
 

@@ -4,9 +4,12 @@ namespace m2
 {
 // NearbyPointsSweeper::Event ----------------------------------------------------------------------
 NearbyPointsSweeper::Event::Event(Type type, double y, double x, size_t index, uint8_t priority)
-  : m_type(type), m_y(y), m_x(x), m_index(index), m_priority(priority)
-{
-}
+  : m_type(type)
+  , m_y(y)
+  , m_x(x)
+  , m_index(index)
+  , m_priority(priority)
+{}
 
 bool NearbyPointsSweeper::Event::operator<(Event const & rhs) const
 {

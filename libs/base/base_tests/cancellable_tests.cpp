@@ -21,7 +21,8 @@ UNIT_TEST(Cancellable_Smoke)
 
   double x = 0.123;
 
-  auto const fn = [&] {
+  auto const fn = [&]
+  {
     for (size_t it = 0;; it++)
     {
       if (it > 100 && cancellable.IsCancelled())
@@ -54,7 +55,8 @@ UNIT_TEST(Cancellable_Deadline)
 
   double x = 0.123;
 
-  auto const fn = [&] {
+  auto const fn = [&]
+  {
     while (true)
     {
       if (cancellable.IsCancelled())

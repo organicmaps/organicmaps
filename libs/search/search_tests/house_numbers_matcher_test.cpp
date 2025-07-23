@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 
-
 namespace house_number_matcher_test
 {
 using namespace search::house_numbers;
@@ -208,7 +207,7 @@ UNIT_TEST(HouseNumber_Matcher_Range)
   TEST(!HouseNumbersMatchRange("2:40", "33B", IType::Even), ());
 
   /// @todo Maybe some day ..
-  //TEST(HouseNumbersMatchRange("30A:30D", "30B", IType::Any), ());
+  // TEST(HouseNumbersMatchRange("30A:30D", "30B", IType::Any), ());
 }
 
 UNIT_TEST(HouseNumber_LooksLike)
@@ -271,4 +270,4 @@ UNIT_TEST(HouseNumber_LooksLike)
   TEST(LooksLikeHouseNumber("к424", false /* isPrefix */), ());
   TEST(LooksLikeHouseNumber("к12", true /* isPrefix */), ());
 }
-} // namespace house_number_matcher_test
+}  // namespace house_number_matcher_test

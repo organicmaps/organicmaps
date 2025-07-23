@@ -22,25 +22,23 @@ double constexpr kReconnectDelaySeconds = 40.0;
 double constexpr kNotChargingEventPeriod = 5 * 60.0;
 
 static_assert(kMinDelaySeconds != 0, "");
-} // namespace
+}  // namespace
 
 namespace tracking
 {
-const char Reporter::kEnableTrackingKey[] = "StatisticsEnabled";
+char const Reporter::kEnableTrackingKey[] = "StatisticsEnabled";
 
 // static
 milliseconds const Reporter::kPushDelayMs = milliseconds(20000);
 
 // Set m_points size to be enough to keep all points even if one reconnect attempt failed.
-Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uint16_t port,
-                   milliseconds pushDelay)
+Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uint16_t port, milliseconds pushDelay)
   : m_allowSendingPoints(true)
   , m_realtimeSender(std::move(socket), host, port, false)
   , m_pushDelay(pushDelay)
   , m_points(ceil(duration_cast<seconds>(pushDelay).count() + kReconnectDelaySeconds) / kMinDelaySeconds)
   , m_thread([this] { Run(); })
-{
-}
+{}
 
 Reporter::~Reporter()
 {
@@ -73,9 +71,8 @@ void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup t
   }
 
   m_lastGpsTime = info.m_timestamp;
-  m_input.push_back(
-      DataPoint(info.m_timestamp, ms::LatLon(info.m_latitude, info.m_longitude),
-                static_cast<std::underlying_type<traffic::SpeedGroup>::type>(traffic)));
+  m_input.push_back(DataPoint(info.m_timestamp, ms::LatLon(info.m_latitude, info.m_longitude),
+                              static_cast<std::underlying_type<traffic::SpeedGroup>::type>(traffic)));
 }
 
 void Reporter::Run()
@@ -94,19 +91,14 @@ void Reporter::Run()
 
     lock.unlock();
     if (m_points.empty() && m_idleFn)
-    {
       m_idleFn();
-    }
-    else
-    {
-      if (SendPoints())
-        m_points.clear();
-    }
+    else if (SendPoints())
+      m_points.clear();
     lock.lock();
 
     auto const passedMs = duration_cast<milliseconds>(steady_clock::now() - startTime);
     if (passedMs < m_pushDelay)
-      m_cv.wait_for(lock, m_pushDelay - passedMs, [this]{return m_isFinished;});
+      m_cv.wait_for(lock, m_pushDelay - passedMs, [this] { return m_isFinished; });
   }
 
   LOG(LINFO, ("Tracking Reporter finished"));

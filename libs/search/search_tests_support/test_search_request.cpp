@@ -13,8 +13,8 @@ namespace tests_support
 using namespace std::chrono;
 using namespace std;
 
-TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
-                                     string const & locale, Mode mode, m2::RectD const & viewport)
+TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale, Mode mode,
+                                     m2::RectD const & viewport)
   : m_engine(engine)
 {
   m_params.m_query = query;
@@ -28,16 +28,16 @@ TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & q
 }
 
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams const & params)
-  : m_engine(engine), m_params(params)
+  : m_engine(engine)
+  , m_params(params)
 {
   m_params.m_useDebugInfo = true;
 
   SetUpCallbacks();
 }
 
-TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
-                                     string const & locale, Mode mode, m2::RectD const & viewport,
-                                     SearchParams::OnStarted const & onStarted,
+TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale, Mode mode,
+                                     m2::RectD const & viewport, SearchParams::OnStarted const & onStarted,
                                      SearchParams::OnResults const & onResults)
   : m_engine(engine)
 {

@@ -29,7 +29,6 @@ static size_t MatchZoneCode(std::string const & query, int & zoneCode)
   return pos + 2;
 }
 
-
 // Matches zone letter ignoring spaces. Returns end position of matched chars or string::npos if no match.
 size_t MatchZoneLetter(std::string const & query, char & zoneLetter, size_t startPos)
 {
@@ -56,14 +55,14 @@ size_t MatchInt(std::string const & query, int & value, size_t startPos)
   while (pos < query.size())
   {
     char const ch = query[pos];
-    if (ch >= '0' && ch <= '9') // Found digit
+    if (ch >= '0' && ch <= '9')  // Found digit
     {
       n = n * 10 + (ch - '0');
       pos++;
     }
-    else if (kSpaceChars.find(ch) != std::string::npos) // Found space char matching end of the number
+    else if (kSpaceChars.find(ch) != std::string::npos)  // Found space char matching end of the number
       break;
-    else // Found invalid char
+    else  // Found invalid char
       return std::string::npos;
   }
 
@@ -78,8 +77,8 @@ size_t MatchInt(std::string const & query, int & value, size_t startPos)
 // TODO: Support additional formats listed here: https://www.killetsoft.de/t_0901_e.htm
 std::optional<ms::LatLon> MatchUTMCoords(std::string const & query)
 {
-  int  easting, northing;
-  int  zoneCode;
+  int easting, northing;
+  int zoneCode;
   char zoneLetter;
 
   size_t pos = MatchZoneCode(query, zoneCode);
@@ -206,4 +205,4 @@ std::optional<ms::LatLon> MatchMGRSCoords(std::string const & query)
   return utm_mgrs_utils::MGRStoLatLon(easting, northing, zoneCode, zoneLetter, squareCode);
 }
 
-}
+}  // namespace search

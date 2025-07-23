@@ -10,7 +10,8 @@ namespace bits
 {
 static constexpr int SELECT1_ERROR = -1;
 
-template <typename T> unsigned int select1(T x, unsigned int i)
+template <typename T>
+unsigned int select1(T x, unsigned int i)
 {
   // TODO: Fast implementation of select1.
   ASSERT(i > 0 && i <= sizeof(T) * 8, (i));
@@ -104,17 +105,27 @@ inline void SetBitTo1(void * p, uint32_t offset)
 // Compute number of zero bits from the most significant bits side.
 constexpr uint32_t NumHiZeroBits32(uint32_t n)
 {
-  if (n == 0) return 32;
+  if (n == 0)
+    return 32;
   uint32_t result = 0;
-  while ((n & (uint32_t{1} << 31)) == 0) { ++result; n <<= 1; }
+  while ((n & (uint32_t{1} << 31)) == 0)
+  {
+    ++result;
+    n <<= 1;
+  }
   return result;
 }
 
 constexpr uint32_t NumHiZeroBits64(uint64_t n)
 {
-  if (n == 0) return 64;
+  if (n == 0)
+    return 64;
   uint32_t result = 0;
-  while ((n & (uint64_t{1} << 63)) == 0) { ++result; n <<= 1; }
+  while ((n & (uint64_t{1} << 63)) == 0)
+  {
+    ++result;
+    n <<= 1;
+  }
   return result;
 }
 
@@ -123,16 +134,22 @@ constexpr uint32_t NumHiZeroBits64(uint64_t n)
 constexpr uint32_t NumUsedBits(uint64_t n)
 {
   uint32_t result = 0;
-  while (n != 0) { ++result; n >>= 1; }
+  while (n != 0)
+  {
+    ++result;
+    n >>= 1;
+  }
   return result;
 }
 
 constexpr uint64_t GetFullMask(uint8_t numBits)
 {
   ASSERT_LESS_OR_EQUAL(numBits, 64, ());
-  return numBits == 64 ? std::numeric_limits<uint64_t>::max()
-                       : (static_cast<uint64_t>(1) << numBits) - 1;
+  return numBits == 64 ? std::numeric_limits<uint64_t>::max() : (static_cast<uint64_t>(1) << numBits) - 1;
 }
 
-constexpr bool IsPow2Minus1(uint64_t n) { return (n & (n + 1)) == 0; }
+constexpr bool IsPow2Minus1(uint64_t n)
+{
+  return (n & (n + 1)) == 0;
+}
 }  // namespace bits

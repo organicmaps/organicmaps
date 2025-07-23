@@ -9,8 +9,8 @@
 
 UNIT_TEST(LangNormalize_Smoke)
 {
-  char const * arr1[] = { "en", "en-GB", "zh", "es-SP", "zh-penyn", "en-US", "ru_RU", "es" };
-  char const * arr2[] = { "en", "en", "zh", "es", "zh", "en", "ru", "es" };
+  char const * arr1[] = {"en", "en-GB", "zh", "es-SP", "zh-penyn", "en-US", "ru_RU", "es"};
+  char const * arr2[] = {"en", "en", "zh", "es", "zh", "en", "ru", "es"};
   static_assert(ARRAY_SIZE(arr1) == ARRAY_SIZE(arr2), "");
 
   for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)

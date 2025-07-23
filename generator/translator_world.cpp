@@ -7,7 +7,7 @@
 #include "generator/filter_roads.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
-//#include "generator/node_mixer.hpp"
+// #include "generator/node_mixer.hpp"
 
 #include "platform/platform.hpp"
 
@@ -26,21 +26,20 @@ TranslatorWorld::TranslatorWorld(std::shared_ptr<FeatureProcessorInterface> cons
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
   , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"),
                                               info.GetIntermediateFileName(TOWNS_FILE)))
-  , m_tagReplacer(std::make_shared<TagReplacer>(
-        base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
+  , m_tagReplacer(std::make_shared<TagReplacer>(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
 {
   /// @todo This option is not used, but may be useful in future?
-//  if (needMixTags)
-//  {
-//    m_osmTagMixer = std::make_shared<OsmTagMixer>(
-//        base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
-//  }
+  //  if (needMixTags)
+  //  {
+  //    m_osmTagMixer = std::make_shared<OsmTagMixer>(
+  //        base::JoinPath(GetPlatform().ResourcesDir(), MIXED_TAGS_FILE));
+  //  }
 
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<FilterRoads>());
-  filters->Append(std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(),
-      SKIPPED_ELEMENTS_FILE)));
+  filters->Append(
+      std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
   SetFilter(filters);
 }
 
@@ -62,5 +61,8 @@ void TranslatorWorld::Preprocess(OsmElement & element)
     m_osmTagMixer->Process(element);
 }
 
-void TranslatorWorld::MergeInto(TranslatorWorld & other) const { MergeIntoBase(other); }
+void TranslatorWorld::MergeInto(TranslatorWorld & other) const
+{
+  MergeIntoBase(other);
+}
 }  // namespace generator

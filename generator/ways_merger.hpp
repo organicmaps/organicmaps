@@ -57,16 +57,15 @@ public:
         // finally erase element 'e' and find next way in chain
         i = r.second;
         while (r.first != r.second)
-        {
           if (r.first->second == e)
             m_map.erase(r.first++);
           else
             i = r.first++;
-        }
 
         if (i == r.second)
           break;
-      } while (true);
+      }
+      while (true);
 
       if (points.size() > 2 && points.front() == points.back())
         toDo(std::move(points), std::move(ids));

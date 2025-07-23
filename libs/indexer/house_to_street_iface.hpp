@@ -28,14 +28,16 @@ public:
 
   struct Header
   {
-    template <class Sink> void Serialize(Sink & sink) const
+    template <class Sink>
+    void Serialize(Sink & sink) const
     {
       WriteToSink(sink, static_cast<uint8_t>(Version::Latest));
       WriteToSink(sink, m_tableOffset);
       WriteToSink(sink, m_tableSize);
     }
 
-    template <class Source> void Read(Source & source)
+    template <class Source>
+    void Read(Source & source)
     {
       m_version = static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(source));
       m_tableOffset = ReadPrimitiveFromSource<uint32_t>(source);

@@ -17,12 +17,12 @@ std::string const kParallelLinearAnim = "ParallelLinear";
 
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen)
 {
-  return GetPrettyMoveAnimation(startScreen, startScreen.GetScale(), endScreen.GetScale(),
-                                startScreen.GetOrg(), endScreen.GetOrg());
+  return GetPrettyMoveAnimation(startScreen, startScreen.GetScale(), endScreen.GetScale(), startScreen.GetOrg(),
+                                endScreen.GetOrg());
 }
 
-drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen,
-                                                    m2::AnyRectD const & startRect, m2::AnyRectD const & endRect)
+drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, m2::AnyRectD const & startRect,
+                                                    m2::AnyRectD const & endRect)
 {
   double const startScale = CalculateScale(screen.PixelRect(), startRect.GetLocalRect());
   double const endScale = CalculateScale(screen.PixelRect(), endRect.GetLocalRect());
@@ -45,7 +45,7 @@ drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, d
   zoomOutAnim->SetScale(startScale, startScale * scaleFactor);
   zoomOutAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
 
-  //TODO (in future): Pass fixed duration instead of screen.
+  // TODO (in future): Pass fixed duration instead of screen.
   auto moveAnim = make_unique_dp<MapLinearAnimation>();
   moveAnim->SetMove(startPt, endPt, screen);
   moveAnim->SetMaxDuration(kMaxAnimationTimeSec);
@@ -60,8 +60,9 @@ drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, d
   return sequenceAnim;
 }
 
-drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & startScreen, m2::PointD const & userPos, double targetScale,
-                                                      double targetAngle, m2::PointD const & endPixelPos)
+drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & startScreen, m2::PointD const & userPos,
+                                                      double targetScale, double targetAngle,
+                                                      m2::PointD const & endPixelPos)
 {
   auto sequenceAnim = make_unique_dp<SequenceAnimation>();
   sequenceAnim->SetCustomType(kPrettyFollowAnim);
@@ -96,9 +97,8 @@ drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & startSc
     sequenceAnim->AddAnimation(std::move(moveAnim));
   }
 
-  auto followAnim = make_unique_dp<MapFollowAnimation>(tmp, userPos, endPixelPos,
-                                                       targetScale, targetAngle,
-                                                       false /* isAutoZoom */);
+  auto followAnim =
+      make_unique_dp<MapFollowAnimation>(tmp, userPos, endPixelPos, targetScale, targetAngle, false /* isAutoZoom */);
   followAnim->SetMaxDuration(kMaxAnimationTimeSec * 0.5);
   sequenceAnim->AddAnimation(std::move(followAnim));
   return sequenceAnim;
@@ -109,16 +109,16 @@ drape_ptr<MapLinearAnimation> GetRectAnimation(ScreenBase const & startScreen, S
   auto anim = make_unique_dp<MapLinearAnimation>();
 
   anim->SetRotate(startScreen.GetAngle(), endScreen.GetAngle());
-  anim->SetMove(startScreen.GetOrg(), endScreen.GetOrg(),
-                startScreen.PixelRectIn3d(), (startScreen.GetScale() + endScreen.GetScale()) / 2.0);
+  anim->SetMove(startScreen.GetOrg(), endScreen.GetOrg(), startScreen.PixelRectIn3d(),
+                (startScreen.GetScale() + endScreen.GetScale()) / 2.0);
   anim->SetScale(startScreen.GetScale(), endScreen.GetScale());
   anim->SetMaxScaleDuration(kMaxAnimationTimeSec);
 
   return anim;
 }
 
-drape_ptr<MapLinearAnimation> GetSetRectAnimation(ScreenBase const & screen,
-                                                  m2::AnyRectD const & startRect, m2::AnyRectD const & endRect)
+drape_ptr<MapLinearAnimation> GetSetRectAnimation(ScreenBase const & screen, m2::AnyRectD const & startRect,
+                                                  m2::AnyRectD const & endRect)
 {
   auto anim = make_unique_dp<MapLinearAnimation>();
 
@@ -137,7 +137,8 @@ drape_ptr<MapFollowAnimation> GetFollowAnimation(ScreenBase const & startScreen,
                                                  double targetScale, double targetAngle, m2::PointD const & endPixelPos,
                                                  bool isAutoZoom)
 {
-  auto anim = make_unique_dp<MapFollowAnimation>(startScreen, userPos, endPixelPos, targetScale, targetAngle, isAutoZoom);
+  auto anim =
+      make_unique_dp<MapFollowAnimation>(startScreen, userPos, endPixelPos, targetScale, targetAngle, isAutoZoom);
   anim->SetMaxDuration(kMaxAnimationTimeSec);
 
   return anim;
@@ -149,11 +150,11 @@ drape_ptr<MapScaleAnimation> GetScaleAnimation(ScreenBase const & startScreen, m
   ScreenBase endScreen = startScreen;
   ApplyScale(pxScaleCenter, factor, endScreen);
 
-  auto anim = make_unique_dp<MapScaleAnimation>(startScreen.GetScale(), endScreen.GetScale(),
-                                                glbScaleCenter, pxScaleCenter);
+  auto anim =
+      make_unique_dp<MapScaleAnimation>(startScreen.GetScale(), endScreen.GetScale(), glbScaleCenter, pxScaleCenter);
   anim->SetMaxDuration(kMaxAnimationTimeSec);
 
   return anim;
 }
 
-} // namespace df
+}  // namespace df

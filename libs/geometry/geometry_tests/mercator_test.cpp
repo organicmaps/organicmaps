@@ -2,10 +2,9 @@
 
 #include "geometry/mercator.hpp"
 
-#include "base/math.hpp"
-#include "base/macros.hpp"
 #include "base/logging.hpp"
-
+#include "base/macros.hpp"
+#include "base/math.hpp"
 
 UNIT_TEST(Mercator_Grid)
 {
@@ -45,7 +44,7 @@ UNIT_TEST(Mercator_DirectInferseF)
 
 UNIT_TEST(Mercator_ErrorToRadius)
 {
-  double const points[] = { -85.0, -45.0, -10.0, -1.0, -0.003, 0.0, 0.003, 1.0, 10.0, 45.0, 85.0 };
+  double const points[] = {-85.0, -45.0, -10.0, -1.0, -0.003, 0.0, 0.003, 1.0, 10.0, 45.0, 85.0};
 
   double const error1 = 1.0;    // 1 metre
   double const error10 = 10.0;  // 10 metres
@@ -78,6 +77,5 @@ UNIT_TEST(Mercator_ErrorToRadius)
 
 UNIT_TEST(Mercator_Sample1)
 {
-  LOG(LINFO, (mercator::XToLon(27.531491200000001385),
-              mercator::YToLat(64.392864299248202542)));
+  LOG(LINFO, (mercator::XToLon(27.531491200000001385), mercator::YToLat(64.392864299248202542)));
 }

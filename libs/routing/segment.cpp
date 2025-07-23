@@ -2,7 +2,7 @@
 
 #include "routing/fake_feature_ids.hpp"
 
-#include "std/boost_container_hash.hpp"     // needed despite of IDE warning
+#include "std/boost_container_hash.hpp"  // needed despite of IDE warning
 
 #include <sstream>
 
@@ -30,14 +30,14 @@ bool Segment::operator<(Segment const & seg) const
 
 bool Segment::operator==(Segment const & seg) const
 {
-  return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx &&
-         m_mwmId == seg.m_mwmId && m_forward == seg.m_forward;
+  return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx && m_mwmId == seg.m_mwmId &&
+         m_forward == seg.m_forward;
 }
 
 bool Segment::IsInverse(Segment const & seg) const
 {
-  return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx &&
-         m_mwmId == seg.m_mwmId && m_forward != seg.m_forward;
+  return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx && m_mwmId == seg.m_mwmId &&
+         m_forward != seg.m_forward;
 }
 
 bool Segment::IsFakeCreated() const

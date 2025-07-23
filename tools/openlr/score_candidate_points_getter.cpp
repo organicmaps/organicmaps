@@ -28,7 +28,7 @@ namespace
 {
 // Ends of segments and intermediate points of segments are considered only within this radius.
 double const kRadius = 30.0;
-} //  namespace
+}  //  namespace
 
 namespace openlr
 {
@@ -36,17 +36,17 @@ void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p
                                                             ScoreEdgeVec & edgeCandidates)
 {
   ScorePointVec pointCandidates;
-  auto const selectCandidates = [&p, &pointCandidates, this](FeatureType & ft) {
+  auto const selectCandidates = [&p, &pointCandidates, this](FeatureType & ft)
+  {
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
     if (ft.GetGeomType() != feature::GeomType::Line || !routing::IsRoad(feature::TypesHolder(ft)))
       return;
 
-    ft.ForEachPoint(
-        [&p, &pointCandidates, this](m2::PointD const & candidate) {
-          if (mercator::DistanceOnEarth(p, candidate) < kRadius)
-            pointCandidates.emplace_back(GetScoreByDistance(p, candidate), candidate);
-        },
-        scales::GetUpperScale());
+    ft.ForEachPoint([&p, &pointCandidates, this](m2::PointD const & candidate)
+    {
+      if (mercator::DistanceOnEarth(p, candidate) < kRadius)
+        pointCandidates.emplace_back(GetScoreByDistance(p, candidate), candidate);
+    }, scales::GetUpperScale());
   };
 
   m_dataSource.ForEachInRect(selectCandidates, mercator::RectByCenterXYAndSizeInMeters(p, kRadius),
@@ -70,8 +70,7 @@ void ScoreCandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p
   }
 }
 
-void ScoreCandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p,
-                                                            ScoreEdgeVec & edgeCandidates)
+void ScoreCandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p, ScoreEdgeVec & edgeCandidates)
 {
   m_graph.ResetFakes();
 
@@ -115,8 +114,7 @@ bool ScoreCandidatePointsGetter::IsJunction(m2::PointD const & p)
   return ids.size() >= 3;
 }
 
-Score ScoreCandidatePointsGetter::GetScoreByDistance(m2::PointD const & point,
-                                                     m2::PointD const & candidate)
+Score ScoreCandidatePointsGetter::GetScoreByDistance(m2::PointD const & point, m2::PointD const & candidate)
 {
   // Maximum possible score for the distance between an openlr segment ends and an osm segments.
   Score constexpr kMaxScoreForDist = 70;
@@ -128,10 +126,9 @@ Score ScoreCandidatePointsGetter::GetScoreByDistance(m2::PointD const & point,
   double const junctionFactor = IsJunction(candidate) ? 1.1 : 1.0;
 
   double const distM = mercator::DistanceOnEarth(point, candidate);
-  double const score =
-      distM <= kMaxScoreDistM
-          ? kMaxScoreForDist * junctionFactor
-          : static_cast<double>(kMaxScoreForDist) * junctionFactor / (1.0 + distM - kMaxScoreDistM);
+  double const score = distM <= kMaxScoreDistM
+                         ? kMaxScoreForDist * junctionFactor
+                         : static_cast<double>(kMaxScoreForDist) * junctionFactor / (1.0 + distM - kMaxScoreDistM);
 
   CHECK_GREATER_OR_EQUAL(score, 0.0, ());
   CHECK_LESS_OR_EQUAL(score, static_cast<double>(kMaxScoreForDist) * junctionFactor, ());

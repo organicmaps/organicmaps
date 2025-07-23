@@ -123,11 +123,10 @@ DatesInterval::DatesInterval(gtfs::CalendarItem const & calendarItem)
   // From high bit to the least significant bit (from 31 to 0):
   // year1 (4 bits), month1 (4 bits), day1 (5 bits), year delta (3 bits), month2 (4 bits), day2 (5
   // bits), sunday, monday, ..., saturday - 7 bits, each week day is 1 bit.
-  m_data = y1 << 28 | m1 << 24 | d1 << 19 | yDelta << 16 | m2 << 12 | d2 << 7 |
-           GetRawStatus(calendarItem.sunday) << 6 | GetRawStatus(calendarItem.monday) << 5 |
-           GetRawStatus(calendarItem.tuesday) << 4 | GetRawStatus(calendarItem.wednesday) << 3 |
-           GetRawStatus(calendarItem.thursday) << 2 | GetRawStatus(calendarItem.friday) << 1 |
-           GetRawStatus(calendarItem.saturday);
+  m_data = y1 << 28 | m1 << 24 | d1 << 19 | yDelta << 16 | m2 << 12 | d2 << 7 | GetRawStatus(calendarItem.sunday) << 6 |
+           GetRawStatus(calendarItem.monday) << 5 | GetRawStatus(calendarItem.tuesday) << 4 |
+           GetRawStatus(calendarItem.wednesday) << 3 | GetRawStatus(calendarItem.thursday) << 2 |
+           GetRawStatus(calendarItem.friday) << 1 | GetRawStatus(calendarItem.saturday);
 }
 
 DatesInterval::DatesInterval(uint32_t data) : m_data(data) {}
@@ -173,11 +172,13 @@ Status DatesInterval::GetStatusInInterval(Date const & date, uint8_t wdIndex) co
   return Status::Closed;
 }
 
-bool DatesInterval::operator==(DatesInterval const & rhs) const { return m_data == rhs.m_data; }
+bool DatesInterval::operator==(DatesInterval const & rhs) const
+{
+  return m_data == rhs.m_data;
+}
 
 // DateException -----------------------------------------------------------------------------------
-DateException::DateException(gtfs::Date const & date,
-                             gtfs::CalendarDateException const & dateException)
+DateException::DateException(gtfs::Date const & date, gtfs::CalendarDateException const & dateException)
 {
   uint32_t y = 0;
   uint32_t m = 0;
@@ -194,7 +195,10 @@ DateException::DateException(gtfs::Date const & date,
 
 DateException::DateException(uint16_t data) : m_data(data) {}
 
-bool DateException::operator==(DateException const & rhs) const { return m_data == rhs.m_data; }
+bool DateException::operator==(DateException const & rhs) const
+{
+  return m_data == rhs.m_data;
+}
 
 std::tuple<Date, bool> DateException::Extract() const
 {
@@ -240,9 +244,15 @@ TimeInterval::TimeInterval(gtfs::Time const & startTime, gtfs::Time const & endT
 
 TimeInterval::TimeInterval(uint64_t data) : m_data(data) {}
 
-bool TimeInterval::operator<(TimeInterval const & rhs) const { return m_data < rhs.m_data; }
+bool TimeInterval::operator<(TimeInterval const & rhs) const
+{
+  return m_data < rhs.m_data;
+}
 
-bool TimeInterval::operator==(TimeInterval const & rhs) const { return m_data == rhs.m_data; }
+bool TimeInterval::operator==(TimeInterval const & rhs) const
+{
+  return m_data == rhs.m_data;
+}
 
 std::pair<Time, Time> TimeInterval::Extract() const
 {
@@ -276,12 +286,10 @@ Status TimeInterval::GetTimeStatus(Time const & time) const
 FrequencyIntervals::FrequencyIntervals(gtfs::Frequencies const & frequencies)
 {
   for (auto const & freq : frequencies)
-  {
     if (freq.headway_secs > 0)
       m_intervals.emplace(TimeInterval(freq.start_time, freq.end_time), freq.headway_secs);
     else
       LOG(LINFO, ("Bad headway_secs:", freq.headway_secs));
-  }
 }
 
 bool FrequencyIntervals::operator==(FrequencyIntervals const & rhs) const
@@ -297,10 +305,8 @@ void FrequencyIntervals::AddInterval(TimeInterval const & timeInterval, Frequenc
 Frequency FrequencyIntervals::GetFrequency(Time const & time) const
 {
   for (auto const & [interval, freq] : m_intervals)
-  {
     if (interval.GetTimeStatus(time) == Status::Open)
       return freq;
-  }
 
   return kDefaultFrequency;
 }
@@ -313,36 +319,37 @@ std::map<TimeInterval, Frequency> const & FrequencyIntervals::GetFrequencies() c
 // Schedule ----------------------------------------------------------------------------------------
 bool Schedule::operator==(Schedule const & rhs) const
 {
-  return m_serviceIntervals == rhs.m_serviceIntervals &&
-         m_serviceExceptions == rhs.m_serviceExceptions &&
+  return m_serviceIntervals == rhs.m_serviceIntervals && m_serviceExceptions == rhs.m_serviceExceptions &&
          m_defaultFrequency == rhs.m_defaultFrequency;
 }
 
-void Schedule::AddDatesInterval(gtfs::CalendarItem const & calendarItem,
-                                gtfs::Frequencies const & frequencies)
+void Schedule::AddDatesInterval(gtfs::CalendarItem const & calendarItem, gtfs::Frequencies const & frequencies)
 {
   m_serviceIntervals.emplace(DatesInterval(calendarItem), FrequencyIntervals(frequencies));
 }
 
-void Schedule::AddDateException(gtfs::Date const & date,
-                                gtfs::CalendarDateException const & dateException,
+void Schedule::AddDateException(gtfs::Date const & date, gtfs::CalendarDateException const & dateException,
                                 gtfs::Frequencies const & frequencies)
 {
   m_serviceExceptions.emplace(DateException(date, dateException), FrequencyIntervals(frequencies));
 }
 
-DatesIntervals const & Schedule::GetServiceIntervals() const { return m_serviceIntervals; }
+DatesIntervals const & Schedule::GetServiceIntervals() const
+{
+  return m_serviceIntervals;
+}
 
-DatesExceptions const & Schedule::GetServiceExceptions() const { return m_serviceExceptions; }
+DatesExceptions const & Schedule::GetServiceExceptions() const
+{
+  return m_serviceExceptions;
+}
 
-void Schedule::AddDatesInterval(DatesInterval const & interval,
-                                FrequencyIntervals const & frequencies)
+void Schedule::AddDatesInterval(DatesInterval const & interval, FrequencyIntervals const & frequencies)
 {
   m_serviceIntervals[interval] = frequencies;
 }
 
-void Schedule::AddDateException(DateException const & dateException,
-                                FrequencyIntervals const & frequencies)
+void Schedule::AddDateException(DateException const & dateException, FrequencyIntervals const & frequencies)
 {
   m_serviceExceptions[dateException] = frequencies;
 }
@@ -380,16 +387,12 @@ Frequency Schedule::GetFrequency(time_t const & time) const
   auto const & [date, timeHms, wdIndex] = GetDateTimeAndWeekIndex(time);
 
   for (auto const & [dateException, freqInts] : m_serviceExceptions)
-  {
     if (dateException.GetExceptionStatus(date) == Status::Open)
       return freqInts.GetFrequency(timeHms);
-  }
 
   for (auto const & [datesInterval, freqInts] : m_serviceIntervals)
-  {
     if (datesInterval.GetStatusInInterval(date, wdIndex) == Status::Open)
       return freqInts.GetFrequency(timeHms);
-  }
 
   LOG(LWARNING, ("No frequency for date", date, "time", timeHms));
   return m_defaultFrequency;

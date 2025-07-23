@@ -1,6 +1,6 @@
 #include "generator/final_processor_cities.hpp"
-#include "generator/final_processor_utils.hpp"
 #include "generator/filter_world.hpp"
+#include "generator/final_processor_utils.hpp"
 #include "generator/place_processor.hpp"
 
 #include <mutex>
@@ -8,14 +8,13 @@
 namespace generator
 {
 
-FinalProcessorCities::FinalProcessorCities(AffiliationInterfacePtr const & affiliation,
-                                           std::string const & mwmPath, size_t threadsCount)
+FinalProcessorCities::FinalProcessorCities(AffiliationInterfacePtr const & affiliation, std::string const & mwmPath,
+                                           size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::Places)
   , m_temporaryMwmPath(mwmPath)
   , m_affiliation(affiliation)
   , m_threadsCount(threadsCount)
-{
-}
+{}
 
 void FinalProcessorCities::Process()
 {
@@ -52,10 +51,8 @@ void FinalProcessorCities::Process()
     FeatureBuilderWriter writer(base::JoinPath(m_temporaryMwmPath, WORLD_FILE_NAME DATA_FILE_EXTENSION_TMP),
                                 FileWriter::Op::OP_APPEND);
     for (auto const & fb : result)
-    {
       if (FilterWorld::IsGoodScale(fb))
         writer.Write(fb);
-    }
   }
 
   if (!m_boundariesOutFile.empty())
@@ -65,4 +62,4 @@ void FinalProcessorCities::Process()
   }
 }
 
-} // namespace generator
+}  // namespace generator

@@ -1,28 +1,29 @@
 #include "coding/file_reader.hpp"
 
-#include "coding/reader_cache.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/reader_cache.hpp"
 
 #include "base/logging.hpp"
 
 #ifndef LOG_FILE_READER_STATS
 #define LOG_FILE_READER_STATS 0
-#endif // LOG_FILE_READER_STATS
+#endif  // LOG_FILE_READER_STATS
 
 #if LOG_FILE_READER_STATS && !defined(LOG_FILE_READER_EVERY_N_READS_MASK)
 #define LOG_FILE_READER_EVERY_N_READS_MASK 0xFFFFFFFF
 #endif
 
 // static
-uint32_t const FileReader::kDefaultLogPageSize = 10; // page size is 2^10 = 1024 = 1kb
+uint32_t const FileReader::kDefaultLogPageSize = 10;  // page size is 2^10 = 1024 = 1kb
 // static
-uint32_t const FileReader::kDefaultLogPageCount = 4; // page count is 2^4 = 16, i.e. 16 pages are cached
+uint32_t const FileReader::kDefaultLogPageCount = 4;  // page count is 2^4 = 16, i.e. 16 pages are cached
 
 class FileReader::FileReaderData
 {
 public:
   FileReaderData(std::string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
-    : m_fileData(fileName), m_readerCache(logPageSize, logPageCount)
+    : m_fileData(fileName)
+    , m_readerCache(logPageSize, logPageCount)
   {
 #if LOG_FILE_READER_STATS
     m_readCallCount = 0;
@@ -42,9 +43,7 @@ public:
   {
 #if LOG_FILE_READER_STATS
     if (((++m_readCallCount) & LOG_FILE_READER_EVERY_N_READS_MASK) == 0)
-    {
       LOG(LINFO, ("FileReader", m_fileData.GetName(), m_readerCache.GetStatsStr()));
-    }
 #endif
 
     return m_readerCache.Read(m_fileData, pos, p, size);
@@ -55,9 +54,9 @@ private:
   {
   public:
     explicit FileDataWithCachedSize(std::string const & fileName)
-      : base::FileData(fileName, Op::READ), m_Size(FileData::Size())
-    {
-    }
+      : base::FileData(fileName, Op::READ)
+      , m_Size(FileData::Size())
+    {}
 
     uint64_t Size() const { return m_Size; }
 
@@ -73,10 +72,8 @@ private:
 #endif
 };
 
-FileReader::FileReader(std::string const & fileName)
-  : FileReader(fileName, kDefaultLogPageSize, kDefaultLogPageCount)
-{
-}
+FileReader::FileReader(std::string const & fileName) : FileReader(fileName, kDefaultLogPageSize, kDefaultLogPageCount)
+{}
 
 FileReader::FileReader(std::string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
   : ModelReader(fileName)
@@ -85,19 +82,17 @@ FileReader::FileReader(std::string const & fileName, uint32_t logPageSize, uint3
   , m_fileData(std::make_shared<FileReaderData>(fileName, logPageSize, logPageCount))
   , m_offset(0)
   , m_size(m_fileData->Size())
-{
-}
+{}
 
-FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size,
-                       uint32_t logPageSize, uint32_t logPageCount)
+FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size, uint32_t logPageSize,
+                       uint32_t logPageCount)
   : ModelReader(reader.GetName())
   , m_logPageSize(logPageSize)
   , m_logPageCount(logPageCount)
   , m_fileData(reader.m_fileData)
   , m_offset(offset)
   , m_size(size)
-{
-}
+{}
 
 void FileReader::Read(uint64_t pos, void * p, size_t size) const
 {
@@ -115,8 +110,7 @@ std::unique_ptr<Reader> FileReader::CreateSubReader(uint64_t pos, uint64_t size)
 {
   CheckPosAndSize(pos, size);
   // Can't use make_unique with private constructor.
-  return std::unique_ptr<Reader>(
-      new FileReader(*this, m_offset + pos, size, m_logPageSize, m_logPageCount));
+  return std::unique_ptr<Reader>(new FileReader(*this, m_offset + pos, size, m_logPageSize, m_logPageCount));
 }
 
 void FileReader::CheckPosAndSize(uint64_t pos, uint64_t size) const

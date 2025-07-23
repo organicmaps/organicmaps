@@ -24,8 +24,7 @@ struct Locality
     , m_tokenRange(tokenRange)
     , m_queryVec(queryVec)
     , m_exactMatch(exactMatch)
-  {
-  }
+  {}
 
   uint32_t GetFeatureIndex() const { return m_featureId.m_index; }
 
@@ -62,9 +61,7 @@ struct Region : public Locality
 // states and Locality for smaller settlements.
 struct City : public Locality
 {
-  City(Locality && locality, Model::Type type) : Locality(std::move(locality)), m_type(type)
-  {
-  }
+  City(Locality && locality, Model::Type type) : Locality(std::move(locality)), m_type(type) {}
 
   m2::RectD m_rect;
   Model::Type m_type;
@@ -72,10 +69,8 @@ struct City : public Locality
 
 struct Suburb
 {
-  Suburb(FeatureID const & featureId, TokenRange const & tokenRange)
-    : m_featureId(featureId), m_tokenRange(tokenRange)
-  {
-  }
+  Suburb(FeatureID const & featureId, TokenRange const & tokenRange) : m_featureId(featureId), m_tokenRange(tokenRange)
+  {}
 
   FeatureID m_featureId;
   TokenRange m_tokenRange;

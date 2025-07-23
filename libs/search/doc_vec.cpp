@@ -15,15 +15,16 @@ void SortAndMerge(vector<strings::UniString> tokens, vector<TokenFrequencyPair> 
   ASSERT(tfs.empty(), ());
   sort(tokens.begin(), tokens.end());
   for (size_t i = 0; i < tokens.size(); ++i)
-  {
     if (tfs.empty() || tfs.back().m_token != tokens[i])
       tfs.emplace_back(tokens[i], 1 /* frequency */);
     else
       ++tfs.back().m_frequency;
-  }
 }
 
-double GetTfIdf(double tf, double idf) { return tf * idf; }
+double GetTfIdf(double tf, double idf)
+{
+  return tf * idf;
+}
 
 double GetWeightImpl(IdfMap & idfs, TokenFrequencyPair const & tf, bool isPrefix)
 {
@@ -46,15 +47,11 @@ double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs)
 }
 
 // Computes squared L2 norm of vector of tokens + prefix token.
-double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs,
-             optional<strings::UniString> const & prefix)
+double SqrL2(IdfMap & idfs, vector<TokenFrequencyPair> const & tfs, optional<strings::UniString> const & prefix)
 {
   auto result = SqrL2(idfs, tfs);
   if (prefix)
-  {
-    result +=
-        GetSqrWeightImpl(idfs, TokenFrequencyPair(*prefix, 1 /* frequency */), true /* isPrefix */);
-  }
+    result += GetSqrWeightImpl(idfs, TokenFrequencyPair(*prefix, 1 /* frequency */), true /* isPrefix */);
   return result;
 }
 }  // namespace
@@ -81,9 +78,15 @@ string DebugPrint(TokenFrequencyPair const & tf)
 }
 
 // DocVec ------------------------------------------------------------------------------------------
-DocVec::DocVec(Builder const & builder) { SortAndMerge(builder.m_tokens, m_tfs); }
+DocVec::DocVec(Builder const & builder)
+{
+  SortAndMerge(builder.m_tokens, m_tfs);
+}
 
-double DocVec::Norm(IdfMap & idfs) const { return SqrL2(idfs, m_tfs); }
+double DocVec::Norm(IdfMap & idfs) const
+{
+  return SqrL2(idfs, m_tfs);
+}
 
 strings::UniString const & DocVec::GetToken(size_t i) const
 {
@@ -104,8 +107,7 @@ double DocVec::GetWeight(IdfMap & idfs, size_t i) const
 }
 
 // QueryVec ----------------------------------------------------------------------------------------
-QueryVec::QueryVec(IdfMap & idfs, Builder const & builder)
-  : m_idfs(&idfs), m_prefix(builder.m_prefix)
+QueryVec::QueryVec(IdfMap & idfs, Builder const & builder) : m_idfs(&idfs), m_prefix(builder.m_prefix)
 {
   SortAndMerge(builder.m_tokens, m_tfs);
 }
@@ -212,7 +214,10 @@ double QueryVec::Similarity(IdfMap & docIdfs, DocVec const & rhs)
   return max(similarityWithPrefix, similarityNoPrefix);
 }
 
-double QueryVec::Norm() { return SqrL2(*m_idfs, m_tfs, m_prefix); }
+double QueryVec::Norm()
+{
+  return SqrL2(*m_idfs, m_tfs, m_prefix);
+}
 
 double QueryVec::GetFullTokenWeight(size_t i)
 {
@@ -223,7 +228,6 @@ double QueryVec::GetFullTokenWeight(size_t i)
 double QueryVec::GetPrefixTokenWeight()
 {
   ASSERT(m_prefix, ());
-  return GetWeightImpl(*m_idfs, TokenFrequencyPair(*m_prefix, 1 /* frequency */),
-                       true /* isPrefix */);
+  return GetWeightImpl(*m_idfs, TokenFrequencyPair(*m_prefix, 1 /* frequency */), true /* isPrefix */);
 }
 }  // namespace search

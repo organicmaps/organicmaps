@@ -2,8 +2,12 @@
 
 #include <jni.h>
 
-#define DECLARE_BUILDER_INSTANCE(BuilderType) static BuilderType const & Instance(JNIEnv * env) { \
-                                              static BuilderType const inst(env); return inst; }
+#define DECLARE_BUILDER_INSTANCE(BuilderType)       \
+  static BuilderType const & Instance(JNIEnv * env) \
+  {                                                 \
+    static BuilderType const inst(env);             \
+    return inst;                                    \
+  }
 
 namespace jni
 {
@@ -34,4 +38,4 @@ public:
   jobject CreateArray(JNIEnv * env, size_t sz) const;
 };
 
-} // namespace jni
+}  // namespace jni

@@ -4,7 +4,8 @@
 
 #include <algorithm>
 
-extern "C" {
+extern "C"
+{
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wconditional-uninitialized"
@@ -36,8 +37,7 @@ double OrientedS(PointD const & p1, PointD const & p2, PointD const & p)
   return orient2d(a, b, c);
 }
 
-bool IsSegmentInCone(PointD const & v, PointD const & v1, PointD const & vPrev,
-                     PointD const & vNext)
+bool IsSegmentInCone(PointD const & v, PointD const & v1, PointD const & vPrev, PointD const & vNext)
 {
   double const cpLR = OrientedS(vPrev, vNext, v);
 

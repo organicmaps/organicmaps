@@ -2,7 +2,7 @@
 
 @interface MWMEditorNotesFooter ()
 
-@property (weak, nonatomic) UIViewController * controller;
+@property(weak, nonatomic) UIViewController * controller;
 
 @end
 
@@ -10,8 +10,7 @@
 
 + (instancetype)footerForController:(UIViewController *)controller
 {
-  MWMEditorNotesFooter * f =
-      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
+  MWMEditorNotesFooter * f = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   f.controller = controller;
   [f setNeedsLayout];
   [f layoutIfNeeded];

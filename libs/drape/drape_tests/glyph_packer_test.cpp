@@ -1,5 +1,5 @@
-#include "testing/testing.hpp"
 #include "drape/font_texture.hpp"
+#include "testing/testing.hpp"
 
 UNIT_TEST(SimplePackTest)
 {
@@ -20,7 +20,7 @@ UNIT_TEST(SimplePackTest)
   TEST(!packer.IsFull(), ());
   TEST_EQUAL(r, m2::RectU(0, 15, 7, 25), ());
 
-  TEST(!packer.PackGlyph(12, 18, r),());
+  TEST(!packer.PackGlyph(12, 18, r), ());
   TEST(packer.IsFull(), ());
   TEST_EQUAL(r, m2::RectU(0, 15, 7, 25), ());
 }

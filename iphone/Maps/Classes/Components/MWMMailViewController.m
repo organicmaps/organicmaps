@@ -14,5 +14,8 @@
   return UIStatusBarStyleLightContent;
 }
 
-- (UIViewController *)childViewControllerForStatusBarStyle { return nil; }
+- (UIViewController *)childViewControllerForStatusBarStyle
+{
+  return nil;
+}
 @end

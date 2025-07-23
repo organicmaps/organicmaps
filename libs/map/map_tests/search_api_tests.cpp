@@ -39,10 +39,11 @@ using Rules = vector<shared_ptr<MatchingRule>>;
 struct TestCafe : public TestPOI
 {
 public:
-  TestCafe(m2::PointD const & center, string const & name, string const & lang)
-    : TestPOI(center, name, lang)
+  TestCafe(m2::PointD const & center, string const & name, string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({{"amenity", "cafe"}});
+    SetTypes({
+        {"amenity", "cafe"}
+    });
   }
 
   ~TestCafe() override = default;
@@ -63,8 +64,7 @@ public:
   SearchAPITest()
     : m_infoGetter(CountryInfoReader::CreateCountryInfoGetter(GetPlatform()))
     , m_api(m_dataSource, m_storage, *m_infoGetter, 1 /* numThreads */, m_delegate)
-  {
-  }
+  {}
 
 protected:
   Storage m_storage;
@@ -80,7 +80,8 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
   TestCafe cafe3(m2::PointD(10, 10), "cafe 3", "en");
   TestCafe cafe4(m2::PointD(10.5, 10.5), "cafe 4", "en");
 
-  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
+  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(cafe1);
     builder.Add(cafe2);
     builder.Add(cafe3);
@@ -99,7 +100,8 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
   params.m_query = "cafe ";
   params.m_inputLocale = "en";
 
-  params.m_onCompleted = [&](Results const & results) {
+  params.m_onCompleted = [&](Results const & results)
+  {
     TEST(!results.IsEndedCancelled(), ());
 
     if (!results.IsEndMarker())
@@ -147,7 +149,8 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
     promise<void> promise;
     auto future = promise.get_future();
 
-    params.m_onResults = [&](Results const & results, vector<ProductInfo> const &) {
+    params.m_onResults = [&](Results const & results, vector<ProductInfo> const &)
+    {
       TEST(!results.IsEndedCancelled(), ());
 
       if (!results.IsEndMarker())
@@ -172,7 +175,8 @@ UNIT_CLASS_TEST(SearchAPITest, Cancellation)
 
     params.m_timeout = chrono::seconds(-1);
 
-    params.m_onResults = [&](Results const & results, vector<ProductInfo> const &) {
+    params.m_onResults = [&](Results const & results, vector<ProductInfo> const &)
+    {
       // The deadline has fired but Search API does not expose it.
       TEST(!results.IsEndedCancelled(), ());
 
@@ -201,8 +205,7 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   kml::SetDefaultStr(data.m_description, "They've got a cherry pie there that'll kill ya!");
   marks.emplace_back(0, data);
   kml::SetDefaultStr(data.m_name, "Silver Mustang Casino");
-  kml::SetDefaultStr(data.m_description,
-                     "Joyful place, owners Bradley and Rodney are very friendly!");
+  kml::SetDefaultStr(data.m_description, "Joyful place, owners Bradley and Rodney are very friendly!");
   marks.emplace_back(1, data);
   kml::SetDefaultStr(data.m_name, "Great Northern Hotel");
   kml::SetDefaultStr(data.m_description, "Clean place with a reasonable price");
@@ -212,15 +215,15 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   m_api.OnBookmarksCreated(marks);
   m_api.OnViewportChanged(m2::RectD(-1, -1, 1, 1));
 
-  auto runTest = [&](string const & query, kml::MarkGroupId const & groupId,
-                     vector<kml::MarkId> const & expected) {
+  auto runTest = [&](string const & query, kml::MarkGroupId const & groupId, vector<kml::MarkId> const & expected)
+  {
     promise<vector<kml::MarkId>> idsPromise;
     auto idsFuture = idsPromise.get_future();
 
     BookmarksSearchParams params;
     params.m_query = query;
-    params.m_onResults = [&](vector<kml::MarkId> const & results,
-                             BookmarksSearchParams::Status status) {
+    params.m_onResults = [&](vector<kml::MarkId> const & results, BookmarksSearchParams::Status status)
+    {
       if (status != BookmarksSearchParams::Status::Completed)
         return;
       idsPromise.set_value(results);

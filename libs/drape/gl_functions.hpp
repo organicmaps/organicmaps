@@ -30,7 +30,7 @@ public:
 
   static void glStencilOpSeparate(glConst face, glConst sfail, glConst dpfail, glConst dppass);
   static void glStencilFuncSeparate(glConst face, glConst func, int ref, uint32_t mask);
-  
+
   static void glPixelStore(glConst name, uint32_t value);
 
   static int32_t glGetInteger(glConst pname);
@@ -52,11 +52,11 @@ public:
 
   /// Debug Output
   static bool CanEnableDebugMessages();
-  using TglDebugProc = void (*)(glConst source, glConst type, uint32_t id, glConst severity,
-                                int32_t length, char const * message, void * userParam);
+  using TglDebugProc = void (*)(glConst source, glConst type, uint32_t id, glConst severity, int32_t length,
+                                char const * message, void * userParam);
   static void glDebugMessageCallback(TglDebugProc messageCallback, void * userParam);
-  static void glDebugMessageControl(glConst source, glConst type, glConst severity, int32_t count,
-                                    uint32_t const * ids, uint8_t enabled);
+  static void glDebugMessageControl(glConst source, glConst type, glConst severity, int32_t count, uint32_t const * ids,
+                                    uint8_t enabled);
 
   static void glLineWidth(uint32_t value);
 
@@ -82,8 +82,7 @@ public:
 
   /// Shaders support
   static uint32_t glCreateShader(glConst type);
-  static void glShaderSource(uint32_t shaderID, std::string const & src,
-                             std::string const & defines);
+  static void glShaderSource(uint32_t shaderID, std::string const & src, std::string const & defines);
   static bool glCompileShader(uint32_t shaderID, std::string & errorLog);
   static void glDeleteShader(uint32_t shaderID);
 
@@ -109,11 +108,11 @@ public:
   /// stride - how much bytes need to seek from current attribute value to get the second value
   /// offset - how much bytes need to seek from begin of currenct buffer to get first attribute
   /// value
-  static void glVertexAttributePointer(int32_t attrLocation, uint32_t count, glConst type,
-                                       bool needNormalize, uint32_t stride, uint32_t offset);
+  static void glVertexAttributePointer(int32_t attrLocation, uint32_t count, glConst type, bool needNormalize,
+                                       uint32_t stride, uint32_t offset);
 
-  static void glGetActiveUniform(uint32_t programID, uint32_t uniformIndex, int32_t * uniformSize,
-                                 glConst * type, std::string & name);
+  static void glGetActiveUniform(uint32_t programID, uint32_t uniformIndex, int32_t * uniformSize, glConst * type,
+                                 std::string & name);
 
   static int8_t glGetUniformLocation(uint32_t programID, std::string const & name);
   static void glUniformValuei(int8_t location, int32_t v);
@@ -139,15 +138,13 @@ public:
   static uint32_t glGenTexture();
   static void glDeleteTexture(uint32_t id);
   static void glBindTexture(uint32_t textureID);
-  static void glTexImage2D(int width, int height, glConst layout, glConst pixelType,
-                           void const * data);
-  static void glTexSubImage2D(int x, int y, int width, int height, glConst layout,
-                              glConst pixelType, void const * data);
+  static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data);
+  static void glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType,
+                              void const * data);
   static void glTexParameter(glConst param, glConst value);
 
   // Draw support
-  static void glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount,
-                             uint32_t startIndex = 0);
+  static void glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex = 0);
   static void glDrawArrays(glConst mode, int32_t first, uint32_t count);
 
   // FBO support
@@ -161,8 +158,19 @@ public:
 void CheckGLError(base::SrcPoint const & src);
 
 #ifdef DEBUG
-#define GLCHECK(x) do { (x); CheckGLError(SRC()); } while (false)
-#define GLCHECKCALL() do { CheckGLError(SRC()); } while (false)
+#define GLCHECK(x)       \
+  do                     \
+  {                      \
+    (x);                 \
+    CheckGLError(SRC()); \
+  }                      \
+  while (false)
+#define GLCHECKCALL()    \
+  do                     \
+  {                      \
+    CheckGLError(SRC()); \
+  }                      \
+  while (false)
 #else
 #define GLCHECK(x) (x)
 #define GLCHECKCALL()

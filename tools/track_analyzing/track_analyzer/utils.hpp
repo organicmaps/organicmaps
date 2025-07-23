@@ -23,8 +23,7 @@ public:
   using NameToCountMapping = std::map<std::string, uint64_t>;
 
   Stats() = default;
-  Stats(NameToCountMapping const & mwmToTotalDataPoints,
-        NameToCountMapping const & countryToTotalDataPoint);
+  Stats(NameToCountMapping const & mwmToTotalDataPoints, NameToCountMapping const & countryToTotalDataPoint);
 
   bool operator==(Stats const & stats) const;
   void Add(Stats const & stats);
@@ -34,11 +33,9 @@ public:
                       storage::Storage const & storage);
 
   /// \brief Adds |dataPointNum| to |m_mwmToTotalDataPoints| and |m_countryToTotalDataPoints|.
-  void AddDataPoints(std::string const & mwmName, std::string const & countryName,
-                     uint64_t dataPointNum);
+  void AddDataPoints(std::string const & mwmName, std::string const & countryName, uint64_t dataPointNum);
 
-  void AddDataPoints(std::string const & mwmName, storage::Storage const & storage,
-                     uint64_t dataPointNum);
+  void AddDataPoints(std::string const & mwmName, storage::Storage const & storage, uint64_t dataPointNum);
 
   /// \brief Saves csv file with numbers of DataPoints for each mwm to |csvPath|.
   /// If |csvPath| is empty it does nothing.
@@ -60,8 +57,8 @@ private:
 };
 
 /// \brief Saves |mapping| as csv to |ss|.
-void MappingToCsv(std::string const & keyName, Stats::NameToCountMapping const & mapping,
-                  bool printPercentage, std::basic_ostream<char> & ss);
+void MappingToCsv(std::string const & keyName, Stats::NameToCountMapping const & mapping, bool printPercentage,
+                  std::basic_ostream<char> & ss);
 /// \breif Fills |mapping| according to csv in |ss|. Csv header is skipped.
 void MappingFromCsv(std::basic_istream<char> & ss, Stats::NameToCountMapping & mapping);
 

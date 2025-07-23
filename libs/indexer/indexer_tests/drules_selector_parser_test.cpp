@@ -133,18 +133,9 @@ UNIT_TEST(TestDruleSelectorGreaterOrEqual)
 
 UNIT_TEST(TestDruleSelectorInvalid)
 {
-  char const * const badFormats[] =
-  {
-    "",
-    "=badformat",
-    "!=badformat",
-    ">badformat",
-    "<badformat",
-    ">=badformat",
-    "<=badformat",
-    "bad$name",
-    "!bad$name",
-    "bad$name=1000",
+  char const * const badFormats[] = {
+      "",         "=badformat", "!=badformat",   ">badformat", "<badformat", ">=badformat", "<=badformat",
+      "bad$name", "!bad$name",  "bad$name=1000",
   };
 
   for (auto e : badFormats)
@@ -158,7 +149,7 @@ UNIT_TEST(PopulationSelector_Smoke)
 {
   TEST(ParseSelector("population<1000"), ());
   TEST(ParseSelector(vector<string>({"population>1000"})), ());
-  TEST(ParseSelector(vector<string>({"population>=1000","population<=1000000"})), ());
+  TEST(ParseSelector(vector<string>({"population>=1000", "population<=1000000"})), ());
 }
 
 UNIT_TEST(NameSelector_Smoke)
@@ -171,7 +162,7 @@ UNIT_TEST(InvalidSelector_Smoke)
 {
   TEST(!ParseSelector(""), ());
   TEST(!ParseSelector(vector<string>({""})), ());
-  TEST(!ParseSelector(vector<string>({"population>=1000","population<=1000000", ""})), ());
+  TEST(!ParseSelector(vector<string>({"population>=1000", "population<=1000000", ""})), ());
 }
 
-} // namespace drules_selector_parser_test
+}  // namespace drules_selector_parser_test

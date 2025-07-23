@@ -60,8 +60,14 @@ inline void Update(std::map<std::string, std::string> const & settings)
   StringStorage::Instance().Update(settings);
 }
 
-inline void Delete(std::string_view key) { StringStorage::Instance().DeleteKeyAndValue(key); }
-inline void Clear() { StringStorage::Instance().Clear(); }
+inline void Delete(std::string_view key)
+{
+  StringStorage::Instance().DeleteKeyAndValue(key);
+}
+inline void Clear()
+{
+  StringStorage::Instance().Clear();
+}
 
 class UsageStats
 {
@@ -83,4 +89,4 @@ public:
   bool IsLoyalUser() const;
 };
 
-} // namespace settings
+}  // namespace settings

@@ -12,13 +12,13 @@ namespace search
 {
 // GeometryCache -----------------------------------------------------------------------------------
 GeometryCache::GeometryCache(size_t maxNumEntries, base::Cancellable const & cancellable)
-  : m_maxNumEntries(maxNumEntries), m_cancellable(cancellable)
+  : m_maxNumEntries(maxNumEntries)
+  , m_cancellable(cancellable)
 {
   CHECK_GREATER(m_maxNumEntries, 0, ());
 }
 
-void GeometryCache::InitEntry(MwmContext const & context, m2::RectD const & rect, int scale,
-                              Entry & entry)
+void GeometryCache::InitEntry(MwmContext const & context, m2::RectD const & rect, int scale, Entry & entry)
 {
   Retrieval retrieval(context, m_cancellable);
 
@@ -28,20 +28,18 @@ void GeometryCache::InitEntry(MwmContext const & context, m2::RectD const & rect
 }
 
 // PivotRectsCache ---------------------------------------------------------------------------------
-PivotRectsCache::PivotRectsCache(size_t maxNumEntries, base::Cancellable const & cancellable,
-                                 double maxRadiusMeters)
-  : GeometryCache(maxNumEntries, cancellable), m_maxRadiusMeters(maxRadiusMeters)
-{
-}
+PivotRectsCache::PivotRectsCache(size_t maxNumEntries, base::Cancellable const & cancellable, double maxRadiusMeters)
+  : GeometryCache(maxNumEntries, cancellable)
+  , m_maxRadiusMeters(maxRadiusMeters)
+{}
 
 CBV PivotRectsCache::Get(MwmContext const & context, m2::RectD const & rect, int scale)
 {
-  auto p = FindOrCreateEntry(
-      context.GetId(), [&rect, &scale](Entry const & entry)
-      {
-        return scale == entry.m_scale &&
-               (entry.m_rect.IsRectInside(rect) || IsEqualMercator(rect, entry.m_rect, kMwmPointAccuracy));
-      });
+  auto p = FindOrCreateEntry(context.GetId(), [&rect, &scale](Entry const & entry)
+  {
+    return scale == entry.m_scale &&
+           (entry.m_rect.IsRectInside(rect) || IsEqualMercator(rect, entry.m_rect, kMwmPointAccuracy));
+  });
   auto & entry = p.first;
   if (p.second)
   {
@@ -54,19 +52,14 @@ CBV PivotRectsCache::Get(MwmContext const & context, m2::RectD const & rect, int
 }
 
 // LocalityRectsCache ------------------------------------------------------------------------------
-LocalityRectsCache::LocalityRectsCache(size_t maxNumEntries,
-                                       base::Cancellable const & cancellable)
+LocalityRectsCache::LocalityRectsCache(size_t maxNumEntries, base::Cancellable const & cancellable)
   : GeometryCache(maxNumEntries, cancellable)
-{
-}
+{}
 
 CBV LocalityRectsCache::Get(MwmContext const & context, m2::RectD const & rect, int scale)
 {
   auto p = FindOrCreateEntry(context.GetId(), [&rect, &scale](Entry const & entry)
-                             {
-                               return scale == entry.m_scale &&
-                                      IsEqualMercator(rect, entry.m_rect, kMwmPointAccuracy);
-                             });
+  { return scale == entry.m_scale && IsEqualMercator(rect, entry.m_rect, kMwmPointAccuracy); });
   auto & entry = p.first;
   if (p.second)
     InitEntry(context, rect, scale, entry);

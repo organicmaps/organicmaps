@@ -62,10 +62,7 @@ private:
   struct Info
   {
     Info() = default;
-    Info(Availability availability, isolines::Quality quality)
-      : m_availability(availability), m_quality(quality)
-    {
-    }
+    Info(Availability availability, isolines::Quality quality) : m_availability(availability), m_quality(quality) {}
 
     Availability m_availability = Availability::NoData;
     isolines::Quality m_quality = isolines::Quality::None;

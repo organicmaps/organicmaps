@@ -11,9 +11,9 @@
 
 #include "shaders/programs.hpp"
 
-#include "drape/utils/vertex_decl.hpp"
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
 #include "indexer/feature_decl.hpp"
 #include "indexer/scales.hpp"
@@ -29,15 +29,13 @@ namespace df
 {
 namespace
 {
-std::array<double, 20> constexpr kLineWidthZoomFactor =
-{
-// 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20
-  0.3, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
-};
+std::array<double, 20> constexpr kLineWidthZoomFactor = {
+    // 1   2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19   20
+    0.3, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.7, 0.7, 0.7, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
 
 template <typename TCreateVector>
-void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor, dp::Anchor first,
-                         dp::Anchor second, glsl::vec2 & firstNormal, glsl::vec2 & secondNormal)
+void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor, dp::Anchor first, dp::Anchor second,
+                         glsl::vec2 & firstNormal, glsl::vec2 & secondNormal)
 {
   firstNormal = fn();
   secondNormal = -firstNormal;
@@ -55,14 +53,12 @@ void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor, dp::Anchor
 
 void AlignHorizontal(float halfWidth, dp::Anchor anchor, glsl::vec2 & left, glsl::vec2 & right)
 {
-  AlignFormingNormals([&halfWidth] { return glsl::vec2(-halfWidth, 0.0f); }, anchor, dp::Left,
-                      dp::Right, left, right);
+  AlignFormingNormals([&halfWidth] { return glsl::vec2(-halfWidth, 0.0f); }, anchor, dp::Left, dp::Right, left, right);
 }
 
 void AlignVertical(float halfHeight, dp::Anchor anchor, glsl::vec2 & up, glsl::vec2 & down)
 {
-  AlignFormingNormals([&halfHeight] { return glsl::vec2(0.0f, -halfHeight); }, anchor, dp::Top,
-                      dp::Bottom, up, down);
+  AlignFormingNormals([&halfHeight] { return glsl::vec2(0.0f, -halfHeight); }, anchor, dp::Top, dp::Bottom, up, down);
 }
 
 struct UserPointVertex : public gpu::BaseVertex
@@ -73,8 +69,8 @@ struct UserPointVertex : public gpu::BaseVertex
   using TAnimateOrZ = float;
 
   UserPointVertex() = default;
-  UserPointVertex(TPosition const & pos, TNormalAndAnimateOrZ const & normalAndAnimateOrZ,
-                  TTexCoord const & texCoord, TColor const & color)
+  UserPointVertex(TPosition const & pos, TNormalAndAnimateOrZ const & normalAndAnimateOrZ, TTexCoord const & texCoord,
+                  TColor const & color)
     : m_position(pos)
     , m_normalAndAnimateOrZ(normalAndAnimateOrZ)
     , m_texCoord(texCoord)
@@ -86,10 +82,9 @@ struct UserPointVertex : public gpu::BaseVertex
     dp::BindingInfo info(4);
     uint8_t offset = 0;
     offset += dp::FillDecl<TPosition, UserPointVertex>(0, "a_position", info, offset);
-    offset += dp::FillDecl<TNormalAndAnimateOrZ, UserPointVertex>(1, "a_normalAndAnimateOrZ", info,
-                                                                  offset);
+    offset += dp::FillDecl<TNormalAndAnimateOrZ, UserPointVertex>(1, "a_normalAndAnimateOrZ", info, offset);
     offset += dp::FillDecl<TTexCoord, UserPointVertex>(2, "a_texCoords", info, offset);
-    /*offset += */dp::FillDecl<TColor, UserPointVertex>(3, "a_color", info, offset);
+    /*offset += */ dp::FillDecl<TColor, UserPointVertex>(3, "a_color", info, offset);
 
     return info;
   }
@@ -106,10 +101,8 @@ std::string GetSymbolNameForZoomLevel(ref_ptr<UserPointMark::SymbolNameZoomInfo>
     return {};
 
   for (auto itName = symbolNames->crbegin(); itName != symbolNames->crend(); ++itName)
-  {
     if (itName->first <= tileKey.m_zoomLevel)
       return itName->second;
-  }
   return {};
 }
 
@@ -206,15 +199,14 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
   params.m_offset += offset;
   if (renderInfo.m_symbolSizes != nullptr)
   {
-    ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
-                       kStartUserMarkOverlayIndex + renderInfo.m_index,
+    ColoredSymbolShape(renderInfo.m_pivot, params, tileKey, kStartUserMarkOverlayIndex + renderInfo.m_index,
                        isTextBg ? symbolSizesInc : *renderInfo.m_symbolSizes.get())
         .Draw(context, &batcher, textures);
   }
   else
   {
-    ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
-                       kStartUserMarkOverlayIndex + renderInfo.m_index, renderInfo.m_coloredSymbols->m_needOverlay)
+    ColoredSymbolShape(renderInfo.m_pivot, params, tileKey, kStartUserMarkOverlayIndex + renderInfo.m_index,
+                       renderInfo.m_coloredSymbols->m_needOverlay)
         .Draw(context, &batcher, textures);
   }
 }
@@ -241,15 +233,13 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
   bool const hasColoredOverlay = renderInfo.m_coloredSymbols != nullptr && renderInfo.m_coloredSymbols->m_needOverlay;
   params.m_startOverlayRank = hasColoredOverlay ? dp::OverlayRank1 : dp::OverlayRank0;
 
-  PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
-                 kStartUserMarkOverlayIndex + renderInfo.m_index)
+  PoiSymbolShape(renderInfo.m_pivot, params, tileKey, kStartUserMarkOverlayIndex + renderInfo.m_index)
       .Draw(context, &batcher, textures);
 }
 
 void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
-                        UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
-                        m2::PointD const & tileCenter, m2::PointF const & symbolOffset,
-                        m2::PointF const & symbolSize, dp::Batcher & batcher)
+                        UserMarkRenderParams const & renderInfo, TileKey const & tileKey, m2::PointD const & tileCenter,
+                        m2::PointF const & symbolOffset, m2::PointF const & symbolSize, dp::Batcher & batcher)
 {
   if (renderInfo.m_minTitleZoom > tileKey.m_zoomLevel)
     return;
@@ -303,8 +293,7 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
     }
     else
     {
-      TextShape(renderInfo.m_pivot, params, tileKey, symbolSize, symbolOffset, renderInfo.m_anchor,
-                overlayIndex)
+      TextShape(renderInfo.m_pivot, params, tileKey, symbolSize, symbolOffset, renderInfo.m_anchor, overlayIndex)
           .Draw(context, &batcher, textures);
     }
   }
@@ -345,10 +334,8 @@ std::string GetBackgroundSymbolName(std::string const & symbolName)
   return res;
 }
 
-drape_ptr<dp::OverlayHandle> CreateSymbolOverlayHandle(UserMarkRenderParams const & renderInfo,
-                                                       TileKey const & tileKey,
-                                                       m2::PointF const & symbolOffset,
-                                                       m2::RectD const & pixelRect)
+drape_ptr<dp::OverlayHandle> CreateSymbolOverlayHandle(UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
+                                                       m2::PointF const & symbolOffset, m2::RectD const & pixelRect)
 {
   if (!renderInfo.m_isSymbolSelectable || !renderInfo.m_isNonDisplaceable)
     return nullptr;
@@ -356,16 +343,15 @@ drape_ptr<dp::OverlayHandle> CreateSymbolOverlayHandle(UserMarkRenderParams cons
   dp::OverlayID overlayId(renderInfo.m_featureId, renderInfo.m_markId, tileKey.GetTileCoords(),
                           kStartUserMarkOverlayIndex + renderInfo.m_index);
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(
-      overlayId, renderInfo.m_anchor, renderInfo.m_pivot,
-      pixelRect.RightTop() - pixelRect.LeftBottom(), m2::PointD(symbolOffset), 0 /*priority*/,
-      true /* isBound */, renderInfo.m_minZoom, true /* isBillboard */);
+      overlayId, renderInfo.m_anchor, renderInfo.m_pivot, pixelRect.RightTop() - pixelRect.LeftBottom(),
+      m2::PointD(symbolOffset), 0 /*priority*/, true /* isBound */, renderInfo.m_minZoom, true /* isBillboard */);
   return handle;
 }
 }  // namespace
 
-void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                    ref_ptr<dp::TextureManager> textures, kml::MarkIdCollection const & marksId,
-                    UserMarksRenderCollection const & renderParams, dp::Batcher & batcher)
+void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                    kml::MarkIdCollection const & marksId, UserMarksRenderCollection const & renderParams,
+                    dp::Batcher & batcher)
 {
   using UPV = UserPointVertex;
   buffer_vector<UPV, dp::Batcher::VertexPerQuad> buffer;
@@ -422,8 +408,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         m2::RectF const & bgTexRect = backgroundRegion.GetTexRect();
         m2::PointF const pxSize = symbolRegion.GetPixelSize();
         dp::Anchor const anchor = renderInfo.m_anchor;
-        m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter,
-                                                       kShapeCoordScalar);
+        m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter, kShapeCoordScalar);
         glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
         bool const runAnim = renderInfo.m_hasCreationAnimation && renderInfo.m_justCreated;
 
@@ -438,51 +423,39 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         if (!renderInfo.m_color.empty())
           color = df::GetColorConstant(renderInfo.m_color);
 
-        glsl::vec4 maskColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(),
-                             renderInfo.m_symbolOpacity);
+        glsl::vec4 maskColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), renderInfo.m_symbolOpacity);
         float animateOrZ = 0.0f;
         if (!renderInfo.m_customDepth)
           animateOrZ = runAnim ? 1.0f : -1.0f;
 
-        buffer.emplace_back(
-            pos, glsl::vec3(left + down + offset, animateOrZ),
-            glsl::ToVec4(m2::PointD(texRect.LeftTop()), m2::PointD(bgTexRect.LeftTop())),
-            maskColor);
-        buffer.emplace_back(
-            pos, glsl::vec3(left + up + offset, animateOrZ),
-            glsl::ToVec4(m2::PointD(texRect.LeftBottom()), m2::PointD(bgTexRect.LeftBottom())),
-            maskColor);
-        buffer.emplace_back(
-            pos, glsl::vec3(right + down + offset, animateOrZ),
-            glsl::ToVec4(m2::PointD(texRect.RightTop()), m2::PointD(bgTexRect.RightTop())),
-            maskColor);
-        buffer.emplace_back(
-            pos, glsl::vec3(right + up + offset, animateOrZ),
-            glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
-            maskColor);
+        buffer.emplace_back(pos, glsl::vec3(left + down + offset, animateOrZ),
+                            glsl::ToVec4(m2::PointD(texRect.LeftTop()), m2::PointD(bgTexRect.LeftTop())), maskColor);
+        buffer.emplace_back(pos, glsl::vec3(left + up + offset, animateOrZ),
+                            glsl::ToVec4(m2::PointD(texRect.LeftBottom()), m2::PointD(bgTexRect.LeftBottom())),
+                            maskColor);
+        buffer.emplace_back(pos, glsl::vec3(right + down + offset, animateOrZ),
+                            glsl::ToVec4(m2::PointD(texRect.RightTop()), m2::PointD(bgTexRect.RightTop())), maskColor);
+        buffer.emplace_back(pos, glsl::vec3(right + up + offset, animateOrZ),
+                            glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
+                            maskColor);
 
         m2::RectD rect;
         for (auto const & vertex : buffer)
           rect.Add(glsl::FromVec2(glsl::vec2(vertex.m_normalAndAnimateOrZ)));
 
-        drape_ptr<dp::OverlayHandle> overlayHandle =
-            CreateSymbolOverlayHandle(renderInfo, tileKey, symbolOffset, rect);
+        drape_ptr<dp::OverlayHandle> overlayHandle = CreateSymbolOverlayHandle(renderInfo, tileKey, symbolOffset, rect);
 
         gpu::Program program;
         gpu::Program program3d;
         if (renderInfo.m_isMarkAboveText)
         {
-          program = runAnim ? gpu::Program::BookmarkAnimAboveText
-                            : gpu::Program::BookmarkAboveText;
-          program3d = runAnim ? gpu::Program::BookmarkAnimAboveTextBillboard
-                              : gpu::Program::BookmarkAboveTextBillboard;
+          program = runAnim ? gpu::Program::BookmarkAnimAboveText : gpu::Program::BookmarkAboveText;
+          program3d = runAnim ? gpu::Program::BookmarkAnimAboveTextBillboard : gpu::Program::BookmarkAboveTextBillboard;
         }
         else
         {
-          program = runAnim ? gpu::Program::BookmarkAnim
-                            : gpu::Program::Bookmark;
-          program3d = runAnim ? gpu::Program::BookmarkAnimBillboard
-                              : gpu::Program::BookmarkBillboard;
+          program = runAnim ? gpu::Program::BookmarkAnim : gpu::Program::Bookmark;
+          program3d = runAnim ? gpu::Program::BookmarkAnimBillboard : gpu::Program::BookmarkBillboard;
         }
         auto state = CreateRenderState(program, renderInfo.m_depthLayer);
         state.SetProgram3d(program3d);
@@ -494,8 +467,8 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
         attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
 
-        batcher.InsertListOfStrip(context, state, make_ref(&attribProvider),
-                                  std::move(overlayHandle), dp::Batcher::VertexPerQuad);
+        batcher.InsertListOfStrip(context, state, make_ref(&attribProvider), std::move(overlayHandle),
+                                  dp::Batcher::VertexPerQuad);
       }
     }
 
@@ -507,7 +480,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 }
 
 void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmentLength,
-                               const std::function<bool(const m2::RectD & segmentRect)> & func)
+                               std::function<bool(m2::RectD const & segmentRect)> const & func)
 {
   double const splineFullLength = spline->GetLength();
   double length = 0;
@@ -524,10 +497,7 @@ void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmen
       splineRect.Add(spline->GetPath().back());
     }
 
-    spline->ForEachNode(itBegin, itEnd, [&splineRect](m2::PointD const & pt)
-    {
-      splineRect.Add(pt);
-    });
+    spline->ForEachNode(itBegin, itEnd, [&splineRect](m2::PointD const & pt) { splineRect.Add(pt); });
 
     length += maxSegmentLength;
 
@@ -536,9 +506,9 @@ void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmen
   }
 }
 
-void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                    ref_ptr<dp::TextureManager> textures, kml::TrackIdCollection const & linesId,
-                    UserLinesRenderCollection const & renderParams, dp::Batcher & batcher)
+void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                    kml::TrackIdCollection const & linesId, UserLinesRenderCollection const & renderParams,
+                    dp::Batcher & batcher)
 {
   CHECK_GREATER(tileKey.m_zoomLevel, 0, ());
   CHECK_LESS(tileKey.m_zoomLevel - 1, static_cast<int>(kLineWidthZoomFactor.size()), ());
@@ -554,7 +524,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
   m2::RectD const tileRect = tileKey.GetGlobalRect();
 
   // Process spline by segments that are no longer than tile size.
-  //double const maxLength = mercator::Bounds::kRangeX / (1 << (tileKey.m_zoomLevel - 1));
+  // double const maxLength = mercator::Bounds::kRangeX / (1 << (tileKey.m_zoomLevel - 1));
 
   for (auto const & id : linesId)
   {
@@ -613,4 +583,4 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     }
   }
 }
-} // namespace df
+}  // namespace df

@@ -12,7 +12,10 @@ namespace platform
 {
 namespace tests_support
 {
-TestSocket::~TestSocket() { m_isConnected = false; }
+TestSocket::~TestSocket()
+{
+  m_isConnected = false;
+}
 
 bool TestSocket::Open(string const & host, uint16_t port)
 {
@@ -23,7 +26,10 @@ bool TestSocket::Open(string const & host, uint16_t port)
   return true;
 }
 
-void TestSocket::Close() { m_isConnected = false; }
+void TestSocket::Close()
+{
+  m_isConnected = false;
+}
 
 bool TestSocket::Read(uint8_t * data, uint32_t count)
 {
@@ -54,12 +60,14 @@ bool TestSocket::Write(uint8_t const * data, uint32_t count)
   return true;
 }
 
-void TestSocket::SetTimeout(uint32_t milliseconds) { m_timeoutMs = milliseconds; }
+void TestSocket::SetTimeout(uint32_t milliseconds)
+{
+  m_timeoutMs = milliseconds;
+}
 size_t TestSocket::ReadServer(vector<uint8_t> & destination)
 {
   unique_lock<mutex> lock(m_outputMutex);
-  m_outputCondition.wait_for(lock, milliseconds(m_timeoutMs),
-                             [this]() { return !m_output.empty(); });
+  m_outputCondition.wait_for(lock, milliseconds(m_timeoutMs), [this]() { return !m_output.empty(); });
 
   size_t const outputSize = m_output.size();
   destination.insert(destination.end(), m_output.begin(), m_output.end());

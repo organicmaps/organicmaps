@@ -23,4 +23,4 @@ double InterpolateAngle(double startAngle, double endAngle, double t)
   return startAngle + ang::GetShortestDistance(startAngle, endAngle) * t;
 }
 
-} // namespace df
+}  // namespace df

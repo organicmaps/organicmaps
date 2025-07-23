@@ -90,17 +90,15 @@ bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, DataSource const 
   FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
   auto const ft = g.GetOriginalFeatureByIndex(fid.m_index);
   bool matched = false;
-  ft->ForEachPoint(
-      [&p, &matched](m2::PointD const & fp) {
-        if (p == fp)
-          matched = true;
-      },
-      FeatureType::BEST_GEOMETRY);
+  ft->ForEachPoint([&p, &matched](m2::PointD const & fp)
+  {
+    if (p == fp)
+      matched = true;
+  }, FeatureType::BEST_GEOMETRY);
   return matched;
 }
 
-void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, DataSource const & dataSource,
-                Graph & g)
+void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, DataSource const & dataSource, Graph & g)
 {
   if (!edgeIt->IsFake())
     return;
@@ -120,16 +118,18 @@ void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, Da
 
   CHECK(!edges.empty(), ());
 
-  auto it = find_if(begin(edges), end(edges), [&edgeIt](Graph::Edge const & real) {
-      if (real.GetFeatureId() == edgeIt->GetFeatureId() && real.GetSegId() == edgeIt->GetSegId())
-        return true;
-      return false;
-    });
+  auto it = find_if(begin(edges), end(edges), [&edgeIt](Graph::Edge const & real)
+  {
+    if (real.GetFeatureId() == edgeIt->GetFeatureId() && real.GetSegId() == edgeIt->GetSegId())
+      return true;
+    return false;
+  });
 
   // For features which cross mwm border FeatureIds may not match. Check geometry.
   if (it == end(edges))
   {
-    it = find_if(begin(edges), end(edges), [&edgeIt, &startIsFake](Graph::Edge const & real) {
+    it = find_if(begin(edges), end(edges), [&edgeIt, &startIsFake](Graph::Edge const & real)
+    {
       // Features from the same mwm should be already matched.
       if (real.GetFeatureId().m_mwmId == edgeIt->GetFeatureId().m_mwmId)
         return false;
@@ -170,8 +170,7 @@ void ExpandFakes(DataSource const & dataSource, Graph & g, Graph::EdgeVector & p
 // to some point along that path and drop everything form the start to that point or from
 // that point to the end.
 template <typename InputIterator>
-InputIterator CutOffset(InputIterator start, InputIterator stop, double offset,
-                        bool keepEnd)
+InputIterator CutOffset(InputIterator start, InputIterator stop, double offset, bool keepEnd)
 {
   if (offset == 0.0)
     return start;
@@ -193,8 +192,8 @@ InputIterator CutOffset(InputIterator start, InputIterator stop, double offset,
 }
 
 template <typename InputIterator, typename OutputIterator>
-void CopyWithoutOffsets(InputIterator start, InputIterator stop, OutputIterator out,
-                        uint32_t positiveOffset, uint32_t negativeOffset, bool keepEnds)
+void CopyWithoutOffsets(InputIterator start, InputIterator stop, OutputIterator out, uint32_t positiveOffset,
+                        uint32_t negativeOffset, bool keepEnds)
 {
   auto from = start;
   auto to = stop;
@@ -203,8 +202,9 @@ void CopyWithoutOffsets(InputIterator start, InputIterator stop, OutputIterator 
   {
     from = CutOffset(start, stop, positiveOffset, keepEnds);
     // |to| points past the last edge we need to take.
-    to = CutOffset(reverse_iterator<InputIterator>(stop), reverse_iterator<InputIterator>(start),
-                   negativeOffset, keepEnds).base();
+    to = CutOffset(reverse_iterator<InputIterator>(stop), reverse_iterator<InputIterator>(start), negativeOffset,
+                   keepEnds)
+             .base();
   }
 
   if (!keepEnds)
@@ -216,14 +216,14 @@ void CopyWithoutOffsets(InputIterator start, InputIterator stop, OutputIterator 
   copy(from, to, out);
 }
 
-
 class SegmentsDecoderV2
 {
 public:
   SegmentsDecoderV2(DataSource & dataSource, unique_ptr<CarModelFactory> cmf)
-    : m_dataSource(dataSource), m_graph(dataSource, std::move(cmf)), m_infoGetter(dataSource)
-  {
-  }
+    : m_dataSource(dataSource)
+    , m_graph(dataSource, std::move(cmf))
+    , m_infoGetter(dataSource)
+  {}
 
   bool DecodeSegment(LinearSegment const & segment, DecodedPath & path, v2::Stats & stat)
   {
@@ -241,8 +241,7 @@ public:
     lineCandidates.reserve(points.size());
     LOG(LDEBUG, ("Decoding segment:", segment.m_segmentId, "with", points.size(), "points"));
 
-    CandidatePointsGetter pointsGetter(kMaxJunctionCandidates, kMaxProjectionCandidates,
-                                       m_dataSource, m_graph);
+    CandidatePointsGetter pointsGetter(kMaxJunctionCandidates, kMaxProjectionCandidates, m_dataSource, m_graph);
     CandidatePathsGetter pathsGetter(pointsGetter, m_graph, m_infoGetter, stat);
 
     if (!pathsGetter.GetLineCandidatesForPoints(points, lineCandidates))
@@ -261,7 +260,7 @@ public:
     // Sum app all distances between points. Last point's m_distanceToNextPoint
     // should be equal to zero, but let's skip it just in case.
     CHECK(!points.empty(), ());
-    for (auto it = begin(points); it != prev(end(points));  ++it)
+    for (auto it = begin(points); it != prev(end(points)); ++it)
       requiredRouteDistanceM += it->m_distanceToNextPoint;
 
     double actualRouteDistanceM = 0.0;
@@ -269,8 +268,8 @@ public:
       actualRouteDistanceM += EdgeLength(e);
 
     auto const scale = actualRouteDistanceM / requiredRouteDistanceM;
-    LOG(LDEBUG, ("actualRouteDistance:", actualRouteDistanceM,
-                 "requiredRouteDistance:", requiredRouteDistanceM, "scale:", scale));
+    LOG(LDEBUG, ("actualRouteDistance:", actualRouteDistanceM, "requiredRouteDistance:", requiredRouteDistanceM,
+                 "scale:", scale));
 
     auto const positiveOffsetM = segment.m_locationReference.m_positiveOffsetMeters * scale;
     auto const negativeOffsetM = segment.m_locationReference.m_negativeOffsetMeters * scale;
@@ -284,8 +283,8 @@ public:
 
     ExpandFakes(m_dataSource, m_graph, route);
     ASSERT(none_of(begin(route), end(route), mem_fn(&Graph::Edge::IsFake)), (segment.m_segmentId));
-    CopyWithoutOffsets(begin(route), end(route), back_inserter(path.m_path), positiveOffsetM,
-                       negativeOffsetM, false /* keep ends */);
+    CopyWithoutOffsets(begin(route), end(route), back_inserter(path.m_path), positiveOffsetM, negativeOffsetM,
+                       false /* keep ends */);
 
     if (path.m_path.empty())
     {
@@ -310,9 +309,10 @@ class SegmentsDecoderV3
 {
 public:
   SegmentsDecoderV3(DataSource & dataSource, unique_ptr<CarModelFactory> carModelFactory)
-      : m_dataSource(dataSource), m_graph(dataSource, std::move(carModelFactory)), m_infoGetter(dataSource)
-  {
-  }
+    : m_dataSource(dataSource)
+    , m_graph(dataSource, std::move(carModelFactory))
+    , m_infoGetter(dataSource)
+  {}
 
   bool DecodeSegment(LinearSegment const & segment, DecodedPath & path, v2::Stats & stat)
   {
@@ -329,8 +329,7 @@ public:
     lineCandidates.reserve(points.size());
     LOG(LINFO, ("Decoding segment:", segment.m_segmentId, "with", points.size(), "points"));
 
-    ScoreCandidatePointsGetter pointsGetter(kMaxJunctionCandidates, kMaxProjectionCandidates,
-                                            m_dataSource, m_graph);
+    ScoreCandidatePointsGetter pointsGetter(kMaxJunctionCandidates, kMaxProjectionCandidates, m_dataSource, m_graph);
     ScoreCandidatePathsGetter pathsGetter(pointsGetter, m_graph, m_infoGetter, stat);
 
     if (!pathsGetter.GetLineCandidatesForPoints(points, segment.m_source, lineCandidates))
@@ -355,7 +354,7 @@ public:
     // Sum up all distances between points. Last point's m_distanceToNextPoint
     // should be equal to zero, but let's skip it just in case.
     CHECK(!points.empty(), ());
-    for (auto it = points.begin(); it != prev(points.end());  ++it)
+    for (auto it = points.begin(); it != prev(points.end()); ++it)
       requiredRouteDistanceM += it->m_distanceToNextPoint;
 
     double actualRouteDistanceM = 0.0;
@@ -363,11 +362,10 @@ public:
       actualRouteDistanceM += EdgeLength(e);
 
     auto const scale = actualRouteDistanceM / requiredRouteDistanceM;
-    LOG(LINFO, ("actualRouteDistance:", actualRouteDistanceM,
-        "requiredRouteDistance:", requiredRouteDistanceM, "scale:", scale));
+    LOG(LINFO, ("actualRouteDistance:", actualRouteDistanceM, "requiredRouteDistance:", requiredRouteDistanceM,
+                "scale:", scale));
 
-    if (segment.m_locationReference.m_positiveOffsetMeters +
-            segment.m_locationReference.m_negativeOffsetMeters >=
+    if (segment.m_locationReference.m_positiveOffsetMeters + segment.m_locationReference.m_negativeOffsetMeters >=
         requiredRouteDistanceM)
     {
       ++stat.m_wrongOffsets;
@@ -379,8 +377,8 @@ public:
     auto const negativeOffsetM = segment.m_locationReference.m_negativeOffsetMeters * scale;
 
     CHECK(none_of(route.begin(), route.end(), mem_fn(&Graph::Edge::IsFake)), (segment.m_segmentId));
-    CopyWithoutOffsets(route.begin(), route.end(), back_inserter(path.m_path), positiveOffsetM,
-                       negativeOffsetM, true /* keep ends */);
+    CopyWithoutOffsets(route.begin(), route.end(), back_inserter(path.m_path), positiveOffsetM, negativeOffsetM,
+                       true /* keep ends */);
 
     if (path.m_path.empty())
     {
@@ -403,16 +401,15 @@ size_t constexpr GetOptimalBatchSize()
   // This code computes the most optimal (in the sense of cache lines
   // occupancy) batch size.
   size_t constexpr a = math::LCM(sizeof(LinearSegment), kCacheLineSize) / sizeof(LinearSegment);
-  size_t constexpr b =
-      math::LCM(sizeof(IRoadGraph::EdgeVector), kCacheLineSize) / sizeof(IRoadGraph::EdgeVector);
+  size_t constexpr b = math::LCM(sizeof(IRoadGraph::EdgeVector), kCacheLineSize) / sizeof(IRoadGraph::EdgeVector);
   return math::LCM(a, b);
 }
 }  // namespace
 
 // OpenLRDecoder::SegmentsFilter -------------------------------------------------------------
-OpenLRDecoder::SegmentsFilter::SegmentsFilter(string const & idsPath,
-                                              bool const multipointsOnly)
-  : m_idsSet(false), m_multipointsOnly(multipointsOnly)
+OpenLRDecoder::SegmentsFilter::SegmentsFilter(string const & idsPath, bool const multipointsOnly)
+  : m_idsSet(false)
+  , m_multipointsOnly(multipointsOnly)
 {
   if (idsPath.empty())
     return;
@@ -437,9 +434,9 @@ bool OpenLRDecoder::SegmentsFilter::Matches(LinearSegment const & segment) const
 // OpenLRDecoder -----------------------------------------------------------------------------
 OpenLRDecoder::OpenLRDecoder(vector<FrozenDataSource> & dataSources,
                              CountryParentNameGetter const & countryParentNameGetter)
-  : m_dataSources(dataSources), m_countryParentNameGetter(countryParentNameGetter)
-{
-}
+  : m_dataSources(dataSources)
+  , m_countryParentNameGetter(countryParentNameGetter)
+{}
 
 void OpenLRDecoder::DecodeV2(vector<LinearSegment> const & segments, uint32_t const numThreads,
                              vector<DecodedPath> & paths)
@@ -447,15 +444,14 @@ void OpenLRDecoder::DecodeV2(vector<LinearSegment> const & segments, uint32_t co
   Decode<SegmentsDecoderV2, v2::Stats>(segments, numThreads, paths);
 }
 
-void OpenLRDecoder::DecodeV3(vector<LinearSegment> const & segments, uint32_t numThreads,
-                             vector<DecodedPath> & paths)
+void OpenLRDecoder::DecodeV3(vector<LinearSegment> const & segments, uint32_t numThreads, vector<DecodedPath> & paths)
 {
   Decode<SegmentsDecoderV3, v2::Stats>(segments, numThreads, paths);
 }
 
 template <typename Decoder, typename Stats>
-void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
-                           uint32_t const numThreads, vector<DecodedPath> & paths)
+void OpenLRDecoder::Decode(vector<LinearSegment> const & segments, uint32_t const numThreads,
+                           vector<DecodedPath> & paths)
 {
   auto const worker = [&](size_t threadNum, DataSource & dataSource, Stats & stat)
   {
@@ -476,8 +472,7 @@ void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
 
         if (stat.m_routesHandled % kProgressFrequency == 0 || i == segments.size() - 1)
         {
-          LOG(LINFO, ("Thread", threadNum, "processed", stat.m_routesHandled,
-                      "failed:", stat.m_routesFailed));
+          LOG(LINFO, ("Thread", threadNum, "processed", stat.m_routesHandled, "failed:", stat.m_routesFailed));
           timer.Reset();
         }
       }

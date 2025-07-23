@@ -23,10 +23,10 @@ private:
   DISALLOW_COPY_AND_MOVE(ThreadChecker);
 };
 
-#define DECLARE_THREAD_CHECKER(threadCheckerName) ThreadChecker threadCheckerName
+#define DECLARE_THREAD_CHECKER(threadCheckerName)    ThreadChecker threadCheckerName
 #define CHECK_THREAD_CHECKER(threadCheckerName, msg) CHECK(threadCheckerName.CalledOnOriginalThread(), msg)
-#define DECLARE_AND_CHECK_THREAD_CHECKER(msg) \
-{ \
-  static const ThreadChecker threadChecker; \
-  CHECK(threadChecker.CalledOnOriginalThread(), (msg)); \
-}
+#define DECLARE_AND_CHECK_THREAD_CHECKER(msg)             \
+  {                                                       \
+    static const ThreadChecker threadChecker;             \
+    CHECK(threadChecker.CalledOnOriginalThread(), (msg)); \
+  }

@@ -7,9 +7,7 @@
 {
   self = [super initWithFrame:frame];
   if (self)
-  {
     [self setStyleNameAndApply:@"regular12:blackSecondaryText"];
-  }
   return self;
 }
 

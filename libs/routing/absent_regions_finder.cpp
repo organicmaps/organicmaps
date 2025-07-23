@@ -5,8 +5,7 @@ namespace routing
 {
 AbsentRegionsFinder::AbsentRegionsFinder(CountryFileGetterFn const & countryFileGetter,
                                          LocalFileCheckerFn const & localFileChecker,
-                                         std::shared_ptr<NumMwmIds> numMwmIds,
-                                         DataSource & dataSource)
+                                         std::shared_ptr<NumMwmIds> numMwmIds, DataSource & dataSource)
   : m_countryFileGetterFn(countryFileGetter)
   , m_localFileCheckerFn(localFileChecker)
   , m_numMwmIds(std::move(numMwmIds))
@@ -16,8 +15,7 @@ AbsentRegionsFinder::AbsentRegionsFinder(CountryFileGetterFn const & countryFile
   CHECK(m_localFileCheckerFn, ());
 }
 
-void AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & checkpoints,
-                                                RouterDelegate const & delegate)
+void AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & checkpoints, RouterDelegate const & delegate)
 {
   if (m_routerThread)
   {
@@ -28,8 +26,8 @@ void AbsentRegionsFinder::GenerateAbsentRegions(Checkpoints const & checkpoints,
   if (AreCheckpointsInSameMwm(checkpoints))
     return;
 
-  std::unique_ptr<RegionsRouter> router = std::make_unique<RegionsRouter>(
-      m_countryFileGetterFn, m_numMwmIds, m_dataSource, delegate, checkpoints);
+  std::unique_ptr<RegionsRouter> router =
+      std::make_unique<RegionsRouter>(m_countryFileGetterFn, m_numMwmIds, m_dataSource, delegate, checkpoints);
 
   // iOS can't reuse threads. So we need to recreate the thread.
   m_routerThread = std::make_unique<threads::Thread>();
@@ -42,12 +40,10 @@ void AbsentRegionsFinder::GetAbsentRegions(std::set<std::string> & regions)
   GetAllRegions(regions);
 
   for (auto i = regions.begin(); i != regions.end();)
-  {
     if (m_localFileCheckerFn(*i))
       i = regions.erase(i);
     else
       ++i;
-  }
 }
 
 void AbsentRegionsFinder::GetAllRegions(std::set<std::string> & countries)
@@ -60,10 +56,8 @@ void AbsentRegionsFinder::GetAllRegions(std::set<std::string> & countries)
   m_routerThread->Join();
 
   for (auto const & mwmName : m_routerThread->GetRoutineAs<RegionsRouter>()->GetMwmNames())
-  {
     if (!mwmName.empty())
       countries.emplace(mwmName);
-  }
 
   m_routerThread.reset();
 }
@@ -71,13 +65,8 @@ void AbsentRegionsFinder::GetAllRegions(std::set<std::string> & countries)
 bool AbsentRegionsFinder::AreCheckpointsInSameMwm(Checkpoints const & checkpoints) const
 {
   for (size_t i = 0; i < checkpoints.GetNumSubroutes(); ++i)
-  {
-    if (m_countryFileGetterFn(checkpoints.GetPoint(i)) !=
-        m_countryFileGetterFn(checkpoints.GetPoint(i + 1)))
-    {
+    if (m_countryFileGetterFn(checkpoints.GetPoint(i)) != m_countryFileGetterFn(checkpoints.GetPoint(i + 1)))
       return false;
-    }
-  }
 
   return true;
 }

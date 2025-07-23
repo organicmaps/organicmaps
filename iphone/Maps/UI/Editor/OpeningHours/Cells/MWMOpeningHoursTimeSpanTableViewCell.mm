@@ -2,8 +2,8 @@
 
 @interface MWMOpeningHoursTimeSpanTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel * openTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel * closeTimeLabel;
+@property(weak, nonatomic) IBOutlet UILabel * openTimeLabel;
+@property(weak, nonatomic) IBOutlet UILabel * closeTimeLabel;
 
 @end
 

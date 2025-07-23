@@ -47,10 +47,8 @@ m2::RectD Track::GetLimitRectImpl() const
 {
   m2::RectD limitRect;
   for (auto const & line : m_data.m_geometry.m_lines)
-  {
     for (auto const & pt : line)
       limitRect.Add(pt.GetPoint());
-  }
   return limitRect;
 }
 
@@ -79,7 +77,7 @@ std::string Track::GetName() const
 
 void Track::SetName(std::string const & name)
 {
-    kml::SetDefaultStr(m_data.m_name, name);
+  kml::SetDefaultStr(m_data.m_name, name);
 }
 
 std::string Track::GetDescription() const
@@ -205,10 +203,8 @@ kml::MultiGeometry::LineT Track::GetGeometry() const
 {
   kml::MultiGeometry::LineT geometry;
   for (auto const & line : m_data.m_geometry.m_lines)
-  {
     for (size_t i = 0; i < line.size(); ++i)
       geometry.emplace_back(line[i]);
-  }
   return geometry;
 }
 

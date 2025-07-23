@@ -1,7 +1,7 @@
 #include "drape/overlay_handle.hpp"
 
-#include "base/macros.hpp"
 #include "base/internal/message.hpp"
+#include "base/macros.hpp"
 
 #include "indexer/drawing_rule_def.hpp"
 
@@ -15,17 +15,14 @@ struct OverlayHandle::OffsetNodeFinder
 public:
   explicit OffsetNodeFinder(uint8_t bufferID) : m_bufferID(bufferID) {}
 
-  bool operator()(OverlayHandle::TOffsetNode const & node) const
-  {
-    return node.first.GetID() == m_bufferID;
-  }
+  bool operator()(OverlayHandle::TOffsetNode const & node) const { return node.first.GetID() == m_bufferID; }
 
 private:
   uint8_t m_bufferID;
 };
 
-OverlayHandle::OverlayHandle(OverlayID const & id, dp::Anchor anchor,
-                             uint64_t priority, uint8_t minVisibleScale, bool isBillboard)
+OverlayHandle::OverlayHandle(OverlayID const & id, dp::Anchor anchor, uint64_t priority, uint8_t minVisibleScale,
+                             bool isBillboard)
   : m_id(id)
   , m_anchor(anchor)
   , m_priority(priority)
@@ -80,10 +77,8 @@ bool OverlayHandle::IsIntersect(ScreenBase const & screen, ref_ptr<OverlayHandle
   for (size_t i = 0; i < ar1.size(); ++i)
   {
     for (size_t j = 0; j < ar2.size(); ++j)
-    {
       if (ar1[i].IsIntersect(ar2[j]))
         return true;
-    }
   }
   return false;
 }
@@ -176,8 +171,8 @@ m2::RectD OverlayHandle::GetPixelRectPerspective(ScreenBase const & screen) cons
 }
 
 SquareHandle::SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
-                           m2::PointD const & pxSize, m2::PointD const & pxOffset,
-                           uint64_t priority, bool isBound, int minVisibleScale, bool isBillboard)
+                           m2::PointD const & pxSize, m2::PointD const & pxOffset, uint64_t priority, bool isBound,
+                           int minVisibleScale, bool isBillboard)
   : TBase(id, anchor, priority, minVisibleScale, isBillboard)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
   , m_gbPivot(gbPivot)
@@ -213,14 +208,17 @@ void SquareHandle::GetPixelShape(ScreenBase const & screen, bool perspective, Re
   rects.emplace_back(GetPixelRect(screen, perspective));
 }
 
-bool SquareHandle::IsBound() const { return m_isBound; }
+bool SquareHandle::IsBound() const
+{
+  return m_isBound;
+}
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
 std::string SquareHandle::GetOverlayDebugInfo()
 {
   std::ostringstream out;
-  out << "POI Priority(" << std::hex << std::setw(16) << std::setfill('0') << GetPriority()
-      << ") " << std::dec << DebugPrint(GetOverlayID());
+  out << "POI Priority(" << std::hex << std::setw(16) << std::setfill('0') << GetPriority() << ") " << std::dec
+      << DebugPrint(GetOverlayID());
   return out.str();
 }
 #endif
@@ -235,9 +233,7 @@ uint64_t CalculateOverlayPriority(uint8_t rank, float depth)
 
   // Pack into uint64_t priority value (bigger is better).
   // [1 byte - 0xFF][4 bytes - priority][1 byte - rank][2 bytes - 0xFFFF].
-  return (static_cast<uint64_t>(depth) << 24) |
-         (static_cast<uint64_t>(rank) << 16) |
-         dp::kPriorityMaskZoomLevel;
+  return (static_cast<uint64_t>(depth) << 24) | (static_cast<uint64_t>(rank) << 16) | dp::kPriorityMaskZoomLevel;
 }
 
 uint64_t CalculateSpecialModeUserMarkPriority(uint16_t specialPriority)

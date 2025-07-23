@@ -6,7 +6,8 @@ namespace jni
 {
 // A smart pointer that deletes a JNI local reference when it goes out of scope.
 template <typename T>
-class ScopedLocalRef {
+class ScopedLocalRef
+{
 public:
   ScopedLocalRef(JNIEnv * env, T localRef) : m_env(env), m_localRef(localRef) {}
 

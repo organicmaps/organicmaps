@@ -2,8 +2,8 @@
 
 #include "base/thread.hpp"
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 using Vector = std::vector<int>;
 
@@ -38,20 +38,19 @@ struct ReaderThread : public threads::IRoutine
   Vector & m_vec;
 };
 
-
 UNIT_TEST(Simple_Threads)
 {
   Vector vec;
 
   threads::Thread reader;
   bool ok = reader.Create(std::make_unique<GeneratorThread>(vec));
-  TEST( ok, ("Create Generator thread") );
+  TEST(ok, ("Create Generator thread"));
 
   reader.Join();
 
   threads::Thread writer;
   ok = writer.Create(std::make_unique<ReaderThread>(vec));
-  TEST( ok, ("Create Reader thread") );
+  TEST(ok, ("Create Reader thread"));
 
   writer.Join();
 
@@ -65,10 +64,7 @@ class SomeClass
 
 public:
   SomeClass() {}
-  void Increment(int * a, int b)
-  {
-    *a = *a + b;
-  }
+  void Increment(int * a, int b) { *a = *a + b; }
 };
 
 static void Increment(int * a, int b)
@@ -80,7 +76,7 @@ UNIT_TEST(SimpleThreadTest1)
 {
   int a = 0;
 
-  auto fn = [&a](){ a = 1; };
+  auto fn = [&a]() { a = 1; };
 
   threads::SimpleThread t(fn);
   t.join();
@@ -92,7 +88,7 @@ UNIT_TEST(SimpleThreadTest2)
 {
   int a = 0;
 
-  threads::SimpleThread t([&a](){ a = 1; });
+  threads::SimpleThread t([&a]() { a = 1; });
   t.join();
 
   TEST_EQUAL(a, 1, ("test a"));

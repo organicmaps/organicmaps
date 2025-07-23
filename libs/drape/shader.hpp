@@ -14,8 +14,7 @@ public:
     FragmentShader
   };
 
-  Shader(std::string const & shaderName, std::string const & shaderSource,
-         std::string const & defines, Type type);
+  Shader(std::string const & shaderName, std::string const & shaderSource, std::string const & defines, Type type);
   ~Shader();
 
   uint32_t GetID() const;

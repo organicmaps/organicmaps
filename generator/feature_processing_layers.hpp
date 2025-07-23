@@ -50,7 +50,7 @@ public:
 private:
   void HandleArea(feature::FeatureBuilder & fb, FeatureBuilderParams const & params);
 
-  //std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
+  // std::shared_ptr<ComplexFeaturesMixer> m_complexFeaturesMixer;
 };
 
 // Responsibility of class PrepareFeatureLayer is the removal of unused types and names,
@@ -112,7 +112,7 @@ class AffiliationsFeatureLayer : public LayerBase
 {
 public:
   AffiliationsFeatureLayer(size_t bufferSize, AffiliationInterfacePtr affiliation,
-                          std::shared_ptr<FeatureProcessorQueue> queue)
+                           std::shared_ptr<FeatureProcessorQueue> queue)
     : m_bufferSize(bufferSize)
     , m_affiliation(std::move(affiliation))
     , m_queue(std::move(queue))

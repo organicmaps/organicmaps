@@ -25,4 +25,4 @@ QueryString MakeQueryString(std::string s)
   return qs;
 }
 
-} // namespace search
+}  // namespace search

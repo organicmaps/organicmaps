@@ -25,7 +25,8 @@ UNIT_TEST(MetadataSerDesTest_Smoke)
 {
   Buffer buffer;
 
-  auto const genMeta = [](uint32_t i) {
+  auto const genMeta = [](uint32_t i)
+  {
     feature::Metadata meta;
     meta.Set(Metadata::FMD_TEST_ID, strings::to_string(i));
     return meta;
@@ -73,8 +74,7 @@ UNIT_TEST(MetadataSerDesTest_Smoke)
       TEST_EQUAL(ids.size(), 1, (ids));
       TEST(meta.Has(Metadata::FMD_TEST_ID), (meta));
       TEST_EQUAL(ids[0].first, Metadata::FMD_TEST_ID, (ids));
-      TEST_EQUAL(meta.Get(Metadata::FMD_TEST_ID), deserializer->GetMetaById(ids[0].second),
-                 (i, meta, ids));
+      TEST_EQUAL(meta.Get(Metadata::FMD_TEST_ID), deserializer->GetMetaById(ids[0].second), (i, meta, ids));
     }
   }
 }

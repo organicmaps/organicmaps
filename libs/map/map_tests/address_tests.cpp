@@ -26,8 +26,7 @@ void TestAddress(ReverseGeocoder & coder, ms::LatLon const & ll, std::string_vie
   ReverseGeocoder::Address addr;
   coder.GetNearbyAddress(mercator::FromLatLon(ll), addr);
 
-  std::string const expectedKey =
-      strings::ToUtf8(GetStreetNameAsKey(street, false /* ignoreStreetSynonyms */));
+  std::string const expectedKey = strings::ToUtf8(GetStreetNameAsKey(street, false /* ignoreStreetSynonyms */));
   std::string const resultKey =
       strings::ToUtf8(GetStreetNameAsKey(addr.m_street.m_name, false /* ignoreStreetSynonyms */));
 
@@ -39,8 +38,8 @@ void TestAddress(ReverseGeocoder & coder, std::shared_ptr<MwmInfo> mwmInfo, ms::
                  StringUtf8Multilang const & streetNames, std::string const & houseNumber)
 {
   feature::NameParamsOut out;
-  feature::GetReadableName({ streetNames, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(),
-                             false /* allowTranslit */ }, out);
+  feature::GetReadableName(
+      {streetNames, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(), false /* allowTranslit */}, out);
 
   TestAddress(coder, ll, out.primary, houseNumber);
 }
@@ -104,4 +103,4 @@ UNIT_TEST(ReverseGeocoder_Smoke)
     TestAddress(coder, mwmInfo, {53.89745, 27.55835}, streetNames, "18А");
   }
 }
-} // namespace address_tests
+}  // namespace address_tests

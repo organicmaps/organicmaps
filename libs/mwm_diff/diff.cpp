@@ -54,9 +54,9 @@ bool MakeDiffVersion0(FileReader & oldReader, FileReader & newReader, FileWriter
   return true;
 }
 
-generator::mwm_diff::DiffApplicationResult ApplyDiffVersion0(
-    FileReader & oldReader, FileWriter & newWriter, ReaderSource<FileReader> & diffFileSource,
-    base::Cancellable const & cancellable)
+generator::mwm_diff::DiffApplicationResult ApplyDiffVersion0(FileReader & oldReader, FileWriter & newWriter,
+                                                             ReaderSource<FileReader> & diffFileSource,
+                                                             base::Cancellable const & cancellable)
 {
   using generator::mwm_diff::DiffApplicationResult;
 
@@ -108,9 +108,7 @@ bool MakeDiff(std::string const & oldMwmPath, std::string const & newMwmPath, st
     switch (VERSION_LATEST)
     {
     case VERSION_V0: return MakeDiffVersion0(oldReader, newReader, diffFileWriter);
-    default:
-      LOG(LERROR,
-          ("Making mwm diffs with diff format version", VERSION_LATEST, "is not implemented"));
+    default: LOG(LERROR, ("Making mwm diffs with diff format version", VERSION_LATEST, "is not implemented"));
     }
   }
   catch (Reader::Exception const & e)
@@ -141,11 +139,8 @@ DiffApplicationResult ApplyDiff(std::string const & oldMwmPath, std::string cons
 
     switch (version)
     {
-    case VERSION_V0:
-      return ApplyDiffVersion0(oldReader, newWriter, diffFileSource, cancellable);
-    default:
-      LOG(LERROR, ("Unknown version format of mwm diff:", version));
-      return DiffApplicationResult::Failed;
+    case VERSION_V0: return ApplyDiffVersion0(oldReader, newWriter, diffFileSource, cancellable);
+    default: LOG(LERROR, ("Unknown version format of mwm diff:", version)); return DiffApplicationResult::Failed;
     }
   }
   catch (Reader::Exception const & e)
@@ -157,8 +152,7 @@ DiffApplicationResult ApplyDiff(std::string const & oldMwmPath, std::string cons
     LOG(LERROR, ("Could not open file for writing when applying a patch:", e.Msg()));
   }
 
-  return cancellable.IsCancelled() ? DiffApplicationResult::Cancelled
-                                   : DiffApplicationResult::Failed;
+  return cancellable.IsCancelled() ? DiffApplicationResult::Cancelled : DiffApplicationResult::Failed;
 }
 
 std::string DebugPrint(DiffApplicationResult const & result)

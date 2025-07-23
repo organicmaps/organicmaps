@@ -11,14 +11,12 @@ uint64_t GetPopulation(std::string const & str)
 {
   std::string number;
   for (auto const c : str)
-  {
     if (isdigit(c))
       number += c;
     else if (c == '.' || c == ',' || c == ' ')
       continue;
     else
       break;
-  }
 
   if (number.empty())
     return 0;
@@ -69,7 +67,7 @@ uint8_t GetAdminLevel(OsmElement const & elem)
       return static_cast<uint8_t>(res);
 
     // There are too many custom admin_level value.
-    //LOG(LWARNING, ("Failed to get admin_level from", str, elem.m_id));
+    // LOG(LWARNING, ("Failed to get admin_level from", str, elem.m_id));
   }
   return 0;
 }

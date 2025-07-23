@@ -9,6 +9,7 @@ namespace dp
 class StaticTexture : public Texture
 {
   using Base = Texture;
+
 public:
   class StaticKey : public Key
   {
@@ -21,14 +22,12 @@ public:
   StaticTexture();
 
   /// @todo All xxxName can be std::string_view after Platform::GetReader (StyleReader) refactoring.
-  StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string const & textureName,
-                std::string const & skinPathName, dp::TextureFormat format,
-                ref_ptr<HWTextureAllocator> allocator, bool allowOptional = false);
+  StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string const & textureName, std::string const & skinPathName,
+                dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator, bool allowOptional = false);
 
   ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override;
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params) override;
-  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-              ref_ptr<void> data) override;
+  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data) override;
 
   bool IsLoadingCorrect() const { return m_isLoadingCorrect; }
 

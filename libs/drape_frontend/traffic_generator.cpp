@@ -28,29 +28,31 @@ namespace df
 namespace
 {
 // Values of the following arrays are based on traffic-arrow texture.
-static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffsets =
-{{
-  0.75f,  // G0
-  0.75f,  // G1
-  0.75f,  // G2
-  0.5f,   // G3
-  0.25f,  // G4
-  0.25f,  // G5
-  0.75f,  // TempBlock
-  0.0f,   // Unknown
-}};
+static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffsets = {
+    {
+     0.75f,  // G0
+        0.75f,  // G1
+        0.75f,  // G2
+        0.5f,   // G3
+        0.25f,  // G4
+        0.25f,  // G5
+        0.75f,  // TempBlock
+        0.0f,   // Unknown
+    }
+};
 
-static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kMinCoordU =
-{{
-  0.15f,  // G0
-  0.15f,  // G1
-  0.15f,  // G2
-  0.33f,  // G3
-  0.5f,   // G4
-  0.0f,   // G5
-  0.15f,  // TempBlock
-  0.0f,   // Unknown
-}};
+static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kMinCoordU = {
+    {
+     0.15f,  // G0
+        0.15f,  // G1
+        0.15f,  // G2
+        0.33f,  // G3
+        0.5f,   // G4
+        0.0f,   // G5
+        0.15f,  // TempBlock
+        0.0f,   // Unknown
+    }
+};
 
 dp::BindingInfo const & GetTrafficStaticBindingInfo()
 {
@@ -93,16 +95,14 @@ dp::BindingInfo const & GetTrafficCircleStaticBindingInfo()
   return *s_info;
 }
 
-void SubmitStaticVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, float side,
-                        float offsetFromStart, glsl::vec4 const & texCoord,
-                        std::vector<TrafficStaticVertex> & staticGeom)
+void SubmitStaticVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, float side, float offsetFromStart,
+                        glsl::vec4 const & texCoord, std::vector<TrafficStaticVertex> & staticGeom)
 {
   staticGeom.emplace_back(pivot, TrafficStaticVertex::TNormal(normal, side, offsetFromStart), texCoord);
 }
 
-void SubmitCircleStaticVertices(RoadClass roadClass, glsl::vec3 const & pivot,
-                                glsl::vec2 const & rightNormal, glsl::vec2 const & uv,
-                                std::vector<TrafficCircleStaticVertex> & circlesGeometry)
+void SubmitCircleStaticVertices(RoadClass roadClass, glsl::vec3 const & pivot, glsl::vec2 const & rightNormal,
+                                glsl::vec2 const & uv, std::vector<TrafficCircleStaticVertex> & circlesGeometry)
 {
   // Here we use an equilateral triangle to render circle (incircle of a triangle).
   static float const kSqrt3 = sqrt(3.0f);
@@ -120,8 +120,7 @@ void TrafficGenerator::Init()
   uint32_t constexpr kBatchersCount = 3;
   uint32_t constexpr kBatchSize = 5000;
   m_batchersPool = make_unique_dp<BatchersPool<TrafficBatcherKey, TrafficBatcherKeyComparator>>(
-                                  kBatchersCount, std::bind(&TrafficGenerator::FlushGeometry, this, _1, _2, _3),
-                                  kBatchSize, kBatchSize);
+      kBatchersCount, std::bind(&TrafficGenerator::FlushGeometry, this, _1, _2, _3), kBatchSize, kBatchSize);
 
   uint32_t constexpr kCirclesBatchSize = 1000;
   m_circlesBatcher = make_unique_dp<dp::Batcher>(kCirclesBatchSize, kCirclesBatchSize);
@@ -138,10 +137,8 @@ void TrafficGenerator::ClearContextDependentResources()
   m_circlesBatcher.reset();
 }
 
-void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> context,
-                                                MwmSet::MwmId const & mwmId,
-                                                TileKey const & tileKey,
-                                                TrafficSegmentsGeometryValue const & geometry,
+void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
+                                                TileKey const & tileKey, TrafficSegmentsGeometryValue const & geometry,
                                                 traffic::TrafficInfo::Coloring const & coloring,
                                                 ref_ptr<dp::TextureManager> texturesMgr)
 {
@@ -181,19 +178,17 @@ void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> con
     auto const minU = kMinCoordU[static_cast<size_t>(coloringIt->second)];
 
     TrafficSegmentGeometry const & g = geomPair.second;
-    ref_ptr<dp::Batcher> batcher =
-      m_batchersPool->GetBatcher(TrafficBatcherKey(mwmId, tileKey, g.m_roadClass));
+    ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(TrafficBatcherKey(mwmId, tileKey, g.m_roadClass));
     batcher->SetBatcherHash(tileKey.GetHashValue(BatcherBucket::Traffic));
 
-    auto const finalDepth = kRoadClassDepths[static_cast<size_t>(g.m_roadClass)] +
-                            static_cast<float>(coloringIt->second);
+    auto const finalDepth =
+        kRoadClassDepths[static_cast<size_t>(g.m_roadClass)] + static_cast<float>(coloringIt->second);
 
     int width = 0;
     if (TrafficRenderer::CanBeRenderedAsLine(g.m_roadClass, tileKey.m_zoomLevel, width))
     {
       std::vector<TrafficLineStaticVertex> staticGeometry;
-      GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), finalDepth,
-                          staticGeometry);
+      GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), finalDepth, staticGeometry);
       if (staticGeometry.empty())
         continue;
 
@@ -208,12 +203,11 @@ void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> con
     {
       std::vector<TrafficStaticVertex> staticGeometry;
       bool const generateCircles =
-        (tileKey.m_zoomLevel > kGenerateCirclesZoomLevel[static_cast<uint32_t>(g.m_roadClass)]);
+          (tileKey.m_zoomLevel > kGenerateCirclesZoomLevel[static_cast<uint32_t>(g.m_roadClass)]);
 
       std::vector<TrafficCircleStaticVertex> circlesGeometry;
-      GenerateSegment(g.m_roadClass, colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(),
-                      generateCircles, finalDepth, vOffset, minU, isLeftHand, staticGeometry,
-                      circlesGeometry);
+      GenerateSegment(g.m_roadClass, colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), generateCircles,
+                      finalDepth, vOffset, minU, isLeftHand, staticGeometry, circlesGeometry);
       if (staticGeometry.empty())
         continue;
 
@@ -231,15 +225,12 @@ void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> con
   }
 }
 
-void TrafficGenerator::FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> context,
-                                             TileKey const & tileKey,
-                                             TrafficSegmentsGeometry const & geom,
-                                             ref_ptr<dp::TextureManager> textures)
+void TrafficGenerator::FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                             TrafficSegmentsGeometry const & geom, ref_ptr<dp::TextureManager> textures)
 {
   FillColorsCache(textures);
 
-  static std::array<RoadClass, 3> const kRoadClasses = {RoadClass::Class0, RoadClass::Class1,
-                                                      RoadClass::Class2};
+  static std::array<RoadClass, 3> const kRoadClasses = {RoadClass::Class0, RoadClass::Class1, RoadClass::Class2};
   for (auto const & g : geom)
   {
     auto const & mwmId = g.first;
@@ -250,12 +241,9 @@ void TrafficGenerator::FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> contex
     for (auto const & roadClass : kRoadClasses)
       m_batchersPool->ReserveBatcher(TrafficBatcherKey(mwmId, tileKey, roadClass));
 
-    m_circlesBatcher->StartSession([this, mwmId, tileKey](dp::RenderState const & state,
-                                                          drape_ptr<dp::RenderBucket> && renderBucket)
-    {
-      FlushGeometry(TrafficBatcherKey(mwmId, tileKey, RoadClass::Class0), state,
-                    std::move(renderBucket));
-    });
+    m_circlesBatcher->StartSession(
+        [this, mwmId, tileKey](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && renderBucket)
+    { FlushGeometry(TrafficBatcherKey(mwmId, tileKey, RoadClass::Class0), state, std::move(renderBucket)); });
 
     GenerateSegmentsGeometry(context, mwmId, tileKey, g.second, coloringIt->second, textures);
 
@@ -301,11 +289,9 @@ void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::RenderSt
   m_flushRenderDataFn(std::move(renderData));
 }
 
-void TrafficGenerator::GenerateSegment(RoadClass roadClass,
-                                       dp::TextureManager::ColorRegion const & colorRegion,
-                                       m2::PolylineD const & polyline,
-                                       m2::PointD const & tileCenter, bool generateCircles,
-                                       float depth, float vOffset, float minU, bool isLeftHand,
+void TrafficGenerator::GenerateSegment(RoadClass roadClass, dp::TextureManager::ColorRegion const & colorRegion,
+                                       m2::PolylineD const & polyline, m2::PointD const & tileCenter,
+                                       bool generateCircles, float depth, float vOffset, float minU, bool isLeftHand,
                                        std::vector<TrafficStaticVertex> & staticGeometry,
                                        std::vector<TrafficCircleStaticVertex> & circlesGeometry)
 {
@@ -361,8 +347,8 @@ void TrafficGenerator::GenerateSegment(RoadClass roadClass,
 
     if (generateCircles && !firstFilled)
     {
-      SubmitCircleStaticVertices(roadClass, glsl::vec3(p1, circleDepth), rightNormal,
-                                 glsl::vec2(uvStart), circlesGeometry);
+      SubmitCircleStaticVertices(roadClass, glsl::vec3(p1, circleDepth), rightNormal, glsl::vec2(uvStart),
+                                 circlesGeometry);
     }
 
     firstFilled = true;
@@ -372,14 +358,14 @@ void TrafficGenerator::GenerateSegment(RoadClass roadClass,
 
   if (generateCircles && firstFilled)
   {
-    SubmitCircleStaticVertices(roadClass, glsl::vec3(lastPoint, circleDepth), lastRightNormal,
-                               glsl::vec2(uvStart), circlesGeometry);
+    SubmitCircleStaticVertices(roadClass, glsl::vec3(lastPoint, circleDepth), lastRightNormal, glsl::vec2(uvStart),
+                               circlesGeometry);
   }
 }
 
 void TrafficGenerator::GenerateLineSegment(dp::TextureManager::ColorRegion const & colorRegion,
-                                           m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                                           float depth, std::vector<TrafficLineStaticVertex> & staticGeometry)
+                                           m2::PolylineD const & polyline, m2::PointD const & tileCenter, float depth,
+                                           std::vector<TrafficLineStaticVertex> & staticGeometry)
 {
   auto const & path = polyline.GetPoints();
   ASSERT_GREATER(path.size(), 1, ());
@@ -415,29 +401,23 @@ traffic::SpeedGroup TrafficGenerator::CheckColorsSimplification(traffic::SpeedGr
 df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup speedGroup, bool route)
 {
   auto constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
-  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMap
-  {{
-    "TrafficG0",
-    "TrafficG1",
-    "TrafficG2",
-    "TrafficG3",
-    "TrafficG4",
-    "TrafficG5",
-    "TrafficTempBlock",
-    "TrafficUnknown",
-  }};
+  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMap{
+      {
+       "TrafficG0", "TrafficG1",
+       "TrafficG2", "TrafficG3",
+       "TrafficG4", "TrafficG5",
+       "TrafficTempBlock", "TrafficUnknown",
+       }
+  };
 
-  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMapRoute
-  {{
-    "RouteTrafficG0",
-    "RouteTrafficG1",
-    "RouteTrafficG2",
-    "RouteTrafficG3",
-    "TrafficG4",
-    "TrafficG5",
-    "TrafficTempBlock",
-    "TrafficUnknown",
-  }};
+  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMapRoute{
+      {
+       "RouteTrafficG0", "RouteTrafficG1",
+       "RouteTrafficG2", "RouteTrafficG3",
+       "TrafficG4", "TrafficG5",
+       "TrafficTempBlock", "TrafficUnknown",
+       }
+  };
 
   auto const index = static_cast<size_t>(CheckColorsSimplification(speedGroup));
   ASSERT_LESS(index, kSpeedGroupsCount, ());

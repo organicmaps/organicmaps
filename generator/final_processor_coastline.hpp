@@ -12,8 +12,7 @@ class CoastlineFinalProcessor : public FinalProcessorIntermediateMwmInterface
 public:
   CoastlineFinalProcessor(std::string const & filename, size_t threadsCount);
 
-  void SetCoastlinesFilenames(std::string const & geomFilename,
-                              std::string const & rawGeomFilename);
+  void SetCoastlinesFilenames(std::string const & geomFilename, std::string const & rawGeomFilename);
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;

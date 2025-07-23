@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "coding/reader.hpp"
 #include "base/macros.hpp"
+#include "coding/reader.hpp"
 
 UNIT_TEST(MemReaderSimple)
 {

@@ -19,8 +19,8 @@
 #include "base/thread.hpp"
 
 #include <cstdlib>
-#include <functional>
 #include <exception>
+#include <functional>
 #include <string>
 
 using namespace platform;
@@ -29,7 +29,7 @@ using namespace std;
 using namespace std::placeholders;
 
 // Uncomment to enable the test that requires network and downloads an mwm several times.
-//#define TEST_INTEGRITY
+// #define TEST_INTEGRITY
 #ifndef TEST_INTEGRITY_ITERATIONS
 #define TEST_INTEGRITY_ITERATIONS 5
 #endif
@@ -40,7 +40,8 @@ using Runner = Platform::ThreadRunner;
 
 string const kCountryId = "Trinidad and Tobago";
 
-class InterruptException : public exception {};
+class InterruptException : public exception
+{};
 
 void Update(CountryId const &, storage::LocalFilePtr const localCountryFile)
 {
@@ -63,7 +64,7 @@ void InitStorage(Storage & storage, Storage::ProgressFunction const & onProgress
   storage.SetDownloadingServersForTesting({kTestWebServer});
 }
 
-} // namespace
+}  // namespace
 
 UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
 {
@@ -90,7 +91,8 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
   {
     Storage storage;
 
-    auto const onProgressFn = [](CountryId const & countryId, downloader::Progress const & /* progress */) {
+    auto const onProgressFn = [](CountryId const & countryId, downloader::Progress const & /* progress */)
+    {
       TEST_EQUAL(countryId, kCountryId, ());
       // Interrupt download
       testing::StopEventLoop();
@@ -116,30 +118,25 @@ UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
 
     bool onProgressIsCalled = false;
     NodeAttrs onProgressAttrs;
-    auto const onProgressFn =
-      [&](CountryId const & countryId, downloader::Progress const & /* progress */)
-      {
-        TEST_EQUAL(countryId, kCountryId, ());
+    auto const onProgressFn = [&](CountryId const & countryId, downloader::Progress const & /* progress */)
+    {
+      TEST_EQUAL(countryId, kCountryId, ());
 
-        if (onProgressIsCalled)
-          return;
+      if (onProgressIsCalled)
+        return;
 
-        onProgressIsCalled = true;
-        storage.GetNodeAttrs(kCountryId, onProgressAttrs);
-        testing::StopEventLoop();
-      };
+      onProgressIsCalled = true;
+      storage.GetNodeAttrs(kCountryId, onProgressAttrs);
+      testing::StopEventLoop();
+    };
 
     InitStorage(storage, onProgressFn);
     storage.Init([](CountryId const &, storage::LocalFilePtr const localCountryFile)
-                 {
-                   TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
+    {
+      TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
 
-                   testing::StopEventLoop();
-                 },
-                 [](CountryId const &, storage::LocalFilePtr const)
-                 {
-                   return false;
-                 });
+      testing::StopEventLoop();
+    }, [](CountryId const &, storage::LocalFilePtr const) { return false; });
 
     testing::RunEventLoop();
 
@@ -191,7 +188,8 @@ UNIT_CLASS_TEST(Runner, DownloadIntegrity_Test)
 
       Storage storage(COUNTRIES_FILE);
 
-      auto onProgressFn = [i, j](CountryId const & countryId, LocalAndRemoteSize const & mapSize) {
+      auto onProgressFn = [i, j](CountryId const & countryId, LocalAndRemoteSize const & mapSize)
+      {
         TEST_EQUAL(countryId, kCountryId, ());
         auto progress = static_cast<double>(mapSize.first) / mapSize.second;
         auto interruptionProgress =

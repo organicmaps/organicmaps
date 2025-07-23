@@ -38,55 +38,54 @@ struct Checker
     switch (m_count)
     {
     case 0:
-      {
-        TEST_EQUAL(cat.m_synonyms.size(), 8, ());
-        TEST_EQUAL(cat.m_synonyms[0].m_locale, CategoriesHolder::MapLocaleToInteger("en"), ());
-        TEST_EQUAL(cat.m_synonyms[0].m_name, "bench", ());
-        TEST_EQUAL(cat.m_synonyms[0].m_prefixLengthToSuggest, 1, ());
-        TEST_EQUAL(cat.m_synonyms[1].m_locale, CategoriesHolder::MapLocaleToInteger("en"), ());
-        TEST_EQUAL(cat.m_synonyms[1].m_name, "sit down", ());
-        TEST_EQUAL(cat.m_synonyms[1].m_prefixLengthToSuggest, 10, ());
-        TEST_EQUAL(cat.m_synonyms[2].m_locale, CategoriesHolder::MapLocaleToInteger("en"), ());
-        TEST_EQUAL(cat.m_synonyms[2].m_name, "to sit", ());
-        TEST_EQUAL(cat.m_synonyms[3].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
-        TEST_EQUAL(cat.m_synonyms[3].m_name, "bank", ());
-        TEST_EQUAL(cat.m_synonyms[3].m_prefixLengthToSuggest, 2, ());
-        TEST_EQUAL(cat.m_synonyms[4].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
-        TEST_EQUAL(cat.m_synonyms[4].m_name, "auf die strafbank schicken", ());
-        TEST_EQUAL(cat.m_synonyms[5].m_locale, CategoriesHolder::MapLocaleToInteger("zh_CN"), ());
-        TEST_EQUAL(cat.m_synonyms[5].m_locale, CategoriesHolder::MapLocaleToInteger("zh_rCN"), ());
-        TEST_EQUAL(cat.m_synonyms[5].m_locale, CategoriesHolder::MapLocaleToInteger("zh_HANS_CN"), ());
-        TEST_EQUAL(cat.m_synonyms[5].m_locale, CategoriesHolder::MapLocaleToInteger("zh-Hans"), ());
-        TEST_EQUAL(cat.m_synonyms[5].m_name, "长凳", ());
-        TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh_TW"), ());
-        TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh-MO"), ());
-        TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh-rTW"), ());
-        TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh_HANT_HK"), ());
-        TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh_HK"), ());
-        TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh-Hant"), ());
-        TEST_EQUAL(cat.m_synonyms[6].m_name, "長板凳", ());
-        TEST_EQUAL(cat.m_synonyms[7].m_locale, CategoriesHolder::MapLocaleToInteger("da"), ());
-        TEST_EQUAL(cat.m_synonyms[7].m_name, "bænk", ());
-        ++m_count;
-      }
-      break;
+    {
+      TEST_EQUAL(cat.m_synonyms.size(), 8, ());
+      TEST_EQUAL(cat.m_synonyms[0].m_locale, CategoriesHolder::MapLocaleToInteger("en"), ());
+      TEST_EQUAL(cat.m_synonyms[0].m_name, "bench", ());
+      TEST_EQUAL(cat.m_synonyms[0].m_prefixLengthToSuggest, 1, ());
+      TEST_EQUAL(cat.m_synonyms[1].m_locale, CategoriesHolder::MapLocaleToInteger("en"), ());
+      TEST_EQUAL(cat.m_synonyms[1].m_name, "sit down", ());
+      TEST_EQUAL(cat.m_synonyms[1].m_prefixLengthToSuggest, 10, ());
+      TEST_EQUAL(cat.m_synonyms[2].m_locale, CategoriesHolder::MapLocaleToInteger("en"), ());
+      TEST_EQUAL(cat.m_synonyms[2].m_name, "to sit", ());
+      TEST_EQUAL(cat.m_synonyms[3].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
+      TEST_EQUAL(cat.m_synonyms[3].m_name, "bank", ());
+      TEST_EQUAL(cat.m_synonyms[3].m_prefixLengthToSuggest, 2, ());
+      TEST_EQUAL(cat.m_synonyms[4].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
+      TEST_EQUAL(cat.m_synonyms[4].m_name, "auf die strafbank schicken", ());
+      TEST_EQUAL(cat.m_synonyms[5].m_locale, CategoriesHolder::MapLocaleToInteger("zh_CN"), ());
+      TEST_EQUAL(cat.m_synonyms[5].m_locale, CategoriesHolder::MapLocaleToInteger("zh_rCN"), ());
+      TEST_EQUAL(cat.m_synonyms[5].m_locale, CategoriesHolder::MapLocaleToInteger("zh_HANS_CN"), ());
+      TEST_EQUAL(cat.m_synonyms[5].m_locale, CategoriesHolder::MapLocaleToInteger("zh-Hans"), ());
+      TEST_EQUAL(cat.m_synonyms[5].m_name, "长凳", ());
+      TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh_TW"), ());
+      TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh-MO"), ());
+      TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh-rTW"), ());
+      TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh_HANT_HK"), ());
+      TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh_HK"), ());
+      TEST_EQUAL(cat.m_synonyms[6].m_locale, CategoriesHolder::MapLocaleToInteger("zh-Hant"), ());
+      TEST_EQUAL(cat.m_synonyms[6].m_name, "長板凳", ());
+      TEST_EQUAL(cat.m_synonyms[7].m_locale, CategoriesHolder::MapLocaleToInteger("da"), ());
+      TEST_EQUAL(cat.m_synonyms[7].m_name, "bænk", ());
+      ++m_count;
+    }
+    break;
     case 1:
     case 2:
-      {
-        TEST_EQUAL(cat.m_synonyms.size(), 3, ());
-        TEST_EQUAL(cat.m_synonyms[0].m_locale, CategoriesHolder::MapLocaleToInteger("en"), ());
-        TEST_EQUAL(cat.m_synonyms[0].m_name, "village", ());
-        TEST_EQUAL(cat.m_synonyms[1].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
-        TEST_EQUAL(cat.m_synonyms[1].m_name, "dorf", ());
-        TEST_EQUAL(cat.m_synonyms[1].m_prefixLengthToSuggest, 2, ());
-        TEST_EQUAL(cat.m_synonyms[2].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
-        TEST_EQUAL(cat.m_synonyms[2].m_name, "weiler", ());
-        TEST_EQUAL(cat.m_synonyms[2].m_prefixLengthToSuggest, 4, ());
-        ++m_count;
-      }
-      break;
-    default:
-      TEST(false, ("Too many categories"));
+    {
+      TEST_EQUAL(cat.m_synonyms.size(), 3, ());
+      TEST_EQUAL(cat.m_synonyms[0].m_locale, CategoriesHolder::MapLocaleToInteger("en"), ());
+      TEST_EQUAL(cat.m_synonyms[0].m_name, "village", ());
+      TEST_EQUAL(cat.m_synonyms[1].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
+      TEST_EQUAL(cat.m_synonyms[1].m_name, "dorf", ());
+      TEST_EQUAL(cat.m_synonyms[1].m_prefixLengthToSuggest, 2, ());
+      TEST_EQUAL(cat.m_synonyms[2].m_locale, CategoriesHolder::MapLocaleToInteger("de"), ());
+      TEST_EQUAL(cat.m_synonyms[2].m_name, "weiler", ());
+      TEST_EQUAL(cat.m_synonyms[2].m_prefixLengthToSuggest, 4, ());
+      ++m_count;
+    }
+    break;
+    default: TEST(false, ("Too many categories"));
     }
   }
 
@@ -109,10 +108,9 @@ UNIT_TEST(CategoriesHolder_Smoke)
   auto const & mappings = CategoriesHolder::kLocaleMapping;
   for (size_t i = 0; i < mappings.size(); ++i)
   {
-    auto const & mapping  = mappings[i];
+    auto const & mapping = mappings[i];
     TEST_EQUAL(static_cast<int8_t>(i + 1), mapping.m_code, ());
-    TEST_EQUAL(static_cast<int8_t>(i + 1),
-               CategoriesHolder::MapLocaleToInteger(mapping.m_name), (mapping.m_name));
+    TEST_EQUAL(static_cast<int8_t>(i + 1), CategoriesHolder::MapLocaleToInteger(mapping.m_name), (mapping.m_name));
     TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(i + 1), mapping.m_name, ());
   }
 }
@@ -180,8 +178,7 @@ UNIT_TEST(CategoriesIndex_Smoke)
 {
   classificator::Load();
 
-  CategoriesHolder holder(
-      make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
+  CategoriesHolder holder(make_unique<MemReader>(g_testCategoriesTxt, sizeof(g_testCategoriesTxt) - 1));
   CategoriesIndex index(holder);
 
   uint32_t type1 = classif().GetTypeByPath({"amenity", "bench"});

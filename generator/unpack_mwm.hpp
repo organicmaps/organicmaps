@@ -4,7 +4,6 @@
 
 #include <string>
 
-
 namespace generator
 {
 // Unpack each section of mwm into a separate file with name filePath.sectionName

@@ -23,9 +23,11 @@ public:
   Segment() = default;
 
   constexpr Segment(NumMwmId mwmId, uint32_t featureId, uint32_t segmentIdx, bool forward)
-    : m_featureId(featureId), m_segmentIdx(segmentIdx), m_mwmId(mwmId), m_forward(forward)
-  {
-  }
+    : m_featureId(featureId)
+    , m_segmentIdx(segmentIdx)
+    , m_mwmId(mwmId)
+    , m_forward(forward)
+  {}
 
   Segment const & GetSegment(bool /* start */) const { return *this; }
   NumMwmId GetMwmId() const { return m_mwmId; }
@@ -42,13 +44,10 @@ public:
 
   bool operator<(Segment const & seg) const;
   bool operator==(Segment const & seg) const;
-  bool operator!=(Segment const & seg) const
-  {
-    return !(*this == seg);
-  }
+  bool operator!=(Segment const & seg) const { return !(*this == seg); }
 
   bool IsInverse(Segment const & seg) const;
-  Segment GetReversed() const { return { m_mwmId, m_featureId, m_segmentIdx, !m_forward }; }
+  Segment GetReversed() const { return {m_mwmId, m_featureId, m_segmentIdx, !m_forward}; }
 
   /// @todo Logically, these functions should be equal, but keep existing logic,
   /// and investigate possible enhancements in future.
@@ -70,10 +69,7 @@ class SegmentEdge final
 {
 public:
   SegmentEdge() = default;
-  SegmentEdge(Segment const & target, RouteWeight const & weight)
-    : m_target(target), m_weight(weight)
-  {
-  }
+  SegmentEdge(Segment const & target, RouteWeight const & weight) : m_target(target), m_weight(weight) {}
 
   Segment const & GetTarget() const { return m_target; }
   RouteWeight const & GetWeight() const { return m_weight; }

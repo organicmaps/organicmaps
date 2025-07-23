@@ -72,7 +72,7 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result1.push_back(p2);
     result1.push_back(p3);
   });
-  vector<m2::PointD> expectedResult1 = { m2::PointD(0.5, 0.5), m2::PointD(0.5, -0.5), m2::PointD(0.0, 0.0) };
+  vector<m2::PointD> expectedResult1 = {m2::PointD(0.5, 0.5), m2::PointD(0.5, -0.5), m2::PointD(0.0, 0.0)};
   TEST(CompareTriangleLists(result1, expectedResult1), (result1, expectedResult1));
 
   // 1 point inside.
@@ -84,7 +84,7 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result2.push_back(p2);
     result2.push_back(p3);
   });
-  vector<m2::PointD> expectedResult2 = { m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0), m2::PointD(1.0, -1.0) };
+  vector<m2::PointD> expectedResult2 = {m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0), m2::PointD(1.0, -1.0)};
   TEST(CompareTriangleLists(result2, expectedResult2), (result2, expectedResult2));
 
   // 2 points inside.
@@ -96,8 +96,8 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result3.push_back(p2);
     result3.push_back(p3);
   });
-  vector<m2::PointD> expectedResult3 = { m2::PointD(0.0, 0.5), m2::PointD(1.0, 0.25), m2::PointD(1.0, -0.25),
-                                         m2::PointD(0.0, 0.5), m2::PointD(1.0, -0.25), m2::PointD(0.0, -0.5) };
+  vector<m2::PointD> expectedResult3 = {m2::PointD(0.0, 0.5), m2::PointD(1.0, 0.25),  m2::PointD(1.0, -0.25),
+                                        m2::PointD(0.0, 0.5), m2::PointD(1.0, -0.25), m2::PointD(0.0, -0.5)};
   TEST(CompareTriangleLists(result3, expectedResult3), (result3, expectedResult3));
 
   // 2 edges clipping.
@@ -109,9 +109,9 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result4.push_back(p2);
     result4.push_back(p3);
   });
-  vector<m2::PointD> expectedResult4 = { m2::PointD(0.0, 0.0), m2::PointD(0.0, 1.0), m2::PointD(0.5, 1.0),
-                                         m2::PointD(0.0, 0.0), m2::PointD(0.5, 1.0), m2::PointD(1.0, 0.5),
-                                         m2::PointD(0.0, 0.0), m2::PointD(1.0, 0.5), m2::PointD(1.0, 0.0) };
+  vector<m2::PointD> expectedResult4 = {m2::PointD(0.0, 0.0), m2::PointD(0.0, 1.0), m2::PointD(0.5, 1.0),
+                                        m2::PointD(0.0, 0.0), m2::PointD(0.5, 1.0), m2::PointD(1.0, 0.5),
+                                        m2::PointD(0.0, 0.0), m2::PointD(1.0, 0.5), m2::PointD(1.0, 0.0)};
   TEST(CompareTriangleLists(result4, expectedResult4), (result4, expectedResult4));
 
   // 3 edges clipping.
@@ -123,10 +123,10 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result5.push_back(p2);
     result5.push_back(p3);
   });
-  vector<m2::PointD> expectedResult5 = { m2::PointD(-1.0, 0.5), m2::PointD(-0.5, 1.0), m2::PointD(0.5, 1.0),
-                                         m2::PointD(-1.0, 0.5), m2::PointD(0.5, 1.0), m2::PointD(1.0, 0.5),
-                                         m2::PointD(-1.0, 0.5), m2::PointD(1.0, 0.5), m2::PointD(1.0, 0.0),
-                                         m2::PointD(-1.0, 0.5), m2::PointD(1.0, 0.0), m2::PointD(-1.0, 0.0) };
+  vector<m2::PointD> expectedResult5 = {m2::PointD(-1.0, 0.5), m2::PointD(-0.5, 1.0), m2::PointD(0.5, 1.0),
+                                        m2::PointD(-1.0, 0.5), m2::PointD(0.5, 1.0),  m2::PointD(1.0, 0.5),
+                                        m2::PointD(-1.0, 0.5), m2::PointD(1.0, 0.5),  m2::PointD(1.0, 0.0),
+                                        m2::PointD(-1.0, 0.5), m2::PointD(1.0, 0.0),  m2::PointD(-1.0, 0.0)};
   TEST(CompareTriangleLists(result5, expectedResult5), (result5, expectedResult5));
 
   // Completely outside.
@@ -150,8 +150,8 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result7.push_back(p2);
     result7.push_back(p3);
   });
-  vector<m2::PointD> expectedResult7 = { m2::PointD(0.5, 0.5), m2::PointD(0.5, 1.0), m2::PointD(1.0, 1.0),
-                                         m2::PointD(0.5, 0.5), m2::PointD(1.0, 1.0), m2::PointD(1.0, 0.5) };
+  vector<m2::PointD> expectedResult7 = {m2::PointD(0.5, 0.5), m2::PointD(0.5, 1.0), m2::PointD(1.0, 1.0),
+                                        m2::PointD(0.5, 0.5), m2::PointD(1.0, 1.0), m2::PointD(1.0, 0.5)};
   TEST(CompareTriangleLists(result7, expectedResult7), (result7, expectedResult7));
 
   // Triangle covers rect.
@@ -163,8 +163,8 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result8.push_back(p2);
     result8.push_back(p3);
   });
-  vector<m2::PointD> expectedResult8 = { m2::PointD(-1.0, 1.0), m2::PointD(1.0, 1.0), m2::PointD(1.0, -1.0),
-                                         m2::PointD(1.0, -1.0), m2::PointD(-1.0, -1.0), m2::PointD(-1.0, 1.0) };
+  vector<m2::PointD> expectedResult8 = {m2::PointD(-1.0, 1.0), m2::PointD(1.0, 1.0),   m2::PointD(1.0, -1.0),
+                                        m2::PointD(1.0, -1.0), m2::PointD(-1.0, -1.0), m2::PointD(-1.0, 1.0)};
   TEST(CompareTriangleLists(result8, expectedResult8), (result8, expectedResult8));
 
   // Clip with an angle of rect.
@@ -176,7 +176,7 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result9.push_back(p2);
     result9.push_back(p3);
   });
-  vector<m2::PointD> expectedResult9 = { m2::PointD(0.5, -1.0), m2::PointD(1.0, -0.5), m2::PointD(1.0, -1.0) };
+  vector<m2::PointD> expectedResult9 = {m2::PointD(0.5, -1.0), m2::PointD(1.0, -0.5), m2::PointD(1.0, -1.0)};
   TEST(CompareTriangleLists(result9, expectedResult9), (result9, expectedResult9));
 
   // Clip with an angle of rect.
@@ -188,8 +188,8 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result10.push_back(p2);
     result10.push_back(p3);
   });
-  vector<m2::PointD> expectedResult10 = { m2::PointD(-1.0, -0.5), m2::PointD(-0.5, -0.5), m2::PointD(-0.5, -1.0),
-                                          m2::PointD(-1.0, -0.5), m2::PointD(-0.5, -1.0), m2::PointD(-1.0, -1.0) };
+  vector<m2::PointD> expectedResult10 = {m2::PointD(-1.0, -0.5), m2::PointD(-0.5, -0.5), m2::PointD(-0.5, -1.0),
+                                         m2::PointD(-1.0, -0.5), m2::PointD(-0.5, -1.0), m2::PointD(-1.0, -1.0)};
   TEST(CompareTriangleLists(result10, expectedResult10), (result10, expectedResult10));
 
   // Clip with 3 angles of rect.
@@ -201,9 +201,9 @@ UNIT_TEST(Clipping_ClipTriangleByRect)
     result11.push_back(p2);
     result11.push_back(p3);
   });
-  vector<m2::PointD> expectedResult11 = { m2::PointD(0.0, -1.0), m2::PointD(-1.0, 0.0), m2::PointD(-1.0, 1.0),
-                                          m2::PointD(0.0, -1.0), m2::PointD(-1.0, 1.0), m2::PointD(1.0, 1.0),
-                                          m2::PointD(0.0, -1.0), m2::PointD(1.0, 1.0), m2::PointD(1.0, -1.0) };
+  vector<m2::PointD> expectedResult11 = {m2::PointD(0.0, -1.0), m2::PointD(-1.0, 0.0), m2::PointD(-1.0, 1.0),
+                                         m2::PointD(0.0, -1.0), m2::PointD(-1.0, 1.0), m2::PointD(1.0, 1.0),
+                                         m2::PointD(0.0, -1.0), m2::PointD(1.0, 1.0),  m2::PointD(1.0, -1.0)};
   TEST(CompareTriangleLists(result11, expectedResult11), (result11, expectedResult11));
 }
 
@@ -217,7 +217,9 @@ UNIT_TEST(Clipping_ClipSplineByRect)
   spline1->AddPoint(m2::PointD(-2.0, 0.0));
   spline1->AddPoint(m2::PointD(2.0, 1.0));
   vector<m2::SharedSpline> result1 = m2::ClipSplineByRect(r, spline1);
-  vector<m2::SharedSpline> expectedResult1 = ConstructSplineList({ { m2::PointD(-1.0, 0.25), m2::PointD(1.0, 0.75) } });
+  vector<m2::SharedSpline> expectedResult1 = ConstructSplineList({
+      {m2::PointD(-1.0, 0.25), m2::PointD(1.0, 0.75)}
+  });
   TEST(CompareSplineLists(result1, expectedResult1), ());
 
   // Intersection. Several segments.
@@ -228,8 +230,10 @@ UNIT_TEST(Clipping_ClipSplineByRect)
   spline2->AddPoint(m2::PointD(0.5, -2.0));
   spline2->AddPoint(m2::PointD(-0.5, -0.5));
   vector<m2::SharedSpline> result2 = m2::ClipSplineByRect(r, spline2);
-  vector<m2::SharedSpline> expectedResult2 = ConstructSplineList({ { m2::PointD(-1.0, 0.25), m2::PointD(1.0, 0.75) },
-                                                                   { m2::PointD(-0.166666666, -1.0), m2::PointD(-0.5, -0.5) } });
+  vector<m2::SharedSpline> expectedResult2 = ConstructSplineList({
+      {        m2::PointD(-1.0, 0.25),  m2::PointD(1.0, 0.75)},
+      {m2::PointD(-0.166666666, -1.0), m2::PointD(-0.5, -0.5)}
+  });
   TEST(CompareSplineLists(result2, expectedResult2), ());
 
   // Completely outside.
@@ -247,7 +251,9 @@ UNIT_TEST(Clipping_ClipSplineByRect)
   spline4->AddPoint(m2::PointD(-0.5, 0.0));
   spline4->AddPoint(m2::PointD(0.5, 0.5));
   vector<m2::SharedSpline> result4 = m2::ClipSplineByRect(r, spline4);
-  vector<m2::SharedSpline> expectedResult4 = ConstructSplineList({ { m2::PointD(-0.5, 0.0), m2::PointD(0.5, 0.5) } });
+  vector<m2::SharedSpline> expectedResult4 = ConstructSplineList({
+      {m2::PointD(-0.5, 0.0), m2::PointD(0.5, 0.5)}
+  });
   TEST(CompareSplineLists(result4, expectedResult4), ());
 
   // Intersection. Long spline.
@@ -258,8 +264,9 @@ UNIT_TEST(Clipping_ClipSplineByRect)
   spline5->AddPoint(m2::PointD(0.5, 0.5));
   spline5->AddPoint(m2::PointD(2.0, 1.0));
   vector<m2::SharedSpline> result5 = m2::ClipSplineByRect(r, spline5);
-  vector<m2::SharedSpline> expectedResult5 = ConstructSplineList({ { m2::PointD(-1.0, 0.0), m2::PointD(0.0, 0.0),
-                                                                     m2::PointD(0.5, 0.5), m2::PointD(1.0, 0.66666666) } });
+  vector<m2::SharedSpline> expectedResult5 = ConstructSplineList({
+      {m2::PointD(-1.0, 0.0), m2::PointD(0.0, 0.0), m2::PointD(0.5, 0.5), m2::PointD(1.0, 0.66666666)}
+  });
   TEST(CompareSplineLists(result5, expectedResult5), ());
 
   // Intersection. Several segments.
@@ -271,8 +278,10 @@ UNIT_TEST(Clipping_ClipSplineByRect)
   spline6->AddPoint(m2::PointD(0.0, 1.5));
   spline6->AddPoint(m2::PointD(0.0, 0.0));
   vector<m2::SharedSpline> result6 = m2::ClipSplineByRect(r, spline6);
-  vector<m2::SharedSpline> expectedResult6 = ConstructSplineList({ { m2::PointD(-1.0, 0.0), m2::PointD(-0.5, 1.0) },
-                                                                   { m2::PointD(0.0, 1.0), m2::PointD(0.0, 0.0) } });
+  vector<m2::SharedSpline> expectedResult6 = ConstructSplineList({
+      {m2::PointD(-1.0, 0.0), m2::PointD(-0.5, 1.0)},
+      { m2::PointD(0.0, 1.0),  m2::PointD(0.0, 0.0)}
+  });
   TEST(CompareSplineLists(result6, expectedResult6), ());
 }
-} // namespace clipping_test
+}  // namespace clipping_test

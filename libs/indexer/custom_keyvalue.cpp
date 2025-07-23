@@ -43,4 +43,4 @@ std::string DebugPrint(CustomKeyValue const & kv)
   return ss.str();
 }
 
-} // namespace indexer
+}  // namespace indexer

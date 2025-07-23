@@ -32,8 +32,7 @@ typedef dp::BindingInfo (*TInitFunction)();
 
 dp::BindingInfo AreaBindingInit()
 {
-  static_assert(sizeof(AreaVertex) == (sizeof(AreaVertex::TPosition) +
-                                       sizeof(AreaVertex::TTexCoord)), "");
+  static_assert(sizeof(AreaVertex) == (sizeof(AreaVertex::TPosition) + sizeof(AreaVertex::TTexCoord)), "");
 
   dp::BindingFiller<AreaVertex> filler(2);
   filler.FillDecl<AreaVertex::TPosition>("a_position");
@@ -44,9 +43,9 @@ dp::BindingInfo AreaBindingInit()
 
 dp::BindingInfo Area3dBindingInit()
 {
-  static_assert(sizeof(Area3dVertex) == (sizeof(Area3dVertex::TPosition) +
-                                         sizeof(Area3dVertex::TNormal3d) +
-                                         sizeof(Area3dVertex::TTexCoord)), "");
+  static_assert(sizeof(Area3dVertex) == (sizeof(Area3dVertex::TPosition) + sizeof(Area3dVertex::TNormal3d) +
+                                         sizeof(Area3dVertex::TTexCoord)),
+                "");
 
   dp::BindingFiller<Area3dVertex> filler(3);
   filler.FillDecl<Area3dVertex::TPosition>("a_position");
@@ -58,9 +57,10 @@ dp::BindingInfo Area3dBindingInit()
 
 dp::BindingInfo HatchingAreaBindingInit()
 {
-  static_assert(sizeof(HatchingAreaVertex) == (sizeof(HatchingAreaVertex::TPosition) +
-                                               sizeof(HatchingAreaVertex::TTexCoord) +
-                                               sizeof(HatchingAreaVertex::TMaskTexCoord)), "");
+  static_assert(
+      sizeof(HatchingAreaVertex) == (sizeof(HatchingAreaVertex::TPosition) + sizeof(HatchingAreaVertex::TTexCoord) +
+                                     sizeof(HatchingAreaVertex::TMaskTexCoord)),
+      "");
 
   dp::BindingFiller<HatchingAreaVertex> filler(3);
   filler.FillDecl<HatchingAreaVertex::TPosition>("a_position");
@@ -71,9 +71,10 @@ dp::BindingInfo HatchingAreaBindingInit()
 
 dp::BindingInfo SolidTexturingBindingInit()
 {
-  static_assert(sizeof(SolidTexturingVertex) == (sizeof(SolidTexturingVertex::TPosition3d) +
-                                                 sizeof(SolidTexturingVertex::TNormal) +
-                                                 sizeof(SolidTexturingVertex::TTexCoord)), "");
+  static_assert(
+      sizeof(SolidTexturingVertex) == (sizeof(SolidTexturingVertex::TPosition3d) +
+                                       sizeof(SolidTexturingVertex::TNormal) + sizeof(SolidTexturingVertex::TTexCoord)),
+      "");
 
   dp::BindingFiller<SolidTexturingVertex> filler(3);
   filler.FillDecl<SolidTexturingVertex::TPosition3d>("a_position");
@@ -85,10 +86,10 @@ dp::BindingInfo SolidTexturingBindingInit()
 
 dp::BindingInfo MaskedTexturingBindingInit()
 {
-  static_assert(sizeof(MaskedTexturingVertex) == (sizeof(MaskedTexturingVertex::TPosition3d) +
-                                                  sizeof(MaskedTexturingVertex::TNormal) +
-                                                  sizeof(MaskedTexturingVertex::TTexCoord) +
-                                                  sizeof(MaskedTexturingVertex::TTexCoord)), "");
+  static_assert(sizeof(MaskedTexturingVertex) ==
+                    (sizeof(MaskedTexturingVertex::TPosition3d) + sizeof(MaskedTexturingVertex::TNormal) +
+                     sizeof(MaskedTexturingVertex::TTexCoord) + sizeof(MaskedTexturingVertex::TTexCoord)),
+                "");
 
   dp::BindingFiller<MaskedTexturingVertex> filler(4);
   filler.FillDecl<SolidTexturingVertex::TPosition3d>("a_position");
@@ -124,8 +125,8 @@ dp::BindingInfo TextOutlinedStaticBindingInit()
 
 dp::BindingInfo TextDynamicBindingInit()
 {
-  static_assert(sizeof(TextDynamicVertex) == (sizeof(TextStaticVertex::TPosition3d) +
-                                              sizeof(TextDynamicVertex::TNormal)), "");
+  static_assert(
+      sizeof(TextDynamicVertex) == (sizeof(TextStaticVertex::TPosition3d) + sizeof(TextDynamicVertex::TNormal)), "");
 
   dp::BindingFiller<TextDynamicVertex> filler(2, TextDynamicVertex::GetDynamicStreamID());
   filler.FillDecl<TextDynamicVertex::TPosition3d>("a_position");
@@ -136,9 +137,9 @@ dp::BindingInfo TextDynamicBindingInit()
 
 dp::BindingInfo LineBindingInit()
 {
-  static_assert(sizeof(LineVertex) == sizeof(LineVertex::TPosition) +
-                                      sizeof(LineVertex::TNormal) +
-                                      sizeof(LineVertex::TTexCoord), "");
+  static_assert(
+      sizeof(LineVertex) == sizeof(LineVertex::TPosition) + sizeof(LineVertex::TNormal) + sizeof(LineVertex::TTexCoord),
+      "");
   dp::BindingFiller<LineVertex> filler(3);
   filler.FillDecl<LineVertex::TPosition>("a_position");
   filler.FillDecl<LineVertex::TNormal>("a_normal");
@@ -149,10 +150,10 @@ dp::BindingInfo LineBindingInit()
 
 dp::BindingInfo DashedLineBindingInit()
 {
-  static_assert(sizeof(DashedLineVertex) == sizeof(DashedLineVertex::TPosition) +
-                                            sizeof(DashedLineVertex::TNormal) +
-                                            sizeof(DashedLineVertex::TTexCoord) +
-                                            sizeof(DashedLineVertex::TMaskTexCoord), "");
+  static_assert(sizeof(DashedLineVertex) == sizeof(DashedLineVertex::TPosition) + sizeof(DashedLineVertex::TNormal) +
+                                                sizeof(DashedLineVertex::TTexCoord) +
+                                                sizeof(DashedLineVertex::TMaskTexCoord),
+                "");
 
   dp::BindingFiller<DashedLineVertex> filler(4);
   filler.FillDecl<DashedLineVertex::TPosition>("a_position");
@@ -165,10 +166,9 @@ dp::BindingInfo DashedLineBindingInit()
 
 dp::BindingInfo RouteBindingInit()
 {
-  static_assert(sizeof(RouteVertex) == sizeof(RouteVertex::TPosition) +
-                                       sizeof(RouteVertex::TNormal) +
-                                       sizeof(RouteVertex::TLength) +
-                                       sizeof(RouteVertex::TColor), "");
+  static_assert(sizeof(RouteVertex) == sizeof(RouteVertex::TPosition) + sizeof(RouteVertex::TNormal) +
+                                           sizeof(RouteVertex::TLength) + sizeof(RouteVertex::TColor),
+                "");
 
   dp::BindingFiller<RouteVertex> filler(4);
   filler.FillDecl<RouteVertex::TPosition>("a_position");
@@ -181,9 +181,9 @@ dp::BindingInfo RouteBindingInit()
 
 dp::BindingInfo RouteMarkerBindingInit()
 {
-  static_assert(sizeof(RouteMarkerVertex) == sizeof(RouteMarkerVertex::TPosition) +
-                                             sizeof(RouteMarkerVertex::TNormal) +
-                                             sizeof(RouteMarkerVertex::TColor), "");
+  static_assert(sizeof(RouteMarkerVertex) == sizeof(RouteMarkerVertex::TPosition) + sizeof(RouteMarkerVertex::TNormal) +
+                                                 sizeof(RouteMarkerVertex::TColor),
+                "");
 
   dp::BindingFiller<RouteMarkerVertex> filler(3);
   filler.FillDecl<RouteMarkerVertex::TPosition>("a_position");
@@ -196,8 +196,9 @@ dp::BindingInfo RouteMarkerBindingInit()
 dp::BindingInfo ColoredSymbolBindingInit()
 {
   static_assert(sizeof(ColoredSymbolVertex) == sizeof(ColoredSymbolVertex::TPosition) +
-                                               sizeof(ColoredSymbolVertex::TNormal) +
-                                               sizeof(ColoredSymbolVertex::TTexCoord), "");
+                                                   sizeof(ColoredSymbolVertex::TNormal) +
+                                                   sizeof(ColoredSymbolVertex::TTexCoord),
+                "");
 
   dp::BindingFiller<ColoredSymbolVertex> filler(3);
   filler.FillDecl<ColoredSymbolVertex::TPosition>("a_position");
@@ -208,22 +209,19 @@ dp::BindingInfo ColoredSymbolBindingInit()
 }
 
 BindingNode g_bindingNodes[TypeCount];
-TInitFunction g_initFunctions[TypeCount] =
-{
-  &AreaBindingInit,
-  &Area3dBindingInit,
-  &HatchingAreaBindingInit,
-  &SolidTexturingBindingInit,
-  &MaskedTexturingBindingInit,
-  &TextStaticBindingInit,
-  &TextOutlinedStaticBindingInit,
-  &TextDynamicBindingInit,
-  &LineBindingInit,
-  &DashedLineBindingInit,
-  &RouteBindingInit,
-  &RouteMarkerBindingInit,
-  &ColoredSymbolBindingInit
-};
+TInitFunction g_initFunctions[TypeCount] = {&AreaBindingInit,
+                                            &Area3dBindingInit,
+                                            &HatchingAreaBindingInit,
+                                            &SolidTexturingBindingInit,
+                                            &MaskedTexturingBindingInit,
+                                            &TextStaticBindingInit,
+                                            &TextOutlinedStaticBindingInit,
+                                            &TextDynamicBindingInit,
+                                            &LineBindingInit,
+                                            &DashedLineBindingInit,
+                                            &RouteBindingInit,
+                                            &RouteMarkerBindingInit,
+                                            &ColoredSymbolBindingInit};
 
 dp::BindingInfo const & GetBinding(VertexType type)
 {
@@ -248,8 +246,7 @@ dp::BindingInfo const & AreaVertex::GetBindingInfo()
   return GetBinding(Area);
 }
 
-Area3dVertex::Area3dVertex(TPosition const & position, TPosition const & normal,
-                           TTexCoord const & colorTexCoord)
+Area3dVertex::Area3dVertex(TPosition const & position, TPosition const & normal, TTexCoord const & colorTexCoord)
   : m_position(position)
   , m_normal(normal)
   , m_colorTexCoord(colorTexCoord)
@@ -297,8 +294,7 @@ dp::BindingInfo const & MaskedTexturingVertex::GetBindingInfo()
   return GetBinding(MaskedTexturing);
 }
 
-TextOutlinedStaticVertex::TextOutlinedStaticVertex(TTexCoord const & colorTexCoord,
-                                                   TTexCoord const & outlineTexCoord,
+TextOutlinedStaticVertex::TextOutlinedStaticVertex(TTexCoord const & colorTexCoord, TTexCoord const & outlineTexCoord,
                                                    TTexCoord const & maskTexCoord)
   : m_colorTexCoord(colorTexCoord)
   , m_outlineTexCoord(outlineTexCoord)
@@ -310,9 +306,9 @@ dp::BindingInfo const & TextOutlinedStaticVertex::GetBindingInfo()
   return GetBinding(TextOutlinedStatic);
 }
 
-TextDynamicVertex::TextDynamicVertex(const TPosition3d & position, TNormal const & normal)
-  : m_position(position),
-    m_normal(normal)
+TextDynamicVertex::TextDynamicVertex(TPosition3d const & position, TNormal const & normal)
+  : m_position(position)
+  , m_normal(normal)
 {}
 
 dp::BindingInfo const & TextDynamicVertex::GetBindingInfo()
@@ -336,8 +332,8 @@ dp::BindingInfo const & LineVertex::GetBindingInfo()
   return GetBinding(Line);
 }
 
-DashedLineVertex::DashedLineVertex(TPosition const & position, TNormal const & normal,
-                                   TTexCoord const & color, TMaskTexCoord const & mask)
+DashedLineVertex::DashedLineVertex(TPosition const & position, TNormal const & normal, TTexCoord const & color,
+                                   TMaskTexCoord const & mask)
   : m_position(position)
   , m_normal(normal)
   , m_colorTexCoord(color)
@@ -349,8 +345,8 @@ dp::BindingInfo const & DashedLineVertex::GetBindingInfo()
   return GetBinding(DashedLine);
 }
 
-RouteVertex::RouteVertex(TPosition const & position, TNormal const & normal,
-                         TLength const & length, TColor const & color)
+RouteVertex::RouteVertex(TPosition const & position, TNormal const & normal, TLength const & length,
+                         TColor const & color)
   : m_position(position)
   , m_normal(normal)
   , m_length(length)
@@ -362,8 +358,7 @@ dp::BindingInfo const & RouteVertex::GetBindingInfo()
   return GetBinding(Route);
 }
 
-RouteMarkerVertex::RouteMarkerVertex(TPosition const & position, TNormal const & normal,
-                                     TColor const & color)
+RouteMarkerVertex::RouteMarkerVertex(TPosition const & position, TNormal const & normal, TColor const & color)
   : m_position(position)
   , m_normal(normal)
   , m_color(color)
@@ -396,4 +391,3 @@ dp::BindingInfo const & ColoredSymbolVertex::GetBindingInfo()
   return GetBinding(ColoredSymbol);
 }
 }  // namespace gpu
-

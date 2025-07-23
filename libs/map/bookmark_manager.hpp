@@ -78,14 +78,11 @@ public:
     using AttachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
     using DetachedBookmarksCallback = std::function<void(std::vector<BookmarkGroupInfo> const &)>;
 
-    template <typename StringsBundleProvider, typename SearchAPIProvider,
-              typename CreateListener, typename UpdateListener,
-              typename DeleteListener, typename AttachListener, typename DetachListener>
-    Callbacks(StringsBundleProvider && stringsBundleProvider,
-              SearchAPIProvider && searchAPIProvider,
-              CreateListener && createListener, UpdateListener && updateListener,
-              DeleteListener && deleteListener, AttachListener && attachListener,
-              DetachListener && detachListener)
+    template <typename StringsBundleProvider, typename SearchAPIProvider, typename CreateListener,
+              typename UpdateListener, typename DeleteListener, typename AttachListener, typename DetachListener>
+    Callbacks(StringsBundleProvider && stringsBundleProvider, SearchAPIProvider && searchAPIProvider,
+              CreateListener && createListener, UpdateListener && updateListener, DeleteListener && deleteListener,
+              AttachListener && attachListener, DetachListener && detachListener)
       : m_getStringsBundle(std::forward<StringsBundleProvider>(stringsBundleProvider))
       , m_getSearchAPI(std::forward<SearchAPIProvider>(searchAPIProvider))
       , m_createdBookmarksCallback(std::forward<CreateListener>(createListener))
@@ -160,11 +157,11 @@ public:
     void SetCategoryDescription(kml::MarkGroupId categoryId, std::string const & desc);
     void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
     void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
-    void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,
-                                   std::string const & value);
-    
+    void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key, std::string const & value);
+
     /// Removes the category from the list of categories and deletes the related file.
-    /// @param permanently If true, the file will be removed from the disk. If false, the file will be marked as deleted and moved into a trash.
+    /// @param permanently If true, the file will be removed from the disk. If false, the file will be marked as deleted
+    /// and moved into a trash.
     bool DeleteBmCategory(kml::MarkGroupId groupId, bool permanently);
     void NotifyChanges();
 
@@ -176,8 +173,7 @@ public:
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
 
-  void InitRegionAddressGetter(DataSource const & dataSource,
-                               storage::CountryInfoGetter const & infoGetter);
+  void InitRegionAddressGetter(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter);
 
   void SetBookmarksChangedCallback(BookmarksChangedCallback && callback);
   void SetCategoriesChangedCallback(CategoriesChangedCallback && callback);
@@ -255,8 +251,7 @@ public:
     OnResults m_onResults;
   };
 
-  std::vector<SortingType> GetAvailableSortingTypes(kml::MarkGroupId groupId,
-                                                    bool hasMyPosition) const;
+  std::vector<SortingType> GetAvailableSortingTypes(kml::MarkGroupId groupId, bool hasMyPosition) const;
   void GetSortedCategory(SortParams const & params);
 
   bool GetLastSortingType(kml::MarkGroupId groupId, SortingType & sortingType) const;
@@ -326,7 +321,7 @@ public:
       FileError
     };
 
-    SharingResult(kml::GroupIdCollection && categoriesIds, std::string && sharingPath, const std::string & mimeType)
+    SharingResult(kml::GroupIdCollection && categoriesIds, std::string && sharingPath, std::string const & mimeType)
       : m_categoriesIds(categoriesIds)
       , m_code(Code::Success)
       , m_sharingPath(std::move(sharingPath))
@@ -352,7 +347,8 @@ public:
   };
 
   using SharingHandler = platform::SafeCallback<void(SharingResult const & result)>;
-  void PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler, KmlFileType kmlFileType);
+  void PrepareFileForSharing(kml::GroupIdCollection && categoriesIds, SharingHandler && handler,
+                             KmlFileType kmlFileType);
   void PrepareTrackFileForSharing(kml::TrackId trackId, SharingHandler && handler, KmlFileType kmlFileType);
   void PrepareAllFilesForSharing(SharingHandler && handler);
 
@@ -363,8 +359,7 @@ public:
   bool AreAllCategoriesVisible() const;
   bool AreAllCategoriesInvisible() const;
   void SetAllCategoriesVisibility(bool visible);
-  void SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType,
-                                    bool visible);
+  void SetChildCategoriesVisibility(kml::MarkGroupId categoryId, kml::CompilationType compilationType, bool visible);
 
   void SetNotificationsEnabled(bool enabled);
   bool AreNotificationsEnabled() const;
@@ -378,7 +373,7 @@ public:
 
   bool HasRecentlyDeletedBookmark() const { return m_recentlyDeletedBookmark.operator bool(); };
   void ResetRecentlyDeletedBookmark();
-  
+
   size_t GetRecentlyDeletedCategoriesCount() const;
   BookmarkManager::KMLDataCollectionPtr GetRecentlyDeletedCategories();
   bool IsRecentlyDeletedCategory(std::string const & filePath) const;
@@ -417,8 +412,8 @@ public:
   void SetElevationMyPositionChangedCallback(ElevationMyPositionChangedCallback const & cb);
 
   using TracksFilter = std::function<bool(Track const * track)>;
-  Track::TrackSelectionInfo FindNearestTrack(
-      m2::RectD const & touchRect, TracksFilter const & tracksFilter = nullptr) const;
+  Track::TrackSelectionInfo FindNearestTrack(m2::RectD const & touchRect,
+                                             TracksFilter const & tracksFilter = nullptr) const;
   Track::TrackSelectionInfo GetTrackSelectionInfo(kml::TrackId const & trackId) const;
 
   void SetTrackSelectionInfo(Track::TrackSelectionInfo const & trackSelectionInfo, bool notifyListeners);
@@ -435,14 +430,14 @@ public:
   std::string GenerateTrackRecordingName() const;
   dp::Color GenerateTrackRecordingColor() const;
 
-  kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> const & points, std::string const & from, std::string const & to);
+  kml::TrackId SaveRoute(std::vector<geometry::PointWithAltitude> const & points, std::string const & from,
+                         std::string const & to);
 
 private:
   class MarksChangesTracker : public df::UserMarksProvider
   {
   public:
-    explicit MarksChangesTracker(BookmarkManager * bmManager)
-      : m_bmManager(bmManager)
+    explicit MarksChangesTracker(BookmarkManager * bmManager) : m_bmManager(bmManager)
     {
       CHECK(m_bmManager != nullptr, ());
     }
@@ -495,8 +490,8 @@ private:
     void OnBecomeVisibleGroup(kml::MarkGroupId groupId);
     void OnBecomeInvisibleGroup(kml::MarkGroupId groupId);
 
-    static void InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
-                               GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase);
+    static void InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId, GroupMarkIdSet & setToInsert,
+                               GroupMarkIdSet & setToErase);
     static bool HasBookmarkCategories(kml::GroupIdSet const & groupIds);
 
     void InferVisibility(BookmarkCategory * const group);
@@ -554,10 +549,8 @@ private:
     CHECK_THREAD_CHECKER(m_threadChecker, ());
     std::list<kml::MarkId> marksToDelete;
     for (auto markId : GetUserMarkIds(type))
-    {
       if (deletePredicate(GetMark<UserMarkT>(markId)))
         marksToDelete.push_back(markId);
-    }
     // Delete after iterating to avoid iterators invalidation issues.
     for (auto markId : marksToDelete)
       DeleteUserMark(markId);
@@ -633,8 +626,8 @@ private:
   void ReloadBookmarkRoutine(std::string const & filePath);
 
   using BookmarksChecker = std::function<bool(kml::FileData const &)>;
-  KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string_view ext,
-                                     KmlFileType fileType, BookmarksChecker const & checker);
+  KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string_view ext, KmlFileType fileType,
+                                     BookmarksChecker const & checker);
 
   void GetDirtyGroups(kml::GroupIdSet & dirtyGroups) const;
   void UpdateBmGroupIdList();
@@ -691,29 +684,25 @@ private:
     kml::Timestamp m_timestamp;
   };
 
-  void GetSortedCategoryImpl(SortParams const & params,
-                             std::vector<SortBookmarkData> const & bookmarksForSort,
-                             std::vector<SortTrackData> const & tracksForSort,
-                             SortedBlocksCollection & sortedBlocks);
+  void GetSortedCategoryImpl(SortParams const & params, std::vector<SortBookmarkData> const & bookmarksForSort,
+                             std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
 
   void SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort,
-                      std::vector<SortTrackData> const & tracksForSort,
-                      m2::PointD const & myPosition, SortedBlocksCollection & sortedBlocks);
+                      std::vector<SortTrackData> const & tracksForSort, m2::PointD const & myPosition,
+                      SortedBlocksCollection & sortedBlocks);
   static void SortByTime(std::vector<SortBookmarkData> const & bookmarksForSort,
-                         std::vector<SortTrackData> const & tracksForSort,
-                         SortedBlocksCollection & sortedBlocks);
+                         std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
   static void SortByType(std::vector<SortBookmarkData> const & bookmarksForSort,
-                         std::vector<SortTrackData> const & tracksForSort,
-                         SortedBlocksCollection & sortedBlocks);
+                         std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
   static void SortByName(std::vector<SortBookmarkData> const & bookmarksForSort,
-                         std::vector<SortTrackData> const & tracksForSort,
-                         SortedBlocksCollection & sortedBlocks);
+                         std::vector<SortTrackData> const & tracksForSort, SortedBlocksCollection & sortedBlocks);
 
   using AddressesCollection = std::vector<std::pair<kml::MarkId, search::ReverseGeocoder::RegionAddress>>;
   void PrepareBookmarksAddresses(std::vector<SortBookmarkData> & bookmarksForSort, AddressesCollection & newAddresses);
   void FilterInvalidData(SortedBlocksCollection & sortedBlocks, AddressesCollection & newAddresses) const;
   void SetBookmarksAddresses(AddressesCollection const & addresses);
-  static void AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks, SortedBlocksCollection & sortedBlocks);
+  static void AddTracksSortedBlock(std::vector<SortTrackData> const & sortedTracks,
+                                   SortedBlocksCollection & sortedBlocks);
   static void SortTracksByTime(std::vector<SortTrackData> & tracks);
   static void SortTracksByName(std::vector<SortTrackData> & tracks);
 
@@ -784,7 +773,9 @@ private:
   struct BookmarkLoaderInfo
   {
     BookmarkLoaderInfo(std::string const & filename, bool isTemporaryFile, bool isReloading)
-      : m_filename(filename), m_isTemporaryFile(isTemporaryFile), m_isReloading(isReloading)
+      : m_filename(filename)
+      , m_isTemporaryFile(isTemporaryFile)
+      , m_isReloading(isReloading)
     {}
 
     std::string m_filename;
@@ -802,14 +793,12 @@ private:
 
   struct ExpiredCategory
   {
-    ExpiredCategory(kml::MarkGroupId id, std::string const & serverId)
-      : m_id(id), m_serverId(serverId) {}
+    ExpiredCategory(kml::MarkGroupId id, std::string const & serverId) : m_id(id), m_serverId(serverId) {}
 
     kml::MarkGroupId m_id;
     std::string m_serverId;
   };
   std::vector<ExpiredCategory> m_expiredCategories;
-
 
   struct Properties
   {
@@ -825,8 +814,7 @@ private:
     DECLARE_VISITOR_AND_DEBUG_PRINT(Metadata, visitor(m_entriesProperties, "entriesProperties"),
                                     visitor(m_commonProperties, "commonProperties"))
 
-    bool GetEntryProperty(std::string const & entryName, std::string const & propertyName,
-                          std::string & value) const;
+    bool GetEntryProperty(std::string const & entryName, std::string const & propertyName, std::string & value) const;
 
     std::map<std::string, Properties> m_entriesProperties;
     Properties m_commonProperties;

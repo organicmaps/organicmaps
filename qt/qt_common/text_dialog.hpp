@@ -6,6 +6,7 @@
 class TextDialog : public QDialog
 {
   Q_OBJECT
+
 public:
   TextDialog(QWidget * parent, QString const & htmlOrText, QString const & title = "");
 

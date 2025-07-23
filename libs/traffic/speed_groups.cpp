@@ -11,10 +11,8 @@ SpeedGroup GetSpeedGroupByPercentage(double p)
   p = math::Clamp(p, 0.0, 100.0);
   SpeedGroup res = SpeedGroup::Unknown;
   for (int i = static_cast<int>(SpeedGroup::Count) - 1; i >= 0; --i)
-  {
     if (p <= kSpeedGroupThresholdPercentage[i])
       res = static_cast<SpeedGroup>(i);
-  }
   return res;
 }
 

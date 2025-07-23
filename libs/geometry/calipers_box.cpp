@@ -23,7 +23,10 @@ bool IsCCWNeg(PointD const & p1, PointD const & p2, PointD const & p, double eps
   return robust::OrientedS(p1, p2, p) > -eps;
 }
 
-PointD Ort(PointD const & p) { return PointD(-p.y, p.x); }
+PointD Ort(PointD const & p)
+{
+  return PointD(-p.y, p.x);
+}
 
 // For each facet of the |hull| calls |fn| with the smallest rectangle
 // containing the hull and with one side collinear to the facet.
@@ -113,11 +116,11 @@ void CalipersBox::Deserialize(std::vector<PointD> && points)
   ASSERT(TestValid(), ());
 
   // 2. Stable with input.
-//#ifdef DEBUG
-//  CalipersBox test(m_points);
-//  ASSERT(test.TestValid(), ());
-//  *this = std::move(test);
-//#endif
+  // #ifdef DEBUG
+  //   CalipersBox test(m_points);
+  //   ASSERT(test.TestValid(), ());
+  //   *this = std::move(test);
+  // #endif
 }
 
 void CalipersBox::Normalize()
@@ -136,10 +139,8 @@ bool CalipersBox::TestValid() const
 {
   size_t const n = m_points.size();
   for (size_t i = 0; i < n; ++i)
-  {
     if (!IsCCWNeg(m_points[i], m_points[(i + 1) % n], m_points[(i + 2) % n], kEps))
       return false;
-  }
   return n > 0;
 }
 
@@ -148,12 +149,9 @@ bool CalipersBox::HasPoint(PointD const & p, double eps) const
   auto const n = m_points.size();
   switch (n)
   {
-  case 0:
-    return false;
-  case 1:
-    return AlmostEqualAbs(m_points[0], p, eps);
-  case 2:
-    return IsPointOnSegmentEps(p, m_points[0], m_points[1], eps);
+  case 0: return false;
+  case 1: return AlmostEqualAbs(m_points[0], p, eps);
+  case 2: return IsPointOnSegmentEps(p, m_points[0], m_points[1], eps);
   }
 
   for (size_t i = 0; i < n; ++i)

@@ -96,20 +96,17 @@ struct GenerateInfo
       LOG(LCRITICAL, ("Incorrect node_storage type:", type));
   }
 
-  std::string GetTmpFileName(std::string const & fileName,
-                             std::string const & ext = DATA_FILE_EXTENSION_TMP) const
+  std::string GetTmpFileName(std::string const & fileName, std::string const & ext = DATA_FILE_EXTENSION_TMP) const
   {
     return base::JoinPath(m_tmpDir, fileName + ext);
   }
 
-  std::string GetTargetFileName(std::string const & fileName,
-                                std::string const & ext = DATA_FILE_EXTENSION) const
+  std::string GetTargetFileName(std::string const & fileName, std::string const & ext = DATA_FILE_EXTENSION) const
   {
     return base::JoinPath(m_targetDir, fileName + ext);
   }
 
-  std::string GetIntermediateFileName(std::string const & fileName,
-                                      std::string const & ext = "") const
+  std::string GetIntermediateFileName(std::string const & fileName, std::string const & ext = "") const
   {
     return base::JoinPath(m_intermediateDir, fileName + ext);
   }

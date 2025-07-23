@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 *******************************************************************************/
 
-#if ! __has_feature(objc_arc)
+#if !__has_feature(objc_arc)
 #error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
 
@@ -33,8 +33,7 @@ SOFTWARE.
 
 #include "base/logging.hpp"
 
-
-@interface RedirectDelegate : NSObject<NSURLSessionDataDelegate>
+@interface RedirectDelegate : NSObject <NSURLSessionDataDelegate>
 
 // If YES - redirect response triggeres new request automatically
 // If NO  - redirect response is returned to result handler
@@ -42,11 +41,11 @@ SOFTWARE.
 
 - (instancetype)init:(BOOL)followRedirects;
 
-- (void)        URLSession:(NSURLSession *)session
-                      task:(NSURLSessionTask *)task
-willPerformHTTPRedirection:(NSHTTPURLResponse *)response
-                newRequest:(NSURLRequest *)newRequest
-         completionHandler:(void (^)(NSURLRequest *))completionHandler;
+- (void)URLSession:(NSURLSession *)session
+                          task:(NSURLSessionTask *)task
+    willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+                    newRequest:(NSURLRequest *)newRequest
+             completionHandler:(void (^)(NSURLRequest *))completionHandler;
 @end
 
 @implementation RedirectDelegate
@@ -54,15 +53,15 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
 {
   if (self = [super init])
     _followRedirects = followRedirects;
-  
+
   return self;
 }
 
-- (void)        URLSession:(NSURLSession *)session
-                      task:(NSURLSessionTask *)task
-willPerformHTTPRedirection:(NSHTTPURLResponse *)response
-                newRequest:(NSURLRequest *)newRequest
-         completionHandler:(void (^)(NSURLRequest *))completionHandler
+- (void)URLSession:(NSURLSession *)session
+                          task:(NSURLSessionTask *)task
+    willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+                    newRequest:(NSURLRequest *)newRequest
+             completionHandler:(void (^)(NSURLRequest *))completionHandler
 {
   if (!_followRedirects && response.statusCode >= 300 && response.statusCode < 400)
     completionHandler(nil);
@@ -70,7 +69,6 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
     completionHandler(newRequest);
 }
 @end
-
 
 @interface Connection : NSObject
 + (nullable NSData *)sendSynchronousRequest:(NSURLRequest *)request
@@ -87,13 +85,17 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
                              error:(NSError * __autoreleasing *)error
 {
   Connection * connection = [[Connection alloc] init];
-  return [connection sendSynchronousRequest:request followRedirects: followRedirects returningResponse:response error:error];
+  return [connection sendSynchronousRequest:request
+                            followRedirects:followRedirects
+                          returningResponse:response
+                                      error:error];
 }
 
 - (NSData *)sendSynchronousRequest:(NSURLRequest *)request
                    followRedirects:(BOOL)followRedirects
                  returningResponse:(NSURLResponse * __autoreleasing *)response
-                             error:(NSError * __autoreleasing *)error {
+                             error:(NSError * __autoreleasing *)error
+{
   __block NSData * resultData = nil;
   __block NSURLResponse * resultResponse = nil;
   __block NSError * resultError = nil;
@@ -101,13 +103,12 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
   dispatch_group_t group = dispatch_group_create();
   dispatch_group_enter(group);
 
-  RedirectDelegate * delegate = [[RedirectDelegate alloc] init: followRedirects];
+  RedirectDelegate * delegate = [[RedirectDelegate alloc] init:followRedirects];
 
   [[[HttpSessionManager sharedManager]
       dataTaskWithRequest:request
                  delegate:delegate
-        completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response,
-                            NSError * _Nullable error) {
+        completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
           resultData = data;
           resultResponse = response;
           resultError = error;
@@ -126,8 +127,9 @@ namespace platform
 bool HttpClient::RunHttpRequest()
 {
   NSURL * url = static_cast<NSURL *>([NSURL URLWithString:@(m_urlRequested.c_str())]);
-  NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: url
-      cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:m_timeoutSec];
+  NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url
+                                                          cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                      timeoutInterval:m_timeoutSec];
   // We handle cookies manually.
   request.HTTPShouldHandleCookies = NO;
 
@@ -150,7 +152,8 @@ bool HttpClient::RunHttpRequest()
   {
     NSError * err = nil;
     NSString * path = [NSString stringWithUTF8String:m_inputFile.c_str()];
-    const unsigned long long file_size = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&err].fileSize;
+    unsigned long long const file_size =
+        [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&err].fileSize;
     if (err)
     {
       m_errorCode = static_cast<int>(err.code);
@@ -165,7 +168,10 @@ bool HttpClient::RunHttpRequest()
 
   NSHTTPURLResponse * response = nil;
   NSError * err = nil;
-  NSData * url_data = [Connection sendSynchronousRequest:request followRedirects:m_followRedirects returningResponse:&response error:&err];
+  NSData * url_data = [Connection sendSynchronousRequest:request
+                                         followRedirects:m_followRedirects
+                                       returningResponse:&response
+                                                   error:&err];
 
   m_headers.clear();
 
@@ -181,8 +187,7 @@ bool HttpClient::RunHttpRequest()
 
     if (m_loadHeaders)
     {
-      [response.allHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSString * obj, BOOL * stop)
-      {
+      [response.allHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSString * obj, BOOL * stop) {
         m_headers.emplace(key.lowercaseString.UTF8String, obj.UTF8String);
       }];
     }
@@ -199,7 +204,6 @@ bool HttpClient::RunHttpRequest()
         m_serverResponse.assign(reinterpret_cast<char const *>(url_data.bytes), url_data.length);
       else
         [url_data writeToFile:@(m_outputFile.c_str()) atomically:YES];
-
     }
 
     return true;
@@ -214,9 +218,9 @@ bool HttpClient::RunHttpRequest()
   }
 
   m_errorCode = static_cast<int>(err.code);
-  LOG(LDEBUG, ("Error: ", m_errorCode, ':', err.localizedDescription.UTF8String,
-               "while connecting to", m_urlRequested));
+  LOG(LDEBUG,
+      ("Error: ", m_errorCode, ':', err.localizedDescription.UTF8String, "while connecting to", m_urlRequested));
 
   return false;
 }
-} // namespace platform
+}  // namespace platform

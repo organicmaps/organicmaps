@@ -6,7 +6,7 @@
 
 @property(copy, nonatomic) MWMVoidBlock doneBlock;
 @property(copy, nonatomic) MWMVoidBlock cancelBlock;
-@property(assign, nonatomic) NSLayoutConstraint* topConstraint;
+@property(assign, nonatomic) NSLayoutConstraint * topConstraint;
 
 @end
 
@@ -24,7 +24,7 @@
   navBar.doneBlock = done;
   navBar.cancelBlock = cancel;
   navBar.translatesAutoresizingMaskIntoConstraints = false;
-  
+
   [superview addSubview:navBar];
   navBar.topConstraint = [navBar.topAnchor constraintEqualToAnchor:superview.topAnchor];
   navBar.topConstraint.active = true;
@@ -40,10 +40,7 @@
   f.EnableChoosePositionMode(true /* enable */, enableBounds, optionalPosition);
   f.BlockTapEvents(true);
 
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-   self.topConstraint.constant = 0;
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{ self.topConstraint.constant = 0; }];
 }
 
 - (void)dismissWithBlock:(MWMVoidBlock)block
@@ -52,15 +49,12 @@
   f.EnableChoosePositionMode(false /* enable */, false /* enableBounds */, nullptr /* optionalPosition */);
   f.BlockTapEvents(false);
 
-  [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-  {
-   self.topConstraint.constant = -self.height;
-  }
-  completion:^(BOOL finished)
-  {
-    [self removeFromSuperview];
-    block();
-  }];
+  [UIView animateWithDuration:kDefaultAnimationDuration
+      animations:^{ self.topConstraint.constant = -self.height; }
+      completion:^(BOOL finished) {
+        [self removeFromSuperview];
+        block();
+      }];
 }
 
 - (IBAction)doneTap

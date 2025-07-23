@@ -47,8 +47,7 @@ void Test(vector<TrafficGPSEncoder::DataPoint> & points)
     TEST_EQUAL(points.size(), result.size(), ());
     for (size_t i = 0; i < points.size(); ++i)
     {
-      TEST_EQUAL(points[i].m_timestamp, result[i].m_timestamp,
-                 (points[i].m_timestamp, result[i].m_timestamp));
+      TEST_EQUAL(points[i].m_timestamp, result[i].m_timestamp, (points[i].m_timestamp, result[i].m_timestamp));
       TEST(AlmostEqualAbsOrRel(points[i].m_latLon.m_lat, result[i].m_latLon.m_lat, kEps),
            (points[i].m_latLon.m_lat, result[i].m_latLon.m_lat));
       TEST(AlmostEqualAbsOrRel(points[i].m_latLon.m_lon, result[i].m_latLon.m_lon, kEps),
@@ -57,8 +56,8 @@ void Test(vector<TrafficGPSEncoder::DataPoint> & points)
 
     if (version == TrafficGPSEncoder::kLatestVersion)
     {
-      LOG(LINFO, ("path length =", CalculateLength(points), "num points =", points.size(),
-                  "compressed size =", buf.size()));
+      LOG(LINFO,
+          ("path length =", CalculateLength(points), "num points =", points.size(), "compressed size =", buf.size()));
     }
   }
 }
@@ -66,7 +65,8 @@ void Test(vector<TrafficGPSEncoder::DataPoint> & points)
 UNIT_TEST(Traffic_Serialization_Smoke)
 {
   vector<TrafficGPSEncoder::DataPoint> data = {
-      {0, ms::LatLon(0.0, 1.0), 1}, {0, ms::LatLon(0.0, 2.0), 2},
+      {0, ms::LatLon(0.0, 1.0), 1},
+      {0, ms::LatLon(0.0, 2.0), 2},
   };
   Test(data);
 }
@@ -80,7 +80,8 @@ UNIT_TEST(Traffic_Serialization_EmptyPath)
 UNIT_TEST(Traffic_Serialization_StraightLine100m)
 {
   vector<TrafficGPSEncoder::DataPoint> path = {
-      {0, ms::LatLon(0.0, 0.0), 1}, {0, ms::LatLon(0.0, 1e-3), 2},
+      {0, ms::LatLon(0.0,  0.0), 1},
+      {0, ms::LatLon(0.0, 1e-3), 2},
   };
   Test(path);
 }
@@ -88,7 +89,8 @@ UNIT_TEST(Traffic_Serialization_StraightLine100m)
 UNIT_TEST(Traffic_Serialization_StraightLine50Km)
 {
   vector<TrafficGPSEncoder::DataPoint> path = {
-      {0, ms::LatLon(0.0, 0.0), 1}, {0, ms::LatLon(0.0, 0.5), 2},
+      {0, ms::LatLon(0.0, 0.0), 1},
+      {0, ms::LatLon(0.0, 0.5), 2},
   };
   Test(path);
 }
@@ -147,7 +149,8 @@ UNIT_TEST(Traffic_Serialization_Circle20KmRadius)
 UNIT_TEST(Traffic_Serialization_ExtremeLatLon)
 {
   vector<TrafficGPSEncoder::DataPoint> path = {
-      {0, ms::LatLon(-90, -180), 0}, {0, ms::LatLon(90, 180), 0},
+      {0, ms::LatLon(-90, -180), 0},
+      {0,  ms::LatLon(90,  180), 0},
   };
   Test(path);
 }

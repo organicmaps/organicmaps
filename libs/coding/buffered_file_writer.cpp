@@ -4,8 +4,7 @@
 
 #include "base/assert.hpp"
 
-BufferedFileWriter::BufferedFileWriter(std::string const & fileName,
-                                       Op operation /* = OP_WRITE_TRUNCATE */,
+BufferedFileWriter::BufferedFileWriter(std::string const & fileName, Op operation /* = OP_WRITE_TRUNCATE */,
                                        size_t bufferSize /*  = 4096 */)
   : FileWriter(fileName, operation)
 {

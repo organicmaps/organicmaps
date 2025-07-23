@@ -26,8 +26,7 @@ struct UniformsGuard
   ~UniformsGuard()
   {
     auto const uniformsCount = m_program->GetNumericUniformsCount();
-    CHECK_EQUAL(m_counter, uniformsCount, ("Not all numeric uniforms are set up",
-                m_program->GetName(), m_paramsName));
+    CHECK_EQUAL(m_counter, uniformsCount, ("Not all numeric uniforms are set up", m_program->GetName(), m_paramsName));
   }
 
   ref_ptr<dp::GLGpuProgram> m_program;
@@ -35,13 +34,18 @@ struct UniformsGuard
   uint32_t m_counter = 0;
 };
 
-template <typename ParamType> class GLTypeWrapper;
+template <typename ParamType>
+class GLTypeWrapper;
 
 #define BIND_GL_TYPE(DataType, GLType) \
-  template <> class GLTypeWrapper<DataType> \
-  { \
-  public: \
-    static glConst Value() { return GLType; } \
+  template <>                          \
+  class GLTypeWrapper<DataType>        \
+  {                                    \
+  public:                              \
+    static glConst Value()             \
+    {                                  \
+      return GLType;                   \
+    }                                  \
   };
 
 BIND_GL_TYPE(float, gl_const::GLFloatType)
@@ -57,18 +61,16 @@ BIND_GL_TYPE(glsl::ivec4, gl_const::GLIntVec4)
 class Parameter
 {
 public:
-  template<typename ParamType>
-  static void CheckApply(UniformsGuard & guard, std::string const & name,
-                         ParamType const & t)
+  template <typename ParamType>
+  static void CheckApply(UniformsGuard & guard, std::string const & name, ParamType const & t)
   {
     if (Apply<ParamType>(guard.m_program, name, t))
       guard.m_counter++;
   }
 
 private:
-  template<typename ParamType>
-  static bool Apply(ref_ptr<dp::GLGpuProgram> program, std::string const & name,
-                    ParamType const & p)
+  template <typename ParamType>
+  static bool Apply(ref_ptr<dp::GLGpuProgram> program, std::string const & name, ParamType const & p)
   {
     auto const location = program->GetUniformLocation(name);
     if (location < 0)
@@ -81,8 +83,7 @@ private:
 };
 }  // namespace
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   MapProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -98,8 +99,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_contrastGamma", params.m_contrastGamma);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   RouteProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -121,8 +121,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_fakeOutlineColor", params.m_fakeOutlineColor);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   TrafficProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -139,8 +138,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_darkArrowColor", params.m_darkArrowColorAligned);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   TransitProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -154,8 +152,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_maxRadius", params.m_maxRadius);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   GuiProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -170,8 +167,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_length", params.m_length);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   ShapesProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -188,8 +184,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_azimut", params.m_azimut);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   Arrow3dProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -201,8 +196,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_texCoordFlipping", params.m_texCoordFlipping);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   DebugRectProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -211,8 +205,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_color", params.m_color);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   ScreenQuadProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -221,8 +214,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program,
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   SMAAProgramParams const & params)
 {
   UNUSED_VALUE(context);
@@ -231,8 +223,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
   Parameter::CheckApply(guard, "u_framebufferMetrics", params.m_framebufferMetrics);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<dp::GpuProgram> program, 
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                   ImGuiProgramParams const & params)
 {
   UNUSED_VALUE(context);

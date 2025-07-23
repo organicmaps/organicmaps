@@ -5,7 +5,6 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
-
 namespace search
 {
 // static
@@ -62,10 +61,8 @@ bool BaseContext::IsTokenUsed(size_t token) const
 bool BaseContext::AllTokensUsed() const
 {
   for (size_t i = 0; i < m_tokens.size(); ++i)
-  {
     if (!IsTokenUsed(i))
       return false;
-  }
   return true;
 }
 
@@ -73,10 +70,8 @@ bool BaseContext::HasUsedTokensInRange(TokenRange const & range) const
 {
   ASSERT(range.IsValid(), (range));
   for (size_t i = range.Begin(); i < range.End(); ++i)
-  {
     if (IsTokenUsed(i))
       return true;
-  }
   return false;
 }
 
@@ -84,10 +79,8 @@ size_t BaseContext::NumUnusedTokenGroups() const
 {
   size_t numGroups = 0;
   for (size_t i = 0; i < m_tokens.size(); ++i)
-  {
     if (!IsTokenUsed(i) && (i == 0 || IsTokenUsed(i - 1)))
       ++numGroups;
-  }
   return numGroups;
 }
 

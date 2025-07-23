@@ -30,13 +30,17 @@ UNIT_TEST(CalipersBox_Smoke)
   }
 
   {
-    vector<PointD> const points = {{PointD(2, 3), PointD(2, 3), PointD(2, 3)}};
+    vector<PointD> const points = {
+        {PointD(2, 3), PointD(2, 3), PointD(2, 3)}
+    };
     CalipersBox const cbox(points);
     TEST_EQUAL(cbox.Points(), vector<PointD>{{PointD(2, 3)}}, ());
   }
 
   {
-    vector<PointD> const points = {{PointD(1, 1), PointD(1, 2)}};
+    vector<PointD> const points = {
+        {PointD(1, 1), PointD(1, 2)}
+    };
     CalipersBox const cbox(points);
     TEST_EQUAL(cbox.Points(), points, ());
     TEST(cbox.HasPoint(1, 1.5), ());
@@ -46,20 +50,27 @@ UNIT_TEST(CalipersBox_Smoke)
 
   {
     vector<PointD> const points = {
-        {PointD(0, 0), PointD(-2, 3), PointD(1, 5), PointD(3, 2), PointD(1, 2), PointD(0, 3)}};
+        {PointD(0, 0), PointD(-2, 3), PointD(1, 5), PointD(3, 2), PointD(1, 2), PointD(0, 3)}
+    };
     CalipersBox const cbox(points);
     TEST_EQUAL(cbox.Points(),
-               (vector<PointD>{{PointD(-2, 3), PointD(0, 0), PointD(3, 2), PointD(1, 5)}}), ());
+               (vector<PointD>{
+                   {PointD(-2, 3), PointD(0, 0), PointD(3, 2), PointD(1, 5)}
+    }),
+               ());
     for (auto const & p : points)
       TEST(cbox.HasPoint(p), (p));
     TEST(!cbox.HasPoint(1, 0), ());
   }
 
   {
-    vector<PointD> const points = {{PointD(0, 0), PointD(1, 0), PointD(0, 5), PointD(1, 5),
-                                    PointD(-2, 2), PointD(-2, 3), PointD(3, 2), PointD(3, 3)}};
+    vector<PointD> const points = {
+        {PointD(0, 0), PointD(1, 0), PointD(0, 5), PointD(1, 5), PointD(-2, 2), PointD(-2, 3), PointD(3, 2),
+         PointD(3, 3)}
+    };
     vector<PointD> const expected = {
-      {PointD(-2.5, 2.5), PointD(0.5, -0.5), PointD(3.5, 2.5), PointD(0.5, 5.5)}};
+        {PointD(-2.5, 2.5), PointD(0.5, -0.5), PointD(3.5, 2.5), PointD(0.5, 5.5)}
+    };
     CalipersBox const cbox(points);
     TEST_EQUAL(cbox.Points(), expected, ());
 

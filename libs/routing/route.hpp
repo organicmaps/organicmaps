@@ -29,9 +29,9 @@
 
 namespace location
 {
-  class GpsInfo;
-  class RouteMatchingInfo;
-}
+class GpsInfo;
+class RouteMatchingInfo;
+}  // namespace location
 
 namespace routing
 {
@@ -46,12 +46,9 @@ public:
   struct SpeedCamera
   {
     SpeedCamera() = default;
-    SpeedCamera(double coef, uint8_t maxSpeedKmPH): m_coef(coef), m_maxSpeedKmPH(maxSpeedKmPH) {}
+    SpeedCamera(double coef, uint8_t maxSpeedKmPH) : m_coef(coef), m_maxSpeedKmPH(maxSpeedKmPH) {}
 
-    bool EqualCoef(SpeedCamera const & rhs) const
-    {
-      return AlmostEqualAbs(m_coef, rhs.m_coef, 1.0E-5);
-    }
+    bool EqualCoef(SpeedCamera const & rhs) const { return AlmostEqualAbs(m_coef, rhs.m_coef, 1.0E-5); }
 
     bool operator<(SpeedCamera const & rhs) const
     {
@@ -78,21 +75,22 @@ public:
     std::string m_destination_ref;  // Number of next road, e.g. "CA 85", Sometimes "CA 85 South". Usually match |m_ref|
                                     // of next main road.
     // This is for 1st segment of link after junction. Exit |junction_ref| to |m_destination_ref| for |m_destination|.
-    std::string m_junction_ref;     // Number of junction e.g. "398B".
-    std::string m_destination;      // E.g. "Cupertino".
-    std::string m_ref;              // Number of street/road e.g. "CA 85".
+    std::string m_junction_ref;  // Number of junction e.g. "398B".
+    std::string m_destination;   // E.g. "Cupertino".
+    std::string m_ref;           // Number of street/road e.g. "CA 85".
     bool m_isLink = false;
 
     RoadNameInfo() = default;
     RoadNameInfo(std::string name) : m_name(std::move(name)) {}
     RoadNameInfo(std::string name, std::string destination_ref)
-      : m_name(std::move(name)), m_destination_ref(std::move(destination_ref))
-    {
-    }
+      : m_name(std::move(name))
+      , m_destination_ref(std::move(destination_ref))
+    {}
     RoadNameInfo(std::string name, std::string destination_ref, std::string junction_ref)
-      : m_name(std::move(name)), m_destination_ref(std::move(destination_ref)), m_junction_ref(std::move(junction_ref))
-    {
-    }
+      : m_name(std::move(name))
+      , m_destination_ref(std::move(destination_ref))
+      , m_junction_ref(std::move(junction_ref))
+    {}
     RoadNameInfo(std::string name, std::string ref, std::string junction_ref, std::string destination_ref,
                  std::string destination, bool isLink)
       : m_name(std::move(name))
@@ -101,8 +99,7 @@ public:
       , m_destination(std::move(destination))
       , m_ref(std::move(ref))
       , m_isLink(std::move(isLink))
-    {
-    }
+    {}
 
     bool HasBasicTextInfo() const { return !m_ref.empty() || !m_name.empty(); }
     bool HasExitInfo() const { return m_isLink || HasExitTextInfo(); }
@@ -125,15 +122,14 @@ public:
     friend std::string DebugPrint(RoadNameInfo const & rni);
   };
 
-  RouteSegment(Segment const & segment, turns::TurnItem const & turn,
-               geometry::PointWithAltitude const & junction, RoadNameInfo const & roadNameInfo)
+  RouteSegment(Segment const & segment, turns::TurnItem const & turn, geometry::PointWithAltitude const & junction,
+               RoadNameInfo const & roadNameInfo)
     : m_segment(segment)
     , m_turn(turn)
     , m_junction(junction)
     , m_roadNameInfo(roadNameInfo)
     , m_transitInfo(nullptr)
-  {
-  }
+  {}
 
   void ClearTurn()
   {
@@ -152,10 +148,7 @@ public:
     m_timeFromBeginningS = timeFromBeginningS;
   }
 
-  void SetTransitInfo(std::unique_ptr<TransitInfo> transitInfo)
-  {
-    m_transitInfo.Set(std::move(transitInfo));
-  }
+  void SetTransitInfo(std::unique_ptr<TransitInfo> transitInfo) { m_transitInfo.Set(std::move(transitInfo)); }
 
   Segment const & GetSegment() const { return m_segment; }
   Segment & GetSegment() { return m_segment; }
@@ -231,9 +224,8 @@ public:
   public:
     SubrouteAttrs() = default;
 
-    SubrouteAttrs(geometry::PointWithAltitude const & start,
-                  geometry::PointWithAltitude const & finish, size_t beginSegmentIdx,
-                  size_t endSegmentIdx)
+    SubrouteAttrs(geometry::PointWithAltitude const & start, geometry::PointWithAltitude const & finish,
+                  size_t beginSegmentIdx, size_t endSegmentIdx)
       : m_start(start)
       , m_finish(finish)
       , m_beginSegmentIdx(beginSegmentIdx)
@@ -247,8 +239,7 @@ public:
       , m_finish(subroute.m_finish)
       , m_beginSegmentIdx(beginSegmentIdx)
       , m_endSegmentIdx(beginSegmentIdx + subroute.GetSize())
-    {
-    }
+    {}
 
     geometry::PointWithAltitude const & GetStart() const { return m_start; }
     geometry::PointWithAltitude const & GetFinish() const { return m_finish; }
@@ -272,11 +263,11 @@ public:
   /// \brief For every subroute some attributes are kept in the following structure.
   struct SubrouteSettings final
   {
-    SubrouteSettings(RoutingSettings const & routingSettings, std::string const & router,
-                     SubrouteUid id)
-      : m_routingSettings(routingSettings), m_router(router), m_id(id)
-    {
-    }
+    SubrouteSettings(RoutingSettings const & routingSettings, std::string const & router, SubrouteUid id)
+      : m_routingSettings(routingSettings)
+      , m_router(router)
+      , m_id(id)
+    {}
 
     RoutingSettings const m_routingSettings;
     std::string const m_router;
@@ -286,9 +277,10 @@ public:
   };
 
   Route(std::string const & router, uint64_t routeId)
-    : m_router(router), m_routingSettings(GetRoutingSettings(VehicleType::Car)), m_routeId(routeId)
-  {
-  }
+    : m_router(router)
+    , m_routingSettings(GetRoutingSettings(VehicleType::Car))
+    , m_routeId(routeId)
+  {}
 
   template <class TIter>
   Route(std::string const & router, TIter beg, TIter end, uint64_t routeId)
@@ -296,13 +288,13 @@ public:
     , m_routingSettings(GetRoutingSettings(VehicleType::Car))
     , m_poly(beg, end)
     , m_routeId(routeId)
-  {
-  }
+  {}
 
   Route(std::string const & router, std::vector<m2::PointD> const & points, uint64_t routeId,
         std::string const & name = std::string());
 
-  template <class TIter> void SetGeometry(TIter beg, TIter end)
+  template <class TIter>
+  void SetGeometry(TIter beg, TIter end)
   {
     if (beg == end)
     {
@@ -410,8 +402,7 @@ public:
 
   /// \brief Finds projection of |location| to the nearest route and sets |routeMatchingInfo|.
   /// fields accordingly.
-  bool MatchLocationToRoute(location::GpsInfo & location,
-                            location::RouteMatchingInfo & routeMatchingInfo) const;
+  bool MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 
   /// Add country name if we have no country filename to make route.
   void AddAbsentCountry(std::string const & name);
@@ -419,10 +410,7 @@ public:
   /// Get absent file list of a routing files for shortest path finding.
   std::set<std::string> const & GetAbsentCountries() const { return m_absentCountries; }
 
-  inline void SetRoutingSettings(RoutingSettings const & routingSettings)
-  {
-    m_routingSettings = routingSettings;
-  }
+  inline void SetRoutingSettings(RoutingSettings const & routingSettings) { m_routingSettings = routingSettings; }
 
   // Subroute interface.
   /// \returns Number of subroutes.
@@ -510,4 +498,4 @@ private:
 /// \returns true if |turn| is not equal to turns::CarDirection::None or
 /// |turns::PedestrianDirection::None|.
 bool IsNormalTurn(turns::TurnItem const & turn);
-} // namespace routing
+}  // namespace routing

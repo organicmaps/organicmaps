@@ -84,12 +84,10 @@ UNIT_TEST(BitStreams_Large)
     BitWriter<TWriter> bits(w);
 
     for (int i = 0; i <= 64; ++i)
-    {
       if (i <= 32)
         bits.WriteAtMost32Bits(static_cast<uint32_t>(kMask), i);
       else
         bits.WriteAtMost64Bits(kMask, i);
-    }
   }
 
   {

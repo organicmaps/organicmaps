@@ -23,14 +23,14 @@ struct Result
 {
   Result() = default;
   Result(Status status, size_t errorsMade = 0, size_t prefixErrorsMade = 0)
-    : m_status(status), m_errorsMade(errorsMade), m_prefixErrorsMade(prefixErrorsMade)
-  {
-  }
+    : m_status(status)
+    , m_errorsMade(errorsMade)
+    , m_prefixErrorsMade(prefixErrorsMade)
+  {}
 
   bool operator==(Result const & rhs) const
   {
-    return m_status == rhs.m_status &&
-           (m_errorsMade == rhs.m_errorsMade || m_status == Status::Rejects) &&
+    return m_status == rhs.m_status && (m_errorsMade == rhs.m_errorsMade || m_status == Status::Rejects) &&
            (m_prefixErrorsMade == rhs.m_prefixErrorsMade || m_status == Status::Rejects);
   }
 
@@ -160,30 +160,24 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
   {
     LevenshteinDFA dfa("москва", 1 /* prefixSize */, 2 /* maxErrors */);
 
-    TEST_EQUAL(GetResult(dfa, "москва"),
-               Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */), ());
-    TEST_EQUAL(GetResult(dfa, "москв"),
-               Result(Status::Accepts, 1 /* errorsMade */, 0 /* prefixErrorsMade */), ());
-    TEST_EQUAL(GetResult(dfa, "моск"),
-               Result(Status::Accepts, 2 /* errorsMade */, 0 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "москва"), Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "москв"), Result(Status::Accepts, 1 /* errorsMade */, 0 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "моск"), Result(Status::Accepts, 2 /* errorsMade */, 0 /* prefixErrorsMade */), ());
     TEST_EQUAL(GetResult(dfa, "мос").m_status, Status::Intermediate, ());
     TEST_EQUAL(GetResult(dfa, "мос").m_prefixErrorsMade, 0, ());
 
-    TEST_EQUAL(GetResult(dfa, "моксав"),
-               Result(Status::Accepts, 2 /* errorsMade */, 2 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "моксав"), Result(Status::Accepts, 2 /* errorsMade */, 2 /* prefixErrorsMade */), ());
     TEST_EQUAL(GetResult(dfa, "максав").m_status, Status::Rejects, ());
 
     TEST_EQUAL(GetResult(dfa, "мсовк").m_status, Status::Intermediate, ());
     TEST_EQUAL(GetResult(dfa, "мсовк").m_prefixErrorsMade, 2, ());
-    TEST_EQUAL(GetResult(dfa, "мсовка"),
-               Result(Status::Accepts, 2 /* errorsMade */, 2 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "мсовка"), Result(Status::Accepts, 2 /* errorsMade */, 2 /* prefixErrorsMade */), ());
     TEST_EQUAL(GetResult(dfa, "мсовкб").m_status, Status::Rejects, ());
   }
 
   {
     LevenshteinDFA dfa("aa", 0 /* prefixSize */, 2 /* maxErrors */);
-    TEST_EQUAL(GetResult(dfa, "abab"),
-               Result(Status::Accepts, 2 /* errorsMade */, 2 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "abab"), Result(Status::Accepts, 2 /* errorsMade */, 2 /* prefixErrorsMade */), ());
   }
 
   {
@@ -191,8 +185,8 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
     TEST_EQUAL(GetResult(dfa, "misisipi").m_status, Status::Rejects, ());
     TEST_EQUAL(GetResult(dfa, "mississipp").m_status, Status::Intermediate, ());
     TEST_EQUAL(GetResult(dfa, "mississipp").m_prefixErrorsMade, 0, ());
-    TEST_EQUAL(GetResult(dfa, "mississippi"),
-               Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "mississippi"), Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */),
+               ());
   }
 
   {
@@ -204,7 +198,8 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
         {"yekaterinburg", Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */)},
         {"ekaterinburg", Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */)},
         {"jekaterinburg", Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */)},
-        {"iekaterinburg", Result(Status::Rejects)}};
+        {"iekaterinburg", Result(Status::Rejects)}
+    };
 
     for (auto const & q : queries)
     {
@@ -215,10 +210,8 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
 
   {
     LevenshteinDFA dfa("кафе", 1 /* prefixSize */, 1 /* maxErrors */);
-    TEST_EQUAL(GetResult(dfa, "кафе"),
-               Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */), ());
-    TEST_EQUAL(GetResult(dfa, "кафер"),
-               Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "кафе"), Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */), ());
+    TEST_EQUAL(GetResult(dfa, "кафер"), Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */), ());
   }
 }
 
@@ -271,7 +264,7 @@ UNIT_TEST(LevenshteinDFA_PrefixDFASmoke)
   {
     result.clear();
     result.resize(math::PowUint(alphabet.size(), size));
-    for (size_t letterNumber = 0;  letterNumber < size; ++letterNumber)
+    for (size_t letterNumber = 0; letterNumber < size; ++letterNumber)
     {
       for (size_t i = 0; i < result.size(); ++i)
       {

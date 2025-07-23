@@ -62,9 +62,8 @@ bool CandidatePathsGetter::Link::IsPointOnPath(geometry::PointWithAltitude const
 }
 
 // CandidatePathsGetter ----------------------------------------------------------------------------
-bool CandidatePathsGetter::GetLineCandidatesForPoints(
-    vector<LocationReferencePoint> const & points,
-    vector<vector<Graph::EdgeVector>> & lineCandidates)
+bool CandidatePathsGetter::GetLineCandidatesForPoints(vector<LocationReferencePoint> const & points,
+                                                      vector<vector<Graph::EdgeVector>> & lineCandidates)
 {
   for (size_t i = 0; i < points.size(); ++i)
   {
@@ -77,14 +76,11 @@ bool CandidatePathsGetter::GetLineCandidatesForPoints(
 
     lineCandidates.emplace_back();
     auto const isLastPoint = i == points.size() - 1;
-    double const distanceToNextPointM =
-        (isLastPoint ? points[i - 1] : points[i]).m_distanceToNextPoint;
+    double const distanceToNextPointM = (isLastPoint ? points[i - 1] : points[i]).m_distanceToNextPoint;
 
     vector<m2::PointD> pointCandidates;
-    m_pointsGetter.GetCandidatePoints(mercator::FromLatLon(points[i].m_latLon),
-                                      pointCandidates);
-    GetLineCandidates(points[i], isLastPoint, distanceToNextPointM, pointCandidates,
-                      lineCandidates.back());
+    m_pointsGetter.GetCandidatePoints(mercator::FromLatLon(points[i].m_latLon), pointCandidates);
+    GetLineCandidates(points[i], isLastPoint, distanceToNextPointM, pointCandidates, lineCandidates.back());
 
     if (lineCandidates.back().empty())
     {
@@ -117,11 +113,9 @@ void CandidatePathsGetter::GetStartLines(vector<m2::PointD> const & points, bool
   base::SortUnique(edges, less<Graph::Edge>(), EdgesAreAlmostEqual);
 }
 
-void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLines,
-                                               bool isLastPoint, double bearDistM,
-                                               FunctionalRoadClass functionalRoadClass,
-                                               FormOfWay formOfWay, double distanceToNextPointM,
-                                               vector<LinkPtr> & allPaths)
+void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLines, bool isLastPoint, double bearDistM,
+                                               FunctionalRoadClass functionalRoadClass, FormOfWay formOfWay,
+                                               double distanceToNextPointM, vector<LinkPtr> & allPaths)
 {
   queue<LinkPtr> q;
 
@@ -179,9 +173,9 @@ void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLi
   }
 }
 
-void CandidatePathsGetter::GetBestCandidatePaths(
-    vector<LinkPtr> const & allPaths, bool const isLastPoint, uint32_t const requiredBearing,
-    double const bearDistM, m2::PointD const & startPoint, vector<Graph::EdgeVector> & candidates)
+void CandidatePathsGetter::GetBestCandidatePaths(vector<LinkPtr> const & allPaths, bool const isLastPoint,
+                                                 uint32_t const requiredBearing, double const bearDistM,
+                                                 m2::PointD const & startPoint, vector<Graph::EdgeVector> & candidates)
 {
   set<CandidatePath> candidatePaths;
   set<CandidatePath> fakeEndingsCandidatePaths;
@@ -212,8 +206,7 @@ void CandidatePathsGetter::GetBestCandidatePaths(
 
       --traceBackIterationsLeft;
 
-      auto const bearEndPoint =
-          pointsSelector.GetEndPoint(part->m_edge, part->m_distanceM);
+      auto const bearEndPoint = pointsSelector.GetEndPoint(part->m_edge, part->m_distanceM);
 
       auto const bearing = cpg::Bearing(bearStartPoint, bearEndPoint);
       auto const bearingDiff = AbsDifference(bearing, requiredBearing);
@@ -228,21 +221,16 @@ void CandidatePathsGetter::GetBestCandidatePaths(
     }
   }
 
-  ASSERT(
-      none_of(begin(candidatePaths), end(candidatePaths), mem_fn(&CandidatePath::HasFakeEndings)),
-      ());
-  ASSERT(fakeEndingsCandidatePaths.empty() ||
-             any_of(begin(fakeEndingsCandidatePaths), end(fakeEndingsCandidatePaths),
-                    mem_fn(&CandidatePath::HasFakeEndings)),
+  ASSERT(none_of(begin(candidatePaths), end(candidatePaths), mem_fn(&CandidatePath::HasFakeEndings)), ());
+  ASSERT(fakeEndingsCandidatePaths.empty() || any_of(begin(fakeEndingsCandidatePaths), end(fakeEndingsCandidatePaths),
+                                                     mem_fn(&CandidatePath::HasFakeEndings)),
          ());
 
   vector<CandidatePath> paths;
-  copy_n(begin(candidatePaths), min(static_cast<size_t>(kMaxCandidates), candidatePaths.size()),
-         back_inserter(paths));
+  copy_n(begin(candidatePaths), min(static_cast<size_t>(kMaxCandidates), candidatePaths.size()), back_inserter(paths));
 
   copy_n(begin(fakeEndingsCandidatePaths),
-         min(static_cast<size_t>(kMaxFakeCandidates), fakeEndingsCandidatePaths.size()),
-         back_inserter(paths));
+         min(static_cast<size_t>(kMaxFakeCandidates), fakeEndingsCandidatePaths.size()), back_inserter(paths));
 
   LOG(LDEBUG, ("List candidate paths..."));
   for (auto const & path : paths)
@@ -258,8 +246,7 @@ void CandidatePathsGetter::GetBestCandidatePaths(
   }
 }
 
-void CandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint const & p,
-                                             bool const isLastPoint,
+void CandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint const & p, bool const isLastPoint,
                                              double const distanceToNextPointM,
                                              vector<m2::PointD> const & pointCandidates,
                                              vector<Graph::EdgeVector> & candidates)
@@ -280,8 +267,8 @@ void CandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint cons
   auto const startPoint = mercator::FromLatLon(p.m_latLon);
 
   vector<LinkPtr> allPaths;
-  GetAllSuitablePaths(startLines, isLastPoint, bearDistM, p.m_functionalRoadClass, p.m_formOfWay,
-                      distanceToNextPointM, allPaths);
+  GetAllSuitablePaths(startLines, isLastPoint, bearDistM, p.m_functionalRoadClass, p.m_formOfWay, distanceToNextPointM,
+                      allPaths);
   GetBestCandidatePaths(allPaths, isLastPoint, p.m_bearing, bearDistM, startPoint, candidates);
   LOG(LDEBUG, (candidates.size(), "candidate paths found for point (LatLon)", p.m_latLon));
 }

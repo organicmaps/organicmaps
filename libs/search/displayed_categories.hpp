@@ -42,7 +42,7 @@ public:
     return CategoriesHolder::MapLocaleToInteger(locale) != CategoriesHolder::kUnsupportedLocaleCode;
   }
 
- private:
+private:
   CategoriesHolder const & m_holder;
   Keys m_keys;
 };

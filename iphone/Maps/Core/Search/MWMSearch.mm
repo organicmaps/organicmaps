@@ -4,15 +4,16 @@
 #import "SearchResult+Core.h"
 #import "SwiftBridge.h"
 
-#include <CoreApi/MWMTypes.h>
 #include <CoreApi/Framework.h>
+#include <CoreApi/MWMTypes.h>
 
 #include "platform/network_policy.hpp"
 
-namespace {
+namespace
+{
 using Observer = id<MWMSearchObserver>;
 using Observers = NSHashTable<Observer>;
-} // namespace
+}  // namespace
 
 @interface MWMSearch () <MWMFrameworkDrapeObserver>
 
@@ -26,7 +27,8 @@ using Observers = NSHashTable<Observer>;
 
 @end
 
-@implementation MWMSearch {
+@implementation MWMSearch
+{
   std::string m_query;
   std::string m_locale;
   bool m_isCategory;
@@ -36,117 +38,123 @@ using Observers = NSHashTable<Observer>;
 
 #pragma mark - Instance
 
-+ (MWMSearch *)manager {
-  static MWMSearch *manager;
++ (MWMSearch *)manager
+{
+  static MWMSearch * manager;
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    manager = [[self alloc] initManager];
-  });
+  dispatch_once(&onceToken, ^{ manager = [[self alloc] initManager]; });
   return manager;
 }
 
-- (instancetype)initManager {
+- (instancetype)initManager
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _observers = [Observers weakObjectsHashTable];
     [MWMFrameworkListener addObserver:self];
   }
   return self;
 }
 
-- (void)searchEverywhere {
+- (void)searchEverywhere
+{
   self.lastSearchTimestamp += 1;
   NSUInteger const timestamp = self.lastSearchTimestamp;
 
   search::EverywhereSearchParams params{
-    m_query, m_locale, {} /* default timeout */, m_isCategory,
-    // m_onResults
-    [self, timestamp](search::Results results, std::vector<search::ProductInfo> productInfo)
+      m_query,
+      m_locale,
+      {} /* default timeout */,
+      m_isCategory,
+      // m_onResults
+      [self, timestamp](search::Results results, std::vector<search::ProductInfo> productInfo)
+  {
+    // Store the flag first, because we will make move next.
+    bool const isEndMarker = results.IsEndMarker();
+
+    if (timestamp == self.lastSearchTimestamp)
     {
-      // Store the flag first, because we will make move next.
-      bool const isEndMarker = results.IsEndMarker();
+      self.suggestionsCount = results.GetSuggestsCount();
+      self->m_everywhereResults = std::move(results);
 
-      if (timestamp == self.lastSearchTimestamp)
-      {
-        self.suggestionsCount = results.GetSuggestsCount();
-        self->m_everywhereResults = std::move(results);
-
-        [self onSearchResultsUpdated];
-      }
-
-      if (isEndMarker)
-        self.searchCount -= 1;
+      [self onSearchResultsUpdated];
     }
-  };
+
+    if (isEndMarker)
+      self.searchCount -= 1;
+  }};
 
   GetFramework().GetSearchAPI().SearchEverywhere(std::move(params));
   self.searchCount += 1;
 }
 
-- (void)searchInViewport {
-  search::ViewportSearchParams params {
-    m_query, m_locale, {} /* default timeout */, m_isCategory,
-    // m_onStarted
-    {},
-    // m_onCompleted
-    [self](search::Results results)
-    {
-      if (!results.IsEndMarker())
-        return;
-      if (!results.IsEndedCancelled())
-        self->m_viewportResults = std::move(results);
-    }
-  };
+- (void)searchInViewport
+{
+  search::ViewportSearchParams params{m_query,
+                                      m_locale,
+                                      {} /* default timeout */,
+                                      m_isCategory,
+                                      // m_onStarted
+                                      {},
+                                      // m_onCompleted
+                                      [self](search::Results results)
+  {
+    if (!results.IsEndMarker())
+      return;
+    if (!results.IsEndedCancelled())
+      self->m_viewportResults = std::move(results);
+  }};
 
   GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
 }
 
-- (void)update {
+- (void)update
+{
   if (m_query.empty())
     return;
 
-  switch (self.searchMode) {
-    case SearchModeEverywhere:
-      [self searchEverywhere];
-      break;
-    case SearchModeViewport:
-      [self searchInViewport];
-      break;
-    case SearchModeEverywhereAndViewport:
-      [self searchEverywhere];
-      [self searchInViewport];
-      break;
+  switch (self.searchMode)
+  {
+  case SearchModeEverywhere: [self searchEverywhere]; break;
+  case SearchModeViewport: [self searchInViewport]; break;
+  case SearchModeEverywhereAndViewport:
+    [self searchEverywhere];
+    [self searchInViewport];
+    break;
   }
 }
 
 #pragma mark - Add/Remove Observers
 
-+ (void)addObserver:(id<MWMSearchObserver>)observer {
++ (void)addObserver:(id<MWMSearchObserver>)observer
+{
   [[MWMSearch manager].observers addObject:observer];
 }
 
-+ (void)removeObserver:(id<MWMSearchObserver>)observer {
++ (void)removeObserver:(id<MWMSearchObserver>)observer
+{
   [[MWMSearch manager].observers removeObject:observer];
 }
 
 #pragma mark - Methods
 
-+ (void)saveQuery:(SearchQuery *)query {
++ (void)saveQuery:(SearchQuery *)query
+{
   if (!query.text || query.text.length == 0)
     return;
 
-  std::string locale = (!query.locale || query.locale == 0)
-                        ? [MWMSearch manager]->m_locale
-                        : query.locale.UTF8String;
+  std::string locale = (!query.locale || query.locale == 0) ? [MWMSearch manager]->m_locale : query.locale.UTF8String;
   std::string text = query.text.UTF8String;
   GetFramework().GetSearchAPI().SaveSearchQuery({std::move(locale), std::move(text)});
 }
 
-+ (void)searchQuery:(SearchQuery *)query {
++ (void)searchQuery:(SearchQuery *)query
+{
   if (!query.text)
     return;
 
-  MWMSearch *manager = [MWMSearch manager];
+  MWMSearch * manager = [MWMSearch manager];
   if (query.locale.length != 0)
     manager->m_locale = query.locale.UTF8String;
 
@@ -160,39 +168,46 @@ using Observers = NSHashTable<Observer>;
   [manager update];
 }
 
-+ (void)showResultAtIndex:(NSUInteger)index {
++ (void)showResultAtIndex:(NSUInteger)index
+{
   auto const & result = [MWMSearch manager]->m_everywhereResults[index];
   GetFramework().StopLocationFollow();
   GetFramework().SelectSearchResult(result, true);
 }
 
-+ (SearchResult *)resultWithContainerIndex:(NSUInteger)index {
++ (SearchResult *)resultWithContainerIndex:(NSUInteger)index
+{
   SearchResult * result = [[SearchResult alloc] initWithResult:[MWMSearch manager]->m_everywhereResults[index]
                                                       itemType:[MWMSearch resultTypeWithRow:index]
                                                          index:index];
   return result;
 }
 
-+ (NSArray<SearchResult *> *)getResults {
++ (NSArray<SearchResult *> *)getResults
+{
   NSMutableArray<SearchResult *> * results = [[NSMutableArray alloc] initWithCapacity:MWMSearch.resultsCount];
-  for (NSUInteger i = 0; i < MWMSearch.resultsCount; ++i) {
+  for (NSUInteger i = 0; i < MWMSearch.resultsCount; ++i)
+  {
     SearchResult * result = [MWMSearch resultWithContainerIndex:i];
     [results addObject:result];
   }
   return [results copy];
 }
 
-+ (SearchItemType)resultTypeWithRow:(NSUInteger)row {
++ (SearchItemType)resultTypeWithRow:(NSUInteger)row
+{
   auto itemsIndex = [MWMSearch manager].itemsIndex;
   return [itemsIndex resultTypeWithRow:row];
 }
 
-+ (NSUInteger)containerIndexWithRow:(NSUInteger)row {
++ (NSUInteger)containerIndexWithRow:(NSUInteger)row
+{
   auto itemsIndex = [MWMSearch manager].itemsIndex;
   return [itemsIndex resultContainerIndexWithRow:row];
 }
 
-- (void)reset {
+- (void)reset
+{
   self.lastSearchTimestamp += 1;
   GetFramework().GetSearchAPI().CancelAllSearches();
 
@@ -202,18 +217,21 @@ using Observers = NSHashTable<Observer>;
   [self onSearchResultsUpdated];
 }
 
-+ (void)clear {
++ (void)clear
+{
   auto manager = [MWMSearch manager];
   manager->m_query.clear();
   manager.suggestionsCount = 0;
   [manager reset];
 }
 
-+ (SearchMode)searchMode {
++ (SearchMode)searchMode
+{
   return [MWMSearch manager].searchMode;
 }
 
-+ (void)setSearchMode:(SearchMode)mode {
++ (void)setSearchMode:(SearchMode)mode
+{
   MWMSearch * manager = [MWMSearch manager];
   if (manager.searchMode == mode)
     return;
@@ -221,50 +239,54 @@ using Observers = NSHashTable<Observer>;
   [manager update];
 }
 
-+ (NSUInteger)suggestionsCount {
++ (NSUInteger)suggestionsCount
+{
   return [MWMSearch manager].suggestionsCount;
 }
 
-+ (NSUInteger)resultsCount {
++ (NSUInteger)resultsCount
+{
   return [MWMSearch manager].itemsIndex.count;
 }
 
-- (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner {
+- (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner
+{
   auto const resultsCount = self->m_everywhereResults.GetCount();
   auto const itemsIndex = [[SearchIndex alloc] initWithSuggestionsCount:self.suggestionsCount
-                                                              resultsCount:resultsCount];
+                                                           resultsCount:resultsCount];
   [itemsIndex build];
   self.itemsIndex = itemsIndex;
 }
 
 #pragma mark - Notifications
 
-- (void)onSearchStarted {
-  for (Observer observer in self.observers) {
+- (void)onSearchStarted
+{
+  for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onSearchStarted)])
       [observer onSearchStarted];
-  }
 }
 
-- (void)onSearchCompleted {
+- (void)onSearchCompleted
+{
   [self updateItemsIndexWithBannerReload:YES];
-  for (Observer observer in self.observers) {
+  for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onSearchCompleted)])
       [observer onSearchCompleted];
-  }
 }
 
-- (void)onSearchResultsUpdated {
+- (void)onSearchResultsUpdated
+{
   [self updateItemsIndexWithBannerReload:NO];
-  for (Observer observer in self.observers) {
+  for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onSearchResultsUpdated)])
       [observer onSearchResultsUpdated];
-  }
 }
 
 #pragma mark - MWMFrameworkDrapeObserver
 
-- (void)processViewportChangedEvent {
+- (void)processViewportChangedEvent
+{
   if (!GetFramework().GetSearchAPI().IsViewportSearchActive())
     return;
 
@@ -272,19 +294,18 @@ using Observers = NSHashTable<Observer>;
   if (!isSearchCompleted)
     return;
 
-  switch (self.searchMode) {
-    case SearchModeEverywhere:
-    case SearchModeViewport:
-      break;
-    case SearchModeEverywhereAndViewport:
-      [self searchEverywhere];
-      break;
+  switch (self.searchMode)
+  {
+  case SearchModeEverywhere:
+  case SearchModeViewport: break;
+  case SearchModeEverywhereAndViewport: [self searchEverywhere]; break;
   }
 }
 
 #pragma mark - Properties
 
-- (void)setSearchCount:(NSInteger)searchCount {
+- (void)setSearchCount:(NSInteger)searchCount
+{
   NSAssert((searchCount >= 0) && ((_searchCount == searchCount - 1) || (_searchCount == searchCount + 1)),
            @"Invalid search count update");
   if (searchCount > 0)

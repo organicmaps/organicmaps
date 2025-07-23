@@ -13,7 +13,10 @@ uint32_t const OsmID2FeatureID::kHeaderMagic;
 
 OsmID2FeatureID::OsmID2FeatureID() : m_version(Version::V1) {}
 
-OsmID2FeatureID::Version OsmID2FeatureID::GetVersion() const { return m_version; }
+OsmID2FeatureID::Version OsmID2FeatureID::GetVersion() const
+{
+  return m_version;
+}
 
 bool OsmID2FeatureID::ReadFromFile(std::string const & filename)
 {
@@ -25,8 +28,7 @@ bool OsmID2FeatureID::ReadFromFile(std::string const & filename)
   }
   catch (FileReader::Exception const & e)
   {
-    LOG(LERROR, ("Exception while reading osm id to feature id mapping from file", filename,
-                 ". Msg:", e.Msg()));
+    LOG(LERROR, ("Exception while reading osm id to feature id mapping from file", filename, ". Msg:", e.Msg()));
     return false;
   }
 
@@ -60,4 +62,3 @@ std::vector<uint32_t> OsmID2FeatureID::GetFeatureIds(base::GeoObjectId mainId) c
   return ids;
 }
 }  // namespace generator
-

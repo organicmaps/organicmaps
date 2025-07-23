@@ -14,8 +14,8 @@ namespace
 inline m2::PointU ClampPoint(m2::PointD const & maxPoint, m2::PointD const & point)
 {
   using uvalue_t = m2::PointU::value_type;
-  return { static_cast<uvalue_t>(math::Clamp(point.x, 0.0, maxPoint.x)),
-           static_cast<uvalue_t>(math::Clamp(point.y, 0.0, maxPoint.y)) };
+  return {static_cast<uvalue_t>(math::Clamp(point.x, 0.0, maxPoint.x)),
+          static_cast<uvalue_t>(math::Clamp(point.y, 0.0, maxPoint.y))};
 }
 
 struct edge_less_p0
@@ -33,10 +33,10 @@ struct edge_less_p0
 
 namespace coding
 {
-bool TestDecoding(InPointsT const & points, m2::PointU const & basePoint,
-                  m2::PointU const & maxPoint, OutDeltasT const & deltas,
-                  void (*fnDecode)(InDeltasT const & deltas, m2::PointU const & basePoint,
-                                   m2::PointU const & maxPoint, OutPointsT & points))
+bool TestDecoding(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                  OutDeltasT const & deltas,
+                  void (*fnDecode)(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                                   OutPointsT & points))
 {
   size_t const count = points.size();
 
@@ -51,17 +51,15 @@ bool TestDecoding(InPointsT const & points, m2::PointU const & basePoint,
   return true;
 }
 
-m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1,
-                                  m2::PointU const & p2)
+m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1, m2::PointU const & p2)
 {
   return ClampPoint(maxPoint, m2::PointD(p1) + (m2::PointD(p1) - m2::PointD(p2)) / 2.0);
 }
 
 uint64_t EncodePointDeltaAsUint(m2::PointU const & actual, m2::PointU const & prediction)
 {
-  return bits::BitwiseMerge(
-      bits::ZigZagEncode(static_cast<int32_t>(actual.x) - static_cast<int32_t>(prediction.x)),
-      bits::ZigZagEncode(static_cast<int32_t>(actual.y) - static_cast<int32_t>(prediction.y)));
+  return bits::BitwiseMerge(bits::ZigZagEncode(static_cast<int32_t>(actual.x) - static_cast<int32_t>(prediction.x)),
+                            bits::ZigZagEncode(static_cast<int32_t>(actual.y) - static_cast<int32_t>(prediction.y)));
 }
 
 m2::PointU DecodePointDeltaFromUint(uint64_t delta, m2::PointU const & prediction)
@@ -71,8 +69,8 @@ m2::PointU DecodePointDeltaFromUint(uint64_t delta, m2::PointU const & predictio
   return m2::PointU(prediction.x + bits::ZigZagDecode(x), prediction.y + bits::ZigZagDecode(y));
 }
 
-m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1,
-                                  m2::PointU const & p2, m2::PointU const & p3)
+m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1, m2::PointU const & p2,
+                                  m2::PointU const & p3)
 {
   CHECK_NOT_EQUAL(p2, p3, ());
 
@@ -93,18 +91,18 @@ m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const 
   complex<double> const c0 = (c01 + c02) * complex<double>(0.5, 0.0);
   */
 
-  return ClampPoint(maxPoint, { c0.real(), c0.imag() });
+  return ClampPoint(maxPoint, {c0.real(), c0.imag()});
 }
 
-m2::PointU PredictPointInTriangle(m2::PointD const & maxPoint, m2::PointU const & p1,
-                                  m2::PointU const & p2, m2::PointU const & p3)
+m2::PointU PredictPointInTriangle(m2::PointD const & maxPoint, m2::PointU const & p1, m2::PointU const & p2,
+                                  m2::PointU const & p3)
 {
   // parallelogram prediction
   return ClampPoint(maxPoint, m2::PointD(p1 + p2) - m2::PointD(p3));
 }
 
-void EncodePolylinePrev1(InPointsT const & points, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutDeltasT & deltas)
+void EncodePolylinePrev1(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutDeltasT & deltas)
 {
   size_t const count = points.size();
   if (count > 0)
@@ -117,8 +115,8 @@ void EncodePolylinePrev1(InPointsT const & points, m2::PointU const & basePoint,
   ASSERT(TestDecoding(points, basePoint, maxPoint, deltas, &DecodePolylinePrev1), ());
 }
 
-void DecodePolylinePrev1(InDeltasT const & deltas, m2::PointU const & basePoint,
-                         m2::PointU const & /*maxPoint*/, OutPointsT & points)
+void DecodePolylinePrev1(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & /*maxPoint*/,
+                         OutPointsT & points)
 {
   size_t const count = deltas.size();
   if (count > 0)
@@ -129,8 +127,8 @@ void DecodePolylinePrev1(InDeltasT const & deltas, m2::PointU const & basePoint,
   }
 }
 
-void EncodePolylinePrev2(InPointsT const & points, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutDeltasT & deltas)
+void EncodePolylinePrev2(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutDeltasT & deltas)
 {
   size_t const count = points.size();
   if (count > 0)
@@ -141,16 +139,16 @@ void EncodePolylinePrev2(InPointsT const & points, m2::PointU const & basePoint,
       m2::PointD const maxPointD(maxPoint);
       deltas.push_back(EncodePointDeltaAsUint(points[1], points[0]));
       for (size_t i = 2; i < count; ++i)
-        deltas.push_back(EncodePointDeltaAsUint(
-            points[i], PredictPointInPolyline(maxPointD, points[i - 1], points[i - 2])));
+        deltas.push_back(
+            EncodePointDeltaAsUint(points[i], PredictPointInPolyline(maxPointD, points[i - 1], points[i - 2])));
     }
   }
 
   ASSERT(TestDecoding(points, basePoint, maxPoint, deltas, &DecodePolylinePrev2), ());
 }
 
-void DecodePolylinePrev2(InDeltasT const & deltas, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutPointsT & points)
+void DecodePolylinePrev2(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutPointsT & points)
 {
   size_t const count = deltas.size();
   if (count > 0)
@@ -163,15 +161,15 @@ void DecodePolylinePrev2(InDeltasT const & deltas, m2::PointU const & basePoint,
       for (size_t i = 2; i < count; ++i)
       {
         size_t const n = points.size();
-        points.push_back(DecodePointDeltaFromUint(
-            deltas[i], PredictPointInPolyline(maxPointD, points[n - 1], points[n - 2])));
+        points.push_back(
+            DecodePointDeltaFromUint(deltas[i], PredictPointInPolyline(maxPointD, points[n - 1], points[n - 2])));
       }
     }
   }
 }
 
-void EncodePolylinePrev3(InPointsT const & points, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutDeltasT & deltas)
+void EncodePolylinePrev3(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutDeltasT & deltas)
 {
   ASSERT_LESS_OR_EQUAL(basePoint.x, maxPoint.x, (basePoint, maxPoint));
   ASSERT_LESS_OR_EQUAL(basePoint.y, maxPoint.y, (basePoint, maxPoint));
@@ -190,8 +188,7 @@ void EncodePolylinePrev3(InPointsT const & points, m2::PointU const & basePoint,
         deltas.push_back(EncodePointDeltaAsUint(points[2], prediction));
         for (size_t i = 3; i < count; ++i)
         {
-          m2::PointU const prediction = PredictPointInPolyline(
-                maxPointD, points[i - 1], points[i - 2], points[i - 3]);
+          m2::PointU const prediction = PredictPointInPolyline(maxPointD, points[i - 1], points[i - 2], points[i - 3]);
           deltas.push_back(EncodePointDeltaAsUint(points[i], prediction));
         }
       }
@@ -201,8 +198,8 @@ void EncodePolylinePrev3(InPointsT const & points, m2::PointU const & basePoint,
   ASSERT(TestDecoding(points, basePoint, maxPoint, deltas, &DecodePolylinePrev3), ());
 }
 
-void DecodePolylinePrev3(InDeltasT const & deltas, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutPointsT & points)
+void DecodePolylinePrev3(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutPointsT & points)
 {
   ASSERT_LESS_OR_EQUAL(basePoint.x, maxPoint.x, (basePoint, maxPoint));
   ASSERT_LESS_OR_EQUAL(basePoint.y, maxPoint.y, (basePoint, maxPoint));
@@ -218,13 +215,11 @@ void DecodePolylinePrev3(InDeltasT const & deltas, m2::PointU const & basePoint,
       if (count > 2)
       {
         m2::PointD const maxPointD(maxPoint);
-        points.push_back(DecodePointDeltaFromUint(
-            deltas[2], PredictPointInPolyline(maxPointD, points.back(), pt0)));
+        points.push_back(DecodePointDeltaFromUint(deltas[2], PredictPointInPolyline(maxPointD, points.back(), pt0)));
         for (size_t i = 3; i < count; ++i)
         {
           size_t const n = points.size();
-          m2::PointU const prediction = PredictPointInPolyline(
-                maxPointD, points[n - 1], points[n - 2], points[n - 3]);
+          m2::PointU const prediction = PredictPointInPolyline(maxPointD, points[n - 1], points[n - 2], points[n - 3]);
           points.push_back(DecodePointDeltaFromUint(deltas[i], prediction));
         }
       }
@@ -232,20 +227,20 @@ void DecodePolylinePrev3(InDeltasT const & deltas, m2::PointU const & basePoint,
   }
 }
 
-void EncodePolyline(InPointsT const & points, m2::PointU const & basePoint,
-                    m2::PointU const & maxPoint, OutDeltasT & deltas)
+void EncodePolyline(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                    OutDeltasT & deltas)
 {
   EncodePolylinePrev2(points, basePoint, maxPoint, deltas);
 }
 
-void DecodePolyline(InDeltasT const & deltas, m2::PointU const & basePoint,
-                    m2::PointU const & maxPoint, OutPointsT & points)
+void DecodePolyline(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                    OutPointsT & points)
 {
   DecodePolylinePrev2(deltas, basePoint, maxPoint, points);
 }
 
-void EncodeTriangleStrip(InPointsT const & points, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutDeltasT & deltas)
+void EncodeTriangleStrip(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutDeltasT & deltas)
 {
   size_t const count = points.size();
   if (count > 0)
@@ -259,15 +254,14 @@ void EncodeTriangleStrip(InPointsT const & points, m2::PointU const & basePoint,
     m2::PointD const maxPointD(maxPoint);
     for (size_t i = 3; i < count; ++i)
     {
-      m2::PointU const prediction = PredictPointInTriangle(
-            maxPointD, points[i - 1], points[i - 2], points[i - 3]);
+      m2::PointU const prediction = PredictPointInTriangle(maxPointD, points[i - 1], points[i - 2], points[i - 3]);
       deltas.push_back(EncodePointDeltaAsUint(points[i], prediction));
     }
   }
 }
 
-void DecodeTriangleStrip(InDeltasT const & deltas, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutPointsT & points)
+void DecodeTriangleStrip(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutPointsT & points)
 {
   size_t const count = deltas.size();
   if (count > 0)
@@ -282,8 +276,7 @@ void DecodeTriangleStrip(InDeltasT const & deltas, m2::PointU const & basePoint,
     for (size_t i = 3; i < count; ++i)
     {
       size_t const n = points.size();
-      m2::PointU const prediction = PredictPointInTriangle(
-            maxPointD, points[n - 1], points[n - 2], points[n - 3]);
+      m2::PointU const prediction = PredictPointInTriangle(maxPointD, points[n - 1], points[n - 2], points[n - 3]);
       points.push_back(DecodePointDeltaFromUint(deltas[i], prediction));
     }
   }
@@ -298,14 +291,14 @@ GeometryCodingParams::GeometryCodingParams() : m_BasePointUint64(0), m_CoordBits
   m_BasePoint = Uint64ToPointUObsolete(m_BasePointUint64);
 }
 
-GeometryCodingParams::GeometryCodingParams(uint8_t coordBits, m2::PointD const & pt)
-  : m_CoordBits(coordBits)
+GeometryCodingParams::GeometryCodingParams(uint8_t coordBits, m2::PointD const & pt) : m_CoordBits(coordBits)
 {
   SetBasePoint(pt);
 }
 
 GeometryCodingParams::GeometryCodingParams(uint8_t coordBits, uint64_t basePointUint64)
-  : m_BasePointUint64(basePointUint64), m_CoordBits(coordBits)
+  : m_BasePointUint64(basePointUint64)
+  , m_CoordBits(coordBits)
 {
   m_BasePoint = Uint64ToPointUObsolete(m_BasePointUint64);
 }
@@ -318,7 +311,10 @@ void GeometryCodingParams::SetBasePoint(m2::PointD const & pt)
 
 namespace pts
 {
-m2::PointU D2U(m2::PointD const & p, uint32_t coordBits) { return PointDToPointU(p, coordBits); }
+m2::PointU D2U(m2::PointD const & p, uint32_t coordBits)
+{
+  return PointDToPointU(p, coordBits);
+}
 
 m2::PointD U2D(m2::PointU const & p, uint32_t coordBits)
 {
@@ -333,7 +329,10 @@ m2::PointU GetMaxPoint(GeometryCodingParams const & params)
   return D2U(m2::PointD(mercator::Bounds::kMaxX, mercator::Bounds::kMaxY), params.GetCoordBits());
 }
 
-m2::PointU GetBasePoint(GeometryCodingParams const & params) { return params.GetBasePoint(); }
+m2::PointU GetBasePoint(GeometryCodingParams const & params)
+{
+  return params.GetBasePoint();
+}
 }  // namespace pts
 
 void Encode(EncodeFunT fn, std::vector<m2::PointD> const & points, GeometryCodingParams const & params,
@@ -354,8 +353,8 @@ void Encode(EncodeFunT fn, std::vector<m2::PointD> const & points, GeometryCodin
   (*fn)(make_read_adapter(upoints), pts::GetBasePoint(params), pts::GetMaxPoint(params), adapt);
 }
 
-void Decode(DecodeFunT fn, DeltasT const & deltas, GeometryCodingParams const & params,
-            OutPointsT & points, size_t reserveF)
+void Decode(DecodeFunT fn, DeltasT const & deltas, GeometryCodingParams const & params, OutPointsT & points,
+            size_t reserveF)
 {
   DecodeImpl(fn, deltas, params, points, reserveF);
 }
@@ -366,13 +365,12 @@ void Decode(DecodeFunT fn, DeltasT const & deltas, GeometryCodingParams const & 
   DecodeImpl(fn, deltas, params, points, reserveF);
 }
 
-void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count,
-                       GeometryCodingParams const & params, OutPointsT & points)
+void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count, GeometryCodingParams const & params,
+                       OutPointsT & points)
 {
   DeltasT deltas;
   deltas.reserve(count);
-  void const * ret =
-      ReadVarUint64Array(static_cast<char const *>(pBeg), count, base::MakeBackInsertFunctor(deltas));
+  void const * ret = ReadVarUint64Array(static_cast<char const *>(pBeg), count, base::MakeBackInsertFunctor(deltas));
 
   Decode(fn, deltas, params, points);
   return ret;
@@ -450,8 +448,8 @@ void TrianglesChainSaver::operator()(TPoint arr[3], std::vector<TEdge> edges)
   }
 }
 
-void DecodeTriangles(coding::InDeltasT const & deltas, m2::PointU const & basePoint,
-                     m2::PointU const & maxPoint, coding::OutPointsT & points)
+void DecodeTriangles(coding::InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                     coding::OutPointsT & points)
 {
   size_t const count = deltas.size();
   ASSERT_GREATER(count, 2, ());
@@ -504,8 +502,8 @@ void DecodeTriangles(coding::InDeltasT const & deltas, m2::PointU const & basePo
     // push points
     points.push_back(points[trg[0]]);
     points.push_back(points[trg[1]]);
-    points.push_back(coding::DecodePointDeltaFromUint(deltas[i] >> 2, coding::PredictPointInTriangle(
-            maxPointD, points[trg[0]], points[trg[1]], points[trg[2]])));
+    points.push_back(coding::DecodePointDeltaFromUint(
+        deltas[i] >> 2, coding::PredictPointInTriangle(maxPointD, points[trg[0]], points[trg[1]], points[trg[2]])));
 
     // next step
     treeBits = deltas[i] & 3;

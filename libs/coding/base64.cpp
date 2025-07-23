@@ -23,7 +23,7 @@ namespace base64
 {
 // From: http://stackoverflow.com/a/28471421
 
-std::string Decode(const std::string & val)
+std::string Decode(std::string const & val)
 {
   using namespace boost::archive::iterators;
   using It = transform_width<binary_from_base64<std::string::const_iterator>, 8, 6>;

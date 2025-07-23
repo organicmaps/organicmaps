@@ -9,13 +9,11 @@ namespace
 bool IsSmooth(m2::SplineEx const & spline)
 {
   for (size_t i = 0, sz = spline.GetDirections().size(); i + 1 < sz; ++i)
-  {
     if (!df::IsValidSplineTurn(spline.GetDirections()[i], spline.GetDirections()[i + 1]))
       return false;
-  }
   return true;
 }
-}
+}  // namespace
 
 UNIT_TEST(Rounding_Spline)
 {

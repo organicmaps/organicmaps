@@ -31,15 +31,9 @@ public:
     return m_pointId < rp.m_pointId;
   }
 
-  bool operator==(RoadPoint const & rp) const
-  {
-    return m_featureId == rp.m_featureId && m_pointId == rp.m_pointId;
-  }
+  bool operator==(RoadPoint const & rp) const { return m_featureId == rp.m_featureId && m_pointId == rp.m_pointId; }
 
-  bool operator!=(RoadPoint const & rp) const
-  {
-    return !(*this == rp);
-  }
+  bool operator!=(RoadPoint const & rp) const { return !(*this == rp); }
 
   struct Hash
   {

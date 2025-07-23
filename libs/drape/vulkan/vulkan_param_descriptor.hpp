@@ -45,8 +45,7 @@ struct DescriptorSetGroup
 
   explicit operator bool()
   {
-    return m_descriptorSet != VK_NULL_HANDLE &&
-           m_descriptorPoolIndex != std::numeric_limits<uint32_t>::max();
+    return m_descriptorSet != VK_NULL_HANDLE && m_descriptorPoolIndex != std::numeric_limits<uint32_t>::max();
   }
 
   void Update(VkDevice device, std::vector<ParamDescriptor> const & descriptors);

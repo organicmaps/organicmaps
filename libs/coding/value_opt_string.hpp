@@ -2,8 +2,8 @@
 
 #include "coding/varint.hpp"
 
-#include "base/string_utils.hpp"
 #include "base/assert.hpp"
+#include "base/string_utils.hpp"
 
 #include <limits>
 #include <string>
@@ -11,10 +11,7 @@
 class StringNumericOptimal
 {
 public:
-  bool operator==(StringNumericOptimal const & rhs) const
-  {
-    return m_s == rhs.m_s;
-  }
+  bool operator==(StringNumericOptimal const & rhs) const { return m_s == rhs.m_s; }
 
   void Set(std::string const & s)
   {
@@ -40,7 +37,7 @@ public:
       size_t const sz = m_s.size();
       ASSERT_GREATER(sz, 0, ());
 
-      WriteVarUint(sink, static_cast<uint32_t>((sz-1) << 1));
+      WriteVarUint(sink, static_cast<uint32_t>((sz - 1) << 1));
       sink.Write(m_s.c_str(), sz);
     }
   }
@@ -55,8 +52,7 @@ public:
     else
     {
       sz = (sz >> 1) + 1;
-      ASSERT_LESS_OR_EQUAL(sz, std::numeric_limits<size_t>::max(),
-                           ("sz is out of platform's range."));
+      ASSERT_LESS_OR_EQUAL(sz, std::numeric_limits<size_t>::max(), ("sz is out of platform's range."));
       m_s.resize(static_cast<size_t>(sz));
       src.Read(&m_s[0], static_cast<size_t>(sz));
     }
@@ -72,4 +68,7 @@ private:
   std::string m_s;
 };
 
-inline std::string DebugPrint(StringNumericOptimal const & s) { return s.Get(); }
+inline std::string DebugPrint(StringNumericOptimal const & s)
+{
+  return s.Get();
+}

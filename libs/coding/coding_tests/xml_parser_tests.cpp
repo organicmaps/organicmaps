@@ -55,10 +55,7 @@ public:
 
   void CharData(std::string const & ch) {}
 
-  void AddAttr(std::string key, std::string value)
-  {
-    m_addAttrs.emplace_back(std::move(key), std::move(value));
-  }
+  void AddAttr(std::string key, std::string value) { m_addAttrs.emplace_back(std::move(key), std::move(value)); }
 
   bool Push(std::string push)
   {
@@ -66,25 +63,13 @@ public:
     return true;
   }
 
-  void Pop(std::string pop)
-  {
-    m_pops.emplace_back(std::move(pop));
-  }
+  void Pop(std::string pop) { m_pops.emplace_back(std::move(pop)); }
 
-  void TestAddAttrs(PairsOfStrings const & addAttrs)
-  {
-    TestEquality(m_addAttrs, addAttrs);
-  }
+  void TestAddAttrs(PairsOfStrings const & addAttrs) { TestEquality(m_addAttrs, addAttrs); }
 
-  void TestPushes(Strings const & pushes)
-  {
-    TestEquality(m_pushes, pushes);
-  }
+  void TestPushes(Strings const & pushes) { TestEquality(m_pushes, pushes); }
 
-  void TestPops(Strings const & pops)
-  {
-    TestEquality(m_pops, pops);
-  }
+  void TestPops(Strings const & pops) { TestEquality(m_pops, pops); }
 
 private:
   template <typename F>
@@ -123,13 +108,12 @@ UNIT_TEST(XmlParser_LongTest)
 {
   Dispatcher d;
   TestXML(longXml, d);
-  d.TestAddAttrs({std::make_pair("vertical", "bottom"), std::make_pair("horizontal", "left"),
-                  std::make_pair("x", "10"), std::make_pair("vertical", "center"),
-                  std::make_pair("vertical", "top"), std::make_pair("vertical", "top"),
-                  std::make_pair("x", "34"), std::make_pair("y", "48")});
-  d.TestPushes({"root", "ruler", "portrait", "anchor", "offset", "compass", "portrait", "anchor",
-                "relative", "landscape", "relative", "offset"});
-  d.TestPops({"anchor", "offset", "portrait", "ruler", "anchor", "relative", "portrait", "relative",
-              "offset", "landscape", "compass", "root"});
+  d.TestAddAttrs({std::make_pair("vertical", "bottom"), std::make_pair("horizontal", "left"), std::make_pair("x", "10"),
+                  std::make_pair("vertical", "center"), std::make_pair("vertical", "top"),
+                  std::make_pair("vertical", "top"), std::make_pair("x", "34"), std::make_pair("y", "48")});
+  d.TestPushes({"root", "ruler", "portrait", "anchor", "offset", "compass", "portrait", "anchor", "relative",
+                "landscape", "relative", "offset"});
+  d.TestPops({"anchor", "offset", "portrait", "ruler", "anchor", "relative", "portrait", "relative", "offset",
+              "landscape", "compass", "root"});
 }
 }  // namespace

@@ -86,8 +86,8 @@ UNIT_TEST(MapUint32Val_Smoke)
 
   {
     MemReader reader(buffer.data(), buffer.size());
-    auto table = MapUint32ToValue<uint32_t>::Load(reader, [](NonOwningReaderSource & source, uint32_t blockSize,
-                                                             ValuesT & values)
+    auto table = MapUint32ToValue<uint32_t>::Load(
+        reader, [](NonOwningReaderSource & source, uint32_t blockSize, ValuesT & values)
     {
       values.reserve(blockSize);
       while (source.Size() > 0)
@@ -105,4 +105,4 @@ UNIT_TEST(MapUint32Val_Smoke)
     }
   }
 }
-} // namespace map_uint32_tests
+}  // namespace map_uint32_tests

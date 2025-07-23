@@ -15,4 +15,3 @@ std::string DebugPrint(RoadAccessSerializer::Header const & header)
   UNREACHABLE();
 }
 }  // namespace routing
-

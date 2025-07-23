@@ -14,4 +14,4 @@ using CountryRectFn = std::function<m2::RectD(std::string const & countryId)>;
 
 class Checkpoints;
 class NumMwmIds;
-} // namespace routing
+}  // namespace routing

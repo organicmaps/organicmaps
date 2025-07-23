@@ -20,11 +20,13 @@ class CandidatePointsGetter;
 class CandidatePathsGetter
 {
 public:
-  CandidatePathsGetter(CandidatePointsGetter & pointsGetter, Graph & graph,
-                       RoadInfoGetter & infoGetter, v2::Stats & stat)
-    : m_pointsGetter(pointsGetter), m_graph(graph), m_infoGetter(infoGetter), m_stats(stat)
-  {
-  }
+  CandidatePathsGetter(CandidatePointsGetter & pointsGetter, Graph & graph, RoadInfoGetter & infoGetter,
+                       v2::Stats & stat)
+    : m_pointsGetter(pointsGetter)
+    , m_graph(graph)
+    , m_infoGetter(infoGetter)
+    , m_stats(stat)
+  {}
 
   bool GetLineCandidatesForPoints(std::vector<LocationReferencePoint> const & points,
                                   std::vector<std::vector<Graph::EdgeVector>> & lineCandidates);
@@ -44,8 +46,7 @@ private:
       , m_edge(edge)
       , m_distanceM(distanceM)
       , m_hasFake((parent && parent->m_hasFake) || edge.IsFake())
-    {
-    }
+    {}
 
     bool IsPointOnPath(geometry::PointWithAltitude const & point) const;
 
@@ -71,8 +72,7 @@ private:
       , m_bearingDiff(bearingDiff)
       , m_pathDistanceDiff(pathDistanceDiff)
       , m_startPointDistance(startPointDistance)
-    {
-    }
+    {}
 
     bool operator<(CandidatePath const & o) const { return GetPenalty() < o.GetPenalty(); }
 
@@ -102,21 +102,18 @@ private:
   // distance-to-next point is taken from point 3. You can learn more in
   // TomTom OpenLR spec.
 
-  void GetStartLines(std::vector<m2::PointD> const & points, bool const isLastPoint,
-                     Graph::EdgeVector & edges);
+  void GetStartLines(std::vector<m2::PointD> const & points, bool const isLastPoint, Graph::EdgeVector & edges);
 
   void GetAllSuitablePaths(Graph::EdgeVector const & startLines, bool isLastPoint, double bearDistM,
-                           FunctionalRoadClass functionalRoadClass, FormOfWay formOfWay,
-                           double distanceToNextPointM, std::vector<LinkPtr> & allPaths);
+                           FunctionalRoadClass functionalRoadClass, FormOfWay formOfWay, double distanceToNextPointM,
+                           std::vector<LinkPtr> & allPaths);
 
   void GetBestCandidatePaths(std::vector<LinkPtr> const & allPaths, bool const isLastPoint,
-                             uint32_t const requiredBearing, double const bearDistM,
-                             m2::PointD const & startPoint,
+                             uint32_t const requiredBearing, double const bearDistM, m2::PointD const & startPoint,
                              std::vector<Graph::EdgeVector> & candidates);
 
   void GetLineCandidates(openlr::LocationReferencePoint const & p, bool const isLastPoint,
-                         double const distanceToNextPointM,
-                         std::vector<m2::PointD> const & pointCandidates,
+                         double const distanceToNextPointM, std::vector<m2::PointD> const & pointCandidates,
                          std::vector<Graph::EdgeVector> & candidates);
 
   CandidatePointsGetter & m_pointsGetter;

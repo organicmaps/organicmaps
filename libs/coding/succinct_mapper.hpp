@@ -28,9 +28,15 @@ static T * Align8Ptr(T * ptr)
   return reinterpret_cast<T *>(value);
 }
 
-inline uint32_t ToAlign8(uint64_t written) { return (0x8 - (written & 0x7)) & 0x7; }
+inline uint32_t ToAlign8(uint64_t written)
+{
+  return (0x8 - (written & 0x7)) & 0x7;
+}
 
-inline bool IsAlign8(uint64_t offset) { return ToAlign8(offset) == 0; }
+inline bool IsAlign8(uint64_t offset)
+{
+  return ToAlign8(offset) == 0;
+}
 
 template <typename TWriter>
 void WritePadding(TWriter & writer, uint64_t & bytesWritten)
@@ -57,8 +63,7 @@ public:
   explicit MapVisitor(uint8_t const * base) : m_base(base), m_cur(m_base) {}
 
   template <typename T>
-  std::enable_if_t<!std::is_trivial_v<T>, MapVisitor &> operator()(T & val,
-                                                                   char const * /* name */)
+  std::enable_if_t<!std::is_trivial_v<T>, MapVisitor &> operator()(T & val, char const * /* name */)
   {
     val.map(*this);
     return *this;
@@ -79,7 +84,7 @@ public:
   {
     vec.clear();
     (*this)(vec.m_size, "size");
-    vec.m_data = reinterpret_cast<const T *>(m_cur);
+    vec.m_data = reinterpret_cast<T const *>(m_cur);
 
     m_cur = Align8Ptr(m_cur + vec.m_size * sizeof(T));
     return *this;
@@ -100,16 +105,14 @@ public:
   explicit ReverseMapVisitor(uint8_t * base) : m_base(base), m_cur(m_base) {}
 
   template <typename T>
-  std::enable_if_t<!std::is_trivial_v<T>, ReverseMapVisitor &> operator()(T & val,
-                                                                          char const * /* name */)
+  std::enable_if_t<!std::is_trivial_v<T>, ReverseMapVisitor &> operator()(T & val, char const * /* name */)
   {
     val.map(*this);
     return *this;
   }
 
   template <typename T>
-  std::enable_if_t<std::is_trivial_v<T>, ReverseMapVisitor &> operator()(T & val,
-                                                                         char const * /* name */)
+  std::enable_if_t<std::is_trivial_v<T>, ReverseMapVisitor &> operator()(T & val, char const * /* name */)
   {
     T * valPtr = reinterpret_cast<T *>(m_cur);
     *valPtr = ReverseByteOrder(*valPtr);
@@ -120,8 +123,7 @@ public:
   }
 
   template <typename T>
-  ReverseMapVisitor & operator()(succinct::mapper::mappable_vector<T> & vec,
-                                 char const * /* name */)
+  ReverseMapVisitor & operator()(succinct::mapper::mappable_vector<T> & vec, char const * /* name */)
   {
     vec.clear();
     (*this)(vec.m_size, "size");
@@ -151,8 +153,7 @@ public:
   explicit FreezeVisitor(TWriter & writer) : m_writer(writer), m_bytesWritten(0) {}
 
   template <typename T>
-  std::enable_if_t<!std::is_trivial_v<T>, FreezeVisitor &> operator()(T & val,
-                                                                      char const * /* name */)
+  std::enable_if_t<!std::is_trivial_v<T>, FreezeVisitor &> operator()(T & val, char const * /* name */)
   {
     ASSERT(IsAlign8(m_writer.Pos()), ());
     val.map(*this);
@@ -160,8 +161,7 @@ public:
   }
 
   template <typename T>
-  std::enable_if_t<std::is_trivial_v<T>, FreezeVisitor &> operator()(T & val,
-                                                                     char const * /* name */)
+  std::enable_if_t<std::is_trivial_v<T>, FreezeVisitor &> operator()(T & val, char const * /* name */)
   {
     ASSERT(IsAlign8(m_writer.Pos()), ());
     m_writer.Write(&val, sizeof(T));
@@ -199,8 +199,7 @@ public:
   explicit ReverseFreezeVisitor(TWriter & writer) : m_writer(writer), m_bytesWritten(0) {}
 
   template <typename T>
-  std::enable_if_t<!std::is_trivial_v<T>, ReverseFreezeVisitor &> operator()(
-      T & val, char const * /* name */)
+  std::enable_if_t<!std::is_trivial_v<T>, ReverseFreezeVisitor &> operator()(T & val, char const * /* name */)
   {
     ASSERT(IsAlign8(m_writer.Pos()), ());
     val.map(*this);
@@ -208,8 +207,7 @@ public:
   }
 
   template <typename T>
-  std::enable_if_t<std::is_trivial_v<T>, ReverseFreezeVisitor &> operator()(
-      T & val, char const * /* name */)
+  std::enable_if_t<std::is_trivial_v<T>, ReverseFreezeVisitor &> operator()(T & val, char const * /* name */)
   {
     ASSERT(IsAlign8(m_writer.Pos()), ());
     T const reversedVal = ReverseByteOrder(val);
@@ -220,8 +218,7 @@ public:
   }
 
   template <typename T>
-  ReverseFreezeVisitor & operator()(succinct::mapper::mappable_vector<T> & vec,
-                                    char const * /* name */)
+  ReverseFreezeVisitor & operator()(succinct::mapper::mappable_vector<T> & vec, char const * /* name */)
   {
     ASSERT(IsAlign8(m_writer.Pos()), ());
     (*this)(vec.m_size, "size");

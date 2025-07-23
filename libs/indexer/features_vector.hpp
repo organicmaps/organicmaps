@@ -10,7 +10,10 @@
 #include <memory>
 #include <vector>
 
-namespace feature { class FeaturesOffsetsTable; }
+namespace feature
+{
+class FeaturesOffsetsTable;
+}
 
 /// Note! This class is NOT Thread-Safe.
 /// You should have separate instance of Vector for every thread.
@@ -20,14 +23,14 @@ class FeaturesVector
 
 public:
   FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header,
-                 feature::FeaturesOffsetsTable const * table,
-                 indexer::MetadataDeserializer * metaDeserializer);
+                 feature::FeaturesOffsetsTable const * table, indexer::MetadataDeserializer * metaDeserializer);
 
   std::unique_ptr<FeatureType> GetByIndex(uint32_t index) const;
 
   size_t GetNumFeatures() const;
 
-  template <class ToDo> void ForEach(ToDo && toDo) const
+  template <class ToDo>
+  void ForEach(ToDo && toDo) const
   {
     uint32_t index = 0;
     m_recordReader->ForEachRecord([&](uint32_t pos, std::vector<uint8_t> && data)
@@ -43,19 +46,18 @@ public:
     });
   }
 
-  template <class ToDo> static void ForEachOffset(FilesContainerR const & cont, ToDo && toDo)
+  template <class ToDo>
+  static void ForEachOffset(FilesContainerR const & cont, ToDo && toDo)
   {
     feature::DataHeader header(cont);
     FeaturesVector vec(cont, header);
-    vec.m_recordReader->ForEachRecord(
-        [&](uint32_t pos, std::vector<uint8_t> && /* data */) { toDo(pos); });
+    vec.m_recordReader->ForEachRecord([&](uint32_t pos, std::vector<uint8_t> && /* data */) { toDo(pos); });
   }
 
 private:
   /// Actually, this ctor is needed only for ForEachOffset call.
   /// Didn't find a better solution without big refactoring.
-  FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header)
-    : m_loadInfo(cont, header)
+  FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header) : m_loadInfo(cont, header)
   {
     InitRecordsReader();
   }

@@ -8,7 +8,7 @@ namespace dp
 {
 extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);
 }  // namespace dp
-#define RENDER_FRAME_MEDIATOR(renderFunction) dp::RenderFrameMediator([this]{ renderFunction; })
+#define RENDER_FRAME_MEDIATOR(renderFunction) dp::RenderFrameMediator([this] { renderFunction; })
 #else
 #define RENDER_FRAME_MEDIATOR(renderFunction) renderFunction
 #endif
@@ -46,19 +46,17 @@ void BaseRenderer::StopThread()
 
   // wake up render thread if necessary
   if (!m_isEnabled)
-  {
     WakeUp();
-  }
 
   // wait for render thread completion
   m_selfThread.Join();
 }
-  
+
 void BaseRenderer::IterateRenderLoop()
 {
   RENDER_FRAME_MEDIATOR(IterateRenderLoopImpl());
 }
-  
+
 void BaseRenderer::IterateRenderLoopImpl()
 {
   RenderFrame();
@@ -155,8 +153,7 @@ void BaseRenderer::CheckRenderingEnabled()
     else
     {
       bool const isDrawContext = m_threadName == ThreadsCommutator::RenderThread;
-      context = isDrawContext ? m_contextFactory->GetDrawContext() :
-                                m_contextFactory->GetResourcesUploadContext();
+      context = isDrawContext ? m_contextFactory->GetDrawContext() : m_contextFactory->GetResourcesUploadContext();
       context->SetRenderingEnabled(false);
     }
 

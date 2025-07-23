@@ -33,8 +33,7 @@ public:
   DeserializerFromJson(json_t * node, OsmIdToFeatureIdsMap const & osmIdToFeatureIds);
 
   template <typename T>
-  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value ||
-      std::is_same<T, double>::value>::type
+  typename std::enable_if<std::is_integral<T>::value || std::is_enum<T>::value || std::is_same<T, double>::value>::type
   operator()(T & t, char const * name = nullptr)
   {
     GetField(t, name);
@@ -49,7 +48,7 @@ public:
 
   template <typename T>
   typename std::enable_if<std::is_same<T, Edge::WrappedEdgeId>::value ||
-      std::is_same<T, Stop::WrappedStopId>::value>::type
+                          std::is_same<T, Stop::WrappedStopId>::value>::type
   operator()(T & t, char const * name = nullptr)
   {
     typename T::RepType id;
@@ -76,16 +75,15 @@ public:
   }
 
   template <typename T>
-  typename std::enable_if<std::is_class<T>::value &&
-      !std::is_same<T, Edge::WrappedEdgeId>::value &&
-      !std::is_same<T, Stop::WrappedStopId>::value>::type
+  typename std::enable_if<std::is_class<T>::value && !std::is_same<T, Edge::WrappedEdgeId>::value &&
+                          !std::is_same<T, Stop::WrappedStopId>::value>::type
   operator()(T & t, char const * name = nullptr)
   {
     if (name != nullptr && json_is_object(m_node))
     {
       json_t * dictNode = base::GetJSONOptionalField(m_node, name);
       if (dictNode == nullptr)
-        return; // No such field in json.
+        return;  // No such field in json.
 
       DeserializerFromJson dict(dictNode, m_osmIdToFeatureIds);
       t.Visit(dict);

@@ -24,10 +24,7 @@ struct RoutingResult final
 
   struct LessWeight
   {
-    bool operator() (RoutingResult const & l, RoutingResult const & r) const
-    {
-      return l.m_distance < r.m_distance;
-    }
+    bool operator()(RoutingResult const & l, RoutingResult const & r) const { return l.m_distance < r.m_distance; }
   };
 };
 }  // namespace routing

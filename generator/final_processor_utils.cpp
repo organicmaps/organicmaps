@@ -24,11 +24,13 @@ bool Less(FeatureBuilder const & lhs, FeatureBuilder const & rhs)
   auto const lKeyPoint = lhs.GetKeyPoint();
   auto const rKeyPoint = rhs.GetKeyPoint();
 
-  return std::tie(lGeomType, lId, lPointsCount, lKeyPoint) <
-         std::tie(rGeomType, rId, rPointsCount, rKeyPoint);
+  return std::tie(lGeomType, lId, lPointsCount, lKeyPoint) < std::tie(rGeomType, rId, rPointsCount, rKeyPoint);
 }
 
-void Order(std::vector<FeatureBuilder> & fbs) { std::sort(std::begin(fbs), std::end(fbs), Less); }
+void Order(std::vector<FeatureBuilder> & fbs)
+{
+  std::sort(std::begin(fbs), std::end(fbs), Less);
+}
 
 void OrderTextFileByLine(std::string const & filename)
 {
@@ -50,8 +52,7 @@ void OrderTextFileByLine(std::string const & filename)
 }
 
 std::vector<std::vector<std::string>> GetAffiliations(std::vector<FeatureBuilder> const & fbs,
-                                                      AffiliationInterface const & affiliation,
-                                                      size_t threadsCount)
+                                                      AffiliationInterface const & affiliation, size_t threadsCount)
 {
   base::ComputationalThreadPool pool(threadsCount);
   std::vector<std::future<std::vector<std::string>>> futuresAffiliations;

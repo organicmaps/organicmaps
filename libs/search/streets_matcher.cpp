@@ -15,8 +15,7 @@ using namespace std;
 
 namespace
 {
-bool LessByHashAndRange(StreetsMatcher::Prediction const & lhs,
-                        StreetsMatcher::Prediction const & rhs)
+bool LessByHashAndRange(StreetsMatcher::Prediction const & lhs, StreetsMatcher::Prediction const & rhs)
 {
   if (lhs.m_hash != rhs.m_hash)
     return lhs.m_hash < rhs.m_hash;
@@ -36,11 +35,10 @@ bool LessByHashAndRange(StreetsMatcher::Prediction const & lhs,
   return false;
 }
 
-bool EqualsByHashAndRange(StreetsMatcher::Prediction const & lhs,
-                          StreetsMatcher::Prediction const & rhs)
+bool EqualsByHashAndRange(StreetsMatcher::Prediction const & lhs, StreetsMatcher::Prediction const & rhs)
 {
-  return lhs.GetNumTokens() == rhs.GetNumTokens() &&
-         lhs.m_tokenRange.Begin() == rhs.m_tokenRange.Begin() && lhs.m_hash == rhs.m_hash;
+  return lhs.GetNumTokens() == rhs.GetNumTokens() && lhs.m_tokenRange.Begin() == rhs.m_tokenRange.Begin() &&
+         lhs.m_hash == rhs.m_hash;
 }
 
 void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter const & filter,
@@ -116,7 +114,6 @@ void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter
     streets = buffer;
     all = all.Intersect(ctx.m_features[tag].m_features);
     emptyIntersection = false;
-
   }, withMisprints);
 
   for (; curToken < ctx.NumTokens() && !ctx.IsTokenUsed(curToken) && !streets.IsEmpty(); ++curToken)
@@ -138,9 +135,8 @@ void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter
 }  // namespace
 
 // static
-void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates,
-                        FeaturesFilter const & filter, QueryParams const & params,
-                        vector<Prediction> & predictions)
+void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates, FeaturesFilter const & filter,
+                        QueryParams const & params, vector<Prediction> & predictions)
 {
   predictions.clear();
   FindStreets(ctx, candidates, filter, params, predictions);
@@ -175,35 +171,27 @@ void StreetsMatcher::Go(BaseContext const & ctx, CBV const & candidates,
   //
   // That's why we need all predictions here.
 
-  sort(predictions.begin(), predictions.end(), [](Prediction const & l, Prediction const & r)
-  {
-    return l.IsBetter(r);
-  });
+  sort(predictions.begin(), predictions.end(),
+       [](Prediction const & l, Prediction const & r) { return l.IsBetter(r); });
 
   // I suppose, it was made to avoid matching by *very* common tokens (like 'street' only).
   size_t constexpr kMaxNumOfImprobablePredictions = 3;
   double constexpr kTailProbability = 0.05;
-  while (predictions.size() > kMaxNumOfImprobablePredictions &&
-         predictions.back().m_prob < kTailProbability)
-  {
+  while (predictions.size() > kMaxNumOfImprobablePredictions && predictions.back().m_prob < kTailProbability)
     predictions.pop_back();
-  }
 }
 
 // static
-void StreetsMatcher::FindStreets(BaseContext const & ctx, CBV const & candidates,
-                                 FeaturesFilter const & filter, QueryParams const & params,
-                                 vector<Prediction> & predictions)
+void StreetsMatcher::FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter const & filter,
+                                 QueryParams const & params, vector<Prediction> & predictions)
 {
   for (size_t startToken = 0; startToken < ctx.NumTokens(); ++startToken)
   {
     if (ctx.IsTokenUsed(startToken))
       continue;
 
-    ::search::FindStreets(ctx, candidates, filter, params, startToken, false /* withMisprints */,
-                          predictions);
-    ::search::FindStreets(ctx, candidates, filter, params, startToken, true /* withMisprints */,
-                          predictions);
+    ::search::FindStreets(ctx, candidates, filter, params, startToken, false /* withMisprints */, predictions);
+    ::search::FindStreets(ctx, candidates, filter, params, startToken, true /* withMisprints */, predictions);
   }
 }
 }  // namespace search

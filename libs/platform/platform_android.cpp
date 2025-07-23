@@ -15,8 +15,8 @@
 #include <regex>
 #include <string>
 
-#include <unistd.h>     // for sysconf
 #include <sys/stat.h>
+#include <unistd.h>  // for sysconf
 
 using namespace std;
 
@@ -26,16 +26,14 @@ Platform::Platform()
 }
 
 #ifdef DEBUG
-namespace {
+namespace
+{
 class DbgLogger
 {
 public:
   explicit DbgLogger(string const & file) : m_file(file) {}
 
-  ~DbgLogger()
-  {
-    LOG(LDEBUG, ("Source for file", m_file, "is", m_src));
-  }
+  ~DbgLogger() { LOG(LDEBUG, ("Source for file", m_file, "is", m_src)); }
 
   void SetSource(char src) { m_src = src; }
 
@@ -45,7 +43,6 @@ private:
 };
 }  // namespace
 #endif
-
 
 unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchScope) const
 {
@@ -65,12 +62,10 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
       ASSERT(ext != ".kml" && ext != ".kmb" && ext != ".kmz", ("BookmarkManager is responsible for that"));
 
       if (ext == DATA_FILE_EXTENSION)
-      {
         if (file.starts_with(WORLD_COASTS_FILE_NAME) || file.starts_with(WORLD_FILE_NAME))
           searchScope = "wsr";
         else
           searchScope = "w";
-      }
       else if (file == SETTINGS_FILE_NAME)
         searchScope = "s";
       else
@@ -123,9 +118,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
       }
       break;
 
-    default:
-      CHECK(false, ("Unsupported source:", s));
-      break;
+    default: CHECK(false, ("Unsupported source:", s)); break;
     }
   }
 
@@ -163,9 +156,15 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
     pl::EnumerateFilesByRegExp(directory, regexp, res);
 }
 
-int Platform::VideoMemoryLimit() const { return 10 * 1024 * 1024; }
+int Platform::VideoMemoryLimit() const
+{
+  return 10 * 1024 * 1024;
+}
 
-int Platform::PreCachingDepth() const { return 3; }
+int Platform::PreCachingDepth() const
+{
+  return 3;
+}
 
 bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 {

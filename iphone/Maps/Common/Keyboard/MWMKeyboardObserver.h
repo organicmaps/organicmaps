@@ -1,4 +1,4 @@
-@protocol MWMKeyboardObserver<NSObject>
+@protocol MWMKeyboardObserver <NSObject>
 
 - (void)onKeyboardAnimation;
 

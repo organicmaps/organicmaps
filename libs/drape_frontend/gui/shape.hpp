@@ -48,7 +48,8 @@ class TappableHandle : public Handle
 
 public:
   TappableHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, m2::PointF size)
-    : Handle(id, anchor, pivot), m_size(size)
+    : Handle(id, anchor, pivot)
+    , m_size(size)
   {}
 
   bool IsTapped(m2::RectD const & touchArea) const override;
@@ -66,8 +67,7 @@ struct ShapeControl
   struct ShapeInfo
   {
     ShapeInfo() : m_state(df::CreateRenderState(gpu::Program::TexturingGui, df::DepthLayer::GuiLayer)) {}
-    ShapeInfo(dp::RenderState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer,
-              drape_ptr<Handle> && handle);
+    ShapeInfo(dp::RenderState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer, drape_ptr<Handle> && handle);
 
     void Destroy();
 
@@ -111,9 +111,7 @@ private:
 class Shape
 {
 public:
-  explicit Shape(gui::Position const & position)
-    : m_position(position)
-  {}
+  explicit Shape(gui::Position const & position) : m_position(position) {}
 
   using TTapHandler = std::function<void()>;
 

@@ -2,8 +2,8 @@
 
 #include "search/pre_ranker.hpp"
 #include "search/query_params.hpp"
-#include "search/ranking_utils.hpp"
 #include "search/ranking_info.hpp"
+#include "search/ranking_utils.hpp"
 #include "search/token_range.hpp"
 #include "search/token_slice.hpp"
 
@@ -42,12 +42,12 @@ void AssignRankingInfo(NameScores const & scores, RankingInfo & info, size_t tot
   info.m_isAltOrOldName = scores.m_isAltOrOldName;
   info.m_matchedFraction = scores.m_matchedLength / static_cast<float>(totalLength);
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(NameScore_Smoke)
 {
-  auto const test = [](string const & name, string const & query,
-                       NameScore nameScore, size_t errorsMade, size_t matchedLength)
+  auto const test =
+      [](string const & name, string const & query, NameScore nameScore, size_t errorsMade, size_t matchedLength)
   {
     NameScores const expected(nameScore, nameScore == NameScore::ZERO ? ErrorsMade() : ErrorsMade(errorsMade),
                               false /* isAltOrOldNAme */, matchedLength);
@@ -102,7 +102,7 @@ UNIT_TEST(NameScore_Smoke)
 
   test("Mariano Acosta", "arcos", NameScore::SUBSTRING, 1, 5);  /// @todo PREFIX?
   /// @todo Matched, rank calculation is bad.
-  //test("Marcos Paz", "arcos", NameScore::FULL_PREFIX, 1, 5);
+  // test("Marcos Paz", "arcos", NameScore::FULL_PREFIX, 1, 5);
 }
 
 namespace
@@ -115,7 +115,7 @@ ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniStr
 {
   return search::impl::GetPrefixErrorsMade(token, text, search::BuildLevenshteinDFA(text));
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(ErrorsMade_Smoke)
 {
@@ -219,7 +219,7 @@ UNIT_TEST(RankingInfo_PreferCountry)
   country.m_distanceToPivot = 1e6;
   country.m_tokenRanges[Model::TYPE_COUNTRY] = TokenRange(0, 1);
   country.m_type = Model::TYPE_COUNTRY;
-  country.m_rank = 100;   // This is rather small rank for a country.
+  country.m_rank = 100;  // This is rather small rank for a country.
 
   // Country should be preferred even if cafe is much closer to viewport center.
   TEST_LESS(cafe.GetLinearModelRank(), country.GetLinearModelRank(), (cafe, country));
@@ -256,6 +256,7 @@ namespace
 class MwmIdWrapper
 {
   FeatureID m_id;
+
 public:
   MwmIdWrapper(MwmSet::MwmId id) : m_id(std::move(id), 0) {}
   FeatureID const & GetId() const { return m_id; }
@@ -280,7 +281,7 @@ size_t UniqueMwmIdCount(std::vector<MwmIdWrapper> & test)
   TEST_EQUAL(count, test.size(), ());
   return mwmSet.size();
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(PreRanker_ForEachMwmOrder)
 {
@@ -298,4 +299,4 @@ UNIT_TEST(PreRanker_ForEachMwmOrder)
     TEST_EQUAL(3, UniqueMwmIdCount(test), ());
   }
 }
-} // namespace ranking_tests
+}  // namespace ranking_tests

@@ -38,11 +38,11 @@ public:
   void PushAnimation(drape_ptr<Animation> && animation);
 
   void FinishAnimations(Animation::Type type, bool rewind, bool finishAll);
-  void FinishAnimations(Animation::Type type, std::string const & customType, bool rewind,
-                        bool finishAll);
+  void FinishAnimations(Animation::Type type, std::string const & customType, bool rewind, bool finishAll);
   void FinishObjectAnimations(Animation::Object object, bool rewind, bool finishAll);
 
-  template<typename T> T const * FindAnimation(Animation::Type type, char const * customType = nullptr) const
+  template <typename T>
+  T const * FindAnimation(Animation::Type type, char const * customType = nullptr) const
   {
     for (auto & pList : m_animationChain)
     {
@@ -65,20 +65,20 @@ public:
   ScreenBase const & GetLastScreen() { return m_lastScreen; }
   void SaveAnimationResult(Animation const & animation);
 
-private:  
+private:
   AnimationSystem() = default;
 
   using TGetPropertyFn = std::function<bool(Animation::Object object, Animation::ObjectProperty property,
-                                                                      Animation::PropertyValue & value)>;
-  bool GetScreen(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  ScreenBase & screen);
+                                            Animation::PropertyValue & value)>;
+  bool GetScreen(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn, ScreenBase & screen);
 
   bool GetProperty(Animation::Object object, Animation::ObjectProperty property,
                    Animation::PropertyValue & value) const;
   bool GetTargetProperty(Animation::Object object, Animation::ObjectProperty property,
-                   Animation::PropertyValue & value) const;
+                         Animation::PropertyValue & value) const;
   void StartNextAnimations();
-  void FinishAnimations(std::function<bool(std::shared_ptr<Animation> const &)> const & predicate,
-                        bool rewind, bool finishAll);
+  void FinishAnimations(std::function<bool(std::shared_ptr<Animation> const &)> const & predicate, bool rewind,
+                        bool finishAll);
 
 #ifdef DEBUG_ANIMATIONS
   void Print();
@@ -86,8 +86,7 @@ private:
 
   using TAnimationList = std::list<std::shared_ptr<Animation>>;
   using TAnimationChain = std::deque<std::shared_ptr<TAnimationList>>;
-  using TPropertyCache = std::map<std::pair<Animation::Object, Animation::ObjectProperty>,
-                                  Animation::PropertyValue>;
+  using TPropertyCache = std::map<std::pair<Animation::Object, Animation::ObjectProperty>, Animation::PropertyValue>;
 
   TAnimationChain m_animationChain;
   mutable TPropertyCache m_propertyCache;

@@ -15,7 +15,8 @@ using namespace storage;
 void InitStorage(Storage & storage, Storage::UpdateCallback const & didDownload,
                  Storage::ProgressFunction const & progress)
 {
-  auto const changeCountryFunction = [&](CountryId const & /* countryId */) {
+  auto const changeCountryFunction = [&](CountryId const & /* countryId */)
+  {
     if (!storage.IsDownloadInProgress())
     {
       // End wait for downloading complete.
@@ -34,7 +35,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
   WritableDirChanger writableDirChanger(storage::kMapTestDir);
 
   // A bunch of small islands.
-  CountriesVec const kTestCountries = { "Kiribati", "Tokelau", "Niue", "Palau", "Pitcairn Islands" };
+  CountriesVec const kTestCountries = {"Kiribati", "Tokelau", "Niue", "Palau", "Pitcairn Islands"};
 
   Storage s;
 
@@ -44,13 +45,12 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
   TEST_EQUAL(baseProgress.m_bytesDownloaded, 0, ());
   TEST_EQUAL(baseProgress.m_bytesTotal, 0, ());
 
-  for (auto const &country : kTestCountries)
-  {
+  for (auto const & country : kTestCountries)
     baseProgress.m_bytesTotal += s.CountrySizeInBytes(country).second;
-  }
 
-  auto progressChanged = [&s, &kTestCountries, &baseProgress](CountryId const & id,
-                                                              downloader::Progress const & /* progress */) {
+  auto progressChanged =
+      [&s, &kTestCountries, &baseProgress](CountryId const & id, downloader::Progress const & /* progress */)
+  {
     auto const currentProgress = s.GetOverallProgress(kTestCountries);
     LOG_SHORT(LINFO, (id, "downloading progress:", currentProgress));
 

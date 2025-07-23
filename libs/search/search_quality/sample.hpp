@@ -93,11 +93,9 @@ struct Sample
   bool m_useless = false;
 };
 
-void FromJSONObject(json_t * root, char const * field,
-                    Sample::Result::Relevance & relevance);
+void FromJSONObject(json_t * root, char const * field, Sample::Result::Relevance & relevance);
 void ToJSONObject(json_t & root, char const * field, Sample::Result::Relevance relevance);
-void FromJSONObject(json_t * root, std::string const & field,
-                    Sample::Result::Relevance & relevance);
+void FromJSONObject(json_t * root, std::string const & field, Sample::Result::Relevance & relevance);
 void ToJSONObject(json_t & root, std::string const & field, Sample::Result::Relevance relevance);
 
 void FromJSON(json_t * root, Sample::Result & result);

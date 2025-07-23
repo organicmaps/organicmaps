@@ -45,8 +45,7 @@ private:
 
   void Download();
   void DownloadNextChunk(uint64_t requestId);
-  void OnFileDownloaded(QueuedCountry const & queuedCountry,
-                        downloader::DownloadStatus const & status);
+  void OnFileDownloaded(QueuedCountry const & queuedCountry, downloader::DownloadStatus const & status);
 
   downloader::Progress m_progress;
 

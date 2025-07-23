@@ -7,7 +7,6 @@
 class Reader;
 class Writer;
 
-
 class BaseStreamBuf : public std::streambuf
 {
 public:

@@ -14,9 +14,9 @@ TextHandle::TextHandle(dp::OverlayID const & id, dp::TGlyphs && glyphs, dp::Anch
   , m_glyphsReady(false)
 {}
 
-TextHandle::TextHandle(dp::OverlayID const & id, dp::TGlyphs && glyphs, dp::Anchor anchor,
-                       uint64_t priority, ref_ptr<dp::TextureManager> textureManager,
-                       gpu::TTextDynamicVertexBuffer && normals, int minVisibleScale, bool isBillboard)
+TextHandle::TextHandle(dp::OverlayID const & id, dp::TGlyphs && glyphs, dp::Anchor anchor, uint64_t priority,
+                       ref_ptr<dp::TextureManager> textureManager, gpu::TTextDynamicVertexBuffer && normals,
+                       int minVisibleScale, bool isBillboard)
   : OverlayHandle(id, anchor, priority, minVisibleScale, isBillboard)
   , m_buffer(std::move(normals))
   , m_forceUpdateNormals(false)
@@ -74,8 +74,8 @@ void TextHandle::SetForceUpdateNormals(bool forceUpdate) const
 std::string TextHandle::GetOverlayDebugInfo()
 {
   std::ostringstream out;
-  out << "Text Priority(" << std::hex << std::setw(16) << std::setfill('0') << GetPriority()
-      << ") " << std::dec << DebugPrint(GetOverlayID());
+  out << "Text Priority(" << std::hex << std::setw(16) << std::setfill('0') << GetPriority() << ") " << std::dec
+      << DebugPrint(GetOverlayID());
   return out.str();
 }
 #endif

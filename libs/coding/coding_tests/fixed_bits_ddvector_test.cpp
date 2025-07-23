@@ -12,7 +12,8 @@ using namespace std;
 
 namespace
 {
-template <size_t Bits> void TestWithData(vector<uint32_t> const & lst)
+template <size_t Bits>
+void TestWithData(vector<uint32_t> const & lst)
 {
   using TVector = FixedBitsDDVector<Bits, MemReader>;
   using TBuffer = vector<uint8_t>;
@@ -50,7 +51,7 @@ template <size_t Bits> void TestWithData(vector<uint32_t> const & lst)
     ++i;
   }
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(FixedBitsDDVector_Smoke)
 {

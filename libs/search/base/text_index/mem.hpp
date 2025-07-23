@@ -85,9 +85,9 @@ private:
   {
   public:
     explicit MemPostingsFetcher(std::map<Token, std::vector<Posting>> const & postingsByToken)
-      : m_postingsByToken(postingsByToken), m_it(m_postingsByToken.begin())
-    {
-    }
+      : m_postingsByToken(postingsByToken)
+      , m_it(m_postingsByToken.begin())
+    {}
 
     // PostingsFetcher overrides:
     bool IsValid() const override { return m_it != m_postingsByToken.end(); }

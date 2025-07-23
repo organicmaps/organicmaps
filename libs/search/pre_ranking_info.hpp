@@ -18,7 +18,10 @@ namespace search
 struct PreRankingInfo
 {
   PreRankingInfo(Model::Type type, TokenRange const & range)
-    : m_allTokensUsed(true), m_exactMatch(true), m_centerLoaded(false), m_isCommonMatchOnly(false)
+    : m_allTokensUsed(true)
+    , m_exactMatch(true)
+    , m_centerLoaded(false)
+    , m_isCommonMatchOnly(false)
   {
     ASSERT_LESS(type, Model::TYPE_COUNT, ());
     m_type = type;

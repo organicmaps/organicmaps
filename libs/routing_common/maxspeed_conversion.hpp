@@ -18,8 +18,8 @@ enum class SpeedMacro : uint8_t
 {
   // Special values.
   Undefined,
-  None,       // No maxspeed restriction (E.g. a motorway in Germany).
-  Walk,       // Driver should move as a walking person.
+  None,  // No maxspeed restriction (E.g. a motorway in Germany).
+  Walk,  // Driver should move as a walking person.
 
   // Km per hour.
   Speed1KmPH = 10,
@@ -257,18 +257,12 @@ public:
 
   struct Less
   {
-    bool operator() (FeatureMaxspeed const & l, FeatureMaxspeed const & r) const
+    bool operator()(FeatureMaxspeed const & l, FeatureMaxspeed const & r) const
     {
       return l.m_featureId < r.m_featureId;
     }
-    bool operator() (uint32_t l, FeatureMaxspeed const & r) const
-    {
-      return l < r.m_featureId;
-    }
-    bool operator() (FeatureMaxspeed const & l, uint32_t r) const
-    {
-      return l.m_featureId < r;
-    }
+    bool operator()(uint32_t l, FeatureMaxspeed const & r) const { return l < r.m_featureId; }
+    bool operator()(FeatureMaxspeed const & l, uint32_t r) const { return l.m_featureId < r; }
   };
 
   bool IsValid() const { return m_maxspeed.IsValid(); }

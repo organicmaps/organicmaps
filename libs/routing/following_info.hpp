@@ -24,25 +24,22 @@ public:
     , m_time(0)
     , m_completionPercent(0)
     , m_pedestrianTurn(turns::PedestrianDirection::None)
-  {
-  }
+  {}
 
   // SingleLaneInfoClient is used for passing information about a lane to client platforms such as
   // Android, iOS and so on.
   struct SingleLaneInfoClient
   {
     std::vector<int8_t> m_lane;  // Possible directions for the lane.
-    bool m_isRecommended;   // m_isRecommended is true if the lane is recommended for a user.
+    bool m_isRecommended;        // m_isRecommended is true if the lane is recommended for a user.
 
     explicit SingleLaneInfoClient(turns::SingleLaneInfo const & singleLaneInfo)
-        : m_isRecommended(singleLaneInfo.m_isRecommended)
+      : m_isRecommended(singleLaneInfo.m_isRecommended)
     {
       turns::TSingleLane const & lane = singleLaneInfo.m_lane;
       m_lane.resize(lane.size());
-      std::transform(lane.cbegin(), lane.cend(), m_lane.begin(), [](turns::LaneWay l)
-      {
-        return static_cast<int8_t>(l);
-      });
+      std::transform(lane.cbegin(), lane.cend(), m_lane.begin(),
+                     [](turns::LaneWay l) { return static_cast<int8_t>(l); });
     }
   };
 

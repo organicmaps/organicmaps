@@ -83,16 +83,14 @@ public:
   using native_handle_type = std::thread::native_handle_type;
 
   SimpleThread() noexcept {}
-  SimpleThread(SimpleThread && x) noexcept
-    : m_thread(std::move(x.m_thread))
-  {}
+  SimpleThread(SimpleThread && x) noexcept : m_thread(std::move(x.m_thread)) {}
 
   template <class Fn, class... Args>
   explicit SimpleThread(Fn && fn, Args &&... args)
-  : m_thread(&SimpleThread::ThreadFunc, std::bind(std::forward<Fn>(fn), std::forward<Args>(args)...))
+    : m_thread(&SimpleThread::ThreadFunc, std::bind(std::forward<Fn>(fn), std::forward<Args>(args)...))
   {}
 
-  SimpleThread & operator= (SimpleThread && x) noexcept
+  SimpleThread & operator=(SimpleThread && x) noexcept
   {
     m_thread = std::move(x.m_thread);
     return *this;

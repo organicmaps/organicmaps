@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "map/power_management/power_manager.hpp"
 #include "map/power_management/power_management_schemas.hpp"
+#include "map/power_management/power_manager.hpp"
 
 #include "platform//platform.hpp"
 
@@ -26,10 +26,7 @@ public:
     m_onFacilityEvents.push_back({facility, enabled});
   }
 
-  void OnPowerSchemeChanged(Scheme const actualConfig) override
-  {
-    m_onShemeEvents.push_back(actualConfig);
-  }
+  void OnPowerSchemeChanged(Scheme const actualConfig) override { m_onShemeEvents.push_back(actualConfig); }
 
   struct FacilityState
   {
@@ -45,13 +42,10 @@ void TestIsAllFacilitiesInState(PowerManager const & manager, bool state)
 {
   auto const count = static_cast<size_t>(Facility::Count);
   for (size_t i = 0; i < count; ++i)
-  {
     TEST_EQUAL(manager.IsFacilityEnabled(static_cast<Facility>(i)), state, ());
-  }
 }
 
-void TestAllFacilitiesEnabledExcept(PowerManager const & manager,
-                                    std::vector<Facility> const & disabledFacilities)
+void TestAllFacilitiesEnabledExcept(PowerManager const & manager, std::vector<Facility> const & disabledFacilities)
 {
   auto const count = static_cast<size_t>(Facility::Count);
   for (size_t i = 0; i < count; ++i)
@@ -109,14 +103,10 @@ UNIT_TEST(PowerManager_SetScheme)
   TEST_EQUAL(manager.GetScheme(), Scheme::Normal, ());
   manager.SetScheme(Scheme::EconomyMaximum);
   TEST_EQUAL(manager.GetScheme(), Scheme::EconomyMaximum, ());
-  TestAllFacilitiesEnabledExcept(manager, {Facility::Buildings3d,
-                                           Facility::PerspectiveView,
-                                           Facility::TrackRecording,
-                                           Facility::TrafficJams,
-                                           Facility::GpsTrackingForTraffic,
-                                           Facility::OsmEditsUploading,
-                                           Facility::UgcUploading,
-                                           Facility::BookmarkCloudUploading});
+  TestAllFacilitiesEnabledExcept(
+      manager, {Facility::Buildings3d, Facility::PerspectiveView, Facility::TrackRecording, Facility::TrafficJams,
+                Facility::GpsTrackingForTraffic, Facility::OsmEditsUploading, Facility::UgcUploading,
+                Facility::BookmarkCloudUploading});
 
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
   TEST_EQUAL(subscriber.m_onShemeEvents[0], Scheme::EconomyMaximum, ());
@@ -144,8 +134,7 @@ UNIT_TEST(PowerManager_SetScheme)
   manager.SetScheme(Scheme::EconomyMedium);
   TEST_EQUAL(manager.GetScheme(), Scheme::EconomyMedium, ());
 
-  TestAllFacilitiesEnabledExcept(manager,
-                                 {Facility::PerspectiveView, Facility::BookmarkCloudUploading});
+  TestAllFacilitiesEnabledExcept(manager, {Facility::PerspectiveView, Facility::BookmarkCloudUploading});
 
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
   TEST_EQUAL(subscriber.m_onShemeEvents[0], Scheme::EconomyMedium, ());
@@ -229,10 +218,8 @@ UNIT_TEST(PowerManager_OnBatteryLevelChanged)
 
   manager.OnBatteryLevelReceived(28);
 
-  TestAllFacilitiesEnabledExcept(manager, {Facility::PerspectiveView,
-                                           Facility::GpsTrackingForTraffic,
-                                           Facility::BookmarkCloudUploading,
-                                           Facility::MapDownloader});
+  TestAllFacilitiesEnabledExcept(manager, {Facility::PerspectiveView, Facility::GpsTrackingForTraffic,
+                                           Facility::BookmarkCloudUploading, Facility::MapDownloader});
   TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
 
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());

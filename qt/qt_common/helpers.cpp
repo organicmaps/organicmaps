@@ -10,25 +10,40 @@
 namespace qt::common
 {
 
-bool IsLeftButton(Qt::MouseButtons buttons) { return buttons & Qt::LeftButton; }
+bool IsLeftButton(Qt::MouseButtons buttons)
+{
+  return buttons & Qt::LeftButton;
+}
 
 bool IsLeftButton(QMouseEvent const * const e)
 {
   return IsLeftButton(e->button()) || IsLeftButton(e->buttons());
 }
 
-bool IsRightButton(Qt::MouseButtons buttons) { return buttons & Qt::RightButton; }
+bool IsRightButton(Qt::MouseButtons buttons)
+{
+  return buttons & Qt::RightButton;
+}
 
 bool IsRightButton(QMouseEvent const * const e)
 {
   return IsRightButton(e->button()) || IsRightButton(e->buttons());
 }
 
-bool IsCommandModifier(QMouseEvent const * const e) { return e->modifiers() & Qt::ControlModifier; }
+bool IsCommandModifier(QMouseEvent const * const e)
+{
+  return e->modifiers() & Qt::ControlModifier;
+}
 
-bool IsShiftModifier(QMouseEvent const * const e) { return e->modifiers() & Qt::ShiftModifier; }
+bool IsShiftModifier(QMouseEvent const * const e)
+{
+  return e->modifiers() & Qt::ShiftModifier;
+}
 
-bool IsAltModifier(QMouseEvent const * const e) { return e->modifiers() & Qt::AltModifier; }
+bool IsAltModifier(QMouseEvent const * const e)
+{
+  return e->modifiers() & Qt::AltModifier;
+}
 
 location::GpsInfo MakeGpsInfo(m2::PointD const & point)
 {
@@ -78,4 +93,4 @@ void SetDefaultSurfaceFormat(QString const & platformName)
   QSurfaceFormat::setDefaultFormat(fmt);
 }
 
-} // namespace qt::common
+}  // namespace qt::common

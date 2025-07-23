@@ -14,7 +14,6 @@
 #include <string>
 #include <utility>
 
-
 class WaysParserHelper
 {
 public:
@@ -30,7 +29,7 @@ public:
       if (pos != std::string::npos)
       {
         uint64_t wayId;
-        CHECK(strings::to_uint64(oneLine.substr(0, pos), wayId),());
+        CHECK(strings::to_uint64(oneLine.substr(0, pos), wayId), ());
         m_ways[wayId] = oneLine.substr(pos + 1, oneLine.length() - pos - 1);
       }
     }
@@ -111,13 +110,12 @@ public:
       if (!base::IsExist(tags, kFerryTag))
         element.AddTag("highway", it->second);
     }
-    else if (element.m_type == OsmElement::EntityType::Node &&
-             m_capitals.find(element.m_id) != m_capitals.cend())
+    else if (element.m_type == OsmElement::EntityType::Node && m_capitals.find(element.m_id) != m_capitals.cend())
     {
       // Our goal here - to make some capitals visible in World map.
       // The simplest way is to upgrade population to 45000,
       // according to our visibility rules in mapcss files.
-      element.UpdateTagFn("population", [] (std::string & v)
+      element.UpdateTagFn("population", [](std::string & v)
       {
         uint64_t n;
         if (!strings::to_uint64(v, n) || n < 45000)
@@ -213,12 +211,10 @@ public:
     for (auto const & r : replace)
     {
       for (auto const & tag : r->m_tags)
-      {
         if (r->m_update)
           element.UpdateTag(tag.m_key, tag.m_value);
         else
           element.AddTag(tag);
-      }
     }
   }
 
@@ -283,10 +279,8 @@ public:
   {
     auto const elements = m_elements.find({element.m_type, element.m_id});
     if (elements != m_elements.end())
-    {
       for (OsmElement::Tag const & tag : elements->second)
         element.UpdateTag(tag.m_key, tag.m_value);
-    }
   }
 
 private:

@@ -8,8 +8,8 @@
 
 #include <iostream>
 #include <random>
-#include <vector>
 #include <type_traits>
+#include <vector>
 
 namespace region_tests
 {
@@ -88,13 +88,13 @@ void TestContains()
     TestContainsRectangular(data);
   }
   {
-    P const data[] = {P(-2000000000, -2000000000), P(-1000000000, -2000000000),
-                      P(-1000000000, -1000000000), P(-2000000000, -1000000000)};
+    P const data[] = {P(-2000000000, -2000000000), P(-1000000000, -2000000000), P(-1000000000, -1000000000),
+                      P(-2000000000, -1000000000)};
     TestContainsRectangular(data);
   }
   {
-    P const data[] = {P(1000000000, 1000000000), P(2000000000, 1000000000),
-                      P(2000000000, 2000000000), P(1000000000, 2000000000)};
+    P const data[] = {P(1000000000, 1000000000), P(2000000000, 1000000000), P(2000000000, 2000000000),
+                      P(1000000000, 2000000000)};
     TestContainsRectangular(data);
   }
 
@@ -111,10 +111,9 @@ void TestContains()
 
   // complex polygon
   {
-    P const data[] = {P(0, 0), P(2, 0), P(2, 2), P(3, 1), P(4, 2), P(5, 2), P(3, 3),
-                      P(3, 2), P(2, 4), P(6, 3), P(7, 4), P(7, 2), P(8, 5), P(8, 7),
-                      P(7, 7), P(8, 8), P(5, 9), P(6, 6), P(5, 7), P(4, 6), P(4, 8),
-                      P(3, 7), P(2, 7), P(3, 6), P(4, 4), P(0, 7), P(2, 3), P(0, 2)};
+    P const data[] = {P(0, 0), P(2, 0), P(2, 2), P(3, 1), P(4, 2), P(5, 2), P(3, 3), P(3, 2), P(2, 4), P(6, 3),
+                      P(7, 4), P(7, 2), P(8, 5), P(8, 7), P(7, 7), P(8, 8), P(5, 9), P(6, 6), P(5, 7), P(4, 6),
+                      P(4, 8), P(3, 7), P(2, 7), P(3, 6), P(4, 4), P(0, 7), P(2, 3), P(0, 2)};
     region.Assign(data, data + ARRAY_SIZE(data));
   }
   TEST_EQUAL(region.GetRect(), m2::Rect<typename P::value_type>(0, 0, 8, 9), ());
@@ -160,8 +159,7 @@ UNIT_TEST(Region)
   {
     // equality case
     {
-      P const data[] = {P(1, 1),    P(0, 4.995), P(1, 4.999996), P(1.000003, 5.000001),
-                        P(0.5, 10), P(10, 10),   P(10, 1)};
+      P const data[] = {P(1, 1), P(0, 4.995), P(1, 4.999996), P(1.000003, 5.000001), P(0.5, 10), P(10, 10), P(10, 1)};
       region.Assign(data, data + ARRAY_SIZE(data));
     }
     TEST(!region.Contains(P(0.9999987, 0.9999938)), ());
@@ -202,7 +200,10 @@ UNIT_TEST(Region_Contains_int32)
   }
 }
 
-UNIT_TEST(Region_Contains_uint32) { TestContains<m2::RegionU>(); }
+UNIT_TEST(Region_Contains_uint32)
+{
+  TestContains<m2::RegionU>();
+}
 
 UNIT_TEST(Region_Contains_double)
 {
@@ -213,7 +214,15 @@ UNIT_TEST(Region_Contains_double)
 
   {
     Region region;
-    Point const data[] = {{0, 7}, {4, 4}, {3, 6}, {8, 6}, {8, 5}, {6, 3}, {2, 2}};
+    Point const data[] = {
+        {0, 7},
+        {4, 4},
+        {3, 6},
+        {8, 6},
+        {8, 5},
+        {6, 3},
+        {2, 2}
+    };
     region.Assign(data, data + ARRAY_SIZE(data));
 
     TEST_EQUAL(region.GetRect(), m2::Rect<Point::value_type>(0, 2, 8, 7), ());
@@ -279,8 +288,7 @@ UNIT_TEST(Region_border_intersecion_Test)
   TEST(region.FindIntersection(P(7.0, 7.0), P(7.0, 10.0), intersection), ());
   TEST(intersection == P(7.0, 10.0), ());
 
-  TEST(!region.FindIntersection(P(5.0, 5.0), P(2.0, 2.0), intersection),
-       ("This case has no intersection"));
+  TEST(!region.FindIntersection(P(5.0, 5.0), P(2.0, 2.0), intersection), ("This case has no intersection"));
 }
 
 UNIT_TEST(Region_Area)
@@ -319,7 +327,8 @@ UNIT_TEST(Region_GetRandomPoint)
   size_t const kNumIterations = 1000;
   bool const kNeedPlot = true;
 
-  auto testConvexRegion = [&](m2::Region<P> const & region) {
+  auto testConvexRegion = [&](m2::Region<P> const & region)
+  {
     minstd_rand rng(0);
     vector<P> points;
     points.reserve(kNumIterations);
@@ -363,4 +372,4 @@ UNIT_TEST(Region_GetRandomPoint)
     testConvexRegion(region);
   }
 }
-} // namespace region_tests
+}  // namespace region_tests

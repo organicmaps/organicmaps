@@ -5,7 +5,7 @@
 
 @interface MWMEditorAdditionalNamesTableViewController ()
 
-@property (weak, nonatomic) id<MWMEditorAdditionalNamesProtocol> delegate;
+@property(weak, nonatomic) id<MWMEditorAdditionalNamesProtocol> delegate;
 
 @end
 
@@ -19,8 +19,8 @@
 #pragma mark - UITableViewDataSource
 
 - (void)configWithDelegate:(id<MWMEditorAdditionalNamesProtocol>)delegate
-                      name:(StringUtf8Multilang const &)name
-additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
+                           name:(StringUtf8Multilang const &)name
+    additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
 {
   self.delegate = delegate;
   m_name = name;
@@ -52,15 +52,16 @@ additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes
   }
 
   std::sort(m_languages.begin(), m_languages.end(),
-       [&getIndex](StringUtf8Multilang::Lang const & lhs, StringUtf8Multilang::Lang const & rhs) {
-         // Default name can be changed in advanced mode, but it should be last in list of names.
-         if (getIndex(lhs.m_code) == kDefaultCode && getIndex(rhs.m_code) != kDefaultCode)
-           return false;
-         if (getIndex(lhs.m_code) != kDefaultCode && getIndex(rhs.m_code) == kDefaultCode)
-           return true;
+            [&getIndex](StringUtf8Multilang::Lang const & lhs, StringUtf8Multilang::Lang const & rhs)
+  {
+    // Default name can be changed in advanced mode, but it should be last in list of names.
+    if (getIndex(lhs.m_code) == kDefaultCode && getIndex(rhs.m_code) != kDefaultCode)
+      return false;
+    if (getIndex(lhs.m_code) != kDefaultCode && getIndex(rhs.m_code) == kDefaultCode)
+      return true;
 
-         return std::string(lhs.m_code) < std::string(rhs.m_code);
-       });
+    return std::string(lhs.m_code) < std::string(rhs.m_code);
+  });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

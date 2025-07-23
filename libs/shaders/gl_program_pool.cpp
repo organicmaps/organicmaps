@@ -1,14 +1,13 @@
 #include "shaders/gl_program_pool.hpp"
-#include "shaders/program_params.hpp"
 #include "shaders/gl_shaders.hpp"
+#include "shaders/program_params.hpp"
 
-#include "drape/gl_gpu_program.hpp"
 #include "drape/gl_functions.hpp"
+#include "drape/gl_gpu_program.hpp"
 
 namespace gpu
 {
-GLProgramPool::GLProgramPool(dp::ApiVersion apiVersion)
-  : m_apiVersion(apiVersion)
+GLProgramPool::GLProgramPool(dp::ApiVersion apiVersion) : m_apiVersion(apiVersion)
 {
   ProgramParams::Init();
 
@@ -31,10 +30,10 @@ GLProgramPool::~GLProgramPool()
 drape_ptr<dp::GpuProgram> GLProgramPool::Get(Program program)
 {
   auto const programInfo = GetProgramInfo(m_apiVersion, program);
-  auto vertexShader = GetShader(programInfo.m_vertexShaderName, programInfo.m_vertexShaderSource,
-                                dp::Shader::Type::VertexShader);
-  auto fragmentShader = GetShader(programInfo.m_fragmentShaderName, programInfo.m_fragmentShaderSource,
-                                  dp::Shader::Type::FragmentShader);
+  auto vertexShader =
+      GetShader(programInfo.m_vertexShaderName, programInfo.m_vertexShaderSource, dp::Shader::Type::VertexShader);
+  auto fragmentShader =
+      GetShader(programInfo.m_fragmentShaderName, programInfo.m_fragmentShaderSource, dp::Shader::Type::FragmentShader);
 
   auto const name = DebugPrint(program);
   return make_unique_dp<dp::GLGpuProgram>(name, vertexShader, fragmentShader);

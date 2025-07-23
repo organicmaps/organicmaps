@@ -46,10 +46,9 @@ class DynamicSquareHandle : public dp::SquareHandle
 
 public:
   DynamicSquareHandle(dp::OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
-                      std::vector<m2::PointF> const & pxSizes, m2::PointD const & pxOffset,
-                      uint64_t priority, bool isBound, int minVisibleScale, bool isBillboard)
-    : TBase(id, anchor, gbPivot, m2::PointD::Zero(), pxOffset, priority, isBound, minVisibleScale,
-            isBillboard)
+                      std::vector<m2::PointF> const & pxSizes, m2::PointD const & pxOffset, uint64_t priority,
+                      bool isBound, int minVisibleScale, bool isBillboard)
+    : TBase(id, anchor, gbPivot, m2::PointD::Zero(), pxOffset, priority, isBound, minVisibleScale, isBillboard)
     , m_pxSizes(pxSizes)
   {
     ASSERT_GREATER(pxSizes.size(), 0, ());
@@ -80,8 +79,7 @@ ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSym
   , m_needOverlay(needOverlay)
 {}
 
-ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt,
-                                       ColoredSymbolViewParams const & params,
+ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSymbolViewParams const & params,
                                        TileKey const & tileKey, uint32_t textIndex,
                                        std::vector<m2::PointF> const & overlaySizes)
   : m_point(mercatorPt)
@@ -107,16 +105,12 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
   V::TTexCoord const uv(colorUv.x, colorUv.y, 0.0f, 0.0f);
   V::TTexCoord const uvOutline(outlineUv.x, outlineUv.y, 0.0f, 0.0f);
 
-  glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_point, m_params.m_tileCenter,
-                                                    kShapeCoordScalar));
+  glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_point, m_params.m_tileCenter, kShapeCoordScalar));
   glsl::vec3 const position = glsl::vec3(pt, m_params.m_depth);
 
   buffer_vector<V, 48> buffer;
 
-  auto norm = [this](float x, float y)
-  {
-    return ShiftNormal(glsl::vec2(x, y), m_params);
-  };
+  auto norm = [this](float x, float y) { return ShiftNormal(glsl::vec2(x, y), m_params); };
 
   m2::PointU pixelSize;
   if (m_params.m_shape == ColoredSymbolViewParams::Shape::Circle)
@@ -143,8 +137,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
   }
   else if (m_params.m_shape == ColoredSymbolViewParams::Shape::Rectangle)
   {
-    pixelSize = m2::PointU(static_cast<uint32_t>(m_params.m_sizeInPixels.x),
-                           static_cast<uint32_t>(m_params.m_sizeInPixels.y));
+    pixelSize =
+        m2::PointU(static_cast<uint32_t>(m_params.m_sizeInPixels.x), static_cast<uint32_t>(m_params.m_sizeInPixels.y));
     float const halfWidth = 0.5f * m_params.m_sizeInPixels.x;
     float const halfHeight = 0.5f * m_params.m_sizeInPixels.y;
     float const v = halfWidth * halfWidth + halfHeight * halfHeight;
@@ -170,8 +164,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
   }
   else if (m_params.m_shape == ColoredSymbolViewParams::Shape::RoundedRectangle)
   {
-    pixelSize = m2::PointU(static_cast<uint32_t>(m_params.m_sizeInPixels.x),
-                           static_cast<uint32_t>(m_params.m_sizeInPixels.y));
+    pixelSize =
+        m2::PointU(static_cast<uint32_t>(m_params.m_sizeInPixels.x), static_cast<uint32_t>(m_params.m_sizeInPixels.y));
     float const halfWidth = 0.5f * m_params.m_sizeInPixels.x;
     float const halfHeight = 0.5f * m_params.m_sizeInPixels.y;
     float const halfWidthBody = halfWidth - m_params.m_radiusInPixels;
@@ -279,16 +273,14 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
     if (!m_overlaySizes.empty())
     {
       handle = make_unique_dp<DynamicSquareHandle>(
-          overlayId, m_params.m_anchor, m_point, m_overlaySizes, m2::PointD(m_params.m_offset),
-          GetOverlayPriority(), true /* isBound */, m_params.m_minVisibleScale,
-          true /* isBillboard */);
+          overlayId, m_params.m_anchor, m_point, m_overlaySizes, m2::PointD(m_params.m_offset), GetOverlayPriority(),
+          true /* isBound */, m_params.m_minVisibleScale, true /* isBillboard */);
     }
     else
     {
-      handle = make_unique_dp<dp::SquareHandle>(
-          overlayId, m_params.m_anchor, m_point, m2::PointD(pixelSize),
-          m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
-          m_params.m_minVisibleScale, true /* isBillboard */);
+      handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, m_point, m2::PointD(pixelSize),
+                                                m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
+                                                m_params.m_minVisibleScale, true /* isBillboard */);
     }
 
     if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||

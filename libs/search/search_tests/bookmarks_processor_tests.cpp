@@ -48,10 +48,7 @@ public:
   }
 
   void AttachToGroup(Id const & id, GroupId const & group) { m_processor.AttachToGroup(id, group); }
-  void DetachFromGroup(Id const & id, GroupId const & group)
-  {
-    m_processor.DetachFromGroup(id, group);
-  }
+  void DetachFromGroup(Id const & id, GroupId const & group) { m_processor.DetachFromGroup(id, group); }
 
   Ids Search(string const & query, GroupId const & groupId = kInvalidGroupId)
   {
@@ -78,13 +75,19 @@ protected:
   Processor m_processor;
 };
 
-kml::BookmarkData MakeBookmarkData(string const & name, string const & customName,
-                                   string const & description, vector<string> const & types)
+kml::BookmarkData MakeBookmarkData(string const & name, string const & customName, string const & description,
+                                   vector<string> const & types)
 {
   kml::BookmarkData b;
-  b.m_name = {{kml::kDefaultLangCode, name}};
-  b.m_customName = {{kml::kDefaultLangCode, customName}};
-  b.m_description = {{kml::kDefaultLangCode, description}};
+  b.m_name = {
+      {kml::kDefaultLangCode, name}
+  };
+  b.m_customName = {
+      {kml::kDefaultLangCode, customName}
+  };
+  b.m_description = {
+      {kml::kDefaultLangCode, description}
+  };
   b.m_featureTypes.reserve(types.size());
 
   auto const & c = classif();
@@ -108,14 +111,12 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
                        {"amenity-cafe"} /* types */));
 
   Add(Id{18}, GroupId{0},
-      MakeBookmarkData(
-          "Silver Mustang Casino" /* name */, "Ag Mustang" /* customName */,
-          "Joyful place, owners Bradley and Rodney are very friendly!" /* description */,
-          {"amenity-casino"} /* types */));
+      MakeBookmarkData("Silver Mustang Casino" /* name */, "Ag Mustang" /* customName */,
+                       "Joyful place, owners Bradley and Rodney are very friendly!" /* description */,
+                       {"amenity-casino"} /* types */));
   Add(Id{20}, GroupId{1},
       MakeBookmarkData("Great Northern Hotel" /* name */, "N Hotel" /* customName */,
-                       "Clean place with a reasonable price" /* description */,
-                       {"tourism-hotel"} /* types */));
+                       "Clean place with a reasonable price" /* description */, {"tourism-hotel"} /* types */));
 
   TEST_EQUAL(Search("R&R food"), Ids{}, ());
   GetProcessor().EnableIndexingOfBookmarkGroup(GroupId{0}, true /* enable */);
@@ -160,11 +161,9 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, SearchByType)
                        {"amenity-cafe"} /* types */));
 
   Add(Id{12}, GroupId{0},
-      MakeBookmarkData("" /* name */, "" /* customName */, "" /* description */,
-                       {"amenity-cafe"} /* types */));
+      MakeBookmarkData("" /* name */, "" /* customName */, "" /* description */, {"amenity-cafe"} /* types */));
 
-  Add(Id{0}, GroupId{0},
-      MakeBookmarkData("" /* name */, "" /* customName */, "" /* description */, {} /* types */));
+  Add(Id{0}, GroupId{0}, MakeBookmarkData("" /* name */, "" /* customName */, "" /* description */, {} /* types */));
 
   TEST_EQUAL(Search("cafe", GroupId{0}), Ids({12, 10}), ());
   TEST_EQUAL(Search("кафе", GroupId{0}), Ids{}, ());
@@ -207,4 +206,4 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)
   TEST_EQUAL(Search("cherry pie"), Ids{}, ());
 }
 
-} // namespace bookmarks_processor_tests
+}  // namespace bookmarks_processor_tests

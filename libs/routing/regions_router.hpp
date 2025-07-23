@@ -21,8 +21,7 @@ class RegionsRouter : public threads::IRoutine
 {
 public:
   RegionsRouter(CountryFileGetterFn const & countryFileGetter, std::shared_ptr<NumMwmIds> numMwmIds,
-                DataSource & dataSource, RouterDelegate const & delegate,
-                Checkpoints const & checkpoints);
+                DataSource & dataSource, RouterDelegate const & delegate, Checkpoints const & checkpoints);
 
   void Do() override;
 
@@ -30,11 +29,9 @@ public:
 
 private:
   template <typename Vertex, typename Edge, typename Weight>
-  RouterResultCode ConvertResult(
-      typename AStarAlgorithm<Vertex, Edge, Weight>::Result result) const;
+  RouterResultCode ConvertResult(typename AStarAlgorithm<Vertex, Edge, Weight>::Result result) const;
 
-  RouterResultCode CalculateSubrouteNoLeapsMode(IndexGraphStarter & starter,
-                                                std::vector<Segment> & subroute,
+  RouterResultCode CalculateSubrouteNoLeapsMode(IndexGraphStarter & starter, std::vector<Segment> & subroute,
                                                 m2::PointD const & startCheckpoint,
                                                 m2::PointD const & finishCheckpoint);
 

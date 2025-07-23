@@ -70,10 +70,7 @@ public:
   bool IsGeometryClosed() const;
 
   static m2::PointD GetGeometryCenter(PointSeq const & pts);
-  m2::PointD GetGeometryCenter() const
-  {
-    return GetGeometryCenter(GetOuterGeometry());
-  }
+  m2::PointD GetGeometryCenter() const { return GetGeometryCenter(GetOuterGeometry()); }
   m2::PointD GetKeyPoint() const;
   size_t GetPointsCount() const;
   size_t GetPolygonsCount() const { return m_polygons.size(); }
@@ -89,10 +86,8 @@ public:
     else
     {
       for (auto const & points : m_polygons)
-      {
         for (auto const & pt : points)
           toDo(pt);
-      }
     }
   }
 
@@ -103,10 +98,8 @@ public:
       return toDo(m_center);
 
     for (auto const & points : m_polygons)
-    {
       if (base::AnyOf(points, std::forward<ToDo>(toDo)))
         return true;
-    }
 
     return false;
   }
@@ -236,24 +229,16 @@ using TypeSerializationVersion = typename std::underlying_type<SerializationVers
 
 struct MinSize
 {
-  auto static const kSerializationVersion =
-      static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
+  auto static const kSerializationVersion = static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
 
-  static void Serialize(FeatureBuilder const & fb, FeatureBuilder::Buffer & data)
-  {
-    fb.SerializeForIntermediate(data);
-  }
+  static void Serialize(FeatureBuilder const & fb, FeatureBuilder::Buffer & data) { fb.SerializeForIntermediate(data); }
 
-  static void Deserialize(FeatureBuilder & fb, FeatureBuilder::Buffer & data)
-  {
-    fb.DeserializeFromIntermediate(data);
-  }
+  static void Deserialize(FeatureBuilder & fb, FeatureBuilder::Buffer & data) { fb.DeserializeFromIntermediate(data); }
 };
 
 struct MaxAccuracy
 {
-  auto static const kSerializationVersion =
-      static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
+  auto static const kSerializationVersion = static_cast<TypeSerializationVersion>(SerializationVersion::MinSize);
 
   static void Serialize(FeatureBuilder const & fb, FeatureBuilder::Buffer & data)
   {
@@ -321,10 +306,8 @@ std::vector<FeatureBuilder> ReadAllDatRawFormat(std::string const & fileName)
   // Happens in tests when World or Country file is empty (no valid Features to emit).
   if (Platform::IsFileExistsByFullPath(fileName))
   {
-    ForEachFeatureRawFormat<SerializationPolicy>(fileName, [&](FeatureBuilder && fb, uint64_t)
-    {
-      fbs.emplace_back(std::move(fb));
-    });
+    ForEachFeatureRawFormat<SerializationPolicy>(
+        fileName, [&](FeatureBuilder && fb, uint64_t) { fbs.emplace_back(std::move(fb)); });
   }
   return fbs;
 }
@@ -333,12 +316,11 @@ template <class SerializationPolicy = serialization_policy::MaxAccuracy, class W
 class FeatureBuilderWriter
 {
 public:
-  explicit FeatureBuilderWriter(std::string const & filename,
-                                bool mangleName = false,
+  explicit FeatureBuilderWriter(std::string const & filename, bool mangleName = false,
                                 FileWriter::Op op = FileWriter::Op::OP_WRITE_TRUNCATE)
     : m_filename(filename)
     , m_mangleName(mangleName)
-    , m_writer(std::make_unique<Writer>(m_mangleName ? m_filename  + "_" : m_filename, op))
+    , m_writer(std::make_unique<Writer>(m_mangleName ? m_filename + "_" : m_filename, op))
   {
     // TODO(maksimandrianov): I would like to support the verification of serialization versions,
     // but this requires reworking of FeatureCollector class and its derived classes. It is in
@@ -346,11 +328,9 @@ public:
     // static_cast<serialization_policy::TypeSerializationVersion>(SerializationPolicy::kSerializationVersion));
   }
 
-  explicit FeatureBuilderWriter(std::string const & filename,
-                                FileWriter::Op op)
+  explicit FeatureBuilderWriter(std::string const & filename, FileWriter::Op op)
     : FeatureBuilderWriter(filename, false /* mangleName */, op)
-  {
-  }
+  {}
 
   ~FeatureBuilderWriter()
   {
@@ -363,10 +343,7 @@ public:
     }
   }
 
-  void Write(FeatureBuilder const & fb)
-  {
-    Write(*m_writer, fb);
-  }
+  void Write(FeatureBuilder const & fb) { Write(*m_writer, fb); }
 
   template <typename Sink>
   static void Write(Sink & writer, FeatureBuilder const & fb)

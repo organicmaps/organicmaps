@@ -114,7 +114,7 @@ UNIT_TEST(MakeLowerCase)
   TEST_EQUAL(MakeLowerCase("this_is_lower"), "this_is_lower", ());
 
   TEST_EQUAL(MakeLowerCase("Hola! 99-\xD0\xA3\xD0\x9F\xD0\xAF\xD0\xA7\xD0\x9A\xD0\x90"),
-                           "hola! 99-\xD1\x83\xD0\xBF\xD1\x8F\xD1\x87\xD0\xBA\xD0\xB0", ());
+             "hola! 99-\xD1\x83\xD0\xBF\xD1\x8F\xD1\x87\xD0\xBA\xD0\xB0", ());
 
   // es-cet
   TEST_EQUAL(MakeLowerCase("\xc3\x9f"), "ss", ());
@@ -249,7 +249,7 @@ void ToUIntTest(char const * p, bool good = false, uint32_t expected = 0)
   if (good)
     TEST(expected == i1 && expected == i2 && expected == i3, (s, i1, i2, i3));
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(to_uint)
 {
@@ -661,16 +661,12 @@ UNIT_TEST(to_string_width)
   TEST_EQUAL(strings::to_string_width(1073741824, 0), "1073741824", ());
 }
 
-
 struct FunctorTester
 {
   size_t & m_index;
   std::vector<std::string> const & m_tokens;
 
-  FunctorTester(size_t & counter, std::vector<std::string> const & tokens)
-    : m_index(counter), m_tokens(tokens)
-  {
-  }
+  FunctorTester(size_t & counter, std::vector<std::string> const & tokens) : m_index(counter), m_tokens(tokens) {}
 
   void operator()(std::string_view s) { TEST_EQUAL(s, m_tokens[m_index++], ()); }
 };
@@ -692,12 +688,11 @@ void TestIter(std::string const & s, char const * delims, std::vector<std::strin
   TEST_EQUAL(counter, tokens.size(), ());
 }
 
-void TestIterWithEmptyTokens(std::string const & s, char const * delims,
-                             std::vector<std::string> const & tokens)
+void TestIterWithEmptyTokens(std::string const & s, char const * delims, std::vector<std::string> const & tokens)
 {
   using namespace strings;
-  TokenizeIterator<SimpleDelimiter, std::string::const_iterator, true /* KeepEmptyTokens */>
-      it(s.begin(), s.end(), delims);
+  TokenizeIterator<SimpleDelimiter, std::string::const_iterator, true /* KeepEmptyTokens */> it(s.begin(), s.end(),
+                                                                                                delims);
 
   for (size_t i = 0; i < tokens.size(); ++i)
   {
@@ -728,8 +723,7 @@ UNIT_TEST(SimpleTokenizer)
   }
 
   {
-    char const * s[] = {"\xD9\x80", "\xD8\xA7\xD9\x84\xD9\x85\xD9\x88\xD8\xA7\xD9\x81\xD9\x82",
-                        "\xD8\xAC"};
+    char const * s[] = {"\xD9\x80", "\xD8\xA7\xD9\x84\xD9\x85\xD9\x88\xD8\xA7\xD9\x81\xD9\x82", "\xD8\xAC"};
     tokens.assign(&s[0], &s[0] + ARRAY_SIZE(s));
     TestIter(
         "\xD9\x87\xD9\x80 - \xD8\xA7\xD9\x84\xD9\x85\xD9\x88\xD8\xA7\xD9\x81\xD9\x82 "
@@ -826,8 +820,7 @@ UNIT_TEST(Normalize)
 {
   strings::UniChar const s[] = {0x1f101, 'H', 0xfef0, 0xfdfc, 0x2150};
   strings::UniString us(&s[0], &s[0] + ARRAY_SIZE(s));
-  strings::UniChar const r[] = {0x30,  0x2c,  'H',  0x649,  0x631, 0x6cc,
-                                0x627, 0x644, 0x31, 0x2044, 0x37};
+  strings::UniChar const r[] = {0x30, 0x2c, 'H', 0x649, 0x631, 0x6cc, 0x627, 0x644, 0x31, 0x2044, 0x37};
   strings::UniString result(&r[0], &r[0] + ARRAY_SIZE(r));
   strings::NormalizeInplace(us);
   TEST_EQUAL(us, result, ());
@@ -837,8 +830,7 @@ UNIT_TEST(Normalize_Special)
 {
   {
     std::string const utf8 = "ąĄćłŁÓŻźŃĘęĆ";
-    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), "aAclLOZzNEeC",
-               ());
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), "aAclLOZzNEeC", ());
   }
 
   {
@@ -847,69 +839,69 @@ UNIT_TEST(Normalize_Special)
   }
 }
 
-
 UNIT_TEST(Normalize_Arabic)
 {
   {
     // Test Arabic-Indic digits normalization
-    std::string const utf8       = "٠١٢٣٤٥٦٧٨٩";
+    std::string const utf8 = "٠١٢٣٤٥٦٧٨٩";
     std::string const normalized = "0123456789";
     TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
   }
 
   {
     // Test Extended Arabic-Indic digits normalization
-    std::string const utf8       = "۰۱۲۳۴۵۶۷۸۹";
+    std::string const utf8 = "۰۱۲۳۴۵۶۷۸۹";
     std::string const normalized = "0123456789";
     TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
   }
 
   {
     // All Arabic Letters (all of these are standalone unicode characters)
-    std::string const utf8       = "ء أ إ ا آ ٱ ٲ ٳ ٵ ب ت ة ۃ ث ج ح خ د ذ ر ز س ش ص ط ظ ع غ ف ق ك ل م ن ه ۀ ۂ ؤ ٶ ٷ و ي ى ئ ٸ ے ۓ";
-    std::string const normalized = "ء ا ا ا ا ا ا ا ا ب ت ه ه ث ج ح خ د ذ ر ز س ش ص ط ظ ع غ ف ق ك ل م ن ه ه ه و و و و ي ي ي ي ے ے";
-    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+    std::string const utf8 =
+        "ء أ إ ا آ ٱ ٲ ٳ ٵ ب ت ة ۃ ث ج ح خ د ذ ر ز س ش ص ط ظ ع غ ف ق ك ل م ن ه ۀ ۂ ؤ ٶ ٷ و ي ى ئ ٸ ے ۓ";
+    std::string const normalized =
+        "ء ا ا ا ا ا ا ا ا ب ت ه ه ث ج ح خ د ذ ر ز س ش ص ط ظ ع غ ف ق ك ل م ن ه ه ه و و و و ي ي ي ي ے ے";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
   }
 
   {
     // Test Removing Arabic Diacritics (Tashkeel), we can add multiple diacritics to the same letter
     // Each diacritic is a standalone unicode character
-    std::string const utf8       = "هَذِهْٜ تَّجُّرًّبهٌ عَلَىٰ إِزَالْهٍ ألتَشٗكُيٓلُ وَّ ليٙسٝت دقٞيٛقٚه لُغَويًّاً";
+    std::string const utf8 = "هَذِهْٜ تَّجُّرًّبهٌ عَلَىٰ إِزَالْهٍ ألتَشٗكُيٓلُ وَّ ليٙسٝت دقٞيٛقٚه لُغَويًّاً";
     std::string const normalized = "هذه تجربه علي ازاله التشكيل و ليست دقيقه لغويا";
-    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
   }
 
   {
     // Test Removing Arabic Islamic Honorifics
     // These are standalone unicode characters that can be applied to a letter
-    std::string const utf8       = "صؐلي  عنؑه رحؒمه رضؓي سؔ طؕ الىؖ زؗ اؘ اؙ ؚا";
+    std::string const utf8 = "صؐلي  عنؑه رحؒمه رضؓي سؔ طؕ الىؖ زؗ اؘ اؙ ؚا";
     std::string const normalized = "صلي  عنه رحمه رضي س ط الي ز ا ا ا";
-    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
   }
 
   {
     // Test Removing Arabic Quranic Annotations
     // These are standalone unicode characters that can be applied to a letter
-    std::string const utf8       = "نۖ بۗ مۘ لۙا جۛ جۚ سۜ ا۟ ا۠ اۡ مۢ  ۣس  نۤ  ك۪  ك۫  ك۬ مۭ";
+    std::string const utf8 = "نۖ بۗ مۘ لۙا جۛ جۚ سۜ ا۟ ا۠ اۡ مۢ  ۣس  نۤ  ك۪  ك۫  ك۬ مۭ";
     std::string const normalized = "ن ب م لا ج ج س ا ا ا م  س  ن  ك  ك  ك م";
-    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
   }
 
   {
     // Tests Arabic Tatweel (Kashida) normalization
     // This character is used to elongate text in Arabic script, (used in justifing/aligning text)
-    std::string const utf8       = "اميـــــن";
-    std::string const normalized =      "امين";
-    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+    std::string const utf8 = "اميـــــن";
+    std::string const normalized = "امين";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
   }
 
   {
     // Tests Arabic Comma normalization
-    std::string const utf8       = "،";
+    std::string const utf8 = "،";
     std::string const normalized = ",";
-    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized , ());
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), normalized, ());
   }
-
 }
 
 UNIT_TEST(UniStringToUtf8)
@@ -957,27 +949,27 @@ UNIT_TEST(EatPrefix_EatSuffix)
 {
   // <original string, prefix/suffix to cut, success, string after cutting>
   std::vector<std::tuple<std::string, std::string, bool, std::string>> kPrefixTestcases = {
-    {"abc", "a", true, "bc"},
-    {"abc", "b", false, "abc"},
-    {"abc", "", true, "abc"},
-    {"abc", "abc", true, ""},
-    {"abc", "abc00", false, "abc"},
-    {"", "", true, ""},
-    {"абв", "а", true, "бв"},
-    {"абв", "б", false, "абв"},
-    {"字符串", "字", true, "符串"},
+      {   "abc",     "a",  true,   "bc"},
+      {   "abc",     "b", false,  "abc"},
+      {   "abc",      "",  true,  "abc"},
+      {   "abc",   "abc",  true,     ""},
+      {   "abc", "abc00", false,  "abc"},
+      {      "",      "",  true,     ""},
+      {   "абв",     "а",  true,   "бв"},
+      {   "абв",     "б", false,  "абв"},
+      {"字符串",    "字",  true, "符串"},
   };
 
   std::vector<std::tuple<std::string, std::string, bool, std::string>> kSuffixTestcases = {
-    {"abc", "c", true, "ab"},
-    {"abc", "b", false, "abc"},
-    {"abc", "", true, "abc"},
-    {"abc", "abc", true, ""},
-    {"abc", "00abc", false, "abc"},
-    {"", "", true, ""},
-    {"абв", "в", true, "аб"},
-    {"абв", "б", false, "абв"},
-    {"字符串", "串", true, "字符"},
+      {   "abc",     "c",  true,   "ab"},
+      {   "abc",     "b", false,  "abc"},
+      {   "abc",      "",  true,  "abc"},
+      {   "abc",   "abc",  true,     ""},
+      {   "abc", "00abc", false,  "abc"},
+      {      "",      "",  true,     ""},
+      {   "абв",     "в",  true,   "аб"},
+      {   "абв",     "б", false,  "абв"},
+      {"字符串",    "串",  true, "字符"},
   };
 
   for (auto const & [original, toCut, success, afterCutting] : kPrefixTestcases)
@@ -1121,9 +1113,8 @@ UNIT_TEST(AlmostEqual)
 
 UNIT_TEST(EditDistance)
 {
-  auto testEditDistance = [](std::string const & s1, std::string const & s2, uint32_t expected) {
-    TEST_EQUAL(strings::EditDistance(s1.begin(), s1.end(), s2.begin(), s2.end()), expected, ());
-  };
+  auto testEditDistance = [](std::string const & s1, std::string const & s2, uint32_t expected)
+  { TEST_EQUAL(strings::EditDistance(s1.begin(), s1.end(), s2.begin(), s2.end()), expected, ()); };
 
   testEditDistance("", "wwwww", 5);
   testEditDistance("", "", 0);
@@ -1135,8 +1126,8 @@ UNIT_TEST(EditDistance)
   testEditDistance("aaaab", "aaaac", 1);
   testEditDistance("a spaces test", "aspacestest", 2);
 
-  auto testUniStringEditDistance = [](std::string const & utf1, std::string const & utf2,
-                                      uint32_t expected) {
+  auto testUniStringEditDistance = [](std::string const & utf1, std::string const & utf2, uint32_t expected)
+  {
     auto s1 = strings::MakeUniString(utf1);
     auto s2 = strings::MakeUniString(utf2);
     TEST_EQUAL(strings::EditDistance(s1.begin(), s1.end(), s2.begin(), s2.end()), expected, ());
@@ -1148,7 +1139,8 @@ UNIT_TEST(EditDistance)
 
 UNIT_TEST(NormalizeDigits)
 {
-  auto const nd = [](std::string str) -> std::string {
+  auto const nd = [](std::string str) -> std::string
+  {
     strings::NormalizeDigits(str);
     return str;
   };
@@ -1160,7 +1152,8 @@ UNIT_TEST(NormalizeDigits)
 
 UNIT_TEST(NormalizeDigits_UniString)
 {
-  auto const nd = [](std::string const & utf8) -> std::string {
+  auto const nd = [](std::string const & utf8) -> std::string
+  {
     strings::UniString us = strings::MakeUniString(utf8);
     strings::NormalizeDigits(us);
     return strings::ToUtf8(us);
@@ -1187,34 +1180,37 @@ UNIT_TEST(CSV)
 
 UNIT_TEST(UniString_Replace)
 {
-  std::vector<std::string> const testStrings = {
-      "longlong",
-      "ss",
-      "samesize",
-      "sometext longlong",
-      "sometext ss",
-      "sometext samesize",
-      "longlong sometext",
-      "ss sometext",
-      "samesize sometext",
-      "longlong ss samesize",
-      "sometext longlong sometext ss samesize sometext",
-      "длинная строка",
-      "к с",
-      "такая же строка",
-      "sometext длинная строка",
-      "sometext к с",
-      "sometext такая же строка",
-      "длинная строка sometext",
-      "к с sometext",
-      "samesize sometext",
-      "длинная строка к с samesize",
-      "sometext длинная строка sometext к с такая же строка sometext"};
+  std::vector<std::string> const testStrings = {"longlong",
+                                                "ss",
+                                                "samesize",
+                                                "sometext longlong",
+                                                "sometext ss",
+                                                "sometext samesize",
+                                                "longlong sometext",
+                                                "ss sometext",
+                                                "samesize sometext",
+                                                "longlong ss samesize",
+                                                "sometext longlong sometext ss samesize sometext",
+                                                "длинная строка",
+                                                "к с",
+                                                "такая же строка",
+                                                "sometext длинная строка",
+                                                "sometext к с",
+                                                "sometext такая же строка",
+                                                "длинная строка sometext",
+                                                "к с sometext",
+                                                "samesize sometext",
+                                                "длинная строка к с samesize",
+                                                "sometext длинная строка sometext к с такая же строка sometext"};
 
   std::vector<std::pair<std::string, std::string>> const replacements = {
-      {"longlong", "ll"},         {"ss", "shortshort"},
-      {"samesize", "sizesame"},   {"длинная строка", "д с"},
-      {"к с", "короткая строка"}, {"такая же строка", "строка такая же"}};
+      {       "longlong",              "ll"},
+      {             "ss",      "shortshort"},
+      {       "samesize",        "sizesame"},
+      { "длинная строка",             "д с"},
+      {            "к с", "короткая строка"},
+      {"такая же строка", "строка такая же"}
+  };
 
   for (auto testString : testStrings)
   {
@@ -1260,7 +1256,7 @@ void TestTrim(std::string const & str, std::string const & expected)
 
   TEST(expected == copy && expected == sv, (str));
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(Trim)
 {

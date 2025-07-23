@@ -16,4 +16,4 @@ bool is_finite(double t)
 {
   return std::isfinite(t);
 }
-} // namespace base
+}  // namespace math

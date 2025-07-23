@@ -37,15 +37,9 @@ class MemReaderTemplate : public Reader
 {
 public:
   // Construct from block of memory.
-  MemReaderTemplate(void const * pData, size_t size)
-    : m_pData(static_cast<char const *>(pData)), m_size(size)
-  {
-  }
+  MemReaderTemplate(void const * pData, size_t size) : m_pData(static_cast<char const *>(pData)), m_size(size) {}
 
-  explicit MemReaderTemplate(std::string_view data)
-    : m_pData{data.data()}, m_size{data.size()}
-  {
-  }
+  explicit MemReaderTemplate(std::string_view data) : m_pData{data.data()}, m_size{data.size()} {}
 
   uint64_t Size() const override { return m_size; }
 
@@ -106,25 +100,15 @@ protected:
 public:
   template <typename TReaderDerived>
   ReaderPtr(std::unique_ptr<TReaderDerived> p) : m_p(std::move(p))
-  {
-  }
+  {}
 
-  uint64_t Size() const
-  {
-    return m_p->Size();
-  }
+  uint64_t Size() const { return m_p->Size(); }
 
-  void Read(uint64_t pos, void * p, size_t size) const
-  {
-    m_p->Read(pos, p, size);
-  }
+  void Read(uint64_t pos, void * p, size_t size) const { m_p->Read(pos, p, size); }
 
   void ReadAsString(std::string & s) const { m_p->ReadAsString(s); }
 
-  ReaderPtr<Reader> SubReader(uint64_t pos, uint64_t size) const
-  {
-    return {m_p->CreateSubReader(pos, size)};
-  }
+  ReaderPtr<Reader> SubReader(uint64_t pos, uint64_t size) const { return {m_p->CreateSubReader(pos, size)}; }
 
   TReader * GetPtr() const { return m_p.get(); }
 };
@@ -148,13 +132,11 @@ class ModelReaderPtr : public ReaderPtr<ModelReader>
 public:
   template <typename TReaderDerived>
   ModelReaderPtr(std::unique_ptr<TReaderDerived> p) : TBase(std::move(p))
-  {
-  }
+  {}
 
   ModelReaderPtr SubReader(uint64_t pos, uint64_t size) const
   {
-    return std::unique_ptr<ModelReader>(
-        static_cast<ModelReader *>(m_p->CreateSubReader(pos, size).release()));
+    return std::unique_ptr<ModelReader>(static_cast<ModelReader *>(m_p->CreateSubReader(pos, size).release()));
   }
 
   std::string const & GetName() const { return m_p->GetName(); }
@@ -166,13 +148,9 @@ class NonOwningReaderSource
 {
 public:
   /// @note Reader shouldn't change it's size during the source's lifetime.
-  explicit NonOwningReaderSource(Reader const & reader)
-  : m_reader(reader), m_pos(0), m_end(reader.Size())
-  {}
+  explicit NonOwningReaderSource(Reader const & reader) : m_reader(reader), m_pos(0), m_end(reader.Size()) {}
 
-  NonOwningReaderSource(Reader const & reader, uint64_t pos, uint64_t end)
-  : m_reader(reader), m_pos(pos), m_end(end)
-  {}
+  NonOwningReaderSource(Reader const & reader, uint64_t pos, uint64_t end) : m_reader(reader), m_pos(pos), m_end(end) {}
 
   void Read(void * p, size_t size)
   {
@@ -202,10 +180,7 @@ public:
   }
 
 private:
-  void CheckPosition() const
-  {
-    ASSERT_LESS_OR_EQUAL(m_pos, m_end, ());
-  }
+  void CheckPosition() const { ASSERT_LESS_OR_EQUAL(m_pos, m_end, ()); }
 
   Reader const & m_reader;
   uint64_t m_pos, m_end;
@@ -229,17 +204,14 @@ public:
   void Skip(uint64_t size)
   {
     m_pos += size;
-    ASSERT ( AssertPosition(), () );
+    ASSERT(AssertPosition(), ());
   }
 
-  uint64_t Pos() const
-  {
-    return m_pos;
-  }
+  uint64_t Pos() const { return m_pos; }
 
   uint64_t Size() const
   {
-    ASSERT ( AssertPosition(), () );
+    ASSERT(AssertPosition(), ());
     return (m_reader.Size() - m_pos);
   }
 
@@ -270,7 +242,7 @@ private:
   bool AssertPosition() const
   {
     bool const ret = (m_pos <= m_reader.Size());
-    ASSERT ( ret, (m_pos, m_reader.Size()) );
+    ASSERT(ret, (m_pos, m_reader.Size()));
     return ret;
   }
 

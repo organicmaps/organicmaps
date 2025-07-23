@@ -18,10 +18,9 @@ namespace
 {
 platform::LocalCountryFile MakeFile(std::string name, int64_t version)
 {
-  return { GetPlatform().WritableDir() + std::to_string(version),
-           platform::CountryFile(std::move(name)), version };
+  return {GetPlatform().WritableDir() + std::to_string(version), platform::CountryFile(std::move(name)), version};
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(CrossMwmWeights)
 {
@@ -43,7 +42,7 @@ UNIT_TEST(CrossMwmWeights)
   builder.DeserializeTransitions(VehicleType::Car, reader);
   builder.DeserializeWeights(reader);
 
-  //std::vector<connector::Weight> weights(connector.GetNumEnters() * connector.GetNumExits());
+  // std::vector<connector::Weight> weights(connector.GetNumEnters() * connector.GetNumExits());
 
   using IdxWeightT = std::pair<uint32_t, uint32_t>;
   std::vector<IdxWeightT> idx2weight;
@@ -54,7 +53,7 @@ UNIT_TEST(CrossMwmWeights)
     {
       uint32_t const idx = connector.GetWeightIndex(enterIdx, exitIdx);
       uint32_t const weight = connector.GetWeight(enterIdx, exitIdx);
-      //weights[idx] = weight;
+      // weights[idx] = weight;
 
       if (weight > 0)
         idx2weight.emplace_back(idx, weight);

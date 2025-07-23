@@ -23,8 +23,7 @@ public:
     , m_maxProjectionCandidates(maxProjectionCandidates)
     , m_dataSource(dataSource)
     , m_graph(graph)
-  {
-  }
+  {}
 
   void GetEdgeCandidates(m2::PointD const & p, bool isLastPoint, ScoreEdgeVec & edges)
   {
@@ -33,8 +32,7 @@ public:
   }
 
 private:
-  void GetJunctionPointCandidates(m2::PointD const & p, bool isLastPoint,
-                                  ScoreEdgeVec & edgeCandidates);
+  void GetJunctionPointCandidates(m2::PointD const & p, bool isLastPoint, ScoreEdgeVec & edgeCandidates);
   void EnrichWithProjectionPoints(m2::PointD const & p, ScoreEdgeVec & edgeCandidates);
 
   /// \returns true if |p| is a junction and false otherwise.

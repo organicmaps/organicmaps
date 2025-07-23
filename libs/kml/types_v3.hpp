@@ -17,32 +17,22 @@ namespace kml
 {
 struct BookmarkDataV3
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkDataV3, visitor(m_id, "id"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_featureTypes, "featureTypes"),
-                                  visitor(m_customName, "customName"),
-                                  visitor(m_color, "color"),
-                                  visitor(m_icon, "icon"),
-                                  visitor(m_viewportScale, "viewportScale"),
-                                  visitor(m_timestamp, "timestamp"),
-                                  visitor(m_point, "point"),
-                                  visitor(m_boundTracks, "boundTracks"),
-                                  VISITOR_COLLECTABLE)
+  DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkDataV3, visitor(m_id, "id"), visitor(m_name, "name"),
+                                  visitor(m_description, "description"), visitor(m_featureTypes, "featureTypes"),
+                                  visitor(m_customName, "customName"), visitor(m_color, "color"),
+                                  visitor(m_icon, "icon"), visitor(m_viewportScale, "viewportScale"),
+                                  visitor(m_timestamp, "timestamp"), visitor(m_point, "point"),
+                                  visitor(m_boundTracks, "boundTracks"), VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName)
 
   bool operator==(BookmarkDataV3 const & data) const
   {
     double constexpr kEps = 1e-5;
-    return m_id == data.m_id && m_name == data.m_name &&
-           m_description == data.m_description &&
-           m_color == data.m_color && m_icon == data.m_icon &&
-           m_viewportScale == data.m_viewportScale &&
-           IsEqual(m_timestamp, data.m_timestamp) &&
-           m_point.EqualDxDy(data.m_point, kEps) &&
-           m_featureTypes == data.m_featureTypes &&
-           m_customName == data.m_customName &&
+    return m_id == data.m_id && m_name == data.m_name && m_description == data.m_description &&
+           m_color == data.m_color && m_icon == data.m_icon && m_viewportScale == data.m_viewportScale &&
+           IsEqual(m_timestamp, data.m_timestamp) && m_point.EqualDxDy(data.m_point, kEps) &&
+           m_featureTypes == data.m_featureTypes && m_customName == data.m_customName &&
            m_boundTracks == data.m_boundTracks;
   }
 
@@ -91,22 +81,18 @@ struct BookmarkDataV3
 
 struct TrackDataV3
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(TrackDataV3, visitor(m_id, "id"),
-                                  visitor(m_localId, "localId"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_layers, "layers"),
-                                  visitor(m_timestamp, "timestamp"),
-                                  visitor(m_points, "points"),
-                                  VISITOR_COLLECTABLE)
+  DECLARE_VISITOR_AND_DEBUG_PRINT(TrackDataV3, visitor(m_id, "id"), visitor(m_localId, "localId"),
+                                  visitor(m_name, "name"), visitor(m_description, "description"),
+                                  visitor(m_layers, "layers"), visitor(m_timestamp, "timestamp"),
+                                  visitor(m_points, "points"), VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description)
 
   bool operator==(TrackDataV3 const & data) const
   {
     return m_id == data.m_id && m_localId == data.m_localId && m_name == data.m_name &&
-           m_description == data.m_description && m_layers == data.m_layers &&
-           IsEqual(m_timestamp, data.m_timestamp) && IsEqual(m_points, data.m_points);
+           m_description == data.m_description && m_layers == data.m_layers && IsEqual(m_timestamp, data.m_timestamp) &&
+           IsEqual(m_points, data.m_points);
   }
 
   bool operator!=(TrackDataV3 const & data) const { return !operator==(data); }
@@ -142,38 +128,28 @@ struct TrackDataV3
 
 struct CategoryDataV3
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryDataV3, visitor(m_id, "id"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_imageUrl, "imageUrl"),
-                                  visitor(m_annotation, "annotation"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_visible, "visible"),
-                                  visitor(m_authorName, "authorName"),
-                                  visitor(m_authorId, "authorId"),
-                                  visitor(m_rating, "rating"),
-                                  visitor(m_reviewsNumber, "reviewsNumber"),
-                                  visitor(m_lastModified, "lastModified"),
-                                  visitor(m_accessRules, "accessRules"),
-                                  visitor(m_tags, "tags"),
-                                  visitor(m_cities, "cities"),
-                                  visitor(m_languageCodes, "languageCodes"),
-                                  visitor(m_properties, "properties"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryDataV3, visitor(m_id, "id"), visitor(m_name, "name"),
+                                  visitor(m_imageUrl, "imageUrl"), visitor(m_annotation, "annotation"),
+                                  visitor(m_description, "description"), visitor(m_visible, "visible"),
+                                  visitor(m_authorName, "authorName"), visitor(m_authorId, "authorId"),
+                                  visitor(m_rating, "rating"), visitor(m_reviewsNumber, "reviewsNumber"),
+                                  visitor(m_lastModified, "lastModified"), visitor(m_accessRules, "accessRules"),
+                                  visitor(m_tags, "tags"), visitor(m_cities, "cities"),
+                                  visitor(m_languageCodes, "languageCodes"), visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_annotation, m_description,
-                      m_imageUrl, m_authorName, m_authorId, m_tags, m_properties)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_annotation, m_description, m_imageUrl, m_authorName, m_authorId,
+                      m_tags, m_properties)
 
   bool operator==(CategoryDataV3 const & data) const
   {
     double constexpr kEps = 1e-5;
     return m_id == data.m_id && m_name == data.m_name && m_imageUrl == data.m_imageUrl &&
-           m_annotation == data.m_annotation && m_description == data.m_description &&
-           m_visible == data.m_visible && m_accessRules == data.m_accessRules &&
-           m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
+           m_annotation == data.m_annotation && m_description == data.m_description && m_visible == data.m_visible &&
+           m_accessRules == data.m_accessRules && m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
            fabs(m_rating - data.m_rating) < kEps && m_reviewsNumber == data.m_reviewsNumber &&
-           IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags &&
-           IsEqual(m_cities, data.m_cities) && m_languageCodes == data.m_languageCodes &&
-           m_properties == data.m_properties;
+           IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags && IsEqual(m_cities, data.m_cities) &&
+           m_languageCodes == data.m_languageCodes && m_properties == data.m_properties;
   }
 
   bool operator!=(CategoryDataV3 const & data) const { return !operator==(data); }
@@ -236,10 +212,8 @@ struct CategoryDataV3
 
 struct FileDataV3
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV3, visitor(m_serverId, "serverId"),
-                                  visitor(m_categoryData, "category"),
-                                  visitor(m_bookmarksData, "bookmarks"),
-                                  visitor(m_tracksData, "tracks"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV3, visitor(m_serverId, "serverId"), visitor(m_categoryData, "category"),
+                                  visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"))
 
   bool operator==(FileDataV3 const & data) const
   {

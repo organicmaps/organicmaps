@@ -1,16 +1,16 @@
-//#include "platform/location.hpp"
+// #include "platform/location.hpp"
 
 typedef NS_ENUM(NSInteger, MWMLocationStatus) {
   MWMLocationStatusNoError,
   MWMLocationStatusNotSupported,
   MWMLocationStatusDenied,
   MWMLocationStatusGPSIsOff,
-  MWMLocationStatusTimeout // Unused on iOS, (only used on Qt)
+  MWMLocationStatusTimeout  // Unused on iOS, (only used on Qt)
 };
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol MWMLocationObserver<NSObject>
+@protocol MWMLocationObserver <NSObject>
 
 @optional
 - (void)onHeadingUpdate:(CLHeading *)heading;

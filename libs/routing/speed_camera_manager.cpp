@@ -21,9 +21,8 @@ SpeedCameraManager::SpeedCameraManager(turns::sound::NotificationManager & notif
   }
 }
 
-//static
-SpeedCameraManager::Interval
-SpeedCameraManager::GetIntervalByDistToCam(double distanceToCameraMeters, double speedMpS)
+// static
+SpeedCameraManager::Interval SpeedCameraManager::GetIntervalByDistToCam(double distanceToCameraMeters, double speedMpS)
 {
   if (distanceToCameraMeters < kInfluenceZoneMeters)
     return Interval::ImpactZone;
@@ -77,8 +76,7 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
     }
   }
 
-  if (m_closestCamera.IsValid() &&
-      SetNotificationFlags(passedDistanceMeters, info.m_speed, m_closestCamera))
+  if (m_closestCamera.IsValid() && SetNotificationFlags(passedDistanceMeters, info.m_speed, m_closestCamera))
   {
     // If some notifications available now.
     SendNotificationStat(passedDistanceMeters, info.m_speed, m_closestCamera);
@@ -155,7 +153,7 @@ std::string SpeedCameraManagerModeForStat(SpeedCameraManagerMode mode)
 {
   CHECK_NOT_EQUAL(mode, SpeedCameraManagerMode::MaxValue, ());
 
-  switch(mode)
+  switch (mode)
   {
   case SpeedCameraManagerMode::Always: return "1";
   case SpeedCameraManagerMode::Auto: return "0";
@@ -180,8 +178,7 @@ void SpeedCameraManager::FindCamerasOnRouteAndCache(double passedDistanceMeters)
   double distToPrevSegment = segments[firstNotChecked].GetDistFromBeginningMeters();
   double distFromCurPosToLatestCheckedSegmentM = distToPrevSegment - passedDistanceMeters;
 
-  while (firstNotChecked < segments.size() &&
-         distFromCurPosToLatestCheckedSegmentM < kLookAheadDistanceMeters)
+  while (firstNotChecked < segments.size() && distFromCurPosToLatestCheckedSegmentM < kLookAheadDistanceMeters)
   {
     CHECK_GREATER(firstNotChecked, 0, ());
 
@@ -240,14 +237,14 @@ bool SpeedCameraManager::IsSpeedHigh(double distanceToCameraMeters, double speed
     return false;
 
   double timeToSlowSpeed =
-    (measurement_utils::KmphToMps(camera.m_maxSpeedKmH) - speedMpS) / kAverageAccelerationOfBraking;
+      (measurement_utils::KmphToMps(camera.m_maxSpeedKmH) - speedMpS) / kAverageAccelerationOfBraking;
 
   // Look to: https://en.wikipedia.org/wiki/Acceleration#Uniform_acceleration
   // S = V_0 * t + at^2 / 2, where
   //   V_0 - current speed
   //   a - kAverageAccelerationOfBraking
-  double distanceNeedsToSlowDown = timeToSlowSpeed * speedMpS +
-                                   (kAverageAccelerationOfBraking * timeToSlowSpeed * timeToSlowSpeed) / 2;
+  double distanceNeedsToSlowDown =
+      timeToSlowSpeed * speedMpS + (kAverageAccelerationOfBraking * timeToSlowSpeed * timeToSlowSpeed) / 2;
   distanceNeedsToSlowDown += kTimeForDecision * speedMpS;
 
   return distToDangerousZone < distanceNeedsToSlowDown + kDistanceEpsilonMeters;
@@ -279,8 +276,7 @@ bool SpeedCameraManager::SetNotificationFlags(double passedDistanceMeters, doubl
 
     // If we did voice notification, and didn't beep signal in |BeepSignalZone|, let's do it now.
     // Only for Auto mode.
-    if (m_voiceSignalCounter > 0 && m_beepSignalCounter == 0 &&
-        m_mode == SpeedCameraManagerMode::Auto)
+    if (m_voiceSignalCounter > 0 && m_beepSignalCounter == 0 && m_mode == SpeedCameraManagerMode::Auto)
     {
       m_makeBeepSignal = true;
       return true;
@@ -363,12 +359,10 @@ void SpeedCameraManager::SendNotificationStat(double passedDistanceMeters, doubl
 
   auto const distToCameraMeters = camera.m_distFromBeginMeters - passedDistanceMeters;
 
-  CHECK(
-      m_makeBeepSignal != m_makeVoiceSignal,
-      ("In each moment of time only one flag should be up.", m_makeVoiceSignal, distToCameraMeters,
-       measurement_utils::MpsToKmph(speedMpS), m_beepSignalCounter, m_voiceSignalCounter,
-       m_hasEnteredTheZone, m_speedLimitExceeded, m_firstNotCheckedSpeedCameraIndex,
-       mercator::ToLatLon(camera.m_position)));
+  CHECK(m_makeBeepSignal != m_makeVoiceSignal,
+        ("In each moment of time only one flag should be up.", m_makeVoiceSignal, distToCameraMeters,
+         measurement_utils::MpsToKmph(speedMpS), m_beepSignalCounter, m_voiceSignalCounter, m_hasEnteredTheZone,
+         m_speedLimitExceeded, m_firstNotCheckedSpeedCameraIndex, mercator::ToLatLon(camera.m_position)));
 }
 
 void SpeedCameraManager::SendEnterZoneStat(double distToCameraMeters, double speedMpS,
@@ -403,14 +397,10 @@ std::string DebugPrint(SpeedCameraManagerMode mode)
 {
   switch (mode)
   {
-  case SpeedCameraManagerMode::Auto:
-    return "auto";
-  case SpeedCameraManagerMode::Always:
-    return "always";
-  case SpeedCameraManagerMode::Never:
-    return "never";
-  case SpeedCameraManagerMode::MaxValue:
-    return "max_value";
+  case SpeedCameraManagerMode::Auto: return "auto";
+  case SpeedCameraManagerMode::Always: return "always";
+  case SpeedCameraManagerMode::Never: return "never";
+  case SpeedCameraManagerMode::MaxValue: return "max_value";
   }
 
   UNREACHABLE();

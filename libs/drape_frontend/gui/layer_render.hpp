@@ -1,7 +1,7 @@
 #pragma once
 
-#include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/gui/shape.hpp"
+#include "drape_frontend/gui/skin.hpp"
 
 #include "shaders/program_manager.hpp"
 
@@ -15,7 +15,7 @@
 
 namespace dp
 {
-  class GraphicsContext;
+class GraphicsContext;
 }  // namespace dp
 
 namespace gui
@@ -57,8 +57,7 @@ private:
 class LayerCacher
 {
 public:
-  drape_ptr<LayerRenderer> RecacheWidgets(ref_ptr<dp::GraphicsContext> context,
-                                          TWidgetsInitInfo const & initInfo,
+  drape_ptr<LayerRenderer> RecacheWidgets(ref_ptr<dp::GraphicsContext> context, TWidgetsInitInfo const & initInfo,
                                           ref_ptr<dp::TextureManager> textures);
   drape_ptr<LayerRenderer> RecacheChoosePositionMark(ref_ptr<dp::GraphicsContext> context,
                                                      ref_ptr<dp::TextureManager> textures);
@@ -69,15 +68,15 @@ public:
 #endif
 
 private:
-  void CacheCompass(ref_ptr<dp::GraphicsContext> context, Position const & position,
-                    ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
-  void CacheRuler(ref_ptr<dp::GraphicsContext> context, Position const & position,
-                  ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
-  void CacheCopyright(ref_ptr<dp::GraphicsContext> context, Position const & position,
-                      ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  void CacheCompass(ref_ptr<dp::GraphicsContext> context, Position const & position, ref_ptr<LayerRenderer> renderer,
+                    ref_ptr<dp::TextureManager> textures);
+  void CacheRuler(ref_ptr<dp::GraphicsContext> context, Position const & position, ref_ptr<LayerRenderer> renderer,
+                  ref_ptr<dp::TextureManager> textures);
+  void CacheCopyright(ref_ptr<dp::GraphicsContext> context, Position const & position, ref_ptr<LayerRenderer> renderer,
+                      ref_ptr<dp::TextureManager> textures);
   void CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context, Position const & position,
                           ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
-  void CacheWatermark(ref_ptr<dp::GraphicsContext> context, Position const & position,
-                      ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  void CacheWatermark(ref_ptr<dp::GraphicsContext> context, Position const & position, ref_ptr<LayerRenderer> renderer,
+                      ref_ptr<dp::TextureManager> textures);
 };
 }  // namespace gui

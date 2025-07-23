@@ -29,30 +29,27 @@ vector<uint32_t> GetTypes(char const * arr[][roadArrColumnCount], size_t const r
 
 vector<uint32_t> GetStreetTypes()
 {
-  char const * arr[][roadArrColumnCount] =
-  {
-    { "highway", "trunk", "bridge" },
-    { "highway", "tertiary", "tunnel" }
+  char const * arr[][roadArrColumnCount] = {
+      {"highway",    "trunk", "bridge"},
+      {"highway", "tertiary", "tunnel"}
   };
   return GetTypes(arr, ARRAY_SIZE(arr));
 }
 
 vector<uint32_t> GetStreetAndNotStreetTypes()
 {
-  char const * arr[][roadArrColumnCount] =
-  {
-    { "highway", "trunk", "bridge" },
-    { "highway", "primary_link", "tunnel" }
+  char const * arr[][roadArrColumnCount] = {
+      {"highway",        "trunk", "bridge"},
+      {"highway", "primary_link", "tunnel"}
   };
   return GetTypes(arr, ARRAY_SIZE(arr));
 }
 
 vector<uint32_t> GetLinkTypes()
 {
-  char const * arr[][roadArrColumnCount] =
-  {
-    { "highway", "secondary_link", "bridge" },
-    { "highway", "motorway_link", "tunnel" }
+  char const * arr[][roadArrColumnCount] = {
+      {"highway", "secondary_link", "bridge"},
+      {"highway",  "motorway_link", "tunnel"}
   };
   return GetTypes(arr, ARRAY_SIZE(arr));
 }
@@ -70,18 +67,16 @@ UNIT_TEST(IsBridgeOrTunnelChecker)
   classificator::Load();
   auto const & c = classif();
 
-  base::StringIL arrYes[] =
-  {
-    {"highway", "trunk", "bridge"},
-    {"highway", "motorway_link", "tunnel"},
+  base::StringIL arrYes[] = {
+      {"highway",         "trunk", "bridge"},
+      {"highway", "motorway_link", "tunnel"},
   };
   for (auto const & e : arrYes)
     TEST(ftypes::IsBridgeOrTunnelChecker::Instance()(c.GetTypeByPath(e)), ());
 
-  base::StringIL arrNo[] =
-  {
-    {"highway", "motorway_junction"},
-    {"highway", "service", "driveway"},
+  base::StringIL arrNo[] = {
+      {"highway", "motorway_junction"},
+      {"highway", "service", "driveway"},
   };
   for (auto const & e : arrNo)
     TEST(!ftypes::IsBridgeOrTunnelChecker::Instance()(c.GetTypeByPath(e)), ());
@@ -138,18 +133,16 @@ UNIT_TEST(IsAttractionsChecker)
   auto const & checker = ftypes::AttractionsChecker::Instance();
 
   base::StringIL arrExceptions[] = {
-    {"tourism", "information"},
-    {"amenity", "ranger_station"},
+      {"tourism",    "information"},
+      {"amenity", "ranger_station"},
   };
   std::vector<uint32_t> exceptions;
   for (auto e : arrExceptions)
     exceptions.push_back(c.GetTypeByPath(e));
 
   for (uint32_t const t : search::GetCategoryTypes("sights", "en", GetDefaultCategories()))
-  {
     if (!base::IsExist(exceptions, ftype::Trunc(t, 2)))
       TEST(checker(t), (c.GetFullObjectName(t)));
-  }
 }
 
 UNIT_TEST(IsMotorwayJunctionChecker)
@@ -160,4 +153,4 @@ UNIT_TEST(IsMotorwayJunctionChecker)
   TEST(!ftypes::IsMotorwayJunctionChecker::Instance()(GetStreetTypes()), ());
 }
 
-} // namespacce checker_test
+}  // namespace checker_test

@@ -34,7 +34,7 @@ inline void SetSettingsIsEnabled(bool enabled)
   settings::Set(kEnabledKey, enabled);
 }
 
-} // namespace
+}  // namespace
 
 GpsTracker & GpsTracker::Instance()
 {
@@ -42,14 +42,11 @@ GpsTracker & GpsTracker::Instance()
   return instance;
 }
 
-GpsTracker::GpsTracker()
-  : m_enabled(GetSettingsIsEnabled())
-  , m_track(GetFilePath(), std::make_unique<GpsTrackFilter>())
-{
-}
+GpsTracker::GpsTracker() : m_enabled(GetSettingsIsEnabled()), m_track(GetFilePath(), std::make_unique<GpsTrackFilter>())
+{}
 
 void GpsTracker::SetEnabled(bool enabled)
-{  
+{
   if (enabled == m_enabled)
     return;
 
@@ -85,7 +82,7 @@ TrackStatistics GpsTracker::GetTrackStatistics() const
   return m_track.GetTrackStatistics();
 }
 
-const ElevationInfo & GpsTracker::GetElevationInfo() const
+ElevationInfo const & GpsTracker::GetElevationInfo() const
 {
   return m_track.GetElevationInfo();
 }

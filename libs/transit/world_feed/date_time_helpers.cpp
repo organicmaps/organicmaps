@@ -56,8 +56,7 @@ private:
   bool m_inited = false;
 };
 
-void AccumExceptionDates::InitIntervals(boost::gregorian::date const & gregorianDate,
-                                        gtfs::Date const & gtfsDate)
+void AccumExceptionDates::InitIntervals(boost::gregorian::date const & gregorianDate, gtfs::Date const & gtfsDate)
 {
   m_GregorianInterval = std::make_pair(gregorianDate, gregorianDate);
   m_GtfsInterval = std::make_pair(gtfsDate, gtfsDate);
@@ -66,13 +65,15 @@ void AccumExceptionDates::InitIntervals(boost::gregorian::date const & gregorian
 
 void AccumExceptionDates::AddRange()
 {
-  osmoh::MonthdayRange range =
-      GetMonthdayRangeFromDates(m_GtfsInterval.first, m_GtfsInterval.second);
+  osmoh::MonthdayRange range = GetMonthdayRangeFromDates(m_GtfsInterval.first, m_GtfsInterval.second);
   m_ranges.push_back(range);
   m_inited = false;
 }
 
-bool AccumExceptionDates::IsInited() const { return m_inited; }
+bool AccumExceptionDates::IsInited() const
+{
+  return m_inited;
+}
 
 osmoh::Weekday ConvertWeekDayIndexToOsmoh(size_t index)
 {
@@ -87,8 +88,7 @@ osmoh::Weekday ConvertWeekDayIndexToOsmoh(size_t index)
   return osmoh::ToWeekday(index);
 }
 
-std::vector<WeekdaysInterval> GetOpenCloseIntervals(
-    std::vector<gtfs::CalendarAvailability> const & week)
+std::vector<WeekdaysInterval> GetOpenCloseIntervals(std::vector<gtfs::CalendarAvailability> const & week)
 {
   std::vector<WeekdaysInterval> intervals;
 
@@ -96,8 +96,8 @@ std::vector<WeekdaysInterval> GetOpenCloseIntervals(
   for (size_t i = 0; i < week.size(); ++i)
   {
     osmoh::RuleSequence::Modifier const status = week[i] == gtfs::CalendarAvailability::Available
-                                                     ? osmoh::RuleSequence::Modifier::DefaultOpen
-                                                     : osmoh::RuleSequence::Modifier::Closed;
+                                                   ? osmoh::RuleSequence::Modifier::DefaultOpen
+                                                   : osmoh::RuleSequence::Modifier::Closed;
     if (status == interval.m_status)
     {
       interval.m_end = i;
@@ -140,8 +140,7 @@ void SetOpeningHoursRange(osmoh::MonthdayRange & range, gtfs::Date const & date,
 
 void GetServiceDaysOsmoh(gtfs::CalendarItem const & serviceDays, osmoh::TRuleSequences & rules)
 {
-  osmoh::MonthdayRange range =
-      GetMonthdayRangeFromDates(serviceDays.start_date, serviceDays.end_date);
+  osmoh::MonthdayRange range = GetMonthdayRangeFromDates(serviceDays.start_date, serviceDays.end_date);
   osmoh::TMonthdayRanges const rangesMonths{range};
 
   std::vector<gtfs::CalendarAvailability> const weekDayStatuses = {
@@ -155,9 +154,8 @@ void GetServiceDaysOsmoh(gtfs::CalendarItem const & serviceDays, osmoh::TRuleSeq
 
   for (auto const & interval : intervals)
   {
-    osmoh::RuleSequence & ruleSeq = interval.m_status == osmoh::RuleSequence::Modifier::DefaultOpen
-                                        ? ruleSeqOpen
-                                        : ruleSeqClose;
+    osmoh::RuleSequence & ruleSeq =
+        interval.m_status == osmoh::RuleSequence::Modifier::DefaultOpen ? ruleSeqOpen : ruleSeqClose;
     ruleSeq.SetMonths(rangesMonths);
     ruleSeq.SetModifier(interval.m_status);
 
@@ -180,8 +178,8 @@ void GetServiceDaysOsmoh(gtfs::CalendarItem const & serviceDays, osmoh::TRuleSeq
     rules.push_back(ruleSeqClose);
 }
 
-void AppendMonthRules(osmoh::RuleSequence::Modifier const & status,
-                      osmoh::TMonthdayRanges const & monthRanges, osmoh::TRuleSequences & rules)
+void AppendMonthRules(osmoh::RuleSequence::Modifier const & status, osmoh::TMonthdayRanges const & monthRanges,
+                      osmoh::TRuleSequences & rules)
 {
   osmoh::RuleSequence ruleSeq;
   ruleSeq.SetMonths(monthRanges);
@@ -189,8 +187,7 @@ void AppendMonthRules(osmoh::RuleSequence::Modifier const & status,
   rules.push_back(ruleSeq);
 }
 
-void GetServiceDaysExceptionsOsmoh(gtfs::CalendarDates const & exceptionDays,
-                                   osmoh::TRuleSequences & rules)
+void GetServiceDaysExceptionsOsmoh(gtfs::CalendarDates const & exceptionDays, osmoh::TRuleSequences & rules)
 {
   if (exceptionDays.empty())
     return;
@@ -201,8 +198,7 @@ void GetServiceDaysExceptionsOsmoh(gtfs::CalendarDates const & exceptionDays,
   for (size_t i = 0; i < exceptionDays.size(); ++i)
   {
     AccumExceptionDates & curAccum =
-        (exceptionDays[i].exception_type == gtfs::CalendarDateException::Added) ? accumOpen
-                                                                                : accumClosed;
+        (exceptionDays[i].exception_type == gtfs::CalendarDateException::Added) ? accumOpen : accumClosed;
 
     auto const [year, month, day] = exceptionDays[i].date.get_yyyy_mm_dd();
     boost::gregorian::date const date{year, month, day};
@@ -229,8 +225,7 @@ void GetServiceDaysExceptionsOsmoh(gtfs::CalendarDates const & exceptionDays,
     }
 
     AccumExceptionDates & prevAccum =
-        (exceptionDays[i].exception_type == gtfs::CalendarDateException::Added) ? accumClosed
-                                                                                : accumOpen;
+        (exceptionDays[i].exception_type == gtfs::CalendarDateException::Added) ? accumClosed : accumOpen;
     if (prevAccum.IsInited())
       prevAccum.AddRange();
 
@@ -248,9 +243,7 @@ void GetServiceDaysExceptionsOsmoh(gtfs::CalendarDates const & exceptionDays,
 void MergeRules(osmoh::TRuleSequences & dstRules, osmoh::TRuleSequences const & srcRules)
 {
   for (auto const & rule : srcRules)
-  {
     if (!base::IsExist(dstRules, rule))
       dstRules.push_back(rule);
-  }
 }
 }  // namespace transit

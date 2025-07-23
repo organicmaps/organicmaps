@@ -16,10 +16,7 @@ public:
   /// @param[in]  coastGeomFilename   Can be empty if you don't care about cutting borders by water.
   WorldFinalProcessor(std::string const & temporaryMwmPath, std::string const & coastGeomFilename);
 
-  void SetPopularPlaces(std::string const & filename)
-  {
-    m_popularPlacesFilename = filename;
-  }
+  void SetPopularPlaces(std::string const & filename) { m_popularPlacesFilename = filename; }
 
   // FinalProcessorIntermediateMwmInterface overrides:
   void Process() override;

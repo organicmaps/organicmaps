@@ -57,7 +57,7 @@ public:
       if (colors == nullptr)
         return;
 
-      const char * name = nullptr;
+      char const * name = nullptr;
       json_t * colorInfo = nullptr;
       json_object_foreach(colors, name, colorInfo)
       {
@@ -128,7 +128,10 @@ dp::Color GetColorConstant(ColorConstant const & constant)
   return ToDrapeColor(color);
 }
 
-std::map<std::string, dp::Color> const & GetTransitClearColors() { return TransitColors().GetClearColors(); }
+std::map<std::string, dp::Color> const & GetTransitClearColors()
+{
+  return TransitColors().GetClearColors();
+}
 
 void LoadTransitColors()
 {

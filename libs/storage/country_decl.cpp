@@ -14,7 +14,7 @@ void CountryInfo::FileName2FullName(string & fName)
   {
     // replace '_' with ", "
     fName[i] = ',';
-    fName.insert(i+1, " ");
+    fName.insert(i + 1, " ");
   }
 }
 

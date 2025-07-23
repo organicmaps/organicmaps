@@ -18,8 +18,7 @@ namespace
 class ErrorHttpRequest : public downloader::HttpRequest
 {
 public:
-  explicit ErrorHttpRequest(std::string const & filePath)
-  : HttpRequest(Callback(), Callback()), m_filePath(filePath)
+  explicit ErrorHttpRequest(std::string const & filePath) : HttpRequest(Callback(), Callback()), m_filePath(filePath)
   {
     m_status = downloader::DownloadStatus::Failed;
   }
@@ -65,8 +64,7 @@ void HttpMapFilesDownloader::Download()
     queuedCountry.OnStartDownloading();
 
     m_request.reset(downloader::HttpRequest::GetFile(
-        urls, path, size,
-        std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
+        urls, path, size, std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
         std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1)));
   }
   else
@@ -115,8 +113,7 @@ QueueInterface const & HttpMapFilesDownloader::GetQueue() const
   return m_queue;
 }
 
-void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCountry,
-                                                 downloader::HttpRequest & request)
+void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCountry, downloader::HttpRequest & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   // Because this method is called deferred on original thread,

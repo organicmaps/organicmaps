@@ -64,7 +64,7 @@ public:
     ++m_idx;
   }
 };
-}
+}  // namespace
 
 UNIT_TEST(SearchStringTokensIntersectionRange)
 {
@@ -120,7 +120,7 @@ UNIT_TEST(SearchStringTokensIntersectionRange)
 
   for (TestData const & data : tests)
   {
-    search::SearchStringTokensIntersectionRanges(
-        data.m_input, data.m_lowTokens.begin(), data.m_lowTokens.end(), CheckRange(data.m_results));
+    search::SearchStringTokensIntersectionRanges(data.m_input, data.m_lowTokens.begin(), data.m_lowTokens.end(),
+                                                 CheckRange(data.m_results));
   }
 }

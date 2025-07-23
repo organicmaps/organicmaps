@@ -10,6 +10,7 @@ class LocationObserver
 public:
   virtual void OnLocationError(TLocationError errorCode) = 0;
   virtual void OnLocationUpdated(GpsInfo const & info) = 0;
+
 protected:
   virtual ~LocationObserver() = default;
 };
@@ -27,6 +28,6 @@ public:
   virtual void Stop() = 0;
 };
 
-} // namespace location
+}  // namespace location
 
 std::unique_ptr<location::LocationService> CreateDesktopLocationService(location::LocationObserver & observer);

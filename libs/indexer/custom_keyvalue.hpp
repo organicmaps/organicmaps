@@ -22,10 +22,8 @@ public:
   std::optional<uint64_t> Get(uint8_t k) const
   {
     for (auto const & v : m_vals)
-    {
       if (v.first == k)
         return v.second;
-    }
     return {};
   }
 
@@ -41,4 +39,4 @@ public:
   friend std::string DebugPrint(CustomKeyValue const & kv);
 };
 
-} // namespace indexer
+}  // namespace indexer

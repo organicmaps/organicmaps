@@ -7,7 +7,7 @@
 
 #undef min
 #undef max
-//#undef far
-//#undef near
+// #undef far
+// #undef near
 
-#endif // OMIM_OS_WINDOWS
+#endif  // OMIM_OS_WINDOWS

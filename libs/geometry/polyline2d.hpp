@@ -21,8 +21,7 @@ namespace m2
 /// \returns a pair of minimum squared distance from |point| to the closest segment and
 /// a zero-based closest segment index in points in range [|beginIt|, |endIt|).
 template <typename It, typename T>
-std::pair<double, uint32_t> CalcMinSquaredDistance(It beginIt, It endIt,
-                                                   m2::Point<T> const & point)
+std::pair<double, uint32_t> CalcMinSquaredDistance(It beginIt, It endIt, m2::Point<T> const & point)
 {
   CHECK_GREATER(std::distance(beginIt, endIt), 1, ());
   auto squaredClosestSegDist = std::numeric_limits<double>::max();
@@ -40,8 +39,7 @@ std::pair<double, uint32_t> CalcMinSquaredDistance(It beginIt, It endIt,
     }
   }
 
-  return std::make_pair(squaredClosestSegDist,
-                        static_cast<uint32_t>(std::distance(beginIt, closestSeg)));
+  return std::make_pair(squaredClosestSegDist, static_cast<uint32_t>(std::distance(beginIt, closestSeg)));
 }
 
 template <typename T>
@@ -59,10 +57,7 @@ public:
     ASSERT_GREATER(m_points.size(), 1, ());
   }
 
-  explicit Polyline(std::vector<Point<T>> const & points) : m_points(points)
-  {
-    ASSERT_GREATER(m_points.size(), 1, ());
-  }
+  explicit Polyline(std::vector<Point<T>> const & points) : m_points(points) { ASSERT_GREATER(m_points.size(), 1, ()); }
 
   explicit Polyline(std::vector<Point<T>> && points) : m_points(std::move(points))
   {
@@ -108,10 +103,7 @@ public:
 
   void Clear() { m_points.clear(); }
   void Add(Point<T> const & pt) { m_points.push_back(pt); }
-  void Append(Polyline const & poly)
-  {
-    m_points.insert(m_points.end(), poly.m_points.cbegin(), poly.m_points.cend());
-  }
+  void Append(Polyline const & poly) { m_points.insert(m_points.end(), poly.m_points.cbegin(), poly.m_points.cend()); }
 
   template <class Iter>
   void Append(Iter beg, Iter end)
@@ -170,11 +162,8 @@ public:
 
   std::vector<Point<T>> ExtractSegment(size_t startPointIndex, size_t endPointIndex) const
   {
-    if (startPointIndex > endPointIndex || startPointIndex >= m_points.size() ||
-        endPointIndex >= m_points.size())
-    {
+    if (startPointIndex > endPointIndex || startPointIndex >= m_points.size() || endPointIndex >= m_points.size())
       return std::vector<Point<T>>();
-    }
 
     std::vector<Point<T>> result(endPointIndex - startPointIndex + 1);
     for (size_t i = startPointIndex, j = 0; i <= endPointIndex; ++i, ++j)

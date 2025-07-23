@@ -69,8 +69,8 @@ UNIT_TEST(CheckMWM_GeomIndex)
   vector<unique_ptr<IntervalIndex<ReaderT, uint32_t>>> scale2Index;
   for (size_t i = 0; i < treesReader.Size(); ++i)
   {
-    scale2Index.emplace_back(make_unique<IntervalIndex<ReaderT, uint32_t>>(
-        treesReader.SubReader(static_cast<uint32_t>(i))));
+    scale2Index.emplace_back(
+        make_unique<IntervalIndex<ReaderT, uint32_t>>(treesReader.SubReader(static_cast<uint32_t>(i))));
   }
 
   // Pass full coverage as input for test.
@@ -80,14 +80,9 @@ UNIT_TEST(CheckMWM_GeomIndex)
   // Count objects for each scale bucket.
   map<size_t, uint64_t> resCount;
   for (size_t i = 0; i < scale2Index.size(); ++i)
-  {
-    scale2Index[i]->ForEach([i, &resCount](uint64_t, uint32_t)
-    {
-      ++resCount[i];
-    }, beg, end);
-  }
+    scale2Index[i]->ForEach([i, &resCount](uint64_t, uint32_t) { ++resCount[i]; }, beg, end);
 
   // Print results.
   LOG(LINFO, (resCount));
 }
-} // namespace check_mwms
+}  // namespace check_mwms

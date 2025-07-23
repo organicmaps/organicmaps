@@ -21,10 +21,7 @@ public:
   bool IsVisible() const override { return m_isVisible; }
   bool SymbolIsPOI() const override { return true; }
 
-  df::SpecialDisplacement GetDisplacement() const override
-  {
-    return df::SpecialDisplacement::SpecialModeUserMark;
-  }
+  df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
 
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingMarkLayer; }
 

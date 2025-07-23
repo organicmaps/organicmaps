@@ -71,8 +71,7 @@ public:
 class SometimesFailingDownloadingPolicy : public DownloadingPolicy
 {
 public:
-  explicit SometimesFailingDownloadingPolicy(vector<uint64_t> const & failedRequests)
-    : m_failedRequests(failedRequests)
+  explicit SometimesFailingDownloadingPolicy(vector<uint64_t> const & failedRequests) : m_failedRequests(failedRequests)
   {
     std::sort(m_failedRequests.begin(), m_failedRequests.end());
   }
@@ -91,7 +90,8 @@ private:
 
 string const kCountriesTxt = string(R"({
            "id": "Countries",
-           "v": )" + strings::to_string(version::FOR_TESTING_MWM1) + R"(,
+           "v": )" + strings::to_string(version::FOR_TESTING_MWM1) +
+                                    R"(,
            "g": [
                {
                 "id": "Abkhazia",
@@ -235,9 +235,8 @@ public:
     , m_currStatus(0)
     , m_transitionList(transitionList)
   {
-    m_slot = m_storage.Subscribe(
-        bind(&CountryDownloaderChecker::OnCountryStatusChanged, this, _1),
-        bind(&CountryDownloaderChecker::OnCountryDownloadingProgress, this, _1, _2));
+    m_slot = m_storage.Subscribe(bind(&CountryDownloaderChecker::OnCountryStatusChanged, this, _1),
+                                 bind(&CountryDownloaderChecker::OnCountryDownloadingProgress, this, _1, _2));
     TEST(storage.IsLeaf(countryId), (m_countryFile));
     TEST(!m_transitionList.empty(), (m_countryFile));
   }
@@ -263,35 +262,32 @@ protected:
       return;
 
     Status const nexStatus = m_storage.CountryStatusEx(m_countryId);
-    LOG(LINFO, (m_countryFile, "status transition: from", m_transitionList[m_currStatus], "to",
-                nexStatus));
+    LOG(LINFO, (m_countryFile, "status transition: from", m_transitionList[m_currStatus], "to", nexStatus));
     TEST_LESS(m_currStatus + 1, m_transitionList.size(), (m_countryFile));
     TEST_EQUAL(nexStatus, m_transitionList[m_currStatus + 1], (m_countryFile));
     ++m_currStatus;
-    if (m_transitionList[m_currStatus] == Status::Downloading ||
-        m_transitionList[m_currStatus] == Status::InQueue)
+    if (m_transitionList[m_currStatus] == Status::Downloading || m_transitionList[m_currStatus] == Status::InQueue)
     {
       LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId);
       m_totalBytesToDownload = localAndRemoteSize.second;
     }
   }
 
-  virtual void OnCountryDownloadingProgress(CountryId const & countryId,
-                                            downloader::Progress const & progress)
+  virtual void OnCountryDownloadingProgress(CountryId const & countryId, downloader::Progress const & progress)
   {
     if (countryId != m_countryId)
       return;
 
     LOG(LINFO, (m_countryFile, "downloading progress:", progress));
 
-    TEST_GREATER(progress.m_bytesDownloaded, static_cast<
-                 decltype(progress.m_bytesDownloaded)>(m_bytesDownloaded), (m_countryFile));
+    TEST_GREATER(progress.m_bytesDownloaded, static_cast<decltype(progress.m_bytesDownloaded)>(m_bytesDownloaded),
+                 (m_countryFile));
     m_bytesDownloaded = progress.m_bytesDownloaded;
     TEST_LESS_OR_EQUAL(m_bytesDownloaded, m_totalBytesToDownload, (m_countryFile));
 
     LocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId);
-    TEST_EQUAL(static_cast<decltype(localAndRemoteSize.second)>(m_totalBytesToDownload),
-               localAndRemoteSize.second, (m_countryFile));
+    TEST_EQUAL(static_cast<decltype(localAndRemoteSize.second)>(m_totalBytesToDownload), localAndRemoteSize.second,
+               (m_countryFile));
   }
 
   Storage & m_storage;
@@ -309,27 +305,22 @@ protected:
 class CancelDownloadingWhenAlmostDoneChecker : public CountryDownloaderChecker
 {
 public:
-  CancelDownloadingWhenAlmostDoneChecker(Storage & storage, CountryId const & countryId,
-                                         TaskRunner & runner)
+  CancelDownloadingWhenAlmostDoneChecker(Storage & storage, CountryId const & countryId, TaskRunner & runner)
     : CountryDownloaderChecker(
           storage, countryId, MapFileType::Map,
           vector<Status>{Status::NotDownloaded, Status::InQueue, Status::Downloading, Status::NotDownloaded})
     , m_runner(runner)
-  {
-  }
+  {}
 
 protected:
   // CountryDownloaderChecker overrides:
-  void OnCountryDownloadingProgress(CountryId const & countryId,
-                                    downloader::Progress const & progress) override
+  void OnCountryDownloadingProgress(CountryId const & countryId, downloader::Progress const & progress) override
   {
     CountryDownloaderChecker::OnCountryDownloadingProgress(countryId, progress);
 
     // Cancel downloading when almost done.
     if (progress.m_bytesDownloaded + 2 * FakeMapFilesDownloader::kBlockSize >= progress.m_bytesTotal)
-    {
       m_runner.PostTask([&]() { m_storage.CancelDownloadNode(m_countryId); });
-    }
   }
 
   TaskRunner & m_runner;
@@ -337,8 +328,8 @@ protected:
 
 // Checks following state transitions:
 // NotDownloaded -> Downloading -> OnDisk.
-unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(
-    Storage & storage, CountryId const & countryId, MapFileType type)
+unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(Storage & storage, CountryId const & countryId,
+                                                                    MapFileType type)
 {
   return make_unique<CountryDownloaderChecker>(
       storage, countryId, type,
@@ -347,8 +338,8 @@ unique_ptr<CountryDownloaderChecker> AbsentCountryDownloaderChecker(
 
 // Checks following state transitions:
 // NotDownloaded -> Downloading -> NotDownloaded.
-unique_ptr<CountryDownloaderChecker> CancelledCountryDownloaderChecker(
-    Storage & storage, CountryId const & countryId, MapFileType type)
+unique_ptr<CountryDownloaderChecker> CancelledCountryDownloaderChecker(Storage & storage, CountryId const & countryId,
+                                                                       MapFileType type)
 {
   return make_unique<CountryDownloaderChecker>(
       storage, countryId, type,
@@ -359,11 +350,13 @@ class CountryStatusChecker
 {
 public:
   CountryStatusChecker(Storage & storage, CountryId const & countryId, Status status)
-    : m_storage(storage), m_countryId(countryId), m_status(status), m_triggered(false)
+    : m_storage(storage)
+    , m_countryId(countryId)
+    , m_status(status)
+    , m_triggered(false)
   {
-    m_slot = m_storage.Subscribe(
-        std::bind(&CountryStatusChecker::OnCountryStatusChanged, this, _1),
-        std::bind(&CountryStatusChecker::OnCountryDownloadingProgress, this, _1, _2));
+    m_slot = m_storage.Subscribe(std::bind(&CountryStatusChecker::OnCountryStatusChanged, this, _1),
+                                 std::bind(&CountryStatusChecker::OnCountryDownloadingProgress, this, _1, _2));
   }
 
   ~CountryStatusChecker()
@@ -383,8 +376,7 @@ private:
     m_triggered = true;
   }
 
-  void OnCountryDownloadingProgress(CountryId const & /* countryId */,
-                                    downloader::Progress const & /* progress */)
+  void OnCountryDownloadingProgress(CountryId const & /* countryId */, downloader::Progress const & /* progress */)
   {
     TEST(false, ("Unexpected country downloading progress."));
   }
@@ -400,7 +392,9 @@ class FailedDownloadingWaiter
 {
 public:
   FailedDownloadingWaiter(Storage & storage, CountryId const & countryId)
-    : m_storage(storage), m_countryId(countryId), m_finished(false)
+    : m_storage(storage)
+    , m_countryId(countryId)
+    , m_finished(false)
   {
     m_slot = m_storage.Subscribe(std::bind(&FailedDownloadingWaiter::OnStatusChanged, this, _1),
                                  std::bind(&FailedDownloadingWaiter::OnProgress, this, _1, _2));
@@ -415,10 +409,7 @@ public:
   void Wait()
   {
     std::unique_lock<std::mutex> lock(m_mu);
-    m_cv.wait(lock, [this]()
-    {
-      return m_finished;
-    });
+    m_cv.wait(lock, [this]() { return m_finished; });
   }
 
   void OnStatusChanged(CountryId const & countryId)
@@ -454,8 +445,7 @@ void OnCountryDownloaded(CountryId const & countryId, LocalFilePtr const localFi
 
 LocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version, uint64_t size)
 {
-  LocalFilePtr localFile =
-      PreparePlaceForCountryFiles(version, string() /* dataDir */, countryFile);
+  LocalFilePtr localFile = PreparePlaceForCountryFiles(version, string() /* dataDir */, countryFile);
   TEST(localFile.get(), ("Can't prepare place for", countryFile, "(version", version, ")"));
   {
     string const zeroes(size, '\0');
@@ -468,8 +458,7 @@ LocalFilePtr CreateDummyMapFile(CountryFile const & countryFile, int64_t version
   return localFile;
 }
 
-void InitStorage(Storage & storage, TaskRunner & runner,
-                 Storage::UpdateCallback const & update = &OnCountryDownloaded)
+void InitStorage(Storage & storage, TaskRunner & runner, Storage::UpdateCallback const & update = &OnCountryDownloaded)
 {
   storage.Clear();
   storage.Init(update, [](CountryId const &, LocalFilePtr const) { return false; });
@@ -495,7 +484,8 @@ UNIT_TEST(StorageTest_ParseIndexFile)
   Storage storage;
 
   TEST_EQUAL(storage.ParseIndexAndGetDataVersion(R"([ { "21010101" : 210317 } ])"), 210317, ());
-  TEST_EQUAL(storage.ParseIndexAndGetDataVersion(R"([ { "21010101" : 210317 }, { "21041001" : 210409 } ])"), 210409, ());
+  TEST_EQUAL(storage.ParseIndexAndGetDataVersion(R"([ { "21010101" : 210317 }, { "21041001" : 210409 } ])"), 210409,
+             ());
 
   // Invalid jsons
   TEST_EQUAL(storage.ParseIndexAndGetDataVersion(R"([ { "21010101" : 210317 })"), 0, ());
@@ -523,8 +513,7 @@ UNIT_CLASS_TEST(StorageTest, CountryDownloading)
   storage.DeleteCountry(azerbaijanCountryId, MapFileType::Map);
 
   {
-    SCOPE_GUARD(cleanupCountryFiles,
-                bind(&Storage::DeleteCountry, &storage, azerbaijanCountryId, MapFileType::Map));
+    SCOPE_GUARD(cleanupCountryFiles, bind(&Storage::DeleteCountry, &storage, azerbaijanCountryId, MapFileType::Map));
     unique_ptr<CountryDownloaderChecker> checker =
         AbsentCountryDownloaderChecker(storage, azerbaijanCountryId, MapFileType::Map);
     checker->StartDownload();
@@ -532,8 +521,7 @@ UNIT_CLASS_TEST(StorageTest, CountryDownloading)
   }
 
   {
-    SCOPE_GUARD(cleanupCountryFiles,
-                bind(&Storage::DeleteCountry, &storage, azerbaijanCountryId, MapFileType::Map));
+    SCOPE_GUARD(cleanupCountryFiles, bind(&Storage::DeleteCountry, &storage, azerbaijanCountryId, MapFileType::Map));
     unique_ptr<CountryDownloaderChecker> checker =
         AbsentCountryDownloaderChecker(storage, azerbaijanCountryId, MapFileType::Map);
     checker->StartDownload();
@@ -619,8 +607,7 @@ UNIT_CLASS_TEST(StorageTest, CancelDownloadingWhenAlmostDone)
 UNIT_CLASS_TEST(StorageTest, DeleteCountry)
 {
   tests_support::ScopedFile map("Wonderland.mwm", ScopedFile::Mode::Create);
-  LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland",
-                                                           version::FOR_TESTING_MWM1);
+  LocalCountryFile file = LocalCountryFile::MakeForTesting("Wonderland", version::FOR_TESTING_MWM1);
   TEST(file.OnDisk(MapFileType::Map), ());
 
   CountryIndexes::PreparePlaceOnDisk(file);
@@ -656,7 +643,8 @@ UNIT_TEST(StorageTest_FailedDownloading)
   // To prevent interference from other tests and on other tests it's
   // better to remove temprorary downloader files.
   DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(), countryFile);
-  SCOPE_GUARD(cleanup, [&]() {
+  SCOPE_GUARD(cleanup, [&]()
+  {
     DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(), countryFile);
     // Failed country is added into the "retry later" list, and fails next test.
     storage.Clear();
@@ -669,7 +657,8 @@ UNIT_TEST(StorageTest_FailedDownloading)
   }
 
   // File wasn't downloaded, but temprorary downloader files must exist.
-  string const downloadPath = GetFileDownloadPath(storage.GetCurrentDataVersion(), countryFile.GetName(), MapFileType::Map);
+  string const downloadPath =
+      GetFileDownloadPath(storage.GetCurrentDataVersion(), countryFile.GetName(), MapFileType::Map);
   TEST(!Platform::IsFileExistsByFullPath(downloadPath), ());
   TEST(Platform::IsFileExistsByFullPath(downloadPath + DOWNLOADING_FILE_EXTENSION), ());
   TEST(Platform::IsFileExistsByFullPath(downloadPath + RESUME_FILE_EXTENSION), ());
@@ -704,9 +693,11 @@ UNIT_TEST(StorageTest_GetRootId)
 {
   Storage storage(string(R"({
                            "id": "Countries",
-                           "v": )" + strings::to_string(version::FOR_TESTING_MWM1) + R"(,
+                           "v": )" +
+                         strings::to_string(version::FOR_TESTING_MWM1) + R"(,
                            "g": []
-                         })"), make_unique<TestMapFilesDownloader>());
+                         })"),
+                  make_unique<TestMapFilesDownloader>());
 
   // The name of the root is the same for courntries.txt version 1 and version 2.
   TEST_EQUAL(storage.GetRootId(), COUNTRIES_ROOT, ());
@@ -755,8 +746,7 @@ UNIT_TEST(StorageTest_GetAffiliations)
 
 UNIT_TEST(StorageTest_HasCountryId)
 {
-  CountriesVec middleEarthCountryIdVec = {"Arnor",  "Mordor",  "Rhovanion", "Rhun",
-                                          "Gondor", "Eriador", "Rohan"};
+  CountriesVec middleEarthCountryIdVec = {"Arnor", "Mordor", "Rhovanion", "Rhun", "Gondor", "Eriador", "Rohan"};
   sort(middleEarthCountryIdVec.begin(), middleEarthCountryIdVec.end());
 }
 
@@ -772,19 +762,16 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
 
   SCOPE_GUARD(cleanupAlgeriaCentral,
               bind(&Storage::DeleteCountry, &storage, algeriaCentralCountryId, MapFileType::Map));
-  SCOPE_GUARD(cleanupAlgeriaCoast,
-              bind(&Storage::DeleteCountry, &storage, algeriaCoastCountryId, MapFileType::Map));
+  SCOPE_GUARD(cleanupAlgeriaCoast, bind(&Storage::DeleteCountry, &storage, algeriaCoastCountryId, MapFileType::Map));
 
   {
     auto algeriaCentralChecker = make_unique<CountryDownloaderChecker>(
         storage, algeriaCentralCountryId, MapFileType::Map,
-        vector<Status>{Status::NotDownloaded, Status::InQueue, Status::Downloading,
-                       Status::OnDisk});
+        vector<Status>{Status::NotDownloaded, Status::InQueue, Status::Downloading, Status::OnDisk});
 
     auto algeriaCoastChecker = make_unique<CountryDownloaderChecker>(
         storage, algeriaCoastCountryId, MapFileType::Map,
-        vector<Status>{Status::NotDownloaded, Status::InQueue, Status::Downloading,
-                       Status::OnDisk});
+        vector<Status>{Status::NotDownloaded, Status::InQueue, Status::Downloading, Status::OnDisk});
 
     algeriaCentralChecker->StartDownload();
     algeriaCoastChecker->StartDownload();
@@ -792,9 +779,9 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   }
 
   // Storage::GetLocalRealMaps() test.
-//  CountriesVec localRealMaps;
-//  storage.GetLocalRealMaps(localRealMaps);
-//  TEST_EQUAL(localRealMaps.size(), 4, ());
+  //  CountriesVec localRealMaps;
+  //  storage.GetLocalRealMaps(localRealMaps);
+  //  TEST_EQUAL(localRealMaps.size(), 4, ());
 
   TEST(storage.IsNodeDownloaded("Algeria_Central"), ());
   TEST(storage.IsNodeDownloaded("Algeria_Coast"), ());
@@ -812,24 +799,22 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   TEST_EQUAL(available.size(), 223, ());
 
   CountriesVec downloadedWithKeep, availableWithKeep;
-  storage.GetChildrenInGroups(rootCountryId, downloadedWithKeep,
-                              availableWithKeep, true /* keepAvailableChildren*/);
+  storage.GetChildrenInGroups(rootCountryId, downloadedWithKeep, availableWithKeep, true /* keepAvailableChildren*/);
   TEST_EQUAL(downloadedWithKeep.size(), 1, (downloadedWithKeep));
   TEST_EQUAL(availableWithKeep.size(), 224, ());
 
   storage.GetChildrenInGroups("Algeria", downloaded, available);
   TEST_EQUAL(downloaded.size(), 2, (downloaded));
 
-  storage.GetChildrenInGroups("Algeria", downloadedWithKeep,
-                              availableWithKeep, true /* keepAvailableChildren*/);
+  storage.GetChildrenInGroups("Algeria", downloadedWithKeep, availableWithKeep, true /* keepAvailableChildren*/);
   TEST_EQUAL(downloadedWithKeep.size(), 2, (downloadedWithKeep));
   TEST_EQUAL(availableWithKeep.size(), 2, (availableWithKeep));
 
   storage.GetChildrenInGroups("Algeria_Central", downloaded, available);
   TEST(downloaded.empty(), ());
 
-  storage.GetChildrenInGroups("Algeria_Central", downloadedWithKeep,
-                              availableWithKeep, true /* keepAvailableChildren*/);
+  storage.GetChildrenInGroups("Algeria_Central", downloadedWithKeep, availableWithKeep,
+                              true /* keepAvailableChildren*/);
   TEST_EQUAL(downloadedWithKeep.size(), 0, (downloadedWithKeep));
   TEST_EQUAL(availableWithKeep.size(), 0, (availableWithKeep));
 
@@ -839,8 +824,7 @@ UNIT_CLASS_TEST(StorageTest, DownloadedMap)
   storage.GetChildrenInGroups(rootCountryId, downloaded, available);
   TEST_EQUAL(downloaded.size(), 1, (downloaded));
 
-  storage.GetChildrenInGroups("Algeria", downloadedWithKeep,
-                              availableWithKeep, true /* keepAvailableChildren*/);
+  storage.GetChildrenInGroups("Algeria", downloadedWithKeep, availableWithKeep, true /* keepAvailableChildren*/);
   TEST_EQUAL(downloadedWithKeep.size(), 1, (downloadedWithKeep));
   TEST_EQUAL(availableWithKeep.size(), 2, (availableWithKeep));
 
@@ -873,8 +857,7 @@ UNIT_CLASS_TEST(StorageTest, IsPointCoveredByDownloadedMaps)
   TEST(!storage::IsPointCoveredByDownloadedMaps(montevideoUruguay, storage, *countryInfoGetter), ());
 
   {
-    SCOPE_GUARD(cleanupCountryFiles,
-                bind(&Storage::DeleteCountry, &storage, uruguayId, MapFileType::Map));
+    SCOPE_GUARD(cleanupCountryFiles, bind(&Storage::DeleteCountry, &storage, uruguayId, MapFileType::Map));
     auto const checker = AbsentCountryDownloaderChecker(storage, uruguayId, MapFileType::Map);
     checker->StartDownload();
     runner.Run();
@@ -948,7 +931,7 @@ UNIT_TEST(StorageTest_GetNodeAttrsSingleMwm)
   storage.GetNodeAttrs("Algeria", nodeAttrs);
   TEST_EQUAL(nodeAttrs.m_mwmCounter, 2, ());
   TEST_EQUAL(nodeAttrs.m_mwmSize, 90878678, ());
-  TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ()); // It's a status of expandable node.
+  TEST_EQUAL(nodeAttrs.m_status, NodeStatus::NotDownloaded, ());  // It's a status of expandable node.
   TEST_EQUAL(nodeAttrs.m_error, NodeErrorCode::NoError, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 1, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_id, COUNTRIES_ROOT, ());
@@ -1063,19 +1046,16 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   storage.GetUpdateInfo(storage.GetRootId(), updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 2, ());
   TEST_EQUAL(updateInfo.m_totalDownloadSizeInBytes, 1050, ());
-  TEST_EQUAL(updateInfo.m_sizeDifference,
-             (1000 + 50) - static_cast<int64_t>((country1Size + country2Size)), ());
+  TEST_EQUAL(updateInfo.m_sizeDifference, (1000 + 50) - static_cast<int64_t>((country1Size + country2Size)), ());
 }
 #endif  // defined(OMIM_OS_DESKTOP)
 
 UNIT_TEST(StorageTest_ParseStatus)
 {
-  TEST_EQUAL(StatusAndError(NodeStatus::Undefined, NodeErrorCode::NoError),
-             ParseStatus(Status::Undefined), ());
-  TEST_EQUAL(StatusAndError(NodeStatus::Error, NodeErrorCode::NoInetConnection),
-             ParseStatus(Status::DownloadFailed), ());
-  TEST_EQUAL(StatusAndError(NodeStatus::Downloading, NodeErrorCode::NoError),
-             ParseStatus(Status::Downloading), ());
+  TEST_EQUAL(StatusAndError(NodeStatus::Undefined, NodeErrorCode::NoError), ParseStatus(Status::Undefined), ());
+  TEST_EQUAL(StatusAndError(NodeStatus::Error, NodeErrorCode::NoInetConnection), ParseStatus(Status::DownloadFailed),
+             ());
+  TEST_EQUAL(StatusAndError(NodeStatus::Downloading, NodeErrorCode::NoError), ParseStatus(Status::Downloading), ());
 }
 
 UNIT_TEST(StorageTest_ForEachInSubtree)
@@ -1083,7 +1063,8 @@ UNIT_TEST(StorageTest_ForEachInSubtree)
   Storage storage(kCountriesTxt, make_unique<TestMapFilesDownloader>());
 
   CountriesVec leafVec;
-  auto const forEach = [&leafVec](CountryId const & descendantId, bool groupNode) {
+  auto const forEach = [&leafVec](CountryId const & descendantId, bool groupNode)
+  {
     if (!groupNode)
       leafVec.push_back(descendantId);
   };
@@ -1107,24 +1088,21 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
   Storage storage(kCountriesTxt, make_unique<TestMapFilesDownloader>());
 
   // Two parent case.
-  auto const forEachParentDisputableTerritory = [](CountryId const & parentId,
-                                                   CountryTree::Node const & parentNode) {
+  auto const forEachParentDisputableTerritory = [](CountryId const & parentId, CountryTree::Node const & parentNode)
+  {
     CountriesVec descendants;
-    parentNode.ForEachDescendant([&descendants](CountryTree::Node const & container) {
-      descendants.push_back(container.Value().Name());
-    });
+    parentNode.ForEachDescendant([&descendants](CountryTree::Node const & container)
+    { descendants.push_back(container.Value().Name()); });
 
     if (parentId == "Country1")
     {
-      CountriesVec const expectedDescendants = {"Disputable Territory",
-                                                "Indisputable Territory Of Country1"};
+      CountriesVec const expectedDescendants = {"Disputable Territory", "Indisputable Territory Of Country1"};
       TEST_EQUAL(descendants, expectedDescendants, ());
       return;
     }
     if (parentId == "Country2")
     {
-      CountriesVec const expectedDescendants = {"Indisputable Territory Of Country2",
-                                                "Disputable Territory"};
+      CountriesVec const expectedDescendants = {"Indisputable Territory Of Country2", "Disputable Territory"};
       TEST_EQUAL(descendants, expectedDescendants, ());
       return;
     }
@@ -1133,24 +1111,21 @@ UNIT_TEST(StorageTest_ForEachAncestorExceptForTheRoot)
   storage.ForEachAncestorExceptForTheRoot("Disputable Territory", forEachParentDisputableTerritory);
 
   // One parent case.
-  auto const forEachParentIndisputableTerritory = [](CountryId const & parentId,
-                                                     CountryTree::Node const & parentNode) {
+  auto const forEachParentIndisputableTerritory = [](CountryId const & parentId, CountryTree::Node const & parentNode)
+  {
     CountriesVec descendants;
-    parentNode.ForEachDescendant([&descendants](CountryTree::Node const & container) {
-      descendants.push_back(container.Value().Name());
-    });
+    parentNode.ForEachDescendant([&descendants](CountryTree::Node const & container)
+    { descendants.push_back(container.Value().Name()); });
 
     if (parentId == "Country1")
     {
-      CountriesVec const expectedDescendants = {"Disputable Territory",
-                                                "Indisputable Territory Of Country1"};
+      CountriesVec const expectedDescendants = {"Disputable Territory", "Indisputable Territory Of Country1"};
       TEST_EQUAL(descendants, expectedDescendants, ());
       return;
     }
     TEST(false, ());
   };
-  storage.ForEachAncestorExceptForTheRoot("Indisputable Territory Of Country1",
-                                          forEachParentIndisputableTerritory);
+  storage.ForEachAncestorExceptForTheRoot("Indisputable Territory Of Country1", forEachParentIndisputableTerritory);
 }
 
 UNIT_CLASS_TEST(StorageTest, CalcLimitRect)
@@ -1159,8 +1134,8 @@ UNIT_CLASS_TEST(StorageTest, CalcLimitRect)
   ASSERT(countryInfoGetter, ());
 
   m2::RectD const boundingBox = storage::CalcLimitRect("Algeria", storage, *countryInfoGetter);
-  m2::RectD const expectedBoundingBox = {-8.6689 /* minX */, 19.32443 /* minY */,
-                                         11.99734 /* maxX */, 45.23 /* maxY */};
+  m2::RectD const expectedBoundingBox = {-8.6689 /* minX */, 19.32443 /* minY */, 11.99734 /* maxX */,
+                                         45.23 /* maxY */};
 
   static double constexpr kEpsilon = 1e-2;
   TEST(AlmostEqualAbs(boundingBox, expectedBoundingBox, kEpsilon), ());
@@ -1168,8 +1143,7 @@ UNIT_CLASS_TEST(StorageTest, CalcLimitRect)
 
 UNIT_TEST(StorageTest_CountriesNamesTest)
 {
-  string const kRuJson =
-      string(R"json({
+  string const kRuJson = string(R"json({
              "Countries":"Весь мир",
              "Abkhazia":"Абхазия",
              "Algeria":"Алжир",
@@ -1182,8 +1156,7 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
              "Indisputable Territory Of Country2":"Бесспорная территория страны 2"
              })json");
 
-  string const kFrJson =
-      string(R"json({
+  string const kFrJson = string(R"json({
              "Countries":"Des pays",
              "Abkhazia":"Abkhazie",
              "Algeria":"Algérie",
@@ -1244,8 +1217,10 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Страна 1", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_localName, "Страна 2", ());
-  vector<CountryIdAndName> const expectedTopmostParentsRu = {{"Country1", "Страна 1"},
-                                                             {"Country2", "Страна 2"}};
+  vector<CountryIdAndName> const expectedTopmostParentsRu = {
+      {"Country1", "Страна 1"},
+      {"Country2", "Страна 2"}
+  };
   TEST(nodeAttrs.m_topmostParentInfo == expectedTopmostParentsRu, ());
 
   // set french locale
@@ -1297,8 +1272,10 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Pays 1", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_localName, "Pays 2", ());
-  vector<CountryIdAndName> const expectedTopmostParentsFr = {{"Country1", "Pays 1"},
-                                                             {"Country2", "Pays 2"}};
+  vector<CountryIdAndName> const expectedTopmostParentsFr = {
+      {"Country1", "Pays 1"},
+      {"Country2", "Pays 2"}
+  };
   TEST(nodeAttrs.m_topmostParentInfo == expectedTopmostParentsFr, ());
 }
 
@@ -1453,10 +1430,7 @@ UNIT_TEST(StorageTest_FalsePolicy)
   // To prevent interference with other tests and on other tests it's
   // better to remove temporary downloader files.
   DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(), countryFile);
-  SCOPE_GUARD(cleanup, [&]() {
-    DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(),
-                                    countryFile);
-  });
+  SCOPE_GUARD(cleanup, [&]() { DeleteDownloaderFilesForCountry(storage.GetCurrentDataVersion(), countryFile); });
 
   {
     FailedDownloadingWaiter waiter(storage, countryId);
@@ -1470,7 +1444,9 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   // network policy sometimes changes, therefore some countries won't
   // be downloaded.
 
-  vector<uint64_t> const failedRequests {{5, 10, 21}};
+  vector<uint64_t> const failedRequests{
+      {5, 10, 21}
+  };
   TEST(is_sorted(failedRequests.begin(), failedRequests.end()), ());
 
   SometimesFailingDownloadingPolicy policy(failedRequests);
@@ -1482,7 +1458,8 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   storage.GetChildren(nodeId, children);
   vector<bool> downloaded(children.size());
 
-  auto const onStatusChange = [&](CountryId const & id) {
+  auto const onStatusChange = [&](CountryId const & id)
+  {
     auto const status = storage.CountryStatusEx(id);
     if (status != Status::OnDisk)
       return;
@@ -1494,8 +1471,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
     downloaded[distance(children.cbegin(), it)] = true;
   };
 
-  auto const onProgress = [&](CountryId const & /* countryId */,
-                              downloader::Progress const & /* progress */) {};
+  auto const onProgress = [&](CountryId const & /* countryId */, downloader::Progress const & /* progress */) {};
 
   auto const slot = storage.Subscribe(onStatusChange, onProgress);
   SCOPE_GUARD(cleanup, [&]() { storage.Unsubscribe(slot); });

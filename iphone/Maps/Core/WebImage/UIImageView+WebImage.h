@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wi_setImageWithUrl:(NSURL *)url;
 - (void)wi_setImageWithUrl:(NSURL *)url
         transitionDuration:(NSTimeInterval)duration
-                completion:(void (^ _Nullable)(UIImage * _Nullable image, NSError * _Nullable error))completion;
+                completion:(void (^_Nullable)(UIImage * _Nullable image, NSError * _Nullable error))completion;
 - (void)wi_cancelImageRequest;
 
 @end

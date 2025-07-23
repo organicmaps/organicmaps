@@ -55,8 +55,8 @@ bool ZLib::Processor::BufferIsFull() const
 }
 
 // ZLib::Deflate -----------------------------------------------------------------------------------
-ZLib::DeflateProcessor::DeflateProcessor(Deflate::Format format, Deflate::Level level,
-                                         void const * data, size_t size) noexcept
+ZLib::DeflateProcessor::DeflateProcessor(Deflate::Format format, Deflate::Level level, void const * data,
+                                         size_t size) noexcept
   : Processor(data, size)
 {
   auto bits = MAX_WBITS;
@@ -66,9 +66,8 @@ ZLib::DeflateProcessor::DeflateProcessor(Deflate::Format format, Deflate::Level 
   case Deflate::Format::GZip: bits = bits | kGzipBits; break;
   }
 
-  int const ret =
-      deflateInit2(&m_stream, ToInt(level) /* level */, Z_DEFLATED /* method */,
-                   bits /* windowBits */, 8 /* memLevel */, Z_DEFAULT_STRATEGY /* strategy */);
+  int const ret = deflateInit2(&m_stream, ToInt(level) /* level */, Z_DEFLATED /* method */, bits /* windowBits */,
+                               8 /* memLevel */, Z_DEFAULT_STRATEGY /* strategy */);
   m_init = (ret == Z_OK);
 }
 
@@ -85,8 +84,7 @@ int ZLib::DeflateProcessor::Process(int flush)
 }
 
 // ZLib::Inflate -----------------------------------------------------------------------------------
-ZLib::InflateProcessor::InflateProcessor(Inflate::Format format, void const * data,
-                                         size_t size) noexcept
+ZLib::InflateProcessor::InflateProcessor(Inflate::Format format, void const * data, size_t size) noexcept
   : Processor(data, size)
 {
   auto bits = MAX_WBITS;

@@ -10,6 +10,7 @@ class EditableMapObject;
 class EditorDialog : public QDialog
 {
   Q_OBJECT
+
 public:
   EditorDialog(QWidget * parent, osm::EditableMapObject & emo);
 private slots:

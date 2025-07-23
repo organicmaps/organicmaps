@@ -37,8 +37,7 @@ void SampleTest::Init()
   cubaRes.m_pos = {-80.832886, 15.521132748163712};
   cubaRes.m_houseNumber = "";
   m_cuba.m_results = {cubaRes};
-  m_cuba.m_relatedQueries = {strings::MakeUniString("Cuba Libre"),
-                             strings::MakeUniString("Patria o Muerte")};
+  m_cuba.m_relatedQueries = {strings::MakeUniString("Cuba Libre"), strings::MakeUniString("Patria o Muerte")};
 
   m_riga.m_query = strings::MakeUniString("riga");
   m_riga.m_locale = "en";
@@ -172,4 +171,4 @@ UNIT_CLASS_TEST(SampleTest, SerDes)
   std::sort(actual.begin(), actual.end());
   TEST_EQUAL(expected, actual, ());
 }
-} // namespace sample_test
+}  // namespace sample_test

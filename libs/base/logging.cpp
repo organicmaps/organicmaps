@@ -31,7 +31,7 @@ std::optional<LogLevel> FromString(std::string const & s)
   ASSERT(!s.empty(), ("Log level should not be empty"));
 
   auto const & names = GetLogLevelNames();
-  const auto it = std::find(names.begin(), names.end(), std::toupper(s[0]));
+  auto const it = std::find(names.begin(), names.end(), std::toupper(s[0]));
   if (it == names.end())
     return {};
   return static_cast<LogLevel>(std::distance(names.begin(), it));
@@ -39,7 +39,7 @@ std::optional<LogLevel> FromString(std::string const & s)
 
 std::array<char, NUM_LOG_LEVELS> const & GetLogLevelNames()
 {
-  static std::array<char, NUM_LOG_LEVELS> constexpr kLogLevelNames {'D', 'I', 'W', 'E', 'C'};
+  static std::array<char, NUM_LOG_LEVELS> constexpr kLogLevelNames{'D', 'I', 'W', 'E', 'C'};
   return kLogLevelNames;
 }
 

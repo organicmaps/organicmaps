@@ -35,7 +35,8 @@
     return;
   }
 
-  NSAssert([viewController conformsToProtocol:@protocol(MWMController)], @"Controller must inherit ViewController or TableViewController class");
+  NSAssert([viewController conformsToProtocol:@protocol(MWMController)],
+           @"Controller must inherit ViewController or TableViewController class");
   id<MWMController> vc = (id<MWMController>)viewController;
   [navigationController setNavigationBarHidden:!vc.hasNavigationBar animated:animated];
 }
@@ -47,7 +48,8 @@
   [super pushViewController:viewController animated:animated];
 }
 
-- (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers animated:(BOOL)animated {
+- (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers animated:(BOOL)animated
+{
   [viewControllers enumerateObjectsUsingBlock:^(UIViewController * vc, NSUInteger idx, BOOL * stop) {
     if (idx == viewControllers.count - 1)
       return;
@@ -58,10 +60,12 @@
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
-  [super traitCollectionDidChange: previousTraitCollection];
+  [super traitCollectionDidChange:previousTraitCollection];
   // Update the app theme when the device appearance is changing.
-  if ((self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass)
-      || (self.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass) || (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle)) {
+  if ((self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass) ||
+      (self.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass) ||
+      (self.traitCollection.userInterfaceStyle != previousTraitCollection.userInterfaceStyle))
+  {
     [MWMThemeManager invalidate];
   }
 }
@@ -71,10 +75,14 @@
   return YES;
 }
 
-- (void)setupNavigationBackButtonItemFor:(UIViewController *)viewController {
-  if (@available(iOS 14.0, *)) {
+- (void)setupNavigationBackButtonItemFor:(UIViewController *)viewController
+{
+  if (@available(iOS 14.0, *))
+  {
     viewController.navigationItem.backButtonDisplayMode = UINavigationItemBackButtonDisplayModeMinimal;
-  } else {
+  }
+  else
+  {
     viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
                                                                                        style:UIBarButtonItemStylePlain
                                                                                       target:nil

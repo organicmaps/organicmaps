@@ -14,8 +14,10 @@ using namespace indexer;
 
 UNIT_TEST(CitiesBoundariesChecker_Square)
 {
-  auto const checker =
-      CitiesBoundariesChecker({CityBoundary({{0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {0.0, 1.0}})});
+  auto const checker = CitiesBoundariesChecker({
+      CityBoundary({{0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {0.0, 1.0}}
+      )
+  });
 
   TEST(checker.InCity({0.5, 0.5}), ());
   TEST(checker.InCity({0.0001, 0.0001}), ());
@@ -28,8 +30,10 @@ UNIT_TEST(CitiesBoundariesChecker_Square)
 
 UNIT_TEST(CitiesBoundariesChecker_NotConvexPolygon)
 {
-  auto const checker =
-      CitiesBoundariesChecker({CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}})});
+  auto const checker = CitiesBoundariesChecker({
+      CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}}
+      )
+  });
 
   TEST(checker.InCity({0.3, 0.3}), ());
   TEST(checker.InCity({0.0001, 0.0001}), ());
@@ -42,9 +46,12 @@ UNIT_TEST(CitiesBoundariesChecker_NotConvexPolygon)
 
 UNIT_TEST(CitiesBoundariesChecker_IntersectedPolygons)
 {
-  auto const checker = CitiesBoundariesChecker(
-      {CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}}),
-       CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}})});
+  auto const checker = CitiesBoundariesChecker({
+      CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}}
+      ),
+      CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}}
+      )
+  });
 
   TEST(checker.InCity({0.3, 0.3}), ());
   TEST(checker.InCity({0.0001, 0.0001}), ());
@@ -57,10 +64,14 @@ UNIT_TEST(CitiesBoundariesChecker_IntersectedPolygons)
 
 UNIT_TEST(CitiesBoundariesChecker_SeveralPolygons)
 {
-  auto const checker = CitiesBoundariesChecker(
-      {CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}}),
-       CityBoundary({{10.0, 0.0}, {11.0, -1.0}, {10.5, 0.0}, {11.0, 1.0}, {10.0, 1.0}}),
-       CityBoundary({{0.0, 10.0}, {1.0, -11.0}, {0.5, 10.0}, {1.0, 11.0}, {0.0, 11.0}})});
+  auto const checker = CitiesBoundariesChecker({
+      CityBoundary({ {0.0, 0.0},  {1.0, -1.0},  {0.5, 0.0},  {1.0, 1.0},  {0.0, 1.0}}
+      ),
+      CityBoundary({{10.0, 0.0}, {11.0, -1.0}, {10.5, 0.0}, {11.0, 1.0}, {10.0, 1.0}}
+      ),
+      CityBoundary({{0.0, 10.0}, {1.0, -11.0}, {0.5, 10.0}, {1.0, 11.0}, {0.0, 11.0}}
+      )
+  });
 
   TEST(checker.InCity({0.3, 0.3}), ());
   TEST(checker.InCity({0.0001, 0.0001}), ());

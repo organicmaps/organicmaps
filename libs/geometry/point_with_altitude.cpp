@@ -6,15 +6,12 @@
 
 namespace geometry
 {
-PointWithAltitude::PointWithAltitude()
-  : m_point(m2::PointD::Zero()), m_altitude(kDefaultAltitudeMeters)
-{
-}
+PointWithAltitude::PointWithAltitude() : m_point(m2::PointD::Zero()), m_altitude(kDefaultAltitudeMeters) {}
 
-PointWithAltitude::PointWithAltitude(m2::PointD const & point, Altitude altitude/* = kDefaultAltitudeMeters */)
-  : m_point(point), m_altitude(altitude)
-{
-}
+PointWithAltitude::PointWithAltitude(m2::PointD const & point, Altitude altitude /* = kDefaultAltitudeMeters */)
+  : m_point(point)
+  , m_altitude(altitude)
+{}
 
 bool PointWithAltitude::operator==(PointWithAltitude const & r) const
 {
@@ -32,8 +29,7 @@ bool PointWithAltitude::operator<(PointWithAltitude const & r) const
 std::string DebugPrint(PointWithAltitude const & r)
 {
   std::ostringstream ss;
-  ss << "PointWithAltitude{point:" << DebugPrint(r.m_point) << ", altitude:" << r.GetAltitude()
-     << "}";
+  ss << "PointWithAltitude{point:" << DebugPrint(r.m_point) << ", altitude:" << r.GetAltitude() << "}";
   return ss.str();
 }
 

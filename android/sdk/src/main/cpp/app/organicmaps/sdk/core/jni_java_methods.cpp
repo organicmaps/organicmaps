@@ -29,4 +29,4 @@ jobject ListBuilder::CreateArray(JNIEnv * env, size_t sz) const
 {
   return env->NewObject(m_arrayClass, m_arrayCtor, sz);
 }
-} // namespace jni
+}  // namespace jni

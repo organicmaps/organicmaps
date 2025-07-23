@@ -2,7 +2,6 @@
 
 #include "ge0/geo_url_parser.hpp"
 
-
 namespace geo_url_tests
 {
 double const kEps = 1e-10;
@@ -124,7 +123,7 @@ UNIT_TEST(GeoUrl_Geo)
   TEST(info.IsLatLonValid(), ());
   TEST_ALMOST_EQUAL_ABS(info.m_lat, -32.899583, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 139.043969, kEps, ());
-  TEST_EQUAL(info.m_zoom, 12,());
+  TEST_EQUAL(info.m_zoom, 12, ());
 
   // Invalid coordinates.
   TEST(!parser.Parse("geo:0,0garbage", info), ());
@@ -195,7 +194,7 @@ UNIT_TEST(GeoURL_GoogleMaps)
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 33.8904447, kEps, ());
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 35.5044618, kEps, ());
   // Sic: zoom is not parsed
-  //TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
+  // TEST_ALMOST_EQUAL_ABS(info.m_zoom, 16.0, kEps, ());
 
   TEST(parser.Parse("https://www.google.com/maps?q=55.751809,-37.6130029", info), ());
   TEST_ALMOST_EQUAL_ABS(info.m_lat, 55.751809, kEps, ());
@@ -302,4 +301,4 @@ UNIT_TEST(GeoURL_BadZoom)
   TEST_ALMOST_EQUAL_ABS(info.m_lon, 21.01547, kEps, ());
   TEST_GREATER_OR_EQUAL(info.m_zoom, 0.0, ());
 }
-} // namespace geo_url_tests
+}  // namespace geo_url_tests

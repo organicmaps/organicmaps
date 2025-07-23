@@ -34,9 +34,7 @@ void RunRoutine(std::shared_ptr<IRoutine> routine)
 /////////////////////////////////////////////////////////////////////
 // Thread wrapper implementation
 
-Thread::Thread()
-{
-}
+Thread::Thread() {}
 
 Thread::~Thread()
 {
@@ -83,11 +81,20 @@ void Thread::Join()
     m_thread.join();
 }
 
-IRoutine * Thread::GetRoutine() { return m_routine.get(); }
+IRoutine * Thread::GetRoutine()
+{
+  return m_routine.get();
+}
 
-void Sleep(size_t ms) { std::this_thread::sleep_for(std::chrono::milliseconds(ms)); }
+void Sleep(size_t ms)
+{
+  std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
 
-ThreadID GetCurrentThreadID() { return std::this_thread::get_id(); }
+ThreadID GetCurrentThreadID()
+{
+  return std::this_thread::get_id();
+}
 
 /////////////////////////////////////////////////////////////////////
 // SimpleThread implementation

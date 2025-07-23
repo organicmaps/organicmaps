@@ -19,9 +19,7 @@ UNIT_TEST(OSM_O5M_Source_Node_read_test)
   std::stringstream ss(data);
 
   osm::O5MSource dataset([&ss](uint8_t * buffer, size_t size)
-  {
-    return ss.read(reinterpret_cast<char *>(buffer), size).gcount();
-  }, 10 /* buffer size */);
+  { return ss.read(reinterpret_cast<char *>(buffer), size).gcount(); }, 10 /* buffer size */);
 
   osm::O5MSource::Iterator it = dataset.begin();
   osm::O5MSource::Entity const & em = *it;
@@ -52,49 +50,47 @@ UNIT_TEST(OSM_O5M_Source_Way_read_test)
   std::stringstream ss(data);
 
   osm::O5MSource dataset([&ss](uint8_t * buffer, size_t size)
-  {
-    return ss.read(reinterpret_cast<char *>(buffer), size).gcount();
-  }, 10 /* buffer size */);
+  { return ss.read(reinterpret_cast<char *>(buffer), size).gcount(); }, 10 /* buffer size */);
 
   std::set<int64_t> nodes;
 
   vector<pair<string, string>> const validTags = {
-      {"name", "Yukon River"}, {"name:ru", "Юкон"}, {"waterway", "river"}};
+      {    "name", "Yukon River"},
+      { "name:ru",        "Юкон"},
+      {"waterway",       "river"}
+  };
 
   for (auto const & em : dataset)
   {
     switch (em.type)
     {
-      case osm::O5MSource::EntityType::Node:
+    case osm::O5MSource::EntityType::Node:
+    {
+      nodes.insert(em.id);
+      for (auto const & tag : em.Tags())
+        TEST(false, ("Unexpected tag:", tag.key, tag.value));
+      break;
+    }
+    case osm::O5MSource::EntityType::Way:
+    {
+      size_t ndCounter = 0;
+      size_t tagCounter = 0;
+      for (auto const & nd : em.Nodes())
       {
-        nodes.insert(em.id);
-        for (auto const & tag : em.Tags())
-        {
-          TEST(false, ("Unexpected tag:", tag.key, tag.value));
-        }
-        break;
+        ndCounter++;
+        TEST(nodes.count(nd), ());
       }
-      case osm::O5MSource::EntityType::Way:
+      TEST_EQUAL(nodes.size(), ndCounter, ());
+      for (auto const & tag : em.Tags())
       {
-        size_t ndCounter = 0;
-        size_t tagCounter = 0;
-        for (auto const & nd : em.Nodes())
-        {
-          ndCounter++;
-          TEST(nodes.count(nd), ());
-        }
-        TEST_EQUAL(nodes.size(), ndCounter, ());
-        for (auto const & tag : em.Tags())
-        {
-          TEST_EQUAL(tag.key, validTags[tagCounter].first, ());
-          TEST_EQUAL(tag.value, validTags[tagCounter].second, ());
-          tagCounter++;
-        }
-        TEST_EQUAL(validTags.size(), tagCounter, ());
-        break;
+        TEST_EQUAL(tag.key, validTags[tagCounter].first, ());
+        TEST_EQUAL(tag.value, validTags[tagCounter].second, ());
+        tagCounter++;
       }
-      default:
-        break;
+      TEST_EQUAL(validTags.size(), tagCounter, ());
+      break;
+    }
+    default: break;
     }
   }
 }
@@ -105,26 +101,27 @@ UNIT_TEST(OSM_O5M_Source_Relation_read_test)
   std::stringstream ss(data);
 
   osm::O5MSource dataset([&ss](uint8_t * buffer, size_t size)
-  {
-    return ss.read(reinterpret_cast<char *>(buffer), size).gcount();
-  }, 10 /* buffer size */);
+  { return ss.read(reinterpret_cast<char *>(buffer), size).gcount(); }, 10 /* buffer size */);
 
   std::set<int64_t> nodes;
   std::set<int64_t> entities;
 
   vector<pair<string, string>> const validNodeTags = {
-    {"name", "Whitehorse"}
-    , {"place", "town"}};
+      { "name", "Whitehorse"},
+      {"place",       "town"}
+  };
 
   vector<pair<string, string>> const validRelationTags = {
-      {"name", "Whitehorse"}
-    , {"place", "town"}
-    , {"type", "multipolygon"}};
+      { "name",   "Whitehorse"},
+      {"place",         "town"},
+      { "type", "multipolygon"}
+  };
 
   using TType = osm::O5MSource::EntityType;
   vector<pair<TType, string>> const relationMembers = {
-      {TType::Way, "outer"}
-    , {TType::Node, ""}};
+      { TType::Way, "outer"},
+      {TType::Node,      ""}
+  };
 
   for (auto const & em : dataset)
   {
@@ -132,58 +129,53 @@ UNIT_TEST(OSM_O5M_Source_Relation_read_test)
 
     switch (em.type)
     {
-      case TType::Node:
+    case TType::Node:
+    {
+      nodes.insert(em.id);
+      size_t tagCounter = 0;
+      for (auto const & tag : em.Tags())
       {
-        nodes.insert(em.id);
-        size_t tagCounter = 0;
-        for (auto const & tag : em.Tags())
-        {
-          TEST_EQUAL(tag.key, validNodeTags[tagCounter].first, ());
-          TEST_EQUAL(tag.value, validNodeTags[tagCounter].second, ());
-          tagCounter++;
-        }
-        break;
+        TEST_EQUAL(tag.key, validNodeTags[tagCounter].first, ());
+        TEST_EQUAL(tag.value, validNodeTags[tagCounter].second, ());
+        tagCounter++;
       }
-      case TType::Way:
+      break;
+    }
+    case TType::Way:
+    {
+      size_t ndCounter = 0;
+      for (auto const & nd : em.Nodes())
       {
-        size_t ndCounter = 0;
-        for (auto const & nd : em.Nodes())
-        {
-          ndCounter++;
-          TEST(nodes.count(nd), ());
-        }
-        TEST_EQUAL(nodes.size(), ndCounter, ());
-        for (auto const & tag : em.Tags())
-        {
-          TEST(false, ("Unexpected tag:", tag.key, tag.value));
-        }
-        break;
+        ndCounter++;
+        TEST(nodes.count(nd), ());
       }
-      case TType::Relation:
+      TEST_EQUAL(nodes.size(), ndCounter, ());
+      for (auto const & tag : em.Tags())
+        TEST(false, ("Unexpected tag:", tag.key, tag.value));
+      break;
+    }
+    case TType::Relation:
+    {
+      size_t memberCounter = 0;
+      size_t tagCounter = 0;
+      for (auto const & member : em.Members())
       {
-        size_t memberCounter = 0;
-        size_t tagCounter = 0;
-        for (auto const & member : em.Members())
-        {
-          TEST(entities.count(member.ref), ());
-          TEST_EQUAL(relationMembers[memberCounter].first, member.type,
-                      ("Current member:", memberCounter));
-          TEST_EQUAL(relationMembers[memberCounter].second, member.role,
-                      ("Current member:", memberCounter));
-          memberCounter++;
-        }
-        TEST_EQUAL(memberCounter, 2, ());
-        for (auto const & tag : em.Tags())
-        {
-          TEST_EQUAL(tag.key, validRelationTags[tagCounter].first, ());
-          TEST_EQUAL(tag.value, validRelationTags[tagCounter].second, ());
-          tagCounter++;
-        }
-        TEST_EQUAL(validRelationTags.size(), tagCounter, ());
-        break;
+        TEST(entities.count(member.ref), ());
+        TEST_EQUAL(relationMembers[memberCounter].first, member.type, ("Current member:", memberCounter));
+        TEST_EQUAL(relationMembers[memberCounter].second, member.role, ("Current member:", memberCounter));
+        memberCounter++;
       }
-      default:
-        break;
+      TEST_EQUAL(memberCounter, 2, ());
+      for (auto const & tag : em.Tags())
+      {
+        TEST_EQUAL(tag.key, validRelationTags[tagCounter].first, ());
+        TEST_EQUAL(tag.value, validRelationTags[tagCounter].second, ());
+        tagCounter++;
+      }
+      TEST_EQUAL(validRelationTags.size(), tagCounter, ());
+      break;
+    }
+    default: break;
     }
   }
 }

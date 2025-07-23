@@ -11,10 +11,8 @@
 namespace df
 {
 
-MapFollowAnimation::MapFollowAnimation(ScreenBase const & screen,
-                                       m2::PointD const & globalUserPosition,
-                                       m2::PointD const & endPixelPosition,
-                                       double endScale, double endAngle,
+MapFollowAnimation::MapFollowAnimation(ScreenBase const & screen, m2::PointD const & globalUserPosition,
+                                       m2::PointD const & endPixelPosition, double endScale, double endAngle,
                                        bool isAutoZoom)
   : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
   , m_isAutoZoom(isAutoZoom)
@@ -37,7 +35,8 @@ void MapFollowAnimation::Init(ScreenBase const & screen, TPropertyCache const & 
 
   m_offset = currentScreen.PtoG(currentScreen.P3dtoP(m_endPixelPosition)) - m_globalPosition;
   double const averageScale = m_isAutoZoom ? currentScreen.GetScale() : (currentScreen.GetScale() + m_endScale) / 2.0;
-  double const moveDuration = PositionInterpolator::GetMoveDuration(m_offset.Length(), screen.PixelRectIn3d(), averageScale);
+  double const moveDuration =
+      PositionInterpolator::GetMoveDuration(m_offset.Length(), screen.PixelRectIn3d(), averageScale);
   m_offsetInterpolator = PositionInterpolator(moveDuration, 0.0, m_offset, m2::PointD(0.0, 0.0));
 
   m_offsetInterpolator.SetMinDuration(minDuration);
@@ -156,7 +155,6 @@ double MapFollowAnimation::GetMinDuration() const
   return minDuration;
 }
 
-
 double MapFollowAnimation::CalculateDuration() const
 {
   double duration = std::max(m_angleInterpolator.GetDuration(), m_offsetInterpolator.GetDuration());
@@ -180,15 +178,16 @@ bool MapFollowAnimation::GetTargetProperty(Object object, ObjectProperty propert
   return GetProperty(object, property, true /* targetValue */, value);
 }
 
-bool MapFollowAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue, PropertyValue & value) const
+bool MapFollowAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue,
+                                     PropertyValue & value) const
 {
   if (property == Animation::ObjectProperty::Position)
   {
     ScreenBase tmp = AnimationSystem::Instance().GetLastScreen();
     if (targetValue)
     {
-      tmp.SetFromParams(m_globalPosition, m_angleInterpolator.GetTargetAngle(), m_isAutoZoom ? m_scaleInterpolator.GetScale()
-                                                                                             : m_scaleInterpolator.GetTargetScale());
+      tmp.SetFromParams(m_globalPosition, m_angleInterpolator.GetTargetAngle(),
+                        m_isAutoZoom ? m_scaleInterpolator.GetScale() : m_scaleInterpolator.GetTargetScale());
       tmp.MatchGandP3d(m_globalPosition, m_endPixelPosition);
     }
     else
@@ -230,4 +229,4 @@ bool MapFollowAnimation::HasPixelOffset() const
   return m_offsetInterpolator.IsActive();
 }
 
-} // namespace df
+}  // namespace df

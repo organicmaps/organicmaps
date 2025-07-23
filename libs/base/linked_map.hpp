@@ -45,10 +45,7 @@ public:
     return true;
   }
 
-  bool Contains(KeyType const & key) const
-  {
-    return m_map.find(key) != m_map.cend();
-  }
+  bool Contains(KeyType const & key) const { return m_map.find(key) != m_map.cend(); }
 
   ValueType const & Get(KeyType const & key) const
   {
@@ -58,15 +55,9 @@ public:
     return it->second->second;
   }
 
-  ValueType & Front()
-  {
-    return m_list.front().second;
-  }
+  ValueType & Front() { return m_list.front().second; }
 
-  ValueType const & Front() const
-  {
-    return m_list.front().second;
-  }
+  ValueType const & Front() const { return m_list.front().second; }
 
   void Swap(LinkedMap & linkedMap)
   {
@@ -74,15 +65,9 @@ public:
     m_list.swap(linkedMap.m_list);
   }
 
-  size_t Size() const
-  {
-    return m_list.size();
-  }
+  size_t Size() const { return m_list.size(); }
 
-  bool IsEmpty() const
-  {
-    return m_list.empty();
-  }
+  bool IsEmpty() const { return m_list.empty(); }
 
 private:
   ListType m_list;

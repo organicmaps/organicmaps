@@ -21,8 +21,7 @@ public:
     struct SegmentInfo
     {
       SegmentInfo() = default;
-      SegmentInfo(uint32_t id, bool forwardIsEnter)
-          : m_segmentId(id), m_forwardIsEnter(forwardIsEnter) {}
+      SegmentInfo(uint32_t id, bool forwardIsEnter) : m_segmentId(id), m_forwardIsEnter(forwardIsEnter) {}
 
       uint32_t m_segmentId = 0;
       bool m_forwardIsEnter = false;
@@ -30,7 +29,9 @@ public:
 
     explicit CrossMwmInfo(uint64_t osmId) : m_osmId(osmId) {}
     CrossMwmInfo(uint64_t osmId, std::vector<SegmentInfo> crossMwmSegments)
-        : m_osmId(osmId), m_crossMwmSegments(std::move(crossMwmSegments)) {}
+      : m_osmId(osmId)
+      , m_crossMwmSegments(std::move(crossMwmSegments))
+    {}
 
     bool operator<(CrossMwmInfo const & rhs) const;
 

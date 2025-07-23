@@ -19,23 +19,26 @@
 #include "build_style/build_style.h"
 
 #include <QtGlobal>
-#include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMessageBox>
 
 #include <sstream>
 
 #include <gflags/gflags.h>
 
-
 DEFINE_string(data_path, "", "Path to data directory.");
-DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()), "Log messages severity that causes termination.");
+DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()),
+              "Log messages severity that causes termination.");
 DEFINE_string(resources_path, "", "Path to resources directory.");
-DEFINE_string(kml_path, "", "Activates screenshot mode. Path to a kml file or a directory with kml files to take screenshots.");
-DEFINE_string(points, "", "Activates screenshot mode. Points on the map and zoom level "
+DEFINE_string(kml_path, "",
+              "Activates screenshot mode. Path to a kml file or a directory with kml files to take screenshots.");
+DEFINE_string(points, "",
+              "Activates screenshot mode. Points on the map and zoom level "
               "[1..18] in format \"lat,lon,zoom[;lat,lon,zoom]\" or path to a file with points in "
               "the same format. Each point and zoom define a place on the map to take screenshot.");
-DEFINE_string(rects, "", "Activates screenshot mode. Rects on the map in format"
+DEFINE_string(rects, "",
+              "Activates screenshot mode. Rects on the map in format"
               "\"lat_leftBottom,lon_leftBottom,lat_rightTop,lon_rightTop"
               "[;lat_leftBottom,lon_leftBottom,lat_rightTop,lon_rightTop]\" or path to a file with "
               "rects in the same format. Each rect defines a place on the map to take screenshot.");
@@ -43,7 +46,9 @@ DEFINE_string(dst_path, "", "Path to a directory to save screenshots.");
 DEFINE_string(lang, "", "Device language.");
 DEFINE_int32(width, 0, "Screenshot width.");
 DEFINE_int32(height, 0, "Screenshot height.");
-DEFINE_double(dpi_scale, 0.0, "Screenshot dpi scale (mdpi = 1.0, hdpi = 1.5, xhdpiScale = 2.0, 6plus = 2.4, xxhdpi = 3.0, xxxhdpi = 3.5).");
+DEFINE_double(
+    dpi_scale, 0.0,
+    "Screenshot dpi scale (mdpi = 1.0, hdpi = 1.5, xhdpiScale = 2.0, 6plus = 2.4, xxhdpi = 3.0, xxxhdpi = 3.5).");
 
 namespace
 {
@@ -51,7 +56,7 @@ bool ValidateLogAbortLevel(char const * flagname, std::string const & value)
 {
   if (auto level = base::FromString(value); !level)
   {
-    std::cerr << "Invalid value for --" << flagname << ": "<< value << ", must be one of: ";
+    std::cerr << "Invalid value for --" << flagname << ": " << value << ", must be one of: ";
     auto const & names = base::GetLogLevelNames();
     for (size_t i = 0; i < names.size(); ++i)
     {
@@ -76,29 +81,27 @@ public:
     // useful when using memory and resource leak utilites
     // google::protobuf::ShutdownProtobufLibrary();
   }
-  };
+};
 
-#if defined(OMIM_OS_WINDOWS) //&& defined(PROFILER_COMMON)
-  class InitializeFinalize : public FinalizeBase
+#if defined(OMIM_OS_WINDOWS)  //&& defined(PROFILER_COMMON)
+class InitializeFinalize : public FinalizeBase
+{
+  FILE * m_errFile;
+  base::ScopedLogLevelChanger const m_debugLog;
+
+public:
+  InitializeFinalize() : m_debugLog(LDEBUG)
   {
-    FILE * m_errFile;
-    base::ScopedLogLevelChanger const m_debugLog;
-  public:
-    InitializeFinalize() : m_debugLog(LDEBUG)
-    {
-      // App runs without error console under win32.
-      m_errFile = ::freopen(".\\mapsme.log", "w", stderr);
+    // App runs without error console under win32.
+    m_errFile = ::freopen(".\\mapsme.log", "w", stderr);
 
-      //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
-      //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    }
-    ~InitializeFinalize()
-    {
-      ::fclose(m_errFile);
-    }
-  };
+    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
+    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+  }
+  ~InitializeFinalize() { ::fclose(m_errFile); }
+};
 #else
-  typedef FinalizeBase InitializeFinalize;
+typedef FinalizeBase InitializeFinalize;
 #endif
 }  // namespace
 
@@ -113,7 +116,7 @@ int main(int argc, char * argv[])
   Platform & platform = GetPlatform();
 
   LOG(LINFO, ("Organic Maps", platform.Version(), "built with QT:", QT_VERSION_STR, "runtime QT:", qVersion(),
-    "detected CPU cores:", platform.CpuCores()));
+              "detected CPU cores:", platform.CpuCores()));
 
   gflags::SetUsageMessage("Desktop application.");
   gflags::SetVersionString(platform.Version());
@@ -138,13 +141,11 @@ int main(int argc, char * argv[])
   app.setDesktopFileName("app.organicmaps.desktop");
   platform.SetupMeasurementSystem();
 
-
 #ifdef BUILD_DESIGNER
-    QApplication::setApplicationName("Organic Maps Designer");
+  QApplication::setApplicationName("Organic Maps Designer");
 #else
-    QApplication::setApplicationName("Organic Maps");
+  QApplication::setApplicationName("Organic Maps");
 #endif
-
 
 #ifdef DEBUG
   static bool constexpr developerMode = true;
@@ -172,7 +173,7 @@ int main(int argc, char * argv[])
   }
 
   int returnCode = -1;
-  if (eulaAccepted)   // User has accepted EULA
+  if (eulaAccepted)  // User has accepted EULA
   {
     std::unique_ptr<qt::ScreenshotParams> screenshotParams;
 
@@ -214,7 +215,7 @@ int main(int argc, char * argv[])
 #ifdef BUILD_DESIGNER
     QString mapcssFilePath;
     if (argc >= 2 && platform.IsFileExistsByFullPath(argv[1]))
-        mapcssFilePath = argv[1];
+      mapcssFilePath = argv[1];
     if (0 == mapcssFilePath.length())
       mapcssFilePath = QFileDialog::getOpenFileName(nullptr, "Open style.mapcss file", "~/", "MapCSS Files (*.mapcss)");
     if (mapcssFilePath.isEmpty())
@@ -235,14 +236,15 @@ int main(int argc, char * argv[])
       return returnCode;
     }
 
-#endif // BUILD_DESIGNER
+#endif  // BUILD_DESIGNER
 
     Framework framework(frameworkParams);
     qt::MainWindow w(framework, std::move(screenshotParams), QApplication::primaryScreen()->geometry()
 #ifdef BUILD_DESIGNER
-                     , mapcssFilePath
-#endif // BUILD_DESIGNER
-                     );
+                                                                 ,
+                     mapcssFilePath
+#endif  // BUILD_DESIGNER
+    );
     w.show();
     returnCode = QApplication::exec();
   }
@@ -264,7 +266,7 @@ int main(int argc, char * argv[])
       msgBox.exec();
     }
   }
-#endif // BUILD_DESIGNER
+#endif  // BUILD_DESIGNER
 
   LOG_SHORT(LINFO, ("Organic Maps finished with code", returnCode));
   return returnCode;

@@ -147,8 +147,7 @@ UNIT_TEST(ArchiveName_Create)
   routing::RouterType const routerType = routing::RouterType::Pedestrian;
   uint32_t const version = 1;
   std::chrono::seconds const timestamp(1573635326);
-  std::string const filename =
-      tracking::archival_file::GetArchiveFilename(version, timestamp, routerType);
+  std::string const filename = tracking::archival_file::GetArchiveFilename(version, timestamp, routerType);
 
   CHECK_EQUAL(filename, "1_1573635326_1.track", ());
 }

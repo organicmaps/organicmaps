@@ -23,7 +23,10 @@ double const kEps = 1e-10;
 
 UNIT_TEST(MapApiSmoke)
 {
-  string urlString = "mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&s=black&backurl=https%3A%2F%2Forganicmaps.app";
+  string urlString =
+      "mapswithme://"
+      "map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&s=black&backurl=https%3A%2F%2Forganicmaps."
+      "app";
   TEST(url::Url(urlString).IsValid(), ());
 
   ParsedMapApi test(urlString);
@@ -41,8 +44,7 @@ UNIT_TEST(MapApiSmoke)
 
 UNIT_TEST(RouteApiSmoke)
 {
-  string const urlString =
-      "mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle";
+  string const urlString = "mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle";
   TEST(url::Url(urlString).IsValid(), ());
 
   ParsedMapApi test(urlString);
@@ -59,7 +61,8 @@ UNIT_TEST(RouteApiSmoke)
 
 UNIT_TEST(SearchApiSmoke)
 {
-  string const urlString = "mapsme://search?query=Saint%20Hilarion&cll=35.3166654,33.2833322&locale=ru&map&appname=Organic%20Maps";
+  string const urlString =
+      "mapsme://search?query=Saint%20Hilarion&cll=35.3166654,33.2833322&locale=ru&map&appname=Organic%20Maps";
   TEST(url::Url(urlString).IsValid(), ());
 
   ParsedMapApi test(urlString);
@@ -121,7 +124,8 @@ UNIT_TEST(SearchApiInvalidUrl)
   ParsedMapApi test;
   TEST_EQUAL(test.SetUrlAndParse("mapsme://search?"), UrlType::Incorrect, ("Empty query string"));
   TEST_EQUAL(test.SetUrlAndParse("mapsme://search?query"), UrlType::Incorrect, ("Search query can't be empty"));
-  TEST_EQUAL(test.SetUrlAndParse("mapsme://serch?cll=1,1&locale=ru&query=aaa"), UrlType::Incorrect, ("Incorrect url type"));
+  TEST_EQUAL(test.SetUrlAndParse("mapsme://serch?cll=1,1&locale=ru&query=aaa"), UrlType::Incorrect,
+             ("Incorrect url type"));
   TEST_EQUAL(test.SetUrlAndParse("mapsme://search?Query=fff"), UrlType::Incorrect, ("The parser is case sensitive"));
   TEST_EQUAL(test.SetUrlAndParse("incorrect://search?query=aaa"), UrlType::Incorrect, ("Wrong prefix"));
   TEST_EQUAL(test.SetUrlAndParse("http://search?query=aaa"), UrlType::Incorrect, ("Wrong prefix"));
@@ -131,7 +135,7 @@ UNIT_TEST(LeadApiSmoke)
 {
   ParsedMapApi test;
   TEST_EQUAL(test.SetUrlAndParse("mapsme://lead?utm_source=a&utm_medium=b&utm_campaign=c&utm_content=d&utm_term=e"),
-    UrlType::Incorrect, ("Lead API is not supported"));
+             UrlType::Incorrect, ("Lead API is not supported"));
 }
 
 UNIT_TEST(MapApiInvalidUrl)
@@ -149,17 +153,24 @@ UNIT_TEST(MapApiInvalidUrl)
 UNIT_TEST(RouteApiInvalidUrl)
 {
   ParsedMapApi test;
-  TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name2"), UrlType::Incorrect, ("Route type doesn't exist"));
-  TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&saddr=name0"), UrlType::Incorrect, ("Destination doesn't exist"));
-  TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&dll=2,2&type=vehicle"), UrlType::Incorrect, ("Source or destination name doesn't exist"));
+  TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name2"), UrlType::Incorrect,
+             ("Route type doesn't exist"));
+  TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&saddr=name0"), UrlType::Incorrect,
+             ("Destination doesn't exist"));
+  TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&dll=2,2&type=vehicle"), UrlType::Incorrect,
+             ("Source or destination name doesn't exist"));
   TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?saddr=name0&daddr=name1&type=vehicle"), UrlType::Incorrect, ());
   TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&sll=2.2&type=vehicle"), UrlType::Incorrect, ());
   TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&dll=2.2&type=666"), UrlType::Incorrect, ());
-  TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&type=vehicle"), UrlType::Incorrect, ());
+  TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&type=vehicle"),
+             UrlType::Incorrect, ());
   TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&type=vehicle"), UrlType::Incorrect, ());
-  TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&sll=1,1&saddr=name0&type=vehicle"), UrlType::Incorrect, ());
+  TEST_EQUAL(test.SetUrlAndParse(
+                 "mapswithme://route?sll=1,1&saddr=name0&sll=2,2&saddr=name1&sll=1,1&saddr=name0&type=vehicle"),
+             UrlType::Incorrect, ());
   TEST_EQUAL(test.SetUrlAndParse("mapswithme://route?type=vehicle"), UrlType::Incorrect, ());
-  TEST_EQUAL(test.SetUrlAndParse("mapswithme://rout?sll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle"), UrlType::Incorrect, ());
+  TEST_EQUAL(test.SetUrlAndParse("mapswithme://rout?sll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle"),
+             UrlType::Incorrect, ());
 }
 
 UNIT_TEST(MapApiLatLonLimits)
@@ -385,7 +396,6 @@ UNIT_TEST(CrosshairApi)
   }
 }
 
-
 UNIT_TEST(GlobalBackUrl)
 {
   {
@@ -409,19 +419,30 @@ UNIT_TEST(GlobalBackUrl)
     TEST_EQUAL(api.GetGlobalBackUrl(), "http://mapswithme.com", ());
   }
   {
-    ParsedMapApi api("mwm://map?ll=1,2&n=PointName&backurl=someapp://%D0%9C%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%9A%D0%B0%D1%80%D1%82%D1%8B");
-    TEST_EQUAL(api.GetGlobalBackUrl(), "someapp://\xd0\x9c\xd0\xbe\xd0\xb1\xd0\xb8\xd0\xbb\xd1\x8c\xd0\xbd\xd1\x8b\xd0\xb5 \xd0\x9a\xd0\xb0\xd1\x80\xd1\x82\xd1\x8b", ());
+    ParsedMapApi api(
+        "mwm://map?ll=1,2&n=PointName&backurl=someapp://"
+        "%D0%9C%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%9A%D0%B0%D1%80%D1%82%D1%8B");
+    TEST_EQUAL(api.GetGlobalBackUrl(),
+               "someapp://\xd0\x9c\xd0\xbe\xd0\xb1\xd0\xb8\xd0\xbb\xd1\x8c\xd0\xbd\xd1\x8b\xd0\xb5 "
+               "\xd0\x9a\xd0\xb0\xd1\x80\xd1\x82\xd1\x8b",
+               ());
   }
   {
     ParsedMapApi api("mwm://map?ll=1,2&n=PointName");
     TEST_EQUAL(api.GetGlobalBackUrl(), "", ());
   }
   {
-    ParsedMapApi api("mwm://map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83");
+    ParsedMapApi api(
+        "mwm://"
+        "map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%"
+        "82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83");
     TEST_EQUAL(api.GetGlobalBackUrl(), "приложение://откройСсылку", ());
   }
   {
-    ParsedMapApi api("mwm://map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83");
+    ParsedMapApi api(
+        "mwm://"
+        "map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%"
+        "82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83");
     TEST_EQUAL(api.GetGlobalBackUrl(), "приложение://откройСсылку", ());
   }
   {
@@ -496,8 +517,7 @@ namespace
 string generatePartOfUrl(url_scheme::MapPoint const & point)
 {
   stringstream stream;
-  stream << "&ll=" << std::to_string(point.m_lat)  << "," << std::to_string(point.m_lon)
-         << "&n=" << point.m_name
+  stream << "&ll=" << std::to_string(point.m_lat) << "," << std::to_string(point.m_lon) << "&n=" << point.m_name
          << "&id=" << point.m_id;
   return stream.str();
 }
@@ -513,7 +533,7 @@ string randomString(size_t size, uint32_t seed)
 
 void generateRandomTest(uint32_t numberOfPoints, size_t stringLength)
 {
-  vector <url_scheme::MapPoint> vect(numberOfPoints);
+  vector<url_scheme::MapPoint> vect(numberOfPoints);
   for (uint32_t i = 0; i < numberOfPoints; ++i)
   {
     url_scheme::MapPoint point;
@@ -543,7 +563,7 @@ void generateRandomTest(uint32_t numberOfPoints, size_t stringLength)
   }
 }
 
-}
+}  // namespace
 
 UNIT_TEST(100FullEnteriesRandomTest)
 {

@@ -5,8 +5,8 @@ static NSString * const kLocationAlertNibName = @"MWMLocationAlert";
 
 @interface MWMLocationAlert ()
 
-@property (weak, nonatomic) IBOutlet UIButton * rightButton;
-@property (nullable, nonatomic) MWMVoidBlock cancelBlock;
+@property(weak, nonatomic) IBOutlet UIButton * rightButton;
+@property(nullable, nonatomic) MWMVoidBlock cancelBlock;
 
 @end
 
@@ -14,8 +14,7 @@ static NSString * const kLocationAlertNibName = @"MWMLocationAlert";
 
 + (instancetype)alertWithCancelBlock:(MWMVoidBlock)cancelBlock
 {
-  MWMLocationAlert * alert =
-      [NSBundle.mainBundle loadNibNamed:kLocationAlertNibName owner:nil options:nil].firstObject;
+  MWMLocationAlert * alert = [NSBundle.mainBundle loadNibNamed:kLocationAlertNibName owner:nil options:nil].firstObject;
   [alert setNeedsCloseAlertAfterEnterBackground];
   alert.cancelBlock = cancelBlock;
   return alert;

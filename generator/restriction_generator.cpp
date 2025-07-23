@@ -10,8 +10,8 @@
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
@@ -38,17 +38,16 @@ std::unique_ptr<IndexGraph> CreateIndexGraph(std::string const & mwmPath, std::s
 
   MwmValue mwmValue(platform::LocalCountryFile::MakeTemporary(mwmPath));
 
-  auto graph = std::make_unique<IndexGraph>(
-      std::make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmPath, vehicleModel)),
-      EdgeEstimator::Create(VehicleType::Car, *vehicleModel, nullptr /* trafficStash */,
-        nullptr /* dataSource */, nullptr /* numMvmIds */));
+  auto graph =
+      std::make_unique<IndexGraph>(std::make_shared<Geometry>(GeometryLoader::CreateFromFile(mwmPath, vehicleModel)),
+                                   EdgeEstimator::Create(VehicleType::Car, *vehicleModel, nullptr /* trafficStash */,
+                                                         nullptr /* dataSource */, nullptr /* numMvmIds */));
 
   DeserializeIndexGraph(mwmValue, VehicleType::Car, *graph);
   return graph;
 }
 
-void SerializeRestrictions(RestrictionCollector & restrictionCollector,
-                           std::string const & mwmPath)
+void SerializeRestrictions(RestrictionCollector & restrictionCollector, std::string const & mwmPath)
 {
   std::vector<Restriction> restrictions = restrictionCollector.StealRestrictions();
   CHECK(std::is_sorted(restrictions.cbegin(), restrictions.cend()), ());
@@ -61,10 +60,9 @@ void SerializeRestrictions(RestrictionCollector & restrictionCollector,
     decltype(restrictions.cbegin()) firstNextType;
     if (i != RestrictionHeader::kRestrictionTypes.size())
     {
-      firstNextType =
-          std::lower_bound(restrictions.cbegin(), restrictions.cend(),
-                           Restriction(RestrictionHeader::kRestrictionTypes[i], {} /* links */),
-                           base::LessBy(&Restriction::m_type));
+      firstNextType = std::lower_bound(restrictions.cbegin(), restrictions.cend(),
+                                       Restriction(RestrictionHeader::kRestrictionTypes[i], {} /* links */),
+                                       base::LessBy(&Restriction::m_type));
     }
     else
     {
@@ -73,8 +71,7 @@ void SerializeRestrictions(RestrictionCollector & restrictionCollector,
 
     CHECK_GREATER_OR_EQUAL(i, 1, ("Unexpected overflow."));
     auto const prevType = RestrictionHeader::kRestrictionTypes[i - 1];
-    header.SetNumberOf(prevType,
-                       base::checked_cast<uint32_t>(std::distance(prevTypeEndIt, firstNextType)));
+    header.SetNumberOf(prevType, base::checked_cast<uint32_t>(std::distance(prevTypeEndIt, firstNextType)));
 
     prevTypeEndIt = firstNextType;
   }
@@ -89,9 +86,7 @@ void SerializeRestrictions(RestrictionCollector & restrictionCollector,
   RestrictionSerializer::Serialize(header, restrictions.begin(), restrictions.end(), *w);
 }
 
-bool BuildRoadRestrictions(IndexGraph & graph,
-                           std::string const & mwmPath,
-                           std::string const & restrictionPath,
+bool BuildRoadRestrictions(IndexGraph & graph, std::string const & mwmPath, std::string const & restrictionPath,
                            std::string const & osmIdsToFeatureIdsPath)
 {
   LOG(LINFO, ("Generating restrictions for", restrictionPath));
@@ -102,7 +97,8 @@ bool BuildRoadRestrictions(IndexGraph & graph,
 
   if (!collector->HasRestrictions())
   {
-    LOG(LWARNING, ("No restrictions created. Check that", restrictionPath, "and", osmIdsToFeatureIdsPath, "are available."));
+    LOG(LWARNING,
+        ("No restrictions created. Check that", restrictionPath, "and", osmIdsToFeatureIdsPath, "are available."));
     return false;
   }
 

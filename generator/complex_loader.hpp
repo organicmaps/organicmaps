@@ -54,13 +54,10 @@ storage::CountryId GetCountry(tree_node::types::Ptr<HierarchyEntry> const & tree
 ComplexLoader const & GetOrCreateComplexLoader(std::string const & filename);
 
 template <typename Fn>
-tree_node::Forest<complex::Ids> TraformToIdsForest(
-    tree_node::Forest<HierarchyEntry> const & forest, Fn && fn)
+tree_node::Forest<complex::Ids> TraformToIdsForest(tree_node::Forest<HierarchyEntry> const & forest, Fn && fn)
 {
   tree_node::Forest<complex::Ids> res;
-  forest.ForEachTree([&](auto const & tree) {
-    res.Append(tree_node::TransformToTree(tree, std::forward<Fn>(fn)));
-  });
+  forest.ForEachTree([&](auto const & tree) { res.Append(tree_node::TransformToTree(tree, std::forward<Fn>(fn))); });
   return res;
 }
 }  // namespace generator

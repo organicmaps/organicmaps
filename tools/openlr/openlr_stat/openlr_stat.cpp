@@ -35,8 +35,7 @@ DEFINE_string(input, "", "Path to OpenLR file.");
 DEFINE_string(spark_output, "", "Path to output file in spark-oriented format");
 DEFINE_string(assessment_output, "", "Path to output file in assessment-tool oriented format");
 
-DEFINE_string(non_matched_ids, "non-matched-ids.txt",
-              "Path to a file ids of non-matched segments will be saved to");
+DEFINE_string(non_matched_ids, "non-matched-ids.txt", "Path to a file ids of non-matched segments will be saved to");
 DEFINE_string(mwms_path, "", "Path to a folder with mwms.");
 DEFINE_string(resources_path, "", "Path to a folder with resources.");
 DEFINE_int32(limit, -1, "Max number of segments to handle. -1 for all.");
@@ -56,8 +55,7 @@ int32_t const kMinNumThreads = 1;
 int32_t const kMaxNumThreads = 128;
 int32_t const kHandleAllSegments = -1;
 
-void LoadDataSources(std::string const & pathToMWMFolder,
-                     std::vector<FrozenDataSource> & dataSources)
+void LoadDataSources(std::string const & pathToMWMFolder, std::vector<FrozenDataSource> & dataSources)
 {
   CHECK(Platform::IsDirectory(pathToMWMFolder), (pathToMWMFolder, "must be a directory."));
 
@@ -73,8 +71,7 @@ void LoadDataSources(std::string const & pathToMWMFolder,
   {
     auto const fullFileName = base::JoinPath(pathToMWMFolder, fileName);
     ModelReaderPtr reader(GetPlatform().GetReader(fullFileName, "f"));
-    platform::LocalCountryFile localFile(pathToMWMFolder,
-                                         platform::CountryFile(base::FilenameWithoutExt(fileName)),
+    platform::LocalCountryFile localFile(pathToMWMFolder, platform::CountryFile(base::FilenameWithoutExt(fileName)),
                                          version::ReadVersionDate(reader));
 
     LOG(LINFO, ("Found mwm:", fullFileName));
@@ -98,18 +95,15 @@ void LoadDataSources(std::string const & pathToMWMFolder,
   }
 
   for (size_t i = 0; i < numDataSources; ++i)
-  {
     if (numCountries[i] == 0)
       LOG(LWARNING, ("No countries for thread", i));
-  }
 }
 
 bool ValidateLimit(char const * flagname, int32_t value)
 {
   if (value < -1)
   {
-    LOG(LINFO, ("Valid value for --", std::string(flagname), ":", value,
-                "must be greater or equal to -1."));
+    LOG(LINFO, ("Valid value for --", std::string(flagname), ":", value, "must be greater or equal to -1."));
     return false;
   }
 
@@ -120,8 +114,8 @@ bool ValidateNumThreads(char const * flagname, int32_t value)
 {
   if (value < kMinNumThreads || value > kMaxNumThreads)
   {
-    LOG(LINFO, ("Valid value for --", std::string(flagname), ":", value, "must be between",
-                kMinNumThreads, "and", kMaxNumThreads));
+    LOG(LINFO, ("Valid value for --", std::string(flagname), ":", value, "must be between", kMinNumThreads, "and",
+                kMaxNumThreads));
     return false;
   }
 
@@ -157,8 +151,7 @@ bool ValidateVersion(char const * flagname, int32_t value)
 }
 
 bool const g_limitDummy = gflags::RegisterFlagValidator(&FLAGS_limit, &ValidateLimit);
-bool const g_numThreadsDummy =
-    gflags::RegisterFlagValidator(&FLAGS_num_threads, &ValidateNumThreads);
+bool const g_numThreadsDummy = gflags::RegisterFlagValidator(&FLAGS_num_threads, &ValidateNumThreads);
 bool const g_mwmsPathDummy = gflags::RegisterFlagValidator(&FLAGS_mwms_path, &ValidateMwmPath);
 bool const g_algoVersion = gflags::RegisterFlagValidator(&FLAGS_algo_version, &ValidateVersion);
 
@@ -169,10 +162,8 @@ void SaveNonMatchedIds(std::string const & filename, std::vector<DecodedPath> co
 
   std::ofstream ofs(filename);
   for (auto const & p : paths)
-  {
     if (p.m_path.empty())
       ofs << p.m_segmentId << std::endl;
-  }
 }
 
 std::vector<LinearSegment> LoadSegments(pugi::xml_document & document)
@@ -185,14 +176,10 @@ std::vector<LinearSegment> LoadSegments(pugi::xml_document & document)
   }
 
   OpenLRDecoder::SegmentsFilter filter(FLAGS_ids_path, FLAGS_multipoints_only);
-  if (FLAGS_limit != kHandleAllSegments && FLAGS_limit >= 0 &&
-      static_cast<size_t>(FLAGS_limit) < segments.size())
-  {
+  if (FLAGS_limit != kHandleAllSegments && FLAGS_limit >= 0 && static_cast<size_t>(FLAGS_limit) < segments.size())
     segments.resize(FLAGS_limit);
-  }
 
-  base::EraseIf(segments,
-                [&filter](LinearSegment const & segment) { return !filter.Matches(segment); });
+  base::EraseIf(segments, [&filter](LinearSegment const & segment) { return !filter.Matches(segment); });
 
   std::sort(segments.begin(), segments.end(), base::LessBy(&LinearSegment::m_segmentId));
 
@@ -261,8 +248,8 @@ int main(int argc, char * argv[])
 
   LoadDataSources(FLAGS_mwms_path, dataSources);
 
-  OpenLRDecoder decoder(dataSources, storage::CountryParentGetter(FLAGS_countries_filename,
-                                                              GetPlatform().ResourcesDir()));
+  OpenLRDecoder decoder(dataSources,
+                        storage::CountryParentGetter(FLAGS_countries_filename, GetPlatform().ResourcesDir()));
 
   pugi::xml_document document;
   auto const load_result = document.load_file(FLAGS_input.data());

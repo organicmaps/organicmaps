@@ -14,11 +14,9 @@ WorldFinalProcessor::WorldFinalProcessor(std::string const & temporaryMwmPath,
                                          std::string const & coastlineGeomFilename)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
   , m_temporaryMwmPath(temporaryMwmPath)
-  , m_worldTmpFilename(base::JoinPath(m_temporaryMwmPath, WORLD_FILE_NAME) +
-                       DATA_FILE_EXTENSION_TMP)
+  , m_worldTmpFilename(base::JoinPath(m_temporaryMwmPath, WORLD_FILE_NAME) + DATA_FILE_EXTENSION_TMP)
   , m_coastlineGeomFilename(coastlineGeomFilename)
-{
-}
+{}
 
 void WorldFinalProcessor::Process()
 {

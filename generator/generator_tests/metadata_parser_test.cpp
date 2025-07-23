@@ -70,7 +70,6 @@ UNIT_TEST(Metadata_ValidateAndFormat_stars)
   p("stars", "5s");
   TEST_EQUAL(md.Get(Metadata::FMD_STARS), "5", ());
   md.Drop(Metadata::FMD_STARS);
-
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_operator)
@@ -142,9 +141,9 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
   Metadata & md = params.GetMetadata();
 
 #ifdef OMIM_OS_MOBILE
-  #define WIKIHOST "m.wikipedia.org"
+#define WIKIHOST "m.wikipedia.org"
 #else
-  #define WIKIHOST "wikipedia.org"
+#define WIKIHOST "wikipedia.org"
 #endif
 
   struct Test
@@ -154,11 +153,13 @@ UNIT_TEST(Metadata_ValidateAndFormat_wikipedia)
     char const * url;
   };
   constexpr Test tests[] = {
-    {"en:Bad %20Data", "en:Bad %20Data", "https://en." WIKIHOST "/wiki/Bad_%2520Data"},
-    {"ru:Это тест_со знаками %, ? (и скобками)", "ru:Это тест со знаками %, ? (и скобками)", "https://ru." WIKIHOST "/wiki/Это_тест_со_знаками_%25,_%3F_(и_скобками)"},
-    {"https://be-tarask.wikipedia.org/wiki/Вялікае_Княства_Літоўскае", "be-tarask:Вялікае Княства Літоўскае", "https://be-tarask." WIKIHOST "/wiki/Вялікае_Княства_Літоўскае"},
-    // Final link points to https and mobile version.
-    {"http://en.wikipedia.org/wiki/A#id", "en:A#id", "https://en." WIKIHOST "/wiki/A#id"},
+      {                                                "en:Bad %20Data",                           "en:Bad %20Data","https://en." WIKIHOST "/wiki/Bad_%2520Data"                                                                                                                    },
+      {                      "ru:Это тест_со знаками %, ? (и скобками)", "ru:Это тест со знаками %, ? (и скобками)",
+       "https://ru." WIKIHOST "/wiki/Это_тест_со_знаками_%25,_%3F_(и_скобками)"                                                                                  },
+      {"https://be-tarask.wikipedia.org/wiki/Вялікае_Княства_Літоўскае",      "be-tarask:Вялікае Княства Літоўскае",
+       "https://be-tarask." WIKIHOST "/wiki/Вялікае_Княства_Літоўскае"                                                                                           },
+      // Final link points to https and mobile version.
+      {                             "http://en.wikipedia.org/wiki/A#id",                                  "en:A#id",          "https://en." WIKIHOST "/wiki/A#id"},
   };
 
   for (auto [source, validated, url] : tests)
@@ -227,7 +228,8 @@ UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_duration)
   MetadataTagProcessor p(params);
   Metadata & md = params.GetMetadata();
 
-  auto const test = [&](std::string const & osm, std::string const & expected) {
+  auto const test = [&](std::string const & osm, std::string const & expected)
+  {
     p("duration", osm);
 
     if (expected.empty())
@@ -287,7 +289,6 @@ UNIT_CLASS_TEST(TestWithClassificator, Metadata_ValidateAndFormat_duration)
   test("P4D", "");
   test("PT50:20", "");
 }
-
 
 UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_facebook)
 {
@@ -645,21 +646,22 @@ UNIT_TEST(Metadata_ValidateAndFormat_building_levels)
 
 UNIT_TEST(Metadata_ValidateAndFormat_url)
 {
-  std::array<std::pair<char const*, char const*>, 9> constexpr kTests =
-  {{
-    {"a.by", "a.by"},
-    {"http://test.com", "http://test.com"},
-    {"https://test.com", "https://test.com"},
-    {"test.com", "test.com"},
-    {"http://test.com/", "http://test.com"},
-    {"https://test.com/", "https://test.com"},
-    {"test.com/", "test.com"},
-    {"test.com/path", "test.com/path"},
-    {"test.com/path/", "test.com/path/"},
-  }};
+  std::array<std::pair<char const *, char const *>, 9> constexpr kTests = {
+      {
+       {"a.by", "a.by"},
+       {"http://test.com", "http://test.com"},
+       {"https://test.com", "https://test.com"},
+       {"test.com", "test.com"},
+       {"http://test.com/", "http://test.com"},
+       {"https://test.com/", "https://test.com"},
+       {"test.com/", "test.com"},
+       {"test.com/path", "test.com/path"},
+       {"test.com/path/", "test.com/path/"},
+       }
+  };
 
   FeatureBuilderParams params;
   MetadataTagProcessorImpl tp(params);
-  for (auto const& [input, output] : kTests)
+  for (auto const & [input, output] : kTests)
     TEST_EQUAL(tp.ValidateAndFormat_url(input), output, ());
 }

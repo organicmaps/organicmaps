@@ -2,8 +2,8 @@
 
 #include "search/feature_offset_match.hpp"
 
-#include "indexer/trie.hpp"
 #include "indexer/search_string_utils.hpp"
+#include "indexer/trie.hpp"
 
 #include "base/mem_trie.hpp"
 #include "base/string_utils.hpp"
@@ -28,7 +28,11 @@ UNIT_TEST(MatchInTrieTest)
 {
   Trie trie;
 
-  vector<pair<string, uint32_t>> const data = {{"hotel", 1}, {"homel", 2}, {"hotel", 3}};
+  vector<pair<string, uint32_t>> const data = {
+      {"hotel", 1},
+      {"homel", 2},
+      {"hotel", 3}
+  };
 
   for (auto const & kv : data)
     trie.Add(MakeUniString(kv.first), kv.second);
@@ -61,7 +65,10 @@ UNIT_TEST(MatchPrefixInTrieTest)
 {
   Trie trie;
 
-  vector<pair<string, uint32_t>> const data = {{"лермонтовъ", 1}, {"лермонтово", 2}};
+  vector<pair<string, uint32_t>> const data = {
+      {"лермонтовъ", 1},
+      {"лермонтово", 2}
+  };
 
   for (auto const & kv : data)
     trie.Add(MakeUniString(kv.first), kv.second);
@@ -99,4 +106,4 @@ UNIT_TEST(MatchPrefixInTrieTest)
     TEST(vals.at(1), (vals));
   }
 }
-} // namespace feature_offset_match_tests
+}  // namespace feature_offset_match_tests

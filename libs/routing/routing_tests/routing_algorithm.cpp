@@ -27,20 +27,17 @@ size_t UndirectedGraph::GetNodesNumber() const
   return m_adjs.size();
 }
 
-void UndirectedGraph::GetEdgesList(Vertex const & vertex, bool /* isOutgoing */,
-                                   EdgeListT & adj)
+void UndirectedGraph::GetEdgesList(Vertex const & vertex, bool /* isOutgoing */, EdgeListT & adj)
 {
   GetAdjacencyList(vertex, adj);
 }
 
-void UndirectedGraph::GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                          EdgeListT & adj)
+void UndirectedGraph::GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & adj)
 {
   GetEdgesList(vertexData.m_vertex, false /* isOutgoing */, adj);
 }
 
-void UndirectedGraph::GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                           EdgeListT & adj)
+void UndirectedGraph::GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & adj)
 {
   GetEdgesList(vertexData.m_vertex, true /* isOutgoing */, adj);
 }
@@ -71,16 +68,15 @@ void DirectedGraph::GetEdgesList(Vertex const & v, bool isOutgoing, EdgeListT & 
 
 namespace
 {
-inline double TimeBetweenSec(geometry::PointWithAltitude const & j1,
-                             geometry::PointWithAltitude const & j2, double speedMPS)
+inline double TimeBetweenSec(geometry::PointWithAltitude const & j1, geometry::PointWithAltitude const & j2,
+                             double speedMPS)
 {
   ASSERT(speedMPS > 0.0, ());
   ASSERT_NOT_EQUAL(j1.GetAltitude(), geometry::kInvalidAltitude, ());
   ASSERT_NOT_EQUAL(j2.GetAltitude(), geometry::kInvalidAltitude, ());
 
   double const distanceM = mercator::DistanceOnEarth(j1.GetPoint(), j2.GetPoint());
-  double const altitudeDiffM =
-      static_cast<double>(j2.GetAltitude()) - static_cast<double>(j1.GetAltitude());
+  double const altitudeDiffM = static_cast<double>(j2.GetAltitude()) - static_cast<double>(j1.GetAltitude());
   return std::sqrt(distanceM * distanceM + altitudeDiffM * altitudeDiffM) / speedMPS;
 }
 
@@ -88,11 +84,8 @@ inline double TimeBetweenSec(geometry::PointWithAltitude const & j1,
 class WeightedEdge
 {
 public:
-  WeightedEdge() = default;   // needed for buffer_vector only
-  WeightedEdge(geometry::PointWithAltitude const & target, double weight)
-    : target(target), weight(weight)
-  {
-  }
+  WeightedEdge() = default;  // needed for buffer_vector only
+  WeightedEdge(geometry::PointWithAltitude const & target, double weight) : target(target), weight(weight) {}
 
   inline geometry::PointWithAltitude const & GetTarget() const { return target; }
   inline double GetWeight() const { return weight; }
@@ -108,13 +101,12 @@ using Algorithm = AStarAlgorithm<geometry::PointWithAltitude, WeightedEdge, doub
 class RoadGraph : public Algorithm::Graph
 {
 public:
-
   explicit RoadGraph(RoadGraphIFace const & roadGraph)
-    : m_roadGraph(roadGraph), m_maxSpeedMPS(measurement_utils::KmphToMps(roadGraph.GetMaxSpeedKMpH()))
+    : m_roadGraph(roadGraph)
+    , m_maxSpeedMPS(measurement_utils::KmphToMps(roadGraph.GetMaxSpeedKMpH()))
   {}
 
-  void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                            EdgeListT & adj) override
+  void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & adj) override
   {
     auto const & v = vertexData.m_vertex;
     IRoadGraph::EdgeListT edges;
@@ -133,8 +125,7 @@ public:
     }
   }
 
-  void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                           EdgeListT & adj) override
+  void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & adj) override
   {
     auto const & v = vertexData.m_vertex;
     IRoadGraph::EdgeListT edges;
@@ -181,12 +172,9 @@ std::string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
 {
   switch (value)
   {
-  case TestAStarBidirectionalAlgo::Result::OK:
-    return "OK";
-  case TestAStarBidirectionalAlgo::Result::NoPath:
-    return "NoPath";
-  case TestAStarBidirectionalAlgo::Result::Cancelled:
-    return "Cancelled";
+  case TestAStarBidirectionalAlgo::Result::OK: return "OK";
+  case TestAStarBidirectionalAlgo::Result::NoPath: return "NoPath";
+  case TestAStarBidirectionalAlgo::Result::Cancelled: return "Cancelled";
   }
 
   UNREACHABLE();
@@ -196,8 +184,7 @@ std::string DebugPrint(TestAStarBidirectionalAlgo::Result const & value)
 // *************************** AStar-bidirectional routing algorithm implementation ***********************
 TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
     RoadGraphIFace const & graph, geometry::PointWithAltitude const & startPos,
-    geometry::PointWithAltitude const & finalPos,
-    RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
+    geometry::PointWithAltitude const & finalPos, RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
 {
   RoadGraph roadGraph(graph);
   base::Cancellable cancellable;
@@ -206,4 +193,4 @@ TestAStarBidirectionalAlgo::Result TestAStarBidirectionalAlgo::CalculateRoute(
   Algorithm::Result const res = Algorithm().FindPathBidirectional(params, path);
   return Convert(res);
 }
-}  // namespace routing_tests
+}  // namespace routing_test

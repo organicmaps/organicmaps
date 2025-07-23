@@ -37,10 +37,7 @@ public:
     entry.m_values.push_back(std::forward<V>(value));
   }
 
-  void Delete(Key const & key)
-  {
-    m_table.erase(key);
-  }
+  void Delete(Key const & key) { m_table.erase(key); }
 
   // Unions clusters corresponding to |u| and |v|.
   //
@@ -75,10 +72,7 @@ public:
     {
       EntryWithKey(Entry const * entry, Key const & key) : m_entry(entry), m_key(key) {}
 
-      bool operator<(EntryWithKey const & rhs) const
-      {
-        return m_entry->m_root < rhs.m_entry->m_root;
-      }
+      bool operator<(EntryWithKey const & rhs) const { return m_entry->m_root < rhs.m_entry->m_root; }
 
       Entry const * m_entry;
       Key m_key;

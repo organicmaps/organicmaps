@@ -11,7 +11,6 @@
 
 #include <algorithm>
 
-
 namespace search
 {
 namespace bookmarks
@@ -34,10 +33,7 @@ struct DocVecWrapper
 
 struct RankingInfo
 {
-  bool operator<(RankingInfo const & rhs) const
-  {
-    return m_cosineSimilarity > rhs.m_cosineSimilarity;
-  }
+  bool operator<(RankingInfo const & rhs) const { return m_cosineSimilarity > rhs.m_cosineSimilarity; }
 
   bool operator>(RankingInfo const & rhs) const { return rhs < *this; }
 
@@ -69,9 +65,9 @@ void FillRankingInfo(QueryVec & qv, IdfMap & idfs, DocVec const & dv, RankingInf
 }  // namespace
 
 Processor::Processor(Emitter & emitter, base::Cancellable const & cancellable)
-  : m_emitter(emitter), m_cancellable(cancellable)
-{
-}
+  : m_emitter(emitter)
+  , m_cancellable(cancellable)
+{}
 
 void Processor::Reset()
 {
@@ -83,7 +79,10 @@ void Processor::Reset()
   m_bookmarksInGroup.clear();
 }
 
-void Processor::EnableIndexingOfDescriptions(bool enable) { m_indexDescriptions = enable; }
+void Processor::EnableIndexingOfDescriptions(bool enable)
+{
+  m_indexDescriptions = enable;
+}
 
 void Processor::EnableIndexingOfBookmarkGroup(GroupId const & groupId, bool enable)
 {
@@ -98,12 +97,10 @@ void Processor::EnableIndexingOfBookmarkGroup(GroupId const & groupId, bool enab
     return;
 
   for (auto const & id : m_bookmarksInGroup[groupId])
-  {
     if (nowIndexable)
       AddToIndex(id);
     else
       EraseFromIndex(id);
-  }
 }
 
 void Processor::Add(Id const & id, Doc const & doc)
@@ -111,14 +108,10 @@ void Processor::Add(Id const & id, Doc const & doc)
   ASSERT_EQUAL(m_docs.count(id), 0, ());
 
   DocVec::Builder builder;
-  doc.ForEachNameToken(
-      [&](int8_t /* lang */, strings::UniString const & token) { builder.Add(token); });
+  doc.ForEachNameToken([&](int8_t /* lang */, strings::UniString const & token) { builder.Add(token); });
 
   if (m_indexDescriptions)
-  {
-    doc.ForEachDescriptionToken(
-        [&](int8_t /* lang */, strings::UniString const & token) { builder.Add(token); });
-  }
+    doc.ForEachDescriptionToken([&](int8_t /* lang */, strings::UniString const & token) { builder.Add(token); });
 
   DocVec const docVec(builder);
 
@@ -172,10 +165,7 @@ void Processor::AttachToGroup(Id const & id, GroupId const & group)
 {
   auto const it = m_idToGroup.find(id);
   if (it != m_idToGroup.end())
-  {
-    LOG(LWARNING, ("Tried to attach bookmark", id, "to group", group,
-                   "but it already belongs to group", it->second));
-  }
+    LOG(LWARNING, ("Tried to attach bookmark", id, "to group", group, "but it already belongs to group", it->second));
 
   m_idToGroup[id] = group;
   m_bookmarksInGroup[group].insert(id);
@@ -188,15 +178,13 @@ void Processor::DetachFromGroup(Id const & id, GroupId const & group)
   auto const it = m_idToGroup.find(id);
   if (it == m_idToGroup.end())
   {
-    LOG(LWARNING, ("Tried to detach bookmark", id, "from group", group,
-                   "but it does not belong to any group"));
+    LOG(LWARNING, ("Tried to detach bookmark", id, "from group", group, "but it does not belong to any group"));
     return;
   }
 
   if (it->second != group)
   {
-    LOG(LWARNING, ("Tried to detach bookmark", id, "from group", group,
-                   "but it only belongs to group", it->second));
+    LOG(LWARNING, ("Tried to detach bookmark", id, "from group", group, "but it only belongs to group", it->second));
     return;
   }
 
@@ -266,12 +254,14 @@ void Processor::Search(Params const & params) const
   }
 }
 
-void Processor::Finish(bool cancelled) { m_emitter.Finish(cancelled); }
+void Processor::Finish(bool cancelled)
+{
+  m_emitter.Finish(cancelled);
+}
 
 uint64_t Processor::GetNumDocs(strings::UniString const & token, bool isPrefix) const
 {
-  return base::asserted_cast<uint64_t>(
-      m_index.GetNumDocs(StringUtf8Multilang::kDefaultCode, token, isPrefix));
+  return base::asserted_cast<uint64_t>(m_index.GetNumDocs(StringUtf8Multilang::kDefaultCode, token, isPrefix));
 }
 
 QueryVec Processor::GetQueryVec(IdfMap & idfs, QueryParams const & params) const

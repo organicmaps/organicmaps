@@ -1,9 +1,9 @@
 #pragma once
 
+#include "kml/types.hpp"
 #include "kml/types_v3.hpp"
 #include "kml/types_v6.hpp"
 #include "kml/types_v7.hpp"
-#include "kml/types.hpp"
 
 #include "coding/geometry_coding.hpp"
 #include "coding/point_coding.hpp"
@@ -25,10 +25,16 @@ class CollectorVisitor
   template <typename T>
   class HasCollectionMethods
   {
-    template <typename C> static char Test(decltype(&C::ClearCollectionIndex));
-    template <typename C> static int Test(...);
+    template <typename C>
+    static char Test(decltype(&C::ClearCollectionIndex));
+    template <typename C>
+    static int Test(...);
+
   public:
-    enum {value = sizeof(Test<T>(0)) == sizeof(char)};
+    enum
+    {
+      value = sizeof(Test<T>(0)) == sizeof(char)
+    };
   };
 
   // All types which will be visited to collect.
@@ -36,22 +42,17 @@ class CollectorVisitor
   class VisitedTypes
   {
   public:
-    enum {value = std::is_same<T, BookmarkData>::value ||
-                  std::is_same<T, TrackData>::value ||
-                  std::is_same<T, CategoryData>::value ||
-                  std::is_same<T, FileData>::value ||
-                  std::is_same<T, BookmarkDataV3>::value ||
-                  std::is_same<T, TrackDataV3>::value ||
-                  std::is_same<T, CategoryDataV3>::value ||
-                  std::is_same<T, FileDataV3>::value ||
-                  std::is_same<T, BookmarkDataV6>::value ||
-                  std::is_same<T, TrackDataV6>::value ||
-                  std::is_same<T, CategoryDataV6>::value ||
-                  std::is_same<T, FileDataV6>::value ||
-                  std::is_same<T, BookmarkDataV7>::value ||
-                  std::is_same<T, TrackDataV7>::value ||
-                  std::is_same<T, CategoryDataV7>::value ||
-                  std::is_same<T, FileDataV7>::value};
+    enum
+    {
+      value = std::is_same<T, BookmarkData>::value || std::is_same<T, TrackData>::value ||
+              std::is_same<T, CategoryData>::value || std::is_same<T, FileData>::value ||
+              std::is_same<T, BookmarkDataV3>::value || std::is_same<T, TrackDataV3>::value ||
+              std::is_same<T, CategoryDataV3>::value || std::is_same<T, FileDataV3>::value ||
+              std::is_same<T, BookmarkDataV6>::value || std::is_same<T, TrackDataV6>::value ||
+              std::is_same<T, CategoryDataV6>::value || std::is_same<T, FileDataV6>::value ||
+              std::is_same<T, BookmarkDataV7>::value || std::is_same<T, TrackDataV7>::value ||
+              std::is_same<T, CategoryDataV7>::value || std::is_same<T, FileDataV7>::value
+    };
   };
 
 public:
@@ -61,8 +62,7 @@ public:
   {}
 
   template <typename T>
-  std::enable_if_t<HasCollectionMethods<T>::value>
-  PerformActionIfPossible(T & t)
+  std::enable_if_t<HasCollectionMethods<T>::value> PerformActionIfPossible(T & t)
   {
     if (m_clearIndex)
       t.ClearCollectionIndex();
@@ -71,17 +71,18 @@ public:
   }
 
   template <typename T>
-  std::enable_if_t<!HasCollectionMethods<T>::value> PerformActionIfPossible(T & t) {}
+  std::enable_if_t<!HasCollectionMethods<T>::value> PerformActionIfPossible(T & t)
+  {}
 
   template <typename T>
-  std::enable_if_t<VisitedTypes<T>::value>
-  VisitIfPossible(T & t)
+  std::enable_if_t<VisitedTypes<T>::value> VisitIfPossible(T & t)
   {
     t.Visit(*this);
   }
 
   template <typename T>
-  std::enable_if_t<!VisitedTypes<T>::value> VisitIfPossible(T & t) {}
+  std::enable_if_t<!VisitedTypes<T>::value> VisitIfPossible(T & t)
+  {}
 
   template <typename T>
   void operator()(T & t, char const * /* name */ = nullptr)
@@ -112,8 +113,7 @@ public:
   }
 
   template <typename... OtherStrings>
-  void Collect(LocalizableStringIndex & index, LocalizableString const & str,
-               OtherStrings const & ... args)
+  void Collect(LocalizableStringIndex & index, LocalizableString const & str, OtherStrings const &... args)
   {
     index.emplace_back(LocalizableStringSubIndex());
     for (auto const & p : str)
@@ -123,8 +123,7 @@ public:
   }
 
   template <typename... OtherStrings>
-  void Collect(LocalizableStringIndex & index, std::string const & str,
-               OtherStrings const & ... args)
+  void Collect(LocalizableStringIndex & index, std::string const & str, OtherStrings const &... args)
   {
     int8_t constexpr kFakeIndex = 0;
     index.emplace_back(LocalizableStringSubIndex());
@@ -134,9 +133,8 @@ public:
   }
 
   template <typename... OtherStrings>
-  void Collect(LocalizableStringIndex & index,
-               std::vector<std::string> const & stringsArray,
-               OtherStrings const & ... args)
+  void Collect(LocalizableStringIndex & index, std::vector<std::string> const & stringsArray,
+               OtherStrings const &... args)
   {
     index.emplace_back(LocalizableStringSubIndex());
     auto constexpr kMaxSize = static_cast<size_t>(std::numeric_limits<int8_t>::max());
@@ -148,8 +146,7 @@ public:
   }
 
   template <typename... OtherStrings>
-  void Collect(LocalizableStringIndex & index, Properties const & properties,
-               OtherStrings const & ... args)
+  void Collect(LocalizableStringIndex & index, Properties const & properties, OtherStrings const &... args)
   {
     index.emplace_back(LocalizableStringSubIndex());
     auto constexpr kMaxSize = std::numeric_limits<int8_t>::max() - 1;
@@ -166,13 +163,13 @@ public:
   }
 
   template <typename...>
-  void Collect(LocalizableStringIndex & index) {}
+  void Collect(LocalizableStringIndex & index)
+  {}
 
   std::vector<std::string> && StealCollection() { return std::move(m_collection); }
 
 private:
-  void CollectString(LocalizableStringSubIndex & subIndex, int8_t code,
-                     std::string const & str)
+  void CollectString(LocalizableStringSubIndex & subIndex, int8_t code, std::string const & str)
   {
     if (str.empty())
     {
@@ -257,30 +254,18 @@ template <typename Sink>
 class CategorySerializerVisitor
 {
 public:
-  explicit CategorySerializerVisitor(Sink & sink, uint8_t doubleBits)
-    : m_sink(sink)
-    , m_doubleBits(doubleBits)
-  {}
+  explicit CategorySerializerVisitor(Sink & sink, uint8_t doubleBits) : m_sink(sink), m_doubleBits(doubleBits) {}
 
   void operator()(LocalizableStringIndex const & index, char const * /* name */ = nullptr)
   {
     WriteLocalizableStringIndex(m_sink, index);
   }
 
-  void operator()(bool b, char const * /* name */ = nullptr)
-  {
-    (*this)(static_cast<uint8_t>(b));
-  }
+  void operator()(bool b, char const * /* name */ = nullptr) { (*this)(static_cast<uint8_t>(b)); }
 
-  void operator()(AccessRules rules, char const * /* name */ = nullptr)
-  {
-    (*this)(static_cast<uint8_t>(rules));
-  }
+  void operator()(AccessRules rules, char const * /* name */ = nullptr) { (*this)(static_cast<uint8_t>(rules)); }
 
-  void operator()(CompilationType type, char const * /* name */ = nullptr)
-  {
-    (*this)(static_cast<uint8_t>(type));
-  }
+  void operator()(CompilationType type, char const * /* name */ = nullptr) { (*this)(static_cast<uint8_t>(type)); }
 
   void operator()(Timestamp const & t, char const * /* name */ = nullptr)
   {
@@ -298,10 +283,7 @@ public:
     WriteVarUint(m_sink, encoded);
   }
 
-  void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
-  {
-    WritePointD(m_sink, pt, m_doubleBits);
-  }
+  void operator()(m2::PointD const & pt, char const * /* name */ = nullptr) { WritePointD(m_sink, pt, m_doubleBits); }
 
   void operator()(CategoryData const & compilationData, char const * /* name */ = nullptr)
   {
@@ -317,15 +299,13 @@ public:
   }
 
   template <typename D>
-  std::enable_if_t<std::is_integral<D>::value>
-  operator()(D d, char const * /* name */ = nullptr)
+  std::enable_if_t<std::is_integral<D>::value> operator()(D d, char const * /* name */ = nullptr)
   {
     WriteToSink(m_sink, d);
   }
 
   template <typename R>
-  std::enable_if_t<!std::is_integral<R>::value>
-  operator()(R const & r, char const * /* name */ = nullptr)
+  std::enable_if_t<!std::is_integral<R>::value> operator()(R const & r, char const * /* name */ = nullptr)
   {
     r.Visit(*this);
   }
@@ -347,25 +327,16 @@ template <typename Sink>
 class BookmarkSerializerVisitor
 {
 public:
-  explicit BookmarkSerializerVisitor(Sink & sink, uint8_t doubleBits)
-    : m_sink(sink)
-    , m_doubleBits(doubleBits)
-  {}
+  explicit BookmarkSerializerVisitor(Sink & sink, uint8_t doubleBits) : m_sink(sink), m_doubleBits(doubleBits) {}
 
   void operator()(LocalizableStringIndex const & index, char const * /* name */ = nullptr)
   {
     WriteLocalizableStringIndex(m_sink, index);
   }
 
-  void operator()(bool b, char const * /* name */ = nullptr)
-  {
-    (*this)(static_cast<uint8_t>(b));
-  }
+  void operator()(bool b, char const * /* name */ = nullptr) { (*this)(static_cast<uint8_t>(b)); }
 
-  void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
-  {
-    WritePointD(m_sink, pt, m_doubleBits);
-  }
+  void operator()(m2::PointD const & pt, char const * /* name */ = nullptr) { WritePointD(m_sink, pt, m_doubleBits); }
 
   void operator()(geometry::PointWithAltitude const & pt, char const * /* name */ = nullptr)
   {
@@ -389,15 +360,9 @@ public:
     WriteVarUint(m_sink, ToSecondsSinceEpoch(t) * 1000);
   }
 
-  void operator()(PredefinedColor color, char const * /* name */ = nullptr)
-  {
-    (*this)(static_cast<uint8_t>(color));
-  }
+  void operator()(PredefinedColor color, char const * /* name */ = nullptr) { (*this)(static_cast<uint8_t>(color)); }
 
-  void operator()(BookmarkIcon icon, char const * /* name */ = nullptr)
-  {
-    (*this)(static_cast<uint16_t>(icon));
-  }
+  void operator()(BookmarkIcon icon, char const * /* name */ = nullptr) { (*this)(static_cast<uint16_t>(icon)); }
 
   template <typename T>
   void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
@@ -407,7 +372,8 @@ public:
       (*this)(v);
   }
 
-  template <class T> void SavePointsSequence(std::vector<T> const & points)
+  template <class T>
+  void SavePointsSequence(std::vector<T> const & points)
   {
     WriteVarUint(m_sink, static_cast<uint32_t>(points.size()));
     m2::PointU lastUpt = m2::PointU::Zero();
@@ -444,15 +410,13 @@ public:
   }
 
   template <typename D>
-  std::enable_if_t<std::is_integral<D>::value>
-  operator()(D d, char const * /* name */ = nullptr)
+  std::enable_if_t<std::is_integral<D>::value> operator()(D d, char const * /* name */ = nullptr)
   {
     WriteToSink(m_sink, d);
   }
 
   template <typename R>
-  std::enable_if_t<!std::is_integral<R>::value>
-  operator()(R const & r, char const * /* name */ = nullptr)
+  std::enable_if_t<!std::is_integral<R>::value> operator()(R const & r, char const * /* name */ = nullptr)
   {
     r.Visit(*this);
   }
@@ -472,9 +436,7 @@ template <typename Source>
 class CategoryDeserializerVisitor
 {
 public:
-  explicit CategoryDeserializerVisitor(Source & source, uint8_t doubleBits)
-    : m_source(source)
-    , m_doubleBits(doubleBits)
+  explicit CategoryDeserializerVisitor(Source & source, uint8_t doubleBits) : m_source(source), m_doubleBits(doubleBits)
   {}
 
   void operator()(LocalizableStringIndex & index, char const * /* name */ = nullptr)
@@ -515,15 +477,9 @@ public:
     d = Uint32ToDouble(v, kMinRating, kMaxRating, m_doubleBits);
   }
 
-  void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
-  {
-    pt = ReadPointD(m_source, m_doubleBits);
-  }
+  void operator()(m2::PointD & pt, char const * /* name */ = nullptr) { pt = ReadPointD(m_source, m_doubleBits); }
 
-  void operator()(CategoryData & compilationData, char const * /* name */ = nullptr)
-  {
-    compilationData.Visit(*this);
-  }
+  void operator()(CategoryData & compilationData, char const * /* name */ = nullptr) { compilationData.Visit(*this); }
 
   template <typename T>
   void operator()(std::vector<T> & vs, char const * /* name */ = nullptr)
@@ -538,15 +494,13 @@ public:
   }
 
   template <typename D>
-  std::enable_if_t<std::is_integral<D>::value>
-  operator()(D & d, char const * /* name */ = nullptr)
+  std::enable_if_t<std::is_integral<D>::value> operator()(D & d, char const * /* name */ = nullptr)
   {
     d = ReadPrimitiveFromSource<D>(m_source);
   }
 
   template <typename R>
-  std::enable_if_t<!std::is_integral<R>::value>
-  operator()(R & r, char const * /* name */ = nullptr)
+  std::enable_if_t<!std::is_integral<R>::value> operator()(R & r, char const * /* name */ = nullptr)
   {
     r.Visit(*this);
   }
@@ -568,9 +522,7 @@ template <typename Source>
 class BookmarkDeserializerVisitor
 {
 public:
-  explicit BookmarkDeserializerVisitor(Source & source, uint8_t doubleBits)
-    : m_source(source)
-    , m_doubleBits(doubleBits)
+  explicit BookmarkDeserializerVisitor(Source & source, uint8_t doubleBits) : m_source(source), m_doubleBits(doubleBits)
   {}
 
   void operator()(LocalizableStringIndex & index, char const * /* name */ = nullptr)
@@ -583,10 +535,7 @@ public:
     b = static_cast<bool>(ReadPrimitiveFromSource<uint8_t>(m_source));
   }
 
-  void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
-  {
-    pt = ReadPointD(m_source, m_doubleBits);
-  }
+  void operator()(m2::PointD & pt, char const * /* name */ = nullptr) { pt = ReadPointD(m_source, m_doubleBits); }
 
   void operator()(geometry::PointWithAltitude & pt, char const * /* name */ = nullptr)
   {
@@ -639,7 +588,8 @@ public:
     }
   }
 
-  template <class T> void LoadPointsSequence(std::vector<T> & points)
+  template <class T>
+  void LoadPointsSequence(std::vector<T> & points)
   {
     auto const sz = ReadVarUint<uint32_t, Source>(this->m_source);
     points.reserve(sz);
@@ -651,10 +601,7 @@ public:
     }
   }
 
-  void operator()(std::vector<m2::PointD> & points, char const * /* name */ = nullptr)
-  {
-    LoadPointsSequence(points);
-  }
+  void operator()(std::vector<m2::PointD> & points, char const * /* name */ = nullptr) { LoadPointsSequence(points); }
 
   void operator()(MultiGeometry::LineT & points, char const * /* name */ = nullptr)
   {
@@ -677,15 +624,13 @@ public:
   }
 
   template <typename D>
-  std::enable_if_t<std::is_integral<D>::value>
-  operator()(D & d, char const * /* name */ = nullptr)
+  std::enable_if_t<std::is_integral<D>::value> operator()(D & d, char const * /* name */ = nullptr)
   {
     d = ReadPrimitiveFromSource<D>(m_source);
   }
 
   template <typename R>
-  std::enable_if_t<!std::is_integral<R>::value>
-  operator()(R & r, char const * /* name */ = nullptr)
+  std::enable_if_t<!std::is_integral<R>::value> operator()(R & r, char const * /* name */ = nullptr)
   {
     r.Visit(*this);
   }
@@ -705,13 +650,10 @@ template <typename Reader>
 class DeserializedStringCollector
 {
 public:
-  explicit DeserializedStringCollector(coding::BlockedTextStorage<Reader> & textStorage)
-    : m_textStorage(textStorage)
-  {}
+  explicit DeserializedStringCollector(coding::BlockedTextStorage<Reader> & textStorage) : m_textStorage(textStorage) {}
 
   template <typename... OtherStrings>
-  void Collect(LocalizableStringIndex & index, LocalizableString & str,
-               OtherStrings & ... args)
+  void Collect(LocalizableStringIndex & index, LocalizableString & str, OtherStrings &... args)
   {
     if (!SwitchSubIndexIfNeeded(index))
       return;
@@ -725,8 +667,7 @@ public:
   }
 
   template <typename... OtherStrings>
-  void Collect(LocalizableStringIndex & index, std::string & str,
-               OtherStrings & ... args)
+  void Collect(LocalizableStringIndex & index, std::string & str, OtherStrings &... args)
   {
     if (!SwitchSubIndexIfNeeded(index))
       return;
@@ -742,9 +683,7 @@ public:
   }
 
   template <typename... OtherStrings>
-  void Collect(LocalizableStringIndex & index,
-               std::vector<std::string> & stringsArray,
-               OtherStrings & ... args)
+  void Collect(LocalizableStringIndex & index, std::vector<std::string> & stringsArray, OtherStrings &... args)
   {
     if (!SwitchSubIndexIfNeeded(index))
       return;
@@ -759,8 +698,7 @@ public:
   }
 
   template <typename... OtherStrings>
-  void Collect(LocalizableStringIndex & index, Properties & properties,
-               OtherStrings & ... args)
+  void Collect(LocalizableStringIndex & index, Properties & properties, OtherStrings &... args)
   {
     if (!SwitchSubIndexIfNeeded(index))
       return;
@@ -768,17 +706,15 @@ public:
     auto subIndex = index[m_counter];
     auto const sz = static_cast<int8_t>(subIndex.size() / 2);
     for (int8_t i = 0; i < sz; i++)
-    {
-      properties.insert(std::make_pair(ExtractString(subIndex[2 * i]),
-                                       ExtractString(subIndex[2 * i + 1])));
-    }
+      properties.insert(std::make_pair(ExtractString(subIndex[2 * i]), ExtractString(subIndex[2 * i + 1])));
 
     m_counter++;
     Collect(index, args...);
   }
 
   template <typename...>
-  void Collect(LocalizableStringIndex & index) {}
+  void Collect(LocalizableStringIndex & index)
+  {}
 
 private:
   bool SwitchSubIndexIfNeeded(LocalizableStringIndex & index)

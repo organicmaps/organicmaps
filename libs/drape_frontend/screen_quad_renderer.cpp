@@ -14,15 +14,14 @@ namespace
 class TextureRenderParams
 {
 public:
-  TextureRenderParams()
-    : m_state(CreateRenderState(gpu::Program::ScreenQuad, DepthLayer::GeometryLayer))
+  TextureRenderParams() : m_state(CreateRenderState(gpu::Program::ScreenQuad, DepthLayer::GeometryLayer))
   {
     m_state.SetDepthTestEnabled(false);
     m_state.SetBlending(dp::Blending(true));
   }
 
-  void SetParams(ref_ptr<gpu::ProgramManager> gpuProgramManager,
-                 ref_ptr<dp::Texture> texture, float opacity, bool invertV)
+  void SetParams(ref_ptr<gpu::ProgramManager> gpuProgramManager, ref_ptr<dp::Texture> texture, float opacity,
+                 bool invertV)
   {
     UNUSED_VALUE(gpuProgramManager);
     m_state.SetTexture("u_colorTex", std::move(texture));
@@ -51,10 +50,10 @@ void ScreenQuadRenderer::Rebuild(ref_ptr<dp::GraphicsContext> context)
   vertices.reserve(4);
   if (context->GetApiVersion() == dp::ApiVersion::Vulkan)
   {
-    vertices = {-1.0f, -1.0f,  m_textureRect.minX(), m_textureRect.minY(),
-                1.0f,  -1.0f,  m_textureRect.maxX(), m_textureRect.minY(),
-                -1.0f, 1.0f, m_textureRect.minX(), m_textureRect.maxY(),
-                1.0f,  1.0f, m_textureRect.maxX(), m_textureRect.maxY()};
+    vertices = {-1.0f, -1.0f, m_textureRect.minX(), m_textureRect.minY(),
+                1.0f,  -1.0f, m_textureRect.maxX(), m_textureRect.minY(),
+                -1.0f, 1.0f,  m_textureRect.minX(), m_textureRect.maxY(),
+                1.0f,  1.0f,  m_textureRect.maxX(), m_textureRect.maxY()};
   }
   else
   {
@@ -69,16 +68,14 @@ void ScreenQuadRenderer::Rebuild(ref_ptr<dp::GraphicsContext> context)
   SetAttribute("a_tcoord", bufferIndex, sizeof(float) * 2 /* offset */, 2 /* componentsCount */);
 }
 
-void ScreenQuadRenderer::RenderTexture(ref_ptr<dp::GraphicsContext> context,
-                                       ref_ptr<gpu::ProgramManager> mng,
+void ScreenQuadRenderer::RenderTexture(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                                        ref_ptr<dp::Texture> texture, float opacity, bool invertV)
 {
   TextureRenderParams params;
   params.SetParams(mng, std::move(texture), opacity, invertV);
 
   auto program = mng->GetProgram(params.GetRenderState().GetProgram<gpu::Program>());
-  Base::Render(context, program, params.GetRenderState(), mng->GetParamsSetter(),
-               params.GetProgramParams());
+  Base::Render(context, program, params.GetRenderState(), mng->GetParamsSetter(), params.GetProgramParams());
 }
 
 void ScreenQuadRenderer::SetTextureRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect)

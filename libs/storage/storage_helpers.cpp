@@ -9,8 +9,7 @@
 
 namespace storage
 {
-bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
-                                    Storage const & storage,
+bool IsPointCoveredByDownloadedMaps(m2::PointD const & position, Storage const & storage,
                                     CountryInfoGetter const & countryInfoGetter)
 {
   return storage.IsNodeDownloaded(countryInfoGetter.GetRegionCountryId(position));
@@ -18,16 +17,14 @@ bool IsPointCoveredByDownloadedMaps(m2::PointD const & position,
 
 bool IsDownloadFailed(Status status)
 {
-  return status == Status::DownloadFailed || status == Status::OutOfMemFailed ||
-         status == Status::UnknownError;
+  return status == Status::DownloadFailed || status == Status::OutOfMemFailed || status == Status::UnknownError;
 }
 
 bool IsEnoughSpaceForDownload(MwmSize mwmSize)
 {
   // Additional size which is necessary to have on flash card to download file of mwmSize bytes.
   MwmSize constexpr kExtraSizeBytes = 10 * 1024 * 1024;
-  return GetPlatform().GetWritableStorageStatus(mwmSize + kExtraSizeBytes) ==
-         Platform::TStorageStatus::STORAGE_OK;
+  return GetPlatform().GetWritableStorageStatus(mwmSize + kExtraSizeBytes) == Platform::TStorageStatus::STORAGE_OK;
 }
 
 bool IsEnoughSpaceForDownload(CountryId const & countryId, Storage const & storage)
@@ -51,8 +48,8 @@ bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage
   // - final size difference between old and new MWMs = m_sizeDifference
 
   [[maybe_unused]] MwmSize const diff = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
-//  return IsEnoughSpaceForDownload(std::max(diff, updateInfo.m_totalDownloadSizeInBytes) +
-//                                  updateInfo.m_maxFileSizeInBytes);
+  //  return IsEnoughSpaceForDownload(std::max(diff, updateInfo.m_totalDownloadSizeInBytes) +
+  //                                  updateInfo.m_maxFileSizeInBytes);
 
   // 2. For the current "download and replace" strategy:
   // - Android and Desktop has 1 simultaneous download
@@ -68,8 +65,8 @@ m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
                         CountryInfoGetter const & countryInfoGetter)
 {
   m2::RectD boundingBox;
-  auto const accumulator = [&countryInfoGetter, &boundingBox](CountryId const & descendantId,
-                                                              bool groupNode) {
+  auto const accumulator = [&countryInfoGetter, &boundingBox](CountryId const & descendantId, bool groupNode)
+  {
     if (!groupNode)
       boundingBox.Add(countryInfoGetter.GetLimitRectForLeaf(descendantId));
   };
@@ -80,12 +77,11 @@ m2::RectD CalcLimitRect(CountryId const & countryId, Storage const & storage,
   return boundingBox;
 }
 
-MwmSize GetRemoteSize(diffs::DiffsDataSource const & diffsDataSource,
-                      platform::CountryFile const & file)
+MwmSize GetRemoteSize(diffs::DiffsDataSource const & diffsDataSource, platform::CountryFile const & file)
 {
   uint64_t size;
   if (diffsDataSource.SizeFor(file.GetName(), size))
     return size;
   return file.GetRemoteSize();
 }
-} // namespace storage
+}  // namespace storage

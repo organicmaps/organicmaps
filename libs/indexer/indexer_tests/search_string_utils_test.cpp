@@ -18,16 +18,10 @@ class Utf8StreetTokensFilter
 public:
   explicit Utf8StreetTokensFilter(vector<pair<string, size_t>> & cont, bool withMisprints = false)
     : m_cont(cont)
-    , m_filter(
-          [&](UniString const & token, size_t tag) { m_cont.emplace_back(ToUtf8(token), tag); },
-          withMisprints)
-  {
-  }
+    , m_filter([&](UniString const & token, size_t tag) { m_cont.emplace_back(ToUtf8(token), tag); }, withMisprints)
+  {}
 
-  void Put(string const & token, bool isPrefix, size_t tag)
-  {
-    m_filter.Put(MakeUniString(token), isPrefix, tag);
-  }
+  void Put(string const & token, bool isPrefix, size_t tag) { m_filter.Put(MakeUniString(token), isPrefix, tag); }
 
 private:
   vector<pair<string, size_t>> & m_cont;
@@ -80,17 +74,26 @@ UNIT_TEST(NormalizeAndSimplifyString_WithOurTambourines)
                         "ăâț", "aat"                    // Romanian
                        };
   */
-  string const arr[] = {"ÜbërÅłłęšß", "uberallesss", // Basic test case.
-                        "Iiİı", "iiii",              // Famous turkish "I" letter bug.
-                        "ЙЁйёШКИЙй", "иеиешкиии",    // Better handling of Russian й letter.
-                        "ØøÆæŒœ", "ooaeaeoeoe",      // Dansk
-                        "バス", "ハス",
-                        "âàáạăốợồôểềệếỉđưựứửýĂÂĐÊÔƠƯ",
-                        "aaaaaooooeeeeiduuuuyaadeoou",  // Vietnamese
-                        "ăâț", "aat",                   // Romanian
-                        "Триу́мф-Пала́с", "триумф-палас", // Russian accent
-                        "  a   b  c d ", " a b c d ",   // Multiple spaces
-                       };
+  string const arr[] = {
+      "ÜbërÅłłęšß",
+      "uberallesss",  // Basic test case.
+      "Iiİı",
+      "iiii",  // Famous turkish "I" letter bug.
+      "ЙЁйёШКИЙй",
+      "иеиешкиии",  // Better handling of Russian й letter.
+      "ØøÆæŒœ",
+      "ooaeaeoeoe",  // Dansk
+      "バス",
+      "ハス",
+      "âàáạăốợồôểềệếỉđưựứửýĂÂĐÊÔƠƯ",
+      "aaaaaooooeeeeiduuuuyaadeoou",  // Vietnamese
+      "ăâț",
+      "aat",  // Romanian
+      "Триу́мф-Пала́с",
+      "триумф-палас",  // Russian accent
+      "  a   b  c d ",
+      " a b c d ",  // Multiple spaces
+  };
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); i += 2)
     TEST_EQUAL(arr[i + 1], NormalizeAndSimplifyStringUtf8(arr[i]), ());
@@ -119,10 +122,10 @@ UNIT_TEST(Street_Synonym)
   TEST(!TestStreetSynonym("strase"), ());
   TEST(TestStreetSynonymWithMisprints("strase"), ());
 
-//  TEST(TestStreetSynonym("boulevard"), ());
-//  TEST(TestStreetSynonymWithMisprints("boulevard"), ());
-//  TEST(!TestStreetSynonym("boulevrd"), ());
-//  TEST(TestStreetSynonymWithMisprints("boulevrd"), ());
+  //  TEST(TestStreetSynonym("boulevard"), ());
+  //  TEST(TestStreetSynonymWithMisprints("boulevard"), ());
+  //  TEST(!TestStreetSynonym("boulevrd"), ());
+  //  TEST(TestStreetSynonymWithMisprints("boulevrd"), ());
 
   TEST(TestStreetSynonym("avenue"), ());
   TEST(TestStreetSynonymWithMisprints("avenue"), ());
@@ -157,13 +160,13 @@ UNIT_TEST(Street_PrefixMatch)
   TEST(TestStreetPrefixMatch("ca"), ());
   TEST(TestStreetPrefixMatch("ву"), ());
 
-//  TEST(TestStreetPrefixMatch("п"), ());
-//  TEST(TestStreetPrefixMatch("пр"), ());
-//  TEST(TestStreetPrefixMatch("про"), ());
-//  TEST(TestStreetPrefixMatch("прое"), ());
-//  TEST(TestStreetPrefixMatch("проез"), ());
-//  TEST(TestStreetPrefixMatch("проезд"), ());
-//  TEST(!TestStreetPrefixMatch("проездд"), ());
+  //  TEST(TestStreetPrefixMatch("п"), ());
+  //  TEST(TestStreetPrefixMatch("пр"), ());
+  //  TEST(TestStreetPrefixMatch("про"), ());
+  //  TEST(TestStreetPrefixMatch("прое"), ());
+  //  TEST(TestStreetPrefixMatch("проез"), ());
+  //  TEST(TestStreetPrefixMatch("проезд"), ());
+  //  TEST(!TestStreetPrefixMatch("проездд"), ());
 
   TEST(TestStreetPrefixMatchWithMisprints("ул"), ());
   TEST(!TestStreetPrefixMatch("уле"), ());
@@ -176,8 +179,8 @@ UNIT_TEST(Street_PrefixMatch)
   TEST(TestStreetPrefixMatchWithMisprints("roadx"), ());
   TEST(!TestStreetPrefixMatchWithMisprints("roadxx"), ());
 
-  TEST(!TestStreetPrefixMatchWithMisprints("groad"), ());   // road, but no
-  TEST(TestStreetPrefixMatchWithMisprints("karre"), ());    // carrer
+  TEST(!TestStreetPrefixMatchWithMisprints("groad"), ());  // road, but no
+  TEST(TestStreetPrefixMatchWithMisprints("karre"), ());   // carrer
   TEST(!TestStreetPrefixMatchWithMisprints("karrerx"), ());
 }
 
@@ -206,7 +209,10 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {{"генерала", 1}, {"антонова", 2}};
+    List expected = {
+        {"генерала", 1},
+        {"антонова", 2}
+    };
     List actual;
 
     Utf8StreetTokensFilter filter(actual);
@@ -218,7 +224,9 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {{"набережная", 50}};
+    List expected = {
+        {"набережная", 50}
+    };
     List actual;
 
     Utf8StreetTokensFilter filter(actual);
@@ -229,7 +237,9 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {{"набережная", 1}};
+    List expected = {
+        {"набережная", 1}
+    };
     List actual;
 
     Utf8StreetTokensFilter filter(actual);
@@ -241,14 +251,18 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expectedWithMP = {{"ленинский", 0}};
-    List expectedWithoutMP = {{"ленинский", 0}, {"пропект", 1}};
+    List expectedWithMP = {
+        {"ленинский", 0}
+    };
+    List expectedWithoutMP = {
+        {"ленинский", 0},
+        {  "пропект", 1}
+    };
     List actualWithMisprints;
     List actualWithoutMisprints;
 
     Utf8StreetTokensFilter filterWithMisprints(actualWithMisprints, true /* withMisprints */);
-    Utf8StreetTokensFilter filterWithoutMisprints(actualWithoutMisprints,
-                                                  false /* withMisprints */);
+    Utf8StreetTokensFilter filterWithoutMisprints(actualWithoutMisprints, false /* withMisprints */);
     filterWithMisprints.Put("ленинский", false /* isPrefix */, 0 /* tag */);
     filterWithoutMisprints.Put("ленинский", false /* isPrefix */, 0 /* tag */);
     filterWithMisprints.Put("пропект", false /* isPrefix */, 1 /* tag */);
@@ -259,13 +273,14 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {{"набрежная", 1}};
+    List expected = {
+        {"набрежная", 1}
+    };
     List actualWithMisprints;
     List actualWithoutMisprints;
 
     Utf8StreetTokensFilter filterWithMisprints(actualWithMisprints, true /* withMisprints */);
-    Utf8StreetTokensFilter filterWithoutMisprints(actualWithoutMisprints,
-                                                  false /* withMisprints */);
+    Utf8StreetTokensFilter filterWithoutMisprints(actualWithoutMisprints, false /* withMisprints */);
     filterWithMisprints.Put("улица", false /* isPrefix */, 0 /* tag */);
     filterWithoutMisprints.Put("улица", false /* isPrefix */, 0 /* tag */);
     filterWithMisprints.Put("набрежная", false /* isPrefix */, 1 /* tag */);
@@ -291,9 +306,7 @@ UNIT_TEST(NormalizeAndSimplifyString_Apostrophe)
 UNIT_TEST(Steet_GetStreetNameAsKey)
 {
   auto const Check = [](std::string_view src, std::string_view expected)
-  {
-    TEST_EQUAL(GetStreetNameAsKey(src, true /* ignoreStreetSynonyms */), strings::MakeUniString(expected), ());
-  };
+  { TEST_EQUAL(GetStreetNameAsKey(src, true /* ignoreStreetSynonyms */), strings::MakeUniString(expected), ()); };
 
   {
     std::string_view const ethalon = "680northwest";
@@ -303,17 +316,15 @@ UNIT_TEST(Steet_GetStreetNameAsKey)
   }
 
   Check("North 20th Rd", "20thnorth");
-  Check("Lane st", "lane st");         /// @todo Probably, doesn't matter here?
-  Check("West North", "westnorth");    /// @todo Should order?
+  Check("Lane st", "lane st");       /// @todo Probably, doesn't matter here?
+  Check("West North", "westnorth");  /// @todo Should order?
   Check("NW", "northwest");
 }
 
 UNIT_TEST(Steet_GetNormalizedStreetName)
 {
   auto const Check = [](std::string_view s1, std::string_view s2)
-  {
-    TEST_EQUAL(GetNormalizedStreetName(s1), GetNormalizedStreetName(s2), ());
-  };
+  { TEST_EQUAL(GetNormalizedStreetName(s1), GetNormalizedStreetName(s2), ()); };
 
   Check("Lane G", "G Ln");
   Check("South Grapetree Road", "S Grape Tree Rd");
@@ -336,19 +347,19 @@ UNIT_TEST(Steet_GetNormalizedStreetName)
 
   /// @todo Fancy examples:
   // https://www.openstreetmap.org/way/1188750428
-  //Check("East Ridge Road", "E Rdg");
-  //Check("7th Street", "Sevens St");
+  // Check("East Ridge Road", "E Rdg");
+  // Check("7th Street", "Sevens St");
   // https://www.openstreetmap.org/way/8605899
-  //Check("Beaver Crest Drive", "Beaver Crst");
+  // Check("Beaver Crest Drive", "Beaver Crst");
   // https://www.openstreetmap.org/way/8607254
-  //Check("St Annes Drive", "Saint Annes Dr");
+  // Check("St Annes Drive", "Saint Annes Dr");
   // https://www.openstreetmap.org/way/7703018
-  //Check("AL 60", "Al Highway 60");
+  // Check("AL 60", "Al Highway 60");
   // https://www.openstreetmap.org/way/7705380
   // Seems like it means "Centerville Street" or "County Road 25"
-  //Check("Centreville Street", "Centerville St Co Rd 25");
+  // Check("Centreville Street", "Centerville St Co Rd 25");
   // https://www.openstreetmap.org/way/23629713
-  //Check("Northeast Martin Luther King Junior Boulevard", "NE M L King Blvd");
+  // Check("Northeast Martin Luther King Junior Boulevard", "NE M L King Blvd");
 }
 
-} // namespace search_string_utils_test
+}  // namespace search_string_utils_test

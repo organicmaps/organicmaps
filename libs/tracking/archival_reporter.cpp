@@ -21,8 +21,7 @@ ArchivalReporter::ArchivalReporter(std::string const & host)
   , m_manager(host)
   , m_isAlive(true)
   , m_threadDump([this] { Run(); })
-{
-}
+{}
 
 ArchivalReporter::~ArchivalReporter()
 {

@@ -6,8 +6,8 @@
 #include "drape/batcher.hpp"
 #include "drape/pointers.hpp"
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace dp
 {
@@ -25,9 +25,10 @@ struct OverlayRenderData
   dp::RenderState m_state;
   drape_ptr<dp::RenderBucket> m_bucket;
 
-  OverlayRenderData(TileKey const & key, dp::RenderState const & state,
-                    drape_ptr<dp::RenderBucket> && bucket)
-    : m_tileKey(key), m_state(state), m_bucket(std::move(bucket))
+  OverlayRenderData(TileKey const & key, dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
+    : m_tileKey(key)
+    , m_state(state)
+    , m_bucket(std::move(bucket))
   {}
 };
 
@@ -42,8 +43,7 @@ public:
   void Finish(ref_ptr<dp::GraphicsContext> context, TOverlaysRenderData & data);
 
 private:
-  void FlushGeometry(TileKey const & key, dp::RenderState const & state,
-                     drape_ptr<dp::RenderBucket> && bucket);
+  void FlushGeometry(TileKey const & key, dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket);
 
   dp::Batcher m_batcher;
   TOverlaysRenderData m_data;

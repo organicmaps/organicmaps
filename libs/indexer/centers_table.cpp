@@ -13,7 +13,6 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
-
 namespace search
 {
 
@@ -46,8 +45,7 @@ bool CentersTable::Get(uint32_t id, m2::PointD & center)
 
 // CentersTable ------------------------------------------------------------------------------------
 // static
-std::unique_ptr<CentersTable> CentersTable::LoadV0(
-    Reader & reader, serial::GeometryCodingParams const & codingParams)
+std::unique_ptr<CentersTable> CentersTable::LoadV0(Reader & reader, serial::GeometryCodingParams const & codingParams)
 {
   auto table = std::make_unique<CentersTable>();
   table->m_version = Version::V0;
@@ -73,8 +71,7 @@ std::unique_ptr<CentersTable> CentersTable::LoadV1(Reader & reader)
   auto minY = ReadPrimitiveFromSource<uint32_t>(src);
   auto maxX = ReadPrimitiveFromSource<uint32_t>(src);
   auto maxY = ReadPrimitiveFromSource<uint32_t>(src);
-  m2::RectD limitRect(PointUToPointD({minX, minY}, kPointCoordBits),
-                      PointUToPointD({maxX, maxY}, kPointCoordBits));
+  m2::RectD limitRect(PointUToPointD({minX, minY}, kPointCoordBits), PointUToPointD({maxX, maxY}, kPointCoordBits));
 
   table->m_centersSubreader = reader.CreateSubReader(header.m_centersOffset, header.m_centersSize);
   if (!table->m_centersSubreader)
@@ -84,14 +81,13 @@ std::unique_ptr<CentersTable> CentersTable::LoadV1(Reader & reader)
   return table;
 }
 
-bool CentersTable::Init(Reader & reader, serial::GeometryCodingParams const & codingParams,
-                        m2::RectD const & limitRect)
+bool CentersTable::Init(Reader & reader, serial::GeometryCodingParams const & codingParams, m2::RectD const & limitRect)
 {
   m_codingParams = codingParams;
   m_limitRect = limitRect;
   // Decodes block encoded by writeBlockCallback from CentersTableBuilder::Freeze.
-  auto const readBlockCallback = [&](NonOwningReaderSource & source, uint32_t blockSize,
-                                     std::vector<m2::PointU> & values)
+  auto const readBlockCallback =
+      [&](NonOwningReaderSource & source, uint32_t blockSize, std::vector<m2::PointU> & values)
   {
     values.reserve(blockSize);
 
@@ -166,8 +162,7 @@ void CentersTableBuilder::Freeze(Writer & writer) const
 
   header.m_centersOffset = base::asserted_cast<uint32_t>(writer.Pos() - startOffset);
   m_builder.Freeze(writer, [&](auto & w, auto begin, auto end) { WriteBlock(w, begin, end); });
-  header.m_centersSize =
-      base::asserted_cast<uint32_t>(writer.Pos() - header.m_centersOffset - startOffset);
+  header.m_centersSize = base::asserted_cast<uint32_t>(writer.Pos() - header.m_centersOffset - startOffset);
 
   auto const endOffset = writer.Pos();
   writer.Seek(startOffset);
@@ -175,8 +170,7 @@ void CentersTableBuilder::Freeze(Writer & writer) const
   writer.Seek(endOffset);
 }
 
-void CentersTableBuilder::SetGeometryCodingParamsV0ForTests(
-    serial::GeometryCodingParams const & codingParams)
+void CentersTableBuilder::SetGeometryCodingParamsV0ForTests(serial::GeometryCodingParams const & codingParams)
 {
   m_codingParams = codingParams;
 }

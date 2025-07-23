@@ -33,14 +33,13 @@ UNIT_TEST(TreeNode_PreOrderVisit)
 {
   auto const tree = MakeTree();
   std::vector<int> res;
-  tree_node::PreOrderVisit(tree, [&](auto const & node) {
-    res.emplace_back(node->GetData());
-  });
+  tree_node::PreOrderVisit(tree, [&](auto const & node) { res.emplace_back(node->GetData()); });
   std::vector<int> const expected = {1, 21, 31, 32, 33, 34, 22, 35, 36};
   TEST_EQUAL(res, expected, ());
 
   auto countVisitedNode = 0;
-  tree_node::PreOrderVisit(tree, [&](auto const & node) {
+  tree_node::PreOrderVisit(tree, [&](auto const & node)
+  {
     ++countVisitedNode;
     return node->GetData() == 32 ? base::ControlFlow::Break : base::ControlFlow::Continue;
   });
@@ -97,11 +96,9 @@ UNIT_TEST(TreeNode_GetPath)
   auto const tree = MakeTree();
   auto const node33 = tree_node::FindIf(tree, [](auto const & d) { return d == 33; });
   auto const path = tree_node::GetPathToRoot(node33);
-  tree_node::types::Ptrs<int> expected = {
-    tree_node::FindIf(tree, [](auto const & d) { return d == 33; }),
-    tree_node::FindIf(tree, [](auto const & d) { return d == 21; }),
-    tree_node::FindIf(tree, [](auto const & d) { return d == 1; })
-  };
+  tree_node::types::Ptrs<int> expected = {tree_node::FindIf(tree, [](auto const & d) { return d == 33; }),
+                                          tree_node::FindIf(tree, [](auto const & d) { return d == 21; }),
+                                          tree_node::FindIf(tree, [](auto const & d) { return d == 1; })};
   TEST_EQUAL(path, expected, ());
 }
 
@@ -121,9 +118,7 @@ UNIT_TEST(TreeNode_IsEqual)
 UNIT_TEST(TreeNode_TransformToTree)
 {
   auto const tree = MakeTree();
-  auto const newTree = tree_node::TransformToTree(tree, [](auto const & data) {
-    return std::to_string(data);
-  });
+  auto const newTree = tree_node::TransformToTree(tree, [](auto const & data) { return std::to_string(data); });
 
   auto expected = tree_node::MakeTreeNode<std::string>("1");
   auto node11 = tree_node::MakeTreeNode<std::string>("21");
@@ -157,15 +152,13 @@ UNIT_TEST(TreeNode_DebugPrint)
 UNIT_TEST(TreeNode_Forest)
 {
   tree_node::Forest<int> forest;
-  std::set<tree_node::types::Ptr<int>> s = {
-    MakeTree(),
-    tree_node::MakeTreeNode(10)
-  };
+  std::set<tree_node::types::Ptr<int>> s = {MakeTree(), tree_node::MakeTreeNode(10)};
   for (auto const & tree : s)
     forest.Append(tree);
 
   TEST_EQUAL(forest.Size(), 2, ());
-  forest.ForEachTree([&](auto const & tree) {
+  forest.ForEachTree([&](auto const & tree)
+  {
     auto const count = s.erase(tree);
     TEST_EQUAL(count, 1, ());
   });

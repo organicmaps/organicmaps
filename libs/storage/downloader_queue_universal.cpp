@@ -22,17 +22,13 @@ bool Queue::Contains(CountryId const & country) const
 void Queue::ForEachCountry(ForEachCountryFunction const & fn) const
 {
   for (auto const & queuedCountry : m_queue)
-  {
     fn(queuedCountry);
-  }
 }
 
 void Queue::ForEachCountry(ForEachCountryMutable const & fn)
 {
   for (auto & queuedCountry : m_queue)
-  {
     fn(queuedCountry);
-  }
 }
 
 CountryId const & Queue::GetFirstId() const
@@ -49,7 +45,7 @@ QueuedCountry const & Queue::GetFirstCountry() const
   return m_queue.front();
 }
 
-void Queue::Remove(const storage::CountryId & id)
+void Queue::Remove(storage::CountryId const & id)
 {
   auto it = std::find(m_queue.begin(), m_queue.end(), id);
   if (it != m_queue.end())

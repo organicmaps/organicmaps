@@ -9,8 +9,8 @@
 
 namespace dp
 {
-GLGpuProgram::GLGpuProgram(std::string const & programName,
-                           ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
+GLGpuProgram::GLGpuProgram(std::string const & programName, ref_ptr<Shader> vertexShader,
+                           ref_ptr<Shader> fragmentShader)
   : GpuProgram(programName)
   , m_vertexShader(vertexShader)
   , m_fragmentShader(fragmentShader)
@@ -82,10 +82,10 @@ GLGpuProgram::UniformsInfo const & GLGpuProgram::GetUniformsInfo() const
 
 void GLGpuProgram::LoadUniformLocations()
 {
-  static std::set<glConst> const kSupportedTypes = {
-      gl_const::GLFloatType, gl_const::GLFloatVec2, gl_const::GLFloatVec3, gl_const::GLFloatVec4,
-      gl_const::GLIntType,   gl_const::GLIntVec2,   gl_const::GLIntVec3,   gl_const::GLIntVec4,
-      gl_const::GLFloatMat4, gl_const::GLSampler2D};
+  static std::set<glConst> const kSupportedTypes = {gl_const::GLFloatType, gl_const::GLFloatVec2, gl_const::GLFloatVec3,
+                                                    gl_const::GLFloatVec4, gl_const::GLIntType,   gl_const::GLIntVec2,
+                                                    gl_const::GLIntVec3,   gl_const::GLIntVec4,   gl_const::GLFloatMat4,
+                                                    gl_const::GLSampler2D};
 
   auto const uniformsCount = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
   for (int i = 0; i < uniformsCount; ++i)
@@ -108,10 +108,8 @@ uint32_t GLGpuProgram::CalculateNumericUniformsCount() const
 {
   uint32_t counter = 0;
   for (auto const & u : m_uniforms)
-  {
     if (u.second.m_type != gl_const::GLSampler2D)
       counter++;
-  }
   return counter;
 }
 }  // namespace dp

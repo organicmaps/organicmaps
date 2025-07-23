@@ -4,6 +4,6 @@
 
 + (CGFloat)height;
 
-@property (weak, nonatomic) MWMOpeningHoursModel * model;
+@property(weak, nonatomic) MWMOpeningHoursModel * model;
 
 @end

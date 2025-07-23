@@ -26,9 +26,9 @@ class TransitGraphLoaderImpl : public TransitGraphLoader
 {
 public:
   TransitGraphLoaderImpl(MwmDataSource & dataSource, std::shared_ptr<EdgeEstimator> estimator)
-    : m_dataSource(dataSource), m_estimator(estimator)
-  {
-  }
+    : m_dataSource(dataSource)
+    , m_estimator(estimator)
+  {}
 
   TransitGraph & GetTransitGraph(NumMwmId numMwmId, IndexGraph & indexGraph) override
   {
@@ -110,7 +110,8 @@ private:
 };
 
 // static
-std::unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(MwmDataSource & dataSource, std::shared_ptr<EdgeEstimator> estimator)
+std::unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(MwmDataSource & dataSource,
+                                                               std::shared_ptr<EdgeEstimator> estimator)
 {
   return std::make_unique<TransitGraphLoaderImpl>(dataSource, estimator);
 }

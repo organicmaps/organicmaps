@@ -18,24 +18,21 @@ void Intersect(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2, vector<
 {
   sort(setBits1.begin(), setBits1.end());
   sort(setBits2.begin(), setBits2.end());
-  set_intersection(setBits1.begin(), setBits1.end(), setBits2.begin(), setBits2.end(),
-                   back_inserter(result));
+  set_intersection(setBits1.begin(), setBits1.end(), setBits2.begin(), setBits2.end(), back_inserter(result));
 }
 
 void Subtract(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2, vector<uint64_t> & result)
 {
   sort(setBits1.begin(), setBits1.end());
   sort(setBits2.begin(), setBits2.end());
-  set_difference(setBits1.begin(), setBits1.end(), setBits2.begin(), setBits2.end(),
-                 back_inserter(result));
+  set_difference(setBits1.begin(), setBits1.end(), setBits2.begin(), setBits2.end(), back_inserter(result));
 }
 
 void Union(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2, vector<uint64_t> & result)
 {
   sort(setBits1.begin(), setBits1.end());
   sort(setBits2.begin(), setBits2.end());
-  set_union(setBits1.begin(), setBits1.end(), setBits2.begin(), setBits2.end(),
-            back_inserter(result));
+  set_union(setBits1.begin(), setBits1.end(), setBits2.begin(), setBits2.end(), back_inserter(result));
 }
 
 template <typename TBinaryOp>
@@ -56,14 +53,12 @@ void CheckIntersection(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
   CheckBinaryOp(&Intersect, setBits1, setBits2, cbv);
 }
 
-void CheckSubtraction(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
-                      coding::CompressedBitVector const & cbv)
+void CheckSubtraction(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2, coding::CompressedBitVector const & cbv)
 {
   CheckBinaryOp(&Subtract, setBits1, setBits2, cbv);
 }
 
-void CheckUnion(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2,
-                coding::CompressedBitVector const & cbv)
+void CheckUnion(vector<uint64_t> & setBits1, vector<uint64_t> & setBits2, coding::CompressedBitVector const & cbv)
 {
   CheckBinaryOp(&Union, setBits1, setBits2, cbv);
 }
@@ -249,8 +244,8 @@ UNIT_TEST(CompressedBitVector_Union_Smoke)
   vector<uint64_t> setBits1 = {};
   vector<uint64_t> setBits2 = {};
 
-  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Sparse /* strategy1 */,
-             setBits2, coding::CompressedBitVector::StorageStrategy::Sparse /* strategy2 */,
+  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Sparse /* strategy1 */, setBits2,
+             coding::CompressedBitVector::StorageStrategy::Sparse /* strategy2 */,
              coding::CompressedBitVector::StorageStrategy::Sparse /* resultStrategy */);
 }
 
@@ -259,8 +254,8 @@ UNIT_TEST(CompressedBitVector_Union1)
   vector<uint64_t> setBits1 = {};
   vector<uint64_t> setBits2 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Sparse /* strategy1 */,
-             setBits2, coding::CompressedBitVector::StorageStrategy::Dense /* strategy2 */,
+  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Sparse /* strategy1 */, setBits2,
+             coding::CompressedBitVector::StorageStrategy::Dense /* strategy2 */,
              coding::CompressedBitVector::StorageStrategy::Dense /* resultStrategy */);
 }
 
@@ -269,8 +264,8 @@ UNIT_TEST(CompressedBitVector_Union2)
   vector<uint64_t> setBits1 = {256, 1024};
   vector<uint64_t> setBits2 = {0, 32, 64};
 
-  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Sparse /* strategy1 */,
-             setBits2, coding::CompressedBitVector::StorageStrategy::Sparse /* strategy2 */,
+  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Sparse /* strategy1 */, setBits2,
+             coding::CompressedBitVector::StorageStrategy::Sparse /* strategy2 */,
              coding::CompressedBitVector::StorageStrategy::Sparse /* resultStrategy */);
 }
 
@@ -282,8 +277,8 @@ UNIT_TEST(CompressedBitVector_Union3)
   for (int i = 0; i < 256; ++i)
     setBits2.push_back(i);
 
-  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Dense /* strategy1 */,
-             setBits2, coding::CompressedBitVector::StorageStrategy::Dense /* strategy2 */,
+  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Dense /* strategy1 */, setBits2,
+             coding::CompressedBitVector::StorageStrategy::Dense /* strategy2 */,
              coding::CompressedBitVector::StorageStrategy::Dense /* resultStrategy */);
 }
 
@@ -295,8 +290,8 @@ UNIT_TEST(CompressedBitVector_Union4)
 
   vector<uint64_t> setBits2 = {1000000000};
 
-  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Dense /* strategy1 */,
-             setBits2, coding::CompressedBitVector::StorageStrategy::Sparse /* strategy2 */,
+  CheckUnion(setBits1, coding::CompressedBitVector::StorageStrategy::Dense /* strategy1 */, setBits2,
+             coding::CompressedBitVector::StorageStrategy::Sparse /* strategy2 */,
              coding::CompressedBitVector::StorageStrategy::Sparse /* resultStrategy */);
 }
 
@@ -328,10 +323,8 @@ UNIT_TEST(CompressedBitVector_SerializationSparse)
   int const kNumBits = 100;
   vector<uint64_t> setBits;
   for (size_t i = 0; i < kNumBits; ++i)
-  {
     if (i % 10 == 0)
       setBits.push_back(i);
-  }
   vector<uint8_t> buf;
   {
     MemWriter<vector<uint8_t>> writer(buf);
@@ -361,25 +354,20 @@ UNIT_TEST(CompressedBitVector_ForEach)
   }
   auto denseCBV = coding::CompressedBitVectorBuilder::FromBitPositions(denseBits);
   auto sparseCBV = coding::CompressedBitVectorBuilder::FromBitPositions(sparseBits);
-  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, denseCBV->GetStorageStrategy(),
-             ());
-  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, sparseCBV->GetStorageStrategy(),
-             ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Dense, denseCBV->GetStorageStrategy(), ());
+  TEST_EQUAL(coding::CompressedBitVector::StorageStrategy::Sparse, sparseCBV->GetStorageStrategy(), ());
 
   set<uint64_t> denseSet;
   uint64_t maxPos = 0;
   coding::CompressedBitVectorEnumerator::ForEach(*denseCBV, [&](uint64_t pos)
-                                                 {
-                                                   denseSet.insert(pos);
-                                                   maxPos = max(maxPos, pos);
-                                                 });
+  {
+    denseSet.insert(pos);
+    maxPos = max(maxPos, pos);
+  });
   TEST_EQUAL(denseSet.size(), kNumBits, ());
   TEST_EQUAL(maxPos, kNumBits - 1, ());
 
-  coding::CompressedBitVectorEnumerator::ForEach(*sparseCBV, [](uint64_t pos)
-                                                 {
-                                                   TEST_EQUAL(pos % 15, 0, ());
-                                                 });
+  coding::CompressedBitVectorEnumerator::ForEach(*sparseCBV, [](uint64_t pos) { TEST_EQUAL(pos % 15, 0, ()); });
 }
 
 UNIT_TEST(CompressedBitVector_DenseOneBit)
@@ -387,10 +375,7 @@ UNIT_TEST(CompressedBitVector_DenseOneBit)
   vector<uint64_t> setBits = {0};
   unique_ptr<coding::DenseCBV> cbv(new coding::DenseCBV(setBits));
   TEST_EQUAL(cbv->PopCount(), 1, ());
-  coding::CompressedBitVectorEnumerator::ForEach(*cbv, [&](uint64_t pos)
-                                                 {
-                                                   TEST_EQUAL(pos, 0, ());
-                                                 });
+  coding::CompressedBitVectorEnumerator::ForEach(*cbv, [&](uint64_t pos) { TEST_EQUAL(pos, 0, ()); });
 }
 
 UNIT_TEST(CompressedBitVector_LeaveFirstNBitsSmoke)
@@ -450,22 +435,18 @@ UNIT_TEST(CompressedBitVector_SparseLeaveFirstNBits)
   cbv = cbv->LeaveFirstSetNBits(100);
   TEST_EQUAL(cbv->PopCount(), 10, ());
   for (uint64_t bit = 0; bit < (1 << 10); ++bit)
-  {
     if (bit != 0 && (bit & (bit - 1)) == 0)
       TEST(cbv->GetBit(bit), (bit));
     else
       TEST(!cbv->GetBit(bit), (bit));
-  }
 
   cbv = cbv->LeaveFirstSetNBits(8);
   TEST_EQUAL(cbv->PopCount(), 8, ());
   for (uint64_t bit = 0; bit < (1 << 10); ++bit)
-  {
     if (bit != 0 && (bit & (bit - 1)) == 0 && bit < (1 << 8))
       TEST(cbv->GetBit(bit), (bit));
     else
       TEST(!cbv->GetBit(bit), (bit));
-  }
 
   cbv = cbv->LeaveFirstSetNBits(0);
   TEST_EQUAL(cbv->PopCount(), 0, ());

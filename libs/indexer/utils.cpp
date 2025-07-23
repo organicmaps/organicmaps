@@ -4,8 +4,7 @@ namespace indexer
 {
 using namespace std;
 
-MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
-                            vector<shared_ptr<MwmInfo>> const & infos)
+MwmSet::MwmHandle FindWorld(DataSource const & dataSource, vector<shared_ptr<MwmInfo>> const & infos)
 {
   MwmSet::MwmHandle handle;
   for (auto const & info : infos)

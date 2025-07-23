@@ -2,11 +2,11 @@
 
 #include <algorithm>
 
-namespace  df
+namespace df
 {
 
 ArrowAnimation::ArrowAnimation(m2::PointD const & startPos, m2::PointD const & endPos, double moveDuration,
-               double startAngle, double endAngle)
+                               double startAngle, double endAngle)
   : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
   , m_positionInterpolator(moveDuration, 0.0 /* delay */, startPos, endPos)
   , m_angleInterpolator(startAngle, endAngle)
@@ -28,10 +28,8 @@ void ArrowAnimation::Init(ScreenBase const & screen, TPropertyCache const & prop
     minDuration = m_positionInterpolator.GetMinDuration();
     maxDuration = m_positionInterpolator.GetMaxDuration();
 
-    m_positionInterpolator = PositionInterpolator(m_positionInterpolator.GetDuration(),
-                                                  0.0 /* delay */,
-                                                  value.m_valuePointD,
-                                                  m_positionInterpolator.GetTargetPosition());
+    m_positionInterpolator = PositionInterpolator(m_positionInterpolator.GetDuration(), 0.0 /* delay */,
+                                                  value.m_valuePointD, m_positionInterpolator.GetTargetPosition());
 
     m_positionInterpolator.SetMinDuration(minDuration);
     m_positionInterpolator.SetMaxDuration(maxDuration);
@@ -56,7 +54,7 @@ void ArrowAnimation::Init(ScreenBase const & screen, TPropertyCache const & prop
 
 Animation::TAnimObjects const & ArrowAnimation::GetObjects() const
 {
-   return m_objects;
+  return m_objects;
 }
 
 bool ArrowAnimation::HasObject(Object object) const
@@ -166,7 +164,8 @@ bool ArrowAnimation::GetProperty(Object object, ObjectProperty property, bool ta
   case Animation::ObjectProperty::Position:
     if (m_positionInterpolator.IsActive())
     {
-      value = PropertyValue(targetValue ? m_positionInterpolator.GetTargetPosition() : m_positionInterpolator.GetPosition());
+      value = PropertyValue(targetValue ? m_positionInterpolator.GetTargetPosition()
+                                        : m_positionInterpolator.GetPosition());
       return true;
     }
     return false;
@@ -177,12 +176,10 @@ bool ArrowAnimation::GetProperty(Object object, ObjectProperty property, bool ta
       return true;
     }
     return false;
-  default:
-    ASSERT(false, ("Wrong property:", static_cast<int>(property)));
+  default: ASSERT(false, ("Wrong property:", static_cast<int>(property)));
   }
 
   return false;
 }
 
-
-} // namespace df
+}  // namespace df

@@ -10,14 +10,11 @@ namespace dp
 
 namespace
 {
-  int const kResourceSize = 2;
-  int const kBytesPerPixel = 4;
-}
+int const kResourceSize = 2;
+int const kBytesPerPixel = 4;
+}  // namespace
 
-ColorPalette::ColorPalette(m2::PointU const & canvasSize)
-   : m_textureSize(canvasSize)
-   , m_cursor(m2::PointU::Zero())
-{}
+ColorPalette::ColorPalette(m2::PointU const & canvasSize) : m_textureSize(canvasSize), m_cursor(m2::PointU::Zero()) {}
 
 ref_ptr<Texture::ResourceInfo> ColorPalette::ReserveResource(bool predefined, ColorKey const & key, bool & newResource)
 {
@@ -28,8 +25,7 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::ReserveResource(bool predefined, Co
   {
     PendingColor pendingColor;
     pendingColor.m_color = key.m_color;
-    pendingColor.m_rect = m2::RectU(m_cursor.x, m_cursor.y,
-                                    m_cursor.x + kResourceSize, m_cursor.y + kResourceSize);
+    pendingColor.m_rect = m2::RectU(m_cursor.x, m_cursor.y, m_cursor.x + kResourceSize, m_cursor.y + kResourceSize);
     {
       std::lock_guard<std::mutex> g(m_lock);
       m_pendingNodes.push_back(pendingColor);
@@ -131,8 +127,7 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     m2::RectU const & endRect = pendingNodes[endRange - 1].m_rect;
 
     m2::RectU uploadRect;
-    if (startRect.minY() == endRect.minY() &&
-        startRect.maxY() == endRect.maxY())
+    if (startRect.minY() == endRect.minY() && startRect.maxY() == endRect.maxY())
     {
       uploadRect = m2::RectU(startRect.minX(), startRect.minY(), endRect.maxX(), endRect.maxY());
     }
@@ -184,8 +179,8 @@ void ColorPalette::UploadResources(ref_ptr<dp::GraphicsContext> context, ref_ptr
     }
 
     pointer = SharedBufferManager::GetRawPointer(buffer);
-    texture->UploadData(context, uploadRect.minX(), uploadRect.minY(),
-                        uploadRect.SizeX(), uploadRect.SizeY(), make_ref(pointer));
+    texture->UploadData(context, uploadRect.minX(), uploadRect.minY(), uploadRect.SizeX(), uploadRect.SizeY(),
+                        make_ref(pointer));
   }
 }
 
@@ -200,4 +195,4 @@ int ColorTexture::GetColorSizeInPixels()
   return kResourceSize;
 }
 
-} // namespace dp
+}  // namespace dp

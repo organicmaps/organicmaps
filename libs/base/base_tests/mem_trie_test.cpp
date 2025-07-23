@@ -50,8 +50,7 @@ public:
   Data GetContentsByPrefix(Key const & prefix) const
   {
     Data data;
-    m_trie.ForEachInSubtree(prefix,
-                            [&data](Key const & k, Value const & v) { data.emplace_back(k, v); });
+    m_trie.ForEachInSubtree(prefix, [&data](Key const & k, Value const & v) { data.emplace_back(k, v); });
     sort(data.begin(), data.end());
     return data;
   }
@@ -87,8 +86,16 @@ UNIT_CLASS_TEST(MemTrieTest, Basic)
   TEST(!HasPrefix(""), ());
   TEST(!HasPrefix("a"), ());
 
-  Data const data = {{"roger", 3}, {"amy", 1},   {"emma", 1}, {"ann", 1},
-                     {"rob", 1},   {"roger", 2}, {"", 0},     {"roger", 1}};
+  Data const data = {
+      {"roger", 3},
+      {  "amy", 1},
+      { "emma", 1},
+      {  "ann", 1},
+      {  "rob", 1},
+      {"roger", 2},
+      {     "", 0},
+      {"roger", 1}
+  };
   for (auto const & kv : data)
     Add(kv.first, kv.second);
 
@@ -119,7 +126,14 @@ UNIT_CLASS_TEST(MemTrieTest, KeysRemoval)
   TEST(!HasKey("ro"), ());
   TEST(!HasPrefix("ro"), ());
 
-  Data const data = {{"bobby", 1}, {"robby", 2}, {"rob", 3}, {"r", 4}, {"robert", 5}, {"bob", 6}};
+  Data const data = {
+      { "bobby", 1},
+      { "robby", 2},
+      {   "rob", 3},
+      {     "r", 4},
+      {"robert", 5},
+      {   "bob", 6}
+  };
 
   for (auto const & kv : data)
     Add(kv.first, kv.second);
@@ -177,15 +191,32 @@ UNIT_CLASS_TEST(MemTrieTest, ForEachInSubtree)
   Add("abra", 2);
   Add("abrau", 3);
 
-  Data const all = {{"abra", 1}, {"abra", 2}, {"abracadabra", 0}, {"abrau", 3}};
+  Data const all = {
+      {       "abra", 1},
+      {       "abra", 2},
+      {"abracadabra", 0},
+      {      "abrau", 3}
+  };
 
   TEST_EQUAL(GetContentsByPrefix(""), all, ());
   TEST_EQUAL(GetContentsByPrefix("a"), all, ());
   TEST_EQUAL(GetContentsByPrefix("abra"), all, ());
-  TEST_EQUAL(GetContentsByPrefix("abracadabr"), Data({{"abracadabra", 0}}), ());
-  TEST_EQUAL(GetContentsByPrefix("abracadabra"), Data({{"abracadabra", 0}}), ());
+  TEST_EQUAL(GetContentsByPrefix("abracadabr"),
+             Data({
+                 {"abracadabra", 0}
+  }),
+             ());
+  TEST_EQUAL(GetContentsByPrefix("abracadabra"),
+             Data({
+                 {"abracadabra", 0}
+  }),
+             ());
   TEST_EQUAL(GetContentsByPrefix("void"), Data{}, ());
   TEST_EQUAL(GetContentsByPrefix("abra"), all, ());
-  TEST_EQUAL(GetContentsByPrefix("abrau"), Data({{"abrau", 3}}), ());
+  TEST_EQUAL(GetContentsByPrefix("abrau"),
+             Data({
+                 {"abrau", 3}
+  }),
+             ());
 }
 }  // namespace

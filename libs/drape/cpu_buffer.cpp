@@ -1,15 +1,14 @@
 #include "drape/cpu_buffer.hpp"
 
+#include "base/assert.hpp"
 #include "base/math.hpp"
 #include "base/shared_buffer_manager.hpp"
-#include "base/assert.hpp"
 
 #include <cstring>
 
 namespace dp
 {
-CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity)
-  : TBase(elementSize, capacity)
+CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity) : TBase(elementSize, capacity)
 {
   uint32_t memorySize = math::NextPowOf2(GetCapacity() * GetElementSize());
   m_memory = SharedBufferManager::instance().reserveSharedBuffer(memorySize);

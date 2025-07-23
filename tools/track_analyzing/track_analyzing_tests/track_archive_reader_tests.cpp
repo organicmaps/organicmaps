@@ -11,8 +11,8 @@
 #include "coding/zip_creator.hpp"
 
 #include <optional>
-#include <string>
 #include <sstream>
+#include <string>
 
 #include "3party/minizip/minizip.hpp"
 
@@ -31,8 +31,7 @@ struct UserTrackInfo
   Track m_track;
 };
 
-std::optional<UserTrackInfo> ParseLogRecord(std::string const & record,
-                                            TemporaryFile & tmpArchiveFile);
+std::optional<UserTrackInfo> ParseLogRecord(std::string const & record, TemporaryFile & tmpArchiveFile);
 std::optional<std::string> ParseMultipartData(std::string const & binaryData);
 bool ParseTrackFile(unzip::File & zipReader, Track & trackData) noexcept;
 template <typename Reader, typename Pack>
@@ -83,8 +82,8 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
   vector<string> trackFiles;
   trackFiles.push_back(archiveFileName);
   string const containerFileName("test_track_archive.zip");
-  TEST_EQUAL(CreateZipFromFiles(trackFiles, containerFileName, CompressionLevel::NoCompression),
-             true, ("Unable to create tracks archive"));
+  TEST_EQUAL(CreateZipFromFiles(trackFiles, containerFileName, CompressionLevel::NoCompression), true,
+             ("Unable to create tracks archive"));
   FileWriter::DeleteFileX(archiveFileName);
 
   // Step 2.3: Read batch archive content
@@ -99,8 +98,7 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
   // Step 2.4: Wrap as multipart data
   stringstream multipartStream;
   multipartStream << "------0000000000000\r\n";
-  multipartStream << "Content-Disposition: form-data; name=\"file\"; filename=\""
-                  << containerFileName << "\"\r\n";
+  multipartStream << "Content-Disposition: form-data; name=\"file\"; filename=\"" << containerFileName << "\"\r\n";
   multipartStream << "Content-Type: application/zip\r\n";
   multipartStream << "\r\n";
   multipartStream.write(buffer.data(), buffer.size());
@@ -110,16 +108,14 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
   string multipartData = multipartStream.str();
 
   stringstream logStream;
-  logStream << testUserId << "\t1\t1577826010\t" << multipartData.size() << "\t"
-            << ToHex(multipartData);
+  logStream << testUserId << "\t1\t1577826010\t" << multipartData.size() << "\t" << ToHex(multipartData);
 
   string const logRecord = logStream.str();
 
   // Unpack log record
   TemporaryFile tmpArchiveFile("tmp-unittest", ".zip");
 
-  optional<track_analyzing::details::UserTrackInfo> data =
-      ParseLogRecord(logRecord, tmpArchiveFile);
+  optional<track_analyzing::details::UserTrackInfo> data = ParseLogRecord(logRecord, tmpArchiveFile);
   TEST_EQUAL(bool(data), true, ("Unable parse track archive record"));
 
   TEST_EQUAL(data->m_userId, testUserId, ());
@@ -128,10 +124,8 @@ UNIT_TEST(UnpackTrackArchiveDataTest)
   for (size_t i = 0; i < testTrack.size(); ++i)
   {
     TEST_EQUAL(data->m_track[i].m_timestamp, testTrack[i].m_timestamp, ());
-    TEST_ALMOST_EQUAL_ABS(data->m_track[i].m_latLon.m_lat, testTrack[i].m_latLon.m_lat,
-                          kAccuracyEps, ());
-    TEST_ALMOST_EQUAL_ABS(data->m_track[i].m_latLon.m_lon, testTrack[i].m_latLon.m_lon,
-                          kAccuracyEps, ());
+    TEST_ALMOST_EQUAL_ABS(data->m_track[i].m_latLon.m_lat, testTrack[i].m_latLon.m_lat, kAccuracyEps, ());
+    TEST_ALMOST_EQUAL_ABS(data->m_track[i].m_latLon.m_lon, testTrack[i].m_latLon.m_lon, kAccuracyEps, ());
     TEST_EQUAL(data->m_track[i].m_traffic, testTrack[i].m_traffic, ());
   }
 }

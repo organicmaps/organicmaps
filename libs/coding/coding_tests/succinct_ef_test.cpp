@@ -12,7 +12,8 @@ namespace succinct_ef_test
 {
 using namespace std;
 
-template <class T> vector<T> GetUniformValues(size_t count)
+template <class T>
+vector<T> GetUniformValues(size_t count)
 {
   // Use max - 1 because succinct makes val + 1 encoding internals.
   uniform_int_distribution<T> randDist(0, numeric_limits<T>::max() - 1);
@@ -25,7 +26,8 @@ template <class T> vector<T> GetUniformValues(size_t count)
   return data;
 }
 
-template <class T> vector<T> GetNormalValues(size_t count, T mean)
+template <class T>
+vector<T> GetNormalValues(size_t count, T mean)
 {
   normal_distribution<> randDist(mean, 2);
   random_device randDevice;
@@ -46,7 +48,8 @@ template <class T> vector<T> GetNormalValues(size_t count, T mean)
   return data;
 }
 
-template <class T> double GetCompressionRatio(vector<T> const & data)
+template <class T>
+double GetCompressionRatio(vector<T> const & data)
 {
   succinct::elias_fano_compressed_list efList(data);
 
@@ -84,4 +87,4 @@ UNIT_TEST(SuccinctEFList_Ratio)
   }
 }
 
-} // namespace succinct_ef_test
+}  // namespace succinct_ef_test

@@ -7,4 +7,4 @@
 namespace generator
 {
 double AreaOnEarth(std::vector<m2::PointD> const & points);
-}  // namespace routing_city_boundaries
+}  // namespace generator

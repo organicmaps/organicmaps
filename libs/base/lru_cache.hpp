@@ -11,16 +11,16 @@
 template <typename Key, typename Value>
 class LruCache
 {
-  template <typename K, typename V> friend class LruCacheTest;
-  template <typename K, typename V> friend class LruCacheKeyAgeTest;
+  template <typename K, typename V>
+  friend class LruCacheTest;
+  template <typename K, typename V>
+  friend class LruCacheKeyAgeTest;
+
 public:
   /// \param maxCacheSize Maximum size of the cache in number of items. It should be one or greater.
   /// \param loader Function which is called if it's necessary to load a new item for the cache.
   /// For the same |key| should be loaded the same |value|.
-  explicit LruCache(size_t maxCacheSize) : m_maxCacheSize(maxCacheSize)
-  {
-    CHECK_GREATER(maxCacheSize, 0, ());
-  }
+  explicit LruCache(size_t maxCacheSize) : m_maxCacheSize(maxCacheSize) { CHECK_GREATER(maxCacheSize, 0, ()); }
 
   // Find value by @key. If @key is found, returns reference to its value.
   Value & Find(Key const & key, bool & found)
@@ -59,10 +59,8 @@ public:
       return false;
 
     for (auto const & kv : m_cache)
-    {
       if (!m_keyAge.IsKeyValidForTesting(kv.first))
         return false;
-    }
 
     return true;
   }
@@ -77,7 +75,8 @@ private:
   /// \note Ages should be unique for all keys.
   class KeyAge
   {
-    template <typename K, typename V> friend class LruCacheKeyAgeTest;
+    template <typename K, typename V>
+    friend class LruCacheKeyAgeTest;
 
   public:
     void Clear()

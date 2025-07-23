@@ -6,7 +6,6 @@
 
 #include "geometry/angles.hpp"
 
-
 namespace routing
 {
 using namespace std;
@@ -15,8 +14,7 @@ using namespace ftypes;
 
 CarDirectionsEngine::CarDirectionsEngine(MwmDataSource & dataSource, shared_ptr<NumMwmIds> numMwmIds)
   : DirectionsEngine(dataSource, std::move(numMwmIds))
-{
-}
+{}
 
 void CarDirectionsEngine::FixupTurns(vector<RouteSegment> & routeSegments)
 {
@@ -40,19 +38,21 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
     if (t.IsTurnNone())
       continue;
 
-    if (enterRoundAbout != kInvalidEnter && t.m_turn != CarDirection::StayOnRoundAbout
-        && t.m_turn != CarDirection::LeaveRoundAbout && t.m_turn != CarDirection::ReachedYourDestination)
+    if (enterRoundAbout != kInvalidEnter && t.m_turn != CarDirection::StayOnRoundAbout &&
+        t.m_turn != CarDirection::LeaveRoundAbout && t.m_turn != CarDirection::ReachedYourDestination)
     {
-      ASSERT(false, ("Only StayOnRoundAbout, LeaveRoundAbout or ReachedYourDestination are expected after EnterRoundAbout."));
+      ASSERT(false,
+             ("Only StayOnRoundAbout, LeaveRoundAbout or ReachedYourDestination are expected after EnterRoundAbout."));
       exitNum = 0;
       enterRoundAbout = kInvalidEnter;
     }
     else if (t.m_turn == CarDirection::EnterRoundAbout)
     {
-      ASSERT(enterRoundAbout == kInvalidEnter, ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
+      ASSERT(enterRoundAbout == kInvalidEnter,
+             ("It's not expected to find new EnterRoundAbout until previous EnterRoundAbout was leaved."));
       enterRoundAbout = idx;
       ASSERT(exitNum == 0, ("exitNum is reset at start and after LeaveRoundAbout."));
-      exitNum = t.m_exitNum; // Normally it is 0, but sometimes it can be 1.
+      exitNum = t.m_exitNum;  // Normally it is 0, but sometimes it can be 1.
     }
     else if (t.m_turn == CarDirection::StayOnRoundAbout)
     {
@@ -66,7 +66,7 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
       // if route calculation started at roundabout (e.g. if user made full turn on roundabout).
       if (enterRoundAbout != kInvalidEnter)
         routeSegments[enterRoundAbout].SetTurnExits(exitNum + 1);
-      routeSegments[idx].SetTurnExits(exitNum + 1); // For LeaveRoundAbout turn.
+      routeSegments[idx].SetTurnExits(exitNum + 1);  // For LeaveRoundAbout turn.
       enterRoundAbout = kInvalidEnter;
       exitNum = 0;
     }
@@ -75,8 +75,7 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
     // distance(turnsDir[idx - 1].m_index, turnsDir[idx].m_index) < kMergeDistMeters
     // means the distance in meters between the former turn (idx - 1)
     // and the current turn (idx).
-    if (idx > 0 && IsStayOnRoad(routeSegments[idx - 1].GetTurn().m_turn) &&
-        IsLeftOrRightTurn(t.m_turn))
+    if (idx > 0 && IsStayOnRoad(routeSegments[idx - 1].GetTurn().m_turn) && IsLeftOrRightTurn(t.m_turn))
     {
       auto const & junction = routeSegments[idx].GetJunction();
       auto const & prevJunction = routeSegments[idx - 1].GetJunction();
@@ -88,12 +87,11 @@ void FixupCarTurns(vector<RouteSegment> & routeSegments)
 }
 
 void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingSegmentIndex,
-                           NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
-                           TurnItem & turn);
+                           NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings, TurnItem & turn);
 
 size_t CarDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmentIndex,
-                                             NumMwmIds const & numMwmIds,
-                                             RoutingSettings const & vehicleSettings, TurnItem & turnItem)
+                                             NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
+                                             TurnItem & turnItem)
 {
   if (outgoingSegmentIndex == result.GetSegments().size())
   {
@@ -104,8 +102,9 @@ size_t CarDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size
   // This is for jump from initial point to start of the route. No direction is given.
   /// @todo Sometimes results of GetPossibleTurns are empty, sometimes are invalid.
   /// The best will be to fix GetPossibleTurns(). It will allow us to use following approach.
-  /// E.g. Google Maps until you reach the destination will guide you to go to the left or to the right of the first road.
-  if (outgoingSegmentIndex == 2) // The same as turnItem.m_index == 2.
+  /// E.g. Google Maps until you reach the destination will guide you to go to the left or to the right of the first
+  /// road.
+  if (outgoingSegmentIndex == 2)  // The same as turnItem.m_index == 2.
     return 0;
 
   size_t skipTurnSegments = CheckUTurnOnRoute(result, outgoingSegmentIndex, numMwmIds, vehicleSettings, turnItem);
@@ -163,8 +162,8 @@ CarDirection GetRoundaboutDirectionBasic(bool isIngoingEdgeRoundabout, bool isOu
 /*!
  * \brief Returns false when other possible turns leads to service roads;
  */
-bool KeepRoundaboutTurnByHighwayClass(TurnCandidates const & possibleTurns,
-                                      TurnInfo const & turnInfo, NumMwmIds const & numMwmIds)
+bool KeepRoundaboutTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
+                                      NumMwmIds const & numMwmIds)
 {
   Segment firstOutgoingSegment;
   turnInfo.m_outgoing->m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment);
@@ -181,11 +180,12 @@ bool KeepRoundaboutTurnByHighwayClass(TurnCandidates const & possibleTurns,
   return false;
 }
 
-CarDirection GetRoundaboutDirection(TurnInfo const & turnInfo, TurnCandidates const & nodes, NumMwmIds const & numMwmIds)
+CarDirection GetRoundaboutDirection(TurnInfo const & turnInfo, TurnCandidates const & nodes,
+                                    NumMwmIds const & numMwmIds)
 {
   bool const keepTurnByHighwayClass = KeepRoundaboutTurnByHighwayClass(nodes, turnInfo, numMwmIds);
   return GetRoundaboutDirectionBasic(turnInfo.m_ingoing->m_onRoundabout, turnInfo.m_outgoing->m_onRoundabout,
-                                nodes.candidates.size() > 1, keepTurnByHighwayClass);
+                                     nodes.candidates.size() > 1, keepTurnByHighwayClass);
 }
 
 /// \brief Return |CarDirection::ExitHighwayToRight| or |CarDirection::ExitHighwayToLeft|
@@ -201,7 +201,8 @@ CarDirection TryToGetExitDirection(TurnCandidates const & possibleTurns, TurnInf
   if (!IsHighway(turnInfo.m_ingoing->m_highwayClass, turnInfo.m_ingoing->m_isLink))
     return CarDirection::None;
 
-  if (!turnInfo.m_outgoing->m_isLink && !(IsSmallRoad(turnInfo.m_outgoing->m_highwayClass) && IsGoStraightOrSlightTurn(intermediateDirection)))
+  if (!turnInfo.m_outgoing->m_isLink &&
+      !(IsSmallRoad(turnInfo.m_outgoing->m_highwayClass) && IsGoStraightOrSlightTurn(intermediateDirection)))
     return CarDirection::None;
 
   // At this point it is known that the route goes form a highway to a link road or to a small road
@@ -231,15 +232,12 @@ CarDirection TryToGetExitDirection(TurnCandidates const & possibleTurns, TurnInf
     {
       ++highwayCandidateNumber;
       if (highwayCandidateNumber >= 2)
-        return CarDirection::None; // There are two or more highway candidates from the junction.
+        return CarDirection::None;  // There are two or more highway candidates from the junction.
       isHighwayCandidateBeforeOutgoing = isCandidateBeforeOutgoing;
     }
   }
   if (highwayCandidateNumber == 1)
-  {
-    return isHighwayCandidateBeforeOutgoing ? CarDirection::ExitHighwayToRight
-                                            : CarDirection::ExitHighwayToLeft;
-  }
+    return isHighwayCandidateBeforeOutgoing ? CarDirection::ExitHighwayToRight : CarDirection::ExitHighwayToLeft;
   return CarDirection::None;
 }
 
@@ -263,10 +261,8 @@ double constexpr kMinAbsAngleDiffForSameOrSmallerRoad = 35.0;
 /// \param routeAngle is route angle.
 /// \param turnCandidates is all possible ways out from a junction except uturn.
 /// \param turnInfo is information about ingoing and outgoing segments of the route.
-bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
-                                          double const routeAngle,
-                                          vector<TurnCandidate> const & turnCandidates,
-                                          TurnInfo const & turnInfo,
+bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection, double const routeAngle,
+                                          vector<TurnCandidate> const & turnCandidates, TurnInfo const & turnInfo,
                                           NumMwmIds const & numMwmIds)
 {
   if (!IsGoStraightOrSlightTurn(routeDirection))
@@ -292,7 +288,8 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
     double constexpr kMinAbsAngleDiffForGoLink = 70.0;
 
     // If route goes from non-link to link and there is not too sharp candidate then turn can't be discarded.
-    if (!turnInfo.m_ingoing->m_isLink && turnInfo.m_outgoing->m_isLink && abs(t.m_angle) < abs(routeAngle) + kMinAbsAngleDiffForGoLink)
+    if (!turnInfo.m_ingoing->m_isLink && turnInfo.m_outgoing->m_isLink &&
+        abs(t.m_angle) < abs(routeAngle) + kMinAbsAngleDiffForGoLink)
       return false;
 
     HighwayClass candidateRoadClass = t.m_highwayClass;
@@ -310,8 +307,7 @@ bool CanDiscardTurnByHighwayClassOrAngles(CarDirection const routeDirection,
     // and outgoing route road is the same or large than ingoing
     // then candidate-link can be ignored.
     if (!turnInfo.m_ingoing->m_isLink && !turnInfo.m_outgoing->m_isLink &&
-        CalcDiffRoadClasses(outgoingRouteRoadClass, ingoingRouteRoadClass) <= 0 &&
-        t.m_isLink)
+        CalcDiffRoadClasses(outgoingRouteRoadClass, ingoingRouteRoadClass) <= 0 && t.m_isLink)
       continue;
 
     // If alternative cadidate's road size is the same or smaller
@@ -364,13 +360,13 @@ void CorrectGoStraight(TurnCandidate const & notRouteCandidate, double const rou
 // and there's another not sharp enough turn
 // GoStraight is corrected to TurnSlightRight/TurnSlightLeft
 // to avoid ambiguity for GoStraight direction: 2 or more almost straight turns.
-void CorrectRightmostAndLeftmost(vector<TurnCandidate> const & turnCandidates,
-                                 Segment const & firstOutgoingSeg, double const turnAngle,
-                                 TurnItem & turn)
+void CorrectRightmostAndLeftmost(vector<TurnCandidate> const & turnCandidates, Segment const & firstOutgoingSeg,
+                                 double const turnAngle, TurnItem & turn)
 {
   // turnCandidates are sorted by angle from leftmost to rightmost.
   // Normally no duplicates should be found. But if they are present we can't identify the leftmost/rightmost by order.
-  if (adjacent_find(turnCandidates.begin(), turnCandidates.end(), base::EqualsBy(&TurnCandidate::m_angle)) != turnCandidates.end())
+  if (adjacent_find(turnCandidates.begin(), turnCandidates.end(), base::EqualsBy(&TurnCandidate::m_angle)) !=
+      turnCandidates.end())
   {
     LOG(LWARNING, ("nodes.candidates are not expected to have same m_angle."));
     return;
@@ -419,8 +415,7 @@ void CorrectRightmostAndLeftmost(vector<TurnCandidate> const & turnCandidates,
 }
 
 void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingSegmentIndex,
-                           NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
-                           TurnItem & turn)
+                           NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings, TurnItem & turn)
 {
   TurnInfo turnInfo;
   if (!GetTurnInfo(result, outgoingSegmentIndex, vehicleSettings, turnInfo))
@@ -479,15 +474,16 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
 
   if (turnCandidates.size() == 1)
   {
-    //ASSERT_EQUAL(turnCandidates.front().m_segment, firstOutgoingSeg, ());
+    // ASSERT_EQUAL(turnCandidates.front().m_segment, firstOutgoingSeg, ());
 
     if (IsGoStraightOrSlightTurn(intermediateDirection))
       return;
     // IngoingCount includes ingoing segment and reversed outgoing (if it is not one-way).
-    // If any other one is present, turn (not straight or slight) is kept to prevent user from going to oneway alternative.
+    // If any other one is present, turn (not straight or slight) is kept to prevent user from going to oneway
+    // alternative.
 
-    /// @todo Min abs angle of ingoing ones should be considered. If it's much bigger than route angle - ignore ingoing ones.
-    /// Now this data is not available from IRoutingResult::GetPossibleTurns().
+    /// @todo Min abs angle of ingoing ones should be considered. If it's much bigger than route angle - ignore ingoing
+    /// ones. Now this data is not available from IRoutingResult::GetPossibleTurns().
     if (ingoingCount <= 1 + (turnInfo.m_outgoing->m_isOneWay ? 0 : 1))
       return;
   }
@@ -506,7 +502,8 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
   else if (abs(turnOneSegmentAngle) > 10)
     LOG(LWARNING, ("Significant angles are expected to have the same sign."));
 
-  if (CanDiscardTurnByHighwayClassOrAngles(intermediateDirection, turnAngleToCompare, turnCandidates, turnInfo, numMwmIds))
+  if (CanDiscardTurnByHighwayClassOrAngles(intermediateDirection, turnAngleToCompare, turnCandidates, turnInfo,
+                                           numMwmIds))
     return;
 
   turn.m_turn = intermediateDirection;
@@ -515,9 +512,8 @@ void GetTurnDirectionBasic(IRoutingResult const & result, size_t const outgoingS
     CorrectRightmostAndLeftmost(turnCandidates, firstOutgoingSeg, turnAngle, turn);
 }
 
-size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSegmentIndex,
-                         NumMwmIds const & numMwmIds, RoutingSettings const & vehicleSettings,
-                         TurnItem & turn)
+size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSegmentIndex, NumMwmIds const & numMwmIds,
+                         RoutingSettings const & vehicleSettings, TurnItem & turn)
 {
   size_t constexpr kUTurnLookAhead = 3;
   double constexpr kUTurnHeadingSensitivity = math::pi / 10.0;
@@ -583,12 +579,12 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t const outgoingSeg
       // Determine turn direction.
       m2::PointD const junctionPoint = masterSegment.m_path.back().GetPoint();
 
-      m2::PointD const ingoingPoint = GetPointForTurn(
-          result, outgoingSegmentIndex, numMwmIds, vehicleSettings.m_maxIngoingPointsCount,
-          vehicleSettings.m_minIngoingDistMeters, false /* forward */);
-      m2::PointD const outgoingPoint = GetPointForTurn(
-          result, outgoingSegmentIndex, numMwmIds, vehicleSettings.m_maxOutgoingPointsCount,
-          vehicleSettings.m_minOutgoingDistMeters, true /* forward */);
+      m2::PointD const ingoingPoint =
+          GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, vehicleSettings.m_maxIngoingPointsCount,
+                          vehicleSettings.m_minIngoingDistMeters, false /* forward */);
+      m2::PointD const outgoingPoint =
+          GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, vehicleSettings.m_maxOutgoingPointsCount,
+                          vehicleSettings.m_minOutgoingDistMeters, true /* forward */);
 
       if (PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint) < 0)
         turn.m_turn = CarDirection::UTurnLeft;
@@ -625,7 +621,7 @@ bool FixupLaneSet(CarDirection turn, vector<SingleLaneInfo> & lanes, bool (*chec
 template <typename It>
 bool SelectFirstUnrestrictedLane(LaneWay direction, It lanesBegin, It lanesEnd)
 {
-  const It firstUnrestricted = find_if(lanesBegin, lanesEnd, IsLaneUnrestricted);
+  It const firstUnrestricted = find_if(lanesBegin, lanesEnd, IsLaneUnrestricted);
   if (firstUnrestricted == lanesEnd)
     return false;
 

@@ -16,7 +16,7 @@ void ItemizeLine(std::string & str, dp::GlyphManager & glyphManager)
     return;
 
   auto const segments = harfbuzz_shaping::GetTextSegments(str);
-  for (const auto & run : segments.m_segments)
+  for (auto const & run : segments.m_segments)
   {
     std::u16string_view sv{segments.m_text.data() + run.m_start, static_cast<size_t>(run.m_length)};
     std::cout << DebugPrint(sv) << '|';
@@ -24,7 +24,7 @@ void ItemizeLine(std::string & str, dp::GlyphManager & glyphManager)
   std::cout << '\n';
 }
 
-int main(int argc, char** argv)
+int main(int argc, char ** argv)
 {
   if (argc < 2)
   {

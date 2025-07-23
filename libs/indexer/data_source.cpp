@@ -22,11 +22,11 @@ public:
     m_stop = []() { return false; };
   }
 
-  ReadMWMFunctor(FeatureSourceFactory const & factory, Fn const & fn,
-                 DataSource::StopSearchCallback const & stop)
-    : m_factory(factory), m_fn(fn), m_stop(stop)
-  {
-  }
+  ReadMWMFunctor(FeatureSourceFactory const & factory, Fn const & fn, DataSource::StopSearchCallback const & stop)
+    : m_factory(factory)
+    , m_fn(fn)
+    , m_stop(stop)
+  {}
 
   // Reads features visible at |scale| covered by |cov| from mwm and applies |m_fn| to them.
   // Feature reading process consists of two steps: untouched (original) features reading and
@@ -183,10 +183,13 @@ std::pair<MwmSet::MwmId, MwmSet::RegResult> DataSource::RegisterMap(LocalCountry
   return Register(localFile);
 }
 
-bool DataSource::DeregisterMap(CountryFile const & countryFile) { return Deregister(countryFile); }
+bool DataSource::DeregisterMap(CountryFile const & countryFile)
+{
+  return Deregister(countryFile);
+}
 
-void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::CoveringMode mode,
-                                    m2::RectD const & rect, int scale) const
+void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::CoveringMode mode, m2::RectD const & rect,
+                                    int scale) const
 {
   std::vector<std::shared_ptr<MwmInfo>> mwms;
   GetMwmsInfo(mwms);
@@ -197,8 +200,7 @@ void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::Coverin
 
   for (auto const & info : mwms)
   {
-    if (info->m_minScale <= scale && scale <= info->m_maxScale &&
-        rect.IsIntersect(info->m_bordersRect))
+    if (info->m_minScale <= scale && scale <= info->m_maxScale && rect.IsIntersect(info->m_bordersRect))
     {
       MwmId const mwmId(info);
       switch (info->GetType())
@@ -223,7 +225,7 @@ void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD c
   auto readFeatureId = [&f](uint32_t index, FeatureSource & src)
   {
     if (src.GetFeatureStatus(index) != FeatureStatus::Deleted)
-      f({ src.GetMwmId(), index });
+      f({src.GetMwmId(), index});
   };
 
   ReadMWMFunctor readFunctor(*m_factory, readFeatureId);
@@ -232,9 +234,7 @@ void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD c
 
 void DataSource::ForEachInRect(FeatureCallback const & f, m2::RectD const & rect, int scale) const
 {
-  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
-    ReadFeatureType(f, src, index);
-  };
+  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) { ReadFeatureType(f, src, index); };
 
   ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
   ForEachInIntervals(readFunctor, covering::ViewportWithLowLevels, rect, scale);
@@ -245,18 +245,14 @@ void DataSource::ForClosestToPoint(FeatureCallback const & f, StopSearchCallback
 {
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(center, sizeM);
 
-  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
-    ReadFeatureType(f, src, index);
-  };
+  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) { ReadFeatureType(f, src, index); };
   ReadMWMFunctor readFunctor(*m_factory, readFeatureType, stop);
   ForEachInIntervals(readFunctor, covering::CoveringMode::Spiral, rect, scale);
 }
 
 void DataSource::ForEachInScale(FeatureCallback const & f, int scale) const
 {
-  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
-    ReadFeatureType(f, src, index);
-  };
+  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) { ReadFeatureType(f, src, index); };
 
   ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
   ForEachInIntervals(readFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
@@ -269,9 +265,7 @@ void DataSource::ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const 
   if (handle.IsAlive())
   {
     covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
-    auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
-      ReadFeatureType(f, src, index);
-    };
+    auto readFeatureType = [&f](uint32_t index, FeatureSource & src) { ReadFeatureType(f, src, index); };
 
     ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
     readFunctor(handle, cov, scale);
@@ -295,9 +289,8 @@ void DataSource::ReadFeatures(FeatureCallback const & fn, std::vector<FeatureID>
       do
       {
         auto const fts = src->GetFeatureStatus(fidIter->m_index);
-        ASSERT_NOT_EQUAL(
-            FeatureStatus::Deleted, fts,
-            ("Deleted feature was cached. It should not be here. Please review your code."));
+        ASSERT_NOT_EQUAL(FeatureStatus::Deleted, fts,
+                         ("Deleted feature was cached. It should not be here. Please review your code."));
         std::unique_ptr<FeatureType> ft;
         if (fts == FeatureStatus::Modified || fts == FeatureStatus::Created)
           ft = src->GetModifiedFeature(fidIter->m_index);
@@ -306,7 +299,8 @@ void DataSource::ReadFeatures(FeatureCallback const & fn, std::vector<FeatureID>
 
         CHECK(ft, ());
         fn(*ft);
-      } while (++fidIter != endIter && id == fidIter->m_mwmId);
+      }
+      while (++fidIter != endIter && id == fidIter->m_mwmId);
     }
     else
     {

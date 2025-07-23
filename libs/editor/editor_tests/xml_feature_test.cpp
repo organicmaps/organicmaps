@@ -47,7 +47,6 @@ UNIT_TEST(XMLFeature_RawGetSet)
   TEST_EQUAL(expected, sstr.str(), ());
 }
 
-
 UNIT_TEST(XMLFeature_Setters)
 {
   XMLFeature feature(XMLFeature::Type::Node);
@@ -163,7 +162,7 @@ UNIT_TEST(XMLFeature_HasTags)
 UNIT_TEST(XMLFeature_FromXml)
 {
   // Do not space-align this string literal constant. It will be compared below.
-auto const kTestNode = R"(<?xml version="1.0"?>
+  auto const kTestNode = R"(<?xml version="1.0"?>
 <node lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
   <tag k="name" v="Gorki Park" />
   <tag k="name:en" v="Gorki Park" />
@@ -176,10 +175,10 @@ auto const kTestNode = R"(<?xml version="1.0"?>
 )";
 
   std::map<std::string_view, std::string_view> kTestNames{
-    {"default", "Gorki Park"},
-    {"en", "Gorki Park"},
-    {"ru", "Парк Горького"},
-    {"int_name", "Gorky Park"}
+      { "default",    "Gorki Park"},
+      {      "en",    "Gorki Park"},
+      {      "ru", "Парк Горького"},
+      {"int_name",    "Gorky Park"}
   };
 
   XMLFeature feature(kTestNode);
@@ -207,10 +206,7 @@ auto const kTestNode = R"(<?xml version="1.0"?>
   TEST_EQUAL(base::TimestampToString(feature.GetModificationTime()), "2015-11-27T21:13:32Z", ());
 
   std::map<std::string_view, std::string_view> names;
-  feature.ForEachName([&names](std::string_view lang, std::string_view name)
-  {
-    names.emplace(lang, name);
-  });
+  feature.ForEachName([&names](std::string_view lang, std::string_view name) { names.emplace(lang, name); });
   TEST_EQUAL(names, kTestNames, ());
 }
 
@@ -266,15 +262,14 @@ UNIT_TEST(XMLFeature_FromXmlNode)
 
 UNIT_TEST(XMLFeature_Geometry)
 {
-  std::vector<m2::PointD> const geometry =
-  {
-    {28.7206411, 3.7182409},
-    {46.7569003, 47.0774689},
-    {22.5909217, 41.6994874},
-    {14.7537008, 17.7788229},
-    {55.1261701, 10.3199476},
-    {28.6519654, 50.0305930},
-    {28.7206411, 3.7182409}
+  std::vector<m2::PointD> const geometry = {
+      {28.7206411,  3.7182409},
+      {46.7569003, 47.0774689},
+      {22.5909217, 41.6994874},
+      {14.7537008, 17.7788229},
+      {55.1261701, 10.3199476},
+      {28.6519654, 50.0305930},
+      {28.7206411,  3.7182409}
   };
 
   XMLFeature feature(XMLFeature::Type::Way);
@@ -502,13 +497,15 @@ UNIT_TEST(XMLFeature_SocialContactsProcessing)
     auto convertedFt = editor::ToXML(emo, true);
 
     TEST(convertedFt.HasTag("contact:facebook"), ());
-    TEST_EQUAL(convertedFt.GetTagValue("contact:facebook"), "https://facebook.com/pages/Stereo-Plaza/118100041593935", ());
+    TEST_EQUAL(convertedFt.GetTagValue("contact:facebook"), "https://facebook.com/pages/Stereo-Plaza/118100041593935",
+               ());
 
     TEST(convertedFt.HasTag("contact:instagram"), ());
     TEST_EQUAL(convertedFt.GetTagValue("contact:instagram"), "https://instagram.com/p/CSy87IhMhfm", ());
 
     TEST(convertedFt.HasTag("contact:line"), ());
-    TEST_EQUAL(convertedFt.GetTagValue("contact:line"), "https://liff.line.me/1645278921-kWRPP32q/?accountId=673watcr", ());
+    TEST_EQUAL(convertedFt.GetTagValue("contact:line"), "https://liff.line.me/1645278921-kWRPP32q/?accountId=673watcr",
+               ());
   }
 }
 

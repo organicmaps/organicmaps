@@ -11,8 +11,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
-#include <functional>
 #include <cstdint>
+#include <functional>
 #include <limits>
 #include <memory>
 #include <utility>

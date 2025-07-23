@@ -1,13 +1,15 @@
 #import "RecentlyDeletedCategory+Core.h"
 
-#include <map/bookmark_helpers.hpp>
 #include <platform/platform_ios.h>
+#include <map/bookmark_helpers.hpp>
 
 @implementation RecentlyDeletedCategory
 
-- (instancetype)initTitle:(NSString *)title fileURL:(NSURL *)fileURL deletionDate:(NSDate *)deletionDate {
+- (instancetype)initTitle:(NSString *)title fileURL:(NSURL *)fileURL deletionDate:(NSDate *)deletionDate
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _title = title;
     _fileURL = fileURL;
     _deletionDate = deletionDate;
@@ -19,9 +21,11 @@
 
 @implementation RecentlyDeletedCategory (Core)
 
-- (instancetype)initWithCategoryData:(kml::CategoryData)data filePath:(std::string const &)filePath {
+- (instancetype)initWithCategoryData:(kml::CategoryData)data filePath:(std::string const &)filePath
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     auto const name = GetPreferredBookmarkStr(data.m_name);
     _title = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
     auto const pathString = [NSString stringWithCString:filePath.c_str() encoding:NSUTF8StringEncoding];

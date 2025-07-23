@@ -8,7 +8,7 @@ typedef NS_ENUM(NSInteger, MWMMobileInternetAlertResult) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^MWMMobileInternetAlertCompletionBlock)(MWMMobileInternetAlertResult result);
+typedef void (^MWMMobileInternetAlertCompletionBlock)(MWMMobileInternetAlertResult result);
 
 @interface MWMMobileInternetAlert : MWMAlert
 

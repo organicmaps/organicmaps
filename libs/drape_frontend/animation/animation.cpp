@@ -6,7 +6,8 @@ namespace df
 {
 
 // static
-bool Animation::GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property, PropertyValue & value)
+bool Animation::GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property,
+                                  PropertyValue & value)
 {
   auto const it = properties.find(std::make_pair(object, property));
   if (it != properties.end())
@@ -18,7 +19,8 @@ bool Animation::GetCachedProperty(TPropertyCache const & properties, Object obje
 }
 
 // static
-void Animation::GetCurrentScreen(TPropertyCache const & properties, ScreenBase const & screen, ScreenBase & currentScreen)
+void Animation::GetCurrentScreen(TPropertyCache const & properties, ScreenBase const & screen,
+                                 ScreenBase & currentScreen)
 {
   currentScreen = screen;
 
@@ -46,10 +48,8 @@ bool Animation::HasSameObjects(Animation const & animation) const
 {
   TAnimObjects const & objects = animation.GetObjects();
   for (auto const & object : objects)
-  {
     if (HasObject(object))
       return true;
-  }
   return false;
 }
 
@@ -129,4 +129,4 @@ std::string DebugPrint(Animation::ObjectProperty const & property)
   return "Unknown property";
 }
 
-} // namespace df
+}  // namespace df

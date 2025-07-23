@@ -35,8 +35,7 @@ public:
 
   bool IsViewportSearchActive() const override { return true; }
 
-  void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
-                                 bool clear) override
+  void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end, bool clear) override
   {
     if (clear)
       m_stats.m_numShownResults = 0;
@@ -47,24 +46,22 @@ private:
   Stats & m_stats;
 };
 
-class InteractiveSearchRequest : public TestDelegate, public TestSearchRequest
+class InteractiveSearchRequest
+  : public TestDelegate
+  , public TestSearchRequest
 {
 public:
-  InteractiveSearchRequest(TestSearchEngine & engine, string const & query,
-                           m2::RectD const & viewport, Stats & stats)
+  InteractiveSearchRequest(TestSearchEngine & engine, string const & query, m2::RectD const & viewport, Stats & stats)
     : TestDelegate(stats)
     , TestSearchRequest(engine, query, "en" /* locale */, Mode::Viewport, viewport)
   {
-    SetCustomOnResults(
-        ViewportSearchCallback(viewport,
-                               static_cast<ViewportSearchCallback::Delegate &>(*this),
-                               bind(&InteractiveSearchRequest::OnResults, this, placeholders::_1)));
+    SetCustomOnResults(ViewportSearchCallback(viewport, static_cast<ViewportSearchCallback::Delegate &>(*this),
+                                              bind(&InteractiveSearchRequest::OnResults, this, placeholders::_1)));
   }
 };
 
 class InteractiveSearchTest : public SearchTest
-{
-};
+{};
 
 double const kDX[] = {-0.01, 0, 0, 0.01};
 double const kDY[] = {0, -0.01, 0.01, 0};
@@ -84,7 +81,8 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
   for (size_t i = 0; i < ARRAY_SIZE(kDX); ++i)
     hotels.emplace_back(m2::Shift(hotelsPivot, kDX[i], kDY[i]));
 
-  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
+  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     for (auto const & cafe : cafes)
       builder.Add(cafe);
     for (auto const & hotel : hotels)
@@ -93,12 +91,12 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
 
   {
     Stats stats;
-    InteractiveSearchRequest request(
-        m_engine, "cafe", m2::RectD(m2::PointD(-1.5, -1.5), m2::PointD(-0.5, -0.5)), stats);
+    InteractiveSearchRequest request(m_engine, "cafe", m2::RectD(m2::PointD(-1.5, -1.5), m2::PointD(-0.5, -0.5)),
+                                     stats);
     request.Run();
 
-    Rules const rules = {ExactMatch(id, cafes[0]), ExactMatch(id, cafes[1]),
-                         ExactMatch(id, cafes[2]), ExactMatch(id, cafes[3])};
+    Rules const rules = {ExactMatch(id, cafes[0]), ExactMatch(id, cafes[1]), ExactMatch(id, cafes[2]),
+                         ExactMatch(id, cafes[3])};
 
     TEST_EQUAL(stats.m_numShownResults, 4, ());
     TEST(MatchResults(m_dataSource, rules, request.Results()), ());
@@ -106,12 +104,11 @@ UNIT_CLASS_TEST(InteractiveSearchTest, Smoke)
 
   {
     Stats stats;
-    InteractiveSearchRequest request(m_engine, "hotel",
-                                     m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)), stats);
+    InteractiveSearchRequest request(m_engine, "hotel", m2::RectD(m2::PointD(0.5, 0.5), m2::PointD(1.5, 1.5)), stats);
     request.Run();
 
-    Rules const rules = {ExactMatch(id, hotels[0]), ExactMatch(id, hotels[1]),
-                         ExactMatch(id, hotels[2]), ExactMatch(id, hotels[3])};
+    Rules const rules = {ExactMatch(id, hotels[0]), ExactMatch(id, hotels[1]), ExactMatch(id, hotels[2]),
+                         ExactMatch(id, hotels[3])};
 
     TEST_EQUAL(stats.m_numShownResults, 4, ());
     TEST(MatchResults(m_dataSource, rules, request.Results()), ());
@@ -135,21 +132,21 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
   SearchParams params;
   params.m_query = "cafe";
   params.m_inputLocale = "en";
-  params.m_viewport = { -0.5, -0.5, 0.5, 0.5 };
+  params.m_viewport = {-0.5, -0.5, 0.5, 0.5};
   params.m_mode = Mode::Viewport;
-  params.m_minDistanceOnMapBetweenResults = { kEps * 0.9, kEps * 0.9 };
+  params.m_minDistanceOnMapBetweenResults = {kEps * 0.9, kEps * 0.9};
   params.m_suggestsEnabled = false;
 
   {
     TestSearchRequest request(m_engine, params);
     request.Run();
 
-    TEST(MatchResults(m_dataSource,
-                      Rules{ExactMatch(id, cafe1), ExactMatch(id, cafe2), ExactMatch(id, cafe3)},
-                      request.Results()), ());
+    TEST(MatchResults(m_dataSource, Rules{ExactMatch(id, cafe1), ExactMatch(id, cafe2), ExactMatch(id, cafe3)},
+                      request.Results()),
+         ());
   }
 
-  params.m_minDistanceOnMapBetweenResults = { kEps * 1.1, kEps * 1.1 };
+  params.m_minDistanceOnMapBetweenResults = {kEps * 1.1, kEps * 1.1};
 
   {
     TestSearchRequest request(m_engine, params);
@@ -158,7 +155,8 @@ UNIT_CLASS_TEST(InteractiveSearchTest, NearbyFeaturesInViewport)
     auto const & results = request.Results();
 
     TEST(MatchResults(m_dataSource, Rules{ExactMatch(id, cafe1), ExactMatch(id, cafe3)}, results) ||
-         MatchResults(m_dataSource, Rules{ExactMatch(id, cafe2)}, results), ());
+             MatchResults(m_dataSource, Rules{ExactMatch(id, cafe2)}, results),
+         ());
   }
 }
-} // namespace interactive_search_test
+}  // namespace interactive_search_test

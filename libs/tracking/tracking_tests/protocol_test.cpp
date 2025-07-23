@@ -102,8 +102,7 @@ void DecodeDataPacketVersionTest(Container const & points, Protocol::PacketType 
   TEST_EQUAL(points.size(), result.size(), ());
   for (size_t i = 0; i < points.size(); ++i)
   {
-    TEST_EQUAL(points[i].m_timestamp, result[i].m_timestamp,
-               (points[i].m_timestamp, result[i].m_timestamp));
+    TEST_EQUAL(points[i].m_timestamp, result[i].m_timestamp, (points[i].m_timestamp, result[i].m_timestamp));
     TEST(AlmostEqualAbsOrRel(points[i].m_latLon.m_lat, result[i].m_latLon.m_lat, kEps),
          (points[i].m_latLon.m_lat, result[i].m_latLon.m_lat));
     TEST(AlmostEqualAbsOrRel(points[i].m_latLon.m_lon, result[i].m_latLon.m_lon, kEps),

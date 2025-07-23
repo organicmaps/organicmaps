@@ -1,7 +1,7 @@
 #pragma once
 
-#include "generator/feature_emitter_iface.hpp"
 #include "generator/feature_builder.hpp"
+#include "generator/feature_emitter_iface.hpp"
 
 #include <map>
 #include <set>
@@ -35,16 +35,18 @@ public:
 
   inline bool PopAnyType(uint32_t & type) { return m_params.PopAnyType(type); }
 
-  template <class ToDo> void ForEachChangeTypes(ToDo toDo)
+  template <class ToDo>
+  void ForEachChangeTypes(ToDo toDo)
   {
     for_each(m_params.m_types.begin(), m_params.m_types.end(), toDo);
     m_params.FinishAddingTypes();
   }
 
-  template <class ToDo> void ForEachMiddlePoints(ToDo toDo) const
+  template <class ToDo>
+  void ForEachMiddlePoints(ToDo toDo) const
   {
     PointSeq const & poly = GetOuterGeometry();
-    for (size_t i = 1; i < poly.size()-1; ++i)
+    for (size_t i = 1; i < poly.size() - 1; ++i)
       toDo(poly[i]);
   }
 
@@ -58,7 +60,7 @@ public:
 /// Feature merger.
 class FeatureMergeProcessor
 {
-  using Key = int64_t ;
+  using Key = int64_t;
   Key GetKey(m2::PointD const & p);
 
   MergedFeatureBuilder m_last;
@@ -70,10 +72,7 @@ class FeatureMergeProcessor
   void Insert(m2::PointD const & pt, MergedFeatureBuilder * p);
 
   void Remove(Key key, MergedFeatureBuilder const * p);
-  inline void Remove1(m2::PointD const & pt, MergedFeatureBuilder const * p)
-  {
-    Remove(GetKey(pt), p);
-  }
+  inline void Remove1(m2::PointD const & pt, MergedFeatureBuilder const * p) { Remove(GetKey(pt), p); }
   void Remove(MergedFeatureBuilder const * p);
 
   uint8_t m_coordBits;
@@ -81,12 +80,11 @@ class FeatureMergeProcessor
 public:
   FeatureMergeProcessor(uint32_t coordBits);
 
-  void operator() (feature::FeatureBuilder const & fb);
-  void operator() (MergedFeatureBuilder * p);
+  void operator()(feature::FeatureBuilder const & fb);
+  void operator()(MergedFeatureBuilder * p);
 
   void DoMerge(FeatureEmitterIFace & emitter);
 };
-
 
 /// Feature types corrector.
 class FeatureTypesProcessor
@@ -101,9 +99,10 @@ class FeatureTypesProcessor
   class do_change_types
   {
     FeatureTypesProcessor const & m_pr;
+
   public:
     do_change_types(FeatureTypesProcessor const & pr) : m_pr(pr) {}
-    void operator() (uint32_t & t) { m_pr.CorrectType(t); }
+    void operator()(uint32_t & t) { m_pr.CorrectType(t); }
   };
 
 public:
@@ -111,19 +110,20 @@ public:
   void SetMappingTypes(char const * arr1[2], char const * arr2[2]);
 
   /// Leave original types, for example: boundary-administrative-2.
-  template <size_t N> void SetDontNormalizeType(char const * (&arr)[N])
+  template <size_t N>
+  void SetDontNormalizeType(char const * (&arr)[N])
   {
     m_dontNormalize.insert(GetType(arr, N));
   }
 
-  MergedFeatureBuilder * operator() (feature::FeatureBuilder const & fb);
+  MergedFeatureBuilder * operator()(feature::FeatureBuilder const & fb);
 };
 
 namespace feature
 {
-  /// @return false If fb became invalid (no any suitable types).
-  //@{
-  bool PreprocessForWorldMap(FeatureBuilder & fb);
-  bool PreprocessForCountryMap(FeatureBuilder & fb);
-  //@}
-}
+/// @return false If fb became invalid (no any suitable types).
+//@{
+bool PreprocessForWorldMap(FeatureBuilder & fb);
+bool PreprocessForCountryMap(FeatureBuilder & fb);
+//@}
+}  // namespace feature

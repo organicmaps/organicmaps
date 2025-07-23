@@ -2,13 +2,13 @@
 
 #import "iosOGLContext.h"
 
-#include "drape/graphics_context_factory.hpp"
 #include "drape/drape_global.hpp"
+#include "drape/graphics_context_factory.hpp"
 
 #include <condition_variable>
 #include <mutex>
 
-class iosOGLContextFactory: public dp::GraphicsContextFactory
+class iosOGLContextFactory : public dp::GraphicsContextFactory
 {
 public:
   iosOGLContextFactory(CAEAGLLayer * layer, dp::ApiVersion apiVersion, bool presentAvailable);
@@ -19,9 +19,9 @@ public:
 
   bool IsDrawContextCreated() const override;
   bool IsUploadContextCreated() const override;
-  
+
   void WaitForInitialization(dp::GraphicsContext * context) override;
-  
+
   void SetPresentAvailable(bool available) override;
 
 private:
@@ -29,7 +29,7 @@ private:
   dp::ApiVersion m_apiVersion;
   iosOGLContext * m_drawContext;
   iosOGLContext * m_uploadContext;
-  
+
   bool m_isInitialized;
   size_t m_initializationCounter;
   bool m_presentAvailable;

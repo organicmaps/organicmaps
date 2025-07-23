@@ -29,7 +29,9 @@ class MergedPostingsListFetcher : public PostingsFetcher
 public:
   MergedPostingsListFetcher(TextIndexDictionary const & dict, TextIndexReader const & index1,
                             TextIndexReader const & index2)
-    : m_dict(dict), m_index1(index1), m_index2(index2)
+    : m_dict(dict)
+    , m_index1(index1)
+    , m_index2(index2)
   {
     ReadPostings();
   }
@@ -82,8 +84,7 @@ private:
   vector<uint32_t> m_postings;
 };
 
-TextIndexDictionary MergeDictionaries(TextIndexDictionary const & dict1,
-                                      TextIndexDictionary const & dict2)
+TextIndexDictionary MergeDictionaries(TextIndexDictionary const & dict1, TextIndexDictionary const & dict2)
 {
   vector<Token> commonTokens;
   auto const & ts1 = dict1.GetTokens();
@@ -101,11 +102,9 @@ TextIndexDictionary MergeDictionaries(TextIndexDictionary const & dict1,
 namespace search_base
 {
 // static
-void TextIndexMerger::Merge(TextIndexReader const & index1, TextIndexReader const & index2,
-                            FileWriter & sink)
+void TextIndexMerger::Merge(TextIndexReader const & index1, TextIndexReader const & index2, FileWriter & sink)
 {
-  TextIndexDictionary const dict =
-      MergeDictionaries(index1.GetDictionary(), index2.GetDictionary());
+  TextIndexDictionary const dict = MergeDictionaries(index1.GetDictionary(), index2.GetDictionary());
 
   TextIndexHeader header;
 

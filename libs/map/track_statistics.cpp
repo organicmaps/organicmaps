@@ -1,30 +1,29 @@
 #include "map/track_statistics.hpp"
 
-#include "geometry/mercator.hpp"
 #include "base/logging.hpp"
+#include "geometry/mercator.hpp"
 
-#include "platform/duration.hpp"
 #include "platform/distance.hpp"
+#include "platform/duration.hpp"
 
 namespace
 {
 double constexpr kInvalidTimestamp = std::numeric_limits<double>::min();
 geometry::PointWithAltitude const kInvalidPoint = {m2::PointD::Zero(), geometry::kInvalidAltitude};
-} // namespace
+}  // namespace
 
 TrackStatistics::TrackStatistics()
-  : m_length(0),
-    m_duration(0),
-    m_ascent(0),
-    m_descent(0),
-    m_minElevation(geometry::kDefaultAltitudeMeters),
-    m_maxElevation(geometry::kDefaultAltitudeMeters),
-    m_previousPoint(kInvalidPoint),
-    m_previousTimestamp(kInvalidTimestamp)
+  : m_length(0)
+  , m_duration(0)
+  , m_ascent(0)
+  , m_descent(0)
+  , m_minElevation(geometry::kDefaultAltitudeMeters)
+  , m_maxElevation(geometry::kDefaultAltitudeMeters)
+  , m_previousPoint(kInvalidPoint)
+  , m_previousTimestamp(kInvalidTimestamp)
 {}
 
-TrackStatistics::TrackStatistics(kml::MultiGeometry const & geometry)
-  : TrackStatistics()
+TrackStatistics::TrackStatistics(kml::MultiGeometry const & geometry) : TrackStatistics()
 {
   for (auto const & line : geometry.m_lines)
     AddPoints(line);
@@ -40,7 +39,8 @@ TrackStatistics::TrackStatistics(kml::MultiGeometry const & geometry)
 
 void TrackStatistics::AddGpsInfoPoint(location::GpsInfo const & point)
 {
-  auto const pointWithAltitude = geometry::PointWithAltitude(mercator::FromLatLon(point.m_latitude, point.m_longitude), point.m_altitude);
+  auto const pointWithAltitude =
+      geometry::PointWithAltitude(mercator::FromLatLon(point.m_latitude, point.m_longitude), point.m_altitude);
   auto const altitude = geometry::Altitude(point.m_altitude);
   if (HasNoPoints())
   {
@@ -140,4 +140,3 @@ std::string TrackStatistics::GetFormattedMaxElevation() const
 {
   return platform::Distance::FormatAltitude(m_maxElevation);
 }
-

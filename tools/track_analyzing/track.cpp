@@ -2,18 +2,15 @@
 
 namespace track_analyzing
 {
-TrackFilter::TrackFilter(uint64_t minDuration, double minLength, double minSpeed, double maxSpeed,
-                         bool ignoreTraffic)
+TrackFilter::TrackFilter(uint64_t minDuration, double minLength, double minSpeed, double maxSpeed, bool ignoreTraffic)
   : m_minDuration(minDuration)
   , m_minLength(minLength)
   , m_minSpeed(minSpeed)
   , m_maxSpeed(maxSpeed)
   , m_ignoreTraffic(ignoreTraffic)
-{
-}
+{}
 
-bool TrackFilter::Passes(uint64_t duration, double length, double speed,
-                         bool hasTrafficPoints) const
+bool TrackFilter::Passes(uint64_t duration, double length, double speed, bool hasTrafficPoints) const
 {
   if (duration < m_minDuration)
     return false;

@@ -6,9 +6,9 @@
 namespace platform
 {
 // Source: https://developer.android.com/topic/performance/tracing/custom-events-native
-typedef void *(*ATrace_beginSection) (char const *);
-typedef void *(*ATrace_endSection) (void);
-typedef void *(*ATrace_setCounter) (char const *, int64_t);
+typedef void * (*ATrace_beginSection)(char const *);
+typedef void * (*ATrace_endSection)(void);
+typedef void * (*ATrace_setCounter)(char const *, int64_t);
 
 class TraceImpl
 {
@@ -18,7 +18,7 @@ public:
     m_lib = dlopen("libandroid.so", RTLD_NOW | RTLD_LOCAL);
 
     // Access the native tracing functions.
-    if (m_lib != nullptr) 
+    if (m_lib != nullptr)
     {
       // Use dlsym() to prevent crashes on devices running Android 5.1
       // (API level 22) or lower.
@@ -59,24 +59,23 @@ private:
   ATrace_setCounter m_setCounter = nullptr;
 };
 
-// static 
-Trace & Trace::Instance() noexcept {
+// static
+Trace & Trace::Instance() noexcept
+{
   static Trace instance;
   return instance;
 }
 
-Trace::Trace() 
-  : m_impl(std::make_unique<TraceImpl>())
-{}
+Trace::Trace() : m_impl(std::make_unique<TraceImpl>()) {}
 
 Trace::~Trace() = default;
-  
-void Trace::BeginSection(char const * name) noexcept 
+
+void Trace::BeginSection(char const * name) noexcept
 {
   m_impl->BeginSection(name);
 }
 
-void Trace::EndSection() noexcept 
+void Trace::EndSection() noexcept
 {
   m_impl->EndSection();
 }

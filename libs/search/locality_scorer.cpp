@@ -29,9 +29,9 @@ class IdfMapDelegate : public IdfMap::Delegate
 public:
   IdfMapDelegate(vector<pair<LevenshteinDFA, uint64_t>> const & tokensToDf,
                  vector<pair<PrefixDFA, uint64_t>> const & prefixToDf)
-    : m_tokensToDf(tokensToDf), m_prefixToDf(prefixToDf)
-  {
-  }
+    : m_tokensToDf(tokensToDf)
+    , m_prefixToDf(prefixToDf)
+  {}
 
   ~IdfMapDelegate() override = default;
 
@@ -70,20 +70,20 @@ size_t constexpr kDefaultReadLimit = 100;
 
 // LocalityScorer::ExLocality ----------------------------------------------------------------------
 LocalityScorer::ExLocality::ExLocality(Locality && locality, double queryNorm, uint8_t rank)
-  : m_locality(std::move(locality)), m_queryNorm(queryNorm), m_rank(rank)
-{
-}
+  : m_locality(std::move(locality))
+  , m_queryNorm(queryNorm)
+  , m_rank(rank)
+{}
 
 // LocalityScorer ----------------------------------------------------------------------------------
-LocalityScorer::LocalityScorer(QueryParams const & params, m2::PointD const & pivot,
-                               Delegate & delegate)
-  : m_params(params), m_pivot(pivot), m_delegate(delegate)
-{
-}
+LocalityScorer::LocalityScorer(QueryParams const & params, m2::PointD const & pivot, Delegate & delegate)
+  : m_params(params)
+  , m_pivot(pivot)
+  , m_delegate(delegate)
+{}
 
-void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx,
-                                      CBV const & filter, size_t limit,
-                                      vector<Locality> & localities)
+void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseContext const & ctx, CBV const & filter,
+                                      size_t limit, vector<Locality> & localities)
 {
   double constexpr kUnknownIdf = 1.0;
   size_t const numTokens = ctx.NumTokens();
@@ -104,9 +104,8 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     {
       auto const & token = m_params.GetToken(i);
       tokensToDf.emplace_back(BuildLevenshteinDFA(token.GetOriginal()), df);
-      token.ForEachSynonym([&tokensToDf, &df](UniString const & s) {
-        tokensToDf.emplace_back(strings::LevenshteinDFA(s, 0 /* maxErrors */), df);
-      });
+      token.ForEachSynonym([&tokensToDf, &df](UniString const & s)
+      { tokensToDf.emplace_back(strings::LevenshteinDFA(s, 0 /* maxErrors */), df); });
     }
   }
 
@@ -119,9 +118,8 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     {
       auto const & token = m_params.GetToken(count);
       prefixToDf.emplace_back(PrefixDFA(BuildLevenshteinDFA(token.GetOriginal())), prefixDf);
-      token.ForEachSynonym([&prefixToDf, &prefixDf](UniString const & s) {
-        prefixToDf.emplace_back(PrefixDFA(strings::LevenshteinDFA(s, 0 /* maxErrors */)), prefixDf);
-      });
+      token.ForEachSynonym([&prefixToDf, &prefixDf](UniString const & s)
+      { prefixToDf.emplace_back(PrefixDFA(strings::LevenshteinDFA(s, 0 /* maxErrors */)), prefixDf); });
     }
   }
 
@@ -133,8 +131,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
     auto intersection = intersections[startToken];
     QueryVec::Builder builder;
 
-    for (size_t endToken = startToken + 1;
-         endToken <= numTokens && !intersection.m_features.IsEmpty(); ++endToken)
+    for (size_t endToken = startToken + 1; endToken <= numTokens && !intersection.m_features.IsEmpty(); ++endToken)
     {
       auto const curToken = endToken - 1;
       auto const & token = m_params.GetToken(curToken).GetOriginal();
@@ -148,9 +145,7 @@ void LocalityScorer::GetTopLocalities(MwmSet::MwmId const & countryId, BaseConte
       if (!m_params.IsNumberTokens(tokenRange))
       {
         intersection.ForEach([&](uint32_t featureId, bool exactMatch)
-        {
-          localities.emplace_back(FeatureID(countryId, featureId), tokenRange, QueryVec(idfs, builder), exactMatch);
-        });
+        { localities.emplace_back(FeatureID(countryId, featureId), tokenRange, QueryVec(idfs, builder), exactMatch); });
       }
 
       if (endToken < numTokens)
@@ -196,8 +191,7 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, vector<Loca
     GetDocVecs(els[i].GetId(), dvs);
 
     auto const center = m_delegate.GetCenter(els[i].GetId());
-    auto const distance =
-        center ? mercator::DistanceOnEarth(m_pivot, *center) : els[i].m_distanceToPivot;
+    auto const distance = center ? mercator::DistanceOnEarth(m_pivot, *center) : els[i].m_distanceToPivot;
     auto const belongsToMatchedRegion =
         center ? m_delegate.BelongsToMatchedRegion(*center) : els[i].m_belongsToMatchedRegion;
 
@@ -216,15 +210,12 @@ void LocalityScorer::LeaveTopLocalities(IdfMap & idfs, size_t limit, vector<Loca
 
   unordered_set<uint32_t> seen;
   for (auto it = els.begin(); it != els.end() && localities.size() < limit; ++it)
-  {
     if (seen.insert(it->GetId()).second)
       localities.push_back(std::move(it->m_locality));
-  }
   ASSERT_EQUAL(seen.size(), localities.size(), ());
 }
 
-void LocalityScorer::LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds,
-                                                     vector<ExLocality> & els) const
+void LocalityScorer::LeaveTopByExactMatchNormAndRank(size_t limitUniqueIds, vector<ExLocality> & els) const
 {
   sort(els.begin(), els.end(), [](ExLocality const & lhs, ExLocality const & rhs)
   {
@@ -264,9 +255,7 @@ void LocalityScorer::GroupBySimilarityAndOther(vector<ExLocality> & els) const
   });
 
   auto const lessDistance = [](ExLocality const & lhs, ExLocality const & rhs)
-  {
-    return lhs.m_distanceToPivot < rhs.m_distanceToPivot;
-  };
+  { return lhs.m_distanceToPivot < rhs.m_distanceToPivot; };
 
   auto const compareSimilaritySizeAndRegion = [](ExLocality const & lhs, ExLocality const & rhs)
   {
@@ -291,10 +280,8 @@ void LocalityScorer::GroupBySimilarityAndOther(vector<ExLocality> & els) const
     auto const closest = min_element(range.first, range.second, lessDistance);
     tmp.emplace_back(std::move(*closest));
     for (auto it = range.first; it != range.second; ++it)
-    {
       if (it != closest)
         tmp.emplace_back(std::move(*it));
-    }
     begin = range.second;
   }
 

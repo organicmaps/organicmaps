@@ -1,7 +1,7 @@
 #import "MWMNoMapsView.h"
 #import "MWMKeyboard.h"
 
-@interface MWMNoMapsView ()<MWMKeyboardObserver>
+@interface MWMNoMapsView () <MWMKeyboardObserver>
 
 @property(weak, nonatomic) IBOutlet UIImageView * image;
 @property(weak, nonatomic) IBOutlet UILabel * title;
@@ -77,5 +77,8 @@
   [self.superview layoutIfNeeded];
 }
 
-- (void)onKeyboardWillAnimate { [self.superview layoutIfNeeded]; }
+- (void)onKeyboardWillAnimate
+{
+  [self.superview layoutIfNeeded];
+}
 @end

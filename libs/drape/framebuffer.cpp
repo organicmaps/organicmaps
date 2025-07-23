@@ -18,8 +18,7 @@ Framebuffer::DepthStencil::~DepthStencil()
   Destroy();
 }
 
-void Framebuffer::DepthStencil::SetSize(ref_ptr<dp::GraphicsContext> context,
-                                        uint32_t width, uint32_t height)
+void Framebuffer::DepthStencil::SetSize(ref_ptr<dp::GraphicsContext> context, uint32_t width, uint32_t height)
 {
   if (m_texture && m_texture->GetWidth() == width && m_texture->GetHeight() == height)
     return;
@@ -64,14 +63,12 @@ ref_ptr<FramebufferTexture> Framebuffer::DepthStencil::GetTexture() const
   return make_ref(m_texture);
 }
 
-Framebuffer::Framebuffer()
-  : m_colorFormat(TextureFormat::RGBA8)
+Framebuffer::Framebuffer() : m_colorFormat(TextureFormat::RGBA8)
 {
   ApplyOwnDepthStencil();
 }
 
-Framebuffer::Framebuffer(TextureFormat colorFormat)
-  : m_colorFormat(colorFormat)
+Framebuffer::Framebuffer(TextureFormat colorFormat) : m_colorFormat(colorFormat)
 {
   ApplyOwnDepthStencil();
 }

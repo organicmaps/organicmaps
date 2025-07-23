@@ -34,8 +34,7 @@ class IncorrectCountry : public TestCountry
 public:
   IncorrectCountry(m2::PointD const & center, string const & name, string const & lang)
     : TestCountry(center, name, lang)
-  {
-  }
+  {}
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder & fb) const override
@@ -55,36 +54,38 @@ public:
 };
 
 class SmokeTest : public SearchTest
-{
-};
+{};
 
 class AlcoShop : public TestPOI
 {
 public:
-  AlcoShop(m2::PointD const & center, string const & name, string const & lang)
-    : TestPOI(center, name, lang)
+  AlcoShop(m2::PointD const & center, string const & name, string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({{"shop", "alcohol"}});
+    SetTypes({
+        {"shop", "alcohol"}
+    });
   }
 };
 
 class SubwayStation : public TestPOI
 {
 public:
-  SubwayStation(m2::PointD const & center, string const & name, string const & lang)
-    : TestPOI(center, name, lang)
+  SubwayStation(m2::PointD const & center, string const & name, string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({{"railway", "station", "subway"}});
+    SetTypes({
+        {"railway", "station", "subway"}
+    });
   }
 };
 
 class SubwayStationMoscow : public TestPOI
 {
 public:
-  SubwayStationMoscow(m2::PointD const & center, string const & name, string const & lang)
-    : TestPOI(center, name, lang)
+  SubwayStationMoscow(m2::PointD const & center, string const & name, string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({{"railway", "station", "subway", "moscow"}});
+    SetTypes({
+        {"railway", "station", "subway", "moscow"}
+    });
   }
 };
 
@@ -114,8 +115,8 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
     TEST(ResultsMatch("wine ", rules), ());
   }
 
-  Rules const allRule = { ExactMatch(id, wineShop), ExactMatch(id, tequilaShop),
-                          ExactMatch(id, brandyShop), ExactMatch(id, vodkaShop) };
+  Rules const allRule = {ExactMatch(id, wineShop), ExactMatch(id, tequilaShop), ExactMatch(id, brandyShop),
+                         ExactMatch(id, vodkaShop)};
 
   TEST(ResultsMatch("shop ", allRule), ());
   TEST(ResultsMatch("alcohol ", allRule), ());
@@ -129,7 +130,8 @@ UNIT_CLASS_TEST(SmokeTest, DeepCategoryTest)
   SubwayStation redStation(m2::PointD(0, 0), "red", "en");
   SubwayStationMoscow blueStation(m2::PointD(1, 1), "blue", "en");
 
-  auto id = BuildMwm(kCountryName, DataHeader::MapType::Country, [&](TestMwmBuilder & builder) {
+  auto id = BuildMwm(kCountryName, DataHeader::MapType::Country, [&](TestMwmBuilder & builder)
+  {
     builder.Add(redStation);
     builder.Add(blueStation);
   });
@@ -193,40 +195,40 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
   /// @todo Should rewrite test
   base::StringIL const arrNotPoint[] = {
       // Area types without suitable point drawing rules.
-      {"area:highway", "steps"},
-      {"landuse", "basin"},
-      {"natural", "glacier"},
+      {"area:highway",           "steps"},
+      {     "landuse",           "basin"},
+      {     "natural",         "glacier"},
 
       // Linear types.
-      {"waterway", "canal"},
-      {"waterway", "river"},
-      {"waterway", "stream"},
-      {"highway", "footway"},
-      {"highway", "cycleway"},
-      {"highway", "living_street"},
-      {"highway", "motorway"},
-      {"highway", "motorway_link"},
-      {"highway", "path"},
-      {"highway", "pedestrian"},
-      {"highway", "primary"},
-      {"highway", "primary_link"},
-      {"highway", "raceway"},
-      {"highway", "residential"},
-      {"highway", "road"},
-      {"highway", "secondary"},
-      {"highway", "secondary_link"},
-      {"highway", "service"},
-      {"highway", "steps"},
-      {"highway", "tertiary"},
-      {"highway", "tertiary_link"},
-      {"highway", "track"},
-      {"highway", "traffic_signals"},
-      {"highway", "trunk"},
-      {"highway", "trunk_link"},
-      {"highway", "unclassified"},
-      {"historic", "citywalls"},
-      {"piste:type", "downhill"},
-      {"piste:type", "nordic"},
+      {    "waterway",           "canal"},
+      {    "waterway",           "river"},
+      {    "waterway",          "stream"},
+      {     "highway",         "footway"},
+      {     "highway",        "cycleway"},
+      {     "highway",   "living_street"},
+      {     "highway",        "motorway"},
+      {     "highway",   "motorway_link"},
+      {     "highway",            "path"},
+      {     "highway",      "pedestrian"},
+      {     "highway",         "primary"},
+      {     "highway",    "primary_link"},
+      {     "highway",         "raceway"},
+      {     "highway",     "residential"},
+      {     "highway",            "road"},
+      {     "highway",       "secondary"},
+      {     "highway",  "secondary_link"},
+      {     "highway",         "service"},
+      {     "highway",           "steps"},
+      {     "highway",        "tertiary"},
+      {     "highway",   "tertiary_link"},
+      {     "highway",           "track"},
+      {     "highway", "traffic_signals"},
+      {     "highway",           "trunk"},
+      {     "highway",      "trunk_link"},
+      {     "highway",    "unclassified"},
+      {    "historic",       "citywalls"},
+      {  "piste:type",        "downhill"},
+      {  "piste:type",          "nordic"},
   };
   set<uint32_t> notPointTypes;
   for (auto const & tags : arrNotPoint)
@@ -235,8 +237,8 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
   // No point drawing rules for country scale range.
   base::StringIL const arrInvisible[] = {
       {"place", "continent"},
-      {"place", "county"},
-      {"place", "region"},
+      {"place",    "county"},
+      {"place",    "region"},
   };
   set<uint32_t> invisibleTypes;
   for (auto const & tags : arrInvisible)
@@ -320,9 +322,9 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     });
 
     Rules const rules[] = {
-      {ExactMatch(id, withName), ExactMatch(id, withoutName)},
-      {ExactMatch(id, withName)},
-      {}
+        {ExactMatch(id, withName), ExactMatch(id, withoutName)},
+        {ExactMatch(id, withName)},
+        {}
     };
     auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode);
 
@@ -342,7 +344,8 @@ UNIT_CLASS_TEST(SmokeTest, NotPrefixFreeNames)
 {
   char const kCountryName[] = "ATown";
 
-  auto id = BuildMwm(kCountryName, DataHeader::MapType::Country, [&](TestMwmBuilder & builder) {
+  auto id = BuildMwm(kCountryName, DataHeader::MapType::Country, [&](TestMwmBuilder & builder)
+  {
     builder.Add(TestPOI(m2::PointD(0, 0), "a", "en"));
     builder.Add(TestPOI(m2::PointD(0, 1), "aa", "en"));
     builder.Add(TestPOI(m2::PointD(1, 1), "aa", "en"));
@@ -385,13 +388,13 @@ UNIT_CLASS_TEST(SmokeTest, NoDefaultNameTest)
 UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
 {
   char const kCountryName[] = "Wonderland";
-  TestStreet mainStreet({m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0), m2::PointD(2.0, 2.0)},
-                        "Main Street", "en");
+  TestStreet mainStreet({m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0), m2::PointD(2.0, 2.0)}, "Main Street", "en");
   TestCafe cafe(m2::PointD(1.0, 1.0), "Starbucks", "en");
   cafe.SetStreetName(mainStreet.GetName("en"));
   cafe.SetHouseNumber("27");
 
-  auto id = BuildMwm(kCountryName, DataHeader::MapType::Country, [&](TestMwmBuilder & builder) {
+  auto id = BuildMwm(kCountryName, DataHeader::MapType::Country, [&](TestMwmBuilder & builder)
+  {
     builder.Add(mainStreet);
     builder.Add(cafe);
   });
@@ -405,4 +408,4 @@ UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
     TEST(ResultsMatch("Starbucks Main street 27 ", rules), ());
   }
 }
-} // namespace smoke_test
+}  // namespace smoke_test

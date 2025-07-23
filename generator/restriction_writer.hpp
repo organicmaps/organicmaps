@@ -12,7 +12,6 @@ namespace routing_builder
 class RestrictionWriter : public generator::CollectorInterface
 {
 public:
-
   enum class ViaType
   {
     Node,
@@ -49,4 +48,3 @@ private:
 
 std::string DebugPrint(RestrictionWriter::ViaType const & type);
 }  // namespace routing_builder
-

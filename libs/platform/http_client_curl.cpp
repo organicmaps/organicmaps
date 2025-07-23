@@ -42,10 +42,10 @@
 #include <utility>
 #include <vector>
 
-#include <cstdio>    // popen, tmpnam
+#include <cstdio>  // popen, tmpnam
 
 #ifdef _MSC_VER
-#define popen _popen
+#define popen  _popen
 #define pclose _pclose
 #else
 #include <unistd.h>  // close
@@ -80,7 +80,6 @@ static std::string ReadFileAsString(std::string const & filePath)
   return {std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>()};
 }
 
-
 std::string RunCurl(std::string const & cmd)
 {
   FILE * pipe = ::popen(cmd.c_str(), "r");
@@ -92,10 +91,9 @@ std::string RunCurl(std::string const & cmd)
   {
     read = ::fread(arr.data(), 1, arr.size(), pipe);
     if (read > 0)
-    {
       result.append(arr.data(), read);
-    }
-  } while (read == arr.size());
+  }
+  while (read == arr.size());
 
   auto const err = ::pclose(pipe);
   // Exception will be cought in RunHTTPRequest
@@ -141,7 +139,7 @@ HeadersVector ParseHeaders(std::string const & raw)
 bool WriteToFile(std::string const & fileName, std::string const & data)
 {
   std::ofstream ofs(fileName);
-  if(!ofs.is_open())
+  if (!ofs.is_open())
   {
     LOG(LERROR, ("Failed to write into a temporary file."));
     return false;
@@ -199,9 +197,7 @@ bool HttpClient::RunHttpRequest()
     cmd += "-X " + m_httpMethod + " ";
 
   for (auto const & header : m_headers)
-  {
     cmd += "-H '" + header.first + ": " + header.second + "' ";
-  }
 
   if (!m_cookies.empty())
     cmd += "-b '" + m_cookies + "' ";
@@ -301,8 +297,7 @@ bool HttpClient::RunHttpRequest()
 
   for (auto const & header : headers)
   {
-    if (strings::EqualNoCase(header.first, "content-encoding") &&
-        !strings::EqualNoCase(header.second, "identity"))
+    if (strings::EqualNoCase(header.first, "content-encoding") && !strings::EqualNoCase(header.second, "identity"))
     {
       m_serverResponse = Decompress(m_serverResponse, header.second);
       LOG(LDEBUG, ("Response with", header.second, "is decompressed."));

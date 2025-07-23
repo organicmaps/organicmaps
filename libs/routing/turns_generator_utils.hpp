@@ -1,7 +1,7 @@
 #pragma once
 
-#include "indexer/ftypes_matcher.hpp"
 #include "geometry/point_with_altitude.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "routing/loaded_path_segment.hpp"
 
 namespace routing
@@ -19,14 +19,12 @@ struct TurnInfo
   LoadedPathSegment const * m_ingoing;
   LoadedPathSegment const * m_outgoing;
 
-  TurnInfo() : m_ingoing(nullptr), m_outgoing(nullptr)
-  {
-  }
+  TurnInfo() : m_ingoing(nullptr), m_outgoing(nullptr) {}
 
   TurnInfo(LoadedPathSegment const * ingoingSegment, LoadedPathSegment const * outgoingSegment)
-      : m_ingoing(ingoingSegment), m_outgoing(outgoingSegment)
-  {
-  }
+    : m_ingoing(ingoingSegment)
+    , m_outgoing(outgoingSegment)
+  {}
 
   bool IsSegmentsValid() const;
 };
@@ -104,7 +102,6 @@ double CalcOneSegmentTurnAngle(TurnInfo const & turnInfo);
 double CalcPathTurnAngle(LoadedPathSegment const & segment, size_t const pathIndex);
 
 m2::PointD GetPointByIndex(TUnpackedPathSegments const & segments, RoutePointIndex const & index);
-
 
 }  // namespace turns
 }  // namespace routing

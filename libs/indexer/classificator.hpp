@@ -17,20 +17,23 @@ class ClassifObject;
 
 namespace ftype
 {
-  inline uint32_t GetEmptyValue() { return 1; }
-
-  void PushValue(uint32_t & type, uint8_t value);
-  /// @pre level < GetLevel(type).
-  uint8_t GetValue(uint32_t type, uint8_t level);
-  void PopValue(uint32_t & type);
-  void TruncValue(uint32_t & type, uint8_t level);
-  inline uint32_t Trunc(uint32_t type, uint8_t level)
-  {
-    TruncValue(type, level);
-    return type;
-  }
-  uint8_t GetLevel(uint32_t type);
+inline uint32_t GetEmptyValue()
+{
+  return 1;
 }
+
+void PushValue(uint32_t & type, uint8_t value);
+/// @pre level < GetLevel(type).
+uint8_t GetValue(uint32_t type, uint8_t level);
+void PopValue(uint32_t & type);
+void TruncValue(uint32_t & type, uint8_t level);
+inline uint32_t Trunc(uint32_t type, uint8_t level)
+{
+  TruncValue(type, level);
+  return type;
+}
+uint8_t GetLevel(uint32_t type);
+}  // namespace ftype
 
 class ClassifObjectPtr
 {
@@ -39,7 +42,7 @@ class ClassifObjectPtr
 
 public:
   ClassifObjectPtr() : m_p(nullptr), m_ind(0) {}
-  ClassifObjectPtr(ClassifObject const * p, size_t i): m_p(p), m_ind(i) {}
+  ClassifObjectPtr(ClassifObject const * p, size_t i) : m_p(p), m_ind(i) {}
 
   ClassifObject const * get() const { return m_p; }
   ClassifObject const * operator->() const { return m_p; }
@@ -52,18 +55,9 @@ class ClassifObject
 {
   struct LessName
   {
-    bool operator() (ClassifObject const & r1, ClassifObject const & r2) const
-    {
-      return (r1.m_name < r2.m_name);
-    }
-    bool operator() (ClassifObject const & r1, std::string_view r2) const
-    {
-      return (r1.m_name < r2);
-    }
-    bool operator() (std::string_view r1, ClassifObject const & r2) const
-    {
-      return (r1 < r2.m_name);
-    }
+    bool operator()(ClassifObject const & r1, ClassifObject const & r2) const { return (r1.m_name < r2.m_name); }
+    bool operator()(ClassifObject const & r1, std::string_view r2) const { return (r1.m_name < r2); }
+    bool operator()(std::string_view r1, ClassifObject const & r2) const { return (r1 < r2.m_name); }
   };
 
 public:
@@ -72,8 +66,10 @@ public:
 
   /// @name Fill from osm draw rule files.
   //@{
+
 private:
   ClassifObject * AddImpl(std::string const & s);
+
 public:
   ClassifObject * Add(std::string const & s);
   ClassifObject * Find(std::string const & s);
@@ -106,14 +102,16 @@ public:
 
   /// @name Iterate first level children only.
   /// @{
-  template <class ToDo> void ForEachObject(ToDo && toDo)
+  template <class ToDo>
+  void ForEachObject(ToDo && toDo)
   {
-    for (auto & e: m_objs)
+    for (auto & e : m_objs)
       toDo(&e);
   }
-  template <class ToDo> void ForEachObject(ToDo && toDo) const
+  template <class ToDo>
+  void ForEachObject(ToDo && toDo) const
   {
-    for (auto const & e: m_objs)
+    for (auto const & e : m_objs)
       toDo(e);
   }
   /// @}
@@ -134,7 +132,7 @@ public:
     }
   }
 
-  using VisibleMask = std::bitset<scales::UPPER_STYLE_SCALE+1>;
+  using VisibleMask = std::bitset<scales::UPPER_STYLE_SCALE + 1>;
   void SetVisibilityOnScale(bool isVisible, int scale) { m_visibility.set(scale, isVisible); }
 
   /// @name Policies for classificator tree serialization.
@@ -155,6 +153,7 @@ public:
   class LoadPolicy : public BasePolicy
   {
     typedef BasePolicy base_type;
+
   public:
     explicit LoadPolicy(ClassifObject * pRoot) : base_type(pRoot) {}
 
@@ -236,8 +235,7 @@ public:
   void ForEachInSubtree(ToDo && toDo, uint32_t root) const
   {
     toDo(root);
-    GetObject(root)->ForEachObjectInTree([&toDo](ClassifObject const *, uint32_t c) { toDo(c); },
-                                         root);
+    GetObject(root)->ForEachObjectInTree([&toDo](ClassifObject const *, uint32_t c) { toDo(c); }, root);
   }
 
   ClassifObject const * GetObject(uint32_t type) const;
@@ -248,7 +246,8 @@ public:
   std::string GetReadableObjectName(uint32_t type) const;
 
 private:
-  template <class ToDo> void ForEachPathObject(uint32_t type, ToDo && toDo) const;
+  template <class ToDo>
+  void ForEachPathObject(uint32_t type, ToDo && toDo) const;
 
   template <typename Iter>
   uint32_t GetTypeByPathImpl(Iter beg, Iter end) const;

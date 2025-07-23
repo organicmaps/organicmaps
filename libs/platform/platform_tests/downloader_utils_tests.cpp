@@ -104,11 +104,12 @@ UNIT_TEST(Downloader_ParseMetaConfig)
         "key3": "value3"
       }
     }
-  )")), ());
+  )")),
+       ());
   TEST_EQUAL(cfg->m_serversList.size(), 2, ());
   TEST_EQUAL(cfg->m_serversList[0], "https://url1/", ());
   TEST_EQUAL(cfg->m_serversList[1], "https://url2/", ());
-  TEST_EQUAL(cfg->m_settings.size(), 2, ()); // "key3" is ignored
+  TEST_EQUAL(cfg->m_settings.size(), 2, ());  // "key3" is ignored
   TEST_EQUAL(cfg->m_settings["DonateUrl"], "value1", ());
   TEST_EQUAL(cfg->m_settings["NY"], "value2", ());
 

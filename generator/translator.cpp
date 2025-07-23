@@ -4,13 +4,11 @@
 #include "generator/filter_collection.hpp"
 #include "generator/osm_element.hpp"
 
-
 namespace generator
 {
 Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & processor,
                        std::shared_ptr<cache::IntermediateData> const & cache,
-                       std::shared_ptr<FeatureMakerBase> const & maker,
-                       std::shared_ptr<FilterInterface> const & filter,
+                       std::shared_ptr<FeatureMakerBase> const & maker, std::shared_ptr<FilterInterface> const & filter,
                        std::shared_ptr<CollectorInterface> const & collector)
   : m_filter(filter)
   , m_collector(collector)
@@ -25,30 +23,31 @@ Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & proces
 Translator::Translator(std::shared_ptr<FeatureProcessorInterface> const & processor,
                        std::shared_ptr<cache::IntermediateData> const & cache,
                        std::shared_ptr<FeatureMakerBase> const & maker)
-  : Translator(processor, cache, maker, std::make_shared<FilterCollection>(),
-               std::make_shared<CollectorCollection>())
-{
-}
+  : Translator(processor, cache, maker, std::make_shared<FilterCollection>(), std::make_shared<CollectorCollection>())
+{}
 
 void Translator::SetCollector(std::shared_ptr<CollectorInterface> const & collector)
 {
   m_collector = collector;
 }
 
-void Translator::SetFilter(std::shared_ptr<FilterInterface> const & filter) { m_filter = filter; }
+void Translator::SetFilter(std::shared_ptr<FilterInterface> const & filter)
+{
+  m_filter = filter;
+}
 
 void Translator::Emit(OsmElement const & src)
 {
   // Make a copy because it will be modified below.
   OsmElement element(src);
 
-  Preprocess(element); // Might use replaced_tags.txt via a TagReplacer.
+  Preprocess(element);  // Might use replaced_tags.txt via a TagReplacer.
   if (!m_filter->IsAccepted(element))
     return;
 
   m_tagsEnricher(element);
   m_collector->Collect(element);
-  m_featureMaker->Add(element); // A feature is created from OSM tags.
+  m_featureMaker->Add(element);  // A feature is created from OSM tags.
   feature::FeatureBuilder feature;
   while (m_featureMaker->GetNextFeature(feature))
   {

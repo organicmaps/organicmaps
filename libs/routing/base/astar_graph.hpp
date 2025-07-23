@@ -1,7 +1,7 @@
 #pragma once
 
-#include "routing/base/astar_weight.hpp"
 #include "routing/base/astar_vertex_data.hpp"
+#include "routing/base/astar_weight.hpp"
 #include "routing/base/small_list.hpp"
 
 #include "base/buffer_vector.hpp"
@@ -27,15 +27,12 @@ public:
 
   virtual Weight HeuristicCostEstimate(Vertex const & from, Vertex const & to) = 0;
 
-  virtual void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                    EdgeListT & edges) = 0;
-  virtual void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                   EdgeListT & edges) = 0;
+  virtual void GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & edges) = 0;
+  virtual void GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & edges) = 0;
 
   virtual void SetAStarParents(bool forward, Parents & parents);
   virtual void DropAStarParents();
-  virtual bool AreWavesConnectible(Parents & forwardParents, Vertex const & commonVertex,
-                                   Parents & backwardParents);
+  virtual bool AreWavesConnectible(Parents & forwardParents, Vertex const & commonVertex, Parents & backwardParents);
 
   virtual Weight GetAStarWeightEpsilon();
 
@@ -43,11 +40,12 @@ public:
 };
 
 template <typename VertexType, typename EdgeType, typename WeightType>
-void AStarGraph<VertexType, EdgeType, WeightType>::SetAStarParents(bool /* forward */,
-                                                                   Parents & /* parents */) {}
+void AStarGraph<VertexType, EdgeType, WeightType>::SetAStarParents(bool /* forward */, Parents & /* parents */)
+{}
 
 template <typename VertexType, typename EdgeType, typename WeightType>
-void AStarGraph<VertexType, EdgeType, WeightType>::DropAStarParents() {}
+void AStarGraph<VertexType, EdgeType, WeightType>::DropAStarParents()
+{}
 
 template <typename VertexType, typename EdgeType, typename WeightType>
 bool AStarGraph<VertexType, EdgeType, WeightType>::AreWavesConnectible(AStarGraph::Parents & /* forwardParents */,

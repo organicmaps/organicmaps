@@ -77,9 +77,9 @@ UNIT_TEST(AlmostEqualULPs_double)
 
   TEST_ALMOST_EQUAL_ULPS(dmax, dmax, ());
   TEST_ALMOST_EQUAL_ULPS(-dmax, -dmax, ());
-  TEST_ALMOST_EQUAL_ULPS(dmax/2.0, dmax/2.0, ());
-  TEST_ALMOST_EQUAL_ULPS(1.0/dmax, 1.0/dmax, ());
-  TEST_ALMOST_EQUAL_ULPS(-1.0/dmax, -1.0/dmax, ());
+  TEST_ALMOST_EQUAL_ULPS(dmax / 2.0, dmax / 2.0, ());
+  TEST_ALMOST_EQUAL_ULPS(1.0 / dmax, 1.0 / dmax, ());
+  TEST_ALMOST_EQUAL_ULPS(-1.0 / dmax, -1.0 / dmax, ());
 
   TEST(!AlmostEqualULPs(1.0, -1.0), ());
   TEST(!AlmostEqualULPs(2.0, -2.0), ());
@@ -101,9 +101,9 @@ UNIT_TEST(AlmostEqualULPs_float)
 
   TEST_ALMOST_EQUAL_ULPS(dmax, dmax, ());
   TEST_ALMOST_EQUAL_ULPS(-dmax, -dmax, ());
-  TEST_ALMOST_EQUAL_ULPS(dmax/2.0f, dmax/2.0f, ());
-  TEST_ALMOST_EQUAL_ULPS(1.0f/dmax, 1.0f/dmax, ());
-  TEST_ALMOST_EQUAL_ULPS(-1.0f/dmax, -1.0f/dmax, ());
+  TEST_ALMOST_EQUAL_ULPS(dmax / 2.0f, dmax / 2.0f, ());
+  TEST_ALMOST_EQUAL_ULPS(1.0f / dmax, 1.0f / dmax, ());
+  TEST_ALMOST_EQUAL_ULPS(-1.0f / dmax, -1.0f / dmax, ());
 
   TEST(!AlmostEqualULPs(1.0f, -1.0f), ());
   TEST(!AlmostEqualULPs(2.0f, -2.0f), ());
@@ -191,14 +191,14 @@ UNIT_TEST(is_finite)
 
   TEST(!is_finite(Nan()), ());
   TEST(!is_finite(Infinity()), ());
-  TEST(!is_finite(DBL_MAX*2.0), ());
+  TEST(!is_finite(DBL_MAX * 2.0), ());
 
   TEST(is_finite(0.0), ());
   TEST(is_finite(1.0), ());
   TEST(is_finite(-2.0), ());
   TEST(is_finite(DBL_MIN), ());
   TEST(is_finite(DBL_MAX), ());
-  TEST(is_finite(DBL_MIN/2.0), ("As in cppreference example"));
+  TEST(is_finite(DBL_MIN / 2.0), ("As in cppreference example"));
 }
 
 }  // namespace math_test

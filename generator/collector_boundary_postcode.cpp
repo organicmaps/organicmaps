@@ -14,8 +14,7 @@ BoundaryPostcodeCollector::BoundaryPostcodeCollector(std::string const & filenam
   : CollectorInterface(filename)
   , m_cache(cache)
   , m_featureMakerSimple(cache)
-{
-}
+{}
 
 std::shared_ptr<CollectorInterface> BoundaryPostcodeCollector::Clone(IDRInterfacePtr const & cache) const
 {

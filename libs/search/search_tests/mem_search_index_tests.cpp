@@ -67,14 +67,12 @@ public:
       request.m_langs.insert(StringUtf8Multilang::GetLangIndex(lang));
 
       vector<Id> curr;
-      MatchFeaturesInTrie(request, m_index.GetRootIterator(),
-                          [](Id const & /* id */) { return true; } /* filter */,
+      MatchFeaturesInTrie(request, m_index.GetRootIterator(), [](Id const & /* id */) { return true; } /* filter */,
                           [&curr](Id const & id, bool /* exactMatch */) { curr.push_back(id); } /* toDo */);
       base::SortUnique(curr);
 
       vector<Id> intersection;
-      set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(),
-                       back_inserter(intersection));
+      set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(), back_inserter(intersection));
       prev = intersection;
     });
 

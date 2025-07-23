@@ -45,7 +45,7 @@ UNIT_TEST(GpsTrackCollection_Simple)
 
   TEST_EQUAL(50, collection.GetSize(), ());
 
-  collection.ForEach([&data](location::GpsInfo const & info, size_t id)->bool
+  collection.ForEach([&data](location::GpsInfo const & info, size_t id) -> bool
   {
     TEST(data.end() != data.find(id), ());
     location::GpsInfo const & originInfo = data[id];

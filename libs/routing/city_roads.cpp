@@ -37,8 +37,7 @@ std::unique_ptr<CityRoads> LoadCityRoads(MwmSet::MwmHandle const & handle)
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("File", value->GetCountryFileName(), "Error while reading", CITY_ROADS_FILE_TAG,
-                 "section.", e.Msg()));
+    LOG(LERROR, ("File", value->GetCountryFileName(), "Error while reading", CITY_ROADS_FILE_TAG, "section.", e.Msg()));
     return std::make_unique<CityRoads>();
   }
 }

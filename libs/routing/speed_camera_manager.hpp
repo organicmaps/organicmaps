@@ -63,15 +63,9 @@ public:
   static Interval GetIntervalByDistToCam(double distanceToCameraMeters, double speedMpS);
 
   void SetRoute(std::weak_ptr<Route> route) { m_route = std::move(route); }
-  void SetSpeedCamShowCallback(SpeedCameraShowCallback && callback)
-  {
-    m_speedCamShowCallback = std::move(callback);
-  }
+  void SetSpeedCamShowCallback(SpeedCameraShowCallback && callback) { m_speedCamShowCallback = std::move(callback); }
 
-  void SetSpeedCamClearCallback(SpeedCameraClearCallback && callback)
-  {
-    m_speedCamClearCallback = std::move(callback);
-  }
+  void SetSpeedCamClearCallback(SpeedCameraClearCallback && callback) { m_speedCamClearCallback = std::move(callback); }
 
   bool Enable() const { return m_mode != SpeedCameraManagerMode::Never; }
   void OnLocationPositionChanged(location::GpsInfo const & info);
@@ -101,7 +95,7 @@ private:
 
   // Used for calculating distance needed to slow down before a speed camera.
   static double constexpr kAverageAccelerationOfBraking =
-    -kAverageFrictionOfRubberOnAspalt * kGravitationalAcceleration; // Meters per second squared.
+      -kAverageFrictionOfRubberOnAspalt * kGravitationalAcceleration;  // Meters per second squared.
 
   static_assert(kAverageAccelerationOfBraking != 0, "");
   static_assert(kAverageAccelerationOfBraking < 0, "AverageAccelerationOfBraking must be negative");
@@ -172,8 +166,7 @@ private:
   std::weak_ptr<Route> m_route;
   turns::sound::NotificationManager & m_notificationManager;
 
-  SpeedCameraShowCallback m_speedCamShowCallback = [](m2::PointD const & /* point */,
-                                                      double /* cameraSpeedKmPH */) {};
+  SpeedCameraShowCallback m_speedCamShowCallback = [](m2::PointD const & /* point */, double /* cameraSpeedKmPH */) {};
   SpeedCameraClearCallback m_speedCamClearCallback = []() {};
 
   SpeedCameraManagerMode m_mode = SpeedCameraManagerMode::Auto;

@@ -9,14 +9,15 @@
 
 namespace impl
 {
-  void ToHexRaw(void const * src, size_t size, void * dst);
-  void FromHexRaw(void const * src, size_t size, void * dst);
-}
+void ToHexRaw(void const * src, size_t size, void * dst);
+void FromHexRaw(void const * src, size_t size, void * dst);
+}  // namespace impl
 
-inline std::string ToHex(const void * ptr, size_t size)
+inline std::string ToHex(void const * ptr, size_t size)
 {
   std::string result;
-  if (size == 0) return result;
+  if (size == 0)
+    return result;
 
   result.resize(size * 2);
   ::impl::ToHexRaw(ptr, size, &result[0]);

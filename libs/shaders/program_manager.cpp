@@ -80,8 +80,8 @@ void ProgramManager::InitForOpenGL(ref_ptr<dp::GraphicsContext> context)
 void ProgramManager::InitForVulkan(ref_ptr<dp::GraphicsContext> context)
 {
   m_pool = make_unique_dp<vulkan::VulkanProgramPool>(context);
-  m_paramsSetter = make_unique_dp<vulkan::VulkanProgramParamsSetter>(context,
-      make_ref(static_cast<vulkan::VulkanProgramPool *>(m_pool.get())));
+  m_paramsSetter = make_unique_dp<vulkan::VulkanProgramParamsSetter>(
+      context, make_ref(static_cast<vulkan::VulkanProgramPool *>(m_pool.get())));
 }
 
 void ProgramManager::DestroyForVulkan(ref_ptr<dp::GraphicsContext> context)

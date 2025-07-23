@@ -32,17 +32,17 @@ typename MapCont::mapped_type ValueSum(MapCont const & mapCont)
 }
 
 /// \returns true if |map1| and |map2| have the same key and false otherwise.
-template<typename Map1, typename Map2>
+template <typename Map1, typename Map2>
 bool AreKeysEqual(Map1 const & map1, Map2 const & map2)
 {
   if (map1.size() != map2.size())
   {
-    LOG(LINFO,
-        ("AreKeysEqual() returns false. map1.size():", map1.size(), "map2.size()", map2.size()));
+    LOG(LINFO, ("AreKeysEqual() returns false. map1.size():", map1.size(), "map2.size()", map2.size()));
     return false;
   }
 
-  return std::equal(map1.begin(), map1.end(), map2.begin(), [](auto const & kv1, auto const & kv2) {
+  return std::equal(map1.begin(), map1.end(), map2.begin(), [](auto const & kv1, auto const & kv2)
+  {
     if (kv1.first == kv2.first)
       return true;
 
@@ -68,13 +68,11 @@ MwmToDataPointFraction GetMwmToDataPointFraction(MwmToDataPoints const & numberM
 /// *  number of data points in the returned mapping is less than or equal to
 ///    number of data points in |matchedDataPoints| for every mwm
 /// * distribution defined by |distributionFraction| is kept
-MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(
-    MwmToDataPoints const & matchedDataPoints,
-    MwmToDataPointFraction const & distributionFractions);
+MwmToDataPoints CalcsMatchedDataPointsToKeepDistribution(MwmToDataPoints const & matchedDataPoints,
+                                                         MwmToDataPointFraction const & distributionFractions);
 
 /// \returns mapping with number of matched data points for every mwm to correspond to |distribution|.
-MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && matchedDataPoints,
-                                        MwmToDataPoints && distribution,
+MwmToDataPoints BalancedDataPointNumber(MwmToDataPoints && matchedDataPoints, MwmToDataPoints && distribution,
                                         uint64_t ignoreDataPointsNumber);
 
 /// \breif Leaves in |table| only number of items according to |balancedDataPointNumbers|.
@@ -83,13 +81,11 @@ void FilterTable(MwmToDataPoints const & balancedDataPointNumbers, std::vector<T
 
 /// \brief Fills |balancedTable| with TableRow(s) according to the distribution set in
 /// |distributionCsvStream|.
-void BalanceDataPoints(std::basic_istream<char> & tableCsvStream,
-                       std::basic_istream<char> & distributionCsvStream,
+void BalanceDataPoints(std::basic_istream<char> & tableCsvStream, std::basic_istream<char> & distributionCsvStream,
                        uint64_t ignoreDataPointsNumber, std::vector<TableRow> & balancedTable);
 
 /// \brief Removes some data point for every mwm from |csvPath| to correspond distribution
 /// set in |distributionPath|. If an mwm in |csvPath| contains data points less of equal to
 /// |ignoreDataPointsNumber| than the mwm will not be taken into acount while balancing.
-void CmdBalanceCsv(std::string const & csvPath, std::string const & distributionPath,
-                   uint64_t ignoreDataPointsNumber);
+void CmdBalanceCsv(std::string const & csvPath, std::string const & distributionPath, uint64_t ignoreDataPointsNumber);
 }  // namespace track_analyzing

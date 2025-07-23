@@ -6,8 +6,7 @@ namespace routing
 {
 bool AdjacentEdges::IsAlmostEqual(AdjacentEdges const & rhs) const
 {
-  return m_outgoingTurns.IsAlmostEqual(rhs.m_outgoingTurns) &&
-         m_ingoingTurnsCount == rhs.m_ingoingTurnsCount;
+  return m_outgoingTurns.IsAlmostEqual(rhs.m_outgoingTurns) && m_ingoingTurnsCount == rhs.m_ingoingTurnsCount;
 }
 
 RoutingEngineResult::RoutingEngineResult(IRoadGraph::EdgeVector const & routeEdges,
@@ -19,18 +18,14 @@ RoutingEngineResult::RoutingEngineResult(IRoadGraph::EdgeVector const & routeEdg
   , m_routeLength(0)
 {
   for (auto const & edge : routeEdges)
-  {
-    m_routeLength += mercator::DistanceOnEarth(edge.GetStartJunction().GetPoint(),
-                                               edge.GetEndJunction().GetPoint());
-  }
+    m_routeLength += mercator::DistanceOnEarth(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint());
 }
 
-void RoutingEngineResult::GetPossibleTurns(SegmentRange const & segmentRange,
-                                           m2::PointD const & junctionPoint, size_t & ingoingCount,
-                                           turns::TurnCandidates & outgoingTurns) const
+void RoutingEngineResult::GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & junctionPoint,
+                                           size_t & ingoingCount, turns::TurnCandidates & outgoingTurns) const
 {
-  CHECK(!segmentRange.IsEmpty(), ("SegmentRange presents a fake feature.",
-                                  "junctionPoint:", mercator::ToLatLon(junctionPoint)));
+  CHECK(!segmentRange.IsEmpty(),
+        ("SegmentRange presents a fake feature.", "junctionPoint:", mercator::ToLatLon(junctionPoint)));
 
   ingoingCount = 0;
   outgoingTurns.candidates.clear();
@@ -58,9 +53,8 @@ geometry::PointWithAltitude RoutingEngineResult::GetEndPoint() const
   return m_routeEdges.back().GetEndJunction();
 }
 
-bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges,
-             IRoadGraph::EdgeListT const & outgoingEdges, Edge const & ingoingRouteEdge,
-             Edge const & outgoingRouteEdge)
+bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges, IRoadGraph::EdgeListT const & outgoingEdges,
+             Edge const & ingoingRouteEdge, Edge const & outgoingRouteEdge)
 {
   // When feature id is changed at a junction this junction should be considered as a joint.
   //
@@ -83,10 +77,8 @@ bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges,
   FeatureID const & featureId = ingoingRouteEdge.GetFeatureId();
   uint32_t const segOut = outgoingRouteEdge.GetSegId();
   for (Edge const & e : ingoingEdges)
-  {
     if (e.GetFeatureId() != featureId || abs(static_cast<int32_t>(segOut - e.GetSegId())) != 1)
       return true;
-  }
 
   uint32_t const segIn = ingoingRouteEdge.GetSegId();
   for (Edge const & e : outgoingEdges)

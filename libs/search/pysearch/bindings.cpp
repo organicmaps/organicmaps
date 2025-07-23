@@ -75,8 +75,7 @@ struct Params
   string ToString() const
   {
     ostringstream os;
-    os << m_query << ", " << m_locale << ", " << m_position.ToString() << ", "
-       << m_viewport.ToString();
+    os << m_query << ", " << m_locale << ", " << m_position.ToString() << ", " << m_viewport.ToString();
     return os.str();
   }
 
@@ -135,8 +134,8 @@ struct SearchEngineProxy
   {
     search::search_quality::InitDataSource(m_dataSource, "" /* mwmListPath */);
     search::search_quality::InitStorageData(m_affiliations, m_countryNameSynonyms);
-    m_engine = search::search_quality::InitSearchEngine(m_dataSource, m_affiliations,
-                                                        "en" /* locale */, 1 /* numThreads */);
+    m_engine =
+        search::search_quality::InitSearchEngine(m_dataSource, m_affiliations, "en" /* locale */, 1 /* numThreads */);
   }
 
   search::SearchParams MakeSearchParams(Params const & params) const
@@ -167,7 +166,7 @@ struct SearchEngineProxy
     return results;
   }
 
-  boost::python::list Trace(Params const &params) const
+  boost::python::list Trace(Params const & params) const
   {
     m_engine->SetLocale(params.m_locale);
 

@@ -39,12 +39,10 @@ void CheckByMask(Polygon const & polygons, vector<bool> markedMask)
 {
   CHECK_EQUAL(polygons.m_points.size(), markedMask.size(), ());
   for (size_t i = 0; i < polygons.m_points.size(); ++i)
-  {
     if (markedMask[i])
       TestMarked(polygons, i);
     else
       TestNotMarked(polygons, i);
-  }
 }
 
 UNIT_TEST(PolyBordersPostprocessor_MarkPoints_1)
@@ -196,15 +194,15 @@ UNIT_TEST(PolyBordersPostprocessor_MarkPoints_4)
 
   m2::PointD a(6.0, 2.0);
   m2::PointD b(6.0, 4.0);
-  
+
   vector<vector<m2::PointD>> polygons1 = {
       {{-2.0, -2.0}, {-2.0, 2.0}, {2.0, 2.0}, {2.0, -2.0}},
-      {{4.0, 2.0}, {4.0, 4.0}, a, b}
+      {  {4.0, 2.0},  {4.0, 4.0},          a,           b}
   };
 
   vector<vector<bool>> markedMask1 = {
       {false, false, false, false},
-      {false, false, true, true}
+      {false, false,  true,  true}
   };
 
   vector<vector<m2::PointD>> polygons2 = {
@@ -223,10 +221,12 @@ UNIT_TEST(PolyBordersPostprocessor_MarkPoints_4)
   bordersData.Init(bordersDir);
   bordersData.MarkPoints();
 
-  auto const & firstBordersPolygon1 = bordersData.GetBordersPolygonByName("First" + BordersData::kBorderExtension + "1");
+  auto const & firstBordersPolygon1 =
+      bordersData.GetBordersPolygonByName("First" + BordersData::kBorderExtension + "1");
   CheckByMask(firstBordersPolygon1, markedMask1[0]);
 
-  auto const & secondBordersPolygon1 = bordersData.GetBordersPolygonByName("First" + BordersData::kBorderExtension + "2");
+  auto const & secondBordersPolygon1 =
+      bordersData.GetBordersPolygonByName("First" + BordersData::kBorderExtension + "2");
   CheckByMask(secondBordersPolygon1, markedMask1[1]);
 
   auto const & bordersPolygon2 = bordersData.GetBordersPolygonByName("Second" + BordersData::kBorderExtension + "1");

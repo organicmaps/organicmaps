@@ -1,18 +1,18 @@
-#include "qt/place_page_dialog_common.hpp"
 #include "qt/place_page_dialog_user.hpp"
+#include "qt/place_page_dialog_common.hpp"
 
 #include "qt/qt_common/text_dialog.hpp"
 
-#include "map/place_page_info.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
+#include "map/place_page_info.hpp"
 #include "platform/settings.hpp"
 
+#include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QDialog>
+#include <QtWidgets/QVBoxLayout>
 
 #include <sstream>
 #include <string>
@@ -22,7 +22,7 @@ namespace
 static int constexpr kMaxLengthOfPlacePageDescription = 500;
 static int constexpr kMinWidthOfShortDescription = 390;
 
-std::string getShortDescription(const std::string & description)
+std::string getShortDescription(std::string const & description)
 {
   std::string_view view(description);
 
@@ -38,12 +38,11 @@ std::string getShortDescription(const std::string & description)
   return std::string(view);
 }
 
-std::string_view stripSchemeFromURI(std::string_view uri) {
+std::string_view stripSchemeFromURI(std::string_view uri)
+{
   for (std::string_view prefix : {"https://", "http://"})
-  {
     if (uri.starts_with(prefix))
       return uri.substr(prefix.size());
-  }
   return uri;
 }
 }  // namespace
@@ -121,19 +120,19 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     if (info.IsBookmark())
       addEntry("Bookmark", "Yes");
 
-
     // Wikipedia fragment
     if (auto const & wikipedia = info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA); !wikipedia.empty())
     {
       QLabel * name = new QLabel("Wikipedia");
       name->setOpenExternalLinks(true);
       name->setTextInteractionFlags(Qt::TextBrowserInteraction);
-      name->setText(QString::fromStdString("<a href=\"" + feature::Metadata::ToWikiURL(std::string(wikipedia)) + "\">Wikipedia</a>"));
+      name->setText(QString::fromStdString("<a href=\"" + feature::Metadata::ToWikiURL(std::string(wikipedia)) +
+                                           "\">Wikipedia</a>"));
       data->addWidget(name, row++, 0);
     }
 
     // Description
-    if (const auto & description = info.GetWikiDescription(); !description.empty())
+    if (auto const & description = info.GetWikiDescription(); !description.empty())
     {
       auto descriptionShort = getShortDescription(description);
 
@@ -146,7 +145,8 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       wikiButton->setAutoDefault(false);
       connect(wikiButton, &QAbstractButton::clicked, this, [this, description, title]()
       {
-        auto textDialog = TextDialog(this, QString::fromStdString(description), QString::fromStdString("Wikipedia: " + title));
+        auto textDialog =
+            TextDialog(this, QString::fromStdString(description), QString::fromStdString("Wikipedia: " + title));
         textDialog.exec();
       });
 
@@ -169,7 +169,8 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     {
       data->addWidget(new QLabel("Phone"), row, 0);
 
-      QLabel * value = new QLabel(QString::fromStdString("<a href='tel:" + std::string(phoneNumber) + "'>" + std::string(phoneNumber) + "</a>"));
+      QLabel * value = new QLabel(QString::fromStdString("<a href='tel:" + std::string(phoneNumber) + "'>" +
+                                                         std::string(phoneNumber) + "</a>"));
       value->setOpenExternalLinks(true);
 
       data->addWidget(value, row++, 1);
@@ -191,7 +192,8 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     {
       data->addWidget(new QLabel("Email"), row, 0);
 
-      QLabel * value = new QLabel(QString::fromStdString("<a href='mailto:" + std::string(email) + "'>" + std::string(email) + "</a>"));
+      QLabel * value = new QLabel(
+          QString::fromStdString("<a href='mailto:" + std::string(email) + "'>" + std::string(email) + "</a>"));
       value->setOpenExternalLinks(true);
 
       data->addWidget(value, row++, 1);
@@ -199,13 +201,14 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
 
     // Social networks
     {
-      auto addSocialNetworkWidget = [data, &info, &row](const std::string label, const feature::Metadata::EType eType)
+      auto addSocialNetworkWidget = [data, &info, &row](std::string const label, feature::Metadata::EType const eType)
       {
         if (auto item = info.GetMetadata(eType); !item.empty())
         {
           data->addWidget(new QLabel(QString::fromStdString(label)), row, 0);
 
-          QLabel * value = new QLabel(QString::fromStdString("<a href='" + osm::socialContactToURL(eType, std::string(item)) + "'>" + std::string(item) + "</a>"));
+          QLabel * value = new QLabel(QString::fromStdString(
+              "<a href='" + osm::socialContactToURL(eType, std::string(item)) + "'>" + std::string(item) + "</a>"));
           value->setOpenExternalLinks(true);
           value->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
@@ -220,11 +223,14 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
       addSocialNetworkWidget("Line", feature::Metadata::EType::FMD_CONTACT_LINE);
     }
 
-    if (auto wikimedia_commons = info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS); !wikimedia_commons.empty())
+    if (auto wikimedia_commons = info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS);
+        !wikimedia_commons.empty())
     {
       data->addWidget(new QLabel("Wikimedia Commons"), row, 0);
 
-      QLabel * value = new QLabel(QString::fromStdString("<a href='" + feature::Metadata::ToWikimediaCommonsURL(std::string(wikimedia_commons)) + "'>Wikimedia Commons</a>"));
+      QLabel * value = new QLabel(QString::fromStdString(
+          "<a href='" + feature::Metadata::ToWikimediaCommonsURL(std::string(wikimedia_commons)) +
+          "'>Wikimedia Commons</a>"));
       value->setOpenExternalLinks(true);
       value->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
@@ -252,7 +258,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, place_page::Info cons
     layout->addLayout(data);
   }
 
-  layout->addStretch(); 
+  layout->addStretch();
 
   {
     QHLine * line = new QHLine();

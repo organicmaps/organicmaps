@@ -81,8 +81,7 @@ protected:
 class PivotRectsCache : public GeometryCache
 {
 public:
-  PivotRectsCache(size_t maxNumEntries, base::Cancellable const & cancellable,
-                  double maxRadiusMeters);
+  PivotRectsCache(size_t maxNumEntries, base::Cancellable const & cancellable, double maxRadiusMeters);
 
   // GeometryCache overrides:
   CBV Get(MwmContext const & context, m2::RectD const & rect, int scale) override;

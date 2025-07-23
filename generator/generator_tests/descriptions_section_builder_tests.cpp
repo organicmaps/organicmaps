@@ -63,10 +63,7 @@ public:
     classificator::Load();
   }
 
-  ~TestDescriptionSectionBuilder()
-  {
-    CHECK(Platform::RmDirRecursively(m_wikiDir), ());
-  }
+  ~TestDescriptionSectionBuilder() { CHECK(Platform::RmDirRecursively(m_wikiDir), ()); }
 
   void MakeDescriptions() const
   {
@@ -194,10 +191,8 @@ private:
     for (auto const & m : kWikiData)
     {
       for (auto const & d : m.m_pages)
-      {
         if (IsSupportedLang(d.first))
           langs[d.first] += 1;
-      }
     }
 
     return langs;
@@ -222,10 +217,8 @@ private:
     for (auto const & m : kWikiData)
     {
       for (auto const & d : m.m_pages)
-      {
         if (IsSupportedLang(d.first))
           size += d.second.size();
-      }
     }
 
     return size;
@@ -238,10 +231,8 @@ private:
 
   static int SumPageSizes(std::vector<PageT> const & p)
   {
-    return std::accumulate(std::begin(p), std::end(p), 0, [] (int acc, PageT const & p)
-    {
-      return acc + p.second.size();
-    });
+    return std::accumulate(std::begin(p), std::end(p), 0,
+                           [](int acc, PageT const & p) { return acc + p.second.size(); });
   }
 
   static bool CheckLangs(DescriptionsCollectionBuilderStat::LangStatistics const & stat)
@@ -267,10 +258,8 @@ private:
   {
     for (auto const & [lang, _] : meta)
     {
-      auto const it = base::FindIf(p, [lang = lang](auto const & p)
-      {
-        return StringUtf8Multilang::GetLangIndex(p.first) == lang;
-      });
+      auto const it =
+          base::FindIf(p, [lang = lang](auto const & p) { return StringUtf8Multilang::GetLangIndex(p.first) == lang; });
       if (it == std::end(p))
         return false;
     }
@@ -283,7 +272,6 @@ private:
 
 std::string const TestDescriptionSectionBuilder::kMwmFile = "MwmFile";
 std::string const TestDescriptionSectionBuilder::kDirPages = "wiki";
-
 
 UNIT_CLASS_TEST(TestDescriptionSectionBuilder, MakeDescriptions)
 {
@@ -315,15 +303,12 @@ UNIT_CLASS_TEST(TestDescriptionSectionBuilder, BuildDescriptionsSection)
   TestDescriptionSectionBuilder::BuildDescriptionsSection();
 }
 
-
 // http://en.wikipedia.org/wiki/Helsinki_Olympic_Stadium/ -  en, de, ru, fr
 // https://en.wikipedia.org/wiki/Turku_Cathedral - en, ru
 std::vector<TestDescriptionSectionBuilder::WikiData> const TestDescriptionSectionBuilder::kWikiData = {
-  {"http://en.wikipedia.org/wiki/Helsinki_Olympic_Stadium/",
-   {
-     {
-       "en",
-       R"(
+    {"http://en.wikipedia.org/wiki/Helsinki_Olympic_Stadium/",
+     {{"en",
+     R"(
        <p class="mw-empty-elt">
        </p>
        <p>The <b>Helsinki Olympic Stadium</b> (Finnish: <i lang="fi">Helsingin Olympiastadion</i>; Swedish: <i lang="sv">Helsingfors Olympiastadion</i>), located in the Töölö district about 2.3 kilometres (1.4 mi) from the centre of the Finnish capital Helsinki, is the largest stadium in the country, nowadays mainly used for hosting sports events and big concerts. The stadium is best known for being the centre of activities in the 1952 Summer Olympics. During those games, it hosted athletics, equestrian show jumping, and the football finals.
@@ -371,11 +356,9 @@ std::vector<TestDescriptionSectionBuilder::WikiData> const TestDescriptionSectio
        <li>Stadion.fi – Official site</li>
        <li>History of the stadium</li>
        <li>Panoramic virtual tour from the stadium tower</li></ul>
-       )"
-     },
-     {
-       "de",
-       R"(
+       )"},
+     {"de",
+     R"(
        <p>Das <b>Olympiastadion Helsinki</b> (<span>finnisch</span> <span lang="fi-Latn"><i>Helsingin olympiastadion</i></span>, <span>schwedisch</span> <span lang="sv-Latn"><i>Helsingfors Olympiastadion</i></span>) ist das größte Stadion Finnlands. Das Stadionrund mit Leichtathletikanlage ist die Heimstätte der finnischen Fußballnationalmannschaft. Es liegt rund zwei Kilometer vom Stadtzentrum von Helsinki entfernt im Stadtteil Töölö. 2006 wurde es unter Denkmalschutz gestellt. Das Nationalstadion wird ab 2016 umfangreich renoviert und soll nach drei Jahren 2019 wiedereröffnet werden.</p>
 
        <h2>Architektur</h2>
@@ -396,11 +379,9 @@ std::vector<TestDescriptionSectionBuilder::WikiData> const TestDescriptionSectio
        <li>stadionwelt.de: Bildergalerie</li></ul>
 
        <h2>Einzelnachweise</h2>
-       )"
-     },
-     {
-       "ru",
-       R"(
+       )"},
+     {"ru",
+     R"(
        <p><b>Олимпийский стадион Хельсинки</b> (фин. <span lang="fi">Helsingin olympiastadion</span>, швед. <span lang="sv">Helsingfors Olympiastadion</span>) — крупнейшая спортивная арена Финляндии. Стадион расположен в районе Тёёлё, примерно в двух километрах от исторического центра Хельсинки. В летнее время, помимо спортивных мероприятий, на стадионе проводят и музыкальные концерты.
        </p>
 
@@ -470,11 +451,9 @@ std::vector<TestDescriptionSectionBuilder::WikiData> const TestDescriptionSectio
        <h2>Ссылки</h2>
        <ul><li>Olympiastadion</li>
        <li>Suomen Urheilumuseo</li></ul>
-       )"
-     },
-     {
-       "fr",
-       R"(
+       )"},
+     {"fr",
+     R"(
        <p>Le <b>stade olympique d'Helsinki</b> (en finnois et en suédois : <i>Olympiastadion</i>) situé dans le quartier de Töölö, à environ 2 <abbr class="abbr" title="kilomètre">km</abbr> du centre-ville d'Helsinki est le plus grand stade en Finlande. C'est le stade principal des Jeux olympiques d'été de 1952. Il a été construit pour y célébrer les Jeux olympiques d'été de 1940 qui ont été finalement annulés (auparavant attribués à Tokyo) en raison de la Seconde Guerre mondiale.
        </p><p>Le stade a également été le siège des Championnats du monde d'athlétisme, les tout premiers en 1983 et à nouveau en 2005. Il hébergera pour la <abbr class="abbr" title="Troisième">3<sup>e</sup></abbr> fois les Championnats d'Europe d'athlétisme en 2012, après les éditions de 1971 et de 1994. C'est aussi le stade de l'Équipe de Finlande de football.
        </p>
@@ -535,16 +514,10 @@ std::vector<TestDescriptionSectionBuilder::WikiData> const TestDescriptionSectio
        <h3>Liens internes</h3>
        <ul><li>Piscine olympique d'Helsinki</li></ul><p><br></p>
        <ul id="bandeau-portail" class="bandeau-portail"><li><span><span></span> <span>Portail de l’architecture et de l’urbanisme</span> </span></li> <li><span><span></span> <span>Portail du football</span> </span></li> <li><span><span></span> <span>Portail de l’athlétisme</span> </span></li> <li><span><span></span> <span>Portail des Jeux olympiques</span> </span></li> <li><span><span></span> <span>Portail d’Helsinki</span> </span></li>                </ul>
-       )"
-     }
-   }
-  },
-  {
-    "https://en.wikipedia.org/wiki/Turku_Cathedral",
-    {
-      {
-        "en",
-        R"(
+       )"}}},
+    {         "https://en.wikipedia.org/wiki/Turku_Cathedral",
+     {{"en",
+     R"(
         <p><b>Turku Cathedral</b> (Finnish: <i lang="fi">Turun tuomiokirkko</i>, Swedish: <i lang="sv">Åbo domkyrka</i>) is the previous catholic cathedral of Finland, today the Mother Church of the Evangelical Lutheran Church of Finland. It is the central church of the Lutheran Archdiocese of Turku and the seat of the Lutheran Archbishop of Finland, Kari Mäkinen. It is also regarded as one of the major records of Finnish architectural history.
         </p><p>Considered to be the most important religious building in Finland, the cathedral has borne witness to many important events in the nation's history and has become one of the city's most recognizable symbols. The cathedral is situated in the heart of Turku next to the Old Great Square, by the river Aura. Its presence extends beyond the local precinct by having the sound of its bells chiming at noon broadcast on national radio. It is also central to Finland's annual Christmas celebrations.
         </p><p>The cathedral was originally built out of wood in the late 13th century, and was dedicated as the main cathedral of Finland in 1300, the seat of the Catholic bishop of Turku. It was considerably expanded in the 14th and 15th centuries, mainly using stone as the construction material. The cathedral was badly damaged during the Great Fire of Turku in 1827, and was rebuilt to a great extent afterwards.
@@ -592,11 +565,9 @@ std::vector<TestDescriptionSectionBuilder::WikiData> const TestDescriptionSectio
         <li>Medieval Turku</li>
         <li>Turku Cathedral – photos</li>
         <li>Turku church organs</li></ul>
-        )"
-      },
-      {
-        "ru",
-        R"(
+        )"},
+     {"ru",
+     R"(
         <p><b>Кафедра́льный собо́р Ту́рку</b> (швед. <span lang="sv">Åbo domkyrka</span>, фин. <span lang="fi">Turun tuomiokirkko</span>) — главный лютеранский храм в Финляндии. Построен во второй половине XIII века, освящён в 1300 году в честь Девы Марии и первого епископа страны — святого Генриха, крестившего Финляндию.
         </p>
 
@@ -616,9 +587,6 @@ std::vector<TestDescriptionSectionBuilder::WikiData> const TestDescriptionSectio
         <ul><li class="mw-empty-elt">
         <li> На Викискладе есть медиафайлы по теме Абосский собор</li></ul>
         <p><br></p>
-        )"
-      }
-    }
-  }
+        )"}}}
 };
 }  // namespace generator_tests

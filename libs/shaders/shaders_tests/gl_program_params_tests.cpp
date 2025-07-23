@@ -37,8 +37,7 @@ void TestProgramParams()
 #ifdef OMIM_OS_MAC
 UNIT_TEST(MapProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("MapProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::MapProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("MapProgramParams_Test", std::bind(&TestProgramParams<gpu::MapProgramParams>));
 }
 
 UNIT_TEST(RouteProgramParams_Test)
@@ -61,8 +60,7 @@ UNIT_TEST(TransitProgramParams_Test)
 
 UNIT_TEST(GuiProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("GuiProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::GuiProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("GuiProgramParams_Test", std::bind(&TestProgramParams<gpu::GuiProgramParams>));
 }
 
 UNIT_TEST(ShapesProgramParams_Test)
@@ -91,7 +89,6 @@ UNIT_TEST(ScreenQuadProgramParams_Test)
 
 UNIT_TEST(SMAAProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::SMAAProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test", std::bind(&TestProgramParams<gpu::SMAAProgramParams>));
 }
 #endif

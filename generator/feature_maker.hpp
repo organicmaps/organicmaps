@@ -2,14 +2,13 @@
 
 #include "generator/feature_maker_base.hpp"
 
-
 struct OsmElement;
 
 namespace generator
 {
 // FeatureMakerSimple is suitable for most cases for simple features.
 // It filters features for bad geometry only.
-class FeatureMakerSimple: public FeatureMakerBase
+class FeatureMakerSimple : public FeatureMakerBase
 {
 public:
   using FeatureMakerBase::FeatureMakerBase;

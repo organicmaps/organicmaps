@@ -10,13 +10,14 @@
 
 #include "base/math.hpp"
 
-
 namespace search
 {
 StreetVicinityLoader::StreetVicinityLoader(int scale, double offsetMeters)
-  : m_context(nullptr), m_scale(scale), m_offsetMeters(offsetMeters), m_cache("Streets")
-{
-}
+  : m_context(nullptr)
+  , m_scale(scale)
+  , m_offsetMeters(offsetMeters)
+  , m_cache("Streets")
+{}
 
 void StreetVicinityLoader::SetContext(MwmContext * context)
 {
@@ -29,7 +30,10 @@ void StreetVicinityLoader::SetContext(MwmContext * context)
   m_scale = math::Clamp(m_scale, scaleRange.first, scaleRange.second);
 }
 
-void StreetVicinityLoader::OnQueryFinished() { m_cache.ClearIfNeeded(); }
+void StreetVicinityLoader::OnQueryFinished()
+{
+  m_cache.ClearIfNeeded();
+}
 
 StreetVicinityLoader::Street const & StreetVicinityLoader::GetStreet(uint32_t featureId)
 {
@@ -58,18 +62,16 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
 
   /// @todo Can be optimized here. Do not aggregate rect, but aggregate covering intervals for each segment, instead.
   auto const sumRect = [&street, this](m2::PointD const & pt)
-  {
-    street.m_rect.Add(mercator::RectByCenterXYAndSizeInMeters(pt, m_offsetMeters));
-  };
+  { street.m_rect.Add(mercator::RectByCenterXYAndSizeInMeters(pt, m_offsetMeters)); };
 
   if (feature->GetGeomType() == feature::GeomType::Area)
   {
     feature->ForEachTriangle([&sumRect](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
-                             {
-                               sumRect(p1);
-                               sumRect(p2);
-                               sumRect(p3);
-                             }, FeatureType::BEST_GEOMETRY);
+    {
+      sumRect(p1);
+      sumRect(p2);
+      sumRect(p3);
+    }, FeatureType::BEST_GEOMETRY);
   }
   else
     feature->ForEachPoint(sumRect, FeatureType::BEST_GEOMETRY);
@@ -83,6 +85,6 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
       street.m_features.push_back(id);
   });
 
-  //street.m_calculator = std::make_unique<ProjectionOnStreetCalculator>(points);
+  // street.m_calculator = std::make_unique<ProjectionOnStreetCalculator>(points);
 }
 }  // namespace search

@@ -1,5 +1,5 @@
-#import "MapsAppDelegate.h"
 #import "MWMSettings.h"
+#import "MapsAppDelegate.h"
 
 #include "platform/platform.hpp"
 

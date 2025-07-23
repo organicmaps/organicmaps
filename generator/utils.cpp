@@ -90,26 +90,23 @@ SingleMwmDataSource::SingleMwmDataSource(std::string const & mwmPath)
 FeatureGetter::FeatureGetter(std::string const & countryFullPath)
   : m_mwm(countryFullPath)
   , m_guard(std::make_unique<FeaturesLoaderGuard>(m_mwm.GetDataSource(), m_mwm.GetMwmId()))
-{
-}
+{}
 
 std::unique_ptr<FeatureType> FeatureGetter::GetFeatureByIndex(uint32_t index) const
 {
   return m_guard->GetFeatureByIndex(index);
 }
 
-bool ParseFeatureIdToOsmIdMapping(std::string const & path,
-                                  std::unordered_map<uint32_t, base::GeoObjectId> & mapping)
+bool ParseFeatureIdToOsmIdMapping(std::string const & path, std::unordered_map<uint32_t, base::GeoObjectId> & mapping)
 {
-  return ForEachOsmId2FeatureId(
-      path, [&](auto const & compositeId, auto featureId) {
-        CHECK(mapping.emplace(featureId, compositeId.m_mainId).second,
-              ("Several osm ids for feature", featureId, "in file", path));
-      });
+  return ForEachOsmId2FeatureId(path, [&](auto const & compositeId, auto featureId)
+  {
+    CHECK(mapping.emplace(featureId, compositeId.m_mainId).second,
+          ("Several osm ids for feature", featureId, "in file", path));
+  });
 }
 
-bool ParseFeatureIdToTestIdMapping(std::string const & path,
-                                   std::unordered_map<uint32_t, uint64_t> & mapping)
+bool ParseFeatureIdToTestIdMapping(std::string const & path, std::unordered_map<uint32_t, uint64_t> & mapping)
 {
   bool success = true;
   feature::ForEachFeature(path, [&](FeatureType & feature, uint32_t fid)
@@ -141,24 +138,18 @@ search::CBV GetLocalities(std::string const & dataPath)
 bool MapcssRule::Matches(std::vector<OsmElement::Tag> const & tags) const
 {
   for (auto const & tag : m_tags)
-  {
     if (!base::AnyOf(tags, [&](auto const & t) { return t == tag; }))
       return false;
-  }
 
   /// @todo Should we also take into account "none", "false" here?
 
   for (auto const & key : m_mandatoryKeys)
-  {
     if (!base::AnyOf(tags, [&](auto const & t) { return t.m_key == key && t.m_value != "no"; }))
       return false;
-  }
 
   for (auto const & key : m_forbiddenKeys)
-  {
     if (!base::AllOf(tags, [&](auto const & t) { return t.m_key != key || t.m_value == "no"; }))
       return false;
-  }
 
   return true;
 }
@@ -177,12 +168,13 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
     auto typeTokens = strings::Tokenize<std::string>(typeString, "|");
     CHECK(typeTokens.size() == 2, (typeString));
     MapcssRule rule;
-    rule.m_tags = {{typeTokens[0], typeTokens[1]}};
+    rule.m_tags = {
+        {typeTokens[0], typeTokens[1]}
+    };
     rules.emplace_back(std::move(typeTokens), std::move(rule));
   };
 
-  auto const processFull = [&rules](std::string const & typeString,
-                                    std::string const & selectorsString)
+  auto const processFull = [&rules](std::string const & typeString, std::string const & selectorsString)
   {
     ASSERT(!typeString.empty(), ());
     ASSERT(!selectorsString.empty(), ());

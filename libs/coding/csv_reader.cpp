@@ -6,7 +6,9 @@
 namespace coding
 {
 CSVReader::CSVReader(std::unique_ptr<ReaderInterface> reader, bool hasHeader, char delimiter)
-  : m_reader(std::move(reader)), m_hasHeader(hasHeader), m_delimiter(delimiter)
+  : m_reader(std::move(reader))
+  , m_hasHeader(hasHeader)
+  , m_delimiter(delimiter)
 {
   if (!HasHeader())
     return;
@@ -18,31 +20,35 @@ CSVReader::CSVReader(std::unique_ptr<ReaderInterface> reader, bool hasHeader, ch
 
 CSVReader::CSVReader(std::string const & filename, bool hasHeader, char delimiter)
   : CSVReader(std::make_unique<DefaultReader>(filename), hasHeader, delimiter)
-{
-}
+{}
 
 CSVReader::CSVReader(std::istream & stream, bool hasHeader, char delimiter)
   : CSVReader(std::make_unique<IstreamWrapper>(stream), hasHeader, delimiter)
-{
-}
+{}
 
 CSVReader::CSVReader(Reader const & reader, bool hasHeader, char delimiter)
   : CSVReader(std::make_unique<ReaderWrapper>(reader), hasHeader, delimiter)
+{}
+
+bool CSVReader::HasHeader() const
 {
+  return m_hasHeader;
 }
 
-bool CSVReader::HasHeader() const { return m_hasHeader; }
+char CSVReader::GetDelimiter() const
+{
+  return m_delimiter;
+}
 
-char CSVReader::GetDelimiter() const { return m_delimiter; }
-
-CSVReader::Row const & CSVReader::GetHeader() const { return m_header; }
+CSVReader::Row const & CSVReader::GetHeader() const
+{
+  return m_header;
+}
 
 CSVReader::Rows CSVReader::ReadAll()
 {
   Rows file;
-  ForEachRow([&](auto const & row) {
-    file.emplace_back(row);
-  });
+  ForEachRow([&](auto const & row) { file.emplace_back(row); });
   return file;
 }
 
@@ -58,7 +64,10 @@ std::optional<CSVReader::Row> CSVReader::ReadRow()
   return row;
 }
 
-size_t CSVReader::GetCurrentLineNumber() const { return m_currentLine; }
+size_t CSVReader::GetCurrentLineNumber() const
+{
+  return m_currentLine;
+}
 
 CSVReader::IstreamWrapper::IstreamWrapper(std::istream & stream) : m_stream(stream) {}
 
@@ -91,8 +100,7 @@ std::optional<std::string> CSVReader::ReaderWrapper::ReadLine()
   return std::string(std::begin(line), end);
 }
 
-CSVReader::DefaultReader::DefaultReader(std::string const & filename)
-: m_stream(filename)
+CSVReader::DefaultReader::DefaultReader(std::string const & filename) : m_stream(filename)
 {
   if (!m_stream)
     LOG(LERROR, ("Can't open file ", filename));
@@ -111,10 +119,7 @@ CSVRunner::Iterator::Iterator(CSVReader & reader, bool isEnd) : m_reader(reader)
     m_current = m_reader.ReadRow();
 }
 
-CSVRunner::Iterator::Iterator(Iterator const & other)
-  : m_reader(other.m_reader), m_current(other.m_current)
-{
-}
+CSVRunner::Iterator::Iterator(Iterator const & other) : m_reader(other.m_reader), m_current(other.m_current) {}
 
 CSVRunner::Iterator & CSVRunner::Iterator::operator++()
 {
@@ -131,17 +136,28 @@ CSVRunner::Iterator CSVRunner::Iterator::operator++(int)
 
 bool CSVRunner::Iterator::operator==(Iterator const & other) const
 {
-  return &m_reader == &other.m_reader &&
-      static_cast<bool>(m_current) == static_cast<bool>(other.m_current);
+  return &m_reader == &other.m_reader && static_cast<bool>(m_current) == static_cast<bool>(other.m_current);
 }
 
-bool CSVRunner::Iterator::operator!=(Iterator const & other) const { return !(*this == other); }
+bool CSVRunner::Iterator::operator!=(Iterator const & other) const
+{
+  return !(*this == other);
+}
 
-CSVReader::Row & CSVRunner::Iterator::operator*() { return *m_current; }
+CSVReader::Row & CSVRunner::Iterator::operator*()
+{
+  return *m_current;
+}
 
 CSVRunner::CSVRunner(CSVReader && reader) : m_reader(std::move(reader)) {}
 
-CSVRunner::Iterator CSVRunner::begin() { return Iterator(m_reader); }
+CSVRunner::Iterator CSVRunner::begin()
+{
+  return Iterator(m_reader);
+}
 
-CSVRunner::Iterator CSVRunner::end() { return Iterator(m_reader, true /* isEnd */); }
+CSVRunner::Iterator CSVRunner::end()
+{
+  return Iterator(m_reader, true /* isEnd */);
+}
 }  // namespace coding

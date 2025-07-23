@@ -17,18 +17,16 @@ static CGFloat const kMinimumOffset = 20.;
 {
   MWMRoutingDisclaimerAlert * alert =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
-  NSString * message = [NSString stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@\n\n%@",
-                                                  L(@"dialog_routing_disclaimer_priority"),
-                                                  L(@"dialog_routing_disclaimer_precision"),
-                                                  L(@"dialog_routing_disclaimer_recommendations"),
-                                                  L(@"dialog_routing_disclaimer_borders"),
-                                                  L(@"dialog_routing_disclaimer_beware")];
+  NSString * message = [NSString
+      stringWithFormat:@"%@\n\n%@\n\n%@\n\n%@\n\n%@", L(@"dialog_routing_disclaimer_priority"),
+                       L(@"dialog_routing_disclaimer_precision"), L(@"dialog_routing_disclaimer_recommendations"),
+                       L(@"dialog_routing_disclaimer_borders"), L(@"dialog_routing_disclaimer_beware")];
 
   alert.textView.attributedText =
       [[NSAttributedString alloc] initWithString:message
                                       attributes:@{
-                                        NSFontAttributeName : UIFont.regular14,
-                                        NSForegroundColorAttributeName : UIColor.blackSecondaryText
+                                        NSFontAttributeName: UIFont.regular14,
+                                        NSForegroundColorAttributeName: UIColor.blackSecondaryText
                                       }];
   [alert.textView sizeToFit];
   UIWindow * window = UIApplication.sharedApplication.keyWindow;
@@ -50,9 +48,8 @@ static CGFloat const kMinimumOffset = 20.;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
   UIView * superview = self.superview ?: UIApplication.sharedApplication.keyWindow;
-  CGFloat const height = UIInterfaceOrientationIsLandscape(orientation)
-                             ? MIN(superview.width, superview.height)
-                             : MAX(superview.width, superview.height);
+  CGFloat const height = UIInterfaceOrientationIsLandscape(orientation) ? MIN(superview.width, superview.height)
+                                                                        : MAX(superview.width, superview.height);
   [self invalidateTextViewHeight:self.textView.contentSize.height withHeight:height];
 }
 

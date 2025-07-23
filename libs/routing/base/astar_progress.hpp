@@ -53,8 +53,7 @@ public:
 private:
   using ListItem = std::list<AStarSubProgress>::iterator;
 
-  double UpdateProgressImpl(ListItem subProgress, ms::LatLon const & current,
-                            ms::LatLon const & end);
+  double UpdateProgressImpl(ListItem subProgress, ms::LatLon const & current, ms::LatLon const & end);
 
   // This value is in range: [0, 1].
   double m_lastPercentValue = 0.0;

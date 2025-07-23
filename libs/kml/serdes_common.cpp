@@ -1,7 +1,7 @@
-#include "base/string_utils.hpp"
 #include "kml/serdes_common.hpp"
-#include "geometry/mercator.hpp"
 #include <sstream>
+#include "base/string_utils.hpp"
+#include "geometry/mercator.hpp"
 
 namespace kml
 {
@@ -49,12 +49,14 @@ void SaveStringWithCDATA(Writer & writer, std::string s)
   // This solution is a simple ASCII-range check that does not check symbols from other unicode ranges
   // (they will require a more complex and slower approach of converting UTF-8 string to unicode first).
   // It should be enough for many cases, according to user reports and wrong characters in their data.
-  s.erase(std::remove_if(s.begin(), s.end(), [](unsigned char c)
-                         {
-                           if (c >= 0x20 || c == 0x09 || c == 0x0a || c == 0x0d)
-                             return false;
-                           return true;
-                         }), s.end());
+  s.erase(std::remove_if(s.begin(), s.end(),
+                         [](unsigned char c)
+  {
+    if (c >= 0x20 || c == 0x09 || c == 0x0a || c == 0x0d)
+      return false;
+    return true;
+  }),
+          s.end());
 
   if (s.empty())
     return;
@@ -69,9 +71,8 @@ void SaveStringWithCDATA(Writer & writer, std::string s)
 std::string const * GetDefaultLanguage(LocalizableString const & lstr)
 {
   auto const find = lstr.find(kDefaultLang);
-  if (find != lstr.end()) {
+  if (find != lstr.end())
     return &find->second;
-  }
   return nullptr;
 }
 

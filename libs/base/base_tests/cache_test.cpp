@@ -15,10 +15,7 @@ class SimpleFunctor
 public:
   SimpleFunctor() {}
 
-  void operator() (char c)
-  {
-    m_v.push_back(c);
-  }
+  void operator()(char c) { m_v.push_back(c); }
 
   std::vector<char> m_v;
 
@@ -34,8 +31,8 @@ public:
 
   SimpleMovableFunctor(SimpleMovableFunctor && other)
   {
-      m_v = other.m_v;
-      other.m_v = nullptr;
+    m_v = other.m_v;
+    other.m_v = nullptr;
   }
 
   SimpleMovableFunctor & operator=(SimpleMovableFunctor && other)
@@ -45,10 +42,7 @@ public:
     return *this;
   }
 
-  void operator() (char c)
-  {
-    m_v->push_back(c);
-  }
+  void operator()(char c) { m_v->push_back(c); }
 
 private:
   std::vector<char> * m_v;
@@ -61,8 +55,8 @@ double constexpr kEpsilon = 1e-6;
 
 UNIT_TEST(CacheSmoke)
 {
-  char const s     [] = "1123212434445";
-  char const isNew [] = "1011???1??001";
+  char const s[] = "1123212434445";
+  char const isNew[] = "1011???1??001";
   size_t const n = ARRAY_SIZE(s) - 1;
   for (int logCacheSize = 2; logCacheSize < 6; ++logCacheSize)
   {
@@ -72,24 +66,18 @@ UNIT_TEST(CacheSmoke)
       bool found = false;
       char & c = cache.Find(s[i], found);
       if (isNew[i] != '?')
-      {
         TEST_EQUAL(found, isNew[i] == '0', (i, s[i]));
-      }
       if (found)
-      {
         TEST_EQUAL(c, s[i], (i));
-      }
       else
-      {
         c = s[i];
-      }
     }
   }
 }
 
 UNIT_TEST(CacheSmoke_0)
 {
-  base::Cache<uint32_t, char> cache(3); // it contains 2^3=8 elements
+  base::Cache<uint32_t, char> cache(3);  // it contains 2^3=8 elements
   bool found = true;
   cache.Find(0, found);
   TEST(!found, ());
@@ -100,23 +88,23 @@ UNIT_TEST(CacheSmoke_0)
 
 UNIT_TEST(CacheSmoke_1)
 {
-  base::Cache<uint32_t, char> cache(3); // it contains 2^3=8 elements
+  base::Cache<uint32_t, char> cache(3);  // it contains 2^3=8 elements
   SimpleFunctor f;
-  cache.ForEachValue(f); // f passed by reference
+  cache.ForEachValue(f);  // f passed by reference
   TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(CacheSmoke_2)
 {
-  base::Cache<uint32_t, char> cache(3); // it contains 2^3=8 elements
+  base::Cache<uint32_t, char> cache(3);  // it contains 2^3=8 elements
   SimpleFunctor f;
-  cache.ForEachValue(std::ref(f)); // f passed by reference
+  cache.ForEachValue(std::ref(f));  // f passed by reference
   TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(CacheSmoke_3)
 {
-  base::CacheWithStat<uint32_t, char> cache(3); // it contains 2^3=8 elements
+  base::CacheWithStat<uint32_t, char> cache(3);  // it contains 2^3=8 elements
 
   // 0 access, cache miss is 0
   TEST(AlmostEqualAbs(0.0, cache.GetCacheMiss(), kEpsilon), ());
@@ -137,7 +125,7 @@ UNIT_TEST(CacheSmoke_3)
   cache.Find(2, found);
   TEST(!found, ());
   // 3 access, 2 miss, cache miss = 2/3 = 0.6(6)
-  TEST(AlmostEqualAbs(2.0/3.0, cache.GetCacheMiss(), kEpsilon), ());
+  TEST(AlmostEqualAbs(2.0 / 3.0, cache.GetCacheMiss(), kEpsilon), ());
 
   cache.Reset();
 
@@ -147,23 +135,23 @@ UNIT_TEST(CacheSmoke_3)
 
 UNIT_TEST(CacheSmoke_4)
 {
-  base::CacheWithStat<uint32_t, char> cache(3); // it contains 2^3=8 elements
+  base::CacheWithStat<uint32_t, char> cache(3);  // it contains 2^3=8 elements
   SimpleFunctor f;
-  cache.ForEachValue(f); // f passed by reference
+  cache.ForEachValue(f);  // f passed by reference
   TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(CacheSmoke_5)
 {
-  base::CacheWithStat<uint32_t, char> cache(3); // it contains 2^3=8 elements
+  base::CacheWithStat<uint32_t, char> cache(3);  // it contains 2^3=8 elements
   SimpleFunctor f;
-  cache.ForEachValue(std::ref(f)); // f passed by reference
+  cache.ForEachValue(std::ref(f));  // f passed by reference
   TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 
 UNIT_TEST(CacheSmoke_6)
 {
-  base::CacheWithStat<uint32_t, char> cache(3); // it contains 2^3=8 elements
+  base::CacheWithStat<uint32_t, char> cache(3);  // it contains 2^3=8 elements
   std::vector<char> v;
   cache.ForEachValue(SimpleMovableFunctor(&v));
   TEST_EQUAL(v, std::vector<char>(8, 0), ());

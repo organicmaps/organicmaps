@@ -31,8 +31,7 @@ using ForEachWayFn = std::function<void(pugi::xml_node const & way, std::string 
 
 double const kPointDiffEps = 1e-5;
 
-void AddInnerIfNeeded(pugi::xml_document const & osmResponse, pugi::xml_node const & way,
-                      Polygon & dest)
+void AddInnerIfNeeded(pugi::xml_document const & osmResponse, pugi::xml_node const & way, Polygon & dest)
 {
   if (dest.inners().empty() || dest.inners().back().empty())
     return;
@@ -57,8 +56,7 @@ void AddInnerIfNeeded(pugi::xml_document const & osmResponse, pugi::xml_node con
 
 void MakeOuterRing(MultiLinestring & outerLines, Polygon & dest)
 {
-  bool const needReverse =
-      outerLines.size() > 1 && bg::equals(outerLines[0].front(), outerLines[1].back());
+  bool const needReverse = outerLines.size() > 1 && bg::equals(outerLines[0].front(), outerLines[1].back());
 
   for (size_t i = 0; i < outerLines.size(); ++i)
   {
@@ -77,8 +75,7 @@ double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
   return 1.0 - (a.Length(b) / kPointDiffEps);
 }
 
-void ForEachRefInWay(pugi::xml_document const & osmResponse, pugi::xml_node const & way,
-                     ForEachRefFn const & fn)
+void ForEachRefInWay(pugi::xml_document const & osmResponse, pugi::xml_node const & way, ForEachRefFn const & fn)
 {
   for (auto const & xNodeRef : way.select_nodes("nd/@ref"))
   {
@@ -138,14 +135,12 @@ Polygon GetWaysGeometry(pugi::xml_document const & osmResponse, pugi::xml_node c
   return result;
 }
 
-Polygon GetRelationsGeometry(pugi::xml_document const & osmResponse,
-                             pugi::xml_node const & relation)
+Polygon GetRelationsGeometry(pugi::xml_document const & osmResponse, pugi::xml_node const & relation)
 {
   Polygon result;
   MultiLinestring outerLines;
 
-  auto const fn = [&osmResponse, &result, &outerLines](pugi::xml_node const & way,
-                                                       std::string const & role)
+  auto const fn = [&osmResponse, &result, &outerLines](pugi::xml_node const & way, std::string const & role)
   {
     if (role == "outer")
     {
@@ -171,8 +166,7 @@ Polygon GetRelationsGeometry(pugi::xml_document const & osmResponse,
   return result;
 }
 
-Polygon GetWaysOrRelationsGeometry(pugi::xml_document const & osmResponse,
-                                   pugi::xml_node const & wayOrRelation)
+Polygon GetWaysOrRelationsGeometry(pugi::xml_document const & osmResponse, pugi::xml_node const & wayOrRelation)
 {
   if (strcmp(wayOrRelation.name(), "way") == 0)
     return GetWaysGeometry(osmResponse, wayOrRelation);
@@ -245,8 +239,7 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
   return bestMatchNode;
 }
 
-pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse,
-                                       std::vector<m2::PointD> const & geometry)
+pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse, std::vector<m2::PointD> const & geometry)
 {
   double bestScore = geometry::kPenaltyScore;
   pugi::xml_node bestMatchWay;
@@ -280,8 +273,7 @@ double ScoreTriangulatedGeometries(std::vector<m2::PointD> const & lhs, std::vec
   return score;
 }
 
-double ScoreTriangulatedGeometriesByPoints(std::vector<m2::PointD> const & lhs,
-                                           std::vector<m2::PointD> const & rhs)
+double ScoreTriangulatedGeometriesByPoints(std::vector<m2::PointD> const & lhs, std::vector<m2::PointD> const & rhs)
 {
   // The default comparison operator used in sort above (cmp1) and one that is
   // used in set_itersection (cmp2) are compatible in that sence that
@@ -293,13 +285,11 @@ double ScoreTriangulatedGeometriesByPoints(std::vector<m2::PointD> const & lhs,
   // |a, b| < eps, |b, c| < eps.
   // This could lead to unexpected results in set_itersection (with greedy implementation),
   // but we assume such situation is very unlikely.
-  auto const matched = set_intersection(begin(lhs), end(lhs),
-                                        begin(rhs), end(rhs),
-                                        CounterIterator(),
+  auto const matched = set_intersection(begin(lhs), end(lhs), begin(rhs), end(rhs), CounterIterator(),
                                         [](m2::PointD const & p1, m2::PointD const & p2)
-                                        {
-                                          return p1 < p2 && !p1.EqualDxDy(p2, mercator::kPointEqualityEps);
-                                        }).GetCount();
+  {
+    return p1 < p2 && !p1.EqualDxDy(p2, mercator::kPointEqualityEps);
+  }).GetCount();
 
   return static_cast<double>(matched) / static_cast<double>(lhs.size());
 }

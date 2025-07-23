@@ -27,7 +27,7 @@ using namespace track_analyzing;
 
 namespace track_analyzing
 {
-const string kTmpArchiveFileNameTemplate("-tmp-track-archive.zip");
+string const kTmpArchiveFileNameTemplate("-tmp-track-archive.zip");
 
 // Track record fields:
 //  0: user ID
@@ -124,8 +124,8 @@ optional<string> ParseMultipartData(string const & binaryData)
   {
     if (expectedContentType == header)
       hasContentTypeHeader = true;
-    if (expectedContentDispositionPrefix.compare(0, string::npos, header, 0,
-                                                 expectedContentDispositionPrefix.size()) == 0)
+    if (expectedContentDispositionPrefix.compare(0, string::npos, header, 0, expectedContentDispositionPrefix.size()) ==
+        0)
     {
       hasContentDispositionHeader = true;
     }
@@ -140,8 +140,8 @@ optional<string> ParseMultipartData(string const & binaryData)
 
 bool HasZipSignature(string const & binaryData)
 {
-  return binaryData.size() >= 4 && binaryData[0] == 0x50 && binaryData[1] == 0x4b &&
-         binaryData[2] == 0x03 && binaryData[3] == 0x04;
+  return binaryData.size() >= 4 && binaryData[0] == 0x50 && binaryData[1] == 0x4b && binaryData[2] == 0x03 &&
+         binaryData[3] == 0x04;
 }
 
 template <typename Reader, typename Pack>
@@ -153,8 +153,7 @@ bool ReadTrackFromArchive(char const * data, size_t dataSize, Track & trackData)
     vector<uint8_t> buffer;
     inflate(data, dataSize, back_inserter(buffer));
 
-    ReaderSource<MemReaderWithExceptions> reader(
-        MemReaderWithExceptions(buffer.data(), buffer.size()));
+    ReaderSource<MemReaderWithExceptions> reader(MemReaderWithExceptions(buffer.data(), buffer.size()));
     if (reader.Size() == 0)
       return false;
 
@@ -209,13 +208,13 @@ bool ParseTrackFile(unzip::File & zipReader, Track & trackData) noexcept
   bool result = false;
   if (archiveInfo.m_trackType == routing::RouterType::Vehicle)
   {
-    result = ReadTrackFromArchive<ReaderSource<MemReaderWithExceptions>, tracking::PacketCar>(
-        fileData.data(), dataSize, trackData);
+    result = ReadTrackFromArchive<ReaderSource<MemReaderWithExceptions>, tracking::PacketCar>(fileData.data(), dataSize,
+                                                                                              trackData);
   }
   else
   {
-    result = ReadTrackFromArchive<ReaderSource<MemReaderWithExceptions>, tracking::Packet>(
-        fileData.data(), dataSize, trackData);
+    result = ReadTrackFromArchive<ReaderSource<MemReaderWithExceptions>, tracking::Packet>(fileData.data(), dataSize,
+                                                                                           trackData);
   }
 
   if (unzip::CloseCurrentFile(zipReader) != unzip::Code::Ok)
@@ -254,9 +253,7 @@ optional<Track> ParseTrackArchiveData(string const & content, TemporaryFile & tm
 
   bool result = ParseTrackFile(zipReader, trackData);
   while (result && unzip::GoToNextFile(zipReader) == unzip::Code::Ok)
-  {
     result = ParseTrackFile(zipReader, trackData);
-  }
 
   if (unzip::Close(zipReader) != unzip::Code::Ok)
     LOG(LERROR, ("Unable to close temporary zip archive"));
@@ -285,8 +282,7 @@ optional<UserTrackInfo> ParseLogRecord(string const & record, TemporaryFile & tm
 
 }  // namespace details
 
-void TrackArchiveReader::ParseUserTracksFromFile(string const & logFile,
-                                                 UserToTrack & userToTrack) const
+void TrackArchiveReader::ParseUserTracksFromFile(string const & logFile, UserToTrack & userToTrack) const
 {
   // Read file content
   FileReader reader(logFile);

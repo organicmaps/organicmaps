@@ -35,8 +35,8 @@ public:
   void SetRoutingMode(bool routingMode);
   void SetPositionObsolete(bool obsolete);
 
-  void RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                      ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
+  void RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                      int zoomLevel, FrameValues const & frameValues);
 
   void RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                         ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
@@ -53,12 +53,10 @@ private:
   };
 
   void RenderPart(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                  gpu::ShapesProgramParams const & params,
-                  EMyPositionPart part);
+                  gpu::ShapesProgramParams const & params, EMyPositionPart part);
 
-  void CacheSymbol(ref_ptr<dp::GraphicsContext> context,
-                   dp::TextureManager::SymbolRegion const & symbol, dp::RenderState const & state,
-                   dp::Batcher & batcher, EMyPositionPart part);
+  void CacheSymbol(ref_ptr<dp::GraphicsContext> context, dp::TextureManager::SymbolRegion const & symbol,
+                   dp::RenderState const & state, dp::Batcher & batcher, EMyPositionPart part);
 
   m2::PointF m_position;
   float m_azimuth;

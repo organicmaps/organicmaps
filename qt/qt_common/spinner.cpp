@@ -30,7 +30,8 @@ Spinner::Spinner()
   setPixmap(m_pixmaps.front());
 
   m_timer = new QTimer(this /* parent */);
-  connect(m_timer, &QTimer::timeout, [this]() {
+  connect(m_timer, &QTimer::timeout, [this]()
+  {
     m_progress = (m_progress + 1) % m_pixmaps.size();
     setPixmap(m_pixmaps[m_progress]);
   });

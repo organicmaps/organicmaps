@@ -24,7 +24,8 @@ size_t FindAny(SegmentTree const & tree, double x)
 {
   size_t id = kInvalidId;
   bool called = false;
-  tree.FindAny(x, [&](SegmentTree::Segment const & segment) {
+  tree.FindAny(x, [&](SegmentTree::Segment const & segment)
+  {
     CHECK(!called, ());
     id = segment.m_id;
     called = true;
@@ -35,7 +36,8 @@ size_t FindAny(SegmentTree const & tree, double x)
 set<size_t> FindAll(SegmentTree & tree, double x)
 {
   set<size_t> result;
-  tree.FindAll(x, [&](SegmentTree::Segment const & segment) {
+  tree.FindAll(x, [&](SegmentTree::Segment const & segment)
+  {
     auto const id = segment.m_id;
     CHECK(result.find(id) == result.end(), ());
     result.insert(id);
@@ -55,8 +57,8 @@ UNIT_TEST(SegmentTree_Smoke)
 
 UNIT_TEST(SegmentTree_Simple)
 {
-  vector<Segment> segments = {Segment(-10000 /* from */, -10000 /* to */, 0 /* id */),
-                              Segment(-10, -6, 1), Segment(-7, -3, 2), Segment(-5, -2, 3)};
+  vector<Segment> segments = {Segment(-10000 /* from */, -10000 /* to */, 0 /* id */), Segment(-10, -6, 1),
+                              Segment(-7, -3, 2), Segment(-5, -2, 3)};
   CHECK(is_sorted(segments.begin(), segments.end()), ());
 
   SegmentTree tree(segments);

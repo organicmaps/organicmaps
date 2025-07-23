@@ -1,8 +1,8 @@
 #include "openlr/road_info_getter.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature.hpp"
 #include "indexer/data_source.hpp"
+#include "indexer/feature.hpp"
 
 #include "base/assert.hpp"
 
@@ -14,14 +14,10 @@ RoadInfoGetter::RoadInfo::RoadInfo(FeatureType & ft)
   , m_link(ftypes::IsLinkChecker::Instance()(ft))
   , m_oneWay(ftypes::IsOneWayChecker::Instance()(ft))
   , m_isRoundabout(ftypes::IsRoundAboutChecker::Instance()(ft))
-{
-}
+{}
 
 // RoadInfoGetter ----------------------------------------------------------------------------------
-RoadInfoGetter::RoadInfoGetter(DataSource const & dataSource)
-  : m_dataSource(dataSource)
-{
-}
+RoadInfoGetter::RoadInfoGetter(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
 RoadInfoGetter::RoadInfo RoadInfoGetter::Get(FeatureID const & fid)
 {

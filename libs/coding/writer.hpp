@@ -41,6 +41,7 @@ public:
   }
 
   // Disable deletion via this interface, because some dtors in derived classes are noexcept(false).
+
 protected:
   ~Writer() = default;
 };
@@ -50,7 +51,8 @@ protected:
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnon-virtual-dtor"
 #endif  // __clang__
-template <typename ContainerT> class MemWriter : public Writer
+template <typename ContainerT>
+class MemWriter : public Writer
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif  // __clang__
@@ -104,8 +106,7 @@ public:
 #ifdef DEBUG
     , m_offset(GetOffset())
 #endif
-  {
-  }
+  {}
 
   ~SubWriter()
   {
@@ -152,26 +153,17 @@ private:
 #endif
 };
 
-template<typename WriterT>
+template <typename WriterT>
 class WriterPtr : public Writer
 {
 public:
   explicit WriterPtr(WriterT * p = 0) : m_p(p) {}
 
-  void Seek(uint64_t pos) override
-  {
-    m_p->Seek(pos);
-  }
+  void Seek(uint64_t pos) override { m_p->Seek(pos); }
 
-  uint64_t Pos() const override
-  {
-    return m_p->Pos();
-  }
+  uint64_t Pos() const override { return m_p->Pos(); }
 
-  void Write(void const * p, size_t size) override
-  {
-    m_p->Write(p, size);
-  }
+  void Write(void const * p, size_t size) override { m_p->Write(p, size); }
 
   WriterT * GetPtr() const { return m_p.get(); }
 

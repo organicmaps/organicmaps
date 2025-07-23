@@ -48,7 +48,7 @@ private:
   std::mutex m_frameMutex;
 };
 
-class QtUploadOGLContext: public dp::OGLContext
+class QtUploadOGLContext : public dp::OGLContext
 {
 public:
   QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);

@@ -17,8 +17,8 @@
 
 std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::string searchScope) const
 {
-  return std::make_unique<FileReader>(ReadPathForFile(file, std::move(searchScope)),
-                                 READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+  return std::make_unique<FileReader>(ReadPathForFile(file, std::move(searchScope)), READER_CHUNK_LOG_SIZE,
+                                      READER_CHUNK_LOG_COUNT);
 }
 
 bool Platform::GetFileSizeByName(std::string const & fileName, uint64_t & size) const
@@ -48,16 +48,22 @@ void Platform::GetFilesByRegExp(std::string const & directory, std::string const
   }
 }
 
-int Platform::PreCachingDepth() const { return 3; }
+int Platform::PreCachingDepth() const
+{
+  return 3;
+}
 
-int Platform::VideoMemoryLimit() const { return 20 * 1024 * 1024; }
+int Platform::VideoMemoryLimit() const
+{
+  return 20 * 1024 * 1024;
+}
 
 // static
 Platform::EError Platform::MkDir(std::string const & dirName)
 {
   if (QDir().exists(dirName.c_str()))
     return Platform::ERR_FILE_ALREADY_EXISTS;
-  if(!QDir().mkdir(dirName.c_str()))
+  if (!QDir().mkdir(dirName.c_str()))
   {
     LOG(LWARNING, ("Can't create directory: ", dirName));
     return Platform::ERR_UNKNOWN;

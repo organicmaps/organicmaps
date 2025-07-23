@@ -3,6 +3,9 @@
 
 @implementation CLLocation (Mercator)
 
-- (m2::PointD)mercator { return location_helpers::ToMercator(self.coordinate); }
+- (m2::PointD)mercator
+{
+  return location_helpers::ToMercator(self.coordinate);
+}
 
 @end

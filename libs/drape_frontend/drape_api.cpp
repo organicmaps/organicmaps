@@ -19,8 +19,7 @@ void DrapeApi::AddLine(std::string const & id, DrapeApiLineData const & data)
   auto const it = m_lines.find(id);
   if (it != m_lines.end())
   {
-    threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<DrapeApiRemoveMessage>(id),
+    threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<DrapeApiRemoveMessage>(id),
                                   MessagePriority::Normal);
   }
 
@@ -28,8 +27,7 @@ void DrapeApi::AddLine(std::string const & id, DrapeApiLineData const & data)
 
   TLines lines;
   lines.insert(std::make_pair(id, data));
-  threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<DrapeApiAddLinesMessage>(lines),
+  threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<DrapeApiAddLinesMessage>(lines),
                                 MessagePriority::Normal);
 }
 
@@ -41,8 +39,7 @@ void DrapeApi::RemoveLine(std::string const & id)
 
   auto & threadCommutator = lock.Get()->m_threadCommutator;
   m_lines.erase(id);
-  threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<DrapeApiRemoveMessage>(id),
+  threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<DrapeApiRemoveMessage>(id),
                                 MessagePriority::Normal);
 }
 
@@ -71,7 +68,6 @@ void DrapeApi::Invalidate()
                                 MessagePriority::Normal);
 
   threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<DrapeApiAddLinesMessage>(m_lines),
-                                MessagePriority::Normal);
+                                make_unique_dp<DrapeApiAddLinesMessage>(m_lines), MessagePriority::Normal);
 }
 }  // namespace df

@@ -15,8 +15,8 @@ std::string AddGroupingSeparators(std::string const & valueString, std::string c
   std::string out(valueString);
 
   if (out.size() > 4 && !groupingSeparator.empty())
-      for (int pos = out.size() - 3; pos > 0; pos -= 3)
-        out.insert(pos, groupingSeparator);
+    for (int pos = out.size() - 3; pos > 0; pos -= 3)
+      out.insert(pos, groupingSeparator);
 
   return out;
 }
@@ -161,11 +161,11 @@ UNIT_TEST(ToStringPrecisionLocale)
   };
 
   TestData testData[] = {
-          // Locale name ,   Decimal
-          { "en_US.UTF-8",   "9.8"},
-          { "es_ES.UTF-8",   "9,8"},
-          { "fr_FR.UTF-8",   "9,8"},
-          { "ru_RU.UTF-8",   "9,8"}
+      // Locale name ,   Decimal
+      {"en_US.UTF-8", "9.8"},
+      {"es_ES.UTF-8", "9,8"},
+      {"fr_FR.UTF-8", "9,8"},
+      {"ru_RU.UTF-8", "9,8"}
   };
 
   for (TestData const & data : testData)

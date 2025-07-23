@@ -17,7 +17,7 @@ namespace network_policy
 {
 void SetStage(Stage stage)
 {
-  NSUserDefaults *ud = NSUserDefaults.standardUserDefaults;
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setInteger:stage forKey:kNetworkingPolicyStage];
   [ud setObject:[NSDate dateWithTimeIntervalSinceNow:kSessionDurationSeconds] forKey:kNetworkingPolicyTimeStamp];
 }

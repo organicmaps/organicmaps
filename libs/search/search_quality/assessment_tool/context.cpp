@@ -122,8 +122,7 @@ ContextList::ContextList(OnResultsUpdate onResultsUpdate, OnResultsUpdate onNonF
   : m_onResultsUpdate(onResultsUpdate)
   , m_onNonFoundResultsUpdate(onNonFoundResultsUpdate)
   , m_onSampleUpdate(onSampleUpdate)
-{
-}
+{}
 
 void ContextList::Resize(size_t size)
 {
@@ -138,21 +137,23 @@ void ContextList::Resize(size_t size)
   for (size_t i = oldSize; i < size; ++i)
   {
     m_contexts.emplace_back(
-        [this, i](ResultsEdits::Update const & update) {
-          OnContextUpdated(i);
-          if (m_onResultsUpdate)
-            m_onResultsUpdate(i, update);
-        },
-        [this, i](ResultsEdits::Update const & update) {
-          OnContextUpdated(i);
-          if (m_onNonFoundResultsUpdate)
-            m_onNonFoundResultsUpdate(i, update);
-        },
-        [this, i]() {
-          OnContextUpdated(i);
-          if (m_onSampleUpdate)
-            m_onSampleUpdate(i);
-        });
+        [this, i](ResultsEdits::Update const & update)
+    {
+      OnContextUpdated(i);
+      if (m_onResultsUpdate)
+        m_onResultsUpdate(i, update);
+    },
+        [this, i](ResultsEdits::Update const & update)
+    {
+      OnContextUpdated(i);
+      if (m_onNonFoundResultsUpdate)
+        m_onNonFoundResultsUpdate(i, update);
+    }, [this, i]()
+    {
+      OnContextUpdated(i);
+      if (m_onSampleUpdate)
+        m_onSampleUpdate(i);
+    });
   }
 }
 

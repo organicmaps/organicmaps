@@ -61,10 +61,7 @@ public:
     }
   }
 
-  inline bool Equals(MetadataBase const & other) const
-  {
-    return m_metadata == other.m_metadata;
-  }
+  inline bool Equals(MetadataBase const & other) const { return m_metadata == other.m_metadata; }
 
   void Clear() { m_metadata.clear(); }
 
@@ -107,9 +104,10 @@ public:
     FMD_FAX_NUMBER = 4,
     FMD_STARS = 5,
     FMD_OPERATOR = 6,
-    //FMD_URL = 7,        // Deprecated, use FMD_WEBSITE
+    // FMD_URL = 7,        // Deprecated, use FMD_WEBSITE
     FMD_WEBSITE = 8,
-    /// @todo We have meta and classifier type at the same type. It's ok now for search, but should be revised in future.
+    /// @todo We have meta and classifier type at the same type. It's ok now for search, but should be revised in
+    /// future.
     FMD_INTERNET = 9,
     FMD_ELE = 10,
     FMD_TURN_LANES = 11,
@@ -148,7 +146,7 @@ public:
     FMD_BUILDING_MIN_LEVEL = 40,
     FMD_WIKIMEDIA_COMMONS = 41,
     FMD_CAPACITY = 42,
-    FMD_WHEELCHAIR = 43, // Value is runtime only, data is taken from the classificator types
+    FMD_WHEELCHAIR = 43,  // Value is runtime only, data is taken from the classificator types
     FMD_LOCAL_REF = 44,
     FMD_DRIVE_THROUGH = 45,
     FMD_WEBSITE_MENU = 46,
@@ -158,12 +156,16 @@ public:
     FMD_COUNT
   };
 
-  enum ESource : uint8_t { SRC_KAYAK = 0 };
+  enum ESource : uint8_t
+  {
+    SRC_KAYAK = 0
+  };
 
   /// Used to normalize tags like "contact:phone", "phone" and "contact:mobile" to a common metadata enum value.
   static bool TypeFromString(std::string_view osmTagKey, EType & outType);
 
-  template <class FnT> void ForEach(FnT && fn) const
+  template <class FnT>
+  void ForEach(FnT && fn) const
   {
     for (auto const & e : m_metadata)
       fn(static_cast<Metadata::EType>(e.first), e.second);
@@ -190,14 +192,12 @@ class AddressData : public MetadataBase
 public:
   enum class Type : uint8_t
   {
-    Street, Place,
+    Street,
+    Place,
   };
 
   // Store single value only.
-  void Set(Type type, std::string_view s)
-  {
-    Set(type, std::string(s));
-  }
+  void Set(Type type, std::string_view s) { Set(type, std::string(s)); }
   void Set(Type type, std::string s)
   {
     if (!s.empty())
@@ -219,15 +219,15 @@ class RegionData : public MetadataBase
 public:
   enum Type : int8_t
   {
-    RD_LANGUAGES,        // list of written languages
-    RD_DRIVING,          // left- or right-hand driving (letter 'l' or 'r')
-    RD_TIMEZONE,         // UTC timezone offset, floating signed number of hours: -3, 4.5
-    RD_ADDRESS_FORMAT,   // address format, re: mapzen
-    RD_PHONE_FORMAT,     // list of strings in "+N NNN NN-NN-NN" format
-    RD_POSTCODE_FORMAT,  // list of strings in "AAA ANN" format
-    RD_PUBLIC_HOLIDAYS,  // fixed PH dates
-    RD_ALLOW_HOUSENAMES, // 'y' if housenames are commonly used
-    RD_LEAP_WEIGHT_SPEED // speed factor for leap weight computation
+    RD_LANGUAGES,         // list of written languages
+    RD_DRIVING,           // left- or right-hand driving (letter 'l' or 'r')
+    RD_TIMEZONE,          // UTC timezone offset, floating signed number of hours: -3, 4.5
+    RD_ADDRESS_FORMAT,    // address format, re: mapzen
+    RD_PHONE_FORMAT,      // list of strings in "+N NNN NN-NN-NN" format
+    RD_POSTCODE_FORMAT,   // list of strings in "AAA ANN" format
+    RD_PUBLIC_HOLIDAYS,   // fixed PH dates
+    RD_ALLOW_HOUSENAMES,  // 'y' if housenames are commonly used
+    RD_LEAP_WEIGHT_SPEED  // speed factor for leap weight computation
   };
 
   // Special values for month references in public holiday definitions.
@@ -271,17 +271,20 @@ public:
   }
 
   /// @see EdgeEstimator::GetLeapWeightSpeed
-//  double GetLeapWeightSpeed(double defaultValue) const
-//  {
-//    if (Has(Type::RD_LEAP_WEIGHT_SPEED))
-//      return std::stod(Get(Type::RD_LEAP_WEIGHT_SPEED));
-//    return defaultValue;
-//  }
+  //  double GetLeapWeightSpeed(double defaultValue) const
+  //  {
+  //    if (Has(Type::RD_LEAP_WEIGHT_SPEED))
+  //      return std::stod(Get(Type::RD_LEAP_WEIGHT_SPEED));
+  //    return defaultValue;
+  //  }
 };
 
 // Prints types in osm-friendly format.
 std::string ToString(feature::Metadata::EType type);
-inline std::string DebugPrint(feature::Metadata::EType type) { return ToString(type); }
+inline std::string DebugPrint(feature::Metadata::EType type)
+{
+  return ToString(type);
+}
 
 std::string DebugPrint(feature::Metadata const & metadata);
 std::string DebugPrint(feature::AddressData const & addressData);

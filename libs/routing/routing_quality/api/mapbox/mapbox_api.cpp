@@ -55,9 +55,7 @@ namespace routing_quality::api::mapbox
 // static
 std::string const MapboxApi::kApiName = "mapbox";
 
-MapboxApi::MapboxApi(std::string const & token)
-  : RoutingApi(kApiName, token, kMaxRPS)
-{}
+MapboxApi::MapboxApi(std::string const & token) : RoutingApi(kApiName, token, kMaxRPS) {}
 
 Response MapboxApi::CalculateRoute(Params const & params, int32_t /* startTimeZoneUTC */) const
 {
@@ -120,8 +118,7 @@ std::string MapboxApi::GetDirectionsURL(Params const & params) const
     coords.emplace_back(mercator::ToLatLon(point));
 
   std::ostringstream oss;
-  oss << kBaseURL << "directions/" << kDirectionsApiVersion << "/"
-      << VehicleTypeToMapboxType(params.m_type) << "/";
+  oss << kBaseURL << "directions/" << kDirectionsApiVersion << "/" << VehicleTypeToMapboxType(params.m_type) << "/";
   oss << LatLonsToString(coords) << "?";
   oss << "access_token=" << GetAccessToken() << "&";
   oss << "overview=simplified&"
@@ -130,4 +127,4 @@ std::string MapboxApi::GetDirectionsURL(Params const & params) const
 
   return oss.str();
 }
-}  // namespace mapbox::api::routing_quality
+}  // namespace routing_quality::api::mapbox

@@ -5,7 +5,8 @@
 
 namespace place_page_dialog
 {
-enum PressedButton : int {
+enum PressedButton : int
+{
   Close = QDialog::Rejected,
   RouteFrom,
   AddStop,
@@ -14,4 +15,4 @@ enum PressedButton : int {
 };
 
 void addCommonButtons(QDialog * this_, QDialogButtonBox * dbb, bool shouldShowEditPlace);
-}
+}  // namespace place_page_dialog

@@ -23,45 +23,41 @@ SpeedKMpH constexpr kSpeedOffroadKMpH = {0.01 /* weight */, kNotUsed /* eta */};
 
 VehicleModel::LimitsInitList const kDefaultOptions = {
     // {HighwayType, passThroughAllowed}
-    {HighwayType::HighwayMotorway, true},
-    {HighwayType::HighwayMotorwayLink, true},
-    {HighwayType::HighwayTrunk, true},
-    {HighwayType::HighwayTrunkLink, true},
-    {HighwayType::HighwayPrimary, true},
-    {HighwayType::HighwayPrimaryLink, true},
-    {HighwayType::HighwaySecondary, true},
+    {     HighwayType::HighwayMotorway, true},
+    { HighwayType::HighwayMotorwayLink, true},
+    {        HighwayType::HighwayTrunk, true},
+    {    HighwayType::HighwayTrunkLink, true},
+    {      HighwayType::HighwayPrimary, true},
+    {  HighwayType::HighwayPrimaryLink, true},
+    {    HighwayType::HighwaySecondary, true},
     {HighwayType::HighwaySecondaryLink, true},
-    {HighwayType::HighwayTertiary, true},
-    {HighwayType::HighwayTertiaryLink, true},
-    {HighwayType::HighwayResidential, true},
-    {HighwayType::HighwayUnclassified, true},
-    {HighwayType::HighwayService, true},
-    {HighwayType::HighwayLivingStreet, true},
-    {HighwayType::HighwayRoad, true},
-    {HighwayType::HighwayTrack, true},
-    {HighwayType::RouteShuttleTrain, true},
-    {HighwayType::RouteFerry, true},
-    {HighwayType::ManMadePier, true}
+    {     HighwayType::HighwayTertiary, true},
+    { HighwayType::HighwayTertiaryLink, true},
+    {  HighwayType::HighwayResidential, true},
+    { HighwayType::HighwayUnclassified, true},
+    {      HighwayType::HighwayService, true},
+    { HighwayType::HighwayLivingStreet, true},
+    {         HighwayType::HighwayRoad, true},
+    {        HighwayType::HighwayTrack, true},
+    {   HighwayType::RouteShuttleTrain, true},
+    {          HighwayType::RouteFerry, true},
+    {         HighwayType::ManMadePier, true}
 };
 
 VehicleModel::LimitsInitList NoPassThroughLivingStreet()
 {
   auto res = kDefaultOptions;
   for (auto & e : res)
-  {
     if (e.m_type == HighwayType::HighwayLivingStreet)
       e.m_isPassThroughAllowed = false;
-  }
   return res;
 }
 
 VehicleModel::LimitsInitList NoPassThroughService(VehicleModel::LimitsInitList res = kDefaultOptions)
 {
   for (auto & e : res)
-  {
     if (e.m_type == HighwayType::HighwayService)
       e.m_isPassThroughAllowed = false;
-  }
   return res;
 }
 
@@ -70,10 +66,8 @@ VehicleModel::LimitsInitList NoTrack()
   VehicleModel::LimitsInitList res;
   res.reserve(kDefaultOptions.size() - 1);
   for (auto const & e : kDefaultOptions)
-  {
     if (e.m_type != HighwayType::HighwayTrack)
       res.push_back(e);
-  }
   return res;
 }
 
@@ -81,29 +75,25 @@ VehicleModel::LimitsInitList NoPassThroughTrack()
 {
   auto res = kDefaultOptions;
   for (auto & e : res)
-  {
     if (e.m_type == HighwayType::HighwayTrack)
       e.m_isPassThroughAllowed = false;
-  }
   return res;
 }
 
 /// @todo Should make some compare constrains (like in CarModel_TrackVsGravelTertiary test)
 /// to better fit these factors with reality. I have no idea, how they were set.
 VehicleModel::SurfaceInitList const kCarSurface = {
-  // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
-  {{"psurface", "paved_good"}, {1.0, 1.0}},
-  {{"psurface", "paved_bad"}, {0.6, 0.7}},
-  {{"psurface", "unpaved_good"}, {0.4, 0.7}},
-  {{"psurface", "unpaved_bad"}, {0.2, 0.3}}
+    // {{surfaceType, surfaceType}, {weightFactor, etaFactor}}
+    {  {"psurface", "paved_good"}, {1.0, 1.0}},
+    {   {"psurface", "paved_bad"}, {0.6, 0.7}},
+    {{"psurface", "unpaved_good"}, {0.4, 0.7}},
+    { {"psurface", "unpaved_bad"}, {0.2, 0.3}}
 };
 }  // namespace car_model
 
 namespace routing
 {
-CarModel::CarModel() : CarModel(car_model::kDefaultOptions)
-{
-}
+CarModel::CarModel() : CarModel(car_model::kDefaultOptions) {}
 
 CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   : VehicleModel(classif(), roadLimits, car_model::kCarSurface, {kHighwayBasedSpeeds, kHighwayBasedFactors})
@@ -118,7 +108,9 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   m_yesType = cl.GetTypeByPath(hwtagYesCar);
 
   // Set small track speed if highway is not in kHighwayBasedSpeeds (path, pedestrian), but marked as yescar.
-  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesCar), kHighwayBasedSpeeds.Get(HighwayType::HighwayTrack) }});
+  AddAdditionalRoadTypes(cl, {
+                                 {std::move(hwtagYesCar), kHighwayBasedSpeeds.Get(HighwayType::HighwayTrack)}
+  });
 
   // Set max possible (reasonable) car speed. See EdgeEstimator::CalcHeuristic.
   SpeedKMpH constexpr kMaxCarSpeedKMpH(200.0);
@@ -131,7 +123,10 @@ SpeedKMpH CarModel::GetSpeed(FeatureTypes const & types, SpeedParams const & spe
   return GetTypeSpeedImpl(types, speedParams, true /* isCar */);
 }
 
-SpeedKMpH const & CarModel::GetOffroadSpeed() const { return car_model::kSpeedOffroadKMpH; }
+SpeedKMpH const & CarModel::GetOffroadSpeed() const
+{
+  return car_model::kSpeedOffroadKMpH;
+}
 
 // static
 CarModel const & CarModel::AllLimitsInstance()
@@ -141,10 +136,16 @@ CarModel const & CarModel::AllLimitsInstance()
 }
 
 // static
-VehicleModel::LimitsInitList const & CarModel::GetOptions() { return car_model::kDefaultOptions; }
+VehicleModel::LimitsInitList const & CarModel::GetOptions()
+{
+  return car_model::kDefaultOptions;
+}
 
 // static
-VehicleModel::SurfaceInitList const & CarModel::GetSurfaces() { return car_model::kCarSurface; }
+VehicleModel::SurfaceInitList const & CarModel::GetSurfaces()
+{
+  return car_model::kCarSurface;
+}
 
 CarModelFactory::CarModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)

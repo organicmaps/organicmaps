@@ -2,8 +2,7 @@
 
 namespace df
 {
-ReadMWMTask::ReadMWMTask(MapDataProvider & model)
-  : m_model(model)
+ReadMWMTask::ReadMWMTask(MapDataProvider & model) : m_model(model)
 {
 #ifdef DEBUG
   m_checker = false;

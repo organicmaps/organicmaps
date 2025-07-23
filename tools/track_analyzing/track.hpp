@@ -21,9 +21,9 @@ class MatchedTrackPoint final
 {
 public:
   MatchedTrackPoint(DataPoint const & dataPoint, routing::Segment const & segment)
-    : m_dataPoint(dataPoint), m_segment(segment)
-  {
-  }
+    : m_dataPoint(dataPoint)
+    , m_segment(segment)
+  {}
 
   DataPoint const & GetDataPoint() const { return m_dataPoint; }
   routing::Segment const & GetSegment() const { return m_segment; }
@@ -40,8 +40,7 @@ using MwmToMatchedTracks = std::unordered_map<routing::NumMwmId, UserToMatchedTr
 class TrackFilter final
 {
 public:
-  TrackFilter(uint64_t minDuration, double minLength, double minSpeed, double maxSpeed,
-              bool ignoreTraffic);
+  TrackFilter(uint64_t minDuration, double minLength, double minSpeed, double maxSpeed, bool ignoreTraffic);
 
   bool Passes(uint64_t duration, double length, double speed, bool hasTrafficPoints) const;
 

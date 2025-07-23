@@ -25,7 +25,7 @@ UNIT_TEST(RoutingQuality_TurkeyIzmirArea)
 UNIT_TEST(RoutingQuality_BosniaAndHerzegovina)
 {
   TEST(CheckCarRoute({42.71401, 18.30412} /* start */, {42.95101, 18.08966} /* finish */,
-                     {{{42.88222,17.9919}}} /* reference track */),
+                     {{{42.88222, 17.9919}}} /* reference track */),
        ());
 }
 
@@ -52,16 +52,23 @@ UNIT_TEST(RoutingQuality_USAOklahoma)
 
 UNIT_TEST(RoutingQuality_IranSouth)
 {
-  TEST(CheckCarRoute({32.45088, 51.76419} /* start */, {32.97067, 51.50399} /* finish */,
-                     {{{32.67021, 51.64323}, {32.68752, 51.63387}},
-                      {{32.67021, 51.64323}, {32.7501, 51.64661}}} /* reference track */),
+  TEST(CheckCarRoute(
+           {
+               32.45088, 51.76419
+  } /* start */,
+           {32.97067, 51.50399} /* finish */,
+           {{{32.67021, 51.64323}, {32.68752, 51.63387}},
+            {{32.67021, 51.64323}, {32.7501, 51.64661}}} /* reference track */),
        ());
 }
 
 UNIT_TEST(RoutingQuality_EindhovenNetherlands)
 {
-  TEST(CheckCarRoute({50.91974, 5.33535} /* start */, {51.92532, 5.49066} /* finish */,
-                     {{{51.42016, 5.42881}, {51.44316, 5.42723}}} /* reference track */),
+  TEST(CheckCarRoute(
+           {
+               50.91974, 5.33535
+  } /* start */,
+           {51.92532, 5.49066} /* finish */, {{{51.42016, 5.42881}, {51.44316, 5.42723}}} /* reference track */),
        ());
 }
 
@@ -88,25 +95,41 @@ UNIT_TEST(RoutingQuality_KatowicePoland)
 
 UNIT_TEST(RoutingQuality_KrasnoyarskBratsk)
 {
-  TEST(CheckCarRoute({56.009, 92.873} /* start */, {56.163, 101.611} /* finish */,
-                     {{{55.89285, 97.99953}, {54.59928, 100.60402}}} /* reference track */),
+  TEST(CheckCarRoute(
+           {
+               56.009, 92.873
+  } /* start */,
+           {56.163, 101.611} /* finish */, {{{55.89285, 97.99953}, {54.59928, 100.60402}}} /* reference track */),
        ());
 }
 
 UNIT_TEST(RoutingQuality_VoronezhSochi)
 {
-  TEST(CheckCarRoute({51.65487, 39.21293} /* start */, {43.58547, 39.72311} /* finish */,
-                     {{{46.14169, 39.85306}, {45.17069, 39.10869},
-                       {45.02157, 39.12510}, {44.54344, 38.95853}}} /* reference track */),
+  TEST(CheckCarRoute(
+           {
+               51.65487, 39.21293
+  } /* start */,
+           {43.58547, 39.72311} /* finish */,
+           {{{46.14169, 39.85306},
+             {45.17069, 39.10869},
+             {45.02157, 39.12510},
+             {44.54344, 38.95853}}} /* reference track */),
        ());
 }
 
 UNIT_TEST(RoutingQuality_BerlinkaWarsawPoland)
 {
-  TEST(CheckCarRoute({54.41616, 20.05675} /* start */, {52.18937, 20.94026} /* finish */,
-                     {{{54.24278, 19.66106}, {54.13679, 19.45166},
-                       {54.06452, 19.62416}, {53.69769, 19.98204},
-                       {53.11194, 20.40002}, {52.62966, 20.38488}}} /* reference track */),
+  TEST(CheckCarRoute(
+           {
+               54.41616, 20.05675
+  } /* start */,
+           {52.18937, 20.94026} /* finish */,
+           {{{54.24278, 19.66106},
+             {54.13679, 19.45166},
+             {54.06452, 19.62416},
+             {53.69769, 19.98204},
+             {53.11194, 20.40002},
+             {52.62966, 20.38488}}} /* reference track */),
        ());
 }
 
@@ -119,8 +142,11 @@ UNIT_TEST(RoutingQuality_MosOblBadPaving)
 
 UNIT_TEST(RoutingQuality_LatviaUnpaved)
 {
-  TEST(CheckCarRoute({56.62992, 25.77175} /* start */, {56.61453, 25.78400} /* finish */,
-                     {{{56.62377, 25.81015}, {56.61755, 25.80894}}} /* reference track */),
+  TEST(CheckCarRoute(
+           {
+               56.62992, 25.77175
+  } /* start */,
+           {56.61453, 25.78400} /* finish */, {{{56.62377, 25.81015}, {56.61755, 25.80894}}} /* reference track */),
        ());
 }
 }  // namespace

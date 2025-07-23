@@ -6,7 +6,6 @@
 
 #include "base/scope_guard.hpp"
 
-
 UNIT_TEST(KMZ_UnzipTest)
 {
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/test.kmz");
@@ -45,8 +44,7 @@ UNIT_TEST(Multi_KML_KMZ_UnzipTest)
 {
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/BACRNKMZ.kmz");
   auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
-  std::vector<std::string> expectedFileNames =
-  {
+  std::vector<std::string> expectedFileNames = {
       "BACRNKMZfilesCampgrounds 26may2022 green and tree icon",
       "BACRNKMZfilesIndoor Accommodations 26may2022 placemark purple and bed icon",
       "BACRNKMZfilesRoute 1 Canada - West-East Daily Segments",

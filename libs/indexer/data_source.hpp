@@ -33,18 +33,14 @@ public:
   // |sizeM| from has been reached. Then for EditableDataSource calls |f| for each edited feature
   // inside square with center |center| and side |2 * sizeM|. Edited features are not in the same
   // hierarchy and there is no fast way to merge frozen and edited features.
-  void ForClosestToPoint(FeatureCallback const & f, StopSearchCallback const & stopCallback,
-                         m2::PointD const & center, double sizeM, int scale) const;
+  void ForClosestToPoint(FeatureCallback const & f, StopSearchCallback const & stopCallback, m2::PointD const & center,
+                         double sizeM, int scale) const;
   void ForEachInScale(FeatureCallback const & f, int scale) const;
-  void ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const & rect, int scale,
-                           MwmId const & id) const;
+  void ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const & rect, int scale, MwmId const & id) const;
   // "features" must be sorted using FeatureID::operator< as predicate.
   void ReadFeatures(FeatureCallback const & fn, std::vector<FeatureID> const & features) const;
 
-  void ReadFeature(FeatureCallback const & fn, FeatureID const & feature) const
-  {
-    return ReadFeatures(fn, {feature});
-  }
+  void ReadFeature(FeatureCallback const & fn, FeatureID const & feature) const { return ReadFeatures(fn, {feature}); }
 
   std::unique_ptr<FeatureSource> CreateFeatureSource(DataSource::MwmHandle const & handle) const
   {
@@ -52,13 +48,13 @@ public:
   }
 
 protected:
-  using ReaderCallback = std::function<void(MwmSet::MwmHandle const & handle,
-                                            covering::CoveringGetter & cov, int scale)>;
+  using ReaderCallback =
+      std::function<void(MwmSet::MwmHandle const & handle, covering::CoveringGetter & cov, int scale)>;
 
   explicit DataSource(std::unique_ptr<FeatureSourceFactory> factory) : m_factory(std::move(factory)) {}
 
-  void ForEachInIntervals(ReaderCallback const & fn, covering::CoveringMode mode,
-                          m2::RectD const & rect, int scale) const;
+  void ForEachInIntervals(ReaderCallback const & fn, covering::CoveringMode mode, m2::RectD const & rect,
+                          int scale) const;
 
   /// @name MwmSet overrides
   /// @{
@@ -86,7 +82,8 @@ class FeaturesLoaderGuard
 {
 public:
   FeaturesLoaderGuard(DataSource const & dataSource, DataSource::MwmId const & id)
-    : m_handle(dataSource.GetMwmHandleById(id)), m_source(dataSource.CreateFeatureSource(m_handle))
+    : m_handle(dataSource.GetMwmHandleById(id))
+    , m_source(dataSource.CreateFeatureSource(m_handle))
   {
     // FeaturesLoaderGuard is always created in-place, so MWM should always be alive.
     ASSERT(id.IsAlive(), ());

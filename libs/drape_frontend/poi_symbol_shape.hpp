@@ -15,8 +15,8 @@ namespace df
 class PoiSymbolShape : public MapShape
 {
 public:
-  PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParams const & params,
-                 TileKey const & tileKey, uint32_t textIndex);
+  PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParams const & params, TileKey const & tileKey,
+                 uint32_t textIndex);
 
   void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
             ref_ptr<dp::TextureManager> textures) const override;
@@ -32,4 +32,3 @@ private:
   uint32_t const m_textIndex;
 };
 }  // namespace df
-

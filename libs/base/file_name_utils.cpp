@@ -27,7 +27,7 @@ void GetNameFromFullPath(string & name)
 {
   string::size_type const i = name.find_last_of("/\\");
   if (i != string::npos)
-    name = name.substr(i+1);
+    name = name.substr(i + 1);
 }
 
 std::string FileNameFromFullPath(std::string path)
@@ -59,9 +59,9 @@ string GetDirectory(string const & name)
 string::value_type GetNativeSeparator()
 {
 #ifdef OMIM_OS_WINDOWS
-    return '\\';
+  return '\\';
 #else
-    return '/';
+  return '/';
 #endif
 }
 

@@ -18,8 +18,7 @@ class ImguiRenderer
 {
 public:
   ImguiRenderer();
-  void Render(ref_ptr<dp::GraphicsContext> context, 
-              ref_ptr<dp::TextureManager> textureManager,
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textureManager,
               ref_ptr<gpu::ProgramManager> programManager);
   void Update(std::function<void()> const & uiCallback);
   void Reset();

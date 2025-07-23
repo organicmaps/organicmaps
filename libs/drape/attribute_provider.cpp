@@ -4,20 +4,19 @@
 #include "base/stl_helpers.hpp"
 
 #ifdef DEBUG
-  #define INIT_CHECK_INFO(x) m_checkInfo = std::vector<bool>((std::vector<bool>::size_type)(x), false);
-  #define CHECK_STREAMS CheckStreams()
-  #define INIT_STREAM(x) InitCheckStream((x))
+#define INIT_CHECK_INFO(x) m_checkInfo = std::vector<bool>((std::vector<bool>::size_type)(x), false);
+#define CHECK_STREAMS      CheckStreams()
+#define INIT_STREAM(x)     InitCheckStream((x))
 #else
-  #include "base/macros.hpp"
-  #define INIT_CHECK_INFO(x) UNUSED_VALUE((x))
-  #define CHECK_STREAMS
-  #define INIT_STREAM(x) UNUSED_VALUE((x))
+#include "base/macros.hpp"
+#define INIT_CHECK_INFO(x) UNUSED_VALUE((x))
+#define CHECK_STREAMS
+#define INIT_STREAM(x) UNUSED_VALUE((x))
 #endif
 
 namespace dp
 {
-AttributeProvider::AttributeProvider(uint8_t streamCount, uint32_t vertexCount)
-  : m_vertexCount(vertexCount)
+AttributeProvider::AttributeProvider(uint8_t streamCount, uint32_t vertexCount) : m_vertexCount(vertexCount)
 {
   m_streams.resize(streamCount);
   INIT_CHECK_INFO(streamCount);
@@ -72,9 +71,7 @@ void AttributeProvider::Advance(uint32_t vertexCount)
   m_vertexCount -= vertexCount;
 }
 
-void AttributeProvider::InitStream(uint8_t streamIndex,
-                                   BindingInfo const & bindingInfo,
-                                   ref_ptr<void> data)
+void AttributeProvider::InitStream(uint8_t streamIndex, BindingInfo const & bindingInfo, ref_ptr<void> data)
 {
   ASSERT_LESS(streamIndex, GetStreamCount(), ());
   AttributeStream s;

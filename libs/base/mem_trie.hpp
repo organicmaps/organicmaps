@@ -126,14 +126,12 @@ private:
 
   typename Entries::iterator Find(Char const & c)
   {
-    return std::find_if(m_subtrees.begin(), m_subtrees.end(),
-                        [&c](Entry const & entry) { return entry.first == c; });
+    return std::find_if(m_subtrees.begin(), m_subtrees.end(), [&c](Entry const & entry) { return entry.first == c; });
   }
 
   typename Entries::const_iterator Find(Char const & c) const
   {
-    return std::find_if(m_subtrees.cbegin(), m_subtrees.cend(),
-                        [&c](Entry const & entry) { return entry.first == c; });
+    return std::find_if(m_subtrees.cbegin(), m_subtrees.cend(), [&c](Entry const & entry) { return entry.first == c; });
   }
 
   Entries m_subtrees;
@@ -278,10 +276,7 @@ public:
     curr->AddValue(std::forward<Args>(args)...);
   }
 
-  void Erase(String const & key, Value const & value)
-  {
-    Erase(m_root, key.begin(), key.end(), value);
-  }
+  void Erase(String const & key, Value const & value) { Erase(m_root, key.begin(), key.end(), value); }
 
   // Traverses all key-value pairs in the trie and calls |toDo| on each of them.
   template <typename ToDo>
@@ -298,16 +293,14 @@ public:
   void ForEachInNode(String const & prefix, ToDo && toDo) const
   {
     MoveTo(prefix, true /* fullMatch */,
-           [&](Node const & node, Edge const & /* edge */, size_t /* offset */) {
-             node.m_values.ForEach(toDo);
-           });
+           [&](Node const & node, Edge const & /* edge */, size_t /* offset */) { node.m_values.ForEach(toDo); });
   }
 
   template <typename ToDo>
   void WithValuesHolder(String const & prefix, ToDo && toDo) const
   {
-    MoveTo(prefix, true /* fullMatch */, [&toDo](Node const & node, Edge const & /* edge */,
-                                                 size_t /* offset */) { toDo(node.m_values); });
+    MoveTo(prefix, true /* fullMatch */,
+           [&toDo](Node const & node, Edge const & /* edge */, size_t /* offset */) { toDo(node.m_values); });
   }
 
   // Calls |toDo| for each key-value pair in a subtree that is
@@ -316,7 +309,8 @@ public:
   template <typename ToDo>
   void ForEachInSubtree(String const & prefix, ToDo && toDo) const
   {
-    MoveTo(prefix, false /* fullMatch */, [&](Node const & node, Edge const & edge, size_t offset) {
+    MoveTo(prefix, false /* fullMatch */, [&](Node const & node, Edge const & edge, size_t offset)
+    {
       String p = prefix;
       for (; offset < edge.Size(); ++offset)
         p.push_back(edge[offset]);
@@ -328,17 +322,15 @@ public:
   {
     bool exists = false;
     MoveTo(key, true /* fullMatch */,
-           [&](Node const & node, Edge const & /* edge */, size_t /* offset */) {
-             exists = !node.m_values.Empty();
-           });
+           [&](Node const & node, Edge const & /* edge */, size_t /* offset */) { exists = !node.m_values.Empty(); });
     return exists;
   }
 
   bool HasPrefix(String const & prefix) const
   {
     bool exists = false;
-    MoveTo(prefix, false /* fullMatch */, [&](Node const & node, Edge const & /* edge */,
-                                              size_t /* offset */) { exists = !node.Empty(); });
+    MoveTo(prefix, false /* fullMatch */,
+           [&](Node const & node, Edge const & /* edge */, size_t /* offset */) { exists = !node.Empty(); });
     return exists;
   }
 
@@ -392,10 +384,7 @@ private:
     // Prepends |prefix| to the edge.
     //
     // Complexity: amortized O(|prefix|)
-    void Prepend(Edge const & prefix)
-    {
-      m_label.insert(m_label.end(), prefix.m_label.cbegin(), prefix.m_label.cend());
-    }
+    void Prepend(Edge const & prefix) { m_label.insert(m_label.end(), prefix.m_label.cbegin(), prefix.m_label.cend()); }
 
     Char operator[](size_t i) const
     {
@@ -410,7 +399,10 @@ private:
     void Swap(Edge & rhs) { m_label.swap(rhs.m_label); }
 
     template <typename Sequence>
-    Sequence As() const { return {m_label.rbegin(), m_label.rend()}; }
+    Sequence As() const
+    {
+      return {m_label.rbegin(), m_label.rend()};
+    }
 
     friend std::string DebugPrint(Edge const & edge) { return edge.template As<std::string>(); }
 
@@ -425,17 +417,11 @@ private:
 
     Node & operator=(Node && /* rhs */) = default;
 
-    Node & GetOrCreateMove(Char const & c, bool & created)
-    {
-      return m_moves.GetOrCreateSubtree(c, created);
-    }
+    Node & GetOrCreateMove(Char const & c, bool & created) { return m_moves.GetOrCreateSubtree(c, created); }
 
     Node * GetMove(Char const & c) const { return m_moves.GetSubtree(c); }
 
-    void AddChild(Char const & c, std::unique_ptr<Node> node)
-    {
-      m_moves.AddSubtree(c, std::move(node));
-    }
+    void AddChild(Char const & c, std::unique_ptr<Node> node) { m_moves.AddSubtree(c, std::move(node)); }
 
     void EraseMove(Char const & c) { m_moves.EraseSubtree(c); }
 
@@ -445,10 +431,7 @@ private:
       m_values.Add(std::forward<Args>(args)...);
     }
 
-    void EraseValue(Value const & value)
-    {
-      m_values.Erase(value);
-    }
+    void EraseValue(Value const & value) { m_values.Erase(value); }
 
     bool Empty() const { return m_moves.Empty() && m_values.Empty(); }
 
@@ -461,8 +444,7 @@ private:
     size_t GetNumNodes() const
     {
       size_t size = 1;
-      m_moves.ForEach(
-          [&size](Char const & /* c */, Node const & child) { size += child.GetNumNodes(); });
+      m_moves.ForEach([&size](Char const & /* c */, Node const & child) { size += child.GetNumNodes(); });
       return size;
     }
 
@@ -533,7 +515,8 @@ private:
       {
         Node child;
         Char c;
-        root.m_moves.ForEach([&](Char const & mc, Node & mn) {
+        root.m_moves.ForEach([&](Char const & mc, Node & mn)
+        {
           c = mc;
           child.Swap(mn);
         });
@@ -571,19 +554,17 @@ private:
   template <typename ToDo>
   void ForEachInSubtree(Node const & node, String & prefix, ToDo && toDo) const
   {
-    node.m_values.ForEach([&prefix, &toDo](Value const & value) {
-      toDo(static_cast<String const &>(prefix), value);
-    });
+    node.m_values.ForEach([&prefix, &toDo](Value const & value) { toDo(static_cast<String const &>(prefix), value); });
 
     node.m_moves.ForEach([&](Char const & c, Node const & node)
-                         {
-                           auto const size = prefix.size();
-                           auto const edge = node.m_edge.template As<String>();
-                           prefix.push_back(c);
-                           prefix.insert(prefix.end(), edge.begin(), edge.end());
-                           ForEachInSubtree(node, prefix, toDo);
-                           prefix.resize(size);
-                         });
+    {
+      auto const size = prefix.size();
+      auto const edge = node.m_edge.template As<String>();
+      prefix.push_back(c);
+      prefix.insert(prefix.end(), edge.begin(), edge.end());
+      ForEachInSubtree(node, prefix, toDo);
+      prefix.resize(size);
+    });
   }
 
   template <typename It>

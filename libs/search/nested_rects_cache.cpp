@@ -20,9 +20,11 @@ double const kPositionToleranceMeters = 15.0;
 }  // namespace
 
 NestedRectsCache::NestedRectsCache(DataSource const & dataSource)
-  : m_dataSource(dataSource), m_scale(0), m_position(0, 0), m_valid(false)
-{
-}
+  : m_dataSource(dataSource)
+  , m_scale(0)
+  , m_position(0, 0)
+  , m_valid(false)
+{}
 
 void NestedRectsCache::SetPosition(m2::PointD const & position, int scale)
 {
@@ -92,8 +94,8 @@ void NestedRectsCache::Update()
     auto & bucket = m_buckets[scale];
     bucket.clear();
 
-    m2::RectD const rect = mercator::RectByCenterXYAndSizeInMeters(
-        m_position, GetRadiusMeters(static_cast<RectScale>(scale)));
+    m2::RectD const rect =
+        mercator::RectByCenterXYAndSizeInMeters(m_position, GetRadiusMeters(static_cast<RectScale>(scale)));
 
     MwmSet::MwmId lastId;
     Features * lastFeatures = nullptr;

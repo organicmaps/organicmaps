@@ -21,6 +21,7 @@ public:
   public:
     virtual void OnPowerFacilityChanged(Facility const facility, bool enabled) = 0;
     virtual void OnPowerSchemeChanged(Scheme const actualScheme) = 0;
+
   protected:
     virtual ~Subscriber() = default;
   };

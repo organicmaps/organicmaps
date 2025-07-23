@@ -16,7 +16,6 @@
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 
-
 namespace qt
 {
 using namespace std::placeholders;
@@ -128,8 +127,8 @@ void BookmarkDialog::OnCloseClick()
 
 void BookmarkDialog::OnImportClick()
 {
-  auto const files = QFileDialog::getOpenFileNames(this /* parent */, tr("Open KML, KMZ, GPX..."),
-                                                   QString() /* dir */, "KML, KMZ, GPX files (*.kml *.KML *.kmz *.KMZ, *.gpx *.GPX)");
+  auto const files = QFileDialog::getOpenFileNames(this /* parent */, tr("Open KML, KMZ, GPX..."), QString() /* dir */,
+                                                   "KML, KMZ, GPX files (*.kml *.KML *.kmz *.KMZ, *.gpx *.GPX)");
 
   for (auto const & name : files)
   {
@@ -165,13 +164,13 @@ void BookmarkDialog::OnExportClick()
     return;
   }
 
-  auto const name = QFileDialog::getSaveFileName(this /* parent */, tr("Export KMZ..."),
-                                                 QString() /* dir */, "KMZ files (*.kmz)");
+  auto const name =
+      QFileDialog::getSaveFileName(this /* parent */, tr("Export KMZ..."), QString() /* dir */, "KMZ files (*.kmz)");
   if (name.isEmpty())
     return;
 
   m_framework.GetBookmarkManager().PrepareFileForSharing({categoryIt->second},
-    [this, name](BookmarkManager::SharingResult const & result)
+                                                         [this, name](BookmarkManager::SharingResult const & result)
   {
     if (result.m_code == BookmarkManager::SharingResult::Code::Success)
     {
@@ -280,8 +279,7 @@ void BookmarkDialog::FillTree()
         if (name.empty())
         {
           name = measurement_utils::FormatLatLon(mercator::YToLat(bookmark->GetPivot().y),
-                                                 mercator::XToLon(bookmark->GetPivot().x),
-                                                 true /* withComma */);
+                                                 mercator::XToLon(bookmark->GetPivot().x), true /* withComma */);
         }
         auto bookmarkItem = CreateTreeItem(name + " (Bookmark)", categoryItem);
         m_bookmarks[bookmarkItem] = bookmarkId;

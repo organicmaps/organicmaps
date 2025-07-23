@@ -52,7 +52,8 @@ TaskLoop::PushResult DelayedThreadPool::PushDelayed(Duration const & delay, Task
 template <typename T>
 TaskLoop::PushResult DelayedThreadPool::AddImmediate(T && task)
 {
-  return AddTask([&]() {
+  return AddTask([&]()
+  {
     auto const newId = MakeNextId(m_immediateLastId, kImmediateMinId, kImmediateMaxId);
     VERIFY(m_immediate.Emplace(newId, std::forward<T>(task)), ());
     m_immediateLastId = newId;
@@ -64,7 +65,8 @@ template <typename T>
 TaskLoop::PushResult DelayedThreadPool::AddDelayed(Duration const & delay, T && task)
 {
   auto const when = Now() + delay;
-  return AddTask([&]() {
+  return AddTask([&]()
+  {
     auto const newId = MakeNextId(m_delayedLastId, kDelayedMinId, kDelayedMaxId);
     m_delayed.Add(newId, std::make_shared<DelayedTask>(newId, when, std::forward<T>(task)));
     m_delayedLastId = newId;
@@ -113,8 +115,7 @@ void DelayedThreadPool::ProcessTasks()
       {
         // When there are no delayed tasks in the queue, we need to
         // wait until there is at least one immediate or delayed task.
-        m_cv.wait(lk,
-                  [this]() { return m_shutdown || !m_immediate.IsEmpty() || !m_delayed.IsEmpty(); });
+        m_cv.wait(lk, [this]() { return m_shutdown || !m_immediate.IsEmpty() || !m_delayed.IsEmpty(); });
       }
 
       if (m_shutdown)
@@ -135,8 +136,7 @@ void DelayedThreadPool::ProcessTasks()
       }
 
       auto const canExecImmediate = !m_immediate.IsEmpty();
-      auto const canExecDelayed =
-          !m_delayed.IsEmpty() && Now() >= m_delayed.GetFirstValue()->m_when;
+      auto const canExecDelayed = !m_delayed.IsEmpty() && Now() >= m_delayed.GetFirstValue()->m_when;
 
       if (canExecImmediate)
       {
@@ -152,10 +152,8 @@ void DelayedThreadPool::ProcessTasks()
     }
 
     for (auto const & task : tasks)
-    {
       if (task)
         task();
-    }
   }
 
   for (; !pendingImmediate.IsEmpty(); pendingImmediate.PopFront())
@@ -194,13 +192,10 @@ bool DelayedThreadPool::Cancel(TaskId id)
       return true;
     }
   }
-  else
+  else if (m_delayed.RemoveKey(id))
   {
-    if (m_delayed.RemoveKey(id))
-    {
-      m_cv.notify_one();
-      return true;
-    }
+    m_cv.notify_one();
+    return true;
   }
 
   return false;
@@ -221,10 +216,8 @@ void DelayedThreadPool::ShutdownAndJoin()
 {
   Shutdown(m_exit);
   for (auto & thread : m_threads)
-  {
     if (thread.joinable())
       thread.join();
-  }
   m_threads.clear();
 }
 
@@ -234,4 +227,4 @@ bool DelayedThreadPool::IsShutDown()
   return m_shutdown;
 }
 
-} // namespace base
+}  // namespace base

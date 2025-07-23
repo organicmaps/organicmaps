@@ -46,7 +46,7 @@ class DataSource;
 
 namespace power_management
 {
-  class PowerManager;
+class PowerManager;
 }
 
 struct RoutePointInfo
@@ -79,19 +79,17 @@ public:
     using GetStringsBundleFn = std::function<StringsBundle const &()>;
     using PowerManagerGetter = std::function<power_management::PowerManager const &()>;
 
-    template <typename DataSourceGetter, typename CountryInfoGetter,
-              typename CountryParentNameGetter, typename StringsBundleGetter,
-              typename PowerManagerGetter>
+    template <typename DataSourceGetter, typename CountryInfoGetter, typename CountryParentNameGetter,
+              typename StringsBundleGetter, typename PowerManagerGetter>
     Callbacks(DataSourceGetter && dataSourceGetter, CountryInfoGetter && countryInfoGetter,
-              CountryParentNameGetter && countryParentNameGetter,
-              StringsBundleGetter && stringsBundleGetter, PowerManagerGetter && powerManagerGetter)
+              CountryParentNameGetter && countryParentNameGetter, StringsBundleGetter && stringsBundleGetter,
+              PowerManagerGetter && powerManagerGetter)
       : m_dataSourceGetter(std::forward<DataSourceGetter>(dataSourceGetter))
       , m_countryInfoGetter(std::forward<CountryInfoGetter>(countryInfoGetter))
       , m_countryParentNameGetterFn(std::forward<CountryParentNameGetter>(countryParentNameGetter))
       , m_stringsBundleGetter(std::forward<StringsBundleGetter>(stringsBundleGetter))
       , m_powerManagerGetter(std::forward<PowerManagerGetter>(powerManagerGetter))
-    {
-    }
+    {}
 
     DataSourceGetterFn m_dataSourceGetter;
     CountryInfoGetterFn m_countryInfoGetter;
@@ -100,12 +98,9 @@ public:
     PowerManagerGetter m_powerManagerGetter;
   };
 
-  using RouteBuildingCallback =
-      std::function<void(routing::RouterResultCode, storage::CountriesSet const &)>;
-  using RouteSpeedCamShowCallback =
-      std::function<void(m2::PointD const &, double)>;
-  using RouteSpeedCamsClearCallback =
-      std::function<void()>;
+  using RouteBuildingCallback = std::function<void(routing::RouterResultCode, storage::CountriesSet const &)>;
+  using RouteSpeedCamShowCallback = std::function<void(m2::PointD const &, double)>;
+  using RouteSpeedCamsClearCallback = std::function<void()>;
 
   using RouteStartBuildCallback = std::function<void(std::vector<RouteMarkData> const & points)>;
 
@@ -170,40 +165,27 @@ public:
   }
   void FollowRoute();
   void CloseRouting(bool removeRoutePoints);
-  void GetRouteFollowingInfo(routing::FollowingInfo & info) const
-  {
-    m_routingSession.GetRouteFollowingInfo(info);
-  }
+  void GetRouteFollowingInfo(routing::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
 
   TransitRouteInfo GetTransitRouteInfo() const;
 
   m2::PointD GetRouteEndPoint() const { return m_routingSession.GetEndPoint(); }
   /// Returns the most situable router engine type.
-  routing::RouterType GetBestRouter(m2::PointD const & startPoint,
-                                    m2::PointD const & finalPoint) const;
+  routing::RouterType GetBestRouter(m2::PointD const & startPoint, m2::PointD const & finalPoint) const;
   routing::RouterType GetLastUsedRouter() const;
   void SetLastUsedRouter(routing::RouterType type);
   // Sound notifications for turn instructions.
   void EnableTurnNotifications(bool enable) { m_routingSession.EnableTurnNotifications(enable); }
-  bool AreTurnNotificationsEnabled() const
-  {
-    return m_routingSession.AreTurnNotificationsEnabled();
-  }
+  bool AreTurnNotificationsEnabled() const { return m_routingSession.AreTurnNotificationsEnabled(); }
   /// \brief Sets a locale for TTS.
   /// \param locale is a string with locale code. For example "en", "ru", "zh-Hant" and so on.
   /// \note See sound/tts/languages.txt for the full list of available locales.
-  void SetTurnNotificationsLocale(std::string const & locale)
-  {
-    m_routingSession.SetTurnNotificationsLocale(locale);
-  }
+  void SetTurnNotificationsLocale(std::string const & locale) { m_routingSession.SetTurnNotificationsLocale(locale); }
   /// @return current TTS locale. For example "en", "ru", "zh-Hant" and so on.
   /// In case of error returns an empty string.
   /// \note The method returns correct locale after SetTurnNotificationsLocale has been called.
   /// If not, it returns an empty string.
-  std::string GetTurnNotificationsLocale() const
-  {
-    return m_routingSession.GetTurnNotificationsLocale();
-  }
+  std::string GetTurnNotificationsLocale() const { return m_routingSession.GetTurnNotificationsLocale(); }
   // @return polyline of the route.
   routing::FollowedPolyline const & GetRoutePolyline() const
   {
@@ -235,8 +217,8 @@ public:
   void RemoveRoutePoints();
   void RemoveIntermediateRoutePoints();
   void MoveRoutePoint(size_t currentIndex, size_t targetIndex);
-  void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
-                      RouteMarkType targetType, size_t targetIntermediateIndex);
+  void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType targetType,
+                      size_t targetIntermediateIndex);
   void HideRoutePoint(RouteMarkType type, size_t intermediateIndex = 0);
   bool CouldAddIntermediatePoint() const;
   bool IsMyPosition(RouteMarkType type, size_t intermediateIndex = 0);
@@ -245,8 +227,7 @@ public:
   void RemoveRoute(bool deactivateFollowing);
 
   void CheckLocationForRouting(location::GpsInfo const & info);
-  void CallRouteBuilded(routing::RouterResultCode code,
-                        storage::CountriesSet const & absentCountries);
+  void CallRouteBuilded(routing::RouterResultCode code, storage::CountriesSet const & absentCountries);
   void OnBuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
   void OnRebuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
   void OnNeedMoreMaps(uint64_t routeId, storage::CountriesSet const & absentCountries);
@@ -330,10 +311,7 @@ private:
   {
     RoadInfo() = default;
 
-    explicit RoadInfo(m2::PointD const & pt, FeatureID const & featureId)
-      : m_startPoint(pt)
-      , m_featureId(featureId)
-    {}
+    explicit RoadInfo(m2::PointD const & pt, FeatureID const & featureId) : m_startPoint(pt), m_featureId(featureId) {}
 
     m2::PointD m_startPoint;
     FeatureID m_featureId;
@@ -341,15 +319,14 @@ private:
   };
   using RoadWarningsCollection = std::map<routing::RoutingOptions::Road, std::vector<RoadInfo>>;
 
-  using GetMwmIdFn = std::function<MwmSet::MwmId (routing::NumMwmId numMwmId)>;
+  using GetMwmIdFn = std::function<MwmSet::MwmId(routing::NumMwmId numMwmId)>;
   void CollectRoadWarnings(std::vector<routing::RouteSegment> const & segments, m2::PointD const & startPt,
                            double baseDistance, GetMwmIdFn const & getMwmIdFn, RoadWarningsCollection & roadWarnings);
   void CreateRoadWarningMarks(RoadWarningsCollection && roadWarnings);
 
   /// \returns false if the location could not be matched to the route and should be matched to the
   /// road graph. Otherwise returns true.
-  void MatchLocationToRoute(location::GpsInfo & info,
-                            location::RouteMatchingInfo & routeMatchingInfo);
+  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo);
   location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
   uint32_t GenerateRoutePointsTransactionId() const;
 

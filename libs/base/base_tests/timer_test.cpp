@@ -1,8 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "base/timer.hpp"
 #include "base/logging.hpp"
-
+#include "base/timer.hpp"
 
 UNIT_TEST(Timer_Seconds)
 {
@@ -11,7 +10,7 @@ UNIT_TEST(Timer_Seconds)
   double t1 = timer.ElapsedSeconds();
   double s = 0.0;
   for (int i = 0; i < 10000000; ++i)
-    s += i*0.01;
+    s += i * 0.01;
   double t2 = timer.ElapsedSeconds();
 
   TEST_NOT_EQUAL(s, 0.0, ("Fictive, to prevent loop optimization"));

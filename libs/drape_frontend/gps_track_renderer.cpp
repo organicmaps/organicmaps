@@ -27,21 +27,19 @@ int const kMinVisibleZoomLevel = 5;
 uint32_t const kAveragePointsCount = 512;
 
 // Radius of circles depending on zoom levels.
-std::array<float, 20> const kRadiusInPixel =
-{
-  // 1   2     3     4     5     6     7     8     9     10
-  0.8f, 0.8f, 1.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
-  //11   12    13    14    15    16    17    18    19     20
-  2.5f, 2.5f, 2.5f, 2.5f, 3.0f, 4.0f, 4.5f, 4.5f, 5.0f, 5.5f
-};
+std::array<float, 20> const kRadiusInPixel = {
+    // 1   2     3     4     5     6     7     8     9     10
+    0.8f, 0.8f, 1.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
+    // 11   12    13    14    15    16    17    18    19     20
+    2.5f, 2.5f, 2.5f, 2.5f, 3.0f, 4.0f, 4.5f, 4.5f, 5.0f, 5.5f};
 
-double const kHumanSpeed = 2.6; // meters per second
-double const kCarSpeed = 6.2; // meters per second
+double const kHumanSpeed = 2.6;  // meters per second
+double const kCarSpeed = 6.2;    // meters per second
 uint8_t const kMinDayAlpha = 90;
 uint8_t const kMaxDayAlpha = 144;
 uint8_t const kMinNightAlpha = 50;
 uint8_t const kMaxNightAlpha = 102;
-double const kUnknownDistanceTime = 5 * 60; // seconds
+double const kUnknownDistanceTime = 5 * 60;  // seconds
 
 double const kDistanceScalar = 0.4;
 
@@ -51,7 +49,7 @@ bool GpsPointsSortPredicate(GpsTrackPoint const & pt1, GpsTrackPoint const & pt2
   return pt1.m_id < pt2.m_id;
 }
 #endif
-} // namespace
+}  // namespace
 
 GpsTrackRenderer::GpsTrackRenderer(TRenderDataRequestFn const & dataRequestFn)
   : m_dataRequestFn(dataRequestFn)
@@ -64,8 +62,7 @@ GpsTrackRenderer::GpsTrackRenderer(TRenderDataRequestFn const & dataRequestFn)
   m_handlesCache.reserve(8);
 }
 
-void GpsTrackRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context,
-                                     ref_ptr<gpu::ProgramManager> mng,
+void GpsTrackRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                                      drape_ptr<CirclesPackRenderData> && renderData)
 {
   drape_ptr<CirclesPackRenderData> data = std::move(renderData);
@@ -84,19 +81,15 @@ void GpsTrackRenderer::ClearRenderData()
   m_needUpdate = true;
 }
 
-void GpsTrackRenderer::UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
-                                    std::vector<uint32_t> const & toRemove)
+void GpsTrackRenderer::UpdatePoints(std::vector<GpsTrackPoint> const & toAdd, std::vector<uint32_t> const & toRemove)
 {
   bool recreateSpline = false;
   if (!toRemove.empty())
   {
     size_t const szBefore = m_points.size();
-    base::EraseIf(m_points, [&toRemove](GpsTrackPoint const & pt)
-    {
-      return base::IsExist(toRemove, pt.m_id);
-    });
+    base::EraseIf(m_points, [&toRemove](GpsTrackPoint const & pt) { return base::IsExist(toRemove, pt.m_id); });
 
-    if (szBefore > m_points.size())   // if removed any
+    if (szBefore > m_points.size())  // if removed any
     {
       recreateSpline = true;
       m_needUpdate = true;
@@ -111,13 +104,13 @@ void GpsTrackRenderer::UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
     m_needUpdate = true;
   }
 
-  if (recreateSpline)   // Recreate Spline only if Remove (Clear) was invoked.
+  if (recreateSpline)  // Recreate Spline only if Remove (Clear) was invoked.
   {
     m_pointsSpline = m2::Spline(m_points.size());
     for (auto const & p : m_points)
       m_pointsSpline.AddPoint(p.m_point);
   }
-  else                  // Simple append points otherwise.
+  else  // Simple append points otherwise.
   {
     for (auto const & p : toAdd)
       m_pointsSpline.AddPoint(p.m_point);
@@ -133,8 +126,8 @@ size_t GpsTrackRenderer::GetAvailablePointsCount() const
   return pointsCount;
 }
 
-dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD const & curPoint,
-                                                double lengthFromStart, double fullLength) const
+dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD const & curPoint, double lengthFromStart,
+                                                double fullLength) const
 {
   ASSERT_LESS(pointIndex, m_points.size(), ());
   if (pointIndex + 1 == m_points.size())
@@ -158,8 +151,7 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
   if ((end.m_timestamp - start.m_timestamp) > kUnknownDistanceTime)
   {
     dp::Color const color = df::GetColorConstant(df::kTrackUnknownDistanceColor);
-    return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(),
-                     static_cast<uint8_t>(alpha));
+    return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), static_cast<uint8_t>(alpha));
   }
 
   double const length = (end.m_point - start.m_point).Length();
@@ -168,8 +160,7 @@ dp::Color GpsTrackRenderer::CalculatePointColor(size_t pointIndex, m2::PointD co
 
   double const speed = std::max(start.m_speedMPS * (1.0 - td) + end.m_speedMPS * td, 0.0);
   dp::Color const color = GetColorBySpeed(speed);
-  return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(),
-                   static_cast<uint8_t>(alpha));
+  return dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue(), static_cast<uint8_t>(alpha));
 }
 
 dp::Color GpsTrackRenderer::GetColorBySpeed(double speed) const
@@ -244,14 +235,12 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
       while (!it.BeginAgain())
       {
         m2::PointD const pt = it.m_pos;
-        m2::RectD pointRect(pt.x - radiusMercator, pt.y - radiusMercator,
-                            pt.x + radiusMercator, pt.y + radiusMercator);
+        m2::RectD pointRect(pt.x - radiusMercator, pt.y - radiusMercator, pt.x + radiusMercator, pt.y + radiusMercator);
         if (screen.ClipRect().IsIntersect(pointRect))
         {
           dp::Color const color = CalculatePointColor(it.GetIndex(), pt, lengthFromStart, fullLength);
           m2::PointD const convertedPt = MapShape::ConvertToLocal(pt, m_pivot, kShapeCoordScalar);
-          m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second,
-                                                     convertedPt, m_radius, color);
+          m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, convertedPt, m_radius, color);
           m_handlesCache[cacheIndex].second++;
           if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
             cacheIndex++;
@@ -271,8 +260,8 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
       for (size_t i = 0; i < m_points.size(); i++)
       {
         m2::PointD const convertedPt = MapShape::ConvertToLocal(m_points[i].m_point, m_pivot, kShapeCoordScalar);
-        m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, convertedPt,
-                                                   m_radius * 1.2, dp::Color(0, 0, 255, 255));
+        m_handlesCache[cacheIndex].first->SetPoint(m_handlesCache[cacheIndex].second, convertedPt, m_radius * 1.2,
+                                                   dp::Color(0, 0, 255, 255));
         m_handlesCache[cacheIndex].second++;
         if (m_handlesCache[cacheIndex].second >= m_handlesCache[cacheIndex].first->GetPointsCount())
           cacheIndex++;
@@ -308,10 +297,8 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
   mng->GetParamsSetter()->Apply(context, program, params);
 
   for (size_t i = 0; i < m_renderData.size(); i++)
-  {
     if (m_handlesCache[i].second != 0)
       m_renderData[i]->m_bucket->Render(context, state.GetDrawAsLine());
-  }
 }
 
 void GpsTrackRenderer::Update()

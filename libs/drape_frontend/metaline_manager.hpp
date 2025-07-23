@@ -18,8 +18,7 @@ class ThreadsCommutator;
 class MetalineManager
 {
 public:
-  MetalineManager(ref_ptr<ThreadsCommutator> commutator,
-                  MapDataProvider & model);
+  MetalineManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model);
   ~MetalineManager();
 
   void Stop();

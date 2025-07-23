@@ -16,8 +16,8 @@ auto constexpr kDefaultTrackColor = 0x006ec7ff;
 template <typename Channel>
 uint32_t ToRGBA(Channel red, Channel green, Channel blue, Channel alpha)
 {
-  return static_cast<uint8_t>(red) << 24 | static_cast<uint8_t>(green) << 16 |
-         static_cast<uint8_t>(blue) << 8 | static_cast<uint8_t>(alpha);
+  return static_cast<uint8_t>(red) << 24 | static_cast<uint8_t>(green) << 16 | static_cast<uint8_t>(blue) << 8 |
+         static_cast<uint8_t>(alpha);
 }
 
 std::string PointToString(m2::PointD const & org, char const separator);
@@ -28,11 +28,11 @@ std::string PointToGxString(geometry::PointWithAltitude const & pt);
 void SaveStringWithCDATA(Writer & writer, std::string s);
 std::string const * GetDefaultLanguage(LocalizableString const & lstr);
 
-std::string_view constexpr kIndent0 {};
-std::string_view constexpr kIndent2 {"  "};
-std::string_view constexpr kIndent4 {"    "};
-std::string_view constexpr kIndent6 {"      "};
-std::string_view constexpr kIndent8 {"        "};
-std::string_view constexpr kIndent10 {"          "};
+std::string_view constexpr kIndent0{};
+std::string_view constexpr kIndent2{"  "};
+std::string_view constexpr kIndent4{"    "};
+std::string_view constexpr kIndent6{"      "};
+std::string_view constexpr kIndent8{"        "};
+std::string_view constexpr kIndent10{"          "};
 
 }  // namespace kml

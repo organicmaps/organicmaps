@@ -6,7 +6,9 @@
 namespace generator
 {
 // This class allows you to work with a group of filters as with one.
-class FilterCollection : public CollectionBase<std::shared_ptr<FilterInterface>>, public FilterInterface
+class FilterCollection
+  : public CollectionBase<std::shared_ptr<FilterInterface>>
+  , public FilterInterface
 {
 public:
   // FilterInterface overrides:

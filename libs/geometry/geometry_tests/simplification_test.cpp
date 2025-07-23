@@ -20,8 +20,7 @@ using namespace std;
 using P = m2::PointD;
 using DistanceFn = m2::SquaredDistanceFromSegmentToPoint;
 using PointOutput = base::BackInsertFunctor<vector<m2::PointD>>;
-using SimplifyFn = void (*)(m2::PointD const *, m2::PointD const *, double, DistanceFn,
-                            PointOutput);
+using SimplifyFn = void (*)(m2::PointD const *, m2::PointD const *, double, DistanceFn, PointOutput);
 
 struct LargePolylineTestData
 {
@@ -67,14 +66,12 @@ void TestSimplificationOfPoly(m2::PointD const * points, size_t count, SimplifyF
   }
 }
 
-void SimplifyNearOptimal10(m2::PointD const * f, m2::PointD const * l, double e, DistanceFn distFn,
-                           PointOutput out)
+void SimplifyNearOptimal10(m2::PointD const * f, m2::PointD const * l, double e, DistanceFn distFn, PointOutput out)
 {
   SimplifyNearOptimal(10, f, l, e, distFn, out);
 }
 
-void SimplifyNearOptimal20(m2::PointD const * f, m2::PointD const * l, double e, DistanceFn distFn,
-                           PointOutput out)
+void SimplifyNearOptimal20(m2::PointD const * f, m2::PointD const * l, double e, DistanceFn distFn, PointOutput out)
 {
   SimplifyNearOptimal(20, f, l, e, distFn, out);
 }
@@ -106,30 +103,39 @@ UNIT_TEST(Simplification_TestDataIsCorrect)
   TEST_EQUAL(LargePolylineTestData::m_Size, 5539, ());
 }
 
-UNIT_TEST(Simplification_DP_Smoke) { TestSimplificationSmoke(&SimplifyDP<DistanceFn>); }
+UNIT_TEST(Simplification_DP_Smoke)
+{
+  TestSimplificationSmoke(&SimplifyDP<DistanceFn>);
+}
 
-UNIT_TEST(Simplification_DP_Line) { TestSimplificationOfLine(&SimplifyDP<DistanceFn>); }
+UNIT_TEST(Simplification_DP_Line)
+{
+  TestSimplificationOfLine(&SimplifyDP<DistanceFn>);
+}
 
 UNIT_TEST(Simplification_DP_Polyline)
 {
-  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
-                           &SimplifyDP<DistanceFn>);
+  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size, &SimplifyDP<DistanceFn>);
 }
 
-UNIT_TEST(Simplification_Opt_Smoke) { TestSimplificationSmoke(&SimplifyNearOptimal10); }
+UNIT_TEST(Simplification_Opt_Smoke)
+{
+  TestSimplificationSmoke(&SimplifyNearOptimal10);
+}
 
-UNIT_TEST(Simplification_Opt_Line) { TestSimplificationOfLine(&SimplifyNearOptimal10); }
+UNIT_TEST(Simplification_Opt_Line)
+{
+  TestSimplificationOfLine(&SimplifyNearOptimal10);
+}
 
 UNIT_TEST(Simplification_Opt10_Polyline)
 {
-  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
-                           &SimplifyNearOptimal10);
+  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size, &SimplifyNearOptimal10);
 }
 
 UNIT_TEST(Simplification_Opt20_Polyline)
 {
-  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
-                           &SimplifyNearOptimal20);
+  TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size, &SimplifyNearOptimal20);
 }
 
 UNIT_TEST(Simpfication_DP_DegenerateTrg)
@@ -137,9 +143,8 @@ UNIT_TEST(Simpfication_DP_DegenerateTrg)
   P arr1[] = {P(0, 0), P(100, 100), P(100, 500), P(0, 600)};
   CheckDPStrict(arr1, ARRAY_SIZE(arr1), 1.0, 4);
 
-  P arr2[] = {P(0, 0),       P(100, 100),   P(100.1, 150), P(100.2, 200),
-              P(100.3, 250), P(100.4, 300), P(100.3, 350), P(100.2, 400),
-              P(100.1, 450), P(100, 500),   P(0, 600)};
+  P arr2[] = {P(0, 0),       P(100, 100),   P(100.1, 150), P(100.2, 200), P(100.3, 250), P(100.4, 300),
+              P(100.3, 350), P(100.2, 400), P(100.1, 450), P(100, 500),   P(0, 600)};
   CheckDPStrict(arr2, ARRAY_SIZE(arr2), 1.0, 4);
 }
 }  // namespace simplification_test

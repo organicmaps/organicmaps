@@ -11,7 +11,6 @@
 
 #include "geometry/mercator.hpp"
 
-
 namespace generator
 {
 using namespace feature;
@@ -24,8 +23,7 @@ std::shared_ptr<FeatureMakerBase> FeatureMakerSimple::Clone() const
 void FeatureMakerSimple::ParseParams(FeatureBuilderParams & params, OsmElement & p) const
 {
   auto const & cl = classif();
-  ftype::GetNameAndType(&p, params,
-                        [&cl] (uint32_t type) { return cl.IsTypeValid(type); },
+  ftype::GetNameAndType(&p, params, [&cl](uint32_t type) { return cl.IsTypeValid(type); },
                         [this](OsmElement const * p) { return GetOrigin(*p); });
 }
 
@@ -53,10 +51,8 @@ std::optional<m2::PointD> FeatureMakerSimple::GetOrigin(OsmElement const & e) co
   {
     CHECK(!e.m_members.empty(), (e.m_id));
     for (auto const & m : e.m_members)
-    {
       if (m.m_type == OsmElement::EntityType::Node)
         return ReadNode(m.m_ref);
-    }
 
     for (auto const & m : e.m_members)
     {
@@ -143,17 +139,12 @@ bool FeatureMakerSimple::BuildFromRelation(OsmElement & p, FeatureBuilderParams 
     m_queue.push(std::move(fb));
   };
 
-  helper.GetOuter().ForEachArea(true /* collectID */, [&](auto && pts, auto && ids)
-  {
-    createFB(std::move(pts), ids);
-  });
+  helper.GetOuter().ForEachArea(true /* collectID */, [&](auto && pts, auto && ids) { createFB(std::move(pts), ids); });
 
   return size != m_queue.size();
 }
 
-
-FeatureMaker::FeatureMaker(IDRInterfacePtr const & cache)
-  : FeatureMakerSimple(cache)
+FeatureMaker::FeatureMaker(IDRInterfacePtr const & cache) : FeatureMakerSimple(cache)
 {
   m_placeClass = classif().GetTypeByPath({"place"});
 }
@@ -165,8 +156,7 @@ std::shared_ptr<FeatureMakerBase> FeatureMaker::Clone() const
 
 void FeatureMaker::ParseParams(FeatureBuilderParams & params, OsmElement & p) const
 {
-  ftype::GetNameAndType(&p, params, &feature::IsUsefulType,
-                        [this](OsmElement const * p) { return GetOrigin(*p); });
+  ftype::GetNameAndType(&p, params, &feature::IsUsefulType, [this](OsmElement const * p) { return GetOrigin(*p); });
 }
 
 bool FeatureMaker::BuildFromRelation(OsmElement & p, FeatureBuilderParams const & params)

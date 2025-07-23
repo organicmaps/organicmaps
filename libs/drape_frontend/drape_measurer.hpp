@@ -1,8 +1,8 @@
 #pragma once
 
 #include "drape/drape_diagnostics.hpp"
-#include "drape/utils/gpu_mem_tracker.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
+#include "drape/utils/gpu_mem_tracker.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -10,13 +10,13 @@
 #include "base/timer.hpp"
 
 #include <chrono>
+#include <drape/drape_global.hpp>
 #include <map>
 #include <memory>
 #include <mutex>
 #include <numeric>
-#include <vector>
 #include <unordered_map>
-#include <drape/drape_global.hpp>
+#include <vector>
 
 namespace df
 {

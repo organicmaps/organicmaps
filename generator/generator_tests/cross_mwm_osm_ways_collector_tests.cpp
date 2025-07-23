@@ -32,7 +32,8 @@ std::string const kTmpDirName = "cross_mwm_ways";
 
 std::vector<std::string> const kHighwayUnclassifiedPath = {"highway", "unclassified"};
 std::vector<std::pair<std::string, std::string>> const kHighwayUnclassified = {
-    {"highway", "unclassified"}};
+    {"highway", "unclassified"}
+};
 
 std::string const kOsmWayId_1 = std::to_string(base::MakeOsmWay(1).GetEncodedId());
 std::string const kOsmWayId_2 = std::to_string(base::MakeOsmWay(2).GetEncodedId());
@@ -46,8 +47,7 @@ public:
     classificator::Load();
     auto const targetDir = GetPlatform().WritableDir();
 
-    m_affiliation = std::make_shared<feature::CountriesFilesAffiliation>(
-          targetDir, true /*haveBordersForWholeWorld*/);
+    m_affiliation = std::make_shared<feature::CountriesFilesAffiliation>(targetDir, true /*haveBordersForWholeWorld*/);
 
     auto const intermediateDir = base::JoinPath(targetDir, kTmpDirName);
     if (!Platform::MkDirChecked(intermediateDir))
@@ -96,19 +96,14 @@ public:
   // osmId crossMwmSegmentsNumber [crossMwmSegmentsId forwardIsEnter]+
   void Checker()
   {
-    std::vector<std::string> answersFor_RomaniaNorth_West = {
-        kOsmWayId_1 + " 1 1 0 ", kOsmWayId_2 + " 1 0 0 "};
+    std::vector<std::string> answersFor_RomaniaNorth_West = {kOsmWayId_1 + " 1 1 0 ", kOsmWayId_2 + " 1 0 0 "};
 
-    std::vector<std::string> answersFor_Hungary_Northern_Great_Plain = {
-        kOsmWayId_1 + " 1 1 1 ", kOsmWayId_2 + " 1 0 1 "};
+    std::vector<std::string> answersFor_Hungary_Northern_Great_Plain = {kOsmWayId_1 + " 1 1 1 ",
+                                                                        kOsmWayId_2 + " 1 0 1 "};
 
-    std::vector<std::string> answersFor_Russia_Moscow = {
-        kOsmWayId_3 + " 1 0 1 "
-    };
+    std::vector<std::string> answersFor_Russia_Moscow = {kOsmWayId_3 + " 1 0 1 "};
 
-    std::vector<std::string> answersFor_Russia_Moscow_Oblast_West = {
-        kOsmWayId_3 + " 1 0 0 "
-    };
+    std::vector<std::string> answersFor_Russia_Moscow_Oblast_West = {kOsmWayId_3 + " 1 0 0 "};
 
     Check("Romania_North_West", answersFor_RomaniaNorth_West);
     Check("Hungary_Northern Great Plain", answersFor_Hungary_Northern_Great_Plain);
@@ -123,10 +118,7 @@ feature::FeatureBuilder CreateFeatureBuilderFromOsmWay(uint64_t osmId, std::vect
   fb.AddOsmId(base::MakeOsmWay(osmId));
 
   std::vector<m2::PointD> points;
-  base::Transform(llPoints, std::back_inserter(points), [](ms::LatLon const & ll)
-  {
-    return mercator::FromLatLon(ll);
-  });
+  base::Transform(llPoints, std::back_inserter(points), [](ms::LatLon const & ll) { return mercator::FromLatLon(ll); });
   fb.AssignPoints(std::move(points));
   fb.SetLinear();
 
@@ -138,7 +130,7 @@ void AddOsmWayByPoints(uint64_t osmId, std::vector<ms::LatLon> const & points,
                        std::shared_ptr<CollectorInterface> const & collection)
 {
   collection->CollectFeature(CreateFeatureBuilderFromOsmWay(osmId, points),
-      MakeOsmElement(osmId, kHighwayUnclassified, OsmElement::EntityType::Way));
+                             MakeOsmElement(osmId, kHighwayUnclassified, OsmElement::EntityType::Way));
 }
 
 void AppendFirstWayFromRomaniaToHungary(std::shared_ptr<CollectorInterface> const & collection)
@@ -215,7 +207,8 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Lithuania_Belarus_Kamenny_Log)
   TEST_EQUAL(countries.size(), 1, ());
 
   // https://www.openstreetmap.org/way/614091318 should present in Lithuania and Belarus
-  AddOsmWayByPoints(1, {
+  AddOsmWayByPoints(1,
+                    {
                         {54.5460103, 25.6945156},
                         {54.5454276, 25.6952895},
                         {54.5453567, 25.6953987},
@@ -223,7 +216,8 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Lithuania_Belarus_Kamenny_Log)
                         {54.5443252, 25.6994996},
                         {54.5443107, 25.6995562}, // 5 segId starts here
                         connected
-                    }, collection);
+  },
+                    collection);
 
   collection->Finalize();
 
@@ -240,23 +234,27 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Belarus_Lithuania_Kamenny_Log)
   TEST_EQUAL(countries.size(), 2, ());
 
   // https://www.openstreetmap.org/way/533044131
-  AddOsmWayByPoints(1, {
+  AddOsmWayByPoints(1,
+                    {
                         {54.5442277, 25.7001698},
                         {54.5442419, 25.7001125},
                         connected,
-                    }, collection);
+  },
+                    collection);
 
   // https://www.openstreetmap.org/way/489294139
-  AddOsmWayByPoints(2, {
+  AddOsmWayByPoints(2,
+                    {
                         connected,
                         {54.5443587, 25.6996293},
                         {54.5443765, 25.6995660},
-                    }, collection);
+  },
+                    collection);
 
   collection->Finalize();
 
   Check("Belarus_Hrodna Region", {kOsmWayId_1 + " 1 1 0 ", kOsmWayId_2 + " 2 0 1 1 0 "});
-  Check("Lithuania_East",        {kOsmWayId_1 + " 1 1 1 ", kOsmWayId_2 + " 2 0 1 1 1 "});
+  Check("Lithuania_East", {kOsmWayId_1 + " 1 1 1 ", kOsmWayId_2 + " 2 0 1 1 1 "});
 }
 
 }  // namespace cross_mwm_osm_ways_collector_tests

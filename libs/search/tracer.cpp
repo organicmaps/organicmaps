@@ -27,8 +27,7 @@ Tracer::Parse::Parse(vector<TokenType> const & types, bool category) : m_categor
   }
 }
 
-Tracer::Parse::Parse(vector<pair<TokenType, TokenRange>> const & ranges, bool category)
-  : m_category(category)
+Tracer::Parse::Parse(vector<pair<TokenType, TokenRange>> const & ranges, bool category) : m_category(category)
 {
   for (auto const & kv : ranges)
     m_ranges[kv.first] = kv.second;
@@ -43,9 +42,15 @@ vector<Tracer::Parse> Tracer::GetUniqueParses() const
 }
 
 // ResultTracer ------------------------------------------------------------------------------------
-void ResultTracer::Clear() { m_provenance.clear(); }
+void ResultTracer::Clear()
+{
+  m_provenance.clear();
+}
 
-void ResultTracer::CallMethod(Branch branch) { m_provenance.emplace_back(branch); }
+void ResultTracer::CallMethod(Branch branch)
+{
+  m_provenance.emplace_back(branch);
+}
 
 void ResultTracer::LeaveMethod(Branch branch)
 {
@@ -94,8 +99,7 @@ string DebugPrint(ResultTracer::Branch branch)
   case ResultTracer::Branch::MatchAroundPivot: return "MatchAroundPivot";
   case ResultTracer::Branch::MatchPOIsAndBuildings: return "MatchPOIsAndBuildings";
   case ResultTracer::Branch::GreedilyMatchStreets: return "GreedilyMatchStreets";
-  case ResultTracer::Branch::GreedilyMatchStreetsWithSuburbs:
-    return "GreedilyMatchStreetsWithSuburbs";
+  case ResultTracer::Branch::GreedilyMatchStreetsWithSuburbs: return "GreedilyMatchStreetsWithSuburbs";
   case ResultTracer::Branch::WithPostcodes: return "WithPostcodes";
   case ResultTracer::Branch::MatchUnclassified: return "MatchUnclassified";
   case ResultTracer::Branch::Relaxed: return "Relaxed";

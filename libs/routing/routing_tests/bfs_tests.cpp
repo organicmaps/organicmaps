@@ -90,14 +90,13 @@ UNIT_TEST(BFS_AllVisit_Undirected)
   std::set<uint32_t> visited;
 
   BFS<UndirectedGraph> bfs(graph);
-  bfs.Run(0 /* start */, true /* isOutgoing */,
-      [&](BFS<UndirectedGraph>::State const & state)
-      {
-        visited.emplace(state.m_vertex);
-        return true;
-      });
+  bfs.Run(0 /* start */, true /* isOutgoing */, [&](BFS<UndirectedGraph>::State const & state)
+  {
+    visited.emplace(state.m_vertex);
+    return true;
+  });
 
-  std::vector<uint32_t> const expectedInVisited = {1, 2, 3, 4 ,5, 6, 7, 8, 9, 10};
+  std::vector<uint32_t> const expectedInVisited = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   for (auto const v : expectedInVisited)
     TEST_NOT_EQUAL(visited.count(v), 0, ("vertex =", v, "was not visited."));
 }
@@ -109,12 +108,11 @@ UNIT_TEST(BFS_AllVisit_Directed_Forward)
   std::set<uint32_t> visited;
 
   BFS<DirectedGraph> bfs(graph);
-  bfs.Run(0 /* start */, true /* isOutgoing */,
-          [&](BFS<DirectedGraph>::State const & state)
-          {
-            visited.emplace(state.m_vertex);
-            return true;
-          });
+  bfs.Run(0 /* start */, true /* isOutgoing */, [&](BFS<DirectedGraph>::State const & state)
+  {
+    visited.emplace(state.m_vertex);
+    return true;
+  });
 
   std::vector<uint32_t> const expectedInVisited = {1, 2, 3, 4};
   for (auto const v : expectedInVisited)
@@ -128,12 +126,11 @@ UNIT_TEST(BFS_AllVisit_Directed_Backward)
   std::set<uint32_t> visited;
 
   BFS<DirectedGraph> bfs(graph);
-  bfs.Run(2 /* start */, false /* isOutgoing */,
-          [&](BFS<DirectedGraph>::State const & state)
-          {
-            visited.emplace(state.m_vertex);
-            return true;
-          });
+  bfs.Run(2 /* start */, false /* isOutgoing */, [&](BFS<DirectedGraph>::State const & state)
+  {
+    visited.emplace(state.m_vertex);
+    return true;
+  });
 
   std::vector<uint32_t> expectedInVisited = {0, 3, 4, 5, 7};
   for (auto const v : expectedInVisited)
@@ -147,12 +144,11 @@ UNIT_TEST(BFS_AllVisit_DirectedCyclic)
   std::set<uint32_t> visited;
 
   BFS<DirectedGraph> bfs(graph);
-  bfs.Run(0 /* start */, true /* isOutgoing */,
-          [&](BFS<DirectedGraph>::State const & state)
-          {
-            visited.emplace(state.m_vertex);
-            return true;
-          });
+  bfs.Run(0 /* start */, true /* isOutgoing */, [&](BFS<DirectedGraph>::State const & state)
+  {
+    visited.emplace(state.m_vertex);
+    return true;
+  });
 
   std::vector<uint32_t> expectedInVisited = {1, 2, 3, 4};
   for (auto const v : expectedInVisited)
@@ -174,4 +170,4 @@ UNIT_TEST(BFS_ReconstructPathTest)
   expected = {2, 1, 0};
   TEST_EQUAL(path, expected, ());
 }
-} //  namespace routing_test
+}  //  namespace routing_test

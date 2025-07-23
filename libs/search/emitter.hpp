@@ -37,8 +37,8 @@ public:
     if (m_prevEmitSize == newCount && !force)
       return;
 
-    LOG(LINFO, ("Emitting a new batch of results:", newCount - m_prevEmitSize, ",",
-        m_timer.ElapsedMilliseconds(), "ms since the search has started."));
+    LOG(LINFO, ("Emitting a new batch of results:", newCount - m_prevEmitSize, ",", m_timer.ElapsedMilliseconds(),
+                "ms since the search has started."));
     m_prevEmitSize = m_results.GetCount();
 
     m_onResults(m_results);

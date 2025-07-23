@@ -23,8 +23,7 @@ bool LEQ(size_t a1, size_t a2, size_t a3, size_t b1, size_t b2, size_t b3)
 // Actually this is a counting sort, but the name RadixSort is used
 // here to keep the correspondence with the article about Skew|DC3.
 template <typename Values>
-void RadixSort(size_t numKeys, size_t const * keys, size_t numValues, Values const & values,
-               size_t * resultKeys)
+void RadixSort(size_t numKeys, size_t const * keys, size_t numValues, Values const & values, size_t * resultKeys)
 {
   std::vector<size_t> count(numValues, 0);
   for (size_t i = 0; i < numKeys; ++i)
@@ -39,7 +38,10 @@ void RadixSort(size_t numKeys, size_t const * keys, size_t numValues, Values con
     resultKeys[--count[values[keys[i]]]] = keys[i];
 }
 
-bool InLeftHalf(size_t middle, size_t pos) { return pos < middle; }
+bool InLeftHalf(size_t middle, size_t pos)
+{
+  return pos < middle;
+}
 
 size_t RestoreIndex(size_t middle, size_t pos)
 {
@@ -128,10 +130,8 @@ void RawSkew(size_t n, size_t maxValue, S const & s, size_t * sa)
   // should be the same as the number of =0 (mod 3) suffixes. That's
   // why we need that s[n] = s[n + 1] = s[n + 2] = 0.
   for (size_t i = 0, j = 0; i < n + fake1; ++i)
-  {
     if (i % 3 != 0)
       s12[j++] = i;
-  }
 
   // Following three lines perform a stable sorting of all triples
   // <s[i], s[i + 1], s[i + 2]> where i =(1|2) (mod 3), including
@@ -187,10 +187,8 @@ void RawSkew(size_t n, size_t maxValue, S const & s, size_t * sa)
   std::vector<size_t> s0(n0);
   std::vector<size_t> sa0(n0);
   for (size_t i = 0, j = 0; i < n02; ++i)
-  {
     if (sa12[i] < n0)
       s0[j++] = 3 * sa12[i];
-  }
 
   // s0 is pre-sorted now in accordance with their tails (=1 (mod 3)
   // suffixes). For full sorting we need to do a stable sort =0 (mod
@@ -211,10 +209,9 @@ void RawSkew(size_t n, size_t maxValue, S const & s, size_t * sa)
     size_t const p12 = RestoreIndex(n0, sa12[i12]);
     ASSERT_LESS(p12 / 3, n0, ());
 
-    bool const isLEQ =
-        InLeftHalf(n0, sa12[i12])
-            ? LEQ(s[p12], s12[sa12[i12] + n0], s[p0], s12[p0 / 3])
-            : LEQ(s[p12], s[p12 + 1], s12[sa12[i12] - n0 + 1], s[p0], s[p0 + 1], s12[p0 / 3 + n0]);
+    bool const isLEQ = InLeftHalf(n0, sa12[i12])
+                         ? LEQ(s[p12], s12[sa12[i12] + n0], s[p0], s12[p0 / 3])
+                         : LEQ(s[p12], s[p12 + 1], s12[sa12[i12] - n0 + 1], s[p0], s[p0 + 1], s12[p0 / 3 + n0]);
 
     if (isLEQ)
     {

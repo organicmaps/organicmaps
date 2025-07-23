@@ -175,7 +175,8 @@ UNIT_TEST(CellId_LessQueueOrder)
     }
     sort(tst.begin(), tst.end(), m2::CellId<4>::LessLevelOrder());
     TEST_EQUAL(tst, exp, ());
-  } while (next_permutation(e.begin(), e.end()));
+  }
+  while (next_permutation(e.begin(), e.end()));
 }
 
 UNIT_TEST(CellId_LessStackOrder)
@@ -199,7 +200,8 @@ UNIT_TEST(CellId_LessStackOrder)
     }
     sort(tst.begin(), tst.end(), m2::CellId<4>::LessPreOrder());
     TEST_EQUAL(tst, exp, ());
-  } while (next_permutation(e.begin(), e.end()));
+  }
+  while (next_permutation(e.begin(), e.end()));
 }
 
 UNIT_TEST(CellId_IsStringValid)
@@ -228,27 +230,8 @@ UNIT_TEST(CellId_ToAndFromInt64ZOrder)
   }
 
   vector<string> const atDepth3 = {
-    "",
-    "0",
-    "00",
-    "01",
-    "02",
-    "03",
-    "1",
-    "10",
-    "11",
-    "12",
-    "13",
-    "2",
-    "20",
-    "21",
-    "22",
-    "23",
-    "3",
-    "30",
-    "31",
-    "32",
-    "33",
+      "",  "0",  "00", "01", "02", "03", "1",  "10", "11", "12", "13",
+      "2", "20", "21", "22", "23", "3",  "30", "31", "32", "33",
   };
 
   for (uint64_t id = 1; id <= atDepth3.size(); ++id)

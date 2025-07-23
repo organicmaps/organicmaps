@@ -9,22 +9,16 @@ namespace df
 class MapScaleAnimation : public Animation
 {
 public:
-  MapScaleAnimation(double startScale, double endScale,
-                    m2::PointD const & globalScaleCenter, m2::PointD const & pxScaleCenter);
+  MapScaleAnimation(double startScale, double endScale, m2::PointD const & globalScaleCenter,
+                    m2::PointD const & pxScaleCenter);
 
   void Init(ScreenBase const & screen, TPropertyCache const & properties) override;
 
   Animation::Type GetType() const override { return Animation::Type::MapScale; }
 
-  TAnimObjects const & GetObjects() const override
-  {
-    return m_objects;
-  }
+  TAnimObjects const & GetObjects() const override { return m_objects; }
 
-  bool HasObject(Object object) const override
-  {
-    return object == Animation::Object::MapPlane;
-  }
+  bool HasObject(Object object) const override { return object == Animation::Object::MapPlane; }
 
   TObjectProperties const & GetProperties(Object object) const override;
   bool HasProperty(Object object, ObjectProperty property) const override;
@@ -52,5 +46,4 @@ private:
   TAnimObjects m_objects;
 };
 
-} // namespace df
-
+}  // namespace df

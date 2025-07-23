@@ -2,8 +2,8 @@
 
 #include "routing/routing_tests/road_graph_builder.hpp"
 
-#include "routing/road_graph.hpp"
 #include "routing/nearest_edge_finder.hpp"
+#include "routing/road_graph.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
 
@@ -27,8 +27,7 @@ void TestNearestOnMock1(m2::PointD const & point, size_t const candidatesCount,
   for (size_t i = 0; i < graph->GetRoadCount(); ++i)
   {
     FeatureID const featureId = MakeTestFeatureID(base::checked_cast<uint32_t>(i));
-    auto const & roadInfo =
-        graph->GetRoadInfo(featureId, {true /* forward */, false /* in city */, Maxspeed()});
+    auto const & roadInfo = graph->GetRoadInfo(featureId, {true /* forward */, false /* in city */, Maxspeed()});
     finder.AddInformationSource(IRoadGraph::FullRoadInfo(featureId, roadInfo));
   }
 

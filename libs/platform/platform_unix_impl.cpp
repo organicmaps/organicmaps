@@ -1,5 +1,5 @@
-#include "platform/platform.hpp"
 #include "platform/platform_unix_impl.hpp"
+#include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
@@ -11,14 +11,14 @@
 #include <regex>
 
 #include <dirent.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
-  #include <sys/mount.h>
+#include <sys/mount.h>
 #else
-  #include <sys/vfs.h>
+#include <sys/vfs.h>
 #endif
 
 using namespace std;
@@ -66,7 +66,7 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
 }
 
 #if !defined(OMIM_OS_IPHONE)
-//static
+// static
 void Platform::DisableBackupForFile(string const & /*filePath*/) {}
 #endif
 
@@ -106,7 +106,8 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
     size = s.st_size;
     return true;
   }
-  else return false;
+  else
+    return false;
 }
 
 Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize) const
@@ -114,9 +115,7 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
   struct statfs st;
   int const ret = statfs(m_writableDir.c_str(), &st);
 
-  LOG(LINFO, ("statfs return =", ret,
-               "; block size =", st.f_bsize,
-               "; blocks available =", st.f_bavail));
+  LOG(LINFO, ("statfs return =", ret, "; block size =", st.f_bsize, "; blocks available =", st.f_bavail));
 
   if (ret != 0)
   {

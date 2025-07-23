@@ -30,8 +30,7 @@ void BatteryLevelTracker::Subscribe(Subscriber * subscriber)
 
 void BatteryLevelTracker::Unsubscribe(Subscriber * subscriber)
 {
-  m_subscribers.erase(std::remove(m_subscribers.begin(), m_subscribers.end(), subscriber),
-                      m_subscribers.end());
+  m_subscribers.erase(std::remove(m_subscribers.begin(), m_subscribers.end(), subscriber), m_subscribers.end());
 }
 
 void BatteryLevelTracker::UnsubscribeAll()
@@ -54,16 +53,9 @@ void BatteryLevelTracker::RequestBatteryLevel()
   }
 
   for (auto s : m_subscribers)
-  {
     s->OnBatteryLevelReceived(m_lastReceivedLevel);
-  }
 
   GetPlatform().RunDelayedTask(Platform::Thread::Background, kBatteryTrackingInterval, [this]
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this]
-    {
-      RequestBatteryLevel();
-    });
-  });
+  { GetPlatform().RunTask(Platform::Thread::Gui, [this] { RequestBatteryLevel(); }); });
 }
 }  // namespace platform

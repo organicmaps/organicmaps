@@ -25,15 +25,12 @@ namespace dp
 std::string DebugPrint(HWTexture::Params const & p)
 {
   std::ostringstream ss;
-  ss << "Width = " << p.m_width
-     << "; Height = " << p.m_height
-     << "; Format = " << DebugPrint(p.m_format)
+  ss << "Width = " << p.m_width << "; Height = " << p.m_height << "; Format = " << DebugPrint(p.m_format)
      << "; IsRenderTarget = " << p.m_isRenderTarget;
   return ss.str();
 }
 
-void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
-                  glConst & layout, glConst & pixelType)
+void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format, glConst & layout, glConst & pixelType)
 {
   auto const apiVersion = context->GetApiVersion();
   CHECK(apiVersion == dp::ApiVersion::OpenGLES3, ());
@@ -65,9 +62,7 @@ void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
     pixelType = gl_const::GLUnsignedIntType;
     return;
 
-  case TextureFormat::Unspecified:
-    CHECK(false, ());
-    return;
+  case TextureFormat::Unspecified: CHECK(false, ()); return;
   }
   UNREACHABLE();
 }
@@ -121,7 +116,10 @@ void HWTexture::Create(ref_ptr<dp::GraphicsContext>, Params const & params, ref_
 #endif
 }
 
-TextureFormat HWTexture::GetFormat() const { return m_params.m_format; }
+TextureFormat HWTexture::GetFormat() const
+{
+  return m_params.m_format;
+}
 
 uint32_t HWTexture::GetWidth() const
 {
@@ -147,7 +145,10 @@ float HWTexture::GetT(uint32_t y) const
   return y / static_cast<float>(m_params.m_height);
 }
 
-uint32_t HWTexture::GetID() const { return m_textureID; }
+uint32_t HWTexture::GetID() const
+{
+  return m_textureID;
+}
 
 OpenGLHWTexture::~OpenGLHWTexture()
 {
@@ -158,8 +159,7 @@ OpenGLHWTexture::~OpenGLHWTexture()
     GLFunctions::glDeleteBuffer(m_pixelBufferID);
 }
 
-void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-                             ref_ptr<void> data)
+void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data)
 {
   Base::Create(context, params, data);
 
@@ -182,8 +182,7 @@ void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const 
   UnpackFormat(context, m_params.m_format, m_unpackedLayout, m_unpackedPixelType);
 
   auto const f = DecodeTextureFilter(m_params.m_filter);
-  GLFunctions::glTexImage2D(m_params.m_width, m_params.m_height,
-                            m_unpackedLayout, m_unpackedPixelType, data.get());
+  GLFunctions::glTexImage2D(m_params.m_width, m_params.m_height, m_unpackedLayout, m_unpackedPixelType, data.get());
   GLFunctions::glTexParameter(gl_const::GLMinFilter, f);
   GLFunctions::glTexParameter(gl_const::GLMagFilter, f);
   GLFunctions::glTexParameter(gl_const::GLWrapS, DecodeTextureWrapping(m_params.m_wrapSMode));
@@ -193,8 +192,7 @@ void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const 
   {
     m_pixelBufferID = GLFunctions::glGenBuffer();
     GLFunctions::glBindBuffer(m_pixelBufferID, gl_const::GLPixelBufferWrite);
-    GLFunctions::glBufferData(gl_const::GLPixelBufferWrite, m_pixelBufferSize, nullptr,
-                              gl_const::GLDynamicDraw);
+    GLFunctions::glBufferData(gl_const::GLPixelBufferWrite, m_pixelBufferSize, nullptr, gl_const::GLDynamicDraw);
     GLFunctions::glBindBuffer(0, gl_const::GLPixelBufferWrite);
   }
 
@@ -202,8 +200,8 @@ void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const 
   GLFunctions::glFlush();
 }
 
-void OpenGLHWTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
-                                 uint32_t width, uint32_t height, ref_ptr<void> data)
+void OpenGLHWTexture::UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width,
+                                 uint32_t height, ref_ptr<void> data)
 {
   ASSERT(Validate(), ());
   uint32_t const mappingSize = height * width * m_pixelBufferElementSize;

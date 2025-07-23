@@ -17,14 +17,10 @@ bool FeatureMakerBase::Add(OsmElement & element)
   ParseParams(params, element);
   switch (element.m_type)
   {
-  case OsmElement::EntityType::Node:
-    return BuildFromNode(element, params);
-  case OsmElement::EntityType::Way:
-    return BuildFromWay(element, params);
-  case OsmElement::EntityType::Relation:
-    return BuildFromRelation(element, params);
-  default:
-    return false;
+  case OsmElement::EntityType::Node: return BuildFromNode(element, params);
+  case OsmElement::EntityType::Way: return BuildFromWay(element, params);
+  case OsmElement::EntityType::Relation: return BuildFromRelation(element, params);
+  default: return false;
   }
 }
 

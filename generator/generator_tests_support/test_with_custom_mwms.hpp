@@ -75,7 +75,8 @@ public:
   void RegisterLocalMapsByPrefix(std::string const & prefix);
 
 protected:
-  template <class FnT> void RegisterLocalMapsImpl(FnT && check);
+  template <class FnT>
+  void RegisterLocalMapsImpl(FnT && check);
 
   static void Cleanup(platform::LocalCountryFile const & file);
 

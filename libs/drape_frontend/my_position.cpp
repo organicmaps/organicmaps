@@ -13,7 +13,6 @@
 #include "drape/overlay_handle.hpp"
 #include "drape/render_bucket.hpp"
 
-
 namespace df
 {
 namespace mp
@@ -23,10 +22,7 @@ df::ColorConstant const kMyPositionAccuracyColor = "MyPositionAccuracy";
 struct MarkerVertex
 {
   MarkerVertex() = default;
-  MarkerVertex(glsl::vec2 const & normal, glsl::vec2 const & texCoord)
-    : m_normal(normal)
-    , m_texCoord(texCoord)
-  {}
+  MarkerVertex(glsl::vec2 const & normal, glsl::vec2 const & texCoord) : m_normal(normal), m_texCoord(texCoord) {}
 
   glsl::vec2 m_normal;
   glsl::vec2 m_texCoord;
@@ -108,7 +104,7 @@ void MyPosition::RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gp
 {
   m2::PointD accuracyPoint(m_position.x + m_accuracy, m_position.y);
   auto const pixelAccuracy =
-    static_cast<float>((screen.GtoP(accuracyPoint) - screen.GtoP(m2::PointD(m_position))).Length());
+      static_cast<float>((screen.GtoP(accuracyPoint) - screen.GtoP(m2::PointD(m_position))).Length());
 
   gpu::ShapesProgramParams params;
   frameValues.SetTo(params);
@@ -117,7 +113,7 @@ void MyPosition::RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gp
   params.m_modelView = glsl::make_mat4(mv.m_data);
 
   auto const pos = static_cast<m2::PointF>(
-    MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
+      MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
   params.m_position = glsl::vec3(pos.x, pos.y, 0.0f);
   params.m_accuracy = pixelAccuracy;
   RenderPart(context, mng, params, MyPositionAccuracy);
@@ -142,15 +138,14 @@ void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<
     params.m_modelView = glsl::make_mat4(mv.m_data);
 
     auto const pos = static_cast<m2::PointF>(
-      MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
+        MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
     params.m_position = glsl::vec3(pos.x, pos.y, dp::depth::kMyPositionMarkDepth);
     params.m_azimut = -(m_azimuth + static_cast<float>(screen.GetAngle()));
     RenderPart(context, mng, params, MyPositionPoint);
   }
 }
 
-void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
-                                     ref_ptr<dp::TextureManager> mng)
+void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
 {
   size_t constexpr kTriangleCount = 40;
   size_t constexpr kVertexCount = 3 * kTriangleCount;
@@ -180,8 +175,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
   {
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
     batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
-    dp::SessionGuard guard(context, batcher,
-      [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher, [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
@@ -193,26 +187,22 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
     dp::AttributeProvider provider(1 /* stream count */, kVertexCount);
     provider.InitStream(0 /* stream index */, mp::GetMarkerBindingInfo(), make_ref(buffer.data()));
 
-    m_parts[MyPositionAccuracy].first = batcher.InsertTriangleList(context, state,
-                                                                   make_ref(&provider), nullptr);
+    m_parts[MyPositionAccuracy].first = batcher.InsertTriangleList(context, state, make_ref(&provider), nullptr);
     ASSERT(m_parts[MyPositionAccuracy].first.IsValid(), ());
   }
 }
 
-void MyPosition::CacheSymbol(ref_ptr<dp::GraphicsContext> context,
-                             dp::TextureManager::SymbolRegion const & symbol,
-                             dp::RenderState const & state, dp::Batcher & batcher,
-                             EMyPositionPart part)
+void MyPosition::CacheSymbol(ref_ptr<dp::GraphicsContext> context, dp::TextureManager::SymbolRegion const & symbol,
+                             dp::RenderState const & state, dp::Batcher & batcher, EMyPositionPart part)
 {
   m2::RectF const & texRect = symbol.GetTexRect();
   m2::PointF const halfSize = symbol.GetPixelSize() * 0.5f;
 
-  mp::MarkerVertex data[4] =
-  {
-    { glsl::vec2(-halfSize.x,  halfSize.y), glsl::ToVec2(texRect.LeftTop()) },
-    { glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom()) },
-    { glsl::vec2( halfSize.x,  halfSize.y), glsl::ToVec2(texRect.RightTop()) },
-    { glsl::vec2( halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom())}
+  mp::MarkerVertex data[4] = {
+      {glsl::vec2(-halfSize.x,  halfSize.y),     glsl::ToVec2(texRect.LeftTop())},
+      {glsl::vec2(-halfSize.x, -halfSize.y),  glsl::ToVec2(texRect.LeftBottom())},
+      { glsl::vec2(halfSize.x,  halfSize.y),    glsl::ToVec2(texRect.RightTop())},
+      { glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom())}
   };
 
   dp::AttributeProvider provider(1 /* streamCount */, dp::Batcher::VertexPerQuad);
@@ -232,13 +222,12 @@ void MyPosition::CachePointPosition(ref_ptr<dp::GraphicsContext> context, ref_pt
   state.SetColorTexture(pointSymbol.GetTexture());
   state.SetTextureIndex(pointSymbol.GetTextureIndex());
 
-  dp::TextureManager::SymbolRegion * symbols[kSymbolsCount] = { &pointSymbol };
-  EMyPositionPart partIndices[kSymbolsCount] = { MyPositionPoint };
+  dp::TextureManager::SymbolRegion * symbols[kSymbolsCount] = {&pointSymbol};
+  EMyPositionPart partIndices[kSymbolsCount] = {MyPositionPoint};
   {
     dp::Batcher batcher(kSymbolsCount * dp::Batcher::IndexPerQuad, kSymbolsCount * dp::Batcher::VertexPerQuad);
     batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
-    dp::SessionGuard guard(context, batcher,
-      [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher, [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());

@@ -14,20 +14,11 @@ namespace
 {
 struct LessCoverageCell
 {
-  bool operator()(std::shared_ptr<TileInfo> const & l,
-                  TileKey const & r) const
-  {
-    return l->GetTileKey() < r;
-  }
+  bool operator()(std::shared_ptr<TileInfo> const & l, TileKey const & r) const { return l->GetTileKey() < r; }
 
-  bool operator()(TileKey const & l,
-                  std::shared_ptr<TileInfo> const & r) const
-  {
-    return l < r->GetTileKey();
-  }
+  bool operator()(TileKey const & l, std::shared_ptr<TileInfo> const & r) const { return l < r->GetTileKey(); }
 
-  bool operator()(std::shared_ptr<TileInfo> const & l,
-                  std::shared_ptr<TileInfo> const & r) const
+  bool operator()(std::shared_ptr<TileInfo> const & l, std::shared_ptr<TileInfo> const & r) const
   {
     return l->GetTileKey() < r->GetTileKey();
   }
@@ -40,8 +31,8 @@ bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l
   return *l < *r;
 }
 
-ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
-                         bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled)
+ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings,
+                         bool trafficEnabled, bool isolinesEnabled)
   : m_commutator(commutator)
   , m_model(model)
   , m_have3dBuildings(false)
@@ -66,7 +57,7 @@ void ReadManager::Start()
   ASSERT_EQUAL(m_counter, 0, ());
 
   m_pool = make_unique_dp<base::ThreadPool>(kReadingThreadsCount,
-                              std::bind(&ReadManager::OnTaskFinished, this, std::placeholders::_1));
+                                            std::bind(&ReadManager::OnTaskFinished, this, std::placeholders::_1));
 }
 
 void ReadManager::Stop()
@@ -96,8 +87,7 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
     ASSERT_GREATER(m_counter, 0, ());
     if (--m_counter == 0)
     {
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<FinishReadingMessage>(),
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, make_unique_dp<FinishReadingMessage>(),
                                 MessagePriority::Normal);
     }
 
@@ -113,10 +103,10 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
 
       m_activeTiles.erase(it);
 
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                make_unique_dp<FinishTileReadMessage>(std::move(tiles),
-                                                                      true /* forceUpdateUserMarks */),
-                                MessagePriority::Normal);
+      m_commutator->PostMessage(
+          ThreadsCommutator::ResourceUploadThread,
+          make_unique_dp<FinishTileReadMessage>(std::move(tiles), true /* forceUpdateUserMarks */),
+          MessagePriority::Normal);
     }
   }
 
@@ -124,11 +114,9 @@ void ReadManager::OnTaskFinished(threads::IRoutine * task)
   m_tasksPool.Return(t);
 }
 
-void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings,
-                                 bool forceUpdate, bool forceUpdateUserMarks,
-                                 TTilesCollection const & tiles,
-                                 ref_ptr<dp::TextureManager> texMng,
-                                 ref_ptr<MetalineManager> metalineMng)
+void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool forceUpdate,
+                                 bool forceUpdateUserMarks, TTilesCollection const & tiles,
+                                 ref_ptr<dp::TextureManager> texMng, ref_ptr<MetalineManager> metalineMng)
 {
   m_modeChanged |= (m_have3dBuildings != have3dBuildings);
   m_have3dBuildings = have3dBuildings;
@@ -152,8 +140,7 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings
   {
     // Find rects that go out from viewport.
     TTileInfoCollection outdatedTiles;
-    std::set_difference(m_tileInfos.begin(), m_tileInfos.end(),
-                        tiles.begin(), tiles.end(),
+    std::set_difference(m_tileInfos.begin(), m_tileInfos.end(), tiles.begin(), tiles.end(),
                         std::back_inserter(outdatedTiles), LessCoverageCell());
 
     for (auto const & info : outdatedTiles)
@@ -161,14 +148,12 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, bool have3dBuildings
 
     // Find rects that go in into viewport.
     buffer_vector<TileKey, 8> newTiles;
-    std::set_difference(tiles.begin(), tiles.end(),
-                        m_tileInfos.begin(), m_tileInfos.end(),
+    std::set_difference(tiles.begin(), tiles.end(), m_tileInfos.begin(), m_tileInfos.end(),
                         std::back_inserter(newTiles), LessCoverageCell());
 
     // Find ready tiles.
     TTileInfoCollection readyTiles;
-    std::set_difference(m_tileInfos.begin(), m_tileInfos.end(),
-                        outdatedTiles.begin(), outdatedTiles.end(),
+    std::set_difference(m_tileInfos.begin(), m_tileInfos.end(), outdatedTiles.begin(), outdatedTiles.end(),
                         std::back_inserter(readyTiles), LessCoverageCell());
 
     IncreaseCounter(newTiles.size());
@@ -188,10 +173,8 @@ void ReadManager::Invalidate(TTilesCollection const & keyStorage)
 {
   TTileSet tilesToErase;
   for (auto const & info : m_tileInfos)
-  {
     if (keyStorage.find(info->GetTileKey()) != keyStorage.end())
       tilesToErase.insert(info);
-  }
 
   for (auto const & info : tilesToErase)
   {
@@ -212,10 +195,8 @@ void ReadManager::InvalidateAll()
 bool ReadManager::CheckTileKey(TileKey const & tileKey) const
 {
   for (auto const & tileInfo : m_tileInfos)
-  {
     if (tileInfo->GetTileKey() == tileKey)
       return !tileInfo->IsCancelled();
-  }
   return false;
 }
 
@@ -226,17 +207,14 @@ bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const
   return (oldScale != newScale) || !m_currentViewport.GlobalRect().IsIntersect(screen.GlobalRect());
 }
 
-void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey,
-                                         ref_ptr<dp::TextureManager> texMng,
+void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey, ref_ptr<dp::TextureManager> texMng,
                                          ref_ptr<MetalineManager> metalineMng)
 {
   ASSERT(m_pool != nullptr, ());
-  auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter,
-                                                       m_userMarksGenerationCounter),
-                                               m_commutator, texMng, metalineMng,
-                                               m_customFeaturesContext,
-                                               m_have3dBuildings && m_allow3dBuildings,
-                                               m_trafficEnabled, m_isolinesEnabled, m_mapLangIndex);
+  auto context = make_unique_dp<EngineContext>(TileKey(tileKey, m_generationCounter, m_userMarksGenerationCounter),
+                                               m_commutator, texMng, metalineMng, m_customFeaturesContext,
+                                               m_have3dBuildings && m_allow3dBuildings, m_trafficEnabled,
+                                               m_isolinesEnabled, m_mapLangIndex);
   std::shared_ptr<TileInfo> tileInfo = std::make_shared<TileInfo>(std::move(context));
   m_tileInfos.insert(tileInfo);
 
@@ -283,8 +261,7 @@ void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles,
   if (!finishedTiles.empty())
   {
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                              make_unique_dp<FinishTileReadMessage>(std::move(finishedTiles),
-                                                                    forceUpdateUserMarks),
+                              make_unique_dp<FinishTileReadMessage>(std::move(finishedTiles), forceUpdateUserMarks),
                               MessagePriority::Normal);
   }
 }
@@ -372,10 +349,8 @@ bool ReadManager::RemoveCustomFeatures(MwmSet::MwmId const & mwmId)
 
   CustomFeatures features;
   for (auto const & s : m_customFeaturesContext->m_features)
-  {
     if (s.first.m_mwmId != mwmId)
       features.insert(s);
-  }
   if (features.size() == m_customFeaturesContext->m_features.size())
     return false;
 
@@ -392,4 +367,4 @@ bool ReadManager::RemoveAllCustomFeatures()
   return true;
 }
 
-} // namespace df
+}  // namespace df

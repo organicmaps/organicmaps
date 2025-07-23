@@ -20,19 +20,17 @@ class ControlFlowWrapper
 public:
   template <typename Gn>
   explicit ControlFlowWrapper(Gn && gn) : m_fn(std::forward<Gn>(gn))
-  {
-  }
+  {}
 
   template <typename... Args>
-  std::enable_if_t<std::is_same_v<std::invoke_result_t<Fn, Args...>, ControlFlow>, ControlFlow>
-  operator()(Args &&... args)
+  std::enable_if_t<std::is_same_v<std::invoke_result_t<Fn, Args...>, ControlFlow>, ControlFlow> operator()(
+      Args &&... args)
   {
     return m_fn(std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  std::enable_if_t<std::is_same_v<std::invoke_result_t<Fn, Args...>, void>, ControlFlow>
-  operator()(Args &&... args)
+  std::enable_if_t<std::is_same_v<std::invoke_result_t<Fn, Args...>, void>, ControlFlow> operator()(Args &&... args)
   {
     m_fn(std::forward<Args>(args)...);
     return ControlFlow::Continue;

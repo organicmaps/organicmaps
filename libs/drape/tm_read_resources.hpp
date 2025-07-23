@@ -44,4 +44,4 @@ inline void ParsePatternsList(std::string const & patternsFile, ToDo && toDo)
   }
 }
 
-} // namespace dp::impl
+}  // namespace dp::impl

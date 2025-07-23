@@ -29,11 +29,9 @@ private:
   std::string const m_countryFileName;
 };
 
-void ConvertRestrictionsOnlyToNo(IndexGraph const & graph,
-                                 RestrictionVec const & restrictionsOnly,
+void ConvertRestrictionsOnlyToNo(IndexGraph const & graph, RestrictionVec const & restrictionsOnly,
                                  RestrictionVec & restrictionsNo);
 
-void ConvertRestrictionsOnlyUTurnToNo(IndexGraph & graph,
-                                      std::vector<RestrictionUTurn> const & restrictionsOnlyUTurn,
+void ConvertRestrictionsOnlyUTurnToNo(IndexGraph & graph, std::vector<RestrictionUTurn> const & restrictionsOnlyUTurn,
                                       RestrictionVec & restrictionsNo);
 }  // namespace routing

@@ -4,8 +4,8 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
-#include "base/logging.hpp"
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #include "cppjansson/cppjansson.hpp"
 
@@ -21,8 +21,8 @@ std::optional<MetaConfig> ParseMetaConfig(std::string const & jsonStr)
   MetaConfig outMetaConfig;
   try
   {
-    const base::Json root(jsonStr.c_str());
-    const json_t * servers;
+    base::Json const root(jsonStr.c_str());
+    json_t const * servers;
     if (json_is_object(root.get()))
     {
       // New format:
@@ -35,13 +35,13 @@ std::optional<MetaConfig> ParseMetaConfig(std::string const & jsonStr)
       // }
 
       json_t * settings = json_object_get(root.get(), kSettings);
-      const char * key;
-      const json_t * value;
+      char const * key;
+      json_t const * value;
       json_object_foreach(settings, key, value)
       {
         if (key == settings::kDonateUrl || key == settings::kNY)
         {
-          const char * valueStr = json_string_value(value);
+          char const * valueStr = json_string_value(value);
           if (value)
             outMetaConfig.m_settings[key] = valueStr;
         }
@@ -79,4 +79,4 @@ std::optional<MetaConfig> ParseMetaConfig(std::string const & jsonStr)
 
   return outMetaConfig;
 }
-} // namespace downloader
+}  // namespace downloader

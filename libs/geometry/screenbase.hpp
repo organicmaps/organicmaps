@@ -122,23 +122,18 @@ public:
 
   /// Compute arbitrary pixel transformation, that translates the (oldPt1, oldPt2) -> (newPt1,
   /// newPt2)
-  static MatrixT CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
-                                     m2::PointD const & newPt1, m2::PointD const & newPt2,
-                                     bool allowRotate, bool allowScale);
+  static MatrixT CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2, m2::PointD const & newPt1,
+                               m2::PointD const & newPt2, bool allowRotate, bool allowScale);
 
   /// Setting GtoP matrix extracts the Angle and m_Org parameters, leaving PixelRect intact
   void SetGtoPMatrix(MatrixT const & m);
 
   /// Extracting parameters from matrix, that is supposed to represent GtoP transformation
-  static void ExtractGtoPParams(MatrixT const & m, double & a, double & s, double & dx,
-                                double & dy);
+  static void ExtractGtoPParams(MatrixT const & m, double & a, double & s, double & dx, double & dy);
 
   bool operator!=(ScreenBase const & src) const { return !(*this == src); }
 
-  bool operator==(ScreenBase const & src) const
-  {
-    return (m_GtoP == src.m_GtoP) && (m_PtoG == src.m_PtoG);
-  }
+  bool operator==(ScreenBase const & src) const { return (m_GtoP == src.m_GtoP) && (m_PtoG == src.m_PtoG); }
 
 private:
   // Used when initializing m_GlobalRect.

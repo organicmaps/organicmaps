@@ -1,12 +1,7 @@
 #import "MWMRoutePoint.h"
 #import "MWMRouterType.h"
 
-typedef NS_ENUM(NSInteger, MWMRoadType) {
-  MWMRoadTypeToll,
-  MWMRoadTypeDirty,
-  MWMRoadTypeFerry,
-  MWMRoadTypeMotorway
-};
+typedef NS_ENUM(NSInteger, MWMRoadType) { MWMRoadTypeToll, MWMRoadTypeDirty, MWMRoadTypeFerry, MWMRoadTypeMotorway };
 
 typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
 
@@ -75,9 +70,8 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *, NSString *);
 - (instancetype)init __attribute__((unavailable("call +router instead")));
 - (instancetype)copy __attribute__((unavailable("call +router instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +router instead")));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
-__attribute__((unavailable("call +router instead")));
-+ (instancetype) new __attribute__((unavailable("call +router instead")));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +router instead")));
++ (instancetype)new __attribute__((unavailable("call +router instead")));
 
 @end
 

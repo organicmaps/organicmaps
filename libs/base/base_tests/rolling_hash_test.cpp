@@ -1,16 +1,16 @@
+#include "base/rolling_hash.hpp"
 #include "testing/benchmark.hpp"
 #include "testing/testing.hpp"
-#include "base/rolling_hash.hpp"
 
 #include "base/base.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
-
 namespace
 {
 
-template <class RollingHasherT> void SmokeTest1RollingHasher()
+template <class RollingHasherT>
+void SmokeTest1RollingHasher()
 {
   typedef typename RollingHasherT::hash_type hash_type;
   RollingHasherT hash;
@@ -18,7 +18,8 @@ template <class RollingHasherT> void SmokeTest1RollingHasher()
   TEST_EQUAL(h0, hash.Scroll('a', 'a'), (sizeof(hash_type)));
 }
 
-template <class RollingHasherT> void SmokeTest2RollingHasher()
+template <class RollingHasherT>
+void SmokeTest2RollingHasher()
 {
   typedef typename RollingHasherT::hash_type hash_type;
   RollingHasherT hash;
@@ -30,12 +31,13 @@ template <class RollingHasherT> void SmokeTest2RollingHasher()
   TEST_EQUAL(hBA, hBA1, (sizeof(hash_type)));
 }
 
-template <class RollingHasherT> void TestRollingHasher()
+template <class RollingHasherT>
+void TestRollingHasher()
 {
   SmokeTest1RollingHasher<RollingHasherT>();
   SmokeTest2RollingHasher<RollingHasherT>();
   //                 01234567890123
-  char const s [] = "abcdefghaabcde";
+  char const s[] = "abcdefghaabcde";
   size_t const len = ARRAY_SIZE(s) - 1;
   for (uint32_t size = 1; size <= 6; ++size)
   {
@@ -49,34 +51,34 @@ template <class RollingHasherT> void TestRollingHasher()
     switch (size)
     {
     case 6:
-      {
-        // Test that there are no collisions.
-        sort(hashes.begin(), hashes.end());
-        TEST(hashes.end() == unique(hashes.begin(), hashes.end()), (size, hashes));
-      }
-      break;
+    {
+      // Test that there are no collisions.
+      sort(hashes.begin(), hashes.end());
+      TEST(hashes.end() == unique(hashes.begin(), hashes.end()), (size, hashes));
+    }
+    break;
     case 1:
-      {
-        TEST_EQUAL(hashes[0], hashes[8], (size, len, sizeof(hash_type)));
-        TEST_EQUAL(hashes[0], hashes[9], (size, len, sizeof(hash_type)));
-        TEST_EQUAL(hashes[1], hashes[10], (size, len, sizeof(hash_type)));
-        TEST_EQUAL(hashes[2], hashes[11], (size, len, sizeof(hash_type)));
-        TEST_EQUAL(hashes[3], hashes[12], (size, len, sizeof(hash_type)));
-        TEST_EQUAL(hashes[4], hashes[13], (size, len, sizeof(hash_type)));
-      }
-      break;
+    {
+      TEST_EQUAL(hashes[0], hashes[8], (size, len, sizeof(hash_type)));
+      TEST_EQUAL(hashes[0], hashes[9], (size, len, sizeof(hash_type)));
+      TEST_EQUAL(hashes[1], hashes[10], (size, len, sizeof(hash_type)));
+      TEST_EQUAL(hashes[2], hashes[11], (size, len, sizeof(hash_type)));
+      TEST_EQUAL(hashes[3], hashes[12], (size, len, sizeof(hash_type)));
+      TEST_EQUAL(hashes[4], hashes[13], (size, len, sizeof(hash_type)));
+    }
+    break;
     default:
-      {
-        for (unsigned int i = 0; i < 6 - size; ++i)
-          TEST_EQUAL(hashes[i], hashes[i + 9], (i, size, len, sizeof(hash_type)));
-        sort(hashes.begin(), hashes.end());
-        TEST((hashes.end() - (6 - size)) == unique(hashes.begin(), hashes.end()), (size, hashes));
-      }
+    {
+      for (unsigned int i = 0; i < 6 - size; ++i)
+        TEST_EQUAL(hashes[i], hashes[i + 9], (i, size, len, sizeof(hash_type)));
+      sort(hashes.begin(), hashes.end());
+      TEST((hashes.end() - (6 - size)) == unique(hashes.begin(), hashes.end()), (size, hashes));
+    }
     }
   }
 }
 
-}
+}  // namespace
 
 UNIT_TEST(RabinKarpRollingHasher32)
 {

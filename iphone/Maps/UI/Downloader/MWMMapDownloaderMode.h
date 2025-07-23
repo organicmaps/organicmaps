@@ -1,4 +1,1 @@
-typedef NS_ENUM(NSUInteger, MWMMapDownloaderMode) {
-  MWMMapDownloaderModeDownloaded,
-  MWMMapDownloaderModeAvailable
-};
+typedef NS_ENUM(NSUInteger, MWMMapDownloaderMode) { MWMMapDownloaderModeDownloaded, MWMMapDownloaderModeAvailable };

@@ -3,16 +3,15 @@
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 
-
 namespace generator
 {
 using namespace feature;
 
 CoastlineFinalProcessor::CoastlineFinalProcessor(std::string const & filename, size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::WorldCoasts)
-  , m_filename(filename), m_threadsCount(threadsCount)
-{
-}
+  , m_filename(filename)
+  , m_threadsCount(threadsCount)
+{}
 
 void CoastlineFinalProcessor::SetCoastlinesFilenames(std::string const & geomFilename,
                                                      std::string const & rawGeomFilename)
@@ -23,10 +22,8 @@ void CoastlineFinalProcessor::SetCoastlinesFilenames(std::string const & geomFil
 
 void CoastlineFinalProcessor::Process()
 {
-  ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(m_filename, [this](FeatureBuilder const & fb, uint64_t)
-  {
-    m_generator.Process(fb);
-  });
+  ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(
+      m_filename, [this](FeatureBuilder const & fb, uint64_t) { m_generator.Process(fb); });
 
   FeaturesAndRawGeometryCollector collector(m_coastlineGeomFilename, m_coastlineRawGeomFilename);
   // Check and stop if some coasts were not merged.

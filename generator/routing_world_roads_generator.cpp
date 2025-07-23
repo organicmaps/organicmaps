@@ -58,7 +58,8 @@ bool FillRoadsFromFile(CrossBorderGraph & graph, std::string const & roadsFilePa
   {
     auto reader = coding::CSVReader(roadsFilePath, false /* hasHeader */, ' ' /* delimiter */);
 
-    reader.ForEachRow([&](auto const & row) {
+    reader.ForEachRow([&](auto const & row)
+    {
       auto const & [segId, seg] = ReadSegment(row);
       graph.AddCrossBorderSegment(segId, seg);
     });
@@ -84,8 +85,7 @@ bool BuildWorldRoads(std::string const & mwmFilePath, std::string const & roadsF
     return false;
   }
 
-  CHECK(!graph.m_segments.empty(),
-        ("Road segments for CrossBorderGraph should be set.", roadsFilePath));
+  CHECK(!graph.m_segments.empty(), ("Road segments for CrossBorderGraph should be set.", roadsFilePath));
 
   FilesContainerW cont(mwmFilePath, FileWriter::OP_WRITE_EXISTING);
   auto writer = cont.GetWriter(ROUTING_WORLD_FILE_TAG);

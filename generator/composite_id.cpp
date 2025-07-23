@@ -14,14 +14,11 @@ CompositeId::CompositeId(std::string const & str)
 }
 
 CompositeId::CompositeId(base::GeoObjectId mainId, base::GeoObjectId additionalId)
-  : m_mainId(mainId), m_additionalId(additionalId)
-{
-}
+  : m_mainId(mainId)
+  , m_additionalId(additionalId)
+{}
 
-CompositeId::CompositeId(base::GeoObjectId mainId)
-  : CompositeId(mainId, base::GeoObjectId() /* additionalId */)
-{
-}
+CompositeId::CompositeId(base::GeoObjectId mainId) : CompositeId(mainId, base::GeoObjectId() /* additionalId */) {}
 
 bool CompositeId::operator<(CompositeId const & other) const
 {

@@ -11,7 +11,6 @@
 #include <boost/python.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
-
 BOOST_PYTHON_MODULE(pytracking)
 {
   using namespace boost::python;
@@ -24,12 +23,9 @@ BOOST_PYTHON_MODULE(pytracking)
   to_python_converter<std::vector<uint8_t>, vector_uint8t_to_str>();
   vector_uint8t_from_python_str();
 
-  class_<Protocol::DataElementsVec>("DataElementsVec")
-      .def(vector_indexing_suite<Protocol::DataElementsVec>());
+  class_<Protocol::DataElementsVec>("DataElementsVec").def(vector_indexing_suite<Protocol::DataElementsVec>());
 
-  class_<ms::LatLon>("LatLon")
-      .def_readwrite("lat", &ms::LatLon::m_lat)
-      .def_readwrite("lon", &ms::LatLon::m_lon);
+  class_<ms::LatLon>("LatLon").def_readwrite("lat", &ms::LatLon::m_lat).def_readwrite("lon", &ms::LatLon::m_lon);
 
   class_<coding::TrafficGPSEncoder::DataPoint>("DataPoint")
       .def(init<uint64_t, ms::LatLon const &, uint8_t>())
@@ -45,11 +41,9 @@ BOOST_PYTHON_MODULE(pytracking)
       .value("CurrentAuth", Protocol::PacketType::CurrentAuth)
       .value("CurrentData", Protocol::PacketType::CurrentData);
 
-  std::vector<uint8_t> (*CreateDataPacket1)(Protocol::DataElementsCirc const &,
-                                            tracking::Protocol::PacketType) =
+  std::vector<uint8_t> (*CreateDataPacket1)(Protocol::DataElementsCirc const &, tracking::Protocol::PacketType) =
       &Protocol::CreateDataPacket;
-  std::vector<uint8_t> (*CreateDataPacket2)(Protocol::DataElementsVec const &,
-                                            tracking::Protocol::PacketType) =
+  std::vector<uint8_t> (*CreateDataPacket2)(Protocol::DataElementsVec const &, tracking::Protocol::PacketType) =
       &Protocol::CreateDataPacket;
 
   class_<Protocol>("Protocol")

@@ -9,7 +9,7 @@
   self = [super initWithCoder:coder];
   if (self)
     [self initialize];
-  
+
   NSLog(@"MetalView initWithCoder Ended");
   return self;
 }

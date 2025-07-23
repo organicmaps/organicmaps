@@ -1,17 +1,13 @@
 #include "routing/world_graph.hpp"
 
-
 namespace routing
 {
-void WorldGraph::GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions,
-                             SegmentEdgeListT & edges)
+void WorldGraph::GetEdgeList(Segment const & vertex, bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges)
 {
-  GetEdgeList({vertex, RouteWeight(0.0)}, isOutgoing, useRoutingOptions,
-              false /* useAccessConditional */, edges);
+  GetEdgeList({vertex, RouteWeight(0.0)}, isOutgoing, useRoutingOptions, false /* useAccessConditional */, edges);
 }
 
-void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions,
-                          SegmentEdgeListT & edges)
+void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, bool useRoutingOptions, SegmentEdgeListT & edges)
 {
   std::vector<Segment> twins;
   GetTwinsInner(segment, isOutgoing, twins);
@@ -71,9 +67,7 @@ bool WorldGraph::AreWavesConnectible(Parents<JointSegment> & forwardParents, Joi
 
 void WorldGraph::SetRoutingOptions(RoutingOptions /* routingOption */) {}
 
-void WorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn)
-{
-}
+void WorldGraph::ForEachTransition(NumMwmId numMwmId, bool isEnter, TransitionFnT const & fn) {}
 
 CrossMwmGraph & WorldGraph::GetCrossMwmGraph()
 {

@@ -52,14 +52,12 @@ class DrapeEngine
 public:
   struct Params
   {
-    Params(dp::ApiVersion apiVersion, ref_ptr<dp::GraphicsContextFactory> factory,
-           dp::Viewport const & viewport, MapDataProvider const & model, Hints const & hints,
-           double vs, double fontsScaleFactor, gui::TWidgetsInitInfo && info,
-           location::TMyPositionModeChanged && myPositionModeChanged, bool allow3dBuildings,
-           bool trafficEnabled, bool isolinesEnabled, bool blockTapEvents,
-           bool showChoosePositionMark, std::vector<m2::TriangleD> && boundAreaTriangles,
-           bool isRoutingActive, bool isAutozoomEnabled, bool simplifiedTrafficColors,
-           std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
+    Params(dp::ApiVersion apiVersion, ref_ptr<dp::GraphicsContextFactory> factory, dp::Viewport const & viewport,
+           MapDataProvider const & model, Hints const & hints, double vs, double fontsScaleFactor,
+           gui::TWidgetsInitInfo && info, location::TMyPositionModeChanged && myPositionModeChanged,
+           bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled, bool blockTapEvents,
+           bool showChoosePositionMark, std::vector<m2::TriangleD> && boundAreaTriangles, bool isRoutingActive,
+           bool isAutozoomEnabled, bool simplifiedTrafficColors, std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
            OverlaysShowStatsCallback && overlaysShowStatsCallback,
            OnGraphicsContextInitialized && onGraphicsContextInitialized,
            dp::RenderInjectionHandler && renderInjectionHandler)
@@ -130,14 +128,11 @@ public:
 
   void MakeFrameActive();
 
-  void ScaleAndSetCenter(m2::PointD const & centerPt, double scaleFactor, bool isAnim,
-                         bool trackVisibleViewport);
+  void ScaleAndSetCenter(m2::PointD const & centerPt, double scaleFactor, bool isAnim, bool trackVisibleViewport);
 
   // If zoom == -1 then current zoom will not be changed.
-  void SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim,
-                          bool trackVisibleViewport);
-  void SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim,
-                        bool useVisibleViewport);
+  void SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim, bool trackVisibleViewport);
+  void SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim, bool useVisibleViewport);
   void SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim, bool useVisibleViewport);
 
   using ModelViewChangedHandler = FrontendRenderer::ModelViewChangedHandler;
@@ -159,8 +154,7 @@ public:
   void UpdateMapStyle();
 
   void SetCompassInfo(location::CompassInfo const & info);
-  void SetGpsInfo(location::GpsInfo const & info, bool isNavigable,
-                  location::RouteMatchingInfo const & routeInfo);
+  void SetGpsInfo(location::GpsInfo const & info, bool isNavigable, location::RouteMatchingInfo const & routeInfo);
   void SwitchMyPositionNextMode();
   void LoseLocation();
   void StopLocationFollow();
@@ -170,15 +164,13 @@ public:
   using UserPositionChangedHandler = FrontendRenderer::UserPositionChangedHandler;
   void SetUserPositionListener(UserPositionChangedHandler && fn);
 
-  void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt,
-                    FeatureID const & featureID, bool isAnim, bool isGeometrySelectionAllowed,
-                    bool isSelectionShapeVisible);
+  void SelectObject(SelectionShape::ESelectedObject obj, m2::PointD const & pt, FeatureID const & featureID,
+                    bool isAnim, bool isGeometrySelectionAllowed, bool isSelectionShapeVisible);
   void DeselectObject(bool restoreViewport);
 
   dp::DrapeID AddSubroute(SubrouteConstPtr subroute);
   void RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing);
-  void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom,
-                   bool isArrowGlued);
+  void FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom, bool isArrowGlued);
   void DeactivateRouteFollowing();
   void SetSubrouteVisibility(dp::DrapeID subrouteId, bool isVisible);
   dp::DrapeID AddRoutePreviewSegment(m2::PointD const & startPt, m2::PointD const & finishPt);
@@ -192,11 +184,11 @@ public:
   void Allow3dMode(bool allowPerspectiveInNavigation, bool allow3dBuildings);
   void EnablePerspective();
 
-  void UpdateGpsTrackPoints(std::vector<df::GpsTrackPoint> && toAdd,
-                            std::vector<uint32_t> && toRemove);
+  void UpdateGpsTrackPoints(std::vector<df::GpsTrackPoint> && toAdd, std::vector<uint32_t> && toRemove);
   void ClearGpsTrackPoints();
 
-  void EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles, m2::PointD const * optionalPosition);
+  void EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles,
+                                m2::PointD const * optionalPosition);
   void BlockTapEvents(bool block);
 
   void SetKineticScrollEnabled(bool enabled);
@@ -208,8 +200,7 @@ public:
 
   using TRequestSymbolsSizeCallback = std::function<void(std::map<std::string, m2::PointF> &&)>;
 
-  void RequestSymbolsSize(std::vector<std::string> const & symbols,
-                          TRequestSymbolsSizeCallback const & callback);
+  void RequestSymbolsSize(std::vector<std::string> const & symbols, TRequestSymbolsSizeCallback const & callback);
 
   void EnableTraffic(bool trafficEnabled);
   void UpdateTraffic(traffic::TrafficInfo const & info);
@@ -225,8 +216,7 @@ public:
 
   void SetFontScaleFactor(double scaleFactor);
 
-  void RunScenario(ScenarioManager::ScenarioData && scenarioData,
-                   ScenarioManager::ScenarioCallback const & onStartFn,
+  void RunScenario(ScenarioManager::ScenarioData && scenarioData, ScenarioManager::ScenarioCallback const & onStartFn,
                    ScenarioManager::ScenarioCallback const & onFinishFn);
 
   /// @name Custom features are features that we render in a different way.

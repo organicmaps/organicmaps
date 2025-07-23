@@ -20,7 +20,7 @@ std::string const kStylesOverrideDir = "styles";
 
 #ifdef BUILD_DESIGNER
 std::string const kSuffixDesignTool = "_design";
-#endif // BUILD_DESIGNER
+#endif  // BUILD_DESIGNER
 
 std::string GetStyleRulesSuffix(MapStyle mapStyle)
 {
@@ -29,27 +29,19 @@ std::string GetStyleRulesSuffix(MapStyle mapStyle)
 #else
   switch (mapStyle)
   {
-  case MapStyleDefaultDark:
-    return kSuffixDefaultDark;
-  case MapStyleDefaultLight:
-    return kSuffixDefaultLight;
-  case MapStyleVehicleDark:
-    return kSuffixVehicleDark;
-  case MapStyleVehicleLight:
-    return kSuffixVehicleLight;
-  case MapStyleOutdoorsLight:
-    return kSuffixOutdoorsLight;
-  case MapStyleOutdoorsDark:
-    return kSuffixOutdoorsDark;
-  case MapStyleMerged:
-    return {};
+  case MapStyleDefaultDark: return kSuffixDefaultDark;
+  case MapStyleDefaultLight: return kSuffixDefaultLight;
+  case MapStyleVehicleDark: return kSuffixVehicleDark;
+  case MapStyleVehicleLight: return kSuffixVehicleLight;
+  case MapStyleOutdoorsLight: return kSuffixOutdoorsLight;
+  case MapStyleOutdoorsDark: return kSuffixOutdoorsDark;
+  case MapStyleMerged: return {};
 
-  case MapStyleCount:
-    break;
+  case MapStyleCount: break;
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
   return kSuffixDefaultLight;
-#endif // BUILD_DESIGNER
+#endif  // BUILD_DESIGNER
 }
 
 std::string GetStyleResourcesSuffix(MapStyle mapStyle)
@@ -63,27 +55,21 @@ std::string GetStyleResourcesSuffix(MapStyle mapStyle)
   {
   case MapStyleDefaultDark:
   case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark:
-    return kSuffixDark;
+  case MapStyleOutdoorsDark: return kSuffixDark;
   case MapStyleDefaultLight:
   case MapStyleVehicleLight:
-  case MapStyleOutdoorsLight:
-    return kSuffixLight;
-  case MapStyleMerged:
-    return {};
+  case MapStyleOutdoorsLight: return kSuffixLight;
+  case MapStyleMerged: return {};
 
-  case MapStyleCount:
-    break;
+  case MapStyleCount: break;
   }
   LOG(LWARNING, ("Unknown map style", mapStyle));
   return kSuffixLight;
-#endif // BUILD_DESIGNER
+#endif  // BUILD_DESIGNER
 }
 }  // namespace
 
-StyleReader::StyleReader()
-  : m_mapStyle(kDefaultMapStyle)
-{}
+StyleReader::StyleReader() : m_mapStyle(kDefaultMapStyle) {}
 
 void StyleReader::SetCurrentStyle(MapStyle mapStyle)
 {
@@ -97,17 +83,14 @@ MapStyle StyleReader::GetCurrentStyle() const
 
 bool StyleReader::IsCarNavigationStyle() const
 {
-  return m_mapStyle == MapStyle::MapStyleVehicleLight ||
-         m_mapStyle == MapStyle::MapStyleVehicleDark;
+  return m_mapStyle == MapStyle::MapStyleVehicleLight || m_mapStyle == MapStyle::MapStyleVehicleDark;
 }
 
 ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
 {
-  std::string rulesFile =
-      std::string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
+  std::string rulesFile = std::string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
 
-  auto overriddenRulesFile =
-      base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, rulesFile);
+  auto overriddenRulesFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, rulesFile);
   if (Platform::IsFileExistsByFullPath(overriddenRulesFile))
     rulesFile = overriddenRulesFile;
 
@@ -119,10 +102,10 @@ ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
 #endif
 }
 
-ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file,
-                                                 std::string_view density) const
+ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file, std::string_view density) const
 {
-  std::string resFile = base::JoinPath("symbols", std::string{density}, GetStyleResourcesSuffix(GetCurrentStyle()), file);
+  std::string resFile =
+      base::JoinPath("symbols", std::string{density}, GetStyleResourcesSuffix(GetCurrentStyle()), file);
 
   auto overriddenResFile = base::JoinPath(GetPlatform().WritableDir(), kStylesOverrideDir, resFile);
   if (GetPlatform().IsFileExistsByFullPath(overriddenResFile))

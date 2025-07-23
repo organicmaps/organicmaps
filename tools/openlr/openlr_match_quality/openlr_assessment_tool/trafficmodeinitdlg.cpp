@@ -14,9 +14,7 @@ std::string const kDataFilePath = "LastOpenlrAssessmentDataFilePath";
 
 namespace openlr
 {
-TrafficModeInitDlg::TrafficModeInitDlg(QWidget * parent) :
-  QDialog(parent),
-  m_ui(new Ui::TrafficModeInitDlg)
+TrafficModeInitDlg::TrafficModeInitDlg(QWidget * parent) : QDialog(parent), m_ui(new Ui::TrafficModeInitDlg)
 {
   m_ui->setupUi(this);
 
@@ -24,9 +22,8 @@ TrafficModeInitDlg::TrafficModeInitDlg(QWidget * parent) :
   if (settings::Get(kDataFilePath, lastDataFilePath))
     m_ui->dataFileName->setText(QString::fromStdString(lastDataFilePath));
 
-  connect(m_ui->chooseDataFileButton, &QPushButton::clicked, [this](bool) {
-      SetFilePathViaDialog(*m_ui->dataFileName, tr("Choose data file"), "*.xml");
-  });
+  connect(m_ui->chooseDataFileButton, &QPushButton::clicked,
+          [this](bool) { SetFilePathViaDialog(*m_ui->dataFileName, tr("Choose data file"), "*.xml"); });
 }
 
 TrafficModeInitDlg::~TrafficModeInitDlg()
@@ -41,8 +38,7 @@ void TrafficModeInitDlg::accept()
   QDialog::accept();
 }
 
-void TrafficModeInitDlg::SetFilePathViaDialog(QLineEdit & dest, QString const & title,
-                                              QString const & filter)
+void TrafficModeInitDlg::SetFilePathViaDialog(QLineEdit & dest, QString const & title, QString const & filter)
 {
   QFileDialog openFileDlg(nullptr, title, {} /* directory */, filter);
   openFileDlg.exec();

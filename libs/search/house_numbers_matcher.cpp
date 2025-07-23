@@ -48,50 +48,27 @@ namespace
 // "way", "we", "west",
 
 char const * g_strings[] = {
-    "aa",     "ab",      "abc",     "ac",   "ad",   "ae",      "af",      "ag",
-    "ah",     "ai",      "aj",      "ak",   "al",   "am",      "an",      "ao",       "ap",
-    "aq",     "ar",      "are",     "as",   "at",   "au",      "aw",
-    "ax",     "ay",      "az",      "azm",  "ba",   "bab",     "bah",     "bak",
-    "bb",     "bc",      "bd",      "be",   "bedr", "ben",     "bf",      "bg",       "bh",
-    "bij",    "bis",     "bk",      "bl",   "bldg", "blk",     "bloc",    "block",    "bloco",
-    "blok",   "bm",      "bmn",     "bn",   "bo",   "boe",     "bol",     "bor",      "bov",
-    "box",    "bp",      "br",      "bra",  "brc",  "bs",      "bsa",     "bu",       "building",
-    "bv",     "bwn",     "bx",      "by",   "cab",  "cat",     "cbi",     "cbu",      "cc",
-    "ccz",    "cd",      "ce",      "centre", "cfn",  "cgc",   "cjg",     "cl",       "club",
-    "cottage", "cottages", "cso",   "cum",  "db",   "dd",      "df",
-    "dia",    "dvu",     "ec",      "ee",   "eh",   "em",      "en",      "esm",
-    "ev",     "fdo",     "fer",     "ff",   "flat", "flats",   "floor",
-    "gar",    "gara",    "gas",     "gb",   "gg",   "gr",
-    "grg",    "ha",      "haus",    "hh",   "hl",   "ho",      "house",   "hr",
-    "hs",     "hv",      "ii",      "iii",  "int",  "iv",      "ix",
-    "jab",    "jf",      "jj",      "jms",  "jtg",  "ka",      "kab",     "kk",
-    "kmb",    "kmk",     "knn",     "koy",  "kp",   "kra",     "ksn",     "kud",
-    "ldo",    "ll",      "local",   "loja", "lot",  "lote",
-    "lsb",    "lt",      "mac",     "mad",  "mah",  "mak",     "mat",     "mb",
-    "mbb",    "mbn",     "mch",     "mei",  "mks",  "mm",      "mny",     "mo",       "mok",
-    "mor",    "msb",     "mtj",     "mtk",  "mvd",  "na",
-    "ncc",    "nij",     "nn",      "no",   "nr",   "nst",     "nu",      "nut",
-    "of",     "ofof",    "old",     "one",  "oo",   "opl",     "pa",
-    "pap",    "pav",     "pb",      "pch",  "pg",   "ph",      "phd",
-    "pkf",    "plot",    "po",      "pos",  "pp",   "pr",      "pra",     "pya",
-    "qq",     "quater",  "ra",      "rbo",  "rear", "reisach",
-    "rk",     "rm",      "rosso",   "rs",   "rw",
-    "sab",    "sal",     "sav",     "sb",   "sba",  "sbb",     "sbl",     "sbn",      "sbx",
-    "sc",     "sch",     "sco",     "seb",  "sep",  "sf",      "sgr",     "sir",
-    "sj",     "sl",      "sm",      "sn",   "snc",  "som",     "sp",
-    "spi",    "spn",     "ss",      "sta",  "stc",  "std",     "stiege",
-    "suite",  "sur",     "tam",     "ter",  "terrace", "tf",   "th",      "the",
-    "tl",     "to",      "torre",   "tr",   "traf", "trd",     "ts",      "tt",       "tu",
-    "uhm",    "unit",    "utc",     "vii",  "wa",
-    "wf",     "wink",    "wrh",     "ws",   "wsb",
-    "xx",     "za",      "zh",      "zona", "zu",   "zw",      "א",
-    "ב",      "ג",       "α",       "бб",   "бл",   "вл",
-    "вх",    "лит",      "разр",    "стр",  "тп",   "уч",      "участок", "ა",
-    "丁目",   "之",       "号",      "號",
+    "aa", "ab", "abc", "ac", "ad", "ae", "af", "ag", "ah", "ai", "aj", "ak", "al", "am", "an", "ao", "ap", "aq", "ar",
+    "are", "as", "at", "au", "aw", "ax", "ay", "az", "azm", "ba", "bab", "bah", "bak", "bb", "bc", "bd", "be", "bedr",
+    "ben", "bf", "bg", "bh", "bij", "bis", "bk", "bl", "bldg", "blk", "bloc", "block", "bloco", "blok", "bm", "bmn",
+    "bn", "bo", "boe", "bol", "bor", "bov", "box", "bp", "br", "bra", "brc", "bs", "bsa", "bu", "building", "bv", "bwn",
+    "bx", "by", "cab", "cat", "cbi", "cbu", "cc", "ccz", "cd", "ce", "centre", "cfn", "cgc", "cjg", "cl", "club",
+    "cottage", "cottages", "cso", "cum", "db", "dd", "df", "dia", "dvu", "ec", "ee", "eh", "em", "en", "esm", "ev",
+    "fdo", "fer", "ff", "flat", "flats", "floor", "gar", "gara", "gas", "gb", "gg", "gr", "grg", "ha", "haus", "hh",
+    "hl", "ho", "house", "hr", "hs", "hv", "ii", "iii", "int", "iv", "ix", "jab", "jf", "jj", "jms", "jtg", "ka", "kab",
+    "kk", "kmb", "kmk", "knn", "koy", "kp", "kra", "ksn", "kud", "ldo", "ll", "local", "loja", "lot", "lote", "lsb",
+    "lt", "mac", "mad", "mah", "mak", "mat", "mb", "mbb", "mbn", "mch", "mei", "mks", "mm", "mny", "mo", "mok", "mor",
+    "msb", "mtj", "mtk", "mvd", "na", "ncc", "nij", "nn", "no", "nr", "nst", "nu", "nut", "of", "ofof", "old", "one",
+    "oo", "opl", "pa", "pap", "pav", "pb", "pch", "pg", "ph", "phd", "pkf", "plot", "po", "pos", "pp", "pr", "pra",
+    "pya", "qq", "quater", "ra", "rbo", "rear", "reisach", "rk", "rm", "rosso", "rs", "rw", "sab", "sal", "sav", "sb",
+    "sba", "sbb", "sbl", "sbn", "sbx", "sc", "sch", "sco", "seb", "sep", "sf", "sgr", "sir", "sj", "sl", "sm", "sn",
+    "snc", "som", "sp", "spi", "spn", "ss", "sta", "stc", "std", "stiege", "suite", "sur", "tam", "ter", "terrace",
+    "tf", "th", "the", "tl", "to", "torre", "tr", "traf", "trd", "ts", "tt", "tu", "uhm", "unit", "utc", "vii", "wa",
+    "wf", "wink", "wrh", "ws", "wsb", "xx", "za", "zh", "zona", "zu", "zw", "א", "ב", "ג", "α", "бб", "бл", "вл", "вх",
+    "лит", "разр", "стр", "тп", "уч", "участок", "ა", "丁目", "之", "号", "號",
 
     // List of exceptions
-    "владение"
-};
+    "владение"};
 
 // Common strings in house numbers.
 // To get this list, just run:
@@ -99,27 +76,20 @@ char const * g_strings[] = {
 // ./clusterize-tag-values.lisp house-number path-to-taginfo-db.db > numbers.txt
 // tail -n +2 numbers.txt  | head -78 | sed 's/^.*) \(.*\) \[.*$/"\1"/g;s/[ -/]//g;s/$/,/' |
 // sort | uniq
-vector<string> const g_patterns = {
-    "BL",  "BLN",  "BLNSL", "BN",   "BNL",    "BNSL", "L",   "LL",   "LN",  "LNL",  "LNLN", "LNN",
-    "N",   "NBL",  "NBLN",  "NBN",  "NBNBN",  "NBNL", "NL",  "NLBN", "NLL", "NLLN", "NLN",  "NLNL",
-    "NLS", "NLSN", "NN",    "NNBN", "NNL",    "NNLN", "NNN", "NNS",  "NS",  "NSN",  "NSS",  "S",
-    "SL",  "SLL",  "SLN",   "SN",   "SNBNSS", "SNL",  "SNN", "SS",   "SSN", "SSS",  "SSSS",
+vector<string> const g_patterns = {"BL", "BLN", "BLNSL", "BN", "BNL", "BNSL", "L", "LL", "LN", "LNL", "LNLN", "LNN",
+                                   "N", "NBL", "NBLN", "NBN", "NBNBN", "NBNL", "NL", "NLBN", "NLL", "NLLN", "NLN",
+                                   "NLNL", "NLS", "NLSN", "NN", "NNBN", "NNL", "NNLN", "NNN", "NNS", "NS", "NSN", "NSS",
+                                   "S", "SL", "SLL", "SLN", "SN", "SNBNSS", "SNL", "SNN", "SS", "SSN", "SSS", "SSSS",
 
-    // List of exceptions
-    "NNBNL"
-};
+                                   // List of exceptions
+                                   "NNBNL"};
 
 // List of patterns which look like house numbers more than other patterns. Constructed by hand.
-vector<string> const g_patternsStrict = {
-    "N", "NBN", "NBL", "NL"
-};
-
+vector<string> const g_patternsStrict = {"N", "NBN", "NBL", "NL"};
 
 // List of common synonyms for building parts. Constructed by hand.
-char const * g_buildingPartSynonyms[] = {
-    "building", "bldg", "bld",   "bl",  "unit",     "block", "blk",  "корпус",
-    "корп",     "кор",  "литер", "лит", "строение", "стр",   "блок", "бл"
-};
+char const * g_buildingPartSynonyms[] = {"building", "bldg", "bld",   "bl",  "unit",     "block", "blk",  "корпус",
+                                         "корп",     "кор",  "литер", "лит", "строение", "стр",   "блок", "бл"};
 
 // List of common stop words for buildings. Constructed by hand.
 UniString const g_stopWords[] = {MakeUniString("дом"), MakeUniString("house"), MakeUniString("д")};
@@ -127,10 +97,8 @@ UniString const g_stopWords[] = {MakeUniString("дом"), MakeUniString("house")
 bool IsStopWord(UniString const & s, bool isPrefix)
 {
   for (auto const & p : g_stopWords)
-  {
     if ((isPrefix && StartsWith(p, s)) || (!isPrefix && p == s))
       return true;
-  }
   return false;
 }
 
@@ -149,10 +117,7 @@ public:
   }
 
   // Returns true if |s| looks like a building synonym.
-  inline bool Has(UniString const & s) const
-  {
-    return m_synonyms.Has(s.begin(), s.end()) == Synonyms::Status::Full;
-  }
+  inline bool Has(UniString const & s) const { return m_synonyms.Has(s.begin(), s.end()) == Synonyms::Status::Full; }
 
 private:
   Synonyms m_synonyms;
@@ -205,10 +170,7 @@ public:
   HouseNumberClassifier(vector<string> const & patterns = g_patterns)
   {
     for (auto const & p : patterns)
-    {
-      m_patterns.Add(make_transform_iterator(p.begin(), &CharToType),
-                     make_transform_iterator(p.end(), &CharToType));
-    }
+      m_patterns.Add(make_transform_iterator(p.begin(), &CharToType), make_transform_iterator(p.end(), &CharToType));
   }
 
   // Returns true when the string |s| looks like a valid house number,
@@ -306,8 +268,7 @@ Token::Type GetCharType(UniChar c)
 
 bool IsLiteralType(Token::Type type)
 {
-  return type == Token::TYPE_STRING || type == Token::TYPE_LETTER ||
-         type == Token::TYPE_BUILDING_PART_OR_LETTER;
+  return type == Token::TYPE_STRING || type == Token::TYPE_LETTER || type == Token::TYPE_BUILDING_PART_OR_LETTER;
 }
 
 // Leaves only numbers and letters, removes all trailing prefix
@@ -368,10 +329,8 @@ bool IsShortBuildingSynonym(UniString const & t)
 {
   static UniString const kSynonyms[] = {MakeUniString("к"), MakeUniString("с")};
   for (auto const & s : kSynonyms)
-  {
     if (t == s)
       return true;
-  }
   return false;
 }
 
@@ -458,10 +417,7 @@ uint64_t ToUInt(UniString const & s)
 void Tokenize(UniString s, bool isPrefix, TokensT & ts)
 {
   MakeLowerCaseInplace(s);
-  auto addToken = [&ts](UniString && value, Token::Type type)
-  {
-    ts.emplace_back(std::move(value), type);
-  };
+  auto addToken = [&ts](UniString && value, Token::Type type) { ts.emplace_back(std::move(value), type); };
 
   size_t i = 0;
   while (i < s.size())
@@ -519,31 +475,29 @@ void ParseHouseNumber(UniString const & s, vector<TokensT> & parses)
 
   bool numbersSequence = true;
   ForEachGroup(tokens, [&tokens, &numbersSequence](size_t i, size_t j)
-               {
-                 switch (j - i)
-                 {
-                 case 0: break;
-                 case 1:
-                   numbersSequence = numbersSequence && tokens[i].m_type == Token::TYPE_NUMBER;
-                   break;
-                 case 2:
-                   numbersSequence = numbersSequence && tokens[i].m_type == Token::TYPE_NUMBER &&
-                                     IsLiteralType(tokens[i + 1].m_type);
-                   break;
-                 default: numbersSequence = false; break;
-                 }
-               });
+  {
+    switch (j - i)
+    {
+    case 0: break;
+    case 1: numbersSequence = numbersSequence && tokens[i].m_type == Token::TYPE_NUMBER; break;
+    case 2:
+      numbersSequence =
+          numbersSequence && tokens[i].m_type == Token::TYPE_NUMBER && IsLiteralType(tokens[i + 1].m_type);
+      break;
+    default: numbersSequence = false; break;
+    }
+  });
 
   size_t const oldSize = parses.size();
   if (numbersSequence)
   {
     ForEachGroup(tokens, [&tokens, &parses](size_t i, size_t j)
-                 {
-                   parses.emplace_back();
-                   auto & parse = parses.back();
-                   for (size_t k = i; k < j; ++k)
-                     parse.emplace_back(std::move(tokens[k]));
-                 });
+    {
+      parses.emplace_back();
+      auto & parse = parses.back();
+      for (size_t k = i; k < j; ++k)
+        parse.emplace_back(std::move(tokens[k]));
+    });
   }
   else
   {
@@ -597,13 +551,13 @@ bool HouseNumbersMatchConscription(UniString const & houseNumber, TokensT const 
   if (i != end)
   {
     // Conscription number / street number.
-    return HouseNumbersMatch(UniString(beg, i), queryParse) ||
-           HouseNumbersMatch(UniString(i + 1, end), queryParse);
+    return HouseNumbersMatch(UniString(beg, i), queryParse) || HouseNumbersMatch(UniString(i + 1, end), queryParse);
   }
   return HouseNumbersMatch(houseNumber, queryParse);
 }
 
-bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse, feature::InterpolType interpol)
+bool HouseNumbersMatchRange(std::string_view const & hnRange, TokensT const & queryParse,
+                            feature::InterpolType interpol)
 {
   ASSERT(interpol != feature::InterpolType::None, ());
 

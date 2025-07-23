@@ -11,8 +11,7 @@
 
 using namespace std;
 
-SearchRequestRunner::SearchRequestRunner(Framework & framework, DataSource const & dataSource,
-                                         ContextList & contexts,
+SearchRequestRunner::SearchRequestRunner(Framework & framework, DataSource const & dataSource, ContextList & contexts,
                                          UpdateViewOnResults && updateViewOnResults,
                                          UpdateSampleSearchState && updateSampleSearchState)
   : m_framework(framework)
@@ -20,8 +19,7 @@ SearchRequestRunner::SearchRequestRunner(Framework & framework, DataSource const
   , m_contexts(contexts)
   , m_updateViewOnResults(std::move(updateViewOnResults))
   , m_updateSampleSearchState(std::move(updateSampleSearchState))
-{
-}
+{}
 
 void SearchRequestRunner::InitiateForegroundSearch(size_t index)
 {
@@ -33,8 +31,7 @@ void SearchRequestRunner::InitiateBackgroundSearch(size_t from, size_t to)
   // 1 <= from <= to <= m_contexts.Size().
   if (from < 1 || from > to || to > m_contexts.Size())
   {
-    LOG(LINFO,
-        ("Could not initiate search in the range", from, to, "Total samples:", m_contexts.Size()));
+    LOG(LINFO, ("Could not initiate search in the range", from, to, "Total samples:", m_contexts.Size()));
     return;
   }
 
@@ -163,12 +160,11 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
         }
       }
 
-      LOG(LINFO, ("Request number", index + 1, "has been processed in the",
-                  background ? "background" : "foreground"));
+      LOG(LINFO, ("Request number", index + 1, "has been processed in the", background ? "background" : "foreground"));
     }
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, background, timestamp, index, results,
-                                                  relevances, goldenMatching, actualMatching]
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [this, background, timestamp, index, results, relevances, goldenMatching, actualMatching]
     {
       size_t const latestTimestamp = background ? m_backgroundTimestamp : m_foregroundTimestamp;
       if (timestamp != latestTimestamp)
@@ -239,23 +235,19 @@ void SearchRequestRunner::RunRequest(size_t index, bool background, size_t times
 
 void SearchRequestRunner::PrintBackgroundSearchStats() const
 {
-  LOG(LINFO, ("All requests from", m_backgroundFirstIndex + 1, "to", m_backgroundLastIndex + 1,
-              "have been processed"));
+  LOG(LINFO, ("All requests from", m_backgroundFirstIndex + 1, "to", m_backgroundLastIndex + 1, "have been processed"));
 
   vector<size_t> vitals;
   vitals.reserve(m_backgroundLastIndex - m_backgroundFirstIndex + 1);
   for (size_t index = m_backgroundFirstIndex; index <= m_backgroundLastIndex; ++index)
   {
     auto const & entries = m_contexts[index].m_foundResultsEdits.GetEntries();
-    bool const foundVital =
-        any_of(entries.begin(), entries.end(), [](ResultsEdits::Entry const & e) {
-          return e.m_currRelevance == search::Sample::Result::Relevance::Vital;
-        });
+    bool const foundVital = any_of(entries.begin(), entries.end(), [](ResultsEdits::Entry const & e)
+    { return e.m_currRelevance == search::Sample::Result::Relevance::Vital; });
     if (foundVital)
       vitals.emplace_back(index + 1);
   }
 
-  LOG(LINFO, ("Vital results found:", vitals.size(), "out of",
-              m_backgroundLastIndex - m_backgroundFirstIndex + 1));
+  LOG(LINFO, ("Vital results found:", vitals.size(), "out of", m_backgroundLastIndex - m_backgroundFirstIndex + 1));
   LOG(LINFO, ("Vital results found for these queries (1-based):", vitals));
 }

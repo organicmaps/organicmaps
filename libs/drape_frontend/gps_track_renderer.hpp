@@ -27,11 +27,10 @@ public:
   void AddRenderData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                      drape_ptr<CirclesPackRenderData> && renderData);
 
-  void UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
-                    std::vector<uint32_t> const & toRemove);
+  void UpdatePoints(std::vector<GpsTrackPoint> const & toAdd, std::vector<uint32_t> const & toRemove);
 
-  void RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                   ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
+  void RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                   int zoomLevel, FrameValues const & frameValues);
 
   void Update();
   void Clear();
@@ -39,8 +38,8 @@ public:
 
 private:
   size_t GetAvailablePointsCount() const;
-  dp::Color CalculatePointColor(size_t pointIndex, m2::PointD const & curPoint,
-                                double lengthFromStart, double fullLength) const;
+  dp::Color CalculatePointColor(size_t pointIndex, m2::PointD const & curPoint, double lengthFromStart,
+                                double fullLength) const;
   dp::Color GetColorBySpeed(double speed) const;
 
   TRenderDataRequestFn m_dataRequestFn;

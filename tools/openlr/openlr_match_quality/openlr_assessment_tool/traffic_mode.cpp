@@ -16,14 +16,12 @@ namespace
 {
 void RemovePointFromPull(m2::PointD const & toBeRemoved, std::vector<m2::PointD> & pool)
 {
-  pool.erase(
-      remove_if(begin(pool), end(pool),
-                [&toBeRemoved](m2::PointD const & p) { return p.EqualDxDy(toBeRemoved, 1e-6); }),
-      end(pool));
+  pool.erase(remove_if(begin(pool), end(pool),
+                       [&toBeRemoved](m2::PointD const & p) { return p.EqualDxDy(toBeRemoved, 1e-6); }),
+             end(pool));
 }
 
-std::vector<m2::PointD> GetReachablePoints(m2::PointD const & srcPoint,
-                                           std::vector<m2::PointD> const path,
+std::vector<m2::PointD> GetReachablePoints(m2::PointD const & srcPoint, std::vector<m2::PointD> const path,
                                            PointsControllerDelegateBase const & pointsDelegate,
                                            size_t const lookbackIndex)
 {
@@ -46,8 +44,7 @@ size_t const RoadPointCandidate::kInvalidId = std::numeric_limits<size_t>::max()
 /// I.e. it is a set of all pairs <FeatureID, point index>
 /// located at a specified coordinate.
 /// Only one point at a time is considered active.
-RoadPointCandidate::RoadPointCandidate(std::vector<FeaturePoint> const & points,
-                                       m2::PointD const & coord)
+RoadPointCandidate::RoadPointCandidate(std::vector<FeaturePoint> const & points, m2::PointD const & coord)
   : m_coord(coord)
   , m_points(points)
 {
@@ -98,8 +95,7 @@ void RoadPointCandidate::SetActivePoint(FeatureID const & fid)
 // TrafficMode -------------------------------------------------------------------------------------
 TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & dataSource,
                          std::unique_ptr<TrafficDrawerDelegateBase> drawerDelegate,
-                         std::unique_ptr<PointsControllerDelegateBase> pointsDelegate,
-                         QObject * parent)
+                         std::unique_ptr<PointsControllerDelegateBase> pointsDelegate, QObject * parent)
   : QAbstractTableModel(parent)
   , m_dataSource(dataSource)
   , m_drawerDelegate(std::move(drawerDelegate))
@@ -153,8 +149,7 @@ TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & da
         {
           if (auto const locationReference = method.child("olr:locationReference"))
           {
-            if (auto const optionLinearLocationReference = locationReference
-                .child("olr:optionLinearLocationReference"))
+            if (auto const optionLinearLocationReference = locationReference.child("olr:optionLinearLocationReference"))
             {
               if (auto const positiveOffset = optionLinearLocationReference.child("olr:positiveOffset"))
                 positiveOffsetM = UintValueFromXML(positiveOffset);
@@ -166,8 +161,8 @@ TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & da
         }
       }
 
-      m_segments.emplace_back(segment, positiveOffsetM, negativeOffsetM, matchedPath, fakePath,
-                              goldenPath, partnerSegmentXML);
+      m_segments.emplace_back(segment, positiveOffsetM, negativeOffsetM, matchedPath, fakePath, goldenPath,
+                              partnerSegmentXML);
       if (auto const status = xmlSegment.child("Ignored"))
       {
         if (status.text().as_bool())
@@ -198,9 +193,7 @@ bool TrafficMode::SaveSampleAs(std::string const & fileName) const
     segment.append_copy(sc.GetPartnerXMLSegment());
 
     if (sc.GetStatus() == SegmentCorrespondence::Status::Ignored)
-    {
       segment.append_child("Ignored").text() = true;
-    }
     if (sc.HasMatchedPath())
     {
       auto node = segment.append_child("Route");
@@ -222,14 +215,17 @@ bool TrafficMode::SaveSampleAs(std::string const & fileName) const
   return true;
 }
 
-int TrafficMode::rowCount(const QModelIndex & parent) const
+int TrafficMode::rowCount(QModelIndex const & parent) const
 {
   return static_cast<int>(m_segments.size());
 }
 
-int TrafficMode::columnCount(const QModelIndex & parent) const { return 4; }
+int TrafficMode::columnCount(QModelIndex const & parent) const
+{
+  return 4;
+}
 
-QVariant TrafficMode::data(const QModelIndex & index, int role) const
+QVariant TrafficMode::data(QModelIndex const & index, int role) const
 {
   if (!index.isValid())
     return QVariant();
@@ -255,8 +251,7 @@ QVariant TrafficMode::data(const QModelIndex & index, int role) const
   return QVariant();
 }
 
-QVariant TrafficMode::headerData(int section, Qt::Orientation orientation,
-                                 int role /* = Qt::DisplayRole */) const
+QVariant TrafficMode::headerData(int section, Qt::Orientation orientation, int role /* = Qt::DisplayRole */) const
 {
   if (orientation != Qt::Horizontal && role != Qt::DisplayRole)
     return QVariant();
@@ -309,8 +304,7 @@ void TrafficMode::GoldifyMatchedPath()
 {
   if (!m_currentSegment->HasMatchedPath())
   {
-    QMessageBox::information(nullptr /* parent */, "Error",
-                             "The selected segment does not have a matched path");
+    QMessageBox::information(nullptr /* parent */, "Error", "The selected segment does not have a matched path");
     return;
   }
 
@@ -384,10 +378,10 @@ void TrafficMode::CommitPath()
     auto const & prevFt = prevPoint.GetPoint();
     auto const & ft = point.GetPoint();
 
-    path.push_back(Edge::MakeReal(
-        ft.first, prevFt.second < ft.second /* forward */, base::checked_cast<uint32_t>(prevFt.second),
-        geometry::PointWithAltitude(prevPoint.GetCoordinate(), 0 /* altitude */),
-        geometry::PointWithAltitude(point.GetCoordinate(), 0 /* altitude */)));
+    path.push_back(Edge::MakeReal(ft.first, prevFt.second < ft.second /* forward */,
+                                  base::checked_cast<uint32_t>(prevFt.second),
+                                  geometry::PointWithAltitude(prevPoint.GetCoordinate(), 0 /* altitude */),
+                                  geometry::PointWithAltitude(point.GetCoordinate(), 0 /* altitude */)));
   }
 
   m_currentSegment->SetGoldenPath(path);
@@ -417,9 +411,8 @@ void TrafficMode::IgnorePath()
 
   if (m_currentSegment->HasGoldenPath())
   {
-    auto const btn =
-        QMessageBox::question(nullptr /* parent */, "Override warning",
-                              "The selected segment has a golden path. Do you want to discard it?");
+    auto const btn = QMessageBox::question(nullptr /* parent */, "Override warning",
+                                           "The selected segment has a golden path. Do you want to discard it?");
     if (btn == QMessageBox::No)
       return;
   }
@@ -466,9 +459,7 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
     return;
 
   auto const currentPathLength = GetPointsCount();
-  auto const lastClickedPoint = currentPathLength != 0
-      ? GetLastPoint()
-      : m2::PointD::Zero();
+  auto const lastClickedPoint = currentPathLength != 0 ? GetLastPoint() : m2::PointD::Zero();
 
   auto const & p = m_pointsDelegate->GetCandidatePoints(clickPoint);
   auto const & candidatePoints = p.first;
@@ -476,14 +467,14 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
   if (candidatePoints.empty())
     return;
 
-  auto reachablePoints = GetReachablePoints(clickPoint, GetGoldenPathPoints(), *m_pointsDelegate,
-                                            0 /* lookBackIndex */);
-  auto const & clickablePoints = currentPathLength != 0
-      ? GetReachablePoints(lastClickedPoint, GetGoldenPathPoints(), *m_pointsDelegate,
-                           1 /* lookbackIndex */)
-      // TODO(mgsergio): This is not quite correct since view port can change
-      // since first call to visualize points. But it's ok in general.
-      : m_pointsDelegate->GetAllJunctionPointsInViewport();
+  auto reachablePoints =
+      GetReachablePoints(clickPoint, GetGoldenPathPoints(), *m_pointsDelegate, 0 /* lookBackIndex */);
+  auto const & clickablePoints =
+      currentPathLength != 0
+          ? GetReachablePoints(lastClickedPoint, GetGoldenPathPoints(), *m_pointsDelegate, 1 /* lookbackIndex */)
+          // TODO(mgsergio): This is not quite correct since view port can change
+          // since first call to visualize points. But it's ok in general.
+          : m_pointsDelegate->GetAllJunctionPointsInViewport();
 
   using ClickType = PointsControllerDelegateBase::ClickType;
   switch (m_pointsDelegate->CheckClick(clickPoint, lastClickedPoint, clickablePoints))
@@ -518,8 +509,8 @@ void TrafficMode::HandlePoint(m2::PointD clickPoint, Qt::MouseButton const butto
       }
       else
       {
-        m_drawerDelegate->VisualizePoints(GetReachablePoints(
-            GetLastPoint(), GetGoldenPathPoints(), *m_pointsDelegate, 1 /* lookBackIndex */));
+        m_drawerDelegate->VisualizePoints(
+            GetReachablePoints(GetLastPoint(), GetGoldenPathPoints(), *m_pointsDelegate, 1 /* lookBackIndex */));
       }
 
       if (GetPointsCount() > 1)
@@ -546,9 +537,8 @@ bool TrafficMode::StartBuildingPathChecks() const
 
   if (m_currentSegment->HasGoldenPath())
   {
-    auto const btn = QMessageBox::question(
-        nullptr /* parent */, "Override warning",
-        "The selected segment already has a golden path. Do you want to override?");
+    auto const btn = QMessageBox::question(nullptr /* parent */, "Override warning",
+                                           "The selected segment already has a golden path. Do you want to override?");
     if (btn == QMessageBox::No)
       return false;
   }

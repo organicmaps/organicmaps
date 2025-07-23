@@ -27,8 +27,7 @@ size_t constexpr kArcSecondsInDegree = 60 * 60;
 int constexpr kAsterTilesLatTop = 60;
 int constexpr kAsterTilesLatBottom = -60;
 
-void MercatorRectToTilesRange(m2::RectD const & rect,
-                              int & left, int & bottom, int & right, int & top)
+void MercatorRectToTilesRange(m2::RectD const & rect, int & left, int & bottom, int & right, int & top)
 {
   auto const leftBottom = mercator::ToLatLon(rect.LeftBottom());
   auto const rightTop = mercator::ToLatLon(rect.RightTop());
@@ -67,19 +66,15 @@ bool LoadTileProfiles(std::string const & fileName, std::set<std::string> & prof
     return false;
   std::string line;
   while (std::getline(fin, line))
-  {
     if (!line.empty())
       profileNames.insert(line);
-  }
   return true;
 }
 
 class SrtmProvider : public ValuesProvider<Altitude>
 {
 public:
-  explicit SrtmProvider(std::string const & srtmDir):
-    m_srtmManager(srtmDir)
-  {}
+  explicit SrtmProvider(std::string const & srtmDir) : m_srtmManager(srtmDir) {}
 
   void SetPrefferedTile(ms::LatLon const & pos)
   {
@@ -97,10 +92,7 @@ public:
 
   Altitude GetInvalidValue() const override { return kInvalidAltitude; }
 
-  static bool IsValidAltitude(Altitude alt)
-  {
-    return alt != kInvalidAltitude && alt > -435 && alt < 8850;
-  }
+  static bool IsValidAltitude(Altitude alt) { return alt != kInvalidAltitude && alt > -435 && alt < 8850; }
 
 private:
   Altitude GetValueImpl(ms::LatLon const & pos)
@@ -111,7 +103,8 @@ private:
       // Try to prevent loading a new tile if the position can be found in the loaded one.
       auto const latDist = pos.m_lat - m_leftBottomOfPreferredTile.m_lat;
       auto const lonDist = pos.m_lon - m_leftBottomOfPreferredTile.m_lon;
-      if (latDist > -mercator::kPointEqualityEps && latDist < 1.0 + mercator::kPointEqualityEps && lonDist > -mercator::kPointEqualityEps && lonDist < 1.0 + mercator::kPointEqualityEps)
+      if (latDist > -mercator::kPointEqualityEps && latDist < 1.0 + mercator::kPointEqualityEps &&
+          lonDist > -mercator::kPointEqualityEps && lonDist < 1.0 + mercator::kPointEqualityEps)
       {
         ms::LatLon innerPos = pos;
         if (latDist < 0.0)
@@ -173,8 +166,7 @@ private:
 class RawAltitudesTile : public ValuesProvider<Altitude>
 {
 public:
-  RawAltitudesTile(std::vector<Altitude> const & values,
-                   int leftLon, int bottomLat)
+  RawAltitudesTile(std::vector<Altitude> const & values, int leftLon, int bottomLat)
     : m_values(values)
     , m_leftLon(leftLon)
     , m_bottomLat(bottomLat)
@@ -206,10 +198,9 @@ private:
 class SeamlessAltitudeProvider : public ValuesProvider<Altitude>
 {
 public:
-  using IsOnBorderFn = std::function<bool (ms::LatLon const & pos)>;
+  using IsOnBorderFn = std::function<bool(ms::LatLon const & pos)>;
 
-  SeamlessAltitudeProvider(ValuesProvider<Altitude> & originalProvider,
-                           ValuesProvider<Altitude> & filteredProvider,
+  SeamlessAltitudeProvider(ValuesProvider<Altitude> & originalProvider, ValuesProvider<Altitude> & filteredProvider,
                            IsOnBorderFn && isOnBorderFn)
     : m_originalProvider(originalProvider)
     , m_filteredProvider(filteredProvider)
@@ -264,10 +255,8 @@ public:
   void Do()
   {
     for (int lat = m_bottom; lat <= m_top; ++lat)
-    {
       for (int lon = m_left; lon <= m_right; ++lon)
         ProcessTile(lat, lon);
-    }
   }
 
 private:
@@ -333,8 +322,7 @@ private:
     auto const outFile = GetIsolinesFilePath(lat, lon, params.m_outputDir);
     if (!m_forceRegenerate && GetPlatform().IsFileExistsByFullPath(outFile))
     {
-      LOG(LINFO, ("Isolines for", tileName, ", profile", profileName,
-                  "are ready, skip processing."));
+      LOG(LINFO, ("Isolines for", tileName, ", profile", profileName, "are ready, skip processing."));
       return;
     }
 
@@ -346,11 +334,8 @@ private:
     if (!params.m_filters.empty() && (lat >= kAsterTilesLatTop || lat < kAsterTilesLatBottom))
     {
       // Filter tiles converted from ASTER, cause they are noisy enough.
-      std::vector<Altitude> filteredValues = FilterTile(params.m_filters,
-                                                        ms::LatLon(lat, lon),
-                                                        kArcSecondsInDegree,
-                                                        kArcSecondsInDegree + 1,
-                                                        m_srtmProvider);
+      std::vector<Altitude> filteredValues = FilterTile(params.m_filters, ms::LatLon(lat, lon), kArcSecondsInDegree,
+                                                        kArcSecondsInDegree + 1, m_srtmProvider);
       RawAltitudesTile filteredProvider(filteredValues, lon, lat);
       GenerateSeamlessContours(lat, lon, params, filteredProvider, contours);
     }
@@ -359,9 +344,8 @@ private:
       GenerateSeamlessContours(lat, lon, params, m_srtmProvider, contours);
     }
 
-    LOG(LINFO, ("Isolines for tile", tileName, ", profile", profileName,
-      "min altitude", contours.m_minValue, "max altitude",
-      contours.m_maxValue, "invalid values count", contours.m_invalidValuesCount));
+    LOG(LINFO, ("Isolines for tile", tileName, ", profile", profileName, "min altitude", contours.m_minValue,
+                "max altitude", contours.m_maxValue, "invalid values count", contours.m_invalidValuesCount));
 
     if (params.m_simplificationZoom > 0)
       SimplifyContours(params.m_simplificationZoom, contours);
@@ -371,24 +355,21 @@ private:
   }
 
   void GenerateSeamlessContours(int lat, int lon, TileIsolinesParams const & params,
-                                ValuesProvider<Altitude> & altProvider,
-                                Contours<Altitude> & contours)
+                                ValuesProvider<Altitude> & altProvider, Contours<Altitude> & contours)
   {
     auto const avoidSeam = lat == kAsterTilesLatTop || (lat == kAsterTilesLatBottom - 1);
     if (avoidSeam)
     {
-      m_srtmProvider.SetPrefferedTile(ms::LatLon(lat == kAsterTilesLatTop ? lat - 0.5 : lat + 0.5,
-                                                 lon));
-      SeamlessAltitudeProvider seamlessAltProvider(m_srtmProvider, altProvider,
-          [](ms::LatLon const & pos)
-          {
-            // In case when two altitudes sources are used for altitudes extraction,
-            // for the same position on the border could be returned different altitudes.
-            // Force to use altitudes near the srtm/aster border from srtm source,
-            // it helps to avoid contours gaps due to different altitudes for equal positions.
-            return fabs(pos.m_lat - kAsterTilesLatTop) < mercator::kPointEqualityEps ||
-                   fabs(pos.m_lat - kAsterTilesLatBottom) < mercator::kPointEqualityEps;
-          });
+      m_srtmProvider.SetPrefferedTile(ms::LatLon(lat == kAsterTilesLatTop ? lat - 0.5 : lat + 0.5, lon));
+      SeamlessAltitudeProvider seamlessAltProvider(m_srtmProvider, altProvider, [](ms::LatLon const & pos)
+      {
+        // In case when two altitudes sources are used for altitudes extraction,
+        // for the same position on the border could be returned different altitudes.
+        // Force to use altitudes near the srtm/aster border from srtm source,
+        // it helps to avoid contours gaps due to different altitudes for equal positions.
+        return fabs(pos.m_lat - kAsterTilesLatTop) < mercator::kPointEqualityEps ||
+               fabs(pos.m_lat - kAsterTilesLatBottom) < mercator::kPointEqualityEps;
+      });
       GenerateContours(lat, lon, params, seamlessAltProvider, contours);
     }
     else
@@ -397,16 +378,14 @@ private:
     }
   }
 
-  void GenerateContours(int lat, int lon, TileIsolinesParams const & params,
-                        ValuesProvider<Altitude> & altProvider, Contours<Altitude> & contours)
+  void GenerateContours(int lat, int lon, TileIsolinesParams const & params, ValuesProvider<Altitude> & altProvider,
+                        Contours<Altitude> & contours)
   {
     auto const leftBottom = ms::LatLon(lat, lon);
     auto const rightTop = ms::LatLon(lat + 1.0, lon + 1.0);
     auto const squaresStep = 1.0 / kArcSecondsInDegree * params.m_latLonStepFactor;
 
-    MarchingSquares<Altitude> squares(leftBottom, rightTop,
-                                      squaresStep, params.m_alitudesStep,
-                                      altProvider, m_debugId);
+    MarchingSquares<Altitude> squares(leftBottom, rightTop, squaresStep, params.m_alitudesStep, altProvider, m_debugId);
     squares.GenerateContours(contours);
   }
 
@@ -423,9 +402,8 @@ private:
 };
 
 template <typename ParamsType>
-void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
-                              std::string const & srtmPath, ParamsType const & params,
-                              long threadsCount, long maxCachedTilesPerThread,
+void RunGenerateIsolinesTasks(int left, int bottom, int right, int top, std::string const & srtmPath,
+                              ParamsType const & params, long threadsCount, long maxCachedTilesPerThread,
                               bool forceRegenerate)
 {
   std::vector<std::unique_ptr<TileIsolinesTask>> tasks;
@@ -444,12 +422,10 @@ void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
   else
   {
     while (tilesRowPerTask * tilesColPerTask > maxCachedTilesPerThread)
-    {
       if (tilesRowPerTask > tilesColPerTask)
         tilesRowPerTask = (tilesRowPerTask + 1) / 2;
       else
         tilesColPerTask = (tilesColPerTask + 1) / 2;
-    }
   }
 
   base::ComputationalThreadPool threadPool(threadsCount);
@@ -460,36 +436,32 @@ void RunGenerateIsolinesTasks(int left, int bottom, int right, int top,
     for (int lon = left; lon < right; lon += tilesColPerTask)
     {
       int const rightLon = std::min(lon + tilesColPerTask - 1, right - 1);
-      auto task = std::make_unique<TileIsolinesTask>(lon, lat, rightLon, topLat, srtmPath, &params,
-                                                     forceRegenerate);
-      threadPool.SubmitWork([task = std::move(task)](){ task->Do(); });
+      auto task = std::make_unique<TileIsolinesTask>(lon, lat, rightLon, topLat, srtmPath, &params, forceRegenerate);
+      threadPool.SubmitWork([task = std::move(task)]() { task->Do(); });
     }
   }
 }
 }  // namespace
 
-Generator::Generator(std::string const & srtmPath, long threadsCount,
-                     long maxCachedTilesPerThread, bool forceRegenerate)
+Generator::Generator(std::string const & srtmPath, long threadsCount, long maxCachedTilesPerThread,
+                     bool forceRegenerate)
   : m_threadsCount(threadsCount)
   , m_maxCachedTilesPerThread(maxCachedTilesPerThread)
   , m_srtmPath(srtmPath)
   , m_forceRegenerate(forceRegenerate)
 {}
 
-void Generator::GenerateIsolines(int left, int bottom, int right, int top,
-                                 TileIsolinesParams const & params)
+void Generator::GenerateIsolines(int left, int bottom, int right, int top, TileIsolinesParams const & params)
 {
-  RunGenerateIsolinesTasks(left, bottom, right, top, m_srtmPath, params,
-                           m_threadsCount, m_maxCachedTilesPerThread, m_forceRegenerate);
+  RunGenerateIsolinesTasks(left, bottom, right, top, m_srtmPath, params, m_threadsCount, m_maxCachedTilesPerThread,
+                           m_forceRegenerate);
 }
 
-
-void Generator::GenerateIsolines(int left, int bottom, int right, int top,
-                                 std::string const & tilesProfilesDir)
+void Generator::GenerateIsolines(int left, int bottom, int right, int top, std::string const & tilesProfilesDir)
 {
   TileIsolinesProfileParams params(m_profileToTileParams, tilesProfilesDir);
-  RunGenerateIsolinesTasks(left, bottom, right, top, m_srtmPath, params,
-                           m_threadsCount, m_maxCachedTilesPerThread, m_forceRegenerate);
+  RunGenerateIsolinesTasks(left, bottom, right, top, m_srtmPath, params, m_threadsCount, m_maxCachedTilesPerThread,
+                           m_forceRegenerate);
 }
 
 void Generator::GenerateIsolinesForCountries()
@@ -509,8 +481,7 @@ void Generator::GenerateIsolinesForCountries()
       continue;
     checkedProfiles.insert(profileName);
     auto const profileTilesDir = GetTilesDir(m_isolinesTilesOutDir, profileName);
-    if (!GetPlatform().IsFileExistsByFullPath(profileTilesDir) &&
-        !GetPlatform().MkDirChecked(profileTilesDir))
+    if (!GetPlatform().IsFileExistsByFullPath(profileTilesDir) && !GetPlatform().MkDirChecked(profileTilesDir))
     {
       LOG(LERROR, ("Can't create directory", profileTilesDir));
       return;
@@ -572,18 +543,16 @@ void Generator::GenerateIsolinesForCountries()
 
   LOG(LINFO, ("Generate isolines for tiles rect", boundingRect));
 
-  GenerateIsolines(boundingRect.LeftBottom().x, boundingRect.LeftBottom().y,
-                   boundingRect.RightTop().x + 1, boundingRect.RightTop().y + 1, tmpTileProfilesDir);
+  GenerateIsolines(boundingRect.LeftBottom().x, boundingRect.LeftBottom().y, boundingRect.RightTop().x + 1,
+                   boundingRect.RightTop().y + 1, tmpTileProfilesDir);
 }
 
-void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
-                                       IsolinesPackingParams const & params)
+void Generator::PackIsolinesForCountry(storage::CountryId const & countryId, IsolinesPackingParams const & params)
 {
   PackIsolinesForCountry(countryId, params, nullptr /*needSkipTileFn*/);
 }
 
-void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
-                                       IsolinesPackingParams const & params,
+void Generator::PackIsolinesForCountry(storage::CountryId const & countryId, IsolinesPackingParams const & params,
                                        NeedSkipTileFn const & needSkipTileFn)
 {
   auto const outFile = GetIsolinesFilePath(countryId, params.m_outputDir);
@@ -625,8 +594,7 @@ void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
 
       LOG(LINFO, ("Begin packing isolines from tile", tileFilePath));
 
-      CropContours(countryRect, countryRegions, params.m_maxIsolineLength,
-                   params.m_alitudesStepFactor, isolines);
+      CropContours(countryRect, countryRegions, params.m_maxIsolineLength, params.m_alitudesStepFactor, isolines);
       // Simplification is done already while processing tiles in ProcessTile().
       // But now a different country-specific simpificationZoom could be applied.
       if (params.m_simplificationZoom > 0)
@@ -640,17 +608,15 @@ void Generator::PackIsolinesForCountry(storage::CountryId const & countryId,
       for (auto & levelIsolines : isolines.m_contours)
       {
         auto & dst = countryIsolines.m_contours[levelIsolines.first];
-        std::move(levelIsolines.second.begin(), levelIsolines.second.end(),
-                  std::back_inserter(dst));
+        std::move(levelIsolines.second.begin(), levelIsolines.second.end(), std::back_inserter(dst));
       }
 
       LOG(LINFO, ("End packing isolines from tile", tileFilePath));
     }
   }
 
-  LOG(LINFO, ("End packing isolines for country", countryId,
-              "min altitude", countryIsolines.m_minValue,
-              "max altitude", countryIsolines.m_maxValue));
+  LOG(LINFO, ("End packing isolines for country", countryId, "min altitude", countryIsolines.m_minValue, "max altitude",
+              countryIsolines.m_maxValue));
 
   SaveContrours(outFile, std::move(countryIsolines));
 
@@ -680,7 +646,7 @@ void Generator::PackIsolinesForCountries()
 
       auto const & packingParams = m_profileToPackingParams.at(params.m_profileName);
       PackIsolinesForCountry(countryId, packingParams,
-                             [&params](int lat, int lon){ return params.NeedSkipTile(lat, lon); });
+                             [&params](int lat, int lon) { return params.NeedSkipTile(lat, lon); });
 
       LOG(LINFO, ("End task", taskInd, "/", tasksCount, countryId));
     });
@@ -700,8 +666,7 @@ void Generator::InitCountryInfoGetter(std::string const & dataDir)
 }
 
 void Generator::InitProfiles(std::string const & isolinesProfilesFileName,
-                             std::string const & countriesToGenerateFileName,
-                             std::string const & isolinesTilesOutDir,
+                             std::string const & countriesToGenerateFileName, std::string const & isolinesTilesOutDir,
                              std::string const & isolinesCountriesOutDir)
 {
   CHECK(Deserialize(isolinesProfilesFileName, m_profilesCollection), ());
@@ -711,8 +676,7 @@ void Generator::InitProfiles(std::string const & isolinesProfilesFileName,
   for (auto const & countryParams : m_countriesToGenerate.m_countryParams)
   {
     auto const & params = countryParams.second;
-    CHECK(profiles.find(params.m_profileName) != profiles.end(),
-          ("Unknown profile name", params.m_profileName));
+    CHECK(profiles.find(params.m_profileName) != profiles.end(), ("Unknown profile name", params.m_profileName));
   }
 
   m_isolinesTilesOutDir = isolinesTilesOutDir;
@@ -732,9 +696,8 @@ void Generator::InitProfiles(std::string const & isolinesProfilesFileName,
       tileParams.m_filters.emplace_back(std::make_unique<MedianFilter<Altitude>>(profileParams.m_medianFilterR));
     if (profileParams.m_gaussianFilterStDev > 0.0 && profileParams.m_gaussianFilterRFactor > 0)
     {
-      tileParams.m_filters.emplace_back(
-        std::make_unique<GaussianFilter<Altitude>>(profileParams.m_gaussianFilterStDev,
-                                                   profileParams.m_gaussianFilterRFactor));
+      tileParams.m_filters.emplace_back(std::make_unique<GaussianFilter<Altitude>>(
+          profileParams.m_gaussianFilterStDev, profileParams.m_gaussianFilterRFactor));
     }
     m_profileToTileParams.emplace(profileName, std::move(tileParams));
 
@@ -755,10 +718,8 @@ void Generator::GetCountryRegions(storage::CountryId const & countryId, m2::Rect
 
   size_t id;
   for (id = 0; id < m_infoReader->GetCountries().size(); ++id)
-  {
     if (m_infoReader->GetCountries().at(id).m_countryId == countryId)
       break;
-  }
   CHECK_LESS(id, m_infoReader->GetCountries().size(), ());
 
   m_infoReader->LoadRegionsFromDisk(id, countryRegions);

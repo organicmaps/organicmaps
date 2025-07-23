@@ -33,12 +33,11 @@ Maxspeed Maxspeeds::GetMaxspeed(uint32_t fid) const
   }
 
   // Bidirectional maxspeeds.
-  auto const range = std::equal_range(
-      m_bidirectionalMaxspeeds.cbegin(), m_bidirectionalMaxspeeds.cend(),
-      fid, FeatureMaxspeed::Less());
+  auto const range = std::equal_range(m_bidirectionalMaxspeeds.cbegin(), m_bidirectionalMaxspeeds.cend(), fid,
+                                      FeatureMaxspeed::Less());
 
   if (range.second == range.first)
-    return Maxspeed(); // No maxspeed for |fid| is set. Returns an invalid Maxspeed instance.
+    return Maxspeed();  // No maxspeed for |fid| is set. Returns an invalid Maxspeed instance.
 
   CHECK_EQUAL(range.second - range.first, 1, ());
   return range.first->GetMaxspeed();
@@ -76,8 +75,7 @@ std::unique_ptr<Maxspeeds> LoadMaxspeeds(MwmSet::MwmHandle const & handle)
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("File", value->GetCountryFileName(), "Error while reading", MAXSPEEDS_FILE_TAG,
-                 "section.", e.Msg()));
+    LOG(LERROR, ("File", value->GetCountryFileName(), "Error while reading", MAXSPEEDS_FILE_TAG, "section.", e.Msg()));
     return std::make_unique<Maxspeeds>();
   }
 }

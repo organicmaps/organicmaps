@@ -123,8 +123,7 @@ private:
   class DeflateProcessor final : public Processor
   {
   public:
-    DeflateProcessor(Deflate::Format format, Deflate::Level level, void const * data,
-                     size_t size) noexcept;
+    DeflateProcessor(Deflate::Format format, Deflate::Level level, void const * data, size_t size) noexcept;
     virtual ~DeflateProcessor() noexcept override;
 
     int Process(int flush);
