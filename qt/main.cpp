@@ -23,6 +23,10 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
 
+#ifdef OMIM_OS_WINDOWS
+#include <windows.h>
+#endif
+
 #include <sstream>
 
 #include <gflags/gflags.h>
@@ -85,16 +89,26 @@ public:
     std::ofstream m_cerrOfstream;
     std::streambuf * m_cerrDefaultStreambuf;
     base::ScopedLogLevelChanger const m_debugLog;
+    HANDLE m_hHandle;
   public:
     InitializeFinalize() : m_debugLog(LDEBUG)
     {
-      static char const * const kLogFileName = ".\\organicmaps.log";
+      QString logFileName = ".\\organicmaps";
+      QString const uniqueKey = QString("OrganicMapsApp_") % GetPlatform().Version().c_str();
+      m_hHandle = CreateMutex(NULL, TRUE, uniqueKey.toStdWString().c_str());
+      if (ERROR_ALREADY_EXISTS == GetLastError())
+      {
+        QString timestamp = QDateTime::currentDateTime().toString("_yyyy-MM-dd_hh.mm.ss");
+        logFileName += "_" % QString::number(getpid()) % timestamp;
+      }
+      logFileName += ".log";
+      
       // App runs without error console under win32.
-      m_errFile = ::freopen(kLogFileName, "w", stderr);
+      m_errFile = ::freopen(logFileName.toStdString().c_str(), "w", stderr);
 
       // Redirecting std::cerr to a log file.
       m_cerrDefaultStreambuf = std::cerr.rdbuf();
-      m_cerrOfstream.open(kLogFileName, std::ios::trunc);
+      m_cerrOfstream.open(logFileName.toStdString(), std::ios::trunc);
       if (m_cerrOfstream.is_open())
         std::cerr.rdbuf(m_cerrOfstream.rdbuf());
 
@@ -108,6 +122,9 @@ public:
       
       if (m_errFile)
         ::fclose(m_errFile);
+
+      ReleaseMutex(m_hHandle); 
+      CloseHandle(m_hHandle); 
     }
   };
 #else
