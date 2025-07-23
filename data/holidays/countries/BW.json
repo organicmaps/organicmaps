@@ -1,0 +1,58 @@
+[
+  {
+    "date": "2025-01-01",
+    "name": "New Year's Day"
+  },
+  {
+    "date": "2025-01-02",
+    "name": "New Year's Day Holiday"
+  },
+  {
+    "date": "2025-04-18",
+    "name": "Good Friday"
+  },
+  {
+    "date": "2025-04-19",
+    "name": "Holy Saturday"
+  },
+  {
+    "date": "2025-04-21",
+    "name": "Easter Monday"
+  },
+  {
+    "date": "2025-05-01",
+    "name": "Labour Day"
+  },
+  {
+    "date": "2025-05-29",
+    "name": "Ascension Day"
+  },
+  {
+    "date": "2025-07-01",
+    "name": "Sir Seretse Khama Day"
+  },
+  {
+    "date": "2025-07-21",
+    "name": "President's Day"
+  },
+  {
+    "date": "2025-07-22",
+    "name": "President's Day Holiday"
+  },
+  {
+    "date": "2025-09-30",
+    "name": "Botswana Day"
+  },
+  {
+    "date": "2025-10-01",
+    "name": "Botswana Day Holiday"
+  },
+  {
+    "date": "2025-12-25",
+    "name": "Christmas Day"
+  },
+  {
+    "date": "2025-12-26",
+    "name": "Boxing Day"
+  }
+]

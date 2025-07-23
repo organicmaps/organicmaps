@@ -1,0 +1,42 @@
+[
+  {
+    "date": "2025-01-01",
+    "name": "New Year's Day"
+  },
+  {
+    "date": "2025-04-20",
+    "name": "Easter Sunday"
+  },
+  {
+    "date": "2025-04-21",
+    "name": "Easter Monday"
+  },
+  {
+    "date": "2025-04-26",
+    "name": "King's Day"
+  },
+  {
+    "date": "2025-05-05",
+    "name": "Liberation Day"
+  },
+  {
+    "date": "2025-05-29",
+    "name": "Ascension Day"
+  },
+  {
+    "date": "2025-06-08",
+    "name": "Whit Sunday"
+  },
+  {
+    "date": "2025-06-09",
+    "name": "Whit Monday"
+  },
+  {
+    "date": "2025-12-25",
+    "name": "Christmas Day"
+  },
+  {
+    "date": "2025-12-26",
+    "name": "Second Day of Christmas"
+  }
+]

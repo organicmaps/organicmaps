@@ -1,0 +1,70 @@
+[
+  {
+    "date": "2025-01-01",
+    "name": "New Year's Day"
+  },
+  {
+    "date": "2025-04-21",
+    "name": "Easter Monday"
+  },
+  {
+    "date": "2025-04-24",
+    "name": "National Concord Day"
+  },
+  {
+    "date": "2025-05-01",
+    "name": "International Labor Day"
+  },
+  {
+    "date": "2025-07-26",
+    "name": "Anniversary of the CNSP Coup"
+  },
+  {
+    "date": "2025-08-03",
+    "name": "Anniversary of the Proclamation of Independence"
+  },
+  {
+    "date": "2025-08-04",
+    "name": "Anniversary of the Proclamation of Independence (observed)"
+  },
+  {
+    "date": "2025-12-18",
+    "name": "National Day"
+  },
+  {
+    "date": "2025-12-25",
+    "name": "Christmas Day"
+  },
+  {
+    "date": "2025-06-27",
+    "name": "Islamic New Year"
+  },
+  {
+    "date": "2025-09-05",
+    "name": "Prophet's Birthday"
+  },
+  {
+    "date": "2025-03-27",
+    "name": "Laylat al-Qadr"
+  },
+  {
+    "date": "2025-03-30",
+    "name": "Eid al-Fitr"
+  },
+  {
+    "date": "2025-03-31",
+    "name": "Eid al-Fitr (observed)"
+  },
+  {
+    "date": "2025-06-07",
+    "name": "Eid al-Adha"
+  },
+  {
+    "date": "2025-06-08",
+    "name": "Day after Eid al-Adha"
+  },
+  {
+    "date": "2025-06-09",
+    "name": "Day after Eid al-Adha (observed)"
+  }
+]

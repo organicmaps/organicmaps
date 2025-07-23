@@ -1,0 +1,58 @@
+[
+  {
+    "date": "2025-01-01",
+    "name": "New Year's Day"
+  },
+  {
+    "date": "2025-01-06",
+    "name": "Epiphany"
+  },
+  {
+    "date": "2025-04-20",
+    "name": "Easter Sunday"
+  },
+  {
+    "date": "2025-04-21",
+    "name": "Easter Monday"
+  },
+  {
+    "date": "2025-05-01",
+    "name": "National Day"
+  },
+  {
+    "date": "2025-05-03",
+    "name": "National Day of the Third of May"
+  },
+  {
+    "date": "2025-06-08",
+    "name": "Pentecost"
+  },
+  {
+    "date": "2025-06-19",
+    "name": "Corpus Christi"
+  },
+  {
+    "date": "2025-08-15",
+    "name": "Assumption Day"
+  },
+  {
+    "date": "2025-11-01",
+    "name": "All Saints' Day"
+  },
+  {
+    "date": "2025-11-11",
+    "name": "National Independence Day"
+  },
+  {
+    "date": "2025-12-24",
+    "name": "Christmas Eve"
+  },
+  {
+    "date": "2025-12-25",
+    "name": "Christmas Day"
+  },
+  {
+    "date": "2025-12-26",
+    "name": "Second Day of Christmas"
+  }
+]
