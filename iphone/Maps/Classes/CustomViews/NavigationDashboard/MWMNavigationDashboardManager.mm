@@ -44,6 +44,7 @@
   NavigationDashboardViewController * routePreviewViewController = [NavigationDashboardBuilder buildWithDelegate:self];
   [routePreviewViewController addTo:self.parentViewController];
   _navigationDashboardView = routePreviewViewController.interactor;
+  _availableAreaView = routePreviewViewController.availableAreaView;
   return _navigationDashboardView;
 }
 
@@ -63,7 +64,10 @@
   if (self.state == MWMNavigationDashboardStateClosed ||
       self.state == MWMNavigationDashboardStateNavigation)
     return;
-  self.state = selected ? MWMNavigationDashboardStateHidden : MWMNavigationDashboardStateReady;
+  if (selected && !IPAD)
+    self.state = MWMNavigationDashboardStateHidden;
+  else
+    self.state = MWMNavigationDashboardStateReady;
 }
 
 - (void)onNavigationInfoUpdated {

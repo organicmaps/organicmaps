@@ -194,10 +194,19 @@ NSString *const kSettingsSegue = @"Map2Settings";
 - (void)updatePlacePageContainerConstraints {
   const BOOL isLimitedWidth = IPAD || self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact;
 
-  if (IPAD && self.searchViewAvailableArea != nil) {
-    NSLayoutConstraint * leadingToSearchConstraint = [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.searchViewAvailableArea.trailingAnchor constant:kPlacePageLeadingOffset];
-    leadingToSearchConstraint.priority = UILayoutPriorityDefaultHigh;
-    leadingToSearchConstraint.active = isLimitedWidth;
+  if (IPAD) {
+    if (self.searchViewAvailableArea)
+    {
+      NSLayoutConstraint * leadingToSearchConstraint = [self.placePageContainer.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.searchViewAvailableArea.trailingAnchor constant:kPlacePageLeadingOffset];
+      leadingToSearchConstraint.priority = UILayoutPriorityDefaultHigh;
+      leadingToSearchConstraint.active = isLimitedWidth;
+    }
+    else if (self.navigationDashboardViewAvailableArea)
+    {
+      NSLayoutConstraint * leadingToNavigationDashboardConstraint = [self.placePageContainer.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.navigationDashboardViewAvailableArea.trailingAnchor constant:kPlacePageLeadingOffset];
+      leadingToNavigationDashboardConstraint.priority = UILayoutPriorityDefaultHigh;
+      leadingToNavigationDashboardConstraint.active = isLimitedWidth;
+    }
   }
 
   [self.placePageWidthConstraint setActive:isLimitedWidth];
@@ -767,6 +776,10 @@ NSString *const kSettingsSegue = @"Map2Settings";
 
 - (UIView * _Nullable)searchViewAvailableArea {
   return self.searchManager.viewController.availableAreaView;
+}
+
+- (UIView * _Nullable)navigationDashboardViewAvailableArea {
+  return [self navigationDashboardManager].availableAreaView;
 }
 
 - (BOOL)hasNavigationBar {

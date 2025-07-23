@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, MWMNavigationDashboardState) {
 + (nonnull MWMNavigationDashboardManager *)sharedManager;
 
 @property(nonatomic, readonly) MWMNavigationDashboardState state;
+@property(nonatomic, readonly, nullable) UIView * availableAreaView;
 @property(nonatomic, readonly, nullable) MWMRoutePoint * selectedRoutePoint;
 @property(nonatomic, readonly) BOOL shouldAppendNewPoints;
 

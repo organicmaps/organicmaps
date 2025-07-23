@@ -31,7 +31,7 @@ final class NavigationDashboardViewController: UIViewController {
   typealias StepsController = ModalPresentationStepsController<NavigationDashboardModalPresentationStep>
 
   // MARK: - UI Components
-  private let availableAreaView = SearchOnMapAreaView()
+  @objc let availableAreaView = SearchOnMapAreaView()
   private let grabberView = UIView()
   private let closeButton = CircleImageButton()
   private var transportOptionsView = TransportOptionsView()
