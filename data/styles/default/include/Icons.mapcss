@@ -1892,6 +1892,9 @@ node|z17-[amenity=public_bath],
 area|z17-[amenity=public_bath],
 {icon-image: public_bath-m.svg;font-size: 11;}
 
+node|z17-[amenity=luggage_locker],
+{icon-image: luggage_locker-m.svg;font-size: 11;}
+
 /* 6. SHOP */
 
 node|z16-[amenity=marketplace],

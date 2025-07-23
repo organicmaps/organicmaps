@@ -1180,6 +1180,7 @@ shop                                                # icon z18- (also has captio
 === 470
 
 amenity-bbq                                         # icon z16- (also has caption(optional) z16-)
+amenity-luggage_locker                              # icon z17- (also has caption(optional) z19-)
 amenity-public_bookcase                             # icon z18- (also has caption(optional) z18-)
 cemetery-grave                                      # icon z17- (also has caption(optional) z17-)
 leisure-firepit                                     # icon z16- (also has caption(optional) z16-)
@@ -2118,6 +2119,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -9530
 
 # amenity-bbq                                       # caption(optional) z16- (also has icon z16-)
+# amenity-luggage_locker                            # caption(optional) z19- (also has icon z17-)
 # amenity-public_bookcase                           # caption(optional) z18- (also has icon z18-)
 # cemetery-grave                                    # caption(optional) z17- (also has icon z17-)
 # leisure-firepit                                   # caption(optional) z16- (also has icon z16-)
