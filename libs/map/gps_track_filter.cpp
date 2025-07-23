@@ -16,7 +16,7 @@ std::string_view constexpr kMinHorizontalAccuracyKey = "GpsTrackingMinAccuracy";
 double constexpr kMinHorizontalAccuracyMeters = 250;
 
 // Required for points decimation to reduce number of close points.
-double constexpr kClosePointDistanceMeters = 15;
+double constexpr kClosePointDistanceMeters = 10;
 
 // Max acceptable acceleration to filter gps jumps
 double constexpr kMaxAcceptableAcceleration = 2;  // m / sec ^ 2
