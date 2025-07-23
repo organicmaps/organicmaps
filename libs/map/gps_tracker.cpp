@@ -1,20 +1,16 @@
 #include "map/gps_tracker.hpp"
-#include "map/framework.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 #include "base/file_name_utils.hpp"
 
-#include <string>
-
 #include "defines.hpp"
-
-using namespace std::chrono;
 
 namespace
 {
 
-char const kEnabledKey[] = "GpsTrackingEnabled";
+std::string_view constexpr kEnabledKey = "GpsTrackingEnabled";
 
 inline std::string GetFilePath()
 {
@@ -72,11 +68,6 @@ bool GpsTracker::IsEmpty() const
   return m_track.IsEmpty();
 }
 
-size_t GpsTracker::GetTrackSize() const
-{
-  return m_track.GetSize();
-}
-
 TrackStatistics GpsTracker::GetTrackStatistics() const
 {
   return m_track.GetTrackStatistics();
@@ -102,10 +93,4 @@ void GpsTracker::OnLocationUpdated(location::GpsInfo const & info)
   if (!m_enabled)
     return;
   m_track.AddPoint(info);
-}
-
-void GpsTracker::ForEachTrackPoint(GpsTrackCallback const & callback) const
-{
-  CHECK(callback != nullptr, ("Callback should be provided"));
-  m_track.ForEachPoint(callback);
 }

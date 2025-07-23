@@ -3,36 +3,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include <algorithm>
-
 using namespace std;
-using namespace std::chrono;
-
-namespace gps_track
-{
-
-inline pair<size_t, size_t> UnionRanges(pair<size_t, size_t> const & a, pair<size_t, size_t> const & b)
-{
-  if (a.first == GpsTrack::kInvalidId)
-  {
-    ASSERT_EQUAL(a.second, GpsTrack::kInvalidId, ());
-    return b;
-  }
-  if (b.first == GpsTrack::kInvalidId)
-  {
-    ASSERT_EQUAL(b.second, GpsTrack::kInvalidId, ());
-    return a;
-  }
-  ASSERT_LESS_OR_EQUAL(a.first, a.second, ());
-  ASSERT_LESS_OR_EQUAL(b.first, b.second, ());
-  return make_pair(min(a.first, b.first), max(a.second, b.second));
-}
-
-size_t constexpr kItemBlockSize = 1000;
-
-}  // namespace gps_track
-
-size_t const GpsTrack::kInvalidId = GpsTrackCollection::kInvalidId;
 
 GpsTrack::GpsTrack(string const & filePath, unique_ptr<IGpsTrackFilter> && filter)
   : m_filePath(filePath)
@@ -99,12 +70,6 @@ void GpsTrack::Clear()
   ScheduleTask();
 }
 
-size_t GpsTrack::GetSize() const
-{
-  CHECK(m_collection != nullptr, ());
-  return m_collection->GetSize();
-}
-
 bool GpsTrack::IsEmpty() const
 {
   if (!m_collection)
@@ -126,6 +91,7 @@ void GpsTrack::ScheduleTask()
 {
   lock_guard<mutex> lg(m_threadGuard);
 
+  /// @todo Replace with !m_thread.joinable() ?
   if (m_thread.get_id() == std::thread::id())
   {
     m_thread = threads::SimpleThread([this]()
@@ -133,11 +99,16 @@ void GpsTrack::ScheduleTask()
       unique_lock<mutex> ul(m_threadGuard);
       while (true)
       {
-        m_cv.wait(ul, [this]() -> bool { return m_threadExit || m_threadWakeup; });
+        m_cv.wait(ul, [this]() { return m_threadExit || m_threadWakeup; });
+
+        if (m_threadWakeup)
+        {
+          m_threadWakeup = false;
+          ProcessPoints();
+        }
+
         if (m_threadExit)
           break;
-        m_threadWakeup = false;
-        ProcessPoints();
       }
 
       m_storage.reset();
@@ -179,7 +150,7 @@ void GpsTrack::InitCollection()
     // and filtered points are inserted in the runtime collection.
 
     vector<location::GpsInfo> originPoints;
-    originPoints.reserve(gps_track::kItemBlockSize);
+    originPoints.reserve(GpsTrackStorage::kItemBlockSize);
 
     m_storage->ForEach([this, &originPoints](location::GpsInfo const & originPoint) -> bool
     {
@@ -239,11 +210,33 @@ void GpsTrack::ProcessPoints()
   vector<location::GpsInfo> points;
   m_filter->Process(originPoints, points);
 
-  pair<size_t, size_t> addedIds;
-  pair<size_t, size_t> evictedIds;
+  pair<size_t, size_t> addedIds, evictedIds;
   UpdateCollection(needClear, points, addedIds, evictedIds);
 
   NotifyCallback(addedIds, evictedIds);
+}
+
+size_t GpsTrack::Finalize()
+{
+  if (m_thread.joinable())
+  {
+    {
+      lock_guard<mutex> lg(m_threadGuard);
+      m_threadWakeup = true;
+      m_threadExit = true;
+      m_cv.notify_one();
+    }
+    m_thread.join();
+    m_thread = {};
+  }
+
+  vector<location::GpsInfo> points;
+  m_filter->Finalize(points);
+
+  if (!points.empty())
+    m_collection->Add(points);
+
+  return m_collection->GetSize();
 }
 
 bool GpsTrack::HasCallback()
