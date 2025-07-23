@@ -103,7 +103,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
 
     let localItem1 = LocalMetadataItem.stub(fileName: "file1", lastModificationDate: TimeInterval(1))
     let cloudItem1 = CloudMetadataItem.stub(fileName: "file1", lastModificationDate: TimeInterval(2))
-    let cloudItem2 = CloudMetadataItem.stub(fileName: "file2", lastModificationDate: TimeInterval(3), isDownloaded: false)
+    let cloudItem2 = CloudMetadataItem.stub(fileName: "file2", lastModificationDate: TimeInterval(3), isDownloaded: false, percentDownloaded: 0.0)
     let cloudItem3 = CloudMetadataItem.stub(fileName: "file3", lastModificationDate: TimeInterval(4))
 
     let localItems = LocalContents([localItem1])
@@ -530,7 +530,7 @@ final class SynchronizationtateManagerTests: XCTestCase {
 
     XCTAssertEqual(outgoingEvents.count, 0)
 
-    var cloudItem4 = CloudMetadataItem.stub(fileName: "file4", lastModificationDate: TimeInterval(3), isDownloaded: false)
+    var cloudItem4 = CloudMetadataItem.stub(fileName: "file4", lastModificationDate: TimeInterval(3), isDownloaded: false, percentDownloaded: 0.0)
     cloudItems.append(cloudItem4)
     var update = CloudContentsUpdate(added: [cloudItem4], updated: [], removed: [])
     outgoingEvents = syncStateManager.resolveEvent(.didUpdateCloudContents(contents: cloudItems, update: update))
@@ -544,8 +544,17 @@ final class SynchronizationtateManagerTests: XCTestCase {
       }
     }
 
-    cloudItem4.isDownloaded = true
+    cloudItem4.percentDownloaded = 50.0
+    update = CloudContentsUpdate(added: [], updated: [cloudItem4], removed: [])
+    outgoingEvents = syncStateManager.resolveEvent(.didUpdateCloudContents(contents: cloudItems, update: update))
+    XCTAssertEqual(outgoingEvents.count, 0)
 
+    cloudItem4.percentDownloaded = 100.0
+    update = CloudContentsUpdate(added: [], updated: [cloudItem4], removed: [])
+    outgoingEvents = syncStateManager.resolveEvent(.didUpdateCloudContents(contents: cloudItems, update: update))
+    XCTAssertEqual(outgoingEvents.count, 0)
+
+    cloudItem4.isDownloaded = true
     // recreate collection
     cloudItems = [cloudItem1, cloudItem2, cloudItem3, cloudItem4]
     update = CloudContentsUpdate(added: [], updated: [cloudItem4], removed: [])
@@ -562,4 +571,3 @@ final class SynchronizationtateManagerTests: XCTestCase {
     }
   }
 }
-
