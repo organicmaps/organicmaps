@@ -11,10 +11,7 @@
 namespace openlr
 {
 // ComboBoxDelegate --------------------------------------------------------------------------------
-ComboBoxDelegate::ComboBoxDelegate(QObject * parent)
-  : QStyledItemDelegate(parent)
-{
-}
+ComboBoxDelegate::ComboBoxDelegate(QObject * parent) : QStyledItemDelegate(parent) {}
 
 QWidget * ComboBoxDelegate::createEditor(QWidget * parent, QStyleOptionViewItem const & option,
                                          QModelIndex const & index) const
@@ -30,13 +27,12 @@ QWidget * ComboBoxDelegate::createEditor(QWidget * parent, QStyleOptionViewItem 
 void ComboBoxDelegate::setEditorData(QWidget * editor, QModelIndex const & index) const
 {
   auto const value = index.model()->data(index, Qt::EditRole).toString();
-  static_cast<QComboBox*>(editor)->setCurrentText(value);
+  static_cast<QComboBox *>(editor)->setCurrentText(value);
 }
 
-void ComboBoxDelegate::setModelData(QWidget * editor, QAbstractItemModel * model,
-                                    QModelIndex const & index) const
+void ComboBoxDelegate::setModelData(QWidget * editor, QAbstractItemModel * model, QModelIndex const & index) const
 {
-  model->setData(index, static_cast<QComboBox*>(editor)->currentText(), Qt::EditRole);
+  model->setData(index, static_cast<QComboBox *>(editor)->currentText(), Qt::EditRole);
 }
 
 void ComboBoxDelegate::updateEditorGeometry(QWidget * editor, QStyleOptionViewItem const & option,
@@ -46,8 +42,7 @@ void ComboBoxDelegate::updateEditorGeometry(QWidget * editor, QStyleOptionViewIt
 }
 
 // TrafficPanel ------------------------------------------------------------------------------------
-TrafficPanel::TrafficPanel(QAbstractItemModel * trafficModel, QWidget * parent)
-  : QWidget(parent)
+TrafficPanel::TrafficPanel(QAbstractItemModel * trafficModel, QWidget * parent) : QWidget(parent)
 {
   CreateTable(trafficModel);
 
@@ -75,8 +70,7 @@ void TrafficPanel::CreateTable(QAbstractItemModel * trafficModel)
   m_table->setModel(trafficModel);
   m_table->setItemDelegate(new ComboBoxDelegate());
 
-  connect(m_table->selectionModel(),
-          SIGNAL(selectionChanged(QItemSelection const &, QItemSelection const &)),
+  connect(m_table->selectionModel(), SIGNAL(selectionChanged(QItemSelection const &, QItemSelection const &)),
           trafficModel, SLOT(OnItemSelected(QItemSelection const &, QItemSelection const &)));
 }
 }  // namespace openlr

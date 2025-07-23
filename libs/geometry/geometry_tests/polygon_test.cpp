@@ -116,8 +116,8 @@ UNIT_TEST(FindSingleStrip)
   {
     // Minsk, Bobryiskaya str., 7
     P const poly[] = {P(53.8926922, 27.5460021), P(53.8926539, 27.5461821), P(53.8926164, 27.5461591),
-                P(53.8925455, 27.5464921), P(53.8925817, 27.5465143), P(53.8925441, 27.5466909),
-                P(53.8923762, 27.5465881), P(53.8925229, 27.5458984)};
+                      P(53.8925455, 27.5464921), P(53.8925817, 27.5465143), P(53.8925441, 27.5466909),
+                      P(53.8923762, 27.5465881), P(53.8925229, 27.5458984)};
     TestFindStrip(poly, ARRAY_SIZE(poly));
   }
 }
@@ -150,15 +150,13 @@ UNIT_TEST(PolygonArea_Smoke)
 {
   {
     P arr[] = {P(-1, 0), P(0, 1), P(1, -1)};
-    TEST_ALMOST_EQUAL_ULPS(m2::GetTriangleArea(arr[0], arr[1], arr[2]),
-                           GetPolygonArea(arr, arr + ARRAY_SIZE(arr)), ());
+    TEST_ALMOST_EQUAL_ULPS(m2::GetTriangleArea(arr[0], arr[1], arr[2]), GetPolygonArea(arr, arr + ARRAY_SIZE(arr)), ());
   }
 
   {
     P arr[] = {P(-5, -7), P(-3.5, 10), P(7.2, 5), P(14, -6.4)};
-    TEST_ALMOST_EQUAL_ULPS(
-        m2::GetTriangleArea(arr[0], arr[1], arr[2]) + m2::GetTriangleArea(arr[2], arr[3], arr[0]),
-        GetPolygonArea(arr, arr + ARRAY_SIZE(arr)), ());
+    TEST_ALMOST_EQUAL_ULPS(m2::GetTriangleArea(arr[0], arr[1], arr[2]) + m2::GetTriangleArea(arr[2], arr[3], arr[0]),
+                           GetPolygonArea(arr, arr + ARRAY_SIZE(arr)), ());
   }
 }
 

@@ -28,13 +28,11 @@ namespace df
 {
 int constexpr kTransitSchemeMinZoomLevel = 10;
 float constexpr kTransitLineHalfWidth = 0.8f;
-std::array<float, 20> constexpr kTransitLinesWidthInPixel =
-{
-  // 1   2     3     4     5     6     7     8     9    10
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.25f,
-  //11  12    13    14    15    16    17    18    19     20
-  1.65f, 2.0f, 2.5f, 3.0f, 3.5f, 4.3f, 5.0f, 5.5f, 5.8f, 5.8f
-};
+std::array<float, 20> constexpr kTransitLinesWidthInPixel = {
+    // 1   2     3     4     5     6     7     8     9    10
+    1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.25f,
+    // 11  12    13    14    15    16    17    18    19     20
+    1.65f, 2.0f, 2.5f, 3.0f, 3.5f, 4.3f, 5.0f, 5.5f, 5.8f, 5.8f};
 
 namespace
 {
@@ -69,9 +67,11 @@ struct TransitStaticVertex
   using TColor = glsl::vec4;
 
   TransitStaticVertex() = default;
-  TransitStaticVertex(TPosition const & position, TNormal const & normal,
-                          TColor const & color)
-    : m_position(position), m_normal(normal), m_color(color) {}
+  TransitStaticVertex(TPosition const & position, TNormal const & normal, TColor const & color)
+    : m_position(position)
+    , m_normal(normal)
+    , m_color(color)
+  {}
 
   TPosition m_position;
   TNormal m_normal;
@@ -103,9 +103,8 @@ dp::BindingInfo const & GetTransitStaticBindingInfo()
   return *s_info;
 }
 
-void GenerateLineCaps(ref_ptr<dp::GraphicsContext> context,
-                      std::vector<SchemeSegment> const & segments, glsl::vec4 const & color,
-                      float lineOffset, float halfWidth, float depth, dp::Batcher & batcher)
+void GenerateLineCaps(ref_ptr<dp::GraphicsContext> context, std::vector<SchemeSegment> const & segments,
+                      glsl::vec4 const & color, float lineOffset, float halfWidth, float depth, dp::Batcher & batcher)
 {
   using TV = TransitStaticVertex;
 
@@ -129,8 +128,7 @@ void GenerateLineCaps(ref_ptr<dp::GraphicsContext> context,
   }
 
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
-  provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(),
-                      make_ref(geometry.data()));
+  provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
   auto state = CreateRenderState(gpu::Program::TransitCircle, DepthLayer::TransitSchemeLayer);
   batcher.InsertTriangleList(context, state, make_ref(&provider));
 }
@@ -199,8 +197,7 @@ std::vector<TitleInfo> GetTitles(StopNodeParamsPT const & stopParams)
   return titles;
 }
 
-void PlaceTitles(std::vector<TitleInfo> & titles, float textSize,
-                 ref_ptr<dp::TextureManager> textures)
+void PlaceTitles(std::vector<TitleInfo> & titles, float textSize, ref_ptr<dp::TextureManager> textures)
 {
   if (titles.size() < 2)
     return;
@@ -267,11 +264,13 @@ std::vector<m2::PointF> GetTransitMarkerSizes(float markerScale, float maxRouteW
   return markerSizes;
 }
 
-uint32_t GetRouteId(routing::transit::LineId lineId) { return static_cast<uint32_t>(lineId >> 4); }
+uint32_t GetRouteId(routing::transit::LineId lineId)
+{
+  return static_cast<uint32_t>(lineId >> 4);
+}
 
-void FillStopParamsSubway(TransitDisplayInfo const & transitDisplayInfo,
-                          MwmSet::MwmId const & mwmId, routing::transit::Stop const & stop,
-                          StopNodeParamsSubway & stopParams)
+void FillStopParamsSubway(TransitDisplayInfo const & transitDisplayInfo, MwmSet::MwmId const & mwmId,
+                          routing::transit::Stop const & stop, StopNodeParamsSubway & stopParams)
 {
   FeatureID featureId;
   std::string title;
@@ -324,19 +323,16 @@ void FillStopParamsPT(TransitDisplayInfo const & transitDisplayInfo, MwmSet::Mwm
 }
 
 bool FindLongerPath(routing::transit::StopId stop1Id, routing::transit::StopId stop2Id,
-                    std::vector<routing::transit::StopId> const & sameStops, size_t & stop1Ind,
-                    size_t & stop2Ind)
+                    std::vector<routing::transit::StopId> const & sameStops, size_t & stop1Ind, size_t & stop2Ind)
 {
   stop1Ind = std::numeric_limits<size_t>::max();
   stop2Ind = std::numeric_limits<size_t>::max();
 
   for (size_t stopInd = 0; stopInd < sameStops.size(); ++stopInd)
-  {
     if (sameStops[stopInd] == stop1Id)
       stop1Ind = stopInd;
     else if (sameStops[stopInd] == stop2Id)
       stop2Ind = stopInd;
-  }
 
   if (stop1Ind < sameStops.size() || stop2Ind < sameStops.size())
   {
@@ -401,15 +397,13 @@ void TransitSchemeBuilder::Clear(MwmSet::MwmId const & mwmId)
   m_schemes.erase(mwmId);
 }
 
-void TransitSchemeBuilder::RebuildSchemes(ref_ptr<dp::GraphicsContext> context,
-                                          ref_ptr<dp::TextureManager> textures)
+void TransitSchemeBuilder::RebuildSchemes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures)
 {
   for (auto const & mwmScheme : m_schemes)
     BuildScheme(context, mwmScheme.first, textures);
 }
 
-void TransitSchemeBuilder::BuildScheme(ref_ptr<dp::GraphicsContext> context,
-                                       MwmSet::MwmId const & mwmId,
+void TransitSchemeBuilder::BuildScheme(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
                                        ref_ptr<dp::TextureManager> textures)
 {
   if (m_schemes.find(mwmId) == m_schemes.end())
@@ -425,10 +419,8 @@ void TransitSchemeBuilder::GenerateLinesSubway(MwmSchemeData const & scheme, dp:
 {
   for (auto const & shape : scheme.m_shapesSubway)
   {
-    size_t const linesCount =
-        shape.second.m_forwardLines.size() + shape.second.m_backwardLines.size();
-    float shapeOffset =
-        -static_cast<float>(linesCount / 2) * 2.0f - static_cast<float>(linesCount % 2) + 1.0f;
+    size_t const linesCount = shape.second.m_forwardLines.size() + shape.second.m_backwardLines.size();
+    float shapeOffset = -static_cast<float>(linesCount / 2) * 2.0f - static_cast<float>(linesCount % 2) + 1.0f;
     size_t constexpr shapeOffsetIncrement = 2.0f;
 
     std::vector<std::pair<dp::Color, routing::transit::LineId>> coloredLines;
@@ -441,8 +433,7 @@ void TransitSchemeBuilder::GenerateLinesSubway(MwmSchemeData const & scheme, dp:
       coloredLines.emplace_back(color, lineId);
     }
 
-    for (auto it = shape.second.m_backwardLines.rbegin(); it != shape.second.m_backwardLines.rend();
-         ++it)
+    for (auto it = shape.second.m_backwardLines.rbegin(); it != shape.second.m_backwardLines.rend(); ++it)
     {
       auto const & lineColor = scheme.m_linesSubway.at(*it).m_color;
       auto const colorName = df::GetTransitColorName(lineColor);
@@ -456,8 +447,8 @@ void TransitSchemeBuilder::GenerateLinesSubway(MwmSchemeData const & scheme, dp:
       auto const & lineId = coloredLine.second;
       auto const depth = scheme.m_linesSubway.at(lineId).m_depth;
 
-      GenerateLine(context, shape.second.m_polyline, scheme.m_pivot, colorConst, shapeOffset,
-                   kTransitLineHalfWidth, depth, batcher);
+      GenerateLine(context, shape.second.m_polyline, scheme.m_pivot, colorConst, shapeOffset, kTransitLineHalfWidth,
+                   depth, batcher);
 
       shapeOffset += shapeOffsetIncrement;
     }
@@ -474,8 +465,8 @@ void TransitSchemeBuilder::GenerateLinesPT(MwmSchemeData const & scheme, dp::Bat
     for (auto const & routeData : data.m_routeShapes)
     {
       float const offset = static_cast<float>(routeData.m_order);
-      GenerateLine(context, routeData.m_polyline, scheme.m_pivot, color, offset,
-                   kTransitLineHalfWidth, data.m_depth, batcher);
+      GenerateLine(context, routeData.m_polyline, scheme.m_pivot, color, offset, kTransitLineHalfWidth, data.m_depth,
+                   batcher);
     }
   }
 }
@@ -514,12 +505,10 @@ void TransitSchemeBuilder::CollectStopsSubway(TransitDisplayInfo const & transit
   }
 }
 
-void TransitSchemeBuilder::CollectStopsPT(TransitDisplayInfo const & transitDisplayInfo,
-                                          LinesDataPT const & linesData,
+void TransitSchemeBuilder::CollectStopsPT(TransitDisplayInfo const & transitDisplayInfo, LinesDataPT const & linesData,
                                           MwmSet::MwmId const & mwmId, MwmSchemeData & scheme)
 {
-  CHECK_EQUAL(transitDisplayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport,
-              ());
+  CHECK_EQUAL(transitDisplayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
 
   for (auto const & [stopId, lineIds] : linesData.m_stopToLineIds)
   {
@@ -562,8 +551,7 @@ void TransitSchemeBuilder::CollectStopsPT(TransitDisplayInfo const & transitDisp
   }
 }
 
-void TransitSchemeBuilder::CollectLinesSubway(TransitDisplayInfo const & transitDisplayInfo,
-                                              MwmSchemeData & scheme)
+void TransitSchemeBuilder::CollectLinesSubway(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme)
 {
   CHECK_EQUAL(transitDisplayInfo.m_transitVersion, ::transit::TransitVersion::OnlySubway, ());
 
@@ -582,18 +570,15 @@ void TransitSchemeBuilder::CollectLinesSubway(TransitDisplayInfo const & transit
   {
     auto const lineId = pair.second;
 
-    scheme.m_linesSubway[lineId] =
-        LineParams(transitDisplayInfo.m_linesSubway.at(lineId).GetColor(), depth);
+    scheme.m_linesSubway[lineId] = LineParams(transitDisplayInfo.m_linesSubway.at(lineId).GetColor(), depth);
 
     depth += kDepthPerLine;
   }
 }
 
-LinesDataPT TransitSchemeBuilder::CollectLinesPT(TransitDisplayInfo const & transitDisplayInfo,
-                                                 MwmSchemeData & scheme)
+LinesDataPT TransitSchemeBuilder::CollectLinesPT(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme)
 {
-  CHECK_EQUAL(transitDisplayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport,
-              ());
+  CHECK_EQUAL(transitDisplayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
 
   LinesDataPT linesData;
 
@@ -633,8 +618,7 @@ LinesDataPT TransitSchemeBuilder::CollectLinesPT(TransitDisplayInfo const & tran
   return linesData;
 }
 
-void TransitSchemeBuilder::CollectShapesSubway(TransitDisplayInfo const & transitDisplayInfo,
-                                               MwmSchemeData & scheme)
+void TransitSchemeBuilder::CollectShapesSubway(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme)
 {
   CHECK_EQUAL(transitDisplayInfo.m_transitVersion, ::transit::TransitVersion::OnlySubway, ());
 
@@ -654,18 +638,14 @@ void TransitSchemeBuilder::CollectShapesSubway(TransitDisplayInfo const & transi
 
     auto const & stopsRanges = line.second.GetStopIds();
     for (auto const & stops : stopsRanges)
-    {
       for (size_t i = 1; i < stops.size(); ++i)
         FindShapes(stops[i - 1], stops[i], lineId, roads[roadId], transitDisplayInfo, scheme);
-    }
   }
 }
 
-void TransitSchemeBuilder::CollectShapesPT(TransitDisplayInfo const & transitDisplayInfo,
-                                           MwmSchemeData & scheme)
+void TransitSchemeBuilder::CollectShapesPT(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme)
 {
-  CHECK_EQUAL(transitDisplayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport,
-              ());
+  CHECK_EQUAL(transitDisplayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
 
   float curDepth = kBaseLineDepth;
   std::unordered_map<std::string, float> routeColorToDepth;
@@ -698,8 +678,7 @@ void TransitSchemeBuilder::CollectShapesPT(TransitDisplayInfo const & transitDis
     for (auto const & part : metaData.GetLineSegmentsOrder())
     {
       RouteSegment rs;
-      rs.m_polyline =
-          ::transit::GetPolylinePart(shape, part.m_segment.m_startIdx, part.m_segment.m_endIdx);
+      rs.m_polyline = ::transit::GetPolylinePart(shape, part.m_segment.m_startIdx, part.m_segment.m_endIdx);
       rs.m_order = part.m_order;
       routeData.m_routeShapes.push_back(rs);
     }
@@ -708,12 +687,10 @@ void TransitSchemeBuilder::CollectShapesPT(TransitDisplayInfo const & transitDis
   }
 }
 
-void TransitSchemeBuilder::FindShapes(routing::transit::StopId stop1Id,
-                                      routing::transit::StopId stop2Id,
+void TransitSchemeBuilder::FindShapes(routing::transit::StopId stop1Id, routing::transit::StopId stop2Id,
                                       routing::transit::LineId lineId,
                                       std::vector<routing::transit::LineId> const & sameLines,
-                                      TransitDisplayInfo const & transitDisplayInfo,
-                                      MwmSchemeData & scheme)
+                                      TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme)
 {
   bool shapeAdded = false;
 
@@ -746,10 +723,8 @@ void TransitSchemeBuilder::FindShapes(routing::transit::StopId stop1Id,
     AddShape(transitDisplayInfo, stop1Id, stop2Id, lineId, scheme);
 }
 
-void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInfo,
-                                    routing::transit::StopId stop1Id,
-                                    routing::transit::StopId stop2Id,
-                                    routing::transit::LineId lineId,
+void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInfo, routing::transit::StopId stop1Id,
+                                    routing::transit::StopId stop2Id, routing::transit::LineId lineId,
                                     MwmSchemeData & scheme)
 {
   auto const stop1It = transitDisplayInfo.m_stopsSubway.find(stop1Id);
@@ -761,10 +736,8 @@ void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInf
   auto const transfer1Id = stop1It->second.GetTransferId();
   auto const transfer2Id = stop2It->second.GetTransferId();
 
-  auto shapeId = routing::transit::ShapeId(transfer1Id != routing::transit::kInvalidTransferId ? transfer1Id
-                                                                                               : stop1Id,
-                                           transfer2Id != routing::transit::kInvalidTransferId ? transfer2Id
-                                                                                               : stop2Id);
+  auto shapeId = routing::transit::ShapeId(transfer1Id != routing::transit::kInvalidTransferId ? transfer1Id : stop1Id,
+                                           transfer2Id != routing::transit::kInvalidTransferId ? transfer2Id : stop2Id);
   auto it = transitDisplayInfo.m_shapesSubway.find(shapeId);
   bool isForward = true;
   if (it == transitDisplayInfo.m_shapesSubway.end())
@@ -790,15 +763,11 @@ void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInf
   else
   {
     for (auto id : itScheme->second.m_forwardLines)
-    {
       if (GetRouteId(id) == GetRouteId(lineId))
         return;
-    }
     for (auto id : itScheme->second.m_backwardLines)
-    {
       if (GetRouteId(id) == GetRouteId(lineId))
         return;
-    }
 
     if (isForward)
       itScheme->second.m_forwardLines.push_back(lineId);
@@ -815,14 +784,12 @@ void TransitSchemeBuilder::PrepareSchemeSubway(MwmSchemeData & scheme)
   {
     auto const stop1 = shape.first.GetStop1Id();
     auto const stop2 = shape.first.GetStop2Id();
-    StopNodeParamsSubway & params1 =
-        (scheme.m_stopsSubway.find(stop1) == scheme.m_stopsSubway.end())
-            ? scheme.m_transfersSubway[stop1]
-            : scheme.m_stopsSubway[stop1];
-    StopNodeParamsSubway & params2 =
-        (scheme.m_stopsSubway.find(stop2) == scheme.m_stopsSubway.end())
-            ? scheme.m_transfersSubway[stop2]
-            : scheme.m_stopsSubway[stop2];
+    StopNodeParamsSubway & params1 = (scheme.m_stopsSubway.find(stop1) == scheme.m_stopsSubway.end())
+                                       ? scheme.m_transfersSubway[stop1]
+                                       : scheme.m_stopsSubway[stop1];
+    StopNodeParamsSubway & params2 = (scheme.m_stopsSubway.find(stop2) == scheme.m_stopsSubway.end())
+                                       ? scheme.m_transfersSubway[stop2]
+                                       : scheme.m_stopsSubway[stop2];
 
     auto const linesCount = shape.second.m_forwardLines.size() + shape.second.m_backwardLines.size();
 
@@ -851,8 +818,7 @@ void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & 
 
   for (ShapeInfoPT & info : shapeInfos)
   {
-    if (AlmostEqualAbs(info.m_direction, newDir, kEps) ||
-        AlmostEqualAbs(info.m_direction, newDirReverse, kEps))
+    if (AlmostEqualAbs(info.m_direction, newDir, kEps) || AlmostEqualAbs(info.m_direction, newDirReverse, kEps))
     {
       for (auto const & color : colors)
         info.m_colors.insert(color);
@@ -863,14 +829,12 @@ void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & 
   shapeInfos.push_back(ShapeInfoPT(newDir, colors));
 }
 
-void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & newDir,
-                      std::string const & color)
+void UpdateShapeInfos(std::vector<ShapeInfoPT> & shapeInfos, m2::PointD const & newDir, std::string const & color)
 {
   UpdateShapeInfos(shapeInfos, newDir, std::set<std::string>{color});
 }
 
-StopNodeParamsPT & TransitSchemeBuilder::GetStopOrTransfer(MwmSchemeData & scheme,
-                                                           ::transit::TransitId id)
+StopNodeParamsPT & TransitSchemeBuilder::GetStopOrTransfer(MwmSchemeData & scheme, ::transit::TransitId id)
 {
   auto itStop = scheme.m_stopsPT.find(id);
   if (itStop != scheme.m_stopsPT.end())
@@ -879,15 +843,14 @@ StopNodeParamsPT & TransitSchemeBuilder::GetStopOrTransfer(MwmSchemeData & schem
   return scheme.m_transfersPT[id];
 }
 
-void TransitSchemeBuilder::PrepareSchemePT(TransitDisplayInfo const & transitDisplayInfo,
-                                           LinesDataPT const & lineData, MwmSchemeData & scheme)
+void TransitSchemeBuilder::PrepareSchemePT(TransitDisplayInfo const & transitDisplayInfo, LinesDataPT const & lineData,
+                                           MwmSchemeData & scheme)
 {
   m2::RectD boundingRect;
 
   for (auto const & [lineId, lineData] : scheme.m_linesPT)
   {
-    if (transitDisplayInfo.m_linesMetadataPT.find(lineId) ==
-        transitDisplayInfo.m_linesMetadataPT.end())
+    if (transitDisplayInfo.m_linesMetadataPT.find(lineId) == transitDisplayInfo.m_linesMetadataPT.end())
       continue;
 
     auto const & color = lineData.m_color;
@@ -923,8 +886,7 @@ void TransitSchemeBuilder::PrepareSchemePT(TransitDisplayInfo const & transitDis
 
         auto const & polyline = itShape->second.GetPolyline();
 
-        auto const [startIndex, endIndex] =
-            std::minmax(shapeLink.m_startIndex, shapeLink.m_endIndex);
+        auto const [startIndex, endIndex] = std::minmax(shapeLink.m_startIndex, shapeLink.m_endIndex);
 
         dir1 = (polyline[startIndex + 1] - polyline[startIndex]).Normalize();
         dir2 = (polyline[endIndex] - polyline[endIndex - 1]).Normalize();
@@ -972,8 +934,7 @@ void TransitSchemeBuilder::PrepareSchemePT(TransitDisplayInfo const & transitDis
   scheme.m_pivot = boundingRect.Center();
 }
 
-void TransitSchemeBuilder::GenerateShapes(ref_ptr<dp::GraphicsContext> context,
-                                          MwmSet::MwmId const & mwmId)
+void TransitSchemeBuilder::GenerateShapes(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId)
 {
   MwmSchemeData const & scheme = m_schemes[mwmId];
 
@@ -981,16 +942,15 @@ void TransitSchemeBuilder::GenerateShapes(ref_ptr<dp::GraphicsContext> context,
   dp::Batcher batcher(kBatchSize, kBatchSize);
   batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Transit));
   {
-    dp::SessionGuard guard(
-        context, batcher,
-        [this, &mwmId, &scheme](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b) {
-          TransitRenderData::Type type = TransitRenderData::Type::Lines;
-          if (state.GetProgram<gpu::Program>() == gpu::Program::TransitCircle)
-            type = TransitRenderData::Type::LinesCaps;
-          TransitRenderData renderData(type, state, m_recacheId, mwmId, scheme.m_pivot,
-                                       std::move(b));
-          m_flushRenderDataFn(std::move(renderData));
-        });
+    dp::SessionGuard guard(context, batcher,
+                           [this, &mwmId, &scheme](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+    {
+      TransitRenderData::Type type = TransitRenderData::Type::Lines;
+      if (state.GetProgram<gpu::Program>() == gpu::Program::TransitCircle)
+        type = TransitRenderData::Type::LinesCaps;
+      TransitRenderData renderData(type, state, m_recacheId, mwmId, scheme.m_pivot, std::move(b));
+      m_flushRenderDataFn(std::move(renderData));
+    });
 
     if (scheme.m_transitVersion == ::transit::TransitVersion::OnlySubway)
       GenerateLinesSubway(scheme, batcher, context);
@@ -1006,11 +966,9 @@ void TransitSchemeBuilder::GenerateShapes(ref_ptr<dp::GraphicsContext> context,
 
 template <class F, class S, class T, class L>
 void TransitSchemeBuilder::GenerateLocationsWithTitles(ref_ptr<dp::GraphicsContext> context,
-                                                       ref_ptr<dp::TextureManager> textures,
-                                                       dp::Batcher & batcher, F && flusher,
-                                                       MwmSchemeData const & scheme,
-                                                       S const & stops, T const & transfers,
-                                                       L const & lines)
+                                                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher,
+                                                       F && flusher, MwmSchemeData const & scheme, S const & stops,
+                                                       T const & transfers, L const & lines)
 {
   dp::SessionGuard guard(context, batcher, flusher);
 
@@ -1029,19 +987,17 @@ void TransitSchemeBuilder::GenerateLocationsWithTitles(ref_ptr<dp::GraphicsConte
   for (auto const & transfer : transfers)
   {
     GenerateTransfer(context, transfer.second, scheme.m_pivot, batcher);
-    GenerateTitles(context, transfer.second, scheme.m_pivot, transferMarkerSizes, textures,
-                   batcher);
+    GenerateTitles(context, transfer.second, scheme.m_pivot, transferMarkerSizes, textures, batcher);
   }
 }
 
-void TransitSchemeBuilder::GenerateStops(ref_ptr<dp::GraphicsContext> context,
-                                         MwmSet::MwmId const & mwmId,
+void TransitSchemeBuilder::GenerateStops(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
                                          ref_ptr<dp::TextureManager> textures)
 {
   MwmSchemeData const & scheme = m_schemes[mwmId];
 
-  auto const flusher = [this, &mwmId, &scheme](dp::RenderState const & state,
-                                               drape_ptr<dp::RenderBucket> && b) {
+  auto const flusher = [this, &mwmId, &scheme](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+  {
     TransitRenderData::Type type = TransitRenderData::Type::Stubs;
     if (state.GetProgram<gpu::Program>() == gpu::Program::TransitMarker)
       type = TransitRenderData::Type::Markers;
@@ -1063,8 +1019,8 @@ void TransitSchemeBuilder::GenerateStops(ref_ptr<dp::GraphicsContext> context,
   }
   else if (scheme.m_transitVersion == ::transit::TransitVersion::AllPublicTransport)
   {
-    GenerateLocationsWithTitles(context, textures, batcher, flusher, scheme, scheme.m_stopsPT,
-                                scheme.m_transfersPT, scheme.m_linesPT);
+    GenerateLocationsWithTitles(context, textures, batcher, flusher, scheme, scheme.m_stopsPT, scheme.m_transfersPT,
+                                scheme.m_linesPT);
   }
   else
   {
@@ -1073,11 +1029,10 @@ void TransitSchemeBuilder::GenerateStops(ref_ptr<dp::GraphicsContext> context,
   }
 }
 
-void TransitSchemeBuilder::GenerateMarker(ref_ptr<dp::GraphicsContext> context,
-                                          m2::PointD const & pt, m2::PointD widthDir,
-                                          float linesCountWidth, float linesCountHeight,
-                                          float scaleWidth, float scaleHeight, float depth,
-                                          dp::Color const & color, dp::Batcher & batcher)
+void TransitSchemeBuilder::GenerateMarker(ref_ptr<dp::GraphicsContext> context, m2::PointD const & pt,
+                                          m2::PointD widthDir, float linesCountWidth, float linesCountHeight,
+                                          float scaleWidth, float scaleHeight, float depth, dp::Color const & color,
+                                          dp::Batcher & batcher)
 {
   using TV = TransitStaticVertex;
 
@@ -1087,48 +1042,37 @@ void TransitSchemeBuilder::GenerateMarker(ref_ptr<dp::GraphicsContext> context,
   widthDir.y = -widthDir.y;
   m2::PointD heightDir = widthDir.Ort();
 
-  auto const v1 =
-      -widthDir * scaleWidth * linesCountWidth - heightDir * scaleHeight * linesCountHeight;
-  auto const v2 =
-      widthDir * scaleWidth * linesCountWidth - heightDir * scaleHeight * linesCountHeight;
-  auto const v3 =
-      widthDir * scaleWidth * linesCountWidth + heightDir * scaleHeight * linesCountHeight;
-  auto const v4 =
-      -widthDir * scaleWidth * linesCountWidth + heightDir * scaleHeight * linesCountHeight;
+  auto const v1 = -widthDir * scaleWidth * linesCountWidth - heightDir * scaleHeight * linesCountHeight;
+  auto const v2 = widthDir * scaleWidth * linesCountWidth - heightDir * scaleHeight * linesCountHeight;
+  auto const v3 = widthDir * scaleWidth * linesCountWidth + heightDir * scaleHeight * linesCountHeight;
+  auto const v4 = -widthDir * scaleWidth * linesCountWidth + heightDir * scaleHeight * linesCountHeight;
 
   glsl::vec3 const pos(pt.x, pt.y, depth);
-  auto const colorVal =
-      glsl::vec4(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), 1.0f /* alpha */);
+  auto const colorVal = glsl::vec4(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), 1.0f /* alpha */);
 
   TGeometryBuffer geometry;
   geometry.reserve(6);
-  geometry.emplace_back(pos, TV::TNormal(v1.x, v1.y, -linesCountWidth, -linesCountHeight),
-                        colorVal);
+  geometry.emplace_back(pos, TV::TNormal(v1.x, v1.y, -linesCountWidth, -linesCountHeight), colorVal);
   geometry.emplace_back(pos, TV::TNormal(v2.x, v2.y, linesCountWidth, -linesCountHeight), colorVal);
   geometry.emplace_back(pos, TV::TNormal(v3.x, v3.y, linesCountWidth, linesCountHeight), colorVal);
-  geometry.emplace_back(pos, TV::TNormal(v1.x, v1.y, -linesCountWidth, -linesCountHeight),
-                        colorVal);
+  geometry.emplace_back(pos, TV::TNormal(v1.x, v1.y, -linesCountWidth, -linesCountHeight), colorVal);
   geometry.emplace_back(pos, TV::TNormal(v3.x, v3.y, linesCountWidth, linesCountHeight), colorVal);
   geometry.emplace_back(pos, TV::TNormal(v4.x, v4.y, -linesCountWidth, linesCountHeight), colorVal);
 
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
-  provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(),
-                      make_ref(geometry.data()));
+  provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
   auto state = CreateRenderState(gpu::Program::TransitMarker, DepthLayer::TransitSchemeLayer);
   batcher.InsertTriangleList(context, state, make_ref(&provider));
 }
 
-void TransitSchemeBuilder::GenerateLine(ref_ptr<dp::GraphicsContext> context,
-                                        std::vector<m2::PointD> const & path,
-                                        m2::PointD const & pivot, dp::Color const & colorConst,
-                                        float lineOffset, float halfWidth, float depth,
-                                        dp::Batcher & batcher)
+void TransitSchemeBuilder::GenerateLine(ref_ptr<dp::GraphicsContext> context, std::vector<m2::PointD> const & path,
+                                        m2::PointD const & pivot, dp::Color const & colorConst, float lineOffset,
+                                        float halfWidth, float depth, dp::Batcher & batcher)
 {
   using TV = TransitStaticVertex;
 
   TGeometryBuffer geometry;
-  auto const color = glsl::vec4(colorConst.GetRedF(), colorConst.GetGreenF(), colorConst.GetBlueF(),
-                                1.0f /* alpha */);
+  auto const color = glsl::vec4(colorConst.GetRedF(), colorConst.GetGreenF(), colorConst.GetBlueF(), 1.0f /* alpha */);
   size_t const kAverageSize = path.size() * 6;
   size_t const kAverageCapSize = 12;
   geometry.reserve(kAverageSize + kAverageCapSize * 2);
@@ -1151,36 +1095,28 @@ void TransitSchemeBuilder::GenerateLine(ref_ptr<dp::GraphicsContext> context,
     auto const endPivot = glsl::vec3(segment.m_p2, depth);
     auto const offset = lineOffset * segment.m_rightNormal;
 
-    geometry.emplace_back(startPivot,
-                          TV::TNormal(segment.m_rightNormal * halfWidth - offset, -halfWidth, 0.0),
-                          color);
-    geometry.emplace_back(
-        startPivot, TV::TNormal(segment.m_leftNormal * halfWidth - offset, halfWidth, 0.0), color);
-    geometry.emplace_back(
-        endPivot, TV::TNormal(segment.m_rightNormal * halfWidth - offset, -halfWidth, 0.0), color);
-    geometry.emplace_back(
-        endPivot, TV::TNormal(segment.m_rightNormal * halfWidth - offset, -halfWidth, 0.0), color);
-    geometry.emplace_back(
-        startPivot, TV::TNormal(segment.m_leftNormal * halfWidth - offset, halfWidth, 0.0), color);
-    geometry.emplace_back(
-        endPivot, TV::TNormal(segment.m_leftNormal * halfWidth - offset, halfWidth, 0.0), color);
+    geometry.emplace_back(startPivot, TV::TNormal(segment.m_rightNormal * halfWidth - offset, -halfWidth, 0.0), color);
+    geometry.emplace_back(startPivot, TV::TNormal(segment.m_leftNormal * halfWidth - offset, halfWidth, 0.0), color);
+    geometry.emplace_back(endPivot, TV::TNormal(segment.m_rightNormal * halfWidth - offset, -halfWidth, 0.0), color);
+    geometry.emplace_back(endPivot, TV::TNormal(segment.m_rightNormal * halfWidth - offset, -halfWidth, 0.0), color);
+    geometry.emplace_back(startPivot, TV::TNormal(segment.m_leftNormal * halfWidth - offset, halfWidth, 0.0), color);
+    geometry.emplace_back(endPivot, TV::TNormal(segment.m_leftNormal * halfWidth - offset, halfWidth, 0.0), color);
 
     segments.emplace_back(std::move(segment));
   }
 
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
-  provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(),
-                      make_ref(geometry.data()));
+  provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
   auto state = CreateRenderState(gpu::Program::Transit, DepthLayer::TransitSchemeLayer);
   batcher.InsertTriangleList(context, state, make_ref(&provider));
 
   GenerateLineCaps(context, segments, color, lineOffset, halfWidth, depth, batcher);
 }
 
-void TransitSchemeBuilder::GenerateStop(
-    ref_ptr<dp::GraphicsContext> context, StopNodeParamsSubway const & stopParams,
-    m2::PointD const & pivot, std::map<routing::transit::LineId, LineParams> const & lines,
-    dp::Batcher & batcher)
+void TransitSchemeBuilder::GenerateStop(ref_ptr<dp::GraphicsContext> context, StopNodeParamsSubway const & stopParams,
+                                        m2::PointD const & pivot,
+                                        std::map<routing::transit::LineId, LineParams> const & lines,
+                                        dp::Batcher & batcher)
 {
   bool const severalRoads = stopParams.m_stopsInfo.size() > 1;
 
@@ -1203,15 +1139,12 @@ void TransitSchemeBuilder::GenerateStop(
 
   m2::PointD dir = stopParams.m_shapesInfo.begin()->second.m_direction;
 
-  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kOuterScale, kOuterScale, kOuterMarkerDepth,
-                 outerColor, batcher);
+  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kOuterScale, kOuterScale, kOuterMarkerDepth, outerColor, batcher);
 
-  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kInnerScale, kInnerScale, kInnerMarkerDepth,
-                 innerColor, batcher);
+  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kInnerScale, kInnerScale, kInnerMarkerDepth, innerColor, batcher);
 }
 
-std::pair<m2::PointD, size_t> GetFittingDirectionAndSize(
-    std::vector<ShapeInfoPT> const & shapeInfos)
+std::pair<m2::PointD, size_t> GetFittingDirectionAndSize(std::vector<ShapeInfoPT> const & shapeInfos)
 {
   if (shapeInfos.empty())
     return {m2::PointD::Zero(), 0};
@@ -1231,8 +1164,8 @@ std::pair<m2::PointD, size_t> GetFittingDirectionAndSize(
   return {shapeInfos[idxMax].m_direction, max};
 }
 
-std::pair<m2::PointD, size_t> GetFittingDirectionAndSize(
-    std::vector<ShapeInfoPT> const & shapeInfosIn, std::vector<ShapeInfoPT> const & shapeInfosOut)
+std::pair<m2::PointD, size_t> GetFittingDirectionAndSize(std::vector<ShapeInfoPT> const & shapeInfosIn,
+                                                         std::vector<ShapeInfoPT> const & shapeInfosOut)
 {
   auto const dirSizeIn = GetFittingDirectionAndSize(shapeInfosIn);
   auto const dirSizeOut = GetFittingDirectionAndSize(shapeInfosOut);
@@ -1247,10 +1180,8 @@ bool StopHasMultipleShapes(std::vector<ShapeInfoPT> const & shapeInfosIn,
 
   for (auto const & si : shapeInfosIn)
   {
-    auto const it =
-        std::find_if(shapeInfosOut.begin(), shapeInfosOut.end(), [&si](ShapeInfoPT const & so) {
-          return AlmostEqualAbs(si.m_direction, so.m_direction, kEps);
-        });
+    auto const it = std::find_if(shapeInfosOut.begin(), shapeInfosOut.end(), [&si](ShapeInfoPT const & so)
+    { return AlmostEqualAbs(si.m_direction, so.m_direction, kEps); });
     if (it != shapeInfosOut.end())
       ++count;
   }
@@ -1258,15 +1189,13 @@ bool StopHasMultipleShapes(std::vector<ShapeInfoPT> const & shapeInfosIn,
   return std::max(shapeInfosIn.size(), shapeInfosOut.size()) - count > 1;
 }
 
-void TransitSchemeBuilder::GenerateStop(
-    ref_ptr<dp::GraphicsContext> context, StopNodeParamsPT const & stopParams,
-    m2::PointD const & pivot, std::map<routing::transit::LineId, LineParams> const & lines,
-    dp::Batcher & batcher)
+void TransitSchemeBuilder::GenerateStop(ref_ptr<dp::GraphicsContext> context, StopNodeParamsPT const & stopParams,
+                                        m2::PointD const & pivot,
+                                        std::map<routing::transit::LineId, LineParams> const & lines,
+                                        dp::Batcher & batcher)
 {
-  auto const & [dir, linesCount] =
-      GetFittingDirectionAndSize(stopParams.m_shapeInfoIn, stopParams.m_shapeInfoOut);
-  bool const severalRoads =
-      StopHasMultipleShapes(stopParams.m_shapeInfoIn, stopParams.m_shapeInfoOut);
+  auto const & [dir, linesCount] = GetFittingDirectionAndSize(stopParams.m_shapeInfoIn, stopParams.m_shapeInfoOut);
+  bool const severalRoads = StopHasMultipleShapes(stopParams.m_shapeInfoIn, stopParams.m_shapeInfoOut);
 
   if (linesCount > 1 || severalRoads)
   {
@@ -1289,19 +1218,14 @@ void TransitSchemeBuilder::GenerateStop(
 
   m2::PointD const pt = MapShape::ConvertToLocal(stopParams.m_pivot, pivot, kShapeCoordScalar);
 
-  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kOuterScale, kOuterScale, kOuterMarkerDepth,
-                 outerColor, batcher);
+  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kOuterScale, kOuterScale, kOuterMarkerDepth, outerColor, batcher);
 
-  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kInnerScale, kInnerScale, kInnerMarkerDepth,
-                 innerColor, batcher);
+  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kInnerScale, kInnerScale, kInnerMarkerDepth, innerColor, batcher);
 }
 
-void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
-                                          StopNodeParamsSubway const & stopParams,
-                                          m2::PointD const & pivot,
-                                          std::vector<m2::PointF> const & markerSizes,
-                                          ref_ptr<dp::TextureManager> textures,
-                                          dp::Batcher & batcher)
+void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context, StopNodeParamsSubway const & stopParams,
+                                          m2::PointD const & pivot, std::vector<m2::PointF> const & markerSizes,
+                                          ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
 {
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 
@@ -1313,8 +1237,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
 
   auto const featureId = stopParams.m_stopsInfo.begin()->second.m_featureId;
 
-  auto priority =
-      static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMin : Priority::StopMin);
+  auto priority = static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMin : Priority::StopMin);
   priority += static_cast<uint16_t>(stopParams.m_stopsInfo.size());
 
   auto minVisibleScale = stopParams.m_isTransfer ? kTransferMinZoomLevel : kStopMinZoomLevel;
@@ -1326,10 +1249,8 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
     priority += kFinalStationPriorityInc;
   }
 
-  ASSERT_LESS_OR_EQUAL(
-      priority,
-      static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMax : Priority::StopMax),
-      ());
+  ASSERT_LESS_OR_EQUAL(priority,
+                       static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMax : Priority::StopMax), ());
 
   std::vector<m2::PointF> symbolSizes;
   symbolSizes.reserve(markerSizes.size());
@@ -1358,8 +1279,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
     textParams.m_startOverlayRank = dp::OverlayRank0;
     textParams.m_minVisibleScale = minVisibleScale;
 
-    TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes, title.m_offset, dp::Center,
-              kTransitOverlayIndex)
+    TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes, title.m_offset, dp::Center, kTransitOverlayIndex)
         .Draw(context, &batcher, textures);
   }
 
@@ -1374,17 +1294,13 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
   colorParams.m_specialPriority = static_cast<uint16_t>(Priority::Stub);
   colorParams.m_startOverlayRank = dp::OverlayRank0;
 
-  ColoredSymbolShape(stopParams.m_pivot, colorParams, TileKey(), kTransitStubOverlayIndex,
-                     markerSizes)
+  ColoredSymbolShape(stopParams.m_pivot, colorParams, TileKey(), kTransitStubOverlayIndex, markerSizes)
       .Draw(context, &batcher, textures);
 }
 
-void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
-                                          StopNodeParamsPT const & stopParams,
-                                          m2::PointD const & pivot,
-                                          std::vector<m2::PointF> const & markerSizes,
-                                          ref_ptr<dp::TextureManager> textures,
-                                          dp::Batcher & batcher)
+void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context, StopNodeParamsPT const & stopParams,
+                                          m2::PointD const & pivot, std::vector<m2::PointF> const & markerSizes,
+                                          ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
 {
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 
@@ -1396,8 +1312,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
 
   auto const featureId = stopParams.m_stopsInfo.begin()->second.m_featureId;
 
-  auto priority =
-      static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMin : Priority::StopMin);
+  auto priority = static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMin : Priority::StopMin);
   priority += static_cast<uint16_t>(stopParams.m_stopsInfo.size());
 
   auto minVisibleScale = stopParams.m_isTransfer ? kTransferMinZoomLevel : kStopMinZoomLevel;
@@ -1408,10 +1323,8 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
     priority += kFinalStationPriorityInc;
   }
 
-  ASSERT_LESS_OR_EQUAL(
-      priority,
-      static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMax : Priority::StopMax),
-      ());
+  ASSERT_LESS_OR_EQUAL(priority,
+                       static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMax : Priority::StopMax), ());
 
   std::vector<m2::PointF> symbolSizes;
   symbolSizes.reserve(markerSizes.size());
@@ -1440,8 +1353,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
     textParams.m_startOverlayRank = dp::OverlayRank0;
     textParams.m_minVisibleScale = minVisibleScale;
 
-    TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes, title.m_offset, dp::Center,
-              kTransitOverlayIndex)
+    TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes, title.m_offset, dp::Center, kTransitOverlayIndex)
         .Draw(context, &batcher, textures);
   }
 
@@ -1456,14 +1368,13 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
   colorParams.m_specialPriority = static_cast<uint16_t>(Priority::Stub);
   colorParams.m_startOverlayRank = dp::OverlayRank0;
 
-  ColoredSymbolShape(stopParams.m_pivot, colorParams, TileKey(), kTransitStubOverlayIndex,
-                     markerSizes)
+  ColoredSymbolShape(stopParams.m_pivot, colorParams, TileKey(), kTransitStubOverlayIndex, markerSizes)
       .Draw(context, &batcher, textures);
 }
 
 void TransitSchemeBuilder::GenerateTransfer(ref_ptr<dp::GraphicsContext> context,
-                                            StopNodeParamsSubway const & stopParams,
-                                            m2::PointD const & pivot, dp::Batcher & batcher)
+                                            StopNodeParamsSubway const & stopParams, m2::PointD const & pivot,
+                                            dp::Batcher & batcher)
 {
   m2::PointD const pt = MapShape::ConvertToLocal(stopParams.m_pivot, pivot, kShapeCoordScalar);
 
@@ -1489,21 +1400,19 @@ void TransitSchemeBuilder::GenerateTransfer(ref_ptr<dp::GraphicsContext> context
   float const innerScale = maxLinesCount == 1 ? 1.4f : kInnerScale;
   float const outerScale = maxLinesCount == 1 ? 1.9f : kOuterScale;
 
-  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, outerScale, outerScale,
-                 kOuterMarkerDepth, outerColor, batcher);
+  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, outerScale, outerScale, kOuterMarkerDepth,
+                 outerColor, batcher);
 
-  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, innerScale, innerScale,
-                 kInnerMarkerDepth, innerColor, batcher);
+  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, innerScale, innerScale, kInnerMarkerDepth,
+                 innerColor, batcher);
 }
 
-void TransitSchemeBuilder::GenerateTransfer(ref_ptr<dp::GraphicsContext> context,
-                                            StopNodeParamsPT const & stopParams,
+void TransitSchemeBuilder::GenerateTransfer(ref_ptr<dp::GraphicsContext> context, StopNodeParamsPT const & stopParams,
                                             m2::PointD const & pivot, dp::Batcher & batcher)
 {
   m2::PointD const pt = MapShape::ConvertToLocal(stopParams.m_pivot, pivot, kShapeCoordScalar);
 
-  auto [dir, maxLinesCount] =
-      GetFittingDirectionAndSize(stopParams.m_shapeInfoIn, stopParams.m_shapeInfoOut);
+  auto [dir, maxLinesCount] = GetFittingDirectionAndSize(stopParams.m_shapeInfoIn, stopParams.m_shapeInfoOut);
 
   CHECK_GREATER(maxLinesCount, 0, ());
 
@@ -1517,10 +1426,10 @@ void TransitSchemeBuilder::GenerateTransfer(ref_ptr<dp::GraphicsContext> context
   float const innerScale = maxLinesCount == 1 ? 1.4f : kInnerScale;
   float const outerScale = maxLinesCount == 1 ? 1.9f : kOuterScale;
 
-  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, outerScale, outerScale,
-                 kOuterMarkerDepth, outerColor, batcher);
+  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, outerScale, outerScale, kOuterMarkerDepth,
+                 outerColor, batcher);
 
-  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, innerScale, innerScale,
-                 kInnerMarkerDepth, innerColor, batcher);
+  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, innerScale, innerScale, kInnerMarkerDepth,
+                 innerColor, batcher);
 }
 }  // namespace df

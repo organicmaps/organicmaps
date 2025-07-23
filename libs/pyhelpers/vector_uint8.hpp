@@ -21,9 +21,7 @@ struct vector_uint8t_to_str
 {
   static PyObject * convert(std::vector<uint8_t> const & v)
   {
-    auto bytes = PyBytes_FromStringAndSize(
-        reinterpret_cast<char const *>(v.data()),
-        v.size());
+    auto bytes = PyBytes_FromStringAndSize(reinterpret_cast<char const *>(v.data()), v.size());
     Py_INCREF(bytes);
 
     return bytes;
@@ -47,11 +45,10 @@ struct vector_uint8t_from_python_str
 
   static void construct(PyObject * obj_ptr, converter::rvalue_from_python_stage1_data * data)
   {
-    const char * value = PyBytes_AsString(obj_ptr);
+    char const * value = PyBytes_AsString(obj_ptr);
     if (value == nullptr)
       throw_error_already_set();
-    void * storage =
-        ((converter::rvalue_from_python_storage<std::vector<uint8_t>> *)data)->storage.bytes;
+    void * storage = ((converter::rvalue_from_python_storage<std::vector<uint8_t>> *)data)->storage.bytes;
     new (storage) std::vector<uint8_t>(value, value + PyBytes_Size(obj_ptr));
     data->convertible = storage;
   }

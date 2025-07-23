@@ -44,9 +44,7 @@ search_base::MemTextIndex BuildMemTextIndex(vector<string> const & docsCollectio
   for (size_t docId = 0; docId < docsCollection.size(); ++docId)
   {
     strings::Tokenize(docsCollection[docId], " ", [&memIndex, docId](std::string_view tok)
-    {
-      memIndex.AddPosting(std::string(tok), static_cast<uint32_t>(docId));
-    });
+    { memIndex.AddPosting(std::string(tok), static_cast<uint32_t>(docId)); });
   }
 
   return memIndex;
@@ -124,9 +122,8 @@ UNIT_TEST(TextIndex_UniString)
 
   for (size_t docId = 0; docId < docsCollection.size(); ++docId)
   {
-    auto addToIndex = [&](strings::UniString const & token) {
-      memIndex.AddPosting(strings::ToUtf8(token), static_cast<uint32_t>(docId));
-    };
+    auto addToIndex = [&](strings::UniString const & token)
+    { memIndex.AddPosting(strings::ToUtf8(token), static_cast<uint32_t>(docId)); };
     auto delims = [](strings::UniChar const & c) { return c == ' '; };
     SplitUniString(docsCollection[docId], addToIndex, delims);
   }

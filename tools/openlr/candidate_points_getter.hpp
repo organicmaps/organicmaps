@@ -22,8 +22,7 @@ public:
     , m_maxProjectionCandidates(maxProjectionCandidates)
     , m_dataSource(dataSource)
     , m_graph(graph)
-  {
-  }
+  {}
 
   void GetCandidatePoints(m2::PointD const & p, std::vector<m2::PointD> & candidates)
   {

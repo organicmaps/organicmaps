@@ -12,10 +12,8 @@
 UNIT_TEST(CheckTrafficArrowTextures)
 {
   static std::vector<std::string> skinPaths = {"6plus", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"};
-  static std::vector<MapStyle> styles = {MapStyle::MapStyleDefaultLight,
-                                         MapStyle::MapStyleDefaultDark,
-                                         MapStyle::MapStyleVehicleLight,
-                                         MapStyle::MapStyleVehicleDark};
+  static std::vector<MapStyle> styles = {MapStyle::MapStyleDefaultLight, MapStyle::MapStyleDefaultDark,
+                                         MapStyle::MapStyleVehicleLight, MapStyle::MapStyleVehicleDark};
 
   TestingGraphicsContext context;
   for (auto const & style : styles)
@@ -23,12 +21,10 @@ UNIT_TEST(CheckTrafficArrowTextures)
     GetStyleReader().SetCurrentStyle(style);
     for (auto const & skinPath : skinPaths)
     {
-      dp::StaticTexture texture(make_ref(&context), "traffic-arrow.png", skinPath,
-                                dp::TextureFormat::RGBA8, nullptr);
+      dp::StaticTexture texture(make_ref(&context), "traffic-arrow.png", skinPath, dp::TextureFormat::RGBA8, nullptr);
       TEST(texture.IsLoadingCorrect(), ());
 
-      dp::StaticTexture texture2(make_ref(&context), "area-hatching.png", skinPath,
-                                 dp::TextureFormat::RGBA8, nullptr);
+      dp::StaticTexture texture2(make_ref(&context), "area-hatching.png", skinPath, dp::TextureFormat::RGBA8, nullptr);
       TEST(texture2.IsLoadingCorrect(), ());
     }
   }

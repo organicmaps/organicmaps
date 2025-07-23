@@ -57,10 +57,8 @@ private:
     Node const * Move(TChar c) const
     {
       for (auto const & p : m_moves)
-      {
         if (p.first == c)
           return p.second.get();
-      }
       return nullptr;
     }
 
@@ -80,10 +78,8 @@ private:
     Node & MakeMove(TChar c)
     {
       for (auto const & p : m_moves)
-      {
         if (p.first == c)
           return *p.second;
-      }
       m_moves.emplace_back(c, std::make_unique<Node>());
       return *m_moves.back().second;
     }

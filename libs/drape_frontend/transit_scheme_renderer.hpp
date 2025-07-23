@@ -30,12 +30,11 @@ public:
 
   bool IsSchemeVisible(int zoomLevel) const;
 
-  void RenderTransit(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                     ScreenBase const & screen, ref_ptr<PostprocessRenderer> postprocessRenderer,
-                     FrameValues const & frameValues, ref_ptr<DebugRectRenderer> debugRectRenderer);
+  void RenderTransit(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                     ref_ptr<PostprocessRenderer> postprocessRenderer, FrameValues const & frameValues,
+                     ref_ptr<DebugRectRenderer> debugRectRenderer);
 
   void CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView);
-
 
   void ClearContextDependentResources(ref_ptr<dp::OverlayTree> tree);
 
@@ -43,8 +42,7 @@ public:
 
 private:
   void PrepareRenderData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                         ref_ptr<dp::OverlayTree> tree,
-                         std::vector<TransitRenderData> & currentRenderData,
+                         ref_ptr<dp::OverlayTree> tree, std::vector<TransitRenderData> & currentRenderData,
                          TransitRenderData && newRenderData);
   void ClearRenderData(MwmSet::MwmId const & mwmId, ref_ptr<dp::OverlayTree> tree,
                        std::vector<TransitRenderData> & renderData);

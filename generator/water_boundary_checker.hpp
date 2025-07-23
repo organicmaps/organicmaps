@@ -6,7 +6,6 @@
 #include "geometry/region2d.hpp"
 #include "geometry/tree4d.hpp"
 
-
 class WaterBoundaryChecker
 {
   struct RegionTraits

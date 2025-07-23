@@ -13,16 +13,20 @@ namespace strings
 {
 namespace
 {
-size_t AbsDiff(size_t a, size_t b) { return a > b ? a - b : b - a; }
+size_t AbsDiff(size_t a, size_t b)
+{
+  return a > b ? a - b : b - a;
+}
 
 class TransitionTable
 {
 public:
-  TransitionTable(UniString const & s, std::vector<UniString> const & prefixMisprints,
-                  size_t prefixSize)
-    : m_s(s), m_size(s.size()), m_prefixMisprints(prefixMisprints), m_prefixSize(prefixSize)
-  {
-  }
+  TransitionTable(UniString const & s, std::vector<UniString> const & prefixMisprints, size_t prefixSize)
+    : m_s(s)
+    , m_size(s.size())
+    , m_prefixMisprints(prefixMisprints)
+    , m_prefixSize(prefixSize)
+  {}
 
   void Move(LevenshteinDFA::State const & s, UniChar c, LevenshteinDFA::State & t)
   {
@@ -87,10 +91,8 @@ private:
     size_t const limit = std::min(m_size - p.m_offset, p.m_errorsLeft + 1);
 
     for (i = 0; i < limit; ++i)
-    {
       if (m_s[p.m_offset + i] == c)
         return true;
-    }
     return false;
   }
 
@@ -99,10 +101,8 @@ private:
     CHECK_LESS(position, m_prefixSize, ());
 
     for (auto const & misprints : m_prefixMisprints)
-    {
       if (base::IsExist(misprints, c) && base::IsExist(misprints, m_s[position]))
         return true;
-    }
     return false;
   }
 
@@ -120,9 +120,10 @@ size_t const LevenshteinDFA::kRejectingState = 1;
 
 // LevenshteinDFA::Position ------------------------------------------------------------------------
 LevenshteinDFA::Position::Position(size_t offset, size_t errorsLeft, bool transposed)
-  : m_offset(offset), m_errorsLeft(errorsLeft), m_transposed(transposed)
-{
-}
+  : m_offset(offset)
+  , m_errorsLeft(errorsLeft)
+  , m_transposed(transposed)
+{}
 
 bool LevenshteinDFA::Position::SubsumedBy(Position const & rhs) const
 {
@@ -156,8 +157,7 @@ bool LevenshteinDFA::Position::operator<(Position const & rhs) const
 
 bool LevenshteinDFA::Position::operator==(Position const & rhs) const
 {
-  return m_offset == rhs.m_offset && m_errorsLeft == rhs.m_errorsLeft &&
-         m_transposed == rhs.m_transposed;
+  return m_offset == rhs.m_offset && m_errorsLeft == rhs.m_errorsLeft && m_transposed == rhs.m_transposed;
 }
 
 // LevenshteinDFA::State ---------------------------------------------------------------------------
@@ -190,31 +190,27 @@ void LevenshteinDFA::State::Normalize()
 
 // LevenshteinDFA ----------------------------------------------------------------------------------
 // static
-LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize,
-                               std::vector<UniString> const & prefixMisprints, size_t maxErrors)
-  : m_size(s.size()), m_maxErrors(maxErrors)
+LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize, std::vector<UniString> const & prefixMisprints,
+                               size_t maxErrors)
+  : m_size(s.size())
+  , m_maxErrors(maxErrors)
 {
   m_alphabet.assign(s.begin(), s.end());
   CHECK_LESS_OR_EQUAL(prefixSize, s.size(), ());
 
-  auto const pSize = static_cast<std::iterator_traits<
-          UniString::iterator>::difference_type>(prefixSize);
+  auto const pSize = static_cast<std::iterator_traits<UniString::iterator>::difference_type>(prefixSize);
   for (auto it = s.begin(); std::distance(s.begin(), it) < pSize; ++it)
   {
     for (auto const & misprints : prefixMisprints)
-    {
       if (base::IsExist(misprints, *it))
         m_alphabet.insert(m_alphabet.end(), misprints.begin(), misprints.end());
-    }
   }
   base::SortUnique(m_alphabet);
 
   UniChar missed = 0;
   for (size_t i = 0; i < m_alphabet.size() && missed >= m_alphabet[i]; ++i)
-  {
     if (missed == m_alphabet[i])
       ++missed;
-  }
   m_alphabet.push_back(missed);
 
   std::queue<State> states;
@@ -279,24 +275,20 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize,
 
 LevenshteinDFA::LevenshteinDFA(std::string const & s, size_t prefixSize, size_t maxErrors)
   : LevenshteinDFA(MakeUniString(s), prefixSize, {} /* prefixMisprints */, maxErrors)
-{
-}
+{}
 
 LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t maxErrors)
   : LevenshteinDFA(s, 0 /* prefixSize */, {} /* prefixMisprints */, maxErrors)
-{
-}
+{}
 
 LevenshteinDFA::LevenshteinDFA(std::string const & s, size_t maxErrors)
   : LevenshteinDFA(MakeUniString(s), 0 /* prefixSize */, {} /* prefixMisprints */, maxErrors)
-{
-}
+{}
 
 LevenshteinDFA::State LevenshteinDFA::MakeStart()
 {
   State state;
-  state.m_positions.emplace_back(0 /* offset */, m_maxErrors /* errorsLeft */,
-                                 false /* transposed */);
+  state.m_positions.emplace_back(0 /* offset */, m_maxErrors /* errorsLeft */, false /* transposed */);
   return state;
 }
 
@@ -313,10 +305,8 @@ bool LevenshteinDFA::IsValid(Position const & p) const
 bool LevenshteinDFA::IsValid(State const & s) const
 {
   for (auto const & p : s.m_positions)
-  {
     if (!IsValid(p))
       return false;
-  }
   return true;
 }
 
@@ -328,10 +318,8 @@ bool LevenshteinDFA::IsAccepting(Position const & p) const
 bool LevenshteinDFA::IsAccepting(State const & s) const
 {
   for (auto const & p : s.m_positions)
-  {
     if (IsAccepting(p))
       return true;
-  }
   return false;
 }
 

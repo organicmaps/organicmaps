@@ -1,5 +1,5 @@
-#include "testing/testing.hpp"
 #include "drape/pointers.hpp"
+#include "testing/testing.hpp"
 
 #include "base/base.hpp"
 
@@ -23,7 +23,7 @@ bool OnAssertRaised(base::SrcPoint const & /* srcPoint */, std::string const & /
   return false;
 }
 #endif
-}
+}  // namespace
 
 UNIT_TEST(PointersTrackingTest)
 {
@@ -33,7 +33,7 @@ UNIT_TEST(PointersTrackingTest)
 
   drape_ptr<Tester> ptr = make_unique_dp<Tester>();
   void * ptrAddress = ptr.get();
-  std::string const ptrTypeName = typeid(Tester*).name();
+  std::string const ptrTypeName = typeid(Tester *).name();
 
   // no references
   TEST(alivePointers.find(ptrAddress) == alivePointers.end(), ());

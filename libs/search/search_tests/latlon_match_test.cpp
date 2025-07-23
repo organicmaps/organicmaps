@@ -49,7 +49,7 @@ UNIT_TEST(LatLon_Match_Smoke)
   TEST(MatchLatLonDegree("-10,10, 20,20", lat, lon), ());
   TestAlmostEqual(lat, -10.1);
   TestAlmostEqual(lon, 20.2);
-  
+
   TEST(MatchLatLonDegree("10,10, -20,20", lat, lon), ());
   TestAlmostEqual(lat, 10.1);
   TestAlmostEqual(lon, -20.2);
@@ -61,7 +61,7 @@ UNIT_TEST(LatLon_Match_Smoke)
   TEST(MatchLatLonDegree("-10,10 20,20", lat, lon), ());
   TestAlmostEqual(lat, -10.1);
   TestAlmostEqual(lon, 20.2);
-  
+
   TEST(MatchLatLonDegree("10,10 -20,20", lat, lon), ());
   TestAlmostEqual(lat, 10.1);
   TestAlmostEqual(lon, -20.2);
@@ -189,4 +189,4 @@ UNIT_TEST(LatLon_Match_False)
   TEST(!MatchLatLonDegree("2 1st", lat, lon), ());
 }
 
-} // namespace latlon_match_test
+}  // namespace latlon_match_test

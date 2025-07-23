@@ -25,9 +25,8 @@ int GetRectSideIndex(int code)
 using CornersT = std::array<m2::PointD, 4>;
 
 template <class AddPointFnT>
-void InsertCorners(CornersT const & corners, m2::PointD const & p1, m2::PointD const & p2,
-                   m2::PointD const & p3, AddPointFnT const & addPolygonPoint, int code1,
-                   int code2)
+void InsertCorners(CornersT const & corners, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
+                   AddPointFnT const & addPolygonPoint, int code1, int code2)
 {
   int cornerInd = GetRectSideIndex(code1);
   int endCornerInd = GetRectSideIndex(code2);
@@ -47,9 +46,8 @@ void InsertCorners(CornersT const & corners, m2::PointD const & p1, m2::PointD c
 }
 
 template <class AddPointFnT>
-bool IntersectEdge(m2::RectD const & rect, CornersT const & corners,
-                   m2::PointD const & pp1, m2::PointD const & pp2, m2::PointD const & pp3,
-                   AddPointFnT const & addPolygonPoint, int prevClipCode, int nextClipCode,
+bool IntersectEdge(m2::RectD const & rect, CornersT const & corners, m2::PointD const & pp1, m2::PointD const & pp2,
+                   m2::PointD const & pp3, AddPointFnT const & addPolygonPoint, int prevClipCode, int nextClipCode,
                    int & firstClipCode, int & lastClipCode)
 {
   m2::PointD p1 = pp1;
@@ -75,10 +73,10 @@ bool IntersectEdge(m2::RectD const & rect, CornersT const & corners,
   }
   return false;
 }
-} // namespace
+}  // namespace
 
-void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2,
-                        m2::PointD const & p3, ClipTriangleByRectResultIt const & resultIterator)
+void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
+                        ClipTriangleByRectResultIt const & resultIterator)
 {
   if (rect.IsPointInside(p1) && rect.IsPointInside(p2) && rect.IsPointInside(p3))
   {
@@ -94,22 +92,20 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
       polygon.push_back(pt);
   };
 
-  CornersT const corners = { rect.LeftTop(), rect.RightTop(), rect.RightBottom(), rect.LeftBottom() };
+  CornersT const corners = {rect.LeftTop(), rect.RightTop(), rect.RightBottom(), rect.LeftBottom()};
 
   int firstClipCode[3];
   int lastClipCode[3];
   bool intersected[3];
 
-  intersected[0] = IntersectEdge(rect, corners, p1, p2, p3, addPolygonPoint, 0, 0, firstClipCode[0],
-                                 lastClipCode[0]);
+  intersected[0] = IntersectEdge(rect, corners, p1, p2, p3, addPolygonPoint, 0, 0, firstClipCode[0], lastClipCode[0]);
 
-  intersected[1] = IntersectEdge(rect, corners, p2, p3, p1, addPolygonPoint, lastClipCode[0], 0,
-                                 firstClipCode[1], lastClipCode[1]);
+  intersected[1] =
+      IntersectEdge(rect, corners, p2, p3, p1, addPolygonPoint, lastClipCode[0], 0, firstClipCode[1], lastClipCode[1]);
 
-  intersected[2] = IntersectEdge(rect, corners, p3, p1, p2, addPolygonPoint,
-                                 lastClipCode[1] != 0 ? lastClipCode[1] : lastClipCode[0],
-                                 firstClipCode[0] != 0 ? firstClipCode[0] : firstClipCode[1],
-                                 firstClipCode[2], lastClipCode[2]);
+  intersected[2] = IntersectEdge(
+      rect, corners, p3, p1, p2, addPolygonPoint, lastClipCode[1] != 0 ? lastClipCode[1] : lastClipCode[0],
+      firstClipCode[0] != 0 ? firstClipCode[0] : firstClipCode[1], firstClipCode[2], lastClipCode[2]);
 
   int const intersectCount = intersected[0] + intersected[1] + intersected[2];
   if (intersectCount == 0)
@@ -207,7 +203,7 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
   case RectCase::Intersect:
   {
     std::vector<m2::SharedSpline> res;
-    res.reserve(2); // keep previous behavior, but not sure that its actually needed
+    res.reserve(2);  // keep previous behavior, but not sure that its actually needed
     ClipPathByRectImpl(rect, spline->GetPath(), base::MakeBackInsertFunctor(res));
     return res;
   }
@@ -217,7 +213,7 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
 }
 
 void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> && path,
-                    std::function<void (m2::SharedSpline &&)> const & fn)
+                    std::function<void(m2::SharedSpline &&)> const & fn)
 {
   switch (GetRectCase(rect, path))
   {
@@ -228,8 +224,7 @@ void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> && path,
 }
 
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,
-                                GuidePointsForSmooth & guidePoints,
-                                std::vector<std::vector<m2::PointD>> & clippedPaths)
+                                GuidePointsForSmooth & guidePoints, std::vector<std::vector<m2::PointD>> & clippedPaths)
 {
   if (path.size() < 2)
     return;
@@ -313,4 +308,4 @@ void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> 
     guidePoints.push_back({currentGuideFront, guideBack});
   }
 }
-}  // namespace m2;
+}  // namespace m2

@@ -11,7 +11,7 @@
 @interface MWMEditorAdditionalNamesTableViewController : MWMTableViewController
 
 - (void)configWithDelegate:(id<MWMEditorAdditionalNamesProtocol>)delegate
-                      name:(StringUtf8Multilang const &)name
-additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes;
+                           name:(StringUtf8Multilang const &)name
+    additionalSkipLanguageCodes:(std::vector<NSInteger>)additionalSkipLanguageCodes;
 
 @end

@@ -10,8 +10,7 @@ namespace android
 class AndroidOGLContext : public dp::OGLContext
 {
 public:
-  AndroidOGLContext(EGLDisplay display, EGLSurface surface,
-                    EGLConfig config, AndroidOGLContext * contextToShareWith);
+  AndroidOGLContext(EGLDisplay display, EGLSurface surface, EGLConfig config, AndroidOGLContext * contextToShareWith);
   ~AndroidOGLContext();
 
   void MakeCurrent() override;

@@ -127,11 +127,11 @@ routing::VehicleType Response::GetVehicleType() const
   UNREACHABLE();
 }
 
-
 RoutingApi::RoutingApi(std::string name, std::string token, uint32_t maxRPS)
   : m_apiName(std::move(name))
   , m_accessToken(std::move(token))
-  , m_maxRPS(maxRPS) {}
+  , m_maxRPS(maxRPS)
+{}
 
 Response RoutingApi::CalculateRoute(Params const & params, int32_t startTimeZoneUTC) const
 {

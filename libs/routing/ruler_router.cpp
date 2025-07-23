@@ -6,12 +6,11 @@ namespace routing
 {
 using namespace std;
 
-void RulerRouter::ClearState()
-{
+void RulerRouter::ClearState() {}
+
+void RulerRouter::SetGuides(GuidesTracks && guides)
+{ /*m_guides = GuidesConnections(guides);*/
 }
-
-void RulerRouter::SetGuides(GuidesTracks && guides) { /*m_guides = GuidesConnections(guides);*/ }
-
 
 /* Ruler router doesn't read roads graph and uses only checkpoints to build a route.
 
@@ -45,10 +44,8 @@ void RulerRouter::SetGuides(GuidesTracks && guides) { /*m_guides = GuidesConnect
   *  m_subroutes.size() == m_routeSegments.size()-1
 
  */
-RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints,
-                                             m2::PointD const & startDirection,
-                                             bool adjustToPrevRoute,
-                                             RouterDelegate const & delegate, Route & route)
+RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                                             bool adjustToPrevRoute, RouterDelegate const & delegate, Route & route)
 {
   vector<m2::PointD> const & points = checkpoints.GetPoints();
   size_t const count = points.size();
@@ -61,10 +58,7 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints,
 
   Segment const segment(kFakeNumMwmId, 0, 0, false);
 
-  auto const ToPointWA = [](m2::PointD const & p)
-  {
-    return geometry::PointWithAltitude(p, 0 /* altitude */);
-  };
+  auto const ToPointWA = [](m2::PointD const & p) { return geometry::PointWithAltitude(p, 0 /* altitude */); };
 
   for (uint32_t i = 0; i < count; ++i)
   {
@@ -89,17 +83,17 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints,
   route.SetRouteSegments(std::move(routeSegments));
 
   vector<Route::SubrouteAttrs> subroutes;
-  for(size_t i = 1; i < count; ++i)
+  for (size_t i = 1; i < count; ++i)
   {
-    subroutes.emplace_back(ToPointWA(points[i-1]), ToPointWA(points[i]), i*2-2, i*2);
-    subroutes.emplace_back(ToPointWA(points[i-1]), ToPointWA(points[i]), i*2-1, i*2);
+    subroutes.emplace_back(ToPointWA(points[i - 1]), ToPointWA(points[i]), i * 2 - 2, i * 2);
+    subroutes.emplace_back(ToPointWA(points[i - 1]), ToPointWA(points[i]), i * 2 - 1, i * 2);
   }
 
   route.SetCurrentSubrouteIdx(checkpoints.GetPassedIdx());
   route.SetSubroteAttrs(std::move(subroutes));
 
   vector<m2::PointD> routeGeometry;
-  for (auto p: points)
+  for (auto p : points)
   {
     routeGeometry.push_back(p);
     routeGeometry.push_back(p);
@@ -110,8 +104,7 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints,
   return RouterResultCode::NoError;
 }
 
-bool RulerRouter::FindClosestProjectionToRoad(m2::PointD const & point,
-                                              m2::PointD const & direction, double radius,
+bool RulerRouter::FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                               EdgeProj & proj)
 {
   // Ruler router has no connection to road graph.

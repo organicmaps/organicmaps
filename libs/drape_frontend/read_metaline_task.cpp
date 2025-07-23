@@ -29,15 +29,15 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
   try
   {
     std::vector<MetalineData> model;
-    ModelReaderPtr reader = FilesContainerR(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map))
-                                            .GetReader(METALINES_FILE_TAG);
+    ModelReaderPtr reader =
+        FilesContainerR(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map)).GetReader(METALINES_FILE_TAG);
     ReaderSrc src(reader.GetPtr());
     auto const version = ReadPrimitiveFromSource<uint8_t>(src);
     if (version == 1)
     {
       for (auto metalineIndex = ReadVarUint<uint32_t>(src); metalineIndex > 0; --metalineIndex)
       {
-        MetalineData data {};
+        MetalineData data{};
         for (auto i = ReadVarUint<uint32_t>(src); i > 0; --i)
         {
           auto const fid = ReadVarInt<int32_t>(src);
@@ -58,8 +58,7 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
   }
 }
 
-std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & model,
-                                                        MetalineData const & metaline)
+std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & model, MetalineData const & metaline)
 {
   auto features = metaline.m_features;
   std::sort(features.begin(), features.end());

@@ -4,7 +4,6 @@
 
 #include <regex>
 
-
 namespace regexp_test
 {
 template <typename Fn>
@@ -84,4 +83,4 @@ UNIT_TEST(RegExp_ForEachMatched)
   }
 }
 
-} // namespace regexp_test
+}  // namespace regexp_test

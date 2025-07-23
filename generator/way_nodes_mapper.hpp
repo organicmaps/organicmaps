@@ -13,8 +13,8 @@
 #include <array>
 #include <cstdint>
 #include <functional>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 namespace generator
 {
@@ -32,7 +32,8 @@ public:
   }
 
   using IDRInterfacePtr = std::shared_ptr<cache::IntermediateDataReaderInterface>;
-  template <class FnT> void ForEachWayWithIndex(FnT && fn, IDRInterfacePtr const & cache) const
+  template <class FnT>
+  void ForEachWayWithIndex(FnT && fn, IDRInterfacePtr const & cache) const
   {
     for (size_t i = 0; i < m_ways.size(); ++i)
     {
@@ -47,12 +48,10 @@ public:
     }
   }
 
-  template <class FnT> void ForEachWay(FnT && fn, IDRInterfacePtr const & cache) const
+  template <class FnT>
+  void ForEachWay(FnT && fn, IDRInterfacePtr const & cache) const
   {
-    ForEachWayWithIndex([&fn](uint64_t id, std::vector<uint64_t> const & nodes, size_t)
-    {
-      fn(id, nodes);
-    }, cache);
+    ForEachWayWithIndex([&fn](uint64_t id, std::vector<uint64_t> const & nodes, size_t) { fn(id, nodes); }, cache);
   }
 
   void MergeInto(WaysIDHolder & holder) const
@@ -61,7 +60,8 @@ public:
   }
 };
 
-template <class T> class WayNodesMapper
+template <class T>
+class WayNodesMapper
 {
 public:
   struct Entry
@@ -69,7 +69,8 @@ public:
     m2::PointU m_coord;
     T m_t;
 
-    template <class Sink> void Write(Sink & sink, uint64_t wayID, uint32_t nodeIdx) const
+    template <class Sink>
+    void Write(Sink & sink, uint64_t wayID, uint32_t nodeIdx) const
     {
       WriteToSink(sink, wayID);
       WriteToSink(sink, nodeIdx);
@@ -78,7 +79,8 @@ public:
       Save(sink, m_t);
     }
 
-    template <class Source> void Read(Source & src, uint64_t & wayID, uint32_t & nodeIdx)
+    template <class Source>
+    void Read(Source & src, uint64_t & wayID, uint32_t & nodeIdx)
     {
       wayID = ReadPrimitiveFromSource<uint64_t>(src);
       nodeIdx = ReadPrimitiveFromSource<uint32_t>(src);
@@ -103,10 +105,7 @@ public:
     CHECK(m_nodes.emplace(id, Entry{EncodePoint(ll), std::move(t)}).second, ());
   }
 
-  void MergeInto(WayNodesMapper & mapper) const
-  {
-    mapper.m_nodes.insert(m_nodes.begin(), m_nodes.end());
-  }
+  void MergeInto(WayNodesMapper & mapper) const { mapper.m_nodes.insert(m_nodes.begin(), m_nodes.end()); }
 
   Entry const * Find(uint64_t id) const
   {
@@ -116,7 +115,8 @@ public:
     return nullptr;
   }
 
-  template <class Source, class FnT> static void Deserialize(Source & src, FnT && fn)
+  template <class Source, class FnT>
+  static void Deserialize(Source & src, FnT && fn)
   {
     size_t count = ReadPrimitiveFromSource<uint64_t>(src);
     while (count-- > 0)
@@ -130,15 +130,13 @@ public:
   }
 };
 
-template <class T> class WaysMapper
+template <class T>
+class WaysMapper
 {
   std::unordered_map<uint64_t, T> m_ways;
 
 public:
-  void Add(uint64_t id, T t)
-  {
-    CHECK(m_ways.emplace(id, std::move(t)).second, ());
-  }
+  void Add(uint64_t id, T t) { CHECK(m_ways.emplace(id, std::move(t)).second, ()); }
 
   T * FindOrInsert(uint64_t id)
   {
@@ -146,12 +144,10 @@ public:
     return &(it->second);
   }
 
-  void MergeInto(WaysMapper & mapper) const
-  {
-    mapper.m_ways.insert(m_ways.begin(), m_ways.end());
-  }
+  void MergeInto(WaysMapper & mapper) const { mapper.m_ways.insert(m_ways.begin(), m_ways.end()); }
 
-  template <class Sink> void Serialize(Sink & sink) const
+  template <class Sink>
+  void Serialize(Sink & sink) const
   {
     WriteToSink(sink, uint64_t(m_ways.size()));
     for (auto const & e : m_ways)
@@ -161,7 +157,8 @@ public:
     }
   }
 
-  template <class Source, class FnT> static void Deserialize(Source & src, FnT && fn)
+  template <class Source, class FnT>
+  static void Deserialize(Source & src, FnT && fn)
   {
     size_t count = ReadPrimitiveFromSource<uint64_t>(src);
     while (count-- > 0)
@@ -174,18 +171,21 @@ public:
   }
 };
 
-template <typename SizeT> class SizeWriter
+template <typename SizeT>
+class SizeWriter
 {
   SizeT m_sizePos;
 
 public:
-  template <class Sink> void Reserve(Sink & sink)
+  template <class Sink>
+  void Reserve(Sink & sink)
   {
     m_sizePos = sink.Pos();
     WriteToSink(sink, SizeT(0));
   }
 
-  template <class Sink> void Write(Sink & sink, SizeT sz)
+  template <class Sink>
+  void Write(Sink & sink, SizeT sz)
   {
     auto const savedPos = sink.Pos();
     sink.Seek(m_sizePos);
@@ -194,4 +194,4 @@ public:
   }
 };
 
-} // namespace generator
+}  // namespace generator

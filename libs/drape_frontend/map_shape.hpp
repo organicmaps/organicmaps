@@ -52,9 +52,7 @@ using TMapShapes = std::vector<drape_ptr<MapShape>>;
 class MapShapeMessage : public Message
 {
 public:
-  explicit MapShapeMessage(TileKey const & key)
-    : m_tileKey(key)
-  {}
+  explicit MapShapeMessage(TileKey const & key) : m_tileKey(key) {}
 
   TileKey const & GetKey() const { return m_tileKey; }
 
@@ -81,8 +79,7 @@ public:
 class MapShapeReadedMessage : public MapShapeMessage
 {
 public:
-  MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
-    : MapShapeMessage(key), m_shapes(std::move(shapes))
+  MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes) : MapShapeMessage(key), m_shapes(std::move(shapes))
   {}
 
   Type GetType() const override { return Type::MapShapeReaded; }

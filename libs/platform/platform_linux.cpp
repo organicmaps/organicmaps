@@ -1,5 +1,5 @@
-#include "private.h"
 #include "platform/platform.hpp"
+#include "private.h"
 
 #include "platform/socket.hpp"
 
@@ -71,8 +71,7 @@ std::unique_ptr<Socket> CreateSocket()
 {
   return std::unique_ptr<Socket>();
 }
-} // namespace platform
-
+}  // namespace platform
 
 Platform::Platform()
 {
@@ -85,9 +84,8 @@ Platform::Platform()
   CHECK(homeDir, ("Can't retrieve home directory"));
 
   // XDG config directory, usually ~/.config/OMaps/
-  m_settingsDir = JoinPath(
-      QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation).toStdString(),
-      "OMaps");
+  m_settingsDir =
+      JoinPath(QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation).toStdString(), "OMaps");
   if (!IsFileExistsByFullPath(JoinPath(m_settingsDir, SETTINGS_FILE_NAME)) && !MkDirRecursively(m_settingsDir))
     MYTHROW(FileSystemException, ("Can't create directory", m_settingsDir));
   m_settingsDir += '/';
@@ -99,13 +97,13 @@ Platform::Platform()
   if (auto const dir = GetEnv("MWM_RESOURCES_DIR"))
     m_resourcesDir = *dir;
   else
-  { // Guess the existing resources directory.
+  {  // Guess the existing resources directory.
     std::string const dirsToScan[] = {
-        "./data",  // symlink in the current folder
-        "../data",  // 'build' folder inside the repo
-        JoinPath(*execDir, "..", "organicmaps", "data"),  // build-omim-{debug,release}
-        JoinPath(*execDir, "..", "share"),  // installed version with packages
-        JoinPath(*execDir, "..", "OMaps"),  // installed version without packages
+        "./data",                                                  // symlink in the current folder
+        "../data",                                                 // 'build' folder inside the repo
+        JoinPath(*execDir, "..", "organicmaps", "data"),           // build-omim-{debug,release}
+        JoinPath(*execDir, "..", "share"),                         // installed version with packages
+        JoinPath(*execDir, "..", "OMaps"),                         // installed version without packages
         JoinPath(*execDir, "..", "share", "organicmaps", "data"),  // flatpak-build
     };
     for (auto const & dir : dirsToScan)
@@ -125,8 +123,7 @@ Platform::Platform()
     // The writableLocation does the same for AppDataLocation, AppLocalDataLocation,
     // and GenericDataLocation. Provided, that test mode is not enabled, then
     // first it checks ${XDG_DATA_HOME}, if empty then it falls back to ${HOME}/.local/share
-    m_writableDir = JoinPath(QStandardPaths::writableLocation(
-        QStandardPaths::AppDataLocation).toStdString(), "OMaps");
+    m_writableDir = JoinPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString(), "OMaps");
 
     if (!MkDirRecursively(m_writableDir))
       MYTHROW(FileSystemException, ("Can't create writable directory:", m_writableDir));
@@ -140,7 +137,7 @@ Platform::Platform()
     m_resourcesDir = AddSlashIfNeeded(m_resourcesDir);
 
   // Select directory for temporary files.
-  for (auto const & dir : { GetEnv("TMPDIR"), GetEnv("TMP"), GetEnv("TEMP"), {"/tmp"}})
+  for (auto const & dir : {GetEnv("TMPDIR"), GetEnv("TMP"), GetEnv("TEMP"), {"/tmp"}})
   {
     if (dir && IsFileExistsByFullPath(*dir) && IsDirWritable(*dir))
     {
@@ -200,53 +197,53 @@ uint8_t Platform::GetBatteryLevel()
 void Platform::GetSystemFontNames(FilesList & res) const
 {
   char constexpr const * const fontsWhitelist[] = {
-    "Roboto-Medium.ttf",
-    "Roboto-Regular.ttf",
-    "DroidSansFallback.ttf",
-    "DroidSansFallbackFull.ttf",
-    "DroidSans.ttf",
-    "DroidSansArabic.ttf",
-    "DroidSansSemc.ttf",
-    "DroidSansSemcCJK.ttf",
-    "DroidNaskh-Regular.ttf",
-    "Lohit-Bengali.ttf",
-    "Lohit-Devanagari.ttf",
-    "Lohit-Tamil.ttf",
-    "PakType Naqsh.ttf",
-    "wqy-microhei.ttc",
-    "Jomolhari.ttf",
-    "Padauk.ttf",
-    "KhmerOS.ttf",
-    "Umpush.ttf",
-    "DroidSansThai.ttf",
-    "DroidSansArmenian.ttf",
-    "DroidSansEthiopic-Regular.ttf",
-    "DroidSansGeorgian.ttf",
-    "DroidSansHebrew-Regular.ttf",
-    "DroidSansHebrew.ttf",
-    "DroidSansJapanese.ttf",
-    "LTe50872.ttf",
-    "LTe50259.ttf",
-    "DevanagariOTS.ttf",
-    "FreeSans.ttf",
-    "DejaVuSans.ttf",
-    "arial.ttf",
-    "AbyssinicaSIL-R.ttf",
+      "Roboto-Medium.ttf",
+      "Roboto-Regular.ttf",
+      "DroidSansFallback.ttf",
+      "DroidSansFallbackFull.ttf",
+      "DroidSans.ttf",
+      "DroidSansArabic.ttf",
+      "DroidSansSemc.ttf",
+      "DroidSansSemcCJK.ttf",
+      "DroidNaskh-Regular.ttf",
+      "Lohit-Bengali.ttf",
+      "Lohit-Devanagari.ttf",
+      "Lohit-Tamil.ttf",
+      "PakType Naqsh.ttf",
+      "wqy-microhei.ttc",
+      "Jomolhari.ttf",
+      "Padauk.ttf",
+      "KhmerOS.ttf",
+      "Umpush.ttf",
+      "DroidSansThai.ttf",
+      "DroidSansArmenian.ttf",
+      "DroidSansEthiopic-Regular.ttf",
+      "DroidSansGeorgian.ttf",
+      "DroidSansHebrew-Regular.ttf",
+      "DroidSansHebrew.ttf",
+      "DroidSansJapanese.ttf",
+      "LTe50872.ttf",
+      "LTe50259.ttf",
+      "DevanagariOTS.ttf",
+      "FreeSans.ttf",
+      "DejaVuSans.ttf",
+      "arial.ttf",
+      "AbyssinicaSIL-R.ttf",
   };
 
   std::string const systemFontsPath[] = {
-    "/usr/share/fonts/truetype/roboto/",
-    "/usr/share/fonts/truetype/droid/",
-    "/usr/share/fonts/truetype/dejavu/",
-    "/usr/share/fonts/truetype/ttf-dejavu/",
-    "/usr/share/fonts/truetype/wqy/",
-    "/usr/share/fonts/truetype/freefont/",
-    "/usr/share/fonts/truetype/padauk/",
-    "/usr/share/fonts/truetype/dzongkha/",
-    "/usr/share/fonts/truetype/ttf-khmeros-core/",
-    "/usr/share/fonts/truetype/tlwg/",
-    "/usr/share/fonts/truetype/abyssinica/",
-    "/usr/share/fonts/truetype/paktype/",
+      "/usr/share/fonts/truetype/roboto/",
+      "/usr/share/fonts/truetype/droid/",
+      "/usr/share/fonts/truetype/dejavu/",
+      "/usr/share/fonts/truetype/ttf-dejavu/",
+      "/usr/share/fonts/truetype/wqy/",
+      "/usr/share/fonts/truetype/freefont/",
+      "/usr/share/fonts/truetype/padauk/",
+      "/usr/share/fonts/truetype/dzongkha/",
+      "/usr/share/fonts/truetype/ttf-khmeros-core/",
+      "/usr/share/fonts/truetype/tlwg/",
+      "/usr/share/fonts/truetype/abyssinica/",
+      "/usr/share/fonts/truetype/paktype/",
   };
 
   for (auto font : fontsWhitelist)

@@ -32,8 +32,7 @@ QLabel * MakeSelectableLabel(string const & s)
 }  // namespace
 
 FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & mapObject,
-                                     search::ReverseGeocoder::Address const & address,
-                                     string const & locale)
+                                     search::ReverseGeocoder::Address const & address, string const & locale)
   : QDialog(parent)
 {
   auto * layout = new QGridLayout();
@@ -59,7 +58,9 @@ FeatureInfoDialog::FeatureInfoDialog(QWidget * parent, osm::MapObject const & ma
 
   {
     int8_t const localeCode = StringUtf8Multilang::GetLangIndex(locale);
-    vector<int8_t> codes = {{StringUtf8Multilang::kDefaultCode, StringUtf8Multilang::kEnglishCode}};
+    vector<int8_t> codes = {
+        {StringUtf8Multilang::kDefaultCode, StringUtf8Multilang::kEnglishCode}
+    };
     if (localeCode != StringUtf8Multilang::kUnsupportedLanguageCode &&
         ::find(codes.begin(), codes.end(), localeCode) == codes.end())
     {

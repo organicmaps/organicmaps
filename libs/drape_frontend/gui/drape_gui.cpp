@@ -15,9 +15,7 @@ struct DrapeGui::Impl
   RulerHelper m_rulerHelper;
 };
 
-DrapeGui::DrapeGui()
-  : m_impl(new Impl())
-{}
+DrapeGui::DrapeGui() : m_impl(new Impl()) {}
 
 DrapeGui & DrapeGui::Instance()
 {
@@ -69,7 +67,7 @@ void DrapeGui::ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler)
 
 void DrapeGui::CallOnCompassTappedHandler()
 {
-  if(m_onCompassTappedHandler != nullptr)
+  if (m_onCompassTappedHandler != nullptr)
     m_onCompassTappedHandler();
 }
 }  // namespace gui

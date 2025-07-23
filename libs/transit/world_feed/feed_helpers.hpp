@@ -36,12 +36,11 @@ ProjectionToShape ProjectStopOnTrack(m2::PointD const & stopPoint, m2::PointD co
 /// the |polyline| and the flag is set to true. New point should follow prevPoint in the direction
 /// |direction|.
 std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point,
-                                                   std::optional<m2::PointD> const & prevPoint,
-                                                   size_t prevIndex, Direction direction,
-                                                   std::vector<m2::PointD> & polyline);
+                                                   std::optional<m2::PointD> const & prevPoint, size_t prevIndex,
+                                                   Direction direction, std::vector<m2::PointD> & polyline);
 
 /// \returns true if we should not skip routes with this GTFS |routeType|.
-bool IsRelevantType(const gtfs::RouteType & routeType);
+bool IsRelevantType(gtfs::RouteType const & routeType);
 
 /// \return string representation of the GTFS |routeType|.
 std::string ToString(gtfs::RouteType const & routeType);
@@ -50,8 +49,7 @@ std::string ToString(gtfs::RouteType const & routeType);
 std::string ToStringExtendedType(gtfs::RouteType const & routeType);
 
 /// \return stop times for trip with |tripId|.
-gtfs::StopTimes GetStopTimesForTrip(gtfs::StopTimes const & allStopTimes,
-                                    std::string const & tripId);
+gtfs::StopTimes GetStopTimesForTrip(gtfs::StopTimes const & allStopTimes, std::string const & tripId);
 
 // Delete item from the |container| by its key.
 template <class C, class K>
@@ -113,14 +111,12 @@ std::pair<LineSegments, LineSegments> FindIntersections(std::vector<m2::PointD> 
 
 // Finds item in |lineParts| equal to |segment| and updates it. If it doesn't exist it is added to
 // the |lineParts|.
-void UpdateLinePart(LineParts & lineParts, LineSegment const & segment,
-                    m2::PointD const & startPoint, TransitId commonLineId,
-                    m2::PointD const & startPointParallel);
+void UpdateLinePart(LineParts & lineParts, LineSegment const & segment, m2::PointD const & startPoint,
+                    TransitId commonLineId, m2::PointD const & startPointParallel);
 
 // Calculates start and end indexes of intersection of two segments: [start1, finish1] and [start2,
 // finish2].
-std::optional<LineSegment> GetIntersection(size_t start1, size_t finish1, size_t start2,
-                                           size_t finish2);
+std::optional<LineSegment> GetIntersection(size_t start1, size_t finish1, size_t start2, size_t finish2);
 
 // Calculates line order on segment based on two parameters: line index between all parallel lines,
 // total parallel lines count. Line order must be symmetrical with respect to the сentral axis of
@@ -136,8 +132,8 @@ std::pair<size_t, size_t> GetStopsRange(IdList const & lineStopIds, IdSet const 
 
 // Returns indexes of points |p1| and |p2| on the |shape| polyline. If there are more then 1
 // occurrences of |p1| or |p2| in |shape|, indexes with minimum distance are returned.
-std::pair<size_t, size_t> FindPointsOnShape(std::vector<m2::PointD> const & shape,
-                                            m2::PointD const & p1, m2::PointD const & p2);
+std::pair<size_t, size_t> FindPointsOnShape(std::vector<m2::PointD> const & shape, m2::PointD const & p1,
+                                            m2::PointD const & p2);
 
 // Returns indexes of first and last points of |segment| in the |shape| polyline. If |edgeShape|
 // is not found returns pair of zeroes.

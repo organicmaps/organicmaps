@@ -1,4 +1,4 @@
-@protocol MWMSearchObserver<NSObject>
+@protocol MWMSearchObserver <NSObject>
 
 @optional
 - (void)onSearchStarted;

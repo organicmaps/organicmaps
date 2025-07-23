@@ -37,9 +37,7 @@ dp::Anchor ParseValueAnchor(std::string_view value)
   if (value == "bottom")
     return dp::Bottom;
   else
-  {
     ASSERT(false, ());
-  }
 
   return dp::Center;
 }
@@ -71,9 +69,7 @@ public:
     Offset
   };
 
-  ResolverParser()
-    : m_element(Element::Empty)
-  {}
+  ResolverParser() : m_element(Element::Empty) {}
 
   void Parse(std::string_view attr, char const * value)
   {
@@ -96,26 +92,15 @@ public:
       else if (m_element == Element::Relative)
         m_resolver.AddRelative(ParseValueAnchor(value));
       else
-      {
         ASSERT(false, ());
-      }
     }
   }
 
-  void Reset()
-  {
-    m_resolver = PositionResolver();
-  }
+  void Reset() { m_resolver = PositionResolver(); }
 
-  PositionResolver const & GetResolver() const
-  {
-    return m_resolver;
-  }
+  PositionResolver const & GetResolver() const { return m_resolver; }
 
-  void SetElement(Element e)
-  {
-    m_element = e;
-  }
+  void SetElement(Element e) { m_element = e; }
 
 private:
   Element m_element;
@@ -125,9 +110,7 @@ private:
 class SkinLoader
 {
 public:
-  explicit SkinLoader(std::map<EWidget, std::pair<PositionResolver, PositionResolver>> & skin)
-    : m_skin(skin)
-  {}
+  explicit SkinLoader(std::map<EWidget, std::pair<PositionResolver, PositionResolver>> & skin) : m_skin(skin) {}
 
   bool Push(std::string_view element)
   {
@@ -144,18 +127,14 @@ public:
       else if (element == "copyright")
         m_currentElement = WIDGET_COPYRIGHT;
       else
-      {
         ASSERT(false, ());
-      }
     }
     else if (!m_inConfiguration)
     {
       if (element == "portrait" || element == "landscape")
         m_inConfiguration = true;
       else
-      {
         ASSERT(false, ());
-      }
     }
     else
     {
@@ -166,9 +145,7 @@ public:
       else if (element == "offset")
         m_parser.SetElement(ResolverParser::Element::Offset);
       else
-      {
         ASSERT(false, ());
-      }
     }
 
     return true;
@@ -190,17 +167,13 @@ public:
       m_parser.Reset();
       m_inConfiguration = false;
     }
-    else if (element == "ruler" || element == "compass" || element == "copyright" ||
-             element == "country_status")
+    else if (element == "ruler" || element == "compass" || element == "copyright" || element == "country_status")
     {
       m_inElement = false;
     }
   }
 
-  void AddAttr(std::string_view attribute, char const * value)
-  {
-    m_parser.Parse(attribute, value);
-  }
+  void AddAttr(std::string_view attribute, char const * value) { m_parser.Parse(attribute, value); }
 
   void CharData(std::string const &) {}
 
@@ -213,7 +186,7 @@ private:
 
   std::map<EWidget, std::pair<PositionResolver, PositionResolver>> & m_skin;
 };
-}
+}  // namespace
 
 Position PositionResolver::Resolve(int w, int h, double vs) const
 {
@@ -222,18 +195,18 @@ Position PositionResolver::Resolve(int w, int h, double vs) const
   m2::PointF offset = m_offset * vs;
 
   if (m_resolveAnchor & dp::Left)
-   resultX = offset.x;
+    resultX = offset.x;
   else if (m_resolveAnchor & dp::Right)
-   resultX = w - offset.x;
+    resultX = w - offset.x;
   else
-   resultX += offset.x;
+    resultX += offset.x;
 
   if (m_resolveAnchor & dp::Top)
-   resultY = offset.y;
+    resultY = offset.y;
   else if (m_resolveAnchor & dp::Bottom)
-   resultY = h - offset.y;
+    resultY = h - offset.y;
   else
-   resultY += offset.y;
+    resultY += offset.y;
 
   return Position(m2::PointF(resultX, resultY), m_elementAnchor);
 }
@@ -258,11 +231,10 @@ void PositionResolver::SetOffsetY(float y)
   m_offset.y = y;
 }
 
-Skin::Skin(ReaderPtr<Reader> const & reader, float visualScale)
-  : m_visualScale(visualScale)
+Skin::Skin(ReaderPtr<Reader> const & reader, float visualScale) : m_visualScale(visualScale)
 {
   SkinLoader loader(m_resolvers);
-  ReaderSource<ReaderPtr<Reader> > source(reader);
+  ReaderSource<ReaderPtr<Reader>> source(reader);
   if (!ParseXML(source, loader))
     LOG(LERROR, ("Error parsing gui skin"));
 }
@@ -290,9 +262,9 @@ ReaderPtr<Reader> ResolveGuiSkinFile(std::string const & deviceType)
   {
     reader = pl.GetReader("symbols/default/" + deviceType + ".ui");
   }
-  catch(FileAbsentException & e)
+  catch (FileAbsentException & e)
   {
-    LOG(LINFO, ("Gui skin for : ", deviceType ,"not found"));
+    LOG(LINFO, ("Gui skin for : ", deviceType, "not found"));
   }
 
   if (!reader)
@@ -301,7 +273,7 @@ ReaderPtr<Reader> ResolveGuiSkinFile(std::string const & deviceType)
     {
       reader = pl.GetReader("symbols/default/default.ui");
     }
-    catch(FileAbsentException & e)
+    catch (FileAbsentException & e)
     {
       LOG(LINFO, ("Default gui skin not found"));
       throw e;

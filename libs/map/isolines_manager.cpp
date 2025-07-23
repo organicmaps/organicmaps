@@ -43,8 +43,8 @@ IsolinesManager::Info const & IsolinesManager::LoadIsolinesInfo(MwmSet::MwmId co
   isolines::IsolinesInfo info;
   if (isolines::LoadIsolinesInfo(m_dataSource, id, info))
   {
-    LOG(LINFO, ("Isolines min altitude", info.m_minAltitude, "max altitude", info.m_maxAltitude,
-                "altitude step", info.m_altStep));
+    LOG(LINFO, ("Isolines min altitude", info.m_minAltitude, "max altitude", info.m_maxAltitude, "altitude step",
+                info.m_altStep));
     status = Availability::Available;
     quality = info.GetQuality();
   }

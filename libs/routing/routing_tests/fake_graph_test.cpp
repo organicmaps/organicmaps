@@ -43,8 +43,7 @@ FakeGraph ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_
   TEST_EQUAL(fakeGraph.GetSize(), 0, ("Constructed fake graph not empty"));
   if (numFake < 1)
   {
-    CHECK_EQUAL(numReal, 0,
-                ("Construction of non-empty fake graph without pure fake vertices not supported."));
+    CHECK_EQUAL(numReal, 0, ("Construction of non-empty fake graph without pure fake vertices not supported."));
     return fakeGraph;
   }
 
@@ -53,8 +52,7 @@ FakeGraph ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_
   fakeGraph.AddStandaloneVertex(startSegment, startVertex);
 
   // Add pure fake.
-  for (uint32_t prevNumber = numerationStart; prevNumber + 1 < numerationStart + numFake + numReal;
-       ++prevNumber)
+  for (uint32_t prevNumber = numerationStart; prevNumber + 1 < numerationStart + numFake + numReal; ++prevNumber)
   {
     bool const newIsReal = prevNumber + 1 >= numerationStart + numFake;
     auto const prevSegment = GetSegment(prevNumber);
@@ -62,8 +60,8 @@ FakeGraph ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_
     auto const newVertex = GetFakeVertex(prevNumber + 1);
     auto const realSegment = GetSegment(prevNumber + 1, true /* isReal */);
 
-    fakeGraph.AddVertex(prevSegment, newSegment, newVertex, true /* isOutgoing */,
-                        newIsReal /* isPartOfReal */, realSegment);
+    fakeGraph.AddVertex(prevSegment, newSegment, newVertex, true /* isOutgoing */, newIsReal /* isPartOfReal */,
+                        realSegment);
 
     // Test segment to vertex mapping.
     TEST_EQUAL(fakeGraph.GetVertex(newSegment), newVertex, ("Wrong segment to vertex mapping."));
@@ -79,16 +77,13 @@ FakeGraph ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_
     Segment realFound;
     if (newIsReal)
     {
-      TEST_EQUAL(fakeGraph.FindReal(newSegment, realFound), true,
-                 ("Unexpected real segment found."));
+      TEST_EQUAL(fakeGraph.FindReal(newSegment, realFound), true, ("Unexpected real segment found."));
       TEST_EQUAL(realSegment, realFound, ("Wrong fake to real mapping."));
-      TEST_EQUAL(fakeGraph.GetFake(realSegment), set<Segment>{newSegment},
-                 ("Unexpected fake segment found."));
+      TEST_EQUAL(fakeGraph.GetFake(realSegment), set<Segment>{newSegment}, ("Unexpected fake segment found."));
     }
     else
     {
-      TEST_EQUAL(fakeGraph.FindReal(newSegment, realFound), false,
-                 ("Unexpected real segment found."));
+      TEST_EQUAL(fakeGraph.FindReal(newSegment, realFound), false, ("Unexpected real segment found."));
       TEST(fakeGraph.GetFake(realSegment).empty(), ("Unexpected fake segment found."));
     }
   }
@@ -106,8 +101,7 @@ UNIT_TEST(FakeGraphTest)
   auto fakeGraph0 = ConstructFakeGraph(0, fake0, real0);
   TEST_EQUAL(fakeGraph0.GetSize(), fake0 + real0, ("Wrong fake graph size"));
 
-  auto const fakeGraph1 =
-      ConstructFakeGraph(static_cast<uint32_t>(fakeGraph0.GetSize()), fake1, real1);
+  auto const fakeGraph1 = ConstructFakeGraph(static_cast<uint32_t>(fakeGraph0.GetSize()), fake1, real1);
   TEST_EQUAL(fakeGraph1.GetSize(), fake1 + real1, ("Wrong fake graph size"));
 
   fakeGraph0.Append(fakeGraph1);
@@ -119,24 +113,20 @@ UNIT_TEST(FakeGraphTest)
     auto const segmentFrom = GetSegment(i);
     auto const segmentTo = GetSegment(i + 1);
 
-    TEST_EQUAL(fakeGraph0.GetVertex(segmentFrom), GetFakeVertex(i),
-               ("Wrong segment to vertex mapping."));
-    TEST_EQUAL(fakeGraph0.GetVertex(segmentTo), GetFakeVertex(i + 1),
-               ("Wrong segment to vertex mapping."));
+    TEST_EQUAL(fakeGraph0.GetVertex(segmentFrom), GetFakeVertex(i), ("Wrong segment to vertex mapping."));
+    TEST_EQUAL(fakeGraph0.GetVertex(segmentTo), GetFakeVertex(i + 1), ("Wrong segment to vertex mapping."));
     // No connection to next fake segment; next segment was in separate fake graph before Append.
     if (i + 1 == fake0 + real0)
     {
-      TEST(fakeGraph0.GetEdges(segmentFrom, true /* isOutgoing */).empty(),
-           ("Wrong ingoing edges set."));
-      TEST(fakeGraph0.GetEdges(segmentTo, false /* isOutgoing */).empty(),
-           ("Wrong ingoing edges set."));
+      TEST(fakeGraph0.GetEdges(segmentFrom, true /* isOutgoing */).empty(), ("Wrong ingoing edges set."));
+      TEST(fakeGraph0.GetEdges(segmentTo, false /* isOutgoing */).empty(), ("Wrong ingoing edges set."));
     }
     else
     {
       TEST_EQUAL(fakeGraph0.GetEdges(segmentFrom, true /* isOutgoing */), set<Segment>{segmentTo},
                  ("Wrong ingoing edges set."));
-      TEST_EQUAL(fakeGraph0.GetEdges(segmentTo, false /* isOutgoing */),
-                 set<Segment>{segmentFrom}, ("Wrong ingoing edges set."));
+      TEST_EQUAL(fakeGraph0.GetEdges(segmentTo, false /* isOutgoing */), set<Segment>{segmentFrom},
+                 ("Wrong ingoing edges set."));
     }
   }
 }

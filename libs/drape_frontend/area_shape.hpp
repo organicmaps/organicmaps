@@ -24,8 +24,7 @@ struct BuildingOutline
 class AreaShape : public MapShape
 {
 public:
-  AreaShape(std::vector<m2::PointD> triangleList, BuildingOutline && buildingOutline,
-            AreaViewParams const & params);
+  AreaShape(std::vector<m2::PointD> triangleList, BuildingOutline && buildingOutline, AreaViewParams const & params);
 
   void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
             ref_ptr<dp::TextureManager> textures) const override;
@@ -35,20 +34,14 @@ private:
   {
     return glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar));
   }
-  glsl::vec3 ToShapeVertex3(m2::PointD const & vertex) const
-  {
-    return { ToShapeVertex2(vertex), m_params.m_depth };
-  }
+  glsl::vec3 ToShapeVertex3(m2::PointD const & vertex) const { return {ToShapeVertex2(vertex), m_params.m_depth}; }
 
-  void DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                m2::PointD const & colorUv, m2::PointD const & outlineUv,
-                ref_ptr<dp::Texture> texture) const;
-  void DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                  m2::PointD const & colorUv, m2::PointD const & outlineUv,
-                  ref_ptr<dp::Texture> texture) const;
-  void DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                        m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
-                        ref_ptr<dp::Texture> hatchingTexture) const;
+  void DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
+                m2::PointD const & outlineUv, ref_ptr<dp::Texture> texture) const;
+  void DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
+                  m2::PointD const & outlineUv, ref_ptr<dp::Texture> texture) const;
+  void DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
+                        ref_ptr<dp::Texture> texture, ref_ptr<dp::Texture> hatchingTexture) const;
 
   std::vector<m2::PointD> m_vertexes;
   BuildingOutline m_buildingOutline;

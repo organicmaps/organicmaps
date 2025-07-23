@@ -6,7 +6,10 @@
 
 #include <string>
 
-namespace downloader { class IHttpThreadCallback; }
+namespace downloader
+{
+class IHttpThreadCallback;
+}
 
 #ifdef OMIM_OS_IPHONE
 #import "../iphone/Maps/Classes/DownloadIndicatorProtocol.h"

@@ -1,8 +1,8 @@
 #include "drape/mesh_object.hpp"
 
 #include "drape/gl_constants.hpp"
-#include "drape/gl_gpu_program.hpp"
 #include "drape/gl_functions.hpp"
+#include "drape/gl_gpu_program.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/texture_manager.hpp"
@@ -28,9 +28,7 @@ namespace dp
 class GLMeshObjectImpl : public MeshObjectImpl
 {
 public:
-  explicit GLMeshObjectImpl(ref_ptr<dp::MeshObject> mesh)
-    : m_mesh(mesh)
-  {}
+  explicit GLMeshObjectImpl(ref_ptr<dp::MeshObject> mesh) : m_mesh(mesh) {}
 
   void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program) override
   {
@@ -46,16 +44,15 @@ public:
 
       if (buffer->GetSizeInBytes() != 0)
       {
-        GLFunctions::glBufferData(gl_const::GLArrayBuffer, buffer->GetSizeInBytes(),
-                                  buffer->GetData(), gl_const::GLStaticDraw);
+        GLFunctions::glBufferData(gl_const::GLArrayBuffer, buffer->GetSizeInBytes(), buffer->GetData(),
+                                  gl_const::GLStaticDraw);
       }
 
       if (!m_mesh->m_indices.empty())
       {
         m_indexBuffer = GLFunctions::glGenBuffer();
         GLFunctions::glBindBuffer(m_indexBuffer, gl_const::GLElementArrayBuffer);
-        GLFunctions::glBufferData(gl_const::GLElementArrayBuffer, 
-                                  m_mesh->m_indices.size() * sizeof(uint16_t),
+        GLFunctions::glBufferData(gl_const::GLElementArrayBuffer, m_mesh->m_indices.size() * sizeof(uint16_t),
                                   m_mesh->m_indices.data(), gl_const::GLStaticDraw);
       }
 
@@ -65,9 +62,8 @@ public:
         int8_t const attributePosition = p->GetAttributeLocation(attribute.m_attributeName);
         ASSERT_NOT_EQUAL(attributePosition, -1, ());
         GLFunctions::glEnableVertexAttribute(attributePosition);
-        GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount,
-                                              attribute.m_type, false, buffer->GetStrideInBytes(), 
-                                              attribute.m_offset);
+        GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount, attribute.m_type, false,
+                                              buffer->GetStrideInBytes(), attribute.m_offset);
       }
     }
 
@@ -106,8 +102,8 @@ public:
     UNUSED_VALUE(context);
     auto & buffer = m_mesh->m_buffers[bufferInd];
     GLFunctions::glBindBuffer(buffer->m_bufferId, gl_const::GLArrayBuffer);
-    GLFunctions::glBufferData(gl_const::GLArrayBuffer, buffer->GetSizeInBytes(),
-                              buffer->GetData(), gl_const::GLStaticDraw);
+    GLFunctions::glBufferData(gl_const::GLArrayBuffer, buffer->GetSizeInBytes(), buffer->GetData(),
+                              gl_const::GLStaticDraw);
     GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
   }
 
@@ -117,16 +113,12 @@ public:
     CHECK(!m_mesh->m_indices.empty(), ());
     CHECK(m_indexBuffer, ("Index buffer was not created"));
     GLFunctions::glBindBuffer(m_indexBuffer, gl_const::GLElementArrayBuffer);
-    GLFunctions::glBufferData(gl_const::GLElementArrayBuffer, 
-                              m_mesh->m_indices.size() * sizeof(uint16_t),
+    GLFunctions::glBufferData(gl_const::GLElementArrayBuffer, m_mesh->m_indices.size() * sizeof(uint16_t),
                               m_mesh->m_indices.data(), gl_const::GLStaticDraw);
     GLFunctions::glBindBuffer(0, gl_const::GLElementArrayBuffer);
   }
 
-  void Bind(ref_ptr<dp::GpuProgram> program) override
-  {
-    GLFunctions::glBindVertexArray(m_VAO);
-  }
+  void Bind(ref_ptr<dp::GpuProgram> program) override { GLFunctions::glBindVertexArray(m_VAO); }
 
   void Unbind() override
   {
@@ -136,22 +128,18 @@ public:
       GLFunctions::glBindBuffer(0, gl_const::GLElementArrayBuffer);
   }
 
-  void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount, 
-                      uint32_t startVertex) override
+  void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount, uint32_t startVertex) override
   {
     UNUSED_VALUE(context);
-    GLFunctions::glDrawArrays(GetGLDrawPrimitive(m_mesh->m_drawPrimitive), 
-                              static_cast<int32_t>(startVertex), 
+    GLFunctions::glDrawArrays(GetGLDrawPrimitive(m_mesh->m_drawPrimitive), static_cast<int32_t>(startVertex),
                               verticesCount);
   }
 
-  void DrawPrimitivesIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, 
-                             uint32_t startIndex) override
+  void DrawPrimitivesIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, uint32_t startIndex) override
   {
     UNUSED_VALUE(context);
     CHECK(m_indexBuffer != 0, ());
-    GLFunctions::glDrawElements(GetGLDrawPrimitive(m_mesh->m_drawPrimitive), sizeof(uint16_t), 
-                                indexCount, startIndex);
+    GLFunctions::glDrawElements(GetGLDrawPrimitive(m_mesh->m_drawPrimitive), sizeof(uint16_t), indexCount, startIndex);
   }
 
 private:
@@ -160,8 +148,7 @@ private:
   uint32_t m_indexBuffer = 0;
 };
 
-MeshObject::MeshObject(ref_ptr<dp::GraphicsContext> context, DrawPrimitive drawPrimitive,
-                       std::string const & debugName)
+MeshObject::MeshObject(ref_ptr<dp::GraphicsContext> context, DrawPrimitive drawPrimitive, std::string const & debugName)
   : m_drawPrimitive(drawPrimitive)
   , m_debugName(debugName)
 {
@@ -248,8 +235,7 @@ void MeshObject::UpdateIndexBuffer(ref_ptr<dp::GraphicsContext> context, std::ve
   m_impl->UpdateIndexBuffer(context);
 }
 
-void MeshObject::DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount,
-                                      uint32_t startVertex)
+void MeshObject::DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount, uint32_t startVertex)
 {
   CHECK(m_impl != nullptr, ());
   CHECK(!m_buffers.empty(), ());
@@ -261,7 +247,7 @@ void MeshObject::DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint
   m_impl->DrawPrimitives(context, vertexCount, startVertex);
 }
 
-void MeshObject::DrawPrimitivesSubsetIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, 
+void MeshObject::DrawPrimitivesSubsetIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount,
                                              uint32_t startIndex)
 {
   CHECK(m_impl != nullptr, ());
@@ -282,11 +268,11 @@ void MeshObject::DrawPrimitives(ref_ptr<dp::GraphicsContext> context)
 #ifdef DEBUG
   for (size_t i = 1; i < m_buffers.size(); i++)
   {
-    ASSERT_EQUAL(m_buffers[i]->GetSizeInBytes() / m_buffers[i]->GetStrideInBytes(), vertexNum, 
+    ASSERT_EQUAL(m_buffers[i]->GetSizeInBytes() / m_buffers[i]->GetStrideInBytes(), vertexNum,
                  ("All buffers in a mesh must contain the same vertex number"));
   }
 #endif
-  
+
   CHECK(m_impl != nullptr, ());
   if (m_indices.empty())
     m_impl->DrawPrimitives(context, vertexNum, 0);
@@ -309,8 +295,7 @@ void MeshObject::UpdateImpl(ref_ptr<dp::GraphicsContext> context, uint32_t buffe
 }
 
 // static
-std::vector<float> MeshObject::GenerateNormalsForTriangles(std::vector<float> const & vertices,
-                                                           size_t componentsCount)
+std::vector<float> MeshObject::GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount)
 {
   auto const trianglesCount = vertices.size() / (3 * componentsCount);
   std::vector<float> normals;
@@ -338,4 +323,3 @@ std::vector<float> MeshObject::GenerateNormalsForTriangles(std::vector<float> co
   return normals;
 }
 }  // namespace dp
-

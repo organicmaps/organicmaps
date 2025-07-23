@@ -15,10 +15,8 @@ double constexpr kStepInMercator = 1;
 
 struct PointAndCountry
 {
-  PointAndCountry(m2::PointD && pt, storage::CountryId && country)
-    : m_pt(std::move(pt)), m_country(std::move(country))
-  {
-  }
+  PointAndCountry(m2::PointD && pt, storage::CountryId && country) : m_pt(std::move(pt)), m_country(std::move(country))
+  {}
 
   m2::PointD m_pt;
   storage::CountryId m_country;
@@ -44,8 +42,6 @@ UNIT_CLASS_TEST(CountryInfoReader, LightweightMatching)
   LOG(LINFO, ("The dataset is generated. Dataset size:", dataset.size()));
 
   for (auto const & sample : dataset)
-  {
     TEST_EQUAL(GetRegionCountryId(sample.m_pt), sample.m_country, (sample.m_pt));
-  }
 }
 }  // namespace lightweight_matching_tests

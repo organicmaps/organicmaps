@@ -17,8 +17,7 @@ class DataBufferImpl : public DataBufferBase
 {
 public:
   template <typename... Args>
-  DataBufferImpl(Args &&... params)
-    : m_buffer(make_unique_dp<TBuffer>(std::forward<Args>(params)...))
+  DataBufferImpl(Args &&... params) : m_buffer(make_unique_dp<TBuffer>(std::forward<Args>(params)...))
   {}
 
   uint32_t GetCapacity() const override { return m_buffer->GetCapacity(); }
@@ -36,14 +35,12 @@ class CpuBufferImpl : public DataBufferImpl<CPUBuffer>
 {
 public:
   template <typename... Args>
-  CpuBufferImpl(Args &&... params)
-    : DataBufferImpl(std::forward<Args>(params)...)
+  CpuBufferImpl(Args &&... params) : DataBufferImpl(std::forward<Args>(params)...)
   {}
 
   void const * Data() const override { return m_buffer->Data(); }
 
-  void UploadData(ref_ptr<GraphicsContext> context, void const * data,
-                  uint32_t elementCount) override
+  void UploadData(ref_ptr<GraphicsContext> context, void const * data, uint32_t elementCount) override
   {
     UNUSED_VALUE(context);
     m_buffer->UploadData(data, elementCount);
@@ -51,8 +48,7 @@ public:
     m_buffer->Seek(newOffset);
   }
 
-  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset,
-             uint32_t elementCount) override
+  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset, uint32_t elementCount) override
   {
     UNUSED_VALUE(context);
     UNUSED_VALUE(elementOffset);
@@ -61,8 +57,7 @@ public:
     return nullptr;
   }
 
-  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
-                  uint32_t elementCount) override
+  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset, uint32_t elementCount) override
   {
     UNUSED_VALUE(destPtr);
     UNUSED_VALUE(srcPtr);
@@ -85,8 +80,7 @@ class GpuBufferImpl : public DataBufferImpl<GPUBuffer>
 {
 public:
   template <typename... Args>
-  GpuBufferImpl(Args &&... params)
-    : DataBufferImpl(std::forward<Args>(params)...)
+  GpuBufferImpl(Args &&... params) : DataBufferImpl(std::forward<Args>(params)...)
   {}
 
   void const * Data() const override
@@ -95,22 +89,19 @@ public:
     return nullptr;
   }
 
-  void UploadData(ref_ptr<GraphicsContext> context, void const * data,
-                  uint32_t elementCount) override
+  void UploadData(ref_ptr<GraphicsContext> context, void const * data, uint32_t elementCount) override
   {
     UNUSED_VALUE(context);
     m_buffer->UploadData(data, elementCount);
   }
 
-  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset,
-             uint32_t elementCount) override
+  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset, uint32_t elementCount) override
   {
     UNUSED_VALUE(context);
     return m_buffer->Map(elementOffset, elementCount);
   }
 
-  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
-                  uint32_t elementCount) override
+  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset, uint32_t elementCount) override
   {
     m_buffer->UpdateData(destPtr, srcPtr, elementOffset, elementCount);
   }

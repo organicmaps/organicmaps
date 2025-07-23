@@ -5,9 +5,7 @@
 
 namespace dp
 {
-IndexStorage::IndexStorage()
-  : m_size(0)
-{}
+IndexStorage::IndexStorage() : m_size(0) {}
 
 IndexStorage::IndexStorage(std::vector<uint32_t> && initial)
 {

@@ -22,12 +22,10 @@ public:
     int8_t m_samplerBindingIndex = kInvalidBindingIndex;
   };
   using TexturesBindingInfo = std::map<std::string, TextureBindingInfo>;
-  
-  MetalGpuProgram(std::string const & programName,
-                  id<MTLFunction> vertexShader, id<MTLFunction> fragmentShader,
+
+  MetalGpuProgram(std::string const & programName, id<MTLFunction> vertexShader, id<MTLFunction> fragmentShader,
                   int8_t vsUniformsBindingIndex, int8_t fsUniformsBindingIndex,
-                  TexturesBindingInfo && vertexTextureBindingInfo,
-                  TexturesBindingInfo && fragmentTextureBindingInfo,
+                  TexturesBindingInfo && vertexTextureBindingInfo, TexturesBindingInfo && fragmentTextureBindingInfo,
                   MTLVertexDescriptor * vertexDescriptor)
     : GpuProgram(programName)
     , m_vertexShader(vertexShader)
@@ -41,18 +39,18 @@ public:
 
   void Bind() override {}
   void Unbind() override {}
-  
+
   id<MTLFunction> GetVertexShader() const { return m_vertexShader; }
   id<MTLFunction> GetFragmentShader() const { return m_fragmentShader; }
-  
+
   int8_t GetVertexShaderUniformsBindingIndex() const { return m_vsUniformsBindingIndex; }
   int8_t GetFragmentShaderUniformsBindingIndex() const { return m_fsUniformsBindingIndex; }
-  
+
   TextureBindingInfo const & GetVertexTextureBindingInfo(std::string const & textureName) const
   {
     return GetTextureBindingInfo(m_vertexTextureBindingInfo, textureName);
   }
-  
+
   TextureBindingInfo const & GetFragmentTextureBindingInfo(std::string const & textureName) const
   {
     return GetTextureBindingInfo(m_fragmentTextureBindingInfo, textureName);
@@ -70,7 +68,7 @@ private:
       return kEmptyBinding;
     return it->second;
   }
-  
+
   id<MTLFunction> m_vertexShader;
   id<MTLFunction> m_fragmentShader;
   int8_t const m_vsUniformsBindingIndex;

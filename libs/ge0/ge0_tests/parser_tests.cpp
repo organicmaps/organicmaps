@@ -21,8 +21,8 @@ class Ge0ParserForTest : public Ge0Parser
 {
 public:
   using Ge0Parser::DecodeBase64Char;
-  using Ge0Parser::DecodeZoom;
   using Ge0Parser::DecodeLatLon;
+  using Ge0Parser::DecodeZoom;
 };
 
 double GetLatEpsilon(size_t coordBytes)
@@ -189,8 +189,7 @@ UNIT_TEST(NameDecoding)
       "%d0%9c%d0%b8%d0%bd%d1%81%d0%ba_%d1%83%d0%bb._%d0%9b%d0%b5%d0%bd%d0%b8%d0%bd%d0%b0_9",
       0, 0, 4, "Минск ул. Ленина 9");
   TestSuccess("ge0://AwAAAAAAAA/z%c3%bcrich_bahnhofstrasse", 0, 0, 4, "zürich bahnhofstrasse");
-  TestSuccess("ge0://AwAAAAAAAA/%e5%8c%97%e4%ba%ac_or_B%c4%9bij%c4%abng%3F", 0, 0, 4,
-              "北京 or Běijīng?");
+  TestSuccess("ge0://AwAAAAAAAA/%e5%8c%97%e4%ba%ac_or_B%c4%9bij%c4%abng%3F", 0, 0, 4, "北京 or Běijīng?");
   TestSuccess(
       "ge0://AwAAAAAAAA/"
       "\xd1\x81\xd1\x82\xd1\x80\xd0\xbe\xd0\xba\xd0\xb0_\xd0\xb2_\xd1\x8e\xd1\x82\xd1\x84-8",
@@ -279,18 +278,18 @@ UNIT_TEST(LatLonFullAndClippedCoordinates)
 UNIT_TEST(ClippedName)
 {
   TestSuccess("ge0://AwAAAAAAAA/Super%5fPoi", 0, 0, 4, "Super Poi");
-  TestSuccess("ge0://AwAAAAAAAA/Super%5fPo" , 0, 0, 4, "Super Po");
-  TestSuccess("ge0://AwAAAAAAAA/Super%5fP"  , 0, 0, 4, "Super P");
-  TestSuccess("ge0://AwAAAAAAAA/Super%5f"   , 0, 0, 4, "Super ");
-  TestSuccess("ge0://AwAAAAAAAA/Super%5"    , 0, 0, 4, "Super");
-  TestSuccess("ge0://AwAAAAAAAA/Super%"     , 0, 0, 4, "Super");
-  TestSuccess("ge0://AwAAAAAAAA/Super"      , 0, 0, 4, "Super");
-  TestSuccess("ge0://AwAAAAAAAA/Supe"       , 0, 0, 4, "Supe");
-  TestSuccess("ge0://AwAAAAAAAA/Sup"        , 0, 0, 4, "Sup");
-  TestSuccess("ge0://AwAAAAAAAA/Su"         , 0, 0, 4, "Su");
-  TestSuccess("ge0://AwAAAAAAAA/S"          , 0, 0, 4, "S");
-  TestSuccess("ge0://AwAAAAAAAA/"           , 0, 0, 4, "");
-  TestSuccess("ge0://AwAAAAAAAA"            , 0, 0, 4, "");
+  TestSuccess("ge0://AwAAAAAAAA/Super%5fPo", 0, 0, 4, "Super Po");
+  TestSuccess("ge0://AwAAAAAAAA/Super%5fP", 0, 0, 4, "Super P");
+  TestSuccess("ge0://AwAAAAAAAA/Super%5f", 0, 0, 4, "Super ");
+  TestSuccess("ge0://AwAAAAAAAA/Super%5", 0, 0, 4, "Super");
+  TestSuccess("ge0://AwAAAAAAAA/Super%", 0, 0, 4, "Super");
+  TestSuccess("ge0://AwAAAAAAAA/Super", 0, 0, 4, "Super");
+  TestSuccess("ge0://AwAAAAAAAA/Supe", 0, 0, 4, "Supe");
+  TestSuccess("ge0://AwAAAAAAAA/Sup", 0, 0, 4, "Sup");
+  TestSuccess("ge0://AwAAAAAAAA/Su", 0, 0, 4, "Su");
+  TestSuccess("ge0://AwAAAAAAAA/S", 0, 0, 4, "S");
+  TestSuccess("ge0://AwAAAAAAAA/", 0, 0, 4, "");
+  TestSuccess("ge0://AwAAAAAAAA", 0, 0, 4, "");
 }
 
 UNIT_TEST(Bad_Base64)

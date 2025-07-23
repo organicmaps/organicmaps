@@ -55,9 +55,7 @@ void PowerManager::Load()
       GetPlatform().GetBatteryTracker().Subscribe(this);
 
     for (size_t i = 0; i < m_config.m_facilities.size(); ++i)
-    {
       NotifySubscribers(m_subscribers, static_cast<Facility>(i), m_config.m_facilities[i]);
-    }
 
     NotifySubscribers(m_subscribers, m_config.m_scheme);
     return;
@@ -131,10 +129,8 @@ void PowerManager::SetScheme(Scheme const scheme)
   NotifySubscribers(m_subscribers, m_config.m_scheme);
 
   for (size_t i = 0; i < actualState.size(); ++i)
-  {
     if (m_config.m_facilities[i] != actualState[i])
       NotifySubscribers(m_subscribers, static_cast<Facility>(i), m_config.m_facilities[i]);
-  }
 }
 
 bool PowerManager::IsFacilityEnabled(Facility const facility) const
@@ -178,10 +174,8 @@ void PowerManager::OnBatteryLevelReceived(uint8_t level)
     return;
 
   for (size_t i = 0; i < actualState.size(); ++i)
-  {
     if (m_config.m_facilities[i] != actualState[i])
       NotifySubscribers(m_subscribers, static_cast<Facility>(i), m_config.m_facilities[i]);
-  }
 }
 
 void PowerManager::Subscribe(Subscriber * subscriber)
@@ -197,26 +191,26 @@ void PowerManager::UnsubscribeAll()
 
 bool PowerManager::Save()
 {
-  auto const result =
-      base::WriteToTempAndRenameToFile(GetConfigPath(), [this](std::string const & fileName) {
-        try
-        {
-          FileWriter writer(fileName);
-          coding::SerializerJson<FileWriter> ser(writer);
-          ser(m_config);
-          return true;
-        }
-        catch (base::Json::Exception & ex)
-        {
-          LOG(LERROR, ("Cannot serialize power manager data into file. Exception:", ex.Msg()));
-        }
-        catch (FileWriter::Exception const & ex)
-        {
-          LOG(LERROR, ("Cannot write power manager file. Exception:", ex.Msg()));
-        }
+  auto const result = base::WriteToTempAndRenameToFile(GetConfigPath(), [this](std::string const & fileName)
+  {
+    try
+    {
+      FileWriter writer(fileName);
+      coding::SerializerJson<FileWriter> ser(writer);
+      ser(m_config);
+      return true;
+    }
+    catch (base::Json::Exception & ex)
+    {
+      LOG(LERROR, ("Cannot serialize power manager data into file. Exception:", ex.Msg()));
+    }
+    catch (FileWriter::Exception const & ex)
+    {
+      LOG(LERROR, ("Cannot write power manager file. Exception:", ex.Msg()));
+    }
 
-        return false;
-      });
+    return false;
+  });
 
   if (result)
     return true;

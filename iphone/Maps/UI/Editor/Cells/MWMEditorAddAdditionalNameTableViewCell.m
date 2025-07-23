@@ -8,6 +8,12 @@
 
 @implementation MWMEditorAddAdditionalNameTableViewCell
 
-- (void)configWithDelegate:(id<MWMEditorAdditionalName>)delegate { self.delegate = delegate; }
-- (IBAction)addLanguageTap { [self.delegate editAdditionalNameLanguage:NSNotFound]; }
+- (void)configWithDelegate:(id<MWMEditorAdditionalName>)delegate
+{
+  self.delegate = delegate;
+}
+- (IBAction)addLanguageTap
+{
+  [self.delegate editAdditionalNameLanguage:NSNotFound];
+}
 @end

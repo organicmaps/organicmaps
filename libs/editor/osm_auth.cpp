@@ -19,7 +19,6 @@ using std::string;
 
 constexpr char const * kApiVersion = "/api/0.6";
 
-
 string FindAuthenticityToken(string const & action, string body)
 {
   static std::regex const kActionAndTokenRE(R"~(action="(.+?)".*?name="authenticity_token" value="(.+?)")~");
@@ -54,7 +53,7 @@ string FindOauthCode(string const & redirectUri)
 string FindAccessToken(string const & json)
 {
   // Extract access_token from JSON in format {"access_token":"...", "token_type":"Bearer", "scope":"read_prefs"}
-  const base::Json root(json.c_str());
+  base::Json const root(json.c_str());
 
   if (json_is_object(root.get()))
   {
@@ -86,10 +85,10 @@ bool OsmOAuth::IsValid(string const & ks)
 
 OsmOAuth::OsmOAuth(string const & oauth2ClientId, string const & oauth2Secret, string const & oauth2Scope,
                    string const & oauth2RedirectUri, string baseUrl, string apiUrl)
-  : m_oauth2params{oauth2ClientId, oauth2Secret, oauth2Scope, oauth2RedirectUri},
-    m_baseUrl(std::move(baseUrl)), m_apiUrl(std::move(apiUrl))
-{
-}
+  : m_oauth2params{oauth2ClientId, oauth2Secret, oauth2Scope, oauth2RedirectUri}
+  , m_baseUrl(std::move(baseUrl))
+  , m_apiUrl(std::move(apiUrl))
+{}
 // static
 OsmOAuth OsmOAuth::ServerAuth()
 {
@@ -122,14 +121,24 @@ OsmOAuth OsmOAuth::ProductionServerAuth()
 {
   constexpr char const * kOsmMainSiteURL = "https://www.openstreetmap.org";
   constexpr char const * kOsmApiURL = "https://api.openstreetmap.org";
-  return {OSM_OAUTH2_CLIENT_ID, OSM_OAUTH2_CLIENT_SECRET, OSM_OAUTH2_SCOPE, OSM_OAUTH2_REDIRECT_URI, kOsmMainSiteURL, kOsmApiURL};
+  return {OSM_OAUTH2_CLIENT_ID,    OSM_OAUTH2_CLIENT_SECRET, OSM_OAUTH2_SCOPE,
+          OSM_OAUTH2_REDIRECT_URI, kOsmMainSiteURL,          kOsmApiURL};
 }
 
-void OsmOAuth::SetAuthToken(string const & oauthToken) { m_oauth2token = oauthToken; }
+void OsmOAuth::SetAuthToken(string const & oauthToken)
+{
+  m_oauth2token = oauthToken;
+}
 
-string const & OsmOAuth::GetAuthToken() const { return m_oauth2token; }
+string const & OsmOAuth::GetAuthToken() const
+{
+  return m_oauth2token;
+}
 
-bool OsmOAuth::IsAuthorized() const{ return IsValid(m_oauth2token); }
+bool OsmOAuth::IsAuthorized() const
+{
+  return IsValid(m_oauth2token);
+}
 
 // Opens a login page and extract a cookie and a secret token.
 OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl, string const & cookies) const
@@ -144,7 +153,7 @@ OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl, string const
   if (request.ErrorCode() != HTTP::OK)
     MYTHROW(FetchSessionIdError, (DebugPrint(request)));
 
-  SessionID sid = { request.CombinedCookies(), FindAuthenticityToken("/login", request.ServerResponse()) };
+  SessionID sid = {request.CombinedCookies(), FindAuthenticityToken("/login", request.ServerResponse())};
   if (sid.m_cookies.empty() || sid.m_authenticityToken.empty())
     MYTHROW(FetchSessionIdError, ("Cookies and/or token are empty for request", DebugPrint(request)));
   return sid;
@@ -163,16 +172,16 @@ void OsmOAuth::LogoutUser(SessionID const & sid) const
 bool OsmOAuth::LoginUserPassword(string const & login, string const & password, SessionID const & sid) const
 {
   auto params = BuildPostRequest({
-    {"username", login},
-    {"password", password},
-    {"referer", "/"},
-    {"commit", "Login"},
-    {"authenticity_token", sid.m_authenticityToken}
+      {          "username",                   login},
+      {          "password",                password},
+      {           "referer",                     "/"},
+      {            "commit",                 "Login"},
+      {"authenticity_token", sid.m_authenticityToken}
   });
   HttpClient request(m_baseUrl + "/login");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
-         .SetCookies(sid.m_cookies)
-         .SetFollowRedirects(true);
+      .SetCookies(sid.m_cookies)
+      .SetFollowRedirects(true);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("LoginUserPassword Network error while connecting to", request.UrlRequested()));
 
@@ -197,8 +206,7 @@ bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialTok
 {
   string const url = m_baseUrl + callbackPart + socialToken;
   HttpClient request(url);
-  request.SetCookies(sid.m_cookies)
-         .SetFollowRedirects(true);
+  request.SetCookies(sid.m_cookies).SetFollowRedirects(true);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("LoginSocial Network error while connecting to", request.UrlRequested()));
   if (request.ErrorCode() != HTTP::OK && request.ErrorCode() != HTTP::Found)
@@ -220,17 +228,17 @@ bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialTok
 string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const & lastSid) const
 {
   auto params = BuildPostRequest({
-    {"authenticity_token", requestTokenKey},
-    {"client_id", m_oauth2params.m_clientId},
-    {"redirect_uri", m_oauth2params.m_redirectUri},
-    {"scope", m_oauth2params.m_scope},
-    {"response_type", "code"}
+      {"authenticity_token",              requestTokenKey},
+      {         "client_id",    m_oauth2params.m_clientId},
+      {      "redirect_uri", m_oauth2params.m_redirectUri},
+      {             "scope",       m_oauth2params.m_scope},
+      {     "response_type",                       "code"}
   });
   HttpClient request(m_baseUrl + "/oauth2/authorize");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
-         .SetCookies(lastSid.m_cookies)
-         //.SetRawHeader("Origin", m_baseUrl)
-         .SetFollowRedirects(false);
+      .SetCookies(lastSid.m_cookies)
+      //.SetRawHeader("Origin", m_baseUrl)
+      .SetFollowRedirects(false);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("SendAuthRequest Network error while connecting to", request.UrlRequested()));
   if (!request.WasRedirected())
@@ -246,8 +254,7 @@ string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const
 string OsmOAuth::FetchRequestToken(SessionID const & sid) const
 {
   HttpClient request(BuildOAuth2Url());
-  request.SetCookies(sid.m_cookies)
-         .SetFollowRedirects(false);
+  request.SetCookies(sid.m_cookies).SetFollowRedirects(false);
 
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchRequestToken Network error while connecting to", request.UrlRequested()));
@@ -261,7 +268,8 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
     // Recieved URL in format "{OSM_OAUTH2_REDIRECT_URI}?code=XXXX". Extract code value
     string const oauthCode = FindOauthCode(request.UrlReceived());
     if (oauthCode.empty())
-      MYTHROW(OsmOAuth::NetworkError, ("FetchRequestToken Redirect url has no 'code' parameter", request.UrlReceived()));
+      MYTHROW(OsmOAuth::NetworkError,
+              ("FetchRequestToken Redirect url has no 'code' parameter", request.UrlReceived()));
     return oauthCode;
   }
   else
@@ -279,31 +287,29 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
 
 string OsmOAuth::BuildOAuth2Url() const
 {
-   auto requestTokenUrl = m_baseUrl + "/oauth2/authorize";
-   auto const requestTokenQuery = BuildPostRequest(
-   {
-       {"client_id", m_oauth2params.m_clientId},
-       {"redirect_uri", m_oauth2params.m_redirectUri},
-       {"scope", m_oauth2params.m_scope},
-       {"response_type", "code"}
-   });
-   return requestTokenUrl.append("?").append(requestTokenQuery);
+  auto requestTokenUrl = m_baseUrl + "/oauth2/authorize";
+  auto const requestTokenQuery = BuildPostRequest({
+      {    "client_id",    m_oauth2params.m_clientId},
+      { "redirect_uri", m_oauth2params.m_redirectUri},
+      {        "scope",       m_oauth2params.m_scope},
+      {"response_type",                       "code"}
+  });
+  return requestTokenUrl.append("?").append(requestTokenQuery);
 }
 
 string OsmOAuth::FinishAuthorization(string const & oauth2code) const
 {
   auto params = BuildPostRequest({
-      {"grant_type", "authorization_code"},
-      {"code", oauth2code},
-      {"client_id", m_oauth2params.m_clientId},
+      {   "grant_type",          "authorization_code"},
+      {         "code",                    oauth2code},
+      {    "client_id",     m_oauth2params.m_clientId},
       {"client_secret", m_oauth2params.m_clientSecret},
-      {"redirect_uri", m_oauth2params.m_redirectUri},
-      {"scope", m_oauth2params.m_scope},
+      { "redirect_uri",  m_oauth2params.m_redirectUri},
+      {        "scope",        m_oauth2params.m_scope},
   });
 
   HttpClient request(m_baseUrl + "/oauth2/token");
-  request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
-      .SetFollowRedirects(true);
+  request.SetBodyData(std::move(params), "application/x-www-form-urlencoded").SetFollowRedirects(true);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FinishAuthorization Network error while connecting to", request.UrlRequested()));
   if (request.ErrorCode() != HTTP::OK)

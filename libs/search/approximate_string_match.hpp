@@ -20,10 +20,7 @@ struct MatchCostData
   MatchCostData() : m_A(0), m_B(0), m_Cost(0) {}
   MatchCostData(uint32_t a, uint32_t b, uint32_t cost) : m_A(a), m_B(b), m_Cost(cost) {}
 
-  bool operator < (MatchCostData const & o) const
-  {
-    return m_Cost > o.m_Cost;
-  }
+  bool operator<(MatchCostData const & o) const { return m_Cost > o.m_Cost; }
 };
 
 template <typename PriorityQueue>
@@ -47,8 +44,8 @@ public:
 };
 
 template <typename Char, typename CostFn>
-uint32_t StringMatchCost(Char const * sA, size_t sizeA, Char const * sB, size_t sizeB,
-                         CostFn const & costF, uint32_t maxCost, bool bPrefixMatch = false)
+uint32_t StringMatchCost(Char const * sA, size_t sizeA, Char const * sB, size_t sizeB, CostFn const & costF,
+                         uint32_t maxCost, bool bPrefixMatch = false)
 {
   std::priority_queue<impl::MatchCostData, buffer_vector<impl::MatchCostData, 256>> q;
   q.push(impl::MatchCostData(0, 0, 0));

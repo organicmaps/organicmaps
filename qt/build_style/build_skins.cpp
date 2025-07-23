@@ -31,30 +31,32 @@ enum SkinType
   SkinCount
 };
 
-using SkinInfo = std::tuple<const char*, int, bool>;
-SkinInfo const g_skinInfo[SkinCount] =
-{
-  std::make_tuple("mdpi", 18, false),
-  std::make_tuple("hdpi", 27, false),
-  std::make_tuple("xhdpi", 36, false),
-  std::make_tuple("6plus", 43, false),
-  std::make_tuple("xxhdpi", 54, false),
-  std::make_tuple("xxxhdpi", 64, false),
+using SkinInfo = std::tuple<char const *, int, bool>;
+SkinInfo const g_skinInfo[SkinCount] = {
+    std::make_tuple("mdpi", 18, false),  std::make_tuple("hdpi", 27, false),   std::make_tuple("xhdpi", 36, false),
+    std::make_tuple("6plus", 43, false), std::make_tuple("xxhdpi", 54, false), std::make_tuple("xxxhdpi", 64, false),
 };
 
-std::array<SkinType, SkinCount> const g_skinTypes =
-{{
-  SkinMDPI,
-  SkinHDPI,
-  SkinXHDPI,
-  Skin6Plus,
-  SkinXXHDPI,
-  SkinXXXHDPI,
-}};
+std::array<SkinType, SkinCount> const g_skinTypes = {
+    {
+     SkinMDPI, SkinHDPI,
+     SkinXHDPI, Skin6Plus,
+     SkinXXHDPI, SkinXXXHDPI,
+     }
+};
 
-inline const char * SkinSuffix(SkinType s) { return std::get<0>(g_skinInfo[s]); }
-inline int SkinSize(SkinType s) { return std::get<1>(g_skinInfo[s]); }
-inline bool SkinCoorrectColor(SkinType s) { return std::get<2>(g_skinInfo[s]); }
+inline char const * SkinSuffix(SkinType s)
+{
+  return std::get<0>(g_skinInfo[s]);
+}
+inline int SkinSize(SkinType s)
+{
+  return std::get<1>(g_skinInfo[s]);
+}
+inline bool SkinCoorrectColor(SkinType s)
+{
+  return std::get<2>(g_skinInfo[s]);
+}
 
 QString GetSkinGeneratorPath()
 {
@@ -124,8 +126,8 @@ std::unordered_map<std::string, int> GetSkinSizes(QString const & file)
   return skinSizes;
 }
 
-void BuildSkinImpl(QString const & styleDir, QString const & suffix,
-                   int size, bool colorCorrection, QString const & outputDir)
+void BuildSkinImpl(QString const & styleDir, QString const & suffix, int size, bool colorCorrection,
+                   QString const & outputDir)
 {
   QString const symbolsDir = JoinPathQt({styleDir, "symbols"});
 
@@ -152,13 +154,18 @@ void BuildSkinImpl(QString const & styleDir, QString const & suffix,
   QString const strSize = QString::number(size);
   // Run the script.
   (void)ExecProcess(GetSkinGeneratorPath(), {
-      "--symbolWidth", strSize,
-      "--symbolHeight", strSize,
-      "--symbolsDir", symbolsDir,
-      "--skinName", JoinPathQt({outputDir, "basic"}),
-      "--skinSuffix=",
-      "--colorCorrection", (colorCorrection ? "true" : "false"),
-  });
+                                                "--symbolWidth",
+                                                strSize,
+                                                "--symbolHeight",
+                                                strSize,
+                                                "--symbolsDir",
+                                                symbolsDir,
+                                                "--skinName",
+                                                JoinPathQt({outputDir, "basic"}),
+                                                "--skinSuffix=",
+                                                "--colorCorrection",
+                                                (colorCorrection ? "true" : "false"),
+                                            });
 
   // Check if files were created.
   if (QFile(JoinPathQt({outputDir, "symbols.png"})).size() == 0 ||
@@ -178,7 +185,7 @@ void BuildSkins(QString const & styleDir, QString const & outputDir)
   {
     QString const suffix = SkinSuffix(s);
     QString const outputSkinDir = JoinPathQt({outputDir, "symbols", suffix, "design"});
-    int const size = resolution2size.at(suffix.toStdString()); // SkinSize(s);
+    int const size = resolution2size.at(suffix.toStdString());  // SkinSize(s);
     bool const colorCorrection = SkinCoorrectColor(s);
 
     BuildSkinImpl(styleDir, suffix, size, colorCorrection, outputSkinDir);
@@ -198,10 +205,8 @@ void ApplySkins(QString const & outputDir)
     if (!QFileInfo::exists(resourceSkinDir) && !QDir().mkdir(resourceSkinDir))
       throw std::runtime_error("Cannot create resource skin directory: " + resourceSkinDir.toStdString());
 
-    if (!CopyFile(JoinPathQt({outputSkinDir, "symbols.png"}),
-                  JoinPathQt({resourceSkinDir, "symbols.png"})) ||
-        !CopyFile(JoinPathQt({outputSkinDir, "symbols.sdf"}),
-                  JoinPathQt({resourceSkinDir, "symbols.sdf"})))
+    if (!CopyFile(JoinPathQt({outputSkinDir, "symbols.png"}), JoinPathQt({resourceSkinDir, "symbols.png"})) ||
+        !CopyFile(JoinPathQt({outputSkinDir, "symbols.sdf"}), JoinPathQt({resourceSkinDir, "symbols.sdf"})))
     {
       throw std::runtime_error("Cannot copy skins files");
     }

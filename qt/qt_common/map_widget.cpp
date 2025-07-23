@@ -15,14 +15,14 @@
 #include <functional>
 #include <string>
 
-#include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
+#include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
 #include <QTouchEvent>
 
+#include <QtGui/QAction>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QOpenGLFunctions>
-#include <QtGui/QAction>
 #include <QtWidgets/QMenu>
 
 // Fraction of the viewport for a move event
@@ -33,7 +33,7 @@ static constexpr float kViewportFractionSmoothMove = 0.1;
 
 namespace qt::common
 {
-//#define ENABLE_AA_SWITCH
+// #define ENABLE_AA_SWITCH
 
 MapWidget::MapWidget(Framework & framework, bool isScreenshotMode, QWidget * parent)
   : QOpenGLWidget(parent)
@@ -65,23 +65,23 @@ MapWidget::~MapWidget()
 void MapWidget::BindHotkeys(QWidget & parent)
 {
   Hotkey const hotkeys[] = {
-      {Qt::Key_Equal, SLOT(ScalePlus())},
-      {Qt::Key_Plus, SLOT(ScalePlus())},
-      {Qt::Key_Minus, SLOT(ScaleMinus())},
-      {Qt::Key_Right, SLOT(MoveRight())},
-      {Qt::Key_Left, SLOT(MoveLeft())},
-      {Qt::Key_Up, SLOT(MoveUp())},
-      {Qt::Key_Down, SLOT(MoveDown())},
-      {Qt::ALT | Qt::Key_Equal, SLOT(ScalePlusLight())},
-      {Qt::ALT | Qt::Key_Plus, SLOT(ScalePlusLight())},
+      {          Qt::Key_Equal,       SLOT(ScalePlus())},
+      {           Qt::Key_Plus,       SLOT(ScalePlus())},
+      {          Qt::Key_Minus,      SLOT(ScaleMinus())},
+      {          Qt::Key_Right,       SLOT(MoveRight())},
+      {           Qt::Key_Left,        SLOT(MoveLeft())},
+      {             Qt::Key_Up,          SLOT(MoveUp())},
+      {           Qt::Key_Down,        SLOT(MoveDown())},
+      {Qt::ALT | Qt::Key_Equal,  SLOT(ScalePlusLight())},
+      { Qt::ALT | Qt::Key_Plus,  SLOT(ScalePlusLight())},
       {Qt::ALT | Qt::Key_Minus, SLOT(ScaleMinusLight())},
       {Qt::ALT | Qt::Key_Right, SLOT(MoveRightSmooth())},
-      {Qt::ALT | Qt::Key_Left, SLOT(MoveLeftSmooth())},
-      {Qt::ALT | Qt::Key_Up, SLOT(MoveUpSmooth())},
-      {Qt::ALT | Qt::Key_Down, SLOT(MoveDownSmooth())},
+      { Qt::ALT | Qt::Key_Left,  SLOT(MoveLeftSmooth())},
+      {   Qt::ALT | Qt::Key_Up,    SLOT(MoveUpSmooth())},
+      { Qt::ALT | Qt::Key_Down,  SLOT(MoveDownSmooth())},
 #ifdef ENABLE_AA_SWITCH
-      {Qt::ALT | Qt::Key_A, SLOT(AntialiasingOn())},
-      {Qt::ALT | Qt::Key_S, SLOT(AntialiasingOff())},
+      {    Qt::ALT | Qt::Key_A,  SLOT(AntialiasingOn())},
+      {    Qt::ALT | Qt::Key_S, SLOT(AntialiasingOff())},
 #endif
   };
 
@@ -116,8 +116,7 @@ void MapWidget::CreateEngine()
 
   m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), m_ratio));
   m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
-  m_skin->ForEach(
-      [&p](gui::EWidget widget, gui::Position const & pos) { p.m_widgetsInitInfo[widget] = pos; });
+  m_skin->ForEach([&p](gui::EWidget widget, gui::Position const & pos) { p.m_widgetsInitInfo[widget] = pos; });
 
   p.m_widgetsInitInfo[gui::WIDGET_SCALE_FPS_LABEL] = gui::Position(dp::LeftTop);
 
@@ -125,29 +124,65 @@ void MapWidget::CreateEngine()
   m_framework.SetViewportListener(std::bind(&MapWidget::OnViewportChanged, this, std::placeholders::_1));
 }
 
-void MapWidget::ScalePlus() { m_framework.Scale(Framework::SCALE_MAG, true); }
+void MapWidget::ScalePlus()
+{
+  m_framework.Scale(Framework::SCALE_MAG, true);
+}
 
-void MapWidget::ScaleMinus() { m_framework.Scale(Framework::SCALE_MIN, true); }
+void MapWidget::ScaleMinus()
+{
+  m_framework.Scale(Framework::SCALE_MIN, true);
+}
 
-void MapWidget::ScalePlusLight() { m_framework.Scale(Framework::SCALE_MAG_LIGHT, true); }
+void MapWidget::ScalePlusLight()
+{
+  m_framework.Scale(Framework::SCALE_MAG_LIGHT, true);
+}
 
-void MapWidget::ScaleMinusLight() { m_framework.Scale(Framework::SCALE_MIN_LIGHT, true); }
+void MapWidget::ScaleMinusLight()
+{
+  m_framework.Scale(Framework::SCALE_MIN_LIGHT, true);
+}
 
-void MapWidget::MoveRight() { m_framework.Move(-kViewportFractionRoughMove, 0, true); }
+void MapWidget::MoveRight()
+{
+  m_framework.Move(-kViewportFractionRoughMove, 0, true);
+}
 
-void MapWidget::MoveRightSmooth() { m_framework.Move(-kViewportFractionSmoothMove, 0, true); }
+void MapWidget::MoveRightSmooth()
+{
+  m_framework.Move(-kViewportFractionSmoothMove, 0, true);
+}
 
-void MapWidget::MoveLeft() { m_framework.Move(kViewportFractionRoughMove, 0, true); }
+void MapWidget::MoveLeft()
+{
+  m_framework.Move(kViewportFractionRoughMove, 0, true);
+}
 
-void MapWidget::MoveLeftSmooth() { m_framework.Move(kViewportFractionSmoothMove, 0, true); }
+void MapWidget::MoveLeftSmooth()
+{
+  m_framework.Move(kViewportFractionSmoothMove, 0, true);
+}
 
-void MapWidget::MoveUp() { m_framework.Move(0, -kViewportFractionRoughMove, true); }
+void MapWidget::MoveUp()
+{
+  m_framework.Move(0, -kViewportFractionRoughMove, true);
+}
 
-void MapWidget::MoveUpSmooth() { m_framework.Move(0, -kViewportFractionSmoothMove, true); }
+void MapWidget::MoveUpSmooth()
+{
+  m_framework.Move(0, -kViewportFractionSmoothMove, true);
+}
 
-void MapWidget::MoveDown() { m_framework.Move(0, kViewportFractionRoughMove, true); }
+void MapWidget::MoveDown()
+{
+  m_framework.Move(0, kViewportFractionRoughMove, true);
+}
 
-void MapWidget::MoveDownSmooth() { m_framework.Move(0, kViewportFractionSmoothMove, true); }
+void MapWidget::MoveDownSmooth()
+{
+  m_framework.Move(0, kViewportFractionSmoothMove, true);
+}
 
 void MapWidget::AntialiasingOn()
 {
@@ -176,9 +211,15 @@ void MapWidget::ScaleChanged(int action)
     m_framework.Scale(factor, false);
 }
 
-void MapWidget::SliderPressed() { m_sliderState = SliderState::Pressed; }
+void MapWidget::SliderPressed()
+{
+  m_sliderState = SliderState::Pressed;
+}
 
-void MapWidget::SliderReleased() { m_sliderState = SliderState::Released; }
+void MapWidget::SliderReleased()
+{
+  m_sliderState = SliderState::Released;
+}
 
 m2::PointD MapWidget::GetDevicePoint(QMouseEvent * e) const
 {
@@ -233,11 +274,11 @@ void MapWidget::Build()
   std::string_view vertexSrc;
   std::string_view fragmentSrc;
 #if defined(OMIM_OS_LINUX)
-    vertexSrc = ":common/shaders/gles_300.vsh.glsl";
-    fragmentSrc = ":common/shaders/gles_300.fsh.glsl";
+  vertexSrc = ":common/shaders/gles_300.vsh.glsl";
+  fragmentSrc = ":common/shaders/gles_300.fsh.glsl";
 #else
-    vertexSrc = ":common/shaders/gl_150.vsh.glsl";
-    fragmentSrc = ":common/shaders/gl_150.fsh.glsl";
+  vertexSrc = ":common/shaders/gl_150.vsh.glsl";
+  fragmentSrc = ":common/shaders/gl_150.fsh.glsl";
 #endif
 
   m_program = std::make_unique<QOpenGLShaderProgram>(this);
@@ -254,12 +295,10 @@ void MapWidget::Build()
   m_vbo->create();
   m_vbo->bind();
 
-  QVector4D vertices[4] = {QVector4D(-1.0, 1.0, 0.0, 1.0),
-                           QVector4D(1.0, 1.0, 1.0, 1.0),
-                           QVector4D(-1.0, -1.0, 0.0, 0.0),
-                           QVector4D(1.0, -1.0, 1.0, 0.0)};
-  m_vbo->allocate(static_cast<void*>(vertices), sizeof(vertices));
-  QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
+  QVector4D vertices[4] = {QVector4D(-1.0, 1.0, 0.0, 1.0), QVector4D(1.0, 1.0, 1.0, 1.0),
+                           QVector4D(-1.0, -1.0, 0.0, 0.0), QVector4D(1.0, -1.0, 1.0, 0.0)};
+  m_vbo->allocate(static_cast<void *>(vertices), sizeof(vertices));
+  QOpenGLFunctions * f = QOpenGLContext::currentContext()->functions();
   // 0-index of the buffer is linked to "a_position" attribute in vertex shader.
   // Introduced in https://github.com/organicmaps/organicmaps/pull/9814
   f->glEnableVertexAttribArray(0);
@@ -278,7 +317,7 @@ search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framewo
   coder.GetExactAddress(ft, address);
   return address;
 }
-} // namespace
+}  // namespace
 
 void MapWidget::ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt)
 {
@@ -343,16 +382,12 @@ void MapWidget::initializeGL()
 #if defined(OMIM_OS_LINUX)
   {
     QOpenGLFunctions * funcs = context()->functions();
-    LOG(LINFO, ("Vendor:", funcs->glGetString(GL_VENDOR),
-                "\nRenderer:", funcs->glGetString(GL_RENDERER),
-                "\nVersion:", funcs->glGetString(GL_VERSION),
-                "\nShading language version:\n",funcs->glGetString(GL_SHADING_LANGUAGE_VERSION),
-                "\nExtensions:", funcs->glGetString(GL_EXTENSIONS)));
+    LOG(LINFO, ("Vendor:", funcs->glGetString(GL_VENDOR), "\nRenderer:", funcs->glGetString(GL_RENDERER),
+                "\nVersion:", funcs->glGetString(GL_VERSION), "\nShading language version:\n",
+                funcs->glGetString(GL_SHADING_LANGUAGE_VERSION), "\nExtensions:", funcs->glGetString(GL_EXTENSIONS)));
 
     if (!context()->isOpenGLES())
-    {
       LOG(LCRITICAL, ("Context is not LibGLES! This shouldn't have happened."));
-    }
 
     auto fmt = context()->format();
     if (context()->format().version() < qMakePair(3, 0))
@@ -407,7 +442,6 @@ void MapWidget::paintGL()
 
     m_program->release();
     m_vao->release();
-
   }
 }
 
@@ -422,8 +456,7 @@ void MapWidget::resizeGL(int width, int height)
     m_skin->Resize(w, h);
 
     gui::TWidgetsLayoutInfo layout;
-    m_skin->ForEach(
-        [&layout](gui::EWidget w, gui::Position const & pos) { layout[w] = pos.m_pixelPivot; });
+    m_skin->ForEach([&layout](gui::EWidget w, gui::Position const & pos) { layout[w] = pos.m_pixelPivot; });
 
     m_framework.SetWidgetLayout(std::move(layout));
   }
@@ -486,4 +519,4 @@ void MapWidget::wheelEvent(QWheelEvent * e)
   /// @todo Here you can tune the speed of zooming.
   m_framework.Scale(exp(factor), m2::PointD(L2D(pos.x()), L2D(pos.y())), false);
 }
-} // namespace qt::common
+}  // namespace qt::common

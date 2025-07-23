@@ -27,6 +27,6 @@ std::string DebugPrint(LatLon const & latlon)
   ss << "google::LatLon(" << latlon.m_lat << ", " << latlon.m_lon << ")";
   return ss.str();
 }
-}  // namespace mapbox
+}  // namespace google
 }  // namespace api
 }  // namespace routing_quality

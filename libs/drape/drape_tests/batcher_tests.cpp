@@ -18,11 +18,11 @@
 #include <gmock/gmock.h>
 
 using testing::_;
-using testing::Return;
+using testing::AnyOf;
+using testing::IgnoreResult;
 using testing::InSequence;
 using testing::Invoke;
-using testing::IgnoreResult;
-using testing::AnyOf;
+using testing::Return;
 using namespace dp;
 using namespace std::placeholders;
 
@@ -48,14 +48,10 @@ public:
 class BatcherExpectations
 {
 public:
-  BatcherExpectations()
-    : m_indexBufferID(1)
-    , m_dataBufferID(2)
-  {}
+  BatcherExpectations() : m_indexBufferID(1), m_dataBufferID(2) {}
 
   template <typename TBatcherCall>
-  void RunTest(float * vertexes, void * indexes,
-               uint32_t vertexCount, uint8_t vertexComponentCount,
+  void RunTest(float * vertexes, void * indexes, uint32_t vertexCount, uint8_t vertexComponentCount,
                uint32_t indexCount, TBatcherCall const & fn)
   {
     uint32_t const vertexSize = vertexCount * vertexComponentCount;
@@ -91,23 +87,22 @@ public:
       vaoAcceptor.m_vao[i].reset();
   }
 
-  void ExpectBufferCreation(uint32_t vertexCount, uint32_t indexCount,
-                            MemoryComparer const & indexCmp, MemoryComparer const & vertexCmp)
+  void ExpectBufferCreation(uint32_t vertexCount, uint32_t indexCount, MemoryComparer const & indexCmp,
+                            MemoryComparer const & vertexCmp)
   {
     InSequence seq;
 
     // data buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(m_dataBufferID));
     EXPECTGL(glBindBuffer(m_dataBufferID, gl_const::GLArrayBuffer));
-    EXPECTGL(glBufferData(gl_const::GLArrayBuffer, vertexCount * sizeof(float), _,
-                          gl_const::GLDynamicDraw))
+    EXPECTGL(glBufferData(gl_const::GLArrayBuffer, vertexCount * sizeof(float), _, gl_const::GLDynamicDraw))
         .WillOnce(Invoke(&vertexCmp, &MemoryComparer::cmpSubBuffer));
 
     // Index buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(m_indexBufferID));
     EXPECTGL(glBindBuffer(m_indexBufferID, gl_const::GLElementArrayBuffer));
-    EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer,
-                          indexCount * dp::IndexStorage::SizeOfIndex(), _, gl_const::GLDynamicDraw))
+    EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, indexCount * dp::IndexStorage::SizeOfIndex(), _,
+                          gl_const::GLDynamicDraw))
         .WillOnce(Invoke(&indexCmp, &MemoryComparer::cmpSubBuffer));
 
     EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
@@ -128,13 +123,13 @@ private:
   uint32_t m_dataBufferID = 0;
 };
 
-} // namespace
+}  // namespace
 
 UNIT_TEST(BatchLists_Test)
 {
   TestingGraphicsContext context;
   uint32_t const kVerticesCount = 12;
-  uint32_t const kFloatsCount = 3 * 12; // 3 component on each vertex.
+  uint32_t const kFloatsCount = 3 * 12;  // 3 component on each vertex.
   float data[kFloatsCount];
   for (uint32_t i = 0; i < kFloatsCount; ++i)
     data[i] = static_cast<float>(i);
@@ -146,9 +141,7 @@ UNIT_TEST(BatchLists_Test)
 
   BatcherExpectations expectations;
   auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
-  {
-    batcher->InsertTriangleList(make_ref(&context), state, p);
-  };
+  { batcher->InsertTriangleList(make_ref(&context), state, p); };
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kVerticesCount, fn);
 }
 
@@ -167,9 +160,7 @@ UNIT_TEST(BatchListOfStript_4stride)
 
   BatcherExpectations expectations;
   auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
-  {
-    batcher->InsertListOfStrip(make_ref(&context), state, p, dp::Batcher::VertexPerQuad);
-  };
+  { batcher->InsertListOfStrip(make_ref(&context), state, p, dp::Batcher::VertexPerQuad); };
 
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kIndicesCount, fn);
 }
@@ -184,24 +175,13 @@ UNIT_TEST(BatchListOfStript_5stride)
   for (uint32_t i = 0; i < kVerticesCount * 3; ++i)
     data[i] = static_cast<float>(i);
 
-  std::vector<uint32_t> indexesRaw =
-  { 0, 1, 2,
-    1, 3, 2,
-    2, 3, 4,
-    5, 6, 7,
-    6, 8, 7,
-    7, 8, 9,
-    10, 11, 12,
-    11, 13, 12,
-    12, 13, 14
-  };
+  std::vector<uint32_t> indexesRaw = {0, 1, 2, 1, 3,  2,  2,  3,  4,  5,  6,  7,  6, 8,
+                                      7, 7, 8, 9, 10, 11, 12, 11, 13, 12, 12, 13, 14};
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
   auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
-  {
-    batcher->InsertListOfStrip(make_ref(&context), state, p, 5);
-  };
+  { batcher->InsertListOfStrip(make_ref(&context), state, p, 5); };
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kIndicesCount, fn);
 }
 
@@ -215,28 +195,13 @@ UNIT_TEST(BatchListOfStript_6stride)
   for (uint32_t i = 0; i < kVerticesCount * 3; ++i)
     data[i] = static_cast<float>(i);
 
-  std::vector<uint32_t> indexesRaw =
-  {
-    0, 1, 2,
-    1, 3, 2,
-    2, 3, 4,
-    3, 5, 4,
-    6, 7, 8,
-    7, 9, 8,
-    8, 9, 10,
-    9, 11, 10,
-    12, 13, 14,
-    13, 15, 14,
-    14, 15, 16,
-    15, 17, 16
-  };
+  std::vector<uint32_t> indexesRaw = {0, 1, 2,  1, 3,  2,  2,  3,  4,  3,  5,  4,  6,  7,  8,  7,  9,  8,
+                                      8, 9, 10, 9, 11, 10, 12, 13, 14, 13, 15, 14, 14, 15, 16, 15, 17, 16};
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
   auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
-  {
-    batcher->InsertListOfStrip(make_ref(&context), state, p, 6);
-  };
+  { batcher->InsertListOfStrip(make_ref(&context), state, p, 6); };
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kIndicesCount, fn);
 }
 
@@ -247,8 +212,7 @@ class PartialBatcherTest
 public:
   struct BufferNode
   {
-    BufferNode(uint32_t indexByteCount, uint32_t vertexByteCount,
-               void * indexData, void * vertexData)
+    BufferNode(uint32_t indexByteCount, uint32_t vertexByteCount, void * indexData, void * vertexData)
       : m_indexByteCount(indexByteCount)
       , m_vertexByteCount(vertexByteCount)
       , m_indexData(indexData)
@@ -267,10 +231,7 @@ public:
 
   PartialBatcherTest() = default;
 
-  ~PartialBatcherTest()
-  {
-    std::for_each(m_comparators.begin(), m_comparators.end(), base::DeleteFunctor());
-  }
+  ~PartialBatcherTest() { std::for_each(m_comparators.begin(), m_comparators.end(), base::DeleteFunctor()); }
 
   void AddBufferNode(BufferNode const & node)
   {
@@ -283,24 +244,20 @@ public:
     EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_vertexBufferID));
     EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
 
-    m_comparators.push_back(
-        new MemoryComparer(currentNode.m_vertexData, currentNode.m_vertexByteCount));
+    m_comparators.push_back(new MemoryComparer(currentNode.m_vertexData, currentNode.m_vertexByteCount));
     MemoryComparer * vertexComparer = m_comparators.back();
 
-    EXPECTGL(glBufferData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _,
-                          gl_const::GLDynamicDraw))
+    EXPECTGL(glBufferData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _, gl_const::GLDynamicDraw))
         .WillOnce(Invoke(vertexComparer, &MemoryComparer::cmpSubBuffer));
 
     // Index buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_indexBufferID));
     EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
 
-    m_comparators.push_back(
-        new MemoryComparer(currentNode.m_indexData, currentNode.m_indexByteCount));
+    m_comparators.push_back(new MemoryComparer(currentNode.m_indexData, currentNode.m_indexByteCount));
     MemoryComparer * indexComparer = m_comparators.back();
 
-    EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, currentNode.m_indexByteCount, _,
-                          gl_const::GLDynamicDraw))
+    EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, currentNode.m_indexByteCount, _, gl_const::GLDynamicDraw))
         .WillOnce(Invoke(indexComparer, &MemoryComparer::cmpSubBuffer));
 
     EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
@@ -343,21 +300,14 @@ UNIT_TEST(BatchListOfStript_partial)
   for (uint32_t i = 0; i < VertexArraySize; ++i)
     vertexData[i] = static_cast<float>(i);
 
-  std::vector<uint32_t> indexDataRaw =
-  { 0, 1, 2,
-    1, 3, 2,
-    4, 5, 6,
-    5, 7, 6,
-    8, 9, 10,
-    9, 11, 10,
-    0, 1, 2, // start new buffer
-    1, 3, 2
-  };
+  std::vector<uint32_t> indexDataRaw = {0, 1, 2, 1,  3, 2,  4,  5, 6, 5, 7,
+                                        6, 8, 9, 10, 9, 11, 10, 0, 1, 2,  // start new buffer
+                                        1, 3, 2};
   dp::IndexStorage indexData(std::move(indexDataRaw));
 
   PartialBatcherTest::BufferNode node1(FirstBufferIndexPortion * dp::IndexStorage::SizeOfIndex(),
-                                       FirstBufferVertexPortion * ComponentCount * sizeof(float),
-                                       indexData.GetRaw(), vertexData);
+                                       FirstBufferVertexPortion * ComponentCount * sizeof(float), indexData.GetRaw(),
+                                       vertexData);
 
   PartialBatcherTest::BufferNode node2(SecondBufferIndexPortion * dp::IndexStorage::SizeOfIndex(),
                                        SecondBufferVertexPortion * ComponentCount * sizeof(float),

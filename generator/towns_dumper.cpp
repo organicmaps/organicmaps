@@ -10,7 +10,6 @@
 
 #include <fstream>
 
-
 double TownsDumper::GetDistanceThreshold()
 {
   return 500000;
@@ -23,12 +22,10 @@ void TownsDumper::FilterTowns()
   std::vector<Town> towns;
   towns.reserve(m_records.size());
   for (auto const & town : m_records)
-  {
     if (town.capital)
       resultTree.Add(town);
     else
       towns.push_back(town);
-  }
   sort(towns.begin(), towns.end());
 
   LOG(LINFO, ("Capital's tree size =", resultTree.GetSize(), "; Town's vector size =", towns.size()));
@@ -44,22 +41,19 @@ void TownsDumper::FilterTowns()
     resultTree.ForEachInRect(
         mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(top.point), distanceThreshold),
         [&top, &isUniq, &distanceThreshold](Town const & candidate)
-        {
-          // The idea behind that is to collect all capitals and unique major cities in 500 km radius
-          // for upgrading in World map visibility. See TOWNS_FILE usage.
-          if (ms::DistanceOnEarth(top.point, candidate.point) < distanceThreshold)
-            isUniq = false;
-        });
+    {
+      // The idea behind that is to collect all capitals and unique major cities in 500 km radius
+      // for upgrading in World map visibility. See TOWNS_FILE usage.
+      if (ms::DistanceOnEarth(top.point, candidate.point) < distanceThreshold)
+        isUniq = false;
+    });
 
     if (isUniq)
       resultTree.Add(top);
     towns.pop_back();
   }
 
-  resultTree.ForEach([this](Town const & town)
-                     {
-                       m_records.push_back(town);
-                     });
+  resultTree.ForEach([this](Town const & town) { m_records.push_back(town); });
   LOG(LINFO, ("Preprocessing finished. Have", m_records.size(), "towns."));
 }
 
@@ -81,21 +75,13 @@ void TownsDumper::CheckElement(OsmElement const & em)
     auto const & key = tag.m_key;
     auto const & value = tag.m_value;
     if (key == "population")
-    {
       UNUSED_VALUE(strings::to_uint64(value, population));
-    }
     else if (key == "admin_level")
-    {
       UNUSED_VALUE(strings::to_int(value, admin_level));
-    }
     else if (key == "capital" && value == "yes")
-    {
       capital = true;
-    }
     else if (key == "place" && (value == "city" || value == "town"))
-    {
       town = true;
-    }
   }
 
   // Ignore regional capitals.
@@ -116,6 +102,6 @@ void TownsDumper::Dump(std::string const & filePath)
   for (auto const & record : m_records)
   {
     std::string const isCapital = record.capital ? "t" : "f";
-    stream << record.point.m_lat << ";" << record.point.m_lon << ";" << record.id << ";" << isCapital <<  std::endl;
+    stream << record.point.m_lat << ";" << record.point.m_lon << ";" << record.id << ";" << isCapital << std::endl;
   }
 }

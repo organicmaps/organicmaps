@@ -51,11 +51,9 @@ std::string_view constexpr kKmlFooter =
     "</Document>\n"
     "</kml>\n";
 
-std::string_view constexpr kExtendedDataHeader =
-    "<ExtendedData xmlns:mwm=\"https://omaps.app\">\n";
+std::string_view constexpr kExtendedDataHeader = "<ExtendedData xmlns:mwm=\"https://omaps.app\">\n";
 
-std::string_view constexpr kExtendedDataFooter =
-    "</ExtendedData>\n";
+std::string_view constexpr kExtendedDataFooter = "</ExtendedData>\n";
 
 std::string const kCompilationFooter = "</" + kCompilation + ">\n";
 
@@ -119,8 +117,7 @@ std::string GetStyleForPredefinedColor(PredefinedColor color)
   case PredefinedColor::Gray: return "placemark-gray";
   case PredefinedColor::BlueGray: return "placemark-bluegray";
   case PredefinedColor::None:
-  case PredefinedColor::Count:
-    return {};
+  case PredefinedColor::Count: return {};
   }
   UNREACHABLE();
 }
@@ -136,8 +133,7 @@ BookmarkIcon GetIcon(std::string const & iconName)
   return BookmarkIcon::None;
 }
 
-void SaveStyle(Writer & writer, std::string const & style,
-               std::string_view const & indent)
+void SaveStyle(Writer & writer, std::string const & style, std::string_view const & indent)
 {
   if (style.empty())
     return;
@@ -153,10 +149,8 @@ void SaveStyle(Writer & writer, std::string const & style,
 
 void SaveColorToABGR(Writer & writer, uint32_t rgba)
 {
-  writer << NumToHex(static_cast<uint8_t>(rgba & 0xFF))
-         << NumToHex(static_cast<uint8_t>((rgba >> 8) & 0xFF))
-         << NumToHex(static_cast<uint8_t>((rgba >> 16) & 0xFF))
-         << NumToHex(static_cast<uint8_t>((rgba >> 24) & 0xFF));
+  writer << NumToHex(static_cast<uint8_t>(rgba & 0xFF)) << NumToHex(static_cast<uint8_t>((rgba >> 8) & 0xFF))
+         << NumToHex(static_cast<uint8_t>((rgba >> 16) & 0xFF)) << NumToHex(static_cast<uint8_t>((rgba >> 24) & 0xFF));
 }
 
 std::string TimestampToString(Timestamp const & timestamp)
@@ -168,14 +162,13 @@ std::string TimestampToString(Timestamp const & timestamp)
   return strTimeStamp;
 }
 
-void SaveLocalizableString(Writer & writer, LocalizableString const & str,
-                           std::string const & tagName, std::string_view const & indent)
+void SaveLocalizableString(Writer & writer, LocalizableString const & str, std::string const & tagName,
+                           std::string_view const & indent)
 {
   writer << indent << "<mwm:" << tagName << ">\n";
   for (auto const & s : str)
   {
-    writer << indent << kIndent2 << "<mwm:lang code=\""
-           << StringUtf8Multilang::GetLangByCode(s.first) << "\">";
+    writer << indent << kIndent2 << "<mwm:lang code=\"" << StringUtf8Multilang::GetLangByCode(s.first) << "\">";
     SaveStringWithCDATA(writer, s.second);
     writer << "</mwm:lang>\n";
   }
@@ -183,9 +176,8 @@ void SaveLocalizableString(Writer & writer, LocalizableString const & str,
 }
 
 template <class StringViewLike>
-void SaveStringsArray(Writer & writer,
-                      std::vector<StringViewLike> const & stringsArray,
-                      std::string const & tagName, std::string_view const & indent)
+void SaveStringsArray(Writer & writer, std::vector<StringViewLike> const & stringsArray, std::string const & tagName,
+                      std::string_view const & indent)
 {
   if (stringsArray.empty())
     return;
@@ -207,9 +199,8 @@ void SaveStringsArray(Writer & writer,
   writer << indent << "</mwm:" << tagName << ">\n";
 }
 
-void SaveStringsMap(Writer & writer,
-                    std::map<std::string, std::string> const & stringsMap,
-                    std::string const & tagName, std::string_view const & indent)
+void SaveStringsMap(Writer & writer, std::map<std::string, std::string> const & stringsMap, std::string const & tagName,
+                    std::string_view const & indent)
 {
   if (stringsMap.empty())
     return;
@@ -224,12 +215,10 @@ void SaveStringsMap(Writer & writer,
   writer << indent << "</mwm:" << tagName << ">\n";
 }
 
-void SaveCategoryData(Writer & writer, CategoryData const & categoryData,
-                      std::string const & extendedServerId,
+void SaveCategoryData(Writer & writer, CategoryData const & categoryData, std::string const & extendedServerId,
                       std::vector<CategoryData> const * compilationData);
 
-void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData,
-                              std::string const & extendedServerId,
+void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData, std::string const & extendedServerId,
                               std::vector<CategoryData> const * compilationData)
 {
   if (compilationData)
@@ -255,8 +244,7 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
   SaveLocalizableString(writer, categoryData.m_description, "description", indent);
 
   if (!compilationData)
-    writer << indent << "<mwm:visibility>" << (categoryData.m_visible ? "1" : "0")
-           << "</mwm:visibility>\n";
+    writer << indent << "<mwm:visibility>" << (categoryData.m_visible ? "1" : "0") << "</mwm:visibility>\n";
 
   if (!categoryData.m_imageUrl.empty())
     writer << indent << "<mwm:imageUrl>" << categoryData.m_imageUrl << "</mwm:imageUrl>\n";
@@ -276,10 +264,7 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
 
   double constexpr kEps = 1e-5;
   if (fabs(categoryData.m_rating) > kEps)
-  {
-    writer << indent << "<mwm:rating>" << strings::to_string(categoryData.m_rating)
-           << "</mwm:rating>\n";
-  }
+    writer << indent << "<mwm:rating>" << strings::to_string(categoryData.m_rating) << "</mwm:rating>\n";
 
   if (categoryData.m_reviewsNumber > 0)
   {
@@ -287,8 +272,7 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
            << "</mwm:reviewsNumber>\n";
   }
 
-  writer << indent << "<mwm:accessRules>" << DebugPrint(categoryData.m_accessRules)
-         << "</mwm:accessRules>\n";
+  writer << indent << "<mwm:accessRules>" << DebugPrint(categoryData.m_accessRules) << "</mwm:accessRules>\n";
 
   SaveStringsArray(writer, categoryData.m_tags, "tags", indent);
 
@@ -305,11 +289,8 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
   SaveStringsMap(writer, categoryData.m_properties, "properties", indent);
 
   if (compilationData)
-  {
     for (auto const & compilationDatum : *compilationData)
-      SaveCategoryData(writer, compilationDatum, {} /* extendedServerId */,
-                       nullptr /* compilationData */);
-  }
+      SaveCategoryData(writer, compilationDatum, {} /* extendedServerId */, nullptr /* compilationData */);
 
   if (compilationData)
     writer << kIndent2 << kExtendedDataFooter;
@@ -317,8 +298,7 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
     writer << kIndent4 << kCompilationFooter;
 }
 
-void SaveCategoryData(Writer & writer, CategoryData const & categoryData,
-                      std::string const & extendedServerId,
+void SaveCategoryData(Writer & writer, CategoryData const & categoryData, std::string const & extendedServerId,
                       std::vector<CategoryData> const * compilationData)
 {
   if (compilationData)
@@ -400,10 +380,7 @@ void SaveBookmarkExtendedData(Writer & writer, BookmarkData const & bookmarkData
   }
 
   if (bookmarkData.m_minZoom > 1)
-  {
-    writer << kIndent6 << "<mwm:minZoom>" << strings::to_string(bookmarkData.m_minZoom)
-           << "</mwm:minZoom>\n";
-  }
+    writer << kIndent6 << "<mwm:minZoom>" << strings::to_string(bookmarkData.m_minZoom) << "</mwm:minZoom>\n";
 
   SaveStringsMap(writer, bookmarkData.m_properties, "properties", kIndent6);
 
@@ -435,23 +412,18 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
   }
 
   if (bookmarkData.m_timestamp != Timestamp())
-  {
-    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(bookmarkData.m_timestamp)
-           << "</when></TimeStamp>\n";
-  }
+    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(bookmarkData.m_timestamp) << "</when></TimeStamp>\n";
 
   auto const style = GetStyleForPredefinedColor(bookmarkData.m_color.m_predefinedColor);
   writer << kIndent4 << "<styleUrl>#" << style << "</styleUrl>\n"
-         << kIndent4 << "<Point><coordinates>" << PointToLineString(bookmarkData.m_point)
-         << "</coordinates></Point>\n";
+         << kIndent4 << "<Point><coordinates>" << PointToLineString(bookmarkData.m_point) << "</coordinates></Point>\n";
 
   SaveBookmarkExtendedData(writer, bookmarkData);
 
   writer << kIndent2 << "</Placemark>\n";
 }
 
-void SaveTrackLayer(Writer & writer, TrackLayer const & layer,
-                    std::string_view const & indent)
+void SaveTrackLayer(Writer & writer, TrackLayer const & layer, std::string_view const & indent)
 {
   writer << indent << "<color>";
   SaveColorToABGR(writer, layer.m_color.m_rgba);
@@ -607,10 +579,7 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   writer << kIndent4 << "</LineStyle></Style>\n";
 
   if (trackData.m_timestamp != Timestamp())
-  {
-    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(trackData.m_timestamp)
-           << "</when></TimeStamp>\n";
-  }
+    writer << kIndent4 << "<TimeStamp><when>" << TimestampToString(trackData.m_timestamp) << "</when></TimeStamp>\n";
 
   SaveTrackGeometry(writer, trackData.m_geometry);
   SaveTrackExtendedData(writer, trackData);
@@ -618,8 +587,7 @@ void SaveTrackData(Writer & writer, TrackData const & trackData)
   writer << kIndent2 << "</Placemark>\n";
 }
 
-bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt,
-                geometry::Altitude & altitude)
+bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt, geometry::Altitude & altitude)
 {
   // Order in string is: lon, lat, z.
   strings::SimpleTokenizer iter(s, delim);
@@ -650,8 +618,7 @@ bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt)
   return ParsePoint(s, delim, pt, dummyAltitude);
 }
 
-bool ParsePointWithAltitude(std::string_view s, char const * delim,
-                            geometry::PointWithAltitude & point)
+bool ParsePointWithAltitude(std::string_view s, char const * delim, geometry::PointWithAltitude & point)
 {
   geometry::Altitude altitude = geometry::kInvalidAltitude;
   m2::PointD pt;
@@ -670,8 +637,7 @@ void KmlWriter::Write(FileData const & fileData)
   m_writer << kKmlHeader;
 
   // Save category.
-  SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId,
-                   &fileData.m_compilationsData);
+  SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId, &fileData.m_compilationsData);
 
   // Save bookmarks.
   for (auto const & bookmarkData : fileData.m_bookmarksData)
@@ -733,8 +699,8 @@ void KmlParser::SetOrigin(std::string const & s)
     m_org = pt;
 }
 
-void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s,
-                                  char const * blockSeparator, char const * coordSeparator)
+void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s, char const * blockSeparator,
+                                  char const * coordSeparator)
 {
   strings::Tokenize(s, blockSeparator, [&](std::string_view v)
   {
@@ -779,9 +745,9 @@ bool KmlParser::MakeValid()
       size_t const pointsSize = m_geometry.m_lines[lineIdx].size();
       if (pointsSize + (skipSet ? skipSet->size() : 0) != timestamps.size())
       {
-        MYTHROW(kml::DeserializerKml::DeserializeException, ("Timestamps size", timestamps.size(),
-                                                             "mismatch with the points size:", pointsSize,
-                                                             "for the track:", lineIdx));
+        MYTHROW(kml::DeserializerKml::DeserializeException,
+                ("Timestamps size", timestamps.size(), "mismatch with the points size:", pointsSize,
+                 "for the track:", lineIdx));
       }
 
       if (skipSet)
@@ -978,8 +944,8 @@ void KmlParser::Pop(std::string_view tag)
         data.m_compilations = std::move(m_compilations);
 
         // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
-        if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode &&
-            data.m_customName.empty() && data.m_featureTypes.empty())
+        if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode && data.m_customName.empty() &&
+            data.m_featureTypes.empty())
         {
           data.m_customName = data.m_name;
         }
@@ -1275,8 +1241,7 @@ void KmlParser::CharData(std::string & value)
           m_trackWidth = val;
       }
     }
-    else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl &&
-             m_styleUrlKey == "normal")
+    else if (ppTag == kStyleMap && prevTag == kPair && currTag == kStyleUrl && m_styleUrlKey == "normal")
     {
       if (!m_mapStyleId.empty())
         m_mapStyle2Style[m_mapStyleId] = value;
@@ -1443,8 +1408,7 @@ kml::TrackLayer KmlParser::GetDefaultTrackLayer()
   return layer;
 }
 
-DeserializerKml::DeserializerKml(FileData & fileData)
-  : m_fileData(fileData)
+DeserializerKml::DeserializerKml(FileData & fileData) : m_fileData(fileData)
 {
   m_fileData = {};
 }

@@ -43,9 +43,9 @@ private:
   FeatureID m_featureId;
   // Note. If SegmentRange represents two directional feature |m_endSegId| is greater
   // than |m_startSegId| if |m_forward| == true.
-  uint32_t m_startSegId = 0;   // The first segment index of SegmentRange.
-  uint32_t m_endSegId = 0;     // The last segment index of SegmentRange.
-  bool m_forward = true;       // Segment direction in |m_featureId|.
+  uint32_t m_startSegId = 0;  // The first segment index of SegmentRange.
+  uint32_t m_endSegId = 0;    // The last segment index of SegmentRange.
+  bool m_forward = true;      // Segment direction in |m_featureId|.
   // Note. According to current implementation SegmentRange is filled based on instances of
   // Edge class in DirectionsEngine::GetSegmentRangeAndAdjacentEdges() method. In Edge class
   // to identify fake edges (part of real and completely fake) is used coordinates of beginning
@@ -57,8 +57,8 @@ private:
   // number mwm id field and feature id (uint32_t) should be used and |m_start| and |m_end|
   // should be removed. To do that classes IndexRoadGraph, CarDirectionsEngine,
   // PedestrianDirectionsEngine and other should be significant refactored.
-  m2::PointD m_start;          // Coordinates of start of last Edge in SegmentRange.
-  m2::PointD m_end;            // Coordinates of end of SegmentRange.
+  m2::PointD m_start;  // Coordinates of start of last Edge in SegmentRange.
+  m2::PointD m_end;    // Coordinates of end of SegmentRange.
 };
 
 namespace turns
@@ -98,7 +98,7 @@ enum class CarDirection
   ExitHighwayToLeft,
   ExitHighwayToRight,
 
-  Count  /**< This value is used for internals only. */
+  Count /**< This value is used for internals only. */
 };
 
 std::string DebugPrint(CarDirection const l);
@@ -134,7 +134,7 @@ enum class LaneWay
   SlightRight,
   Right,
   SharpRight,
-  Count  /**< This value is used for internals only. */
+  Count /**< This value is used for internals only. */
 };
 
 std::string DebugPrint(LaneWay const l);
@@ -156,29 +156,30 @@ std::string DebugPrint(SingleLaneInfo const & singleLaneInfo);
 struct TurnItem
 {
   TurnItem()
-      : m_index(std::numeric_limits<uint32_t>::max()),
-        m_turn(CarDirection::None),
-        m_exitNum(0),
-        m_pedestrianTurn(PedestrianDirection::None)
-  {
-  }
+    : m_index(std::numeric_limits<uint32_t>::max())
+    , m_turn(CarDirection::None)
+    , m_exitNum(0)
+    , m_pedestrianTurn(PedestrianDirection::None)
+  {}
 
   TurnItem(uint32_t idx, CarDirection t, uint32_t exitNum = 0)
-      : m_index(idx), m_turn(t), m_exitNum(exitNum)
-      , m_pedestrianTurn(PedestrianDirection::None)
-  {
-  }
+    : m_index(idx)
+    , m_turn(t)
+    , m_exitNum(exitNum)
+    , m_pedestrianTurn(PedestrianDirection::None)
+  {}
 
   TurnItem(uint32_t idx, PedestrianDirection p)
-      : m_index(idx), m_turn(CarDirection::None), m_exitNum(0)
-      , m_pedestrianTurn(p)
-  {
-  }
+    : m_index(idx)
+    , m_turn(CarDirection::None)
+    , m_exitNum(0)
+    , m_pedestrianTurn(p)
+  {}
 
   bool operator==(TurnItem const & rhs) const
   {
-    return m_index == rhs.m_index && m_turn == rhs.m_turn && m_lanes == rhs.m_lanes &&
-           m_exitNum == rhs.m_exitNum && m_pedestrianTurn == rhs.m_pedestrianTurn;
+    return m_index == rhs.m_index && m_turn == rhs.m_turn && m_lanes == rhs.m_lanes && m_exitNum == rhs.m_exitNum &&
+           m_pedestrianTurn == rhs.m_pedestrianTurn;
   }
 
   bool IsTurnReachedYourDestination() const
@@ -187,15 +188,12 @@ struct TurnItem
            m_pedestrianTurn == PedestrianDirection::ReachedYourDestination;
   }
 
-  bool IsTurnNone() const
-  {
-    return m_turn == CarDirection::None && m_pedestrianTurn == PedestrianDirection::None;
-  }
+  bool IsTurnNone() const { return m_turn == CarDirection::None && m_pedestrianTurn == PedestrianDirection::None; }
 
-  uint32_t m_index;                    /*!< Index of point on route polyline (Index of segment + 1). */
+  uint32_t m_index;                         /*!< Index of point on route polyline (Index of segment + 1). */
   CarDirection m_turn = CarDirection::None; /*!< The turn instruction of the TurnItem */
-  std::vector<SingleLaneInfo> m_lanes; /*!< Lane information on the edge before the turn. */
-  uint32_t m_exitNum;                  /*!< Number of exit on roundabout. */
+  std::vector<SingleLaneInfo> m_lanes;      /*!< Lane information on the edge before the turn. */
+  uint32_t m_exitNum;                       /*!< Number of exit on roundabout. */
   /*!
    * \brief m_pedestrianTurn is type of corresponding direction for a pedestrian, or None
    * if there is no pedestrian specific direction
@@ -207,10 +205,7 @@ std::string DebugPrint(TurnItem const & turnItem);
 
 struct TurnItemDist
 {
-  TurnItemDist(TurnItem const & turnItem, double distMeters)
-    : m_turnItem(turnItem), m_distMeters(distMeters)
-  {
-  }
+  TurnItemDist(TurnItem const & turnItem, double distMeters) : m_turnItem(turnItem), m_distMeters(distMeters) {}
   TurnItemDist() = default;
 
   TurnItem m_turnItem;
@@ -247,7 +242,7 @@ bool IsLaneWayConformedTurnDirection(LaneWay l, CarDirection t);
  */
 bool IsLaneWayConformedTurnDirectionApproximately(LaneWay l, CarDirection t);
 
-bool IsLaneUnrestricted(const SingleLaneInfo & lane);
+bool IsLaneUnrestricted(SingleLaneInfo const & lane);
 
 /*!
  * \brief Parse lane information which comes from @lanesString
@@ -265,7 +260,7 @@ bool ParseSingleLane(std::string const & laneString, char delimiter, TSingleLane
  * \returns pi minus angle from vector [junctionPoint, ingoingPoint]
  * to vector [junctionPoint, outgoingPoint]. A counterclockwise rotation.
  * Angle is in range [-pi, pi].
-*/
+ */
 double PiMinusTwoVectorsAngle(m2::PointD const & junctionPoint, m2::PointD const & ingoingPoint,
                               m2::PointD const & outgoingPoint);
 }  // namespace turns

@@ -48,17 +48,15 @@ bool CloserToEndingAndOnSimilarDistToLine(ProjectionData const & p1, ProjectionD
 
 namespace transit
 {
-ProjectionToShape ProjectStopOnTrack(m2::PointD const & stopPoint, m2::PointD const & point1,
-                                     m2::PointD const & point2)
+ProjectionToShape ProjectStopOnTrack(m2::PointD const & stopPoint, m2::PointD const & point1, m2::PointD const & point2)
 {
-  m2::PointD const stopProjection =
-      m2::ParametrizedSegment<m2::PointD>(point1, point2).ClosestPointTo(stopPoint);
+  m2::PointD const stopProjection = m2::ParametrizedSegment<m2::PointD>(point1, point2).ClosestPointTo(stopPoint);
   double const distM = mercator::DistanceOnEarth(stopProjection, stopPoint);
   return {stopProjection, distM};
 }
 
-ProjectionData GetProjection(std::vector<m2::PointD> const & polyline, size_t index,
-                             Direction direction, ProjectionToShape const & proj)
+ProjectionData GetProjection(std::vector<m2::PointD> const & polyline, size_t index, Direction direction,
+                             ProjectionToShape const & proj)
 {
   ProjectionData projData;
   projData.m_distFromPoint = proj.m_dist;
@@ -87,9 +85,8 @@ ProjectionData GetProjection(std::vector<m2::PointD> const & polyline, size_t in
   return projData;
 }
 
-void FillProjections(std::vector<m2::PointD> & polyline, size_t startIndex, size_t endIndex,
-                     m2::PointD const & point, double distStopsM, Direction direction,
-                     std::vector<ProjectionData> & projections)
+void FillProjections(std::vector<m2::PointD> & polyline, size_t startIndex, size_t endIndex, m2::PointD const & point,
+                     double distStopsM, Direction direction, std::vector<ProjectionData> & projections)
 {
   CHECK_LESS_OR_EQUAL(startIndex, endIndex, ());
 
@@ -99,11 +96,10 @@ void FillProjections(std::vector<m2::PointD> & polyline, size_t startIndex, size
 
   size_t const from = direction == Direction::Forward ? startIndex : endIndex;
 
-  auto const endCriterion = [&](size_t i) {
-    return direction == Direction::Forward ? i < endIndex : i > startIndex;
-  };
+  auto const endCriterion = [&](size_t i) { return direction == Direction::Forward ? i < endIndex : i > startIndex; };
 
-  auto const move = [&](size_t & i) {
+  auto const move = [&](size_t & i)
+  {
     direction == Direction::Forward ? ++i : --i;
     CHECK_LESS_OR_EQUAL(i, polyline.size(), ());
   };
@@ -117,10 +113,9 @@ void FillProjections(std::vector<m2::PointD> & polyline, size_t startIndex, size
     if (i != from)
       distTravelledM += mercator::DistanceOnEarth(polyline[prev], polyline[current]);
 
-    auto proj = GetProjection(polyline, current, direction,
-                              ProjectStopOnTrack(point, polyline[current], polyline[next]));
-    proj.m_distFromEnding =
-        distTravelledM + mercator::DistanceOnEarth(polyline[current], proj.m_proj);
+    auto proj =
+        GetProjection(polyline, current, direction, ProjectStopOnTrack(point, polyline[current], polyline[next]));
+    proj.m_distFromEnding = distTravelledM + mercator::DistanceOnEarth(polyline[current], proj.m_proj);
 
     // The distance on the polyline between the projections of stops must not be less than the
     // shortest possible distance between the stops themselves.
@@ -133,9 +128,8 @@ void FillProjections(std::vector<m2::PointD> & polyline, size_t startIndex, size
 }
 
 std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point,
-                                                   std::optional<m2::PointD> const & prevPoint,
-                                                   size_t prevIndex, Direction direction,
-                                                   std::vector<m2::PointD> & polyline)
+                                                   std::optional<m2::PointD> const & prevPoint, size_t prevIndex,
+                                                   Direction direction, std::vector<m2::PointD> & polyline)
 {
   // We skip 70% of the distance in a straight line between two stops for preventing incorrect
   // projection of the |point| to the polyline of complex shape.
@@ -157,7 +151,8 @@ std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point,
   // We find the most fitting projection of the stop to the polyline. For two different projections
   // with approximately equal distances to the stop the most preferable is the one that is closer
   // to the beginning of the polyline segment.
-  auto const cmp = [](ProjectionData const & p1, ProjectionData const & p2) {
+  auto const cmp = [](ProjectionData const & p1, ProjectionData const & p2)
+  {
     if (CloserToEndingAndOnSimilarDistToLine(p1, p2))
       return true;
 
@@ -177,9 +172,8 @@ std::pair<size_t, bool> PrepareNearestPointOnTrack(m2::PointD const & point,
   if (proj->m_indexOnShape == prevIndex)
   {
     proj = std::min_element(projections.begin(), projections.end(),
-                         [](ProjectionData const & p1, ProjectionData const & p2) {
-                           return p1.m_distFromPoint < p2.m_distFromPoint;
-                         });
+                            [](ProjectionData const & p1, ProjectionData const & p2)
+    { return p1.m_distFromPoint < p2.m_distFromPoint; });
   }
 
   if (proj->m_needsInsertion)
@@ -193,9 +187,9 @@ bool IsRelevantType(gtfs::RouteType const & routeType)
   // All types and constants are described in GTFS:
   // https://developers.google.com/transit/gtfs/reference
 
-  auto const isSubway = [](gtfs::RouteType const & routeType) {
-    return routeType == gtfs::RouteType::Subway ||
-           routeType == gtfs::RouteType::MetroService ||
+  auto const isSubway = [](gtfs::RouteType const & routeType)
+  {
+    return routeType == gtfs::RouteType::Subway || routeType == gtfs::RouteType::MetroService ||
            routeType == gtfs::RouteType::UndergroundService;
   };
 
@@ -214,16 +208,15 @@ bool IsRelevantType(gtfs::RouteType const & routeType)
     return false;
 
   // Other not relevant types - school buses, lorry services etc.
-  static std::vector<gtfs::RouteType> const kNotRelevantTypes{
-      gtfs::RouteType::CarTransportRailService,
-      gtfs::RouteType::LorryTransportRailService,
-      gtfs::RouteType::VehicleTransportRailService,
-      gtfs::RouteType::PostBusService,
-      gtfs::RouteType::SpecialNeedsBus,
-      gtfs::RouteType::MobilityBusService,
-      gtfs::RouteType::MobilityBusForRegisteredDisabled,
-      gtfs::RouteType::SchoolBus,
-      gtfs::RouteType::SchoolAndPublicServiceBus};
+  static std::vector<gtfs::RouteType> const kNotRelevantTypes{gtfs::RouteType::CarTransportRailService,
+                                                              gtfs::RouteType::LorryTransportRailService,
+                                                              gtfs::RouteType::VehicleTransportRailService,
+                                                              gtfs::RouteType::PostBusService,
+                                                              gtfs::RouteType::SpecialNeedsBus,
+                                                              gtfs::RouteType::MobilityBusService,
+                                                              gtfs::RouteType::MobilityBusForRegisteredDisabled,
+                                                              gtfs::RouteType::SchoolBus,
+                                                              gtfs::RouteType::SchoolAndPublicServiceBus};
 
   return !base::IsExist(kNotRelevantTypes, routeType);
 }
@@ -293,15 +286,14 @@ std::string ToStringExtendedType(gtfs::RouteType const & routeType)
   return {};
 }
 
-gtfs::StopTimes GetStopTimesForTrip(gtfs::StopTimes const & allStopTimes,
-                                    std::string const & tripId)
+gtfs::StopTimes GetStopTimesForTrip(gtfs::StopTimes const & allStopTimes, std::string const & tripId)
 {
   gtfs::StopTime reference;
   reference.trip_id = tripId;
 
-  auto itStart = std::lower_bound(
-      allStopTimes.begin(), allStopTimes.end(), reference,
-      [](const gtfs::StopTime & t1, const gtfs::StopTime & t2) { return t1.trip_id < t2.trip_id; });
+  auto itStart =
+      std::lower_bound(allStopTimes.begin(), allStopTimes.end(), reference,
+                       [](gtfs::StopTime const & t1, gtfs::StopTime const & t2) { return t1.trip_id < t2.trip_id; });
 
   if (itStart == allStopTimes.end())
     return {};
@@ -310,15 +302,13 @@ gtfs::StopTimes GetStopTimesForTrip(gtfs::StopTimes const & allStopTimes,
     ++itEnd;
 
   gtfs::StopTimes res(itStart, itEnd);
-  std::sort(res.begin(), res.end(), [](gtfs::StopTime const & t1, gtfs::StopTime const & t2) {
-    return t1.stop_sequence < t2.stop_sequence;
-  });
+  std::sort(res.begin(), res.end(),
+            [](gtfs::StopTime const & t1, gtfs::StopTime const & t2) { return t1.stop_sequence < t2.stop_sequence; });
   return res;
 }
 
-void UpdateLinePart(LineParts & lineParts, LineSegment const & segment,
-                    m2::PointD const & startPoint, TransitId commonLineId,
-                    m2::PointD const & startPointParallel)
+void UpdateLinePart(LineParts & lineParts, LineSegment const & segment, m2::PointD const & startPoint,
+                    TransitId commonLineId, m2::PointD const & startPointParallel)
 {
   if (auto it = FindLinePart(lineParts, segment); it == lineParts.end())
   {
@@ -386,13 +376,11 @@ std::pair<LineSegments, LineSegments> FindIntersections(std::vector<m2::PointD> 
 
 LineParts::iterator FindLinePart(LineParts & lineParts, LineSegment const & segment)
 {
-  return std::find_if(lineParts.begin(), lineParts.end(), [&segment](LinePart const & linePart) {
-    return linePart.m_segment == segment;
-  });
+  return std::find_if(lineParts.begin(), lineParts.end(),
+                      [&segment](LinePart const & linePart) { return linePart.m_segment == segment; });
 }
 
-std::optional<LineSegment> GetIntersection(size_t start1, size_t finish1, size_t start2,
-                                           size_t finish2)
+std::optional<LineSegment> GetIntersection(size_t start1, size_t finish1, size_t start2, size_t finish2)
 {
   int const maxStart = static_cast<int>(std::max(start1, start2));
   int const minFinish = static_cast<int>(std::min(finish1, finish2));
@@ -409,8 +397,7 @@ int CalcSegmentOrder(size_t segIndex, size_t totalSegCount)
 {
   int constexpr shapeOffsetIncrement = 2;
 
-  int const shapeOffset =
-      -static_cast<int>(totalSegCount / 2) * 2 - static_cast<int>(totalSegCount % 2) + 1;
+  int const shapeOffset = -static_cast<int>(totalSegCount / 2) * 2 - static_cast<int>(totalSegCount % 2) + 1;
   int const curSegOffset = shapeOffset + shapeOffsetIncrement * static_cast<int>(segIndex);
 
   return curSegOffset;
@@ -432,9 +419,7 @@ std::pair<size_t, size_t> GetStopsRange(IdList const & lineStopIds, IdSet const 
     if (stopIdsInRegion.count(stopId) != 0)
     {
       if (!StopIndexIsSet(first))
-      {
         first = i;
-      }
       last = i;
     }
   }
@@ -453,8 +438,7 @@ std::pair<size_t, size_t> GetStopsRange(IdList const & lineStopIds, IdSet const 
 }
 
 // Returns indexes of nearest to the |point| elements in |shape|.
-std::vector<size_t> GetMinDistIndexes(std::vector<m2::PointD> const & shape,
-                                      m2::PointD const & point)
+std::vector<size_t> GetMinDistIndexes(std::vector<m2::PointD> const & shape, m2::PointD const & point)
 {
   double minDist = std::numeric_limits<double>::max();
 
@@ -517,8 +501,8 @@ std::pair<size_t, size_t> FindSegmentOnShape(std::vector<m2::PointD> const & sha
   return {firstIntersection.m_startIdx, firstIntersection.m_endIdx};
 }
 
-std::pair<size_t, size_t> FindPointsOnShape(std::vector<m2::PointD> const & shape,
-                                            m2::PointD const & p1, m2::PointD const & p2)
+std::pair<size_t, size_t> FindPointsOnShape(std::vector<m2::PointD> const & shape, m2::PointD const & p1,
+                                            m2::PointD const & p2)
 {
   // We find indexes of nearest points in |shape| to |p1| and |p2| correspondingly.
   std::vector<size_t> const & indexes1 = GetMinDistIndexes(shape, p1);
@@ -541,9 +525,7 @@ std::pair<size_t, size_t> FindPointsOnShape(std::vector<m2::PointD> const & shap
   auto const & [first, last] = distToIndexes.begin()->second;
   if (first == last)
   {
-    LOG(LINFO,
-        ("Edge with equal indexes of first and last points on the shape. Index on the shape:",
-         first));
+    LOG(LINFO, ("Edge with equal indexes of first and last points on the shape. Index on the shape:", first));
     CHECK_GREATER(distToIndexes.size(), 1, ());
 
     auto const & nextPair = std::next(distToIndexes.begin());

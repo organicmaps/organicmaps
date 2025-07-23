@@ -12,9 +12,7 @@ namespace feature
 CalculateMidPoints::CalculateMidPoints()
 {
   m_minDrawableScaleFn = [](FeatureBuilder const & fb)
-  {
-    return GetMinDrawableScale(fb.GetTypesHolder(), fb.GetLimitRect());
-  };
+  { return GetMinDrawableScale(fb.GetTypesHolder(), fb.GetLimitRect()); };
 }
 
 void CalculateMidPoints::operator()(FeatureBuilder const & ft, uint64_t pos)

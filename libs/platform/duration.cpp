@@ -15,10 +15,10 @@ unsigned long SecondsToUnits(seconds duration, Duration::Units unit)
 {
   switch (unit)
   {
-    case Duration::Units::Days: return duration_cast<days>(duration).count();
-    case Duration::Units::Hours: return duration_cast<hours>(duration).count();
-    case Duration::Units::Minutes: return duration_cast<minutes>(duration).count();
-    default: UNREACHABLE();
+  case Duration::Units::Days: return duration_cast<days>(duration).count();
+  case Duration::Units::Hours: return duration_cast<hours>(duration).count();
+  case Duration::Units::Minutes: return duration_cast<minutes>(duration).count();
+  default: UNREACHABLE();
   }
 }
 
@@ -26,29 +26,24 @@ seconds UnitsToSeconds(long value, Duration::Units unit)
 {
   switch (unit)
   {
-    case Duration::Units::Days: return days(value);
-    case Duration::Units::Hours: return hours(value);
-    case Duration::Units::Minutes: return minutes(value);
-    default: UNREACHABLE();
+  case Duration::Units::Days: return days(value);
+  case Duration::Units::Hours: return hours(value);
+  case Duration::Units::Minutes: return minutes(value);
+  default: UNREACHABLE();
   }
 }
 
 std::string_view GetUnitSeparator(Locale const & locale)
 {
-  static constexpr auto kEmptyNumberUnitSeparatorLocales = std::array
-  {
-    "en", "de", "fr", "he", "fa", "ja", "ko", "mr", "th", "tr", "vi", "zh"
-  };
+  static constexpr auto kEmptyNumberUnitSeparatorLocales =
+      std::array{"en", "de", "fr", "he", "fa", "ja", "ko", "mr", "th", "tr", "vi", "zh"};
   bool const isEmptySeparator = base::IsExist(kEmptyNumberUnitSeparatorLocales, locale.m_language);
   return isEmptySeparator ? kNoSpace : kNarrowNonBreakingSpace;
 }
 
 std::string_view GetUnitsGroupingSeparator(Locale const & locale)
 {
-  static constexpr auto kEmptyGroupingSeparatorLocales = std::array
-  {
-    "ja", "zh"
-  };
+  static constexpr auto kEmptyGroupingSeparatorLocales = std::array{"ja", "zh"};
   bool const isEmptySeparator = base::IsExist(kEmptyGroupingSeparatorLocales, locale.m_language);
   return isEmptySeparator ? kNoSpace : kNonBreakingSpace;
 }
@@ -57,10 +52,9 @@ bool IsUnitsOrderValid(std::initializer_list<Duration::Units> units)
 {
   return base::IsSortedAndUnique(units.begin(), units.end());
 }
-} // namespace
+}  // namespace
 
-Duration::Duration(unsigned long seconds) : m_seconds(seconds)
-{}
+Duration::Duration(unsigned long seconds) : m_seconds(seconds) {}
 
 std::string Duration::GetLocalizedString(std::initializer_list<Units> units, Locale const & locale) const
 {
@@ -98,7 +92,7 @@ std::string Duration::GetString(std::initializer_list<Units> units, std::string_
 
   for (auto const unit : units)
   {
-    const unsigned long unitsCount = SecondsToUnits(remainingSeconds, unit);
+    unsigned long const unitsCount = SecondsToUnits(remainingSeconds, unit);
     if (unitsCount > 0)
     {
       if (!formattedTime.empty())
@@ -114,10 +108,10 @@ std::string Duration::GetUnitsString(Units unit)
 {
   switch (unit)
   {
-    case Units::Minutes: return platform::GetLocalizedString("minute");
-    case Units::Hours: return platform::GetLocalizedString("hour");
-    case Units::Days: return platform::GetLocalizedString("day");
-    default: UNREACHABLE();
+  case Units::Minutes: return platform::GetLocalizedString("minute");
+  case Units::Hours: return platform::GetLocalizedString("hour");
+  case Units::Days: return platform::GetLocalizedString("day");
+  default: UNREACHABLE();
   }
 }
 
@@ -125,10 +119,10 @@ std::string DebugPrint(Duration::Units units)
 {
   switch (units)
   {
-    case Duration::Units::Days: return "d";
-    case Duration::Units::Hours: return "h";
-    case Duration::Units::Minutes: return "m";
-    default: UNREACHABLE();
+  case Duration::Units::Days: return "d";
+  case Duration::Units::Hours: return "h";
+  case Duration::Units::Minutes: return "m";
+  default: UNREACHABLE();
   }
 }
 }  // namespace platform

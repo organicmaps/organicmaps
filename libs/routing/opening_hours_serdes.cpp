@@ -38,7 +38,7 @@ osmoh::RuleSequence GetTwentyFourHourRule()
 bool ShouldSkipYear(uint16_t startYear, uint16_t endYear, uint16_t currentYear)
 {
   if (startYear > endYear)
-    return true; // Wrong data. |startYear| is later than |endYear|.
+    return true;  // Wrong data. |startYear| is later than |endYear|.
 
   // returns true if |startYear| and |endYear| are too old and false otherwise.
   return endYear < currentYear;
@@ -131,16 +131,13 @@ OpeningHoursSerDes::Header OpeningHoursSerDes::CreateHeader(osmoh::RuleSequence 
 bool OpeningHoursSerDes::NotSupported(osmoh::RuleSequence const & rule)
 {
   for (auto const unsupportedFeature : m_unsupportedFeatures)
-  {
     if (ExistsFeatureInOpeningHours(unsupportedFeature, rule))
       return true;
-  }
 
   return false;
 }
 
-bool OpeningHoursSerDes::ExistsFeatureInOpeningHours(Header::Bits feature,
-                                                     osmoh::RuleSequence const & rule) const
+bool OpeningHoursSerDes::ExistsFeatureInOpeningHours(Header::Bits feature, osmoh::RuleSequence const & rule) const
 {
   switch (feature)
   {
@@ -152,10 +149,8 @@ bool OpeningHoursSerDes::ExistsFeatureInOpeningHours(Header::Bits feature,
       return true;
 
     for (auto const & monthRange : rule.GetMonths())
-    {
       if (monthRange.GetStart().HasYear() && monthRange.GetEnd().HasYear())
         return true;
-    }
 
     return false;
   }
@@ -184,7 +179,8 @@ bool OpeningHoursSerDes::CheckSupportedFeatures() const
 
 std::vector<osmoh::RuleSequence> OpeningHoursSerDes::DecomposeOh(osmoh::OpeningHours const & oh)
 {
-  auto const apply = [&](auto & rules, auto const & ranges, auto const & rangeSetter) {
+  auto const apply = [&](auto & rules, auto const & ranges, auto const & rangeSetter)
+  {
     if (ranges.empty())
       return;
 
@@ -222,48 +218,45 @@ std::vector<osmoh::RuleSequence> OpeningHoursSerDes::DecomposeOh(osmoh::OpeningH
       continue;
 
     bool badRule = false;
-    apply(rules, rule.GetYears(),
-          [&](osmoh::YearRange const & range, osmoh::RuleSequence & item) {
-            if (ShouldSkipYear(range, m_currentYear))
-              badRule = true;
+    apply(rules, rule.GetYears(), [&](osmoh::YearRange const & range, osmoh::RuleSequence & item)
+    {
+      if (ShouldSkipYear(range, m_currentYear))
+        badRule = true;
 
-            item.SetYears({range});
-          });
+      item.SetYears({range});
+    });
 
-    apply(rules, rule.GetMonths(),
-          [&](osmoh::MonthdayRange const & range, osmoh::RuleSequence & item) {
-            if (ShouldSkipYear(range, m_currentYear))
-              badRule = true;
+    apply(rules, rule.GetMonths(), [&](osmoh::MonthdayRange const & range, osmoh::RuleSequence & item)
+    {
+      if (ShouldSkipYear(range, m_currentYear))
+        badRule = true;
 
-            item.SetMonths({range});
-          });
+      item.SetMonths({range});
+    });
 
     if (badRule)
       continue;
 
     apply(rules, rule.GetWeekdays().GetWeekdayRanges(),
-          [](osmoh::WeekdayRange const & range, osmoh::RuleSequence & item) {
-            osmoh::Weekdays weekdays;
-            weekdays.SetWeekdayRanges({range});
-            item.SetWeekdays(weekdays);
-          });
+          [](osmoh::WeekdayRange const & range, osmoh::RuleSequence & item)
+    {
+      osmoh::Weekdays weekdays;
+      weekdays.SetWeekdayRanges({range});
+      item.SetWeekdays(weekdays);
+    });
 
-    apply(rules, rule.GetWeekdays().GetHolidays(),
-          [](osmoh::Holiday const & holiday, osmoh::RuleSequence & item) {
-            auto weekdays = item.GetWeekdays();
-            weekdays.SetHolidays({holiday});
-            item.SetWeekdays(weekdays);
-          });
+    apply(rules, rule.GetWeekdays().GetHolidays(), [](osmoh::Holiday const & holiday, osmoh::RuleSequence & item)
+    {
+      auto weekdays = item.GetWeekdays();
+      weekdays.SetHolidays({holiday});
+      item.SetWeekdays(weekdays);
+    });
 
     apply(rules, rule.GetTimes(),
-          [](osmoh::Timespan const & range, osmoh::RuleSequence & item) {
-            item.SetTimes({range});
-          });
+          [](osmoh::Timespan const & range, osmoh::RuleSequence & item) { item.SetTimes({range}); });
 
     apply(rules, std::vector<osmoh::RuleSequence::Modifier>{rule.GetModifier()},
-          [](osmoh::RuleSequence::Modifier modifier, osmoh::RuleSequence & item) {
-            item.SetModifier(modifier);
-          });
+          [](osmoh::RuleSequence::Modifier modifier, osmoh::RuleSequence & item) { item.SetModifier(modifier); });
 
     finalRules.insert(finalRules.end(), rules.begin(), rules.end());
   }
@@ -280,16 +273,13 @@ std::vector<osmoh::RuleSequence> OpeningHoursSerDes::DecomposeOh(osmoh::OpeningH
   return filteredRules;
 }
 
-bool OpeningHoursSerDes::HaveSameHeaders(
-    std::vector<osmoh::RuleSequence> const & decomposedOhs) const
+bool OpeningHoursSerDes::HaveSameHeaders(std::vector<osmoh::RuleSequence> const & decomposedOhs) const
 {
   CHECK(!decomposedOhs.empty(), ());
   Header const header = CreateHeader(decomposedOhs.front());
   for (auto const & oh : decomposedOhs)
-  {
     if (header != CreateHeader(oh))
       return false;
-  }
 
   return true;
 }
@@ -311,8 +301,7 @@ uint8_t OpeningHoursSerDes::GetBitsNumber(Header::Bits type) const
   UNREACHABLE();
 }
 
-bool OpeningHoursSerDes::CheckYearRange(osmoh::MonthDay::TYear start,
-                                        osmoh::MonthDay::TYear end) const
+bool OpeningHoursSerDes::CheckYearRange(osmoh::MonthDay::TYear start, osmoh::MonthDay::TYear end) const
 {
   if (start < kYearBias || end < kYearBias)
     return false;
@@ -327,13 +316,11 @@ bool OpeningHoursSerDes::IsTwentyFourHourRule(osmoh::RuleSequence const & rule) 
   static auto const kTwentyFourHourStart = osmoh::HourMinutes(osmoh::HourMinutes::THours(0));
   static auto const kTwentyFourHourEnd = osmoh::HourMinutes(osmoh::HourMinutes::THours(24));
 
-  return rule.GetModifier() != osmoh::RuleSequence::Modifier::Closed &&
-         rule.GetYears().empty() && rule.GetWeekdays().GetWeekdayRanges().empty() &&
-         rule.GetMonths().empty() && rule.GetTimes().size() == 1 &&
+  return rule.GetModifier() != osmoh::RuleSequence::Modifier::Closed && rule.GetYears().empty() &&
+         rule.GetWeekdays().GetWeekdayRanges().empty() && rule.GetMonths().empty() && rule.GetTimes().size() == 1 &&
          rule.GetTimes().back().GetStart() == kTwentyFourHourStart &&
          rule.GetTimes().back().GetEnd() == kTwentyFourHourEnd;
 }
-
 
 bool OpeningHoursSerDes::IsSerializable(osmoh::OpeningHours const & openingHours)
 {

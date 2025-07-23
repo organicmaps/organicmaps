@@ -31,6 +31,7 @@ public:
     uint32_t GetDepthAttachmentId() const;
     uint32_t GetStencilAttachmentId() const;
     ref_ptr<FramebufferTexture> GetTexture() const;
+
   private:
     bool const m_depthEnabled = false;
     bool const m_stencilEnabled = false;
@@ -54,7 +55,7 @@ public:
   ref_ptr<DepthStencil> GetDepthStencilRef() const;
 
   bool IsSupported() const { return m_isSupported; }
-  
+
 private:
   void Destroy();
 

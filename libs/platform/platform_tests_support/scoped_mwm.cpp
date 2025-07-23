@@ -37,4 +37,4 @@ ScopedMwm::ScopedMwm(std::string const & relativePath) : m_file(relativePath, Sc
   }
 }
 }  // namespace tests_support
-}  // namespace platfotm
+}  // namespace platform

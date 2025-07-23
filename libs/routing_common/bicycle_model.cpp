@@ -69,28 +69,28 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
 // Default, no bridleway.
 VehicleModel::LimitsInitList const kDefaultOptions = {
     // {HighwayType, passThroughAllowed}
-    {HighwayType::HighwayTrunk, true},
-    {HighwayType::HighwayTrunkLink, true},
-    {HighwayType::HighwayPrimary, true},
-    {HighwayType::HighwayPrimaryLink, true},
-    {HighwayType::HighwaySecondary, true},
+    {        HighwayType::HighwayTrunk, true},
+    {    HighwayType::HighwayTrunkLink, true},
+    {      HighwayType::HighwayPrimary, true},
+    {  HighwayType::HighwayPrimaryLink, true},
+    {    HighwayType::HighwaySecondary, true},
     {HighwayType::HighwaySecondaryLink, true},
-    {HighwayType::HighwayTertiary, true},
-    {HighwayType::HighwayTertiaryLink, true},
-    {HighwayType::HighwayService, true},
-    {HighwayType::HighwayUnclassified, true},
-    {HighwayType::HighwayRoad, true},
-    {HighwayType::HighwayTrack, true},
-    {HighwayType::HighwayPath, true},
+    {     HighwayType::HighwayTertiary, true},
+    { HighwayType::HighwayTertiaryLink, true},
+    {      HighwayType::HighwayService, true},
+    { HighwayType::HighwayUnclassified, true},
+    {         HighwayType::HighwayRoad, true},
+    {        HighwayType::HighwayTrack, true},
+    {         HighwayType::HighwayPath, true},
     // HighwayBridleway is missing
-    {HighwayType::HighwayCycleway, true},
-    {HighwayType::HighwayResidential, true},
-    {HighwayType::HighwayLivingStreet, true},
-    {HighwayType::HighwaySteps, true},
-    {HighwayType::HighwayPedestrian, true},
-    {HighwayType::HighwayFootway, true},
-    {HighwayType::ManMadePier, true},
-    {HighwayType::RouteFerry, true}
+    {     HighwayType::HighwayCycleway, true},
+    {  HighwayType::HighwayResidential, true},
+    { HighwayType::HighwayLivingStreet, true},
+    {        HighwayType::HighwaySteps, true},
+    {   HighwayType::HighwayPedestrian, true},
+    {      HighwayType::HighwayFootway, true},
+    {         HighwayType::ManMadePier, true},
+    {          HighwayType::RouteFerry, true}
 };
 
 // Same as defaults except trunk and trunk_link are not allowed
@@ -99,10 +99,8 @@ VehicleModel::LimitsInitList NoTrunk()
   VehicleModel::LimitsInitList res;
   res.reserve(kDefaultOptions.size() - 2);
   for (auto const & e : kDefaultOptions)
-  {
     if (e.m_type != HighwayType::HighwayTrunk && e.m_type != HighwayType::HighwayTrunkLink)
       res.push_back(e);
-  }
   return res;
 }
 
@@ -163,38 +161,32 @@ VehicleModel::LimitsInitList UkraineOptions()
 {
   auto res = NoTrunk();
   for (auto & e : res)
-  {
     if (e.m_type == HighwayType::HighwayLivingStreet || e.m_type == HighwayType::HighwayService)
       e.m_isPassThroughAllowed = false;
-  }
   return res;
 }
 
 VehicleModel::SurfaceInitList const kBicycleSurface = {
-  // {{surfaceType}, {weightFactor, etaFactor}}
-  {{"psurface", "paved_good"}, {1.0, 1.0}},
-  {{"psurface", "paved_bad"}, {0.8, 0.8}},
-  {{"psurface", "unpaved_good"}, {0.9, 0.9}},
-  {{"psurface", "unpaved_bad"}, {0.3, 0.3}},
-  // No dedicated cycleway doesn't mean that bicycle is not allowed, just lower weight.
-  // If nocycleway is tagged explicitly then there is no cycling infra for sure.
-  // Otherwise there is a small chance cycling infra is present though not mapped?
-  /// @todo(pastk): this heuristic is controversial, maybe remove completely?
-  {{"hwtag", "nocycleway"}, {0.95, 0.95}},
+    // {{surfaceType}, {weightFactor, etaFactor}}
+    {  {"psurface", "paved_good"},   {1.0, 1.0}},
+    {   {"psurface", "paved_bad"},   {0.8, 0.8}},
+    {{"psurface", "unpaved_good"},   {0.9, 0.9}},
+    { {"psurface", "unpaved_bad"},   {0.3, 0.3}},
+    // No dedicated cycleway doesn't mean that bicycle is not allowed, just lower weight.
+    // If nocycleway is tagged explicitly then there is no cycling infra for sure.
+    // Otherwise there is a small chance cycling infra is present though not mapped?
+    /// @todo(pastk): this heuristic is controversial, maybe remove completely?
+    {     {"hwtag", "nocycleway"}, {0.95, 0.95}},
 };
 }  // namespace bicycle_model
 
 namespace routing
 {
-BicycleModel::BicycleModel()
-  : BicycleModel(bicycle_model::kDefaultOptions)
-{
-}
+BicycleModel::BicycleModel() : BicycleModel(bicycle_model::kDefaultOptions) {}
 
 BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits)
   : BicycleModel(limits, bicycle_model::kDefaultSpeeds)
-{
-}
+{}
 
 BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds)
   : VehicleModel(classif(), limits, bicycle_model::kBicycleSurface, {speeds, bicycle_model::kDefaultFactors})
@@ -214,7 +206,9 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
 
   // Assign 90% of max cycleway speed for bicycle=yes to keep choosing most preferred cycleway.
   auto const yesSpeed = kDefaultSpeeds.Get(HighwayType::HighwayCycleway).m_inCity * 0.9;
-  AddAdditionalRoadTypes(cl, {{ std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed) }});
+  AddAdditionalRoadTypes(cl, {
+                                 {std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed)}
+  });
 
   // Update max speed with possible ferry transfer and bicycle speed downhill.
   // See EdgeEstimator::CalcHeuristic, GetBicycleClimbPenalty.
@@ -249,7 +243,10 @@ bool BicycleModel::IsOneWay(FeatureTypes const & types) const
   return VehicleModel::IsOneWay(types);
 }
 
-SpeedKMpH const & BicycleModel::GetOffroadSpeed() const { return bicycle_model::kSpeedOffroadKMpH; }
+SpeedKMpH const & BicycleModel::GetOffroadSpeed() const
+{
+  return bicycle_model::kSpeedOffroadKMpH;
+}
 
 // If one of feature types will be disabled for bicycles, features of this type will be simplified
 // in generator. Look FeatureBuilder1::IsRoad() for more details.
@@ -266,8 +263,7 @@ SpeedKMpH BicycleModel::DismountSpeed()
   return bicycle_model::kSpeedDismountKMpH;
 }
 
-BicycleModelFactory::BicycleModelFactory(
-    CountryParentNameGetterFn const & countryParentNameGetterFn)
+BicycleModelFactory::BicycleModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)
 {
   using namespace bicycle_model;
@@ -295,8 +291,9 @@ BicycleModelFactory::BicycleModelFactory(
   m_models["Philippines"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianSpeed());
   m_models["Poland"] = make_shared<BicycleModel>(NoTrunk());
   m_models["Romania"] = make_shared<BicycleModel>(AllAllowed());
-  // Note. Despite the fact that according to https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
-  // passing through service and living_street with a bicycle is prohibited it's allowed according to Russian traffic rules.
+  // Note. Despite the fact that according to
+  // https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions passing through service and
+  // living_street with a bicycle is prohibited it's allowed according to Russian traffic rules.
   m_models["Russian Federation"] = make_shared<BicycleModel>(kDefaultOptions, NormalPedestrianAndFootwaySpeed());
   m_models["Slovakia"] = make_shared<BicycleModel>(NoTrunk());
   m_models["Spain"] = make_shared<BicycleModel>(NoTrunk(), NormalPedestrianSpeed());
@@ -306,4 +303,4 @@ BicycleModelFactory::BicycleModelFactory(
   m_models["United Kingdom"] = make_shared<BicycleModel>(AllAllowed());
   m_models["United States of America"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianSpeed());
 }
-}  // routing
+}  // namespace routing

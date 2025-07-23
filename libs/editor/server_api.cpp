@@ -20,11 +20,11 @@ std::string KeyValueTagsToXML(osm::ServerApi06::KeyValueTags const & kvTags)
 {
   std::ostringstream stream;
   stream << "<osm>\n"
-  "<changeset>\n";
+            "<changeset>\n";
   for (auto const & tag : kvTags)
     stream << "  <tag k=\"" << tag.first << "\" v=\"" << tag.second << "\"/>\n";
   stream << "</changeset>\n"
-  "</osm>\n";
+            "</osm>\n";
   return stream.str();
 }
 }  // namespace
@@ -32,10 +32,7 @@ std::string KeyValueTagsToXML(osm::ServerApi06::KeyValueTags const & kvTags)
 namespace osm
 {
 
-ServerApi06::ServerApi06(OsmOAuth const & auth)
-  : m_auth(auth)
-{
-}
+ServerApi06::ServerApi06(OsmOAuth const & auth) : m_auth(auth) {}
 
 uint64_t ServerApi06::CreateChangeSet(KeyValueTags const & kvTags) const
 {
@@ -54,8 +51,8 @@ uint64_t ServerApi06::CreateChangeSet(KeyValueTags const & kvTags) const
 
 uint64_t ServerApi06::CreateElement(editor::XMLFeature const & element) const
 {
-  OsmOAuth::Response const response = m_auth.Request("/" + element.GetTypeString() + "/create",
-                                                     "PUT", element.ToOSMString());
+  OsmOAuth::Response const response =
+      m_auth.Request("/" + element.GetTypeString() + "/create", "PUT", element.ToOSMString());
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(CreateElementHasFailed, ("CreateElement request has failed:", response, "for", element));
   uint64_t id;
@@ -76,8 +73,8 @@ uint64_t ServerApi06::ModifyElement(editor::XMLFeature const & element) const
   std::string const id = element.GetAttribute("id");
   CHECK(!id.empty(), ("id attribute is missing for", element));
 
-  OsmOAuth::Response const response = m_auth.Request("/" + element.GetTypeString() + "/" + id,
-                                                     "PUT", element.ToOSMString());
+  OsmOAuth::Response const response =
+      m_auth.Request("/" + element.GetTypeString() + "/" + id, "PUT", element.ToOSMString());
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(ModifyElementHasFailed, ("ModifyElement request has failed:", response, "for", element));
   uint64_t version;
@@ -98,15 +95,16 @@ void ServerApi06::DeleteElement(editor::XMLFeature const & element) const
   if (id.empty())
     MYTHROW(DeletedElementHasNoIdAttribute, ("Please set id attribute for", element));
 
-  OsmOAuth::Response const response = m_auth.Request("/" + element.GetTypeString() + "/" + id,
-                                                     "DELETE", element.ToOSMString());
+  OsmOAuth::Response const response =
+      m_auth.Request("/" + element.GetTypeString() + "/" + id, "DELETE", element.ToOSMString());
   if (response.first != OsmOAuth::HTTP::OK && response.first != OsmOAuth::HTTP::Gone)
     MYTHROW(ErrorDeletingElement, ("Could not delete an element:", response));
 }
 
 void ServerApi06::UpdateChangeSet(uint64_t changesetId, KeyValueTags const & kvTags) const
 {
-  OsmOAuth::Response const response = m_auth.Request("/changeset/" + strings::to_string(changesetId), "PUT", KeyValueTagsToXML(kvTags));
+  OsmOAuth::Response const response =
+      m_auth.Request("/changeset/" + strings::to_string(changesetId), "PUT", KeyValueTagsToXML(kvTags));
   if (response.first != OsmOAuth::HTTP::OK)
     MYTHROW(UpdateChangeSetHasFailed, ("UpdateChangeSet request has failed:", response));
 }
@@ -178,9 +176,8 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesInRect(double minLat, double minLo
 
   // Digits After Comma.
   static constexpr double kDAC = 7;
-  std::string const url = "/map?bbox=" + to_string_dac(minLon, kDAC) + ',' +
-                          to_string_dac(minLat, kDAC) + ',' + to_string_dac(maxLon, kDAC) + ',' +
-                          to_string_dac(maxLat, kDAC);
+  std::string const url = "/map?bbox=" + to_string_dac(minLon, kDAC) + ',' + to_string_dac(minLat, kDAC) + ',' +
+                          to_string_dac(maxLon, kDAC) + ',' + to_string_dac(maxLat, kDAC);
 
   return m_auth.DirectRequest(url);
 }
@@ -189,11 +186,11 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon, d
 {
   double const latDegreeOffset = radiusInMeters * mercator::Bounds::kDegreesInMeter;
   double const minLat = std::max(-90.0, lat - latDegreeOffset);
-  double const maxLat = std::min( 90.0, lat + latDegreeOffset);
+  double const maxLat = std::min(90.0, lat + latDegreeOffset);
   double const cosL = std::max(cos(math::DegToRad(std::max(fabs(minLat), fabs(maxLat)))), 0.00001);
   double const lonDegreeOffset = radiusInMeters * mercator::Bounds::kDegreesInMeter / cosL;
   double const minLon = std::max(-180.0, lon - lonDegreeOffset);
-  double const maxLon = std::min( 180.0, lon + lonDegreeOffset);
+  double const maxLon = std::min(180.0, lon + lonDegreeOffset);
   return GetXmlFeaturesInRect(minLat, minLon, maxLat, maxLon);
 }
 
@@ -202,4 +199,4 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(ms::LatLon const & ll, do
   return GetXmlFeaturesAtLatLon(ll.m_lat, ll.m_lon, radiusInMeters);
 }
 
-} // namespace osm
+}  // namespace osm

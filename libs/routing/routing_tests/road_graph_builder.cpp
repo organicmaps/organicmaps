@@ -33,10 +33,7 @@ public:
     m_mwmInfo = mwmsInfoList[0];
   }
 
-  FeatureID MakeFeatureID(uint32_t offset) const
-  {
-    return FeatureID(MwmSet::MwmId(m_mwmInfo), offset);
-  }
+  FeatureID MakeFeatureID(uint32_t offset) const { return FeatureID(MwmSet::MwmId(m_mwmInfo), offset); }
 
 private:
   /// @name MwmSet overrides
@@ -71,22 +68,24 @@ IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(FeatureID const & featureI
   return m_roads[featureId.m_index];
 }
 
-double RoadGraphMockSource::GetSpeedKMpH(FeatureID const & featureId,
-                                         SpeedParams const & /* speedParams */) const
+double RoadGraphMockSource::GetSpeedKMpH(FeatureID const & featureId, SpeedParams const & /* speedParams */) const
 {
   CHECK_LESS(featureId.m_index, m_roads.size(), ("Invalid feature id."));
   return m_roads[featureId.m_index].m_speedKMPH;
 }
 
-double RoadGraphMockSource::GetMaxSpeedKMpH() const { return kMaxSpeedKMpH; }
+double RoadGraphMockSource::GetMaxSpeedKMpH() const
+{
+  return kMaxSpeedKMpH;
+}
 
 void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cross */,
                                                        ICrossEdgesLoader & edgesLoader) const
 {
   for (size_t roadId = 0; roadId < m_roads.size(); ++roadId)
   {
-    edgesLoader(MakeTestFeatureID(base::checked_cast<uint32_t>(roadId)), m_roads[roadId]
-        .m_junctions, m_roads[roadId].m_bidirectional);
+    edgesLoader(MakeTestFeatureID(base::checked_cast<uint32_t>(roadId)), m_roads[roadId].m_junctions,
+                m_roads[roadId].m_bidirectional);
   }
 }
 

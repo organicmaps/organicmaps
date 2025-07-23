@@ -21,8 +21,7 @@ UNIT_CLASS_TEST(PositionAccumulator, Smoke)
   PushNextPoint({0.0001, 0.0});
   TEST_EQUAL(GetPointsForTesting().size(), 2, ());
   TEST(AlmostEqualAbs(GetDirection(), m2::PointD(0.0001, 0.0), kEps), (GetDirection()));
-  TEST(AlmostEqualAbs(GetTrackLengthMForTesting(), 11.13, kEpsMeters),
-       (GetTrackLengthMForTesting()));
+  TEST(AlmostEqualAbs(GetTrackLengthMForTesting(), 11.13, kEpsMeters), (GetTrackLengthMForTesting()));
 }
 
 UNIT_CLASS_TEST(PositionAccumulator, GoodSegment)
@@ -36,10 +35,8 @@ UNIT_CLASS_TEST(PositionAccumulator, GoodSegment)
   for (signed i = -15; i <= 0; ++i)
     PushNextPoint({kStepShortButValid * i, 0.0});
   TEST_EQUAL(GetPointsForTesting().size(), 2, ());
-  TEST(AlmostEqualAbs(GetDirection(), m2::PointD(9 * kStepShortButValid, 0.0), kEps),
-       (GetDirection()));
-  TEST(AlmostEqualAbs(GetTrackLengthMForTesting(), 10.02, kEpsMeters),
-       (GetTrackLengthMForTesting()));
+  TEST(AlmostEqualAbs(GetDirection(), m2::PointD(9 * kStepShortButValid, 0.0), kEps), (GetDirection()));
+  TEST(AlmostEqualAbs(GetTrackLengthMForTesting(), 10.02, kEpsMeters), (GetTrackLengthMForTesting()));
 
   double constexpr kStepGood = 0.0001;
   for (size_t i = 0; i < 10; ++i)
@@ -47,8 +44,7 @@ UNIT_CLASS_TEST(PositionAccumulator, GoodSegment)
 
   TEST_EQUAL(GetPointsForTesting().size(), 8, ());
   TEST(AlmostEqualAbs(GetDirection(), m2::PointD(0.0007, 0.0), kEps), (GetDirection()));
-  TEST(AlmostEqualAbs(GetTrackLengthMForTesting(), 77.92, kEpsMeters),
-       (GetTrackLengthMForTesting()));
+  TEST(AlmostEqualAbs(GetTrackLengthMForTesting(), 77.92, kEpsMeters), (GetTrackLengthMForTesting()));
 }
 
 // Test on removing too outdated elements from the position accumulator.
@@ -68,9 +64,9 @@ UNIT_CLASS_TEST(PositionAccumulator, RemovingOutdated)
 UNIT_CLASS_TEST(PositionAccumulator, LongSegment)
 {
   PushNextPoint({0.0, 0.0});
-  PushNextPoint({0.001, 0.0}); // Longer than |MaxValidSegmentLengthM|.
+  PushNextPoint({0.001, 0.0});  // Longer than |MaxValidSegmentLengthM|.
   TEST_EQUAL(GetPointsForTesting().size(), 1, ());
-  PushNextPoint({0.001001, 0.0}); // Shorter than |kMinValidSegmentLengthM|, so it's ignored.
+  PushNextPoint({0.001001, 0.0});  // Shorter than |kMinValidSegmentLengthM|, so it's ignored.
   PushNextPoint({0.00102, 0.0});
   PushNextPoint({0.00104, 0.0});
   // The distance from point {0.001, 0.0} to this one is greater then
@@ -78,7 +74,7 @@ UNIT_CLASS_TEST(PositionAccumulator, LongSegment)
   PushNextPoint({0.0012, 0.0});
   TEST_EQUAL(GetPointsForTesting().size(), 2, ());
   TEST(AlmostEqualAbs(GetDirection(), m2::PointD(0.0002, 0.0), kEps), (GetDirection()));
-  PushNextPoint({0.00201, 0.0}); // Longer than |PositionAccumulator::kMaxValidSegmentLengthM|.
+  PushNextPoint({0.00201, 0.0});  // Longer than |PositionAccumulator::kMaxValidSegmentLengthM|.
   TEST_EQUAL(GetPointsForTesting().size(), 1, ());
   TEST(AlmostEqualAbs(GetDirection(), m2::PointD(0.0, 0.0), kEps), (GetDirection()));
 }

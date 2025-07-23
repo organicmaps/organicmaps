@@ -42,26 +42,20 @@ VulkanProgramParamsSetter::VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanB
   m_objectManager->SetMaxImageSamplers(programPool->GetMaxImageSamplers());
 
   for (auto & ub : m_uniformBuffers)
-  {
-    ub.emplace_back(CreateUniformBuffer(context->GetDevice(), m_objectManager,
-                                        m_sizeAlignment, m_offsetAlignment));
-  }
+    ub.emplace_back(CreateUniformBuffer(context->GetDevice(), m_objectManager, m_sizeAlignment, m_offsetAlignment));
 
-  m_flushHandlerId = context->RegisterHandler(VulkanBaseContext::HandlerType::PrePresent,
-    [this](uint32_t)
-  {
-    Flush();
-  });
+  m_flushHandlerId =
+      context->RegisterHandler(VulkanBaseContext::HandlerType::PrePresent, [this](uint32_t) { Flush(); });
 
-  m_finishHandlerId = context->RegisterHandler(VulkanBaseContext::HandlerType::PostPresent,
-    [this](uint32_t inflightFrameIndex)
+  m_finishHandlerId =
+      context->RegisterHandler(VulkanBaseContext::HandlerType::PostPresent, [this](uint32_t inflightFrameIndex)
   {
     CHECK_LESS(inflightFrameIndex, dp::vulkan::kMaxInflightFrames, ());
     Finish(inflightFrameIndex);
   });
 
-  m_updateInflightFrameId = context->RegisterHandler(VulkanBaseContext::HandlerType::UpdateInflightFrame,
-    [this](uint32_t inflightFrameIndex)
+  m_updateInflightFrameId =
+      context->RegisterHandler(VulkanBaseContext::HandlerType::UpdateInflightFrame, [this](uint32_t inflightFrameIndex)
   {
     CHECK_LESS(inflightFrameIndex, dp::vulkan::kMaxInflightFrames, ());
     m_currentInflightFrameIndex = inflightFrameIndex;
@@ -112,8 +106,8 @@ void VulkanProgramParamsSetter::Finish(uint32_t inflightFrameIndex)
     b.m_freeOffset = 0;
 }
 
-void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext> context,
-                                           void const * data, uint32_t sizeInBytes)
+void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext> context, void const * data,
+                                           uint32_t sizeInBytes)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const & mm = m_objectManager->GetMemoryManager();
@@ -133,8 +127,7 @@ void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext
   if (index < 0)
   {
     uint32_t sizeAlignment, offsetAlignment;
-    ub.emplace_back(CreateUniformBuffer(context->GetDevice(), m_objectManager,
-                                        sizeAlignment, offsetAlignment));
+    ub.emplace_back(CreateUniformBuffer(context->GetDevice(), m_objectManager, sizeAlignment, offsetAlignment));
     CHECK_EQUAL(m_sizeAlignment, sizeAlignment, ());
     CHECK_EQUAL(m_offsetAlignment, offsetAlignment, ());
     index = static_cast<int>(ub.size()) - 1;
@@ -146,8 +139,8 @@ void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext
 
   // Update offset and align it.
   ub[index].m_freeOffset += alignedSize;
-  ub[index].m_freeOffset = std::min(mm.GetAligned(ub[index].m_freeOffset, m_offsetAlignment),
-                                    ub[index].m_object.GetAlignedSize());
+  ub[index].m_freeOffset =
+      std::min(mm.GetAligned(ub[index].m_freeOffset, m_offsetAlignment), ub[index].m_object.GetAlignedSize());
 
   memcpy(ptr, data, sizeInBytes);
 
@@ -159,79 +152,68 @@ void VulkanProgramParamsSetter::ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext
   descriptor.m_id = static_cast<uint32_t>(index);
   context->ApplyParamDescriptor(std::move(descriptor));
 }
-  
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       MapProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       RouteProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       TrafficProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       TransitProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       GuiProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       ShapesProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       Arrow3dProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       DebugRectProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       ScreenQuadProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program,
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       SMAAProgramParams const & params)
 {
   ApplyImpl(context, program, params);
 }
 
-void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::GpuProgram> program, 
+void VulkanProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                       ImGuiProgramParams const & params)
 {
   ApplyImpl(context, program, params);

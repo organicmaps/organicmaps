@@ -44,9 +44,8 @@ struct FieldIndices
 
 using ZipIndexValue = std::pair<strings::UniString, Uint64IndexValue>;
 
-void GetPostcodes(std::string const & filename, storage::CountryId const & countryId,
-                  FieldIndices const & fieldIndices, char const * separator, bool hasHeader,
-                  storage::CountryInfoGetter const & infoGetter,
+void GetPostcodes(std::string const & filename, storage::CountryId const & countryId, FieldIndices const & fieldIndices,
+                  char const * separator, bool hasHeader, storage::CountryInfoGetter const & infoGetter,
                   std::vector<m2::PointD> & valueMapping, std::vector<ZipIndexValue> & keyValuePairs)
 {
   ASSERT(!filename.empty(), ());
@@ -93,8 +92,8 @@ void GetPostcodes(std::string const & filename, storage::CountryId const & count
 }
 
 void GetUKPostcodes(std::string const & filename, storage::CountryId const & countryId,
-                    storage::CountryInfoGetter const & infoGetter,
-                    std::vector<m2::PointD> & valueMapping, std::vector<ZipIndexValue> & keyValuePairs)
+                    storage::CountryInfoGetter const & infoGetter, std::vector<m2::PointD> & valueMapping,
+                    std::vector<ZipIndexValue> & keyValuePairs)
 {
   // * Follow these steps to prepare GB dataset: https://github.com/osm-search/gb-postcode-data
   // * Direct from Nominatim: https://nominatim.org/data/gb_postcodes.csv.gz
@@ -105,13 +104,13 @@ void GetUKPostcodes(std::string const & filename, storage::CountryId const & cou
   ukFieldIndices.m_longIndex = 2;
   ukFieldIndices.m_datasetCount = 3;
 
-  GetPostcodes(filename, countryId, ukFieldIndices, "," /* separator */, true /* hasHeader */,
-               infoGetter, valueMapping, keyValuePairs);
+  GetPostcodes(filename, countryId, ukFieldIndices, "," /* separator */, true /* hasHeader */, infoGetter, valueMapping,
+               keyValuePairs);
 }
 
 void GetUSPostcodes(std::string const & filename, storage::CountryId const & countryId,
-                    storage::CountryInfoGetter const & infoGetter,
-                    std::vector<m2::PointD> & valueMapping, std::vector<ZipIndexValue> & keyValuePairs)
+                    storage::CountryInfoGetter const & infoGetter, std::vector<m2::PointD> & valueMapping,
+                    std::vector<ZipIndexValue> & keyValuePairs)
 {
   // * Get data source from here: https://simplemaps.com/data/us-zips
   //    "zip","lat","lng","city","state_id","state_name", ...
@@ -121,11 +120,11 @@ void GetUSPostcodes(std::string const & filename, storage::CountryId const & cou
   usFieldIndices.m_postcodeIndex = 0;
   usFieldIndices.m_latIndex = 1;
   usFieldIndices.m_longIndex = 2;
-  usFieldIndices.m_datasetCount = 3;    // actually, there are more fields, but doesn't matter here
+  usFieldIndices.m_datasetCount = 3;  // actually, there are more fields, but doesn't matter here
 
   // US dataset may contain complex json values, but doesn't matter for parsing first 3 entries.
-  GetPostcodes(filename, countryId, usFieldIndices, "," /* separator */, true /* hasHeader */,
-               infoGetter, valueMapping, keyValuePairs);
+  GetPostcodes(filename, countryId, usFieldIndices, "," /* separator */, true /* hasHeader */, infoGetter, valueMapping,
+               keyValuePairs);
 }
 
 bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId const & country,
@@ -164,8 +163,8 @@ bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId con
   {
     FileWriter tmpWriter(tmpName);
     SingleValueSerializer<typename ZipIndexValue::second_type> serializer;
-    trie::Build<Writer, typename ZipIndexValue::first_type, SingleUint64Value>(
-        tmpWriter, serializer, postcodesKeyValuePairs);
+    trie::Build<Writer, typename ZipIndexValue::first_type, SingleUint64Value>(tmpWriter, serializer,
+                                                                               postcodesKeyValuePairs);
   }
 
   rw_ops::Reverse(FileReader(tmpName), writer);
@@ -198,8 +197,7 @@ bool BuildPostcodePointsImpl(FilesContainerR & container, storage::CountryId con
 
 bool BuildPostcodePointsWithInfoGetter(std::string const & path, storage::CountryId const & country,
                                        PostcodePointsDatasetType type, std::string const & datasetPath,
-                                       bool forceRebuild,
-                                       storage::CountryInfoGetter const & infoGetter)
+                                       bool forceRebuild, storage::CountryInfoGetter const & infoGetter)
 {
   auto const filename = base::JoinPath(path, country + DATA_FILE_EXTENSION);
   Platform & platform = GetPlatform();
@@ -209,16 +207,15 @@ bool BuildPostcodePointsWithInfoGetter(std::string const & path, storage::Countr
 
   auto const postcodesFilePath = filename + "." + POSTCODE_POINTS_FILE_TAG EXTENSION_TMP;
   // Temporary file used to reverse trie part of postcodes section.
-  auto const trieTmpFilePath =
-      filename + "." + POSTCODE_POINTS_FILE_TAG + "_trie" + EXTENSION_TMP;
+  auto const trieTmpFilePath = filename + "." + POSTCODE_POINTS_FILE_TAG + "_trie" + EXTENSION_TMP;
   SCOPE_GUARD(postcodesFileGuard, std::bind(&FileWriter::DeleteFileX, postcodesFilePath));
   SCOPE_GUARD(trieTmpFileGuard, std::bind(&FileWriter::DeleteFileX, trieTmpFilePath));
 
   try
   {
     FileWriter writer(postcodesFilePath);
-    if (!BuildPostcodePointsImpl(readContainer, storage::CountryId(country), type, datasetPath,
-                                 trieTmpFilePath, infoGetter, writer))
+    if (!BuildPostcodePointsImpl(readContainer, storage::CountryId(country), type, datasetPath, trieTmpFilePath,
+                                 infoGetter, writer))
     {
       // No postcodes for country.
       return true;
@@ -242,15 +239,13 @@ bool BuildPostcodePointsWithInfoGetter(std::string const & path, storage::Countr
   return true;
 }
 
-bool BuildPostcodePoints(std::string const & path, storage::CountryId const & country,
-                         PostcodePointsDatasetType type, std::string const & datasetPath,
-                         bool forceRebuild)
+bool BuildPostcodePoints(std::string const & path, storage::CountryId const & country, PostcodePointsDatasetType type,
+                         std::string const & datasetPath, bool forceRebuild)
 {
   auto const & platform = GetPlatform();
   auto const infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(platform);
   CHECK(infoGetter, ());
-  return BuildPostcodePointsWithInfoGetter(path, country, type, datasetPath, forceRebuild,
-                                           *infoGetter);
+  return BuildPostcodePointsWithInfoGetter(path, country, type, datasetPath, forceRebuild, *infoGetter);
 }
 
 }  // namespace indexer

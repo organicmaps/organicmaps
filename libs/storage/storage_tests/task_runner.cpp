@@ -4,7 +4,10 @@
 
 namespace storage
 {
-TaskRunner::~TaskRunner() { CHECK(m_checker.CalledOnOriginalThread(), ()); }
+TaskRunner::~TaskRunner()
+{
+  CHECK(m_checker.CalledOnOriginalThread(), ());
+}
 
 void TaskRunner::Run()
 {

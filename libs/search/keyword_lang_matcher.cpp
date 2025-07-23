@@ -15,14 +15,12 @@ using namespace std;
 namespace search
 {
 // KeywordLangMatcher::Score ----------------------------------------------------------------------
-KeywordLangMatcher::Score::Score() : m_langScore(numeric_limits<int>::min())
-{
-}
+KeywordLangMatcher::Score::Score() : m_langScore(numeric_limits<int>::min()) {}
 
 KeywordLangMatcher::Score::Score(KeywordMatcher::Score const & score, int langScore)
-  : m_parentScore(score), m_langScore(langScore)
-{
-}
+  : m_parentScore(score)
+  , m_langScore(langScore)
+{}
 
 bool KeywordLangMatcher::Score::operator<(KeywordLangMatcher::Score const & score) const
 {
@@ -40,8 +38,7 @@ bool KeywordLangMatcher::Score::operator<=(KeywordLangMatcher::Score const & sco
   return !(score < *this);
 }
 // KeywordLangMatcher ------------------------------------------------------------------------------
-KeywordLangMatcher::KeywordLangMatcher(size_t maxLanguageTiers)
-  : m_languagePriorities(maxLanguageTiers)
+KeywordLangMatcher::KeywordLangMatcher(size_t maxLanguageTiers) : m_languagePriorities(maxLanguageTiers)
 {
   // Should we ever have this many tiers, the idea of storing a vector of vectors must be revised.
   ASSERT_LESS(maxLanguageTiers, 10, ());
@@ -59,10 +56,8 @@ int KeywordLangMatcher::CalcLangScore(int8_t lang) const
   for (int i = 0; i < numTiers; ++i)
   {
     for (int8_t x : m_languagePriorities[i])
-    {
       if (x == lang)
         return -i;
-    }
   }
 
   return -numTiers;
@@ -73,14 +68,12 @@ KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, string_view
   return Score(m_keywordMatcher.CalcScore(name), CalcLangScore(lang));
 }
 
-KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang,
-                                                        strings::UniString const & name) const
+KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, strings::UniString const & name) const
 {
   return Score(m_keywordMatcher.CalcScore(name), CalcLangScore(lang));
 }
 
-KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang,
-                                                        strings::UniString const * tokens,
+KeywordLangMatcher::Score KeywordLangMatcher::CalcScore(int8_t lang, strings::UniString const * tokens,
                                                         size_t count) const
 {
   return Score(m_keywordMatcher.CalcScore(tokens, count), CalcLangScore(lang));

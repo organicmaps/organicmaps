@@ -45,7 +45,8 @@ void BrandsHolder::ForEachNameByKeyAndLang(std::string const & key, std::string 
                                            std::function<void(std::string const &)> const & toDo) const
 {
   int8_t const locale = StringUtf8Multilang::GetLangIndex(lang);
-  ForEachNameByKey(key, [&](Brand::Name const & name) {
+  ForEachNameByKey(key, [&](Brand::Name const & name)
+  {
     if (name.m_locale == locale)
       toDo(name.m_name);
   });
@@ -126,8 +127,7 @@ void BrandsHolder::AddBrand(Brand & brand, std::string const & key)
 std::string DebugPrint(BrandsHolder::Brand::Name const & name)
 {
   std::ostringstream out;
-  out << "BrandName[" << StringUtf8Multilang::GetLangByCode(name.m_locale) << ", " << name.m_name
-      << "]";
+  out << "BrandName[" << StringUtf8Multilang::GetLangByCode(name.m_locale) << ", " << name.m_name << "]";
   return out.str();
 }
 

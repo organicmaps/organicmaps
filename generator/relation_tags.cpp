@@ -6,7 +6,6 @@
 
 #include "base/string_utils.hpp"
 
-
 namespace generator
 {
 RelationTagsBase::RelationTagsBase() : m_cache(14 /* logCacheSize */) {}
@@ -50,16 +49,15 @@ void RelationTagsNode::Process(RelationElement const & e)
 
   bool const isBoundary = (type == "boundary");
   bool const isPlaceDest = Base::IsKeyTagExists("place") || Base::IsKeyTagExists("de:place");
-  bool const processAssociatedStreet = type == "associatedStreet" &&
-                                       Base::IsKeyTagExists("addr:housenumber") &&
-                                       !Base::IsKeyTagExists("addr:street");
+  bool const processAssociatedStreet =
+      type == "associatedStreet" && Base::IsKeyTagExists("addr:housenumber") && !Base::IsKeyTagExists("addr:street");
   for (auto const & p : e.m_tags)
   {
     // - used in railway station processing
     // - used in routing information
     // - used in building addresses matching
-    if (p.first == "network" || p.first == "operator" || p.first == "route" ||
-        p.first == "maxspeed" || p.first.starts_with("addr:"))
+    if (p.first == "network" || p.first == "operator" || p.first == "route" || p.first == "maxspeed" ||
+        p.first.starts_with("addr:"))
     {
       if (!Base::IsKeyTagExists(p.first))
         Base::AddCustomTag(p);
@@ -87,7 +85,7 @@ bool RelationTagsWay::IsAcceptBoundary(RelationElement const & e) const
   // Skip religious_administration, political, etc ...
   // https://github.com/organicmaps/organicmaps/issues/4702
   auto const v = e.GetTagValue("boundary");
-  return (!v.empty () && classif().GetTypeByPathSafe({"boundary", v}) != Classificator::INVALID_TYPE);
+  return (!v.empty() && classif().GetTypeByPathSafe({"boundary", v}) != Classificator::INVALID_TYPE);
 }
 
 void RelationTagsWay::Process(RelationElement const & e)
@@ -169,9 +167,8 @@ void RelationTagsWay::Process(RelationElement const & e)
 
   bool const isPlaceDest = Base::IsKeyTagExists("place") || Base::IsKeyTagExists("de:place");
   bool const isAssociatedStreet = type == "associatedStreet";
-  bool const processAssociatedStreet = isAssociatedStreet &&
-                                       Base::IsKeyTagExists("addr:housenumber") &&
-                                       !Base::IsKeyTagExists("addr:street");
+  bool const processAssociatedStreet =
+      isAssociatedStreet && Base::IsKeyTagExists("addr:housenumber") && !Base::IsKeyTagExists("addr:street");
 
   for (auto const & p : e.m_tags)
   {
@@ -189,8 +186,8 @@ void RelationTagsWay::Process(RelationElement const & e)
       Base::AddCustomTag("addr:street", p.second);
 
     // All "name" tags should be skipped.
-    if (p.first.starts_with("name") || p.first.starts_with("int_name") ||
-        p.first.starts_with("old_name") || p.first.starts_with("alt_name"))
+    if (p.first.starts_with("name") || p.first.starts_with("int_name") || p.first.starts_with("old_name") ||
+        p.first.starts_with("alt_name"))
     {
       continue;
     }

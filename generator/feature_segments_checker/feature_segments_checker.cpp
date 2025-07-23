@@ -44,16 +44,13 @@ int32_t Coord2RoughCoord(double d)
 
 struct RoughPoint
 {
-  explicit RoughPoint(m2::PointD const & point)
-    : x(Coord2RoughCoord(point.x)), y(Coord2RoughCoord(point.y))
-  {
-  }
+  explicit RoughPoint(m2::PointD const & point) : x(Coord2RoughCoord(point.x)), y(Coord2RoughCoord(point.y)) {}
 
   int32_t x;
   int32_t y;
 };
 
-bool operator< (RoughPoint const & l, RoughPoint const & r)
+bool operator<(RoughPoint const & l, RoughPoint const & r)
 {
   if (l.x != r.x)
     return l.x < r.x;
@@ -61,8 +58,7 @@ bool operator< (RoughPoint const & l, RoughPoint const & r)
 }
 
 template <typename Cont>
-void PrintCont(Cont const & cont, std::string const & title, std::string const & msgText1,
-               std::string const & msgText2)
+void PrintCont(Cont const & cont, std::string const & title, std::string const & msgText1, std::string const & msgText2)
 {
   std::cout << std::endl << title << std::endl;
   for (auto const & a : cont)
@@ -78,13 +74,15 @@ void WriteCSV(Cont const & cont, std::string const & fileName)
 }
 
 /// \returns y = k * x + b. It's the expected altitude in meters.
-double GetY(double k, double b, double x) { return k * x + b; }
+double GetY(double k, double b, double x)
+{
+  return k * x + b;
+}
 
 /// \brief Calculates factors |k| and |b| of a line using linear least squares method.
 /// \returns false in case of error (e.g. if the line is parallel to the vertical axis)
 /// and true otherwise.
-bool LinearLeastSquaresFactors(std::vector<double> const & xs, std::vector<double> const & ys, double & k,
-                               double & b)
+bool LinearLeastSquaresFactors(std::vector<double> const & xs, std::vector<double> const & ys, double & k, double & b)
 {
   double constexpr kEpsilon = 1e-6;
   size_t const n = xs.size();
@@ -154,8 +152,7 @@ public:
     , m_emptyRoadCount(0)
     , m_roadPointCount(0)
     , m_notRoadCount(0)
-  {
-  }
+  {}
 
   void operator()(FeatureType & f, uint32_t const & id)
   {
@@ -196,8 +193,7 @@ public:
         continue;
       }
       // Feature segment length.
-      double const segmentLengthMeters =
-          mercator::DistanceOnEarth(f.GetPoint(i - 1), f.GetPoint(i));
+      double const segmentLengthMeters = mercator::DistanceOnEarth(f.GetPoint(i - 1), f.GetPoint(i));
       distFromStartMeters += segmentLengthMeters;
       pointDists[i] = distFromStartMeters;
     }
@@ -272,8 +268,7 @@ public:
     for (uint32_t i = 1; i + 1 < numPoints; ++i)
     {
       int32_t const deviation =
-          static_cast<geometry::Altitude>(GetY(k, startAltitude, pointDists[i])) -
-          pointAltitudes[i];
+          static_cast<geometry::Altitude>(GetY(k, startAltitude, pointDists[i])) - pointAltitudes[i];
       m_diffFromLinear[deviation]++;
     }
 
@@ -337,8 +332,7 @@ int main(int argc, char ** argv)
   PrintCont(processor.m_featureLength, "Feature length.", " feature(s) with length ", " meter(s)");
   WriteCSV(processor.m_featureLength, "feature_length.csv");
 
-  PrintCont(processor.m_segLength, "Feature segment length.", " segment(s) with length ",
-            " meter(s)");
+  PrintCont(processor.m_segLength, "Feature segment length.", " segment(s) with length ", " meter(s)");
 
   PrintCont(processor.m_featureWave, "Wave factor", " feature(s) with wave factor ", "");
   WriteCSV(processor.m_featureWave, "feature_wave.csv");
@@ -352,8 +346,7 @@ int main(int argc, char ** argv)
   PrintCont(processor.m_diffFromLinear, "Altitude deviation of internal feature points from linear model.",
             " internal feature point(s) deviate from linear model with ", " meter(s)");
 
-  PrintCont(processor.m_leastSquaresDiff,
-            "Altitude deviation of feature points from least squares line.",
+  PrintCont(processor.m_leastSquaresDiff, "Altitude deviation of feature points from least squares line.",
             " internal feature point(s) deviate from linear model with ", " meter(s)");
 
   using std::cout, std::endl;

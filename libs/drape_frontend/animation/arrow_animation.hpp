@@ -9,8 +9,8 @@ namespace df
 class ArrowAnimation : public Animation
 {
 public:
-  ArrowAnimation(m2::PointD const & startPos, m2::PointD const & endPos, double moveDuration,
-                 double startAngle, double endAngle);
+  ArrowAnimation(m2::PointD const & startPos, m2::PointD const & endPos, double moveDuration, double startAngle,
+                 double endAngle);
 
   void Init(ScreenBase const & screen, TPropertyCache const & properties) override;
 
@@ -43,4 +43,4 @@ private:
   AngleInterpolator m_angleInterpolator;
 };
 
-} // namespace df
+}  // namespace df

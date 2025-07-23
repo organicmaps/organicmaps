@@ -29,12 +29,10 @@ public:
   void Update();
 
 private:
-  ResultView(std::string const & name, std::string const & type, std::string const & address,
-             QWidget & parent);
+  ResultView(std::string const & name, std::string const & type, std::string const & address, QWidget & parent);
 
   void Init();
-  void SetContents(std::string const & name, std::string const & type,
-                   std::string const & address);
+  void SetContents(std::string const & name, std::string const & type, std::string const & address);
 
   QRadioButton * CreateRatioButton(std::string const & label, QLayout & layout);
   void OnRelevanceChanged();

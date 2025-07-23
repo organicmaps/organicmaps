@@ -38,12 +38,12 @@ dp::BindingInfo GetBindingInfo()
   uint8_t offset = 0;
   offset += dp::FillDecl<glsl::vec2, RulerVertex>(0, "a_position", info, offset);
   offset += dp::FillDecl<glsl::vec2, RulerVertex>(1, "a_normal", info, offset);
-  /*offset += */dp::FillDecl<glsl::vec2, RulerVertex>(2, "a_colorTexCoords", info, offset);
+  /*offset += */ dp::FillDecl<glsl::vec2, RulerVertex>(2, "a_colorTexCoords", info, offset);
 
   return info;
 }
 
-template<typename TBase>
+template <typename TBase>
 class BaseRulerHandle : public TBase
 {
 public:
@@ -65,21 +65,18 @@ public:
       m_animation.HideAnimated();
       m_isVisibleAtEnd = false;
     }
-    else
+    else if (helper.IsTextDirty())
     {
-      if (helper.IsTextDirty())
+      m_isAppearing = !m_isAppearing;
+      if (m_isAppearing)
       {
-        m_isAppearing = !m_isAppearing;
-        if (m_isAppearing)
-        {
-          m_animation.ShowAnimated();
-          m_isVisibleAtEnd = true;
-        }
-        else
-        {
-          m_animation.HideAnimated();
-          m_isVisibleAtEnd = false;
-        }
+        m_animation.ShowAnimated();
+        m_isVisibleAtEnd = true;
+      }
+      else
+      {
+        m_animation.HideAnimated();
+        m_isVisibleAtEnd = false;
       }
     }
 
@@ -131,8 +128,8 @@ class RulerTextHandle : public BaseRulerHandle<MutableLabelHandle>
   using TBase = BaseRulerHandle<MutableLabelHandle>;
 
 public:
-  RulerTextHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
-                  bool isAppearing, ref_ptr<dp::TextureManager> textures)
+  RulerTextHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing,
+                  ref_ptr<dp::TextureManager> textures)
     : TBase(id, anchor, pivot, isAppearing)
     , m_firstUpdate(true)
   {
@@ -192,10 +189,9 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & contr
   glsl::vec2 texCoord = glsl::ToVec2(reg.GetTexRect().Center());
   float const h = RulerHelper::GetRulerHalfHeight();
 
-  glsl::vec2 normals[] =
-  {
-    glsl::vec2(-1.0, 0.0),
-    glsl::vec2(1.0, 0.0),
+  glsl::vec2 normals[] = {
+      glsl::vec2(-1.0, 0.0),
+      glsl::vec2(1.0, 0.0),
   };
 
   dp::Anchor anchor = m_position.m_anchor;
@@ -221,13 +217,12 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & contr
     batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher, std::bind(&ShapeControl::AddShape, &control, _1, _2));
     batcher.InsertTriangleStrip(context, state, make_ref(&provider),
-                                make_unique_dp<RulerHandle>(EGuiHandle::GuiHandleRuler,
-                                  m_position.m_anchor, m_position.m_pixelPivot, isAppearing));
+                                make_unique_dp<RulerHandle>(EGuiHandle::GuiHandleRuler, m_position.m_anchor,
+                                                            m_position.m_pixelPivot, isAppearing));
   }
 }
 
-void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context,
-                     ShapeControl & control, ref_ptr<dp::TextureManager> tex,
+void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
                      bool isAppearing) const
 {
   std::string alphabet;
@@ -240,10 +235,8 @@ void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context,
   params.m_maxLength = maxTextLength;
   params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = m_position.m_pixelPivot + m2::PointF(0.0f, RulerHelper::GetVerticalTextOffset());
-  params.m_handleCreator = [isAppearing, tex](dp::Anchor anchor, m2::PointF const & pivot) {
-    return make_unique_dp<RulerTextHandle>(EGuiHandle::GuiHandleRulerLabel, anchor, pivot,
-                                           isAppearing, tex);
-  };
+  params.m_handleCreator = [isAppearing, tex](dp::Anchor anchor, m2::PointF const & pivot)
+  { return make_unique_dp<RulerTextHandle>(EGuiHandle::GuiHandleRulerLabel, anchor, pivot, isAppearing, tex); };
 
   MutableLabelDrawer::Draw(context, params, tex, std::bind(&ShapeControl::AddShape, &control, _1, _2));
 }

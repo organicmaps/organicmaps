@@ -7,10 +7,7 @@
 namespace qt
 {
 
-PopupMenuHolder::PopupMenuHolder(QObject * parent)
-: QObject(parent)
-{
-}
+PopupMenuHolder::PopupMenuHolder(QObject * parent) : QObject(parent) {}
 
 QAction * PopupMenuHolder::addActionImpl(QIcon const & icon, QString const & text, bool checkable)
 {
@@ -57,4 +54,4 @@ bool PopupMenuHolder::isChecked(size_t idx)
   return m_actions[idx]->isChecked();
 }
 
-} // namespace qt
+}  // namespace qt

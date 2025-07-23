@@ -41,7 +41,7 @@ class Reporter final
 {
 public:
   static std::chrono::milliseconds const kPushDelayMs;
-  static const char kEnableTrackingKey[];
+  static char const kEnableTrackingKey[];
 
   Reporter(std::unique_ptr<platform::Socket> socket, std::string const & host, uint16_t port,
            std::chrono::milliseconds pushDelay);

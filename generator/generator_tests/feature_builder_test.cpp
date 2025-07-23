@@ -26,14 +26,14 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
   FeatureBuilderParams params;
 
   base::StringIL arr[] = {
-    { "building" },
-    { "place", "country" },
-    { "place", "state" },
-    /// @todo Can't realize is it deprecated or we forgot to add clear styles for it.
-    //{ "place", "county" },
-    { "place", "region" },
-    { "place", "city" },
-    { "place", "town" },
+      {"building"},
+      {"place", "country"},
+      {"place", "state"},
+      /// @todo Can't realize is it deprecated or we forgot to add clear styles for it.
+      //{ "place", "county" },
+      {"place", "region"},
+      {"place", "city"},
+      {"place", "town"},
   };
   AddTypes(params, arr);
 
@@ -65,18 +65,21 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
   FeatureBuilderParams params;
 
   base::StringIL arr[] = {
-    { "railway", "rail" },
-    { "highway", "motorway" },
-    { "hwtag", "oneway" },
-    { "psurface", "paved_good" },
-    { "junction", "roundabout" },
+      { "railway",       "rail"},
+      { "highway",   "motorway"},
+      {   "hwtag",     "oneway"},
+      {"psurface", "paved_good"},
+      {"junction", "roundabout"},
   };
 
   AddTypes(params, arr);
   params.FinishAddingTypes();
   fb1.SetParams(params);
 
-  fb1.AssignPoints({ {0, 0}, {1, 1} });
+  fb1.AssignPoints({
+      {0, 0},
+      {1, 1}
+  });
   fb1.SetLinear();
 
   TEST(fb1.RemoveInvalidTypes(), ());
@@ -101,7 +104,9 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  base::StringIL arr[] = {{"waterway", "waterfall"}};
+  base::StringIL arr[] = {
+      {"waterway", "waterfall"}
+  };
   AddTypes(params, arr);
   TEST(params.FinishAddingTypes(), ());
 
@@ -146,8 +151,8 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
 
   {
     std::vector<uint32_t> types;
-    types.push_back(c.GetTypeByPath({ "building" }));
-    types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
+    types.push_back(c.GetTypeByPath({"building"}));
+    types.push_back(c.GetTypeByPath({"amenity", "theatre"}));
 
     TEST(RemoveUselessTypes(types, GeomType::Area), ());
     TEST_EQUAL(types.size(), 2, ());
@@ -155,12 +160,12 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
 
   {
     std::vector<uint32_t> types;
-    types.push_back(c.GetTypeByPath({ "highway", "primary" }));
-    types.push_back(c.GetTypeByPath({ "building" }));
+    types.push_back(c.GetTypeByPath({"highway", "primary"}));
+    types.push_back(c.GetTypeByPath({"building"}));
 
     TEST(RemoveUselessTypes(types, GeomType::Area, true /* emptyName */), ());
     TEST_EQUAL(types.size(), 1, ());
-    TEST_EQUAL(types[0], c.GetTypeByPath({ "building" }), ());
+    TEST_EQUAL(types[0], c.GetTypeByPath({"building"}), ());
   }
 }
 
@@ -169,8 +174,8 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   FeatureBuilderParams params;
 
   base::StringIL arr[] = {
-    { "boundary", "administrative", "2" },
-    { "barrier", "fence" }
+      {"boundary", "administrative", "2"},
+      {"barrier", "fence"}
   };
   AddTypes(params, arr);
   params.FinishAddingTypes();
@@ -181,7 +186,10 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   FeatureBuilder fb1;
   fb1.SetParams(params);
 
-  fb1.AssignPoints({ {0, 0}, {1, 1} });
+  fb1.AssignPoints({
+      {0, 0},
+      {1, 1}
+  });
   fb1.SetLinear();
 
   TEST(!fb1.GetName(0).empty(), ());
@@ -218,7 +226,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeLocalityObjectForBuildi
   FeatureBuilderParams params;
 
   base::StringIL arr[] = {
-    { "building" },
+      {"building"},
   };
   AddTypes(params, arr);
 
@@ -261,14 +269,22 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_HouseName)
   FeatureBuilder fb;
   FeatureBuilderParams params;
 
-  base::StringIL arr[] = {{ "building" }};
+  base::StringIL arr[] = {{"building"}};
   AddTypes(params, arr);
   params.FinishAddingTypes();
 
   params.SetHouseNumberAndHouseName("", "St. Nicholas Lodge");
 
   fb.SetParams(params);
-  fb.AssignArea({{0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}}, {});
+  fb.AssignArea(
+      {
+          {0, 0},
+          {0, 1},
+          {1, 1},
+          {1, 0},
+          {0, 0}
+  },
+      {});
   fb.SetArea();
 
   TEST(fb.RemoveInvalidTypes(), ());
@@ -286,11 +302,11 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermedia
   FeatureBuilderParams params;
 
   base::StringIL arr[] = {
-    { "railway", "rail" },
-    { "highway", "motorway" },
-    { "hwtag", "oneway" },
-    { "psurface", "paved_good" },
-    { "junction", "circular" },
+      { "railway",       "rail"},
+      { "highway",   "motorway"},
+      {   "hwtag",     "oneway"},
+      {"psurface", "paved_good"},
+      {"junction",   "circular"},
   };
 
   AddTypes(params, arr);
@@ -300,7 +316,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermedia
   auto const diff = 0.33333333334567;
   std::vector<m2::PointD> points;
   for (size_t i = 0; i < 100; ++i)
-    points.push_back({ i + diff, i + 1 + diff });
+    points.push_back({i + diff, i + 1 + diff});
 
   fb1.AssignPoints(std::move(points));
   fb1.SetLinear();
@@ -386,8 +402,10 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveInconsistentTypes)
   FeatureBuilderParams params;
 
   base::StringIL arr[] = {
-    {"highway", "cycleway"}, {"hwtag", "onedir_bicycle"},
-    {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}
+      {"highway",       "cycleway"},
+      {  "hwtag", "onedir_bicycle"},
+      {  "hwtag",      "nobicycle"},
+      {  "hwtag",     "yesbicycle"}
   };
   AddTypes(params, arr);
   TEST_EQUAL(params.m_types.size(), 4, ());

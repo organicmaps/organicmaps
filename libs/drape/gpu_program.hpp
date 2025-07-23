@@ -7,9 +7,7 @@ namespace dp
 class GpuProgram
 {
 public:
-  explicit GpuProgram(std::string const & programName)
-    : m_programName(programName)
-  {}
+  explicit GpuProgram(std::string const & programName) : m_programName(programName) {}
 
   virtual ~GpuProgram() = default;
 

@@ -13,7 +13,13 @@ class FileData
 {
 public:
   /// @note Do not change order (@see FileData::FileData).
-  enum class Op { READ = 0, WRITE_TRUNCATE, WRITE_EXISTING, APPEND };
+  enum class Op
+  {
+    READ = 0,
+    WRITE_TRUNCATE,
+    WRITE_EXISTING,
+    APPEND
+  };
 
   FileData(std::string const & fileName, Op op);
   ~FileData();
@@ -33,8 +39,8 @@ public:
 
 private:
   FILE * m_File;
-  const std::string m_FileName;
-  const Op m_Op;
+  std::string const m_FileName;
+  Op const m_Op;
 
   std::string GetErrorProlog() const;
 
@@ -47,8 +53,7 @@ bool RenameFileX(std::string const & fOld, std::string const & fNew);
 
 /// Write to temp file and rename it to dest. Delete temp on failure.
 /// @param write function that writes to file with a given name, returns true on success.
-bool WriteToTempAndRenameToFile(std::string const & dest,
-                                std::function<bool(std::string const &)> const & write,
+bool WriteToTempAndRenameToFile(std::string const & dest, std::function<bool(std::string const &)> const & write,
                                 std::string const & tmp = "");
 
 void AppendFileToFile(std::string const & fromFilename, std::string const & toFilename);

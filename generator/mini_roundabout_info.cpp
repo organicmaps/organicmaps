@@ -11,9 +11,9 @@
 namespace generator
 {
 MiniRoundaboutInfo::MiniRoundaboutInfo(OsmElement const & element)
-  : m_id(element.m_id), m_coord(element.m_lat, element.m_lon)
-{
-}
+  : m_id(element.m_id)
+  , m_coord(element.m_lat, element.m_lon)
+{}
 
 bool MiniRoundaboutInfo::Normalize()
 {
@@ -30,8 +30,7 @@ bool MiniRoundaboutInfo::IsProcessRoad(feature::FeatureBuilder const & fb)
   return fb.IsLine() && routing::IsCarRoad(fb.GetTypes());
 }
 
-MiniRoundaboutData::MiniRoundaboutData(std::vector<MiniRoundaboutInfo> && data)
-  : m_data(std::move(data))
+MiniRoundaboutData::MiniRoundaboutData(std::vector<MiniRoundaboutInfo> && data) : m_data(std::move(data))
 {
   for (auto const & d : m_data)
     m_ways.insert(std::end(m_ways), std::cbegin(d.m_ways), std::cend(d.m_ways));

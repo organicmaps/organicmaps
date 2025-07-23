@@ -21,8 +21,7 @@ public:
 
   void setEditorData(QWidget * editor, QModelIndex const & index) const Q_DECL_OVERRIDE;
 
-  void setModelData(QWidget * editor, QAbstractItemModel * model,
-                    QModelIndex const & index) const Q_DECL_OVERRIDE;
+  void setModelData(QWidget * editor, QAbstractItemModel * model, QModelIndex const & index) const Q_DECL_OVERRIDE;
 
   void updateEditorGeometry(QWidget * editor, QStyleOptionViewItem const & option,
                             QModelIndex const & index) const Q_DECL_OVERRIDE;

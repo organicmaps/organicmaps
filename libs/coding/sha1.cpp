@@ -29,7 +29,7 @@ SHA1::Hash ExtractHash(boost::uuids::detail::sha1 & sha1)
   std::copy_n(reinterpret_cast<uint8_t const *>(digest), sizeof(digest), std::begin(result));
   return result;
 }
-}
+}  // namespace
 
 // static
 SHA1::Hash SHA1::Calculate(std::string const & filePath)
@@ -74,4 +74,4 @@ SHA1::Hash SHA1::CalculateForString(std::string_view str)
   sha1.process_bytes(str.data(), str.size());
   return ExtractHash(sha1);
 }
-}  // coding
+}  // namespace coding

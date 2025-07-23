@@ -32,15 +32,14 @@ uint8_t constexpr kReadingThreadsCount = 2;
 class ReadManager
 {
 public:
-  ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
-              bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled);
+  ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model, bool allow3dBuildings,
+              bool trafficEnabled, bool isolinesEnabled);
 
   void Start();
   void Stop();
   void Restart();
 
-  void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings,
-                      bool forceUpdate, bool forceUpdateUserMarks,
+  void UpdateCoverage(ScreenBase const & screen, bool have3dBuildings, bool forceUpdate, bool forceUpdateUserMarks,
                       TTilesCollection const & tiles, ref_ptr<dp::TextureManager> texMng,
                       ref_ptr<MetalineManager> metalineMng);
   void Invalidate(TTilesCollection const & keyStorage);
@@ -88,8 +87,7 @@ private:
 
   struct LessByTileInfo
   {
-    bool operator ()(std::shared_ptr<TileInfo> const & l,
-                     std::shared_ptr<TileInfo> const & r) const;
+    bool operator()(std::shared_ptr<TileInfo> const & l, std::shared_ptr<TileInfo> const & r) const;
   };
 
   using TTileSet = std::set<std::shared_ptr<TileInfo>, LessByTileInfo>;

@@ -6,8 +6,8 @@
 #include "base/string_utils.hpp"
 
 #include <functional>
-#include <utility>
 #include <string>
+#include <utility>
 
 class XMLSource
 {
@@ -55,9 +55,7 @@ public:
 
     switch (++m_depth)
     {
-    case 1:
-      m_current = nullptr;
-      break;
+    case 1: m_current = nullptr; break;
     case 2:
       m_current = &m_parent;
       m_current->m_type = tagKey;
@@ -74,8 +72,7 @@ public:
   {
     switch (--m_depth)
     {
-    case 0:
-      break;
+    case 0: break;
 
     case 1:
       // Skip useless tags. See XMLSource::Push function above.
@@ -93,14 +90,9 @@ public:
       case OsmElement::EntityType::Member:
         m_parent.AddMember(m_child.m_ref, m_child.m_memberType, m_child.m_role);
         break;
-      case OsmElement::EntityType::Tag:
-        m_parent.AddTag(m_child.m_k, m_child.m_v);
-        break;
-      case OsmElement::EntityType::Nd:
-        m_parent.AddNd(m_child.m_ref);
-        break;
-      default:
-        break;
+      case OsmElement::EntityType::Tag: m_parent.AddTag(m_child.m_k, m_child.m_v); break;
+      case OsmElement::EntityType::Nd: m_parent.AddNd(m_child.m_ref); break;
+      default: break;
       }
       m_current = &m_parent;
       m_child.Clear();

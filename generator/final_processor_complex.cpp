@@ -13,14 +13,13 @@ using namespace feature;
 
 namespace generator
 {
-ComplexFinalProcessor::ComplexFinalProcessor(std::string const & mwmTmpPath,
-                                             std::string const & outFilename, size_t threadsCount)
+ComplexFinalProcessor::ComplexFinalProcessor(std::string const & mwmTmpPath, std::string const & outFilename,
+                                             size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::Complex)
   , m_mwmTmpPath(mwmTmpPath)
   , m_outFilename(outFilename)
   , m_threadsCount(threadsCount)
-{
-}
+{}
 
 void ComplexFinalProcessor::SetGetMainTypeFunction(hierarchy::GetMainTypeFn const & getMainType)
 {
@@ -42,8 +41,7 @@ void ComplexFinalProcessor::SetPrintFunction(hierarchy::PrintFn const & printFun
   m_printFunction = printFunction;
 }
 
-void ComplexFinalProcessor::UseCentersEnricher(std::string const & mwmPath,
-                                               std::string const & osm2ftPath)
+void ComplexFinalProcessor::UseCentersEnricher(std::string const & mwmPath, std::string const & osm2ftPath)
 {
   m_useCentersEnricher = true;
   m_mwmPath = mwmPath;
@@ -70,7 +68,8 @@ void ComplexFinalProcessor::Process()
 
   std::mutex mutex;
   std::vector<HierarchyEntry> allLines;
-  ForEachMwmTmp(m_mwmTmpPath, [&](auto const & name, auto const & path) {
+  ForEachMwmTmp(m_mwmTmpPath, [&](auto const & name, auto const & path)
+  {
     // https://wiki.openstreetmap.org/wiki/Simple_3D_buildings
     // An object with tag 'building:part' is a part of a relation with outline 'building' or
     // is contained in an object with tag 'building'. We will split data and work with
@@ -87,7 +86,8 @@ void ComplexFinalProcessor::Process()
     auto trees = hierarchy::BuildHierarchy(std::move(fbs), m_getMainType, m_filter);
 
     // We remove tree roots with tag 'building:part'.
-    base::EraseIf(trees, [](auto const & node) {
+    base::EraseIf(trees, [](auto const & node)
+    {
       static auto const & buildingPartChecker = ftypes::IsBuildingPartChecker::Instance();
       return buildingPartChecker(node->GetData().GetTypes());
     });
@@ -104,7 +104,8 @@ void ComplexFinalProcessor::Process()
     // In the end we add objects, which were saved by the collector.
     if (m_buildingToParts)
     {
-      hierarchy::AddChildrenTo(trees, [&](auto const & compositeId) {
+      hierarchy::AddChildrenTo(trees, [&](auto const & compositeId)
+      {
         auto const & ids = m_buildingToParts->GetBuildingPartsByOutlineId(compositeId);
         std::vector<hierarchy::HierarchyPlace> places;
         places.reserve(ids.size());
@@ -138,23 +139,22 @@ void ComplexFinalProcessor::Process()
   WriteLines(allLines);
 }
 
-std::unordered_map<base::GeoObjectId, FeatureBuilder>
-ComplexFinalProcessor::RemoveRelationBuildingParts(std::vector<FeatureBuilder> & fbs)
+std::unordered_map<base::GeoObjectId, FeatureBuilder> ComplexFinalProcessor::RemoveRelationBuildingParts(
+    std::vector<FeatureBuilder> & fbs)
 {
   CHECK(m_buildingToParts, ());
 
-  auto it = std::partition(std::begin(fbs), std::end(fbs), [&](auto const & fb) {
-    return !m_buildingToParts->HasBuildingPart(fb.GetMostGenericOsmId());
-  });
+  auto it = std::partition(std::begin(fbs), std::end(fbs), [&](auto const & fb)
+  { return !m_buildingToParts->HasBuildingPart(fb.GetMostGenericOsmId()); });
 
   std::unordered_map<base::GeoObjectId, FeatureBuilder> buildingParts;
   buildingParts.reserve(static_cast<size_t>(std::distance(it, std::end(fbs))));
 
-  std::transform(it, std::end(fbs), std::inserter(buildingParts, std::begin(buildingParts)),
-                 [](auto && fb) {
-                   auto const id = fb.GetMostGenericOsmId();
-                   return std::make_pair(id, std::move(fb));
-                 });
+  std::transform(it, std::end(fbs), std::inserter(buildingParts, std::begin(buildingParts)), [](auto && fb)
+  {
+    auto const id = fb.GetMostGenericOsmId();
+    return std::make_pair(id, std::move(fb));
+  });
 
   fbs.resize(static_cast<size_t>(std::distance(std::begin(fbs), it)));
   return buildingParts;

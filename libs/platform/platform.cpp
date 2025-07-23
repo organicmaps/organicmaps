@@ -45,31 +45,22 @@ bool GetFileTypeChecked(std::string const & path, Platform::EFileType & type)
   }
   return true;
 }
-} // namespace
+}  // namespace
 
 // static
 Platform::EError Platform::ErrnoToError()
 {
   switch (errno)
   {
-  case ENOENT:
-    return ERR_FILE_DOES_NOT_EXIST;
-  case EACCES:
-    return ERR_ACCESS_FAILED;
-  case ENOTEMPTY:
-    return ERR_DIRECTORY_NOT_EMPTY;
-  case EEXIST:
-    return ERR_FILE_ALREADY_EXISTS;
-  case ENAMETOOLONG:
-    return ERR_NAME_TOO_LONG;
-  case ENOTDIR:
-    return ERR_NOT_A_DIRECTORY;
-  case ELOOP:
-    return ERR_SYMLINK_LOOP;
-  case EIO:
-    return ERR_IO_ERROR;
-  default:
-    return ERR_UNKNOWN;
+  case ENOENT: return ERR_FILE_DOES_NOT_EXIST;
+  case EACCES: return ERR_ACCESS_FAILED;
+  case ENOTEMPTY: return ERR_DIRECTORY_NOT_EMPTY;
+  case EEXIST: return ERR_FILE_ALREADY_EXISTS;
+  case ENAMETOOLONG: return ERR_NAME_TOO_LONG;
+  case ENOTDIR: return ERR_NOT_A_DIRECTORY;
+  case ELOOP: return ERR_SYMLINK_LOOP;
+  case EIO: return ERR_IO_ERROR;
+  default: return ERR_UNKNOWN;
   }
 }
 
@@ -146,19 +137,15 @@ std::string Platform::ReadPathForFile(std::string const & file, std::string sear
       ASSERT(!m_settingsDir.empty(), ());
       fullPath = base::JoinPath(m_settingsDir, file);
       break;
-    case 'f':
-      fullPath = file;
-      break;
-    default :
-      CHECK(false, ("Unsupported searchScope:", searchScope));
-      break;
+    case 'f': fullPath = file; break;
+    default: CHECK(false, ("Unsupported searchScope:", searchScope)); break;
     }
     if (IsFileExistsByFullPath(fullPath))
       return fullPath;
   }
 
-  MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope,
-      "\nw: ", m_writableDir, "\nr: ", m_resourcesDir, "\ns: ", m_settingsDir));
+  MYTHROW(FileAbsentException, ("File", file, "doesn't exist in the scope", searchScope, "\nw: ", m_writableDir,
+                                "\nr: ", m_resourcesDir, "\ns: ", m_settingsDir));
 }
 
 std::string Platform::MetaServerUrl() const
@@ -194,19 +181,19 @@ void Platform::GetFontNames(FilesList & res) const
 
   /// @todo Actually, this list should present once in all our code.
   char constexpr const * arrDef[] = {
-    "fonts/00_NotoNaskhArabic-Regular.ttf",
-    "fonts/00_NotoSansBengali-Regular.ttf",
-    "fonts/00_NotoSansHebrew-Regular.ttf",
-    "fonts/00_NotoSansMalayalam-Regular.ttf",
-    "fonts/00_NotoSansThai-Regular.ttf",
-    "fonts/00_NotoSerifDevanagari-Regular.ttf",
-    "fonts/01_dejavusans.ttf",
-    "fonts/02_droidsans-fallback.ttf",
-    "fonts/03_jomolhari-id-a3d.ttf",
-    "fonts/04_padauk.ttf",
-    "fonts/05_khmeros.ttf",
-    "fonts/06_code2000.ttf",
-    "fonts/07_roboto_medium.ttf",
+      "fonts/00_NotoNaskhArabic-Regular.ttf",
+      "fonts/00_NotoSansBengali-Regular.ttf",
+      "fonts/00_NotoSansHebrew-Regular.ttf",
+      "fonts/00_NotoSansMalayalam-Regular.ttf",
+      "fonts/00_NotoSansThai-Regular.ttf",
+      "fonts/00_NotoSerifDevanagari-Regular.ttf",
+      "fonts/01_dejavusans.ttf",
+      "fonts/02_droidsans-fallback.ttf",
+      "fonts/03_jomolhari-id-a3d.ttf",
+      "fonts/04_padauk.ttf",
+      "fonts/05_khmeros.ttf",
+      "fonts/06_code2000.ttf",
+      "fonts/07_roboto_medium.ttf",
   };
   res.insert(res.end(), arrDef, arrDef + ARRAY_SIZE(arrDef));
 
@@ -218,15 +205,14 @@ void Platform::GetFontNames(FilesList & res) const
 void Platform::GetFilesByExt(std::string const & directory, std::string_view ext, FilesList & outFiles)
 {
   // Transform extension mask to regexp (.mwm -> \.mwm$)
-  ASSERT ( !ext.empty(), () );
-  ASSERT_EQUAL ( ext[0], '.' , () );
+  ASSERT(!ext.empty(), ());
+  ASSERT_EQUAL(ext[0], '.', ());
   std::string regexp = "\\";
   GetFilesByRegExp(directory, regexp.append(ext).append("$"), outFiles);
 }
 
 // static
-void Platform::GetFilesByType(std::string const & directory, unsigned typeMask,
-                              TFilesWithType & outFiles)
+void Platform::GetFilesByType(std::string const & directory, unsigned typeMask, TFilesWithType & outFiles)
 {
   FilesList allFiles;
   GetFilesByRegExp(directory, ".*", allFiles);
@@ -313,7 +299,7 @@ bool Platform::MkDirRecursively(std::string const & dirName)
 {
   CHECK(!dirName.empty(), ());
 
-  std::string::value_type const sep[] = { base::GetNativeSeparator(), 0};
+  std::string::value_type const sep[] = {base::GetNativeSeparator(), 0};
   std::string path = dirName.starts_with(sep[0]) ? sep : ".";
   for (auto const & t : strings::Tokenize(dirName, sep))
   {
@@ -394,12 +380,9 @@ std::string DebugPrint(Platform::EError err)
   case Platform::ERR_ACCESS_FAILED: return "Access failed.";
   case Platform::ERR_DIRECTORY_NOT_EMPTY: return "Directory not empty.";
   case Platform::ERR_FILE_ALREADY_EXISTS: return "File already exists.";
-  case Platform::ERR_NAME_TOO_LONG:
-    return "The length of a component of path exceeds {NAME_MAX} characters.";
-  case Platform::ERR_NOT_A_DIRECTORY:
-    return "A component of the path prefix of Path is not a directory.";
-  case Platform::ERR_SYMLINK_LOOP:
-    return "Too many symbolic links were encountered in translating path.";
+  case Platform::ERR_NAME_TOO_LONG: return "The length of a component of path exceeds {NAME_MAX} characters.";
+  case Platform::ERR_NOT_A_DIRECTORY: return "A component of the path prefix of Path is not a directory.";
+  case Platform::ERR_SYMLINK_LOOP: return "Too many symbolic links were encountered in translating path.";
   case Platform::ERR_IO_ERROR: return "An I/O error occurred.";
   case Platform::ERR_UNKNOWN: return "Unknown";
   }

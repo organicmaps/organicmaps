@@ -70,16 +70,10 @@ protected:
     m_cont.push_back(f.GetID().m_index);
   }
 
-  void add(FeatureType const &, uint32_t index) const
-  {
-    m_cont.push_back(index);
-  }
+  void add(FeatureType const &, uint32_t index) const { m_cont.push_back(index); }
 
 public:
-  AccumulatorBase(int scale, Cont & cont)
-    : m_cont(cont), m_scale(scale)
-  {
-  }
+  AccumulatorBase(int scale, Cont & cont) : m_cont(cont), m_scale(scale) {}
 
   void operator()(FeatureType & f) const
   {
@@ -96,19 +90,14 @@ class IntersectCheck
   bool m_isPrev, m_intersect;
 
 public:
-  explicit IntersectCheck(m2::RectD const & r)
-    : m_rect(r), m_isPrev(false), m_intersect(false)
-  {
-  }
+  explicit IntersectCheck(m2::RectD const & r) : m_rect(r), m_isPrev(false), m_intersect(false) {}
 
-  void TestPoint(m2::PointD const & p)
-  {
-    m_intersect = m_rect.IsPointInside(p);
-  }
+  void TestPoint(m2::PointD const & p) { m_intersect = m_rect.IsPointInside(p); }
 
-  void operator() (m2::PointD const & pt)
+  void operator()(m2::PointD const & pt)
   {
-    if (m_intersect) return;
+    if (m_intersect)
+      return;
 
     if (m_isPrev)
     {
@@ -122,11 +111,12 @@ public:
     m_prev = pt;
   }
 
-  void operator() (m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+  void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
   {
-    if (m_intersect) return;
+    if (m_intersect)
+      return;
 
-    m2::PointD arrP[] = { p1, p2, p3 };
+    m2::PointD arrP[] = {p1, p2, p3};
 
     // make right-oriented triangle
     if (m2::robust::OrientedS(arrP[0], arrP[1], arrP[2]) < 0.0)
@@ -172,18 +162,14 @@ class AccumulatorEtalon : public AccumulatorBase
     case GeomType::Point: check.TestPoint(f.GetCenter()); break;
     case GeomType::Line: f.ForEachPoint(check, m_scale); break;
     case GeomType::Area: f.ForEachTriangle(check, m_scale); break;
-    default:
-      CHECK ( false, () );
+    default: CHECK(false, ());
     }
 
     return check.IsIntersect();
   }
 
 public:
-  AccumulatorEtalon(m2::RectD const & r, int scale, Cont & cont)
-    : base_type(scale, cont), m_rect(r)
-  {
-  }
+  AccumulatorEtalon(m2::RectD const & r, int scale, Cont & cont) : base_type(scale, cont), m_rect(r) {}
 
   void operator()(FeatureType & f, uint32_t index) const
   {
@@ -203,10 +189,7 @@ struct FeatureIDCmp
       return 1;
     return 0;
   }
-  bool operator() (uint32_t r1, uint32_t r2) const
-  {
-    return (compare(r1, r2) == -1);
-  }
+  bool operator()(uint32_t r1, uint32_t r2) const { return (compare(r1, r2) == -1); }
 };
 
 /// Check that "test" contains all elements from "etalon".
@@ -219,16 +202,16 @@ bool compare_sequence(TCont const & etalon, TCont const & test, TCompare comp, s
   {
     switch (comp.compare(*i1, *i2))
     {
-    case 0:   // equal
+    case 0:  // equal
       ++i1;
       ++i2;
       break;
     case -1:  // present in etalon, but missing in test - error
-      {
-        errInd = distance(etalon.begin(), i1);
-        return false;
-      }
-    case 1:   // present in test, but missing in etalon - actually it may be ok
+    {
+      errInd = distance(etalon.begin(), i1);
+      return false;
+    }
+    case 1:  // present in test, but missing in etalon - actually it may be ok
       ++i2;
       break;
     }
@@ -249,9 +232,7 @@ class FindOffset
   uint32_t m_index;
 
 public:
-  FindOffset(int level, uint32_t index)
-    : m_level(level), m_index(index)
-  {}
+  FindOffset(int level, uint32_t index) : m_level(level), m_index(index) {}
 
   void operator()(FeatureType & ft, uint32_t index)
   {
@@ -309,7 +290,8 @@ void RunTest(string const & countryFileName)
         feature::ForEachFeature(reader, doFind);
       }
 
-      TEST(false, ("Failed for rect:", r, "; Scale level:", scale, "; Etalon size:", v2.size(), "; Index size:", v1.size()));
+      TEST(false,
+           ("Failed for rect:", r, "; Scale level:", scale, "; Etalon size:", v2.size(), "; Index size:", v1.size()));
     }
 
     if (!v2.empty() && (scale < scales::GetUpperScale()))
@@ -324,10 +306,10 @@ void RunTest(string const & countryFileName)
 
 /// @todo The concept of this test became invalid after POI filtering when overlap in geometry index.
 /// Probably, will restore it with a new idea someday. Like build and check separate index without filtering.
-//UNIT_TEST(ForEach_QueryResults)
+// UNIT_TEST(ForEach_QueryResults)
 //{
-//  GetStyleReader().SetCurrentStyle(MapStyleMerged);
-//  RunTest("minsk-pass");
-//}
+//   GetStyleReader().SetCurrentStyle(MapStyleMerged);
+//   RunTest("minsk-pass");
+// }
 
-} // namespace mwm_for_each_test
+}  // namespace mwm_for_each_test

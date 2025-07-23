@@ -12,8 +12,7 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
 {
   ASSERT(segment1 != nullptr && segment2 != nullptr, ());
 
-  float const dotProduct = glsl::dot(segment1->m_leftNormals[EndPoint],
-                                     segment2->m_leftNormals[StartPoint]);
+  float const dotProduct = glsl::dot(segment1->m_leftNormals[EndPoint], segment2->m_leftNormals[StartPoint]);
   float const absDotProduct = fabs(dotProduct);
   float const kEps = 1e-5;
 
@@ -24,16 +23,15 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
   }
 
   float const kMaxScalar = 5;
-  float const crossProduct = glsl::cross(glsl::vec3(segment1->m_tangent, 0),
-                                         glsl::vec3(segment2->m_tangent, 0)).z;
+  float const crossProduct = glsl::cross(glsl::vec3(segment1->m_tangent, 0), glsl::vec3(segment2->m_tangent, 0)).z;
   if (crossProduct < 0)
   {
     segment1->m_hasLeftJoin[EndPoint] = true;
     segment2->m_hasLeftJoin[StartPoint] = true;
 
     // change right-side normals
-    glsl::vec2 averageNormal = glsl::normalize(segment1->m_rightNormals[EndPoint] +
-                                               segment2->m_rightNormals[StartPoint]);
+    glsl::vec2 averageNormal =
+        glsl::normalize(segment1->m_rightNormals[EndPoint] + segment2->m_rightNormals[StartPoint]);
     float const cosAngle = glsl::dot(segment1->m_tangent, averageNormal);
     float const widthScalar = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
     if (widthScalar < kMaxScalar)
@@ -55,8 +53,7 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
     segment2->m_hasLeftJoin[StartPoint] = false;
 
     // change left-side normals
-    glsl::vec2 averageNormal = glsl::normalize(segment1->m_leftNormals[EndPoint] +
-                                               segment2->m_leftNormals[StartPoint]);
+    glsl::vec2 averageNormal = glsl::normalize(segment1->m_leftNormals[EndPoint] + segment2->m_leftNormals[StartPoint]);
     float const cosAngle = glsl::dot(segment1->m_tangent, averageNormal);
     float const widthScalar = 1.0f / sqrt(1.0f - cosAngle * cosAngle);
     if (widthScalar < kMaxScalar)
@@ -75,9 +72,8 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
 }
 }  // namespace
 
-void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
-                                glsl::vec2 & tangent, glsl::vec2 & leftNormal,
-                                glsl::vec2 & rightNormal)
+void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1, glsl::vec2 & tangent,
+                                glsl::vec2 & leftNormal, glsl::vec2 & rightNormal)
 {
   tangent = glsl::normalize(pt1 - pt0);
   leftNormal = glsl::vec2(-tangent.y, tangent.x);
@@ -90,9 +86,7 @@ void ConstructLineSegments(std::vector<m2::PointD> const & path, std::vector<gls
   ASSERT_LESS(1, path.size(), ());
 
   if (!segmentsColors.empty())
-  {
     ASSERT_EQUAL(segmentsColors.size() + 1, path.size(), ());
-  }
 
   m2::PointD prevPoint = path[0];
   for (size_t i = 1; i < path.size(); ++i)
@@ -107,8 +101,8 @@ void ConstructLineSegments(std::vector<m2::PointD> const & path, std::vector<gls
     segments.emplace_back(glsl::ToVec2(p1), glsl::ToVec2(p2));
     LineSegment & segment = segments.back();
 
-    CalculateTangentAndNormals(glsl::ToVec2(p1), glsl::ToVec2(p2), segment.m_tangent,
-                               segment.m_leftBaseNormal, segment.m_rightBaseNormal);
+    CalculateTangentAndNormals(glsl::ToVec2(p1), glsl::ToVec2(p2), segment.m_tangent, segment.m_leftBaseNormal,
+                               segment.m_rightBaseNormal);
 
     segment.m_leftNormals[StartPoint] = segment.m_leftNormals[EndPoint] = segment.m_leftBaseNormal;
     segment.m_rightNormals[StartPoint] = segment.m_rightNormals[EndPoint] = segment.m_rightBaseNormal;
@@ -130,9 +124,9 @@ void UpdateNormals(LineSegment * segment, LineSegment * prevSegment, LineSegment
     UpdateNormalBetweenSegments(segment, nextSegment);
 }
 
-std::vector<glsl::vec2> GenerateJoinNormals(
-    dp::LineJoin joinType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-    float halfWidth, bool isLeft, float widthScalar, std::vector<glsl::vec2> * uv)
+std::vector<glsl::vec2> GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1,
+                                            glsl::vec2 const & normal2, float halfWidth, bool isLeft, float widthScalar,
+                                            std::vector<glsl::vec2> * uv)
 {
   std::vector<glsl::vec2> normals;
   float const eps = 1e-5;
@@ -144,12 +138,12 @@ std::vector<glsl::vec2> GenerateJoinNormals(
     glsl::vec2 const n1 = halfWidth * normal1;
     glsl::vec2 const n2 = halfWidth * normal2;
 
-    normals = { glsl::vec2(0.0f, 0.0f), isLeft ? n1 : n2, isLeft ? n2 : n1 };
+    normals = {glsl::vec2(0.0f, 0.0f), isLeft ? n1 : n2, isLeft ? n2 : n1};
 
     if (uv)
     {
-      *uv = { glsl::vec2(0.5f, 0.5f), isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f),
-                                      isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f) };
+      *uv = {glsl::vec2(0.5f, 0.5f), isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f),
+             isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f)};
     }
   }
   else if (joinType == dp::LineJoin::MiterJoin)
@@ -159,16 +153,18 @@ std::vector<glsl::vec2> GenerateJoinNormals(
     glsl::vec2 const n1 = halfWidth * normal1;
     glsl::vec2 const n2 = halfWidth * normal2;
 
-    normals = { glsl::vec2(0.0f, 0.0f), isLeft ? n1 : averageNormal, isLeft ? averageNormal : n1,
-                glsl::vec2(0.0f, 0.0f), isLeft ? averageNormal : n2, isLeft ? n2 : averageNormal };
+    normals = {glsl::vec2(0.0f, 0.0f), isLeft ? n1 : averageNormal, isLeft ? averageNormal : n1,
+               glsl::vec2(0.0f, 0.0f), isLeft ? averageNormal : n2, isLeft ? n2 : averageNormal};
 
     if (uv)
     {
-      *uv = { glsl::vec2(0.5f, 0.5f), isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f),
-                                      isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f),
+      *uv = {glsl::vec2(0.5f, 0.5f),
+             isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f),
+             isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f),
 
-              glsl::vec2(0.5f, 0.5f), isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f),
-                                      isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f) };
+             glsl::vec2(0.5f, 0.5f),
+             isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f),
+             isLeft ? glsl::vec2(0.5f, 0.0f) : glsl::vec2(0.5f, 1.0f)};
     }
   }
   else
@@ -208,9 +204,9 @@ std::vector<glsl::vec2> GenerateJoinNormals(
   return normals;
 }
 
-std::vector<glsl::vec2> GenerateCapNormals(
-    dp::LineCap capType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-    glsl::vec2 const & direction, float halfWidth, bool isStart, int segmentsCount)
+std::vector<glsl::vec2> GenerateCapNormals(dp::LineCap capType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
+                                           glsl::vec2 const & direction, float halfWidth, bool isStart,
+                                           int segmentsCount)
 {
   std::vector<glsl::vec2> normals;
   if (capType == dp::ButtCap)
@@ -223,8 +219,7 @@ std::vector<glsl::vec2> GenerateCapNormals(
     glsl::vec2 const n3 = halfWidth * (normal1 + direction);
     glsl::vec2 const n4 = halfWidth * (normal2 + direction);
 
-    normals = { n2, isStart ? n4 : n1, isStart ? n1 : n4,
-                n1, isStart ? n4 : n3, isStart ? n3 : n4 };
+    normals = {n2, isStart ? n4 : n1, isStart ? n1 : n4, n1, isStart ? n4 : n3, isStart ? n3 : n4};
   }
   else
   {
@@ -253,12 +248,11 @@ glsl::vec2 GetNormal(LineSegment const & segment, bool isLeft, ENormalType norma
     return isLeft ? segment.m_leftBaseNormal : segment.m_rightBaseNormal;
 
   int const index = (normalType == StartNormal) ? StartPoint : EndPoint;
-  return isLeft ? segment.m_leftWidthScalar[index].x * segment.m_leftNormals[index]:
-                  segment.m_rightWidthScalar[index].x * segment.m_rightNormals[index];
+  return isLeft ? segment.m_leftWidthScalar[index].x * segment.m_leftNormals[index]
+                : segment.m_rightWidthScalar[index].x * segment.m_rightNormals[index];
 }
 
-float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startPoint,
-                          glsl::vec2 const & endPoint)
+float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startPoint, glsl::vec2 const & endPoint)
 {
   glsl::vec2 const v1 = endPoint - startPoint;
   glsl::vec2 const v2 = newPoint - startPoint;
@@ -267,4 +261,3 @@ float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startP
   return sqrt(squareLen) * math::Clamp(proj, 0.0f, 1.0f);
 }
 }  // namespace df
-

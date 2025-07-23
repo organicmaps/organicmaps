@@ -59,10 +59,7 @@ public:
     }
   }
 
-  ~LocalityFinderTest()
-  {
-    platform::CountryIndexes::DeleteFromDisk(m_worldFile);
-  }
+  ~LocalityFinderTest() { platform::CountryIndexes::DeleteFromDisk(m_worldFile); }
 
   void RunTests(std::vector<ms::LatLon> const & input, char const * results[])
   {
@@ -70,9 +67,7 @@ public:
     {
       std::string_view result;
       m_finder.GetLocality(mercator::FromLatLon(input[i]), [&](search::LocalityItem const & item)
-      {
-        item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kEnglishCode, result);
-      });
+      { item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kEnglishCode, result); });
       TEST_EQUAL(result, results[i], ());
     }
   }
@@ -85,16 +80,11 @@ public:
 UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
 {
   std::vector<ms::LatLon> input;
-  input.emplace_back(53.8993094, 27.5433964);   // Minsk
-  input.emplace_back(48.856517, 2.3521);        // Paris
-  input.emplace_back(52.5193859, 13.3908289);   // Berlin
+  input.emplace_back(53.8993094, 27.5433964);  // Minsk
+  input.emplace_back(48.856517, 2.3521);       // Paris
+  input.emplace_back(52.5193859, 13.3908289);  // Berlin
 
-  char const * results[] =
-  {
-    "Minsk",
-    "Paris",
-    "Berlin"
-  };
+  char const * results[] = {"Minsk", "Paris", "Berlin"};
 
   RunTests(input, results);
 
@@ -110,17 +100,8 @@ UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
   input.emplace_back(43.9363996, 12.4466991);  // City of San Marino
   input.emplace_back(47.3345002, 8.531262);    // Zurich
 
-  char const * results3[] =
-  {
-    "Chicago",
-    "Rio de Janeiro",
-    "Melbourne",
-    "Minsk",
-    "Minsk",
-    "Budva",
-    "City of San Marino",
-    "Zurich"
-  };
+  char const * results3[] = {"Chicago", "Rio de Janeiro", "Melbourne",          "Minsk",
+                             "Minsk",   "Budva",          "City of San Marino", "Zurich"};
 
   RunTests(input, results3);
 }
@@ -128,13 +109,10 @@ UNIT_CLASS_TEST(LocalityFinderTest, Smoke)
 UNIT_CLASS_TEST(LocalityFinderTest, Moscow)
 {
   std::vector<ms::LatLon> input;
-  input.emplace_back(55.80166, 37.54066);   // Krasnoarmeyskaya 30
+  input.emplace_back(55.80166, 37.54066);  // Krasnoarmeyskaya 30
 
-  char const * results[] =
-  {
-    "Moscow"
-  };
+  char const * results[] = {"Moscow"};
 
   RunTests(input, results);
 }
-} // namespace locality_finder_test
+}  // namespace locality_finder_test

@@ -49,10 +49,8 @@ void ContoursBuilder::AddSegment(size_t levelInd, ms::LatLon const & beginPos, m
 void ContoursBuilder::BeginLine()
 {
   for (auto & contoursList : m_activeContours)
-  {
     for (auto & activeContour : contoursList)
       activeContour.m_active = false;
-  }
 }
 
 void ContoursBuilder::EndLine(bool finalLine)
@@ -80,10 +78,8 @@ ContoursBuilder::ActiveContourIter ContoursBuilder::FindContourWithStartPoint(si
 {
   auto & contours = m_activeContours[levelInd];
   for (auto it = contours.begin(); it != contours.end(); ++it)
-  {
     if (it->m_countour.front().EqualDxDy(pos, mercator::kPointEqualityEps))
       return it;
-  }
   return contours.end();
 }
 
@@ -91,10 +87,8 @@ ContoursBuilder::ActiveContourIter ContoursBuilder::FindContourWithEndPoint(size
 {
   auto & contours = m_activeContours[levelInd];
   for (auto it = contours.begin(); it != contours.end(); ++it)
-  {
     if (it->m_countour.back().EqualDxDy(pos, mercator::kPointEqualityEps))
       return it;
-  }
   return contours.end();
 }
 }  // namespace topography_generator

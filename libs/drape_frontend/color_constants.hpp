@@ -19,4 +19,4 @@ void LoadTransitColors();
 
 ColorConstant GetTransitColorName(ColorConstant const & localName);
 ColorConstant GetTransitTextColorName(ColorConstant const & localName);
-} //  namespace df
+}  //  namespace df

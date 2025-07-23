@@ -14,15 +14,9 @@ using RoadType = RoutingOptions::RoadType;
 class RoutingOptionsTests
 {
 public:
-  RoutingOptionsTests()
-  {
-    m_savedOptions = RoutingOptions::LoadCarOptionsFromSettings();
-  }
+  RoutingOptionsTests() { m_savedOptions = RoutingOptions::LoadCarOptionsFromSettings(); }
 
-  ~RoutingOptionsTests()
-  {
-    RoutingOptions::SaveCarOptionsToSettings(m_savedOptions);
-  }
+  ~RoutingOptionsTests() { RoutingOptions::SaveCarOptionsToSettings(m_savedOptions); }
 
 private:
   RoutingOptions m_savedOptions;
@@ -60,12 +54,10 @@ void Checker(std::vector<RoutingOptions::Road> const & include)
 
 UNIT_TEST(RoutingOptionTest)
 {
-  Checker({RoutingOptions::Road::Toll, RoutingOptions::Road::Motorway,
-           RoutingOptions::Road::Dirty});
+  Checker({RoutingOptions::Road::Toll, RoutingOptions::Road::Motorway, RoutingOptions::Road::Dirty});
   Checker({RoutingOptions::Road::Toll, RoutingOptions::Road::Dirty});
 
-  Checker({RoutingOptions::Road::Toll, RoutingOptions::Road::Ferry,
-           RoutingOptions::Road::Dirty});
+  Checker({RoutingOptions::Road::Toll, RoutingOptions::Road::Ferry, RoutingOptions::Road::Dirty});
 
   Checker({RoutingOptions::Road::Dirty});
   Checker({RoutingOptions::Road::Toll});
@@ -75,9 +67,8 @@ UNIT_TEST(RoutingOptionTest)
 
 UNIT_CLASS_TEST(RoutingOptionsTests, GetSetTest)
 {
-  RoutingOptions options = CreateOptions({RoutingOptions::Road::Toll,
-                                          RoutingOptions::Road::Motorway,
-                                          RoutingOptions::Road::Dirty});
+  RoutingOptions options =
+      CreateOptions({RoutingOptions::Road::Toll, RoutingOptions::Road::Motorway, RoutingOptions::Road::Dirty});
 
   RoutingOptions::SaveCarOptionsToSettings(options);
   RoutingOptions fromSettings = RoutingOptions::LoadCarOptionsFromSettings();

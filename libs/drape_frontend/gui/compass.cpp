@@ -22,9 +22,7 @@ namespace
 {
 struct CompassVertex
 {
-  CompassVertex(glsl::vec2 const & position, glsl::vec2 const & texCoord)
-    : m_position(position)
-    , m_texCoord(texCoord)
+  CompassVertex(glsl::vec2 const & position, glsl::vec2 const & texCoord) : m_position(position), m_texCoord(texCoord)
   {}
 
   glsl::vec2 m_position;
@@ -36,8 +34,7 @@ class CompassHandle : public TappableHandle
   using TBase = TappableHandle;
 
 public:
-  CompassHandle(uint32_t id, m2::PointF const & pivot, m2::PointF const & size,
-                Shape::TTapHandler const & tapHandler)
+  CompassHandle(uint32_t id, m2::PointF const & pivot, m2::PointF const & size, Shape::TTapHandler const & tapHandler)
     : TappableHandle(id, dp::Center, pivot, size)
     , m_tapHandler(tapHandler)
     , m_animation(false, 0.25)
@@ -100,13 +97,10 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context, ref
   auto const texRect = region.GetTexRect();
 
   ASSERT_EQUAL(m_position.m_anchor, dp::Center, ());
-  CompassVertex vertexes[] =
-  {
-    CompassVertex(glsl::vec2(-halfSize.x, halfSize.y), glsl::ToVec2(texRect.LeftTop())),
-    CompassVertex(glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom())),
-    CompassVertex(glsl::vec2(halfSize.x, halfSize.y), glsl::ToVec2(texRect.RightTop())),
-    CompassVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
-  };
+  CompassVertex vertexes[] = {CompassVertex(glsl::vec2(-halfSize.x, halfSize.y), glsl::ToVec2(texRect.LeftTop())),
+                              CompassVertex(glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom())),
+                              CompassVertex(glsl::vec2(halfSize.x, halfSize.y), glsl::ToVec2(texRect.RightTop())),
+                              CompassVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))};
 
   auto state = df::CreateRenderState(gpu::Program::TexturingGui, df::DepthLayer::GuiLayer);
   state.SetColorTexture(region.GetTexture());
@@ -132,9 +126,8 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context, ref
 
   provider.InitStream(0, info, make_ref(&vertexes));
 
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(EGuiHandle::GuiHandleCompass,
-                                                                      m_position.m_pixelPivot,
-                                                                      region.GetPixelSize(), tapHandler);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CompassHandle>(
+      EGuiHandle::GuiHandleCompass, m_position.m_pixelPivot, region.GetPixelSize(), tapHandler);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);

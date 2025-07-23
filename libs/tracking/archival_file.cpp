@@ -71,9 +71,8 @@ std::vector<std::string> FilesAccumulator::PrepareArchives(std::string const & p
     {
       if (it.second.m_files.empty())
         continue;
-      std::string const archivePath =
-          base::JoinPath(path, base::GetNameFromFullPathWithoutExt(it.second.m_files[0]) +
-                                   ARCHIVE_TRACKS_ZIPPED_FILE_EXTENSION);
+      std::string const archivePath = base::JoinPath(
+          path, base::GetNameFromFullPathWithoutExt(it.second.m_files[0]) + ARCHIVE_TRACKS_ZIPPED_FILE_EXTENSION);
 
       if (CreateZipFromFiles(it.second.m_files, archivePath, CompressionLevel::NoCompression))
         archives.emplace_back(archivePath);
@@ -89,10 +88,8 @@ std::vector<std::string> FilesAccumulator::PrepareArchives(std::string const & p
 void FilesAccumulator::DeleteProcessedFiles()
 {
   for (auto const & it : m_filesByType)
-  {
     for (auto const & file : it.second.m_files)
       base::DeleteFileX(file);
-  }
 }
 
 std::string GetArchiveFilename(uint8_t protocolVersion, std::chrono::seconds timestamp,
@@ -101,9 +98,8 @@ std::string GetArchiveFilename(uint8_t protocolVersion, std::chrono::seconds tim
   std::string filename;
   size_t constexpr kTrackFilenameSize = 20;
   filename.reserve(kTrackFilenameSize);  // All filename parts have fixed length.
-  filename = std::to_string(protocolVersion) + kDelimiter + std::to_string(timestamp.count()) +
-             kDelimiter + std::to_string(static_cast<uint8_t>(trackType)) +
-             ARCHIVE_TRACKS_FILE_EXTENSION;
+  filename = std::to_string(protocolVersion) + kDelimiter + std::to_string(timestamp.count()) + kDelimiter +
+             std::to_string(static_cast<uint8_t>(trackType)) + ARCHIVE_TRACKS_FILE_EXTENSION;
   CHECK_EQUAL(filename.size(), kTrackFilenameSize, ());
   return filename;
 }
@@ -123,10 +119,8 @@ FileInfo ParseArchiveFilename(std::string const & fileName)
   {
     FileInfo res;
     res.m_protocolVersion = static_cast<uint32_t>(std::stoul(metaData.substr(0, indexFirstDelim)));
-    res.m_timestamp =
-        std::stoul(metaData.substr(indexFirstDelim + 1, indexLastDelim - indexFirstDelim - 1));
-    res.m_trackType =
-        static_cast<routing::RouterType>(std::stoul(metaData.substr(indexLastDelim + 1)));
+    res.m_timestamp = std::stoul(metaData.substr(indexFirstDelim + 1, indexLastDelim - indexFirstDelim - 1));
+    res.m_trackType = static_cast<routing::RouterType>(std::stoul(metaData.substr(indexLastDelim + 1)));
     return res;
   }
   catch (std::exception const & e)

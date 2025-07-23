@@ -29,8 +29,8 @@ bool IsEqual(m2::PointD const & p1, m2::PointD const & p2)
 
 bool IsEqual(m2::RectD const & r1, m2::RectD const & r2)
 {
-  return (IsEqual(r1.minX(), r2.minX()) && IsEqual(r1.minY(), r2.minY()) &&
-          IsEqual(r1.maxX(), r2.maxX()) && IsEqual(r1.maxY(), r2.maxY()));
+  return (IsEqual(r1.minX(), r2.minX()) && IsEqual(r1.minY(), r2.minY()) && IsEqual(r1.maxX(), r2.maxX()) &&
+          IsEqual(r1.maxY(), r2.maxY()));
 }
 }  // namespace
 

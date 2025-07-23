@@ -5,8 +5,8 @@
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 #include "coding/memory_region.hpp"
 #include "coding/reader.hpp"
 #include "coding/simple_dense_coding.hpp"
@@ -21,7 +21,6 @@
 
 #include "defines.hpp"
 
-
 namespace search
 {
 using namespace std;
@@ -31,8 +30,7 @@ namespace
 size_t constexpr kVersionOffset = 0;
 size_t constexpr kHeaderSize = 8;
 
-unique_ptr<CopiedMemoryRegion> GetMemoryRegionForTag(FilesContainerR const & rcont,
-                                                     FilesContainerBase::Tag const & tag)
+unique_ptr<CopiedMemoryRegion> GetMemoryRegionForTag(FilesContainerR const & rcont, FilesContainerBase::Tag const & tag)
 {
   if (!rcont.IsExist(tag))
     return {};
@@ -66,7 +64,7 @@ public:
   {
     // i can be greater than Size() for features created by user in the Editor.
     // May be there is a better way to inject this code. Without this check search engine crashes here.
-    //ASSERT_LESS(i, Size(), ());
+    // ASSERT_LESS(i, Size(), ());
     if (i >= Size())
       return kNoRank;
 
@@ -88,7 +86,8 @@ public:
   }
 
   // Loads RankTableV0 from a raw memory region.
-  template <class TRegion> static unique_ptr<RankTableV0> Load(unique_ptr<TRegion> && region)
+  template <class TRegion>
+  static unique_ptr<RankTableV0> Load(unique_ptr<TRegion> && region)
   {
     auto table = make_unique<RankTableV0>();
     table->m_region = std::move(region);
@@ -185,8 +184,7 @@ void SearchRankTableBuilder::CalcSearchRanks(FilesContainerR & rcont, vector<uin
   feature::DataHeader header(rcont);
   FeaturesVector featuresVector(rcont, header, nullptr, nullptr);
 
-  featuresVector.ForEach(
-      [&ranks](FeatureType & ft, uint32_t /* index */) { ranks.push_back(CalcSearchRank(ft)); });
+  featuresVector.ForEach([&ranks](FeatureType & ft, uint32_t /* index */) { ranks.push_back(CalcSearchRank(ft)); });
 }
 
 // static
@@ -213,8 +211,7 @@ bool SearchRankTableBuilder::CreateIfNotExists(string const & mapPath) noexcept
 }
 
 // static
-void RankTableBuilder::Create(vector<uint8_t> const & ranks, FilesContainerW & wcont,
-                              string const & sectionName)
+void RankTableBuilder::Create(vector<uint8_t> const & ranks, FilesContainerW & wcont, string const & sectionName)
 {
   RankTableV0 table(ranks);
   SerializeRankTable(table, wcont, sectionName);

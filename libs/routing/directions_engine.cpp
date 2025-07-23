@@ -21,14 +21,13 @@ namespace
 {
 bool IsFakeFeature(uint32_t featureId)
 {
-  return routing::FakeFeatureIds::IsGuidesFeature(featureId) ||
-         routing::FakeFeatureIds::IsTransitFeature(featureId);
+  return routing::FakeFeatureIds::IsGuidesFeature(featureId) || routing::FakeFeatureIds::IsTransitFeature(featureId);
 }
 
 feature::Metadata::EType GetLanesMetadataTag(FeatureType & ft, bool isForward)
 {
-  auto directionTag = isForward ? feature::Metadata::FMD_TURN_LANES_FORWARD
-                                : feature::Metadata::FMD_TURN_LANES_BACKWARD;
+  auto directionTag =
+      isForward ? feature::Metadata::FMD_TURN_LANES_FORWARD : feature::Metadata::FMD_TURN_LANES_BACKWARD;
   if (ft.HasMetadata(directionTag))
     return directionTag;
   return feature::Metadata::FMD_TURN_LANES;
@@ -42,7 +41,8 @@ void LoadLanes(LoadedPathSegment & pathSegment, FeatureType & ft, bool isForward
 }  // namespace
 
 DirectionsEngine::DirectionsEngine(MwmDataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds)
-  : m_dataSource(dataSource), m_numMwmIds(numMwmIds)
+  : m_dataSource(dataSource)
+  , m_numMwmIds(numMwmIds)
   , m_linkChecker(IsLinkChecker::Instance())
   , m_roundAboutChecker(IsRoundAboutChecker::Instance())
   , m_onewayChecker(IsOneWayChecker::Instance())
@@ -63,8 +63,7 @@ unique_ptr<FeatureType> DirectionsEngine::GetFeature(FeatureID const & featureId
   return m_dataSource.GetFeature(featureId);
 }
 
-void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
-                                          LoadedPathSegment & pathSegment, bool isForward)
+void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment, bool isForward)
 {
   if (!featureId.IsValid())
     return;
@@ -93,16 +92,14 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId,
   pathSegment.m_roadNameInfo.m_name = ft->GetName(StringUtf8Multilang::kDefaultCode);
 }
 
-void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges,
-                                                       Edge const & inEdge, uint32_t startSegId,
-                                                       uint32_t endSegId,
-                                                       SegmentRange & segmentRange,
-                                                       TurnCandidates & outgoingTurns)
+void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT const & outgoingEdges, Edge const & inEdge,
+                                                       uint32_t startSegId, uint32_t endSegId,
+                                                       SegmentRange & segmentRange, TurnCandidates & outgoingTurns)
 {
   outgoingTurns.isCandidatesAngleValid = true;
   outgoingTurns.candidates.reserve(outgoingEdges.size());
-  segmentRange = SegmentRange(inEdge.GetFeatureId(), startSegId, endSegId, inEdge.IsForward(),
-                              inEdge.GetStartPoint(), inEdge.GetEndPoint());
+  segmentRange = SegmentRange(inEdge.GetFeatureId(), startSegId, endSegId, inEdge.IsForward(), inEdge.GetStartPoint(),
+                              inEdge.GetEndPoint());
   CHECK(segmentRange.IsCorrect(), ());
   m2::PointD const & ingoingPoint = inEdge.GetStartJunction().GetPoint();
   m2::PointD const & junctionPoint = inEdge.GetEndJunction().GetPoint();
@@ -127,8 +124,8 @@ void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT con
     {
       ASSERT_LESS(mercator::DistanceOnEarth(junctionPoint, edge.GetStartJunction().GetPoint()),
                   turns::kFeaturesNearTurnMeters, ());
-      angle = math::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint,
-                                                           edge.GetEndJunction().GetPoint()));
+      angle =
+          math::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, edge.GetEndJunction().GetPoint()));
     }
     else
     {
@@ -140,20 +137,18 @@ void DirectionsEngine::GetSegmentRangeAndAdjacentEdges(IRoadGraph::EdgeListT con
       outgoingTurns.isCandidatesAngleValid = false;
     }
 
-    outgoingTurns.candidates.emplace_back(angle, ConvertEdgeToSegment(*m_numMwmIds, edge),
-                                          highwayClass, m_linkChecker(types));
+    outgoingTurns.candidates.emplace_back(angle, ConvertEdgeToSegment(*m_numMwmIds, edge), highwayClass,
+                                          m_linkChecker(types));
   }
 
   if (outgoingTurns.isCandidatesAngleValid)
-  {
-    sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(),
-         base::LessBy(&TurnCandidate::m_angle));
-  }
+    sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), base::LessBy(&TurnCandidate::m_angle));
 }
 
-void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
-    IndexRoadGraph const & graph, vector<geometry::PointWithAltitude> const & path,
-    IRoadGraph::EdgeVector const & routeEdges, base::Cancellable const & cancellable)
+void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const & graph,
+                                                           vector<geometry::PointWithAltitude> const & path,
+                                                           IRoadGraph::EdgeVector const & routeEdges,
+                                                           base::Cancellable const & cancellable)
 {
   size_t const pathSize = path.size();
   CHECK_GREATER(pathSize, 1, ());
@@ -219,8 +214,8 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
       /// @todo By VNG: Here was mostly investigational CHECK.
       /// Entry already exists, when start-end points are on the same fake segments.
 
-      //bool const isEmpty = adjacentEdges.m_outgoingTurns.candidates.empty();
-      //CHECK(m_adjacentEdges.emplace(segmentRange, std::move(adjacentEdges)).second || isEmpty, ());
+      // bool const isEmpty = adjacentEdges.m_outgoingTurns.candidates.empty();
+      // CHECK(m_adjacentEdges.emplace(segmentRange, std::move(adjacentEdges)).second || isEmpty, ());
       m_adjacentEdges.emplace(segmentRange, std::move(adjacentEdges));
     }
 
@@ -232,10 +227,8 @@ void DirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
   }
 }
 
-bool DirectionsEngine::Generate(IndexRoadGraph const & graph,
-                                vector<geometry::PointWithAltitude> const & path,
-                                base::Cancellable const & cancellable,
-                                vector<RouteSegment> & routeSegments)
+bool DirectionsEngine::Generate(IndexRoadGraph const & graph, vector<geometry::PointWithAltitude> const & path,
+                                base::Cancellable const & cancellable, vector<RouteSegment> & routeSegments)
 {
   CHECK(m_numMwmIds, ());
 
@@ -324,10 +317,10 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
 
   RoutingSettings const vehicleSettings = GetRoutingSettings(m_vehicleType);
 
-  auto const & loadedSegments = result.GetSegments(); // the same as m_pathSegments
+  auto const & loadedSegments = result.GetSegments();  // the same as m_pathSegments
 
   // First point of first loadedSegment is ignored. This is the reason for:
-  //ASSERT_EQUAL(loadedSegments.front().m_path.back(), loadedSegments.front().m_path.front(), ());
+  // ASSERT_EQUAL(loadedSegments.front().m_path.back(), loadedSegments.front().m_path.front(), ());
 
   size_t skipTurnSegments = 0;
   for (size_t idxLoadedSegment = 0; idxLoadedSegment < loadedSegments.size(); ++idxLoadedSegment)
@@ -345,7 +338,7 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
       auto const & junction = loadedSegment.m_path[i + 1];
       routeSegments.emplace_back(loadedSegment.m_segments[i], TurnItem(), junction, rni);
       if (i == 0)
-        rni = {"","","","", "", loadedSegment.m_isLink};
+        rni = {"", "", "", "", "", loadedSegment.m_isLink};
     }
 
     // For the last segment of current loadedSegment put info about turn
@@ -362,8 +355,8 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
     routeSegments.emplace_back(loadedSegment.m_segments.back(), turnItem, loadedSegment.m_path.back(), rni);
   }
 
-  //ASSERT_EQUAL(routeSegments.front().GetJunction(), result.GetStartPoint(), ());
-  //ASSERT_EQUAL(routeSegments.back().GetJunction(), result.GetEndPoint(), ());
+  // ASSERT_EQUAL(routeSegments.front().GetJunction(), result.GetStartPoint(), ());
+  // ASSERT_EQUAL(routeSegments.back().GetJunction(), result.GetEndPoint(), ());
 
   FixupTurns(routeSegments);
 }

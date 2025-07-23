@@ -32,6 +32,6 @@ private:
   GoogleResponse MakeRequest(Params const & params, int32_t startTimeZoneUTC) const;
   std::string GetDirectionsURL(Params const & params, int32_t startTimeZoneUTC) const;
 };
-}  // namespace mapbox
+}  // namespace google
 }  // namespace api
 }  // namespace routing_quality

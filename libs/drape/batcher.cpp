@@ -14,8 +14,7 @@ namespace dp
 class Batcher::CallbacksWrapper : public BatchCallbacks
 {
 public:
-  CallbacksWrapper(RenderState const & state, ref_ptr<OverlayHandle> overlay,
-                   ref_ptr<Batcher> batcher)
+  CallbacksWrapper(RenderState const & state, ref_ptr<OverlayHandle> overlay, ref_ptr<Batcher> batcher)
     : m_state(state)
     , m_overlay(overlay)
     , m_batcher(batcher)
@@ -32,8 +31,7 @@ public:
     m_indicesRange.m_idxStart = m_buffer->GetIndexCount();
   }
 
-  void FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & info,
-                 void const * data, uint32_t count) override
+  void FlushData(ref_ptr<GraphicsContext> context, BindingInfo const & info, void const * data, uint32_t count) override
   {
     if (m_overlay != nullptr && info.IsDynamic())
     {
@@ -63,25 +61,13 @@ public:
       m_buffer->UploadIndices(context, m_indexStorage.GetRawConst(), m_indexStorage.Size());
   }
 
-  uint32_t GetAvailableVertexCount() const override
-  {
-    return m_buffer->GetAvailableVertexCount();
-  }
+  uint32_t GetAvailableVertexCount() const override { return m_buffer->GetAvailableVertexCount(); }
 
-  uint32_t GetAvailableIndexCount() const override
-  {
-    return m_buffer->GetAvailableIndexCount();
-  }
+  uint32_t GetAvailableIndexCount() const override { return m_buffer->GetAvailableIndexCount(); }
 
-  void ChangeBuffer(ref_ptr<GraphicsContext> context) override
-  {
-    m_batcher->ChangeBuffer(context, make_ref(this));
-  }
+  void ChangeBuffer(ref_ptr<GraphicsContext> context) override { m_batcher->ChangeBuffer(context, make_ref(this)); }
 
-  RenderState const & GetState() const
-  {
-    return m_state;
-  }
+  RenderState const & GetState() const { return m_state; }
 
   IndicesRange const & Finish()
   {
@@ -119,13 +105,10 @@ void Batcher::InsertTriangleList(ref_ptr<GraphicsContext> context, RenderState c
   InsertTriangleList(context, state, params, nullptr);
 }
 
-IndicesRange Batcher::InsertTriangleList(ref_ptr<GraphicsContext> context,
-                                         RenderState const & state,
-                                         ref_ptr<AttributeProvider> params,
-                                         drape_ptr<OverlayHandle> && handle)
+IndicesRange Batcher::InsertTriangleList(ref_ptr<GraphicsContext> context, RenderState const & state,
+                                         ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle)
 {
-  return InsertPrimitives<TriangleListBatch>(context, state, params, std::move(handle),
-                                             0 /* vertexStride */);
+  return InsertPrimitives<TriangleListBatch>(context, state, params, std::move(handle), 0 /* vertexStride */);
 }
 
 void Batcher::InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
@@ -134,13 +117,10 @@ void Batcher::InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState 
   InsertTriangleStrip(context, state, params, nullptr);
 }
 
-IndicesRange Batcher::InsertTriangleStrip(ref_ptr<GraphicsContext> context,
-                                          RenderState const & state,
-                                          ref_ptr<AttributeProvider> params,
-                                          drape_ptr<OverlayHandle> && handle)
+IndicesRange Batcher::InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
+                                          ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle)
 {
-  return InsertPrimitives<TriangleStripBatch>(context, state, params, std::move(handle),
-                                              0 /* vertexStride */);
+  return InsertPrimitives<TriangleStripBatch>(context, state, params, std::move(handle), 0 /* vertexStride */);
 }
 
 void Batcher::InsertTriangleFan(ref_ptr<GraphicsContext> context, RenderState const & state,
@@ -150,11 +130,9 @@ void Batcher::InsertTriangleFan(ref_ptr<GraphicsContext> context, RenderState co
 }
 
 IndicesRange Batcher::InsertTriangleFan(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                        ref_ptr<AttributeProvider> params,
-                                        drape_ptr<OverlayHandle> && handle)
+                                        ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle)
 {
-  return InsertPrimitives<TriangleFanBatch>(context, state, params, std::move(handle),
-                                            0 /* vertexStride */);
+  return InsertPrimitives<TriangleFanBatch>(context, state, params, std::move(handle), 0 /* vertexStride */);
 }
 
 void Batcher::InsertListOfStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
@@ -164,11 +142,10 @@ void Batcher::InsertListOfStrip(ref_ptr<GraphicsContext> context, RenderState co
 }
 
 IndicesRange Batcher::InsertListOfStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                        ref_ptr<AttributeProvider> params,
-                                        drape_ptr<OverlayHandle> && handle, uint8_t vertexStride)
+                                        ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle,
+                                        uint8_t vertexStride)
 {
-  return InsertPrimitives<TriangleListOfStripBatch>(context, state, params, std::move(handle),
-                                                    vertexStride);
+  return InsertPrimitives<TriangleListOfStripBatch>(context, state, params, std::move(handle), vertexStride);
 }
 
 void Batcher::InsertLineStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
@@ -178,11 +155,9 @@ void Batcher::InsertLineStrip(ref_ptr<GraphicsContext> context, RenderState cons
 }
 
 IndicesRange Batcher::InsertLineStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                      ref_ptr<AttributeProvider> params,
-                                      drape_ptr<OverlayHandle> && handle)
+                                      ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle)
 {
-  return InsertPrimitives<LineStripBatch>(context, state, params, std::move(handle),
-                                          0 /* vertexStride */);
+  return InsertPrimitives<LineStripBatch>(context, state, params, std::move(handle), 0 /* vertexStride */);
 }
 
 void Batcher::InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state,
@@ -195,8 +170,7 @@ IndicesRange Batcher::InsertLineRaw(ref_ptr<GraphicsContext> context, RenderStat
                                     ref_ptr<AttributeProvider> params, std::vector<int> const & indices,
                                     drape_ptr<OverlayHandle> && handle)
 {
-  return InsertPrimitives<LineRawBatch>(context, state, params, std::move(handle),
-                                        0 /* vertexStride */, indices);
+  return InsertPrimitives<LineRawBatch>(context, state, params, std::move(handle), 0 /* vertexStride */, indices);
 }
 
 void Batcher::StartSession(TFlushFn && flusher)
@@ -244,9 +218,8 @@ ref_ptr<RenderBucket> Batcher::GetBucket(RenderState const & state)
   auto res = m_buckets.insert({state, nullptr});
   if (res.second)
   {
-    drape_ptr<VertexArrayBuffer> vao = make_unique_dp<VertexArrayBuffer>(m_indexBufferSize,
-                                                                         m_vertexBufferSize,
-                                                                         m_batcherHash);
+    drape_ptr<VertexArrayBuffer> vao =
+        make_unique_dp<VertexArrayBuffer>(m_indexBufferSize, m_vertexBufferSize, m_batcherHash);
     drape_ptr<RenderBucket> buffer = make_unique_dp<RenderBucket>(std::move(vao));
     buffer->SetFeatureMinZoom(m_featureMinZoom);
     res.first->second = std::move(buffer);
@@ -281,8 +254,7 @@ void Batcher::Flush(ref_ptr<GraphicsContext> context)
 
 template <typename TBatcher, typename... TArgs>
 IndicesRange Batcher::InsertPrimitives(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                       ref_ptr<AttributeProvider> params,
-                                       drape_ptr<OverlayHandle> && transferHandle,
+                                       ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && transferHandle,
                                        uint8_t vertexStride, TArgs... batcherArgs)
 {
   ref_ptr<VertexArrayBuffer> vao = GetBucket(state)->GetBuffer();
@@ -294,7 +266,7 @@ IndicesRange Batcher::InsertPrimitives(ref_ptr<GraphicsContext> context, RenderS
     Batcher::CallbacksWrapper wrapper(state, make_ref(handle), make_ref(this));
     wrapper.SetVAO(vao);
 
-    TBatcher batch(wrapper, batcherArgs ...);
+    TBatcher batch(wrapper, batcherArgs...);
     batch.SetCanDivideStreams(handle == nullptr);
     batch.SetVertexStride(vertexStride);
     batch.BatchData(context, params);
@@ -313,8 +285,7 @@ Batcher * BatcherFactory::GetNew() const
   return new Batcher(m_indexBufferSize, m_vertexBufferSize);
 }
 
-SessionGuard::SessionGuard(ref_ptr<GraphicsContext> context, Batcher & batcher,
-                           Batcher::TFlushFn && flusher)
+SessionGuard::SessionGuard(ref_ptr<GraphicsContext> context, Batcher & batcher, Batcher::TFlushFn && flusher)
   : m_context(context)
   , m_batcher(batcher)
 {

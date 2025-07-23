@@ -28,10 +28,10 @@ PlaceBoundariesHolder::Locality::Locality(std::string const & placeType, OsmElem
   , m_name(elem.GetTag("name"))
   , m_population(osm_element::GetPopulation(elem))
   , m_place(ftypes::LocalityFromString(placeType))
-{
-}
+{}
 
-template <class Sink> void PlaceBoundariesHolder::Locality::Serialize(Sink & sink) const
+template <class Sink>
+void PlaceBoundariesHolder::Locality::Serialize(Sink & sink) const
 {
   CHECK(TestValid(), ());
 
@@ -49,7 +49,8 @@ template <class Sink> void PlaceBoundariesHolder::Locality::Serialize(Sink & sin
     rw::WriteVectorOfPOD(sink, e);
 }
 
-template <class Source> void PlaceBoundariesHolder::Locality::Deserialize(Source & src)
+template <class Source>
+void PlaceBoundariesHolder::Locality::Deserialize(Source & src)
 {
   m_place = static_cast<LocalityType>(ReadPrimitiveFromSource<int8_t>(src));
   m_placeFromNode = static_cast<LocalityType>(ReadPrimitiveFromSource<int8_t>(src));
@@ -228,8 +229,8 @@ int PlaceBoundariesHolder::GetIndex(IDType id) const
   return -1;
 }
 
-PlaceBoundariesHolder::Locality const *
-PlaceBoundariesHolder::GetBestBoundary(std::vector<IDType> const & ids, m2::PointD const & center) const
+PlaceBoundariesHolder::Locality const * PlaceBoundariesHolder::GetBestBoundary(std::vector<IDType> const & ids,
+                                                                               m2::PointD const & center) const
 {
   Locality const * bestLoc = nullptr;
 
@@ -311,8 +312,7 @@ void PlaceBoundariesBuilder::Save(std::string const & fileName)
     for (auto const & relID : ids)
     {
       auto const & loc = m_id2loc[relID];
-      if ((best == nullptr || loc.IsBetterBoundary(*best, e.second.m_name)) &&
-          loc.IsInBoundary(e.second.m_center))
+      if ((best == nullptr || loc.IsBetterBoundary(*best, e.second.m_name)) && loc.IsInBoundary(e.second.m_center))
       {
         best = &loc;
         bestID = relID;
@@ -348,22 +348,20 @@ void PlaceBoundariesBuilder::Save(std::string const & fileName)
 
   // Add remaining localities.
   for (auto & e : m_id2loc)
-  {
     if (e.second.IsHonestCity())
       holder.Add(e.first, std::move(e.second), IDType());
-  }
 
   holder.Serialize(fileName);
 }
 
 // RoutingCityBoundariesCollector ------------------------------------------------------------------
 
-RoutingCityBoundariesCollector::RoutingCityBoundariesCollector(std::string const & filename, IDRInterfacePtr const & cache)
+RoutingCityBoundariesCollector::RoutingCityBoundariesCollector(std::string const & filename,
+                                                               IDRInterfacePtr const & cache)
   : CollectorInterface(filename)
   , m_cache(cache)
   , m_featureMakerSimple(cache)
-{
-}
+{}
 
 std::shared_ptr<CollectorInterface> RoutingCityBoundariesCollector::Clone(IDRInterfacePtr const & cache) const
 {
@@ -425,9 +423,7 @@ void RoutingCityBoundariesCollector::Collect(OsmElement const & elem)
   {
     switch (fb.GetGeomType())
     {
-    case GeomType::Point:
-      loc.m_center = fb.GetKeyPoint();
-      break;
+    case GeomType::Point: loc.m_center = fb.GetKeyPoint(); break;
     case GeomType::Area:
       /// @todo Move geometry or make parsing geometry without FeatureBuilder class.
       loc.m_boundary.push_back(fb.GetOuterGeometry());

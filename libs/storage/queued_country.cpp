@@ -9,9 +9,8 @@
 
 namespace storage
 {
-QueuedCountry::QueuedCountry(platform::CountryFile const & countryFile, CountryId const & countryId,
-                             MapFileType type, int64_t currentDataVersion,
-                             std::string const & dataDir,
+QueuedCountry::QueuedCountry(platform::CountryFile const & countryFile, CountryId const & countryId, MapFileType type,
+                             int64_t currentDataVersion, std::string const & dataDir,
                              diffs::DiffsSourcePtr const & diffs)
   : m_countryFile(countryFile)
   , m_countryId(countryId)

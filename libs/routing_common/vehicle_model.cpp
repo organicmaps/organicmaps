@@ -28,8 +28,8 @@ SpeedKMpH Max(SpeedKMpH const & lhs, InOutCitySpeedKMpH const & rhs)
 
 VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface, HighwayBasedInfo const & info)
-: m_highwayBasedInfo(info)
-, m_onewayType(ftypes::IsOneWayChecker::Instance().GetType())
+  : m_highwayBasedInfo(info)
+  , m_onewayType(ftypes::IsOneWayChecker::Instance().GetType())
 {
   m_roadTypes.Reserve(featureTypeLimits.size());
   for (auto const & v : featureTypeLimits)
@@ -111,8 +111,7 @@ void VehicleModel::GetSurfaceFactor(uint32_t type, SpeedFactor & factor) const
   ASSERT_GREATER(factor.m_eta, 0.0, ());
 }
 
-void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad,
-                                          optional<SpeedKMpH> & speed) const
+void VehicleModel::GetAdditionalRoadSpeed(uint32_t type, bool isCityRoad, optional<SpeedKMpH> & speed) const
 {
   auto const * s = m_addRoadTypes.Find(type);
   if (s)
@@ -162,8 +161,8 @@ SpeedKMpH VehicleModel::GetTypeSpeedImpl(FeatureTypes const & types, SpeedParams
 
       if (isCar)
       {
-        // Override the global default speed with the MWM's saved default speed if they are not significantly differ (2x),
-        // to avoid anomaly peaks (especially for tracks).
+        // Override the global default speed with the MWM's saved default speed if they are not significantly differ
+        // (2x), to avoid anomaly peaks (especially for tracks).
         /// @todo MWM saved speeds should be validated in generator.
         if (params.m_defSpeedKmPH != kInvalidSpeed &&
             fabs(speed.m_weight - params.m_defSpeedKmPH) / speed.m_weight < 1.0)
@@ -248,11 +247,9 @@ bool VehicleModel::IsRoadImpl(FeatureTypes const & types) const
   return HasRoadType(types);
 }
 
-VehicleModelFactory::VehicleModelFactory(
-    CountryParentNameGetterFn const & countryParentNameGetterFn)
+VehicleModelFactory::VehicleModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
   : m_countryParentNameGetterFn(countryParentNameGetterFn)
-{
-}
+{}
 
 shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModel() const
 {
@@ -261,8 +258,7 @@ shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModel() const
   return itr->second;
 }
 
-shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModelForCountry(
-    string const & country) const
+shared_ptr<VehicleModelInterface> VehicleModelFactory::GetVehicleModelForCountry(string const & country) const
 {
   string parent = country;
   while (!parent.empty())
@@ -287,28 +283,28 @@ string VehicleModelFactory::GetParent(string const & country) const
 HighwayBasedFactors GetOneFactorsForBicycleAndPedestrianModel()
 {
   return HighwayBasedFactors{
-      {HighwayType::HighwayTrunk, InOutCityFactor(1.0)},
-      {HighwayType::HighwayTrunkLink, InOutCityFactor(1.0)},
-      {HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
-      {HighwayType::HighwayPrimaryLink, InOutCityFactor(1.0)},
-      {HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
+      {        HighwayType::HighwayTrunk, InOutCityFactor(1.0)},
+      {    HighwayType::HighwayTrunkLink, InOutCityFactor(1.0)},
+      {      HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
+      {  HighwayType::HighwayPrimaryLink, InOutCityFactor(1.0)},
+      {    HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
       {HighwayType::HighwaySecondaryLink, InOutCityFactor(1.0)},
-      {HighwayType::HighwayTertiary, InOutCityFactor(1.0)},
-      {HighwayType::HighwayTertiaryLink, InOutCityFactor(1.0)},
-      {HighwayType::HighwayService, InOutCityFactor(1.0)},
-      {HighwayType::HighwayUnclassified, InOutCityFactor(1.0)},
-      {HighwayType::HighwayRoad, InOutCityFactor(1.0)},
-      {HighwayType::HighwayTrack, InOutCityFactor(1.0)},
-      {HighwayType::HighwayPath, InOutCityFactor(1.0)},
-      {HighwayType::HighwayBridleway, InOutCityFactor(1.0)},
-      {HighwayType::HighwayCycleway, InOutCityFactor(1.0)},
-      {HighwayType::HighwayResidential, InOutCityFactor(1.0)},
-      {HighwayType::HighwayLivingStreet, InOutCityFactor(1.0)},
-      {HighwayType::HighwaySteps, InOutCityFactor(1.0)},
-      {HighwayType::HighwayPedestrian, InOutCityFactor(1.0)},
-      {HighwayType::HighwayFootway, InOutCityFactor(1.0)},
-      {HighwayType::ManMadePier, InOutCityFactor(1.0)},
-      {HighwayType::RouteFerry, InOutCityFactor(1.0)},
+      {     HighwayType::HighwayTertiary, InOutCityFactor(1.0)},
+      { HighwayType::HighwayTertiaryLink, InOutCityFactor(1.0)},
+      {      HighwayType::HighwayService, InOutCityFactor(1.0)},
+      { HighwayType::HighwayUnclassified, InOutCityFactor(1.0)},
+      {         HighwayType::HighwayRoad, InOutCityFactor(1.0)},
+      {        HighwayType::HighwayTrack, InOutCityFactor(1.0)},
+      {         HighwayType::HighwayPath, InOutCityFactor(1.0)},
+      {    HighwayType::HighwayBridleway, InOutCityFactor(1.0)},
+      {     HighwayType::HighwayCycleway, InOutCityFactor(1.0)},
+      {  HighwayType::HighwayResidential, InOutCityFactor(1.0)},
+      { HighwayType::HighwayLivingStreet, InOutCityFactor(1.0)},
+      {        HighwayType::HighwaySteps, InOutCityFactor(1.0)},
+      {   HighwayType::HighwayPedestrian, InOutCityFactor(1.0)},
+      {      HighwayType::HighwayFootway, InOutCityFactor(1.0)},
+      {         HighwayType::ManMadePier, InOutCityFactor(1.0)},
+      {          HighwayType::RouteFerry, InOutCityFactor(1.0)},
   };
 }
 

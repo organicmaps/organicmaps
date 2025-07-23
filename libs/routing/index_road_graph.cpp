@@ -13,9 +13,10 @@
 namespace routing
 {
 IndexRoadGraph::IndexRoadGraph(IndexGraphStarter & starter, std::vector<Segment> const & segments,
-                               std::vector<geometry::PointWithAltitude> const & junctions,
-                               MwmDataSource & dataSource)
-  : m_dataSource(dataSource), m_starter(starter), m_segments(segments)
+                               std::vector<geometry::PointWithAltitude> const & junctions, MwmDataSource & dataSource)
+  : m_dataSource(dataSource)
+  , m_starter(starter)
+  , m_segments(segments)
 {
   //    j0     j1     j2     j3
   //    *--s0--*--s1--*--s2--*
@@ -31,14 +32,12 @@ IndexRoadGraph::IndexRoadGraph(IndexGraphStarter & starter, std::vector<Segment>
   }
 }
 
-void IndexRoadGraph::GetOutgoingEdges(geometry::PointWithAltitude const & junction,
-                                      EdgeListT & edges) const
+void IndexRoadGraph::GetOutgoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges) const
 {
   GetEdges(junction, true, edges);
 }
 
-void IndexRoadGraph::GetIngoingEdges(geometry::PointWithAltitude const & junction,
-                                     EdgeListT & edges) const
+void IndexRoadGraph::GetIngoingEdges(geometry::PointWithAltitude const & junction, EdgeListT & edges) const
 {
   GetEdges(junction, false, edges);
 }
@@ -69,8 +68,7 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
   types = feature::TypesHolder(*ft);
 }
 
-void IndexRoadGraph::GetJunctionTypes(geometry::PointWithAltitude const & junction,
-                                      feature::TypesHolder & types) const
+void IndexRoadGraph::GetJunctionTypes(geometry::PointWithAltitude const & junction, feature::TypesHolder & types) const
 {
   types = feature::TypesHolder();
 }
@@ -82,19 +80,16 @@ void IndexRoadGraph::GetRouteEdges(EdgeVector & edges) const
 
   for (Segment const & segment : m_segments)
   {
-    auto const & junctionFrom =
-        m_starter.GetJunction(segment, false /* front */).ToPointWithAltitude();
-    auto const & junctionTo =
-        m_starter.GetJunction(segment, true /* front */).ToPointWithAltitude();
+    auto const & junctionFrom = m_starter.GetJunction(segment, false /* front */).ToPointWithAltitude();
+    auto const & junctionTo = m_starter.GetJunction(segment, true /* front */).ToPointWithAltitude();
 
     if (IndexGraphStarter::IsFakeSegment(segment) || TransitGraph::IsTransitSegment(segment))
     {
       Segment real = segment;
       if (m_starter.ConvertToReal(real))
       {
-        edges.push_back(Edge::MakeFakeWithRealPart({ m_dataSource.GetMwmId(real.GetMwmId()), real.GetFeatureId() },
-                                                   segment.GetSegmentIdx(),
-                                                   real.IsForward(), real.GetSegmentIdx(),
+        edges.push_back(Edge::MakeFakeWithRealPart({m_dataSource.GetMwmId(real.GetMwmId()), real.GetFeatureId()},
+                                                   segment.GetSegmentIdx(), real.IsForward(), real.GetSegmentIdx(),
                                                    junctionFrom, junctionTo));
       }
       else
@@ -104,14 +99,13 @@ void IndexRoadGraph::GetRouteEdges(EdgeVector & edges) const
     }
     else
     {
-      edges.push_back(Edge::MakeReal({ m_dataSource.GetMwmId(segment.GetMwmId()), segment.GetFeatureId() },
+      edges.push_back(Edge::MakeReal({m_dataSource.GetMwmId(segment.GetMwmId()), segment.GetFeatureId()},
                                      segment.IsForward(), segment.GetSegmentIdx(), junctionFrom, junctionTo));
     }
   }
 }
 
-void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool isOutgoing,
-                              EdgeListT & edges) const
+void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool isOutgoing, EdgeListT & edges) const
 {
   edges.clear();
 
@@ -126,22 +120,21 @@ void IndexRoadGraph::GetEdges(geometry::PointWithAltitude const & junction, bool
       if (IndexGraphStarter::IsFakeSegment(segment))
         continue;
 
-      edges.push_back(Edge::MakeReal({ m_dataSource.GetMwmId(segment.GetMwmId()), segment.GetFeatureId() },
-          segment.IsForward(), segment.GetSegmentIdx(),
-          m_starter.GetJunction(segment, false /* front */).ToPointWithAltitude(),
-          m_starter.GetJunction(segment, true /* front */).ToPointWithAltitude()));
+      edges.push_back(Edge::MakeReal({m_dataSource.GetMwmId(segment.GetMwmId()), segment.GetFeatureId()},
+                                     segment.IsForward(), segment.GetSegmentIdx(),
+                                     m_starter.GetJunction(segment, false /* front */).ToPointWithAltitude(),
+                                     m_starter.GetJunction(segment, true /* front */).ToPointWithAltitude()));
     }
   }
 }
 
-IndexRoadGraph::SegmentListT const & IndexRoadGraph::GetSegments(
-    geometry::PointWithAltitude const & junction, bool isOutgoing) const
+IndexRoadGraph::SegmentListT const & IndexRoadGraph::GetSegments(geometry::PointWithAltitude const & junction,
+                                                                 bool isOutgoing) const
 {
   auto const & junctionToSegment = isOutgoing ? m_endToSegment : m_beginToSegment;
 
   auto const it = junctionToSegment.find(junction);
-  CHECK(it != junctionToSegment.cend(),
-        ("junctionToSegment doesn't contain", junction, ", isOutgoing =", isOutgoing));
+  CHECK(it != junctionToSegment.cend(), ("junctionToSegment doesn't contain", junction, ", isOutgoing =", isOutgoing));
   return it->second;
 }
 }  // namespace routing

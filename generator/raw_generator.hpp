@@ -19,16 +19,14 @@ namespace generator
 class RawGenerator
 {
 public:
-  explicit RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount = 1,
-                        size_t chunkSize = 1024);
+  explicit RawGenerator(feature::GenerateInfo & genInfo, size_t threadsCount = 1, size_t chunkSize = 1024);
 
   void GenerateCountries(bool isTests = false);
   void GenerateWorld(bool cutBordersByWater = true);
   void GenerateCoasts();
   void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator);
-  void GenerateCustom(
-      std::shared_ptr<TranslatorInterface> const & translator,
-      std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor);
+  void GenerateCustom(std::shared_ptr<TranslatorInterface> const & translator,
+                      std::shared_ptr<FinalProcessorIntermediateMwmInterface> const & finalProcessor);
   bool Execute();
   std::vector<std::string> const & GetNames() const { return m_names; }
   std::shared_ptr<FeatureProcessorQueue> GetQueue() { return m_queue; }
@@ -56,9 +54,8 @@ private:
   std::shared_ptr<cache::IntermediateData> m_cache;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<TranslatorCollection> m_translators;
-  std::priority_queue<FinalProcessorPtr, std::vector<FinalProcessorPtr>, FinalProcessorPtrCmp>
-      m_finalProcessors;
+  std::priority_queue<FinalProcessorPtr, std::vector<FinalProcessorPtr>, FinalProcessorPtrCmp> m_finalProcessors;
   std::vector<std::string> m_names;
-  //std::unordered_set<CompositeId> m_hierarchyNodesSet;
+  // std::unordered_set<CompositeId> m_hierarchyNodesSet;
 };
 }  // namespace generator

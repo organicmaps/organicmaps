@@ -56,8 +56,8 @@ public:
   // Maximum result candidates count for each viewport/criteria.
   static size_t const kPreResultsCount;
 
-  Processor(DataSource const & dataSource, CategoriesHolder const & categories,
-            std::vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
+  Processor(DataSource const & dataSource, CategoriesHolder const & categories, std::vector<Suggest> const & suggests,
+            storage::CountryInfoGetter const & infoGetter);
 
   void SetViewport(m2::RectD const & viewport);
   void SetPreferredLocale(std::string const & locale);
@@ -101,10 +101,8 @@ public:
   void OnBookmarksCreated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<bookmarks::Id, bookmarks::Doc>> const & marks);
   void OnBookmarksDeleted(std::vector<bookmarks::Id> const & marks);
-  void OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId,
-                                  std::vector<bookmarks::Id> const & marks);
-  void OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId,
-                                    std::vector<bookmarks::Id> const & marks);
+  void OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId, std::vector<bookmarks::Id> const & marks);
+  void OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId, std::vector<bookmarks::Id> const & marks);
 
   // base::Cancellable overrides:
   void Reset() override;

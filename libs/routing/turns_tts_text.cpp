@@ -16,7 +16,8 @@ namespace routing::turns::sound
 namespace
 {
 
-template <class TIter> std::string DistToTextId(TIter begin, TIter end, uint32_t dist)
+template <class TIter>
+std::string DistToTextId(TIter begin, TIter end, uint32_t dist)
 {
   TIter const it = std::lower_bound(begin, end, dist, [](auto const & p1, uint32_t p2) { return p1.first < p2; });
   if (it == end)
@@ -98,8 +99,8 @@ void FormatFullRoadName(RouteSegment::RoadNameInfo & road, std::string & name)
 
 std::string GetTtsText::GetTurnNotification(Notification const & notification) const
 {
-  const std::string localeKey = GetLocale();
-  const std::string dirKey = GetDirectionTextId(notification);
+  std::string const localeKey = GetLocale();
+  std::string const dirKey = GetDirectionTextId(notification);
   std::string dirStr = GetTextByIdTrimmed(dirKey);
 
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance &&
@@ -108,8 +109,7 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
 
   if (notification.IsPedestrianNotification())
   {
-    if (notification.m_useThenInsteadOfDistance &&
-        notification.m_turnDirPedestrian == PedestrianDirection::None)
+    if (notification.m_useThenInsteadOfDistance && notification.m_turnDirPedestrian == PedestrianDirection::None)
       return {};
   }
 
@@ -198,8 +198,9 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
         strings::ReplaceLast(distDirOntoStreetStr, "-re", "");  // clear it
 
       // if the first pronounceable character of the street is a vowel, use "az" instead of "a"
-      // 1, 5, and 1000 start with vowels but not 10 or 100 (numbers are combined as in English: 5*, 5**, 1*, 1**, 1***, etc)
-      static const std::regex rHun("^[5aeiouyáéíóúöüőű]|^1$|^1[^\\d]|^1\\d\\d\\d[^\\d]", std::regex_constants::icase);
+      // 1, 5, and 1000 start with vowels but not 10 or 100 (numbers are combined as in English: 5*, 5**, 1*, 1**, 1***,
+      // etc)
+      static std::regex const rHun("^[5aeiouyáéíóúöüőű]|^1$|^1[^\\d]|^1\\d\\d\\d[^\\d]", std::regex_constants::icase);
       std::smatch ma;
       if (std::regex_search(streetOut, ma, rHun) && ma.size() > 0)
       {
@@ -220,10 +221,10 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
     );
 
     // remove floating punctuation
-    static const std::regex rP(" [,\\.:;]+ ");
+    static std::regex const rP(" [,\\.:;]+ ");
     std::string cleanOut = std::regex_replace(ttsOut, rP, " ");
     // remove repetitious spaces or colons
-    static const std::regex rS("[ :]{2,99}");
+    static std::regex const rS("[ :]{2,99}");
     cleanOut = std::regex_replace(cleanOut, rS, " ");
     // trim leading spaces
     strings::Trim(cleanOut);
@@ -291,8 +292,8 @@ std::string GetTtsText::GetTextById(std::string const & textId) const
 
 std::string GetDistanceTextId(Notification const & notification)
 {
-//  if (notification.m_useThenInsteadOfDistance)
-//    return "then";
+  //  if (notification.m_useThenInsteadOfDistance)
+  //    return "then";
 
   switch (notification.m_lengthUnits)
   {
@@ -300,8 +301,7 @@ std::string GetDistanceTextId(Notification const & notification)
     return DistToTextId(GetAllSoundedDistMeters().cbegin(), GetAllSoundedDistMeters().cend(),
                         notification.m_distanceUnits);
   case measurement_utils::Units::Imperial:
-    return DistToTextId(GetAllSoundedDistFeet().cbegin(), GetAllSoundedDistFeet().cend(),
-                        notification.m_distanceUnits);
+    return DistToTextId(GetAllSoundedDistFeet().cbegin(), GetAllSoundedDistFeet().cend(), notification.m_distanceUnits);
   }
   ASSERT(false, ());
   return {};
@@ -315,7 +315,7 @@ std::string GetRoundaboutTextId(Notification const & notification)
     return {};
   }
   if (!notification.m_useThenInsteadOfDistance)
-    return "leave_the_roundabout"; // Notification just before leaving a roundabout.
+    return "leave_the_roundabout";  // Notification just before leaving a roundabout.
 
   static constexpr uint8_t kMaxSoundedExit = 11;
   if (notification.m_exitNum == 0 || notification.m_exitNum > kMaxSoundedExit)
@@ -326,8 +326,7 @@ std::string GetRoundaboutTextId(Notification const & notification)
 
 std::string GetYouArriveTextId(Notification const & notification)
 {
-  if (!notification.IsPedestrianNotification() &&
-      notification.m_turnDir != CarDirection::ReachedYourDestination)
+  if (!notification.IsPedestrianNotification() && notification.m_turnDir != CarDirection::ReachedYourDestination)
   {
     ASSERT(false, ());
     return {};
@@ -362,38 +361,24 @@ std::string GetDirectionTextId(Notification const & notification)
 
   switch (notification.m_turnDir)
   {
-    case CarDirection::GoStraight:
-      return "go_straight";
-    case CarDirection::TurnRight:
-      return "make_a_right_turn";
-    case CarDirection::TurnSharpRight:
-      return "make_a_sharp_right_turn";
-    case CarDirection::TurnSlightRight:
-      return "make_a_slight_right_turn";
-    case CarDirection::TurnLeft:
-      return "make_a_left_turn";
-    case CarDirection::TurnSharpLeft:
-      return "make_a_sharp_left_turn";
-    case CarDirection::TurnSlightLeft:
-      return "make_a_slight_left_turn";
-    case CarDirection::UTurnLeft:
-    case CarDirection::UTurnRight:
-      return "make_a_u_turn";
-    case CarDirection::EnterRoundAbout:
-      return "enter_the_roundabout";
-    case CarDirection::LeaveRoundAbout:
-      return GetRoundaboutTextId(notification);
-    case CarDirection::ReachedYourDestination:
-      return GetYouArriveTextId(notification);
-    case CarDirection::ExitHighwayToLeft:
-    case CarDirection::ExitHighwayToRight:
-      return "exit";
-    case CarDirection::StayOnRoundAbout:
-    case CarDirection::StartAtEndOfStreet:
-    case CarDirection::None:
-    case CarDirection::Count:
-      ASSERT(false, ());
-      return {};
+  case CarDirection::GoStraight: return "go_straight";
+  case CarDirection::TurnRight: return "make_a_right_turn";
+  case CarDirection::TurnSharpRight: return "make_a_sharp_right_turn";
+  case CarDirection::TurnSlightRight: return "make_a_slight_right_turn";
+  case CarDirection::TurnLeft: return "make_a_left_turn";
+  case CarDirection::TurnSharpLeft: return "make_a_sharp_left_turn";
+  case CarDirection::TurnSlightLeft: return "make_a_slight_left_turn";
+  case CarDirection::UTurnLeft:
+  case CarDirection::UTurnRight: return "make_a_u_turn";
+  case CarDirection::EnterRoundAbout: return "enter_the_roundabout";
+  case CarDirection::LeaveRoundAbout: return GetRoundaboutTextId(notification);
+  case CarDirection::ReachedYourDestination: return GetYouArriveTextId(notification);
+  case CarDirection::ExitHighwayToLeft:
+  case CarDirection::ExitHighwayToRight: return "exit";
+  case CarDirection::StayOnRoundAbout:
+  case CarDirection::StartAtEndOfStreet:
+  case CarDirection::None:
+  case CarDirection::Count: ASSERT(false, ()); return {};
   }
   ASSERT(false, ());
   return {};

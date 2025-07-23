@@ -12,8 +12,8 @@ namespace polyline_tests
 {
 double constexpr kEps = 1e-5;
 
-void TestClosest(std::vector<m2::PointD> const & points, m2::PointD const & point,
-                 double expectedSquaredDist, uint32_t expectedIndex)
+void TestClosest(std::vector<m2::PointD> const & points, m2::PointD const & point, double expectedSquaredDist,
+                 uint32_t expectedIndex)
 {
   auto const closestByPoints = m2::CalcMinSquaredDistance(points.begin(), points.end(), point);
   TEST_ALMOST_EQUAL_ABS(closestByPoints.first, expectedSquaredDist, kEps, ());
@@ -27,7 +27,11 @@ void TestClosest(std::vector<m2::PointD> const & points, m2::PointD const & poin
 
 UNIT_TEST(Rect_PolylineSmokeTest)
 {
-  m2::PolylineD poly = {{0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}};
+  m2::PolylineD poly = {
+      {0.0, 0.0},
+      {1.0, 0.0},
+      {1.0, 1.0}
+  };
   TEST_EQUAL(poly.GetSize(), 3, ());
   TEST_ALMOST_EQUAL_ABS(poly.GetLength(), 2.0, kEps, ());
 
@@ -44,8 +48,14 @@ UNIT_TEST(Rect_PolylineMinDistanceTest)
   // 1 |              |
   //   |              |
   //   0----1----2----3
-  std::vector<m2::PointD> const poly = {{0.0, 1.0}, {0.0, 0.0}, {1.0, 0.0},
-                                        {2.0, 0.0}, {3.0, 0.0}, {3.0, 1.0}};
+  std::vector<m2::PointD> const poly = {
+      {0.0, 1.0},
+      {0.0, 0.0},
+      {1.0, 0.0},
+      {2.0, 0.0},
+      {3.0, 0.0},
+      {3.0, 1.0}
+  };
 
   TestClosest(poly, m2::PointD(0.0, 1.0), 0.0 /* expectedSquaredDist */, 0 /* expectedIndex */);
   TestClosest(poly, m2::PointD(0.0, 0.0), 0.0 /* expectedSquaredDist */, 0 /* expectedIndex */);

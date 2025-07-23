@@ -13,6 +13,7 @@
 class Bookmark : public UserMark
 {
   using Base = UserMark;
+
 public:
   explicit Bookmark(m2::PointD const & ptOrg);
 

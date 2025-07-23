@@ -2,8 +2,7 @@
 
 namespace dp
 {
-std::array<float, 16> MakeProjection(dp::ApiVersion apiVersion, float left, float right,
-                                     float bottom, float top)
+std::array<float, 16> MakeProjection(dp::ApiVersion apiVersion, float left, float right, float bottom, float top)
 {
   std::array<float, 16> result = {};
 

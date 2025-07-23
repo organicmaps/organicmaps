@@ -4,9 +4,7 @@
 
 namespace df
 {
-MessageAcceptor::MessageAcceptor()
-  : m_infinityWaiting(false)
-{}
+MessageAcceptor::MessageAcceptor() : m_infinityWaiting(false) {}
 
 bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
 {

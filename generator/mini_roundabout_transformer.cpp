@@ -45,17 +45,14 @@ feature::FeatureBuilder::PointSeq::iterator GetIterOnRoad(m2::PointD const & poi
                                                           feature::FeatureBuilder::PointSeq & road)
 {
   return std::find_if(road.begin(), road.end(), [&point](m2::PointD const & pointOnRoad)
-  {
-    return AlmostEqualAbs(pointOnRoad, point, kMwmPointAccuracy);
-  });
+  { return AlmostEqualAbs(pointOnRoad, point, kMwmPointAccuracy); });
 }
-} // namespace
+}  // namespace
 
 MiniRoundaboutTransformer::MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
                                                      feature::AffiliationInterface const & affiliation)
   : MiniRoundaboutTransformer(data, affiliation, kDefaultRadiusMeters)
-{
-}
+{}
 
 MiniRoundaboutTransformer::MiniRoundaboutTransformer(std::vector<MiniRoundaboutInfo> const & data,
                                                      feature::AffiliationInterface const & affiliation,
@@ -63,8 +60,7 @@ MiniRoundaboutTransformer::MiniRoundaboutTransformer(std::vector<MiniRoundaboutI
   : m_roundabouts(data)
   , m_radiusMercator(mercator::MetersToMercator(radiusMeters))
   , m_affiliation(&affiliation)
-{
-}
+{}
 
 /// \brief Sets |roadType| with one of |foundTypes| if it is more important.
 /// (E.g. if roundabout connects motorway and tertiary ways, roundabout Feature will have motorway type).
@@ -73,22 +69,14 @@ bool UpdateRoadType(FeatureParams::Types const & foundTypes, uint32_t & roadType
   // Highways are sorted from the most to least important.
   auto const & cl = classif();
   static std::array<uint32_t, 16> const kHighwayTypes = {
-      cl.GetTypeByPath({"highway", "motorway"}),
-      cl.GetTypeByPath({"highway", "motorway_link"}),
-      cl.GetTypeByPath({"highway", "trunk"}),
-      cl.GetTypeByPath({"highway", "trunk_link"}),
-      cl.GetTypeByPath({"highway", "primary"}),
-      cl.GetTypeByPath({"highway", "primary_link"}),
-      cl.GetTypeByPath({"highway", "secondary"}),
-      cl.GetTypeByPath({"highway", "secondary_link"}),
-      cl.GetTypeByPath({"highway", "tertiary"}),
-      cl.GetTypeByPath({"highway", "tertiary_link"}),
-      cl.GetTypeByPath({"highway", "unclassified"}),
-      cl.GetTypeByPath({"highway", "road"}),
-      cl.GetTypeByPath({"highway", "residential"}),
-      cl.GetTypeByPath({"highway", "living_street"}),
-      cl.GetTypeByPath({"highway", "service"}),
-      cl.GetTypeByPath({"highway", "track"}),
+      cl.GetTypeByPath({"highway", "motorway"}),     cl.GetTypeByPath({"highway", "motorway_link"}),
+      cl.GetTypeByPath({"highway", "trunk"}),        cl.GetTypeByPath({"highway", "trunk_link"}),
+      cl.GetTypeByPath({"highway", "primary"}),      cl.GetTypeByPath({"highway", "primary_link"}),
+      cl.GetTypeByPath({"highway", "secondary"}),    cl.GetTypeByPath({"highway", "secondary_link"}),
+      cl.GetTypeByPath({"highway", "tertiary"}),     cl.GetTypeByPath({"highway", "tertiary_link"}),
+      cl.GetTypeByPath({"highway", "unclassified"}), cl.GetTypeByPath({"highway", "road"}),
+      cl.GetTypeByPath({"highway", "residential"}),  cl.GetTypeByPath({"highway", "living_street"}),
+      cl.GetTypeByPath({"highway", "service"}),      cl.GetTypeByPath({"highway", "track"}),
   };
 
   for (uint32_t t : foundTypes)
@@ -137,8 +125,8 @@ feature::FeatureBuilder MiniRoundaboutTransformer::CreateRoundaboutFb(PointsT &&
 }
 
 MiniRoundaboutTransformer::PointsT MiniRoundaboutTransformer::CreateSurrogateRoad(
-    RoundaboutUnit const & roundaboutOnRoad, PointsT & roundaboutCircle,
-    PointsT & road, PointsT::iterator & itPointUpd) const
+    RoundaboutUnit const & roundaboutOnRoad, PointsT & roundaboutCircle, PointsT & road,
+    PointsT::iterator & itPointUpd) const
 {
   PointsT surrogateRoad(itPointUpd, road.end());
   auto itPointOnSurrogateRoad = surrogateRoad.begin();
@@ -146,8 +134,7 @@ MiniRoundaboutTransformer::PointsT MiniRoundaboutTransformer::CreateSurrogateRoa
   ++itPointOnSurrogateRoad;
 
   m2::PointD const nextPointOnSurrogateRoad = GetPointAtDistFromTarget(
-      *itPointOnSurrogateRoad /* source */, roundaboutOnRoad.m_location /* target */,
-      m_radiusMercator /* dist */);
+      *itPointOnSurrogateRoad /* source */, roundaboutOnRoad.m_location /* target */, m_radiusMercator /* dist */);
 
   if (AlmostEqualAbs(nextPointOnSurrogateRoad, *itPointOnSurrogateRoad, kMwmPointAccuracy))
     return {};
@@ -159,8 +146,8 @@ MiniRoundaboutTransformer::PointsT MiniRoundaboutTransformer::CreateSurrogateRoa
   return surrogateRoad;
 }
 
-bool MiniRoundaboutTransformer::AddRoundaboutToRoad(RoundaboutUnit const & roundaboutOnRoad,
-                                                    PointsT & roundaboutCircle, PointsT & road,
+bool MiniRoundaboutTransformer::AddRoundaboutToRoad(RoundaboutUnit const & roundaboutOnRoad, PointsT & roundaboutCircle,
+                                                    PointsT & road,
                                                     std::vector<feature::FeatureBuilder> & newRoads) const
 {
   auto const roundaboutCenter = roundaboutOnRoad.m_location;
@@ -170,9 +157,8 @@ bool MiniRoundaboutTransformer::AddRoundaboutToRoad(RoundaboutUnit const & round
 
   auto itPointNearRoundabout = itPointUpd;
   bool const isMiddlePoint = MoveIterAwayFromRoundabout(itPointNearRoundabout, road);
-  m2::PointD const nextPointOnRoad =
-      GetPointAtDistFromTarget(*itPointNearRoundabout /* source */, roundaboutCenter /* target */,
-                               m_radiusMercator /* dist */);
+  m2::PointD const nextPointOnRoad = GetPointAtDistFromTarget(
+      *itPointNearRoundabout /* source */, roundaboutCenter /* target */, m_radiusMercator /* dist */);
 
   if (isMiddlePoint && !AlmostEqualAbs(nextPointOnRoad, *itPointNearRoundabout, kMwmPointAccuracy))
   {
@@ -197,12 +183,12 @@ void MiniRoundaboutTransformer::AddRoad(feature::FeatureBuilder && road)
   CHECK(m_roads.emplace(id, std::move(road)).second, ());
 }
 
-void MiniRoundaboutTransformer::ProcessRoundabouts(std::function<void (feature::FeatureBuilder const &)> const & fn)
+void MiniRoundaboutTransformer::ProcessRoundabouts(std::function<void(feature::FeatureBuilder const &)> const & fn)
 {
   // Some mini-roundabouts are mapped in the middle of the road. These roads should be split
   // in two parts on the opposite sides of the roundabout. New roads are saved in |fbsRoads|.
   std::vector<feature::FeatureBuilder> fbsRoads;
-  size_t constexpr kReserveSize = 4*1024;
+  size_t constexpr kReserveSize = 4 * 1024;
   fbsRoads.reserve(kReserveSize);
 
   size_t transformed = 0;
@@ -296,10 +282,12 @@ void MiniRoundaboutTransformer::ProcessRoundabouts(std::function<void (feature::
     fn(fb.second);
 }
 
-double DistanceOnPlain(m2::PointD const & a, m2::PointD const & b) { return a.Length(b); }
+double DistanceOnPlain(m2::PointD const & a, m2::PointD const & b)
+{
+  return a.Length(b);
+}
 
-m2::PointD GetPointAtDistFromTarget(m2::PointD const & source, m2::PointD const & target,
-                                    double dist)
+m2::PointD GetPointAtDistFromTarget(m2::PointD const & source, m2::PointD const & target, double dist)
 {
   double const len = DistanceOnPlain(source, target);
   if (len < dist)
@@ -309,8 +297,8 @@ m2::PointD GetPointAtDistFromTarget(m2::PointD const & source, m2::PointD const 
   return (source + target * k) / (1.0 + k);
 }
 
-std::vector<m2::PointD> PointToPolygon(m2::PointD const & center, double radiusMercator,
-                                       size_t verticesCount, double initAngleDeg)
+std::vector<m2::PointD> PointToPolygon(m2::PointD const & center, double radiusMercator, size_t verticesCount,
+                                       double initAngleDeg)
 {
   CHECK_GREATER(verticesCount, 2, ());
   CHECK_GREATER(radiusMercator, 0.0, ());
@@ -323,8 +311,7 @@ std::vector<m2::PointD> PointToPolygon(m2::PointD const & center, double radiusM
 
   for (size_t i = 0; i < verticesCount; ++i)
   {
-    vertices.emplace_back(center.x + radiusMercator * cos(angle),
-                          center.y + radiusMercator * sin(angle));
+    vertices.emplace_back(center.x + radiusMercator * cos(angle), center.y + radiusMercator * sin(angle));
     angle += kAngularPitch;
   }
 

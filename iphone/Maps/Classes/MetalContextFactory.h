@@ -5,7 +5,7 @@
 #include "drape/metal/metal_base_context.hpp"
 #include "drape/pointers.hpp"
 
-class MetalContextFactory: public dp::GraphicsContextFactory
+class MetalContextFactory : public dp::GraphicsContextFactory
 {
 public:
   MetalContextFactory(CAMetalLayer * metalLayer, m2::PointU const & screenSize);
@@ -15,7 +15,7 @@ public:
   bool IsUploadContextCreated() const override { return true; }
   void WaitForInitialization(dp::GraphicsContext * context) override {}
   void SetPresentAvailable(bool available) override;
-  
+
 private:
   drape_ptr<dp::metal::MetalBaseContext> m_drawContext;
   drape_ptr<dp::metal::MetalBaseContext> m_uploadContext;

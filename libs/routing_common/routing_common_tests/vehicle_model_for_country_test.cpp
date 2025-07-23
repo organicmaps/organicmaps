@@ -43,8 +43,8 @@ void TestVehicleModelDefault()
   VehicleModelFactoryType vehicleModelFactory = VehicleModelFactoryType(GetRegionParent);
 
   // Use static_pointer_cast here because VehicleModelInterface do not have EqualsForTests method
-  shared_ptr<VehicleModelType> defaultVehicleModelForCountry = static_pointer_cast<VehicleModelType>(
-      vehicleModelFactory.GetVehicleModelForCountry("Nonexistent Country Name"));
+  shared_ptr<VehicleModelType> defaultVehicleModelForCountry =
+      static_pointer_cast<VehicleModelType>(vehicleModelFactory.GetVehicleModelForCountry("Nonexistent Country Name"));
   TEST(defaultVehicleModel->EqualsForTests(*defaultVehicleModelForCountry),
        ("Vehicle model for nonexistent counry is not equal to default."));
 }
@@ -77,8 +77,7 @@ void ParentTest(string child, string parent)
   shared_ptr<VehicleModelType> vehicleModelParent =
       static_pointer_cast<VehicleModelType>(vehicleModelFactory.GetVehicleModelForCountry(parent));
 
-  TEST(vehicleModelChild->EqualsForTests(*vehicleModelParent),
-       ("Can not expand car model for", child, "to", parent));
+  TEST(vehicleModelChild->EqualsForTests(*vehicleModelParent), ("Can not expand car model for", child, "to", parent));
 }
 
 // Test we have default vehicle models for nonexistent(unknown) country
@@ -112,7 +111,7 @@ UNIT_CLASS_TEST(VehicleModelForCountryTest, CarModel_DirectParent)
 UNIT_CLASS_TEST(VehicleModelForCountryTest, BicycleModel_DirectParent)
 {
   // Road types for RF are equal with defaults (speeds are not compared).
-//  TestHaveNondefaultRestrictionForSelectedCountry<BicycleModel, BicycleModelFactory>("Russian Federation");
+  //  TestHaveNondefaultRestrictionForSelectedCountry<BicycleModel, BicycleModelFactory>("Russian Federation");
   ParentTest<BicycleModel, BicycleModelFactory>("Moscow", "Russian Federation");
 }
 
@@ -121,8 +120,7 @@ UNIT_CLASS_TEST(VehicleModelForCountryTest, BicycleModel_DirectParent)
 //    Moscow equals pedestrian model for Russia and it's not default model.
 UNIT_CLASS_TEST(VehicleModelForCountryTest, PedestrianModel_DirectParent)
 {
-  TestHaveNondefaultRestrictionForSelectedCountry<PedestrianModel, PedestrianModelFactory>(
-      "Russian Federation");
+  TestHaveNondefaultRestrictionForSelectedCountry<PedestrianModel, PedestrianModelFactory>("Russian Federation");
   ParentTest<PedestrianModel, PedestrianModelFactory>("Moscow", "Russian Federation");
 }
 
@@ -138,8 +136,7 @@ UNIT_CLASS_TEST(VehicleModelForCountryTest, CarModel_InirectParent)
 // San Francisco in GetRegionParent function: San Francisco -> California -> United States of America
 UNIT_CLASS_TEST(VehicleModelForCountryTest, BicycleModel_IndirectParent)
 {
-  TestHaveNondefaultRestrictionForSelectedCountry<BicycleModel, BicycleModelFactory>(
-      "United States of America");
+  TestHaveNondefaultRestrictionForSelectedCountry<BicycleModel, BicycleModelFactory>("United States of America");
   ParentTest<BicycleModel, BicycleModelFactory>("San Francisco", "United States of America");
 }
 
@@ -147,8 +144,7 @@ UNIT_CLASS_TEST(VehicleModelForCountryTest, BicycleModel_IndirectParent)
 // San Francisco in GetRegionParent function: San Francisco -> California -> United States of America
 UNIT_CLASS_TEST(VehicleModelForCountryTest, PedestrianModel_IndirectParent)
 {
-  TestHaveNondefaultRestrictionForSelectedCountry<PedestrianModel, PedestrianModelFactory>(
-      "United States of America");
+  TestHaveNondefaultRestrictionForSelectedCountry<PedestrianModel, PedestrianModelFactory>("United States of America");
   ParentTest<PedestrianModel, PedestrianModelFactory>("San Francisco", "United States of America");
 }
 }  // namespace vehicle_model_for_country_test

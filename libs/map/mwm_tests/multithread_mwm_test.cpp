@@ -9,7 +9,6 @@
 
 #include <algorithm>
 
-
 namespace multithread_mwm_test
 {
 using SourceT = FeaturesFetcher;
@@ -95,4 +94,4 @@ UNIT_TEST(Threading_ForEachFeature)
   RunTest("minsk-pass");
 }
 
-} // namespace multithread_mwm_test
+}  // namespace multithread_mwm_test

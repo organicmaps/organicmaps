@@ -1,16 +1,16 @@
 #pragma once
 
-#include "geometry/rect2d.hpp"
 #include "geometry/packer.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "coding/writer.hpp"
 
 #include "base/base.hpp"
 
-#include <QtGui/QPainter>
-#include <QtGui/QImage>
 #include <QtCore/QFileInfo>
 #include <QtCore/QSize>
+#include <QtGui/QImage>
+#include <QtGui/QPainter>
 #include <QtSvg/QSvgRenderer>
 
 #include <cstdint>
@@ -35,7 +35,9 @@ public:
 
     SymbolInfo() {}
     SymbolInfo(QSize size, QString const & fullFileName, QString const & symbolID)
-      : m_size(size), m_fullFileName(fullFileName), m_symbolID(symbolID)
+      : m_size(size)
+      , m_fullFileName(fullFileName)
+      , m_symbolID(symbolID)
     {}
   };
 
@@ -53,8 +55,7 @@ public:
   };
 
   void ProcessSymbols(std::string const & symbolsDir, std::string const & skinName,
-                      std::vector<QSize> const & symbolSizes,
-                      std::vector<std::string> const & suffix);
+                      std::vector<QSize> const & symbolSizes, std::vector<std::string> const & suffix);
   bool RenderPages(uint32_t maxSize);
   bool WriteToFileNewStyle(std::string const & skinName);
 

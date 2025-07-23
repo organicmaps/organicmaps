@@ -2,8 +2,8 @@
 
 #include "base/logging.hpp"
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace storage
 {
@@ -23,10 +23,8 @@ CountryId GetTopmostParentFor(CountryTree const & countries, CountryId const & c
     CHECK(nodes[0]->HasParent(), ());
     auto const parentId = nodes[0]->Parent().Value().Name();
     for (size_t i = 1; i < nodes.size(); ++i)
-    {
       if (nodes[i]->Parent().Value().Name() != parentId)
         return countryId;
-    }
     return GetTopmostParentFor(countries, parentId);
   }
 
@@ -52,8 +50,8 @@ std::optional<CountryTree> LoadCountriesFromFile(std::string const & path)
   MwmTopCityGeoIds mwmTopCityGeoIds;
   MwmTopCountryGeoIds mwmTopCountryGeoIds;
   CountryTree countries;
-  auto const res = LoadCountriesFromFile(path, countries, affiliations, countryNameSynonyms,
-                                         mwmTopCityGeoIds, mwmTopCountryGeoIds);
+  auto const res =
+      LoadCountriesFromFile(path, countries, affiliations, countryNameSynonyms, mwmTopCityGeoIds, mwmTopCountryGeoIds);
 
   if (res == -1)
     return {};

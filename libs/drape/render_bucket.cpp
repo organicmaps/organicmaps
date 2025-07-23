@@ -10,9 +10,7 @@
 
 namespace dp
 {
-RenderBucket::RenderBucket(drape_ptr<VertexArrayBuffer> && buffer)
-  : m_buffer(std::move(buffer))
-{}
+RenderBucket::RenderBucket(drape_ptr<VertexArrayBuffer> && buffer) : m_buffer(std::move(buffer)) {}
 
 RenderBucket::~RenderBucket() {}
 
@@ -61,10 +59,8 @@ void RenderBucket::Update(ScreenBase const & modelView)
 {
   BeforeUpdate();
   for (auto & overlayHandle : m_overlay)
-  {
     if (overlayHandle->IsVisible())
       overlayHandle->Update(modelView);
-  }
 }
 
 void RenderBucket::CollectOverlayHandles(ref_ptr<OverlayTree> tree)
@@ -82,10 +78,8 @@ bool RenderBucket::HasOverlayHandles() const
 bool RenderBucket::RemoveOverlayHandles(ref_ptr<OverlayTree> tree)
 {
   for (auto const & overlayHandle : m_overlay)
-  {
     if (tree->Remove(make_ref(overlayHandle)))
       return true;
-  }
   return false;
 }
 

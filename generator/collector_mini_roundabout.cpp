@@ -10,9 +10,9 @@ namespace generator
 using namespace feature;
 
 MiniRoundaboutCollector::MiniRoundaboutCollector(std::string const & filename, IDRInterfacePtr cache)
-  : generator::CollectorInterface(filename), m_cache(std::move(cache))
-{
-}
+  : generator::CollectorInterface(filename)
+  , m_cache(std::move(cache))
+{}
 
 std::shared_ptr<generator::CollectorInterface> MiniRoundaboutCollector::Clone(IDRInterfacePtr const & cache) const
 {
@@ -39,8 +39,7 @@ void MiniRoundaboutCollector::Collect(OsmElement const & element)
   }
 }
 
-void MiniRoundaboutCollector::CollectFeature(FeatureBuilder const & feature,
-                                             OsmElement const & element)
+void MiniRoundaboutCollector::CollectFeature(FeatureBuilder const & feature, OsmElement const & element)
 {
   if (MiniRoundaboutInfo::IsProcessRoad(feature))
     m_roads.AddWay(element);

@@ -19,14 +19,15 @@ using namespace poly_borders;
 int main(int argc, char ** argv)
 {
   gflags::ParseCommandLineFlags(&argc, &argv, true);
-  gflags::SetUsageMessage("\n\n\tThe tool is used to process *.poly borders files. We use such files\n"
-                          "\tto cut the planet into mwms in generator. The problem is that we have\n"
-                          "\tempty spaces between neighbouring borders. This tool creates new borders\n"
-                          "\tbased on input data by removing points from borders in such a way that the\n"
-                          "\tchanged area of each border will not be too large.\n"
-                          "\tArguments:\n"
-                          "\t\t--borders_path=/path/to/directory/with/borders\n"
-                          "\t\t--output_path=/path/to/directory/where/new/borders/will/be/placed\n");
+  gflags::SetUsageMessage(
+      "\n\n\tThe tool is used to process *.poly borders files. We use such files\n"
+      "\tto cut the planet into mwms in generator. The problem is that we have\n"
+      "\tempty spaces between neighbouring borders. This tool creates new borders\n"
+      "\tbased on input data by removing points from borders in such a way that the\n"
+      "\tchanged area of each border will not be too large.\n"
+      "\tArguments:\n"
+      "\t\t--borders_path=/path/to/directory/with/borders\n"
+      "\t\t--output_path=/path/to/directory/where/new/borders/will/be/placed\n");
 
   if (FLAGS_borders_path.empty() || FLAGS_output_path.empty())
   {

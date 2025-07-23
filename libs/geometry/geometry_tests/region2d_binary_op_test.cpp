@@ -16,8 +16,8 @@ using R = m2::RegionI;
 UNIT_TEST(RegionIntersect_Smoke)
 {
   {
-    P arr1[] = { P(-2, 1), P(2, 1), P(2, -1), P(-2, -1) };
-    P arr2[] = { P(-1, 2), P(1, 2), P(1, -2), P(-1, -2) };
+    P arr1[] = {P(-2, 1), P(2, 1), P(2, -1), P(-2, -1)};
+    P arr2[] = {P(-1, 2), P(1, 2), P(1, -2), P(-1, -2)};
 
     R r1, r2;
     r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
@@ -31,8 +31,8 @@ UNIT_TEST(RegionIntersect_Smoke)
   }
 
   {
-    P arr1[] = { P(0, 0), P(1, 1), P(2, 0) };
-    P arr2[] = { P(0, 0), P(1, -1), P(2, 0) };
+    P arr1[] = {P(0, 0), P(1, 1), P(2, 0)};
+    P arr2[] = {P(0, 0), P(1, -1), P(2, 0)};
 
     R r1, r2;
     r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
@@ -45,8 +45,8 @@ UNIT_TEST(RegionIntersect_Smoke)
   }
 
   {
-    P arr1[] = { P(-10, -10), P(10, -10), P(10, 10), P(-10, 10) };
-    P arr2[] = { P(-5, -5), P(5, -5), P(5, 5), P(-5, 5) };
+    P arr1[] = {P(-10, -10), P(10, -10), P(10, 10), P(-10, 10)};
+    P arr2[] = {P(-5, -5), P(5, -5), P(5, 5), P(-5, 5)};
 
     R r1, r2;
     r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
@@ -64,8 +64,8 @@ UNIT_TEST(RegionIntersect_Smoke)
 UNIT_TEST(RegionDifference_Smoke)
 {
   {
-    P arr1[] = { P(-1, 1), P(1, 1), P(1, -1), P(-1, -1) };
-    P arr2[] = { P(-2, 2), P(2, 2), P(2, -2), P(-2, -2) };
+    P arr1[] = {P(-1, 1), P(1, 1), P(1, -1), P(-1, -1)};
+    P arr2[] = {P(-2, 2), P(2, 2), P(2, -2), P(-2, -2)};
 
     R r1, r2;
     r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
@@ -82,8 +82,8 @@ UNIT_TEST(RegionDifference_Smoke)
   }
 
   {
-    P arr1[] = { P(0, 1), P(2, 1), P(2, 0), P(0, 0) };
-    P arr2[] = { P(1, 2), P(2, 2), P(2, -1), P(1, -1) };
+    P arr1[] = {P(0, 1), P(2, 1), P(2, 0), P(0, 0)};
+    P arr2[] = {P(1, 2), P(2, 2), P(2, -1), P(1, -1)};
 
     R r1, r2;
     r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
@@ -100,8 +100,18 @@ UNIT_TEST(RegionDifference_Smoke)
 UNIT_TEST(AddRegion_Smoke)
 {
   {
-    P arr1[] = { {0, 0}, {0, 1}, {1, 1}, {1, 0} };
-    P arr2[] = { {2, 2}, {2, 3}, {3, 3}, {3, 2} };
+    P arr1[] = {
+        {0, 0},
+        {0, 1},
+        {1, 1},
+        {1, 0}
+    };
+    P arr2[] = {
+        {2, 2},
+        {2, 3},
+        {3, 3},
+        {3, 2}
+    };
 
     R r1, r2;
     r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
@@ -120,8 +130,18 @@ UNIT_TEST(AddRegion_Smoke)
   }
 
   {
-    P arr1[] = { {0, 0}, {0, 3}, {3, 3}, {3, 0} };
-    P arr2[] = { {1, 1}, {1, 2}, {2, 2}, {2, 1} };
+    P arr1[] = {
+        {0, 0},
+        {0, 3},
+        {3, 3},
+        {3, 0}
+    };
+    P arr2[] = {
+        {1, 1},
+        {1, 2},
+        {2, 2},
+        {2, 1}
+    };
 
     R r1, r2;
     r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
@@ -142,8 +162,18 @@ UNIT_TEST(AddRegion_Smoke)
 
 UNIT_TEST(RegionIntersect_Floats)
 {
-  P arr1[] = { {0, 1}, {2, 3}, {3, 2}, {1, 0} };
-  P arr2[] = { {0, 2}, {1, 3}, {3, 1}, {2, 0} };
+  P arr1[] = {
+      {0, 1},
+      {2, 3},
+      {3, 2},
+      {1, 0}
+  };
+  P arr2[] = {
+      {0, 2},
+      {1, 3},
+      {3, 1},
+      {2, 0}
+  };
 
   R r1, r2;
   r1.Assign(arr1, arr1 + ARRAY_SIZE(arr1));
@@ -158,8 +188,17 @@ UNIT_TEST(RegionIntersect_Floats)
 
 UNIT_TEST(RegionArea_2Directions)
 {
-  P arr[] = { {1, 1}, {1, 0}, {2, 0}, {2, 1}, {1, 1}, // CCW direction
-              {1, 1}, {1, 0}, {0, 0}, {0, 1}, {1, 1}  // CW direction
+  P arr[] = {
+      {1, 1},
+      {1, 0},
+      {2, 0},
+      {2, 1},
+      {1, 1}, // CCW direction
+      {1, 1},
+      {1, 0},
+      {0, 0},
+      {0, 1},
+      {1, 1}  // CW direction
   };
 
   R r;

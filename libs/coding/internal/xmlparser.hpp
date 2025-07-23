@@ -36,15 +36,14 @@ public:
     , m_restrictDepth(static_cast<size_t>(-1))
     , m_dispatcher(dispatcher)
     , m_enableCharHandler(enableCharHandler)
-    , m_parser(std::unique_ptr<XML_ParserStruct, decltype(&XML_ParserFree)>(
-          XML_ParserCreate(nullptr /* encoding */), &XML_ParserFree))
+    , m_parser(std::unique_ptr<XML_ParserStruct, decltype(&XML_ParserFree)>(XML_ParserCreate(nullptr /* encoding */),
+                                                                            &XML_ParserFree))
   {
     CHECK(m_parser, ());
     OnPostCreate();
   }
 
-  static void StartElementHandler(void * userData, XML_Char const * name,
-                                  XML_Char const ** attrs)
+  static void StartElementHandler(void * userData, XML_Char const * name, XML_Char const ** attrs)
   {
     CHECK(userData, (name));
     auto * xmlParser = static_cast<XmlParser *>(userData);
@@ -138,8 +137,8 @@ public:
       return {};
 
     std::stringstream s;
-    s << "XML parse error at line " << XML_GetCurrentLineNumber(m_parser.get())
-      << " and byte " << XML_GetCurrentByteIndex(m_parser.get());
+    s << "XML parse error at line " << XML_GetCurrentLineNumber(m_parser.get()) << " and byte "
+      << XML_GetCurrentByteIndex(m_parser.get());
     return s.str();
   }
 

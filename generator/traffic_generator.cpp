@@ -12,8 +12,8 @@
 #include "indexer/feature_processor.hpp"
 #include "indexer/features_offsets_table.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 
 #include <vector>
 

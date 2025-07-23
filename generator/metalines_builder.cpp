@@ -152,7 +152,8 @@ LineStringMerger::OutputData LineStringMerger::OrderData(InputData const & data)
   for (auto & p : intermediateData)
   {
     auto & lineStrings = intermediateData[p.first];
-    std::sort(std::begin(lineStrings), std::end(lineStrings), [](auto const & l, auto const & r) {
+    std::sort(std::begin(lineStrings), std::end(lineStrings), [](auto const & l, auto const & r)
+    {
       auto const & lways = l->GetWays();
       auto const & rways = r->GetWays();
       return lways.size() == rways.size() ? lways.front() < rways.front() : lways.size() > rways.size();
@@ -166,8 +167,7 @@ LineStringMerger::OutputData LineStringMerger::OrderData(InputData const & data)
 MetalinesBuilder::MetalinesBuilder(std::string const & filename)
   : generator::CollectorInterface(filename)
   , m_writer(std::make_unique<FileWriter>(GetTmpFilename()))
-{
-}
+{}
 
 std::shared_ptr<generator::CollectorInterface> MetalinesBuilder::Clone(IDRInterfacePtr const &) const
 {
@@ -192,7 +192,10 @@ void MetalinesBuilder::CollectFeature(FeatureBuilder const & feature, OsmElement
   LineString(element).Serialize(*m_writer);
 }
 
-void MetalinesBuilder::Finish() { m_writer.reset(); }
+void MetalinesBuilder::Finish()
+{
+  m_writer.reset();
+}
 
 void MetalinesBuilder::Save()
 {
@@ -220,8 +223,8 @@ void MetalinesBuilder::Save()
     }
   }
 
-  LOG_SHORT(LINFO, ("Wrote", countLines, "metalines [with",  countWays ,
-                    "ways] with OSM IDs for the entire planet to", GetFilename()));
+  LOG_SHORT(LINFO, ("Wrote", countLines, "metalines [with", countWays, "ways] with OSM IDs for the entire planet to",
+                    GetFilename()));
 }
 
 void MetalinesBuilder::OrderCollectedData()

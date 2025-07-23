@@ -45,9 +45,8 @@ void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     DrawArea(context, batcher, colorUv, outlineUv, region.GetTexture());
 }
 
-void AreaShape::DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                         m2::PointD const & colorUv, m2::PointD const & outlineUv,
-                         ref_ptr<dp::Texture> texture) const
+void AreaShape::DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
+                         m2::PointD const & outlineUv, ref_ptr<dp::Texture> texture) const
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
@@ -120,8 +119,7 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
 }
 
 void AreaShape::DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
-                           m2::PointD const & colorUv, m2::PointD const & outlineUv,
-                           ref_ptr<dp::Texture> texture) const
+                           m2::PointD const & colorUv, m2::PointD const & outlineUv, ref_ptr<dp::Texture> texture) const
 {
   CHECK(!m_buildingOutline.m_indices.empty(), ());
   CHECK_EQUAL(m_buildingOutline.m_normals.size() * 2, m_buildingOutline.m_indices.size(), ());

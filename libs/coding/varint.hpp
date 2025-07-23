@@ -38,25 +38,29 @@ uint32_t ReadVarUint(TSource & src, uint32_t const *)
     uint8_t next0;
     src.Read(&next0, 1);
     res |= (static_cast<uint32_t>(next0) & 127);
-    if (!(next0 & 128)) return res;
+    if (!(next0 & 128))
+      return res;
   }
   {
     uint8_t next1;
     src.Read(&next1, 1);
     res |= (static_cast<uint32_t>(next1) & 127) << 7;
-    if (!(next1 & 128)) return res;
+    if (!(next1 & 128))
+      return res;
   }
   {
     uint8_t next2;
     src.Read(&next2, 1);
     res |= (static_cast<uint32_t>(next2) & 127) << 14;
-    if (!(next2 & 128)) return res;
+    if (!(next2 & 128))
+      return res;
   }
   {
     uint8_t next3;
     src.Read(&next3, 1);
     res |= (static_cast<uint32_t>(next3) & 127) << 21;
-    if (!(next3 & 128)) return res;
+    if (!(next3 & 128))
+      return res;
   }
   {
     uint8_t next4;
@@ -76,25 +80,29 @@ uint64_t ReadVarUint(TSource & src, uint64_t const *)
     uint8_t next0;
     src.Read(&next0, 1);
     res0 |= (static_cast<uint32_t>(next0) & 127);
-    if (!(next0 & 128)) return res0;
+    if (!(next0 & 128))
+      return res0;
   }
   {
     uint8_t next1;
     src.Read(&next1, 1);
     res0 |= (static_cast<uint32_t>(next1) & 127) << 7;
-    if (!(next1 & 128)) return res0;
+    if (!(next1 & 128))
+      return res0;
   }
   {
     uint8_t next2;
     src.Read(&next2, 1);
     res0 |= (static_cast<uint32_t>(next2) & 127) << 14;
-    if (!(next2 & 128)) return res0;
+    if (!(next2 & 128))
+      return res0;
   }
   {
     uint8_t next3;
     src.Read(&next3, 1);
     res0 |= (static_cast<uint32_t>(next3) & 127) << 21;
-    if (!(next3 & 128)) return res0;
+    if (!(next3 & 128))
+      return res0;
   }
 
   uint32_t res1 = 0;
@@ -102,25 +110,29 @@ uint64_t ReadVarUint(TSource & src, uint64_t const *)
     uint8_t next4;
     src.Read(&next4, 1);
     res1 |= (static_cast<uint32_t>(next4) & 127);
-    if (!(next4 & 128)) return (static_cast<uint64_t>(res1) << 28) + res0;
+    if (!(next4 & 128))
+      return (static_cast<uint64_t>(res1) << 28) + res0;
   }
   {
     uint8_t next5;
     src.Read(&next5, 1);
     res1 |= (static_cast<uint32_t>(next5) & 127) << 7;
-    if (!(next5 & 128)) return (static_cast<uint64_t>(res1) << 28) + res0;
+    if (!(next5 & 128))
+      return (static_cast<uint64_t>(res1) << 28) + res0;
   }
   {
     uint8_t next6;
     src.Read(&next6, 1);
     res1 |= (static_cast<uint32_t>(next6) & 127) << 14;
-    if (!(next6 & 128)) return (static_cast<uint64_t>(res1) << 28) + res0;
+    if (!(next6 & 128))
+      return (static_cast<uint64_t>(res1) << 28) + res0;
   }
   {
     uint8_t next7;
     src.Read(&next7, 1);
     res1 |= (static_cast<uint32_t>(next7) & 127) << 21;
-    if (!(next7 & 128)) return (static_cast<uint64_t>(res1) << 28) + res0;
+    if (!(next7 & 128))
+      return (static_cast<uint64_t>(res1) << 28) + res0;
   }
 
   uint32_t res2 = 0;
@@ -200,6 +212,7 @@ public:
     return p < m_pEnd;
   }
   void NextVarInt() {}
+
 private:
   void const * m_pEnd;
 };
@@ -210,13 +223,13 @@ public:
   explicit ReadVarInt64ArrayGivenSize(size_t const count) : m_Remaining(count) {}
   bool Continue(void const *) const { return m_Remaining > 0; }
   void NextVarInt() { --m_Remaining; }
+
 private:
   size_t m_Remaining;
 };
 
 template <typename ConverterT, typename F, class WhileConditionT>
-void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition, F f,
-                               ConverterT converter)
+void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition, F f, ConverterT converter)
 {
   uint8_t const * const pBegChar = static_cast<uint8_t const *>(pBeg);
   uint64_t res64 = 0;
@@ -252,13 +265,13 @@ void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition
   return p;
 }
 
-}
+}  // namespace impl
 
 template <typename F>
 void const * ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
 {
-  return ::impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
-        pBeg, ::impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, &bits::ZigZagDecode);
+  return ::impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(pBeg, ::impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f,
+                                                          &bits::ZigZagDecode);
 }
 
 template <typename F>
@@ -270,8 +283,8 @@ void const * ReadVarUint64Array(void const * pBeg, void const * pEnd, F f)
 template <typename F>
 void const * ReadVarInt64Array(void const * pBeg, size_t count, F f)
 {
-  return ::impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
-        pBeg, ::impl::ReadVarInt64ArrayGivenSize(count), f, &bits::ZigZagDecode);
+  return ::impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(pBeg, ::impl::ReadVarInt64ArrayGivenSize(count), f,
+                                                          &bits::ZigZagDecode);
 }
 
 template <typename F>

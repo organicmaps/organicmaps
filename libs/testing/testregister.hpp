@@ -7,7 +7,10 @@ class TestRegister
 {
 public:
   TestRegister(char const * testname, char const * filename, std::function<void()> && fnTest)
-    : m_testname(testname), m_filename(filename), m_fn(std::move(fnTest)), m_next(nullptr)
+    : m_testname(testname)
+    , m_filename(filename)
+    , m_fn(std::move(fnTest))
+    , m_next(nullptr)
   {
     if (FirstRegister() == nullptr)
     {

@@ -45,7 +45,8 @@ class RandomPointGenerator
 {
 public:
   explicit RandomPointGenerator(mt19937 & randomEngine, vector<m2::RegionD> const & regions)
-    : m_randomEngine(randomEngine), m_regions(regions)
+    : m_randomEngine(randomEngine)
+    , m_regions(regions)
   {
     CHECK(!m_regions.empty(), ());
     vector<double> areas(m_regions.size());
@@ -102,36 +103,28 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 
   // Single mwm.
   m2::PointD const halfSize = m2::PointD(0.1, 0.1);
-  auto const countries =
-      getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), false /* rough */);
+  auto const countries = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), false /* rough */);
   TEST_EQUAL(countries, vector<storage::CountryId>{"Russia_Bryansk Oblast"}, ());
 
   // Several countries.
   m2::PointD const halfSize2 = m2::PointD(0.5, 0.5);
-  auto const countries2 =
-      getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), false /* rough */);
-  auto const expected = vector<storage::CountryId>{
-      "Belarus_Homiel Region", "Russia_Bryansk Oblast", "Ukraine_Chernihiv Oblast"};
+  auto const countries2 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), false /* rough */);
+  auto const expected =
+      vector<storage::CountryId>{"Belarus_Homiel Region", "Russia_Bryansk Oblast", "Ukraine_Chernihiv Oblast"};
   TEST_EQUAL(countries2, expected, ());
 
   // No one found.
-  auto const countries3 =
-      getter->GetRegionsCountryIdByRect(m2::RectD(-halfSize, halfSize), false /* rough */);
+  auto const countries3 = getter->GetRegionsCountryIdByRect(m2::RectD(-halfSize, halfSize), false /* rough */);
   TEST_EQUAL(countries3, vector<storage::CountryId>{}, ());
 
   // Inside mwm (rough).
-  auto const countries4 =
-      getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), true /* rough */);
+  auto const countries4 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), true /* rough */);
   TEST_EQUAL(countries, vector<storage::CountryId>{"Russia_Bryansk Oblast"}, ());
 
   // Several countries (rough).
-  auto const countries5 =
-      getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), true /* rough */);
-  auto const expected2 = vector<storage::CountryId>{"Belarus_Homiel Region",
-                                                    "Belarus_Maglieu Region",
-                                                    "Russia_Bryansk Oblast",
-                                                    "Ukraine_Chernihiv Oblast",
-                                                    "US_Alaska"};
+  auto const countries5 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), true /* rough */);
+  auto const expected2 = vector<storage::CountryId>{"Belarus_Homiel Region", "Belarus_Maglieu Region",
+                                                    "Russia_Bryansk Oblast", "Ukraine_Chernihiv Oblast", "US_Alaska"};
   TEST_EQUAL(countries5, expected2, ());
 }
 
@@ -180,8 +173,7 @@ UNIT_TEST(CountryInfoGetter_HitsOnLongLine)
   CountriesVec results;
   getter->GetRegionsCountryId(mercator::FromLatLon(62.2507, -102.0753), results);
   TEST_EQUAL(results.size(), 2, ());
-  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(),
-       ());
+  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());
   TEST(find(results.begin(), results.end(), "Canada_Nunavut_South") != results.end(), ());
 }
 
@@ -191,8 +183,7 @@ UNIT_TEST(CountryInfoGetter_HitsInTheMiddleOfNowhere)
   CountriesVec results;
   getter->GetRegionsCountryId(mercator::FromLatLon(62.2900, -103.9423), results);
   TEST_EQUAL(results.size(), 1, ());
-  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(),
-       ());
+  TEST(find(results.begin(), results.end(), "Canada_Northwest Territories_East") != results.end(), ());
 }
 
 UNIT_TEST(CountryInfoGetter_BorderRelations)
@@ -200,11 +191,15 @@ UNIT_TEST(CountryInfoGetter_BorderRelations)
   auto const getter = CreateCountryInfoGetter();
 
   ms::LatLon labels[] = {
-    {42.4318876, -8.6431592}, {42.6075172, -8.4714942},
-    {42.3436415, -7.8674242}, {42.1968459, -7.6114105},
-    {43.0118437, -7.5565749}, {43.0462247, -7.4739921},
-    {43.3709703, -8.3959425}, {43.0565609, -8.5296941},
-    {27.0006968, 49.6532161},
+      {42.4318876, -8.6431592},
+      {42.6075172, -8.4714942},
+      {42.3436415, -7.8674242},
+      {42.1968459, -7.6114105},
+      {43.0118437, -7.5565749},
+      {43.0462247, -7.4739921},
+      {43.3709703, -8.3959425},
+      {43.0565609, -8.5296941},
+      {27.0006968, 49.6532161},
   };
 
   for (auto const & ll : labels)
@@ -221,8 +216,8 @@ UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
   Storage storage;
 
   m2::RectD const boundingBox = getter->GetLimitRectForLeaf("Angola");
-  m2::RectD const expectedBoundingBox = {9.205259 /* minX */, -18.34456 /* minY */,
-                                         24.08212 /* maxX */, -4.393187 /* maxY */};
+  m2::RectD const expectedBoundingBox = {9.205259 /* minX */, -18.34456 /* minY */, 24.08212 /* maxX */,
+                                         -4.393187 /* maxY */};
 
   TEST(AlmostEqualAbs(boundingBox, expectedBoundingBox, kRectCompareEpsilon), ());
 }
@@ -263,10 +258,7 @@ UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
 
   // Set is used here because disputed territories may occur as leaves several times.
   set<CountryId> storageLeaves;
-  storage.ForEachCountry([&](Country const & country)
-  {
-    storageLeaves.insert(country.Name());
-  });
+  storage.ForEachCountry([&](Country const & country) { storageLeaves.insert(country.Name()); });
 
   TEST_EQUAL(countries.size(), storageLeaves.size(), ());
 
@@ -312,10 +304,8 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
 
   size_t totalPoints = 0;
   for (auto const & regs : allRegions)
-  {
     for (auto const & reg : regs)
       totalPoints += reg.Size();
-  }
   LOG(LINFO, ("Total points:", totalPoints));
 
   {
@@ -379,8 +369,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
         longest = countryId;
     }
 
-    LOG(LINFO, ("Slowest country for CountryInfoGetter (random point)", longest,
-                avgTimeByCountry[longest]));
+    LOG(LINFO, ("Slowest country for CountryInfoGetter (random point)", longest, avgTimeByCountry[longest]));
   }
 
   {
@@ -420,8 +409,7 @@ BENCHMARK_TEST(CountryInfoGetter_RegionsByRect)
       if (longest.empty() || avgTimeByCountry[longest] < avgTimeByCountry[countryId])
         longest = countryId;
     }
-    LOG(LINFO, ("Slowest country for CountryInfoGetter (point on a random side)", longest,
-                avgTimeByCountry[longest]));
+    LOG(LINFO, ("Slowest country for CountryInfoGetter (point on a random side)", longest, avgTimeByCountry[longest]));
   }
 }
 }  // namespace country_info_getter_tests

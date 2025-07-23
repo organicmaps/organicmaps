@@ -36,7 +36,10 @@ BOOL isCompactForCellWidth(CGFloat width)
 
 @implementation MWMOpeningHoursClosedSpanTableViewCell
 
-+ (CGFloat)heightForWidth:(CGFloat)width { return isCompactForCellWidth(width) ? 44.0 : 64.0; }
++ (CGFloat)heightForWidth:(CGFloat)width
+{
+  return isCompactForCellWidth(width) ? 44.0 : 64.0;
+}
 - (void)awakeFromNib
 {
   [super awakeFromNib];
@@ -92,7 +95,10 @@ BOOL isCompactForCellWidth(CGFloat width)
 
 #pragma mark - Actions
 
-- (IBAction)cancelTap { [self.section removeClosedTime:self.row]; }
+- (IBAction)cancelTap
+{
+  [self.section removeClosedTime:self.row];
+}
 - (IBAction)expandTap
 {
   if (!self.isVisible)

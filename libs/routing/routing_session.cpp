@@ -3,10 +3,10 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/speed_camera.hpp"
 
+#include "platform/distance.hpp"
 #include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
-#include "platform/distance.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
@@ -73,36 +73,32 @@ void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeou
   m_router->ClearState();
 
   m_isFollowing = false;
-  m_routingRebuildCount = -1; // -1 for the first rebuild.
+  m_routingRebuildCount = -1;  // -1 for the first rebuild.
   m_routingRebuildAnnounceCount = 0;
 
-  RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, m_needMoreMapsCallback,
-               m_removeRouteCallback, timeoutSec, SessionState::RouteBuilding, false /* adjust */);
+  RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, m_needMoreMapsCallback, m_removeRouteCallback, timeoutSec,
+               SessionState::RouteBuilding, false /* adjust */);
 }
 
-void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
-                                  ReadyCallback const & readyCallback,
+void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & readyCallback,
                                   NeedMoreMapsCallback const & needMoreMapsCallback,
-                                  RemoveRouteCallback const & removeRouteCallback,
-                                  uint32_t timeoutSec, SessionState routeRebuildingState,
-                                  bool adjustToPrevRoute)
+                                  RemoveRouteCallback const & removeRouteCallback, uint32_t timeoutSec,
+                                  SessionState routeRebuildingState, bool adjustToPrevRoute)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_router, ());
   SetState(routeRebuildingState);
 
   ++m_routingRebuildCount;
-  auto const & direction = m_routingSettings.m_useDirectionForRouteBuilding
-                               ? m_positionAccumulator.GetDirection()
-                               : m2::PointD::Zero();
+  auto const & direction =
+      m_routingSettings.m_useDirectionForRouteBuilding ? m_positionAccumulator.GetDirection() : m2::PointD::Zero();
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
   // Use old-style callback construction, because lambda constructs buggy function on Android
   // (callback param isn't captured by value).
-  m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute,
-                           DoReadyCallback(*this, readyCallback), needMoreMapsCallback,
-                           removeRouteCallback, m_progressCallback, timeoutSec);
+  m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, DoReadyCallback(*this, readyCallback),
+                           needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
 }
 
 m2::PointD RoutingSession::GetStartPoint() const
@@ -153,9 +149,7 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
     case SessionState::RouteBuilding:
     case SessionState::RouteNotStarted:
     case SessionState::RouteNoFollowing:
-    case SessionState::RouteRebuilding:
-      startPoint = m_checkpoints.GetPointFrom();
-      break;
+    case SessionState::RouteRebuilding: startPoint = m_checkpoints.GetPointFrom(); break;
 
     case SessionState::OnRoute:
     case SessionState::RouteNeedRebuild: break;
@@ -166,8 +160,8 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
   }
 
   RebuildRoute(startPoint, m_rebuildReadyCallback, nullptr /* needMoreMapsCallback */,
-               nullptr /* removeRouteCallback */, RouterDelegate::kNoTimeout,
-               SessionState::RouteRebuilding, false /* adjustToPrevRoute */);
+               nullptr /* removeRouteCallback */, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding,
+               false /* adjustToPrevRoute */);
 }
 
 bool RoutingSession::IsActive() const
@@ -304,11 +298,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     auto const curIter = m_route->GetCurrentIteratorTurn();
     // If we are moving to the next segment after passing the turn
     // it means the turn is changed. So the |m_onNewTurn| should be called.
-    if (formerIter && curIter && IsNormalTurn(*formerIter) &&
-        formerIter->m_index < curIter->m_index && m_onNewTurn)
-    {
+    if (formerIter && curIter && IsNormalTurn(*formerIter) && formerIter->m_index < curIter->m_index && m_onNewTurn)
       m_onNewTurn();
-    }
 
     return m_state;
   }
@@ -318,8 +309,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     // Distance from the last known projection on route
     // (check if we are moving far from the last known projection).
     auto const & lastGoodPoint = m_route->GetFollowedPolyline().GetCurrentIter().m_pt;
-    double const dist = mercator::DistanceOnEarth(lastGoodPoint,
-                                                  mercator::FromLatLon(info.m_latitude, info.m_longitude));
+    double const dist =
+        mercator::DistanceOnEarth(lastGoodPoint, mercator::FromLatLon(info.m_latitude, info.m_longitude));
     if (AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
       return m_state;
 
@@ -396,8 +387,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     return;
   }
 
-  info.m_distToTarget =
-      platform::Distance::CreateFormatted(m_route->GetCurrentDistanceToEndMeters());
+  info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetCurrentDistanceToEndMeters());
 
   double distanceToTurnMeters = 0.;
   turns::TurnItem turn;
@@ -446,9 +436,8 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   }
 
   // Pedestrian info.
-  info.m_pedestrianTurn = (distanceToTurnMeters < kShowPedestrianTurnInMeters)
-                              ? turn.m_pedestrianTurn
-                              : turns::PedestrianDirection::None;
+  info.m_pedestrianTurn =
+      (distanceToTurnMeters < kShowPedestrianTurnInMeters) ? turn.m_pedestrianTurn : turns::PedestrianDirection::None;
 }
 
 double RoutingSession::GetCompletionPercent() const
@@ -461,12 +450,9 @@ double RoutingSession::GetCompletionPercent() const
     return 0;
 
   double const percent =
-      100.0 * (m_passedDistanceOnRouteMeters + m_route->GetCurrentDistanceFromBeginMeters()) /
-      denominator;
+      100.0 * (m_passedDistanceOnRouteMeters + m_route->GetCurrentDistanceFromBeginMeters()) / denominator;
   if (percent - m_lastCompletionPercent > kCompletionPercentAccuracy)
-  {
     m_lastCompletionPercent = percent;
-  }
   return percent;
 }
 
@@ -546,8 +532,7 @@ void RoutingSession::AssignRoute(std::shared_ptr<Route> const & route, RouterRes
   m_speedCameraManager.SetRoute(m_route);
 }
 
-void RoutingSession::SetRouter(std::unique_ptr<IRouter> && router,
-                               std::unique_ptr<AbsentRegionsFinder> && finder)
+void RoutingSession::SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<AbsentRegionsFinder> && finder)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
@@ -586,10 +571,7 @@ void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
     if (m_route->GetCurrentRoutingSettings().m_matchRoute)
     {
       if (!AlmostEqualAbs(m_proj.m_point, proj.m_point, kEps))
-      {
-        location.m_bearing =
-            location::AngleToBearing(math::RadToDeg(ang::AngleTo(m_proj.m_point, proj.m_point)));
-      }
+        location.m_bearing = location::AngleToBearing(math::RadToDeg(ang::AngleTo(m_proj.m_point, proj.m_point)));
     }
 
     location.m_latitude = mercator::YToLat(proj.m_point.y);
@@ -603,8 +585,7 @@ void RoutingSession::MatchLocationToRoadGraph(location::GpsInfo & location)
   m_proj = proj;
 }
 
-bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
-                                          location::RouteMatchingInfo & routeMatchingInfo)
+bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!IsOnRoute())
@@ -619,8 +600,7 @@ bool RoutingSession::MatchLocationToRoute(location::GpsInfo & location,
   return matchedToRoute;
 }
 
-traffic::SpeedGroup RoutingSession::MatchTraffic(
-    location::RouteMatchingInfo const & routeMatchingInfo) const
+traffic::SpeedGroup RoutingSession::MatchTraffic(location::RouteMatchingInfo const & routeMatchingInfo) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!routeMatchingInfo.IsMatched())
@@ -698,8 +678,7 @@ void RoutingSession::SetCheckpointCallback(CheckpointCallback const & checkpoint
   m_checkpointCallback = checkpointCallback;
 }
 
-void RoutingSession::SetChangeSessionStateCallback(
-    ChangeSessionStateCallback const & changeSessionStateCallback)
+void RoutingSession::SetChangeSessionStateCallback(ChangeSessionStateCallback const & changeSessionStateCallback)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_changeSessionStateCallback = changeSessionStateCallback;
@@ -861,7 +840,8 @@ void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
 
   // Note. |coloring| should not be used after this call on gui thread.
   auto const mwmId = info.GetMwmId();
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, mwmId, coloring]() {
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, mwmId, coloring]()
+  {
     Set(mwmId, coloring);
     RebuildRouteOnTrafficUpdate();
   });
@@ -869,7 +849,8 @@ void RoutingSession::OnTrafficInfoAdded(TrafficInfo && info)
 
 void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
 {
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, mwmId]() {
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, mwmId]()
+  {
     CHECK_THREAD_CHECKER(m_threadChecker, ());
     Remove(mwmId);
     RebuildRouteOnTrafficUpdate();

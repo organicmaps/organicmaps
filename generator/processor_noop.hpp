@@ -13,10 +13,7 @@ class ProcessorNoop : public FeatureProcessorInterface
 {
 public:
   // FeatureProcessorInterface overrides:
-  std::shared_ptr<FeatureProcessorInterface> Clone() const override
-  {
-    return std::make_shared<ProcessorNoop>();
-  }
+  std::shared_ptr<FeatureProcessorInterface> Clone() const override { return std::make_shared<ProcessorNoop>(); }
 
   void Process(feature::FeatureBuilder &) override {}
   void Finish() override {}

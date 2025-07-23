@@ -23,8 +23,7 @@ namespace routing_builder
 using generator::CitiesBoundariesChecker;
 using std::string, std::vector;
 
-void LoadCitiesBoundariesGeometry(string const & boundariesPath,
-                                  CitiesBoundariesChecker::CitiesBoundaries & result)
+void LoadCitiesBoundariesGeometry(string const & boundariesPath, CitiesBoundariesChecker::CitiesBoundaries & result)
 {
   if (!Platform::IsFileExistsByFullPath(boundariesPath))
   {
@@ -44,8 +43,8 @@ void LoadCitiesBoundariesGeometry(string const & boundariesPath,
     {
       ++points;
       double const radiusM = ftypes::GetRadiusByPopulationForRouting(loc.GetPopulation(), loc.GetPlace());
-      result.emplace_back(ms::CreateCircleGeometryOnEarth(
-                            mercator::ToLatLon(loc.m_center), radiusM, 30.0 /* angleStepDegree */));
+      result.emplace_back(
+          ms::CreateCircleGeometryOnEarth(mercator::ToLatLon(loc.m_center), radiusM, 30.0 /* angleStepDegree */));
     }
     else
     {
@@ -63,7 +62,6 @@ void LoadCitiesBoundariesGeometry(string const & boundariesPath,
 /// according to |table|.
 vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boundariesPath)
 {
-
   CitiesBoundariesChecker::CitiesBoundaries citiesBoundaries;
   LoadCitiesBoundariesGeometry(boundariesPath, citiesBoundaries);
   CitiesBoundariesChecker const checker(citiesBoundaries);
@@ -80,10 +78,8 @@ vector<uint32_t> CalcRoadFeatureIds(string const & dataPath, string const & boun
     size_t inCityPointsCounter = 0;
     size_t const count = ft.GetPointsCount();
     for (size_t i = 0; i < count; ++i)
-    {
       if (checker.InCity(ft.GetPoint(i)))
         ++inCityPointsCounter;
-    }
 
     // Our approximation of boundary overestimates it, because of different
     // bounding boxes (in order to increase performance). So we don't want

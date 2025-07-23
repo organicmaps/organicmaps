@@ -25,11 +25,8 @@ uint16_t SizeOfType(glConst type)
 
 bool BindingDecl::operator==(BindingDecl const & other) const
 {
-  return m_attributeName == other.m_attributeName &&
-         m_componentCount == other.m_componentCount &&
-         m_componentType == other.m_componentType &&
-         m_stride == other.m_stride &&
-         m_offset == other.m_offset;
+  return m_attributeName == other.m_attributeName && m_componentCount == other.m_componentCount &&
+         m_componentType == other.m_componentType && m_stride == other.m_stride && m_offset == other.m_offset;
 }
 
 bool BindingDecl::operator!=(BindingDecl const & other) const
@@ -50,12 +47,9 @@ bool BindingDecl::operator<(BindingDecl const & other) const
   return m_offset < other.m_offset;
 }
 
-BindingInfo::BindingInfo()
-  : m_info(0)
-{}
+BindingInfo::BindingInfo() : m_info(0) {}
 
-BindingInfo::BindingInfo(uint8_t count, uint8_t id)
-  : m_info((static_cast<uint16_t>(count) << 8) | id)
+BindingInfo::BindingInfo(uint8_t count, uint8_t id) : m_info((static_cast<uint16_t>(count) << 8) | id)
 {
   CHECK_LESS_OR_EQUAL(count, kMaxBindingDecl, ());
 }

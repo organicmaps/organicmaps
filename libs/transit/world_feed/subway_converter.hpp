@@ -63,17 +63,13 @@ private:
   // Methods for creating id & data pairs for |m_feed| based on the subway items.
   std::pair<TransitId, RouteData> MakeRoute(routing::transit::Line const & lineSubway);
   std::pair<TransitId, GateData> MakeGate(routing::transit::Gate const & gateSubway);
-  std::pair<TransitId, TransferData> MakeTransfer(
-      routing::transit::Transfer const & transferSubway);
-  static std::pair<TransitId, LineData> MakeLine(routing::transit::Line const & lineSubway,
-                                                 TransitId routeId);
+  std::pair<TransitId, TransferData> MakeTransfer(routing::transit::Transfer const & transferSubway);
+  static std::pair<TransitId, LineData> MakeLine(routing::transit::Line const & lineSubway, TransitId routeId);
   std::pair<EdgeId, EdgeData> MakeEdge(routing::transit::Edge const & edgeSubway, uint32_t index);
-  std::pair<EdgeTransferId, EdgeData> MakeEdgeTransfer(routing::transit::Edge const & edgeSubway,
-                                                       uint32_t index);
+  std::pair<EdgeTransferId, EdgeData> MakeEdgeTransfer(routing::transit::Edge const & edgeSubway, uint32_t index);
   std::pair<TransitId, StopData> MakeStop(routing::transit::Stop const & stopSubway);
 
-  routing::transit::Edge FindEdge(routing::transit::StopId stop1Id,
-                                  routing::transit::StopId stop2Id,
+  routing::transit::Edge FindEdge(routing::transit::StopId stop1Id, routing::transit::StopId stop2Id,
                                   routing::transit::LineId lineId) const;
 
   // Path to the file with subways json.

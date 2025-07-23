@@ -11,8 +11,8 @@
 
 #include "traffic/traffic_cache.hpp"
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 namespace routing_test
 {
@@ -40,25 +40,55 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildCrossGraph()
 {
   std::unique_ptr<TestGeometryLoader> loader = std::make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{-1.0, 0.0}, {0.0, 0.0}}));
+                  RoadGeometry::Points({
+                      {-1.0, 0.0},
+                      { 0.0, 0.0}
+  }));
   loader->AddRoad(1 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}}));
+                  RoadGeometry::Points({
+                      {0.0, 0.0},
+                      {1.0, 0.0}
+  }));
   loader->AddRoad(2 /* featureId */, false /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 0.0}, {1.9999, 0.0}}));
+                  RoadGeometry::Points({
+                      {   1.0, 0.0},
+                      {1.9999, 0.0}
+  }));
   loader->AddRoad(3 /* featureId */, false /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.9999, 0.0}, {3.0, 0.0}}));
+                  RoadGeometry::Points({
+                      {1.9999, 0.0},
+                      {   3.0, 0.0}
+  }));
   loader->AddRoad(4 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 0.0}, {1.0, -1.0}}));
+                  RoadGeometry::Points({
+                      {1.0,  0.0},
+                      {1.0, -1.0}
+  }));
   loader->AddRoad(5 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, -1.0}, {1.0, 0.0}}));
+                  RoadGeometry::Points({
+                      {1.0, -1.0},
+                      {1.0,  0.0}
+  }));
   loader->AddRoad(6 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 0.0}, {1.0, 1.0}}));
+                  RoadGeometry::Points({
+                      {1.0, 0.0},
+                      {1.0, 1.0}
+  }));
   loader->AddRoad(7 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 1.0}, {1.0, 2.0}}));
+                  RoadGeometry::Points({
+                      {1.0, 1.0},
+                      {1.0, 2.0}
+  }));
 
   std::vector<Joint> const joints = {
-    MakeJoint({{0, 1}, {1, 0}}), MakeJoint({{1, 1}, {2, 0}, {4, 0}, {5, 1}, {6, 0}}),
-    MakeJoint({{2, 1}, {3, 0}}), MakeJoint({{4, 1}, {5, 0}}), MakeJoint({{6, 1}, {7, 0}})};
+      MakeJoint({{0, 1}, {1, 0}}
+      ), MakeJoint({{1, 1}, {2, 0}, {4, 0}, {5, 1}, {6, 0}}
+      ), MakeJoint({{2, 1}, {3, 0}}
+      ),
+      MakeJoint({{4, 1}, {5, 0}}
+      ), MakeJoint({{6, 1}, {7, 0}}
+      )
+  };
 
   traffic::TrafficCache const trafficCache;
   std::shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
@@ -83,23 +113,49 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildTestGraph()
 {
   std::unique_ptr<TestGeometryLoader> loader = std::make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, false /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{0.0, 1.0}, {-1.0, 1.0}}));
+                  RoadGeometry::Points({
+                      { 0.0, 1.0},
+                      {-1.0, 1.0}
+  }));
   loader->AddRoad(1 /* featureId */, false /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{0.0, 1.0}, {1.0, 1.0}}));
+                  RoadGeometry::Points({
+                      {0.0, 1.0},
+                      {1.0, 1.0}
+  }));
   loader->AddRoad(2 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{-1.0, 1.0}, {-1.0, 2.0}, {0.0, 2.0}, {1.0, 2.0}, {2.0, 2.0}}));
+                  RoadGeometry::Points({
+                      {-1.0, 1.0},
+                      {-1.0, 2.0},
+                      { 0.0, 2.0},
+                      { 1.0, 2.0},
+                      { 2.0, 2.0}
+  }));
   loader->AddRoad(3 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 1.0}, {2.0, 2.0}}));
+                  RoadGeometry::Points({
+                      {1.0, 1.0},
+                      {2.0, 2.0}
+  }));
   loader->AddRoad(4 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}}));
+                  RoadGeometry::Points({
+                      {1.0, 0.0},
+                      {2.0, 0.0}
+  }));
   loader->AddRoad(5 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({{2.0, 2.0}, {3.0, 2.0}}));
+                  RoadGeometry::Points({
+                      {2.0, 2.0},
+                      {3.0, 2.0}
+  }));
 
   std::vector<Joint> const joints = {
-      MakeJoint({{1, 0}, {0, 0}}),           // (0, 1)
-      MakeJoint({{0, 1}, {2, 0}}),           // (-1, 1)
-      MakeJoint({{3, 1}, {2, 4}, {5, 0}}),   // (2, 2)
-      MakeJoint({{1, 1}, {3, 0}, {4, 0}})};  // (1, 1)
+      MakeJoint({{1, 0}, {0, 0}}
+      ), // (0, 1)
+      MakeJoint({{0, 1}, {2, 0}}
+      ), // (-1, 1)
+      MakeJoint({{3, 1}, {2, 4}, {5, 0}}
+      ), // (2, 2)
+      MakeJoint({{1, 1}, {3, 0}, {4, 0}}
+      )
+  };  // (1, 1)
 
   traffic::TrafficCache const trafficCache;
   std::shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
@@ -107,4 +163,3 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildTestGraph()
   return BuildWorldGraph(std::move(loader), estimator, joints);
 }
 }  // namespace routing_test
-

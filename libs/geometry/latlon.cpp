@@ -7,7 +7,10 @@
 
 namespace ms
 {
-bool LatLon::operator==(ms::LatLon const & rhs) const { return m_lat == rhs.m_lat && m_lon == rhs.m_lon; }
+bool LatLon::operator==(ms::LatLon const & rhs) const
+{
+  return m_lat == rhs.m_lat && m_lon == rhs.m_lon;
+}
 
 bool LatLon::operator<(ms::LatLon const & rhs) const
 {
@@ -22,14 +25,13 @@ bool LatLon::EqualDxDy(LatLon const & p, double eps) const
 std::string DebugPrint(LatLon const & t)
 {
   std::ostringstream out;
-  out.precision(9); // <3>.<6> digits is enough here
+  out.precision(9);  // <3>.<6> digits is enough here
   out << "ms::LatLon(" << t.m_lat << ", " << t.m_lon << ")";
   return out.str();
 }
 
 bool AlmostEqualAbs(LatLon const & ll1, LatLon const & ll2, double eps)
 {
-  return ::AlmostEqualAbs(ll1.m_lat, ll2.m_lat, eps) &&
-         ::AlmostEqualAbs(ll1.m_lon, ll2.m_lon, eps);
+  return ::AlmostEqualAbs(ll1.m_lat, ll2.m_lat, eps) && ::AlmostEqualAbs(ll1.m_lon, ll2.m_lon, eps);
 }
 }  // namespace ms

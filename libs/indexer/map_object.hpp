@@ -44,7 +44,8 @@ public:
 
   std::string_view GetMetadata(MetadataID type) const;
 
-  template <class FnT> void ForEachMetadataReadable(FnT && fn) const
+  template <class FnT>
+  void ForEachMetadataReadable(FnT && fn) const
   {
     m_metadata.ForEach([&fn](MetadataID id, std::string const & value)
     {
@@ -58,8 +59,7 @@ public:
       case MetadataID::FMD_CUSTOM_IDS:
       case MetadataID::FMD_PRICE_RATES:
       case MetadataID::FMD_RATINGS:
-      case MetadataID::FMD_EXTERNAL_URI:
-        break;
+      case MetadataID::FMD_EXTERNAL_URI: break;
       default: fn(id, value); break;
       }
     });
@@ -105,14 +105,14 @@ public:
 
   /// @returns all localized POI types separated by kFieldsSeparator to display in UI.
   std::string GetLocalizedAllTypes(bool withMainType) const;
-    
+
 protected:
   /// @returns "the best" single type to display in UI.
   std::string GetLocalizedType() const;
 
   /// @returns all readable internal types separated by kFieldsSeparator for debugging.
   std::string GetAllReadableTypes() const;
-    
+
   FeatureID m_featureID;
   m2::PointD m_mercator;
 

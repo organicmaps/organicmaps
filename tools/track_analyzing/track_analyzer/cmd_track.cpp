@@ -23,28 +23,24 @@ using namespace std;
 
 namespace track_analyzing
 {
-void CmdTrack(string const & trackFile, string const & mwmName, string const & user,
-              size_t trackIdx)
+void CmdTrack(string const & trackFile, string const & mwmName, string const & user, size_t trackIdx)
 {
   storage::Storage storage;
   auto const numMwmIds = CreateNumMwmIds(storage);
   MwmToMatchedTracks mwmToMatchedTracks;
   ReadTracks(numMwmIds, trackFile, mwmToMatchedTracks);
 
-  MatchedTrack const & track =
-      GetMatchedTrack(mwmToMatchedTracks, *numMwmIds, mwmName, user, trackIdx);
+  MatchedTrack const & track = GetMatchedTrack(mwmToMatchedTracks, *numMwmIds, mwmName, user, trackIdx);
 
   string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
-  shared_ptr<VehicleModelInterface> vehicleModel =
-      CarModelFactory({}).GetVehicleModelForCountry(mwmName);
+  shared_ptr<VehicleModelInterface> vehicleModel = CarModelFactory({}).GetVehicleModelForCountry(mwmName);
   Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
 
-  uint64_t const duration =
-      track.back().GetDataPoint().m_timestamp - track.front().GetDataPoint().m_timestamp;
+  uint64_t const duration = track.back().GetDataPoint().m_timestamp - track.front().GetDataPoint().m_timestamp;
   double const length = CalcTrackLength(track, geometry);
   double const averageSpeed = CalcSpeedKMpH(length, duration);
-  LOG(LINFO, ("Mwm:", mwmName, ", user:", user, ", points:", track.size(), "duration:", duration,
-              "length:", length, ", speed:", averageSpeed, "km/h"));
+  LOG(LINFO, ("Mwm:", mwmName, ", user:", user, ", points:", track.size(), "duration:", duration, "length:", length,
+              ", speed:", averageSpeed, "km/h"));
 
   for (size_t i = 0; i < track.size(); ++i)
   {
@@ -64,10 +60,9 @@ void CmdTrack(string const & trackFile, string const & mwmName, string const & u
     if (elapsed != 0)
       speed = CalcSpeedKMpH(distance, elapsed);
 
-    LOG(LINFO, (base::SecondsSinceEpochToString(point.GetDataPoint().m_timestamp),
-                point.GetDataPoint().m_latLon, point.GetSegment(), ", traffic:",
-                point.GetDataPoint().m_traffic, ", distance:", distance, ", elapsed:", elapsed,
-                ", speed:", speed));
+    LOG(LINFO, (base::SecondsSinceEpochToString(point.GetDataPoint().m_timestamp), point.GetDataPoint().m_latLon,
+                point.GetSegment(), ", traffic:", point.GetDataPoint().m_traffic, ", distance:", distance,
+                ", elapsed:", elapsed, ", speed:", speed));
   }
 }
 }  // namespace track_analyzing

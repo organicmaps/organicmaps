@@ -7,7 +7,10 @@
 
 namespace qt
 {
-bool Ruler::IsActive() { return m_isActive; }
+bool Ruler::IsActive()
+{
+  return m_isActive;
+}
 
 void Ruler::SetActive(bool status)
 {
@@ -37,13 +40,18 @@ void Ruler::DrawLine(df::DrapeApi & drapeApi)
 
   drapeApi.RemoveLine(m_id);
   SetId();
-  drapeApi.AddLine(
-      m_id, df::DrapeApiLineData(m_polyline, lightGreyColor).Width(7.0f).ShowPoints(true).ShowId());
+  drapeApi.AddLine(m_id, df::DrapeApiLineData(m_polyline, lightGreyColor).Width(7.0f).ShowPoints(true).ShowId());
 }
 
-void Ruler::EraseLine(df::DrapeApi & drapeApi) { drapeApi.RemoveLine(m_id); }
+void Ruler::EraseLine(df::DrapeApi & drapeApi)
+{
+  drapeApi.RemoveLine(m_id);
+}
 
-bool Ruler::IsValidPolyline() { return m_polyline.size() > 1; }
+bool Ruler::IsValidPolyline()
+{
+  return m_polyline.size() > 1;
+}
 
 void Ruler::SetDistance()
 {

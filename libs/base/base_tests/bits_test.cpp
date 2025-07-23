@@ -33,7 +33,8 @@ UNIT_TEST(BitwiseMerge)
   TEST_EQUAL(bits::BitwiseMerge(1, 3), 11, ());
   TEST_EQUAL(bits::BitwiseMerge(uint32_t{1} << 31, uint32_t{1} << 31), uint64_t{3} << 62, ());
 
-  auto bitwiseMergeSlow = [](uint32_t x, uint32_t y) -> uint64_t {
+  auto bitwiseMergeSlow = [](uint32_t x, uint32_t y) -> uint64_t
+  {
     uint64_t result = 0;
     for (uint32_t i = 0; i < 32; ++i)
     {
@@ -46,34 +47,32 @@ UNIT_TEST(BitwiseMerge)
   };
 
   for (uint32_t x = 0; x < 16; ++x)
-  {
     for (uint32_t y = 0; y < 16; ++y)
       TEST_EQUAL(bits::BitwiseMerge(x, y), bitwiseMergeSlow(x, y), (x, y));
-  }
 }
 
 UNIT_TEST(ZigZagEncode)
 {
-  TEST_EQUAL(bits::ZigZagEncode(0),  0, ());
+  TEST_EQUAL(bits::ZigZagEncode(0), 0, ());
   TEST_EQUAL(bits::ZigZagEncode(-1), 1, ());
-  TEST_EQUAL(bits::ZigZagEncode(1),  2, ());
+  TEST_EQUAL(bits::ZigZagEncode(1), 2, ());
   TEST_EQUAL(bits::ZigZagEncode(-2), 3, ());
-  TEST_EQUAL(bits::ZigZagEncode(2),  4, ());
-  TEST_EQUAL(bits::ZigZagEncode(127),  254, ());
+  TEST_EQUAL(bits::ZigZagEncode(2), 4, ());
+  TEST_EQUAL(bits::ZigZagEncode(127), 254, ());
   TEST_EQUAL(bits::ZigZagEncode(-128), 255, ());
-  TEST_EQUAL(bits::ZigZagEncode(128),  256, ());
+  TEST_EQUAL(bits::ZigZagEncode(128), 256, ());
 }
 
 UNIT_TEST(ZigZagDecode)
 {
   TEST_EQUAL(bits::ZigZagDecode(0U), 0, ());
   TEST_EQUAL(bits::ZigZagDecode(1U), -1, ());
-  TEST_EQUAL(bits::ZigZagDecode(2U),  1, ());
+  TEST_EQUAL(bits::ZigZagDecode(2U), 1, ());
   TEST_EQUAL(bits::ZigZagDecode(3U), -2, ());
-  TEST_EQUAL(bits::ZigZagDecode(4U),  2, ());
-  TEST_EQUAL(bits::ZigZagDecode(254U),  127, ());
+  TEST_EQUAL(bits::ZigZagDecode(4U), 2, ());
+  TEST_EQUAL(bits::ZigZagDecode(254U), 127, ());
   TEST_EQUAL(bits::ZigZagDecode(255U), -128, ());
-  TEST_EQUAL(bits::ZigZagDecode(256U),  128, ());
+  TEST_EQUAL(bits::ZigZagDecode(256U), 128, ());
 }
 
 UNIT_TEST(NumHiZeroBits32)

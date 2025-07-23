@@ -104,4 +104,3 @@ UNIT_TEST(ProductsConfig_MissedProductsField)
   auto const result = ProductsConfig::Parse(jsonStr);
   TEST(!result.has_value(), ());
 }
-

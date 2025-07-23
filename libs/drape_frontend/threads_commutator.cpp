@@ -22,5 +22,4 @@ void ThreadsCommutator::PostMessage(ThreadName name, drape_ptr<Message> && messa
     it->second->PostMessage(std::move(message), priority);
 }
 
-} // namespace df
-
+}  // namespace df

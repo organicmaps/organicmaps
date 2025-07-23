@@ -31,7 +31,8 @@ void ScenarioManager::Interrupt()
   InterruptImpl();
 }
 
-bool ScenarioManager::RunScenario(ScenarioData && scenarioData, ScenarioCallback const & onStartFn, ScenarioCallback const & onFinishFn)
+bool ScenarioManager::RunScenario(ScenarioData && scenarioData, ScenarioCallback const & onStartFn,
+                                  ScenarioCallback const & onFinishFn)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   if (m_thread != nullptr)
@@ -39,7 +40,7 @@ bool ScenarioManager::RunScenario(ScenarioData && scenarioData, ScenarioCallback
     if (m_isFinished)
       InterruptImpl();
     else
-      return false; // The only scenario can be executed currently.
+      return false;  // The only scenario can be executed currently.
   }
 
   std::swap(m_scenarioData, scenarioData);
@@ -84,28 +85,25 @@ void ScenarioManager::ThreadRoutine()
       }
     }
 
-    switch(action->GetType())
+    switch (action->GetType())
     {
     case ActionType::CenterViewport:
-      {
-        CenterViewportAction * centerViewportAction = static_cast<CenterViewportAction *>(action.get());
-        m_frontendRenderer->AddUserEvent(make_unique_dp<SetCenterEvent>(centerViewportAction->GetCenter(),
-                                                                        centerViewportAction->GetZoomLevel(),
-                                                                        true /* isAnim */,
-                                                                        false /* trackVisibleViewport */,
-                                                                        nullptr /* parallelAnimCreator */));
-        break;
-      }
+    {
+      CenterViewportAction * centerViewportAction = static_cast<CenterViewportAction *>(action.get());
+      m_frontendRenderer->AddUserEvent(make_unique_dp<SetCenterEvent>(
+          centerViewportAction->GetCenter(), centerViewportAction->GetZoomLevel(), true /* isAnim */,
+          false /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+      break;
+    }
 
     case ActionType::WaitForTime:
-      {
-        WaitForTimeAction * waitForTimeAction = static_cast<WaitForTimeAction *>(action.get());
-        std::this_thread::sleep_for(waitForTimeAction->GetDuration());
-        break;
-      }
+    {
+      WaitForTimeAction * waitForTimeAction = static_cast<WaitForTimeAction *>(action.get());
+      std::this_thread::sleep_for(waitForTimeAction->GetDuration());
+      break;
+    }
 
-    default:
-      LOG(LINFO, ("Unknown action in scenario"));
+    default: LOG(LINFO, ("Unknown action in scenario"));
     }
   }
 
@@ -145,4 +143,4 @@ void ScenarioManager::InterruptImpl()
   }
 }
 
-} //  namespace df
+}  //  namespace df

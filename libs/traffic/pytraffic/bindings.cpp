@@ -1,5 +1,5 @@
-#include "traffic/traffic_info.hpp"
 #include "traffic/speed_groups.hpp"
+#include "traffic/traffic_info.hpp"
 
 #include "indexer/classificator_loader.hpp"
 
@@ -31,9 +31,10 @@ struct SegmentSpeeds
 {
   SegmentSpeeds() = default;
   SegmentSpeeds(double weightedSpeed, double weightedRefSpeed, double weight)
-    : m_weightedSpeed(weightedSpeed), m_weightedRefSpeed(weightedRefSpeed), m_weight(weight)
-  {
-  }
+    : m_weightedSpeed(weightedSpeed)
+    , m_weightedRefSpeed(weightedRefSpeed)
+    , m_weight(weight)
+  {}
 
   double m_weightedSpeed = 0;
   double m_weightedRefSpeed = 0;
@@ -103,8 +104,7 @@ boost::python::list GenerateTrafficKeys(std::string const & mwmPath)
 }
 
 std::vector<uint8_t> GenerateTrafficValues(std::vector<traffic::TrafficInfo::RoadSegmentId> const & keys,
-                                           boost::python::dict const & segmentMappingDict,
-                                           uint8_t useTempBlock)
+                                           boost::python::dict const & segmentMappingDict, uint8_t useTempBlock)
 {
   SegmentMapping segmentMapping;
   boost::python::list mappingKeys = segmentMappingDict.keys();
@@ -178,15 +178,13 @@ BOOST_PYTHON_MODULE(pytraffic)
       .def("__repr__", &SegmentSpeedsRepr)
       .def_readwrite("weighted_speed", &SegmentSpeeds::m_weightedSpeed)
       .def_readwrite("weighted_ref_speed", &SegmentSpeeds::m_weightedRefSpeed)
-      .def_readwrite("weight", &SegmentSpeeds::m_weight)
-  ;
+      .def_readwrite("weight", &SegmentSpeeds::m_weight);
 
   class_<traffic::TrafficInfo::RoadSegmentId>("RoadSegmentId", init<uint32_t, uint16_t, uint8_t>())
       .def("__repr__", &RoadSegmentIdRepr)
       .add_property("fid", &traffic::TrafficInfo::RoadSegmentId::GetFid)
       .add_property("idx", &traffic::TrafficInfo::RoadSegmentId::GetIdx)
-      .add_property("dir", &traffic::TrafficInfo::RoadSegmentId::GetDir)
-  ;
+      .add_property("dir", &traffic::TrafficInfo::RoadSegmentId::GetDir);
 
   class_<std::vector<traffic::TrafficInfo::RoadSegmentId>>("RoadSegmentIdVec")
       .def(vector_indexing_suite<std::vector<traffic::TrafficInfo::RoadSegmentId>>());
@@ -199,8 +197,7 @@ BOOST_PYTHON_MODULE(pytraffic)
       .value("G4", traffic::SpeedGroup::G4)
       .value("G5", traffic::SpeedGroup::G5)
       .value("TempBlock", traffic::SpeedGroup::TempBlock)
-      .value("Unknown", traffic::SpeedGroup::Unknown)
-  ;
+      .value("Unknown", traffic::SpeedGroup::Unknown);
 
   def("load_classificator", LoadClassificator);
   def("generate_traffic_keys", GenerateTrafficKeys);

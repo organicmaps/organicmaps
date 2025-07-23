@@ -35,16 +35,15 @@ class MetalineManager;
 class BackendRenderer : public BaseRenderer
 {
 public:
-  using TUpdateCurrentCountryFn = std::function<void (m2::PointD const &, int)>;
+  using TUpdateCurrentCountryFn = std::function<void(m2::PointD const &, int)>;
 
   struct Params : BaseRenderer::Params
   {
     Params(dp::ApiVersion apiVersion, ref_ptr<ThreadsCommutator> commutator,
            ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MapDataProvider const & model, TUpdateCurrentCountryFn const & updateCurrentCountryFn,
-           ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings, bool trafficEnabled,
-           bool isolinesEnabled, bool simplifiedTrafficColors,
-           std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
+           ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings, bool trafficEnabled, bool isolinesEnabled,
+           bool simplifiedTrafficColors, std::optional<Arrow3dCustomDecl> arrow3dCustomDecl,
            OnGraphicsContextInitialized const & onGraphicsContextInitialized)
       : BaseRenderer::Params(apiVersion, commutator, factory, texMng, onGraphicsContextInitialized)
       , m_model(model)
@@ -74,7 +73,7 @@ public:
 
 protected:
   std::unique_ptr<threads::IRoutine> CreateRoutine() override;
-  
+
   void RenderFrame() override;
 
   void OnContextCreate() override;

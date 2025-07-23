@@ -21,7 +21,7 @@ double constexpr kMinHorizontalAccuracyMeters = 250;
 double constexpr kClosePointDistanceMeters = 15;
 
 // Max acceptable acceleration to filter gps jumps
-double constexpr kMaxAcceptableAcceleration = 2; // m / sec ^ 2
+double constexpr kMaxAcceptableAcceleration = 2;  // m / sec ^ 2
 
 double constexpr kCosine45degrees = 0.70710678118;
 
@@ -37,7 +37,7 @@ double GetDistance(location::GpsInfo const & from, location::GpsInfo const & to)
 {
   return ms::DistanceOnEarth(from.m_latitude, from.m_longitude, to.m_latitude, to.m_longitude);
 }
-} // namespace
+}  // namespace
 
 void GpsTrackNullFilter::Process(std::vector<location::GpsInfo> const & inPoints,
                                  std::vector<location::GpsInfo> & outPoints)
@@ -89,8 +89,8 @@ void GpsTrackFilter::Process(std::vector<location::GpsInfo> const & inPoints,
 
     if (IsGoodPoint(currInfo))
     {
-      double const predictionDistance = GetDistance(m_lastInfo[1], m_lastInfo[0]); // meters
-      double const realDistance = GetDistance(m_lastInfo[0], currInfo); // meters
+      double const predictionDistance = GetDistance(m_lastInfo[1], m_lastInfo[0]);  // meters
+      double const realDistance = GetDistance(m_lastInfo[0], currInfo);             // meters
 
       m2::PointD const predictionDirection = GetDirection(m_lastInfo[1], m_lastInfo[0]);
       m2::PointD const realDirection = GetDirection(m_lastInfo[0], currInfo);
@@ -100,8 +100,7 @@ void GpsTrackFilter::Process(std::vector<location::GpsInfo> const & inPoints,
 
       // Acceptable angle must be from 0 to 45 or from 0 to -45.
       // Acceptable distance must be not great than 2x than predicted, otherwise it is jump.
-      if (cosine >= kCosine45degrees &&
-          realDistance <= std::max(kClosePointDistanceMeters, 2. * predictionDistance))
+      if (cosine >= kCosine45degrees && realDistance <= std::max(kClosePointDistanceMeters, 2. * predictionDistance))
       {
         outPoints.emplace_back(currInfo);
         AddLastAcceptedInfo(currInfo);

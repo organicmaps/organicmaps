@@ -10,8 +10,8 @@ namespace routing
 std::string DebugPrint(LatLonWithAltitude const & latLonWithAltitude)
 {
   std::stringstream ss;
-  ss << "LatLonWithAltitude(" << DebugPrint(latLonWithAltitude.GetLatLon()) << ", "
-     << latLonWithAltitude.GetAltitude() << ")";
+  ss << "LatLonWithAltitude(" << DebugPrint(latLonWithAltitude.GetLatLon()) << ", " << latLonWithAltitude.GetAltitude()
+     << ")";
   return ss.str();
 }
 

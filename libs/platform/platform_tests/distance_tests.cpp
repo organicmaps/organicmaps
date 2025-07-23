@@ -169,8 +169,7 @@ UNIT_TEST(Distance_To)
   // clang-format on
   for (TestData const & data : testData)
   {
-    Distance const formatted =
-        Distance(data.initialDistance, data.initialUnits).To(data.to).GetFormattedDistance();
+    Distance const formatted = Distance(data.initialDistance, data.initialUnits).To(data.to).GetFormattedDistance();
     TEST_ALMOST_EQUAL_ULPS(formatted.GetDistance(), data.newDistance, (data.initialDistance));
     TEST_EQUAL(formatted.GetUnits(), data.newUnits, ());
   }

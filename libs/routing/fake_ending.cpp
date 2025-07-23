@@ -17,8 +17,7 @@ namespace routing
 using namespace routing;
 using namespace std;
 
-LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin,
-                                           LatLonWithAltitude const & end,
+LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin, LatLonWithAltitude const & end,
                                            m2::PointD const & point)
 {
   m2::ParametrizedSegment<m2::PointD> segment(mercator::FromLatLon(begin.GetLatLon()),
@@ -33,23 +32,20 @@ LatLonWithAltitude CalcProjectionToSegment(LatLonWithAltitude const & begin,
   if (AlmostEqualAbs(distBeginToEnd, 0.0, kEpsMeters))
     return LatLonWithAltitude(projectedLatLon, begin.GetAltitude());
 
-  auto const distBeginToProjection =
-      ms::DistanceOnEarth(begin.GetLatLon(), projectedLatLon);
+  auto const distBeginToProjection = ms::DistanceOnEarth(begin.GetLatLon(), projectedLatLon);
 
-  auto const altitude = begin.GetAltitude() + (end.GetAltitude() - begin.GetAltitude()) *
-                                                  distBeginToProjection / distBeginToEnd;
+  auto const altitude =
+      begin.GetAltitude() + (end.GetAltitude() - begin.GetAltitude()) * distBeginToProjection / distBeginToEnd;
   return LatLonWithAltitude(projectedLatLon, altitude);
 }
 
-bool Projection::operator==(const Projection & other) const
+bool Projection::operator==(Projection const & other) const
 {
   return tie(m_segment, m_isOneWay, m_segmentFront, m_segmentBack, m_junction) ==
-         tie(other.m_segment, other.m_isOneWay, other.m_segmentFront, other.m_segmentBack,
-             other.m_junction);
+         tie(other.m_segment, other.m_isOneWay, other.m_segmentFront, other.m_segmentBack, other.m_junction);
 }
 
-FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & point,
-                          WorldGraph & graph)
+FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & point, WorldGraph & graph)
 {
   FakeEnding ending;
   double averageAltitude = 0.0;
@@ -63,8 +59,7 @@ FakeEnding MakeFakeEnding(vector<Segment> const & segments, m2::PointD const & p
     auto const & backJunction = graph.GetJunction(segment, false /* front */);
     auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
 
-    ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction,
-                                      projectedJunction);
+    ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction, projectedJunction);
 
     averageAltitude = (i * averageAltitude + projectedJunction.GetAltitude()) / (i + 1);
   }
@@ -83,10 +78,8 @@ FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point, Ind
   auto const & projectedJunction = CalcProjectionToSegment(backJunction, frontJunction, point);
 
   FakeEnding ending;
-  ending.m_originJunction =
-      LatLonWithAltitude(mercator::ToLatLon(point), projectedJunction.GetAltitude());
-  ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction,
-                                    projectedJunction);
+  ending.m_originJunction = LatLonWithAltitude(mercator::ToLatLon(point), projectedJunction.GetAltitude());
+  ending.m_projections.emplace_back(segment, oneWay, frontJunction, backJunction, projectedJunction);
   return ending;
 }
 }  // namespace routing

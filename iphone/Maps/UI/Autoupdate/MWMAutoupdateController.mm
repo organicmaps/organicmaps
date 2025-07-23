@@ -10,7 +10,10 @@
 
 namespace
 {
-NSString *RootId() { return @(GetFramework().GetStorage().GetRootId().c_str()); }
+NSString * RootId()
+{
+  return @(GetFramework().GetStorage().GetRootId().c_str());
+}
 enum class State
 {
   Downloading,
@@ -66,7 +69,7 @@ using namespace storage;
   [self layoutIfNeeded];
 }
 
--(void)setUpdateSize:(NSString *)updateSize
+- (void)setUpdateSize:(NSString *)updateSize
 {
   _updateSize = updateSize;
   self.primaryButton.localizedText =
@@ -154,8 +157,8 @@ using namespace storage;
 
 + (instancetype)instanceWithPurpose:(Framework::DoAfterUpdate)todo
 {
-  MWMAutoupdateController * controller =
-      [[MWMAutoupdateController alloc] initWithNibName:[self className] bundle:NSBundle.mainBundle];
+  MWMAutoupdateController * controller = [[MWMAutoupdateController alloc] initWithNibName:[self className]
+                                                                                   bundle:NSBundle.mainBundle];
   controller.todo = todo;
   auto view = static_cast<MWMAutoupdateView *>(controller.view);
   view.delegate = controller;
@@ -168,14 +171,15 @@ using namespace storage;
 {
   [super viewWillAppear:animated];
   self.progressFinished = NO;
-  MWMAutoupdateView *view = (MWMAutoupdateView *)self.view;
+  MWMAutoupdateView * view = (MWMAutoupdateView *)self.view;
   if (self.todo == Framework::DoAfterUpdate::AutoupdateMaps)
   {
     [view stateDownloading];
-    [[MWMStorage sharedStorage] updateNode:RootId() onCancel:^{
-      [self updateSize];
-      [view stateWaiting];
-    }];
+    [[MWMStorage sharedStorage] updateNode:RootId()
+                                  onCancel:^{
+                                    [self updateSize];
+                                    [view stateWaiting];
+                                  }];
   }
   else
   {
@@ -186,9 +190,7 @@ using namespace storage;
 - (void)dismiss
 {
   [static_cast<MWMAutoupdateView *>(self.view) stopSpinner];
-  [self dismissViewControllerAnimated:YES completion:^{
-    [[MWMStorage sharedStorage] removeObserver:self];
-  }];
+  [self dismissViewControllerAnimated:YES completion:^{ [[MWMStorage sharedStorage] removeObserver:self]; }];
 }
 
 - (void)updateSize
@@ -204,34 +206,35 @@ using namespace storage;
 
 - (IBAction)updateTap
 {
-  MWMAutoupdateView *view = (MWMAutoupdateView *)self.view;
+  MWMAutoupdateView * view = (MWMAutoupdateView *)self.view;
   [view stateDownloading];
-  [[MWMStorage sharedStorage] updateNode:RootId() onCancel:^{
-    [self updateSize];
-    [view stateWaiting];
-  }];
+  [[MWMStorage sharedStorage] updateNode:RootId()
+                                onCancel:^{
+                                  [self updateSize];
+                                  [view stateWaiting];
+                                }];
 }
-- (IBAction)hideTap { [self dismiss]; }
+- (IBAction)hideTap
+{
+  [self dismiss];
+}
 
 - (void)cancel
 {
   auto view = static_cast<MWMAutoupdateView *>(self.view);
-  UIAlertController * alertController =
-      [UIAlertController alertControllerWithTitle:nil
-                                          message:nil
-                                   preferredStyle:UIAlertControllerStyleActionSheet];
+  UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                            message:nil
+                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
   alertController.popoverPresentationController.sourceView = view.secondaryButton;
   alertController.popoverPresentationController.sourceRect = view.secondaryButton.bounds;
-  auto cancelDownloadAction =
-      [UIAlertAction actionWithTitle:L(@"cancel_download")
-                               style:UIAlertActionStyleDestructive
-                             handler:^(UIAlertAction * action) {
-                               [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
-                               [self dismiss];
-                             }];
+  auto cancelDownloadAction = [UIAlertAction actionWithTitle:L(@"cancel_download")
+                                                       style:UIAlertActionStyleDestructive
+                                                     handler:^(UIAlertAction * action) {
+                                                       [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
+                                                       [self dismiss];
+                                                     }];
   [alertController addAction:cancelDownloadAction];
-  auto cancelAction =
-      [UIAlertAction actionWithTitle:L(@"cancel") style:UIAlertActionStyleCancel handler:nil];
+  auto cancelAction = [UIAlertAction actionWithTitle:L(@"cancel") style:UIAlertActionStyleCancel handler:nil];
   [alertController addAction:cancelAction];
   [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -240,9 +243,11 @@ using namespace storage;
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
   [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-  [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-    [static_cast<MWMAutoupdateView *>(self.view) updateForSize:size];
-  } completion:nil];
+  [coordinator
+      animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+        [static_cast<MWMAutoupdateView *>(self.view) updateForSize:size];
+      }
+                      completion:nil];
 }
 
 - (void)updateProcessStatus:(CountryId const &)countryId
@@ -259,7 +264,10 @@ using namespace storage;
 
 #pragma mark - MWMCircularProgressProtocol
 
-- (void)progressButtonPressed:(MWMCircularProgress *)progress { [self cancel]; }
+- (void)progressButtonPressed:(MWMCircularProgress *)progress
+{
+  [self cancel];
+}
 
 #pragma mark - MWMStorageObserver
 
@@ -284,7 +292,7 @@ using namespace storage;
     default: m_updatingCountries.insert(countryId.UTF8String);
     }
   }
-  
+
   if (self.progressFinished && m_updatingCountries.empty())
     [self dismiss];
   else
@@ -298,9 +306,7 @@ using namespace storage;
   [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
 }
 
-- (void)processCountry:(NSString *)countryId
-       downloadedBytes:(uint64_t)downloadedBytes
-            totalBytes:(uint64_t)totalBytes
+- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
 {
   if (m_updatingCountries.find(countryId.UTF8String) != m_updatingCountries.end())
     [self updateProcessStatus:countryId.UTF8String];

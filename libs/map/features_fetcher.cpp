@@ -10,9 +10,15 @@
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
-FeaturesFetcher::FeaturesFetcher() { m_dataSource.AddObserver(*this); }
+FeaturesFetcher::FeaturesFetcher()
+{
+  m_dataSource.AddObserver(*this);
+}
 
-FeaturesFetcher::~FeaturesFetcher() { m_dataSource.RemoveObserver(*this); }
+FeaturesFetcher::~FeaturesFetcher()
+{
+  m_dataSource.RemoveObserver(*this);
+}
 
 // While reading any files (classificator or mwm), there are 2 types of possible exceptions:
 // Reader::Exception, FileAbsentException.
@@ -30,8 +36,7 @@ void FeaturesFetcher::InitClassificator()
   }
 }
 
-std::pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
-    LocalCountryFile const & localFile)
+std::pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(LocalCountryFile const & localFile)
 {
   try
   {
@@ -62,9 +67,15 @@ bool FeaturesFetcher::DeregisterMap(CountryFile const & countryFile)
   return m_dataSource.Deregister(countryFile);
 }
 
-void FeaturesFetcher::Clear() { m_dataSource.Clear(); }
+void FeaturesFetcher::Clear()
+{
+  m_dataSource.Clear();
+}
 
-void FeaturesFetcher::ClearCaches() { m_dataSource.ClearCache(); }
+void FeaturesFetcher::ClearCaches()
+{
+  m_dataSource.ClearCache();
+}
 
 m2::RectD FeaturesFetcher::GetWorldRect() const
 {

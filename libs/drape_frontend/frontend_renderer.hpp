@@ -7,11 +7,11 @@
 #include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/overlays_tracker.hpp"
+#include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/render_group.hpp"
 #include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/route_renderer.hpp"
-#include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/transit_scheme_renderer.hpp"
@@ -74,9 +74,10 @@ struct TapInfo
  * Each RenderLayer contains several RenderGroups, one per each tile and RenderState.
  * Each RenderGroup contains several RenderBuckets holding VertexArrayBuffers and optional OverlayHandles.
  */
-class FrontendRenderer : public BaseRenderer,
-                         public MyPositionController::Listener,
-                         public UserEventStream::Listener
+class FrontendRenderer
+  : public BaseRenderer
+  , public MyPositionController::Listener
+  , public UserEventStream::Listener
 {
 public:
   using ModelViewChangedHandler = std::function<void(ScreenBase const & screen)>;
@@ -90,13 +91,11 @@ public:
            ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MyPositionController::Params && myPositionParams, dp::Viewport viewport,
            ModelViewChangedHandler && modelViewChangedHandler, TapEventInfoHandler && tapEventHandler,
-           UserPositionChangedHandler && positionChangedHandler,
-           ref_ptr<RequestedTiles> requestedTiles,
-           OverlaysShowStatsCallback && overlaysShowStatsCallback,
-           bool allow3dBuildings, bool trafficEnabled, bool blockTapEvents,
-           std::vector<PostprocessRenderer::Effect> && enabledEffects,
+           UserPositionChangedHandler && positionChangedHandler, ref_ptr<RequestedTiles> requestedTiles,
+           OverlaysShowStatsCallback && overlaysShowStatsCallback, bool allow3dBuildings, bool trafficEnabled,
+           bool blockTapEvents, std::vector<PostprocessRenderer::Effect> && enabledEffects,
            OnGraphicsContextInitialized const & onGraphicsContextInitialized,
-           dp::RenderInjectionHandler&& renderInjectionHandler)
+           dp::RenderInjectionHandler && renderInjectionHandler)
       : BaseRenderer::Params(apiVersion, commutator, factory, texMng, onGraphicsContextInitialized)
       , m_myPositionParams(std::move(myPositionParams))
       , m_viewport(viewport)
@@ -138,13 +137,12 @@ public:
   void ChangeModelView(m2::PointD const & center, int zoomLevel,
                        TAnimationCreator const & parallelAnimCreator) override;
   void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) override;
-  void ChangeModelView(m2::RectD const & rect,
+  void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) override;
+  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int preferredZoomLevel,
+                       Animation::TAction const & onFinishAction,
                        TAnimationCreator const & parallelAnimCreator) override;
-  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                       int preferredZoomLevel, Animation::TAction const & onFinishAction,
+  void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
                        TAnimationCreator const & parallelAnimCreator) override;
-  void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
-                       m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) override;
 
   drape_ptr<ScenarioManager> const & GetScenarioManager() const { return m_scenarioManager; }
   location::EMyPositionMode GetMyPositionMode() const { return m_myPositionController->GetCurrentMode(); }
@@ -197,8 +195,7 @@ private:
   bool HasTransitRouteData() const;
   bool HasRouteData() const;
 
-  ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged, 
-                                   bool & needActiveFrame);
+  ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged, bool & needActiveFrame);
   void PrepareScene(ScreenBase const & modelView);
   void UpdateScene(ScreenBase const & modelView);
   void BuildOverlayTree(ScreenBase const & modelView);
@@ -233,8 +230,8 @@ private:
   void OnScaleEnded() override;
   void OnAnimatedScaleEnded() override;
   void OnTouchMapAction(TouchEvent::ETouchType touchType, bool isMapTouch) override;
-  bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
-                            bool needOffset, m2::PointD & gOffset) override;
+  bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, bool needOffset,
+                            m2::PointD & gOffset) override;
 
   class Routine : public threads::IRoutine
   {
@@ -253,15 +250,14 @@ private:
   void UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup);
   void EndUpdateOverlayTree();
 
-  template<typename TRenderGroup>
+  template <typename TRenderGroup>
   void AddToRenderGroup(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && renderBucket,
                         TileKey const & newTile);
 
   using TRenderGroupRemovePredicate = std::function<bool(drape_ptr<RenderGroup> const &)>;
   void RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate);
 
-  void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom,
-                   bool isArrowGlued);
+  void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued);
 
   bool CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData);
 
@@ -288,8 +284,7 @@ private:
   void ScheduleOverlayCollecting();
 
   void SearchInNonDisplaceableUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId,
-                                             m2::RectD const & selectionRect,
-                                             dp::TOverlayContainer & result);
+                                             m2::RectD const & selectionRect, dp::TOverlayContainer & result);
 
   drape_ptr<gpu::ProgramManager> m_gpuProgramManager;
 
@@ -373,8 +368,7 @@ private:
 
   struct FollowRouteData
   {
-    FollowRouteData(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom,
-                    bool isArrowGlued)
+    FollowRouteData(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued)
       : m_preferredZoomLevel(preferredZoomLevel)
       , m_preferredZoomLevelIn3d(preferredZoomLevelIn3d)
       , m_enableAutoZoom(enableAutoZoom)

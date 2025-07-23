@@ -16,7 +16,7 @@ class NoopStats
 {
 public:
   NoopStats() {}
-  void operator() (T const &) {}
+  void operator()(T const &) {}
   std::string GetStatsStr() const { return ""; }
 };
 
@@ -25,7 +25,8 @@ class AverageStats
 {
 public:
   AverageStats() = default;
-  template <class ContT> explicit AverageStats(ContT const & cont)
+  template <class ContT>
+  explicit AverageStats(ContT const & cont)
   {
     for (auto const & e : cont)
       (*this)(e);
@@ -55,7 +56,8 @@ private:
   T m_sum = 0;
 };
 
-template <class T> class StatsCollector
+template <class T>
+class StatsCollector
 {
   std::vector<std::pair<std::string, AverageStats<T>>> m_vec;
 
@@ -74,7 +76,8 @@ public:
   AverageStats<T> & Get(size_t i) { return m_vec[i].second; }
 };
 
-template <class Key> class TopStatsCounter
+template <class Key>
+class TopStatsCounter
 {
   std::unordered_map<Key, size_t> m_data;
 
@@ -88,7 +91,7 @@ public:
     using PtrT = std::pair<Key const, size_t> const *;
     struct GreaterNumber
     {
-      bool operator() (PtrT l, PtrT r) const { return l->second > r->second; }
+      bool operator()(PtrT l, PtrT r) const { return l->second > r->second; }
     };
 
     std::priority_queue<PtrT, std::vector<PtrT>, GreaterNumber> queue;

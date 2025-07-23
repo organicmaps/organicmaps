@@ -38,9 +38,8 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, Smoke)
     TEST(ResultsMatch("cafe Bar", rules), ());
     TEST(ResultsMatch("Drunken", Rules{}), ());
 
-    EditFeature(cafeId, [](osm::EditableMapObject & emo) {
-      emo.SetName("The Drunken Clam", StringUtf8Multilang::kEnglishCode);
-    });
+    EditFeature(cafeId, [](osm::EditableMapObject & emo)
+    { emo.SetName("The Drunken Clam", StringUtf8Multilang::kEnglishCode); });
 
     TEST(ResultsMatch("Eat ", rules), ());
     TEST(ResultsMatch("cafe Bar", rules), ());
@@ -63,8 +62,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, NonamePoi)
 {
   TestCafe nonameCafe(m2::PointD(0, 0), "", "default");
 
-  auto const id =
-      BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(nonameCafe); });
+  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(nonameCafe); });
 
   FeatureID cafeId(id, 0 /* index */);
 
@@ -107,8 +105,8 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
 
   SetViewport({-1.0, -1.0, 4.0, 4.0});
   {
-    Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1),
-                         ExactMatch(countryId, bakery2), ExactMatch(countryId, bakery3)};
+    Rules const rules = {ExactMatch(countryId, bakery0), ExactMatch(countryId, bakery1), ExactMatch(countryId, bakery2),
+                         ExactMatch(countryId, bakery3)};
 
     TEST(ResultsMatch("french bakery", rules, "en", Mode::Viewport), ());
   }
@@ -159,12 +157,12 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
   SearchParams params;
   params.m_query = "pushkin";
   params.m_inputLocale = "en";
-  params.m_viewport = { -1.0, -1.0, 1.0, 1.0 };
+  params.m_viewport = {-1.0, -1.0, 1.0, 1.0};
   params.m_mode = Mode::Viewport;
 
   // Test center for created feature loaded and filter for viewport works.
   {
-    params.m_minDistanceOnMapBetweenResults = { 0.02, 0.02 };
+    params.m_minDistanceOnMapBetweenResults = {0.02, 0.02};
 
     // Min distance on map between results is 0.02, distance between results is 0.01.
     // The second result must be filtered out.
@@ -176,7 +174,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
   }
 
   {
-    params.m_minDistanceOnMapBetweenResults = { 0.005, 0.005 };
+    params.m_minDistanceOnMapBetweenResults = {0.005, 0.005};
 
     // Min distance on map between results is 0.005, distance between results is 0.01.
     // Filter should keep both results.
@@ -190,7 +188,7 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
   SetViewport({-1.0, -1.0, 1.0, 1.0});
   {
     params.m_mode = Mode::Everywhere;
-    params.m_minDistanceOnMapBetweenResults = { 0.02, 0.02 };
+    params.m_minDistanceOnMapBetweenResults = {0.02, 0.02};
 
     // No viewport filter for everywhere search mode.
     Rules const rulesEverywhere = {ExactMatch(countryId, restaurant), ExactMatch(countryId, cafe)};
@@ -200,4 +198,4 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, ViewportFilter)
     TEST(ResultsMatch(request.Results(), rulesEverywhere), ());
   }
 }
-} // namespace search_edited_features_test
+}  // namespace search_edited_features_test

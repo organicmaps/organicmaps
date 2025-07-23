@@ -15,7 +15,6 @@
 #include <functional>
 #include <thread>
 
-
 namespace coastlines_generator
 {
 using RegionT = m2::RegionI;
@@ -53,9 +52,12 @@ class DoAddToTree : public FeatureEmitterIFace
 
 public:
   explicit DoAddToTree(CoastlineFeaturesGenerator & rMain)
-    : m_rMain(rMain), m_notMergedCoastsCount(0), m_totalNotMergedCoastsPoints(0) {}
+    : m_rMain(rMain)
+    , m_notMergedCoastsCount(0)
+    , m_totalNotMergedCoastsPoints(0)
+  {}
 
-  virtual void operator() (feature::FeatureBuilder const & fb)
+  virtual void operator()(feature::FeatureBuilder const & fb)
   {
     if (fb.IsGeometryClosed())
       m_rMain.AddRegionToTree(fb);
@@ -64,30 +66,20 @@ public:
       base::GeoObjectId const firstWay = fb.GetFirstOsmId();
       base::GeoObjectId const lastWay = fb.GetLastOsmId();
       if (firstWay == lastWay)
-        LOG(LINFO, ("Not merged coastline, way", firstWay.GetSerialId(), "(", fb.GetPointsCount(),
-                    "points)"));
+        LOG(LINFO, ("Not merged coastline, way", firstWay.GetSerialId(), "(", fb.GetPointsCount(), "points)"));
       else
-        LOG(LINFO, ("Not merged coastline, ways", firstWay.GetSerialId(), "to",
-                    lastWay.GetSerialId(), "(", fb.GetPointsCount(), "points)"));
+        LOG(LINFO, ("Not merged coastline, ways", firstWay.GetSerialId(), "to", lastWay.GetSerialId(), "(",
+                    fb.GetPointsCount(), "points)"));
       ++m_notMergedCoastsCount;
       m_totalNotMergedCoastsPoints += fb.GetPointsCount();
     }
   }
 
-  bool HasNotMergedCoasts() const
-  {
-    return m_notMergedCoastsCount != 0;
-  }
+  bool HasNotMergedCoasts() const { return m_notMergedCoastsCount != 0; }
 
-  size_t GetNotMergedCoastsCount() const
-  {
-    return m_notMergedCoastsCount;
-  }
+  size_t GetNotMergedCoastsCount() const { return m_notMergedCoastsCount; }
 
-  size_t GetNotMergedCoastsPoints() const
-  {
-    return m_totalNotMergedCoastsPoints;
-  }
+  size_t GetNotMergedCoastsPoints() const { return m_totalNotMergedCoastsPoints; }
 };
 
 class DoDifference
@@ -129,8 +121,8 @@ public:
 
       m_res[i].ForEachPoint([&points](PointT const & p)
       {
-        points.push_back(PointUToPointD(
-            m2::PointU(static_cast<uint32_t>(p.x), static_cast<uint32_t>(p.y)), kPointCoordBits));
+        points.push_back(
+            PointUToPointD(m2::PointU(static_cast<uint32_t>(p.x), static_cast<uint32_t>(p.y)), kPointCoordBits));
       });
 
       fb.AddPolygon(std::move(points));
@@ -139,8 +131,7 @@ public:
 };
 }  // namespace coastlines_generator
 
-CoastlineFeaturesGenerator::CoastlineFeaturesGenerator()
-  : m_merger(kPointCoordBits) {}
+CoastlineFeaturesGenerator::CoastlineFeaturesGenerator() : m_merger(kPointCoordBits) {}
 
 void CoastlineFeaturesGenerator::AddRegionToTree(feature::FeatureBuilder const & fb)
 {
@@ -206,13 +197,10 @@ protected:
   Context & m_ctx;
   TIndex const & m_index;
 
-  RegionInCellSplitter(Context & ctx,TIndex const & index)
-  : m_ctx(ctx), m_index(index)
-  {}
+  RegionInCellSplitter(Context & ctx, TIndex const & index) : m_ctx(ctx), m_index(index) {}
 
 public:
-  static bool Process(size_t numThreads, size_t baseScale, TIndex const & index,
-                      TProcessResultFunc funcResult)
+  static bool Process(size_t numThreads, size_t baseScale, TIndex const & index, TProcessResultFunc funcResult)
   {
     /// @todo Replace with base::ComputationalThreadPool
 
@@ -246,8 +234,8 @@ public:
 
     using namespace coastlines_generator;
     // create rect region
-    PointT arr[] = {D2I(m2::PointD(minX, minY)), D2I(m2::PointD(minX, maxY)),
-                    D2I(m2::PointD(maxX, maxY)), D2I(m2::PointD(maxX, minY))};
+    PointT arr[] = {D2I(m2::PointD(minX, minY)), D2I(m2::PointD(minX, maxY)), D2I(m2::PointD(maxX, maxY)),
+                    D2I(m2::PointD(maxX, minY))};
     RegionT rectR(arr, arr + ARRAY_SIZE(arr));
 
     // Do 'and' with all regions and accumulate the result, including bound region.
@@ -269,7 +257,7 @@ public:
     while (true)
     {
       std::unique_lock lock(m_ctx.mutexTasks);
-      m_ctx.listCondVar.wait(lock, [&]{return (!m_ctx.listTasks.empty() || m_ctx.inWork == 0);});
+      m_ctx.listCondVar.wait(lock, [&] { return (!m_ctx.listTasks.empty() || m_ctx.inWork == 0); });
       if (m_ctx.listTasks.empty())
         break;
 
@@ -283,10 +271,8 @@ public:
       lock.lock();
       // return to queue not ready cells
       if (!done)
-      {
         for (int8_t i = 0; i < TCell::MAX_CHILDREN; ++i)
           m_ctx.listTasks.push_back(currentCell.Child(i));
-      }
       --m_ctx.inWork;
       m_ctx.listCondVar.notify_all();
     }
@@ -300,23 +286,24 @@ std::vector<feature::FeatureBuilder> CoastlineFeaturesGenerator::GetFeatures(siz
   std::vector<feature::FeatureBuilder> features;
   std::mutex featuresMutex;
 
-  RegionInCellSplitter::Process(maxThreads, RegionInCellSplitter::kStartLevel, m_tree,
+  RegionInCellSplitter::Process(
+      maxThreads, RegionInCellSplitter::kStartLevel, m_tree,
       [&](RegionInCellSplitter::TCell const & cell, coastlines_generator::DoDifference & cellData)
-      {
-        feature::FeatureBuilder fb;
-        fb.SetCoastCell(cell.ToInt64(RegionInCellSplitter::kHighLevel + 1));
+  {
+    feature::FeatureBuilder fb;
+    fb.SetCoastCell(cell.ToInt64(RegionInCellSplitter::kHighLevel + 1));
 
-        cellData.AssignGeometry(fb);
-        fb.SetArea();
-        fb.AddType(coastType);
+    cellData.AssignGeometry(fb);
+    fb.SetArea();
+    fb.AddType(coastType);
 
-        // Should represent non-empty geometry
-        CHECK_GREATER(fb.GetPolygonsCount(), 0, ());
-        CHECK_GREATER_OR_EQUAL(fb.GetPointsCount(), 3, ());
+    // Should represent non-empty geometry
+    CHECK_GREATER(fb.GetPolygonsCount(), 0, ());
+    CHECK_GREATER_OR_EQUAL(fb.GetPointsCount(), 3, ());
 
-        std::lock_guard lock(featuresMutex);
-        features.emplace_back(std::move(fb));
-      });
+    std::lock_guard lock(featuresMutex);
+    features.emplace_back(std::move(fb));
+  });
 
   return features;
 }

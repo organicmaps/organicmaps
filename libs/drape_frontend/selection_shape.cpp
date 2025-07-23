@@ -17,13 +17,11 @@ namespace df
 {
 namespace
 {
-std::array<float, 20> const kHalfLineWidthInPixel =
-{
-  // 1   2     3     4     5     6     7     8     9     10
-  1.0f, 1.2f, 1.5f, 1.5f, 1.7f, 2.0f, 2.0f, 2.3f, 2.5f, 2.7f,
-  //11   12    13    14    15   16    17    18    19     20
-  3.0f, 3.5f, 4.5f, 5.5f, 7.0, 9.0f, 10.0f, 14.0f, 22.0f, 27.0f
-};
+std::array<float, 20> const kHalfLineWidthInPixel = {
+    // 1   2     3     4     5     6     7     8     9     10
+    1.0f, 1.2f, 1.5f, 1.5f, 1.7f, 2.0f, 2.0f, 2.3f, 2.5f, 2.7f,
+    // 11   12    13    14    15   16    17    18    19     20
+    3.0f, 3.5f, 4.5f, 5.5f, 7.0, 9.0f, 10.0f, 14.0f, 22.0f, 27.0f};
 }  // namespace
 
 SelectionShape::SelectionShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
@@ -124,8 +122,8 @@ void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::P
     int index = 0;
     float lerpCoef = 0.0f;
     ExtractZoomFactors(screen, zoom, index, lerpCoef);
-    float const currentHalfWidth = InterpolateByZoomLevels(index, lerpCoef, kHalfLineWidthInPixel) *
-      VisualParams::Instance().GetVisualScale();
+    float const currentHalfWidth =
+        InterpolateByZoomLevels(index, lerpCoef, kHalfLineWidthInPixel) * VisualParams::Instance().GetVisualScale();
     auto const screenHalfWidth = static_cast<float>(currentHalfWidth * screen.GetScale());
 
     gpu::ShapesProgramParams geomParams;

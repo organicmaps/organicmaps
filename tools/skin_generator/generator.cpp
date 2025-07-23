@@ -9,28 +9,26 @@
 #include <iostream>
 #include <iterator>
 
-#include <QtXml/QDomElement>
-#include <QtXml/QDomDocument>
 #include <QtCore/QDir>
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
 
 namespace tools
 {
 namespace
 {
 
-static constexpr double kLargeIconSize = 24.0;  // Size of the -l SVG icons
-static constexpr double kMediumIconSize = 18.0; // size of the -m SVG icons
+static constexpr double kLargeIconSize = 24.0;   // Size of the -l SVG icons
+static constexpr double kMediumIconSize = 18.0;  // size of the -m SVG icons
 
 struct GreaterHeight
 {
-  bool operator() (SkinGenerator::SymbolInfo const & left,
-                   SkinGenerator::SymbolInfo const & right) const
+  bool operator()(SkinGenerator::SymbolInfo const & left, SkinGenerator::SymbolInfo const & right) const
   {
     QString symbolIDleft = left.m_fullFileName.left(left.m_fullFileName.lastIndexOf("."));
     QString symbolIDright = right.m_fullFileName.left(right.m_fullFileName.lastIndexOf("."));
-    if (left.m_size.height() == right.m_size.height()) {
+    if (left.m_size.height() == right.m_size.height())
       return symbolIDleft > symbolIDright;
-    }
     return (left.m_size.height() > right.m_size.height());
   }
 };
@@ -40,8 +38,7 @@ struct MaxDimensions
   uint32_t & m_width;
   uint32_t & m_height;
 
-  MaxDimensions(uint32_t & width, uint32_t & height)
-    : m_width(width), m_height(height)
+  MaxDimensions(uint32_t & width, uint32_t & height) : m_width(width), m_height(height)
   {
     m_width = 0;
     m_height = 0;
@@ -65,12 +62,10 @@ uint32_t NextPowerOf2(uint32_t n)
 
   return n + 1;
 }
-}
+}  // namespace
 
-void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
-                                   std::string const & skinName,
-                                   std::vector<QSize> const & symbolSizes,
-                                   std::vector<std::string> const & suffixes)
+void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string const & skinName,
+                                   std::vector<QSize> const & symbolSizes, std::vector<std::string> const & suffixes)
 {
   for (size_t j = 0; j < symbolSizes.size(); ++j)
   {
@@ -97,7 +92,7 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir,
         QString fullFileName = QString(dir.absolutePath()) + "/" + fileName;
         if (m_svgRenderer.load(fullFileName))
         {
-          QSize svgSize = m_svgRenderer.defaultSize(); // Size of the SVG file
+          QSize svgSize = m_svgRenderer.defaultSize();  // Size of the SVG file
 
           // Capping svg symbol to kLargeIconSize maximum, keeping aspect ratio
           /*if (svgSize.width() > kLargeIconSize)
@@ -153,8 +148,8 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
 
       for (auto & s : page.m_symbols)
       {
-        s.m_handle = page.m_packer.pack(static_cast<uint32_t>(s.m_size.width()),
-                                        static_cast<uint32_t>(s.m_size.height()));
+        s.m_handle =
+            page.m_packer.pack(static_cast<uint32_t>(s.m_size.width()), static_cast<uint32_t>(s.m_size.height()));
         if (m_overflowDetected)
           break;
       }
@@ -221,7 +216,7 @@ void SkinGenerator::MarkOverflow()
   m_overflowDetected = true;
 }
 
-bool SkinGenerator::WriteToFileNewStyle(std::string const &skinName)
+bool SkinGenerator::WriteToFileNewStyle(std::string const & skinName)
 {
   QDomDocument doc = QDomDocument("skin");
   QDomElement rootElem = doc.createElement("root");
@@ -254,4 +249,4 @@ bool SkinGenerator::WriteToFileNewStyle(std::string const &skinName)
   ts << doc.toString();
   return true;
 }
-} // namespace tools
+}  // namespace tools

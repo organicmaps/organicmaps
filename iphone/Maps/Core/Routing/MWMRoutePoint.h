@@ -6,8 +6,7 @@ typedef NS_CLOSED_ENUM(NSUInteger, MWMRoutePointType) {
 
 @interface MWMRoutePoint : NSObject
 
-- (instancetype)initWithLastLocationAndType:(MWMRoutePointType)type
-                          intermediateIndex:(size_t)intermediateIndex;
+- (instancetype)initWithLastLocationAndType:(MWMRoutePointType)type intermediateIndex:(size_t)intermediateIndex;
 
 - (instancetype)initWithCGPoint:(CGPoint)point
                           title:(NSString *)title

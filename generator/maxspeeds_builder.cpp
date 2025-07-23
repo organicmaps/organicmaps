@@ -13,8 +13,8 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 
 #include "platform/measurement_utils.hpp"
 
@@ -39,7 +39,8 @@ using std::string;
 
 char constexpr kDelim[] = ", \t\r\n";
 
-template <class TokenizerT> bool ParseOneSpeedValue(TokenizerT & iter, MaxspeedType & value)
+template <class TokenizerT>
+bool ParseOneSpeedValue(TokenizerT & iter, MaxspeedType & value)
 {
   if (!iter)
     return false;
@@ -83,17 +84,15 @@ class MaxspeedsMwmCollector
     return osmIdIt->second;
   }
 
-  routing::RoadGeometry const & GetRoad(uint32_t fid) const
-  {
-    return m_graph->GetRoadGeometry(fid);
-  }
+  routing::RoadGeometry const & GetRoad(uint32_t fid) const { return m_graph->GetRoadGeometry(fid); }
 
 public:
   MaxspeedsMwmCollector(string const & dataPath, FeatureIdToOsmId const & ft2osm, IndexGraph * graph)
-    : m_dataPath(dataPath), m_ft2osm(ft2osm), m_graph(graph)
+    : m_dataPath(dataPath)
+    , m_ft2osm(ft2osm)
+    , m_graph(graph)
     , m_converter(MaxspeedConverter::Instance())
-  {
-  }
+  {}
 
   void Process(string const & maxspeedCsvPath)
   {
@@ -112,24 +111,19 @@ public:
 
       return &maxspeedIt->second;
     };
-    auto const GetLastIndex = [&](uint32_t fid)
-    {
-      return GetRoad(fid).GetPointsCount() - 2;
-    };
+    auto const GetLastIndex = [&](uint32_t fid) { return GetRoad(fid).GetPointsCount() - 2; };
     auto const GetOpposite = [&](Segment const & seg)
     {
       // Assume that links are connected with main roads in first or last point, always.
       uint32_t const fid = seg.GetFeatureId();
       return Segment(0, fid, seg.GetSegmentIdx() > 0 ? 0 : GetLastIndex(fid), seg.IsForward());
     };
-    auto const GetHighwayType = [&](uint32_t fid)
-    {
-      return GetRoad(fid).GetHighwayType();
-    };
+    auto const GetHighwayType = [&](uint32_t fid) { return GetRoad(fid).GetHighwayType(); };
 
     auto const & converter = GetMaxspeedConverter();
     using HwTypeT = std::optional<routing::HighwayType>;
-    auto const CalculateSpeed = [&](uint32_t parentFID, Maxspeed const & s, HwTypeT hwType) -> std::optional<SpeedInUnits>
+    auto const CalculateSpeed = [&](uint32_t parentFID, Maxspeed const & s,
+                                    HwTypeT hwType) -> std::optional<SpeedInUnits>
     {
       HwTypeT const parentHwType = GetHighwayType(parentFID);
       if (!parentHwType)
@@ -137,7 +131,9 @@ public:
 
       // Set speed as-is from parent link.
       if (parentHwType == hwType)
-        return {{s.GetForward(), s.GetUnits()}};
+        return {
+            {s.GetForward(), s.GetUnits()}
+        };
 
       using routing::HighwayType;
       if ((*parentHwType == HighwayType::HighwayMotorway && hwType == HighwayType::HighwayMotorwayLink) ||
@@ -149,7 +145,7 @@ public:
         // Reduce factor from parent road. See DontUseLinksWhenRidingOnMotorway test.
         // 0.85, this factor should be greater than sqrt(2) / 2 - prefer diagonal link to square path.
         return converter.ClosestValidMacro(
-              { base::asserted_cast<MaxspeedType>(std::lround(s.GetForward() * 0.85)), s.GetUnits() });
+            {base::asserted_cast<MaxspeedType>(std::lround(s.GetForward() * 0.85)), s.GetUnits()});
       }
 
       return {};
@@ -162,7 +158,7 @@ public:
 
       Maxspeed * maxSpeed = GetSpeed(fid);
       if (!maxSpeed)
-          return;
+        return;
 
       auto const osmID = GetOsmID(fid).GetSerialId();
 
@@ -172,7 +168,9 @@ public:
         return;
       }
 
-#define LOG_MAX_SPEED(msg) if (false) LOG(LINFO, msg)
+#define LOG_MAX_SPEED(msg) \
+  if (false)               \
+  LOG(LINFO, msg)
 
       LOG_MAX_SPEED(("Start osmid =", osmID));
 
@@ -190,7 +188,7 @@ public:
         HwTypeT const hwType = GetHighwayType(fid);
 
         // Check ingoing first, then - outgoing.
-        for (bool direction : { false, true })
+        for (bool direction : {false, true})
         {
           LOG_MAX_SPEED(("Search dir =", direction));
 
@@ -235,9 +233,8 @@ public:
                   }
                 }
                 else if (s->GetForward() == routing::kCommonMaxSpeedValue &&
-                         reviewed.size() < 4 &&   // limit with some reasonable transitions
-                         reviewed.find(targetFID) == reviewed.end() &&
-                         hwType == GetHighwayType(targetFID))
+                         reviewed.size() < 4 &&  // limit with some reasonable transitions
+                         reviewed.find(targetFID) == reviewed.end() && hwType == GetHighwayType(targetFID))
                 {
                   LOG_MAX_SPEED(("Add reviewed"));
 
@@ -247,7 +244,8 @@ public:
                 }
               }
             }
-          } while (status == 1);
+          }
+          while (status == 1);
 
           if (status == 2)
             break;
@@ -283,9 +281,7 @@ public:
       return;
     }
     if (backward.IsValid() && backwardMacro == SpeedMacro::Undefined)
-    {
       LOG(LWARNING, ("Undefined backward speed macro", backward, "for way", osmID));
-    }
 
     m_maxspeeds.push_back(ftSpeed);
 
@@ -302,7 +298,7 @@ public:
       auto & info = m_avgSpeeds[rd.IsInCity() ? 1 : 0][*hwType];
 
       double const lenKM = rd.GetRoadLengthM() / 1000.0;
-      for (auto const & s : { forward, backward })
+      for (auto const & s : {forward, backward})
       {
         if (s.IsNumeric())
         {
@@ -330,8 +326,8 @@ public:
         if (speed < routing::kInvalidSpeed)
         {
           // Store type speeds in Metric system, like VehicleModel profiles.
-          auto const speedInUnits = m_converter.ClosestValidMacro(
-                { static_cast<MaxspeedType>(speed), measurement_utils::Units::Metric });
+          auto const speedInUnits =
+              m_converter.ClosestValidMacro({static_cast<MaxspeedType>(speed), measurement_utils::Units::Metric});
 
           LOG(LINFO, ("*", e.first, "=", speedInUnits));
 
@@ -404,8 +400,7 @@ bool ParseMaxspeeds(string const & filePath, OsmIdToMaxspeed & osmIdToMaxspeed)
   return true;
 }
 
-void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
-                           FeatureIdToOsmId const & featureIdToOsmId,
+void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath, FeatureIdToOsmId const & featureIdToOsmId,
                            string const & maxspeedsFilename)
 {
   MaxspeedsMwmCollector collector(dataPath, featureIdToOsmId, graph);
@@ -414,8 +409,8 @@ void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
   collector.SerializeMaxspeeds();
 }
 
-void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath,
-                           string const & osmToFeaturePath, string const & maxspeedsFilename)
+void BuildMaxspeedsSection(IndexGraph * graph, string const & dataPath, string const & osmToFeaturePath,
+                           string const & maxspeedsFilename)
 {
   FeatureIdToOsmId featureIdToOsmId;
   ParseWaysFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId);

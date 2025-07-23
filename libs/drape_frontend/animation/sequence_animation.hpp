@@ -35,8 +35,8 @@ public:
   double GetMinDuration() const override;
   bool IsFinished() const override;
 
-  bool GetProperty(Object object, ObjectProperty property, PropertyValue &value) const override;
-  bool GetTargetProperty(Object object, ObjectProperty property, PropertyValue &value) const override;
+  bool GetProperty(Object object, ObjectProperty property, PropertyValue & value) const override;
+  bool GetTargetProperty(Object object, ObjectProperty property, PropertyValue & value) const override;
 
   void AddAnimation(drape_ptr<Animation> && animation);
 
@@ -56,5 +56,4 @@ private:
   std::string m_customType;
 };
 
-} // namespace df
-
+}  // namespace df

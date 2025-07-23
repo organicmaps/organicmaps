@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "ge0/url_generator.hpp"
 #include "ge0/geo_url_parser.hpp"
+#include "ge0/url_generator.hpp"
 
 #include <string>
 

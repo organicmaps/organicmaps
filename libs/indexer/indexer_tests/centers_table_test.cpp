@@ -37,7 +37,6 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
 {
   string const kMap = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
 
-
   FeaturesVectorTest fv(kMap);
 
   TBuffer buffer;
@@ -47,8 +46,7 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
     feature::DataHeader header(kMap);
 
     builder.SetGeometryParams(header.GetBounds());
-    fv.GetVector().ForEach(
-        [&](FeatureType & ft, uint32_t id) { builder.Put(id, feature::GetCenter(ft)); });
+    fv.GetVector().ForEach([&](FeatureType & ft, uint32_t id) { builder.Put(id, feature::GetCenter(ft)); });
 
     MemWriter<TBuffer> writer(buffer);
     builder.Freeze(writer);
@@ -59,7 +57,8 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
     auto table = CentersTable::LoadV1(reader);
     TEST(table.get(), ());
 
-    fv.GetVector().ForEach([&](FeatureType & ft, uint32_t id) {
+    fv.GetVector().ForEach([&](FeatureType & ft, uint32_t id)
+    {
       m2::PointD actual;
       TEST(table->Get(id, actual), ());
 
@@ -85,8 +84,7 @@ UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
     CentersTableBuilder builder;
 
     builder.SetGeometryCodingParamsV0ForTests(codingParams);
-    fv.GetVector().ForEach(
-        [&](FeatureType & ft, uint32_t id) { builder.PutV0ForTests(id, feature::GetCenter(ft)); });
+    fv.GetVector().ForEach([&](FeatureType & ft, uint32_t id) { builder.PutV0ForTests(id, feature::GetCenter(ft)); });
 
     MemWriter<TBuffer> writer(buffer);
     builder.FreezeV0ForTests(writer);
@@ -97,7 +95,8 @@ UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
     auto table = CentersTable::LoadV0(reader, codingParams);
     TEST(table.get(), ());
 
-    fv.GetVector().ForEach([&](FeatureType & ft, uint32_t id) {
+    fv.GetVector().ForEach([&](FeatureType & ft, uint32_t id)
+    {
       m2::PointD actual;
       TEST(table->Get(id, actual), ());
 
@@ -111,13 +110,19 @@ UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
 UNIT_CLASS_TEST(CentersTableTest, Subset)
 {
   vector<pair<uint32_t, m2::PointD>> const features = {
-      {1, m2::PointD(0.0, 0.0)}, {5, m2::PointD(1.0, 1.0)}, {10, m2::PointD(2.0, 2.0)}};
+      { 1, m2::PointD(0.0, 0.0)},
+      { 5, m2::PointD(1.0, 1.0)},
+      {10, m2::PointD(2.0, 2.0)}
+  };
 
   TBuffer buffer;
   {
     CentersTableBuilder builder;
 
-    builder.SetGeometryParams({{0.0, 0.0}, {2.0, 2.0}});
+    builder.SetGeometryParams({
+        {0.0, 0.0},
+        {2.0, 2.0}
+    });
     for (auto const & feature : features)
       builder.Put(feature.first, feature.second);
 

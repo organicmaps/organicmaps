@@ -47,10 +47,8 @@ UNIT_TEST(BuildIndexTest)
     vector<string> tags;
     originalContainer.ForEachTag(base::MakeBackInsertFunctor(tags));
     for (size_t i = 0; i < tags.size(); ++i)
-    {
       if (tags[i] != INDEX_FILE_TAG)
         containerWriter.Write(originalContainer.GetReader(tags[i]), tags[i]);
-    }
     containerWriter.Write(serialIndex, INDEX_FILE_TAG);
   }
 

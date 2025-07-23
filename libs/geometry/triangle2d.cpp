@@ -11,8 +11,7 @@
 
 namespace m2
 {
-bool IsPointInsideTriangle(PointD const & pt, PointD const & p1,
-                           PointD const & p2, PointD const & p3)
+bool IsPointInsideTriangle(PointD const & pt, PointD const & p1, PointD const & p2, PointD const & p3)
 {
   double const s1 = robust::OrientedS(p1, p2, pt);
   double const s2 = robust::OrientedS(p2, p3, pt);
@@ -21,32 +20,24 @@ bool IsPointInsideTriangle(PointD const & pt, PointD const & p1,
   // In the case of degenerate triangles we need to check that pt lies
   // on (p1, p2), (p2, p3) or (p3, p1).
   if (s1 == 0.0 && s2 == 0.0 && s3 == 0.0)
-  {
-    return IsPointOnSegment(pt, p1, p2) || IsPointOnSegment(pt, p2, p3) ||
-           IsPointOnSegment(pt, p3, p1);
-  }
+    return IsPointOnSegment(pt, p1, p2) || IsPointOnSegment(pt, p2, p3) || IsPointOnSegment(pt, p3, p1);
 
-  return ((s1 >= 0.0 && s2 >= 0.0 && s3 >= 0.0) ||
-          (s1 <= 0.0 && s2 <= 0.0 && s3 <= 0.0));
+  return ((s1 >= 0.0 && s2 >= 0.0 && s3 >= 0.0) || (s1 <= 0.0 && s2 <= 0.0 && s3 <= 0.0));
 }
 
-bool IsPointStrictlyInsideTriangle(PointD const & pt, PointD const & p1,
-                                   PointD const & p2, PointD const & p3)
+bool IsPointStrictlyInsideTriangle(PointD const & pt, PointD const & p1, PointD const & p2, PointD const & p3)
 {
   double const s1 = robust::OrientedS(p1, p2, pt);
   double const s2 = robust::OrientedS(p2, p3, pt);
   double const s3 = robust::OrientedS(p3, p1, pt);
 
-  return ((s1 > 0.0 && s2 > 0.0 && s3 > 0.0) ||
-          (s1 < 0.0 && s2 < 0.0 && s3 < 0.0));
+  return ((s1 > 0.0 && s2 > 0.0 && s3 > 0.0) || (s1 < 0.0 && s2 < 0.0 && s3 < 0.0));
 }
 
 bool IsPointInsideTriangles(PointD const & pt, std::vector<TriangleD> const & v)
 {
-  return std::any_of(v.begin(), v.end(), [&pt](TriangleD const & t)
-      {
-         return IsPointInsideTriangle(pt, t.p1(), t.p2(), t.p3());
-      });
+  return std::any_of(v.begin(), v.end(),
+                     [&pt](TriangleD const & t) { return IsPointInsideTriangle(pt, t.p1(), t.p2(), t.p3()); });
 }
 
 PointD GetRandomPointInsideTriangle(TriangleD const & t)

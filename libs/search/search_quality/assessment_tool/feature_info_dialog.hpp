@@ -15,15 +15,13 @@ class MapObject;
 class FeatureInfoDialog : public QDialog
 {
   Q_OBJECT
+
 public:
   FeatureInfoDialog(QWidget * parent, osm::MapObject const & mapObject,
                     search::ReverseGeocoder::Address const & address, std::string const & locale);
 
 private:
-  void AddElems(QGridLayout & layout, int row, int col, QWidget * widget)
-  {
-    layout.addWidget(widget, row, col);
-  }
+  void AddElems(QGridLayout & layout, int row, int col, QWidget * widget) { layout.addWidget(widget, row, col); }
 
   template <typename... Args>
   void AddElems(QGridLayout & layout, int row, int col, QWidget * widget, Args *... args)

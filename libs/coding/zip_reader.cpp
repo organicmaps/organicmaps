@@ -15,9 +15,10 @@ class UnzipFileDelegate : public ZipFileReader::Delegate
 {
 public:
   explicit UnzipFileDelegate(std::string const & path)
-    : m_file(std::make_unique<FileWriter>(path)), m_path(path), m_completed(false)
-  {
-  }
+    : m_file(std::make_unique<FileWriter>(path))
+    , m_path(path)
+    , m_completed(false)
+  {}
 
   ~UnzipFileDelegate() override
   {
@@ -42,7 +43,8 @@ private:
 
 ZipFileReader::ZipFileReader(std::string const & container, std::string const & file, uint32_t logPageSize,
                              uint32_t logPageCount)
-  : FileReader(container, logPageSize, logPageCount), m_uncompressedFileSize(0)
+  : FileReader(container, logPageSize, logPageCount)
+  , m_uncompressedFileSize(0)
 {
   auto zip = unzip::Open(container.c_str());
   if (!zip)
@@ -88,8 +90,8 @@ void ZipFileReader::FilesList(std::string const & zipContainer, FileList & files
       MYTHROW(LocateZipException, ("Can't get file name inside zip", zipContainer));
 
     filesList.push_back(make_pair(fileInfo.m_filename, fileInfo.m_info.uncompressed_size));
-
-  } while (unzip::Code::Ok == unzip::GoToNextFile(zip));
+  }
+  while (unzip::Code::Ok == unzip::GoToNextFile(zip));
 }
 
 bool ZipFileReader::IsZip(std::string const & zipContainer)
@@ -102,8 +104,7 @@ bool ZipFileReader::IsZip(std::string const & zipContainer)
 }
 
 // static
-void ZipFileReader::UnzipFile(std::string const & zipContainer, std::string const & fileInZip,
-                              Delegate & delegate)
+void ZipFileReader::UnzipFile(std::string const & zipContainer, std::string const & fileInZip, Delegate & delegate)
 {
   auto zip = unzip::Open(zipContainer);
   if (!zip)
@@ -129,13 +130,11 @@ void ZipFileReader::UnzipFile(std::string const & zipContainer, std::string cons
   {
     readBytes = unzip::ReadCurrentFile(zip, buf);
     if (readBytes < 0)
-    {
-      MYTHROW(InvalidZipException,
-              ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
-    }
+      MYTHROW(InvalidZipException, ("Error", readBytes, "while unzipping", fileInZip, "from", zipContainer));
 
     delegate.OnBlockUnzipped(static_cast<size_t>(readBytes), buf.data());
-  } while (readBytes != 0);
+  }
+  while (readBytes != 0);
   delegate.OnCompleted();
 }
 

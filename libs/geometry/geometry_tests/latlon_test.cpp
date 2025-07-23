@@ -1,7 +1,7 @@
-#include "testing/testing.hpp"
 #include "geometry/latlon.hpp"
-#include "geometry/point2d.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/point2d.hpp"
+#include "testing/testing.hpp"
 
 UNIT_TEST(LatLonPointConstructorTest)
 {

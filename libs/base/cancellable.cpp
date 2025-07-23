@@ -42,11 +42,8 @@ Cancellable::Status Cancellable::CancellationStatus() const
 
 void Cancellable::CheckDeadline() const
 {
-  if (m_status == Status::Active &&
-      m_deadline && *m_deadline < std::chrono::steady_clock::now())
-  {
+  if (m_status == Status::Active && m_deadline && *m_deadline < std::chrono::steady_clock::now())
     m_status = Status::DeadlineExceeded;
-  }
 }
 
 std::string DebugPrint(Cancellable::Status status)

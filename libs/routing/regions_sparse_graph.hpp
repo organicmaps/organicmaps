@@ -18,8 +18,8 @@ namespace routing
 class RegionsSparseGraph
 {
 public:
-  RegionsSparseGraph(CountryFileGetterFn const & countryFileGetter,
-                     std::shared_ptr<NumMwmIds> numMwmIds, DataSource & dataSource);
+  RegionsSparseGraph(CountryFileGetterFn const & countryFileGetter, std::shared_ptr<NumMwmIds> numMwmIds,
+                     DataSource & dataSource);
 
   // Loads data from mwm section.
   void LoadRegionsSparseGraph();
@@ -27,8 +27,7 @@ public:
   std::optional<FakeEnding> GetFakeEnding(m2::PointD const & point) const;
 
   using EdgeListT = SmallList<SegmentEdge>;
-  void GetEdgeList(Segment const & segment, bool isOutgoing, EdgeListT & edges,
-                   ms::LatLon const & prevSegFront) const;
+  void GetEdgeList(Segment const & segment, bool isOutgoing, EdgeListT & edges, ms::LatLon const & prevSegFront) const;
 
   routing::LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) const;
 

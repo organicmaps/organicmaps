@@ -1,20 +1,15 @@
 #include "drape_frontend/engine_context.hpp"
 
-#include "drape_frontend/message_subclasses.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape_frontend/message_subclasses.hpp"
 
 #include <utility>
 
 namespace df
 {
-EngineContext::EngineContext(TileKey tileKey,
-                             ref_ptr<ThreadsCommutator> commutator,
-                             ref_ptr<dp::TextureManager> texMng,
-                             ref_ptr<MetalineManager> metalineMng,
-                             CustomFeaturesContextWeakPtr customFeaturesContext,
-                             bool is3dBuildingsEnabled,
-                             bool isTrafficEnabled,
-                             bool isolinesEnabled,
+EngineContext::EngineContext(TileKey tileKey, ref_ptr<ThreadsCommutator> commutator, ref_ptr<dp::TextureManager> texMng,
+                             ref_ptr<MetalineManager> metalineMng, CustomFeaturesContextWeakPtr customFeaturesContext,
+                             bool is3dBuildingsEnabled, bool isTrafficEnabled, bool isolinesEnabled,
                              int8_t mapLangIndex)
   : m_tileKey(tileKey)
   , m_commutator(commutator)
@@ -66,7 +61,6 @@ void EngineContext::EndReadTile()
 
 void EngineContext::PostMessage(drape_ptr<Message> && message)
 {
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(message),
-                            MessagePriority::Normal);
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(message), MessagePriority::Normal);
 }
 }  // namespace df

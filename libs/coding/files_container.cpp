@@ -9,17 +9,17 @@
 #include <sstream>
 
 #ifndef OMIM_OS_WINDOWS
-  #include <stdio.h>
-  #include <unistd.h>  // _SC_PAGESIZE
-  #include <sys/mman.h>
-  #include <sys/stat.h>
-  #ifdef OMIM_OS_ANDROID
-    #include <fcntl.h>
-  #else
-    #include <sys/fcntl.h>
-  #endif
+#include <stdio.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <unistd.h>  // _SC_PAGESIZE
+#ifdef OMIM_OS_ANDROID
+#include <fcntl.h>
 #else
-  #include <windows.h>
+#include <sys/fcntl.h>
+#endif
+#else
+#include <windows.h>
 #endif
 
 #include <errno.h>
@@ -68,16 +68,13 @@ void FilesContainerBase::ReadInfo(Reader & reader)
 // FilesContainerR
 /////////////////////////////////////////////////////////////////////////////
 
-FilesContainerR::FilesContainerR(std::string const & filePath,
-                                 uint32_t logPageSize,
-                                 uint32_t logPageCount)
+FilesContainerR::FilesContainerR(std::string const & filePath, uint32_t logPageSize, uint32_t logPageCount)
   : m_source(std::make_unique<FileReader>(filePath, logPageSize, logPageCount))
 {
   ReadInfo(m_source);
 }
 
-FilesContainerR::FilesContainerR(TReader const & file)
-  : m_source(file)
+FilesContainerR::FilesContainerR(TReader const & file) : m_source(file)
 {
   ReadInfo(m_source);
 }
@@ -120,7 +117,8 @@ void MappedFile::Open(std::string const & fName)
   Close();
 
 #ifdef OMIM_OS_WINDOWS
-  m_hFile = CreateFileA(fName.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
+  m_hFile = CreateFileA(fName.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING,
+                        FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED, NULL);
   if (m_hFile == INVALID_HANDLE_VALUE)
     MYTHROW(Reader::OpenException, ("Can't open file:", fName, "win last error:", GetLastError()));
   m_hMapping = CreateFileMappingA(m_hFile, NULL, PAGE_READONLY, 0, 0, NULL);
@@ -131,14 +129,9 @@ void MappedFile::Open(std::string const & fName)
   if (m_fd == -1)
   {
     if (errno == EMFILE || errno == ENFILE)
-    {
-      MYTHROW(Reader::TooManyFilesException,
-              ("Can't open file:", fName, ", reason:", strerror(errno)));
-    }
+      MYTHROW(Reader::TooManyFilesException, ("Can't open file:", fName, ", reason:", strerror(errno)));
     else
-    {
       MYTHROW(Reader::OpenException, ("Can't open file:", fName, ", reason:", strerror(errno)));
-    }
   }
 #endif
 }
@@ -182,14 +175,16 @@ MappedFile::Handle MappedFile::Map(uint64_t offset, uint64_t size, std::string c
   ASSERT_GREATER_OR_EQUAL(length, size, ());
 
 #ifdef OMIM_OS_WINDOWS
-  void * pMap = MapViewOfFile(m_hMapping, FILE_MAP_READ, alignedOffset >> (sizeof(DWORD) * 8), DWORD(alignedOffset), length);
+  void * pMap =
+      MapViewOfFile(m_hMapping, FILE_MAP_READ, alignedOffset >> (sizeof(DWORD) * 8), DWORD(alignedOffset), length);
   if (pMap == NULL)
-    MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", offset, size, "win last error:", GetLastError()));
+    MYTHROW(Reader::OpenException,
+            ("Can't map section:", tag, "with [offset, size]:", offset, size, "win last error:", GetLastError()));
 #else
-  void * pMap = mmap(0, static_cast<size_t>(length), PROT_READ, MAP_SHARED, m_fd,
-                     static_cast<off_t>(alignedOffset));
+  void * pMap = mmap(0, static_cast<size_t>(length), PROT_READ, MAP_SHARED, m_fd, static_cast<off_t>(alignedOffset));
   if (pMap == MAP_FAILED)
-    MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", offset, size, "errno:", strerror(errno)));
+    MYTHROW(Reader::OpenException,
+            ("Can't map section:", tag, "with [offset, size]:", offset, size, "errno:", strerror(errno)));
 #endif
 
   char const * data = reinterpret_cast<char const *>(pMap);
@@ -197,7 +192,7 @@ MappedFile::Handle MappedFile::Map(uint64_t offset, uint64_t size, std::string c
   return Handle(d, data, size, length);
 }
 
-} // namespace detail
+}  // namespace detail
 
 /////////////////////////////////////////////////////////////////////////////
 // FilesMappingContainer
@@ -275,11 +270,11 @@ void FilesMappingContainer::Handle::Unmap()
 {
   if (IsValid())
   {
-    #ifdef OMIM_OS_WINDOWS
-      VERIFY(UnmapViewOfFile(m_origBase), ());
-    #else
-      VERIFY(0 == munmap((void *)m_origBase, static_cast<size_t>(m_origSize)), ());
-    #endif
+#ifdef OMIM_OS_WINDOWS
+    VERIFY(UnmapViewOfFile(m_origBase), ());
+#else
+    VERIFY(0 == munmap((void *)m_origBase, static_cast<size_t>(m_origSize)), ());
+#endif
     Reset();
   }
 }
@@ -294,8 +289,7 @@ void FilesMappingContainer::Handle::Reset()
 // FilesContainerW
 /////////////////////////////////////////////////////////////////////////////
 
-FilesContainerW::FilesContainerW(std::string const & fName, FileWriter::Op op)
-  : m_name(fName), m_finished(false)
+FilesContainerW::FilesContainerW(std::string const & fName, FileWriter::Op op) : m_name(fName), m_finished(false)
 {
   Open(op);
 }
@@ -306,15 +300,14 @@ void FilesContainerW::Open(FileWriter::Op op)
 
   switch (op)
   {
-  case FileWriter::OP_WRITE_TRUNCATE:
-    break;
+  case FileWriter::OP_WRITE_TRUNCATE: break;
 
   case FileWriter::OP_WRITE_EXISTING:
-    {
-      // read an existing service info
-      FileReader reader(m_name);
-      ReadInfo(reader);
-    }
+  {
+    // read an existing service info
+    FileReader reader(m_name);
+    ReadInfo(reader);
+  }
 
     // Important: in append mode we should sort info-vector by offsets
     sort(m_info.begin(), m_info.end(), LessOffset());
@@ -322,15 +315,11 @@ void FilesContainerW::Open(FileWriter::Op op)
     // Check that all offsets are unique
 #ifdef DEBUG
     for (size_t i = 1; i < m_info.size(); ++i)
-      ASSERT(m_info[i-1].m_offset < m_info[i].m_offset ||
-             m_info[i-1].m_size == 0 ||
-             m_info[i].m_size == 0, ());
+      ASSERT(m_info[i - 1].m_offset < m_info[i].m_offset || m_info[i - 1].m_size == 0 || m_info[i].m_size == 0, ());
 #endif
     break;
 
-  default:
-    ASSERT ( false, ("Unsupported options") );
-    break;
+  default: ASSERT(false, ("Unsupported options")); break;
   }
 
   if (m_info.empty())
@@ -369,10 +358,8 @@ void FilesContainerW::DeleteSection(Tag const & tag)
     FilesContainerW contW(m_name + ".tmp");
 
     for (size_t i = 0; i < m_info.size(); ++i)
-    {
       if (m_info[i].m_tag != tag)
         contW.Write(contR.GetReader(m_info[i].m_tag), m_info[i].m_tag);
-    }
   }
 
   // swap files
@@ -390,7 +377,7 @@ std::unique_ptr<FilesContainerWriter> FilesContainerW::GetWriter(Tag const & tag
   InfoContainer::const_iterator it = find_if(m_info.begin(), m_info.end(), EqualTag(tag));
   if (it != m_info.end())
   {
-    if (it+1 == m_info.end())
+    if (it + 1 == m_info.end())
     {
       m_info.pop_back();
 

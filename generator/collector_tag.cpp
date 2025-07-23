@@ -14,8 +14,7 @@
 
 namespace generator
 {
-CollectorTag::CollectorTag(std::string const & filename, std::string const & tagKey,
-                           Validator const & validator)
+CollectorTag::CollectorTag(std::string const & filename, std::string const & tagKey, Validator const & validator)
   : CollectorInterface(filename)
   , m_tagKey(tagKey)
   , m_validator(validator)
@@ -49,7 +48,10 @@ void CollectorTag::Save()
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
 
-void CollectorTag::OrderCollectedData() { OrderTextFileByLine(GetFilename()); }
+void CollectorTag::OrderCollectedData()
+{
+  OrderTextFileByLine(GetFilename());
+}
 
 void CollectorTag::MergeInto(CollectorTag & collector) const
 {

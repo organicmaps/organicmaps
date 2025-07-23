@@ -13,9 +13,7 @@
 
 namespace dp
 {
-StipplePenPacker::StipplePenPacker(m2::PointU const & canvasSize)
-  : m_canvasSize(canvasSize)
-  , m_currentRow(0)
+StipplePenPacker::StipplePenPacker(m2::PointU const & canvasSize) : m_canvasSize(canvasSize), m_currentRow(0)
 {
   ASSERT_GREATER_OR_EQUAL(canvasSize.x, kMaxStipplePenLength, ());
 }
@@ -31,14 +29,11 @@ m2::RectU StipplePenPacker::PackResource(m2::PointU const & size)
 
 m2::RectF StipplePenPacker::MapTextureCoords(m2::RectU const & pixelRect) const
 {
-  return { (pixelRect.minX() + 0.5f) / m_canvasSize.x,
-           (pixelRect.minY() + 0.5f) / m_canvasSize.y,
-           (pixelRect.maxX() - 0.5f) / m_canvasSize.x,
-           (pixelRect.maxY() - 0.5f) / m_canvasSize.y };
+  return {(pixelRect.minX() + 0.5f) / m_canvasSize.x, (pixelRect.minY() + 0.5f) / m_canvasSize.y,
+          (pixelRect.maxX() - 0.5f) / m_canvasSize.x, (pixelRect.maxY() - 0.5f) / m_canvasSize.y};
 }
 
-StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key)
-  : m_key(key)
+StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key) : m_key(key)
 {
   if (IsTrianglePattern(m_key.m_pattern))
   {
@@ -51,7 +46,7 @@ StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key)
     m_height = 1;
   }
 
-  uint32_t const availableSize = kMaxStipplePenLength - 2; // the first and the last pixel reserved
+  uint32_t const availableSize = kMaxStipplePenLength - 2;  // the first and the last pixel reserved
   ASSERT(m_patternLength > 0 && m_patternLength < availableSize, (m_patternLength, availableSize));
   uint32_t const count = floor(availableSize / m_patternLength);
   m_pixelLength = count * m_patternLength;
@@ -155,8 +150,8 @@ ref_ptr<Texture::ResourceInfo> StipplePenIndex::ReserveResource(bool predefined,
     m_pendingNodes.emplace_back(pixelRect, resource);
   }
 
-  auto res = resourceMapping.emplace(key, StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
-                                                                 resource.GetSize()));
+  auto res =
+      resourceMapping.emplace(key, StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect), resource.GetSize()));
   ASSERT(res.second, ());
   return make_ref(&res.first->second);
 }

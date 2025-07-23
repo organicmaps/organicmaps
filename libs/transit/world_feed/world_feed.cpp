@@ -2,8 +2,8 @@
 
 #include "transit/transit_entities.hpp"
 
-#include "platform/platform.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/platform.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -41,27 +41,22 @@ void AddToRegions(C & container, ID const & id, transit::Regions const & regions
 }
 
 template <class C, class ID, class S>
-transit::Regions AddToRegions(C & container, S const & splitter, ID const & id,
-                              m2::PointD const & point)
+transit::Regions AddToRegions(C & container, S const & splitter, ID const & id, m2::PointD const & point)
 {
   auto const & regions = splitter.GetAffiliations(point);
-  CHECK_LESS_OR_EQUAL(
-      regions.size(), 1,
-      ("Point", mercator::ToLatLon(point), "belongs to multiple regions:", regions));
+  CHECK_LESS_OR_EQUAL(regions.size(), 1, ("Point", mercator::ToLatLon(point), "belongs to multiple regions:", regions));
 
   AddToRegions(container, id, regions);
   return regions;
 }
 
 template <class C>
-void AddToRegionsIfMatches(C & container, transit::TransitId idForAdd,
-                           transit::IdsInRegion const & stopsInRegion, transit::TransitId stopId)
+void AddToRegionsIfMatches(C & container, transit::TransitId idForAdd, transit::IdsInRegion const & stopsInRegion,
+                           transit::TransitId stopId)
 {
   for (auto const & [region, stopIds] : stopsInRegion)
-  {
     if (stopIds.find(stopId) != stopIds.end())
       container[region].emplace(idForAdd);
-  }
 }
 
 void WriteJson(json_t * node, std::ofstream & output)
@@ -88,8 +83,7 @@ base::JSONPtr ShapeLinkToJson(transit::ShapeLink const & shapeLink)
   return node;
 }
 
-base::JSONPtr FrequenciesToJson(
-    std::map<::transit::TimeInterval, ::transit::Frequency> const & frequencyIntervals)
+base::JSONPtr FrequenciesToJson(std::map<::transit::TimeInterval, ::transit::Frequency> const & frequencyIntervals)
 {
   auto timeIntervalsArr = base::NewJSONArray();
 
@@ -206,9 +200,8 @@ struct StopOnShape
   size_t m_index = 0;
 };
 
-std::optional<size_t> GetStopIndex(
-    std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
-    transit::TransitId id, size_t fromIndex, transit::Direction direction)
+std::optional<size_t> GetStopIndex(std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
+                                   transit::TransitId id, size_t fromIndex, transit::Direction direction)
 {
   auto it = stopIndexes.find(id);
   CHECK(it != stopIndexes.end(), (id));
@@ -216,11 +209,9 @@ std::optional<size_t> GetStopIndex(
   std::optional<size_t> bestIdx;
   for (auto const & index : it->second)
   {
-    if (direction == transit::Direction::Forward && index >= fromIndex &&
-        (!bestIdx || index < bestIdx))
+    if (direction == transit::Direction::Forward && index >= fromIndex && (!bestIdx || index < bestIdx))
       bestIdx = index;
-    if (direction == transit::Direction::Backward && index <= fromIndex &&
-        (!bestIdx || index > bestIdx))
+    if (direction == transit::Direction::Backward && index <= fromIndex && (!bestIdx || index > bestIdx))
       bestIdx = index;
   }
   return bestIdx;
@@ -228,8 +219,7 @@ std::optional<size_t> GetStopIndex(
 
 std::optional<std::pair<StopOnShape, StopOnShape>> GetStopPairOnShape(
     std::unordered_map<transit::TransitId, std::vector<size_t>> const & stopIndexes,
-    transit::StopsOnLines const & stopsOnLines, size_t index, size_t fromIndex,
-    transit::Direction direction)
+    transit::StopsOnLines const & stopsOnLines, size_t index, size_t fromIndex, transit::Direction direction)
 {
   auto const & stopIds = stopsOnLines.m_stopSeq;
 
@@ -265,9 +255,10 @@ struct Link
 };
 
 Link::Link(transit::TransitId lineId, transit::TransitId shapeId, size_t shapeSize)
-  : m_lineId(lineId), m_shapeId(shapeId), m_shapeSize(shapeSize)
-{
-}
+  : m_lineId(lineId)
+  , m_shapeId(shapeId)
+  , m_shapeSize(shapeSize)
+{}
 }  // namespace
 
 namespace transit
@@ -276,9 +267,9 @@ namespace transit
 std::unordered_set<std::string> WorldFeed::m_agencyHashes;
 
 EdgeTransferId::EdgeTransferId(TransitId fromStopId, TransitId toStopId)
-  : m_fromStopId(fromStopId), m_toStopId(toStopId)
-{
-}
+  : m_fromStopId(fromStopId)
+  , m_toStopId(toStopId)
+{}
 
 bool EdgeTransferId::operator==(EdgeTransferId const & other) const
 {
@@ -343,7 +334,7 @@ IdGenerator::IdGenerator(std::string const & idMappingPath) : m_idMappingPath(id
   LOG(LINFO, ("Loaded", m_hashToId.size(), "hash-to-id mappings. Current free id:", m_curId));
 }
 
-TransitId IdGenerator::MakeId(const std::string & hash)
+TransitId IdGenerator::MakeId(std::string const & hash)
 {
   CHECK(!hash.empty(), ("Empty hash cannot be added to the mapping."));
 
@@ -402,18 +393,17 @@ void StopData::UpdateTimetable(TransitId lineId, gtfs::StopTime const & stopTime
     it->second.push_back(timeInterval);
 }
 
-WorldFeed::WorldFeed(IdGenerator & generator, IdGenerator & generatorEdges,
-                     ColorPicker & colorPicker, feature::CountriesFilesAffiliation & mwmMatcher)
+WorldFeed::WorldFeed(IdGenerator & generator, IdGenerator & generatorEdges, ColorPicker & colorPicker,
+                     feature::CountriesFilesAffiliation & mwmMatcher)
   : m_idGenerator(generator)
   , m_idGeneratorEdges(generatorEdges)
   , m_colorPicker(colorPicker)
   , m_affiliation(mwmMatcher)
-{
-}
+{}
 
 bool WorldFeed::FillNetworks()
 {
-  for (const auto & agency : m_feed.get_agencies())
+  for (auto const & agency : m_feed.get_agencies())
   {
     // For one agency_name there can be multiple agency_id in the same feed.
     std::string const agencyHash = BuildHash(agency.agency_id, agency.agency_name);
@@ -446,7 +436,7 @@ bool WorldFeed::FillNetworks()
 
 bool WorldFeed::FillRoutes()
 {
-  for (const auto & route : m_feed.get_routes())
+  for (auto const & route : m_feed.get_routes())
   {
     // Filters irrelevant types, e.g. taxi, subway.
     if (!IsRelevantType(route.route_type))
@@ -508,8 +498,7 @@ bool WorldFeed::SetFeedLanguage()
   return false;
 }
 
-void WorldFeed::AddShape(GtfsIdToHash::iterator & iter, gtfs::Shape const & shapeItems,
-                         TransitId lineId)
+void WorldFeed::AddShape(GtfsIdToHash::iterator & iter, gtfs::Shape const & shapeItems, TransitId lineId)
 {
   std::string const shapeHash = BuildHash(m_gtfsHash, shapeItems[0].shape_id);
   iter->second = shapeHash;
@@ -532,8 +521,8 @@ void WorldFeed::AddShape(GtfsIdToHash::iterator & iter, gtfs::Shape const & shap
   it->second.m_lineIds.insert(lineId);
 }
 
-bool WorldFeed::UpdateStop(TransitId stopId, gtfs::StopTime const & stopTime,
-                           std::string const & stopHash, TransitId lineId)
+bool WorldFeed::UpdateStop(TransitId stopId, gtfs::StopTime const & stopTime, std::string const & stopHash,
+                           TransitId lineId)
 {
   auto [it, inserted] = m_stops.m_data.emplace(stopId, StopData());
 
@@ -574,9 +563,8 @@ std::pair<TransitId, std::string> WorldFeed::GetStopIdAndHash(std::string const 
 bool WorldFeed::FillStopsEdges()
 {
   gtfs::StopTimes allStopTimes = m_feed.get_stop_times();
-  std::sort(
-      allStopTimes.begin(), allStopTimes.end(),
-      [](const gtfs::StopTime & t1, const gtfs::StopTime & t2) { return t1.trip_id < t2.trip_id; });
+  std::sort(allStopTimes.begin(), allStopTimes.end(),
+            [](gtfs::StopTime const & t1, gtfs::StopTime const & t2) { return t1.trip_id < t2.trip_id; });
 
   std::vector<std::unordered_map<TransitId, LineData>::iterator> linesForRemoval;
 
@@ -619,19 +607,16 @@ bool WorldFeed::FillStopsEdges()
           return false;
       }
 
-      std::string const edgeHash =
-          BuildHash(std::to_string(lineId), std::to_string(stop1Id), std::to_string(stop2Id));
+      std::string const edgeHash = BuildHash(std::to_string(lineId), std::to_string(stop1Id), std::to_string(stop2Id));
       EdgeData data;
       data.m_featureId = m_idGeneratorEdges.MakeId(edgeHash);
       data.m_shapeLink.m_shapeId = shapeId;
-      data.m_weight =
-          static_cast<transit::EdgeWeight>(stopTime2.arrival_time.get_total_seconds() -
-                                           stopTime1.departure_time.get_total_seconds());
+      data.m_weight = static_cast<transit::EdgeWeight>(stopTime2.arrival_time.get_total_seconds() -
+                                                       stopTime1.departure_time.get_total_seconds());
 
       if (data.m_weight == 0)
       {
-        double const distBetweenStopsM =
-            stopTime2.shape_dist_traveled - stopTime1.shape_dist_traveled;
+        double const distBetweenStopsM = stopTime2.shape_dist_traveled - stopTime1.shape_dist_traveled;
         if (distBetweenStopsM > 0)
           data.m_weight = std::ceil(distBetweenStopsM / kAvgTransitSpeedMpS);
       }
@@ -660,30 +645,22 @@ bool WorldFeed::FillStopsEdges()
 bool WorldFeed::FillLinesAndShapes()
 {
   std::unordered_map<gtfs::Id, gtfs::Shape> shapes;
-  for (const auto & shape : m_feed.get_shapes())
+  for (auto const & shape : m_feed.get_shapes())
     shapes[shape.shape_id].emplace_back(shape);
 
   for (auto & shape : shapes)
-  {
-    std::sort(shape.second.begin(), shape.second.end(),
-              base::LessBy(&gtfs::ShapePoint::shape_pt_sequence));
-  }
+    std::sort(shape.second.begin(), shape.second.end(), base::LessBy(&gtfs::ShapePoint::shape_pt_sequence));
 
-  auto const getShape = [&shapes](gtfs::Id const & gtfsShapeId) -> gtfs::Shape const & {
-    return shapes[gtfsShapeId];
-  };
+  auto const getShape = [&shapes](gtfs::Id const & gtfsShapeId) -> gtfs::Shape const & { return shapes[gtfsShapeId]; };
 
   std::unordered_map<gtfs::Id, gtfs::StopTimes> stopTimes;
-  for (const auto & stop_time : m_feed.get_stop_times())
+  for (auto const & stop_time : m_feed.get_stop_times())
     stopTimes[stop_time.trip_id].emplace_back(stop_time);
 
   for (auto & stop_time : stopTimes)
-  {
-    std::sort(stop_time.second.begin(), stop_time.second.end(),
-              base::LessBy(&gtfs::StopTime::stop_sequence));
-  }
+    std::sort(stop_time.second.begin(), stop_time.second.end(), base::LessBy(&gtfs::StopTime::stop_sequence));
 
-  for (const auto & trip : m_feed.get_trips())
+  for (auto const & trip : m_feed.get_trips())
   {
     // We skip routes filtered on the route preparation stage.
     auto const itRoute = m_gtfsIdToHash[FieldIdx::RoutesIdx].find(trip.route_id);
@@ -753,16 +730,12 @@ void WorldFeed::ModifyLinesAndShapes()
   links.reserve(m_lines.m_data.size());
 
   for (auto const & [lineId, lineData] : m_lines.m_data)
-  {
-    links.emplace_back(lineId, lineData.m_shapeId,
-                       m_shapes.m_data[lineData.m_shapeId].m_points.size());
-  }
+    links.emplace_back(lineId, lineData.m_shapeId, m_shapes.m_data[lineData.m_shapeId].m_points.size());
 
   // We sort links by shape length so we could search for shapes in which i-th shape is included
   // only in the left part of the array [0, i).
-  std::sort(links.begin(), links.end(), [](Link const & link1, Link const & link2) {
-    return link1.m_shapeSize > link2.m_shapeSize;
-  });
+  std::sort(links.begin(), links.end(),
+            [](Link const & link1, Link const & link2) { return link1.m_shapeSize > link2.m_shapeSize; });
 
   size_t subShapesCount = 0;
 
@@ -807,13 +780,13 @@ void WorldFeed::ModifyLinesAndShapes()
 
       auto const & pointsHaystack = m_shapes.m_data[shapeIdHaystack].m_points;
 
-      auto const it = std::search(pointsHaystack.begin(), pointsHaystack.end(),
-                                  pointsNeedle.begin(), pointsNeedle.end());
+      auto const it =
+          std::search(pointsHaystack.begin(), pointsHaystack.end(), pointsNeedle.begin(), pointsNeedle.end());
 
       if (it == pointsHaystack.end())
       {
-        auto const itRev = std::search(pointsHaystack.begin(), pointsHaystack.end(),
-                                       pointsNeedleRev.begin(), pointsNeedleRev.end());
+        auto const itRev =
+            std::search(pointsHaystack.begin(), pointsHaystack.end(), pointsNeedleRev.begin(), pointsNeedleRev.end());
         if (itRev == pointsHaystack.end())
           continue;
 
@@ -821,10 +794,9 @@ void WorldFeed::ModifyLinesAndShapes()
         // |pointsHaystack| polyline.
         lineDataNeedle.m_shapeId = 0;
         lineDataNeedle.m_shapeLink.m_shapeId = shapeIdHaystack;
-        lineDataNeedle.m_shapeLink.m_endIndex =
-            static_cast<uint32_t>(std::distance(pointsHaystack.begin(), itRev));
-        lineDataNeedle.m_shapeLink.m_startIndex = static_cast<uint32_t>(
-            lineDataNeedle.m_shapeLink.m_endIndex + pointsNeedleRev.size() - 1);
+        lineDataNeedle.m_shapeLink.m_endIndex = static_cast<uint32_t>(std::distance(pointsHaystack.begin(), itRev));
+        lineDataNeedle.m_shapeLink.m_startIndex =
+            static_cast<uint32_t>(lineDataNeedle.m_shapeLink.m_endIndex + pointsNeedleRev.size() - 1);
 
         itCache->second = lineIdNeedle;
         shapesForRemoval.insert(shapeIdNeedle);
@@ -835,8 +807,7 @@ void WorldFeed::ModifyLinesAndShapes()
       // Shape with |pointsNeedle| polyline is fully contained in the shape |pointsHaystack|.
       lineDataNeedle.m_shapeId = 0;
       lineDataNeedle.m_shapeLink.m_shapeId = shapeIdHaystack;
-      lineDataNeedle.m_shapeLink.m_startIndex =
-          static_cast<uint32_t>(std::distance(pointsHaystack.begin(), it));
+      lineDataNeedle.m_shapeLink.m_startIndex = static_cast<uint32_t>(std::distance(pointsHaystack.begin(), it));
 
       CHECK_GREATER_OR_EQUAL(pointsNeedle.size(), 2, ());
 
@@ -860,8 +831,7 @@ void WorldFeed::ModifyLinesAndShapes()
 
     CHECK_GREATER_OR_EQUAL(m_shapes.m_data[lineData.m_shapeId].m_points.size(), 2, ());
 
-    lineData.m_shapeLink.m_endIndex =
-        static_cast<uint32_t>(m_shapes.m_data[lineData.m_shapeId].m_points.size() - 1);
+    lineData.m_shapeLink.m_endIndex = static_cast<uint32_t>(m_shapes.m_data[lineData.m_shapeId].m_points.size() - 1);
 
     lineData.m_shapeId = 0;
   }
@@ -882,8 +852,7 @@ void WorldFeed::FillLinesSchedule()
     for (auto const & serviceId : lineData.m_gtfsServiceIds)
     {
       for (auto const & dateException : m_feed.get_calendar_dates(serviceId))
-        lineData.m_schedule.AddDateException(dateException.date, dateException.exception_type,
-                                             frequencies);
+        lineData.m_schedule.AddDateException(dateException.date, dateException.exception_type, frequencies);
 
       std::optional<gtfs::CalendarItem> calendar = m_feed.get_calendar(serviceId);
       if (calendar)
@@ -910,8 +879,8 @@ std::optional<Direction> WorldFeed::ProjectStopsToShape(
       CHECK(itStop != m_stops.m_data.end(), (stopId));
       auto const & stop = itStop->second;
 
-      size_t const prevIdx = i == 0 ? (direction == Direction::Forward ? 0 : shape.size() - 1)
-                                    : stopsToIndexes[stopIds[i - 1]].back();
+      size_t const prevIdx =
+          i == 0 ? (direction == Direction::Forward ? 0 : shape.size() - 1) : stopsToIndexes[stopIds[i - 1]].back();
       auto const [curIdx, pointInserted] =
           PrepareNearestPointOnTrack(stop.m_point, prevPoint, prevIdx, direction, shape);
 
@@ -920,10 +889,9 @@ std::optional<Direction> WorldFeed::ProjectStopsToShape(
         CHECK(!itShape->second.m_lineIds.empty(), (shapeId));
         TransitId const lineId = *stopsOnLines.m_lines.begin();
 
-        LOG(LWARNING,
-            ("Error projecting stops to the shape. GTFS trip id",
-             m_lines.m_data[lineId].m_gtfsTripId, "shapeId", shapeId, "stopId", stopId, "i", i,
-             "previous index on shape", prevIdx, "trips count", stopsOnLines.m_lines.size()));
+        LOG(LWARNING, ("Error projecting stops to the shape. GTFS trip id", m_lines.m_data[lineId].m_gtfsTripId,
+                       "shapeId", shapeId, "stopId", stopId, "i", i, "previous index on shape", prevIdx, "trips count",
+                       stopsOnLines.m_lines.size()));
         return false;
       }
 
@@ -934,10 +902,8 @@ std::optional<Direction> WorldFeed::ProjectStopsToShape(
         for (auto & indexesList : stopsToIndexes)
         {
           for (auto & stopIndex : indexesList.second)
-          {
             if (stopIndex >= curIdx)
               ++stopIndex;
-          }
         }
 
         for (auto const & lineId : m_shapes.m_data[shapeId].m_lineIds)
@@ -1071,12 +1037,10 @@ std::pair<size_t, size_t> WorldFeed::ModifyShapes()
             m_lines.m_data.erase(lineId);
             // todo: use std::erase_if after c++20
             for (auto it = m_edges.m_data.begin(); it != m_edges.m_data.end();)
-            {
               if (it->first.m_lineId == lineId)
                 it = m_edges.m_data.erase(it);
               else
                 ++it;
-            }
           }
           else
           {
@@ -1144,8 +1108,8 @@ void WorldFeed::FillTransfers()
 
       EdgeData data;
       data.m_weight = static_cast<EdgeWeight>(transfer.min_transfer_time);
-      std::string const edgeHash = BuildHash(std::to_string(kInvalidLineId),
-                                             std::to_string(stop1Id), std::to_string(stop2Id));
+      std::string const edgeHash =
+          BuildHash(std::to_string(kInvalidLineId), std::to_string(stop1Id), std::to_string(stop2Id));
 
       data.m_featureId = m_idGeneratorEdges.MakeId(edgeHash);
 
@@ -1221,10 +1185,9 @@ bool WorldFeed::SpeedExceedsMaxVal(EdgeId const & edgeId, EdgeData const & edgeD
   bool speedExceedsMaxVal = speedMpS > maxSpeedMpS;
   if (speedExceedsMaxVal)
   {
-    LOG(LWARNING,
-        ("Invalid edge weight conflicting with kTransitMaxSpeedKMpH:", edgeId.m_fromStopId,
-         edgeId.m_toStopId, edgeId.m_lineId, "speed (km/h):", measurement_utils::MpsToKmph(speedMpS),
-         "maxSpeed (km/h):", routing::kTransitMaxSpeedKMpH));
+    LOG(LWARNING, ("Invalid edge weight conflicting with kTransitMaxSpeedKMpH:", edgeId.m_fromStopId, edgeId.m_toStopId,
+                   edgeId.m_lineId, "speed (km/h):", measurement_utils::MpsToKmph(speedMpS),
+                   "maxSpeed (km/h):", routing::kTransitMaxSpeedKMpH));
   }
 
   return speedExceedsMaxVal;
@@ -1255,10 +1218,8 @@ bool WorldFeed::ClearFeedByLineIds(std::unordered_set<TransitId> const & corrupt
   }
 
   for (auto const & [routeId, routeData] : m_routes.m_data)
-  {
     if (corruptedRouteIds.find(routeId) == corruptedRouteIds.end())
       DeleteIfExists(corruptedNetworkIds, routeData.m_networkId);
-  }
 
   DeleteAllEntriesByIds(m_shapes.m_data, corruptedShapeIds);
   DeleteAllEntriesByIds(m_routes.m_data, corruptedRouteIds);
@@ -1314,12 +1275,10 @@ bool WorldFeed::ClearFeedByLineIds(std::unordered_set<TransitId> const & corrupt
     auto & gateData = it->second;
 
     for (auto itW = gateData.m_weights.begin(); itW != gateData.m_weights.end();)
-    {
       if (corruptedStopIds.find(itW->m_stopId) != corruptedStopIds.end())
         itW = gateData.m_weights.erase(itW);
       else
         ++itW;
-    }
 
     if (gateData.m_weights.empty())
       it = m_gates.m_data.erase(it);
@@ -1329,12 +1288,12 @@ bool WorldFeed::ClearFeedByLineIds(std::unordered_set<TransitId> const & corrupt
 
   DeleteAllEntriesByIds(m_stops.m_data, corruptedStopIds);
 
-  LOG(LINFO, ("Count of lines linked to the corrupted edges:", corruptedLineIds.size(),
-              ", routes:", corruptedRouteIds.size(), ", networks:", corruptedNetworkIds.size(),
-              ", shapes:", corruptedShapeIds.size()));
+  LOG(LINFO,
+      ("Count of lines linked to the corrupted edges:", corruptedLineIds.size(), ", routes:", corruptedRouteIds.size(),
+       ", networks:", corruptedNetworkIds.size(), ", shapes:", corruptedShapeIds.size()));
 
-  return !m_networks.m_data.empty() && !m_routes.m_data.empty() && !m_lines.m_data.empty() &&
-         !m_stops.m_data.empty() && !m_edges.m_data.empty();
+  return !m_networks.m_data.empty() && !m_routes.m_data.empty() && !m_lines.m_data.empty() && !m_stops.m_data.empty() &&
+         !m_edges.m_data.empty();
 }
 
 bool WorldFeed::UpdateEdgeWeights()
@@ -1349,18 +1308,15 @@ bool WorldFeed::UpdateEdgeWeights()
 
       bool const isInverted = edgeData.m_shapeLink.m_startIndex > edgeData.m_shapeLink.m_endIndex;
 
-      size_t const startIndex =
-          isInverted ? edgeData.m_shapeLink.m_endIndex : edgeData.m_shapeLink.m_startIndex;
-      size_t const endIndex =
-          isInverted ? edgeData.m_shapeLink.m_startIndex : edgeData.m_shapeLink.m_endIndex;
+      size_t const startIndex = isInverted ? edgeData.m_shapeLink.m_endIndex : edgeData.m_shapeLink.m_startIndex;
+      size_t const endIndex = isInverted ? edgeData.m_shapeLink.m_startIndex : edgeData.m_shapeLink.m_endIndex;
 
-      auto const edgePolyLine =
-          std::vector<m2::PointD>(polyLine.begin() + startIndex, polyLine.begin() + endIndex + 1);
+      auto const edgePolyLine = std::vector<m2::PointD>(polyLine.begin() + startIndex, polyLine.begin() + endIndex + 1);
 
       if (edgePolyLine.size() < 1)
       {
-        LOG(LWARNING, ("Invalid edge with too short shape polyline:", edgeId.m_fromStopId,
-                       edgeId.m_toStopId, edgeId.m_lineId));
+        LOG(LWARNING,
+            ("Invalid edge with too short shape polyline:", edgeId.m_fromStopId, edgeId.m_toStopId, edgeId.m_lineId));
         corruptedLineIds.emplace(edgeId.m_lineId);
         continue;
       }
@@ -1372,8 +1328,7 @@ bool WorldFeed::UpdateEdgeWeights()
 
       if (edgeLengthM == 0.0)
       {
-        LOG(LWARNING, ("Invalid edge with 0 length:", edgeId.m_fromStopId, edgeId.m_toStopId,
-                       edgeId.m_lineId));
+        LOG(LWARNING, ("Invalid edge with 0 length:", edgeId.m_fromStopId, edgeId.m_toStopId, edgeId.m_lineId));
         corruptedLineIds.emplace(edgeId.m_lineId);
         continue;
       }
@@ -1494,8 +1449,7 @@ void Routes::Write(IdSet const & ids, std::ofstream & stream) const
   }
 }
 
-void Lines::Write(std::unordered_map<TransitId, LineSegmentInRegion> const & ids,
-                  std::ofstream & stream) const
+void Lines::Write(std::unordered_map<TransitId, LineSegmentInRegion> const & ids, std::ofstream & stream) const
 {
   for (auto const & [lineId, data] : ids)
   {
@@ -1599,8 +1553,7 @@ void Stops::Write(IdSet const & ids, std::ofstream & stream) const
         for (auto const & timeInterval : timeIntervals)
           rawValues.push_back(timeInterval.GetRaw());
 
-        json_object_set_new(lineTimetableItem.get(), "intervals",
-                            VectorToJson(rawValues).release());
+        json_object_set_new(lineTimetableItem.get(), "intervals", VectorToJson(rawValues).release());
         json_array_append_new(timeTableArr.get(), lineTimetableItem.release());
       }
 
@@ -1625,7 +1578,7 @@ void Edges::Write(IdEdgeSet const & ids, std::ofstream & stream) const
     ToJSONObject(*node, "stop_id_to", edgeId.m_toStopId);
 
     CHECK_NOT_EQUAL(edge.m_featureId, std::numeric_limits<uint32_t>::max(),
-                   (edgeId.m_lineId, edgeId.m_fromStopId, edgeId.m_toStopId));
+                    (edgeId.m_lineId, edgeId.m_fromStopId, edgeId.m_toStopId));
     ToJSONObject(*node, "feature_id", edge.m_featureId);
 
     CHECK_GREATER(edge.m_weight, 0, (edgeId.m_fromStopId, edgeId.m_toStopId, edgeId.m_lineId));
@@ -1649,7 +1602,7 @@ void EdgesTransfer::Write(IdEdgeTransferSet const & ids, std::ofstream & stream)
     ToJSONObject(*node, "weight", edgeData.m_weight);
 
     CHECK_NOT_EQUAL(edgeData.m_featureId, std::numeric_limits<uint32_t>::max(),
-                   (edgeTransferId.m_fromStopId, edgeTransferId.m_toStopId));
+                    (edgeTransferId.m_fromStopId, edgeTransferId.m_toStopId));
     ToJSONObject(*node, "feature_id", edgeData.m_featureId);
 
     WriteJson(node.get(), stream);
@@ -1732,8 +1685,7 @@ void WorldFeed::SplitStopsBasedData()
   // Fill regional stops from transfer edges.
   for (auto const & [edgeTransferId, data] : m_edgesTransfers.m_data)
   {
-    auto const [regFrom, regTo] =
-        ExtendRegionsByPair(edgeTransferId.m_fromStopId, edgeTransferId.m_toStopId);
+    auto const [regFrom, regTo] = ExtendRegionsByPair(edgeTransferId.m_fromStopId, edgeTransferId.m_toStopId);
     AddToRegions(m_splitting.m_edgesTransfers, edgeTransferId, regFrom);
     AddToRegions(m_splitting.m_edgesTransfers, edgeTransferId, regTo);
   }
@@ -1745,10 +1697,8 @@ bool IsSplineSubset(IdList const & stops, IdList const & stopsOther)
     return false;
 
   for (TransitId stopId : stops)
-  {
     if (!base::IsExist(stopsOther, stopId))
       return false;
-  }
 
   return true;
 }
@@ -1839,14 +1789,16 @@ bool WorldFeed::PrepareEdgesInRegion(std::string const & region)
           FindPointsOnShape(shapePoints, it->second[0].front(), it->second[0].back());
     }
 
-    CHECK(edgeData.m_shapeLink.m_startIndex != 0 || edgeData.m_shapeLink.m_endIndex != 0, (edgeData.m_shapeLink.m_shapeId));
+    CHECK(edgeData.m_shapeLink.m_startIndex != 0 || edgeData.m_shapeLink.m_endIndex != 0,
+          (edgeData.m_shapeLink.m_shapeId));
 
     auto const & pointOnShapeStart = shapePoints[edgeData.m_shapeLink.m_startIndex];
     auto const & pointOnShapeEnd = shapePoints[edgeData.m_shapeLink.m_endIndex];
 
     auto const & pointStopStart = m_stops.m_data.at(edgeId.m_fromStopId).m_point;
 
-    if (mercator::DistanceOnEarth(pointOnShapeStart, pointStopStart) > mercator::DistanceOnEarth(pointOnShapeEnd, pointStopStart))
+    if (mercator::DistanceOnEarth(pointOnShapeStart, pointStopStart) >
+        mercator::DistanceOnEarth(pointOnShapeEnd, pointStopStart))
     {
       std::swap(edgeData.m_shapeLink.m_startIndex, edgeData.m_shapeLink.m_endIndex);
     }
@@ -1884,15 +1836,11 @@ void WorldFeed::SplitLinesBasedData()
   }
 
   for (auto & [region, linesInRegion] : m_splitting.m_lines)
-  {
     for (auto & [lineId, lineInRegion] : linesInRegion)
       lineInRegion.m_splineParent = GetParentLineForSpline(lineId);
-  }
 
   for (auto & [region, edges] : m_splitting.m_edges)
-  {
     PrepareEdgesInRegion(region);
-  }
 
   for (auto & [region, linesInRegion] : m_splitting.m_lines)
   {
@@ -1909,13 +1857,13 @@ void WorldFeed::SplitLinesBasedData()
 
       lineInRegion.m_shapeLink.m_shapeId = lineData.m_shapeLink.m_shapeId;
 
-      auto const edgeFirst = m_edges.m_data.at(
-          EdgeId(lineData.m_stopIds[firstStopIdx], lineData.m_stopIds[firstStopIdx + 1], lineId));
+      auto const edgeFirst =
+          m_edges.m_data.at(EdgeId(lineData.m_stopIds[firstStopIdx], lineData.m_stopIds[firstStopIdx + 1], lineId));
       if (edgeFirst.m_shapeLink.m_startIndex == 0 && edgeFirst.m_shapeLink.m_endIndex == 0)
         continue;
 
-      auto const edgeLast = m_edges.m_data.at(
-          EdgeId(lineData.m_stopIds[lastStopIdx - 1], lineData.m_stopIds[lastStopIdx], lineId));
+      auto const edgeLast =
+          m_edges.m_data.at(EdgeId(lineData.m_stopIds[lastStopIdx - 1], lineData.m_stopIds[lastStopIdx], lineId));
       if (edgeLast.m_shapeLink.m_startIndex == 0 && edgeLast.m_shapeLink.m_endIndex == 0)
         continue;
 
@@ -1946,25 +1894,19 @@ void WorldFeed::SplitLinesBasedData()
 
   // Fill regional networks based on routes.
   for (auto const & [region, routeIds] : m_splitting.m_routes)
-  {
     for (auto routeId : routeIds)
       m_splitting.m_networks[region].emplace(m_routes.m_data[routeId].m_networkId);
-  }
 }
 
 void WorldFeed::SplitSupplementalData()
 {
   for (auto const & [gateId, gateData] : m_gates.m_data)
-  {
     for (auto const & weight : gateData.m_weights)
       AddToRegionsIfMatches(m_splitting.m_gates, gateId, m_splitting.m_stops, weight.m_stopId);
-  }
 
   for (auto const & [transferId, transferData] : m_transfers.m_data)
-  {
     for (auto const & stopId : transferData.m_stopsIds)
       AddToRegionsIfMatches(m_splitting.m_transfers, transferId, m_splitting.m_stops, stopId);
-  }
 }
 
 std::pair<Regions, Regions> WorldFeed::ExtendRegionsByPair(TransitId fromId, TransitId toId)
@@ -1979,40 +1921,26 @@ std::pair<Regions, Regions> WorldFeed::ExtendRegionsByPair(TransitId fromId, Tra
   return {regionsFrom, regionsTo};
 }
 
-void WorldFeed::SaveRegions(std::string const & worldFeedDir, std::string const & region,
-                            bool overwrite)
+void WorldFeed::SaveRegions(std::string const & worldFeedDir, std::string const & region, bool overwrite)
 {
   auto const path = base::JoinPath(worldFeedDir, region);
   CHECK(Platform::MkDirRecursively(path), (path));
 
-  CHECK(DumpData(m_networks, m_splitting.m_networks[region], base::JoinPath(path, kNetworksFile),
-                 overwrite),
-        ());
-  CHECK(DumpData(m_routes, m_splitting.m_routes[region], base::JoinPath(path, kRoutesFile),
-                 overwrite),
-        ());
-  CHECK(DumpData(m_lines, m_splitting.m_lines[region], base::JoinPath(path, kLinesFile), overwrite),
+  CHECK(DumpData(m_networks, m_splitting.m_networks[region], base::JoinPath(path, kNetworksFile), overwrite), ());
+  CHECK(DumpData(m_routes, m_splitting.m_routes[region], base::JoinPath(path, kRoutesFile), overwrite), ());
+  CHECK(DumpData(m_lines, m_splitting.m_lines[region], base::JoinPath(path, kLinesFile), overwrite), ());
+
+  CHECK(DumpData(m_linesMetadata, m_splitting.m_lines[region], base::JoinPath(path, kLinesMetadataFile), overwrite),
         ());
 
-  CHECK(DumpData(m_linesMetadata, m_splitting.m_lines[region],
-                 base::JoinPath(path, kLinesMetadataFile), overwrite),
-        ());
-
-  CHECK(DumpData(m_shapes, m_splitting.m_shapes[region], base::JoinPath(path, kShapesFile),
+  CHECK(DumpData(m_shapes, m_splitting.m_shapes[region], base::JoinPath(path, kShapesFile), overwrite), ());
+  CHECK(DumpData(m_stops, m_splitting.m_stops[region], base::JoinPath(path, kStopsFile), overwrite), ());
+  CHECK(DumpData(m_edges, m_splitting.m_edges[region], base::JoinPath(path, kEdgesFile), overwrite), ());
+  CHECK(DumpData(m_edgesTransfers, m_splitting.m_edgesTransfers[region], base::JoinPath(path, kEdgesTransferFile),
                  overwrite),
         ());
-  CHECK(DumpData(m_stops, m_splitting.m_stops[region], base::JoinPath(path, kStopsFile), overwrite),
-        ());
-  CHECK(DumpData(m_edges, m_splitting.m_edges[region], base::JoinPath(path, kEdgesFile), overwrite),
-        ());
-  CHECK(DumpData(m_edgesTransfers, m_splitting.m_edgesTransfers[region],
-                 base::JoinPath(path, kEdgesTransferFile), overwrite),
-        ());
-  CHECK(DumpData(m_transfers, m_splitting.m_transfers[region], base::JoinPath(path, kTransfersFile),
-                 overwrite),
-        ());
-  CHECK(DumpData(m_gates, m_splitting.m_gates[region], base::JoinPath(path, kGatesFile), overwrite),
-        ());
+  CHECK(DumpData(m_transfers, m_splitting.m_transfers[region], base::JoinPath(path, kTransfersFile), overwrite), ());
+  CHECK(DumpData(m_gates, m_splitting.m_gates[region], base::JoinPath(path, kGatesFile), overwrite), ());
 }
 
 bool WorldFeed::Save(std::string const & worldFeedDir, bool overwrite)
@@ -2020,11 +1948,10 @@ bool WorldFeed::Save(std::string const & worldFeedDir, bool overwrite)
   CHECK(!worldFeedDir.empty(), ());
   CHECK(!m_networks.m_data.empty(), ());
 
-  if (m_routes.m_data.empty() || m_lines.m_data.empty() || m_stops.m_data.empty() ||
-      m_shapes.m_data.empty())
+  if (m_routes.m_data.empty() || m_lines.m_data.empty() || m_stops.m_data.empty() || m_shapes.m_data.empty())
   {
-    LOG(LINFO, ("Skipping feed with routes, lines, stops, shapes sizes:", m_routes.m_data.size(),
-                m_lines.m_data.size(), m_stops.m_data.size(), m_shapes.m_data.size()));
+    LOG(LINFO, ("Skipping feed with routes, lines, stops, shapes sizes:", m_routes.m_data.size(), m_lines.m_data.size(),
+                m_stops.m_data.size(), m_shapes.m_data.size()));
     return false;
   }
 

@@ -10,16 +10,11 @@ using namespace std;
 
 namespace platform
 {
-HttpClient::HttpClient(string const & url) : m_urlRequested(url)
-{
-}
+HttpClient::HttpClient(string const & url) : m_urlRequested(url) {}
 
 bool HttpClient::RunHttpRequest(string & response, SuccessChecker checker /* = nullptr */)
 {
-  static auto const simpleChecker = [](HttpClient const & request)
-  {
-    return request.ErrorCode() == 200;
-  };
+  static auto const simpleChecker = [](HttpClient const & request) { return request.ErrorCode() == 200; };
 
   if (checker == nullptr)
     checker = simpleChecker;

@@ -41,8 +41,7 @@ bool ConsistsOf(Polygon const & polygon, vector<m2::PointD> const & points)
     for (size_t i = 0; i < polygon.m_points.size(); ++i)
     {
       static double constexpr kEps = 1e-5;
-      if (AlmostEqualAbs(point, polygon.m_points[i].m_point, kEps) &&
-          used.count(i) == 0)
+      if (AlmostEqualAbs(point, polygon.m_points[i].m_point, kEps) && used.count(i) == 0)
       {
         used.emplace(i);
         break;
@@ -65,11 +64,11 @@ UNIT_TEST(PolyBordersPostprocessor_RemoveEmptySpaces_1)
   m2::PointD e(4.0, 0.0);
 
   vector<vector<m2::PointD>> polygons1 = {
-    {a, b, c, d, e}
+      {a, b, c, d, e}
   };
 
   vector<vector<m2::PointD>> polygons2 = {
-    {a, b, c, d, e}
+      {a, b, c, d, e}
   };
 
   vector<shared_ptr<ScopedFile>> files;

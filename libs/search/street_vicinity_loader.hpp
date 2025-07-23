@@ -27,7 +27,7 @@ public:
 
     std::vector<uint32_t> m_features;
     m2::RectD m_rect;
-    //std::unique_ptr<ProjectionOnStreetCalculator> m_calculator;
+    // std::unique_ptr<ProjectionOnStreetCalculator> m_calculator;
 
     /// @todo Cache GetProjection results for features here, because
     /// feature::GetCenter and ProjectionOnStreetCalculator::GetProjection are not so fast.

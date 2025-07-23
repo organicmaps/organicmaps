@@ -23,10 +23,8 @@ bool IsHighwayLink(HighwayType type)
   case HighwayType::HighwayTrunkLink:
   case HighwayType::HighwayPrimaryLink:
   case HighwayType::HighwaySecondaryLink:
-  case HighwayType::HighwayTertiaryLink:
-    return true;
-  default:
-    return false;
+  case HighwayType::HighwayTertiaryLink: return true;
+  default: return false;
   }
 
   UNREACHABLE();
@@ -40,10 +38,8 @@ bool IsBigHighway(HighwayType type)
   case HighwayType::HighwayTrunk:
   case HighwayType::HighwayPrimary:
   case HighwayType::HighwaySecondary:
-  case HighwayType::HighwayTertiary:
-    return true;
-  default:
-    return false;
+  case HighwayType::HighwayTertiary: return true;
+  default: return false;
   }
 
   UNREACHABLE();
@@ -54,12 +50,8 @@ bool FromSmallerToBigger(HighwayType lhs, HighwayType rhs)
   CHECK_NOT_EQUAL(lhs, rhs, ());
 
   static std::array<HighwayType, 5> constexpr kHighwayTypes = {
-      HighwayType::HighwayTertiary,
-      HighwayType::HighwaySecondary,
-      HighwayType::HighwayPrimary,
-      HighwayType::HighwayTrunk,
-      HighwayType::HighwayMotorway
-  };
+      HighwayType::HighwayTertiary, HighwayType::HighwaySecondary, HighwayType::HighwayPrimary,
+      HighwayType::HighwayTrunk, HighwayType::HighwayMotorway};
 
   auto const lhsIt = find(kHighwayTypes.begin(), kHighwayTypes.end(), lhs);
   auto const rhsIt = find(kHighwayTypes.begin(), kHighwayTypes.end(), rhs);
@@ -112,7 +104,8 @@ IsCrossroadChecker::Type IsCrossroadChecker::operator()(Segment const & current,
 
   Type retType = Type::Count;
   auto const nextRoadPoint = next.GetRoadPoint(false /* isFront */);
-  m_indexGraph.ForEachPoint(jointId, [&](RoadPoint const & point) {
+  m_indexGraph.ForEachPoint(jointId, [&](RoadPoint const & point)
+  {
     if (retType != IsCrossroadChecker::Type::Count)
       return;
 
@@ -129,11 +122,8 @@ IsCrossroadChecker::Type IsCrossroadChecker::operator()(Segment const & current,
     if (pointHwType == nextSegmentHwType)
     {
       // Is the same road but parted on different features.
-      if (roadGeometry.IsEndPointId(point.GetPointId()) &&
-          roadGeometry.IsEndPointId(nextRoadPoint.GetPointId()))
-      {
+      if (roadGeometry.IsEndPointId(point.GetPointId()) && roadGeometry.IsEndPointId(nextRoadPoint.GetPointId()))
         return;
-      }
     }
 
     if (isCurrentLink && IsBigHighway(*pointHwType))

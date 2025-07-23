@@ -9,4 +9,3 @@ namespace routing_test
 std::unique_ptr<routing::SingleVehicleWorldGraph> BuildCrossGraph();
 std::unique_ptr<routing::SingleVehicleWorldGraph> BuildTestGraph();
 }  // namespace routing_test
-

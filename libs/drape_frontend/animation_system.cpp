@@ -54,10 +54,7 @@ public:
     return m_value;
   }
 
-  bool IsEmpty() const
-  {
-    return m_counter == 0;
-  }
+  bool IsEmpty() const { return m_counter == 0; }
 
 private:
   Animation::PropertyValue m_value;
@@ -72,17 +69,16 @@ void AnimationSystem::UpdateLastScreen(ScreenBase const & currentScreen)
 
 bool AnimationSystem::GetScreen(ScreenBase const & currentScreen, ScreenBase & screen)
 {
-  return GetScreen(currentScreen, std::bind(&AnimationSystem::GetProperty, this, _1, _2, _3),
-                   screen);
+  return GetScreen(currentScreen, std::bind(&AnimationSystem::GetProperty, this, _1, _2, _3), screen);
 }
 
 void AnimationSystem::GetTargetScreen(ScreenBase const & currentScreen, ScreenBase & screen)
 {
-  GetScreen(currentScreen, std::bind(&AnimationSystem::GetTargetProperty, this, _1, _2, _3),
-            screen);
+  GetScreen(currentScreen, std::bind(&AnimationSystem::GetTargetProperty, this, _1, _2, _3), screen);
 }
 
-bool AnimationSystem::GetScreen(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  ScreenBase & screen)
+bool AnimationSystem::GetScreen(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,
+                                ScreenBase & screen)
 {
   ASSERT(getPropertyFn != nullptr, ());
 
@@ -135,16 +131,12 @@ bool AnimationSystem::AnimationExists(Animation::Object object) const
   if (!m_animationChain.empty())
   {
     for (auto const & anim : *(m_animationChain.front()))
-    {
       if (anim->HasObject(object))
         return true;
-    }
   }
   for (auto const & prop : m_propertyCache)
-  {
     if (prop.first.first == object)
       return true;
-  }
   return false;
 }
 
@@ -240,7 +232,7 @@ void AnimationSystem::CombineAnimation(drape_ptr<Animation> && animation)
 
     startImmediately = false;
   }
-  
+
   PushAnimation(std::move(animation));
 }
 
@@ -281,8 +273,8 @@ void AnimationSystem::FinishAnimations(std::function<bool(std::shared_ptr<Animat
     if (predicate(anim))
     {
 #ifdef DEBUG_ANIMATIONS
-      LOG(LINFO, ("Finish animation", anim->GetType(), ", rewind:", rewind,
-                  ", couldBeRewinded:", anim->CouldBeRewinded()));
+      LOG(LINFO,
+          ("Finish animation", anim->GetType(), ", rewind:", rewind, ", couldBeRewinded:", anim->CouldBeRewinded()));
       changed = true;
 #endif
       finishAnimations.splice(finishAnimations.end(), frontList, it++);
@@ -335,23 +327,21 @@ void AnimationSystem::FinishAnimations(std::function<bool(std::shared_ptr<Animat
 
 void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind, bool finishAll)
 {
-  FinishAnimations([&type](std::shared_ptr<Animation> const & anim) { return anim->GetType() == type; },
-                   rewind, finishAll);
+  FinishAnimations([&type](std::shared_ptr<Animation> const & anim) { return anim->GetType() == type; }, rewind,
+                   finishAll);
 }
 
-void AnimationSystem::FinishAnimations(Animation::Type type, std::string const & customType,
-                                       bool rewind, bool finishAll)
+void AnimationSystem::FinishAnimations(Animation::Type type, std::string const & customType, bool rewind,
+                                       bool finishAll)
 {
   FinishAnimations([&type, &customType](std::shared_ptr<Animation> const & anim)
-  {
-    return anim->GetType() == type && anim->GetCustomType() == customType;
-  }, rewind, finishAll);
+  { return anim->GetType() == type && anim->GetCustomType() == customType; }, rewind, finishAll);
 }
 
 void AnimationSystem::FinishObjectAnimations(Animation::Object object, bool rewind, bool finishAll)
 {
-  FinishAnimations([&object](std::shared_ptr<Animation> const & anim) { return anim->HasObject(object); },
-                   rewind, finishAll);
+  FinishAnimations([&object](std::shared_ptr<Animation> const & anim) { return anim->HasObject(object); }, rewind,
+                   finishAll);
 }
 
 void AnimationSystem::Advance(double elapsedSeconds)
@@ -366,13 +356,9 @@ void AnimationSystem::Advance(double elapsedSeconds)
     auto & anim = *it;
     anim->Advance(elapsedSeconds);
     if (anim->IsFinished())
-    {
       finishedAnimations.splice(finishedAnimations.end(), frontList, it++);
-    }
     else
-    {
       ++it;
-    }
   }
   for (auto & anim : finishedAnimations)
   {
@@ -397,7 +383,6 @@ void AnimationSystem::Print()
       auto & anim = *it;
       LOG(LINFO, ("Type:", anim->GetType()));
     }
-
   }
   LOG(LINFO, ("========================Animation chain end========================"));
 }

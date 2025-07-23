@@ -25,8 +25,7 @@ public:
   using UpdateSampleSearchState = std::function<void(size_t index)>;
 
   SearchRequestRunner(Framework & framework, DataSource const & dataSource, ContextList & contexts,
-                      UpdateViewOnResults && updateViewOnResults,
-                      UpdateSampleSearchState && updateSampleSearchState);
+                      UpdateViewOnResults && updateViewOnResults, UpdateSampleSearchState && updateSampleSearchState);
 
   void InitiateForegroundSearch(size_t index);
 

@@ -46,8 +46,7 @@ string GetResultType(search::Result const & result)
 }
 }  // namespace
 
-ResultView::ResultView(string const & name, string const & type, string const & address,
-                       QWidget & parent)
+ResultView::ResultView(string const & name, string const & type, string const & address, QWidget & parent)
   : QWidget(&parent)
 {
   Init();
@@ -58,13 +57,11 @@ ResultView::ResultView(string const & name, string const & type, string const & 
 
 ResultView::ResultView(search::Result const & result, QWidget & parent)
   : ResultView(result.GetString(), GetResultType(result), result.GetAddress(), parent)
-{
-}
+{}
 
 ResultView::ResultView(search::Sample::Result const & result, QWidget & parent)
   : ResultView(strings::ToUtf8(result.m_name), GetResultType(result), {} /* address */, parent)
-{
-}
+{}
 
 void ResultView::SetEditor(ResultsEdits::Editor && editor)
 {
@@ -84,17 +81,11 @@ void ResultView::Update()
   }
 
   if (m_editor->GetType() == ResultsEdits::Entry::Type::Created)
-  {
     setStyleSheet("#result {background: rgba(173, 223, 173, 50%)}");
-  }
   else if (m_editor->HasChanges())
-  {
     setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
-  }
   else
-  {
     setStyleSheet("");
-  }
 
   UpdateRelevanceRadioButtons();
 }

@@ -11,10 +11,9 @@ class Ge0Parser
 {
 public:
   // Used by map/mwm_url.cpp.
-  static constexpr std::array<std::string_view, 6> kGe0Prefixes = {{
-      "https://omaps.app/", "om://", "http://omaps.app/",
-      "ge0://", "http://ge0.me/", "https://ge0.me/"
-  }};
+  static constexpr std::array<std::string_view, 6> kGe0Prefixes = {
+      {"https://omaps.app/", "om://", "http://omaps.app/", "ge0://", "http://ge0.me/", "https://ge0.me/"}
+  };
 
   struct Result
   {

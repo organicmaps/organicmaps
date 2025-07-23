@@ -14,6 +14,7 @@ public:
   {
   public:
     virtual void OnBatteryLevelReceived(uint8_t level) = 0;
+
   protected:
     virtual ~Subscriber() = default;
   };
@@ -30,4 +31,4 @@ private:
   uint8_t m_lastReceivedLevel = 0;
   bool m_isTrackingInProgress = false;
 };
-}  // platform
+}  // namespace platform

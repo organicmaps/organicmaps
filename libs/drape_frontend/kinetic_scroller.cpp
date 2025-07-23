@@ -45,15 +45,9 @@ public:
 
   Animation::Type GetType() const override { return Animation::Type::KineticScroll; }
 
-  TAnimObjects const & GetObjects() const override
-  {
-    return m_objects;
-  }
+  TAnimObjects const & GetObjects() const override { return m_objects; }
 
-  bool HasObject(Object object) const override
-  {
-    return m_objects.find(object) != m_objects.end();
-  }
+  bool HasObject(Object object) const override { return m_objects.find(object) != m_objects.end(); }
 
   TObjectProperties const & GetProperties(Object object) const override
   {
@@ -79,10 +73,7 @@ public:
   double GetDuration() const override { return m_duration; }
   bool IsFinished() const override { return m_elapsedTime >= m_duration; }
 
-  void Advance(double elapsedSeconds) override
-  {
-    m_elapsedTime += elapsedSeconds;
-  }
+  void Advance(double elapsedSeconds) override { m_elapsedTime += elapsedSeconds; }
 
   void Finish() override
   {
@@ -107,10 +98,7 @@ public:
   }
 
 private:
-  double GetT() const
-  {
-    return IsFinished() ? 1.0 : m_elapsedTime / m_duration;
-  }
+  double GetT() const { return IsFinished() ? 1.0 : m_elapsedTime / m_duration; }
 
   m2::PointD m_endPos;
   m2::PointD m_direction;
@@ -137,9 +125,7 @@ void KineticScroller::Update(ScreenBase const & modelView)
   if (m_points.size() > 1)
   {
     auto it = std::find_if(m_points.begin(), m_points.end(), [&nowTime](auto const & e)
-    {
-      return GetDurationSeconds(nowTime, e.second) <= kTimeWindowSec;
-    });
+    { return GetDurationSeconds(nowTime, e.second) <= kTimeWindowSec; });
 
     // Keep last point always.
     if (it == m_points.end())

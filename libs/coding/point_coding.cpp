@@ -45,10 +45,10 @@ double Uint32ToDouble(uint32_t x, double min, double max, uint8_t coordBits)
 
   // It doesn't work now because of fancy serialization of m2::DiamondBox.
   /// @todo Check PathsThroughLayers search test. Refactor CitiesBoundariesSerDes.
-  //ASSERT_LESS_OR_EQUAL(x, coordSize, (d, min, max, coordBits));
+  // ASSERT_LESS_OR_EQUAL(x, coordSize, (d, min, max, coordBits));
 
   // It doesn't work because of possible floating errors.
-  //ASSERT(d >= min && d <= max, (d, x, min, max, coordBits));
+  // ASSERT(d >= min && d <= max, (d, x, min, max, coordBits));
 
   return math::Clamp(d, min, max);
 }
@@ -56,8 +56,8 @@ double Uint32ToDouble(uint32_t x, double min, double max, uint8_t coordBits)
 m2::PointU PointDToPointU(double x, double y, uint8_t coordBits)
 {
   using mercator::Bounds;
-  return { DoubleToUint32(x, Bounds::kMinX, Bounds::kMaxX, coordBits),
-           DoubleToUint32(y, Bounds::kMinY, Bounds::kMaxY, coordBits) };
+  return {DoubleToUint32(x, Bounds::kMinX, Bounds::kMaxX, coordBits),
+          DoubleToUint32(y, Bounds::kMinY, Bounds::kMaxY, coordBits)};
 }
 
 m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits)
@@ -67,21 +67,21 @@ m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits)
 
 m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits, m2::RectD const & limitRect)
 {
-  return { DoubleToUint32(pt.x, limitRect.minX(), limitRect.maxX(), coordBits),
-           DoubleToUint32(pt.y, limitRect.minY(), limitRect.maxY(), coordBits) };
+  return {DoubleToUint32(pt.x, limitRect.minX(), limitRect.maxX(), coordBits),
+          DoubleToUint32(pt.y, limitRect.minY(), limitRect.maxY(), coordBits)};
 }
 
 m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits)
 {
   using mercator::Bounds;
-  return { Uint32ToDouble(pt.x, Bounds::kMinX, Bounds::kMaxX, coordBits),
-           Uint32ToDouble(pt.y, Bounds::kMinY, Bounds::kMaxY, coordBits) };
+  return {Uint32ToDouble(pt.x, Bounds::kMinX, Bounds::kMaxX, coordBits),
+          Uint32ToDouble(pt.y, Bounds::kMinY, Bounds::kMaxY, coordBits)};
 }
 
 m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits, m2::RectD const & limitRect)
 {
-  return { Uint32ToDouble(pt.x, limitRect.minX(), limitRect.maxX(), coordBits),
-           Uint32ToDouble(pt.y, limitRect.minY(), limitRect.maxY(), coordBits) };
+  return {Uint32ToDouble(pt.x, limitRect.minX(), limitRect.maxX(), coordBits),
+          Uint32ToDouble(pt.y, limitRect.minY(), limitRect.maxY(), coordBits)};
 }
 
 uint8_t GetCoordBits(m2::RectD const & limitRect, double accuracy)
@@ -89,10 +89,8 @@ uint8_t GetCoordBits(m2::RectD const & limitRect, double accuracy)
   auto const range = std::max(limitRect.SizeX(), limitRect.SizeY());
   auto const valuesNumber = 1.0 + range / accuracy;
   for (uint8_t coordBits = 1; coordBits <= 32; ++coordBits)
-  {
     if (CoordSize(coordBits) >= valuesNumber)
       return coordBits;
-  }
   return 0;
 }
 

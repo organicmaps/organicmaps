@@ -114,8 +114,7 @@ int8_t GLFunctions::glGetAttribLocation(uint32_t programID, std::string const & 
   return MOCK_CALL(glGetAttribLocation(programID, name));
 }
 
-void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, std::string const & name)
-{}
+void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, std::string const & name) {}
 
 // Enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation.
 void GLFunctions::glEnableVertexAttribute(int32_t attributeLocation)
@@ -123,12 +122,8 @@ void GLFunctions::glEnableVertexAttribute(int32_t attributeLocation)
   MOCK_CALL(glEnableVertexAttribute(attributeLocation));
 }
 
-void GLFunctions::glVertexAttributePointer(int32_t attrLocation,
-                                           uint32_t count,
-                                           glConst type,
-                                           bool needNormalize,
-                                           uint32_t stride,
-                                           uint32_t offset)
+void GLFunctions::glVertexAttributePointer(int32_t attrLocation, uint32_t count, glConst type, bool needNormalize,
+                                           uint32_t stride, uint32_t offset)
 {
   MOCK_CALL(glVertexAttributePointer(attrLocation, count, type, needNormalize, stride, offset));
 }
@@ -195,11 +190,11 @@ bool GLFunctions::glHasExtension(std::string const & extName)
 
 int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramName)
 {
- return MOCK_CALL(glGetProgramiv(program, paramName));
+  return MOCK_CALL(glGetProgramiv(program, paramName));
 }
 
-void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
-                                     int32_t * uniformSize, glConst * type, std::string & name)
+void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex, int32_t * uniformSize, glConst * type,
+                                     std::string & name)
 {
   MOCK_CALL(glGetActiveUniform(programID, uniformIndex, uniformSize, type, name));
 }
@@ -230,7 +225,8 @@ void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pi
   MOCK_CALL(glTexImage2D(width, height, layout, pixelType, data));
 }
 
-void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType, void const * data)
+void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType,
+                                  void const * data)
 {
   MOCK_CALL(glTexSubImage2D(x, y, width, height, layout, pixelType, data));
 }
@@ -303,12 +299,15 @@ void GLFunctions::glBlendEquation(glConst function) {}
 
 void GLFunctions::glBlendFunc(glConst srcFactor, glConst dstFactor) {}
 
-bool GLFunctions::CanEnableDebugMessages() { return false; }
+bool GLFunctions::CanEnableDebugMessages()
+{
+  return false;
+}
 
 void GLFunctions::glDebugMessageCallback(TglDebugProc messageCallback, void * userParam) {}
 
-void GLFunctions::glDebugMessageControl(glConst source, glConst type, glConst severity,
-                                        int32_t count, uint32_t const * ids, uint8_t enabled)
+void GLFunctions::glDebugMessageControl(glConst source, glConst type, glConst severity, int32_t count,
+                                        uint32_t const * ids, uint8_t enabled)
 {}
 
 void GLFunctions::glDisable(glConst mode) {}
@@ -317,14 +316,19 @@ void GLFunctions::glDepthFunc(glConst depthFunc) {}
 
 void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size) {}
 
-void * GLFunctions::glMapBuffer(glConst, glConst) { return 0; }
+void * GLFunctions::glMapBuffer(glConst, glConst)
+{
+  return 0;
+}
 
-void * GLFunctions::glMapBufferRange(glConst, uint32_t, uint32_t, glConst) { return 0; }
+void * GLFunctions::glMapBufferRange(glConst, uint32_t, uint32_t, glConst)
+{
+  return 0;
+}
 
 void GLFunctions::glUnmapBuffer(glConst target) {}
 
-void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex,
-                                 uint32_t indexCount, uint32_t startIndex) {}
+void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex) {}
 
 void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count) {}
 

@@ -23,8 +23,8 @@ namespace
 class AffiliationTests
 {
 public:
-  static const std::string kOne;
-  static const std::string kTwo;
+  static std::string const kOne;
+  static std::string const kTwo;
 
   static constexpr m2::PointD kPointInsideOne1{3.0, 3.0};
   static constexpr m2::PointD kPointInsideOne2{4.0, 4.0};
@@ -89,8 +89,8 @@ private:
 };
 
 // static
-const std::string AffiliationTests::kOne = "One";
-const std::string AffiliationTests::kTwo = "Two";
+std::string const AffiliationTests::kOne = "One";
+std::string const AffiliationTests::kTwo = "Two";
 
 bool Test(std::vector<std::string> && res, std::set<std::string> const & answ)
 {
@@ -104,41 +104,29 @@ bool Test(std::vector<std::string> && res, std::set<std::string> const & answ)
 
 void TestCountriesAffiliationInsideBorders(feature::AffiliationInterface const & affiliation)
 {
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOne1),
-            {AffiliationTests::kOne}),
-       ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOne2),
-            {AffiliationTests::kOne}),
-       ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOnBorderOne),
-            {AffiliationTests::kOne}),
-       ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwo1),
-            {AffiliationTests::kTwo}),
-       ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwo2),
-            {AffiliationTests::kTwo}),
-       ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOne1), {AffiliationTests::kOne}), ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOne2), {AffiliationTests::kOne}), ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOnBorderOne), {AffiliationTests::kOne}), ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwo1), {AffiliationTests::kTwo}), ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwo2), {AffiliationTests::kTwo}), ());
   TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneAndTwo1),
             {AffiliationTests::kOne, AffiliationTests::kTwo}),
        ());
   TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneAndTwo2),
             {AffiliationTests::kOne, AffiliationTests::kTwo}),
        ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOnBorderTwo),
-            {AffiliationTests::kTwo}),
-       ());
+  TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointOnBorderTwo), {AffiliationTests::kTwo}), ());
 
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::MakeLineFb(
-                {AffiliationTests::kPointInsideOne1, AffiliationTests::kPointInsideOne2})),
+  TEST(Test(affiliation.GetAffiliations(
+                AffiliationTests::MakeLineFb({AffiliationTests::kPointInsideOne1, AffiliationTests::kPointInsideOne2})),
             {AffiliationTests::kOne}),
        ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::MakeLineFb(
-                {AffiliationTests::kPointInsideTwo1, AffiliationTests::kPointInsideTwo2})),
+  TEST(Test(affiliation.GetAffiliations(
+                AffiliationTests::MakeLineFb({AffiliationTests::kPointInsideTwo1, AffiliationTests::kPointInsideTwo2})),
             {AffiliationTests::kTwo}),
        ());
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::MakeLineFb(
-                {AffiliationTests::kPointInsideOne1, AffiliationTests::kPointInsideTwo1})),
+  TEST(Test(affiliation.GetAffiliations(
+                AffiliationTests::MakeLineFb({AffiliationTests::kPointInsideOne1, AffiliationTests::kPointInsideTwo1})),
             {AffiliationTests::kOne, AffiliationTests::kTwo}),
        ());
 }
@@ -159,16 +147,12 @@ void TestCountriesFilesAffiliation(std::string const & borderPath)
 
     TestCountriesAffiliationInsideBorders(affiliation);
 
-    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneBoundingBox),
-              {AffiliationTests::kOne}),
-         ());
-    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwoBoundingBox),
-              {AffiliationTests::kTwo}),
-         ());
+    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneBoundingBox), {AffiliationTests::kOne}), ());
+    TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideTwoBoundingBox), {AffiliationTests::kTwo}), ());
   }
 }
 
-} // namespace
+}  // namespace
 
 UNIT_CLASS_TEST(AffiliationTests, SingleAffiliationTests)
 {
@@ -179,8 +163,8 @@ UNIT_CLASS_TEST(AffiliationTests, SingleAffiliationTests)
 
   TEST(Test(affiliation.GetAffiliations(AffiliationTests::kPointInsideOneAndTwo1), {kName}), ());
 
-  TEST(Test(affiliation.GetAffiliations(AffiliationTests::MakeLineFb(
-                {AffiliationTests::kPointInsideOne1, AffiliationTests::kPointInsideTwo1})),
+  TEST(Test(affiliation.GetAffiliations(
+                AffiliationTests::MakeLineFb({AffiliationTests::kPointInsideOne1, AffiliationTests::kPointInsideTwo1})),
             {kName}),
        ());
 
@@ -190,14 +174,12 @@ UNIT_CLASS_TEST(AffiliationTests, SingleAffiliationTests)
 
 UNIT_CLASS_TEST(AffiliationTests, CountriesFilesAffiliationTests)
 {
-  TestCountriesFilesAffiliation<feature::CountriesFilesAffiliation>(
-      AffiliationTests::GetBorderPath());
+  TestCountriesFilesAffiliation<feature::CountriesFilesAffiliation>(AffiliationTests::GetBorderPath());
 }
 
 UNIT_CLASS_TEST(AffiliationTests, CountriesFilesIndexAffiliationTests)
 {
-  TestCountriesFilesAffiliation<feature::CountriesFilesIndexAffiliation>(
-      AffiliationTests::GetBorderPath());
+  TestCountriesFilesAffiliation<feature::CountriesFilesIndexAffiliation>(AffiliationTests::GetBorderPath());
 }
 
 UNIT_TEST(Lithuania_Belarus_Border)
@@ -211,11 +193,11 @@ UNIT_TEST(Lithuania_Belarus_Border)
   for (auto const country : {"Lithuania_East", "Belarus_Hrodna Region"})
   {
     std::vector<m2::RegionD> regions;
-    LoadBorders(bordersDir +  country + BORDERS_EXTENSION, regions);
+    LoadBorders(bordersDir + country + BORDERS_EXTENSION, regions);
     TEST_EQUAL(regions.size(), 1, ());
 
     bool found = false;
-    for (auto const eps : { 1.0E-5, 5.0E-5, 1.0E-4 })
+    for (auto const eps : {1.0E-5, 5.0E-5, 1.0E-4})
     {
       if (regions[0].Contains(point, CountryPolygons::ContainsCompareFn(eps)))
       {

@@ -55,7 +55,9 @@ public:
     uint32_t fID;
     if (!m_map->Get(houseId, fID))
       return {};
-    return {{ fID, StreetIdType::FeatureId }};
+    return {
+        {fID, StreetIdType::FeatureId}
+    };
   }
 
 private:
@@ -99,7 +101,7 @@ unique_ptr<HouseToStreetTable> LoadHouseTableImpl(MwmValue const & value, std::s
     result = make_unique<DummyTable>();
   return result;
 }
-} // namespace
+}  // namespace
 
 std::unique_ptr<HouseToStreetTable> LoadHouseToStreetTable(MwmValue const & value)
 {
@@ -146,8 +148,7 @@ void HouseToStreetTableBuilder::Freeze(Writer & writer) const
 
   header.m_tableOffset = base::asserted_cast<uint32_t>(writer.Pos() - startOffset);
   m_builder.Freeze(writer, writeBlockCallback);
-  header.m_tableSize =
-      base::asserted_cast<uint32_t>(writer.Pos() - header.m_tableOffset - startOffset);
+  header.m_tableSize = base::asserted_cast<uint32_t>(writer.Pos() - header.m_tableOffset - startOffset);
 
   auto const endOffset = writer.Pos();
   writer.Seek(startOffset);

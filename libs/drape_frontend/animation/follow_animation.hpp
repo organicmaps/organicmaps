@@ -9,25 +9,16 @@ namespace df
 class MapFollowAnimation : public Animation
 {
 public:
-  MapFollowAnimation(ScreenBase const & screen,
-                     m2::PointD const & globalUserPosition,
-                     m2::PointD const & endPixelPosition,
-                     double endScale, double endAngle,
-                     bool isAutoZoom);
+  MapFollowAnimation(ScreenBase const & screen, m2::PointD const & globalUserPosition,
+                     m2::PointD const & endPixelPosition, double endScale, double endAngle, bool isAutoZoom);
 
   void Init(ScreenBase const & screen, TPropertyCache const & properties) override;
 
   Animation::Type GetType() const override { return Animation::Type::MapFollow; }
 
-  TAnimObjects const & GetObjects() const override
-  {
-    return m_objects;
-  }
+  TAnimObjects const & GetObjects() const override { return m_objects; }
 
-  bool HasObject(Object object) const override
-  {
-    return object == Animation::Object::MapPlane;
-  }
+  bool HasObject(Object object) const override { return object == Animation::Object::MapPlane; }
 
   TObjectProperties const & GetProperties(Object object) const override;
   bool HasProperty(Object object, ObjectProperty property) const override;
@@ -70,4 +61,4 @@ private:
   TAnimObjects m_objects;
 };
 
-} // namespace df
+}  // namespace df

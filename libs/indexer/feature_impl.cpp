@@ -16,4 +16,4 @@ uint64_t RankToPopulation(uint8_t r)
   return static_cast<uint64_t>(std::pow(1.1, r));
 }
 
-} // namespace feature
+}  // namespace feature

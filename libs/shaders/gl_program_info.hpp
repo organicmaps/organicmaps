@@ -8,10 +8,8 @@ namespace gpu
 struct GLProgramInfo
 {
   GLProgramInfo() = default;
-  GLProgramInfo(std::string const & vertexShaderName,
-                std::string const & fragmentShaderName,
-                char const * const vertexSource,
-                char const * const fragmentSource)
+  GLProgramInfo(std::string const & vertexShaderName, std::string const & fragmentShaderName,
+                char const * const vertexSource, char const * const fragmentSource)
     : m_vertexShaderName(vertexShaderName)
     , m_fragmentShaderName(fragmentShaderName)
     , m_vertexShaderSource(vertexSource)

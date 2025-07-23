@@ -32,8 +32,9 @@ public:
   void SetDepthTestFunction(dp::TestFunction depthFunction) override {}
   void SetStencilTestEnabled(bool enabled) override {}
   void SetStencilFunction(dp::StencilFace face, dp::TestFunction stencilFunction) override {}
-  void SetStencilActions(dp::StencilFace face, dp::StencilAction stencilFailAction,
-                         dp::StencilAction depthFailAction, dp::StencilAction passAction) override {}
+  void SetStencilActions(dp::StencilFace face, dp::StencilAction stencilFailAction, dp::StencilAction depthFailAction,
+                         dp::StencilAction passAction) override
+  {}
   void SetStencilReferenceValue(uint32_t stencilReferenceValue) override {}
   void SetCullingEnabled(bool enabled) override {}
 

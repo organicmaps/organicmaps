@@ -14,11 +14,12 @@ namespace gpx_tests
 static kml::FileData LoadGpxFromString(std::string_view content)
 {
   TEST_NO_THROW(
-  {
-    kml::FileData dataFromText;
-    kml::DeserializerGpx(dataFromText).Deserialize(MemReader(content));
-    return dataFromText;
-  }, ());
+      {
+        kml::FileData dataFromText;
+        kml::DeserializerGpx(dataFromText).Deserialize(MemReader(content));
+        return dataFromText;
+      },
+      ());
 }
 
 static kml::FileData LoadGpxFromFile(std::string const & file)
@@ -122,12 +123,14 @@ UNIT_TEST(Gpx_Test_Track_Without_Timestamps)
   {
     auto const & line = lines[0];
     TEST_EQUAL(line.size(), 3, ());
-    TEST_EQUAL(line.back(), geometry::PointWithAltitude(mercator::FromLatLon(54.05293900056246, 25.72998046875), 0), ());
+    TEST_EQUAL(line.back(), geometry::PointWithAltitude(mercator::FromLatLon(54.05293900056246, 25.72998046875), 0),
+               ());
   }
   {
     auto const & line = lines[1];
     TEST_EQUAL(line.size(), 2, ());
-    TEST_EQUAL(line.back(), geometry::PointWithAltitude(mercator::FromLatLon(54.32933804825253, 25.136718750000004), 0), ());
+    TEST_EQUAL(line.back(), geometry::PointWithAltitude(mercator::FromLatLon(54.32933804825253, 25.136718750000004), 0),
+               ());
   }
   // Also test default colors for tracks.
   {
@@ -284,8 +287,10 @@ UNIT_TEST(Route)
   auto line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
   TEST_EQUAL(line.size(), 2, ());
   TEST_EQUAL(dataFromFile.m_categoryData.m_name[kml::kDefaultLang], "Some random route", ());
-  TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(48.20984622935899, 16.376023292541507), 184), ());
-  TEST_EQUAL(line[1], geometry::PointWithAltitude(mercator::FromLatLon(48.209503040543545, 16.381065845489506), 187), ());
+  TEST_EQUAL(line[0], geometry::PointWithAltitude(mercator::FromLatLon(48.20984622935899, 16.376023292541507), 184),
+             ());
+  TEST_EQUAL(line[1], geometry::PointWithAltitude(mercator::FromLatLon(48.209503040543545, 16.381065845489506), 187),
+             ());
 }
 
 UNIT_TEST(Color)
@@ -395,6 +400,5 @@ UNIT_TEST(MapGarminColor)
   TEST_EQUAL("DarkYellow", kml::gpx::MapGarminColor(0xb6b820ff), ());
   TEST_EQUAL("DarkYellow", kml::gpx::MapGarminColor(0xb5b721ff), ());
 }
-
 
 }  // namespace gpx_tests

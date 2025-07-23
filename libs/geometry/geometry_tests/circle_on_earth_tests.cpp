@@ -1,9 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "geometry/distance_on_sphere.hpp"
-#include "geometry/point2d.hpp"
-#include "geometry/mercator.hpp"
 #include "geometry/circle_on_earth.hpp"
+#include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
+#include "geometry/point2d.hpp"
 
 #include "base/math.hpp"
 
@@ -12,8 +12,7 @@
 
 namespace
 {
-void TestGeometryAlmostEqualAbs(std::vector<m2::PointD> const & geometry,
-                                std::vector<m2::PointD> const & answer,
+void TestGeometryAlmostEqualAbs(std::vector<m2::PointD> const & geometry, std::vector<m2::PointD> const & answer,
                                 double eps)
 {
   TEST_EQUAL(geometry.size(), answer.size(), ());
@@ -22,9 +21,8 @@ void TestGeometryAlmostEqualAbs(std::vector<m2::PointD> const & geometry,
     TEST_ALMOST_EQUAL_ABS(geometry[i], answer[i], eps, ());
 }
 
-void TestGeometryAlmostEqualMeters(std::vector<m2::PointD> const & geometry,
-                                      std::vector<m2::PointD> const & answer,
-                                      double epsMeters)
+void TestGeometryAlmostEqualMeters(std::vector<m2::PointD> const & geometry, std::vector<m2::PointD> const & answer,
+                                   double epsMeters)
 {
   TEST_EQUAL(geometry.size(), answer.size(), ());
 
@@ -37,15 +35,10 @@ UNIT_TEST(CircleOnEarth)
 {
   ms::LatLon const center(90.0 /* lat */, 0.0 /* lon */);
   double const radiusMeters = 2.0 * math::pi * ms::kEarthRadiusMeters / 4.0;
-  auto const geometry =
-      ms::CreateCircleGeometryOnEarth(center, radiusMeters, 90.0 /* angleStepDegree */);
+  auto const geometry = ms::CreateCircleGeometryOnEarth(center, radiusMeters, 90.0 /* angleStepDegree */);
 
-  std::vector<m2::PointD> const result = {
-      mercator::FromLatLon(0.0, 0.0),
-      mercator::FromLatLon(0.0, 90.0),
-      mercator::FromLatLon(0.0, 180.0),
-      mercator::FromLatLon(0.0, -90.0)
-  };
+  std::vector<m2::PointD> const result = {mercator::FromLatLon(0.0, 0.0), mercator::FromLatLon(0.0, 90.0),
+                                          mercator::FromLatLon(0.0, 180.0), mercator::FromLatLon(0.0, -90.0)};
 
   TestGeometryAlmostEqualAbs(geometry, result, 1e-9 /* eps */);
 }
@@ -68,15 +61,13 @@ UNIT_TEST(CircleOnEarthEquator)
   while (angleSumRad < 2 * math::pi)
   {
     angleSumRad += kStepRad;
-    result.emplace_back(point.x + kRadiusMercator * cos(angleRad),
-                        point.y + kRadiusMercator * sin(angleRad));
+    result.emplace_back(point.x + kRadiusMercator * cos(angleRad), point.y + kRadiusMercator * sin(angleRad));
     angleRad += kStepRad;
     if (angleRad > 2 * math::pi)
       angleRad -= 2 * math::pi;
   }
 
-  auto const geometry =
-      ms::CreateCircleGeometryOnEarth(center, kRadiusMeters, kAngleStepDegree);
+  auto const geometry = ms::CreateCircleGeometryOnEarth(center, kRadiusMeters, kAngleStepDegree);
 
   TestGeometryAlmostEqualMeters(geometry, result, 20.0 /* epsMeters */);
 }

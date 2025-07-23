@@ -18,18 +18,13 @@ std::string_view const kTypeZero = "zero";
 
 std::string GetIsolineName(int altitude, int step, int minAltitude, int maxAltitude)
 {
-  if (step > 10 ||
-      abs(altitude) % kNamedAltStep == 0 ||
-      maxAltitude - minAltitude <= kNamedAltRange)
-  {
+  if (step > 10 || abs(altitude) % kNamedAltStep == 0 || maxAltitude - minAltitude <= kNamedAltRange)
     return strings::to_string(altitude);
-  }
   return "";
 }
 }  // namespace
 
-IsolineFeaturesGenerator::IsolineFeaturesGenerator(std::string const & isolinesDir)
-  : m_isolinesDir(isolinesDir)
+IsolineFeaturesGenerator::IsolineFeaturesGenerator(std::string const & isolinesDir) : m_isolinesDir(isolinesDir)
 {
   ASSERT(std::is_sorted(kAltClasses.cbegin(), kAltClasses.cend(), std::greater<int>()), ());
   Classificator const & c = classif();
@@ -48,18 +43,14 @@ uint32_t IsolineFeaturesGenerator::GetIsolineType(int altitude) const
     return m_altClassToType.at(0);
 
   for (auto altStep : kAltClasses)
-  {
     if (abs(altitude) % altStep == 0)
       return m_altClassToType.at(altStep);
-  }
   return ftype::GetEmptyValue();
 }
 
-void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
-                                                FeaturesCollectFn const & fn) const
+void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName, FeaturesCollectFn const & fn) const
 {
-  auto const isolinesPath = topography_generator::GetIsolinesFilePath(countryName,
-                                                                      m_isolinesDir);
+  auto const isolinesPath = topography_generator::GetIsolinesFilePath(countryName, m_isolinesDir);
   topography_generator::Contours<topography_generator::Altitude> countryIsolines;
   if (!topography_generator::LoadContours(isolinesPath, countryIsolines))
   {
@@ -70,8 +61,8 @@ void IsolineFeaturesGenerator::GenerateIsolines(std::string const & countryName,
   for (auto & levelIsolines : countryIsolines.m_contours)
   {
     auto const altitude = levelIsolines.first;
-    auto const isolineName = GetIsolineName(altitude, countryIsolines.m_valueStep,
-                                            countryIsolines.m_minValue, countryIsolines.m_maxValue);
+    auto const isolineName =
+        GetIsolineName(altitude, countryIsolines.m_valueStep, countryIsolines.m_minValue, countryIsolines.m_maxValue);
     auto const isolineType = GetIsolineType(altitude);
     if (isolineType == ftype::GetEmptyValue())
     {

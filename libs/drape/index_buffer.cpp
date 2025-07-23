@@ -5,9 +5,7 @@
 
 namespace dp
 {
-IndexBuffer::IndexBuffer(uint32_t capacity)
-  : DataBuffer((uint8_t)IndexStorage::SizeOfIndex(), capacity)
-{}
+IndexBuffer::IndexBuffer(uint32_t capacity) : DataBuffer((uint8_t)IndexStorage::SizeOfIndex(), capacity) {}
 
 void IndexBuffer::UploadData(ref_ptr<GraphicsContext> context, void const * data, uint32_t size)
 {

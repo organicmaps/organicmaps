@@ -1,9 +1,9 @@
-#include "testing/testing.hpp"
 #include "helpers.hpp"
+#include "testing/testing.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/feature_visibility.hpp"
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
@@ -15,9 +15,10 @@ using namespace std;
 class DoCheckConsistency
 {
   Classificator const & m_c;
+
 public:
   explicit DoCheckConsistency(Classificator const & c) : m_c(c) {}
-  void operator() (ClassifObject const * p, uint32_t type) const
+  void operator()(ClassifObject const * p, uint32_t type) const
   {
     if (p->IsDrawableAny() && !m_c.IsTypeValid(type))
       TEST(false, ("Inconsistency type", type, m_c.GetFullObjectName(type)));
@@ -47,12 +48,9 @@ class DoCheckStyles
   int m_rules;
 
 public:
-  DoCheckStyles(Classificator const & c, GeomType geomType, int rules)
-    : m_c(c), m_geomType(geomType), m_rules(rules)
-  {
-  }
+  DoCheckStyles(Classificator const & c, GeomType geomType, int rules) : m_c(c), m_geomType(geomType), m_rules(rules) {}
 
-  void operator() (ClassifObject const * p, uint32_t type) const
+  void operator()(ClassifObject const * p, uint32_t type) const
   {
     // We can't put TEST here, should check output manually. Or rewrite test in more sophisticated way.
     // - place=county/region are non-drawable
@@ -127,7 +125,7 @@ UNIT_TEST(Classificator_DrawingRules)
     LOG(LINFO, ("--------------- Linear styles ---------------"));
     CheckLineStyles(c, "highway");
     CheckLineStyles(c, "waterway");
-    //CheckLineStyles(c, "railway");
+    // CheckLineStyles(c, "railway");
   });
 }
 
@@ -170,8 +168,8 @@ string CombineArrT(base::StringIL const & arrT)
 void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & arrI, drule::TypeT ruleType)
 {
   Classificator const & c = classif();
-  vector<vector<uint32_t> > types;
-  vector<vector<string> > typesInfo;
+  vector<vector<uint32_t>> types;
+  vector<vector<string>> typesInfo;
 
   styles::RunForEveryMapStyle([&](MapStyle)
   {
@@ -203,9 +201,9 @@ void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & a
       for (size_t i = 0; i < types.size(); ++i)
       {
         pair<int, int> const mm = GetMinMax(level, types[i], ruleType);
-        TEST_LESS(minmax.second, mm.first, ("Priority bug on zoom", level, "group", i, ":",
-                                            minmaxInfo, minmax.first, minmax.second, "vs",
-                                            typesInfo[i], mm.first, mm.second));
+        TEST_LESS(minmax.second, mm.first,
+                  ("Priority bug on zoom", level, "group", i, ":", minmaxInfo, minmax.first, minmax.second, "vs",
+                   typesInfo[i], mm.first, mm.second));
         minmax = mm;
         minmaxInfo = typesInfo[i];
       }
@@ -224,103 +222,139 @@ void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & a
 
 UNIT_TEST(Classificator_AreaPriority)
 {
-  CheckPriority({
-    // 0
-    {"natural", "coastline"},
-    // 1
-    {"place", "island"}, {"natural", "land"},
-    // 2
-    {"natural", "scrub"}, {"natural", "heath"}, {"natural", "grassland"},
-    {"landuse", "grass"}, {"landuse", "farmland"}, {"landuse", "forest"},
-    // ?
-    //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
-    // 3
-    {"natural", "water"}, {"natural", "water", "lake"}, {"landuse", "basin"}
-  }, {1, 2, 6, 3}, drule::area);
+  CheckPriority(
+      {
+          // 0
+          {"natural", "coastline"},
+          // 1
+          {"place", "island"},
+          {"natural", "land"},
+          // 2
+          {"natural", "scrub"},
+          {"natural", "heath"},
+          {"natural", "grassland"},
+          {"landuse", "grass"},
+          {"landuse", "farmland"},
+          {"landuse", "forest"},
+          // ?
+          //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
+          // 3
+          {"natural", "water"},
+          {"natural", "water", "lake"},
+          {"landuse", "basin"}
+  },
+      {1, 2, 6, 3}, drule::area);
 
-  CheckPriority({
-    // ? - linear waterways @todo: add ability to compare different drule types (areas vs lines)
-    //{"waterway", "river"}, {"waterway", "stream"}, {"natural", "strait"}, {"waterway", "ditch"},
-    // 0 - water areas
-    {"natural", "water"}, {"landuse", "reservoir"}, {"natural", "water", "river"}, {"waterway", "dock"},
-    // ? - hatching fills @todo: absent in vehicle style, need to test main style only
-    //{"leisure", "nature_reserve"}, {"boundary", "national_park"}, {"landuse", "military"},
-    // 1 - above-water features
-    {"man_made", "pier"}, {"man_made", "breakwater"}, {"waterway", "dam"},
-  }, {4, 3}, drule::area);
+  CheckPriority(
+      {
+          // ? - linear waterways @todo: add ability to compare different drule types (areas vs lines)
+          //{"waterway", "river"}, {"waterway", "stream"}, {"natural", "strait"}, {"waterway", "ditch"},
+          // 0 - water areas
+          {"natural", "water"},
+          {"landuse", "reservoir"},
+          {"natural", "water", "river"},
+          {"waterway", "dock"},
+          // ? - hatching fills @todo: absent in vehicle style, need to test main style only
+          //{"leisure", "nature_reserve"}, {"boundary", "national_park"}, {"landuse", "military"},
+          // 1 - above-water features
+          {"man_made", "pier"},
+          {"man_made", "breakwater"},
+          {"waterway", "dam"},
+  },
+      {4, 3}, drule::area);
 
-  CheckPriority({
-    // 0
-    {"leisure", "park"},
-    // 1
-    {"leisure", "pitch"}, {"leisure", "playground"}, {"sport", "multi"},
-  }, {1, 3}, drule::area);
+  CheckPriority(
+      {
+          // 0
+          {"leisure",       "park"},
+          // 1
+          {"leisure",      "pitch"},
+          {"leisure", "playground"},
+          {  "sport",      "multi"},
+  },
+      {1, 3}, drule::area);
 }
 
 UNIT_TEST(Classificator_PoiPriority)
 {
   {
-    CheckPriority({
-      // 1
-      {"amenity", "drinking_water"},
-      // 2
-      {"tourism", "camp_site"},
-      // 3
-      {"tourism", "wilderness_hut"},
-      // 4
-      {"tourism", "alpine_hut"},
-    }, {1, 1, 1, 1}, drule::symbol);
+    CheckPriority(
+        {
+            // 1
+            {"amenity", "drinking_water"},
+            // 2
+            {"tourism",      "camp_site"},
+            // 3
+            {"tourism", "wilderness_hut"},
+            // 4
+            {"tourism",     "alpine_hut"},
+    },
+        {1, 1, 1, 1}, drule::symbol);
   }
 }
 
 UNIT_TEST(Classificator_MultipleTypesPoiPriority)
 {
   {
-    CheckPriority({
-      // 1
-      {"amenity", "atm"},
-      // 2
-      {"amenity", "bank"}
-    }, {1, 1}, drule::symbol);
+    CheckPriority(
+        {
+            // 1
+            {"amenity",  "atm"},
+            // 2
+            {"amenity", "bank"}
+    },
+        {1, 1}, drule::symbol);
   }
 
   {
-    CheckPriority({
-      // 1
-      {"amenity", "bench"}, {"amenity", "shelter"},
-      // 2
-      {"highway", "bus_stop"}, {"amenity", "bus_station"},
-      {"railway", "station"}, {"railway", "halt"}, {"railway", "tram_stop"},
-    }, {2, 5}, drule::symbol);
+    CheckPriority(
+        {
+            // 1
+            {"amenity",       "bench"},
+            {"amenity",     "shelter"},
+            // 2
+            {"highway",    "bus_stop"},
+            {"amenity", "bus_station"},
+            {"railway",     "station"},
+            {"railway",        "halt"},
+            {"railway",   "tram_stop"},
+    },
+        {2, 5}, drule::symbol);
   }
 
   /// @todo Check that all of sport=* icons priority is bigger than all of pitch, sports_center, recreation_ground.
 
   {
-    CheckPriority({
-      // 1
-      {"leisure", "pitch"},
-      // 2
-      {"sport", "yoga"}
-    }, {1, 1}, drule::symbol);
+    CheckPriority(
+        {
+            // 1
+            {"leisure", "pitch"},
+            // 2
+            {  "sport",  "yoga"}
+    },
+        {1, 1}, drule::symbol);
   }
 
   {
-    CheckPriority({
-      // 1
-      {"leisure", "sports_centre"},
-      // 2
-      {"sport", "shooting"}
-    }, {1, 1}, drule::symbol);
+    CheckPriority(
+        {
+            // 1
+            {"leisure", "sports_centre"},
+            // 2
+            {  "sport",      "shooting"}
+    },
+        {1, 1}, drule::symbol);
   }
 
   {
-    CheckPriority({
-      // 1
-      {"landuse", "recreation_ground"},
-      // 2
-      {"sport", "multi"}
-    }, {1, 1}, drule::symbol);
+    CheckPriority(
+        {
+            // 1
+            {"landuse", "recreation_ground"},
+            // 2
+            {  "sport",             "multi"}
+    },
+        {1, 1}, drule::symbol);
   }
 }
 
@@ -333,10 +367,7 @@ struct RangeEntry
 
   // From C++ 20.
   // auto operator<=>(RangeEntry const &) const = default;
-  bool operator!=(RangeEntry const & rhs) const
-  {
-    return m_type != rhs.m_type || m_range != rhs.m_range;
-  }
+  bool operator!=(RangeEntry const & rhs) const { return m_type != rhs.m_type || m_range != rhs.m_range; }
 
   friend std::string DebugPrint(RangeEntry const & e)
   {
@@ -345,7 +376,7 @@ struct RangeEntry
     return ss.str();
   }
 };
-} // namespace
+}  // namespace
 
 UNIT_TEST(Classificator_HighwayZoom_AcrossStyles)
 {
@@ -374,10 +405,8 @@ UNIT_TEST(Classificator_HighwayZoom_AcrossStyles)
     // for highways like: footway, path, steps, cycleway, bridleway, track, service.
     TEST_EQUAL(scales[0].size(), scales[iStyle].size(), (iStyle));
     for (size_t j = 0; j < scales[0].size(); ++j)
-    {
       if (scales[0][j] != scales[iStyle][j])
         LOG(LWARNING, (scales[0][j], scales[iStyle][j]));
-    }
   }
 }
 }  // namespace classificator_tests

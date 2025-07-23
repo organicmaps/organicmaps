@@ -10,8 +10,7 @@ class PedestrianModel : public VehicleModel
 public:
   PedestrianModel();
   explicit PedestrianModel(VehicleModel::LimitsInitList const & speedLimits);
-  PedestrianModel(VehicleModel::LimitsInitList const & limits,
-                  HighwayBasedSpeeds const & speeds);
+  PedestrianModel(VehicleModel::LimitsInitList const & limits, HighwayBasedSpeeds const & speeds);
 
   /// VehicleModelInterface overrides:
   SpeedKMpH GetSpeed(FeatureTypes const & types, SpeedParams const & speedParams) const override;

@@ -37,7 +37,10 @@ class BlockedTextStorageWriter
 {
 public:
   BlockedTextStorageWriter(Writer & writer, uint64_t blockSize)
-    : m_writer(writer), m_blockSize(blockSize), m_startOffset(writer.Pos()), m_blocks(1)
+    : m_writer(writer)
+    , m_blockSize(blockSize)
+    , m_startOffset(writer.Pos())
+    , m_blocks(1)
   {
     CHECK(m_blockSize != 0, ());
     WriteToSink(m_writer, static_cast<uint64_t>(0));
@@ -110,8 +113,7 @@ private:
   {
     for (auto const & length : lengths)
       WriteVarUint(m_writer, length);
-    BWTCoder::EncodeAndWriteBlock(m_writer, pool.size(),
-                                  reinterpret_cast<uint8_t const *>(pool.c_str()));
+    BWTCoder::EncodeAndWriteBlock(m_writer, pool.size(), reinterpret_cast<uint8_t const *>(pool.c_str()));
   }
 
   Writer & m_writer;
@@ -121,7 +123,7 @@ private:
 
   std::vector<Block> m_blocks;
 
-  std::string m_pool;          // concatenated strings
+  std::string m_pool;               // concatenated strings
   std::vector<uint64_t> m_lengths;  // lengths of strings inside the |m_pool|
 };
 
@@ -142,10 +144,7 @@ public:
   };
 
   size_t GetNumBlockInfos() const { return m_blocks.size(); }
-  size_t GetNumStrings() const
-  {
-    return m_blocks.empty() ? 0 : static_cast<size_t>(m_blocks.back().To());
-  }
+  size_t GetNumStrings() const { return m_blocks.empty() ? 0 : static_cast<size_t>(m_blocks.back().To()); }
 
   BlockInfo const & GetBlockInfo(size_t blockIx) const
   {
@@ -282,7 +281,7 @@ private:
   struct StringInfo
   {
     StringInfo() = default;
-    StringInfo(uint64_t offset, uint64_t length): m_offset(offset), m_length(length) {}
+    StringInfo(uint64_t offset, uint64_t length) : m_offset(offset), m_length(length) {}
 
     uint64_t m_offset = 0;  // offset of the string inside the decompressed block
     uint64_t m_length = 0;  // length of the string
@@ -290,8 +289,8 @@ private:
 
   struct CacheEntry
   {
-    BWTCoder::BufferT m_value;        // concatenation of the strings
-    std::vector<StringInfo> m_subs;   // indices of individual strings
+    BWTCoder::BufferT m_value;       // concatenation of the strings
+    std::vector<StringInfo> m_subs;  // indices of individual strings
   };
 
   BlockedTextStorageIndex m_index;
@@ -303,10 +302,7 @@ template <typename Reader>
 class BlockedTextStorage
 {
 public:
-  explicit BlockedTextStorage(Reader & reader) : m_reader(reader)
-  {
-    m_storage.InitializeIfNeeded(m_reader);
-  }
+  explicit BlockedTextStorage(Reader & reader) : m_reader(reader) { m_storage.InitializeIfNeeded(m_reader); }
 
   size_t GetNumStrings() const { return m_storage.GetNumStrings(); }
   std::string ExtractString(size_t stringIx) { return m_storage.ExtractString(m_reader, stringIx); }

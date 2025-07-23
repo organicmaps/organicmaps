@@ -18,37 +18,31 @@ using namespace std;
 
 // Test preconditions: files from the kPedestrianMapFiles set with '.mwm'
 // extension must be placed in omim/data folder.
-set<string> const kPedestrianMapFiles =
-{
-  "UK_England_East Midlands",
-  "UK_England_East of England_Essex",
-  "UK_England_East of England_Norfolk",
-  "UK_England_Greater London",
-  "UK_England_North East England",
-  "UK_England_North West England_Lancaster",
-  "UK_England_North West England_Manchester",
-  "UK_England_South East_Brighton",
-  "UK_England_South East_Oxford",
-  "UK_England_South West England_Bristol",
-  "UK_England_South West England_Cornwall",
-  "UK_England_West Midlands",
-  "UK_England_Yorkshire and the Humber"
-};
+set<string> const kPedestrianMapFiles = {"UK_England_East Midlands",
+                                         "UK_England_East of England_Essex",
+                                         "UK_England_East of England_Norfolk",
+                                         "UK_England_Greater London",
+                                         "UK_England_North East England",
+                                         "UK_England_North West England_Lancaster",
+                                         "UK_England_North West England_Manchester",
+                                         "UK_England_South East_Brighton",
+                                         "UK_England_South East_Oxford",
+                                         "UK_England_South West England_Bristol",
+                                         "UK_England_South West England_Cornwall",
+                                         "UK_England_West Midlands",
+                                         "UK_England_Yorkshire and the Humber"};
 
 class PedestrianTest : public RoutingTest
 {
 public:
   PedestrianTest()
-    : RoutingTest(routing::IRoadGraph::Mode::IgnoreOnewayTag, routing::VehicleType::Pedestrian,
-                  kPedestrianMapFiles)
-  {
-  }
+    : RoutingTest(routing::IRoadGraph::Mode::IgnoreOnewayTag, routing::VehicleType::Pedestrian, kPedestrianMapFiles)
+  {}
 
 protected:
   unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override
   {
-    unique_ptr<routing::VehicleModelFactoryInterface> factory(
-        new SimplifiedModelFactory<routing::PedestrianModel>());
+    unique_ptr<routing::VehicleModelFactoryInterface> factory(new SimplifiedModelFactory<routing::PedestrianModel>());
     return factory;
   }
 };

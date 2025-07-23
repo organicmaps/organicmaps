@@ -13,8 +13,8 @@
 namespace gui
 {
 Handle::Handle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot)
-  : dp::OverlayHandle(dp::OverlayID(FeatureID(MwmSet::MwmId{}, id)), anchor, 0 /* priority */,
-                      1 /* minVisibleScale */, false /* isBillboard */)
+  : dp::OverlayHandle(dp::OverlayID(FeatureID(MwmSet::MwmId{}, id)), anchor, 0 /* priority */, 1 /* minVisibleScale */,
+                      false /* isBillboard */)
   , m_pivot(glsl::ToVec2(pivot))
 {}
 
@@ -46,8 +46,7 @@ m2::RectD Handle::GetPixelRect(ScreenBase const & screen, bool perspective) cons
   return {};
 }
 
-void Handle::GetPixelShape(ScreenBase const & screen, bool perspective,
-                           dp::OverlayHandle::Rects & rects) const
+void Handle::GetPixelShape(ScreenBase const & screen, bool perspective, dp::OverlayHandle::Rects & rects) const
 {
   // There is no need to check intersection of gui elements.
   UNUSED_VALUE(screen);
@@ -62,8 +61,8 @@ bool TappableHandle::IsTapped(m2::RectD const & touchArea) const
 
   if (m_anchor == dp::Anchor::Center)
   {
-    m2::RectD rect(m_pivot.x - m_size.x * 0.5, m_pivot.y - m_size.y * 0.5,
-                   m_pivot.x + m_size.x * 0.5, m_pivot.y + m_size.y * 0.5);
+    m2::RectD rect(m_pivot.x - m_size.x * 0.5, m_pivot.y - m_size.y * 0.5, m_pivot.x + m_size.x * 0.5,
+                   m_pivot.y + m_size.y * 0.5);
     return rect.Intersect(touchArea);
   }
   else
@@ -82,9 +81,7 @@ ShapeRenderer::~ShapeRenderer()
 void ShapeRenderer::Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng)
 {
   ForEachShapeInfo([context, mng](ShapeControl::ShapeInfo & info) mutable
-  {
-    info.m_buffer->Build(context, mng->GetProgram(info.m_state.GetProgram<gpu::Program>()));
-  });
+  { info.m_buffer->Build(context, mng->GetProgram(info.m_state.GetProgram<gpu::Program>())); });
 }
 
 void ShapeRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -137,10 +134,8 @@ void ShapeRenderer::AddShapeControl(ShapeControl && control)
 void ShapeRenderer::SetPivot(m2::PointF const & pivot)
 {
   for (auto & control : m_shapes)
-  {
     for (auto & info : control.m_shapesInfo)
       info.m_handle->SetPivot(glsl::ToVec2(pivot));
-  }
 }
 
 void ShapeRenderer::ForEachShapeControl(TShapeControlEditFn const & fn)
@@ -151,9 +146,7 @@ void ShapeRenderer::ForEachShapeControl(TShapeControlEditFn const & fn)
 void ShapeRenderer::ForEachShapeInfo(ShapeRenderer::TShapeInfoEditFn const & fn)
 {
   ForEachShapeControl([&fn](ShapeControl & shape)
-  {
-    std::for_each(shape.m_shapesInfo.begin(), shape.m_shapesInfo.end(), fn);
-  });
+  { std::for_each(shape.m_shapesInfo.begin(), shape.m_shapesInfo.end(), fn); });
 }
 
 ref_ptr<Handle> ShapeRenderer::ProcessTapEvent(m2::RectD const & touchArea)
@@ -180,8 +173,7 @@ ref_ptr<Handle> ShapeRenderer::FindHandle(FeatureID const & id)
   return resultHandle;
 }
 
-ShapeControl::ShapeInfo::ShapeInfo(dp::RenderState const & state,
-                                   drape_ptr<dp::VertexArrayBuffer> && buffer,
+ShapeControl::ShapeInfo::ShapeInfo(dp::RenderState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer,
                                    drape_ptr<Handle> && handle)
   : m_state(state)
   , m_buffer(std::move(buffer))

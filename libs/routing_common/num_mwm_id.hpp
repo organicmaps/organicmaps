@@ -31,18 +31,12 @@ public:
     m_idToFile.push_back(file);
     m_fileToId[file] = id;
 
-    //LOG(LDEBUG, ("MWM:", file.GetName(), "=", id));
+    // LOG(LDEBUG, ("MWM:", file.GetName(), "=", id));
   }
 
-  bool ContainsFile(platform::CountryFile const & file) const
-  {
-    return m_fileToId.find(file) != m_fileToId.cend();
-  }
+  bool ContainsFile(platform::CountryFile const & file) const { return m_fileToId.find(file) != m_fileToId.cend(); }
 
-  bool ContainsFileForMwm(NumMwmId mwmId) const
-  {
-    return mwmId < m_idToFile.size();
-  }
+  bool ContainsFileForMwm(NumMwmId mwmId) const { return mwmId < m_idToFile.size(); }
 
   platform::CountryFile const & GetFile(NumMwmId mwmId) const
   {

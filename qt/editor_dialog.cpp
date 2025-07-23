@@ -22,8 +22,7 @@ constexpr char const * kHouseNumberObjectName = "addr:housenumber";
 constexpr char const * kPostcodeObjectName = "addr:postcode";
 constexpr char const * kInternetObjectName = "internet_access";
 
-EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
-  : QDialog(parent), m_feature(emo)
+EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo) : QDialog(parent), m_feature(emo)
 {
   QGridLayout * grid = new QGridLayout();
   int row = 0;
@@ -33,8 +32,8 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     ms::LatLon const ll = emo.GetLatLon();
     grid->addWidget(new QLabel("Latitude/Longitude:"), row, 0);
     QHBoxLayout * coords = new QHBoxLayout();
-    coords->addWidget(new QLabel(QString::fromStdString(strings::to_string_dac(ll.m_lat, 7) + " " +
-                                                        strings::to_string_dac(ll.m_lon, 7))));
+    coords->addWidget(new QLabel(
+        QString::fromStdString(strings::to_string_dac(ll.m_lat, 7) + " " + strings::to_string_dac(ll.m_lon, 7))));
     grid->addLayout(coords, row++, 1);
   }
 
@@ -111,30 +110,23 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
     switch (prop)
     {
     case PropID::FMD_INTERNET:
-      {
-        grid->addWidget(new QLabel(kInternetObjectName), row, 0);
-        QComboBox * cmb = new QComboBox();
-        std::string const values[] = {DebugPrint(feature::Internet::Unknown),
-                                      DebugPrint(feature::Internet::Wlan),
-                                      DebugPrint(feature::Internet::Wired),
-                                      DebugPrint(feature::Internet::Terminal),
-                                      DebugPrint(feature::Internet::Yes),
-                                      DebugPrint(feature::Internet::No)};
-        for (auto const & v : values)
-          cmb->addItem(v.c_str());
-        cmb->setCurrentText(DebugPrint(emo.GetInternet()).c_str());
-        cmb->setObjectName(kInternetObjectName);
-        grid->addWidget(cmb, row++, 1);
-      }
+    {
+      grid->addWidget(new QLabel(kInternetObjectName), row, 0);
+      QComboBox * cmb = new QComboBox();
+      std::string const values[] = {DebugPrint(feature::Internet::Unknown), DebugPrint(feature::Internet::Wlan),
+                                    DebugPrint(feature::Internet::Wired),   DebugPrint(feature::Internet::Terminal),
+                                    DebugPrint(feature::Internet::Yes),     DebugPrint(feature::Internet::No)};
+      for (auto const & v : values)
+        cmb->addItem(v.c_str());
+      cmb->setCurrentText(DebugPrint(emo.GetInternet()).c_str());
+      cmb->setObjectName(kInternetObjectName);
+      grid->addWidget(cmb, row++, 1);
+    }
       continue;
-    case PropID::FMD_CUISINE:
-      v = strings::JoinStrings(emo.GetLocalizedCuisines(), ", ");
-      break;
+    case PropID::FMD_CUISINE: v = strings::JoinStrings(emo.GetLocalizedCuisines(), ", "); break;
     case PropID::FMD_POSTCODE:  // already set above
       continue;
-    default:
-      v = emo.GetMetadata(prop);
-      break;
+    default: v = emo.GetMetadata(prop); break;
     }
 
     QString const fieldName = QString::fromStdString(DebugPrint(prop));
@@ -146,8 +138,7 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
 
   // Dialog buttons.
   {
-    QDialogButtonBox * buttonBox =
-        new QDialogButtonBox(QDialogButtonBox::Cancel | QDialogButtonBox::Save);
+    QDialogButtonBox * buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel | QDialogButtonBox::Save);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &EditorDialog::OnSave);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     // Delete button should send custom int return value from dialog.
@@ -170,8 +161,8 @@ void EditorDialog::OnSave()
   if (m_feature.IsNameEditable())
   {
     StringUtf8Multilang names;
-    for (int8_t langCode = StringUtf8Multilang::kDefaultCode;
-         langCode < StringUtf8Multilang::kMaxSupportedLanguages; ++langCode)
+    for (int8_t langCode = StringUtf8Multilang::kDefaultCode; langCode < StringUtf8Multilang::kMaxSupportedLanguages;
+         ++langCode)
     {
       std::string_view const lang = StringUtf8Multilang::GetLangByCode(langCode);
       QLineEdit * le = findChild<QLineEdit *>(QString::fromUtf8(lang.data(), lang.size()));
@@ -215,7 +206,7 @@ void EditorDialog::OnSave()
       m_feature.SetInternet(feature::InternetFromString(cmb->currentText().toStdString()));
       continue;
     }
-    if (prop == PropID::FMD_POSTCODE) // already set above
+    if (prop == PropID::FMD_POSTCODE)  // already set above
       continue;
 
     QLineEdit * editor = findChild<QLineEdit *>(QString::fromStdString(DebugPrint(prop)));
@@ -225,9 +216,7 @@ void EditorDialog::OnSave()
     std::string v = editor->text().toStdString();
     switch (prop)
     {
-    case PropID::FMD_CUISINE:
-      m_feature.SetCuisines(strings::Tokenize(v, ";"));
-      break;
+    case PropID::FMD_CUISINE: m_feature.SetCuisines(strings::Tokenize(v, ";")); break;
     default:
       if (osm::EditableMapObject::IsValidMetadata(prop, v))
         m_feature.SetMetadata(prop, std::move(v));

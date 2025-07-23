@@ -16,18 +16,18 @@ IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
   Classificator const & c = classif();
 
   base::StringIL const arr3[] = {
-    {"boundary", "protected_area", "1"},
+      {"boundary", "protected_area", "1"},
   };
   for (auto const & sl : arr3)
     m_types.push_back(c.GetTypeByPath(sl));
   m_type3end = m_types.size();
 
   base::StringIL const arr2[] = {
-    {"boundary", "aboriginal_lands"},
-    {"leisure", "nature_reserve"},
-    {"boundary", "national_park"},
-    {"landuse", "military"},
-    {"amenity", "prison"},
+      {"boundary", "aboriginal_lands"},
+      { "leisure",   "nature_reserve"},
+      {"boundary",    "national_park"},
+      { "landuse",         "military"},
+      { "amenity",           "prison"},
   };
   for (auto const & sl : arr2)
     m_types.push_back(c.GetTypeByPath(sl));
@@ -43,8 +43,8 @@ bool IsHatchingTerritoryChecker::IsMatched(uint32_t type) const
   return std::find(iEnd3, m_types.end(), PrepareToMatch(type, 2)) != m_types.end();
 }
 
-void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
-                              feature::GeomType geomType, bool auxCaptionExists)
+void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel, feature::GeomType geomType,
+                              bool auxCaptionExists)
 {
   feature::NameParamsOut out;
   // TODO(pastk) : remove forced secondary text for all lines and set it via styles for major roads and rivers only.
@@ -83,7 +83,8 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
   if (geomType != feature::GeomType::Line && zoomLevel >= kHousenumbersMinZoom &&
       (auxCaptionExists || m_mainText.empty()))
   {
-    // TODO(pastk) : its not obvious that a housenumber display is dependent on a secondary caption drule existance in styles.
+    // TODO(pastk) : its not obvious that a housenumber display is dependent on a secondary caption drule existance in
+    // styles.
     m_houseNumberText = f.GetHouseNumber();
     if (!m_houseNumberText.empty() && !m_mainText.empty() && m_houseNumberText.find(m_mainText) != std::string::npos)
       m_mainText.clear();
@@ -100,20 +101,18 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   switch (key.m_type)
   {
   case drule::symbol:
-    ASSERT(dRule->GetSymbol() && !m_symbolRule &&
-           (geomType == GeomType::Point || geomType == GeomType::Area),
+    ASSERT(dRule->GetSymbol() && !m_symbolRule && (geomType == GeomType::Point || geomType == GeomType::Area),
            (m_symbolRule == nullptr, geomType, f.DebugString()));
     m_symbolRule = dRule->GetSymbol();
     break;
   case drule::caption:
     ASSERT(dRule->GetCaption() && dRule->GetCaption()->has_primary() && !m_captionRule &&
-           (geomType == GeomType::Point || geomType == GeomType::Area),
+               (geomType == GeomType::Point || geomType == GeomType::Area),
            (m_captionRule == nullptr, f.DebugString()));
     m_captionRule = dRule->GetCaption();
     break;
   case drule::pathtext:
-    ASSERT(dRule->GetPathtext() && dRule->GetPathtext()->has_primary() && !m_pathtextRule &&
-           geomType == GeomType::Line,
+    ASSERT(dRule->GetPathtext() && dRule->GetPathtext()->has_primary() && !m_pathtextRule && geomType == GeomType::Line,
            (m_pathtextRule == nullptr, geomType, f.DebugString()));
     m_pathtextRule = dRule->GetPathtext();
     break;
@@ -142,9 +141,7 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   // TODO(pastk) : check if circle/waymarker support exists still (not used in styles ATM).
   case drule::circle:
   case drule::waymarker:
-  default:
-    ASSERT(false, (key.m_type, f.DebugString()));
-    return;
+  default: ASSERT(false, (key.m_type, f.DebugString())); return;
   }
 }
 
@@ -185,9 +182,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
     for (auto & k : typeKeys)
     {
       // Take overlay drules from the main type only.
-      if (t == mainOverlayType ||
-          (k.m_type != drule::caption && k.m_type != drule::symbol &&
-           k.m_type != drule::shield && k.m_type != drule::pathtext))
+      if (t == mainOverlayType || (k.m_type != drule::caption && k.m_type != drule::symbol &&
+                                   k.m_type != drule::shield && k.m_type != drule::pathtext))
       {
         if (hasHatching && k.m_type == drule::area)
           k.m_hatching = true;
@@ -209,8 +205,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
 
   if (m_captionRule || m_pathtextRule)
   {
-    bool const auxExists = (m_captionRule && m_captionRule->has_secondary()) ||
-                           (m_pathtextRule && m_pathtextRule->has_secondary());
+    bool const auxExists =
+        (m_captionRule && m_captionRule->has_secondary()) || (m_pathtextRule && m_pathtextRule->has_secondary());
     m_captionDescriptor.Init(f, deviceLang, zoomLevel, geomType, auxExists);
 
     if (m_captionDescriptor.IsHouseNumberExists())

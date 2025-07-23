@@ -6,32 +6,30 @@
 
 extern "C"
 {
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_sound_TtsPlayer_nativeEnableTurnNotifications(JNIEnv *, jclass, jboolean enable)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_sound_TtsPlayer_nativeEnableTurnNotifications(JNIEnv *, jclass,
+                                                                                              jboolean enable)
 {
   return frm()->GetRoutingManager().EnableTurnNotifications(static_cast<bool>(enable));
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_sound_TtsPlayer_nativeAreTurnNotificationsEnabled(JNIEnv *, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_sound_TtsPlayer_nativeAreTurnNotificationsEnabled(JNIEnv *, jclass)
 {
   return static_cast<jboolean>(frm()->GetRoutingManager().AreTurnNotificationsEnabled());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_sound_TtsPlayer_nativeSetTurnNotificationsLocale(JNIEnv * env, jclass, jstring jLocale)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_sound_TtsPlayer_nativeSetTurnNotificationsLocale(JNIEnv * env, jclass,
+                                                                                                 jstring jLocale)
 {
   frm()->GetRoutingManager().SetTurnNotificationsLocale(jni::ToNativeString(env, jLocale));
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_sound_TtsPlayer_nativeGetTurnNotificationsLocale(JNIEnv * env, jclass)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_sound_TtsPlayer_nativeGetTurnNotificationsLocale(JNIEnv * env,
+                                                                                                    jclass)
 {
   return jni::ToJavaString(env, frm()->GetRoutingManager().GetTurnNotificationsLocale());
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_sdk_sound_TtsPlayer_nativeGetSupportedLanguages(JNIEnv * env, jclass)
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_sound_TtsPlayer_nativeGetSupportedLanguages(JNIEnv * env, jclass)
 {
   auto const & supportedLanguages = routing::turns::sound::kLanguageList;
 

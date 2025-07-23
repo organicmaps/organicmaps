@@ -19,15 +19,17 @@ enum Operation
   OPERATION_INSERT = 2,
 };
 
-template <class PatchWriterT, typename SizeT = uint64_t> class PatchCoder
+template <class PatchWriterT, typename SizeT = uint64_t>
+class PatchCoder
 {
 public:
   typedef SizeT size_type;
 
   explicit PatchCoder(PatchWriterT & patchWriter)
-    : m_LastOperation(OPERATION_COPY), m_LastOpCode(0), m_PatchWriter(patchWriter)
-  {
-  }
+    : m_LastOperation(OPERATION_COPY)
+    , m_LastOpCode(0)
+    , m_PatchWriter(patchWriter)
+  {}
 
   void Delete(size_type n)
   {
@@ -41,7 +43,8 @@ public:
       Op(OPERATION_COPY, n);
   }
 
-  template <typename TIter> void Insert(TIter it, size_type n)
+  template <typename TIter>
+  void Insert(TIter it, size_type n)
   {
     if (n != 0)
     {
@@ -50,10 +53,7 @@ public:
     }
   }
 
-  void Finalize()
-  {
-    WriteLasOp();
-  }
+  void Finalize() { WriteLasOp(); }
 
 private:
   void Op(Operation op, size_type n)
@@ -85,15 +85,12 @@ private:
 // Returns the length of the minimal patch, or -1 if no such patch found.
 // Intermediate information is saved into tmpSink and can be used later to restore
 // the resulting patch.
-template <
-    typename TSignedWord, // Signed word, capable of storing position in text.
-    class TSrcVector,     // Source data (A).
-    class TDstVector,     // Destination data (B).
-    class TTmpFileSink    // Sink to store temporary information.
-    >
-TSignedWord DiffMyersSimple(TSrcVector const & A,
-                            TDstVector const & B,
-                            TSignedWord maxPatchSize,
+template <typename TSignedWord,  // Signed word, capable of storing position in text.
+          class TSrcVector,      // Source data (A).
+          class TDstVector,      // Destination data (B).
+          class TTmpFileSink     // Sink to store temporary information.
+          >
+TSignedWord DiffMyersSimple(TSrcVector const & A, TDstVector const & B, TSignedWord maxPatchSize,
                             TTmpFileSink & tmpSink)
 {
   ASSERT_GREATER(maxPatchSize, 0, ());
@@ -107,9 +104,7 @@ TSignedWord DiffMyersSimple(TSrcVector const & A,
         x = V[maxPatchSize + k + 1];
       else
         x = V[maxPatchSize + k - 1] + 1;
-      while (x < static_cast<TSignedWord>(A.size()) &&
-             x - k < static_cast<TSignedWord>(B.size()) &&
-             A[x] == B[x - k])
+      while (x < static_cast<TSignedWord>(A.size()) && x - k < static_cast<TSignedWord>(B.size()) && A[x] == B[x - k])
         ++x;
       V[maxPatchSize + k] = x;
       if (x == static_cast<TSignedWord>(A.size()) && x - k == static_cast<TSignedWord>(B.size()))
@@ -126,16 +121,14 @@ class SimpleReplaceDiffer
 {
 public:
   template <typename SrcIterT, typename DstIterT, class PatchCoderT>
-  void Diff(SrcIterT srcBeg, SrcIterT srcEnd,
-            DstIterT dstBeg, DstIterT dstEnd,
-            PatchCoderT & patchCoder)
+  void Diff(SrcIterT srcBeg, SrcIterT srcEnd, DstIterT dstBeg, DstIterT dstEnd, PatchCoderT & patchCoder)
   {
     typename PatchCoderT::size_type begCopy = 0;
     for (; srcBeg != srcEnd && dstBeg != dstEnd && *srcBeg == *dstBeg; ++srcBeg, ++dstBeg)
       ++begCopy;
     patchCoder.Copy(begCopy);
     typename PatchCoderT::size_type endCopy = 0;
-    for (; srcBeg != srcEnd && dstBeg != dstEnd && *(srcEnd-1) == *(dstEnd-1); --srcEnd, --dstEnd)
+    for (; srcBeg != srcEnd && dstBeg != dstEnd && *(srcEnd - 1) == *(dstEnd - 1); --srcEnd, --dstEnd)
       ++endCopy;
     patchCoder.Delete(srcEnd - srcBeg);
     patchCoder.Insert(dstBeg, dstEnd - dstBeg);
@@ -152,13 +145,13 @@ template <class FineGrainedDiffT, class HasherT,
 class RollingHashDiffer
 {
 public:
-  explicit RollingHashDiffer(size_t blockSize,
-                               FineGrainedDiffT const & fineGrainedDiff = FineGrainedDiffT())
-    : m_FineGrainedDiff(fineGrainedDiff), m_BlockSize(blockSize) {}
+  explicit RollingHashDiffer(size_t blockSize, FineGrainedDiffT const & fineGrainedDiff = FineGrainedDiffT())
+    : m_FineGrainedDiff(fineGrainedDiff)
+    , m_BlockSize(blockSize)
+  {}
 
   template <typename SrcIterT, typename DstIterT, class PatchCoderT>
-  void Diff(SrcIterT const srcBeg, SrcIterT const srcEnd,
-            DstIterT const dstBeg, DstIterT const dstEnd,
+  void Diff(SrcIterT const srcBeg, SrcIterT const srcEnd, DstIterT const dstBeg, DstIterT const dstEnd,
             PatchCoderT & patchCoder)
   {
     if (srcEnd - srcBeg < static_cast<decltype(srcEnd - srcBeg)>(m_BlockSize) ||
@@ -169,8 +162,7 @@ public:
     }
     HasherT hasher;
     HashPosMultiMapT srcHashes;
-    for (SrcIterT src = srcBeg; srcEnd - src >= static_cast<decltype(srcEnd - src)>(m_BlockSize);
-         src += m_BlockSize)
+    for (SrcIterT src = srcBeg; srcEnd - src >= static_cast<decltype(srcEnd - src)>(m_BlockSize); src += m_BlockSize)
       srcHashes.insert(HashPosMultiMapValue(hasher.Init(src, m_BlockSize), src - srcBeg));
     SrcIterT srcLastDiff = srcBeg;
     DstIterT dst = dstBeg, dstNext = dstBeg + m_BlockSize, dstLastDiff = dstBeg;
@@ -183,15 +175,12 @@ public:
         pos_type const srcLastDiffPos = srcLastDiff - srcBeg;
         HashPosMultiMapIterator it = srcHashes.end();
         for (HashPosMultiMapIterator i = iters.first; i != iters.second; ++i)
-          if (i->second >= srcLastDiffPos &&
-              (it == srcHashes.end() || i->second < it->second))
+          if (i->second >= srcLastDiffPos && (it == srcHashes.end() || i->second < it->second))
             it = i;
-        if (it != srcHashes.end() &&
-            std::equal(srcBeg + it->second, srcBeg + it->second + m_BlockSize, dst))
+        if (it != srcHashes.end() && std::equal(srcBeg + it->second, srcBeg + it->second + m_BlockSize, dst))
         {
           pos_type srcBlockEqualPos = it->second;
-          m_FineGrainedDiff.Diff(srcLastDiff, srcBeg + srcBlockEqualPos,
-                                 dstLastDiff, dst, patchCoder);
+          m_FineGrainedDiff.Diff(srcLastDiff, srcBeg + srcBlockEqualPos, dstLastDiff, dst, patchCoder);
           patchCoder.Copy(m_BlockSize);
           srcLastDiff = srcBeg + srcBlockEqualPos + m_BlockSize;
           dst = dstLastDiff = dstNext;
@@ -207,6 +196,7 @@ public:
     if (srcLastDiff != srcEnd || dstLastDiff != dstEnd)
       m_FineGrainedDiff.Diff(srcLastDiff, srcEnd, dstLastDiff, dstEnd, patchCoder);
   }
+
 private:
   typedef typename HasherT::hash_type hash_type;
   typedef typename HashPosMultiMapT::value_type::second_type pos_type;

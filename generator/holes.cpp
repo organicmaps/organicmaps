@@ -9,30 +9,25 @@ using namespace feature;
 
 namespace generator
 {
-HolesAccumulator::HolesAccumulator(
-    std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
+HolesAccumulator::HolesAccumulator(std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
   : m_merger(cache)
-{
-}
+{}
 
 FeatureBuilder::Geometry & HolesAccumulator::GetHoles()
 {
   ASSERT(m_holes.empty(), ("It is allowed to call only once."));
-  m_merger.ForEachArea(false, [this](FeatureBuilder::PointSeq const & v,
-                       std::vector<uint64_t> const & /* way osm ids */)
-  {
-    m_holes.push_back(std::move(v));
-  });
+  m_merger.ForEachArea(false,
+                       [this](FeatureBuilder::PointSeq const & v, std::vector<uint64_t> const & /* way osm ids */)
+  { m_holes.push_back(std::move(v)); });
   return m_holes;
 }
 
-HolesProcessor::HolesProcessor(
-    uint64_t id, std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
-  : m_id(id), m_holes(cache)
-{
-}
+HolesProcessor::HolesProcessor(uint64_t id, std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
+  : m_id(id)
+  , m_holes(cache)
+{}
 
-base::ControlFlow HolesProcessor::operator() (uint64_t /* id */, RelationElement const & e)
+base::ControlFlow HolesProcessor::operator()(uint64_t /* id */, RelationElement const & e)
 {
   auto const type = e.GetType();
   if (!(type == "multipolygon" || type == "boundary"))
@@ -47,16 +42,16 @@ base::ControlFlow HolesProcessor::operator() (uint64_t /* id */, RelationElement
   return base::ControlFlow::Continue;
 }
 
-void HolesProcessor::operator() (uint64_t id, std::string const & role)
+void HolesProcessor::operator()(uint64_t id, std::string const & role)
 {
   if (id != m_id && role == "inner")
     m_holes(id);
 }
 
 HolesRelation::HolesRelation(std::shared_ptr<cache::IntermediateDataReaderInterface> const & cache)
-  : m_holes(cache), m_outer(cache)
-{
-}
+  : m_holes(cache)
+  , m_outer(cache)
+{}
 
 void HolesRelation::Build(OsmElement const * p)
 {

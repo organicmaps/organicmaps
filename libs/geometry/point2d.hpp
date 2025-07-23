@@ -24,17 +24,14 @@ public:
   constexpr Point(T x_, T y_) : x(x_), y(y_) {}
 
   template <typename U>
-  explicit constexpr Point(Point<U> const & u) : x(u.x), y(u.y)
-  {
-  }
+  explicit constexpr Point(Point<U> const & u) : x(u.x)
+                                               , y(u.y)
+  {}
 
   static Point<T> Zero() { return Point<T>(0, 0); }
-  static Point<T> Max() { return Point<T>(std::numeric_limits<T>::max(), std::numeric_limits<T>::max());}
+  static Point<T> Max() { return Point<T>(std::numeric_limits<T>::max(), std::numeric_limits<T>::max()); }
 
-  bool EqualDxDy(Point<T> const & p, T eps) const
-  {
-    return ((fabs(x - p.x) < eps) && (fabs(y - p.y) < eps));
-  }
+  bool EqualDxDy(Point<T> const & p, T eps) const { return ((fabs(x - p.x) < eps) && (fabs(y - p.y) < eps)); }
 
   T SquaredLength(Point<T> const & p) const { return math::Pow2(x - p.x) + math::Pow2(y - p.y); }
   double Length(Point<T> const & p) const { return std::sqrt(SquaredLength(p)); }
@@ -43,10 +40,7 @@ public:
 
   Point<T> Move(T len, T ang) const { return Point<T>(x + len * cos(ang), y + len * sin(ang)); }
 
-  Point<T> Move(T len, T angSin, T angCos) const
-  {
-    return m2::Point<T>(x + len * angCos, y + len * angSin);
-  }
+  Point<T> Move(T len, T angSin, T angCos) const { return m2::Point<T>(x + len * angCos, y + len * angSin); }
 
   Point<T> const & operator-=(Point<T> const & a)
   {
@@ -100,10 +94,7 @@ public:
 
   m2::Point<T> operator/(T scale) const { return m2::Point<T>(x / scale, y / scale); }
 
-  m2::Point<T> Mid(m2::Point<T> const & p) const
-  {
-    return m2::Point<T>((x + p.x) * 0.5, (y + p.y) * 0.5);
-  }
+  m2::Point<T> Mid(m2::Point<T> const & p) const { return m2::Point<T>((x + p.x) * 0.5, (y + p.y) * 0.5); }
 
   /// @name VectorOperationsOnPoint
   /// @{
@@ -123,9 +114,8 @@ public:
   {
     T const prolongatedX = prolongationFactor * x;
     T const prolongatedY = prolongationFactor * y;
-    return std::pair<Point<T>, Point<T>>(
-        Point<T>(static_cast<T>(-prolongatedY), static_cast<T>(prolongatedX)),
-        Point<T>(static_cast<T>(prolongatedY), static_cast<T>(-prolongatedX)));
+    return std::pair<Point<T>, Point<T>>(Point<T>(static_cast<T>(-prolongatedY), static_cast<T>(prolongatedX)),
+                                         Point<T>(static_cast<T>(prolongatedY), static_cast<T>(-prolongatedX)));
   }
 
   m2::Point<T> const & operator*=(math::Matrix<T, 3, 3> const & m)

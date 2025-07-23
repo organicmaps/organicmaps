@@ -16,10 +16,8 @@ ProcessorComplex::ProcessorComplex(std::shared_ptr<FeatureProcessorQueue> const 
   , m_haveBordersForWholeWorld(haveBordersForWholeWorld)
 {
   m_processingChain = std::make_shared<PrepareFeatureLayer>();
-  auto affiliation = std::make_shared<feature::CountriesFilesIndexAffiliation>(
-      bordersPath, haveBordersForWholeWorld);
-  m_affiliationsLayer =
-      std::make_shared<AffiliationsFeatureLayer<>>(kAffiliationsBufferSize, affiliation, m_queue);
+  auto affiliation = std::make_shared<feature::CountriesFilesIndexAffiliation>(bordersPath, haveBordersForWholeWorld);
+  m_affiliationsLayer = std::make_shared<AffiliationsFeatureLayer<>>(kAffiliationsBufferSize, affiliation, m_queue);
   m_processingChain->Add(m_affiliationsLayer);
 }
 
@@ -33,5 +31,8 @@ void ProcessorComplex::Process(feature::FeatureBuilder & feature)
   m_processingChain->Handle(feature);
 }
 
-void ProcessorComplex::Finish() { m_affiliationsLayer->AddBufferToQueue(); }
+void ProcessorComplex::Finish()
+{
+  m_affiliationsLayer->AddBufferToQueue();
+}
 }  // namespace generator

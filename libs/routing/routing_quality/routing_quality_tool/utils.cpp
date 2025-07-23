@@ -30,8 +30,7 @@ void PrintWithSpaces(std::string const & str, size_t maxN)
     std::cout << " ";
 }
 
-std::vector<geometry::PointWithAltitude> ConvertToPointsWithAltitudes(
-    std::vector<ms::LatLon> const & latlons)
+std::vector<geometry::PointWithAltitude> ConvertToPointsWithAltitudes(std::vector<ms::LatLon> const & latlons)
 {
   std::vector<geometry::PointWithAltitude> result;
   result.reserve(latlons.size());
@@ -63,8 +62,7 @@ kml::BookmarkData CreateBookmark(m2::PointD const & point, bool isStart)
 }
 
 template <typename AnotherResult>
-void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult,
-                       AnotherResult const & apiResult,
+void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult, AnotherResult const & apiResult,
                        std::string const & kmlFile)
 {
   static std::array<uint32_t, 5> const kColors = {
@@ -84,7 +82,9 @@ void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult,
     track.m_geometry.m_lines.push_back(std::move(line));
 
     CHECK_LESS(colorNumber, kColors.size(), ());
-    track.m_layers = {{5.0 /* lineWidth */, {kml::PredefinedColor::None, kColors[colorNumber++]}}};
+    track.m_layers = {
+        {5.0 /* lineWidth */, {kml::PredefinedColor::None, kColors[colorNumber++]}}
+    };
     kml.m_tracksData.emplace_back(std::move(track));
   };
 
@@ -140,15 +140,15 @@ namespace routing_quality
 {
 namespace routing_quality_tool
 {
-Result::Result(std::string mapsmeDumpPath, std::string anotherDumpPath,
-               ms::LatLon const & start, ms::LatLon const & finish, double similarity,
-               double etaDiffPercent)
+Result::Result(std::string mapsmeDumpPath, std::string anotherDumpPath, ms::LatLon const & start,
+               ms::LatLon const & finish, double similarity, double etaDiffPercent)
   : m_mapsmeDumpPath(std::move(mapsmeDumpPath))
   , m_anotherDumpPath(std::move(anotherDumpPath))
   , m_start(start)
   , m_finish(finish)
   , m_similarity(similarity)
-  , m_etaDiffPercent(etaDiffPercent) {}
+  , m_etaDiffPercent(etaDiffPercent)
+{}
 
 bool Result::operator<(Result const & rhs) const
 {
@@ -168,17 +168,14 @@ void RoutesSaver::PushRoute(Result const & result)
   m_output << result.m_mapsmeDumpPath << " " << result.m_anotherDumpPath << std::endl;
 }
 
-void RoutesSaver::PushError(routing::RouterResultCode code,
-                            ms::LatLon const & start,
-                            ms::LatLon const & finish)
+void RoutesSaver::PushError(routing::RouterResultCode code, ms::LatLon const & start, ms::LatLon const & finish)
 {
   CHECK_NOT_EQUAL(code, routing::RouterResultCode::NoError, ("Only errors codes."));
 
   auto & ofstream = m_errorRoutes[code];
   if (!ofstream.is_open())
   {
-    std::string const fullpath =
-        base::JoinPath(m_targetDir, DebugPrint(code) + ".routes");
+    std::string const fullpath = base::JoinPath(m_targetDir, DebugPrint(code) + ".routes");
 
     ofstream.open(fullpath);
     CHECK(ofstream.good(), ("Can not open:", fullpath, "for writing."));
@@ -217,8 +214,7 @@ void RoutesSaver::TurnToNextFile()
 
 std::string RoutesSaver::GetCurrentPath() const
 {
-  std::string const fullpath =
-      base::JoinPath(m_targetDir, std::to_string(m_fileNumber) + ".routes");
+  std::string const fullpath = base::JoinPath(m_targetDir, std::to_string(m_fileNumber) + ".routes");
 
   return fullpath;
 }
@@ -241,18 +237,13 @@ void RoutesSaver::OpenOutputStream()
   m_output << std::setprecision(20);
 }
 
-void RoutesSaver::WriteStartAndFinish(std::ofstream & output,
-                                      ms::LatLon const & start,
-                                      ms::LatLon const & finish)
+void RoutesSaver::WriteStartAndFinish(std::ofstream & output, ms::LatLon const & start, ms::LatLon const & finish)
 {
-  output << start.m_lat << " " << start.m_lon << " "
-         << finish.m_lat << " " << finish.m_lon
-         << std::endl;
+  output << start.m_lat << " " << start.m_lon << " " << finish.m_lat << " " << finish.m_lon << std::endl;
 }
 
 // This function creates python script that shows the distribution error.
-void CreatePythonScriptForDistribution(std::string const & pythonScriptPath,
-                                       std::string const & title,
+void CreatePythonScriptForDistribution(std::string const & pythonScriptPath, std::string const & title,
                                        std::vector<double> const & values)
 {
   std::ofstream python(pythonScriptPath);
@@ -271,19 +262,19 @@ void CreatePythonScriptForDistribution(std::string const & pythonScriptPath,
 import numpy as np
 import matplotlib.pyplot as plt
 
-a = np.hstack()" + pythonArray + R"()
+a = np.hstack()" +
+                pythonArray + R"()
 plt.hist(a, bins='auto')  # arguments are passed to np.histogram
-plt.title(")" + title + R"(")
+plt.title(")" + title +
+                R"(")
 plt.show()
 )";
 
   LOG(LINFO, ("Run: python", pythonScriptPath, "to look at:", title));
 }
 
-void CreatePythonGraphByPointsXY(std::string const & pythonScriptPath,
-                                 std::string const & xlabel,
-                                 std::string const & ylabel,
-                                 std::vector<std::vector<m2::PointD>> const & graphics,
+void CreatePythonGraphByPointsXY(std::string const & pythonScriptPath, std::string const & xlabel,
+                                 std::string const & ylabel, std::vector<std::vector<m2::PointD>> const & graphics,
                                  std::vector<std::string> const & legends)
 {
   CHECK_EQUAL(legends.size(), graphics.size(), ());
@@ -316,14 +307,19 @@ void CreatePythonGraphByPointsXY(std::string const & pythonScriptPath,
   python << R"(
 import pylab
 
-legends = )" + legendsArray + R"(
-xlist = )" + pythonArrayX + R"(
-ylist = )" + pythonArrayY + R"(
+legends = )" + legendsArray +
+                R"(
+xlist = )" + pythonArrayX +
+                R"(
+ylist = )" + pythonArrayY +
+                R"(
 for (x, y, l) in zip(xlist, ylist, legends):
   pylab.plot(x, y, label=l)
 
-pylab.xlabel(")" + xlabel + R"(")
-pylab.ylabel(")" + ylabel + R"(")
+pylab.xlabel(")" +
+                xlabel + R"(")
+pylab.ylabel(")" +
+                ylabel + R"(")
 pylab.legend()
 pylab.tight_layout()
 pylab.show()
@@ -332,13 +328,9 @@ pylab.show()
   LOG(LINFO, ("Run: python", pythonScriptPath, "to look at:", ylabel, "versus", xlabel));
 }
 
-void CreatePythonBarByMap(std::string const & pythonScriptPath,
-                          std::vector<std::string> const & barLabels,
-                          std::vector<std::vector<double>> const & barHeights,
-                          std::vector<std::string> const & legends,
-                          std::string const & xlabel,
-                          std::string const & ylabel,
-                          bool drawPercents)
+void CreatePythonBarByMap(std::string const & pythonScriptPath, std::vector<std::string> const & barLabels,
+                          std::vector<std::vector<double>> const & barHeights, std::vector<std::string> const & legends,
+                          std::string const & xlabel, std::string const & ylabel, bool drawPercents)
 {
   std::ofstream python(pythonScriptPath);
   CHECK(python.good(), ("Can not open:", pythonScriptPath, "for writing."));
@@ -354,9 +346,8 @@ void CreatePythonBarByMap(std::string const & pythonScriptPath,
   else
     counts.back() = ']';
 
-  std::string const formatString = drawPercents
-                                       ? "f'{round(height, 2)}({round(height / summ * 100, 2)}%)'"
-                                       : "f'{round(height, 2)}'";
+  std::string const formatString =
+      drawPercents ? "f'{round(height, 2)}({round(height / summ * 100, 2)}%)'" : "f'{round(height, 2)}'";
 
   python << R"(
 import matplotlib
@@ -364,9 +355,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 bar_width = 0.35
-labels = )" + labelsArray + R"(
-legends = )" + legendsArray + R"(
-counts = )" + counts + R"(
+labels = )" + labelsArray +
+                R"(
+legends = )" + legendsArray +
+                R"(
+counts = )" + counts +
+                R"(
 
 x = np.arange(len(labels))  # the label locations
 width = 0.35  # the width of the bars
@@ -377,8 +371,10 @@ for i in range(len(counts)):
     bar = ax.bar(x + i * bar_width, counts[i], bar_width, label=legends[i])
     bars.append(bar)
 
-ax.set_ylabel(')" + ylabel + R"(')
-ax.set_title(')" + xlabel + R"(')
+ax.set_ylabel(')" +
+                ylabel + R"(')
+ax.set_title(')" +
+                xlabel + R"(')
 pos = (bar_width * (len(counts) - 1)) / 2
 ax.set_xticks(x + pos)
 ax.set_xticklabels(labels)
@@ -391,7 +387,8 @@ def autolabel(rects, counts_ith):
 
     for rect in rects:
         height = rect.get_height()
-        ax.annotate()" + formatString + R"(,
+        ax.annotate()" +
+                formatString + R"(,
                     xy=(rect.get_x() + rect.get_width() / 2, height),
                     xytext=(0, 3),  # 3 points vertical offset
                     textcoords="offset points",
@@ -408,19 +405,18 @@ plt.show()
 
 /// \brief |SimilarityCounter| groups routes that we compare by similarity, here we tune these groups.
 // static
-std::vector<SimilarityCounter::Interval> const SimilarityCounter::kIntervals  = {
-    {"[0.0, 0.0]", 0, 0 + 1e-5},
-    {"[0.0, 0.1)", 0, 0.1},
-    {"[0.1, 0.2)", 0.1, 0.2},
-    {"[0.2, 0.3)", 0.2, 0.3},
-    {"[0.3, 0.6)", 0.3, 0.6},
-    {"[0.6, 0.8)", 0.6, 0.8},
-    {"[0.8, 1.0)", 0.8, 1.0},
+std::vector<SimilarityCounter::Interval> const SimilarityCounter::kIntervals = {
+    {"[0.0, 0.0]",   0,   0 + 1e-5},
+    {"[0.0, 0.1)",   0,        0.1},
+    {"[0.1, 0.2)", 0.1,        0.2},
+    {"[0.2, 0.3)", 0.2,        0.3},
+    {"[0.3, 0.6)", 0.3,        0.6},
+    {"[0.6, 0.8)", 0.6,        0.8},
+    {"[0.8, 1.0)", 0.8,        1.0},
     {"[1.0, 1.0]", 1.0, 1.0 + 1e-5},
 };
 
-SimilarityCounter::SimilarityCounter(RoutesSaver & routesSaver)
-  : m_routesSaver(routesSaver)
+SimilarityCounter::SimilarityCounter(RoutesSaver & routesSaver) : m_routesSaver(routesSaver)
 {
   for (auto const & interval : kIntervals)
     m_routesCounter.emplace_back(interval.m_name, 0);
@@ -466,9 +462,8 @@ void SimilarityCounter::Push(Result const & result)
   CHECK_LESS(m_currentInterval, m_routesCounter.size(), ());
   if (m_routesCounter[m_currentInterval].m_routesNumber == 0)
   {
-    LOG(LINFO,
-        ("Save routes with:", m_routesCounter[m_currentInterval].m_intervalName,
-         "similarity to:", m_routesSaver.GetCurrentPath()));
+    LOG(LINFO, ("Save routes with:", m_routesCounter[m_currentInterval].m_intervalName,
+                "similarity to:", m_routesSaver.GetCurrentPath()));
   }
 
   CHECK_LESS(m_currentInterval, m_routesCounter.size(), ());
@@ -481,8 +476,7 @@ void SimilarityCounter::CreateKmlFiles(double percent, std::vector<Result> const
   size_t realResultIndex = 0;
   for (size_t intervalId = 0; intervalId < m_routesCounter.size(); ++intervalId)
   {
-    std::string savePath =
-        base::JoinPath(m_routesSaver.GetTargetDir(), std::to_string(intervalId));
+    std::string savePath = base::JoinPath(m_routesSaver.GetTargetDir(), std::to_string(intervalId));
 
     auto const currentSize = m_routesCounter[intervalId].m_routesNumber;
     auto const resultSize = static_cast<size_t>(currentSize * percent / 100.0);
@@ -490,13 +484,10 @@ void SimilarityCounter::CreateKmlFiles(double percent, std::vector<Result> const
       continue;
 
     auto const mkdirRes = Platform::MkDir(savePath);
-    CHECK(mkdirRes == Platform::EError::ERR_OK ||
-          mkdirRes == Platform::EError::ERR_FILE_ALREADY_EXISTS,
+    CHECK(mkdirRes == Platform::EError::ERR_OK || mkdirRes == Platform::EError::ERR_FILE_ALREADY_EXISTS,
           ("Cannot create dir:", savePath));
 
-    LOG(LINFO, ("Saving", resultSize,
-                "kmls for:", m_routesCounter[intervalId].m_intervalName,
-                "to:", savePath));
+    LOG(LINFO, ("Saving", resultSize, "kmls for:", m_routesCounter[intervalId].m_intervalName, "to:", savePath));
 
     auto const step = static_cast<size_t>(currentSize / resultSize);
 

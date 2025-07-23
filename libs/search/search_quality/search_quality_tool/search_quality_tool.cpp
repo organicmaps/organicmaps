@@ -50,8 +50,7 @@ using namespace std;
 DEFINE_string(data_path, "", "Path to data directory (resources dir)");
 DEFINE_string(locale, "en", "Locale of all the search queries");
 DEFINE_int32(num_threads, 1, "Number of search engine threads");
-DEFINE_string(mwm_list_path, "",
-              "Path to a file containing the names of available mwms, one per line");
+DEFINE_string(mwm_list_path, "", "Path to a file containing the names of available mwms, one per line");
 DEFINE_string(mwm_path, "", "Path to mwm files (writable dir)");
 DEFINE_string(queries_path, "", "Path to the file with queries");
 DEFINE_int32(top, 1, "Number of top results to show for every query");
@@ -59,8 +58,7 @@ DEFINE_string(viewport, "", "Viewport to use when searching (default, moscow, lo
 DEFINE_string(check_completeness, "", "Path to the file with completeness data");
 DEFINE_string(ranking_csv_file, "", "File ranking info will be exported to");
 
-string const kDefaultQueriesPathSuffix =
-    "/../search/search_quality/search_quality_tool/queries.txt";
+string const kDefaultQueriesPathSuffix = "/../search/search_quality/search_quality_tool/queries.txt";
 string const kEmptyResult = "<empty>";
 
 // Unlike strings::Tokenize, this function allows for empty tokens.
@@ -83,10 +81,7 @@ struct CompletenessQuery
     vector<string> parts;
     Split(s, ';', parts);
     if (parts.size() != 7)
-    {
-      MYTHROW(MalformedQueryException,
-              ("Can't split", s, ", found", parts.size(), "part(s):", parts));
-    }
+      MYTHROW(MalformedQueryException, ("Can't split", s, ", found", parts.size(), "part(s):", parts));
 
     auto const idx = parts[0].find(':');
     if (idx == string::npos)
@@ -130,13 +125,15 @@ struct CompletenessQuery
   double m_lon = 0;
 };
 
-string MakePrefixFree(string const & query) { return query + " "; }
+string MakePrefixFree(string const & query)
+{
+  return query + " ";
+}
 
 // If n == 1, prints the query and the top result separated by a tab.
 // Otherwise, prints the query on a separate line
 // and then prints n top results on n lines starting with tabs.
-void PrintTopResults(string const & query, vector<Result> const & results, size_t n,
-                     double elapsedSeconds)
+void PrintTopResults(string const & query, vector<Result> const & results, size_t n, double elapsedSeconds)
 {
   cout << query;
   char timeBuf[100];
@@ -159,8 +156,7 @@ void PrintTopResults(string const & query, vector<Result> const & results, size_
   cout << endl;
 }
 
-void CalcStatistics(vector<double> const & a, double & avg, double & maximum, double & var,
-                    double & stdDev)
+void CalcStatistics(vector<double> const & a, double & avg, double & maximum, double & var, double & stdDev)
 {
   avg = 0;
   maximum = 0;
@@ -186,8 +182,8 @@ void CalcStatistics(vector<double> const & a, double & avg, double & maximum, do
 
 // Returns the position of the result that is expected to be found by geocoder completeness
 // tests in the |result| vector or -1 if it does not occur there.
-int FindResult(DataSource & dataSource, string const & mwmName, uint32_t const featureId,
-               double const lat, double const lon, vector<Result> const & results)
+int FindResult(DataSource & dataSource, string const & mwmName, uint32_t const featureId, double const lat,
+               double const lon, vector<Result> const & results)
 {
   CHECK_LESS_OR_EQUAL(results.size(), numeric_limits<int>::max(), ());
   auto const mwmId = dataSource.GetMwmIdByCountryFile(platform::CountryFile(mwmName));
@@ -205,11 +201,9 @@ int FindResult(DataSource & dataSource, string const & mwmName, uint32_t const f
   for (size_t i = 0; i < results.size(); ++i)
   {
     auto const & r = results[i];
-    if (r.HasPoint() &&
-        AlmostEqualAbs(r.GetFeatureCenter(), mercator::FromLatLon(lat, lon), kEps))
+    if (r.HasPoint() && AlmostEqualAbs(r.GetFeatureCenter(), mercator::FromLatLon(lat, lon), kEps))
     {
-      double const dist =
-          mercator::DistanceOnEarth(r.GetFeatureCenter(), mercator::FromLatLon(lat, lon));
+      double const dist = mercator::DistanceOnEarth(r.GetFeatureCenter(), mercator::FromLatLon(lat, lon));
       LOG(LDEBUG, ("dist =", dist));
       return static_cast<int>(i);
     }
@@ -247,8 +241,7 @@ void CheckCompleteness(string const & path, DataSource & dataSource, TestSearchE
     try
     {
       CompletenessQuery q(std::move(line));
-      q.m_request =
-          make_unique<TestSearchRequest>(engine, q.m_query, locale, Mode::Everywhere, viewport);
+      q.m_request = make_unique<TestSearchRequest>(engine, q.m_query, locale, Mode::Everywhere, viewport);
       queries.push_back(std::move(q));
     }
     catch (CompletenessQuery::MalformedQueryException & e)
@@ -263,8 +256,7 @@ void CheckCompleteness(string const & path, DataSource & dataSource, TestSearchE
     q.m_request->Run();
 
     LOG(LDEBUG, (q.m_query, q.m_request->Results()));
-    int pos = FindResult(dataSource, q.m_mwmName, q.m_featureId, q.m_lat, q.m_lon,
-                         q.m_request->Results());
+    int pos = FindResult(dataSource, q.m_mwmName, q.m_featureId, q.m_lat, q.m_lon, q.m_request->Results());
     if (pos >= 0)
       ++expectedResultsFound;
     if (pos == 0)
@@ -272,25 +264,20 @@ void CheckCompleteness(string const & path, DataSource & dataSource, TestSearchE
   }
 
   double const expectedResultsFoundPercentage =
-      totalQueries == 0
-          ? 0
-          : 100.0 * static_cast<double>(expectedResultsFound) / static_cast<double>(totalQueries);
+      totalQueries == 0 ? 0 : 100.0 * static_cast<double>(expectedResultsFound) / static_cast<double>(totalQueries);
   double const expectedResultsTop1Percentage =
-      totalQueries == 0
-          ? 0
-          : 100.0 * static_cast<double>(expectedResultsTop1) / static_cast<double>(totalQueries);
+      totalQueries == 0 ? 0 : 100.0 * static_cast<double>(expectedResultsTop1) / static_cast<double>(totalQueries);
 
   cout << "Time spent on checking completeness: " << timer.ElapsedSeconds() << "s." << endl;
   cout << "Total queries: " << totalQueries << endl;
   cout << "Malformed queries: " << malformedQueries << endl;
-  cout << "Expected results found: " << expectedResultsFound << " ("
-       << expectedResultsFoundPercentage << "%)." << endl;
-  cout << "Expected results found in the top1 slot: " << expectedResultsTop1 << " ("
-       << expectedResultsTop1Percentage << "%)." << endl;
+  cout << "Expected results found: " << expectedResultsFound << " (" << expectedResultsFoundPercentage << "%)." << endl;
+  cout << "Expected results found in the top1 slot: " << expectedResultsTop1 << " (" << expectedResultsTop1Percentage
+       << "%)." << endl;
 }
 
-void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string queriesPath,
-                 string const & locale, string const & rankingCSVFile, size_t top)
+void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string queriesPath, string const & locale,
+                 string const & rankingCSVFile, size_t top)
 {
   vector<string> queries;
   {
@@ -303,8 +290,8 @@ void RunRequests(TestSearchEngine & engine, m2::RectD const & viewport, string q
   for (size_t i = 0; i < queries.size(); ++i)
   {
     // todo(@m) Add a bool flag to search with prefixes?
-    requests.emplace_back(make_unique<TestSearchRequest>(engine, MakePrefixFree(queries[i]), locale,
-                                                         Mode::Everywhere, viewport));
+    requests.emplace_back(
+        make_unique<TestSearchRequest>(engine, MakePrefixFree(queries[i]), locale, Mode::Everywhere, viewport));
   }
 
   ofstream csv;

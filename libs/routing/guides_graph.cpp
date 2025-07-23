@@ -32,16 +32,14 @@ GuidesGraph::GuidesGraph(double maxSpeedMpS, NumMwmId mwmId)
   CHECK_NOT_EQUAL(m_maxSpeedMpS, 0.0, ());
 }
 
-double GuidesGraph::CalcSegmentTimeS(LatLonWithAltitude const & point1,
-                                     LatLonWithAltitude const & point2) const
+double GuidesGraph::CalcSegmentTimeS(LatLonWithAltitude const & point1, LatLonWithAltitude const & point2) const
 {
   double const distM = ms::DistanceOnEarth(point1.GetLatLon(), point2.GetLatLon());
   double const weight = distM / m_maxSpeedMpS;
   return weight;
 }
 
-void GuidesGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
-                              EdgeListT & edges,
+void GuidesGraph::GetEdgeList(Segment const & segment, bool isOutgoing, EdgeListT & edges,
                               RouteWeight const & prevWeight) const
 {
   auto const it = m_segments.find(segment);
@@ -52,8 +50,8 @@ void GuidesGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
 
   if (segment.IsForward() == isOutgoing)
   {
-    Segment nextSegment(segmentOnTrack.GetMwmId(), segmentOnTrack.GetFeatureId(),
-                        segmentOnTrack.GetSegmentIdx() + 1, segmentOnTrack.IsForward());
+    Segment nextSegment(segmentOnTrack.GetMwmId(), segmentOnTrack.GetFeatureId(), segmentOnTrack.GetSegmentIdx() + 1,
+                        segmentOnTrack.IsForward());
     itOnTrack = m_segments.find(nextSegment);
     if (itOnTrack == m_segments.end())
       return;
@@ -63,14 +61,14 @@ void GuidesGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
     if (it->first.GetSegmentIdx() == 0)
       return;
 
-    Segment prevSegment(segmentOnTrack.GetMwmId(), segmentOnTrack.GetFeatureId(),
-                        segmentOnTrack.GetSegmentIdx() - 1, segmentOnTrack.IsForward());
+    Segment prevSegment(segmentOnTrack.GetMwmId(), segmentOnTrack.GetFeatureId(), segmentOnTrack.GetSegmentIdx() - 1,
+                        segmentOnTrack.IsForward());
     itOnTrack = m_segments.find(prevSegment);
     CHECK(itOnTrack != m_segments.end(), (segment));
   }
   auto const & neighbour = itOnTrack->first;
-  Segment const resSegment(neighbour.GetMwmId(), neighbour.GetFeatureId(),
-                           neighbour.GetSegmentIdx(), segment.IsForward());
+  Segment const resSegment(neighbour.GetMwmId(), neighbour.GetFeatureId(), neighbour.GetSegmentIdx(),
+                           segment.IsForward());
 
   auto const weight = isOutgoing ? RouteWeight(itOnTrack->second.m_weight) : prevWeight;
   edges.emplace_back(resSegment, weight);
@@ -83,10 +81,12 @@ LatLonWithAltitude const & GuidesGraph::GetJunction(Segment const & segment, boo
   return segment.IsForward() == front ? it->second.m_pointLast : it->second.m_pointFirst;
 }
 
-NumMwmId GuidesGraph::GetMwmId() const { return m_mwmId; }
+NumMwmId GuidesGraph::GetMwmId() const
+{
+  return m_mwmId;
+}
 
-Segment GuidesGraph::AddTrack(std::vector<geometry::PointWithAltitude> const & guideTrack,
-                              size_t requiredSegmentIdx)
+Segment GuidesGraph::AddTrack(std::vector<geometry::PointWithAltitude> const & guideTrack, size_t requiredSegmentIdx)
 {
   uint32_t segmentIdx = 0;
   Segment segment;
@@ -98,10 +98,9 @@ Segment GuidesGraph::AddTrack(std::vector<geometry::PointWithAltitude> const & g
     if (i == requiredSegmentIdx)
       segment = curSegment;
 
-    data.m_pointFirst = LatLonWithAltitude(mercator::ToLatLon(guideTrack[i].GetPoint()),
-                                           guideTrack[i].GetAltitude());
-    data.m_pointLast = LatLonWithAltitude(mercator::ToLatLon(guideTrack[i + 1].GetPoint()),
-                                          guideTrack[i + 1].GetAltitude());
+    data.m_pointFirst = LatLonWithAltitude(mercator::ToLatLon(guideTrack[i].GetPoint()), guideTrack[i].GetAltitude());
+    data.m_pointLast =
+        LatLonWithAltitude(mercator::ToLatLon(guideTrack[i + 1].GetPoint()), guideTrack[i + 1].GetAltitude());
 
     data.m_weight = CalcSegmentTimeS(data.m_pointFirst, data.m_pointLast);
 
@@ -116,8 +115,8 @@ Segment GuidesGraph::FindSegment(Segment const & segment, size_t segmentIdx) con
 {
   auto const it = m_segments.find(segment);
   CHECK(it != m_segments.end(), (segment, segmentIdx));
-  Segment segmentOnTrack(it->first.GetMwmId(), it->first.GetFeatureId(),
-                         static_cast<uint32_t>(segmentIdx), it->first.IsForward());
+  Segment segmentOnTrack(it->first.GetMwmId(), it->first.GetFeatureId(), static_cast<uint32_t>(segmentIdx),
+                         it->first.IsForward());
 
   auto const itByIndex = m_segments.find(segmentOnTrack);
   CHECK(itByIndex != m_segments.end(), (segment, segmentIdx));
@@ -139,17 +138,16 @@ FakeEnding GuidesGraph::MakeFakeEnding(Segment const & segment, m2::PointD const
   auto const & backJunction = GetJunction(segment, false /* front */);
 
   FakeEnding ending;
-  ending.m_projections.emplace_back(segment, false /* isOneWay */, frontJunction, backJunction,
-                                    LatLonWithAltitude(mercator::ToLatLon(projection.GetPoint()),
-                                                       projection.GetAltitude()) /* junction */);
+  ending.m_projections.emplace_back(
+      segment, false /* isOneWay */, frontJunction, backJunction,
+      LatLonWithAltitude(mercator::ToLatLon(projection.GetPoint()), projection.GetAltitude()) /* junction */);
 
   ending.m_originJunction =
       LatLonWithAltitude(mercator::ToLatLon(point), static_cast<geometry::Altitude>(kZeroAltitude));
   return ending;
 }
 
-std::pair<LatLonWithAltitude, LatLonWithAltitude> GuidesGraph::GetFromTo(
-    Segment const & segment) const
+std::pair<LatLonWithAltitude, LatLonWithAltitude> GuidesGraph::GetFromTo(Segment const & segment) const
 {
   auto const & from = GetJunction(segment, false /* front */);
   auto const & to = GetJunction(segment, true /* front */);

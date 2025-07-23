@@ -55,16 +55,14 @@ double DifferenceInDeg(double a1, double a2)
 
 void EdgeSortUniqueByStartAndEndPoints(Graph::EdgeListT & edges)
 {
-  base::SortUnique(
-      edges,
-      [](Edge const & e1, Edge const & e2) {
-        if (e1.GetStartPoint() != e2.GetStartPoint())
-          return e1.GetStartPoint() < e2.GetStartPoint();
-        return e1.GetEndPoint() < e2.GetEndPoint();
-      },
-      [](Edge const & e1, Edge const & e2) {
-        return e1.GetStartPoint() == e2.GetStartPoint() && e1.GetEndPoint() == e2.GetEndPoint();
-      });
+  base::SortUnique(edges,
+                   [](Edge const & e1, Edge const & e2)
+  {
+    if (e1.GetStartPoint() != e2.GetStartPoint())
+      return e1.GetStartPoint() < e2.GetStartPoint();
+    return e1.GetEndPoint() < e2.GetEndPoint();
+  }, [](Edge const & e1, Edge const & e2)
+  { return e1.GetStartPoint() == e2.GetStartPoint() && e1.GetEndPoint() == e2.GetEndPoint(); });
 }
 }  // namespace scpg
 
@@ -93,9 +91,9 @@ bool ScoreCandidatePathsGetter::Link::IsJunctionInPath(geometry::PointWithAltitu
 }
 
 // ScoreCandidatePathsGetter ----------------------------------------------------------------------------
-bool ScoreCandidatePathsGetter::GetLineCandidatesForPoints(
-    vector<LocationReferencePoint> const & points, LinearSegmentSource source,
-    vector<ScorePathVec> & lineCandidates)
+bool ScoreCandidatePathsGetter::GetLineCandidatesForPoints(vector<LocationReferencePoint> const & points,
+                                                           LinearSegmentSource source,
+                                                           vector<ScorePathVec> & lineCandidates)
 {
   CHECK_GREATER(points.size(), 1, ());
 
@@ -110,15 +108,12 @@ bool ScoreCandidatePathsGetter::GetLineCandidatesForPoints(
 
     lineCandidates.emplace_back();
     auto const isLastPoint = i == points.size() - 1;
-    double const distanceToNextPointM =
-        (isLastPoint ? points[i - 1] : points[i]).m_distanceToNextPoint;
+    double const distanceToNextPointM = (isLastPoint ? points[i - 1] : points[i]).m_distanceToNextPoint;
 
     ScoreEdgeVec edgesCandidates;
-    m_pointsGetter.GetEdgeCandidates(mercator::FromLatLon(points[i].m_latLon),
-                                     isLastPoint, edgesCandidates);
+    m_pointsGetter.GetEdgeCandidates(mercator::FromLatLon(points[i].m_latLon), isLastPoint, edgesCandidates);
 
-    GetLineCandidates(points[i], source, isLastPoint, distanceToNextPointM, edgesCandidates,
-                      lineCandidates.back());
+    GetLineCandidates(points[i], source, isLastPoint, distanceToNextPointM, edgesCandidates, lineCandidates.back());
 
     if (lineCandidates.back().empty())
     {
@@ -132,13 +127,10 @@ bool ScoreCandidatePathsGetter::GetLineCandidatesForPoints(
   return true;
 }
 
-void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLines,
-                                                    LinearSegmentSource source, bool isLastPoint,
-                                                    double bearDistM,
-                                                    FunctionalRoadClass functionalRoadClass,
-                                                    FormOfWay formOfWay,
-                                                    double distanceToNextPointM,
-                                                    vector<shared_ptr<Link>> & allPaths)
+void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLines, LinearSegmentSource source,
+                                                    bool isLastPoint, double bearDistM,
+                                                    FunctionalRoadClass functionalRoadClass, FormOfWay formOfWay,
+                                                    double distanceToNextPointM, vector<shared_ptr<Link>> & allPaths)
 {
   CHECK_NOT_EQUAL(source, LinearSegmentSource::NotValid, ());
 
@@ -146,15 +138,14 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
 
   for (auto const & e : startLines)
   {
-    Score roadScore = 0; // Score based on functional road class and form of way.
+    Score roadScore = 0;  // Score based on functional road class and form of way.
     if (source == LinearSegmentSource::FromLocationReferenceTag &&
         !PassesRestrictionV3(e.m_edge, functionalRoadClass, formOfWay, m_infoGetter, roadScore))
     {
       continue;
     }
 
-    q.push(
-        make_shared<Link>(nullptr /* parent */, e.m_edge, 0 /* distanceM */, e.m_score, roadScore));
+    q.push(make_shared<Link>(nullptr /* parent */, e.m_edge, 0 /* distanceM */, e.m_score, roadScore));
   }
 
   // Filling |allPaths| staring from |startLines| which have passed functional road class
@@ -214,8 +205,8 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
 
       // Road score for a path is minimum value of score of segments based on functional road class
       // of the segments and form of way of the segments.
-      q.emplace(make_shared<Link>(u, e, u->m_distanceM + currentEdgeLen, u->m_pointScore,
-                                  min(roadScore, u->m_minRoadScore)));
+      q.emplace(
+          make_shared<Link>(u, e, u->m_distanceM + currentEdgeLen, u->m_pointScore, min(roadScore, u->m_minRoadScore)));
     }
   }
 }
@@ -223,8 +214,7 @@ void ScoreCandidatePathsGetter::GetAllSuitablePaths(ScoreEdgeVec const & startLi
 void ScoreCandidatePathsGetter::GetBestCandidatePaths(vector<shared_ptr<Link>> const & allPaths,
                                                       LinearSegmentSource source, bool isLastPoint,
                                                       uint32_t requiredBearing, double bearDistM,
-                                                      m2::PointD const & startPoint,
-                                                      ScorePathVec & candidates)
+                                                      m2::PointD const & startPoint, ScorePathVec & candidates)
 {
   CHECK_NOT_EQUAL(source, LinearSegmentSource::NotValid, ());
   CHECK_LESS_OR_EQUAL(requiredBearing, 255, ());
@@ -269,8 +259,7 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(vector<shared_ptr<Link>> c
 
   size_t constexpr kMaxCandidates = 7;
   vector<CandidatePath> paths;
-  copy_n(candidatePaths.begin(), min(static_cast<size_t>(kMaxCandidates), candidatePaths.size()),
-         back_inserter(paths));
+  copy_n(candidatePaths.begin(), min(static_cast<size_t>(kMaxCandidates), candidatePaths.size()), back_inserter(paths));
 
   for (auto const & path : paths)
   {
@@ -285,12 +274,9 @@ void ScoreCandidatePathsGetter::GetBestCandidatePaths(vector<shared_ptr<Link>> c
   }
 }
 
-void ScoreCandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint const & p,
-                                                  LinearSegmentSource source,
-                                                  bool isLastPoint,
-                                                  double distanceToNextPointM,
-                                                  ScoreEdgeVec const & edgeCandidates,
-                                                  ScorePathVec & candidates)
+void ScoreCandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint const & p, LinearSegmentSource source,
+                                                  bool isLastPoint, double distanceToNextPointM,
+                                                  ScoreEdgeVec const & edgeCandidates, ScorePathVec & candidates)
 {
   double constexpr kDefaultBearDistM = 25.0;
   double const bearDistM = min(kDefaultBearDistM, distanceToNextPointM);
@@ -303,11 +289,10 @@ void ScoreCandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint
   auto const startPoint = mercator::FromLatLon(p.m_latLon);
 
   vector<shared_ptr<Link>> allPaths;
-  GetAllSuitablePaths(startLines, source, isLastPoint, bearDistM, p.m_functionalRoadClass,
-                      p.m_formOfWay, distanceToNextPointM, allPaths);
+  GetAllSuitablePaths(startLines, source, isLastPoint, bearDistM, p.m_functionalRoadClass, p.m_formOfWay,
+                      distanceToNextPointM, allPaths);
 
-  GetBestCandidatePaths(allPaths, source, isLastPoint, p.m_bearing, bearDistM, startPoint,
-                        candidates);
+  GetBestCandidatePaths(allPaths, source, isLastPoint, p.m_bearing, bearDistM, startPoint, candidates);
   // Sorting by increasing order.
   sort(candidates.begin(), candidates.end(),
        [](ScorePath const & s1, ScorePath const & s2) { return s1.m_score > s2.m_score; });
@@ -316,8 +301,8 @@ void ScoreCandidatePathsGetter::GetLineCandidates(openlr::LocationReferencePoint
 
 bool ScoreCandidatePathsGetter::GetBearingScore(BearingPointsSelector const & pointsSelector,
                                                 ScoreCandidatePathsGetter::Link const & part,
-                                                m2::PointD const & bearStartPoint,
-                                                uint32_t requiredBearing, Score & score)
+                                                m2::PointD const & bearStartPoint, uint32_t requiredBearing,
+                                                Score & score)
 {
   auto const bearEndPoint = pointsSelector.GetEndPoint(part.m_edge, part.m_distanceM);
 
@@ -333,8 +318,7 @@ bool ScoreCandidatePathsGetter::GetBearingScore(BearingPointsSelector const & po
 
   double constexpr kMaxScoreForBearing = 60.0;
   double constexpr kAngleDeviationFactor = 1.0 / 4.3;
-  score =
-      static_cast<Score>(kMaxScoreForBearing / (1.0 + angleDeviationDeg * kAngleDeviationFactor));
+  score = static_cast<Score>(kMaxScoreForBearing / (1.0 + angleDeviationDeg * kAngleDeviationFactor));
 
   return true;
 }

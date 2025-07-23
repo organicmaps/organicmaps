@@ -16,20 +16,37 @@ using namespace ::transit;
 
 // String dates are provided in GTFS date format YYYYMMDD.
 // String times are provided in GTFS time format HH:MM:SS.
-uint32_t GetYear(std::string const & date) { return std::stoi(date.substr(0, 4)); }
+uint32_t GetYear(std::string const & date)
+{
+  return std::stoi(date.substr(0, 4));
+}
 
-uint32_t GetMonth(std::string const & date) { return std::stoi(date.substr(4, 2)); }
+uint32_t GetMonth(std::string const & date)
+{
+  return std::stoi(date.substr(4, 2));
+}
 
-uint32_t GetDay(std::string const & date) { return std::stoi(date.substr(6)); }
+uint32_t GetDay(std::string const & date)
+{
+  return std::stoi(date.substr(6));
+}
 
-uint32_t GetHour(std::string const & time) { return std::stoi(time.substr(0, 2)); }
+uint32_t GetHour(std::string const & time)
+{
+  return std::stoi(time.substr(0, 2));
+}
 
-uint32_t GetMinute(std::string const & time) { return std::stoi(time.substr(3, 2)); }
+uint32_t GetMinute(std::string const & time)
+{
+  return std::stoi(time.substr(3, 2));
+}
 
-uint32_t GetSecond(std::string const & time) { return std::stoi(time.substr(6)); }
+uint32_t GetSecond(std::string const & time)
+{
+  return std::stoi(time.substr(6));
+}
 
-gtfs::Frequency GetFrequency(std::string const & startTime, std::string const & endTime,
-                             Frequency headwayS)
+gtfs::Frequency GetFrequency(std::string const & startTime, std::string const & endTime, Frequency headwayS)
 {
   gtfs::Frequency freq;
   freq.start_time = gtfs::Time(startTime);
@@ -41,8 +58,7 @@ gtfs::Frequency GetFrequency(std::string const & startTime, std::string const & 
 
 gtfs::CalendarAvailability GetAvailability(bool available)
 {
-  return available ? gtfs::CalendarAvailability::Available
-                   : gtfs::CalendarAvailability::NotAvailable;
+  return available ? gtfs::CalendarAvailability::Available : gtfs::CalendarAvailability::NotAvailable;
 }
 
 void TestDatesInterval(std::string const & date1, std::string const & date2, WeekSchedule weekDays)
@@ -115,33 +131,29 @@ void TestTimeInterval(std::string const & time1, std::string const & time2)
 
 UNIT_TEST(TransitSchedule_DatesInterval)
 {
-  TestDatesInterval(
-      "20200902", "20210531",
-      {
-          false /* sunday */, true /* monday */, false /* tuesday */, true /* wednesday */,
-          false /* thursday */, false /* friday */, false /* saturday */
-      });
+  TestDatesInterval("20200902", "20210531",
+                    {
+                        false /* sunday */, true /* monday */, false /* tuesday */, true /* wednesday */,
+                        false /* thursday */, false /* friday */, false /* saturday */
+                    });
 
-  TestDatesInterval(
-      "20201101", "20201130",
-      {
-          true /* sunday */, false /* monday */, false /* tuesday */, false /* wednesday */,
-          false /* thursday */, false /* friday */, true /* saturday */
-      });
+  TestDatesInterval("20201101", "20201130",
+                    {
+                        true /* sunday */, false /* monday */, false /* tuesday */, false /* wednesday */,
+                        false /* thursday */, false /* friday */, true /* saturday */
+                    });
 
-  TestDatesInterval(
-      "20210101", "20210228",
-      {
-          false /* sunday */, true /* monday */, true /* tuesday */, true /* wednesday */,
-          true /* thursday */, true /* friday */, false /* saturday */
-      });
+  TestDatesInterval("20210101", "20210228",
+                    {
+                        false /* sunday */, true /* monday */, true /* tuesday */, true /* wednesday */,
+                        true /* thursday */, true /* friday */, false /* saturday */
+                    });
 
-  TestDatesInterval(
-      "20220101", "20240101",
-      {
-          false /* sunday */, false /* monday */, false /* tuesday */, false /* wednesday */,
-          true /* thursday */, true /* friday */, true /* saturday */
-      });
+  TestDatesInterval("20220101", "20240101",
+                    {
+                        false /* sunday */, false /* monday */, false /* tuesday */, false /* wednesday */,
+                        true /* thursday */, true /* friday */, true /* saturday */
+                    });
 }
 
 UNIT_TEST(TransitSchedule_DateException)
@@ -222,14 +234,10 @@ UNIT_TEST(TransitSchedule_Schedule_DateException_Status)
   gtfs::Frequencies const emptyFrequencies;
 
   Schedule busSchedule;
-  busSchedule.AddDateException(gtfs::Date("20200606"), gtfs::CalendarDateException::Added,
-                               emptyFrequencies);
-  busSchedule.AddDateException(gtfs::Date("20200607"), gtfs::CalendarDateException::Removed,
-                               emptyFrequencies);
-  busSchedule.AddDateException(gtfs::Date("20211029"), gtfs::CalendarDateException::Added,
-                               emptyFrequencies);
-  busSchedule.AddDateException(gtfs::Date("20211128"), gtfs::CalendarDateException::Removed,
-                               emptyFrequencies);
+  busSchedule.AddDateException(gtfs::Date("20200606"), gtfs::CalendarDateException::Added, emptyFrequencies);
+  busSchedule.AddDateException(gtfs::Date("20200607"), gtfs::CalendarDateException::Removed, emptyFrequencies);
+  busSchedule.AddDateException(gtfs::Date("20211029"), gtfs::CalendarDateException::Added, emptyFrequencies);
+  busSchedule.AddDateException(gtfs::Date("20211128"), gtfs::CalendarDateException::Removed, emptyFrequencies);
 
   // 06.06.2020.
   TEST(busSchedule.GetStatus(time_t(1591438888)) == Status::Open, ());

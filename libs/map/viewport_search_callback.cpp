@@ -39,8 +39,8 @@ void ViewportSearchCallback::operator()(Results const & results)
   // clean up results.
 
   auto & delegate = m_delegate;
-  m_delegate.RunUITask([&delegate, results, onResults = m_onResults,
-                       firstCall = m_firstCall, lastResultsSize = m_lastResultsSize]() mutable
+  m_delegate.RunUITask([&delegate, results, onResults = m_onResults, firstCall = m_firstCall,
+                        lastResultsSize = m_lastResultsSize]() mutable
   {
     if (delegate.IsViewportSearchActive() &&
         (results.IsEndedNormal() || (!results.IsEndMarker() && results.GetCount() != 0)))

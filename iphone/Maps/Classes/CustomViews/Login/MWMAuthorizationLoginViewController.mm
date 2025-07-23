@@ -1,6 +1,6 @@
+#import "MWMAuthorizationLoginViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMAuthorizationLoginViewController.h"
 
 #include <CoreApi/Framework.h>
 
@@ -12,21 +12,21 @@ NSString * const kOSMAuthSegue = @"Authorization2OSMAuthorizationSegue";
 NSString * const kCancel = L(@"cancel");
 NSString * const kLogout = L(@"logout");
 NSString * const kRefresh = L(@"refresh");
-} // namespace
+}  // namespace
 
 using namespace osm;
 using namespace osm_auth_ios;
 
 @interface MWMAuthorizationLoginViewController ()
 
-@property (weak, nonatomic) IBOutlet UIView * authView;
-@property (weak, nonatomic) IBOutlet UIView * accountView;
+@property(weak, nonatomic) IBOutlet UIView * authView;
+@property(weak, nonatomic) IBOutlet UIView * accountView;
 
-@property (weak, nonatomic) IBOutlet UIButton * loginOSMButton;
-@property (weak, nonatomic) IBOutlet UIButton * signupButton;
+@property(weak, nonatomic) IBOutlet UIButton * loginOSMButton;
+@property(weak, nonatomic) IBOutlet UIButton * signupButton;
 
-@property (weak, nonatomic) IBOutlet UILabel * changesCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel * lastUpdateLabel;
+@property(weak, nonatomic) IBOutlet UILabel * changesCountLabel;
+@property(weak, nonatomic) IBOutlet UILabel * lastUpdateLabel;
 
 @end
 
@@ -61,7 +61,10 @@ using namespace osm_auth_ios;
   self.authView.hidden = YES;
   self.accountView.hidden = NO;
 
-  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"•••" style:UIBarButtonItemStylePlain target:self action:@selector(showActionSheet)];
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"•••"
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(showActionSheet)];
   [self refresh:NO];
 }
 
@@ -84,18 +87,12 @@ using namespace osm_auth_ios;
 
 - (IBAction)loginOSM
 {
-  [self performOnlineAction:^
-  {
-    [self performSegueWithIdentifier:kOSMAuthSegue sender:self.loginOSMButton];
-  }];
+  [self performOnlineAction:^{ [self performSegueWithIdentifier:kOSMAuthSegue sender:self.loginOSMButton]; }];
 }
 
 - (IBAction)signup
 {
-  [self performOnlineAction:^
-  {
-    [self openUrl:@(OsmOAuth::ServerAuth().GetRegistrationURL().c_str())];
-  }];
+  [self performOnlineAction:^{ [self openUrl:@(OsmOAuth::ServerAuth().GetRegistrationURL().c_str())]; }];
 }
 
 - (IBAction)osmTap
@@ -123,24 +120,17 @@ using namespace osm_auth_ios;
 
 - (void)showActionSheet
 {
-  UIAlertController * alertController =
-      [UIAlertController alertControllerWithTitle:nil
-                                          message:nil
-                                   preferredStyle:UIAlertControllerStyleActionSheet];
-  alertController.popoverPresentationController.barButtonItem =
-      self.navigationItem.rightBarButtonItem;
+  UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                            message:nil
+                                                                     preferredStyle:UIAlertControllerStyleActionSheet];
+  alertController.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
   [alertController addAction:[UIAlertAction actionWithTitle:kRefresh
                                                       style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction * action) {
-                                                      [self refresh:YES];
-                                                    }]];
+                                                    handler:^(UIAlertAction * action) { [self refresh:YES]; }]];
   [alertController addAction:[UIAlertAction actionWithTitle:kLogout
                                                       style:UIAlertActionStyleDestructive
-                                                    handler:^(UIAlertAction * action) {
-                                                      [self logout];
-                                                    }]];
-  [alertController
-      addAction:[UIAlertAction actionWithTitle:kCancel style:UIAlertActionStyleCancel handler:nil]];
+                                                    handler:^(UIAlertAction * action) { [self logout]; }]];
+  [alertController addAction:[UIAlertAction actionWithTitle:kCancel style:UIAlertActionStyleCancel handler:nil]];
 
   [self presentViewController:alertController animated:YES completion:nil];
 }

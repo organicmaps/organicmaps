@@ -1,8 +1,8 @@
 #include "iphone/Maps/Classes/MetalContextFactory.h"
 
 #include "drape/gl_functions.hpp"
-#include "drape/oglcontext.hpp"
 #include "drape/metal/metal_base_context.hpp"
+#include "drape/oglcontext.hpp"
 #include "drape/vulkan/vulkan_context_factory.hpp"
 
 #define GLFW_INCLUDE_NONE
@@ -28,21 +28,19 @@
 class MacOSVulkanContextFactory : public dp::vulkan::VulkanContextFactory
 {
 public:
-  MacOSVulkanContextFactory()
-    : dp::vulkan::VulkanContextFactory(1, 33, false) {}
+  MacOSVulkanContextFactory() : dp::vulkan::VulkanContextFactory(1, 33, false) {}
 
-  void SetSurface(CAMetalLayer *layer)
+  void SetSurface(CAMetalLayer * layer)
   {
     VkMacOSSurfaceCreateInfoMVK createInfo = {
-      .sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK,
-      .flags = 0,
-      .pView = static_cast<const void *>(CFBridgingRetain(layer)),
+        .sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK,
+        .flags = 0,
+        .pView = static_cast<void const *>(CFBridgingRetain(layer)),
     };
 
     VkResult statusCode;
     CHECK(vkCreateMacOSSurfaceMVK, ());
-    statusCode = vkCreateMacOSSurfaceMVK(m_vulkanInstance, &createInfo, nullptr,
-                                          &m_surface);
+    statusCode = vkCreateMacOSSurfaceMVK(m_vulkanInstance, &createInfo, nullptr, &m_surface);
     if (statusCode != VK_SUCCESS)
     {
       LOG_ERROR_VK_CALL(vkCreateMacOSSurfaceMVK, statusCode);
@@ -77,27 +75,24 @@ public:
 class MacGLContext : public dp::OGLContext
 {
 public:
-  MacGLContext(MacGLContext * contextToShareWith)
-    : m_viewSet(false)
+  MacGLContext(MacGLContext * contextToShareWith) : m_viewSet(false)
   {
-    NSOpenGLPixelFormatAttribute attributes[] = {
-      NSOpenGLPFAAccelerated,
-      NSOpenGLPFAOpenGLProfile,
-      NSOpenGLProfileVersion4_1Core,
-      NSOpenGLPFADoubleBuffer,
-      NSOpenGLPFAColorSize,
-      24,
-      NSOpenGLPFAAlphaSize,
-      8,
-      NSOpenGLPFADepthSize,
-      24,
-      NSOpenGLPFAStencilSize,
-      8,
-      0
-    };
+    NSOpenGLPixelFormatAttribute attributes[] = {NSOpenGLPFAAccelerated,
+                                                 NSOpenGLPFAOpenGLProfile,
+                                                 NSOpenGLProfileVersion4_1Core,
+                                                 NSOpenGLPFADoubleBuffer,
+                                                 NSOpenGLPFAColorSize,
+                                                 24,
+                                                 NSOpenGLPFAAlphaSize,
+                                                 8,
+                                                 NSOpenGLPFADepthSize,
+                                                 24,
+                                                 NSOpenGLPFAStencilSize,
+                                                 8,
+                                                 0};
     m_pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attributes];
     CHECK(m_pixelFormat, ("Pixel format is not found"));
-    m_context = [[NSOpenGLContext alloc] initWithFormat:m_pixelFormat 
+    m_context = [[NSOpenGLContext alloc] initWithFormat:m_pixelFormat
                                            shareContext:(contextToShareWith ? contextToShareWith->m_context : nil)];
     int interval = 1;
     [m_context getValues:&interval forParameter:NSOpenGLContextParameterSwapInterval];
@@ -105,7 +100,8 @@ public:
 
   ~MacGLContext()
   {
-    @autoreleasepool {
+    @autoreleasepool
+    {
       [m_context clearDrawable];
       m_pixelFormat = nil;
       m_context = nil;
@@ -123,15 +119,9 @@ public:
     }
   }
 
-  void MakeCurrent() override
-  {
-    [m_context makeCurrentContext];
-  }
+  void MakeCurrent() override { [m_context makeCurrentContext]; }
 
-  void DoneCurrent() override
-  {
-    [NSOpenGLContext clearCurrentContext];
-  }
+  void DoneCurrent() override { [NSOpenGLContext clearCurrentContext]; }
 
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override
   {
@@ -141,9 +131,9 @@ public:
       GLFunctions::glBindFramebuffer(0);
   }
 
-  void SetView(NSView* view)
+  void SetView(NSView * view)
   {
-    [m_context setView: view];
+    [m_context setView:view];
     [m_context update];
     m_viewSet = true;
   }
@@ -156,13 +146,13 @@ public:
 
 private:
   NSOpenGLPixelFormat * m_pixelFormat = nil;
-  NSOpenGLContext* m_context = nil;
+  NSOpenGLContext * m_context = nil;
   std::atomic<bool> m_viewSet;
 
   std::mutex m_updateSizeMutex;
 };
 
-class MacGLContextFactory: public dp::GraphicsContextFactory
+class MacGLContextFactory : public dp::GraphicsContextFactory
 {
 public:
   dp::GraphicsContext * GetDrawContext() override
@@ -210,18 +200,18 @@ public:
   }
 
   bool IsDrawContextCreated() const override
-  { 
+  {
     std::lock_guard<std::mutex> lock(m_contextAccess);
-    return m_drawContext != nullptr; 
+    return m_drawContext != nullptr;
   }
 
-  bool IsUploadContextCreated() const override 
+  bool IsUploadContextCreated() const override
   {
     std::lock_guard<std::mutex> lock(m_contextAccess);
     return m_uploadContext != nullptr;
   }
 
-  void SetView(NSView* view)
+  void SetView(NSView * view)
   {
     bool needWait;
     {
@@ -245,7 +235,7 @@ public:
     if (m_drawContext)
       m_drawContext->UpdateSize(w, h);
   }
-  
+
 private:
   void NotifyView()
   {
@@ -271,17 +261,17 @@ private:
   std::mutex m_viewSetMutex;
 };
 
-drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow *window, dp::ApiVersion api, m2::PointU size) 
+drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, dp::ApiVersion api, m2::PointU size)
 {
-  if (api == dp::ApiVersion::Metal) 
+  if (api == dp::ApiVersion::Metal)
   {
-    CAMetalLayer *layer = [CAMetalLayer layer];
+    CAMetalLayer * layer = [CAMetalLayer layer];
     layer.device = MTLCreateSystemDefaultDevice();
     layer.opaque = YES;
     layer.displaySyncEnabled = YES;
 
-    NSWindow *nswindow = glfwGetCocoaWindow(window);
-    NSScreen *screen = [NSScreen mainScreen];
+    NSWindow * nswindow = glfwGetCocoaWindow(window);
+    NSScreen * screen = [NSScreen mainScreen];
     CGFloat factor = [screen backingScaleFactor];
     layer.contentsScale = factor;
     nswindow.contentView.layer = layer;
@@ -290,15 +280,15 @@ drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow *window, d
     return make_unique_dp<MetalContextFactory>(layer, size);
   }
 
-  if (api == dp::ApiVersion::Vulkan) 
+  if (api == dp::ApiVersion::Vulkan)
   {
-    CAMetalLayer *layer = [CAMetalLayer layer];
+    CAMetalLayer * layer = [CAMetalLayer layer];
     layer.device = MTLCreateSystemDefaultDevice();
     layer.opaque = YES;
     layer.displaySyncEnabled = YES;
 
-    NSWindow *nswindow = glfwGetCocoaWindow(window);
-    NSScreen *screen = [NSScreen mainScreen];
+    NSWindow * nswindow = glfwGetCocoaWindow(window);
+    NSScreen * screen = [NSScreen mainScreen];
     CGFloat factor = [screen backingScaleFactor];
     layer.contentsScale = factor;
     nswindow.contentView.layer = layer;
@@ -309,9 +299,9 @@ drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow *window, d
     return contextFactory;
   }
 
-  if (api == dp::ApiVersion::OpenGLES3) 
+  if (api == dp::ApiVersion::OpenGLES3)
   {
-    NSWindow *nswindow = glfwGetCocoaWindow(window);
+    NSWindow * nswindow = glfwGetCocoaWindow(window);
     [nswindow.contentView setWantsBestResolutionOpenGLSurface:YES];
     return make_unique_dp<MacGLContextFactory>();
   }
@@ -320,25 +310,24 @@ drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow *window, d
   return nullptr;
 }
 
-void OnCreateDrapeEngine(GLFWwindow *window, dp::ApiVersion api, 
-                         ref_ptr<dp::GraphicsContextFactory> contextFactory)
+void OnCreateDrapeEngine(GLFWwindow * window, dp::ApiVersion api, ref_ptr<dp::GraphicsContextFactory> contextFactory)
 {
-  if (api == dp::ApiVersion::OpenGLES3) 
+  if (api == dp::ApiVersion::OpenGLES3)
   {
-    NSWindow *nswindow = glfwGetCocoaWindow(window);
+    NSWindow * nswindow = glfwGetCocoaWindow(window);
     ref_ptr<MacGLContextFactory> macosContextFactory = contextFactory;
     macosContextFactory->SetView(nswindow.contentView);
   }
 }
 
-void PrepareDestroyContextFactory(ref_ptr<dp::GraphicsContextFactory> contextFactory) 
+void PrepareDestroyContextFactory(ref_ptr<dp::GraphicsContextFactory> contextFactory)
 {
   auto const api = contextFactory->GetDrawContext()->GetApiVersion();
-  if (api == dp::ApiVersion::Metal || api == dp::ApiVersion::OpenGLES3) 
+  if (api == dp::ApiVersion::Metal || api == dp::ApiVersion::OpenGLES3)
   {
     // Do nothing
   }
-  else if (api == dp::ApiVersion::Vulkan) 
+  else if (api == dp::ApiVersion::Vulkan)
   {
     ref_ptr<MacOSVulkanContextFactory> macosContextFactory = contextFactory;
     macosContextFactory->ResetSurface();
@@ -349,20 +338,20 @@ void PrepareDestroyContextFactory(ref_ptr<dp::GraphicsContextFactory> contextFac
   }
 }
 
-void UpdateContentScale(GLFWwindow *window, float scale) 
+void UpdateContentScale(GLFWwindow * window, float scale)
 {
-  NSWindow *nswindow = glfwGetCocoaWindow(window);
+  NSWindow * nswindow = glfwGetCocoaWindow(window);
   if (nswindow.contentView.layer)
     nswindow.contentView.layer.contentsScale = scale;
 }
 
-void UpdateSize(ref_ptr<dp::GraphicsContextFactory> contextFactory, int w, int h) 
+void UpdateSize(ref_ptr<dp::GraphicsContextFactory> contextFactory, int w, int h)
 {
   if (!contextFactory || !contextFactory->GetDrawContext())
     return;
 
   auto const api = contextFactory->GetDrawContext()->GetApiVersion();
-  if (api == dp::ApiVersion::OpenGLES3) 
+  if (api == dp::ApiVersion::OpenGLES3)
   {
     ref_ptr<MacGLContextFactory> macosContextFactory = contextFactory;
     macosContextFactory->UpdateSize(w, h);

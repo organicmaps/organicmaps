@@ -157,16 +157,12 @@ void SearchPanel::OnEverywhereSearchResults(uint64_t timestamp, search::Results 
     switch (res.GetResultType())
     {
     case search::Result::Type::SuggestFromFeature:
-    case search::Result::Type::PureSuggest:
-      showDistance = false;
-      break;
+    case search::Result::Type::PureSuggest: showDistance = false; break;
     case search::Result::Type::Feature:
     case search::Result::Type::Postcode:
       m_pTable->setItem(rowCount, 0, CreateItem(res.GetLocalizedFeatureType()));
       break;
-    case search::Result::Type::LatLon:
-      m_pTable->setItem(rowCount, 0, CreateItem("LatLon"));
-      break;
+    case search::Result::Type::LatLon: m_pTable->setItem(rowCount, 0, CreateItem("LatLon")); break;
     }
 
     if (showDistance)
@@ -213,7 +209,7 @@ std::string SearchPanel::GetCurrentInputLocale()
 {
   /// @DebugNote
   // Hardcode search input language.
-  //return "de";
+  // return "de";
 
   QString loc = QGuiApplication::inputMethod()->locale().name();
   loc.replace('_', '-');
@@ -227,7 +223,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 {
   // Pass input query as-is without any normalization.
   // Otherwise № -> No, and it's unexpectable for the search index.
-  //QString const normalized = str.normalized(QString::NormalizationForm_KC);
+  // QString const normalized = str.normalized(QString::NormalizationForm_KC);
   std::string const normalized = str.toStdString();
 
   if (Try3dModeCmd(normalized))
@@ -252,42 +248,37 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   using namespace search;
   if (m_mode == Mode::Everywhere)
   {
-    EverywhereSearchParams params
-    {
-      normalized, GetCurrentInputLocale(), {} /* timeout */, isCategory,
-      // m_onResults
-      [this, timestamp](Results results, std::vector<ProductInfo> /* productInfo */)
-      {
-        OnEverywhereSearchResults(timestamp, std::move(results));
-      }
-    };
+    EverywhereSearchParams params{normalized,
+                                  GetCurrentInputLocale(),
+                                  {} /* timeout */,
+                                  isCategory,
+                                  // m_onResults
+                                  [this, timestamp](Results results, std::vector<ProductInfo> /* productInfo */)
+    { OnEverywhereSearchResults(timestamp, std::move(results)); }};
 
     if (GetFramework().GetSearchAPI().SearchEverywhere(std::move(params)))
       StartBusyIndicator();
   }
   else if (m_mode == Mode::Viewport)
   {
-    ViewportSearchParams params
+    ViewportSearchParams params{normalized,
+                                GetCurrentInputLocale(),
+                                {} /* timeout */,
+                                isCategory,
+                                // m_onStarted
+                                [this]() { StartBusyIndicator(); },
+                                // m_onCompleted
+                                [this](search::Results results)
     {
-      normalized, GetCurrentInputLocale(), {} /* timeout */, isCategory,
-      // m_onStarted
-      [this]()
-      {
-        StartBusyIndicator();
-      },
-      // m_onCompleted
-      [this](search::Results results)
-      {
-        // |m_pTable| is not updated here because the OnResults callback is recreated within
-        // SearchAPI when the viewport is changed. Thus a single call to SearchInViewport may
-        // initiate an arbitrary amount of actual search requests with different viewports, and
-        // clearing the table would require additional care (or, most likely, we would need a better
-        // API). This is similar to the Android and iOS clients where we do not show the list of
-        // results in the viewport search mode.
-        GetFramework().FillSearchResultsMarks(true /* clear */, results);
-        StopBusyIndicator();
-      }
-    };
+      // |m_pTable| is not updated here because the OnResults callback is recreated within
+      // SearchAPI when the viewport is changed. Thus a single call to SearchInViewport may
+      // initiate an arbitrary amount of actual search requests with different viewports, and
+      // clearing the table would require additional care (or, most likely, we would need a better
+      // API). This is similar to the Android and iOS clients where we do not show the list of
+      // results in the viewport search mode.
+      GetFramework().FillSearchResultsMarks(true /* clear */, results);
+      StopBusyIndicator();
+    }};
 
     GetFramework().GetSearchAPI().SearchInViewport(std::move(params));
   }
@@ -299,10 +290,8 @@ void SearchPanel::OnSearchModeChanged(int mode)
   switch (newMode)
   {
   case search::Mode::Everywhere:
-  case search::Mode::Viewport:
-    break;
-  default:
-    UNREACHABLE();
+  case search::Mode::Viewport: break;
+  default: UNREACHABLE();
   }
 
   if (m_mode == newMode)

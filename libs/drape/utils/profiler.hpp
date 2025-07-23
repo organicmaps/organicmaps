@@ -6,9 +6,9 @@
 #include <array>
 #include <chrono>
 #include <cstdint>
+#include <map>
 #include <sstream>
 #include <string>
-#include <map>
 
 namespace dp
 {
@@ -66,11 +66,7 @@ protected:
 class ProfilerGuard
 {
 public:
-  ProfilerGuard(std::string const & name)
-    : m_name(name)
-  {
-    m_start = std::chrono::steady_clock::now();
-  }
+  ProfilerGuard(std::string const & name) : m_name(name) { m_start = std::chrono::steady_clock::now(); }
 
   ~ProfilerGuard()
   {
@@ -80,10 +76,7 @@ public:
       Profiler::Instance().Measure(m_name, ms);
   }
 
-  void Skip()
-  {
-    m_skipped = true;
-  }
+  void Skip() { m_skipped = true; }
 
 private:
   std::string m_name;

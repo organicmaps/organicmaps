@@ -16,8 +16,7 @@ namespace vulkan
 class VulkanStagingBuffer
 {
 public:
-  VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectManager,
-                      uint32_t sizeInBytes);
+  VulkanStagingBuffer(ref_ptr<VulkanObjectManager> objectManager, uint32_t sizeInBytes);
   ~VulkanStagingBuffer();
 
   struct StagingData

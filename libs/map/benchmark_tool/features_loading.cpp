@@ -20,84 +20,84 @@ namespace bench
 {
 namespace
 {
-  class Accumulator
-  {
-  public:
-    explicit Accumulator(Result & res) : m_res(res) {}
+class Accumulator
+{
+public:
+  explicit Accumulator(Result & res) : m_res(res) {}
 
-    void Reset(int scale)
+  void Reset(int scale)
+  {
+    m_scale = scale;
+    m_count = 0;
+  }
+
+  bool IsEmpty() const { return m_count == 0; }
+
+  void operator()(FeatureType & ft)
+  {
+    ++m_count;
+
+    m_timer.Reset();
+
+    drule::KeysT keys;
+    UNUSED_VALUE(feature::GetDrawRule(feature::TypesHolder(ft), m_scale, keys));
+
+    if (!keys.empty())
     {
-      m_scale = scale;
-      m_count = 0;
+      // Call this function to load feature's inner data and geometry.
+      UNUSED_VALUE(ft.IsEmptyGeometry(m_scale));
     }
 
-    bool IsEmpty() const { return m_count == 0; }
+    m_res.Add(m_timer.ElapsedSeconds());
+  }
 
-    void operator()(FeatureType & ft)
+private:
+  base::Timer m_timer;
+  size_t m_count = 0;
+
+  Result & m_res;
+
+  int m_scale = 0;
+};
+
+void RunBenchmark(FeaturesFetcher const & src, m2::RectD const & rect, pair<int, int> const & scaleRange,
+                  AllResult & res)
+{
+  ASSERT_LESS_OR_EQUAL(scaleRange.first, scaleRange.second, ());
+
+  vector<m2::RectD> rects;
+  rects.push_back(rect);
+
+  Accumulator acc(res.m_reading);
+
+  while (!rects.empty())
+  {
+    m2::RectD const r = rects.back();
+    rects.pop_back();
+
+    bool doDivide = true;
+    int const scale = scales::GetScaleLevel(r);
+    if (scale >= scaleRange.first)
     {
-      ++m_count;
+      acc.Reset(scale);
 
-      m_timer.Reset();
+      base::Timer timer;
+      src.ForEachFeature(r, acc, scale);
+      res.Add(timer.ElapsedSeconds());
 
-      drule::KeysT keys;
-      UNUSED_VALUE(feature::GetDrawRule(feature::TypesHolder(ft), m_scale, keys));
-
-      if (!keys.empty())
-      {
-        // Call this function to load feature's inner data and geometry.
-        UNUSED_VALUE(ft.IsEmptyGeometry(m_scale));
-      }
-
-      m_res.Add(m_timer.ElapsedSeconds());
+      doDivide = !acc.IsEmpty();
     }
 
-  private:
-    base::Timer m_timer;
-    size_t m_count = 0;
-
-    Result & m_res;
-
-    int m_scale = 0;
-  };
-
-  void RunBenchmark(FeaturesFetcher const & src, m2::RectD const & rect,
-                    pair<int, int> const & scaleRange, AllResult & res)
-  {
-    ASSERT_LESS_OR_EQUAL(scaleRange.first, scaleRange.second, ());
-
-    vector<m2::RectD> rects;
-    rects.push_back(rect);
-
-    Accumulator acc(res.m_reading);
-
-    while (!rects.empty())
+    if (doDivide && scale < scaleRange.second)
     {
-      m2::RectD const r = rects.back();
-      rects.pop_back();
-
-      bool doDivide = true;
-      int const scale = scales::GetScaleLevel(r);
-      if (scale >= scaleRange.first)
-      {
-        acc.Reset(scale);
-
-        base::Timer timer;
-        src.ForEachFeature(r, acc, scale);
-        res.Add(timer.ElapsedSeconds());
-
-        doDivide = !acc.IsEmpty();
-      }
-
-      if (doDivide && scale < scaleRange.second)
-      {
-        m2::RectD r1, r2;
-        r.DivideByGreaterSize(r1, r2);
-        rects.push_back(r1);
-        rects.push_back(r2);
-      }
+      m2::RectD r1, r2;
+      r.DivideByGreaterSize(r1, r2);
+      rects.push_back(r1);
+      rects.push_back(r2);
     }
   }
 }
+}  // namespace
 
 void RunFeaturesLoadingBenchmark(string fileName, pair<int, int> scaleRange, AllResult & res)
 {

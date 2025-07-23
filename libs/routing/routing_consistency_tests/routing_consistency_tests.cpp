@@ -1,5 +1,5 @@
-#include "testing/testing.hpp"
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
+#include "testing/testing.hpp"
 
 #include "generator/borders.hpp"
 
@@ -25,11 +25,14 @@ using namespace std;
 using storage::CountryInfo;
 
 double constexpr kMinimumRouteDistanceM = 10000.;
-double constexpr kRouteLengthAccuracy =  0.15;
+double constexpr kRouteLengthAccuracy = 0.15;
 
 // Testing stub to make routing test tools linkable.
 static CommandLineOptions g_options;
-CommandLineOptions const & GetTestingOptions() { return g_options; }
+CommandLineOptions const & GetTestingOptions()
+{
+  return g_options;
+}
 
 DEFINE_string(input_file, "", "File with statistics output.");
 DEFINE_string(data_path, "../../data/", "Working directory, 'path_to_exe/../../data' if empty.");
@@ -82,9 +85,7 @@ bool ParseUserString(string const & incomeString, UserRoutingRecord & result)
 class RouteTester
 {
 public:
-  RouteTester() : m_components(integration::GetVehicleComponents(VehicleType::Car))
-  {
-  }
+  RouteTester() : m_components(integration::GetVehicleComponents(VehicleType::Car)) {}
 
   bool BuildRoute(UserRoutingRecord const & record)
   {
@@ -139,13 +140,11 @@ public:
     LOG(LINFO, ("Checked", m_checkedCountries.size(), "countries."));
     LOG(LINFO, ("Found", m_errors.size(), "maps with errors."));
     for (auto const & record : m_errors)
-    {
       if (record.second == m_checkedCountries[record.first])
         LOG(LINFO, ("ERROR!", record.first, " seems to be broken!"));
       else
         LOG(LINFO, ("Warning! Country:", record.first, "has", record.second, "errors on",
                     m_checkedCountries[record.first], "checks"));
-    }
   }
 
 private:
@@ -194,6 +193,9 @@ int RunRoutingConsistencyTests(int argc, char ** argv)
 
   return 0;
 }
-}  // namespace testingmain routing_consistency_tests
+}  // namespace routing_consistency_tests
 
-int main(int argc, char ** argv) { return ::routing_consistency_tests::RunRoutingConsistencyTests(argc, argv); }
+int main(int argc, char ** argv)
+{
+  return ::routing_consistency_tests::RunRoutingConsistencyTests(argc, argv);
+}

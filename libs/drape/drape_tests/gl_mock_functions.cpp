@@ -2,7 +2,7 @@
 
 namespace emul
 {
-void GLMockFunctions::Init(int * argc, char **argv)
+void GLMockFunctions::Init(int * argc, char ** argv)
 {
   ::testing::InitGoogleMock(argc, argv);
   m_mock = new GLMockFunctions();

@@ -11,8 +11,8 @@ namespace dp
 {
 namespace vulkan
 {
-VulkanGPUBuffer::VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const * data,
-                                 uint8_t elementSize, uint32_t capacity, uint64_t batcherHash)
+VulkanGPUBuffer::VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const * data, uint8_t elementSize,
+                                 uint32_t capacity, uint64_t batcherHash)
   : BufferBase(elementSize, capacity)
   , m_batcherHash(batcherHash)
 {
@@ -26,8 +26,7 @@ VulkanGPUBuffer::~VulkanGPUBuffer()
   m_objectManager->DestroyObject(m_geometryBuffer);
 }
 
-void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t elementOffset,
-                            uint32_t elementCount)
+void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t elementOffset, uint32_t elementCount)
 {
   CHECK(m_objectManager != nullptr, ());
 
@@ -54,8 +53,7 @@ void * VulkanGPUBuffer::Map(ref_ptr<VulkanBaseContext> context, uint32_t element
   return data.m_pointer;
 }
 
-void VulkanGPUBuffer::UpdateData(void * gpuPtr, void const * data,
-                                 uint32_t elementOffset, uint32_t elementCount)
+void VulkanGPUBuffer::UpdateData(void * gpuPtr, void const * data, uint32_t elementOffset, uint32_t elementCount)
 {
   CHECK(gpuPtr != nullptr, ());
   CHECK(m_stagingBufferRef != nullptr, ());
@@ -70,10 +68,9 @@ void VulkanGPUBuffer::UpdateData(void * gpuPtr, void const * data,
   copyRegion.srcOffset = baseSrcOffset + byteOffset;
   copyRegion.size = byteCount;
 
-  m_mappingByteOffsetMin = std::min(m_mappingByteOffsetMin,
-                                    static_cast<uint32_t>(copyRegion.dstOffset));
-  m_mappingByteOffsetMax = std::max(m_mappingByteOffsetMax,
-                                    static_cast<uint32_t>(copyRegion.dstOffset + copyRegion.size));
+  m_mappingByteOffsetMin = std::min(m_mappingByteOffsetMin, static_cast<uint32_t>(copyRegion.dstOffset));
+  m_mappingByteOffsetMax =
+      std::max(m_mappingByteOffsetMax, static_cast<uint32_t>(copyRegion.dstOffset + copyRegion.size));
 
   m_regionsToCopy.push_back(std::move(copyRegion));
 }
@@ -97,8 +94,7 @@ void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
   VkBufferMemoryBarrier barrier = {};
   barrier.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
   barrier.pNext = nullptr;
-  barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT | 
-                          VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT | VK_ACCESS_INDEX_READ_BIT;
+  barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT | VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT | VK_ACCESS_INDEX_READ_BIT;
   barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
   barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
   barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
@@ -106,9 +102,8 @@ void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
   barrier.offset = m_mappingByteOffsetMin;
   barrier.size = m_mappingByteOffsetMax - m_mappingByteOffsetMin;
   vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT | VK_PIPELINE_STAGE_TRANSFER_BIT,
-                        VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr,
-                        1, &barrier, 0, nullptr);
-                         
+                       VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 1, &barrier, 0, nullptr);
+
   // Schedule command to copy from the staging buffer to the geometry buffer.
   vkCmdCopyBuffer(commandBuffer, stagingBuffer, m_geometryBuffer.m_buffer,
                   static_cast<uint32_t>(m_regionsToCopy.size()), m_regionsToCopy.data());
@@ -116,24 +111,22 @@ void VulkanGPUBuffer::Unmap(ref_ptr<VulkanBaseContext> context)
   // Set up barriers to prevent data collisions (read-after-write).
   barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
   barrier.dstAccessMask = VK_ACCESS_INDEX_READ_BIT | VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT;
-  vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT,
-                       VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, 0, 0, nullptr,
+  vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, 0, 0, nullptr,
                        1, &barrier, 0, nullptr);
 
   m_mappingByteOffset = 0;
   m_regionsToCopy.clear();
 }
 
-void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * data,
-                             uint32_t elementCount)
+void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * data, uint32_t elementCount)
 {
   BufferBase::Resize(elementCount);
 
   m_objectManager = context->GetObjectManager();
   uint32_t const sizeInBytes = GetCapacity() * GetElementSize();
 
-  m_geometryBuffer = m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry,
-                                                   sizeInBytes, m_batcherHash);
+  m_geometryBuffer =
+      m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry, sizeInBytes, m_batcherHash);
   m_objectManager->Fill(m_geometryBuffer, data, sizeInBytes);
 
   // If we have already set up data, we have to call SetDataSize.
@@ -141,10 +134,9 @@ void VulkanGPUBuffer::Resize(ref_ptr<VulkanBaseContext> context, void const * da
     SetDataSize(elementCount);
 }
 }  // namespace vulkan
-  
+
 drape_ptr<DataBufferBase> DataBuffer::CreateImplForVulkan(ref_ptr<GraphicsContext> context, void const * data,
-                                                          uint8_t elementSize, uint32_t capacity,
-                                                          uint64_t batcherHash)
+                                                          uint8_t elementSize, uint32_t capacity, uint64_t batcherHash)
 {
   return make_unique_dp<vulkan::VulkanGpuBufferImpl>(context, data, elementSize, capacity, batcherHash);
 }

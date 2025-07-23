@@ -13,8 +13,8 @@
 
 #include "base/logging.hpp"
 
-#include <array>
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <utility>
 
@@ -32,45 +32,35 @@ int constexpr kOutlineMinZoomLevel = 14;
 
 float const kTrafficArrowAspect = 128.0f / 8.0f;
 
-std::array<float, 20> const kLeftWidthInPixel =
-{
-  // 1   2     3     4     5     6     7     8     9    10
-  0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,
-  //11   12    13   14    15    16    17   18     19    20
-  0.5f, 0.5f, 0.5f, 0.6f, 1.6f, 2.7f, 3.5f, 4.0f, 4.0f, 4.0f
-};
+std::array<float, 20> const kLeftWidthInPixel = {
+    // 1   2     3     4     5     6     7     8     9    10
+    0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,
+    // 11   12    13   14    15    16    17   18     19    20
+    0.5f, 0.5f, 0.5f, 0.6f, 1.6f, 2.7f, 3.5f, 4.0f, 4.0f, 4.0f};
 
-std::array<float, 20> const kRightWidthInPixel =
-{
-  // 1   2     3     4     5     6     7     8     9    10
-  2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.5f, 3.0f, 3.0f,
-  //11  12    13    14    15    16    17    18    19     20
-  3.0f, 3.5f, 4.0f, 3.9f, 3.2f, 2.7f, 3.5f, 4.0f, 4.0f, 4.0f
-};
+std::array<float, 20> const kRightWidthInPixel = {
+    // 1   2     3     4     5     6     7     8     9    10
+    2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.5f, 3.0f, 3.0f,
+    // 11  12    13    14    15    16    17    18    19     20
+    3.0f, 3.5f, 4.0f, 3.9f, 3.2f, 2.7f, 3.5f, 4.0f, 4.0f, 4.0f};
 
-std::array<float, 20> const kRoadClass1WidthScalar =
-{
-  // 1   2     3     4     5     6     7     8     9    10
-  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3,
-  //11  12    13    14    15    16    17    18    19     20
-  0.3, 0.35f, 0.45f, 0.55f, 0.6f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f
-};
+std::array<float, 20> const kRoadClass1WidthScalar = {
+    // 1   2     3     4     5     6     7     8     9    10
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3,
+    // 11  12    13    14    15    16    17    18    19     20
+    0.3, 0.35f, 0.45f, 0.55f, 0.6f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f};
 
-std::array<float, 20> const kRoadClass2WidthScalar =
-{
-  // 1   2     3     4     5     6     7     8     9     10
-  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3f,
-  //11  12    13    14    15     16   17    18    19    20
-  0.3f, 0.3f, 0.3f, 0.4f, 0.5f, 0.5f, 0.65f, 0.85f, 0.95f, 1.0f
-};
+std::array<float, 20> const kRoadClass2WidthScalar = {
+    // 1   2     3     4     5     6     7     8     9     10
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3f,
+    // 11  12    13    14    15     16   17    18    19    20
+    0.3f, 0.3f, 0.3f, 0.4f, 0.5f, 0.5f, 0.65f, 0.85f, 0.95f, 1.0f};
 
-std::array<float, 20> const kTwoWayOffsetInPixel =
-{
-  // 1   2     3     4     5     6     7     8     9     10
-  0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-  //11  12    13    14    15     16   17    18    19    20
-  0.0f, 0.5f, 0.5f, 0.75f, 1.7f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f
-};
+std::array<float, 20> const kTwoWayOffsetInPixel = {
+    // 1   2     3     4     5     6     7     8     9     10
+    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    // 11  12    13    14    15     16   17    18    19    20
+    0.0f, 0.5f, 0.5f, 0.75f, 1.7f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f};
 
 std::array<int, 3> const kLineDrawerRoadClass1 = {12, 13, 14};
 
@@ -94,17 +84,14 @@ float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass,
 }
 }  // namespace
 
-void TrafficRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context,
-                                    ref_ptr<gpu::ProgramManager> mng,
+void TrafficRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                                     TrafficRenderData && renderData)
 {
   // Remove obsolete render data.
   TileKey const tileKey(renderData.m_tileKey);
-  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(),
-                                    [&tileKey](TrafficRenderData const & rd)
-  {
-    return tileKey == rd.m_tileKey && rd.m_tileKey.m_generation < tileKey.m_generation;
-  }), m_renderData.end());
+  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(), [&tileKey](TrafficRenderData const & rd)
+  { return tileKey == rd.m_tileKey && rd.m_tileKey.m_generation < tileKey.m_generation; }),
+                     m_renderData.end());
 
   // Add new render data.
   m_renderData.emplace_back(std::move(renderData));
@@ -125,23 +112,23 @@ void TrafficRenderer::OnUpdateViewport(CoverageResult const & coverage, int curr
   {
     return rd.m_tileKey.m_zoomLevel == currentZoomLevel &&
            (rd.m_tileKey.m_x < coverage.m_minTileX || rd.m_tileKey.m_x >= coverage.m_maxTileX ||
-           rd.m_tileKey.m_y < coverage.m_minTileY || rd.m_tileKey.m_y >= coverage.m_maxTileY ||
-           base::IsExist(tilesToDelete, rd.m_tileKey));
-  }), m_renderData.end());
+            rd.m_tileKey.m_y < coverage.m_minTileY || rd.m_tileKey.m_y >= coverage.m_maxTileY ||
+            base::IsExist(tilesToDelete, rd.m_tileKey));
+  }),
+                     m_renderData.end());
 }
 
 void TrafficRenderer::OnGeometryReady(int currentZoomLevel)
 {
-  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(),
-                                    [&currentZoomLevel](TrafficRenderData const & rd)
-  {
-    return rd.m_tileKey.m_zoomLevel != currentZoomLevel;
-  }), m_renderData.end());
+  m_renderData.erase(
+      std::remove_if(m_renderData.begin(), m_renderData.end(), [&currentZoomLevel](TrafficRenderData const & rd)
+  { return rd.m_tileKey.m_zoomLevel != currentZoomLevel; }),
+      m_renderData.end());
 }
 
-void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context,
-                                    ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-                                    int zoomLevel, float opacity, FrameValues const & frameValues)
+void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                    ScreenBase const & screen, int zoomLevel, float opacity,
+                                    FrameValues const & frameValues)
 {
   if (m_renderData.empty() || zoomLevel < kRoadClass0ZoomLevel)
     return;
@@ -215,11 +202,9 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context,
       if (zoomLevel < visibleZoomLevel)
         continue;
 
-      float const leftPixelHalfWidth =
-          CalculateHalfWidth(screen, renderData.m_roadClass, true /* left */);
+      float const leftPixelHalfWidth = CalculateHalfWidth(screen, renderData.m_roadClass, true /* left */);
       float const invLeftPixelLength = 1.0f / (2.0f * leftPixelHalfWidth * kTrafficArrowAspect);
-      float const rightPixelHalfWidth =
-          CalculateHalfWidth(screen, renderData.m_roadClass, false /* left */);
+      float const rightPixelHalfWidth = CalculateHalfWidth(screen, renderData.m_roadClass, false /* left */);
       float const kEps = 1e-5;
       if (fabs(leftPixelHalfWidth) < kEps && fabs(rightPixelHalfWidth) < kEps)
         continue;
@@ -255,8 +240,7 @@ void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)
 {
   auto removePredicate = [&mwmId](TrafficRenderData const & data) { return data.m_mwmId == mwmId; };
 
-  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(), removePredicate),
-                                    m_renderData.end());
+  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(), removePredicate), m_renderData.end());
 }
 
 // static
@@ -272,9 +256,7 @@ float TrafficRenderer::GetTwoWayOffset(RoadClass const & roadClass, int zoomLeve
   ASSERT_LESS_OR_EQUAL(zoomLevel, scales::GetUpperStyleScale(), ());
   int const index = zoomLevel - 1;
   float const halfWidth = 0.5f * df::TrafficRenderer::GetPixelWidth(roadClass, zoomLevel);
-  return kTwoWayOffsetInPixel[index] *
-             static_cast<float>(VisualParams::Instance().GetVisualScale()) +
-         halfWidth;
+  return kTwoWayOffsetInPixel[index] * static_cast<float>(VisualParams::Instance().GetVisualScale()) + halfWidth;
 }
 
 // static
@@ -310,14 +292,14 @@ bool TrafficRenderer::CanBeRenderedAsLine(RoadClass const & roadClass, int zoomL
   if (roadClass == RoadClass::Class0)
     return false;
 
-  int const *lineDrawer = nullptr;
-  int const *lineDrawerEnd = nullptr;
+  int const * lineDrawer = nullptr;
+  int const * lineDrawerEnd = nullptr;
   if (roadClass == RoadClass::Class1)
-    std::tie(lineDrawer, lineDrawerEnd) = std::make_pair(
-        kLineDrawerRoadClass1.data(), kLineDrawerRoadClass1.data() + kLineDrawerRoadClass1.size());
+    std::tie(lineDrawer, lineDrawerEnd) =
+        std::make_pair(kLineDrawerRoadClass1.data(), kLineDrawerRoadClass1.data() + kLineDrawerRoadClass1.size());
   else if (roadClass == RoadClass::Class2)
-    std::tie(lineDrawer, lineDrawerEnd) = std::make_pair(
-        kLineDrawerRoadClass2.data(), kLineDrawerRoadClass2.data() + kLineDrawerRoadClass2.size());
+    std::tie(lineDrawer, lineDrawerEnd) =
+        std::make_pair(kLineDrawerRoadClass2.data(), kLineDrawerRoadClass2.data() + kLineDrawerRoadClass2.size());
 
   ASSERT(lineDrawer != nullptr, ());
   auto it = std::find(lineDrawer, lineDrawerEnd, zoomLevel);

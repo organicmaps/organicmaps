@@ -83,6 +83,7 @@ class GeoParser
 public:
   GeoParser();
   bool Parse(std::string const & url, GeoURLInfo & info) const;
+
 private:
   std::regex m_latlonRe;
   std::regex m_zoomRe;
@@ -100,4 +101,4 @@ private:
   LatLonParser m_llParser;
 };
 
-} // namespace geo
+}  // namespace geo

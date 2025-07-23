@@ -30,9 +30,10 @@ void Result::FromFeature(FeatureID const & id, uint32_t mainType, uint32_t match
 }
 
 Result::Result(string str, string && suggest)
-  : m_resultType(Type::PureSuggest), m_str(std::move(str)), m_suggestionStr(std::move(suggest))
-{
-}
+  : m_resultType(Type::PureSuggest)
+  , m_str(std::move(str))
+  , m_suggestionStr(std::move(suggest))
+{}
 
 Result::Result(Result && res, string && suggest)
   : m_id(std::move(res.m_id))
@@ -71,7 +72,7 @@ uint32_t Result::GetFeatureType() const
 bool Result::IsSameType(uint32_t type) const
 {
   uint8_t const level = ftype::GetLevel(type);
-  for (uint32_t t : { m_mainType, m_matchedType })
+  for (uint32_t t : {m_mainType, m_matchedType})
   {
     ftype::TruncValue(t, level);
     if (t == type)
@@ -277,19 +278,15 @@ bool Results::AddResult(Result && result)
       return false;
 
     for (auto i = m_results.begin(); i != it; ++i)
-    {
       if (result.IsEqualSuggest(*i))
         return false;
-    }
     InsertResult(it, std::move(result));
   }
   else
   {
     for (; it != m_results.end(); ++it)
-    {
       if (result.IsEqualFeature(*it))
         return false;
-    }
     InsertResult(m_results.end(), std::move(result));
   }
 

@@ -37,65 +37,65 @@ struct UnitValue
 
 // TODO: Localize these strings.
 UnitValue constexpr g_arrFeets[] = {
-  { "10 ft", 10 },
-  { "20 ft", 20 },
-  { "50 ft", 50 },
-  { "100 ft", 100 },
-  { "200 ft", 200 },
-  { "0.1 mi", 528 },
-  { "0.2 mi", 528 * 2 },
-  { "0.5 mi", 528 * 5 },
-  { "1 mi", 5280 },
-  { "2 mi", 2 * 5280 },
-  { "5 mi", 5 * 5280 },
-  { "10 mi", 10 * 5280 },
-  { "20 mi", 20 * 5280 },
-  { "50 mi", 50 * 5280 },
-  { "100 mi", 100 * 5280 },
-  { "200 mi", 200 * 5280 },
-  { "500 mi", 500 * 5280 }
+    { "10 ft",         10},
+    { "20 ft",         20},
+    { "50 ft",         50},
+    {"100 ft",        100},
+    {"200 ft",        200},
+    {"0.1 mi",        528},
+    {"0.2 mi",    528 * 2},
+    {"0.5 mi",    528 * 5},
+    {  "1 mi",       5280},
+    {  "2 mi",   2 * 5280},
+    {  "5 mi",   5 * 5280},
+    { "10 mi",  10 * 5280},
+    { "20 mi",  20 * 5280},
+    { "50 mi",  50 * 5280},
+    {"100 mi", 100 * 5280},
+    {"200 mi", 200 * 5280},
+    {"500 mi", 500 * 5280}
 };
 
 UnitValue constexpr g_arrYards[] = {
-  { "50 yd", 50 },
-  { "100 yd", 100 },
-  { "200 yd", 200 },
-  { "500 yd", 500 },
-  { "0.5 mi", 1760 / 2 },
-  { "1 mi", 1760 },
-  { "2 mi", 2 * 1760 },
-  { "5 mi", 5 * 1760 },
-  { "10 mi", 10 * 1760 },
-  { "20 mi", 20 * 1760 },
-  { "50 mi", 50 * 1760 },
-  { "100 mi", 100 * 1760 },
-  { "200 mi", 200 * 1760 },
-  { "500 mi", 500 * 1760 }
+    { "50 yd",         50},
+    {"100 yd",        100},
+    {"200 yd",        200},
+    {"500 yd",        500},
+    {"0.5 mi",   1760 / 2},
+    {  "1 mi",       1760},
+    {  "2 mi",   2 * 1760},
+    {  "5 mi",   5 * 1760},
+    { "10 mi",  10 * 1760},
+    { "20 mi",  20 * 1760},
+    { "50 mi",  50 * 1760},
+    {"100 mi", 100 * 1760},
+    {"200 mi", 200 * 1760},
+    {"500 mi", 500 * 1760}
 };
 
 // TODO: fix ruler text to the current zoom level, i.e. make it 100m for z16 always
 // (ruler length will vary still). It'll make debugging and user support easier as
 // we'll be able to tell zoom level of a screenshot by looking at the ruler.
 UnitValue constexpr g_arrMeters[] = {
-  { "1 m", 1 },
-  { "2 m", 2 },
-  { "5 m", 5 },
-  { "10 m", 10 },
-  { "20 m", 20 },
-  { "50 m", 50 },
-  { "100 m", 100 },
-  { "200 m", 200 },
-  { "500 m", 500 },
-  { "1 km", 1000 },
-  { "2 km", 2000 },
-  { "5 km", 5000 },
-  { "10 km", 10000 },
-  { "20 km", 20000 },
-  { "50 km", 50000 },
-  { "100 km", 100000 },
-  { "200 km", 200000 },
-  { "500 km", 500000 },
-  { "1000 km", 1000000 }
+    {    "1 m",       1},
+    {    "2 m",       2},
+    {    "5 m",       5},
+    {   "10 m",      10},
+    {   "20 m",      20},
+    {   "50 m",      50},
+    {  "100 m",     100},
+    {  "200 m",     200},
+    {  "500 m",     500},
+    {   "1 km",    1000},
+    {   "2 km",    2000},
+    {   "5 km",    5000},
+    {  "10 km",   10000},
+    {  "20 km",   20000},
+    {  "50 km",   50000},
+    { "100 km",  100000},
+    { "200 km",  200000},
+    { "500 km",  500000},
+    {"1000 km", 1000000}
 };
 
 double Identity(double val)
@@ -138,11 +138,8 @@ void RulerHelper::Update(ScreenBase const & screen)
   }
 
   int drawScale = df::GetDrawTileScale(screen);
-  if (m_currentDrawScale < kVisibleRulerBottomScale &&
-      drawScale >= kVisibleRulerBottomScale)
-  {
+  if (m_currentDrawScale < kVisibleRulerBottomScale && drawScale >= kVisibleRulerBottomScale)
     SetTextDirty();
-  }
 
   m_currentDrawScale = drawScale;
 }
@@ -217,13 +214,10 @@ void RulerHelper::GetTextInitInfo(std::string & alphabet, uint32_t & size)
   std::for_each(std::begin(g_arrMeters), std::end(g_arrMeters), functor);
   std::for_each(std::begin(g_arrYards), std::end(g_arrYards), functor);
 
-  std::for_each(begin(symbols), end(symbols), [&alphabet](char c)
-  {
-    alphabet.push_back(c);
-  });
+  std::for_each(begin(symbols), end(symbols), [&alphabet](char c) { alphabet.push_back(c); });
   alphabet.append("<>");
 
-  size = static_cast<uint32_t>(result) + 2; // add 2 char for symbols "< " and "> ".
+  size = static_cast<uint32_t>(result) + 2;  // add 2 char for symbols "< " and "> ".
 }
 
 double RulerHelper::CalcMetersDiff(double value)
@@ -251,10 +245,10 @@ double RulerHelper::CalcMetersDiff(double value)
     m_rulerText = std::string("< ") + arrU[0].m_s;
     result = kMinMetersWidth - 1.0;
   }
-  else if (arrU[count-1].m_i <= v)
+  else if (arrU[count - 1].m_i <= v)
   {
     m_rangeIndex = kMaxUnitValue;
-    m_rulerText = std::string("> ") + arrU[count-1].m_s;
+    m_rulerText = std::string("> ") + arrU[count - 1].m_s;
     result = kMaxMetersWidth + 1.0;
   }
   else

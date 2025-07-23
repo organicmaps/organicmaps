@@ -88,11 +88,11 @@ std::string TimestampToString(time_t time)
   tm * t = gmtime(&time);
   char buf[100];
 #ifdef OMIM_OS_WINDOWS
-  sprintf_s(buf, ARRAY_SIZE(buf), "%04d-%02d-%02dT%02d:%02d:%02dZ", t->tm_year + 1900,
-            t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
+  sprintf_s(buf, ARRAY_SIZE(buf), "%04d-%02d-%02dT%02d:%02d:%02dZ", t->tm_year + 1900, t->tm_mon + 1, t->tm_mday,
+            t->tm_hour, t->tm_min, t->tm_sec);
 #else
-  ::snprintf(buf, ARRAY_SIZE(buf), "%04d-%02d-%02dT%02d:%02d:%02dZ", t->tm_year + 1900,
-             t->tm_mon + 1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
+  ::snprintf(buf, ARRAY_SIZE(buf), "%04d-%02d-%02dT%02d:%02d:%02dZ", t->tm_year + 1900, t->tm_mon + 1, t->tm_mday,
+             t->tm_hour, t->tm_min, t->tm_sec);
 #endif
 
   return buf;
@@ -131,7 +131,8 @@ time_t StringToTimestamp(std::string const & s)
   // Fractional second values are dropped, as POSIX time_t doesn't hold them.
   if (signOrDotOrZ == '.')
   {
-    while (ss >> signOrDotOrZ && std::isdigit(signOrDotOrZ)) {}
+    while (ss >> signOrDotOrZ && std::isdigit(signOrDotOrZ))
+    {}
 
     if (ss.fail())
       return INVALID_TIME_STAMP;
@@ -171,9 +172,9 @@ uint64_t TimeTToSecondsSinceEpoch(time_t time)
 }
 
 ScopedTimerWithLog::ScopedTimerWithLog(std::string const & timerName, Measure measure)
-  : m_name(timerName), m_measure(measure)
-{
-}
+  : m_name(timerName)
+  , m_measure(measure)
+{}
 
 ScopedTimerWithLog::~ScopedTimerWithLog()
 {

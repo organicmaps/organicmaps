@@ -11,8 +11,8 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
-#include "platform/measurement_utils.hpp"
 #include "platform/localization.hpp"
+#include "platform/measurement_utils.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -35,8 +35,8 @@ public:
   SkipRegionInfo()
   {
     base::StringIL arr[] = {
-      {"place", "continent"},
-      {"place", "country"}
+        {"place", "continent"},
+        {"place",   "country"}
     };
     static_assert(kCount == ARRAY_SIZE(arr), "");
 
@@ -48,10 +48,8 @@ public:
   bool IsSkip(uint32_t type) const
   {
     for (uint32_t t : m_types)
-    {
       if (t == type)
         return true;
-    }
     return false;
   }
 };
@@ -60,10 +58,11 @@ public:
 // PreRankerResult ---------------------------------------------------------------------------------
 PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & info,
                                  vector<ResultTracer::Branch> const & provenance)
-: m_id(id), m_info(info)
-, m_isRelaxed(base::IsExist(provenance, ResultTracer::Branch::Relaxed))
+  : m_id(id)
+  , m_info(info)
+  , m_isRelaxed(base::IsExist(provenance, ResultTracer::Branch::Relaxed))
 #ifdef SEARCH_USE_PROVENANCE
-, m_provenance(provenance)
+  , m_provenance(provenance)
 #endif
 {
   ASSERT(m_id.IsValid(), ());
@@ -104,7 +103,7 @@ int PreRankerResult::CompareByTokensMatch(PreRankerResult const & lhs, PreRanker
     return lRange.Size() > rRange.Size() ? -1 : 1;
 
   if (lhs.m_matchedTokensNumber != rhs.m_matchedTokensNumber)
-     return lhs.m_matchedTokensNumber > rhs.m_matchedTokensNumber ? -1 : 1;
+    return lhs.m_matchedTokensNumber > rhs.m_matchedTokensNumber ? -1 : 1;
 
   if (lRange.Begin() != rRange.Begin())
     return lRange.Begin() < rRange.Begin() ? -1 : 1;
@@ -123,8 +122,7 @@ bool PreRankerResult::LessByExactMatch(PreRankerResult const & lhs, PreRankerRes
   return CompareByTokensMatch(lhs, rhs) == -1;
 }
 
-bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & lhs,
-                                                       PreRankerResult const & rhs) const
+bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & lhs, PreRankerResult const & rhs) const
 {
   if (m_positionIsInsideViewport)
     return lhs.GetDistance() < rhs.GetDistance();
@@ -145,17 +143,14 @@ std::string DebugPrint(PreRankerResult const & r)
 {
   ostringstream os;
   os << "PreRankerResult "
-     << "{ FID: " << r.GetId().m_index    // index is enough here for debug purpose
-     << "; m_matchedTokensNumber: " << r.m_matchedTokensNumber
-     << "; m_isRelaxed: " << r.m_isRelaxed
-     << "; " << DebugPrint(r.m_info)
-     << " }";
+     << "{ FID: " << r.GetId().m_index  // index is enough here for debug purpose
+     << "; m_matchedTokensNumber: " << r.m_matchedTokensNumber << "; m_isRelaxed: " << r.m_isRelaxed << "; "
+     << DebugPrint(r.m_info) << " }";
   return os.str();
 }
 
 // RankerResult ------------------------------------------------------------------------------------
-RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center,
-                           string displayName, string const & fileName)
+RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center, string displayName, string const & fileName)
   : m_types(ft)
   , m_str(std::move(displayName))
   , m_id(ft.GetID())
@@ -173,19 +168,19 @@ RankerResult::RankerResult(FeatureType & ft, m2::PointD const & center,
 }
 
 RankerResult::RankerResult(FeatureType & ft, std::string const & fileName)
-  : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY),
-                 std::string(ft.GetReadableName()), fileName)
-{
-}
+  : RankerResult(ft, feature::GetCenter(ft, FeatureType::WORST_GEOMETRY), std::string(ft.GetReadableName()), fileName)
+{}
 
 RankerResult::RankerResult(double lat, double lon)
-  : m_str("(" + measurement_utils::FormatLatLon(lat, lon) + ")"), m_resultType(Type::LatLon)
+  : m_str("(" + measurement_utils::FormatLatLon(lat, lon) + ")")
+  , m_resultType(Type::LatLon)
 {
   m_region.SetParams({}, mercator::FromLatLon(lat, lon));
 }
 
 RankerResult::RankerResult(m2::PointD const & coord, string_view postcode)
-  : m_str(postcode), m_resultType(Type::Postcode)
+  : m_str(postcode)
+  , m_resultType(Type::Postcode)
 {
   strings::AsciiToUpper(m_str);
   m_region.SetParams({}, coord);
@@ -202,9 +197,7 @@ bool RankerResult::GetCountryId(storage::CountryInfoGetter const & infoGetter, u
 
 bool RankerResult::IsEqualBasic(RankerResult const & r) const
 {
-  return (m_geomType == r.m_geomType &&
-          GetRankingInfo().m_type == r.GetRankingInfo().m_type &&
-          m_str == r.m_str);
+  return (m_geomType == r.m_geomType && GetRankingInfo().m_type == r.GetRankingInfo().m_type && m_str == r.m_str);
 }
 
 bool RankerResult::IsEqualCommon(RankerResult const & r) const
@@ -212,7 +205,10 @@ bool RankerResult::IsEqualCommon(RankerResult const & r) const
   return (IsEqualBasic(r) && GetBestType() == r.GetBestType());
 }
 
-bool RankerResult::IsStreet() const { return ftypes::IsStreetOrSquareChecker::Instance()(m_types); }
+bool RankerResult::IsStreet() const
+{
+  return ftypes::IsStreetOrSquareChecker::Instance()(m_types);
+}
 
 uint32_t RankerResult::GetBestType(vector<uint32_t> const * preferredTypes /* = nullptr */) const
 {
@@ -220,10 +216,8 @@ uint32_t RankerResult::GetBestType(vector<uint32_t> const * preferredTypes /* = 
   {
     ASSERT(is_sorted(preferredTypes->begin(), preferredTypes->end()), ());
     for (uint32_t type : m_types)
-    {
       if (binary_search(preferredTypes->begin(), preferredTypes->end(), type))
         return type;
-    }
   }
 
   return m_types.GetBestType();
@@ -257,7 +251,7 @@ void FillDetails(FeatureType & ft, std::string const & name, Result::Details & d
 
   std::string_view airportIata = ft.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
 
-  std::string brand {ft.GetMetadata(feature::Metadata::FMD_BRAND)};
+  std::string brand{ft.GetMetadata(feature::Metadata::FMD_BRAND)};
   if (!brand.empty())
     brand = platform::GetLocalizedBrandName(brand);
 
@@ -297,7 +291,8 @@ void FillDetails(FeatureType & ft, std::string const & name, Result::Details & d
   auto const cuisines = feature::GetLocalizedCuisines(typesHolder);
   auto const cuisine = strings::JoinStrings(cuisines, feature::kFieldsSeparator);
 
-  auto const recycling = strings::JoinStrings(feature::GetLocalizedRecyclingTypes(typesHolder), feature::kFieldsSeparator);
+  auto const recycling =
+      strings::JoinStrings(feature::GetLocalizedRecyclingTypes(typesHolder), feature::kFieldsSeparator);
 
   auto const roadShields = ftypes::GetRoadShieldsNames(ft);
   auto const roadShield = strings::JoinStrings(roadShields, feature::kFieldsSeparator);
@@ -335,14 +330,13 @@ string DebugPrint(RankerResult const & r)
 {
   stringstream ss;
   ss << "RankerResult "
-     << "{ FID: " << r.GetID().m_index    // index is enough here for debug purpose
-     << "; Name: " << r.GetName()
-     << "; Type: " << classif().GetReadableObjectName(r.GetBestType())
+     << "{ FID: " << r.GetID().m_index  // index is enough here for debug purpose
+     << "; Name: " << r.GetName() << "; Type: " << classif().GetReadableObjectName(r.GetBestType())
      << "; Linear model rank: " << r.GetLinearModelRank();
 
 #ifdef SEARCH_USE_PROVENANCE
-    if (!r.m_provenance.empty())
-      ss << "; Provenance: " << ::DebugPrint(r.m_provenance);
+  if (!r.m_provenance.empty())
+    ss << "; Provenance: " << ::DebugPrint(r.m_provenance);
 #endif
 
   if (r.m_dbgInfo)

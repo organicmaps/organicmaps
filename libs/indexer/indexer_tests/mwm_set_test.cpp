@@ -117,8 +117,7 @@ UNIT_TEST(MwmSetIdTest)
   ScopedMwm mwm3("3.mwm");
 
   TestMwmSet mwmSet;
-  TEST_EQUAL(MwmSet::RegResult::Success,
-             mwmSet.Register(LocalCountryFile::MakeForTesting("3")).second, ());
+  TEST_EQUAL(MwmSet::RegResult::Success, mwmSet.Register(LocalCountryFile::MakeForTesting("3")).second, ());
 
   MwmSet::MwmId const id0 = mwmSet.GetMwmHandleByCountryFile(CountryFile("3")).GetId();
   MwmSet::MwmId const id1 = mwmSet.GetMwmHandleByCountryFile(CountryFile("3")).GetId();

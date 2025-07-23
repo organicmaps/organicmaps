@@ -16,16 +16,11 @@ public:
   void Join()
   {
     for (auto & thread : m_threads)
-    {
       if (thread.joinable())
         thread.join();
-    }
   }
 
-  ~ThreadsJoiner()
-  {
-    Join();
-  }
+  ~ThreadsJoiner() { Join(); }
 
 private:
   ThreadContainer & m_threads;
@@ -38,7 +33,8 @@ class FunctionWrapper
 {
 public:
   template <typename F>
-  FunctionWrapper(F && func) : m_impl(new ImplType<F>(std::move(func))) {}
+  FunctionWrapper(F && func) : m_impl(new ImplType<F>(std::move(func)))
+  {}
 
   FunctionWrapper() = default;
 

@@ -62,10 +62,8 @@ VulkanObjectManager::~VulkanObjectManager()
     CollectDescriptorSetGroupsUnsafe(descriptorsToDestroy);
 
   for (size_t i = 0; i < ThreadType::Count; ++i)
-  {
     for (auto & q : m_queuesToDestroy[i])
       CollectObjectsImpl(q);
-  }
 
   for (auto const & s : m_samplers)
     vkDestroySampler(m_device, s.second, nullptr);
@@ -86,8 +84,8 @@ void VulkanObjectManager::SetCurrentInflightFrameIndex(uint32_t index)
   m_currentInflightFrameIndex = index;
 }
 
-VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType resourceType,
-                                               uint32_t sizeInBytes, uint64_t batcherHash)
+VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType resourceType, uint32_t sizeInBytes,
+                                               uint64_t batcherHash)
 {
   VulkanObject result;
   VkBufferCreateInfo info = {};
@@ -97,8 +95,8 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   info.size = sizeInBytes;
   if (resourceType == VulkanMemoryManager::ResourceType::Geometry)
   {
-    info.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT |
-                 VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+    info.usage =
+        VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
   }
   else if (resourceType == VulkanMemoryManager::ResourceType::Uniform)
   {
@@ -117,11 +115,14 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   info.queueFamilyIndexCount = 1;
   info.pQueueFamilyIndices = &m_queueFamilyIndex;
   CHECK_VK_CALL(vkCreateBuffer(m_device, &info, nullptr, &result.m_buffer));
-  
-  SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_BUFFER, result.m_buffer, 
-    ((resourceType == VulkanMemoryManager::ResourceType::Geometry ? "B: Geometry (" :
-    (resourceType == VulkanMemoryManager::ResourceType::Uniform ? "B: Uniform (" : 
-     "B: Staging (")) + std::to_string(sizeInBytes) + " bytes)").c_str());
+
+  SET_DEBUG_NAME_VK(
+      VK_OBJECT_TYPE_BUFFER, result.m_buffer,
+      ((resourceType == VulkanMemoryManager::ResourceType::Geometry
+            ? "B: Geometry ("
+            : (resourceType == VulkanMemoryManager::ResourceType::Uniform ? "B: Uniform (" : "B: Staging (")) +
+       std::to_string(sizeInBytes) + " bytes)")
+          .c_str());
 
   VkMemoryRequirements memReqs = {};
   vkGetBufferMemoryRequirements(m_device, result.m_buffer, &memReqs);
@@ -129,8 +130,7 @@ VulkanObject VulkanObjectManager::CreateBuffer(VulkanMemoryManager::ResourceType
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     result.m_allocation = m_memoryManager.Allocate(resourceType, memReqs, batcherHash);
-    CHECK_VK_CALL(vkBindBufferMemory(m_device, result.m_buffer, result.GetMemory(),
-                                     result.GetAlignedOffset()));
+    CHECK_VK_CALL(vkBindBufferMemory(m_device, result.m_buffer, result.GetMemory(), result.GetAlignedOffset()));
   }
 
 #ifdef ENABLE_TRACE
@@ -156,7 +156,7 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   imageCreateInfo.tiling = tiling;
   imageCreateInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
   imageCreateInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-  imageCreateInfo.extent = { width, height, 1 };
+  imageCreateInfo.extent = {width, height, 1};
   imageCreateInfo.usage = usageFlags | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
   CHECK_VK_CALL(vkCreateImage(m_device, &imageCreateInfo, nullptr, &result.m_image));
 
@@ -165,10 +165,9 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
 
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    result.m_allocation = m_memoryManager.Allocate(VulkanMemoryManager::ResourceType::Image,
-                                                   memReqs, 0 /* blockHash */);
-    CHECK_VK_CALL(vkBindImageMemory(m_device, result.m_image,
-                                    result.GetMemory(), result.GetAlignedOffset()));
+    result.m_allocation =
+        m_memoryManager.Allocate(VulkanMemoryManager::ResourceType::Image, memReqs, 0 /* blockHash */);
+    CHECK_VK_CALL(vkBindImageMemory(m_device, result.m_image, result.GetMemory(), result.GetAlignedOffset()));
   }
 
   VkImageViewCreateInfo viewCreateInfo = {};
@@ -183,8 +182,8 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   }
   else
   {
-    viewCreateInfo.components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G,
-                                 VK_COMPONENT_SWIZZLE_B, VK_COMPONENT_SWIZZLE_A};
+    viewCreateInfo.components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G, VK_COMPONENT_SWIZZLE_B,
+                                 VK_COMPONENT_SWIZZLE_A};
   }
   viewCreateInfo.subresourceRange.aspectMask = aspectFlags;
   viewCreateInfo.subresourceRange.baseMipLevel = 0;
@@ -202,7 +201,8 @@ VulkanObject VulkanObjectManager::CreateImage(VkImageUsageFlags usageFlags, VkFo
   return result;
 }
 
-DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program) {
+DescriptorSetGroup VulkanObjectManager::CreateDescriptorSetGroup(ref_ptr<VulkanGpuProgram> program)
+{
   CHECK(std::this_thread::get_id() == m_renderers[ThreadType::Frontend], ());
 
   DescriptorSetGroup s;
@@ -296,8 +296,8 @@ void VulkanObjectManager::CollectDescriptorSetGroupsUnsafe(DescriptorSetGroupArr
   for (auto const & d : descriptors)
   {
     CHECK_LESS(d.m_descriptorPoolIndex, m_descriptorPools.size(), ());
-    CHECK_VK_CALL(vkFreeDescriptorSets(m_device, m_descriptorPools[d.m_descriptorPoolIndex].m_pool,
-                                       1 /* count */, &d.m_descriptorSet));
+    CHECK_VK_CALL(vkFreeDescriptorSets(m_device, m_descriptorPools[d.m_descriptorPoolIndex].m_pool, 1 /* count */,
+                                       &d.m_descriptorSet));
     m_descriptorPools[d.m_descriptorPoolIndex].m_availableSetsCount++;
   }
   descriptors.clear();
@@ -326,10 +326,7 @@ void VulkanObjectManager::CollectObjectsForThread(VulkanObjectArray & objects)
 
   std::vector<VulkanObject> queueToDestroy;
   std::swap(objects, queueToDestroy);
-  DrapeRoutine::Run([this, queueToDestroy = std::move(queueToDestroy)]()
-  {
-    CollectObjectsImpl(queueToDestroy);
-  });
+  DrapeRoutine::Run([this, queueToDestroy = std::move(queueToDestroy)]() { CollectObjectsImpl(queueToDestroy); });
 }
 
 void VulkanObjectManager::CollectObjectsImpl(VulkanObjectArray const & objects)
@@ -345,9 +342,7 @@ void VulkanObjectManager::CollectObjectsImpl(VulkanObjectArray const & objects)
 #endif
     }
     if (obj.m_imageView != VK_NULL_HANDLE)
-    {
       vkDestroyImageView(m_device, obj.m_imageView, nullptr);
-    }
     if (obj.m_image != VK_NULL_HANDLE)
     {
       vkDestroyImage(m_device, obj.m_image, nullptr);
@@ -361,10 +356,8 @@ void VulkanObjectManager::CollectObjectsImpl(VulkanObjectArray const & objects)
   std::lock_guard<std::mutex> lock(m_mutex);
   m_memoryManager.BeginDeallocationSession();
   for (auto const & obj : objects)
-  {
     if (obj.m_allocation)
       m_memoryManager.Deallocate(obj.m_allocation);
-  }
   m_memoryManager.EndDeallocationSession();
 }
 
@@ -389,8 +382,8 @@ uint8_t * VulkanObjectManager::MapUnsafe(VulkanObject object)
 
   CHECK(object.m_buffer != VK_NULL_HANDLE || object.m_image != VK_NULL_HANDLE, ());
   uint8_t * ptr = nullptr;
-  CHECK_VK_CALL(vkMapMemory(m_device, object.GetMemory(), object.GetAlignedOffset(),
-                            object.GetAlignedSize(), 0, reinterpret_cast<void **>(&ptr)));
+  CHECK_VK_CALL(vkMapMemory(m_device, object.GetMemory(), object.GetAlignedOffset(), object.GetAlignedSize(), 0,
+                            reinterpret_cast<void **>(&ptr)));
   object.m_allocation->m_memoryBlock->m_isBlocked = true;
   return ptr;
 }
@@ -436,10 +429,9 @@ void VulkanObjectManager::CreateDescriptorPool()
 {
   CHECK_GREATER(m_maxUniformBuffers, 0, ());
   CHECK_GREATER(m_maxImageSamplers, 0, ());
-  std::vector<VkDescriptorPoolSize> poolSizes =
-  {
-    {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, m_maxUniformBuffers * kMaxDescriptorsSetCount},
-    {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, m_maxImageSamplers * kMaxDescriptorsSetCount},
+  std::vector<VkDescriptorPoolSize> poolSizes = {
+      {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, m_maxUniformBuffers * kMaxDescriptorsSetCount},
+      {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,  m_maxImageSamplers * kMaxDescriptorsSetCount},
   };
 
   VkDescriptorPoolCreateInfo descriptorPoolInfo = {};

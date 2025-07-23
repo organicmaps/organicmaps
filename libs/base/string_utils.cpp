@@ -9,8 +9,8 @@
 #include <iomanip>
 #include <iterator>
 
-#include <boost/algorithm/string/trim.hpp>
 #include <fast_double_parser.h>
+#include <boost/algorithm/string/trim.hpp>
 
 namespace strings
 {
@@ -74,7 +74,10 @@ SimpleDelimiter::SimpleDelimiter(char const * delims)
     m_delims.push_back(utf8::unchecked::next(it));
 }
 
-SimpleDelimiter::SimpleDelimiter(char delim) { m_delims.push_back(delim); }
+SimpleDelimiter::SimpleDelimiter(char delim)
+{
+  m_delims.push_back(delim);
+}
 
 bool SimpleDelimiter::operator()(UniChar c) const
 {
@@ -219,7 +222,7 @@ void AsciiToUpper(std::string & s)
     if (in >= 'a' && in <= 'z')
       return char(in - diff);
     return in;
- });
+  });
 }
 
 void Trim(std::string & s)
@@ -308,21 +311,25 @@ std::u16string ToUtf16(std::string_view utf8)
 bool IsASCIIString(std::string_view sv)
 {
   for (auto c : sv)
-  {
     if (c & 0x80)
       return false;
-  }
   return true;
 }
 
-bool IsASCIIDigit(UniChar c) { return c >= '0' && c <= '9'; }
+bool IsASCIIDigit(UniChar c)
+{
+  return c >= '0' && c <= '9';
+}
 
 bool IsASCIISpace(UniChar c)
 {
   return c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t' || c == '\v';
 }
 
-bool IsASCIILatin(UniChar c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); }
+bool IsASCIILatin(UniChar c)
+{
+  return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+}
 
 bool StartsWith(UniString const & s, UniString const & p)
 {
@@ -417,8 +424,7 @@ bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mism
 
   for (size_t i = 0; i <= mismatchedCount; ++i)
   {
-    auto const end =
-        mis.first + std::min(distance(mis.first, str1End), distance(mis.second, str2End));
+    auto const end = mis.first + std::min(distance(mis.first, str1End), distance(mis.second, str2End));
     mis = mismatch(mis.first, end, mis.second);
     if (mis.first == str1End && mis.second == str2End)
       return true;
@@ -433,7 +439,8 @@ bool AlmostEqual(std::string const & str1, std::string const & str2, size_t mism
 void ParseCSVRow(std::string const & s, char const delimiter, std::vector<std::string> & target)
 {
   target.clear();
-  TokenizeIterator<SimpleDelimiter, std::string::const_iterator, true /* KeepEmptyTokens */> it(s.begin(), s.end(), delimiter);
+  TokenizeIterator<SimpleDelimiter, std::string::const_iterator, true /* KeepEmptyTokens */> it(s.begin(), s.end(),
+                                                                                                delimiter);
   for (; it; ++it)
   {
     std::string column(*it);

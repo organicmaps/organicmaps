@@ -15,8 +15,7 @@ namespace routing_quality
 {
 namespace metrics
 {
-Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline polyline,
-                                             Waypoints const & waypoints)
+Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline polyline, Waypoints const & waypoints)
 {
   double constexpr kMaxDistanceFromRouteM = 15.0;
 
@@ -26,8 +25,7 @@ Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline polyline,
   for (size_t i = 0; i < size; ++i)
   {
     auto const & ll = waypoints[i];
-    m2::RectD const rect =
-        mercator::MetersToXY(ll.m_lon, ll.m_lat, kMaxDistanceFromRouteM /* metresR */);
+    m2::RectD const rect = mercator::MetersToXY(ll.m_lon, ll.m_lat, kMaxDistanceFromRouteM /* metresR */);
     auto const iter = polyline.UpdateProjection(rect);
     if (iter.IsValid())
     {
@@ -45,8 +43,7 @@ Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline polyline,
   return result;
 }
 
-Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline const & polyline,
-                                             ReferenceRoutes && candidates)
+Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline const & polyline, ReferenceRoutes && candidates)
 {
   Similarity bestResult = 0.0;
   for (size_t j = 0; j < candidates.size(); ++j)
@@ -74,8 +71,7 @@ bool CheckRoute(Params const & params, ReferenceRoutes && referenceRoutes)
   return CheckWaypoints(params, std::move(referenceRoutes)) == 1.0;
 }
 
-bool CheckCarRoute(ms::LatLon const & start, ms::LatLon const & finish,
-                   ReferenceRoutes && referenceTracks)
+bool CheckCarRoute(ms::LatLon const & start, ms::LatLon const & finish, ReferenceRoutes && referenceTracks)
 {
   Params const params(routing::VehicleType::Car, start, finish);
   return CheckRoute(params, std::move(referenceTracks));

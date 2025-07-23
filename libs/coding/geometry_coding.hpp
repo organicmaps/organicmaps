@@ -52,47 +52,46 @@ m2::PointU DecodePointDelta(Source & source, m2::PointU const & base)
 }
 
 /// Predict next point for polyline with given previous points (p1, p2).
-m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1,
-                                  m2::PointU const & p2);
+m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1, m2::PointU const & p2);
 
 /// Predict next point for polyline with given previous points (p1, p2, p3).
-m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1,
-                                  m2::PointU const & p2, m2::PointU const & p3);
+m2::PointU PredictPointInPolyline(m2::PointD const & maxPoint, m2::PointU const & p1, m2::PointU const & p2,
+                                  m2::PointU const & p3);
 
 /// Predict point for neighbour triangle with given
 /// previous triangle (p1, p2, p3) and common edge (p1, p2).
-m2::PointU PredictPointInTriangle(m2::PointD const & maxPoint, m2::PointU const & p1,
-                                  m2::PointU const & p2, m2::PointU const & p3);
+m2::PointU PredictPointInTriangle(m2::PointD const & maxPoint, m2::PointU const & p1, m2::PointU const & p2,
+                                  m2::PointU const & p3);
 
-void EncodePolylinePrev1(InPointsT const & points, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutDeltasT & deltas);
+void EncodePolylinePrev1(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutDeltasT & deltas);
 
-void DecodePolylinePrev1(InDeltasT const & deltas, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutPointsT & points);
+void DecodePolylinePrev1(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutPointsT & points);
 
-void EncodePolylinePrev2(InPointsT const & points, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutDeltasT & deltas);
+void EncodePolylinePrev2(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutDeltasT & deltas);
 
-void DecodePolylinePrev2(InDeltasT const & deltas, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutPointsT & points);
+void DecodePolylinePrev2(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutPointsT & points);
 
-void EncodePolylinePrev3(InPointsT const & points, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutDeltasT & deltas);
+void EncodePolylinePrev3(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutDeltasT & deltas);
 
-void DecodePolylinePrev3(InDeltasT const & deltas, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutPointsT & points);
+void DecodePolylinePrev3(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutPointsT & points);
 
-void EncodePolyline(InPointsT const & points, m2::PointU const & basePoint,
-                    m2::PointU const & maxPoint, OutDeltasT & deltas);
+void EncodePolyline(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                    OutDeltasT & deltas);
 
-void DecodePolyline(InDeltasT const & deltas, m2::PointU const & basePoint,
-                    m2::PointU const & maxPoint, OutPointsT & points);
+void DecodePolyline(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                    OutPointsT & points);
 
-void EncodeTriangleStrip(InPointsT const & points, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutDeltasT & deltas);
+void EncodeTriangleStrip(InPointsT const & points, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutDeltasT & deltas);
 
-void DecodeTriangleStrip(InDeltasT const & deltas, m2::PointU const & basePoint,
-                         m2::PointU const & maxPoint, OutPointsT & points);
+void DecodeTriangleStrip(InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                         OutPointsT & points);
 }  // namespace coding
 
 namespace serial
@@ -147,26 +146,24 @@ m2::PointU GetBasePoint(GeometryCodingParams const & params);
 }  // namespace pts
 
 /// @name Encode and Decode function types.
-typedef void (*EncodeFunT)(coding::InPointsT const &, m2::PointU const &, m2::PointU const &,
-                           coding::OutDeltasT &);
-typedef void (*DecodeFunT)(coding::InDeltasT const &, m2::PointU const &, m2::PointU const &,
-                           coding::OutPointsT &);
+typedef void (*EncodeFunT)(coding::InPointsT const &, m2::PointU const &, m2::PointU const &, coding::OutDeltasT &);
+typedef void (*DecodeFunT)(coding::InDeltasT const &, m2::PointU const &, m2::PointU const &, coding::OutPointsT &);
 
 using DeltasT = buffer_vector<uint64_t, 32>;
 using OutPointsT = buffer_vector<m2::PointD, 32>;
 
-void Encode(EncodeFunT fn, std::vector<m2::PointD> const & points,
-            GeometryCodingParams const & params, DeltasT & deltas);
+void Encode(EncodeFunT fn, std::vector<m2::PointD> const & points, GeometryCodingParams const & params,
+            DeltasT & deltas);
 
 /// @name Overloads for different out container types.
-void Decode(DecodeFunT fn, DeltasT const & deltas, GeometryCodingParams const & params,
-            OutPointsT & points, size_t reserveF = 1);
+void Decode(DecodeFunT fn, DeltasT const & deltas, GeometryCodingParams const & params, OutPointsT & points,
+            size_t reserveF = 1);
 void Decode(DecodeFunT fn, DeltasT const & deltas, GeometryCodingParams const & params,
             std::vector<m2::PointD> & points, size_t reserveF = 1);
 
 template <class TDecodeFun, class TOutPoints>
-void DecodeImpl(TDecodeFun fn, DeltasT const & deltas, GeometryCodingParams const & params,
-                TOutPoints & points, size_t reserveF)
+void DecodeImpl(TDecodeFun fn, DeltasT const & deltas, GeometryCodingParams const & params, TOutPoints & points,
+                size_t reserveF)
 {
   size_t const count = deltas.size() * reserveF;
 
@@ -189,22 +186,19 @@ void DecodeImpl(TDecodeFun fn, DeltasT const & deltas, GeometryCodingParams cons
 template <class TSink>
 void SavePoint(TSink & sink, m2::PointD const & pt, GeometryCodingParams const & cp)
 {
-  WriteVarUint(sink, coding::EncodePointDeltaAsUint(PointDToPointU(pt, cp.GetCoordBits()),
-                                                    cp.GetBasePoint()));
+  WriteVarUint(sink, coding::EncodePointDeltaAsUint(PointDToPointU(pt, cp.GetCoordBits()), cp.GetBasePoint()));
 }
 
 template <class TSource>
 m2::PointD LoadPoint(TSource & src, GeometryCodingParams const & cp)
 {
-  m2::PointD const pt = PointUToPointD(
-      coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(src), cp.GetBasePoint()),
-      cp.GetCoordBits());
+  m2::PointD const pt = PointUToPointD(coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(src), cp.GetBasePoint()),
+                                       cp.GetCoordBits());
   return pt;
 }
 
 template <class TSink>
-void SaveInner(EncodeFunT fn, std::vector<m2::PointD> const & points,
-               GeometryCodingParams const & params, TSink & sink)
+void SaveInner(EncodeFunT fn, std::vector<m2::PointD> const & points, GeometryCodingParams const & params, TSink & sink)
 {
   DeltasT deltas;
   Encode(fn, points, params, deltas);
@@ -220,8 +214,7 @@ void WriteBufferToSink(std::vector<char> const & buffer, TSink & sink)
 }
 
 template <class TSink>
-void SaveOuter(EncodeFunT fn, std::vector<m2::PointD> const & points,
-               GeometryCodingParams const & params, TSink & sink)
+void SaveOuter(EncodeFunT fn, std::vector<m2::PointD> const & points, GeometryCodingParams const & params, TSink & sink)
 {
   DeltasT deltas;
   Encode(fn, points, params, deltas);
@@ -233,12 +226,11 @@ void SaveOuter(EncodeFunT fn, std::vector<m2::PointD> const & points,
   WriteBufferToSink(buffer, sink);
 }
 
-void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count,
-                       GeometryCodingParams const & params, OutPointsT & points);
+void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count, GeometryCodingParams const & params,
+                       OutPointsT & points);
 
 template <class TSource, class TPoints>
-void LoadOuter(DecodeFunT fn, TSource & src, GeometryCodingParams const & params, TPoints & points,
-               size_t reserveF = 1)
+void LoadOuter(DecodeFunT fn, TSource & src, GeometryCodingParams const & params, TPoints & points, size_t reserveF = 1)
 {
   uint32_t const count = ReadVarUint<uint32_t>(src);
   std::vector<char> buffer(count);
@@ -254,21 +246,19 @@ void LoadOuter(DecodeFunT fn, TSource & src, GeometryCodingParams const & params
 
 /// @name Paths.
 template <class TSink>
-void SaveInnerPath(std::vector<m2::PointD> const & points, GeometryCodingParams const & params,
-                   TSink & sink)
+void SaveInnerPath(std::vector<m2::PointD> const & points, GeometryCodingParams const & params, TSink & sink)
 {
   SaveInner(&coding::EncodePolyline, points, params, sink);
 }
 
 template <class TSink>
-void SaveOuterPath(std::vector<m2::PointD> const & points, GeometryCodingParams const & params,
-                   TSink & sink)
+void SaveOuterPath(std::vector<m2::PointD> const & points, GeometryCodingParams const & params, TSink & sink)
 {
   SaveOuter(&coding::EncodePolyline, points, params, sink);
 }
 
-inline void const * LoadInnerPath(void const * pBeg, size_t count,
-                                  GeometryCodingParams const & params, OutPointsT & points)
+inline void const * LoadInnerPath(void const * pBeg, size_t count, GeometryCodingParams const & params,
+                                  OutPointsT & points)
 {
   return LoadInner(&coding::DecodePolyline, pBeg, count, params, points);
 }
@@ -281,8 +271,7 @@ void LoadOuterPath(TSource & src, GeometryCodingParams const & params, TPoints &
 
 /// @name Triangles.
 template <class TSink>
-void SaveInnerTriangles(std::vector<m2::PointD> const & points, GeometryCodingParams const & params,
-                        TSink & sink)
+void SaveInnerTriangles(std::vector<m2::PointD> const & points, GeometryCodingParams const & params, TSink & sink)
 {
   SaveInner(&coding::EncodeTriangleStrip, points, params, sink);
 }
@@ -300,8 +289,8 @@ inline void StripToTriangles(size_t count, OutPointsT const & strip, OutPointsT 
   }
 }
 
-inline void const * LoadInnerTriangles(void const * pBeg, size_t count,
-                                       GeometryCodingParams const & params, OutPointsT & triangles)
+inline void const * LoadInnerTriangles(void const * pBeg, size_t count, GeometryCodingParams const & params,
+                                       OutPointsT & triangles)
 {
   CHECK_GREATER_OR_EQUAL(count, 2, ());
   OutPointsT points;
@@ -311,8 +300,8 @@ inline void const * LoadInnerTriangles(void const * pBeg, size_t count,
   return res;
 }
 
-void DecodeTriangles(coding::InDeltasT const & deltas, m2::PointU const & basePoint,
-                     m2::PointU const & maxPoint, coding::OutPointsT & triangles);
+void DecodeTriangles(coding::InDeltasT const & deltas, m2::PointU const & basePoint, m2::PointU const & maxPoint,
+                     coding::OutPointsT & triangles);
 
 template <class TSource>
 void LoadOuterTriangles(TSource & src, GeometryCodingParams const & params, OutPointsT & triangles)

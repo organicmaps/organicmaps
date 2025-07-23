@@ -31,8 +31,7 @@ public:
   };
 
   DownloaderSearchCallback(Delegate & delegate, DataSource const & dataSource,
-                           storage::CountryInfoGetter const & infoGetter,
-                           storage::Storage const & storage,
+                           storage::CountryInfoGetter const & infoGetter, storage::Storage const & storage,
                            storage::DownloaderSearchParams params);
 
   void operator()(search::Results const & results);

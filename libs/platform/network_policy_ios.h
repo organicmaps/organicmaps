@@ -20,5 +20,5 @@ Stage GetStage();
 
 bool CanUseNetwork();
 bool IsActivePolicyDate();
-NSDate* GetPolicyDate();
+NSDate * GetPolicyDate();
 }  // namespace network_policy

@@ -20,7 +20,10 @@ std::string DebugPrint(VehicleType vehicleType)
   UNREACHABLE();
 }
 
-std::string ToString(VehicleType vehicleType) { return DebugPrint(vehicleType); }
+std::string ToString(VehicleType vehicleType)
+{
+  return DebugPrint(vehicleType);
+}
 
 void FromString(std::string_view s, VehicleType & vehicleType)
 {

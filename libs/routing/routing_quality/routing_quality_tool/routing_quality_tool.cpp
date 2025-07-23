@@ -1,6 +1,6 @@
-#include "routing/routing_quality/routing_quality_tool/utils.hpp"
 #include "routing/routing_quality/routing_quality_tool/benchmark_stat.hpp"
 #include "routing/routing_quality/routing_quality_tool/error_type_counter.hpp"
+#include "routing/routing_quality/routing_quality_tool/utils.hpp"
 
 #include "routing/routing_quality/api/api.hpp"
 
@@ -28,8 +28,9 @@ DEFINE_string(api_results, "", "Path to directory with api router results.");
 
 DEFINE_string(save_results, "", "The directory where results of tool will be saved.");
 
-DEFINE_double(kml_percent, 0.0, "The percent of routes for which kml file will be generated."
-                                "With kml files you can make screenshots with desktop app of OMaps");
+DEFINE_double(kml_percent, 0.0,
+              "The percent of routes for which kml file will be generated."
+              "With kml files you can make screenshots with desktop app of OMaps");
 
 DEFINE_bool(benchmark_stat, false, "Dump statistics about route time building.");
 
@@ -60,7 +61,8 @@ This tool takes two paths to directory with routes, that were dumped by routes_b
     --kml_percent may be used in non-benchamrk mode for dumping kmls and visual comparison different routes.
 )";
 
-  auto const addStringInfo = [&usage](auto const & arg, auto const & argValue) {
+  auto const addStringInfo = [&usage](auto const & arg, auto const & argValue)
+  {
     using T = decltype(argValue);
     usage << "\n\t" << arg << " is";
     if (argValue == T{})
@@ -91,7 +93,7 @@ bool HasHelpFlags(int argc, char ** argv)
   }
   return false;
 }
-} // namespace
+}  // namespace
 
 using namespace routing;
 using namespace routes_builder;
@@ -166,8 +168,7 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
 {
   ErrorTypeCounter mapsmeErrorCounter;
   ErrorTypeCounter anotherErrorCounter;
-  ComparisonType type = IsMapsmeVsApi() ? ComparisonType::MapsmeVsApi
-                                        : ComparisonType::MapsmeVsMapsme;
+  ComparisonType type = IsMapsmeVsApi() ? ComparisonType::MapsmeVsApi : ComparisonType::MapsmeVsMapsme;
   RoutesSaver routesSaver(FLAGS_save_results, type);
   std::vector<Result> results;
   size_t apiErrors = 0;
@@ -212,16 +213,15 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
     for (auto const & route : anotherResult.GetRoutes())
     {
       auto const similarity =
-          metrics::CompareByNumberOfMatchedWaypoints(mapsmeRoute.m_followedPolyline,
-                                                     route.GetWaypoints());
+          metrics::CompareByNumberOfMatchedWaypoints(mapsmeRoute.m_followedPolyline, route.GetWaypoints());
 
       if (maxSimilarity < similarity)
       {
         maxSimilarity = similarity;
         if (maxSimilarity == 1.0)
         {
-          etaDiff = 100.0 * std::abs(route.GetETA() - mapsmeRoute.GetETA()) /
-                    std::max(route.GetETA(), mapsmeRoute.GetETA());
+          etaDiff =
+              100.0 * std::abs(route.GetETA() - mapsmeRoute.GetETA()) / std::max(route.GetETA(), mapsmeRoute.GetETA());
         }
       }
     }
@@ -236,8 +236,7 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
 
   std::vector<std::string> errorLabels;
   std::vector<std::vector<double>> errorsCount;
-  FillLabelsAndErrorTypeDistribution(errorLabels, errorsCount, mapsmeErrorCounter,
-                                     anotherErrorCounter);
+  FillLabelsAndErrorTypeDistribution(errorLabels, errorsCount, mapsmeErrorCounter, anotherErrorCounter);
 
   auto const pythonScriptPath = base::JoinPath(FLAGS_save_results, kPythonBarDistributionError);
   CreatePythonBarByMap(pythonScriptPath, errorLabels, errorsCount,
@@ -247,14 +246,13 @@ void RunComparison(std::vector<std::pair<RoutesBuilder::Result, std::string>> &&
 
 void CheckArgs()
 {
-  bool const modeIsChosen = IsMapsmeVsApi() || IsMapsmeVsMapsme() || IsMapsmeBenchmarkStat() ||
-                            IsMapsmeVsMapsmeBenchmarkStat();
+  bool const modeIsChosen =
+      IsMapsmeVsApi() || IsMapsmeVsMapsme() || IsMapsmeBenchmarkStat() || IsMapsmeVsMapsmeBenchmarkStat();
   if (!modeIsChosen)
     PrintHelpAndExit();
 
   CHECK(!FLAGS_save_results.empty(),
-        ("\n\n\t--save_results is required. Tool will save results there.",
-         "\n\nType --help for usage."));
+        ("\n\n\t--save_results is required. Tool will save results there.", "\n\nType --help for usage."));
 }
 
 int Main(int argc, char ** argv)
@@ -269,12 +267,11 @@ int Main(int argc, char ** argv)
   if (Platform::IsFileExistsByFullPath(FLAGS_save_results))
     CheckDirExistence(FLAGS_save_results);
   else
-    CHECK_EQUAL(Platform::MkDir(FLAGS_save_results), Platform::EError::ERR_OK,());
+    CHECK_EQUAL(Platform::MkDir(FLAGS_save_results), Platform::EError::ERR_OK, ());
 
   CheckDirExistence(FLAGS_mapsme_results);
 
-  CHECK(0.0 <= FLAGS_kml_percent && FLAGS_kml_percent <= 100.0,
-        ("--kml_percent should be in interval: [0.0, 100.0]."));
+  CHECK(0.0 <= FLAGS_kml_percent && FLAGS_kml_percent <= 100.0, ("--kml_percent should be in interval: [0.0, 100.0]."));
 
   LOG(LINFO, ("Start loading mapsme results."));
   auto mapsmeResults = LoadResults<RoutesBuilder::Result>(FLAGS_mapsme_results);
@@ -292,8 +289,7 @@ int Main(int argc, char ** argv)
     LOG(LINFO, ("Benchmark different mapsme versions. Start loading old mapsme results."));
     auto oldMapsmeResults = LoadResults<RoutesBuilder::Result>(FLAGS_mapsme_old_results);
     LOG(LINFO, ("Receive:", oldMapsmeResults.size(), "routes from --mapsme_old_results."));
-    RunBenchmarkComparison(std::move(mapsmeResults), std::move(oldMapsmeResults),
-                           FLAGS_save_results);
+    RunBenchmarkComparison(std::move(mapsmeResults), std::move(oldMapsmeResults), FLAGS_save_results);
   }
   else if (IsMapsmeVsMapsme())
   {

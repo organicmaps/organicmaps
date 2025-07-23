@@ -25,6 +25,6 @@ private:
 
   bool m_canUse = false;
 };
-  
+
 extern NetworkPolicy GetCurrentNetworkPolicy();
 }  // namespace platform

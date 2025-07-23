@@ -20,9 +20,7 @@ public:
 class MappedMemoryRegion : public MemoryRegion
 {
 public:
-  explicit MappedMemoryRegion(FilesMappingContainer::Handle && handle) : m_handle(std::move(handle))
-  {
-  }
+  explicit MappedMemoryRegion(FilesMappingContainer::Handle && handle) : m_handle(std::move(handle)) {}
 
   // MemoryRegion overrides:
   uint64_t Size() const override { return m_handle.GetSize(); }

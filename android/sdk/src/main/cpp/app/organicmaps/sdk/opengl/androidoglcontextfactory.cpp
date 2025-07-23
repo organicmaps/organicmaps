@@ -22,17 +22,23 @@ namespace
 {
 static EGLint * getConfigAttributesListRGB8()
 {
-  static EGLint attr_list[] = {
-    EGL_RED_SIZE, 8,
-    EGL_GREEN_SIZE, 8,
-    EGL_BLUE_SIZE, 8,
-    EGL_ALPHA_SIZE, 0,
-    EGL_STENCIL_SIZE, 0,
-    EGL_DEPTH_SIZE, 16,
-    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
-    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
-    EGL_NONE
-  };
+  static EGLint attr_list[] = {EGL_RED_SIZE,
+                               8,
+                               EGL_GREEN_SIZE,
+                               8,
+                               EGL_BLUE_SIZE,
+                               8,
+                               EGL_ALPHA_SIZE,
+                               0,
+                               EGL_STENCIL_SIZE,
+                               0,
+                               EGL_DEPTH_SIZE,
+                               16,
+                               EGL_RENDERABLE_TYPE,
+                               EGL_OPENGL_ES3_BIT,
+                               EGL_SURFACE_TYPE,
+                               EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
+                               EGL_NONE};
   return attr_list;
 }
 
@@ -42,8 +48,8 @@ bool IsSupportedRGB8(EGLDisplay display)
 {
   EGLConfig configs[kMaxConfigCount];
   int count = 0;
-  return eglChooseConfig(display, getConfigAttributesListRGB8(), configs,
-                         kMaxConfigCount, &count) == EGL_TRUE && count != 0;
+  return eglChooseConfig(display, getConfigAttributesListRGB8(), configs, kMaxConfigCount, &count) == EGL_TRUE &&
+         count != 0;
 }
 
 size_t constexpr kGLThreadsCount = 2;
@@ -189,8 +195,7 @@ int AndroidOGLContextFactory::GetHeight() const
 void AndroidOGLContextFactory::UpdateSurfaceSize(int w, int h)
 {
   ASSERT(IsValid(), ());
-  if ((m_surfaceWidth != w && m_surfaceWidth != h) ||
-      (m_surfaceHeight != w && m_surfaceHeight != h))
+  if ((m_surfaceWidth != w && m_surfaceWidth != h) || (m_surfaceHeight != w && m_surfaceHeight != h))
   {
     LOG(LINFO, ("Surface size changed and must be re-queried."));
     if (!QuerySurfaceSize())
@@ -231,10 +236,7 @@ dp::GraphicsContext * AndroidOGLContextFactory::GetDrawContext()
   ASSERT(IsValid(), ());
   ASSERT(m_windowSurface != EGL_NO_SURFACE, ());
   if (m_drawContext == nullptr)
-  {
-    m_drawContext = new AndroidOGLContext(m_display, m_windowSurface,
-                                          m_config, m_uploadContext);
-  }
+    m_drawContext = new AndroidOGLContext(m_display, m_windowSurface, m_config, m_uploadContext);
   return m_drawContext;
 }
 
@@ -243,10 +245,7 @@ dp::GraphicsContext * AndroidOGLContextFactory::GetResourcesUploadContext()
   ASSERT(IsValid(), ());
   ASSERT(m_pixelbufferSurface != EGL_NO_SURFACE, ());
   if (m_uploadContext == nullptr)
-  {
-    m_uploadContext = new AndroidOGLContext(m_display, m_pixelbufferSurface,
-                                            m_config, m_drawContext);
-  }
+    m_uploadContext = new AndroidOGLContext(m_display, m_pixelbufferSurface, m_config, m_drawContext);
   return m_uploadContext;
 }
 
@@ -288,8 +287,7 @@ bool AndroidOGLContextFactory::CreateWindowSurface()
 {
   EGLConfig configs[kMaxConfigCount];
   int count = 0;
-  if (eglChooseConfig(m_display, getConfigAttributesListRGB8(), configs,
-                      kMaxConfigCount, &count) == EGL_TRUE)
+  if (eglChooseConfig(m_display, getConfigAttributesListRGB8(), configs, kMaxConfigCount, &count) == EGL_TRUE)
   {
     CHECK(IsSupportedRGB8(m_display), ("RGB8 is not suported on this device"));
     LOG(LDEBUG, ("Backbuffer format: RGB8"));
@@ -309,7 +307,7 @@ bool AndroidOGLContextFactory::CreateWindowSurface()
     eglGetConfigAttrib(m_display, currentConfig, EGL_NATIVE_VISUAL_ID, &format);
     ANativeWindow_setBuffersGeometry(m_nativeWindow, 0, 0, format);
 
-    EGLint surfaceAttributes[] = { EGL_RENDER_BUFFER, EGL_BACK_BUFFER, EGL_NONE };
+    EGLint surfaceAttributes[] = {EGL_RENDER_BUFFER, EGL_BACK_BUFFER, EGL_NONE};
     m_windowSurface = eglCreateWindowSurface(m_display, currentConfig, m_nativeWindow, surfaceAttributes);
     if (m_windowSurface == EGL_NO_SURFACE)
       continue;
@@ -330,14 +328,10 @@ bool AndroidOGLContextFactory::CreateWindowSurface()
 
 bool AndroidOGLContextFactory::CreatePixelbufferSurface()
 {
-  //ASSERT(m_config != NULL, ());
+  // ASSERT(m_config != NULL, ());
 
-  const GLuint size = 1; // yes, 1 is the correct size, we dont really draw on it
-  static EGLint surfaceConfig[] = {
-      EGL_WIDTH, size,
-      EGL_HEIGHT, size,
-      EGL_NONE
-  };
+  GLuint const size = 1;  // yes, 1 is the correct size, we dont really draw on it
+  static EGLint surfaceConfig[] = {EGL_WIDTH, size, EGL_HEIGHT, size, EGL_NONE};
 
   m_pixelbufferSurface = eglCreatePbufferSurface(m_display, m_config, surfaceConfig);
 

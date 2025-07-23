@@ -97,7 +97,6 @@ std::string DebugPrint(Point<T> const & p)
 template <typename T>
 bool AlmostEqualAbs(Point<T> const & p1, Point<T> const & p2, double const & eps)
 {
-  return ::AlmostEqualAbs(p1.x, p2.x, eps) && ::AlmostEqualAbs(p1.y, p2.y, eps) &&
-         ::AlmostEqualAbs(p1.z, p2.z, eps);
+  return ::AlmostEqualAbs(p1.x, p2.x, eps) && ::AlmostEqualAbs(p1.y, p2.y, eps) && ::AlmostEqualAbs(p1.z, p2.z, eps);
 }
 }  // namespace m3

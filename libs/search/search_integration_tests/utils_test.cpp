@@ -35,15 +35,22 @@ UNIT_CLASS_TEST(SearchUtilsTest, Utils)
   auto file = platform::LocalCountryFile::MakeForTesting(kCountryName);
 
   TestPOI cafe(m2::PointD(0.0, 0.0), "cafe", "en");
-  cafe.SetTypes({{"amenity", "cafe"}});
+  cafe.SetTypes({
+      {"amenity", "cafe"}
+  });
 
   TestPOI restaurant(m2::PointD(0.0, 0.0), "restaurant", "en");
-  restaurant.SetTypes({{"amenity", "restaurant"}});
+  restaurant.SetTypes({
+      {"amenity", "restaurant"}
+  });
 
   TestPOI bar(m2::PointD(0.0, 0.0), "bar", "en");
-  bar.SetTypes({{"amenity", "bar"}});
+  bar.SetTypes({
+      {"amenity", "bar"}
+  });
 
-  auto id = BuildCountry(kCountryName, [&](TestMwmBuilder & builder) {
+  auto id = BuildCountry(kCountryName, [&](TestMwmBuilder & builder)
+  {
     builder.Add(cafe);
     builder.Add(restaurant);
     builder.Add(bar);
@@ -79,10 +86,10 @@ UNIT_CLASS_TEST(SearchUtilsTest, Utils)
   auto const & dataSource = GetDataSource();
   auto const rect = m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5));
 
-  auto const testTypes = [&](vector<uint32_t> const & types, size_t expectedCount) {
+  auto const testTypes = [&](vector<uint32_t> const & types, size_t expectedCount)
+  {
     vector<FeatureID> features;
-    ForEachOfTypesInRect(dataSource, types, rect,
-                         [&features](FeatureID const & f) { features.push_back(f); });
+    ForEachOfTypesInRect(dataSource, types, rect, [&features](FeatureID const & f) { features.push_back(f); });
     TEST_EQUAL(features.size(), expectedCount, ());
   };
 

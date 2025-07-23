@@ -44,11 +44,11 @@ class TestRanker : public Ranker
 {
 public:
   TestRanker(DataSource & dataSource, storage::CountryInfoGetter & infoGetter,
-             CitiesBoundariesTable const & boundariesTable, KeywordLangMatcher & keywordsScorer,
-             Emitter & emitter, vector<Suggest> const & suggests, VillagesCache & villagesCache,
-             base::Cancellable const & cancellable, size_t limit, vector<PreRankerResult> & results)
-    : Ranker(dataSource, boundariesTable, infoGetter, keywordsScorer, emitter,
-             GetDefaultCategories(), suggests, villagesCache, cancellable)
+             CitiesBoundariesTable const & boundariesTable, KeywordLangMatcher & keywordsScorer, Emitter & emitter,
+             vector<Suggest> const & suggests, VillagesCache & villagesCache, base::Cancellable const & cancellable,
+             size_t limit, vector<PreRankerResult> & results)
+    : Ranker(dataSource, boundariesTable, infoGetter, keywordsScorer, emitter, GetDefaultCategories(), suggests,
+             villagesCache, cancellable)
     , m_results(results)
   {
     Ranker::Params rankerParams;
@@ -101,7 +101,9 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
     for (int y = -5; y <= 5; ++y)
     {
       pois.emplace_back(m2::PointD(x, y), "cafe", "en");
-      pois.back().SetTypes({{"amenity", "cafe"}});
+      pois.back().SetTypes({
+          {"amenity", "cafe"}
+      });
     }
   }
 
@@ -119,8 +121,8 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   VillagesCache villagesCache(m_cancellable);
   KeywordLangMatcher keywordsScorer(0 /* maxLanguageTiers */);
 
-  TestRanker ranker(m_dataSource, m_engine.GetCountryInfoGetter(), boundariesTable, keywordsScorer,
-                    emitter, m_suggests, villagesCache, m_cancellable, pois.size(), results);
+  TestRanker ranker(m_dataSource, m_engine.GetCountryInfoGetter(), boundariesTable, keywordsScorer, emitter, m_suggests,
+                    villagesCache, m_cancellable, pois.size(), results);
 
   PreRanker preRanker(m_dataSource, ranker);
   PreRanker::Params params;
@@ -154,7 +156,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
 
   size_t const count = results.size();
   // Depends on std::shuffle, but lets keep 6% threshold.
-  TEST(count > batchSize*1.06 && count < batchSize*1.94, (count));
+  TEST(count > batchSize * 1.06 && count < batchSize * 1.94, (count));
 
   vector<bool> checked(pois.size());
   for (size_t i = 0; i < count; ++i)
@@ -168,4 +170,4 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
     checked[index] = true;
   }
 }
-} // namespace pre_ranker_test
+}  // namespace pre_ranker_test

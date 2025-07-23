@@ -11,8 +11,8 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
-#include "base/scope_guard.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -21,9 +21,7 @@ using namespace std::placeholders;
 
 namespace df
 {
-TileInfo::TileInfo(drape_ptr<EngineContext> && engineContext)
-  : m_context(std::move(engineContext))
-  , m_isCanceled(false)
+TileInfo::TileInfo(drape_ptr<EngineContext> && engineContext) : m_context(std::move(engineContext)), m_isCanceled(false)
 {}
 
 m2::RectD TileInfo::GetGlobalRect() const
@@ -73,8 +71,8 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
   {
     std::sort(m_featureInfo.begin(), m_featureInfo.end());
 
-    RuleDrawer drawer(std::bind(&TileInfo::IsCancelled, this), model.m_isCountryLoadedByName,
-                      make_ref(m_context), m_context->GetMapLangIndex());
+    RuleDrawer drawer(std::bind(&TileInfo::IsCancelled, this), model.m_isCountryLoadedByName, make_ref(m_context),
+                      m_context->GetMapLangIndex());
     model.ReadFeatures(std::bind<void>(std::ref(drawer), _1), m_featureInfo);
 #ifdef DRAW_TILE_NET
     drawer.DrawTileNet();

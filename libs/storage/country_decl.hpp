@@ -19,10 +19,7 @@ namespace storage
 struct CountryDef
 {
   CountryDef() = default;
-  CountryDef(CountryId const & countryId, m2::RectD const & rect)
-    : m_countryId(countryId), m_rect(rect)
-  {
-  }
+  CountryDef(CountryId const & countryId, m2::RectD const & rect) : m_countryId(countryId), m_rect(rect) {}
 
   CountryId m_countryId;
   m2::RectD m_rect;
@@ -36,8 +33,7 @@ struct CountryInfo
   // @TODO(bykoianko) Twine will be used intead of this function.
   // So id (fName) will be converted to a local name.
   static void FileName2FullName(std::string & fName);
-  static void FullName2GroupAndMap(std::string const & fName, std::string & group,
-                                   std::string & map);
+  static void FullName2GroupAndMap(std::string const & fName, std::string & group, std::string & map);
 
   bool IsNotEmpty() const { return !m_name.empty(); }
 
@@ -62,8 +58,7 @@ void Write(Sink & sink, CountryDef const & p)
 {
   rw::Write(sink, p.m_countryId);
 
-  std::pair<int64_t, int64_t> const r =
-      RectToInt64Obsolete(p.m_rect, serial::GeometryCodingParams().GetCoordBits());
+  std::pair<int64_t, int64_t> const r = RectToInt64Obsolete(p.m_rect, serial::GeometryCodingParams().GetCoordBits());
 
   WriteVarInt(sink, r.first);
   WriteVarInt(sink, r.second);

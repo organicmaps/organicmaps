@@ -25,7 +25,8 @@ class PreRanker
 public:
   struct Params
   {
-    // Minimal distance between search results (by x,y axes in mercator), needed for filtering of viewport search results.
+    // Minimal distance between search results (by x,y axes in mercator), needed for filtering of viewport search
+    // results.
     m2::PointD m_minDistanceOnMapBetweenResults{0, 0};
 
     // This is different from geocoder's pivot because pivot is
@@ -83,8 +84,7 @@ public:
   size_t Size() const { return m_results.size() + m_relaxedResults.size(); }
   size_t BatchSize() const
   {
-    return m_params.m_viewportSearch ? std::numeric_limits<size_t>::max()
-                                     : m_params.m_everywhereBatchSize;
+    return m_params.m_viewportSearch ? std::numeric_limits<size_t>::max() : m_params.m_everywhereBatchSize;
   }
   size_t NumSentResults() const { return m_numSentResults; }
   bool ContinueSearch() const { return !m_haveFullyMatchedResult || Size() < BatchSize(); }
@@ -126,7 +126,8 @@ public:
       }
 
       processed.insert(mwmId);
-    } while (nextAssigned);
+    }
+    while (nextAssigned);
   }
 
   void ClearCaches();

@@ -38,11 +38,9 @@ namespace
 {
 // The first zoom level in kAverageSegmentsCount.
 int constexpr kFirstZoomInAverageSegments = 10;
-std::array<size_t, 10> const kAverageSegmentsCount =
-{
-  // 10  11    12     13    14    15    16    17    18   19
-  10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500
-};
+std::array<size_t, 10> const kAverageSegmentsCount = {
+    // 10  11    12     13    14    15    16    17    18   19
+    10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500};
 
 double constexpr kMetersPerLevel = 3.0;
 
@@ -95,9 +93,9 @@ double GetBuildingMinHeightInMeters(FeatureType & f)
   return minHeightInMeters;
 }
 
-void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadClass,
-                            m2::PolylineD const & polyline, bool oneWay, int zoomLevel,
-                            double pixelToGlobalScale, df::TrafficSegmentsGeometry & geometry)
+void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadClass, m2::PolylineD const & polyline,
+                            bool oneWay, int zoomLevel, double pixelToGlobalScale,
+                            df::TrafficSegmentsGeometry & geometry)
 {
   if (polyline.GetSize() < 2)
     return;
@@ -140,10 +138,10 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
       if (!oneWay)
       {
         m2::PointD const tangent = (segment[1] - segment[0]).Normalize();
-        m2::PointD const normal = isLeftHandTraffic ? m2::PointD(-tangent.y, tangent.x) :
-                                                      m2::PointD(tangent.y, -tangent.x);
-        m2::PolylineD segmentPolyline(std::vector<m2::PointD>{segment[0] + normal * twoWayOffset,
-                                                              segment[1] + normal * twoWayOffset});
+        m2::PointD const normal =
+            isLeftHandTraffic ? m2::PointD(-tangent.y, tangent.x) : m2::PointD(tangent.y, -tangent.x);
+        m2::PolylineD segmentPolyline(
+            std::vector<m2::PointD>{segment[0] + normal * twoWayOffset, segment[1] + normal * twoWayOffset});
         segments.emplace_back(sid, df::TrafficSegmentGeometry(std::move(segmentPolyline), roadClass));
       }
       else
@@ -156,8 +154,7 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
 }
 }  // namespace
 
-RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled,
-                       TIsCountryLoadedByNameFn const & isLoadedFn,
+RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountryLoadedByNameFn const & isLoadedFn,
                        ref_ptr<EngineContext> engineContext, int8_t deviceLang)
   : m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
@@ -221,8 +218,7 @@ bool RuleDrawer::IsDiscardCustomFeature(FeatureID const & id) const
 
 bool RuleDrawer::CheckCoastlines(FeatureType & f)
 {
-  if (m_zoomLevel > scales::GetUpperWorldScale() &&
-      f.GetID().m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS)
+  if (m_zoomLevel > scales::GetUpperWorldScale() && f.GetID().m_mwmId.GetInfo()->GetType() == MwmInfo::COASTS)
   {
     std::string_view const name = f.GetName(StringUtf8Multilang::kDefaultCode);
     if (!name.empty())
@@ -249,13 +245,13 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
     feature::TypesHolder const types(f);
     using namespace ftypes;
 
-    bool const hasParts = IsBuildingHasPartsChecker::Instance()(types); // possible to do this checks beforehand in stylist?
+    bool const hasParts =
+        IsBuildingHasPartsChecker::Instance()(types);  // possible to do this checks beforehand in stylist?
     bool const isPart = IsBuildingPartChecker::Instance()(types);
 
     // Looks like nonsense, but there are some osm objects with types
     // highway-path-bridge and building (sic!) at the same time (pedestrian crossing).
-    isBuilding = (isPart || IsBuildingChecker::Instance()(types)) &&
-                  !IsBridgeOrTunnelChecker::Instance()(types);
+    isBuilding = (isPart || IsBuildingChecker::Instance()(types)) && !IsBridgeOrTunnelChecker::Instance()(types);
 
     isBuildingOutline = isBuilding && hasParts && !isPart;
     is3dBuilding = isBuilding && !isBuildingOutline && m_context->Is3dBuildingsEnabled();
@@ -296,10 +292,8 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
   if (!skipTriangles && isBuilding && f.GetTrgVerticesCount(m_zoomLevel) >= 10000)
     isBuilding = false;
 
-  ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f,
-                         m_currentScaleGtoP, isBuilding,
-                         areaMinHeight /* minPosZ */, areaHeight /* posZ */,
-                         s.GetCaptionDescription());
+  ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP, isBuilding,
+                         areaMinHeight /* minPosZ */, areaHeight /* posZ */, s.GetCaptionDescription());
 
   if (!skipTriangles && (s.m_areaRule || s.m_hatchingRule))
   {
@@ -311,8 +305,8 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
   /// @todo Can we put this check in the beginning of this function?
   if (applyPointStyle && !IsDiscardCustomFeature(f.GetID()))
   {
-    apply.ProcessPointRules(s.m_symbolRule, s.m_captionRule, s.m_houseNumberRule,
-                            featureCenter, m_context->GetTextureManager());
+    apply.ProcessPointRules(s.m_symbolRule, s.m_captionRule, s.m_houseNumberRule, featureCenter,
+                            m_context->GetTextureManager());
   }
 }
 
@@ -344,9 +338,8 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
     {
       ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP,
                                                  s.GetCaptionDescription(), std::move(clippedSplines));
-      applyAdditional.ProcessAdditionalLineRules(s.m_pathtextRule, s.m_shieldRule,
-                                                 m_context->GetTextureManager(), s.m_roadShields,
-                                                 m_generatedRoadShields);
+      applyAdditional.ProcessAdditionalLineRules(s.m_pathtextRule, s.m_shieldRule, m_context->GetTextureManager(),
+                                                 s.m_roadShields, m_generatedRoadShields);
     }
   }
 
@@ -360,12 +353,10 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
       df::RoadClass m_roadClass;
     };
     static Checker const checkers[] = {
-      {{HighwayClass::Trunk, HighwayClass::Primary},
-       kRoadClass0ZoomLevel, df::RoadClass::Class0},
-      {{HighwayClass::Secondary, HighwayClass::Tertiary},
-       kRoadClass1ZoomLevel, df::RoadClass::Class1},
-      {{HighwayClass::LivingStreet, HighwayClass::Service, HighwayClass::ServiceMinor},
-       kRoadClass2ZoomLevel, df::RoadClass::Class2}
+        {                                   {HighwayClass::Trunk, HighwayClass::Primary},kRoadClass0ZoomLevel, df::RoadClass::Class0                                                                                         },
+        {                              {HighwayClass::Secondary, HighwayClass::Tertiary}, kRoadClass1ZoomLevel, df::RoadClass::Class1},
+        {{HighwayClass::LivingStreet, HighwayClass::Service, HighwayClass::ServiceMinor},
+         kRoadClass2ZoomLevel, df::RoadClass::Class2                                                                                 }
     };
 
     bool const oneWay = ftypes::IsOneWayChecker::Instance()(f);
@@ -373,16 +364,15 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
     for (size_t i = 0; i < ARRAY_SIZE(checkers); ++i)
     {
       auto const & classes = checkers[i].m_highwayClasses;
-      if (find(classes.begin(), classes.end(), highwayClass) != classes.end() &&
-          m_zoomLevel >= checkers[i].m_zoomLevel)
+      if (find(classes.begin(), classes.end(), highwayClass) != classes.end() && m_zoomLevel >= checkers[i].m_zoomLevel)
       {
         // Need reset, because (possible) simplified geometry was cached before.
         f.ResetGeometry();
         std::vector<m2::PointD> points;
         assign_range(points, f.GetPoints(FeatureType::BEST_GEOMETRY));
 
-        ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(std::move(points)), oneWay,
-                               m_zoomLevel, m_trafficScalePtoG, m_trafficGeometry);
+        ExtractTrafficGeometry(f, checkers[i].m_roadClass, m2::PolylineD(std::move(points)), oneWay, m_zoomLevel,
+                               m_trafficScalePtoG, m_trafficGeometry);
         break;
       }
     }
@@ -395,8 +385,8 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertSh
     return;
 
   ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f, s.GetCaptionDescription());
-  apply.ProcessPointRules(s.m_symbolRule, s.m_captionRule, s.m_houseNumberRule,
-                          f.GetCenter(), m_context->GetTextureManager());
+  apply.ProcessPointRules(s.m_symbolRule, s.m_captionRule, s.m_houseNumberRule, f.GetCenter(),
+                          m_context->GetTextureManager());
 }
 
 void RuleDrawer::operator()(FeatureType & f)
@@ -416,8 +406,8 @@ void RuleDrawer::operator()(FeatureType & f)
   Stylist const s(f, m_zoomLevel, m_deviceLang);
 
   // No drawing rules.
-  if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule &&
-      s.m_lineRules.empty() && !s.m_areaRule && !s.m_hatchingRule)
+  if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && s.m_lineRules.empty() && !s.m_areaRule &&
+      !s.m_hatchingRule)
     return;
 
 #ifdef DEBUG
@@ -443,8 +433,8 @@ void RuleDrawer::operator()(FeatureType & f)
     size_t const index = shape->GetType();
     ASSERT_LESS(index, m_mapShapes.size(), ());
 
-    // TODO(pastk) : MinZoom was used for optimization in RenderGroup::UpdateCanBeDeletedStatus(), but is long time broken.
-    // See https://github.com/organicmaps/organicmaps/pull/5903 for details.
+    // TODO(pastk) : MinZoom was used for optimization in RenderGroup::UpdateCanBeDeletedStatus(), but is long time
+    // broken. See https://github.com/organicmaps/organicmaps/pull/5903 for details.
     shape->SetFeatureMinZoom(0);
     m_mapShapes[index].push_back(std::move(shape));
   };
@@ -522,11 +512,9 @@ void RuleDrawer::DrawTileNet()
 
   tp.m_titleDecl.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
   tp.m_titleDecl.m_primaryOffset = {0.0f, 0.0f};
-  auto textShape = make_unique_dp<TextShape>(m_globalRect.Center(), tp, key,
-                                             m2::PointF(0.0f, 0.0f) /* symbolSize */,
-                                             m2::PointF(0.0f, 0.0f) /* symbolOffset */,
-                                             dp::Anchor::Center,
-                                             0 /* textIndex */);
+  auto textShape =
+      make_unique_dp<TextShape>(m_globalRect.Center(), tp, key, m2::PointF(0.0f, 0.0f) /* symbolSize */,
+                                m2::PointF(0.0f, 0.0f) /* symbolOffset */, dp::Anchor::Center, 0 /* textIndex */);
   textShape->DisableDisplacing();
 
   textShape->Prepare(m_context->GetTextureManager());

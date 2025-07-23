@@ -3,8 +3,8 @@
 
 #include "shaders/program_manager.hpp"
 
-#include "drape_frontend/debug_rect_renderer.hpp"
 #include "drape/vertex_array_buffer.hpp"
+#include "drape_frontend/debug_rect_renderer.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -50,10 +50,8 @@ void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
 bool RenderGroup::HasOverlayHandles() const
 {
   for (auto & renderBucket : m_renderBuckets)
-  {
     if (renderBucket->HasOverlayHandles())
       return true;
-  }
   return false;
 }
 
@@ -129,10 +127,8 @@ void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
 bool RenderGroup::IsUserMark() const
 {
   auto const depthLayer = GetDepthLayer(m_state);
-  return depthLayer == DepthLayer::UserLineLayer ||
-         depthLayer == DepthLayer::UserMarkLayer ||
-         depthLayer == DepthLayer::RoutingBottomMarkLayer ||
-         depthLayer == DepthLayer::RoutingMarkLayer ||
+  return depthLayer == DepthLayer::UserLineLayer || depthLayer == DepthLayer::UserMarkLayer ||
+         depthLayer == DepthLayer::RoutingBottomMarkLayer || depthLayer == DepthLayer::RoutingMarkLayer ||
          depthLayer == DepthLayer::SearchMarkLayer;
 }
 
@@ -141,7 +137,7 @@ bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, r
   if (!IsPendingOnDelete())
     return false;
 
-  for (size_t i = 0; i < m_renderBuckets.size(); )
+  for (size_t i = 0; i < m_renderBuckets.size();)
   {
     bool const visibleBucket = !canBeDeleted && (m_renderBuckets[i]->GetMinZoom() <= currentZoom);
     if (!visibleBucket)
@@ -179,16 +175,14 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
   return rCanBeDeleted;
 }
 
-UserMarkRenderGroup::UserMarkRenderGroup(dp::RenderState const & state, TileKey const & tileKey)
-  : TBase(state, tileKey)
+UserMarkRenderGroup::UserMarkRenderGroup(dp::RenderState const & state, TileKey const & tileKey) : TBase(state, tileKey)
 {
   auto const program = state.GetProgram<gpu::Program>();
   auto const program3d = state.GetProgram3d<gpu::Program>();
 
   if (program == gpu::Program::BookmarkAnim || program3d == gpu::Program::BookmarkAnimBillboard)
   {
-    m_animation = std::make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* minValue */,
-                                                     1.0 /* maxValue */);
+    m_animation = std::make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* minValue */, 1.0 /* maxValue */);
     m_mapping.AddRangePoint(0.6f, 1.3f);
     m_mapping.AddRangePoint(0.85f, 0.8f);
     m_mapping.AddRangePoint(1.0f, 1.0f);

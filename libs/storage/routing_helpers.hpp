@@ -11,7 +11,7 @@
 
 namespace routing
 {
-std::unique_ptr<m4::Tree<routing::NumMwmId>> MakeNumMwmTree(
-    NumMwmIds const & numMwmIds, storage::CountryInfoGetter const & countryInfoGetter);
+std::unique_ptr<m4::Tree<routing::NumMwmId>> MakeNumMwmTree(NumMwmIds const & numMwmIds,
+                                                            storage::CountryInfoGetter const & countryInfoGetter);
 std::shared_ptr<NumMwmIds> CreateNumMwmIds(storage::Storage const & storage);
-} // namespace routing
+}  // namespace routing

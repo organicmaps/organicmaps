@@ -22,7 +22,6 @@
 
 #include <gflags/gflags.h>
 
-
 DEFINE_string(path_resources, "", "OMaps resources directory");
 DEFINE_string(path_roads_file, "", "OSM file in o5m format.");
 DEFINE_string(path_res_file, "", "Path to the resulting file with roads for generator_tool.");
@@ -31,13 +30,12 @@ int main(int argc, char ** argv)
 {
   using namespace routing;
 
-  gflags::SetUsageMessage(
-      "Reads OSM file, generates text file with main cross-mwm roads for generator_tool.");
+  gflags::SetUsageMessage("Reads OSM file, generates text file with main cross-mwm roads for generator_tool.");
   gflags::ParseCommandLineFlags(&argc, &argv, true);
   auto const toolName = base::FileNameFromFullPath(argv[0]);
 
-  if (FLAGS_path_resources.empty() || !Platform::IsDirectory(FLAGS_path_resources) ||
-      FLAGS_path_roads_file.empty() || FLAGS_path_res_file.empty())
+  if (FLAGS_path_resources.empty() || !Platform::IsDirectory(FLAGS_path_resources) || FLAGS_path_roads_file.empty() ||
+      FLAGS_path_res_file.empty())
   {
     gflags::ShowUsageWithFlagsRestrict(argv[0], toolName.c_str());
     return EXIT_FAILURE;
@@ -45,12 +43,10 @@ int main(int argc, char ** argv)
 
   GetPlatform().SetResourceDir(FLAGS_path_resources);
 
-  feature::CountriesFilesAffiliation mwmMatcher(GetPlatform().ResourcesDir(),
-                                                false /* haveBordersForWholeWorld */);
+  feature::CountriesFilesAffiliation mwmMatcher(GetPlatform().ResourcesDir(), false /* haveBordersForWholeWorld */);
 
   // These types are used in maps_generator (maps_generator/genrator/steps.py in filter_roads function).
-  std::vector<std::string> const highwayTypes{"motorway", "trunk", "primary", "secondary",
-                                              "tertiary"};
+  std::vector<std::string> const highwayTypes{"motorway", "trunk", "primary", "secondary", "tertiary"};
 
   generator::SourceReader reader(FLAGS_path_roads_file);
   RoadsFromOsm const & roadsFromOsm = GetRoadsFromOsm(reader, mwmMatcher, highwayTypes);
@@ -60,7 +56,8 @@ int main(int argc, char ** argv)
 
   std::unordered_map<std::string, NumMwmId> regionsToIds;
 
-  numMwmIds->ForEachId([&regionsToIds, &numMwmIds](NumMwmId id) {
+  numMwmIds->ForEachId([&regionsToIds, &numMwmIds](NumMwmId id)
+  {
     std::string const & region = numMwmIds->GetFile(id).GetName();
     CHECK(regionsToIds.emplace(region, id).second, (id, region));
   });
@@ -81,9 +78,8 @@ int main(int argc, char ** argv)
       if (wayData.m_regions.size() == 1)
         continue;
 
-      bool const foundSegments =
-          FillCrossBorderGraph(graph, curSegmentId, wayData.m_way.Nodes(), roadsFromOsm.m_nodes,
-                               mwmMatcher, regionsToIds);
+      bool const foundSegments = FillCrossBorderGraph(graph, curSegmentId, wayData.m_way.Nodes(), roadsFromOsm.m_nodes,
+                                                      mwmMatcher, regionsToIds);
 
       LOG(LINFO, ("Found segments for", wayId, ":", foundSegments));
     }

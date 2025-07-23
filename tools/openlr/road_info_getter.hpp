@@ -34,8 +34,7 @@ public:
 
   RoadInfo Get(FeatureID const & fid);
 
- private:
-
+private:
   DataSource const & m_dataSource;
   std::map<FeatureID, RoadInfo> m_cache;
 };

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "kml/serdes_binary.hpp"
-#include "kml/types_v8.hpp"
 #include "kml/types.hpp"
+#include "kml/types_v8.hpp"
 #include "kml/visitors.hpp"
 
 #include <string>
@@ -80,7 +80,7 @@ public:
     // Downgrade bookmark format from Latest to V8
     std::vector<BookmarkDataV8> bookmarksDataV8;
     bookmarksDataV8.reserve(m_data.m_bookmarksData.size());
-    for (BookmarkData &bm : m_data.m_bookmarksData)
+    for (BookmarkData & bm : m_data.m_bookmarksData)
       bookmarksDataV8.push_back(BookmarkDataV8(bm));
     visitor(bookmarksDataV8);
   }

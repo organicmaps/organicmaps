@@ -12,7 +12,7 @@ void testDistance(ms::LatLon const & a, ms::LatLon const & b, double planDistanc
   double const factDistance = oblate_spheroid::GetDistance(a, b);
   TEST_ALMOST_EQUAL_ABS(factDistance, planDistance, kAccuracyEps, ());
 }
-}
+}  // namespace
 
 UNIT_TEST(Distance_EdgeCaseEquatorialLine)
 {

@@ -31,10 +31,7 @@ public:
 
     std::vector<Name> m_synonyms;
 
-    void Swap(Category & r)
-    {
-      m_synonyms.swap(r.m_synonyms);
-    }
+    void Swap(Category & r) { m_synonyms.swap(r.m_synonyms); }
   };
 
   struct Mapping
@@ -69,53 +66,55 @@ public:
   // CategoriesHolder::MapIntegerToLocale() as their implementations
   // strongly depend on the contents of the variable.
   // TODO: Refactor for more flexibility and to avoid breaking rules in two methods mentioned above.
-  static std::array<CategoriesHolder::Mapping, 45> constexpr kLocaleMapping = {{
-      {"en", kEnglishCode},
-      {"en-AU", 2},
-      {"en-GB", 3},
-      {"en-US", 4},
-      {"ar", 5},
-      {"be", 6},
-      {"bg", 7},
-      {"ca", 8},
-      {"cs", 9},
-      {"da", 10},
-      {"de", 11},
-      {"el", 12},
-      {"es", 13},
-      {"es-MX", 14},
-      {"et", 15},
-      {"eu", 16},
-      {"fa", 17},
-      {"fi", 18},
-      {"fr", 19},
-      {"he", 20},
-      {"hi", 21},
-      {"hu", 22},
-      {"id", 23},
-      {"it", 24},
-      {"ja", 25},
-      {"ko", 26},
-      {"lv", 27},
-      {"mr", 28},
-      {"nb", 29},
-      {"nl", 30},
-      {"pl", 31},
-      {"pt", 32},
-      {"pt-BR", 33},
-      {"ro", 34},
-      {"ru", 35},
-      {"sk", 36},
-      {"sr", 37},
-      {"sv", 38},
-      {"sw", 39},
-      {"th", 40},
-      {"tr", 41},
-      {"uk", 42},
-      {"vi", 43},
-      {"zh-Hans", kSimplifiedChineseCode},
-      {"zh-Hant", kTraditionalChineseCode},
-  }};
+  static std::array<CategoriesHolder::Mapping, 45> constexpr kLocaleMapping = {
+      {
+       {"en", kEnglishCode},
+       {"en-AU", 2},
+       {"en-GB", 3},
+       {"en-US", 4},
+       {"ar", 5},
+       {"be", 6},
+       {"bg", 7},
+       {"ca", 8},
+       {"cs", 9},
+       {"da", 10},
+       {"de", 11},
+       {"el", 12},
+       {"es", 13},
+       {"es-MX", 14},
+       {"et", 15},
+       {"eu", 16},
+       {"fa", 17},
+       {"fi", 18},
+       {"fr", 19},
+       {"he", 20},
+       {"hi", 21},
+       {"hu", 22},
+       {"id", 23},
+       {"it", 24},
+       {"ja", 25},
+       {"ko", 26},
+       {"lv", 27},
+       {"mr", 28},
+       {"nb", 29},
+       {"nl", 30},
+       {"pl", 31},
+       {"pt", 32},
+       {"pt-BR", 33},
+       {"ro", 34},
+       {"ru", 35},
+       {"sk", 36},
+       {"sr", 37},
+       {"sv", 38},
+       {"sw", 39},
+       {"th", 40},
+       {"tr", 41},
+       {"uk", 42},
+       {"vi", 43},
+       {"zh-Hans", kSimplifiedChineseCode},
+       {"zh-Hant", kTraditionalChineseCode},
+       }
+  };
 
   explicit CategoriesHolder(std::unique_ptr<Reader> && reader);
 
@@ -137,20 +136,16 @@ public:
   void ForEachName(ToDo && toDo) const
   {
     for (auto const & p : m_type2cat)
-    {
       for (auto const & synonym : p.second->m_synonyms)
         toDo(synonym);
-    }
   }
 
   template <class ToDo>
   void ForEachNameAndType(ToDo && toDo) const
   {
     for (auto const & p : m_type2cat)
-    {
       for (auto const & synonym : p.second->m_synonyms)
         toDo(synonym, p.first);
-    }
   }
 
   template <class ToDo>

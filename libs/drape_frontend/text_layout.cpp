@@ -17,15 +17,14 @@ float constexpr kValidSplineTurn = 0.96f;
 class TextGeometryGenerator
 {
 public:
-  TextGeometryGenerator(dp::TextureManager::ColorRegion const & color,
-                        gpu::TTextStaticVertexBuffer & buffer)
+  TextGeometryGenerator(dp::TextureManager::ColorRegion const & color, gpu::TTextStaticVertexBuffer & buffer)
     : m_colorCoord(glsl::ToVec2(color.GetTexRect().Center()))
     , m_buffer(buffer)
   {}
 
   void SetPenPosition(glsl::vec2 const & penOffset) {}
 
-  void operator() (dp::TextureManager::GlyphRegion const & glyph, dp::text::GlyphMetrics const &)
+  void operator()(dp::TextureManager::GlyphRegion const & glyph, dp::text::GlyphMetrics const &)
   {
     m2::RectF const & mask = glyph.GetTexRect();
 
@@ -43,8 +42,7 @@ protected:
 class StraightTextGeometryGenerator
 {
 public:
-  StraightTextGeometryGenerator(glsl::vec4 const & pivot,
-                                glsl::vec2 const & pixelOffset, float textRatio,
+  StraightTextGeometryGenerator(glsl::vec4 const & pivot, glsl::vec2 const & pixelOffset, float textRatio,
                                 gpu::TTextDynamicVertexBuffer & dynBuffer)
     : m_pivot(pivot)
     , m_pixelOffset(pixelOffset)
@@ -107,7 +105,7 @@ public:
 
   void SetPenPosition(glsl::vec2 const & penOffset) {}
 
-  void operator() (dp::TextureManager::GlyphRegion const & glyph, dp::text::GlyphMetrics const &)
+  void operator()(dp::TextureManager::GlyphRegion const & glyph, dp::text::GlyphMetrics const &)
   {
     m2::RectF const & mask = glyph.GetTexRect();
     m_buffer.emplace_back(m_colorCoord, m_outlineCoord, glsl::ToVec2(mask.LeftTop()));
@@ -131,11 +129,13 @@ struct LineMetrics
 
 // Scan longer shaped glyphs, and try to split them into two strings if a space glyph is present.
 // NOTE: Works only for LTR texts. Implementation should be mirrored for RTL.
-buffer_vector<LineMetrics, 2> SplitText(bool forceNoWrap, float textScale, dp::GlyphFontAndId space, dp::text::TextMetrics const & str)
+buffer_vector<LineMetrics, 2> SplitText(bool forceNoWrap, float textScale, dp::GlyphFontAndId space,
+                                        dp::text::TextMetrics const & str)
 {
   // Add the whole line by default.
-  buffer_vector<LineMetrics, 2> lines{{str.m_glyphs.size(),
-      textScale * str.m_lineWidthInPixels, textScale * str.m_maxLineHeightInPixels}};
+  buffer_vector<LineMetrics, 2> lines{
+      {str.m_glyphs.size(), textScale * str.m_lineWidthInPixels, textScale * str.m_maxLineHeightInPixels}
+  };
 
   size_t const count = str.m_glyphs.size();
   if (forceNoWrap || count <= 15)
@@ -148,7 +148,7 @@ buffer_vector<LineMetrics, 2> SplitText(bool forceNoWrap, float textScale, dp::G
   // Doesn't take into an account the width of glyphs/string.
   auto const iMiddle = begin + count / 2;
 
-  auto const isSpaceGlyph = [space](auto const & metrics){ return metrics.m_key == space; };
+  auto const isSpaceGlyph = [space](auto const & metrics) { return metrics.m_key == space; };
   // Find next delimiter after middle [m, e)
   auto iNext = std::find_if(iMiddle, end, isSpaceGlyph);
 
@@ -179,7 +179,7 @@ buffer_vector<LineMetrics, 2> SplitText(bool forceNoWrap, float textScale, dp::G
 
   lines.push_back(LineMetrics{
       count,
-      textScale * std::accumulate(afterSpace, end, 0, [](auto acc, auto const & m){ return m.m_xAdvance + acc; }),
+      textScale * std::accumulate(afterSpace, end, 0, [](auto acc, auto const & m) { return m.m_xAdvance + acc; }),
       textScale * str.m_maxLineHeightInPixels});
 
   // Update the first line too.
@@ -192,9 +192,7 @@ buffer_vector<LineMetrics, 2> SplitText(bool forceNoWrap, float textScale, dp::G
 class XLayouter
 {
 public:
-  explicit XLayouter(dp::Anchor anchor)
-    : m_anchor(anchor)
-  {}
+  explicit XLayouter(dp::Anchor anchor) : m_anchor(anchor) {}
 
   float operator()(float currentLength, float maxLength) const
   {
@@ -232,7 +230,7 @@ public:
   }
 
 private:
-    float m_penOffset;
+  float m_penOffset;
 };
 
 double GetTextMinPeriod(double pixelTextLength)
@@ -291,7 +289,8 @@ StraightTextLayout::StraightTextLayout(std::string const & text, float fontSize,
 
   // TODO(AB): Use ICU's BreakIterator to split text properly in different languages without spaces.
   // TODO(AB): Implement SplitText for RTL languages.
-  auto const lines = SplitText(forceNoWrap || m_shapedGlyphs.m_isRTL, m_textSizeRatio, textures->GetSpaceGlyph(), m_shapedGlyphs);
+  auto const lines =
+      SplitText(forceNoWrap || m_shapedGlyphs.m_isRTL, m_textSizeRatio, textures->GetSpaceGlyph(), m_shapedGlyphs);
   m_rowsCount = lines.size();
 
   float summaryHeight = 0.;
@@ -376,8 +375,8 @@ void StraightTextLayout::CacheDynamicGeometry(glsl::vec2 const & pixelOffset,
   Cache(generator);
 }
 
-PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, std::string const & text,
-                               float fontSize, ref_ptr<dp::TextureManager> textureManager)
+PathTextLayout::PathTextLayout(m2::PointD const & tileCenter, std::string const & text, float fontSize,
+                               ref_ptr<dp::TextureManager> textureManager)
   : m_tileCenter(tileCenter)
 {
   ASSERT_EQUAL(std::string::npos, text.find('\n'), ("Multiline text is not expected", text));
@@ -409,8 +408,7 @@ void PathTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const &
 }
 
 bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, float depth,
-                                          m2::PointD const & globalPivot,
-                                          gpu::TTextDynamicVertexBuffer & buffer) const
+                                          m2::PointD const & globalPivot, gpu::TTextDynamicVertexBuffer & buffer) const
 {
   float const halfLength = 0.5f * GetPixelLength();
 
@@ -433,8 +431,8 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
   m2::PointD const pxPivot = iter.m_pos;
   buffer.resize(4 * m_glyphRegions.size());
 
-  glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter,
-                                                               kShapeCoordScalar)), depth, 0.0f);
+  glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter, kShapeCoordScalar)), depth,
+                         0.0f);
 
   ASSERT_EQUAL(m_glyphRegions.size(), m_shapedGlyphs.m_glyphs.size(), ());
   for (size_t i = 0; i < m_glyphRegions.size(); ++i)
@@ -458,8 +456,8 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
     float const xOffset = glyph.m_xOffset * m_textSizeRatio;
     float const yOffset = glyph.m_yOffset * m_textSizeRatio;
 
-    float const upVector = - (pxSize.y + yOffset);
-    float const bottomVector = - yOffset;
+    float const upVector = -(pxSize.y + yOffset);
+    float const bottomVector = -yOffset;
 
     size_t const baseIndex = 4 * i;
 
@@ -485,8 +483,8 @@ double PathTextLayout::CalculateTextLength(double textPixelLength)
   return kTextBorder + textPixelLength;
 }
 
-void PathTextLayout::CalculatePositions(double splineLength, double splineScaleToPixel,
-                                        double textPixelLength, std::vector<double> & offsets)
+void PathTextLayout::CalculatePositions(double splineLength, double splineScaleToPixel, double textPixelLength,
+                                        std::vector<double> & offsets)
 {
   double const textLength = CalculateTextLength(textPixelLength);
 

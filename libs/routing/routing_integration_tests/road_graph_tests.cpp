@@ -10,9 +10,9 @@
 #include "indexer/feature_altitude.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "routing_common/car_model.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/road_graph.hpp"
+#include "routing_common/car_model.hpp"
 
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
@@ -46,8 +46,7 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
   geometry::PointWithAltitude const j(m2::PointD(mercator::FromLatLon(50.73208, -1.21279)),
                                       geometry::kDefaultAltitudeMeters);
   std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> sourceVicinity;
-  graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(
-                             j.GetPoint(), FeaturesRoadGraph::kClosestEdgesRadiusM),
+  graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(j.GetPoint(), FeaturesRoadGraph::kClosestEdgesRadiusM),
                          20 /* count */, sourceVicinity);
   // In case of the combinatorial explosion mentioned above all the memory was consumed for
   // FeaturesRoadGraph::m_fakeIngoingEdges and FeaturesRoadGraph::m_fakeOutgoingEdges fields.

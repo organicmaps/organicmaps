@@ -26,12 +26,17 @@ using PD = m2::PointD;
 
 namespace
 {
-m2::PointU D2U(m2::PointD const & p) { return PointDToPointU(p, kPointCoordBits); }
+m2::PointU D2U(m2::PointD const & p)
+{
+  return PointDToPointU(p, kPointCoordBits);
+}
 
-m2::PointU GetMaxPoint() { return D2U(m2::PointD(mercator::Bounds::kMaxX, mercator::Bounds::kMaxY)); }
+m2::PointU GetMaxPoint()
+{
+  return D2U(m2::PointD(mercator::Bounds::kMaxX, mercator::Bounds::kMaxY));
+}
 
-void TestPolylineEncode(string testName, vector<m2::PointU> const & points,
-                        m2::PointU const & maxPoint,
+void TestPolylineEncode(string testName, vector<m2::PointU> const & points, m2::PointU const & maxPoint,
                         void (*fnEncode)(InPointsT const & points, m2::PointU const & basePoint,
                                          m2::PointU const & maxPoint, OutDeltasT & deltas),
                         void (*fnDecode)(InDeltasT const & deltas, m2::PointU const & basePoint,
@@ -161,9 +166,8 @@ UNIT_TEST(EncodePolyline)
     vector<m2::PointU> points;
     points.reserve(polygonSize);
     for (size_t i = 0; i < polygonSize; ++i)
-      points.push_back(
-          m2::PointU(static_cast<uint32_t>(LargePolygon::kLargePolygon[i].x * 10000),
-                     static_cast<uint32_t>((LargePolygon::kLargePolygon[i].y + 200) * 10000)));
+      points.push_back(m2::PointU(static_cast<uint32_t>(LargePolygon::kLargePolygon[i].x * 10000),
+                                  static_cast<uint32_t>((LargePolygon::kLargePolygon[i].y + 200) * 10000)));
 
     TestEncodePolyline("Unsimp", maxPoint, points);
     TestEncodePolyline("1simp", maxPoint, SimplifyPoints(points, 1));

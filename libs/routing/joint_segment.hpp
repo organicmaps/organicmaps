@@ -35,10 +35,7 @@ public:
 
   bool operator<(JointSegment const & rhs) const;
   bool operator==(JointSegment const & rhs) const;
-  bool operator!=(JointSegment const & rhs) const
-  {
-    return !(*this == rhs);
-  }
+  bool operator!=(JointSegment const & rhs) const { return !(*this == rhs); }
 
 private:
   uint32_t m_featureId = kInvalidFeatureId;
@@ -53,9 +50,8 @@ private:
 class JointEdge
 {
 public:
-  JointEdge() = default;    // needed for buffer_vector only
-  JointEdge(JointSegment const & target, RouteWeight const & weight)
-    : m_target(target), m_weight(weight) {}
+  JointEdge() = default;  // needed for buffer_vector only
+  JointEdge(JointSegment const & target, RouteWeight const & weight) : m_target(target), m_weight(weight) {}
 
   JointSegment const & GetTarget() const { return m_target; }
   JointSegment & GetTarget() { return m_target; }

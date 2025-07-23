@@ -25,8 +25,8 @@ size_t GetScriptExtensions(char32_t codepoint, TScriptsArray & scripts)
 {
   // Fill scripts with the script extensions.
   UErrorCode icu_error = U_ZERO_ERROR;
-  size_t const count = uscript_getScriptExtensions(static_cast<UChar32>(codepoint), scripts.data(),
-                                                   scripts.max_size(), &icu_error);
+  size_t const count =
+      uscript_getScriptExtensions(static_cast<UChar32>(codepoint), scripts.data(), scripts.max_size(), &icu_error);
   if (U_FAILURE(icu_error))
   {
     LOG(LWARNING, ("uscript_getScriptExtensions failed with error", icu_error));
@@ -132,7 +132,7 @@ hb_script_t ICUScriptToHarfbuzzScript(UScriptCode script)
 {
   if (script == USCRIPT_INVALID_CODE)
     return HB_SCRIPT_INVALID;
-  return hb_script_from_string(uscript_getShortName (script), -1);
+  return hb_script_from_string(uscript_getShortName(script), -1);
 }
 
 void GetSingleTextLineRuns(TextSegments & segments)
@@ -167,14 +167,15 @@ void GetSingleTextLineRuns(TextSegments & segments)
     {
       // Find the longest sequence of characters that have at least one common UScriptCode value.
       UScriptCode script = USCRIPT_INVALID_CODE;
-      size_t const scriptRunEnd = ScriptInterval(segments.m_text, scriptRunStart, bidiRunEnd - scriptRunStart, script) + scriptRunStart;
+      size_t const scriptRunEnd =
+          ScriptInterval(segments.m_text, scriptRunStart, bidiRunEnd - scriptRunStart, script) + scriptRunStart;
       ASSERT_LESS(scriptRunStart, base::asserted_cast<int32_t>(scriptRunEnd), ());
 
       // TODO(AB): May need to break on different unicode blocks, parentheses, and control chars (spaces).
 
       // TODO(AB): Support vertical layouts if necessary.
       segments.m_segments.emplace_back(scriptRunStart, scriptRunEnd - scriptRunStart, ICUScriptToHarfbuzzScript(script),
-                                   bidiLevel & 0x01 ? HB_DIRECTION_RTL : HB_DIRECTION_LTR);
+                                       bidiLevel & 0x01 ? HB_DIRECTION_RTL : HB_DIRECTION_LTR);
 
       // Move to the next script sequence.
       scriptRunStart = static_cast<int32_t>(scriptRunEnd);
@@ -215,7 +216,7 @@ TextSegments GetTextSegments(std::string_view utf8)
   ASSERT(std::string::npos == utf8.find_first_of("\r\n"), ("Shaping with line breaks is not supported", utf8));
 
   // TODO(AB): Can unnecessary conversion/allocation be avoided?
-  TextSegments segments {strings::ToUtf16(utf8), {}};
+  TextSegments segments{strings::ToUtf16(utf8), {}};
   // TODO(AB): Runs are not split by breaking chars and by different fonts.
   GetSingleTextLineRuns(segments);
   ReorderRTL(segments);
@@ -225,8 +226,8 @@ TextSegments GetTextSegments(std::string_view utf8)
 std::string DebugPrint(TextSegment const & segment)
 {
   std::stringstream ss;
-  ss << "TextSegment[start=" << segment.m_start << ", length=" << segment.m_length
-     << ", script=" << segment.m_script << ", direction=" << segment.m_direction << ']';
+  ss << "TextSegment[start=" << segment.m_start << ", length=" << segment.m_length << ", script=" << segment.m_script
+     << ", direction=" << segment.m_direction << ']';
   return ss.str();
 }
 

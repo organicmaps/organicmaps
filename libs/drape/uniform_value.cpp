@@ -9,20 +9,11 @@ void ApplyInt(int8_t location, int32_t const * pointer, size_t componentCount)
 {
   switch (componentCount)
   {
-  case 1:
-    GLFunctions::glUniformValuei(location, pointer[0]);
-    break;
-  case 2:
-    GLFunctions::glUniformValuei(location, pointer[0], pointer[1]);
-    break;
-  case 3:
-    GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2]);
-    break;
-  case 4:
-    GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2], pointer[3]);
-    break;
-  default:
-    ASSERT(false, ());
+  case 1: GLFunctions::glUniformValuei(location, pointer[0]); break;
+  case 2: GLFunctions::glUniformValuei(location, pointer[0], pointer[1]); break;
+  case 3: GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2]); break;
+  case 4: GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2], pointer[3]); break;
+  default: ASSERT(false, ());
   }
 }
 
@@ -30,20 +21,11 @@ void ApplyFloat(int8_t location, float const * pointer, size_t componentCount)
 {
   switch (componentCount)
   {
-  case 1:
-    GLFunctions::glUniformValuef(location, pointer[0]);
-    break;
-  case 2:
-    GLFunctions::glUniformValuef(location, pointer[0], pointer[1]);
-    break;
-  case 3:
-    GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2]);
-    break;
-  case 4:
-    GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2], pointer[3]);
-    break;
-  default:
-    ASSERT(false, ());
+  case 1: GLFunctions::glUniformValuef(location, pointer[0]); break;
+  case 2: GLFunctions::glUniformValuef(location, pointer[0], pointer[1]); break;
+  case 3: GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2]); break;
+  case 4: GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2], pointer[3]); break;
+  default: ASSERT(false, ());
   }
 }
 

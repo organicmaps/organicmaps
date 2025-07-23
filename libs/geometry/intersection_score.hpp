@@ -8,10 +8,10 @@
 
 #include <vector>
 
-#include "std/boost_geometry.hpp"
 #include <boost/geometry/geometries/adapted/boost_tuple.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
+#include "std/boost_geometry.hpp"
 
 namespace geometry
 {
@@ -39,8 +39,8 @@ impl::MultiPolygon TrianglesToPolygon(Container const & points);
 template <typename LGeometry, typename RGeometry>
 double GetIntersectionScore(LGeometry const & lhs, RGeometry const & rhs)
 {
-  if (!boost::geometry::is_valid(lhs) || !boost::geometry::is_valid(rhs) ||
-      boost::geometry::is_empty(lhs) || boost::geometry::is_empty(rhs))
+  if (!boost::geometry::is_valid(lhs) || !boost::geometry::is_valid(rhs) || boost::geometry::is_empty(lhs) ||
+      boost::geometry::is_empty(rhs))
   {
     return kPenaltyScore;
   }
@@ -63,8 +63,7 @@ double GetIntersectionScore(LGeometry const & lhs, RGeometry const & rhs)
 /// |lhs| and |rhs| are any standard container of m2::Point with random access iterator.
 /// |toPolygonConverter| is a method which converts |lhs| and |rhs| to boost::geometry areal type.
 template <typename Container, typename Converter>
-double GetIntersectionScore(Container const & lhs, Container const & rhs,
-                            Converter const & toPolygonConverter)
+double GetIntersectionScore(Container const & lhs, Container const & rhs, Converter const & toPolygonConverter)
 {
   auto const lhsPolygon = toPolygonConverter(lhs);
   if (boost::geometry::is_empty(lhsPolygon))

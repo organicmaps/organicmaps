@@ -23,7 +23,8 @@ UNIT_TEST(ThreadPoolComputational_SomeThreads)
       base::ComputationalThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
-        threadPool.Submit([&]() {
+        threadPool.Submit([&]()
+        {
           threads::Sleep(1);
           ++counter;
         });
@@ -44,7 +45,8 @@ UNIT_TEST(ThreadPoolComputational_OneThread)
       base::ComputationalThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
-        threadPool.Submit([&]() {
+        threadPool.Submit([&]()
+        {
           threads::Sleep(1);
           ++counter;
         });
@@ -67,7 +69,8 @@ UNIT_TEST(ThreadPoolComputational_ManyThread)
       base::ComputationalThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
-        threadPool.Submit([&]() {
+        threadPool.Submit([&]()
+        {
           threads::Sleep(1);
           ++counter;
         });
@@ -87,7 +90,8 @@ UNIT_TEST(ThreadPoolComputational_ReturnValue)
     std::vector<std::future<size_t>> futures;
     for (size_t i = 0; i < threadCount; ++i)
     {
-      auto f = threadPool.Submit([=]() {
+      auto f = threadPool.Submit([=]()
+      {
         threads::Sleep(1);
         return i;
       });
@@ -110,7 +114,8 @@ UNIT_TEST(ThreadPoolComputational_ManyTasks)
       base::ComputationalThreadPool threadPool(4);
       for (size_t i = 0; i < taskCount; ++i)
       {
-        threadPool.Submit([&]() {
+        threadPool.Submit([&]()
+        {
           threads::Sleep(1);
           ++counter;
         });

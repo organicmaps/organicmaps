@@ -13,7 +13,8 @@ CitiesBoundariesChecker::CitiesBoundariesChecker(CitiesBoundaries const & cities
 bool CitiesBoundariesChecker::InCity(m2::PointD const & point) const
 {
   bool result = false;
-  m_tree.ForEachInRect(m2::RectD(point, point), [&](indexer::CityBoundary const & cityBoundary) {
+  m_tree.ForEachInRect(m2::RectD(point, point), [&](indexer::CityBoundary const & cityBoundary)
+  {
     if (result)
       return;
 

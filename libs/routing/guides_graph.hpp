@@ -42,15 +42,13 @@ public:
   GuidesGraph() = default;
   explicit GuidesGraph(double maxSpeedMpS, NumMwmId mwmId);
 
-  Segment AddTrack(std::vector<geometry::PointWithAltitude> const & guideTrack,
-                   size_t requiredSegmentIdx);
+  Segment AddTrack(std::vector<geometry::PointWithAltitude> const & guideTrack, size_t requiredSegmentIdx);
 
   FakeEnding MakeFakeEnding(Segment const & segment, m2::PointD const & point,
                             geometry::PointWithAltitude const & projection) const;
 
   using EdgeListT = SmallList<SegmentEdge>;
-  void GetEdgeList(Segment const & segment, bool isOutgoing, EdgeListT & edges,
-                   RouteWeight const & prevWeight) const;
+  void GetEdgeList(Segment const & segment, bool isOutgoing, EdgeListT & edges, RouteWeight const & prevWeight) const;
   routing::LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) const;
   RouteWeight CalcSegmentWeight(Segment const & segment) const;
   Segment FindSegment(Segment const & segment, size_t segmentIdx) const;
@@ -61,8 +59,7 @@ public:
   NumMwmId GetMwmId() const;
 
 private:
-  double CalcSegmentTimeS(LatLonWithAltitude const & point1,
-                          LatLonWithAltitude const & point2) const;
+  double CalcSegmentTimeS(LatLonWithAltitude const & point1, LatLonWithAltitude const & point2) const;
 
   GuideSegments m_segments;
   double m_maxSpeedMpS = 0.0;

@@ -24,7 +24,7 @@ using namespace std;
 using namespace storage;
 
 CountryId const kGroupCountryId = "Venezuela";
-CountriesSet const kLeafCountriesIds = { "Venezuela_North", "Venezuela_South" };
+CountriesSet const kLeafCountriesIds = {"Venezuela_North", "Venezuela_South"};
 
 string GetMwmFilePath(string const & version, CountryId const & countryId)
 {
@@ -33,9 +33,8 @@ string GetMwmFilePath(string const & version, CountryId const & countryId)
 
 string GetMwmDownloadingFilePath(string const & version, CountryId const & countryId)
 {
-  return base::JoinPath(
-      GetPlatform().WritableDir(), version,
-      countryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
+  return base::JoinPath(GetPlatform().WritableDir(), version,
+                        countryId + DATA_FILE_EXTENSION READY_FILE_EXTENSION DOWNLOADING_FILE_EXTENSION);
 }
 
 string GetMwmResumeFilePath(string const & version, CountryId const & countryId)
@@ -55,13 +54,12 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   //  All nodes in subtree (including the root) for the group node.
   storage.GetChildren(kGroupCountryId, children);
   CountriesSet subTree;
-  storage.ForEachInSubtree(kGroupCountryId,
-                           [&subTree](CountryId const & descendantId, bool /* groupNode */) {
-                             subTree.insert(descendantId);
-                           });
+  storage.ForEachInSubtree(kGroupCountryId, [&subTree](CountryId const & descendantId, bool /* groupNode */)
+  { subTree.insert(descendantId); });
 
   CountriesSet changed;
-  auto onChangeCountryFn = [&](CountryId const & countryId) {
+  auto onChangeCountryFn = [&](CountryId const & countryId)
+  {
     TEST(subTree.find(countryId) != subTree.end(), (countryId));
     changed.insert(countryId);
     if (!storage.IsDownloadInProgress())
@@ -72,12 +70,13 @@ void DownloadGroup(Storage & storage, bool oneByOne)
   };
 
   CountriesSet downloadedChecker;
-  auto onProgressFn = [&](CountryId const & countryId, downloader::Progress const & progress) {
+  auto onProgressFn = [&](CountryId const & countryId, downloader::Progress const & progress)
+  {
     TEST(subTree.find(countryId) != subTree.end(), ());
     if (progress.m_bytesDownloaded == progress.m_bytesTotal)
     {
       auto const res = downloadedChecker.insert(countryId);
-      TEST_EQUAL(res.second, true, ()); // Every child is downloaded only once.
+      TEST_EQUAL(res.second, true, ());  // Every child is downloaded only once.
     }
   };
 
@@ -124,14 +123,10 @@ void DownloadGroup(Storage & storage, bool oneByOne)
 
   // Download the group.
   if (oneByOne)
-  {
     for (auto const & countryId : children)
       storage.DownloadNode(countryId);
-  }
   else
-  {
     storage.DownloadNode(kGroupCountryId);
-  }
   // Wait for downloading of all children.
   testing::RunEventLoop();
 
@@ -169,8 +164,7 @@ void DownloadGroup(Storage & storage, bool oneByOne)
 
   // Check all group children are downloaded.
   storage.GetChildrenInGroups(kGroupCountryId, downloaded, available);
-  TEST_EQUAL(CountriesSet(children.begin(), children.end()),
-             CountriesSet(downloaded.begin(), downloaded.end()), ());
+  TEST_EQUAL(CountriesSet(children.begin(), children.end()), CountriesSet(downloaded.begin(), downloaded.end()), ());
 
   storage.Unsubscribe(subsrcibtionId);
 }
@@ -205,14 +199,10 @@ void DeleteGroup(Storage & storage, bool oneByOne)
 
   // Delete the group
   if (oneByOne)
-  {
     for (auto const & countryId : children)
       storage.DeleteNode(countryId);
-  }
   else
-  {
     storage.DeleteNode(kGroupCountryId);
-  }
 
   // Check state for the group node is set to NotDownloaded and NoError.
   NodeAttrs attrs;
@@ -251,7 +241,8 @@ void TestDownloadDelete(bool downloadOneByOne, bool deleteOneByOne)
   Storage storage;
   string const version = strings::to_string(storage.GetCurrentDataVersion());
 
-  auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile) {
+  auto onUpdatedFn = [&](CountryId const &, storage::LocalFilePtr const localCountryFile)
+  {
     CountryId const countryId = localCountryFile->GetCountryName();
     TEST(kLeafCountriesIds.find(countryId) != kLeafCountriesIds.end(), ());
   };
@@ -291,4 +282,4 @@ UNIT_TEST(SmallMwms_GroupDownloadDelete_Test4)
 {
   TestDownloadDelete(true, true);
 }
-} // namespace storage_group_download_tests
+}  // namespace storage_group_download_tests

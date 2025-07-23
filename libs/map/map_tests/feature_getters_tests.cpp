@@ -14,7 +14,6 @@
 #include <cstdint>
 #include <vector>
 
-
 UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
 {
   using namespace std;
@@ -24,18 +23,14 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
   frm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass"));
 
   // May vary according to the new minsk-pass data.
-  vector<char const *> types =
-  {
-    "highway|footway|",
-    "hwtag|yesbicycle|",
-    "psurface|paved_good|",
+  vector<char const *> types = {
+      "highway|footway|",   "hwtag|yesbicycle|",    "psurface|paved_good|",
 
-    "highway|service|",
-    "psurface|paved_good|",
+      "highway|service|",   "psurface|paved_good|",
 
-    "amenity|parking|",
+      "amenity|parking|",
 
-    "barrier|lift_gate|",
+      "barrier|lift_gate|",
   };
   frm.ForEachFeatureAtPoint([&](FeatureType & ft)
   {

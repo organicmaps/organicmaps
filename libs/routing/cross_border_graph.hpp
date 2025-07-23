@@ -63,12 +63,10 @@ public:
   CrossBorderGraphSerializer() = delete;
 
   template <class Sink>
-  static void Serialize(CrossBorderGraph const & graph, Sink & sink,
-                        std::shared_ptr<NumMwmIds> numMwmIds);
+  static void Serialize(CrossBorderGraph const & graph, Sink & sink, std::shared_ptr<NumMwmIds> numMwmIds);
 
   template <class Source>
-  static void Deserialize(CrossBorderGraph & graph, Source & src,
-                          std::shared_ptr<NumMwmIds> numMwmIds);
+  static void Deserialize(CrossBorderGraph & graph, Source & src, std::shared_ptr<NumMwmIds> numMwmIds);
 
 private:
   static uint32_t constexpr kVersion = 1;
@@ -77,8 +75,7 @@ private:
   struct Header
   {
     Header() = default;
-    explicit Header(CrossBorderGraph const & graph,
-                    uint32_t version = kVersion);
+    explicit Header(CrossBorderGraph const & graph, uint32_t version = kVersion);
 
     template <class Sink>
     void Serialize(Sink & sink) const;
@@ -181,10 +178,10 @@ void CrossBorderGraphSerializer::Deserialize(CrossBorderGraph & graph, Source & 
 
   auto readSegEnding = [&](CrossBorderSegmentEnding & ending)
   {
-    double const lat = Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src),
-                                      ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kBitsForDouble);
-    double const lon = Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src),
-                                      ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kBitsForDouble);
+    double const lat = Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src), ms::LatLon::kMinLat, ms::LatLon::kMaxLat,
+                                      kBitsForDouble);
+    double const lon = Uint32ToDouble(ReadPrimitiveFromSource<uint32_t>(src), ms::LatLon::kMinLon, ms::LatLon::kMaxLon,
+                                      kBitsForDouble);
     ending.m_point = LatLonWithAltitude(ms::LatLon(lat, lon), geometry::kDefaultAltitudeMeters);
 
     NumMwmId index = ReadPrimitiveFromSource<uint16_t>(src);

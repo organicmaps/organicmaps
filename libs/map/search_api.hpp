@@ -19,9 +19,9 @@
 #include <functional>
 #include <memory>
 #include <optional>
+#include <string>
 #include <unordered_set>
 #include <vector>
-#include <string>
 
 class DataSource;
 
@@ -30,18 +30,19 @@ namespace search
 struct BookmarksSearchParams;
 struct EverywhereSearchParams;
 struct DiscoverySearchParams;
-}
+}  // namespace search
 
 namespace storage
 {
 class CountryInfoGetter;
 class Storage;
 struct DownloaderSearchParams;
-}
+}  // namespace storage
 
-class SearchAPI : public search::DownloaderSearchCallback::Delegate,
-                  public search::ViewportSearchCallback::Delegate,
-                  public search::EverywhereSearchCallback::Delegate
+class SearchAPI
+  : public search::DownloaderSearchCallback::Delegate
+  , public search::ViewportSearchCallback::Delegate
+  , public search::EverywhereSearchCallback::Delegate
 {
 public:
   struct Delegate
@@ -64,8 +65,8 @@ public:
     virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; }
   };
 
-  SearchAPI(DataSource & dataSource, storage::Storage const & storage,
-            storage::CountryInfoGetter const & infoGetter, size_t numThreads, Delegate & delegate);
+  SearchAPI(DataSource & dataSource, storage::Storage const & storage, storage::CountryInfoGetter const & infoGetter,
+            size_t numThreads, Delegate & delegate);
   virtual ~SearchAPI() = default;
 
   void OnViewportChanged(m2::RectD const & viewport);
@@ -104,8 +105,7 @@ public:
   // *SearchCallback::Delegate overrides:
   void RunUITask(std::function<void()> fn) override;
   bool IsViewportSearchActive() const override;
-  void ShowViewportSearchResults(search::Results::ConstIter begin,
-                                 search::Results::ConstIter end, bool clear) override;
+  void ShowViewportSearchResults(search::Results::ConstIter begin, search::Results::ConstIter end, bool clear) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
 
   std::list<search::QuerySaver::SearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
@@ -149,8 +149,7 @@ private:
 
   void SetViewportIfPossible(search::SearchParams & params);
 
-  bool QueryMayBeSkipped(search::SearchParams const & prevParams,
-                         search::SearchParams const & currParams) const;
+  bool QueryMayBeSkipped(search::SearchParams const & prevParams, search::SearchParams const & currParams) const;
 
   DataSource & m_dataSource;
   storage::Storage const & m_storage;

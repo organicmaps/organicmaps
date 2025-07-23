@@ -1,7 +1,7 @@
+#include "qt/mainwindow.hpp"
 #include "qt/about.hpp"
 #include "qt/bookmark_dialog.hpp"
 #include "qt/draw_widget.hpp"
-#include "qt/mainwindow.hpp"
 #include "qt/mwms_borders_selection.hpp"
 #include "qt/osm_auth_dialog.hpp"
 #include "qt/popup_menu_holder.hpp"
@@ -12,8 +12,8 @@
 #include "qt/screenshoter.hpp"
 #include "qt/search_panel.hpp"
 
-#include "platform/settings.hpp"
 #include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 #include "base/assert.hpp"
 
@@ -27,12 +27,12 @@
 #ifdef BUILD_DESIGNER
 #include "build_style/build_common.h"
 #include "build_style/build_phone_pack.h"
-#include "build_style/build_style.h"
 #include "build_style/build_statistics.h"
+#include "build_style/build_style.h"
 #include "build_style/run_tests.h"
 
 #include "drape_frontend/debug_rect_renderer.hpp"
-#endif // BUILD_DESIGNER
+#endif  // BUILD_DESIGNER
 
 #include <QtGui/QCloseEvent>
 #include <QtWidgets/QDockWidget>
@@ -46,14 +46,14 @@
 #include <QtWidgets/QToolBar>
 
 #ifdef OMIM_OS_WINDOWS
-#define IDM_ABOUT_DIALOG        1001
-#define IDM_PREFERENCES_DIALOG  1002
+#define IDM_ABOUT_DIALOG       1001
+#define IDM_PREFERENCES_DIALOG 1002
 #endif
 
 #ifndef NO_DOWNLOADER
-#include "qt/update_dialog.hpp"
 #include "qt/info_dialog.hpp"
-#endif // NO_DOWNLOADER
+#include "qt/update_dialog.hpp"
+#endif  // NO_DOWNLOADER
 
 namespace qt
 {
@@ -70,7 +70,7 @@ void FormatMapSize(uint64_t sizeInBytes, std::string & units, size_t & sizeToDow
   }
   else if (sizeInBytes > kbInBytes)
   {
-    sizeToDownload = (sizeInBytes + kbInBytes -1) / kbInBytes;
+    sizeToDownload = (sizeInBytes + kbInBytes - 1) / kbInBytes;
     units = "KB";
   }
   else
@@ -80,7 +80,8 @@ void FormatMapSize(uint64_t sizeInBytes, std::string & units, size_t & sizeToDow
   }
 }
 
-template <class T> T * CreateBlackControl(QString const & name)
+template <class T>
+T * CreateBlackControl(QString const & name)
 {
   T * p = new T(name);
   p->setStyleSheet("color: black;");
@@ -92,11 +93,11 @@ template <class T> T * CreateBlackControl(QString const & name)
 // Defined in osm_auth_dialog.cpp.
 extern char const * kOauthTokenSetting;
 
-MainWindow::MainWindow(Framework & framework,
-                       std::unique_ptr<ScreenshotParams> && screenshotParams,
+MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
                        QRect const & screenGeometry
 #ifdef BUILD_DESIGNER
-                       , QString const & mapcssFilePath
+                       ,
+                       QString const & mapcssFilePath
 #endif
                        )
   : m_locationService(CreateDesktopLocationService(*this))
@@ -200,8 +201,7 @@ MainWindow::MainWindow(Framework & framework,
 
     if (!text.empty())
     {
-      InfoDialog welcomeDlg(QString("Welcome to ") + caption, text.c_str(),
-                            this, QStringList(tr("Download Maps")));
+      InfoDialog welcomeDlg(QString("Welcome to ") + caption, text.c_str(), this, QStringList(tr("Download Maps")));
       if (welcomeDlg.exec() == QDialog::Rejected)
         bShowUpdateDialog = false;
     }
@@ -210,7 +210,7 @@ MainWindow::MainWindow(Framework & framework,
     if (bShowUpdateDialog)
       ShowUpdateDialog();
   }
-#endif // NO_DOWNLOADER
+#endif  // NO_DOWNLOADER
 
   m_pDrawWidget->UpdateAfterSettingsChanged();
 
@@ -263,9 +263,9 @@ void MainWindow::CreateNavigationBar()
 
     // Add navigation hot keys.
     qt::common::Hotkey const hotkeys[] = {
-      { Qt::Key_A, SLOT(ShowAll()) },
-      // Use CMD+n (New Item hotkey) to activate Create Feature mode.
-      { Qt::Key_Escape, SLOT(ChoosePositionModeDisable()) }
+        {     Qt::Key_A,                   SLOT(ShowAll())},
+        // Use CMD+n (New Item hotkey) to activate Create Feature mode.
+        {Qt::Key_Escape, SLOT(ChoosePositionModeDisable())}
     };
 
     for (auto const & hotkey : hotkeys)
@@ -304,8 +304,9 @@ void MainWindow::CreateNavigationBar()
 
     pToolBar->addSeparator();
 
-    pToolBar->addAction(QIcon(":/navig64/bookmark.png"), tr("Show bookmarks and tracks; use ALT + RMB to add a bookmark"),
-                        this, SLOT(OnBookmarksAction()));
+    pToolBar->addAction(QIcon(":/navig64/bookmark.png"),
+                        tr("Show bookmarks and tracks; use ALT + RMB to add a bookmark"), this,
+                        SLOT(OnBookmarksAction()));
     pToolBar->addSeparator();
 
 #ifndef BUILD_DESIGNER
@@ -324,15 +325,17 @@ void MainWindow::CreateNavigationBar()
     pToolBar->addWidget(toolBtn);
     m_routing->setCurrent(m_pDrawWidget->GetRoutePointAddMode());
 
-    QAction * act = pToolBar->addAction(QIcon(":/navig64/routing.png"), tr("Follow route"), this, SLOT(OnFollowRoute()));
+    QAction * act =
+        pToolBar->addAction(QIcon(":/navig64/routing.png"), tr("Follow route"), this, SLOT(OnFollowRoute()));
     act->setToolTip(tr("Build route and use ALT + LMB to emulate current position"));
     pToolBar->addAction(QIcon(":/navig64/clear-route.png"), tr("Clear route"), this, SLOT(OnClearRoute()));
-    pToolBar->addAction(QIcon(":/navig64/settings-routing.png"), tr("Routing settings"), this, SLOT(OnRoutingSettings()));
+    pToolBar->addAction(QIcon(":/navig64/settings-routing.png"), tr("Routing settings"), this,
+                        SLOT(OnRoutingSettings()));
 
     pToolBar->addSeparator();
 
-    m_pCreateFeatureAction = pToolBar->addAction(QIcon(":/navig64/select.png"), tr("Create Feature"),
-                                                 this, SLOT(OnCreateFeatureClicked()));
+    m_pCreateFeatureAction =
+        pToolBar->addAction(QIcon(":/navig64/select.png"), tr("Create Feature"), this, SLOT(OnCreateFeatureClicked()));
     m_pCreateFeatureAction->setCheckable(true);
     m_pCreateFeatureAction->setToolTip(tr("Push to select position, next push to create Feature"));
     m_pCreateFeatureAction->setShortcut(QKeySequence::New);
@@ -350,8 +353,8 @@ void MainWindow::CreateNavigationBar()
                            std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CityRoads), true);
     m_selection->addAction(QIcon(":/navig64/test.png"), tr("Cross MWM segments selection mode"),
                            std::bind(&MainWindow::OnSwitchSelectionMode, this, SelectionMode::CrossMwmSegments), true);
-    m_selection->addAction(QIcon(":/navig64/borders_selection.png"), tr("MWMs borders selection mode"),
-                           this, SLOT(OnSwitchMwmsBordersSelectionMode()), true);
+    m_selection->addAction(QIcon(":/navig64/borders_selection.png"), tr("MWMs borders selection mode"), this,
+                           SLOT(OnSwitchMwmsBordersSelectionMode()), true);
 
     toolBtn = m_selection->create();
     toolBtn->setToolTip(tr("Select mode and use RMB to define selection box"));
@@ -361,11 +364,11 @@ void MainWindow::CreateNavigationBar()
 
     pToolBar->addSeparator();
 
-#endif // NOT BUILD_DESIGNER
+#endif  // NOT BUILD_DESIGNER
 
     // Add search button with "checked" behavior.
-    m_pSearchAction = pToolBar->addAction(QIcon(":/navig64/search.png"), tr("Offline Search"),
-                                          this, SLOT(OnSearchButtonClicked()));
+    m_pSearchAction =
+        pToolBar->addAction(QIcon(":/navig64/search.png"), tr("Offline Search"), this, SLOT(OnSearchButtonClicked()));
     m_pSearchAction->setCheckable(true);
     m_pSearchAction->setShortcut(QKeySequence::Find);
 
@@ -378,62 +381,50 @@ void MainWindow::CreateNavigationBar()
 
     // add my position button with "checked" behavior
 
-    m_pMyPositionAction = pToolBar->addAction(QIcon(":/navig64/location.png"), tr("My Position"), this, SLOT(OnMyPosition()));
+    m_pMyPositionAction =
+        pToolBar->addAction(QIcon(":/navig64/location.png"), tr("My Position"), this, SLOT(OnMyPosition()));
     m_pMyPositionAction->setCheckable(true);
 
 #ifdef BUILD_DESIGNER
     // Add "Build style" button
     if (!m_mapcssFilePath.isEmpty())
     {
-      m_pBuildStyleAction = pToolBar->addAction(QIcon(":/navig64/run.png"),
-                                                tr("Build style"),
-                                                this,
-                                                SLOT(OnBuildStyle()));
+      m_pBuildStyleAction =
+          pToolBar->addAction(QIcon(":/navig64/run.png"), tr("Build style"), this, SLOT(OnBuildStyle()));
       m_pBuildStyleAction->setCheckable(false);
       m_pBuildStyleAction->setToolTip(tr("Build style"));
 
-      m_pRecalculateGeomIndex = pToolBar->addAction(QIcon(":/navig64/geom.png"),
-                                                    tr("Recalculate geometry index"),
-                                                    this,
+      m_pRecalculateGeomIndex = pToolBar->addAction(QIcon(":/navig64/geom.png"), tr("Recalculate geometry index"), this,
                                                     SLOT(OnRecalculateGeomIndex()));
       m_pRecalculateGeomIndex->setCheckable(false);
       m_pRecalculateGeomIndex->setToolTip(tr("Recalculate geometry index"));
     }
 
     // Add "Debug style" button
-    m_pDrawDebugRectAction = pToolBar->addAction(QIcon(":/navig64/bug.png"),
-                                              tr("Debug style"),
-                                              this,
-                                              SLOT(OnDebugStyle()));
+    m_pDrawDebugRectAction =
+        pToolBar->addAction(QIcon(":/navig64/bug.png"), tr("Debug style"), this, SLOT(OnDebugStyle()));
     m_pDrawDebugRectAction->setCheckable(true);
     m_pDrawDebugRectAction->setChecked(false);
     m_pDrawDebugRectAction->setToolTip(tr("Debug style"));
     m_pDrawWidget->GetFramework().EnableDebugRectRendering(false);
 
     // Add "Get statistics" button
-    m_pGetStatisticsAction = pToolBar->addAction(QIcon(":/navig64/chart.png"),
-                                                 tr("Get statistics"),
-                                                 this,
-                                                 SLOT(OnGetStatistics()));
+    m_pGetStatisticsAction =
+        pToolBar->addAction(QIcon(":/navig64/chart.png"), tr("Get statistics"), this, SLOT(OnGetStatistics()));
     m_pGetStatisticsAction->setCheckable(false);
     m_pGetStatisticsAction->setToolTip(tr("Get statistics"));
 
     // Add "Run tests" button
-    m_pRunTestsAction = pToolBar->addAction(QIcon(":/navig64/test.png"),
-                                            tr("Run tests"),
-                                            this,
-                                            SLOT(OnRunTests()));
+    m_pRunTestsAction = pToolBar->addAction(QIcon(":/navig64/test.png"), tr("Run tests"), this, SLOT(OnRunTests()));
     m_pRunTestsAction->setCheckable(false);
     m_pRunTestsAction->setToolTip(tr("Run tests"));
 
     // Add "Build phone package" button
-    m_pBuildPhonePackAction = pToolBar->addAction(QIcon(":/navig64/phonepack.png"),
-                                                  tr("Build phone package"),
-                                                  this,
+    m_pBuildPhonePackAction = pToolBar->addAction(QIcon(":/navig64/phonepack.png"), tr("Build phone package"), this,
                                                   SLOT(OnBuildPhonePackage()));
     m_pBuildPhonePackAction->setCheckable(false);
     m_pBuildPhonePackAction->setToolTip(tr("Build phone package"));
-#endif // BUILD_DESIGNER
+#endif  // BUILD_DESIGNER
   }
 
   pToolBar->addSeparator();
@@ -442,7 +433,7 @@ void MainWindow::CreateNavigationBar()
 #ifndef NO_DOWNLOADER
   pToolBar->addSeparator();
   pToolBar->addAction(QIcon(":/navig64/download.png"), tr("Download Maps"), this, SLOT(ShowUpdateDialog()));
-#endif // NO_DOWNLOADER
+#endif  // NO_DOWNLOADER
 
   if (m_screenshotMode)
     pToolBar->setVisible(false);
@@ -525,18 +516,17 @@ void MainWindow::CreateCountryStatusControls()
   GetFramework().SetCurrentCountryChangedListener(OnCountryChanged);
 
   GetFramework().GetStorage().Subscribe(
-    [this, onChanged = std::move(OnCountryChanged)](storage::CountryId const & countryId)
-    {
-      // Storage also calls notifications for parents, but we are interested in leafs only.
-      if (GetFramework().GetStorage().IsLeaf(countryId))
-        onChanged(countryId);
-    },
-    [this](storage::CountryId const & countryId, downloader::Progress const & progress)
-    {
-      std::stringstream str;
-      str << "Downloading (" << countryId << ") " << progress.m_bytesDownloaded * 100 / progress.m_bytesTotal << "%";
-      m_downloadingStatusLabel->setText(str.str().c_str());
-    });
+      [this, onChanged = std::move(OnCountryChanged)](storage::CountryId const & countryId)
+  {
+    // Storage also calls notifications for parents, but we are interested in leafs only.
+    if (GetFramework().GetStorage().IsLeaf(countryId))
+      onChanged(countryId);
+  }, [this](storage::CountryId const & countryId, downloader::Progress const & progress)
+  {
+    std::stringstream str;
+    str << "Downloading (" << countryId << ") " << progress.m_bytesDownloaded * 100 / progress.m_bytesTotal << "%";
+    m_downloadingStatusLabel->setText(str.str().c_str());
+  });
 }
 
 void MainWindow::OnAbout()
@@ -549,18 +539,16 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
 {
   switch (errorCode)
   {
-  case location::EDenied:  [[fallthrough]];
+  case location::EDenied: [[fallthrough]];
   case location::ETimeout: [[fallthrough]];
   case location::EUnknown:
-    {
-      if (m_pDrawWidget && m_pMyPositionAction)
-        m_pMyPositionAction->setEnabled(false);
-      break;
-    }
-
-  default:
-    ASSERT(false, ("Not handled location notification:", errorCode));
+  {
+    if (m_pDrawWidget && m_pMyPositionAction)
+      m_pMyPositionAction->setEnabled(false);
     break;
+  }
+
+  default: ASSERT(false, ("Not handled location notification:", errorCode)); break;
   }
 
   if (m_pDrawWidget != nullptr)
@@ -649,16 +637,16 @@ void MainWindow::OnUploadEditsMenuItem()
   {
     auto & editor = osm::Editor::Instance();
     if (editor.HaveMapEditsOrNotesToUpload())
-      editor.UploadChanges(token, {{"created_by", "Organic Maps " OMIM_OS_NAME}});
+      editor.UploadChanges(token, {
+                                      {"created_by", "Organic Maps " OMIM_OS_NAME}
+      });
   }
 }
 
 void MainWindow::OnBeforeEngineCreation()
 {
   m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode, bool /*routingActive*/)
-  {
-    LocationStateModeChanged(mode);
-  });
+  { LocationStateModeChanged(mode); });
 }
 
 void MainWindow::OnPreferences()
@@ -814,7 +802,7 @@ void MainWindow::OnBuildPhonePackage()
     msgBox.exec();
   }
 }
-#endif // BUILD_DESIGNER
+#endif  // BUILD_DESIGNER
 
 #ifndef NO_DOWNLOADER
 void MainWindow::ShowUpdateDialog()
@@ -824,7 +812,7 @@ void MainWindow::ShowUpdateDialog()
   m_pDrawWidget->update();
 }
 
-#endif // NO_DOWNLOADER
+#endif  // NO_DOWNLOADER
 
 void MainWindow::CreateSearchBarAndPanel()
 {
@@ -834,8 +822,8 @@ void MainWindow::CreateSearchBarAndPanel()
   m_Docks[0]->setWidget(panel);
 }
 
-void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
-                                 QKeySequence const & hotkey, char const * slot)
+void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name, QKeySequence const & hotkey,
+                                 char const * slot)
 {
   ASSERT_LESS(i, m_Docks.size(), ());
   m_Docks[i] = new QDockWidget(name, this);

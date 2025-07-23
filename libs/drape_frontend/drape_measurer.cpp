@@ -4,7 +4,6 @@
 
 #include "geometry/mercator.hpp"
 
-
 #include <iomanip>
 
 namespace df
@@ -81,7 +80,7 @@ void DrapeMeasurer::Start()
 #endif
 }
 
-void DrapeMeasurer::Stop(bool forceProcessRealtimeStats /* = false */ )
+void DrapeMeasurer::Stop(bool forceProcessRealtimeStats /* = false */)
 {
   using namespace std::chrono;
   if (!m_isEnabled)
@@ -90,11 +89,8 @@ void DrapeMeasurer::Stop(bool forceProcessRealtimeStats /* = false */ )
   m_isEnabled = false;
 
 #ifndef DRAPE_MEASURER_BENCHMARK
-  if ((forceProcessRealtimeStats && m_realtimeTotalFramesCount > 0) ||
-      m_realtimeTotalFramesCount >= 1000)
-  {
+  if ((forceProcessRealtimeStats && m_realtimeTotalFramesCount > 0) || m_realtimeTotalFramesCount >= 1000)
     m_realtimeTotalFramesCount = 0;
-  }
 #endif
 }
 
@@ -127,8 +123,7 @@ void DrapeMeasurer::EndScenePreparing()
   if (!m_isEnabled)
     return;
 
-  m_maxScenePreparingTime = max(m_maxScenePreparingTime,
-                                std::chrono::steady_clock::now() - m_startScenePreparingTime);
+  m_maxScenePreparingTime = max(m_maxScenePreparingTime, std::chrono::steady_clock::now() - m_startScenePreparingTime);
 }
 
 void DrapeMeasurer::StartShapesGeneration()
@@ -159,11 +154,11 @@ std::string DrapeMeasurer::GeneratingStatistic::ToString() const
   ss << " ----- Generation statistic report ----- \n";
   ss << " Max scene preparing time, ms = " << m_maxScenePreparingTimeInMs << "\n";
   ss << " Shapes total generation time, ms = " << m_shapeGenTimeInMs << "\n";
-  ss << " Shapes total count = " << m_shapesCount
-     << ", (" <<  static_cast<double>(m_shapeGenTimeInMs) / m_shapesCount << " ms per shape)\n";
+  ss << " Shapes total count = " << m_shapesCount << ", (" << static_cast<double>(m_shapeGenTimeInMs) / m_shapesCount
+     << " ms per shape)\n";
   ss << " Overlay shapes total generation time, ms = " << m_overlayShapeGenTimeInMs << "\n";
-  ss << " Overlay shapes total count = " << m_overlayShapesCount
-     << ", (" << static_cast<double>(m_overlayShapeGenTimeInMs) / m_overlayShapesCount << " ms per overlay)\n";
+  ss << " Overlay shapes total count = " << m_overlayShapesCount << ", ("
+     << static_cast<double>(m_overlayShapeGenTimeInMs) / m_overlayShapesCount << " ms per overlay)\n";
   ss << " ----- Generation statistic report ----- \n";
 
   return ss.str();
@@ -175,8 +170,7 @@ DrapeMeasurer::GeneratingStatistic DrapeMeasurer::GetGeneratingStatistic()
 
   GeneratingStatistic statistic;
   statistic.m_shapesCount = m_totalShapesCount;
-  statistic.m_shapeGenTimeInMs =
-      static_cast<uint32_t>(duration_cast<milliseconds>(m_totalShapesGenTime).count());
+  statistic.m_shapeGenTimeInMs = static_cast<uint32_t>(duration_cast<milliseconds>(m_totalShapesGenTime).count());
 
   statistic.m_overlayShapesCount = m_totalOverlayShapesCount;
   statistic.m_overlayShapeGenTimeInMs =
@@ -204,8 +198,8 @@ std::string DrapeMeasurer::RenderStatistic::ToString() const
     ss << " FPS Distribution:\n";
     for (auto const & fps : m_fpsDistribution)
     {
-      ss << "   " << fps.first << "-" << (fps.first + 10) << ": " << std::setprecision(4)
-         << fps.second * 100.0f << "%\n";
+      ss << "   " << fps.first << "-" << (fps.first + 10) << ": " << std::setprecision(4) << fps.second * 100.0f
+         << "%\n";
     }
   }
   ss << " ----- Render statistic report ----- \n";
@@ -228,10 +222,8 @@ DrapeMeasurer::RenderStatistic DrapeMeasurer::GetRenderStatistic()
     totalCount += fps.second;
 
   if (totalCount != 0)
-  {
     for (auto const & fps : m_fpsDistribution)
       statistic.m_fpsDistribution[fps.first] = static_cast<float>(fps.second) / totalCount;
-  }
 
   statistic.m_immediateRenderingMinFPS = m_immediateRenderingMinFps;
   if (m_immediateRenderingFramesCount > 0)
@@ -436,12 +428,9 @@ void DrapeMeasurer::TakeGPUMemorySnapshot()
     auto itMax = m_maxSnapshotValues.m_tagStats.find(tagPair.first);
     if (itMax != m_maxSnapshotValues.m_tagStats.end())
     {
-      itMax->second.m_objectsCount = std::max(itMax->second.m_objectsCount,
-                                              tagPair.second.m_objectsCount);
-      itMax->second.m_alocatedInMb = std::max(itMax->second.m_alocatedInMb,
-                                              tagPair.second.m_alocatedInMb);
-      itMax->second.m_usedInMb = std::max(itMax->second.m_alocatedInMb,
-                                          tagPair.second.m_usedInMb);
+      itMax->second.m_objectsCount = std::max(itMax->second.m_objectsCount, tagPair.second.m_objectsCount);
+      itMax->second.m_alocatedInMb = std::max(itMax->second.m_alocatedInMb, tagPair.second.m_alocatedInMb);
+      itMax->second.m_usedInMb = std::max(itMax->second.m_alocatedInMb, tagPair.second.m_usedInMb);
     }
     else
     {
@@ -461,10 +450,9 @@ void DrapeMeasurer::TakeGPUMemorySnapshot()
     }
   }
 
-  m_maxSnapshotValues.m_summaryAllocatedInMb = std::max(snap.m_summaryAllocatedInMb,
-                                                        m_maxSnapshotValues.m_summaryAllocatedInMb);
-  m_maxSnapshotValues.m_summaryUsedInMb = std::max(snap.m_summaryUsedInMb,
-                                                   m_maxSnapshotValues.m_summaryUsedInMb);
+  m_maxSnapshotValues.m_summaryAllocatedInMb =
+      std::max(snap.m_summaryAllocatedInMb, m_maxSnapshotValues.m_summaryAllocatedInMb);
+  m_maxSnapshotValues.m_summaryUsedInMb = std::max(snap.m_summaryUsedInMb, m_maxSnapshotValues.m_summaryUsedInMb);
 
   m_summarySnapshotValues.m_summaryAllocatedInMb += snap.m_summaryAllocatedInMb;
   m_summarySnapshotValues.m_summaryUsedInMb += snap.m_summaryUsedInMb;

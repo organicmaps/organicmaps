@@ -4,7 +4,10 @@
 
 namespace search
 {
-uint8_t DummyRankTable::Get(uint64_t /* i */) const { return kNoRank; }
+uint8_t DummyRankTable::Get(uint64_t /* i */) const
+{
+  return kNoRank;
+}
 
 uint64_t DummyRankTable::Size() const
 {

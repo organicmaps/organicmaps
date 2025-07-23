@@ -8,8 +8,8 @@ namespace generator
 class FinalProcessorCities : public FinalProcessorIntermediateMwmInterface
 {
 public:
-  FinalProcessorCities(AffiliationInterfacePtr const & affiliation,
-                       std::string const & mwmPath, size_t threadsCount = 1);
+  FinalProcessorCities(AffiliationInterfacePtr const & affiliation, std::string const & mwmPath,
+                       size_t threadsCount = 1);
 
   void SetCityBoundariesFiles(std::string const & collectorFile, std::string const & boundariesOutFile)
   {
@@ -25,4 +25,4 @@ private:
   size_t m_threadsCount;
 };
 
-} // namespace generator
+}  // namespace generator

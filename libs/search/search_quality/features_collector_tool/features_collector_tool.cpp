@@ -62,10 +62,8 @@ void DisplayStats(ostream & os, vector<Sample> const & samples, vector<Stats> co
 
   size_t numWarnings = 0;
   for (auto const & stat : stats)
-  {
     if (!stat.m_notFound.empty())
       ++numWarnings;
-  }
 
   if (numWarnings == 0)
   {
@@ -175,12 +173,10 @@ int main(int argc, char * argv[])
     auto & s = stats[i];
     for (size_t j = 0; j < goldenMatching.size(); ++j)
     {
-      auto const wasNotFound =
-          goldenMatching[j] == Matcher::kInvalidId ||
-          goldenMatching[j] >= search::SearchParams::kDefaultNumResultsEverywhere;
-      auto const isRelevant =
-          sample.m_results[j].m_relevance == Sample::Result::Relevance::Relevant ||
-          sample.m_results[j].m_relevance == Sample::Result::Relevance::Vital;
+      auto const wasNotFound = goldenMatching[j] == Matcher::kInvalidId ||
+                               goldenMatching[j] >= search::SearchParams::kDefaultNumResultsEverywhere;
+      auto const isRelevant = sample.m_results[j].m_relevance == Sample::Result::Relevance::Relevant ||
+                              sample.m_results[j].m_relevance == Sample::Result::Relevance::Vital;
       if (wasNotFound && isRelevant)
         s.m_notFound.push_back(j);
     }

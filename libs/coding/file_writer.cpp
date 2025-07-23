@@ -5,8 +5,7 @@
 
 FileWriter::FileWriter(std::string const & fileName, FileWriter::Op op)
   : m_pFileData(std::make_unique<base::FileData>(fileName, static_cast<base::FileData::Op>(op)))
-{
-}
+{}
 
 FileWriter::~FileWriter() noexcept(false)
 {

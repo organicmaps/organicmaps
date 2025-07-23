@@ -13,13 +13,13 @@
 #include <array>
 #include <memory>
 
-
 namespace gui
 {
 namespace
 {
-glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, float xOffset, float yOffset, float textRatio,
-                             std::array<glsl::vec2, 4> & normals, std::array<glsl::vec2, 4> & maskTexCoord)
+glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, float xOffset, float yOffset,
+                             float textRatio, std::array<glsl::vec2, 4> & normals,
+                             std::array<glsl::vec2, 4> & maskTexCoord)
 {
   m2::PointF const pixelSize = glyph.GetPixelSize() * textRatio;
   m2::RectF const & r = glyph.GetTexRect();
@@ -109,14 +109,14 @@ StaticLabel::LabelResult::LabelResult()
   m_state.SetDepthTestEnabled(false);
 }
 
-dp::TGlyphs StaticLabel::CacheStaticText(std::string const & text, char const * delimiters,
-                                         dp::Anchor anchor, dp::FontDecl const & font,
-                                         ref_ptr<dp::TextureManager> mng, LabelResult & result)
+dp::TGlyphs StaticLabel::CacheStaticText(std::string const & text, char const * delimiters, dp::Anchor anchor,
+                                         dp::FontDecl const & font, ref_ptr<dp::TextureManager> mng,
+                                         LabelResult & result)
 {
   ASSERT(!text.empty(), ());
 
-  auto const textRatio = font.m_size *
-    static_cast<float>(df::VisualParams::Instance().GetVisualScale() / dp::kBaseFontSizePixels);
+  auto const textRatio =
+      font.m_size * static_cast<float>(df::VisualParams::Instance().GetVisualScale() / dp::kBaseFontSizePixels);
 
   dp::TextureManager::TMultilineGlyphsBuffer buffers;
   auto const shapedLines = mng->ShapeMultilineText(dp::kBaseFontSizePixels, text, delimiters, buffers);
@@ -132,10 +132,8 @@ dp::TGlyphs StaticLabel::CacheStaticText(std::string const & text, char const * 
 
   ref_ptr<dp::Texture> texture = buffers[0][0].GetTexture();
   for (dp::TextureManager::TGlyphsBuffer const & b : buffers)
-  {
     for (dp::TextureManager::GlyphRegion const & reg : b)
       ASSERT(texture == reg.GetTexture(), ());
-  }
 #endif
 
   dp::TextureManager::ColorRegion color;
@@ -174,7 +172,8 @@ dp::TGlyphs StaticLabel::CacheStaticText(std::string const & text, char const * 
       std::array<glsl::vec2, 4> normals, maskTex;
 
       dp::TextureManager::GlyphRegion const & glyph = regions[j];
-      glsl::vec2 offsets = GetNormalsAndMask(glyph, glyphMetrics.m_xOffset, glyphMetrics.m_yOffset, textRatio, normals, maskTex);
+      glsl::vec2 offsets =
+          GetNormalsAndMask(glyph, glyphMetrics.m_xOffset, glyphMetrics.m_yOffset, textRatio, normals, maskTex);
 
       glsl::vec3 position = glsl::vec3(0.0, 0.0, depth);
 
@@ -289,10 +288,7 @@ MutableLabel::PrecacheResult::PrecacheResult()
   m_state.SetDepthTestEnabled(false);
 }
 
-MutableLabel::MutableLabel(dp::Anchor anchor)
-  : m_anchor(anchor)
-{
-}
+MutableLabel::MutableLabel(dp::Anchor anchor) : m_anchor(anchor) {}
 
 void MutableLabel::SetMaxLength(uint16_t maxLength)
 {
@@ -313,7 +309,8 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
 {
   SetMaxLength(static_cast<uint16_t>(params.m_maxLength));
 
-  m_textRatio = params.m_font.m_size * static_cast<float>(df::VisualParams::Instance().GetVisualScale()) / dp::kBaseFontSizePixels;
+  m_textRatio = params.m_font.m_size * static_cast<float>(df::VisualParams::Instance().GetVisualScale()) /
+                dp::kBaseFontSizePixels;
 
   // TODO(AB): Is this shaping/precaching really needed if the text changes every frame?
   m_shapedText = mng->ShapeSingleTextLine(dp::kBaseFontSizePixels, params.m_alphabet, &m_glyphRegions);
@@ -379,21 +376,22 @@ void MutableLabel::SetText(LabelResult & result, std::string text, ref_ptr<dp::T
   ASSERT_EQUAL(m_glyphRegions.size(), m_shapedText.m_glyphs.size(), ());
   for (size_t i = 0; i < m_glyphRegions.size(); ++i)
   {
-      std::array<glsl::vec2, 4> normals, maskTex;
-      dp::TextureManager::GlyphRegion const & glyph = m_glyphRegions[i];
-      auto const & metrics = m_shapedText.m_glyphs[i];
-      glsl::vec2 const offsets = GetNormalsAndMask(glyph, metrics.m_xOffset, metrics.m_yOffset, m_textRatio, normals, maskTex);
+    std::array<glsl::vec2, 4> normals, maskTex;
+    dp::TextureManager::GlyphRegion const & glyph = m_glyphRegions[i];
+    auto const & metrics = m_shapedText.m_glyphs[i];
+    glsl::vec2 const offsets =
+        GetNormalsAndMask(glyph, metrics.m_xOffset, metrics.m_yOffset, m_textRatio, normals, maskTex);
 
-      ASSERT_EQUAL(normals.size(), maskTex.size(), ());
+    ASSERT_EQUAL(normals.size(), maskTex.size(), ());
 
-      for (size_t i = 0; i < normals.size(); ++i)
-        result.m_buffer.emplace_back(pen + normals[i], maskTex[i]);
+    for (size_t i = 0; i < normals.size(); ++i)
+      result.m_buffer.emplace_back(pen + normals[i], maskTex[i]);
 
-      float const advance = metrics.m_xAdvance * m_textRatio;
-      length += advance + offsets.x;
-      // TODO(AB): yAdvance is always zero for horizontal layouts.
-      pen += glsl::vec2(advance, metrics.m_yAdvance * m_textRatio);
-      maxHeight = std::max(maxHeight, offsets.y + glyph.GetPixelHeight() * m_textRatio);
+    float const advance = metrics.m_xAdvance * m_textRatio;
+    length += advance + offsets.x;
+    // TODO(AB): yAdvance is always zero for horizontal layouts.
+    pen += glsl::vec2(advance, metrics.m_yAdvance * m_textRatio);
+    maxHeight = std::max(maxHeight, offsets.y + glyph.GetPixelHeight() * m_textRatio);
   }
 
   glsl::vec2 anchorModifier = glsl::vec2(-length / 2.0f, maxHeight / 2.0f);
@@ -494,8 +492,7 @@ void MutableLabelHandle::SetContent(std::string const & content)
 }
 
 m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params const & params,
-                                    ref_ptr<dp::TextureManager> mng,
-                                    dp::Batcher::TFlushFn && flushFn)
+                                    ref_ptr<dp::TextureManager> mng, dp::Batcher::TFlushFn && flushFn)
 {
   uint32_t const vertexCount = dp::Batcher::VertexPerQuad * params.m_maxLength;
   uint32_t const indexCount = dp::Batcher::IndexPerQuad * params.m_maxLength;
@@ -526,16 +523,15 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
     dp::Batcher batcher(indexCount, vertexCount);
     batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
     dp::SessionGuard const guard(context, batcher, std::move(flushFn));
-    batcher.InsertListOfStrip(context, staticData.m_state, make_ref(&provider),
-                              std::move(handle), dp::Batcher::VertexPerQuad);
+    batcher.InsertListOfStrip(context, staticData.m_state, make_ref(&provider), std::move(handle),
+                              dp::Batcher::VertexPerQuad);
   }
 
   return staticData.m_maxPixelSize;
 }
 
-StaticLabelHandle::StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager,
-                                     dp::Anchor anchor, m2::PointF const & pivot,
-                                     dp::TGlyphs && glyphs)
+StaticLabelHandle::StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager, dp::Anchor anchor,
+                                     m2::PointF const & pivot, dp::TGlyphs && glyphs)
   : TBase(id, anchor, pivot)
   , m_glyphs(std::move(glyphs))
   , m_textureManager(std::move(textureManager))

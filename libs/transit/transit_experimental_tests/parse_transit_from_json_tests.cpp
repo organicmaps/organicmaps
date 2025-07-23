@@ -33,9 +33,8 @@ UNIT_TEST(ReadJson_Network)
             "title":"Caltrain"
           })"};
 
-  std::vector<Network> const networksPlan = {
-      Network(4032061478 /* transitId */, "Tránsito Golden Gate" /* title */),
-      Network(4035419389 /* transitId */, "Caltrain" /* title */)};
+  std::vector<Network> const networksPlan = {Network(4032061478 /* transitId */, "Tránsito Golden Gate" /* title */),
+                                             Network(4035419389 /* transitId */, "Caltrain" /* title */)};
 
   std::vector<Network> networksFact;
 
@@ -61,11 +60,10 @@ UNIT_TEST(ReadJson_Route)
            "title":"East Route"
          })"};
 
-  std::vector<Route> const routesPlan = {
-      Route(4036206863 /* id */, 4036206862 /* networkId */, "rail" /* routeType */,
-            "Línea principal" /* title */, "pink_dark" /* color */),
-      Route(4027700598 /* id */, 4027700597 /* networkId */, "bus" /* routeType */,
-            "East Route" /* title */, "blue" /* color */)};
+  std::vector<Route> const routesPlan = {Route(4036206863 /* id */, 4036206862 /* networkId */, "rail" /* routeType */,
+                                               "Línea principal" /* title */, "pink_dark" /* color */),
+                                         Route(4027700598 /* id */, 4027700597 /* networkId */, "bus" /* routeType */,
+                                               "East Route" /* title */, "blue" /* color */)};
 
   std::vector<Route> routesFact;
 
@@ -114,10 +112,10 @@ UNIT_TEST(ReadJson_Line)
   schedule.AddDateException(DateException(519), {});
   schedule.AddDateException(DateException(357), {});
 
-  std::vector<Line> const linesPlan = {
-      Line(4036591532 /* id */, 4036591423 /* routeId */,
-           ShapeLink(4036591460 /* id */, 415 /* startIndex */, 1691 /* endIndex */),
-           "Downtown" /* title */, IdList{4036592571, 4036592572, 4036592573}, schedule)};
+  std::vector<Line> const linesPlan = {Line(4036591532 /* id */, 4036591423 /* routeId */,
+                                            ShapeLink(4036591460 /* id */, 415 /* startIndex */, 1691 /* endIndex */),
+                                            "Downtown" /* title */, IdList{4036592571, 4036592572, 4036592573},
+                                            schedule)};
 
   std::vector<Line> linesFact;
 
@@ -144,9 +142,8 @@ UNIT_TEST(ReadJson_LineMetadata)
            ]
          })"};
 
-  std::vector<LineMetadata> const linesMetadataPlan = {LineMetadata(
-      56 /* id */,
-      LineSegmentsOrder{LineSegmentOrder({34, 99}, -1), LineSegmentOrder({99, 1069}, -3)})};
+  std::vector<LineMetadata> const linesMetadataPlan = {
+      LineMetadata(56 /* id */, LineSegmentsOrder{LineSegmentOrder({34, 99}, -1), LineSegmentOrder({99, 1069}, -3)})};
 
   std::vector<LineMetadata> linesMetadataFact;
 
@@ -172,10 +169,11 @@ UNIT_TEST(ReadJson_Stop)
          })"};
 
   std::vector<Stop> const stopsPlan = {
-      Stop(4036592706 /* id */, kInvalidFeatureId /* featureId */, kInvalidOsmId /* osmId */,
-           "Balfour Rd & Foothill Dr",
-           TimeTable{{204, std::vector<TimeInterval>{TimeInterval(11400205248)}}},
-           m2::PointD(-121.74124, 41.04276), {4036593809, 4036595406} /* transferIds */)};
+      Stop(4036592706  /* id */, kInvalidFeatureId  /* featureId */, kInvalidOsmId  /* osmId */,
+           "Balfour Rd & Foothill Dr", TimeTable{{204, std::vector<TimeInterval>{TimeInterval(11400205248)}}},
+           m2::PointD(-121.74124, 41.04276), {4036593809, 4036595406}  /* transferIds */
+            )
+  };
 
   std::vector<Stop> stopsFact;
 
@@ -208,11 +206,10 @@ UNIT_TEST(ReadJson_Gate)
          })"};
 
   std::vector<Gate> const gatesPlan = {
-      Gate(4034666808 /* id */, kInvalidFeatureId /* featureId */, kInvalidOsmId /* osmId */,
-           true /* entrance */, true /* exit */,
-           std::vector<TimeFromGateToStop>{
-               TimeFromGateToStop(4034666299 /* stopId */, 76 /* timeSeconds */),
-               TimeFromGateToStop(4034666190 /* stopId */, 61 /* timeSeconds */)},
+      Gate(4034666808 /* id */, kInvalidFeatureId /* featureId */, kInvalidOsmId /* osmId */, true /* entrance */,
+           true /* exit */,
+           std::vector<TimeFromGateToStop>{TimeFromGateToStop(4034666299 /* stopId */, 76 /* timeSeconds */),
+                                           TimeFromGateToStop(4034666190 /* stopId */, 61 /* timeSeconds */)},
            m2::PointD(-121.8406, 40.19395))};
 
   std::vector<Gate> gatesFact;
@@ -246,12 +243,10 @@ UNIT_TEST(ReadJson_Edge)
       )"};
 
   std::vector<Edge> const edgesPlan = {
-      Edge(4036592295 /* stop1Id */, 4036592296 /* stop2Id */, 69 /* weight */,
-           4036591958 /* lineId */, false /* transfer */,
-           ShapeLink(4036591484 /* shapeId */, 592 /* startIndex */, 609 /* endIndex */)),
-      Edge(4030648032 /* stop1Id */, 4030648073 /* stop2Id */, 40 /* weight */,
-           kInvalidTransitId /* lineId */, true /* transfer */,
-           ShapeLink(kInvalidTransitId /* shapeId */, 0 /* startIndex */, 0 /* endIndex */))};
+      Edge(4036592295 /* stop1Id */, 4036592296 /* stop2Id */, 69 /* weight */, 4036591958 /* lineId */,
+           false /* transfer */, ShapeLink(4036591484 /* shapeId */, 592 /* startIndex */, 609 /* endIndex */)),
+      Edge(4030648032 /* stop1Id */, 4030648073 /* stop2Id */, 40 /* weight */, kInvalidTransitId /* lineId */,
+           true /* transfer */, ShapeLink(kInvalidTransitId /* shapeId */, 0 /* startIndex */, 0 /* endIndex */))};
 
   std::vector<Edge> edgesFact;
   EdgeIdToFeatureId edgeIdToFeatureId;
@@ -276,9 +271,8 @@ UNIT_TEST(ReadJson_Transfer)
          }
       )"};
 
-  std::vector<Transfer> const transfersPlan = {
-      Transfer(4029752024 /* id */, m2::PointD(-122.16915, 40.41578) /* point */,
-               IdList{4029751945, 4029752010} /* stopIds */)};
+  std::vector<Transfer> const transfersPlan = {Transfer(
+      4029752024 /* id */, m2::PointD(-122.16915, 40.41578) /* point */, IdList{4029751945, 4029752010} /* stopIds */)};
 
   std::vector<Transfer> transfersFact;
 

@@ -14,6 +14,7 @@ namespace df
 class ScreenQuadRenderer : public dp::MeshObject
 {
   using Base = dp::MeshObject;
+
 public:
   explicit ScreenQuadRenderer(ref_ptr<dp::GraphicsContext> context);
 

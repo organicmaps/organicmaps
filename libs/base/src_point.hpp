@@ -24,7 +24,10 @@ public:
   SrcPoint() : m_fileName(""), m_line(-1), m_function(""), m_postfix("") { TruncateFileName(); }
 
   SrcPoint(char const * fileName, int line, char const * function, char const * postfix = "")
-    : m_fileName(fileName), m_line(line), m_function(function), m_postfix(postfix)
+    : m_fileName(fileName)
+    , m_line(line)
+    , m_function(function)
+    , m_postfix(postfix)
   {
     TruncateFileName();
   }

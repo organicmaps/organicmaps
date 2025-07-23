@@ -5,9 +5,9 @@
 #include "generator/intermediate_data.hpp"
 #include "generator/intermediate_elements.hpp"
 
+#include "geometry/mercator.hpp"
 #include "indexer/cell_id.hpp"
 #include "indexer/data_header.hpp"
-#include "geometry/mercator.hpp"
 
 #include "coding/varint.hpp"
 
@@ -27,9 +27,9 @@
 namespace feature
 {
 FeaturesCollector::FeaturesCollector(std::string const & fName, FileWriter::Op op)
-  : m_dataFile(fName, op), m_writeBuffer(kBufferSize)
-{
-}
+  : m_dataFile(fName, op)
+  , m_writeBuffer(kBufferSize)
+{}
 
 FeaturesCollector::~FeaturesCollector()
 {
@@ -77,7 +77,8 @@ void FeaturesCollector::Write(char const * src, size_t size)
     m_writePosition += part_size;
     size -= part_size;
     src += part_size;
-  } while (size > 0);
+  }
+  while (size > 0);
 }
 
 uint32_t FeaturesCollector::WriteFeatureBase(std::vector<char> const & bytes, FeatureBuilder const & fb)
@@ -104,7 +105,9 @@ uint32_t FeaturesCollector::Collect(FeatureBuilder const & fb)
 
 FeaturesAndRawGeometryCollector::FeaturesAndRawGeometryCollector(std::string const & featuresFileName,
                                                                  std::string const & rawGeometryFileName)
-  : FeaturesCollector(featuresFileName), m_rawGeometryFileStream(rawGeometryFileName) {}
+  : FeaturesCollector(featuresFileName)
+  , m_rawGeometryFileStream(rawGeometryFileName)
+{}
 
 FeaturesAndRawGeometryCollector::~FeaturesAndRawGeometryCollector()
 {
@@ -128,8 +131,7 @@ uint32_t FeaturesAndRawGeometryCollector::Collect(FeatureBuilder const & fb)
   {
     uint64_t numPoints = points.size();
     m_rawGeometryFileStream.Write(&numPoints, sizeof(numPoints));
-    m_rawGeometryFileStream.Write(points.data(),
-                                  sizeof(FeatureBuilder::PointSeq::value_type) * points.size());
+    m_rawGeometryFileStream.Write(points.data(), sizeof(FeatureBuilder::PointSeq::value_type) * points.size());
   }
   return featureId;
 }

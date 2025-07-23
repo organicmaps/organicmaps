@@ -47,10 +47,7 @@ public:
     m_event.notify_all();
   }
 
-  void Reset()
-  {
-    SetNotified(false);
-  }
+  void Reset() { SetNotified(false); }
 
 private:
   void SetNotified(bool notified)
@@ -76,4 +73,4 @@ inline std::string DebugPrint(Waiter::Result result)
 
   return {};
 }
-} // namespace base
+}  // namespace base

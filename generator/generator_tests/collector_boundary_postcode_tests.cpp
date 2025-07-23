@@ -21,8 +21,8 @@
 
 namespace collector_boundary_postcode_tests
 {
-using std::string, std::vector, std::unordered_map;
 using generator::tests_support::TestWithClassificator;
+using std::string, std::vector, std::unordered_map;
 
 static string const kDumpFileName = "dump.bin";
 
@@ -32,15 +32,16 @@ static string const kDumpFileName = "dump.bin";
 // |  |  |
 // 6--7--8
 unordered_map<uint64_t, m2::PointD> const kNodes = {
-    {0, m2::PointD{-1.0, 1.0}},
-    {1, m2::PointD{0.0, 1.0}},
-    {2, m2::PointD{1.0, 1.0}},
-    {3, m2::PointD{-1.0, 0.0}},
-    {4, m2::PointD{0.0, 0.0}},
-    {5, m2::PointD{1.0, 0.0}},
+    {0,  m2::PointD{-1.0, 1.0}},
+    {1,   m2::PointD{0.0, 1.0}},
+    {2,   m2::PointD{1.0, 1.0}},
+    {3,  m2::PointD{-1.0, 0.0}},
+    {4,   m2::PointD{0.0, 0.0}},
+    {5,   m2::PointD{1.0, 0.0}},
     {6, m2::PointD{-1.0, -1.0}},
-    {7, m2::PointD{0.0, -1.0}},
-    {8, m2::PointD{1.0, -1.0}}};
+    {7,  m2::PointD{0.0, -1.0}},
+    {8,  m2::PointD{1.0, -1.0}}
+};
 
 vector<uint64_t> const kPolygon1 = {4, 5, 2, 1, 4};
 vector<uint64_t> const kPolygon2 = {6, 3, 4, 7, 6};
@@ -51,7 +52,8 @@ unordered_map<uint64_t, WayElement> const kWays = {
     {1, WayElement{1, kPolygon1}},
     {2, WayElement{2, kPolygon2}},
     {3, WayElement{3, kPolygon3}},
-    {4, WayElement{4, kPolygon4}}};
+    {4, WayElement{4, kPolygon4}}
+};
 
 class IntermediateDataReaderTest : public generator::cache::IntermediateDataReaderInterface
 {
@@ -72,29 +74,27 @@ class IntermediateDataReaderTest : public generator::cache::IntermediateDataRead
     return true;
   }
 
-  bool GetRelation(uint64_t /* id */, RelationElement & /* e */) override
-  {
-    return false;
-  }
+  bool GetRelation(uint64_t /* id */, RelationElement & /* e */) override { return false; }
 };
 
 OsmElement MakePostcodeAreaRelation(uint64_t id, string postcode, uint64_t wayId)
 {
   auto postcodeAreaRelation =
-      generator_tests::MakeOsmElement(id, {{"type", "boundary"}, {"boundary", "postal_code"}, {"postal_code", postcode}},
+      generator_tests::MakeOsmElement(id,
+                                      {
+                                          {       "type",    "boundary"},
+                                          {   "boundary", "postal_code"},
+                                          {"postal_code",      postcode}
+  },
                                       OsmElement::EntityType::Relation);
   postcodeAreaRelation.AddMember(wayId, OsmElement::EntityType::Way, "outer");
   return postcodeAreaRelation;
 }
 
-auto const postcodeAreaRelation1 =
-    MakePostcodeAreaRelation(1 /* id */, "127001" /* postcode */, 1 /* wayId */);
-auto const postcodeAreaRelation2 =
-    MakePostcodeAreaRelation(2 /* id */, "127002" /* postcode */, 2 /* wayId */);
-auto const postcodeAreaRelation3 =
-    MakePostcodeAreaRelation(3 /* id */, "127003" /* postcode */, 3 /* wayId */);
-auto const postcodeAreaRelation4 =
-    MakePostcodeAreaRelation(4 /* id */, "127004" /* postcode */, 4 /* wayId */);
+auto const postcodeAreaRelation1 = MakePostcodeAreaRelation(1 /* id */, "127001" /* postcode */, 1 /* wayId */);
+auto const postcodeAreaRelation2 = MakePostcodeAreaRelation(2 /* id */, "127002" /* postcode */, 2 /* wayId */);
+auto const postcodeAreaRelation3 = MakePostcodeAreaRelation(3 /* id */, "127003" /* postcode */, 3 /* wayId */);
+auto const postcodeAreaRelation4 = MakePostcodeAreaRelation(4 /* id */, "127004" /* postcode */, 4 /* wayId */);
 
 unordered_map<string, vector<m2::PointD>> Read(string const & dumpFilename)
 {
@@ -114,8 +114,8 @@ unordered_map<string, vector<m2::PointD>> Read(string const & dumpFilename)
   return result;
 }
 
-bool CheckPostcodeExists(unordered_map<string, vector<m2::PointD>> const & data,
-                         string const & postcode, vector<m2::PointD> const & geometry)
+bool CheckPostcodeExists(unordered_map<string, vector<m2::PointD>> const & data, string const & postcode,
+                         vector<m2::PointD> const & geometry)
 {
   auto const it = data.find(postcode);
   if (it == data.end())
@@ -125,10 +125,8 @@ bool CheckPostcodeExists(unordered_map<string, vector<m2::PointD>> const & data,
     return false;
 
   for (size_t i = 0; i < geometry.size(); ++i)
-  {
     if (!AlmostEqualAbs(geometry[i], it->second[i], kMwmPointAccuracy))
       return false;
-  }
 
   return true;
 }
@@ -154,7 +152,6 @@ void Check(string const & dumpFilename)
   TEST(CheckPostcodeExists(data, "127003", ConvertIdsToPoints(kPolygon3)), (data));
   TEST(CheckPostcodeExists(data, "127004", ConvertIdsToPoints(kPolygon4)), (data));
 }
-
 
 UNIT_CLASS_TEST(TestWithClassificator, CollectorBoundaryPostcode_1)
 {

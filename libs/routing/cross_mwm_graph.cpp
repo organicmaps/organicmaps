@@ -13,10 +13,8 @@ namespace routing
 {
 using namespace std;
 
-CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
-                             shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                             VehicleType vehicleType, CountryRectFn const & countryRectFn,
-                             MwmDataSource & dataSource)
+CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
+                             VehicleType vehicleType, CountryRectFn const & countryRectFn, MwmDataSource & dataSource)
   : m_dataSource(dataSource)
   , m_numMwmIds(numMwmIds)
   , m_numMwmTree(numMwmTree)
@@ -31,14 +29,9 @@ CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
 bool CrossMwmGraph::IsTransition(Segment const & s, bool isOutgoing)
 {
   if (TransitGraph::IsTransitSegment(s))
-  {
-    return TransitCrossMwmSectionExists(s.GetMwmId())
-               ? m_crossMwmTransitGraph.IsTransition(s, isOutgoing)
-               : false;
-  }
+    return TransitCrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmTransitGraph.IsTransition(s, isOutgoing) : false;
 
-  return CrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmIndexGraph.IsTransition(s, isOutgoing)
-                                             : false;
+  return CrossMwmSectionExists(s.GetMwmId()) ? m_crossMwmIndexGraph.IsTransition(s, isOutgoing) : false;
 }
 
 bool CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId, vector<NumMwmId> & neighbors)
@@ -130,9 +123,8 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
 
 void CrossMwmGraph::GetOutgoingEdgeList(Segment const & enter, EdgeListT & edges)
 {
-  ASSERT(
-      IsTransition(enter, false /* isEnter */),
-      ("The segment is not a transition segment. IsTransition(", enter, ", false) returns false."));
+  ASSERT(IsTransition(enter, false /* isEnter */),
+         ("The segment is not a transition segment. IsTransition(", enter, ", false) returns false."));
 
   // Is not supported yet.
   /*
@@ -150,9 +142,8 @@ void CrossMwmGraph::GetOutgoingEdgeList(Segment const & enter, EdgeListT & edges
 
 void CrossMwmGraph::GetIngoingEdgeList(Segment const & exit, EdgeListT & edges)
 {
-  ASSERT(
-    IsTransition(exit, true /* isEnter */),
-    ("The segment is not a transition segment. IsTransition(", exit, ", true) returns false."));
+  ASSERT(IsTransition(exit, true /* isEnter */),
+         ("The segment is not a transition segment. IsTransition(", exit, ", true) returns false."));
 
   // Is not supported yet.
   /*
@@ -175,11 +166,11 @@ RouteWeight CrossMwmGraph::GetWeightSure(Segment const & from, Segment const & t
   return m_crossMwmIndexGraph.GetWeightSure(from, to);
 }
 
-//void CrossMwmGraph::Clear()
+// void CrossMwmGraph::Clear()
 //{
-//  m_crossMwmIndexGraph.Clear();
-//  m_crossMwmTransitGraph.Clear();
-//}
+//   m_crossMwmIndexGraph.Clear();
+//   m_crossMwmTransitGraph.Clear();
+// }
 
 void CrossMwmGraph::Purge()
 {

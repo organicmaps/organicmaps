@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
 
+#include "coding/constants.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 #include "coding/zip_creator.hpp"
 #include "coding/zip_reader.hpp"
-#include "coding/internal/file_data.hpp"
-#include "coding/file_writer.hpp"
-#include "coding/constants.hpp"
 
 #include "base/scope_guard.hpp"
 
@@ -30,8 +30,7 @@ void CreateAndTestZip(std::string const & filePath, std::string const & zipPath)
   TEST(base::DeleteFileX(unzippedFile), ());
 }
 
-void CreateAndTestZip(std::vector<std::string> const & files, std::string const & zipPath,
-                      CompressionLevel compression)
+void CreateAndTestZip(std::vector<std::string> const & files, std::string const & zipPath, CompressionLevel compression)
 {
   TEST(CreateZipFromFiles(files, zipPath, compression), ());
 
@@ -50,8 +49,8 @@ void CreateAndTestZip(std::vector<std::string> const & files, std::string const 
   TEST(base::DeleteFileX(zipPath), ());
 }
 
-void CreateAndTestZipWithFolder(std::vector<std::string> const & files, std::vector<std::string> const & filesInArchive, std::string const & zipPath,
-                      CompressionLevel compression)
+void CreateAndTestZipWithFolder(std::vector<std::string> const & files, std::vector<std::string> const & filesInArchive,
+                                std::string const & zipPath, CompressionLevel compression)
 {
   TEST(CreateZipFromFiles(files, filesInArchive, zipPath, compression), ());
 
@@ -72,10 +71,10 @@ void CreateAndTestZipWithFolder(std::vector<std::string> const & files, std::vec
 
 std::vector<CompressionLevel> GetCompressionLevels()
 {
-  return {CompressionLevel::DefaultCompression, CompressionLevel::BestCompression,
-          CompressionLevel::BestSpeed, CompressionLevel::NoCompression};
+  return {CompressionLevel::DefaultCompression, CompressionLevel::BestCompression, CompressionLevel::BestSpeed,
+          CompressionLevel::NoCompression};
 }
-}
+}  // namespace
 
 UNIT_TEST(CreateZip_BigFile)
 {
@@ -105,7 +104,8 @@ UNIT_TEST(CreateZip_Smoke)
 UNIT_TEST(CreateZip_MultipleFiles)
 {
   std::vector<std::string> const fileData{"testf1", "testfile2", "testfile3_longname.txt.xml.csv"};
-  SCOPE_GUARD(deleteFileGuard, [&fileData]() {
+  SCOPE_GUARD(deleteFileGuard, [&fileData]()
+  {
     for (auto const & file : fileData)
       TEST(base::DeleteFileX(file), ());
   });
@@ -150,7 +150,5 @@ UNIT_TEST(CreateZip_MultipleFilesSingleEmpty)
   }
 
   for (auto compression : GetCompressionLevels())
-  {
     CreateAndTestZip(fileData, "testzip.zip", compression);
-  }
 }

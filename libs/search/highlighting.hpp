@@ -14,8 +14,7 @@
 namespace search
 {
 template <typename LowTokensIter, typename F>
-void SearchStringTokensIntersectionRanges(std::string const & s, LowTokensIter itLowBeg,
-                                          LowTokensIter itLowEnd, F && f)
+void SearchStringTokensIntersectionRanges(std::string const & s, LowTokensIter itLowBeg, LowTokensIter itLowEnd, F && f)
 {
   // split input query by tokens and prefix
   search::Delimiters delimsTest;

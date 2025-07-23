@@ -10,15 +10,12 @@ namespace android
 
 static EGLint * getContextAttributesList()
 {
-  static EGLint contextAttrList[] = {
-    EGL_CONTEXT_CLIENT_VERSION, 3,
-    EGL_NONE
-  };
+  static EGLint contextAttrList[] = {EGL_CONTEXT_CLIENT_VERSION, 3, EGL_NONE};
   return contextAttrList;
 }
 
-AndroidOGLContext::AndroidOGLContext(EGLDisplay display, EGLSurface surface,
-                                     EGLConfig config, AndroidOGLContext * contextToShareWith)
+AndroidOGLContext::AndroidOGLContext(EGLDisplay display, EGLSurface surface, EGLConfig config,
+                                     AndroidOGLContext * contextToShareWith)
   : m_nativeContext(EGL_NO_CONTEXT)
   , m_surface(surface)
   , m_display(display)
@@ -82,8 +79,7 @@ bool AndroidOGLContext::Validate()
 {
   if (!m_presentAvailable)
     return false;
-  return eglGetCurrentDisplay() != EGL_NO_DISPLAY &&
-         eglGetCurrentSurface(EGL_DRAW) != EGL_NO_SURFACE &&
+  return eglGetCurrentDisplay() != EGL_NO_DISPLAY && eglGetCurrentSurface(EGL_DRAW) != EGL_NO_SURFACE &&
          eglGetCurrentContext() != EGL_NO_CONTEXT;
 }
 

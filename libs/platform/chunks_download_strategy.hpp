@@ -11,7 +11,13 @@ namespace downloader
 class ChunksDownloadStrategy
 {
 public:
-  enum ChunkStatusT { CHUNK_FREE = 0, CHUNK_DOWNLOADING = 1, CHUNK_COMPLETE = 2, CHUNK_AUX = -1 };
+  enum ChunkStatusT
+  {
+    CHUNK_FREE = 0,
+    CHUNK_DOWNLOADING = 1,
+    CHUNK_COMPLETE = 2,
+    CHUNK_AUX = -1
+  };
 
 private:
 #pragma pack(push, 1)
@@ -32,14 +38,14 @@ private:
 
   struct LessChunks
   {
-    bool operator() (ChunkT const & r1, ChunkT const & r2) const { return r1.m_pos < r2.m_pos; }
-    bool operator() (ChunkT const & r1, int64_t const & r2) const { return r1.m_pos < r2; }
-    bool operator() (int64_t const & r1, ChunkT const & r2) const { return r1 < r2.m_pos; }
+    bool operator()(ChunkT const & r1, ChunkT const & r2) const { return r1.m_pos < r2.m_pos; }
+    bool operator()(ChunkT const & r1, int64_t const & r2) const { return r1.m_pos < r2; }
+    bool operator()(int64_t const & r1, ChunkT const & r2) const { return r1 < r2.m_pos; }
   };
 
   using RangeT = std::pair<int64_t, int64_t>;
 
-  static const int SERVER_READY = -1;
+  static int const SERVER_READY = -1;
   struct ServerT
   {
     std::string m_url;
@@ -84,4 +90,4 @@ public:
   /// Should be called until returns ENextChunk
   ResultT NextChunk(std::string & outUrl, RangeT & range);
 };
-} // namespace downloader
+}  // namespace downloader

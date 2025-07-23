@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "coding/buffered_file_writer.hpp"
-#include "coding/file_writer.hpp"
 #include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
 #include <cstddef>
@@ -14,43 +14,43 @@ using namespace std;
 
 namespace
 {
-  static char const kTestWriteStr [] = "01234567";
+static char const kTestWriteStr[] = "01234567";
 
-  template <class WriterT>
-  void TestWrite(WriterT & writer)
-  {
-    writer.Write("01", 2);           // "01"
-    TEST_EQUAL(writer.Pos(), 2, ());
-    writer.Write("x", 1);            // "01x"
-    TEST_EQUAL(writer.Pos(), 3, ());
-    writer.Write("3", 1);            // "01x3"
-    TEST_EQUAL(writer.Pos(), 4, ());
-    writer.Seek(2);
-    TEST_EQUAL(writer.Pos(), 2, ());
-    writer.Write("2", 1);            // "0123"
-    TEST_EQUAL(writer.Pos(), 3, ());
-    writer.Seek(7);
-    TEST_EQUAL(writer.Pos(), 7, ());
-    writer.Write("7", 1);            // "0123???7"
-    TEST_EQUAL(writer.Pos(), 8, ());
-    writer.Seek(4);
-    TEST_EQUAL(writer.Pos(), 4, ());
-    writer.Write("45", 2);           // "012345?7"
-    writer.Write("6", 1);            // "01234567"
-  }
+template <class WriterT>
+void TestWrite(WriterT & writer)
+{
+  writer.Write("01", 2);  // "01"
+  TEST_EQUAL(writer.Pos(), 2, ());
+  writer.Write("x", 1);  // "01x"
+  TEST_EQUAL(writer.Pos(), 3, ());
+  writer.Write("3", 1);  // "01x3"
+  TEST_EQUAL(writer.Pos(), 4, ());
+  writer.Seek(2);
+  TEST_EQUAL(writer.Pos(), 2, ());
+  writer.Write("2", 1);  // "0123"
+  TEST_EQUAL(writer.Pos(), 3, ());
+  writer.Seek(7);
+  TEST_EQUAL(writer.Pos(), 7, ());
+  writer.Write("7", 1);  // "0123???7"
+  TEST_EQUAL(writer.Pos(), 8, ());
+  writer.Seek(4);
+  TEST_EQUAL(writer.Pos(), 4, ());
+  writer.Write("45", 2);  // "012345?7"
+  writer.Write("6", 1);   // "01234567"
 }
+}  // namespace
 
 UNIT_TEST(MemWriter_Smoke)
 {
   vector<char> s;
-  MemWriter<vector<char> > writer(s);
+  MemWriter<vector<char>> writer(s);
   TestWrite(writer);
   TEST_EQUAL(string(s.begin(), s.end()), kTestWriteStr, ());
 }
 
 UNIT_TEST(FileWriter_Smoke)
 {
-  char const fileName [] = "file_writer_smoke_test.tmp";
+  char const fileName[] = "file_writer_smoke_test.tmp";
   {
     FileWriter writer(fileName);
     TestWrite(writer);
@@ -68,10 +68,10 @@ UNIT_TEST(FileWriter_Smoke)
 UNIT_TEST(SubWriter_MemWriter_Smoke)
 {
   vector<char> s;
-  MemWriter<vector<char> > writer(s);
+  MemWriter<vector<char>> writer(s);
   writer.Write("aa", 2);
   {
-    SubWriter<MemWriter<vector<char> > > subWriter(writer);
+    SubWriter<MemWriter<vector<char>>> subWriter(writer);
     TestWrite(subWriter);
   }
   writer.Write("bb", 2);
@@ -80,7 +80,7 @@ UNIT_TEST(SubWriter_MemWriter_Smoke)
 
 UNIT_TEST(SubWriter_FileWriter_Smoke)
 {
-  char const fileName [] = "sub_file_writer_smoke_test.tmp";
+  char const fileName[] = "sub_file_writer_smoke_test.tmp";
   {
     FileWriter writer(fileName);
     writer.Write("aa", 2);
@@ -102,7 +102,7 @@ UNIT_TEST(SubWriter_FileWriter_Smoke)
 
 UNIT_TEST(FileWriter_DeleteFile)
 {
-  char const fileName [] = "delete_file_test";
+  char const fileName[] = "delete_file_test";
   {
     FileWriter writer(fileName);
     writer.Write("123", 3);
@@ -117,14 +117,13 @@ UNIT_TEST(FileWriter_DeleteFile)
     FileReader reader(fileName);
     TEST(false, ("Exception should be thrown!"));
   }
-  catch (FileReader::OpenException & )
-  {
-  }
+  catch (FileReader::OpenException &)
+  {}
 }
 
 UNIT_TEST(FileWriter_AppendAndOpenExisting)
 {
-  char const fileName [] = "append_openexisting_file_test";
+  char const fileName[] = "append_openexisting_file_test";
   {
     FileWriter writer(fileName);
   }
@@ -187,14 +186,14 @@ void WriteTestData1(Writer & w)
 void WriteTestData2(Writer & w)
 {
   char c[CHUNK_SIZE];
-  for (size_t i = 1; i < CHUNKS_COUNT; i +=2)
+  for (size_t i = 1; i < CHUNKS_COUNT; i += 2)
   {
     for (size_t j = 0; j < ARRAY_SIZE(c); ++j)
       c[j] = i;
     w.Seek(i * CHUNK_SIZE);
     w.Write(&c[0], ARRAY_SIZE(c));
   }
-  for (size_t i = 0; i < CHUNKS_COUNT; i +=2)
+  for (size_t i = 0; i < CHUNKS_COUNT; i += 2)
   {
     for (size_t j = 0; j < ARRAY_SIZE(c); ++j)
       c[j] = i;

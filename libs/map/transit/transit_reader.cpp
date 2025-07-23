@@ -9,7 +9,7 @@
 
 #include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
-#include "indexer/drules_include.hpp"   // needed despite of IDE warning
+#include "indexer/drules_include.hpp"  // needed despite of IDE warning
 #include "indexer/feature_algo.hpp"
 
 #include "coding/reader.hpp"
@@ -37,8 +37,7 @@ size_t CalculateCacheSize(TransitDisplayInfo const & transitInfo)
 }  // namespace
 
 // ReadTransitTask --------------------------------------------------------------------------------
-void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId,
-                           unique_ptr<TransitDisplayInfo> transitInfo)
+void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId, unique_ptr<TransitDisplayInfo> transitInfo)
 {
   m_id = id;
   m_mwmId = mwmId;
@@ -137,10 +136,8 @@ void ReadTransitTask::Do()
       }
 
       if (m_loadSubset && !stop.second.GetTransferIds().empty())
-      {
         for (auto const transferId : stop.second.GetTransferIds())
           m_transitInfo->m_transfersPT[transferId] = {};
-      }
     }
 
     FillItemsByIdMap(transitData.GetTransfers(), m_transitInfo->m_transfersPT);
@@ -165,7 +162,7 @@ void ReadTransitTask::Do()
 
     if (featureInfo.m_isGate)
     {
-      //TODO(pastk): there should be a simpler way to just get a symbol name.
+      // TODO(pastk): there should be a simpler way to just get a symbol name.
       df::Stylist stylist(ft, 19, 0);
       if (stylist.m_symbolRule != nullptr)
         featureInfo.m_gateSymbolName = stylist.m_symbolRule->name();
@@ -221,8 +218,7 @@ void ReadTransitTask::FillLinesAndRoutes(::transit::experimental::TransitData co
   }
 }
 
-TransitReadManager::TransitReadManager(DataSource & dataSource,
-                                       TReadFeaturesFn const & readFeaturesFn,
+TransitReadManager::TransitReadManager(DataSource & dataSource, TReadFeaturesFn const & readFeaturesFn,
                                        GetMwmsByRectFn const & getMwmsByRectFn)
   : m_dataSource(dataSource)
   , m_readFeaturesFn(readFeaturesFn)
@@ -243,8 +239,7 @@ void TransitReadManager::Start()
 
   using namespace placeholders;
   uint8_t constexpr kThreadsCount = 1;
-  m_threadsPool = make_unique<base::ThreadPool>(
-      kThreadsCount, bind(&TransitReadManager::OnTaskCompleted, this, _1));
+  m_threadsPool = make_unique<base::ThreadPool>(kThreadsCount, bind(&TransitReadManager::OnTaskCompleted, this, _1));
 }
 
 void TransitReadManager::Stop()
@@ -353,8 +348,7 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
       if (!transitInfo)
         continue;
 
-      if (transitInfo->m_transitVersion == ::transit::TransitVersion::OnlySubway &&
-          transitInfo->m_linesSubway.empty())
+      if (transitInfo->m_transitVersion == ::transit::TransitVersion::OnlySubway && transitInfo->m_linesSubway.empty())
         continue;
 
       if (transitInfo->m_transitVersion == ::transit::TransitVersion::AllPublicTransport &&
@@ -432,10 +426,8 @@ void TransitReadManager::ShrinkCacheToAllowableSize()
   {
     std::multimap<time_point<steady_clock>, MwmSet::MwmId> seenTimings;
     for (auto const & entry : m_mwmCache)
-    {
       if (entry.second.m_isLoaded && m_lastActiveMwms.count(entry.first) == 0)
         seenTimings.insert(make_pair(entry.second.m_lastActiveTime, entry.first));
-    }
 
     while (m_cacheSize > kMaxTransitCacheSizeBytes && !seenTimings.empty())
     {

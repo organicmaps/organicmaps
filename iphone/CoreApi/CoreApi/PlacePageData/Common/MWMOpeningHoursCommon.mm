@@ -33,16 +33,14 @@ NSString * stringFromOpeningDays(editor::ui::OpeningDays const & openingDays)
   NSMutableArray<NSString *> * spanNames = [NSMutableArray arrayWithCapacity:2];
   NSMutableArray<NSString *> * spans = [NSMutableArray array];
 
-  auto weekdayFromDay = ^(NSUInteger day)
-  {
+  auto weekdayFromDay = ^(NSUInteger day) {
     NSUInteger idx = day + 1;
     if (idx > static_cast<NSUInteger>(osmoh::Weekday::Saturday))
       idx -= static_cast<NSUInteger>(osmoh::Weekday::Saturday);
     return static_cast<osmoh::Weekday>(idx);
   };
 
-  auto joinSpanNames = ^
-  {
+  auto joinSpanNames = ^{
     NSUInteger const spanNamesCount = spanNames.count;
     if (spanNamesCount == 0)
       return;

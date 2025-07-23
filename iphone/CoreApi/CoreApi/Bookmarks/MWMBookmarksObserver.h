@@ -4,7 +4,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(BookmarksObserver)
-@protocol MWMBookmarksObserver<NSObject>
+@protocol MWMBookmarksObserver <NSObject>
 @optional
 - (void)onBookmarksLoadFinished;
 - (void)onBookmarksFileLoadSuccess;
@@ -14,7 +14,7 @@ NS_SWIFT_NAME(BookmarksObserver)
 - (void)onBookmarkDeleted:(MWMMarkID)bookmarkId;
 @end
 
-@protocol BookmarksObservable<NSObject>
+@protocol BookmarksObservable <NSObject>
 - (void)addObserver:(id<MWMBookmarksObserver>)observer;
 - (void)removeObserver:(id<MWMBookmarksObserver>)observer;
 @end

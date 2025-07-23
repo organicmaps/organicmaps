@@ -34,8 +34,7 @@ CoverageResult CalcTilesCoverage(m2::RectD const & rect, int targetZoom,
 bool IsNeighbours(TileKey const & tileKey1, TileKey const & tileKey2)
 {
   return !((tileKey1.m_x == tileKey2.m_x) && (tileKey1.m_y == tileKey2.m_y)) &&
-         (abs(tileKey1.m_x - tileKey2.m_x) < 2) &&
-         (abs(tileKey1.m_y - tileKey2.m_y) < 2);
+         (abs(tileKey1.m_x - tileKey2.m_x) < 2) && (abs(tileKey1.m_y - tileKey2.m_y) < 2);
 }
 
 int ClipTileZoomByMaxDataZoom(int zoom)
@@ -47,7 +46,6 @@ TileKey GetTileKeyByPoint(m2::PointD const & pt, int zoom)
 {
   ASSERT_GREATER(zoom, 0, ());
   double const rectSize = mercator::Bounds::kRangeX / (1 << (zoom - 1));
-  return TileKey(static_cast<int>(floor(pt.x / rectSize)),
-                 static_cast<int>(floor(pt.y / rectSize)), zoom);
+  return TileKey(static_cast<int>(floor(pt.x / rectSize)), static_cast<int>(floor(pt.y / rectSize)), zoom);
 }
 }  // namespace df

@@ -16,17 +16,15 @@ namespace
 
 // Number of days elapsed since Jan 01 up to each month
 // (except for February in leap years).
-int const g_monoff[] = {
-  0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334
-};
+int const g_monoff[] = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
 
 int LeapDaysCount(int y1, int y2)
 {
   --y1;
   --y2;
-  return (y2/4 - y1/4) - (y2/100 - y1/100) + (y2/400 - y1/400);
+  return (y2 / 4 - y1 / 4) - (y2 / 100 - y1 / 100) + (y2 / 400 - y1 / 400);
 }
-} // namespace
+}  // namespace
 
 namespace base
 {
@@ -37,7 +35,7 @@ int DaysOfMonth(int year, int month)
   ASSERT_LESS_OR_EQUAL(month, 12, ());
 
   int const february = base::IsLeapYear(year) ? 29 : 28;
-  int const daysPerMonth[12] = { 31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+  int const daysPerMonth[12] = {31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
   return daysPerMonth[month - 1];
 }
 
@@ -86,4 +84,4 @@ time_t TimeGM(int year, int month, int day, int hour, int min, int sec)
   t.tm_sec = sec;
   return TimeGM(t);
 }
-} // namespace base
+}  // namespace base

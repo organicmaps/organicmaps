@@ -11,7 +11,8 @@
 namespace routing
 {
 LeapsGraph::LeapsGraph(IndexGraphStarter & starter, MwmHierarchyHandler && hierarchyHandler)
-  : m_starter(starter), m_hierarchyHandler(std::move(hierarchyHandler))
+  : m_starter(starter)
+  , m_hierarchyHandler(std::move(hierarchyHandler))
 {
   m_startPoint = m_starter.GetPoint(m_starter.GetStartSegment(), true /* front */);
   m_finishPoint = m_starter.GetPoint(m_starter.GetFinishSegment(), true /* front */);
@@ -19,14 +20,12 @@ LeapsGraph::LeapsGraph(IndexGraphStarter & starter, MwmHierarchyHandler && hiera
   m_finishSegment = m_starter.GetFinishSegment();
 }
 
-void LeapsGraph::GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                      EdgeListT & edges)
+void LeapsGraph::GetOutgoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & edges)
 {
   GetEdgesList(vertexData.m_vertex, true /* isOutgoing */, edges);
 }
 
-void LeapsGraph::GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData,
-                                     EdgeListT & edges)
+void LeapsGraph::GetIngoingEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, EdgeListT & edges)
 {
   GetEdgesList(vertexData.m_vertex, false /* isOutgoing */, edges);
 }

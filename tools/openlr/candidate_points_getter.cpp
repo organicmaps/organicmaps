@@ -18,22 +18,21 @@ using namespace routing;
 
 namespace openlr
 {
-void CandidatePointsGetter::FillJunctionPointCandidates(m2::PointD const & p,
-                                                        std::vector<m2::PointD> & candidates)
+void CandidatePointsGetter::FillJunctionPointCandidates(m2::PointD const & p, std::vector<m2::PointD> & candidates)
 {
   // TODO(mgsergio): Get optimal value using experiments on a sample.
   // Or start with small radius and scale it up when there are too few points.
   size_t const kRectSideMeters = 110;
 
   auto const rect = mercator::RectByCenterXYAndSizeInMeters(p, kRectSideMeters);
-  auto const selectCandidates = [&rect, &candidates](FeatureType & ft) {
+  auto const selectCandidates = [&rect, &candidates](FeatureType & ft)
+  {
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    ft.ForEachPoint(
-        [&rect, &candidates](m2::PointD const & candidate) {
-          if (rect.IsPointInside(candidate))
-            candidates.emplace_back(candidate);
-        },
-        scales::GetUpperScale());
+    ft.ForEachPoint([&rect, &candidates](m2::PointD const & candidate)
+    {
+      if (rect.IsPointInside(candidate))
+        candidates.emplace_back(candidate);
+    }, scales::GetUpperScale());
   };
 
   m_dataSource.ForEachInRect(selectCandidates, rect, scales::GetUpperScale());
@@ -44,17 +43,14 @@ void CandidatePointsGetter::FillJunctionPointCandidates(m2::PointD const & p,
   // later. The idea to fix this was to move SortUnique to the stage
   // after enriching with projections.
 
-  base::SortUnique(candidates,
-                   [&p](m2::PointD const & a, m2::PointD const & b) {
-                     return mercator::DistanceOnEarth(a, p) < mercator::DistanceOnEarth(b, p);
-                   },
+  base::SortUnique(candidates, [&p](m2::PointD const & a, m2::PointD const & b)
+  { return mercator::DistanceOnEarth(a, p) < mercator::DistanceOnEarth(b, p); },
                    [](m2::PointD const & a, m2::PointD const & b) { return a == b; });
 
   candidates.resize(std::min(m_maxJunctionCandidates, candidates.size()));
 }
 
-void CandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p,
-                                                       std::vector<m2::PointD> & candidates)
+void CandidatePointsGetter::EnrichWithProjectionPoints(m2::PointD const & p, std::vector<m2::PointD> & candidates)
 {
   m_graph.ResetFakes();
 

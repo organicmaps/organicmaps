@@ -44,12 +44,10 @@ void Smoke()
 }
 
 template <template <typename, typename> class Beam>
-void Benchmark(string const & beamType, uint64_t const numResets, size_t const capacity,
-               uint64_t const numEvents)
+void Benchmark(string const & beamType, uint64_t const numResets, size_t const capacity, uint64_t const numEvents)
 {
   base::Timer timer;
-  SCOPE_GUARD(timerGuard,
-              [&] { LOG(LINFO, ("type:", beamType, "\ttime passed:", timer.ElapsedSeconds())); });
+  SCOPE_GUARD(timerGuard, [&] { LOG(LINFO, ("type:", beamType, "\ttime passed:", timer.ElapsedSeconds())); });
 
   CHECK_LESS_OR_EQUAL(capacity, numEvents, ());
 

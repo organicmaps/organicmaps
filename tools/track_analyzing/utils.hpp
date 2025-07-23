@@ -29,14 +29,12 @@ double CalcSpeedKMpH(double meters, uint64_t secondsElapsed);
 void ReadTracks(std::shared_ptr<routing::NumMwmIds> numMwmIds, std::string const & filename,
                 MwmToMatchedTracks & mwmToMatchedTracks);
 MatchedTrack const & GetMatchedTrack(MwmToMatchedTracks const & mwmToMatchedTracks,
-                                     routing::NumMwmIds const & numMwmIds,
-                                     std::string const & mwmName, std::string const & user,
-                                     size_t trackIdx);
+                                     routing::NumMwmIds const & numMwmIds, std::string const & mwmName,
+                                     std::string const & user, size_t trackIdx);
 std::string GetCurrentVersionMwmFile(storage::Storage const & storage, std::string const & mwmName);
 
 template <typename MwmToTracks, typename ToDo>
-void ForTracksSortedByMwmName(MwmToTracks const & mwmToTracks, routing::NumMwmIds const & numMwmIds,
-                              ToDo && toDo)
+void ForTracksSortedByMwmName(MwmToTracks const & mwmToTracks, routing::NumMwmIds const & numMwmIds, ToDo && toDo)
 {
   std::vector<std::string> mwmNames;
   mwmNames.reserve(mwmToTracks.size());
@@ -53,8 +51,7 @@ void ForTracksSortedByMwmName(MwmToTracks const & mwmToTracks, routing::NumMwmId
   }
 }
 
-void ForEachTrackFile(
-    std::string const & filepath, std::string const & extension,
-    std::shared_ptr<routing::NumMwmIds> numMwmIds,
-    std::function<void(std::string const & filename, MwmToMatchedTracks const &)> && toDo);
+void ForEachTrackFile(std::string const & filepath, std::string const & extension,
+                      std::shared_ptr<routing::NumMwmIds> numMwmIds,
+                      std::function<void(std::string const & filename, MwmToMatchedTracks const &)> && toDo);
 }  // namespace track_analyzing

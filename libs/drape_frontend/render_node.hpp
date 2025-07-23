@@ -5,8 +5,8 @@
 #include "shaders/program_manager.hpp"
 
 #include "drape/graphics_context.hpp"
-#include "drape/vertex_array_buffer.hpp"
 #include "drape/pointers.hpp"
+#include "drape/vertex_array_buffer.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -21,16 +21,15 @@ public:
   {}
 
   template <typename ParamsType>
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-              ParamsType const & params, dp::IndicesRange const & range)
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ParamsType const & params,
+              dp::IndicesRange const & range)
   {
     Apply(context, mng, params);
     m_buffer->RenderRange(context, m_state.GetDrawAsLine(), range);
   }
 
   template <typename ParamsType>
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-              ParamsType const & params)
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ParamsType const & params)
   {
     Apply(context, mng, params);
     m_buffer->Render(context, m_state.GetDrawAsLine());
@@ -44,8 +43,7 @@ public:
 
 private:
   template <typename ParamsType>
-  void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-             ParamsType const & params)
+  void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ParamsType const & params)
   {
     auto prg = mng->GetProgram(m_state.GetProgram<gpu::Program>());
     prg->Bind();

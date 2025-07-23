@@ -2,8 +2,8 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
-#include "indexer/feature_decl.hpp"
 #include "indexer/edit_journal.hpp"
+#include "indexer/feature_decl.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -221,4 +221,4 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object);
 
 std::string DebugPrint(XMLFeature const & feature);
 std::string DebugPrint(XMLFeature::Type const type);
-} // namespace editor
+}  // namespace editor

@@ -33,8 +33,7 @@ CountryInfoReader::CountryInfoReader()
   }
   catch (FileReader::Exception const & exception)
   {
-    LOG(LERROR,
-        ("Exception while reading file:", PACKED_POLYGONS_FILE, "reason:", exception.what()));
+    LOG(LERROR, ("Exception while reading file:", PACKED_POLYGONS_FILE, "reason:", exception.what()));
 
     m_reader.reset();
     m_countries.clear();
@@ -66,10 +65,8 @@ bool CountryInfoReader::BelongsToRegion(m2::PointD const & pt, size_t id) const
   LoadRegionsFromDisk(id, regions);
 
   for (auto const & region : regions)
-  {
     if (region.Contains(pt))
       return true;
-  }
 
   return false;
 }

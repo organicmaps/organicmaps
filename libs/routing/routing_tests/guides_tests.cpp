@@ -29,16 +29,20 @@ GuidesTracks GetTestGuides()
 {
   // Two guides. First with 2 tracks, second - with 1 track.
   GuidesTracks guides;
-  guides[10] = {{{mercator::FromLatLon(48.13999, 11.56873), 5},
-                 {mercator::FromLatLon(48.14096, 11.57246), 5},
-                 {mercator::FromLatLon(48.14487, 11.57259), 6}},
-                {{mercator::FromLatLon(48.14349, 11.56712), 8},
-                 {mercator::FromLatLon(48.14298, 11.56604), 6},
-                 {mercator::FromLatLon(48.14223, 11.56362), 6},
-                 {mercator::FromLatLon(48.14202, 11.56283), 6}}};
-  guides[11] = {{{mercator::FromLatLon(48.14246, 11.57814), 9},
-                 {mercator::FromLatLon(48.14279, 11.57941), 10},
-                 {mercator::FromLatLon(48.14311, 11.58063), 10}}};
+  guides[10] = {
+      {{mercator::FromLatLon(48.13999, 11.56873), 5},
+       {mercator::FromLatLon(48.14096, 11.57246), 5},
+       {mercator::FromLatLon(48.14487, 11.57259), 6}},
+      {{mercator::FromLatLon(48.14349, 11.56712), 8},
+       {mercator::FromLatLon(48.14298, 11.56604), 6},
+       {mercator::FromLatLon(48.14223, 11.56362), 6},
+       {mercator::FromLatLon(48.14202, 11.56283), 6}}
+  };
+  guides[11] = {
+      {{mercator::FromLatLon(48.14246, 11.57814), 9},
+       {mercator::FromLatLon(48.14279, 11.57941), 10},
+       {mercator::FromLatLon(48.14311, 11.58063), 10}}
+  };
   return guides;
 }
 
@@ -95,8 +99,7 @@ UNIT_TEST(Guides_FinishAndStartAttached)
     auto const links = guides.GetOsmConnections(checkpointIdx);
     TEST(!links.empty(), ());
 
-    bool const isCheckpointNear =
-        guides.FitsForDirectLinkToGuide(checkpointIdx, checkpoints.size());
+    bool const isCheckpointNear = guides.FitsForDirectLinkToGuide(checkpointIdx, checkpoints.size());
     auto const ending = guides.GetFakeEnding(checkpointIdx);
 
     // Initial projection to guides track.

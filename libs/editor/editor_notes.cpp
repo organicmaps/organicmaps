@@ -18,8 +18,7 @@
 
 namespace
 {
-bool LoadFromXml(pugi::xml_document const & xml, std::list<editor::Note> & notes,
-                 uint32_t & uploadedNotesCount)
+bool LoadFromXml(pugi::xml_document const & xml, std::list<editor::Note> & notes, uint32_t & uploadedNotesCount)
 {
   uint64_t notesCount;
   auto const root = xml.child("notes");
@@ -55,8 +54,7 @@ bool LoadFromXml(pugi::xml_document const & xml, std::list<editor::Note> & notes
   return true;
 }
 
-void SaveToXml(std::list<editor::Note> const & notes, pugi::xml_document & xml,
-               uint32_t const uploadedNotesCount)
+void SaveToXml(std::list<editor::Note> const & notes, pugi::xml_document & xml, uint32_t const uploadedNotesCount)
 {
   auto constexpr kDigitsAfterComma = 7;
   auto root = xml.append_child("notes");
@@ -65,17 +63,14 @@ void SaveToXml(std::list<editor::Note> const & notes, pugi::xml_document & xml,
   {
     auto node = root.append_child("note");
 
-    node.append_attribute("lat") =
-        strings::to_string_dac(note.m_point.m_lat, kDigitsAfterComma).data();
-    node.append_attribute("lon") =
-        strings::to_string_dac(note.m_point.m_lon, kDigitsAfterComma).data();
+    node.append_attribute("lat") = strings::to_string_dac(note.m_point.m_lat, kDigitsAfterComma).data();
+    node.append_attribute("lon") = strings::to_string_dac(note.m_point.m_lon, kDigitsAfterComma).data();
     node.append_attribute("text") = note.m_note.data();
   }
 }
 
 /// Not thread-safe, use only for initialization.
-bool Load(std::string const & fileName, std::list<editor::Note> & notes,
-          uint32_t & uploadedNotesCount)
+bool Load(std::string const & fileName, std::list<editor::Note> & notes, uint32_t & uploadedNotesCount)
 {
   std::string content;
   try
@@ -112,14 +107,12 @@ bool Load(std::string const & fileName, std::list<editor::Note> & notes,
 }
 
 /// Not thread-safe, use synchronization.
-bool Save(std::string const & fileName, std::list<editor::Note> const & notes,
-          uint32_t const uploadedNotesCount)
+bool Save(std::string const & fileName, std::list<editor::Note> const & notes, uint32_t const uploadedNotesCount)
 {
   pugi::xml_document xml;
   SaveToXml(notes, xml, uploadedNotesCount);
-  return base::WriteToTempAndRenameToFile(fileName, [&xml](std::string const & fileName) {
-    return xml.save_file(fileName.data(), "  ");
-  });
+  return base::WriteToTempAndRenameToFile(
+      fileName, [&xml](std::string const & fileName) { return xml.save_file(fileName.data(), "  "); });
 }
 }  // namespace
 
@@ -127,8 +120,7 @@ namespace editor
 {
 std::shared_ptr<Notes> Notes::MakeNotes(std::string const & fileName, bool const fullPath)
 {
-  return std::shared_ptr<Notes>(
-      new Notes(fullPath ? fileName : GetPlatform().WritablePathForFile(fileName)));
+  return std::shared_ptr<Notes>(new Notes(fullPath ? fileName : GetPlatform().WritablePathForFile(fileName)));
 }
 
 Notes::Notes(std::string const & fileName) : m_fileName(fileName)
@@ -151,9 +143,8 @@ void Notes::CreateNote(ms::LatLon const & latLon, std::string const & text)
   }
 
   std::lock_guard<std::mutex> g(m_mu);
-  auto const it = std::find_if(m_notes.begin(), m_notes.end(), [&latLon, &text](Note const & note) {
-    return latLon.EqualDxDy(note.m_point, kTolerance) && text == note.m_note;
-  });
+  auto const it = std::find_if(m_notes.begin(), m_notes.end(), [&latLon, &text](Note const & note)
+  { return latLon.EqualDxDy(note.m_point, kTolerance) && text == note.m_note; });
   // No need to add the same note. It works in case when saved note are not uploaded yet.
   if (it != m_notes.end())
     return;
@@ -167,7 +158,8 @@ void Notes::Upload(osm::OsmOAuth const & auth)
   // Capture self to keep it from destruction until this thread is done.
   auto const self = shared_from_this();
 
-  auto const doUpload = [self, auth]() {
+  auto const doUpload = [self, auth]()
+  {
     std::unique_lock<std::mutex> ulock(self->m_mu);
     // Size of m_notes is decreased only in this method.
     auto & notes = self->m_notes;

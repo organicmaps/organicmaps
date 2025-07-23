@@ -6,7 +6,10 @@ using namespace generator;
 
 namespace
 {
-inline std::string GetBase(ms::LatLon const & coord) { return SrtmTile::GetBase(coord); }
+inline std::string GetBase(ms::LatLon const & coord)
+{
+  return SrtmTile::GetBase(coord);
+}
 
 UNIT_TEST(FilenameTests)
 {

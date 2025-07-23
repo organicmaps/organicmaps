@@ -2,8 +2,8 @@
 
 #include "coding/constants.hpp"
 #include "coding/internal/file64_api.hpp"
-#include "coding/reader.hpp" // For Reader exceptions.
-#include "coding/writer.hpp" // For Writer exceptions.
+#include "coding/reader.hpp"  // For Reader exceptions.
+#include "coding/writer.hpp"  // For Writer exceptions.
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
@@ -40,10 +40,9 @@ std::ostream & operator<<(std::ostream & stream, FileData::Op op)
   return stream;
 }
 
-FileData::FileData(string const & fileName, Op op)
-  : m_FileName(fileName), m_Op(op)
+FileData::FileData(string const & fileName, Op op) : m_FileName(fileName), m_Op(op)
 {
-  char const * const modes [] = {"rb", "wb", "r+b", "ab"};
+  char const * const modes[] = {"rb", "wb", "r+b", "ab"};
 
   m_File = fopen(fileName.c_str(), modes[static_cast<int>(op)]);
   if (m_File)
@@ -190,9 +189,7 @@ bool CheckFileOperationResult(int res, string const & fName)
   // additional check if file really was removed correctly
   uint64_t dummy;
   if (GetFileSize(fName, dummy))
-  {
     LOG(LERROR, ("File exists but can't be deleted. Sharing violation?", fName));
-  }
 
   return false;
 }
@@ -226,18 +223,16 @@ bool MoveFileX(string const & fOld, string const & fNew)
   // Otherwise perform the full move.
   if (!CopyFileX(fOld, fNew))
   {
-    (void) DeleteFileX(fNew);
+    (void)DeleteFileX(fNew);
     return false;
   }
-  (void) DeleteFileX(fOld);
+  (void)DeleteFileX(fOld);
   return true;
 }
 
-bool WriteToTempAndRenameToFile(string const & dest, function<bool(string const &)> const & write,
-                                string const & tmp)
+bool WriteToTempAndRenameToFile(string const & dest, function<bool(string const &)> const & write, string const & tmp)
 {
-  string const tmpFileName =
-      tmp.empty() ? dest + ".tmp" + strings::to_string(this_thread::get_id()) : tmp;
+  string const tmpFileName = tmp.empty() ? dest + ".tmp" + strings::to_string(this_thread::get_id()) : tmp;
   if (!write(tmpFileName))
   {
     LOG(LERROR, ("Can't write to", tmpFileName));
@@ -298,7 +293,7 @@ bool CopyFileX(string const & fOld, string const & fNew)
   }
 
   // Don't care about possible error here ..
-  (void) DeleteFileX(fNew);
+  (void)DeleteFileX(fNew);
   return false;
 }
 

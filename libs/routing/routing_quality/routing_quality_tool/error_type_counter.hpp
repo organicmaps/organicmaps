@@ -22,12 +22,10 @@ private:
   std::map<std::string, size_t> m_errorCounter;
 };
 
-void FillLabelsAndErrorTypeDistribution(std::vector<std::string> & labels,
-                                        std::vector<double> & errorsTypeDistribution,
+void FillLabelsAndErrorTypeDistribution(std::vector<std::string> & labels, std::vector<double> & errorsTypeDistribution,
                                         ErrorTypeCounter const & counter);
 
 void FillLabelsAndErrorTypeDistribution(std::vector<std::string> & labels,
                                         std::vector<std::vector<double>> & errorsTypeDistribution,
-                                        ErrorTypeCounter const & counter,
-                                        ErrorTypeCounter const & counterOld);
+                                        ErrorTypeCounter const & counter, ErrorTypeCounter const & counterOld);
 }  // namespace routing_quality::routing_quality_tool

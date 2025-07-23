@@ -28,7 +28,6 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const
 /// * feature geometry
 /// * index graph (ROUTING_FILE_TAG)
 EdgeIdToFeatureId BuildTransit(std::string const & mwmDir, storage::CountryId const & countryId,
-                               std::string const & osmIdToFeatureIdsPath,
-                               std::string const & transitDir);
+                               std::string const & osmIdToFeatureIdsPath, std::string const & transitDir);
 }  // namespace experimental
 }  // namespace transit

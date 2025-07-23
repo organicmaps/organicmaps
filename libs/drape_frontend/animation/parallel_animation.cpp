@@ -7,9 +7,7 @@
 namespace df
 {
 
-ParallelAnimation::ParallelAnimation()
-  : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
-{}
+ParallelAnimation::ParallelAnimation() : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */) {}
 
 void ParallelAnimation::Init(ScreenBase const & screen, TPropertyCache const & properties)
 {
@@ -55,10 +53,8 @@ bool ParallelAnimation::HasTargetProperty(Object object, ObjectProperty property
 {
   ASSERT(!m_animations.empty(), ());
   for (auto const & anim : m_animations)
-  {
     if (anim->HasTargetProperty(object, property))
       return true;
-  }
   return false;
 }
 
@@ -119,10 +115,8 @@ bool ParallelAnimation::GetProperty(Object object, ObjectProperty property, Prop
 {
   ASSERT(!m_animations.empty(), ());
   for (auto const & anim : m_animations)
-  {
     if (anim->HasProperty(object, property))
       return anim->GetProperty(object, property, value);
-  }
   return false;
 }
 
@@ -130,10 +124,8 @@ bool ParallelAnimation::GetTargetProperty(Object object, ObjectProperty property
 {
   ASSERT(!m_animations.empty(), ());
   for (auto const & anim : m_animations)
-  {
     if (anim->HasProperty(object, property))
       return anim->GetTargetProperty(object, property, value);
-  }
   return false;
 }
 
@@ -211,4 +203,4 @@ void ParallelAnimation::ObtainObjectProperties()
   }
 }
 
-} // namespace df
+}  // namespace df

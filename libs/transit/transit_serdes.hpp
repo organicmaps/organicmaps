@@ -42,9 +42,9 @@ public:
   explicit Serializer(Sink & sink) : m_sink(sink) {}
 
   template <typename T>
-  std::enable_if_t<(std::is_integral<T>::value || std::is_enum<T>::value) &&
-                   !std::is_same<T, uint32_t>::value && !std::is_same<T, uint64_t>::value &&
-                   !std::is_same<T, int32_t>::value && !std::is_same<T, int64_t>::value>
+  std::enable_if_t<(std::is_integral<T>::value || std::is_enum<T>::value) && !std::is_same<T, uint32_t>::value &&
+                   !std::is_same<T, uint64_t>::value && !std::is_same<T, int32_t>::value &&
+                   !std::is_same<T, int64_t>::value>
   operator()(T const & t, char const * /* name */ = nullptr)
   {
     WriteToSink(m_sink, t);
@@ -73,10 +73,7 @@ public:
     (*this)(DoubleToUint32(d, kMinDoubleAtTransitSection, kMaxDoubleAtTransitSection, kDoubleBits), name);
   }
 
-  void operator()(std::string const & s, char const * /* name */ = nullptr)
-  {
-    rw::Write(m_sink, s);
-  }
+  void operator()(std::string const & s, char const * /* name */ = nullptr) { rw::Write(m_sink, s); }
 
   void operator()(m2::PointD const & p, char const * /* name */ = nullptr)
   {
@@ -125,10 +122,7 @@ public:
       id.Visit(*this);
   }
 
-  void operator()(osmoh::OpeningHours const & oh, char const * /* name */ = nullptr)
-  {
-    (*this)(ToString(oh));
-  }
+  void operator()(osmoh::OpeningHours const & oh, char const * /* name */ = nullptr) { (*this)(ToString(oh)); }
 
   void operator()(Edge const & e, char const * /* name */ = nullptr)
   {
@@ -138,8 +132,7 @@ public:
     (*this)(e.m_lineId);
     // Note. |Edge::m_flags| is not filled fully after deserialization from json.
     // So it's necessary to fill it here.
-    EdgeFlags const flags =
-        GetEdgeFlags(e.GetTransfer(), e.GetStop1Id(), e.GetStop2Id(), e.GetShapeIds());
+    EdgeFlags const flags = GetEdgeFlags(e.GetTransfer(), e.GetStop1Id(), e.GetStop2Id(), e.GetShapeIds());
     (*this)(flags);
 
     if (flags.m_isShapeIdsEmpty || flags.m_isShapeIdsSame || flags.m_isShapeIdsReversed)
@@ -188,8 +181,7 @@ public:
   }
 
   template <typename T>
-  std::enable_if_t<std::is_class<T>::value> operator()(T const & t,
-                                                       char const * /* name */ = nullptr)
+  std::enable_if_t<std::is_class<T>::value> operator()(T const & t, char const * /* name */ = nullptr)
   {
     t.Visit(*this);
   }
@@ -207,9 +199,9 @@ public:
   explicit Deserializer(Source & source) : m_source(source) {}
 
   template <typename T>
-  std::enable_if_t<(std::is_integral<T>::value || std::is_enum<T>::value) &&
-                   !std::is_same<T, uint32_t>::value && !std::is_same<T, uint64_t>::value &&
-                   !std::is_same<T, int32_t>::value && !std::is_same<T, int64_t>::value>
+  std::enable_if_t<(std::is_integral<T>::value || std::is_enum<T>::value) && !std::is_same<T, uint32_t>::value &&
+                   !std::is_same<T, uint64_t>::value && !std::is_same<T, int32_t>::value &&
+                   !std::is_same<T, int64_t>::value>
   operator()(T & t, char const * name = nullptr)
   {
     ReadPrimitiveFromSource(m_source, t);
@@ -238,10 +230,7 @@ public:
     d = Uint32ToDouble(ui, kMinDoubleAtTransitSection, kMaxDoubleAtTransitSection, kDoubleBits);
   }
 
-  void operator()(std::string & s, char const * /* name */ = nullptr)
-  {
-    rw::Read(m_source, s);
-  }
+  void operator()(std::string & s, char const * /* name */ = nullptr) { rw::Read(m_source, s); }
 
   void operator()(m2::PointD & p, char const * /* name */ = nullptr)
   {
@@ -336,8 +325,7 @@ public:
     vs.resize(size);
     for (auto & p : vs)
     {
-      m2::PointU const pointU = coding::DecodePointDeltaFromUint(
-          ReadVarUint<uint64_t>(m_source), lastDecodedPoint);
+      m2::PointU const pointU = coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(m_source), lastDecodedPoint);
       p = PointUToPointD(pointU, kPointCoordBits);
       lastDecodedPoint = pointU;
     }
@@ -434,18 +422,15 @@ public:
   explicit FixedSizeDeserializer(Source & source) : m_source(source) {}
 
   template <typename T>
-  std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> operator()(
-      T & t, char const * name = nullptr)
+  std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> operator()(T & t,
+                                                                                          char const * name = nullptr)
   {
     ReadPrimitiveFromSource(m_source, t);
   }
 
   void operator()(TransitHeader & header) { header.Visit(*this); }
 
-  void operator()(::transit::experimental::TransitHeader & headerExperimental)
-  {
-    headerExperimental.Visit(*this);
-  }
+  void operator()(::transit::experimental::TransitHeader & headerExperimental) { headerExperimental.Visit(*this); }
 
 private:
   Source & m_source;

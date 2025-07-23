@@ -34,21 +34,18 @@ std::pair<uint64_t, uint64_t> AddressEnricher::RawEntryBase::GetHNRange() const
   if (f.m_type != Token::TYPE_NUMBER || t.m_type != Token::TYPE_NUMBER)
     return kInvalidRange;
 
-  return { ToUInt(f.m_value), ToUInt(t.m_value) };
+  return {ToUInt(f.m_value), ToUInt(t.m_value)};
 }
 
 std::string DebugPrint(AddressEnricher::Stats const & s)
 {
-  return
-    "{ m_noStreet = " + std::to_string(s.m_noStreet) +
-    "; m_existInterpol = " + std::to_string(s.m_existInterpol) +
-    "; m_existSingle = " + std::to_string(s.m_existSingle) +
-    "; m_enoughAddrs = " + std::to_string(s.m_enoughAddrs) +
-    "; m_addedSingle = " + std::to_string(s.m_addedSingle) +
-    "; m_addedBegEnd = " + std::to_string(s.m_addedBegEnd) +
-    "; m_addedInterpol = " + std::to_string(s.m_addedInterpol) + " }";
+  return "{ m_noStreet = " + std::to_string(s.m_noStreet) + "; m_existInterpol = " + std::to_string(s.m_existInterpol) +
+         "; m_existSingle = " + std::to_string(s.m_existSingle) +
+         "; m_enoughAddrs = " + std::to_string(s.m_enoughAddrs) +
+         "; m_addedSingle = " + std::to_string(s.m_addedSingle) +
+         "; m_addedBegEnd = " + std::to_string(s.m_addedBegEnd) +
+         "; m_addedInterpol = " + std::to_string(s.m_addedInterpol) + " }";
 }
-
 
 AddressEnricher::AddressEnricher()
 {
@@ -223,7 +220,7 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
   std::vector<m2::ParametrizedSegment<m2::PointD>> eSegs;
   eSegs.reserve(e.m_points.size() - 1);
   for (size_t i = 1; i < e.m_points.size(); ++i)
-    eSegs.emplace_back(e.m_points[i-1], e.m_points[i]);
+    eSegs.emplace_back(e.m_points[i - 1], e.m_points[i]);
 
   /// @todo Check nodes distance for now. Should make more honest algo.
   auto const isClose = [&e, &eSegs](feature::FeatureBuilder const & fb)
@@ -237,9 +234,7 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
 
       auto const ll = mercator::ToLatLon(p);
       auto const check = [&ll](m2::PointD const & p)
-      {
-        return ms::DistanceOnEarth(ll, mercator::ToLatLon(p)) < kDistanceThresholdM;
-      };
+      { return ms::DistanceOnEarth(ll, mercator::ToLatLon(p)) < kDistanceThresholdM; };
 
       if (!eSegs.empty())
       {
@@ -268,7 +263,7 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
 
     // First of all - compare street's name.
     strings::UniString fbStreetKey = search::GetNormalizedStreetName(params.GetStreet());
-    std::string streetName; // original street's name, valid if isStreet == true
+    std::string streetName;  // original street's name, valid if isStreet == true
     if (isStreet)
     {
       // Fancy object, highway=pedestrian with addr: https://www.openstreetmap.org/way/415336229
@@ -323,7 +318,7 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
       auto const & geom = fb.GetOuterGeometry();
       for (size_t i = 1; i < geom.size(); ++i)
       {
-        m2::ParametrizedSegment<m2::PointD> seg(geom[i-1], geom[i]);
+        m2::ParametrizedSegment<m2::PointD> seg(geom[i - 1], geom[i]);
         /// @todo Calculate e.m_points LL once?
         for (auto const & p : e.m_points)
           if (mercator::DistanceOnEarth(p, seg.ClosestPointTo(p)) < kDistanceThresholdM)
@@ -349,8 +344,8 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
         size_t const i = hnRange.find(':');
         CHECK(i != std::string::npos, (hnRange));
         uint64_t left, right;
-        CHECK(strings::to_uint(hnRange.substr(0, i), left) &&
-              strings::to_uint(hnRange.substr(i + 1), right), (hnRange));
+        CHECK(strings::to_uint(hnRange.substr(0, i), left) && strings::to_uint(hnRange.substr(i + 1), right),
+              (hnRange));
 
         res.interpol = !(left >= range.second || right <= range.first);
       }
@@ -360,4 +355,4 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
   return res;
 }
 
-} // namespace generator
+}  // namespace generator

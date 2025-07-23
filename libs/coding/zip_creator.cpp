@@ -21,10 +21,7 @@ class ZipHandle
   zip::File m_zipFileHandle;
 
 public:
-  explicit ZipHandle(std::string const & filePath)
-  {
-    m_zipFileHandle = zip::Create(filePath);
-  }
+  explicit ZipHandle(std::string const & filePath) { m_zipFileHandle = zip::Create(filePath); }
 
   ~ZipHandle()
   {
@@ -62,8 +59,8 @@ void FillZipLocalDateTime(zip::DateTime & res)
   res.tm_year = local->tm_year;
 }
 
-bool CreateZipFromFiles(std::vector<std::string> const & files, std::vector<std::string> const & filesInArchive, std::string const & zipFilePath,
-                        CompressionLevel compression)
+bool CreateZipFromFiles(std::vector<std::string> const & files, std::vector<std::string> const & filesInArchive,
+                        std::string const & zipFilePath, CompressionLevel compression)
 {
   ASSERT_EQUAL(files.size(), filesInArchive.size(), ("List of file names in archive doesn't match list of files"));
   SCOPE_GUARD(outFileGuard, [&zipFilePath]() { base::DeleteFileX(zipFilePath); });
@@ -91,7 +88,8 @@ bool CreateZipFromFiles(std::vector<std::string> const & files, std::vector<std:
       }
       zip::FileInfo fileInfo = {};
       FillZipLocalDateTime(fileInfo.tmz_date);
-      if (zip::Code::Ok != zip::OpenNewFileInZip(zip.Handle(), fileInArchive, fileInfo, "", Z_DEFLATED, compressionLevel))
+      if (zip::Code::Ok !=
+          zip::OpenNewFileInZip(zip.Handle(), fileInArchive, fileInfo, "", Z_DEFLATED, compressionLevel))
         return false;
 
       base::FileData file(filePath, base::FileData::Op::READ);

@@ -39,8 +39,8 @@ struct CountryFeaturesCounters
 
   CountryFeaturesCounters() = default;
 
-  constexpr CountryFeaturesCounters(int64_t fbs, int64_t geometryPoints, int64_t point, int64_t line,
-                                    int64_t area, int64_t poi, int64_t cityTownOrVillage)
+  constexpr CountryFeaturesCounters(int64_t fbs, int64_t geometryPoints, int64_t point, int64_t line, int64_t area,
+                                    int64_t poi, int64_t cityTownOrVillage)
     : m_fbs(fbs)
     , m_geometryPoints(geometryPoints)
     , m_point(point)
@@ -48,28 +48,27 @@ struct CountryFeaturesCounters
     , m_area(area)
     , m_poi(poi)
     , m_cityTownOrVillage(cityTownOrVillage)
-  {
-  }
+  {}
 
   CountryFeaturesCounters operator+(CountryFeaturesCounters const & rhs) const
   {
-    return CountryFeaturesCounters(m_fbs + rhs.m_fbs, m_geometryPoints + rhs.m_geometryPoints,
-                                   m_point + rhs.m_point, m_line + rhs.m_line, m_area + rhs.m_area,
-                                   m_poi + rhs.m_poi, m_cityTownOrVillage + rhs.m_cityTownOrVillage);
+    return CountryFeaturesCounters(m_fbs + rhs.m_fbs, m_geometryPoints + rhs.m_geometryPoints, m_point + rhs.m_point,
+                                   m_line + rhs.m_line, m_area + rhs.m_area, m_poi + rhs.m_poi,
+                                   m_cityTownOrVillage + rhs.m_cityTownOrVillage);
   }
 
   CountryFeaturesCounters operator-(CountryFeaturesCounters const & rhs) const
   {
-    return CountryFeaturesCounters(m_fbs - rhs.m_fbs, m_geometryPoints - rhs.m_geometryPoints,
-                                   m_point - rhs.m_point, m_line - rhs.m_line, m_area - rhs.m_area,
-                                   m_poi - rhs.m_poi, m_cityTownOrVillage - rhs.m_cityTownOrVillage);
+    return CountryFeaturesCounters(m_fbs - rhs.m_fbs, m_geometryPoints - rhs.m_geometryPoints, m_point - rhs.m_point,
+                                   m_line - rhs.m_line, m_area - rhs.m_area, m_poi - rhs.m_poi,
+                                   m_cityTownOrVillage - rhs.m_cityTownOrVillage);
   }
 
   bool operator==(CountryFeaturesCounters const & rhs) const
   {
-    return m_fbs == rhs.m_fbs && m_geometryPoints == rhs.m_geometryPoints &&
-           m_point == rhs.m_point && m_line == rhs.m_line && m_area == rhs.m_area &&
-           m_poi == rhs.m_poi && m_cityTownOrVillage == rhs.m_cityTownOrVillage;
+    return m_fbs == rhs.m_fbs && m_geometryPoints == rhs.m_geometryPoints && m_point == rhs.m_point &&
+           m_line == rhs.m_line && m_area == rhs.m_area && m_poi == rhs.m_poi &&
+           m_cityTownOrVillage == rhs.m_cityTownOrVillage;
   }
 
   bool operator!=(CountryFeaturesCounters const & rhs) const { return !(*this == rhs); }
@@ -79,9 +78,9 @@ struct CountryFeatureResults
 {
   CountryFeatureResults() = default;
   CountryFeatureResults(CountryFeaturesCounters actual, CountryFeaturesCounters expected)
-    : m_actual(actual), m_expected(expected)
-  {
-  }
+    : m_actual(actual)
+    , m_expected(expected)
+  {}
 
   CountryFeaturesCounters m_actual;
   CountryFeaturesCounters m_expected;
@@ -93,9 +92,8 @@ void TestAndLogCountryFeatures(std::map<std::string, CountryFeatureResults> cons
   {
     if (result.second.m_actual != result.second.m_expected)
     {
-      LOG(LINFO, ("Unexpectad result for", result.first, "actual:", result.second.m_actual,
-                  "expected:", result.second.m_expected,
-                  "the difference is:", result.second.m_actual - result.second.m_expected));
+      LOG(LINFO, ("Unexpectad result for", result.first, "actual:", result.second.m_actual, "expected:",
+                  result.second.m_expected, "the difference is:", result.second.m_actual - result.second.m_expected));
     }
   }
 
@@ -115,45 +113,45 @@ std::string DebugPrint(CountryFeaturesCounters const & cnt)
   return out.str();
 }
 
-CountryFeaturesCounters constexpr kWorldCounters(945 /* fbs */, 364406 /* geometryPoints */,
-                                                 334 /* point */, 598 /* line */, 13 /* area */,
-                                                 428 /* poi */, 172 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kWorldCounters(945 /* fbs */, 364406 /* geometryPoints */, 334 /* point */,
+                                                 598 /* line */, 13 /* area */, 428 /* poi */,
+                                                 172 /* cityTownOrVillage */);
 
-CountryFeaturesCounters constexpr kNorthAucklandCounters(
-    1812144 /* fbs */, 12195444 /* geometryPoints */, 1007580 /* point */, 205448 /* line */,
-    599116 /* area */, 212424 /* poi */, 521 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kNorthAucklandCounters(1812144 /* fbs */, 12195444 /* geometryPoints */,
+                                                         1007580 /* point */, 205448 /* line */, 599116 /* area */,
+                                                         212424 /* poi */, 521 /* cityTownOrVillage */);
 
-CountryFeaturesCounters constexpr kNorthWellingtonCounters(
-    797814 /* fbs */, 7771530 /* geometryPoints */, 460560 /* point */, 86978 /* line */,
-    250276 /* area */, 95863 /* poi */, 297 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kNorthWellingtonCounters(797814 /* fbs */, 7771530 /* geometryPoints */,
+                                                           460560 /* point */, 86978 /* line */, 250276 /* area */,
+                                                           95863 /* poi */, 297 /* cityTownOrVillage */);
 
-CountryFeaturesCounters constexpr kSouthCanterburyCounters(
-    637239 /* fbs */, 6984183 /* geometryPoints */, 397964 /* point */, 81688 /* line */,
-    157587 /* area */, 89690 /* poi */, 331 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kSouthCanterburyCounters(637239 /* fbs */, 6984183 /* geometryPoints */,
+                                                           397964 /* point */, 81688 /* line */, 157587 /* area */,
+                                                           89690 /* poi */, 331 /* cityTownOrVillage */);
 
-CountryFeaturesCounters constexpr kSouthSouthlandCounters(
-    340644 /* fbs */, 5342380 /* geometryPoints */, 186000 /* point */, 40118 /* line */,
-    114526 /* area */, 40671 /* poi */, 297 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kSouthSouthlandCounters(340644 /* fbs */, 5342380 /* geometryPoints */,
+                                                          186000 /* point */, 40118 /* line */, 114526 /* area */,
+                                                          40671 /* poi */, 297 /* cityTownOrVillage */);
 
-CountryFeaturesCounters constexpr kSouthSouthlandMixedNodesCounters(
-    2 /* fbs */, 2 /* geometryPoints */, 2 /* point */, 0 /* line */, 0 /* area */, 0 /* poi */,
-    0 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kSouthSouthlandMixedNodesCounters(2 /* fbs */, 2 /* geometryPoints */, 2 /* point */,
+                                                                    0 /* line */, 0 /* area */, 0 /* poi */,
+                                                                    0 /* cityTownOrVillage */);
 
-CountryFeaturesCounters constexpr kNorthAucklandComplexFeaturesCounters(
-    288 /* fbs */, 16119 /* geometryPoints */, 0 /* point */, 252 /* line */, 36 /* area */,
-    0 /* poi */, 0 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kNorthAucklandComplexFeaturesCounters(288 /* fbs */, 16119 /* geometryPoints */,
+                                                                        0 /* point */, 252 /* line */, 36 /* area */,
+                                                                        0 /* poi */, 0 /* cityTownOrVillage */);
 
-CountryFeaturesCounters constexpr kNorthWellingtonComplexFeaturesCounters(
-    254 /* fbs */, 18434 /* geometryPoints */, 0 /* point */, 244 /* line */, 10 /* area */,
-    0 /* poi */, 0 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kNorthWellingtonComplexFeaturesCounters(254 /* fbs */, 18434 /* geometryPoints */,
+                                                                          0 /* point */, 244 /* line */, 10 /* area */,
+                                                                          0 /* poi */, 0 /* cityTownOrVillage */);
 
-CountryFeaturesCounters constexpr kSouthCanterburyComplexFeaturesCounters(
-    1037 /* fbs */, 73854 /* geometryPoints */, 0 /* point */, 1016 /* line */, 21 /* area */,
-    0 /* poi */, 0 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kSouthCanterburyComplexFeaturesCounters(1037 /* fbs */, 73854 /* geometryPoints */,
+                                                                          0 /* point */, 1016 /* line */, 21 /* area */,
+                                                                          0 /* poi */, 0 /* cityTownOrVillage */);
 
-CountryFeaturesCounters constexpr kSouthSouthlandComplexFeaturesCounters(
-    1252 /* fbs */, 141706 /* geometryPoints */, 0 /* point */, 1245 /* line */, 7 /* area */,
-    0 /* poi */, 0 /* cityTownOrVillage */);
+CountryFeaturesCounters constexpr kSouthSouthlandComplexFeaturesCounters(1252 /* fbs */, 141706 /* geometryPoints */,
+                                                                         0 /* point */, 1245 /* line */, 7 /* area */,
+                                                                         0 /* poi */, 0 /* cityTownOrVillage */);
 
 class FeatureIntegrationTests
 {
@@ -172,19 +170,14 @@ public:
     CHECK(Platform::RmDirRecursively(m_testPath), ());
     CHECK(Platform::RemoveFileIfExists(m_mixedNodesFilenames.first), ());
     CHECK(Platform::RemoveFileIfExists(m_mixedTagsFilenames.first), ());
-    CHECK_EQUAL(
-        std::rename(m_mixedNodesFilenames.second.c_str(), m_mixedNodesFilenames.first.c_str()), 0,
-        ());
-    CHECK_EQUAL(
-        std::rename(m_mixedTagsFilenames.second.c_str(), m_mixedTagsFilenames.first.c_str()), 0,
-        ());
+    CHECK_EQUAL(std::rename(m_mixedNodesFilenames.second.c_str(), m_mixedNodesFilenames.first.c_str()), 0, ());
+    CHECK_EQUAL(std::rename(m_mixedTagsFilenames.second.c_str(), m_mixedTagsFilenames.first.c_str()), 0, ());
   }
 
   void BuildCoasts()
   {
     auto const worldCoastsGeom = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME ".geom");
-    auto const worldCoastsRawGeom =
-        m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME ".rawgeom");
+    auto const worldCoastsRawGeom = m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME ".rawgeom");
 
     CHECK(!Platform::IsFileExistsByFullPath(worldCoastsGeom), ());
     CHECK(!Platform::IsFileExistsByFullPath(worldCoastsRawGeom), ());
@@ -235,8 +228,7 @@ public:
   void BuildCountries()
   {
     m_genInfo.m_emitCoasts = true;
-    m_genInfo.m_citiesBoundariesFilename =
-        m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
+    m_genInfo.m_citiesBoundariesFilename = m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
 
     auto const northAuckland = m_genInfo.GetTmpFileName("New Zealand North_Auckland");
     auto const northWellington = m_genInfo.GetTmpFileName("New Zealand North_Wellington");
@@ -265,8 +257,7 @@ public:
   void BuildCountriesWithComplex()
   {
     m_genInfo.m_emitCoasts = true;
-    m_genInfo.m_citiesBoundariesFilename =
-        m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
+    m_genInfo.m_citiesBoundariesFilename = m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
     m_genInfo.m_complexHierarchyFilename = base::JoinPath(m_testPath, "hierarchy.csv");
 
     auto const northAuckland = m_genInfo.GetTmpFileName("New Zealand North_Auckland");
@@ -282,26 +273,21 @@ public:
     TEST(rawGenerator.Execute(), ());
 
     std::map<std::string, CountryFeatureResults> results;
-    results["kNorthAucklandCounters + kNorthAucklandComplexFeaturesCounters"] =
-        CountryFeatureResults(GetCountersForCountry(northAuckland),
-                              kNorthAucklandCounters + kNorthAucklandComplexFeaturesCounters);
-    results["kNorthWellingtonCounters + kNorthWellingtonComplexFeaturesCounters"] =
-        CountryFeatureResults(GetCountersForCountry(northWellington),
-                              kNorthWellingtonCounters + kNorthWellingtonComplexFeaturesCounters);
-    results["kSouthCanterburyCounters + kSouthCanterburyComplexFeaturesCounters"] =
-        CountryFeatureResults(GetCountersForCountry(southCanterbury),
-                              kSouthCanterburyCounters + kSouthCanterburyComplexFeaturesCounters);
-    results["kSouthSouthlandCounters + kSouthSouthlandComplexFeaturesCounters"] =
-        CountryFeatureResults(GetCountersForCountry(southSouthland),
-                              kSouthSouthlandCounters + kSouthSouthlandComplexFeaturesCounters);
+    results["kNorthAucklandCounters + kNorthAucklandComplexFeaturesCounters"] = CountryFeatureResults(
+        GetCountersForCountry(northAuckland), kNorthAucklandCounters + kNorthAucklandComplexFeaturesCounters);
+    results["kNorthWellingtonCounters + kNorthWellingtonComplexFeaturesCounters"] = CountryFeatureResults(
+        GetCountersForCountry(northWellington), kNorthWellingtonCounters + kNorthWellingtonComplexFeaturesCounters);
+    results["kSouthCanterburyCounters + kSouthCanterburyComplexFeaturesCounters"] = CountryFeatureResults(
+        GetCountersForCountry(southCanterbury), kSouthCanterburyCounters + kSouthCanterburyComplexFeaturesCounters);
+    results["kSouthSouthlandCounters + kSouthSouthlandComplexFeaturesCounters"] = CountryFeatureResults(
+        GetCountersForCountry(southSouthland), kSouthSouthlandCounters + kSouthSouthlandComplexFeaturesCounters);
     TestAndLogCountryFeatures(results);
   }
 
   void CheckMixedTagsAndNodes()
   {
     m_genInfo.m_emitCoasts = true;
-    m_genInfo.m_citiesBoundariesFilename =
-        m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
+    m_genInfo.m_citiesBoundariesFilename = m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
 
     auto const northAuckland = m_genInfo.GetTmpFileName("New Zealand North_Auckland");
     auto const northWellington = m_genInfo.GetTmpFileName("New Zealand North_Wellington");
@@ -325,9 +311,8 @@ public:
         CountryFeatureResults(GetCountersForCountry(northWellington), kNorthWellingtonCounters);
     results["kSouthCanterburyCounters"] =
         CountryFeatureResults(GetCountersForCountry(southCanterbury), kSouthCanterburyCounters);
-    results["kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters"] =
-        CountryFeatureResults(GetCountersForCountry(southSouthland),
-        kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters);
+    results["kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters"] = CountryFeatureResults(
+        GetCountersForCountry(southSouthland), kSouthSouthlandCounters + kSouthSouthlandMixedNodesCounters);
     results["kWorldCounters"] = CountryFeatureResults(GetCountersForCountry(world), kWorldCounters);
 
     TestAndLogCountryFeatures(results);
@@ -336,8 +321,7 @@ public:
   void CheckGeneratedData()
   {
     m_genInfo.m_emitCoasts = true;
-    m_genInfo.m_citiesBoundariesFilename =
-        m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
+    m_genInfo.m_citiesBoundariesFilename = m_genInfo.GetIntermediateFileName("citiesboundaries.bin");
     auto const cameraToWays = m_genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
     auto const cityBoundaries = m_genInfo.GetIntermediateFileName(CITY_BOUNDARIES_COLLECTOR_FILENAME);
     auto const maxSpeeds = m_genInfo.GetIntermediateFileName(MAXSPEEDS_FILENAME);
@@ -345,9 +329,8 @@ public:
     auto const restrictions = m_genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
     auto const roadAccess = m_genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
-    for (auto const & generatedFile :
-         {cameraToWays, cityBoundaries, maxSpeeds, metalines, restrictions, roadAccess,
-          m_genInfo.m_citiesBoundariesFilename})
+    for (auto const & generatedFile : {cameraToWays, cityBoundaries, maxSpeeds, metalines, restrictions, roadAccess,
+                                       m_genInfo.m_citiesBoundariesFilename})
     {
       CHECK(!Platform::IsFileExistsByFullPath(generatedFile), (generatedFile));
     }
@@ -385,9 +368,9 @@ public:
   }
 
 private:
-  CountryFeaturesCounters GetCountersForCountry(
-      std::string const & path, std::function<void(feature::FeatureBuilder const &)> const & fn =
-                                    [](feature::FeatureBuilder const &) {})
+  CountryFeaturesCounters GetCountersForCountry(std::string const & path,
+                                                std::function<void(feature::FeatureBuilder const &)> const & fn =
+                                                    [](feature::FeatureBuilder const &) {})
   {
     CHECK(Platform::IsFileExistsByFullPath(path), ());
     auto const fbs = feature::ReadAllDatRawFormat(path);
@@ -449,12 +432,8 @@ private:
     m_mixedTagsFilenames.first = base::JoinPath(platform.ResourcesDir(), MIXED_TAGS_FILE);
     m_mixedTagsFilenames.second = base::JoinPath(platform.ResourcesDir(), MIXED_TAGS_FILE "_");
 
-    CHECK_EQUAL(
-        std::rename(m_mixedNodesFilenames.first.c_str(), m_mixedNodesFilenames.second.c_str()), 0,
-        ());
-    CHECK_EQUAL(
-        std::rename(m_mixedTagsFilenames.first.c_str(), m_mixedTagsFilenames.second.c_str()), 0,
-        ());
+    CHECK_EQUAL(std::rename(m_mixedNodesFilenames.first.c_str(), m_mixedNodesFilenames.second.c_str()), 0, ());
+    CHECK_EQUAL(std::rename(m_mixedTagsFilenames.first.c_str(), m_mixedTagsFilenames.second.c_str()), 0, ());
   }
 
   void WriteToFile(std::string const & filename, std::string const & data)

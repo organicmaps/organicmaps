@@ -22,10 +22,7 @@ public:
     return true;
   }
 
-  bool Contains(T const & key) const
-  {
-    return base::IsExist(m_vec, key);
-  }
+  bool Contains(T const & key) const { return base::IsExist(m_vec, key); }
 
 private:
   std::vector<T> m_vec;
@@ -36,10 +33,9 @@ namespace generator
 {
 bool FilterData::IsMatch(Tags const & elementTags, Tags const & tags)
 {
-  return base::AllOf(tags, [&](OsmElement::Tag const & t) {
-    auto const it = base::FindIf(elementTags, [&](OsmElement::Tag const & tag) {
-      return tag.m_key == t.m_key;
-    });
+  return base::AllOf(tags, [&](OsmElement::Tag const & t)
+  {
+    auto const it = base::FindIf(elementTags, [&](OsmElement::Tag const & tag) { return tag.m_key == t.m_key; });
     return it == std::end(elementTags) ? false : t.m_value == "*" || it->m_value == t.m_value;
   });
 }
@@ -149,8 +145,7 @@ bool FilterElements::ParseTags(json_t * json, FilterData & fdata)
   return true;
 }
 
-FilterElements::FilterElements(std::string const & filename)
-  : m_filename(filename)
+FilterElements::FilterElements(std::string const & filename) : m_filename(filename)
 {
   std::ifstream stream(m_filename);
   std::string str((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
@@ -179,7 +174,7 @@ bool FilterElements::NeedSkip(OsmElement const & element) const
   }
 }
 
-bool FilterElements::NeedSkip(OsmElement const & element,  FilterData const & fdata) const
+bool FilterElements::NeedSkip(OsmElement const & element, FilterData const & fdata) const
 {
   return fdata.NeedSkipWithId(element.m_id) || fdata.NeedSkipWithTags(element.Tags());
 }

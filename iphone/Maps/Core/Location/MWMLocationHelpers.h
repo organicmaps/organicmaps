@@ -1,29 +1,36 @@
 #import "MWMMyPositionMode.h"
 
+#include "platform/distance.hpp"
 #include "platform/localization.hpp"
 #include "platform/location.hpp"
-#include "platform/distance.hpp"
 
 #include "geometry/mercator.hpp"
 
 namespace location_helpers
 {
 
-static inline NSString * formattedDistance(double const & meters) {
+static inline NSString * formattedDistance(double const & meters)
+{
   if (meters < 0.)
     return nil;
 
   return @(platform::Distance::CreateFormatted(meters).ToString().c_str());
 }
 
-static inline ms::LatLon ToLatLon(m2::PointD const & p) { return mercator::ToLatLon(p); }
+static inline ms::LatLon ToLatLon(m2::PointD const & p)
+{
+  return mercator::ToLatLon(p);
+}
 
 static inline m2::PointD ToMercator(CLLocationCoordinate2D const & l)
 {
   return mercator::FromLatLon(l.latitude, l.longitude);
 }
 
-static inline m2::PointD ToMercator(ms::LatLon const & l) { return mercator::FromLatLon(l); }
+static inline m2::PointD ToMercator(ms::LatLon const & l)
+{
+  return mercator::FromLatLon(l);
+}
 static inline MWMMyPositionMode mwmMyPositionMode(location::EMyPositionMode mode)
 {
   switch (mode)
@@ -35,4 +42,4 @@ static inline MWMMyPositionMode mwmMyPositionMode(location::EMyPositionMode mode
   case location::EMyPositionMode::FollowAndRotate: return MWMMyPositionModeFollowAndRotate;
   }
 }
-} // namespace location_helpers
+}  // namespace location_helpers

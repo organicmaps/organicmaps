@@ -14,8 +14,7 @@ public:
   struct Trg
   {
     m2::PointD m_a, m_b, m_c;
-    Trg(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
-      : m_a(a), m_b(b), m_c(c) {}
+    Trg(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c) : m_a(a), m_b(b), m_c(c) {}
   };
 
   std::vector<m2::PointD> m_polyline;
@@ -52,35 +51,26 @@ public:
       if (!cellRect.IsIntersect(r))
         continue;
 
-      CellObjectIntersection const res =
-          IntersectCellWithTriangle(cell, m_trg[i].m_a, m_trg[i].m_b, m_trg[i].m_c);
+      CellObjectIntersection const res = IntersectCellWithTriangle(cell, m_trg[i].m_a, m_trg[i].m_b, m_trg[i].m_c);
 
       switch (res)
       {
-      case CELL_OBJECT_NO_INTERSECTION:
-        break;
-      case CELL_INSIDE_OBJECT:
-        return CELL_INSIDE_OBJECT;
+      case CELL_OBJECT_NO_INTERSECTION: break;
+      case CELL_INSIDE_OBJECT: return CELL_INSIDE_OBJECT;
       case CELL_OBJECT_INTERSECT:
-      case OBJECT_INSIDE_CELL:
-        return CELL_OBJECT_INTERSECT;
+      case OBJECT_INSIDE_CELL: return CELL_OBJECT_INTERSECT;
       }
     }
 
     for (size_t i = 1; i < m_polyline.size(); ++i)
     {
-      CellObjectIntersection const res =
-          IntersectCellWithLine(cell, m_polyline[i], m_polyline[i-1]);
+      CellObjectIntersection const res = IntersectCellWithLine(cell, m_polyline[i], m_polyline[i - 1]);
       switch (res)
       {
-      case CELL_OBJECT_NO_INTERSECTION:
-        break;
-      case CELL_INSIDE_OBJECT:
-        ASSERT(false, (cell, i, m_polyline));
-        return CELL_OBJECT_INTERSECT;
+      case CELL_OBJECT_NO_INTERSECTION: break;
+      case CELL_INSIDE_OBJECT: ASSERT(false, (cell, i, m_polyline)); return CELL_OBJECT_INTERSECT;
       case CELL_OBJECT_INTERSECT:
-      case OBJECT_INSIDE_CELL:
-        return CELL_OBJECT_INTERSECT;
+      case OBJECT_INSIDE_CELL: return CELL_OBJECT_INTERSECT;
       }
     }
 
@@ -96,12 +86,9 @@ public:
     return pt;
   }
 
-  void operator() (m2::PointD const & pt)
-  {
-    m_polyline.push_back(ConvertPoint(pt));
-  }
+  void operator()(m2::PointD const & pt) { m_polyline.push_back(ConvertPoint(pt)); }
 
-  void operator() (m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
+  void operator()(m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
   {
     m_trg.emplace_back(ConvertPoint(a), ConvertPoint(b), ConvertPoint(c));
   }
@@ -118,8 +105,7 @@ void GetIntersection(FeatureType & f, FeatureIntersector<DEPTH_LEVELS> & fIsect)
   f.ForEachPoint(fIsect, scale);
   f.ForEachTriangle(fIsect, scale);
 
-  CHECK(!(fIsect.m_trg.empty() && fIsect.m_polyline.empty()) &&
-        f.GetLimitRect(scale).IsValid(), (f.DebugString()));
+  CHECK(!(fIsect.m_trg.empty() && fIsect.m_polyline.empty()) && f.GetLimitRect(scale).IsValid(), (f.DebugString()));
 }
 
 template <int DEPTH_LEVELS>
@@ -130,14 +116,12 @@ std::vector<int64_t> CoverIntersection(FeatureIntersector<DEPTH_LEVELS> const & 
   {
     m2::PointD const pt = fIsect.m_polyline[0];
     return std::vector<int64_t>(
-        1, m2::CellId<DEPTH_LEVELS>::FromXY(static_cast<uint32_t>(pt.x),
-                                            static_cast<uint32_t>(pt.y), DEPTH_LEVELS - 1)
+        1, m2::CellId<DEPTH_LEVELS>::FromXY(static_cast<uint32_t>(pt.x), static_cast<uint32_t>(pt.y), DEPTH_LEVELS - 1)
                .ToInt64(cellDepth));
   }
 
   std::vector<m2::CellId<DEPTH_LEVELS>> cells;
-  covering::CoverObject(fIsect, cellPenaltyArea, cells, cellDepth,
-                        m2::CellId<DEPTH_LEVELS>::Root());
+  covering::CoverObject(fIsect, cellPenaltyArea, cells, cellDepth, m2::CellId<DEPTH_LEVELS>::Root());
 
   std::vector<int64_t> res(cells.size());
   for (size_t i = 0; i < cells.size(); ++i)
@@ -159,7 +143,7 @@ std::vector<int64_t> CoverFeature(FeatureType & f, int cellDepth, uint64_t cellP
 void SortAndMergeIntervals(Intervals v, Intervals & res)
 {
 #ifdef DEBUG
-  ASSERT ( res.empty(), () );
+  ASSERT(res.empty(), ());
   for (size_t i = 0; i < v.size(); ++i)
     ASSERT_LESS(v[i].first, v[i].second, (i));
 #endif
@@ -168,12 +152,10 @@ void SortAndMergeIntervals(Intervals v, Intervals & res)
 
   res.reserve(v.size());
   for (size_t i = 0; i < v.size(); ++i)
-  {
     if (i == 0 || res.back().second < v[i].first)
       res.push_back(v[i]);
     else
       res.back().second = std::max(res.back().second, v[i].second);
-  }
 }
 
 Intervals SortAndMergeIntervals(Intervals const & v)
@@ -182,4 +164,4 @@ Intervals SortAndMergeIntervals(Intervals const & v)
   SortAndMergeIntervals(v, res);
   return res;
 }
-}
+}  // namespace covering

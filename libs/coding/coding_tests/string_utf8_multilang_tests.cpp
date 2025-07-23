@@ -20,10 +20,12 @@ struct lang_string
   char const * m_str;
 };
 
-lang_string gArr[] = {{"default", "default"},
-                      {"en", "abcd"},
-                      {"ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
-                      {"be", "\xE2\x82\xAC\xF0\xA4\xAD\xA2"}};
+lang_string gArr[] = {
+    {"default",                                  "default"},
+    {     "en",                                     "abcd"},
+    {     "ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
+    {     "be",             "\xE2\x82\xAC\xF0\xA4\xAD\xA2"}
+};
 
 void TestMultilangString(lang_string const * arr, size_t count)
 {
@@ -123,14 +125,12 @@ UNIT_TEST(MultilangString_Unique)
 UNIT_TEST(MultilangString_LangNames)
 {
   // It is important to compare the contents of the strings, and not just pointers
-  TEST_EQUAL(string("Беларуская"),
-             StringUtf8Multilang::GetLangNameByCode(StringUtf8Multilang::GetLangIndex("be")), ());
+  TEST_EQUAL(string("Беларуская"), StringUtf8Multilang::GetLangNameByCode(StringUtf8Multilang::GetLangIndex("be")), ());
 
   auto const & langs = StringUtf8Multilang::GetSupportedLanguages();
   // Using size_t workaround, because our logging/testing macroses do not support passing POD types
   // by value, only by reference. And our constant is a constexpr.
-  TEST_LESS_OR_EQUAL(langs.size(), static_cast<size_t>(StringUtf8Multilang::kMaxSupportedLanguages),
-                     ());
+  TEST_LESS_OR_EQUAL(langs.size(), static_cast<size_t>(StringUtf8Multilang::kMaxSupportedLanguages), ());
   auto const international = StringUtf8Multilang::GetLangIndex("int_name");
   TEST_EQUAL(langs[international].m_code, string("int_name"), ());
 }
@@ -201,8 +201,8 @@ UNIT_TEST(MultilangString_ForEachLanguage)
 
 UNIT_TEST(MultilangString_RemoveString)
 {
-  auto testRemove = [](vector<pair<uint8_t, string>> const & strings,
-                       set<uint8_t> const & codesToRemove) {
+  auto testRemove = [](vector<pair<uint8_t, string>> const & strings, set<uint8_t> const & codesToRemove)
+  {
     StringUtf8Multilang str;
     for (auto const & s : strings)
       str.AddString(s.first, s.second);
@@ -233,21 +233,22 @@ UNIT_TEST(MultilangString_RemoveString)
     }
 
     // No extra languages or other data damage.
-    str.ForEach([&](uint8_t lang, auto const &) {
-      TEST(base::FindIf(strings, [&lang](auto const & s) { return s.first == lang; }) !=
-               strings.end(),
-           ());
+    str.ForEach([&](uint8_t lang, auto const &)
+    {
+      TEST(base::FindIf(strings, [&lang](auto const & s) { return s.first == lang; }) != strings.end(), ());
       TEST(codesToRemove.find(lang) == codesToRemove.end(), ());
     });
   };
 
-  vector<pair<uint8_t, string>> strings = {{0, "aaa"},
-                                           {1, "bbb"},
-                                           {2, "ccc"},
-                                           {9, "ddd"},
-                                           {17, "eee"},
-                                           {27, "fff"},
-                                           {37, "ggg"}};
+  vector<pair<uint8_t, string>> strings = {
+      { 0, "aaa"},
+      { 1, "bbb"},
+      { 2, "ccc"},
+      { 9, "ddd"},
+      {17, "eee"},
+      {27, "fff"},
+      {37, "ggg"}
+  };
 
   testRemove(strings, {0});
   testRemove(strings, {1});

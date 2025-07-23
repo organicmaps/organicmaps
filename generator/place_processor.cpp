@@ -14,7 +14,6 @@
 #include <algorithm>
 #include <limits>
 
-
 namespace generator
 {
 using namespace feature;
@@ -66,15 +65,10 @@ bool IsWorsePlace(FeaturePlace const & left, FeaturePlace const & right)
   double constexpr kIsAreaTooBigCoeff = -0.5;
 
   auto const normalizeRank = [](uint8_t rank)
-  {
-    return static_cast<double>(rank) / static_cast<double>(std::numeric_limits<uint8_t>::max());
-  };
+  { return static_cast<double>(rank) / static_cast<double>(std::numeric_limits<uint8_t>::max()); };
 
   auto const normalizeLangsCount = [](uint8_t langsCount)
-  {
-    return static_cast<double>(langsCount) /
-           static_cast<double>(StringUtf8Multilang::kMaxSupportedLanguages);
-  };
+  { return static_cast<double>(langsCount) / static_cast<double>(StringUtf8Multilang::kMaxSupportedLanguages); };
 
   auto const normalizeArea = [](double area)
   {
@@ -125,18 +119,14 @@ bool IsWorsePlace(FeaturePlace const & left, FeaturePlace const & right)
     auto const isCapital = ftypes::IsCapitalChecker::Instance()(placeType);
 
     auto const type = place.m_fb.GetMostGenericOsmId().GetType();
-    auto const isNode = (type == base::GeoObjectId::Type::OsmNode) ||
-                        (type == base::GeoObjectId::Type::ObsoleteOsmNode);
+    auto const isNode =
+        (type == base::GeoObjectId::Type::OsmNode) || (type == base::GeoObjectId::Type::ObsoleteOsmNode);
 
-    auto const tooBig =
-        isAreaTooBig(ftypes::IsLocalityChecker::Instance().GetType(placeType), area);
+    auto const tooBig = isAreaTooBig(ftypes::IsLocalityChecker::Instance().GetType(placeType), area);
 
-    return kRankCoeff * normalizeRank(rank) +
-           kLangsCountCoeff * normalizeLangsCount(langsCount) +
-           kAreaCoeff * normalizeArea(area) +
-           kIsCapitalCoeff * (isCapital ? 1.0 : 0.0) +
-           kIsNodeCoeff * (isNode ? 1.0 : 0.0) +
-           kIsAreaTooBigCoeff * (tooBig ? 1.0 : 0.0);
+    return kRankCoeff * normalizeRank(rank) + kLangsCountCoeff * normalizeLangsCount(langsCount) +
+           kAreaCoeff * normalizeArea(area) + kIsCapitalCoeff * (isCapital ? 1.0 : 0.0) +
+           kIsNodeCoeff * (isNode ? 1.0 : 0.0) + kIsAreaTooBigCoeff * (tooBig ? 1.0 : 0.0);
   };
 
   return getScore(left) < getScore(right);
@@ -147,9 +137,7 @@ std::vector<std::vector<FeaturePlace const *>> FindClusters(std::vector<FeatureP
   auto const & localityChecker = ftypes::IsLocalityChecker::Instance();
 
   auto getRaduis = [&localityChecker](FeaturePlace const & fp)
-  {
-    return GetRadiusM(localityChecker.GetType(fp.GetPlaceType()));
-  };
+  { return GetRadiusM(localityChecker.GetType(fp.GetPlaceType())); };
 
   auto isSamePlace = [&localityChecker](FeaturePlace const & lFP, FeaturePlace const & rFP)
   {
@@ -175,14 +163,13 @@ std::vector<std::vector<FeaturePlace const *>> FindClusters(std::vector<FeatureP
   return GetClusters(places, std::move(getRaduis), std::move(isSamePlace));
 }
 
-PlaceProcessor::PlaceProcessor(std::string const & filename)
-  : m_logTag("PlaceProcessor")
+PlaceProcessor::PlaceProcessor(std::string const & filename) : m_logTag("PlaceProcessor")
 {
   if (!filename.empty())
     m_boundariesHolder.Deserialize(filename);
 }
 
-std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContainerT> * ids/* = nullptr*/)
+std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContainerT> * ids /* = nullptr*/)
 {
   std::vector<FeatureBuilder> finalPlaces;
   for (auto const & name2PlacesEntry : m_nameToPlaces)
@@ -190,10 +177,7 @@ std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContain
     for (auto const & cluster : FindClusters(name2PlacesEntry.second))
     {
       auto best = std::max_element(cluster.begin(), cluster.end(),
-          [](FeaturePlace const * l, FeaturePlace const * r)
-          {
-            return IsWorsePlace(*l, *r);
-          });
+                                   [](FeaturePlace const * l, FeaturePlace const * r) { return IsWorsePlace(*l, *r); });
 
       auto bestFb = (*best)->m_fb;
 
@@ -203,10 +187,8 @@ std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContain
 
       IDsContainerT fbIDs;
       fbIDs.reserve(cluster.size());
-      base::Transform(cluster, std::back_inserter(fbIDs), [](FeaturePlace const * fp)
-      {
-        return fp->m_fb.GetMostGenericOsmId();
-      });
+      base::Transform(cluster, std::back_inserter(fbIDs),
+                      [](FeaturePlace const * fp) { return fp->m_fb.GetMostGenericOsmId(); });
 
       auto const bestBnd = m_boundariesHolder.GetBestBoundary(fbIDs, bestFb.GetKeyPoint());
       if (bestBnd)
@@ -242,8 +224,8 @@ std::vector<FeatureBuilder> PlaceProcessor::ProcessPlaces(std::vector<IDsContain
           // https://www.openstreetmap.org/relation/2374222
           // https://www.openstreetmap.org/relation/3388660
 
-          double const circleArea = ms::CircleAreaOnEarth(
-                GetRadiusByPopulationForRouting(bestBnd->GetPopulation(), bndLocality));
+          double const circleArea =
+              ms::CircleAreaOnEarth(GetRadiusByPopulationForRouting(bestBnd->GetPopulation(), bndLocality));
           if (exactArea > circleArea * 20.0)
           {
             LOG(LWARNING, (m_logTag, "Delete big boundary for", id, exactArea / circleArea));
@@ -276,8 +258,8 @@ FeaturePlace PlaceProcessor::CreatePlace(feature::FeatureBuilder && fb) const
     {
       if (!r.IsIntersect(rect))
       {
-        LOG(LERROR, (m_logTag, "FB center not in polygon's bound for:", id,
-                    mercator::ToLatLon(rect), mercator::ToLatLon(r)));
+        LOG(LERROR,
+            (m_logTag, "FB center not in polygon's bound for:", id, mercator::ToLatLon(rect), mercator::ToLatLon(r)));
       }
       rect.Add(r);
     }

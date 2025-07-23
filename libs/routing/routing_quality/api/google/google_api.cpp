@@ -58,9 +58,7 @@ namespace google
 // static
 std::string const GoogleApi::kApiName = "google";
 
-GoogleApi::GoogleApi(std::string const & token)
-    : RoutingApi(kApiName, token, kMaxRPS)
-{}
+GoogleApi::GoogleApi(std::string const & token) : RoutingApi(kApiName, token, kMaxRPS) {}
 
 Response GoogleApi::CalculateRoute(Params const & params, int32_t startTimeZoneUTC) const
 {
@@ -80,7 +78,7 @@ Response GoogleApi::CalculateRoute(Params const & params, int32_t startTimeZoneU
 
     auto const startLatLon = leg.m_steps.front().m_startLocation;
     apiRoute.m_waypoints.emplace_back(startLatLon.m_lat, startLatLon.m_lon);
-    for (const auto & step : leg.m_steps)
+    for (auto const & step : leg.m_steps)
     {
       auto const & prev = step.m_startLocation;
       auto const & next = step.m_endLocation;
@@ -135,11 +133,9 @@ std::string GoogleApi::GetDirectionsURL(Params const & params, int32_t startTime
   LOG(LDEBUG, ("&departure_time =", secondFromEpoch));
 
   std::stringstream ss;
-  ss << kBaseUrl
-     << "&origin=" << std::to_string(start.m_lat) << "," << std::to_string(start.m_lon)
+  ss << kBaseUrl << "&origin=" << std::to_string(start.m_lat) << "," << std::to_string(start.m_lon)
      << "&destination=" << std::to_string(finish.m_lat) << "," << std::to_string(finish.m_lon)
-     << "&key=" << GetAccessToken()
-     << "&alternatives=true"
+     << "&key=" << GetAccessToken() << "&alternatives=true"
      << "&departure_time=" << secondFromEpoch;
 
   return ss.str();

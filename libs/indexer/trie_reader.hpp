@@ -54,7 +54,8 @@ public:
   using Iterator<ValueList>::m_edges;
 
   Iterator0(Reader const & reader, TrieChar baseChar, Serializer const & serializer)
-    : m_reader(reader), m_serializer(serializer)
+    : m_reader(reader)
+    , m_serializer(serializer)
   {
     ParseNode(baseChar);
   }
@@ -74,13 +75,10 @@ public:
     uint32_t const size = m_edgeInfo[i + 1].m_offset - offset;
 
     if (m_edgeInfo[i].m_isLeaf)
-    {
-      return std::make_unique<LeafIterator0<ValueList, Serializer>>(m_reader.SubReader(offset, size),
-                                                                    m_serializer);
-    }
+      return std::make_unique<LeafIterator0<ValueList, Serializer>>(m_reader.SubReader(offset, size), m_serializer);
 
-    return std::make_unique<Iterator0<Reader, ValueList, Serializer>>(
-        m_reader.SubReader(offset, size), this->m_edges[i].m_label.back(), m_serializer);
+    return std::make_unique<Iterator0<Reader, ValueList, Serializer>>(m_reader.SubReader(offset, size),
+                                                                      this->m_edges[i].m_label.back(), m_serializer);
   }
 
 private:
@@ -161,7 +159,6 @@ private:
 template <class Reader, class ValueList, class Serializer>
 std::unique_ptr<Iterator<ValueList>> ReadTrie(Reader const & reader, Serializer const & serializer)
 {
-  return std::make_unique<Iterator0<Reader, ValueList, Serializer>>(reader, kDefaultChar,
-                                                                    serializer);
+  return std::make_unique<Iterator0<Reader, ValueList, Serializer>>(reader, kDefaultChar, serializer);
 }
 }  // namespace trie

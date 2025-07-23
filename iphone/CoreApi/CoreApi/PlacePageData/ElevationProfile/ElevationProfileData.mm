@@ -2,16 +2,14 @@
 
 #include "geometry/mercator.hpp"
 
-static ElevationDifficulty convertDifficulty(uint8_t difficulty) {
-  switch (difficulty) {
-    case ElevationInfo::Difficulty::Easy:
-      return ElevationDifficulty::ElevationDifficultyEasy;
-    case ElevationInfo::Difficulty::Medium:
-      return ElevationDifficulty::ElevationDifficultyMedium;
-    case ElevationInfo::Difficulty::Hard:
-      return ElevationDifficulty::ElevationDifficultyHard;
-    case ElevationInfo::Difficulty::Unknown:
-      return ElevationDifficulty::ElevationDifficultyDisabled;
+static ElevationDifficulty convertDifficulty(uint8_t difficulty)
+{
+  switch (difficulty)
+  {
+  case ElevationInfo::Difficulty::Easy: return ElevationDifficulty::ElevationDifficultyEasy;
+  case ElevationInfo::Difficulty::Medium: return ElevationDifficulty::ElevationDifficultyMedium;
+  case ElevationInfo::Difficulty::Hard: return ElevationDifficulty::ElevationDifficultyHard;
+  case ElevationInfo::Difficulty::Unknown: return ElevationDifficulty::ElevationDifficultyDisabled;
   }
   return ElevationDifficulty::ElevationDifficultyDisabled;
 }
@@ -22,10 +20,11 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty) {
 
 @implementation ElevationProfileData (Core)
 
-- (instancetype)initWithTrackId:(MWMTrackID)trackId
-                  elevationInfo:(ElevationInfo const &)elevationInfo {
+- (instancetype)initWithTrackId:(MWMTrackID)trackId elevationInfo:(ElevationInfo const &)elevationInfo
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _trackId = trackId;
     _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
     _points = [ElevationProfileData pointsFromElevationInfo:elevationInfo];
@@ -34,9 +33,11 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty) {
   return self;
 }
 
-- (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo {
+- (instancetype)initWithElevationInfo:(ElevationInfo const &)elevationInfo
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _difficulty = convertDifficulty(elevationInfo.GetDifficulty());
     _points = [ElevationProfileData pointsFromElevationInfo:elevationInfo];
     _isTrackRecording = true;
@@ -44,15 +45,18 @@ static ElevationDifficulty convertDifficulty(uint8_t difficulty) {
   return self;
 }
 
-+ (NSArray<ElevationHeightPoint *> *)pointsFromElevationInfo:(ElevationInfo const &)elevationInfo {
++ (NSArray<ElevationHeightPoint *> *)pointsFromElevationInfo:(ElevationInfo const &)elevationInfo
+{
   auto const & points = elevationInfo.GetPoints();
   NSMutableArray * pointsArray = [[NSMutableArray alloc] initWithCapacity:points.size()];
-  for (auto const & point : points) {
+  for (auto const & point : points)
+  {
     auto pointLatLon = mercator::ToLatLon(point.m_point.GetPoint());
     CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(pointLatLon.m_lat, pointLatLon.m_lon);
-    ElevationHeightPoint * elevationPoint = [[ElevationHeightPoint alloc] initWithCoordinates:coordinates
-                                                                                     distance:point.m_distance
-                                                                                  andAltitude:point.m_point.GetAltitude()];
+    ElevationHeightPoint * elevationPoint =
+        [[ElevationHeightPoint alloc] initWithCoordinates:coordinates
+                                                 distance:point.m_distance
+                                              andAltitude:point.m_point.GetAltitude()];
     [pointsArray addObject:elevationPoint];
   }
   return pointsArray;

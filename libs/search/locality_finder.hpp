@@ -34,8 +34,8 @@ struct LocalityItem
 {
   using Boundaries = CitiesBoundariesTable::Boundaries;
 
-  LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
-               Boundaries && boundaries, uint64_t population, FeatureID const & id);
+  LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center, Boundaries && boundaries,
+               uint64_t population, FeatureID const & id);
 
   bool GetName(int8_t lang, std::string_view & name) const { return m_names.GetString(lang, name); }
 
@@ -51,8 +51,8 @@ struct LocalityItem
       return false;
 
     feature::NameParamsOut out;
-    feature::GetReadableName({ m_names, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(),
-                               false /* allowTranslit */ }, out);
+    feature::GetReadableName(
+        {m_names, mwmInfo->GetRegionData(), languages::GetCurrentMapLanguage(), false /* allowTranslit */}, out);
 
     name = out.primary;
     return !name.empty();
@@ -127,8 +127,7 @@ public:
     m2::RectD const crect = m_cities.GetRect(p);
     m2::RectD const vrect = m_villages.GetRect(p);
 
-    LoadVicinity(p, !m_cities.IsCovered(crect) /* loadCities */,
-                 !m_villages.IsCovered(vrect) /* loadVillages */);
+    LoadVicinity(p, !m_cities.IsCovered(crect) /* loadCities */, !m_villages.IsCovered(vrect) /* loadVillages */);
 
     LocalitySelector selector(p);
     m_cities.ForEachInVicinity(crect, selector);

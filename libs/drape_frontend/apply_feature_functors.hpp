@@ -1,8 +1,8 @@
 #pragma once
 
+#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/tile_key.hpp"
-#include "drape_frontend/shape_view_params.hpp"
 
 #include "drape/drape_diagnostics.hpp"
 #include "drape/pointers.hpp"
@@ -22,7 +22,7 @@ class CaptionDefProto;
 namespace dp
 {
 class TextureManager;
-} // namespace dp
+}  // namespace dp
 
 namespace df
 {
@@ -36,8 +36,8 @@ using TInsertShapeFn = std::function<void(drape_ptr<MapShape> && shape)>;
 class BaseApplyFeature
 {
 public:
-  BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                   FeatureType & f, CaptionDescription const & captions);
+  BaseApplyFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
+                   CaptionDescription const & captions);
 
   virtual ~BaseApplyFeature() = default;
 
@@ -66,10 +66,10 @@ public:
                          ref_ptr<dp::TextureManager> texMng);
 
 protected:
-  void ExtractCaptionParams(CaptionDefProto const * primaryProto,
-                            CaptionDefProto const * secondaryProto,
+  void ExtractCaptionParams(CaptionDefProto const * primaryProto, CaptionDefProto const * secondaryProto,
                             TextViewParams & params) const;
   float m_posZ = 0.0f;
+
 private:
   virtual bool HasArea() const { return false; }
 };
@@ -79,9 +79,8 @@ class ApplyAreaFeature : public ApplyPointFeature
   using TBase = ApplyPointFeature;
 
 public:
-  ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                   FeatureType & f, double currentScaleGtoP, bool isBuilding,
-                   float minPosZ, float posZ,
+  ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
+                   double currentScaleGtoP, bool isBuilding, float minPosZ, float posZ,
                    CaptionDescription const & captions);
 
   void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
@@ -96,7 +95,7 @@ public:
     bool operator==(Edge const & edge) const
     {
       return (m_startIndex == edge.m_startIndex && m_endIndex == edge.m_endIndex) ||
-        (m_startIndex == edge.m_endIndex && m_endIndex == edge.m_startIndex);
+             (m_startIndex == edge.m_endIndex && m_endIndex == edge.m_startIndex);
     }
 
     int m_startIndex = -1;
@@ -142,10 +141,10 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                           FeatureType & f, double currentScaleGtoP);
+  ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
+                           double currentScaleGtoP);
 
-  void operator() (m2::PointD const & point);
+  void operator()(m2::PointD const & point);
   bool HasGeometry() const { return m_spline->IsValid(); }
   void ProcessLineRules(Stylist::LineRulesT const & lineRules);
 
@@ -172,8 +171,8 @@ class ApplyLineFeatureAdditional : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                             FeatureType & f, double currentScaleGtoP, CaptionDescription const & captions,
+  ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
+                             double currentScaleGtoP, CaptionDescription const & captions,
                              std::vector<m2::SharedSpline> && clippedSplines);
 
   void ProcessAdditionalLineRules(PathTextRuleProto const * pathtextRule, ShieldRuleProto const * shieldRule,
@@ -181,17 +180,12 @@ public:
                                   GeneratedRoadShields & generatedRoadShields);
 
 private:
-  void GetRoadShieldsViewParams(ref_ptr<dp::TextureManager> texMng,
-                                ftypes::RoadShield const & shield,
-                                uint8_t shieldIndex, uint8_t shieldCount,
-                                TextViewParams & textParams,
-                                ColoredSymbolViewParams & symbolParams,
-                                PoiSymbolViewParams & poiParams,
+  void GetRoadShieldsViewParams(ref_ptr<dp::TextureManager> texMng, ftypes::RoadShield const & shield,
+                                uint8_t shieldIndex, uint8_t shieldCount, TextViewParams & textParams,
+                                ColoredSymbolViewParams & symbolParams, PoiSymbolViewParams & poiParams,
                                 m2::PointD & shieldPixelSize);
-  bool CheckShieldsNearby(m2::PointD const & shieldPos,
-                          m2::PointD const & shieldPixelSize,
-                          uint32_t minDistanceInPixels,
-                          std::vector<m2::RectD> & shields);
+  bool CheckShieldsNearby(m2::PointD const & shieldPos, m2::PointD const & shieldPixelSize,
+                          uint32_t minDistanceInPixels, std::vector<m2::RectD> & shields);
 
   std::vector<m2::SharedSpline> m_clippedSplines;
   double const m_currentScaleGtoP;
@@ -201,4 +195,4 @@ private:
 };
 
 extern dp::Color ToDrapeColor(uint32_t src);
-} // namespace df
+}  // namespace df

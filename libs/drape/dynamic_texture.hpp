@@ -7,15 +7,13 @@
 
 namespace dp
 {
-template<typename TIndexer, typename TResourceKey, Texture::ResourceType TResourceType>
+template <typename TIndexer, typename TResourceKey, Texture::ResourceType TResourceType>
 class DynamicTexture : public Texture
 {
   using Base = Texture;
+
 public:
-  ~DynamicTexture() override
-  {
-    ASSERT(m_indexer == nullptr, ());
-  }
+  ~DynamicTexture() override { ASSERT(m_indexer == nullptr, ()); }
 
   ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override
   {
@@ -53,35 +51,17 @@ public:
     m_indexer->UploadResources(context, make_ref(this));
   }
 
-  TextureFormat GetFormat() const override
-  {
-    return m_params.m_format;
-  }
+  TextureFormat GetFormat() const override { return m_params.m_format; }
 
-  uint32_t GetWidth() const override
-  {
-    return m_params.m_width;
-  }
+  uint32_t GetWidth() const override { return m_params.m_width; }
 
-  uint32_t GetHeight() const override
-  {
-    return m_params.m_height;
-  }
+  uint32_t GetHeight() const override { return m_params.m_height; }
 
-  float GetS(uint32_t x) const override
-  {
-    return static_cast<float>(x) / m_params.m_width;
-  }
+  float GetS(uint32_t x) const override { return static_cast<float>(x) / m_params.m_width; }
 
-  float GetT(uint32_t y) const override
-  {
-    return static_cast<float>(y) / m_params.m_height;
-  }
+  float GetT(uint32_t y) const override { return static_cast<float>(y) / m_params.m_height; }
 
-  uint32_t GetID() const override
-  {
-    return m_isInitialized ? Texture::GetID() : 0;
-  }
+  uint32_t GetID() const override { return m_isInitialized ? Texture::GetID() : 0; }
 
   void Bind(ref_ptr<dp::GraphicsContext> context) const override
   {
@@ -96,9 +76,7 @@ public:
   }
 
 protected:
-  DynamicTexture()
-    : m_isInitialized(false)
-  {}
+  DynamicTexture() : m_isInitialized(false) {}
 
   struct DynamicTextureParams
   {
@@ -108,8 +86,7 @@ protected:
     bool m_usePixelBuffer = false;
   };
 
-  void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer,
-            DynamicTextureParams const & params)
+  void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer, DynamicTextureParams const & params)
   {
     m_indexer = indexer;
     m_params.m_allocator = allocator;
@@ -121,10 +98,7 @@ protected:
     m_params.m_isMutable = true;
   }
 
-  void Reset()
-  {
-    m_indexer = nullptr;
-  }
+  void Reset() { m_indexer = nullptr; }
 
   ref_ptr<TIndexer> m_indexer;
   Texture::Params m_params;

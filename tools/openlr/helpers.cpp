@@ -12,7 +12,6 @@
 #include <optional>
 #include <sstream>
 
-
 namespace
 {
 using namespace openlr;
@@ -34,8 +33,7 @@ openlr::FunctionalRoadClass HighwayClassToFunctionalRoadClass(ftypes::HighwayCla
 }
 
 /// \returns nullopt if |e| doesn't conform to |functionalRoadClass| and score otherwise.
-optional<Score> GetFrcScore(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass,
-                            RoadInfoGetter & infoGetter)
+optional<Score> GetFrcScore(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass, RoadInfoGetter & infoGetter)
 {
   CHECK(!e.IsFake(), ());
   Score constexpr kMaxScoreForFrc = 25;
@@ -54,38 +52,31 @@ optional<Score> GetFrcScore(Graph::Edge const & e, FunctionalRoadClass functiona
     return hwClass == HighwayClass::Trunk ? optional<Score>(kMaxScoreForFrc) : nullopt;
 
   case FunctionalRoadClass::FRC1:
-    return (hwClass == HighwayClass::Trunk || hwClass == HighwayClass::Primary)
-               ? optional<Score>(kMaxScoreForFrc)
-               : nullopt;
+    return (hwClass == HighwayClass::Trunk || hwClass == HighwayClass::Primary) ? optional<Score>(kMaxScoreForFrc)
+                                                                                : nullopt;
 
   case FunctionalRoadClass::FRC2:
   case FunctionalRoadClass::FRC3:
     if (hwClass == HighwayClass::Secondary || hwClass == HighwayClass::Tertiary)
       return optional<Score>(kMaxScoreForFrc);
 
-    return hwClass == HighwayClass::Primary || hwClass == HighwayClass::LivingStreet
-               ? optional<Score>(0)
-               : nullopt;
+    return hwClass == HighwayClass::Primary || hwClass == HighwayClass::LivingStreet ? optional<Score>(0) : nullopt;
 
   case FunctionalRoadClass::FRC4:
     if (hwClass == HighwayClass::LivingStreet || hwClass == HighwayClass::Service)
       return optional<Score>(kMaxScoreForFrc);
 
-    return (hwClass == HighwayClass::Tertiary || hwClass == HighwayClass::Secondary)
-               ? optional<Score>(0)
-               : nullopt;
+    return (hwClass == HighwayClass::Tertiary || hwClass == HighwayClass::Secondary) ? optional<Score>(0) : nullopt;
 
   case FunctionalRoadClass::FRC5:
   case FunctionalRoadClass::FRC6:
   case FunctionalRoadClass::FRC7:
-    return (hwClass == HighwayClass::LivingStreet ||
-            hwClass == HighwayClass::Service ||
+    return (hwClass == HighwayClass::LivingStreet || hwClass == HighwayClass::Service ||
             hwClass == HighwayClass::ServiceMinor)
-               ? optional<Score>(kMaxScoreForFrc)
-               : nullopt;
+             ? optional<Score>(kMaxScoreForFrc)
+             : nullopt;
 
-  case FunctionalRoadClass::NotAValue:
-    UNREACHABLE();
+  case FunctionalRoadClass::NotAValue: UNREACHABLE();
   }
   UNREACHABLE();
 }
@@ -95,9 +86,9 @@ namespace openlr
 {
 // BearingPointsSelector ---------------------------------------------------------------------------
 BearingPointsSelector::BearingPointsSelector(uint32_t bearDistM, bool isLastPoint)
-    : m_bearDistM(bearDistM), m_isLastPoint(isLastPoint)
-{
-}
+  : m_bearDistM(bearDistM)
+  , m_isLastPoint(isLastPoint)
+{}
 
 m2::PointD BearingPointsSelector::GetStartPoint(Graph::Edge const & e) const
 {
@@ -131,8 +122,7 @@ double EdgeLength(Graph::Edge const & e)
 bool EdgesAreAlmostEqual(Graph::Edge const & e1, Graph::Edge const & e2)
 {
   // TODO(mgsergio): Do I need to check fields other than points?
-  return PointsAreClose(e1.GetStartPoint(), e2.GetStartPoint()) &&
-         PointsAreClose(e1.GetEndPoint(), e2.GetEndPoint());
+  return PointsAreClose(e1.GetStartPoint(), e2.GetStartPoint()) && PointsAreClose(e1.GetEndPoint(), e2.GetEndPoint());
 }
 
 string LogAs2GisPath(Graph::EdgeVector const & path)
@@ -157,10 +147,13 @@ string LogAs2GisPath(Graph::EdgeVector const & path)
   return ost.str();
 }
 
-string LogAs2GisPath(Graph::Edge const & e) { return LogAs2GisPath(Graph::EdgeVector({e})); }
+string LogAs2GisPath(Graph::Edge const & e)
+{
+  return LogAs2GisPath(Graph::EdgeVector({e}));
+}
 
-bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay formOfWay,
-                       int frcThreshold, RoadInfoGetter & infoGetter)
+bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, FormOfWay formOfWay, int frcThreshold,
+                       RoadInfoGetter & infoGetter)
 {
   if (e.IsFake() || restriction == FunctionalRoadClass::NotAValue)
     return true;
@@ -169,8 +162,8 @@ bool PassesRestriction(Graph::Edge const & e, FunctionalRoadClass restriction, F
   return static_cast<int>(frc) <= static_cast<int>(restriction) + frcThreshold;
 }
 
-bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass,
-                         FormOfWay formOfWay, RoadInfoGetter & infoGetter, Score & score)
+bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass functionalRoadClass, FormOfWay formOfWay,
+                         RoadInfoGetter & infoGetter, Score & score)
 {
   CHECK(!e.IsFake(), ("Edges should not be fake:", e));
   auto const frcScore = GetFrcScore(e, functionalRoadClass, infoGetter);
@@ -185,8 +178,8 @@ bool PassesRestrictionV3(Graph::Edge const & e, FunctionalRoadClass functionalRo
   return true;
 }
 
-bool ConformLfrcnp(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoint,
-                   int frcThreshold, RoadInfoGetter & infoGetter)
+bool ConformLfrcnp(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoint, int frcThreshold,
+                   RoadInfoGetter & infoGetter)
 {
   if (e.IsFake() || lowestFrcToNextPoint == FunctionalRoadClass::NotAValue)
     return true;
@@ -195,8 +188,7 @@ bool ConformLfrcnp(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoi
   return static_cast<int>(frc) <= static_cast<int>(lowestFrcToNextPoint) + frcThreshold;
 }
 
-bool ConformLfrcnpV3(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoint,
-                     RoadInfoGetter & infoGetter)
+bool ConformLfrcnpV3(Graph::Edge const & e, FunctionalRoadClass lowestFrcToNextPoint, RoadInfoGetter & infoGetter)
 {
   return GetFrcScore(e, lowestFrcToNextPoint, infoGetter).has_value();
 }

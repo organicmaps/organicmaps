@@ -22,10 +22,7 @@ struct WayElement
   std::vector<uint64_t> m_nodes;
 
   explicit WayElement(uint64_t osmId) : m_wayOsmId(osmId) {}
-  WayElement(uint64_t osmId, std::vector<uint64_t> const & nodes)
-    : m_wayOsmId(osmId), m_nodes(nodes)
-  {
-  }
+  WayElement(uint64_t osmId, std::vector<uint64_t> const & nodes) : m_wayOsmId(osmId), m_nodes(nodes) {}
 
   bool IsValid() const { return !m_nodes.empty(); }
 
@@ -219,10 +216,8 @@ protected:
   static std::string_view FindRoleImpl(std::vector<Member> const & container, uint64_t id)
   {
     for (auto const & e : container)
-    {
       if (e.first == id)
         return e.second;
-    }
     return {};
   }
 };

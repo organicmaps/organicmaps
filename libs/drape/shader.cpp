@@ -16,8 +16,7 @@ glConst ConvertType(Shader::Type t)
 }
 }  // namespace
 
-Shader::Shader(std::string const & shaderName, std::string const & shaderSource,
-               std::string const & defines, Type type)
+Shader::Shader(std::string const & shaderName, std::string const & shaderSource, std::string const & defines, Type type)
   : m_shaderName(shaderName)
   , m_glID(0)
 {

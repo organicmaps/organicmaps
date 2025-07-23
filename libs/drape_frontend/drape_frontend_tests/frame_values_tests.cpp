@@ -8,14 +8,10 @@
 
 namespace
 {
-glsl::mat4 const kTestMatrix1 = glsl::mat4(1.0f, 2.0f, 3.0f, 4.0f,
-                                           1.0f, 2.0f, 3.0f, 4.0f,
-                                           1.0f, 2.0f, 3.0f, 4.0f,
-                                           1.0f, 2.0f, 3.0f, 4.0f);
-glsl::mat4 const kTestMatrix2 = glsl::mat4(4.0f, 3.0f, 2.0f, 1.0f,
-                                           4.0f, 3.0f, 2.0f, 1.0f,
-                                           4.0f, 3.0f, 2.0f, 1.0f,
-                                           4.0f, 3.0f, 2.0f, 1.0f);
+glsl::mat4 const kTestMatrix1 =
+    glsl::mat4(1.0f, 2.0f, 3.0f, 4.0f, 1.0f, 2.0f, 3.0f, 4.0f, 1.0f, 2.0f, 3.0f, 4.0f, 1.0f, 2.0f, 3.0f, 4.0f);
+glsl::mat4 const kTestMatrix2 =
+    glsl::mat4(4.0f, 3.0f, 2.0f, 1.0f, 4.0f, 3.0f, 2.0f, 1.0f, 4.0f, 3.0f, 2.0f, 1.0f, 4.0f, 3.0f, 2.0f, 1.0f);
 }  // namespace
 
 UNIT_TEST(FrameValues_SetTo)

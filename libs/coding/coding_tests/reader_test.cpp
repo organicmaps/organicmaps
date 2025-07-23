@@ -2,9 +2,9 @@
 
 #include "coding/coding_tests/reader_test.hpp"
 
+#include "coding/buffer_reader.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
-#include "coding/buffer_reader.hpp"
 #include "coding/reader_streambuf.hpp"
 
 #include <cstring>
@@ -16,7 +16,7 @@ using namespace std;
 
 namespace
 {
-  string const kData("Quick brown fox jumps over a lazy dog...");
+string const kData("Quick brown fox jumps over a lazy dog...");
 }
 
 UNIT_TEST(MemReaderSmokeTest)
@@ -70,8 +70,7 @@ UNIT_TEST(FileReaderNonExistentFileTest)
     TEST(false, ("Exception should be thrown!"));
   }
   catch (FileReader::OpenException &)
-  {
-  }
+  {}
 }
 
 UNIT_TEST(FileReaderReadAsText)

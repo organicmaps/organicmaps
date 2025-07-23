@@ -37,30 +37,30 @@ void AlphaBlendingState::Apply(ref_ptr<GraphicsContext> context)
   }
 }
 
-Blending::Blending(bool isEnabled)
-  : m_isEnabled(isEnabled)
-{}
+Blending::Blending(bool isEnabled) : m_isEnabled(isEnabled) {}
 
 void Blending::Apply(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program) const
 {
   // For Metal Rendering these settings must be set in the pipeline state.
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::OpenGLES3)
-  {
     if (m_isEnabled)
       GLFunctions::glEnable(gl_const::GLBlending);
     else
       GLFunctions::glDisable(gl_const::GLBlending);
-  }
   else
-  {
     CHECK(false, ("Unsupported API version."));
-  }
 }
 
-bool Blending::operator<(Blending const & other) const { return m_isEnabled < other.m_isEnabled; }
+bool Blending::operator<(Blending const & other) const
+{
+  return m_isEnabled < other.m_isEnabled;
+}
 
-bool Blending::operator==(Blending const & other) const { return m_isEnabled == other.m_isEnabled; }
+bool Blending::operator==(Blending const & other) const
+{
+  return m_isEnabled == other.m_isEnabled;
+}
 
 void RenderState::SetColorTexture(ref_ptr<Texture> tex)
 {
@@ -192,15 +192,10 @@ bool RenderState::operator<(RenderState const & other) const
 
 bool RenderState::operator==(RenderState const & other) const
 {
-  return m_renderStateExtension->Equal(other.m_renderStateExtension) &&
-         m_gpuProgram == other.m_gpuProgram &&
-         m_gpuProgram3d == other.m_gpuProgram3d &&
-         m_blending == other.m_blending &&
-         m_textures == other.m_textures &&
-         m_textureFilter == other.m_textureFilter &&
-         m_depthFunction == other.m_depthFunction &&
-         m_drawAsLine == other.m_drawAsLine &&
-         m_lineWidth == other.m_lineWidth &&
+  return m_renderStateExtension->Equal(other.m_renderStateExtension) && m_gpuProgram == other.m_gpuProgram &&
+         m_gpuProgram3d == other.m_gpuProgram3d && m_blending == other.m_blending && m_textures == other.m_textures &&
+         m_textureFilter == other.m_textureFilter && m_depthFunction == other.m_depthFunction &&
+         m_drawAsLine == other.m_drawAsLine && m_lineWidth == other.m_lineWidth &&
          m_textureIndex == other.m_textureIndex;
 }
 

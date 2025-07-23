@@ -1,7 +1,7 @@
 #include "app/organicmaps/sdk/Framework.hpp"
 
-#include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/UserMarkHelper.hpp"
+#include "app/organicmaps/sdk/core/jni_helper.hpp"
 #include "app/organicmaps/sdk/opengl/androidoglcontextfactory.hpp"
 #include "app/organicmaps/sdk/platform/AndroidPlatform.hpp"
 #include "app/organicmaps/sdk/routing/JunctionInfo.hpp"
@@ -46,8 +46,8 @@
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/locale.hpp"
-#include "platform/location.hpp"
 #include "platform/localization.hpp"
+#include "platform/location.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
@@ -91,7 +91,10 @@ using platform::ToNativeNetworkPolicy;
 
 static_assert(sizeof(int) >= 4, "Size of jint in less than 4 bytes.");
 
-::Framework * frm() { return g_framework->NativeFramework(); }
+::Framework * frm()
+{
+  return g_framework->NativeFramework();
+}
 
 namespace
 {
@@ -108,14 +111,13 @@ namespace android
 
 enum MultiTouchAction
 {
-  MULTITOUCH_UP    =   0x00000001,
-  MULTITOUCH_DOWN  =   0x00000002,
-  MULTITOUCH_MOVE  =   0x00000003,
-  MULTITOUCH_CANCEL =  0x00000004
+  MULTITOUCH_UP = 0x00000001,
+  MULTITOUCH_DOWN = 0x00000002,
+  MULTITOUCH_MOVE = 0x00000003,
+  MULTITOUCH_CANCEL = 0x00000004
 };
 
-Framework::Framework(std::function<void()> && afterMapsLoaded)
-: m_work({} /* params */, false /* loadMaps */)
+Framework::Framework(std::function<void()> && afterMapsLoaded) : m_work({} /* params */, false /* loadMaps */)
 {
   m_work.LoadMapsAsync(std::move(afterMapsLoaded));
 
@@ -187,8 +189,8 @@ bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi
   int constexpr kMinSdkVersionForVulkan = 26;
   int const sdkVersion = android_get_device_api_level();
   LOG(LINFO, ("Android SDK version in the Drape Engine:", sdkVersion));
-  auto const vulkanForbidden = sdkVersion < kMinSdkVersionForVulkan ||
-                               dp::SupportManager::Instance().IsVulkanForbidden();
+  auto const vulkanForbidden =
+      sdkVersion < kMinSdkVersionForVulkan || dp::SupportManager::Instance().IsVulkanForbidden();
   if (vulkanForbidden)
     LOG(LWARNING, ("Vulkan API is forbidden on this device."));
 
@@ -474,7 +476,10 @@ Storage & Framework::GetStorage()
   return m_work.GetStorage();
 }
 
-DataSource const & Framework::GetDataSource() { return m_work.GetDataSource(); }
+DataSource const & Framework::GetDataSource()
+{
+  return m_work.GetDataSource();
+}
 
 void Framework::ShowNode(CountryId const & idx, bool zoomToDownloadButton)
 {
@@ -504,22 +509,13 @@ void Framework::Touch(int action, Finger const & f1, Finger const & f2, uint8_t 
   MultiTouchAction eventType = static_cast<MultiTouchAction>(action);
   df::TouchEvent event;
 
-  switch(eventType)
+  switch (eventType)
   {
-  case MULTITOUCH_DOWN:
-    event.SetTouchType(df::TouchEvent::TOUCH_DOWN);
-    break;
-  case MULTITOUCH_MOVE:
-    event.SetTouchType(df::TouchEvent::TOUCH_MOVE);
-    break;
-  case MULTITOUCH_UP:
-    event.SetTouchType(df::TouchEvent::TOUCH_UP);
-    break;
-  case MULTITOUCH_CANCEL:
-    event.SetTouchType(df::TouchEvent::TOUCH_CANCEL);
-    break;
-  default:
-    return;
+  case MULTITOUCH_DOWN: event.SetTouchType(df::TouchEvent::TOUCH_DOWN); break;
+  case MULTITOUCH_MOVE: event.SetTouchType(df::TouchEvent::TOUCH_MOVE); break;
+  case MULTITOUCH_UP: event.SetTouchType(df::TouchEvent::TOUCH_UP); break;
+  case MULTITOUCH_CANCEL: event.SetTouchType(df::TouchEvent::TOUCH_CANCEL); break;
+  default: return;
   }
 
   df::Touch touch;
@@ -689,7 +685,7 @@ void Framework::SetMyPositionModeListener(location::TMyPositionModeChanged const
 location::EMyPositionMode Framework::GetMyPositionMode() const
 {
   // No need in assertion here, return location::PendingPosition if no engine created.
-  //ASSERT(IsDrapeEngineCreated(), ());
+  // ASSERT(IsDrapeEngineCreated(), ());
 
   return m_work.GetMyPositionMode();
 }
@@ -787,14 +783,14 @@ FeatureID Framework::BuildFeatureId(JNIEnv * env, jobject featureId)
 
 extern "C"
 {
-void CallRoutingListener(shared_ptr<jobject> listener, int errorCode,
-                         storage::CountriesSet const & absentMaps)
+void CallRoutingListener(shared_ptr<jobject> listener, int errorCode, storage::CountriesSet const & absentMaps)
 {
   JNIEnv * env = jni::GetEnv();
   jmethodID const method = jni::GetMethodID(env, *listener, "onRoutingEvent", "(I[Ljava/lang/String;)V");
   ASSERT(method, ());
 
-  env->CallVoidMethod(*listener, method, errorCode, jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, absentMaps)).get());
+  env->CallVoidMethod(*listener, method, errorCode,
+                      jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, absentMaps)).get());
 }
 
 void CallRouteProgressListener(shared_ptr<jobject> listener, float progress)
@@ -804,11 +800,11 @@ void CallRouteProgressListener(shared_ptr<jobject> listener, float progress)
   env->CallVoidMethod(*listener, methodId, progress);
 }
 
-void CallRouteRecommendationListener(shared_ptr<jobject> listener,
-                                     RoutingManager::Recommendation recommendation)
+void CallRouteRecommendationListener(shared_ptr<jobject> listener, RoutingManager::Recommendation recommendation)
 {
   JNIEnv * env = jni::GetEnv();
-  jmethodID const methodId = jni::GetMethodID(env, *listener, "onRecommend", "(Lapp/organicmaps/sdk/routing/RouteRecommendationType;)V");
+  jmethodID const methodId =
+      jni::GetMethodID(env, *listener, "onRecommend", "(Lapp/organicmaps/sdk/routing/RouteRecommendationType;)V");
   env->CallVoidMethod(*listener, methodId, GetRouteRecommendationType(env, recommendation));
 }
 
@@ -822,27 +818,25 @@ void CallSetRoutingLoadPointsListener(shared_ptr<jobject> listener, bool success
 RoutingManager::LoadRouteHandler g_loadRouteHandler;
 
 /// @name JNI EXPORTS
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetAddress(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetAddress(JNIEnv * env, jclass clazz, jdouble lat,
+                                                                              jdouble lon)
 {
   auto const info = frm()->GetAddressAtPoint(mercator::FromLatLon(lat, lon));
   return jni::ToJavaString(env, info.FormatAddress());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
 {
   frm()->GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::API);
 }
 
-JNIEXPORT jint JNICALL
-Java_app_organicmaps_sdk_Framework_nativeParseAndSetApiUrl(JNIEnv * env, jclass clazz, jstring url)
+JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Framework_nativeParseAndSetApiUrl(JNIEnv * env, jclass clazz,
+                                                                                  jstring url)
 {
   return static_cast<jint>(frm()->ParseAndSetApiURL(jni::ToNativeString(env, url)));
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(JNIEnv * env, jclass clazz)
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(JNIEnv * env, jclass clazz)
 {
   using namespace url_scheme;
   static jclass const pointClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/RoutePoint");
@@ -851,23 +845,22 @@ Java_app_organicmaps_sdk_Framework_nativeGetParsedRoutingData(JNIEnv * env, jcla
 
   static jclass const routeDataClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/ParsedRoutingData");
   // Java signature : ParsedRoutingData(RoutePoint[] points, int routerType) {
-  static jmethodID const routeDataConstructor = jni::GetConstructorID(env, routeDataClazz, "([Lapp/organicmaps/sdk/api/RoutePoint;I)V");
+  static jmethodID const routeDataConstructor =
+      jni::GetConstructorID(env, routeDataClazz, "([Lapp/organicmaps/sdk/api/RoutePoint;I)V");
 
   auto const & routingData = frm()->GetParsedRoutingData();
-  jobjectArray points = jni::ToJavaArray(env, pointClazz, routingData.m_points,
-                                         [](JNIEnv * env, RoutePoint const & point)
-                                         {
-                                           jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
-                                           return env->NewObject(pointClazz, pointConstructor,
-                                                                 mercator::YToLat(point.m_org.y),
-                                                                 mercator::XToLon(point.m_org.x), name.get());
-                                         });
+  jobjectArray points =
+      jni::ToJavaArray(env, pointClazz, routingData.m_points, [](JNIEnv * env, RoutePoint const & point)
+  {
+    jni::TScopedLocalRef const name(env, jni::ToJavaString(env, point.m_name));
+    return env->NewObject(pointClazz, pointConstructor, mercator::YToLat(point.m_org.y),
+                          mercator::XToLon(point.m_org.x), name.get());
+  });
 
   return env->NewObject(routeDataClazz, routeDataConstructor, points, routingData.m_type);
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jclass clazz)
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jclass clazz)
 {
   using namespace url_scheme;
   static jclass const cl = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/api/ParsedSearchRequest");
@@ -875,32 +868,29 @@ Java_app_organicmaps_sdk_Framework_nativeGetParsedSearchRequest(JNIEnv * env, jc
   static jmethodID const ctor = jni::GetConstructorID(env, cl, "(Ljava/lang/String;Ljava/lang/String;DDZ)V");
   auto const & r = frm()->GetParsedSearchRequest();
   ms::LatLon const center = frm()->GetParsedCenterLatLon();
-  return env->NewObject(cl, ctor, jni::ToJavaString(env, r.m_query), jni::ToJavaString(env, r.m_locale), center.m_lat, center.m_lon, r.m_isSearchOnMap);
+  return env->NewObject(cl, ctor, jni::ToJavaString(env, r.m_query), jni::ToJavaString(env, r.m_locale), center.m_lat,
+                        center.m_lon, r.m_isSearchOnMap);
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetParsedAppName(JNIEnv * env, jclass)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetParsedAppName(JNIEnv * env, jclass)
 {
   std::string const & appName = frm()->GetParsedAppName();
   return (appName.empty()) ? nullptr : jni::ToJavaString(env, appName);
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetParsedOAuth2Code(JNIEnv * env, jclass)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetParsedOAuth2Code(JNIEnv * env, jclass)
 {
   std::string const & code = frm()->GetParsedOAuth2Code();
   return jni::ToJavaString(env, code);
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetParsedBackUrl(JNIEnv * env, jclass)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetParsedBackUrl(JNIEnv * env, jclass)
 {
   std::string const & backUrl = frm()->GetParsedBackUrl();
   return (backUrl.empty()) ? nullptr : jni::ToJavaString(env, backUrl);
 }
 
-JNIEXPORT jdoubleArray JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetParsedCenterLatLon(JNIEnv * env, jclass)
+JNIEXPORT jdoubleArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetParsedCenterLatLon(JNIEnv * env, jclass)
 {
   ms::LatLon const center = frm()->GetParsedCenterLatLon();
   if (!center.IsValid())
@@ -913,21 +903,19 @@ Java_app_organicmaps_sdk_Framework_nativeGetParsedCenterLatLon(JNIEnv * env, jcl
   return jLatLon;
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativePlacePageActivationListener(JNIEnv *env, jclass, jobject jListener)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativePlacePageActivationListener(JNIEnv * env, jclass,
+                                                                                            jobject jListener)
 {
   LOG(LINFO, ("Set global map object listener"));
   g_placePageActivationListener = env->NewGlobalRef(jListener);
   // void onPlacePageActivated(MapObject object);
-  jmethodID const activatedId = jni::GetMethodID(env, g_placePageActivationListener,
-                                                 "onPlacePageActivated",
+  jmethodID const activatedId = jni::GetMethodID(env, g_placePageActivationListener, "onPlacePageActivated",
                                                  "(Lapp/organicmaps/sdk/widget/placepage/PlacePageData;)V");
   // void onPlacePageDeactivated();
-  jmethodID const deactivateId = jni::GetMethodID(env, g_placePageActivationListener,
-                                                  "onPlacePageDeactivated", "()V");
+  jmethodID const deactivateId = jni::GetMethodID(env, g_placePageActivationListener, "onPlacePageDeactivated", "()V");
   // void onPlacePageDeactivated();
-  jmethodID const switchFullscreenId = jni::GetMethodID(env, g_placePageActivationListener,
-                                                        "onSwitchFullScreenMode", "()V");
+  jmethodID const switchFullscreenId =
+      jni::GetMethodID(env, g_placePageActivationListener, "onSwitchFullScreenMode", "()V");
   auto const fillPlacePage = [activatedId]()
   {
     JNIEnv * env = jni::GetEnv();
@@ -960,8 +948,8 @@ Java_app_organicmaps_sdk_Framework_nativePlacePageActivationListener(JNIEnv *env
   frm()->SetPlacePageListeners(fillPlacePage, closePlacePage, fillPlacePage, switchFullscreen);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeRemovePlacePageActivationListener(JNIEnv *env, jclass, jobject jListener)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeRemovePlacePageActivationListener(JNIEnv * env, jclass,
+                                                                                                  jobject jListener)
 {
   if (g_placePageActivationListener == nullptr)
     return;
@@ -975,8 +963,9 @@ Java_app_organicmaps_sdk_Framework_nativeRemovePlacePageActivationListener(JNIEn
   g_placePageActivationListener = nullptr;
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetGe0Url(JNIEnv * env, jclass, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetGe0Url(JNIEnv * env, jclass, jdouble lat,
+                                                                             jdouble lon, jdouble zoomLevel,
+                                                                             jstring name)
 {
   ::Framework * fr = frm();
   double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
@@ -984,8 +973,9 @@ Java_app_organicmaps_sdk_Framework_nativeGetGe0Url(JNIEnv * env, jclass, jdouble
   return jni::ToJavaString(env, url);
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetGeoUri(JNIEnv * env, jclass, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetGeoUri(JNIEnv * env, jclass, jdouble lat,
+                                                                             jdouble lon, jdouble zoomLevel,
+                                                                             jstring name)
 {
   ::Framework * fr = frm();
   double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
@@ -993,9 +983,10 @@ Java_app_organicmaps_sdk_Framework_nativeGetGeoUri(JNIEnv * env, jclass, jdouble
   return jni::ToJavaString(env, url);
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth(
-    JNIEnv * env, jclass, jdouble merX, jdouble merY, jdouble cLat, jdouble cLon, jdouble north)
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth(JNIEnv * env, jclass,
+                                                                                         jdouble merX, jdouble merY,
+                                                                                         jdouble cLat, jdouble cLon,
+                                                                                         jdouble north)
 {
   platform::Distance distance;
   double azimut = -1.0;
@@ -1005,13 +996,10 @@ Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth(
   // Java signature : DistanceAndAzimut(Distance distance, double azimuth)
   static jmethodID const methodID = jni::GetConstructorID(env, daClazz, "(Lapp/organicmaps/sdk/util/Distance;D)V");
 
-  return env->NewObject(daClazz, methodID,
-                        ToJavaDistance(env, distance),
-                        static_cast<jdouble>(azimut));
+  return env->NewObject(daClazz, methodID, ToJavaDistance(env, distance), static_cast<jdouble>(azimut));
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuthFromLatLon(
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuthFromLatLon(
     JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble cLat, jdouble cLon, jdouble north)
 {
   double const merY = mercator::LatToY(lat);
@@ -1019,51 +1007,49 @@ Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuthFromLatLon(
   return Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth(env, clazz, merX, merY, cLat, cLon, north);
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat, jdouble lon, int coordsFormat)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat,
+                                                                                jdouble lon, int coordsFormat)
 {
   switch (static_cast<android::CoordinatesFormat>(coordsFormat))
   {
-    default:
-    case android::CoordinatesFormat::LatLonDMS: // DMS, comma separated
-      return jni::ToJavaString(env, measurement_utils::FormatLatLonAsDMS(lat, lon, true /*withComma*/, 2));
-    case android::CoordinatesFormat::LatLonDecimal: // Decimal, comma separated
-      return jni::ToJavaString(env, measurement_utils::FormatLatLon(lat, lon, true /* withComma */, 6));
-    case android::CoordinatesFormat::OLCFull: // Open location code, long format
-      return jni::ToJavaString(env, openlocationcode::Encode({lat, lon}));
-    case android::CoordinatesFormat::OSMLink: // Link to osm.org
-      return jni::ToJavaString(env, measurement_utils::FormatOsmLink(lat, lon, 14));
-    case android::CoordinatesFormat::UTM:  // Universal Transverse Mercator
-    {
-      string utmFormat = utm_mgrs_utils::FormatUTM(lat, lon);
-      if (!utmFormat.empty())
-        return jni::ToJavaString(env, utmFormat);
-      else
-        return nullptr;
-    }
-    case android::CoordinatesFormat::MGRS: // Military Grid Reference System
-    {
-      string mgrsFormat = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
-      if (!mgrsFormat.empty())
-         return jni::ToJavaString(env, mgrsFormat);
-      else
-         return nullptr;
-    }
+  default:
+  case android::CoordinatesFormat::LatLonDMS:  // DMS, comma separated
+    return jni::ToJavaString(env, measurement_utils::FormatLatLonAsDMS(lat, lon, true /*withComma*/, 2));
+  case android::CoordinatesFormat::LatLonDecimal:  // Decimal, comma separated
+    return jni::ToJavaString(env, measurement_utils::FormatLatLon(lat, lon, true /* withComma */, 6));
+  case android::CoordinatesFormat::OLCFull:  // Open location code, long format
+    return jni::ToJavaString(env, openlocationcode::Encode({lat, lon}));
+  case android::CoordinatesFormat::OSMLink:  // Link to osm.org
+    return jni::ToJavaString(env, measurement_utils::FormatOsmLink(lat, lon, 14));
+  case android::CoordinatesFormat::UTM:  // Universal Transverse Mercator
+  {
+    string utmFormat = utm_mgrs_utils::FormatUTM(lat, lon);
+    if (!utmFormat.empty())
+      return jni::ToJavaString(env, utmFormat);
+    else
+      return nullptr;
+  }
+  case android::CoordinatesFormat::MGRS:  // Military Grid Reference System
+  {
+    string mgrsFormat = utm_mgrs_utils::FormatMGRS(lat, lon, 5);
+    if (!mgrsFormat.empty())
+      return jni::ToJavaString(env, mgrsFormat);
+    else
+      return nullptr;
+  }
   }
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jdouble alt)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeFormatAltitude(JNIEnv * env, jclass, jdouble alt)
 {
   return jni::ToJavaString(env, platform::Distance::FormatAltitude(alt));
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeFormatSpeed(JNIEnv * env, jclass, jdouble speed)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeFormatSpeed(JNIEnv * env, jclass, jdouble speed)
 {
   auto const units = measurement_utils::GetMeasurementUnits();
-  return jni::ToJavaString(env, measurement_utils::FormatSpeedNumeric(speed, units) + " " +
-                                platform::GetLocalizedSpeedUnits(units));
+  return jni::ToJavaString(
+      env, measurement_utils::FormatSpeedNumeric(speed, units) + " " + platform::GetLocalizedSpeedUnits(units));
 }
 
 /*
@@ -1106,26 +1092,22 @@ Java_app_organicmaps_sdk_Framework_nativeUpdateSavedDataVersion(JNIEnv * env, jc
 }
 */
 
-JNIEXPORT jlong JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetDataVersion(JNIEnv * env, jclass)
+JNIEXPORT jlong JNICALL Java_app_organicmaps_sdk_Framework_nativeGetDataVersion(JNIEnv * env, jclass)
 {
   return frm()->GetCurrentDataVersion();
 }
 
-JNIEXPORT jint JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * env, jclass)
+JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * env, jclass)
 {
   return static_cast<jint>(frm()->GetDrawScale());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativePokeSearchInViewport(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativePokeSearchInViewport(JNIEnv * env, jclass)
 {
   frm()->GetSearchAPI().PokeSearchInViewport();
 }
 
-JNIEXPORT jdoubleArray JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass)
+JNIEXPORT jdoubleArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass)
 {
   m2::PointD const center = frm()->GetViewportCenter();
 
@@ -1136,65 +1118,53 @@ Java_app_organicmaps_sdk_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclas
   return jLatLon;
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeShowTrackRect(JNIEnv * env, jclass, jlong track)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeShowTrackRect(JNIEnv * env, jclass, jlong track)
 {
   frm()->ShowTrack(static_cast<kml::TrackId>(track));
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSaveRoute(JNIEnv *, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSaveRoute(JNIEnv *, jclass)
 {
   frm()->SaveRoute();
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetWritableDir(JNIEnv * env, jclass)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetWritableDir(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, GetPlatform().WritableDir().c_str());
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetSettingsDir(JNIEnv * env, jclass)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetSettingsDir(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetDataFileExt(JNIEnv * env, jclass)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetDataFileExt(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, DATA_FILE_EXTENSION);
 }
 
-JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass)
+JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetMovableFilesExts(JNIEnv * env, jclass)
 {
-  vector<string> exts = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION };
+  vector<string> exts = {DATA_FILE_EXTENSION, FONT_FILE_EXTENSION};
   platform::CountryIndexes::GetIndexesExts(exts);
   return jni::ToJavaStringArray(env, exts);
 }
 
-JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetBookmarksFilesExts(JNIEnv * env, jclass)
+JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetBookmarksFilesExts(JNIEnv * env, jclass)
 {
   static std::array<std::string, 4> const kBookmarkExtensions = {
-    std::string{kKmzExtension},
-    std::string{kKmlExtension},
-    std::string{kKmbExtension},
-    std::string{kGpxExtension}
-  };
+      std::string{kKmzExtension}, std::string{kKmlExtension}, std::string{kKmbExtension}, std::string{kGpxExtension}};
 
   return jni::ToJavaStringArray(env, kBookmarkExtensions);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeChangeWritableDir(JNIEnv * env, jclass, jstring jNewPath)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeChangeWritableDir(JNIEnv * env, jclass,
+                                                                                  jstring jNewPath)
 {
   string newPath = jni::ToNativeString(env, jNewPath);
   g_framework->RemoveLocalMaps();
@@ -1202,56 +1172,48 @@ Java_app_organicmaps_sdk_Framework_nativeChangeWritableDir(JNIEnv * env, jclass,
   g_framework->AddLocalMaps();
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeIsRoutingActive(JNIEnv * env, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsRoutingActive(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().IsRoutingActive();
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeIsRouteBuilding(JNIEnv * env, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsRouteBuilding(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().IsRouteBuilding();
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeIsRouteBuilt(JNIEnv * env, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsRouteBuilt(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().IsRouteBuilt();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeCloseRouting(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeCloseRouting(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().CloseRouting(true /* remove route points */);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeBuildRoute(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeBuildRoute(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().BuildRoute();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeRemoveRoute(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeRemoveRoute(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveRoute(false /* deactivateFollowing */);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeFollowRoute(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeFollowRoute(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().FollowRoute();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().DisableFollowMode();
 }
 
-JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGenerateNotifications(JNIEnv * env, jclass, jboolean announceStreets)
+JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGenerateNotifications(JNIEnv * env, jclass,
+                                                                                              jboolean announceStreets)
 {
   ::Framework * fr = frm();
   if (!fr->GetRoutingManager().IsRoutingActive())
@@ -1265,21 +1227,17 @@ Java_app_organicmaps_sdk_Framework_nativeGenerateNotifications(JNIEnv * env, jcl
   return jni::ToJavaStringArray(env, notifications);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetSpeedCamManagerMode(JNIEnv * env, jclass, jint mode)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetSpeedCamManagerMode(JNIEnv * env, jclass, jint mode)
 {
-  frm()->GetRoutingManager().GetSpeedCamManager().SetMode(
-    static_cast<routing::SpeedCameraManagerMode>(mode));
+  frm()->GetRoutingManager().GetSpeedCamManager().SetMode(static_cast<routing::SpeedCameraManagerMode>(mode));
 }
 
-JNIEXPORT jint JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetSpeedCamManagerMode(JNIEnv * env, jclass)
+JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Framework_nativeGetSpeedCamManagerMode(JNIEnv * env, jclass)
 {
   return static_cast<jint>(frm()->GetRoutingManager().GetSpeedCamManager().GetMode());
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass)
 {
   RoutingManager & rm = frm()->GetRoutingManager();
   if (!rm.IsRoutingActive())
@@ -1293,8 +1251,7 @@ Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
   return CreateRoutingInfo(env, info, rm);
 }
 
-JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass)
+JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass)
 {
   vector<geometry::PointWithAltitude> junctionPoints;
   if (!frm()->GetRoutingManager().RoutingSession().GetRouteJunctionPoints(junctionPoints))
@@ -1306,8 +1263,8 @@ Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jc
   return CreateJunctionInfoArray(env, junctionPoints);
 }
 
-JNIEXPORT jintArray JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv * env, jclass, jint width, jint height, jobject routeAltitudeLimits)
+JNIEXPORT jintArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(
+    JNIEnv * env, jclass, jint width, jint height, jobject routeAltitudeLimits)
 {
   RoutingManager::DistanceAltitude altitudes;
   if (!frm()->GetRoutingManager().GetRouteAltitudesAndDistancesM(altitudes))
@@ -1354,11 +1311,13 @@ Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   ASSERT(totalDescentField, ());
   env->SetIntField(routeAltitudeLimits, totalDescentField, static_cast<jint>(totalDescent));
 
-  static jfieldID const totalAscentStringField = env->GetFieldID(routeAltitudeLimitsClass, "totalAscentString", "Ljava/lang/String;");
+  static jfieldID const totalAscentStringField =
+      env->GetFieldID(routeAltitudeLimitsClass, "totalAscentString", "Ljava/lang/String;");
   ASSERT(totalAscentStringField, ());
   env->SetObjectField(routeAltitudeLimits, totalAscentStringField, totalAscentString.get());
 
-  static jfieldID const totalDescentStringField = env->GetFieldID(routeAltitudeLimitsClass, "totalDescentString", "Ljava/lang/String;");
+  static jfieldID const totalDescentStringField =
+      env->GetFieldID(routeAltitudeLimitsClass, "totalDescentString", "Ljava/lang/String;");
   ASSERT(totalDescentStringField, ());
   env->SetObjectField(routeAltitudeLimits, totalDescentStringField, totalDescentString.get());
 
@@ -1367,12 +1326,14 @@ Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   env->SetBooleanField(routeAltitudeLimits, isMetricUnitsField, units == Units::Metric);
 
   size_t const imageRGBADataSize = imageRGBAData.size();
-  ASSERT_NOT_EQUAL(imageRGBADataSize, 0, ("GenerateRouteAltitudeChart returns true but the vector with altitude image bits is empty."));
+  ASSERT_NOT_EQUAL(imageRGBADataSize, 0,
+                   ("GenerateRouteAltitudeChart returns true but the vector with altitude image bits is empty."));
 
   size_t const pxlCount = width * height;
   if (maps::kAltitudeChartBPP * pxlCount != imageRGBADataSize)
   {
-    LOG(LWARNING, ("Wrong size of vector with altitude image bits. Expected size:", pxlCount, ". Real size:", imageRGBADataSize));
+    LOG(LWARNING,
+        ("Wrong size of vector with altitude image bits. Expected size:", pxlCount, ". Real size:", imageRGBADataSize));
     return nullptr;
   }
 
@@ -1384,54 +1345,51 @@ Java_app_organicmaps_sdk_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   for (size_t i = 0; i < pxlCount; ++i)
   {
     size_t const shiftInBytes = i * maps::kAltitudeChartBPP;
-    // Type of |imageRGBAData| elements is uint8_t. But uint8_t is promoted to unsinged int in code below before shifting.
-    // So there's no data lost in code below.
+    // Type of |imageRGBAData| elements is uint8_t. But uint8_t is promoted to unsinged int in code below before
+    // shifting. So there's no data lost in code below.
     arrayElements[i] = (imageRGBAData[shiftInBytes + 3] << 24) /* alpha */
-        | (imageRGBAData[shiftInBytes] << 16) /* red */
-        | (imageRGBAData[shiftInBytes + 1] << 8) /* green */
-        | (imageRGBAData[shiftInBytes + 2]); /* blue */
+                     | (imageRGBAData[shiftInBytes] << 16)     /* red */
+                     | (imageRGBAData[shiftInBytes + 1] << 8)  /* green */
+                     | (imageRGBAData[shiftInBytes + 2]);      /* blue */
   }
   env->ReleaseIntArrayElements(imageRGBADataArray, arrayElements, 0);
 
   return imageRGBADataArray;
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeShowCountry(JNIEnv * env, jclass, jstring countryId, jboolean zoomToDownloadButton)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeShowCountry(JNIEnv * env, jclass, jstring countryId,
+                                                                            jboolean zoomToDownloadButton)
 {
-  g_framework->ShowNode(jni::ToNativeString(env, countryId), (bool) zoomToDownloadButton);
+  g_framework->ShowNode(jni::ToNativeString(env, countryId), (bool)zoomToDownloadButton);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetRoutingListener(JNIEnv * env, jclass, jobject listener)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetRoutingListener(JNIEnv * env, jclass,
+                                                                                   jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->GetRoutingManager().SetRouteBuildingListener(
-      [rf = jni::make_global_ref(listener)](routing::RouterResultCode e, storage::CountriesSet const & countries) {
-        CallRoutingListener(rf, static_cast<int>(e), countries);
-      });
+      [rf = jni::make_global_ref(listener)](routing::RouterResultCode e, storage::CountriesSet const & countries)
+  { CallRoutingListener(rf, static_cast<int>(e), countries); });
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetRouteProgressListener(JNIEnv * env, jclass, jobject listener)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetRouteProgressListener(JNIEnv * env, jclass,
+                                                                                         jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->GetRoutingManager().SetRouteProgressListener(
       bind(&CallRouteProgressListener, jni::make_global_ref(listener), _1));
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetRoutingRecommendationListener(JNIEnv * env, jclass,
-                                                                          jobject listener)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetRoutingRecommendationListener(JNIEnv * env, jclass,
+                                                                                                 jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   frm()->GetRoutingManager().SetRouteRecommendationListener(
       bind(&CallRouteRecommendationListener, jni::make_global_ref(listener), _1));
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetRoutingLoadPointsListener(
-        JNIEnv *, jclass, jobject listener)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetRoutingLoadPointsListener(JNIEnv *, jclass,
+                                                                                             jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   if (listener != nullptr)
@@ -1440,25 +1398,20 @@ Java_app_organicmaps_sdk_Framework_nativeSetRoutingLoadPointsListener(
     g_loadRouteHandler = nullptr;
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
 {
   return g_framework->DeactivatePopup();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCircle(JNIEnv * env, jclass, jboolean restoreViewport)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeDeactivateMapSelectionCircle(JNIEnv * env, jclass,
+                                                                                             jboolean restoreViewport)
 {
   return g_framework->DeactivateMapSelectionCircle(restoreViewport);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jstring title,
-                                                       jstring subtitle, jobject markType,
-                                                       jint intermediateIndex,
-                                                       jboolean isMyPosition,
-                                                       jdouble lat, jdouble lon,
-                                                       jboolean reorderIntermediatePoints)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(
+    JNIEnv * env, jclass, jstring title, jstring subtitle, jobject markType, jint intermediateIndex,
+    jboolean isMyPosition, jdouble lat, jdouble lon, jboolean reorderIntermediatePoints)
 {
   RouteMarkData data;
   data.m_title = jni::ToNativeString(env, title);
@@ -1471,65 +1424,58 @@ Java_app_organicmaps_sdk_Framework_nativeAddRoutePoint(JNIEnv * env, jclass, jst
   frm()->GetRoutingManager().AddRoutePoint(std::move(data), reorderIntermediatePoints);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoints(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveRoutePoints();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType, jint intermediateIndex)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeRemoveRoutePoint(JNIEnv * env, jclass, jobject markType,
+                                                                                 jint intermediateIndex)
 {
-  frm()->GetRoutingManager().RemoveRoutePoint(GetRouteMarkType(env, markType),
-                                              static_cast<size_t>(intermediateIndex));
+  frm()->GetRoutingManager().RemoveRoutePoint(GetRouteMarkType(env, markType), static_cast<size_t>(intermediateIndex));
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeRemoveIntermediateRoutePoints(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeRemoveIntermediateRoutePoints(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().RemoveIntermediateRoutePoints();
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeCouldAddIntermediatePoint(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().CouldAddIntermediatePoint();
 }
 
-JNIEXPORT jobjectArray JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
+JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_Framework_nativeGetRoutePoints(JNIEnv * env, jclass)
 {
   return CreateRouteMarkDataArray(env, frm()->GetRoutingManager().GetRoutePoints());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * env, jclass,
-                                                    jint currentIndex, jint targetIndex)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * env, jclass, jint currentIndex,
+                                                                               jint targetIndex)
 {
   frm()->GetRoutingManager().MoveRoutePoint(currentIndex, targetIndex);
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
 {
   return CreateTransitRouteInfo(env, frm()->GetRoutingManager().GetTransitRouteInfo());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeReloadWorldMaps(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeReloadWorldMaps(JNIEnv * env, jclass)
 {
   g_framework->ReloadWorldMaps();
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeIsDayTime(JNIEnv * env, jclass, jlong utcTimeSeconds, jdouble lat, jdouble lon)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsDayTime(JNIEnv * env, jclass,
+                                                                              jlong utcTimeSeconds, jdouble lat,
+                                                                              jdouble lon)
 {
   DayTimeType const dt = GetDayTime(static_cast<time_t>(utcTimeSeconds), lat, lon);
   return (dt == DayTimeType::Day || dt == DayTimeType::PolarDay);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSet3dMode(JNIEnv * env, jclass, jboolean allow, jboolean allowBuildings)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSet3dMode(JNIEnv * env, jclass, jboolean allow,
+                                                                          jboolean allowBuildings)
 {
   bool const allow3d = static_cast<bool>(allow);
   bool const allow3dBuildings = static_cast<bool>(allowBuildings);
@@ -1538,8 +1484,7 @@ Java_app_organicmaps_sdk_Framework_nativeSet3dMode(JNIEnv * env, jclass, jboolea
   g_framework->Set3dMode(allow3d, allow3dBuildings);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGet3dMode(JNIEnv * env, jclass, jobject result)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeGet3dMode(JNIEnv * env, jclass, jobject result)
 {
   bool enabled;
   bool buildings;
@@ -1554,73 +1499,68 @@ Java_app_organicmaps_sdk_Framework_nativeGet3dMode(JNIEnv * env, jclass, jobject
   env->SetBooleanField(result, buildingsField, buildings);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetAutoZoomEnabled(JNIEnv * env, jclass, jboolean enabled)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetAutoZoomEnabled(JNIEnv * env, jclass,
+                                                                                   jboolean enabled)
 {
   bool const autoZoomEnabled = static_cast<bool>(enabled);
   frm()->SaveAutoZoom(autoZoomEnabled);
   frm()->AllowAutoZoom(autoZoomEnabled);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetTransitSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetTransitSchemeEnabled(JNIEnv * env, jclass,
+                                                                                        jboolean enabled)
 {
   frm()->GetTransitManager().EnableTransitSchemeMode(static_cast<bool>(enabled));
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeIsTransitSchemeEnabled(JNIEnv * env, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsTransitSchemeEnabled(JNIEnv * env, jclass)
 {
   return static_cast<jboolean>(frm()->LoadTransitSchemeEnabled());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetIsolinesLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetIsolinesLayerEnabled(JNIEnv * env, jclass,
+                                                                                        jboolean enabled)
 {
   auto const isolinesEnabled = static_cast<bool>(enabled);
   frm()->GetIsolinesManager().SetEnabled(isolinesEnabled);
   frm()->SaveIsolinesEnabled(isolinesEnabled);
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jclass)
 {
   return static_cast<jboolean>(frm()->LoadIsolinesEnabled());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetOutdoorsLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetOutdoorsLayerEnabled(JNIEnv * env, jclass,
+                                                                                        jboolean enabled)
 {
   frm()->SaveOutdoorsEnabled(enabled);
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeIsOutdoorsLayerEnabled(JNIEnv * env, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsOutdoorsLayerEnabled(JNIEnv * env, jclass)
 {
   return static_cast<jboolean>(frm()->LoadOutdoorsEnabled());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSaveSettingSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSaveSettingSchemeEnabled(JNIEnv * env, jclass,
+                                                                                         jboolean enabled)
 {
   frm()->SaveTransitSchemeEnabled(static_cast<bool>(enabled));
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetAutoZoomEnabled(JNIEnv *, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeGetAutoZoomEnabled(JNIEnv *, jclass)
 {
   return frm()->LoadAutoZoom();
 }
 
 // static void nativeZoomToPoint(double lat, double lon, int zoom, boolean animate);
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeZoomToPoint(JNIEnv * env, jclass, jdouble lat, jdouble lon, jint zoom, jboolean animate)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeZoomToPoint(JNIEnv * env, jclass, jdouble lat,
+                                                                            jdouble lon, jint zoom, jboolean animate)
 {
   g_framework->Scale(m2::PointD(mercator::FromLatLon(lat, lon)), zoom, animate);
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_sdk_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass)
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * env, jclass)
 {
   if (!frm()->HasPlacePageInfo())
     return nullptr;
@@ -1638,8 +1578,7 @@ Java_app_organicmaps_sdk_Framework_nativeDeleteBookmarkFromMapObject(JNIEnv * en
   return usermark_helper::CreateMapObject(env, g_framework->GetPlacePageInfo());
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetPoiContactUrl(JNIEnv *env, jclass, jint id)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetPoiContactUrl(JNIEnv * env, jclass, jint id)
 {
   auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
   string_view const value = g_framework->GetPlacePageInfo().GetMetadata(metaID);
@@ -1648,15 +1587,13 @@ Java_app_organicmaps_sdk_Framework_nativeGetPoiContactUrl(JNIEnv *env, jclass, j
   return jni::ToJavaString(env, value);
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeIsDownloadedMapAtScreenCenter(JNIEnv *, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsDownloadedMapAtScreenCenter(JNIEnv *, jclass)
 {
   ::Framework * fr = frm();
   return storage::IsPointCoveredByDownloadedMaps(fr->GetViewportCenter(), fr->GetStorage(), fr->GetCountryInfoGetter());
 }
 
-JNIEXPORT jstring JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv * env, jclass)
+JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv * env, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   if (!frm->HasPlacePageInfo())
@@ -1665,76 +1602,65 @@ Java_app_organicmaps_sdk_Framework_nativeGetActiveObjectFormattedCuisine(JNIEnv 
   return jni::ToJavaString(env, g_framework->GetPlacePageInfo().FormatCuisines());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, jint left, jint top, jint right, jint bottom)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetVisibleRect(JNIEnv * env, jclass, jint left,
+                                                                               jint top, jint right, jint bottom)
 {
   frm()->SetVisibleViewport(m2::RectD(left, top, right, bottom));
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeIsRouteFinished(JNIEnv * env, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsRouteFinished(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().IsRouteFinished();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeRunFirstLaunchAnimation(JNIEnv * env, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeRunFirstLaunchAnimation(JNIEnv * env, jclass)
 {
   frm()->RunFirstLaunchAnimation();
 }
 
-JNIEXPORT jint JNICALL
-Java_app_organicmaps_sdk_Framework_nativeOpenRoutePointsTransaction(JNIEnv * env, jclass)
+JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Framework_nativeOpenRoutePointsTransaction(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().OpenRoutePointsTransaction();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeApplyRoutePointsTransaction(JNIEnv * env, jclass,
-                                                                     jint transactionId)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeApplyRoutePointsTransaction(JNIEnv * env, jclass,
+                                                                                            jint transactionId)
 {
   frm()->GetRoutingManager().ApplyRoutePointsTransaction(transactionId);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeCancelRoutePointsTransaction(JNIEnv * env, jclass,
-                                                                      jint transactionId)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeCancelRoutePointsTransaction(JNIEnv * env, jclass,
+                                                                                             jint transactionId)
 {
   frm()->GetRoutingManager().CancelRoutePointsTransaction(transactionId);
 }
 
-JNIEXPORT jint JNICALL
-Java_app_organicmaps_sdk_Framework_nativeInvalidRoutePointsTransactionId(JNIEnv * env, jclass)
+JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Framework_nativeInvalidRoutePointsTransactionId(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().InvalidRoutePointsTransactionId();
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeHasSavedRoutePoints(JNIEnv *, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeHasSavedRoutePoints(JNIEnv *, jclass)
 {
   return frm()->GetRoutingManager().HasSavedRoutePoints();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeLoadRoutePoints(JNIEnv *, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeLoadRoutePoints(JNIEnv *, jclass)
 {
   frm()->GetRoutingManager().LoadRoutePoints(g_loadRouteHandler);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSaveRoutePoints(JNIEnv *, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSaveRoutePoints(JNIEnv *, jclass)
 {
   frm()->GetRoutingManager().SaveRoutePoints();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeDeleteSavedRoutePoints(JNIEnv *, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeDeleteSavedRoutePoints(JNIEnv *, jclass)
 {
   frm()->GetRoutingManager().DeleteSavedRoutePoints();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeShowFeature(JNIEnv * env, jclass, jobject featureId)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeShowFeature(JNIEnv * env, jclass, jobject featureId)
 {
   auto const f = g_framework->BuildFeatureId(env, featureId);
 
@@ -1742,133 +1668,100 @@ Java_app_organicmaps_sdk_Framework_nativeShowFeature(JNIEnv * env, jclass, jobje
     frm()->ShowFeature(f);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeMakeCrash(JNIEnv *env, jclass type)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeMakeCrash(JNIEnv * env, jclass type)
 {
   CHECK(false, ("Diagnostic native crash!"));
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetPowerManagerFacility(JNIEnv *, jclass,
-                                                                 jint facilityType, jboolean state)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetPowerManagerFacility(JNIEnv *, jclass,
+                                                                                        jint facilityType,
+                                                                                        jboolean state)
 {
-  frm()->GetPowerManager().SetFacility(static_cast<power_management::Facility>(facilityType),
-                                       static_cast<bool>(state));
+  frm()->GetPowerManager().SetFacility(static_cast<power_management::Facility>(facilityType), static_cast<bool>(state));
 }
 
-JNIEXPORT jint JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetPowerManagerScheme(JNIEnv *, jclass)
+JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_Framework_nativeGetPowerManagerScheme(JNIEnv *, jclass)
 {
   return static_cast<jint>(frm()->GetPowerManager().GetScheme());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetPowerManagerScheme(JNIEnv *, jclass, jint schemeType)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetPowerManagerScheme(JNIEnv *, jclass, jint schemeType)
 {
   frm()->GetPowerManager().SetScheme(static_cast<power_management::Scheme>(schemeType));
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetViewportCenter(JNIEnv *, jclass, jdouble lat, jdouble lon, jint zoom)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetViewportCenter(JNIEnv *, jclass, jdouble lat,
+                                                                                  jdouble lon, jint zoom)
 {
   // isAnim = true because of previous nativeSetChoosePositionMode animations.
   frm()->SetViewportCenter(mercator::FromLatLon(lat, lon), static_cast<int>(zoom), true /* isAnim */);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeStopLocationFollow(JNIEnv *, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeStopLocationFollow(JNIEnv *, jclass)
 {
   frm()->StopLocationFollow();
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeSetSearchViewport(JNIEnv *, jclass, jdouble lat,
-                                                           jdouble lon, jint zoom)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetSearchViewport(JNIEnv *, jclass, jdouble lat,
+                                                                                  jdouble lon, jint zoom)
 {
-  auto const center = mercator::FromLatLon(static_cast<double>(lat),
-                                           static_cast<double>(lon));
+  auto const center = mercator::FromLatLon(static_cast<double>(lat), static_cast<double>(lon));
   auto const rect = df::GetRectForDrawScale(static_cast<int>(zoom), center);
   frm()->GetSearchAPI().OnViewportChanged(rect);
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeHasPlacePageInfo(JNIEnv *, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeHasPlacePageInfo(JNIEnv *, jclass)
 {
   return static_cast<jboolean>(frm()->HasPlacePageInfo());
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeMemoryWarning(JNIEnv *, jclass)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeMemoryWarning(JNIEnv *, jclass)
 {
   return frm()->MemoryWarning();
 }
 
-JNIEXPORT jboolean JNICALL
-Java_app_organicmaps_sdk_Framework_nativeShouldShowProducts(JNIEnv * env, jclass)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeShouldShowProducts(JNIEnv * env, jclass)
 {
   return frm()->ShouldShowProducts();
 }
 
-JNIEXPORT jobject JNICALL
-Java_app_organicmaps_sdk_Framework_nativeGetProductsConfiguration(JNIEnv * env, jclass)
+JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_Framework_nativeGetProductsConfiguration(JNIEnv * env, jclass)
 {
   auto config = frm()->GetProductsConfiguration();
-  if (!config) return nullptr;
+  if (!config)
+    return nullptr;
 
-  static jclass const productClass = jni::GetGlobalClassRef(
-    env,
-    "app/organicmaps/sdk/products/Product"
-  );
-  static jmethodID const productConstructor = jni::GetConstructorID(
-    env,
-    productClass,
-    "(Ljava/lang/String;Ljava/lang/String;)V"
-  );
+  static jclass const productClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/products/Product");
+  static jmethodID const productConstructor =
+      jni::GetConstructorID(env, productClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 
-  jobjectArray products = jni::ToJavaArray(
-    env,
-    productClass,
-    config->GetProducts(),
-    [](JNIEnv * env, products::ProductsConfig::Product const & product)
-    {
-      jni::TScopedLocalRef const title(env, jni::ToJavaString(env, product.GetTitle()));
-      jni::TScopedLocalRef const link(env, jni::ToJavaString(env, product.GetLink()));
+  jobjectArray products = jni::ToJavaArray(env, productClass, config->GetProducts(),
+                                           [](JNIEnv * env, products::ProductsConfig::Product const & product)
+  {
+    jni::TScopedLocalRef const title(env, jni::ToJavaString(env, product.GetTitle()));
+    jni::TScopedLocalRef const link(env, jni::ToJavaString(env, product.GetLink()));
 
-      return env->NewObject(
-        productClass,
-        productConstructor,
-        title.get(),
-        link.get()
-      );
-    });
+    return env->NewObject(productClass, productConstructor, title.get(), link.get());
+  });
 
-  static jclass const productsConfigClass = jni::GetGlobalClassRef(
-    env,
-    "app/organicmaps/sdk/products/ProductsConfig"
-  );
-  static jmethodID const productsConfigConstructor = jni::GetConstructorID(
-    env,
-    productsConfigClass,
-    "(Ljava/lang/String;[Lapp/organicmaps/sdk/products/Product;)V"
-  );
+  static jclass const productsConfigClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/products/ProductsConfig");
+  static jmethodID const productsConfigConstructor =
+      jni::GetConstructorID(env, productsConfigClass, "(Ljava/lang/String;[Lapp/organicmaps/sdk/products/Product;)V");
 
   jni::TScopedLocalRef const placePagePrompt(env, jni::ToJavaString(env, config->GetPlacePagePrompt()));
   return env->NewObject(productsConfigClass, productsConfigConstructor, placePagePrompt.get(), products);
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeDidCloseProductsPopup(JNIEnv * env, jclass, jstring reason)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeDidCloseProductsPopup(JNIEnv * env, jclass,
+                                                                                      jstring reason)
 {
   frm()->DidCloseProductsPopup(frm()->FromString(jni::ToNativeString(env, reason)));
 }
 
-JNIEXPORT void JNICALL
-Java_app_organicmaps_sdk_Framework_nativeDidSelectProduct(JNIEnv * env, jclass, jstring title, jstring link)
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeDidSelectProduct(JNIEnv * env, jclass, jstring title,
+                                                                                 jstring link)
 {
-  products::ProductsConfig::Product product(
-    jni::ToNativeString(env, title),
-    jni::ToNativeString(env, link)
-  );
+  products::ProductsConfig::Product product(jni::ToNativeString(env, title), jni::ToNativeString(env, link));
 
   frm()->DidSelectProduct(product);
 }

@@ -36,18 +36,17 @@ class MeshObject
   friend class vulkan::VulkanMeshObjectImpl;
 
 public:
-  enum class DrawPrimitive: uint8_t
+  enum class DrawPrimitive : uint8_t
   {
     Triangles,
     TriangleStrip,
     LineStrip
   };
 
-  MeshObject(ref_ptr<dp::GraphicsContext> context, DrawPrimitive drawPrimitive,
-             std::string const & debugName = "");
+  MeshObject(ref_ptr<dp::GraphicsContext> context, DrawPrimitive drawPrimitive, std::string const & debugName = "");
   virtual ~MeshObject();
 
-  template<typename T>
+  template <typename T>
   void SetBuffer(uint32_t bufferInd, std::vector<T> && vertices, uint32_t stride = 0)
   {
     CHECK_LESS_OR_EQUAL(bufferInd, GetNextBufferIndex(), ());
@@ -60,10 +59,10 @@ public:
     Reset();
   }
 
-  void SetAttribute(std::string const & attributeName, uint32_t bufferInd, uint32_t offset, 
-                    uint32_t componentsCount, glConst type = gl_const::GLFloatType);
+  void SetAttribute(std::string const & attributeName, uint32_t bufferInd, uint32_t offset, uint32_t componentsCount,
+                    glConst type = gl_const::GLFloatType);
 
-  template<typename T>
+  template <typename T>
   void UpdateBuffer(ref_ptr<dp::GraphicsContext> context, uint32_t bufferInd, std::vector<T> const & vertices)
   {
     CHECK(m_initialized, ());
@@ -81,9 +80,8 @@ public:
   void UpdateIndexBuffer(ref_ptr<dp::GraphicsContext> context, std::vector<uint16_t> const & indices);
 
   template <typename TParamsSetter, typename TParams>
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
-              dp::RenderState const & state, ref_ptr<TParamsSetter> paramsSetter,
-              TParams const & params)
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program, dp::RenderState const & state,
+              ref_ptr<TParamsSetter> paramsSetter, TParams const & params)
   {
     Bind(context, program);
 
@@ -96,9 +94,8 @@ public:
   }
 
   template <typename TParamsSetter, typename TParams>
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
-              dp::RenderState const & state, ref_ptr<TParamsSetter> paramsSetter,
-              TParams const & params, std::function<void()> && drawCallback)
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program, dp::RenderState const & state,
+              ref_ptr<TParamsSetter> paramsSetter, TParams const & params, std::function<void()> && drawCallback)
   {
     Bind(context, program);
 
@@ -110,7 +107,7 @@ public:
 
     Unbind(program);
   }
-  
+
   uint32_t GetNextBufferIndex() const { return static_cast<uint32_t>(m_buffers.size()); }
 
   bool IsInitialized() const { return m_initialized; }
@@ -118,10 +115,8 @@ public:
   void Reset();
 
   // Should be called inside draw callback in Render() method
-  void DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount,
-                             uint32_t startVertex);
-  void DrawPrimitivesSubsetIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, 
-                                   uint32_t startIndex);
+  void DrawPrimitivesSubset(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount, uint32_t startVertex);
+  void DrawPrimitivesSubsetIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, uint32_t startIndex);
 
   static std::vector<float> GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount);
 
@@ -130,7 +125,7 @@ private:
   {
     AttributeMapping() = default;
 
-    AttributeMapping(std::string const & attributeName, uint32_t offset, uint32_t componentsCount, 
+    AttributeMapping(std::string const & attributeName, uint32_t offset, uint32_t componentsCount,
                      glConst type = gl_const::GLFloatType)
       : m_attributeName(attributeName)
       , m_offset(offset)
@@ -144,7 +139,8 @@ private:
     glConst m_type = gl_const::GLFloatType;
   };
 
-  class VertexBufferBase {
+  class VertexBufferBase
+  {
   public:
     virtual ~VertexBufferBase() = default;
     virtual void * GetData() = 0;
@@ -155,7 +151,7 @@ private:
     std::vector<AttributeMapping> m_attributes;
   };
 
-  template<typename T>
+  template <typename T>
   class VertexBuffer : public VertexBufferBase
   {
   public:
@@ -171,8 +167,8 @@ private:
     void * GetData() override { return m_data.data(); }
     uint32_t GetSizeInBytes() const override { return static_cast<uint32_t>(m_data.size() * sizeof(T)); }
     uint32_t GetStrideInBytes() const override { return m_stride; }
-    
-  private:  
+
+  private:
     std::vector<T> m_data;
     uint32_t m_stride = 0;
   };
@@ -211,9 +207,8 @@ public:
   virtual void UpdateIndexBuffer(ref_ptr<dp::GraphicsContext> context) = 0;
   virtual void Bind(ref_ptr<dp::GpuProgram> program) = 0;
   virtual void Unbind() = 0;
-  virtual void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount,
-                              uint32_t startVertex) = 0;
-  virtual void DrawPrimitivesIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, 
+  virtual void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount, uint32_t startVertex) = 0;
+  virtual void DrawPrimitivesIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount,
                                      uint32_t startIndex) = 0;
 };
 }  // namespace dp

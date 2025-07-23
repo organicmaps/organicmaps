@@ -51,13 +51,11 @@ using namespace routing;
 using namespace turns;
 using platform::LocalCountryFile;
 
-std::shared_ptr<FeaturesFetcher> CreateFeaturesFetcher(
-    std::vector<LocalCountryFile> const & localFiles);
+std::shared_ptr<FeaturesFetcher> CreateFeaturesFetcher(std::vector<LocalCountryFile> const & localFiles);
 
 std::unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
 
-std::unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
-                                                 storage::CountryInfoGetter const & infoGetter,
+std::unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource, storage::CountryInfoGetter const & infoGetter,
                                                  traffic::TrafficCache const & trafficCache,
                                                  std::vector<LocalCountryFile> const & localFiles,
                                                  VehicleType vehicleType);
@@ -66,9 +64,9 @@ class IRouterComponents
 {
 public:
   IRouterComponents(std::vector<LocalCountryFile> const & localFiles)
-    : m_featuresFetcher(CreateFeaturesFetcher(localFiles)), m_infoGetter(CreateCountryInfoGetter())
-  {
-  }
+    : m_featuresFetcher(CreateFeaturesFetcher(localFiles))
+    , m_infoGetter(CreateCountryInfoGetter())
+  {}
 
   virtual ~IRouterComponents() = default;
 
@@ -86,10 +84,9 @@ class VehicleRouterComponents : public IRouterComponents
 public:
   VehicleRouterComponents(std::vector<LocalCountryFile> const & localFiles, VehicleType vehicleType)
     : IRouterComponents(localFiles)
-    , m_indexRouter(CreateVehicleRouter(m_featuresFetcher->GetDataSource(), *m_infoGetter,
-                                        m_trafficCache, localFiles, vehicleType))
-  {
-  }
+    , m_indexRouter(CreateVehicleRouter(m_featuresFetcher->GetDataSource(), *m_infoGetter, m_trafficCache, localFiles,
+                                        vehicleType))
+  {}
 
   IRouter & GetRouter() const override { return *m_indexRouter; }
 
@@ -100,23 +97,20 @@ private:
 
 void GetAllLocalFiles(std::vector<LocalCountryFile> & localFiles);
 void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                       std::vector<std::string> const & expected,
-                       IRouterComponents & routerComponents);
+                       std::vector<std::string> const & expected, IRouterComponents & routerComponents);
 void TestOnlineFetcher(ms::LatLon const & startPoint, ms::LatLon const & finalPoint,
-                       std::vector<std::string> const & expected,
-                       IRouterComponents & routerComponents);
+                       std::vector<std::string> const & expected, IRouterComponents & routerComponents);
 
-std::shared_ptr<VehicleRouterComponents>
-CreateAllMapsComponents(VehicleType vehicleType, std::set<std::string> const & skipMaps);
+std::shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType,
+                                                                 std::set<std::string> const & skipMaps);
 
 IRouterComponents & GetVehicleComponents(VehicleType vehicleType);
 
-TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
-                            m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint);
+TRouteResult CalculateRoute(IRouterComponents const & routerComponents, m2::PointD const & startPoint,
+                            m2::PointD const & startDirection, m2::PointD const & finalPoint);
 
-TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
-                            Checkpoints const & checkpoints, GuidesTracks && guides);
+TRouteResult CalculateRoute(IRouterComponents const & routerComponents, Checkpoints const & checkpoints,
+                            GuidesTracks && guides);
 
 void TestTurnCount(Route const & route, uint32_t expectedTurnCount);
 void TestTurns(Route const & route, std::vector<CarDirection> const & expectedTurns);
@@ -128,20 +122,15 @@ void TestTurns(Route const & route, std::vector<CarDirection> const & expectedTu
 /// && expectedRouteMeters + expectedRouteMeters * relativeError >= route->GetDistance()
 void TestRouteLength(Route const & route, double expectedRouteMeters, double relativeError = 0.01);
 void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError = 0.01);
-void TestRoutePointsNumber(Route const & route, size_t expectedPointsNumber,
-                           double relativeError = 0.1);
+void TestRoutePointsNumber(Route const & route, size_t expectedPointsNumber, double relativeError = 0.1);
 
-void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents,
-                                      m2::PointD const & startPoint,
-                                      m2::PointD const & startDirection,
-                                      m2::PointD const & finalPoint, double expectedRouteMeters,
-                                      double relativeError = 0.02);
+void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents, m2::PointD const & startPoint,
+                                      m2::PointD const & startDirection, m2::PointD const & finalPoint,
+                                      double expectedRouteMeters, double relativeError = 0.02);
 
-void CalculateRouteAndTestRouteTime(IRouterComponents const & routerComponents,
-                                    m2::PointD const & startPoint,
-                                    m2::PointD const & startDirection,
-                                    m2::PointD const & finalPoint, double expectedTimeSeconds,
-                                    double relativeError = 0.07);
+void CalculateRouteAndTestRouteTime(IRouterComponents const & routerComponents, m2::PointD const & startPoint,
+                                    m2::PointD const & startDirection, m2::PointD const & finalPoint,
+                                    double expectedTimeSeconds, double relativeError = 0.07);
 
 void CheckSubwayExistence(Route const & route);
 void CheckSubwayAbsent(Route const & route);
@@ -155,25 +144,21 @@ class TestTurn
   uint32_t const m_roundAboutExitNum;
   bool const m_isValid;
 
-  TestTurn()
-    : m_point({0.0, 0.0})
-    , m_direction(CarDirection::None)
-    , m_roundAboutExitNum(0)
-    , m_isValid(false)
-  {
-  }
+  TestTurn() : m_point({0.0, 0.0}), m_direction(CarDirection::None), m_roundAboutExitNum(0), m_isValid(false) {}
   TestTurn(m2::PointD const & pnt, CarDirection direction, uint32_t roundAboutExitNum)
-    : m_point(pnt), m_direction(direction), m_roundAboutExitNum(roundAboutExitNum), m_isValid(true)
-  {
-  }
+    : m_point(pnt)
+    , m_direction(direction)
+    , m_roundAboutExitNum(roundAboutExitNum)
+    , m_isValid(true)
+  {}
 
 public:
-  const TestTurn & TestValid() const;
-  const TestTurn & TestNotValid() const;
-  const TestTurn & TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters = 3.) const;
-  const TestTurn & TestDirection(CarDirection expectedDirection) const;
-  const TestTurn & TestOneOfDirections(std::set<CarDirection> const & expectedDirections) const;
-  const TestTurn & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;
+  TestTurn const & TestValid() const;
+  TestTurn const & TestNotValid() const;
+  TestTurn const & TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters = 3.) const;
+  TestTurn const & TestDirection(CarDirection expectedDirection) const;
+  TestTurn const & TestOneOfDirections(std::set<CarDirection> const & expectedDirections) const;
+  TestTurn const & TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const;
 };
 
 /// Extracting appropriate TestTurn if any. If not TestTurn::isValid() returns false.

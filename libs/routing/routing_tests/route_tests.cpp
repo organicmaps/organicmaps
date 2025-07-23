@@ -25,28 +25,34 @@ using namespace routing::turns;
 using namespace std;
 
 // For all test geometry: geometry[0] == geometry[1], since info about 1st point will be lost.
-static vector<m2::PointD> const kTestGeometry =
-    {{0,0}, {0,0}, {1,1}, {1,2}, {1,3}, {1,4}};
-static vector<Segment> const kTestSegments =
-    {{0, 0, 0, true},
-     {0, 0, 1, true},
-     {0, 0, 2, true},
-     {0, 0, 3, true},
-     {0, 0, 4, true}};
-static vector<turns::TurnItem> const kTestTurns(
-    {turns::TurnItem(1, turns::CarDirection::None),
-     turns::TurnItem(2, turns::CarDirection::TurnLeft),
-     turns::TurnItem(3, turns::CarDirection::TurnRight),
-     turns::TurnItem(4, turns::CarDirection::None),
-     turns::TurnItem(5, turns::CarDirection::ReachedYourDestination)});
-static vector<double> const kTestTimes =
-    {0.0, 7.0, 10.0, 19.0, 20.0};
-static vector<RouteSegment::RoadNameInfo> const kTestNames =
-    {{"Street0", "", "", "", "", false},
-     {"Street1", "", "", "", "", false},
-     {"Street2", "", "", "", "", false},
-     {"", "", "", "", "", false},
-     {"Street3", "", "", "", "", false}};
+static vector<m2::PointD> const kTestGeometry = {
+    {0, 0},
+    {0, 0},
+    {1, 1},
+    {1, 2},
+    {1, 3},
+    {1, 4}
+};
+static vector<Segment> const kTestSegments = {
+    {0, 0, 0, true},
+    {0, 0, 1, true},
+    {0, 0, 2, true},
+    {0, 0, 3, true},
+    {0, 0, 4, true}
+};
+static vector<turns::TurnItem> const kTestTurns({turns::TurnItem(1, turns::CarDirection::None),
+                                                 turns::TurnItem(2, turns::CarDirection::TurnLeft),
+                                                 turns::TurnItem(3, turns::CarDirection::TurnRight),
+                                                 turns::TurnItem(4, turns::CarDirection::None),
+                                                 turns::TurnItem(5, turns::CarDirection::ReachedYourDestination)});
+static vector<double> const kTestTimes = {0.0, 7.0, 10.0, 19.0, 20.0};
+static vector<RouteSegment::RoadNameInfo> const kTestNames = {
+    {"Street0", "", "", "", "", false},
+    {"Street1", "", "", "", "", false},
+    {"Street2", "", "", "", "", false},
+    {       "", "", "", "", "", false},
+    {"Street3", "", "", "", "", false}
+};
 
 void GetTestRouteSegments(vector<m2::PointD> const & routePoints, vector<turns::TurnItem> const & turns,
                           vector<RouteSegment::RoadNameInfo> const & streets, vector<double> const & times,
@@ -68,18 +74,20 @@ location::GpsInfo GetGps(double x, double y)
 vector<vector<Segment>> const GetSegments()
 {
   auto const segmentsAllReal = kTestSegments;
-  vector<Segment> const segmentsAllFake =
-      {{kFakeNumMwmId, 0, 0, true},
-       {kFakeNumMwmId, 0, 1, true},
-       {kFakeNumMwmId, 0, 2, true},
-       {kFakeNumMwmId, 0, 3, true},
-       {kFakeNumMwmId, 0, 4, true}};
-  vector<Segment> const segmentsFakeHeadAndTail =
-      {{kFakeNumMwmId, 0, 0, true},
-       {0, 0, 1, true},
-       {0, 0, 2, true},
-       {0, 0, 3, true},
-       {kFakeNumMwmId, 0, 4, true}};
+  vector<Segment> const segmentsAllFake = {
+      {kFakeNumMwmId, 0, 0, true},
+      {kFakeNumMwmId, 0, 1, true},
+      {kFakeNumMwmId, 0, 2, true},
+      {kFakeNumMwmId, 0, 3, true},
+      {kFakeNumMwmId, 0, 4, true}
+  };
+  vector<Segment> const segmentsFakeHeadAndTail = {
+      {kFakeNumMwmId, 0, 0, true},
+      {            0, 0, 1, true},
+      {            0, 0, 2, true},
+      {            0, 0, 3, true},
+      {kFakeNumMwmId, 0, 4, true}
+  };
   return {segmentsAllReal, segmentsFakeHeadAndTail, segmentsAllFake};
 }
 
@@ -99,8 +107,7 @@ UNIT_TEST(AddAbsentCountryToRouteTest)
 
 UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
 {
-  for (auto const vehicleType :
-       {VehicleType::Car, VehicleType::Bicycle, VehicleType::Pedestrian, VehicleType::Transit})
+  for (auto const vehicleType : {VehicleType::Car, VehicleType::Bicycle, VehicleType::Pedestrian, VehicleType::Transit})
   {
     auto const settings = GetRoutingSettings(vehicleType);
     for (auto const & segments : GetSegments())
@@ -116,8 +123,8 @@ UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
       route.SetGeometry(kTestGeometry.begin(), kTestGeometry.end());
       route.SetSubroteAttrs(vector<Route::SubrouteAttrs>(
           {Route::SubrouteAttrs(geometry::PointWithAltitude(kTestGeometry.front(), geometry::kDefaultAltitudeMeters),
-                                geometry::PointWithAltitude(kTestGeometry.back(), geometry::kDefaultAltitudeMeters),
-                                0, kTestSegments.size())}));
+                                geometry::PointWithAltitude(kTestGeometry.back(), geometry::kDefaultAltitudeMeters), 0,
+                                kTestSegments.size())}));
 
       // The route should be finished at some distance to the finish point.
       double const distToFinish = settings.m_finishToleranceM;
@@ -163,7 +170,7 @@ UNIT_TEST(DistanceAndTimeToCurrentTurnTest)
     auto pos = kTestGeometry[0];
 
     route.GetNearestTurn(distance, turn);
-    size_t currentTurnIndex = 2; // Turn with m_index == 1 is None.
+    size_t currentTurnIndex = 2;  // Turn with m_index == 1 is None.
     TEST_ALMOST_EQUAL_ABS(distance, mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1, ());
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
@@ -217,7 +224,7 @@ UNIT_TEST(DistanceAndTimeToCurrentTurnTest)
     route.MoveIterator(GetGps(pos.x, pos.y));
 
     route.GetNearestTurn(distance, turn);
-    size_t const currentTurnIndex = 5; // Turn with m_index == 4 is None.
+    size_t const currentTurnIndex = 5;  // Turn with m_index == 4 is None.
     TEST_ALMOST_EQUAL_ABS(distance, mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]), 0.1, ());
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
@@ -244,7 +251,7 @@ UNIT_TEST(NextTurnTest)
 
   {
     // Initial point.
-    size_t const currentTurnIndex = 2; // Turn with m_index == 1 is None.
+    size_t const currentTurnIndex = 2;  // Turn with m_index == 1 is None.
     route.GetNearestTurn(distance, turn);
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
@@ -270,7 +277,7 @@ UNIT_TEST(NextTurnTest)
     auto const pos = (kTestGeometry[3] + kTestGeometry[4]) / 2;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
-    size_t const currentTurnIndex = 5; // Turn with m_index == 4 is None.
+    size_t const currentTurnIndex = 5;  // Turn with m_index == 4 is None.
     route.GetNearestTurn(distance, turn);
     TEST_EQUAL(turn, kTestTurns[currentTurnIndex - 1], ());
 
@@ -295,17 +302,17 @@ UNIT_TEST(NextTurnsTest)
     // Initial point.
     auto const pos = kTestGeometry[0];
 
-    size_t const currentTurnIndex = 2; // Turn with m_index == 1 is None.
+    size_t const currentTurnIndex = 2;  // Turn with m_index == 1 is None.
     size_t const nextTurnIndex = 3;
     TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 2, ());
     double const firstSegLenM = mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]);
-    double const secondSegLenM = mercator::DistanceOnEarth(kTestGeometry[currentTurnIndex], kTestGeometry[nextTurnIndex]);
+    double const secondSegLenM =
+        mercator::DistanceOnEarth(kTestGeometry[currentTurnIndex], kTestGeometry[nextTurnIndex]);
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[currentTurnIndex - 1], ());
     TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[nextTurnIndex - 1], ());
     TEST_ALMOST_EQUAL_ABS(turnsDist[0].m_distMeters, firstSegLenM, 0.1, ());
     TEST_ALMOST_EQUAL_ABS(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1, ());
-
   }
   {
     // Move between points 1 and 2.
@@ -317,7 +324,8 @@ UNIT_TEST(NextTurnsTest)
     TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 2, ());
     double const firstSegLenM = mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]);
-    double const secondSegLenM = mercator::DistanceOnEarth(kTestGeometry[currentTurnIndex], kTestGeometry[nextTurnIndex]);
+    double const secondSegLenM =
+        mercator::DistanceOnEarth(kTestGeometry[currentTurnIndex], kTestGeometry[nextTurnIndex]);
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[currentTurnIndex - 1], ());
     TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[nextTurnIndex - 1], ());
     TEST_ALMOST_EQUAL_ABS(turnsDist[0].m_distMeters, firstSegLenM, 0.1, ());
@@ -329,11 +337,12 @@ UNIT_TEST(NextTurnsTest)
     route.MoveIterator(GetGps(pos.x, pos.y));
 
     size_t const currentTurnIndex = 3;
-    size_t const nextTurnIndex = 5; // Turn with m_index == 4 is None.
+    size_t const nextTurnIndex = 5;  // Turn with m_index == 4 is None.
     TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 2, ());
     double const firstSegLenM = mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]);
-    double const secondSegLenM = mercator::DistanceOnEarth(kTestGeometry[currentTurnIndex], kTestGeometry[nextTurnIndex]);
+    double const secondSegLenM =
+        mercator::DistanceOnEarth(kTestGeometry[currentTurnIndex], kTestGeometry[nextTurnIndex]);
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[currentTurnIndex - 1], ());
     TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[nextTurnIndex - 1], ());
     TEST_ALMOST_EQUAL_ABS(turnsDist[0].m_distMeters, firstSegLenM, 0.1, ());
@@ -344,7 +353,7 @@ UNIT_TEST(NextTurnsTest)
     auto const pos = (kTestGeometry[3] + kTestGeometry[4]) / 2;
     route.MoveIterator(GetGps(pos.x, pos.y));
 
-    size_t const currentTurnIndex = 5; // Turn with m_index == 4 is None.
+    size_t const currentTurnIndex = 5;  // Turn with m_index == 4 is None.
     // nextTurn is absent.
     TEST(route.GetNextTurns(turnsDist), ());
     double const firstSegLenM = mercator::DistanceOnEarth(pos, kTestGeometry[currentTurnIndex]);
@@ -366,13 +375,14 @@ UNIT_TEST(NextTurnsTest)
 //
 UNIT_TEST(SelfIntersectedRouteMatchingTest)
 {
-  vector<m2::PointD> const kRouteGeometry =
-      {{0.0001, 0.0},
-       {0.0001, 0.0},
-       {0.0001, 0.0002},
-       {0.0002, 0.0002},
-       {0.0002, 0.0001},
-       {0.0, 0.0001}};
+  vector<m2::PointD> const kRouteGeometry = {
+      {0.0001,    0.0},
+      {0.0001,    0.0},
+      {0.0001, 0.0002},
+      {0.0002, 0.0002},
+      {0.0002, 0.0001},
+      {   0.0, 0.0001}
+  };
   double constexpr kRoundingErrorMeters = 0.001;
 
   Route route("TestRouter", 0 /* route id */);
@@ -382,16 +392,15 @@ UNIT_TEST(SelfIntersectedRouteMatchingTest)
   GetTestRouteSegments(kRouteGeometry, {}, {}, {}, routeSegments);
   route.SetRouteSegments(std::move(routeSegments));
 
-  auto const testMachedPos = [&](location::GpsInfo const & pos,
-                                 location::GpsInfo const & expectedMatchingPos,
-                                 size_t expectedIndexInRoute) {
+  auto const testMachedPos =
+      [&](location::GpsInfo const & pos, location::GpsInfo const & expectedMatchingPos, size_t expectedIndexInRoute)
+  {
     location::RouteMatchingInfo routeMatchingInfo;
     route.MoveIterator(pos);
     location::GpsInfo matchedPos = pos;
     route.MatchLocationToRoute(matchedPos, routeMatchingInfo);
-    TEST_LESS(mercator::DistanceOnEarth(
-                  m2::PointD(matchedPos.m_latitude, matchedPos.m_longitude),
-                  m2::PointD(expectedMatchingPos.m_latitude, expectedMatchingPos.m_longitude)),
+    TEST_LESS(mercator::DistanceOnEarth(m2::PointD(matchedPos.m_latitude, matchedPos.m_longitude),
+                                        m2::PointD(expectedMatchingPos.m_latitude, expectedMatchingPos.m_longitude)),
               kRoundingErrorMeters, ());
     TEST_EQUAL(max(size_t(1), routeMatchingInfo.GetIndexInRoute()), expectedIndexInRoute, ());
   };

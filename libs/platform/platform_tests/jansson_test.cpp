@@ -6,10 +6,11 @@ UNIT_TEST(Jansson_Smoke)
 {
   char * savedLocale = setlocale(LC_NUMERIC, "C");
 
-//  char const * str = "{\"location\":{\"latitude\":47.383333,\"longitude\":8.533333,"
-//      "\"accuracy\":18000.0},\"access_token\":\"2:6aOjM2IAoPMaweWN:txhu5LpkRkLVb3u3\"}";
+  //  char const * str = "{\"location\":{\"latitude\":47.383333,\"longitude\":8.533333,"
+  //      "\"accuracy\":18000.0},\"access_token\":\"2:6aOjM2IAoPMaweWN:txhu5LpkRkLVb3u3\"}";
 
-  char const * str = "{\"location\":{\"latitude\":47.3345141,\"longitude\":8.5312839,"
+  char const * str =
+      "{\"location\":{\"latitude\":47.3345141,\"longitude\":8.5312839,"
       "\"accuracy\":22.0},\"access_token\":\"2:vC65Xv0mxMtsNVf4:hY5YSIkuFfnAU77z\"}";
 
   base::Json root(str);

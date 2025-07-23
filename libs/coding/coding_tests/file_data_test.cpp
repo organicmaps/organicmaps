@@ -12,33 +12,33 @@
 
 namespace file_data_test
 {
-  std::string const name1 = "test1.file";
-  std::string const name2 = "test2.file";
+std::string const name1 = "test1.file";
+std::string const name2 = "test2.file";
 
-  void MakeFile(std::string const & name)
-  {
-    base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
-    f.Write(name.c_str(), name.size());
-  }
+void MakeFile(std::string const & name)
+{
+  base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
+  f.Write(name.c_str(), name.size());
+}
 
-  void MakeFile(std::string const & name, size_t const size, const char c)
-  {
-    base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
-    f.Write(std::string(size, c).c_str(), size);
-  }
+void MakeFile(std::string const & name, size_t const size, char const c)
+{
+  base::FileData f(name, base::FileData::Op::WRITE_TRUNCATE);
+  f.Write(std::string(size, c).c_str(), size);
+}
 
 #ifdef OMIM_OS_WINDOWS
-  void CheckFileOK(std::string const & name)
-  {
-    base::FileData f(name, base::FileData::Op::READ);
+void CheckFileOK(std::string const & name)
+{
+  base::FileData f(name, base::FileData::Op::READ);
 
-    uint64_t const size = f.Size();
-    TEST_EQUAL ( size, name.size(), () );
+  uint64_t const size = f.Size();
+  TEST_EQUAL(size, name.size(), ());
 
-    std::vector<char> buffer(size);
-    f.Read(0, &buffer[0], size);
-    TEST ( equal(name.begin(), name.end(), buffer.begin()), () );
-  }
+  std::vector<char> buffer(size);
+  f.Read(0, &buffer[0], size);
+  TEST(equal(name.begin(), name.end(), buffer.begin()), ());
+}
 #endif
 
 UNIT_TEST(FileData_ApiSmoke)
@@ -205,7 +205,7 @@ UNIT_TEST(EmptyFile)
 
   // Do copy.
   TEST(CopyFileX(name, copy), ());
-  //TEST(!RenameFileX(name, copy), ());
+  // TEST(!RenameFileX(name, copy), ());
 
   // Delete copy file and rename name -> copy.
   TEST(DeleteFileX(copy), ());
@@ -226,7 +226,7 @@ UNIT_TEST(File_StdGetLine)
 {
   std::string const fName = "test.txt";
 
-  for (char const * buffer : { "x\nxy\nxyz\nxyzk", "x\nxy\nxyz\nxyzk\n" })
+  for (char const * buffer : {"x\nxy\nxyz\nxyzk", "x\nxy\nxyz\nxyzk\n"})
   {
     {
       base::FileData f(fName, base::FileData::Op::WRITE_TRUNCATE);
@@ -250,4 +250,4 @@ UNIT_TEST(File_StdGetLine)
   }
 }
 
-} // namespace file_data_test
+}  // namespace file_data_test

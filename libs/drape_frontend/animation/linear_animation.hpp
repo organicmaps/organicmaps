@@ -8,8 +8,7 @@ namespace df
 class MapLinearAnimation : public Animation
 {
 public:
-  MapLinearAnimation(m2::PointD const & startPos, m2::PointD const & endPos,
-                     double startAngle, double endAngle,
+  MapLinearAnimation(m2::PointD const & startPos, m2::PointD const & endPos, double startAngle, double endAngle,
                      double startScale, double endScale, ScreenBase const & convertor);
   MapLinearAnimation();
 
@@ -22,15 +21,9 @@ public:
 
   Animation::Type GetType() const override { return Animation::Type::MapLinear; }
 
-  TAnimObjects const & GetObjects() const override
-  {
-     return m_objects;
-  }
+  TAnimObjects const & GetObjects() const override { return m_objects; }
 
-  bool HasObject(Object object) const override
-  {
-    return object == Animation::Object::MapPlane;
-  }
+  bool HasObject(Object object) const override { return object == Animation::Object::MapPlane; }
 
   TObjectProperties const & GetProperties(Object object) const override;
   bool HasProperty(Object object, ObjectProperty property) const override;

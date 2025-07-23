@@ -2,7 +2,7 @@
 
 @interface MWMOpeningHoursAddClosedTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIButton * addClosedButton;
+@property(weak, nonatomic) IBOutlet UIButton * addClosedButton;
 
 @end
 

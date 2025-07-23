@@ -24,8 +24,7 @@
 class RoutingTest
 {
 public:
-  RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType type,
-              std::set<std::string> const & neededMaps);
+  RoutingTest(routing::IRoadGraph::Mode mode, routing::VehicleType type, std::set<std::string> const & neededMaps);
 
   virtual ~RoutingTest() = default;
 
@@ -93,5 +92,5 @@ private:
   std::shared_ptr<SimplifiedModel> const m_model;
 };
 
-void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
-                m2::PointD const & finalPos, routing::Route & route);
+void TestRouter(routing::IRouter & router, m2::PointD const & startPos, m2::PointD const & finalPos,
+                routing::Route & route);

@@ -4,8 +4,7 @@ namespace kml
 {
 namespace binary
 {
-SerializerKml::SerializerKml(FileData & data)
-  : m_data(data)
+SerializerKml::SerializerKml(FileData & data) : m_data(data)
 {
   ClearCollectionIndex();
 
@@ -29,8 +28,7 @@ void SerializerKml::ClearCollectionIndex()
   m_data.Visit(clearVisitor);
 }
 
-DeserializerKml::DeserializerKml(FileData & data)
-  : m_data(data)
+DeserializerKml::DeserializerKml(FileData & data) : m_data(data)
 {
   m_data = {};
 }

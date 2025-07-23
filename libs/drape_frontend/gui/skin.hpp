@@ -42,20 +42,11 @@ enum EGuiHandle
 
 struct Position
 {
-  Position()
-    : m_pixelPivot(m2::PointF::Zero())
-    , m_anchor(dp::Center)
-  {}
+  Position() : m_pixelPivot(m2::PointF::Zero()), m_anchor(dp::Center) {}
 
-  explicit Position(dp::Anchor anchor)
-    : m_pixelPivot(m2::PointF::Zero())
-    , m_anchor(anchor)
-  {}
+  explicit Position(dp::Anchor anchor) : m_pixelPivot(m2::PointF::Zero()), m_anchor(anchor) {}
 
-  Position(m2::PointF const & pt, dp::Anchor anchor)
-    : m_pixelPivot(pt)
-    , m_anchor(anchor)
-  {}
+  Position(m2::PointF const & pt, dp::Anchor anchor) : m_pixelPivot(pt), m_anchor(anchor) {}
 
   m2::PointF m_pixelPivot;
   dp::Anchor m_anchor;

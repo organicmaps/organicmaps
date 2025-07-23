@@ -75,10 +75,8 @@ void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
 {
   size_t numStopWords = 0;
   for (auto const & token : tokens)
-  {
     if (IsStopWord(token))
       ++numStopWords;
-  }
 
   if (numStopWords == tokens.size() && prefix.empty())
     return;
@@ -112,8 +110,8 @@ bool EatFid(string & s, uint32_t & fid)
   return false;
 }
 
-bool EatMwmName(base::MemTrie<storage::CountryId, base::VectorValues<bool>> const & countriesTrie,
-                string & s, storage::CountryId & mwmName)
+bool EatMwmName(base::MemTrie<storage::CountryId, base::VectorValues<bool>> const & countriesTrie, string & s,
+                storage::CountryId & mwmName)
 {
   TrimLeadingSpaces(s);
 
@@ -159,30 +157,26 @@ bool EatVersion(string & s, uint32_t & version)
 }  // namespace
 
 Processor::Processor(DataSource const & dataSource, CategoriesHolder const & categories,
-                     vector<Suggest> const & suggests,
-                     storage::CountryInfoGetter const & infoGetter)
+                     vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter)
   : m_categories(categories)
   , m_infoGetter(infoGetter)
   , m_dataSource(dataSource)
   , m_localitiesCaches(static_cast<base::Cancellable const &>(*this))
   , m_citiesBoundaries(m_dataSource)
   , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
-  , m_ranker(m_dataSource, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
-             suggests, m_localitiesCaches.m_villages, static_cast<base::Cancellable const &>(*this))
+  , m_ranker(m_dataSource, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories, suggests,
+             m_localitiesCaches.m_villages, static_cast<base::Cancellable const &>(*this))
   , m_preRanker(m_dataSource, m_ranker)
-  , m_geocoder(m_dataSource, infoGetter, categories, m_citiesBoundaries, m_preRanker,
-               m_localitiesCaches, static_cast<base::Cancellable const &>(*this))
+  , m_geocoder(m_dataSource, infoGetter, categories, m_citiesBoundaries, m_preRanker, m_localitiesCaches,
+               static_cast<base::Cancellable const &>(*this))
   , m_bookmarksProcessor(m_emitter, static_cast<base::Cancellable const &>(*this))
 {
   // Current and input langs are to be set later.
-  m_keywordsScorer.SetLanguages(
-      LanguageTier::LANGUAGE_TIER_EN_AND_INTERNATIONAL,
-      {StringUtf8Multilang::kInternationalCode, StringUtf8Multilang::kEnglishCode});
-  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_DEFAULT,
-                                {StringUtf8Multilang::kDefaultCode});
-  m_keywordsScorer.SetLanguages(
-      LanguageTier::LANGUAGE_TIER_ALT_AND_OLD,
-      {StringUtf8Multilang::kAltNameCode, StringUtf8Multilang::kOldNameCode});
+  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_EN_AND_INTERNATIONAL,
+                                {StringUtf8Multilang::kInternationalCode, StringUtf8Multilang::kEnglishCode});
+  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_DEFAULT, {StringUtf8Multilang::kDefaultCode});
+  m_keywordsScorer.SetLanguages(LanguageTier::LANGUAGE_TIER_ALT_AND_OLD,
+                                {StringUtf8Multilang::kAltNameCode, StringUtf8Multilang::kOldNameCode});
 
   for (auto const & country : m_infoGetter.GetCountries())
     m_countriesTrie.Add(country.m_countryId, true);
@@ -324,7 +318,10 @@ m2::RectD const & Processor::GetViewport() const
   return m_viewport;
 }
 
-void Processor::CacheWorldLocalities() { m_geocoder.CacheWorldLocalities(); }
+void Processor::CacheWorldLocalities()
+{
+  m_geocoder.CacheWorldLocalities();
+}
 
 void Processor::LoadCitiesBoundaries()
 {
@@ -334,7 +331,10 @@ void Processor::LoadCitiesBoundaries()
     LOG(LWARNING, ("Can't load cities boundaries"));
 }
 
-void Processor::LoadCountriesTree() { m_ranker.LoadCountriesTree(); }
+void Processor::LoadCountriesTree()
+{
+  m_ranker.LoadCountriesTree();
+}
 
 void Processor::EnableIndexingOfBookmarksDescriptions(bool enable)
 {
@@ -369,15 +369,13 @@ void Processor::OnBookmarksDeleted(vector<bookmarks::Id> const & marks)
     m_bookmarksProcessor.Erase(id);
 }
 
-void Processor::OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId,
-                                           vector<bookmarks::Id> const & marks)
+void Processor::OnBookmarksAttachedToGroup(bookmarks::GroupId const & groupId, vector<bookmarks::Id> const & marks)
 {
   for (auto const & id : marks)
     m_bookmarksProcessor.AttachToGroup(id, groupId);
 }
 
-void Processor::OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId,
-                                             vector<bookmarks::Id> const & marks)
+void Processor::OnBookmarksDetachedFromGroup(bookmarks::GroupId const & groupId, vector<bookmarks::Id> const & marks)
 {
   for (auto const & id : marks)
     m_bookmarksProcessor.DetachFromGroup(id, groupId);
@@ -454,9 +452,7 @@ void Processor::SearchByFeatureId()
     string s = query;
     bool const parenPref = strings::EatPrefix(s, "(");
     bool const parenSuff = strings::EatSuffix(s, ")");
-    if (parenPref == parenSuff &&
-        EatMwmName(m_countriesTrie, s, mwmName) &&
-        strings::EatPrefix(s, ",") &&
+    if (parenPref == parenSuff && EatMwmName(m_countriesTrie, s, mwmName) && strings::EatPrefix(s, ",") &&
         EatFid(s, fid))
     {
       EmitResultsFromMwms(infos, [&putFeature, &mwmName, fid](FeaturesLoaderGuard & guard, auto const & fn)
@@ -470,13 +466,8 @@ void Processor::SearchByFeatureId()
   // Case 2.
   {
     string s = query;
-    if (strings::EatPrefix(s, "{ MwmId [") &&
-        EatMwmName(m_countriesTrie, s, mwmName) &&
-        strings::EatPrefix(s, ", ") &&
-        EatVersion(s, version) &&
-        strings::EatPrefix(s, "], ") &&
-        EatFid(s, fid) &&
-        strings::EatPrefix(s, " }"))
+    if (strings::EatPrefix(s, "{ MwmId [") && EatMwmName(m_countriesTrie, s, mwmName) && strings::EatPrefix(s, ", ") &&
+        EatVersion(s, version) && strings::EatPrefix(s, "], ") && EatFid(s, fid) && strings::EatPrefix(s, " }"))
     {
       EmitResultsFromMwms(infos, [&putFeature, &mwmName, version, fid](FeaturesLoaderGuard & guard, auto const & fn)
       {
@@ -495,10 +486,8 @@ void Processor::EmitWithMetadata(feature::Metadata::EType type)
   std::sort(infos.begin(), infos.end());
 
   std::vector<FeatureID> ids;
-  m_dataSource.ForEachFeatureIDInRect([&ids](FeatureID id)
-  {
-    ids.push_back(std::move(id));
-  }, m_viewport, scales::GetUpperScale());
+  m_dataSource.ForEachFeatureIDInRect([&ids](FeatureID id) { ids.push_back(std::move(id)); }, m_viewport,
+                                      scales::GetUpperScale());
 
   // The same, first criteria is less<MwmId> -> less<MwmInfo*>
   std::sort(ids.begin(), ids.end());
@@ -713,8 +702,8 @@ bool Processor::SearchCoordinates()
   base::SortUnique(results);
   for (auto const & r : results)
   {
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-        RankerResult(r.m_lat, r.m_lon), true /* needAddress */, true /* needHighlighting */));
+    m_emitter.AddResultNoChecks(
+        m_ranker.MakeResult(RankerResult(r.m_lat, r.m_lon), true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
   }
   return coords_found;
@@ -729,9 +718,8 @@ void Processor::SearchPlusCode()
   if (openlocationcode::IsFull(query))
   {
     openlocationcode::CodeArea const area = openlocationcode::Decode(query);
-    m_emitter.AddResultNoChecks(
-            m_ranker.MakeResult(RankerResult(area.GetCenter().latitude, area.GetCenter().longitude),
-                                true /* needAddress */, false /* needHighlighting */));
+    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(area.GetCenter().latitude, area.GetCenter().longitude),
+                                                    true /* needAddress */, false /* needHighlighting */));
   }
   else if (openlocationcode::IsShort(query))
   {
@@ -744,8 +732,8 @@ void Processor::SearchPlusCode()
       openlocationcode::CodeArea const areaFromPos = openlocationcode::Decode(codeFromPos);
 
       m_emitter.AddResultNoChecks(
-              m_ranker.MakeResult(RankerResult(areaFromPos.GetCenter().latitude, areaFromPos.GetCenter().longitude),
-                                  true /* needAddress */, false /* needHighlighting */));
+          m_ranker.MakeResult(RankerResult(areaFromPos.GetCenter().latitude, areaFromPos.GetCenter().longitude),
+                              true /* needAddress */, false /* needHighlighting */));
     }
 
     ms::LatLon const latLonFromView = mercator::ToLatLon(m_viewport.Center());
@@ -756,7 +744,7 @@ void Processor::SearchPlusCode()
       openlocationcode::CodeArea const areaFromView = openlocationcode::Decode(codeFromView);
 
       m_emitter.AddResultNoChecks(
-              m_ranker.MakeResult(RankerResult(areaFromView.GetCenter().latitude, areaFromView.GetCenter().longitude),
+          m_ranker.MakeResult(RankerResult(areaFromView.GetCenter().latitude, areaFromView.GetCenter().longitude),
                               true /* needAddress */, false /* needHighlighting */));
     }
   }
@@ -798,8 +786,8 @@ void Processor::SearchPostcode()
     for (auto const & p : points)
       r.Add(p);
 
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(
-        RankerResult(r.Center(), query), true /* needAddress */, true /* needHighlighting */));
+    m_emitter.AddResultNoChecks(
+        m_ranker.MakeResult(RankerResult(r.Center(), query), true /* needAddress */, true /* needHighlighting */));
     m_emitter.Emit();
 
     return;
@@ -859,10 +847,7 @@ void Processor::InitParams(QueryParams & params) const
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
     base::SortUnique(params.GetTypeIndices(i));
 
-  m_keywordsScorer.ForEachLanguage([&params](int8_t lang)
-  {
-    params.GetLangs().Insert(static_cast<uint64_t>(lang));
-  });
+  m_keywordsScorer.ForEachLanguage([&params](int8_t lang) { params.GetLangs().Insert(static_cast<uint64_t>(lang)); });
 }
 
 void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams const & searchParams)
@@ -884,8 +869,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   m_geocoder.SetParams(geocoderParams);
 }
 
-void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
-                              SearchParams const & searchParams)
+void Processor::InitPreRanker(Geocoder::Params const & geocoderParams, SearchParams const & searchParams)
 {
   bool const viewportSearch = searchParams.m_mode == Mode::Viewport;
 
@@ -912,7 +896,7 @@ class NotInPreffered : public ftypes::BaseChecker
 {
   NotInPreffered() : ftypes::BaseChecker(1)
   {
-    base::StringIL const types[] = { {"organic"}, {"internet_access"} };
+    base::StringIL const types[] = {{"organic"}, {"internet_access"}};
     auto const & c = classif();
     for (auto const & e : types)
       m_types.push_back(c.GetTypeByPath(e));
@@ -921,10 +905,9 @@ class NotInPreffered : public ftypes::BaseChecker
 public:
   DECLARE_CHECKER_INSTANCE(NotInPreffered);
 };
-} // namespace
+}  // namespace
 
-void Processor::InitRanker(Geocoder::Params const & geocoderParams,
-                           SearchParams const & searchParams)
+void Processor::InitRanker(Geocoder::Params const & geocoderParams, SearchParams const & searchParams)
 {
   bool const viewportSearch = searchParams.m_mode == Mode::Viewport;
 
@@ -990,9 +973,8 @@ void Processor::EmitResultsFromMwms(std::vector<std::shared_ptr<MwmInfo>> const 
 
   for (auto const & [_, country, ft] : results)
   {
-    m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(*ft, country),
-                                                    true /* needAddress */,
-                                                    true /* needHighlighting */));
+    m_emitter.AddResultNoChecks(
+        m_ranker.MakeResult(RankerResult(*ft, country), true /* needAddress */, true /* needHighlighting */));
   }
 
   m_emitter.Emit();

@@ -1,6 +1,6 @@
 #import "MWMMapDownloaderMode.h"
-#import "MWMViewController.h"
 #import "MWMMyPositionMode.h"
+#import "MWMViewController.h"
 
 @class MWMMapViewControlsManager;
 @class EAGLView;
@@ -16,9 +16,9 @@
 
 @interface MapViewController : MWMViewController
 
-+ (MapViewController *_Nullable)sharedController;
-- (void)addListener:(id<MWMLocationModeListener>_Nonnull)listener;
-- (void)removeListener:(id<MWMLocationModeListener>_Nonnull)listener;
++ (MapViewController * _Nullable)sharedController;
+- (void)addListener:(id<MWMLocationModeListener> _Nonnull)listener;
+- (void)removeListener:(id<MWMLocationModeListener> _Nonnull)listener;
 
 // called when app is terminated by system
 - (void)onTerminate;
@@ -28,14 +28,14 @@
 
 - (void)migrateOAuthCredentials;
 
-- (void)performAction:(NSString *_Nonnull)action;
+- (void)performAction:(NSString * _Nonnull)action;
 
 - (void)openMenu;
 - (void)openSettings;
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode;
 - (void)openEditor;
 - (void)openBookmarkEditor;
-- (void)openFullPlaceDescriptionWithHtml:(NSString *_Nonnull)htmlString;
+- (void)openFullPlaceDescriptionWithHtml:(NSString * _Nonnull)htmlString;
 - (void)openDrivingOptions;
 - (void)showTrackRecordingPlacePage;
 
@@ -59,9 +59,9 @@
 @property(strong, nonatomic) IBOutlet UIView * _Nonnull controlsView;
 @property(nonatomic) UIView * _Nonnull searchContainer;
 
-@property (weak, nonatomic) IBOutlet SideButtonsArea * sideButtonsArea;
-@property (weak, nonatomic) IBOutlet WidgetsArea * widgetsArea;
-@property (weak, nonatomic) IBOutlet TrafficButtonArea * trafficButtonArea;
-@property (weak, nonatomic) IBOutlet PlacePageArea * placePageArea;
+@property(weak, nonatomic) IBOutlet SideButtonsArea * sideButtonsArea;
+@property(weak, nonatomic) IBOutlet WidgetsArea * widgetsArea;
+@property(weak, nonatomic) IBOutlet TrafficButtonArea * trafficButtonArea;
+@property(weak, nonatomic) IBOutlet PlacePageArea * placePageArea;
 
 @end

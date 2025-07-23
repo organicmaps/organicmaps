@@ -1,10 +1,10 @@
 #pragma once
 
 #include "drape/graphics_context_factory.hpp"
-#include "drape/vulkan/vulkan_base_context.hpp"
-#include "drape/vulkan/vulkan_object_manager.hpp"
-#include "drape/vulkan/vulkan_layers.hpp"
 #include "drape/pointers.hpp"
+#include "drape/vulkan/vulkan_base_context.hpp"
+#include "drape/vulkan/vulkan_layers.hpp"
+#include "drape/vulkan/vulkan_object_manager.hpp"
 
 #include <vulkan/vulkan_android.h>
 

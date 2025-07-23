@@ -26,10 +26,7 @@ public:
 
   void InitClassificator();
 
-  void SetOnMapDeregisteredCallback(MapDeregisteredCallback const & callback)
-  {
-    m_onMapDeregistered = callback;
-  }
+  void SetOnMapDeregisteredCallback(MapDeregisteredCallback const & callback) { m_onMapDeregistered = callback; }
 
   // Registers a new map.
   std::pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(platform::LocalCountryFile const & localFile);

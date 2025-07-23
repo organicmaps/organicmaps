@@ -16,11 +16,10 @@ template <typename TKey, typename TKeyComparator>
 class BatchersPool final
 {
 public:
-  using TFlushFn = std::function<void (TKey const & key, dp::RenderState const & state,
-                                       drape_ptr<dp::RenderBucket> && buffer)>;
+  using TFlushFn =
+      std::function<void(TKey const & key, dp::RenderState const & state, drape_ptr<dp::RenderBucket> && buffer)>;
 
-  BatchersPool(int initBatchersCount, TFlushFn const & flushFn,
-               uint32_t indexBufferSize, uint32_t vertexBufferSize)
+  BatchersPool(int initBatchersCount, TFlushFn const & flushFn, uint32_t indexBufferSize, uint32_t vertexBufferSize)
     : m_flushFn(flushFn)
     , m_pool(initBatchersCount, dp::BatcherFactory(indexBufferSize, vertexBufferSize))
   {}
@@ -63,7 +62,7 @@ public:
     auto it = m_batchers.find(key);
     ASSERT(it != m_batchers.end(), ());
     ASSERT_GREATER(it->second.second, 0, ());
-    if ((--it->second.second)== 0)
+    if ((--it->second.second) == 0)
     {
       dp::Batcher * batcher = it->second.first;
       batcher->EndSession(context);

@@ -1,15 +1,15 @@
-#import "MapsAppDelegate.h"
-#import "MapViewController.h"
+#import "MWMTableViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMTableViewCell.h"
-#import "MWMTableViewController.h"
+#import "MapViewController.h"
+#import "MapsAppDelegate.h"
 #import "SwiftBridge.h"
 
 static CGFloat const kMaxEstimatedTableViewCellHeight = 100.0;
 
 @interface MWMTableViewController ()
 
-@property (nonatomic, readwrite) MWMAlertViewController * alertController;
+@property(nonatomic, readwrite) MWMAlertViewController * alertController;
 
 @end
 
@@ -30,22 +30,25 @@ static CGFloat const kMaxEstimatedTableViewCellHeight = 100.0;
   [self fixHeaderAndFooterFontsInDarkMode:view];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return UITableViewAutomaticDimension;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
   return kMaxEstimatedTableViewCellHeight;
 }
 
 // Fix table section header font color for all tables, including Setting and Route Options.
-- (void)fixHeaderAndFooterFontsInDarkMode:(UIView*)headerView {
-  if ([headerView isKindOfClass: [UITableViewHeaderFooterView class]]) {
-    UITableViewHeaderFooterView* header = (UITableViewHeaderFooterView *)headerView;
+- (void)fixHeaderAndFooterFontsInDarkMode:(UIView *)headerView
+{
+  if ([headerView isKindOfClass:[UITableViewHeaderFooterView class]])
+  {
+    UITableViewHeaderFooterView * header = (UITableViewHeaderFooterView *)headerView;
     header.textLabel.textColor = [UIColor blackSecondaryText];
-    if (self.tableView.style == UITableViewStyleGrouped) {
+    if (self.tableView.style == UITableViewStyleGrouped)
       header.detailTextLabel.textColor = [UIColor blackSecondaryText];
-    }
   }
 }
 
@@ -55,8 +58,7 @@ static CGFloat const kMaxEstimatedTableViewCellHeight = 100.0;
   self.tableView.insetsContentViewsToSafeArea = YES;
   self.tableView.styleName = @"TableView:PressBackground";
   [self.navigationController.navigationBar setTranslucent:NO];
-  [self.tableView registerClass:[MWMTableViewCell class]
-         forCellReuseIdentifier:[UITableViewCell className]];
+  [self.tableView registerClass:[MWMTableViewCell class] forCellReuseIdentifier:[UITableViewCell className]];
   [self.tableView registerClass:[MWMTableViewSubtitleCell class]
          forCellReuseIdentifier:[MWMTableViewSubtitleCell className]];
 }
@@ -79,7 +81,8 @@ static CGFloat const kMaxEstimatedTableViewCellHeight = 100.0;
 
 @implementation UITableView (MWMTableViewController)
 
-- (UITableViewCell *)dequeueDefaultCellForIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)dequeueDefaultCellForIndexPath:(NSIndexPath *)indexPath
+{
   return [self dequeueReusableCellWithIdentifier:UITableViewCell.className forIndexPath:indexPath];
 }
 

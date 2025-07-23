@@ -34,9 +34,9 @@ class Country
 public:
   Country() = default;
   explicit Country(CountryId const & name, CountryId const & parent = kInvalidCountryId)
-    : m_name(name), m_parent(parent)
-  {
-  }
+    : m_name(name)
+    , m_parent(parent)
+  {}
 
   void SetFile(platform::CountryFile && file) { m_file = std::move(file); }
   void SetSubtreeAttrs(MwmCounter subtreeMwmNumber, MwmSize subtreeMwmSizeBytes)

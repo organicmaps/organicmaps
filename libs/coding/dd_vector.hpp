@@ -23,10 +23,7 @@ public:
 
   DDVector() : m_Size(0) {}
 
-  explicit DDVector(TReader const & reader) : m_reader(reader)
-  {
-    InitSize();
-  }
+  explicit DDVector(TReader const & reader) : m_reader(reader) { InitSize(); }
 
   void Init(TReader const & reader)
   {
@@ -34,35 +31,29 @@ public:
     InitSize();
   }
 
-  size_type size() const
-  {
-    return m_Size;
-  }
+  size_type size() const { return m_Size; }
 
-  T const operator [] (size_type i) const
+  T const operator[](size_type i) const
   {
     return ReadPrimitiveFromPos<T>(m_reader, static_cast<uint64_t>(i) * sizeof(T));
   }
 
-  class const_iterator : public boost::iterator_facade<
-      const_iterator,
-      value_type const,
-      boost::random_access_traversal_tag,
-      value_type const &,
-      difference_type>
+  class const_iterator
+    : public boost::iterator_facade<const_iterator, value_type const, boost::random_access_traversal_tag,
+                                    value_type const &, difference_type>
   {
   public:
 #ifdef DEBUG
     const_iterator(ReaderType const * pReader, size_type i, size_type size)
-      : m_pReader(pReader), m_I(i), m_bValueRead(false), m_Size(size)
+      : m_pReader(pReader)
+      , m_I(i)
+      , m_bValueRead(false)
+      , m_Size(size)
     {
       ASSERT(static_cast<difference_type>(m_Size) >= 0, ());
     }
 #else
-    const_iterator(ReaderType const * pReader, size_type i)
-      : m_pReader(pReader), m_I(i), m_bValueRead(false)
-    {
-    }
+    const_iterator(ReaderType const * pReader, size_type i) : m_pReader(pReader), m_I(i), m_bValueRead(false) {}
 #endif
 
     T const & dereference() const
@@ -90,8 +81,7 @@ public:
       ASSERT_LESS_OR_EQUAL(it.m_I, it.m_Size, (it.m_bValueRead));
       ASSERT_EQUAL(m_Size, it.m_Size, (m_I, it.m_I, m_bValueRead, it.m_bValueRead));
       ASSERT(m_pReader == it.m_pReader, (m_I, m_Size, it.m_I, it.m_Size));
-      return (static_cast<difference_type>(it.m_I) -
-              static_cast<difference_type>(m_I));
+      return (static_cast<difference_type>(it.m_I) - static_cast<difference_type>(m_I));
     }
 
     void increment()

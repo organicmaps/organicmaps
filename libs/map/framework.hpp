@@ -19,9 +19,9 @@
 #include "map/traffic_manager.hpp"
 #include "map/transit/transit_reader.hpp"
 
-#include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_engine.hpp"
+#include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
 #include "drape/drape_global.hpp"
@@ -45,9 +45,9 @@
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
 
+#include "platform/distance.hpp"
 #include "platform/location.hpp"
 #include "platform/platform.hpp"
-#include "platform/distance.hpp"
 #include "platform/products.hpp"
 
 #include "routing/router.hpp"
@@ -74,15 +74,21 @@ namespace search
 {
 struct EverywhereSearchParams;
 struct ViewportSearchParams;
-}
+}  // namespace search
 
 namespace storage
 {
 class CountryInfoGetter;
 struct DownloaderSearchParams;
-}
+}  // namespace storage
 
-namespace routing { namespace turns{ class Settings; } }
+namespace routing
+{
+namespace turns
+{
+class Settings;
+}
+}  // namespace routing
 
 namespace platform
 {
@@ -96,7 +102,7 @@ class Loader;
 
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
-//#define FIXED_LOCATION
+// #define FIXED_LOCATION
 
 struct FrameworkParams
 {
@@ -104,15 +110,14 @@ struct FrameworkParams
   size_t m_numSearchAPIThreads = 1;
 
   FrameworkParams() = default;
-  FrameworkParams(bool enableDiffs)
-    : m_enableDiffs(enableDiffs)
-  {}
+  FrameworkParams(bool enableDiffs) : m_enableDiffs(enableDiffs) {}
 };
 
-class Framework : public PositionProvider,
-                  public SearchAPI::Delegate,
-                  public RoutingManager::Delegate,
-                  private power_management::PowerManager::Subscriber
+class Framework
+  : public PositionProvider
+  , public SearchAPI::Delegate
+  , public RoutingManager::Delegate
+  , private power_management::PowerManager::Subscriber
 {
   DISALLOW_COPY(Framework);
 
@@ -126,10 +131,22 @@ class Framework : public PositionProvider,
   public:
     FixedPosition();
 
-    void GetLat(double & l) const { if (m_fixedLatLon) l = m_latlon.first; }
-    void GetLon(double & l) const { if (m_fixedLatLon) l = m_latlon.second; }
+    void GetLat(double & l) const
+    {
+      if (m_fixedLatLon)
+        l = m_latlon.first;
+    }
+    void GetLon(double & l) const
+    {
+      if (m_fixedLatLon)
+        l = m_latlon.second;
+    }
 
-    void GetNorth(double & n) const { if (m_fixedDir) n = m_dirFromNorth; }
+    void GetNorth(double & n) const
+    {
+      if (m_fixedDir)
+        n = m_dirFromNorth;
+    }
     bool HasNorth() const { return m_fixedDir; }
 
   } m_fixedPos;
@@ -140,7 +157,7 @@ private:
   std::unique_ptr<Platform::ThreadRunner> m_threadRunner = std::make_unique<Platform::ThreadRunner>();
 
 protected:
-  using TDrapeFunction = std::function<void (df::DrapeEngine *)>;
+  using TDrapeFunction = std::function<void(df::DrapeEngine *)>;
 
   StringsBundle m_stringsBundle;
 
@@ -192,13 +209,11 @@ protected:
 
   /// This function will be called by m_storage when latest local files
   /// is downloaded.
-  void OnCountryFileDownloaded(storage::CountryId const & countryId,
-                               storage::LocalFilePtr const localFile);
+  void OnCountryFileDownloaded(storage::CountryId const & countryId, storage::LocalFilePtr const localFile);
 
   /// This function will be called by m_storage before latest local files
   /// is deleted.
-  bool OnCountryFileDelete(storage::CountryId const & countryId,
-                           storage::LocalFilePtr const localFile);
+  bool OnCountryFileDelete(storage::CountryId const & countryId, storage::LocalFilePtr const localFile);
 
   /// This function is called by m_featuresFetcher when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
@@ -229,8 +244,7 @@ public:
   void DeregisterAllMaps();
 
   /// Registers a local map file in internal indexes.
-  std::pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(
-      platform::LocalCountryFile const & localFile);
+  std::pair<MwmSet::MwmId, MwmSet::RegResult> RegisterMap(platform::LocalCountryFile const & localFile);
 
   /// Shows group or leaf mwm on the map.
   void ShowNode(storage::CountryId const & countryId);
@@ -249,7 +263,7 @@ public:
     AskForUpdateMaps,
     Migrate
   };
-//  DoAfterUpdate ToDoAfterUpdate() const;
+  //  DoAfterUpdate ToDoAfterUpdate() const;
 
   storage::Storage & GetStorage() { return m_storage; }
   storage::Storage const & GetStorage() const { return m_storage; }
@@ -313,8 +327,7 @@ public:
   void DeactivateMapSelectionCircle(bool restoreViewport);
   void SwitchFullScreen();
   /// Used to "refresh" UI in some cases (e.g. feature editing).
-  void UpdatePlacePageInfoForCurrentSelection(
-      std::optional<place_page::BuildInfo> const & overrideInfo = {});
+  void UpdatePlacePageInfoForCurrentSelection(std::optional<place_page::BuildInfo> const & overrideInfo = {});
 
   struct PlacePageEvent
   {
@@ -327,17 +340,12 @@ public:
     using OnSwitchFullScreen = std::function<void()>;
   };
 
-  void SetPlacePageListeners(PlacePageEvent::OnOpen onOpen,
-                             PlacePageEvent::OnClose onClose,
-                             PlacePageEvent::OnUpdate onUpdate,
-                             PlacePageEvent::OnSwitchFullScreen onSwitchFullScreen);
+  void SetPlacePageListeners(PlacePageEvent::OnOpen onOpen, PlacePageEvent::OnClose onClose,
+                             PlacePageEvent::OnUpdate onUpdate, PlacePageEvent::OnSwitchFullScreen onSwitchFullScreen);
   bool HasPlacePageInfo() const { return m_currentPlacePageInfo.has_value(); }
   place_page::Info const & GetCurrentPlacePageInfo() const;
   place_page::Info & GetCurrentPlacePageInfo();
-  void BuildAndSetPlacePageInfo(place_page::BuildInfo const & buildInfo)
-  {
-    OnTapEvent(buildInfo);
-  }
+  void BuildAndSetPlacePageInfo(place_page::BuildInfo const & buildInfo) { OnTapEvent(buildInfo); }
 
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
@@ -353,8 +361,7 @@ public:
   std::vector<std::string> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
   std::vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
 
-  void ReadFeatures(std::function<void(FeatureType &)> const & reader,
-                    std::vector<FeatureID> const & features);
+  void ReadFeatures(std::function<void(FeatureType &)> const & reader, std::vector<FeatureID> const & features);
 
 private:
   std::optional<place_page::Info> m_currentPlacePageInfo;
@@ -447,8 +454,9 @@ public:
 
   void SaveRoute();
   /// Returns the elevation profile data of the currently recorded track.
-  /// To get the data on the every track recording state update, this function should be called after receiving the callback from the `SetTrackRecordingUpdateHandler`.
-  static const ElevationInfo & GetTrackRecordingElevationInfo();
+  /// To get the data on the every track recording state update, this function should be called after receiving the
+  /// callback from the `SetTrackRecordingUpdateHandler`.
+  static ElevationInfo const & GetTrackRecordingElevationInfo();
 
   void SetMapStyle(MapStyle mapStyle);
   void MarkMapStyle(MapStyle mapStyle);
@@ -464,7 +472,7 @@ private:
   void InitCountryInfoGetter();
   void InitSearchAPI(size_t numThreads);
 
-  bool m_connectToGpsTrack; // need to connect to tracker when Drape is being constructed
+  bool m_connectToGpsTrack;  // need to connect to tracker when Drape is being constructed
 
   void OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel);
 
@@ -500,8 +508,7 @@ public:
   /// @param[out] distance          Distance to point from (lat, lon);
   /// @param[out] azimut            Azimut to point from (lat, lon);
   /// @return true  If the POI is near the current position (distance < 25 km);
-  bool GetDistanceAndAzimut(m2::PointD const & point,
-                            double lat, double lon, double north,
+  bool GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,
                             platform::Distance & distance, double & azimut);
 
   /// @name Manipulating with model view
@@ -523,8 +530,7 @@ public:
   void SetVisibleViewport(m2::RectD const & rect);
 
   /// - Check minimal visible scale according to downloaded countries.
-  void ShowRect(m2::RectD const & rect, int maxScale = -1, bool animation = true,
-                bool useVisibleViewport = false);
+  void ShowRect(m2::RectD const & rect, int maxScale = -1, bool animation = true, bool useVisibleViewport = false);
   void ShowRect(m2::AnyRectD const & rect, bool animation = true, bool useVisibleViewport = false);
 
   void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);
@@ -573,10 +579,7 @@ public:
   void RunFirstLaunchAnimation();
 
   /// Set correct viewport, parse API, show balloon.
-  void ExecuteMapApiRequest()
-  {
-    m_parsedMapApi.ExecuteMapApiRequest(*this);
-  }
+  void ExecuteMapApiRequest() { m_parsedMapApi.ExecuteMapApiRequest(*this); }
 
   url_scheme::ParsedMapApi::UrlType ParseAndSetApiURL(std::string const & url)
   {
@@ -586,9 +589,9 @@ public:
   struct ParsedRoutingData
   {
     ParsedRoutingData(std::vector<url_scheme::RoutePoint> const & points, routing::RouterType type)
-      : m_points(points), m_type(type)
-    {
-    }
+      : m_points(points)
+      , m_type(type)
+    {}
     std::vector<url_scheme::RoutePoint> m_points;
     routing::RouterType m_type;
   };
@@ -617,13 +620,11 @@ private:
 
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
   /// @param customTitle, if not empty, overrides any other calculated name.
-  void FillPointInfo(place_page::Info & info, m2::PointD const & mercator,
-                     std::string const & customTitle = {},
+  void FillPointInfo(place_page::Info & info, m2::PointD const & mercator, std::string const & customTitle = {},
                      FeatureMatcher && matcher = nullptr) const;
   void FillNotMatchedPlaceInfo(place_page::Info & info, m2::PointD const & mercator,
                                std::string const & customTitle = {}) const;
-  void FillPostcodeInfo(std::string const & postcode, m2::PointD const & mercator,
-                        place_page::Info & info) const;
+  void FillPostcodeInfo(std::string const & postcode, m2::PointD const & mercator, place_page::Info & info) const;
 
   void FillUserMarkInfo(UserMark const * mark, place_page::Info & outInfo);
 
@@ -637,8 +638,7 @@ private:
   void FillRoadTypeMarkInfo(RoadWarningMark const & roadTypeMark, place_page::Info & info) const;
   void FillPointInfoForBookmark(Bookmark const & bmk, place_page::Info & info) const;
   void FillBookmarkInfo(Bookmark const & bmk, place_page::Info & info) const;
-  void FillTrackInfo(Track const & track, m2::PointD const & trackPoint,
-                     place_page::Info & info) const;
+  void FillTrackInfo(Track const & track, m2::PointD const & trackPoint, place_page::Info & info) const;
   void SetPlacePageLocation(place_page::Info & info);
   void FillDescription(FeatureType & ft, place_page::Info & info) const;
 
@@ -648,8 +648,7 @@ public:
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// Ignores coastlines and prefers buildings over other area features.
   /// @returns invalid FeatureID if no feature was found at the given mercator point.
-  FeatureID GetFeatureAtPoint(m2::PointD const & mercator,
-                              FeatureMatcher && matcher = nullptr) const;
+  FeatureID GetFeatureAtPoint(m2::PointD const & mercator, FeatureMatcher && matcher = nullptr) const;
   template <typename TFn>
   void ForEachFeatureAtPoint(TFn && fn, m2::PointD const & mercator) const
   {
@@ -663,17 +662,14 @@ public:
   void EnterForeground();
 
   /// Set the localized strings bundle
-  void AddString(std::string const & name, std::string const & value)
-  {
-    m_stringsBundle.SetString(name, value);
-  }
+  void AddString(std::string const & name, std::string const & value) { m_stringsBundle.SetString(name, value); }
 
   StringsBundle const & GetStringsBundle();
 
   /// [in] lat, lon - last known location
   /// [out] lat, lon - predicted location
-  static void PredictLocation(double & lat, double & lon, double accuracy,
-                              double bearing, double speed, double elapsedSeconds);
+  static void PredictLocation(double & lat, double & lon, double accuracy, double bearing, double speed,
+                              double elapsedSeconds);
 
 public:
   static std::string CodeGe0url(Bookmark const * bmk, bool addName);
@@ -703,6 +699,7 @@ public:
 
 private:
   void ApplyMapLanguageCode(std::string const & langCode);
+
 public:
   static std::string GetMapLanguageCode();
   void SetMapLanguageCode(std::string const & langCode);
@@ -760,8 +757,7 @@ public:
   void DeleteFeature(FeatureID const & fid);
   osm::NewFeatureCategories GetEditorCategories() const;
   bool RollBackChanges(FeatureID const & fid);
-  void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type,
-                  std::string const & note);
+  void CreateNote(osm::MapObject const & mapObject, osm::Editor::NoteProblemType const type, std::string const & note);
 
 private:
   settings::UsageStats m_usageStats;

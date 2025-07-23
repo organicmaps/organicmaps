@@ -1,7 +1,7 @@
-#include "testing/testing.hpp"
+#include "geometry/transformations.hpp"
 #include "base/matrix.hpp"
 #include "geometry/point2d.hpp"
-#include "geometry/transformations.hpp"
+#include "testing/testing.hpp"
 
 UNIT_TEST(Transformations_Shift)
 {
@@ -28,7 +28,8 @@ UNIT_TEST(Transformations_Rotate)
 
 UNIT_TEST(Transformations_ShiftScaleRotate)
 {
-  math::Matrix<double, 3, 3> m = math::Rotate(math::Scale(math::Shift(math::Identity<double, 3>(), 100, 100), 2, 3), -math::pi / 2);
+  math::Matrix<double, 3, 3> m =
+      math::Rotate(math::Scale(math::Shift(math::Identity<double, 3>(), 100, 100), 2, 3), -math::pi / 2);
   m2::PointD pt = m2::PointD(20, 10) * m;
 
   TEST(pt.EqualDxDy(m2::PointD(330, -240), 1.0E-10), ());

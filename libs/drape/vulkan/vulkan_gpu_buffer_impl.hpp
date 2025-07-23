@@ -22,13 +22,12 @@ class VulkanStagingBuffer;
 class VulkanGPUBuffer : public BufferBase
 {
 public:
-  VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const * data,
-                  uint8_t elementSize, uint32_t capacity, uint64_t batcherHash);
+  VulkanGPUBuffer(ref_ptr<VulkanBaseContext> context, void const * data, uint8_t elementSize, uint32_t capacity,
+                  uint64_t batcherHash);
   ~VulkanGPUBuffer() override;
 
   void * Map(ref_ptr<VulkanBaseContext> context, uint32_t elementOffset, uint32_t elementCount);
-  void UpdateData(void * gpuPtr, void const * data,
-                  uint32_t elementOffset, uint32_t elementCount);
+  void UpdateData(void * gpuPtr, void const * data, uint32_t elementOffset, uint32_t elementCount);
   void Unmap(ref_ptr<VulkanBaseContext> context);
 
   void Advance(uint32_t elementCount) { BufferBase::UploadData(elementCount); }
@@ -50,23 +49,21 @@ protected:
   uint32_t m_mappingByteOffsetMax = std::numeric_limits<uint32_t>::min();
   std::vector<VkBufferCopy> m_regionsToCopy;
 };
-  
+
 class VulkanGpuBufferImpl : public DataBufferImpl<VulkanGPUBuffer>
 {
 public:
   template <typename... Args>
-  VulkanGpuBufferImpl(Args &&... params)
-    : DataBufferImpl(std::forward<Args>(params)...)
+  VulkanGpuBufferImpl(Args &&... params) : DataBufferImpl(std::forward<Args>(params)...)
   {}
-  
+
   void const * Data() const override
   {
     ASSERT(false, ("Retrieving of raw data is unavailable for GPU buffer"));
     return nullptr;
   }
-  
-  void UploadData(ref_ptr<GraphicsContext> context, void const * data,
-                  uint32_t elementCount) override
+
+  void UploadData(ref_ptr<GraphicsContext> context, void const * data, uint32_t elementCount) override
   {
     // In Vulkan we must call upload only from FR.
     ref_ptr<VulkanBaseContext> vulkanContext = context;
@@ -81,23 +78,18 @@ public:
     m_buffer->Unmap(context);
     m_buffer->Advance(elementCount);
   }
-  
-  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset,
-                  uint32_t elementCount) override
+
+  void UpdateData(void * destPtr, void const * srcPtr, uint32_t elementOffset, uint32_t elementCount) override
   {
     m_buffer->UpdateData(destPtr, srcPtr, elementOffset, elementCount);
   }
-  
-  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset,
-             uint32_t elementCount) override
+
+  void * Map(ref_ptr<GraphicsContext> context, uint32_t elementOffset, uint32_t elementCount) override
   {
     return m_buffer->Map(context, elementOffset, elementCount);
   }
 
-  void Unmap(ref_ptr<GraphicsContext> context) override
-  {
-    m_buffer->Unmap(context);
-  }
+  void Unmap(ref_ptr<GraphicsContext> context) override { m_buffer->Unmap(context); }
 
   void Bind() override {}
 

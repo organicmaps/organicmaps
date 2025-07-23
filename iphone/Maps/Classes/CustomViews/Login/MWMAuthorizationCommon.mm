@@ -8,8 +8,8 @@
 namespace osm_auth_ios
 {
 
-NSString * const kOSMRequestToken = @"OSMRequestToken";   // Unused after migration from OAuth1 to OAuth2
-NSString * const kOSMRequestSecret = @"OSMRequestSecret"; // Unused after migration from OAuth1 to OAuth2
+NSString * const kOSMRequestToken = @"OSMRequestToken";    // Unused after migration from OAuth1 to OAuth2
+NSString * const kOSMRequestSecret = @"OSMRequestSecret";  // Unused after migration from OAuth1 to OAuth2
 NSString * const kAuthNeedCheck = @"AuthNeedCheck";
 NSString * const kOSMAuthToken = @"OSMAuthToken";
 NSString * const kOSMUserName = @"UDOsmUserName";
@@ -18,11 +18,10 @@ NSString * const kOSMChangesetsCount = @"OSMUserChangesetsCount";
 BOOL LoadOsmUserPreferences(osm::UserPreferences & prefs)
 {
   __block BOOL success = false;
-  dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
-  {
+  dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     try
     {
-      osm::ServerApi06 const api {osm::OsmOAuth::ServerAuth(AuthorizationGetCredentials())};
+      osm::ServerApi06 const api{osm::OsmOAuth::ServerAuth(AuthorizationGetCredentials())};
       prefs = api.GetUserPreferences();
       success = true;
     }
@@ -39,7 +38,8 @@ void AuthorizationStoreCredentials(std::string const & oauthToken)
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:@(oauthToken.c_str()) forKey:kOSMAuthToken];
   osm::UserPreferences prefs;
-  if (LoadOsmUserPreferences(prefs)) {
+  if (LoadOsmUserPreferences(prefs))
+  {
     [ud setObject:@(prefs.m_displayName.c_str()) forKey:kOSMUserName];
     // To also see # of edits when offline.
     [ud setInteger:prefs.m_changesets forKey:kOSMChangesetsCount];
@@ -121,4 +121,4 @@ NSInteger OSMUserChangesetsCount()
   return [ud integerForKey:kOSMChangesetsCount];
 }
 
-} // namespace osm_auth_ios
+}  // namespace osm_auth_ios

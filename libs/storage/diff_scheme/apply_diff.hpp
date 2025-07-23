@@ -24,7 +24,6 @@ struct ApplyDiffParams
 
 using OnDiffApplicationFinished = std::function<void(generator::mwm_diff::DiffApplicationResult)>;
 
-void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable,
-               OnDiffApplicationFinished const & task);
+void ApplyDiff(ApplyDiffParams && p, base::Cancellable const & cancellable, OnDiffApplicationFinished const & task);
 }  // namespace diffs
 }  // namespace storage

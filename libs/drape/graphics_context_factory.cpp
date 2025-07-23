@@ -14,18 +14,17 @@ ThreadSafeFactory::~ThreadSafeFactory()
 
 GraphicsContext * ThreadSafeFactory::GetDrawContext()
 {
-  return CreateContext([this](){ return m_factory->GetDrawContext(); },
-                       [this](){ return m_factory->IsUploadContextCreated(); });
+  return CreateContext([this]() { return m_factory->GetDrawContext(); },
+                       [this]() { return m_factory->IsUploadContextCreated(); });
 }
 
 GraphicsContext * ThreadSafeFactory::GetResourcesUploadContext()
 {
-  return CreateContext([this](){ return m_factory->GetResourcesUploadContext(); },
-                       [this](){ return m_factory->IsDrawContextCreated(); });
+  return CreateContext([this]() { return m_factory->GetResourcesUploadContext(); },
+                       [this]() { return m_factory->IsDrawContextCreated(); });
 }
 
-GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn,
-                                                   TIsSeparateCreatedFn const & checkFn)
+GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn, TIsSeparateCreatedFn const & checkFn)
 {
   std::unique_lock<std::mutex> lock(m_condLock);
   GraphicsContext * ctx = createFn();

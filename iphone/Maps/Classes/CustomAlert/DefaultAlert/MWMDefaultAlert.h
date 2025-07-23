@@ -40,6 +40,6 @@
                      rightButtonTitle:(NSString *)rightButtonTitle
                       leftButtonTitle:(NSString *)leftButtonTitle
                     rightButtonAction:(MWMVoidBlock)action
-                      log:(NSString *)log;
+                                  log:(NSString *)log;
 
 @end

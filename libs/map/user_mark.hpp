@@ -17,7 +17,7 @@
 class UserMark : public df::UserPointMark
 {
 public:
-  enum class Priority: uint16_t
+  enum class Priority : uint16_t
   {
     Default = 0,
     RouteStart,
@@ -77,7 +77,7 @@ public:
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override { return nullptr; }
   drape_ptr<SymbolSizes> GetSymbolSizes() const override { return nullptr; }
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override { return nullptr; }
-  uint16_t GetPriority() const override { return static_cast<uint16_t >(Priority::Default); }
+  uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::Default); }
   df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::UserMark; }
   uint32_t GetIndex() const override { return 0; }
   bool SymbolIsPOI() const override { return false; }

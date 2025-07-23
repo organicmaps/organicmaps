@@ -42,7 +42,8 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
   TestCity wien(m2::PointD(1, 1), "Wien", "de", 100 /* rank */);
   TestSea marCaribe(m2::PointD(2, 2), "Mar Caribe", "es");
 
-  auto testWorldId = BuildWorld([&](TestMwmBuilder & builder) {
+  auto testWorldId = BuildWorld([&](TestMwmBuilder & builder)
+  {
     builder.Add(paris);
     builder.Add(wien);
     builder.Add(marCaribe);
@@ -62,7 +63,8 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
   {
     size_t numFeatures = 0;
     size_t numLocalities = 0;
-    auto const test = [&](FeatureType & ft, uint32_t index) {
+    auto const test = [&](FeatureType & ft, uint32_t index)
+    {
       ++numFeatures;
       FeatureID const fid(testWorldId, index);
       base::GeoObjectId gid;
@@ -90,4 +92,4 @@ UNIT_CLASS_TEST(CitiesIdsTest, BuildCitiesIds)
   }
 }
 
-} // namespace cities_ids_tests
+}  // namespace cities_ids_tests

@@ -45,8 +45,7 @@ namespace
 char const kJSON[] = "JSON Lines files (*.jsonl)";
 }  // namespace
 
-MainView::MainView(Framework & framework, QRect const & screenGeometry)
-: m_framework(framework)
+MainView::MainView(Framework & framework, QRect const & screenGeometry) : m_framework(framework)
 {
   setGeometry(screenGeometry);
 
@@ -55,31 +54,28 @@ MainView::MainView(Framework & framework, QRect const & screenGeometry)
   InitDocks();
   InitMenuBar();
 
-  m_framework.SetPlacePageListeners(
-      [this]() {
-        auto const & info = m_framework.GetCurrentPlacePageInfo();
-        auto const & selectedFeature = info.GetID();
-        if (!selectedFeature.IsValid())
-          return;
-        m_selectedFeature = selectedFeature;
+  m_framework.SetPlacePageListeners([this]()
+  {
+    auto const & info = m_framework.GetCurrentPlacePageInfo();
+    auto const & selectedFeature = info.GetID();
+    if (!selectedFeature.IsValid())
+      return;
+    m_selectedFeature = selectedFeature;
 
-        if (m_skipFeatureInfoDialog)
-        {
-          m_skipFeatureInfoDialog = false;
-          return;
-        }
+    if (m_skipFeatureInfoDialog)
+    {
+      m_skipFeatureInfoDialog = false;
+      return;
+    }
 
-        auto mapObject = m_framework.GetMapObjectByID(selectedFeature);
-        if (!mapObject.GetID().IsValid())
-          return;
+    auto mapObject = m_framework.GetMapObjectByID(selectedFeature);
+    if (!mapObject.GetID().IsValid())
+      return;
 
-        auto const address = m_framework.GetAddressAtPoint(mapObject.GetMercator());
-        FeatureInfoDialog dialog(this /* parent */, mapObject, address, m_sampleLocale);
-        dialog.exec();
-      },
-      [this]() { m_selectedFeature = FeatureID(); },
-      {} /* onUpdate */,
-      {} /* onSwitchFullScreenMode */);
+    auto const address = m_framework.GetAddressAtPoint(mapObject.GetMercator());
+    FeatureInfoDialog dialog(this /* parent */, mapObject, address, m_sampleLocale);
+    dialog.exec();
+  }, [this]() { m_selectedFeature = FeatureID(); }, {} /* onUpdate */, {} /* onSwitchFullScreenMode */);
 }
 
 MainView::~MainView()
@@ -110,8 +106,8 @@ void MainView::OnSearchCompleted()
   m_sampleView->OnSearchCompleted();
 }
 
-void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample,
-                          std::optional<m2::PointD> const & position, bool isUseless, bool hasEdits)
+void MainView::ShowSample(size_t sampleIndex, search::Sample const & sample, std::optional<m2::PointD> const & position,
+                          bool isUseless, bool hasEdits)
 {
   m_sampleLocale = sample.m_locale;
 
@@ -152,8 +148,7 @@ void MainView::MoveViewportToResult(search::Result const & result)
 void MainView::MoveViewportToResult(search::Sample::Result const & result)
 {
   int constexpr kViewportAroundResultSizeM = 100;
-  auto const rect =
-      mercator::RectByCenterXYAndSizeInMeters(result.m_pos, kViewportAroundResultSizeM);
+  auto const rect = mercator::RectByCenterXYAndSizeInMeters(result.m_pos, kViewportAroundResultSizeM);
   MoveViewportToRect(rect);
 }
 
@@ -162,8 +157,7 @@ void MainView::MoveViewportToRect(m2::RectD const & rect)
   m_framework.ShowRect(rect, -1 /* maxScale */, false /* animation */);
 }
 
-void MainView::OnResultChanged(size_t sampleIndex, ResultType type,
-                               ResultsEdits::Update const & update)
+void MainView::OnResultChanged(size_t sampleIndex, ResultType type, ResultsEdits::Update const & update)
 {
   m_samplesView->OnUpdate(sampleIndex);
 
@@ -202,9 +196,8 @@ void MainView::SetResultsEdits(size_t sampleIndex, ResultsEdits & foundResultsEd
 
 void MainView::ShowError(std::string const & msg)
 {
-  QMessageBox box(QMessageBox::Critical /* icon */, tr("Error") /* title */,
-                  QString::fromStdString(msg) /* text */, QMessageBox::Ok /* buttons */,
-                  this /* parent */);
+  QMessageBox box(QMessageBox::Critical /* icon */, tr("Error") /* title */, QString::fromStdString(msg) /* text */,
+                  QMessageBox::Ok /* buttons */, this /* parent */);
   box.exec();
 }
 
@@ -287,11 +280,9 @@ void MainView::InitMenuBar()
   {
     m_initiateBackgroundSearch = new QAction(tr("Initiate background search"), this /* parent */);
     m_initiateBackgroundSearch->setShortcut(static_cast<int>(Qt::CTRL) | static_cast<int>(Qt::Key_I));
-    m_initiateBackgroundSearch->setStatusTip(
-        tr("Search in the background for the queries from a selected range"));
+    m_initiateBackgroundSearch->setStatusTip(tr("Search in the background for the queries from a selected range"));
     m_initiateBackgroundSearch->setEnabled(false);
-    connect(m_initiateBackgroundSearch, &QAction::triggered, this,
-            &MainView::InitiateBackgroundSearch);
+    connect(m_initiateBackgroundSearch, &QAction::triggered, this, &MainView::InitiateBackgroundSearch);
     fileMenu->addAction(m_initiateBackgroundSearch);
   }
 
@@ -325,8 +316,7 @@ void MainView::InitMapWidget()
   widget->setLayout(layout);
 
   {
-    auto * mapWidget = new qt::common::MapWidget(m_framework,
-                                                 false /* screenshotMode */, widget /* parent */);
+    auto * mapWidget = new qt::common::MapWidget(m_framework, false /* screenshotMode */, widget /* parent */);
     connect(mapWidget, &qt::common::MapWidget::OnContextMenuRequested,
             [this](QPoint const & p) { AddSelectedFeature(p); });
     auto * toolBar = new QToolBar(widget /* parent */);
@@ -359,26 +349,21 @@ void MainView::InitDocks()
 
   m_sampleView = new SampleView(this /* parent */, m_framework);
 
-  connect(m_sampleView, &SampleView::OnShowViewportClicked,
-          [this]() { m_model->OnShowViewportClicked(); });
-  connect(m_sampleView, &SampleView::OnShowPositionClicked,
-          [this]() { m_model->OnShowPositionClicked(); });
+  connect(m_sampleView, &SampleView::OnShowViewportClicked, [this]() { m_model->OnShowViewportClicked(); });
+  connect(m_sampleView, &SampleView::OnShowPositionClicked, [this]() { m_model->OnShowPositionClicked(); });
 
-  connect(m_sampleView, &SampleView::OnMarkAllAsRelevantClicked,
-          [this]() { m_model->OnMarkAllAsRelevantClicked(); });
+  connect(m_sampleView, &SampleView::OnMarkAllAsRelevantClicked, [this]() { m_model->OnMarkAllAsRelevantClicked(); });
   connect(m_sampleView, &SampleView::OnMarkAllAsIrrelevantClicked,
           [this]() { m_model->OnMarkAllAsIrrelevantClicked(); });
 
   {
     auto const & view = m_sampleView->GetFoundResultsView();
-    connect(&view, &ResultsView::OnResultSelected,
-            [this](int index) { m_model->OnResultSelected(index); });
+    connect(&view, &ResultsView::OnResultSelected, [this](int index) { m_model->OnResultSelected(index); });
   }
 
   {
     auto const & view = m_sampleView->GetNonFoundResultsView();
-    connect(&view, &ResultsView::OnResultSelected,
-            [this](int index) { m_model->OnNonFoundResultSelected(index); });
+    connect(&view, &ResultsView::OnResultSelected, [this](int index) { m_model->OnNonFoundResultSelected(index); });
   }
 
   m_sampleDock = CreateDock(*m_sampleView);
@@ -395,8 +380,7 @@ void MainView::Open()
   if (TryToSaveEdits(tr("Save changes before opening samples?")) == SaveResult::Cancelled)
     return;
 
-  auto const name = QFileDialog::getOpenFileName(this /* parent */, tr("Open samples..."),
-                                                 QString() /* dir */, kJSON);
+  auto const name = QFileDialog::getOpenFileName(this /* parent */, tr("Open samples..."), QString() /* dir */, kJSON);
   auto const file = name.toStdString();
   if (file.empty())
     return;
@@ -404,12 +388,15 @@ void MainView::Open()
   m_model->Open(file);
 }
 
-void MainView::Save() { m_model->Save(); }
+void MainView::Save()
+{
+  m_model->Save();
+}
 
 void MainView::SaveAs()
 {
-  auto const name = QFileDialog::getSaveFileName(this /* parent */, tr("Save samples as..."),
-                                                 QString() /* dir */, kJSON);
+  auto const name =
+      QFileDialog::getSaveFileName(this /* parent */, tr("Save samples as..."), QString() /* dir */, kJSON);
   auto const file = name.toStdString();
   if (!file.empty())
     m_model->SaveAs(file);
@@ -432,8 +419,7 @@ void MainView::InitiateBackgroundSearch()
   form.addRow(new QLabel("Last"), lineEditTo);
   lineEditTo->setValidator(validator);
 
-  QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal,
-                             &dialog);
+  QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, &dialog);
   form.addRow(&buttonBox);
 
   connect(&buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
@@ -457,8 +443,7 @@ void MainView::InitiateBackgroundSearch()
     return;
   }
 
-  m_model->InitiateBackgroundSearch(base::checked_cast<size_t>(from),
-                                    base::checked_cast<size_t>(to));
+  m_model->InitiateBackgroundSearch(base::checked_cast<size_t>(from), base::checked_cast<size_t>(to));
 }
 
 void MainView::SetSamplesDockTitle(bool hasEdits)
@@ -489,8 +474,7 @@ MainView::SaveResult MainView::TryToSaveEdits(QString const & msg)
     return SaveResult::NoEdits;
 
   QMessageBox box(QMessageBox::Question /* icon */, tr("Save edits?") /* title */, msg /* text */,
-                  QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel /* buttons */,
-                  this /* parent */);
+                  QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel /* buttons */, this /* parent */);
   auto const button = box.exec();
   switch (button)
   {
@@ -518,16 +502,14 @@ void MainView::AddSelectedFeature(QPoint const & p)
 
   QMenu menu;
   auto const * action = menu.addAction("Add to non-found results");
-  connect(action, &QAction::triggered,
-          [this, selectedFeature]() { m_model->AddNonFoundResult(selectedFeature); });
+  connect(action, &QAction::triggered, [this, selectedFeature]() { m_model->AddNonFoundResult(selectedFeature); });
   menu.exec(p);
 }
 
 QDockWidget * MainView::CreateDock(QWidget & widget)
 {
   auto * dock = new QDockWidget(QString(), this /* parent */, Qt::Widget);
-  dock->setFeatures(QDockWidget::DockWidgetClosable |
-                    QDockWidget::DockWidgetMovable |
+  dock->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable |
                     QDockWidget::DockWidgetFloatable);
   dock->setWidget(&widget);
   return dock;

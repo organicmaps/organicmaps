@@ -30,7 +30,7 @@ inline pair<size_t, size_t> UnionRanges(pair<size_t, size_t> const & a, pair<siz
 
 size_t constexpr kItemBlockSize = 1000;
 
-} // namespace gps_track
+}  // namespace gps_track
 
 size_t const GpsTrack::kInvalidId = GpsTrackCollection::kInvalidId;
 
@@ -84,7 +84,7 @@ TrackStatistics GpsTrack::GetTrackStatistics() const
   return m_collection ? m_collection->GetTrackStatistics() : TrackStatistics();
 }
 
-const ElevationInfo & GpsTrack::GetElevationInfo() const
+ElevationInfo const & GpsTrack::GetElevationInfo() const
 {
   return m_collection->UpdateAndGetElevationInfo();
 }
@@ -133,7 +133,7 @@ void GpsTrack::ScheduleTask()
       unique_lock<mutex> ul(m_threadGuard);
       while (true)
       {
-        m_cv.wait(ul, [this]()->bool{ return m_threadExit || m_threadWakeup; });
+        m_cv.wait(ul, [this]() -> bool { return m_threadExit || m_threadWakeup; });
         if (m_threadExit)
           break;
         m_threadWakeup = false;
@@ -181,7 +181,7 @@ void GpsTrack::InitCollection()
     vector<location::GpsInfo> originPoints;
     originPoints.reserve(gps_track::kItemBlockSize);
 
-    m_storage->ForEach([this, &originPoints](location::GpsInfo const & originPoint)->bool
+    m_storage->ForEach([this, &originPoints](location::GpsInfo const & originPoint) -> bool
     {
       originPoints.emplace_back(originPoint);
       if (originPoints.size() == originPoints.capacity())
@@ -277,7 +277,8 @@ void GpsTrack::UpdateCollection(bool needClear, vector<location::GpsInfo> const 
 {
   // Apply Clear and Add points
   // Clear points from collection, if need.
-  evictedIds = needClear ? m_collection->Clear(false /* resetIds */) : make_pair(kInvalidId, kInvalidId);;
+  evictedIds = needClear ? m_collection->Clear(false /* resetIds */) : make_pair(kInvalidId, kInvalidId);
+  ;
 
   // Add points to the collection, if need
   if (!points.empty())
@@ -299,14 +300,14 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
 
     vector<pair<size_t, location::GpsInfo>> toAdd;
     toAdd.reserve(m_collection->GetSize());
-    m_collection->ForEach([&toAdd](location::GpsInfo const & point, size_t id)->bool
+    m_collection->ForEach([&toAdd](location::GpsInfo const & point, size_t id) -> bool
     {
       toAdd.emplace_back(id, point);
       return true;
     });
 
     if (toAdd.empty())
-      return; // nothing to send
+      return;  // nothing to send
 
     m_callback(std::move(toAdd), make_pair(kInvalidId, kInvalidId), m_collection->GetTrackStatistics());
   }
@@ -318,7 +319,7 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
       size_t const addedCount = addedIds.second - addedIds.first + 1;
       ASSERT_GREATER_OR_EQUAL(m_collection->GetSize(), addedCount, ());
       toAdd.reserve(addedCount);
-      m_collection->ForEach([&toAdd](location::GpsInfo const & point, size_t id)->bool
+      m_collection->ForEach([&toAdd](location::GpsInfo const & point, size_t id) -> bool
       {
         toAdd.emplace_back(id, point);
         return true;
@@ -327,7 +328,7 @@ void GpsTrack::NotifyCallback(pair<size_t, size_t> const & addedIds, pair<size_t
     }
 
     if (toAdd.empty() && evictedIds.first == kInvalidId)
-      return; // nothing to send
+      return;  // nothing to send
 
     m_callback(std::move(toAdd), evictedIds, m_collection->GetTrackStatistics());
   }

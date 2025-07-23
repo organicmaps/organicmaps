@@ -10,8 +10,7 @@
 
 namespace df
 {
-MetalineManager::MetalineManager(ref_ptr<ThreadsCommutator> commutator,
-                                 MapDataProvider & model)
+MetalineManager::MetalineManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model)
   : m_model(model)
   , m_commutator(commutator)
 {}
@@ -67,8 +66,7 @@ void MetalineManager::OnTaskFinished(std::shared_ptr<ReadMetalineTask> const & t
   {
     // Notify frontend renderer.
     LOG(LDEBUG, ("Metalines prepared:", task->GetMwmId()));
-    m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<UpdateMetalinesMessage>(),
+    m_commutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<UpdateMetalinesMessage>(),
                               MessagePriority::Normal);
   }
 

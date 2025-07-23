@@ -43,8 +43,7 @@ void AndroidVulkanContextFactory::SetVulkanSurface()
   createInfo.window = m_nativeWindow;
 
   VkResult statusCode;
-  statusCode = vkCreateAndroidSurfaceKHR(m_vulkanInstance, &createInfo, nullptr,
-                                         &m_surface);
+  statusCode = vkCreateAndroidSurfaceKHR(m_vulkanInstance, &createInfo, nullptr, &m_surface);
   if (statusCode != VK_SUCCESS)
   {
     LOG_ERROR_VK_CALL(vkCreateAndroidSurfaceKHR, statusCode);

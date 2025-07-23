@@ -8,7 +8,6 @@
 #include <climits>
 #include <cstdint>
 
-
 static_assert(CHAR_BIT == 8);
 
 template <typename TWriter>
@@ -168,13 +167,12 @@ public:
     return result;
   }
 
-#define READ_BYTE(i)                                                                             \
-  {                                                                                              \
-    result =                                                                                     \
-        result | (static_cast<decltype(result)>(Read(std::min(n, kMinBits))) << (i * kMinBits)); \
-    if (n <= kMinBits)                                                                           \
-      return result;                                                                             \
-    n -= kMinBits;                                                                               \
+#define READ_BYTE(i)                                                                                  \
+  {                                                                                                   \
+    result = result | (static_cast<decltype(result)>(Read(std::min(n, kMinBits))) << (i * kMinBits)); \
+    if (n <= kMinBits)                                                                                \
+      return result;                                                                                  \
+    n -= kMinBits;                                                                                    \
   }
 
   // Same as Read but accept up to 32 bits to read.

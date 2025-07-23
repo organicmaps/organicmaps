@@ -12,29 +12,24 @@ template <typename T>
 class Rollbacker
 {
 public:
-  Rollbacker(std::deque<T> & cont)
-    : m_cont(&cont)
-    , m_size(cont.size())
-  {}
+  Rollbacker(std::deque<T> & cont) : m_cont(&cont), m_size(cont.size()) {}
   ~Rollbacker()
   {
     if (m_cont && m_cont->size() > m_size)
       m_cont->erase(m_cont->begin() + m_size, m_cont->end());
   }
   void Reset() { m_cont = nullptr; }
+
 private:
   std::deque<T> * m_cont;
   size_t const m_size;
 };
 
-} // namespace
+}  // namespace
 
 size_t const GpsTrackCollection::kInvalidId = std::numeric_limits<size_t>::max();
 
-GpsTrackCollection::GpsTrackCollection()
-  : m_lastId(0)
-  , m_elevationInfoDirty(true)
-{}
+GpsTrackCollection::GpsTrackCollection() : m_lastId(0), m_elevationInfoDirty(true) {}
 
 std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & items)
 {
@@ -62,7 +57,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
   if (0 == added)
   {
     // Invalid timestamp order
-    return std::make_pair(kInvalidId, kInvalidId); // Nothing was added
+    return std::make_pair(kInvalidId, kInvalidId);  // Nothing was added
   }
 
   m_lastId += added;
@@ -101,7 +96,7 @@ size_t GpsTrackCollection::GetSize() const
   return m_items.size();
 }
 
-const ElevationInfo & GpsTrackCollection::UpdateAndGetElevationInfo()
+ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
 {
   if (!m_elevationInfoDirty)
     return m_elevationInfo;

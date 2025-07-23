@@ -8,8 +8,7 @@ BufferBase::BufferBase(uint8_t elementSize, uint32_t capacity)
   : m_elementSize(elementSize)
   , m_capacity(capacity)
   , m_size(0)
-{
-}
+{}
 
 uint32_t BufferBase::GetCapacity() const
 {
@@ -55,4 +54,4 @@ void BufferBase::SetDataSize(uint32_t elementCount)
   m_size = elementCount;
 }
 
-} // namespace dp
+}  // namespace dp

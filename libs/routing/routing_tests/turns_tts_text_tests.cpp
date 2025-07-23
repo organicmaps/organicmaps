@@ -28,8 +28,8 @@ UNIT_TEST(GetDistanceTextIdMetersTest)
 {
   TEST_EQUAL(GetDistanceTextId({500, 0, false, CarDirection::TurnRight, Units::Metric}), "in_500_meters", ());
 
-//  Notification const notification2(500, 0, true, CarDirection::TurnRight, Units::Metric);
-//  TEST_EQUAL(GetDistanceTextId(notification2), "then", ());
+  //  Notification const notification2(500, 0, true, CarDirection::TurnRight, Units::Metric);
+  //  TEST_EQUAL(GetDistanceTextId(notification2), "then", ());
 
   TEST_EQUAL(GetDistanceTextId({200, 0, false, CarDirection::TurnRight, Units::Metric}), "in_200_meters", ());
   TEST_EQUAL(GetDistanceTextId({2000, 0, false, CarDirection::TurnRight, Units::Metric}), "in_2_kilometers", ());
@@ -43,8 +43,8 @@ UNIT_TEST(GetDistanceTextIdFeetTest)
 {
   TEST_EQUAL(GetDistanceTextId({500, 0, false, CarDirection::TurnRight, Units::Imperial}), "in_500_feet", ());
 
-//  Notification const notification2(500, 0, true, CarDirection::TurnRight, Units::Imperial);
-//  TEST_EQUAL(GetDistanceTextId(notification2), "then", ());
+  //  Notification const notification2(500, 0, true, CarDirection::TurnRight, Units::Imperial);
+  //  TEST_EQUAL(GetDistanceTextId(notification2), "then", ());
 
   TEST_EQUAL(GetDistanceTextId({800, 0, false, CarDirection::TurnRight, Units::Imperial}), "in_800_feet", ());
   TEST_EQUAL(GetDistanceTextId({5000, 0, false, CarDirection::TurnRight, Units::Imperial}), "in_5000_feet", ());
@@ -54,17 +54,13 @@ UNIT_TEST(GetRoundaboutTextIdTest)
 {
   // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
   //    CarDirection turnDir, ::Settings::Units lengthUnits)
-  Notification const notification1(500, 0, false, CarDirection::LeaveRoundAbout,
-                                   Units::Imperial);
+  Notification const notification1(500, 0, false, CarDirection::LeaveRoundAbout, Units::Imperial);
   TEST_EQUAL(GetRoundaboutTextId(notification1), "leave_the_roundabout", ());
-  Notification const notification2(0, 3, true, CarDirection::LeaveRoundAbout,
-                                   Units::Imperial);
+  Notification const notification2(0, 3, true, CarDirection::LeaveRoundAbout, Units::Imperial);
   TEST_EQUAL(GetRoundaboutTextId(notification2), "take_the_3_exit", ());
-  Notification const notification3(0, 7, true, CarDirection::LeaveRoundAbout,
-                                   Units::Metric);
+  Notification const notification3(0, 7, true, CarDirection::LeaveRoundAbout, Units::Metric);
   TEST_EQUAL(GetRoundaboutTextId(notification3), "take_the_7_exit", ());
-  Notification const notification4(0, 15, true, CarDirection::LeaveRoundAbout,
-                                   Units::Metric);
+  Notification const notification4(0, 15, true, CarDirection::LeaveRoundAbout, Units::Metric);
   TEST_EQUAL(GetRoundaboutTextId(notification4), "leave_the_roundabout", ());
 }
 
@@ -72,14 +68,11 @@ UNIT_TEST(GetYouArriveTextIdTest)
 {
   // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
   //    CarDirection turnDir, ::Settings::Units lengthUnits)
-  Notification const notification1(500, 0, false, CarDirection::ReachedYourDestination,
-                                   Units::Imperial);
+  Notification const notification1(500, 0, false, CarDirection::ReachedYourDestination, Units::Imperial);
   TEST_EQUAL(GetYouArriveTextId(notification1), "destination", ());
-  Notification const notification2(0, 0, false, CarDirection::ReachedYourDestination,
-                                   Units::Metric);
+  Notification const notification2(0, 0, false, CarDirection::ReachedYourDestination, Units::Metric);
   TEST_EQUAL(GetYouArriveTextId(notification2), "you_have_reached_the_destination", ());
-  Notification const notification3(0, 0, true, CarDirection::ReachedYourDestination,
-                                   Units::Metric);
+  Notification const notification3(0, 0, true, CarDirection::ReachedYourDestination, Units::Metric);
   TEST_EQUAL(GetYouArriveTextId(notification3), "destination", ());
 }
 
@@ -87,20 +80,15 @@ UNIT_TEST(GetDirectionTextIdTest)
 {
   // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
   //    CarDirection turnDir, ::Settings::Units lengthUnits)
-  Notification const notification1(500, 0, false, CarDirection::TurnRight,
-                                   Units::Imperial);
+  Notification const notification1(500, 0, false, CarDirection::TurnRight, Units::Imperial);
   TEST_EQUAL(GetDirectionTextId(notification1), "make_a_right_turn", ());
-  Notification const notification2(1000, 0, false, CarDirection::GoStraight,
-                                   Units::Metric);
+  Notification const notification2(1000, 0, false, CarDirection::GoStraight, Units::Metric);
   TEST_EQUAL(GetDirectionTextId(notification2), "go_straight", ());
-  Notification const notification3(700, 0, false, CarDirection::UTurnLeft,
-                                   Units::Metric);
+  Notification const notification3(700, 0, false, CarDirection::UTurnLeft, Units::Metric);
   TEST_EQUAL(GetDirectionTextId(notification3), "make_a_u_turn", ());
-  Notification const notification4(200, 0, false, CarDirection::ReachedYourDestination,
-                                   Units::Metric);
+  Notification const notification4(200, 0, false, CarDirection::ReachedYourDestination, Units::Metric);
   TEST_EQUAL(GetDirectionTextId(notification4), "destination", ());
-  Notification const notification5(0, 0, false, CarDirection::ReachedYourDestination,
-                                   Units::Metric);
+  Notification const notification5(0, 0, false, CarDirection::ReachedYourDestination, Units::Metric);
   TEST_EQUAL(GetDirectionTextId(notification5), "you_have_reached_the_destination", ());
 }
 
@@ -129,14 +117,10 @@ UNIT_TEST(GetTtsTextTest)
   GetTtsText getTtsText;
   // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
   //    CarDirection turnDir, Settings::Units lengthUnits)
-  Notification const notification1(500, 0, false, CarDirection::TurnRight,
-                                   Units::Metric);
-  Notification const notification2(300, 0, false, CarDirection::TurnLeft,
-                                   Units::Metric);
-  Notification const notification3(0, 0, false, CarDirection::ReachedYourDestination,
-                                   Units::Metric);
-  Notification const notification4(0, 0, true, CarDirection::TurnLeft,
-                                   Units::Metric);
+  Notification const notification1(500, 0, false, CarDirection::TurnRight, Units::Metric);
+  Notification const notification2(300, 0, false, CarDirection::TurnLeft, Units::Metric);
+  Notification const notification3(0, 0, false, CarDirection::ReachedYourDestination, Units::Metric);
+  Notification const notification4(0, 0, true, CarDirection::TurnLeft, Units::Metric);
 
   getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
   TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "In 500 meters. Make a right turn.", ());
@@ -416,10 +400,8 @@ UNIT_TEST(GetAllSoundedDistMetersTest)
   VecPairDist const & allSoundedDistMeters = GetAllSoundedDistMeters();
 
   TEST(is_sorted(allSoundedDistMeters.cbegin(), allSoundedDistMeters.cend(),
-                 [](PairDist const & p1, PairDist const & p2)
-       {
-         return p1.first < p2.first;
-       }), ());
+                 [](PairDist const & p1, PairDist const & p2) { return p1.first < p2.first; }),
+       ());
 
   TEST_EQUAL(allSoundedDistMeters.size(), 17, ());
   PairDist const expected1 = {50, "in_50_meters"};
@@ -435,10 +417,8 @@ UNIT_TEST(GetAllSoundedDistFeet)
   VecPairDist const & allSoundedDistFeet = GetAllSoundedDistFeet();
 
   TEST(is_sorted(allSoundedDistFeet.cbegin(), allSoundedDistFeet.cend(),
-                 [](PairDist const & p1, PairDist const & p2)
-       {
-         return p1.first < p2.first;
-       }), ());
+                 [](PairDist const & p1, PairDist const & p2) { return p1.first < p2.first; }),
+       ());
 
   TEST_EQUAL(allSoundedDistFeet.size(), 22, ());
   PairDist const expected1 = {50, "in_50_feet"};
@@ -456,12 +436,10 @@ UNIT_TEST(GetSoundedDistMeters)
 
   TEST(is_sorted(soundedDistMeters.cbegin(), soundedDistMeters.cend()), ());
   // Checking that allSounded contains any element of inst.
-  TEST(find_first_of(soundedDistMeters.cbegin(), soundedDistMeters.cend(),
-                     allSoundedDistMeters.cbegin(), allSoundedDistMeters.cend(),
-                     [](uint32_t p1, PairDist const & p2)
-       {
-         return p1 == p2.first;
-       }) != soundedDistMeters.cend(), ());
+  TEST(find_first_of(soundedDistMeters.cbegin(), soundedDistMeters.cend(), allSoundedDistMeters.cbegin(),
+                     allSoundedDistMeters.cend(),
+                     [](uint32_t p1, PairDist const & p2) { return p1 == p2.first; }) != soundedDistMeters.cend(),
+       ());
 
   TEST_EQUAL(soundedDistMeters.size(), 11, ());
   TEST_EQUAL(soundedDistMeters[0], 200, ());
@@ -477,10 +455,9 @@ UNIT_TEST(GetSoundedDistFeet)
   TEST(is_sorted(soundedDistFeet.cbegin(), soundedDistFeet.cend()), ());
   // Checking that allSounded contains any element of inst.
   TEST(find_first_of(soundedDistFeet.cbegin(), soundedDistFeet.cend(), allSoundedDistFeet.cbegin(),
-                     allSoundedDistFeet.cend(), [](uint32_t p1, PairDist const & p2)
-       {
-         return p1 == p2.first;
-       }) != soundedDistFeet.cend(), ());
+                     allSoundedDistFeet.cend(),
+                     [](uint32_t p1, PairDist const & p2) { return p1 == p2.first; }) != soundedDistFeet.cend(),
+       ());
 
   TEST_EQUAL(soundedDistFeet.size(), 11, ());
   TEST_EQUAL(soundedDistFeet[0], 500, ());

@@ -63,8 +63,8 @@ void LayerBase::Add(std::shared_ptr<LayerBase> next)
 
 void RepresentationLayer::Handle(FeatureBuilder & fb)
 {
-//  if (m_complexFeaturesMixer)
-//    m_complexFeaturesMixer->Process([&](FeatureBuilder & fb){ LayerBase::Handle(fb); }, fb);
+  //  if (m_complexFeaturesMixer)
+  //    m_complexFeaturesMixer->Process([&](FeatureBuilder & fb){ LayerBase::Handle(fb); }, fb);
 
   auto const sourceType = fb.GetMostGenericOsmId().GetType();
   auto const geomType = fb.GetGeomType();
@@ -73,9 +73,7 @@ void RepresentationLayer::Handle(FeatureBuilder & fb)
   auto const params = fb.GetParams();
   switch (sourceType)
   {
-  case base::GeoObjectId::Type::ObsoleteOsmNode:
-    LayerBase::Handle(fb);
-    break;
+  case base::GeoObjectId::Type::ObsoleteOsmNode: LayerBase::Handle(fb); break;
   case base::GeoObjectId::Type::ObsoleteOsmWay:
   {
     switch (geomType)
@@ -104,12 +102,8 @@ void RepresentationLayer::Handle(FeatureBuilder & fb)
       }
       break;
     }
-    case GeomType::Line:
-      LayerBase::Handle(fb);
-      break;
-    default:
-      UNREACHABLE();
-      break;
+    case GeomType::Line: LayerBase::Handle(fb); break;
+    default: UNREACHABLE(); break;
     }
     break;
   }
@@ -117,22 +111,14 @@ void RepresentationLayer::Handle(FeatureBuilder & fb)
   {
     switch (geomType)
     {
-    case GeomType::Area:
-      HandleArea(fb, params);
-      break;
+    case GeomType::Area: HandleArea(fb, params); break;
     // We transform place relations into points (see BuildFromRelation).
-    case GeomType::Point:
-      LayerBase::Handle(fb);
-      break;
-    default:
-      UNREACHABLE();
-      break;
+    case GeomType::Point: LayerBase::Handle(fb); break;
+    default: UNREACHABLE(); break;
     }
     break;
   }
-  default:
-    UNREACHABLE();
-    break;
+  default: UNREACHABLE(); break;
   }
 }
 
@@ -185,30 +171,21 @@ void RepresentationCoastlineLayer::Handle(FeatureBuilder & fb)
   auto const geomType = fb.GetGeomType();
   switch (sourceType)
   {
-  case base::GeoObjectId::Type::ObsoleteOsmNode:
-    break;
+  case base::GeoObjectId::Type::ObsoleteOsmNode: break;
   case base::GeoObjectId::Type::ObsoleteOsmWay:
   {
     switch (geomType)
     {
     case GeomType::Area:
-    case GeomType::Line:
-      LayerBase::Handle(fb);
-      break;
-    default:
-      UNREACHABLE();
-      break;
+    case GeomType::Line: LayerBase::Handle(fb); break;
+    default: UNREACHABLE(); break;
     }
     break;
   }
-  case base::GeoObjectId::Type::ObsoleteOsmRelation:
-    break;
-  default:
-    UNREACHABLE();
-    break;
+  case base::GeoObjectId::Type::ObsoleteOsmRelation: break;
+  default: UNREACHABLE(); break;
   }
 }
-
 
 void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder & fb)
 {
@@ -225,10 +202,7 @@ void PrepareCoastlineFeatureLayer::Handle(FeatureBuilder & fb)
   LayerBase::Handle(fb);
 }
 
-WorldLayer::WorldLayer(std::string const & popularityFilename)
-  : m_filter(popularityFilename)
-{
-}
+WorldLayer::WorldLayer(std::string const & popularityFilename) : m_filter(popularityFilename) {}
 
 void WorldLayer::Handle(FeatureBuilder & fb)
 {

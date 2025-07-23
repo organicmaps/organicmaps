@@ -1,11 +1,11 @@
-#import "MWMButton.h"
 #import "MWMEditorAdditionalNamesHeader.h"
+#import "MWMButton.h"
 
 @interface MWMEditorAdditionalNamesHeader ()
 
-@property (weak, nonatomic) IBOutlet UILabel * label;
+@property(weak, nonatomic) IBOutlet UILabel * label;
 @property(copy, nonatomic) MWMVoidBlock toggleBlock;
-@property (weak, nonatomic) IBOutlet MWMButton * toggleButton;
+@property(weak, nonatomic) IBOutlet MWMButton * toggleButton;
 
 @end
 

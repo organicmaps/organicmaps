@@ -36,10 +36,7 @@ public:
   /// WARNING! Existing sections may not be properly aligned.
   static uint64_t const kSectionAlignment = 8;
 
-  bool IsExist(Tag const & tag) const
-  {
-    return GetInfo(tag) != 0;
-  }
+  bool IsExist(Tag const & tag) const { return GetInfo(tag) != 0; }
 
   template <typename ToDo>
   void ForEachTagInfo(ToDo && toDo) const
@@ -50,23 +47,14 @@ public:
 protected:
   struct LessInfo
   {
-    bool operator() (TagInfo const & t1, TagInfo const & t2) const
-    {
-      return (t1.m_tag < t2.m_tag);
-    }
-    bool operator() (TagInfo const & t1, Tag const & t2) const
-    {
-      return (t1.m_tag < t2);
-    }
-    bool operator() (Tag const & t1, TagInfo const & t2) const
-    {
-      return (t1 < t2.m_tag);
-    }
+    bool operator()(TagInfo const & t1, TagInfo const & t2) const { return (t1.m_tag < t2.m_tag); }
+    bool operator()(TagInfo const & t1, Tag const & t2) const { return (t1.m_tag < t2); }
+    bool operator()(Tag const & t1, TagInfo const & t2) const { return (t1 < t2.m_tag); }
   };
 
   struct LessOffset
   {
-    bool operator() (TagInfo const & t1, TagInfo const & t2) const
+    bool operator()(TagInfo const & t1, TagInfo const & t2) const
     {
       if (t1.m_offset == t2.m_offset)
       {
@@ -77,24 +65,15 @@ protected:
       else
         return (t1.m_offset < t2.m_offset);
     }
-    bool operator() (TagInfo const & t1, uint64_t const & t2) const
-    {
-      return (t1.m_offset < t2);
-    }
-    bool operator() (uint64_t const & t1, TagInfo const & t2) const
-    {
-      return (t1 < t2.m_offset);
-    }
+    bool operator()(TagInfo const & t1, uint64_t const & t2) const { return (t1.m_offset < t2); }
+    bool operator()(uint64_t const & t1, TagInfo const & t2) const { return (t1 < t2.m_offset); }
   };
 
   class EqualTag
   {
   public:
     EqualTag(Tag const & tag) : m_tag(tag) {}
-    bool operator() (TagInfo const & t) const
-    {
-      return (t.m_tag == m_tag);
-    }
+    bool operator()(TagInfo const & t) const { return (t.m_tag == m_tag); }
 
   private:
     Tag const & m_tag;
@@ -116,9 +95,7 @@ class FilesContainerR : public FilesContainerBase
 public:
   using TReader = ModelReaderPtr;
 
-  explicit FilesContainerR(std::string const & filePath,
-                           uint32_t logPageSize = 10,
-                           uint32_t logPageCount = 10);
+  explicit FilesContainerR(std::string const & filePath, uint32_t logPageSize = 10, uint32_t logPageCount = 10);
   explicit FilesContainerR(TReader const & file);
 
   TReader GetReader(Tag const & tag) const;
@@ -156,13 +133,19 @@ public:
     Handle() = default;
 
     Handle(char const * base, char const * alignBase, uint64_t size, uint64_t origSize)
-      : m_base(base), m_origBase(alignBase), m_size(size), m_origSize(origSize)
-    {
-    }
+      : m_base(base)
+      , m_origBase(alignBase)
+      , m_size(size)
+      , m_origSize(origSize)
+    {}
 
     Handle(Handle && h) { Assign(std::move(h)); }
 
-    Handle & operator=(Handle && h) { Assign(std::move(h)); return *this; }
+    Handle & operator=(Handle && h)
+    {
+      Assign(std::move(h));
+      return *this;
+    }
 
     ~Handle();
 
@@ -210,7 +193,7 @@ private:
 
   DISALLOW_COPY(MappedFile);
 };
-} // namespace detail
+}  // namespace detail
 
 class FilesMappingContainer : public FilesContainerBase
 {
@@ -239,8 +222,7 @@ private:
 class FilesContainerW : public FilesContainerBase
 {
 public:
-  FilesContainerW(std::string const & fName,
-                  FileWriter::Op op = FileWriter::OP_WRITE_TRUNCATE);
+  FilesContainerW(std::string const & fName, FileWriter::Op op = FileWriter::OP_WRITE_TRUNCATE);
   ~FilesContainerW();
 
   std::unique_ptr<FilesContainerWriter> GetWriter(Tag const & tag);

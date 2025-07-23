@@ -23,8 +23,7 @@ using m2::Spline;
 
 namespace df
 {
-PathTextShape::PathTextShape(m2::SharedSpline const & spline,
-                             PathTextViewParams const & params,
+PathTextShape::PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params,
                              TileKey const & tileKey, uint32_t baseTextIndex)
   : m_spline(spline)
   , m_params(params)
@@ -37,7 +36,8 @@ PathTextShape::PathTextShape(m2::SharedSpline const & spline,
 bool PathTextShape::CalculateLayout(ref_ptr<dp::TextureManager> textures)
 {
   char constexpr kSpaces[] = "   ";
-  auto layout = make_unique_dp<PathTextLayout>(m_params.m_tileCenter,
+  auto layout = make_unique_dp<PathTextLayout>(
+      m_params.m_tileCenter,
       m_params.m_auxText.empty() ? m_params.m_mainText : m_params.m_mainText + kSpaces + m_params.m_auxText,
       m_params.m_textFont.m_size, textures);
 
@@ -67,8 +67,7 @@ uint64_t PathTextShape::GetOverlayPriority(uint32_t textIndex, size_t textLength
   return priority;
 }
 
-void PathTextShape::DrawPathTextPlain(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<dp::TextureManager> textures,
+void PathTextShape::DrawPathTextPlain(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
                                       ref_ptr<dp::Batcher> batcher) const
 {
   auto const layout = m_context->GetLayout();
@@ -96,17 +95,13 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::GraphicsContext> context,
     dynBuffer.resize(staticBuffer.size());
 
     dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
-    provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(),
-                        make_ref(staticBuffer.data()));
-    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(),
-                        make_ref(dynBuffer.data()));
-    batcher->InsertListOfStrip(context, state, make_ref(&provider),
-                               CreateOverlayHandle(textIndex, textures), 4);
+    provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
+    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
+    batcher->InsertListOfStrip(context, state, make_ref(&provider), CreateOverlayHandle(textIndex, textures), 4);
   }
 }
 
-void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::GraphicsContext> context,
-                                         ref_ptr<dp::TextureManager> textures,
+void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textures,
                                          ref_ptr<dp::Batcher> batcher) const
 {
   auto const layout = m_context->GetLayout();
@@ -135,24 +130,20 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::GraphicsContext> context,
     dynBuffer.resize(staticBuffer.size());
 
     dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
-    provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(),
-                        make_ref(staticBuffer.data()));
-    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(),
-                        make_ref(dynBuffer.data()));
-    batcher->InsertListOfStrip(context, state, make_ref(&provider),
-                               CreateOverlayHandle(textIndex, textures), 4);
+    provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
+    provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(dynBuffer.data()));
+    batcher->InsertListOfStrip(context, state, make_ref(&provider), CreateOverlayHandle(textIndex, textures), 4);
   }
 }
 
 drape_ptr<dp::OverlayHandle> PathTextShape::CreateOverlayHandle(uint32_t textIndex,
                                                                 ref_ptr<dp::TextureManager> textures) const
 {
-  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId,
-                          m_tileCoords, m_baseTextIndex + textIndex);
+  dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_baseTextIndex + textIndex);
   auto const layout = m_context->GetLayout();
   auto const priority = GetOverlayPriority(textIndex, layout->GetGlyphCount());
-  return make_unique_dp<PathTextHandle>(overlayId, m_context, m_params.m_depth, textIndex, priority,
-                                          textures, m_params.m_minVisibleScale, true /* isBillboard */);
+  return make_unique_dp<PathTextHandle>(overlayId, m_context, m_params.m_depth, textIndex, priority, textures,
+                                        m_params.m_minVisibleScale, true /* isBillboard */);
 }
 
 void PathTextShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,

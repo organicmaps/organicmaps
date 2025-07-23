@@ -35,10 +35,7 @@ void TestWithCustomMwms::Cleanup(LocalCountryFile const & file)
 void TestWithCustomMwms::DeregisterMap(std::string const & name)
 {
   auto const file = CountryFile(name);
-  auto it = base::FindIf(m_files, [&file](LocalCountryFile const & f)
-  {
-    return f.GetCountryFile() == file;
-  });
+  auto it = base::FindIf(m_files, [&file](LocalCountryFile const & f) { return f.GetCountryFile() == file; });
 
   if (it == m_files.end())
     return;
@@ -77,17 +74,12 @@ void TestWithCustomMwms::RegisterLocalMapsInViewport(m2::RectD const & viewport)
   auto const countriesInfo = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
 
   RegisterLocalMapsImpl([&](std::string const & name)
-  {
-    return countriesInfo->GetLimitRectForLeaf(name).IsIntersect(viewport);
-  });
+  { return countriesInfo->GetLimitRectForLeaf(name).IsIntersect(viewport); });
 }
 
 void TestWithCustomMwms::RegisterLocalMapsByPrefix(std::string const & prefix)
 {
-  RegisterLocalMapsImpl([&](std::string const & name)
-  {
-    return name.starts_with(prefix);
-  });
+  RegisterLocalMapsImpl([&](std::string const & name) { return name.starts_with(prefix); });
 }
 
 }  // namespace tests_support

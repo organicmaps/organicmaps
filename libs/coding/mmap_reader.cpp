@@ -7,16 +7,16 @@
 #include <cstring>
 
 #ifdef OMIM_OS_WINDOWS
-  #include <windows.h>
+#include <windows.h>
 #else
-  #include <unistd.h>
-  #include <sys/mman.h>
-  #include <sys/stat.h>
-  #ifdef OMIM_OS_ANDROID
-    #include <fcntl.h>
-  #else
-    #include <sys/fcntl.h>
-  #endif
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#ifdef OMIM_OS_ANDROID
+#include <fcntl.h>
+#else
+#include <sys/fcntl.h>
+#endif
 #endif
 
 class MmapReader::MmapData
@@ -33,7 +33,8 @@ public:
 
     m_hMapping = CreateFileMappingA(m_hFile, nullptr, PAGE_READONLY, 0, 0, nullptr);
     if (!m_hMapping)
-      MYTHROW(Reader::OpenException, ("Can't create file's Windows mapping:", fileName, "win last error:", GetLastError()));
+      MYTHROW(Reader::OpenException,
+              ("Can't create file's Windows mapping:", fileName, "win last error:", GetLastError()));
 
     SCOPE_GUARD(mappingGuard, [this] { CloseHandle(m_hMapping); });
 
@@ -44,7 +45,8 @@ public:
     m_size = fileSize.QuadPart;
     m_memory = static_cast<uint8_t *>(MapViewOfFile(m_hMapping, FILE_MAP_READ, 0, 0, 0));
     if (!m_memory)
-      MYTHROW(Reader::OpenException, ("Can't create file's Windows mapping:", fileName, "win last error:", GetLastError()));
+      MYTHROW(Reader::OpenException,
+              ("Can't create file's Windows mapping:", fileName, "win last error:", GetLastError()));
 
     mappingGuard.release();
     fileGuard.release();
@@ -58,8 +60,7 @@ public:
       MYTHROW(OpenException, ("fstat failed for file", fileName));
     m_size = s.st_size;
 
-    m_memory = static_cast<uint8_t *>(
-        mmap(0, static_cast<size_t>(m_size), PROT_READ, MAP_PRIVATE, m_fd, 0));
+    m_memory = static_cast<uint8_t *>(mmap(0, static_cast<size_t>(m_size), PROT_READ, MAP_PRIVATE, m_fd, 0));
     if (m_memory == MAP_FAILED)
     {
       close(m_fd);
@@ -109,14 +110,14 @@ MmapReader::MmapReader(std::string const & fileName, Advice advice)
   , m_data(std::make_shared<MmapData>(fileName, advice))
   , m_offset(0)
   , m_size(m_data->m_size)
-{
-}
+{}
 
 MmapReader::MmapReader(MmapReader const & reader, uint64_t offset, uint64_t size)
-  : base_type(reader.GetName()), m_data(reader.m_data),
-    m_offset(offset), m_size(size)
-{
-}
+  : base_type(reader.GetName())
+  , m_data(reader.m_data)
+  , m_offset(offset)
+  , m_size(size)
+{}
 
 uint64_t MmapReader::Size() const
 {

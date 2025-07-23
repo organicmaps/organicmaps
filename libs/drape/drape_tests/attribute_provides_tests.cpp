@@ -142,11 +142,11 @@ UNIT_TEST(MixedStreamsTest)
 
   for (int i = 0; i < VERTEX_COUNT; ++i)
   {
-    position[3 * i] = (float)i;       // x
-    position[(3 * i) + 1] = 0.0;      // y
-    position[(3 * i) + 2] = (float)i; // z
-    position[2 * i] = (float)i;       // Nx
-    position[(2 * i) + 1] = 0.0;      // Ny
+    position[3 * i] = (float)i;        // x
+    position[(3 * i) + 1] = 0.0;       // y
+    position[(3 * i) + 2] = (float)i;  // z
+    position[2 * i] = (float)i;        // Nx
+    position[(2 * i) + 1] = 0.0;       // Ny
   }
 
   {

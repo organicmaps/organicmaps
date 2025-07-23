@@ -38,8 +38,8 @@ void FillGraphWithTestInfo(CrossBorderGraph & gaph, std::shared_ptr<NumMwmIds> n
   auto const [p1, id1] = GetCoordInRegion(50.88010, 4.41923, "Belgium_Flemish Brabant", numMwmIds);
   auto const [p2, id2] = GetCoordInRegion(50.99043, 5.48125, "Belgium_Limburg", numMwmIds);
   auto const [p3, id3] = GetCoordInRegion(50.88751, 5.92378, "Netherlands_Limburg", numMwmIds);
-  auto const [p4, id4] = GetCoordInRegion(
-      50.8734, 6.27417, "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen", numMwmIds);
+  auto const [p4, id4] =
+      GetCoordInRegion(50.8734, 6.27417, "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen", numMwmIds);
 
   double constexpr avgSpeedMpS = 14.0;
 
@@ -100,14 +100,9 @@ void TestEqualSegments(CrossBorderSegments const & s1, CrossBorderSegments const
 
     static double constexpr epsCoord = 1e-5;
 
-    TEST(AlmostEqualAbs(data1.m_start.m_point.GetLatLon(), data2.m_start.m_point.GetLatLon(),
-                              epsCoord),
-         ());
-    TEST(AlmostEqualAbs(data1.m_end.m_point.GetLatLon(), data2.m_end.m_point.GetLatLon(),
-                              epsCoord),
-         ());
-    TEST_EQUAL(static_cast<uint32_t>(std::ceil(data1.m_weight)),
-               static_cast<uint32_t>(std::ceil(data2.m_weight)), ());
+    TEST(AlmostEqualAbs(data1.m_start.m_point.GetLatLon(), data2.m_start.m_point.GetLatLon(), epsCoord), ());
+    TEST(AlmostEqualAbs(data1.m_end.m_point.GetLatLon(), data2.m_end.m_point.GetLatLon(), epsCoord), ());
+    TEST_EQUAL(static_cast<uint32_t>(std::ceil(data1.m_weight)), static_cast<uint32_t>(std::ceil(data2.m_weight)), ());
   }
 }
 

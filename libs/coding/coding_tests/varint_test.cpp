@@ -12,32 +12,34 @@ using namespace std;
 
 namespace
 {
-  template <typename T> void TestVarUint(T const x)
-  {
-    vector<unsigned char> data;
-    PushBackByteSink<vector<uint8_t>> dst(data);
-    WriteVarUint(dst, x);
+template <typename T>
+void TestVarUint(T const x)
+{
+  vector<unsigned char> data;
+  PushBackByteSink<vector<uint8_t>> dst(data);
+  WriteVarUint(dst, x);
 
-    ArrayByteSource src(&data[0]);
-    TEST_EQUAL(ReadVarUint<T>(src), x, ());
+  ArrayByteSource src(&data[0]);
+  TEST_EQUAL(ReadVarUint<T>(src), x, ());
 
-    size_t const bytesRead = src.PtrUint8() - data.data();
-    TEST_EQUAL(bytesRead, data.size(), (x));
-  }
-
-  template <typename T> void TestVarInt(T const x)
-  {
-    vector<uint8_t> data;
-    PushBackByteSink<vector<uint8_t>> dst(data);
-    WriteVarInt(dst, x);
-
-    ArrayByteSource src(&data[0]);
-    TEST_EQUAL(ReadVarInt<T>(src), x, ());
-
-    size_t const bytesRead = src.PtrUint8() - data.data();
-    TEST_EQUAL(bytesRead, data.size(), (x));
-  }
+  size_t const bytesRead = src.PtrUint8() - data.data();
+  TEST_EQUAL(bytesRead, data.size(), (x));
 }
+
+template <typename T>
+void TestVarInt(T const x)
+{
+  vector<uint8_t> data;
+  PushBackByteSink<vector<uint8_t>> dst(data);
+  WriteVarInt(dst, x);
+
+  ArrayByteSource src(&data[0]);
+  TEST_EQUAL(ReadVarInt<T>(src), x, ());
+
+  size_t const bytesRead = src.PtrUint8() - data.data();
+  TEST_EQUAL(bytesRead, data.size(), (x));
+}
+}  // namespace
 
 UNIT_TEST(VarUint0)
 {
@@ -125,11 +127,16 @@ UNIT_TEST(ReadVarInt64Array)
 
   // Fill in values.
   {
-    int64_t const baseValues [] =
-    {
-      0, 127, 128, (2 << 28) - 1, (2 << 28), (2LL << 31), (2LL << 31) - 1,
-      0xFFFFFFFF - 1, 0xFFFFFFFF, 0xFFFFFFFFFFULL
-    };
+    int64_t const baseValues[] = {0,
+                                  127,
+                                  128,
+                                  (2 << 28) - 1,
+                                  (2 << 28),
+                                  (2LL << 31),
+                                  (2LL << 31) - 1,
+                                  0xFFFFFFFF - 1,
+                                  0xFFFFFFFF,
+                                  0xFFFFFFFFFFULL};
     for (size_t i = 0; i < ARRAY_SIZE(baseValues); ++i)
     {
       values.push_back(baseValues[i]);
@@ -164,20 +171,17 @@ UNIT_TEST(ReadVarInt64Array)
       void const * pDataEnd = &data[0] + data.size();
 
       vector<int64_t> result;
-      void const * pEnd = ReadVarInt64Array(pDataStart, pDataEnd,
-                                            base::MakeBackInsertFunctor(result));
+      void const * pEnd = ReadVarInt64Array(pDataStart, pDataEnd, base::MakeBackInsertFunctor(result));
 
       TEST_EQUAL(pEnd, pDataEnd, ("UntilBufferEnd", data.size()));
       TEST_EQUAL(result, testValues, ("UntilBufferEnd", data.size()));
     }
     {
       vector<int64_t> result;
-      void const * pEnd = ReadVarInt64Array(&data[0], testValues.size(),
-                                            base::MakeBackInsertFunctor(result));
+      void const * pEnd = ReadVarInt64Array(&data[0], testValues.size(), base::MakeBackInsertFunctor(result));
 
       TEST_EQUAL(pEnd, &data[0] + data.size(), ("GivenSize", data.size()));
       TEST_EQUAL(result, testValues, ("GivenSize", data.size()));
     }
   }
 }
-

@@ -9,7 +9,8 @@ namespace base
 {
 namespace impl
 {
-template <class ClockT> class StdTimer
+template <class ClockT>
+class StdTimer
 {
   typename ClockT::time_point m_startTime;
 
@@ -36,8 +37,7 @@ public:
 
   void Reset() { m_startTime = ClockT::now(); }
 };
-} // namespace impl
-
+}  // namespace impl
 
 /// Cross platform timer
 class Timer : public impl::StdTimer<std::chrono::steady_clock>
@@ -77,7 +77,6 @@ time_t const INVALID_TIME_STAMP = -1;
 /// @return INVALID_TIME_STAMP if string is invalid
 time_t StringToTimestamp(std::string const & s);
 
-
 /// High resolution timer to use in comparison tests.
 using HighResTimer = impl::StdTimer<std::chrono::high_resolution_clock>;
 
@@ -90,8 +89,7 @@ public:
     Seconds,
   };
 
-  explicit ScopedTimerWithLog(std::string const & timerName,
-                              Measure measure = Measure::MilliSeconds);
+  explicit ScopedTimerWithLog(std::string const & timerName, Measure measure = Measure::MilliSeconds);
   ~ScopedTimerWithLog();
 
 private:

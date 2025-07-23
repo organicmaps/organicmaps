@@ -1,7 +1,7 @@
 #include "routing/pedestrian_directions.hpp"
 
-#include "routing/turns_generator.hpp"
 #include "routing/turns.hpp"
+#include "routing/turns_generator.hpp"
 #include "routing/turns_generator_utils.hpp"
 
 #include <utility>
@@ -13,16 +13,15 @@ using namespace turns;
 
 PedestrianDirectionsEngine::PedestrianDirectionsEngine(MwmDataSource & dataSource, shared_ptr<NumMwmIds> numMwmIds)
   : DirectionsEngine(dataSource, std::move(numMwmIds))
-{
-}
+{}
 
 // Angles in degrees for finding route segments with no actual forks.
 double constexpr kMaxForwardAngleCandidates = 95.0;
 double constexpr kMaxForwardAngleActual = 60.0;
 
 size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & result, size_t const outgoingSegmentIndex,
-                                   NumMwmIds const & numMwmIds,
-                                   RoutingSettings const & vehicleSettings, TurnItem & turn)
+                                                    NumMwmIds const & numMwmIds,
+                                                    RoutingSettings const & vehicleSettings, TurnItem & turn)
 {
   if (outgoingSegmentIndex == result.GetSegments().size())
   {
@@ -31,7 +30,7 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
   }
 
   // See comment for the same in CarDirectionsEngine::GetTurnDirection().
-  if (outgoingSegmentIndex == 2) // The same as turnItem.m_index == 2.
+  if (outgoingSegmentIndex == 2)  // The same as turnItem.m_index == 2.
     return 0;
 
   TurnInfo turnInfo;
@@ -78,7 +77,8 @@ size_t PedestrianDirectionsEngine::GetTurnDirection(IRoutingResult const & resul
   // there is no possibility of leaving the route.
   if (nodes.candidates.size() <= 1)
     turn.m_pedestrianTurn = PedestrianDirection::None;
-  if (fabs(CalcOneSegmentTurnAngle(turnInfo)) < kMaxForwardAngleActual && HasSingleForwardTurn(nodes, kMaxForwardAngleCandidates))
+  if (fabs(CalcOneSegmentTurnAngle(turnInfo)) < kMaxForwardAngleActual &&
+      HasSingleForwardTurn(nodes, kMaxForwardAngleCandidates))
     turn.m_pedestrianTurn = PedestrianDirection::None;
 
   return 0;

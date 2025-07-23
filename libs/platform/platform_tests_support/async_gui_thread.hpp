@@ -16,14 +16,11 @@ class AsyncGuiThread
 public:
   AsyncGuiThread()
   {
-    GetPlatform().SetGuiThread(std::make_unique<base::DelayedThreadPool>(
-        1 /* threadsCount */, base::DelayedThreadPool::Exit::ExecPending));
+    GetPlatform().SetGuiThread(
+        std::make_unique<base::DelayedThreadPool>(1 /* threadsCount */, base::DelayedThreadPool::Exit::ExecPending));
   }
 
-  virtual ~AsyncGuiThread()
-  {
-    GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>());
-  }
+  virtual ~AsyncGuiThread() { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); }
 
 private:
   Platform::ThreadRunner m_runner;

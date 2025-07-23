@@ -15,9 +15,9 @@ namespace routing
 namespace transit
 {
 // TransitHeader ----------------------------------------------------------------------------------
-TransitHeader::TransitHeader(uint16_t version, uint32_t stopsOffset, uint32_t gatesOffset,
-                             uint32_t edgesOffset, uint32_t transfersOffset, uint32_t linesOffset,
-                             uint32_t shapesOffset, uint32_t networksOffset, uint32_t endOffset)
+TransitHeader::TransitHeader(uint16_t version, uint32_t stopsOffset, uint32_t gatesOffset, uint32_t edgesOffset,
+                             uint32_t transfersOffset, uint32_t linesOffset, uint32_t shapesOffset,
+                             uint32_t networksOffset, uint32_t endOffset)
   : m_version(version)
   , m_reserve(0)
   , m_stopsOffset(stopsOffset)
@@ -28,8 +28,7 @@ TransitHeader::TransitHeader(uint16_t version, uint32_t stopsOffset, uint32_t ga
   , m_shapesOffset(shapesOffset)
   , m_networksOffset(networksOffset)
   , m_endOffset(endOffset)
-{
-}
+{}
 
 void TransitHeader::Reset()
 {
@@ -47,37 +46,29 @@ void TransitHeader::Reset()
 
 bool TransitHeader::IsEqualForTesting(TransitHeader const & header) const
 {
-  return m_version == header.m_version
-         && m_reserve == header.m_reserve
-         && m_stopsOffset == header.m_stopsOffset
-         && m_gatesOffset == header.m_gatesOffset
-         && m_edgesOffset == header.m_edgesOffset
-         && m_transfersOffset == header.m_transfersOffset
-         && m_linesOffset == header.m_linesOffset
-         && m_shapesOffset == header.m_shapesOffset
-         && m_networksOffset == header.m_networksOffset
-         && m_endOffset == header.m_endOffset;
+  return m_version == header.m_version && m_reserve == header.m_reserve && m_stopsOffset == header.m_stopsOffset &&
+         m_gatesOffset == header.m_gatesOffset && m_edgesOffset == header.m_edgesOffset &&
+         m_transfersOffset == header.m_transfersOffset && m_linesOffset == header.m_linesOffset &&
+         m_shapesOffset == header.m_shapesOffset && m_networksOffset == header.m_networksOffset &&
+         m_endOffset == header.m_endOffset;
 }
 
 bool TransitHeader::IsValid() const
 {
-  return m_stopsOffset <= m_gatesOffset && m_gatesOffset <= m_edgesOffset &&
-         m_edgesOffset <= m_transfersOffset && m_transfersOffset <= m_linesOffset &&
-         m_linesOffset <= m_shapesOffset && m_shapesOffset <= m_networksOffset &&
+  return m_stopsOffset <= m_gatesOffset && m_gatesOffset <= m_edgesOffset && m_edgesOffset <= m_transfersOffset &&
+         m_transfersOffset <= m_linesOffset && m_linesOffset <= m_shapesOffset && m_shapesOffset <= m_networksOffset &&
          m_networksOffset <= m_endOffset;
 }
 
 // FeatureIdentifiers -----------------------------------------------------------------------------
-FeatureIdentifiers::FeatureIdentifiers(bool serializeFeatureIdOnly)
-  : m_serializeFeatureIdOnly(serializeFeatureIdOnly)
-{
-}
+FeatureIdentifiers::FeatureIdentifiers(bool serializeFeatureIdOnly) : m_serializeFeatureIdOnly(serializeFeatureIdOnly)
+{}
 
-FeatureIdentifiers::FeatureIdentifiers(OsmId osmId, FeatureId const & featureId,
-                                       bool serializeFeatureIdOnly)
-  : m_osmId(osmId), m_featureId(featureId), m_serializeFeatureIdOnly(serializeFeatureIdOnly)
-{
-}
+FeatureIdentifiers::FeatureIdentifiers(OsmId osmId, FeatureId const & featureId, bool serializeFeatureIdOnly)
+  : m_osmId(osmId)
+  , m_featureId(featureId)
+  , m_serializeFeatureIdOnly(serializeFeatureIdOnly)
+{}
 
 bool FeatureIdentifiers::operator<(FeatureIdentifiers const & rhs) const
 {
@@ -122,24 +113,21 @@ bool TitleAnchor::IsValid() const
 }
 
 // Stop -------------------------------------------------------------------------------------------
-Stop::Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId,
-           std::vector<LineId> const & lineIds, m2::PointD const & point,
-           std::vector<TitleAnchor> const & titleAnchors)
+Stop::Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
+           m2::PointD const & point, std::vector<TitleAnchor> const & titleAnchors)
   : m_id(id)
   , m_featureIdentifiers(osmId, featureId, true /* serializeFeatureIdOnly */)
   , m_transferId(transferId)
   , m_lineIds(lineIds)
   , m_point(point)
   , m_titleAnchors(titleAnchors)
-{
-}
+{}
 
 bool Stop::IsEqualForTesting(Stop const & stop) const
 {
   double constexpr kPointsEqualEpsilon = 1e-6;
-  return m_id == stop.m_id && m_featureIdentifiers == stop.m_featureIdentifiers &&
-         m_transferId == stop.m_transferId && m_lineIds == stop.m_lineIds &&
-         AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon) &&
+  return m_id == stop.m_id && m_featureIdentifiers == stop.m_featureIdentifiers && m_transferId == stop.m_transferId &&
+         m_lineIds == stop.m_lineIds && AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon) &&
          m_titleAnchors == stop.m_titleAnchors;
 }
 
@@ -150,9 +138,10 @@ bool Stop::IsValid() const
 
 // SingleMwmSegment -------------------------------------------------------------------------------
 SingleMwmSegment::SingleMwmSegment(FeatureId featureId, uint32_t segmentIdx, bool forward)
-  : m_featureId(featureId), m_segmentIdx(segmentIdx), m_forward(forward)
-{
-}
+  : m_featureId(featureId)
+  , m_segmentIdx(segmentIdx)
+  , m_forward(forward)
+{}
 
 bool SingleMwmSegment::IsEqualForTesting(SingleMwmSegment const & s) const
 {
@@ -173,8 +162,7 @@ Gate::Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, Weight we
   , m_weight(weight)
   , m_stopIds(stopIds)
   , m_point(point)
-{
-}
+{}
 
 bool Gate::operator<(Gate const & rhs) const
 {
@@ -192,21 +180,21 @@ bool Gate::operator<(Gate const & rhs) const
 
 bool Gate::operator==(Gate const & rhs) const
 {
-  return m_featureIdentifiers == rhs.m_featureIdentifiers && m_entrance == rhs.m_entrance &&
-         m_exit == rhs.m_exit && m_stopIds == rhs.m_stopIds;
+  return m_featureIdentifiers == rhs.m_featureIdentifiers && m_entrance == rhs.m_entrance && m_exit == rhs.m_exit &&
+         m_stopIds == rhs.m_stopIds;
 }
 
 bool Gate::IsEqualForTesting(Gate const & gate) const
 {
-  return m_featureIdentifiers == gate.m_featureIdentifiers && m_entrance == gate.m_entrance &&
-         m_exit == gate.m_exit && m_weight == gate.m_weight && m_stopIds == gate.m_stopIds &&
+  return m_featureIdentifiers == gate.m_featureIdentifiers && m_entrance == gate.m_entrance && m_exit == gate.m_exit &&
+         m_weight == gate.m_weight && m_stopIds == gate.m_stopIds &&
          AlmostEqualAbs(m_point, gate.m_point, kPointsEqualEpsilon);
 }
 
 bool Gate::IsValid() const
 {
-  return m_featureIdentifiers.GetOsmId() != kInvalidOsmId && m_weight != kInvalidWeight &&
-         (m_entrance || m_exit) && !m_stopIds.empty();
+  return m_featureIdentifiers.GetOsmId() != kInvalidOsmId && m_weight != kInvalidWeight && (m_entrance || m_exit) &&
+         !m_stopIds.empty();
 }
 
 // ShapeId ----------------------------------------------------------------------------------------
@@ -230,10 +218,8 @@ bool ShapeId::IsValid() const
 // EdgeFlags --------------------------------------------------------------------------------------
 uint8_t EdgeFlags::GetFlags() const
 {
-  return BoolToUint(m_transfer) * kTransferMask +
-         BoolToUint(m_isShapeIdsEmpty) * kEmptyShapeIdsMask +
-         BoolToUint(m_isShapeIdsSingle) * kSingleShapeIdMask +
-         BoolToUint(m_isShapeIdsSame) * kShapeIdIsSameMask +
+  return BoolToUint(m_transfer) * kTransferMask + BoolToUint(m_isShapeIdsEmpty) * kEmptyShapeIdsMask +
+         BoolToUint(m_isShapeIdsSingle) * kSingleShapeIdMask + BoolToUint(m_isShapeIdsSame) * kShapeIdIsSameMask +
          BoolToUint(m_isShapeIdsReversed) * kShapeIdIsReversedMask;
 }
 
@@ -266,8 +252,7 @@ Edge::Edge(StopId stop1Id, StopId stop2Id, Weight weight, LineId lineId, bool tr
   , m_lineId(lineId)
   , m_flags(GetEdgeFlags(transfer, stop1Id, stop2Id, shapeIds))
   , m_shapeIds(shapeIds)
-{
-}
+{}
 
 bool Edge::operator<(Edge const & rhs) const
 {
@@ -286,8 +271,7 @@ bool Edge::operator==(Edge const & rhs) const
 bool Edge::IsEqualForTesting(Edge const & edge) const
 {
   return m_stop1Id == edge.m_stop1Id && m_stop2Id == edge.m_stop2Id && m_weight == edge.m_weight &&
-         m_lineId == edge.m_lineId && GetTransfer() == edge.GetTransfer() &&
-         m_shapeIds == edge.m_shapeIds;
+         m_lineId == edge.m_lineId && GetTransfer() == edge.GetTransfer() && m_shapeIds == edge.m_shapeIds;
 }
 
 bool Edge::IsValid() const
@@ -304,14 +288,15 @@ bool Edge::IsValid() const
 // Transfer ---------------------------------------------------------------------------------------
 Transfer::Transfer(StopId id, m2::PointD const & point, std::vector<StopId> const & stopIds,
                    std::vector<TitleAnchor> const & titleAnchors)
-  : m_id(id), m_point(point), m_stopIds(stopIds), m_titleAnchors(titleAnchors)
-{
-}
+  : m_id(id)
+  , m_point(point)
+  , m_stopIds(stopIds)
+  , m_titleAnchors(titleAnchors)
+{}
 
 bool Transfer::IsEqualForTesting(Transfer const & transfer) const
 {
-  return m_id == transfer.m_id &&
-         AlmostEqualAbs(m_point, transfer.m_point, kPointsEqualEpsilon) &&
+  return m_id == transfer.m_id && AlmostEqualAbs(m_point, transfer.m_point, kPointsEqualEpsilon) &&
          m_stopIds == transfer.m_stopIds && m_titleAnchors == transfer.m_titleAnchors;
 }
 
@@ -321,9 +306,8 @@ bool Transfer::IsValid() const
 }
 
 // Line -------------------------------------------------------------------------------------------
-Line::Line(LineId id, std::string const & number, std::string const & title,
-           std::string const & type, std::string const & color, NetworkId networkId,
-           Ranges const & stopIds, Weight interval)
+Line::Line(LineId id, std::string const & number, std::string const & title, std::string const & type,
+           std::string const & color, NetworkId networkId, Ranges const & stopIds, Weight interval)
   : m_id(id)
   , m_number(number)
   , m_title(title)
@@ -332,14 +316,13 @@ Line::Line(LineId id, std::string const & number, std::string const & title,
   , m_networkId(networkId)
   , m_stopIds(stopIds)
   , m_interval(interval)
-{
-}
+{}
 
 bool Line::IsEqualForTesting(Line const & line) const
 {
-  return m_id == line.m_id && m_number == line.m_number && m_title == line.m_title &&
-         m_type == line.m_type && m_color == line.m_color && m_networkId == line.m_networkId &&
-         m_stopIds == line.m_stopIds && m_interval == line.m_interval;
+  return m_id == line.m_id && m_number == line.m_number && m_title == line.m_title && m_type == line.m_type &&
+         m_color == line.m_color && m_networkId == line.m_networkId && m_stopIds == line.m_stopIds &&
+         m_interval == line.m_interval;
 }
 
 bool Line::IsValid() const
@@ -355,18 +338,13 @@ bool Shape::IsEqualForTesting(Shape const & shape) const
     return false;
 
   for (size_t i = 0; i < m_polyline.size(); ++i)
-  {
     if (!AlmostEqualAbs(m_polyline[i], shape.m_polyline[i], kPointsEqualEpsilon))
       return false;
-  }
   return true;
 }
 
 // Network ----------------------------------------------------------------------------------------
-Network::Network(NetworkId id, std::string const & title)
-: m_id(id), m_title(title)
-{
-}
+Network::Network(NetworkId id, std::string const & title) : m_id(id), m_title(title) {}
 
 bool Network::IsEqualForTesting(Network const & shape) const
 {
@@ -378,8 +356,7 @@ bool Network::IsValid() const
   return m_id != kInvalidNetworkId;
 }
 
-EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,
-                       std::vector<ShapeId> const & shapeIds)
+EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2, std::vector<ShapeId> const & shapeIds)
 {
   EdgeFlags flags;
   flags.m_transfer = transfer;
@@ -388,10 +365,8 @@ EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,
   flags.m_isShapeIdsSingle = singleShapeId;
   if (singleShapeId)
   {
-    flags.m_isShapeIdsSame =
-        stopId1 == shapeIds[0].GetStop1Id() && stopId2 == shapeIds[0].GetStop2Id();
-    flags.m_isShapeIdsReversed =
-        stopId1 == shapeIds[0].GetStop2Id() && stopId2 == shapeIds[0].GetStop1Id();
+    flags.m_isShapeIdsSame = stopId1 == shapeIds[0].GetStop1Id() && stopId2 == shapeIds[0].GetStop2Id();
+    flags.m_isShapeIdsReversed = stopId1 == shapeIds[0].GetStop2Id() && stopId2 == shapeIds[0].GetStop1Id();
   }
   return flags;
 }

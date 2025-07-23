@@ -27,8 +27,8 @@ class TokenSlice;
 class CategoriesInfo
 {
 public:
-  CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens,
-                 Locales const & locales, CategoriesHolder const & categories);
+  CategoriesInfo(feature::TypesHolder const & holder, TokenSlice const & tokens, Locales const & locales,
+                 CategoriesHolder const & categories);
 
   size_t GetMatchedLength() const { return m_matchedLength; }
 
@@ -98,23 +98,23 @@ namespace impl
 // Returns the minimum number of errors needed to match |text| with |token|.
 // If it's not possible in accordance with GetMaxErrorsForToken(|text|), returns kInfiniteErrors.
 /// @param[in]  dfa DFA for |text|
-ErrorsMade GetErrorsMade(QueryParams::Token const & token,
-                         strings::UniString const & text, strings::LevenshteinDFA const & dfa);
-ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token,
-                               strings::UniString const & text, strings::LevenshteinDFA const & dfa);
+ErrorsMade GetErrorsMade(QueryParams::Token const & token, strings::UniString const & text,
+                         strings::LevenshteinDFA const & dfa);
+ErrorsMade GetPrefixErrorsMade(QueryParams::Token const & token, strings::UniString const & text,
+                               strings::LevenshteinDFA const & dfa);
 }  // namespace impl
 
 // The order and numeric values are important here. Please, check all use-cases before changing this enum.
 enum class NameScore : uint8_t
 {
   // example name = "Carrefour Mini"
-                  // example query:
-  ZERO = 0,       // Rewe
-  SUBSTRING,      // Mini
-  PREFIX,         // Carref
-  FIRST_MATCH,    // Carrefour Maxi
-  FULL_PREFIX,    // Carrefour
-  FULL_MATCH,     // Carrefour Mini
+  // example query:
+  ZERO = 0,     // Rewe
+  SUBSTRING,    // Mini
+  PREFIX,       // Carref
+  FIRST_MATCH,  // Carrefour Maxi
+  FULL_PREFIX,  // Carrefour
+  FULL_MATCH,   // Carrefour Mini
 
   COUNT
 };
@@ -123,9 +123,11 @@ struct NameScores
 {
   NameScores() = default;
   NameScores(NameScore nameScore, ErrorsMade const & errorsMade, bool isAltOrOldName, size_t matchedLength)
-    : m_nameScore(nameScore), m_errorsMade(errorsMade), m_isAltOrOldName(isAltOrOldName), m_matchedLength(matchedLength)
-  {
-  }
+    : m_nameScore(nameScore)
+    , m_errorsMade(errorsMade)
+    , m_isAltOrOldName(isAltOrOldName)
+    , m_matchedLength(matchedLength)
+  {}
 
   void UpdateIfBetter(NameScores const & rhs)
   {
@@ -135,8 +137,7 @@ struct NameScores
       newNameScoreIsBetter = false;
 
     // FULL_PREFIX with !alt_old_name) is better than FULL_MATCH with alt_old_name.
-    if (!m_isAltOrOldName && rhs.m_isAltOrOldName &&
-        !rhs.m_errorsMade.IsBetterThan(m_errorsMade) &&
+    if (!m_isAltOrOldName && rhs.m_isAltOrOldName && !rhs.m_errorsMade.IsBetterThan(m_errorsMade) &&
         (int)rhs.m_nameScore - (int)m_nameScore < 2)
     {
       newNameScoreIsBetter = false;
@@ -151,9 +152,8 @@ struct NameScores
     // It's okay to pick a slightly worse matched length if other scores are better.
     auto const matchedLengthsAreSimilar = (m_matchedLength - m_matchedLength / 4) <= rhs.m_matchedLength;
 
-    if (newMatchedLengthIsBetter ||
-       (matchedLengthsAreSimilar && newNameScoreIsBetter) ||
-       (matchedLengthsAreSimilar && nameScoresAreEqual && newLanguageIsBetter))
+    if (newMatchedLengthIsBetter || (matchedLengthsAreSimilar && newNameScoreIsBetter) ||
+        (matchedLengthsAreSimilar && nameScoresAreEqual && newLanguageIsBetter))
     {
       m_nameScore = rhs.m_nameScore;
       m_errorsMade = rhs.m_errorsMade;
@@ -183,25 +183,18 @@ std::string DebugPrint(NameScores const & scores);
 // Returns true when |s| is a stop-word and may be removed from a query.
 bool IsStopWord(strings::UniString const & s);
 
-
 class TokensVector
 {
   std::vector<strings::UniString> m_tokens;
   std::vector<strings::LevenshteinDFA> m_dfas;
 
 private:
-  void Init()
-  {
-    m_dfas.resize(m_tokens.size());
-  }
+  void Init() { m_dfas.resize(m_tokens.size()); }
 
 public:
   TokensVector() = default;
   explicit TokensVector(std::string_view name);
-  explicit TokensVector(std::vector<strings::UniString> && tokens) : m_tokens(std::move(tokens))
-  {
-    Init();
-  }
+  explicit TokensVector(std::vector<strings::UniString> && tokens) : m_tokens(std::move(tokens)) { Init(); }
 
   std::vector<strings::UniString> const & GetTokens() const { return m_tokens; }
   size_t Size() const { return m_tokens.size(); }
@@ -213,7 +206,6 @@ public:
     return m_dfas[i];
   }
 };
-
 
 /// @param[in]  tokens  Feature's name (splitted on tokens, without delimiters) to match.
 /// @param[in]  slice   Input query.
@@ -267,9 +259,7 @@ NameScores GetNameScores(TokensVector & tokens, uint8_t lang, Slice const & slic
     bool isAltOrOldName = false;
 
     auto const isFullScore = [&nameScore]()
-    {
-      return (nameScore == NameScore::FULL_MATCH || nameScore == NameScore::FULL_PREFIX);
-    };
+    { return (nameScore == NameScore::FULL_MATCH || nameScore == NameScore::FULL_PREFIX); };
 
     // Iterate through the entire slice. Incomplete matches can still be good.
     // Using this slice & token as an example:
@@ -291,8 +281,7 @@ NameScores GetNameScores(TokensVector & tokens, uint8_t lang, Slice const & slic
     //                 -6  -5  -4  -3  -2  -1   0   1   2
 
     size_t iToken, iSlice;
-    for (size_t i = std::max(0, int(offset) + 1 - int(tokenCount));
-                i < std::min(sliceCount, offset + 1); ++i)
+    for (size_t i = std::max(0, int(offset) + 1 - int(tokenCount)); i < std::min(sliceCount, offset + 1); ++i)
     {
       size_t const tIdx = i + tokenCount - 1 - offset;
 

@@ -21,7 +21,7 @@ auto constexpr kOutdatedDataTimeout = minutes(5) + kUpdateInterval;
 auto constexpr kNetworkErrorTimeout = minutes(20);
 
 auto constexpr kMaxRetriesCount = 5;
-} // namespace
+}  // namespace
 
 TrafficManager::CacheEntry::CacheEntry()
   : m_isLoaded(false)
@@ -92,7 +92,7 @@ void TrafficManager::SetEnabled(bool enabled)
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     if (enabled == IsEnabled())
-       return;
+      return;
     Clear();
     ChangeState(enabled ? TrafficState::Enabled : TrafficState::Disabled);
   }
@@ -173,8 +173,7 @@ void TrafficManager::Invalidate()
     UpdateMyPosition(m_currentPosition.first);
 }
 
-void TrafficManager::UpdateActiveMwms(m2::RectD const & rect,
-                                      std::vector<MwmSet::MwmId> & lastMwmsByRect,
+void TrafficManager::UpdateActiveMwms(m2::RectD const & rect, std::vector<MwmSet::MwmId> & lastMwmsByRect,
                                       std::set<MwmSet::MwmId> & activeMwms)
 {
   auto mwms = m_getMwmsByRectFn(rect);
@@ -186,10 +185,8 @@ void TrafficManager::UpdateActiveMwms(m2::RectD const & rect,
     std::lock_guard<std::mutex> lock(m_mutex);
     activeMwms.clear();
     for (auto const & mwm : mwms)
-    {
       if (mwm.IsAlive())
         activeMwms.insert(mwm);
-    }
     RequestTrafficData();
   }
 }
@@ -204,8 +201,7 @@ void TrafficManager::UpdateMyPosition(MyPosition const & myPosition)
   if (!IsEnabled() || IsInvalidState() || m_isPaused)
     return;
 
-  m2::RectD const rect =
-      mercator::RectByCenterXYAndSizeInMeters(myPosition.m_position, kSquareSideM / 2.0);
+  m2::RectD const rect = mercator::RectByCenterXYAndSizeInMeters(myPosition.m_position, kSquareSideM / 2.0);
   // Request traffic.
   UpdateActiveMwms(rect, m_lastRoutingMwmsByRect, m_activeRoutingMwms);
 
@@ -267,10 +263,8 @@ bool TrafficManager::WaitForRequest(std::vector<MwmSet::MwmId> & mwms)
 {
   std::unique_lock<std::mutex> lock(m_mutex);
 
-  bool const timeout = !m_condition.wait_for(lock, kUpdateInterval, [this]
-  {
-    return !m_isRunning || !m_requestedMwms.empty();
-  });
+  bool const timeout =
+      !m_condition.wait_for(lock, kUpdateInterval, [this] { return !m_isRunning || !m_requestedMwms.empty(); });
 
   if (!m_isRunning)
     return false;
@@ -316,13 +310,11 @@ void TrafficManager::RequestTrafficData(MwmSet::MwmId const & mwmId, bool force)
 
 void TrafficManager::RequestTrafficData()
 {
-  if ((m_activeDrapeMwms.empty() && m_activeRoutingMwms.empty()) || !IsEnabled() ||
-      IsInvalidState() || m_isPaused)
-  {
+  if ((m_activeDrapeMwms.empty() && m_activeRoutingMwms.empty()) || !IsEnabled() || IsInvalidState() || m_isPaused)
     return;
-  }
 
-  ForEachActiveMwm([this](MwmSet::MwmId const & mwmId) {
+  ForEachActiveMwm([this](MwmSet::MwmId const & mwmId)
+  {
     ASSERT(mwmId.IsAlive(), ());
     RequestTrafficData(mwmId, false /* force */);
   });
@@ -340,8 +332,7 @@ void TrafficManager::OnTrafficRequestFailed(traffic::TrafficInfo && info)
   it->second.m_isWaitingForResponse = false;
   it->second.m_lastAvailability = info.GetAvailability();
 
-  if (info.GetAvailability() == traffic::TrafficInfo::Availability::Unknown &&
-      !it->second.m_isLoaded)
+  if (info.GetAvailability() == traffic::TrafficInfo::Availability::Unknown && !it->second.m_isLoaded)
   {
     if (m_activeDrapeMwms.find(info.GetMwmId()) != m_activeDrapeMwms.cend() ||
         m_activeRoutingMwms.find(info.GetMwmId()) != m_activeRoutingMwms.cend())
@@ -388,8 +379,7 @@ void TrafficManager::OnTrafficDataResponse(traffic::TrafficInfo && info)
 
   if (!info.GetColoring().empty())
   {
-    m_drapeEngine.SafeCall(&df::DrapeEngine::UpdateTraffic,
-                           static_cast<traffic::TrafficInfo const &>(info));
+    m_drapeEngine.SafeCall(&df::DrapeEngine::UpdateTraffic, static_cast<traffic::TrafficInfo const &>(info));
 
     // Update traffic colors for routing.
     m_observer.OnTrafficInfoAdded(std::move(info));
@@ -437,10 +427,7 @@ void TrafficManager::ClearCache(MwmSet::MwmId const & mwmId)
 
     m_drapeEngine.SafeCall(&df::DrapeEngine::ClearTrafficCache, mwmId);
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, mwmId]()
-    {
-      m_observer.OnTrafficInfoRemoved(mwmId);
-    });
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, mwmId]() { m_observer.OnTrafficInfoRemoved(mwmId); });
   }
   m_mwmCache.erase(it);
   m_trafficETags.erase(mwmId);
@@ -566,24 +553,15 @@ std::string DebugPrint(TrafficManager::TrafficState state)
 {
   switch (state)
   {
-  case TrafficManager::TrafficState::Disabled:
-    return "Disabled";
-  case TrafficManager::TrafficState::Enabled:
-    return "Enabled";
-  case TrafficManager::TrafficState::WaitingData:
-    return "WaitingData";
-  case TrafficManager::TrafficState::Outdated:
-    return "Outdated";
-  case TrafficManager::TrafficState::NoData:
-    return "NoData";
-  case TrafficManager::TrafficState::NetworkError:
-    return "NetworkError";
-  case TrafficManager::TrafficState::ExpiredData:
-    return "ExpiredData";
-  case TrafficManager::TrafficState::ExpiredApp:
-    return "ExpiredApp";
-  default:
-      ASSERT(false, ("Unknown state"));
+  case TrafficManager::TrafficState::Disabled: return "Disabled";
+  case TrafficManager::TrafficState::Enabled: return "Enabled";
+  case TrafficManager::TrafficState::WaitingData: return "WaitingData";
+  case TrafficManager::TrafficState::Outdated: return "Outdated";
+  case TrafficManager::TrafficState::NoData: return "NoData";
+  case TrafficManager::TrafficState::NetworkError: return "NetworkError";
+  case TrafficManager::TrafficState::ExpiredData: return "ExpiredData";
+  case TrafficManager::TrafficState::ExpiredApp: return "ExpiredApp";
+  default: ASSERT(false, ("Unknown state"));
   }
   return "Unknown";
 }

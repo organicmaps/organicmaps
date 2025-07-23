@@ -27,7 +27,6 @@
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
-
 namespace integration
 {
 using namespace routing;
@@ -59,19 +58,14 @@ unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
   return storage::CountryInfoReader::CreateCountryInfoGetter(platform);
 }
 
-unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
-                                            storage::CountryInfoGetter const & infoGetter,
+unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource, storage::CountryInfoGetter const & infoGetter,
                                             traffic::TrafficCache const & trafficCache,
-                                            vector<LocalCountryFile> const & localFiles,
-                                            VehicleType vehicleType)
+                                            vector<LocalCountryFile> const & localFiles, VehicleType vehicleType)
 {
-  auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
-    return infoGetter.GetRegionCountryId(pt);
-  };
+  auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) { return infoGetter.GetRegionCountryId(pt); };
 
-  auto const getMwmRectByName = [&infoGetter](string const & countryId) -> m2::RectD {
-    return infoGetter.GetLimitRectForLeaf(countryId);
-  };
+  auto const getMwmRectByName = [&infoGetter](string const & countryId) -> m2::RectD
+  { return infoGetter.GetLimitRectForLeaf(countryId); };
 
   auto countryParentGetter = std::make_unique<storage::CountryParentGetter>();
   CHECK(countryParentGetter, ());
@@ -93,10 +87,9 @@ unique_ptr<IndexRouter> CreateVehicleRouter(DataSource & dataSource,
   TEST(!numMwmIds->IsEmpty(), ());
 
   bool const loadAltitudes = vehicleType != VehicleType::Car;
-  auto indexRouter = make_unique<IndexRouter>(vehicleType, loadAltitudes,
-                                              *countryParentGetter, countryFileGetter,
-                                              getMwmRectByName, numMwmIds,
-                                              MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, dataSource);
+  auto indexRouter =
+      make_unique<IndexRouter>(vehicleType, loadAltitudes, *countryParentGetter, countryFileGetter, getMwmRectByName,
+                               numMwmIds, MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, dataSource);
 
   return indexRouter;
 }
@@ -106,25 +99,25 @@ void GetAllLocalFiles(vector<LocalCountryFile> & localFiles)
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* latestVersion */, localFiles);
 
   // Leave only real country files for routing test.
-  localFiles.erase(std::remove_if(localFiles.begin(), localFiles.end(), [](LocalCountryFile const & file)
+  localFiles.erase(std::remove_if(localFiles.begin(), localFiles.end(),
+                                  [](LocalCountryFile const & file)
   {
     auto const & name = file.GetCountryName();
     return name == WORLD_FILE_NAME || name == WORLD_COASTS_FILE_NAME;
-  }), localFiles.end());
+  }),
+                   localFiles.end());
 
   for (auto & file : localFiles)
     file.SyncWithDisk();
 }
 
-shared_ptr<VehicleRouterComponents>
-CreateAllMapsComponents(VehicleType vehicleType, std::set<std::string> const & skipMaps)
+shared_ptr<VehicleRouterComponents> CreateAllMapsComponents(VehicleType vehicleType,
+                                                            std::set<std::string> const & skipMaps)
 {
   vector<LocalCountryFile> localFiles;
   GetAllLocalFiles(localFiles);
-  base::EraseIf(localFiles, [&skipMaps](LocalCountryFile const & cf)
-  {
-    return skipMaps.count(cf.GetCountryName()) > 0;
-  });
+  base::EraseIf(localFiles,
+                [&skipMaps](LocalCountryFile const & cf) { return skipMaps.count(cf.GetCountryName()) > 0; });
   TEST(!localFiles.empty(), ());
 
   return make_shared<VehicleRouterComponents>(localFiles, vehicleType);
@@ -142,9 +135,8 @@ IRouterComponents & GetVehicleComponents(VehicleType vehicleType)
   return *(it->second);
 }
 
-TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
-                            m2::PointD const & startPoint, m2::PointD const & startDirection,
-                            m2::PointD const & finalPoint)
+TRouteResult CalculateRoute(IRouterComponents const & routerComponents, m2::PointD const & startPoint,
+                            m2::PointD const & startDirection, m2::PointD const & finalPoint)
 {
   RouterDelegate delegate;
   shared_ptr<Route> route = make_shared<Route>("mapsme", 0 /* route id */);
@@ -155,8 +147,8 @@ TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
   return TRouteResult(route, result);
 }
 
-TRouteResult CalculateRoute(IRouterComponents const & routerComponents,
-                            Checkpoints const & checkpoints, GuidesTracks && guides)
+TRouteResult CalculateRoute(IRouterComponents const & routerComponents, Checkpoints const & checkpoints,
+                            GuidesTracks && guides)
 {
   RouterDelegate delegate;
   shared_ptr<Route> route = make_shared<Route>("mapsme", 0 /* route id */);
@@ -205,8 +197,7 @@ void TestRouteLength(Route const & route, double expectedRouteMeters, double rel
   double const delta = max(expectedRouteMeters * relativeError, kErrorMeters);
   double const routeMeters = route.GetTotalDistanceMeters();
   TEST(AlmostEqualAbs(routeMeters, expectedRouteMeters, delta),
-       ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeMeters,
-        "delta:", delta));
+       ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeMeters, "delta:", delta));
 }
 
 void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError)
@@ -214,81 +205,72 @@ void TestRouteTime(Route const & route, double expectedRouteSeconds, double rela
   double const delta = max(expectedRouteSeconds * relativeError, kErrorSeconds);
   double const routeSeconds = route.GetTotalTimeSec();
   TEST(AlmostEqualAbs(routeSeconds, expectedRouteSeconds, delta),
-       ("Route time test failed. Expected:", expectedRouteSeconds, "have:", routeSeconds,
-        "delta:", delta));
+       ("Route time test failed. Expected:", expectedRouteSeconds, "have:", routeSeconds, "delta:", delta));
 }
 
 void TestRoutePointsNumber(Route const & route, size_t expectedPointsNumber, double relativeError)
 {
   CHECK_GREATER_OR_EQUAL(relativeError, 0.0, ());
   size_t const routePoints = route.GetPoly().GetSize();
-  TEST(AlmostEqualRel(static_cast<double>(routePoints),
-                            static_cast<double>(expectedPointsNumber), relativeError),
+  TEST(AlmostEqualRel(static_cast<double>(routePoints), static_cast<double>(expectedPointsNumber), relativeError),
        ("Route points test failed. Expected:", expectedPointsNumber, "have:", routePoints,
         "relative error:", relativeError));
 }
 
-void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents,
-                                      m2::PointD const & startPoint,
-                                      m2::PointD const & startDirection,
-                                      m2::PointD const & finalPoint, double expectedRouteMeters,
-                                      double relativeError /* = 0.02 */)
+void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents, m2::PointD const & startPoint,
+                                      m2::PointD const & startDirection, m2::PointD const & finalPoint,
+                                      double expectedRouteMeters, double relativeError /* = 0.02 */)
 {
-  TRouteResult routeResult =
-      CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
+  TRouteResult routeResult = CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   CHECK(routeResult.first, ());
   TestRouteLength(*routeResult.first, expectedRouteMeters, relativeError);
 }
 
-void CalculateRouteAndTestRouteTime(IRouterComponents const & routerComponents,
-                                    m2::PointD const & startPoint,
-                                    m2::PointD const & startDirection,
-                                    m2::PointD const & finalPoint, double expectedTimeSeconds,
-                                    double relativeError /* = 0.07 */)
+void CalculateRouteAndTestRouteTime(IRouterComponents const & routerComponents, m2::PointD const & startPoint,
+                                    m2::PointD const & startDirection, m2::PointD const & finalPoint,
+                                    double expectedTimeSeconds, double relativeError /* = 0.07 */)
 {
-  TRouteResult routeResult =
-      CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
+  TRouteResult routeResult = CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   CHECK(routeResult.first, ());
   TestRouteTime(*routeResult.first, expectedTimeSeconds, relativeError);
 }
 
-const TestTurn & TestTurn::TestValid() const
+TestTurn const & TestTurn::TestValid() const
 {
   TEST(m_isValid, ());
   return *this;
 }
 
-const TestTurn & TestTurn::TestNotValid() const
+TestTurn const & TestTurn::TestNotValid() const
 {
   TEST(!m_isValid, ());
   return *this;
 }
 
-const TestTurn & TestTurn::TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters) const
+TestTurn const & TestTurn::TestPoint(m2::PointD const & expectedPoint, double inaccuracyMeters) const
 {
   double const distanceMeters = ms::DistanceOnEarth(expectedPoint.y, expectedPoint.x, m_point.y, m_point.x);
   TEST_LESS(distanceMeters, inaccuracyMeters, ());
   return *this;
 }
 
-const TestTurn & TestTurn::TestDirection(routing::turns::CarDirection expectedDirection) const
+TestTurn const & TestTurn::TestDirection(routing::turns::CarDirection expectedDirection) const
 {
   TEST_EQUAL(m_direction, expectedDirection, ());
   return *this;
 }
 
-const TestTurn & TestTurn::TestOneOfDirections(
-    set<routing::turns::CarDirection> const & expectedDirections) const
+TestTurn const & TestTurn::TestOneOfDirections(set<routing::turns::CarDirection> const & expectedDirections) const
 {
   TEST(expectedDirections.find(m_direction) != expectedDirections.cend(), (m_direction));
   return *this;
 }
 
-const TestTurn & TestTurn::TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const
+TestTurn const & TestTurn::TestRoundAboutExitNum(uint32_t expectedRoundAboutExitNum) const
 {
   TEST_EQUAL(m_roundAboutExitNum, expectedRoundAboutExitNum, ());
   return *this;
@@ -351,10 +333,8 @@ LocalCountryFile GetLocalCountryFileByCountryId(platform::CountryFile const & co
   GetAllLocalFiles(localFiles);
 
   for (auto const & lf : localFiles)
-  {
     if (lf.GetCountryFile() == country)
       return lf;
-  }
   return {};
 }
 }  // namespace integration

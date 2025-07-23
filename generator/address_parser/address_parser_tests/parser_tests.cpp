@@ -25,7 +25,9 @@ UNIT_TEST(TigerParser_Smoke)
   TEST(tiger::ParseLine("9587;9619;all;;Platte;MO;64152;LINESTRING(-94.691917 39.210393,-94.692370 39.210351)", e), ());
 
   e = {};
-  TEST(tiger::ParseLine("698;600;all;Boston St;Berkeley;WV;25401;LINESTRING(-77.970484 39.464604,-77.970540 39.464630)", e), ());
+  TEST(tiger::ParseLine("698;600;all;Boston St;Berkeley;WV;25401;LINESTRING(-77.970484 39.464604,-77.970540 39.464630)",
+                        e),
+       ());
   TEST_EQUAL(e.m_from, "600", ());
   TEST_EQUAL(e.m_to, "698", ());
   TEST_EQUAL(e.m_street, "Boston St", ());
@@ -33,10 +35,14 @@ UNIT_TEST(TigerParser_Smoke)
   TEST_EQUAL(e.m_interpol, feature::InterpolType::Any, ());
   TEST_EQUAL(e.m_geom.size(), 1, ());
 
-  TEST(ms::LatLon((39.464604 + 39.464630) / 2.0, (-77.970484 -77.970540) / 2.0).EqualDxDy(e.m_geom.back(), kEpsLL), ());
+  TEST(ms::LatLon((39.464604 + 39.464630) / 2.0, (-77.970484 - 77.970540) / 2.0).EqualDxDy(e.m_geom.back(), kEpsLL),
+       ());
 
   e = {};
-  TEST(tiger::ParseLine("798;700;all;Boston St;Berkeley;WV;25401;LINESTRING(-77.968929 39.463906,-77.969118 39.463990,-77.969427 39.464129,-77.969946 39.464353,-77.970027 39.464389)", e), ());
+  TEST(tiger::ParseLine("798;700;all;Boston St;Berkeley;WV;25401;LINESTRING(-77.968929 39.463906,-77.969118 "
+                        "39.463990,-77.969427 39.464129,-77.969946 39.464353,-77.970027 39.464389)",
+                        e),
+       ());
   TEST_EQUAL(e.m_from, "700", ());
   TEST_EQUAL(e.m_to, "798", ());
   TEST_EQUAL(e.m_street, "Boston St", ());
@@ -47,7 +53,11 @@ UNIT_TEST(TigerParser_Smoke)
   TEST(ms::LatLon(39.463906, -77.968929).EqualDxDy(e.m_geom.back(), kEpsLL), ());
   TEST(ms::LatLon(39.464389, -77.970027).EqualDxDy(e.m_geom.front(), kEpsLL), ());
 
-  TEST(tiger::ParseLine("0;98;even;Austin Ln;Mifflin;PA;17044;LINESTRING(-77.634119 40.597239,-77.634200 40.597288,-77.634679 40.598169,-77.634835 40.598393,-77.635116 40.598738,-77.635518 40.599388,-77.635718 40.599719,-77.635833 40.599871,-77.635856 40.599920)", e), ());
+  TEST(tiger::ParseLine("0;98;even;Austin Ln;Mifflin;PA;17044;LINESTRING(-77.634119 40.597239,-77.634200 "
+                        "40.597288,-77.634679 40.598169,-77.634835 40.598393,-77.635116 40.598738,-77.635518 "
+                        "40.599388,-77.635718 40.599719,-77.635833 40.599871,-77.635856 40.599920)",
+                        e),
+       ());
   TEST_EQUAL(e.m_from, "0", ());
   TEST_EQUAL(e.m_to, "98", ());
 }
@@ -55,6 +65,7 @@ UNIT_TEST(TigerParser_Smoke)
 class TmpDir
 {
   std::string const m_path = "./addrs";
+
 public:
   std::string const & Get() const { return m_path; }
 
@@ -63,10 +74,7 @@ public:
     (void)Platform::RmDirRecursively(m_path);
     TEST(Platform::MkDirChecked(m_path), ());
   }
-  ~TmpDir()
-  {
-    TEST(Platform::RmDirRecursively(m_path), ());
-  }
+  ~TmpDir() { TEST(Platform::RmDirRecursively(m_path), ()); }
 };
 
 UNIT_TEST(Processor_Smoke)
@@ -160,7 +168,9 @@ UNIT_CLASS_TEST(TestFixture, Generator_Smoke)
 {
   std::stringstream ss;
   ss << "698;600;all;Boston St;Berkeley;WV;25401;LINESTRING(-77.970484 39.464604,-77.970540 39.464630)" << "\n"
-     << "798;700;all;Boston St;Berkeley;WV;25401;LINESTRING(-77.968929 39.463906,-77.969118 39.463990,-77.969427 39.464129,-77.969946 39.464353,-77.970027 39.464389)" << "\n";
+     << "798;700;all;Boston St;Berkeley;WV;25401;LINESTRING(-77.968929 39.463906,-77.969118 39.463990,-77.969427 "
+        "39.464129,-77.969946 39.464353,-77.970027 39.464389)"
+     << "\n";
 
   Parse(ss);
 
@@ -170,7 +180,8 @@ UNIT_CLASS_TEST(TestFixture, Generator_Smoke)
 UNIT_CLASS_TEST(TestFixture, Generator_Filter_SF1)
 {
   std::stringstream ss;
-  ss << "601;699;all;Francisco St;San Francisco;CA;94133;LINESTRING(-122.416189 37.804256,-122.416526 37.804215)" << "\n";
+  ss << "601;699;all;Francisco St;San Francisco;CA;94133;LINESTRING(-122.416189 37.804256,-122.416526 37.804215)"
+     << "\n";
 
   Parse(ss);
 
@@ -190,8 +201,10 @@ UNIT_CLASS_TEST(TestFixture, Generator_Filter_NY)
 UNIT_CLASS_TEST(TestFixture, Generator_Filter_SF2)
 {
   std::stringstream ss;
-  ss << "744;752;all;Francisco St;San Francisco;CA;94133;LINESTRING(-122.417593 37.804248,-122.417686 37.804236)" << "\n"
-     << "754;798;even;Francisco St;San Francisco;CA;94133;LINESTRING(-122.417933 37.804205,-122.418204 37.804171)" << "\n";
+  ss << "744;752;all;Francisco St;San Francisco;CA;94133;LINESTRING(-122.417593 37.804248,-122.417686 37.804236)"
+     << "\n"
+     << "754;798;even;Francisco St;San Francisco;CA;94133;LINESTRING(-122.417933 37.804205,-122.418204 37.804171)"
+     << "\n";
 
   Parse(ss);
 
@@ -201,8 +214,12 @@ UNIT_CLASS_TEST(TestFixture, Generator_Filter_SF2)
 UNIT_CLASS_TEST(TestFixture, Generator_Street_Name)
 {
   std::stringstream ss;
-  ss << "599;501;odd;Seventh St;Marshall;MN;56757;LINESTRING(-96.878165 48.451707,-96.878047 48.451722,-96.877150 48.451844,-96.877034 48.451860)" << "\n"
-     << "598;500;even;Seventh St;Marshall;MN;56757;LINESTRING(-96.878214 48.451868,-96.878097 48.451884,-96.877200 48.452006,-96.877084 48.452022)" << "\n";
+  ss << "599;501;odd;Seventh St;Marshall;MN;56757;LINESTRING(-96.878165 48.451707,-96.878047 48.451722,-96.877150 "
+        "48.451844,-96.877034 48.451860)"
+     << "\n"
+     << "598;500;even;Seventh St;Marshall;MN;56757;LINESTRING(-96.878214 48.451868,-96.878097 48.451884,-96.877200 "
+        "48.452006,-96.877084 48.452022)"
+     << "\n";
 
   Parse(ss);
 
@@ -240,4 +257,4 @@ UNIT_CLASS_TEST(TestFixture, Generator_Street_Name)
   TEST_EQUAL(count, 2, ());
 }
 
-} // namespace addr_parser_tests
+}  // namespace addr_parser_tests

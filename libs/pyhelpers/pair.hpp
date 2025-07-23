@@ -17,7 +17,7 @@ struct pair_to_tuple
   {
     return incref(boost::python::make_tuple(p.first, p.second).ptr());
   }
-  
+
   static PyTypeObject const * get_pytype() { return &PyTuple_Type; }
 };
 

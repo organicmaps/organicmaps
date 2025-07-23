@@ -55,9 +55,7 @@ struct TextureBindingReflectionInfo
   std::string m_name;
   int8_t m_index = kInvalidBindingIndex;
   int8_t m_isInFragmentShader = 1;
-  DECLARE_VISITOR(visitor(m_name, "name"),
-                  visitor(m_index, "idx"),
-                  visitor(m_isInFragmentShader, "frag"))
+  DECLARE_VISITOR(visitor(m_name, "name"), visitor(m_index, "idx"), visitor(m_isInFragmentShader, "frag"))
 };
 
 struct ReflectionInfo
@@ -66,8 +64,7 @@ struct ReflectionInfo
   int8_t m_fsUniformsIndex = kInvalidBindingIndex;
   std::vector<TextureBindingReflectionInfo> m_textures;
 
-  DECLARE_VISITOR(visitor(m_vsUniformsIndex, "vs_uni"),
-                  visitor(m_fsUniformsIndex, "fs_uni"),
+  DECLARE_VISITOR(visitor(m_vsUniformsIndex, "vs_uni"), visitor(m_fsUniformsIndex, "fs_uni"),
                   visitor(m_textures, "tex"))
 };
 
@@ -79,12 +76,8 @@ struct ReflectionData
   uint32_t m_vsSize = 0;
   uint32_t m_fsSize = 0;
   ReflectionInfo m_info;
-  DECLARE_VISITOR(visitor(m_programIndex, "prg"),
-                  visitor(m_vsOffset, "vs_off"),
-                  visitor(m_fsOffset, "fs_off"),
-                  visitor(m_vsSize, "vs_size"),
-                  visitor(m_fsSize, "fs_size"),
-                  visitor(m_info, "info"))
+  DECLARE_VISITOR(visitor(m_programIndex, "prg"), visitor(m_vsOffset, "vs_off"), visitor(m_fsOffset, "fs_off"),
+                  visitor(m_vsSize, "vs_size"), visitor(m_fsSize, "fs_size"), visitor(m_info, "info"))
 };
 
 struct ReflectionFile
@@ -122,10 +115,7 @@ std::map<uint8_t, ReflectionData> ReadReflectionFile(std::string const & filenam
   for (auto & d : reflectionFile.m_reflectionData)
   {
     auto const index = d.m_programIndex;
-    std::ranges::sort(d.m_info.m_textures, [](auto const & a, auto const & b)
-              {
-                return a.m_index < b.m_index;
-              });
+    std::ranges::sort(d.m_info.m_textures, [](auto const & a, auto const & b) { return a.m_index < b.m_index; });
     result.insert(std::make_pair(index, std::move(d)));
   }
 
@@ -185,18 +175,17 @@ std::vector<VkDescriptorSetLayoutBinding> GetLayoutBindings(ReflectionInfo const
 
   for (uint32_t i = static_cast<uint32_t>(reflectionInfo.m_textures.size()); i < maxTextureBindings; ++i)
     result.push_back({
-      .binding = bindingIndex++,
-      .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
-      .descriptorCount = 1,
-      .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT,
-      .pImmutableSamplers = nullptr,
+        .binding = bindingIndex++,
+        .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
+        .descriptorCount = 1,
+        .stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT,
+        .pImmutableSamplers = nullptr,
     });
 
   return result;
 }
 
-VkShaderModule LoadShaderModule(VkDevice device, std::vector<uint8_t> const & packData,
-                                uint32_t offset, uint32_t size)
+VkShaderModule LoadShaderModule(VkDevice device, std::vector<uint8_t> const & packData, uint32_t offset, uint32_t size)
 {
   VkShaderModule shaderModule;
   CHECK(offset % sizeof(uint32_t) == 0, ("Incorrect SPIR-V file alignment."));
@@ -235,21 +224,21 @@ VulkanProgramPool::VulkanProgramPool(ref_ptr<dp::GraphicsContext> context)
     auto const bindings = GetLayoutBindings(refl.m_info, m_maxImageSamplers);
     CHECK(bindings.size() == kMaxUniformBuffers + m_maxImageSamplers, ("Incorrect bindings count."));
 
-    VkDescriptorSetLayoutCreateInfo descriptorLayout  = {};
+    VkDescriptorSetLayoutCreateInfo descriptorLayout = {};
     descriptorLayout.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
     descriptorLayout.pBindings = bindings.data();
     descriptorLayout.bindingCount = static_cast<uint32_t>(bindings.size());
 
-    CHECK_VK_CALL(vkCreateDescriptorSetLayout(device, &descriptorLayout, nullptr,
-                                              &m_programData[i].m_descriptorSetLayout));
+    CHECK_VK_CALL(
+        vkCreateDescriptorSetLayout(device, &descriptorLayout, nullptr, &m_programData[i].m_descriptorSetLayout));
 
     VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo = {};
     pipelineLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
     pipelineLayoutCreateInfo.setLayoutCount = 1;
     pipelineLayoutCreateInfo.pSetLayouts = &m_programData[i].m_descriptorSetLayout;
 
-    CHECK_VK_CALL(vkCreatePipelineLayout(device, &pipelineLayoutCreateInfo, nullptr,
-                                         &m_programData[i].m_pipelineLayout));
+    CHECK_VK_CALL(
+        vkCreatePipelineLayout(device, &pipelineLayoutCreateInfo, nullptr, &m_programData[i].m_pipelineLayout));
 
     for (auto const & t : refl.m_info.m_textures)
       m_programData[i].m_textureBindings[t.m_name] = t.m_index;
@@ -293,11 +282,8 @@ drape_ptr<dp::GpuProgram> VulkanProgramPool::Get(Program program)
   fsStage.module = d.m_fragmentShader;
   fsStage.pName = "main";
 
-  return make_unique_dp<dp::vulkan::VulkanGpuProgram>(DebugPrint(program),
-                                                      vsStage, fsStage,
-                                                      d.m_descriptorSetLayout,
-                                                      d.m_pipelineLayout,
-                                                      d.m_textureBindings);
+  return make_unique_dp<dp::vulkan::VulkanGpuProgram>(DebugPrint(program), vsStage, fsStage, d.m_descriptorSetLayout,
+                                                      d.m_pipelineLayout, d.m_textureBindings);
 }
 
 uint32_t VulkanProgramPool::GetMaxUniformBuffers() const

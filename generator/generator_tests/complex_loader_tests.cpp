@@ -110,12 +110,10 @@ std::string const kCsv1 =
     "ShakeUp;"
     "Russia_Moscow\n";
 
-
 void SortForest(tree_node::types::Ptrs<generator::HierarchyEntry> & forest)
 {
-  std::sort(std::begin(forest), std::end(forest), [](auto const & lhs, auto const & rhs) {
-    return lhs->GetData().m_id < rhs->GetData().m_id;
-  });
+  std::sort(std::begin(forest), std::end(forest),
+            [](auto const & lhs, auto const & rhs) { return lhs->GetData().m_id < rhs->GetData().m_id; });
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, Complex_IsComplex)

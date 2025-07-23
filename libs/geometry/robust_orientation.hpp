@@ -20,8 +20,7 @@ double OrientedS(PointD const & p1, PointD const & p2, PointD const & p);
 
 /// Is segment (v, v1) in cone (vPrev, v, vNext)?
 /// @precondition (vPrev, v, vNext) is CCW.
-bool IsSegmentInCone(PointD const & v, PointD const & v1, PointD const & vPrev,
-                     PointD const & vNext);
+bool IsSegmentInCone(PointD const & v, PointD const & v1, PointD const & vPrev, PointD const & vNext);
 
 template <typename T>
 bool Between(T a, T b, T c)

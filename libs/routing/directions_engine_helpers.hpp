@@ -24,15 +24,13 @@ using AdjacentEdgesMap = std::map<SegmentRange, AdjacentEdges>;
 class RoutingEngineResult : public turns::IRoutingResult
 {
 public:
-  RoutingEngineResult(IRoadGraph::EdgeVector const & routeEdges,
-                      AdjacentEdgesMap const & adjacentEdges,
+  RoutingEngineResult(IRoadGraph::EdgeVector const & routeEdges, AdjacentEdgesMap const & adjacentEdges,
                       TUnpackedPathSegments const & pathSegments);
 
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
 
-  void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & junctionPoint,
-                        size_t & ingoingCount,
+  void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & junctionPoint, size_t & ingoingCount,
                         turns::TurnCandidates & outgoingTurns) const override;
 
   double GetPathLength() const override { return m_routeLength; }
@@ -51,7 +49,6 @@ private:
 /// \returns false if the junction is an internal point of feature segment and can be considered as
 /// a part of LoadedPathSegment and returns true if the junction should be considered as a beginning
 /// of a new LoadedPathSegment.
-bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges,
-             IRoadGraph::EdgeListT const & outgoingEdges, Edge const & ingoingRouteEdge,
-             Edge const & outgoingRouteEdge);
+bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges, IRoadGraph::EdgeListT const & outgoingEdges,
+             Edge const & ingoingRouteEdge, Edge const & outgoingRouteEdge);
 }  // namespace routing

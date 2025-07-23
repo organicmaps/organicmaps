@@ -33,15 +33,9 @@ class LocalityScorerTest : public LocalityScorer::Delegate
 public:
   using Ids = vector<uint32_t>;
 
-  LocalityScorerTest()
-    : m_scorer(m_params, m2::PointD(), static_cast<LocalityScorer::Delegate &>(*this))
-  {
-  }
+  LocalityScorerTest() : m_scorer(m_params, m2::PointD(), static_cast<LocalityScorer::Delegate &>(*this)) {}
 
-  void InitParams(string const & query, bool lastTokenIsPrefix)
-  {
-    InitParams(query, m2::PointD(), lastTokenIsPrefix);
-  }
+  void InitParams(string const & query, bool lastTokenIsPrefix) { InitParams(query, m2::PointD(), lastTokenIsPrefix); }
 
   void InitParams(string const & query, m2::PointD const & pivot, bool lastTokenIsPrefix)
   {
@@ -59,8 +53,8 @@ public:
     m_params.Init(query, tokens, lastTokenIsPrefix);
   }
 
-  void AddLocality(string const & name, uint32_t featureId, uint8_t rank = 0,
-                   m2::PointD const & center = {}, bool belongsToMatchedRegion = false)
+  void AddLocality(string const & name, uint32_t featureId, uint8_t rank = 0, m2::PointD const & center = {},
+                   bool belongsToMatchedRegion = false)
   {
     set<UniString> tokens;
     SplitUniString(NormalizeAndSimplifyString(name), base::MakeInsertFunctor(tokens), Delimiters());
@@ -86,18 +80,16 @@ public:
       bool const isPrefixToken = m_params.IsPrefixToken(i);
 
       vector<uint64_t> ids;
-      token.ForOriginalAndSynonyms([&](UniString const & synonym) {
+      token.ForOriginalAndSynonyms([&](UniString const & synonym)
+      {
         if (isPrefixToken)
         {
-          m_searchIndex.ForEachInSubtree(synonym,
-                                         [&](UniString const & /* prefix */, uint32_t featureId) {
-                                           ids.push_back(featureId);
-                                         });
+          m_searchIndex.ForEachInSubtree(
+              synonym, [&](UniString const & /* prefix */, uint32_t featureId) { ids.push_back(featureId); });
         }
         else
         {
-          m_searchIndex.ForEachInNode(synonym,
-                                      [&](uint32_t featureId) { ids.push_back(featureId); });
+          m_searchIndex.ForEachInNode(synonym, [&](uint32_t featureId) { ids.push_back(featureId); });
         }
       });
 
@@ -252,8 +244,7 @@ UNIT_CLASS_TEST(LocalityScorerTest, Ranks)
   AddLocality("San Francisco", ID_SAN_FRANCISCO, 30 /* rank */);
 
   InitParams("San", false /* lastTokenIsPrefix */);
-  TEST_EQUAL(GetTopLocalities(100 /* limit */),
-             Ids({ID_SAN_MARINO, ID_SAN_ANTONIO, ID_SAN_FRANCISCO}), ());
+  TEST_EQUAL(GetTopLocalities(100 /* limit */), Ids({ID_SAN_MARINO, ID_SAN_ANTONIO, ID_SAN_FRANCISCO}), ());
   TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_SAN_MARINO, ID_SAN_FRANCISCO}), ());
   TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SAN_FRANCISCO}), ());
 }
@@ -301,8 +292,7 @@ UNIT_CLASS_TEST(LocalityScorerTest, DistanceToPivot)
   // Expected order is: the closest one (ID_ABERDEEN_CLOSE) first, then sorted by rank.
   TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_ABERDEEN_CLOSE}), ());
   TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_ABERDEEN_CLOSE, ID_ABERDEEN_RANK1}), ());
-  TEST_EQUAL(GetTopLocalities(3 /* limit */),
-             Ids({ID_ABERDEEN_CLOSE, ID_ABERDEEN_RANK1, ID_ABERDEEN_RANK2}), ());
+  TEST_EQUAL(GetTopLocalities(3 /* limit */), Ids({ID_ABERDEEN_CLOSE, ID_ABERDEEN_RANK1, ID_ABERDEEN_RANK2}), ());
 }
 
 UNIT_CLASS_TEST(LocalityScorerTest, MatchedRegion)
@@ -328,8 +318,7 @@ UNIT_CLASS_TEST(LocalityScorerTest, MatchedRegion)
 
   // Expected order is: the city from the matched region, then the closest one, then sorted by rank.
   TEST_EQUAL(GetTopLocalities(1 /* limit */), Ids({ID_SPRINGFIELD_MATCHED_REGION}), ());
-  TEST_EQUAL(GetTopLocalities(2 /* limit */),
-             Ids({ID_SPRINGFIELD_MATCHED_REGION, ID_SPRINGFIELD_CLOSE}), ());
+  TEST_EQUAL(GetTopLocalities(2 /* limit */), Ids({ID_SPRINGFIELD_MATCHED_REGION, ID_SPRINGFIELD_CLOSE}), ());
   TEST_EQUAL(GetTopLocalities(3 /* limit */),
              Ids({ID_SPRINGFIELD_MATCHED_REGION, ID_SPRINGFIELD_CLOSE, ID_SPRINGFIELD_RANK1}), ());
 }

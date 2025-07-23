@@ -1,5 +1,5 @@
-#include "testing/testing.hpp"
 #include "geometry/rect2d.hpp"
+#include "testing/testing.hpp"
 
 UNIT_TEST(Rect_Intersect)
 {
@@ -19,4 +19,3 @@ UNIT_TEST(Rect_Intersect)
   TEST(r3.IsIntersect(r), ());
   TEST(r.IsIntersect(r3), ());
 }
-
