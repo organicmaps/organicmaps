@@ -4,7 +4,6 @@
 
 #include <atomic>
 #include <functional>
-#include <utility>
 #include <vector>
 
 class GpsTracker
@@ -17,7 +16,7 @@ public:
   void Clear();
 
   bool IsEmpty() const;
-  size_t GetTrackSize() const;
+
   TrackStatistics GetTrackStatistics() const;
   ElevationInfo const & GetElevationInfo() const;
 
@@ -30,8 +29,14 @@ public:
 
   void OnLocationUpdated(location::GpsInfo const & info);
 
-  using GpsTrackCallback = std::function<bool(location::GpsInfo const &, size_t)>;
-  void ForEachTrackPoint(GpsTrackCallback const & callback) const;
+  size_t Finalize() { return m_track.Finalize(); }
+
+  /// @pre Finalize should be called before.
+  template <class FnT>
+  void ForEachTrackPoint(FnT && fn)
+  {
+    m_track.ForEachPoint(fn);
+  }
 
 private:
   GpsTracker();
