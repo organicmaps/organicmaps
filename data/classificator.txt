@@ -86,6 +86,7 @@ world  +
         library  -
         loading_dock  -
         love_hotel  -
+        luggage_locker  -
         marketplace  -
         money_transfer  -
         motorcycle_parking  -
