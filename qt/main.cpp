@@ -13,6 +13,8 @@
 
 #include "coding/reader.hpp"
 
+#include "std/windows.hpp"
+
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
@@ -22,10 +24,6 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFileDialog>
-
-#ifdef OMIM_OS_WINDOWS
-#include <windows.h>
-#endif
 
 #include <sstream>
 
@@ -94,8 +92,7 @@ public:
     InitializeFinalize() : m_debugLog(LDEBUG)
     {
       QString logFileName = ".\\organicmaps";
-      QString const uniqueKey = QString("OrganicMapsApp_") % GetPlatform().Version().c_str();
-      m_hHandle = CreateMutex(NULL, TRUE, uniqueKey.toStdWString().c_str());
+      m_hHandle = CreateMutex(NULL, TRUE, L"OrganicMaps_Desktop");
       if (ERROR_ALREADY_EXISTS == GetLastError())
       {
         QString timestamp = QDateTime::currentDateTime().toString("_yyyy-MM-dd_hh.mm.ss");
