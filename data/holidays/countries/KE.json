@@ -1,0 +1,54 @@
+[
+  {
+    "date": "2025-01-01",
+    "name": "New Year's Day"
+  },
+  {
+    "date": "2025-04-18",
+    "name": "Good Friday"
+  },
+  {
+    "date": "2025-04-21",
+    "name": "Easter Monday"
+  },
+  {
+    "date": "2025-05-01",
+    "name": "Labor Day"
+  },
+  {
+    "date": "2025-06-01",
+    "name": "Madaraka Day"
+  },
+  {
+    "date": "2025-10-10",
+    "name": "Mazingira Day"
+  },
+  {
+    "date": "2025-10-20",
+    "name": "Mashujaa Day"
+  },
+  {
+    "date": "2025-12-12",
+    "name": "Jamhuri Day"
+  },
+  {
+    "date": "2025-12-25",
+    "name": "Christmas Day"
+  },
+  {
+    "date": "2025-12-26",
+    "name": "Boxing Day"
+  },
+  {
+    "date": "2025-03-30",
+    "name": "Eid-al-Fitr (estimated)"
+  },
+  {
+    "date": "2025-03-31",
+    "name": "Eid-al-Fitr (observed, estimated)"
+  },
+  {
+    "date": "2025-06-02",
+    "name": "Madaraka Day (observed)"
+  }
+]

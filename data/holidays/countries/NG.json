@@ -1,0 +1,62 @@
+[
+  {
+    "date": "2025-01-01",
+    "name": "New Year's Day"
+  },
+  {
+    "date": "2025-04-18",
+    "name": "Good Friday"
+  },
+  {
+    "date": "2025-04-21",
+    "name": "Easter Monday"
+  },
+  {
+    "date": "2025-05-01",
+    "name": "Workers' Day"
+  },
+  {
+    "date": "2025-06-12",
+    "name": "Democracy Day"
+  },
+  {
+    "date": "2025-10-01",
+    "name": "Independence Day"
+  },
+  {
+    "date": "2025-12-25",
+    "name": "Christmas Day"
+  },
+  {
+    "date": "2025-12-26",
+    "name": "Boxing Day"
+  },
+  {
+    "date": "2025-03-30",
+    "name": "Eid-el-Fitr (estimated)"
+  },
+  {
+    "date": "2025-03-31",
+    "name": "Eid-el-Fitr Holiday (estimated)"
+  },
+  {
+    "date": "2025-06-06",
+    "name": "Eid-el-Kabir (estimated)"
+  },
+  {
+    "date": "2025-06-07",
+    "name": "Eid-el-Kabir Holiday (estimated)"
+  },
+  {
+    "date": "2025-09-04",
+    "name": "Eid-el-Mawlid (estimated)"
+  },
+  {
+    "date": "2025-04-01",
+    "name": "Eid-el-Fitr (estimated) (observed)"
+  },
+  {
+    "date": "2025-06-09",
+    "name": "Eid-el-Kabir Holiday (estimated) (observed)"
+  }
+]
