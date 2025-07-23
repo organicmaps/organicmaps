@@ -2,8 +2,6 @@
 
 #include "base/assert.hpp"
 
-#include <algorithm>
-
 namespace
 {
 
@@ -26,8 +24,6 @@ private:
 };
 
 }  // namespace
-
-size_t const GpsTrackCollection::kInvalidId = std::numeric_limits<size_t>::max();
 
 GpsTrackCollection::GpsTrackCollection() : m_lastId(0), m_elevationInfoDirty(true) {}
 

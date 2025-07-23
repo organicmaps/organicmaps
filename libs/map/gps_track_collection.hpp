@@ -7,13 +7,12 @@
 
 #include <deque>
 #include <limits>
-#include <utility>
 #include <vector>
 
 class GpsTrackCollection final
 {
 public:
-  static size_t const kInvalidId;  // = numeric_limits<size_t>::max();
+  static size_t constexpr kInvalidId = std::numeric_limits<size_t>::max();
 
   using TItem = location::GpsInfo;
 

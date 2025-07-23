@@ -9,7 +9,7 @@
 
 namespace
 {
-char const kMinHorizontalAccuracyKey[] = "GpsTrackingMinAccuracy";
+std::string_view constexpr kMinHorizontalAccuracyKey = "GpsTrackingMinAccuracy";
 
 // Minimal horizontal accuracy is required to skip 'bad' points.
 // Use 250 meters to allow points from a pure GPS + GPS through wifi.
@@ -56,8 +56,7 @@ GpsTrackFilter::GpsTrackFilter()
   settings::TryGet(kMinHorizontalAccuracyKey, m_minAccuracy);
 }
 
-void GpsTrackFilter::Process(std::vector<location::GpsInfo> const & inPoints,
-                             std::vector<location::GpsInfo> & outPoints)
+void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints)
 {
   outPoints.reserve(inPoints.size());
 
@@ -85,6 +84,20 @@ void GpsTrackFilter::Process(std::vector<location::GpsInfo> const & inPoints,
     }
 
     AddLastInfo(currInfo);
+  }
+}
+
+void GpsTrackFilter::Finalize(GpsVectorT & outPoints)
+{
+  if (m_countLastInfo > 0)
+  {
+    // Force append the last point, if wasn't added before.
+    auto const & info = GetLastInfo();
+    if (m_countAcceptedInfo == 0 || info.m_timestamp > GetLastAcceptedInfo().m_timestamp)
+    {
+      outPoints.push_back(info);
+      AddLastAcceptedInfo(info);
+    }
   }
 }
 
