@@ -85,9 +85,9 @@ public:
   {
     FILE * m_errFile;
     std::ofstream m_cerrOfstream;
-    std::streambuf * m_cerrDefaultStreambuf;
+    std::streambuf * m_cerrDefaultStreambuf {nullptr};
     base::ScopedLogLevelChanger const m_debugLog;
-    HANDLE m_hHandle;
+    HANDLE m_handle {nullptr};
   public:
     InitializeFinalize() : m_debugLog(LDEBUG)
     {
