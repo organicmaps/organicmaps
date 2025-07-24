@@ -8,6 +8,7 @@ import static app.organicmaps.sdk.location.LocationState.FOLLOW;
 import static app.organicmaps.sdk.location.LocationState.FOLLOW_AND_ROTATE;
 import static app.organicmaps.sdk.location.LocationState.LOCATION_TAG;
 import static app.organicmaps.sdk.util.PowerManagment.POWER_MANAGEMENT_TAG;
+import static app.organicmaps.sdk.util.Utils.dimen;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -106,7 +107,6 @@ import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.PowerManagment;
-import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.search.FloatingSearchToolbarController;
@@ -117,6 +117,7 @@ import app.organicmaps.settings.SettingsActivity;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
@@ -585,7 +586,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       UiUtils.setViewInsetsPaddingBottom(mPointChooser, windowInsets);
       UiUtils.setViewInsetsPaddingNoBottom(mPointChooserToolbar, windowInsets);
       final int trackRecorderOffset =
-          TrackRecorder.nativeIsTrackRecordingEnabled() ? UiUtils.dimen(this, R.dimen.map_button_size) : 0;
+          TrackRecorder.nativeIsTrackRecordingEnabled() ? dimen(this, R.dimen.map_button_size) : 0;
       mNavBarHeight = isFullscreen() ? 0 : windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
       // For the first loading, set compass top margin to status bar size
       // The top inset will be then be updated by the routing controller
@@ -1508,17 +1509,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     final int orientation = getResources().getConfiguration().orientation;
     final boolean isTrackRecordingEnabled = TrackRecorder.nativeIsTrackRecordingEnabled();
     if (isTrackRecordingEnabled && (orientation != Configuration.ORIENTATION_LANDSCAPE))
-      offsetY += UiUtils.dimen(this, R.dimen.map_button_size);
+      offsetY += dimen(this, R.dimen.map_button_size);
     if (orientation == Configuration.ORIENTATION_LANDSCAPE)
     {
       if (show)
       {
-        final boolean isSmallScreen = UiUtils.getDisplayTotalHeight(this) < UiUtils.dimen(this, R.dimen.dp_400);
+        final boolean isSmallScreen = UiUtils.getDisplayTotalHeight(this) < dimen(this, R.dimen.dp_400);
         if (!isSmallScreen || TrackRecorder.nativeIsTrackRecordingEnabled())
-          offsetX += UiUtils.dimen(this, R.dimen.map_button_size);
+          offsetX += dimen(this, R.dimen.map_button_size);
       }
       else if (isTrackRecordingEnabled)
-        offsetY += UiUtils.dimen(this, R.dimen.map_button_size);
+        offsetY += dimen(this, R.dimen.map_button_size);
     }
     updateCompassOffset(offsetY, offsetX);
   }
@@ -2312,7 +2313,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mCurrentWindowInsets != null)
     {
       final int offset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
-      updateCompassOffset(offset + UiUtils.dimen(this, R.dimen.map_button_size));
+      updateCompassOffset(offset + dimen(this, R.dimen.map_button_size));
     }
     Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
     TrackRecordingService.startForegroundService(getApplicationContext());

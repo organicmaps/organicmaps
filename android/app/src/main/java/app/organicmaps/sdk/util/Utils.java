@@ -12,11 +12,13 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Toast;
+import androidx.annotation.DimenRes;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import app.organicmaps.BuildConfig;
+import app.organicmaps.R;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.Closeable;
 import java.io.IOException;
@@ -339,5 +341,10 @@ public class Utils
     if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
       return getApplicationInfoOld(manager, packageName, flags);
     return manager.getApplicationInfo(packageName, PackageManager.ApplicationInfoFlags.of(flags));
+  }
+
+  public static int dimen(@NonNull Context context, @DimenRes int id)
+  {
+    return context.getResources().getDimensionPixelSize(id);
   }
 }

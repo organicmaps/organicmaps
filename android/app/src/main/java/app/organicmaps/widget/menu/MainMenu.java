@@ -1,7 +1,7 @@
 package app.organicmaps.widget.menu;
 
 import android.view.View;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 
 public class MainMenu
 {

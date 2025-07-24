@@ -17,7 +17,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.products.Product;
 import app.organicmaps.sdk.products.ProductsConfig;
 import app.organicmaps.sdk.util.Constants;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import java.util.Objects;
 
