@@ -15,7 +15,7 @@ namespace kml::binary
 class SerializerKmlV8 : public SerializerKml
 {
 public:
-  explicit SerializerKmlV8(FileData & data) : SerializerKml(data) {};
+  explicit SerializerKmlV8(FileData & data) : SerializerKml(data) {}
 
   template <typename Sink>
   void Serialize(Sink & sink)

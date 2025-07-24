@@ -639,29 +639,29 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPointChooser.findViewById(R.id.done).setOnClickListener(v -> {
       switch (ChoosePositionMode.get())
       {
-        case Api:
-          final Intent apiResult = new Intent();
-          final double[] center = Framework.nativeGetScreenRectCenter();
-          apiResult.putExtra(Const.EXTRA_POINT_LAT, center[0]);
-          apiResult.putExtra(Const.EXTRA_POINT_LON, center[1]);
-          apiResult.putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
-          setResult(Activity.RESULT_OK, apiResult);
-          finish();
-          break;
-        case Editor:
-          if (Framework.nativeIsDownloadedMapAtScreenCenter())
-            startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
-          else
-          {
-            dismissAlertDialog();
-            mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-                               .setTitle(R.string.message_invalid_feature_position)
-                               .setPositiveButton(R.string.ok, null)
-                               .setOnDismissListener(dialog -> mAlertDialog = null)
-                               .show();
-          }
-          break;
-        case None: throw new IllegalStateException("Unexpected Framework.nativeGetChoosePositionMode()");
+      case Api:
+        final Intent apiResult = new Intent();
+        final double[] center = Framework.nativeGetScreenRectCenter();
+        apiResult.putExtra(Const.EXTRA_POINT_LAT, center[0]);
+        apiResult.putExtra(Const.EXTRA_POINT_LON, center[1]);
+        apiResult.putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
+        setResult(Activity.RESULT_OK, apiResult);
+        finish();
+        break;
+      case Editor:
+        if (Framework.nativeIsDownloadedMapAtScreenCenter())
+          startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
+        else
+        {
+          dismissAlertDialog();
+          mAlertDialog = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+                             .setTitle(R.string.message_invalid_feature_position)
+                             .setPositiveButton(R.string.ok, null)
+                             .setOnDismissListener(dialog -> mAlertDialog = null)
+                             .show();
+        }
+        break;
+      case None: throw new IllegalStateException("Unexpected Framework.nativeGetChoosePositionMode()");
       }
       closePositionChooser();
     });
@@ -802,24 +802,24 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     switch (button)
     {
-      case zoomIn -> Map.zoomIn();
-      case zoomOut -> Map.zoomOut();
-      case myPosition ->
-      {
-        Logger.i(LOCATION_TAG, "The location button pressed");
-        // Calls onMyPositionModeChanged(mode + 1).
-        LocationState.nativeSwitchToNextMode();
-      }
-      case toggleMapLayer -> toggleMapLayerBottomSheet();
-      case bookmarks -> showBookmarks();
-      case search -> showSearch("");
-      case menu ->
-      {
-        closeFloatingPanels();
-        showBottomSheet(MAIN_MENU_ID);
-      }
-      case help -> showHelp();
-      case trackRecordingStatus -> showTrackSaveDialog();
+    case zoomIn -> Map.zoomIn();
+    case zoomOut -> Map.zoomOut();
+    case myPosition ->
+    {
+      Logger.i(LOCATION_TAG, "The location button pressed");
+      // Calls onMyPositionModeChanged(mode + 1).
+      LocationState.nativeSwitchToNextMode();
+    }
+    case toggleMapLayer -> toggleMapLayerBottomSheet();
+    case bookmarks -> showBookmarks();
+    case search -> showSearch("");
+    case menu ->
+    {
+      closeFloatingPanels();
+      showBottomSheet(MAIN_MENU_ID);
+    }
+    case help -> showHelp();
+    case trackRecordingStatus -> showTrackSaveDialog();
     }
   }
 
@@ -2254,18 +2254,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     switch (keyCode)
     {
-      case KeyEvent.KEYCODE_DPAD_DOWN: Map.zoomOut(); return true;
-      case KeyEvent.KEYCODE_DPAD_UP: Map.zoomIn(); return true;
-      case KeyEvent.KEYCODE_ESCAPE:
-        final Intent currIntent = getIntent();
-        final String backUrl = Framework.nativeGetParsedBackUrl();
-        if (TextUtils.isEmpty(backUrl) || (currIntent != null && Factory.isStartedForApiResult(currIntent)))
-        {
-          finish();
-          return true;
-        }
-        return super.onKeyUp(keyCode, event);
-      default: return super.onKeyUp(keyCode, event);
+    case KeyEvent.KEYCODE_DPAD_DOWN: Map.zoomOut(); return true;
+    case KeyEvent.KEYCODE_DPAD_UP: Map.zoomIn(); return true;
+    case KeyEvent.KEYCODE_ESCAPE:
+      final Intent currIntent = getIntent();
+      final String backUrl = Framework.nativeGetParsedBackUrl();
+      if (TextUtils.isEmpty(backUrl) || (currIntent != null && Factory.isStartedForApiResult(currIntent)))
+      {
+        finish();
+        return true;
+      }
+      return super.onKeyUp(keyCode, event);
+    default: return super.onKeyUp(keyCode, event);
     }
   }
 

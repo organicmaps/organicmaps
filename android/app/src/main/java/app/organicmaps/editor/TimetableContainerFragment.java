@@ -162,8 +162,8 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
 
     switch (mMode)
     {
-      case SIMPLE -> setMode(Mode.ADVANCED, filledTimetables);
-      case ADVANCED -> setMode(Mode.SIMPLE, filledTimetables);
+    case SIMPLE -> setMode(Mode.ADVANCED, filledTimetables);
+    case ADVANCED -> setMode(Mode.SIMPLE, filledTimetables);
     }
   }
 

@@ -152,24 +152,18 @@ UNIT_TEST(GetFilesByType)
 
   CheckFilesPresence(baseDir, Platform::EFileType::Directory,
                      {
-                         {
-                          kTestDirBaseName,     1 /* present */ },
-                         {
-                          kTestFileBaseName, 0 /* not present */}
+                         { kTestDirBaseName,     1 /* present */},
+                         {kTestFileBaseName, 0 /* not present */}
   });
   CheckFilesPresence(baseDir, Platform::EFileType::Regular,
                      {
-                         {
-                          kTestDirBaseName, 0 /* not present */ },
-                         {
-                          kTestFileBaseName,     1 /* present */}
+                         { kTestDirBaseName, 0 /* not present */},
+                         {kTestFileBaseName,     1 /* present */}
   });
   CheckFilesPresence(baseDir, Platform::EFileType::Directory | Platform::EFileType::Regular,
                      {
-                         {
-                          kTestDirBaseName, 1 /* present */ },
-                         {
-                          kTestFileBaseName, 1 /* present */}
+                         { kTestDirBaseName, 1 /* present */},
+                         {kTestFileBaseName, 1 /* present */}
   });
 }
 

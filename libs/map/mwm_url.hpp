@@ -66,7 +66,7 @@ public:
   explicit ParsedMapApi(std::string const & url) { SetUrlAndParse(url); }
 
   UrlType SetUrlAndParse(std::string const & url);
-  UrlType GetRequestType() const { return m_requestType; };
+  UrlType GetRequestType() const { return m_requestType; }
   std::string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
   std::string const & GetAppName() const { return m_appName; }
   ms::LatLon GetCenterLatLon() const { return m_centerLatLon; }

@@ -61,7 +61,7 @@ LineStringMerger::InputData MakeInputData(std::vector<OsmElement> const & elemen
     inputData.emplace(MakeKey(element), std::make_shared<LineString>(element));
 
   return inputData;
-};
+}
 
 bool IsEqual(LineStringMerger::LinePtr const & lineString, std::vector<int32_t> const & ways)
 {

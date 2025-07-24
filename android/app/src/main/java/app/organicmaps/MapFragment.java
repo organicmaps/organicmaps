@@ -163,24 +163,24 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     int pointerIndex = event.getActionIndex();
     switch (action)
     {
-      case MotionEvent.ACTION_POINTER_UP -> action = Map.NATIVE_ACTION_UP;
-      case MotionEvent.ACTION_UP ->
-      {
-        action = Map.NATIVE_ACTION_UP;
-        pointerIndex = 0;
-      }
-      case MotionEvent.ACTION_POINTER_DOWN -> action = Map.NATIVE_ACTION_DOWN;
-      case MotionEvent.ACTION_DOWN ->
-      {
-        action = Map.NATIVE_ACTION_DOWN;
-        pointerIndex = 0;
-      }
-      case MotionEvent.ACTION_MOVE ->
-      {
-        action = Map.NATIVE_ACTION_MOVE;
-        pointerIndex = Map.INVALID_POINTER_MASK;
-      }
-      case MotionEvent.ACTION_CANCEL -> action = Map.NATIVE_ACTION_CANCEL;
+    case MotionEvent.ACTION_POINTER_UP -> action = Map.NATIVE_ACTION_UP;
+    case MotionEvent.ACTION_UP ->
+    {
+      action = Map.NATIVE_ACTION_UP;
+      pointerIndex = 0;
+    }
+    case MotionEvent.ACTION_POINTER_DOWN -> action = Map.NATIVE_ACTION_DOWN;
+    case MotionEvent.ACTION_DOWN ->
+    {
+      action = Map.NATIVE_ACTION_DOWN;
+      pointerIndex = 0;
+    }
+    case MotionEvent.ACTION_MOVE ->
+    {
+      action = Map.NATIVE_ACTION_MOVE;
+      pointerIndex = Map.INVALID_POINTER_MASK;
+    }
+    case MotionEvent.ACTION_CANCEL -> action = Map.NATIVE_ACTION_CANCEL;
     }
     Map.onTouch(action, event, pointerIndex);
     return true;

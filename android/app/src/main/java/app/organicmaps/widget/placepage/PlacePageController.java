@@ -414,15 +414,15 @@ public class PlacePageController
   {
     switch (item)
     {
-      case BOOKMARK_SAVE, BOOKMARK_DELETE -> onBookmarkBtnClicked();
-      case BACK -> onBackBtnClicked();
-      case ROUTE_FROM -> onRouteFromBtnClicked();
-      case ROUTE_TO -> onRouteToBtnClicked();
-      case ROUTE_ADD -> onRouteAddBtnClicked();
-      case ROUTE_REMOVE -> onRouteRemoveBtnClicked();
-      case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
-      case ROUTE_AVOID_UNPAVED -> onAvoidUnpavedBtnClicked();
-      case ROUTE_AVOID_FERRY -> onAvoidFerryBtnClicked();
+    case BOOKMARK_SAVE, BOOKMARK_DELETE -> onBookmarkBtnClicked();
+    case BACK -> onBackBtnClicked();
+    case ROUTE_FROM -> onRouteFromBtnClicked();
+    case ROUTE_TO -> onRouteToBtnClicked();
+    case ROUTE_ADD -> onRouteAddBtnClicked();
+    case ROUTE_REMOVE -> onRouteRemoveBtnClicked();
+    case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
+    case ROUTE_AVOID_UNPAVED -> onAvoidUnpavedBtnClicked();
+    case ROUTE_AVOID_FERRY -> onAvoidFerryBtnClicked();
     }
   }
 

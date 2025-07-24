@@ -34,10 +34,10 @@ public final class RoutePointInfo implements Parcelable
   {
     switch (markType)
     {
-      case 0: mMarkType = RouteMarkType.Start; break;
-      case 1: mMarkType = RouteMarkType.Intermediate; break;
-      case 2: mMarkType = RouteMarkType.Finish; break;
-      default: throw new IllegalArgumentException("Mark type is not valid = " + markType);
+    case 0: mMarkType = RouteMarkType.Start; break;
+    case 1: mMarkType = RouteMarkType.Intermediate; break;
+    case 2: mMarkType = RouteMarkType.Finish; break;
+    default: throw new IllegalArgumentException("Mark type is not valid = " + markType);
     }
 
     mIntermediateIndex = intermediateIndex;

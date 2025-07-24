@@ -31,10 +31,7 @@ public:
   static std::string GetPath(std::string const & dir, std::string const & base);
 
 private:
-  inline geometry::Altitude const * Data() const
-  {
-    return reinterpret_cast<geometry::Altitude const *>(m_data.data());
-  };
+  inline geometry::Altitude const * Data() const { return reinterpret_cast<geometry::Altitude const *>(m_data.data()); }
 
   inline size_t Size() const { return m_data.size() / sizeof(geometry::Altitude); }
   void Invalidate();

@@ -24,8 +24,8 @@ import app.organicmaps.widget.PlaceholderView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapter>
-    implements MenuBottomSheetFragment.MenuBottomSheetInterface
+public class DownloaderFragment
+    extends BaseMwmRecyclerFragment<DownloaderAdapter> implements MenuBottomSheetFragment.MenuBottomSheetInterface
 {
   private DownloaderToolbarController mToolbarController;
 
@@ -153,7 +153,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
 
     mBottomPanel = new BottomPanel(this, view);
     mToolbarController = new DownloaderToolbarController(view, requireActivity(), this);
-    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), mToolbarController.getBackPressedCallback());
+    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
+                                                               mToolbarController.getBackPressedCallback());
 
     update();
   }
@@ -195,7 +196,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
   {
     if (mAdapter == null)
       mAdapter = new DownloaderAdapter(this);
-    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), mAdapter.getBackPressedCallback());
+    requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
+                                                               mAdapter.getBackPressedCallback());
 
     return mAdapter;
   }

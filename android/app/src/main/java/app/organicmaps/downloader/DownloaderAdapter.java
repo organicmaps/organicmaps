@@ -287,41 +287,41 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
     switch (mSelectedItem.status)
     {
-      case CountryItem.STATUS_DOWNLOADABLE: items.add(getDownloadMenuItem()); break;
+    case CountryItem.STATUS_DOWNLOADABLE: items.add(getDownloadMenuItem()); break;
 
-      case CountryItem.STATUS_UPDATABLE:
-        items.add(getUpdateMenuItem());
-        // Fallthrough
+    case CountryItem.STATUS_UPDATABLE:
+      items.add(getUpdateMenuItem());
+      // Fallthrough
 
-      case CountryItem.STATUS_DONE:
-        if (!mSelectedItem.isExpandable())
-          items.add(getExploreMenuItem());
+    case CountryItem.STATUS_DONE:
+      if (!mSelectedItem.isExpandable())
+        items.add(getExploreMenuItem());
+      appendDeleteMenuItem(items);
+      break;
+
+    case CountryItem.STATUS_FAILED:
+      items.add(getCancelMenuItem());
+
+      if (mSelectedItem.present)
+      {
         appendDeleteMenuItem(items);
-        break;
+        items.add(getExploreMenuItem());
+      }
+      break;
 
-      case CountryItem.STATUS_FAILED:
-        items.add(getCancelMenuItem());
+    case CountryItem.STATUS_PROGRESS:
+    case CountryItem.STATUS_APPLYING:
+    case CountryItem.STATUS_ENQUEUED:
+      items.add(getCancelMenuItem());
 
-        if (mSelectedItem.present)
-        {
-          appendDeleteMenuItem(items);
-          items.add(getExploreMenuItem());
-        }
-        break;
+      if (mSelectedItem.present)
+        items.add(getExploreMenuItem());
+      break;
 
-      case CountryItem.STATUS_PROGRESS:
-      case CountryItem.STATUS_APPLYING:
-      case CountryItem.STATUS_ENQUEUED:
-        items.add(getCancelMenuItem());
-
-        if (mSelectedItem.present)
-          items.add(getExploreMenuItem());
-        break;
-
-      case CountryItem.STATUS_PARTLY:
-        items.add(getDownloadMenuItem());
-        appendDeleteMenuItem(items);
-        break;
+    case CountryItem.STATUS_PARTLY:
+      items.add(getDownloadMenuItem());
+      appendDeleteMenuItem(items);
+      break;
     }
     return items;
   }
@@ -372,23 +372,23 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     {
       switch (mItem.status)
       {
-        case CountryItem.STATUS_DONE, CountryItem.STATUS_PROGRESS, CountryItem.STATUS_APPLYING,
-            CountryItem.STATUS_ENQUEUED ->
+      case CountryItem.STATUS_DONE, CountryItem.STATUS_PROGRESS, CountryItem.STATUS_APPLYING,
+          CountryItem.STATUS_ENQUEUED ->
+        processLongClick();
+      case CountryItem.STATUS_DOWNLOADABLE, CountryItem.STATUS_PARTLY ->
+      {
+        if (clickOnStatus)
+          onDownloadActionSelected(mItem, DownloaderAdapter.this);
+        else
           processLongClick();
-        case CountryItem.STATUS_DOWNLOADABLE, CountryItem.STATUS_PARTLY ->
-        {
-          if (clickOnStatus)
-            onDownloadActionSelected(mItem, DownloaderAdapter.this);
-          else
-            processLongClick();
-        }
-        case CountryItem.STATUS_FAILED ->
-        {
-          MapManager.warn3gAndRetry(mActivity, mItem.id, null);
-        }
-        case CountryItem.STATUS_UPDATABLE ->
-          MapManager.warnOn3gUpdate(mActivity, mItem.id, () -> MapManager.startUpdate(mItem.id));
-        default -> throw new IllegalArgumentException("Inappropriate item status: " + mItem.status);
+      }
+      case CountryItem.STATUS_FAILED ->
+      {
+        MapManager.warn3gAndRetry(mActivity, mItem.id, null);
+      }
+      case CountryItem.STATUS_UPDATABLE ->
+        MapManager.warnOn3gUpdate(mActivity, mItem.id, () -> MapManager.startUpdate(mItem.id));
+      default -> throw new IllegalArgumentException("Inappropriate item status: " + mItem.status);
       }
     }
 
@@ -529,32 +529,32 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         switch (ci.category)
         {
-          case CountryItem.CATEGORY_NEAR_ME ->
+        case CountryItem.CATEGORY_NEAR_ME ->
+        {
+          if (ci.category != prev)
           {
-            if (ci.category != prev)
-            {
-              headerId = CountryItem.CATEGORY_NEAR_ME;
-              mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_near_me_subtitle)));
-              prev = ci.category;
-            }
-          }
-          case CountryItem.CATEGORY_DOWNLOADED ->
-          {
-            if (ci.category != prev)
-            {
-              headerId = CountryItem.CATEGORY_DOWNLOADED;
-              mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_downloaded_subtitle)));
-              prev = ci.category;
-            }
-          }
-          default ->
-          {
-            int prevHeader = headerId;
-            headerId = CountryItem.CATEGORY_AVAILABLE + ci.name.charAt(0);
-            if (headerId != prevHeader)
-              mItemsAndHeader.add(new GenericItem(StringUtils.toUpperCase(ci.name.substring(0, 1))));
+            headerId = CountryItem.CATEGORY_NEAR_ME;
+            mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_near_me_subtitle)));
             prev = ci.category;
           }
+        }
+        case CountryItem.CATEGORY_DOWNLOADED ->
+        {
+          if (ci.category != prev)
+          {
+            headerId = CountryItem.CATEGORY_DOWNLOADED;
+            mItemsAndHeader.add(new GenericItem(mActivity.getString(R.string.downloader_downloaded_subtitle)));
+            prev = ci.category;
+          }
+        }
+        default ->
+        {
+          int prevHeader = headerId;
+          headerId = CountryItem.CATEGORY_AVAILABLE + ci.name.charAt(0);
+          if (headerId != prevHeader)
+            mItemsAndHeader.add(new GenericItem(StringUtils.toUpperCase(ci.name.substring(0, 1))));
+          prev = ci.category;
+        }
         }
         ci.headerId = headerId;
       }

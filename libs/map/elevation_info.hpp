@@ -39,10 +39,10 @@ public:
 
   void AddGpsPoints(GpsPoints const & points);
 
-  size_t GetSize() const { return m_points.size(); };
-  Points const & GetPoints() const { return m_points; };
+  size_t GetSize() const { return m_points.size(); }
+  Points const & GetPoints() const { return m_points; }
   uint8_t GetDifficulty() const { return m_difficulty; }
-  SegmentsDistances const & GetSegmentsDistances() const { return m_segmentsDistances; };
+  SegmentsDistances const & GetSegmentsDistances() const { return m_segmentsDistances; }
 
 private:
   // Points with distance from start of the track and altitude.

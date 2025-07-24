@@ -88,7 +88,7 @@ public:
   void DestroyObjectUnsafe(VulkanObject object);
 
   VkDevice GetDevice() const { return m_device; }
-  VulkanMemoryManager const & GetMemoryManager() const { return m_memoryManager; };
+  VulkanMemoryManager const & GetMemoryManager() const { return m_memoryManager; }
   VkSampler GetSampler(SamplerKey const & key);
 
   void SetMaxUniformBuffers(uint32_t maxUniformBuffers);

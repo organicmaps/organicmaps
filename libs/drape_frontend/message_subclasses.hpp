@@ -558,7 +558,7 @@ public:
 
   Type GetType() const override { return Type::CheckSelectionGeometry; }
 
-  FeatureID const & GetFeature() const { return m_feature; };
+  FeatureID const & GetFeature() const { return m_feature; }
   int GetRecacheId() const { return m_recacheId; }
 
 private:
@@ -597,7 +597,7 @@ public:
 
   Type GetType() const override { return Type::AddSubroute; }
 
-  dp::DrapeID GetSubrouteId() const { return m_subrouteId; };
+  dp::DrapeID GetSubrouteId() const { return m_subrouteId; }
   SubrouteConstPtr GetSubroute() const { return m_subroute; }
   int GetRecacheId() const { return m_recacheId; }
 
@@ -679,7 +679,7 @@ public:
 
   Type GetType() const override { return Type::AddRoutePreviewSegment; }
 
-  dp::DrapeID GetSegmentId() const { return m_segmentId; };
+  dp::DrapeID GetSegmentId() const { return m_segmentId; }
   m2::PointD const & GetStartPoint() const { return m_startPoint; }
   m2::PointD const & GetFinishPoint() const { return m_finishPoint; }
 

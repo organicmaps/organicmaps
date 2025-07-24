@@ -172,7 +172,7 @@ UNIT_TEST(ReadJson_Stop)
       Stop(4036592706  /* id */, kInvalidFeatureId  /* featureId */, kInvalidOsmId  /* osmId */,
            "Balfour Rd & Foothill Dr", TimeTable{{204, std::vector<TimeInterval>{TimeInterval(11400205248)}}},
            m2::PointD(-121.74124, 41.04276), {4036593809, 4036595406}  /* transferIds */
-            )
+           )
   };
 
   std::vector<Stop> stopsFact;

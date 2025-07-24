@@ -19,7 +19,7 @@ class QtLocationService
 
 public:
   explicit QtLocationService(location::LocationObserver &, std::string const &);
-  virtual ~QtLocationService() {};
+  virtual ~QtLocationService() {}
   virtual void Start();
   virtual void Stop();
 

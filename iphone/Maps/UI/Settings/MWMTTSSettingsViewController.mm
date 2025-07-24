@@ -32,7 +32,8 @@ struct BaseCellStategy
                                       MWMTTSSettingsViewController * controller) = 0;
 
   virtual void SelectCell(UITableView * /* tableView */, NSIndexPath * /* indexPath */,
-                          MWMTTSSettingsViewController * /* controller */) {};
+                          MWMTTSSettingsViewController * /* controller */)
+  {}
 
   virtual NSString * TitleForFooter() const { return nil; }
 

@@ -65,36 +65,36 @@ public final class IntentUtils
     final ScreenManager screenManager = carContext.getCarService(ScreenManager.class);
     switch (Framework.nativeParseAndSetApiUrl(uri.toString()))
     {
-      case RequestType.INCORRECT: return;
-      case RequestType.MAP:
-        screenManager.popToRoot();
-        Map.executeMapApiRequest();
-        return;
-      case RequestType.SEARCH:
-        screenManager.popToRoot();
-        final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
-        final double[] latlon = Framework.nativeGetParsedCenterLatLon();
-        if (latlon != null)
-        {
-          Framework.nativeStopLocationFollow();
-          Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
-          // We need to update viewport for search api manually because of drape engine
-          // will not notify subscribers when search activity is shown.
-          if (!request.mIsSearchOnMap)
-            Framework.nativeSetSearchViewport(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
-        }
-        final SearchScreen.Builder builder = new SearchScreen.Builder(carContext, surfaceRenderer);
-        builder.setQuery(request.mQuery);
-        if (request.mLocale != null)
-          builder.setLocale(request.mLocale);
+    case RequestType.INCORRECT: return;
+    case RequestType.MAP:
+      screenManager.popToRoot();
+      Map.executeMapApiRequest();
+      return;
+    case RequestType.SEARCH:
+      screenManager.popToRoot();
+      final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
+      final double[] latlon = Framework.nativeGetParsedCenterLatLon();
+      if (latlon != null)
+      {
+        Framework.nativeStopLocationFollow();
+        Framework.nativeSetViewportCenter(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
+        // We need to update viewport for search api manually because of drape engine
+        // will not notify subscribers when search activity is shown.
+        if (!request.mIsSearchOnMap)
+          Framework.nativeSetSearchViewport(latlon[0], latlon[1], SEARCH_IN_VIEWPORT_ZOOM);
+      }
+      final SearchScreen.Builder builder = new SearchScreen.Builder(carContext, surfaceRenderer);
+      builder.setQuery(request.mQuery);
+      if (request.mLocale != null)
+        builder.setLocale(request.mLocale);
 
-        screenManager.popToRoot();
-        screenManager.push(builder.build());
-        return;
-      case RequestType.ROUTE: Logger.e(TAG, "Route API is not supported by Android Auto: " + uri); return;
-      case RequestType.CROSSHAIR: Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri); return;
-      case RequestType.MENU: Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri); return;
-      case RequestType.SETTINGS: Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri);
+      screenManager.popToRoot();
+      screenManager.push(builder.build());
+      return;
+    case RequestType.ROUTE: Logger.e(TAG, "Route API is not supported by Android Auto: " + uri); return;
+    case RequestType.CROSSHAIR: Logger.e(TAG, "Crosshair API is not supported by Android Auto: " + uri); return;
+    case RequestType.MENU: Logger.e(TAG, "Menu API is not supported by Android Auto: " + uri); return;
+    case RequestType.SETTINGS: Logger.e(TAG, "Settings API is not supported by Android Auto: " + uri);
     }
   }
 

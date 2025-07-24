@@ -40,8 +40,8 @@ public:
   bool IsValid() const { return m_keyAge.IsValidForTesting(); }
 
   size_t GetAge() const { return m_keyAge.m_age; }
-  std::map<size_t, Key> const & GetAgeToKey() const { return m_keyAge.m_ageToKey; };
-  std::unordered_map<Key, size_t> const & GetKeyToAge() const { return m_keyAge.m_keyToAge; };
+  std::map<size_t, Key> const & GetAgeToKey() const { return m_keyAge.m_ageToKey; }
+  std::unordered_map<Key, size_t> const & GetKeyToAge() const { return m_keyAge.m_keyToAge; }
 
 private:
   typename LruCache<Key, Value>::KeyAge m_keyAge;

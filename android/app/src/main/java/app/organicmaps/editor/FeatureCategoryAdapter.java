@@ -5,16 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.textfield.TextInputEditText;
-
 import app.organicmaps.R;
 import app.organicmaps.sdk.editor.data.FeatureCategory;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
@@ -57,23 +56,14 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    switch (viewType)
+    @LayoutRes
+    final int layoutId = switch (viewType)
     {
-      case TYPE_CATEGORY ->
-      {
-        return new FeatureViewHolder(
-            LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category, parent, false));
-      }
-      case TYPE_FOOTER ->
-      {
-        return new FooterViewHolder(
-            LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feature_category_footer, parent, false), (FooterListener) mFragment);
-      }
-      default ->
-      {
-        throw new IllegalArgumentException("Unsupported");
-      }
-    }
+      case TYPE_CATEGORY -> R.layout.item_feature_category;
+      case TYPE_FOOTER -> R.layout.item_feature_category_footer;
+      default -> throw new IllegalArgumentException("Unsupported");
+    };
+    return new FeatureViewHolder(LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false));
   }
 
   @Override

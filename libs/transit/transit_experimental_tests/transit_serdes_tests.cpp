@@ -135,11 +135,11 @@ TransitData FillTestTransitData()
       Stop(4026990853  /* id */, kInvalidFeatureId  /* featureId */, kInvalidOsmId  /* osmId */,
            "CARLOS DIHEL 2500-2598"  /* title */, TimeTable{{204, std::vector<TimeInterval>{TimeInterval(11400205248)}}},
            m2::PointD(-58.57196, -36.82596), {                                                          }  /* transferIds */
-              ),
+           ),
       Stop(4026990854  /* id */, kInvalidFeatureId  /* featureId */, kInvalidOsmId  /* osmId */,
            "QUIROGA 1901-1999"  /* title */, TimeTable{                                                          },
               m2::PointD(-58.57196, -36.82967), {}  /* transferIds */
-              )
+           )
   };
 
   data.SetStopPedestrianSegments(0 /* stopIdx */,

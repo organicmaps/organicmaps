@@ -108,8 +108,8 @@ public:
   bool ShouldShowAddBusiness() const { return IsBuilding(); }
   bool ShouldShowEditPlace() const;
 
-  bool ShouldEnableAddPlace() const { return m_canEditOrAdd; };
-  bool ShouldEnableEditPlace() const { return m_canEditOrAdd; };
+  bool ShouldEnableAddPlace() const { return m_canEditOrAdd; }
+  bool ShouldEnableEditPlace() const { return m_canEditOrAdd; }
 
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
@@ -120,15 +120,15 @@ public:
   kml::LocalizableString FormatNewBookmarkName() const;
 
   /// For showing in UI
-  std::string const & GetTitle() const { return m_uiTitle; };
+  std::string const & GetTitle() const { return m_uiTitle; }
   /// Convenient wrapper for secondary feature name.
-  std::string const & GetSecondaryTitle() const { return m_uiSecondaryTitle; };
+  std::string const & GetSecondaryTitle() const { return m_uiSecondaryTitle; }
   /// Convenient wrapper for type, cuisines, elevation, stars, wifi etc.
-  std::string const & GetSubtitle() const { return m_uiSubtitle; };
+  std::string const & GetSubtitle() const { return m_uiSubtitle; }
   std::string const & GetSecondarySubtitle() const
   {
     return !m_uiTrackStatistics.empty() ? m_uiTrackStatistics : m_uiAddress;
-  };
+  }
   std::string const & GetWikiDescription() const { return m_description; }
   /// @returns coordinate in DMS format if isDMS is true
   std::string GetFormattedCoordinate(CoordinatesFormat format) const;
@@ -154,8 +154,8 @@ public:
   kml::BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
 
   /// Track
-  void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; };
-  kml::TrackId GetTrackId() const { return m_trackId; };
+  void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; }
+  kml::TrackId GetTrackId() const { return m_trackId; }
 
   /// Api
   void SetApiId(std::string const & apiId) { m_apiId = apiId; }
