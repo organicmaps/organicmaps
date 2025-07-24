@@ -1,5 +1,7 @@
 package app.organicmaps.routing;
 
+import static app.organicmaps.sdk.util.Utils.dimen;
+
 import android.location.Location;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,7 +24,7 @@ import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.StringUtils;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.LanesView;
@@ -165,7 +167,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     UiUtils.visibleIf(hasStreet, mStreetFrame);
     if (!TextUtils.isEmpty(info.nextStreet))
       mNextStreet.setText(info.nextStreet);
-    int margin = UiUtils.dimen(mFrame.getContext(), R.dimen.nav_frame_padding);
+    int margin = dimen(mFrame.getContext(), R.dimen.nav_frame_padding);
     if (hasStreet)
       margin += mStreetFrame.getHeight();
     mMapButtonsViewModel.setTopButtonsMarginTop(margin);

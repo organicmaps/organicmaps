@@ -23,7 +23,6 @@ import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.StorageUtils;
-import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
 import java.io.IOException;
@@ -160,7 +159,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     createPlatformDirectories(writablePath, privatePath, tempPath);
 
     nativeInitPlatform(mContext, apkPath, writablePath, privatePath, tempPath, app.organicmaps.BuildConfig.FLAVOR,
-                       app.organicmaps.BuildConfig.BUILD_TYPE, UiUtils.isTablet(mContext));
+                       app.organicmaps.BuildConfig.BUILD_TYPE,
+                       /* isTablet */ false);
     Config.setStoragePath(writablePath);
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled());
 

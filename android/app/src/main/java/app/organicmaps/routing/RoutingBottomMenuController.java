@@ -1,5 +1,7 @@
 package app.organicmaps.routing;
 
+import static app.organicmaps.sdk.util.Utils.dimen;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -37,9 +39,9 @@ import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.sdk.routing.TransitStepInfo;
 import app.organicmaps.sdk.util.Distance;
-import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.recycler.DotDividerItemDecoration;
 import app.organicmaps.widget.recycler.MultilineLayoutManager;
@@ -342,8 +344,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
 
     UiUtils.hide(mTimeVehicle);
 
-    int chartWidth = UiUtils.dimen(mContext, R.dimen.altitude_chart_image_width);
-    int chartHeight = UiUtils.dimen(mContext, R.dimen.altitude_chart_image_height);
+    int chartWidth = dimen(mContext, R.dimen.altitude_chart_image_width);
+    int chartHeight = dimen(mContext, R.dimen.altitude_chart_image_height);
     Framework.RouteAltitudeLimits limits = new Framework.RouteAltitudeLimits();
     Bitmap bm = Framework.generateRouteAltitudeChart(chartWidth, chartHeight, limits);
     if (bm != null)

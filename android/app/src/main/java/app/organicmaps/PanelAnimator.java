@@ -9,7 +9,8 @@ import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.sdk.util.Utils;
+import app.organicmaps.util.UiUtils;
 import org.chromium.base.ObserverList;
 
 class PanelAnimator
@@ -26,7 +27,7 @@ class PanelAnimator
   PanelAnimator(MwmActivity activity)
   {
     mActivity = activity;
-    mWidth = UiUtils.dimen(activity.getApplicationContext(), R.dimen.panel_width);
+    mWidth = Utils.dimen(activity.getApplicationContext(), R.dimen.panel_width);
     mPanel = mActivity.findViewById(R.id.fragment_container);
     mDuration = mActivity.getResources().getInteger(R.integer.anim_panel);
   }
