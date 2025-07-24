@@ -26,7 +26,7 @@ import app.organicmaps.sdk.settings.SpeedCameraMode;
 import app.organicmaps.sdk.sound.LanguageData;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Config;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import java.util.Arrays;
 import java.util.Collections;

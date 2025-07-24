@@ -12,7 +12,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.routing.RoutingController;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.WheelProgressView;
 import java.util.HashSet;
 import java.util.List;

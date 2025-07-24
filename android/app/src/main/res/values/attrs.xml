@@ -47,7 +47,6 @@
     <attr name="android:drawable"/>
   </declare-styleable>
 
-  <bool name="isTablet">false</bool>
   <bool name="tabletLayout">false</bool>
 
   <declare-styleable name="PlaceholderView">

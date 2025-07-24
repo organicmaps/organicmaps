@@ -13,9 +13,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.search.SearchResult;
-import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.UiUtils;
 
 class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHolder>
 {

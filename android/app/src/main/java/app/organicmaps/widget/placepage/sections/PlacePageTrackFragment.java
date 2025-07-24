@@ -14,7 +14,7 @@ import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Track;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.placepage.ElevationProfileViewRenderer;
 import app.organicmaps.widget.placepage.PlacePageStateListener;
 import app.organicmaps.widget.placepage.PlacePageViewModel;

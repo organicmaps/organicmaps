@@ -40,7 +40,7 @@ import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
 import app.organicmaps.widget.PlaceholderView;

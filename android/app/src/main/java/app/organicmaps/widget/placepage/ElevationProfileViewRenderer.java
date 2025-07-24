@@ -13,7 +13,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import java.util.Objects;
 

@@ -10,7 +10,7 @@ import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.editor.data.Language;
 import app.organicmaps.sdk.editor.data.LocalizedName;
 import app.organicmaps.sdk.util.StringUtils;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
