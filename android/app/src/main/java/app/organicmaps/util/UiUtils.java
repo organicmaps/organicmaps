@@ -1,4 +1,4 @@
-package app.organicmaps.sdk.util;
+package app.organicmaps.util;
 
 import android.animation.Animator;
 import android.app.Activity;
@@ -22,7 +22,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.AnyRes;
 import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
-import androidx.annotation.DimenRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
@@ -35,8 +34,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
-import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.WindowInsetUtils;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
@@ -201,16 +198,6 @@ public final class UiUtils
   {
     toolbar.setNavigationIcon(
         ThemeUtils.getResource(toolbar.getContext(), androidx.appcompat.R.attr.homeAsUpIndicator));
-  }
-
-  public static boolean isTablet(@NonNull Context context)
-  {
-    return context.getResources().getBoolean(R.bool.tabletLayout);
-  }
-
-  public static int dimen(@NonNull Context context, @DimenRes int id)
-  {
-    return context.getResources().getDimensionPixelSize(id);
   }
 
   // this method returns the total height of the display (in pixels) including notch and other touchable areas

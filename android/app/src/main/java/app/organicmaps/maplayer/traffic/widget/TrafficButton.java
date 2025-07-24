@@ -10,8 +10,8 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import app.organicmaps.R;
-import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.util.ThemeUtils;
+import app.organicmaps.util.UiUtils;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
