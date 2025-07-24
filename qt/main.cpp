@@ -83,7 +83,7 @@ public:
 #if defined(OMIM_OS_WINDOWS) //&& defined(PROFILER_COMMON)
   class InitializeFinalize : public FinalizeBase
   {
-    FILE * m_errFile;
+    FILE * m_errFile {nullptr};
     std::ofstream m_cerrOfstream;
     std::streambuf * m_cerrDefaultStreambuf {nullptr};
     base::ScopedLogLevelChanger const m_debugLog;
@@ -92,7 +92,7 @@ public:
     InitializeFinalize() : m_debugLog(LDEBUG)
     {
       QString logFileName = ".\\organicmaps";
-      m_hHandle = CreateMutex(NULL, TRUE, L"OrganicMaps_Desktop");
+      m_handle = CreateMutex(NULL, TRUE, L"OrganicMaps_Desktop");
       if (ERROR_ALREADY_EXISTS == GetLastError())
       {
         QString timestamp = QDateTime::currentDateTime().toString("_yyyy-MM-dd_hh.mm.ss");
@@ -122,11 +122,11 @@ public:
       if (m_errFile)
         ::fclose(m_errFile);
 
-      if (m_hHandle)
-        ReleaseMutex(m_hHandle); 
+      if (m_handle)
+        ReleaseMutex(m_handle); 
 
-      if (m_hHandle)
-        CloseHandle(m_hHandle); 
+      if (m_handle)
+        CloseHandle(m_handle); 
     }
   };
 #else
