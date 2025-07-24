@@ -13,6 +13,8 @@
 
 #include "coding/reader.hpp"
 
+#include "std/windows.hpp"
+
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
@@ -82,19 +84,44 @@ public:
   class InitializeFinalize : public FinalizeBase
   {
     FILE * m_errFile;
+    std::ofstream m_cerrOfstream;
+    std::streambuf * m_cerrDefaultStreambuf;
     base::ScopedLogLevelChanger const m_debugLog;
+    HANDLE m_hHandle;
   public:
     InitializeFinalize() : m_debugLog(LDEBUG)
     {
+      QString logFileName = ".\\organicmaps";
+      m_hHandle = CreateMutex(NULL, TRUE, L"OrganicMaps_Desktop");
+      if (ERROR_ALREADY_EXISTS == GetLastError())
+      {
+        QString timestamp = QDateTime::currentDateTime().toString("_yyyy-MM-dd_hh.mm.ss");
+        logFileName += "_" % QString::number(getpid()) % timestamp;
+      }
+      logFileName += ".log";
+      
       // App runs without error console under win32.
-      m_errFile = ::freopen(".\\mapsme.log", "w", stderr);
+      m_errFile = ::freopen(logFileName.toStdString().c_str(), "w", stderr);
+
+      // Redirecting std::cerr to a log file.
+      m_cerrDefaultStreambuf = std::cerr.rdbuf();
+      m_cerrOfstream.open(logFileName.toStdString(), std::ios::trunc);
+      if (m_cerrOfstream.is_open())
+        std::cerr.rdbuf(m_cerrOfstream.rdbuf());
 
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF);
       //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     }
     ~InitializeFinalize()
     {
-      ::fclose(m_errFile);
+      if (m_cerrDefaultStreambuf)
+        std::cerr.rdbuf(m_cerrDefaultStreambuf);
+      
+      if (m_errFile)
+        ::fclose(m_errFile);
+
+      ReleaseMutex(m_hHandle); 
+      CloseHandle(m_hHandle); 
     }
   };
 #else
