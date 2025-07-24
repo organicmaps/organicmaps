@@ -150,14 +150,12 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
         switch (item.newStatus)
         {
-          case CountryItem.STATUS_DONE:
-            mAreResourcesDownloaded = true;
-            showMap();
-            return;
+        case CountryItem.STATUS_DONE:
+          mAreResourcesDownloaded = true;
+          showMap();
+          return;
 
-          case CountryItem.STATUS_FAILED:
-            MapManager.showError(DownloadResourcesLegacyActivity.this, item, null);
-            return;
+        case CountryItem.STATUS_FAILED: MapManager.showError(DownloadResourcesLegacyActivity.this, item, null); return;
         }
       }
     }

@@ -149,39 +149,39 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
       switch (result.description.openNow)
       {
-        case SearchResult.OPEN_NOW_YES ->
+      case SearchResult.OPEN_NOW_YES ->
+      {
+        if (result.description.minutesUntilClosed < 60) // less than 1 hour
         {
-          if (result.description.minutesUntilClosed < 60) // less than 1 hour
-          {
-            final String time = result.description.minutesUntilClosed + " " + resources.getString(R.string.minute);
-            final String string = resources.getString(R.string.closes_in, time);
+          final String time = result.description.minutesUntilClosed + " " + resources.getString(R.string.minute);
+          final String string = resources.getString(R.string.closes_in, time);
 
-            UiUtils.setTextAndShow(mOpen, string);
-            mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_yellow));
-          }
-          else
-          {
-            UiUtils.setTextAndShow(mOpen, resources.getString(R.string.editor_time_open));
-            mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_green));
-          }
+          UiUtils.setTextAndShow(mOpen, string);
+          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_yellow));
         }
-        case SearchResult.OPEN_NOW_NO ->
+        else
         {
-          if (result.description.minutesUntilOpen < 60) // less than 1 hour
-          {
-            final String time = result.description.minutesUntilOpen + " " + resources.getString(R.string.minute);
-            final String string = resources.getString(R.string.opens_in, time);
-
-            UiUtils.setTextAndShow(mOpen, string);
-            mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
-          }
-          else
-          {
-            UiUtils.setTextAndShow(mOpen, resources.getString(R.string.closed));
-            mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
-          }
+          UiUtils.setTextAndShow(mOpen, resources.getString(R.string.editor_time_open));
+          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_green));
         }
-        default -> UiUtils.hide(mOpen);
+      }
+      case SearchResult.OPEN_NOW_NO ->
+      {
+        if (result.description.minutesUntilOpen < 60) // less than 1 hour
+        {
+          final String time = result.description.minutesUntilOpen + " " + resources.getString(R.string.minute);
+          final String string = resources.getString(R.string.opens_in, time);
+
+          UiUtils.setTextAndShow(mOpen, string);
+          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
+        }
+        else
+        {
+          UiUtils.setTextAndShow(mOpen, resources.getString(R.string.closed));
+          mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
+        }
+      }
+      default -> UiUtils.hide(mOpen);
       }
     }
 

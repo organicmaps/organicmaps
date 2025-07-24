@@ -26,7 +26,7 @@ int FuncThrowsRuntimeError()
 int FuncThrowsNumber()
 {
   throw 1;
-};
+}
 
 int FuncDoesNotThrowArg(int) noexcept
 {
@@ -43,7 +43,7 @@ int FuncThrowsExceptionArg(int)
 int FuncThrowsNumberArg(int)
 {
   throw 1;
-};
+}
 
 void FuncDoesNotThrowVoid(int) noexcept
 {
@@ -60,7 +60,7 @@ void FuncThrowsExceptionVoid()
 void FuncThrowsNumberVoid()
 {
   throw 1;
-};
+}
 
 std::string const & ReturnsByRef(std::string const & str)
 {

@@ -278,7 +278,7 @@ public:
 
   kml::GroupIdCollection const & GetUnsortedBmGroupsIdList() const { return m_unsortedBmGroupsIdList; }
   kml::GroupIdCollection GetSortedBmGroupIdList() const;
-  size_t GetBmGroupsCount() const { return m_unsortedBmGroupsIdList.size(); };
+  size_t GetBmGroupsCount() const { return m_unsortedBmGroupsIdList.size(); }
   bool HasBmCategory(kml::MarkGroupId groupId) const;
   bool HasBookmark(kml::MarkId markId) const;
   bool HasTrack(kml::TrackId trackId) const;
@@ -371,7 +371,7 @@ public:
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, KmlFileType fileType) const;
 
-  bool HasRecentlyDeletedBookmark() const { return m_recentlyDeletedBookmark.operator bool(); };
+  bool HasRecentlyDeletedBookmark() const { return m_recentlyDeletedBookmark.operator bool(); }
   void ResetRecentlyDeletedBookmark();
 
   size_t GetRecentlyDeletedCategoriesCount() const;

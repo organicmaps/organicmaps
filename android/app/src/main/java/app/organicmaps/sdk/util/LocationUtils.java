@@ -28,13 +28,13 @@ public class LocationUtils
     double correction = 0;
     switch (displayOrientation)
     {
-      case Surface.ROTATION_0 ->
-      {
-        return angle;
-      }
-      case Surface.ROTATION_90 -> correction = Math.PI / 2.0;
-      case Surface.ROTATION_180 -> correction = Math.PI;
-      case Surface.ROTATION_270 -> correction = (3.0 * Math.PI / 2.0);
+    case Surface.ROTATION_0 ->
+    {
+      return angle;
+    }
+    case Surface.ROTATION_90 -> correction = Math.PI / 2.0;
+    case Surface.ROTATION_180 -> correction = Math.PI;
+    case Surface.ROTATION_270 -> correction = (3.0 * Math.PI / 2.0);
     }
 
     return correctAngle(angle, correction);

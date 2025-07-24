@@ -92,8 +92,8 @@ public:
   /// @}
 
   bool IsPointType() const;
-  feature::GeomType GetGeomType() const { return m_geomType; };
-  int8_t GetLayer() const { return m_layer; };
+  feature::GeomType GetGeomType() const { return m_geomType; }
+  int8_t GetLayer() const { return m_layer; }
 
   /// @returns true if object is of building type.
   bool IsBuilding() const;

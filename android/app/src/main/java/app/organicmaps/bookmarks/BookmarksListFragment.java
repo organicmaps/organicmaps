@@ -552,12 +552,12 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     switch (adapter.getItemViewType(position))
     {
-      case BookmarkListAdapter.TYPE_SECTION, BookmarkListAdapter.TYPE_DESC ->
-      {
-        return;
-      }
-      case BookmarkListAdapter.TYPE_BOOKMARK -> onBookmarkClicked(position, intent, adapter);
-      case BookmarkListAdapter.TYPE_TRACK -> onTrackClicked(position, intent, adapter);
+    case BookmarkListAdapter.TYPE_SECTION, BookmarkListAdapter.TYPE_DESC ->
+    {
+      return;
+    }
+    case BookmarkListAdapter.TYPE_BOOKMARK -> onBookmarkClicked(position, intent, adapter);
+    case BookmarkListAdapter.TYPE_TRACK -> onTrackClicked(position, intent, adapter);
     }
 
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -622,22 +622,22 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<ConcatAdapter
 
     switch (type)
     {
-      case BookmarkListAdapter.TYPE_SECTION:
-      case BookmarkListAdapter.TYPE_DESC:
-        // Do nothing here?
-        break;
+    case BookmarkListAdapter.TYPE_SECTION:
+    case BookmarkListAdapter.TYPE_DESC:
+      // Do nothing here?
+      break;
 
-      case BookmarkListAdapter.TYPE_BOOKMARK:
-        final BookmarkInfo bookmark = (BookmarkInfo) adapter.getItem(mSelectedPosition);
-        MenuBottomSheetFragment.newInstance(BOOKMARKS_MENU_ID, bookmark.getName())
-            .show(getChildFragmentManager(), BOOKMARKS_MENU_ID);
-        break;
+    case BookmarkListAdapter.TYPE_BOOKMARK:
+      final BookmarkInfo bookmark = (BookmarkInfo) adapter.getItem(mSelectedPosition);
+      MenuBottomSheetFragment.newInstance(BOOKMARKS_MENU_ID, bookmark.getName())
+          .show(getChildFragmentManager(), BOOKMARKS_MENU_ID);
+      break;
 
-      case BookmarkListAdapter.TYPE_TRACK:
-        final Track track = (Track) adapter.getItem(mSelectedPosition);
-        MenuBottomSheetFragment.newInstance(TRACK_MENU_ID, track.getName())
-            .show(getChildFragmentManager(), TRACK_MENU_ID);
-        break;
+    case BookmarkListAdapter.TYPE_TRACK:
+      final Track track = (Track) adapter.getItem(mSelectedPosition);
+      MenuBottomSheetFragment.newInstance(TRACK_MENU_ID, track.getName())
+          .show(getChildFragmentManager(), TRACK_MENU_ID);
+      break;
     }
   }
 

@@ -173,8 +173,8 @@ public class EditorHostFragment
   {
     switch (mMode)
     {
-      case OPENING_HOURS, STREET, CUISINE, LANGUAGE, PHONE, SELF_SERVICE -> editMapObject();
-      default -> Utils.navigateToParent(requireActivity());
+    case OPENING_HOURS, STREET, CUISINE, LANGUAGE, PHONE, SELF_SERVICE -> editMapObject();
+    default -> Utils.navigateToParent(requireActivity());
     }
     return true;
   }
@@ -283,57 +283,57 @@ public class EditorHostFragment
     {
       switch (mMode)
       {
-        case OPENING_HOURS ->
-        {
-          final String timetables = ((TimetableContainerFragment) getChildFragmentManager().findFragmentByTag(
-                                         TimetableContainerFragment.class.getName()))
-                                        .getTimetable();
-          Editor.nativeSetOpeningHours(timetables);
-          editMapObject();
-        }
-        case STREET ->
-          setStreet(((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName()))
-                        .getStreet());
-        case CUISINE ->
-        {
-          String[] cuisines =
-              ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName()))
-                  .getCuisines();
-          Editor.nativeSetSelectedCuisines(cuisines);
-          editMapObject();
-        }
-        case SELF_SERVICE ->
-          setSelection(
-              Metadata.MetadataType.FMD_SELF_SERVICE,
-              ((SelfServiceFragment) getChildFragmentManager().findFragmentByTag(SelfServiceFragment.class.getName()))
-                  .getSelection());
-        case LANGUAGE -> editMapObject();
-        case MAP_OBJECT ->
-        {
-          if (!setEdits())
-            return;
+      case OPENING_HOURS ->
+      {
+        final String timetables = ((TimetableContainerFragment) getChildFragmentManager().findFragmentByTag(
+                                       TimetableContainerFragment.class.getName()))
+                                      .getTimetable();
+        Editor.nativeSetOpeningHours(timetables);
+        editMapObject();
+      }
+      case STREET ->
+        setStreet(
+            ((StreetFragment) getChildFragmentManager().findFragmentByTag(StreetFragment.class.getName())).getStreet());
+      case CUISINE ->
+      {
+        String[] cuisines =
+            ((CuisineFragment) getChildFragmentManager().findFragmentByTag(CuisineFragment.class.getName()))
+                .getCuisines();
+        Editor.nativeSetSelectedCuisines(cuisines);
+        editMapObject();
+      }
+      case SELF_SERVICE ->
+        setSelection(
+            Metadata.MetadataType.FMD_SELF_SERVICE,
+            ((SelfServiceFragment) getChildFragmentManager().findFragmentByTag(SelfServiceFragment.class.getName()))
+                .getSelection());
+      case LANGUAGE -> editMapObject();
+      case MAP_OBJECT ->
+      {
+        if (!setEdits())
+          return;
 
-          // Save object edits
-          if (!MwmApplication.prefs(requireContext()).contains(NOOB_ALERT_SHOWN))
-          {
-            showNoobDialog();
-          }
-          else
-          {
-            saveNote();
-            saveMapObjectEdits();
-          }
-        }
-        case PHONE ->
+        // Save object edits
+        if (!MwmApplication.prefs(requireContext()).contains(NOOB_ALERT_SHOWN))
         {
-          final String phone =
-              ((PhoneFragment) getChildFragmentManager().findFragmentByTag(PhoneFragment.class.getName())).getPhone();
-          if (Editor.nativeIsPhoneValid(phone))
-          {
-            Editor.nativeSetPhone(phone);
-            editMapObject();
-          }
+          showNoobDialog();
         }
+        else
+        {
+          saveNote();
+          saveMapObjectEdits();
+        }
+      }
+      case PHONE ->
+      {
+        final String phone =
+            ((PhoneFragment) getChildFragmentManager().findFragmentByTag(PhoneFragment.class.getName())).getPhone();
+        if (Editor.nativeIsPhoneValid(phone))
+        {
+          Editor.nativeSetPhone(phone);
+          editMapObject();
+        }
+      }
       }
     }
   }

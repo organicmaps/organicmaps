@@ -191,7 +191,7 @@ public:
       }
     });
     m_worldCities.push_back(capital);
-  };
+  }
 
   void BuildWorld()
   {

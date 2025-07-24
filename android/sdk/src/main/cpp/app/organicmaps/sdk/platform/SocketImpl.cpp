@@ -80,7 +80,7 @@ public:
     static jmethodID const setTimeoutMethod = jni::GetMethodID(env, m_self, "setTimeout", "(I)V");
     env->CallVoidMethod(m_self, setTimeoutMethod, static_cast<jint>(milliseconds));
     jni::HandleJavaException(env);
-  };
+  }
 
 private:
   jobject m_self;

@@ -162,8 +162,8 @@ std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccessBicycle
     {"highway", "secondary_link"},
     {"highway",       "tertiary"},
     {"highway",  "tertiary_link"},
-    {"highway",       "cycleway"}, // Bicycle barriers without access
-  // on cycleway are ignored :)
+    // Bicycle barriers without access on cycleway are ignored :)
+    {"highway",       "cycleway"},
 };
 
 // motorway_junction blocks not only highway link, but main road also.

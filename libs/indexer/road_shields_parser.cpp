@@ -588,20 +588,21 @@ class CyprusRoadShieldParser : public SimpleRoadShieldParser
 public:
   explicit CyprusRoadShieldParser(std::string const & baseRoadNumber)
     : SimpleRoadShieldParser(baseRoadNumber, {
-  // North Cuprus.
+                                                 // North Cuprus.
                                                  { "D.",  RoadShieldType::Generic_Blue}, // White font.
                                                  {"GM.", RoadShieldType::Generic_White}, // Blue font.
                                                  {"GZ.", RoadShieldType::Generic_White}, // Blue font.
                                                  {"GR.", RoadShieldType::Generic_White}, // Blue font.
                                                  {"LF.", RoadShieldType::Generic_White}, // Blue font.
                                                  {"İK.", RoadShieldType::Generic_White}, // Blue font.
-                                                                                          // South Cyprus.
+
+                                                 // South Cyprus.
                                                  {  "A", RoadShieldType::Generic_Green}, // Yellow font. Hexagon.
                                                  {  "B",  RoadShieldType::Generic_Blue}, // Yellow font.
                                                  {  "E",  RoadShieldType::Generic_Blue}, // Yellow font.
                                                  {  "F",  RoadShieldType::Generic_Blue}, // Yellow font.
-                                                 {  "U",  RoadShieldType::Generic_Blue}
-  })  // Yellow font.
+                                                 {  "U",  RoadShieldType::Generic_Blue}  // Yellow font.
+  })
   {}
 };
 

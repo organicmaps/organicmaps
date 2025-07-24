@@ -146,11 +146,11 @@ public final class Logger
   {
     switch (level)
     {
-      case Log.VERBOSE: return 'V';
-      case Log.DEBUG: return 'D';
-      case Log.INFO: return 'I';
-      case Log.WARN: return 'W';
-      case Log.ERROR: return 'E';
+    case Log.VERBOSE: return 'V';
+    case Log.DEBUG: return 'D';
+    case Log.INFO: return 'I';
+    case Log.WARN: return 'W';
+    case Log.ERROR: return 'E';
     }
     assert false : "Unknown log level " + level;
     return '_';

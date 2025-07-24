@@ -139,7 +139,7 @@ public:
 
   void SetTurnExits(uint32_t exitNum) { m_turn.m_exitNum = exitNum; }
 
-  std::vector<turns::SingleLaneInfo> & GetTurnLanes() { return m_turn.m_lanes; };
+  std::vector<turns::SingleLaneInfo> & GetTurnLanes() { return m_turn.m_lanes; }
 
   void SetDistancesAndTime(double distFromBeginningMeters, double distFromBeginningMerc, double timeFromBeginningS)
   {

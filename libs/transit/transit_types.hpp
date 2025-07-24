@@ -134,7 +134,7 @@ class Stop
 public:
   NEWTYPE(StopId, WrappedStopId);
 
-  Stop() : m_featureIdentifiers(true /* serializeFeatureIdOnly */) {};
+  Stop() : m_featureIdentifiers(true /* serializeFeatureIdOnly */) {}
   Stop(StopId id, OsmId osmId, FeatureId featureId, TransferId transferId, std::vector<LineId> const & lineIds,
        m2::PointD const & point, std::vector<TitleAnchor> const & titleAnchors);
   explicit Stop(StopId id) : m_id(id), m_featureIdentifiers(true /* serializeFeatureIdOnly */) {}
@@ -192,7 +192,7 @@ private:
 class Gate
 {
 public:
-  Gate() : m_featureIdentifiers(false /* serializeFeatureIdOnly */) {};
+  Gate() : m_featureIdentifiers(false /* serializeFeatureIdOnly */) {}
   Gate(OsmId osmId, FeatureId featureId, bool entrance, bool exit, Weight weight, std::vector<StopId> const & stopIds,
        m2::PointD const & point);
 
@@ -200,7 +200,7 @@ public:
   bool operator==(Gate const & rhs) const;
   bool IsEqualForTesting(Gate const & gate) const;
   bool IsValid() const;
-  void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
+  void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; }
 
   FeatureId GetFeatureId() const { return m_featureIdentifiers.GetFeatureId(); }
   OsmId GetOsmId() const { return m_featureIdentifiers.GetOsmId(); }

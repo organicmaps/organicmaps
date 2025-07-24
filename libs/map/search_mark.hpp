@@ -122,7 +122,7 @@ public:
 
   void ClearTrackedProperties();
 
-  static bool HaveSizes() { return !s_markSizes.empty(); };
+  static bool HaveSizes() { return !s_markSizes.empty(); }
   static std::optional<m2::PointD> GetSize(std::string const & symbolName);
 
 private:

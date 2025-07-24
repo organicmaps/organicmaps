@@ -36,7 +36,7 @@ Entries GetEntries(Cont const & cont)
   { res.emplace_back(std::make_pair(fid, gid)); });
   std::sort(res.begin(), res.end());
   return res;
-};
+}
 
 class FeatureIdToGeoObjectIdTest : public TestWithCustomMwms
 {
