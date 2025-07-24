@@ -122,8 +122,11 @@ public:
       if (m_errFile)
         ::fclose(m_errFile);
 
-      ReleaseMutex(m_hHandle); 
-      CloseHandle(m_hHandle); 
+      if (m_hHandle)
+        ReleaseMutex(m_hHandle); 
+
+      if (m_hHandle)
+        CloseHandle(m_hHandle); 
     }
   };
 #else
