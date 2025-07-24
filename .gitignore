@@ -42,7 +42,7 @@ omim.sdf
 !qt/res/windows.rc
 *.pdb
 out/*
-qt/mapswithme.log
+qt/*.log
 
 # XCode
 xcode/keys/*
