@@ -27,6 +27,7 @@ final class SearchOnMapPresenter {
     if response == .close {
       view?.close()
       searchState = .closed
+      didChangeState = nil
       return
     }
 
@@ -63,12 +64,12 @@ final class SearchOnMapPresenter {
     case .setIsTyping(let isSearching):
       viewModel.isTyping = isSearching
       if isSearching {
-        viewModel.presentationStep = .fullScreen
+        viewModel.presentationStep = .expanded
       }
     case .showHistoryAndCategory:
       viewModel.isTyping = true
       viewModel.contentState = .historyAndCategory
-      viewModel.presentationStep = .fullScreen
+      viewModel.presentationStep = .expanded
     case .showResults(var searchResults, let isSearchCompleted):
       if (viewModel.skipSuggestions) {
         searchResults.skipSuggestions()
@@ -93,10 +94,10 @@ final class SearchOnMapPresenter {
       viewModel.isTyping = true
       viewModel.skipSuggestions = false
       viewModel.contentState = .historyAndCategory
-      viewModel.presentationStep = .fullScreen
+      viewModel.presentationStep = .expanded
     case .setSearchScreenHidden(let isHidden):
       viewModel.isTyping = false
-      viewModel.presentationStep = isHidden ? .hidden : (isRouting ? .fullScreen : .halfScreen)
+      viewModel.presentationStep = isHidden ? .hidden : (isRouting ? .expanded : .halfScreen)
     case .setSearchScreenCompact:
       viewModel.isTyping = false
       viewModel.presentationStep = .compact
@@ -112,10 +113,10 @@ final class SearchOnMapPresenter {
   }
 }
 
-private extension ModalPresentationStep {
+private extension SearchOnMapModalPresentationStep {
   var searchState: SearchOnMapState {
     switch self {
-    case .fullScreen, .halfScreen, .compact:
+    case .expanded, .halfScreen, .compact:
       return .searching
     case .hidden:
       return .hidden

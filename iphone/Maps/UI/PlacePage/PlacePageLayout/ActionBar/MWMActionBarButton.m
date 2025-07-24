@@ -29,6 +29,8 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
       return L(@"placepage_more_button");
     case MWMActionBarButtonTypeRouteAddStop:
       return L(@"placepage_add_stop");
+    case MWMActionBarButtonTypeRouteReplaceStop:
+      return L(@"placepage_replace_stop");
     case MWMActionBarButtonTypeRouteRemoveStop:
       return L(@"placepage_remove_stop");
     case MWMActionBarButtonTypeAvoidToll:
@@ -126,6 +128,7 @@ NSString *titleForButton(MWMActionBarButtonType type, BOOL isSelected) {
       [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"] forState:UIControlStateNormal];
       break;
     case MWMActionBarButtonTypeRouteAddStop:
+    case MWMActionBarButtonTypeRouteReplaceStop:
       [self.button setImage:[UIImage imageNamed:@"ic_add_route_point"] forState:UIControlStateNormal];
       break;
     case MWMActionBarButtonTypeRouteRemoveStop:
