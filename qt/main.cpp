@@ -102,6 +102,8 @@ public:
       
       // App runs without error console under win32.
       m_errFile = ::freopen(logFileName.toStdString().c_str(), "w", stderr);
+      if (!m_errFile)
+        return; // freopen failed. No need to attempt to redirect anything to a log file again.
 
       // Redirecting std::cerr to a log file.
       m_cerrDefaultStreambuf = std::cerr.rdbuf();
