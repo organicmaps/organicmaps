@@ -167,7 +167,7 @@ Please join our beta program, suggest your features, and report bugs:
 
 - **Rate us on the [App Store](https://apps.apple.com/app/organic-maps/id1567437057)
 and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)**.
-- **Star us on Forgejo**.
+- **Star us on Github**.
 - Report bugs or issues to [the issue tracker](https://github.com/organicmaps/organicmaps/issues).
 - Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) or to the [[matrix] space](https://matrix.to/#/#organicmaps:matrix.org) for updates.
 - Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
@@ -183,3 +183,19 @@ and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)
   - Güncellemelerimizi [Instagram](https://instagram.com/organicmapstr/) üzerinden takip edin.
 
 The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
+
+## License
+
+Organic Maps is licensed under the [Apache License 2.0](LICENSE).
+
+### Attribution for forks and derivative apps based on Organic Maps
+
+If you use Organic Maps source code or its user interface in your project, please include a visible, human-readable mention of the “Organic Maps Project” and a clickable link to https://organicmaps.app. To respect the work of all project contributors and to comply with license attribution terms, this notice should appear in user-visible locations, such as the product’s “About” and “Main Menu” screens.
+
+### 🤝 White-label
+
+For inquiries about white-labeling or using our servers for your products, please contact us in advance at:
+
+**legal@organicmaps.app**
+
+Thank you!
