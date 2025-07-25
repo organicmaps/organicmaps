@@ -4,22 +4,188 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   tools:showIn="@layout/elevation_profile_bottom_sheet">
-  <TextView
-    android:id="@+id/title"
+  <LinearLayout
+    android:id="@+id/title_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_half"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:paddingBottom="@dimen/margin_base"
-    android:textAppearance="?fontHeadline6"
-    tools:text="Xindian Shitoushan Trail" />
-  <include
+    android:orientation="vertical">
+    <TextView
+      android:id="@+id/title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_base"
+      android:paddingTop="@dimen/margin_half"
+      android:paddingBottom="@dimen/margin_base"
+      android:textAppearance="?fontHeadline6"
+      tools:text="Xindian Shitoushan Trail" />
+    <include
+      layout="@layout/list_divider"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/divider_height"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_base" />
+  </LinearLayout>
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="@dimen/divider_height"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
-    layout="@layout/list_divider" />
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:layout_marginBottom="@dimen/margin_half_plus_eight"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+    <!--card one-->
+    <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_weight="1"
+      android:gravity="center">
+      <LinearLayout
+        android:id="@+id/ascent_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+          android:layout_width="@dimen/margin_base_plus_quarter"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/margin_quarter"
+          app:srcCompat="@drawable/ic_ascent"
+          app:tint="?elevationProfilePropIconTint" />
+        <TextView
+          android:id="@+id/ascent"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          tools:text="10000 m" />
+      </LinearLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ascent_container"
+        android:layout_alignStart="@+id/ascent_container"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/elevation_profile_ascent"
+        android:textAppearance="@style/MwmTextAppearance.Body5" />
+    </RelativeLayout>
+    <!--card two-->
+    <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_weight="1"
+      android:gravity="center">
+      <LinearLayout
+        android:id="@+id/descent_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+          android:layout_width="@dimen/margin_base_plus_quarter"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/margin_quarter"
+          app:srcCompat="@drawable/ic_descent"
+          app:tint="?elevationProfilePropIconTint" />
+        <TextView
+          android:id="@+id/descent"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          tools:text="10000 m" />
+      </LinearLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descent_container"
+        android:layout_alignStart="@+id/descent_container"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/elevation_profile_descent"
+        android:textAppearance="@style/MwmTextAppearance.Body5" />
+    </RelativeLayout>
+    <!--card three-->
+    <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:orientation="vertical">
+      <LinearLayout
+        android:id="@+id/max_height_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/margin_quarter"
+          app:srcCompat="@drawable/ic_maxalt"
+          app:tint="?elevationProfilePropIconTint" />
+        <TextView
+          android:id="@+id/max_altitude"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          tools:text="10000 m" />
+      </LinearLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/max_height_container"
+        android:layout_alignStart="@+id/max_height_container"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/elevation_profile_max_elevation"
+        android:textAppearance="@style/MwmTextAppearance.Body5" />
+    </RelativeLayout>
+    <!--card four-->
+    <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:orientation="vertical">
+      <LinearLayout
+        android:id="@+id/min_elevation_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/margin_half"
+          app:srcCompat="@drawable/ic_minalt"
+          app:tint="?elevationProfilePropIconTint" />
+        <TextView
+          android:id="@+id/min_altitude"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoMedium"
+          android:textAppearance="@style/MwmTextAppearance.Body3"
+          tools:text="10000 m" />
+      </LinearLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/min_elevation_container"
+        android:layout_alignStart="@+id/min_elevation_container"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/elevation_profile_min_elevation"
+        android:textAppearance="@style/MwmTextAppearance.Body5" />
+    </RelativeLayout>
+  </LinearLayout>
   <LinearLayout
     android:id="@+id/chart_container"
     android:layout_width="match_parent"
@@ -27,142 +193,13 @@
     android:gravity="center"
     android:minHeight="@dimen/elevation_profile_chart_min_height"
     android:orientation="vertical">
-    <include layout="@layout/elevation_profile"/>
-  </LinearLayout>
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:minHeight="@dimen/elevation_profile_chart_info_min_height"
-    android:orientation="horizontal"
-    android:baselineAligned="false">
-    <LinearLayout
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_marginEnd="@dimen/margin_quarter"
-      android:layout_weight="1"
-      android:background="?elevationProfilePropertyBg"
-      android:gravity="center_horizontal"
-      android:orientation="vertical"
-      android:padding="@dimen/margin_quarter_plus">
-      <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_ascent"
-        app:tint="?elevationProfilePropIconTint" />
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_eighth"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="@string/elevation_profile_ascent"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
-      <TextView
-        android:id="@+id/ascent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
-        android:fontFamily="@string/robotoMedium"
-        tools:text="10000 m" />
-    </LinearLayout>
-    <LinearLayout
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_marginEnd="@dimen/margin_quarter"
-      android:layout_weight="1"
-      android:background="?elevationProfilePropertyBg"
-      android:gravity="center_horizontal"
-      android:orientation="vertical"
-      android:padding="@dimen/margin_quarter_plus">
-      <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_descent"
-        app:tint="?elevationProfilePropIconTint" />
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_eighth"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="@string/elevation_profile_descent"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
-      <TextView
-        android:id="@+id/descent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
-        android:fontFamily="@string/robotoMedium"
-        tools:text="10000 m" />
-    </LinearLayout>
-    <LinearLayout
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_marginEnd="@dimen/margin_quarter"
-      android:layout_weight="1"
-      android:background="?elevationProfilePropertyBg"
-      android:gravity="center_horizontal"
-      android:orientation="vertical"
-      android:padding="@dimen/margin_quarter_plus">
-      <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_maxalt"
-        app:tint="?elevationProfilePropIconTint" />
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_eighth"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="@string/elevation_profile_max_elevation"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
-      <TextView
-        android:id="@+id/max_altitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
-        android:fontFamily="@string/robotoMedium"
-        tools:text="10000 m" />
-    </LinearLayout>
-    <LinearLayout
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="1"
-      android:background="?elevationProfilePropertyBg"
-      android:gravity="center_horizontal"
-      android:orientation="vertical"
-      android:padding="@dimen/margin_quarter_plus">
-      <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_minalt"
-        app:tint="?elevationProfilePropIconTint" />
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_eighth"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="@string/elevation_profile_min_elevation"
-        android:textAppearance="@style/MwmTextAppearance.Body5" />
-      <TextView
-        android:id="@+id/min_altitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
-        android:fontFamily="@string/robotoMedium"
-        tools:text="10000 m" />
-    </LinearLayout>
+    <include layout="@layout/elevation_profile" />
   </LinearLayout>
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_quarter_plus"
     android:layout_marginEnd="@dimen/margin_base"
     android:orientation="horizontal">
     <LinearLayout
@@ -174,21 +211,21 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
-        android:text="@string/elevation_profile_difficulty"/>
+        android:text="@string/elevation_profile_difficulty"
+        android:textAppearance="?android:textAppearance" />
       <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/elevation_profile_dot_levels_margin"
         android:layout_gravity="bottom"
-        android:layout_marginStart="@dimen/margin_half_plus_eight">
+        android:layout_marginStart="@dimen/margin_half_plus_eight"
+        android:layout_marginBottom="@dimen/elevation_profile_dot_levels_margin"
+        android:orientation="horizontal">
         <TextView
           android:id="@+id/difficulty_level_1"
           android:layout_width="@dimen/elevation_profile_difficulty_dot_size"
           android:layout_height="@dimen/elevation_profile_difficulty_dot_size"
           android:background="@drawable/dot_elevation_difficulty"
-          android:enabled="false"/>
+          android:enabled="false" />
         <TextView
           android:id="@+id/difficulty_level_2"
           android:layout_width="@dimen/elevation_profile_difficulty_dot_size"
@@ -196,37 +233,37 @@
           android:layout_marginStart="@dimen/margin_quarter"
           android:layout_marginEnd="@dimen/margin_quarter"
           android:background="@drawable/dot_elevation_difficulty"
-          android:enabled="false"/>
+          android:enabled="false" />
         <TextView
           android:id="@+id/difficulty_level_3"
           android:layout_width="@dimen/elevation_profile_difficulty_dot_size"
           android:layout_height="@dimen/elevation_profile_difficulty_dot_size"
           android:background="@drawable/dot_elevation_difficulty"
-          android:enabled="false"/>
+          android:enabled="false" />
       </LinearLayout>
     </LinearLayout>
     <LinearLayout
-      android:layout_toEndOf="@id/difficulty_container"
-      android:layout_alignParentEnd="true"
       android:id="@+id/time_container"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_toEndOf="@id/difficulty_container"
       android:gravity="end"
       android:orientation="horizontal">
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearance"
-        android:text="@string/elevation_profile_time" />
+        android:text="@string/elevation_profile_time"
+        android:textAppearance="?android:textAppearance" />
       <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_half"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold"
-        android:singleLine="true"
-        android:ellipsize="end"
         tools:text="3 h. 25 min." />
     </LinearLayout>
   </RelativeLayout>

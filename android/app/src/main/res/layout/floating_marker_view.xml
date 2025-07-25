@@ -9,8 +9,8 @@
   tools:ignore="Overdraw">
   <ImageView
     android:id="@+id/image"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/elevation_profile_marker_width"
+    android:layout_height="@dimen/elevation_profile_marker_width"
     android:layout_centerVertical="true"
     app:srcCompat="@drawable/ic_graph_point" />
   <RelativeLayout
@@ -43,39 +43,41 @@
       android:maxWidth="@dimen/dialog_min_height"
       android:padding="@dimen/margin_quarter_plus"
       tools:ignore="UnusedAttribute">
-      <TextView
-        android:id="@+id/distance_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxWidth="@dimen/dialog_min_height"
-        android:singleLine="true"
-        android:textSize="@dimen/margin_half_plus_eight" />
+      <ImageView
+        android:id="@+id/distance_icon"
+        android:layout_width="@dimen/margin_half_plus"
+        android:layout_height="@dimen/margin_half_plus"
+        app:srcCompat="@drawable/ic_distance_travelled"
+        app:tint="?ppFloatingMarkerIconColor" />
       <TextView
         android:id="@+id/distance_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/distance_text"
+        android:layout_marginStart="@dimen/margin_quarter"
+        android:layout_toEndOf="@+id/distance_icon"
         android:ellipsize="end"
         android:maxWidth="@dimen/dialog_min_height"
         android:singleLine="true"
-        android:textSize="@dimen/margin_half_plus_eight" />
+        android:textSize="@dimen/margin_half_plus_eight"
+        tools:text="10 km" />
       <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/distance_icon"
         android:layout_below="@id/distance_value"
         android:layout_alignParentBottom="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
           android:id="@+id/triangle"
-          android:layout_width="@dimen/margin_half_plus"
-          android:layout_height="@dimen/margin_half_plus"
+          android:layout_width="@dimen/margin_half_plus_eight"
+          android:layout_height="@dimen/margin_half_plus_eight"
           app:srcCompat="?elevationProfileSelectedPointTriangle" />
         <TextView
           android:id="@+id/altitude"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          tools:text="900 m"
           android:layout_marginStart="@dimen/margin_quarter"
           android:ellipsize="end"
           android:singleLine="true"
