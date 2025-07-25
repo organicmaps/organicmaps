@@ -20,6 +20,8 @@ extern JavaVM * GetJVM()
 jclass g_mapObjectClazz;
 jclass g_featureIdClazz;
 jclass g_bookmarkClazz;
+jclass g_trackClazz;
+jclass g_trackStatisticsClazz;
 jclass g_httpClientClazz;
 jclass g_httpParamsClazz;
 jclass g_platformSocketClazz;
@@ -56,6 +58,8 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM * jvm, void *)
   JNIEnv * env = jni::GetEnv();
   g_mapObjectClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/MapObject");
   g_featureIdClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/FeatureId");
+  g_trackClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/Track");
+  g_trackStatisticsClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/TrackStatistics");
   g_bookmarkClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/Bookmark");
   g_httpClientClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/HttpClient");
   g_httpParamsClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/HttpClient$Params");
@@ -84,6 +88,8 @@ JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_mapObjectClazz);
   env->DeleteGlobalRef(g_featureIdClazz);
   env->DeleteGlobalRef(g_bookmarkClazz);
+  env->DeleteGlobalRef(g_trackClazz);
+  env->DeleteGlobalRef(g_trackStatisticsClazz);
   env->DeleteGlobalRef(g_httpClientClazz);
   env->DeleteGlobalRef(g_httpParamsClazz);
   env->DeleteGlobalRef(g_platformSocketClazz);

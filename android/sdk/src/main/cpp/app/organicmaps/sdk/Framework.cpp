@@ -921,17 +921,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativePlacePageActivat
     JNIEnv * env = jni::GetEnv();
     auto const & info = frm()->GetCurrentPlacePageInfo();
     jni::TScopedLocalRef placePageDataRef(env, nullptr);
-    if (info.IsTrack())
-    {
-      // todo: (KK) implement elevation info handling for the proper track selection
-      auto const & track = frm()->GetBookmarkManager().GetTrack(info.GetTrackId());
-      auto const & elevationInfo = track->GetElevationInfo();
-      if (elevationInfo.has_value())
-        placePageDataRef.reset(usermark_helper::CreateElevationInfo(env, elevationInfo.value()));
-    }
-    if (!placePageDataRef)
-      placePageDataRef.reset(usermark_helper::CreateMapObject(env, info));
-
+    placePageDataRef.reset(usermark_helper::CreateMapObject(env, info));
     env->CallVoidMethod(g_placePageActivationListener, activatedId, placePageDataRef.get());
   };
   auto const closePlacePage = [deactivateId]()

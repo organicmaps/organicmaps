@@ -1,7 +1,6 @@
 package app.organicmaps.widget.placepage;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,18 +11,19 @@ import app.organicmaps.ChartController;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
+import app.organicmaps.sdk.bookmarks.data.Track;
+import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.sdk.util.UiUtils;
-import app.organicmaps.sdk.widget.placepage.PlacePageData;
 import app.organicmaps.util.Utils;
 import java.util.Objects;
 
-@SuppressWarnings("unused") // https://github.com/organicmaps/organicmaps/issues/2829
 public class ElevationProfileViewRenderer implements PlacePageStateListener
 {
   // Must be correspond to map/elevation_info.hpp constants.
   private static final int MAX_DIFFICULTY_LEVEL = 3;
   private static final int UNKNOWN_DIFFICULTY = 0;
-
+  @NonNull
+  private final View[] mDifficultyLevels = new View[MAX_DIFFICULTY_LEVEL];
   @SuppressWarnings("NullableProblems")
   @NonNull
   private NestedScrollView mScrollView;
@@ -45,8 +45,6 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
   @SuppressWarnings("NullableProblems")
   @NonNull
   private TextView mTime;
-  @NonNull
-  private final View[] mDifficultyLevels = new View[MAX_DIFFICULTY_LEVEL];
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ChartController mChartController;
@@ -58,28 +56,30 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mTimeContainer;
-
-  public void render(@NonNull PlacePageData data)
-  {
-    final Context context = mAscent.getContext();
-
-    mElevationInfo = (ElevationInfo) data;
-    mChartController.setData(mElevationInfo);
-    mTitle.setText(mElevationInfo.getName());
-    setDifficulty(mElevationInfo.getDifficulty());
-    mAscent.setText(formatDistance(context, mElevationInfo.getAscent()));
-    mDescent.setText(formatDistance(context, mElevationInfo.getDescent()));
-    mMaxAltitude.setText(formatDistance(context, mElevationInfo.getMaxAltitude()));
-    mMinAltitude.setText(formatDistance(context, mElevationInfo.getMinAltitude()));
-    UiUtils.hideIf(mElevationInfo.getDuration() == 0, mTimeContainer);
-    mTime.setText(
-        Utils.formatRoutingTime(mTitle.getContext(), (int) mElevationInfo.getDuration(), R.dimen.text_size_body_2));
-  }
+  private View mTitleContainer;
 
   @NonNull
   private static String formatDistance(final Context context, int distance)
   {
     return Framework.nativeFormatAltitude(distance);
+  }
+
+  public void render(@NonNull Track track)
+  {
+    final Context context = mAscent.getContext();
+    TrackStatistics stats = track.getTrackStatistics();
+
+    mElevationInfo = track.getElevationInfo();
+    mChartController.setData(track);
+    UiUtils.hide(mTitleContainer);
+    mTitle.setText(track.getName());
+    setDifficulty(mElevationInfo.getDifficulty());
+    mAscent.setText(formatDistance(context, (int) stats.getAscent()));
+    mDescent.setText(formatDistance(context, (int) stats.getDescent()));
+    mMaxAltitude.setText(formatDistance(context, stats.getMaxElevation()));
+    mMinAltitude.setText(formatDistance(context, stats.getMinElevation()));
+    UiUtils.hide(mTimeContainer);
+    mTime.setText(Utils.formatRoutingTime(mAscent.getContext(), (int) stats.getDuration(), R.dimen.text_size_body_2));
   }
 
   public void initialize(@Nullable View view)
@@ -89,6 +89,7 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     mChartController.initialize(view);
     mScrollView = (NestedScrollView) view;
     mTitle = view.findViewById(R.id.title);
+    mTitleContainer = view.findViewById(R.id.title_container);
     mAscent = view.findViewById(R.id.ascent);
     mDescent = view.findViewById(R.id.descent);
     mMaxAltitude = view.findViewById(R.id.max_altitude);
@@ -123,21 +124,13 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
       mDifficultyLevels[i].setEnabled(true);
   }
 
-  public void onSave(@NonNull Bundle outState)
+  public void onChartElevationActivePointChanged()
   {
-    //    outState.putParcelable(PlacePageUtils.EXTRA_PLACE_PAGE_DATA, mElevationInfo);
+    mChartController.onElevationActivePointChanged();
   }
 
-  public void onRestore(@NonNull Bundle inState)
+  public void onChartCurrentPositionChanged()
   {
-    //    mElevationInfo = BundleCompat.getParcelable(inState, PlacePageUtils.EXTRA_PLACE_PAGE_DATA,
-    //    ElevationInfo.class); if (mElevationInfo != null)
-    //      render(mElevationInfo);
-  }
-
-  public void onHide()
-  {
-    mScrollView.scrollTo(0, 0);
-    mChartController.onHide();
+    mChartController.onCurrentPositionChanged();
   }
 }
