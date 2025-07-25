@@ -2,6 +2,7 @@ package app.organicmaps.sdk.bookmarks.data;
 
 import android.annotation.SuppressLint;
 import android.os.Parcel;
+import androidx.annotation.ColorInt;
 import androidx.annotation.IntRange;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -108,6 +109,14 @@ public class Bookmark extends MapObject
   {
     BookmarkManager.INSTANCE.notifyCategoryChanging(this, catId);
     mCategoryId = catId;
+  }
+
+  public void setIconColor(@ColorInt int color)
+  {
+    Icon icon = new Icon(PredefinedColors.getPredefinedColorIndex(color),
+                         BookmarkManager.INSTANCE.getBookmarkIcon(mBookmarkId));
+    BookmarkManager.INSTANCE.notifyParametersUpdating(this, getName(), icon, getBookmarkDescription());
+    mIcon = icon;
   }
 
   public void setParams(@NonNull String title, @Nullable Icon icon, @NonNull String description)

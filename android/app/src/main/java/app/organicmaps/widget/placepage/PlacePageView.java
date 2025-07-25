@@ -6,6 +6,7 @@ import static app.organicmaps.sdk.util.Utils.getLocalizedFeatureType;
 import static app.organicmaps.sdk.util.Utils.getTagValueLocalized;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,26 +17,40 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.bookmarks.BookmarksSharingHelper;
+import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
 import app.organicmaps.downloader.DownloaderStatusIcon;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.Bookmark;
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.BookmarkSharingResult;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
+import app.organicmaps.sdk.bookmarks.data.Icon;
+import app.organicmaps.sdk.bookmarks.data.KmlFileType;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
+import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
+import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.editor.Editor;
@@ -46,14 +61,18 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.widget.placepage.CoordinatesFormat;
+import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
+import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
+import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.ArrowView;
 import app.organicmaps.widget.placepage.sections.PlacePageBookmarkFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageLinksFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
@@ -61,16 +80,20 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PlacePageView extends Fragment
-    implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>
+    implements View.OnClickListener, View.OnLongClickListener, LocationListener, SensorListener, Observer<MapObject>,
+               ChooseBookmarkCategoryFragment.Listener, EditBookmarkFragment.EditBookmarkListener,
+               MenuBottomSheetFragment.MenuBottomSheetInterface, BookmarkManager.BookmarksSharingListener
 
 {
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
+  private static final String TRACK_FRAGMENT_TAG = "TRACK_FRAGMENT_TAG";
   private static final String PRODUCTS_FRAGMENT_TAG = "PRODUCTS_FRAGMENT_TAG";
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
   private static final String OPENING_HOURS_FRAGMENT_TAG = "OPENING_HOURS_FRAGMENT_TAG";
   private static final String LINKS_FRAGMENT_TAG = "LINKS_FRAGMENT_TAG";
+  private static final String TRACK_SHARE_MENU_ID = "TRACK_SHARE_MENU_ID";
 
   private static final List<CoordinatesFormat> visibleCoordsFormat =
       Arrays.asList(CoordinatesFormat.LatLonDMS, CoordinatesFormat.LatLonDecimal, CoordinatesFormat.OLCFull,
@@ -116,12 +139,16 @@ public class PlacePageView extends Fragment
   private View mAddOrganisation;
   private View mAddPlace;
   private View mEditTopSpace;
+  private ImageView mColorIcon;
+  private TextView mTvCategory;
+  private ImageView mEditBookmark;
 
   // Data
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
   private TextView mDownloaderInfo;
+  private ActivityResultLauncher<SharingUtils.SharingIntent> shareLauncher;
   private int mStorageCallbackSlot;
   @Nullable
   private CountryItem mCurrentCountry;
@@ -177,6 +204,7 @@ public class PlacePageView extends Fragment
                            @Nullable Bundle savedInstanceState)
   {
     mViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
+    shareLauncher = SharingUtils.RegisterLauncher(this);
     return inflater.inflate(R.layout.place_page, container, false);
   }
 
@@ -226,8 +254,12 @@ public class PlacePageView extends Fragment
     mTvAddress.setOnLongClickListener(this);
     mTvAddress.setOnClickListener(this);
 
+    mColorIcon = mFrame.findViewById(R.id.item_icon);
+    mTvCategory = mFrame.findViewById(R.id.tv__category);
+    mEditBookmark = mFrame.findViewById(R.id.edit_Bookmark);
+
     MaterialButton shareButton = mPreview.findViewById(R.id.share_button);
-    shareButton.setOnClickListener((v) -> SharingUtils.shareMapObject(requireContext(), mMapObject));
+    shareButton.setOnClickListener(this::shareClickListener);
 
     final MaterialButton closeButton = mPreview.findViewById(R.id.close_button);
     closeButton.setOnClickListener((v) -> mPlacePageViewListener.onPlacePageRequestClose());
@@ -295,6 +327,7 @@ public class PlacePageView extends Fragment
   {
     super.onStart();
     mViewModel.getMapObject().observe(requireActivity(), this);
+    BookmarkManager.INSTANCE.addSharingListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().addListener(this);
     MwmApplication.from(requireContext()).getSensorHelper().addListener(this);
   }
@@ -304,6 +337,7 @@ public class PlacePageView extends Fragment
   {
     super.onStop();
     mViewModel.getMapObject().removeObserver(this);
+    BookmarkManager.INSTANCE.removeSharingListener(this);
     MwmApplication.from(requireContext()).getLocationHelper().removeListener(this);
     MwmApplication.from(requireContext()).getSensorHelper().removeListener(this);
     detachCountry();
@@ -327,6 +361,10 @@ public class PlacePageView extends Fragment
       refreshMyPosition(loc);
     else
       refreshDistanceToObject(loc);
+    UiUtils.hideIf(mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_latlon),
+                   mFrame.findViewById(R.id.ll__place_open_in), mFrame.findViewById(R.id.ll__place_add), mEditTopSpace,
+                   mTvAzimuth, mTvDistance, mAvDirection);
+    UiUtils.hideIf(MapObjectType.getMapObjectType(mMapObject) != MapObjectType.OTHER, mTvSubtitle);
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag,
@@ -366,6 +404,12 @@ public class PlacePageView extends Fragment
   {
     updateViewFragment(PlacePageBookmarkFragment.class, BOOKMARK_FRAGMENT_TAG, R.id.place_page_bookmark_fragment,
                        mMapObject.isBookmark());
+  }
+
+  private void updateTrackView()
+  {
+    updateViewFragment(PlacePageTrackFragment.class, TRACK_FRAGMENT_TAG, R.id.place_page_track_fragment,
+                       mMapObject.isTrack());
   }
 
   private boolean hasWikipediaEntry()
@@ -420,6 +464,180 @@ public class PlacePageView extends Fragment
       mToolbar.setTitle(mMapObject.getTitle());
     setTextAndColorizeSubtitle();
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mMapObject.getAddress());
+    refreshCategoryPreview();
+  }
+
+  void refreshCategoryPreview()
+  {
+    View categoryContainer = mFrame.findViewById(R.id.category_container);
+    switch (MapObjectType.getMapObjectType(mMapObject))
+    {
+    case TRACK ->
+    {
+      Track track = (Track) mMapObject;
+      Drawable circle =
+          Graphics.drawCircle(track.getColor(), R.dimen.place_page_icon_size, requireContext().getResources());
+      mColorIcon.setImageDrawable(circle);
+      mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
+      UiUtils.show(mColorIcon, mTvCategory, categoryContainer);
+    }
+    case BOOKMARK ->
+    {
+      Bookmark bookmark = (Bookmark) mMapObject;
+      Icon icon = bookmark.getIcon();
+      if (icon != null)
+      {
+        Drawable circle = Graphics.drawCircleAndImage(icon.argb(), R.dimen.place_page_icon_size,
+                                                      app.organicmaps.sdk.R.drawable.ic_bookmark_none,
+                                                      R.dimen.place_page_icon_mark_size, requireContext());
+        mColorIcon.setImageDrawable(circle);
+        mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId()).getName());
+        UiUtils.show(mColorIcon, mTvCategory, categoryContainer);
+      }
+    }
+    case OTHER -> UiUtils.hide(mColorIcon, mTvCategory, categoryContainer);
+    }
+    mColorIcon.setOnClickListener(this::onClick);
+    mTvCategory.setOnClickListener(this::onClick);
+    mEditBookmark.setOnClickListener(this::onClick);
+  }
+
+  void showColorDialog()
+  {
+    final Bundle args = new Bundle();
+    final FragmentManager manager = getChildFragmentManager();
+    String className = BookmarkColorDialogFragment.class.getName();
+    final FragmentFactory factory = manager.getFragmentFactory();
+    final BookmarkColorDialogFragment dialogFragment =
+        (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
+    dialogFragment.setArguments(args);
+
+    switch (MapObjectType.getMapObjectType(mMapObject))
+    {
+    case TRACK ->
+    {
+      final Track mTrack = (Track) mMapObject;
+      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(mTrack.getColor()));
+      dialogFragment.setOnColorSetListener((colorPos) -> {
+        int from = mTrack.getColor();
+        int to = PredefinedColors.getColor(colorPos);
+        if (from == to)
+          return;
+        mViewModel.modifyMapObjectColorSilently(to);
+        Drawable circle = Graphics.drawCircle(to, R.dimen.place_page_icon_size, requireContext().getResources());
+        mColorIcon.setImageDrawable(circle);
+      });
+      dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
+    }
+    case BOOKMARK ->
+    {
+      final Bookmark bookmark = (Bookmark) mMapObject;
+      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
+      args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
+      dialogFragment.setOnColorSetListener((colorPos) -> {
+        int from = bookmark.getIcon().argb();
+        int to = PredefinedColors.getColor(colorPos);
+        if (from == to)
+          return;
+        mViewModel.modifyMapObjectColorSilently(to);
+        Drawable circle = Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_size,
+                                                      app.organicmaps.sdk.R.drawable.ic_bookmark_none,
+                                                      R.dimen.place_page_icon_mark_size, requireContext());
+        mColorIcon.setImageDrawable(circle);
+      });
+      dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
+    }
+    }
+  }
+
+  private void showCategoryList()
+  {
+    final Bundle args = new Bundle();
+    final List<BookmarkCategory> categories = BookmarkManager.INSTANCE.getCategories();
+    final FragmentManager manager = getChildFragmentManager();
+    String className = ChooseBookmarkCategoryFragment.class.getName();
+    final FragmentFactory factory = manager.getFragmentFactory();
+    final ChooseBookmarkCategoryFragment frag =
+        (ChooseBookmarkCategoryFragment) factory.instantiate(getContext().getClassLoader(), className);
+    switch (MapObjectType.getMapObjectType(mMapObject))
+    {
+    case TRACK ->
+    {
+      Track track = (Track) mMapObject;
+      BookmarkCategory currentCategory = BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId());
+      final int index = categories.indexOf(currentCategory);
+      args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, index);
+      frag.setArguments(args);
+      frag.show(manager, null);
+    }
+    case BOOKMARK ->
+    {
+      Bookmark bookmark = (Bookmark) mMapObject;
+      BookmarkCategory currentCategory = BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId());
+      final int index = categories.indexOf(currentCategory);
+      args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, index);
+      frag.setArguments(args);
+      frag.show(manager, null);
+    }
+    }
+  }
+
+  @Override
+  public void onCategoryChanged(@NonNull BookmarkCategory newCategory)
+  {
+    switch (MapObjectType.getMapObjectType(mMapObject))
+    {
+    case TRACK ->
+    {
+      Track track = (Track) mMapObject;
+      BookmarkCategory previousCategory = BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId());
+      if (previousCategory == newCategory)
+        return;
+      BookmarkManager.INSTANCE.notifyCategoryChanging(track, newCategory.getId());
+      mTvCategory.setText(newCategory.getName());
+      mViewModel.modifyMapObjectCategoryIdSilently(newCategory.getId());
+    }
+    case BOOKMARK ->
+    {
+      Bookmark bookmark = (Bookmark) mMapObject;
+      BookmarkCategory previousCategory = BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId());
+      if (previousCategory == newCategory)
+        return;
+      mTvCategory.setText(newCategory.getName());
+      mViewModel.modifyMapObjectCategoryIdSilently(newCategory.getId());
+    }
+    }
+  }
+
+  void showBookmarkEditFragment()
+  {
+    switch (MapObjectType.getMapObjectType(mMapObject))
+    {
+    case TRACK ->
+    {
+      Track track = (Track) mMapObject;
+      final FragmentActivity activity = requireActivity();
+      EditBookmarkFragment.editTrack(track.getCategoryId(), track.getTrackId(), activity, getChildFragmentManager(),
+                                     PlacePageView.this);
+    }
+    case BOOKMARK ->
+    {
+      Bookmark bookmark = (Bookmark) mMapObject;
+      final FragmentActivity activity = requireActivity();
+      EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(), activity,
+                                        getChildFragmentManager(), PlacePageView.this);
+    }
+    }
+  }
+
+  @Override
+  public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
+  {
+    switch (MapObjectType.getMapObjectType(mMapObject))
+    {
+    case TRACK -> BookmarkManager.INSTANCE.updateTrackPlacePage(bookmarkId);
+    case BOOKMARK -> BookmarkManager.INSTANCE.updateBookmarkPlacePage(bookmarkId);
+    }
   }
 
   private void refreshDetails()
@@ -498,6 +716,7 @@ public class PlacePageView extends Fragment
     updateWikipediaView();
     updateBookmarkView();
     updatePhoneView();
+    updateTrackView();
   }
 
   private void refreshWiFi()
@@ -537,6 +756,8 @@ public class PlacePageView extends Fragment
 
   private void refreshDistanceToObject(Location l)
   {
+    if (mMapObject.isTrack())
+      return;
     UiUtils.showIf(l != null, mTvDistance);
     UiUtils.showIf(l != null, mTvAzimuth);
     if (l == null)
@@ -608,6 +829,12 @@ public class PlacePageView extends Fragment
     }
     else if (id == R.id.direction_frame)
       showBigDirection();
+    else if (id == R.id.item_icon)
+      showColorDialog();
+    else if (id == R.id.edit_Bookmark)
+      showBookmarkEditFragment();
+    else if (id == R.id.tv__category)
+      showCategoryList();
   }
 
   private void showBigDirection()
@@ -766,7 +993,7 @@ public class PlacePageView extends Fragment
   @Override
   public void onCompassUpdated(double north)
   {
-    if (mMapObject == null || mMapObject.isMyPosition())
+    if (mMapObject == null || mMapObject.isMyPosition() || mMapObject.isTrack())
       return;
 
     final Location location = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();
@@ -788,6 +1015,50 @@ public class PlacePageView extends Fragment
     }
   }
 
+  void shareClickListener(View v)
+  {
+    if (mMapObject.isTrack())
+    {
+      MenuBottomSheetFragment.newInstance(TRACK_SHARE_MENU_ID, getString(R.string.PP_track_bottom_sheet_title))
+          .show(getChildFragmentManager(), TRACK_SHARE_MENU_ID);
+    }
+    else
+      SharingUtils.shareMapObject(requireContext(), mMapObject);
+  }
+
+  private void onShareTrackSelected(long trackId, KmlFileType kmlFileType)
+  {
+    BookmarksSharingHelper.INSTANCE.prepareTrackForSharing(requireActivity(), trackId, kmlFileType);
+  }
+
+  @Nullable
+  @Override
+  public ArrayList<MenuBottomSheetItem> getMenuBottomSheetItems(String id)
+  {
+    return switch (id)
+    {
+      case TRACK_SHARE_MENU_ID -> getTrackShareMenuItems();
+      default -> null;
+    };
+  }
+
+  public ArrayList<MenuBottomSheetItem> getTrackShareMenuItems()
+  {
+    Track track = (Track) mMapObject;
+    ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
+    items.add(new MenuBottomSheetItem(R.string.export_file, R.drawable.ic_file_kmz,
+                                      () -> onShareTrackSelected(track.getTrackId(), KmlFileType.Text)));
+    items.add(new MenuBottomSheetItem(R.string.export_file_gpx, R.drawable.ic_file_gpx,
+                                      () -> onShareTrackSelected(track.getTrackId(), KmlFileType.Gpx)));
+    return items;
+  }
+
+  @Override
+  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
+  {
+    BookmarksSharingHelper.INSTANCE.onPreparedFileForSharing(requireActivity(), shareLauncher, result);
+  }
+
   public interface PlacePageViewListener
   {
     // Called when the content has actually changed and we are ready to compute the peek height
@@ -795,5 +1066,22 @@ public class PlacePageView extends Fragment
 
     void onPlacePageRequestToggleState();
     void onPlacePageRequestClose();
+  }
+
+  public enum MapObjectType
+  {
+    TRACK,
+    BOOKMARK,
+    OTHER;
+
+    public static MapObjectType getMapObjectType(MapObject mapObject)
+    {
+      if (mapObject.isTrack())
+        return TRACK;
+      else if (mapObject.isBookmark())
+        return BOOKMARK;
+      else
+        return OTHER;
+    }
   }
 }

@@ -88,6 +88,47 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
   return mapObject;
 }
 
+jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLocalObjectArrayRef const & jrawTypes,
+                    jni::TScopedLocalRef const & routingPointInfo, jobject const & popularity)
+{
+  static jmethodID const ctorId =
+      jni::GetConstructorID(env, g_trackClazz,
+                            "(Lapp/organicmaps/sdk/bookmarks/data/FeatureId;JJLjava/lang/String;"
+                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
+                            "Lapp/organicmaps/sdk/routing/RoutePointInfo;"
+                            "ILapp/organicmaps/sdk/search/Popularity;Ljava/lang/String;"
+                            "[Ljava/lang/String;ILapp/organicmaps/sdk/util/Distance;DD)V");
+  static jmethodID const featureCtorId = jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
+
+  auto const trackId = info.GetTrackId();
+  auto const track = frm()->GetBookmarkManager().GetTrack(trackId);
+  dp::Color nColor = track->GetColor(0);
+
+  jint androidColor =
+      shift(nColor.GetAlpha(), 24) + shift(nColor.GetRed(), 16) + shift(nColor.GetGreen(), 8) + nColor.GetBlue();
+
+  auto const categoryId = track->GetGroupId();
+  ms::LatLon const ll = info.GetLatLon();
+  jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, info.GetID().GetMwmName()));
+  jni::TScopedLocalRef jFeatureId(env, env->NewObject(g_featureIdClazz, featureCtorId, jMwmName.get(),
+                                                      (jlong)info.GetID().GetMwmVersion(), (jint)info.GetID().m_index));
+  jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, info.GetTitle()));
+  jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
+  jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, info.GetSubtitle()));
+  jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, info.GetSecondarySubtitle()));
+  jni::TScopedLocalRef jWikiDescription(env, jni::ToJavaString(env, info.GetWikiDescription()));
+  jobject mapObject =
+      env->NewObject(g_trackClazz, ctorId, jFeatureId.get(), static_cast<jlong>(categoryId),
+                     static_cast<jlong>(trackId), jTitle.get(), jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(),
+                     routingPointInfo.get(), info.GetOpeningMode(), popularity, jWikiDescription.get(), jrawTypes.get(),
+                     androidColor, ToJavaDistance(env, platform::Distance::CreateFormatted(track->GetLengthMeters())),
+                     static_cast<jdouble>(ll.m_lat), static_cast<jdouble>(ll.m_lon));
+
+  if (info.HasMetadata())
+    InjectMetadata(env, g_mapObjectClazz, mapObject, info);
+  return mapObject;
+}
+
 jobject CreateBookmark(JNIEnv * env, place_page::Info const & info, jni::TScopedLocalObjectArrayRef const & jrawTypes,
                        jni::TScopedLocalRef const & routingPointInfo, jobject const & popularity)
 {
@@ -129,10 +170,11 @@ jobject CreateElevationPoint(JNIEnv * env, ElevationInfo::Point const & point)
 {
   static jclass const pointClass =
       jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo$Point");
-  // public Point(double distance, int altitude)
-  static jmethodID const pointCtorId = jni::GetConstructorID(env, pointClass, "(DI)V");
-  return env->NewObject(pointClass, pointCtorId, static_cast<jdouble>(point.m_distance),
-                        static_cast<jint>(point.m_point.GetAltitude()));
+  // public Point(double distance, int altitude, double latitude, double longitude)
+  static jmethodID const pointCtorId = jni::GetConstructorID(env, pointClass, "(DIDD)V");
+  return env->NewObject(
+      pointClass, pointCtorId, static_cast<jdouble>(point.m_distance), static_cast<jint>(point.m_point.GetAltitude()),
+      static_cast<jdouble>(point.m_point.GetPoint().x), static_cast<jdouble>(point.m_point.GetPoint().y));
 }
 
 jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo::Points const & points)
@@ -146,22 +188,12 @@ jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo::Points const & p
 
 jobject CreateElevationInfo(JNIEnv * env, ElevationInfo const & info)
 {
-  // public ElevationInfo(long trackId, @NonNull String name, @NonNull Point[] points,
-  //                      int ascent, int descent, int minAltitude, int maxAltitude, int difficulty,
-  //                      long m_duration)
-  static jmethodID const ctorId = jni::GetConstructorID(env, g_elevationInfoClazz,
-                                                        "(JLjava/lang/String;Ljava/lang/String;"
-                                                        "[Lapp/organicmaps/sdk/bookmarks/data/ElevationInfo$Point;"
-                                                        "IIIIIJ)V");
+  // public ElevationInfo(@NonNull Point[] points, int difficulty);
+  static jmethodID const ctorId =
+      jni::GetConstructorID(env, g_elevationInfoClazz, "([Lapp/organicmaps/sdk/bookmarks/data/ElevationInfo$Point;I)V");
+
   jni::TScopedLocalObjectArrayRef jPoints(env, ToElevationPointArray(env, info.GetPoints()));
-  // TODO (KK): elevation info should have only the elevation data - see the
-  // https://github.com/organicmaps/organicmaps/pull/10063
-  return env->NewObject(g_elevationInfoClazz, ctorId, jPoints.get(),
-                        //                        static_cast<jint>(info.GetAscent()),
-                        //                        static_cast<jint>(info.GetDescent()),
-                        //                        static_cast<jint>(info.GetMinAltitude()),
-                        //                        static_cast<jint>(info.GetMaxAltitude()),
-                        static_cast<jint>(info.GetDifficulty()));
+  return env->NewObject(g_elevationInfoClazz, ctorId, jPoints.get(), static_cast<jint>(info.GetDifficulty()));
 }
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
@@ -192,6 +224,9 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     return CreateMapObject(env, info, kApiPoint, ll.m_lat, ll.m_lon, true /* parseMeta */, true /* parseApi */,
                            routingPointInfo.get(), popularity, jrawTypes.get());
   }
+
+  if (info.IsTrack())
+    return CreateTrack(env, info, jrawTypes, routingPointInfo, popularity);
 
   return CreateMapObject(env, info, kPoi, ll.m_lat, ll.m_lon, true /* parseMeta */, false /* parseApi */,
                          routingPointInfo.get(), popularity, jrawTypes.get());
