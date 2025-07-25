@@ -51,6 +51,7 @@ LambdaBodyIndentation: OuterScope
 PackConstructorInitializers: CurrentLine
 PointerAlignment: Middle
 RemoveBracesLLVM: true
+RemoveSemicolon: true
 QualifierAlignment: Right
 SpacesInContainerLiterals: false
 Standard: Latest
