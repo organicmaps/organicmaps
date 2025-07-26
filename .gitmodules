@@ -83,3 +83,7 @@
   path = 3party/imgui/imgui
   url = https://github.com/ocornut/imgui
   branch = master
+[submodule "3party/glaze"]
+  path = 3party/glaze
+  url = https://github.com/stephenberry/glaze
+  branch = main
