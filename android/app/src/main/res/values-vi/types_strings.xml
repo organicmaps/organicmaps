@@ -115,7 +115,6 @@
     <string name="type.amenity.prison">Nhà tù</string>
     <string name="type.amenity.pub">Quán rượu</string>
     <string name="type.amenity.public_bookcase">Kệ sách</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Trung tâm tái sinh</string>
     <string name="type.amenity.recycling">Thùng rác</string>
@@ -321,7 +320,6 @@
     <string name="type.healthcare.psychotherapist">Tâm lý trị liệu</string>
     <string name="type.healthcare.sample_collection">lấy mẫu</string>
     <string name="type.healthcare.speech_therapist">Ngôn ngữ trị liệu</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">Cầu</string>
@@ -479,7 +477,6 @@
     <string name="type.area_highway.track">Phố</string>
     <string name="type.area_highway.trunk">Phố</string>
     <string name="type.area_highway.unclassified">Phố</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Đối tượng lịch sử</string>
     <string name="type.historic.aircraft">Máy bay lịch sử</string>

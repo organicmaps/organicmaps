@@ -227,4 +227,15 @@
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
     <string name="elevation_profile_max_elevation">Elevación máx.</string>
     <string name="core_exit">Salida</string>
+    <string name="mobile_data_option_today">Namás güei</string>
+    <string name="placepage_add_place_button">Amestar llugar a OpenStreetMap</string>
+    <string name="food_places">Comida</string>
+    <string name="core_entrance">Entrada</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="accept">Aceutar</string>
+    <string name="decline">Refugar</string>
+    <string name="routing_not_enough_space">Nun hai espaciu bastante</string>
+    <string name="try_again">Tentar de nueves</string>
+    <string name="p2p_start">Entamar</string>
+    <string name="osm_note_toast">La nota va unviase a OpenStreetMap</string>
 </resources>

@@ -436,4 +436,17 @@
     <string name="type.railway.subway.bridge">Ponte de la llinia del metro</string>
     <string name="type.railway.subway.tunnel">Túnel de la llinia del metro</string>
     <string name="type.entrance.exit">Salida</string>
+    <string name="type.highway.residential.area">Cai urbana</string>
+    <string name="type.area_highway.residential">Cai urbana</string>
+    <string name="type.aeroway.terminal">Terminal</string>
+    <string name="type.highway.service.driveway">Entrada vehicular</string>
+    <string name="type.amenity.parking_entrance">Entrada al aparcaderu</string>
+    <string name="type.amenity.parking_entrance.private">Entrada al aparcaderu priváu</string>
+    <string name="type.amenity.parking_entrance.permissive">Entrada al aparcaderu</string>
+    <string name="type.amenity.bicycle_parking.covered">Aparcaderu pa bicicletes atecháu</string>
+    <string name="type.sport.archery">Tiru con arcu</string>
+    <string name="type.sport.athletics">Atletismu</string>
+    <string name="type.sport.equestrian">Deportes ecuestres</string>
+    <string name="type.sport">Deporte</string>
+    <string name="type.highway.services">Área de servicios</string>
 </resources>

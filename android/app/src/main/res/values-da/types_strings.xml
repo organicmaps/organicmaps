@@ -111,7 +111,7 @@
     <string name="type.amenity.post_office">Posthus</string>
     <string name="type.amenity.prison">Fængsel</string>
     <string name="type.amenity.pub">Værtshus</string>
-    <string name="type.amenity.public_bookcase">Bogudveksling</string>
+    <string name="type.amenity.public_bookcase">Bogbytteskab</string>
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Genbrugsplads</string>
     <string name="type.amenity.recycling">Genbrugscontainer</string>

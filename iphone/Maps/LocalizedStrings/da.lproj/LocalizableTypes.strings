@@ -127,7 +127,7 @@
 "type.amenity.post_office" = "Posthus";
 "type.amenity.prison" = "Fængsel";
 "type.amenity.pub" = "Værtshus";
-"type.amenity.public_bookcase" = "Bogudveksling";
+"type.amenity.public_bookcase" = "Bogbytteskab";
 "type.amenity.recycling.centre" = "Genbrugsplads";
 "type.amenity.recycling" = "Genbrugscontainer";
 "type.amenity.recycling.container" = "Genbrugscontainer";

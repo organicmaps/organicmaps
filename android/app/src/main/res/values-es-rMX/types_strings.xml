@@ -564,4 +564,8 @@
     <string name="type.shop.erotic">Tienda erótica</string>
     <string name="type.shop.copyshop">Copistería</string>
     <string name="type.historic.castle.castrum">Fortificación romana</string>
+    <string name="type.area_highway.residential">Calle urbana</string>
+    <string name="type.highway.residential.area">Calle urbana</string>
+    <string name="type.highway.service.driveway">Entrada vehicular</string>
+    <string name="type.amenity.bicycle_parking.covered">Estacionamiento de bicicletas techado</string>
 </resources>

@@ -95,7 +95,6 @@
     <string name="type.amenity.prison">कारागार</string>
     <string name="type.amenity.pub">सराय</string>
     <string name="type.amenity.public_bookcase">सार्वजनिक किताबों की अलमारी</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">रीसाइक्लिंग सेंटर</string>
     <string name="type.amenity.recycling">रीसाइक्लिंग कंटेनर</string>
@@ -263,7 +262,6 @@
     <string name="type.healthcare.psychotherapist">मनोचिकित्सक</string>
     <string name="type.healthcare.sample_collection">नमूना संग्रह केंद्र</string>
     <string name="type.healthcare.speech_therapist">वाक उपचार</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">राजमार्ग</string>
     <string name="type.highway.bus_stop">बस स्टॉप</string>
@@ -320,7 +318,6 @@
     <string name="type.area_highway.tertiary">तृतीयक सड़क</string>
     <string name="type.area_highway.track">सड़क</string>
     <string name="type.area_highway.trunk">प्रधान मार्ग</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">ऐतिहासिक वस्तु</string>
     <string name="type.historic.archaeological_site">पुरातत्व स्थल</string>

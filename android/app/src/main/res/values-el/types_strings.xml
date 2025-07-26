@@ -1395,4 +1395,9 @@
     <string name="type.piste_type.nordic">Διαδρομή σκανδιναβικού σκι</string>
     <string name="type.piste_type.sled">Πίστα για έλκηθρο</string>
     <string name="type.piste_type.sled.area">Πίστα για έλκηθρο</string>
+    <string name="type.amenity.bicycle_parking.covered">Σκεπαστή στάθμευση ποδηλάτων</string>
+    <string name="type.post_office.post_partner">Ταχυδρομικός συνεργάτης</string>
+    <string name="type.amenity.ranger_station">Σταθμός δασοφύλακα</string>
+    <string name="type.amenity.luggage_locker">Ντουλάπι αποσκευών</string>
+    <string name="type.leisure.escape_game">Δωμάτιο απόδρασης</string>
 </resources>

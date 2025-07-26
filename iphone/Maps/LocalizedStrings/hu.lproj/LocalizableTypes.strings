@@ -1489,3 +1489,8 @@
 "type.sport.diving" = "Búvárkodás";
 "type.man_made.crane" = "Daru";
 "type.railway.station.subway.qingdao" = "Metróállomás";
+"type.amenity.bicycle_parking.covered" = "Fedett kerékpártároló";
+"type.amenity.ranger_station" = "Vadőrség";
+"type.post_office.post_partner" = "Postapartnerpont";
+"type.amenity.luggage_locker" = "Csomagmegőrző";
+"type.leisure.escape_game" = "Szabadulószoba";

@@ -885,4 +885,6 @@
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="saved">Uloženo</string>
+    <string name="osm_note_toast">Poznámka bude odeslána do OpenStreetMap</string>
+    <string name="osm_note_hint">Nebo můžete zanechat zprávu komunitě OpenStreetMap, aby někdo jiný mohl místo přidat nebo opravit.</string>
 </resources>
