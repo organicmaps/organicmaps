@@ -1,62 +1,17 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Easter Monday"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-07-01",
-    "name": "Day of Freedoms"
-  },
-  {
-    "date": "2025-08-09",
-    "name": "Indigenous People Day"
-  },
-  {
-    "date": "2025-10-10",
-    "name": "Day of the Maroons"
-  },
-  {
-    "date": "2025-11-25",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-12-26",
-    "name": "Second Day of Christmas"
-  },
-  {
-    "date": "2025-03-14",
-    "name": "Holi"
-  },
-  {
-    "date": "2025-10-20",
-    "name": "Diwali"
-  },
-  {
-    "date": "2025-03-31",
-    "name": "Eid al-Fitr"
-  },
-  {
-    "date": "2025-06-07",
-    "name": "Eid al-Adha"
-  },
-  {
-    "date": "2025-01-29",
-    "name": "Chinese New Year"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-04-18": "Good Friday",
+  "2025-04-21": "Easter Monday",
+  "2025-05-01": "Labor Day",
+  "2025-07-01": "Day of Freedoms",
+  "2025-08-09": "Indigenous People Day",
+  "2025-10-10": "Day of the Maroons",
+  "2025-11-25": "Independence Day",
+  "2025-12-25": "Christmas Day",
+  "2025-12-26": "Second Day of Christmas",
+  "2025-03-14": "Holi",
+  "2025-10-20": "Diwali",
+  "2025-03-31": "Eid al-Fitr",
+  "2025-06-07": "Eid al-Adha",
+  "2025-01-29": "Chinese New Year"
+}

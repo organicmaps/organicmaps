@@ -1,74 +1,20 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-31",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-02-01",
-    "name": "Day following Independence Day"
-  },
-  {
-    "date": "2025-02-03",
-    "name": "Day following Independence Day (observed)"
-  },
-  {
-    "date": "2025-03-08",
-    "name": "International Women's Day"
-  },
-  {
-    "date": "2025-03-10",
-    "name": "International Women's Day (observed)"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Easter Monday"
-  },
-  {
-    "date": "2025-04-22",
-    "name": "Easter Tuesday"
-  },
-  {
-    "date": "2025-05-17",
-    "name": "Constitution Day"
-  },
-  {
-    "date": "2025-05-19",
-    "name": "Constitution Day (observed)"
-  },
-  {
-    "date": "2025-07-01",
-    "name": "RONPHOS Handover"
-  },
-  {
-    "date": "2025-08-19",
-    "name": "Ibumin Earoeni Day"
-  },
-  {
-    "date": "2025-09-25",
-    "name": "Sir Hammer DeRoburt Day"
-  },
-  {
-    "date": "2025-10-26",
-    "name": "Angam Day"
-  },
-  {
-    "date": "2025-10-27",
-    "name": "Angam Day (observed)"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-12-26",
-    "name": "Day following Christmas"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-31": "Independence Day",
+  "2025-02-01": "Day following Independence Day",
+  "2025-02-03": "Day following Independence Day (observed)",
+  "2025-03-08": "International Women's Day",
+  "2025-03-10": "International Women's Day (observed)",
+  "2025-04-18": "Good Friday",
+  "2025-04-21": "Easter Monday",
+  "2025-04-22": "Easter Tuesday",
+  "2025-05-17": "Constitution Day",
+  "2025-05-19": "Constitution Day (observed)",
+  "2025-07-01": "RONPHOS Handover",
+  "2025-08-19": "Ibumin Earoeni Day",
+  "2025-09-25": "Sir Hammer DeRoburt Day",
+  "2025-10-26": "Angam Day",
+  "2025-10-27": "Angam Day (observed)",
+  "2025-12-25": "Christmas Day",
+  "2025-12-26": "Day following Christmas"
+}

@@ -1,54 +1,15 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-03-01",
-    "name": "Patriots Day"
-  },
-  {
-    "date": "2025-04-17",
-    "name": "Maundy Thursday"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-20",
-    "name": "Easter Sunday"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Workers' Day"
-  },
-  {
-    "date": "2025-05-14",
-    "name": "National Holiday"
-  },
-  {
-    "date": "2025-05-15",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-06-12",
-    "name": "Chaco Armistice Day"
-  },
-  {
-    "date": "2025-08-15",
-    "name": "Asuncion Foundation's Day"
-  },
-  {
-    "date": "2025-09-29",
-    "name": "Boqueron Battle Day"
-  },
-  {
-    "date": "2025-12-08",
-    "name": "Caacupe Virgin Day"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-03-01": "Patriots Day",
+  "2025-04-17": "Maundy Thursday",
+  "2025-04-18": "Good Friday",
+  "2025-04-20": "Easter Sunday",
+  "2025-05-01": "Workers' Day",
+  "2025-05-14": "National Holiday",
+  "2025-05-15": "Independence Day",
+  "2025-06-12": "Chaco Armistice Day",
+  "2025-08-15": "Asuncion Foundation's Day",
+  "2025-09-29": "Boqueron Battle Day",
+  "2025-12-08": "Caacupe Virgin Day",
+  "2025-12-25": "Christmas Day"
+}

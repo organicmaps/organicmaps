@@ -1,34 +1,10 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-03-08",
-    "name": "International Women's Rights Day"
-  },
-  {
-    "date": "2025-03-10",
-    "name": "International Women's Rights Day (in lieu)"
-  },
-  {
-    "date": "2025-04-14",
-    "name": "Lao New Year's Day"
-  },
-  {
-    "date": "2025-04-15",
-    "name": "Lao New Year's Day"
-  },
-  {
-    "date": "2025-04-16",
-    "name": "Lao New Year's Day"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "International Labor Day"
-  },
-  {
-    "date": "2025-12-02",
-    "name": "Lao National Day"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-03-08": "International Women's Rights Day",
+  "2025-03-10": "International Women's Rights Day (in lieu)",
+  "2025-04-14": "Lao New Year's Day",
+  "2025-04-15": "Lao New Year's Day",
+  "2025-04-16": "Lao New Year's Day",
+  "2025-05-01": "International Labor Day",
+  "2025-12-02": "Lao National Day"
+}

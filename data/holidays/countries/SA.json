@@ -1,54 +1,15 @@
-[
-  {
-    "date": "2025-03-30",
-    "name": "Eid al-Fitr Holiday (estimated)"
-  },
-  {
-    "date": "2025-03-31",
-    "name": "Eid al-Fitr Holiday (estimated)"
-  },
-  {
-    "date": "2025-04-01",
-    "name": "Eid al-Fitr Holiday (estimated)"
-  },
-  {
-    "date": "2025-04-02",
-    "name": "Eid al-Fitr Holiday (estimated)"
-  },
-  {
-    "date": "2025-06-05",
-    "name": "Arafat Day (estimated)"
-  },
-  {
-    "date": "2025-06-06",
-    "name": "Eid al-Adha Holiday (estimated)"
-  },
-  {
-    "date": "2025-06-07",
-    "name": "Eid al-Adha Holiday (estimated)"
-  },
-  {
-    "date": "2025-06-08",
-    "name": "Eid al-Adha Holiday (estimated)"
-  },
-  {
-    "date": "2025-06-09",
-    "name": "Eid al-Adha Holiday (observed, estimated)"
-  },
-  {
-    "date": "2025-06-10",
-    "name": "Eid al-Adha Holiday (observed, estimated)"
-  },
-  {
-    "date": "2025-09-23",
-    "name": "National Day Holiday"
-  },
-  {
-    "date": "2025-02-22",
-    "name": "Founding Day Holiday"
-  },
-  {
-    "date": "2025-02-23",
-    "name": "Founding Day Holiday (observed)"
-  }
-]
+{
+  "2025-03-30": "Eid al-Fitr Holiday (estimated)",
+  "2025-03-31": "Eid al-Fitr Holiday (estimated)",
+  "2025-04-01": "Eid al-Fitr Holiday (estimated)",
+  "2025-04-02": "Eid al-Fitr Holiday (estimated)",
+  "2025-06-05": "Arafat Day (estimated)",
+  "2025-06-06": "Eid al-Adha Holiday (estimated)",
+  "2025-06-07": "Eid al-Adha Holiday (estimated)",
+  "2025-06-08": "Eid al-Adha Holiday (estimated)",
+  "2025-06-09": "Eid al-Adha Holiday (observed, estimated)",
+  "2025-06-10": "Eid al-Adha Holiday (observed, estimated)",
+  "2025-09-23": "National Day Holiday",
+  "2025-02-22": "Founding Day Holiday",
+  "2025-02-23": "Founding Day Holiday (observed)"
+}

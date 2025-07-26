@@ -1,106 +1,28 @@
-[
-  {
-    "date": "2025-02-10",
-    "name": "Islamic Revolution Day"
-  },
-  {
-    "date": "2025-03-19",
-    "name": "Iranian Oil Industry Nationalization Day"
-  },
-  {
-    "date": "2025-03-20",
-    "name": "Last Day of Year"
-  },
-  {
-    "date": "2025-03-21",
-    "name": "Nowruz"
-  },
-  {
-    "date": "2025-03-22",
-    "name": "Martyrdom of Imam Ali; Nowruz Holiday"
-  },
-  {
-    "date": "2025-03-23",
-    "name": "Nowruz Holiday"
-  },
-  {
-    "date": "2025-03-24",
-    "name": "Nowruz Holiday"
-  },
-  {
-    "date": "2025-04-01",
-    "name": "Eid al-Fitr Holiday; Islamic Republic Day"
-  },
-  {
-    "date": "2025-04-02",
-    "name": "Nature's Day"
-  },
-  {
-    "date": "2025-06-04",
-    "name": "Death of Imam Khomeini"
-  },
-  {
-    "date": "2025-06-05",
-    "name": "15 Khordad Uprising"
-  },
-  {
-    "date": "2025-07-05",
-    "name": "Tasua"
-  },
-  {
-    "date": "2025-07-06",
-    "name": "Ashura"
-  },
-  {
-    "date": "2025-08-14",
-    "name": "Arbaeen"
-  },
-  {
-    "date": "2025-08-22",
-    "name": "Death of Prophet Muhammad and Martyrdom of Hasan ibn Ali"
-  },
-  {
-    "date": "2025-08-24",
-    "name": "Martyrdom of Ali al-Rida"
-  },
-  {
-    "date": "2025-09-01",
-    "name": "Martyrdom of Hasan al-Askari"
-  },
-  {
-    "date": "2025-09-10",
-    "name": "Birthday of Muhammad and Imam Ja'far al-Sadiq"
-  },
-  {
-    "date": "2025-11-24",
-    "name": "Martyrdom of Fatima"
-  },
-  {
-    "date": "2025-01-14",
-    "name": "Birthday of Imam Ali"
-  },
-  {
-    "date": "2025-01-28",
-    "name": "Isra' and Mi'raj"
-  },
-  {
-    "date": "2025-02-14",
-    "name": "Birthday of Mahdi"
-  },
-  {
-    "date": "2025-03-31",
-    "name": "Eid al-Fitr"
-  },
-  {
-    "date": "2025-04-24",
-    "name": "Martyrdom of Imam Ja'far al-Sadiq"
-  },
-  {
-    "date": "2025-06-06",
-    "name": "Eid al-Adha"
-  },
-  {
-    "date": "2025-06-14",
-    "name": "Eid al-Ghadeer"
-  }
-]
+{
+  "2025-02-10": "Islamic Revolution Day",
+  "2025-03-19": "Iranian Oil Industry Nationalization Day",
+  "2025-03-20": "Last Day of Year",
+  "2025-03-21": "Nowruz",
+  "2025-03-22": "Martyrdom of Imam Ali; Nowruz Holiday",
+  "2025-03-23": "Nowruz Holiday",
+  "2025-03-24": "Nowruz Holiday",
+  "2025-04-01": "Eid al-Fitr Holiday; Islamic Republic Day",
+  "2025-04-02": "Nature's Day",
+  "2025-06-04": "Death of Imam Khomeini",
+  "2025-06-05": "15 Khordad Uprising",
+  "2025-07-05": "Tasua",
+  "2025-07-06": "Ashura",
+  "2025-08-14": "Arbaeen",
+  "2025-08-22": "Death of Prophet Muhammad and Martyrdom of Hasan ibn Ali",
+  "2025-08-24": "Martyrdom of Ali al-Rida",
+  "2025-09-01": "Martyrdom of Hasan al-Askari",
+  "2025-09-10": "Birthday of Muhammad and Imam Ja'far al-Sadiq",
+  "2025-11-24": "Martyrdom of Fatima",
+  "2025-01-14": "Birthday of Imam Ali",
+  "2025-01-28": "Isra' and Mi'raj",
+  "2025-02-14": "Birthday of Mahdi",
+  "2025-03-31": "Eid al-Fitr",
+  "2025-04-24": "Martyrdom of Imam Ja'far al-Sadiq",
+  "2025-06-06": "Eid al-Adha",
+  "2025-06-14": "Eid al-Ghadeer"
+}
