@@ -19,12 +19,12 @@
 
 #include "defines.hpp"
 
-using namespace std;
-
 class HttpThread;
 
 namespace downloader
 {
+using std::string;
+
 namespace non_http_error_code
 {
 string DebugPrint(long errorCode)
@@ -37,7 +37,7 @@ string DebugPrint(long errorCode)
   case kNonHttpResponse: return "Non-http response";
   case kInvalidURL: return "Invalid URL";
   case kCancelled: return "Cancelled";
-  default: return to_string(errorCode);
+  default: return std::to_string(errorCode);
   }
 }
 }  // namespace non_http_error_code
@@ -117,12 +117,12 @@ class FileHttpRequest
   , public IHttpThreadCallback
 {
   ChunksDownloadStrategy m_strategy;
-  typedef pair<HttpThread *, int64_t> ThreadHandleT;
-  typedef list<ThreadHandleT> ThreadsContainerT;
+  typedef std::pair<HttpThread *, int64_t> ThreadHandleT;
+  typedef std::list<ThreadHandleT> ThreadsContainerT;
   ThreadsContainerT m_threads;
 
-  string m_filePath;
-  unique_ptr<FileWriter> m_writer;
+  std::string m_filePath;
+  std::unique_ptr<FileWriter> m_writer;
 
   size_t m_goodChunksCount;
   bool m_doCleanProgressFiles;
@@ -130,13 +130,13 @@ class FileHttpRequest
   ChunksDownloadStrategy::ResultT StartThreads()
   {
     string url;
-    pair<int64_t, int64_t> range;
+    std::pair<int64_t, int64_t> range;
     ChunksDownloadStrategy::ResultT result;
     while ((result = m_strategy.NextChunk(url, range)) == ChunksDownloadStrategy::ENextChunk)
     {
       HttpThread * p = CreateNativeHttpThread(url, *this, range.first, range.second, m_progress.m_bytesTotal);
       ASSERT(p, ());
-      m_threads.push_back(make_pair(p, range.first));
+      m_threads.push_back(std::make_pair(p, range.first));
     }
     return result;
   }
@@ -207,7 +207,7 @@ class FileHttpRequest
 #endif
 
     bool const isChunkOk = (httpOrErrorCode == 200);
-    string const urlError = m_strategy.ChunkFinished(isChunkOk, make_pair(begRange, endRange));
+    string const urlError = m_strategy.ChunkFinished(isChunkOk, std::make_pair(begRange, endRange));
 
     // remove completed chunk from the list, beg is the key
     RemoveHttpThreadByKey(begRange);
@@ -278,8 +278,8 @@ class FileHttpRequest
   }
 
 public:
-  FileHttpRequest(vector<string> const & urls, string const & filePath, int64_t fileSize, Callback && onFinish,
-                  Callback && onProgress, int64_t chunkSize, bool doCleanProgressFiles)
+  FileHttpRequest(std::vector<std::string> const & urls, std::string const & filePath, int64_t fileSize,
+                  Callback && onFinish, Callback && onProgress, int64_t chunkSize, bool doCleanProgressFiles)
     : HttpRequest(std::move(onFinish), std::move(onProgress))
     , m_strategy(urls)
     , m_filePath(filePath)
@@ -304,7 +304,7 @@ public:
     }
 
     // Create file and reserve needed size.
-    unique_ptr<FileWriter> writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, openMode));
+    std::unique_ptr<FileWriter> writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, openMode));
 
     // Assign here, because previous functions can throw an exception.
     m_writer.swap(writer);
@@ -360,7 +360,7 @@ HttpRequest * HttpRequest::PostJson(string const & url, string const & postData,
   return new MemoryHttpRequest(url, postData, std::move(onFinish), std::move(onProgress));
 }
 
-HttpRequest * HttpRequest::GetFile(vector<string> const & urls, string const & filePath, int64_t fileSize,
+HttpRequest * HttpRequest::GetFile(std::vector<string> const & urls, string const & filePath, int64_t fileSize,
                                    Callback && onFinish, Callback && onProgress, int64_t chunkSize,
                                    bool doCleanOnCancel)
 {

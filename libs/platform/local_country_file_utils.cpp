@@ -25,7 +25,7 @@
 
 namespace platform
 {
-using namespace std;
+using std::string;
 
 namespace
 {
@@ -42,8 +42,8 @@ bool IsSpecialName(string const & name) { return name == "." || name == ".."; }
 */
 bool IsDownloaderFile(string const & name)
 {
-  static regex const filter(".*\\.(downloading|resume|ready)[0-9]?$");
-  return regex_match(name.begin(), name.end(), filter);
+  static std::regex const filter(".*\\.(downloading|resume|ready)[0-9]?$");
+  return std::regex_match(name.begin(), name.end(), filter);
 }
 
 bool IsDiffFile(string const & name)
@@ -80,7 +80,7 @@ inline string GetDataDirFullPath(string const & dataDir)
   return dataDir.empty() ? platform.WritableDir() : base::JoinPath(platform.WritableDir(), dataDir);
 }
 
-void FindAllDiffsInDirectory(string const & dir, vector<LocalCountryFile> & diffs)
+void FindAllDiffsInDirectory(string const & dir, std::vector<LocalCountryFile> & diffs)
 {
   Platform & platform = GetPlatform();
 
@@ -139,7 +139,7 @@ void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir, Co
 }
 
 size_t FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t version, int64_t latestVersion,
-                                             vector<LocalCountryFile> & localFiles)
+                                             std::vector<LocalCountryFile> & localFiles)
 {
   Platform & platform = GetPlatform();
   size_t const szBefore = localFiles.size();
@@ -192,7 +192,7 @@ size_t FindAllLocalMapsInDirectoryAndCleanup(string const & directory, int64_t v
   */
 }
 
-void FindAllDiffs(string const & dataDir, vector<LocalCountryFile> & diffs)
+void FindAllDiffs(std::string const & dataDir, std::vector<LocalCountryFile> & diffs)
 {
   string const dir = GetDataDirFullPath(dataDir);
   FindAllDiffsInDirectory(dir, diffs);
@@ -204,12 +204,13 @@ void FindAllDiffs(string const & dataDir, vector<LocalCountryFile> & diffs)
     FindAllDiffsInDirectory(base::JoinPath(dir, fwt.first /* subdir */), diffs);
 }
 
-void FindAllLocalMapsAndCleanup(int64_t latestVersion, vector<LocalCountryFile> & localFiles)
+void FindAllLocalMapsAndCleanup(int64_t latestVersion, std::vector<LocalCountryFile> & localFiles)
 {
   FindAllLocalMapsAndCleanup(latestVersion, string(), localFiles);
 }
 
-void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir, vector<LocalCountryFile> & localFiles)
+void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir,
+                                std::vector<LocalCountryFile> & localFiles)
 {
   string const dir = GetDataDirFullPath(dataDir);
 
@@ -275,7 +276,7 @@ void FindAllLocalMapsAndCleanup(int64_t latestVersion, string const & dataDir, v
 
 void CleanupMapsDirectory(int64_t latestVersion)
 {
-  vector<LocalCountryFile> localFiles;
+  std::vector<LocalCountryFile> localFiles;
   FindAllLocalMapsAndCleanup(latestVersion, localFiles);
 }
 
@@ -296,13 +297,13 @@ bool ParseVersion(string const & s, int64_t & version)
   return true;
 }
 
-shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, CountryFile const & countryFile)
+std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, CountryFile const & countryFile)
 {
   return PreparePlaceForCountryFiles(version, string(), countryFile);
 }
 
-shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string const & dataDir,
-                                                         CountryFile const & countryFile)
+std::shared_ptr<LocalCountryFile> PreparePlaceForCountryFiles(int64_t version, string const & dataDir,
+                                                              CountryFile const & countryFile)
 {
   string const dir = PrepareDirToDownloadCountry(version, dataDir);
   return (!dir.empty() ? make_shared<LocalCountryFile>(dir, countryFile, version) : nullptr);
@@ -322,7 +323,7 @@ string GetFileDownloadPath(int64_t version, string const & dataDir, string const
   return GetFilePath(version, dataDir, countryName, type) + READY_FILE_EXTENSION;
 }
 
-unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapFileType type)
+std::unique_ptr<ModelReader> GetCountryReader(LocalCountryFile const & file, MapFileType type)
 {
   Platform & platform = GetPlatform();
   if (file.IsInBundle())
@@ -378,7 +379,7 @@ string CountryIndexes::GetPath(LocalCountryFile const & localFile, Index index)
 }
 
 // static
-void CountryIndexes::GetIndexesExts(vector<string> & exts)
+void CountryIndexes::GetIndexesExts(std::vector<string> & exts)
 {
   exts.push_back(kBitsExt);
   exts.push_back(kNodesExt);

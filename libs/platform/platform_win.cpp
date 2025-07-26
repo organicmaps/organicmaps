@@ -17,9 +17,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-using namespace std;
-
-static bool GetUserWritableDir(string & outDir)
+static bool GetUserWritableDir(std::string & outDir)
 {
   char pathBuf[MAX_PATH] = {0};
   if (SUCCEEDED(::SHGetFolderPathA(NULL, CSIDL_LOCAL_APPDATA | CSIDL_FLAG_CREATE, NULL, SHGFP_TYPE_CURRENT, pathBuf)))
@@ -34,7 +32,7 @@ static bool GetUserWritableDir(string & outDir)
 }
 
 /// @return Full path to the executable file
-static bool GetPathToBinary(string & outPath)
+static bool GetPathToBinary(std::string & outPath)
 {
   // get path to executable
   char pathBuf[MAX_PATH] = {0};
@@ -56,7 +54,7 @@ std::unique_ptr<Socket> CreateSocket()
 
 Platform::Platform()
 {
-  string path;
+  std::string path;
   CHECK(GetPathToBinary(path), ("Can't get path to binary"));
 
   // resources path:
@@ -80,7 +78,7 @@ Platform::Platform()
   // writable path:
   // 1. the same as resources if we have write access to this folder
   // 2. otherwise, use system-specific folder
-  string const tmpFilePath = base::JoinPath(m_resourcesDir, "mapswithmetmptestfile");
+  auto const tmpFilePath = base::JoinPath(m_resourcesDir, "mapswithmetmptestfile");
   try
   {
     FileWriter tmpfile(tmpFilePath);
@@ -106,16 +104,16 @@ Platform::Platform()
   LOG(LINFO, ("Settings Directory:", m_settingsDir));
 }
 
-bool Platform::IsFileExistsByFullPath(string const & filePath)
+bool Platform::IsFileExistsByFullPath(std::string const & filePath)
 {
   return ::GetFileAttributesA(filePath.c_str()) != INVALID_FILE_ATTRIBUTES;
 }
 
 // static
-void Platform::DisableBackupForFile(string const & filePath) {}
+void Platform::DisableBackupForFile(std::string const & filePath) {}
 
 // static
-string Platform::GetCurrentWorkingDirectory() noexcept
+std::string Platform::GetCurrentWorkingDirectory() noexcept
 {
   char path[MAX_PATH];
   char const * const dir = getcwd(path, MAX_PATH);
@@ -125,7 +123,7 @@ string Platform::GetCurrentWorkingDirectory() noexcept
 }
 
 // static
-Platform::EError Platform::RmDir(string const & dirName)
+Platform::EError Platform::RmDir(std::string const & dirName)
 {
   if (_rmdir(dirName.c_str()) != 0)
     return ErrnoToError();
@@ -133,7 +131,7 @@ Platform::EError Platform::RmDir(string const & dirName)
 }
 
 // static
-Platform::EError Platform::GetFileType(string const & path, EFileType & type)
+Platform::EError Platform::GetFileType(std::string const & path, EFileType & type)
 {
   struct _stat32 stats;
   if (_stat32(path.c_str(), &stats) != 0)
@@ -147,12 +145,12 @@ Platform::EError Platform::GetFileType(string const & path, EFileType & type)
   return ERR_OK;
 }
 
-string Platform::DeviceName() const
+std::string Platform::DeviceName() const
 {
   return OMIM_OS_NAME;
 }
 
-string Platform::DeviceModel() const
+std::string Platform::DeviceModel() const
 {
   return {};
 }
@@ -189,12 +187,12 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
   return STORAGE_OK;
 }
 
-bool Platform::IsDirectoryEmpty(string const & directory)
+bool Platform::IsDirectoryEmpty(std::string const & directory)
 {
   return PathIsDirectoryEmptyA(directory.c_str());
 }
 
-bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
+bool Platform::GetFileSizeByFullPath(std::string const & filePath, uint64_t & size)
 {
   HANDLE hFile =
       CreateFileA(filePath.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);

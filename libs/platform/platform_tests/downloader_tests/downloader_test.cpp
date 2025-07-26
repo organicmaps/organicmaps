@@ -23,7 +23,7 @@ namespace downloader_test
 {
 using namespace downloader;
 using namespace std::placeholders;
-using namespace std;
+using std::bind, std::string, std::vector;
 
 char constexpr kTestUrl1[] = "http://localhost:34568/unit_tests/1.txt";
 char constexpr kTestUrl404[] = "http://localhost:34568/unit_tests/notexisting_unittest";
@@ -125,7 +125,7 @@ struct DeleteOnFinish
 UNIT_TEST(DownloaderSimpleGet)
 {
   DownloadObserver observer;
-  auto const MakeRequest = [&observer](std::string const & url)
+  auto const MakeRequest = [&observer](string const & url)
   {
     return HttpRequest::Get(url, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
                             bind(&DownloadObserver::OnDownloadProgress, &observer, _1));
@@ -133,7 +133,7 @@ UNIT_TEST(DownloaderSimpleGet)
 
   {
     // simple success case
-    unique_ptr<HttpRequest> const request{MakeRequest(kTestUrl1)};
+    std::unique_ptr<HttpRequest> const request{MakeRequest(kTestUrl1)};
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
@@ -143,7 +143,7 @@ UNIT_TEST(DownloaderSimpleGet)
   observer.Reset();
   {
     // We DO NOT SUPPORT redirects to avoid data corruption when downloading mwm files
-    unique_ptr<HttpRequest> const request{MakeRequest("http://localhost:34568/unit_tests/permanent")};
+    std::unique_ptr<HttpRequest> const request{MakeRequest("http://localhost:34568/unit_tests/permanent")};
     QCoreApplication::exec();
     observer.TestFailed();
     TEST_EQUAL(request->GetData().size(), 0, (request->GetData()));
@@ -152,7 +152,7 @@ UNIT_TEST(DownloaderSimpleGet)
   observer.Reset();
   {
     // fail case 404
-    unique_ptr<HttpRequest> const request{MakeRequest(kTestUrl404)};
+    std::unique_ptr<HttpRequest> const request{MakeRequest(kTestUrl404)};
     QCoreApplication::exec();
     observer.TestFileNotFound();
     TEST_EQUAL(request->GetData().size(), 0, (request->GetData()));
@@ -161,7 +161,7 @@ UNIT_TEST(DownloaderSimpleGet)
   observer.Reset();
   {
     // fail case not existing host
-    unique_ptr<HttpRequest> const request{MakeRequest("http://not-valid-host123532.ath.cx")};
+    std::unique_ptr<HttpRequest> const request{MakeRequest("http://not-valid-host123532.ath.cx")};
     QCoreApplication::exec();
     observer.TestFailed();
     TEST_EQUAL(request->GetData().size(), 0, (request->GetData()));
@@ -179,7 +179,7 @@ UNIT_TEST(DownloaderSimpleGet)
   observer.Reset();
   {
     // https success case
-    unique_ptr<HttpRequest> const request{MakeRequest("https://github.com")};
+    std::unique_ptr<HttpRequest> const request{MakeRequest("https://github.com")};
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
@@ -201,7 +201,7 @@ UNIT_TEST(DownloaderSimplePost)
   // simple success case
   string const postData = "{\"jsonKey\":\"jsonValue\"}";
   DownloadObserver observer;
-  unique_ptr<HttpRequest> const request{HttpRequest::PostJson(
+  std::unique_ptr<HttpRequest> const request{HttpRequest::PostJson(
       "http://localhost:34568/unit_tests/post.php", postData, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
       bind(&DownloadObserver::OnDownloadProgress, &observer, _1))};
   // wait until download is finished
@@ -214,7 +214,7 @@ UNIT_TEST(ChunksDownloadStrategy)
 {
   vector<string> const servers = {"UrlOfServer1", "UrlOfServer2", "UrlOfServer3"};
 
-  typedef pair<int64_t, int64_t> RangeT;
+  typedef std::pair<int64_t, int64_t> RangeT;
   RangeT const R1{0, 249}, R2{250, 499}, R3{500, 749}, R4{750, 800};
 
   int64_t constexpr kFileSize = 800;
@@ -288,7 +288,7 @@ UNIT_TEST(ChunksDownloadStrategyFAIL)
 {
   vector<string> const servers = {"UrlOfServer1", "UrlOfServer2"};
 
-  typedef pair<int64_t, int64_t> RangeT;
+  typedef std::pair<int64_t, int64_t> RangeT;
 
   int64_t constexpr kFileSize = 800;
   int64_t constexpr kChunkSize = 250;
@@ -327,7 +327,7 @@ string ReadFileAsString(string const & file)
   catch (FileReader::Exception const &)
   {
     TEST(false, ("File ", file, " should exist"));
-    return string();
+    return {};
   }
 }  // namespace
 
@@ -383,7 +383,7 @@ UNIT_TEST(DownloadChunks)
 
   {
     // should use only one thread
-    unique_ptr<HttpRequest> const request{MakeRequest(512 * 1024)};
+    std::unique_ptr<HttpRequest> const request{MakeRequest(512 * 1024)};
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
@@ -397,7 +397,7 @@ UNIT_TEST(DownloadChunks)
   fileSize = 5;
   {
     // 3 threads - fail, because of invalid size
-    [[maybe_unused]] unique_ptr<HttpRequest> const request{MakeRequest(2048)};
+    [[maybe_unused]] std::unique_ptr<HttpRequest> const request{MakeRequest(2048)};
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestFailed();
@@ -409,7 +409,7 @@ UNIT_TEST(DownloadChunks)
   fileSize = kBigFileSize;
   {
     // 3 threads - succeeded
-    [[maybe_unused]] unique_ptr<HttpRequest> const request{MakeRequest(2048)};
+    [[maybe_unused]] std::unique_ptr<HttpRequest> const request{MakeRequest(2048)};
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
@@ -421,7 +421,7 @@ UNIT_TEST(DownloadChunks)
   fileSize = kBigFileSize;
   {
     // 3 threads with only one valid url - succeeded
-    [[maybe_unused]] unique_ptr<HttpRequest> const request{MakeRequest(2048)};
+    [[maybe_unused]] std::unique_ptr<HttpRequest> const request{MakeRequest(2048)};
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestOk();
@@ -433,7 +433,7 @@ UNIT_TEST(DownloadChunks)
   fileSize = 12345;
   {
     // 2 threads and all points to file with invalid size - fail
-    [[maybe_unused]] unique_ptr<HttpRequest> const request{MakeRequest(2048)};
+    [[maybe_unused]] std::unique_ptr<HttpRequest> const request{MakeRequest(2048)};
     // wait until download is finished
     QCoreApplication::exec();
     observer.TestFailed();
@@ -492,7 +492,7 @@ UNIT_TEST(DownloadResumeChunks)
   {
     DownloadObserver observer;
 
-    unique_ptr<HttpRequest> const request(
+    std::unique_ptr<HttpRequest> const request(
         HttpRequest::GetFile(urls, FILENAME, kBigFileSize, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
                              bind(&DownloadObserver::OnDownloadProgress, &observer, _1)));
 
@@ -519,10 +519,10 @@ UNIT_TEST(DownloadResumeChunks)
     f.Write(b2, ARRAY_SIZE(b2));
 
     ChunksDownloadStrategy strategy((vector<string>()));
-    strategy.AddChunk(make_pair(int64_t(0), beg1 - 1), ChunksDownloadStrategy::CHUNK_COMPLETE);
-    strategy.AddChunk(make_pair(beg1, end1), ChunksDownloadStrategy::CHUNK_FREE);
-    strategy.AddChunk(make_pair(end1 + 1, beg2 - 1), ChunksDownloadStrategy::CHUNK_COMPLETE);
-    strategy.AddChunk(make_pair(beg2, end2), ChunksDownloadStrategy::CHUNK_FREE);
+    strategy.AddChunk(std::make_pair(int64_t(0), beg1 - 1), ChunksDownloadStrategy::CHUNK_COMPLETE);
+    strategy.AddChunk(std::make_pair(beg1, end1), ChunksDownloadStrategy::CHUNK_FREE);
+    strategy.AddChunk(std::make_pair(end1 + 1, beg2 - 1), ChunksDownloadStrategy::CHUNK_COMPLETE);
+    strategy.AddChunk(std::make_pair(beg2, end2), ChunksDownloadStrategy::CHUNK_FREE);
 
     strategy.SaveChunks(kBigFileSize, RESUME_FILENAME);
   }
@@ -530,9 +530,9 @@ UNIT_TEST(DownloadResumeChunks)
   // 3rd step - check that resume works
   {
     ResumeChecker checker;
-    unique_ptr<HttpRequest> const request(HttpRequest::GetFile(urls, FILENAME, kBigFileSize,
-                                                               bind(&ResumeChecker::OnFinish, &checker, _1),
-                                                               bind(&ResumeChecker::OnProgress, &checker, _1)));
+    std::unique_ptr<HttpRequest> const request(HttpRequest::GetFile(urls, FILENAME, kBigFileSize,
+                                                                    bind(&ResumeChecker::OnFinish, &checker, _1),
+                                                                    bind(&ResumeChecker::OnProgress, &checker, _1)));
     QCoreApplication::exec();
 
     FinishDownloadSuccess(FILENAME);
@@ -558,7 +558,7 @@ UNIT_TEST(DownloadResumeChunksWithCancel)
     if (arrCancelChunks[i] > 0)
       observer.CancelDownloadOnGivenChunk(arrCancelChunks[i]);
 
-    unique_ptr<HttpRequest> const request(
+    std::unique_ptr<HttpRequest> const request(
         HttpRequest::GetFile(urls, FILENAME, kBigFileSize, bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
                              bind(&DownloadObserver::OnDownloadProgress, &observer, _1), 1024, false));
 

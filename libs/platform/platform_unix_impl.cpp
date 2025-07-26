@@ -21,8 +21,6 @@
 #include <sys/vfs.h>
 #endif
 
-using namespace std;
-
 namespace
 {
 struct CloseDir
@@ -36,7 +34,7 @@ struct CloseDir
 }  // namespace
 
 // static
-Platform::EError Platform::RmDir(string const & dirName)
+Platform::EError Platform::RmDir(std::string const & dirName)
 {
   if (rmdir(dirName.c_str()) != 0)
     return ErrnoToError();
@@ -44,7 +42,7 @@ Platform::EError Platform::RmDir(string const & dirName)
 }
 
 // static
-Platform::EError Platform::GetFileType(string const & path, EFileType & type)
+Platform::EError Platform::GetFileType(std::string const & path, EFileType & type)
 {
   struct stat stats;
   if (stat(path.c_str(), &stats) != 0)
@@ -59,7 +57,7 @@ Platform::EError Platform::GetFileType(string const & path, EFileType & type)
 }
 
 // static
-bool Platform::IsFileExistsByFullPath(string const & filePath)
+bool Platform::IsFileExistsByFullPath(std::string const & filePath)
 {
   struct stat s;
   return stat(filePath.c_str(), &s) == 0;
@@ -67,11 +65,11 @@ bool Platform::IsFileExistsByFullPath(string const & filePath)
 
 #if !defined(OMIM_OS_IPHONE)
 // static
-void Platform::DisableBackupForFile(string const & /*filePath*/) {}
+void Platform::DisableBackupForFile(std::string const & /*filePath*/) {}
 #endif
 
 // static
-string Platform::GetCurrentWorkingDirectory() noexcept
+std::string Platform::GetCurrentWorkingDirectory() noexcept
 {
   char path[PATH_MAX];
   char const * const dir = getcwd(path, PATH_MAX);
@@ -80,9 +78,9 @@ string Platform::GetCurrentWorkingDirectory() noexcept
   return dir;
 }
 
-bool Platform::IsDirectoryEmpty(string const & directory)
+bool Platform::IsDirectoryEmpty(std::string const & directory)
 {
-  unique_ptr<DIR, CloseDir> dir(opendir(directory.c_str()));
+  std::unique_ptr<DIR, CloseDir> dir(opendir(directory.c_str()));
   if (!dir)
     return true;
 
@@ -98,7 +96,7 @@ bool Platform::IsDirectoryEmpty(string const & directory)
   return true;
 }
 
-bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
+bool Platform::GetFileSizeByFullPath(std::string const & filePath, uint64_t & size)
 {
   struct stat s;
   if (stat(filePath.c_str(), &s) == 0)
@@ -134,9 +132,9 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
 namespace pl
 {
 
-void EnumerateFiles(string const & directory, function<void(char const *)> const & fn)
+void EnumerateFiles(std::string const & directory, std::function<void(char const *)> const & fn)
 {
-  unique_ptr<DIR, CloseDir> dir(opendir(directory.c_str()));
+  std::unique_ptr<DIR, CloseDir> dir(opendir(directory.c_str()));
   if (!dir)
     return;
 
@@ -145,13 +143,13 @@ void EnumerateFiles(string const & directory, function<void(char const *)> const
     fn(entry->d_name);
 }
 
-void EnumerateFilesByRegExp(string const & directory, string const & regexp, vector<string> & res)
+void EnumerateFilesByRegExp(std::string const & directory, std::string const & regexp, std::vector<std::string> & res)
 {
-  regex exp(regexp);
+  std::regex exp(regexp);
   EnumerateFiles(directory, [&](char const * entry)
   {
-    string const name(entry);
-    if (regex_search(name.begin(), name.end(), exp))
+    std::string const name(entry);
+    if (std::regex_search(name.begin(), name.end(), exp))
       res.push_back(name);
   });
 }

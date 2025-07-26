@@ -11,10 +11,8 @@
 #include <QSslError>
 #include <QUrl>
 
-using namespace std;
-
-HttpThread::HttpThread(string const & url, downloader::IHttpThreadCallback & cb, int64_t beg, int64_t end, int64_t size,
-                       string const & pb)
+HttpThread::HttpThread(std::string const & url, downloader::IHttpThreadCallback & cb, int64_t beg, int64_t end,
+                       int64_t size, std::string const & pb)
   : m_callback(cb)
   , m_begRange(beg)
   , m_endRange(end)
@@ -145,8 +143,8 @@ void HttpThread::OnDownloadFinished()
 namespace downloader
 {
 
-HttpThread * CreateNativeHttpThread(string const & url, downloader::IHttpThreadCallback & cb, int64_t beg, int64_t end,
-                                    int64_t size, string const & pb)
+HttpThread * CreateNativeHttpThread(std::string const & url, downloader::IHttpThreadCallback & cb, int64_t beg,
+                                    int64_t end, int64_t size, std::string const & pb)
 {
   return new HttpThread(url, cb, beg, end, size, pb);
 }
