@@ -52,13 +52,14 @@ def clean_holiday_name(name):
     return name.strip()
 
 for name, data in meta.items():
+    base_name = name.split("_")[0]  # Use only country part, e.g., "Spain" from "Spain_Catalonia"
     # Step 1: Add ISO code
     try:
-        country = pycountry.countries.lookup(name)
+        country = pycountry.countries.lookup(base_name)
         iso_code = country.alpha_2
         data["_iso_code"] = iso_code
     except LookupError:
-        print(f"[!] Could not find ISO code for: {name}")
+        print(f"[!] Could not find ISO code for: {base_name}")
         continue
 
     # Step 2: Add public holidays if available
@@ -69,7 +70,7 @@ for name, data in meta.items():
               for date, holiday_name in country_holidays.items()
         }
     except Exception as e:
-        print(f"[!] Holidays not available for {name} ({iso_code}): {e}")
+        print(f"[!] Holidays not available for {base_name} ({iso_code}): {e}")
         continue
 
 # Remove iso_code from output
