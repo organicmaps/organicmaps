@@ -15,6 +15,7 @@ import json
 import os
 import argparse
 import datetime
+import re
 
 parser = argparse.ArgumentParser(description="Generate public holidays for all countries.")
 parser.add_argument('--year', type=int, default=datetime.datetime.now().year, help='Year for holidays (default: current year)')
@@ -29,14 +30,34 @@ per_country_output_dir = os.path.join(all_output_dir, 'countries')
 os.makedirs(all_output_dir, exist_ok=True)
 os.makedirs(per_country_output_dir, exist_ok=True)
 
+UNWANTED_PHRASES = [
+    "observed",
+    "in lieu",
+    "by old style",
+    "by new style",
+    "non-working",
+    "substituted from",
+    "National",
+    "substitute day"
+]
+
+# Clean function
+def clean_holiday_name(name):
+    for phrase in UNWANTED_PHRASES:
+        name = name.replace(f" ({phrase})", "")
+        name = name.replace(f" ({phrase.title()})", "")  # handles capitalized versions
+
+    # Special case: remove parentheses starting with "substituted from"
+    name = re.sub(r"\s*\(substituted from [^)]+\)", "", name, flags=re.IGNORECASE) 
+    return name.strip()
+
 all_data = {}
 
 for country_code in holidays.list_supported_countries():
     try:
         country_holidays = holidays.country_holidays(country_code,  years=range(year, year + 2))
         holiday_list =  {
-            
-              str(date): holiday_name
+              str(date): clean_holiday_name(holiday_name)
               for date, holiday_name in country_holidays.items()
         }
         # Save per-country file

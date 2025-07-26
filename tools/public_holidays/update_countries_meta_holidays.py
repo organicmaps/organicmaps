@@ -14,6 +14,7 @@ import holidays
 import os
 import argparse
 import datetime
+import re
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(script_dir, '../..'))
@@ -29,6 +30,27 @@ year = args.year
 with open(input_file, "r", encoding="utf-8") as f:
     meta = json.load(f)
 
+UNWANTED_PHRASES = [
+    "observed",
+    "in lieu",
+    "by old style",
+    "by new style",
+    "non-working",
+    "substituted from",
+    "National",
+    "substitute day"
+]
+
+# Clean function
+def clean_holiday_name(name):
+    for phrase in UNWANTED_PHRASES:
+        name = name.replace(f" ({phrase})", "")
+        name = name.replace(f" ({phrase.title()})", "")  # handles capitalized versions
+
+    # Special case: remove parentheses starting with "substituted from"
+    name = re.sub(r"\s*\(substituted from [^)]+\)", "", name, flags=re.IGNORECASE) 
+    return name.strip()
+
 for name, data in meta.items():
     # Step 1: Add ISO code
     try:
@@ -43,8 +65,7 @@ for name, data in meta.items():
     try:
         country_holidays = holidays.country_holidays(iso_code, years=range(year, year + 2))
         data["public_holidays"] = {
-            
-              str(date): holiday_name
+              str(date): clean_holiday_name(holiday_name)
               for date, holiday_name in country_holidays.items()
         }
     except Exception as e:
