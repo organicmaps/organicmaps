@@ -42,12 +42,11 @@ for name, data in meta.items():
     # Step 2: Add public holidays if available
     try:
         country_holidays = holidays.country_holidays(iso_code, years=year)
-        data["public_holidays"] = [
-            {
-                "date": str(date),
-                "name": holiday_name
-            } for date, holiday_name in country_holidays.items()
-        ]
+        data["public_holidays"] = {
+            
+              str(date): holiday_name
+              for date, holiday_name in country_holidays.items()
+        }
     except Exception as e:
         print(f"[!] Holidays not available for {name} ({iso_code}): {e}")
         continue

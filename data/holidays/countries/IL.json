@@ -1,38 +1,11 @@
-[
-  {
-    "date": "2025-09-23",
-    "name": "Rosh Hashanah"
-  },
-  {
-    "date": "2025-09-24",
-    "name": "Rosh Hashanah"
-  },
-  {
-    "date": "2025-10-02",
-    "name": "Yom Kippur"
-  },
-  {
-    "date": "2025-10-07",
-    "name": "Sukkot"
-  },
-  {
-    "date": "2025-10-14",
-    "name": "Simchat Torah / Shemini Atzeret"
-  },
-  {
-    "date": "2025-04-13",
-    "name": "Pesach"
-  },
-  {
-    "date": "2025-04-19",
-    "name": "Seventh day of Pesach"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Independence Day (observed)"
-  },
-  {
-    "date": "2025-06-02",
-    "name": "Shavuot"
-  }
-]
+{
+  "2025-09-23": "Rosh Hashanah",
+  "2025-09-24": "Rosh Hashanah",
+  "2025-10-02": "Yom Kippur",
+  "2025-10-07": "Sukkot",
+  "2025-10-14": "Simchat Torah / Shemini Atzeret",
+  "2025-04-13": "Pesach",
+  "2025-04-19": "Seventh day of Pesach",
+  "2025-05-01": "Independence Day (observed)",
+  "2025-06-02": "Shavuot"
+}

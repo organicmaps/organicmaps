@@ -1,78 +1,21 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-29",
-    "name": "Lunar New Year"
-  },
-  {
-    "date": "2025-02-23",
-    "name": "National Day"
-  },
-  {
-    "date": "2025-02-24",
-    "name": "National Day (observed)"
-  },
-  {
-    "date": "2025-05-31",
-    "name": "Armed Forces Day"
-  },
-  {
-    "date": "2025-07-15",
-    "name": "Sultan Hassanal Bolkiah's Birthday"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-01-27",
-    "name": "Isra' and Mi'raj"
-  },
-  {
-    "date": "2025-03-02",
-    "name": "First Day of Ramadan"
-  },
-  {
-    "date": "2025-03-03",
-    "name": "First Day of Ramadan (observed)"
-  },
-  {
-    "date": "2025-03-18",
-    "name": "Anniversary of the revelation of the Quran"
-  },
-  {
-    "date": "2025-03-31",
-    "name": "Eid al-Fitr"
-  },
-  {
-    "date": "2025-04-01",
-    "name": "Eid al-Fitr"
-  },
-  {
-    "date": "2025-04-02",
-    "name": "Eid al-Fitr"
-  },
-  {
-    "date": "2025-06-07",
-    "name": "Eid al-Adha"
-  },
-  {
-    "date": "2025-06-27",
-    "name": "Islamic New Year"
-  },
-  {
-    "date": "2025-06-28",
-    "name": "Islamic New Year (observed)"
-  },
-  {
-    "date": "2025-09-05",
-    "name": "Prophet's Birthday"
-  },
-  {
-    "date": "2025-09-06",
-    "name": "Prophet's Birthday (observed)"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-29": "Lunar New Year",
+  "2025-02-23": "National Day",
+  "2025-02-24": "National Day (observed)",
+  "2025-05-31": "Armed Forces Day",
+  "2025-07-15": "Sultan Hassanal Bolkiah's Birthday",
+  "2025-12-25": "Christmas Day",
+  "2025-01-27": "Isra' and Mi'raj",
+  "2025-03-02": "First Day of Ramadan",
+  "2025-03-03": "First Day of Ramadan (observed)",
+  "2025-03-18": "Anniversary of the revelation of the Quran",
+  "2025-03-31": "Eid al-Fitr",
+  "2025-04-01": "Eid al-Fitr",
+  "2025-04-02": "Eid al-Fitr",
+  "2025-06-07": "Eid al-Adha",
+  "2025-06-27": "Islamic New Year",
+  "2025-06-28": "Islamic New Year (observed)",
+  "2025-09-05": "Prophet's Birthday",
+  "2025-09-06": "Prophet's Birthday (observed)"
+}

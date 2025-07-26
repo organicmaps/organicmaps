@@ -1,66 +1,18 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "Founding Day of the Republic of China"
-  },
-  {
-    "date": "2025-01-28",
-    "name": "Chinese New Year's Eve"
-  },
-  {
-    "date": "2025-01-29",
-    "name": "Chinese New Year"
-  },
-  {
-    "date": "2025-01-30",
-    "name": "Chinese New Year"
-  },
-  {
-    "date": "2025-01-31",
-    "name": "Chinese New Year"
-  },
-  {
-    "date": "2025-02-28",
-    "name": "Peace Memorial Day"
-  },
-  {
-    "date": "2025-04-04",
-    "name": "Children's Day; Tomb-Sweeping Day"
-  },
-  {
-    "date": "2025-05-31",
-    "name": "Dragon Boat Festival"
-  },
-  {
-    "date": "2025-10-06",
-    "name": "Mid-Autumn Festival"
-  },
-  {
-    "date": "2025-09-28",
-    "name": "Confucius' Birthday"
-  },
-  {
-    "date": "2025-10-10",
-    "name": "National Day"
-  },
-  {
-    "date": "2025-10-25",
-    "name": "Taiwan Restoration and Guningtou Victory Memorial Day"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Constitution Day"
-  },
-  {
-    "date": "2025-04-03",
-    "name": "Children's Day (observed)"
-  },
-  {
-    "date": "2025-05-30",
-    "name": "Dragon Boat Festival (observed)"
-  },
-  {
-    "date": "2025-01-27",
-    "name": "Day off (substituted from 02/08/2025)"
-  }
-]
+{
+  "2025-01-01": "Founding Day of the Republic of China",
+  "2025-01-28": "Chinese New Year's Eve",
+  "2025-01-29": "Chinese New Year",
+  "2025-01-30": "Chinese New Year",
+  "2025-01-31": "Chinese New Year",
+  "2025-02-28": "Peace Memorial Day",
+  "2025-04-04": "Children's Day; Tomb-Sweeping Day",
+  "2025-05-31": "Dragon Boat Festival",
+  "2025-10-06": "Mid-Autumn Festival",
+  "2025-09-28": "Confucius' Birthday",
+  "2025-10-10": "National Day",
+  "2025-10-25": "Taiwan Restoration and Guningtou Victory Memorial Day",
+  "2025-12-25": "Constitution Day",
+  "2025-04-03": "Children's Day (observed)",
+  "2025-05-30": "Dragon Boat Festival (observed)",
+  "2025-01-27": "Day off (substituted from 02/08/2025)"
+}

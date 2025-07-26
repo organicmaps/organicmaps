@@ -34,12 +34,11 @@ all_data = {}
 for country_code in holidays.list_supported_countries():
     try:
         country_holidays = holidays.country_holidays(country_code, years=year)
-        holiday_list = [
-            {
-                "date": str(date),
-                "name": name
-            } for date, name in country_holidays.items()
-        ]
+        holiday_list =  {
+            
+              str(date): holiday_name
+              for date, holiday_name in country_holidays.items()
+        }
         # Save per-country file
         with open(f"{per_country_output_dir}/{country_code}.json", "w", encoding="utf-8") as f:
             json.dump(holiday_list, f, indent=2, ensure_ascii=False)

@@ -1,58 +1,16 @@
-[
-  {
-    "date": "2025-02-15",
-    "name": "Liberation Day"
-  },
-  {
-    "date": "2025-08-19",
-    "name": "Afghanistan Independence Day"
-  },
-  {
-    "date": "2025-04-28",
-    "name": "Mojahedin's Victory Day"
-  },
-  {
-    "date": "2025-08-15",
-    "name": "Islamic Emirate Victory Day"
-  },
-  {
-    "date": "2025-08-31",
-    "name": "American Withdrawal Day"
-  },
-  {
-    "date": "2025-09-04",
-    "name": "Prophet's Birthday (estimated)"
-  },
-  {
-    "date": "2025-03-01",
-    "name": "First Day of Ramadan (estimated)"
-  },
-  {
-    "date": "2025-03-30",
-    "name": "Eid al-Fitr (estimated)"
-  },
-  {
-    "date": "2025-03-31",
-    "name": "Eid al-Fitr (estimated)"
-  },
-  {
-    "date": "2025-04-01",
-    "name": "Eid al-Fitr (estimated)"
-  },
-  {
-    "date": "2025-06-05",
-    "name": "Day of Arafah (estimated)"
-  },
-  {
-    "date": "2025-06-06",
-    "name": "Eid al-Adha (estimated)"
-  },
-  {
-    "date": "2025-06-07",
-    "name": "Eid al-Adha (estimated)"
-  },
-  {
-    "date": "2025-06-08",
-    "name": "Eid al-Adha (estimated)"
-  }
-]
+{
+  "2025-02-15": "Liberation Day",
+  "2025-08-19": "Afghanistan Independence Day",
+  "2025-04-28": "Mojahedin's Victory Day",
+  "2025-08-15": "Islamic Emirate Victory Day",
+  "2025-08-31": "American Withdrawal Day",
+  "2025-09-04": "Prophet's Birthday (estimated)",
+  "2025-03-01": "First Day of Ramadan (estimated)",
+  "2025-03-30": "Eid al-Fitr (estimated)",
+  "2025-03-31": "Eid al-Fitr (estimated)",
+  "2025-04-01": "Eid al-Fitr (estimated)",
+  "2025-06-05": "Day of Arafah (estimated)",
+  "2025-06-06": "Eid al-Adha (estimated)",
+  "2025-06-07": "Eid al-Adha (estimated)",
+  "2025-06-08": "Eid al-Adha (estimated)"
+}

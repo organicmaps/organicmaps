@@ -1,54 +1,15 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-02",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-07",
-    "name": "Orthodox Christmas Day"
-  },
-  {
-    "date": "2025-02-15",
-    "name": "Statehood Day"
-  },
-  {
-    "date": "2025-02-16",
-    "name": "Statehood Day"
-  },
-  {
-    "date": "2025-02-17",
-    "name": "Statehood Day (observed)"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-05-02",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-11-11",
-    "name": "Armistice Day"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-19",
-    "name": "Holy Saturday"
-  },
-  {
-    "date": "2025-04-20",
-    "name": "Easter Sunday"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Easter Monday"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-02": "New Year's Day",
+  "2025-01-07": "Orthodox Christmas Day",
+  "2025-02-15": "Statehood Day",
+  "2025-02-16": "Statehood Day",
+  "2025-02-17": "Statehood Day (observed)",
+  "2025-05-01": "Labor Day",
+  "2025-05-02": "Labor Day",
+  "2025-11-11": "Armistice Day",
+  "2025-04-18": "Good Friday",
+  "2025-04-19": "Holy Saturday",
+  "2025-04-20": "Easter Sunday",
+  "2025-04-21": "Easter Monday"
+}

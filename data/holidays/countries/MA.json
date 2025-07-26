@@ -1,70 +1,19 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-11",
-    "name": "Proclamation of Independence Day"
-  },
-  {
-    "date": "2025-01-13",
-    "name": "Amazigh New Year"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-07-30",
-    "name": "Throne Day"
-  },
-  {
-    "date": "2025-08-14",
-    "name": "Oued Ed-Dahab Day"
-  },
-  {
-    "date": "2025-08-20",
-    "name": "Revolution Day"
-  },
-  {
-    "date": "2025-08-21",
-    "name": "Youth Day"
-  },
-  {
-    "date": "2025-11-06",
-    "name": "Green March"
-  },
-  {
-    "date": "2025-11-18",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-03-30",
-    "name": "Eid al-Fitr (estimated)"
-  },
-  {
-    "date": "2025-03-31",
-    "name": "Eid al-Fitr (estimated)"
-  },
-  {
-    "date": "2025-06-06",
-    "name": "Eid al-Adha (estimated)"
-  },
-  {
-    "date": "2025-06-07",
-    "name": "Eid al-Adha (estimated)"
-  },
-  {
-    "date": "2025-06-26",
-    "name": "Islamic New Year (estimated)"
-  },
-  {
-    "date": "2025-09-04",
-    "name": "Prophet's Birthday (estimated)"
-  },
-  {
-    "date": "2025-09-05",
-    "name": "Prophet's Birthday (estimated)"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-11": "Proclamation of Independence Day",
+  "2025-01-13": "Amazigh New Year",
+  "2025-05-01": "Labor Day",
+  "2025-07-30": "Throne Day",
+  "2025-08-14": "Oued Ed-Dahab Day",
+  "2025-08-20": "Revolution Day",
+  "2025-08-21": "Youth Day",
+  "2025-11-06": "Green March",
+  "2025-11-18": "Independence Day",
+  "2025-03-30": "Eid al-Fitr (estimated)",
+  "2025-03-31": "Eid al-Fitr (estimated)",
+  "2025-06-06": "Eid al-Adha (estimated)",
+  "2025-06-07": "Eid al-Adha (estimated)",
+  "2025-06-26": "Islamic New Year (estimated)",
+  "2025-09-04": "Prophet's Birthday (estimated)",
+  "2025-09-05": "Prophet's Birthday (estimated)"
+}
