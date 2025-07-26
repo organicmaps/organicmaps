@@ -34,7 +34,7 @@ for name, data in meta.items():
     try:
         country = pycountry.countries.lookup(name)
         iso_code = country.alpha_2
-        data["iso_code"] = iso_code
+        data["_iso_code"] = iso_code
     except LookupError:
         print(f"[!] Could not find ISO code for: {name}")
         continue
@@ -50,6 +50,10 @@ for name, data in meta.items():
     except Exception as e:
         print(f"[!] Holidays not available for {name} ({iso_code}): {e}")
         continue
+
+# Remove iso_code from output
+for data in meta.values():
+    data.pop("_iso_code", None)
 
 # Save the enriched JSON
 with open(output_file, "w", encoding="utf-8") as f:
