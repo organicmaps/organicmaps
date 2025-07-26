@@ -94,7 +94,7 @@ public:
   SpeedInUnits GetSavedMaxspeed(uint32_t featureId, bool forward) override
   {
     auto const speed = m_attrsGetter.m_maxSpeeds.GetMaxspeed(featureId);
-    return { speed.GetSpeedInUnits(forward), speed.GetUnits() };
+    return {speed.GetSpeedInUnits(forward), speed.GetUnits()};
   }
 
 private:
@@ -132,13 +132,16 @@ private:
   RoadAttrsGetter m_attrsGetter;
   VehicleModelPtrT m_vehicleModel;
 };
-} // namespace
-
+}  // namespace
 
 // RoadGeometry ------------------------------------------------------------------------------------
 RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points)
-  : m_forwardSpeed{weightSpeedKMpH, etaSpeedKMpH}, m_backwardSpeed(m_forwardSpeed)
-  , m_isOneWay(oneWay), m_valid(true), m_isPassThroughAllowed(false), m_inCity(false)
+  : m_forwardSpeed{weightSpeedKMpH, etaSpeedKMpH}
+  , m_backwardSpeed(m_forwardSpeed)
+  , m_isOneWay(oneWay)
+  , m_valid(true)
+  , m_isPassThroughAllowed(false)
+  , m_inCity(false)
 {
   ASSERT_GREATER(weightSpeedKMpH, 0.0, ());
   ASSERT_GREATER(etaSpeedKMpH, 0.0, ());
@@ -180,10 +183,8 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
   auto const & optionsClassfier = RoutingOptionsClassifier::Instance();
   for (uint32_t type : types)
-  {
     if (auto const it = optionsClassfier.Get(type))
       m_routingOptions.Add(*it);
-  }
 
   m_junctions.clear();
   m_junctions.reserve(count);
@@ -199,13 +200,13 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
       // Since we store integer altitudes, 1 is a possible error for 2 points.
       geometry::Altitude constexpr kError = 1;
 
-      auto const altDiff = (*altitudes)[i] - (*altitudes)[i-1];
+      auto const altDiff = (*altitudes)[i] - (*altitudes)[i - 1];
       auto const absDiff = abs(altDiff) - kError;
       if (absDiff > 0)
       {
-        double const dist = ms::DistanceOnEarth(m_junctions[i-1].GetLatLon(), m_junctions[i].GetLatLon());
+        double const dist = ms::DistanceOnEarth(m_junctions[i - 1].GetLatLon(), m_junctions[i].GetLatLon());
         if (absDiff / dist >= 1.0)
-          LOG(LWARNING, ("Altitudes jump:", altDiff, "/", dist, m_junctions[i-1], m_junctions[i]));
+          LOG(LWARNING, ("Altitudes jump:", altDiff, "/", dist, m_junctions[i - 1], m_junctions[i]));
       }
     }
 #endif
@@ -237,9 +238,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
   }
 
   if (m_valid)
-  {
     ASSERT(m_forwardSpeed.IsValid() && m_backwardSpeed.IsValid(), (feature.DebugString()));
-  }
 }
 
 double RoadGeometry::GetDistance(uint32_t idx) const
@@ -260,24 +259,19 @@ double RoadGeometry::GetRoadLengthM() const
   double lenM = 0.0;
 
   if (count > 0)
-  {
     for (uint32_t i = 0; i < count - 1; ++i)
       lenM += GetDistance(i);
-  }
 
   return lenM;
 }
 
 // Geometry ----------------------------------------------------------------------------------------
-Geometry::Geometry(unique_ptr<GeometryLoader> loader, size_t roadsCacheSize)
-  : m_loader(std::move(loader))
+Geometry::Geometry(unique_ptr<GeometryLoader> loader, size_t roadsCacheSize) : m_loader(std::move(loader))
 {
   CHECK(m_loader, ());
 
-  m_featureIdToRoad = make_unique<RoutingCacheT>(roadsCacheSize, [this](uint32_t featureId, RoadGeometry & road)
-  {
-    m_loader->Load(featureId, road);
-  });
+  m_featureIdToRoad = make_unique<RoutingCacheT>(
+      roadsCacheSize, [this](uint32_t featureId, RoadGeometry & road) { m_loader->Load(featureId, road); });
 }
 
 RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
@@ -295,8 +289,7 @@ SpeedInUnits GeometryLoader::GetSavedMaxspeed(uint32_t featureId, bool forward)
 
 // static
 unique_ptr<GeometryLoader> GeometryLoader::Create(MwmSet::MwmHandle const & handle,
-                                                  VehicleModelPtrT const & vehicleModel,
-                                                  bool loadAltitudes)
+                                                  VehicleModelPtrT const & vehicleModel, bool loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());
   CHECK(vehicleModel, ());
@@ -304,8 +297,8 @@ unique_ptr<GeometryLoader> GeometryLoader::Create(MwmSet::MwmHandle const & hand
 }
 
 // static
-unique_ptr<GeometryLoader> GeometryLoader::CreateFromFile(
-    string const & fileName, VehicleModelPtrT const & vehicleModel)
+unique_ptr<GeometryLoader> GeometryLoader::CreateFromFile(string const & fileName,
+                                                          VehicleModelPtrT const & vehicleModel)
 {
   CHECK(vehicleModel, ());
   return make_unique<FileGeometryLoader>(fileName, vehicleModel);

@@ -20,6 +20,7 @@ public:
   virtual TransitGraph & GetTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) = 0;
   virtual void Clear() = 0;
 
-  static std::unique_ptr<TransitGraphLoader> Create(MwmDataSource & dataSource, std::shared_ptr<EdgeEstimator> estimator);
+  static std::unique_ptr<TransitGraphLoader> Create(MwmDataSource & dataSource,
+                                                    std::shared_ptr<EdgeEstimator> estimator);
 };
 }  // namespace routing

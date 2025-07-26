@@ -17,8 +17,7 @@ using namespace std;
 
 namespace track_analyzing
 {
-double CalcSubtrackLength(MatchedTrack::const_iterator begin, MatchedTrack::const_iterator end,
-                          Geometry & geometry)
+double CalcSubtrackLength(MatchedTrack::const_iterator begin, MatchedTrack::const_iterator end, Geometry & geometry)
 {
   double length = 0.0;
 
@@ -29,10 +28,8 @@ double CalcSubtrackLength(MatchedTrack::const_iterator begin, MatchedTrack::cons
     Segment const & segment = point.GetSegment();
     if (segment != prevSegment)
     {
-      length +=
-          ms::DistanceOnEarth(
-          geometry.GetPoint(segment.GetRoadPoint(false /* front */)),
-          geometry.GetPoint(segment.GetRoadPoint(true /* front */)));
+      length += ms::DistanceOnEarth(geometry.GetPoint(segment.GetRoadPoint(false /* front */)),
+                                    geometry.GetPoint(segment.GetRoadPoint(true /* front */)));
       prevSegment = segment;
     }
   }
@@ -51,8 +48,7 @@ double CalcSpeedKMpH(double meters, uint64_t secondsElapsed)
   return measurement_utils::MpsToKmph(meters / static_cast<double>(secondsElapsed));
 }
 
-void ReadTracks(shared_ptr<NumMwmIds> numMwmIds, string const & filename,
-                MwmToMatchedTracks & mwmToMatchedTracks)
+void ReadTracks(shared_ptr<NumMwmIds> numMwmIds, string const & filename, MwmToMatchedTracks & mwmToMatchedTracks)
 {
   FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
@@ -60,9 +56,8 @@ void ReadTracks(shared_ptr<NumMwmIds> numMwmIds, string const & filename,
   serializer.Deserialize(mwmToMatchedTracks, src);
 }
 
-MatchedTrack const & GetMatchedTrack(MwmToMatchedTracks const & mwmToMatchedTracks,
-                                     NumMwmIds const & numMwmIds, string const & mwmName,
-                                     string const & user, size_t trackIdx)
+MatchedTrack const & GetMatchedTrack(MwmToMatchedTracks const & mwmToMatchedTracks, NumMwmIds const & numMwmIds,
+                                     string const & mwmName, string const & user, size_t trackIdx)
 {
   auto const countryFile = platform::CountryFile(mwmName);
   if (!numMwmIds.ContainsFile(countryFile))
@@ -84,8 +79,8 @@ MatchedTrack const & GetMatchedTrack(MwmToMatchedTracks const & mwmToMatchedTrac
 
   if (trackIdx >= tracks.size())
   {
-    MYTHROW(MessageException, ("There is no track", trackIdx, "for user", user, ", she has",
-                               tracks.size(), "tracks only"));
+    MYTHROW(MessageException,
+            ("There is no track", trackIdx, "for user", user, ", she has", tracks.size(), "tracks only"));
   }
 
   return tracks[trackIdx];
@@ -96,10 +91,9 @@ std::string GetCurrentVersionMwmFile(storage::Storage const & storage, std::stri
   return storage.GetFilePath(mwmName, MapFileType::Map);
 }
 
-void ForEachTrackFile(
-    std::string const & filepath, std::string const & extension,
-    shared_ptr<routing::NumMwmIds> numMwmIds,
-    std::function<void(std::string const & filename, MwmToMatchedTracks const &)> && toDo)
+void ForEachTrackFile(std::string const & filepath, std::string const & extension,
+                      shared_ptr<routing::NumMwmIds> numMwmIds,
+                      std::function<void(std::string const & filename, MwmToMatchedTracks const &)> && toDo)
 {
   Platform::EFileType fileType = Platform::EFileType::Unknown;
   Platform::EError const result = Platform::GetFileType(filepath, fileType);

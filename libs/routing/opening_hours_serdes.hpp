@@ -54,24 +54,23 @@ public:
     using HeaderType = uint16_t;
     enum class Bits : HeaderType
     {
-      Year     = 1U << 0U,
-      Month    = 1U << 1U,
+      Year = 1U << 0U,
+      Month = 1U << 1U,
       MonthDay = 1U << 2U,
-      WeekDay  = 1U << 3U,
-      Hours    = 1U << 4U,
-      Minutes  = 1U << 5U,
-      Off      = 1U << 6U,
-      Holiday  = 1U << 7U,
+      WeekDay = 1U << 3U,
+      Hours = 1U << 4U,
+      Minutes = 1U << 5U,
+      Off = 1U << 6U,
+      Holiday = 1U << 7U,
 
-      Max      = 1U << 8U
+      Max = 1U << 8U
     };
 
     static inline uint8_t constexpr kBitsSize = 8;
     static_assert(base::Underlying(Bits::Max) == 1U << kBitsSize,
                   "It's seems header's size has been changed. Need to change |kBitsSize| member.");
 
-    static_assert(kBitsSize <= 8,
-                  "Header's size is more than 1 byte, be careful about section weight.");
+    static_assert(kBitsSize <= 8, "Header's size is more than 1 byte, be careful about section weight.");
 
     /// \brief Returns true if feature takes only two values (0 or 1).
     static bool IsBinaryFeature(Header::Bits feature);
@@ -155,8 +154,7 @@ private:
 
 // OpeningHoursSerDes::Header ----------------------------------------------------------------------
 template <typename Writer>
-void OpeningHoursSerDes::Header::Serialize(BitWriter<Writer> & writer,
-                                           OpeningHoursSerDes::Header header)
+void OpeningHoursSerDes::Header::Serialize(BitWriter<Writer> & writer, OpeningHoursSerDes::Header header)
 {
   writer.Write(header.GetValue(), Header::GetBitsSize());
 }
@@ -169,8 +167,7 @@ OpeningHoursSerDes::Header OpeningHoursSerDes::Header::Deserialize(BitReader<Rea
 
 // OpeningHoursSerDes ------------------------------------------------------------------------------
 template <typename Writer>
-bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
-                                   osmoh::OpeningHours const & openingHours)
+bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours)
 {
   if (!IsSerializable(openingHours))
     return false;
@@ -179,8 +176,7 @@ bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
 }
 
 template <typename Writer>
-bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
-                                   std::string const & openingHoursString)
+bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, std::string const & openingHoursString)
 {
   osmoh::OpeningHours const oh(openingHoursString);
   if (!oh.IsValid())
@@ -190,8 +186,7 @@ bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer,
 }
 
 template <typename Writer>
-bool OpeningHoursSerDes::SerializeImpl(BitWriter<Writer> & writer,
-                                       osmoh::OpeningHours const & openingHours)
+bool OpeningHoursSerDes::SerializeImpl(BitWriter<Writer> & writer, osmoh::OpeningHours const & openingHours)
 {
   CheckSupportedFeatures();
 
@@ -248,10 +243,8 @@ osmoh::OpeningHours OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader)
 
     osmoh::RuleSequence rule;
     for (auto const supportedFeature : m_supportedFeatures)
-    {
       if (header.IsSet(supportedFeature))
         Deserialize(reader, supportedFeature, rule);
-    }
 
     rules.emplace_back(std::move(rule));
   }
@@ -266,8 +259,7 @@ osmoh::OpeningHours OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader)
 }
 
 template <typename Writer>
-bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, Header::Bits type,
-                                   osmoh::RuleSequence const & rule)
+bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, Header::Bits type, osmoh::RuleSequence const & rule)
 {
   uint8_t start = 0;
   uint8_t end = 0;
@@ -375,8 +367,7 @@ bool OpeningHoursSerDes::Serialize(BitWriter<Writer> & writer, Header::Bits type
 }
 
 template <typename Reader>
-void OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader,
-                                     OpeningHoursSerDes::Header::Bits type,
+void OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader, OpeningHoursSerDes::Header::Bits type,
                                      osmoh::RuleSequence & rule)
 {
   uint8_t const start = reader.Read(GetBitsNumber(type));
@@ -500,8 +491,7 @@ void OpeningHoursSerDes::Deserialize(BitReader<Reader> & reader,
 }
 
 template <typename Writer>
-bool OpeningHoursSerDes::SerializeValue(BitWriter<Writer> & writer, Header::Bits type,
-                                        uint8_t value)
+bool OpeningHoursSerDes::SerializeValue(BitWriter<Writer> & writer, Header::Bits type, uint8_t value)
 {
   uint8_t const bitsNumber = GetBitsNumber(type);
   if (value >= 1U << bitsNumber)
@@ -512,8 +502,7 @@ bool OpeningHoursSerDes::SerializeValue(BitWriter<Writer> & writer, Header::Bits
 }
 
 template <typename Writer>
-void OpeningHoursSerDes::SerializeRuleHeader(BitWriter<Writer> & writer,
-                                             osmoh::RuleSequence const & rule)
+void OpeningHoursSerDes::SerializeRuleHeader(BitWriter<Writer> & writer, osmoh::RuleSequence const & rule)
 {
   Header const header = CreateHeader(rule);
   Header::Serialize(writer, header);

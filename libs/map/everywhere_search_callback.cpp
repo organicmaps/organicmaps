@@ -19,8 +19,6 @@ void EverywhereSearchCallback::operator()(Results const & results)
     m_productInfo.push_back(m_delegate.GetProductInfo(results[i]));
 
   m_delegate.RunUITask([onResults = m_onResults, results, productInfo = m_productInfo]() mutable
-  {
-    onResults(std::move(results), std::move(productInfo));
-  });
+  { onResults(std::move(results), std::move(productInfo)); });
 }
 }  // namespace search

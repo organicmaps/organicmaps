@@ -30,11 +30,10 @@ public:
   virtual std::vector<RouteSegment::SpeedCamera> GetSpeedCameraInfo(Segment const & segment) = 0;
   virtual void Clear() = 0;
 
-  static std::unique_ptr<IndexGraphLoader> Create(
-      VehicleType vehicleType, bool loadAltitudes,
-      std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-      std::shared_ptr<EdgeEstimator> estimator, MwmDataSource & dataSource,
-      RoutingOptions routingOptions = RoutingOptions());
+  static std::unique_ptr<IndexGraphLoader> Create(VehicleType vehicleType, bool loadAltitudes,
+                                                  std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
+                                                  std::shared_ptr<EdgeEstimator> estimator, MwmDataSource & dataSource,
+                                                  RoutingOptions routingOptions = RoutingOptions());
 };
 
 void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, IndexGraph & graph);

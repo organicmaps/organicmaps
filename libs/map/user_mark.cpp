@@ -35,9 +35,7 @@ ms::LatLon UserMark::GetLatLon() const
   return mercator::ToLatLon(m_ptOrg);
 }
 
-StaticMarkPoint::StaticMarkPoint(m2::PointD const & ptOrg)
-  : UserMark(ptOrg, UserMark::Type::STATIC)
-{}
+StaticMarkPoint::StaticMarkPoint(m2::PointD const & ptOrg) : UserMark(ptOrg, UserMark::Type::STATIC) {}
 
 void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
 {
@@ -45,13 +43,9 @@ void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
   m_ptOrg = ptOrg;
 }
 
-MyPositionMarkPoint::MyPositionMarkPoint(m2::PointD const & ptOrg)
-  : StaticMarkPoint(ptOrg)
-{}
+MyPositionMarkPoint::MyPositionMarkPoint(m2::PointD const & ptOrg) : StaticMarkPoint(ptOrg) {}
 
-DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg)
-  : UserMark(ptOrg, UserMark::Type::DEBUG_MARK)
-{}
+DebugMarkPoint::DebugMarkPoint(m2::PointD const & ptOrg) : UserMark(ptOrg, UserMark::Type::DEBUG_MARK) {}
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> DebugMarkPoint::GetSymbolNames() const
 {
@@ -60,8 +54,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> DebugMarkPoint::GetSymbolNames(
   return symbol;
 }
 
-ColoredMarkPoint::ColoredMarkPoint(m2::PointD const & ptOrg)
-  : UserMark(ptOrg, UserMark::Type::COLORED)
+ColoredMarkPoint::ColoredMarkPoint(m2::PointD const & ptOrg) : UserMark(ptOrg, UserMark::Type::COLORED)
 {
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 

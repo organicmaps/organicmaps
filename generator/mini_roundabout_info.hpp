@@ -10,7 +10,10 @@
 
 #include <vector>
 
-namespace feature { class FeatureBuilder; }
+namespace feature
+{
+class FeatureBuilder;
+}
 
 namespace generator
 {

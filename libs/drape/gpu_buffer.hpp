@@ -17,8 +17,7 @@ public:
     IndexBuffer
   };
 
-  GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity,
-            uint64_t batcherHash);
+  GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity, uint64_t batcherHash);
   ~GPUBuffer() override;
 
   void UploadData(void const * data, uint32_t elementCount);

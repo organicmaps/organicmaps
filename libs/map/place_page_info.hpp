@@ -32,12 +32,12 @@ enum class OpeningMode
 
 enum class CoordinatesFormat
 {
-  LatLonDMS = 0, // DMS, comma separated
-  LatLonDecimal, // Decimal, comma separated
-  OLCFull, // Open location code, long format
-  OSMLink, // Link to osm.org
-  UTM, // Universal Transverse Mercator
-  MGRS // Military Grid Reference System
+  LatLonDMS = 0,  // DMS, comma separated
+  LatLonDecimal,  // Decimal, comma separated
+  OLCFull,        // Open location code, long format
+  OSMLink,        // Link to osm.org
+  UTM,            // Universal Transverse Mercator
+  MGRS            // Military Grid Reference System
 };
 
 struct BuildInfo
@@ -69,20 +69,11 @@ struct BuildInfo
     , m_userMarkId(info.m_markTapped)
   {}
 
-  bool IsFeatureMatchingEnabled() const
-  {
-    return m_match == Match::Everything || m_match == Match::FeatureOnly;
-  }
+  bool IsFeatureMatchingEnabled() const { return m_match == Match::Everything || m_match == Match::FeatureOnly; }
 
-  bool IsUserMarkMatchingEnabled() const
-  {
-    return m_match == Match::Everything || m_match == Match::UserMarkOnly;
-  }
+  bool IsUserMarkMatchingEnabled() const { return m_match == Match::Everything || m_match == Match::UserMarkOnly; }
 
-  bool IsTrackMatchingEnabled() const
-  {
-    return m_match == Match::Everything || m_match == Match::TrackOnly;
-  }
+  bool IsTrackMatchingEnabled() const { return m_match == Match::Everything || m_match == Match::TrackOnly; }
 
   Source m_source = Source::Other;
   m2::PointD m_mercator;
@@ -100,7 +91,6 @@ struct BuildInfo
 class Info : public osm::MapObject
 {
 public:
-
   void SetBuildInfo(place_page::BuildInfo const & info) { m_buildInfo = info; }
   place_page::BuildInfo const & GetBuildInfo() const { return m_buildInfo; }
 
@@ -118,8 +108,8 @@ public:
   bool ShouldShowAddBusiness() const { return IsBuilding(); }
   bool ShouldShowEditPlace() const;
 
-  bool ShouldEnableAddPlace() const { return m_canEditOrAdd; };
-  bool ShouldEnableEditPlace() const { return m_canEditOrAdd; };
+  bool ShouldEnableAddPlace() const { return m_canEditOrAdd; }
+  bool ShouldEnableEditPlace() const { return m_canEditOrAdd; }
 
   /// @returns true if Back API button should be displayed.
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
@@ -130,12 +120,15 @@ public:
   kml::LocalizableString FormatNewBookmarkName() const;
 
   /// For showing in UI
-  std::string const & GetTitle() const { return m_uiTitle; };
+  std::string const & GetTitle() const { return m_uiTitle; }
   /// Convenient wrapper for secondary feature name.
-  std::string const & GetSecondaryTitle() const { return m_uiSecondaryTitle; };
+  std::string const & GetSecondaryTitle() const { return m_uiSecondaryTitle; }
   /// Convenient wrapper for type, cuisines, elevation, stars, wifi etc.
-  std::string const & GetSubtitle() const { return m_uiSubtitle; };
-  std::string const & GetSecondarySubtitle() const { return !m_uiTrackStatistics.empty() ? m_uiTrackStatistics : m_uiAddress; };
+  std::string const & GetSubtitle() const { return m_uiSubtitle; }
+  std::string const & GetSecondarySubtitle() const
+  {
+    return !m_uiTrackStatistics.empty() ? m_uiTrackStatistics : m_uiAddress;
+  }
   std::string const & GetWikiDescription() const { return m_description; }
   /// @returns coordinate in DMS format if isDMS is true
   std::string GetFormattedCoordinate(CoordinatesFormat format) const;
@@ -161,8 +154,8 @@ public:
   kml::BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
 
   /// Track
-  void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; };
-  kml::TrackId GetTrackId() const { return m_trackId; };
+  void SetTrackId(kml::TrackId trackId) { m_trackId = trackId; }
+  kml::TrackId GetTrackId() const { return m_trackId; }
 
   /// Api
   void SetApiId(std::string const & apiId) { m_apiId = apiId; }
@@ -282,7 +275,7 @@ private:
 
   bool m_isHotel = false;
 
-  //uint8_t m_popularity = 0;
+  // uint8_t m_popularity = 0;
 
   std::string m_primaryFeatureName;
 

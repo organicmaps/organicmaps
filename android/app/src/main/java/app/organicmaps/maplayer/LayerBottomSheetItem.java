@@ -42,26 +42,26 @@ public class LayerBottomSheetItem
     int buttonTextResource = R.string.layers_title;
     switch (mode)
     {
-      case OUTDOORS:
-        disabledResource = R.attr.outdoorsMenuDisabled;
-        enabledResource = R.attr.outdoorsMenuEnabled;
-        buttonTextResource = R.string.button_layer_outdoor;
-        break;
-      case SUBWAY:
-        disabledResource = R.attr.subwayMenuDisabled;
-        enabledResource = R.attr.subwayMenuEnabled;
-        buttonTextResource = R.string.button_layer_subway;
-        break;
-      case ISOLINES:
-        disabledResource = R.attr.isoLinesMenuDisabled;
-        enabledResource = R.attr.isoLinesMenuEnabled;
-        buttonTextResource = R.string.button_layer_isolines;
-        break;
-      case TRAFFIC:
-        disabledResource = R.attr.trafficMenuDisabled;
-        enabledResource = R.attr.trafficMenuEnabled;
-        buttonTextResource = R.string.button_layer_traffic;
-        break;
+    case OUTDOORS:
+      disabledResource = R.attr.outdoorsMenuDisabled;
+      enabledResource = R.attr.outdoorsMenuEnabled;
+      buttonTextResource = R.string.button_layer_outdoor;
+      break;
+    case SUBWAY:
+      disabledResource = R.attr.subwayMenuDisabled;
+      enabledResource = R.attr.subwayMenuEnabled;
+      buttonTextResource = R.string.button_layer_subway;
+      break;
+    case ISOLINES:
+      disabledResource = R.attr.isoLinesMenuDisabled;
+      enabledResource = R.attr.isoLinesMenuEnabled;
+      buttonTextResource = R.string.button_layer_isolines;
+      break;
+    case TRAFFIC:
+      disabledResource = R.attr.trafficMenuDisabled;
+      enabledResource = R.attr.trafficMenuEnabled;
+      buttonTextResource = R.string.button_layer_traffic;
+      break;
     }
     int disabled = ThemeUtils.getResource(mContext, disabledResource);
     int enabled = ThemeUtils.getResource(mContext, enabledResource);

@@ -16,24 +16,20 @@ namespace openlr
 {
 namespace
 {
-bool ValidatePath(Graph::EdgeVector const & path,
-                  double const distanceToNextPoint,
-                  double const pathLengthTolerance)
+bool ValidatePath(Graph::EdgeVector const & path, double const distanceToNextPoint, double const pathLengthTolerance)
 {
-
   double pathLen = 0.0;
   for (auto const & e : path)
     pathLen += EdgeLength(e);
 
-  double pathDiffPercent = AbsDifference(static_cast<double>(distanceToNextPoint), pathLen) /
-                           static_cast<double>(distanceToNextPoint);
+  double pathDiffPercent =
+      AbsDifference(static_cast<double>(distanceToNextPoint), pathLen) / static_cast<double>(distanceToNextPoint);
 
   LOG(LDEBUG, ("Validating path:", LogAs2GisPath(path)));
 
   if (pathDiffPercent > pathLengthTolerance)
   {
-    LOG(LDEBUG,
-        ("Shortest path doest not meet required length constraints, error:", pathDiffPercent));
+    LOG(LDEBUG, ("Shortest path doest not meet required length constraints, error:", pathDiffPercent));
     return false;
   }
 
@@ -41,14 +37,12 @@ bool ValidatePath(Graph::EdgeVector const & path,
 }
 }  // namespace
 
-PathsConnector::PathsConnector(double pathLengthTolerance, Graph & graph,
-                               RoadInfoGetter & infoGetter, v2::Stats & stat)
+PathsConnector::PathsConnector(double pathLengthTolerance, Graph & graph, RoadInfoGetter & infoGetter, v2::Stats & stat)
   : m_pathLengthTolerance(pathLengthTolerance)
   , m_graph(graph)
   , m_infoGetter(infoGetter)
   , m_stat(stat)
-{
-}
+{}
 
 bool PathsConnector::ConnectCandidates(vector<LocationReferencePoint> const & points,
                                        vector<vector<Graph::EdgeVector>> const & lineCandidates,
@@ -79,16 +73,14 @@ bool PathsConnector::ConnectCandidates(vector<LocationReferencePoint> const & po
       {
         resultPathPart.clear();
 
-        found = ConnectAdjacentCandidateLines(fromCandidates[fromInd], toCandidates[toInd],
-                                              point.m_lfrcnp, distanceToNextPoint,
-                                              resultPathPart);
+        found = ConnectAdjacentCandidateLines(fromCandidates[fromInd], toCandidates[toInd], point.m_lfrcnp,
+                                              distanceToNextPoint, resultPathPart);
 
         if (!found)
           continue;
 
         found = ValidatePath(resultPathPart, distanceToNextPoint, m_pathLengthTolerance);
-        if (fakePath.empty() && found &&
-            (resultPathPart.front().IsFake() || resultPathPart.back().IsFake()))
+        if (fakePath.empty() && found && (resultPathPart.front().IsFake() || resultPathPart.back().IsFake()))
         {
           fakePath = resultPathPart;
           found = false;
@@ -127,10 +119,7 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
   {
     State(Graph::Edge const & e, uint32_t const s) : m_edge(e), m_score(s) {}
 
-    bool operator>(State const & o) const
-    {
-      return make_tuple(m_score, m_edge) > make_tuple(o.m_score, o.m_edge);
-    }
+    bool operator>(State const & o) const { return make_tuple(m_score, m_edge) > make_tuple(o.m_score, o.m_edge); }
 
     Graph::Edge m_edge;
     uint32_t m_score;
@@ -196,10 +185,8 @@ bool PathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge cons
   return false;
 }
 
-bool PathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & from,
-                                                   Graph::EdgeVector const & to,
-                                                   FunctionalRoadClass lowestFrcToNextPoint,
-                                                   double distanceToNextPoint,
+bool PathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & from, Graph::EdgeVector const & to,
+                                                   FunctionalRoadClass lowestFrcToNextPoint, double distanceToNextPoint,
                                                    Graph::EdgeVector & resultPath)
 
 {
@@ -217,8 +204,7 @@ bool PathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & fro
   ASSERT(from.back() != to.front(), ());
 
   Graph::EdgeVector shortestPath;
-  auto const found =
-      FindShortestPath(from.back(), to.front(), lowestFrcToNextPoint, distanceToNextPoint, shortestPath);
+  auto const found = FindShortestPath(from.back(), to.front(), lowestFrcToNextPoint, distanceToNextPoint, shortestPath);
   if (!found)
     return false;
 

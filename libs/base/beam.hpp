@@ -103,10 +103,7 @@ public:
     bool operator<(Entry const & rhs) const { return m_value > rhs.m_value; }
   };
 
-  explicit HeapBeam(size_t capacity) : m_capacity(capacity), m_size(0)
-  {
-    m_entries.reserve(m_capacity);
-  }
+  explicit HeapBeam(size_t capacity) : m_capacity(capacity), m_size(0) { m_entries.reserve(m_capacity); }
 
   // Tries to add a key-value pair to the beam. Evicts the entry with the lowest
   // value if the insertion would result in an overspill.

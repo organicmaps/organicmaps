@@ -2,11 +2,10 @@
 
 #include "base/thread_pool_delayed.hpp"
 
-#include <condition_variable>
 #include <chrono>
+#include <condition_variable>
 #include <future>
 #include <mutex>
-
 
 namespace thread_pool_delayed_tests
 {
@@ -52,7 +51,8 @@ UNIT_TEST(ThreadPoolDelayed_SimpleSync)
   TEST(pushResult.m_isSuccess, ());
   TEST_NOT_EQUAL(pushResult.m_id, DelayedThreadPool::kNoId, ());
 
-  pushResult = thread.Push([&]() {
+  pushResult = thread.Push([&]()
+  {
     lock_guard<mutex> lk(mu);
     done = true;
     cv.notify_one();
@@ -77,7 +77,8 @@ UNIT_TEST(ThreadPoolDelayed_SimpleFlush)
     TEST(pushResult.m_isSuccess, ());
     TEST_NOT_EQUAL(pushResult.m_id, DelayedThreadPool::kNoId, ());
 
-    pushResult = thread.Push([&value]() {
+    pushResult = thread.Push([&value]()
+    {
       for (int i = 0; i < 10; ++i)
         value *= 2;
     });
@@ -97,7 +98,8 @@ UNIT_TEST(ThreadPoolDelayed_PushFromPendingTask)
   auto f = p.get_future();
 
   DelayedThreadPool thread;
-  auto const pushResult = thread.Push([&f, &thread]() {
+  auto const pushResult = thread.Push([&f, &thread]()
+  {
     f.get();
     auto const innerPushResult = thread.Push([]() { TEST(false, ("This task should not be executed")); });
     TEST(!innerPushResult.m_isSuccess, ());
@@ -157,10 +159,7 @@ UNIT_TEST(ThreadPoolDelayed_DelayedAndImmediateTasks)
   }
 
   for (int i = 1; i < kNumTasks; ++i)
-  {
-    TEST(immediateEntries[i] >= immediateEntries[i - 1],
-         ("Failed delay for the immediate task", i));
-  }
+    TEST(immediateEntries[i] >= immediateEntries[i - 1], ("Failed delay for the immediate task", i));
 }
 
 UNIT_TEST(ThreadPoolDelayed_CancelImmediate)
@@ -171,7 +170,8 @@ UNIT_TEST(ThreadPoolDelayed_CancelImmediate)
     TaskLoop::TaskId cancelTaskId;
     DelayedThreadPool thread;
     {
-      auto const pushResult = thread.Push([&value]() {
+      auto const pushResult = thread.Push([&value]()
+      {
         ++value;
         testing::Wait();
       });
@@ -246,4 +246,4 @@ UNIT_TEST(ThreadPoolDelayed_CancelDelayed)
   TEST_EQUAL(value, 2, ());
 }
 
-} // namespace thread_pool_delayed_tests
+}  // namespace thread_pool_delayed_tests

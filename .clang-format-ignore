@@ -1,0 +1,8 @@
+# Files that should not be formatted.
+./3party
+# A patched copy of the https://registry.khronos.org/OpenGL/api/GLES3/gl3.h
+./android/sdk/src/main/cpp/app/organicmaps/sdk/opengl/gl3stub.h
+# Formatting it leads to crashes in runtime. Newer protobuf may fix it.
+./libs/indexer/drules_struct.pb.cc
+# No need to format this 3party tool.
+tools/osmctools/*.c

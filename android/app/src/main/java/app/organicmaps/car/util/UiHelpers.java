@@ -171,20 +171,20 @@ public final class UiHelpers
     int drawableRes;
     switch (locationMode)
     {
-      case LocationState.PENDING_POSITION, LocationState.NOT_FOLLOW_NO_POSITION ->
-        drawableRes = R.drawable.ic_location_off;
-      case LocationState.NOT_FOLLOW -> drawableRes = R.drawable.ic_not_follow;
-      case LocationState.FOLLOW ->
-      {
-        drawableRes = R.drawable.ic_follow;
-        tintColor = Colors.LOCATION_TINT;
-      }
-      case LocationState.FOLLOW_AND_ROTATE ->
-      {
-        drawableRes = R.drawable.ic_follow_and_rotate;
-        tintColor = Colors.LOCATION_TINT;
-      }
-      default -> throw new IllegalArgumentException("Invalid button mode: " + locationMode);
+    case LocationState.PENDING_POSITION, LocationState.NOT_FOLLOW_NO_POSITION ->
+      drawableRes = R.drawable.ic_location_off;
+    case LocationState.NOT_FOLLOW -> drawableRes = R.drawable.ic_not_follow;
+    case LocationState.FOLLOW ->
+    {
+      drawableRes = R.drawable.ic_follow;
+      tintColor = Colors.LOCATION_TINT;
+    }
+    case LocationState.FOLLOW_AND_ROTATE ->
+    {
+      drawableRes = R.drawable.ic_follow_and_rotate;
+      tintColor = Colors.LOCATION_TINT;
+    }
+    default -> throw new IllegalArgumentException("Invalid button mode: " + locationMode);
     }
 
     final CarIcon icon =

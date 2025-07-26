@@ -31,7 +31,7 @@ double constexpr kWalkingDistanceM = 5000.0;
 
 double constexpr AbsPenaltyPerKm()
 {
-  return - kDistanceToPivot * 1000.0 / RankingInfo::kMaxDistMeters;
+  return -kDistanceToPivot * 1000.0 / RankingInfo::kMaxDistMeters;
 }
 
 // These constants are very important and checked in Famous_Cities_Rank test.
@@ -42,7 +42,7 @@ double constexpr kErrorsMade = -0.4;
 double constexpr kMatchedFraction = 0.1876736;
 double constexpr kAllTokensUsed = 0.3;
 double constexpr kCommonTokens = -0.05;
-double constexpr kAltOldName = -0.3;    // Some reasonable penalty like kErrorsMade.
+double constexpr kAltOldName = -0.3;  // Some reasonable penalty like kErrorsMade.
 
 // Some thoughts about reasonable diff here:
 // - should be a bit less than fabs(kAltOldName) to filter non-obvious matching
@@ -53,62 +53,62 @@ static_assert(kViewportDiffThreshold < -kAltOldName && kViewportDiffThreshold > 
 static_assert(kViewportDiffThreshold < kAllTokensUsed);
 
 double constexpr kNameScore[] = {
- -0.05,   // Zero
-  0,      // Substring
-  0.01,   // Prefix
-  0.012,  // First Match
-  0.018,  // Full Prefix
-  0.02,   // Full Match
+    -0.05,  // Zero
+    0,      // Substring
+    0.01,   // Prefix
+    0.012,  // First Match
+    0.018,  // Full Prefix
+    0.02,   // Full Match
 };
 static_assert(std::size(kNameScore) == base::E2I(NameScore::COUNT));
 
 // 0-based factors from POIs, Streets, Buildings, since we don't have ratings or popularities now.
 double constexpr kType[] = {
-  0,          // POI
-  0,          // Complex POI
-  0.007,      // Building, to compensate max(kStreetType), see Arbat_Address test.
-  0,          // Street
-  0,          // Suburb
- -0.025,      // Unclassified
-  0,          // Village
-  0.01,       // City
-  0.0233254,  // State
-  0.1679389,  // Country
+    0,          // POI
+    0,          // Complex POI
+    0.007,      // Building, to compensate max(kStreetType), see Arbat_Address test.
+    0,          // Street
+    0,          // Suburb
+    -0.025,     // Unclassified
+    0,          // Village
+    0.01,       // City
+    0.0233254,  // State
+    0.1679389,  // Country
 };
 static_assert(std::size(kType) == Model::TYPE_COUNT);
 
 // 0-based factors from General.
 double constexpr kPoiType[] = {
-  0.03,       // TransportMajor
-  0.003,      // TransportLocal (0 < it < Residential st)
-  0.01,       // Eat
-  0.01,       // Hotel
-  0.01,       // Shop or Amenity
-  0.01,       // Attraction
-  0.008,      // CarInfra
-  0.005,      // PureCategory
-  0,          // General
- -0.01,       // Service
+    0.03,   // TransportMajor
+    0.003,  // TransportLocal (0 < it < Residential st)
+    0.01,   // Eat
+    0.01,   // Hotel
+    0.01,   // Shop or Amenity
+    0.01,   // Attraction
+    0.008,  // CarInfra
+    0.005,  // PureCategory
+    0,      // General
+    -0.01,  // Service
 };
 static_assert(std::size(kPoiType) == base::E2I(PoiType::Count));
 
 // - When search for "eat", we'd prefer category types, rather than "eat" name.
 // - To _equalize_ "subway" search: Metro category should be equal with "Subway" fast food.
 // - See NY_Subway test.
-double constexpr kFalseCats =
-    kNameScore[base::E2I(NameScore::FULL_PREFIX)] - kNameScore[base::E2I(NameScore::FULL_MATCH)] +
-    kPoiType[base::E2I(PoiType::PureCategory)] - kPoiType[base::E2I(PoiType::Eat)];
+double constexpr kFalseCats = kNameScore[base::E2I(NameScore::FULL_PREFIX)] -
+                              kNameScore[base::E2I(NameScore::FULL_MATCH)] +
+                              kPoiType[base::E2I(PoiType::PureCategory)] - kPoiType[base::E2I(PoiType::Eat)];
 static_assert(kFalseCats < 0.0);
 
 double constexpr kStreetType[] = {
-  0,          // Default
-  0,          // Pedestrian
-  0,          // Cycleway
-  0,          // Outdoor
-  0.004,      // Minors
-  0.004,      // Residential
-  0.005,      // Regular
-  0.006,      // Motorway
+    0,      // Default
+    0,      // Pedestrian
+    0,      // Cycleway
+    0,      // Outdoor
+    0.004,  // Minors
+    0.004,  // Residential
+    0.005,  // Regular
+    0.006,  // Motorway
 };
 static_assert(std::size(kStreetType) == base::Underlying(StreetType::Count));
 
@@ -156,7 +156,7 @@ protected:
   std::vector<uint32_t> m_types;
 
 public:
-  bool operator() (feature::TypesHolder const & th) const
+  bool operator()(feature::TypesHolder const & th) const
   {
     return base::AnyOf(m_types, [&th](uint32_t t) { return th.HasWithSubclass(t); });
   }
@@ -167,7 +167,7 @@ class IsAttraction
   std::vector<uint32_t> m_types;
 
 public:
-  bool operator() (feature::TypesHolder const & th) const
+  bool operator()(feature::TypesHolder const & th) const
   {
     // Strict check (unlike in BaseTypesChecker) to avoid matching:
     // - historic-memorial-plaque
@@ -187,11 +187,11 @@ public:
 
     // Add _attraction_ leisures too!
     base::StringIL const types[] = {
-      {"leisure", "beach_resort"},
-      {"leisure", "garden"},
-      {"leisure", "marina"},
-      {"leisure", "nature_reserve"},
-      {"leisure", "park"},
+        {"leisure",   "beach_resort"},
+        {"leisure",         "garden"},
+        {"leisure",         "marina"},
+        {"leisure", "nature_reserve"},
+        {"leisure",           "park"},
     };
 
     Classificator const & c = classif();
@@ -206,24 +206,24 @@ public:
   IsShopOrAmenity()
   {
     base::StringIL const types[] = {
-      {"shop"},
+        {"shop"},
 
-      // Amenity types are very fragmented, so take only most _interesting_ here.
-      {"amenity", "bank"},
-      {"amenity", "brothel"},
-      {"amenity", "casino"},
-      {"amenity", "cinema"},
-      {"amenity", "clinic"},
-      {"amenity", "hospital"},
-      {"amenity", "ice_cream"},
-      {"amenity", "library"},
-      {"amenity", "marketplace"},
-      {"amenity", "nightclub"},
-      {"amenity", "pharmacy"},
-      {"amenity", "police"},
-      {"amenity", "post_office"},
-      {"amenity", "stripclub"},
-      {"amenity", "theatre"},
+        // Amenity types are very fragmented, so take only most _interesting_ here.
+        {"amenity", "bank"},
+        {"amenity", "brothel"},
+        {"amenity", "casino"},
+        {"amenity", "cinema"},
+        {"amenity", "clinic"},
+        {"amenity", "hospital"},
+        {"amenity", "ice_cream"},
+        {"amenity", "library"},
+        {"amenity", "marketplace"},
+        {"amenity", "nightclub"},
+        {"amenity", "pharmacy"},
+        {"amenity", "police"},
+        {"amenity", "post_office"},
+        {"amenity", "stripclub"},
+        {"amenity", "theatre"},
     };
 
     Classificator const & c = classif();
@@ -238,16 +238,16 @@ public:
   IsCarInfra()
   {
     base::StringIL const types[] = {
-      {"amenity", "car_rental"},
-      {"amenity", "car_sharing"},
-      {"amenity", "car_wash"},
-      {"amenity", "charging_station"},
-      {"amenity", "fuel"},
-      // Do not add parking here, no need to rank them by name.
-      //{"amenity", "parking"},
+        {"amenity",       "car_rental"},
+        {"amenity",      "car_sharing"},
+        {"amenity",         "car_wash"},
+        {"amenity", "charging_station"},
+        {"amenity",             "fuel"},
+        // Do not add parking here, no need to rank them by name.
+        //{"amenity", "parking"},
 
-      {"highway", "rest_area"},
-      {"highway", "services"},
+        {"highway",        "rest_area"},
+        {"highway",         "services"},
     };
 
     Classificator const & c = classif();
@@ -292,8 +292,7 @@ std::string DebugPrint(StoredRankingInfo const & info)
 {
   ostringstream os;
   os << "StoredRankingInfo "
-     << "{ m_distanceToPivot: " << info.m_distanceToPivot
-     << ", m_type: " << DebugPrint(info.m_type)
+     << "{ m_distanceToPivot: " << info.m_distanceToPivot << ", m_type: " << DebugPrint(info.m_type)
      << ", m_classifType: ";
 
   if (Model::IsPoi(info.m_type))
@@ -308,26 +307,17 @@ std::string DebugPrint(StoredRankingInfo const & info)
 string DebugPrint(RankingInfo const & info)
 {
   ostringstream os;
-  os << boolalpha << "RankingInfo { "
-     << DebugPrint(static_cast<StoredRankingInfo const &>(info)) << ", ";
+  os << boolalpha << "RankingInfo { " << DebugPrint(static_cast<StoredRankingInfo const &>(info)) << ", ";
 
   PrintParse(os, info.m_tokenRanges, info.m_numTokens);
 
-  os << ", m_rank: " << static_cast<int>(info.m_rank)
-     << ", m_popularity: " << static_cast<int>(info.m_popularity)
-     << ", m_nameScore: " << DebugPrint(info.m_nameScore)
-     << ", m_errorsMade: " << DebugPrint(info.m_errorsMade)
-     << ", m_isAltOrOldName: " << info.m_isAltOrOldName
-     << ", m_numTokens: " << info.m_numTokens
-     << ", m_commonTokensFactor: " << info.m_commonTokensFactor
-     << ", m_matchedFraction: " << info.m_matchedFraction
-     << ", m_pureCats: " << info.m_pureCats
-     << ", m_falseCats: " << info.m_falseCats
-     << ", m_allTokensUsed: " << info.m_allTokensUsed
-     << ", m_categorialRequest: " << info.m_categorialRequest
-     << ", m_hasName: " << info.m_hasName
-     << ", m_nearbyMatch: " << info.m_nearbyMatch
-     << " }";
+  os << ", m_rank: " << static_cast<int>(info.m_rank) << ", m_popularity: " << static_cast<int>(info.m_popularity)
+     << ", m_nameScore: " << DebugPrint(info.m_nameScore) << ", m_errorsMade: " << DebugPrint(info.m_errorsMade)
+     << ", m_isAltOrOldName: " << info.m_isAltOrOldName << ", m_numTokens: " << info.m_numTokens
+     << ", m_commonTokensFactor: " << info.m_commonTokensFactor << ", m_matchedFraction: " << info.m_matchedFraction
+     << ", m_pureCats: " << info.m_pureCats << ", m_falseCats: " << info.m_falseCats
+     << ", m_allTokensUsed: " << info.m_allTokensUsed << ", m_categorialRequest: " << info.m_categorialRequest
+     << ", m_hasName: " << info.m_hasName << ", m_nearbyMatch: " << info.m_nearbyMatch << " }";
 
   return os.str();
 }
@@ -397,8 +387,7 @@ double RankingInfo::GetLinearModelRank(bool viewportMode /* = false */) const
     if (m_allTokensUsed)
       result += kAllTokensUsed;
 
-    auto const nameRank = kNameScore[static_cast<size_t>(GetNameScore())] +
-                          kErrorsMade * GetErrorsMadePerToken() +
+    auto const nameRank = kNameScore[static_cast<size_t>(GetNameScore())] + kErrorsMade * GetErrorsMadePerToken() +
                           kMatchedFraction * m_matchedFraction;
     result += nameRank;
 
@@ -448,10 +437,8 @@ NameScore RankingInfo::GetNameScore() const
   {
     // Promote POI's name rank if all tokens were matched with TYPE_SUBPOI/TYPE_COMPLEXPOI only.
     for (int i = Model::TYPE_BUILDING; i < Model::TYPE_COUNT; ++i)
-    {
       if (!m_tokenRanges[i].Empty())
         return m_nameScore;
-    }
 
     // It's better for ranking when POIs would be equal by name score in the next cases:
 
@@ -497,8 +484,7 @@ PoiType GetPoiType(feature::TypesHolder const & th)
   if (IsHotelChecker::Instance()(th))
     return PoiType::Hotel;
 
-  if (IsRailwayStationChecker::Instance()(th) ||
-      IsSubwayStationChecker::Instance()(th) ||
+  if (IsRailwayStationChecker::Instance()(th) || IsSubwayStationChecker::Instance()(th) ||
       IsAirportChecker::Instance()(th))
   {
     return PoiType::TransportMajor;

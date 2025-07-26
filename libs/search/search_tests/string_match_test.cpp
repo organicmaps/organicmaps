@@ -104,29 +104,29 @@ UNIT_TEST(StringMatchCost_PrefixMatch)
 
 UNIT_TEST(StringSplit_Smoke)
 {
-  TestEqual(NormalizeAndTokenizeString("1/2"), { "1", "2" });
-  TestEqual(NormalizeAndTokenizeString("xxx-yyy"), { "xxx", "yyy" });
+  TestEqual(NormalizeAndTokenizeString("1/2"), {"1", "2"});
+  TestEqual(NormalizeAndTokenizeString("xxx-yyy"), {"xxx", "yyy"});
 }
 
 UNIT_TEST(StringSplit_Apostrophe)
 {
-  TestEqual(NormalizeAndTokenizeString("Barne's & Noble"), { "barnes", "noble" });
-  TestEqual(NormalizeAndTokenizeString("Michael's"), { "michaels" });
-  TestEqual(NormalizeAndTokenizeString("'s"), { "s" });
-  TestEqual(NormalizeAndTokenizeString("xyz'"), { "xyz" });
-  TestEqual(NormalizeAndTokenizeString("'''"), { });
+  TestEqual(NormalizeAndTokenizeString("Barne's & Noble"), {"barnes", "noble"});
+  TestEqual(NormalizeAndTokenizeString("Michael's"), {"michaels"});
+  TestEqual(NormalizeAndTokenizeString("'s"), {"s"});
+  TestEqual(NormalizeAndTokenizeString("xyz'"), {"xyz"});
+  TestEqual(NormalizeAndTokenizeString("'''"), {});
 }
 
 UNIT_TEST(StringSplit_NumeroHashtag)
 {
-  TestEqual(NormalizeAndTokenizeString("Зона №51"), { "зона", "51" });
-  TestEqual(NormalizeAndTokenizeString("Зона № 51"), { "зона", "51" });
-  TestEqual(NormalizeAndTokenizeString("Area #51"), { "area", "51" });
-  TestEqual(NormalizeAndTokenizeString("Area # "), { "area" });
-  TestEqual(NormalizeAndTokenizeString("Area #One"), { "area", "one" });
-  TestEqual(NormalizeAndTokenizeString("xxx#yyy"), { "xxx", "yyy" });
-  TestEqual(NormalizeAndTokenizeString("#'s"), { "s" });
-  TestEqual(NormalizeAndTokenizeString("##osm's"), { "osms" });
+  TestEqual(NormalizeAndTokenizeString("Зона №51"), {"зона", "51"});
+  TestEqual(NormalizeAndTokenizeString("Зона № 51"), {"зона", "51"});
+  TestEqual(NormalizeAndTokenizeString("Area #51"), {"area", "51"});
+  TestEqual(NormalizeAndTokenizeString("Area # "), {"area"});
+  TestEqual(NormalizeAndTokenizeString("Area #One"), {"area", "one"});
+  TestEqual(NormalizeAndTokenizeString("xxx#yyy"), {"xxx", "yyy"});
+  TestEqual(NormalizeAndTokenizeString("#'s"), {"s"});
+  TestEqual(NormalizeAndTokenizeString("##osm's"), {"osms"});
 }
 
-} // namespace string_match_test
+}  // namespace string_match_test

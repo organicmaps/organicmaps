@@ -31,9 +31,9 @@ UNIT_TEST(VertexBuffer_Benchmark)
   using ValueT = gpu::TextOutlinedStaticVertex;
   // using ValueT = gpu::TextDynamicVertex
   ValueT objs[] = {
-    {{1, 1}, {2, 2}, {3, 3}},
-    {{4, 4}, {5, 5}, {6, 6}},
-    {{7, 7}, {8, 8}, {9, 9}},
+      {{1, 1}, {2, 2}, {3, 3}},
+      {{4, 4}, {5, 5}, {6, 6}},
+      {{7, 7}, {8, 8}, {9, 9}},
   };
 
   // Very comfortable for buffer_vector<ValueT, kUpperBound>.
@@ -86,12 +86,12 @@ UNIT_TEST(VertexBuffer_Benchmark)
     t4 = timer.ElapsedMilliseconds();
   }
 
-  LOG(LINFO, ("vector time:", t1, "buffer_vector time:", t2,
-              "boost::small_vector time:", t3, "reserved vector time:", t4));
+  LOG(LINFO,
+      ("vector time:", t1, "buffer_vector time:", t2, "boost::small_vector time:", t3, "reserved vector time:", t4));
   TEST_LESS(t2, t1, ());
   TEST_LESS(t3, t2, ());
   // TODO: Fix this condition
-  //TEST_LESS(t4, t3, ());
+  // TEST_LESS(t4, t3, ());
 }
 #endif
-} // namespace vertex_buffer_tests
+}  // namespace vertex_buffer_tests

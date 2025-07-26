@@ -7,7 +7,6 @@
 #include <memory>
 #include <vector>
 
-
 namespace base
 {
 namespace
@@ -17,11 +16,10 @@ typedef std::function<threads::IRoutine *()> TPopRoutineFn;
 class PoolRoutine : public threads::IRoutine
 {
 public:
-  PoolRoutine(const TPopRoutineFn & popFn, const ThreadPool::TFinishRoutineFn & finishFn)
+  PoolRoutine(TPopRoutineFn const & popFn, ThreadPool::TFinishRoutineFn const & finishFn)
     : m_popFn(popFn)
     , m_finishFn(finishFn)
-  {
-  }
+  {}
 
   virtual void Do()
   {
@@ -44,12 +42,12 @@ private:
   TPopRoutineFn m_popFn;
   ThreadPool::TFinishRoutineFn m_finishFn;
 };
-} // namespace
+}  // namespace
 
 class ThreadPool::Impl
 {
 public:
-  Impl(size_t size, const TFinishRoutineFn & finishFn) : m_finishFn(finishFn), m_threads(size)
+  Impl(size_t size, TFinishRoutineFn const & finishFn) : m_finishFn(finishFn), m_threads(size)
   {
     ASSERT_GREATER(size, 0, ());
     for (auto & thread : m_threads)
@@ -59,10 +57,7 @@ public:
     }
   }
 
-  ~Impl()
-  {
-    Stop();
-  }
+  ~Impl() { Stop(); }
 
   void PushBack(threads::IRoutine * routine)
   {
@@ -76,10 +71,7 @@ public:
     m_tasks.PushFront(routine);
   }
 
-  threads::IRoutine * PopFront()
-  {
-    return m_tasks.Front(true);
-  }
+  threads::IRoutine * PopFront() { return m_tasks.Front(true); }
 
   void Stop()
   {
@@ -109,8 +101,7 @@ private:
   std::vector<std::unique_ptr<threads::Thread>> m_threads;
 };
 
-ThreadPool::ThreadPool(size_t size, const TFinishRoutineFn & finishFn)
-  : m_impl(new Impl(size, finishFn)) {}
+ThreadPool::ThreadPool(size_t size, TFinishRoutineFn const & finishFn) : m_impl(new Impl(size, finishFn)) {}
 
 ThreadPool::~ThreadPool()
 {
@@ -132,4 +123,4 @@ void ThreadPool::Stop()
   m_impl->Stop();
 }
 
-} // namespace base
+}  // namespace base

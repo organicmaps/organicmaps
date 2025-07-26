@@ -5,8 +5,8 @@
 #include "routing/segment.hpp"
 #include "routing/speed_camera.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
@@ -34,8 +34,7 @@ static_assert(kMaxCameraSpeedKmpH == routing::SpeedCameraOnRoute::kNoSpeedInfo);
 struct SpeedCameraMwmPosition
 {
   SpeedCameraMwmPosition() = default;
-  SpeedCameraMwmPosition(uint32_t fId, uint32_t sId, double k)
-    : m_featureId(fId), m_segmentId(sId), m_coef(k) {}
+  SpeedCameraMwmPosition(uint32_t fId, uint32_t sId, double k) : m_featureId(fId), m_segmentId(sId), m_coef(k) {}
 
   uint32_t m_featureId = 0;
   uint32_t m_segmentId = 0;
@@ -54,9 +53,11 @@ enum class SpeedCameraDirection
 struct SpeedCameraMetadata
 {
   SpeedCameraMetadata() = default;
-  SpeedCameraMetadata(m2::PointD const & center, uint8_t maxSpeed,
-                      std::vector<routing::SpeedCameraMwmPosition> && ways)
-    : m_center(center), m_maxSpeedKmPH(maxSpeed), m_ways(std::move(ways)) {}
+  SpeedCameraMetadata(m2::PointD const & center, uint8_t maxSpeed, std::vector<routing::SpeedCameraMwmPosition> && ways)
+    : m_center(center)
+    , m_maxSpeedKmPH(maxSpeed)
+    , m_ways(std::move(ways))
+  {}
 
   m2::PointD m_center;
   uint8_t m_maxSpeedKmPH = 0;
@@ -98,12 +99,11 @@ static_assert(sizeof(SpeedCameraMwmHeader) == 8, "Strange size of speed camera s
 
 using SegmentCoord = RoadPoint;
 
-void SerializeSpeedCamera(FileWriter & writer, SpeedCameraMetadata const & data,
-                          uint32_t & prevFeatureId);
+void SerializeSpeedCamera(FileWriter & writer, SpeedCameraMetadata const & data, uint32_t & prevFeatureId);
 
 template <typename Reader>
-std::pair<SegmentCoord, RouteSegment::SpeedCamera> DeserializeSpeedCamera(
-  ReaderSource<Reader> & src, uint32_t & prevFeatureId)
+std::pair<SegmentCoord, RouteSegment::SpeedCamera> DeserializeSpeedCamera(ReaderSource<Reader> & src,
+                                                                          uint32_t & prevFeatureId)
 {
   auto featureId = ReadVarUint<uint32_t>(src);
   featureId += prevFeatureId;  // delta coding
@@ -126,15 +126,17 @@ std::pair<SegmentCoord, RouteSegment::SpeedCamera> DeserializeSpeedCamera(
 
   // Number of time conditions of camera.
   auto const conditionsNumber = ReadVarUint<uint32_t>(src);
-  CHECK_EQUAL(conditionsNumber, 0,
-              ("Number of conditions should be 0, non zero number is not implemented now"));
+  CHECK_EQUAL(conditionsNumber, 0, ("Number of conditions should be 0, non zero number is not implemented now"));
 
-  return {{featureId, segmentId} /* SegmentCoord */,
-          {coef, speed}          /* RouteSegment::SpeedCamera */};
+  return {
+      {featureId, segmentId}  /* SegmentCoord */,
+      {     coef,     speed}  /* RouteSegment::SpeedCamera */
+  };
 }
 
 using SpeedCamerasMapT = std::map<SegmentCoord, std::vector<RouteSegment::SpeedCamera>>;
-template <typename Reader> void DeserializeSpeedCamsFromMwm(ReaderSource<Reader> & src, SpeedCamerasMapT & map)
+template <typename Reader>
+void DeserializeSpeedCamsFromMwm(ReaderSource<Reader> & src, SpeedCamerasMapT & map)
 {
   SpeedCameraMwmHeader header;
   header.Deserialize(src);

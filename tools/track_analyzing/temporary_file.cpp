@@ -10,8 +10,7 @@ TemporaryFile::TemporaryFile() : m_filePath(GetPlatform().TmpPathForFile()) {}
 
 TemporaryFile::TemporaryFile(std::string const & namePrefix, std::string const & nameSuffix)
   : m_filePath(GetPlatform().TmpPathForFile(namePrefix, nameSuffix))
-{
-}
+{}
 
 TemporaryFile::~TemporaryFile()
 {

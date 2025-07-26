@@ -21,18 +21,17 @@ TranslatorComplex::TranslatorComplex(std::shared_ptr<FeatureProcessorInterface> 
                                      std::shared_ptr<cache::IntermediateData> const & cache,
                                      feature::GenerateInfo const & info)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
-  , m_tagReplacer(std::make_shared<TagReplacer>(
-                    base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
+  , m_tagReplacer(std::make_shared<TagReplacer>(base::JoinPath(GetPlatform().ResourcesDir(), REPLACED_TAGS_FILE)))
 {
   auto filters = std::make_shared<FilterCollection>();
   filters->Append(std::make_shared<FilterPlanet>());
   filters->Append(std::make_shared<FilterComplex>());
-  filters->Append(std::make_shared<FilterElements>(
-      base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
+  filters->Append(
+      std::make_shared<FilterElements>(base::JoinPath(GetPlatform().ResourcesDir(), SKIPPED_ELEMENTS_FILE)));
   SetFilter(filters);
 
-  SetCollector(std::make_shared<BuildingPartsCollector>(
-                 info.GetIntermediateFileName(BUILDING_PARTS_MAPPING_FILE), cache->GetCache()));
+  SetCollector(std::make_shared<BuildingPartsCollector>(info.GetIntermediateFileName(BUILDING_PARTS_MAPPING_FILE),
+                                                        cache->GetCache()));
 }
 
 void TranslatorComplex::Preprocess(OsmElement & element)
@@ -47,7 +46,13 @@ std::shared_ptr<TranslatorInterface> TranslatorComplex::Clone() const
   return copy;
 }
 
-void TranslatorComplex::Merge(TranslatorInterface const & other) { other.MergeInto(*this); }
+void TranslatorComplex::Merge(TranslatorInterface const & other)
+{
+  other.MergeInto(*this);
+}
 
-void TranslatorComplex::MergeInto(TranslatorComplex & other) const { MergeIntoBase(other); }
+void TranslatorComplex::MergeInto(TranslatorComplex & other) const
+{
+  MergeIntoBase(other);
+}
 }  // namespace generator

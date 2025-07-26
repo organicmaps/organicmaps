@@ -1,10 +1,10 @@
 @interface MWMPlacePageOpeningHoursDayView : UIView
 
-@property (nonatomic) BOOL currentDay;
-@property (nonatomic) CGFloat viewHeight;
-@property (nonatomic) BOOL isCompatibility;
+@property(nonatomic) BOOL currentDay;
+@property(nonatomic) CGFloat viewHeight;
+@property(nonatomic) BOOL isCompatibility;
 
-@property (nonatomic) CGFloat openTimeLeadingOffset;
+@property(nonatomic) CGFloat openTimeLeadingOffset;
 
 - (void)setLabelText:(NSString *)text isRed:(BOOL)isRed;
 - (void)setOpenTimeText:(NSString *)text;

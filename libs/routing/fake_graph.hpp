@@ -18,9 +18,8 @@ public:
   // Adds vertex. Connects newSegment to existentSegment. Adds ingoing and
   // outgoing edges, fills segment to vertex mapping. Fills real to fake and fake to real
   // mapping if isPartOfReal is true.
-  void AddVertex(Segment const & existentSegment, Segment const & newSegment,
-                 FakeVertex const & newVertex, bool isOutgoing, bool isPartOfReal,
-                 Segment const & real);
+  void AddVertex(Segment const & existentSegment, Segment const & newSegment, FakeVertex const & newVertex,
+                 bool isOutgoing, bool isPartOfReal, Segment const & real);
   // Adds connection from existent fake segment |from| to existent fake segment |to|
   void AddConnection(Segment const & from, Segment const & to);
   // Merges |rhs| into this.

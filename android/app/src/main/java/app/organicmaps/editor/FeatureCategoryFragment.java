@@ -2,28 +2,39 @@ package app.organicmaps.editor;
 
 import static app.organicmaps.sdk.util.Utils.getLocalizedFeatureType;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
+import app.organicmaps.dialog.EditTextDialogFragment;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.editor.Editor;
+import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.editor.data.FeatureCategory;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.SearchToolbarController;
 import app.organicmaps.widget.ToolbarController;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCategoryAdapter>
+public class FeatureCategoryFragment
+    extends BaseMwmRecyclerFragment<FeatureCategoryAdapter> implements FeatureCategoryAdapter.FooterListener
 {
   private FeatureCategory mSelectedCategory;
   protected ToolbarController mToolbarController;
+  private static final String NOTE_CONFIRMATION_SHOWN = "NoteConfirmationAlertWasShown";
+  private static String mPendingNoteText = "";
 
   public interface FeatureCategoryListener
   {
@@ -103,5 +114,65 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
       ((FeatureCategoryListener) requireActivity()).onFeatureCategorySelected(category);
     else if (getParentFragment() instanceof FeatureCategoryListener)
       ((FeatureCategoryListener) getParentFragment()).onFeatureCategorySelected(category);
+  }
+
+  public String getPendingNoteText()
+  {
+    return mPendingNoteText;
+  }
+
+  @Override
+  public void onNoteTextChanged(String newText)
+  {
+    mPendingNoteText = newText;
+  }
+
+  @Override
+  public void onSendNoteClicked()
+  {
+    if (!OsmOAuth.isAuthorized())
+    {
+      final Intent intent = new Intent(requireActivity(), OsmLoginActivity.class);
+      startActivity(intent);
+      return;
+    }
+
+    final double[] center = Framework.nativeGetScreenRectCenter();
+    final double lat = center[0];
+    final double lon = center[1];
+
+    if (!MwmApplication.prefs(requireContext().getApplicationContext()).contains(NOTE_CONFIRMATION_SHOWN))
+    {
+      showNoteConfirmationDialog(lat, lon, mPendingNoteText);
+    }
+    else
+    {
+      Editor.nativeCreateStandaloneNote(lat, lon, mPendingNoteText);
+      mPendingNoteText = "";
+      Toast.makeText(requireContext(), R.string.osm_note_toast, Toast.LENGTH_SHORT).show();
+      requireActivity().finish();
+    }
+  }
+
+  // Duplicate of showNoobDialog()
+  private void showNoteConfirmationDialog(double lat, double lon, String noteText)
+  {
+    new MaterialAlertDialogBuilder(requireActivity(), R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.editor_share_to_all_dialog_title)
+        .setMessage(getString(R.string.editor_share_to_all_dialog_message_1) + " "
+                    + getString(R.string.editor_share_to_all_dialog_message_2))
+        .setPositiveButton(android.R.string.ok,
+                           (dlg, which) -> {
+                             MwmApplication.prefs(requireContext().getApplicationContext())
+                                 .edit()
+                                 .putBoolean(NOTE_CONFIRMATION_SHOWN, true)
+                                 .apply();
+                             Editor.nativeCreateStandaloneNote(lat, lon, noteText);
+                             mPendingNoteText = "";
+                             Toast.makeText(requireContext(), R.string.osm_note_toast, Toast.LENGTH_SHORT).show();
+                             requireActivity().finish();
+                           })
+        .setNegativeButton(R.string.cancel, null)
+        .show();
   }
 }

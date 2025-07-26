@@ -14,8 +14,7 @@ class ProcessorSimple : public FeatureProcessorInterface
 {
 public:
   // |name| is bucket name. For example it may be "World", "geo_objects", "regions" etc.
-  explicit ProcessorSimple(std::shared_ptr<FeatureProcessorQueue> const & queue,
-                           std::string const & name);
+  explicit ProcessorSimple(std::shared_ptr<FeatureProcessorQueue> const & queue, std::string const & name);
 
   // FeatureProcessorInterface overrides:
   std::shared_ptr<FeatureProcessorInterface> Clone() const override;
@@ -27,8 +26,7 @@ public:
 
 private:
   std::string m_name;
-  std::shared_ptr<AffiliationsFeatureLayer<feature::serialization_policy::MinSize>>
-      m_affiliationsLayer;
+  std::shared_ptr<AffiliationsFeatureLayer<feature::serialization_policy::MinSize>> m_affiliationsLayer;
   std::shared_ptr<FeatureProcessorQueue> m_queue;
   std::shared_ptr<LayerBase> m_processingChain;
 };

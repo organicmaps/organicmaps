@@ -21,7 +21,7 @@ using TValueType = typename ValueType<T>::TType;
 // More examples:
 // auto const mySet = collection_cast<set>("aaabcccd");
 // auto const myMap = collection_cast<map>(vector<pair<int, int>>{{1, 2}, {3, 4}});
-template <template<typename ... TArgs> class TTo, typename TFrom>
+template <template <typename... TArgs> class TTo, typename TFrom>
 auto collection_cast(TFrom && from) -> TTo<details::TValueType<TFrom>>
 {
   return TTo<details::TValueType<TFrom>>(begin(from), end(from));

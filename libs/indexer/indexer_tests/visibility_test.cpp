@@ -1,9 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "indexer/feature_data.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/logging.hpp"
@@ -32,21 +32,20 @@ class DoGetMaxLowMinHighZoom
   }
 
 public:
-  explicit DoGetMaxLowMinHighZoom(Classificator const & c)
-    : m_classif(classif()), m_res(-1, 1000)
+  explicit DoGetMaxLowMinHighZoom(Classificator const & c) : m_classif(classif()), m_res(-1, 1000)
   {
     char const * arr[][2] = {
-      {"highway", "bus_stop"},
-      {"highway", "speed_camera"},
-      {"highway", "world_level"},
-      {"highway", "world_towns_level"},
+        {"highway",          "bus_stop"},
+        {"highway",      "speed_camera"},
+        {"highway",       "world_level"},
+        {"highway", "world_towns_level"},
     };
 
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
       m_skip.insert(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
   }
 
-  void operator() (ClassifObject const * p, uint32_t type)
+  void operator()(ClassifObject const * p, uint32_t type)
   {
     if (IsSkip(type))
       return;
@@ -74,13 +73,13 @@ public:
   }
 };
 
-}
+}  // namespace
 
 UNIT_TEST(VisibleScales_Highway)
 {
   Classificator const & c = classif();
 
-  char const * arr[] = { "highway" };
+  char const * arr[] = {"highway"};
   uint32_t const type = c.GetTypeByPath(vector<string>(arr, arr + 1));
 
   ClassifObject const * pObj = c.GetObject(type);

@@ -13,13 +13,13 @@
 
 using namespace std;
 
-HttpThread::HttpThread(string const & url,
-                       downloader::IHttpThreadCallback & cb,
-                       int64_t beg,
-                       int64_t end,
-                       int64_t size,
+HttpThread::HttpThread(string const & url, downloader::IHttpThreadCallback & cb, int64_t beg, int64_t end, int64_t size,
                        string const & pb)
-  : m_callback(cb), m_begRange(beg), m_endRange(end), m_downloadedBytes(0), m_expectedSize(size)
+  : m_callback(cb)
+  , m_begRange(beg)
+  , m_endRange(end)
+  , m_downloadedBytes(0)
+  , m_expectedSize(size)
 {
   QUrl const qUrl(url.c_str());
   QNetworkRequest request(qUrl);
@@ -30,8 +30,7 @@ HttpThread::HttpThread(string const & url,
     if (end > 0)
     {
       LOG(LDEBUG, (url, "downloading range [", beg, ",", end, "]"));
-      QString const range = QString("bytes=") + QString::number(beg)
-                            + '-' + QString::number(end);
+      QString const range = QString("bytes=") + QString::number(beg) + '-' + QString::number(end);
       request.setRawHeader("Range", range.toUtf8());
     }
     else
@@ -83,7 +82,8 @@ void HttpThread::OnHeadersReceived()
   bool const isChunk = !(m_begRange == 0 && m_endRange < 0);
   if ((isChunk && httpStatusCode != 206) || (!isChunk && httpStatusCode != 200))
   {
-    LOG(LWARNING, ("Http request to", m_reply->url().toEncoded().constData(), "aborted with HTTP code", httpStatusCode));
+    LOG(LWARNING,
+        ("Http request to", m_reply->url().toEncoded().constData(), "aborted with HTTP code", httpStatusCode));
     m_reply->abort();
   }
   else if (m_expectedSize > 0)
@@ -96,7 +96,7 @@ void HttpThread::OnHeadersReceived()
       if (numElements && contentRange.at(numElements - 1).toLongLong() != m_expectedSize)
       {
         LOG(LWARNING, ("Http request to", m_reply->url().toEncoded().constData(),
-          "aborted - invalid Content-Range:", contentRange.at(numElements - 1).toLongLong()));
+                       "aborted - invalid Content-Range:", contentRange.at(numElements - 1).toLongLong()));
         m_reply->abort();
       }
     }
@@ -107,14 +107,14 @@ void HttpThread::OnHeadersReceived()
       if (expSize != m_expectedSize)
       {
         LOG(LWARNING, ("Http request to", m_reply->url().toEncoded().constData(),
-          "aborted - invalid Content-Length:", m_reply->rawHeader("Content-Length").toLongLong()));
+                       "aborted - invalid Content-Length:", m_reply->rawHeader("Content-Length").toLongLong()));
         m_reply->abort();
       }
     }
     else
     {
       LOG(LWARNING, ("Http request to", m_reply->url().toEncoded().constData(),
-          "aborted, server didn't send any valid file size"));
+                     "aborted, server didn't send any valid file size"));
       m_reply->abort();
     }
   }
@@ -132,10 +132,8 @@ void HttpThread::OnDownloadFinished()
 {
   if (m_reply->error() != QNetworkReply::NetworkError::NoError)
   {
-    auto const httpStatusCode =
-        m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-    LOG(LWARNING, ("Download has finished with code:", httpStatusCode,
-                   "error:", m_reply->errorString().toStdString()));
+    auto const httpStatusCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    LOG(LWARNING, ("Download has finished with code:", httpStatusCode, "error:", m_reply->errorString().toStdString()));
     m_callback.OnFinish(httpStatusCode, m_begRange, m_endRange);
   }
   else
@@ -147,12 +145,8 @@ void HttpThread::OnDownloadFinished()
 namespace downloader
 {
 
-HttpThread * CreateNativeHttpThread(string const & url,
-                                    downloader::IHttpThreadCallback & cb,
-                                    int64_t beg,
-                                    int64_t end,
-                                    int64_t size,
-                                    string const & pb)
+HttpThread * CreateNativeHttpThread(string const & url, downloader::IHttpThreadCallback & cb, int64_t beg, int64_t end,
+                                    int64_t size, string const & pb)
 {
   return new HttpThread(url, cb, beg, end, size, pb);
 }
@@ -161,4 +155,4 @@ void DeleteNativeHttpThread(HttpThread * request)
 {
   delete request;
 }
-} // namespace downloader
+}  // namespace downloader

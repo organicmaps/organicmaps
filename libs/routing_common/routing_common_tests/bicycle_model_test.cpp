@@ -20,10 +20,7 @@ public:
     return std::dynamic_pointer_cast<VehicleModel>(BicycleModelFactory().GetVehicleModelForCountry(country));
   }
 
-  SpeedParams DefaultSpeedParams()
-  {
-    return {true /* forward */, true /* isCity */, Maxspeed()};
-  }
+  SpeedParams DefaultSpeedParams() { return {true /* forward */, true /* isCity */, Maxspeed()}; }
 };
 
 UNIT_CLASS_TEST(BicycleModelTest, Turkey)
@@ -39,4 +36,4 @@ UNIT_CLASS_TEST(BicycleModelTest, Turkey)
   TEST_EQUAL(model->GetSpeed(holder, DefaultSpeedParams()), BicycleModel::DismountSpeed(), ());
 }
 
-} // namespace bicycle_model_test
+}  // namespace bicycle_model_test

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <algorithm>
-#include <memory>
 #include <limits>
+#include <memory>
 #include <sstream>
 #include <type_traits>
 #include <utility>
@@ -41,16 +41,16 @@ public:
   bool HasChildren() const { return !m_children.empty(); }
   Ptrs const & GetChildren() const { return m_children; }
   void AddChild(Ptr const & child) { m_children.push_back(child); }
-  void AddChildren(Ptrs && children)
-  {
-    std::move(std::begin(children), std::end(children), std::end(m_children));
-  }
+  void AddChildren(Ptrs && children) { std::move(std::begin(children), std::end(children), std::end(m_children)); }
 
   void SetChildren(Ptrs && children) { m_children = std::move(children); }
   void RemoveChildren() { m_children.clear(); }
 
   template <typename Fn>
-  void RemoveChildrenIf(Fn && fn) { base::EraseIf(m_children, std::forward<Fn>(fn)); }
+  void RemoveChildrenIf(Fn && fn)
+  {
+    base::EraseIf(m_children, std::forward<Fn>(fn));
+  }
 
   bool HasParent() const { return m_parent.lock() != nullptr; }
   Ptr GetParent() const { return m_parent.lock(); }
@@ -102,15 +102,14 @@ void PreOrderVisit(types::Ptr<Data> const & node, Fn && fn)
 {
   base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
   std::function<base::ControlFlow(types::Ptr<Data> const &)> preOrderVisitDetail;
-  preOrderVisitDetail = [&](auto const & node) {
+  preOrderVisitDetail = [&](auto const & node)
+  {
     if (wrapper(node) == base::ControlFlow::Break)
       return base::ControlFlow::Break;
 
     for (auto const & ch : node->GetChildren())
-    {
       if (preOrderVisitDetail(ch) == base::ControlFlow::Break)
         return base::ControlFlow::Break;
-    }
 
     return base::ControlFlow::Continue;
   };
@@ -122,12 +121,11 @@ void PostOrderVisit(types::Ptr<Data> const & node, Fn && fn)
 {
   base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
   std::function<base::ControlFlow(types::Ptr<Data> const &)> postOrderVisitDetail;
-  postOrderVisitDetail = [&](auto const & node) {
+  postOrderVisitDetail = [&](auto const & node)
+  {
     for (auto const & ch : node->GetChildren())
-    {
       if (postOrderVisitDetail(ch) == base::ControlFlow::Break)
         return base::ControlFlow::Break;
-    }
 
     return wrapper(node);
   };
@@ -137,16 +135,15 @@ void PostOrderVisit(types::Ptr<Data> const & node, Fn && fn)
 template <typename Data, typename Fn>
 void ForEach(types::Ptr<Data> const & node, Fn && fn)
 {
-  PreOrderVisit(node, [&](auto const & node) {
-    fn(node->GetData());
-  });
+  PreOrderVisit(node, [&](auto const & node) { fn(node->GetData()); });
 }
 
 template <typename Data, typename Fn>
 decltype(auto) FindIf(types::Ptr<Data> const & node, Fn && fn)
 {
   types::Ptr<Data> res = nullptr;
-  PreOrderVisit(node, [&](auto const & node) {
+  PreOrderVisit(node, [&](auto const & node)
+  {
     if (fn(node->GetData()))
     {
       res = node;
@@ -186,8 +183,7 @@ decltype(auto) GetPathToRoot(types::Ptr<Data> node)
 }
 
 template <typename Data, typename Fn>
-types::Ptr<typename std::invoke_result<Fn, Data const &>::type> TransformToTree(
-    types::Ptr<Data> const & node, Fn && fn)
+types::Ptr<typename std::invoke_result<Fn, Data const &>::type> TransformToTree(types::Ptr<Data> const & node, Fn && fn)
 {
   auto n = MakeTreeNode(fn(node->GetData()));
   for (auto const & ch : node->GetChildren())
@@ -207,10 +203,8 @@ bool IsEqual(types::Ptr<Data> const & lhs, types::Ptr<Data> const & rhs)
     return false;
 
   for (size_t i = 0; i < lhsCh.size(); ++i)
-  {
     if (!IsEqual(lhsCh[i], rhsCh[i]))
       return false;
-  }
   return true;
 }
 
@@ -218,7 +212,8 @@ template <typename Data, typename Fn>
 size_t CountIf(types::Ptr<Data> const & node, Fn && fn)
 {
   size_t count = 0;
-  PreOrderVisit(node, [&](auto const & node) {
+  PreOrderVisit(node, [&](auto const & node)
+  {
     if (fn(node->GetData()))
       ++count;
   });
@@ -226,8 +221,7 @@ size_t CountIf(types::Ptr<Data> const & node, Fn && fn)
 }
 
 template <typename Data>
-void Print(types::Ptr<Data> const & node, std::ostream & stream,
-           std::string prefix = "", bool isTail = true)
+void Print(types::Ptr<Data> const & node, std::ostream & stream, std::string prefix = "", bool isTail = true)
 {
   stream << prefix;
   if (isTail)
@@ -268,10 +262,8 @@ public:
       return false;
 
     for (size_t i = 0; i < size; ++i)
-    {
       if (!IsEqual(m_trees[i], other.m_trees[i]))
         return false;
-    }
     return true;
   }
 
@@ -286,10 +278,8 @@ public:
   {
     base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
     for (auto const & tree : m_trees)
-    {
       if (wrapper(tree) == base::ControlFlow::Break)
         return;
-    }
   }
 
 private:
@@ -300,7 +290,8 @@ template <typename Data, typename Fn>
 decltype(auto) FindIf(Forest<Data> const & forest, Fn && fn)
 {
   types::Ptr<Data> res = nullptr;
-  forest.ForEachTree([&](auto const & tree) {
+  forest.ForEachTree([&](auto const & tree)
+  {
     res = FindIf(tree, fn);
     return res ? base::ControlFlow::Break : base::ControlFlow::Continue;
   });
@@ -311,9 +302,7 @@ template <typename Data>
 std::string DebugPrint(Forest<Data> const & forest)
 {
   std::stringstream stream;
-  forest.ForEachTree([&](auto const & tree) {
-    stream << DebugPrint(tree) << '\n';
-  });
+  forest.ForEachTree([&](auto const & tree) { stream << DebugPrint(tree) << '\n'; });
   return stream.str();
 }
 }  // namespace tree_node

@@ -41,16 +41,16 @@ ArchivalManager::ArchivalManager(std::string const & url)
   : m_url(url)
   , m_tracksDir(GetTracksDirectory())
   , m_timestampFile(GetTimestampFile(m_tracksDir))
+{}
+
+void ArchivalManager::SetSettings(ArchivingSettings const & settings)
 {
+  m_settings = settings;
 }
 
-void ArchivalManager::SetSettings(ArchivingSettings const & settings) { m_settings = settings; }
-
-std::optional<FileWriter> ArchivalManager::GetFileWriter(
-    routing::RouterType const & trackType) const
+std::optional<FileWriter> ArchivalManager::GetFileWriter(routing::RouterType const & trackType) const
 {
-  std::string const fileName =
-      archival_file::GetArchiveFilename(m_settings.m_version, GetTimestamp(), trackType);
+  std::string const fileName = archival_file::GetArchiveFilename(m_settings.m_version, GetTimestamp(), trackType);
   try
   {
     return std::optional<FileWriter>(base::JoinPath(m_tracksDir, fileName));
@@ -71,10 +71,12 @@ bool ArchivalManager::CreateTracksDir() const
   return true;
 }
 
-size_t ArchivalManager::IntervalBetweenDumpsSeconds() { return m_settings.m_dumpIntervalSeconds; }
+size_t ArchivalManager::IntervalBetweenDumpsSeconds()
+{
+  return m_settings.m_dumpIntervalSeconds;
+}
 
-std::vector<std::string> ArchivalManager::GetFilesOrderedByCreation(
-    std::string const & extension) const
+std::vector<std::string> ArchivalManager::GetFilesOrderedByCreation(std::string const & extension) const
 {
   Platform::FilesList files;
   Platform::GetFilesByExt(m_tracksDir, extension, files);
@@ -175,10 +177,8 @@ void ArchivalManager::DeleteOldDataByExtension(std::string const & extension) co
   auto const files = GetFilesOrderedByCreation(extension);
   auto const maxCount = GetMaxSavedFilesCount(extension);
   if (files.size() > maxCount)
-  {
     for (size_t i = 0; i < files.size() - maxCount; ++i)
       base::DeleteFileX(files[i]);
-  }
 }
 
 void ArchivalManager::WriteTimestamp(std::string const & filePath)

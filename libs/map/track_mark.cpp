@@ -9,10 +9,7 @@ std::string const kInfoSignSymbolName = "infosign";
 int constexpr kMinInfoVisibleZoom = 1;
 }  // namespace
 
-TrackInfoMark::TrackInfoMark(m2::PointD const & ptOrg)
-  : UserMark(ptOrg, UserMark::TRACK_INFO)
-{
-}
+TrackInfoMark::TrackInfoMark(m2::PointD const & ptOrg) : UserMark(ptOrg, UserMark::TRACK_INFO) {}
 
 void TrackInfoMark::SetOffset(m2::PointF const & offset)
 {
@@ -50,10 +47,7 @@ drape_ptr<df::UserPointMark::SymbolOffsets> TrackInfoMark::GetSymbolOffsets() co
   return make_unique_dp<SymbolOffsets>(offsets);
 }
 
-TrackSelectionMark::TrackSelectionMark(m2::PointD const & ptOrg)
-  : UserMark(ptOrg, UserMark::TRACK_SELECTION)
-{
-}
+TrackSelectionMark::TrackSelectionMark(m2::PointD const & ptOrg) : UserMark(ptOrg, UserMark::TRACK_SELECTION) {}
 
 void TrackSelectionMark::SetPosition(m2::PointD const & ptOrg)
 {

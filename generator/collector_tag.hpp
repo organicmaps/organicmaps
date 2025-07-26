@@ -23,8 +23,7 @@ class CollectorTag : public CollectorInterface
 public:
   using Validator = std::function<bool(std::string const & tagValue)>;
 
-  explicit CollectorTag(std::string const & filename, std::string const & tagKey,
-                        Validator const & validator);
+  explicit CollectorTag(std::string const & filename, std::string const & tagKey, Validator const & validator);
 
   // CollectorInterface overrides:
   std::shared_ptr<CollectorInterface> Clone(IDRInterfacePtr const & = {}) const override;

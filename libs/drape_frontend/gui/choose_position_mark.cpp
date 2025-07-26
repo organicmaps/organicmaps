@@ -19,7 +19,8 @@ namespace
 struct ChoosePositionMarkVertex
 {
   ChoosePositionMarkVertex(glsl::vec2 const & position, glsl::vec2 const & texCoord)
-    : m_position(position), m_texCoord(texCoord)
+    : m_position(position)
+    , m_texCoord(texCoord)
   {}
 
   glsl::vec2 m_position;
@@ -31,8 +32,7 @@ class ChoosePositionMarkHandle : public Handle
   using TBase = Handle;
 
 public:
-  ChoosePositionMarkHandle(uint32_t id, m2::PointF const & pivot)
-    : Handle(id, dp::Center, pivot)
+  ChoosePositionMarkHandle(uint32_t id, m2::PointF const & pivot) : Handle(id, dp::Center, pivot)
   {
     SetIsVisible(true);
   }
@@ -54,13 +54,11 @@ drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::GraphicsContext> c
   m2::RectF const texRect = region.GetTexRect();
 
   ASSERT_EQUAL(m_position.m_anchor, dp::Center, ());
-  ChoosePositionMarkVertex vertexes[] =
-  {
-    ChoosePositionMarkVertex(glsl::vec2(-halfSize.x, halfSize.y), glsl::ToVec2(texRect.LeftTop())),
-    ChoosePositionMarkVertex(glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom())),
-    ChoosePositionMarkVertex(glsl::vec2(halfSize.x, halfSize.y), glsl::ToVec2(texRect.RightTop())),
-    ChoosePositionMarkVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
-  };
+  ChoosePositionMarkVertex vertexes[] = {
+      ChoosePositionMarkVertex(glsl::vec2(-halfSize.x, halfSize.y), glsl::ToVec2(texRect.LeftTop())),
+      ChoosePositionMarkVertex(glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom())),
+      ChoosePositionMarkVertex(glsl::vec2(halfSize.x, halfSize.y), glsl::ToVec2(texRect.RightTop())),
+      ChoosePositionMarkVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))};
 
   auto state = df::CreateRenderState(gpu::Program::TexturingGui, df::DepthLayer::GuiLayer);
   state.SetColorTexture(region.GetTexture());
@@ -86,8 +84,8 @@ drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::GraphicsContext> c
 
   provider.InitStream(0, info, make_ref(&vertexes));
 
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<ChoosePositionMarkHandle>(
-      GuiHandleChoosePositionMark, m_position.m_pixelPivot);
+  drape_ptr<dp::OverlayHandle> handle =
+      make_unique_dp<ChoosePositionMarkHandle>(GuiHandleChoosePositionMark, m_position.m_pixelPivot);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);

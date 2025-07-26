@@ -52,8 +52,8 @@ glConst DecodeStencilAction(StencilAction stencilAction)
   UNREACHABLE();
 }
 
-void OpenGLMessageCallback(glConst source, glConst type, uint32_t id, glConst severity,
-                           int32_t length, char const * message, void * userData)
+void OpenGLMessageCallback(glConst source, glConst type, uint32_t id, glConst severity, int32_t length,
+                           char const * message, void * userData)
 {
   UNUSED_VALUE(userData);
 
@@ -94,8 +94,7 @@ void OpenGLMessageCallback(glConst source, glConst type, uint32_t id, glConst se
     debugSeverity = "DEBUG_SEVERITY_NOTIFICATION";
 
   LOG((type == gl_const::GLDebugTypeError) ? LERROR : LDEBUG,
-      (std::string(message, static_cast<size_t>(length)), id, debugSource, debugType,
-       debugSeverity));
+      (std::string(message, static_cast<size_t>(length)), id, debugSource, debugType, debugSeverity));
 }
 
 static_assert(std::is_same_v<GLFunctions::TglDebugProc, decltype(&OpenGLMessageCallback)>,
@@ -122,9 +121,8 @@ void OGLContext::Init(ApiVersion apiVersion)
     GLFunctions::glEnable(gl_const::GLDebugOutput);
     GLFunctions::glEnable(gl_const::GLDebugOutputSynchronous);
     GLFunctions::glDebugMessageCallback(&OpenGLMessageCallback, nullptr /* userData */);
-    GLFunctions::glDebugMessageControl(gl_const::GLDontCare /* source */,
-                                       gl_const::GLDebugTypeError, gl_const::GLDebugSeverityHigh,
-                                       0 /* count */, nullptr /* ids */,
+    GLFunctions::glDebugMessageControl(gl_const::GLDontCare /* source */, gl_const::GLDebugTypeError,
+                                       gl_const::GLDebugSeverityHigh, 0 /* count */, nullptr /* ids */,
                                        gl_const::GLTrue /* enable */);
   }
 }
@@ -157,7 +155,7 @@ void OGLContext::SetClearColor(dp::Color const & color)
 void OGLContext::Clear(uint32_t clearBits, uint32_t storeBits)
 {
   UNUSED_VALUE(storeBits);
-  
+
   glConst glBits = 0;
   if (clearBits & ClearBits::ColorBit)
     glBits |= gl_const::GLColorBit;
@@ -214,10 +212,8 @@ void OGLContext::SetStencilFunction(StencilFace face, TestFunction stencilFuncti
 void OGLContext::SetStencilActions(StencilFace face, StencilAction stencilFailAction, StencilAction depthFailAction,
                                    StencilAction passAction)
 {
-  GLFunctions::glStencilOpSeparate(DecodeStencilFace(face),
-                                   DecodeStencilAction(stencilFailAction),
-                                   DecodeStencilAction(depthFailAction),
-                                   DecodeStencilAction(passAction));
+  GLFunctions::glStencilOpSeparate(DecodeStencilFace(face), DecodeStencilAction(stencilFailAction),
+                                   DecodeStencilAction(depthFailAction), DecodeStencilAction(passAction));
 }
 
 void OGLContext::SetCullingEnabled(bool enabled)

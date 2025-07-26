@@ -10,13 +10,17 @@
 #include <unordered_map>
 #include <vector>
 
-namespace feature { class RegionData; }
+namespace feature
+{
+class RegionData;
+}
 
 namespace kml
 {
 using TimestampClock = std::chrono::system_clock;
 using Timestamp = std::chrono::time_point<TimestampClock>;
-class TimestampMillis : public Timestamp {
+class TimestampMillis : public Timestamp
+{
 public:
   TimestampMillis() = default;
   explicit TimestampMillis(Timestamp const & ts) : Timestamp{ts} {}
@@ -98,16 +102,15 @@ inline void SetDefaultStr(LocalizableString & localizableStr, std::string const 
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs);
 bool IsEqual(geometry::PointWithAltitude const & lhs, geometry::PointWithAltitude const & rhs);
 
-template <class T> bool IsEqual(std::vector<T> const & lhs, std::vector<T> const & rhs)
+template <class T>
+bool IsEqual(std::vector<T> const & lhs, std::vector<T> const & rhs)
 {
   if (lhs.size() != rhs.size())
     return false;
 
   for (size_t i = 0; i < lhs.size(); ++i)
-  {
     if (!IsEqual(lhs[i], rhs[i]))
       return false;
-  }
 
   return true;
 }
@@ -129,9 +132,10 @@ std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types);
   void ClearCollectionIndex()                          \
   {                                                    \
     m_collectionIndex.clear();                         \
-  }                                                    \
+  }
 
 #define VISITOR_COLLECTABLE visitor(m_collectionIndex, "collectionIndex")
 
-#define SKIP_VISITING(Type) void operator()(Type, char const * = nullptr) {}
+#define SKIP_VISITING(Type)                        \
+  void operator()(Type, char const * = nullptr) {}
 }  // namespace kml

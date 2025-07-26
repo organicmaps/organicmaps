@@ -11,21 +11,20 @@ struct OsmElement
   enum class EntityType
   {
     Unknown = 0x0,
-    Bounds = 0x6F62, // "bo"
-    Node = 0x6F6E, // "no"
-    Way = 0x6177, // "wa"
-    Relation = 0x6572, // "re"
-    Tag = 0x6174, // "ta"
-    Nd = 0x646E, // "nd"
-    Member = 0x656D, // "me"
-    Osm = 0x736F, // "os"
+    Bounds = 0x6F62,    // "bo"
+    Node = 0x6F6E,      // "no"
+    Way = 0x6177,       // "wa"
+    Relation = 0x6572,  // "re"
+    Tag = 0x6174,       // "ta"
+    Nd = 0x646E,        // "nd"
+    Member = 0x656D,    // "me"
+    Osm = 0x736F,       // "os"
   };
 
   struct Member
   {
     Member() = default;
-    Member(uint64_t ref, EntityType type, std::string const & role)
-      : m_ref(ref), m_type(type), m_role(role) {}
+    Member(uint64_t ref, EntityType type, std::string const & role) : m_ref(ref), m_type(type), m_role(role) {}
 
     bool operator==(Member const & other) const
     {
@@ -50,10 +49,7 @@ struct OsmElement
     Tag() = default;
     Tag(std::string_view key, std::string_view value) : m_key(key), m_value(value) {}
 
-    bool operator==(Tag const & other) const
-    {
-      return m_key == other.m_key && m_value == other.m_value;
-    }
+    bool operator==(Tag const & other) const { return m_key == other.m_key && m_value == other.m_value; }
 
     bool operator<(Tag const & other) const
     {
@@ -83,11 +79,11 @@ struct OsmElement
   std::string ToString(std::string const & shift = std::string()) const;
 
   std::vector<uint64_t> const & Nodes() const { return m_nodes; }
-  std::vector<uint64_t> &       NodesRef()    { return m_nodes; }
+  std::vector<uint64_t> & NodesRef() { return m_nodes; }
   std::vector<Member> const & Members() const { return m_members; }
-  std::vector<Member> &       MembersRef()    { return m_members; }
+  std::vector<Member> & MembersRef() { return m_members; }
   std::vector<Tag> const & Tags() const { return m_tags; }
-  std::vector<Tag> &       TagsRef()    { return m_tags; }
+  std::vector<Tag> & TagsRef() { return m_tags; }
 
   bool IsNode() const { return m_type == EntityType::Node; }
   bool IsWay() const { return m_type == EntityType::Way; }
@@ -97,10 +93,7 @@ struct OsmElement
   bool operator==(OsmElement const & other) const;
 
   void AddNd(uint64_t ref) { m_nodes.emplace_back(ref); }
-  void AddMember(uint64_t ref, EntityType type, std::string const & role)
-  {
-    m_members.emplace_back(ref, type, role);
-  }
+  void AddMember(uint64_t ref, EntityType type, std::string const & role) { m_members.emplace_back(ref, type, role); }
 
   void AddTag(std::string_view key, std::string_view value);
   void AddTag(Tag const & tag) { AddTag(tag.m_key, tag.m_value); }

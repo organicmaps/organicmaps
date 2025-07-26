@@ -2,8 +2,8 @@
 
 #include "kml/types.hpp"
 
-#include "geometry/point_with_altitude.hpp"
 #include "geometry/latlon.hpp"
+#include "geometry/point_with_altitude.hpp"
 
 #include "platform/location.hpp"
 
@@ -16,11 +16,9 @@ struct ElevationInfo
 public:
   struct Point
   {
-    Point(geometry::PointWithAltitude point, double distance)
-    : m_point(point), m_distance(distance)
-    {}
-    const geometry::PointWithAltitude m_point;
-    const double m_distance;
+    Point(geometry::PointWithAltitude point, double distance) : m_point(point), m_distance(distance) {}
+    geometry::PointWithAltitude const m_point;
+    double const m_distance;
   };
 
   using Points = std::vector<Point>;
@@ -41,10 +39,10 @@ public:
 
   void AddGpsPoints(GpsPoints const & points);
 
-  size_t GetSize() const { return m_points.size(); };
-  Points const & GetPoints() const { return m_points; };
+  size_t GetSize() const { return m_points.size(); }
+  Points const & GetPoints() const { return m_points; }
   uint8_t GetDifficulty() const { return m_difficulty; }
-  SegmentsDistances const & GetSegmentsDistances() const { return m_segmentsDistances; };
+  SegmentsDistances const & GetSegmentsDistances() const { return m_segmentsDistances; }
 
 private:
   // Points with distance from start of the track and altitude.

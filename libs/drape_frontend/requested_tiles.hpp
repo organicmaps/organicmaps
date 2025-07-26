@@ -12,11 +12,10 @@ class RequestedTiles
 {
 public:
   RequestedTiles() = default;
-  void Set(ScreenBase const & screen, bool have3dBuildings, bool forceRequest,
-           bool forceUserMarksRequest, TTilesCollection && tiles);
+  void Set(ScreenBase const & screen, bool have3dBuildings, bool forceRequest, bool forceUserMarksRequest,
+           TTilesCollection && tiles);
   TTilesCollection GetTiles();
-  void GetParams(ScreenBase & screen, bool & have3dBuildings,
-                 bool & forceRequest, bool & forceUserMarksRequest);
+  void GetParams(ScreenBase & screen, bool & have3dBuildings, bool & forceRequest, bool & forceUserMarksRequest);
   bool CheckTileKey(TileKey const & tileKey) const;
 
 private:

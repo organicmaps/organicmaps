@@ -35,10 +35,9 @@ public:
 
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params);
 
-  virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-                      ref_ptr<void> data) = 0;
-  virtual void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
-                          uint32_t width, uint32_t height, ref_ptr<void> data) = 0;
+  virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data) = 0;
+  virtual void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                          ref_ptr<void> data) = 0;
 
   virtual void Bind(ref_ptr<dp::GraphicsContext> context) const = 0;
 
@@ -77,10 +76,9 @@ class OpenGLHWTexture : public HWTexture
 
 public:
   ~OpenGLHWTexture() override;
-  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-              ref_ptr<void> data) override;
-  void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
-                  uint32_t width, uint32_t height, ref_ptr<void> data) override;
+  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data) override;
+  void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                  ref_ptr<void> data) override;
   void Bind(ref_ptr<dp::GraphicsContext> context) const override;
   void SetFilter(TextureFilter filter) override;
   bool Validate() const override;
@@ -104,8 +102,7 @@ public:
 ref_ptr<HWTextureAllocator> GetDefaultAllocator(ref_ptr<dp::GraphicsContext> context);
 drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> context);
 
-void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
-                  glConst & layout, glConst & pixelType);
+void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format, glConst & layout, glConst & pixelType);
 glConst DecodeTextureFilter(TextureFilter filter);
 glConst DecodeTextureWrapping(TextureWrapping wrapping);
 }  // namespace dp

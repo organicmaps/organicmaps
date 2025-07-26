@@ -6,8 +6,8 @@
 #include "coding/string_utf8_multilang.hpp"
 
 #include "base/assert.hpp"
-#include "base/string_utils.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -23,7 +23,7 @@ namespace
 std::string GetRussianName(StringUtf8Multilang const & str)
 {
   feature::NameParamsOut out;
-  feature::GetReadableName({ str, {} /* regionData */, "ru", false /* allowTranslit */ }, out);
+  feature::GetReadableName({str, {} /* regionData */, "ru", false /* allowTranslit */}, out);
   std::string result(out.primary);
 
   for (auto const & ch : {';', '\n', '\t'})
@@ -37,8 +37,8 @@ namespace generator
 bool operator==(HierarchyEntry const & lhs, HierarchyEntry const & rhs)
 {
   return AlmostEqualAbs(lhs.m_center, rhs.m_center, 1e-7) &&
-      (std::tie(lhs.m_id, lhs.m_parentId, lhs.m_depth, lhs.m_name, lhs.m_country, lhs.m_type) ==
-       std::tie(rhs.m_id, rhs.m_parentId, rhs.m_depth, rhs.m_name, rhs.m_country, rhs.m_type));
+         (std::tie(lhs.m_id, lhs.m_parentId, lhs.m_depth, lhs.m_name, lhs.m_country, lhs.m_type) ==
+          std::tie(rhs.m_id, rhs.m_parentId, rhs.m_depth, rhs.m_name, rhs.m_country, rhs.m_type));
 }
 
 std::string DebugPrint(HierarchyEntry const & entry)
@@ -83,7 +83,10 @@ uint32_t GetMainType(FeatureParams::Types const & types)
   return it != std::cend(types) ? *it : ftype::GetEmptyValue();
 }
 
-std::string GetName(StringUtf8Multilang const & str) { return GetRussianName(str); }
+std::string GetName(StringUtf8Multilang const & str)
+{
+  return GetRussianName(str);
+}
 
 std::string HierarchyEntryToCsvString(HierarchyEntry const & entry, char delim)
 {
@@ -138,8 +141,7 @@ HierarchyEntry HierarchyEntryFromCsvRow(coding::CSVReader::Row const & row)
 tree_node::types::Ptrs<HierarchyEntry> LoadHierachy(std::string const & filename)
 {
   std::unordered_map<CompositeId, tree_node::types::Ptr<HierarchyEntry>> nodes;
-  for (auto const & row : coding::CSVRunner(
-         coding::CSVReader(filename, false /* hasHeader */, kCsvDelimiter)))
+  for (auto const & row : coding::CSVRunner(coding::CSVReader(filename, false /* hasHeader */, kCsvDelimiter)))
   {
     auto entry = HierarchyEntryFromCsvRow(row);
     auto const id = entry.m_id;

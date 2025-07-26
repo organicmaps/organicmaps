@@ -33,15 +33,10 @@ private:
 class ReadMWMTaskFactory
 {
 public:
-  explicit ReadMWMTaskFactory(MapDataProvider & model)
-    : m_model(model)
-  {}
+  explicit ReadMWMTaskFactory(MapDataProvider & model) : m_model(model) {}
 
   // Caller must handle object life cycle.
-  ReadMWMTask * GetNew() const
-  {
-    return new ReadMWMTask(m_model);
-  }
+  ReadMWMTask * GetNew() const { return new ReadMWMTask(m_model); }
 
 private:
   MapDataProvider & m_model;

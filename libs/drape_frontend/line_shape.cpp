@@ -22,24 +22,19 @@ class TextureCoordGenerator
 {
 public:
   explicit TextureCoordGenerator(dp::TextureManager::StippleRegion const & region)
-    : m_region(region), m_maskSize(m_region.GetMaskPixelSize())
+    : m_region(region)
+    , m_maskSize(m_region.GetMaskPixelSize())
   {}
 
   glsl::vec4 GetTexCoordsByDistance(float distance, bool isLeft) const
   {
     m2::RectF const & texRect = m_region.GetTexRect();
-    return { distance / GetMaskLength(), texRect.minX(), texRect.SizeX(), isLeft ? texRect.minY() : texRect.maxY() };
+    return {distance / GetMaskLength(), texRect.minX(), texRect.SizeX(), isLeft ? texRect.minY() : texRect.maxY()};
   }
 
-  uint32_t GetMaskLength() const
-  {
-    return m_maskSize.x;
-  }
+  uint32_t GetMaskLength() const { return m_maskSize.x; }
 
-  dp::TextureManager::StippleRegion const & GetRegion() const
-  {
-    return m_region;
-  }
+  dp::TextureManager::StippleRegion const & GetRegion() const { return m_region; }
 
 private:
   dp::TextureManager::StippleRegion const m_region;
@@ -66,70 +61,43 @@ public:
     , m_colorCoord(glsl::ToVec2(params.m_color.GetTexRect().Center()))
   {
     m_geometry.reserve(geomsSize);
-    //m_joinGeom.reserve(joinsSize);
+    // m_joinGeom.reserve(joinsSize);
   }
 
-  dp::BindingInfo const & GetBindingInfo() override
-  {
-    return TVertex::GetBindingInfo();
-  }
+  dp::BindingInfo const & GetBindingInfo() override { return TVertex::GetBindingInfo(); }
 
-  ref_ptr<void> GetLineData() override
-  {
-    return make_ref(m_geometry.data());
-  }
+  ref_ptr<void> GetLineData() override { return make_ref(m_geometry.data()); }
 
-  uint32_t GetLineSize() override
-  {
-    return static_cast<uint32_t>(m_geometry.size());
-  }
+  uint32_t GetLineSize() override { return static_cast<uint32_t>(m_geometry.size()); }
 
-//  ref_ptr<void> GetJoinData() override
-//  {
-//    return make_ref(m_joinGeom.data());
-//  }
+  //  ref_ptr<void> GetJoinData() override
+  //  {
+  //    return make_ref(m_joinGeom.data());
+  //  }
 
-//  uint32_t GetJoinSize() override
-//  {
-//    return static_cast<uint32_t>(m_joinGeom.size());
-//  }
+  //  uint32_t GetJoinSize() override
+  //  {
+  //    return static_cast<uint32_t>(m_joinGeom.size());
+  //  }
 
-  float GetHalfWidth()
-  {
-    return m_params.m_pxHalfWidth;
-  }
+  float GetHalfWidth() { return m_params.m_pxHalfWidth; }
 
-  dp::BindingInfo const & GetCapBindingInfo() override
-  {
-    return GetBindingInfo();
-  }
+  dp::BindingInfo const & GetCapBindingInfo() override { return GetBindingInfo(); }
 
-  dp::RenderState GetCapState() override
-  {
-    return GetState();
-  }
+  dp::RenderState GetCapState() override { return GetState(); }
 
-  ref_ptr<void> GetCapData() override
-  {
-    return ref_ptr<void>();
-  }
+  ref_ptr<void> GetCapData() override { return ref_ptr<void>(); }
 
-  uint32_t GetCapSize() override
-  {
-    return 0;
-  }
+  uint32_t GetCapSize() override { return 0; }
 
-  float GetSide(bool isLeft) const
-  {
-    return isLeft ? 1.0f : -1.0f;
-  }
+  float GetSide(bool isLeft) const { return isLeft ? 1.0f : -1.0f; }
 
 protected:
   using V = TVertex;
   using TGeometryBuffer = gpu::VBReservedSizeT<V>;
 
   TGeometryBuffer m_geometry;
-  //TGeometryBuffer m_joinGeom;
+  // TGeometryBuffer m_joinGeom;
 
   BaseBuilderParams m_params;
   glsl::vec2 const m_colorCoord;
@@ -204,15 +172,9 @@ public:
     return state;
   }
 
-  ref_ptr<void> GetCapData() override
-  {
-    return make_ref<void>(m_capGeometry.data());
-  }
+  ref_ptr<void> GetCapData() override { return make_ref<void>(m_capGeometry.data()); }
 
-  uint32_t GetCapSize() override
-  {
-    return static_cast<uint32_t>(m_capGeometry.size());
-  }
+  uint32_t GetCapSize() override { return static_cast<uint32_t>(m_capGeometry.size()); }
 
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
   {
@@ -246,8 +208,7 @@ private:
                                CapVertex::TNormal(radius * kSqrt3, -radius, radius),
                                CapVertex::TTexCoord(m_colorCoord));
     m_capGeometry.emplace_back(CapVertex::TPosition(pos, m_params.m_depth),
-                               CapVertex::TNormal(0, 2.0f * radius, radius),
-                               CapVertex::TTexCoord(m_colorCoord));
+                               CapVertex::TNormal(0, 2.0f * radius, radius), CapVertex::TTexCoord(m_colorCoord));
   }
 
 private:
@@ -276,10 +237,7 @@ public:
     return state;
   }
 
-  void SubmitVertex(glsl::vec3 const & pivot)
-  {
-    m_geometry.emplace_back(pivot, m_colorCoord);
-  }
+  void SubmitVertex(glsl::vec3 const & pivot) { m_geometry.emplace_back(pivot, m_colorCoord); }
 
 private:
   int m_lineWidth;
@@ -303,10 +261,7 @@ public:
     , m_baseGtoPScale(params.m_baseGtoP)
   {}
 
-  float GetMaskLengthG() const
-  {
-    return m_texCoordGen.GetMaskLength() / m_baseGtoPScale;
-  }
+  float GetMaskLengthG() const { return m_texCoordGen.GetMaskLength() / m_baseGtoPScale; }
 
   dp::RenderState GetState() override
   {
@@ -320,8 +275,8 @@ public:
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft, float offsetFromStart)
   {
     float const halfWidth = GetHalfWidth();
-    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)),
-                            m_colorCoord, m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft));
+    m_geometry.emplace_back(pivot, TNormal(halfWidth * normal, halfWidth * GetSide(isLeft)), m_colorCoord,
+                            m_texCoordGen.GetTexCoordsByDistance(offsetFromStart, isLeft));
   }
 
 private:
@@ -344,7 +299,8 @@ void LineShape::Construct(TBuilder & builder) const
   ASSERT(false, ("No implementation"));
 }
 
-template <class FnT> void LineShape::ForEachSplineSection(FnT && fn) const
+template <class FnT>
+void LineShape::ForEachSplineSection(FnT && fn) const
 {
   std::vector<m2::PointD> const & path = m_spline->GetPath();
   ASSERT(!path.empty(), ());
@@ -371,10 +327,8 @@ template <class FnT> void LineShape::ForEachSplineSection(FnT && fn) const
 
     glsl::vec2 const tangent = glsl::ToVec2(tanlen.first);
 
-    fn(ToShapeVertex2(path[i]), ToShapeVertex2(path[j]),
-       tangent, tanlen.second,
-       {-tangent.y, tangent.x}, {tangent.y, -tangent.x},
-       (i == 0 ? 0x1 : 0) + (j == sz ? 0x2 : 0));
+    fn(ToShapeVertex2(path[i]), ToShapeVertex2(path[j]), tangent, tanlen.second, {-tangent.y, tangent.x},
+       {tangent.y, -tangent.x}, (i == 0 ? 0x1 : 0) + (j == sz ? 0x2 : 0));
 
     i = j;
   }
@@ -388,14 +342,14 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
 
   // Each segment should lie in pattern mask according to the "longest" possible pixel length in current tile.
   // Since, we calculate vertices once, usually for the "smallest" tile scale, need to apply divide factor here.
-  // In other words, if m_baseGtoPScale = Scale(tileLevel), we should use Scale(tileLevel + 1) to calculate 'maskLengthG'.
+  // In other words, if m_baseGtoPScale = Scale(tileLevel), we should use Scale(tileLevel + 1) to calculate
+  // 'maskLengthG'.
   /// @todo Logically, the factor should be 2, but drawing artifacts are still present at higher visual scales.
   /// Use 3 for the best quality, but need to review here, probably I missed something.
   float const maskLengthG = builder.GetMaskLengthG() / 3;
 
   float offset = 0;
-  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2,
-                           glsl::vec2 const & tangent, float toDraw,
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, float toDraw,
                            glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int)
   {
     glsl::vec2 currPivot = p1;
@@ -429,8 +383,8 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
       offset = nextOffset;
       if (offset >= maskLengthG)
         offset = 0;
-
-    } while (toDraw > 0);
+    }
+    while (toDraw > 0);
   });
 }
 
@@ -441,10 +395,8 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
   // Skip joins generation for thin lines.
   bool const generateJoins = builder.GetHalfWidth() > 2.5f;
 
-  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2,
-                           glsl::vec2 const & tangent, double,
-                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal,
-                           int flag)
+  ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double,
+                           glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int flag)
   {
     builder.SubmitVertex({p1, m_params.m_depth}, rightNormal, false /* isLeft */);
     builder.SubmitVertex({p1, m_params.m_depth}, leftNormal, true /* isLeft */);
@@ -452,11 +404,11 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
     builder.SubmitVertex({p2, m_params.m_depth}, leftNormal, true /* isLeft */);
 
     // Generate joins.
-    if (flag & 0x1)   // p1 - first point
+    if (flag & 0x1)  // p1 - first point
       builder.SubmitCap(p1);
-    if (flag & 0x2)   // p2 - last point
+    if (flag & 0x2)  // p2 - last point
       builder.SubmitCap(p2);
-    else if (generateJoins)   // p2 - middle point
+    else if (generateJoins)  // p2 - middle point
       builder.SubmitJoin(p2);
   });
 }
@@ -560,13 +512,13 @@ void LineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
     batcher->InsertListOfStrip(context, state, make_ref(&provider), dp::Batcher::VertexPerQuad);
 
     // Not used, keep comment for possible usage. LineJoin::RoundJoin is processed as _Cap_.
-//    uint32_t const joinSize = m_lineShapeInfo->GetJoinSize();
-//    if (joinSize > 0)
-//    {
-//      dp::AttributeProvider joinsProvider(1, joinSize);
-//      joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
-//      batcher->InsertTriangleList(context, state, make_ref(&joinsProvider));
-//    }
+    //    uint32_t const joinSize = m_lineShapeInfo->GetJoinSize();
+    //    if (joinSize > 0)
+    //    {
+    //      dp::AttributeProvider joinsProvider(1, joinSize);
+    //      joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
+    //      batcher->InsertTriangleList(context, state, make_ref(&joinsProvider));
+    //    }
 
     uint32_t const capSize = m_lineShapeInfo->GetCapSize();
     if (capSize > 0)
@@ -582,4 +534,3 @@ void LineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
   }
 }
 }  // namespace df
-

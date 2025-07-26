@@ -15,7 +15,6 @@ struct Oauth2Params
   std::string m_redirectUri;
 };
 
-
 /// All methods that interact with the OSM server are blocking and not asynchronous.
 class OsmOAuth
 {
@@ -84,7 +83,7 @@ public:
   /// @returns false if Google credentials are invalid.
   bool AuthorizeGoogle(std::string const & googleToken);
   /// @returns false if email has not been registered on a server.
-  //bool ResetPassword(std::string const & email) const;
+  // bool ResetPassword(std::string const & email) const;
 
   /// Throws in case of network errors.
   /// @param[method] The API method, must start with a forward slash.
@@ -106,14 +105,8 @@ public:
   std::string FinishAuthorization(std::string const & oauth2code) const;
   std::string GetRegistrationURL() const { return m_baseUrl + "/user/new"; }
   std::string GetResetPasswordURL() const { return m_baseUrl + "/user/forgot-password"; }
-  std::string GetHistoryURL(std::string const & user) const
-  {
-    return m_baseUrl + "/user/" + user + "/history";
-  }
-  std::string GetNotesURL(std::string const & user) const
-  {
-    return m_baseUrl + "/user/" + user + "/notes";
-  }
+  std::string GetHistoryURL(std::string const & user) const { return m_baseUrl + "/user/" + user + "/history"; }
+  std::string GetNotesURL(std::string const & user) const { return m_baseUrl + "/user/" + user + "/notes"; }
   std::string BuildOAuth2Url() const;
   //@}
 
@@ -129,28 +122,24 @@ private:
   std::string const m_baseUrl;
   std::string const m_apiUrl;
   /// Token to authenticate every OAuth request.
-  //std::string const m_oauth2code;
+  // std::string const m_oauth2code;
   std::string m_oauth2token;
 
-  SessionID FetchSessionId(std::string const & subUrl = "/login",
-                           std::string const & cookies = "") const;
+  SessionID FetchSessionId(std::string const & subUrl = "/login", std::string const & cookies = "") const;
   /// Log a user out.
   void LogoutUser(SessionID const & sid) const;
   /// Signs a user id using login and password.
   /// @returns false if login or password are invalid.
-  bool LoginUserPassword(std::string const & login, std::string const & password,
-                         SessionID const & sid) const;
+  bool LoginUserPassword(std::string const & login, std::string const & password, SessionID const & sid) const;
   /// Signs a user in using Facebook token.
   /// @returns false if the social token is invalid.
-  bool LoginSocial(std::string const & callbackPart, std::string const & socialToken,
-                   SessionID const & sid) const;
+  bool LoginSocial(std::string const & callbackPart, std::string const & socialToken, SessionID const & sid) const;
   /// @returns non-empty string with oauth_verifier value.
   std::string SendAuthRequest(std::string const & requestTokenKey, SessionID const & lastSid) const;
   /// @returns valid key and secret or throws otherwise.
   std::string FetchRequestToken(SessionID const & sid) const;
   std::string FetchAccessToken(SessionID const & sid) const;
 };
-
 
 std::string FindAuthenticityToken(std::string const & action, std::string body);
 std::string FindOauthCode(std::string const & redirectUri);

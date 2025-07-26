@@ -20,10 +20,7 @@ namespace detail
 class OverlayTraits
 {
 public:
-  m2::RectD const LimitRect(ref_ptr<OverlayHandle> const & handle)
-  {
-    return handle->GetExtendedPixelRect(m_modelView);
-  }
+  m2::RectD const LimitRect(ref_ptr<OverlayHandle> const & handle) { return handle->GetExtendedPixelRect(m_modelView); }
   ScreenBase const & GetModelView() const { return m_modelView; }
   m2::RectD const & GetExtendedScreenRect() const { return m_extendedScreenRect; }
   m2::RectD const & GetDisplacersFreeRect() const { return m_displacersFreeRect; }
@@ -42,10 +39,7 @@ struct OverlayHasher
 {
   std::hash<OverlayHandle *> m_hasher;
 
-  size_t operator()(ref_ptr<OverlayHandle> const & handle) const
-  {
-    return m_hasher(handle.get());
-  }
+  size_t operator()(ref_ptr<OverlayHandle> const & handle) const { return m_hasher(handle.get()); }
 };
 }  // namespace detail
 
@@ -90,9 +84,10 @@ public:
     m2::PointF m_arrowStart;
     m2::PointF m_arrowEnd;
     dp::Color m_arrowColor;
-    DisplacementData(m2::PointF const & arrowStart, m2::PointF const & arrowEnd,
-                     dp::Color const & arrowColor)
-      : m_arrowStart(arrowStart), m_arrowEnd(arrowEnd), m_arrowColor(arrowColor)
+    DisplacementData(m2::PointF const & arrowStart, m2::PointF const & arrowEnd, dp::Color const & arrowColor)
+      : m_arrowStart(arrowStart)
+      , m_arrowEnd(arrowEnd)
+      , m_arrowColor(arrowColor)
     {}
   };
   using TDisplacementInfo = std::vector<DisplacementData>;
@@ -102,10 +97,8 @@ public:
 
 private:
   ScreenBase const & GetModelView() const { return m_traits.GetModelView(); }
-  void InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
-                    ref_ptr<OverlayHandle> const & parentOverlay);
-  bool CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank,
-                   ref_ptr<OverlayHandle> & parentOverlay) const;
+  void InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank, ref_ptr<OverlayHandle> const & parentOverlay);
+  bool CheckHandle(ref_ptr<OverlayHandle> handle, int currentRank, ref_ptr<OverlayHandle> & parentOverlay) const;
   bool DeleteHandleImpl(ref_ptr<OverlayHandle> handle);
   void DeleteHandle(ref_ptr<OverlayHandle> handle);
 

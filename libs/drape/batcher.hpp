@@ -33,40 +33,35 @@ public:
   void InsertTriangleList(ref_ptr<GraphicsContext> context, RenderState const & state,
                           ref_ptr<AttributeProvider> params);
   IndicesRange InsertTriangleList(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                  ref_ptr<AttributeProvider> params,
-                                  drape_ptr<OverlayHandle> && handle);
+                                  ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle);
 
   void InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
                            ref_ptr<AttributeProvider> params);
   IndicesRange InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                   ref_ptr<AttributeProvider> params,
-                                   drape_ptr<OverlayHandle> && handle);
+                                   ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle);
 
   void InsertTriangleFan(ref_ptr<GraphicsContext> context, RenderState const & state,
                          ref_ptr<AttributeProvider> params);
   IndicesRange InsertTriangleFan(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                 ref_ptr<AttributeProvider> params,
-                                 drape_ptr<OverlayHandle> && handle);
+                                 ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle);
 
-  void InsertListOfStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
-                         ref_ptr<AttributeProvider> params, uint8_t vertexStride);
+  void InsertListOfStrip(ref_ptr<GraphicsContext> context, RenderState const & state, ref_ptr<AttributeProvider> params,
+                         uint8_t vertexStride);
   IndicesRange InsertListOfStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                 ref_ptr<AttributeProvider> params,
-                                 drape_ptr<OverlayHandle> && handle, uint8_t vertexStride);
+                                 ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle,
+                                 uint8_t vertexStride);
 
-  void InsertLineStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
-                       ref_ptr<AttributeProvider> params);
+  void InsertLineStrip(ref_ptr<GraphicsContext> context, RenderState const & state, ref_ptr<AttributeProvider> params);
   IndicesRange InsertLineStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
-                               ref_ptr<AttributeProvider> params,
-                               drape_ptr<OverlayHandle> && handle);
+                               ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && handle);
 
-  void InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state,
-                     ref_ptr<AttributeProvider> params, std::vector<int> const & indices);
+  void InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state, ref_ptr<AttributeProvider> params,
+                     std::vector<int> const & indices);
   IndicesRange InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state,
                              ref_ptr<AttributeProvider> params, std::vector<int> const & indices,
                              drape_ptr<OverlayHandle> && handle);
 
-  using TFlushFn = std::function<void (RenderState const &, drape_ptr<RenderBucket> &&)>;
+  using TFlushFn = std::function<void(RenderState const &, drape_ptr<RenderBucket> &&)>;
   void StartSession(TFlushFn && flusher);
   void EndSession(ref_ptr<GraphicsContext> context);
   void ResetSession();
@@ -78,9 +73,8 @@ public:
 private:
   template <typename TBatcher, typename... TArgs>
   IndicesRange InsertPrimitives(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                ref_ptr<AttributeProvider> params,
-                                drape_ptr<OverlayHandle> && transferHandle, uint8_t vertexStride,
-                                TArgs... batcherArgs);
+                                ref_ptr<AttributeProvider> params, drape_ptr<OverlayHandle> && transferHandle,
+                                uint8_t vertexStride, TArgs... batcherArgs);
 
   class CallbacksWrapper;
   void ChangeBuffer(ref_ptr<GraphicsContext> context, ref_ptr<CallbacksWrapper> wrapper);
@@ -120,8 +114,7 @@ private:
 class SessionGuard
 {
 public:
-  SessionGuard(ref_ptr<GraphicsContext> context, Batcher & batcher,
-               Batcher::TFlushFn && flusher);
+  SessionGuard(ref_ptr<GraphicsContext> context, Batcher & batcher, Batcher::TFlushFn && flusher);
   ~SessionGuard();
 
 private:

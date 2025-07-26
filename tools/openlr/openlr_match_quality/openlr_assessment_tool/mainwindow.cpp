@@ -53,48 +53,38 @@ public:
     : m_framework(framework)
     , m_drapeApi(m_framework.GetDrapeApi())
     , m_bm(framework.GetBookmarkManager())
-  {
-  }
+  {}
 
-  void SetViewportCenter(m2::PointD const & center) override
-  {
-    m_framework.SetViewportCenter(center);
-  }
+  void SetViewportCenter(m2::PointD const & center) override { m_framework.SetViewportCenter(center); }
 
   void DrawDecodedSegments(std::vector<m2::PointD> const & points) override
   {
     CHECK(!points.empty(), ("Points must not be empty."));
 
     LOG(LINFO, ("Decoded segment", points));
-    m_drapeApi.AddLine(kDecodedLineId,
-                       df::DrapeApiLineData(points, dp::Color(0, 0, 255, 255))
-                       .Width(3.0f).ShowPoints(true /* markPoints */));
+    m_drapeApi.AddLine(
+        kDecodedLineId,
+        df::DrapeApiLineData(points, dp::Color(0, 0, 255, 255)).Width(3.0f).ShowPoints(true /* markPoints */));
   }
 
   void DrawEncodedSegment(std::vector<m2::PointD> const & points) override
   {
     LOG(LINFO, ("Encoded segment", points));
-    m_drapeApi.AddLine(kEncodedLineId,
-                       df::DrapeApiLineData(points, dp::Color(255, 0, 0, 255))
-                       .Width(3.0f).ShowPoints(true /* markPoints */));
+    m_drapeApi.AddLine(
+        kEncodedLineId,
+        df::DrapeApiLineData(points, dp::Color(255, 0, 0, 255)).Width(3.0f).ShowPoints(true /* markPoints */));
   }
 
   void DrawGoldenPath(std::vector<m2::PointD> const & points) override
   {
-    m_drapeApi.AddLine(kGoldenLineId,
-                       df::DrapeApiLineData(points, dp::Color(255, 127, 36, 255))
-                       .Width(4.0f).ShowPoints(true /* markPoints */));
+    m_drapeApi.AddLine(
+        kGoldenLineId,
+        df::DrapeApiLineData(points, dp::Color(255, 127, 36, 255)).Width(4.0f).ShowPoints(true /* markPoints */));
   }
 
-  void ClearGoldenPath() override
-  {
-    m_drapeApi.RemoveLine(kGoldenLineId);
-  }
+  void ClearGoldenPath() override { m_drapeApi.RemoveLine(kGoldenLineId); }
 
-  void ClearAllPaths() override
-  {
-    m_drapeApi.Clear();
-  }
+  void ClearAllPaths() override { m_drapeApi.Clear(); }
 
   void VisualizePoints(std::vector<m2::PointD> const & points) override
   {
@@ -104,10 +94,7 @@ public:
       editSession.CreateUserMark<DebugMarkPoint>(p);
   }
 
-  void ClearAllVisualizedPoints() override
-  {
-    m_bm.GetEditSession().ClearGroup(UserMark::Type::DEBUG_MARK);
-  }
+  void ClearAllVisualizedPoints() override { m_bm.GetEditSession().ClearGroup(UserMark::Type::DEBUG_MARK); }
 
 private:
   Framework & m_framework;
@@ -129,8 +116,7 @@ public:
     , m_dataSource(const_cast<DataSource &>(GetDataSource()), nullptr /* numMwmIDs */)
     , m_roadGraph(m_dataSource, routing::IRoadGraph::Mode::ObeyOnewayTag,
                   std::make_unique<routing::CarModelFactory>(storage::CountryParentGetter{}))
-  {
-  }
+  {}
 
   std::vector<m2::PointD> GetAllJunctionPointsInViewport() const override
   {
@@ -141,10 +127,8 @@ public:
       if (!rect.IsPointInside(point))
         return;
       for (auto const & p : points)
-      {
         if (PointsMatch(point, p))
           return;
-      }
       points.push_back(point);
     };
 
@@ -155,11 +139,8 @@ public:
 
       /// @todo Transported (railway=rail) are also present here :)
       auto const roadClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
-      if (roadClass == ftypes::HighwayClass::Undefined ||
-          roadClass == ftypes::HighwayClass::Pedestrian)
-      {
+      if (roadClass == ftypes::HighwayClass::Undefined || roadClass == ftypes::HighwayClass::Pedestrian)
         return;
-      }
       ft.ForEachPoint(pushPoint, scales::GetUpperScale());
     };
 
@@ -167,8 +148,7 @@ public:
     return points;
   }
 
-  std::pair<std::vector<FeaturePoint>, m2::PointD> GetCandidatePoints(
-      m2::PointD const & p) const override
+  std::pair<std::vector<FeaturePoint>, m2::PointD> GetCandidatePoints(m2::PointD const & p) const override
   {
     auto constexpr kInvalidIndex = std::numeric_limits<size_t>::max();
 
@@ -207,8 +187,7 @@ public:
   std::vector<m2::PointD> GetReachablePoints(m2::PointD const & p) const override
   {
     routing::FeaturesRoadGraph::EdgeListT edges;
-    m_roadGraph.GetOutgoingEdges(geometry::PointWithAltitude(p, geometry::kDefaultAltitudeMeters),
-                                 edges);
+    m_roadGraph.GetOutgoingEdges(geometry::PointWithAltitude(p, geometry::kDefaultAltitudeMeters), edges);
 
     std::vector<m2::PointD> points;
     for (auto const & e : edges)
@@ -216,8 +195,7 @@ public:
     return points;
   }
 
-  ClickType CheckClick(m2::PointD const & clickPoint,
-                       m2::PointD const & lastClickedPoint,
+  ClickType CheckClick(m2::PointD const & clickPoint, m2::PointD const & lastClickedPoint,
                        std::vector<m2::PointD> const & reachablePoints) const override
   {
     // == Comparison is safe here since |clickPoint| is adjusted by GetFeaturesPointsByPoint
@@ -225,10 +203,8 @@ public:
     if (clickPoint == lastClickedPoint)
       return ClickType::Remove;
     for (auto const & p : reachablePoints)
-    {
       if (PointsMatch(clickPoint, p))
         return ClickType::Add;
-    }
     return ClickType::Miss;
   }
 
@@ -241,9 +217,7 @@ private:
 };
 }  // namespace
 
-
-MainWindow::MainWindow(Framework & framework)
-  : m_framework(framework)
+MainWindow::MainWindow(Framework & framework) : m_framework(framework)
 {
   m_mapWidget = new MapWidget(m_framework, this /* parent */);
 
@@ -264,37 +238,37 @@ MainWindow::MainWindow(Framework & framework)
 
   fileMenu->addAction("Open sample", QKeySequence("Ctrl+O"), this, &MainWindow::OnOpenTrafficSample);
 
-  m_closeTrafficSampleAction = fileMenu->addAction("Close sample", QKeySequence("Ctrl+W"), this, &MainWindow::OnCloseTrafficSample);
-  m_saveTrafficSampleAction = fileMenu->addAction("Save sample", QKeySequence("Ctrl+S"), this, &MainWindow::OnSaveTrafficSample);
+  m_closeTrafficSampleAction =
+      fileMenu->addAction("Close sample", QKeySequence("Ctrl+W"), this, &MainWindow::OnCloseTrafficSample);
+  m_saveTrafficSampleAction =
+      fileMenu->addAction("Save sample", QKeySequence("Ctrl+S"), this, &MainWindow::OnSaveTrafficSample);
 
   fileMenu->addSeparator();
 
-  m_goldifyMatchedPathAction = fileMenu->addAction("Goldify", QKeySequence("Ctrl+G"), [this] { m_trafficMode->GoldifyMatchedPath(); });
-  m_startEditingAction = fileMenu->addAction("Edit", QKeySequence("Ctrl+E"),
-                                             [this] {
-                                               m_trafficMode->StartBuildingPath();
-                                               m_mapWidget->SetMode(MapWidget::Mode::TrafficMarkup);
-                                               m_commitPathAction->setEnabled(true /* enabled */);
-                                               m_cancelPathAction->setEnabled(true /* enabled */);
-                                             });
-  m_commitPathAction = fileMenu->addAction("Accept path",
-                                           QKeySequence("Ctrl+A"),
-                                           [this] {
-                                             m_trafficMode->CommitPath();
-                                             m_mapWidget->SetMode(MapWidget::Mode::Normal);
-                                           });
-  m_cancelPathAction = fileMenu->addAction("Revert path",
-                                           QKeySequence("Ctrl+R"),
-                                           [this] {
-                                             m_trafficMode->RollBackPath();
-                                             m_mapWidget->SetMode(MapWidget::Mode::Normal);
-                                           });
-  m_ignorePathAction = fileMenu->addAction("Ignore path",
-                                           QKeySequence("Ctrl+I"),
-                                           [this] {
-                                             m_trafficMode->IgnorePath();
-                                             m_mapWidget->SetMode(MapWidget::Mode::Normal);
-                                           });
+  m_goldifyMatchedPathAction =
+      fileMenu->addAction("Goldify", QKeySequence("Ctrl+G"), [this] { m_trafficMode->GoldifyMatchedPath(); });
+  m_startEditingAction = fileMenu->addAction("Edit", QKeySequence("Ctrl+E"), [this]
+  {
+    m_trafficMode->StartBuildingPath();
+    m_mapWidget->SetMode(MapWidget::Mode::TrafficMarkup);
+    m_commitPathAction->setEnabled(true /* enabled */);
+    m_cancelPathAction->setEnabled(true /* enabled */);
+  });
+  m_commitPathAction = fileMenu->addAction("Accept path", QKeySequence("Ctrl+A"), [this]
+  {
+    m_trafficMode->CommitPath();
+    m_mapWidget->SetMode(MapWidget::Mode::Normal);
+  });
+  m_cancelPathAction = fileMenu->addAction("Revert path", QKeySequence("Ctrl+R"), [this]
+  {
+    m_trafficMode->RollBackPath();
+    m_mapWidget->SetMode(MapWidget::Mode::Normal);
+  });
+  m_ignorePathAction = fileMenu->addAction("Ignore path", QKeySequence("Ctrl+I"), [this]
+  {
+    m_trafficMode->IgnorePath();
+    m_mapWidget->SetMode(MapWidget::Mode::Normal);
+  });
 
   m_goldifyMatchedPathAction->setEnabled(false /* enabled */);
   m_closeTrafficSampleAction->setEnabled(false /* enabled */);
@@ -307,15 +281,12 @@ MainWindow::MainWindow(Framework & framework)
 
 void MainWindow::CreateTrafficPanel(std::string const & dataFilePath)
 {
-  m_trafficMode = new TrafficMode(dataFilePath,
-                                  m_framework.GetDataSource(),
-                                  std::make_unique<TrafficDrawerDelegate>(m_framework),
-                                  std::make_unique<PointsControllerDelegate>(m_framework));
+  m_trafficMode =
+      new TrafficMode(dataFilePath, m_framework.GetDataSource(), std::make_unique<TrafficDrawerDelegate>(m_framework),
+                      std::make_unique<PointsControllerDelegate>(m_framework));
 
-  connect(m_mapWidget, &MapWidget::TrafficMarkupClick,
-          m_trafficMode, &TrafficMode::OnClick);
-  connect(m_trafficMode, &TrafficMode::EditingStopped,
-          this, &MainWindow::OnPathEditingStop);
+  connect(m_mapWidget, &MapWidget::TrafficMarkupClick, m_trafficMode, &TrafficMode::OnClick);
+  connect(m_trafficMode, &TrafficMode::EditingStopped, this, &MainWindow::OnPathEditingStop);
   connect(m_trafficMode, &TrafficMode::SegmentSelected,
           [](int segmentId) { QApplication::clipboard()->setText(QString::number(segmentId)); });
 
@@ -391,11 +362,7 @@ void MainWindow::OnSaveTrafficSample()
     return;
 
   if (!m_trafficMode->SaveSampleAs(fileName.toStdString()))
-  {
-    QMessageBox::critical(
-        this, "Saving error",
-        QString("Can't save file: ") + strerror(errno));
-  }
+    QMessageBox::critical(this, "Saving error", QString("Can't save file: ") + strerror(errno));
 }
 
 void MainWindow::OnPathEditingStop()

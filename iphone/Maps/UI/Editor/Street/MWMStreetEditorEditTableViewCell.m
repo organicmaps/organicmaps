@@ -2,8 +2,8 @@
 
 @interface MWMStreetEditorEditTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UITextField * textField;
-@property (weak, nonatomic) id<MWMStreetEditorEditCellProtocol> delegate;
+@property(weak, nonatomic) IBOutlet UITextField * textField;
+@property(weak, nonatomic) id<MWMStreetEditorEditCellProtocol> delegate;
 
 @end
 
@@ -24,7 +24,7 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)textDidChange:(NSNotification*)notification
+- (void)textDidChange:(NSNotification *)notification
 {
   UITextField * textField = (UITextField *)[notification object];
   [self.delegate editCellTextChanged:textField.text];

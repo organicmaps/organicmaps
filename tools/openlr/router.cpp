@@ -83,16 +83,14 @@ bool Router::Vertex::Score::operator==(Score const & rhs) const
 }
 
 // Router::Vertex ----------------------------------------------------------------------------------
-Router::Vertex::Vertex(geometry::PointWithAltitude const & junction,
-                       geometry::PointWithAltitude const & stageStart, double stageStartDistance,
-                       size_t stage, bool bearingChecked)
+Router::Vertex::Vertex(geometry::PointWithAltitude const & junction, geometry::PointWithAltitude const & stageStart,
+                       double stageStartDistance, size_t stage, bool bearingChecked)
   : m_junction(junction)
   , m_stageStart(stageStart)
   , m_stageStartDistance(stageStartDistance)
   , m_stage(stage)
   , m_bearingChecked(bearingChecked)
-{
-}
+{}
 
 bool Router::Vertex::operator<(Vertex const & rhs) const
 {
@@ -116,9 +114,11 @@ bool Router::Vertex::operator==(Vertex const & rhs) const
 
 // Router::Edge ------------------------------------------------------------------------------------
 Router::Edge::Edge(Vertex const & u, Vertex const & v, routing::Edge const & raw, bool isSpecial)
-  : m_u(u), m_v(v), m_raw(raw), m_isSpecial(isSpecial)
-{
-}
+  : m_u(u)
+  , m_v(v)
+  , m_raw(raw)
+  , m_isSpecial(isSpecial)
+{}
 
 // static
 Router::Edge Router::Edge::MakeNormal(Vertex const & u, Vertex const & v, routing::Edge const & raw)
@@ -146,20 +146,18 @@ std::pair<m2::PointD, m2::PointD> Router::Edge::ToPairRev() const
 
 // Router::Router ----------------------------------------------------------------------------------
 Router::Router(routing::FeaturesRoadGraph & graph, RoadInfoGetter & roadInfoGetter)
-  : m_graph(graph), m_roadInfoGetter(roadInfoGetter)
-{
-}
+  : m_graph(graph)
+  , m_roadInfoGetter(roadInfoGetter)
+{}
 
-bool Router::Go(std::vector<WayPoint> const & points, double positiveOffsetM,
-                double negativeOffsetM, Path & path)
+bool Router::Go(std::vector<WayPoint> const & points, double positiveOffsetM, double negativeOffsetM, Path & path)
 {
   if (!Init(points, positiveOffsetM, negativeOffsetM))
     return false;
   return FindPath(path);
 }
 
-bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
-                  double negativeOffsetM)
+bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM, double negativeOffsetM)
 {
   CHECK_GREATER_OR_EQUAL(points.size(), 2, ());
 
@@ -177,8 +175,7 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
 
     std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> vicinity;
     m_graph.FindClosestEdges(
-        mercator::RectByCenterXYAndSizeInMeters(m_points[i].m_point,
-                                                routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+        mercator::RectByCenterXYAndSizeInMeters(m_points[i].m_point, routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
         kMaxRoadCandidates, vicinity);
     for (auto const & v : vicinity)
     {
@@ -197,20 +194,18 @@ bool Router::Init(std::vector<WayPoint> const & points, double positiveOffsetM,
   {
     m_sourceJunction = geometry::PointWithAltitude(m_points.front().m_point, 0 /* altitude */);
     std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> sourceVicinity;
-    m_graph.FindClosestEdges(
-        mercator::RectByCenterXYAndSizeInMeters(m_sourceJunction.GetPoint(),
-                                                routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
-        kMaxRoadCandidates, sourceVicinity);
+    m_graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(m_sourceJunction.GetPoint(),
+                                                                     routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+                             kMaxRoadCandidates, sourceVicinity);
     m_graph.AddFakeEdges(m_sourceJunction, sourceVicinity);
   }
 
   {
     m_targetJunction = geometry::PointWithAltitude(m_points.back().m_point, 0 /* altitude */);
     std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> targetVicinity;
-    m_graph.FindClosestEdges(
-        mercator::RectByCenterXYAndSizeInMeters(m_targetJunction.GetPoint(),
-                                                routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
-        kMaxRoadCandidates, targetVicinity);
+    m_graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(m_targetJunction.GetPoint(),
+                                                                     routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+                             kMaxRoadCandidates, targetVicinity);
     m_graph.AddFakeEdges(m_targetJunction, targetVicinity);
   }
 
@@ -224,9 +219,9 @@ bool Router::FindPath(Path & path)
   std::map<Vertex, Vertex::Score> scores;
   Links links;
 
-  auto const pushVertex = [&queue, &scores, &links](Vertex const & u, Vertex const & v,
-                                                    Vertex::Score const & vertexScore,
-                                                    Edge const & e) {
+  auto const pushVertex =
+      [&queue, &scores, &links](Vertex const & u, Vertex const & v, Vertex::Score const & vertexScore, Edge const & e)
+  {
     if ((scores.count(v) == 0 || scores[v].GetScore() > vertexScore.GetScore() + kEps) && u != v)
     {
       scores[v] = vertexScore;
@@ -279,11 +274,8 @@ bool Router::FindPath(Path & path)
 
     // max(kDistanceAccuracyM, m_distanceToNextPointM) is added here
     // to throw out quite long paths.
-    if (ud > u.m_stageStartDistance + distanceToNextPointM +
-                 std::max(kDistanceAccuracyM, distanceToNextPointM))
-    {
+    if (ud > u.m_stageStartDistance + distanceToNextPointM + std::max(kDistanceAccuracyM, distanceToNextPointM))
       continue;
-    }
 
     if (NearNextStage(u, piU) && !u.m_bearingChecked)
     {
@@ -303,14 +295,12 @@ bool Router::FindPath(Path & path)
 
     if (MayMoveToNextStage(u, piU))
     {
-      Vertex v(u.m_junction, u.m_junction, ud /* stageStartDistance */, stage + 1,
-               false /* bearingChecked */);
+      Vertex v(u.m_junction, u.m_junction, ud /* stageStartDistance */, stage + 1, false /* bearingChecked */);
       double const piV = GetPotential(v);
 
       Vertex::Score sv = su;
       sv.AddDistance(std::max(piV - piU, 0.0));
-      sv.AddIntermediateErrorPenalty(
-          mercator::DistanceOnEarth(v.m_junction.GetPoint(), m_points[v.m_stage].m_point));
+      sv.AddIntermediateErrorPenalty(mercator::DistanceOnEarth(v.m_junction.GetPoint(), m_points[v.m_stage].m_point));
 
       if (IsFinalVertex(v))
       {
@@ -322,7 +312,8 @@ bool Router::FindPath(Path & path)
       pushVertex(u, v, sv, Edge::MakeSpecial(u, v));
     }
 
-    ForEachEdge(u, true /* outgoing */, m_points[stage].m_lfrcnp, [&](routing::Edge const & edge) {
+    ForEachEdge(u, true /* outgoing */, m_points[stage].m_lfrcnp, [&](routing::Edge const & edge)
+    {
       Vertex v = u;
       v.m_junction = edge.GetEndJunction();
 
@@ -338,8 +329,7 @@ bool Router::FindPath(Path & path)
         CHECK(!NeedToCheckBearing(u, ud), ());
 
         double const delta = vd - v.m_stageStartDistance - kBearingDist;
-        auto const p = PointAtSegment(edge.GetStartJunction().GetPoint(),
-                                      edge.GetEndJunction().GetPoint(), delta);
+        auto const p = PointAtSegment(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint(), delta);
         if (v.m_stageStart.GetPoint() != p)
         {
           int const expected = m_points[stage].m_bearing;
@@ -423,8 +413,7 @@ uint32_t Router::GetReverseBearing(Vertex const & u, Links const & links) const
     if (passed + weight >= kBearingDist)
     {
       double const delta = kBearingDist - passed;
-      b = PointAtSegment(edge.GetEndJunction().GetPoint(), edge.GetStartJunction().GetPoint(),
-                         delta);
+      b = PointAtSegment(edge.GetEndJunction().GetPoint(), edge.GetStartJunction().GetPoint(), delta);
       found = true;
       break;
     }
@@ -453,25 +442,20 @@ void Router::ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass re
   }
 }
 
-void Router::GetOutgoingEdges(geometry::PointWithAltitude const & u,
-                              routing::IRoadGraph::EdgeListT & edges)
+void Router::GetOutgoingEdges(geometry::PointWithAltitude const & u, routing::IRoadGraph::EdgeListT & edges)
 {
-  GetEdges(u, &routing::IRoadGraph::GetRegularOutgoingEdges,
-           &routing::IRoadGraph::GetFakeOutgoingEdges, m_outgoingCache, edges);
+  GetEdges(u, &routing::IRoadGraph::GetRegularOutgoingEdges, &routing::IRoadGraph::GetFakeOutgoingEdges,
+           m_outgoingCache, edges);
 }
 
-void Router::GetIngoingEdges(geometry::PointWithAltitude const & u,
-                             routing::IRoadGraph::EdgeListT & edges)
+void Router::GetIngoingEdges(geometry::PointWithAltitude const & u, routing::IRoadGraph::EdgeListT & edges)
 {
-  GetEdges(u, &routing::IRoadGraph::GetRegularIngoingEdges,
-           &routing::IRoadGraph::GetFakeIngoingEdges, m_ingoingCache, edges);
+  GetEdges(u, &routing::IRoadGraph::GetRegularIngoingEdges, &routing::IRoadGraph::GetFakeIngoingEdges, m_ingoingCache,
+           edges);
 }
 
-void Router::GetEdges(
-    geometry::PointWithAltitude const & u, RoadGraphEdgesGetter getRegular,
-    RoadGraphEdgesGetter getFake,
-    EdgeCacheT & cache,
-    routing::IRoadGraph::EdgeListT & edges)
+void Router::GetEdges(geometry::PointWithAltitude const & u, RoadGraphEdgesGetter getRegular,
+                      RoadGraphEdgesGetter getFake, EdgeCacheT & cache, routing::IRoadGraph::EdgeListT & edges)
 {
   auto const it = cache.find(u);
   if (it == cache.end())
@@ -489,24 +473,22 @@ void Router::GetEdges(
 }
 
 template <typename Fn>
-void Router::ForEachNonFakeEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction,
-                                Fn && fn)
+void Router::ForEachNonFakeEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction, Fn && fn)
 {
-  ForEachEdge(u, outgoing, restriction, [&fn](routing::Edge const & edge) {
+  ForEachEdge(u, outgoing, restriction, [&fn](routing::Edge const & edge)
+  {
     if (!edge.IsFake())
       fn(edge);
   });
 }
 
 template <typename Fn>
-void Router::ForEachNonFakeClosestEdge(Vertex const & u, FunctionalRoadClass const restriction,
-                                       Fn && fn)
+void Router::ForEachNonFakeClosestEdge(Vertex const & u, FunctionalRoadClass const restriction, Fn && fn)
 {
   std::vector<std::pair<routing::Edge, geometry::PointWithAltitude>> vicinity;
-  m_graph.FindClosestEdges(
-      mercator::RectByCenterXYAndSizeInMeters(u.m_junction.GetPoint(),
-                                              routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
-      kMaxRoadCandidates, vicinity);
+  m_graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(u.m_junction.GetPoint(),
+                                                                   routing::FeaturesRoadGraph::kClosestEdgesRadiusM),
+                           kMaxRoadCandidates, vicinity);
 
   for (auto const & p : vicinity)
   {
@@ -652,64 +634,61 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, Path & path)
 
   {
     auto toPair = [](auto && e) { return e.ToPair(); };
-    size_t const n = FindPrefixLengthToConsume(
-        make_transform_iterator(edges.begin(), toPair),
-        make_transform_iterator(edges.end(), toPair), m_positiveOffsetM);
+    size_t const n = FindPrefixLengthToConsume(make_transform_iterator(edges.begin(), toPair),
+                                               make_transform_iterator(edges.end(), toPair), m_positiveOffsetM);
     CHECK_LESS_OR_EQUAL(n, edges.size(), ());
     edges.erase(edges.begin(), edges.begin() + n);
   }
 
   {
     auto toPairRev = [](auto && e) { return e.ToPairRev(); };
-    size_t const n = FindPrefixLengthToConsume(
-        make_transform_iterator(edges.rbegin(), toPairRev),
-        make_transform_iterator(edges.rend(), toPairRev), m_negativeOffsetM);
+    size_t const n = FindPrefixLengthToConsume(make_transform_iterator(edges.rbegin(), toPairRev),
+                                               make_transform_iterator(edges.rend(), toPairRev), m_negativeOffsetM);
     CHECK_LESS_OR_EQUAL(n, edges.size(), ());
     edges.erase(edges.begin() + edges.size() - n, edges.end());
   }
 
   double frontEdgeScore = -1.0;
   routing::Edge frontEdge;
-  ForStagePrefix(edges.begin(), edges.end(), 0, [&](EdgeIt e) {
-    ForEachNonFakeEdge(e->m_u, false /* outgoing */, m_points[0].m_lfrcnp,
-                       [&](routing::Edge const & edge) {
-                         auto toPairRev = [](auto && e) { return e.ToPairRev(); };
-                         double const score = GetMatchingScore(
-                             edge.GetEndJunction().GetPoint(), edge.GetStartJunction().GetPoint(),
-                             make_transform_iterator(EdgeItRev(e), toPairRev),
-                             make_transform_iterator(edges.rend(), toPairRev));
-                         if (score > frontEdgeScore)
-                         {
-                           frontEdgeScore = score;
-                           frontEdge = edge.GetReverseEdge();
-                         }
-                       });
+  ForStagePrefix(edges.begin(), edges.end(), 0, [&](EdgeIt e)
+  {
+    ForEachNonFakeEdge(e->m_u, false /* outgoing */, m_points[0].m_lfrcnp, [&](routing::Edge const & edge)
+    {
+      auto toPairRev = [](auto && e) { return e.ToPairRev(); };
+      double const score = GetMatchingScore(edge.GetEndJunction().GetPoint(), edge.GetStartJunction().GetPoint(),
+                                            make_transform_iterator(EdgeItRev(e), toPairRev),
+                                            make_transform_iterator(edges.rend(), toPairRev));
+      if (score > frontEdgeScore)
+      {
+        frontEdgeScore = score;
+        frontEdge = edge.GetReverseEdge();
+      }
+    });
   });
 
   double backEdgeScore = -1.0;
   routing::Edge backEdge;
-  ForStagePrefix(edges.rbegin(), edges.rend(), m_points.size() - 2 /* stage */, [&](EdgeItRev e) {
+  ForStagePrefix(edges.rbegin(), edges.rend(), m_points.size() - 2 /* stage */, [&](EdgeItRev e)
+  {
     ForEachNonFakeEdge(e->m_v, true /* outgoing */, m_points[m_points.size() - 2].m_lfrcnp,
-                       [&](routing::Edge const & edge) {
-                         auto toPair = [](auto && e) { return e.ToPair(); };
-                         double const score = GetMatchingScore(
-                             edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint(),
-                             make_transform_iterator(e.base(), toPair),
-                             make_transform_iterator(edges.end(), toPair));
-                         if (score > backEdgeScore)
-                         {
-                           backEdgeScore = score;
-                           backEdge = edge;
-                         }
-                       });
+                       [&](routing::Edge const & edge)
+    {
+      auto toPair = [](auto && e) { return e.ToPair(); };
+      double const score =
+          GetMatchingScore(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint(),
+                           make_transform_iterator(e.base(), toPair), make_transform_iterator(edges.end(), toPair));
+      if (score > backEdgeScore)
+      {
+        backEdgeScore = score;
+        backEdge = edge;
+      }
+    });
   });
 
   path.clear();
   for (auto const & e : edges)
-  {
     if (!e.IsFake())
       path.push_back(e.m_raw);
-  }
 
   if (frontEdgeScore >= kFakeCoverageThreshold && !path.empty() && path.front() != frontEdge)
     path.insert(path.begin(), frontEdge);
@@ -742,11 +721,11 @@ void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges, Path &
   double bestCoverage = -1.0;
   routing::Edge bestEdge;
 
-  auto checkEdge = [&](routing::Edge const & edge) {
+  auto checkEdge = [&](routing::Edge const & edge)
+  {
     double const weight = GetWeight(edge);
     double const fraction =
-        GetCoverage(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint(),
-                    edges.begin(), edges.end());
+        GetCoverage(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint(), edges.begin(), edges.end());
     double const coverage = weight * fraction;
     if (coverage >= bestCoverage)
     {

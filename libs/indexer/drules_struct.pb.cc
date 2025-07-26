@@ -5,6 +5,8 @@
 #include "indexer/drules_struct.pb.h"
 
 #include <algorithm>
+// Manually added to avoid C++23 build errors caused by missing include.
+#include <type_traits>
 
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/stubs/port.h>
@@ -463,7 +465,7 @@ double DashDotProto::offset() const {
   return offset_;
 }
 void DashDotProto::set_offset(double value) {
-  
+
   offset_ = value;
   // @@protoc_insertion_point(field_set:DashDotProto.offset)
 }
@@ -736,13 +738,13 @@ const ::std::string& PathSymProto::name() const {
   return name_.GetNoArena();
 }
 void PathSymProto::set_name(const ::std::string& value) {
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:PathSymProto.name)
 }
 #if LANG_CXX11
 void PathSymProto::set_name(::std::string&& value) {
-  
+
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:PathSymProto.name)
@@ -750,31 +752,31 @@ void PathSymProto::set_name(::std::string&& value) {
 #endif
 void PathSymProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:PathSymProto.name)
 }
 void PathSymProto::set_name(const char* value, size_t size) {
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:PathSymProto.name)
 }
 ::std::string* PathSymProto::mutable_name() {
-  
+
   // @@protoc_insertion_point(field_mutable:PathSymProto.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 ::std::string* PathSymProto::release_name() {
   // @@protoc_insertion_point(field_release:PathSymProto.name)
-  
+
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 void PathSymProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
-    
+
   } else {
-    
+
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:PathSymProto.name)
@@ -789,7 +791,7 @@ double PathSymProto::step() const {
   return step_;
 }
 void PathSymProto::set_step(double value) {
-  
+
   step_ = value;
   // @@protoc_insertion_point(field_set:PathSymProto.step)
 }
@@ -803,7 +805,7 @@ double PathSymProto::offset() const {
   return offset_;
 }
 void PathSymProto::set_offset(double value) {
-  
+
   offset_ = value;
   // @@protoc_insertion_point(field_set:PathSymProto.offset)
 }
@@ -1211,7 +1213,7 @@ double LineRuleProto::width() const {
   return width_;
 }
 void LineRuleProto::set_width(double value) {
-  
+
   width_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.width)
 }
@@ -1225,7 +1227,7 @@ void LineRuleProto::clear_color() {
   return color_;
 }
 void LineRuleProto::set_color(::google::protobuf::uint32 value) {
-  
+
   color_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.color)
 }
@@ -1244,7 +1246,7 @@ const ::DashDotProto& LineRuleProto::dashdot() const {
                          : *::DashDotProto::internal_default_instance();
 }
 ::DashDotProto* LineRuleProto::mutable_dashdot() {
-  
+
   if (dashdot_ == NULL) {
     dashdot_ = new ::DashDotProto;
   }
@@ -1253,7 +1255,7 @@ const ::DashDotProto& LineRuleProto::dashdot() const {
 }
 ::DashDotProto* LineRuleProto::release_dashdot() {
   // @@protoc_insertion_point(field_release:LineRuleProto.dashdot)
-  
+
   ::DashDotProto* temp = dashdot_;
   dashdot_ = NULL;
   return temp;
@@ -1262,9 +1264,9 @@ void LineRuleProto::set_allocated_dashdot(::DashDotProto* dashdot) {
   delete dashdot_;
   dashdot_ = dashdot;
   if (dashdot) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:LineRuleProto.dashdot)
 }
@@ -1278,7 +1280,7 @@ void LineRuleProto::clear_priority() {
   return priority_;
 }
 void LineRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+
   priority_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.priority)
 }
@@ -1297,7 +1299,7 @@ const ::PathSymProto& LineRuleProto::pathsym() const {
                          : *::PathSymProto::internal_default_instance();
 }
 ::PathSymProto* LineRuleProto::mutable_pathsym() {
-  
+
   if (pathsym_ == NULL) {
     pathsym_ = new ::PathSymProto;
   }
@@ -1306,7 +1308,7 @@ const ::PathSymProto& LineRuleProto::pathsym() const {
 }
 ::PathSymProto* LineRuleProto::release_pathsym() {
   // @@protoc_insertion_point(field_release:LineRuleProto.pathsym)
-  
+
   ::PathSymProto* temp = pathsym_;
   pathsym_ = NULL;
   return temp;
@@ -1315,9 +1317,9 @@ void LineRuleProto::set_allocated_pathsym(::PathSymProto* pathsym) {
   delete pathsym_;
   pathsym_ = pathsym;
   if (pathsym) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:LineRuleProto.pathsym)
 }
@@ -1331,7 +1333,7 @@ void LineRuleProto::clear_join() {
   return static_cast< ::LineJoin >(join_);
 }
 void LineRuleProto::set_join(::LineJoin value) {
-  
+
   join_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.join)
 }
@@ -1345,7 +1347,7 @@ void LineRuleProto::clear_cap() {
   return static_cast< ::LineCap >(cap_);
 }
 void LineRuleProto::set_cap(::LineCap value) {
-  
+
   cap_ = value;
   // @@protoc_insertion_point(field_set:LineRuleProto.cap)
 }
@@ -1722,7 +1724,7 @@ double LineDefProto::width() const {
   return width_;
 }
 void LineDefProto::set_width(double value) {
-  
+
   width_ = value;
   // @@protoc_insertion_point(field_set:LineDefProto.width)
 }
@@ -1736,7 +1738,7 @@ void LineDefProto::clear_color() {
   return color_;
 }
 void LineDefProto::set_color(::google::protobuf::uint32 value) {
-  
+
   color_ = value;
   // @@protoc_insertion_point(field_set:LineDefProto.color)
 }
@@ -1755,7 +1757,7 @@ const ::DashDotProto& LineDefProto::dashdot() const {
                          : *::DashDotProto::internal_default_instance();
 }
 ::DashDotProto* LineDefProto::mutable_dashdot() {
-  
+
   if (dashdot_ == NULL) {
     dashdot_ = new ::DashDotProto;
   }
@@ -1764,7 +1766,7 @@ const ::DashDotProto& LineDefProto::dashdot() const {
 }
 ::DashDotProto* LineDefProto::release_dashdot() {
   // @@protoc_insertion_point(field_release:LineDefProto.dashdot)
-  
+
   ::DashDotProto* temp = dashdot_;
   dashdot_ = NULL;
   return temp;
@@ -1773,9 +1775,9 @@ void LineDefProto::set_allocated_dashdot(::DashDotProto* dashdot) {
   delete dashdot_;
   dashdot_ = dashdot;
   if (dashdot) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:LineDefProto.dashdot)
 }
@@ -1794,7 +1796,7 @@ const ::PathSymProto& LineDefProto::pathsym() const {
                          : *::PathSymProto::internal_default_instance();
 }
 ::PathSymProto* LineDefProto::mutable_pathsym() {
-  
+
   if (pathsym_ == NULL) {
     pathsym_ = new ::PathSymProto;
   }
@@ -1803,7 +1805,7 @@ const ::PathSymProto& LineDefProto::pathsym() const {
 }
 ::PathSymProto* LineDefProto::release_pathsym() {
   // @@protoc_insertion_point(field_release:LineDefProto.pathsym)
-  
+
   ::PathSymProto* temp = pathsym_;
   pathsym_ = NULL;
   return temp;
@@ -1812,9 +1814,9 @@ void LineDefProto::set_allocated_pathsym(::PathSymProto* pathsym) {
   delete pathsym_;
   pathsym_ = pathsym;
   if (pathsym) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:LineDefProto.pathsym)
 }
@@ -1828,7 +1830,7 @@ void LineDefProto::clear_join() {
   return static_cast< ::LineJoin >(join_);
 }
 void LineDefProto::set_join(::LineJoin value) {
-  
+
   join_ = value;
   // @@protoc_insertion_point(field_set:LineDefProto.join)
 }
@@ -1842,7 +1844,7 @@ void LineDefProto::clear_cap() {
   return static_cast< ::LineCap >(cap_);
 }
 void LineDefProto::set_cap(::LineCap value) {
-  
+
   cap_ = value;
   // @@protoc_insertion_point(field_set:LineDefProto.cap)
 }
@@ -2115,7 +2117,7 @@ void AreaRuleProto::clear_color() {
   return color_;
 }
 void AreaRuleProto::set_color(::google::protobuf::uint32 value) {
-  
+
   color_ = value;
   // @@protoc_insertion_point(field_set:AreaRuleProto.color)
 }
@@ -2134,7 +2136,7 @@ const ::LineDefProto& AreaRuleProto::border() const {
                          : *::LineDefProto::internal_default_instance();
 }
 ::LineDefProto* AreaRuleProto::mutable_border() {
-  
+
   if (border_ == NULL) {
     border_ = new ::LineDefProto;
   }
@@ -2143,7 +2145,7 @@ const ::LineDefProto& AreaRuleProto::border() const {
 }
 ::LineDefProto* AreaRuleProto::release_border() {
   // @@protoc_insertion_point(field_release:AreaRuleProto.border)
-  
+
   ::LineDefProto* temp = border_;
   border_ = NULL;
   return temp;
@@ -2152,9 +2154,9 @@ void AreaRuleProto::set_allocated_border(::LineDefProto* border) {
   delete border_;
   border_ = border;
   if (border) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:AreaRuleProto.border)
 }
@@ -2168,7 +2170,7 @@ void AreaRuleProto::clear_priority() {
   return priority_;
 }
 void AreaRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+
   priority_ = value;
   // @@protoc_insertion_point(field_set:AreaRuleProto.priority)
 }
@@ -2476,13 +2478,13 @@ const ::std::string& SymbolRuleProto::name() const {
   return name_.GetNoArena();
 }
 void SymbolRuleProto::set_name(const ::std::string& value) {
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:SymbolRuleProto.name)
 }
 #if LANG_CXX11
 void SymbolRuleProto::set_name(::std::string&& value) {
-  
+
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:SymbolRuleProto.name)
@@ -2490,31 +2492,31 @@ void SymbolRuleProto::set_name(::std::string&& value) {
 #endif
 void SymbolRuleProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:SymbolRuleProto.name)
 }
 void SymbolRuleProto::set_name(const char* value, size_t size) {
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:SymbolRuleProto.name)
 }
 ::std::string* SymbolRuleProto::mutable_name() {
-  
+
   // @@protoc_insertion_point(field_mutable:SymbolRuleProto.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 ::std::string* SymbolRuleProto::release_name() {
   // @@protoc_insertion_point(field_release:SymbolRuleProto.name)
-  
+
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 void SymbolRuleProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
-    
+
   } else {
-    
+
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:SymbolRuleProto.name)
@@ -2529,7 +2531,7 @@ void SymbolRuleProto::clear_apply_for_type() {
   return apply_for_type_;
 }
 void SymbolRuleProto::set_apply_for_type(::google::protobuf::int32 value) {
-  
+
   apply_for_type_ = value;
   // @@protoc_insertion_point(field_set:SymbolRuleProto.apply_for_type)
 }
@@ -2543,7 +2545,7 @@ void SymbolRuleProto::clear_priority() {
   return priority_;
 }
 void SymbolRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+
   priority_ = value;
   // @@protoc_insertion_point(field_set:SymbolRuleProto.priority)
 }
@@ -2557,7 +2559,7 @@ void SymbolRuleProto::clear_min_distance() {
   return min_distance_;
 }
 void SymbolRuleProto::set_min_distance(::google::protobuf::int32 value) {
-  
+
   min_distance_ = value;
   // @@protoc_insertion_point(field_set:SymbolRuleProto.min_distance)
 }
@@ -2956,7 +2958,7 @@ void CaptionDefProto::clear_height() {
   return height_;
 }
 void CaptionDefProto::set_height(::google::protobuf::int32 value) {
-  
+
   height_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.height)
 }
@@ -2970,7 +2972,7 @@ void CaptionDefProto::clear_color() {
   return color_;
 }
 void CaptionDefProto::set_color(::google::protobuf::uint32 value) {
-  
+
   color_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.color)
 }
@@ -2984,7 +2986,7 @@ void CaptionDefProto::clear_stroke_color() {
   return stroke_color_;
 }
 void CaptionDefProto::set_stroke_color(::google::protobuf::uint32 value) {
-  
+
   stroke_color_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.stroke_color)
 }
@@ -2998,7 +3000,7 @@ void CaptionDefProto::clear_offset_x() {
   return offset_x_;
 }
 void CaptionDefProto::set_offset_x(::google::protobuf::int32 value) {
-  
+
   offset_x_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.offset_x)
 }
@@ -3012,7 +3014,7 @@ void CaptionDefProto::clear_offset_y() {
   return offset_y_;
 }
 void CaptionDefProto::set_offset_y(::google::protobuf::int32 value) {
-  
+
   offset_y_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.offset_y)
 }
@@ -3026,13 +3028,13 @@ const ::std::string& CaptionDefProto::text() const {
   return text_.GetNoArena();
 }
 void CaptionDefProto::set_text(const ::std::string& value) {
-  
+
   text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:CaptionDefProto.text)
 }
 #if LANG_CXX11
 void CaptionDefProto::set_text(::std::string&& value) {
-  
+
   text_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:CaptionDefProto.text)
@@ -3040,31 +3042,31 @@ void CaptionDefProto::set_text(::std::string&& value) {
 #endif
 void CaptionDefProto::set_text(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  
+
   text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:CaptionDefProto.text)
 }
 void CaptionDefProto::set_text(const char* value, size_t size) {
-  
+
   text_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:CaptionDefProto.text)
 }
 ::std::string* CaptionDefProto::mutable_text() {
-  
+
   // @@protoc_insertion_point(field_mutable:CaptionDefProto.text)
   return text_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 ::std::string* CaptionDefProto::release_text() {
   // @@protoc_insertion_point(field_release:CaptionDefProto.text)
-  
+
   return text_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 void CaptionDefProto::set_allocated_text(::std::string* text) {
   if (text != NULL) {
-    
+
   } else {
-    
+
   }
   text_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), text);
   // @@protoc_insertion_point(field_set_allocated:CaptionDefProto.text)
@@ -3079,7 +3081,7 @@ bool CaptionDefProto::is_optional() const {
   return is_optional_;
 }
 void CaptionDefProto::set_is_optional(bool value) {
-  
+
   is_optional_ = value;
   // @@protoc_insertion_point(field_set:CaptionDefProto.is_optional)
 }
@@ -3365,7 +3367,7 @@ const ::CaptionDefProto& CaptionRuleProto::primary() const {
                          : *::CaptionDefProto::internal_default_instance();
 }
 ::CaptionDefProto* CaptionRuleProto::mutable_primary() {
-  
+
   if (primary_ == NULL) {
     primary_ = new ::CaptionDefProto;
   }
@@ -3374,7 +3376,7 @@ const ::CaptionDefProto& CaptionRuleProto::primary() const {
 }
 ::CaptionDefProto* CaptionRuleProto::release_primary() {
   // @@protoc_insertion_point(field_release:CaptionRuleProto.primary)
-  
+
   ::CaptionDefProto* temp = primary_;
   primary_ = NULL;
   return temp;
@@ -3383,9 +3385,9 @@ void CaptionRuleProto::set_allocated_primary(::CaptionDefProto* primary) {
   delete primary_;
   primary_ = primary;
   if (primary) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:CaptionRuleProto.primary)
 }
@@ -3404,7 +3406,7 @@ const ::CaptionDefProto& CaptionRuleProto::secondary() const {
                          : *::CaptionDefProto::internal_default_instance();
 }
 ::CaptionDefProto* CaptionRuleProto::mutable_secondary() {
-  
+
   if (secondary_ == NULL) {
     secondary_ = new ::CaptionDefProto;
   }
@@ -3413,7 +3415,7 @@ const ::CaptionDefProto& CaptionRuleProto::secondary() const {
 }
 ::CaptionDefProto* CaptionRuleProto::release_secondary() {
   // @@protoc_insertion_point(field_release:CaptionRuleProto.secondary)
-  
+
   ::CaptionDefProto* temp = secondary_;
   secondary_ = NULL;
   return temp;
@@ -3422,9 +3424,9 @@ void CaptionRuleProto::set_allocated_secondary(::CaptionDefProto* secondary) {
   delete secondary_;
   secondary_ = secondary;
   if (secondary) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:CaptionRuleProto.secondary)
 }
@@ -3438,7 +3440,7 @@ void CaptionRuleProto::clear_priority() {
   return priority_;
 }
 void CaptionRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+
   priority_ = value;
   // @@protoc_insertion_point(field_set:CaptionRuleProto.priority)
 }
@@ -3740,7 +3742,7 @@ double CircleRuleProto::radius() const {
   return radius_;
 }
 void CircleRuleProto::set_radius(double value) {
-  
+
   radius_ = value;
   // @@protoc_insertion_point(field_set:CircleRuleProto.radius)
 }
@@ -3754,7 +3756,7 @@ void CircleRuleProto::clear_color() {
   return color_;
 }
 void CircleRuleProto::set_color(::google::protobuf::uint32 value) {
-  
+
   color_ = value;
   // @@protoc_insertion_point(field_set:CircleRuleProto.color)
 }
@@ -3773,7 +3775,7 @@ const ::LineDefProto& CircleRuleProto::border() const {
                          : *::LineDefProto::internal_default_instance();
 }
 ::LineDefProto* CircleRuleProto::mutable_border() {
-  
+
   if (border_ == NULL) {
     border_ = new ::LineDefProto;
   }
@@ -3782,7 +3784,7 @@ const ::LineDefProto& CircleRuleProto::border() const {
 }
 ::LineDefProto* CircleRuleProto::release_border() {
   // @@protoc_insertion_point(field_release:CircleRuleProto.border)
-  
+
   ::LineDefProto* temp = border_;
   border_ = NULL;
   return temp;
@@ -3791,9 +3793,9 @@ void CircleRuleProto::set_allocated_border(::LineDefProto* border) {
   delete border_;
   border_ = border;
   if (border) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:CircleRuleProto.border)
 }
@@ -3807,7 +3809,7 @@ void CircleRuleProto::clear_priority() {
   return priority_;
 }
 void CircleRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+
   priority_ = value;
   // @@protoc_insertion_point(field_set:CircleRuleProto.priority)
 }
@@ -4093,7 +4095,7 @@ const ::CaptionDefProto& PathTextRuleProto::primary() const {
                          : *::CaptionDefProto::internal_default_instance();
 }
 ::CaptionDefProto* PathTextRuleProto::mutable_primary() {
-  
+
   if (primary_ == NULL) {
     primary_ = new ::CaptionDefProto;
   }
@@ -4102,7 +4104,7 @@ const ::CaptionDefProto& PathTextRuleProto::primary() const {
 }
 ::CaptionDefProto* PathTextRuleProto::release_primary() {
   // @@protoc_insertion_point(field_release:PathTextRuleProto.primary)
-  
+
   ::CaptionDefProto* temp = primary_;
   primary_ = NULL;
   return temp;
@@ -4111,9 +4113,9 @@ void PathTextRuleProto::set_allocated_primary(::CaptionDefProto* primary) {
   delete primary_;
   primary_ = primary;
   if (primary) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:PathTextRuleProto.primary)
 }
@@ -4132,7 +4134,7 @@ const ::CaptionDefProto& PathTextRuleProto::secondary() const {
                          : *::CaptionDefProto::internal_default_instance();
 }
 ::CaptionDefProto* PathTextRuleProto::mutable_secondary() {
-  
+
   if (secondary_ == NULL) {
     secondary_ = new ::CaptionDefProto;
   }
@@ -4141,7 +4143,7 @@ const ::CaptionDefProto& PathTextRuleProto::secondary() const {
 }
 ::CaptionDefProto* PathTextRuleProto::release_secondary() {
   // @@protoc_insertion_point(field_release:PathTextRuleProto.secondary)
-  
+
   ::CaptionDefProto* temp = secondary_;
   secondary_ = NULL;
   return temp;
@@ -4150,9 +4152,9 @@ void PathTextRuleProto::set_allocated_secondary(::CaptionDefProto* secondary) {
   delete secondary_;
   secondary_ = secondary;
   if (secondary) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:PathTextRuleProto.secondary)
 }
@@ -4166,7 +4168,7 @@ void PathTextRuleProto::clear_priority() {
   return priority_;
 }
 void PathTextRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+
   priority_ = value;
   // @@protoc_insertion_point(field_set:PathTextRuleProto.priority)
 }
@@ -4552,7 +4554,7 @@ void ShieldRuleProto::clear_height() {
   return height_;
 }
 void ShieldRuleProto::set_height(::google::protobuf::int32 value) {
-  
+
   height_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.height)
 }
@@ -4566,7 +4568,7 @@ void ShieldRuleProto::clear_color() {
   return color_;
 }
 void ShieldRuleProto::set_color(::google::protobuf::uint32 value) {
-  
+
   color_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.color)
 }
@@ -4580,7 +4582,7 @@ void ShieldRuleProto::clear_stroke_color() {
   return stroke_color_;
 }
 void ShieldRuleProto::set_stroke_color(::google::protobuf::uint32 value) {
-  
+
   stroke_color_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.stroke_color)
 }
@@ -4594,7 +4596,7 @@ void ShieldRuleProto::clear_priority() {
   return priority_;
 }
 void ShieldRuleProto::set_priority(::google::protobuf::int32 value) {
-  
+
   priority_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.priority)
 }
@@ -4608,7 +4610,7 @@ void ShieldRuleProto::clear_min_distance() {
   return min_distance_;
 }
 void ShieldRuleProto::set_min_distance(::google::protobuf::int32 value) {
-  
+
   min_distance_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.min_distance)
 }
@@ -4622,7 +4624,7 @@ void ShieldRuleProto::clear_text_color() {
   return text_color_;
 }
 void ShieldRuleProto::set_text_color(::google::protobuf::uint32 value) {
-  
+
   text_color_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.text_color)
 }
@@ -4636,7 +4638,7 @@ void ShieldRuleProto::clear_text_stroke_color() {
   return text_stroke_color_;
 }
 void ShieldRuleProto::set_text_stroke_color(::google::protobuf::uint32 value) {
-  
+
   text_stroke_color_ = value;
   // @@protoc_insertion_point(field_set:ShieldRuleProto.text_stroke_color)
 }
@@ -5159,7 +5161,7 @@ void DrawElementProto::clear_scale() {
   return scale_;
 }
 void DrawElementProto::set_scale(::google::protobuf::int32 value) {
-  
+
   scale_ = value;
   // @@protoc_insertion_point(field_set:DrawElementProto.scale)
 }
@@ -5208,7 +5210,7 @@ const ::AreaRuleProto& DrawElementProto::area() const {
                          : *::AreaRuleProto::internal_default_instance();
 }
 ::AreaRuleProto* DrawElementProto::mutable_area() {
-  
+
   if (area_ == NULL) {
     area_ = new ::AreaRuleProto;
   }
@@ -5217,7 +5219,7 @@ const ::AreaRuleProto& DrawElementProto::area() const {
 }
 ::AreaRuleProto* DrawElementProto::release_area() {
   // @@protoc_insertion_point(field_release:DrawElementProto.area)
-  
+
   ::AreaRuleProto* temp = area_;
   area_ = NULL;
   return temp;
@@ -5226,9 +5228,9 @@ void DrawElementProto::set_allocated_area(::AreaRuleProto* area) {
   delete area_;
   area_ = area;
   if (area) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.area)
 }
@@ -5247,7 +5249,7 @@ const ::SymbolRuleProto& DrawElementProto::symbol() const {
                          : *::SymbolRuleProto::internal_default_instance();
 }
 ::SymbolRuleProto* DrawElementProto::mutable_symbol() {
-  
+
   if (symbol_ == NULL) {
     symbol_ = new ::SymbolRuleProto;
   }
@@ -5256,7 +5258,7 @@ const ::SymbolRuleProto& DrawElementProto::symbol() const {
 }
 ::SymbolRuleProto* DrawElementProto::release_symbol() {
   // @@protoc_insertion_point(field_release:DrawElementProto.symbol)
-  
+
   ::SymbolRuleProto* temp = symbol_;
   symbol_ = NULL;
   return temp;
@@ -5265,9 +5267,9 @@ void DrawElementProto::set_allocated_symbol(::SymbolRuleProto* symbol) {
   delete symbol_;
   symbol_ = symbol;
   if (symbol) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.symbol)
 }
@@ -5286,7 +5288,7 @@ const ::CaptionRuleProto& DrawElementProto::caption() const {
                          : *::CaptionRuleProto::internal_default_instance();
 }
 ::CaptionRuleProto* DrawElementProto::mutable_caption() {
-  
+
   if (caption_ == NULL) {
     caption_ = new ::CaptionRuleProto;
   }
@@ -5295,7 +5297,7 @@ const ::CaptionRuleProto& DrawElementProto::caption() const {
 }
 ::CaptionRuleProto* DrawElementProto::release_caption() {
   // @@protoc_insertion_point(field_release:DrawElementProto.caption)
-  
+
   ::CaptionRuleProto* temp = caption_;
   caption_ = NULL;
   return temp;
@@ -5304,9 +5306,9 @@ void DrawElementProto::set_allocated_caption(::CaptionRuleProto* caption) {
   delete caption_;
   caption_ = caption;
   if (caption) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.caption)
 }
@@ -5325,7 +5327,7 @@ const ::CircleRuleProto& DrawElementProto::circle() const {
                          : *::CircleRuleProto::internal_default_instance();
 }
 ::CircleRuleProto* DrawElementProto::mutable_circle() {
-  
+
   if (circle_ == NULL) {
     circle_ = new ::CircleRuleProto;
   }
@@ -5334,7 +5336,7 @@ const ::CircleRuleProto& DrawElementProto::circle() const {
 }
 ::CircleRuleProto* DrawElementProto::release_circle() {
   // @@protoc_insertion_point(field_release:DrawElementProto.circle)
-  
+
   ::CircleRuleProto* temp = circle_;
   circle_ = NULL;
   return temp;
@@ -5343,9 +5345,9 @@ void DrawElementProto::set_allocated_circle(::CircleRuleProto* circle) {
   delete circle_;
   circle_ = circle;
   if (circle) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.circle)
 }
@@ -5364,7 +5366,7 @@ const ::PathTextRuleProto& DrawElementProto::path_text() const {
                          : *::PathTextRuleProto::internal_default_instance();
 }
 ::PathTextRuleProto* DrawElementProto::mutable_path_text() {
-  
+
   if (path_text_ == NULL) {
     path_text_ = new ::PathTextRuleProto;
   }
@@ -5373,7 +5375,7 @@ const ::PathTextRuleProto& DrawElementProto::path_text() const {
 }
 ::PathTextRuleProto* DrawElementProto::release_path_text() {
   // @@protoc_insertion_point(field_release:DrawElementProto.path_text)
-  
+
   ::PathTextRuleProto* temp = path_text_;
   path_text_ = NULL;
   return temp;
@@ -5382,9 +5384,9 @@ void DrawElementProto::set_allocated_path_text(::PathTextRuleProto* path_text) {
   delete path_text_;
   path_text_ = path_text;
   if (path_text) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.path_text)
 }
@@ -5403,7 +5405,7 @@ const ::ShieldRuleProto& DrawElementProto::shield() const {
                          : *::ShieldRuleProto::internal_default_instance();
 }
 ::ShieldRuleProto* DrawElementProto::mutable_shield() {
-  
+
   if (shield_ == NULL) {
     shield_ = new ::ShieldRuleProto;
   }
@@ -5412,7 +5414,7 @@ const ::ShieldRuleProto& DrawElementProto::shield() const {
 }
 ::ShieldRuleProto* DrawElementProto::release_shield() {
   // @@protoc_insertion_point(field_release:DrawElementProto.shield)
-  
+
   ::ShieldRuleProto* temp = shield_;
   shield_ = NULL;
   return temp;
@@ -5421,9 +5423,9 @@ void DrawElementProto::set_allocated_shield(::ShieldRuleProto* shield) {
   delete shield_;
   shield_ = shield;
   if (shield) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:DrawElementProto.shield)
 }
@@ -5734,13 +5736,13 @@ const ::std::string& ClassifElementProto::name() const {
   return name_.GetNoArena();
 }
 void ClassifElementProto::set_name(const ::std::string& value) {
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:ClassifElementProto.name)
 }
 #if LANG_CXX11
 void ClassifElementProto::set_name(::std::string&& value) {
-  
+
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:ClassifElementProto.name)
@@ -5748,31 +5750,31 @@ void ClassifElementProto::set_name(::std::string&& value) {
 #endif
 void ClassifElementProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ClassifElementProto.name)
 }
 void ClassifElementProto::set_name(const char* value, size_t size) {
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:ClassifElementProto.name)
 }
 ::std::string* ClassifElementProto::mutable_name() {
-  
+
   // @@protoc_insertion_point(field_mutable:ClassifElementProto.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 ::std::string* ClassifElementProto::release_name() {
   // @@protoc_insertion_point(field_release:ClassifElementProto.name)
-  
+
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 void ClassifElementProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
-    
+
   } else {
-    
+
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:ClassifElementProto.name)
@@ -6107,13 +6109,13 @@ const ::std::string& ColorElementProto::name() const {
   return name_.GetNoArena();
 }
 void ColorElementProto::set_name(const ::std::string& value) {
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:ColorElementProto.name)
 }
 #if LANG_CXX11
 void ColorElementProto::set_name(::std::string&& value) {
-  
+
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:ColorElementProto.name)
@@ -6121,31 +6123,31 @@ void ColorElementProto::set_name(::std::string&& value) {
 #endif
 void ColorElementProto::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ColorElementProto.name)
 }
 void ColorElementProto::set_name(const char* value, size_t size) {
-  
+
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:ColorElementProto.name)
 }
 ::std::string* ColorElementProto::mutable_name() {
-  
+
   // @@protoc_insertion_point(field_mutable:ColorElementProto.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 ::std::string* ColorElementProto::release_name() {
   // @@protoc_insertion_point(field_release:ColorElementProto.name)
-  
+
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 void ColorElementProto::set_allocated_name(::std::string* name) {
   if (name != NULL) {
-    
+
   } else {
-    
+
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:ColorElementProto.name)
@@ -6160,7 +6162,7 @@ void ColorElementProto::clear_color() {
   return color_;
 }
 void ColorElementProto::set_color(::google::protobuf::uint32 value) {
-  
+
   color_ = value;
   // @@protoc_insertion_point(field_set:ColorElementProto.color)
 }
@@ -6174,7 +6176,7 @@ float ColorElementProto::x() const {
   return x_;
 }
 void ColorElementProto::set_x(float value) {
-  
+
   x_ = value;
   // @@protoc_insertion_point(field_set:ColorElementProto.x)
 }
@@ -6188,7 +6190,7 @@ float ColorElementProto::y() const {
   return y_;
 }
 void ColorElementProto::set_y(float value) {
-  
+
   y_ = value;
   // @@protoc_insertion_point(field_set:ColorElementProto.y)
 }
@@ -6674,7 +6676,7 @@ const ::ColorsElementProto& ContainerProto::colors() const {
                          : *::ColorsElementProto::internal_default_instance();
 }
 ::ColorsElementProto* ContainerProto::mutable_colors() {
-  
+
   if (colors_ == NULL) {
     colors_ = new ::ColorsElementProto;
   }
@@ -6683,7 +6685,7 @@ const ::ColorsElementProto& ContainerProto::colors() const {
 }
 ::ColorsElementProto* ContainerProto::release_colors() {
   // @@protoc_insertion_point(field_release:ContainerProto.colors)
-  
+
   ::ColorsElementProto* temp = colors_;
   colors_ = NULL;
   return temp;
@@ -6692,9 +6694,9 @@ void ContainerProto::set_allocated_colors(::ColorsElementProto* colors) {
   delete colors_;
   colors_ = colors;
   if (colors) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:ContainerProto.colors)
 }

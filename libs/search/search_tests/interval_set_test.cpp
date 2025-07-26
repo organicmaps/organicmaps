@@ -101,8 +101,7 @@ UNIT_TEST(IntervalSet_SubtractFrom)
   {
     std::vector<Interval<int>> difference;
     set.SubtractFrom(Interval<int>(-1, 11), difference);
-    std::vector<Interval<int>> expected{Interval<int>(-1, 0), Interval<int>(2, 4),
-                                    Interval<int>(7, 10)};
+    std::vector<Interval<int>> expected{Interval<int>(-1, 0), Interval<int>(2, 4), Interval<int>(7, 10)};
     TEST_EQUAL(difference, expected, ());
   }
 

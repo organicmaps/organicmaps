@@ -32,8 +32,7 @@ private:
 
     Camera(m2::PointD const & center, uint8_t maxSpeed, std::vector<routing::SpeedCameraMwmPosition> && ways)
       : m_data(center, maxSpeed, std::move(ways))
-    {
-    }
+    {}
 
     void ParseDirection()
     {
@@ -56,8 +55,7 @@ private:
     // Returns empty object, if current feature - |wayId| is not the car road.
     // Otherwise returns id of segment from feature with id - |wayId|, which starts (or ends) at camera's
     // center and coefficient - where it placed at the segment: 0.0 (or 1.0).
-    std::optional<std::pair<double, uint32_t>> FindMyself(uint32_t wayFeatureId,
-                                                          FrozenDataSource const & dataSource,
+    std::optional<std::pair<double, uint32_t>> FindMyself(uint32_t wayFeatureId, FrozenDataSource const & dataSource,
                                                           MwmSet::MwmId const & mwmId) const;
 
     void Serialize(FileWriter & writer, uint32_t & prevFeatureId) const;
@@ -68,8 +66,7 @@ private:
   inline static double constexpr kMaxDistFromCameraToClosestSegmentMeters = 20.0;
   inline static double constexpr kSearchCameraRadiusMeters = 10.0;
 
-  bool ParseIntermediateInfo(std::string const & camerasInfoPath,
-                             routing::OsmIdToFeatureIds const & osmIdToFeatureIds);
+  bool ParseIntermediateInfo(std::string const & camerasInfoPath, routing::OsmIdToFeatureIds const & osmIdToFeatureIds);
 
   std::vector<Camera> m_cameras;
 };

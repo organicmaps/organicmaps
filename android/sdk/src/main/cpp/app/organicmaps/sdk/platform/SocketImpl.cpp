@@ -30,8 +30,7 @@ public:
   bool Open(std::string const & host, uint16_t port)
   {
     JNIEnv * env = jni::GetEnv();
-    static jmethodID const openMethod =
-        jni::GetMethodID(env, m_self, "open", "(Ljava/lang/String;I)Z");
+    static jmethodID const openMethod = jni::GetMethodID(env, m_self, "open", "(Ljava/lang/String;I)Z");
     jni::TScopedLocalRef hostRef(env, jni::ToJavaString(env, host));
     jboolean result = env->CallBooleanMethod(m_self, openMethod, hostRef.get(), static_cast<jint>(port));
     if (jni::HandleJavaException(env))
@@ -55,7 +54,7 @@ public:
     jboolean result = env->CallBooleanMethod(m_self, readMethod, array, static_cast<jint>(count));
     if (jni::HandleJavaException(env))
       return false;
-    //this call copies java byte array to native buffer
+    // this call copies java byte array to native buffer
     env->GetByteArrayRegion(array, 0, count, reinterpret_cast<jbyte *>(data));
     if (jni::HandleJavaException(env))
       return false;
@@ -66,8 +65,8 @@ public:
   {
     JNIEnv * env = jni::GetEnv();
     jni::TScopedLocalByteArrayRef arrayRef(env, env->NewByteArray(count));
-    //this call copies native buffer to java byte array
-    env->SetByteArrayRegion(arrayRef.get(), 0, count, reinterpret_cast<const jbyte *>(data));
+    // this call copies native buffer to java byte array
+    env->SetByteArrayRegion(arrayRef.get(), 0, count, reinterpret_cast<jbyte const *>(data));
     static jmethodID const writeMethod = jni::GetMethodID(env, m_self, "write", "([BI)Z");
     jboolean result = env->CallBooleanMethod(m_self, writeMethod, arrayRef.get(), static_cast<jint>(count));
     if (jni::HandleJavaException(env))
@@ -81,11 +80,14 @@ public:
     static jmethodID const setTimeoutMethod = jni::GetMethodID(env, m_self, "setTimeout", "(I)V");
     env->CallVoidMethod(m_self, setTimeoutMethod, static_cast<jint>(milliseconds));
     jni::HandleJavaException(env);
-  };
+  }
 
 private:
   jobject m_self;
 };
 
-std::unique_ptr<Socket> CreateSocket() { return std::make_unique<SocketImpl>(); }
+std::unique_ptr<Socket> CreateSocket()
+{
+  return std::make_unique<SocketImpl>();
 }
+}  // namespace platform

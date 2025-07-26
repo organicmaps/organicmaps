@@ -38,16 +38,14 @@ public:
     {}
   };
 
-  explicit RemoteFile(std::string url, std::string accessToken = {},
-                      HttpClient::Headers const & defaultHeaders = {},
+  explicit RemoteFile(std::string url, std::string accessToken = {}, HttpClient::Headers const & defaultHeaders = {},
                       bool allowRedirection = true);
 
   Result Download(std::string const & filePath) const;
 
   using StartDownloadingHandler = std::function<void(std::string const & filePath)>;
   using ResultHandler = std::function<void(Result &&, std::string const & filePath)>;
-  void DownloadAsync(std::string const & filePath,
-                     StartDownloadingHandler && startDownloadingHandler,
+  void DownloadAsync(std::string const & filePath, StartDownloadingHandler && startDownloadingHandler,
                      ResultHandler && resultHandler) const;
 
 private:

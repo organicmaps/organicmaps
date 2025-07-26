@@ -11,11 +11,7 @@ typedef NS_ENUM(NSUInteger, SearchTextSource) {
   SearchTextSourceDeeplink
 };
 
-typedef NS_ENUM(NSUInteger, SearchMode) {
-  SearchModeEverywhere,
-  SearchModeViewport,
-  SearchModeEverywhereAndViewport
-};
+typedef NS_ENUM(NSUInteger, SearchMode) { SearchModeEverywhere, SearchModeViewport, SearchModeEverywhereAndViewport };
 
 @class SearchResult;
 @class SearchQuery;
@@ -38,7 +34,7 @@ typedef NS_ENUM(NSUInteger, SearchMode) {
 @end
 
 NS_SWIFT_NAME(Search)
-@interface MWMSearch : NSObject<SearchManager>
+@interface MWMSearch : NSObject <SearchManager>
 
 + (SearchItemType)resultTypeWithRow:(NSUInteger)row;
 + (NSUInteger)containerIndexWithRow:(NSUInteger)row;

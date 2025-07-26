@@ -17,11 +17,12 @@
 class GpsTrack final
 {
 public:
-  static size_t const kInvalidId; // = numeric_limits<size_t>::max();
+  static size_t const kInvalidId;  // = numeric_limits<size_t>::max();
 
   /// @param filePath - path to the file on disk to persist track
   /// @param filter - filter object used for filtering points, GpsTrackNullFilter is created by default
-  GpsTrack(std::string const & filePath, std::unique_ptr<IGpsTrackFilter> && filter = std::unique_ptr<IGpsTrackFilter>());
+  GpsTrack(std::string const & filePath,
+           std::unique_ptr<IGpsTrackFilter> && filter = std::unique_ptr<IGpsTrackFilter>());
   ~GpsTrack();
 
   /// Adds point or collection of points to gps tracking
@@ -32,8 +33,8 @@ public:
 
   /// Returns track statistics
   TrackStatistics GetTrackStatistics() const;
-  const ElevationInfo & GetElevationInfo() const;
-  
+  ElevationInfo const & GetElevationInfo() const;
+
   /// Clears any previous tracking info
   /// @note Callback is called with 'toRemove' points, if some points were removed.
   void Clear();
@@ -47,8 +48,7 @@ public:
   /// @note Calling of a GpsTrack.SetCallback function from the callback causes deadlock.
   using TGpsTrackDiffCallback =
       std::function<void(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                         std::pair<size_t, size_t> const & toRemove,
-                         TrackStatistics const & trackStatistics)>;
+                         std::pair<size_t, size_t> const & toRemove, TrackStatistics const & trackStatistics)>;
 
   /// Sets callback on change of gps track.
   /// @param callback - callback callable object
@@ -67,30 +67,27 @@ private:
   DISALLOW_COPY_AND_MOVE(GpsTrack);
 
   void ScheduleTask();
-  void ProcessPoints(); // called on the worker thread
+  void ProcessPoints();  // called on the worker thread
   bool HasCallback();
   void InitStorageIfNeed();
   void InitCollection();
   void UpdateStorage(bool needClear, std::vector<location::GpsInfo> const & points);
-  void UpdateCollection(bool needClear,
-                        std::vector<location::GpsInfo> const & points,
-                        std::pair<size_t, size_t> & addedIds,
-                        std::pair<size_t, size_t> & evictedIds);
-  void NotifyCallback(std::pair<size_t, size_t> const & addedIds,
-                      std::pair<size_t, size_t> const & evictedIds);
+  void UpdateCollection(bool needClear, std::vector<location::GpsInfo> const & points,
+                        std::pair<size_t, size_t> & addedIds, std::pair<size_t, size_t> & evictedIds);
+  void NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::pair<size_t, size_t> const & evictedIds);
 
   std::string const m_filePath;
 
   mutable std::mutex m_dataGuard;           // protects data for stealing
   std::vector<location::GpsInfo> m_points;  // accumulated points for adding
-  bool m_needClear; // need clear file
+  bool m_needClear;                         // need clear file
 
   std::mutex m_callbackGuard;
   // Callback is protected by m_callbackGuard. It ensures that SetCallback and call callback
   // will not be interleaved and after SetCallback(null) callback is never called. The negative side
   // is that GpsTrack.SetCallback must be never called from the callback.
   TGpsTrackDiffCallback m_callback;
-  bool m_needSendSnapshop; // need send initial snapshot
+  bool m_needSendSnapshop;  // need send initial snapshot
 
   std::unique_ptr<GpsTrackStorage> m_storage;        // used in the worker thread
   std::unique_ptr<GpsTrackCollection> m_collection;  // used in the worker thread
@@ -98,7 +95,7 @@ private:
 
   std::mutex m_threadGuard;
   threads::SimpleThread m_thread;
-  bool m_threadExit; // need exit thread
-  bool m_threadWakeup; // need wakeup thread
+  bool m_threadExit;    // need exit thread
+  bool m_threadWakeup;  // need wakeup thread
   std::condition_variable m_cv;
 };

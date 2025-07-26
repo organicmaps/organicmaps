@@ -17,8 +17,7 @@ namespace
 class UserEventStreamTest : df::UserEventStream::Listener
 {
 public:
-  explicit UserEventStreamTest(bool filtrateTouches)
-    : m_filtrate(filtrateTouches)
+  explicit UserEventStreamTest(bool filtrateTouches) : m_filtrate(filtrateTouches)
   {
     m_stream.SetTestBridge(std::bind(&UserEventStreamTest::TestBridge, this, _1));
   }
@@ -40,16 +39,13 @@ public:
   void OnScaleEnded() override {}
   void OnTouchMapAction(df::TouchEvent::ETouchType touchType, bool isMapTouch) override {}
   void OnAnimatedScaleEnded() override {}
-  bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
-                            bool needOffset, m2::PointD & gOffset) override
+  bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, bool needOffset,
+                            m2::PointD & gOffset) override
   {
     return false;
   }
 
-  void AddUserEvent(df::TouchEvent const & event)
-  {
-    m_stream.AddEvent(make_unique_dp<df::TouchEvent>(event));
-  }
+  void AddUserEvent(df::TouchEvent const & event) { m_stream.AddEvent(make_unique_dp<df::TouchEvent>(event)); }
 
   void SetRect(m2::RectD const & r)
   {
@@ -58,10 +54,7 @@ public:
                                                        nullptr /* parallelAnimCreator */));
   }
 
-  void AddExpectation(char const * action)
-  {
-    m_expectation.push_back(action);
-  }
+  void AddExpectation(char const * action) { m_expectation.push_back(action); }
 
   void RunTest()
   {

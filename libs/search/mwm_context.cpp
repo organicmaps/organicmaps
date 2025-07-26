@@ -5,7 +5,6 @@
 #include "indexer/fake_feature_ids.hpp"
 #include "indexer/feature_source.hpp"
 
-
 namespace search
 {
 void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result)
@@ -22,11 +21,9 @@ MwmContext::MwmContext(MwmSet::MwmHandle handle)
   , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG), m_value.m_factory)
   , m_centers(m_value)
   , m_editableSource(m_handle)
-{
-}
+{}
 
-MwmContext::MwmContext(MwmSet::MwmHandle handle, MwmType type)
-  : MwmContext(std::move(handle))
+MwmContext::MwmContext(MwmSet::MwmHandle handle, MwmType type) : MwmContext(std::move(handle))
 {
   m_type = type;
 }
@@ -37,8 +34,7 @@ std::unique_ptr<FeatureType> MwmContext::GetFeature(uint32_t index) const
   switch (GetEditedStatus(index))
   {
   case FeatureStatus::Deleted:
-  case FeatureStatus::Obsolete:
-    return ft;
+  case FeatureStatus::Obsolete: return ft;
   case FeatureStatus::Modified:
   case FeatureStatus::Created:
     ft = m_editableSource.GetModifiedFeature(index);

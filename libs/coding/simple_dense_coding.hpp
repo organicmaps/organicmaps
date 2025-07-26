@@ -4,16 +4,15 @@
 #include <vector>
 
 #if defined(__clang__)
-  #pragma clang diagnostic push
-  #pragma clang diagnostic ignored "-Wunused-private-field"
-#endif
- 
-#include "3party/succinct/elias_fano_compressed_list.hpp"
- 
-#if defined(__clang__)
-  #pragma clang diagnostic pop
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
 
+#include "3party/succinct/elias_fano_compressed_list.hpp"
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 namespace coding
 {

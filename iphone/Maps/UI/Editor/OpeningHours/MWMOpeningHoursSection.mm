@@ -9,11 +9,11 @@ extern UITableViewRowAnimation const kMWMOpeningHoursEditorRowAnimation;
 
 @interface MWMOpeningHoursSection ()
 
-@property (nonatomic, readonly) NSUInteger excludeTimeCount;
+@property(nonatomic, readonly) NSUInteger excludeTimeCount;
 
-@property (nonatomic) BOOL skipStoreCachedData;
+@property(nonatomic) BOOL skipStoreCachedData;
 
-@property (nonatomic) BOOL removeBrokenExcludeTime;
+@property(nonatomic) BOOL removeBrokenExcludeTime;
 
 @end
 
@@ -44,10 +44,8 @@ using namespace osmoh;
 {
   NSUInteger const numberOfRows = self.numberOfRows;
   for (NSUInteger row = 0; row != numberOfRows; ++row)
-  {
     if ([self cellKeyForRow:row] == key)
       return row;
-  }
   return numberOfRows;
 }
 
@@ -78,16 +76,16 @@ using namespace osmoh;
 
 - (NSUInteger)numberOfRowsForAllDay:(BOOL)allDay
 {
-  NSUInteger rowsCount = 2; // MWMOpeningHoursDaysSelectorTableViewCell, MWMOpeningHoursAllDayTableViewCell
+  NSUInteger rowsCount = 2;  // MWMOpeningHoursDaysSelectorTableViewCell, MWMOpeningHoursAllDayTableViewCell
   if (!allDay)
   {
-    rowsCount += 2; // MWMOpeningHoursTimeSpanTableViewCell, MWMOpeningHoursAddClosedTableViewCell
-    rowsCount += [self closedTimesCount]; // MWMOpeningHoursClosedSpanTableViewCell
+    rowsCount += 2;  // MWMOpeningHoursTimeSpanTableViewCell, MWMOpeningHoursAddClosedTableViewCell
+    rowsCount += [self closedTimesCount];  // MWMOpeningHoursClosedSpanTableViewCell
     if (self.selectedRow)
-      rowsCount++; // MWMOpeningHoursTimeSelectorTableViewCell
+      rowsCount++;  // MWMOpeningHoursTimeSelectorTableViewCell
   }
   if (self.index != 0)
-    rowsCount++; // MWMOpeningHoursDeleteScheduleTableViewCell
+    rowsCount++;  // MWMOpeningHoursDeleteScheduleTableViewCell
   return rowsCount;
 }
 
@@ -265,9 +263,7 @@ using namespace osmoh;
     return;
   }
   for (MWMOpeningHoursTableViewCell * cell in tableView.visibleCells)
-  {
     [cell refresh];
-  }
 }
 
 - (void)refreshForNewRowCount:(NSUInteger)newRowCount oldRowCount:(NSUInteger)oldRowCount
@@ -284,11 +280,9 @@ using namespace osmoh;
       [indexes addObject:[NSIndexPath indexPathForRow:row inSection:self.index]];
 
     if (addRows)
-      [tableView insertRowsAtIndexPaths:indexes
-                       withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+      [tableView insertRowsAtIndexPaths:indexes withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
     else
-      [tableView deleteRowsAtIndexPaths:indexes
-                       withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+      [tableView deleteRowsAtIndexPaths:indexes withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
   }];
   [self refresh:NO];
 }
@@ -297,14 +291,14 @@ using namespace osmoh;
 {
   NSIndexPath * path = [NSIndexPath indexPathForRow:row inSection:self.index];
   UITableView * tableView = self.delegate.tableView;
-  [tableView insertRowsAtIndexPaths:@[ path ] withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+  [tableView insertRowsAtIndexPaths:@[path] withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
 }
 
 - (void)deleteRow:(NSUInteger)row
 {
   NSIndexPath * path = [NSIndexPath indexPathForRow:row inSection:self.index];
   UITableView * tableView = self.delegate.tableView;
-  [tableView deleteRowsAtIndexPaths:@[ path ] withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
+  [tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:kMWMOpeningHoursEditorRowAnimation];
 }
 
 #pragma mark - Model
@@ -384,15 +378,13 @@ using namespace osmoh;
   {
     switch ([self cellKeyForRow:self.selectedRow.unsignedIntegerValue])
     {
-      case MWMOpeningHoursEditorTimeSpanCell:
-        [self setStartTime:self.cachedStartTime endTime:self.cachedEndTime isClosed:NO];
-        break;
-      case MWMOpeningHoursEditorClosedSpanCell:
-        [self setStartTime:self.cachedStartTime endTime:self.cachedEndTime isClosed:YES];
-        break;
-      default:
-        NSAssert(false, @"Invalid case");
-        break;
+    case MWMOpeningHoursEditorTimeSpanCell:
+      [self setStartTime:self.cachedStartTime endTime:self.cachedEndTime isClosed:NO];
+      break;
+    case MWMOpeningHoursEditorClosedSpanCell:
+      [self setStartTime:self.cachedStartTime endTime:self.cachedEndTime isClosed:YES];
+      break;
+    default: NSAssert(false, @"Invalid case"); break;
     }
   }
   self.cachedStartTime = nil;
@@ -405,29 +397,23 @@ using namespace osmoh;
 
 - (void)scrollIntoView
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
+  dispatch_async(dispatch_get_main_queue(), ^{
     UITableView * tableView = self.delegate.tableView;
     NSUInteger const lastRow = self.numberOfRows - 1;
     NSIndexPath * path = [NSIndexPath indexPathForRow:lastRow inSection:self.index];
-    [tableView scrollToRowAtIndexPath:path
-                     atScrollPosition:UITableViewScrollPositionNone
-                             animated:YES];
+    [tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
   });
 }
 
 - (void)scrollToSelection
 {
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
+  dispatch_async(dispatch_get_main_queue(), ^{
     if (!self.selectedRow)
       return;
     UITableView * tableView = self.delegate.tableView;
     NSUInteger const timeSelectorRow = self.selectedRow.unsignedIntegerValue + 1;
     NSIndexPath * path = [NSIndexPath indexPathForRow:timeSelectorRow inSection:self.index];
-    [tableView scrollToRowAtIndexPath:path
-                     atScrollPosition:UITableViewScrollPositionNone
-                             animated:YES];
+    [tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
   });
 }
 

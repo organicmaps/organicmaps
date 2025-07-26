@@ -18,7 +18,6 @@ private:
   }
 
 public:
-
   template <typename Fn>
   void ProcessList(Fn const & fn)
   {

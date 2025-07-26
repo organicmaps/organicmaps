@@ -6,12 +6,11 @@
 
 namespace android
 {
-  class RenderContext : public graphics::gl::RenderContext
-  {
-  public:
+class RenderContext : public graphics::gl::RenderContext
+{
+public:
+  void makeCurrent();
 
-    void makeCurrent();
-
-    graphics::RenderContext * createShared();
-  };
-}
+  graphics::RenderContext * createShared();
+};
+}  // namespace android

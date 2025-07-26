@@ -4,7 +4,7 @@
 
 namespace platform
 {
-Locale NSLocale2Locale(NSLocale *locale)
+Locale NSLocale2Locale(NSLocale * locale)
 {
   return {locale.languageCode ? [locale.languageCode UTF8String] : "",
           locale.countryCode ? [locale.countryCode UTF8String] : "",
@@ -18,9 +18,9 @@ Locale GetCurrentLocale()
   return NSLocale2Locale([NSLocale currentLocale]);
 }
 
-bool GetLocale(std::string localeName, Locale& result)
+bool GetLocale(std::string localeName, Locale & result)
 {
-  NSLocale *loc = [[NSLocale alloc] initWithLocaleIdentifier: @(localeName.c_str())];
+  NSLocale * loc = [[NSLocale alloc] initWithLocaleIdentifier:@(localeName.c_str())];
 
   if (!loc)
     return false;

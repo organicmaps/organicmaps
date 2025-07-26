@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, MWMBookmarksSortingType) {
 
 typedef void (^PingCompletionBlock)(BOOL success);
 typedef void (^ElevationPointChangedBlock)(double distance);
-typedef void (^SearchBookmarksCompletionBlock)(NSArray<MWMBookmark *> *bookmarks);
+typedef void (^SearchBookmarksCompletionBlock)(NSArray<MWMBookmark *> * bookmarks);
 typedef void (^SortBookmarksCompletionBlock)(NSArray<MWMBookmarksSection *> * _Nullable sortedSections);
 typedef void (^SharingResultCompletionHandler)(MWMBookmarksShareStatus status, NSURL * _Nullable urlToALocalFile);
 
@@ -36,7 +36,7 @@ typedef void (^SharingResultCompletionHandler)(MWMBookmarksShareStatus status, N
 @end
 
 NS_SWIFT_NAME(BookmarksManager)
-@interface MWMBookmarksManager : NSObject<BookmarksObservable, RecentlyDeletedCategoriesManager>
+@interface MWMBookmarksManager : NSObject <BookmarksObservable, RecentlyDeletedCategoriesManager>
 
 + (MWMBookmarksManager *)sharedManager;
 
@@ -105,15 +105,19 @@ NS_SWIFT_NAME(BookmarksManager)
  @param fileType Text/Binary/GPX
  @param completion A block that handles the result of the share operation and takes two parameters:
                    - status: The status of the share operation, of type `MWMBookmarksShareStatus`.
-                   - urlToALocalFile: The local file URL containing the shared data. This parameter is guaranteed to be non-nil only if `status` is `MWMBookmarksShareStatusSuccess`. In other cases, it will be nil.
+                   - urlToALocalFile: The local file URL containing the shared data. This parameter is guaranteed to be
+ non-nil only if `status` is `MWMBookmarksShareStatusSuccess`. In other cases, it will be nil.
 */
-- (void)shareCategory:(MWMMarkGroupID)groupId fileType:(MWMKmlFileType)fileType completion:(SharingResultCompletionHandler)completion;
+- (void)shareCategory:(MWMMarkGroupID)groupId
+             fileType:(MWMKmlFileType)fileType
+           completion:(SharingResultCompletionHandler)completion;
 /**
  Shares all categories.
 
  @param completion A block that handles the result of the share operation and takes two parameters:
                    - status: The status of the share operation, of type `MWMBookmarksShareStatus`.
-                   - urlToALocalFile: The local file URL containing the shared data. This parameter is guaranteed to be non-nil only if `status` is `MWMBookmarksShareStatusSuccess`.  In other cases, it will be nil.
+                   - urlToALocalFile: The local file URL containing the shared data. This parameter is guaranteed to be
+ non-nil only if `status` is `MWMBookmarksShareStatusSuccess`.  In other cases, it will be nil.
 */
 - (void)shareAllCategoriesWithCompletion:(SharingResultCompletionHandler)completion;
 
@@ -123,7 +127,9 @@ NS_SWIFT_NAME(BookmarksManager)
  @param trackId The identifier for the track to be shared.
  @param fileType Text/Binary/GPX
  */
-- (void)shareTrack:(MWMTrackID)trackId fileType:(MWMKmlFileType)fileType completion:(SharingResultCompletionHandler)completion;
+- (void)shareTrack:(MWMTrackID)trackId
+          fileType:(MWMKmlFileType)fileType
+        completion:(SharingResultCompletionHandler)completion;
 - (void)finishSharing;
 
 - (void)setNotificationsEnabled:(BOOL)enabled;
@@ -141,22 +147,18 @@ NS_SWIFT_NAME(BookmarksManager)
                  color:(MWMBookmarkColor)color
            description:(NSString *)description;
 
-- (void)updateBookmark:(MWMMarkID)bookmarkId
-              setColor:(MWMBookmarkColor)color;
+- (void)updateBookmark:(MWMMarkID)bookmarkId setColor:(MWMBookmarkColor)color;
 
-- (void)moveBookmark:(MWMMarkID)bookmarkId
-           toGroupId:(MWMMarkGroupID)groupId;
+- (void)moveBookmark:(MWMMarkID)bookmarkId toGroupId:(MWMMarkGroupID)groupId;
 
 - (void)updateTrack:(MWMTrackID)trackId
          setGroupId:(MWMMarkGroupID)groupId
               color:(UIColor *)color
               title:(NSString *)title;
 
-- (void)updateTrack:(MWMTrackID)trackId
-           setColor:(UIColor *)color;
+- (void)updateTrack:(MWMTrackID)trackId setColor:(UIColor *)color;
 
-- (void)moveTrack:(MWMTrackID)trackId
-        toGroupId:(MWMMarkGroupID)groupId;
+- (void)moveTrack:(MWMTrackID)trackId toGroupId:(MWMMarkGroupID)groupId;
 
 - (BOOL)hasRecentlyDeletedBookmark;
 
@@ -164,7 +166,7 @@ NS_SWIFT_NAME(BookmarksManager)
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable("call +manager instead")));
-+ (instancetype) new __attribute__((unavailable("call +manager instead")));
++ (instancetype)new __attribute__((unavailable("call +manager instead")));
 
 - (void)setElevationActivePoint:(CLLocationCoordinate2D)point distance:(double)distance trackId:(uint64_t)trackId;
 - (void)setElevationActivePointChanged:(uint64_t)trackId callback:(ElevationPointChangedBlock)callback;

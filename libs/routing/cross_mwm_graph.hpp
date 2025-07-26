@@ -32,10 +32,8 @@ public:
     NoSection,
   };
 
-  CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds,
-                std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                VehicleType vehicleType, CountryRectFn const & countryRectFn,
-                MwmDataSource & dataSource);
+  CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
+                VehicleType vehicleType, CountryRectFn const & countryRectFn, MwmDataSource & dataSource);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
   /// start and finish of such segment have to lie in different mwms. If a segment is
@@ -90,10 +88,11 @@ public:
 
   RouteWeight GetWeightSure(Segment const & from, Segment const & to);
 
-  //void Clear();
+  // void Clear();
   void Purge();
 
-  template <class FnT> void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
+  template <class FnT>
+  void ForEachTransition(NumMwmId numMwmId, bool isEnter, FnT && fn)
   {
     CHECK(CrossMwmSectionExists(numMwmId), ("Should be used in LeapsOnly mode only"));
     return m_crossMwmIndexGraph.ForEachTransition(numMwmId, isEnter, fn);
@@ -127,4 +126,4 @@ private:
 };
 
 std::string DebugPrint(CrossMwmGraph::MwmStatus status);
-}  // routing
+}  // namespace routing

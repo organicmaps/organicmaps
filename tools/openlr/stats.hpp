@@ -44,5 +44,5 @@ struct alignas(kCacheLineSize) Stats
   // Number of zeroed distance-to-next point values in the input.
   uint32_t m_zeroDistToNextPointCount = 0;
 };
-}  // namespace V2
+}  // namespace v2
 }  // namespace openlr

@@ -37,10 +37,8 @@ void CheckExpectations(StringUtf8Multilang const & s, vector<ExpectedName> const
   size_t counter = 0;
   s.ForEach([&expectations, &counter](int8_t const code, string_view name)
   {
-    auto const it = find_if(expectations.begin(), expectations.end(), [&code](ExpectedName const & item)
-    {
-      return GetLangCode(item.m_lang.c_str()) == code;
-    });
+    auto const it = find_if(expectations.begin(), expectations.end(),
+                            [&code](ExpectedName const & item) { return GetLangCode(item.m_lang.c_str()) == code; });
 
     if (it == expectations.end())
       TEST(false, ("Unexpected language code: ", code, ". Expectations: ", expectations));
@@ -49,17 +47,18 @@ void CheckExpectations(StringUtf8Multilang const & s, vector<ExpectedName> const
     ++counter;
   });
 
-  TEST_EQUAL(counter, expectations.size(), ("Unexpected count of names, expected ", expectations.size(),
-                                            ", but turned out ", counter, ". Expectations: ", expectations));
+  TEST_EQUAL(counter, expectations.size(),
+             ("Unexpected count of names, expected ", expectations.size(), ", but turned out ", counter,
+              ". Expectations: ", expectations));
 }
 
 UNIT_TEST(EditableMapObject_SetWebsite)
 {
   pair<char const *, char const *> arr[] = {
-    { "https://some.thing.org", "https://some.thing.org" },
-    { "http://some.thing.org", "http://some.thing.org" },
-    { "some.thing.org", "http://some.thing.org" },
-    { "", "" },
+      {"https://some.thing.org", "https://some.thing.org"},
+      { "http://some.thing.org",  "http://some.thing.org"},
+      {        "some.thing.org",  "http://some.thing.org"},
+      {                      "",                       ""},
   };
 
   EditableMapObject emo;
@@ -78,13 +77,13 @@ UNIT_TEST(EditableMapObject_ValidateBuildingLevels)
   TEST(EditableMapObject::ValidateBuildingLevels("25"), ());
   TEST(!EditableMapObject::ValidateBuildingLevels("0"), ());
   TEST(!EditableMapObject::ValidateBuildingLevels("005"), ());
-  TEST(!EditableMapObject::ValidateBuildingLevels(std::to_string(EditableMapObject::kMaximumLevelsEditableByUsers + 1)), ());
+  TEST(!EditableMapObject::ValidateBuildingLevels(std::to_string(EditableMapObject::kMaximumLevelsEditableByUsers + 1)),
+       ());
   TEST(!EditableMapObject::ValidateBuildingLevels("22a"), ());
   TEST(!EditableMapObject::ValidateBuildingLevels("a22"), ());
   TEST(!EditableMapObject::ValidateBuildingLevels("2a22"), ());
   TEST(!EditableMapObject::ValidateBuildingLevels("ab"), ());
-  TEST(!EditableMapObject::ValidateBuildingLevels(
-      "2345534564564453645534545345534564564453645"), ());
+  TEST(!EditableMapObject::ValidateBuildingLevels("2345534564564453645534545345534564564453645"), ());
 }
 
 UNIT_TEST(EditableMapObject_ValidateHouseNumber)
@@ -199,28 +198,44 @@ UNIT_TEST(EditableMapObject_ValidateEmail)
 
 UNIT_TEST(EditableMapObject_ValidateName)
 {
-  vector<string> correctNames = {"abc", "абв", "ᆺᆯㅕ", "꫞ꪺꫀꪸ", "a b?c", "a!b.c", "a(b)c", "a,b.c",
-                                 "a$bc", "a%bc", "a#bc", "a№bc", "c&a", "a[bc"};
-  vector<string> incorrectNames = {"a^bc", "a~bc", "a§bc", "a>bc", "a<bc", "a{bc", "*",
-                                   "a*bc", "a=bc", "a_bc", "a±bc", "a\nbc", "a\tbc", "a\rbc",
-                                   "a\vbc", "a\fbc", "a|bc", "N√", "Hello World!\U0001F600",
-                                   "Exit →", "∫0dx = C", "\U0001210A", "⚠︎", "⚠️"};
+  vector<string> correctNames = {"abc",   "абв",  "ᆺᆯㅕ", "꫞ꪺꫀꪸ",  "a b?c", "a!b.c", "a(b)c",
+                                 "a,b.c", "a$bc", "a%bc", "a#bc", "a№bc",  "c&a",   "a[bc"};
+  vector<string> incorrectNames = {"a^bc",
+                                   "a~bc",
+                                   "a§bc",
+                                   "a>bc",
+                                   "a<bc",
+                                   "a{bc",
+                                   "*",
+                                   "a*bc",
+                                   "a=bc",
+                                   "a_bc",
+                                   "a±bc",
+                                   "a\nbc",
+                                   "a\tbc",
+                                   "a\rbc",
+                                   "a\vbc",
+                                   "a\fbc",
+                                   "a|bc",
+                                   "N√",
+                                   "Hello World!\U0001F600",
+                                   "Exit →",
+                                   "∫0dx = C",
+                                   "\U0001210A",
+                                   "⚠︎",
+                                   "⚠️"};
 
   for (auto const & name : correctNames)
-  {
     TEST(EditableMapObject::ValidateName(name), ());
-  }
 
   for (auto const & name : incorrectNames)
-  {
     TEST(!EditableMapObject::ValidateName(name), ());
-  }
 }
 
 UNIT_TEST(EditableMapObject_CanUseAsDefaultName)
 {
   EditableMapObject emo;
-  vector<int8_t> const nativeMwmLanguages {GetLangCode("de"), GetLangCode("fr")};
+  vector<int8_t> const nativeMwmLanguages{GetLangCode("de"), GetLangCode("fr")};
 
   TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("de"), nativeMwmLanguages),
        ("Check possibility to use Mwm language code"));
@@ -228,8 +243,7 @@ UNIT_TEST(EditableMapObject_CanUseAsDefaultName)
        ("Check possibility to use Mwm language code"));
   TEST(!EditableMapObject::CanUseAsDefaultName(GetLangCode("int_name"), nativeMwmLanguages),
        ("Check possibility to use international language code"));
-  TEST(!EditableMapObject::CanUseAsDefaultName(100, nativeMwmLanguages),
-       ("Incorrect language code is not supported"));
+  TEST(!EditableMapObject::CanUseAsDefaultName(100, nativeMwmLanguages), ("Incorrect language code is not supported"));
   TEST(!EditableMapObject::CanUseAsDefaultName(GetLangCode("en"), {GetLangCode("abcd")}),
        ("Incorrect Mwm language name is not supported"));
   TEST(!EditableMapObject::CanUseAsDefaultName(GetLangCode("en"), nativeMwmLanguages),
@@ -242,16 +256,13 @@ UNIT_TEST(EditableMapObject_CanUseAsDefaultName)
   names.AddString(GetLangCode("fr"), "second mwm language");
   emo.SetName(names);
 
-  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("fr"), nativeMwmLanguages),
-       ("It is possible to fix typo"));
+  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("fr"), nativeMwmLanguages), ("It is possible to fix typo"));
 
   names.AddString(GetLangCode("de"), "first mwm language");
   emo.SetName(names);
 
-  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("de"), nativeMwmLanguages),
-       ("It is possible to fix typo"));
-  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("fr"), nativeMwmLanguages),
-       ("It is possible to fix typo"));
+  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("de"), nativeMwmLanguages), ("It is possible to fix typo"));
+  TEST(EditableMapObject::CanUseAsDefaultName(GetLangCode("fr"), nativeMwmLanguages), ("It is possible to fix typo"));
 }
 
 UNIT_TEST(EditableMapObject_GetNamesDataSource)
@@ -272,38 +283,36 @@ UNIT_TEST(EditableMapObject_GetNamesDataSource)
 
   vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
 
-  auto const namesDataSource = EditableMapObject::GetNamesDataSource(
-      emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("ko"));
+  auto const namesDataSource =
+      EditableMapObject::GetNamesDataSource(emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("ko"));
 
-  TEST_EQUAL(namesDataSource.names.size(), 9,("All names including the default should be pushed into data source"));
-  TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,("Mandatory names count should always be 1"));
-  TEST_EQUAL(namesDataSource.names[0].m_code, GetLangCode("default"),("Default is always first in the list"));
+  TEST_EQUAL(namesDataSource.names.size(), 9, ("All names including the default should be pushed into data source"));
+  TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1, ("Mandatory names count should always be 1"));
+  TEST_EQUAL(namesDataSource.names[0].m_code, GetLangCode("default"), ("Default is always first in the list"));
 
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("de"), GetLangCode("fr")};
 
-    auto const namesDataSource = EditableMapObject::GetNamesDataSource(
-        emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
-    TEST_EQUAL(namesDataSource.names.size(), 9,("All names including the default should be pushed into data source"));
-    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,("Mandatory names count should always be 1"));
+    auto const namesDataSource =
+        EditableMapObject::GetNamesDataSource(emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
+    TEST_EQUAL(namesDataSource.names.size(), 9, ("All names including the default should be pushed into data source"));
+    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1, ("Mandatory names count should always be 1"));
   }
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("fr"), GetLangCode("en")};
 
-    auto const namesDataSource = EditableMapObject::GetNamesDataSource(
-        emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
-    TEST_EQUAL(namesDataSource.names.size(), 9,("All names including the default should be pushed into data source"));
-    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,("Mandatory names count should always be 1"));
+    auto const namesDataSource =
+        EditableMapObject::GetNamesDataSource(emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("fr"));
+    TEST_EQUAL(namesDataSource.names.size(), 9, ("All names including the default should be pushed into data source"));
+    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1, ("Mandatory names count should always be 1"));
   }
   {
     vector<int8_t> nativeMwmLanguages = {GetLangCode("en"), GetLangCode("en")};
 
-    auto const namesDataSource = EditableMapObject::GetNamesDataSource(
-        emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("en"));
-    TEST_EQUAL(namesDataSource.names.size(), 9,
-               ("All names including the default should be pushed into data source"));
-    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1,
-               ("Mandatory names count should always be 1"));
+    auto const namesDataSource =
+        EditableMapObject::GetNamesDataSource(emo.GetNameMultilang(), nativeMwmLanguages, GetLangCode("en"));
+    TEST_EQUAL(namesDataSource.names.size(), 9, ("All names including the default should be pushed into data source"));
+    TEST_EQUAL(namesDataSource.mandatoryNamesCount, 1, ("Mandatory names count should always be 1"));
   }
 }
 
@@ -317,7 +326,7 @@ void SetTypes(EditableMapObject & emo, std::initializer_list<base::StringIL> typ
     holder.Add(cl.GetTypeByPath(t));
   emo.SetTypes(holder);
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(EditableMapObject_SetInternet)
 {
@@ -347,7 +356,9 @@ UNIT_TEST(EditableMapObject_SetInternet)
   setInternetAndCheck(emo, feature::Internet::Terminal, false);
 
   EditableMapObject bunkerEmo;
-  SetTypes(bunkerEmo, {{"military", "bunker"}});
+  SetTypes(bunkerEmo, {
+                          {"military", "bunker"}
+  });
   types = bunkerEmo.GetTypes();
   TEST(!types.Has(wifiType), ());
 
@@ -429,7 +440,9 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
   classificator::Load();
 
   EditableMapObject emo;
-  SetTypes(emo, {{"amenity", "cafe"}});
+  SetTypes(emo, {
+                    {"amenity", "cafe"}
+  });
 
   emo.SetHouseNumber("1");
 
@@ -466,56 +479,80 @@ UNIT_TEST(EditableMapObject_GetLocalizedAllTypes)
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {{"amenity", "fuel"}, {"shop"}, {"building"}, {"toilets", "yes"}});
+    SetTypes(emo, {
+                      {"amenity", "fuel"},
+                      {"shop"},
+                      {"building"},
+                      {"toilets", "yes"}
+    });
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "amenity-fuel • shop", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "shop", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {{"amenity", "shelter"}, {"amenity", "bench"}, {"highway", "bus_stop"}});
+    SetTypes(emo, {
+                      {"amenity",  "shelter"},
+                      {"amenity",    "bench"},
+                      {"highway", "bus_stop"}
+    });
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "highway-bus_stop • amenity-shelter • amenity-bench", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "amenity-shelter • amenity-bench", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {{"leisure", "pitch"}, {"sport", "soccer"}});
+    SetTypes(emo, {
+                      {"leisure",  "pitch"},
+                      {  "sport", "soccer"}
+    });
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "sport-soccer • leisure-pitch", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "leisure-pitch", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {{"craft", "key_cutter"}});
+    SetTypes(emo, {
+                      {"craft", "key_cutter"}
+    });
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "craft-key_cutter", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {{"amenity", "parking_entrance"}, {"barrier", "gate"}});
+    SetTypes(emo, {
+                      {"amenity", "parking_entrance"},
+                      {"barrier",             "gate"}
+    });
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "barrier-gate • amenity-parking_entrance", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "amenity-parking_entrance", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {{"barrier", "gate"}});
+    SetTypes(emo, {
+                      {"barrier", "gate"}
+    });
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "barrier-gate", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {{"entrance", "main"}});
+    SetTypes(emo, {
+                      {"entrance", "main"}
+    });
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "entrance-main", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {{"entrance", "main"}, {"barrier", "gate"}});
+    SetTypes(emo, {
+                      {"entrance", "main"},
+                      { "barrier", "gate"}
+    });
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "barrier-gate", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }
@@ -536,10 +573,13 @@ UNIT_TEST(EditableMapObject_GetLocalizedAllTypes)
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {{"tourism", "artwork"}, {"amenity"}});
+    SetTypes(emo, {
+                      {"tourism", "artwork"},
+                      {"amenity"}
+    });
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "tourism-artwork", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }
 }
 
-} // namespace editable_map_object_test
+}  // namespace editable_map_object_test

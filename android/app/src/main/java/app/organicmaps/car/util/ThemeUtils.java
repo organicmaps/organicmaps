@@ -8,8 +8,8 @@ import androidx.annotation.StringRes;
 import androidx.annotation.UiThread;
 import androidx.car.app.CarContext;
 import app.organicmaps.R;
-import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.MapStyle;
+import app.organicmaps.sdk.routing.RoutingController;
 
 public final class ThemeUtils
 {

@@ -47,10 +47,7 @@ template <class ReaderT, bool bStats = false>
 class ReaderCache
 {
 public:
-  ReaderCache(uint32_t logPageSize, uint32_t logPageCount)
-    : m_Cache(logPageCount), m_LogPageSize(logPageSize)
-  {
-  }
+  ReaderCache(uint32_t logPageSize, uint32_t logPageCount) : m_Cache(logPageCount), m_LogPageSize(logPageSize) {}
 
   void Read(ReaderT & reader, uint64_t pos, void * p, size_t size)
   {
@@ -79,10 +76,7 @@ public:
     }
   }
 
-  std::string GetStatsStr() const
-  {
-    return m_Stats.GetStatsStr(m_LogPageSize, m_Cache.GetCacheSize());
-  }
+  std::string GetStatsStr() const { return m_Stats.GetStatsStr(m_LogPageSize, m_Cache.GetCacheSize()); }
 
 private:
   inline size_t PageSize() const { return 1 << m_LogPageSize; }
@@ -102,7 +96,7 @@ private:
     return &v[0];
   }
 
-  base::Cache<uint64_t, std::vector<char> > m_Cache;
+  base::Cache<uint64_t, std::vector<char>> m_Cache;
   uint32_t const m_LogPageSize;
   impl::ReaderCacheStats<bStats> m_Stats;
 };

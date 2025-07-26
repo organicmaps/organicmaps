@@ -2,13 +2,14 @@
 
 @interface MWMTextView ()
 
-@property(nonatomic, readwrite) UILabel *placeholderView;
+@property(nonatomic, readwrite) UILabel * placeholderView;
 
 @end
 
 @implementation MWMTextView
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
   [super awakeFromNib];
   [self setTextContainerInset:UIEdgeInsetsZero];
   [self updatePlaceholderVisibility];
@@ -20,12 +21,15 @@
   self.clipsToBounds = YES;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
   [NSNotificationCenter.defaultCenter removeObserver:self];
 }
 
-- (UILabel *)placeholderView {
-  if (!_placeholderView) {
+- (UILabel *)placeholderView
+{
+  if (!_placeholderView)
+  {
     _placeholderView = [[UILabel alloc] initWithFrame:self.bounds];
     _placeholderView.opaque = NO;
     _placeholderView.backgroundColor = UIColor.clearColor;
@@ -41,53 +45,63 @@
 
 #pragma mark - Setters
 
-- (NSString *)placeholder {
+- (NSString *)placeholder
+{
   return self.placeholderView.text;
 }
 
-- (void)setPlaceholder:(NSString *)placeholder {
+- (void)setPlaceholder:(NSString *)placeholder
+{
   self.placeholderView.text = placeholder;
 }
 
-- (void)setFont:(UIFont *)font {
+- (void)setFont:(UIFont *)font
+{
   [super setFont:font];
   self.placeholderView.font = font;
 }
 
-- (void)setAttributedText:(NSAttributedString *)attributedText {
+- (void)setAttributedText:(NSAttributedString *)attributedText
+{
   [super setAttributedText:attributedText];
   [self updatePlaceholderVisibility];
 }
 
-- (void)setText:(NSString *)text {
+- (void)setText:(NSString *)text
+{
   [super setText:text];
   [self updatePlaceholderVisibility];
 }
 
-- (void)setTextAlignment:(NSTextAlignment)textAlignment {
+- (void)setTextAlignment:(NSTextAlignment)textAlignment
+{
   [super setTextAlignment:textAlignment];
   self.placeholderView.textAlignment = textAlignment;
 }
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
   [super layoutSubviews];
   UIEdgeInsets inset = self.textContainerInset;
-  self.placeholderView.frame = CGRectMake(inset.left + self.textContainer.lineFragmentPadding,
-                                          inset.top,
-                                          self.bounds.size.width - inset.right,
-                                          self.bounds.size.height - inset.bottom);
+  self.placeholderView.frame = CGRectMake(inset.left + self.textContainer.lineFragmentPadding, inset.top,
+                                          self.bounds.size.width - inset.right, self.bounds.size.height - inset.bottom);
   [self.placeholderView sizeToFit];
 }
 
-- (void)textDidChange:(NSNotification *)aNotification {
+- (void)textDidChange:(NSNotification *)aNotification
+{
   [self updatePlaceholderVisibility];
 }
 
-- (void)updatePlaceholderVisibility {
-  if (self.text.length == 0) {
+- (void)updatePlaceholderVisibility
+{
+  if (self.text.length == 0)
+  {
     [self addSubview:self.placeholderView];
     [self sendSubviewToBack:self.placeholderView];
-  } else {
+  }
+  else
+  {
     [self.placeholderView removeFromSuperview];
   }
 }

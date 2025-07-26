@@ -19,23 +19,19 @@ ScopedDir::ScopedDir(std::string const & relativePath)
   Platform::EError ret = Platform::MkDir(GetFullPath());
   switch (ret)
   {
-    case Platform::ERR_OK:
-      break;
-    case Platform::ERR_FILE_ALREADY_EXISTS:
-      Platform::EFileType type;
-      TEST_EQUAL(Platform::ERR_OK, Platform::GetFileType(GetFullPath(), type), ());
-      TEST_EQUAL(Platform::EFileType::Directory, type, ());
-      break;
-    default:
-      TEST(false, ("Can't create directory:", GetFullPath(), "error:", ret));
-      break;
+  case Platform::ERR_OK: break;
+  case Platform::ERR_FILE_ALREADY_EXISTS:
+    Platform::EFileType type;
+    TEST_EQUAL(Platform::ERR_OK, Platform::GetFileType(GetFullPath(), type), ());
+    TEST_EQUAL(Platform::EFileType::Directory, type, ());
+    break;
+  default: TEST(false, ("Can't create directory:", GetFullPath(), "error:", ret)); break;
   }
 }
 
 ScopedDir::ScopedDir(ScopedDir const & parent, std::string const & name)
   : ScopedDir(base::JoinPath(parent.GetRelativePath(), name))
-{
-}
+{}
 
 ScopedDir::~ScopedDir()
 {
@@ -46,17 +42,12 @@ ScopedDir::~ScopedDir()
   Platform::EError ret = Platform::RmDir(fullPath);
   switch (ret)
   {
-    case Platform::ERR_OK:
-      break;
-    case Platform::ERR_FILE_DOES_NOT_EXIST:
-      LOG(LERROR, (fullPath, "was deleted before destruction of ScopedDir."));
-      break;
-    case Platform::ERR_DIRECTORY_NOT_EMPTY:
-      LOG(LERROR, ("There are files in", fullPath));
-      break;
-    default:
-      LOG(LERROR, ("Platform::RmDir() error for", fullPath, ":", ret));
-      break;
+  case Platform::ERR_OK: break;
+  case Platform::ERR_FILE_DOES_NOT_EXIST:
+    LOG(LERROR, (fullPath, "was deleted before destruction of ScopedDir."));
+    break;
+  case Platform::ERR_DIRECTORY_NOT_EMPTY: LOG(LERROR, ("There are files in", fullPath)); break;
+  default: LOG(LERROR, ("Platform::RmDir() error for", fullPath, ":", ret)); break;
   }
 }
 

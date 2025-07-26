@@ -19,15 +19,13 @@ namespace
 class DrawVulkanContext : public dp::vulkan::VulkanBaseContext
 {
 public:
-  DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                    VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
-                    uint32_t renderingQueueFamilyIndex,
+  DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
+                    VkDevice device, uint32_t renderingQueueFamilyIndex,
                     ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, uint32_t appVersionCode,
                     bool hasPartialTextureUpdates)
-    : dp::vulkan::VulkanBaseContext(
-          vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex, objectManager,
-          make_unique_dp<dp::vulkan::VulkanPipeline>(device, appVersionCode),
-          hasPartialTextureUpdates)
+    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex,
+                                    objectManager, make_unique_dp<dp::vulkan::VulkanPipeline>(device, appVersionCode),
+                                    hasPartialTextureUpdates)
   {
     VkQueue queue;
     vkGetDeviceQueue(device, renderingQueueFamilyIndex, 0, &queue);
@@ -35,38 +33,26 @@ public:
     CreateCommandPool();
   }
 
-  void MakeCurrent() override
-  {
-    m_objectManager->RegisterThread(dp::vulkan::VulkanObjectManager::Frontend);
-  }
+  void MakeCurrent() override { m_objectManager->RegisterThread(dp::vulkan::VulkanObjectManager::Frontend); }
 };
 
 class UploadVulkanContext : public dp::vulkan::VulkanBaseContext
 {
 public:
-  UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                      VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
-                      uint32_t renderingQueueFamilyIndex,
-                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager,
-                      bool hasPartialTextureUpdates)
-    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device,
-                                    renderingQueueFamilyIndex, objectManager,
-                                    nullptr /* pipeline */, hasPartialTextureUpdates)
+  UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
+                      VkDevice device, uint32_t renderingQueueFamilyIndex,
+                      ref_ptr<dp::vulkan::VulkanObjectManager> objectManager, bool hasPartialTextureUpdates)
+    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, gpuProperties, device, renderingQueueFamilyIndex,
+                                    objectManager, nullptr /* pipeline */, hasPartialTextureUpdates)
   {}
 
-  void MakeCurrent() override
-  {
-    m_objectManager->RegisterThread(dp::vulkan::VulkanObjectManager::Backend);
-  }
+  void MakeCurrent() override { m_objectManager->RegisterThread(dp::vulkan::VulkanObjectManager::Backend); }
 
   void Present() override {}
 
   void Resize(int w, int h) override {}
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override {}
-  void Init(dp::ApiVersion apiVersion) override
-  {
-    CHECK_EQUAL(apiVersion, dp::ApiVersion::Vulkan, ());
-  }
+  void Init(dp::ApiVersion apiVersion) override { CHECK_EQUAL(apiVersion, dp::ApiVersion::Vulkan, ()); }
 
   void SetClearColor(dp::Color const & color) override {}
   void Clear(uint32_t clearBits, uint32_t storeBits) override {}
@@ -74,12 +60,10 @@ public:
   void SetDepthTestEnabled(bool enabled) override {}
   void SetDepthTestFunction(dp::TestFunction depthFunction) override {}
   void SetStencilTestEnabled(bool enabled) override {}
-  void SetStencilFunction(dp::StencilFace face,
-                          dp::TestFunction stencilFunction) override {}
-  void SetStencilActions(dp::StencilFace face,
-                         dp::StencilAction stencilFailAction,
-                         dp::StencilAction depthFailAction,
-                         dp::StencilAction passAction) override {}
+  void SetStencilFunction(dp::StencilFace face, dp::TestFunction stencilFunction) override {}
+  void SetStencilActions(dp::StencilFace face, dp::StencilAction stencilFailAction, dp::StencilAction depthFailAction,
+                         dp::StencilAction passAction) override
+  {}
 };
 }  // namespace
 
@@ -120,7 +104,7 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
 
   // Enable extra validation features.
   VkValidationFeaturesEXT validationFeatures = {};
-  const VkValidationFeatureEnableEXT validationFeaturesEnabled[] = {
+  VkValidationFeatureEnableEXT const validationFeaturesEnabled[] = {
       VK_VALIDATION_FEATURE_ENABLE_SYNCHRONIZATION_VALIDATION_EXT};
   if (m_layers->IsValidationFeaturesEnabled())
   {
@@ -165,8 +149,8 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
   dp::SupportManager::Version driverVersion{VK_VERSION_MAJOR(gpuProperties.driverVersion),
                                             VK_VERSION_MINOR(gpuProperties.driverVersion),
                                             VK_VERSION_PATCH(gpuProperties.driverVersion)};
-  if (dp::SupportManager::Instance().IsVulkanForbidden(gpuProperties.deviceName, apiVersion, driverVersion,
-                                                       isCustomROM, sdkVersion))
+  if (dp::SupportManager::Instance().IsVulkanForbidden(gpuProperties.deviceName, apiVersion, driverVersion, isCustomROM,
+                                                       sdkVersion))
   {
     LOG_ERROR_VK("GPU/Driver configuration is not supported.");
     return;
@@ -181,15 +165,12 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
   }
 
   std::vector<VkQueueFamilyProperties> queueFamilyProperties(queueFamilyCount);
-  vkGetPhysicalDeviceQueueFamilyProperties(m_gpu, &queueFamilyCount,
-                                           queueFamilyProperties.data());
+  vkGetPhysicalDeviceQueueFamilyProperties(m_gpu, &queueFamilyCount, queueFamilyProperties.data());
 
   uint32_t renderingQueueFamilyIndex = 0;
   for (; renderingQueueFamilyIndex < queueFamilyCount; ++renderingQueueFamilyIndex)
-  {
     if (queueFamilyProperties[renderingQueueFamilyIndex].queueFlags & VK_QUEUE_GRAPHICS_BIT)
       break;
-  }
   if (renderingQueueFamilyIndex == queueFamilyCount)
   {
     LOG_ERROR_VK("Any queue family with VK_QUEUE_GRAPHICS_BIT wasn't found.");
@@ -246,20 +227,18 @@ VulkanContextFactory::VulkanContextFactory(uint32_t appVersionCode, int sdkVersi
 
   VkPhysicalDeviceMemoryProperties memoryProperties;
   vkGetPhysicalDeviceMemoryProperties(m_gpu, &memoryProperties);
-  m_objectManager = make_unique_dp<dp::vulkan::VulkanObjectManager>(m_device, gpuProperties.limits,
-                                                                    memoryProperties,
+  m_objectManager = make_unique_dp<dp::vulkan::VulkanObjectManager>(m_device, gpuProperties.limits, memoryProperties,
                                                                     renderingQueueFamilyIndex);
 
-  bool const hasPartialTextureUpdates =
-      !dp::SupportManager::Instance().IsVulkanTexturePartialUpdateBuggy(
-          sdkVersion, gpuProperties.deviceName, apiVersion, driverVersion);
+  bool const hasPartialTextureUpdates = !dp::SupportManager::Instance().IsVulkanTexturePartialUpdateBuggy(
+      sdkVersion, gpuProperties.deviceName, apiVersion, driverVersion);
 
-  m_drawContext = make_unique_dp<DrawVulkanContext>(
-      m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
-      make_ref(m_objectManager), appVersionCode, hasPartialTextureUpdates);
-  m_uploadContext = make_unique_dp<UploadVulkanContext>(
-      m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
-      make_ref(m_objectManager), hasPartialTextureUpdates);
+  m_drawContext =
+      make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
+                                        make_ref(m_objectManager), appVersionCode, hasPartialTextureUpdates);
+  m_uploadContext =
+      make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, gpuProperties, m_device, renderingQueueFamilyIndex,
+                                          make_ref(m_objectManager), hasPartialTextureUpdates);
 }
 
 VulkanContextFactory::~VulkanContextFactory()
@@ -314,8 +293,7 @@ void VulkanContextFactory::SetPresentAvailable(bool available)
 
 bool VulkanContextFactory::QuerySurfaceSize()
 {
-  auto statusCode = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_gpu, m_surface,
-                                                              &m_surfaceCapabilities);
+  auto statusCode = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_gpu, m_surface, &m_surfaceCapabilities);
   if (statusCode != VK_SUCCESS)
   {
     LOG_ERROR_VK_CALL(vkGetPhysicalDeviceSurfaceCapabilitiesKHR, statusCode);

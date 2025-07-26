@@ -20,17 +20,16 @@ struct MemoryComparer
     TEST_EQUAL(memcmp(m_mem, data, size), 0, ());
   }
 
-  void cmpSubImage(uint32_t /*x*/, uint32_t /*y*/, uint32_t width, uint32_t height, glConst layout,
-                   glConst pixelFormat, void const * data) const
+  void cmpSubImage(uint32_t /*x*/, uint32_t /*y*/, uint32_t width, uint32_t height, glConst layout, glConst pixelFormat,
+                   void const * data) const
   {
     uint32_t channelCount = 0;
     if (layout == gl_const::GLRGBA || layout == gl_const::GLRGBA8 || layout == gl_const::GLRGBA4)
       channelCount = 4;
     else if (layout == gl_const::GLRGB)
       channelCount = 3;
-    else if (layout == gl_const::GLAlpha || layout == gl_const::GLAlpha8 ||
-             layout == gl_const::GLLuminance || layout == gl_const::GLLuminance8 ||
-             layout == gl_const::GLAlphaLuminance || layout == gl_const::GLRed)
+    else if (layout == gl_const::GLAlpha || layout == gl_const::GLAlpha8 || layout == gl_const::GLLuminance ||
+             layout == gl_const::GLLuminance8 || layout == gl_const::GLAlphaLuminance || layout == gl_const::GLRed)
     {
       channelCount = 1;
     }

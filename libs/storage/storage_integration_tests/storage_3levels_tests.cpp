@@ -30,7 +30,7 @@ int GetLevelCount(Storage & storage, CountryId const & countryId)
     level = std::max(level, GetLevelCount(storage, child));
   return 1 + level;
 }
-} // namespace
+}  // namespace
 
 UNIT_TEST(SmallMwms_3levels_Test)
 {
@@ -42,13 +42,7 @@ UNIT_TEST(SmallMwms_3levels_Test)
   /// RunOnGui callbacks, so delete Framework also in RunOnGui.
   auto * frm = new Framework(FrameworkParams(false /* m_enableDiffs */));
 
-  SCOPE_GUARD(deleteFramework, [frm]()
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [frm]()
-    {
-      delete frm;
-    });
-  });
+  SCOPE_GUARD(deleteFramework, [frm]() { GetPlatform().RunTask(Platform::Thread::Gui, [frm]() { delete frm; }); });
 
   auto & storage = frm->GetStorage();
   std::string const version = strings::to_string(storage.GetCurrentDataVersion());
@@ -60,7 +54,8 @@ UNIT_TEST(SmallMwms_3levels_Test)
 
   auto onProgressFn = [&](CountryId const & countryId, downloader::Progress const & /* progress */) {};
 
-  auto onChangeCountryFn = [&](CountryId const & countryId) {
+  auto onChangeCountryFn = [&](CountryId const & countryId)
+  {
     if (!storage.IsDownloadInProgress())
       testing::StopEventLoop();
   };

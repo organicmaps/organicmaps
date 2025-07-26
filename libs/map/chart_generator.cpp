@@ -34,14 +34,13 @@ struct BlendAdaptor
     ScaleMask = color_type::base_mask,
   };
 
-  static AGG_INLINE void blend_pix(unsigned op, TValueType * p, unsigned cr, unsigned cg,
-                                   unsigned cb, unsigned ca, unsigned cover)
+  static AGG_INLINE void blend_pix(unsigned op, TValueType * p, unsigned cr, unsigned cg, unsigned cb, unsigned ca,
+                                   unsigned cover)
   {
     using TBlendTable = agg::comp_op_table_rgba<Color, Order>;
     if (p[Order::A])
     {
-      TBlendTable::g_comp_op_func[op](p, (cr * ca + ScaleMask) >> ScaleShift,
-                                      (cg * ca + ScaleMask) >> ScaleShift,
+      TBlendTable::g_comp_op_func[op](p, (cr * ca + ScaleMask) >> ScaleShift, (cg * ca + ScaleMask) >> ScaleShift,
                                       (cb * ca + ScaleMask) >> ScaleShift, ca, cover);
     }
     else
@@ -55,17 +54,14 @@ agg::rgba8 GetLineColor(MapStyle mapStyle)
 {
   switch (mapStyle)
   {
-  case MapStyleCount:
-    LOG(LERROR, ("Wrong map style param."));  // fallthrough
+  case MapStyleCount: LOG(LERROR, ("Wrong map style param."));  // fallthrough
   case MapStyleDefaultDark:
   case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark:
-    return agg::rgba8(255, 230, 140, 255);
+  case MapStyleOutdoorsDark: return agg::rgba8(255, 230, 140, 255);
   case MapStyleDefaultLight:
   case MapStyleVehicleLight:
   case MapStyleOutdoorsLight:
-  case MapStyleMerged:
-    return agg::rgba8(30, 150, 240, 255);
+  case MapStyleMerged: return agg::rgba8(30, 150, 240, 255);
   }
   UNREACHABLE();
 }
@@ -80,13 +76,11 @@ agg::rgba8 GetCurveColor(MapStyle mapStyle)
     // No need break or return here.
   case MapStyleDefaultDark:
   case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark:
-    return agg::rgba8(255, 230, 140, 20);
+  case MapStyleOutdoorsDark: return agg::rgba8(255, 230, 140, 20);
   case MapStyleDefaultLight:
   case MapStyleVehicleLight:
   case MapStyleOutdoorsLight:
-  case MapStyleMerged:
-    return agg::rgba8(30, 150, 240, 20);
+  case MapStyleMerged: return agg::rgba8(30, 150, 240, 20);
   }
   UNREACHABLE();
 }
@@ -110,9 +104,8 @@ void ReflectChartData(vector<double> & chartData)
     chartData[i] = -chartData[i];
 }
 
-bool NormalizeChartData(vector<double> const & distanceDataM,
-                        geometry::Altitudes const & altitudeDataM, size_t resultPointCount,
-                        vector<double> & uniformAltitudeDataM)
+bool NormalizeChartData(vector<double> const & distanceDataM, geometry::Altitudes const & altitudeDataM,
+                        size_t resultPointCount, vector<double> & uniformAltitudeDataM)
 {
   double constexpr kEpsilon = 1e-6;
 
@@ -134,7 +127,8 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
     return true;
   }
 
-  auto const calculateAltitude = [&](double distFormStartM) {
+  auto const calculateAltitude = [&](double distFormStartM)
+  {
     if (distFormStartM <= distanceDataM.front())
       return static_cast<double>(altitudeDataM.front());
     if (distFormStartM >= distanceDataM.back())
@@ -150,8 +144,7 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
 
     double const k = (altitudeDataM[nextPointIdx] - altitudeDataM[prevPointIdx]) /
                      (distanceDataM[nextPointIdx] - distanceDataM[prevPointIdx]);
-    return static_cast<double>(altitudeDataM[prevPointIdx]) +
-           k * (distFormStartM - distanceDataM[prevPointIdx]);
+    return static_cast<double>(altitudeDataM[prevPointIdx]) + k * (distFormStartM - distanceDataM[prevPointIdx]);
   };
 
   double const routeLenM = distanceDataM.back();
@@ -164,8 +157,8 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
   return true;
 }
 
-bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
-                            vector<double> const & altitudeDataM, vector<double> & yAxisDataPxl)
+bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl, vector<double> const & altitudeDataM,
+                            vector<double> & yAxisDataPxl)
 {
   if (altitudeDataM.empty())
   {
@@ -211,8 +204,8 @@ bool GenerateYAxisChartData(uint32_t height, double minMetersPerPxl,
   return true;
 }
 
-bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry,
-                           MapStyle mapStyle, vector<uint8_t> & frameBuffer)
+bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> const & geometry, MapStyle mapStyle,
+                           vector<uint8_t> & frameBuffer)
 {
   frameBuffer.clear();
   if (width == 0 || height == 0)
@@ -234,8 +227,8 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   TBaseRenderer baseRenderer(pixelFormat);
 
   frameBuffer.assign(width * kAltitudeChartBPP * height, 0);
-  renderBuffer.attach(&frameBuffer[0], static_cast<unsigned>(width),
-                      static_cast<unsigned>(height), static_cast<int>(width * kAltitudeChartBPP));
+  renderBuffer.attach(&frameBuffer[0], static_cast<unsigned>(width), static_cast<unsigned>(height),
+                      static_cast<int>(width * kAltitudeChartBPP));
 
   // Background.
   baseRenderer.reset_clipping(true);
@@ -276,8 +269,7 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
 }
 
 bool GenerateChart(uint32_t width, uint32_t height, vector<double> const & distanceDataM,
-                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle,
-                   vector<uint8_t> & frameBuffer)
+                   geometry::Altitudes const & altitudeDataM, MapStyle mapStyle, vector<uint8_t> & frameBuffer)
 {
   if (distanceDataM.size() != altitudeDataM.size())
   {

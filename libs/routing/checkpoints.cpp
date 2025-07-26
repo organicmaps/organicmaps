@@ -11,8 +11,7 @@ namespace routing
 {
 Checkpoints::Checkpoints(std::vector<m2::PointD> && points) : m_points(std::move(points))
 {
-  CHECK_GREATER_OR_EQUAL(m_points.size(), 2,
-                         ("Checkpoints should at least contain start and finish"));
+  CHECK_GREATER_OR_EQUAL(m_points.size(), 2, ("Checkpoints should at least contain start and finish"));
 }
 
 void Checkpoints::SetPointFrom(m2::PointD const & point)

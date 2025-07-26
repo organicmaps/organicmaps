@@ -24,9 +24,7 @@
 {
   static AppInfo * appInfo;
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    appInfo = [[self alloc] init];
-  });
+  dispatch_once(&onceToken, ^{ appInfo = [[self alloc] init]; });
   return appInfo;
 }
 
@@ -94,7 +92,8 @@
   NSURL * telURL = [NSURL URLWithString:@"tel://"];
   if (![UIApplication.sharedApplication canOpenURL:telURL])
     return NO;
-  NSDictionary<NSString *,CTCarrier *> * dict = [[CTTelephonyNetworkInfo alloc] init].serviceSubscriberCellularProviders;
+  NSDictionary<NSString *, CTCarrier *> * dict =
+      [[CTTelephonyNetworkInfo alloc] init].serviceSubscriberCellularProviders;
   for (id key in dict)
   {
     NSString * networkCode = [dict objectForKey:key].mobileNetworkCode;

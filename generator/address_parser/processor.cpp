@@ -10,7 +10,6 @@
 
 #include "defines.hpp"
 
-
 namespace addr_generator
 {
 
@@ -18,8 +17,7 @@ Processor::Processor(std::string const & dataPath, std::string const & outputPat
   : m_affiliation(dataPath, true /* haveBordersForWholeWorld */)
   , m_workers(numThreads)
   , m_outputPath(outputPath)
-{
-}
+{}
 
 FileWriter & Processor::GetWriter(std::string const & country)
 {
@@ -90,4 +88,4 @@ void Processor::Run(std::istream & is)
   LOG(LINFO, ("Total entries:", total, "Incomplete:", incomplete));
 }
 
-} // namespace addr_generator
+}  // namespace addr_generator

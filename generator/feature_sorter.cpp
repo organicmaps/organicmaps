@@ -35,7 +35,6 @@
 #include <memory>
 #include <vector>
 
-
 namespace feature
 {
 
@@ -58,7 +57,8 @@ public:
       m_trgFile.push_back(std::make_unique<TmpFile>(info.GetIntermediateFileName(name, TRIANGLE_FILE_TAG + postfix)));
     }
 
-    m_addrFile = std::make_unique<FileWriter>(info.GetIntermediateFileName(name + DATA_FILE_EXTENSION, TEMP_ADDR_EXTENSION));
+    m_addrFile =
+        std::make_unique<FileWriter>(info.GetIntermediateFileName(name + DATA_FILE_EXTENSION, TEMP_ADDR_EXTENSION));
   }
 
   void Finish() override
@@ -104,8 +104,7 @@ public:
       header.m_featuresOffset = base::asserted_cast<uint32_t>(w->Pos() - startOffset);
       ReaderSource<ModelReaderPtr> src(std::make_unique<FileReader>(m_dataFile.GetName()));
       rw::ReadAndWrite(src, *w);
-      header.m_featuresSize =
-          base::asserted_cast<uint32_t>(w->Pos() - header.m_featuresOffset - startOffset);
+      header.m_featuresSize = base::asserted_cast<uint32_t>(w->Pos() - header.m_featuresOffset - startOffset);
 
       auto const endOffset = w->Pos();
       w->Seek(startOffset);
@@ -134,8 +133,7 @@ public:
       m_metadataBuilder.Freeze(*w);
     }
 
-    if (m_header.GetType() == DataHeader::MapType::Country ||
-        m_header.GetType() == DataHeader::MapType::World)
+    if (m_header.GetType() == DataHeader::MapType::Country || m_header.GetType() == DataHeader::MapType::World)
     {
       FileWriter osm2ftWriter(m_filename + OSM2FEATURE_FILE_EXTENSION);
       m_osm2ft.Write(osm2ftWriter);
@@ -219,8 +217,8 @@ public:
             }
             else
             {
-              LOG(LDEBUG, ("Area: too small or degenerate 1st (outer) polygon of", polys.size(),
-                           ", points count", points.size(), "at scale", i, DebugPrint(fb)));
+              LOG(LDEBUG, ("Area: too small or degenerate 1st (outer) polygon of", polys.size(), ", points count",
+                           points.size(), "at scale", i, DebugPrint(fb)));
               continue;
             }
 
@@ -239,8 +237,8 @@ public:
               }
               else
               {
-                LOG(LDEBUG, ("Area: too small or degenerate 2nd+ (inner) polygon of", polys.size(),
-                             ", points count", points.size(), "at scale", i, DebugPrint(fb)));
+                LOG(LDEBUG, ("Area: too small or degenerate 2nd+ (inner) polygon of", polys.size(), ", points count",
+                             points.size(), "at scale", i, DebugPrint(fb)));
               }
             }
 
@@ -255,11 +253,8 @@ public:
     /// @todo Probably, we should store and index OSM's short_name tag.
     if (indexer::SynonymsHolder::CanApply(fb.GetTypes()))
     {
-      int8_t const langs[] = {
-        StringUtf8Multilang::kDefaultCode,
-        StringUtf8Multilang::kEnglishCode,
-        StringUtf8Multilang::kInternationalCode
-      };
+      int8_t const langs[] = {StringUtf8Multilang::kDefaultCode, StringUtf8Multilang::kEnglishCode,
+                              StringUtf8Multilang::kInternationalCode};
 
       bool added = false;
       for (int8_t lang : langs)
@@ -314,9 +309,9 @@ private:
   class TmpFile
   {
     std::unique_ptr<FileWriter> m_writer;
+
   public:
-    explicit TmpFile(std::string const & filePath)
-      : m_writer(std::make_unique<FileWriter>(filePath)) {}
+    explicit TmpFile(std::string const & filePath) : m_writer(std::make_unique<FileWriter>(filePath)) {}
 
     FileWriter & GetWriter() { return *m_writer; }
 
@@ -371,10 +366,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, std::string const
   LOG(LINFO, ("Calculating middle points"));
   // Store cellIds for middle points.
   CalculateMidPoints midPoints;
-  ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos)
-  {
-    midPoints(fb, pos);
-  });
+  ForEachFeatureRawFormat(srcFilePath, [&midPoints](FeatureBuilder const & fb, uint64_t pos) { midPoints(fb, pos); });
 
   // Sort features by their middle point.
   midPoints.Sort();

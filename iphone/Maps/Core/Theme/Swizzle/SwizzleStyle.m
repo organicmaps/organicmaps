@@ -1,7 +1,7 @@
 #import "SwizzleStyle.h"
 #import <UIKit/UIKit.h>
-#import "objc/runtime.h"
 #import "objc/message.h"
+#import "objc/runtime.h"
 
 @implementation SwizzleStyle
 
@@ -12,7 +12,7 @@
   [SwizzleStyle swizzle:[UIView class] methodName:@"didMoveToWindow"];
 }
 
-+ (void)swizzle:(Class)forClass methodName:(NSString*)methodName
++ (void)swizzle:(Class)forClass methodName:(NSString *)methodName
 {
   SEL originalMethod = NSSelectorFromString(methodName);
   SEL newMethod = NSSelectorFromString([NSString stringWithFormat:@"%@%@", @"sw_", methodName]);
@@ -23,9 +23,13 @@
 {
   Method originalMethod = class_getInstanceMethod(forClass, original);
   Method newMethod = class_getInstanceMethod(forClass, new);
-  if (class_addMethod(forClass, original, method_getImplementation(newMethod), method_getTypeEncoding(newMethod))) {
-    class_replaceMethod(forClass, new, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-  } else {
+  if (class_addMethod(forClass, original, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
+  {
+    class_replaceMethod(forClass, new, method_getImplementation(originalMethod),
+                        method_getTypeEncoding(originalMethod));
+  }
+  else
+  {
     method_exchangeImplementations(originalMethod, newMethod);
   }
 }

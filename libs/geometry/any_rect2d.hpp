@@ -37,18 +37,14 @@ public:
     }
   }
 
-  AnyRect(Point<T> const & zero, ang::Angle<T> const & angle, Rect<T> const & r)
-    : m_angle(angle), m_rect(r)
+  AnyRect(Point<T> const & zero, ang::Angle<T> const & angle, Rect<T> const & r) : m_angle(angle), m_rect(r)
   {
     m_zero = Convert(zero, Point<T>(1, 0), Point<T>(0, 1), i(), j());
   }
 
   Point<T> const & LocalZero() const { return m_zero; }
 
-  Point<T> GlobalZero() const
-  {
-    return Convert(m_zero, i(), j(), Point<T>(1, 0), Point<T>(0, 1));
-  }
+  Point<T> GlobalZero() const { return Convert(m_zero, i(), j(), Point<T>(1, 0), Point<T>(0, 1)); }
 
   Point<T> i() const { return Point<T>(m_angle.cos(), m_angle.sin()); }
 
@@ -81,10 +77,8 @@ public:
     std::sort(arr2.begin(), arr2.end());
 
     for (size_t i = 0; i < arr1.size(); ++i)
-    {
       if (!arr1[i].EqualDxDy(arr2[i], eps))
         return false;
-    }
 
     return true;
   }
@@ -96,8 +90,8 @@ public:
     Corners pts;
     r.GetGlobalPoints(pts);
     ConvertTo(pts);
-    return m_rect.IsPointInside(pts[0]) && m_rect.IsPointInside(pts[1]) &&
-           m_rect.IsPointInside(pts[2]) && m_rect.IsPointInside(pts[3]);
+    return m_rect.IsPointInside(pts[0]) && m_rect.IsPointInside(pts[1]) && m_rect.IsPointInside(pts[2]) &&
+           m_rect.IsPointInside(pts[3]);
   }
 
   bool IsIntersect(AnyRect<T> const & r) const
@@ -196,8 +190,8 @@ public:
   }
 
 private:
-  static Point<T> Convert(Point<T> const & p, Point<T> const & fromI, Point<T> const & fromJ,
-                          Point<T> const & toI, Point<T> const & toJ)
+  static Point<T> Convert(Point<T> const & p, Point<T> const & fromI, Point<T> const & fromJ, Point<T> const & toI,
+                          Point<T> const & toJ)
   {
     Point<T> res;
 

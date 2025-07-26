@@ -14,8 +14,7 @@ Packer::Packer()
   , m_currentHandle(0)
   , m_maxHandle(0)
   , m_invalidHandle(0x00FFFFFF)
-{
-}
+{}
 
 Packer::Packer(unsigned width, unsigned height, uint32_t maxHandle)
   : m_currentX(0)
@@ -26,10 +25,12 @@ Packer::Packer(unsigned width, unsigned height, uint32_t maxHandle)
   , m_currentHandle(0)
   , m_maxHandle(maxHandle)
   , m_invalidHandle(0x00FFFFFF)
-{
-}
+{}
 
-uint32_t Packer::invalidHandle() const { return m_invalidHandle; }
+uint32_t Packer::invalidHandle() const
+{
+  return m_invalidHandle;
+}
 
 Packer::handle_t Packer::pack(unsigned width, unsigned height)
 {
@@ -134,7 +135,10 @@ bool Packer::hasRoom(m2::PointU const * sizes, size_t cnt) const
   return true;
 }
 
-bool Packer::isPacked(handle_t handle) { return m_rects.find(handle) != m_rects.end(); }
+bool Packer::isPacked(handle_t handle)
+{
+  return m_rects.find(handle) != m_rects.end();
+}
 
 Packer::find_result_t Packer::find(handle_t handle) const
 {
@@ -146,7 +150,10 @@ Packer::find_result_t Packer::find(handle_t handle) const
   return res;
 }
 
-void Packer::remove(handle_t handle) { m_rects.erase(handle); }
+void Packer::remove(handle_t handle)
+{
+  m_rects.erase(handle);
+}
 
 void Packer::reset()
 {

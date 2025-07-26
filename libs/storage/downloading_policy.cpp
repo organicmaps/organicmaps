@@ -24,17 +24,17 @@ bool StorageDownloadingPolicy::IsDownloadingAllowed()
            !IsCellularDownloadEnabled());
 }
 
-void StorageDownloadingPolicy::ScheduleRetry(storage::CountriesSet const & failedCountries,
-                                             TProcessFunc const & func)
+void StorageDownloadingPolicy::ScheduleRetry(storage::CountriesSet const & failedCountries, TProcessFunc const & func)
 {
   if (IsDownloadingAllowed() && !failedCountries.empty() && m_autoRetryCounter > 0)
   {
     m_downloadRetryFailed = false;
-    auto action = [this, func, failedCountries] {
+    auto action = [this, func, failedCountries]
+    {
       --m_autoRetryCounter;
       func(failedCountries);
     };
-    m_autoRetryWorker.RestartWith([action]{ GetPlatform().RunTask(Platform::Thread::Gui, action); });
+    m_autoRetryWorker.RestartWith([action] { GetPlatform().RunTask(Platform::Thread::Gui, action); });
   }
   else
   {

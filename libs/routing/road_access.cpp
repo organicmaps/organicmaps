@@ -33,20 +33,19 @@ std::string DebugPrintKV(KV const & kvs, size_t maxKVToShow)
  */
 RoadAccess::RoadAccess() : m_currentTimeGetter([]() { return GetCurrentTimestamp(); }) {}
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
-    uint32_t featureId, RouteWeight const & weightToFeature) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t featureId,
+                                                                          RouteWeight const & weightToFeature) const
 {
   return GetAccess(featureId, weightToFeature.GetWeight());
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
-    RoadPoint const & point, RouteWeight const & weightToPoint) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point,
+                                                                          RouteWeight const & weightToPoint) const
 {
   return GetAccess(point, weightToPoint.GetWeight());
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
-    uint32_t featureId, double weight) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(uint32_t featureId, double weight) const
 {
   auto const itConditional = m_wayToAccessConditional.find(featureId);
   if (itConditional != m_wayToAccessConditional.cend())
@@ -64,8 +63,7 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
   return GetAccessWithoutConditional(featureId);
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
-    RoadPoint const & point, double weight) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(RoadPoint const & point, double weight) const
 {
   auto const itConditional = m_pointToAccessConditional.find(point);
   if (itConditional != m_pointToAccessConditional.cend())
@@ -83,8 +81,7 @@ std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccess(
   return GetAccessWithoutConditional(point);
 }
 
-std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccessWithoutConditional(
-    uint32_t featureId) const
+std::pair<RoadAccess::Type, RoadAccess::Confidence> RoadAccess::GetAccessWithoutConditional(uint32_t featureId) const
 {
   // todo(@m) This may or may not be too slow. Consider profiling this and using
   // a Bloom filter or anything else that is faster than ska::flat_hash_map
@@ -176,18 +173,20 @@ std::string DebugPrint(RoadAccess::Confidence confidence)
   UNREACHABLE();
 }
 
-std::string DebugPrint(RoadAccess::Type type) { return ToString(type); }
+std::string DebugPrint(RoadAccess::Type type)
+{
+  return ToString(type);
+}
 
 std::string DebugPrint(RoadAccess const & r)
 {
   size_t constexpr kMaxIdsToShow = 10;
 
   std::ostringstream oss;
-  oss << "RoadAccess { WayToAccess " << DebugPrintKV(r.GetWayToAccess(), kMaxIdsToShow)
-      << "; PointToAccess "<< DebugPrintKV(r.GetPointToAccess(), kMaxIdsToShow)
-      << "; WayToAccessConditional "<< DebugPrintKV(r.GetWayToAccessConditional(), kMaxIdsToShow)
-      << "; PointToAccessConditional " << DebugPrintKV(r.GetPointToAccessConditional(), kMaxIdsToShow)
-      << " }";
+  oss << "RoadAccess { WayToAccess " << DebugPrintKV(r.GetWayToAccess(), kMaxIdsToShow) << "; PointToAccess "
+      << DebugPrintKV(r.GetPointToAccess(), kMaxIdsToShow) << "; WayToAccessConditional "
+      << DebugPrintKV(r.GetWayToAccessConditional(), kMaxIdsToShow) << "; PointToAccessConditional "
+      << DebugPrintKV(r.GetPointToAccessConditional(), kMaxIdsToShow) << " }";
   return oss.str();
 }
 

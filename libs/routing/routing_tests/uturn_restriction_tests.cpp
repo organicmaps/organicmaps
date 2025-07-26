@@ -20,7 +20,11 @@ UNIT_CLASS_TEST(NoUTurnRestrictionTest, CheckNoUTurn_1)
   Segment const finish(kTestNumMwmId, 7 /* fId */, 0 /* segId */, true /* forward */);
 
   std::vector<m2::PointD> const expectedGeom = {
-      {3.0, 0.0}, {2.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}
+      {3.0, 0.0},
+      {2.0, 0.0},
+      {1.0, 0.0},
+      {1.0, 1.0},
+      {1.0, 2.0}
   };
 
   TestRouteGeom(start, finish, Algorithm::Result::OK, expectedGeom);
@@ -41,7 +45,10 @@ UNIT_CLASS_TEST(NoUTurnRestrictionTest, CheckNoUTurn_2)
   Segment const finish(kTestNumMwmId, 7 /* fId */, 0 /* segId */, true /* forward */);
 
   std::vector<m2::PointD> const expectedGeom = {
-      {2.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}
+      {2.0, 0.0},
+      {1.0, 0.0},
+      {1.0, 1.0},
+      {1.0, 2.0}
   };
 
   TestRouteGeom(start, finish, Algorithm::Result::OK, expectedGeom);
@@ -51,7 +58,12 @@ UNIT_CLASS_TEST(NoUTurnRestrictionTest, CheckNoUTurn_2)
   };
 
   std::vector<m2::PointD> const expectedGeomAfterRestriction = {
-      {2.0, 0.0}, {3.0, 0.0}, {2.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}
+      {2.0, 0.0},
+      {3.0, 0.0},
+      {2.0, 0.0},
+      {1.0, 0.0},
+      {1.0, 1.0},
+      {1.0, 2.0}
   };
 
   SetNoUTurnRestrictions(std::move(noUTurnRestrictions));
@@ -66,7 +78,9 @@ UNIT_CLASS_TEST(NoUTurnRestrictionTest, CheckNoUTurn_3)
   Segment const finish(kTestNumMwmId, 3 /* fId */, 0 /* segId */, true /* forward */);
 
   std::vector<m2::PointD> const expectedGeom = {
-      {1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}
+      {1.0, 0.0},
+      {2.0, 0.0},
+      {3.0, 0.0}
   };
 
   TestRouteGeom(start, finish, Algorithm::Result::OK, expectedGeom);
@@ -76,7 +90,11 @@ UNIT_CLASS_TEST(NoUTurnRestrictionTest, CheckNoUTurn_3)
   };
 
   std::vector<m2::PointD> const expectedGeomAfterRestriction = {
-      {1.0, 0.0}, {1.0, -1.0}, {1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}
+      {1.0,  0.0},
+      {1.0, -1.0},
+      {1.0,  0.0},
+      {2.0,  0.0},
+      {3.0,  0.0}
   };
 
   SetNoUTurnRestrictions(std::move(noUTurnRestrictions));
@@ -91,7 +109,8 @@ UNIT_CLASS_TEST(NoUTurnRestrictionTest, CheckOnlyUTurn_1)
   Segment const finish(kTestNumMwmId, 3 /* fId */, 0 /* segId */, true /* forward */);
 
   std::vector<m2::PointD> const expectedGeom = {
-      {2.0, 0.0}, {3.0, 0.0}
+      {2.0, 0.0},
+      {3.0, 0.0}
   };
 
   TestRouteGeom(start, finish, Algorithm::Result::OK, expectedGeom);
@@ -117,7 +136,10 @@ UNIT_CLASS_TEST(NoUTurnRestrictionTest, CheckOnlyUTurn_2)
   Segment const finish(kTestNumMwmId, 5 /* fId */, 0 /* segId */, true /* forward */);
 
   std::vector<m2::PointD> const expectedGeom = {
-      {0.0, 1.0}, {1.0, 1.0}, {2.0, 2.0}, {3.0, 2.0}
+      {0.0, 1.0},
+      {1.0, 1.0},
+      {2.0, 2.0},
+      {3.0, 2.0}
   };
 
   TestRouteGeom(start, finish, Algorithm::Result::OK, expectedGeom);
@@ -133,7 +155,13 @@ UNIT_CLASS_TEST(NoUTurnRestrictionTest, CheckOnlyUTurn_2)
   SetRestrictions(std::move(restrictionsNo));
 
   std::vector<m2::PointD> const expectedGeomAfterRestriction = {
-      {0.0, 1.0}, {-1.0, 1.0}, {-1.0, 2.0}, {0.0, 2.0}, {1.0, 2.0}, {2.0, 2.0}, {3.0, 2.0}
+      { 0.0, 1.0},
+      {-1.0, 1.0},
+      {-1.0, 2.0},
+      { 0.0, 2.0},
+      { 1.0, 2.0},
+      { 2.0, 2.0},
+      { 3.0, 2.0}
   };
 
   TestRouteGeom(start, finish, Algorithm::Result::OK, expectedGeomAfterRestriction);

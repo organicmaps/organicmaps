@@ -1,0 +1,51 @@
+name: Code style check
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:  # Should stay in sync with tools/unix/clang-format.sh
+      - '.github/workflows/code-style-check.yaml'
+      - 'android/app/src/**.java'
+      - 'android/sdk/src/**.java'
+      - 'android/sdk/src/main/cpp/**.[ch]pp'
+      - 'dev_sandbox/**.[ch]pp'
+      - 'generator/**.[ch]pp'
+      - 'iphone/**.[ch]pp'
+      - 'iphone/**.[hm]'
+      - 'iphone/**.mm'
+      - 'libs/**.[ch]pp'
+      - 'libs/**.[hm]'
+      - '!libs/indexer/drules_struct.pb.h'
+      - 'libs/**.mm'
+      - 'qt/**.[ch]pp'
+      - 'qt/**.h'
+      - 'tools/**.[ch]pp'
+      - '.clang-format'
+      - '.clang-format-ignore'
+
+jobs:
+  code-style-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install clang-format
+        run: |
+          sudo apt purge -y clang-format-18  # Remove default old version of clang-format
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+          echo 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-20 main' | sudo tee /etc/apt/sources.list.d/llvm-toolchain-noble-20.list
+          sudo apt-get update
+          sudo apt-get install -y clang-format-20
+          sudo update-alternatives --force --install /usr/bin/clang-format clang-format /usr/bin/clang-format-20 10
+          sudo update-alternatives --force --install /usr/bin/git-clang-format git-clang-format /usr/bin/git-clang-format-20 10
+          clang-format --version
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Check code style
+        run: tools/unix/clang-format.sh
+
+      - name: Post clang-format comments
+        if: failure()
+        uses: reviewdog/action-suggester@v1.21.0
+        with:
+          tool_name: clang-format
+          fail_level: error

@@ -30,7 +30,7 @@ void ParseGeometry(std::string_view s, std::vector<ms::LatLon> & geom)
     CHECK(i != std::string_view::npos, (s));
 
     CHECK(to_double(s.substr(0, i), last.m_lon), (s));
-    CHECK(to_double(s.substr(i+1), last.m_lat), (s));
+    CHECK(to_double(s.substr(i + 1), last.m_lat), (s));
 
     if (!skipPoint())
       geom.push_back(last);
@@ -42,7 +42,7 @@ void ParseGeometry(std::string_view s, std::vector<ms::LatLon> & geom)
     if (geom.size() == 1)
     {
       // Set one middle point address.
-      back = ms::LatLon{ (back.m_lat + last.m_lat) / 2.0, (back.m_lon + last.m_lon) / 2.0 };
+      back = ms::LatLon{(back.m_lat + last.m_lat) / 2.0, (back.m_lon + last.m_lon) / 2.0};
     }
     else
     {
@@ -71,15 +71,21 @@ bool ParseLine(std::string_view line, AddressEntry & e)
   if (std::count(line.begin(), line.end(), ';') != 7)
     return false;
 
-  TokenizeIterator<SimpleDelimiter, std::string_view::const_iterator, true /* KeepEmptyTokens */> it(
-      line.begin(), line.end(), ";");
+  TokenizeIterator<SimpleDelimiter, std::string_view::const_iterator, true /* KeepEmptyTokens */> it(line.begin(),
+                                                                                                     line.end(), ";");
 
-  e.m_from = *it; ++it;
-  e.m_to = *it; ++it;
-  e.m_interpol = ParseInterpolation(*it); ++it;
-  e.m_street = *it; ++it;
-  ++it; ++it;
-  e.m_postcode = *it; ++it;
+  e.m_from = *it;
+  ++it;
+  e.m_to = *it;
+  ++it;
+  e.m_interpol = ParseInterpolation(*it);
+  ++it;
+  e.m_street = *it;
+  ++it;
+  ++it;
+  ++it;
+  e.m_postcode = *it;
+  ++it;
   ParseGeometry(*it, e.m_geom);
 
   if (e.m_interpol == feature::InterpolType::None || e.m_geom.empty())
@@ -99,7 +105,7 @@ bool ParseLine(std::string_view line, AddressEntry & e)
   return true;
 }
 
-} // namespace tiger
+}  // namespace tiger
 
 namespace feature
 {
@@ -114,4 +120,4 @@ std::string DebugPrint(InterpolType type)
   }
   UNREACHABLE();
 }
-} // namespace feature
+}  // namespace feature

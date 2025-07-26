@@ -8,8 +8,8 @@
 #include "base/thread.hpp"
 #endif
 
-#include "coding/internal/file_data.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -18,7 +18,6 @@
 #include <memory>
 
 #include "defines.hpp"
-
 
 using namespace std;
 
@@ -32,36 +31,28 @@ string DebugPrint(long errorCode)
 {
   switch (errorCode)
   {
-  case kIOException:
-    return "IO exception";
-  case kWriteException:
-    return "Write exception";
-  case kInconsistentFileSize:
-    return "Inconsistent file size";
-  case kNonHttpResponse:
-    return "Non-http response";
-  case kInvalidURL:
-    return "Invalid URL";
-  case kCancelled:
-    return "Cancelled";
-  default:
-    return to_string(errorCode);
+  case kIOException: return "IO exception";
+  case kWriteException: return "Write exception";
+  case kInconsistentFileSize: return "Inconsistent file size";
+  case kNonHttpResponse: return "Non-http response";
+  case kInvalidURL: return "Invalid URL";
+  case kCancelled: return "Cancelled";
+  default: return to_string(errorCode);
   }
 }
 }  // namespace non_http_error_code
 
 /// @return 0 if creation failed
-HttpThread * CreateNativeHttpThread(string const & url,
-                                    IHttpThreadCallback & callback,
-                                    int64_t begRange = 0,
-                                    int64_t endRange = -1,
-                                    int64_t expectedSize = -1,
+HttpThread * CreateNativeHttpThread(string const & url, IHttpThreadCallback & callback, int64_t begRange = 0,
+                                    int64_t endRange = -1, int64_t expectedSize = -1,
                                     string const & postBody = string());
 void DeleteNativeHttpThread(HttpThread * thread);
 
 //////////////////////////////////////////////////////////////////////////////////////////
 /// Stores server response into the memory
-class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
+class MemoryHttpRequest
+  : public HttpRequest
+  , public IHttpThreadCallback
 {
   HttpThread * m_thread;
 
@@ -99,34 +90,31 @@ class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
 
 public:
   MemoryHttpRequest(string const & url, Callback && onFinish, Callback && onProgress)
-    : HttpRequest(std::move(onFinish), std::move(onProgress)),
-      m_requestUrl(url), m_writer(m_downloadedData)
+    : HttpRequest(std::move(onFinish), std::move(onProgress))
+    , m_requestUrl(url)
+    , m_writer(m_downloadedData)
   {
     m_thread = CreateNativeHttpThread(url, *this);
-    ASSERT ( m_thread, () );
+    ASSERT(m_thread, ());
   }
 
-  MemoryHttpRequest(string const & url, string const & postData,
-                    Callback && onFinish, Callback && onProgress)
-    : HttpRequest(std::move(onFinish), std::move(onProgress)), m_writer(m_downloadedData)
+  MemoryHttpRequest(string const & url, string const & postData, Callback && onFinish, Callback && onProgress)
+    : HttpRequest(std::move(onFinish), std::move(onProgress))
+    , m_writer(m_downloadedData)
   {
     m_thread = CreateNativeHttpThread(url, *this, 0, -1, -1, postData);
-    ASSERT ( m_thread, () );
+    ASSERT(m_thread, ());
   }
 
-  virtual ~MemoryHttpRequest()
-  {
-    DeleteNativeHttpThread(m_thread);
-  }
+  virtual ~MemoryHttpRequest() { DeleteNativeHttpThread(m_thread); }
 
-  virtual string const & GetData() const
-  {
-    return m_downloadedData;
-  }
+  virtual string const & GetData() const { return m_downloadedData; }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
+class FileHttpRequest
+  : public HttpRequest
+  , public IHttpThreadCallback
 {
   ChunksDownloadStrategy m_strategy;
   typedef pair<HttpThread *, int64_t> ThreadHandleT;
@@ -147,7 +135,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     while ((result = m_strategy.NextChunk(url, range)) == ChunksDownloadStrategy::ENextChunk)
     {
       HttpThread * p = CreateNativeHttpThread(url, *this, range.first, range.second, m_progress.m_bytesTotal);
-      ASSERT ( p, () );
+      ASSERT(p, ());
       m_threads.push_back(make_pair(p, range.first));
     }
     return result;
@@ -156,18 +144,15 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
   class ThreadByPos
   {
     int64_t m_pos;
+
   public:
     explicit ThreadByPos(int64_t pos) : m_pos(pos) {}
-    inline bool operator() (ThreadHandleT const & p) const
-    {
-      return (p.second == m_pos);
-    }
+    inline bool operator()(ThreadHandleT const & p) const { return (p.second == m_pos); }
   };
 
   void RemoveHttpThreadByKey(int64_t begRange)
   {
-    ThreadsContainerT::iterator it = find_if(m_threads.begin(), m_threads.end(),
-                                             ThreadByPos(begRange));
+    ThreadsContainerT::iterator it = find_if(m_threads.begin(), m_threads.end(), ThreadByPos(begRange));
     if (it != m_threads.end())
     {
       HttpThread * p = it->first;
@@ -293,18 +278,18 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
   }
 
 public:
-  FileHttpRequest(vector<string> const & urls, string const & filePath, int64_t fileSize,
-                  Callback && onFinish, Callback && onProgress,
-                  int64_t chunkSize, bool doCleanProgressFiles)
-    : HttpRequest(std::move(onFinish), std::move(onProgress)),
-      m_strategy(urls), m_filePath(filePath),
-      m_goodChunksCount(0), m_doCleanProgressFiles(doCleanProgressFiles)
+  FileHttpRequest(vector<string> const & urls, string const & filePath, int64_t fileSize, Callback && onFinish,
+                  Callback && onProgress, int64_t chunkSize, bool doCleanProgressFiles)
+    : HttpRequest(std::move(onFinish), std::move(onProgress))
+    , m_strategy(urls)
+    , m_filePath(filePath)
+    , m_goodChunksCount(0)
+    , m_doCleanProgressFiles(doCleanProgressFiles)
   {
-    ASSERT ( !urls.empty(), () );
+    ASSERT(!urls.empty(), ());
 
     // Load resume downloading information.
-    m_progress.m_bytesDownloaded = m_strategy.LoadOrInitChunks(m_filePath + RESUME_FILE_EXTENSION,
-                                                   fileSize, chunkSize);
+    m_progress.m_bytesDownloaded = m_strategy.LoadOrInitChunks(m_filePath + RESUME_FILE_EXTENSION, fileSize, chunkSize);
     m_progress.m_bytesTotal = fileSize;
 
     FileWriter::Op openMode = FileWriter::OP_WRITE_TRUNCATE;
@@ -312,8 +297,7 @@ public:
     {
       // Check that resume information is correct with existing file.
       uint64_t size;
-      if (base::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) &&
-              size <= static_cast<uint64_t>(fileSize))
+      if (base::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) && size <= static_cast<uint64_t>(fileSize))
         openMode = FileWriter::OP_WRITE_EXISTING;
       else
         m_strategy.InitChunks(fileSize, chunkSize);
@@ -352,10 +336,7 @@ public:
     }
   }
 
-  virtual string const & GetData() const
-  {
-    return m_filePath;
-  }
+  virtual string const & GetData() const { return m_filePath; }
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -364,33 +345,29 @@ HttpRequest::HttpRequest(Callback && onFinish, Callback && onProgress)
   , m_progress(Progress::Unknown())
   , m_onFinish(std::move(onFinish))
   , m_onProgress(std::move(onProgress))
-{
-}
+{}
 
-HttpRequest::~HttpRequest()
-{
-}
+HttpRequest::~HttpRequest() {}
 
 HttpRequest * HttpRequest::Get(string const & url, Callback && onFinish, Callback && onProgress)
 {
   return new MemoryHttpRequest(url, std::move(onFinish), std::move(onProgress));
 }
 
-HttpRequest * HttpRequest::PostJson(string const & url, string const & postData,
-                                    Callback && onFinish, Callback && onProgress)
+HttpRequest * HttpRequest::PostJson(string const & url, string const & postData, Callback && onFinish,
+                                    Callback && onProgress)
 {
   return new MemoryHttpRequest(url, postData, std::move(onFinish), std::move(onProgress));
 }
 
-HttpRequest * HttpRequest::GetFile(vector<string> const & urls,
-                                   string const & filePath, int64_t fileSize,
-                                   Callback && onFinish, Callback && onProgress,
-                                   int64_t chunkSize, bool doCleanOnCancel)
+HttpRequest * HttpRequest::GetFile(vector<string> const & urls, string const & filePath, int64_t fileSize,
+                                   Callback && onFinish, Callback && onProgress, int64_t chunkSize,
+                                   bool doCleanOnCancel)
 {
   try
   {
-    return new FileHttpRequest(urls, filePath, fileSize, std::move(onFinish), std::move(onProgress),
-                               chunkSize, doCleanOnCancel);
+    return new FileHttpRequest(urls, filePath, fileSize, std::move(onFinish), std::move(onProgress), chunkSize,
+                               doCleanOnCancel);
   }
   catch (FileWriter::Exception const & e)
   {

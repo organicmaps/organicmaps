@@ -21,16 +21,10 @@ using namespace generator::tests_support;
 class TestOSMElementCacheReader : public generator::cache::OSMElementCacheReaderInterface
 {
 public:
-  TestOSMElementCacheReader(std::unordered_map<generator::cache::Key, RelationElement> & m)
-    : m_mapping(m)
-  {
-  }
+  TestOSMElementCacheReader(std::unordered_map<generator::cache::Key, RelationElement> & m) : m_mapping(m) {}
 
   // OSMElementCacheReaderInterface overrides:
-  bool Read(generator::cache::Key /* id */, WayElement & /* value */) override
-  {
-    UNREACHABLE();
-  }
+  bool Read(generator::cache::Key /* id */, WayElement & /* value */) override { UNREACHABLE(); }
 
   bool Read(generator::cache::Key id, RelationElement & value) override
   {
@@ -60,18 +54,24 @@ public:
   {
     {
       RelationElement topRelationElement;
-      topRelationElement.m_tags = {{"type", "building"}};
+      topRelationElement.m_tags = {
+          {"type", "building"}
+      };
       topRelationElement.m_relations = {
           {kOutlineId1, "outline"},
-          {3271043, "part"},
-          {3271041, "part"},
+          {    3271043,    "part"},
+          {    3271041,    "part"},
       };
       for (auto const & p : topRelationElement.m_relations)
         m_relationToRelations[p.first].emplace_back(kTopRelationId1);
 
       topRelationElement.m_ways = {
-          {292789674, "part"}, {242078027, "part"}, {242078028, "part"},
-          {242077956, "part"}, {242077935, "part"}, {242077967, "part"},
+          {292789674, "part"},
+          {242078027, "part"},
+          {242078028, "part"},
+          {242077956, "part"},
+          {242077935, "part"},
+          {242077967, "part"},
       };
       for (auto const & p : topRelationElement.m_ways)
         m_wayToRelations[p.first].emplace_back(kTopRelationId1);
@@ -80,7 +80,9 @@ public:
     }
     {
       RelationElement topRelationElement;
-      topRelationElement.m_tags = {{"type", "building"}};
+      topRelationElement.m_tags = {
+          {"type", "building"}
+      };
       topRelationElement.m_relations = {
           {kOutlineId2, "outline"},
       };
@@ -88,8 +90,12 @@ public:
         m_relationToRelations[p.first].emplace_back(kTopRelationId2);
 
       topRelationElement.m_ways = {
-          {392789674, "part"}, {342078027, "part"}, {342078028, "part"},
-          {342077956, "part"}, {342077935, "part"}, {342077967, "part"},
+          {392789674, "part"},
+          {342078027, "part"},
+          {342078028, "part"},
+          {342077956, "part"},
+          {342077935, "part"},
+          {342077967, "part"},
       };
       for (auto const & p : topRelationElement.m_ways)
         m_wayToRelations[p.first].emplace_back(kTopRelationId2);
@@ -99,10 +105,7 @@ public:
   }
 
   // IntermediateDataReaderBase overrides:
-  bool GetNode(generator::cache::Key, double &, double &) const override
-  {
-    UNREACHABLE();
-  }
+  bool GetNode(generator::cache::Key, double &, double &) const override { UNREACHABLE(); }
 
   bool GetWay(generator::cache::Key /* id */, WayElement & /* e */) override { UNREACHABLE(); }
 
@@ -199,8 +202,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorBuildingParts_Case1)
     collector.Finish();
     collector.Finalize();
   }
-  TestCollector(file.GetFullPath(), fb, *intermediateReader,
-                IntermediateDataReaderTest::kTopRelationId1);
+  TestCollector(file.GetFullPath(), fb, *intermediateReader, IntermediateDataReaderTest::kTopRelationId1);
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, CollectorBuildingParts_Case2)
@@ -220,8 +222,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorBuildingParts_Case2)
 
   auto intermediateReader = std::make_shared<IntermediateDataReaderTest>();
   {
-    auto collector1 =
-        std::make_shared<generator::BuildingPartsCollector>(file.GetFullPath(), intermediateReader);
+    auto collector1 = std::make_shared<generator::BuildingPartsCollector>(file.GetFullPath(), intermediateReader);
     // We don't clone cache, because it isn't mutable.
     auto collector2 = collector1->Clone(intermediateReader);
 
@@ -235,9 +236,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CollectorBuildingParts_Case2)
     collector1->Finalize();
   }
 
-  TestCollector(file.GetFullPath(), fb1, *intermediateReader,
-                IntermediateDataReaderTest::kTopRelationId1);
-  TestCollector(file.GetFullPath(), fb2, *intermediateReader,
-                IntermediateDataReaderTest::kTopRelationId2);
+  TestCollector(file.GetFullPath(), fb1, *intermediateReader, IntermediateDataReaderTest::kTopRelationId1);
+  TestCollector(file.GetFullPath(), fb2, *intermediateReader, IntermediateDataReaderTest::kTopRelationId2);
 }
 }  // namespace collector_building_parts_tests

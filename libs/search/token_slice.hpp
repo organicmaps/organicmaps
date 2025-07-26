@@ -76,10 +76,7 @@ template <typename Cont>
 class QuerySliceOnRawStrings : public StringSliceBase
 {
 public:
-  QuerySliceOnRawStrings(Cont const & tokens, String const & prefix)
-    : m_tokens(tokens), m_prefix(prefix)
-  {
-  }
+  QuerySliceOnRawStrings(Cont const & tokens, String const & prefix) : m_tokens(tokens), m_prefix(prefix) {}
 
   bool HasPrefixToken() const { return !m_prefix.empty(); }
 

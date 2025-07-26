@@ -16,7 +16,6 @@
 
 #include "base/file_name_utils.hpp"
 
-
 namespace postcode_points_tests
 {
 using namespace generator::tests_support;
@@ -26,8 +25,7 @@ using namespace search;
 using namespace std;
 
 class PostcodePointsTest : public SearchTest
-{
-};
+{};
 
 UNIT_CLASS_TEST(PostcodePointsTest, SmokeUK)
 {
@@ -42,17 +40,14 @@ UNIT_CLASS_TEST(PostcodePointsTest, SmokeUK)
                                  "header\n"
                                  "aa11 0bb, 1.0, 1.0\n"
                                  "aa11 1bb, 2.0, 2.0\n"
-                                 "aa11 2bb, 3.0, 3.0\n"
-  );
+                                 "aa11 2bb, 3.0, 3.0\n");
 
   auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
-  infoGetter->AddCountry(storage::CountryDef(countryName,
-      m2::RectD(mercator::FromLatLon(0.99, 0.99), mercator::FromLatLon(3.01, 3.01))));
+  infoGetter->AddCountry(
+      storage::CountryDef(countryName, m2::RectD(mercator::FromLatLon(0.99, 0.99), mercator::FromLatLon(3.01, 3.01))));
 
   auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder)
-  {
-    builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter);
-  });
+  { builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter); });
 
   auto handle = m_dataSource.GetMwmHandleById(id);
   auto value = handle.GetValue();
@@ -98,19 +93,17 @@ UNIT_CLASS_TEST(PostcodePointsTest, SmokeUS)
   string const testFile = "postcodes.csv";
   auto const postcodesRelativePath = base::JoinPath(writableDir, testFile);
 
-  ScopedFile const osmScopedFile(testFile,
-                                 "header\n"
-                                 R"("00601","18.18027","-66.75266","Adjuntas","PR","Puerto Rico","TRUE","","16834","100.9","72001","Adjuntas","{""72001"": 98.74, ""72141"": 1.26}","Adjuntas|Utuado","72001|72141","FALSE","FALSE","America/Puerto_Rico")"
-  );
+  ScopedFile const osmScopedFile(
+      testFile,
+      "header\n"
+      R"("00601","18.18027","-66.75266","Adjuntas","PR","Puerto Rico","TRUE","","16834","100.9","72001","Adjuntas","{""72001"": 98.74, ""72141"": 1.26}","Adjuntas|Utuado","72001|72141","FALSE","FALSE","America/Puerto_Rico")");
 
   auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
-  infoGetter->AddCountry(storage::CountryDef(countryName,
-      m2::RectD(mercator::FromLatLon(0, -180), mercator::FromLatLon(90, 0))));
+  infoGetter->AddCountry(
+      storage::CountryDef(countryName, m2::RectD(mercator::FromLatLon(0, -180), mercator::FromLatLon(90, 0))));
 
   auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder)
-  {
-    builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter);
-  });
+  { builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter); });
 
   auto handle = m_dataSource.GetMwmHandleById(id);
   auto value = handle.GetValue();
@@ -142,16 +135,14 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchPostcode)
                                  "BA6 8JP, 5.0, 6.0\n");
 
   auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
-  infoGetter->AddCountry(storage::CountryDef(
-      countryName,
-      m2::RectD(mercator::FromLatLon(3.0, 3.0), mercator::FromLatLon(7.0, 7.0))));
+  infoGetter->AddCountry(
+      storage::CountryDef(countryName, m2::RectD(mercator::FromLatLon(3.0, 3.0), mercator::FromLatLon(7.0, 7.0))));
 
   auto const id = BuildCountry(countryName, [&](TestMwmBuilder & builder)
-  {
-    builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter);
-  });
+  { builder.SetPostcodesData(postcodesRelativePath, indexer::PostcodePointsDatasetType::UK, infoGetter); });
 
-  auto test = [&](string const & query, m2::PointD const & expected) {
+  auto test = [&](string const & query, m2::PointD const & expected)
+  {
     auto request = MakeRequest(query);
     auto const & results = request->Results();
     TEST_EQUAL(results.size(), 1, ());
@@ -182,37 +173,35 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
   string const testFile = "postcodes.csv";
   auto const postcodesRelativePath = base::JoinPath(writableDir, testFile);
 
-  ScopedFile const osmScopedFile(
-      testFile,
-      "header\n"
-      "AA5 6KL, 4.0, 4.0\n"
-      "BB7 8MN, 6.0, 6.0\n"
-      "XX6 7KL, 4.0, 6.0\n"
-      "YY8 9MN, 6.0, 4.0\n"
-      // Some dummy postcodes to make postcode radius approximation not too big.
-      "CC1 0AA, 5.0, 5.0\n"
-      "CC1 0AB, 5.0, 5.0\n"
-      "CC1 0AC, 5.0, 5.0\n"
-      "CC1 0AD, 5.0, 5.0\n"
-      "CC1 0AE, 5.0, 5.0\n"
-      "CC1 0AF, 5.0, 5.0\n"
-      "CC1 0AG, 5.0, 5.0\n"
-      "CC1 0AH, 5.0, 5.0\n"
-      "CC1 0AI, 5.0, 5.0\n"
-      "CC1 0AJ, 5.0, 5.0\n"
-      "CC1 0AK, 5.0, 5.0\n"
-      "CC1 0AL, 5.0, 5.0\n"
-      "CC1 0AM, 5.0, 5.0\n"
-      "CC1 0AN, 5.0, 5.0\n"
-      "CC1 0AO, 5.0, 5.0\n"
-      "CC1 0AP, 5.0, 5.0\n"
-      "CC1 0AQ, 5.0, 5.0\n"
-      "CC1 0AR, 5.0, 5.0\n"
-      "CC1 0AS, 5.0, 5.0\n"
-      "CC1 0AT, 5.0, 5.0\n");
+  ScopedFile const osmScopedFile(testFile,
+                                 "header\n"
+                                 "AA5 6KL, 4.0, 4.0\n"
+                                 "BB7 8MN, 6.0, 6.0\n"
+                                 "XX6 7KL, 4.0, 6.0\n"
+                                 "YY8 9MN, 6.0, 4.0\n"
+                                 // Some dummy postcodes to make postcode radius approximation not too big.
+                                 "CC1 0AA, 5.0, 5.0\n"
+                                 "CC1 0AB, 5.0, 5.0\n"
+                                 "CC1 0AC, 5.0, 5.0\n"
+                                 "CC1 0AD, 5.0, 5.0\n"
+                                 "CC1 0AE, 5.0, 5.0\n"
+                                 "CC1 0AF, 5.0, 5.0\n"
+                                 "CC1 0AG, 5.0, 5.0\n"
+                                 "CC1 0AH, 5.0, 5.0\n"
+                                 "CC1 0AI, 5.0, 5.0\n"
+                                 "CC1 0AJ, 5.0, 5.0\n"
+                                 "CC1 0AK, 5.0, 5.0\n"
+                                 "CC1 0AL, 5.0, 5.0\n"
+                                 "CC1 0AM, 5.0, 5.0\n"
+                                 "CC1 0AN, 5.0, 5.0\n"
+                                 "CC1 0AO, 5.0, 5.0\n"
+                                 "CC1 0AP, 5.0, 5.0\n"
+                                 "CC1 0AQ, 5.0, 5.0\n"
+                                 "CC1 0AR, 5.0, 5.0\n"
+                                 "CC1 0AS, 5.0, 5.0\n"
+                                 "CC1 0AT, 5.0, 5.0\n");
 
-  auto const rect =
-      m2::RectD(mercator::FromLatLon(3.99, 3.99), mercator::FromLatLon(6.01, 6.01));
+  auto const rect = m2::RectD(mercator::FromLatLon(3.99, 3.99), mercator::FromLatLon(6.01, 6.01));
   auto infoGetter = std::make_shared<storage::CountryInfoGetterForTesting>();
   infoGetter->AddCountry(storage::CountryDef(countryName, rect));
 
@@ -243,7 +232,8 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
     builder.Add(streetY);
   });
 
-  auto test = [&](string const & query, TestFeature const & bestResult) {
+  auto test = [&](string const & query, TestFeature const & bestResult)
+  {
     auto request = MakeRequest(query);
     auto const & results = request->Results();
 
@@ -260,4 +250,4 @@ UNIT_CLASS_TEST(PostcodePointsTest, SearchStreetWithPostcode)
   test("Main street YY8 9MN ", streetY);
 }
 
-} // namespace postcode_points_tests
+}  // namespace postcode_points_tests

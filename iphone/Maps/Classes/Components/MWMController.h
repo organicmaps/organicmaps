@@ -2,8 +2,8 @@
 
 @protocol MWMController <NSObject>
 
-@property (nonatomic, readonly) BOOL hasNavigationBar;
+@property(nonatomic, readonly) BOOL hasNavigationBar;
 
-@property (nonatomic, readonly) MWMAlertViewController * alertController;
+@property(nonatomic, readonly) MWMAlertViewController * alertController;
 
 @end

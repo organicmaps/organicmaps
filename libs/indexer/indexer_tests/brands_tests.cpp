@@ -41,15 +41,14 @@ UNIT_TEST(LoadBrands)
 
   {
     Names expectedNames;
-    expectedNames.emplace("McDonald's",   StringUtf8Multilang::GetLangIndex("en"));
-    expectedNames.emplace("Mc Donalds",   StringUtf8Multilang::GetLangIndex("en"));
+    expectedNames.emplace("McDonald's", StringUtf8Multilang::GetLangIndex("en"));
+    expectedNames.emplace("Mc Donalds", StringUtf8Multilang::GetLangIndex("en"));
     expectedNames.emplace("МакДональд'с", StringUtf8Multilang::GetLangIndex("ru"));
-    expectedNames.emplace("Мак Доналдс",  StringUtf8Multilang::GetLangIndex("ru"));
-    expectedNames.emplace("Макдональдз",  StringUtf8Multilang::GetLangIndex("uk"));
+    expectedNames.emplace("Мак Доналдс", StringUtf8Multilang::GetLangIndex("ru"));
+    expectedNames.emplace("Макдональдз", StringUtf8Multilang::GetLangIndex("uk"));
 
     Names names;
-    holder.ForEachNameByKey(
-        "mcdonalds", [&names](BrandsHolder::Brand::Name const & name) { names.insert(name); });
+    holder.ForEachNameByKey("mcdonalds", [&names](BrandsHolder::Brand::Name const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 
@@ -60,8 +59,7 @@ UNIT_TEST(LoadBrands)
     expectedNames.emplace("Сабвей", StringUtf8Multilang::GetLangIndex("ru"));
 
     Names names;
-    holder.ForEachNameByKey(
-        "subway", [&names](BrandsHolder::Brand::Name const & name) { names.insert(name); });
+    holder.ForEachNameByKey("subway", [&names](BrandsHolder::Brand::Name const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 
@@ -69,8 +67,7 @@ UNIT_TEST(LoadBrands)
     set<string> expectedNames = {"McDonald's", "Mc Donalds"};
 
     set<string> names;
-    holder.ForEachNameByKeyAndLang("mcdonalds", "en",
-                                   [&names](string const & name) { names.insert(name); });
+    holder.ForEachNameByKeyAndLang("mcdonalds", "en", [&names](string const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 
@@ -78,8 +75,7 @@ UNIT_TEST(LoadBrands)
     set<string> expectedNames = {"МакДональд'с", "Мак Доналдс"};
 
     set<string> names;
-    holder.ForEachNameByKeyAndLang("mcdonalds", "ru",
-                                   [&names](string const & name) { names.insert(name); });
+    holder.ForEachNameByKeyAndLang("mcdonalds", "ru", [&names](string const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 
@@ -87,8 +83,7 @@ UNIT_TEST(LoadBrands)
     set<string> expectedNames = {"Макдональдз"};
 
     set<string> names;
-    holder.ForEachNameByKeyAndLang("mcdonalds", "uk",
-                                   [&names](string const & name) { names.insert(name); });
+    holder.ForEachNameByKeyAndLang("mcdonalds", "uk", [&names](string const & name) { names.insert(name); });
     CHECK_EQUAL(names, expectedNames, ());
   }
 }

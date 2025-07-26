@@ -65,10 +65,9 @@ public:
   virtual void SetFilter(TextureFilter filter);
 
   virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params);
-  virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-                      ref_ptr<void> data);
-  void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y,
-                  uint32_t width, uint32_t height, ref_ptr<void> data);
+  virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data);
+  void UploadData(ref_ptr<dp::GraphicsContext> context, uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                  ref_ptr<void> data);
 
   ref_ptr<HWTexture> GetHardwareTexture() const;
 
@@ -76,8 +75,7 @@ public:
 
 protected:
   void Destroy();
-  bool AllocateTexture(ref_ptr<dp::GraphicsContext> context,
-                       ref_ptr<HWTextureAllocator> allocator);
+  bool AllocateTexture(ref_ptr<dp::GraphicsContext> context, ref_ptr<HWTextureAllocator> allocator);
 
   drape_ptr<HWTexture> m_hwTexture;
 

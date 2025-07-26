@@ -1,6 +1,5 @@
 
-typedef NS_ENUM (NSUInteger, MWMOpeningHoursEditorCells)
-{
+typedef NS_ENUM(NSUInteger, MWMOpeningHoursEditorCells) {
   MWMOpeningHoursEditorDaysSelectorCell,
   MWMOpeningHoursEditorAllDayCell,
   MWMOpeningHoursEditorTimeSpanCell,

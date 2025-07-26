@@ -12,7 +12,7 @@ public:
   struct AddressInfo
   {
     std::string m_house, m_street, m_postcode;
-    std::string m_house2;   // end point house number for the 2nd stage
+    std::string m_house2;  // end point house number for the 2nd stage
 
     std::string FormatRange() const;
   };
@@ -64,4 +64,4 @@ public:
   void MergeInto(AddressesCollector & collector) const;
 };
 
-} // namespace generator
+}  // namespace generator

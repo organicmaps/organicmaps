@@ -109,7 +109,7 @@ private:
   vector<Value> m_values;
 };
 
-#define ZENC bits::ZigZagEncode
+#define ZENC    bits::ZigZagEncode
 #define MKSC(x) static_cast<signed char>(x)
 #define MKUC(x) static_cast<uint8_t>(x)
 
@@ -119,36 +119,101 @@ UNIT_TEST(TrieBuilder_WriteNode_Smoke)
   PushBackByteSink<vector<uint8_t>> sink(buf);
   ChildNodeInfo children[] = {
       ChildNodeInfo(true, 1, "1A"), ChildNodeInfo(false, 2, "B"), ChildNodeInfo(false, 3, "zz"),
-      ChildNodeInfo(true, 4,
-                    "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"),
+      ChildNodeInfo(true, 4, "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"),
       ChildNodeInfo(true, 5, "a")};
 
   ValueList<char> valueList;
   valueList.Init({'1', '2', '3'});
-  trie::WriteNode(sink, SingleValueSerializer<char>(), 0, valueList, &children[0],
-                  &children[0] + ARRAY_SIZE(children));
+  trie::WriteNode(sink, SingleValueSerializer<char>(), 0, valueList, &children[0], &children[0] + ARRAY_SIZE(children));
   uint8_t const expected[] = {
       BOOST_BINARY(11000101),  // Header: [0b11] [0b000101]
       3,                       // Number of values
-      '1', '2', '3',           // Values
+      '1',
+      '2',
+      '3',                     // Values
       BOOST_BINARY(10000001),  // Child 1: header: [+leaf] [-supershort]  [2 symbols]
-      MKUC(ZENC(MKSC('1'))), MKUC(ZENC(MKSC('A') - MKSC('1'))),  // Child 1: edge
-      1,                                                         // Child 1: size
+      MKUC(ZENC(MKSC('1'))),
+      MKUC(ZENC(MKSC('A') - MKSC('1'))),       // Child 1: edge
+      1,                                       // Child 1: size
       MKUC(64 | ZENC(MKSC('B') - MKSC('1'))),  // Child 2: header: [-leaf] [+supershort]
       2,                                       // Child 2: size
-      BOOST_BINARY(00000001),                // Child 3: header: [-leaf] [-supershort]  [2 symbols]
-      MKUC(ZENC(MKSC('z') - MKSC('B'))), 0,  // Child 3: edge
-      3,                                     // Child 3: size
+      BOOST_BINARY(00000001),                  // Child 3: header: [-leaf] [-supershort]  [2 symbols]
+      MKUC(ZENC(MKSC('z') - MKSC('B'))),
+      0,                       // Child 3: edge
+      3,                       // Child 3: size
       BOOST_BINARY(10111111),  // Child 4: header: [+leaf] [-supershort]  [>= 63 symbols]
       69,                      // Child 4: edgeSize - 1
-      MKUC(ZENC(MKSC('a') - MKSC('z'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
-      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
-      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
-      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
-      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
-      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
-      MKUC(ZENC(MKSC('a') - MKSC('j'))), 2, 2, 2, 2, 2, 2, 2, 2, 2,  // Child 4: edge
-      4,                                                             // Child 4: size
+      MKUC(ZENC(MKSC('a') - MKSC('z'))),
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))),
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))),
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))),
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))),
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))),
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,  // Child 4: edge
+      MKUC(ZENC(MKSC('a') - MKSC('j'))),
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,                                       // Child 4: edge
+      4,                                       // Child 4: size
       MKUC(BOOST_BINARY(11000000) | ZENC(0)),  // Child 5: header: [+leaf] [+supershort]
   };
 
@@ -187,10 +252,7 @@ UNIT_TEST(TrieBuilder_Build)
         using KeyValuePair = pair<Key, Value>;
 
         vector<KeyValuePair> v;
-        auto makeKey = [](string const & s)
-        {
-          return Key(s.begin(), s.end());
-        };
+        auto makeKey = [](string const & s) { return Key(s.begin(), s.end()); };
         if (i0 >= 0)
           v.emplace_back(makeKey(possibleStrings[i0]), i0);
         if (i1 >= 0)
@@ -204,17 +266,14 @@ UNIT_TEST(TrieBuilder_Build)
         vector<uint8_t> buf;
         PushBackByteSink<vector<uint8_t>> sink(buf);
         SingleValueSerializer<uint32_t> serializer;
-        trie::Build<PushBackByteSink<vector<uint8_t>>, Key, ValueList<uint32_t>,
-                    SingleValueSerializer<uint32_t>>(sink, serializer, v);
+        trie::Build<PushBackByteSink<vector<uint8_t>>, Key, ValueList<uint32_t>, SingleValueSerializer<uint32_t>>(
+            sink, serializer, v);
         reverse(buf.begin(), buf.end());
 
         MemReader memReader = MemReader(&buf[0], buf.size());
         auto const root = trie::ReadTrie<MemReader, ValueList<uint32_t>>(memReader, serializer);
         vector<KeyValuePair> res;
-        auto addKeyValuePair = [&res](Key const & k, Value const & v)
-        {
-          res.emplace_back(k, v);
-        };
+        auto addKeyValuePair = [&res](Key const & k, Value const & v) { res.emplace_back(k, v); };
         trie::ForEachRef(*root, addKeyValuePair, Key{});
         sort(res.begin(), res.end());
         TEST_EQUAL(v, res, ());
@@ -223,4 +282,4 @@ UNIT_TEST(TrieBuilder_Build)
   }
 }
 
-} // namespace trie_test
+}  // namespace trie_test

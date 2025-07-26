@@ -161,4 +161,4 @@ UNIT_TEST(MatchMGRSCoords_convert)
   TestAlmostEqual(MatchMGRSCoords("31N BA 32007 00000"), 0.000000, 0.592330);
 }
 
-} // namespace utm_mgrs_coords_match_test
+}  // namespace utm_mgrs_coords_match_test

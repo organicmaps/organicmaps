@@ -70,9 +70,9 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
 
           switch (item.newStatus)
           {
-            case CountryItem.STATUS_FAILED: updateViews(); return;
+          case CountryItem.STATUS_FAILED: updateViews(); return;
 
-            case CountryItem.STATUS_DONE: exitFragment(); return;
+          case CountryItem.STATUS_DONE: exitFragment(); return;
           }
 
           break;

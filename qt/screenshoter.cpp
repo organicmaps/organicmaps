@@ -37,10 +37,9 @@ bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt, uint8_t
   double lat;
   double lon;
   uint8_t zoomLevel;
-  if (strings::to_double(*iter, lat) && mercator::ValidLat(lat) && ++iter &&
-      strings::to_double(*iter, lon) && mercator::ValidLon(lon) && ++iter &&
-      strings::to_uint(*iter, zoomLevel) &&
-      zoomLevel >= 1 && zoomLevel <= scales::GetUpperStyleScale())
+  if (strings::to_double(*iter, lat) && mercator::ValidLat(lat) && ++iter && strings::to_double(*iter, lon) &&
+      mercator::ValidLon(lon) && ++iter && strings::to_uint(*iter, zoomLevel) && zoomLevel >= 1 &&
+      zoomLevel <= scales::GetUpperStyleScale())
   {
     pt = mercator::FromLatLon(lat, lon);
     zoom = zoomLevel;
@@ -65,8 +64,8 @@ bool ParseRect(std::string_view s, char const * delim, m2::RectD & rect)
       strings::to_double(*iter, latRigthTop) && mercator::ValidLat(latRigthTop) && ++iter &&
       strings::to_double(*iter, lonRigthTop) && mercator::ValidLon(lonRigthTop))
   {
-    rect = m2::RectD(mercator::FromLatLon(latLeftBottom, lonLeftBottom),
-                     mercator::FromLatLon(latRigthTop, lonRigthTop));
+    rect =
+        m2::RectD(mercator::FromLatLon(latLeftBottom, lonLeftBottom), mercator::FromLatLon(latRigthTop, lonRigthTop));
     return true;
   }
   return false;
@@ -114,15 +113,13 @@ bool ParseRectsStr(std::string const & rectsStr, std::list<m2::RectD> & rects)
 }
 }  // namespace
 
-Screenshoter::Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework,
-                           QOpenGLWidget * widget)
+Screenshoter::Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework, QOpenGLWidget * widget)
   : m_screenshotParams(screenshotParams)
   , m_framework(framework)
   , m_widget(widget)
 {
-  m_framework.GetStorage().Subscribe(
-      std::bind(&Screenshoter::OnCountryChanged, this, std::placeholders::_1),
-      [](storage::CountryId const &, downloader::Progress const &) {});
+  m_framework.GetStorage().Subscribe(std::bind(&Screenshoter::OnCountryChanged, this, std::placeholders::_1),
+                                     [](storage::CountryId const &, downloader::Progress const &) {});
 }
 
 void Screenshoter::Start()
@@ -137,9 +134,8 @@ void Screenshoter::Start()
               "\n  mode:",
               m_screenshotParams.m_mode, "\n  kml_path:", m_screenshotParams.m_kmlPath,
               "\n  points:", m_screenshotParams.m_points, "\n  rects:", m_screenshotParams.m_rects,
-              "\n  dst_path:", m_screenshotParams.m_dstPath,
-              "\n  width:", m_screenshotParams.m_width, "\n  height:", m_screenshotParams.m_height,
-              "\n  dpi_scale:", m_screenshotParams.m_dpiScale));
+              "\n  dst_path:", m_screenshotParams.m_dstPath, "\n  width:", m_screenshotParams.m_width,
+              "\n  height:", m_screenshotParams.m_height, "\n  dpi_scale:", m_screenshotParams.m_dpiScale));
 
   if (!Platform::MkDirChecked(m_screenshotParams.m_dstPath))
   {
@@ -224,8 +220,7 @@ void Screenshoter::ProcessNextRect()
 
   std::string const postfix = "_" + languages::GetCurrentNorm();
   std::stringstream ss;
-  ss << "rect_" << std::setfill('0') << std::setw(4) << m_itemsCount - m_rectsToProcess.size()
-     << postfix;
+  ss << "rect_" << std::setfill('0') << std::setw(4) << m_itemsCount - m_rectsToProcess.size() << postfix;
 
   m_nextScreenshotName = ss.str();
 
@@ -235,8 +230,7 @@ void Screenshoter::ProcessNextRect()
   CHECK(rect.IsValid(), ());
 
   ChangeState(State::WaitPosition);
-  m_framework.ShowRect(rect, -1 /* maxScale */, false /* animation */,
-                       false /* useVisibleViewport */);
+  m_framework.ShowRect(rect, -1 /* maxScale */, false /* animation */, false /* useVisibleViewport */);
   WaitPosition();
 }
 
@@ -250,8 +244,7 @@ void Screenshoter::ProcessNextPoint()
 
   std::string const postfix = "_" + languages::GetCurrentNorm();
   std::stringstream ss;
-  ss << "point_" << std::setfill('0') << std::setw(4) << m_itemsCount - m_pointsToProcess.size()
-     << postfix;
+  ss << "point_" << std::setfill('0') << std::setw(4) << m_itemsCount - m_pointsToProcess.size() << postfix;
 
   m_nextScreenshotName = ss.str();
 
@@ -305,7 +298,7 @@ void Screenshoter::OnCountryChanged(storage::CountryId countryId)
     {
       ChangeState(State::WaitGraphics);
       auto const kDelay = std::chrono::seconds(3);
-      GetPlatform().RunDelayedTask(Platform::Thread::File, kDelay, [this]{ WaitGraphics(); });
+      GetPlatform().RunDelayedTask(Platform::Thread::File, kDelay, [this] { WaitGraphics(); });
     }
   }
 }
@@ -328,16 +321,14 @@ void Screenshoter::OnGraphicsReady()
 
 void Screenshoter::WaitPosition()
 {
-  m_framework.NotifyGraphicsReady(
-      [this]() { GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnPositionReady(); }); },
-      false /* needInvalidate */);
+  m_framework.NotifyGraphicsReady([this]()
+  { GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnPositionReady(); }); }, false /* needInvalidate */);
 }
 
 void Screenshoter::WaitGraphics()
 {
-  m_framework.NotifyGraphicsReady(
-      [this]() { GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnGraphicsReady(); }); },
-      true /* needInvalidate */);
+  m_framework.NotifyGraphicsReady([this]()
+  { GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnGraphicsReady(); }); }, true /* needInvalidate */);
 }
 
 void Screenshoter::SaveScreenshot()
@@ -355,9 +346,9 @@ void Screenshoter::SaveScreenshot()
   ASSERT_EQUAL(framebuffer.width() % screenshotSize.width(), 0, ());
   ASSERT_EQUAL(framebuffer.height() % screenshotSize.height(), 0, ());
   QImage screenshot = framebuffer.scaled(screenshotSize);
-  if (!screenshot.save(QString::fromStdString(base::JoinPath(m_screenshotParams.m_dstPath,
-                                                             m_nextScreenshotName + ".png")),
-                       "PNG", 100))
+  if (!screenshot.save(
+          QString::fromStdString(base::JoinPath(m_screenshotParams.m_dstPath, m_nextScreenshotName + ".png")), "PNG",
+          100))
   {
     ChangeState(State::FileError);
     return;
@@ -373,8 +364,8 @@ void Screenshoter::ChangeState(State newState, std::string const & msg)
   if (m_screenshotParams.m_statusChangedFn)
   {
     std::ostringstream ss;
-    ss << "[" << m_itemsCount - GetItemsToProcessCount() << "/" << m_itemsCount
-       << "] file: " << m_nextScreenshotName << " state: " << DebugPrint(newState);
+    ss << "[" << m_itemsCount - GetItemsToProcessCount() << "/" << m_itemsCount << "] file: " << m_nextScreenshotName
+       << " state: " << DebugPrint(newState);
     if (!msg.empty())
       ss << " msg: " << msg;
     LOG(LINFO, (ss.str()));

@@ -36,8 +36,8 @@ public:
   static GlyphUsageTracker & Instance();
 
   void AddInvalidGlyph(strings::UniString const & str, strings::UniChar const & c);
-  void AddUnexpectedGlyph(strings::UniString const & str, strings::UniChar const & c,
-                          size_t const group, size_t const expectedGroup);
+  void AddUnexpectedGlyph(strings::UniString const & str, strings::UniChar const & c, size_t const group,
+                          size_t const expectedGroup);
 
   GlyphUsageStatistic Report();
 

@@ -9,8 +9,8 @@
 #include "base/string_utils.hpp"
 
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QMessageBox>
 
 namespace qt
@@ -96,9 +96,7 @@ void RoutingSettings::LoadSession(Framework & framework)
   }
 }
 
-RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework)
-: QDialog(parent)
-, m_framework(framework)
+RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework) : QDialog(parent), m_framework(framework)
 {
   setWindowTitle("Routing settings");
   QVBoxLayout * layout = new QVBoxLayout(this);

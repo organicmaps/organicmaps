@@ -141,8 +141,8 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
   TEST(dir4.Exists(), ());
 
   // Useless CountryIndexes::DeleteFromDisk calls are removed.
-  //TEST(!absentCountryIndexesDir.Exists(), ("Indexes for absent country weren't deleted."));
-  //absentCountryIndexesDir.Reset();
+  // TEST(!absentCountryIndexesDir.Exists(), ("Indexes for absent country weren't deleted."));
+  // absentCountryIndexesDir.Reset();
 
   TEST(irelandIndexesDir.Exists(), ());
 }
@@ -150,10 +150,7 @@ UNIT_TEST(LocalCountryFile_CleanupMapFiles)
 UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
 {
   ScopedDir dataDir("101008");
-  auto const DataFilePath = [&dataDir](char const * file)
-  {
-    return dataDir.GetRelativePath() + "/" + file;
-  };
+  auto const DataFilePath = [&dataDir](char const * file) { return dataDir.GetRelativePath() + "/" + file; };
 
   ScopedDir oldDir("101009");
   ScopedDir latestDir("101010");
@@ -163,15 +160,15 @@ UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
       {DataFilePath("Netherlands.mwm.routing.downloading2"), ScopedFile::Mode::Create},
       {DataFilePath("Germany.mwm.ready3"), ScopedFile::Mode::Create},
       {DataFilePath("UK_England.mwm.resume4"), ScopedFile::Mode::Create},
-      {base::JoinPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"),
-       ScopedFile::Mode::Create}};
+      {base::JoinPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"), ScopedFile::Mode::Create}
+  };
 
   ScopedFile toBeKept[] = {
       {DataFilePath("Italy.mwm"), ScopedFile::Mode::Create},
       {DataFilePath("Spain.mwm"), ScopedFile::Mode::Create},
       {DataFilePath("Spain.mwm.routing"), ScopedFile::Mode::Create},
-      {base::JoinPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"),
-       ScopedFile::Mode::Create}};
+      {base::JoinPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"), ScopedFile::Mode::Create}
+  };
 
   CleanupMapsDirectory(101010 /* latestVersion */);
 
@@ -208,8 +205,8 @@ UNIT_TEST(LocalCountryFile_DirectoryLookup)
   ScopedFile testNetherlandsMapFile(testDir, netherlandsFile, MapFileType::Map);
 
   vector<LocalCountryFile> localFiles;
-  FindAllLocalMapsInDirectoryAndCleanup(testDir.GetFullPath(), 150309 /* version */,
-                                        -1 /* latestVersion */, localFiles);
+  FindAllLocalMapsInDirectoryAndCleanup(testDir.GetFullPath(), 150309 /* version */, -1 /* latestVersion */,
+                                        localFiles);
   sort(localFiles.begin(), localFiles.end());
   for (LocalCountryFile & localFile : localFiles)
     localFile.SyncWithDisk();
@@ -272,8 +269,7 @@ UNIT_TEST(LocalCountryFile_PreparePlaceForCountryFiles)
 
   CountryFile italyFile("Italy");
   LocalCountryFile expectedItalyFile(platform.WritableDir(), italyFile, 0 /* version */);
-  shared_ptr<LocalCountryFile> italyLocalFile =
-      PreparePlaceForCountryFiles(0 /* version */, italyFile);
+  shared_ptr<LocalCountryFile> italyLocalFile = PreparePlaceForCountryFiles(0 /* version */, italyFile);
   TEST(italyLocalFile.get(), ());
   TEST_EQUAL(expectedItalyFile, *italyLocalFile, ());
 
@@ -281,15 +277,13 @@ UNIT_TEST(LocalCountryFile_PreparePlaceForCountryFiles)
 
   CountryFile germanyFile("Germany");
   LocalCountryFile expectedGermanyFile(directoryForV1.GetFullPath(), germanyFile, 1 /* version */);
-  shared_ptr<LocalCountryFile> germanyLocalFile =
-      PreparePlaceForCountryFiles(1 /* version */, germanyFile);
+  shared_ptr<LocalCountryFile> germanyLocalFile = PreparePlaceForCountryFiles(1 /* version */, germanyFile);
   TEST(germanyLocalFile.get(), ());
   TEST_EQUAL(expectedGermanyFile, *germanyLocalFile, ());
 
   CountryFile franceFile("France");
   LocalCountryFile expectedFranceFile(directoryForV1.GetFullPath(), franceFile, 1 /* version */);
-  shared_ptr<LocalCountryFile> franceLocalFile =
-      PreparePlaceForCountryFiles(1 /* version */, franceFile);
+  shared_ptr<LocalCountryFile> franceLocalFile = PreparePlaceForCountryFiles(1 /* version */, franceFile);
   TEST(franceLocalFile.get(), ());
   TEST_EQUAL(expectedFranceFile, *franceLocalFile, ());
 }
@@ -313,8 +307,7 @@ UNIT_TEST(LocalCountryFile_CountryIndexes)
   }
   TEST(Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
 
-  TEST(CountryIndexes::DeleteFromDisk(germanyLocalFile),
-       ("Can't delete indexes for:", germanyLocalFile));
+  TEST(CountryIndexes::DeleteFromDisk(germanyLocalFile), ("Can't delete indexes for:", germanyLocalFile));
 
   TEST(!Platform::IsFileExistsByFullPath(bitsPath), (bitsPath));
 }
@@ -329,19 +322,16 @@ UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
   LocalCountryFile germanyLocalFile(testDir.GetFullPath(), germanyFile, 101010 /* version */);
   CountryIndexes::PreparePlaceOnDisk(germanyLocalFile);
 
-  string const userFilePath =
-      base::JoinPath(CountryIndexes::IndexesDir(germanyLocalFile), "user-data.txt");
+  string const userFilePath = base::JoinPath(CountryIndexes::IndexesDir(germanyLocalFile), "user-data.txt");
   {
     FileWriter writer(userFilePath);
     string const data = "user data";
     writer.Write(data.data(), data.size());
   }
-  TEST(!CountryIndexes::DeleteFromDisk(germanyLocalFile),
-       ("Indexes dir should not be deleted for:", germanyLocalFile));
+  TEST(!CountryIndexes::DeleteFromDisk(germanyLocalFile), ("Indexes dir should not be deleted for:", germanyLocalFile));
 
   TEST(base::DeleteFileX(userFilePath), ("Can't delete test file:", userFilePath));
-  TEST(CountryIndexes::DeleteFromDisk(germanyLocalFile),
-       ("Can't delete indexes for:", germanyLocalFile));
+  TEST(CountryIndexes::DeleteFromDisk(germanyLocalFile), ("Can't delete indexes for:", germanyLocalFile));
 }
 
 UNIT_TEST(LocalCountryFile_MakeTemporary)
@@ -351,4 +341,4 @@ UNIT_TEST(LocalCountryFile_MakeTemporary)
   TEST_EQUAL(file.GetPath(MapFileType::Map), path, ());
 }
 
-} // local_country_file_tests
+}  // namespace local_country_file_tests

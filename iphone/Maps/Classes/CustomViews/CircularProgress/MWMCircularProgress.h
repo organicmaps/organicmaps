@@ -6,15 +6,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MWMCircularProgress;
 
-typedef NSArray<NSNumber *> *MWMCircularProgressStateVec;
+typedef NSArray<NSNumber *> * MWMCircularProgressStateVec;
 
-@protocol MWMCircularProgressProtocol<NSObject>
+@protocol MWMCircularProgressProtocol <NSObject>
 
 - (void)progressButtonPressed:(MWMCircularProgress *)progress;
 
 @end
 
-@interface MWMCircularProgress: NSObject<CAAnimationDelegate>
+@interface MWMCircularProgress : NSObject <CAAnimationDelegate>
 
 + (instancetype)downloaderProgressForParentView:(UIView *)parentView;
 
@@ -30,11 +30,9 @@ typedef NSArray<NSNumber *> *MWMCircularProgressStateVec;
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
 - (nonnull instancetype)initWithParentView:(UIView *)parentView;
 
-- (void)setImageName:(nullable NSString *)imageName
-           forStates:(MWMCircularProgressStateVec)states;
+- (void)setImageName:(nullable NSString *)imageName forStates:(MWMCircularProgressStateVec)states;
 - (void)setColor:(UIColor *)color forStates:(MWMCircularProgressStateVec)states;
-- (void)setColoring:(MWMButtonColoring)coloring
-          forStates:(MWMCircularProgressStateVec)states;
+- (void)setColoring:(MWMButtonColoring)coloring forStates:(MWMCircularProgressStateVec)states;
 @end
 
 NS_ASSUME_NONNULL_END

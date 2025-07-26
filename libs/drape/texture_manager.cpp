@@ -3,10 +3,10 @@
 #include "drape/font_constants.hpp"
 #include "drape/font_texture.hpp"
 #include "drape/gl_functions.hpp"
-#include "drape/symbols_texture.hpp"
 #include "drape/static_texture.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/support_manager.hpp"
+#include "drape/symbols_texture.hpp"
 #include "drape/texture_of_colors.hpp"
 #include "drape/tm_read_resources.hpp"
 
@@ -38,7 +38,7 @@ size_t constexpr kReservedColors = 20;
 float constexpr kGlyphAreaMultiplier = 1.2f;
 float constexpr kGlyphAreaCoverage = 0.9f;
 
-std::string const kSymbolTextures[] = { "symbols" };
+std::string const kSymbolTextures[] = {"symbols"};
 uint32_t constexpr kDefaultSymbolsIndex = 0;
 
 template <typename ToDo>
@@ -58,7 +58,7 @@ m2::PointU StipplePenTextureSize(size_t patternsCount, uint32_t maxTextureSize)
 {
   uint32_t const sz = math::NextPowOf2(static_cast<uint32_t>(patternsCount) + kReservedPatterns);
   // No problem if assert will fire here. Just pen texture will be 2x bigger :)
-  //ASSERT_LESS_OR_EQUAL(sz, kMinStippleTextureHeight, (patternsCount));
+  // ASSERT_LESS_OR_EQUAL(sz, kMinStippleTextureHeight, (patternsCount));
   uint32_t const stippleTextureHeight = std::min(maxTextureSize, std::max(sz, kMinStippleTextureHeight));
 
   return m2::PointU(kStippleTextureWidth, stippleTextureHeight);
@@ -77,34 +77,26 @@ m2::PointU ColorTextureSize(size_t colorsCount, uint32_t maxTextureSize)
 }
 
 drape_ptr<Texture> CreateArrowTexture(ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<HWTextureAllocator> textureAllocator,
-                                      std::string const & texturePath,
+                                      ref_ptr<HWTextureAllocator> textureAllocator, std::string const & texturePath,
                                       bool useDefaultResourceFolder)
 {
   if (!texturePath.empty())
   {
-    return make_unique_dp<StaticTexture>(
-        context, texturePath,
-        useDefaultResourceFolder ? StaticTexture::kDefaultResource : std::string(),
-        dp::TextureFormat::RGBA8, textureAllocator, true /* allowOptional */);
+    return make_unique_dp<StaticTexture>(context, texturePath,
+                                         useDefaultResourceFolder ? StaticTexture::kDefaultResource : std::string(),
+                                         dp::TextureFormat::RGBA8, textureAllocator, true /* allowOptional */);
   }
-  return make_unique_dp<StaticTexture>(context, "arrow-texture.png",
-                                       StaticTexture::kDefaultResource, dp::TextureFormat::RGBA8,
-                                       textureAllocator, true /* allowOptional */);
+  return make_unique_dp<StaticTexture>(context, "arrow-texture.png", StaticTexture::kDefaultResource,
+                                       dp::TextureFormat::RGBA8, textureAllocator, true /* allowOptional */);
 }
 }  // namespace
 
-TextureManager::TextureManager()
-  : m_maxTextureSize(0)
-  , m_maxGlypsCount(0)
+TextureManager::TextureManager() : m_maxTextureSize(0), m_maxGlypsCount(0)
 {
   m_nothingToUpload.test_and_set();
 }
 
-TextureManager::BaseRegion::BaseRegion()
-  : m_info(nullptr)
-  , m_texture(nullptr)
-{}
+TextureManager::BaseRegion::BaseRegion() : m_info(nullptr), m_texture(nullptr) {}
 
 bool TextureManager::BaseRegion::IsValid() const
 {
@@ -127,8 +119,7 @@ m2::PointF TextureManager::BaseRegion::GetPixelSize() const
     return m2::PointF(0.0f, 0.0f);
 
   m2::RectF const & texRect = m_info->GetTexRect();
-  return m2::PointF(texRect.SizeX() * m_texture->GetWidth(),
-                    texRect.SizeY() * m_texture->GetHeight());
+  return m2::PointF(texRect.SizeX() * m_texture->GetWidth(), texRect.SizeY() * m_texture->GetHeight());
 }
 
 float TextureManager::BaseRegion::GetPixelHeight() const
@@ -241,15 +232,14 @@ void TextureManager::GetRegionBase(ref_ptr<Texture> tex, BaseRegion & region, Te
     m_nothingToUpload.clear();
 }
 
-uint32_t TextureManager::GetNumberOfGlyphsNotInGroup(std::vector<text::GlyphMetrics> const & glyphs, GlyphGroup const & group)
+uint32_t TextureManager::GetNumberOfGlyphsNotInGroup(std::vector<text::GlyphMetrics> const & glyphs,
+                                                     GlyphGroup const & group)
 {
   uint32_t count = 0;
   auto const end = group.m_glyphKeys.end();
   for (auto const & glyph : glyphs)
-  {
     if (group.m_glyphKeys.find(glyph.m_key) == end)
       ++count;
-  }
 
   return count;
 }
@@ -279,10 +269,8 @@ size_t TextureManager::FindHybridGlyphsGroup(std::vector<text::GlyphMetrics> con
 
   // Looking for a texture which can fit all glyphs.
   for (size_t i = 0; i < m_glyphGroups.size() - 1; i++)
-  {
     if (GetNumberOfGlyphsNotInGroup(glyphs, m_glyphGroups[i]) == 0)
       return i;
-  }
 
   // Check if we can fit all glyphs in the last hybrid texture.
   uint32_t const unfoundChars = GetNumberOfGlyphsNotInGroup(glyphs, group);
@@ -308,28 +296,23 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   // Initialize symbols.
   for (auto const & texName : kSymbolTextures)
   {
-    m_symbolTextures.push_back(make_unique_dp<SymbolsTexture>(context, m_resPostfix, texName,
-                                                              make_ref(m_textureAllocator)));
+    m_symbolTextures.push_back(
+        make_unique_dp<SymbolsTexture>(context, m_resPostfix, texName, make_ref(m_textureAllocator)));
   }
 
   // Initialize static textures.
-  m_trafficArrowTexture =
-      make_unique_dp<StaticTexture>(context, "traffic-arrow.png", m_resPostfix,
-                                    dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-  m_hatchingTexture =
-      make_unique_dp<StaticTexture>(context, "area-hatching.png", m_resPostfix,
-                                    dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-  m_arrowTexture =
-      CreateArrowTexture(context, make_ref(m_textureAllocator), params.m_arrowTexturePath,
-                         params.m_arrowTextureUseDefaultResourceFolder);
+  m_trafficArrowTexture = make_unique_dp<StaticTexture>(context, "traffic-arrow.png", m_resPostfix,
+                                                        dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
+  m_hatchingTexture = make_unique_dp<StaticTexture>(context, "area-hatching.png", m_resPostfix,
+                                                    dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
+  m_arrowTexture = CreateArrowTexture(context, make_ref(m_textureAllocator), params.m_arrowTexturePath,
+                                      params.m_arrowTextureUseDefaultResourceFolder);
 
   // SMAA.
-  m_smaaAreaTexture =
-      make_unique_dp<StaticTexture>(context, "smaa-area.png", StaticTexture::kDefaultResource,
-                                    dp::TextureFormat::RedGreen, make_ref(m_textureAllocator));
-  m_smaaSearchTexture =
-      make_unique_dp<StaticTexture>(context, "smaa-search.png", StaticTexture::kDefaultResource,
-                                    dp::TextureFormat::Red, make_ref(m_textureAllocator));
+  m_smaaAreaTexture = make_unique_dp<StaticTexture>(context, "smaa-area.png", StaticTexture::kDefaultResource,
+                                                    dp::TextureFormat::RedGreen, make_ref(m_textureAllocator));
+  m_smaaSearchTexture = make_unique_dp<StaticTexture>(context, "smaa-search.png", StaticTexture::kDefaultResource,
+                                                      dp::TextureFormat::Red, make_ref(m_textureAllocator));
 
   // Initialize patterns (reserved ./data/patterns.txt lines count).
   std::set<PenPatternT> patterns;
@@ -368,13 +351,10 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   // Initialize colors (reserved ./data/colors.txt lines count).
   std::vector<dp::Color> colors;
   colors.reserve(512);
-  ParseColorsList(params.m_colors, [&colors](dp::Color const & color)
-  {
-    colors.push_back(color);
-  });
+  ParseColorsList(params.m_colors, [&colors](dp::Color const & color) { colors.push_back(color); });
 
-  m_colorTexture = make_unique_dp<ColorTexture>(ColorTextureSize(colors.size(), m_maxTextureSize),
-                                                make_ref(m_textureAllocator));
+  m_colorTexture =
+      make_unique_dp<ColorTexture>(ColorTextureSize(colors.size(), m_maxTextureSize), make_ref(m_textureAllocator));
 
   LOG(LDEBUG, ("Colors texture size =", m_colorTexture->GetWidth(), m_colorTexture->GetHeight()));
 
@@ -405,7 +385,7 @@ void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
   // Here we need invalidate only textures which can be changed in map style switch.
   // Now we update only symbol textures, if we need update other textures they must be added here.
   // For Vulkan we use m_texturesToCleanup to defer textures destroying.
-  for (const auto & m_symbolTexture : m_symbolTextures)
+  for (auto const & m_symbolTexture : m_symbolTextures)
   {
     ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTexture);
     ASSERT(symbolsTexture != nullptr, ());
@@ -417,14 +397,12 @@ void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
   }
 }
 
-void TextureManager::InvalidateArrowTexture(
-    ref_ptr<dp::GraphicsContext> context,
-    std::string const & texturePath /* = {} */,
-    bool useDefaultResourceFolder /* = false */)
+void TextureManager::InvalidateArrowTexture(ref_ptr<dp::GraphicsContext> context,
+                                            std::string const & texturePath /* = {} */,
+                                            bool useDefaultResourceFolder /* = false */)
 {
   CHECK(m_isInitialized, ());
-  m_newArrowTexture = CreateArrowTexture(context, make_ref(m_textureAllocator), texturePath,
-                                         useDefaultResourceFolder);
+  m_newArrowTexture = CreateArrowTexture(context, make_ref(m_textureAllocator), texturePath, useDefaultResourceFolder);
 }
 
 void TextureManager::ApplyInvalidatedStaticTextures()
@@ -537,7 +515,8 @@ text::TextMetrics TextureManager::ShapeSingleTextLine(float fontPixelHeight, std
 }
 
 TextureManager::TShapedTextLines TextureManager::ShapeMultilineText(float fontPixelHeight, std::string_view utf8,
-    char const * delimiters, TMultilineGlyphsBuffer & multilineGlyphRegions)
+                                                                    char const * delimiters,
+                                                                    TMultilineGlyphsBuffer & multilineGlyphRegions)
 {
   TShapedTextLines textLines;
   strings::Tokenize(utf8, delimiters, [&](std::string_view line)
@@ -609,8 +588,8 @@ constexpr size_t TextureManager::GetInvalidGlyphGroup()
   return kInvalidGlyphGroup;
 }
 
-ref_ptr<HWTextureAllocator> TextureManager::GetTextureAllocator() const 
+ref_ptr<HWTextureAllocator> TextureManager::GetTextureAllocator() const
 {
-  return make_ref(m_textureAllocator); 
+  return make_ref(m_textureAllocator);
 }
 }  // namespace dp

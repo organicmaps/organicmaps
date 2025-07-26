@@ -34,16 +34,16 @@ public final class RoutingHelpers
     int shape = LaneDirection.SHAPE_UNKNOWN;
     switch (laneWay)
     {
-      case REVERSE: shape = LaneDirection.SHAPE_U_TURN_LEFT; break;
-      case SHARP_LEFT: shape = LaneDirection.SHAPE_SHARP_LEFT; break;
-      case LEFT: shape = LaneDirection.SHAPE_NORMAL_LEFT; break;
-      case SLIGHT_LEFT:
-      case MERGE_TO_LEFT: shape = LaneDirection.SHAPE_SLIGHT_LEFT; break;
-      case SLIGHT_RIGHT:
-      case MERGE_TO_RIGHT: shape = LaneDirection.SHAPE_SLIGHT_RIGHT; break;
-      case THROUGH: shape = LaneDirection.SHAPE_STRAIGHT; break;
-      case RIGHT: shape = LaneDirection.SHAPE_NORMAL_RIGHT; break;
-      case SHARP_RIGHT: shape = LaneDirection.SHAPE_SHARP_RIGHT; break;
+    case REVERSE: shape = LaneDirection.SHAPE_U_TURN_LEFT; break;
+    case SHARP_LEFT: shape = LaneDirection.SHAPE_SHARP_LEFT; break;
+    case LEFT: shape = LaneDirection.SHAPE_NORMAL_LEFT; break;
+    case SLIGHT_LEFT:
+    case MERGE_TO_LEFT: shape = LaneDirection.SHAPE_SLIGHT_LEFT; break;
+    case SLIGHT_RIGHT:
+    case MERGE_TO_RIGHT: shape = LaneDirection.SHAPE_SLIGHT_RIGHT; break;
+    case THROUGH: shape = LaneDirection.SHAPE_STRAIGHT; break;
+    case RIGHT: shape = LaneDirection.SHAPE_NORMAL_RIGHT; break;
+    case SHARP_RIGHT: shape = LaneDirection.SHAPE_SHARP_RIGHT; break;
     }
 
     return LaneDirection.create(shape, isRecommended);

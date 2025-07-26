@@ -22,7 +22,7 @@ using namespace generator_tests;
 namespace
 {
 auto const kEmptyValidator = [](auto const &) { return true; };
-}
+}  // namespace
 
 UNIT_TEST(MergeCollector_MergeCase1)
 {
@@ -30,13 +30,29 @@ UNIT_TEST(MergeCollector_MergeCase1)
   std::string const tagKey = "admin_level";
   auto collector1 = std::make_shared<CollectorTag>(filename, tagKey, kEmptyValidator);
 
-  collector1->Collect(MakeOsmElement(1 /* id */, {{"admin_level", "1"}}, OsmElement::EntityType::Relation));
-  collector1->Collect(MakeOsmElement(2 /* id */, {{"admin_level", "2"}}, OsmElement::EntityType::Relation));
+  collector1->Collect(MakeOsmElement(1 /* id */,
+                                     {
+                                         {"admin_level", "1"}
+  },
+                                     OsmElement::EntityType::Relation));
+  collector1->Collect(MakeOsmElement(2 /* id */,
+                                     {
+                                         {"admin_level", "2"}
+  },
+                                     OsmElement::EntityType::Relation));
 
   auto collector2 = collector1->Clone();
 
-  collector2->Collect(MakeOsmElement(3 /* id */, {{"admin_level", "3"}}, OsmElement::EntityType::Relation));
-  collector2->Collect(MakeOsmElement(4 /* id */, {{"admin_level", "4"}}, OsmElement::EntityType::Relation));
+  collector2->Collect(MakeOsmElement(3 /* id */,
+                                     {
+                                         {"admin_level", "3"}
+  },
+                                     OsmElement::EntityType::Relation));
+  collector2->Collect(MakeOsmElement(4 /* id */,
+                                     {
+                                         {"admin_level", "4"}
+  },
+                                     OsmElement::EntityType::Relation));
 
   collector1->Finish();
   collector2->Finish();
@@ -44,10 +60,10 @@ UNIT_TEST(MergeCollector_MergeCase1)
   collector1->Finalize();
 
   std::vector<std::string> const answers = {
-    std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 1 /* id */).GetEncodedId()) + "\t1",
-    std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 2 /* id */).GetEncodedId()) + "\t2",
-    std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 3 /* id */).GetEncodedId()) + "\t3",
-    std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 4 /* id */).GetEncodedId()) + "\t4",
+      std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 1 /* id */).GetEncodedId()) + "\t1",
+      std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 2 /* id */).GetEncodedId()) + "\t2",
+      std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 3 /* id */).GetEncodedId()) + "\t3",
+      std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 4 /* id */).GetEncodedId()) + "\t4",
   };
 
   std::ifstream stream;
@@ -66,13 +82,29 @@ UNIT_TEST(MergeCollector_MergeCase2)
   auto collection1 = std::make_shared<CollectorCollection>();
   collection1->Append(std::make_shared<CollectorTag>(filename, tagKey, kEmptyValidator));
 
-  collection1->Collect(MakeOsmElement(1 /* id */, {{"admin_level", "1"}}, OsmElement::EntityType::Relation));
-  collection1->Collect(MakeOsmElement(2 /* id */, {{"admin_level", "2"}}, OsmElement::EntityType::Relation));
+  collection1->Collect(MakeOsmElement(1 /* id */,
+                                      {
+                                          {"admin_level", "1"}
+  },
+                                      OsmElement::EntityType::Relation));
+  collection1->Collect(MakeOsmElement(2 /* id */,
+                                      {
+                                          {"admin_level", "2"}
+  },
+                                      OsmElement::EntityType::Relation));
 
   auto collection2 = collection1->Clone();
 
-  collection2->Collect(MakeOsmElement(3 /* id */, {{"admin_level", "3"}}, OsmElement::EntityType::Relation));
-  collection2->Collect(MakeOsmElement(4 /* id */, {{"admin_level", "4"}}, OsmElement::EntityType::Relation));
+  collection2->Collect(MakeOsmElement(3 /* id */,
+                                      {
+                                          {"admin_level", "3"}
+  },
+                                      OsmElement::EntityType::Relation));
+  collection2->Collect(MakeOsmElement(4 /* id */,
+                                      {
+                                          {"admin_level", "4"}
+  },
+                                      OsmElement::EntityType::Relation));
 
   collection1->Finish();
   collection2->Finish();
@@ -80,10 +112,10 @@ UNIT_TEST(MergeCollector_MergeCase2)
   collection1->Finalize();
 
   std::vector<std::string> const answers = {
-    std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 1 /* id */).GetEncodedId()) + "\t1",
-    std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 2 /* id */).GetEncodedId()) + "\t2",
-    std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 3 /* id */).GetEncodedId()) + "\t3",
-    std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 4 /* id */).GetEncodedId()) + "\t4",
+      std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 1 /* id */).GetEncodedId()) + "\t1",
+      std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 2 /* id */).GetEncodedId()) + "\t2",
+      std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 3 /* id */).GetEncodedId()) + "\t3",
+      std::to_string(GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, 4 /* id */).GetEncodedId()) + "\t4",
   };
 
   std::ifstream stream;

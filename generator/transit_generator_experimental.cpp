@@ -21,8 +21,8 @@
 
 #include "coding/file_writer.hpp"
 
-#include "geometry/point2d.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/point2d.hpp"
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
@@ -45,13 +45,11 @@ namespace transit
 {
 namespace experimental
 {
-void FillOsmIdToFeatureIdsMap(std::string const & osmIdToFeatureIdsPath,
-                              OsmIdToFeatureIdsMap & mapping)
+void FillOsmIdToFeatureIdsMap(std::string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & mapping)
 {
-  bool const mappedIds = ForEachOsmId2FeatureId(
-      osmIdToFeatureIdsPath, [&mapping](auto const & compositeId, auto featureId) {
-        mapping[compositeId.m_mainId].push_back(featureId);
-      });
+  bool const mappedIds =
+      ForEachOsmId2FeatureId(osmIdToFeatureIdsPath, [&mapping](auto const & compositeId, auto featureId)
+  { mapping[compositeId.m_mainId].push_back(featureId); });
   CHECK(mappedIds, (osmIdToFeatureIdsPath));
 }
 
@@ -73,8 +71,7 @@ std::vector<SingleMwmSegment> GetSegmentsFromEdges(std::vector<routing::Edge> &&
 
 template <class D, class C>
 std::vector<routing::Edge> GetBestPedestrianEdges(D const & destination, C && countryFileGetter,
-                                                  IndexRouter & indexRouter,
-                                                  std::unique_ptr<WorldGraph> & worldGraph,
+                                                  IndexRouter & indexRouter, std::unique_ptr<WorldGraph> & worldGraph,
                                                   CountryId const & countryId)
 {
   std::vector<routing::Edge> edges;
@@ -100,8 +97,8 @@ std::vector<routing::Edge> GetBestPedestrianEdges(D const & destination, C && co
   }
   catch (RootException const & e)
   {
-    LOG(LCRITICAL, ("Exception while looking for the best segment in mwm", countryId,
-                    "Destination", mercator::ToLatLon(destination.GetPoint()), e.what()));
+    LOG(LCRITICAL, ("Exception while looking for the best segment in mwm", countryId, "Destination",
+                    mercator::ToLatLon(destination.GetPoint()), e.what()));
   }
 
   return edges;
@@ -117,11 +114,10 @@ void CalculateBestPedestrianSegments(std::string const & mwmPath, CountryId cons
   auto infoGetter = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
   CHECK(infoGetter, ());
 
-  auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) {
-    return infoGetter->GetRegionCountryId(pt);
-  };
+  auto const countryFileGetter = [&infoGetter](m2::PointD const & pt) { return infoGetter->GetRegionCountryId(pt); };
 
-  auto const getMwmRectByName = [&](std::string const & c) {
+  auto const getMwmRectByName = [&](std::string const & c)
+  {
     CHECK_EQUAL(countryId, c, ());
     return infoGetter->GetLimitRectForLeaf(c);
   };
@@ -131,38 +127,33 @@ void CalculateBestPedestrianSegments(std::string const & mwmPath, CountryId cons
   numMwmIds->RegisterFile(CountryFile(countryId));
 
   // |indexRouter| is valid while |dataSource| is valid.
-  IndexRouter indexRouter(VehicleType::Pedestrian, false /* load altitudes */,
-                          CountryParentNameGetterFn(), countryFileGetter, getMwmRectByName,
-                          numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
+  IndexRouter indexRouter(VehicleType::Pedestrian, false /* load altitudes */, CountryParentNameGetterFn(),
+                          countryFileGetter, getMwmRectByName, numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
                           traffic::TrafficCache(), dataSource.GetDataSource());
   auto worldGraph = indexRouter.MakeSingleMwmWorldGraph();
 
   auto const & gates = transitData.GetGates();
   for (size_t i = 0; i < gates.size(); ++i)
   {
-    auto edges =
-        GetBestPedestrianEdges(gates[i], countryFileGetter, indexRouter, worldGraph, countryId);
+    auto edges = GetBestPedestrianEdges(gates[i], countryFileGetter, indexRouter, worldGraph, countryId);
     transitData.SetGatePedestrianSegments(i, GetSegmentsFromEdges(std::move(edges)));
   }
 
   auto const & stops = transitData.GetStops();
   for (size_t i = 0; i < stops.size(); ++i)
   {
-    auto edges =
-        GetBestPedestrianEdges(stops[i], countryFileGetter, indexRouter, worldGraph, countryId);
+    auto edges = GetBestPedestrianEdges(stops[i], countryFileGetter, indexRouter, worldGraph, countryId);
     transitData.SetStopPedestrianSegments(i, GetSegmentsFromEdges(std::move(edges)));
   }
 }
 
-void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const & transitJsonsPath,
-                         TransitData & data)
+void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping, std::string const & transitJsonsPath, TransitData & data)
 {
   data.DeserializeFromJson(transitJsonsPath, mapping);
 }
 
 EdgeIdToFeatureId BuildTransit(std::string const & mwmDir, CountryId const & countryId,
-                               std::string const & osmIdToFeatureIdsPath,
-                               std::string const & transitDir)
+                               std::string const & osmIdToFeatureIdsPath, std::string const & transitDir)
 {
   LOG(LINFO, ("Building experimental transit section for", countryId, "mwmDir:", mwmDir));
   std::string const mwmPath = GetMwmPath(mwmDir, countryId);

@@ -44,10 +44,7 @@ namespace
 {
 struct GpsPoint
 {
-  GpsPoint(double timestampS, double lat, double lon)
-    : m_timestampS(timestampS), m_lat(lat), m_lon(lon)
-  {
-  }
+  GpsPoint(double timestampS, double lat, double lon) : m_timestampS(timestampS), m_lat(lat), m_lon(lon) {}
 
   double m_timestampS;
   // @TODO(bykoianko) Using LatLog type instead of two double should be considered.
@@ -194,8 +191,7 @@ int main(int argc, char * argv[])
   Tracks tracks;
   if (!Parse(FLAGS_csv_path, tracks))
   {
-    LOG(LERROR, ("An error while parsing", FLAGS_csv_path,
-                 "file. Please check if it has a correct format."));
+    LOG(LERROR, ("An error while parsing", FLAGS_csv_path, "file. Please check if it has a correct format."));
     return -1;
   }
 
@@ -209,25 +205,21 @@ int main(int argc, char * argv[])
   {
     double trackLenM = 0;
     for (size_t j = 1; j < t.size(); ++j)
-    {
-      trackLenM += ms::DistanceOnEarth(ms::LatLon(t[j - 1].m_lat, t[j - 1].m_lon),
-                                       ms::LatLon(t[j].m_lat, t[j].m_lon));
-    }
+      trackLenM += ms::DistanceOnEarth(ms::LatLon(t[j - 1].m_lat, t[j - 1].m_lon), ms::LatLon(t[j].m_lat, t[j].m_lon));
     trackLengths += trackLenM;
   }
 
   LOG(LINFO, ("General tracks statistics."
               "\n  Number of tracks:",
-              tracks.size(), "\n  Number of track points:", trackPointNum,
-              "\n  Average points per track:", trackPointNum / tracks.size(),
-              "\n  Average track length:", trackLengths / tracks.size(), "meters"));
+              tracks.size(), "\n  Number of track points:", trackPointNum, "\n  Average points per track:",
+              trackPointNum / tracks.size(), "\n  Average track length:", trackLengths / tracks.size(), "meters"));
 
   // For all points of each track in |tracks| some extrapolations will be calculated.
   // The number of extrapolations depends on |Extrapolator::kExtrapolationPeriodMs|
   // and |Extrapolator::kMaxExtrapolationTimeMs| and equal for all points.
   // Then cumulative moving average and variance of each extrapolation will be printed.
-  auto const extrapolationNumber = static_cast<size_t>(Extrapolator::kMaxExtrapolationTimeMs /
-                                                       Extrapolator::kExtrapolationPeriodMs);
+  auto const extrapolationNumber =
+      static_cast<size_t>(Extrapolator::kMaxExtrapolationTimeMs / Extrapolator::kExtrapolationPeriodMs);
   MovingAverageVec mes(extrapolationNumber);
   MovingAverageVec squareMes(extrapolationNumber);
   // Number of extrapolations for which projections are calculated successfully.
@@ -258,28 +250,25 @@ int main(int argc, char * argv[])
       vector<double> onePointDeviations;
       vector<double> onePointDeviationsSquared;
       bool projFound = true;
-      for (size_t timeMs = Extrapolator::kExtrapolationPeriodMs;
-           timeMs <= Extrapolator::kMaxExtrapolationTimeMs;
+      for (size_t timeMs = Extrapolator::kExtrapolationPeriodMs; timeMs <= Extrapolator::kMaxExtrapolationTimeMs;
            timeMs += Extrapolator::kExtrapolationPeriodMs)
       {
         GpsInfo const extrapolated = LinearExtrapolation(info1, info2, timeMs);
-        m2::PointD const extrapolatedMerc =
-            mercator::FromLatLon(extrapolated.m_latitude, extrapolated.m_longitude);
+        m2::PointD const extrapolatedMerc = mercator::FromLatLon(extrapolated.m_latitude, extrapolated.m_longitude);
 
         double const kHalfSquareSide = 100.0;
         // |kHalfSquareSide| is chosen based on maximum value of GpsInfo::m_horizontalAccuracy
         // which is used calculation of projection in production code.
-        m2::RectD const posSquare = mercator::MetersToXY(
-            extrapolated.m_longitude, extrapolated.m_latitude, kHalfSquareSide);
+        m2::RectD const posSquare =
+            mercator::MetersToXY(extrapolated.m_longitude, extrapolated.m_latitude, kHalfSquareSide);
         // One is deducted from polyline size because in GetClosestProjectionInInterval()
         // is used segment indices but not point indices.
         auto const & iter = followedPoly.GetClosestProjectionInInterval(
-            posSquare,
-            [&extrapolatedMerc](FollowedPolyline::Iter const & it) {
-              ASSERT(it.IsValid(), ());
-              return mercator::DistanceOnEarth(it.m_pt, extrapolatedMerc);
-            },
-            0 /* start segment index */, followedPoly.GetPolyline().GetSize() - 1);
+            posSquare, [&extrapolatedMerc](FollowedPolyline::Iter const & it)
+        {
+          ASSERT(it.IsValid(), ());
+          return mercator::DistanceOnEarth(it.m_pt, extrapolatedMerc);
+        }, 0 /* start segment index */, followedPoly.GetPolyline().GetSize() - 1);
 
         if (iter.IsValid())
         {
@@ -309,19 +298,17 @@ int main(int argc, char * argv[])
   }
 
   CHECK_GREATER(extrapolationNumber, 0, ());
-  LOG(LINFO, ("\n  Processed", mes.Get()[0].GetCounter(), "points.\n", "  ",
-              mes.Get()[0].GetCounter() * extrapolationNumber, "extrapolations is calculated.\n",
-              "  Projection is calculated for", projectionCounter, "extrapolations."));
-
   LOG(LINFO,
-      ("Cumulative moving average, variance and standard deviation for each extrapolation:"));
+      ("\n  Processed", mes.Get()[0].GetCounter(), "points.\n", "  ", mes.Get()[0].GetCounter() * extrapolationNumber,
+       "extrapolations is calculated.\n", "  Projection is calculated for", projectionCounter, "extrapolations."));
+
+  LOG(LINFO, ("Cumulative moving average, variance and standard deviation for each extrapolation:"));
   for (size_t i = 0; i < extrapolationNumber; ++i)
   {
     double const variance = squareMes.Get()[i].Get() - math::Pow2(mes.Get()[i].Get());
-    LOG(LINFO,
-        ("Extrapolation", i + 1, ",", Extrapolator::kExtrapolationPeriodMs * (i + 1),
-         "seconds after point two. Cumulative moving average =", mes.Get()[i].Get(), "meters.",
-         "Variance =", max(0.0, variance), ". Standard deviation =", sqrt(max(0.0, variance))));
+    LOG(LINFO, ("Extrapolation", i + 1, ",", Extrapolator::kExtrapolationPeriodMs * (i + 1),
+                "seconds after point two. Cumulative moving average =", mes.Get()[i].Get(), "meters.",
+                "Variance =", max(0.0, variance), ". Standard deviation =", sqrt(max(0.0, variance))));
   }
 
   return 0;

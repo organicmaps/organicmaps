@@ -13,13 +13,15 @@ namespace storage
 {
 int64_t const FakeMapFilesDownloader::kBlockSize;
 
-FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner)
-  : m_timestamp(0), m_taskRunner(taskRunner)
+FakeMapFilesDownloader::FakeMapFilesDownloader(TaskRunner & taskRunner) : m_timestamp(0), m_taskRunner(taskRunner)
 {
   SetServersList({"http://test-url/"});
 }
 
-FakeMapFilesDownloader::~FakeMapFilesDownloader() { CHECK_THREAD_CHECKER(m_checker, ()); }
+FakeMapFilesDownloader::~FakeMapFilesDownloader()
+{
+  CHECK_THREAD_CHECKER(m_checker, ());
+}
 
 void FakeMapFilesDownloader::Download(QueuedCountry && queuedCountry)
 {

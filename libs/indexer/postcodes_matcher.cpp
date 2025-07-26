@@ -26,12 +26,10 @@ namespace
 // search/search_quality/clusterize_postcodes.lisp for details how
 // these patterns were constructed.
 char const * const g_patterns[] = {
-    "aa nnnn",   "aa nnnnn",   "aaa nnnn",    "aan",      "aan naa",  "aana naa", "aann",
-    "aann naa",  "aannaa",     "aannnaa",     "aannnn",   "an naa",   "ana naa",  "ana nan",
-    "ananan",    "ann aann",   "ann naa",     "annnnaaa", "nn nnn",   "nnn",      "nnn nn",
-    "nnn nnn",   "nnn nnnn",   "nnnn",        "nnnn aa",  "nnnn nnn", "nnnnaa",   "nnnnn",
-    "nnnnn nnn", "nnnnn nnnn", "nnnnn nnnnn", "nnnnnn",   "nnnnnnn",  "nnnnnnnn", "〒nnn nnnn",
-    "annnn"};
+    "aa nnnn", "aa nnnnn",  "aaa nnnn",   "aan",         "aan naa",  "aana naa", "aann",     "aann naa",   "aannaa",
+    "aannnaa", "aannnn",    "an naa",     "ana naa",     "ana nan",  "ananan",   "ann aann", "ann naa",    "annnnaaa",
+    "nn nnn",  "nnn",       "nnn nn",     "nnn nnn",     "nnn nnnn", "nnnn",     "nnnn aa",  "nnnn nnn",   "nnnnaa",
+    "nnnnn",   "nnnnn nnn", "nnnnn nnnn", "nnnnn nnnnn", "nnnnnn",   "nnnnnnn",  "nnnnnnnn", "〒nnn nnnn", "annnn"};
 
 UniChar SimplifyChar(UniChar const & c)
 {
@@ -58,9 +56,8 @@ public:
 
   bool HasString(StringSliceBase const & slice, bool isPrefix) const
   {
-    auto const status =
-        m_strings.Has(make_transform_iterator(JoinIterator::Begin(slice), &SimplifyChar),
-                      make_transform_iterator(JoinIterator::End(slice), &SimplifyChar));
+    auto const status = m_strings.Has(make_transform_iterator(JoinIterator::Begin(slice), &SimplifyChar),
+                                      make_transform_iterator(JoinIterator::End(slice), &SimplifyChar));
     switch (status)
     {
     case TStringSet::Status::Absent: return false;
@@ -109,5 +106,8 @@ bool LooksLikePostcode(string_view sv, bool isPrefix)
   return LooksLikePostcode(StringSlice(tokens), isPrefix && lastTokenIsPrefix);
 }
 
-size_t GetMaxNumTokensInPostcode() { return GetPostcodesMatcher().GetMaxNumTokensInPostcode(); }
-} // namespace search
+size_t GetMaxNumTokensInPostcode()
+{
+  return GetPostcodesMatcher().GetMaxNumTokensInPostcode();
+}
+}  // namespace search

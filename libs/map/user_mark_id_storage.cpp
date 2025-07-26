@@ -12,11 +12,9 @@ std::string const kLastTrackId = "LastTrackId";
 std::string const kLastBookmarkCategoryId = "LastBookmarkCategoryId";
 }  // namespace
 
-UserMarkIdStorage::UserMarkIdStorage()
-  : m_lastUserMarkId(0)
+UserMarkIdStorage::UserMarkIdStorage() : m_lastUserMarkId(0)
 {
-  m_isJustCreated = !(HasKey(kLastBookmarkCategoryId) && HasKey(kLastBookmarkId) &&
-                      HasKey(kLastTrackId));
+  m_isJustCreated = !(HasKey(kLastBookmarkCategoryId) && HasKey(kLastBookmarkId) && HasKey(kLastTrackId));
   if (m_isJustCreated)
   {
     ResetCategoryId();
@@ -81,22 +79,16 @@ bool UserMarkIdStorage::CheckIds(kml::FileData const & fileData) const
   }
 
   for (auto const & b : fileData.m_bookmarksData)
-  {
     if (b.m_id != kml::kInvalidMarkId && b.m_id > m_initialLastBookmarkId)
       return false;
-  }
 
   for (auto const & t : fileData.m_tracksData)
-  {
     if (t.m_id != kml::kInvalidTrackId && t.m_id > m_initialLastTrackId)
       return false;
-  }
 
   for (auto const & c : fileData.m_compilationsData)
-  {
     if (c.m_id != kml::kInvalidMarkGroupId && c.m_id > m_initialLastCategoryId)
       return false;
-  }
 
   // No one corner case. Check passed.
   return true;

@@ -6,11 +6,11 @@
 
 #include "shaders/programs.hpp"
 
-#include "drape/utils/vertex_decl.hpp"
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape/utils/vertex_decl.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -24,10 +24,9 @@ class StraightTextHandle : public TextHandle
   using TBase = TextHandle;
 
 public:
-  StraightTextHandle(dp::OverlayID const & id, dp::TGlyphs && glyphMetrics,
-                     dp::Anchor anchor, glsl::vec2 const & pivot,
-                     glsl::vec2 const & pxSize, glsl::vec2 const & offset,
-                     uint64_t priority, ref_ptr<dp::TextureManager> textureManager, bool isOptional,
+  StraightTextHandle(dp::OverlayID const & id, dp::TGlyphs && glyphMetrics, dp::Anchor anchor, glsl::vec2 const & pivot,
+                     glsl::vec2 const & pxSize, glsl::vec2 const & offset, uint64_t priority,
+                     ref_ptr<dp::TextureManager> textureManager, bool isOptional,
                      gpu::TTextDynamicVertexBuffer && normals, int minVisibleScale, bool isBillboard)
     : TextHandle(id, std::move(glyphMetrics), anchor, priority, textureManager, std::move(normals), minVisibleScale,
                  isBillboard)
@@ -122,8 +121,7 @@ public:
       pivot.y -= halfHeight;
     }
 
-    return m2::RectD(std::min(x, pivot.x), std::min(y, pivot.y),
-                     std::max(x, pivot.x), std::max(y, pivot.y));
+    return m2::RectD(std::min(x, pivot.x), std::min(y, pivot.y), std::max(x, pivot.x), std::max(y, pivot.y));
   }
 
   void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override
@@ -131,10 +129,7 @@ public:
     rects.emplace_back(GetPixelRect(screen, perspective));
   }
 
-  bool IsBound() const override
-  {
-    return !m_isOptional;
-  }
+  bool IsBound() const override { return !m_isOptional; }
 
 private:
   m2::PointF m_pivot;
@@ -147,8 +142,7 @@ private:
 };
 }  // namespace
 
-TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-                     TileKey const & tileKey,
+TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params, TileKey const & tileKey,
                      m2::PointF const & symbolSize, m2::PointF const & symbolOffset, dp::Anchor symbolAnchor,
                      uint32_t textIndex)
   : m_basePoint(basePoint)
@@ -161,9 +155,9 @@ TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params
   m_symbolSizes.push_back(symbolSize);
 }
 
-TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-                     TileKey const & tileKey, std::vector<m2::PointF> const & symbolSizes,
-                     m2::PointF const & symbolOffset, dp::Anchor symbolAnchor, uint32_t textIndex)
+TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params, TileKey const & tileKey,
+                     std::vector<m2::PointF> const & symbolSizes, m2::PointF const & symbolOffset,
+                     dp::Anchor symbolAnchor, uint32_t textIndex)
   : m_basePoint(basePoint)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
@@ -234,17 +228,16 @@ void TextShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
   auto const & titleDecl = m_params.m_titleDecl;
 
   ASSERT(!titleDecl.m_primaryText.empty(), ());
-  StraightTextLayout primaryLayout(titleDecl.m_primaryText, titleDecl.m_primaryTextFont.m_size,
-      textures, titleDecl.m_anchor, titleDecl.m_forceNoWrap);
-
+  StraightTextLayout primaryLayout(titleDecl.m_primaryText, titleDecl.m_primaryTextFont.m_size, textures,
+                                   titleDecl.m_anchor, titleDecl.m_forceNoWrap);
 
   if (m_params.m_limitedText)
   {
     if (auto const y = primaryLayout.GetPixelSize().y; y >= m_params.m_limits.y)
     {
       float const newFontSize = titleDecl.m_primaryTextFont.m_size * m_params.m_limits.y / y;
-      primaryLayout = StraightTextLayout(titleDecl.m_primaryText, newFontSize,
-                                         textures, titleDecl.m_anchor, titleDecl.m_forceNoWrap);
+      primaryLayout = StraightTextLayout(titleDecl.m_primaryText, newFontSize, textures, titleDecl.m_anchor,
+                                         titleDecl.m_forceNoWrap);
     }
   }
 
@@ -257,29 +250,29 @@ void TextShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> 
   }
   else
   {
-    StraightTextLayout secondaryLayout{titleDecl.m_secondaryText,
-        titleDecl.m_secondaryTextFont.m_size, textures, titleDecl.m_anchor, titleDecl.m_forceNoWrap};
+    StraightTextLayout secondaryLayout{titleDecl.m_secondaryText, titleDecl.m_secondaryTextFont.m_size, textures,
+                                       titleDecl.m_anchor, titleDecl.m_forceNoWrap};
 
     if (secondaryLayout.GetGlyphCount() > 0)
     {
-      CalculateTextOffsets(titleDecl, primaryLayout.GetPixelSize(), secondaryLayout.GetPixelSize(), primaryOffset, secondaryOffset);
+      CalculateTextOffsets(titleDecl, primaryLayout.GetPixelSize(), secondaryLayout.GetPixelSize(), primaryOffset,
+                           secondaryOffset);
       secondaryOffset += glsl::vec2(m_symbolOffset.x, m_symbolOffset.y);
-      DrawSubString(context, secondaryLayout, titleDecl.m_secondaryTextFont, secondaryOffset, batcher,
-                    textures, false /* isPrimary */, titleDecl.m_secondaryOptional);
+      DrawSubString(context, secondaryLayout, titleDecl.m_secondaryTextFont, secondaryOffset, batcher, textures,
+                    false /* isPrimary */, titleDecl.m_secondaryOptional);
     }
   }
 
   // The order of drawing secondary and primary texts has been changed after a minor refactoring for better performance.
   // If there are any issues caused by a swapped order, it should be changed back.
   if (primaryLayout.GetGlyphCount() > 0)
-    DrawSubString(context, primaryLayout, titleDecl.m_primaryTextFont, primaryOffset, batcher,
-                  textures, true /* isPrimary */, titleDecl.m_primaryOptional);
+    DrawSubString(context, primaryLayout, titleDecl.m_primaryTextFont, primaryOffset, batcher, textures,
+                  true /* isPrimary */, titleDecl.m_primaryOptional);
 }
 
 void TextShape::DrawSubString(ref_ptr<dp::GraphicsContext> context, StraightTextLayout & layout,
-                              dp::FontDecl const & font, glm::vec2 const & baseOffset,
-                              ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures,
-                              bool isPrimary, bool isOptional) const
+                              dp::FontDecl const & font, glm::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
+                              ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const
 {
   glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_basePoint, m_params.m_tileCenter, kShapeCoordScalar));
   layout.SetBasePosition(glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ), baseOffset);
@@ -293,11 +286,9 @@ void TextShape::DrawSubString(ref_ptr<dp::GraphicsContext> context, StraightText
     DrawSubStringOutlined(context, layout, font, batcher, textures, isPrimary, isOptional);
 }
 
-void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context,
-                                   StraightTextLayout const & layout, dp::FontDecl const & font,
-                                   ref_ptr<dp::Batcher> batcher,
-                                   ref_ptr<dp::TextureManager> textures, bool isPrimary,
-                                   bool isOptional) const
+void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context, StraightTextLayout const & layout,
+                                   dp::FontDecl const & font, ref_ptr<dp::Batcher> batcher,
+                                   ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const
 {
   gpu::TTextStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynamicBuffer;
@@ -324,18 +315,10 @@ void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context,
   m2::PointF const & pixelSize = layout.GetPixelSize();
 
   dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
-  drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
-                                                                            layout.GetGlyphs(),
-                                                                            m_params.m_titleDecl.m_anchor,
-                                                                            glsl::ToVec2(m_basePoint),
-                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
-                                                                            finalOffset,
-                                                                            GetOverlayPriority(),
-                                                                            textures,
-                                                                            isOptional,
-                                                                            std::move(dynamicBuffer),
-                                                                            m_params.m_minVisibleScale,
-                                                                            true);
+  drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(
+      overlayId, layout.GetGlyphs(), m_params.m_titleDecl.m_anchor, glsl::ToVec2(m_basePoint),
+      glsl::vec2(pixelSize.x, pixelSize.y), finalOffset, GetOverlayPriority(), textures, isOptional,
+      std::move(dynamicBuffer), m_params.m_minVisibleScale, true);
   if (m_symbolSizes.size() > 1)
     handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);
   handle->SetPivotZ(m_params.m_posZ);
@@ -356,11 +339,9 @@ void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context,
   batcher->InsertListOfStrip(context, state, make_ref(&provider), std::move(handle), 4);
 }
 
-void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
-                                      StraightTextLayout const & layout, dp::FontDecl const & font,
-                                      ref_ptr<dp::Batcher> batcher,
-                                      ref_ptr<dp::TextureManager> textures, bool isPrimary,
-                                      bool isOptional) const
+void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context, StraightTextLayout const & layout,
+                                      dp::FontDecl const & font, ref_ptr<dp::Batcher> batcher,
+                                      ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const
 {
   gpu::TTextOutlinedStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynamicBuffer;
@@ -386,18 +367,10 @@ void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
   m2::PointF const & pixelSize = layout.GetPixelSize();
 
   dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
-  drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
-                                                                            layout.GetGlyphs(),
-                                                                            m_params.m_titleDecl.m_anchor,
-                                                                            glsl::ToVec2(m_basePoint),
-                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
-                                                                            finalOffset,
-                                                                            GetOverlayPriority(),
-                                                                            textures,
-                                                                            isOptional,
-                                                                            std::move(dynamicBuffer),
-                                                                            m_params.m_minVisibleScale,
-                                                                            true);
+  drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(
+      overlayId, layout.GetGlyphs(), m_params.m_titleDecl.m_anchor, glsl::ToVec2(m_basePoint),
+      glsl::vec2(pixelSize.x, pixelSize.y), finalOffset, GetOverlayPriority(), textures, isOptional,
+      std::move(dynamicBuffer), m_params.m_minVisibleScale, true);
   if (m_symbolSizes.size() > 1)
     handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);
   handle->SetPivotZ(m_params.m_posZ);
@@ -419,8 +392,8 @@ void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
 }
 
 // TODO: *Shape classes are concerned with drawing themselves. Its strange they decide/manipulate overlays' priorities
-// in the scene. It seems more logical to set priorities beforehand in the creators of *Shapes and pass on final values only.
-// Check if such a refactoring makes sense.
+// in the scene. It seems more logical to set priorities beforehand in the creators of *Shapes and pass on final values
+// only. Check if such a refactoring makes sense.
 uint64_t TextShape::GetOverlayPriority() const
 {
   // Set up maximum priority for shapes which created by user in the editor and in case of disabling

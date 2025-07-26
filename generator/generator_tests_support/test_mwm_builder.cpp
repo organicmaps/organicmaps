@@ -28,7 +28,6 @@
 
 #include "defines.hpp"
 
-
 namespace generator
 {
 namespace tests_support
@@ -57,15 +56,12 @@ bool WriteRegionDataForTests(string const & path, vector<string> const & languag
 }
 }  // namespace
 
-TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, DataHeader::MapType type,
-                               uint32_t version)
+TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, DataHeader::MapType type, uint32_t version)
   : m_file(file)
   , m_type(type)
-  , m_collector(
-        std::make_unique<FeaturesCollector>(m_file.GetPath(MapFileType::Map) + EXTENSION_TMP))
+  , m_collector(std::make_unique<FeaturesCollector>(m_file.GetPath(MapFileType::Map) + EXTENSION_TMP))
   , m_version(version)
-{
-}
+{}
 
 TestMwmBuilder::~TestMwmBuilder()
 {
@@ -101,9 +97,7 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
     if (!feature::PreprocessForWorldMap(fb))
       return false;
     break;
-  case DataHeader::MapType::WorldCoasts:
-    CHECK(false, ("Coasts are not supported in test builder"));
-    break;
+  case DataHeader::MapType::WorldCoasts: CHECK(false, ("Coasts are not supported in test builder")); break;
   }
 
   auto const & isCityTownOrVillage = ftypes::IsCityTownOrVillageChecker::Instance();
@@ -127,8 +121,7 @@ bool TestMwmBuilder::Add(FeatureBuilder & fb)
   return true;
 }
 
-void TestMwmBuilder::SetPostcodesData(string const & postcodesPath,
-                                      indexer::PostcodePointsDatasetType postcodesType,
+void TestMwmBuilder::SetPostcodesData(string const & postcodesPath, indexer::PostcodePointsDatasetType postcodesType,
                                       std::shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter)
 {
   m_postcodesPath = postcodesPath;
@@ -153,8 +146,7 @@ void TestMwmBuilder::Finish()
   info.m_tmpDir = m_file.GetDirectory();
   info.m_intermediateDir = m_file.GetDirectory();
   info.m_versionDate = static_cast<uint32_t>(base::YYMMDDToSecondsSinceEpoch(m_version));
-  CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetName(), m_type),
-        ("Can't sort features."));
+  CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetName(), m_type), ("Can't sort features."));
 
   CHECK(base::DeleteFileX(tmpFilePath), ());
 
@@ -165,14 +157,13 @@ void TestMwmBuilder::Finish()
 
   CHECK(indexer::BuildIndexFromDataFile(path, path), ("Can't build geometry index."));
 
-  CHECK(indexer::BuildSearchIndexFromDataFile(m_file.GetCountryName(), info,
-                                              true /* forceRebuild */, 1 /* threadsCount */),
+  CHECK(indexer::BuildSearchIndexFromDataFile(m_file.GetCountryName(), info, true /* forceRebuild */,
+                                              1 /* threadsCount */),
         ("Can't build search index."));
 
   if (!m_postcodesPath.empty() && m_postcodesCountryInfoGetter)
   {
-    CHECK(indexer::BuildPostcodePointsWithInfoGetter(m_file.GetDirectory(), m_file.GetCountryName(),
-                                                     m_postcodesType,
+    CHECK(indexer::BuildPostcodePointsWithInfoGetter(m_file.GetDirectory(), m_file.GetCountryName(), m_postcodesType,
                                                      m_postcodesPath, true /* forceRebuild */,
                                                      *m_postcodesCountryInfoGetter),
           ("Can't build postcodes section."));
@@ -186,8 +177,7 @@ void TestMwmBuilder::Finish()
     CHECK(generator::BuildCitiesIdsForTesting(path), ());
   }
 
-  CHECK(indexer::BuildCentersTableFromDataFile(path, true /* forceRebuild */),
-        ("Can't build centers table."));
+  CHECK(indexer::BuildCentersTableFromDataFile(path, true /* forceRebuild */), ("Can't build centers table."));
 
   CHECK(search::SearchRankTableBuilder::CreateIfNotExists(path), ());
 

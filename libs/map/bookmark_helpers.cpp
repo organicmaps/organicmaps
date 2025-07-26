@@ -29,185 +29,182 @@ namespace
 {
 struct BookmarkMatchInfo
 {
-  BookmarkMatchInfo(kml::BookmarkIcon icon, BookmarkBaseType type)
-    : m_icon(icon)
-    , m_type(type)
-  {}
+  BookmarkMatchInfo(kml::BookmarkIcon icon, BookmarkBaseType type) : m_icon(icon), m_type(type) {}
 
   kml::BookmarkIcon m_icon;
   BookmarkBaseType m_type;
 };
 
 std::map<std::string, BookmarkMatchInfo> const kFeatureTypeToBookmarkMatchInfo = {
-  {"amenity-veterinary", {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
-  {"leisure-dog_park", {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
-  {"tourism-zoo", {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
+    {                     "amenity-veterinary",               {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
+    {                       "leisure-dog_park",               {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
+    {                            "tourism-zoo",               {kml::BookmarkIcon::Animals, BookmarkBaseType::Animals}},
 
-  {"amenity-bar", {kml::BookmarkIcon::Bar, BookmarkBaseType::Food}},
-  {"amenity-biergarten", {kml::BookmarkIcon::Pub, BookmarkBaseType::Food}},
-  {"amenity-pub", {kml::BookmarkIcon::Pub, BookmarkBaseType::Food}},
-  {"amenity-cafe", {kml::BookmarkIcon::Cafe, BookmarkBaseType::Food}},
+    {                            "amenity-bar",                      {kml::BookmarkIcon::Bar, BookmarkBaseType::Food}},
+    {                     "amenity-biergarten",                      {kml::BookmarkIcon::Pub, BookmarkBaseType::Food}},
+    {                            "amenity-pub",                      {kml::BookmarkIcon::Pub, BookmarkBaseType::Food}},
+    {                           "amenity-cafe",                     {kml::BookmarkIcon::Cafe, BookmarkBaseType::Food}},
 
-  {"amenity-bbq", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"amenity-food_court", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"amenity-restaurant", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"leisure-picnic_table", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
-  {"tourism-picnic_site", {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {                            "amenity-bbq",                     {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {                     "amenity-food_court",                     {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {                     "amenity-restaurant",                     {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {                   "leisure-picnic_table",                     {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
+    {                    "tourism-picnic_site",                     {kml::BookmarkIcon::Food, BookmarkBaseType::Food}},
 
-  {"amenity-fast_food", {kml::BookmarkIcon::FastFood, BookmarkBaseType::Food}},
+    {                      "amenity-fast_food",                 {kml::BookmarkIcon::FastFood, BookmarkBaseType::Food}},
 
-  {"amenity-place_of_worship-buddhist", {kml::BookmarkIcon::Buddhism, BookmarkBaseType::ReligiousPlace}},
+    {      "amenity-place_of_worship-buddhist",       {kml::BookmarkIcon::Buddhism, BookmarkBaseType::ReligiousPlace}},
 
-  {"amenity-college", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"amenity-courthouse", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"amenity-kindergarten", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"amenity-library", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"amenity-police", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"amenity-prison", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"amenity-school", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"building-university", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"office", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"office-diplomatic", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
-  {"office-lawyer", {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                        "amenity-college",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                     "amenity-courthouse",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                   "amenity-kindergarten",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                        "amenity-library",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                         "amenity-police",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                         "amenity-prison",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                         "amenity-school",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                    "building-university",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                                 "office",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                      "office-diplomatic",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
+    {                          "office-lawyer",             {kml::BookmarkIcon::Building, BookmarkBaseType::Building}},
 
-  {"amenity-grave_yard-christian", {kml::BookmarkIcon::Christianity, BookmarkBaseType::ReligiousPlace}},
-  {"amenity-place_of_worship-christian", {kml::BookmarkIcon::Christianity, BookmarkBaseType::ReligiousPlace}},
-  {"landuse-cemetery-christian", {kml::BookmarkIcon::Christianity, BookmarkBaseType::ReligiousPlace}},
+    {           "amenity-grave_yard-christian",   {kml::BookmarkIcon::Christianity, BookmarkBaseType::ReligiousPlace}},
+    {     "amenity-place_of_worship-christian",   {kml::BookmarkIcon::Christianity, BookmarkBaseType::ReligiousPlace}},
+    {             "landuse-cemetery-christian",   {kml::BookmarkIcon::Christianity, BookmarkBaseType::ReligiousPlace}},
 
-  {"amenity-casino", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
-  {"amenity-cinema", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
-  {"amenity-nightclub", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
-  {"shop-bookmaker", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
-  {"tourism-theme_park", {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
-    
-  {"amenity-theatre", {kml::BookmarkIcon::Theatre, BookmarkBaseType::Entertainment}},
+    {                         "amenity-casino",   {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {                         "amenity-cinema",   {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {                      "amenity-nightclub",   {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {                         "shop-bookmaker",   {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
+    {                     "tourism-theme_park",   {kml::BookmarkIcon::Entertainment, BookmarkBaseType::Entertainment}},
 
-  {"amenity-atm", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
-  {"amenity-bank", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
-  {"shop-money_lender", {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
+    {                        "amenity-theatre",         {kml::BookmarkIcon::Theatre, BookmarkBaseType::Entertainment}},
 
-  {"amenity-bureau_de_change", {kml::BookmarkIcon::Exchange, BookmarkBaseType::Exchange}},
+    {                            "amenity-atm",                 {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
+    {                           "amenity-bank",                 {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
+    {                      "shop-money_lender",                 {kml::BookmarkIcon::Bank, BookmarkBaseType::Exchange}},
 
-  {"amenity-charging_station", {kml::BookmarkIcon::ChargingStation, BookmarkBaseType::Gas}},
-  {"amenity-charging_station-bicycle", {kml::BookmarkIcon::ChargingStation, BookmarkBaseType::Gas}},
-  {"amenity-charging_station-motorcar", {kml::BookmarkIcon::ChargingStation, BookmarkBaseType::Gas}},
-  {"amenity-fuel", {kml::BookmarkIcon::Gas, BookmarkBaseType::Gas}},
+    {               "amenity-bureau_de_change",             {kml::BookmarkIcon::Exchange, BookmarkBaseType::Exchange}},
 
-  {"tourism-alpine_hut", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
-  {"tourism-camp_site", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
-  {"tourism-chalet", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
-  {"tourism-guest_house", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
-  {"tourism-hostel", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
-  {"tourism-hotel", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
-  {"tourism-motel", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
-  {"tourism-resort", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
-  {"tourism-wilderness_hut", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
-  {"tourism-apartment", {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {               "amenity-charging_station",           {kml::BookmarkIcon::ChargingStation, BookmarkBaseType::Gas}},
+    {       "amenity-charging_station-bicycle",           {kml::BookmarkIcon::ChargingStation, BookmarkBaseType::Gas}},
+    {      "amenity-charging_station-motorcar",           {kml::BookmarkIcon::ChargingStation, BookmarkBaseType::Gas}},
+    {                           "amenity-fuel",                       {kml::BookmarkIcon::Gas, BookmarkBaseType::Gas}},
 
-  {"amenity-place_of_worship-muslim", {kml::BookmarkIcon::Islam, BookmarkBaseType::ReligiousPlace}},
+    {                     "tourism-alpine_hut",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {                      "tourism-camp_site",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {                         "tourism-chalet",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {                    "tourism-guest_house",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {                         "tourism-hostel",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {                          "tourism-hotel",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {                          "tourism-motel",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {                         "tourism-resort",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {                 "tourism-wilderness_hut",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
+    {                      "tourism-apartment",                   {kml::BookmarkIcon::Hotel, BookmarkBaseType::Hotel}},
 
-  {"amenity-place_of_worship-jewish", {kml::BookmarkIcon::Judaism, BookmarkBaseType::ReligiousPlace}},
+    {        "amenity-place_of_worship-muslim",          {kml::BookmarkIcon::Islam, BookmarkBaseType::ReligiousPlace}},
 
-  {"amenity-childcare", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
-  {"amenity-clinic", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
-  {"amenity-dentist", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
-  {"amenity-doctors", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
-  {"amenity-hospital", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
-  {"emergency-defibrillator", {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
-    
-  {"amenity-pharmacy", {kml::BookmarkIcon::Pharmacy, BookmarkBaseType::Medicine}},
+    {        "amenity-place_of_worship-jewish",        {kml::BookmarkIcon::Judaism, BookmarkBaseType::ReligiousPlace}},
 
-  {"natural-bare_rock", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
-  {"natural-cave_entrance", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
-  {"natural-peak", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
-  {"natural-rock", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
-  {"natural-volcano", {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
+    {                      "amenity-childcare",             {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {                         "amenity-clinic",             {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {                        "amenity-dentist",             {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {                        "amenity-doctors",             {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {                       "amenity-hospital",             {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
+    {                "emergency-defibrillator",             {kml::BookmarkIcon::Medicine, BookmarkBaseType::Medicine}},
 
-  {"amenity-arts_centre", {kml::BookmarkIcon::Art, BookmarkBaseType::Museum}},
-  {"tourism-gallery", {kml::BookmarkIcon::Art, BookmarkBaseType::Museum}},
+    {                       "amenity-pharmacy",             {kml::BookmarkIcon::Pharmacy, BookmarkBaseType::Medicine}},
 
-  {"tourism-museum", {kml::BookmarkIcon::Museum, BookmarkBaseType::Museum}},
+    {                      "natural-bare_rock",             {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
+    {                  "natural-cave_entrance",             {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
+    {                           "natural-peak",             {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
+    {                           "natural-rock",             {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
+    {                        "natural-volcano",             {kml::BookmarkIcon::Mountain, BookmarkBaseType::Mountain}},
 
-  {"boundary-national_park", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
-  {"landuse-forest", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
-  {"leisure-garden", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
-  {"leisure-nature_reserve", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
-  {"leisure-park", {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {                    "amenity-arts_centre",                    {kml::BookmarkIcon::Art, BookmarkBaseType::Museum}},
+    {                        "tourism-gallery",                    {kml::BookmarkIcon::Art, BookmarkBaseType::Museum}},
 
-  {"amenity-bicycle_parking", {kml::BookmarkIcon::BicycleParking, BookmarkBaseType::Parking}},
-  {"amenity-bicycle_parking-covered", {kml::BookmarkIcon::BicycleParkingCovered, BookmarkBaseType::Parking}},
-  {"amenity-bicycle_rental", {kml::BookmarkIcon::BicycleRental, BookmarkBaseType::Parking}},
+    {                         "tourism-museum",                 {kml::BookmarkIcon::Museum, BookmarkBaseType::Museum}},
 
-  {"amenity-motorcycle_parking", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
-  {"amenity-parking", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
-  {"highway-services", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
-  {"tourism-caravan_site", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
-  {"amenity-vending_machine-parking_tickets", {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+    {                 "boundary-national_park",                     {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {                         "landuse-forest",                     {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {                         "leisure-garden",                     {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {                 "leisure-nature_reserve",                     {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
+    {                           "leisure-park",                     {kml::BookmarkIcon::Park, BookmarkBaseType::Park}},
 
-  {"amenity-ice_cream", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
-  {"amenity-marketplace", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
-  {"amenity-vending_machine", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
-  {"shop", {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {                "amenity-bicycle_parking",        {kml::BookmarkIcon::BicycleParking, BookmarkBaseType::Parking}},
+    {        "amenity-bicycle_parking-covered", {kml::BookmarkIcon::BicycleParkingCovered, BookmarkBaseType::Parking}},
+    {                 "amenity-bicycle_rental",         {kml::BookmarkIcon::BicycleRental, BookmarkBaseType::Parking}},
 
-  {"amenity-place_of_worship", {kml::BookmarkIcon::Sights, BookmarkBaseType::ReligiousPlace}},
-  {"historic-archaeological_site", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-boundary_stone", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-castle", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-fort", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-memorial", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-monument", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-ruins", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-ship", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-tomb", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-wayside_cross", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"historic-wayside_shrine", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"tourism-artwork", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"tourism-attraction", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
-  {"waterway-waterfall", {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {             "amenity-motorcycle_parking",               {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+    {                        "amenity-parking",               {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+    {                       "highway-services",               {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+    {                   "tourism-caravan_site",               {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
+    {"amenity-vending_machine-parking_tickets",               {kml::BookmarkIcon::Parking, BookmarkBaseType::Parking}},
 
-  {"tourism-information", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
-  {"tourism-information-office", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
-  {"tourism-information-visitor_centre", {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {                      "amenity-ice_cream",                     {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {                    "amenity-marketplace",                     {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {                "amenity-vending_machine",                     {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
+    {                                   "shop",                     {kml::BookmarkIcon::Shop, BookmarkBaseType::Shop}},
 
-  {"leisure-fitness_centre", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
-  {"leisure-skiing", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
-  {"leisure-sports_centre-climbing", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
-  {"leisure-sports_centre-shooting", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
-  {"leisure-sports_centre-yoga", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
-  {"sport", {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
-    
-  {"leisure-stadium", {kml::BookmarkIcon::Stadium, BookmarkBaseType::Entertainment}},
+    {               "amenity-place_of_worship",         {kml::BookmarkIcon::Sights, BookmarkBaseType::ReligiousPlace}},
+    {           "historic-archaeological_site",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                "historic-boundary_stone",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                        "historic-castle",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                          "historic-fort",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                      "historic-memorial",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                      "historic-monument",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                         "historic-ruins",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                          "historic-ship",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                          "historic-tomb",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                 "historic-wayside_cross",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                "historic-wayside_shrine",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                        "tourism-artwork",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                     "tourism-attraction",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
+    {                     "waterway-waterfall",                 {kml::BookmarkIcon::Sights, BookmarkBaseType::Sights}},
 
-  {"leisure-sports_centre-swimming", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
-  {"leisure-swimming_pool", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
-  {"leisure-water_park", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
-  {"natural-beach", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
-  {"sport-diving", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
-  {"sport-scuba_diving", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
-  {"sport-swimming", {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
+    {                    "tourism-information",            {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {             "tourism-information-office",            {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
+    {     "tourism-information-visitor_centre",            {kml::BookmarkIcon::Information, BookmarkBaseType::Sights}},
 
-  {"aeroway-aerodrome", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"aeroway-aerodrome-international", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"amenity-bus_station", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"amenity-car_sharing", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"amenity-ferry_terminal", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"amenity-taxi", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"building-train_station", {kml::BookmarkIcon::Transport, BookmarkBaseType::Building}},
-  {"highway-bus_stop", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"public_transport-platform", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"railway-halt", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"railway-station", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
-  {"railway-tram_stop", {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {                 "leisure-fitness_centre",           {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {                         "leisure-skiing",           {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {         "leisure-sports_centre-climbing",           {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {         "leisure-sports_centre-shooting",           {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {             "leisure-sports_centre-yoga",           {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
+    {                                  "sport",           {kml::BookmarkIcon::Sport, BookmarkBaseType::Entertainment}},
 
-  {"tourism-viewpoint", {kml::BookmarkIcon::Viewpoint, BookmarkBaseType::Sights}},
+    {                        "leisure-stadium",         {kml::BookmarkIcon::Stadium, BookmarkBaseType::Entertainment}},
 
-  {"amenity-drinking_water", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
-  {"amenity-fountain", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
-  {"amenity-water_point", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
-  {"man_made-water_tap", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
-  {"natural-spring", {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {         "leisure-sports_centre-swimming",                     {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
+    {                  "leisure-swimming_pool",                     {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
+    {                     "leisure-water_park",                     {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
+    {                          "natural-beach",                     {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
+    {                           "sport-diving",                     {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
+    {                     "sport-scuba_diving",                     {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
+    {                         "sport-swimming",                     {kml::BookmarkIcon::Swim, BookmarkBaseType::Swim}},
 
-  {"shop-funeral_directors", {kml::BookmarkIcon::None, BookmarkBaseType::None}}
+    {                      "aeroway-aerodrome",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {        "aeroway-aerodrome-international",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {                    "amenity-bus_station",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {                    "amenity-car_sharing",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {                 "amenity-ferry_terminal",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {                           "amenity-taxi",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {                 "building-train_station",            {kml::BookmarkIcon::Transport, BookmarkBaseType::Building}},
+    {                       "highway-bus_stop",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {              "public_transport-platform",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {                           "railway-halt",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {                        "railway-station",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+    {                      "railway-tram_stop",                {kml::BookmarkIcon::Transport, BookmarkBaseType::None}},
+
+    {                      "tourism-viewpoint",              {kml::BookmarkIcon::Viewpoint, BookmarkBaseType::Sights}},
+
+    {                 "amenity-drinking_water",                   {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {                       "amenity-fountain",                   {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {                    "amenity-water_point",                   {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {                     "man_made-water_tap",                   {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+    {                         "natural-spring",                   {kml::BookmarkIcon::Water, BookmarkBaseType::Water}},
+
+    {                 "shop-funeral_directors",                     {kml::BookmarkIcon::None, BookmarkBaseType::None}}
 };
 
 void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
@@ -216,10 +213,8 @@ void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
     return;
 
   for (auto & t : data->m_tracksData)
-  {
     if (t.m_layers.empty())
       t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
-  }
 }
 
 /// @todo(KK): This code is a temporary solution for the filtering the duplicated points in KMLs.
@@ -246,7 +241,8 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
 
       bool const hasTimestamps = geometry.HasTimestampsFor(lineIndex);
       if (hasTimestamps && timestamps.size() != line.size())
-        MYTHROW(kml::DeserializerKml::DeserializeException, ("Timestamps count", timestamps.size(), "doesn't match points count", line.size()));
+        MYTHROW(kml::DeserializerKml::DeserializeException,
+                ("Timestamps count", timestamps.size(), "doesn't match points count", line.size()));
 
       validGeometry.m_lines.emplace_back();
       validGeometry.m_timestamps.emplace_back();
@@ -279,10 +275,8 @@ bool IsBadCharForPath(strings::UniChar c)
   if (c < ' ')
     return true;
   for (strings::UniChar const illegalChar : {':', '/', '\\', '<', '>', '\"', '|', '?', '*'})
-  {
     if (illegalChar == c)
       return true;
-  }
 
   return false;
 }
@@ -336,7 +330,8 @@ std::string GenerateUniqueFileName(std::string const & path, std::string name, s
     if (!Platform::IsFileExistsByFullPath(res))
       break;
     suffix = strings::to_string(counter++);
-  } while (true);
+  }
+  while (true);
 
   return res;
 }
@@ -388,7 +383,7 @@ void FillEmptyNames(std::unique_ptr<kml::FileData> & kmlData, std::string const 
     return;
 
   auto const emptyNames = std::count_if(kmlData->m_tracksData.begin(), kmlData->m_tracksData.end(),
-                                  [](const kml::TrackData & t) { return t.m_name.empty(); });
+                                        [](kml::TrackData const & t) { return t.m_name.empty(); });
   if (emptyNames == 0)
     return;
 
@@ -464,8 +459,8 @@ std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
     ZipFileReader::FileList files;
     ZipFileReader::FilesList(filePath, files);
     files.erase(std::remove_if(files.begin(), files.end(),
-        [](auto const & file){ return GetLowercaseFileExt(file.first) != kKmlExtension; }),
-        files.end());
+                               [](auto const & file) { return GetLowercaseFileExt(file.first) != kKmlExtension; }),
+                files.end());
     for (auto const & [kmlFileInZip, size] : files)
     {
       auto const name = base::FileNameFromFullPath(kmlFileInZip);
@@ -598,17 +593,14 @@ bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType 
 bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
   LOG(LINFO, ("Save kml file of type", fileType, "to", file));
-  return base::WriteToTempAndRenameToFile(file, [&kmlData, fileType](std::string const & fileName)
-  {
-    return SaveKmlFile(kmlData, fileName, fileType);
-  });
+  return base::WriteToTempAndRenameToFile(
+      file, [&kmlData, fileType](std::string const & fileName) { return SaveKmlFile(kmlData, fileName, fileType); });
 }
 
 bool SaveKmlFileByExt(kml::FileData & kmlData, std::string const & file)
 {
   auto const ext = base::GetFileExtension(file);
-  return SaveKmlFileSafe(kmlData, file, ext == kKmbExtension ? KmlFileType::Binary
-                                                             : KmlFileType::Text);
+  return SaveKmlFileSafe(kmlData, file, ext == kKmbExtension ? KmlFileType::Binary : KmlFileType::Text);
 }
 
 bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType)
@@ -676,7 +668,8 @@ BookmarkBaseType GetBookmarkBaseType(std::vector<uint32_t> const & featureTypes)
       auto const itType = kFeatureTypeToBookmarkMatchInfo.find(typeStr);
       if (itType != kFeatureTypeToBookmarkMatchInfo.cend())
         return itType->second.m_type;
-    } while (TruncType(typeStr));
+    }
+    while (TruncType(typeStr));
   }
   return BookmarkBaseType::None;
 }
@@ -690,7 +683,8 @@ kml::BookmarkIcon GetBookmarkIconByFeatureType(uint32_t type)
     auto const itIcon = kFeatureTypeToBookmarkMatchInfo.find(typeStr);
     if (itIcon != kFeatureTypeToBookmarkMatchInfo.cend())
       return itIcon->second.m_icon;
-  } while (TruncType(typeStr));
+  }
+  while (TruncType(typeStr));
 
   return kml::BookmarkIcon::None;
 }

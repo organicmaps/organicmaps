@@ -23,7 +23,8 @@ namespace feature
 {
 using namespace std;
 
-template <class ContT> string TypesToString(ContT const & holder)
+template <class ContT>
+string TypesToString(ContT const & holder)
 {
   Classificator const & c = classif();
   string s;
@@ -41,10 +42,7 @@ std::string DebugPrint(TypesHolder const & holder)
 
 TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geomType(f.GetGeomType())
 {
-  f.ForEachType([this](uint32_t type)
-  {
-    Add(type);
-  });
+  f.ForEachType([this](uint32_t type) { Add(type); });
 }
 
 bool TypesHolder::HasWithSubclass(uint32_t type) const
@@ -74,10 +72,8 @@ bool TypesHolder::Equals(TypesHolder const & other) const
   auto const b = begin();
   auto const e = end();
   for (auto t : other)
-  {
     if (std::find(b, e, t) == e)
       return false;
-  }
   return true;
 }
 
@@ -109,13 +105,11 @@ public:
     return 0;
   }
 
-  template <class ContT> void SortUselessToEnd(ContT & cont) const
+  template <class ContT>
+  void SortUselessToEnd(ContT & cont) const
   {
     // Put "very common" types to the end of possible PP-description types.
-    std::stable_sort(cont.begin(), cont.end(), [this](uint32_t t1, uint32_t t2)
-    {
-      return Score(t1) < Score(t2);
-    });
+    std::stable_sort(cont.begin(), cont.end(), [this](uint32_t t1, uint32_t t2) { return Score(t1) < Score(t2); });
   }
 
 private:
@@ -125,16 +119,8 @@ private:
     // when we have many types for POI.
     base::StringIL const types1[] = {
         // 1-arity
-        {"building:part"},
-        {"hwtag"},
-        {"psurface"},
-        {"internet_access"},
-        {"organic"},
-        {"wheelchair"},
-        {"cuisine"},
-        {"recycling"},
-        {"area:highway"},
-        {"fee"},
+        {"building:part"}, {"hwtag"},   {"psurface"},  {"internet_access"}, {"organic"},
+        {"wheelchair"},    {"cuisine"}, {"recycling"}, {"area:highway"},    {"fee"},
     };
 
     Classificator const & c = classif();
@@ -153,17 +139,13 @@ private:
       std::sort(v.begin(), v.end());
   }
 
-  bool IsIn(uint8_t idx, uint32_t t) const
-  {
-    return std::binary_search(m_types[idx].begin(), m_types[idx].end(), t);
-  }
+  bool IsIn(uint8_t idx, uint32_t t) const { return std::binary_search(m_types[idx].begin(), m_types[idx].end(), t); }
 
   vector<uint32_t> m_types[3];
 };
-} // namespace
+}  // namespace
 
-uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType,
-                        FeatureParamsBase const & params)
+uint8_t CalculateHeader(size_t const typesCount, HeaderGeomType const headerGeomType, FeatureParamsBase const & params)
 {
   ASSERT(typesCount != 0, ("Feature should have at least one type."));
   ASSERT_LESS_OR_EQUAL(typesCount, kMaxTypesCount, ());
@@ -206,10 +188,7 @@ void TypesHolder::SortByUseless()
 void TypesHolder::SortBySpec()
 {
   auto const & cl = classif();
-  auto const getPriority = [&cl](uint32_t type)
-  {
-    return cl.GetObject(type)->GetMaxOverlaysPriority();
-  };
+  auto const getPriority = [&cl](uint32_t type) { return cl.GetObject(type)->GetMaxOverlaysPriority(); };
 
   auto const & checker = UselessTypesChecker::Instance();
 
@@ -258,10 +237,9 @@ bool FeatureParamsBase::SetDefaultNameIfEmpty(std::string const & s)
   return true;
 }
 
-bool FeatureParamsBase::operator == (FeatureParamsBase const & rhs) const
+bool FeatureParamsBase::operator==(FeatureParamsBase const & rhs) const
 {
-  return (name == rhs.name && house == rhs.house && ref == rhs.ref &&
-          layer == rhs.layer && rank == rhs.rank);
+  return (name == rhs.name && house == rhs.house && ref == rhs.ref && layer == rhs.layer && rank == rhs.rank);
 }
 
 bool FeatureParamsBase::IsValid() const
@@ -274,8 +252,7 @@ string FeatureParamsBase::DebugString() const
   string const utf8name = DebugPrint(name);
   return ((!utf8name.empty() ? "Name:" + utf8name : "") +
           (layer != LAYER_EMPTY ? " Layer:" + DebugPrint((int)layer) : "") +
-          (rank != 0 ? " Rank:" + DebugPrint((int)rank) : "") +
-          (!house.IsEmpty() ? " House:" + house.Get() : "") +
+          (rank != 0 ? " Rank:" + DebugPrint((int)rank) : "") + (!house.IsEmpty() ? " House:" + house.Get() : "") +
           (!ref.empty() ? " Ref:" + ref : ""));
 }
 
@@ -292,7 +269,7 @@ bool IsDummyName(string_view s)
   return s.empty();
 }
 
-} // namespace
+}  // namespace
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // FeatureParams implementation
@@ -320,8 +297,7 @@ bool FeatureParams::LooksLikeHouseNumber(std::string const & hn)
 
   ASSERT(!hn.empty(), ());
   size_t const sz = hn.size();
-  return strings::IsASCIIDigit(hn[0]) ||
-         (sz == 1 && strings::IsASCIILatin(hn[0])) ||
+  return strings::IsASCIIDigit(hn[0]) || (sz == 1 && strings::IsASCIILatin(hn[0])) ||
          std::count_if(hn.begin(), hn.end(), &strings::IsASCIIDigit) > 0.2 * sz;
 }
 
@@ -489,10 +465,8 @@ bool FeatureParams::IsTypeExist(uint32_t comp, uint8_t level) const
 uint32_t FeatureParams::FindType(uint32_t comp, uint8_t level) const
 {
   for (uint32_t const type : m_types)
-  {
     if (ftype::Trunc(type, level) == comp)
       return type;
-  }
   return ftype::GetEmptyValue();
 }
 
@@ -553,13 +527,13 @@ public:
   {
     // Remain first type and erase second in case of conflict.
     base::StringIL arr[][2] = {
-      {{"hwtag", "yescar"}, {"hwtag", "nocar"}},
-      {{"hwtag", "yesfoot"}, {"hwtag", "nofoot"}},
-      {{"hwtag", "yesbicycle"}, {"hwtag", "nobicycle"}},
-      {{"hwtag", "nobicycle"}, {"hwtag", "bidir_bicycle"}},
-      {{"hwtag", "nobicycle"}, {"hwtag", "onedir_bicycle"}},
-      {{"hwtag", "bidir_bicycle"}, {"hwtag", "onedir_bicycle"}},
-      {{"wheelchair", "yes"}, {"wheelchair", "no"}},
+        {       {"hwtag", "yescar"},          {"hwtag", "nocar"}},
+        {      {"hwtag", "yesfoot"},         {"hwtag", "nofoot"}},
+        {   {"hwtag", "yesbicycle"},      {"hwtag", "nobicycle"}},
+        {    {"hwtag", "nobicycle"},  {"hwtag", "bidir_bicycle"}},
+        {    {"hwtag", "nobicycle"}, {"hwtag", "onedir_bicycle"}},
+        {{"hwtag", "bidir_bicycle"}, {"hwtag", "onedir_bicycle"}},
+        {     {"wheelchair", "yes"},        {"wheelchair", "no"}},
     };
 
     auto const & cl = classif();
@@ -593,7 +567,7 @@ public:
   }
 };
 
-} // namespace
+}  // namespace
 
 bool FeatureBuilderParams::RemoveInconsistentTypes()
 {

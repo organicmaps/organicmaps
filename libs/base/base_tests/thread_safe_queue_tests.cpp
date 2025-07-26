@@ -6,7 +6,6 @@
 #include <optional>
 #include <thread>
 
-
 UNIT_TEST(ThreadSafeQueue_ThreadSafeQueue)
 {
   threads::ThreadSafeQueue<size_t> queue;
@@ -21,11 +20,7 @@ UNIT_TEST(ThreadSafeQueue_Push)
   threads::ThreadSafeQueue<size_t> queue;
   base::DelayedThreadPool pool(2, base::DelayedThreadPool::Exit::ExecPending);
   for (size_t i = 0; i < kSize; ++i)
-  {
-    pool.Push([&, i](){
-      queue.Push(i);
-    });
-  }
+    pool.Push([&, i]() { queue.Push(i); });
 
   pool.ShutdownAndJoin();
 
@@ -38,7 +33,8 @@ UNIT_TEST(ThreadSafeQueue_WaitAndPop)
   threads::ThreadSafeQueue<size_t> queue;
   size_t const value = 101;
   size_t result;
-  auto thread = std::thread([&]() {
+  auto thread = std::thread([&]()
+  {
     std::this_thread::sleep_for(10ms);
     queue.Push(value);
   });
@@ -56,7 +52,8 @@ UNIT_TEST(ThreadSafeQueue_TryPop)
   threads::ThreadSafeQueue<size_t> queue;
   size_t const value = 101;
   size_t result;
-  auto thread = std::thread([&]() {
+  auto thread = std::thread([&]()
+  {
     std::this_thread::sleep_for(10ms);
     queue.Push(value);
   });
@@ -73,7 +70,8 @@ UNIT_TEST(ThreadSafeQueue_ExampleWithDataWrapper)
   size_t const kSize = 100000;
   threads::ThreadSafeQueue<std::optional<size_t>> queue;
 
-  auto thread = std::thread([&]() {
+  auto thread = std::thread([&]()
+  {
     while (true)
     {
       std::optional<size_t> dw;
@@ -87,14 +85,8 @@ UNIT_TEST(ThreadSafeQueue_ExampleWithDataWrapper)
 
   base::DelayedThreadPool pool(4, base::DelayedThreadPool::Exit::ExecPending);
   for (size_t i = 0; i < kSize; ++i)
-  {
-    pool.Push([&, i](){
-      queue.Push(i);
-    });
-  }
-  pool.Push([&](){
-    queue.Push({});
-  });
+    pool.Push([&, i]() { queue.Push(i); });
+  pool.Push([&]() { queue.Push({}); });
 
   thread.join();
 }

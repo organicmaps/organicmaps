@@ -30,20 +30,14 @@ class SecureMemReader : public Reader
   void CheckPosAndSize(uint64_t pos, uint64_t size) const
   {
     if (pos + size > m_size || size > numeric_limits<size_t>::max())
-      MYTHROW(SizeException, (pos, size, m_size) );
+      MYTHROW(SizeException, (pos, size, m_size));
   }
 
 public:
   // Construct from block of memory.
-  SecureMemReader(void const * pData, size_t size)
-    : m_pData(static_cast<char const *>(pData)), m_size(size)
-  {
-  }
+  SecureMemReader(void const * pData, size_t size) : m_pData(static_cast<char const *>(pData)), m_size(size) {}
 
-  inline uint64_t Size() const override
-  {
-    return m_size;
-  }
+  inline uint64_t Size() const override { return m_size; }
 
   inline void Read(uint64_t pos, void * p, size_t size) const override
   {
@@ -69,7 +63,6 @@ private:
 };
 }  // namespace
 
-
 QuerySaver::QuerySaver()
 {
   Load();
@@ -78,11 +71,12 @@ QuerySaver::QuerySaver()
 void QuerySaver::Add(SearchRequest const & query)
 {
   // This change was made just before release, so we don't use untested search normalization methods.
-  //TODO (ldragunov) Rewrite to normalized requests.
+  // TODO (ldragunov) Rewrite to normalized requests.
   SearchRequest trimmedQuery(query);
   strings::Trim(trimmedQuery.first);
   strings::Trim(trimmedQuery.second);
-  auto trimmedComparator = [&trimmedQuery](SearchRequest request) {
+  auto trimmedComparator = [&trimmedQuery](SearchRequest request)
+  {
     strings::Trim(request.first);
     strings::Trim(request.second);
     return trimmedQuery == request;
@@ -140,8 +134,7 @@ void QuerySaver::Deserialize(string const & data)
     Length stringLength = ReadPrimitiveFromSource<Length>(reader);
     vector<char> str(stringLength);
     reader.Read(&str[0], stringLength);
-    m_topQueries.emplace_back(make_pair(string(&locale[0], localeLength),
-                                        string(&str[0], stringLength)));
+    m_topQueries.emplace_back(make_pair(string(&locale[0], localeLength), string(&str[0], stringLength)));
   }
 }
 
@@ -168,4 +161,4 @@ void QuerySaver::Load()
     LOG(LWARNING, ("Search history data corrupted! Creating new one."));
   }
 }
-}  // namesapce search
+}  // namespace search

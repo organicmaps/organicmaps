@@ -70,10 +70,7 @@ public:
     return true;
   }
 
-  void Unbind() override
-  {
-    GLFunctions::glBindVertexArray(0);
-  }
+  void Unbind() override { GLFunctions::glBindVertexArray(0); }
 
   void BindBuffers(BuffersMap const & buffers) const override
   {
@@ -89,21 +86,18 @@ public:
         int8_t attributeLocation = m_program->GetAttributeLocation(decl.m_attributeName);
         assert(attributeLocation != -1);
         GLFunctions::glEnableVertexAttribute(attributeLocation);
-        GLFunctions::glVertexAttributePointer(attributeLocation, decl.m_componentCount,
-                                              decl.m_componentType, false, decl.m_stride,
-                                              decl.m_offset);
+        GLFunctions::glVertexAttributePointer(attributeLocation, decl.m_componentCount, decl.m_componentType, false,
+                                              decl.m_stride, decl.m_offset);
       }
     }
   }
 
-  void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine,
-                   IndicesRange const & range) override
+  void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine, IndicesRange const & range) override
   {
     UNUSED_VALUE(context);
     ASSERT(m_program != nullptr, ("Build must be called before RenderRange"));
-    GLFunctions::glDrawElements(drawAsLine ? gl_const::GLLines : gl_const::GLTriangles,
-                                dp::IndexStorage::SizeOfIndex(), range.m_idxCount,
-                                range.m_idxStart);
+    GLFunctions::glDrawElements(drawAsLine ? gl_const::GLLines : gl_const::GLTriangles, dp::IndexStorage::SizeOfIndex(),
+                                range.m_idxCount, range.m_idxStart);
   }
 
 private:
@@ -112,8 +106,7 @@ private:
 };
 }  // namespace
 
-VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize,
-                                     uint64_t batcherHash)
+VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize, uint64_t batcherHash)
   : m_dataBufferSize(dataBufferSize)
   , m_batcherHash(batcherHash)
 {
@@ -164,8 +157,7 @@ void VertexArrayBuffer::Render(ref_ptr<GraphicsContext> context, bool drawAsLine
   RenderRange(context, drawAsLine, IndicesRange(0, GetIndexBuffer()->GetCurrentSize()));
 }
 
-void VertexArrayBuffer::RenderRange(ref_ptr<GraphicsContext> context,
-                                    bool drawAsLine, IndicesRange const & range)
+void VertexArrayBuffer::RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine, IndicesRange const & range)
 {
   if (HasBuffers() && GetIndexCount() > 0)
   {
@@ -225,8 +217,8 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
   Unbind();
 }
 
-void VertexArrayBuffer::UploadData(ref_ptr<GraphicsContext> context, BindingInfo const & bindingInfo,
-                                   void const * data, uint32_t count)
+void VertexArrayBuffer::UploadData(ref_ptr<GraphicsContext> context, BindingInfo const & bindingInfo, void const * data,
+                                   uint32_t count)
 {
   ref_ptr<DataBuffer> buffer;
   if (!bindingInfo.IsDynamic())
@@ -258,8 +250,7 @@ ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateStaticBuffer(BindingInfo const
   return GetOrCreateBuffer(bindingInfo, false);
 }
 
-ref_ptr<DataBuffer> VertexArrayBuffer::GetBuffer(BindingInfo const & bindingInfo,
-                                                 bool isDynamic) const
+ref_ptr<DataBuffer> VertexArrayBuffer::GetBuffer(BindingInfo const & bindingInfo, bool isDynamic) const
 {
   BuffersMap const * buffers = nullptr;
   if (isDynamic)
@@ -274,8 +265,7 @@ ref_ptr<DataBuffer> VertexArrayBuffer::GetBuffer(BindingInfo const & bindingInfo
   return make_ref(it->second);
 }
 
-ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bindingInfo,
-                                                         bool isDynamic)
+ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bindingInfo, bool isDynamic)
 {
   BuffersMap * buffers = nullptr;
   if (isDynamic)
@@ -286,8 +276,7 @@ ref_ptr<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bin
   auto it = buffers->find(bindingInfo);
   if (it == buffers->end())
   {
-    drape_ptr<DataBuffer> dataBuffer =
-        make_unique_dp<DataBuffer>(bindingInfo.GetElementSize(), m_dataBufferSize);
+    drape_ptr<DataBuffer> dataBuffer = make_unique_dp<DataBuffer>(bindingInfo.GetElementSize(), m_dataBufferSize);
     ref_ptr<DataBuffer> result = make_ref(dataBuffer);
     (*buffers).insert(std::make_pair(bindingInfo, std::move(dataBuffer)));
     return result;
@@ -336,17 +325,18 @@ uint32_t VertexArrayBuffer::GetDynamicBufferOffset(BindingInfo const & bindingIn
   return GetOrCreateDynamicBuffer(bindingInfo)->GetBuffer()->GetCurrentSize();
 }
 
-uint32_t VertexArrayBuffer::GetIndexCount() const { return GetIndexBuffer()->GetCurrentSize(); }
+uint32_t VertexArrayBuffer::GetIndexCount() const
+{
+  return GetIndexBuffer()->GetCurrentSize();
+}
 
-void VertexArrayBuffer::UploadIndices(ref_ptr<GraphicsContext> context, void const * data,
-                                      uint32_t count)
+void VertexArrayBuffer::UploadIndices(ref_ptr<GraphicsContext> context, void const * data, uint32_t count)
 {
   CHECK_LESS_OR_EQUAL(count, GetIndexBuffer()->GetAvailableSize(), ());
   GetIndexBuffer()->UploadData(context, data, count);
 }
 
-void VertexArrayBuffer::ApplyMutation(ref_ptr<GraphicsContext> context,
-                                      ref_ptr<IndexBufferMutator> indexMutator,
+void VertexArrayBuffer::ApplyMutation(ref_ptr<GraphicsContext> context, ref_ptr<IndexBufferMutator> indexMutator,
                                       ref_ptr<AttributeBufferMutator> attrMutator)
 {
   // We need to bind current VAO before calling glBindBuffer if OES_vertex_array_object is
@@ -386,8 +376,7 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<GraphicsContext> context,
     {
       MutateNode const & node = nodes[i];
       ASSERT_GREATER(node.m_region.m_count, 0, ());
-      mapper.UpdateData(node.m_data.get(), node.m_region.m_offset - offsets.first,
-                        node.m_region.m_count);
+      mapper.UpdateData(node.m_data.get(), node.m_region.m_offset - offsets.first, node.m_region.m_count);
     }
   }
 
@@ -410,9 +399,15 @@ void VertexArrayBuffer::Unbind() const
   m_impl->Unbind();
 }
 
-void VertexArrayBuffer::BindStaticBuffers() const { BindBuffers(m_staticBuffers); }
+void VertexArrayBuffer::BindStaticBuffers() const
+{
+  BindBuffers(m_staticBuffers);
+}
 
-void VertexArrayBuffer::BindDynamicBuffers() const { BindBuffers(m_dynamicBuffers); }
+void VertexArrayBuffer::BindDynamicBuffers() const
+{
+  BindBuffers(m_dynamicBuffers);
+}
 
 void VertexArrayBuffer::BindBuffers(BuffersMap const & buffers) const
 {
@@ -440,9 +435,6 @@ void VertexArrayBuffer::CollectBindingInfo(dp::BindingInfo const & bindingInfo)
   CHECK_LESS(m_bindingInfoCount, kMaxBindingInfo, ());
   m_bindingInfo[m_bindingInfoCount++] = bindingInfo;
   std::sort(m_bindingInfo.begin(), m_bindingInfo.begin() + m_bindingInfoCount,
-            [](dp::BindingInfo const & info1, dp::BindingInfo const & info2)
-  {
-    return info1.GetID() < info2.GetID();
-  });
+            [](dp::BindingInfo const & info1, dp::BindingInfo const & info2) { return info1.GetID() < info2.GetID(); });
 }
 }  // namespace dp

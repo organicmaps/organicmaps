@@ -38,10 +38,8 @@ void TestZigZagUnsigned()
   constexpr auto max = std::numeric_limits<T>::max();
   constexpr T values[] = {0, 1, 7, max / 2, max - 1, max};
   for (T prev : values)
-  {
     for (T current : values)
       TestZigZag(prev, current);
-  }
 }
 
 template <typename T>
@@ -53,10 +51,8 @@ void TestZigZagSigned()
   constexpr auto max = std::numeric_limits<T>::max();
   constexpr T values[] = {min, min + 1, min / 2, -7, -1, 0, 1, 7, max / 2, max - 1, max};
   for (T prev : values)
-  {
     for (T current : values)
       TestZigZag(prev, current);
-  }
 }
 }  // namespace
 
@@ -64,7 +60,8 @@ namespace routing_test
 {
 UNIT_TEST(ModuleCastTest)
 {
-  ForEachNumber<uint8_t>([](uint8_t number) {
+  ForEachNumber<uint8_t>([](uint8_t number)
+  {
     auto signedNumber = ModularCast(number);
     static_assert(std::is_same<decltype(signedNumber), int8_t>::value, "int8_t expected");
     TEST_EQUAL(static_cast<uint8_t>(signedNumber), number, ("signedNumber:", signedNumber));
@@ -73,22 +70,37 @@ UNIT_TEST(ModuleCastTest)
 
 UNIT_TEST(ZigZagUint8)
 {
-  ForEachNumber<uint8_t>([](uint8_t prev) {
-    ForEachNumber<uint8_t>([&](uint8_t current) { TestZigZag(prev, current); });
-  });
+  ForEachNumber<uint8_t>([](uint8_t prev)
+  { ForEachNumber<uint8_t>([&](uint8_t current) { TestZigZag(prev, current); }); });
 }
 
 UNIT_TEST(ZigZagInt8)
 {
-  ForEachNumber<int8_t>([](int8_t prev) {
-    ForEachNumber<int8_t>([&](int8_t current) { TestZigZag(prev, current); });
-  });
+  ForEachNumber<int8_t>([](int8_t prev) { ForEachNumber<int8_t>([&](int8_t current) { TestZigZag(prev, current); }); });
 }
 
-UNIT_TEST(ZigZagUint16) { TestZigZagUnsigned<uint16_t>(); }
-UNIT_TEST(ZigZagInt16) { TestZigZagSigned<int16_t>(); }
-UNIT_TEST(ZigZagUint32) { TestZigZagUnsigned<uint32_t>(); }
-UNIT_TEST(ZigZagInt32) { TestZigZagSigned<int32_t>(); }
-UNIT_TEST(ZigZagUint64) { TestZigZagUnsigned<uint64_t>(); }
-UNIT_TEST(ZigZagInt64) { TestZigZagSigned<int64_t>(); }
+UNIT_TEST(ZigZagUint16)
+{
+  TestZigZagUnsigned<uint16_t>();
+}
+UNIT_TEST(ZigZagInt16)
+{
+  TestZigZagSigned<int16_t>();
+}
+UNIT_TEST(ZigZagUint32)
+{
+  TestZigZagUnsigned<uint32_t>();
+}
+UNIT_TEST(ZigZagInt32)
+{
+  TestZigZagSigned<int32_t>();
+}
+UNIT_TEST(ZigZagUint64)
+{
+  TestZigZagUnsigned<uint64_t>();
+}
+UNIT_TEST(ZigZagInt64)
+{
+  TestZigZagSigned<int64_t>();
+}
 }  // namespace routing_test

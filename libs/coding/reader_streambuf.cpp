@@ -1,13 +1,10 @@
 #include "coding/reader_streambuf.hpp"
-#include "coding/reader.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/reader.hpp"
 
 #include <algorithm>
 
-ReaderStreamBuf::ReaderStreamBuf(std::unique_ptr<Reader> && p)
-  : m_p(std::move(p)), m_pos(0), m_size(m_p->Size())
-{
-}
+ReaderStreamBuf::ReaderStreamBuf(std::unique_ptr<Reader> && p) : m_p(std::move(p)), m_pos(0), m_size(m_p->Size()) {}
 
 // Define destructor in .cpp due to using unique_ptr with incomplete type.
 ReaderStreamBuf::~ReaderStreamBuf() = default;
@@ -36,7 +33,6 @@ ReaderStreamBuf::int_type ReaderStreamBuf::underflow()
     return traits_type::eof();
   }
 }
-
 
 std::streamsize WriterStreamBuf::xsputn(char_type const * s, std::streamsize n)
 {

@@ -6,9 +6,11 @@
 
 @implementation MWMMapUpdateInfo (Core)
 
-- (instancetype)initWithUpdateInfo:(storage::Storage::UpdateInfo const &)updateInfo {
+- (instancetype)initWithUpdateInfo:(storage::Storage::UpdateInfo const &)updateInfo
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _numberOfFiles = updateInfo.m_numberOfMwmFilesToUpdate;
     _updateSize = updateInfo.m_totalDownloadSizeInBytes;
     _differenceSize = updateInfo.m_sizeDifference;

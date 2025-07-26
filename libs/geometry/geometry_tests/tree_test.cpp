@@ -64,8 +64,7 @@ UNIT_TEST(Tree4D_ForAnyInRect)
 {
   Tree theTree;
 
-  R arr[] = {R(0, 0, 1, 1), R(0, 0, 5, 5), R(1, 1, 2, 2),
-             R(1, 1, 6.5, 6.5), R(2, 2, 3, 3), R(2, 2, 7, 7)};
+  R arr[] = {R(0, 0, 1, 1), R(0, 0, 5, 5), R(1, 1, 2, 2), R(1, 1, 6.5, 6.5), R(2, 2, 3, 3), R(2, 2, 7, 7)};
   for (auto const & r : arr)
     theTree.Add(r);
 
@@ -118,7 +117,7 @@ void CheckInRect(R const * arr, size_t count, R const & searchR, size_t expected
 
   TEST_EQUAL(test.size(), expected, ());
 }
-}
+}  // namespace
 
 UNIT_TEST(Tree4D_ForEachInRect)
 {
@@ -141,10 +140,7 @@ struct TestObj : public m2::RectD
 {
   int m_id;
 
-  TestObj(double minX, double minY, double maxX, double maxY, int id)
-    : m2::RectD(minX, minY, maxX, maxY), m_id(id)
-  {
-  }
+  TestObj(double minX, double minY, double maxX, double maxY, int id) : m2::RectD(minX, minY, maxX, maxY), m_id(id) {}
 
   bool operator==(TestObj const & r) const { return m_id == r.m_id; }
 };

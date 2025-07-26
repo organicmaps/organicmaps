@@ -23,9 +23,7 @@ struct Transliteration::TransliteratorInfo
   std::unique_ptr<icu::Transliterator> m_transliterator;
 };
 
-Transliteration::Transliteration()
-  : m_inited(false), m_mode(Mode::Enabled)
-{}
+Transliteration::Transliteration() : m_inited(false), m_mode(Mode::Enabled) {}
 
 Transliteration::~Transliteration()
 {
@@ -64,10 +62,8 @@ void Transliteration::Init(std::string const & icuDataDir)
   for (auto const & lang : StringUtf8Multilang::GetSupportedLanguages())
   {
     for (auto const & t : lang.m_transliteratorsIds)
-    {
       if (m_transliterators.count(t) == 0)
         m_transliterators.emplace(t, std::make_unique<TransliteratorInfo>());
-    }
   }
 
   // We need "Hiragana-Katakana" for strings normalization, not for latin transliteration.
@@ -103,8 +99,7 @@ bool Transliteration::Transliterate(std::string_view transID, icu::UnicodeString
       auto const withDiacritic = std::string{transID}.append(";NFD;[\u02B9-\u02D3\u0301-\u0358\u00B7\u0027]Remove;NFC");
       icu::UnicodeString const uTransID(withDiacritic.c_str());
 
-      it->second->m_transliterator.reset(
-          icu::Transliterator::createInstance(uTransID, UTRANS_FORWARD, status));
+      it->second->m_transliterator.reset(icu::Transliterator::createInstance(uTransID, UTRANS_FORWARD, status));
 
       if (it->second->m_transliterator == nullptr)
         LOG(LWARNING, ("Cannot create transliterator:", transID, "ICU error =", status));
@@ -132,8 +127,7 @@ bool Transliteration::TransliterateForce(std::string const & str, std::string co
   return res;
 }
 
-bool Transliteration::Transliterate(std::string_view sv, int8_t langCode,
-                                    std::string & out) const
+bool Transliteration::Transliterate(std::string_view sv, int8_t langCode, std::string & out) const
 {
   CHECK(m_inited, ());
   if (m_mode != Mode::Enabled)

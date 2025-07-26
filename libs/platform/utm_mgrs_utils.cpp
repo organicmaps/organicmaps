@@ -1,10 +1,10 @@
 #include "platform/utm_mgrs_utils.hpp"
 
-#include "base/string_utils.hpp"
 #include "base/math.hpp"
+#include "base/string_utils.hpp"
 
-#include <string>
 #include <cmath>
+#include <string>
 
 namespace utm_mgrs_utils
 {
@@ -18,14 +18,14 @@ struct UTMPoint
   char zoneLetter;
 };
 
-double constexpr K0 = 0.9996; // The scale factor at the central meridian.
-double constexpr E = 0.00669438; // The square of the eccentricity for the WGS84 ellipsoid.
+double constexpr K0 = 0.9996;     // The scale factor at the central meridian.
+double constexpr E = 0.00669438;  // The square of the eccentricity for the WGS84 ellipsoid.
 double constexpr E2 = E * E;
 double constexpr E3 = E2 * E;
 double constexpr E_P2 = E / (1 - E);
-double constexpr R = 6378137.0; // The Earth equitorial radius for the WGS84 ellipsoid.
+double constexpr R = 6378137.0;  // The Earth equitorial radius for the WGS84 ellipsoid.
 
-double constexpr SQRT_E = 0.996647189; // sqrt(1 - E)
+double constexpr SQRT_E = 0.996647189;  // sqrt(1 - E)
 double constexpr _E = (1 - SQRT_E) / (1 + SQRT_E);
 double constexpr _E2 = _E * _E;
 double constexpr _E3 = _E2 * _E;
@@ -54,7 +54,7 @@ double NormalizeAngle(double value)
 {
   using math::pi;
   if (value < -pi)
-    value += - 2 * pi * (static_cast<int>(value - pi) / (2 * pi));
+    value += -2 * pi * (static_cast<int>(value - pi) / (2 * pi));
   else if (value > pi)
     value -= 2 * pi * (static_cast<int>(value + pi) / (2 * pi));
   return value;
@@ -127,18 +127,15 @@ UTMPoint LatLonToUtm(double lat, double lon)
   double const a5 = a4 * a;
   double const a6 = a5 * a;
 
-  double const m = R * (M1 * latRad -
-                   M2 * sin(2 * latRad) +
-                   M3 * sin(4 * latRad) -
-                   M4 * sin(6 * latRad));
+  double const m = R * (M1 * latRad - M2 * sin(2 * latRad) + M3 * sin(4 * latRad) - M4 * sin(6 * latRad));
 
-  double const easting = K0 * n * (a +
-                         a3 / 6 * (1 - latTan2 + c) +
-                         a5 / 120 * (5 - 18 * latTan2 + latTan4 + 72 * c - 58 * E_P2)) + 500000.0;
+  double const easting =
+      K0 * n * (a + a3 / 6 * (1 - latTan2 + c) + a5 / 120 * (5 - 18 * latTan2 + latTan4 + 72 * c - 58 * E_P2)) +
+      500000.0;
 
-  double northing = K0 * (m + n * latTan * (a2 / 2 +
-                    a4 / 24 * (5 - latTan2 + 9 * c + 4 * c * c) +
-                    a6 / 720 * (61 - 58 * latTan2 + latTan4 + 600 * c - 330 * E_P2)));
+  double northing = K0 * (m + n * latTan *
+                                  (a2 / 2 + a4 / 24 * (5 - latTan2 + 9 * c + 4 * c * c) +
+                                   a6 / 720 * (61 - 58 * latTan2 + latTan4 + 600 * c - 330 * E_P2)));
   if (lat < 0.0)
     northing += 10000000.0;
 
@@ -151,8 +148,7 @@ std::string UTMtoStr(UTMPoint const & point)
   // Easting and northing are rounded to nearest integer. Because of that in some cases
   // last 5 digits of UTM and MGRS coordinates could differ (inaccuracy is no more then 1 meter).
   // Some UTM converters truncate easting and northing instead of rounding. Consider this option.
-  return std::to_string(point.zoneNumber) + point.zoneLetter + ' ' +
-         std::to_string(std::lround(point.easting)) + ' ' +
+  return std::to_string(point.zoneNumber) + point.zoneLetter + ' ' + std::to_string(std::lround(point.easting)) + ' ' +
          std::to_string(std::lround(point.northing));
 }
 
@@ -196,9 +192,8 @@ std::string Get100kId(double easting, double northing, int zoneNumber)
   else
     rollover = false;
 
-  if (rowInt == 'I' || (rowOrigin < 'I' && rowInt > 'I') || ((rowInt > 'I' || rowOrigin < 'I') && rollover)) {
+  if (rowInt == 'I' || (rowOrigin < 'I' && rowInt > 'I') || ((rowInt > 'I' || rowOrigin < 'I') && rollover))
     rowInt++;
-  }
 
   if (rowInt == 'O' || (rowOrigin < 'O' && rowInt > 'O') || ((rowInt > 'O' || rowOrigin < 'O') && rollover))
   {
@@ -226,8 +221,7 @@ std::string UTMtoMgrsStr(UTMPoint const & point, int precision)
     northingStr = northingStr.substr(northingStr.size() - 6);
 
   return strings::to_string_width(point.zoneNumber, 2) + point.zoneLetter + ' ' +
-         Get100kId(point.easting, point.northing, point.zoneNumber) + ' ' +
-         eastingStr.substr(1, precision) + ' ' +
+         Get100kId(point.easting, point.northing, point.zoneNumber) + ' ' + eastingStr.substr(1, precision) + ' ' +
          northingStr.substr(1, precision);
 }
 }  // namespace
@@ -259,11 +253,7 @@ std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zoneNumber,
   double const m = y / K0;
   double const mu = m / (R * M1);
 
-  double const p_rad = (mu +
-                        P2 * sin(2.0 * mu) +
-                        P3 * sin(4.0 * mu) +
-                        P4 * sin(6.0 * mu) +
-                        P5 * sin(8.0 * mu));
+  double const p_rad = (mu + P2 * sin(2.0 * mu) + P3 * sin(4.0 * mu) + P4 * sin(6.0 * mu) + P5 * sin(8.0 * mu));
 
   double const p_sin = sin(p_rad);
   double const p_sin2 = p_sin * p_sin;
@@ -290,14 +280,13 @@ std::optional<ms::LatLon> UTMtoLatLon(int easting, int northing, int zoneNumber,
   double const d5 = d4 * d;
   double const d6 = d5 * d;
 
-  double const latitude = (p_rad - (p_tan / r) *
-                          (d2 / 2.0 -
-                           d4 / 24.0 * (5.0 + 3.0 * p_tan2 + 10.0 * c - 4.0 * c2 - 9.0 * E_P2)) +
-                           d6 / 720.0 * (61.0 + 90.0 * p_tan2 + 298.0 * c + 45.0 * p_tan4 - 252.0 * E_P2 - 3.0 * c2));
+  double const latitude =
+      (p_rad - (p_tan / r) * (d2 / 2.0 - d4 / 24.0 * (5.0 + 3.0 * p_tan2 + 10.0 * c - 4.0 * c2 - 9.0 * E_P2)) +
+       d6 / 720.0 * (61.0 + 90.0 * p_tan2 + 298.0 * c + 45.0 * p_tan4 - 252.0 * E_P2 - 3.0 * c2));
 
-  double longitude = (d -
-                      d3 / 6.0 * (1.0 + 2.0 * p_tan2 + c) +
-                      d5 / 120.0 * (5.0 - 2.0 * c + 28.0 * p_tan2 - 3.0 * c2 + 8.0 * E_P2 + 24.0 * p_tan4)) / p_cos;
+  double longitude = (d - d3 / 6.0 * (1.0 + 2.0 * p_tan2 + c) +
+                      d5 / 120.0 * (5.0 - 2.0 * c + 28.0 * p_tan2 - 3.0 * c2 + 8.0 * E_P2 + 24.0 * p_tan4)) /
+                     p_cos;
 
   longitude = NormalizeAngle(longitude + math::DegToRad(static_cast<double>(ZoneNumberToCentralLon(zoneNumber))));
 
@@ -336,7 +325,6 @@ int SquareCharToEasting(char e, size_t set)
   return eastingValue;
 }
 
-
 /* Given the second letter from a two-letter MGRS 100k zone, and given the
  * MGRS table set for the zone number, figure out the northing value that
  * should be added to the other, secondary northing value. You have to
@@ -363,7 +351,7 @@ int SquareCharToNorthing(char n, int set)
       curRow++;
     if (curRow > 'V')
     {
-      if (rewindMarker) // Making sure that this loop ends even if n has invalid value.
+      if (rewindMarker)  // Making sure that this loop ends even if n has invalid value.
         return kInvalidEastingNorthing;
       curRow = 'A';
       rewindMarker = true;
@@ -373,7 +361,6 @@ int SquareCharToNorthing(char n, int set)
 
   return northingValue;
 }
-
 
 // Get minimum northing value of a MGRS zone.
 int ZoneToMinNorthing(char zoneLetter)
@@ -420,7 +407,8 @@ std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zoneCode, 
   auto const char1 = squareCode[0];
   auto const char2 = squareCode[1];
 
-  if (char1 < 'A' || char2 < 'A' || char1 > 'Z' || char2 > 'Z' || char1 == 'I' || char2 == 'I' || char1 == 'O' || char2 == 'O')
+  if (char1 < 'A' || char2 < 'A' || char1 > 'Z' || char2 > 'Z' || char1 == 'I' || char2 == 'I' || char1 == 'O' ||
+      char2 == 'O')
     return {};
 
   int const east100k = SquareCharToEasting(char1, set);
@@ -438,7 +426,7 @@ std::optional<ms::LatLon> MGRStoLatLon(int easting, int northing, int zoneCode, 
   while (north100k < minNorthing)
     north100k += 2000000;
 
-  easting  += east100k;
+  easting += east100k;
   northing += north100k;
 
   return UTMtoLatLon(easting, northing, zoneCode, zoneLetter);
@@ -453,9 +441,9 @@ std::string FormatMGRS(double lat, double lon, int precision)
     precision = 1;
 
   if (lat <= -80 || lat > 84)
-    return {}; // Latitude limit exceeded.
+    return {};  // Latitude limit exceeded.
   if (lon <= -180 || lon > 180)
-    return {}; // Longitude limit exceeded.
+    return {};  // Longitude limit exceeded.
 
   UTMPoint mgrsp = LatLonToUtm(lat, lon);
 
@@ -470,9 +458,9 @@ std::string FormatMGRS(double lat, double lon, int precision)
 std::string FormatUTM(double lat, double lon)
 {
   if (lat <= -80 || lat > 84)
-    return {}; // Latitude limit exceeded.
+    return {};  // Latitude limit exceeded.
   if (lon <= -180 || lon > 180)
-    return {}; // Longitude limit exceeded.
+    return {};  // Longitude limit exceeded.
 
   return UTMtoStr(LatLonToUtm(lat, lon));
 }

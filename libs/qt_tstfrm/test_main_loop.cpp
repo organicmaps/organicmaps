@@ -1,10 +1,10 @@
 #include "qt_tstfrm/test_main_loop.hpp"
 
 #include <QtCore/QTimer>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QWidget>
 #include <QtGui/QOffscreenSurface>
 #include <QtGui/QOpenGLContext>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QWidget>
 
 #include "base/scope_guard.hpp"
 
@@ -17,15 +17,10 @@ namespace
 class MyWidget : public QWidget
 {
 public:
-  explicit MyWidget(testing::RenderFunction && fn)
-    : m_fn(std::move(fn))
-  {}
+  explicit MyWidget(testing::RenderFunction && fn) : m_fn(std::move(fn)) {}
 
 protected:
-  void paintEvent(QPaintEvent * e) override
-  {
-    m_fn(this);
-  }
+  void paintEvent(QPaintEvent * e) override { m_fn(this); }
 
 private:
   testing::RenderFunction m_fn;

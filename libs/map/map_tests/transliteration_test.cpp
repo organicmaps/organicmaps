@@ -7,8 +7,8 @@
 
 namespace
 {
-void TestTransliteration(Transliteration const & translit, std::string const & locale,
-                         std::string const & original, std::string const & expected)
+void TestTransliteration(Transliteration const & translit, std::string const & locale, std::string const & original,
+                         std::string const & expected)
 {
   std::string out;
   translit.Transliterate(original, StringUtf8Multilang::GetLangIndex(locale), out);
@@ -31,7 +31,7 @@ UNIT_TEST(Transliteration_CompareSamples)
   TestTransliteration(translit, "he", "עברית", "bryt");
   TestTransliteration(translit, "el", "Ελληνικά", "Ellenika");
   TestTransliteration(translit, "zh_pinyin", "拼音", "pin yin");
-  TestTransliteration(translit, "th", "ไทย", ""); // Thai-Latin transliteration is off.
+  TestTransliteration(translit, "th", "ไทย", "");  // Thai-Latin transliteration is off.
   TestTransliteration(translit, "sr", "Српски", "Srpski");
   TestTransliteration(translit, "uk", "Українська", "Ukrayinska");
   TestTransliteration(translit, "fa", "فارسی", "farsy");

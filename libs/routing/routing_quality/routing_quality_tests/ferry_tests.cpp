@@ -15,7 +15,7 @@ UNIT_TEST(Ferry_RoutingQuality_FinlandBridgeInsteadOfFerry)
 // TODO: This test doesn't pass because routing::RouteWeight::operator<
 // prefer roads with less number of barriers. It will be more useful to consider
 // barriers only with access=no/private/etc tag.
-//UNIT_TEST(Ferry_RoutingQuality_RussiaToCrimeaFerry)
+// UNIT_TEST(Ferry_RoutingQuality_RussiaToCrimeaFerry)
 //{
 //  // From Russia to Crimea
 //  TEST(CheckCarRoute({45.34123, 36.67679} /* start */, {45.36479, 36.62194} /* finish */,
@@ -49,15 +49,21 @@ UNIT_TEST(Ferry_RoutingQuality_2)
 
 UNIT_TEST(Ferry_RoutingQuality_3)
 {
-  TEST(CheckCarRoute({50.68323, 7.15683} /* start */, {50.58042, 7.32259} /* finish */,
-                     {{{50.72206, 7.14872}, {50.70747, 7.17801}}} /* reference track */),
+  TEST(CheckCarRoute(
+           {
+               50.68323, 7.15683
+  } /* start */,
+           {50.58042, 7.32259} /* finish */, {{{50.72206, 7.14872}, {50.70747, 7.17801}}} /* reference track */),
        ());
 }
 
 UNIT_TEST(Ferry_RoutingQuality_4)
 {
-  TEST(CheckCarRoute({49.37098, 0.84813} /* start */, {49.47950, 0.80918} /* finish */,
-                     {{{49.36829, 0.81359}, {49.41177, 0.79639}}} /* reference track */),
+  TEST(CheckCarRoute(
+           {
+               49.37098, 0.84813
+  } /* start */,
+           {49.47950, 0.80918} /* finish */, {{{49.36829, 0.81359}, {49.41177, 0.79639}}} /* reference track */),
        ());
 }
 

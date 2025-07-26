@@ -17,8 +17,7 @@ void RoutingTurnsVisualizer::Visualize(RoutingManager & routingManager, df::Drap
     std::vector<m2::PointD> const fakePoly = {turnPoint, turnPoint};
     static dp::Color const orangeColor = dp::Color(242, 138, 2, 255);
 
-    drape.AddLine(
-        id, df::DrapeApiLineData(fakePoly, orangeColor).Width(7.0f).ShowPoints(true).ShowId());
+    drape.AddLine(id, df::DrapeApiLineData(fakePoly, orangeColor).Width(7.0f).ShowPoints(true).ShowId());
   }
 }
 
@@ -33,8 +32,8 @@ void RoutingTurnsVisualizer::ClearTurns(df::DrapeApi & drape)
 std::string RoutingTurnsVisualizer::GetId(routing::turns::TurnItem const & turn)
 {
   std::string const maneuver = turn.m_pedestrianTurn == routing::turns::PedestrianDirection::None
-                                   ? DebugPrint(turn.m_turn)
-                                   : DebugPrint(turn.m_pedestrianTurn);
+                                 ? DebugPrint(turn.m_turn)
+                                 : DebugPrint(turn.m_pedestrianTurn);
 
   std::string const index = std::to_string(turn.m_index);
 

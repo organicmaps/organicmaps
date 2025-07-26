@@ -31,6 +31,7 @@ namespace df
 class Arrow3d
 {
   using Base = dp::MeshObject;
+
 public:
   struct PreloadedMeshData
   {
@@ -57,8 +58,7 @@ public:
   static PreloadedData PreloadMesh(std::optional<Arrow3dCustomDecl> const & customDecl,
                                    ref_ptr<dp::TextureManager> texMng);
 
-  Arrow3d(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> texMng,
-          PreloadedData && preloadedData);
+  Arrow3d(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> texMng, PreloadedData && preloadedData);
 
   bool IsValid() const;
 
@@ -78,17 +78,16 @@ public:
   void SetShadowEnabled(bool enabled);
   void SetOutlineEnabled(bool enabled);
 
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-              ScreenBase const & screen, bool routingMode);
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+              bool routingMode);
 
 private:
   // Returns transform matrix and normal transform matrix.
-  std::pair<glsl::mat4, glsl::mat4> CalculateTransform(ScreenBase const & screen, float dz,
-                                                       float scaleFactor,
+  std::pair<glsl::mat4, glsl::mat4> CalculateTransform(ScreenBase const & screen, float dz, float scaleFactor,
                                                        dp::ApiVersion apiVersion) const;
-  void RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                   dp::MeshObject & mesh, ScreenBase const & screen, gpu::Program program,
-                   dp::Color const & color, float dz, float scaleFactor);
+  void RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, dp::MeshObject & mesh,
+                   ScreenBase const & screen, gpu::Program program, dp::Color const & color, float dz,
+                   float scaleFactor);
 
   dp::MeshObject m_arrowMesh;
   bool const m_arrowMeshTexturingEnabled;

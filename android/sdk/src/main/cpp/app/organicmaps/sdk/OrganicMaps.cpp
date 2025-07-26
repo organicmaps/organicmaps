@@ -16,8 +16,8 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_OrganicMaps_nativeSetSettingsDir
 // static void nativeInitPlatform(Context context, String apkPath, String storagePath, String privatePath, String
 // tmpPath, String flavorName, String buildType, boolean isTablet);
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_OrganicMaps_nativeInitPlatform(
-  JNIEnv * env, jclass clazz, jobject context, jstring apkPath, jstring writablePath, jstring privatePath,
-  jstring tmpPath, jstring flavorName, jstring buildType, jboolean isTablet)
+    JNIEnv * env, jclass clazz, jobject context, jstring apkPath, jstring writablePath, jstring privatePath,
+    jstring tmpPath, jstring flavorName, jstring buildType, jboolean isTablet)
 {
   android::Platform::Instance().Initialize(env, context, apkPath, writablePath, privatePath, tmpPath, flavorName,
                                            buildType, isTablet);
@@ -29,13 +29,12 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_OrganicMaps_nativeInitFramework(
 {
   if (!g_framework)
   {
-    g_framework = std::make_unique<android::Framework>(
-      [onComplete = jni::make_global_ref(onComplete)]()
-      {
-        JNIEnv * env = jni::GetEnv();
-        jmethodID const methodId = jni::GetMethodID(env, *onComplete, "run", "()V");
-        env->CallVoidMethod(*onComplete, methodId);
-      });
+    g_framework = std::make_unique<android::Framework>([onComplete = jni::make_global_ref(onComplete)]()
+    {
+      JNIEnv * env = jni::GetEnv();
+      jmethodID const methodId = jni::GetMethodID(env, *onComplete, "run", "()V");
+      env->CallVoidMethod(*onComplete, methodId);
+    });
   }
 }
 

@@ -30,11 +30,9 @@ uint16_t PackAttachmentsOperations(VulkanBaseContext::AttachmentsOperations cons
 }  // namespace
 
 VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                                     VkPhysicalDeviceProperties const & gpuProperties,
-                                     VkDevice device, uint32_t renderingQueueFamilyIndex,
-                                     ref_ptr<VulkanObjectManager> objectManager,
-                                     drape_ptr<VulkanPipeline> && pipeline,
-                                     bool hasPartialTextureUpdates)
+                                     VkPhysicalDeviceProperties const & gpuProperties, VkDevice device,
+                                     uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
+                                     drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates)
   : m_vulkanInstance(vulkanInstance)
   , m_gpu(gpu)
   , m_gpuProperties(gpuProperties)
@@ -74,16 +72,17 @@ std::string VulkanBaseContext::GetRendererName() const
 std::string VulkanBaseContext::GetRendererVersion() const
 {
   std::ostringstream ss;
-  ss << "API:" << VK_VERSION_MAJOR(m_gpuProperties.apiVersion) << "."
-     << VK_VERSION_MINOR(m_gpuProperties.apiVersion) << "."
-     << VK_VERSION_PATCH(m_gpuProperties.apiVersion)
+  ss << "API:" << VK_VERSION_MAJOR(m_gpuProperties.apiVersion) << "." << VK_VERSION_MINOR(m_gpuProperties.apiVersion)
+     << "." << VK_VERSION_PATCH(m_gpuProperties.apiVersion)
      << "/Driver:" << VK_VERSION_MAJOR(m_gpuProperties.driverVersion) << "."
-     << VK_VERSION_MINOR(m_gpuProperties.driverVersion) << "."
-     << VK_VERSION_PATCH(m_gpuProperties.driverVersion);
+     << VK_VERSION_MINOR(m_gpuProperties.driverVersion) << "." << VK_VERSION_PATCH(m_gpuProperties.driverVersion);
   return ss.str();
 }
 
-bool VulkanBaseContext::HasPartialTextureUpdates() const { return m_hasPartialTextureUpdates; }
+bool VulkanBaseContext::HasPartialTextureUpdates() const
+{
+  return m_hasPartialTextureUpdates;
+}
 
 void VulkanBaseContext::Init(ApiVersion apiVersion)
 {
@@ -145,8 +144,7 @@ void VulkanBaseContext::SetRenderingQueue(VkQueue queue)
 
 void VulkanBaseContext::Resize(int w, int h)
 {
-  if (m_swapchain != VK_NULL_HANDLE &&
-      m_surfaceCapabilities.currentExtent.width == static_cast<uint32_t>(w) &&
+  if (m_swapchain != VK_NULL_HANDLE && m_surfaceCapabilities.currentExtent.width == static_cast<uint32_t>(w) &&
       m_surfaceCapabilities.currentExtent.height == static_cast<uint32_t>(h))
   {
     return;
@@ -164,8 +162,7 @@ bool VulkanBaseContext::BeginRendering()
   // We wait for the fences no longer than kTimeoutNanoseconds. If timer is expired skip
   // the frame. It helps to prevent freeze on vkWaitForFences in the case of resetting surface.
   uint64_t constexpr kTimeoutNanoseconds = 2 * 1000 * 1000 * 1000;
-  auto res = vkWaitForFences(m_device, 1, &m_fences[m_inflightFrameIndex], VK_TRUE,
-                             kTimeoutNanoseconds);
+  auto res = vkWaitForFences(m_device, 1, &m_fences[m_inflightFrameIndex], VK_TRUE, kTimeoutNanoseconds);
   if (res == VK_TIMEOUT)
     return false;
 
@@ -195,8 +192,7 @@ bool VulkanBaseContext::BeginRendering()
   // "vkAcquireNextImageKHR: non-infinite timeouts not yet implemented"
   // https://android.googlesource.com/platform/frameworks/native/+/refs/heads/master/vulkan/libvulkan/swapchain.cpp
   res = vkAcquireNextImageKHR(m_device, m_swapchain, std::numeric_limits<uint64_t>::max() /* kTimeoutNanoseconds */,
-                              m_acquireSemaphores[m_inflightFrameIndex],
-                              VK_NULL_HANDLE, &m_imageIndex);
+                              m_acquireSemaphores[m_inflightFrameIndex], VK_NULL_HANDLE, &m_imageIndex);
   // VK_ERROR_SURFACE_LOST_KHR appears sometimes after getting foreground. We suppose rendering can be recovered
   // next frame.
   if (res == VK_TIMEOUT || res == VK_ERROR_SURFACE_LOST_KHR)
@@ -207,13 +203,13 @@ bool VulkanBaseContext::BeginRendering()
     return false;
   }
 
-  #if defined(OMIM_OS_MAC)
-    // MoltenVK returns VK_SUBOPTIMAL_KHR in our configuration, it means that window is not resized that's expected
-    // in the developer sandbox for macOS
-    // https://github.com/KhronosGroup/MoltenVK/issues/1753
-    if (res == VK_SUBOPTIMAL_KHR)
-      res = VK_SUCCESS;
-  #endif
+#if defined(OMIM_OS_MAC)
+  // MoltenVK returns VK_SUBOPTIMAL_KHR in our configuration, it means that window is not resized that's expected
+  // in the developer sandbox for macOS
+  // https://github.com/KhronosGroup/MoltenVK/issues/1753
+  if (res == VK_SUBOPTIMAL_KHR)
+    res = VK_SUCCESS;
+#endif
 
   if (res == VK_ERROR_OUT_OF_DATE_KHR || res == VK_SUBOPTIMAL_KHR)
   {
@@ -235,10 +231,8 @@ bool VulkanBaseContext::BeginRendering()
   commandBufferBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
   commandBufferBeginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 
-  CHECK_VK_CALL(vkBeginCommandBuffer(m_memoryCommandBuffers[m_inflightFrameIndex],
-                                     &commandBufferBeginInfo));
-  CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffers[m_inflightFrameIndex],
-                                     &commandBufferBeginInfo));
+  CHECK_VK_CALL(vkBeginCommandBuffer(m_memoryCommandBuffers[m_inflightFrameIndex], &commandBufferBeginInfo));
+  CHECK_VK_CALL(vkBeginCommandBuffer(m_renderingCommandBuffers[m_inflightFrameIndex], &commandBufferBeginInfo));
 
   return true;
 }
@@ -297,10 +291,9 @@ void VulkanBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
       ref_ptr<VulkanTexture> tex = fb->GetTexture()->GetHardwareTexture();
 
       // Allow to use framebuffer in the fragment shader in the next pass.
-      tex->MakeImageLayoutTransition(m_renderingCommandBuffers[m_inflightFrameIndex],
-                                     VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
-                                     VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
-                                     VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
+      tex->MakeImageLayoutTransition(
+          m_renderingCommandBuffers[m_inflightFrameIndex], VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,
+          VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
     }
   }
 
@@ -353,11 +346,10 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       depthFormat = VulkanFormatUnpacker::Unpack(TextureFormat::Depth);
 
       fbData.m_packedAttachmentOperations = packedAttachmentOperations;
-      fbData.m_renderPass = CreateRenderPass(2 /* attachmentsCount */, attachmentsOp,
-                                             colorFormat, VK_IMAGE_LAYOUT_UNDEFINED,
-                                             VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
-                                             depthFormat, VK_IMAGE_LAYOUT_UNDEFINED,
-                                             VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+      fbData.m_renderPass =
+          CreateRenderPass(2 /* attachmentsCount */, attachmentsOp, colorFormat, VK_IMAGE_LAYOUT_UNDEFINED,
+                           VK_IMAGE_LAYOUT_PRESENT_SRC_KHR, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED,
+                           VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
     }
     else
     {
@@ -375,14 +367,13 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       }
 
       fbData.m_packedAttachmentOperations = packedAttachmentOperations;
-      fbData.m_renderPass = CreateRenderPass(attachmentsCount, attachmentsOp, colorFormat, VK_IMAGE_LAYOUT_UNDEFINED,
-                                             VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
-                                             depthFormat, initialDepthStencilLayout,
-                                             VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+      fbData.m_renderPass =
+          CreateRenderPass(attachmentsCount, attachmentsOp, colorFormat, VK_IMAGE_LAYOUT_UNDEFINED,
+                           VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL, depthFormat, initialDepthStencilLayout,
+                           VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
     }
 
-    SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_RENDER_PASS, fbData.m_renderPass,
-                      ("RP: " + framebufferLabel).c_str());
+    SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_RENDER_PASS, fbData.m_renderPass, ("RP: " + framebufferLabel).c_str());
   }
 
   // Initialize framebuffers.
@@ -410,17 +401,15 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       for (size_t i = 0; i < fbData.m_framebuffers.size(); ++i)
       {
         attachmentViews[0] = m_swapchainImageViews[i];
-        CHECK_VK_CALL(vkCreateFramebuffer(m_device, &frameBufferCreateInfo, nullptr,
-                                          &fbData.m_framebuffers[i]));
+        CHECK_VK_CALL(vkCreateFramebuffer(m_device, &frameBufferCreateInfo, nullptr, &fbData.m_framebuffers[i]));
         SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_FRAMEBUFFER, fbData.m_framebuffers[i],
-                         ("FB: " + framebufferLabel + std::to_string(i)).c_str());
+                          ("FB: " + framebufferLabel + std::to_string(i)).c_str());
       }
     }
     else
     {
       ref_ptr<dp::Framebuffer> framebuffer = m_currentFramebuffer;
-      framebuffer->SetSize(this, m_surfaceCapabilities.currentExtent.width,
-                           m_surfaceCapabilities.currentExtent.height);
+      framebuffer->SetSize(this, m_surfaceCapabilities.currentExtent.width, m_surfaceCapabilities.currentExtent.height);
 
       auto const depthStencilRef = framebuffer->GetDepthStencilRef();
       auto const attachmentsCount = (depthStencilRef != nullptr) ? 2 : 1;
@@ -450,8 +439,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 
       fbData.m_framebuffers.resize(1);
       CHECK_VK_CALL(vkCreateFramebuffer(m_device, &frameBufferCreateInfo, nullptr, &fbData.m_framebuffers[0]));
-      SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_FRAMEBUFFER, fbData.m_framebuffers[0],
-                        ("FB: " + framebufferLabel).c_str());
+      SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_FRAMEBUFFER, fbData.m_framebuffers[0], ("FB: " + framebufferLabel).c_str());
     }
   }
 
@@ -460,17 +448,16 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   {
     ref_ptr<dp::Framebuffer> framebuffer = m_currentFramebuffer;
     ref_ptr<VulkanTexture> tex = framebuffer->GetTexture()->GetHardwareTexture();
-    tex->MakeImageLayoutTransition(m_renderingCommandBuffers[m_inflightFrameIndex],
-                                   VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
-                                   VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
-                                   VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
+    tex->MakeImageLayoutTransition(
+        m_renderingCommandBuffers[m_inflightFrameIndex], VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+        VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
     if (auto ds = framebuffer->GetDepthStencilRef())
     {
       ref_ptr<VulkanTexture> dsTex = ds->GetTexture()->GetHardwareTexture();
-      dsTex->MakeImageLayoutTransition(m_renderingCommandBuffers[m_inflightFrameIndex],
-                                       VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
-                                       VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT,
-                                       VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
+      dsTex->MakeImageLayoutTransition(
+          m_renderingCommandBuffers[m_inflightFrameIndex], VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
+          VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT,
+          VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
     }
   }
   else
@@ -490,21 +477,21 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
     imageMemoryBarrier.subresourceRange.levelCount = VK_REMAINING_MIP_LEVELS;
     imageMemoryBarrier.subresourceRange.baseArrayLayer = 0;
     imageMemoryBarrier.subresourceRange.layerCount = VK_REMAINING_ARRAY_LAYERS;
-    vkCmdPipelineBarrier(m_renderingCommandBuffers[m_inflightFrameIndex], 
-                         VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0,
-                         nullptr, 0, nullptr, 1, &imageMemoryBarrier);
+    vkCmdPipelineBarrier(m_renderingCommandBuffers[m_inflightFrameIndex], VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+                         VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0, nullptr, 0, nullptr, 1, &imageMemoryBarrier);
 
-    m_depthTexture->MakeImageLayoutTransition(m_renderingCommandBuffers[m_inflightFrameIndex],
-                                              VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
-                                              VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT,
-                                              VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
+    m_depthTexture->MakeImageLayoutTransition(
+        m_renderingCommandBuffers[m_inflightFrameIndex], VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
+        VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT,
+        VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT);
   }
 
   m_pipelineKey.m_renderPass = fbData.m_renderPass;
 
   VkClearValue clearValues[2];
-  clearValues[0].color = {{m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(),
-                           m_clearColor.GetAlphaF()}};
+  clearValues[0].color = {
+      {m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(), m_clearColor.GetAlphaF()}
+  };
   clearValues[1].depthStencil = {1.0f, 0};
 
   VkRenderPassBeginInfo renderPassBeginInfo = {};
@@ -536,11 +523,8 @@ void VulkanBaseContext::Present()
     presentInfo.waitSemaphoreCount = 1;
 
     auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
-    if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR &&
-        res != VK_ERROR_OUT_OF_DATE_KHR && res != VK_ERROR_DEVICE_LOST)
-    {
+    if (res != VK_SUCCESS && res != VK_SUBOPTIMAL_KHR && res != VK_ERROR_OUT_OF_DATE_KHR && res != VK_ERROR_DEVICE_LOST)
       CHECK_RESULT_VK_CALL(vkQueuePresentKHR, res);
-    }
   }
 
   m_inflightFrameIndex = (m_inflightFrameIndex + 1) % kMaxInflightFrames;
@@ -570,10 +554,8 @@ void VulkanBaseContext::UnregisterHandler(uint32_t id)
   for (size_t i = 0; i < m_handlers.size(); ++i)
   {
     m_handlers[i].erase(std::remove_if(m_handlers[i].begin(), m_handlers[i].end(),
-                                       [id](std::pair<uint8_t, ContextHandler> const & p)
-    {
-      return p.first == id;
-    }), m_handlers[i].end());
+                                       [id](std::pair<uint8_t, ContextHandler> const & p) { return p.first == id; }),
+                        m_handlers[i].end());
   }
 }
 
@@ -609,8 +591,9 @@ void VulkanBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
         VkClearAttachment attachment = {};
         attachment.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
         attachment.colorAttachment = 0;
-        attachment.clearValue.color = {{m_clearColor.GetRedF(), m_clearColor.GetGreenF(),
-                                        m_clearColor.GetBlueF(), m_clearColor.GetAlphaF()}};
+        attachment.clearValue.color = {
+            {m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(), m_clearColor.GetAlphaF()}
+        };
         CHECK_LESS(attachmentsCount, kMaxClearAttachment, ());
         attachments[attachmentsCount++] = std::move(attachment);
       }
@@ -627,8 +610,8 @@ void VulkanBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
       }
     }
 
-    vkCmdClearAttachments(m_renderingCommandBuffers[m_inflightFrameIndex], attachmentsCount,
-                          attachments.data(), 1 /* rectCount */, &clearRect);
+    vkCmdClearAttachments(m_renderingCommandBuffers[m_inflightFrameIndex], attachmentsCount, attachments.data(),
+                          1 /* rectCount */, &clearRect);
   }
   else
   {
@@ -646,20 +629,20 @@ VulkanBaseContext::AttachmentsOperations VulkanBaseContext::GetAttachmensOperati
   if (m_clearBits & ClearBits::ColorBit)
     operations.m_color.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
   else
-    operations.m_color.m_loadOp = (m_storeBits & ClearBits::ColorBit) ? VK_ATTACHMENT_LOAD_OP_LOAD
-                                                                      : VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    operations.m_color.m_loadOp =
+        (m_storeBits & ClearBits::ColorBit) ? VK_ATTACHMENT_LOAD_OP_LOAD : VK_ATTACHMENT_LOAD_OP_DONT_CARE;
 
   if (m_clearBits & ClearBits::DepthBit)
     operations.m_depth.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
   else
-    operations.m_depth.m_loadOp = (m_storeBits & ClearBits::DepthBit) ? VK_ATTACHMENT_LOAD_OP_LOAD
-                                                                      : VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    operations.m_depth.m_loadOp =
+        (m_storeBits & ClearBits::DepthBit) ? VK_ATTACHMENT_LOAD_OP_LOAD : VK_ATTACHMENT_LOAD_OP_DONT_CARE;
 
   if (m_clearBits & ClearBits::StencilBit)
     operations.m_stencil.m_loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
   else
-    operations.m_stencil.m_loadOp = (m_storeBits & ClearBits::StencilBit) ? VK_ATTACHMENT_LOAD_OP_LOAD
-                                                                          : VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    operations.m_stencil.m_loadOp =
+        (m_storeBits & ClearBits::StencilBit) ? VK_ATTACHMENT_LOAD_OP_LOAD : VK_ATTACHMENT_LOAD_OP_DONT_CARE;
 
   // Apply storing mode.
   if (m_storeBits & ClearBits::ColorBit)
@@ -749,8 +732,7 @@ void VulkanBaseContext::SetPrimitiveTopology(VkPrimitiveTopology topology)
 
 void VulkanBaseContext::SetBindingInfo(BindingInfoArray const & bindingInfo, uint8_t bindingInfoCount)
 {
-  std::copy(bindingInfo.begin(), bindingInfo.begin() + bindingInfoCount,
-            m_pipelineKey.m_bindingInfo.begin());
+  std::copy(bindingInfo.begin(), bindingInfo.begin() + bindingInfoCount, m_pipelineKey.m_bindingInfo.begin());
   m_pipelineKey.m_bindingInfoCount = bindingInfoCount;
 }
 
@@ -806,10 +788,8 @@ VkPipelineLayout VulkanBaseContext::GetCurrentPipelineLayout() const
 uint32_t VulkanBaseContext::GetCurrentDynamicBufferOffset() const
 {
   for (auto const & p : m_paramDescriptors)
-  {
     if (p.m_type == ParamDescriptor::Type::DynamicUniformBuffer)
       return p.m_bufferDynamicOffset;
-  }
   CHECK(false, ("Shaders parameters are not set."));
   return 0;
 }
@@ -833,7 +813,7 @@ ref_ptr<VulkanStagingBuffer> VulkanBaseContext::GetDefaultStagingBuffer() const
 {
   return make_ref(m_defaultStagingBuffers[m_inflightFrameIndex]);
 }
-  
+
 void VulkanBaseContext::RecreateSwapchain()
 {
   CHECK(m_surface.has_value(), ());
@@ -894,15 +874,14 @@ void VulkanBaseContext::RecreateSwapchain()
     swapchainImageViewCI.image = m_swapchainImages[i];
     swapchainImageViewCI.viewType = VK_IMAGE_VIEW_TYPE_2D;
     swapchainImageViewCI.format = m_surfaceFormat->format;
-    swapchainImageViewCI.components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G,
-                                       VK_COMPONENT_SWIZZLE_B, VK_COMPONENT_SWIZZLE_A};
+    swapchainImageViewCI.components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G, VK_COMPONENT_SWIZZLE_B,
+                                       VK_COMPONENT_SWIZZLE_A};
     swapchainImageViewCI.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
     swapchainImageViewCI.subresourceRange.baseMipLevel = 0;
     swapchainImageViewCI.subresourceRange.levelCount = 1;
     swapchainImageViewCI.subresourceRange.baseArrayLayer = 0;
     swapchainImageViewCI.subresourceRange.layerCount = 1;
-    CHECK_VK_CALL(vkCreateImageView(m_device, &swapchainImageViewCI, nullptr,
-                                    &m_swapchainImageViews[i]));
+    CHECK_VK_CALL(vkCreateImageView(m_device, &swapchainImageViewCI, nullptr, &m_swapchainImageViews[i]));
   }
 }
 
@@ -1136,8 +1115,7 @@ VkRenderPass VulkanBaseContext::CreateRenderPass(uint32_t attachmentsCount, Atta
   dependencies[2].dstSubpass = VK_SUBPASS_EXTERNAL;
   dependencies[2].srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
   dependencies[2].dstStageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
-  dependencies[2].srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | 
-                                  VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+  dependencies[2].srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
   dependencies[2].dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
   dependencies[2].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
@@ -1145,8 +1123,7 @@ VkRenderPass VulkanBaseContext::CreateRenderPass(uint32_t attachmentsCount, Atta
   // Write-after-write happens because of layout transition to the final layout.
   dependencies[3].srcSubpass = 0;
   dependencies[3].dstSubpass = VK_SUBPASS_EXTERNAL;
-  dependencies[3].srcStageMask = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | 
-                                 VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
+  dependencies[3].srcStageMask = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
   dependencies[3].dstStageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
   dependencies[3].srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
   dependencies[3].dstAccessMask = 0;

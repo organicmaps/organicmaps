@@ -9,9 +9,8 @@
 
 namespace df
 {
-void DrapeApiRenderer::AddRenderProperties(
-    ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-    std::vector<drape_ptr<DrapeApiRenderProperty>> && properties)
+void DrapeApiRenderer::AddRenderProperties(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                           std::vector<drape_ptr<DrapeApiRenderProperty>> && properties)
 {
   if (properties.empty())
     return;
@@ -32,9 +31,9 @@ void DrapeApiRenderer::AddRenderProperties(
 
 void DrapeApiRenderer::RemoveRenderProperty(std::string const & id)
 {
-  m_properties.erase(std::remove_if(m_properties.begin(), m_properties.end(),
-                                    [&id](auto const & p) { return p->m_id == id; }),
-                                    m_properties.end());
+  m_properties.erase(
+      std::remove_if(m_properties.begin(), m_properties.end(), [&id](auto const & p) { return p->m_id == id; }),
+      m_properties.end());
 }
 
 void DrapeApiRenderer::Clear()

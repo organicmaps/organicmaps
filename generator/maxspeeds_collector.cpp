@@ -23,8 +23,7 @@ namespace generator
 {
 namespace
 {
-bool ParseMaxspeedAndWriteToStream(std::string const & maxspeed, routing::SpeedInUnits & speed,
-                                   std::ostringstream & ss)
+bool ParseMaxspeedAndWriteToStream(std::string const & maxspeed, routing::SpeedInUnits & speed, std::ostringstream & ss)
 {
   if (maxspeed.empty() || !ParseMaxspeedTag(maxspeed, speed))
     return false;
@@ -34,8 +33,7 @@ bool ParseMaxspeedAndWriteToStream(std::string const & maxspeed, routing::SpeedI
 }
 }  // namespace
 
-MaxspeedsCollector::MaxspeedsCollector(std::string const & filename)
-  : CollectorInterface(filename)
+MaxspeedsCollector::MaxspeedsCollector(std::string const & filename) : CollectorInterface(filename)
 {
   m_stream.exceptions(std::fstream::failbit | std::fstream::badbit);
   m_stream.open(GetTmpFilename());
@@ -91,11 +89,8 @@ void MaxspeedsCollector::CollectFeature(feature::FeatureBuilder const & ft, OsmE
     // like "none" or "walk". In that case units mean nothing and the values should
     // be processed in a special way.
     routing::SpeedInUnits maxspeedBackward;
-    if (ParseMaxspeedTag(maxspeedBackwardStr, maxspeedBackward) &&
-        HaveSameUnits(maxspeed, maxspeedBackward))
-    {
+    if (ParseMaxspeedTag(maxspeedBackwardStr, maxspeedBackward) && HaveSameUnits(maxspeed, maxspeedBackward))
       ss << "," << strings::to_string(maxspeedBackward.GetSpeed());
-    }
   }
   else if (ftypes::IsLinkChecker::Instance()(ft.GetTypes()))
   {
@@ -132,7 +127,10 @@ void MaxspeedsCollector::Save()
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
 
-void MaxspeedsCollector::OrderCollectedData() { OrderTextFileByLine(GetFilename()); }
+void MaxspeedsCollector::OrderCollectedData()
+{
+  OrderTextFileByLine(GetFilename());
+}
 
 void MaxspeedsCollector::MergeInto(MaxspeedsCollector & collector) const
 {

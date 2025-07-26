@@ -42,8 +42,9 @@ UNIT_TEST(OpeningHours2TimeTableSet)
     TEST_EQUAL(tt.GetOpeningTime().GetEnd().GetHourMinutes().GetHoursCount(), 23, ());
   }
   {
-    OpeningHours oh("Mo-Su 12:00-15:30, 19:30-23:00;"
-                    "Fr-Sa 12:00-15:30, 19:30-23:30;");
+    OpeningHours oh(
+        "Mo-Su 12:00-15:30, 19:30-23:00;"
+        "Fr-Sa 12:00-15:30, 19:30-23:30;");
     TEST(oh.IsValid(), ());
 
     TimeTableSet tts;
@@ -266,12 +267,9 @@ UNIT_TEST(OpeningHours2TimeTableSet_off)
 
     TEST(MakeTimeTableSet(oh, tts), ());
     TEST_EQUAL(tts.GetUnhandledDays(),
-               OpeningDays({osmoh::Weekday::Monday,
-                            osmoh::Weekday::Tuesday,
-                            osmoh::Weekday::Wednesday,
-                            osmoh::Weekday::Thursday,
-                            osmoh::Weekday::Friday,
-                            osmoh::Weekday::Saturday}), ());
+               OpeningDays({osmoh::Weekday::Monday, osmoh::Weekday::Tuesday, osmoh::Weekday::Wednesday,
+                            osmoh::Weekday::Thursday, osmoh::Weekday::Friday, osmoh::Weekday::Saturday}),
+               ());
   }
   {
     OpeningHours oh("Mo-Su 08:00-13:00,14:00-20:00; Sa 10:00-11:00 off");
@@ -329,11 +327,9 @@ UNIT_TEST(OpeningHours2TimeTableSet_off)
     TEST_EQUAL(tts.Size(), 1, ());
 
     TEST_EQUAL(tts.GetUnhandledDays(),
-               OpeningDays({osmoh::Weekday::Monday,
-                            osmoh::Weekday::Tuesday,
-                            osmoh::Weekday::Wednesday,
-                            osmoh::Weekday::Thursday,
-                            osmoh::Weekday::Friday}), ());
+               OpeningDays({osmoh::Weekday::Monday, osmoh::Weekday::Tuesday, osmoh::Weekday::Wednesday,
+                            osmoh::Weekday::Thursday, osmoh::Weekday::Friday}),
+               ());
   }
   {
     OpeningHours oh("Mo-Fr 11:00-17:00; Sa-Su 12:00-16:00; Mo-Fr 11:00-13:00 off");
@@ -396,14 +392,10 @@ UNIT_TEST(TimeTableSt2OpeningHours)
   {
     TimeTableSet tts;
     auto tt = tts.Front();
-    TEST(tt.SetOpeningDays({
-          osmoh::Weekday::Monday,
-          osmoh::Weekday::Tuesday,
-          osmoh::Weekday::Wednesday,
-          osmoh::Weekday::Thursday,
-          osmoh::Weekday::Friday,
-          osmoh::Weekday::Saturday,
-          osmoh::Weekday::Sunday}), ());
+    TEST(tt.SetOpeningDays({osmoh::Weekday::Monday, osmoh::Weekday::Tuesday, osmoh::Weekday::Wednesday,
+                            osmoh::Weekday::Thursday, osmoh::Weekday::Friday, osmoh::Weekday::Saturday,
+                            osmoh::Weekday::Sunday}),
+         ());
 
     tt.SetTwentyFourHours(false);
     TEST(tt.SetOpeningTime({8_h, 22_h}), ());
@@ -414,12 +406,9 @@ UNIT_TEST(TimeTableSt2OpeningHours)
   {
     TimeTableSet tts;
     auto tt = tts.Front();
-    TEST(tt.SetOpeningDays({
-          osmoh::Weekday::Monday,
-          osmoh::Weekday::Tuesday,
-          osmoh::Weekday::Wednesday,
-          osmoh::Weekday::Thursday,
-          osmoh::Weekday::Friday}), ());
+    TEST(tt.SetOpeningDays({osmoh::Weekday::Monday, osmoh::Weekday::Tuesday, osmoh::Weekday::Wednesday,
+                            osmoh::Weekday::Thursday, osmoh::Weekday::Friday}),
+         ());
 
     tt.SetTwentyFourHours(false);
     TEST(tt.SetOpeningTime({8_h, 22_h}), ());
@@ -431,12 +420,9 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     TimeTableSet tts;
 
     auto tt = tts.Front();
-    TEST(tt.SetOpeningDays({
-          osmoh::Weekday::Monday,
-          osmoh::Weekday::Tuesday,
-          osmoh::Weekday::Wednesday,
-          osmoh::Weekday::Thursday,
-          osmoh::Weekday::Friday}), ());
+    TEST(tt.SetOpeningDays({osmoh::Weekday::Monday, osmoh::Weekday::Tuesday, osmoh::Weekday::Wednesday,
+                            osmoh::Weekday::Thursday, osmoh::Weekday::Friday}),
+         ());
 
     tt.SetTwentyFourHours(false);
     TEST(tt.SetOpeningTime({8_h, 22_h}), ());
@@ -449,12 +435,9 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     TimeTableSet tts;
 
     auto tt = tts.Front();
-    TEST(tt.SetOpeningDays({
-          osmoh::Weekday::Monday,
-          osmoh::Weekday::Tuesday,
-          osmoh::Weekday::Wednesday,
-          osmoh::Weekday::Thursday,
-          osmoh::Weekday::Friday}), ());
+    TEST(tt.SetOpeningDays({osmoh::Weekday::Monday, osmoh::Weekday::Tuesday, osmoh::Weekday::Wednesday,
+                            osmoh::Weekday::Thursday, osmoh::Weekday::Friday}),
+         ());
 
     tt.SetTwentyFourHours(false);
     TEST(tt.SetOpeningTime({8_h, 22_h}), ());
@@ -469,10 +452,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
 
     {
       auto tt = tts.Front();
-      TEST(tt.SetOpeningDays({
-            osmoh::Weekday::Tuesday,
-            osmoh::Weekday::Wednesday,
-            osmoh::Weekday::Thursday}), ());
+      TEST(tt.SetOpeningDays({osmoh::Weekday::Tuesday, osmoh::Weekday::Wednesday, osmoh::Weekday::Thursday}), ());
 
       tt.SetTwentyFourHours(false);
       TEST(tt.SetOpeningTime({8_h, 10_h}), ());
@@ -480,11 +460,9 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     }
     {
       TimeTable tt = TimeTable::GetUninitializedTimeTable();
-      TEST(tt.SetOpeningDays({
-            osmoh::Weekday::Monday,
-            osmoh::Weekday::Friday,
-            osmoh::Weekday::Saturday,
-            osmoh::Weekday::Sunday}), ());
+      TEST(tt.SetOpeningDays(
+               {osmoh::Weekday::Monday, osmoh::Weekday::Friday, osmoh::Weekday::Saturday, osmoh::Weekday::Sunday}),
+           ());
 
       tt.SetTwentyFourHours(false);
       TEST(tt.SetOpeningTime({13_h, 22_h}), ());
@@ -498,10 +476,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
 
     {
       auto tt = tts.Front();
-      TEST(tt.SetOpeningDays({
-            osmoh::Weekday::Monday,
-            osmoh::Weekday::Wednesday,
-            osmoh::Weekday::Friday}), ());
+      TEST(tt.SetOpeningDays({osmoh::Weekday::Monday, osmoh::Weekday::Wednesday, osmoh::Weekday::Friday}), ());
 
       tt.SetTwentyFourHours(false);
       TEST(tt.SetOpeningTime({8_h, 10_h}), ());
@@ -509,9 +484,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     }
     {
       TimeTable tt = TimeTable::GetUninitializedTimeTable();
-      TEST(tt.SetOpeningDays({
-            osmoh::Weekday::Saturday,
-            osmoh::Weekday::Sunday}), ());
+      TEST(tt.SetOpeningDays({osmoh::Weekday::Saturday, osmoh::Weekday::Sunday}), ());
 
       tt.SetTwentyFourHours(false);
       TEST(tt.SetOpeningTime({13_h, 22_h}), ());
@@ -524,14 +497,10 @@ UNIT_TEST(TimeTableSt2OpeningHours)
     TimeTableSet tts;
 
     auto tt = tts.Front();
-    TEST(tt.SetOpeningDays({
-          osmoh::Weekday::Sunday,
-          osmoh::Weekday::Monday,
-          osmoh::Weekday::Tuesday,
-          osmoh::Weekday::Wednesday,
-          osmoh::Weekday::Thursday,
-          osmoh::Weekday::Friday,
-          osmoh::Weekday::Saturday}), ());
+    TEST(tt.SetOpeningDays({osmoh::Weekday::Sunday, osmoh::Weekday::Monday, osmoh::Weekday::Tuesday,
+                            osmoh::Weekday::Wednesday, osmoh::Weekday::Thursday, osmoh::Weekday::Friday,
+                            osmoh::Weekday::Saturday}),
+         ());
 
     tt.SetTwentyFourHours(false);
     TEST(tt.SetOpeningTime({11_h, 24_h}), ());
@@ -544,11 +513,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
 
     {
       auto tt = tts.Front();
-      TEST(tt.SetOpeningDays({
-            osmoh::Weekday::Monday,
-            osmoh::Weekday::Wednesday,
-            osmoh::Weekday::Thursday}), ());
-
+      TEST(tt.SetOpeningDays({osmoh::Weekday::Monday, osmoh::Weekday::Wednesday, osmoh::Weekday::Thursday}), ());
 
       tt.SetTwentyFourHours(false);
       TEST(tt.SetOpeningTime({8_h, 20_h}), ());
@@ -567,6 +532,7 @@ UNIT_TEST(TimeTableSt2OpeningHours)
 
     TEST_EQUAL(ToString(MakeOpeningHours(tts)),
                "Mo, We-Th 08:00-13:00, 14:00-20:00; "
-               "Sa 09:00-13:00, 14:00-18:00", ());
+               "Sa 09:00-13:00, 14:00-18:00",
+               ());
   }
 }

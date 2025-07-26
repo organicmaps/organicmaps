@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "tracking/reporter.hpp"
 #include "tracking/protocol.hpp"
+#include "tracking/reporter.hpp"
 
 #include "coding/traffic.hpp"
 
@@ -25,8 +25,8 @@ using namespace platform::tests_support;
 
 namespace
 {
-void TransferLocation(Reporter & reporter, TestSocket & testSocket, double timestamp,
-                      double latidute, double longtitude)
+void TransferLocation(Reporter & reporter, TestSocket & testSocket, double timestamp, double latidute,
+                      double longtitude)
 {
   location::GpsInfo gpsInfo;
   gpsInfo.m_timestamp = timestamp;
@@ -60,15 +60,15 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
       break;
     }
     }
-  } while (readSize);
+  }
+  while (readSize);
 
   TEST(!buffer.empty(), ());
   vector<coding::TrafficGPSEncoder::DataPoint> points;
   MemReader memReader(buffer.data(), buffer.size());
   ReaderSource<MemReader> src(memReader);
   src.Skip(sizeof(uint32_t /* header */));
-  coding::TrafficGPSEncoder::DeserializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion, src,
-                                                   points);
+  coding::TrafficGPSEncoder::DeserializeDataPoints(coding::TrafficGPSEncoder::kLatestVersion, src, points);
 
   TEST_EQUAL(points.size(), 1, ());
   auto const & point = points[0];
@@ -76,7 +76,7 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
   TEST(AlmostEqualAbs(point.m_latLon.m_lat, latidute, 0.001), ());
   TEST(AlmostEqualAbs(point.m_latLon.m_lon, longtitude, 0.001), ());
 }
-}
+}  // namespace
 
 UNIT_TEST(Reporter_Smoke)
 {

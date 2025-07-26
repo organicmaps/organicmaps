@@ -11,8 +11,7 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QVBoxLayout>
 
-CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories & cats)
-  : QDialog(parent)
+CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCategories & cats) : QDialog(parent)
 {
   cats.AddLanguage("en");
   cats.AddLanguage(languages::GetCurrentNorm());

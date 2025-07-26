@@ -1,7 +1,7 @@
 #include "ge0/url_generator.hpp"
 
-#include "coding/url.hpp"
 #include "base/assert.hpp"
+#include "coding/url.hpp"
 
 #include <cmath>
 #include <iomanip>
@@ -14,12 +14,10 @@ std::string TransformName(std::string const & s)
 {
   std::string result = s;
   for (auto & c : result)
-  {
     if (c == ' ')
       c = '_';
     else if (c == '_')
       c = ' ';
-  }
   return result;
 }
 
@@ -37,10 +35,38 @@ std::string UrlEncodeString(std::string const & s)
     auto const c = static_cast<unsigned char>(s[i]);
     switch (c)
     {
-    case 0x00: case 0x01: case 0x02: case 0x03: case 0x04: case 0x05: case 0x06: case 0x07:
-    case 0x08: case 0x09: case 0x0A: case 0x0B: case 0x0C: case 0x0D: case 0x0E: case 0x0F:
-    case 0x10: case 0x11: case 0x12: case 0x13: case 0x14: case 0x15: case 0x16: case 0x17:
-    case 0x18: case 0x19: case 0x1A: case 0x1B: case 0x1C: case 0x1D: case 0x1E: case 0x1F:
+    case 0x00:
+    case 0x01:
+    case 0x02:
+    case 0x03:
+    case 0x04:
+    case 0x05:
+    case 0x06:
+    case 0x07:
+    case 0x08:
+    case 0x09:
+    case 0x0A:
+    case 0x0B:
+    case 0x0C:
+    case 0x0D:
+    case 0x0E:
+    case 0x0F:
+    case 0x10:
+    case 0x11:
+    case 0x12:
+    case 0x13:
+    case 0x14:
+    case 0x15:
+    case 0x16:
+    case 0x17:
+    case 0x18:
+    case 0x19:
+    case 0x1A:
+    case 0x1B:
+    case 0x1C:
+    case 0x1D:
+    case 0x1E:
+    case 0x1F:
     case 0x7F:
     case ' ':
     case '<':
@@ -74,8 +100,7 @@ std::string UrlEncodeString(std::string const & s)
       result += "0123456789ABCDEF"[c >> 4];
       result += "0123456789ABCDEF"[c & 15];
       break;
-    default:
-      result += s[i];
+    default: result += s[i];
     }
   }
   return result;
@@ -169,13 +194,8 @@ void LatLonToString(double lat, double lon, char * s, size_t nBytes)
     int const latBits = latI >> shift & 7;
     int const lonBits = lonI >> shift & 7;
 
-    int const nextByte =
-      (latBits >> 2 & 1) << 5 |
-      (lonBits >> 2 & 1) << 4 |
-      (latBits >> 1 & 1) << 3 |
-      (lonBits >> 1 & 1) << 2 |
-      (latBits      & 1) << 1 |
-      (lonBits      & 1);
+    int const nextByte = (latBits >> 2 & 1) << 5 | (lonBits >> 2 & 1) << 4 | (latBits >> 1 & 1) << 3 |
+                         (lonBits >> 1 & 1) << 2 | (latBits & 1) << 1 | (lonBits & 1);
 
     s[i] = Base64Char(nextByte);
   }

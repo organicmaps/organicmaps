@@ -32,12 +32,11 @@ struct RoadShield
   std::string m_additionalText;
 
   RoadShield() = default;
-  RoadShield(RoadShieldType const & type, std::string_view name)
-  : m_type(type), m_name(name)
-  {}
-  RoadShield(RoadShieldType const & type, std::string const & name,
-             std::string const & additionalText)
-  : m_type(type), m_name(name), m_additionalText(additionalText)
+  RoadShield(RoadShieldType const & type, std::string_view name) : m_type(type), m_name(name) {}
+  RoadShield(RoadShieldType const & type, std::string const & name, std::string const & additionalText)
+    : m_type(type)
+    , m_name(name)
+    , m_additionalText(additionalText)
   {}
 
   inline bool operator<(RoadShield const & other) const
@@ -73,4 +72,3 @@ std::string DebugPrint(RoadShield const & shield);
 }  // namespace ftypes
 
 using GeneratedRoadShields = std::map<ftypes::RoadShield, std::vector<m2::RectD>>;
-

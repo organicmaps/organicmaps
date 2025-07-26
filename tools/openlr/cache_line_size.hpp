@@ -5,4 +5,4 @@
 namespace openlr
 {
 size_t constexpr kCacheLineSize = 64;
-}  // namespace
+}  // namespace openlr

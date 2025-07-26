@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "coding/writer.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/writer.hpp"
 
 #include "base/macros.hpp"
 
@@ -25,6 +25,6 @@ UNIT_TEST(MemWriterSimple)
   writer.Write("world!", 6);
 
   char const expected[] = "Hello,world!";
-  TEST_EQUAL(data.size(), ARRAY_SIZE(expected)-1, ());
+  TEST_EQUAL(data.size(), ARRAY_SIZE(expected) - 1, ());
   TEST(equal(data.begin(), data.end(), &expected[0]), (data));
 }

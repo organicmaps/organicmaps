@@ -7,14 +7,14 @@
 
 namespace glsl
 {
-using glm::dot;
 using glm::cross;
-using glm::normalize;
-using glm::length;
 using glm::distance;
+using glm::dot;
+using glm::length;
+using glm::normalize;
 
-using glm::translate;
 using glm::rotate;
 using glm::scale;
+using glm::translate;
 using glm::transpose;
 }  // namespace glsl

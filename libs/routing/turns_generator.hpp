@@ -1,7 +1,7 @@
 #pragma once
 
-#include "routing/routing_settings.hpp"
 #include "routing/routing_result_graph.hpp"
+#include "routing/routing_settings.hpp"
 #include "routing/turn_candidate.hpp"
 #include "routing/turns.hpp"
 
@@ -50,23 +50,24 @@ struct TurnInfo;
  * As a consequence moving in backward direction it's possible to get index of the first item
  * of a segment. But it's impossible moving in forward direction.
  */
-bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const & index,
-                            NumMwmIds const & numMwmIds, bool const forward, RoutePointIndex & nextIndex);
+bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const & index, NumMwmIds const & numMwmIds,
+                            bool const forward, RoutePointIndex & nextIndex);
 
-inline size_t GetFirstSegmentPointIndex(std::pair<size_t, size_t> const & p) { return p.first; }
+inline size_t GetFirstSegmentPointIndex(std::pair<size_t, size_t> const & p)
+{
+  return p.first;
+}
 
 bool GetTurnInfo(IRoutingResult const & result, size_t const outgoingSegmentIndex,
-                 RoutingSettings const & vehicleSettings,
-                 TurnInfo & turnInfo);
+                 RoutingSettings const & vehicleSettings, TurnInfo & turnInfo);
 
 /// \returns angle, wchis is calculated using several backward and forward segments
 /// from junction to consider smooth turns and remove noise.
-double CalcTurnAngle(IRoutingResult const & result,
-                     size_t const outgoingSegmentIndex,
-                     NumMwmIds const & numMwmIds,
+double CalcTurnAngle(IRoutingResult const & result, size_t const outgoingSegmentIndex, NumMwmIds const & numMwmIds,
                      RoutingSettings const & vehicleSettings);
 
-void RemoveUTurnCandidate(TurnInfo const & turnInfo, NumMwmIds const & numMwmIds, std::vector<TurnCandidate> & turnCandidates);
+void RemoveUTurnCandidate(TurnInfo const & turnInfo, NumMwmIds const & numMwmIds,
+                          std::vector<TurnCandidate> & turnCandidates);
 
 /// \returns true if there is exactly 1 turn in |turnCandidates| with angle less then
 /// |kMaxForwardAngleCandidates|.
@@ -99,9 +100,8 @@ void CorrectCandidatesSegmentByOutgoing(TurnInfo const & turnInfo, Segment const
  * If forward == true the direction is to route finish. If forward == false the direction is to route start.
  * \return an ingoing or outgoing point for a turn calculation.
  */
-m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegmentIndex,
-                           NumMwmIds const & numMwmIds, size_t const maxPointsCount,
-                           double const maxDistMeters, bool const forward);
+m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegmentIndex, NumMwmIds const & numMwmIds,
+                           size_t const maxPointsCount, double const maxDistMeters, bool const forward);
 
-}  // namespace routing
 }  // namespace turns
+}  // namespace routing

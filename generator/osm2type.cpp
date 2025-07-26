@@ -208,29 +208,23 @@ private:
   static bool IsNegative(string const & value)
   {
     for (char const * s : {"no", "none", "false"})
-    {
       if (value == s)
         return true;
-    }
     return false;
   }
   static bool IsNegativeRouting(string const & value)
   {
     for (char const * s : {"use_sidepath", "separate"})
-    {
       if (value == s)
         return true;
-    }
     return IsNegative(value);
   }
   static bool IsPositiveRouting(string const & value)
   {
     // This values neither positive and neither negative.
     for (char const * s : {"unknown", "dismount"})
-    {
       if (value == s)
         return false;
-    }
     return !IsNegativeRouting(value);
   }
 
@@ -250,10 +244,10 @@ public:
     Lit,
     NoFoot,
     YesFoot,
-    NoSidewalk,   // no dedicated sidewalk, doesn't mean that foot is not allowed, just lower weight
+    NoSidewalk,  // no dedicated sidewalk, doesn't mean that foot is not allowed, just lower weight
     NoBicycle,
     YesBicycle,
-    NoCycleway,   // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
+    NoCycleway,  // no dedicated cycleway, doesn't mean that bicycle is not allowed, just lower weight
     BicycleBidir,
     SurfacePavedGood,
     SurfacePavedBad,
@@ -281,37 +275,37 @@ public:
     Classificator const & c = classif();
 
     static std::map<Type, std::vector<string>> const kTypeToName = {
-        {Entrance,           {"entrance"}},
-        {Highway,            {"highway"}},
-        {Address,            {"building", "address"}},
-        {OneWay,             {"hwtag", "oneway"}},
-        {Private,            {"hwtag", "private"}},
-        {Lit,                {"hwtag", "lit"}},
-        {NoFoot,             {"hwtag", "nofoot"}},
-        {YesFoot,            {"hwtag", "yesfoot"}},
-        {NoSidewalk,         {"hwtag", "nosidewalk"}},
-        {NoBicycle,          {"hwtag", "nobicycle"}},
-        {YesBicycle,         {"hwtag", "yesbicycle"}},
-        {NoCycleway,         {"hwtag", "nocycleway"}},
-        {BicycleBidir,       {"hwtag", "bidir_bicycle"}},
-        {SurfacePavedGood,   {"psurface", "paved_good"}},
-        {SurfacePavedBad,    {"psurface", "paved_bad"}},
-        {SurfaceUnpavedGood, {"psurface", "unpaved_good"}},
-        {SurfaceUnpavedBad,  {"psurface", "unpaved_bad"}},
-        {HasParts,           {"building", "has_parts"}},
-        {NoCar,              {"hwtag", "nocar"}},
-        {YesCar,             {"hwtag", "yescar"}},
-        {InternetAny,        {"internet_access"}},
-        {Wlan,               {"internet_access", "wlan"}},
-        {RailwayStation,     {"railway", "station"}},
-        {SubwayStation,      {"railway", "station", "subway"}},
-        {WheelchairAny,      {"wheelchair"}},
-        {WheelchairYes,      {"wheelchair", "yes"}},
-        {BarrierGate,        {"barrier", "gate"}},
-        {Toll,               {"hwtag", "toll"}},
-        {BicycleOnedir,      {"hwtag", "onedir_bicycle"}},
-        {Ferry,              {"route", "ferry"}},
-        {ShuttleTrain,       {"route", "shuttle_train"}},
+        {          Entrance,                     {"entrance"}},
+        {           Highway,                      {"highway"}},
+        {           Address,          {"building", "address"}},
+        {            OneWay,              {"hwtag", "oneway"}},
+        {           Private,             {"hwtag", "private"}},
+        {               Lit,                 {"hwtag", "lit"}},
+        {            NoFoot,              {"hwtag", "nofoot"}},
+        {           YesFoot,             {"hwtag", "yesfoot"}},
+        {        NoSidewalk,          {"hwtag", "nosidewalk"}},
+        {         NoBicycle,           {"hwtag", "nobicycle"}},
+        {        YesBicycle,          {"hwtag", "yesbicycle"}},
+        {        NoCycleway,          {"hwtag", "nocycleway"}},
+        {      BicycleBidir,       {"hwtag", "bidir_bicycle"}},
+        {  SurfacePavedGood,       {"psurface", "paved_good"}},
+        {   SurfacePavedBad,        {"psurface", "paved_bad"}},
+        {SurfaceUnpavedGood,     {"psurface", "unpaved_good"}},
+        { SurfaceUnpavedBad,      {"psurface", "unpaved_bad"}},
+        {          HasParts,        {"building", "has_parts"}},
+        {             NoCar,               {"hwtag", "nocar"}},
+        {            YesCar,              {"hwtag", "yescar"}},
+        {       InternetAny,              {"internet_access"}},
+        {              Wlan,      {"internet_access", "wlan"}},
+        {    RailwayStation,           {"railway", "station"}},
+        {     SubwayStation, {"railway", "station", "subway"}},
+        {     WheelchairAny,                   {"wheelchair"}},
+        {     WheelchairYes,            {"wheelchair", "yes"}},
+        {       BarrierGate,              {"barrier", "gate"}},
+        {              Toll,                {"hwtag", "toll"}},
+        {     BicycleOnedir,      {"hwtag", "onedir_bicycle"}},
+        {             Ferry,               {"route", "ferry"}},
+        {      ShuttleTrain,       {"route", "shuttle_train"}},
     };
 
     m_types.resize(static_cast<size_t>(Count));
@@ -319,10 +313,7 @@ public:
       m_types[static_cast<size_t>(kv.first)] = c.GetTypeByPath(kv.second);
   }
 
-  uint32_t Get(CachedTypes::Type t) const
-  {
-    return m_types[static_cast<size_t>(t)];
-  }
+  uint32_t Get(CachedTypes::Type t) const { return m_types[static_cast<size_t>(t)]; }
 
   bool IsHighway(uint32_t t) const
   {
@@ -336,10 +327,7 @@ public:
     return t == Get(Ferry) || t == Get(ShuttleTrain);
   }
 
-  bool IsRailwayStation(uint32_t t) const
-  {
-    return t == Get(RailwayStation);
-  }
+  bool IsRailwayStation(uint32_t t) const { return t == Get(RailwayStation); }
 
   bool IsSubwayStation(uint32_t t) const
   {
@@ -399,10 +387,8 @@ void MatchTypes(OsmElement * p, FeatureBuilderParams & params, TypesFilterFnT co
 
   std::vector<generator::TypeStrings> matchedTypes;
   for (auto const & [typeString, rule] : rules)
-  {
     if (rule.Matches(p->m_tags))
       matchedTypes.push_back(typeString);
-  }
 
   LeaveLongestTypes(matchedTypes);
 
@@ -436,136 +422,134 @@ string MatchCity(ms::LatLon const & ll)
   // Draw boundary around metro with http://bboxfinder.com (set to Lon/Lat)
   // City name should be equal with railway-station-subway-CITY classifier types.
   static std::map<string, m2::RectD> const cities = {
-      {"adana", {35.216442,36.934693,35.425525,37.065481}},
-      {"algiers", {2.949538, 36.676777, 3.256914, 36.826518}},
-      {"almaty", {76.7223358154, 43.1480920701, 77.123336792, 43.4299852362}},
-      {"amsterdam", {4.65682983398, 52.232846171, 5.10040283203, 52.4886341706}},
-      {"ankara", {32.4733, 39.723, 33.0499, 40.086}},
-      {"athens", {23.518075, 37.849188, 23.993853, 38.129109}},
-      {"baku", {49.7315,40.319728,49.978006,40.453619}},
-      {"bangkok", {100.159606934, 13.4363737155, 100.909423828, 14.3069694978}},
-      {"barcelona", {1.94458007812, 41.2489025224, 2.29614257812, 41.5414776668}},
-      {"beijing", {115.894775391, 39.588757277, 117.026367187, 40.2795256688}},
-      {"berlin", {13.061007, 52.290099, 13.91399, 52.760803}},
-      {"boston", {-71.2676239014, 42.2117365893, -70.8879089355, 42.521711682}},
-      {"bengalore", {77.393079,12.807501,77.806439,13.17014}},
-      {"bilbao", {-3.129730,43.202673,-2.859879,43.420011}},
-      {"brasilia", {-48.334467, -16.036627, -47.358264, -15.50321}},
-      {"brescia", {10.128068,45.478792,10.312432,45.595665}},
-      {"brussels", {4.2448425293, 50.761653413, 4.52499389648, 50.9497757762}},
-      {"bucharest", {25.905198, 44.304636, 26.29032, 44.588137}},
-      {"budapest", {18.7509155273, 47.3034470439, 19.423828125, 47.7023684666}},
-      {"buenos_aires", {-58.9910888672, -35.1221551064, -57.8045654297, -34.2685661867}},
-      {"bursa", {28.771425,40.151234,29.297395,40.315832}},
-      {"cairo", {30.3232, 29.6163, 31.9891, 30.6445}},
-      {"caracas", {-67.109144,10.317298,-66.754835,10.551623}},
-      {"catania", {14.94978,37.443756,15.126343,37.540221}},
-      {"changchun", {124.6144,43.6274,125.9163,44.1578}},
-      {"chengdu", {103.6074,30.3755,104.4863,31.0462}},
-      {"chicago", {-88.3163452148, 41.3541338721, -87.1270751953, 42.2691794924}},
-      {"chongqing", {105.9873,29.1071,107.0255,30.0102}},
-      {"dalian", {121.284679,38.752352,121.90678,39.167744}},
-      {"delhi", {76.8026733398, 28.3914003758, 77.5511169434, 28.9240352884}},
-      {"dnepro", {34.7937011719, 48.339820521, 35.2798461914, 48.6056737841}},
-      {"dubai", {55.01953125, 24.9337667594, 55.637512207, 25.6068559937}},
-      {"ekb", {60.3588867188, 56.6622647682, 61.0180664062, 57.0287738515}},
-      {"frankfurt", {8.36334228516, 49.937079757, 8.92364501953, 50.2296379179}},
-      {"fukuoka", {130.285484,33.544873,130.51757,33.70268}},
-      {"glasgow", {-4.542417,55.753178,-3.943662,55.982611}},
-      {"guangzhou", {112.560424805, 22.4313401564, 113.766174316, 23.5967112789}},
-      {"hamburg", {9.75860595703, 53.39151869, 10.2584838867, 53.6820686709}},
-      {"helsinki", {24.3237304688, 59.9989861206, 25.48828125, 60.44638186}},
-      {"hiroshima", {132.256736,34.312824,132.621345,34.55182}},
-      {"hongkong", {113.934086,22.150767,114.424924,22.515215}},
-      {"isfahan", {51.472344,32.504644,51.865369,32.820396}},
-      {"istanbul", {28.4155, 40.7172, 29.7304, 41.4335}},
-      {"izmir", {26.953591,38.262044,27.318199,38.543469}},
-      {"kazan", {48.8067626953, 55.6372985742, 49.39453125, 55.9153515154}},
-      {"kharkiv", {36.078138, 49.854027, 36.51107, 50.141277}},
-      {"kiev", {30.1354980469, 50.2050332649, 31.025390625, 50.6599083609}},
-      {"kobe", {135.066888,34.617728,135.32232,34.776364}},
-      {"kolkata", {88.240623,22.450324,88.458955,22.632536}},
-      {"koln", {6.7943572998, 50.8445380881, 7.12669372559, 51.0810964366}},
-      {"kunming", {102.0983,24.3319,103.5969,25.7119}},
-      {"kyoto", {135.619598, 34.874916, 135.878442, 35.113709}},
-      {"lausanne", {6.583868,46.504301,6.720813,46.602578}},
-      {"lille", {2.789132,50.441626,3.329113,50.794609}},
-      {"lima", {-77.2750854492, -12.3279274859, -76.7999267578, -11.7988014362}},
-      {"lisboa", {-9.42626953125, 38.548165423, -8.876953125, 38.9166815364}},
-      {"london", {-0.4833984375, 51.3031452592, 0.2197265625, 51.6929902115}},
-      {"la", {-118.944112, 32.806553, -117.644787, 34.822766}},
-      {"lyon", {4.5741, 45.5842, 5.1603, 45.9393}},
-      {"madrid", {-4.00451660156, 40.1536868578, -3.32885742188, 40.6222917831}},
-      {"malaga", {-5.611777,36.310352,-3.765967,37.282445}},
-      {"manila", {120.936229,14.550825,121.026167,14.639547}},
-      {"maracaibo", {-71.812942,10.570632,-71.581199,10.758897}},
-      {"mashhad", {59.302159,36.13267,59.83225,36.530945}},
-      {"mecca", {39.663307, 21.274985, 40.056236, 21.564195}},
-      {"medellin", {-75.719423,6.162617,-75.473408,6.376421}},
-      {"mexico", {-99.3630981445, 19.2541083164, -98.879699707, 19.5960192403}},
-      {"milan", {9.02252197266, 45.341528405, 9.35760498047, 45.5813674681}},
-      {"minsk", {27.2845458984, 53.777934972, 27.8393554688, 54.0271334441}},
-      {"montreal", {-73.995802, 45.398482, -73.474295, 45.70479}},
-      {"moscow", {36.9964599609, 55.3962717136, 38.1884765625, 56.1118730004}},
-      {"mumbai", {72.7514648437, 18.8803004445, 72.9862976074, 19.2878132403}},
-      {"munchen", {11.3433837891, 47.9981928195, 11.7965698242, 48.2730267576}},
-      {"nagoya", {136.791969,35.025951,137.060899,35.260229}},
-      {"newyork", {-74.4104003906, 40.4134960497, -73.4600830078, 41.1869224229}},
-      {"nnov", {43.6431884766, 56.1608472541, 44.208984375, 56.4245355509}},
-      {"novosibirsk", {82.4578857422, 54.8513152597, 83.2983398438, 55.2540770671}},
-      {"osaka", {134.813232422, 34.1981730963, 136.076660156, 35.119908571}},
-      {"oslo", {10.3875732422, 59.7812868211, 10.9286499023, 60.0401604652}},
-      {"palma", {2.556669,39.503227,2.841284,39.670445}},
-      {"panama", {-79.633827, 8.880788, -79.367367, 9.149179}},
-      {"paris", {2.09014892578, 48.6637569323, 2.70538330078, 49.0414689141}},
-      {"philadelphia", {-75.276761, 39.865446, -74.964493, 40.137768}},
-      {"porto", {-8.758979,41.095783,-8.540001,41.378495}},
-      {"pyongyang", {125.48888, 38.780932, 126.12748, 39.298738}},
-      {"qingdao", {119.708, 35.668, 120.758, 36.480}},
-      {"rennes", {-2.28897,47.934093,-1.283944,48.379636}},
-      {"rio", {-43.4873199463, -23.0348745407, -43.1405639648, -22.7134898498}},
-      {"roma", {12.3348999023, 41.7672146942, 12.6397705078, 42.0105298189}},
-      {"rotterdam", {3.940749, 51.842118, 4.601808, 52.004528}},
-      {"samara", {50.001145, 53.070867, 50.434992, 53.339216}},
-      {"santiago", {-71.015625, -33.8133843291, -70.3372192383, -33.1789392606}},
-      {"santo_domingo", {-70.029669,18.390645,-69.831571,18.573966}},
-      {"saopaulo", {-46.9418334961, -23.8356009866, -46.2963867187, -23.3422558351}},
-      {"sapporo", {141.160343,42.945651,141.577136,43.243986}},
-      {"sendai", {140.469472,38.050849,141.260304,38.454699}},
-      {"seoul", {126.540527344, 37.3352243593, 127.23815918, 37.6838203267}},
-      {"sf", {-122.72277832, 37.1690715771, -121.651611328, 38.0307856938}},
-      {"shanghai", {119.849853516, 30.5291450367, 122.102050781, 32.1523618947}},
-      {"shenzhen", {113.747866,22.464779,114.477038,22.816068}},
-      {"shiraz", {52.382254,29.498738,52.667513,29.840346}},
-      {"singapore", {103.624420166, 1.21389843409, 104.019927979, 1.45278619819}},
-      {"sofia", {23.195085, 42.574041, 23.503569, 42.835375}},
-      {"spb", {29.70703125, 59.5231755354, 31.3110351562, 60.2725145948}},
-      {"stockholm", {17.5726318359, 59.1336814082, 18.3966064453, 59.5565918857}},
-      {"stuttgart", {9.0877532959, 48.7471343254, 9.29306030273, 48.8755544436}},
-      {"sydney", {150.42755127, -34.3615762875, 151.424560547, -33.4543597895}},
-      {"tabriz", {46.18432,38.015584,46.4126,38.15366}},
-      {"taipei", {121.368713379, 24.9312761454, 121.716156006, 25.1608229799}},
-      {"taoyuan", {110.8471,28.4085,111.6109,29.4019}},
-      {"tashkent", {69.12171, 41.163421, 69.476967, 41.398638}},
-      {"tbilisi", {44.596922, 41.619315, 45.019694, 41.843421}},
-      {"tehran", {50.6575, 35.353216, 52.007904, 35.974672}},
-      {"tianjin", {116.7022, 38.555, 118.0587, 40.252}},
-      {"tokyo", {139.240722656, 35.2186974963, 140.498657227, 36.2575628263}},
-      {"valencia", {-0.432551, 39.27845, -0.272521, 39.566609}},
-      {"vienna", {16.0894775391, 48.0633965378, 16.6387939453, 48.3525987075}},
-      {"warszawa", {20.7202148438, 52.0322181041, 21.3024902344, 52.4091212523}},
-      {"washington", {-77.4920654297, 38.5954071994, -76.6735839844, 39.2216149801}},
-      {"wuhan", {113.6925,29.972,115.0769,31.3622}},
-      {"yerevan", {44.359899, 40.065411, 44.645352, 40.26398}},
-      {"yokohama", {139.464781, 35.312501, 139.776935, 35.592738}},
+      {        "adana",                     {35.216442, 36.934693, 35.425525, 37.065481}},
+      {      "algiers",                       {2.949538, 36.676777, 3.256914, 36.826518}},
+      {       "almaty",      {76.7223358154, 43.1480920701, 77.123336792, 43.4299852362}},
+      {    "amsterdam",      {4.65682983398, 52.232846171, 5.10040283203, 52.4886341706}},
+      {       "ankara",                               {32.4733, 39.723, 33.0499, 40.086}},
+      {       "athens",                     {23.518075, 37.849188, 23.993853, 38.129109}},
+      {         "baku",                       {49.7315, 40.319728, 49.978006, 40.453619}},
+      {      "bangkok",     {100.159606934, 13.4363737155, 100.909423828, 14.3069694978}},
+      {    "barcelona",     {1.94458007812, 41.2489025224, 2.29614257812, 41.5414776668}},
+      {      "beijing",      {115.894775391, 39.588757277, 117.026367187, 40.2795256688}},
+      {       "berlin",                      {13.061007, 52.290099, 13.91399, 52.760803}},
+      {       "boston",    {-71.2676239014, 42.2117365893, -70.8879089355, 42.521711682}},
+      {    "bengalore",                      {77.393079, 12.807501, 77.806439, 13.17014}},
+      {       "bilbao",                     {-3.129730, 43.202673, -2.859879, 43.420011}},
+      {     "brasilia",                  {-48.334467, -16.036627, -47.358264, -15.50321}},
+      {      "brescia",                     {10.128068, 45.478792, 10.312432, 45.595665}},
+      {     "brussels",       {4.2448425293, 50.761653413, 4.52499389648, 50.9497757762}},
+      {    "bucharest",                      {25.905198, 44.304636, 26.29032, 44.588137}},
+      {     "budapest",      {18.7509155273, 47.3034470439, 19.423828125, 47.7023684666}},
+      { "buenos_aires", {-58.9910888672, -35.1221551064, -57.8045654297, -34.2685661867}},
+      {        "bursa",                     {28.771425, 40.151234, 29.297395, 40.315832}},
+      {        "cairo",                             {30.3232, 29.6163, 31.9891, 30.6445}},
+      {      "caracas",                   {-67.109144, 10.317298, -66.754835, 10.551623}},
+      {      "catania",                      {14.94978, 37.443756, 15.126343, 37.540221}},
+      {    "changchun",                           {124.6144, 43.6274, 125.9163, 44.1578}},
+      {      "chengdu",                           {103.6074, 30.3755, 104.4863, 31.0462}},
+      {      "chicago",   {-88.3163452148, 41.3541338721, -87.1270751953, 42.2691794924}},
+      {    "chongqing",                           {105.9873, 29.1071, 107.0255, 30.0102}},
+      {       "dalian",                    {121.284679, 38.752352, 121.90678, 39.167744}},
+      {        "delhi",     {76.8026733398, 28.3914003758, 77.5511169434, 28.9240352884}},
+      {       "dnepro",      {34.7937011719, 48.339820521, 35.2798461914, 48.6056737841}},
+      {        "dubai",        {55.01953125, 24.9337667594, 55.637512207, 25.6068559937}},
+      {          "ekb",     {60.3588867188, 56.6622647682, 61.0180664062, 57.0287738515}},
+      {    "frankfurt",      {8.36334228516, 49.937079757, 8.92364501953, 50.2296379179}},
+      {      "fukuoka",                     {130.285484, 33.544873, 130.51757, 33.70268}},
+      {      "glasgow",                     {-4.542417, 55.753178, -3.943662, 55.982611}},
+      {    "guangzhou",     {112.560424805, 22.4313401564, 113.766174316, 23.5967112789}},
+      {      "hamburg",       {9.75860595703, 53.39151869, 10.2584838867, 53.6820686709}},
+      {     "helsinki",         {24.3237304688, 59.9989861206, 25.48828125, 60.44638186}},
+      {    "hiroshima",                    {132.256736, 34.312824, 132.621345, 34.55182}},
+      {     "hongkong",                   {113.934086, 22.150767, 114.424924, 22.515215}},
+      {      "isfahan",                     {51.472344, 32.504644, 51.865369, 32.820396}},
+      {     "istanbul",                             {28.4155, 40.7172, 29.7304, 41.4335}},
+      {        "izmir",                     {26.953591, 38.262044, 27.318199, 38.543469}},
+      {        "kazan",       {48.8067626953, 55.6372985742, 49.39453125, 55.9153515154}},
+      {      "kharkiv",                      {36.078138, 49.854027, 36.51107, 50.141277}},
+      {         "kiev",      {30.1354980469, 50.2050332649, 31.025390625, 50.6599083609}},
+      {         "kobe",                    {135.066888, 34.617728, 135.32232, 34.776364}},
+      {      "kolkata",                     {88.240623, 22.450324, 88.458955, 22.632536}},
+      {         "koln",      {6.7943572998, 50.8445380881, 7.12669372559, 51.0810964366}},
+      {      "kunming",                           {102.0983, 24.3319, 103.5969, 25.7119}},
+      {        "kyoto",                   {135.619598, 34.874916, 135.878442, 35.113709}},
+      {     "lausanne",                       {6.583868, 46.504301, 6.720813, 46.602578}},
+      {        "lille",                       {2.789132, 50.441626, 3.329113, 50.794609}},
+      {         "lima", {-77.2750854492, -12.3279274859, -76.7999267578, -11.7988014362}},
+      {       "lisboa",      {-9.42626953125, 38.548165423, -8.876953125, 38.9166815364}},
+      {       "london",      {-0.4833984375, 51.3031452592, 0.2197265625, 51.6929902115}},
+      {           "la",                 {-118.944112, 32.806553, -117.644787, 34.822766}},
+      {         "lyon",                               {4.5741, 45.5842, 5.1603, 45.9393}},
+      {       "madrid",   {-4.00451660156, 40.1536868578, -3.32885742188, 40.6222917831}},
+      {       "malaga",                     {-5.611777, 36.310352, -3.765967, 37.282445}},
+      {       "manila",                   {120.936229, 14.550825, 121.026167, 14.639547}},
+      {    "maracaibo",                   {-71.812942, 10.570632, -71.581199, 10.758897}},
+      {      "mashhad",                       {59.302159, 36.13267, 59.83225, 36.530945}},
+      {        "mecca",                     {39.663307, 21.274985, 40.056236, 21.564195}},
+      {     "medellin",                     {-75.719423, 6.162617, -75.473408, 6.376421}},
+      {       "mexico",    {-99.3630981445, 19.2541083164, -98.879699707, 19.5960192403}},
+      {        "milan",      {9.02252197266, 45.341528405, 9.35760498047, 45.5813674681}},
+      {        "minsk",      {27.2845458984, 53.777934972, 27.8393554688, 54.0271334441}},
+      {     "montreal",                    {-73.995802, 45.398482, -73.474295, 45.70479}},
+      {       "moscow",     {36.9964599609, 55.3962717136, 38.1884765625, 56.1118730004}},
+      {       "mumbai",     {72.7514648437, 18.8803004445, 72.9862976074, 19.2878132403}},
+      {      "munchen",     {11.3433837891, 47.9981928195, 11.7965698242, 48.2730267576}},
+      {       "nagoya",                   {136.791969, 35.025951, 137.060899, 35.260229}},
+      {      "newyork",   {-74.4104003906, 40.4134960497, -73.4600830078, 41.1869224229}},
+      {         "nnov",      {43.6431884766, 56.1608472541, 44.208984375, 56.4245355509}},
+      {  "novosibirsk",     {82.4578857422, 54.8513152597, 83.2983398438, 55.2540770671}},
+      {        "osaka",      {134.813232422, 34.1981730963, 136.076660156, 35.119908571}},
+      {         "oslo",     {10.3875732422, 59.7812868211, 10.9286499023, 60.0401604652}},
+      {        "palma",                       {2.556669, 39.503227, 2.841284, 39.670445}},
+      {       "panama",                     {-79.633827, 8.880788, -79.367367, 9.149179}},
+      {        "paris",     {2.09014892578, 48.6637569323, 2.70538330078, 49.0414689141}},
+      { "philadelphia",                   {-75.276761, 39.865446, -74.964493, 40.137768}},
+      {        "porto",                     {-8.758979, 41.095783, -8.540001, 41.378495}},
+      {    "pyongyang",                     {125.48888, 38.780932, 126.12748, 39.298738}},
+      {      "qingdao",                               {119.708, 35.668, 120.758, 36.480}},
+      {       "rennes",                      {-2.28897, 47.934093, -1.283944, 48.379636}},
+      {          "rio", {-43.4873199463, -23.0348745407, -43.1405639648, -22.7134898498}},
+      {         "roma",     {12.3348999023, 41.7672146942, 12.6397705078, 42.0105298189}},
+      {    "rotterdam",                       {3.940749, 51.842118, 4.601808, 52.004528}},
+      {       "samara",                     {50.001145, 53.070867, 50.434992, 53.339216}},
+      {     "santiago",     {-71.015625, -33.8133843291, -70.3372192383, -33.1789392606}},
+      {"santo_domingo",                   {-70.029669, 18.390645, -69.831571, 18.573966}},
+      {     "saopaulo", {-46.9418334961, -23.8356009866, -46.2963867187, -23.3422558351}},
+      {      "sapporo",                   {141.160343, 42.945651, 141.577136, 43.243986}},
+      {       "sendai",                   {140.469472, 38.050849, 141.260304, 38.454699}},
+      {        "seoul",      {126.540527344, 37.3352243593, 127.23815918, 37.6838203267}},
+      {           "sf",    {-122.72277832, 37.1690715771, -121.651611328, 38.0307856938}},
+      {     "shanghai",     {119.849853516, 30.5291450367, 122.102050781, 32.1523618947}},
+      {     "shenzhen",                   {113.747866, 22.464779, 114.477038, 22.816068}},
+      {       "shiraz",                     {52.382254, 29.498738, 52.667513, 29.840346}},
+      {    "singapore",     {103.624420166, 1.21389843409, 104.019927979, 1.45278619819}},
+      {        "sofia",                     {23.195085, 42.574041, 23.503569, 42.835375}},
+      {          "spb",       {29.70703125, 59.5231755354, 31.3110351562, 60.2725145948}},
+      {    "stockholm",     {17.5726318359, 59.1336814082, 18.3966064453, 59.5565918857}},
+      {    "stuttgart",      {9.0877532959, 48.7471343254, 9.29306030273, 48.8755544436}},
+      {       "sydney",    {150.42755127, -34.3615762875, 151.424560547, -33.4543597895}},
+      {       "tabriz",                         {46.18432, 38.015584, 46.4126, 38.15366}},
+      {       "taipei",     {121.368713379, 24.9312761454, 121.716156006, 25.1608229799}},
+      {      "taoyuan",                           {110.8471, 28.4085, 111.6109, 29.4019}},
+      {     "tashkent",                      {69.12171, 41.163421, 69.476967, 41.398638}},
+      {      "tbilisi",                     {44.596922, 41.619315, 45.019694, 41.843421}},
+      {       "tehran",                       {50.6575, 35.353216, 52.007904, 35.974672}},
+      {      "tianjin",                             {116.7022, 38.555, 118.0587, 40.252}},
+      {        "tokyo",     {139.240722656, 35.2186974963, 140.498657227, 36.2575628263}},
+      {     "valencia",                      {-0.432551, 39.27845, -0.272521, 39.566609}},
+      {       "vienna",     {16.0894775391, 48.0633965378, 16.6387939453, 48.3525987075}},
+      {     "warszawa",     {20.7202148438, 52.0322181041, 21.3024902344, 52.4091212523}},
+      {   "washington",   {-77.4920654297, 38.5954071994, -76.6735839844, 39.2216149801}},
+      {        "wuhan",                            {113.6925, 29.972, 115.0769, 31.3622}},
+      {      "yerevan",                      {44.359899, 40.065411, 44.645352, 40.26398}},
+      {     "yokohama",                   {139.464781, 35.312501, 139.776935, 35.592738}},
   };
 
   m2::PointD const pt(ll.m_lon, ll.m_lat);
   for (auto const & city : cities)
-  {
     if (city.second.IsPointInside(pt))
       return city.first;
-  }
   return {};
 }
 
@@ -573,17 +557,16 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
 {
   string surface;
   string smoothness;
-  double surfaceGrade = 2; // default is "normal"
+  double surfaceGrade = 2;  // default is "normal"
   string highway;
   string trackGrade;
 
   for (auto const & tag : p->m_tags)
-  {
     if (tag.m_key == "surface")
       surface = tag.m_value;
     else if (tag.m_key == "smoothness")
       smoothness = tag.m_value;
-    else if (tag.m_key == "surface:grade") // discouraged, 25k usages as of 2024
+    else if (tag.m_key == "surface:grade")  // discouraged, 25k usages as of 2024
       (void)strings::to_double(tag.m_value, surfaceGrade);
     else if (tag.m_key == "tracktype")
       trackGrade = tag.m_value;
@@ -591,36 +574,46 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
       highway = tag.m_value;
     else if (tag.m_key == "4wd_only" && (tag.m_value == "yes" || tag.m_value == "recommended"))
       return "unpaved_bad";
-  }
 
   // According to https://wiki.openstreetmap.org/wiki/Key:surface
   static base::StringIL pavedSurfaces = {
-      "asphalt", "cobblestone", "chipseal", "concrete", "grass_paver", "stone",
-      "metal", "paved", "paving_stones", "sett", "brick", "bricks", "unhewn_cobblestone", "wood"
-  };
+      "asphalt",       "cobblestone", "chipseal", "concrete", "grass_paver",        "stone", "metal", "paved",
+      "paving_stones", "sett",        "brick",    "bricks",   "unhewn_cobblestone", "wood"};
 
   // All not explicitly listed surface types are considered unpaved good, e.g. "compacted", "fine_gravel".
-  static base::StringIL badSurfaces = {
-      "cobblestone", "dirt", "earth", "soil", "grass", "gravel", "ground", "metal", "mud", "rock", "stone", "unpaved",
-      "pebblestone", "sand", "sett", "brick", "bricks", "snow", "stepping_stones", "unhewn_cobblestone",
-      "grass_paver", "wood", "woodchips"
-  };
+  static base::StringIL badSurfaces = {"cobblestone",
+                                       "dirt",
+                                       "earth",
+                                       "soil",
+                                       "grass",
+                                       "gravel",
+                                       "ground",
+                                       "metal",
+                                       "mud",
+                                       "rock",
+                                       "stone",
+                                       "unpaved",
+                                       "pebblestone",
+                                       "sand",
+                                       "sett",
+                                       "brick",
+                                       "bricks",
+                                       "snow",
+                                       "stepping_stones",
+                                       "unhewn_cobblestone",
+                                       "grass_paver",
+                                       "wood",
+                                       "woodchips"};
 
-  static base::StringIL veryBadSurfaces = {
-      "dirt", "earth", "soil", "grass", "ground", "mud", "rock", "sand", "snow",
-      "stepping_stones", "woodchips"
-  };
+  static base::StringIL veryBadSurfaces = {"dirt", "earth", "soil", "grass",           "ground",   "mud",
+                                           "rock", "sand",  "snow", "stepping_stones", "woodchips"};
 
   // surface=tartan/artificial_turf/clay are not used for highways (but for sport pitches etc).
 
-  static base::StringIL veryBadSmoothness = {
-      "very_bad",       "horrible",        "very_horrible", "impassable",
-      "robust_wheels", "high_clearance", "off_road_wheels", "rough"
-  };
+  static base::StringIL veryBadSmoothness = {"very_bad",      "horrible",       "very_horrible",   "impassable",
+                                             "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
 
-  static base::StringIL midSmoothness = {
-      "unknown", "intermediate"
-  };
+  static base::StringIL midSmoothness = {"unknown", "intermediate"};
 
   auto const Has = [](base::StringIL const & il, string const & v)
   {
@@ -648,17 +641,15 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
   string const kPath = "path";
   if (highway == kFootway || highway == kPath || highway == kCycleway)
   {
-    static base::StringIL goodPathSmoothness = {
-        "excellent", "good", "very_good", "intermediate"
-    };
+    static base::StringIL goodPathSmoothness = {"excellent", "good", "very_good", "intermediate"};
     bool const hasQuality = !smoothness.empty() || !trackGrade.empty();
     bool const isGood = (smoothness.empty() || Has(goodPathSmoothness, smoothness)) &&
                         (trackGrade.empty() || trackGrade == "grade1" || trackGrade == "grade2");
     bool const isMed = (smoothness == "intermediate" || trackGrade == "grade2");
-    bool const hasTrailTags = p->HasTag("sac_scale") || p->HasTag("trail_visibility") ||
-                              p->HasTag("ford") || p->HasTag("informal", "yes");
-    bool const hasUrbanTags = p->HasTag("footway") || p->HasTag("segregated") ||
-                              (p->HasTag("lit") && !p->HasTag("lit", "no"));
+    bool const hasTrailTags =
+        p->HasTag("sac_scale") || p->HasTag("trail_visibility") || p->HasTag("ford") || p->HasTag("informal", "yes");
+    bool const hasUrbanTags =
+        p->HasTag("footway") || p->HasTag("segregated") || (p->HasTag("lit") && !p->HasTag("lit", "no"));
 
     bool isFormed = !surface.empty() && Has(pavedSurfaces, surface);
     // Treat "compacted" and "fine_gravel" as formed when in good or default quality.
@@ -671,7 +662,8 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
     auto const ConvertTo = [&](string const & newType)
     {
       // TODO(@pastk): remove redundant tags, e.g. if converted to cycleway then remove "bicycle=yes".
-      LOG(LDEBUG, ("Convert", DebugPrintID(*p), "to", newType, isFormed, isGood, hasTrailTags, hasUrbanTags, p->m_tags));
+      LOG(LDEBUG,
+          ("Convert", DebugPrintID(*p), "to", newType, isFormed, isGood, hasTrailTags, hasUrbanTags, p->m_tags));
       p->UpdateTag("highway", newType);
     };
 
@@ -683,23 +675,18 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
         if (toPath ? !isFormed : isFormed)
           ConvertTo(toType);
       }
-      else
+      else if (hasQuality && !isMed)
       {
-        if (hasQuality && !isMed)
-        {
-          if (toPath ? !isGood : isGood)
-            ConvertTo(toType);
-        }
-        else if (toPath ? (hasTrailTags && !hasUrbanTags) : (!hasTrailTags && hasUrbanTags))
+        if (toPath ? !isGood : isGood)
           ConvertTo(toType);
       }
+      else if (toPath ? (hasTrailTags && !hasUrbanTags) : (!hasTrailTags && hasUrbanTags))
+        ConvertTo(toType);
     };
 
     if (highway == kCycleway)
     {
-      static base::StringIL segregatedSidewalks = {
-          "right", "left", "both"
-      };
+      static base::StringIL segregatedSidewalks = {"right", "left", "both"};
       if (p->HasTag("segregated", "yes") || Has(segregatedSidewalks, p->GetTag("sidewalk")))
       {
         LOG(LDEBUG, ("Add a separate footway to", DebugPrintID(*p), p->m_tags));
@@ -713,7 +700,7 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
           // A non-segregated shared footway/cycleway.
           ConvertTo(kFootway);
           p->AddTag("bicycle", "designated");
-          ConvertPathOrFootway(true /* toPath */); // In case its unpaved.
+          ConvertPathOrFootway(true /* toPath */);  // In case its unpaved.
         }
       }
     }
@@ -767,12 +754,10 @@ string DetermineSurfaceAndHighwayType(OsmElement * p)
     if (Has(midSmoothness, smoothness))
     {
       if (isPaved)
-      {
         if (highway == "motorway" || highway == "trunk")
           return {};
         else
           isGood = false;
-      }
       else
         isGood = !Has(badSurfaces, surface);
     }
@@ -800,14 +785,12 @@ string DeterminePathGrade(OsmElement * p)
   if (scale.empty() && visibility.empty())
     return {};
 
-  static base::StringIL expertScales = {
-      "alpine_hiking", "demanding_alpine_hiking", "difficult_alpine_hiking"
-  };
+  static base::StringIL expertScales = {"alpine_hiking", "demanding_alpine_hiking", "difficult_alpine_hiking"};
   static base::StringIL difficultVisibilities = {
-      "bad", "poor" // poor is not official
+      "bad", "poor"  // poor is not official
   };
   static base::StringIL expertVisibilities = {
-      "horrible", "no", "very_bad" // very_bad is not official
+      "horrible", "no", "very_bad"  // very_bad is not official
   };
 
   if (base::IsExist(expertScales, scale) || base::IsExist(expertVisibilities, visibility))
@@ -839,26 +822,26 @@ void PreprocessElement(OsmElement * p, CalculateOriginFnT const & calcOrg)
   /// @todo Rearrange processing code with accumulating tags for: PT, Surface, Cuisine, Artwork, Memorial, ...
   /// Process in separate components (with unit-tests), like DetermineSurface.
   TagProcessor(p).ApplyRules({
-      {"bridge", "yes", [&layer] { layer = "1"; }},
-      {"tunnel", "yes", [&layer] { layer = "-1"; }},
-      {"layer", "*", [&hasLayer] { hasLayer = true; }},
+      {          "bridge",             "yes",                    [&layer] { layer = "1"; }},
+      {          "tunnel",             "yes",                   [&layer] { layer = "-1"; }},
+      {           "layer",               "*",             [&hasLayer] { hasLayer = true; }},
 
-      {"railway", "subway_entrance", [&isSubway] { isSubway = true; }},
-      {"public_transport", "platform", [&isPlatform] { isPlatform = true; }},
-      {"public_transport", "stop_position", [&isStopPosition] { isStopPosition = true; }},
-      {"bus", "yes", [&isBus] { isBus = true; }},
-      {"trolleybus", "yes", [&isBus] { isBus = true; }},
-      {"tram", "yes", [&isTram] { isTram = true; }},
-      {"funicular", "yes", [&isFunicular] { isFunicular = true; }},
+      {         "railway", "subway_entrance",             [&isSubway] { isSubway = true; }},
+      {"public_transport",        "platform",         [&isPlatform] { isPlatform = true; }},
+      {"public_transport",   "stop_position", [&isStopPosition] { isStopPosition = true; }},
+      {             "bus",             "yes",                   [&isBus] { isBus = true; }},
+      {      "trolleybus",             "yes",                   [&isBus] { isBus = true; }},
+      {            "tram",             "yes",                 [&isTram] { isTram = true; }},
+      {       "funicular",             "yes",       [&isFunicular] { isFunicular = true; }},
 
       /// @todo Unfortunately, it's not working in many cases (route=subway, transport=subway).
       /// Actually, it's better to process subways after feature types assignment.
-      {"station", "subway", [&isSubway] { isSubway = true; }},
-      {"station", "light_rail", [&isLightRail] { isLightRail = true; }},
+      {         "station",          "subway",             [&isSubway] { isSubway = true; }},
+      {         "station",      "light_rail",       [&isLightRail] { isLightRail = true; }},
 
-      {"capital", "yes", [&isCapital] { isCapital = true; }},
+      {         "capital",             "yes",           [&isCapital] { isCapital = true; }},
 
-      {"type", "multipolygon", [&isMultipolygon] { isMultipolygon = true; }},
+      {            "type",    "multipolygon", [&isMultipolygon] { isMultipolygon = true; }},
   });
 
   if (!hasLayer && layer)
@@ -1032,10 +1015,8 @@ bool IsCarDesignatedHighway(uint32_t type)
   {
   case ftypes::IsWayChecker::Motorway:
   case ftypes::IsWayChecker::Regular:
-  case ftypes::IsWayChecker::Minors:
-    return true;
-  default:
-    return false;
+  case ftypes::IsWayChecker::Minors: return true;
+  default: return false;
   }
 }
 
@@ -1053,10 +1034,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 {
   static CachedTypes const types;
 
-  auto const AddParam = [&params](ftype::CachedTypes::Type type)
-  {
-    params.AddType(types.Get(type));
-  };
+  auto const AddParam = [&params](ftype::CachedTypes::Type type) { params.AddType(types.Get(type)); };
 
   if (!params.house.IsEmpty())
   {
@@ -1067,8 +1045,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
     {
       /// @todo Make a function like HaveAddressLikeType ?
       ftype::TruncValue(t, 1);
-      if (t != types.Get(CachedTypes::WheelchairAny) &&
-          t != types.Get(CachedTypes::InternetAny))
+      if (t != types.Get(CachedTypes::WheelchairAny) && t != types.Get(CachedTypes::InternetAny))
       {
         hasSuitableType = true;
         break;
@@ -1092,15 +1069,14 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           }
         }
       }
-      exit:;
+    exit:;
     }
   }
 
   // Process yes/no tags.
   TagProcessor(p).ApplyRules({
-      {"wheelchair", "designated",
-       [&AddParam] { AddParam(CachedTypes::WheelchairYes); }},
-      {"wifi", "~", [&AddParam] { AddParam(CachedTypes::Wlan); }},
+      {"wheelchair", "designated", [&AddParam] { AddParam(CachedTypes::WheelchairYes); }},
+      {      "wifi",          "~",          [&AddParam] { AddParam(CachedTypes::Wlan); }},
   });
 
   bool highwayDone = false;
@@ -1115,8 +1091,20 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
   // Foot attr is stronger than Sidewalk,
   // Bicycle attr is stronger than Cycleway,
   // MotorCar attr is stronger than MotorVehicle.
-  struct Flags { enum Type { Foot = 0, Sidewalk, Bicycle, Cycleway, MotorCar, MotorVehicle, Count }; };
-  int flags[Flags::Count] = {0}; // 1 for Yes, -1 for No, 0 for Undefined
+  struct Flags
+  {
+    enum Type
+    {
+      Foot = 0,
+      Sidewalk,
+      Bicycle,
+      Cycleway,
+      MotorCar,
+      MotorVehicle,
+      Count
+    };
+  };
+  int flags[Flags::Count] = {0};  // 1 for Yes, -1 for No, 0 for Undefined
 
   for (uint32_t const vType : vTypes)
   {
@@ -1129,15 +1117,16 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"oneway", "yes", [&addOneway] { addOneway = true; }},
           {"oneway", "1", [&addOneway] { addOneway = true; }},
           {"oneway", "-1",
-           [&addOneway, &params] {
-             addOneway = true;
-             params.SetReversedGeometry(true);
-           }},
+           [&addOneway, &params]
+      {
+        addOneway = true;
+        params.SetReversedGeometry(true);
+      }},
           {"oneway", "!", [&noOneway] { noOneway = true; }},
-// Unlike "roundabout", "circular" is not assumed to force oneway=yes
-// (https://wiki.openstreetmap.org/wiki/Tag:junction%3Dcircular), but!
-// There are a lot of junction=circular without oneway tag, which is a mapping error (run overpass under England).
-// And most of this junctions are assumed to be oneway.
+          // Unlike "roundabout", "circular" is not assumed to force oneway=yes
+          // (https://wiki.openstreetmap.org/wiki/Tag:junction%3Dcircular), but!
+          // There are a lot of junction=circular without oneway tag, which is a mapping error (run overpass under
+          // England). And most of this junctions are assumed to be oneway.
           {"junction", "circular", [&addOneway] { addOneway = true; }},
           {"junction", "roundabout", [&addOneway] { addOneway = true; }},
 
@@ -1188,9 +1177,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       if (addOneway && !noOneway)
         params.AddType(types.Get(CachedTypes::OneWay));
 
-      auto const ApplyFlag = [&flags, &AddParam](Flags::Type f, CachedTypes::Type yes,
-                                                 CachedTypes::Type no0, CachedTypes::Type no1,
-                                                 bool isDesignated)
+      auto const ApplyFlag = [&flags, &AddParam](Flags::Type f, CachedTypes::Type yes, CachedTypes::Type no0,
+                                                 CachedTypes::Type no1, bool isDesignated)
       {
         if (flags[f] == 1 && !isDesignated)
           AddParam(yes);
@@ -1218,32 +1206,34 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       bool noMotorFerry = false;
 
       TagProcessor(p).ApplyRules({
-          {"foot", "!", [&AddParam] { AddParam(CachedTypes::NoFoot); }},
-          {"foot", "~", [&AddParam] { AddParam(CachedTypes::YesFoot); }},
-          {"ferry", "footway", [&AddParam] { AddParam(CachedTypes::YesFoot); }},
-          {"ferry", "pedestrian", [&AddParam] { AddParam(CachedTypes::YesFoot); }},
-          {"ferry", "path", [&params] {
-             params.AddType(types.Get(CachedTypes::YesFoot));
-             params.AddType(types.Get(CachedTypes::YesBicycle));
-          }},
+          {         "foot",            "!",[&AddParam] { AddParam(CachedTypes::NoFoot); }                                           },
+          {         "foot",            "~",    [&AddParam] { AddParam(CachedTypes::YesFoot); }},
+          {        "ferry",      "footway",    [&AddParam] { AddParam(CachedTypes::YesFoot); }},
+          {        "ferry",   "pedestrian",    [&AddParam] { AddParam(CachedTypes::YesFoot); }},
+          {        "ferry",         "path",
+           [&params]
+           {
+           params.AddType(types.Get(CachedTypes::YesFoot));
+           params.AddType(types.Get(CachedTypes::YesBicycle));
+           }                                                                                  },
 
-          {"bicycle", "!", [&AddParam] { AddParam(CachedTypes::NoBicycle); }},
-          {"bicycle", "~", [&AddParam] { AddParam(CachedTypes::YesBicycle); }},
+          {      "bicycle",            "!",  [&AddParam] { AddParam(CachedTypes::NoBicycle); }},
+          {      "bicycle",            "~", [&AddParam] { AddParam(CachedTypes::YesBicycle); }},
 
           // Check for explicit no-tag.
-          {"motor_vehicle", "!", [&noMotorFerry] { noMotorFerry = true; }},
-          {"motorcar", "!", [&noMotorFerry] { noMotorFerry = true; }},
+          {"motor_vehicle",            "!",           [&noMotorFerry] { noMotorFerry = true; }},
+          {     "motorcar",            "!",           [&noMotorFerry] { noMotorFerry = true; }},
 
-          {"motor_vehicle", "yes", [&yesMotorFerry] { yesMotorFerry = true; }},
-          {"motorcar", "yes", [&yesMotorFerry] { yesMotorFerry = true; }},
-          {"ferry", "trunk", [&yesMotorFerry] { yesMotorFerry = true; }},
-          {"ferry", "primary", [&yesMotorFerry] { yesMotorFerry = true; }},
-          {"ferry", "secondary", [&yesMotorFerry] { yesMotorFerry = true; }},
-          {"ferry", "tertiary", [&yesMotorFerry] { yesMotorFerry = true; }},
-          {"ferry", "residential", [&yesMotorFerry] { yesMotorFerry = true; }},
-          {"ferry", "service", [&yesMotorFerry] { yesMotorFerry = true; }},
-          {"ferry", "unclassified", [&yesMotorFerry] { yesMotorFerry = true; }},
-          {"ferry", "track", [&yesMotorFerry] { yesMotorFerry = true; }},
+          {"motor_vehicle",          "yes",         [&yesMotorFerry] { yesMotorFerry = true; }},
+          {     "motorcar",          "yes",         [&yesMotorFerry] { yesMotorFerry = true; }},
+          {        "ferry",        "trunk",         [&yesMotorFerry] { yesMotorFerry = true; }},
+          {        "ferry",      "primary",         [&yesMotorFerry] { yesMotorFerry = true; }},
+          {        "ferry",    "secondary",         [&yesMotorFerry] { yesMotorFerry = true; }},
+          {        "ferry",     "tertiary",         [&yesMotorFerry] { yesMotorFerry = true; }},
+          {        "ferry",  "residential",         [&yesMotorFerry] { yesMotorFerry = true; }},
+          {        "ferry",      "service",         [&yesMotorFerry] { yesMotorFerry = true; }},
+          {        "ferry", "unclassified",         [&yesMotorFerry] { yesMotorFerry = true; }},
+          {        "ferry",        "track",         [&yesMotorFerry] { yesMotorFerry = true; }},
       });
 
       // Car routing for ferries should be explicitly defined.
@@ -1257,26 +1247,24 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
     if (!subwayDone && types.IsSubwayStation(vType))
     {
       TagProcessor(p).ApplyRules({
-          {"network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
-          {"network", "New York City Subway", [&params] { params.SetRwSubwayType("newyork"); }},
-          {"network", "Московский метрополитен", [&params] { params.SetRwSubwayType("moscow"); }},
-          {"network", "Петербургский метрополитен", [&params] { params.SetRwSubwayType("spb"); }},
-          {"network", "Verkehrsverbund Berlin-Brandenburg",
-           [&params] { params.SetRwSubwayType("berlin"); }},
-          {"network", "Минский метрополитен", [&params] { params.SetRwSubwayType("minsk"); }},
+          { "network",                 "London Underground",    [&params] { params.SetRwSubwayType("london"); }},
+          { "network",               "New York City Subway",   [&params] { params.SetRwSubwayType("newyork"); }},
+          { "network",            "Московский метрополитен",    [&params] { params.SetRwSubwayType("moscow"); }},
+          { "network",         "Петербургский метрополитен",       [&params] { params.SetRwSubwayType("spb"); }},
+          { "network", "Verkehrsverbund Berlin-Brandenburg",    [&params] { params.SetRwSubwayType("berlin"); }},
+          { "network",               "Минский метрополитен",     [&params] { params.SetRwSubwayType("minsk"); }},
 
-          {"network", "Київський метрополітен", [&params] { params.SetRwSubwayType("kiev"); }},
-          {"operator", "КП «Київський метрополітен»",
-           [&params] { params.SetRwSubwayType("kiev"); }},
+          { "network",             "Київський метрополітен",      [&params] { params.SetRwSubwayType("kiev"); }},
+          {"operator",        "КП «Київський метрополітен»",      [&params] { params.SetRwSubwayType("kiev"); }},
 
-          {"network", "RATP", [&params] { params.SetRwSubwayType("paris"); }},
-          {"network", "Metro de Barcelona", [&params] { params.SetRwSubwayType("barcelona"); }},
+          { "network",                               "RATP",     [&params] { params.SetRwSubwayType("paris"); }},
+          { "network",                 "Metro de Barcelona", [&params] { params.SetRwSubwayType("barcelona"); }},
 
-          {"network", "Metro de Madrid", [&params] { params.SetRwSubwayType("madrid"); }},
-          {"operator", "Metro de Madrid", [&params] { params.SetRwSubwayType("madrid"); }},
+          { "network",                    "Metro de Madrid",    [&params] { params.SetRwSubwayType("madrid"); }},
+          {"operator",                    "Metro de Madrid",    [&params] { params.SetRwSubwayType("madrid"); }},
 
-          {"network", "Metropolitana di Roma", [&params] { params.SetRwSubwayType("roma"); }},
-          {"network", "ATAC", [&params] { params.SetRwSubwayType("roma"); }},
+          { "network",              "Metropolitana di Roma",      [&params] { params.SetRwSubwayType("roma"); }},
+          { "network",                               "ATAC",      [&params] { params.SetRwSubwayType("roma"); }},
       });
 
       subwayDone = true;
@@ -1294,8 +1282,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 }
 }  // namespace
 
-void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
-                    TypesFilterFnT const & filterType, CalculateOriginFnT const & calcOrg)
+void GetNameAndType(OsmElement * p, FeatureBuilderParams & params, TypesFilterFnT const & filterType,
+                    CalculateOriginFnT const & calcOrg)
 {
   // At this point, some preprocessing could've been done to the tags already
   // in TranslatorInterface::Preprocess(), e.g. converting tags according to replaced_tags.txt.
@@ -1312,89 +1300,60 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   std::string houseName, houseNumber, conscriptionHN, streetHN, addrPostcode;
   std::string addrCity, addrSuburb;
   feature::AddressData addr;
-  TagProcessor(p).ApplyRules<void(string &, string &)>(
-  {
-      {"addr:housenumber", "*", [&houseNumber](string & k, string & v)
-      {
-        houseNumber = std::move(v);
-      }},
-      {"addr:conscriptionnumber", "*", [&conscriptionHN](string & k, string & v)
-      {
-        conscriptionHN = std::move(v);
-      }},
-      {"addr:provisionalnumber", "*", [&conscriptionHN](string & k, string & v)
-      {
-        conscriptionHN = std::move(v);
-      }},
-      {"addr:streetnumber", "*", [&streetHN](string & k, string & v)
-      {
-        streetHN = std::move(v);
-      }},
-      {"contact:housenumber", "*", [&houseNumber](string & k, string & v)
-      {
-        if (houseNumber.empty())
-          houseNumber = std::move(v);
-      }},
-      {"addr:housename", "*", [&houseName](string & k, string & v)
-      {
-        houseName = std::move(v);
-      }},
-      {"addr:street", "*", [&addr](string & k, string & v)
-      {
-        addr.Set(feature::AddressData::Type::Street, std::move(v));
-      }},
-      {"contact:street", "*", [&addr](string & k, string & v)
-      {
-        addr.SetIfAbsent(feature::AddressData::Type::Street, std::move(v));
-      }},
-      {"addr:place", "*", [&addr](string & k, string & v)
-      {
-        addr.Set(feature::AddressData::Type::Place, std::move(v));
-      }},
-      {"addr:city", "*", [&addrCity](string & k, string & v)
-       {
-         addrCity = std::move(v);
-      }},
-      {"addr:suburb", "*", [&addrSuburb](string & k, string & v)
-      {
-        addrSuburb = std::move(v);
-      }},
-      {"addr:postcode", "*", [&addrPostcode](string & k, string & v)
-      {
-        addrPostcode = std::move(v);
-      }},
-      {"postal_code", "*", [&addrPostcode](string & k, string & v)
-      {
-        addrPostcode = std::move(v);
-      }},
-      {"contact:postcode", "*", [&addrPostcode](string & k, string & v)
-      {
-        if (addrPostcode.empty())
-          addrPostcode = std::move(v);
-      }},
-      {"population", "*", [&params](string & k, string & v)
-      {
-        // Get population rank.
-        uint64_t const population = generator::osm_element::GetPopulation(v);
-        if (population != 0)
-          params.rank = feature::PopulationToRank(population);
-      }},
-      {"ref", "*", [&params](string & k, string & v)
-      {
-        // Get reference; its used for selected types only, see FeatureBuilder::PreSerialize().
-        params.ref = std::move(v);
-      }},
-      {"layer", "*", [&params](string & k, string & v)
-      {
-        // Get layer.
-        if (params.layer == feature::LAYER_EMPTY)
-        {
-          // atoi error value (0) should match empty layer constant.
-          static_assert(feature::LAYER_EMPTY == 0);
-          params.layer = atoi(v.c_str());
-          params.layer = math::Clamp(params.layer, int8_t{feature::LAYER_LOW}, int8_t{feature::LAYER_HIGH});
-        }
-      }},
+  TagProcessor(p).ApplyRules<void(string &, string &)>({
+      {       "addr:housenumber", "*",[&houseNumber](string & k,                                         string & v) { houseNumber = std::move(v); }                                      },
+      {"addr:conscriptionnumber", "*", [&conscriptionHN](string & k,                                      string & v) { conscriptionHN = std::move(v); }},
+      { "addr:provisionalnumber", "*", [&conscriptionHN](string & k,                                      string & v) { conscriptionHN = std::move(v); }},
+      {      "addr:streetnumber", "*",       [&streetHN](string & k,                                            string & v) { streetHN = std::move(v); }},
+      {    "contact:housenumber", "*",
+       [&houseNumber](string & k,                                                                                  string & v)
+                                                                                  {
+                                                                                  if (houseNumber.empty())
+                                                                                  houseNumber = std::move(v);
+                                                                                  }                                    },
+      {         "addr:housename", "*",      [&houseName](string & k,                                           string & v) { houseName = std::move(v); }},
+      {            "addr:street", "*",
+       [&addr](string & k,         string & v) { addr.Set(feature::AddressData::Type::Street, std::move(v)); }                                          },
+      {         "contact:street", "*",
+       [&addr](string & k, string & v) { addr.SetIfAbsent(feature::AddressData::Type::Street, std::move(v)); }                                          },
+      {             "addr:place", "*",
+       [&addr](string & k,          string & v) { addr.Set(feature::AddressData::Type::Place, std::move(v)); }                                          },
+      {              "addr:city", "*",       [&addrCity](string & k,                                            string & v) { addrCity = std::move(v); }},
+      {            "addr:suburb", "*",     [&addrSuburb](string & k,                                          string & v) { addrSuburb = std::move(v); }},
+      {          "addr:postcode", "*",   [&addrPostcode](string & k,                                        string & v) { addrPostcode = std::move(v); }},
+      {            "postal_code", "*",   [&addrPostcode](string & k,                                        string & v) { addrPostcode = std::move(v); }},
+      {       "contact:postcode", "*",
+       [&addrPostcode](string & k,                                                                                  string & v)
+                                                                                  {
+                                                                                  if (addrPostcode.empty())
+                                                                                  addrPostcode = std::move(v);
+                                                                                  }                                   },
+      {             "population", "*",
+       [&params](string & k,                                                                                  string & v)
+                                                                                  {
+                                                                                  // Get population rank.
+                                                                                  uint64_t const population = generator::osm_element::GetPopulation(v);
+                                                                                  if (population != 0)
+                                                                                  params.rank = feature::PopulationToRank(population);
+                                                                                  }                                         },
+      {                    "ref", "*",
+       [&params](string & k,                                                                                  string & v)
+                                                                                  {
+                                                                                  // Get reference; its used for selected types only, see FeatureBuilder::PreSerialize().
+                                                                                  params.ref = std::move(v);
+                                                                                  }                                         },
+      {                  "layer", "*",
+       [&params](string & k,                                                                                  string & v)
+                                                                                  {
+                                                                                  // Get layer.
+                                                                                  if (params.layer == feature::LAYER_EMPTY)
+                                                                                  {
+                                                                                  // atoi error value (0) should match empty layer constant.
+                                                                                  static_assert(feature::LAYER_EMPTY == 0);
+                                                                                  params.layer = atoi(v.c_str());
+                                                                                  params.layer = math::Clamp(params.layer, int8_t{feature::LAYER_LOW}, int8_t{feature::LAYER_HIGH});
+                                                                                  }
+                                                                                  }                                         },
   });
 
   // OSM consistency check with house numbers.
@@ -1408,7 +1367,8 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
       auto i = houseNumber.find('/');
       if (i == std::string::npos)
       {
-        LOG(LWARNING, (kHNLogTag, "Override housenumber for:", DebugPrintID(*p), houseNumber, conscriptionHN, streetHN));
+        LOG(LWARNING,
+            (kHNLogTag, "Override housenumber for:", DebugPrintID(*p), houseNumber, conscriptionHN, streetHN));
         houseNumber = conscriptionHN + "/" + streetHN;
       }
     }
@@ -1434,6 +1394,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
       class CityBBox
       {
         std::vector<m2::RectD> m_rects;
+
       public:
         CityBBox()
         {
@@ -1446,10 +1407,8 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
         {
           auto const ll = mercator::ToLatLon(pt);
           for (auto const & r : m_rects)
-          {
             if (r.IsPointInside({ll.m_lon, ll.m_lat}))
               return true;
-          }
           return false;
         }
       };
@@ -1468,17 +1427,14 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params,
   params.SetHouseNumberAndHouseName(std::move(houseNumber), std::move(houseName));
 
   // Fetch piste:name and piste:ref if there are no other name/ref values.
-  TagProcessor(p).ApplyRules<void(string &, string &)>(
-  {
-      {"piste:ref", "*", [&params](string & k, string & v)
-      {
-        if (params.ref.empty())
-          params.ref = std::move(v);
-      }},
-      {"piste:name", "*", [&params](string & k, string & v)
-      {
-        params.SetDefaultNameIfEmpty(std::move(v));
-      }},
+  TagProcessor(p).ApplyRules<void(string &, string &)>({
+      { "piste:ref", "*",
+       [&params](string & k,                                                          string & v)
+                                                          {
+                                                          if (params.ref.empty())
+                                                          params.ref = std::move(v);
+                                                          }                    },
+      {"piste:name", "*", [&params](string & k, string & v) { params.SetDefaultNameIfEmpty(std::move(v)); }},
   });
 
   // Stage4: Match tags to classificator feature types via mapcss-mapping.csv.

@@ -18,18 +18,14 @@ uint32_t constexpr GetMask(uint8_t bitsCount)
 }
 }  // namespace
 
-TileKey::TileKey()
-  : m_x(-1), m_y(-1),
-    m_zoomLevel(0),
-    m_generation(0),
-    m_userMarksGeneration(0)
-{}
+TileKey::TileKey() : m_x(-1), m_y(-1), m_zoomLevel(0), m_generation(0), m_userMarksGeneration(0) {}
 
 TileKey::TileKey(int x, int y, uint8_t zoomLevel)
-  : m_x(x), m_y(y),
-    m_zoomLevel(zoomLevel),
-    m_generation(0),
-    m_userMarksGeneration(0)
+  : m_x(x)
+  , m_y(y)
+  , m_zoomLevel(zoomLevel)
+  , m_generation(0)
+  , m_userMarksGeneration(0)
 {}
 
 TileKey::TileKey(TileKey const & key, uint64_t generation, uint64_t userMarksGeneration)
@@ -40,7 +36,7 @@ TileKey::TileKey(TileKey const & key, uint64_t generation, uint64_t userMarksGen
   , m_userMarksGeneration(userMarksGeneration)
 {}
 
-bool TileKey::operator <(TileKey const & other) const
+bool TileKey::operator<(TileKey const & other) const
 {
   if (m_zoomLevel != other.m_zoomLevel)
     return m_zoomLevel < other.m_zoomLevel;
@@ -51,11 +47,9 @@ bool TileKey::operator <(TileKey const & other) const
   return m_x < other.m_x;
 }
 
-bool TileKey::operator ==(TileKey const & other) const
+bool TileKey::operator==(TileKey const & other) const
 {
-  return m_x == other.m_x &&
-         m_y == other.m_y &&
-         m_zoomLevel == other.m_zoomLevel;
+  return m_x == other.m_x && m_y == other.m_y && m_zoomLevel == other.m_zoomLevel;
 }
 
 bool TileKey::LessStrict(TileKey const & other) const
@@ -77,11 +71,8 @@ bool TileKey::LessStrict(TileKey const & other) const
 
 bool TileKey::EqualStrict(TileKey const & other) const
 {
-  return m_x == other.m_x &&
-         m_y == other.m_y &&
-         m_zoomLevel == other.m_zoomLevel &&
-         m_generation == other.m_generation &&
-         m_userMarksGeneration == other.m_userMarksGeneration;
+  return m_x == other.m_x && m_y == other.m_y && m_zoomLevel == other.m_zoomLevel &&
+         m_generation == other.m_generation && m_userMarksGeneration == other.m_userMarksGeneration;
 }
 
 m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
@@ -135,8 +126,7 @@ uint64_t TileKey::GetHashValue(BatcherBucket bucket) const
   auto const umg = static_cast<uint64_t>(m_userMarksGeneration % kGenerationMod);
   auto const g = static_cast<uint64_t>(m_generation % kGenerationMod);
 
-  auto const hash = x | (y << kCoordsBits) | (zoom << (2 * kCoordsBits)) |
-                    (umg << (2 * kCoordsBits + kZoomBits)) |
+  auto const hash = x | (y << kCoordsBits) | (zoom << (2 * kCoordsBits)) | (umg << (2 * kCoordsBits + kZoomBits)) |
                     (g << (2 * kCoordsBits + kZoomBits + kGenerationBits));
 
   return (hash << kBucketBits) | (static_cast<uint64_t>(bucket) & kBucketMask);
@@ -155,9 +145,8 @@ std::string TileKey::Coord2String() const
 std::string DebugPrint(TileKey const & key)
 {
   std::ostringstream out;
-  out << "{ x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = "
-      << (int)key.m_zoomLevel << ", gen = " << key.m_generation
-      << ", user marks gen = " << key.m_userMarksGeneration << " }";
+  out << "{ x = " << key.m_x << ", y = " << key.m_y << ", zoomLevel = " << (int)key.m_zoomLevel
+      << ", gen = " << key.m_generation << ", user marks gen = " << key.m_userMarksGeneration << " }";
   return out.str();
 }
 }  // namespace df

@@ -18,8 +18,7 @@ using namespace std;
 namespace
 {
 class TracerTest : public SearchTest
-{
-};
+{};
 
 UNIT_CLASS_TEST(TracerTest, Smoke)
 {
@@ -28,12 +27,12 @@ UNIT_CLASS_TEST(TracerTest, Smoke)
   TestCity moscow(m2::PointD(0, 0), "Moscow", "en", 100 /* rank */);
   TestCafe regularCafe(m2::PointD(0, 0));
   TestCafe moscowCafe(m2::PointD(0, 0), "Moscow", "en");
-  TestStreet tverskaya(vector<m2::PointD>{m2::PointD(0, 0), m2::PointD(0, 1)}, "Tverskaya street",
-                       "en");
+  TestStreet tverskaya(vector<m2::PointD>{m2::PointD(0, 0), m2::PointD(0, 1)}, "Tverskaya street", "en");
 
   BuildWorld([&](TestMwmBuilder & builder) { builder.Add(moscow); });
 
-  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
+  auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
     builder.Add(regularCafe);
     builder.Add(moscowCafe);
     builder.Add(tverskaya);
@@ -57,10 +56,11 @@ UNIT_CLASS_TEST(TracerTest, Smoke)
     auto const actual = tracer->GetUniqueParses();
 
     vector<Tracer::Parse> const expected{
-        Tracer::Parse{{{TokenType::TOKEN_TYPE_SUBPOI, TokenRange(0, 2)}}, false /* category */},
-        Tracer::Parse{{{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)},
-                       {TokenType::TOKEN_TYPE_SUBPOI, TokenRange(1, 2)}},
-                      true /* category */}};
+        Tracer::Parse{                          {{TokenType::TOKEN_TYPE_SUBPOI, TokenRange(0, 2)}},false /* category */                    },
+        Tracer::Parse{
+                      {{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)}, {TokenType::TOKEN_TYPE_SUBPOI, TokenRange(1, 2)}},
+                      true /* category */}
+    };
 
     TEST_EQUAL(expected, actual, ());
   }
@@ -77,9 +77,9 @@ UNIT_CLASS_TEST(TracerTest, Smoke)
     auto const actual = tracer->GetUniqueParses();
     // Unrecognized tokens are not included into the parses.
     vector<Tracer::Parse> const expected{
-        Tracer::Parse{{{TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}}, false /* category */},
-        Tracer::Parse{{{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)},
-                       {TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}},
+        Tracer::Parse{                          {{TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}},false /* category */                     },
+        Tracer::Parse{
+                      {{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)}, {TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}},
                       false /* category */},
     };
 

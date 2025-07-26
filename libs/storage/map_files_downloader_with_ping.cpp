@@ -10,7 +10,7 @@ namespace storage
 {
 void MapFilesDownloaderWithPing::GetMetaConfig(MetaConfigCallback const & callback)
 {
-  ASSERT(callback , ());
+  ASSERT(callback, ());
 
   MetaConfig metaConfig = LoadMetaConfig();
   CHECK(!metaConfig.m_serversList.empty(), ());

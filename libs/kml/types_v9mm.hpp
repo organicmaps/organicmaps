@@ -10,20 +10,13 @@ MultiGeometry mergeGeometry(std::vector<MultiGeometry> && aGeometries);
 
 struct TrackDataV9MM : TrackDataV8MM
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(TrackDataV9MM, visitor(m_id, "id"),
-                                  visitor(m_localId, "localId"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_layers, "layers"),
-                                  visitor(m_timestamp, "timestamp"),
-                                  visitor(m_multiGeometry, "multiGeometry"), // V9MM introduced multiGeometry instead of a single one
-                                  visitor(m_visible, "visible"),
-                                  visitor(m_constant1, "constant1"),
-                                  visitor(m_constant2, "constant2"),
-                                  visitor(m_constant3, "constant3"),
-                                  visitor(m_nearestToponyms, "nearestToponyms"),
-                                  visitor(m_properties, "properties"),
-                                  VISITOR_COLLECTABLE)
+  DECLARE_VISITOR_AND_DEBUG_PRINT(
+      TrackDataV9MM, visitor(m_id, "id"), visitor(m_localId, "localId"), visitor(m_name, "name"),
+      visitor(m_description, "description"), visitor(m_layers, "layers"), visitor(m_timestamp, "timestamp"),
+      visitor(m_multiGeometry, "multiGeometry"),  // V9MM introduced multiGeometry instead of a single one
+      visitor(m_visible, "visible"), visitor(m_constant1, "constant1"), visitor(m_constant2, "constant2"),
+      visitor(m_constant3, "constant3"), visitor(m_nearestToponyms, "nearestToponyms"),
+      visitor(m_properties, "properties"), VISITOR_COLLECTABLE)
 
   DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_nearestToponyms, m_properties)
 
@@ -45,7 +38,6 @@ struct TrackDataV9MM : TrackDataV8MM
 
   std::vector<MultiGeometry> m_multiGeometry;
 };
-
 
 // Contains the same sections as FileDataV8MM but with changed m_tracksData format
 using FileDataV9MM = FileDataMMImpl<TrackDataV9MM>;

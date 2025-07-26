@@ -34,7 +34,10 @@ std::string AddSlashIfNeeded(std::string const & path);
 
 namespace impl
 {
-inline std::string JoinPath(std::string const & file) { return file; }
+inline std::string JoinPath(std::string const & file)
+{
+  return file;
+}
 
 template <typename... Args>
 std::string JoinPath(std::string const & folder, Args &&... args)

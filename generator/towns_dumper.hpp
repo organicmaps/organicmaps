@@ -27,9 +27,11 @@ private:
     uint64_t population;
 
     Town(double lat, double lon, uint64_t id, bool isCapital, uint64_t population)
-      : point(lat, lon), id(id), capital(isCapital), population(population)
-    {
-    }
+      : point(lat, lon)
+      , id(id)
+      , capital(isCapital)
+      , population(population)
+    {}
 
     bool operator<(Town const & rhs) const { return population < rhs.population; }
     m2::RectD GetLimitRect() const

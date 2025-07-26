@@ -60,11 +60,9 @@ public:
   // This constructor is for testing only.
   // TODO: Do not compile it for production. Either use a static method or derive it in tests.
   Settings(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
-           uint32_t maxNotificationDistanceUnits, uint32_t startBeforeSeconds,
-           uint32_t minStartBeforeMeters, uint32_t maxStartBeforeMeters,
-           uint32_t minDistToSayNotificationMeters,
-           std::vector<uint32_t> const & soundedDistancesUnits,
-           measurement_utils::Units lengthUnits)
+           uint32_t maxNotificationDistanceUnits, uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
+           uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters,
+           std::vector<uint32_t> const & soundedDistancesUnits, measurement_utils::Units lengthUnits)
     : m_timeSeconds(notificationTimeSeconds)
     , m_minDistanceUnits(minNotificationDistanceUnits)
     , m_maxDistanceUnits(maxNotificationDistanceUnits)
@@ -93,12 +91,10 @@ public:
     , m_maxStartBeforeMetersPedestrian(maxStartBeforeMetersPedestrian)
     , m_minDistToSayNotificationMeters(minDistToSayNotificationMeters)
     , m_lengthUnits(measurement_utils::Units::Metric)
-  {
-  }
+  {}
 
   void SetState(uint32_t notificationTimeSeconds, uint32_t minNotificationDistanceUnits,
-                uint32_t maxNotificationDistanceUnits,
-                std::vector<uint32_t> const & soundedDistancesUnits,
+                uint32_t maxNotificationDistanceUnits, std::vector<uint32_t> const & soundedDistancesUnits,
                 measurement_utils::Units lengthUnits);
 
   /// \brief IsValid checks if Settings data is consistent.
@@ -160,8 +156,7 @@ struct Notification
     , m_turnDir(turnDir)
     , m_lengthUnits(lengthUnits)
     , m_nextStreetInfo(nextStreetInfo)
-  {
-  }
+  {}
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance, CarDirection turnDir,
                measurement_utils::Units lengthUnits)
@@ -170,20 +165,18 @@ struct Notification
     , m_useThenInsteadOfDistance(useThenInsteadOfDistance)
     , m_turnDir(turnDir)
     , m_lengthUnits(lengthUnits)
-  {
-  }
+  {}
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-               PedestrianDirection turnDirPedestrian, measurement_utils::Units lengthUnits
-    , RouteSegment::RoadNameInfo const & nextStreetInfo)
+               PedestrianDirection turnDirPedestrian, measurement_utils::Units lengthUnits,
+               RouteSegment::RoadNameInfo const & nextStreetInfo)
     : m_distanceUnits(distanceUnits)
     , m_exitNum(exitNum)
     , m_useThenInsteadOfDistance(useThenInsteadOfDistance)
     , m_turnDirPedestrian(turnDirPedestrian)
     , m_lengthUnits(lengthUnits)
     , m_nextStreetInfo(nextStreetInfo)
-  {
-  }
+  {}
 
   Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
                PedestrianDirection turnDirPedestrian, measurement_utils::Units lengthUnits)
@@ -192,8 +185,7 @@ struct Notification
     , m_useThenInsteadOfDistance(useThenInsteadOfDistance)
     , m_turnDirPedestrian(turnDirPedestrian)
     , m_lengthUnits(lengthUnits)
-  {
-  }
+  {}
 
   bool operator==(Notification const & rhv) const
   {
@@ -203,10 +195,7 @@ struct Notification
            m_nextStreetInfo == rhv.m_nextStreetInfo;
   }
 
-  bool IsPedestrianNotification() const
-  {
-    return m_turnDirPedestrian != PedestrianDirection::None;
-  }
+  bool IsPedestrianNotification() const { return m_turnDirPedestrian != PedestrianDirection::None; }
 };
 
 std::string DebugPrint(Notification const & turnGeom);

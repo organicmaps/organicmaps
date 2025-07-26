@@ -21,9 +21,10 @@ using namespace std;
 LocalCountryFile::LocalCountryFile() : m_version(0) {}
 
 LocalCountryFile::LocalCountryFile(string directory, CountryFile countryFile, int64_t version)
-: m_directory(std::move(directory)), m_countryFile(std::move(countryFile)), m_version(version)
-{
-}
+  : m_directory(std::move(directory))
+  , m_countryFile(std::move(countryFile))
+  , m_version(version)
+{}
 
 void LocalCountryFile::SyncWithDisk()
 {
@@ -76,8 +77,7 @@ uint64_t LocalCountryFile::GetSize(MapFileType type) const
 
 bool LocalCountryFile::HasFiles() const
 {
-  return std::any_of(m_files.cbegin(), m_files.cend(),
-                     [](auto const & value) { return value.has_value(); });
+  return std::any_of(m_files.cbegin(), m_files.cend(), [](auto const & value) { return value.has_value(); });
 }
 
 bool LocalCountryFile::OnDisk(MapFileType type) const
@@ -102,8 +102,8 @@ bool LocalCountryFile::operator<(LocalCountryFile const & rhs) const
 
 bool LocalCountryFile::operator==(LocalCountryFile const & rhs) const
 {
-  return m_directory == rhs.m_directory && m_countryFile == rhs.m_countryFile &&
-         m_version == rhs.m_version && m_files == rhs.m_files;
+  return m_directory == rhs.m_directory && m_countryFile == rhs.m_countryFile && m_version == rhs.m_version &&
+         m_files == rhs.m_files;
 }
 
 bool LocalCountryFile::ValidateIntegrity() const
@@ -134,8 +134,8 @@ LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
 string DebugPrint(LocalCountryFile const & file)
 {
   ostringstream os;
-  os << "LocalCountryFile [" << file.m_directory << ", "
-     << DebugPrint(file.m_countryFile) << ", " << file.m_version << ", [";
+  os << "LocalCountryFile [" << file.m_directory << ", " << DebugPrint(file.m_countryFile) << ", " << file.m_version
+     << ", [";
 
   bool fileAdded = false;
   for (auto const & mapFile : file.m_files)

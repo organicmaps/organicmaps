@@ -13,7 +13,7 @@ void PerformImpl(void * task)
   std::unique_ptr<TaskLoop::Task> t(reinterpret_cast<TaskLoop::Task *>(task));
   (*t)();
 }
-}
+}  // namespace
 
 namespace platform
 {

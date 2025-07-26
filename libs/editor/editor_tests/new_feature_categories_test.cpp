@@ -29,7 +29,8 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
       do
       {
         LOG(LWARNING, (*result));
-      } while (++result != names.end());
+      }
+      while (++result != names.end());
 
       TEST(false, ("Please look at output above"));
     }

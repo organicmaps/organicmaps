@@ -61,9 +61,8 @@ public:
   };
 
   Ranker(DataSource const & dataSource, CitiesBoundariesTable const & boundariesTable,
-         storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
-         Emitter & emitter, CategoriesHolder const & categories,
-         std::vector<Suggest> const & suggests, VillagesCache & villagesCache,
+         storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer, Emitter & emitter,
+         CategoriesHolder const & categories, std::vector<Suggest> const & suggests, VillagesCache & villagesCache,
          base::Cancellable const & cancellable);
   virtual ~Ranker() = default;
 
@@ -82,8 +81,7 @@ public:
 
   virtual void AddPreRankerResults(std::vector<PreRankerResult> && preRankerResults)
   {
-    std::move(preRankerResults.begin(), preRankerResults.end(),
-              std::back_inserter(m_preRankerResults));
+    std::move(preRankerResults.begin(), preRankerResults.end(), std::back_inserter(m_preRankerResults));
   }
 
   virtual void UpdateResults(bool lastUpdate);
@@ -102,8 +100,7 @@ private:
   void MakeRankerResults();
 
   void GetBestMatchName(FeatureType & f, std::string & name) const;
-  void MatchForSuggestions(strings::UniString const & token, int8_t locale,
-                           std::string const & prolog);
+  void MatchForSuggestions(strings::UniString const & token, int8_t locale, std::string const & prolog);
   void ProcessSuggestions(std::vector<RankerResult> const & vec) const;
 
   std::string GetLocalizedRegionInfoForResult(RankerResult const & result) const;

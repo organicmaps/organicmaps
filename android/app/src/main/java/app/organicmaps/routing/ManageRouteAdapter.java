@@ -63,26 +63,26 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<ManageRouteAdapter.
 
     switch (mRoutePoints.get(position).mPointType)
     {
-      case Start: // Starting point.
-        if (mRoutePoints.get(position).mIsMyPosition)
-          iconId = R.drawable.ic_location_arrow_blue;
-        else
-          iconId = R.drawable.route_point_start;
-        break;
+    case Start: // Starting point.
+      if (mRoutePoints.get(position).mIsMyPosition)
+        iconId = R.drawable.ic_location_arrow_blue;
+      else
+        iconId = R.drawable.route_point_start;
+      break;
 
-      case Intermediate: // Intermediate stop.
-        TypedArray iconArray = mContext.getResources().obtainTypedArray(R.array.route_stop_icons);
-        iconId = iconArray.getResourceId(mRoutePoints.get(position).mIntermediateIndex, R.drawable.route_point_20);
-        iconArray.recycle();
-        break;
+    case Intermediate: // Intermediate stop.
+      TypedArray iconArray = mContext.getResources().obtainTypedArray(R.array.route_stop_icons);
+      iconId = iconArray.getResourceId(mRoutePoints.get(position).mIntermediateIndex, R.drawable.route_point_20);
+      iconArray.recycle();
+      break;
 
-      case Finish: // Destination point.
-        iconId = R.drawable.route_point_finish;
-        break;
+    case Finish: // Destination point.
+      iconId = R.drawable.route_point_finish;
+      break;
 
-      default: // Unknown route type.
-        iconId = R.drawable.warning_icon;
-        break;
+    default: // Unknown route type.
+      iconId = R.drawable.warning_icon;
+      break;
     }
 
     // Set icon widget.

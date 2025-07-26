@@ -17,6 +17,7 @@ namespace df
 class DebugRectRenderer : public dp::DebugRenderer
 {
   using Base = dp::MeshObject;
+
 public:
   DebugRectRenderer(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                     ref_ptr<gpu::ProgramParamsSetter> paramsSetter);
@@ -24,18 +25,17 @@ public:
   void SetEnabled(bool enabled);
 
   bool IsEnabled() const override;
-  void DrawRect(ref_ptr<dp::GraphicsContext> context, ScreenBase const & screen,
-                m2::RectF const & rect, dp::Color const & color) override;
+  void DrawRect(ref_ptr<dp::GraphicsContext> context, ScreenBase const & screen, m2::RectF const & rect,
+                dp::Color const & color) override;
   void DrawArrow(ref_ptr<dp::GraphicsContext> context, ScreenBase const & screen,
                  dp::OverlayTree::DisplacementData const & data) override;
 
   void FinishRendering();
 
 private:
-  void SetArrow(ref_ptr<dp::GraphicsContext> context, m2::PointF const & arrowStart,
-                m2::PointF const & arrowEnd, ScreenBase const & screen);
-  void SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect,
-               ScreenBase const & screen);
+  void SetArrow(ref_ptr<dp::GraphicsContext> context, m2::PointF const & arrowStart, m2::PointF const & arrowEnd,
+                ScreenBase const & screen);
+  void SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect, ScreenBase const & screen);
 
   std::vector<drape_ptr<dp::MeshObject>> m_rectMeshes;
   std::vector<drape_ptr<dp::MeshObject>> m_arrowMeshes;
@@ -48,4 +48,3 @@ private:
   bool m_isEnabled = false;
 };
 }  // namespace df
-

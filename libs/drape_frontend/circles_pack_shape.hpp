@@ -1,8 +1,8 @@
 #pragma once
 
 #include "drape_frontend/map_shape.hpp"
-#include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/render_state_extension.hpp"
+#include "drape_frontend/shape_view_params.hpp"
 
 #include "drape/overlay_handle.hpp"
 #include "drape/pointers.hpp"
@@ -37,9 +37,7 @@ struct CirclesPackDynamicVertex
   using TColor = glsl::vec4;
 
   CirclesPackDynamicVertex() = default;
-  CirclesPackDynamicVertex(TPosition const & pos, TColor const & color)
-    : m_position(pos), m_color(color)
-  {}
+  CirclesPackDynamicVertex(TPosition const & pos, TColor const & color) : m_position(pos), m_color(color) {}
 
   TPosition m_position;
   TColor m_color;

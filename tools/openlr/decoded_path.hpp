@@ -42,8 +42,14 @@ void PathToXML(Path const & path, pugi::xml_node & node);
 
 namespace routing
 {
-inline m2::PointD GetStart(Edge const & e) { return e.GetStartJunction().GetPoint(); }
-inline m2::PointD GetEnd(Edge const & e) { return e.GetEndJunction().GetPoint(); }
+inline m2::PointD GetStart(Edge const & e)
+{
+  return e.GetStartJunction().GetPoint();
+}
+inline m2::PointD GetEnd(Edge const & e)
+{
+  return e.GetEndJunction().GetPoint();
+}
 
 std::vector<m2::PointD> GetPoints(routing::RoadGraphBase::EdgeVector const & p);
 }  // namespace routing

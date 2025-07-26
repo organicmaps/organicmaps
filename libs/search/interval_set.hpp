@@ -97,8 +97,7 @@ void IntervalSet<Elem>::Add(Interval const & interval)
 }
 
 template <typename Elem>
-void IntervalSet<Elem>::SubtractFrom(Interval const & interval,
-                                     std::vector<Interval> & difference) const
+void IntervalSet<Elem>::SubtractFrom(Interval const & interval, std::vector<Interval> & difference) const
 {
   Iterator begin;
   Iterator end;

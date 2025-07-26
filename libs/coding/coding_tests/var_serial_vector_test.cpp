@@ -16,7 +16,12 @@
 
 using namespace std;
 
-char const kHexSerial[] = "03000000" "01000000" "04000000" "06000000" "616263646566";
+char const kHexSerial[] =
+    "03000000"
+    "01000000"
+    "04000000"
+    "06000000"
+    "616263646566";
 
 namespace
 {
@@ -45,7 +50,7 @@ void WriteVarSerialVector(ItT begin, ItT end, TDstStream & dst)
   }
 }
 
-}
+}  // namespace
 
 UNIT_TEST(WriteSerial)
 {
@@ -65,7 +70,7 @@ UNIT_TEST(WriteSerialWithWriter)
 {
   string output;
   MemWriter<string> writer(output);
-  VarSerialVectorWriter<MemWriter<string> > recordWriter(writer, 3);
+  VarSerialVectorWriter<MemWriter<string>> recordWriter(writer, 3);
   writer.Write("a", 1);
   recordWriter.FinishRecord();
   writer.Write("bcd", 3);

@@ -44,6 +44,7 @@ public:
 
   void operator()(PointD const & p1, PointD const & p2, PointD const & p3);
   PointD GetResult() const { return m_center; }
+
 private:
   PointD m_rectCenter;
   PointD m_center;
@@ -56,6 +57,7 @@ class CalculateBoundingBox
 public:
   void operator()(PointD const & p);
   RectD GetResult() const { return m_boundingBox; }
+
 private:
   RectD m_boundingBox;
 };
@@ -80,8 +82,7 @@ m2::PointD ApplyPointOnSurfaceCalculator(TIterator begin, TIterator end, TCalcul
 }
 
 template <typename TCalculator, typename TIterator>
-auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc)
-    -> decltype(calc.GetResult())
+auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc) -> decltype(calc.GetResult())
 {
   for (; begin != end; ++begin)
     calc(*begin);
@@ -89,34 +90,30 @@ auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc)
 }
 
 template <typename TCalculator, typename TIterator>
-auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc,
-                          std::true_type const &) -> decltype(calc.GetResult())
+auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc, std::true_type const &)
+    -> decltype(calc.GetResult())
 {
   return impl::ApplyPointOnSurfaceCalculator(begin, end, std::forward<TCalculator>(calc));
 }
 
 template <typename TCalculator, typename TIterator>
-auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc,
-                          std::false_type const &) -> decltype(calc.GetResult())
+auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc, std::false_type const &)
+    -> decltype(calc.GetResult())
 {
   return impl::ApplyCalculator(begin, end, std::forward<TCalculator>(calc));
 }
 }  // namespace impl
 
 template <typename TCalculator, typename TIterator>
-auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc)
-    -> decltype(calc.GetResult())
+auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc) -> decltype(calc.GetResult())
 {
-  return impl::SelectImplementation(
-      begin, end, std::forward<TCalculator>(calc),
-      std::is_same<CalculatePointOnSurface, std::remove_reference_t<TCalculator>>());
+  return impl::SelectImplementation(begin, end, std::forward<TCalculator>(calc),
+                                    std::is_same<CalculatePointOnSurface, std::remove_reference_t<TCalculator>>());
 }
 
 template <typename TCalculator, typename TCollection>
-auto ApplyCalculator(TCollection && collection, TCalculator && calc)
-    -> decltype(calc.GetResult())
+auto ApplyCalculator(TCollection && collection, TCalculator && calc) -> decltype(calc.GetResult())
 {
-  return ApplyCalculator(std::begin(collection), std::end(collection),
-                         std::forward<TCalculator>(calc));
+  return ApplyCalculator(std::begin(collection), std::end(collection), std::forward<TCalculator>(calc));
 }
 }  // namespace m2

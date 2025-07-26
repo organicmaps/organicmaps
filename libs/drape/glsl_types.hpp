@@ -72,17 +72,14 @@ inline m2::PointD FromVec2(glsl::vec2 const & pt)
 
 inline vec3 ToVec3(dp::Color const & color)
 {
-  return glsl::vec3(static_cast<float>(color.GetRed()) / 255,
-                    static_cast<float>(color.GetGreen()) / 255,
+  return glsl::vec3(static_cast<float>(color.GetRed()) / 255, static_cast<float>(color.GetGreen()) / 255,
                     static_cast<float>(color.GetBlue()) / 255);
 }
 
 inline vec4 ToVec4(dp::Color const & color)
 {
-  return glsl::vec4(static_cast<float>(color.GetRed()) / 255,
-                    static_cast<float>(color.GetGreen()) / 255,
-                    static_cast<float>(color.GetBlue()) / 255,
-                    static_cast<float>(color.GetAlpha()) / 255);
+  return glsl::vec4(static_cast<float>(color.GetRed()) / 255, static_cast<float>(color.GetGreen()) / 255,
+                    static_cast<float>(color.GetBlue()) / 255, static_cast<float>(color.GetAlpha()) / 255);
 }
 
 inline vec4 ToVec4(m2::PointD const & pt1, m2::PointD const & pt2)
@@ -90,8 +87,7 @@ inline vec4 ToVec4(m2::PointD const & pt1, m2::PointD const & pt2)
   return glsl::vec4(pt1.x, pt1.y, pt2.x, pt2.y);
 }
 
-template <typename T, typename = std::enable_if_t<std::is_integral<T>::value ||
-                                                  std::is_floating_point<T>::value>>
+template <typename T, typename = std::enable_if_t<std::is_integral<T>::value || std::is_floating_point<T>::value>>
 inline uint8_t GetArithmeticComponentCount()
 {
   return 1;

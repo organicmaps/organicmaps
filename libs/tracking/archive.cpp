@@ -20,29 +20,27 @@ Limits GetLimits(bool isDelta)
   }
   return {ms::LatLon::kMinLat, ms::LatLon::kMaxLat, ms::LatLon::kMinLon, ms::LatLon::kMaxLon};
 }
-} // namespace helpers
+}  // namespace helpers
 
 Packet::Packet() : m_lat(0.0), m_lon(0.0), m_timestamp(0) {}
 
 Packet::Packet(location::GpsInfo const & info)
-  : m_lat(info.m_latitude), m_lon(info.m_longitude), m_timestamp(info.m_timestamp)
-{
-}
+  : m_lat(info.m_latitude)
+  , m_lon(info.m_longitude)
+  , m_timestamp(info.m_timestamp)
+{}
 
-Packet::Packet(double lat, double lon, uint32_t timestamp)
-  : m_lat(lat), m_lon(lon), m_timestamp(timestamp)
-{
-}
+Packet::Packet(double lat, double lon, uint32_t timestamp) : m_lat(lat), m_lon(lon), m_timestamp(timestamp) {}
 
 PacketCar::PacketCar() : m_speedGroup(traffic::SpeedGroup::Unknown) {}
 
 PacketCar::PacketCar(location::GpsInfo const & info, traffic::SpeedGroup const & speedGroup)
-  : Packet(info), m_speedGroup(speedGroup)
-{
-}
+  : Packet(info)
+  , m_speedGroup(speedGroup)
+{}
 
 PacketCar::PacketCar(double lat, double lon, uint32_t timestamp, traffic::SpeedGroup speed)
-  : Packet(lat, lon, timestamp), m_speedGroup(speed)
-{
-}
+  : Packet(lat, lon, timestamp)
+  , m_speedGroup(speed)
+{}
 }  // namespace tracking

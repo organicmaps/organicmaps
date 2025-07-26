@@ -25,9 +25,8 @@ namespace
 using TLoadingCompletion = std::function<void(unsigned char *, uint32_t, uint32_t)>;
 using TLoadingFailure = std::function<void(std::string const &)>;
 
-bool LoadData(std::string const & textureName, std::string const & skinPathName,
-              uint8_t bytesPerPixel, TLoadingCompletion const & completionHandler,
-              TLoadingFailure const & failureHandler)
+bool LoadData(std::string const & textureName, std::string const & skinPathName, uint8_t bytesPerPixel,
+              TLoadingCompletion const & completionHandler, TLoadingFailure const & failureHandler)
 {
   ASSERT(completionHandler != nullptr, ());
   ASSERT(failureHandler != nullptr, ());
@@ -35,12 +34,10 @@ bool LoadData(std::string const & textureName, std::string const & skinPathName,
   std::vector<unsigned char> rawData;
   try
   {
-    ReaderPtr<Reader> reader =
-        !skinPathName.empty()
-            ? skinPathName == StaticTexture::kDefaultResource
-                ? GetStyleReader().GetDefaultResourceReader(textureName)
-                : GetStyleReader().GetResourceReader(textureName, skinPathName)
-            : GetPlatform().GetReader(textureName);
+    ReaderPtr<Reader> reader = !skinPathName.empty() ? skinPathName == StaticTexture::kDefaultResource
+                                                         ? GetStyleReader().GetDefaultResourceReader(textureName)
+                                                         : GetStyleReader().GetResourceReader(textureName, skinPathName)
+                                                     : GetPlatform().GetReader(textureName);
 
     CHECK_LESS(reader.Size(), static_cast<uint64_t>(std::numeric_limits<size_t>::max()), ());
     size_t const size = static_cast<size_t>(reader.Size());
@@ -63,8 +60,7 @@ bool LoadData(std::string const & textureName, std::string const & skinPathName,
   ASSERT(glm::isPowerOfTwo(w), (w));
   ASSERT(glm::isPowerOfTwo(h), (h));
 
-  unsigned char * data =
-      stbi_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
+  unsigned char * data = stbi_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
 
   if (bytesPerPixel != bpp)
   {
@@ -94,14 +90,12 @@ public:
 };
 }  // namespace
 
-StaticTexture::StaticTexture()
-  : m_info(make_unique_dp<StaticResourceInfo>()) {}
+StaticTexture::StaticTexture() : m_info(make_unique_dp<StaticResourceInfo>()) {}
 
-StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context,
-                             std::string const & textureName, std::string const & skinPathName,
-                             dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator,
-                             bool allowOptional /* = false */)
-: m_info(make_unique_dp<StaticResourceInfo>())
+StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context, std::string const & textureName,
+                             std::string const & skinPathName, dp::TextureFormat format,
+                             ref_ptr<HWTextureAllocator> allocator, bool allowOptional /* = false */)
+  : m_info(make_unique_dp<StaticResourceInfo>())
 {
   auto completionHandler = [&](unsigned char * data, uint32_t width, uint32_t height)
   {
@@ -129,8 +123,7 @@ StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context,
   m_isLoadingCorrect = LoadData(textureName, skinPathName, bytesPerPixel, completionHandler, failureHandler);
 }
 
-ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & key,
-                                                           bool & newResource)
+ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & key, bool & newResource)
 {
   newResource = false;
   if (key.GetType() != Texture::ResourceType::Static)
@@ -145,8 +138,7 @@ void StaticTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
   Base::Create(context, params);
 }
 
-void StaticTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
-                           ref_ptr<void> data)
+void StaticTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data)
 {
   ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
 

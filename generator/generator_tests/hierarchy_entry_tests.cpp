@@ -121,29 +121,24 @@ UNIT_CLASS_TEST(TestWithClassificator, Complex_LoadHierachy)
   LOG(LINFO, (tree));
 
   TEST_EQUAL(tree_node::Size(tree), 7, ());
-  auto node = tree_node::FindIf(tree, [](auto const & e) {
-    return e.m_id == MakeId(13835058055284963881ull, 9223372037111861697ull);
-  });
+  auto node = tree_node::FindIf(
+      tree, [](auto const & e) { return e.m_id == MakeId(13835058055284963881ull, 9223372037111861697ull); });
   TEST(node, ());
   TEST(!node->HasParent(), ());
   TEST_EQUAL(node->GetChildren().size(), 4, ());
 
-  node = tree_node::FindIf(tree, [](auto const & e) {
-    return e.m_id == MakeId(9223372036879747192ull, 9223372036879747192ull);
-  });
+  node = tree_node::FindIf(
+      tree, [](auto const & e) { return e.m_id == MakeId(9223372036879747192ull, 9223372036879747192ull); });
   TEST(node, ());
   TEST(node->HasParent(), ());
-  TEST_EQUAL(node->GetParent()->GetData().m_id,
-             MakeId(13835058055284963881ull, 9223372037111861697ull), ());
+  TEST_EQUAL(node->GetParent()->GetData().m_id, MakeId(13835058055284963881ull, 9223372037111861697ull), ());
   TEST_EQUAL(node->GetChildren().size(), 2, ());
 
-  node = tree_node::FindIf(tree, [](auto const & e) {
-    return e.m_id == MakeId(9223372036938640141ull, 9223372036938640141ull);
-  });
+  node = tree_node::FindIf(
+      tree, [](auto const & e) { return e.m_id == MakeId(9223372036938640141ull, 9223372036938640141ull); });
   TEST(node, ());
   TEST_EQUAL(node->GetData().m_depth, tree_node::GetDepth(node), ());
-  TEST_EQUAL(node->GetParent()->GetData().m_id,
-             MakeId(9223372036879747192ull, 9223372036879747192ull), ());
+  TEST_EQUAL(node->GetParent()->GetData().m_id, MakeId(9223372036879747192ull, 9223372036879747192ull), ());
   TEST_EQUAL(node->GetChildren().size(), 0, ());
 }
 }  // namespace hierarchy_entry_tests

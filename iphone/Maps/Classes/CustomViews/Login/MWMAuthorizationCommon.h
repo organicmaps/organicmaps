@@ -26,4 +26,4 @@ NSString * OSMUserName();
 /// Returns 0 if not logged in.
 NSInteger OSMUserChangesetsCount();
 
-} // namespace osm_auth_ios
+}  // namespace osm_auth_ios

@@ -108,10 +108,8 @@ public:
     if (length >= DEPTH_LEVELS)
       return false;
     for (size_t i = 0; i < length; ++i)
-    {
       if (s[i] < '0' || s[i] > '3')
         return false;
-    }
     return true;
   }
 

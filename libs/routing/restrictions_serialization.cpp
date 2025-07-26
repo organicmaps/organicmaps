@@ -12,13 +12,9 @@ char constexpr kOnlyUTurn[] = "OnlyUTurn";
 
 namespace routing
 {
-//static
+// static
 std::vector<Restriction::Type> const RestrictionHeader::kRestrictionTypes = {
-    Restriction::Type::No,
-    Restriction::Type::Only,
-    Restriction::Type::NoUTurn,
-    Restriction::Type::OnlyUTurn
-};
+    Restriction::Type::No, Restriction::Type::Only, Restriction::Type::NoUTurn, Restriction::Type::OnlyUTurn};
 
 bool Restriction::operator==(Restriction const & restriction) const
 {

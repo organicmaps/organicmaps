@@ -99,6 +99,6 @@ UNIT_CLASS_TEST(TestWithClassificator, Classificator_StableIndex)
   TEST(c.IsTypeValid(type), ());
   uint32_t const index = c.GetIndexForType(type);
   TEST_EQUAL(index, 357 - 1, ());
-  TEST_NOT_EQUAL(type, c.GetTypeForIndex(356 - 1), ()); // Restored underground-fee
+  TEST_NOT_EQUAL(type, c.GetTypeForIndex(356 - 1), ());  // Restored underground-fee
   TEST_EQUAL(type, c.GetTypeForIndex(357 - 1), ());
 }

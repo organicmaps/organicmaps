@@ -26,17 +26,17 @@ namespace routing_builder
 {
 using namespace routing;
 
-std::vector<std::pair<std::string, Restriction::Type>> const kRestrictionTypes ={
-    {"no_entry", Restriction::Type::No},
-    {"no_exit", Restriction::Type::No},
-    {"no_left_turn", Restriction::Type::No},
-    {"no_right_turn", Restriction::Type::No},
-    {"no_straight_on", Restriction::Type::No},
-    {"no_u_turn", Restriction::Type::NoUTurn},
-    {"only_left_turn", Restriction::Type::Only},
-    {"only_right_turn", Restriction::Type::Only},
-    {"only_straight_on", Restriction::Type::Only},
-    {"only_u_turn", Restriction::Type::OnlyUTurn}
+std::vector<std::pair<std::string, Restriction::Type>> const kRestrictionTypes = {
+    {        "no_entry",        Restriction::Type::No},
+    {         "no_exit",        Restriction::Type::No},
+    {    "no_left_turn",        Restriction::Type::No},
+    {   "no_right_turn",        Restriction::Type::No},
+    {  "no_straight_on",        Restriction::Type::No},
+    {       "no_u_turn",   Restriction::Type::NoUTurn},
+    {  "only_left_turn",      Restriction::Type::Only},
+    { "only_right_turn",      Restriction::Type::Only},
+    {"only_straight_on",      Restriction::Type::Only},
+    {     "only_u_turn", Restriction::Type::OnlyUTurn}
 };
 
 /// \brief Converts restriction type form string to RestrictionCollector::Type.
@@ -44,31 +44,24 @@ std::vector<std::pair<std::string, Restriction::Type>> const kRestrictionTypes =
 bool TagToType(std::string const & tag, Restriction::Type & type)
 {
   auto const it = base::FindIf(kRestrictionTypes,
-                               [&tag](std::pair<std::string, Restriction::Type> const & v) {
-    return v.first == tag;
-  });
+                               [&tag](std::pair<std::string, Restriction::Type> const & v) { return v.first == tag; });
   if (it == kRestrictionTypes.cend())
-    return false; // Unsupported restriction type.
+    return false;  // Unsupported restriction type.
 
   type = it->second;
   return true;
 }
 
-std::vector<RelationElement::Member> GetMembersByTag(RelationElement const & relationElement,
-                                                     std::string const & tag)
+std::vector<RelationElement::Member> GetMembersByTag(RelationElement const & relationElement, std::string const & tag)
 {
   std::vector<RelationElement::Member> result;
   for (auto const & member : relationElement.m_ways)
-  {
     if (member.second == tag)
       result.emplace_back(member);
-  }
 
   for (auto const & member : relationElement.m_nodes)
-  {
     if (member.second == tag)
       result.emplace_back(member);
-  }
 
   return result;
 }
@@ -76,16 +69,12 @@ std::vector<RelationElement::Member> GetMembersByTag(RelationElement const & rel
 OsmElement::EntityType GetType(RelationElement const & relationElement, uint64_t osmId)
 {
   for (auto const & member : relationElement.m_ways)
-  {
     if (member.first == osmId)
       return OsmElement::EntityType::Way;
-  }
 
   for (auto const & member : relationElement.m_nodes)
-  {
     if (member.first == osmId)
       return OsmElement::EntityType::Node;
-  }
 
   UNREACHABLE();
 }
@@ -94,7 +83,8 @@ std::string const RestrictionWriter::kNodeString = "node";
 std::string const RestrictionWriter::kWayString = "way";
 
 RestrictionWriter::RestrictionWriter(std::string const & filename, IDRInterfacePtr const & cache)
-  : generator::CollectorInterface(filename), m_cache(cache)
+  : generator::CollectorInterface(filename)
+  , m_cache(cache)
 {
   m_stream.exceptions(std::fstream::failbit | std::fstream::badbit);
   m_stream.open(GetTmpFilename());
@@ -106,7 +96,7 @@ std::shared_ptr<generator::CollectorInterface> RestrictionWriter::Clone(IDRInter
   return std::make_shared<RestrictionWriter>(GetFilename(), cache ? cache : m_cache);
 }
 
-//static
+// static
 RestrictionWriter::ViaType RestrictionWriter::ConvertFromString(std::string const & str)
 {
   if (str == kNodeString)
@@ -118,10 +108,8 @@ RestrictionWriter::ViaType RestrictionWriter::ConvertFromString(std::string cons
   UNREACHABLE();
 }
 
-bool ValidateOsmRestriction(std::vector<RelationElement::Member> & from,
-                            std::vector<RelationElement::Member> & via,
-                            std::vector<RelationElement::Member> & to,
-                            RelationElement const & relationElement)
+bool ValidateOsmRestriction(std::vector<RelationElement::Member> & from, std::vector<RelationElement::Member> & via,
+                            std::vector<RelationElement::Member> & to, RelationElement const & relationElement)
 {
   if (relationElement.GetType() != "restriction")
     return false;
@@ -138,9 +126,8 @@ bool ValidateOsmRestriction(std::vector<RelationElement::Member> & from,
   // https://wiki.openstreetmap.org/wiki/Relation:restriction#Members
   if (via.size() != 1)
   {
-    bool const allMembersAreWays = base::AllOf(via, [&](auto const & member) {
-      return GetType(relationElement, member.first) == OsmElement::EntityType::Way;
-    });
+    bool const allMembersAreWays = base::AllOf(via, [&](auto const & member)
+    { return GetType(relationElement, member.first) == OsmElement::EntityType::Way; });
 
     if (!allMembersAreWays)
       return false;
@@ -171,12 +158,9 @@ void RestrictionWriter::CollectRelation(RelationElement const & relationElement)
     return;
 
   auto const viaType =
-      GetType(relationElement, via.back().first) == OsmElement::EntityType::Node ? ViaType::Node
-                                                                                 : ViaType::Way;
+      GetType(relationElement, via.back().first) == OsmElement::EntityType::Node ? ViaType::Node : ViaType::Way;
 
-  auto const printHeader = [&]() {
-    m_stream << DebugPrint(type) << "," << DebugPrint(viaType) << ",";
-  };
+  auto const printHeader = [&]() { m_stream << DebugPrint(type) << "," << DebugPrint(viaType) << ","; };
 
   if (viaType == ViaType::Way)
   {
@@ -214,7 +198,10 @@ void RestrictionWriter::Save()
     CHECK(base::CopyFileX(GetTmpFilename(), GetFilename()), ());
 }
 
-void RestrictionWriter::OrderCollectedData() { generator::OrderTextFileByLine(GetFilename()); }
+void RestrictionWriter::OrderCollectedData()
+{
+  generator::OrderTextFileByLine(GetFilename());
+}
 
 void RestrictionWriter::MergeInto(RestrictionWriter & collector) const
 {

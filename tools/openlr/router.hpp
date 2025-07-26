@@ -35,20 +35,20 @@ private:
     {
     public:
       // A weight for total length of true fake edges.
-      static const int kTrueFakeCoeff = 10;
+      static int const kTrueFakeCoeff = 10;
 
       // A weight for total length of fake edges that are parts of some
       // real edges.
       static constexpr double kFakeCoeff = 0.001;
 
       // A weight for passing too far from pivot points.
-      static const int kIntermediateErrorCoeff = 3;
+      static int const kIntermediateErrorCoeff = 3;
 
       // A weight for excess of distance limit.
-      static const int kDistanceErrorCoeff = 3;
+      static int const kDistanceErrorCoeff = 3;
 
       // A weight for deviation from bearing.
-      static const int kBearingErrorCoeff = 5;
+      static int const kBearingErrorCoeff = 5;
 
       void AddDistance(double p) { m_distance += p; }
       void AddFakePenalty(double p, bool partOfReal);
@@ -73,9 +73,8 @@ private:
     };
 
     Vertex() = default;
-    Vertex(geometry::PointWithAltitude const & junction,
-           geometry::PointWithAltitude const & stageStart, double stageStartDistance, size_t stage,
-           bool bearingChecked);
+    Vertex(geometry::PointWithAltitude const & junction, geometry::PointWithAltitude const & stageStart,
+           double stageStartDistance, size_t stage, bool bearingChecked);
 
     bool operator<(Vertex const & rhs) const;
     bool operator==(Vertex const & rhs) const;
@@ -137,8 +136,8 @@ private:
 
   using Links = std::map<Vertex, std::pair<Vertex, Edge>>;
 
-  using RoadGraphEdgesGetter = void (routing::IRoadGraph::*)(
-      geometry::PointWithAltitude const & junction, routing::IRoadGraph::EdgeListT & edges) const;
+  using RoadGraphEdgesGetter = void (routing::IRoadGraph::*)(geometry::PointWithAltitude const & junction,
+                                                             routing::IRoadGraph::EdgeListT & edges) const;
 
   bool Init(std::vector<WayPoint> const & points, double positiveOffsetM, double negativeOffsetM);
   bool FindPath(Path & path);
@@ -162,8 +161,7 @@ private:
 
   double GetWeight(routing::Edge const & e) const
   {
-    return mercator::DistanceOnEarth(e.GetStartJunction().GetPoint(),
-                                     e.GetEndJunction().GetPoint());
+    return mercator::DistanceOnEarth(e.GetStartJunction().GetPoint(), e.GetEndJunction().GetPoint());
   }
 
   double GetWeight(Edge const & e) const { return GetWeight(e.m_raw); }
@@ -173,20 +171,15 @@ private:
   template <typename Fn>
   void ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction, Fn && fn);
 
-  void GetOutgoingEdges(geometry::PointWithAltitude const & u,
-                        routing::IRoadGraph::EdgeListT & edges);
-  void GetIngoingEdges(geometry::PointWithAltitude const & u,
-                       routing::IRoadGraph::EdgeListT & edges);
+  void GetOutgoingEdges(geometry::PointWithAltitude const & u, routing::IRoadGraph::EdgeListT & edges);
+  void GetIngoingEdges(geometry::PointWithAltitude const & u, routing::IRoadGraph::EdgeListT & edges);
 
   using EdgeCacheT = std::map<geometry::PointWithAltitude, routing::IRoadGraph::EdgeListT>;
-  void GetEdges(geometry::PointWithAltitude const & u, RoadGraphEdgesGetter getRegular,
-                RoadGraphEdgesGetter getFake,
-                EdgeCacheT & cache,
-                routing::IRoadGraph::EdgeListT & edges);
+  void GetEdges(geometry::PointWithAltitude const & u, RoadGraphEdgesGetter getRegular, RoadGraphEdgesGetter getFake,
+                EdgeCacheT & cache, routing::IRoadGraph::EdgeListT & edges);
 
   template <typename Fn>
-  void ForEachNonFakeEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction,
-                          Fn && fn);
+  void ForEachNonFakeEdge(Vertex const & u, bool outgoing, FunctionalRoadClass restriction, Fn && fn);
 
   template <typename Fn>
   void ForEachNonFakeClosestEdge(Vertex const & u, FunctionalRoadClass const restriction, Fn && fn);

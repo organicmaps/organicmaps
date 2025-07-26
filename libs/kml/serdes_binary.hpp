@@ -1,13 +1,13 @@
 #pragma once
 
 #include "kml/header_binary.hpp"
+#include "kml/types.hpp"
 #include "kml/types_v3.hpp"
 #include "kml/types_v6.hpp"
 #include "kml/types_v7.hpp"
 #include "kml/types_v8.hpp"
 #include "kml/types_v8mm.hpp"
 #include "kml/types_v9mm.hpp"
-#include "kml/types.hpp"
 #include "kml/visitors.hpp"
 
 #include "coding/text_storage.hpp"
@@ -127,14 +127,12 @@ protected:
 
 template <typename T, typename = void>
 struct HasCompilationsData : std::false_type
-{
-};
+{};
 
 template <typename T>
 struct HasCompilationsData<T, std::void_t<decltype(T::m_compilationsData)>>
   : std::is_same<decltype(T::m_compilationsData), std::vector<CategoryData>>
-{
-};
+{};
 
 class DeserializerKml
 {
@@ -150,9 +148,8 @@ public:
     NonOwningReaderSource source(reader);
     m_header.m_version = ReadPrimitiveFromSource<Version>(source);
 
-    if (m_header.m_version != Version::V2 && m_header.m_version != Version::V3 &&
-        m_header.m_version != Version::V4 && m_header.m_version != Version::V5 &&
-        m_header.m_version != Version::V6 && m_header.m_version != Version::V7 &&
+    if (m_header.m_version != Version::V2 && m_header.m_version != Version::V3 && m_header.m_version != Version::V4 &&
+        m_header.m_version != Version::V5 && m_header.m_version != Version::V6 && m_header.m_version != Version::V7 &&
         m_header.m_version != Version::V8 && m_header.m_version != Version::V9)
     {
       MYTHROW(DeserializeException, ("Incorrect file version."));
@@ -263,9 +260,8 @@ private:
       // Check if file has Opensource V8/V9 or MapsMe V8/V9 format.
       // Actual V8/V9 format has 6 offsets (uint64_t) in header. While V8MM/V9MM has 5 offsets.
       // It means that first section (usually categories) has offset 0x28 = 40 = 5 * 8.
-      if (m_header.m_categoryOffset == 0x28 || m_header.m_bookmarksOffset == 0x28 ||
-          m_header.m_tracksOffset == 0x28 || m_header.m_stringsOffset == 0x28 ||
-          m_header.m_compilationsOffset == 0x28)
+      if (m_header.m_categoryOffset == 0x28 || m_header.m_bookmarksOffset == 0x28 || m_header.m_tracksOffset == 0x28 ||
+          m_header.m_stringsOffset == 0x28 || m_header.m_compilationsOffset == 0x28)
       {
         m_header.m_version = (m_header.m_version == Version::V8 ? Version::V8MM : Version::V9MM);
         LOG(LINFO, ("KMB file has version", m_header.m_version));
@@ -279,8 +275,7 @@ private:
   }
 
   template <typename ReaderType>
-  std::unique_ptr<Reader> CreateSubReader(ReaderType const & reader,
-                                          uint64_t startPos, uint64_t endPos)
+  std::unique_ptr<Reader> CreateSubReader(ReaderType const & reader, uint64_t startPos, uint64_t endPos)
   {
     ASSERT(m_initialized, ());
     ASSERT_GREATER_OR_EQUAL(endPos, startPos, ());

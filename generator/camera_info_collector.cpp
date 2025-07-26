@@ -18,8 +18,7 @@
 
 namespace generator
 {
-CamerasInfoCollector::CamerasInfoCollector(std::string const & dataFilePath,
-                                           std::string const & camerasInfoPath,
+CamerasInfoCollector::CamerasInfoCollector(std::string const & dataFilePath, std::string const & camerasInfoPath,
                                            std::string const & osmIdsToFeatureIdsPath)
 {
   routing::OsmIdToFeatureIds osmIdToFeatureIds;
@@ -90,8 +89,8 @@ void CamerasInfoCollector::Serialize(FileWriter & writer) const
     camera.Serialize(writer, prevFeatureId);
 }
 
-bool CamerasInfoCollector::ParseIntermediateInfo(
-    std::string const & camerasInfoPath, routing::OsmIdToFeatureIds const & osmIdToFeatureIds)
+bool CamerasInfoCollector::ParseIntermediateInfo(std::string const & camerasInfoPath,
+                                                 routing::OsmIdToFeatureIds const & osmIdToFeatureIds)
 {
   FileReader reader(camerasInfoPath);
   ReaderSource<FileReader> src(reader);
@@ -131,8 +130,8 @@ bool CamerasInfoCollector::ParseIntermediateInfo(
     if (relatedWaysNumber > std::numeric_limits<uint8_t>::max())
     {
       badCamera = true;
-      LOG(LERROR, ("Number of related to camera ways should be interval from 0 to 255.",
-                   "lat(", lat, "), lon(", lon, ")"));
+      LOG(LERROR,
+          ("Number of related to camera ways should be interval from 0 to 255.", "lat(", lat, "), lon(", lon, ")"));
     }
 
     std::vector<routing::SpeedCameraMwmPosition> ways;
@@ -159,15 +158,13 @@ bool CamerasInfoCollector::ParseIntermediateInfo(
   return true;
 }
 
-void CamerasInfoCollector::Camera::FindClosestSegment(FrozenDataSource const & dataSource,
-                                                      MwmSet::MwmId const & mwmId)
+void CamerasInfoCollector::Camera::FindClosestSegment(FrozenDataSource const & dataSource, MwmSet::MwmId const & mwmId)
 {
   if (!m_data.m_ways.empty() && FindClosestSegmentInInnerWays(dataSource, mwmId))
     return;
 
   FindClosestSegmentWithGeometryIndex(dataSource);
 }
-
 
 bool CamerasInfoCollector::Camera::FindClosestSegmentInInnerWays(FrozenDataSource const & dataSource,
                                                                  MwmSet::MwmId const & mwmId)
@@ -201,7 +198,8 @@ void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDat
   double bestCoef = 0.0;
 
   // Look at each segment of roads and find the closest.
-  auto const updateClosestFeatureCallback = [&](FeatureType & ft) {
+  auto const updateClosestFeatureCallback = [&](FeatureType & ft)
+  {
     if (ft.GetGeomType() != feature::GeomType::Line)
       return;
 
@@ -243,30 +241,32 @@ void CamerasInfoCollector::Camera::FindClosestSegmentWithGeometryIndex(FrozenDat
     }
   };
 
-  dataSource.ForEachInRect(
-    updateClosestFeatureCallback,
-    mercator::RectByCenterXYAndSizeInMeters(m_data.m_center, kSearchCameraRadiusMeters),
-    scales::GetUpperScale());
+  dataSource.ForEachInRect(updateClosestFeatureCallback,
+                           mercator::RectByCenterXYAndSizeInMeters(m_data.m_center, kSearchCameraRadiusMeters),
+                           scales::GetUpperScale());
 
   if (found)
     m_data.m_ways.emplace_back(bestFeatureId, bestSegmentId, bestCoef);
 }
 
-std::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindMyself(
-    uint32_t wayFeatureId, FrozenDataSource const & dataSource, MwmSet::MwmId const & mwmId) const
+std::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindMyself(uint32_t wayFeatureId,
+                                                                                    FrozenDataSource const & dataSource,
+                                                                                    MwmSet::MwmId const & mwmId) const
 {
   double coef = 0.0;
   bool isRoad = true;
   uint32_t result = 0;
   bool cannotFindMyself = false;
 
-  auto const readFeature = [&](FeatureType & ft) {
+  auto const readFeature = [&](FeatureType & ft)
+  {
     bool found = false;
     isRoad = routing::IsRoad(feature::TypesHolder(ft));
     if (!isRoad)
       return;
 
-    auto const findPoint = [&result, &found, this](m2::PointD const & pt) {
+    auto const findPoint = [&result, &found, this](m2::PointD const & pt)
+    {
       if (found)
         return;
 
@@ -317,14 +317,12 @@ std::optional<std::pair<double, uint32_t>> CamerasInfoCollector::Camera::FindMys
   return {};
 }
 
-void CamerasInfoCollector::Camera::Serialize(FileWriter & writer,
-                                             uint32_t & prevFeatureId) const
+void CamerasInfoCollector::Camera::Serialize(FileWriter & writer, uint32_t & prevFeatureId) const
 {
   routing::SerializeSpeedCamera(writer, m_data, prevFeatureId);
 }
 
-void BuildCamerasInfo(std::string const & dataFilePath,
-                      std::string const & camerasInfoPath,
+void BuildCamerasInfo(std::string const & dataFilePath, std::string const & camerasInfoPath,
                       std::string const & osmIdsToFeatureIdsPath)
 {
   LOG(LINFO, ("Generating cameras info for", dataFilePath));

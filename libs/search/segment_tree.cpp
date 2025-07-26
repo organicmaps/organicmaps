@@ -51,8 +51,7 @@ void SegmentTree::FindSegment(size_t index, Segment const & segment, Fn && fn)
   Update(index);
 }
 
-void SegmentTree::BuildTree(size_t index, std::vector<Segment> const & segments, size_t left,
-                            size_t right)
+void SegmentTree::BuildTree(size_t index, std::vector<Segment> const & segments, size_t left, size_t right)
 {
   ASSERT_LESS_OR_EQUAL(left, right, ());
   auto const size = right - left;

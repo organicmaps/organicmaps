@@ -34,7 +34,9 @@ public:
     using iterator_category = std::forward_iterator_tag;
 
     Iterator(uint64_t const * blocks, uint64_t current_block_index)
-      : m_blocks(blocks), m_current_block_index(current_block_index), m_current_block(0)
+      : m_blocks(blocks)
+      , m_current_block_index(current_block_index)
+      , m_current_block(0)
     {
       ASSERT_LESS_OR_EQUAL(current_block_index, kNumBlocks, ());
       if (current_block_index < kNumBlocks)

@@ -26,13 +26,9 @@ std::string DebugPrint(RouteSegment::RoadNameInfo const & rni)
 {
   stringstream out;
   out << "RoadNameInfo "
-      << "{ m_name = " << rni.m_name
-      << ", m_ref = " << rni.m_ref
-      << ", m_junction_ref = " << rni.m_junction_ref
-      << ", m_destination_ref = " << rni.m_destination_ref
-      << ", m_destination = " << rni.m_destination
-      << ", m_isLink = " << rni.m_isLink
-      << " }";
+      << "{ m_name = " << rni.m_name << ", m_ref = " << rni.m_ref << ", m_junction_ref = " << rni.m_junction_ref
+      << ", m_destination_ref = " << rni.m_destination_ref << ", m_destination = " << rni.m_destination
+      << ", m_isLink = " << rni.m_isLink << " }";
   return out.str();
 }
 
@@ -41,16 +37,13 @@ std::string DebugPrint(RouteSegment::SpeedCamera const & rhs)
   return "SpeedCamera{ " + std::to_string(rhs.m_coef) + ", " + std::to_string(int(rhs.m_maxSpeedKmPH)) + " }";
 }
 
-
-Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t routeId,
-             string const & name)
+Route::Route(string const & router, vector<m2::PointD> const & points, uint64_t routeId, string const & name)
   : m_router(router)
   , m_routingSettings(GetRoutingSettings(VehicleType::Car))
   , m_name(name)
   , m_poly(points.begin(), points.end())
   , m_routeId(routeId)
-{
-}
+{}
 
 void Route::AddAbsentCountry(string const & name)
 {
@@ -87,8 +80,7 @@ double Route::GetMercatorDistanceFromBegin() const
 
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
 
-  double const distMerc =
-      curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetDistFromBeginningMerc();
+  double const distMerc = curIter.m_ind == 0 ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetDistFromBeginningMerc();
   return distMerc + m_poly.GetDistFromCurPointToRoutePointMerc();
 }
 
@@ -136,7 +128,8 @@ double Route::GetCurrentTimeFromBeginSec() const
   auto const & curIter = m_poly.GetCurrentIter();
   CHECK_LESS(curIter.m_ind, m_routeSegments.size(), ());
 
-  double const toLastPointSec = (curIter.m_ind == 0) ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetTimeFromBeginningSec();
+  double const toLastPointSec =
+      (curIter.m_ind == 0) ? 0.0 : m_routeSegments[curIter.m_ind - 1].GetTimeFromBeginningSec();
   double const toNextPointSec = m_routeSegments[curIter.m_ind].GetTimeFromBeginningSec();
 
   double const curSegLenMeters = GetSegLenMeters(curIter.m_ind);
@@ -288,8 +281,7 @@ void Route::GetNearestTurn(double & distanceToTurnMeters, TurnItem & turn) const
   GetClosestTurnAfterIdx(m_poly.GetCurrentIter().m_ind, turn);
   CHECK_LESS(m_poly.GetCurrentIter().m_ind, turn.m_index, ());
 
-  distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
-                                             m_poly.GetIterToIndex(turn.m_index));
+  distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(), m_poly.GetIterToIndex(turn.m_index));
 }
 
 optional<turns::TurnItem> Route::GetCurrentIteratorTurn() const
@@ -326,8 +318,7 @@ bool Route::GetNextTurn(double & distanceToTurnMeters, TurnItem & nextTurn) cons
   CHECK_LESS(curTurn.m_index, m_routeSegments.size(), ());
   GetClosestTurnAfterIdx(curTurn.m_index, nextTurn);
   CHECK_LESS(curTurn.m_index, nextTurn.m_index, ());
-  distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(),
-                                             m_poly.GetIterToIndex(nextTurn.m_index));
+  distanceToTurnMeters = m_poly.GetDistanceM(m_poly.GetCurrentIter(), m_poly.GetIterToIndex(nextTurn.m_index));
   return true;
 }
 
@@ -357,11 +348,8 @@ void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
   m_haveAltitudes = true;
   for (size_t i = 0; i < m_routeSegments.size(); ++i)
   {
-    if (m_haveAltitudes &&
-        m_routeSegments[i].GetJunction().GetAltitude() == geometry::kInvalidAltitude)
-    {
+    if (m_haveAltitudes && m_routeSegments[i].GetJunction().GetAltitude() == geometry::kInvalidAltitude)
       m_haveAltitudes = false;
-    }
 
     if (!m_routeSegments[i].GetSegment().IsRealSegment())
       fakeSegmentIndexes.push_back(i);
@@ -372,9 +360,8 @@ void Route::SetRouteSegments(vector<RouteSegment> && routeSegments)
 
 bool Route::MoveIterator(location::GpsInfo const & info)
 {
-  m2::RectD const rect = mercator::MetersToXY(
-      info.m_longitude, info.m_latitude,
-      max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
+  m2::RectD const rect = mercator::MetersToXY(info.m_longitude, info.m_latitude,
+                                              max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
 
   return m_poly.UpdateMatchingProjection(rect);
 }
@@ -400,8 +387,7 @@ double Route::GetPolySegAngle(size_t ind) const
   return (i == polySz) ? 0 : math::RadToDeg(ang::AngleTo(p1, p2));
 }
 
-bool Route::MatchLocationToRoute(location::GpsInfo & location,
-                                 location::RouteMatchingInfo & routeMatchingInfo) const
+bool Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const
 {
   if (!IsValid())
     return false;
@@ -426,7 +412,10 @@ bool Route::MatchLocationToRoute(location::GpsInfo & location,
   return false;
 }
 
-size_t Route::GetSubrouteCount() const { return m_subrouteAttrs.size(); }
+size_t Route::GetSubrouteCount() const
+{
+  return m_subrouteAttrs.size();
+}
 
 void Route::GetSubrouteInfo(size_t subrouteIdx, vector<RouteSegment> & segments) const
 {
@@ -463,9 +452,8 @@ bool Route::IsSubroutePassed(size_t subrouteIdx) const
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
   double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
   double const passedDistanceMeters = m_poly.GetDistanceFromStartMeters();
-  double const finishToleranceM = segmentIdx == m_routeSegments.size() - 1
-                                      ? m_routingSettings.m_finishToleranceM
-                                      : kOnEndToleranceM;
+  double const finishToleranceM =
+      segmentIdx == m_routeSegments.size() - 1 ? m_routingSettings.m_finishToleranceM : kOnEndToleranceM;
   return lengthMeters - passedDistanceMeters < finishToleranceM;
 }
 
@@ -496,10 +484,8 @@ void Route::GetTurnsForTesting(vector<TurnItem> & turns) const
 {
   turns.clear();
   for (auto const & s : m_routeSegments)
-  {
     if (IsNormalTurn(s.GetTurn()))
       turns.push_back(s.GetTurn());
-  }
 }
 
 double Route::GetSegLenMeters(size_t segIdx) const
@@ -563,4 +549,4 @@ string DebugPrint(Route const & r)
 {
   return DebugPrint(r.m_poly.GetPolyline());
 }
-} // namespace routing
+}  // namespace routing

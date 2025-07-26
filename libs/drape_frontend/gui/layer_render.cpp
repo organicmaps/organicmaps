@@ -1,10 +1,10 @@
+#include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/choose_position_mark.hpp"
 #include "drape_frontend/gui/compass.hpp"
 #include "drape_frontend/gui/copyright_label.hpp"
 #include "drape_frontend/gui/debug_label.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/gui_text.hpp"
-#include "drape_frontend/gui/layer_render.hpp"
 #include "drape_frontend/gui/ruler.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
 
@@ -19,8 +19,8 @@
 
 #include "base/stl_helpers.hpp"
 
-#include <ios>
 #include <functional>
+#include <ios>
 #include <sstream>
 #include <utility>
 
@@ -39,8 +39,8 @@ void LayerRenderer::Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pro
     r.second->Build(context, mng);
 }
 
-void LayerRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                           bool routingActive, ScreenBase const & screen)
+void LayerRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, bool routingActive,
+                           ScreenBase const & screen)
 {
   if (HasWidget(gui::WIDGET_RULER))
   {
@@ -157,8 +157,10 @@ namespace
 class ScaleFpsLabelHandle : public MutableLabelHandle
 {
   using TBase = MutableLabelHandle;
+
 public:
-  ScaleFpsLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures, std::string const & apiLabel, Position const & position)
+  ScaleFpsLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures, std::string const & apiLabel,
+                      Position const & position)
     : TBase(id, position.m_anchor, position.m_pixelPivot, textures)
     , m_apiLabel(apiLabel)
   {
@@ -198,13 +200,12 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(ref_ptr<dp::GraphicsContext
                                                      TWidgetsInitInfo const & initInfo,
                                                      ref_ptr<dp::TextureManager> textures)
 {
-  using TCacheShape = std::function<void(ref_ptr<dp::GraphicsContext>, Position anchor,
-                                               ref_ptr<LayerRenderer> renderer,
-                                               ref_ptr<dp::TextureManager> textures)>;
+  using TCacheShape = std::function<void(ref_ptr<dp::GraphicsContext>, Position anchor, ref_ptr<LayerRenderer> renderer,
+                                         ref_ptr<dp::TextureManager> textures)>;
   static std::map<EWidget, TCacheShape> cacheFunctions{
-      {WIDGET_COMPASS, std::bind(&LayerCacher::CacheCompass, this, _1, _2, _3, _4)},
-      {WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3, _4)},
-      {WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3, _4)},
+      {        WIDGET_COMPASS,       std::bind(&LayerCacher::CacheCompass, this, _1, _2, _3, _4)},
+      {          WIDGET_RULER,         std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3, _4)},
+      {      WIDGET_COPYRIGHT,     std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3, _4)},
       {WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, _1, _2, _3, _4)},
   };
 
@@ -246,8 +247,8 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   DebugInfoLabels debugLabels = DebugInfoLabels(Position(m2::PointF(10.0f * vs, 50.0f * vs), dp::Center));
 
-  debugLabels.AddLabel(textures, "visible: km2, readed: km2, ratio:",
-                       [](ScreenBase const & screen, string & content) -> bool
+  debugLabels.AddLabel(textures,
+                       "visible: km2, readed: km2, ratio:", [](ScreenBase const & screen, string & content) -> bool
   {
     double const sizeX = screen.PixelRectIn3d().SizeX();
     double const sizeY = screen.PixelRectIn3d().SizeY();
@@ -267,12 +268,10 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
     m2::PointD const p2_2d = screen.PtoG(m2::PointD(sizeX_2d, sizeY_2d));
     m2::PointD const p3_2d = screen.PtoG(m2::PointD(sizeX_2d, 0.0));
 
-    double const areaGTotal = mercator::AreaOnEarth(p0_2d, p1_2d, p2_2d) +
-        mercator::AreaOnEarth(p2_2d, p3_2d, p0_2d);
+    double const areaGTotal = mercator::AreaOnEarth(p0_2d, p1_2d, p2_2d) + mercator::AreaOnEarth(p2_2d, p3_2d, p0_2d);
 
     std::ostringstream out;
-    out << std::fixed << std::setprecision(2)
-        << "visible: " << areaG / 1000000.0 << " km2"
+    out << std::fixed << std::setprecision(2) << "visible: " << areaG / 1000000.0 << " km2"
         << ", readed: " << areaGTotal / 1000000.0 << " km2"
         << ", ratio: " << areaGTotal / areaG;
     content.assign(out.str());
@@ -289,36 +288,30 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
     double const scale = distanceG / screen.PixelRect().SizeX();
 
     std::ostringstream out;
-    out << std::fixed << std::setprecision(2)
-        << "scale2d: " << scale << " m/px"
+    out << std::fixed << std::setprecision(2) << "scale2d: " << scale << " m/px"
         << ", scale2d * vs: " << scale * vs << " m/px";
     content.assign(out.str());
     return true;
   });
 
-  debugLabels.AddLabel(textures, "distance: m",
-                       [](ScreenBase const & screen, string & content) -> bool
+  debugLabels.AddLabel(textures, "distance: m", [](ScreenBase const & screen, string & content) -> bool
   {
     double const sizeX = screen.PixelRectIn3d().SizeX();
     double const sizeY = screen.PixelRectIn3d().SizeY();
 
-    double const distance = mercator::DistanceOnEarth(
-      screen.PtoG(screen.P3dtoP(m2::PointD(sizeX / 2.0, 0.0))),
-      screen.PtoG(screen.P3dtoP(m2::PointD(sizeX / 2.0, sizeY))));
+    double const distance = mercator::DistanceOnEarth(screen.PtoG(screen.P3dtoP(m2::PointD(sizeX / 2.0, 0.0))),
+                                                      screen.PtoG(screen.P3dtoP(m2::PointD(sizeX / 2.0, sizeY))));
 
     std::ostringstream out;
-    out << std::fixed << std::setprecision(2)
-        << "distance: " << distance << " m";
+    out << std::fixed << std::setprecision(2) << "distance: " << distance << " m";
     content.assign(out.str());
     return true;
   });
 
-  debugLabels.AddLabel(textures, "angle: ",
-                       [](ScreenBase const & screen, string & content) -> bool
+  debugLabels.AddLabel(textures, "angle: ", [](ScreenBase const & screen, string & content) -> bool
   {
     std::ostringstream out;
-    out << std::fixed << std::setprecision(2)
-        << "angle: " << screen.GetRotationAngle() * 180.0 / math::pi;
+    out << std::fixed << std::setprecision(2) << "angle: " << screen.GetRotationAngle() * 180.0 / math::pi;
     content.assign(out.str());
     return true;
   });
@@ -336,8 +329,8 @@ void LayerCacher::CacheCompass(ref_ptr<dp::GraphicsContext> context, Position co
                                ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures)
 {
   Compass compass = Compass(position);
-  drape_ptr<ShapeRenderer> shape = compass.Draw(context, textures,
-      std::bind(&DrapeGui::CallOnCompassTappedHandler, &DrapeGui::Instance()));
+  drape_ptr<ShapeRenderer> shape =
+      compass.Draw(context, textures, std::bind(&DrapeGui::CallOnCompassTappedHandler, &DrapeGui::Instance()));
 
   renderer->AddShapeRenderer(WIDGET_COMPASS, std::move(shape));
 }

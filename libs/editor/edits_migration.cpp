@@ -14,34 +14,28 @@
 
 namespace editor
 {
-FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
-                                  XMLFeature const & xml,
-                                  FeatureStatus const featureStatus,
-                                  GenerateIDFn const & generateID)
+FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
+                                  FeatureStatus const featureStatus, GenerateIDFn const & generateID)
 {
   if (featureStatus == FeatureStatus::Created)
     return generateID();
 
   FeatureID fid;
   auto count = 0;
-  forEach(
-      [&fid, &count](FeatureType const & ft) {
-        if (ft.GetGeomType() != feature::GeomType::Point)
-          return;
-        // TODO(mgsergio): Check that ft and xml correspond to the same feature.
-        fid = ft.GetID();
-        ++count;
-      },
-      mercator::FromLatLon(xml.GetCenter()));
+  forEach([&fid, &count](FeatureType const & ft)
+  {
+    if (ft.GetGeomType() != feature::GeomType::Point)
+      return;
+    // TODO(mgsergio): Check that ft and xml correspond to the same feature.
+    fid = ft.GetID();
+    ++count;
+  }, mercator::FromLatLon(xml.GetCenter()));
 
   if (count == 0)
     MYTHROW(MigrationError, ("No pointed features returned."));
 
   if (count > 1)
-  {
-    LOG(LWARNING,
-        (count, "features returned for point", mercator::FromLatLon(xml.GetCenter())));
-  }
+    LOG(LWARNING, (count, "features returned for point", mercator::FromLatLon(xml.GetCenter())));
 
   return fid;
 }
@@ -63,62 +57,53 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
   auto const someFeaturePoint = geometry[0];
 
   forEach([&fid, &geometry, &count, &bestScore](FeatureType & ft)
-      {
-        if (ft.GetGeomType() != feature::GeomType::Area)
-          return;
-        ++count;
+  {
+    if (ft.GetGeomType() != feature::GeomType::Area)
+      return;
+    ++count;
 
-        std::vector<m2::PointD> ftGeometry;
-        assign_range(ftGeometry, ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY));
+    std::vector<m2::PointD> ftGeometry;
+    assign_range(ftGeometry, ft.GetTrianglesAsPoints(FeatureType::BEST_GEOMETRY));
 
-        double score = 0.0;
-        try
-        {
-          score = matcher::ScoreTriangulatedGeometries(geometry, ftGeometry);
-        }
-        catch (geometry::NotAPolygonException & ex)
-        {
-          LOG(LWARNING, (ex.Msg()));
-          // Support migration for old application versions.
-          // TODO(a): To remove it when version 8.0.x will no longer be supported.
-          base::SortUnique(geometry);
-          base::SortUnique(ftGeometry);
-          score = matcher::ScoreTriangulatedGeometriesByPoints(geometry, ftGeometry);
-        }
+    double score = 0.0;
+    try
+    {
+      score = matcher::ScoreTriangulatedGeometries(geometry, ftGeometry);
+    }
+    catch (geometry::NotAPolygonException & ex)
+    {
+      LOG(LWARNING, (ex.Msg()));
+      // Support migration for old application versions.
+      // TODO(a): To remove it when version 8.0.x will no longer be supported.
+      base::SortUnique(geometry);
+      base::SortUnique(ftGeometry);
+      score = matcher::ScoreTriangulatedGeometriesByPoints(geometry, ftGeometry);
+    }
 
-        if (score > bestScore)
-        {
-          bestScore = score;
-          fid = ft.GetID();
-        }
-      },
-      someFeaturePoint);
+    if (score > bestScore)
+    {
+      bestScore = score;
+      fid = ft.GetID();
+    }
+  }, someFeaturePoint);
 
   if (count == 0)
     MYTHROW(MigrationError, ("No ways returned for point", someFeaturePoint));
 
   if (!fid)
-  {
-    MYTHROW(MigrationError,
-            ("None of returned ways suffice. Possibly, the feature has been deleted."));
-  }
+    MYTHROW(MigrationError, ("None of returned ways suffice. Possibly, the feature has been deleted."));
   return *fid;
 }
 
-FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
-                              XMLFeature const & xml,
-                              FeatureStatus const featureStatus,
-                              GenerateIDFn const & generateID)
+FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
+                              FeatureStatus const featureStatus, GenerateIDFn const & generateID)
 {
   switch (xml.GetType())
   {
-  case XMLFeature::Type::Unknown:
-    MYTHROW(MigrationError, ("Migration for XMLFeature::Type::Unknown is not possible"));
-  case XMLFeature::Type::Node:
-    return MigrateNodeFeatureIndex(forEach, xml, featureStatus, generateID);
+  case XMLFeature::Type::Unknown: MYTHROW(MigrationError, ("Migration for XMLFeature::Type::Unknown is not possible"));
+  case XMLFeature::Type::Node: return MigrateNodeFeatureIndex(forEach, xml, featureStatus, generateID);
   case XMLFeature::Type::Way:
-  case XMLFeature::Type::Relation:
-    return MigrateWayOrRelatonFeatureIndex(forEach, xml, featureStatus, generateID);
+  case XMLFeature::Type::Relation: return MigrateWayOrRelatonFeatureIndex(forEach, xml, featureStatus, generateID);
   }
   UNREACHABLE();
 }

@@ -67,9 +67,8 @@ m2::PointD FindCenter(FeatureType & f)
   ClosestPoint closest(f.GetLimitRect(FeatureType::BEST_GEOMETRY).Center());
   if (f.GetGeomType() == feature::GeomType::Area)
   {
-    f.ForEachTriangle([&closest](m2::PointD const & p1, m2::PointD const & p2,
-                                 m2::PointD const & p3) { closest((p1 + p2 + p3) / 3); },
-                      FeatureType::BEST_GEOMETRY);
+    f.ForEachTriangle([&closest](m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3)
+    { closest((p1 + p2 + p3) / 3); }, FeatureType::BEST_GEOMETRY);
   }
   else
   {
@@ -93,7 +92,7 @@ string GetReadableType(FeatureType & f)
 
 string GetWheelchairType(FeatureType & f)
 {
-  static const uint32_t wheelchair = classif().GetTypeByPath({"wheelchair"});
+  static uint32_t const wheelchair = classif().GetTypeByPath({"wheelchair"});
   string result;
   f.ForEachType([&result](uint32_t type)
   {
@@ -110,9 +109,10 @@ string GetWheelchairType(FeatureType & f)
 
 bool HasAtm(FeatureType & f)
 {
-  static const uint32_t atm = classif().GetTypeByPath({"amenity", "atm"});
+  static uint32_t const atm = classif().GetTypeByPath({"amenity", "atm"});
   bool result = false;
-  f.ForEachType([&result](uint32_t type) {
+  f.ForEachType([&result](uint32_t type)
+  {
     if (type == atm)
       result = true;
   });
@@ -122,8 +122,7 @@ bool HasAtm(FeatureType & f)
 string BuildUniqueId(ms::LatLon const & coords, string const & name)
 {
   ostringstream ss;
-  ss << strings::to_string_dac(coords.m_lat, 6) << ','
-     << strings::to_string_dac(coords.m_lon, 6) << ',' << name;
+  ss << strings::to_string_dac(coords.m_lat, 6) << ',' << strings::to_string_dac(coords.m_lon, 6) << ',' << name;
   uint32_t hash = 0;
   for (char const c : ss.str())
     hash = hash * 101 + c;
@@ -191,10 +190,7 @@ public:
 
   void ClearCache() { m_villagesCache.Clear(); }
 
-  void operator()(FeatureType & f, map<uint32_t, base::GeoObjectId> const & ft2osm)
-  {
-    Process(f, ft2osm);
-  }
+  void operator()(FeatureType & f, map<uint32_t, base::GeoObjectId> const & ft2osm) { Process(f, ft2osm); }
 
   void Process(FeatureType & f, map<uint32_t, base::GeoObjectId> const & ft2osm)
   {
@@ -205,8 +201,7 @@ public:
     auto const metaOperator = meta.Get(feature::Metadata::FMD_OPERATOR);
     auto const & osmIt = ft2osm.find(f.GetID().m_index);
     if ((!f.HasName() && metaOperator.empty()) ||
-        (f.GetGeomType() == feature::GeomType::Line && category != "highway-pedestrian") ||
-        category.empty())
+        (f.GetGeomType() == feature::GeomType::Line && category != "highway-pedestrian") || category.empty())
     {
       return;
     }
@@ -217,9 +212,7 @@ public:
 
     string_view city;
     m_finder.GetLocality(center, [&city](search::LocalityItem const & item)
-    {
-      item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kDefaultCode, city);
-    });
+    { item.GetSpecifiedOrDefaultName(StringUtf8Multilang::kDefaultCode, city); });
 
     string const & mwmName = f.GetID().GetMwmName();
 
@@ -271,11 +264,34 @@ public:
     string const fee = category.ends_with("-fee") ? "yes" : "";
     string const atm = HasAtm(f) ? "yes" : "";
 
-    vector<string> columns = {
-        osmId,             uid,             lat,           lon,       mwmName, category,     name,    std::string(city),
-        addrStreet,        addrHouse,       phone,         website,   stars,   std::string(metaOperator), internet,
-        denomination,      wheelchair,      opening_hours, wikipedia, floor,   fee,          atm,     contact_facebook,
-        contact_instagram, contact_twitter, contact_vk,    contact_line, wikimedia_commons};
+    vector<string> columns = {osmId,
+                              uid,
+                              lat,
+                              lon,
+                              mwmName,
+                              category,
+                              name,
+                              std::string(city),
+                              addrStreet,
+                              addrHouse,
+                              phone,
+                              website,
+                              stars,
+                              std::string(metaOperator),
+                              internet,
+                              denomination,
+                              wheelchair,
+                              opening_hours,
+                              wikipedia,
+                              floor,
+                              fee,
+                              atm,
+                              contact_facebook,
+                              contact_instagram,
+                              contact_twitter,
+                              contact_vk,
+                              contact_line,
+                              wikimedia_commons};
 
     AppendNames(f, columns);
     PrintAsCSV(columns, ';', cout);
@@ -284,12 +300,35 @@ public:
 
 void PrintHeader()
 {
-  vector<string> columns = {"id",              "old_id",       "lat",        "lon",              "mwm",
-                            "category",        "name",         "city",       "street",           "house",
-                            "phone",           "website",      "cuisines",   "stars",            "operator",
-                            "internet",        "denomination", "wheelchair", "opening_hours",    "wikipedia",
-                            "floor",           "fee",          "atm",        "contact_facebook", "contact_instagram",
-                            "contact_twitter", "contact_vk",   "contact_line", "wikimedia_commons"};
+  vector<string> columns = {"id",
+                            "old_id",
+                            "lat",
+                            "lon",
+                            "mwm",
+                            "category",
+                            "name",
+                            "city",
+                            "street",
+                            "house",
+                            "phone",
+                            "website",
+                            "cuisines",
+                            "stars",
+                            "operator",
+                            "internet",
+                            "denomination",
+                            "wheelchair",
+                            "opening_hours",
+                            "wikipedia",
+                            "floor",
+                            "fee",
+                            "atm",
+                            "contact_facebook",
+                            "contact_instagram",
+                            "contact_twitter",
+                            "contact_vk",
+                            "contact_line",
+                            "wikimedia_commons"};
   // Append all supported name languages in order.
   for (uint8_t idx = 1; idx < kLangCount; idx++)
     columns.push_back("name_" + string(StringUtf8Multilang::GetLangByCode(idx)));
@@ -299,15 +338,12 @@ void PrintHeader()
 bool ParseFeatureIdToOsmIdMapping(string const & path, map<uint32_t, base::GeoObjectId> & mapping)
 {
   return generator::ForEachOsmId2FeatureId(
-      path, [&](auto const & compositeId, uint32_t const featureId) {
-        mapping[featureId] = compositeId.m_mainId;
-      });
+      path, [&](auto const & compositeId, uint32_t const featureId) { mapping[featureId] = compositeId.m_mainId; });
 }
 
 void DidDownload(storage::CountryId const & /* countryId */,
                  shared_ptr<platform::LocalCountryFile> const & /* localFile */)
-{
-}
+{}
 
 bool WillDelete(storage::CountryId const & /* countryId */,
                 shared_ptr<platform::LocalCountryFile> const & /* localFile */)
@@ -320,8 +356,7 @@ int main(int argc, char ** argv)
   platform::tests_support::ChangeMaxNumberOfOpenFiles(search::search_quality::kMaxOpenFiles);
   if (argc <= 1)
   {
-    LOG(LERROR, ("Usage:", argc == 1 ? argv[0] : "feature_list",
-                 "<mwm_path> [<data_path>] [<mwm_prefix>]"));
+    LOG(LERROR, ("Usage:", argc == 1 ? argv[0] : "feature_list", "<mwm_path> [<data_path>] [<mwm_prefix>]"));
     return 1;
   }
 
@@ -345,8 +380,7 @@ int main(int argc, char ** argv)
 
   FrozenDataSource dataSource;
   vector<platform::LocalCountryFile> mwms;
-  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
-                                       mwms);
+  platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */, mwms);
   for (auto & mwm : mwms)
   {
     mwm.SyncWithDisk();
@@ -367,17 +401,15 @@ int main(int argc, char ** argv)
     if (argc > 3 && !(mwmInfo->GetCountryName() + DATA_FILE_EXTENSION).starts_with(argv[3]))
       continue;
     LOG(LINFO, ("Processing", mwmInfo->GetCountryName()));
-    string osmToFeatureFile = base::JoinPath(
-        argv[1], mwmInfo->GetCountryName() + DATA_FILE_EXTENSION + OSM2FEATURE_FILE_EXTENSION);
+    string osmToFeatureFile =
+        base::JoinPath(argv[1], mwmInfo->GetCountryName() + DATA_FILE_EXTENSION + OSM2FEATURE_FILE_EXTENSION);
     map<uint32_t, base::GeoObjectId> featureIdToOsmId;
     ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId);
     MwmSet::MwmId mwmId(mwmInfo);
     FeaturesLoaderGuard loader(dataSource, mwmId);
     for (uint32_t ftIndex = 0; ftIndex < loader.GetNumFeatures(); ftIndex++)
-    {
       if (auto ft = loader.GetFeatureByIndex(static_cast<uint32_t>(ftIndex)))
         doProcess.Process(*ft, featureIdToOsmId);
-    }
     doProcess.ClearCache();
   }
 

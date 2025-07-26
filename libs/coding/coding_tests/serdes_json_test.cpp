@@ -44,8 +44,7 @@ bool TestSerDes(T const & value)
   }
   catch (base::Json::Exception const & exception)
   {
-    LOG(LWARNING, ("Exception while parsing json string, reason:", exception.what(),
-      "json:", jsonStr));
+    LOG(LWARNING, ("Exception while parsing json string, reason:", exception.what(), "json:", jsonStr));
     return false;
   }
   return deserializedValue == value;
@@ -61,16 +60,11 @@ enum class TestEnum
 
 struct ValueTypes
 {
-  DECLARE_VISITOR(visitor(m_boolValue, "boolValue"),
-                  visitor(m_uint8Value, "uint8Value"),
-                  visitor(m_uint32Value, "uint32Value"),
-                  visitor(m_uint64Value, "uint64Value"),
-                  visitor(m_int8Value, "int8Value"),
-                  visitor(m_int32Value, "int32Value"),
-                  visitor(m_int64Value, "int64Value"),
-                  visitor(m_doubleValue, "doubleValue"),
-                  visitor(m_stringValue, "stringValue"),
-                  visitor(m_enumValue, "enumValue"),
+  DECLARE_VISITOR(visitor(m_boolValue, "boolValue"), visitor(m_uint8Value, "uint8Value"),
+                  visitor(m_uint32Value, "uint32Value"), visitor(m_uint64Value, "uint64Value"),
+                  visitor(m_int8Value, "int8Value"), visitor(m_int32Value, "int32Value"),
+                  visitor(m_int64Value, "int64Value"), visitor(m_doubleValue, "doubleValue"),
+                  visitor(m_stringValue, "stringValue"), visitor(m_enumValue, "enumValue"),
                   visitor(m_timePointValue, "timePointValue"))
 
   ValueTypes() = default;
@@ -90,12 +84,11 @@ struct ValueTypes
 
   bool operator==(ValueTypes const & rhs) const
   {
-    return m_boolValue == rhs.m_boolValue && m_uint8Value == rhs.m_uint8Value &&
-      m_uint32Value == rhs.m_uint32Value && m_uint64Value == rhs.m_uint64Value &&
-      m_int8Value == rhs.m_int8Value && m_int32Value == rhs.m_int32Value &&
-      m_int64Value == rhs.m_int64Value && m_doubleValue == rhs.m_doubleValue &&
-      m_stringValue == rhs.m_stringValue && m_enumValue == rhs.m_enumValue &&
-      m_timePointValue == rhs.m_timePointValue;
+    return m_boolValue == rhs.m_boolValue && m_uint8Value == rhs.m_uint8Value && m_uint32Value == rhs.m_uint32Value &&
+           m_uint64Value == rhs.m_uint64Value && m_int8Value == rhs.m_int8Value && m_int32Value == rhs.m_int32Value &&
+           m_int64Value == rhs.m_int64Value && m_doubleValue == rhs.m_doubleValue &&
+           m_stringValue == rhs.m_stringValue && m_enumValue == rhs.m_enumValue &&
+           m_timePointValue == rhs.m_timePointValue;
   }
 
   bool m_boolValue;
@@ -113,8 +106,7 @@ struct ValueTypes
 
 struct ObjectTypes
 {
-  DECLARE_VISITOR(visitor(m_pointValue, "pointValue"),
-                  visitor(m_latLonValue, "latLonValue"),
+  DECLARE_VISITOR(visitor(m_pointValue, "pointValue"), visitor(m_latLonValue, "latLonValue"),
                   visitor(m_pairValue, "pairValue"))
 
   ObjectTypes() = default;
@@ -126,8 +118,7 @@ struct ObjectTypes
 
   bool operator==(ObjectTypes const & rhs) const
   {
-    return m_pointValue == rhs.m_pointValue && m_latLonValue == rhs.m_latLonValue &&
-      m_pairValue == rhs.m_pairValue;
+    return m_pointValue == rhs.m_pointValue && m_latLonValue == rhs.m_latLonValue && m_pairValue == rhs.m_pairValue;
   }
 
   m2::PointD m_pointValue;
@@ -137,8 +128,7 @@ struct ObjectTypes
 
 struct PointerTypes
 {
-  DECLARE_VISITOR(visitor(m_uniquePtrValue, "uniquePtrValue"),
-                  visitor(m_sharedPtrValue, "sharedPtrValue"))
+  DECLARE_VISITOR(visitor(m_uniquePtrValue, "uniquePtrValue"), visitor(m_sharedPtrValue, "sharedPtrValue"))
 
   PointerTypes() = default;
   PointerTypes(uint32_t testCounter)
@@ -149,8 +139,7 @@ struct PointerTypes
 
   bool operator==(PointerTypes const & rhs) const
   {
-    return SamePtrValue(m_uniquePtrValue, rhs.m_uniquePtrValue) &&
-      SamePtrValue(m_sharedPtrValue, rhs.m_sharedPtrValue);
+    return SamePtrValue(m_uniquePtrValue, rhs.m_uniquePtrValue) && SamePtrValue(m_sharedPtrValue, rhs.m_sharedPtrValue);
   }
 
   unique_ptr<ValueTypes> m_uniquePtrValue;
@@ -159,26 +148,25 @@ struct PointerTypes
 
 struct ArrayTypes
 {
-  DECLARE_VISITOR(visitor(m_arrayValue, "arrayValue"),
-                  visitor(m_dequeValue, "dequeValue"),
-                  visitor(m_vectorValue, "vectorValue"),
-                  visitor(m_mapValue, "mapValue"),
+  DECLARE_VISITOR(visitor(m_arrayValue, "arrayValue"), visitor(m_dequeValue, "dequeValue"),
+                  visitor(m_vectorValue, "vectorValue"), visitor(m_mapValue, "mapValue"),
                   visitor(m_unorderedSetValue, "unorderedSetValue"))
 
   ArrayTypes() = default;
   ArrayTypes(uint32_t testCounter)
-    : m_arrayValue({{testCounter, testCounter + 1, testCounter + 2}})
-    , m_dequeValue({testCounter + 2, testCounter + 1, testCounter})
-    , m_vectorValue({testCounter, testCounter + 2, testCounter + 1})
-    , m_mapValue({{testCounter, testCounter}, {testCounter + 1, testCounter + 1}})
-    , m_unorderedSetValue({testCounter + 2, testCounter, testCounter + 1})
+    : m_arrayValue({
+          {testCounter, testCounter + 1, testCounter + 2}
+  }),
+    m_dequeValue({testCounter + 2, testCounter + 1, testCounter}),
+    m_vectorValue({testCounter, testCounter + 2, testCounter + 1}),
+    m_mapValue({{testCounter, testCounter}, {testCounter + 1, testCounter + 1}}),
+    m_unorderedSetValue({testCounter + 2, testCounter, testCounter + 1})
   {}
 
   bool operator==(ArrayTypes const & rhs) const
   {
-    return m_arrayValue == rhs.m_arrayValue && m_dequeValue == rhs.m_dequeValue &&
-      m_vectorValue == rhs.m_vectorValue && m_mapValue == rhs.m_mapValue &&
-      m_unorderedSetValue == rhs.m_unorderedSetValue;
+    return m_arrayValue == rhs.m_arrayValue && m_dequeValue == rhs.m_dequeValue && m_vectorValue == rhs.m_vectorValue &&
+           m_mapValue == rhs.m_mapValue && m_unorderedSetValue == rhs.m_unorderedSetValue;
   }
 
   array<uint32_t, 3> m_arrayValue;
@@ -216,7 +204,9 @@ UNIT_TEST(SerdesJsonTest)
   }
 
   {
-    pair<string, pair<string, string>> testValue = {"test", {"test1", "test2"}};
+    pair<string, pair<string, string>> testValue = {
+        "test", {"test1", "test2"}
+    };
     TEST(TestSerDes(testValue), ());
   }
 
@@ -226,23 +216,25 @@ UNIT_TEST(SerdesJsonTest)
   }
 
   {
-    array<ObjectTypes, 2> testValue = {{ObjectTypes(0), ObjectTypes(1)}};
+    array<ObjectTypes, 2> testValue = {
+        {ObjectTypes(0), ObjectTypes(1)}
+    };
     TEST(TestSerDes(testValue), ());
   }
 
   {
     struct Hasher
     {
-      size_t operator()(pair<string, string> const & item) const
-      {
-        return m_hasher(item.first + item.second);
-      }
+      size_t operator()(pair<string, string> const & item) const { return m_hasher(item.first + item.second); }
 
       hash<string> m_hasher;
     };
 
-    unordered_set<pair<string, string>, Hasher> testValue = {{"ab", "ab"}, {"ef", "ef"},
-                                                             {"cd", "cd"}};
+    unordered_set<pair<string, string>, Hasher> testValue = {
+        {"ab", "ab"},
+        {"ef", "ef"},
+        {"cd", "cd"}
+    };
     TEST(TestSerDes(testValue), ());
   }
 

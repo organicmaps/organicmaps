@@ -63,15 +63,13 @@ public:
   HttpClient & SetHttpMethod(std::string const & method);
   // This method is mutually exclusive with set_body_data().
   HttpClient & SetBodyFile(std::string const & body_file, std::string const & content_type,
-                           std::string const & http_method = "POST",
-                           std::string const & content_encoding = "");
+                           std::string const & http_method = "POST", std::string const & content_encoding = "");
   // If set, stores server reply in file specified.
   HttpClient & SetReceivedFile(std::string const & received_file);
   // This method is mutually exclusive with set_body_file().
   template <typename StringT>
   HttpClient & SetBodyData(StringT && body_data, std::string const & content_type,
-                           std::string const & http_method  = "POST",
-                           std::string const & content_encoding = {})
+                           std::string const & http_method = "POST", std::string const & content_encoding = {})
   {
     m_bodyData = std::forward<StringT>(body_data);
     m_inputFile.clear();
@@ -128,7 +126,8 @@ private:
   // Cookies set by the client before request is run.
   std::string m_cookies;
   Headers m_headers;
-  bool m_followRedirects = false; // If true then in case of HTTP response 3XX make another request to follow redirected URL
+  bool m_followRedirects =
+      false;  // If true then in case of HTTP response 3XX make another request to follow redirected URL
   bool m_loadHeaders = false;
   // Use 30 seconds timeout by default.
   double m_timeoutSec = 30.0;

@@ -22,10 +22,7 @@ namespace
 struct StringsFileEntryMock
 {
   StringsFileEntryMock() = default;
-  StringsFileEntryMock(string const & key, uint8_t value)
-    : m_key(key.begin(), key.end()), m_value(value)
-  {
-  }
+  StringsFileEntryMock(string const & key, uint8_t value) : m_key(key.begin(), key.end()), m_value(value) {}
 
   trie::TrieChar const * GetKeyData() { return m_key.data(); }
 
@@ -41,12 +38,9 @@ struct StringsFileEntryMock
     swap(m_value, o.m_value);
   }
 
-  bool operator==(const StringsFileEntryMock & o) const
-  {
-    return m_key == o.m_key && m_value == o.m_value;
-  }
+  bool operator==(StringsFileEntryMock const & o) const { return m_key == o.m_key && m_value == o.m_value; }
 
-  bool operator<(const StringsFileEntryMock & o) const
+  bool operator<(StringsFileEntryMock const & o) const
   {
     if (m_key != o.m_key)
       return m_key < o.m_key;
@@ -135,8 +129,8 @@ void CollectInSubtree(TSimpleIterator & root, vector<uint8_t> & collectedValues)
 template <typename TWriter>
 void BuildFromSimpleValueList(TWriter & writer, vector<StringsFileEntryMock> & data)
 {
-  trie::BuildSuccinctTrie<TWriter, vector<StringsFileEntryMock>::iterator,
-                          SimpleValueList<TWriter>>(writer, data.begin(), data.end());
+  trie::BuildSuccinctTrie<TWriter, vector<StringsFileEntryMock>::iterator, SimpleValueList<TWriter>>(
+      writer, data.begin(), data.end());
 }
 }  // namespace
 
@@ -217,9 +211,8 @@ UNIT_TEST(SuccinctTrie_MoveToString)
   using TWriter = MemWriter<vector<uint8_t>>;
   TWriter memWriter(buf);
 
-  vector<StringsFileEntryMock> data = {
-      StringsFileEntryMock("abcde", 1), StringsFileEntryMock("aaaaa", 2),
-      StringsFileEntryMock("aaa", 3), StringsFileEntryMock("aaa", 4)};
+  vector<StringsFileEntryMock> data = {StringsFileEntryMock("abcde", 1), StringsFileEntryMock("aaaaa", 2),
+                                       StringsFileEntryMock("aaa", 3), StringsFileEntryMock("aaa", 4)};
   sort(data.begin(), data.end());
 
   BuildFromSimpleValueList(memWriter, data);

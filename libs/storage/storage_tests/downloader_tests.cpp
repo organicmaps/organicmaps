@@ -11,9 +11,7 @@ namespace downloader_tests
 
 class DownloaderStub : public storage::MapFilesDownloaderWithPing
 {
-  virtual void Download(storage::QueuedCountry && queuedCountry)
-  {
-  }
+  virtual void Download(storage::QueuedCountry && queuedCountry) {}
 };
 
 UNIT_TEST(GetMetaConfig)
@@ -32,4 +30,4 @@ UNIT_TEST(GetMetaConfig)
   });
 }
 
-} // namespace downloader_tests
+}  // namespace downloader_tests

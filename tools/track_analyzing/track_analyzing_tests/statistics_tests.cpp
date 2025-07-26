@@ -13,8 +13,8 @@
 
 #include "geometry/latlon.hpp"
 
-#include <string>
 #include <sstream>
+#include <string>
 
 namespace
 {
@@ -45,7 +45,8 @@ UNIT_TEST(AddDataPointsTest)
 
   Stats const expected = {
       {{"mwm1", 4}, {"mwm2", 5}, {"mwm3", 7} /* Mwm to number */},
-      {{"country1", 9}, {"country3", 7} /* Country to number */}};
+      {{"country1", 9}, {"country3", 7} /* Country to number */}
+  };
 
   TEST_EQUAL(stats, expected, ());
 }
@@ -54,16 +55,20 @@ UNIT_TEST(AddStatTest)
 {
   Stats stats1 = {
       {{"Belarus_Minsk Region", 1}, {"Uzbekistan", 7}, {"Russia_Moscow", 5} /* Mwm to number */},
-      {{"Russian Federation", 10}, {"Poland", 5} /* Country to number */}};
+      {{"Russian Federation", 10}, {"Poland", 5} /* Country to number */}
+  };
 
-  Stats const stats2 = {{{"Belarus_Minsk Region", 2} /* Mwm to number */},
-                        {{"Russian Federation", 1}, {"Belarus", 8} /* Country to number */}};
+  Stats const stats2 = {
+      {{"Belarus_Minsk Region", 2} /* Mwm to number */},
+      {{"Russian Federation", 1}, {"Belarus", 8} /* Country to number */}
+  };
 
   stats1.Add(stats2);
 
   Stats const expected = {
       {{"Belarus_Minsk Region", 3}, {"Uzbekistan", 7}, {"Russia_Moscow", 5} /* Mwm to number */},
-      {{"Russian Federation", 11}, {"Poland", 5}, {"Belarus", 8} /* Country to number */}};
+      { {"Russian Federation", 11},     {"Poland", 5},   {"Belarus", 8} /* Country to number */}
+  };
 
   TEST_EQUAL(stats1, expected, ());
 }
@@ -83,26 +88,37 @@ UNIT_TEST(AddTracksStatsTest)
   Track const track2 = {dp3};
   Track const track3 = {dp4};
 
-  UserToTrack const userToTrack = {{"id1", track1}, {"id2", track2}, {"id3", track3}};
+  UserToTrack const userToTrack = {
+      {"id1", track1},
+      {"id2", track2},
+      {"id3", track3}
+  };
 
   Storage storage;
   auto numMwmIds = CreateNumMwmIds(storage);
-  MwmToTracks const mwmToTracks = {{numMwmIds->GetId(CountryFile(kMwmName)), userToTrack}};
+  MwmToTracks const mwmToTracks = {
+      {numMwmIds->GetId(CountryFile(kMwmName)), userToTrack}
+  };
 
   Stats stats;
   stats.AddTracksStats(mwmToTracks, *numMwmIds, storage);
 
-  Stats::NameToCountMapping const expectedMwmToTotalDataMapping = {{kMwmName, kDataPointNumber}};
+  Stats::NameToCountMapping const expectedMwmToTotalDataMapping = {
+      {kMwmName, kDataPointNumber}
+  };
   TEST_EQUAL(stats.GetMwmToTotalDataPointsForTesting(), expectedMwmToTotalDataMapping, ());
 
-  Stats::NameToCountMapping expectedCountryToTotalDataMapping = {{"Italy", kDataPointNumber}};
+  Stats::NameToCountMapping expectedCountryToTotalDataMapping = {
+      {"Italy", kDataPointNumber}
+  };
   TEST_EQUAL(stats.GetCountryToTotalDataPointsForTesting(), expectedCountryToTotalDataMapping, ());
 }
 
 UNIT_TEST(MappingToCsvTest)
 {
   Stats::NameToCountMapping const mapping = {
-      {{"Belarus_Minsk Region", 2}, {"Uzbekistan", 5}, {"Russia_Moscow", 3}}};
+      {{"Belarus_Minsk Region", 2}, {"Uzbekistan", 5}, {"Russia_Moscow", 3}}
+  };
   {
     std::ostringstream ss;
     MappingToCsv("mwm", mapping, true /* printPercentage */, ss);
@@ -127,8 +143,10 @@ Belarus_Minsk Region,2
 
 UNIT_TEST(MappingToCsvUint64Test)
 {
-  Stats::NameToCountMapping const mapping = {{"Belarus_Minsk Region", 5'000'000'000},
-                                             {"Uzbekistan", 15'000'000'000}};
+  Stats::NameToCountMapping const mapping = {
+      {"Belarus_Minsk Region",  5'000'000'000},
+      {          "Uzbekistan", 15'000'000'000}
+  };
   std::stringstream ss;
   MappingToCsv("mwm", mapping, true /* printPercentage */, ss);
   std::string const expected = R"(mwm,number,percent
@@ -140,22 +158,29 @@ Belarus_Minsk Region,5000000000,25
 
 UNIT_TEST(SerializationToCsvTest)
 {
-  Stats::NameToCountMapping const mapping1 = {{"Belarus_Minsk Region", 2},
-                                              {"Uzbekistan", 5},
-                                              {"Russia_Moscow", 1},
-                                              {"Russia_Moscow Oblast_East", 2}};
+  Stats::NameToCountMapping const mapping1 = {
+      {     "Belarus_Minsk Region", 2},
+      {               "Uzbekistan", 5},
+      {            "Russia_Moscow", 1},
+      {"Russia_Moscow Oblast_East", 2}
+  };
   TestSerializationToCsv(mapping1);
 
   Stats::NameToCountMapping const mapping2 = {
-      {{"Belarus_Minsk Region", 2}, {"Uzbekistan", 5}, {"Russia_Moscow", 3}}};
+      {{"Belarus_Minsk Region", 2}, {"Uzbekistan", 5}, {"Russia_Moscow", 3}}
+  };
   TestSerializationToCsv(mapping2);
 }
 
 UNIT_TEST(SerializationToCsvWithZeroValueTest)
 {
-  Stats::NameToCountMapping const mapping = {{"Russia_Moscow Oblast_East", 2},
-                                             {"Poland_Lesser Poland Voivodeship", 0}};
-  Stats::NameToCountMapping const expected = {{"Russia_Moscow Oblast_East", 2}};
+  Stats::NameToCountMapping const mapping = {
+      {       "Russia_Moscow Oblast_East", 2},
+      {"Poland_Lesser Poland Voivodeship", 0}
+  };
+  Stats::NameToCountMapping const expected = {
+      {"Russia_Moscow Oblast_East", 2}
+  };
 
   std::stringstream ss;
   MappingToCsv("mwm", mapping, false /* printPercentage */, ss);
@@ -168,9 +193,11 @@ UNIT_TEST(SerializationToCsvWithZeroValueTest)
 
 UNIT_TEST(SerializationToCsvUint64Test)
 {
-  Stats::NameToCountMapping const mapping = {{"Belarus_Minsk Region", 20'000'000'000},
-                                             {"Uzbekistan", 5},
-                                             {"Russia_Moscow", 7'000'000'000}};
+  Stats::NameToCountMapping const mapping = {
+      {"Belarus_Minsk Region", 20'000'000'000},
+      {          "Uzbekistan",              5},
+      {       "Russia_Moscow",  7'000'000'000}
+  };
   TestSerializationToCsv(mapping);
 }
 }  // namespace

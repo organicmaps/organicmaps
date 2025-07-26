@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "coding/reader_cache.hpp"
 #include "coding/reader.hpp"
+#include "coding/reader_cache.hpp"
 
 #include <algorithm>
 #include <random>
@@ -12,21 +12,22 @@ using namespace std;
 
 namespace
 {
-  template <class ReaderT> class CacheReader
-  {
-  public:
-    CacheReader(ReaderT const & reader, uint32_t logPageSize, uint32_t logPageCount)
-      : m_Reader(reader), m_Cache(logPageSize, logPageCount) {}
+template <class ReaderT>
+class CacheReader
+{
+public:
+  CacheReader(ReaderT const & reader, uint32_t logPageSize, uint32_t logPageCount)
+    : m_Reader(reader)
+    , m_Cache(logPageSize, logPageCount)
+  {}
 
-    void Read(uint64_t pos, void * p, size_t size) const
-    {
-      m_Cache.Read(m_Reader, pos, p, size);
-    }
-  private:
-    ReaderT m_Reader;
-    ReaderCache<ReaderT const> mutable m_Cache;
-  };
-}
+  void Read(uint64_t pos, void * p, size_t size) const { m_Cache.Read(m_Reader, pos, p, size); }
+
+private:
+  ReaderT m_Reader;
+  ReaderCache<ReaderT const> mutable m_Cache;
+};
+}  // namespace
 
 UNIT_TEST(CacheReaderRandomTest)
 {

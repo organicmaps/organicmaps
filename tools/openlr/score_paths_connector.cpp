@@ -13,8 +13,8 @@
 #include <algorithm>
 #include <cmath>
 #include <map>
-#include <string>
 #include <queue>
+#include <string>
 #include <tuple>
 
 using namespace std;
@@ -48,10 +48,8 @@ public:
     {
       CHECK(hwClass != ftypes::HighwayClass::Undefined, (edge));
 
-      m_minHwClass = static_cast<ftypes::HighwayClass>(
-          min(base::Underlying(m_minHwClass), base::Underlying(hwClass)));
-      m_maxHwClass = static_cast<ftypes::HighwayClass>(
-          max(base::Underlying(m_maxHwClass), base::Underlying(hwClass)));
+      m_minHwClass = static_cast<ftypes::HighwayClass>(min(base::Underlying(m_minHwClass), base::Underlying(hwClass)));
+      m_maxHwClass = static_cast<ftypes::HighwayClass>(max(base::Underlying(m_maxHwClass), base::Underlying(hwClass)));
 
       if (m_oneWay.m_allEqual && m_oneWay.m_field != ftypes::IsOneWayChecker::Instance()(types))
         m_oneWay.m_allEqual = false;
@@ -96,8 +94,8 @@ private:
 /// \returns true if |path| may be used as a candidate. In that case |lenScore| is filled
 /// with score of this candidate based on length. The closer length of the |path| to
 /// |distanceToNextPoint| the more score.
-bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextPoint,
-                          LinearSegmentSource source, Score & lenScore)
+bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextPoint, LinearSegmentSource source,
+                          Score & lenScore)
 {
   CHECK(!path.empty(), ());
   CHECK_NOT_EQUAL(source, LinearSegmentSource::NotValid, ());
@@ -109,12 +107,10 @@ bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextP
     pathLen += EdgeLength(e);
 
   // 0 <= |pathDiffRatio| <= 1. The more pathDiffRatio the closer |distanceToNextPoint| and |pathLen|.
-  double const pathDiffRatio =
-      1.0 - abs(distanceToNextPoint - pathLen) / max(distanceToNextPoint, pathLen);
+  double const pathDiffRatio = 1.0 - abs(distanceToNextPoint - pathLen) / max(distanceToNextPoint, pathLen);
 
   bool const shortPath = path.size() <= 2;
-  double const kMinValidPathDiffRation =
-      source == LinearSegmentSource::FromLocationReferenceTag ? 0.6 : 0.25;
+  double const kMinValidPathDiffRation = source == LinearSegmentSource::FromLocationReferenceTag ? 0.6 : 0.25;
   if (pathDiffRatio <= kMinValidPathDiffRation && !shortPath)
     return false;
 
@@ -126,21 +122,20 @@ bool ValidatePathByLength(Graph::EdgeVector const & path, double distanceToNextP
 
 bool AreEdgesEqualWithoutAltitude(Graph::Edge const & e1, Graph::Edge const & e2)
 {
-  return make_tuple(e1.GetType(), e1.GetFeatureId(), e1.IsForward(), e1.GetSegId(),
-                    e1.GetStartPoint(), e1.GetEndPoint()) ==
-         make_tuple(e2.GetType(), e2.GetFeatureId(), e2.IsForward(), e2.GetSegId(),
-                    e2.GetStartPoint(), e2.GetEndPoint());
+  return make_tuple(e1.GetType(), e1.GetFeatureId(), e1.IsForward(), e1.GetSegId(), e1.GetStartPoint(),
+                    e1.GetEndPoint()) == make_tuple(e2.GetType(), e2.GetFeatureId(), e2.IsForward(), e2.GetSegId(),
+                                                    e2.GetStartPoint(), e2.GetEndPoint());
 }
 }  // namespace
 
 ScorePathsConnector::ScorePathsConnector(Graph & graph, RoadInfoGetter & infoGetter, v2::Stats & stat)
-  : m_graph(graph), m_infoGetter(infoGetter), m_stat(stat)
-{
-}
+  : m_graph(graph)
+  , m_infoGetter(infoGetter)
+  , m_stat(stat)
+{}
 
 bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & points,
-                                       vector<vector<ScorePath>> const & lineCandidates,
-                                       LinearSegmentSource source,
+                                       vector<vector<ScorePath>> const & lineCandidates, LinearSegmentSource source,
                                        vector<Graph::EdgeVector> & resultPath)
 {
   CHECK_NOT_EQUAL(source, LinearSegmentSource::NotValid, ());
@@ -166,9 +161,8 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
       for (size_t toInd = 0; toInd < toCandidates.size(); ++toInd)
       {
         Graph::EdgeVector path;
-        if (!ConnectAdjacentCandidateLines(fromCandidates[fromInd].m_path,
-                                           toCandidates[toInd].m_path, source, point.m_lfrcnp,
-                                           distanceToNextPoint, path))
+        if (!ConnectAdjacentCandidateLines(fromCandidates[fromInd].m_path, toCandidates[toInd].m_path, source,
+                                           point.m_lfrcnp, distanceToNextPoint, path))
         {
           continue;
         }
@@ -177,8 +171,8 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
         if (!ValidatePathByLength(path, distanceToNextPoint, source, pathLenScore))
           continue;
 
-        auto const score = pathLenScore + GetScoreForUniformity(path) +
-                           fromCandidates[fromInd].m_score + toCandidates[toInd].m_score;
+        auto const score =
+            pathLenScore + GetScoreForUniformity(path) + fromCandidates[fromInd].m_score + toCandidates[toInd].m_score;
         result.emplace_back(score, std::move(path));
       }
     }
@@ -194,9 +188,8 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
       return false;
     }
 
-    auto const it = max_element(
-        result.cbegin(), result.cend(),
-        [](ScorePath const & o1, ScorePath const & o2) { return o1.m_score < o2.m_score; });
+    auto const it = max_element(result.cbegin(), result.cend(),
+                                [](ScorePath const & o1, ScorePath const & o2) { return o1.m_score < o2.m_score; });
 
     // Note. In case of source == LinearSegmentSource::FromCoordinatesTag there is less
     // information about a openlr segment so less score is collected.
@@ -217,10 +210,9 @@ bool ScorePathsConnector::FindBestPath(vector<LocationReferencePoint> const & po
   return true;
 }
 
-bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge const & to,
-                                           LinearSegmentSource source,
-                                           FunctionalRoadClass lowestFrcToNextPoint,
-                                           uint32_t maxPathLength, Graph::EdgeVector & path)
+bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge const & to, LinearSegmentSource source,
+                                           FunctionalRoadClass lowestFrcToNextPoint, uint32_t maxPathLength,
+                                           Graph::EdgeVector & path)
 {
   double constexpr kLengthToleranceFactor = 1.1;
   uint32_t constexpr kMinLengthTolerance = 20;
@@ -231,10 +223,7 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
   {
     State(Graph::Edge const & e, uint32_t const s) : m_edge(e), m_score(s) {}
 
-    bool operator>(State const & o) const
-    {
-      return tie(m_score, m_edge) > tie(o.m_score, o.m_edge);
-    }
+    bool operator>(State const & o) const { return tie(m_score, m_edge) > tie(o.m_score, o.m_edge); }
 
     Graph::Edge m_edge;
     uint32_t m_score;
@@ -300,12 +289,10 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
   return false;
 }
 
-bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & from,
-                                                        Graph::EdgeVector const & to,
+bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const & from, Graph::EdgeVector const & to,
                                                         LinearSegmentSource source,
                                                         FunctionalRoadClass lowestFrcToNextPoint,
-                                                        double distanceToNextPoint,
-                                                        Graph::EdgeVector & resultPath)
+                                                        double distanceToNextPoint, Graph::EdgeVector & resultPath)
 {
   CHECK(!to.empty(), ());
 
@@ -322,9 +309,8 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
   CHECK_NOT_EQUAL(from, to, ());
 
   Graph::EdgeVector shortestPath;
-  auto const found =
-      FindShortestPath(from.back(), to.front(), source, lowestFrcToNextPoint,
-                       static_cast<uint32_t>(ceil(distanceToNextPoint)), shortestPath);
+  auto const found = FindShortestPath(from.back(), to.front(), source, lowestFrcToNextPoint,
+                                      static_cast<uint32_t>(ceil(distanceToNextPoint)), shortestPath);
   if (!found)
     return false;
 
@@ -332,8 +318,7 @@ bool ScorePathsConnector::ConnectAdjacentCandidateLines(Graph::EdgeVector const 
   resultPath.insert(resultPath.end(), from.cbegin(), prev(from.cend()));
   resultPath.insert(resultPath.end(), shortestPath.cbegin(), shortestPath.cend());
 
-  CHECK(AreEdgesEqualWithoutAltitude(to.front(), shortestPath.back()),
-        (to.front(), shortestPath.back()));
+  CHECK(AreEdgesEqualWithoutAltitude(to.front(), shortestPath.back()), (to.front(), shortestPath.back()));
   resultPath.insert(resultPath.end(), next(to.begin()), to.end());
 
   return !resultPath.empty();
@@ -348,17 +333,16 @@ Score ScorePathsConnector::GetScoreForUniformity(Graph::EdgeVector const & path)
   auto const hwClassDiff = edgeContainer.GetHighwayClassDiff();
   Score constexpr kScoreForTheSameHwClass = 40;
   Score constexpr kScoreForNeighboringHwClasses = 15;
-  Score const hwClassScore = hwClassDiff == 0
-                             ? kScoreForTheSameHwClass
-                             : hwClassDiff == 1 ? kScoreForNeighboringHwClasses : 0;
+  Score const hwClassScore = hwClassDiff == 0 ? kScoreForTheSameHwClass
+                           : hwClassDiff == 1 ? kScoreForNeighboringHwClasses
+                                              : 0;
 
   Score constexpr kScoreForOneWayOnly = 17;
   Score constexpr kScoreForRoundaboutOnly = 18;
   Score constexpr kScoreForLinkOnly = 10;
-  Score const allEqualScore =
-      (edgeContainer.AreAllOneWaysEqual() ? kScoreForOneWayOnly : 0) +
-      (edgeContainer.AreAllRoundaboutEqual() ? kScoreForRoundaboutOnly : 0) +
-      (edgeContainer.AreAllLinksEqual() ? kScoreForLinkOnly : 0);
+  Score const allEqualScore = (edgeContainer.AreAllOneWaysEqual() ? kScoreForOneWayOnly : 0) +
+                              (edgeContainer.AreAllRoundaboutEqual() ? kScoreForRoundaboutOnly : 0) +
+                              (edgeContainer.AreAllLinksEqual() ? kScoreForLinkOnly : 0);
 
   return hwClassScore + allEqualScore;
 }

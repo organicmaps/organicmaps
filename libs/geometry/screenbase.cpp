@@ -42,7 +42,10 @@ ScreenBase::ScreenBase(m2::RectI const & pxRect, m2::AnyRectD const & glbRect)
 }
 
 ScreenBase::ScreenBase(ScreenBase const & s, m2::PointD const & org, double scale, double angle)
-  : m_Org(org), m_ViewportRect(s.m_ViewportRect), m_Scale(scale), m_Angle(angle)
+  : m_Org(org)
+  , m_ViewportRect(s.m_ViewportRect)
+  , m_Scale(scale)
+  , m_Angle(angle)
 {
   ASSERT_GREATER(m_Scale, 0.0, ());
   UpdateDependentParameters();
@@ -52,11 +55,11 @@ void ScreenBase::UpdateDependentParameters()
 {
   m_PixelRect = CalculatePixelRect(m_Scale);
 
-  m_PtoG = math::Shift(     /// 5. shifting on (E0, N0)
-      math::Rotate(         /// 4. rotating on the screen angle
-          math::Scale(      /// 3. scaling to translate pixel sizes to global
-              math::Scale(  /// 2. swapping the Y axis??? why??? supposed to be a rotation on -pi /
-                            /// 2 here.
+  m_PtoG = math::Shift(         /// 5. shifting on (E0, N0)
+      math::Rotate(             /// 4. rotating on the screen angle
+          math::Scale(          /// 3. scaling to translate pixel sizes to global
+              math::Scale(      /// 2. swapping the Y axis??? why??? supposed to be a rotation on -pi /
+                                /// 2 here.
                   math::Shift(  /// 1. shifting for the pixel center to become (0, 0)
                       math::Identity<double, 3>(), -m_PixelRect.Center()),
                   1, -1),
@@ -93,15 +96,13 @@ double ScreenBase::CalculateAutoPerspectiveAngle(double scale)
 
   if (scale > kEndPerspectiveScale1)
   {
-    double const k =
-        (kStartPerspectiveScale1 - scale) / (kStartPerspectiveScale1 - kEndPerspectiveScale1);
+    double const k = (kStartPerspectiveScale1 - scale) / (kStartPerspectiveScale1 - kEndPerspectiveScale1);
     return kMaxPerspectiveAngle1 * k;
   }
 
   if (scale > kEndPerspectiveScale2)
   {
-    double const k =
-        (kEndPerspectiveScale1 - scale) / (kEndPerspectiveScale1 - kEndPerspectiveScale2);
+    double const k = (kEndPerspectiveScale1 - scale) / (kEndPerspectiveScale1 - kEndPerspectiveScale2);
     return kMaxPerspectiveAngle1 + (kMaxPerspectiveAngle2 - kMaxPerspectiveAngle1) * k;
   }
 
@@ -109,7 +110,10 @@ double ScreenBase::CalculateAutoPerspectiveAngle(double scale)
 }
 
 // static
-double ScreenBase::GetStartPerspectiveScale() { return kStartPerspectiveScale1; }
+double ScreenBase::GetStartPerspectiveScale()
+{
+  return kStartPerspectiveScale1;
+}
 
 double ScreenBase::CalculatePerspectiveAngle(double scale) const
 {
@@ -142,7 +146,10 @@ void ScreenBase::SetFromRects(m2::AnyRectD const & glbRect, m2::RectD const & px
   UpdateDependentParameters();
 }
 
-void ScreenBase::SetFromRect(m2::AnyRectD const & glbRect) { SetFromRects(glbRect, m_PixelRect); }
+void ScreenBase::SetFromRect(m2::AnyRectD const & glbRect)
+{
+  SetFromRects(glbRect, m_PixelRect);
+}
 
 void ScreenBase::SetFromParams(m2::PointD const & org, double angle, double scale)
 {
@@ -203,7 +210,10 @@ void ScreenBase::OnSize(m2::RectI const & r)
   UpdateDependentParameters();
 }
 
-void ScreenBase::OnSize(int x0, int y0, int w, int h) { OnSize(m2::RectI(x0, y0, x0 + w, y0 + h)); }
+void ScreenBase::OnSize(int x0, int y0, int w, int h)
+{
+  OnSize(m2::RectI(x0, y0, x0 + w, y0 + h));
+}
 
 void ScreenBase::SetScale(double scale)
 {
@@ -218,25 +228,26 @@ void ScreenBase::SetAngle(double angle)
   UpdateDependentParameters();
 }
 
-int ScreenBase::GetWidth() const { return std::lround(m_PixelRect.SizeX()); }
-
-int ScreenBase::GetHeight() const { return std::lround(m_PixelRect.SizeY()); }
-
-ScreenBase::MatrixT ScreenBase::CalcTransform(m2::PointD const & oldPt1,
-                                                    m2::PointD const & oldPt2,
-                                                    m2::PointD const & newPt1,
-                                                    m2::PointD const & newPt2,
-                                                    bool allowRotate,
-                                                    bool allowScale)
+int ScreenBase::GetWidth() const
 {
+  return std::lround(m_PixelRect.SizeX());
+}
 
+int ScreenBase::GetHeight() const
+{
+  return std::lround(m_PixelRect.SizeY());
+}
+
+ScreenBase::MatrixT ScreenBase::CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
+                                              m2::PointD const & newPt1, m2::PointD const & newPt2, bool allowRotate,
+                                              bool allowScale)
+{
   double const s = allowScale ? newPt1.Length(newPt2) / oldPt1.Length(oldPt2) : 1.0;
   double const a = allowRotate ? ang::AngleTo(newPt1, newPt2) - ang::AngleTo(oldPt1, oldPt2) : 0.0;
 
-  MatrixT m = math::Shift(
-      math::Scale(math::Rotate(math::Shift(math::Identity<double, 3>(), -oldPt1.x, -oldPt1.y), a),
-                  s, s),
-      newPt1.x, newPt1.y);
+  MatrixT m =
+      math::Shift(math::Scale(math::Rotate(math::Shift(math::Identity<double, 3>(), -oldPt1.x, -oldPt1.y), a), s, s),
+                  newPt1.x, newPt1.y);
   return m;
 }
 
@@ -268,15 +279,14 @@ void ScreenBase::PtoG(m2::RectD const & pxRect, m2::RectD & glbRect) const
   glbRect = m2::RectD(PtoG(pxRect.LeftTop()), PtoG(pxRect.RightBottom()));
 }
 
-void ScreenBase::GetTouchRect(m2::PointD const & pixPoint, double pixRadius,
-                              m2::AnyRectD & glbRect) const
+void ScreenBase::GetTouchRect(m2::PointD const & pixPoint, double pixRadius, m2::AnyRectD & glbRect) const
 {
   double const r = pixRadius * m_Scale;
   glbRect = m2::AnyRectD(PtoG(pixPoint), m_Angle, m2::RectD(-r, -r, r, r));
 }
 
-void ScreenBase::GetTouchRect(m2::PointD const & pixPoint, double const pxWidth,
-                              double const pxHeight, m2::AnyRectD & glbRect) const
+void ScreenBase::GetTouchRect(m2::PointD const & pixPoint, double const pxWidth, double const pxHeight,
+                              m2::AnyRectD & glbRect) const
 {
   double const width = pxWidth * m_Scale;
   double const height = pxHeight * m_Scale;
@@ -293,16 +303,13 @@ bool IsPanningAndRotate(ScreenBase const & s1, ScreenBase const & s2)
 
   m2::PointD globPt(c1.x - r1.minX(), c1.y - r1.minY());
 
-  m2::PointD p1 =
-      s1.GtoP(s1.GlobalRect().ConvertFrom(c1)) - s1.GtoP(s1.GlobalRect().ConvertFrom(c1 + globPt));
-  m2::PointD p2 =
-      s2.GtoP(s2.GlobalRect().ConvertFrom(c2)) - s2.GtoP(s2.GlobalRect().ConvertFrom(c2 + globPt));
+  m2::PointD p1 = s1.GtoP(s1.GlobalRect().ConvertFrom(c1)) - s1.GtoP(s1.GlobalRect().ConvertFrom(c1 + globPt));
+  m2::PointD p2 = s2.GtoP(s2.GlobalRect().ConvertFrom(c2)) - s2.GtoP(s2.GlobalRect().ConvertFrom(c2 + globPt));
 
   return p1.EqualDxDy(p2, 0.00001);
 }
 
-void ScreenBase::ExtractGtoPParams(MatrixT const & m, double & a, double & s, double & dx,
-                                   double & dy)
+void ScreenBase::ExtractGtoPParams(MatrixT const & m, double & a, double & s, double & dx, double & dy)
 {
   s = sqrt(m(0, 0) * m(0, 0) + m(0, 1) * m(0, 1));
 
@@ -319,8 +326,7 @@ double ScreenBase::CalculateScale3d(double rotationAngle) const
 
   // Ratio of the expanded plane's size to the original size.
   double const y3dScale = cos(rotationAngle) + sin(rotationAngle) * tan(halfFOV + rotationAngle);
-  double const x3dScale =
-      1.0 + 2 * sin(rotationAngle) * cos(halfFOV) / (cameraZ * cos(halfFOV + rotationAngle));
+  double const x3dScale = 1.0 + 2 * sin(rotationAngle) * cos(halfFOV) / (cameraZ * cos(halfFOV + rotationAngle));
 
   return std::max(x3dScale, y3dScale);
 }
@@ -332,8 +338,7 @@ m2::RectD ScreenBase::CalculatePixelRect(double scale) const
   {
     double const scale3d = CalculateScale3d(angle);
 
-    return m2::RectD(m2::PointD(0.0, 0.0),
-                     m2::PointD(m_ViewportRect.maxX(), m_ViewportRect.maxY()) * scale3d);
+    return m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(m_ViewportRect.maxX(), m_ViewportRect.maxY()) * scale3d);
   }
 
   return m_ViewportRect;
@@ -342,8 +347,7 @@ m2::RectD ScreenBase::CalculatePixelRect(double scale) const
 // Place the camera at the distance, where it gives the same view of plane as the
 // orthogonal projection does. Calculate what part of the map would be visible,
 // when it is rotated through maxRotationAngle around its near horizontal side.
-void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotationAngle,
-                                  double angleFOV)
+void ScreenBase::ApplyPerspective(double currentRotationAngle, double maxRotationAngle, double angleFOV)
 {
   ASSERT_GREATER(angleFOV, 0.0, ());
   ASSERT_LESS(angleFOV, math::pi2, ());
@@ -405,8 +409,7 @@ void ScreenBase::SetRotationAngle(double rotationAngle)
   projectionM(0, 0) = projectionM(1, 1) = cameraZ;
   projectionM(2, 2) = m_3dAngleX != 0.0 ? (m_3dFarZ + m_3dNearZ) / (m_3dFarZ - m_3dNearZ) : 0.0;
   projectionM(2, 3) = 1.0;
-  projectionM(3, 2) =
-      m_3dAngleX != 0.0 ? -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ) : 0.0;
+  projectionM(3, 2) = m_3dAngleX != 0.0 ? -2.0 * m_3dFarZ * m_3dNearZ / (m_3dFarZ - m_3dNearZ) : 0.0;
 
   m_Pto3d = scaleM * rotateM * translateM * projectionM;
   m_3dtoP = math::Inverse(m_Pto3d);
@@ -426,7 +429,10 @@ void ScreenBase::ResetPerspective()
   Move(0.0, -old_dy / 2.0);
 }
 
-m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const { return PtoP3d(pt, 0.0); }
+m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt) const
+{
+  return PtoP3d(pt, 0.0);
+}
 
 double ScreenBase::GetZScale() const
 {
@@ -439,8 +445,7 @@ m2::PointD ScreenBase::PtoP3d(m2::PointD const & pt, double ptZ) const
   if (!m_isPerspective)
     return pt;
   Vector3dT const normalizedPoint{float(2.0 * pt.x / m_PixelRect.SizeX() - 1.0),
-                                  -float(2.0 * pt.y / m_PixelRect.SizeY() - 1.0),
-                                  float(ptZ * GetZScale()), 1.0};
+                                  -float(2.0 * pt.y / m_PixelRect.SizeY() - 1.0), float(ptZ * GetZScale()), 1.0};
 
   Vector3dT const perspectivePoint = normalizedPoint * m_Pto3d;
 
@@ -515,24 +520,16 @@ bool ScreenBase::IsReverseProjection3d(m2::PointD const & pt) const
 
 ScreenBase::Matrix3dT ScreenBase::GetModelView() const
 {
-  return ScreenBase::Matrix3dT
-  {
-    m_GtoP(0, 0), m_GtoP(1, 0), 0, m_GtoP(2, 0),
-    m_GtoP(0, 1), m_GtoP(1, 1), 0, m_GtoP(2, 1),
-    0, 0, 1, 0,
-    0, 0, 0, 1
-  };
+  return ScreenBase::Matrix3dT{
+      m_GtoP(0, 0), m_GtoP(1, 0), 0, m_GtoP(2, 0), m_GtoP(0, 1), m_GtoP(1, 1), 0, m_GtoP(2, 1), 0, 0, 1, 0, 0, 0, 0, 1};
 }
 
 ScreenBase::Matrix3dT ScreenBase::GetModelView(m2::PointD const & pivot, double scalar) const
 {
   MatrixT const & m = m_GtoP;
   double const s = 1.0 / scalar;
-  return ScreenBase::Matrix3dT
-  {
-    s * m(0, 0), s * m(1, 0), 0, m(2, 0) + pivot.x * m(0, 0) + pivot.y * m(1, 0),
-    s * m(0, 1), s * m(1, 1), 0, m(2, 1) + pivot.x * m(0, 1) + pivot.y * m(1, 1),
-    0, 0, 1, 0,
-    0, 0, 0, 1
-  };
+  return ScreenBase::Matrix3dT{s * m(0, 0), s * m(1, 0), 0, m(2, 0) + pivot.x * m(0, 0) + pivot.y * m(1, 0),
+                               s * m(0, 1), s * m(1, 1), 0, m(2, 1) + pivot.x * m(0, 1) + pivot.y * m(1, 1),
+                               0,           0,           1, 0,
+                               0,           0,           0, 1};
 }

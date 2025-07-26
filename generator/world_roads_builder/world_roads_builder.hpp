@@ -27,10 +27,7 @@ struct RoadData
 {
   RoadData() = default;
 
-  RoadData(std::set<std::string> regions, OsmElement && way)
-    : m_regions(std::move(regions)), m_way(std::move(way))
-  {
-  }
+  RoadData(std::set<std::string> regions, OsmElement && way) : m_regions(std::move(regions)), m_way(std::move(way)) {}
 
   std::set<std::string> m_regions;
   OsmElement m_way;
@@ -47,15 +44,13 @@ struct RoadsFromOsm
 };
 
 // Reads roads from |reader| and finds its mwms with |mwmMatcher|.
-RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader,
-                             feature::CountriesFilesAffiliation const & mwmMatcher,
+RoadsFromOsm GetRoadsFromOsm(generator::SourceReader & reader, feature::CountriesFilesAffiliation const & mwmMatcher,
                              std::vector<std::string> const & highways);
 
 // Fills |graph| with new segments starting from |curSegmentId|. Segments are calculated from the
 // road consisting of |nodeIds| from OSM.
 bool FillCrossBorderGraph(CrossBorderGraph & graph, RegionSegmentId & curSegmentId,
-                          std::vector<uint64_t> const & nodeIds,
-                          std::unordered_map<uint64_t, ms::LatLon> const & nodes,
+                          std::vector<uint64_t> const & nodeIds, std::unordered_map<uint64_t, ms::LatLon> const & nodes,
                           feature::CountriesFilesAffiliation const & mwmMatcher,
                           std::unordered_map<std::string, routing::NumMwmId> const & regionToIdMap);
 
@@ -63,6 +58,5 @@ bool FillCrossBorderGraph(CrossBorderGraph & graph, RegionSegmentId & curSegment
 bool WriteGraphToFile(CrossBorderGraph const & graph, std::string const & path, bool overwrite);
 
 // Logs statistics about segments in |graph|.
-void ShowRegionsStats(CrossBorderGraph const & graph,
-                      std::shared_ptr<routing::NumMwmIds> numMwmIds);
+void ShowRegionsStats(CrossBorderGraph const & graph, std::shared_ptr<routing::NumMwmIds> numMwmIds);
 }  // namespace routing

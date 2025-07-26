@@ -442,37 +442,37 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
     Holders.BaseBookmarkHolder holder = null;
     switch (viewType)
     {
-      case TYPE_TRACK:
-        Holders.TrackViewHolder trackHolder =
-            new Holders.TrackViewHolder(inflater.inflate(R.layout.item_track, parent, false));
-        trackHolder.setOnClickListener(mClickListener);
-        trackHolder.setOnLongClickListener(mLongClickListener);
-        trackHolder.setTrackIconClickListener(mIconClickListener);
-        trackHolder.setMoreButtonClickListener(mMoreClickListener);
-        holder = trackHolder;
-        break;
-      case TYPE_BOOKMARK:
-        Holders.BookmarkViewHolder bookmarkHolder =
-            new Holders.BookmarkViewHolder(inflater.inflate(R.layout.item_bookmark, parent, false));
-        bookmarkHolder.setOnClickListener(mClickListener);
-        bookmarkHolder.setOnLongClickListener(mLongClickListener);
-        holder = bookmarkHolder;
-        break;
-      case TYPE_SECTION:
-        TextView tv = (TextView) inflater.inflate(R.layout.item_category_title, parent, false);
-        holder = new Holders.SectionViewHolder(tv);
-        break;
-      case TYPE_DESC:
-        View desc = inflater.inflate(R.layout.item_category_description, parent, false);
-        TextView moreBtn = desc.findViewById(R.id.more_btn);
-        TextView text = desc.findViewById(R.id.text);
-        TextView title = desc.findViewById(R.id.title);
-        setMoreButtonVisibility(text, moreBtn);
-        holder = new Holders.DescriptionViewHolder(desc, mSectionsDataSource.getCategory());
-        text.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
-        moreBtn.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
-        title.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
-        break;
+    case TYPE_TRACK:
+      Holders.TrackViewHolder trackHolder =
+          new Holders.TrackViewHolder(inflater.inflate(R.layout.item_track, parent, false));
+      trackHolder.setOnClickListener(mClickListener);
+      trackHolder.setOnLongClickListener(mLongClickListener);
+      trackHolder.setTrackIconClickListener(mIconClickListener);
+      trackHolder.setMoreButtonClickListener(mMoreClickListener);
+      holder = trackHolder;
+      break;
+    case TYPE_BOOKMARK:
+      Holders.BookmarkViewHolder bookmarkHolder =
+          new Holders.BookmarkViewHolder(inflater.inflate(R.layout.item_bookmark, parent, false));
+      bookmarkHolder.setOnClickListener(mClickListener);
+      bookmarkHolder.setOnLongClickListener(mLongClickListener);
+      holder = bookmarkHolder;
+      break;
+    case TYPE_SECTION:
+      TextView tv = (TextView) inflater.inflate(R.layout.item_category_title, parent, false);
+      holder = new Holders.SectionViewHolder(tv);
+      break;
+    case TYPE_DESC:
+      View desc = inflater.inflate(R.layout.item_category_description, parent, false);
+      TextView moreBtn = desc.findViewById(R.id.more_btn);
+      TextView text = desc.findViewById(R.id.text);
+      TextView title = desc.findViewById(R.id.title);
+      setMoreButtonVisibility(text, moreBtn);
+      holder = new Holders.DescriptionViewHolder(desc, mSectionsDataSource.getCategory());
+      text.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
+      moreBtn.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
+      title.setOnClickListener(v -> onMoreButtonClicked(text, moreBtn));
+      break;
     }
 
     if (holder == null)

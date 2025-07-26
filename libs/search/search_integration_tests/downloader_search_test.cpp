@@ -9,8 +9,8 @@
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
-#include "storage/downloader_search_params.hpp"
 #include "storage/downloader_queue_universal.hpp"
+#include "storage/downloader_search_params.hpp"
 #include "storage/map_files_downloader.hpp"
 #include "storage/queued_country.hpp"
 #include "storage/storage.hpp"
@@ -107,7 +107,9 @@ public:
   void RunUITask(function<void()> fn) override { fn(); }
 };
 
-class DownloaderSearchRequest : public TestSearchRequest, public TestDelegate
+class DownloaderSearchRequest
+  : public TestSearchRequest
+  , public TestDelegate
 {
 public:
   DownloaderSearchRequest(DataSource & dataSource, TestSearchEngine & engine, string const & query)
@@ -170,8 +172,7 @@ private:
 class DownloaderSearchTest : public SearchTest
 {
 public:
-  void AddRegion(string const & countryName, string const & regionName, m2::PointD const & p1,
-                 m2::PointD const & p2)
+  void AddRegion(string const & countryName, string const & regionName, m2::PointD const & p1, m2::PointD const & p2)
   {
     TestPOI cornerPost1(p1, regionName + " corner post 1", "en");
     TestPOI cornerPost2(p2, regionName + " corner post 2", "en");
@@ -190,7 +191,7 @@ public:
       }
     });
     m_worldCities.push_back(capital);
-  };
+  }
 
   void BuildWorld()
   {
@@ -228,16 +229,14 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
     DownloaderSearchRequest request(m_dataSource, m_engine, "squareland one");
     request.Run();
 
-    TestResults(request.GetResults(),
-                {storage::DownloaderSearchResult("Squareland One", "Squareland One capital")});
+    TestResults(request.GetResults(), {storage::DownloaderSearchResult("Squareland One", "Squareland One capital")});
   }
 
   {
     DownloaderSearchRequest request(m_dataSource, m_engine, "shortpondland");
     request.Run();
 
-    TestResults(request.GetResults(),
-                {storage::DownloaderSearchResult("Shortpondland", "Shortpondland capital")});
+    TestResults(request.GetResults(), {storage::DownloaderSearchResult("Shortpondland", "Shortpondland capital")});
   }
 
   {
@@ -251,9 +250,8 @@ UNIT_CLASS_TEST(DownloaderSearchTest, Smoke)
     DownloaderSearchRequest request(m_dataSource, m_engine, "squareland");
     request.Run();
 
-    TestResults(request.GetResults(),
-                {storage::DownloaderSearchResult("Squareland One", "Squareland One capital"),
-                 storage::DownloaderSearchResult("Squareland Two", "Squareland Two capital")});
+    TestResults(request.GetResults(), {storage::DownloaderSearchResult("Squareland One", "Squareland One capital"),
+                                       storage::DownloaderSearchResult("Squareland Two", "Squareland Two capital")});
   }
 }
 }  // namespace

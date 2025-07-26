@@ -1,7 +1,7 @@
 #include "generator/final_processor_country.hpp"
 
-#include "generator/addresses_collector.hpp"
 #include "generator/address_enricher.hpp"
+#include "generator/addresses_collector.hpp"
 #include "generator/affiliation.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
@@ -20,13 +20,12 @@
 #include "geometry/mercator.hpp"
 #include "geometry/region2d/binary_operators.hpp"
 
-
 namespace generator
 {
 using namespace feature;
 
-CountryFinalProcessor::CountryFinalProcessor(AffiliationInterfacePtr affiliations,
-                                             std::string const & temporaryMwmPath, size_t threadsCount)
+CountryFinalProcessor::CountryFinalProcessor(AffiliationInterfacePtr affiliations, std::string const & temporaryMwmPath,
+                                             size_t threadsCount)
   : FinalProcessorIntermediateMwmInterface(FinalProcessorPriority::CountriesOrWorld)
   , m_temporaryMwmPath(temporaryMwmPath)
   , m_affiliations(std::move(affiliations))
@@ -42,7 +41,7 @@ bool CountryFinalProcessor::IsCountry(std::string const & filename)
 
 void CountryFinalProcessor::Process()
 {
-  //Order();
+  // Order();
 
   /// @todo Make "straight-way" processing. There is no need to make many functions and
   /// many read-write FeatureBuilder ops here.
@@ -64,10 +63,10 @@ void CountryFinalProcessor::Process()
   if (!m_isolinesPath.empty())
     AddIsolines();
 
-  //DropProhibitedSpeedCameras();
+  // DropProhibitedSpeedCameras();
   ProcessBuildingParts();
 
-  //Finish();
+  // Finish();
 }
 
 /*
@@ -133,15 +132,11 @@ void CountryFinalProcessor::ProcessRoundabouts()
 
     // Adds new way features generated from mini-roundabout nodes with those nodes ids.
     // Transforms points on roads to connect them with these new roundabout junctions.
-    transformer.ProcessRoundabouts([&writer](FeatureBuilder const & fb)
-    {
-      writer.Write(fb);
-    });
+    transformer.ProcessRoundabouts([&writer](FeatureBuilder const & fb) { writer.Write(fb); });
   }, m_threadsCount);
 }
 
-bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding,
-                                m4::Tree<m2::RegionI> const & buildingPartsKDTree)
+bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding, m4::Tree<m2::RegionI> const & buildingPartsKDTree)
 {
   m2::RegionI building;
   m2::MultiRegionI partsUnion;
@@ -204,7 +199,7 @@ bool DoesBuildingConsistOfParts(FeatureBuilder const & fbBuilding,
 
   uint64_t const isectArea = m2::Area(m2::IntersectRegions(building, partsUnion));
   // That doesn't work with *very* degenerated polygons like https://www.openstreetmap.org/way/629725974.
-  //CHECK(isectArea * 0.95 <= buildingArea, (isectArea, buildingArea, fbBuilding.DebugPrintIDs()));
+  // CHECK(isectArea * 0.95 <= buildingArea, (isectArea, buildingArea, fbBuilding.DebugPrintIDs()));
 
   // Consider building as consisting of parts if the building footprint is covered with parts at least by 90%.
   return isectArea >= 0.9 * buildingArea;
@@ -236,9 +231,7 @@ void CountryFinalProcessor::ProcessBuildingParts()
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, true /* mangleName */);
     ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
     {
-      if (fb.IsArea() &&
-          buildingChecker(fb.GetTypes()) &&
-          DoesBuildingConsistOfParts(fb, buildingPartsKDTree))
+      if (fb.IsArea() && buildingChecker(fb.GetTypes()) && DoesBuildingConsistOfParts(fb, buildingPartsKDTree))
       {
         fb.AddType(buildingHasPartsChecker.GetType());
         fb.GetParams().FinishAddingTypes();
@@ -280,10 +273,8 @@ void CountryFinalProcessor::AddAddresses()
     AddressEnricher enricher;
 
     // Collect existing addresses and streets.
-    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(path, [&](FeatureBuilder && fb, uint64_t)
-    {
-      enricher.AddSrc(std::move(fb));
-    });
+    ForEachFeatureRawFormat<serialization_policy::MaxAccuracy>(
+        path, [&](FeatureBuilder && fb, uint64_t) { enricher.AddSrc(std::move(fb)); });
 
     // Append new addresses.
     FeatureBuilderWriter<serialization_policy::MaxAccuracy> writer(path, FileWriter::Op::OP_APPEND);

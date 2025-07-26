@@ -4,8 +4,8 @@
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
-#include "base/string_utils.hpp"
 #include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 
 #include <sstream>
 
@@ -13,24 +13,15 @@ std::string DebugPrint(OsmElement::EntityType type)
 {
   switch (type)
   {
-  case OsmElement::EntityType::Unknown:
-    return "unknown";
-  case OsmElement::EntityType::Bounds:
-    return "bounds";
-  case OsmElement::EntityType::Way:
-    return "way";
-  case OsmElement::EntityType::Tag:
-    return "tag";
-  case OsmElement::EntityType::Relation:
-    return "relation";
-  case OsmElement::EntityType::Osm:
-    return "osm";
-  case OsmElement::EntityType::Node:
-    return "node";
-  case OsmElement::EntityType::Nd:
-    return "nd";
-  case OsmElement::EntityType::Member:
-    return "member";
+  case OsmElement::EntityType::Unknown: return "unknown";
+  case OsmElement::EntityType::Bounds: return "bounds";
+  case OsmElement::EntityType::Way: return "way";
+  case OsmElement::EntityType::Tag: return "tag";
+  case OsmElement::EntityType::Relation: return "relation";
+  case OsmElement::EntityType::Osm: return "osm";
+  case OsmElement::EntityType::Node: return "node";
+  case OsmElement::EntityType::Nd: return "nd";
+  case OsmElement::EntityType::Member: return "member";
   }
   UNREACHABLE();
 }
@@ -38,15 +29,14 @@ std::string DebugPrint(OsmElement::EntityType type)
 namespace
 {
 std::string_view constexpr kUselessKeys[] = {
-  "created_by", "source", "odbl", "note", "fixme", "iemv",
+    "created_by", "source", "odbl", "note", "fixme", "iemv",
 
-  // Skip tags for speedup, now we don't use it
-  "not:", "artist_name", "whitewater",// https://wiki.openstreetmap.org/wiki/Whitewater_sports
+    // Skip tags for speedup, now we don't use it
+    "not:", "artist_name", "whitewater",  // https://wiki.openstreetmap.org/wiki/Whitewater_sports
 
-  // In future we can use this tags for improve our search
-  "nat_name", "reg_name", "loc_name", "lock_name", "local_name", "short_name", "official_name"
-};
-} // namespace
+    // In future we can use this tags for improve our search
+    "nat_name", "reg_name", "loc_name", "lock_name", "local_name", "short_name", "official_name"};
+}  // namespace
 
 void OsmElement::AddTag(std::string_view key, std::string_view value)
 {
@@ -58,10 +48,8 @@ void OsmElement::AddTag(std::string_view key, std::string_view value)
     return;
 
   for (auto const & useless : kUselessKeys)
-  {
     if (key == useless)
       return;
-  }
 
   m_tags.emplace_back(key, value);
 }
@@ -83,10 +71,7 @@ void OsmElement::Validate()
 
   struct MembersCompare
   {
-    bool operator()(Member const * l, Member const * r) const
-    {
-      return *l < *r;
-    }
+    bool operator()(Member const * l, Member const * r) const { return *l < *r; }
   };
 
   // Don't to change the initial order of m_members, so make intermediate set.
@@ -105,10 +90,8 @@ void OsmElement::Validate()
 
   if (theSet.size() != m_members.size())
   {
-    m_members.erase(std::remove_if(m_members.begin(), m_members.end(), [](Member const & m)
-    {
-      return m.m_ref == 0;
-    }), m_members.end());
+    m_members.erase(std::remove_if(m_members.begin(), m_members.end(), [](Member const & m) { return m.m_ref == 0; }),
+                    m_members.end());
   }
 }
 
@@ -139,9 +122,7 @@ std::string OsmElement::ToString(std::string const & shift) const
     ss << "Node: " << m_id << " (" << std::fixed << std::setw(7) << m_lat << ", " << m_lon << ")"
        << " tags: " << m_tags.size();
     break;
-  case EntityType::Nd:
-    ss << "Nd ref: " << m_ref;
-    break;
+  case EntityType::Nd: ss << "Nd ref: " << m_ref; break;
   case EntityType::Way:
     ss << "Way: " << m_id << " nds: " << m_nodes.size() << " tags: " << m_tags.size();
     if (!m_nodes.empty())
@@ -162,15 +143,11 @@ std::string OsmElement::ToString(std::string const & shift) const
         ss << shift2 << e.m_ref << " " << DebugPrint(e.m_type) << " " << e.m_role;
     }
     break;
-  case EntityType::Tag:
-    ss << "Tag: " << m_k << " = " << m_v;
-    break;
+  case EntityType::Tag: ss << "Tag: " << m_k << " = " << m_v; break;
   case EntityType::Member:
     ss << "Member: " << m_ref << " type: " << DebugPrint(m_memberType) << " role: " << m_role;
     break;
-  default:
-    UNREACHABLE();
-    break;
+  default: UNREACHABLE(); break;
   }
 
   if (!m_tags.empty())
@@ -185,18 +162,11 @@ std::string OsmElement::ToString(std::string const & shift) const
 
 bool OsmElement::operator==(OsmElement const & other) const
 {
-  return m_type == other.m_type
-         && m_id == other.m_id
-         && AlmostEqualAbs(m_lon, other.m_lon, mercator::kPointEqualityEps)
-         && AlmostEqualAbs(m_lat, other.m_lat, mercator::kPointEqualityEps)
-         && m_ref == other.m_ref
-         && m_k == other.m_k
-         && m_v == other.m_v
-         && m_memberType == other.m_memberType
-         && m_role == other.m_role
-         && m_nodes == other.m_nodes
-         && m_members == other.m_members
-         && m_tags == other.m_tags;
+  return m_type == other.m_type && m_id == other.m_id &&
+         AlmostEqualAbs(m_lon, other.m_lon, mercator::kPointEqualityEps) &&
+         AlmostEqualAbs(m_lat, other.m_lat, mercator::kPointEqualityEps) && m_ref == other.m_ref && m_k == other.m_k &&
+         m_v == other.m_v && m_memberType == other.m_memberType && m_role == other.m_role && m_nodes == other.m_nodes &&
+         m_members == other.m_members && m_tags == other.m_tags;
 }
 
 std::string OsmElement::GetTag(std::string const & key) const
@@ -221,15 +191,10 @@ base::GeoObjectId GetGeoObjectId(OsmElement const & element)
 {
   switch (element.m_type)
   {
-  case OsmElement::EntityType::Node:
-    return base::MakeOsmNode(element.m_id);
-  case OsmElement::EntityType::Way:
-    return base::MakeOsmWay(element.m_id);
-  case OsmElement::EntityType::Relation:
-    return base::MakeOsmRelation(element.m_id);
-  default:
-    UNREACHABLE();
-    return base::GeoObjectId();
+  case OsmElement::EntityType::Node: return base::MakeOsmNode(element.m_id);
+  case OsmElement::EntityType::Way: return base::MakeOsmWay(element.m_id);
+  case OsmElement::EntityType::Relation: return base::MakeOsmRelation(element.m_id);
+  default: UNREACHABLE(); return base::GeoObjectId();
   }
 }
 

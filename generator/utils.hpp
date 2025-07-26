@@ -83,16 +83,12 @@ bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
     return false;
   }
 
-  mapping.ForEach([&](auto const & p) {
-    toDo(p.first /* osm id */, p.second /* feature id */);
-  });
+  mapping.ForEach([&](auto const & p) { toDo(p.first /* osm id */, p.second /* feature id */); });
   return true;
 }
 
-bool ParseFeatureIdToOsmIdMapping(std::string const & path,
-                                  std::unordered_map<uint32_t, base::GeoObjectId> & mapping);
-bool ParseFeatureIdToTestIdMapping(std::string const & path,
-                                   std::unordered_map<uint32_t, uint64_t> & mapping);
+bool ParseFeatureIdToOsmIdMapping(std::string const & path, std::unordered_map<uint32_t, base::GeoObjectId> & mapping);
+bool ParseFeatureIdToTestIdMapping(std::string const & path, std::unordered_map<uint32_t, uint64_t> & mapping);
 
 search::CBV GetLocalities(std::string const & dataPath);
 

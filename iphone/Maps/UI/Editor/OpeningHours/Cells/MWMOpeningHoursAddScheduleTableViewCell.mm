@@ -3,7 +3,7 @@
 
 @interface MWMOpeningHoursAddScheduleTableViewCell ()
 
-@property (weak, nonatomic) IBOutlet UIButton * addScheduleButton;
+@property(weak, nonatomic) IBOutlet UIButton * addScheduleButton;
 
 @end
 
@@ -22,8 +22,8 @@
 
 - (void)refresh
 {
-  NSString * title = [NSString stringWithFormat:@"%@ %@", L(@"editor_time_add"),
-                      stringFromOpeningDays([self.model unhandledDays])];
+  NSString * title =
+      [NSString stringWithFormat:@"%@ %@", L(@"editor_time_add"), stringFromOpeningDays([self.model unhandledDays])];
   [self.addScheduleButton setTitle:title forState:UIControlStateNormal];
 }
 

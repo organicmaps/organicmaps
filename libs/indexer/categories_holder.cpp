@@ -7,7 +7,6 @@
 
 #include "base/logging.hpp"
 
-
 namespace
 {
 enum ParseState
@@ -150,10 +149,8 @@ void CategoriesHolder::AddCategory(Category & cat, std::vector<uint32_t> & types
       search::ForEachNormalizedToken(synonym.m_name, [&](strings::UniString const & token)
       {
         if (ValidKeyToken(token))
-        {
           for (uint32_t const t : types)
             m_name2type.Add(localePrefix + token, t);
-        }
       });
     }
   }
@@ -169,10 +166,8 @@ bool CategoriesHolder::ValidKeyToken(strings::UniString const & s)
 
   /// @todo We need to have global stop words array for the most used languages.
   for (char const * token : {"a", "z", "s", "d", "di", "de", "le", "ra", "ao"})
-  {
     if (s.IsEqualAscii(token))
       return false;
-  }
 
   return true;
 }
@@ -227,8 +222,7 @@ void CategoriesHolder::LoadFromStream(std::istream & s)
       }
 
       int8_t const langCode = MapLocaleToInteger(*iter);
-      CHECK(langCode != kUnsupportedLocaleCode,
-            ("Invalid language code:", *iter, "at line:", lineNumber));
+      CHECK(langCode != kUnsupportedLocaleCode, ("Invalid language code:", *iter, "at line:", lineNumber));
 
       while (++iter)
       {
@@ -311,10 +305,8 @@ int8_t CategoriesHolder::MapLocaleToInteger(std::string_view const locale)
   ASSERT_EQUAL(kLocaleMapping[0].m_code, kEnglishCode, ());
 
   for (auto it = kLocaleMapping.crbegin(); it != kLocaleMapping.crend(); ++it)
-  {
     if (locale.find(it->m_name) == 0)
       return it->m_code;
-  }
 
   // Special cases for different Chinese variations
   if (locale.find("zh") == 0)
@@ -323,10 +315,8 @@ int8_t CategoriesHolder::MapLocaleToInteger(std::string_view const locale)
     strings::AsciiToLower(lower);
 
     for (char const * s : {"hant", "tw", "hk", "mo"})
-    {
       if (lower.find(s) != std::string::npos)
         return kTraditionalChineseCode;
-    }
     // Simplified Chinese by default for all other cases.
     return kSimplifiedChineseCode;
   }

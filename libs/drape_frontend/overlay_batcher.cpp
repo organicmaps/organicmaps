@@ -11,17 +11,14 @@ namespace df
 uint32_t const kOverlayIndexBufferSize = 30000;
 uint32_t const kOverlayVertexBufferSize = 20000;
 
-OverlayBatcher::OverlayBatcher(TileKey const & key)
-  : m_batcher(kOverlayIndexBufferSize, kOverlayVertexBufferSize)
+OverlayBatcher::OverlayBatcher(TileKey const & key) : m_batcher(kOverlayIndexBufferSize, kOverlayVertexBufferSize)
 {
   int const kAverageRenderDataCount = 5;
   m_data.reserve(kAverageRenderDataCount);
 
   m_batcher.SetBatcherHash(key.GetHashValue(BatcherBucket::Overlay));
   m_batcher.StartSession([this, key](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
-  {
-    FlushGeometry(key, state, std::move(bucket));
-  });
+  { FlushGeometry(key, state, std::move(bucket)); });
 }
 
 void OverlayBatcher::Batch(ref_ptr<dp::GraphicsContext> context, drape_ptr<MapShape> const & shape,

@@ -68,7 +68,10 @@ bookmarks::GroupId KmlGroupIdToSearchGroupId(kml::MarkGroupId id)
   return base::asserted_cast<bookmarks::GroupId>(id);
 }
 
-kml::MarkId SearchBookmarkIdToKmlMarkId(bookmarks::Id id) { return static_cast<kml::MarkId>(id); }
+kml::MarkId SearchBookmarkIdToKmlMarkId(bookmarks::Id id)
+{
+  return static_cast<kml::MarkId>(id);
+}
 
 void AppendBookmarkIdDocs(vector<BookmarkInfo> const & marks, vector<BookmarkIdDoc> & result)
 {
@@ -76,10 +79,7 @@ void AppendBookmarkIdDocs(vector<BookmarkInfo> const & marks, vector<BookmarkIdD
 
   auto const locale = languages::GetCurrentOrig();
   for (auto const & mark : marks)
-  {
-    result.emplace_back(KmlMarkIdToSearchBookmarkId(mark.m_bookmarkId),
-                        bookmarks::Doc(mark.m_bookmarkData, locale));
-  }
+    result.emplace_back(KmlMarkIdToSearchBookmarkId(mark.m_bookmarkId), bookmarks::Doc(mark.m_bookmarkData, locale));
 }
 
 void AppendBookmarkIds(vector<kml::MarkId> const & marks, vector<bookmarks::Id> & result)
@@ -94,9 +94,9 @@ public:
   using OnResults = BookmarksSearchParams::OnResults;
 
   BookmarksSearchCallback(SearchAPI::Delegate & delegate, OnResults onResults)
-    : m_delegate(delegate), m_onResults(std::move(onResults))
-  {
-  }
+    : m_delegate(delegate)
+    , m_onResults(std::move(onResults))
+  {}
 
   void operator()(Results const & results)
   {
@@ -124,9 +124,7 @@ public:
       m_results.emplace_back(SearchBookmarkIdToKmlMarkId(rs[i].m_id));
 
     m_delegate.RunUITask([onResults = m_onResults, results = m_results, status = m_status]() mutable
-    {
-      onResults(std::move(results), status);
-    });
+    { onResults(std::move(results), status); });
   }
 
 private:
@@ -139,16 +137,14 @@ private:
 }  // namespace
 
 SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
-                     storage::CountryInfoGetter const & infoGetter, size_t numThreads,
-                     Delegate & delegate)
+                     storage::CountryInfoGetter const & infoGetter, size_t numThreads, Delegate & delegate)
   : m_dataSource(dataSource)
   , m_storage(storage)
   , m_infoGetter(infoGetter)
   , m_delegate(delegate)
   , m_engine(m_dataSource, GetDefaultCategories(), m_infoGetter,
              Engine::Params(languages::GetCurrentMapTwine() /* locale */, numThreads))
-{
-}
+{}
 
 void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
 {
@@ -217,9 +213,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams params)
   if (params.m_onStarted)
   {
     p.m_onStarted = [this, onStarted = std::move(params.m_onStarted)]() mutable
-    {
-      RunUITask([onStarted = std::move(onStarted)]() { onStarted(); });
-    };
+    { RunUITask([onStarted = std::move(onStarted)]() { onStarted(); }); };
   }
 
   p.m_onResults = ViewportSearchCallback(m_viewport, *this, std::move(params.m_onCompleted));
@@ -281,9 +275,7 @@ void SearchAPI::CancelSearch(Mode mode)
   ASSERT_NOT_EQUAL(mode, Mode::Count, ());
 
   if (mode == Mode::Viewport)
-  {
     m_delegate.ClearViewportSearchResults();
-  }
 
   auto & intent = m_searchIntents[static_cast<size_t>(mode)];
   intent.m_params.Clear();
@@ -296,15 +288,17 @@ void SearchAPI::CancelAllSearches()
     CancelSearch(static_cast<Mode>(i));
 }
 
-void SearchAPI::RunUITask(function<void()> fn) { return m_delegate.RunUITask(std::move(fn)); }
+void SearchAPI::RunUITask(function<void()> fn)
+{
+  return m_delegate.RunUITask(std::move(fn));
+}
 
 bool SearchAPI::IsViewportSearchActive() const
 {
   return !m_searchIntents[static_cast<size_t>(Mode::Viewport)].m_params.m_query.empty();
 }
 
-void SearchAPI::ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
-                                          bool clear)
+void SearchAPI::ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end, bool clear)
 {
   return m_delegate.ShowViewportSearchResults(begin, end, clear);
 }
@@ -427,8 +421,7 @@ void SearchAPI::SetLocale(std::string const & locale)
   m_engine.SetLocale(locale);
 }
 
-bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
-                                  SearchParams const & currParams) const
+bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams, SearchParams const & currParams) const
 {
   auto const & prevViewport = prevParams.m_viewport;
   auto const & currViewport = currParams.m_viewport;
@@ -436,15 +429,11 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
   if (!prevParams.IsEqualCommon(currParams))
     return false;
 
-  if (!prevViewport.IsValid() ||
-      !IsEqualMercator(prevViewport, currViewport, kDistEqualQueryMercator))
-  {
+  if (!prevViewport.IsValid() || !IsEqualMercator(prevViewport, currViewport, kDistEqualQueryMercator))
     return false;
-  }
 
   if (prevParams.m_position && currParams.m_position &&
-      mercator::DistanceOnEarth(*prevParams.m_position, *currParams.m_position) >
-          kDistEqualQueryMercator)
+      mercator::DistanceOnEarth(*prevParams.m_position, *currParams.m_position) > kDistEqualQueryMercator)
   {
     return false;
   }

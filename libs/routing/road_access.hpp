@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
-#include "3party/skarupke/flat_hash_map.hpp"
 #include "3party/opening_hours/opening_hours.hpp"
+#include "3party/skarupke/flat_hash_map.hpp"
 
 namespace routing
 {
@@ -62,14 +62,11 @@ public:
     struct Access
     {
       Access(RoadAccess::Type type, osmoh::OpeningHours && openingHours)
-          : m_type(type), m_openingHours(std::move(openingHours))
-      {
-      }
+        : m_type(type)
+        , m_openingHours(std::move(openingHours))
+      {}
 
-      bool operator==(Access const & rhs) const
-      {
-        return m_type == rhs.m_type && m_openingHours == rhs.m_openingHours;
-      }
+      bool operator==(Access const & rhs) const { return m_type == rhs.m_type && m_openingHours == rhs.m_openingHours; }
 
       RoadAccess::Type m_type = RoadAccess::Type::Count;
       osmoh::OpeningHours m_openingHours;
@@ -103,20 +100,12 @@ public:
   WayToAccess const & GetWayToAccess() const { return m_wayToAccess; }
   PointToAccess const & GetPointToAccess() const { return m_pointToAccess; }
 
-  WayToAccessConditional const & GetWayToAccessConditional() const
-  {
-    return m_wayToAccessConditional;
-  }
+  WayToAccessConditional const & GetWayToAccessConditional() const { return m_wayToAccessConditional; }
 
-  PointToAccessConditional const & GetPointToAccessConditional() const
-  {
-    return m_pointToAccessConditional;
-  }
+  PointToAccessConditional const & GetPointToAccessConditional() const { return m_pointToAccessConditional; }
 
-  std::pair<Type, Confidence> GetAccess(uint32_t featureId,
-                                        RouteWeight const & weightToFeature) const;
-  std::pair<Type, Confidence> GetAccess(RoadPoint const & point,
-                                        RouteWeight const & weightToPoint) const;
+  std::pair<Type, Confidence> GetAccess(uint32_t featureId, RouteWeight const & weightToFeature) const;
+  std::pair<Type, Confidence> GetAccess(RoadPoint const & point, RouteWeight const & weightToPoint) const;
 
   std::pair<Type, Confidence> GetAccessWithoutConditional(uint32_t featureId) const;
   std::pair<Type, Confidence> GetAccessWithoutConditional(RoadPoint const & point) const;
@@ -154,7 +143,10 @@ public:
   }
 
   template <typename T>
-  void SetCurrentTimeGetter(T && getter) { m_currentTimeGetter = std::forward<T>(getter); }
+  void SetCurrentTimeGetter(T && getter)
+  {
+    m_currentTimeGetter = std::forward<T>(getter);
+  }
 
 private:
   // When we check access:conditional, we check such interval in fact:
@@ -164,8 +156,8 @@ private:
   // if only one is open, we say access:conditional is maybe open.
   inline static time_t constexpr kConfidenceIntervalSeconds = 2 * 3600;  // 2 hours
 
-  static std::optional<Confidence> GetConfidenceForAccessConditional(
-      time_t momentInTime, osmoh::OpeningHours const & openingHours);
+  static std::optional<Confidence> GetConfidenceForAccessConditional(time_t momentInTime,
+                                                                     osmoh::OpeningHours const & openingHours);
 
   std::pair<Type, Confidence> GetAccess(uint32_t featureId, double weight) const;
   std::pair<Type, Confidence> GetAccess(RoadPoint const & point, double weight) const;

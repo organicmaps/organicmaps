@@ -40,10 +40,8 @@ bool Ge0Parser::Parse(std::string const & url, Result & result)
   // http://omaps.app/ZCoordba64/Name
 
   for (auto prefix : kGe0Prefixes)
-  {
     if (url.starts_with(prefix))
       return ParseAfterPrefix(url, prefix.size(), result);
-  }
 
   return false;
 }
@@ -147,12 +145,10 @@ std::string Ge0Parser::DecodeName(std::string name)
 void Ge0Parser::SpacesToUnderscore(std::string & name)
 {
   for (size_t i = 0; i < name.size(); ++i)
-  {
     if (name[i] == ' ')
       name[i] = '_';
     else if (name[i] == '_')
       name[i] = ' ';
-  }
 }
 
 void Ge0Parser::ValidateName(std::string & name)

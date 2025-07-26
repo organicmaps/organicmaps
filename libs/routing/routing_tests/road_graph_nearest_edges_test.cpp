@@ -57,8 +57,7 @@ UNIT_TEST(RoadGraph_NearestEdges)
   }
 
   // We are standing at x junction.
-  geometry::PointWithAltitude const crossPos =
-      geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0));
+  geometry::PointWithAltitude const crossPos = geometry::MakePointWithAltitudeForTesting(m2::PointD(0, 0));
 
   // Expected outgoing edges.
   IRoadGraph::EdgeListT expectedOutgoing = {

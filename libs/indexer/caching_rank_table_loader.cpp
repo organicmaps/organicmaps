@@ -4,12 +4,10 @@
 
 #include "indexer/data_source.hpp"
 
-
-CachingRankTableLoader::CachingRankTableLoader(DataSource const & dataSource,
-                                               std::string const & sectionName)
-  : m_dataSource(dataSource), m_sectionName(sectionName)
-{
-}
+CachingRankTableLoader::CachingRankTableLoader(DataSource const & dataSource, std::string const & sectionName)
+  : m_dataSource(dataSource)
+  , m_sectionName(sectionName)
+{}
 
 uint8_t CachingRankTableLoader::Get(FeatureID const & featureId) const
 {

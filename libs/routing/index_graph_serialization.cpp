@@ -8,9 +8,9 @@ uint32_t constexpr IndexGraphSerializer::JointsFilter::kEmptyEntry;
 uint32_t constexpr IndexGraphSerializer::JointsFilter::kPushedEntry;
 
 // IndexGraphSerializer::SectionSerializer ---------------------------------------------------------
-void IndexGraphSerializer::SectionSerializer::PreSerialize(
-    IndexGraph const & graph, std::unordered_map<uint32_t, VehicleMask> const & masks,
-    JointIdEncoder & jointEncoder)
+void IndexGraphSerializer::SectionSerializer::PreSerialize(IndexGraph const & graph,
+                                                           std::unordered_map<uint32_t, VehicleMask> const & masks,
+                                                           JointIdEncoder & jointEncoder)
 {
   m_buffer.clear();
   MemWriter<std::vector<uint8_t>> memWriter(m_buffer);
@@ -28,7 +28,8 @@ void IndexGraphSerializer::SectionSerializer::PreSerialize(
     WriteGamma(writer, ConvertJointsNumber(road.GetJointsNumber()));
 
     uint32_t prevPointId = -1;
-    road.ForEachJoint([&](uint32_t pointId, Joint::Id jointId) {
+    road.ForEachJoint([&](uint32_t pointId, Joint::Id jointId)
+    {
       WriteGamma(writer, pointId - prevPointId);
       jointEncoder.Write(jointId, writer);
       prevPointId = pointId;
@@ -54,8 +55,7 @@ void IndexGraphSerializer::JointsFilter::Push(Joint::Id jointIdInFile, RoadPoint
     break;
   case kPushedEntry: m_graph.PushFromSerializer(entry.second.jointId, rp); break;
   default:
-    m_graph.PushFromSerializer(m_count,
-                               RoadPoint(entry.first /* featureId */, entry.second.pointId));
+    m_graph.PushFromSerializer(m_count, RoadPoint(entry.first /* featureId */, entry.second.pointId));
     m_graph.PushFromSerializer(m_count, rp);
     entry.first = kPushedEntry;
     entry.second.jointId = m_count;
@@ -89,9 +89,9 @@ uint32_t IndexGraphSerializer::ConvertJointsNumber(uint32_t jointsNumber)
 }
 
 // static
-void IndexGraphSerializer::PrepareSectionSerializers(
-    IndexGraph const & graph, std::unordered_map<uint32_t, VehicleMask> const & masks,
-    std::vector<SectionSerializer> & serializers)
+void IndexGraphSerializer::PrepareSectionSerializers(IndexGraph const & graph,
+                                                     std::unordered_map<uint32_t, VehicleMask> const & masks,
+                                                     std::vector<SectionSerializer> & serializers)
 {
   size_t maskToIndex[kNumVehicleMasks] = {};
   // Car routing is most used routing: put car sections first.
@@ -110,7 +110,8 @@ void IndexGraphSerializer::PrepareSectionSerializers(
     }
   }
 
-  graph.ForEachRoad([&](uint32_t featureId, RoadJointIds const & /* road */) {
+  graph.ForEachRoad([&](uint32_t featureId, RoadJointIds const & /* road */)
+  {
     VehicleMask const mask = GetRoadMask(masks, featureId);
     SectionSerializer & serializer = serializers[maskToIndex[mask]];
     CHECK_EQUAL(serializer.GetMask(), mask, ());

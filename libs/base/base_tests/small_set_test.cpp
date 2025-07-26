@@ -7,8 +7,8 @@
 #include <algorithm>
 #include <iterator>
 #include <random>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 namespace small_set_test
 {
@@ -97,12 +97,32 @@ UNIT_TEST(SmallMap_Benchmark1)
   // 1. Init maps.
   // Dataset is similar to routing::VehicleModel.
   std::unordered_map<uint32_t, bool> uMap = {
-    {1, true}, {2, false}, {4, false}, {6, true}, {7, true},
-    {8, true}, {12, false}, {15, false}, {26, true}, {30, false},
-    {36, false}, {43, false}, {54, false}, {57, true}, {58, true},
-    {65, true}, {69, true}, {90, true}, {95, false}, {119, false},
-    {167, true}, {176, false}, {259, true}, {272, false}, {994, true},
-    {1054, false}
+      {   1,  true},
+      {   2, false},
+      {   4, false},
+      {   6,  true},
+      {   7,  true},
+      {   8,  true},
+      {  12, false},
+      {  15, false},
+      {  26,  true},
+      {  30, false},
+      {  36, false},
+      {  43, false},
+      {  54, false},
+      {  57,  true},
+      {  58,  true},
+      {  65,  true},
+      {  69,  true},
+      {  90,  true},
+      {  95, false},
+      { 119, false},
+      { 167,  true},
+      { 176, false},
+      { 259,  true},
+      { 272, false},
+      { 994,  true},
+      {1054, false}
   };
 
   base::SmallMap<uint32_t, bool> sMap(uMap.begin(), uMap.end());
@@ -142,31 +162,31 @@ UNIT_TEST(SmallMap_Benchmark2)
   uint32_t i = 0;
   // Dataset is similar to routing::VehicleModelFactory.
   unordered_map<string, shared_ptr<int>> uMap = {
-    {"", make_shared<int>(i++)},
-    {"Australia", make_shared<int>(i++)},
-    {"Austria", make_shared<int>(i++)},
-    {"Belarus", make_shared<int>(i++)},
-    {"Belgium", make_shared<int>(i++)},
-    {"Brazil", make_shared<int>(i++)},
-    {"Denmark", make_shared<int>(i++)},
-    {"France", make_shared<int>(i++)},
-    {"Finland", make_shared<int>(i++)},
-    {"Germany", make_shared<int>(i++)},
-    {"Hungary", make_shared<int>(i++)},
-    {"Iceland", make_shared<int>(i++)},
-    {"Netherlands", make_shared<int>(i++)},
-    {"Norway", make_shared<int>(i++)},
-    {"Oman", make_shared<int>(i++)},
-    {"Poland", make_shared<int>(i++)},
-    {"Romania", make_shared<int>(i++)},
-    {"Russian Federation", make_shared<int>(i++)},
-    {"Slovakia", make_shared<int>(i++)},
-    {"Spain", make_shared<int>(i++)},
-    {"Switzerland", make_shared<int>(i++)},
-    {"Turkey", make_shared<int>(i++)},
-    {"Ukraine", make_shared<int>(i++)},
-    {"United Kingdom", make_shared<int>(i++)},
-    {"United States of America", make_shared<int>(i++)},
+      {                        "", make_shared<int>(i++)},
+      {               "Australia", make_shared<int>(i++)},
+      {                 "Austria", make_shared<int>(i++)},
+      {                 "Belarus", make_shared<int>(i++)},
+      {                 "Belgium", make_shared<int>(i++)},
+      {                  "Brazil", make_shared<int>(i++)},
+      {                 "Denmark", make_shared<int>(i++)},
+      {                  "France", make_shared<int>(i++)},
+      {                 "Finland", make_shared<int>(i++)},
+      {                 "Germany", make_shared<int>(i++)},
+      {                 "Hungary", make_shared<int>(i++)},
+      {                 "Iceland", make_shared<int>(i++)},
+      {             "Netherlands", make_shared<int>(i++)},
+      {                  "Norway", make_shared<int>(i++)},
+      {                    "Oman", make_shared<int>(i++)},
+      {                  "Poland", make_shared<int>(i++)},
+      {                 "Romania", make_shared<int>(i++)},
+      {      "Russian Federation", make_shared<int>(i++)},
+      {                "Slovakia", make_shared<int>(i++)},
+      {                   "Spain", make_shared<int>(i++)},
+      {             "Switzerland", make_shared<int>(i++)},
+      {                  "Turkey", make_shared<int>(i++)},
+      {                 "Ukraine", make_shared<int>(i++)},
+      {          "United Kingdom", make_shared<int>(i++)},
+      {"United States of America", make_shared<int>(i++)},
   };
 
   base::SmallMap<std::string, std::shared_ptr<int>> sMap(uMap.begin(), uMap.end());

@@ -51,6 +51,12 @@ void TestCoder(std::string const & name)
   }
 }
 
-UNIT_TEST(EliasCoder_Gamma) { TestCoder<coding::GammaCoder>("Gamma"); }
-UNIT_TEST(EliasCoder_Delta) { TestCoder<coding::DeltaCoder>("Delta"); }
+UNIT_TEST(EliasCoder_Gamma)
+{
+  TestCoder<coding::GammaCoder>("Gamma");
+}
+UNIT_TEST(EliasCoder_Delta)
+{
+  TestCoder<coding::DeltaCoder>("Delta");
+}
 }  // namespace

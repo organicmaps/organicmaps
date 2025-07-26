@@ -15,8 +15,7 @@
 + (void)openRouteManagerTransaction
 {
   auto router = [MWMRouter router];
-  router.routeManagerTransactionId =
-      GetFramework().GetRoutingManager().OpenRoutePointsTransaction();
+  router.routeManagerTransactionId = GetFramework().GetRoutingManager().OpenRoutePointsTransaction();
 }
 
 + (void)applyRouteManagerTransaction

@@ -37,15 +37,14 @@ public:
   void Invalidate(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
                   ref_ptr<HWTextureAllocator> allocator);
   void Invalidate(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
-                  ref_ptr<HWTextureAllocator> allocator,
-                  std::vector<drape_ptr<HWTexture>> & internalTextures);
+                  ref_ptr<HWTextureAllocator> allocator, std::vector<drape_ptr<HWTexture>> & internalTextures);
 
   bool IsSymbolContained(std::string const & symbolName) const;
 
   static bool DecodeToMemory(std::string const & skinPathName, std::string const & textureName,
-                             std::vector<uint8_t> & symbolsSkin,
-                             std::map<std::string, m2::RectU> & symbolsIndex,
+                             std::vector<uint8_t> & symbolsSkin, std::map<std::string, m2::RectU> & symbolsIndex,
                              uint32_t & skinWidth, uint32_t & skinHeight);
+
 private:
   void Fail(ref_ptr<dp::GraphicsContext> context);
   void Load(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,

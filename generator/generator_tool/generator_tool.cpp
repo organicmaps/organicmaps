@@ -67,10 +67,8 @@ char const * GetDataPathHelp()
 
 // Coastlines.
 DEFINE_bool(make_coasts, false, "Create intermediate file with coasts data.");
-DEFINE_bool(fail_on_coasts, false,
-            "Stop and exit with '255' code if some coastlines are not merged.");
-DEFINE_bool(emit_coasts, false,
-            "Push coasts features from intermediate file to out files/countries.");
+DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
+DEFINE_bool(emit_coasts, false, "Push coasts features from intermediate file to out files/countries.");
 
 // Generator settings and paths.
 DEFINE_string(osm_file_name, "", "Input osm area file.");
@@ -83,16 +81,13 @@ DEFINE_string(cache_path, "",
               "If 'cache_path' is empty, caches are stored to 'intermediate_data_path'.");
 DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
 DEFINE_bool(preload_cache, false, "Preload all ways and relations cache.");
-DEFINE_string(node_storage, "map",
-              "Type of storage for intermediate points representation. Available: raw, map, mem.");
-DEFINE_uint64(planet_version, base::SecondsSinceEpoch(),
-              "Version as seconds since epoch, by default - now.");
+DEFINE_string(node_storage, "map", "Type of storage for intermediate points representation. Available: raw, map, mem.");
+DEFINE_uint64(planet_version, base::SecondsSinceEpoch(), "Version as seconds since epoch, by default - now.");
 
 // Preprocessing and feature generator.
 DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
-DEFINE_bool(generate_geometry, false,
-            "3rd pass - split and simplify geometry and triangles for features.");
+DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
 DEFINE_bool(generate_cities_boundaries, false, "Generate the cities boundaries section");
@@ -105,9 +100,8 @@ DEFINE_bool(have_borders_for_whole_world, false,
             "If it is set to true, the optimization of checking that the "
             "fb belongs to the country border will be applied.");
 
-DEFINE_string(
-    nodes_list_path, "",
-    "Path to file containing list of node ids we need to add to locality index. May be empty.");
+DEFINE_string(nodes_list_path, "",
+              "Path to file containing list of node ids we need to add to locality index. May be empty.");
 
 DEFINE_bool(generate_isolines_info, false, "Generate the isolines info section");
 DEFINE_string(isolines_path, "", "Path to isolines directory. If set, adds isolines linear features.");
@@ -115,8 +109,7 @@ DEFINE_string(addresses_path, "", "Path to addresses directory. If set, adds add
 
 // Routing.
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
-DEFINE_bool(make_cross_mwm, false,
-            "Make section for cross mwm routing (for dynamic indexed routing).");
+DEFINE_bool(make_cross_mwm, false, "Make section for cross mwm routing (for dynamic indexed routing).");
 DEFINE_bool(make_transit_cross_mwm, false, "Make section for cross mwm transit routing.");
 DEFINE_bool(make_transit_cross_mwm_experimental, false,
             "Experimental parameter. If set the new version of transit cross-mwm section will be "
@@ -133,9 +126,8 @@ DEFINE_string(transit_path_experimental, "",
               "Experimental parameter. If set the new version of transit section will be "
               "generated. Path to directory with json generated from GTFS.");
 DEFINE_bool(generate_cameras, false, "Generate section with speed cameras info.");
-DEFINE_bool(
-    make_city_roads, false,
-    "Calculates which roads lie inside cities and makes a section with ids of these roads.");
+DEFINE_bool(make_city_roads, false,
+            "Calculates which roads lie inside cities and makes a section with ids of these roads.");
 DEFINE_bool(generate_maxspeed, false, "Generate section with maxspeed of road features.");
 
 // Sponsored-related.
@@ -159,9 +151,11 @@ DEFINE_string(us_postcodes_dataset, "", "Path to dataset with US postcodes.");
 // Printing stuff.
 DEFINE_bool(stats_general, false, "Print file and feature stats.");
 DEFINE_bool(stats_geometry, false, "Print outer geometry stats.");
-DEFINE_uint64(stats_geom_min_diff, 5, "Consider feature's geometry scale "
+DEFINE_uint64(stats_geom_min_diff, 5,
+              "Consider feature's geometry scale "
               "similar to a more detailed one if it has <min_diff less elements.");
-DEFINE_double(stats_geom_min_factor, 2.0f, "Consider feature's geometry scale "
+DEFINE_double(stats_geom_min_factor, 2.0f,
+              "Consider feature's geometry scale "
               "similar to a more detailed one if it has <min_factor times less elements.");
 DEFINE_bool(stats_types, false, "Print feature stats by type.");
 DEFINE_bool(dump_types, false, "Prints all types combinations and their total count.");
@@ -172,20 +166,18 @@ DEFINE_string(dump_feature_names, "", "Print all feature names by 2-letter local
 // Service functions.
 DEFINE_bool(generate_classif, false, "Generate classificator.");
 DEFINE_bool(generate_packed_borders, false, "Generate packed file with country polygons.");
-DEFINE_string(unpack_borders, "",
-              "Convert packed_polygons to a directory of polygon files (specify folder).");
-DEFINE_bool(unpack_mwm, false,
-            "Unpack each section of mwm into a separate file with name filePath.sectionName.");
+DEFINE_string(unpack_borders, "", "Convert packed_polygons to a directory of polygon files (specify folder).");
+DEFINE_bool(unpack_mwm, false, "Unpack each section of mwm into a separate file with name filePath.sectionName.");
 DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
-DEFINE_bool(generate_traffic_keys, false,
-            "Generate keys for the traffic map (road segment -> speed group).");
+DEFINE_bool(generate_traffic_keys, false, "Generate keys for the traffic map (road segment -> speed group).");
 
 DEFINE_bool(dump_mwm_tmp, false, "Prints feature builder objects from .mwm.tmp");
 
 // Common.
-DEFINE_uint64(threads_count, 0, "Desired count of threads. If count equals zero, count of "
-                                "threads is set automatically.");
+DEFINE_uint64(threads_count, 0,
+              "Desired count of threads. If count equals zero, count of "
+              "threads is set automatically.");
 DEFINE_bool(verbose, false, "Provide more detailed output.");
 
 MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
@@ -197,13 +189,11 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   Platform & pl = GetPlatform();
 
-  gflags::SetUsageMessage(
-      "Takes OSM XML data from stdin and creates data and index files in several passes.");
+  gflags::SetUsageMessage("Takes OSM XML data from stdin and creates data and index files in several passes.");
   gflags::SetVersionString(pl.Version());
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-  unsigned threadsCount = FLAGS_threads_count != 0 ? static_cast<unsigned>(FLAGS_threads_count)
-                                                   : pl.CpuCores();
+  unsigned threadsCount = FLAGS_threads_count != 0 ? static_cast<unsigned>(FLAGS_threads_count) : pl.CpuCores();
 
   if (!FLAGS_user_resource_path.empty())
   {
@@ -218,11 +208,9 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   feature::GenerateInfo genInfo;
   genInfo.m_verbose = FLAGS_verbose;
-  genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty()
-                                  ? path
-                                  : base::AddSlashIfNeeded(FLAGS_intermediate_data_path);
-  genInfo.m_cacheDir = FLAGS_cache_path.empty() ? genInfo.m_intermediateDir
-                                                : base::AddSlashIfNeeded(FLAGS_cache_path);
+  genInfo.m_intermediateDir =
+      FLAGS_intermediate_data_path.empty() ? path : base::AddSlashIfNeeded(FLAGS_intermediate_data_path);
+  genInfo.m_cacheDir = FLAGS_cache_path.empty() ? genInfo.m_intermediateDir : base::AddSlashIfNeeded(FLAGS_cache_path);
   genInfo.m_targetDir = genInfo.m_tmpDir = path;
 
   /// @todo Probably, it's better to add separate option for .mwm.tmp files.
@@ -289,10 +277,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
     genInfo.m_bucketNames.push_back(FLAGS_output);
 
   if (FLAGS_dump_mwm_tmp)
-  {
     for (auto const & fb : feature::ReadAllDatRawFormat(genInfo.GetTmpFileName(FLAGS_output)))
       std::cout << DebugPrint(fb) << std::endl;
-  }
 
   // Load mwm tree only if we need it
   std::unique_ptr<storage::CountryParentGetter> countryParentGetter;
@@ -369,11 +355,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       LOG(LINFO, ("Generating search index for", dataFile));
 
       /// @todo Make threads count according to environment (single mwm build or planet build).
-      if (!indexer::BuildSearchIndexFromDataFile(country, genInfo, true /* forceRebuild */,
-                                                 threadsCount))
-      {
+      if (!indexer::BuildSearchIndexFromDataFile(country, genInfo, true /* forceRebuild */, threadsCount))
         LOG(LCRITICAL, ("Error generating search index."));
-      }
 
       if (!FLAGS_uk_postcodes_dataset.empty() || !FLAGS_us_postcodes_dataset.empty())
       {
@@ -427,8 +410,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (!FLAGS_transit_path_experimental.empty())
     {
-      transitEdgeFeatureIds = transit::experimental::BuildTransit(
-          path, country, osmToFeatureFilename, FLAGS_transit_path_experimental);
+      transitEdgeFeatureIds =
+          transit::experimental::BuildTransit(path, country, osmToFeatureFilename, FLAGS_transit_path_experimental);
     }
     else if (!FLAGS_transit_path.empty())
     {
@@ -437,17 +420,17 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
     if (FLAGS_generate_cameras)
     {
-//      if (routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
-//      {
-//        LOG(LINFO,
-//            ("Cameras info is prohibited for", country, "and speedcams section is not generated."));
-//      }
-//      else
-//      {
-        string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
+      //      if (routing::AreSpeedCamerasProhibited(platform::CountryFile(country)))
+      //      {
+      //        LOG(LINFO,
+      //            ("Cameras info is prohibited for", country, "and speedcams section is not generated."));
+      //      }
+      //      else
+      //      {
+      string const camerasFilename = genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
 
-        BuildCamerasInfo(dataFile, camerasFilename, osmToFeatureFilename);
-//      }
+      BuildCamerasInfo(dataFile, camerasFilename, osmToFeatureFilename);
+      //      }
     }
 
     if (country == WORLD_FILE_NAME && !FLAGS_world_roads_path.empty())
@@ -467,9 +450,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (!countryParentGetter)
       {
         // All the mwms should use proper VehicleModels.
-        LOG(LCRITICAL,
-            ("Countries file is needed. Please set countries file name (countries.txt). "
-             "File must be located in data directory."));
+        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt). "
+                        "File must be located in data directory."));
         return EXIT_FAILURE;
       }
 
@@ -511,31 +493,28 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (!countryParentGetter)
       {
         // All the mwms should use proper VehicleModels.
-        LOG(LCRITICAL,
-            ("Countries file is needed. Please set countries file name (countries.txt). "
-             "File must be located in data directory."));
+        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.txt). "
+                        "File must be located in data directory."));
         return EXIT_FAILURE;
       }
 
       if (FLAGS_make_cross_mwm)
       {
-        BuildRoutingCrossMwmSection(path, dataFile, country, genInfo.m_intermediateDir,
-                                    *countryParentGetter, osmToFeatureFilename);
+        BuildRoutingCrossMwmSection(path, dataFile, country, genInfo.m_intermediateDir, *countryParentGetter,
+                                    osmToFeatureFilename);
       }
 
       if (FLAGS_make_transit_cross_mwm_experimental)
       {
         if (!transitEdgeFeatureIds.empty())
         {
-          BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
-                                      transitEdgeFeatureIds,
+          BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter, transitEdgeFeatureIds,
                                       true /* experimentalTransit */);
         }
       }
       else if (FLAGS_make_transit_cross_mwm)
       {
-        BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter,
-                                    transitEdgeFeatureIds,
+        BuildTransitCrossMwmSection(path, dataFile, country, *countryParentGetter, transitEdgeFeatureIds,
                                     false /* experimentalTransit */);
       }
     }

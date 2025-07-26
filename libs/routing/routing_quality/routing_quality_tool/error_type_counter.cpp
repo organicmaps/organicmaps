@@ -22,8 +22,7 @@ void ErrorTypeCounter::PushError(api::ResultCode code)
   PushError(routingCode);
 }
 
-void FillLabelsAndErrorTypeDistribution(std::vector<std::string> & labels,
-                                        std::vector<double> & errorsTypeDistribution,
+void FillLabelsAndErrorTypeDistribution(std::vector<std::string> & labels, std::vector<double> & errorsTypeDistribution,
                                         ErrorTypeCounter const & counter)
 {
   errorsTypeDistribution.clear();
@@ -37,8 +36,7 @@ void FillLabelsAndErrorTypeDistribution(std::vector<std::string> & labels,
 
 void FillLabelsAndErrorTypeDistribution(std::vector<std::string> & labels,
                                         std::vector<std::vector<double>> & errorsTypeDistribution,
-                                        ErrorTypeCounter const & counter,
-                                        ErrorTypeCounter const & counterOld)
+                                        ErrorTypeCounter const & counter, ErrorTypeCounter const & counterOld)
 {
   errorsTypeDistribution.clear();
   errorsTypeDistribution.resize(2);

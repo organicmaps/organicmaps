@@ -26,7 +26,8 @@ typedef NS_ENUM(NSInteger, MWMBookmarksButtonState) {
 NS_ASSUME_NONNULL_BEGIN
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected);
 #ifdef __cplusplus
@@ -47,12 +48,12 @@ NS_SWIFT_NAME(ActionBarButton)
 @interface MWMActionBarButton : UIView
 
 @property(nonatomic, readonly) MWMActionBarButtonType type;
-@property(nonatomic, readonly, nullable) MWMCircularProgress *mapDownloadProgress;
+@property(nonatomic, readonly, nullable) MWMCircularProgress * mapDownloadProgress;
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(MWMActionBarButtonType)type
                                 isSelected:(BOOL)isSelected
-                                isEnabled:(BOOL)isEnabled;
+                                 isEnabled:(BOOL)isEnabled;
 
 - (void)setBookmarkButtonState:(MWMBookmarksButtonState)state;
 

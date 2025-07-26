@@ -42,17 +42,17 @@ UNIT_TEST(CountriesNamesTest)
   base::Cancellable const cancellable;
   search::CategoriesCache cache(ftypes::IsLocalityChecker::Instance(), cancellable);
 
-  int8_t const langIndices[] = { StringUtf8Multilang::kEnglishCode,
-                                 StringUtf8Multilang::kDefaultCode,
-                                 StringUtf8Multilang::kInternationalCode };
+  int8_t const langIndices[] = {StringUtf8Multilang::kEnglishCode, StringUtf8Multilang::kDefaultCode,
+                                StringUtf8Multilang::kInternationalCode};
 
-  set<string> const kIgnoreList = {"Northern Cyprus",
-                                   "Transnistria",
-                                   "Nagorno-Karabakh Republic",
-                                   "Republic of Artsakh",
-                                   "Saint Helena, Ascension and Tristan da Cunha",
-                                   "Somaliland",
-                                   };
+  set<string> const kIgnoreList = {
+      "Northern Cyprus",
+      "Transnistria",
+      "Nagorno-Karabakh Republic",
+      "Republic of Artsakh",
+      "Saint Helena, Ascension and Tristan da Cunha",
+      "Somaliland",
+  };
 
   auto const features = cache.Get(mwmContext);
   features.ForEach([&](uint64_t fid)

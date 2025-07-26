@@ -35,10 +35,7 @@ bool BuildCentersTableFromDataFile(std::string const & filename, bool forceRebui
       FeaturesVector const features(rcont, header, table.get(), nullptr);
 
       builder.SetGeometryParams(header.GetBounds());
-      features.ForEach([&](FeatureType & ft, uint32_t featureId)
-      {
-        builder.Put(featureId, feature::GetCenter(ft));
-      });
+      features.ForEach([&](FeatureType & ft, uint32_t featureId) { builder.Put(featureId, feature::GetCenter(ft)); });
     }
 
     {

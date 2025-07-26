@@ -4,11 +4,11 @@
 
 #include "platform/downloader_utils.hpp"
 #include "platform/http_client.hpp"
+#include "platform/locale.hpp"
 #include "platform/platform.hpp"
+#include "platform/products.hpp"
 #include "platform/servers_list.hpp"
 #include "platform/settings.hpp"
-#include "platform/products.hpp"
-#include "platform/locale.hpp"
 
 #include "coding/url.hpp"
 
@@ -31,10 +31,7 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry && queuedCountry)
   {
     RunMetaConfigAsync([this]()
     {
-      m_pendingRequests.ForEachCountry([this](QueuedCountry & country)
-      {
-        Download(std::move(country));
-      });
+      m_pendingRequests.ForEachCountry([this](QueuedCountry & country) { Download(std::move(country)); });
 
       m_pendingRequests.Clear();
     });
@@ -76,7 +73,7 @@ QueueInterface const & MapFilesDownloader::GetQueue() const
   return m_pendingRequests;
 }
 
-void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool (std::string const &)> && callback,
+void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool(std::string const &)> && callback,
                                           bool forceReset /* = false */)
 {
   EnsureMetaConfigReady([this, forceReset, url = std::move(url), callback = std::move(callback)]()
@@ -86,24 +83,24 @@ void MapFilesDownloader::DownloadAsString(std::string url, std::function<bool (s
 
     // Servers are sorted from best to worst.
     m_fileRequest.reset(RequestT::Get(url::Join(m_serversList.front(), url),
-      [this, callback = std::move(callback)](RequestT & request)
+                                      [this, callback = std::move(callback)](RequestT & request)
+    {
+      bool deleteRequest = true;
+
+      auto const & buffer = request.GetData();
+      if (!buffer.empty())
       {
-        bool deleteRequest = true;
+        // Update deleteRequest flag if new download was requested in callback.
+        deleteRequest = !callback(buffer);
+      }
 
-        auto const & buffer = request.GetData();
-        if (!buffer.empty())
-        {
-          // Update deleteRequest flag if new download was requested in callback.
-          deleteRequest = !callback(buffer);
-        }
-
-        if (deleteRequest)
-          m_fileRequest.reset();
-      }));
+      if (deleteRequest)
+        m_fileRequest.reset();
+    }));
   });
 }
 
-void MapFilesDownloader::EnsureMetaConfigReady(std::function<void ()> && callback)
+void MapFilesDownloader::EnsureMetaConfigReady(std::function<void()> && callback)
 {
   /// @todo Implement logic if m_metaConfig is "outdated".
   /// Fetch new servers list on each download request?
@@ -170,7 +167,7 @@ MetaConfig MapFilesDownloader::LoadMetaConfig()
     request.SetRawHeader("X-OM-DataVersion", std::to_string(m_dataVersion));
     request.SetRawHeader("X-OM-AppVersion", pl.Version());
     request.SetRawHeader("Accept-Language", GetAcceptLanguage());
-    request.SetTimeout(10.0); // timeout in seconds
+    request.SetTimeout(10.0);  // timeout in seconds
     request.RunHttpRequest(httpResult);
   }
 

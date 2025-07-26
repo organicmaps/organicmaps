@@ -85,8 +85,7 @@ UNIT_TEST(Huffman_Init)
 UNIT_TEST(Huffman_Serialization_Encoding)
 {
   HuffmanCoder hW;
-  hW.Init(MakeUniStringVector(
-      vector<string>{"aaaaaaaaaa", "bbbbbbbbbb", "ccccc", "ddddd"}));  // 10, 10, 5, 5
+  hW.Init(MakeUniStringVector(vector<string>{"aaaaaaaaaa", "bbbbbbbbbb", "ccccc", "ddddd"}));  // 10, 10, 5, 5
   vector<uint8_t> buf;
   MemWriter<vector<uint8_t>> writer(buf);
   hW.WriteEncoding(writer);
@@ -112,8 +111,7 @@ UNIT_TEST(Huffman_Serialization_Encoding)
 UNIT_TEST(Huffman_Serialization_Data)
 {
   HuffmanCoder hW;
-  hW.Init(MakeUniStringVector(
-      vector<string>{"aaaaaaaaaa", "bbbbbbbbbb", "ccccc", "ddddd"}));  // 10, 10, 5, 5
+  hW.Init(MakeUniStringVector(vector<string>{"aaaaaaaaaa", "bbbbbbbbbb", "ccccc", "ddddd"}));  // 10, 10, 5, 5
   vector<uint8_t> buf;
 
   string const data = "abacabaddddaaabbcabacabadbabd";

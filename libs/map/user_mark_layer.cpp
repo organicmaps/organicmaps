@@ -1,10 +1,6 @@
 #include "map/user_mark_layer.hpp"
 
-
-UserMarkLayer::UserMarkLayer(UserMark::Type type)
-  : m_type(type)
-{
-}
+UserMarkLayer::UserMarkLayer(UserMark::Type type) : m_type(type) {}
 
 bool UserMarkLayer::IsVisible() const
 {

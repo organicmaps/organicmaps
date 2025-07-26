@@ -12,7 +12,6 @@
 
 #include <algorithm>
 
-
 namespace df
 {
 
@@ -31,9 +30,8 @@ double CalculateScale(m2::RectD const & pixelRect, m2::RectD const & localRect)
   return std::max(localRect.SizeX() / pixelRect.SizeX(), localRect.SizeY() / pixelRect.SizeY());
 }
 
-m2::PointD CalculateCenter(double scale, m2::RectD const & pixelRect,
-                           m2::PointD const & userPos, m2::PointD const & pixelPos,
-                           double azimuth)
+m2::PointD CalculateCenter(double scale, m2::RectD const & pixelRect, m2::PointD const & userPos,
+                           m2::PointD const & pixelPos, double azimuth)
 {
   m2::PointD formingVector = (pixelRect.Center() - pixelPos) * scale;
   formingVector.y = -formingVector.y;
@@ -41,8 +39,8 @@ m2::PointD CalculateCenter(double scale, m2::RectD const & pixelRect,
   return userPos + formingVector;
 }
 
-m2::PointD CalculateCenter(ScreenBase const & screen, m2::PointD const & userPos,
-                           m2::PointD const & pixelPos, double azimuth)
+m2::PointD CalculateCenter(ScreenBase const & screen, m2::PointD const & userPos, m2::PointD const & pixelPos,
+                           double azimuth)
 {
   double const scale = screen.GlobalRect().GetLocalRect().SizeX() / screen.PixelRect().SizeX();
   return CalculateCenter(scale, screen.PixelRect(), userPos, pixelPos, azimuth);
@@ -78,8 +76,7 @@ bool CheckBorders(ScreenBase const & screen)
 bool CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   m2::RectD clipRect = screen.ClipRect();
-  return (boundRect.SizeX() >= clipRect.SizeX())
-      && (boundRect.SizeY() >= clipRect.SizeY());
+  return (boundRect.SizeX() >= clipRect.SizeX()) && (boundRect.SizeY() >= clipRect.SizeY());
 }
 
 ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
@@ -99,7 +96,7 @@ ScreenBase const ShrinkInto(ScreenBase const & screen, m2::RectD const & boundRe
   res.SetOrg(clipRect.Center());
 
   // This assert fails near x = 180 (Philipines).
-  //ASSERT ( boundRect.IsRectInside(res.ClipRect()), (clipRect, res.ClipRect()) );
+  // ASSERT ( boundRect.IsRectInside(res.ClipRect()), (clipRect, res.ClipRect()) );
   return res;
 }
 
@@ -260,4 +257,4 @@ bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase &
   return true;
 }
 
-} // namespace df
+}  // namespace df

@@ -14,8 +14,7 @@ namespace df
 {
 std::array<int, 3> const kLineIndexingLevels = {1, 7, 11};
 
-UserMarkGenerator::UserMarkGenerator(TFlushFn const & flushFn)
-  : m_flushFn(flushFn)
+UserMarkGenerator::UserMarkGenerator(TFlushFn const & flushFn) : m_flushFn(flushFn)
 {
   ASSERT(m_flushFn, ());
 }
@@ -124,10 +123,8 @@ void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
       {
         df::ProcessSplineSegmentRects(spline, maxLength, [&](m2::RectD const & segmentRect)
         {
-          CalcTilesCoverage(segmentRect, zoomLevel, [&](int tileX, int tileY)
-          {
-            tiles.emplace(tileX, tileY, zoomLevel);
-          });
+          CalcTilesCoverage(segmentRect, zoomLevel,
+                            [&](int tileX, int tileY) { tiles.emplace(tileX, tileY, zoomLevel); });
           return true;
         });
       }
@@ -177,22 +174,18 @@ ref_ptr<IDCollections> UserMarkGenerator::GetIdCollection(TileKey const & tileKe
 void UserMarkGenerator::CleanIndex()
 {
   for (auto tileIt = m_index.begin(); tileIt != m_index.end();)
-  {
     if (tileIt->second->empty())
       tileIt = m_index.erase(tileIt);
     else
       ++tileIt;
-  }
 
   for (auto & tileGroups : m_index)
   {
     for (auto groupIt = tileGroups.second->begin(); groupIt != tileGroups.second->end();)
-    {
       if (groupIt->second->IsEmpty())
         groupIt = tileGroups.second->erase(groupIt);
       else
         ++groupIt;
-    }
   }
 }
 
@@ -216,22 +209,17 @@ ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserLinesGroups(TileKey const & til
 {
   auto itTile = m_index.end();
   int const lineZoom = GetNearestLineIndexZoom(tileKey.m_zoomLevel);
-  CalcTilesCoverage(tileKey.GetGlobalRect(), lineZoom,
-                    [this, &itTile, lineZoom](int tileX, int tileY)
-  {
-    itTile = m_index.find(TileKey(tileX, tileY, lineZoom));
-  });
+  CalcTilesCoverage(tileKey.GetGlobalRect(), lineZoom, [this, &itTile, lineZoom](int tileX, int tileY)
+  { itTile = m_index.find(TileKey(tileX, tileY, lineZoom)); });
   if (itTile != m_index.end())
     return make_ref(itTile->second);
   return nullptr;
 }
 
-void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context,
-                                                  TileKey const & tileKey,
+void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                                                   ref_ptr<dp::TextureManager> textures)
 {
-  auto const clippedTileKey =
-      TileKey(tileKey.m_x, tileKey.m_y, ClipTileZoomByMaxDataZoom(tileKey.m_zoomLevel));
+  auto const clippedTileKey = TileKey(tileKey.m_x, tileKey.m_y, ClipTileZoomByMaxDataZoom(tileKey.m_zoomLevel));
   auto marksGroups = GetUserMarksGroups(clippedTileKey);
   auto linesGroups = GetUserLinesGroups(clippedTileKey);
 
@@ -243,11 +231,9 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
   batcher.SetBatcherHash(tileKey.GetHashValue(BatcherBucket::UserMark));
   TUserMarksRenderData renderData;
   {
-    dp::SessionGuard guard(context, batcher, [&tileKey, &renderData](dp::RenderState const & state,
-                                                                     drape_ptr<dp::RenderBucket> && b)
-    {
-      renderData.emplace_back(state, std::move(b), tileKey);
-    });
+    dp::SessionGuard guard(context, batcher,
+                           [&tileKey, &renderData](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+    { renderData.emplace_back(state, std::move(b), tileKey); });
 
     if (marksGroups != nullptr)
       CacheUserMarks(context, tileKey, *marksGroups.get(), textures, batcher);
@@ -257,38 +243,32 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
   m_flushFn(std::move(renderData));
 }
 
-void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context,
-                                       TileKey const & tileKey, MarksIDGroups const & indexesGroups,
-                                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher) const
+void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                       MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
+                                       dp::Batcher & batcher) const
 {
   for (auto const & gp : indexesGroups)
-  {
     if (m_groupsVisibility.find(gp.first) != m_groupsVisibility.end())
       df::CacheUserLines(context, tileKey, textures, gp.second->m_lineIds, m_lines, batcher);
-  }
 }
 
-void UserMarkGenerator::CacheUserMarks(ref_ptr<dp::GraphicsContext> context,
-                                       TileKey const & tileKey, MarksIDGroups const & indexesGroups,
-                                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher) const
+void UserMarkGenerator::CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                       MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
+                                       dp::Batcher & batcher) const
 {
   for (auto const & gp : indexesGroups)
-  {
     if (m_groupsVisibility.find(gp.first) != m_groupsVisibility.end())
       df::CacheUserMarks(context, tileKey, textures, gp.second->m_markIds, m_marks, batcher);
-  }
 }
 
 int UserMarkGenerator::GetNearestLineIndexZoom(int zoom) const
 {
   int nearestZoom = kLineIndexingLevels[0];
   for (size_t i = 1; i < kLineIndexingLevels.size(); ++i)
-  {
     if (kLineIndexingLevels[i] <= zoom)
       nearestZoom = kLineIndexingLevels[i];
     else
       break;
-  }
   return nearestZoom;
 }
 }  // namespace df

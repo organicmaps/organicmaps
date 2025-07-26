@@ -13,7 +13,10 @@ using namespace std;
 
 namespace
 {
-UNIT_TEST(Skew_Smoke) { Skew(0, nullptr /* s */, nullptr /* sa */); }
+UNIT_TEST(Skew_Smoke)
+{
+  Skew(0, nullptr /* s */, nullptr /* sa */);
+}
 
 UNIT_TEST(Skew_Simple)
 {
@@ -71,7 +74,7 @@ UNIT_TEST(Skew_Classic)
   TEST_EQUAL(n, 11, ());
 
   vector<size_t> pos(n);
-  Skew(n, reinterpret_cast<const uint8_t *>(s), pos.data());
+  Skew(n, reinterpret_cast<uint8_t const *>(s), pos.data());
 
   TEST_STR_EQUAL("i", s + pos[0], ());
   TEST_STR_EQUAL("ippi", s + pos[1], ());

@@ -76,7 +76,7 @@ struct HouseProjection : public ProjectionOnStreet
   {
   public:
     explicit EqualHouse(House const * h) : m_house(h) {}
-    bool operator() (HouseProjection const * p) const { return m_house == p->m_house; }
+    bool operator()(HouseProjection const * p) const { return m_house == p->m_house; }
 
   private:
     House const * m_house;
@@ -106,10 +106,7 @@ public:
 
   double GetPrefixLength(size_t numSegs) const;
 
-  static bool IsSameStreets(Street const * s1, Street const * s2)
-  {
-    return s1->m_processedName == s2->m_processedName;
-  }
+  static bool IsSameStreets(Street const * s1, Street const * s2) { return s1->m_processedName == s2->m_processedName; }
 
   void SetName(std::string_view name);
   std::string const & GetDbgName() const { return m_processedName; }
@@ -137,10 +134,7 @@ public:
 
   struct GreaterLength
   {
-    bool operator() (MergedStreet const & s1, MergedStreet const & s2) const
-    {
-      return (s1.m_length > s2.m_length);
-    }
+    bool operator()(MergedStreet const & s1, MergedStreet const & s2) const { return (s1.m_length > s2.m_length); }
   };
 
   MergedStreet() : m_length(0.0) {}
@@ -190,9 +184,7 @@ private:
 
 struct HouseResult
 {
-  HouseResult(House const * house, MergedStreet const * street) : m_house(house), m_street(street)
-  {
-  }
+  HouseResult(House const * house, MergedStreet const * street) : m_house(house), m_street(street) {}
 
   bool operator<(HouseResult const & a) const { return m_house < a.m_house; }
   bool operator==(HouseResult const & a) const { return m_house == a.m_house; }

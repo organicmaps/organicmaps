@@ -14,6 +14,7 @@ struct CloudMetadataItem: MetadataItem {
   let fileName: String
   let fileUrl: URL
   var isDownloaded: Bool
+  var percentDownloaded: NSNumber
   var lastModificationDate: TimeInterval
   let downloadingError: NSError?
   let uploadingError: NSError?
@@ -42,6 +43,7 @@ extension CloudMetadataItem {
     guard let fileName = metadataItem.value(forAttribute: NSMetadataItemFSNameKey) as? String,
           let fileUrl = metadataItem.value(forAttribute: NSMetadataItemURLKey) as? URL,
           let downloadStatus = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingStatusKey) as? String,
+          let percentDownloaded = metadataItem.value(forAttribute: NSMetadataUbiquitousItemPercentDownloadedKey) as? NSNumber,
           let lastModificationDate = (metadataItem.value(forAttribute: NSMetadataItemFSContentChangeDateKey) as? Date)?.roundedTime,
           let hasUnresolvedConflicts = metadataItem.value(forAttribute: NSMetadataUbiquitousItemHasUnresolvedConflictsKey) as? Bool else {
       let allAttributes = metadataItem.values(forAttributes: metadataItem.attributes)
@@ -51,6 +53,7 @@ extension CloudMetadataItem {
     self.fileName = fileName
     self.fileUrl = fileUrl.standardizedFileURL
     self.isDownloaded = downloadStatus == NSMetadataUbiquitousItemDownloadingStatusCurrent
+    self.percentDownloaded = percentDownloaded
     self.lastModificationDate = lastModificationDate
     self.hasUnresolvedConflicts = hasUnresolvedConflicts
     self.downloadingError = metadataItem.value(forAttribute: NSMetadataUbiquitousItemDownloadingErrorKey) as? NSError
@@ -65,6 +68,7 @@ extension CloudMetadataItem {
                                                          .ubiquitousItemDownloadingErrorKey,
                                                          .ubiquitousItemUploadingErrorKey])
     guard let downloadStatus = resources.ubiquitousItemDownloadingStatus,
+          let percentDownloaded = resources.ubiquitousItemDownloadingStatus,
           let lastModificationDate = resources.contentModificationDate?.roundedTime,
           let hasUnresolvedConflicts = resources.ubiquitousItemHasUnresolvedConflicts else {
       LOG(.error, "Failed to initialize CloudMetadataItem from \(fileUrl) resources: \(resources.allValues)")
@@ -72,7 +76,9 @@ extension CloudMetadataItem {
     }
     self.fileName = fileUrl.lastPathComponent
     self.fileUrl = fileUrl.standardizedFileURL
-    self.isDownloaded = downloadStatus.rawValue == NSMetadataUbiquitousItemDownloadingStatusCurrent
+    let isDownloaded = downloadStatus.rawValue == NSMetadataUbiquitousItemDownloadingStatusCurrent
+    self.isDownloaded = isDownloaded
+    self.percentDownloaded = isDownloaded ? 0.0 : 100.0
     self.lastModificationDate = lastModificationDate
     self.hasUnresolvedConflicts = hasUnresolvedConflicts
     self.downloadingError = resources.ubiquitousItemDownloadingError
@@ -115,7 +121,7 @@ extension Array where Element == CloudMetadataItem {
   }
 
   var notDownloaded: Self {
-    filter { !$0.isDownloaded }
+    filter { !$0.isDownloaded && $0.percentDownloaded == 0.0 }
   }
 
   func withUnresolvedConflicts(_ hasUnresolvedConflicts: Bool) -> Self {

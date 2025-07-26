@@ -6,8 +6,7 @@
 
 namespace isolines
 {
-bool LoadIsolinesInfo(DataSource const & dataSource, MwmSet::MwmId const & mwmId,
-                      IsolinesInfo & info)
+bool LoadIsolinesInfo(DataSource const & dataSource, MwmSet::MwmId const & mwmId, IsolinesInfo & info)
 {
   auto const handle = dataSource.GetMwmHandleById(mwmId);
 

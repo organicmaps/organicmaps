@@ -2,8 +2,8 @@
 
 #include "map/features_fetcher.hpp"
 
-#include "indexer/scales.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/scales.hpp"
 
 #include <string>
 #include <vector>
@@ -17,16 +17,13 @@ class CheckNonEmptyGeometry
 public:
   vector<FeatureID> m_ids;
 
-  void operator() (FeatureID const & id)
-  {
-    m_ids.push_back(id);
-  }
+  void operator()(FeatureID const & id) { m_ids.push_back(id); }
 
   void operator()(FeatureType & ft)
   {
     bool res = false;
-    ft.ForEachPoint([&res] (m2::PointD const &) { res = true; }, m_scale);
-    ft.ForEachTriangle([&res] (m2::PointD const &, m2::PointD const &, m2::PointD const &) { res = true; }, m_scale);
+    ft.ForEachPoint([&res](m2::PointD const &) { res = true; }, m_scale);
+    ft.ForEachTriangle([&res](m2::PointD const &, m2::PointD const &, m2::PointD const &) { res = true; }, m_scale);
 
     TEST(res, (ft.DebugString(), "Scale =", m_scale));
   }

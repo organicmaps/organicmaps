@@ -9,11 +9,12 @@
 
 class AppleLocationService;
 
-@interface LocationManagerWrapper : NSObject <CLLocationManagerDelegate> {
+@interface LocationManagerWrapper : NSObject <CLLocationManagerDelegate>
+{
 @private
   AppleLocationService * m_service;
 }
-- (id)initWithService:(AppleLocationService *) service;
+- (id)initWithService:(AppleLocationService *)service;
 @end
 
 using namespace location;
@@ -34,22 +35,16 @@ public:
     m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
   }
 
-  void OnLocationUpdate(GpsInfo const & info)
-  {
-    m_observer.OnLocationUpdated(info);
-  }
+  void OnLocationUpdate(GpsInfo const & info) { m_observer.OnLocationUpdated(info); }
 
-  void OnDeniedError()
-  {
-    m_observer.OnLocationError(location::EDenied);
-  }
+  void OnDeniedError() { m_observer.OnLocationError(location::EDenied); }
 
   virtual void Start()
   {
     if (![CLLocationManager locationServicesEnabled])
     {
       // @TODO correctly handle situation in GUI when wifi is working and native is disabled
-      //m_observer.OnLocationStatusChanged(location::ENotSupported);
+      // m_observer.OnLocationStatusChanged(location::ENotSupported);
     }
     else
     {
@@ -57,36 +52,32 @@ public:
     }
   }
 
-  virtual void Stop()
-  {
-    [m_locationManager stopUpdatingLocation];
-  }
+  virtual void Stop() { [m_locationManager stopUpdatingLocation]; }
 };
 
 @implementation LocationManagerWrapper
 
-- (id)initWithService:(AppleLocationService *) service
+- (id)initWithService:(AppleLocationService *)service
 {
   if ((self = [super init]))
     m_service = service;
   return self;
 }
 
-+ (void)location:(CLLocation *)location toGpsInfo:(GpsInfo &) info
++ (void)location:(CLLocation *)location toGpsInfo:(GpsInfo &)info
 {
   info.m_horizontalAccuracy = location.horizontalAccuracy;
   info.m_latitude = location.coordinate.latitude;
   info.m_longitude = location.coordinate.longitude;
   info.m_timestamp = [location.timestamp timeIntervalSince1970];
   info.m_source = location::EAppleNative;
-  //info.m_verticalAccuracy = location.verticalAccuracy;
-  //info.m_altitude = location.altitude;
-  //info.m_course = location.course;
-  //info.m_speed = location.speed;
+  // info.m_verticalAccuracy = location.verticalAccuracy;
+  // info.m_altitude = location.altitude;
+  // info.m_course = location.course;
+  // info.m_speed = location.speed;
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray<CLLocation *> *)locations
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
   UNUSED_VALUE(manager);
   GpsInfo newInfo;
@@ -94,8 +85,7 @@ public:
   m_service->OnLocationUpdate(newInfo);
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
   UNUSED_VALUE(manager);
   LOG(LWARNING, ("locationManager failed with error", error.code, error.description.UTF8String));

@@ -1,8 +1,8 @@
 #include "routing/regions_router.hpp"
 
 #include "routing/dummy_world_graph.hpp"
-#include "routing/index_graph_starter.hpp"
 #include "routing/index_graph_loader.hpp"
+#include "routing/index_graph_starter.hpp"
 #include "routing/junction_visitor.hpp"
 #include "routing/regions_sparse_graph.hpp"
 #include "routing/routing_helpers.hpp"
@@ -11,9 +11,8 @@
 
 namespace routing
 {
-RegionsRouter::RegionsRouter(CountryFileGetterFn const & countryFileGetter,
-                             std::shared_ptr<NumMwmIds> numMwmIds, DataSource & dataSource,
-                             RouterDelegate const & delegate, Checkpoints const & checkpoints)
+RegionsRouter::RegionsRouter(CountryFileGetterFn const & countryFileGetter, std::shared_ptr<NumMwmIds> numMwmIds,
+                             DataSource & dataSource, RouterDelegate const & delegate, Checkpoints const & checkpoints)
   : m_countryFileGetterFn(countryFileGetter)
   , m_numMwmIds(std::move(numMwmIds))
   , m_dataSource(dataSource)
@@ -24,8 +23,7 @@ RegionsRouter::RegionsRouter(CountryFileGetterFn const & countryFileGetter,
 }
 
 template <typename Vertex, typename Edge, typename Weight>
-RouterResultCode RegionsRouter::ConvertResult(
-    typename AStarAlgorithm<Vertex, Edge, Weight>::Result result) const
+RouterResultCode RegionsRouter::ConvertResult(typename AStarAlgorithm<Vertex, Edge, Weight>::Result result) const
 {
   switch (result)
   {
@@ -47,8 +45,8 @@ RouterResultCode RegionsRouter::CalculateSubrouteNoLeapsMode(IndexGraphStarter &
 
   double constexpr almostZeroContribution = 1e-7;
   auto progress = std::make_shared<AStarProgress>();
-  AStarSubProgress subProgress(mercator::ToLatLon(startCheckpoint),
-                               mercator::ToLatLon(finishCheckpoint), almostZeroContribution);
+  AStarSubProgress subProgress(mercator::ToLatLon(startCheckpoint), mercator::ToLatLon(finishCheckpoint),
+                               almostZeroContribution);
 
   progress->AppendSubProgress(subProgress);
   SCOPE_GUARD(eraseProgress, [&progress]() { progress->PushAndDropLastSubProgress(); });
@@ -58,8 +56,8 @@ RouterResultCode RegionsRouter::CalculateSubrouteNoLeapsMode(IndexGraphStarter &
   Visitor visitor(starter, m_delegate, kVisitPeriod, progress);
 
   AStarAlgorithm<Vertex, Edge, Weight>::Params<Visitor, AStarLengthChecker> params(
-      starter, starter.GetStartSegment(), starter.GetFinishSegment(),
-      m_delegate.GetCancellable(), std::move(visitor), AStarLengthChecker(starter));
+      starter, starter.GetStartSegment(), starter.GetFinishSegment(), m_delegate.GetCancellable(), std::move(visitor),
+      AStarLengthChecker(starter));
 
   params.m_badReducedWeight = [](Weight const & reduced, Weight const & current)
   {
@@ -97,19 +95,16 @@ void RegionsRouter::Do()
     if (GetCheckpointRegion(i).second == GetCheckpointRegion(i + 1).second)
       continue;
 
-    std::optional<FakeEnding> const startFakeEnding =
-        sparseGraph->GetFakeEnding(m_checkpoints.GetPoint(i));
+    std::optional<FakeEnding> const startFakeEnding = sparseGraph->GetFakeEnding(m_checkpoints.GetPoint(i));
     if (!startFakeEnding)
       return;
 
-    std::optional<FakeEnding> const finishFakeEnding =
-        sparseGraph->GetFakeEnding(m_checkpoints.GetPoint(i + 1));
+    std::optional<FakeEnding> const finishFakeEnding = sparseGraph->GetFakeEnding(m_checkpoints.GetPoint(i + 1));
     if (!finishFakeEnding)
       return;
 
-    IndexGraphStarter subrouteStarter(*startFakeEnding, *finishFakeEnding,
-                                      0 /* fakeNumerationStart */, false /* isStartSegmentStrictForward */,
-                                      *graph);
+    IndexGraphStarter subrouteStarter(*startFakeEnding, *finishFakeEnding, 0 /* fakeNumerationStart */,
+                                      false /* isStartSegmentStrictForward */, *graph);
 
     subrouteStarter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
 
@@ -117,8 +112,8 @@ void RegionsRouter::Do()
 
     std::vector<Segment> subroute;
 
-    auto const result = CalculateSubrouteNoLeapsMode(
-        subrouteStarter, subroute, m_checkpoints.GetPoint(i), m_checkpoints.GetPoint(i + 1));
+    auto const result = CalculateSubrouteNoLeapsMode(subrouteStarter, subroute, m_checkpoints.GetPoint(i),
+                                                     m_checkpoints.GetPoint(i + 1));
 
     if (result != RouterResultCode::NoError)
       return;
@@ -139,7 +134,10 @@ void RegionsRouter::Do()
   }
 }
 
-std::unordered_set<std::string> const & RegionsRouter::GetMwmNames() const { return m_mwmNames; }
+std::unordered_set<std::string> const & RegionsRouter::GetMwmNames() const
+{
+  return m_mwmNames;
+}
 
 std::pair<m2::PointD, std::string> RegionsRouter::GetCheckpointRegion(size_t index) const
 {

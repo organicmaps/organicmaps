@@ -7,9 +7,9 @@
 namespace df
 {
 
-MapLinearAnimation::MapLinearAnimation(m2::PointD const & startPos, m2::PointD const & endPos,
-                                       double startAngle, double endAngle,
-                                       double startScale, double endScale, ScreenBase const & convertor)
+MapLinearAnimation::MapLinearAnimation(m2::PointD const & startPos, m2::PointD const & endPos, double startAngle,
+                                       double endAngle, double startScale, double endScale,
+                                       ScreenBase const & convertor)
   : Animation(true /* couldBeInterrupted */, false /* couldBeBlended */)
   , m_angleInterpolator(startAngle, endAngle)
   , m_positionInterpolator(startPos, endPos, convertor)
@@ -27,8 +27,7 @@ MapLinearAnimation::MapLinearAnimation(m2::PointD const & startPos, m2::PointD c
     m_properties.insert(Animation::ObjectProperty::Scale);
 }
 
-MapLinearAnimation::MapLinearAnimation()
-  : Animation(true /* couldBeInterrupted */, false /* couldBeBlended */)
+MapLinearAnimation::MapLinearAnimation() : Animation(true /* couldBeInterrupted */, false /* couldBeBlended */)
 {
   m_objects.insert(Animation::Object::MapPlane);
 }
@@ -60,16 +59,15 @@ void MapLinearAnimation::Init(ScreenBase const & screen, TPropertyCache const & 
   m_angleInterpolator.SetMaxDuration(maxDuration);
 }
 
-void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos,
-                                 ScreenBase const & convertor)
+void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos, ScreenBase const & convertor)
 {
   m_positionInterpolator = PositionInterpolator(startPos, endPos, convertor);
   if (m_positionInterpolator.IsActive())
     m_properties.insert(Animation::ObjectProperty::Position);
 }
 
-void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos,
-                                 m2::RectD const & viewportRect, double scale)
+void MapLinearAnimation::SetMove(m2::PointD const & startPos, m2::PointD const & endPos, m2::RectD const & viewportRect,
+                                 double scale)
 {
   m_positionInterpolator = PositionInterpolator(startPos, endPos, viewportRect, scale);
   if (m_positionInterpolator.IsActive())
@@ -194,8 +192,7 @@ double MapLinearAnimation::GetMinDuration() const
 
 bool MapLinearAnimation::IsFinished() const
 {
-  return m_angleInterpolator.IsFinished() && m_scaleInterpolator.IsFinished() &&
-         m_positionInterpolator.IsFinished();
+  return m_angleInterpolator.IsFinished() && m_scaleInterpolator.IsFinished() && m_positionInterpolator.IsFinished();
 }
 
 bool MapLinearAnimation::GetProperty(Object object, ObjectProperty property, PropertyValue & value) const
@@ -208,7 +205,8 @@ bool MapLinearAnimation::GetTargetProperty(Object object, ObjectProperty propert
   return GetProperty(object, property, true /* targetValue */, value);
 }
 
-bool MapLinearAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue, PropertyValue & value) const
+bool MapLinearAnimation::GetProperty(Object object, ObjectProperty property, bool targetValue,
+                                     PropertyValue & value) const
 {
   ASSERT_EQUAL(static_cast<int>(object), static_cast<int>(Animation::Object::MapPlane), ());
 
@@ -217,7 +215,8 @@ bool MapLinearAnimation::GetProperty(Object object, ObjectProperty property, boo
   case Animation::ObjectProperty::Position:
     if (m_positionInterpolator.IsActive())
     {
-      value = PropertyValue(targetValue ? m_positionInterpolator.GetTargetPosition() : m_positionInterpolator.GetPosition());
+      value = PropertyValue(targetValue ? m_positionInterpolator.GetTargetPosition()
+                                        : m_positionInterpolator.GetPosition());
       return true;
     }
     return false;
@@ -235,11 +234,10 @@ bool MapLinearAnimation::GetProperty(Object object, ObjectProperty property, boo
       return true;
     }
     return false;
-  default:
-    ASSERT(false, ("Wrong property:", static_cast<int>(property)));
+  default: ASSERT(false, ("Wrong property:", static_cast<int>(property)));
   }
 
   return false;
 }
 
-} // namespace df
+}  // namespace df

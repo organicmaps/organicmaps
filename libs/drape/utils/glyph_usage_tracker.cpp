@@ -23,8 +23,8 @@ std::string GlyphUsageTracker::GlyphUsageStatistic::ToString() const
   ss << " Unexpected glyphs: {\n";
   for (auto const & it : m_unexpectedGlyphs)
   {
-    ss << "   glyph = " << std::hex << static_cast<uint32_t>(it.first) << std::dec << ", unique usages = " << it.second.m_counter
-       << ", group = " << it.second.m_group << ", expected groups = { ";
+    ss << "   glyph = " << std::hex << static_cast<uint32_t>(it.first) << std::dec
+       << ", unique usages = " << it.second.m_counter << ", group = " << it.second.m_group << ", expected groups = { ";
 
     for (auto const & gr : it.second.m_expectedGroups)
       ss << gr << " ";

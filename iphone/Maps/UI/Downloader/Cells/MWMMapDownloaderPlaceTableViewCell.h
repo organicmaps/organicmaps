@@ -2,6 +2,6 @@
 
 @interface MWMMapDownloaderPlaceTableViewCell : MWMMapDownloaderTableViewCell
 
-@property (nonatomic) BOOL needDisplayArea;
+@property(nonatomic) BOOL needDisplayArea;
 
 @end

@@ -10,17 +10,16 @@ namespace
 //          and add assertions about the highest bit.
 //          The old scheme used the highest bit and the new one does not.
 // uint64_t const kTypeMask = 0x7F00000000000000;
-uint64_t const kTypeMask      = 0xFF00000000000000;
-uint64_t const kReservedMask  = 0x00FF000000000000;
-uint64_t const kSerialMask    = 0x0000FFFFFFFFFFFF;
+uint64_t const kTypeMask = 0xFF00000000000000;
+uint64_t const kReservedMask = 0x00FF000000000000;
+uint64_t const kSerialMask = 0x0000FFFFFFFFFFFF;
 }  // namespace
 
 namespace base
 {
 GeoObjectId::GeoObjectId(uint64_t encodedId) : m_encodedId(encodedId) {}
 
-GeoObjectId::GeoObjectId(Type type, uint64_t id)
-  : m_encodedId((static_cast<uint64_t>(type) << 56) | id) {}
+GeoObjectId::GeoObjectId(Type type, uint64_t id) : m_encodedId((static_cast<uint64_t>(type) << 56) | id) {}
 
 uint64_t GeoObjectId::GetSerialId() const
 {
@@ -29,7 +28,10 @@ uint64_t GeoObjectId::GetSerialId() const
   return m_encodedId & kSerialMask;
 }
 
-uint64_t GeoObjectId::GetEncodedId() const { return m_encodedId; }
+uint64_t GeoObjectId::GetEncodedId() const
+{
+  return m_encodedId;
+}
 
 GeoObjectId::Type GeoObjectId::GetType() const
 {

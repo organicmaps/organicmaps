@@ -43,8 +43,7 @@ struct ScreenshotParams
 class Screenshoter
 {
 public:
-  Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework,
-               QOpenGLWidget * widget);
+  Screenshoter(ScreenshotParams const & screenshotParams, Framework & framework, QOpenGLWidget * widget);
 
   void Start();
 

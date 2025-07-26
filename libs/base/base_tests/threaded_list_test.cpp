@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "base/threaded_list.hpp"
-#include "base/thread.hpp"
 #include "base/logging.hpp"
+#include "base/thread.hpp"
+#include "base/threaded_list.hpp"
 
 #include <memory>
 #include <mutex>
@@ -15,9 +15,11 @@ struct ThreadedListProcessor : public threads::IRoutine
   int m_id;
 
   ThreadedListProcessor(ThreadedList<int> & p, std::mutex & resMutex, std::list<int> & res, int id)
-      : m_p(p), m_resMutex(resMutex), m_res(res), m_id(id)
-  {
-  }
+    : m_p(p)
+    , m_resMutex(resMutex)
+    , m_res(res)
+    , m_id(id)
+  {}
 
   virtual void Do()
   {

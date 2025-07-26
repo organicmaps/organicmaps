@@ -2,12 +2,12 @@
 
 #include "routing/speed_camera_ser_des.hpp"
 
-#include "platform/platform_tests_support/scoped_file.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
@@ -125,7 +125,9 @@ bool TestSerDesSpeedCamera(std::vector<SpeedCameraMetadata> const & speedCameras
 
 UNIT_TEST(SpeedCamera_SerDes_1)
 {
-  std::vector<routing::SpeedCameraMwmPosition> ways = {{1 /* featureId */, 1 /* segmentId */, 0 /* coef */}};
+  std::vector<routing::SpeedCameraMwmPosition> ways = {
+      {1 /* featureId */, 1 /* segmentId */, 0 /* coef */}
+  };
   SpeedCameraMetadata metadata({10, 10} /* m_center */, 60 /* m_maxSpeedKmPH */, std::move(ways));
 
   TEST(TestSerDesSpeedCamera({metadata}), ());
@@ -135,12 +137,16 @@ UNIT_TEST(SpeedCamera_SerDes_2)
 {
   std::vector<SpeedCameraMetadata> speedCamerasMetadata;
   {
-    std::vector<routing::SpeedCameraMwmPosition> ways = {{1 /* featureId */, 1 /* segmentId */, 0 /* coef */}};
+    std::vector<routing::SpeedCameraMwmPosition> ways = {
+        {1 /* featureId */, 1 /* segmentId */, 0 /* coef */}
+    };
     SpeedCameraMetadata metadata({10, 10} /* m_center */, 60 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }
   {
-    std::vector<routing::SpeedCameraMwmPosition> ways = {{2 /* featureId */, 1 /* segmentId */, 0.5 /* coef */}};
+    std::vector<routing::SpeedCameraMwmPosition> ways = {
+        {2 /* featureId */, 1 /* segmentId */, 0.5 /* coef */}
+    };
     SpeedCameraMetadata metadata({15, 10} /* m_center */, 90 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }
@@ -152,17 +158,23 @@ UNIT_TEST(SpeedCamera_SerDes_3)
 {
   std::vector<SpeedCameraMetadata> speedCamerasMetadata;
   {
-    std::vector<routing::SpeedCameraMwmPosition> ways = {{1 /* featureId */, 1 /* segmentId */, 0 /* coef */}};
+    std::vector<routing::SpeedCameraMwmPosition> ways = {
+        {1 /* featureId */, 1 /* segmentId */, 0 /* coef */}
+    };
     SpeedCameraMetadata metadata({10, 10} /* m_center */, 60 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }
   {
-    std::vector<routing::SpeedCameraMwmPosition> ways = {{1 /* featureId */, 1 /* segmentId */, 0.5 /* coef */}};
+    std::vector<routing::SpeedCameraMwmPosition> ways = {
+        {1 /* featureId */, 1 /* segmentId */, 0.5 /* coef */}
+    };
     SpeedCameraMetadata metadata({10, 10} /* m_center */, 90 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }
   {
-    std::vector<routing::SpeedCameraMwmPosition> ways = {{10 /* featureId */, 1 /* segmentId */, 1 /* coef */}};
+    std::vector<routing::SpeedCameraMwmPosition> ways = {
+        {10 /* featureId */, 1 /* segmentId */, 1 /* coef */}
+    };
     SpeedCameraMetadata metadata({20, 20} /* m_center */, 40 /* m_maxSpeedKmPH */, std::move(ways));
     speedCamerasMetadata.emplace_back(metadata);
   }

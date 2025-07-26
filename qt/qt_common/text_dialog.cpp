@@ -1,13 +1,11 @@
 #include "qt/qt_common/text_dialog.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
+#include <QtWidgets/QVBoxLayout>
 
-
-TextDialog::TextDialog(QWidget * parent, QString const & htmlOrText, QString const & title)
-  : QDialog(parent)
+TextDialog::TextDialog(QWidget * parent, QString const & htmlOrText, QString const & title) : QDialog(parent)
 {
   auto * textEdit = new QTextEdit(this);
   textEdit->setReadOnly(true);
@@ -33,4 +31,7 @@ TextDialog::TextDialog(QWidget * parent, QString const & htmlOrText, QString con
     resize(parent->size());
 }
 
-void TextDialog::OnClose() { reject(); }
+void TextDialog::OnClose()
+{
+  reject();
+}

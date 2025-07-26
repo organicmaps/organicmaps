@@ -6,25 +6,28 @@
 
 @interface MWMEditorViralAlert ()
 
-@property(weak, nonatomic) IBOutlet UIButton* shareButton;
+@property(weak, nonatomic) IBOutlet UIButton * shareButton;
 
 @end
 
 @implementation MWMEditorViralAlert
 
-+ (nonnull instancetype)alert {
++ (nonnull instancetype)alert
+{
   return [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
 }
 
-- (IBAction)shareTap {
+- (IBAction)shareTap
+{
   [self close:^{
-    MWMActivityViewController* shareVC = [MWMActivityViewController shareControllerForEditorViral];
+    MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForEditorViral];
     [shareVC presentInParentViewController:self.alertController.ownerViewController
                                 anchorView:[BottomTabBarViewController controller].view];
   }];
 }
 
-- (IBAction)cancelTap {
+- (IBAction)cancelTap
+{
   [self close:nil];
 }
 

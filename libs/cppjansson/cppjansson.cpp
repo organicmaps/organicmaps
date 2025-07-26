@@ -61,7 +61,10 @@ json_t const * GetJSONOptionalField(json_t const * root, char const * field)
   return json_object_get(root, field);
 }
 
-bool JSONIsNull(json_t const * root) { return json_is_null(root); }
+bool JSONIsNull(json_t const * root)
+{
+  return json_is_null(root);
+}
 
 std::string DumpToString(JSONPtr const & json, size_t flags)
 {
@@ -138,5 +141,8 @@ void FromJSON(json_t const * root, UniString & result)
   result = MakeUniString(s);
 }
 
-base::JSONPtr ToJSON(UniString const & s) { return ToJSON(ToUtf8(s)); }
+base::JSONPtr ToJSON(UniString const & s)
+{
+  return ToJSON(ToUtf8(s));
+}
 }  // namespace strings

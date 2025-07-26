@@ -55,10 +55,8 @@ public:
     uint32_t count = 0;
 
     for (Joint::Id const jointId : m_jointIds)
-    {
       if (jointId != Joint::kInvalidId)
         ++count;
-    }
 
     return count;
   }

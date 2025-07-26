@@ -7,4 +7,4 @@ namespace df
 
 bool IsAnimationAllowed(double duration, ScreenBase const & screen);
 
-} // namespace df
+}  // namespace df

@@ -9,22 +9,20 @@ namespace df
 class ShowHideAnimation::ShowHideInterpolator : public BaseInterpolator
 {
 public:
-  ShowHideInterpolator(ShowHideAnimation::EState & state, double startT, double endT,
-                       double duration)
-    : BaseInterpolator(duration), m_state(state), m_startT(startT), m_endT(endT)
+  ShowHideInterpolator(ShowHideAnimation::EState & state, double startT, double endT, double duration)
+    : BaseInterpolator(duration)
+    , m_state(state)
+    , m_startT(startT)
+    , m_endT(endT)
   {
-    m_state = m_endT > m_startT ? ShowHideAnimation::STATE_SHOW_DIRECTION
-                                : ShowHideAnimation::STATE_HIDE_DIRECTION;
+    m_state = m_endT > m_startT ? ShowHideAnimation::STATE_SHOW_DIRECTION : ShowHideAnimation::STATE_HIDE_DIRECTION;
   }
 
   void Advance(double elapsedSeconds) override
   {
     BaseInterpolator::Advance(elapsedSeconds);
     if (IsFinished())
-    {
-      m_state = m_endT > m_startT ? ShowHideAnimation::STATE_VISIBLE
-                                  : ShowHideAnimation::STATE_INVISIBLE;
-    }
+      m_state = m_endT > m_startT ? ShowHideAnimation::STATE_VISIBLE : ShowHideAnimation::STATE_INVISIBLE;
   }
 
   double GetCurrentT() const { return m_startT + (m_endT - m_startT) * GetT(); }
@@ -57,7 +55,11 @@ void ShowHideAnimation::Show()
 
 void ShowHideAnimation::ShowAnimated()
 {
-  RefreshInterpolator({{ STATE_VISIBLE, STATE_SHOW_DIRECTION }}, 1.0);
+  RefreshInterpolator(
+      {
+          {STATE_VISIBLE, STATE_SHOW_DIRECTION}
+  },
+      1.0);
 }
 
 void ShowHideAnimation::Hide()
@@ -72,7 +74,11 @@ void ShowHideAnimation::Hide()
 
 void ShowHideAnimation::HideAnimated()
 {
-  RefreshInterpolator({{ STATE_INVISIBLE, STATE_HIDE_DIRECTION }}, 0.0);
+  RefreshInterpolator(
+      {
+          {STATE_INVISIBLE, STATE_HIDE_DIRECTION}
+  },
+      0.0);
 }
 
 ShowHideAnimation::EState ShowHideAnimation::GetState() const

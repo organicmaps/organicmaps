@@ -26,7 +26,7 @@ public:
   void Reset(uint64_t fID, OsmElement * p);
 
   template <class Reader>
-  base::ControlFlow operator() (uint64_t id, Reader & reader)
+  base::ControlFlow operator()(uint64_t id, Reader & reader)
   {
     bool exists = false;
     RelationElement & e = m_cache.Find(id, exists);
@@ -41,10 +41,7 @@ protected:
   static bool IsSkipRelation(std::string_view type);
   bool IsKeyTagExists(std::string_view const & key) const;
   void AddCustomTag(std::string_view key, std::string_view value);
-  void AddCustomTag(std::pair<std::string, std::string> const & p)
-  {
-    AddCustomTag(p.first, p.second);
-  }
+  void AddCustomTag(std::pair<std::string, std::string> const & p) { AddCustomTag(p.first, p.second); }
   void AddTagIfNotExist(std::string_view key, std::string_view value);
 
   virtual void Process(RelationElement const & e) = 0;
@@ -62,7 +59,7 @@ protected:
   void Process(RelationElement const & e) override;
 
 private:
-    using Base = RelationTagsBase;
+  using Base = RelationTagsBase;
 };
 
 class RelationTagsWay : public RelationTagsBase

@@ -10,8 +10,7 @@ namespace
 {
 NSString * stringFromTimeSpan(Timespan const & timeSpan)
 {
-  return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()),
-                                    stringFromTime(timeSpan.GetEnd())];
+  return [NSString stringWithFormat:@"%@ - %@", stringFromTime(timeSpan.GetStart()), stringFromTime(timeSpan.GetEnd())];
 }
 
 NSString * breaksFromClosedTime(TTimespans const & closedTimes, id<IOpeningHoursLocalization> localization)
@@ -22,8 +21,8 @@ NSString * breaksFromClosedTime(TTimespans const & closedTimes, id<IOpeningHours
   {
     if (i)
       [breaks appendString:@"\n"];
-    [breaks appendString:[NSString stringWithFormat:@"%@ %@", localization.breakString,
-                                                              stringFromTimeSpan(closedTimes[i])]];
+    [breaks appendString:[NSString
+                             stringWithFormat:@"%@ %@", localization.breakString, stringFromTimeSpan(closedTimes[i])]];
   }
   return [breaks copy];
 }
@@ -81,9 +80,10 @@ void addUnhandledDays(ui::OpeningDays const & days, std::vector<Day> & allDays)
 
 }  // namespace
 
-namespace osmoh {
+namespace osmoh
+{
 
-std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString *str, id<IOpeningHoursLocalization> localization)
+std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOpeningHoursLocalization> localization)
 {
   osmoh::OpeningHours oh(str.UTF8String);
   bool const isClosed = oh.IsClosed(time(nullptr));
@@ -98,8 +98,7 @@ std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString *str, id<IOpe
   cal.locale = NSLocale.currentLocale;
 
   auto const timeTablesSize = timeTableSet.Size();
-  auto const today =
-      static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
+  auto const today = static_cast<Weekday>([cal components:NSCalendarUnitWeekday fromDate:[NSDate date]].weekday);
   auto const unhandledDays = timeTableSet.GetUnhandledDays();
 
   /// Schedule contains more than one rule for all days or unhandled days.
@@ -126,4 +125,4 @@ std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString *str, id<IOpe
   return {std::move(days), isClosed};
 }
 
-} // namespace osmoh
+}  // namespace osmoh

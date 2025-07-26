@@ -18,9 +18,9 @@ struct AddressEntry : public generator::AddressEnricher::RawEntryBase
 void ParseGeometry(std::string_view s, std::vector<ms::LatLon> & geom);
 feature::InterpolType ParseInterpolation(std::string_view s);
 bool ParseLine(std::string_view line, AddressEntry & e);
-} // namespace tiger
+}  // namespace tiger
 
 namespace feature
 {
 std::string DebugPrint(InterpolType type);
-} // namespace feature
+}  // namespace feature

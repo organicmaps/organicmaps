@@ -23,10 +23,9 @@ struct TokenFrequencyPair
   TokenFrequencyPair() = default;
 
   template <typename Token>
-  TokenFrequencyPair(Token && token, uint64_t frequency)
-    : m_token(std::forward<Token>(token)), m_frequency(frequency)
-  {
-  }
+  TokenFrequencyPair(Token && token, uint64_t frequency) : m_token(std::forward<Token>(token))
+                                                         , m_frequency(frequency)
+  {}
 
   bool operator<(TokenFrequencyPair const & rhs) const;
 
@@ -72,10 +71,7 @@ public:
   bool Empty() const { return m_tfs.empty(); }
 
 private:
-  friend std::string DebugPrint(DocVec const & dv)
-  {
-    return "DocVec " + ::DebugPrint(dv.m_tfs);
-  }
+  friend std::string DebugPrint(DocVec const & dv) { return "DocVec " + ::DebugPrint(dv.m_tfs); }
 
   std::vector<TokenFrequencyPair> m_tfs;
 };

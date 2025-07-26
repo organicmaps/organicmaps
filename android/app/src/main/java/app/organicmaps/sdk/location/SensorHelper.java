@@ -45,16 +45,16 @@ public class SensorHelper implements SensorEventListener
       mLastAccuracy = event.accuracy;
       switch (mLastAccuracy)
       {
-        case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: break;
-        case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM:
-          for (SensorListener listener : mListeners)
-            listener.onCompassCalibrationRecommended();
-          break;
-        case SensorManager.SENSOR_STATUS_ACCURACY_LOW:
-        case SensorManager.SENSOR_STATUS_UNRELIABLE:
-        default:
-          for (SensorListener listener : mListeners)
-            listener.onCompassCalibrationRequired();
+      case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: break;
+      case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM:
+        for (SensorListener listener : mListeners)
+          listener.onCompassCalibrationRecommended();
+        break;
+      case SensorManager.SENSOR_STATUS_ACCURACY_LOW:
+      case SensorManager.SENSOR_STATUS_UNRELIABLE:
+      default:
+        for (SensorListener listener : mListeners)
+          listener.onCompassCalibrationRequired();
       }
     }
 

@@ -46,7 +46,7 @@ using Observer = id<MWMTextToSpeechObserver>;
 using Observers = NSHashTable<Observer>;
 }  // namespace
 
-@interface MWMTextToSpeech ()<AVSpeechSynthesizerDelegate>
+@interface MWMTextToSpeech () <AVSpeechSynthesizerDelegate>
 {
   std::vector<std::pair<std::string, std::string>> _availableLanguages;
 }
@@ -61,24 +61,26 @@ using Observers = NSHashTable<Observer>;
 
 @implementation MWMTextToSpeech
 
-+ (MWMTextToSpeech *)tts {
++ (MWMTextToSpeech *)tts
+{
   static dispatch_once_t onceToken;
   static MWMTextToSpeech * tts = nil;
-  dispatch_once(&onceToken, ^{
-    tts = [[self alloc] initTTS];
-  });
+  dispatch_once(&onceToken, ^{ tts = [[self alloc] initTTS]; });
   return tts;
 }
 
-+ (void)applicationDidBecomeActive {
++ (void)applicationDidBecomeActive
+{
   auto tts = [self tts];
   tts.speechSynthesizer = nil;
   tts.speechVoice = nil;
 }
 
-- (instancetype)initTTS {
+- (instancetype)initTTS
+{
   self = [super init];
-  if (self) {
+  if (self)
+  {
     _availableLanguages = availableLanguages();
     _observers = [Observers weakObjectsHashTable];
 
@@ -90,52 +92,64 @@ using Observers = NSHashTable<Observer>;
       preferedLanguageBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
 
     std::pair<std::string, std::string> const lan =
-        std::make_pair(preferedLanguageBcp47.UTF8String,
-                       tts::translateLocale(preferedLanguageBcp47.UTF8String));
+        std::make_pair(preferedLanguageBcp47.UTF8String, tts::translateLocale(preferedLanguageBcp47.UTF8String));
 
-    if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) !=
-        _availableLanguages.end())
+    if (find(_availableLanguages.begin(), _availableLanguages.end(), lan) != _availableLanguages.end())
       [self setNotificationsLocale:preferedLanguageBcp47];
     else
       [self setNotificationsLocale:kDefaultLanguage];
 
     NSError * err = nil;
     if (![[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
-                                          mode:AVAudioSessionModeVoicePrompt
-                                          options:AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers |
-                                                  AVAudioSessionCategoryOptionDuckOthers
-                                                error:&err]) {
+                                                 mode:AVAudioSessionModeVoicePrompt
+                                              options:AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers |
+                                                      AVAudioSessionCategoryOptionDuckOthers
+                                                error:&err])
+    {
       LOG(LWARNING, ("Couldn't configure audio session: ", [err localizedDescription]));
     }
 
     // Set initial StreetNamesTTS setting
-    NSDictionary *dictionary = @{ kIsStreetNamesTTSEnabled : @NO };
+    NSDictionary * dictionary = @{kIsStreetNamesTTSEnabled: @NO};
     [NSUserDefaults.standardUserDefaults registerDefaults:dictionary];
-    
+
     self.active = YES;
   }
   return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
   [[AVAudioSession sharedInstance] setActive:NO
                                  withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
                                        error:nil];
   self.speechSynthesizer.delegate = nil;
 }
-- (std::vector<std::pair<std::string, std::string>>)availableLanguages { return _availableLanguages; }
-- (std::pair<std::string, std::string>)standardLanguage {
+- (std::vector<std::pair<std::string, std::string>>)availableLanguages
+{
+  return _availableLanguages;
+}
+- (std::pair<std::string, std::string>)standardLanguage
+{
   return std::make_pair(kDefaultLanguage.UTF8String, tts::translateLocale(kDefaultLanguage.UTF8String));
 }
-- (void)setNotificationsLocale:(NSString *)locale {
+- (void)setNotificationsLocale:(NSString *)locale
+{
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setObject:locale forKey:kUserDefaultsTTSLanguageBcp47];
   [self createVoice:locale];
 }
 
-- (BOOL)isValid { return _speechSynthesizer != nil && _speechVoice != nil; }
-+ (BOOL)isTTSEnabled { return [NSUserDefaults.standardUserDefaults boolForKey:kIsTTSEnabled]; }
-+ (void)setTTSEnabled:(BOOL)enabled {
+- (BOOL)isValid
+{
+  return _speechSynthesizer != nil && _speechVoice != nil;
+}
++ (BOOL)isTTSEnabled
+{
+  return [NSUserDefaults.standardUserDefaults boolForKey:kIsTTSEnabled];
+}
++ (void)setTTSEnabled:(BOOL)enabled
+{
   if ([self isTTSEnabled] == enabled)
     return;
   auto tts = [self tts];
@@ -148,8 +162,12 @@ using Observers = NSHashTable<Observer>;
   if (enabled)
     [tts setActive:YES];
 }
-+ (BOOL)isStreetNamesTTSEnabled { return [NSUserDefaults.standardUserDefaults boolForKey:kIsStreetNamesTTSEnabled]; }
-+ (void)setStreetNamesTTSEnabled:(BOOL)enabled {
++ (BOOL)isStreetNamesTTSEnabled
+{
+  return [NSUserDefaults.standardUserDefaults boolForKey:kIsStreetNamesTTSEnabled];
+}
++ (void)setStreetNamesTTSEnabled:(BOOL)enabled
+{
   if ([self isStreetNamesTTSEnabled] == enabled)
     return;
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
@@ -157,29 +175,34 @@ using Observers = NSHashTable<Observer>;
   [ud synchronize];
 }
 
-- (void)setActive:(BOOL)active {
+- (void)setActive:(BOOL)active
+{
   if (![[self class] isTTSEnabled] || self.active == active)
     return;
   if (active && ![self isValid])
     [self createVoice:[[self class] savedLanguage]];
   [MWMRouter enableTurnNotifications:active];
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [self onTTSStatusUpdated];
-  });
+  dispatch_async(dispatch_get_main_queue(), ^{ [self onTTSStatusUpdated]; });
 }
 
-- (BOOL)active { return [[self class] isTTSEnabled] && [MWMRouter areTurnNotificationsEnabled]; }
-+ (NSString *)savedLanguage {
+- (BOOL)active
+{
+  return [[self class] isTTSEnabled] && [MWMRouter areTurnNotificationsEnabled];
+}
++ (NSString *)savedLanguage
+{
   return [NSUserDefaults.standardUserDefaults stringForKey:kUserDefaultsTTSLanguageBcp47];
 }
 
-- (void)createVoice:(NSString *)locale {
-  if (!self.speechSynthesizer) {
+- (void)createVoice:(NSString *)locale
+{
+  if (!self.speechSynthesizer)
+  {
     self.speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
     self.speechSynthesizer.delegate = self;
   }
 
-  NSMutableArray<NSString *> * candidateLocales = [@[ kDefaultLanguage, @"en-GB" ] mutableCopy];
+  NSMutableArray<NSString *> * candidateLocales = [@[kDefaultLanguage, @"en-GB"] mutableCopy];
 
   if (locale)
     [candidateLocales insertObject:locale atIndex:0];
@@ -187,44 +210,49 @@ using Observers = NSHashTable<Observer>;
     LOG(LWARNING, ("locale is nil. Trying default locale."));
 
   AVSpeechSynthesisVoice * voice = nil;
-  for (NSString * loc in candidateLocales) {
+  for (NSString * loc in candidateLocales)
+  {
     voice = [AVSpeechSynthesisVoice voiceWithLanguage:loc];
     if (voice)
       break;
   }
 
   self.speechVoice = voice;
-  if (voice) {
+  if (voice)
+  {
     std::string const twineLang = bcp47ToTwineLanguage(voice.language);
     if (twineLang.empty())
       LOG(LERROR, ("Cannot convert UI locale or default locale to twine language. MWMTextToSpeech "
                    "is invalid."));
     else
       [MWMRouter setTurnNotificationsLocale:@(twineLang.c_str())];
-  } else {
-    LOG(LWARNING,
-        ("The UI language and English are not available for TTS. MWMTextToSpeech is invalid."));
+  }
+  else
+  {
+    LOG(LWARNING, ("The UI language and English are not available for TTS. MWMTextToSpeech is invalid."));
   }
 }
 
-- (void)speakOneString:(NSString *)textToSpeak {
+- (void)speakOneString:(NSString *)textToSpeak
+{
   AVSpeechUtterance * utterance = [AVSpeechUtterance speechUtteranceWithString:textToSpeak];
   utterance.voice = self.speechVoice;
   utterance.rate = AVSpeechUtteranceDefaultSpeechRate;
   [self.speechSynthesizer speakUtterance:utterance];
 }
 
-- (void)playTurnNotifications:(NSArray<NSString *> *)turnNotifications {
+- (void)playTurnNotifications:(NSArray<NSString *> *)turnNotifications
+{
   auto stopSession = ^{
     if (self.speechSynthesizer.isSpeaking)
       return;
-    [[AVAudioSession sharedInstance]
-          setActive:NO
-        withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
-              error:nil];
+    [[AVAudioSession sharedInstance] setActive:NO
+                                   withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
+                                         error:nil];
   };
 
-  if (![MWMRouter isOnRoute] || !self.active) {
+  if (![MWMRouter isOnRoute] || !self.active)
+  {
     stopSession();
     return;
   }
@@ -232,17 +260,22 @@ using Observers = NSHashTable<Observer>;
   if (![self isValid])
     [self createVoice:[[self class] savedLanguage]];
 
-  if (![self isValid]) {
+  if (![self isValid])
+  {
     stopSession();
     return;
   }
 
-  if (turnNotifications.count == 0) {
+  if (turnNotifications.count == 0)
+  {
     stopSession();
     return;
-  } else {
+  }
+  else
+  {
     NSError * err = nil;
-    if (![[AVAudioSession sharedInstance] setActive:YES error:&err]) {
+    if (![[AVAudioSession sharedInstance] setActive:YES error:&err])
+    {
       LOG(LWARNING, ("Couldn't activate audio session: ", [err localizedDescription]));
       return;
     }
@@ -252,20 +285,26 @@ using Observers = NSHashTable<Observer>;
   }
 }
 
-- (void)playWarningSound {
+- (void)playWarningSound
+{
   if (!GetFramework().GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal())
     return;
 
   [self.audioPlayer play];
 }
 
-- (AVAudioPlayer *)audioPlayer {
-  if (!_audioPlayer) {
-    if (auto url = [[NSBundle mainBundle] URLForResource:@"Alert 5" withExtension:@"m4a"]) {
+- (AVAudioPlayer *)audioPlayer
+{
+  if (!_audioPlayer)
+  {
+    if (auto url = [[NSBundle mainBundle] URLForResource:@"Alert 5" withExtension:@"m4a"])
+    {
       NSError * error = nil;
       _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
       CHECK(!error, (error.localizedDescription.UTF8String));
-    } else {
+    }
+    else
+    {
       CHECK(false, ("Speed warning file not found"));
     }
   }
@@ -273,27 +312,31 @@ using Observers = NSHashTable<Observer>;
   return _audioPlayer;
 }
 
-- (void)play:(NSString *)text {
+- (void)play:(NSString *)text
+{
   if (![self isValid])
     [self createVoice:[[self class] savedLanguage]];
-  
+
   [self speakOneString:text];
 }
 
 #pragma mark - MWMNavigationDashboardObserver
 
-- (void)onTTSStatusUpdated {
+- (void)onTTSStatusUpdated
+{
   for (Observer observer in self.observers)
     [observer onTTSStatusUpdated];
 }
 
 #pragma mark - Add/Remove Observers
 
-+ (void)addObserver:(id<MWMTextToSpeechObserver>)observer {
++ (void)addObserver:(id<MWMTextToSpeechObserver>)observer
+{
   [[self tts].observers addObject:observer];
 }
 
-+ (void)removeObserver:(id<MWMTextToSpeechObserver>)observer {
++ (void)removeObserver:(id<MWMTextToSpeechObserver>)observer
+{
   [[self tts].observers removeObject:observer];
 }
 
@@ -303,8 +346,8 @@ namespace tts
 {
 std::string translateLocale(std::string const & localeString)
 {
-  NSString * nsLocaleString = [NSString stringWithUTF8String: localeString.c_str()];
-  NSLocale * locale = [[NSLocale alloc] initWithLocaleIdentifier: nsLocaleString];
+  NSString * nsLocaleString = [NSString stringWithUTF8String:localeString.c_str()];
+  NSLocale * locale = [[NSLocale alloc] initWithLocaleIdentifier:nsLocaleString];
   NSString * localizedName = [locale localizedStringForLocaleIdentifier:nsLocaleString];
   localizedName = [localizedName capitalizedString];
   return std::string(localizedName.UTF8String);

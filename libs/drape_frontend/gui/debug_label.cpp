@@ -15,8 +15,8 @@ class DebugLabelHandle : public MutableLabelHandle
   using TBase = MutableLabelHandle;
 
 public:
-  DebugLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
-                   ref_ptr<dp::TextureManager> tex, TUpdateDebugLabelFn const & onUpdateFn)
+  DebugLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, ref_ptr<dp::TextureManager> tex,
+                   TUpdateDebugLabelFn const & onUpdateFn)
     : MutableLabelHandle(id, anchor, pivot)
     , m_onUpdateFn(onUpdateFn)
   {
@@ -68,16 +68,14 @@ void DebugInfoLabels::AddLabel(ref_ptr<dp::TextureManager> tex, std::string cons
 #ifdef RENDER_DEBUG_INFO_LABELS
   uint32_t const id = GuiHandleDebugLabel + m_labelsCount;
 
-  params.m_handleCreator = [id, onUpdateFn, tex](dp::Anchor anchor, m2::PointF const & pivot) {
-    return make_unique_dp<DebugLabelHandle>(id, anchor, pivot, tex, onUpdateFn);
-  };
+  params.m_handleCreator = [id, onUpdateFn, tex](dp::Anchor anchor, m2::PointF const & pivot)
+  { return make_unique_dp<DebugLabelHandle>(id, anchor, pivot, tex, onUpdateFn); };
 #endif
   m_labelsParams.push_back(params);
   ++m_labelsCount;
 }
 
-drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::GraphicsContext> context,
-                                               ref_ptr<dp::TextureManager> tex)
+drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> tex)
 {
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
 
@@ -86,8 +84,8 @@ drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::GraphicsContext> cont
   for (auto & params : m_labelsParams)
   {
     params.m_pivot.y = pos.y;
-    m2::PointF textSize = MutableLabelDrawer::Draw(context, params, tex,
-      std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+    m2::PointF textSize =
+        MutableLabelDrawer::Draw(context, params, tex, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
     pos.y += 2 * textSize.y;
   }
 

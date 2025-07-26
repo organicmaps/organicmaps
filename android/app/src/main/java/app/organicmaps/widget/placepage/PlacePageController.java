@@ -25,12 +25,12 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
 import app.organicmaps.intent.Factory;
-import app.organicmaps.routing.RoutingController;
 import app.organicmaps.sdk.ChoosePositionMode;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.log.Logger;
@@ -414,15 +414,15 @@ public class PlacePageController
   {
     switch (item)
     {
-      case BOOKMARK_SAVE, BOOKMARK_DELETE -> onBookmarkBtnClicked();
-      case BACK -> onBackBtnClicked();
-      case ROUTE_FROM -> onRouteFromBtnClicked();
-      case ROUTE_TO -> onRouteToBtnClicked();
-      case ROUTE_ADD -> onRouteAddBtnClicked();
-      case ROUTE_REMOVE -> onRouteRemoveBtnClicked();
-      case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
-      case ROUTE_AVOID_UNPAVED -> onAvoidUnpavedBtnClicked();
-      case ROUTE_AVOID_FERRY -> onAvoidFerryBtnClicked();
+    case BOOKMARK_SAVE, BOOKMARK_DELETE -> onBookmarkBtnClicked();
+    case BACK -> onBackBtnClicked();
+    case ROUTE_FROM -> onRouteFromBtnClicked();
+    case ROUTE_TO -> onRouteToBtnClicked();
+    case ROUTE_ADD -> onRouteAddBtnClicked();
+    case ROUTE_REMOVE -> onRouteRemoveBtnClicked();
+    case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
+    case ROUTE_AVOID_UNPAVED -> onAvoidUnpavedBtnClicked();
+    case ROUTE_AVOID_FERRY -> onAvoidFerryBtnClicked();
     }
   }
 

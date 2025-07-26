@@ -45,16 +45,16 @@ location::GpsInfo MoveTo(ms::LatLon const & coords, double speed = -1)
 
 void ChangePosition(ms::LatLon const & coords, double speedKmPH, RoutingSession & routingSession)
 {
-  routingSession.OnLocationPositionChanged(MoveTo({coords.m_lat, coords.m_lon}, measurement_utils::KmphToMps(speedKmPH)));
+  routingSession.OnLocationPositionChanged(
+      MoveTo({coords.m_lat, coords.m_lon}, measurement_utils::KmphToMps(speedKmPH)));
 }
 
 void InitRoutingSession(ms::LatLon const & from, ms::LatLon const & to, RoutingSession & routingSession,
                         SpeedCameraManagerMode mode = SpeedCameraManagerMode::Auto)
 {
   TRouteResult const routeResult =
-    integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
-                                mercator::FromLatLon(from), m2::PointD::Zero(),
-                                mercator::FromLatLon(to));
+      integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car), mercator::FromLatLon(from),
+                                  m2::PointD::Zero(), mercator::FromLatLon(to));
 
   Route & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
@@ -67,7 +67,8 @@ void InitRoutingSession(ms::LatLon const & from, ms::LatLon const & to, RoutingS
   routingSession.GetSpeedCamManager().SetMode(mode);
   string const engShortJson = R"(
     {
-      "unknown_camera": ")" + kCameraOnTheWay + R"("
+      "unknown_camera": ")" + kCameraOnTheWay +
+                              R"("
     }
   )";
   routingSession.SetLocaleWithJsonForTesting(engShortJson, "en");
@@ -77,9 +78,7 @@ bool CheckVoiceNotification(RoutingSession & routingSession)
 {
   vector<string> notifications;
   routingSession.GenerateNotifications(notifications, false);
-  return any_of(notifications.begin(), notifications.end(), [](auto const & item) {
-    return item == kCameraOnTheWay;
-  });
+  return any_of(notifications.begin(), notifications.end(), [](auto const & item) { return item == kCameraOnTheWay; });
 }
 
 bool CheckBeepSignal(RoutingSession & routingSession)
@@ -138,10 +137,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_2)
   for (auto const mode : modes)
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.74070, 37.61681} /* from */,
-                       {55.74885, 37.61036} /* to   */,
-                       routingSession,
-                       mode);
+    InitRoutingSession({55.74070, 37.61681} /* from */, {55.74885, 37.61036} /* to   */, routingSession, mode);
 
     {
       double const speedKmPH = 100.0;
@@ -162,10 +158,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_3)
   for (auto const mode : modes)
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.76801, 37.59363} /* from */,
-                       {55.75947, 37.58484} /* to   */,
-                       routingSession,
-                       mode);
+    InitRoutingSession({55.76801, 37.59363} /* from */, {55.75947, 37.58484} /* to   */, routingSession, mode);
 
     // No danger here.
     {
@@ -198,10 +191,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_4)
   for (auto const mode : modes)
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.65601, 37.53822} /* from */,
-                       {55.65760, 37.52312} /* to   */,
-                       routingSession,
-                       mode);
+    InitRoutingSession({55.65601, 37.53822} /* from */, {55.65760, 37.52312} /* to   */, routingSession, mode);
 
     {
       double const speedKmPH = 100.0;
@@ -228,10 +218,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_5)
   for (auto const mode : modes)
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.76801, 37.59363} /* from */,
-                       {55.75947, 37.58484} /* to   */,
-                       routingSession,
-                       mode);
+    InitRoutingSession({55.76801, 37.59363} /* from */, {55.75947, 37.58484} /* to   */, routingSession, mode);
 
     // No danger here.
     {
@@ -261,10 +248,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_6)
   for (auto const mode : modes)
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.76801, 37.59363} /* from */,
-                       {55.75947, 37.58484} /* to   */,
-                       routingSession,
-                       mode);
+    InitRoutingSession({55.76801, 37.59363} /* from */, {55.75947, 37.58484} /* to   */, routingSession, mode);
 
     // Exceed speed limit before beep zone.
     {
@@ -296,10 +280,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
   for (auto const mode : modes)
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.76801, 37.59363} /* from */,
-                       {55.75947, 37.58484} /* to   */,
-                       routingSession,
-                       mode);
+    InitRoutingSession({55.76801, 37.59363} /* from */, {55.75947, 37.58484} /* to   */, routingSession, mode);
 
     // Exceed speed limit before beep zone.
     {
@@ -356,8 +337,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_8)
     RoutingSession routingSession;
     InitRoutingSession({55.6755737, 37.5264126},  // from
                        {55.67052, 37.51893},      // to
-                       routingSession,
-                       mode);
+                       routingSession, mode);
 
     {
       double const speedKmPH = 180.0;
@@ -398,9 +378,7 @@ UNIT_TEST(SpeedCameraNotification_AlwaysMode_1)
 {
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.76801, 37.59363} /* from */,
-                       {55.75947, 37.58484} /* to   */,
-                       routingSession,
+    InitRoutingSession({55.76801, 37.59363} /* from */, {55.75947, 37.58484} /* to   */, routingSession,
                        SpeedCameraManagerMode::Always);
 
     {
@@ -422,9 +400,7 @@ UNIT_TEST(SpeedCameraNotification_AutoMode_1)
 {
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.76801, 37.59363} /* from */,
-                       {55.75947, 37.58484} /* to   */,
-                       routingSession,
+    InitRoutingSession({55.76801, 37.59363} /* from */, {55.75947, 37.58484} /* to   */, routingSession,
                        SpeedCameraManagerMode::Auto);
 
     {
@@ -440,9 +416,7 @@ UNIT_TEST(SpeedCameraNotification_NeverMode_1)
 {
   {
     RoutingSession routingSession;
-    InitRoutingSession({55.76801, 37.59363} /* from */,
-                       {55.75947, 37.58484} /* to   */,
-                       routingSession,
+    InitRoutingSession({55.76801, 37.59363} /* from */, {55.75947, 37.58484} /* to   */, routingSession,
                        SpeedCameraManagerMode::Never);
 
     {
@@ -477,8 +451,8 @@ UNIT_TEST(SpeedCameraNotification_NeverMode_1)
 UNIT_TEST(SpeedCameraNotification_CameraOnMiniRoundabout)
 {
   RoutingSession routingSession;
-  InitRoutingSession({41.201998, 69.109587} /* from */, {41.200358, 69.107051} /* to   */,
-                     routingSession, SpeedCameraManagerMode::Never);
+  InitRoutingSession({41.201998, 69.109587} /* from */, {41.200358, 69.107051} /* to   */, routingSession,
+                     SpeedCameraManagerMode::Never);
   double const speedKmPH = 100.0;
   ChangePosition({41.201998, 69.109587}, speedKmPH, routingSession);
   TEST(!NoCameraFound(routingSession), ());

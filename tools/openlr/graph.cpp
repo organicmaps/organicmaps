@@ -15,13 +15,10 @@ namespace openlr
 {
 namespace
 {
-using EdgeGetter = void (IRoadGraph::*)(geometry::PointWithAltitude const &,
-                                        RoadGraphBase::EdgeListT &) const;
+using EdgeGetter = void (IRoadGraph::*)(geometry::PointWithAltitude const &, RoadGraphBase::EdgeListT &) const;
 
 void GetRegularEdges(geometry::PointWithAltitude const & junction, IRoadGraph const & graph,
-                     EdgeGetter const edgeGetter,
-                     Graph::EdgeCacheT & cache,
-                     Graph::EdgeListT & edges)
+                     EdgeGetter const edgeGetter, Graph::EdgeCacheT & cache, Graph::EdgeListT & edges)
 {
   auto const it = cache.find(junction);
   if (it == end(cache))
@@ -39,9 +36,9 @@ void GetRegularEdges(geometry::PointWithAltitude const & junction, IRoadGraph co
 }  // namespace
 
 Graph::Graph(DataSource & dataSource, shared_ptr<CarModelFactory> carModelFactory)
-  : m_dataSource(dataSource, nullptr /* numMwmIDs */), m_graph(m_dataSource, IRoadGraph::Mode::ObeyOnewayTag, carModelFactory)
-{
-}
+  : m_dataSource(dataSource, nullptr /* numMwmIDs */)
+  , m_graph(m_dataSource, IRoadGraph::Mode::ObeyOnewayTag, carModelFactory)
+{}
 
 void Graph::GetOutgoingEdges(Junction const & junction, EdgeListT & edges)
 {
@@ -68,9 +65,8 @@ void Graph::GetRegularIngoingEdges(Junction const & junction, EdgeListT & edges)
 void Graph::FindClosestEdges(m2::PointD const & point, uint32_t const count,
                              vector<pair<Edge, Junction>> & vicinities) const
 {
-  m_graph.FindClosestEdges(
-      mercator::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM),
-      count, vicinities);
+  m_graph.FindClosestEdges(mercator::RectByCenterXYAndSizeInMeters(point, FeaturesRoadGraph::kClosestEdgesRadiusM),
+                           count, vicinities);
 }
 
 void Graph::AddIngoingFakeEdge(Edge const & e)

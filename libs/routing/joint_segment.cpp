@@ -40,7 +40,7 @@ void JointSegment::AssignID(JointSegment const & seg)
   m_featureId = seg.m_featureId;
 }
 
-JointSegment JointSegment::MakeFake(uint32_t fakeId, uint32_t featureId/* = kInvalidFeatureId*/)
+JointSegment JointSegment::MakeFake(uint32_t fakeId, uint32_t featureId /* = kInvalidFeatureId*/)
 {
   JointSegment res;
   res.m_featureId = featureId;
@@ -58,7 +58,7 @@ bool JointSegment::IsFake() const
   if (result)
   {
     // Try if m_featureId can be real in a fake JointSegment.
-    //ASSERT_EQUAL(m_featureId, kInvalidFeatureId, ());
+    // ASSERT_EQUAL(m_featureId, kInvalidFeatureId, ());
 
     ASSERT_EQUAL(m_startSegmentId, m_endSegmentId, ());
     ASSERT_EQUAL(m_forward, false, ());
@@ -91,9 +91,8 @@ bool JointSegment::operator<(JointSegment const & rhs) const
 
 bool JointSegment::operator==(JointSegment const & rhs) const
 {
-  return m_featureId == rhs.m_featureId && m_forward == rhs.m_forward &&
-         m_startSegmentId == rhs.m_startSegmentId && m_endSegmentId == rhs.m_endSegmentId &&
-         m_numMwmId == rhs.m_numMwmId;
+  return m_featureId == rhs.m_featureId && m_forward == rhs.m_forward && m_startSegmentId == rhs.m_startSegmentId &&
+         m_endSegmentId == rhs.m_endSegmentId && m_numMwmId == rhs.m_numMwmId;
 }
 
 std::string DebugPrint(JointSegment const & jointSegment)
@@ -102,8 +101,7 @@ std::string DebugPrint(JointSegment const & jointSegment)
   if (jointSegment.IsFake())
     out << "[FAKE]";
 
-  out << std::boolalpha
-      << "JointSegment(" << jointSegment.GetMwmId() << ", " << jointSegment.GetFeatureId() << ", "
+  out << std::boolalpha << "JointSegment(" << jointSegment.GetMwmId() << ", " << jointSegment.GetFeatureId() << ", "
       << "[" << jointSegment.GetStartSegmentId() << " => " << jointSegment.GetEndSegmentId() << "], "
       << jointSegment.IsForward() << ")";
   return out.str();
@@ -112,8 +110,7 @@ std::string DebugPrint(JointSegment const & jointSegment)
 
 namespace std
 {
-size_t
-std::hash<routing::JointSegment>::operator()(routing::JointSegment const & jointSegment) const
+size_t std::hash<routing::JointSegment>::operator()(routing::JointSegment const & jointSegment) const
 {
   size_t seed = 0;
   boost::hash_combine(seed, jointSegment.GetMwmId());

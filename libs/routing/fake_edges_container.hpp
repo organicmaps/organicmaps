@@ -20,8 +20,7 @@ public:
   FakeEdgesContainer(IndexGraphStarter && starter)
     : m_finish(std::move(starter.m_finish))
     , m_fake(std::move(starter.m_fake))
-  {
-  }
+  {}
 
   uint32_t GetNumFakeEdges() const
   {

@@ -7573,6 +7573,55 @@ cont {
   }
 }
 cont {
+  name: "amenity-luggage_locker"
+  element {
+    scale: 17
+    symbol {
+      name: "luggage_locker-m"
+      priority: 450
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "luggage_locker-m"
+      priority: 450
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "luggage_locker-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "luggage_locker-m"
+      priority: 450
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9550
+    }
+  }
+}
+cont {
   name: "amenity-marketplace"
   element {
     scale: 16
@@ -52323,6 +52372,73 @@ cont {
         is_optional: true
       }
       priority: -7700
+    }
+  }
+}
+cont {
+  name: "leisure-escape_game"
+  element {
+    scale: 17
+    symbol {
+      name: "escape_game-m"
+      priority: 1600
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "escape_game-m"
+      priority: 1600
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "escape_game-m"
+      priority: 1600
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "escape_game-m"
+      priority: 1600
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -8400
     }
   }
 }

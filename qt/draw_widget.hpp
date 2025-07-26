@@ -42,8 +42,7 @@ public Q_SLOTS:
   void ChoosePositionModeDisable();
 
 public:
-  DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams,
-             QWidget * parent);
+  DrawWidget(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QWidget * parent);
   ~DrawWidget() override;
 
   std::string GetDistance(search::Result const & res) const;
@@ -97,8 +96,7 @@ private:
   void SubmitBookmark(m2::PointD const & pt);
   void ShowPlacePage();
 
-  void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices,
-                                  bool fromPackedPolygon, bool boundingBox);
+  void VisualizeMwmsBordersInRect(m2::RectD const & rect, bool withVertices, bool fromPackedPolygon, bool boundingBox);
 
   m2::PointD P2G(m2::PointD const & pt) const;
   m2::PointD GetCoordsFromSettingsIfExists(bool start, m2::PointD const & pt, bool pointIsMercator) const;

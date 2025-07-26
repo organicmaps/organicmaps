@@ -1,8 +1,8 @@
 #include "drape/mesh_object.hpp"
 #include "drape/pointers.hpp"
 #include "drape/vulkan/vulkan_base_context.hpp"
-#include "drape/vulkan/vulkan_staging_buffer.hpp"
 #include "drape/vulkan/vulkan_param_descriptor.hpp"
+#include "drape/vulkan/vulkan_staging_buffer.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"
@@ -22,9 +22,9 @@ VkPrimitiveTopology GetPrimitiveType(MeshObject::DrawPrimitive primitive)
 {
   switch (primitive)
   {
-    case MeshObject::DrawPrimitive::Triangles: return VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-    case MeshObject::DrawPrimitive::TriangleStrip: return VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP;
-    case MeshObject::DrawPrimitive::LineStrip: return VK_PRIMITIVE_TOPOLOGY_LINE_STRIP;
+  case MeshObject::DrawPrimitive::Triangles: return VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+  case MeshObject::DrawPrimitive::TriangleStrip: return VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP;
+  case MeshObject::DrawPrimitive::LineStrip: return VK_PRIMITIVE_TOPOLOGY_LINE_STRIP;
   }
   UNREACHABLE();
 }
@@ -50,15 +50,15 @@ public:
       if (sizeInBytes == 0)
         continue;
 
-      m_geometryBuffers[i] = m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry,
-                                                           sizeInBytes, 0 /* batcherHash */);
-      SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_BUFFER, m_geometryBuffers[i].m_buffer, 
+      m_geometryBuffers[i] =
+          m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry, sizeInBytes, 0 /* batcherHash */);
+      SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_BUFFER, m_geometryBuffers[i].m_buffer,
                         ("VB: Mesh (" + m_mesh->m_debugName + ") " + std::to_string(i)).c_str());
 
       m_objectManager->Fill(m_geometryBuffers[i], m_mesh->m_buffers[i]->GetData(), sizeInBytes);
 
-      m_bindingInfo[i] = dp::BindingInfo(static_cast<uint8_t>(m_mesh->m_buffers[i]->m_attributes.size()),
-                                         static_cast<uint8_t>(i));
+      m_bindingInfo[i] =
+          dp::BindingInfo(static_cast<uint8_t>(m_mesh->m_buffers[i]->m_attributes.size()), static_cast<uint8_t>(i));
       for (size_t j = 0; j < m_mesh->m_buffers[i]->m_attributes.size(); ++j)
       {
         auto const & attr = m_mesh->m_buffers[i]->m_attributes[j];
@@ -67,7 +67,7 @@ public:
         binding.m_componentCount = static_cast<uint8_t>(attr.m_componentsCount);
         binding.m_componentType = gl_const::GLFloatType;
         binding.m_offset = static_cast<uint8_t>(attr.m_offset);
-        CHECK_LESS_OR_EQUAL(m_mesh->m_buffers[i]->GetStrideInBytes(), 
+        CHECK_LESS_OR_EQUAL(m_mesh->m_buffers[i]->GetStrideInBytes(),
                             static_cast<uint32_t>(std::numeric_limits<uint8_t>::max()), ());
         binding.m_stride = static_cast<uint8_t>(m_mesh->m_buffers[i]->GetStrideInBytes());
       }
@@ -76,9 +76,9 @@ public:
     if (!m_mesh->m_indices.empty())
     {
       auto const sizeInBytes = static_cast<uint32_t>(m_mesh->m_indices.size() * sizeof(uint16_t));
-      m_indexBuffer = m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry,
-                                                    sizeInBytes, 0 /* batcherHash */);
-      SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_BUFFER, m_indexBuffer.m_buffer, 
+      m_indexBuffer =
+          m_objectManager->CreateBuffer(VulkanMemoryManager::ResourceType::Geometry, sizeInBytes, 0 /* batcherHash */);
+      SET_DEBUG_NAME_VK(VK_OBJECT_TYPE_BUFFER, m_indexBuffer.m_buffer,
                         ("IB: Mesh (" + m_mesh->m_debugName + ")").c_str());
 
       m_objectManager->Fill(m_indexBuffer, m_mesh->m_indices.data(), sizeInBytes);
@@ -103,8 +103,7 @@ public:
     auto const sizeInBytes = buffer->GetSizeInBytes();
     CHECK(sizeInBytes != 0, ());
 
-    UpdateBufferInternal(context, m_geometryBuffers[bufferInd].m_buffer, 
-                         VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT,
+    UpdateBufferInternal(context, m_geometryBuffers[bufferInd].m_buffer, VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT,
                          buffer->GetData(), sizeInBytes);
   }
 
@@ -113,14 +112,12 @@ public:
     CHECK(!m_mesh->m_indices.empty(), ());
     auto const sizeInBytes = m_mesh->m_indices.size() * sizeof(uint16_t);
     CHECK(m_indexBuffer.m_buffer != VK_NULL_HANDLE, ());
-    
-    UpdateBufferInternal(context, m_indexBuffer.m_buffer, 
-                         VK_ACCESS_INDEX_READ_BIT,
-                         m_mesh->m_indices.data(), sizeInBytes);
+
+    UpdateBufferInternal(context, m_indexBuffer.m_buffer, VK_ACCESS_INDEX_READ_BIT, m_mesh->m_indices.data(),
+                         sizeInBytes);
   }
 
-  void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount,
-                      uint32_t startVertex) override
+  void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t vertexCount, uint32_t startVertex) override
   {
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
     VkCommandBuffer commandBuffer = vulkanContext->GetCurrentRenderingCommandBuffer();
@@ -131,8 +128,7 @@ public:
     vkCmdDraw(commandBuffer, vertexCount, 1, startVertex, 0);
   }
 
-  void DrawPrimitivesIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, 
-                             uint32_t startIndex) override
+  void DrawPrimitivesIndexed(ref_ptr<dp::GraphicsContext> context, uint32_t indexCount, uint32_t startIndex) override
   {
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
     VkCommandBuffer commandBuffer = vulkanContext->GetCurrentRenderingCommandBuffer();
@@ -161,12 +157,10 @@ private:
     auto descriptorSet = m_descriptorUpdater.GetDescriptorSet();
 
     uint32_t dynamicOffset = vulkanContext->GetCurrentDynamicBufferOffset();
-    vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                            vulkanContext->GetCurrentPipelineLayout(), 0, 1,
-                            &descriptorSet, 1, &dynamicOffset);
+    vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, vulkanContext->GetCurrentPipelineLayout(),
+                            0, 1, &descriptorSet, 1, &dynamicOffset);
 
-    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                      vulkanContext->GetCurrentPipeline());
+    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, vulkanContext->GetCurrentPipeline());
 
     buffer_vector<VkBuffer, 8> buffers;
     buffer_vector<VkDeviceSize, 8> offsets;
@@ -175,12 +169,10 @@ private:
       buffers.emplace_back(m_geometryBuffers[i].m_buffer);
       offsets.emplace_back(0);
     }
-    vkCmdBindVertexBuffers(commandBuffer, 0, m_geometryBuffers.size(), buffers.data(), 
-                           offsets.data());
+    vkCmdBindVertexBuffers(commandBuffer, 0, m_geometryBuffers.size(), buffers.data(), offsets.data());
   }
 
-  void UpdateBufferInternal(ref_ptr<dp::GraphicsContext> context, VkBuffer buffer, 
-                            VkAccessFlagBits bufferAccessMask,
+  void UpdateBufferInternal(ref_ptr<dp::GraphicsContext> context, VkBuffer buffer, VkAccessFlagBits bufferAccessMask,
                             void const * data, uint32_t sizeInBytes)
   {
     ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
@@ -199,8 +191,7 @@ private:
     barrier.offset = 0;
     barrier.size = sizeInBytes;
     vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT | VK_PIPELINE_STAGE_TRANSFER_BIT,
-                         VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr,
-                         1, &barrier, 0, nullptr);
+                         VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 1, &barrier, 0, nullptr);
 
     // Copy to default or temporary staging buffer.
     auto stagingBuffer = vulkanContext->GetDefaultStagingBuffer();
@@ -237,9 +228,8 @@ private:
     // Set up a barrier to prevent data collisions (read-after-write).
     barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
     barrier.dstAccessMask = bufferAccessMask;
-    vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT,
-                         VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, 0, 0, nullptr,
-                         1, &barrier, 0, nullptr);
+    vkCmdPipelineBarrier(commandBuffer, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, 0, 0,
+                         nullptr, 1, &barrier, 0, nullptr);
   }
 
   ref_ptr<dp::MeshObject> m_mesh;
@@ -255,7 +245,6 @@ private:
 void MeshObject::InitForVulkan(ref_ptr<dp::GraphicsContext> context)
 {
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-  m_impl = make_unique_dp<vulkan::VulkanMeshObjectImpl>(vulkanContext->GetObjectManager(),
-                                                        make_ref(this));
+  m_impl = make_unique_dp<vulkan::VulkanMeshObjectImpl>(vulkanContext->GetObjectManager(), make_ref(this));
 }
 }  // namespace dp

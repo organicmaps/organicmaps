@@ -1,5 +1,5 @@
-#include "testing/testing.hpp"
 #include "helpers.hpp"
+#include "testing/testing.hpp"
 
 #include "drape/stipple_pen_resource.hpp"
 #include "drape_frontend/visual_params.hpp"

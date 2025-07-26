@@ -10,16 +10,12 @@ CityFinder::CityFinder(DataSource const & dataSource)
   : m_unusedBoundaries(dataSource)
   , m_unusedCache(m_cancellable)
   , m_finder(dataSource, m_unusedBoundaries, m_unusedCache)
-{
-}
+{}
 
 string CityFinder::GetCityName(m2::PointD const & p, int8_t lang)
 {
   string_view city;
-  m_finder.GetLocality(p, [&](LocalityItem const & item)
-  {
-    item.GetSpecifiedOrDefaultName(lang, city);
-  });
+  m_finder.GetLocality(p, [&](LocalityItem const & item) { item.GetSpecifiedOrDefaultName(lang, city); });
 
   // Return string, because m_finder.GetLocality() is not persistent.
   return std::string(city);

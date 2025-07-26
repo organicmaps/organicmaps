@@ -40,8 +40,10 @@ ColumnLimit: 120
 ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 4
 DerivePointerAlignment: false
+EmptyLineBeforeAccessModifier: Always
 IncludeBlocks: Preserve
 IndentAccessModifiers: false
+IndentCaseLabels: false
 IndentExternBlock: NoIndent
 InsertBraces: false
 InsertNewlineAtEOF: true
@@ -49,6 +51,7 @@ LambdaBodyIndentation: OuterScope
 PackConstructorInitializers: CurrentLine
 PointerAlignment: Middle
 RemoveBracesLLVM: true
+RemoveSemicolon: true
 QualifierAlignment: Right
 SpacesInContainerLiterals: false
 Standard: Latest

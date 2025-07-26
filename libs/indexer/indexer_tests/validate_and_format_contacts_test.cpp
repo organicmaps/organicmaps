@@ -16,8 +16,10 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_facebook)
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://www.facebook.com/OpenStreetMap"), "OpenStreetMap", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://de-de.facebook.de/Open_Street_Map"), "Open_Street_Map", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://en-us.facebook.com/OpenStreetMap"), "OpenStreetMap", ());
-  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://de-de.facebook.com/profile.php?id=100085707580841"), "100085707580841", ());
-  TEST_EQUAL(osm::ValidateAndFormat_facebook("http://facebook.com/profile.php?share=app&id=100086487430889#m"), "100086487430889", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://de-de.facebook.com/profile.php?id=100085707580841"),
+             "100085707580841", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("http://facebook.com/profile.php?share=app&id=100086487430889#m"),
+             "100086487430889", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("some.good.page"), "some.good.page", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("@tree-house-interiors"), "tree-house-interiors", ());
 
@@ -39,8 +41,11 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_instagram)
   TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/openstreetmapus"), "openstreetmapus", ());
   TEST_EQUAL(osm::ValidateAndFormat_instagram("https://en-us.instagram.com/openstreetmapus"), "openstreetmapus", ());
   TEST_EQUAL(osm::ValidateAndFormat_instagram("@open_street_map_us"), "open_street_map_us", ());
-  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/explore/locations/358536820/trivium-sport-en-dance/"), "explore/locations/358536820/trivium-sport-en-dance", ());
-  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/p/BvkgKZNDbqN/?ghid=UwPchX7B"), "p/BvkgKZNDbqN", ());
+  TEST_EQUAL(
+      osm::ValidateAndFormat_instagram("https://www.instagram.com/explore/locations/358536820/trivium-sport-en-dance/"),
+      "explore/locations/358536820/trivium-sport-en-dance", ());
+  TEST_EQUAL(osm::ValidateAndFormat_instagram("https://www.instagram.com/p/BvkgKZNDbqN/?ghid=UwPchX7B"),
+             "p/BvkgKZNDbqN", ());
 
   TEST_EQUAL(osm::ValidateAndFormat_instagram("facebook.com/osm_us"), "", ());
   TEST_EQUAL(osm::ValidateAndFormat_instagram(".dots_not_allowed."), "", ());
@@ -93,15 +98,20 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_contactLine)
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/ti/p/%40b30h5mdj11"), "b30h5mdj11", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("http://line.me/R/home/public/main?id=hmczqsbav5"), "hmczqsbav5", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/main?id=wa1gvx91jb"), "wa1gvx91jb", ());
-  TEST_EQUAL(osm::ValidateAndFormat_contactLine("http://line.me/R/home/public/profile?id=5qll5dyqqu"), "5qll5dyqqu", ());
-  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq", ());
-  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("http://line.me/R/home/public/profile?id=5qll5dyqqu"), "5qll5dyqqu",
+             ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq",
+             ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq",
+             ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://page.line.me/fom5198h"), "fom5198h", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://page.line.me/qn58n8g?web=mobile"), "qn58n8g", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://page.line.me/?accountId=673watcr"), "673watcr", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("page.line.me/?accountId=673watcr"), "673watcr", ());
-  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://liff.line.me/1645278921-kWRPP32q/?accountId=673watcr"), "liff.line.me/1645278921-kWRPP32q/?accountId=673watcr", ());
-  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://abc.line.me/en/some/page?id=xaladqv"), "abc.line.me/en/some/page?id=xaladqv", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://liff.line.me/1645278921-kWRPP32q/?accountId=673watcr"),
+             "liff.line.me/1645278921-kWRPP32q/?accountId=673watcr", ());
+  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://abc.line.me/en/some/page?id=xaladqv"),
+             "abc.line.me/en/some/page?id=xaladqv", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("@abcd"), "abcd", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("@-hyphen-test-"), "-hyphen-test-", ());
 
@@ -126,9 +136,9 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   TEST(osm::ValidateFacebookPage("Quaama-Volunteer-Bushfire-Brigade-526790054021506"), ());
   TEST(osm::ValidateFacebookPage("Páter-Bonifác-Restaurant-Budapest-111001693867133"), ());
   TEST(osm::ValidateFacebookPage("MÊGÅ--CÄFË-3141592653589793"), ());
-  TEST(osm::ValidateFacebookPage("ресторан"), ()); // Cyrillic
-  TEST(osm::ValidateFacebookPage("საქართველო"), ()); // Georgian
-  TEST(osm::ValidateFacebookPage("日本語"), ()); // Japanese
+  TEST(osm::ValidateFacebookPage("ресторан"), ());    // Cyrillic
+  TEST(osm::ValidateFacebookPage("საქართველო"), ());  // Georgian
+  TEST(osm::ValidateFacebookPage("日本語"), ());      // Japanese
   TEST(osm::ValidateFacebookPage("@tree-house-interiors"), ());
   TEST(osm::ValidateFacebookPage("allow_underscore-1234567890"), ());
   TEST(osm::ValidateFacebookPage("alexander.net"), ());
@@ -140,7 +150,7 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   TEST(!osm::ValidateFacebookPage("spaces are not welcome here"), ());
 
   constexpr char kForbiddenFBSymbols[] = " !@^*()~[]{}#$%&;,:+\"'/\\";
-  for(size_t i=0; i<std::size(kForbiddenFBSymbols)-1; i++)
+  for (size_t i = 0; i < std::size(kForbiddenFBSymbols) - 1; i++)
   {
     auto test_str = std::string("special-symbol-") + kForbiddenFBSymbols[i] + "-forbidden";
     TEST(!osm::ValidateFacebookPage(test_str), (test_str));
@@ -149,7 +159,7 @@ UNIT_TEST(EditableMapObject_ValidateFacebookPage)
   // Symbols "£€¥" are not allowed, but to check such cases it requires unicode magic. Not supported currently.
   // TODO: find all restricted *Unicode* symbols from https://www.facebook.com/pages/create page
   //       and them to the test
-  //TEST(!osm::ValidateFacebookPage(u8"you-shall-not-pass-£€¥"), ());
+  // TEST(!osm::ValidateFacebookPage(u8"you-shall-not-pass-£€¥"), ());
 }
 
 UNIT_TEST(EditableMapObject_ValidateInstagramPage)
@@ -221,8 +231,8 @@ UNIT_TEST(EditableMapObject_ValidateVkPage)
   TEST(!osm::ValidateVkPage("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), ());
   TEST(!osm::ValidateVkPage("_invalid_underscores_"), ());
   TEST(!osm::ValidateVkPage("invalid-dashes"), ());
-  //TEST(!osm::ValidateVkPage("to.ma.ny.do.ts"), ()); //TODO: it's hard to test such cases. Skip for now
-  //TEST(!osm::ValidateVkPage("dots.__.dots"), ()); //TODO: it's hard to test such cases. Skip for now
+  // TEST(!osm::ValidateVkPage("to.ma.ny.do.ts"), ()); //TODO: it's hard to test such cases. Skip for now
+  // TEST(!osm::ValidateVkPage("dots.__.dots"), ()); //TODO: it's hard to test such cases. Skip for now
   TEST(!osm::ValidateVkPage("instagram.com/hello_world"), ());
   TEST(!osm::ValidateVkPage("https://instagram.com/hello_world"), ());
 }
@@ -264,15 +274,28 @@ UNIT_TEST(EditableMapObject_ValidateLinePage)
 
 UNIT_TEST(EditableMapObject_socialContactToURL)
 {
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, "some_page_name"), "https://instagram.com/some_page_name", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, "p/BvkgKZNDbqN"), "https://instagram.com/p/BvkgKZNDbqN", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, "100086487430889"), "https://facebook.com/100086487430889", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, "nova.poshta.official"), "https://facebook.com/nova.poshta.official", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, "pg/ESQ-336537783591903/about"), "https://facebook.com/pg/ESQ-336537783591903/about", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_TWITTER, "carmelopizza"), "https://twitter.com/carmelopizza", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_TWITTER, "demhamburguesa/status/688001869269078016"), "https://twitter.com/demhamburguesa/status/688001869269078016", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_VK, "beerhousebar"), "https://vk.com/beerhousebar", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_VK, "wall-41524_29351"), "https://vk.com/wall-41524_29351", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_LINE, "a26235875"), "https://line.me/R/ti/p/@a26235875", ());
-  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_LINE, "liff.line.me/1645278921-kWRPP32q/?accountId=673watcr"), "https://liff.line.me/1645278921-kWRPP32q/?accountId=673watcr", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, "some_page_name"),
+             "https://instagram.com/some_page_name", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_INSTAGRAM, "p/BvkgKZNDbqN"),
+             "https://instagram.com/p/BvkgKZNDbqN", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, "100086487430889"),
+             "https://facebook.com/100086487430889", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, "nova.poshta.official"),
+             "https://facebook.com/nova.poshta.official", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_FACEBOOK, "pg/ESQ-336537783591903/about"),
+             "https://facebook.com/pg/ESQ-336537783591903/about", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_TWITTER, "carmelopizza"),
+             "https://twitter.com/carmelopizza", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_TWITTER,
+                                     "demhamburguesa/status/688001869269078016"),
+             "https://twitter.com/demhamburguesa/status/688001869269078016", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_VK, "beerhousebar"),
+             "https://vk.com/beerhousebar", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_VK, "wall-41524_29351"),
+             "https://vk.com/wall-41524_29351", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_LINE, "a26235875"),
+             "https://line.me/R/ti/p/@a26235875", ());
+  TEST_EQUAL(osm::socialContactToURL(osm::MapObject::MetadataID::FMD_CONTACT_LINE,
+                                     "liff.line.me/1645278921-kWRPP32q/?accountId=673watcr"),
+             "https://liff.line.me/1645278921-kWRPP32q/?accountId=673watcr", ());
 }

@@ -6,8 +6,7 @@
 
 namespace df
 {
-MapDataProvider::MapDataProvider(TReadIDsFn && idsReader,
-                                 TReadFeaturesFn && featureReader,
+MapDataProvider::MapDataProvider(TReadIDsFn && idsReader, TReadFeaturesFn && featureReader,
                                  TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
                                  TUpdateCurrentCountryFn && updateCurrentCountryFn)
   : m_isCountryLoadedByName(std::move(isCountryLoadedByNameFn))
@@ -21,14 +20,12 @@ MapDataProvider::MapDataProvider(TReadIDsFn && idsReader,
   CHECK(m_updateCurrentCountry != nullptr, ());
 }
 
-void MapDataProvider::ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r,
-                                     int scale) const
+void MapDataProvider::ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r, int scale) const
 {
   m_idsReader(fn, r, scale);
 }
 
-void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn,
-                                   std::vector<FeatureID> const & ids) const
+void MapDataProvider::ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const
 {
   m_featureReader(fn, ids);
 }

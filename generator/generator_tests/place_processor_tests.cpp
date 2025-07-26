@@ -68,8 +68,7 @@ feature::FeatureBuilder MakeFbForTest(generator_tests::Tags const & tags, OsmEle
     CHECK(result.IsGeometryClosed(), ());
     result.SetArea();
 
-    result.SetOsmId(element.IsRelation() ? base::MakeOsmRelation(element.m_id)
-                                         : base::MakeOsmWay(element.m_id));
+    result.SetOsmId(element.IsRelation() ? base::MakeOsmRelation(element.m_id) : base::MakeOsmWay(element.m_id));
   }
   return result;
 }
@@ -78,7 +77,8 @@ bool TestTable(generator::OsmIdToBoundariesTable & table,
                std::set<std::pair<std::vector<base::GeoObjectId>, size_t>> const & answer)
 {
   bool result = true;
-  table.ForEachCluster([&](auto & ids, auto const & boundaries) {
+  table.ForEachCluster([&](auto & ids, auto const & boundaries)
+  {
     if (!result)
       return;
 
@@ -96,13 +96,18 @@ struct Loader
 
 feature::FeatureBuilder MakeArea()
 {
-  return MakeFbForTest({{"name", "City"}, {"place", "city"}}, OsmElement::EntityType::Relation,
-                       {{172.54302978515625, -43.48331750944707},
-                        {172.59796142578125, -43.572929222492384},
-                        {172.67898559570312, -43.55302701392868},
-                        {172.67967224121094, -43.48680489735276},
-                        {172.62542724609375, -43.4509250075837},
-                        {172.54302978515625, -43.48331750944707}});
+  return MakeFbForTest(
+      {
+          { "name", "City"},
+          {"place", "city"}
+  },
+      OsmElement::EntityType::Relation,
+      {{172.54302978515625, -43.48331750944707},
+       {172.59796142578125, -43.572929222492384},
+       {172.67898559570312, -43.55302701392868},
+       {172.67967224121094, -43.48680489735276},
+       {172.62542724609375, -43.4509250075837},
+       {172.54302978515625, -43.48331750944707}});
 }
 
 using PlaceWithIDs = std::pair<feature::FeatureBuilder, generator::PlaceProcessor::IDsContainerT>;
@@ -110,9 +115,7 @@ using PlaceWithIDs = std::pair<feature::FeatureBuilder, generator::PlaceProcesso
 void Sort(std::vector<PlaceWithIDs> & value)
 {
   std::sort(value.begin(), value.end(), [](auto const & left, auto const & right)
-  {
-    return left.first.GetMostGenericOsmId() < right.first.GetMostGenericOsmId();
-  });
+  { return left.first.GetMostGenericOsmId() < right.first.GetMostGenericOsmId(); });
 
   for (auto & [_, ids] : value)
   {
@@ -163,16 +166,21 @@ UNIT_CLASS_TEST(TestPlaceProcessor, EmptyTest)
 
 UNIT_CLASS_TEST(TestPlaceProcessor, OnePlacePointTest)
 {
-  auto const point =
-      MakeFbForTest({{"name", "City"}, {"place", "city"}}, OsmElement::EntityType::Node,
-                    {{172.6314353942871, -43.493592271503786}});
+  auto const point = MakeFbForTest(
+      {
+          { "name", "City"},
+          {"place", "city"}
+  },
+      OsmElement::EntityType::Node, {{172.6314353942871, -43.493592271503786}});
 
   PlaceProcessorTestFixture pp;
   pp.Add(point);
 
-  std::vector<PlaceWithIDs> expected{{point, {point.GetMostGenericOsmId()}}};
+  std::vector<PlaceWithIDs> expected{
+      {point, {point.GetMostGenericOsmId()}}
+  };
   Test(pp, expected);
-  //TEST(TestTable(*table, {}), ());
+  // TEST(TestTable(*table, {}), ());
 }
 
 UNIT_CLASS_TEST(TestPlaceProcessor, OnePlaceAreaTest)
@@ -181,60 +189,78 @@ UNIT_CLASS_TEST(TestPlaceProcessor, OnePlaceAreaTest)
   pp.Add(kArea);
 
   std::vector<PlaceWithIDs> expected{
-      {generator::MakePoint(kArea), {kArea.GetMostGenericOsmId()}}};
+      {generator::MakePoint(kArea), {kArea.GetMostGenericOsmId()}}
+  };
   Test(pp, expected);
-  //TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
+  // TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
 }
 
 UNIT_CLASS_TEST(TestPlaceProcessor, PointInAreaTest)
 {
-  auto const point =
-      MakeFbForTest({{"name", "City"}, {"place", "city"}}, OsmElement::EntityType::Node,
-                    {{172.6314353942871, -43.493592271503786}});
+  auto const point = MakeFbForTest(
+      {
+          { "name", "City"},
+          {"place", "city"}
+  },
+      OsmElement::EntityType::Node, {{172.6314353942871, -43.493592271503786}});
 
   PlaceProcessorTestFixture pp;
   pp.Add(kArea);
   pp.Add(point);
 
   std::vector<PlaceWithIDs> expected{
-      {point, {point.GetMostGenericOsmId(), kArea.GetMostGenericOsmId()}}};
+      {point, {point.GetMostGenericOsmId(), kArea.GetMostGenericOsmId()}}
+  };
   Test(pp, expected);
-  //TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
+  // TEST(TestTable(*table, {{{point.GetMostGenericOsmId(), kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
 }
 
 UNIT_CLASS_TEST(TestPlaceProcessor, SameNamesButDifferentPlacesTest)
 {
-  auto const point =
-      MakeFbForTest({{"name", "City"}, {"place", "city"}}, OsmElement::EntityType::Node,
-                    {{162.6314353942871, -33.493592271503786}});
+  auto const point = MakeFbForTest(
+      {
+          { "name", "City"},
+          {"place", "city"}
+  },
+      OsmElement::EntityType::Node, {{162.6314353942871, -33.493592271503786}});
 
   PlaceProcessorTestFixture pp;
   pp.Add(kArea);
   pp.Add(point);
 
   std::vector<PlaceWithIDs> expected{
-      {point, {point.GetMostGenericOsmId()}},
-      {generator::MakePoint(kArea), {kArea.GetMostGenericOsmId()}}};
+      {                      point, {point.GetMostGenericOsmId()}},
+      {generator::MakePoint(kArea), {kArea.GetMostGenericOsmId()}}
+  };
   Test(pp, expected);
-  //TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
+  // TEST(TestTable(*table, {{{kArea.GetMostGenericOsmId()}, 1 /* cluster size */}}), ());
 }
 
 UNIT_CLASS_TEST(TestPlaceProcessor, SelectBestPlaceTest)
 {
-  auto const point1 =
-      MakeFbForTest({{"name", "City"}, {"place", "city"}}, OsmElement::EntityType::Node,
-                    {{162.6314353942871, -33.493592271503786}});
-  auto const point2 = MakeFbForTest({{"name", "City"}, {"place", "city"}, {"capital", "yes"}},
-                                    OsmElement::EntityType::Node, {{162.63145, -33.4935}});
+  auto const point1 = MakeFbForTest(
+      {
+          { "name", "City"},
+          {"place", "city"}
+  },
+      OsmElement::EntityType::Node, {{162.6314353942871, -33.493592271503786}});
+  auto const point2 = MakeFbForTest(
+      {
+          {   "name", "City"},
+          {  "place", "city"},
+          {"capital",  "yes"}
+  },
+      OsmElement::EntityType::Node, {{162.63145, -33.4935}});
 
   PlaceProcessorTestFixture pp;
   pp.Add(point1);
   pp.Add(point2);
 
   std::vector<PlaceWithIDs> expected{
-      {point2, {point1.GetMostGenericOsmId(), point2.GetMostGenericOsmId()}}};
+      {point2, {point1.GetMostGenericOsmId(), point2.GetMostGenericOsmId()}}
+  };
   Test(pp, expected);
-  //TEST(TestTable(*table, {}), ());
+  // TEST(TestTable(*table, {}), ());
 }
 
 // Correct city Relations processing is not in PlaceProcessor only, but also in RoutingCityBoundariesCollector.
@@ -1341,53 +1367,77 @@ UNIT_CLASS_TEST(TestPlaceProcessor, VoronezhDuplicatingCityFeatureTest)
 
 UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
 {
-  auto const point1 = MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}},
-                                    OsmElement::EntityType::Node, {{39.5338039, 71.44840478}});
+  auto const point1 = MakeFbForTest(
+      {
+          { "name", "Кузнецово"},
+          {"place",    "hamlet"}
+  },
+      OsmElement::EntityType::Node, {{39.5338039, 71.44840478}});
 
-  auto const way1 =
-      MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}}, OsmElement::EntityType::Way,
-                    {{39.5300791, 71.4499322},
-                     {39.5360952, 71.449952},
-                     {39.5358614, 71.4481361},
-                     {39.533932, 71.4479877},
-                     {39.5334559, 71.4466931},
-                     {39.5328246, 71.4468055},
-                     {39.531898, 71.447587},
-                     {39.5305723, 71.4482665},
-                     {39.5300791, 71.4499322}});
+  auto const way1 = MakeFbForTest(
+      {
+          { "name", "Кузнецово"},
+          {"place",    "hamlet"}
+  },
+      OsmElement::EntityType::Way,
+      {{39.5300791, 71.4499322},
+       {39.5360952, 71.449952},
+       {39.5358614, 71.4481361},
+       {39.533932, 71.4479877},
+       {39.5334559, 71.4466931},
+       {39.5328246, 71.4468055},
+       {39.531898, 71.447587},
+       {39.5305723, 71.4482665},
+       {39.5300791, 71.4499322}});
 
-  auto const point2 = MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}},
-                                    OsmElement::EntityType::Node, {{39.6701222, 71.52284624}});
+  auto const point2 = MakeFbForTest(
+      {
+          { "name", "Кузнецово"},
+          {"place",    "hamlet"}
+  },
+      OsmElement::EntityType::Node, {{39.6701222, 71.52284624}});
 
-  auto const way2 =
-      MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}}, OsmElement::EntityType::Way,
-                    {{39.6670159, 71.5224511},
-                     {39.6719028, 71.525375},
-                     {39.6732332, 71.5231513},
-                     {39.6683465, 71.5202275},
-                     {39.6670159, 71.5224511}});
+  auto const way2 = MakeFbForTest(
+      {
+          { "name", "Кузнецово"},
+          {"place",    "hamlet"}
+  },
+      OsmElement::EntityType::Way,
+      {{39.6670159, 71.5224511},
+       {39.6719028, 71.525375},
+       {39.6732332, 71.5231513},
+       {39.6683465, 71.5202275},
+       {39.6670159, 71.5224511}});
 
-  auto const point3 = MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}},
-                                    OsmElement::EntityType::Node, {{39.9688407, 71.45936188}});
+  auto const point3 = MakeFbForTest(
+      {
+          { "name", "Кузнецово"},
+          {"place",    "hamlet"}
+  },
+      OsmElement::EntityType::Node, {{39.9688407, 71.45936188}});
 
-  auto const way3 =
-      MakeFbForTest({{"name", "Кузнецово"}, {"place", "hamlet"}}, OsmElement::EntityType::Way,
-                    {{39.9694614, 71.4609508},
-                     {39.9695483, 71.460343},
-                     {39.9698434, 71.4598916},
-                     {39.970373, 71.4583027},
-                     {39.9703469, 71.458025},
-                     {39.9701473, 71.4578426},
-                     {39.969036, 71.458485},
-                     {39.9685064, 71.4579208},
-                     {39.968246, 71.4578946},
-                     {39.967647, 71.4588411},
-                     {39.9676383, 71.4589973},
-                     {39.9680029, 71.4591536},
-                     {39.9681505, 71.459414},
-                     {39.9670826, 71.4609508},
-                     {39.9690534, 71.461055},
-                     {39.9694614, 71.4609508}});
+  auto const way3 = MakeFbForTest(
+      {
+          { "name", "Кузнецово"},
+          {"place",    "hamlet"}
+  },
+      OsmElement::EntityType::Way,
+      {{39.9694614, 71.4609508},
+       {39.9695483, 71.460343},
+       {39.9698434, 71.4598916},
+       {39.970373, 71.4583027},
+       {39.9703469, 71.458025},
+       {39.9701473, 71.4578426},
+       {39.969036, 71.458485},
+       {39.9685064, 71.4579208},
+       {39.968246, 71.4578946},
+       {39.967647, 71.4588411},
+       {39.9676383, 71.4589973},
+       {39.9680029, 71.4591536},
+       {39.9681505, 71.459414},
+       {39.9670826, 71.4609508},
+       {39.9690534, 71.461055},
+       {39.9694614, 71.4609508}});
 
   PlaceProcessorTestFixture pp;
   pp.Add(point1);
@@ -1399,13 +1449,14 @@ UNIT_CLASS_TEST(TestPlaceProcessor, KuznetsovoNearbyHamletsTest)
   std::vector<PlaceWithIDs> expected{
       {point1, {point1.GetMostGenericOsmId(), way1.GetMostGenericOsmId()}},
       {point2, {point2.GetMostGenericOsmId(), way2.GetMostGenericOsmId()}},
-      {point3, {point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}}};
+      {point3, {point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}}
+  };
   Test(pp, expected);
-//  TEST(TestTable(
-//           *table,
-//           {{{point1.GetMostGenericOsmId(), way1.GetMostGenericOsmId()}, 1 /* cluster size */},
-//            {{point2.GetMostGenericOsmId(), way2.GetMostGenericOsmId()}, 1 /* cluster size */},
-//            {{point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}, 1 /* cluster size */}}),
-//       ());
+  //  TEST(TestTable(
+  //           *table,
+  //           {{{point1.GetMostGenericOsmId(), way1.GetMostGenericOsmId()}, 1 /* cluster size */},
+  //            {{point2.GetMostGenericOsmId(), way2.GetMostGenericOsmId()}, 1 /* cluster size */},
+  //            {{point3.GetMostGenericOsmId(), way3.GetMostGenericOsmId()}, 1 /* cluster size */}}),
+  //       ());
 }
-} // namespace place_processor_tests
+}  // namespace place_processor_tests

@@ -68,8 +68,7 @@ UNIT_TEST(NearbyPointsSweeper_Smoke)
 
   {
     uint8_t const priority = 0;
-    vector<PointD> const points = {PointD(0.0, 0.0), PointD(1.0, 1.0),
-                                   PointD(1.5, 0.0), PointD(1.5 + 1.01, 1.5 + 1.0)};
+    vector<PointD> const points = {PointD(0.0, 0.0), PointD(1.0, 1.0), PointD(1.5, 0.0), PointD(1.5 + 1.01, 1.5 + 1.0)};
     NearbyPointsSweeper sweeper(1.0);
 
     for (size_t i = 0; i < points.size(); ++i)
@@ -85,9 +84,8 @@ UNIT_TEST(NearbyPointsSweeper_Smoke)
 
   {
     uint8_t const priority = 0;
-    vector<PointD> const points = {PointD(0, 0),     PointD(0, 0), PointD(1, 0),
-                                   PointD(0, 1),     PointD(1, 1), PointD(1, 0),
-                                   PointD(0.5, 0.5), PointD(0, 1)};
+    vector<PointD> const points = {PointD(0, 0), PointD(0, 0), PointD(1, 0),     PointD(0, 1),
+                                   PointD(1, 1), PointD(1, 0), PointD(0.5, 0.5), PointD(0, 1)};
 
     NearbyPointsSweeper sweeper(10.0);
     for (size_t i = 0; i < points.size(); ++i)
@@ -116,7 +114,14 @@ UNIT_TEST(NearbyPointsSweeper_Priority)
     TEST_EQUAL(expected, actual, ());
   }
   {
-    vector<pair<double, uint8_t>> const objects = {{0.0, 0}, {0.5, 1}, {1.0, 1}, {1.5, 1}, {1.4, 0}, {1.6, 0}};
+    vector<pair<double, uint8_t>> const objects = {
+        {0.0, 0},
+        {0.5, 1},
+        {1.0, 1},
+        {1.5, 1},
+        {1.4, 0},
+        {1.6, 0}
+    };
     NearbyPointsSweeper sweeper(0.5);
 
     for (size_t i = 0; i < objects.size(); ++i)
@@ -130,8 +135,12 @@ UNIT_TEST(NearbyPointsSweeper_Priority)
     TEST_EQUAL(expected, actual, ());
   }
   {
-    vector<pair<PointD, uint8_t>> const objects = {{PointD(0.0, 0.0), 0}, {PointD(1.0, 1.0), 1},
-                                                   {PointD(1.5, 0.0), 0}, {PointD(1.5 + 1.01, 1.5 + 1.0), 0}};
+    vector<pair<PointD, uint8_t>> const objects = {
+        {       PointD(0.0,       0.0), 0},
+        {       PointD(1.0,       1.0), 1},
+        {       PointD(1.5,       0.0), 0},
+        {PointD(1.5 + 1.01, 1.5 + 1.0), 0}
+    };
     NearbyPointsSweeper sweeper(1.0);
 
     for (size_t i = 0; i < objects.size(); ++i)

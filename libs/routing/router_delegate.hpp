@@ -38,4 +38,4 @@ private:
 
   base::Cancellable m_cancellable;
 };
-} //  namespace routing
+}  //  namespace routing

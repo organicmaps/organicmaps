@@ -4,7 +4,6 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
-
 namespace url
 {
 using namespace std;
@@ -12,9 +11,7 @@ using namespace std;
 Url::Url(std::string const & url)
 {
   if (!Parse(url))
-  {
     ASSERT(m_scheme.empty() && m_host.empty() && m_path.empty() && !IsValid(), ());
-  }
 }
 
 Url Url::FromString(std::string const & url)
@@ -122,8 +119,8 @@ string UrlEncode(string const & rawUrl)
   for (size_t i = 0; i < count; ++i)
   {
     char const c = rawUrl[i];
-    if (c < '-' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_') ||
-        c == '`' || (c > 'z' && c < '~') || c > '~')
+    if (c < '-' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_') || c == '`' || (c > 'z' && c < '~') ||
+        c > '~')
     {
       result += '%';
       result += NumToHex(c);

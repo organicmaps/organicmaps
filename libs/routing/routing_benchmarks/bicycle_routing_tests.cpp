@@ -22,10 +22,8 @@ std::set<std::string> const kBicycleMapFiles = {"Russia_Moscow"};
 class BicycleTest : public RoutingTest
 {
 public:
-  BicycleTest()
-    : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Bicycle, kBicycleMapFiles)
-  {
-  }
+  BicycleTest() : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Bicycle, kBicycleMapFiles)
+  {}
 
 protected:
   std::unique_ptr<routing::VehicleModelFactoryInterface> CreateModelFactory() override

@@ -1,7 +1,7 @@
 #include "generator/unpack_mwm.hpp"
 
-#include "coding/files_container.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/files_container.hpp"
 #include "coding/read_write_utils.hpp"
 
 #include "base/logging.hpp"

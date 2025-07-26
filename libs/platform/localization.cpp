@@ -54,7 +54,7 @@ LocalizedUnits const & GetLocalizedAltitudeUnits()
   return GetLocalizedUnits(measurement_utils::GetMeasurementUnits(), MeasurementType::Altitude);
 }
 
-const std::string & GetLocalizedSpeedUnits(measurement_utils::Units units)
+std::string const & GetLocalizedSpeedUnits(measurement_utils::Units units)
 {
   return GetLocalizedUnits(units, MeasurementType::Speed).m_high;
 }

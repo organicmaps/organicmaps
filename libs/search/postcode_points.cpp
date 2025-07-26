@@ -14,7 +14,6 @@
 
 #include "defines.hpp"
 
-
 namespace search
 {
 using namespace std;
@@ -38,31 +37,26 @@ PostcodePoints::PostcodePoints(MwmValue const & value)
   m_header.Read(*reader.GetPtr());
 
   m_trieSubReader = reader.GetPtr()->CreateSubReader(m_header.m_trieOffset, m_header.m_trieSize);
-  m_root = trie::ReadTrie<SubReaderWrapper<Reader>, SingleUint64Value>(
-      SubReaderWrapper<Reader>(m_trieSubReader.get()), SingleValueSerializer<Uint64IndexValue>());
+  m_root = trie::ReadTrie<SubReaderWrapper<Reader>, SingleUint64Value>(SubReaderWrapper<Reader>(m_trieSubReader.get()),
+                                                                       SingleValueSerializer<Uint64IndexValue>());
   CHECK(m_root, ());
 
   version::MwmTraits traits(value.GetMwmVersion());
   auto const format = traits.GetCentersTableFormat();
-  CHECK_EQUAL(format, version::MwmTraits::CentersTableFormat::EliasFanoMapWithHeader,
-              ("Unexpected format."));
+  CHECK_EQUAL(format, version::MwmTraits::CentersTableFormat::EliasFanoMapWithHeader, ("Unexpected format."));
 
-  m_pointsSubReader =
-      reader.GetPtr()->CreateSubReader(m_header.m_pointsOffset, m_header.m_pointsSize);
+  m_pointsSubReader = reader.GetPtr()->CreateSubReader(m_header.m_pointsOffset, m_header.m_pointsSize);
   m_points = CentersTable::LoadV1(*m_pointsSubReader);
   CHECK(m_points, ());
 
   auto const kPostcodeRadiusMultiplier = 5.0;
   auto const area = value.GetHeader().GetBounds().Area();
   auto const count = static_cast<double>(m_points->Count());
-  CHECK_NOT_EQUAL(
-      count, 0.0,
-      ("Zero postcodes should not be serialized to", POSTCODE_POINTS_FILE_TAG, "section"));
+  CHECK_NOT_EQUAL(count, 0.0, ("Zero postcodes should not be serialized to", POSTCODE_POINTS_FILE_TAG, "section"));
   m_radius = kPostcodeRadiusMultiplier * 0.5 * sqrt(area / count);
 }
 
-void PostcodePoints::Get(UniString const & postcode, bool recursive,
-                         vector<m2::PointD> & points) const
+void PostcodePoints::Get(UniString const & postcode, bool recursive, vector<m2::PointD> & points) const
 {
   if (!m_root || !m_points || !m_trieSubReader || !m_pointsSubReader || postcode.empty())
     return;
@@ -73,9 +67,7 @@ void PostcodePoints::Get(UniString const & postcode, bool recursive,
   while (postcodeIt != postcode.end())
   {
     auto it = find_if(trieIt->m_edges.begin(), trieIt->m_edges.end(), [&](auto const & edge)
-    {
-      return StartsWith(postcodeIt, postcode.end(), edge.m_label.begin(), edge.m_label.end());
-    });
+    { return StartsWith(postcodeIt, postcode.end(), edge.m_label.begin(), edge.m_label.end()); });
     if (it == trieIt->m_edges.end())
       return;
 
@@ -88,19 +80,12 @@ void PostcodePoints::Get(UniString const & postcode, bool recursive,
 
   vector<uint32_t> indexes;
   trieIt->m_values.ForEach([&indexes](auto const & v)
-  {
-    indexes.push_back(base::asserted_cast<uint32_t>(v.m_featureId));
-  });
+  { indexes.push_back(base::asserted_cast<uint32_t>(v.m_featureId)); });
 
   if (recursive)
   {
-    trie::ForEachRef(
-        *trieIt,
-        [&indexes](auto const & /* s */, auto const & v)
-        {
-          indexes.push_back(base::asserted_cast<uint32_t>(v.m_featureId));
-        },
-        UniString{});
+    trie::ForEachRef(*trieIt, [&indexes](auto const & /* s */, auto const & v)
+    { indexes.push_back(base::asserted_cast<uint32_t>(v.m_featureId)); }, UniString{});
   }
 
   points.resize(indexes.size());

@@ -26,13 +26,34 @@ struct JSONDecRef
 
 using JSONPtr = std::unique_ptr<json_t, JSONDecRef>;
 
-inline JSONPtr NewJSONObject() { return JSONPtr(json_object()); }
-inline JSONPtr NewJSONArray() { return JSONPtr(json_array()); }
-inline JSONPtr NewJSONString(std::string const & s) { return JSONPtr(json_string(s.c_str())); }
-inline JSONPtr NewJSONInt(json_int_t value) { return JSONPtr(json_integer(value)); }
-inline JSONPtr NewJSONReal(double value) { return JSONPtr(json_real(value)); }
-inline JSONPtr NewJSONBool(bool value) { return JSONPtr(value ? json_true() : json_false()); }
-inline JSONPtr NewJSONNull() { return JSONPtr(json_null()); }
+inline JSONPtr NewJSONObject()
+{
+  return JSONPtr(json_object());
+}
+inline JSONPtr NewJSONArray()
+{
+  return JSONPtr(json_array());
+}
+inline JSONPtr NewJSONString(std::string const & s)
+{
+  return JSONPtr(json_string(s.c_str()));
+}
+inline JSONPtr NewJSONInt(json_int_t value)
+{
+  return JSONPtr(json_integer(value));
+}
+inline JSONPtr NewJSONReal(double value)
+{
+  return JSONPtr(json_real(value));
+}
+inline JSONPtr NewJSONBool(bool value)
+{
+  return JSONPtr(value ? json_true() : json_false());
+}
+inline JSONPtr NewJSONNull()
+{
+  return JSONPtr(json_null());
+}
 
 class Json
 {
@@ -85,8 +106,7 @@ inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First &&
 }
 
 template <class First, class... Paths>
-inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First && path,
-                                                   Paths &&... paths)
+inline json_t const * GetJSONObligatoryFieldByPath(json_t const * root, First && path, Paths &&... paths)
 {
   json_t const * newRoot = GetJSONObligatoryFieldByPath(root, std::forward<First>(path));
   return GetJSONObligatoryFieldByPath(newRoot, std::forward<Paths>(paths)...);
@@ -99,8 +119,7 @@ inline json_t * GetJSONObligatoryFieldByPath(json_t * root, First && path)
 }
 
 template <class First, class... Paths>
-inline json_t * GetJSONObligatoryFieldByPath(json_t * root, First && path,
-                                                   Paths &&... paths)
+inline json_t * GetJSONObligatoryFieldByPath(json_t * root, First && path, Paths &&... paths)
 {
   json_t * newRoot = GetJSONObligatoryFieldByPath(root, std::forward<First>(path));
   return GetJSONObligatoryFieldByPath(newRoot, std::forward<Paths>(paths)...);
@@ -117,8 +136,14 @@ T FromJSON(json_t const * root)
   return result;
 }
 
-inline void FromJSON(json_t * root, json_t *& value) { value = root; }
-inline void FromJSON(json_t const * root, json_t const *& value) { value = root; }
+inline void FromJSON(json_t * root, json_t *& value)
+{
+  value = root;
+}
+inline void FromJSON(json_t const * root, json_t const *& value)
+{
+  value = root;
+}
 
 void FromJSON(json_t const * root, double & result);
 void FromJSON(json_t const * root, bool & result);
@@ -190,9 +215,18 @@ inline base::JSONPtr ToJSON(T value)
 {
   return base::NewJSONInt(value);
 }
-inline base::JSONPtr ToJSON(double value) { return base::NewJSONReal(value); }
-inline base::JSONPtr ToJSON(bool value) { return base::NewJSONBool(value); }
-inline base::JSONPtr ToJSON(char const * s) { return base::NewJSONString(s); }
+inline base::JSONPtr ToJSON(double value)
+{
+  return base::NewJSONReal(value);
+}
+inline base::JSONPtr ToJSON(bool value)
+{
+  return base::NewJSONBool(value);
+}
+inline base::JSONPtr ToJSON(char const * s)
+{
+  return base::NewJSONString(s);
+}
 
 template <typename T>
 void ToJSONArray(json_t & root, T const & value)
@@ -205,7 +239,10 @@ inline void ToJSONArray(json_t & parent, base::JSONPtr & child)
   json_array_append_new(&parent, child.release());
 }
 
-inline void ToJSONArray(json_t & parent, json_t & child) { json_array_append_new(&parent, &child); }
+inline void ToJSONArray(json_t & parent, json_t & child)
+{
+  json_array_append_new(&parent, &child);
+}
 
 template <typename T>
 void ToJSONObject(json_t & root, char const * field, T const & value)
@@ -331,7 +368,10 @@ struct JSONFreeDeleter
 namespace std
 {
 void FromJSON(json_t const * root, std::string & result);
-inline base::JSONPtr ToJSON(std::string const & s) { return base::NewJSONString(s); }
+inline base::JSONPtr ToJSON(std::string const & s)
+{
+  return base::NewJSONString(s);
+}
 }  // namespace std
 
 namespace strings

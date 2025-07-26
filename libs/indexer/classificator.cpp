@@ -7,17 +7,16 @@
 
 #include <algorithm>
 
-
 using std::string;
 
 namespace
 {
-  struct less_scales
-  {
-    bool operator() (drule::Key const & l, int r) const { return l.m_scale < r; }
-    bool operator() (int l, drule::Key const & r) const { return l < r.m_scale; }
-    bool operator() (drule::Key const & l, drule::Key const & r) const { return l.m_scale < r.m_scale; }
-  };
+struct less_scales
+{
+  bool operator()(drule::Key const & l, int r) const { return l.m_scale < r; }
+  bool operator()(int l, drule::Key const & r) const { return l < r.m_scale; }
+  bool operator()(drule::Key const & l, drule::Key const & r) const { return l.m_scale < r.m_scale; }
+};
 }  // namespace
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -26,7 +25,8 @@ namespace
 
 ClassifObject * ClassifObject::AddImpl(string const & s)
 {
-  if (m_objs.empty()) m_objs.reserve(30);
+  if (m_objs.empty())
+    m_objs.reserve(30);
 
   m_objs.emplace_back(s);
   return &(m_objs.back());
@@ -52,12 +52,11 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
   auto i = std::lower_bound(m_drawRules.begin(), m_drawRules.end(), k.m_scale, less_scales());
   for (; i != m_drawRules.end() && i->m_scale == k.m_scale; ++i)
     if (k == *i)
-      return; // already exists
+      return;  // already exists
   m_drawRules.insert(i, k);
 
-  if (k.m_priority > m_maxOverlaysPriority &&
-      (k.m_type == drule::symbol || k.m_type == drule::caption ||
-       k.m_type == drule::shield || k.m_type == drule::pathtext))
+  if (k.m_priority > m_maxOverlaysPriority && (k.m_type == drule::symbol || k.m_type == drule::caption ||
+                                               k.m_type == drule::shield || k.m_type == drule::pathtext))
     m_maxOverlaysPriority = k.m_priority;
 }
 
@@ -81,7 +80,7 @@ void ClassifObject::LoadPolicy::Start(size_t i)
 void ClassifObject::LoadPolicy::EndChilds()
 {
   ClassifObject * p = Current();
-  ASSERT ( p->m_objs.back().m_name.empty(), () );
+  ASSERT(p->m_objs.back().m_name.empty(), ());
   p->m_objs.pop_back();
 }
 
@@ -125,141 +124,138 @@ Classificator & classif()
 
 namespace ftype
 {
-  uint8_t const bits_count = 7;
-  uint8_t const levels_count = 4;
-  uint8_t const max_value = (1 << bits_count) - 1;
+uint8_t const bits_count = 7;
+uint8_t const levels_count = 4;
+uint8_t const max_value = (1 << bits_count) - 1;
 
-  void set_value(uint32_t & type, uint8_t level, uint8_t value)
+void set_value(uint32_t & type, uint8_t level, uint8_t value)
+{
+  level *= bits_count;  // level to bits
+
+  uint32_t const m1 = uint32_t(max_value) << level;
+  type &= (~m1);  // zero bits
+
+  uint32_t const m2 = uint32_t(value) << level;
+  type |= m2;  // set bits
+}
+
+uint8_t get_value(uint32_t type, uint8_t level)
+{
+  level *= bits_count;  // level to bits;
+
+  uint32_t const m = uint32_t(max_value) << level;
+  type &= m;  // leave only our bits
+
+  type = type >> level;  // move to start
+  ASSERT(type <= max_value, ("invalid output value", type));
+
+  return uint8_t(type);  // conversion
+}
+
+uint8_t get_control_level(uint32_t type)
+{
+  uint8_t count = 0;
+  while (type > 1)
   {
-    level *= bits_count;  // level to bits
-
-    uint32_t const m1 = uint32_t(max_value) << level;
-    type &= (~m1);        // zero bits
-
-    uint32_t const m2 = uint32_t(value) << level;
-    type |= m2;           // set bits
+    type = type >> bits_count;
+    ++count;
   }
 
-  uint8_t get_value(uint32_t type, uint8_t level)
-  {
-    level *= bits_count;     // level to bits;
+  return count;
+}
 
-    uint32_t const m = uint32_t(max_value) << level;
-    type &= m;              // leave only our bits
+void PushValue(uint32_t & type, uint8_t value)
+{
+  ASSERT(value <= max_value, ("invalid input value", value));
 
-    type = type >> level;   // move to start
-    ASSERT ( type <= max_value, ("invalid output value", type) );
-
-    return uint8_t(type);   // conversion
-  }
-
-  uint8_t get_control_level(uint32_t type)
-  {
-    uint8_t count = 0;
-    while (type > 1)
-    {
-      type = type >> bits_count;
-      ++count;
-    }
-
-    return count;
-  }
-
-  void PushValue(uint32_t & type, uint8_t value)
-  {
-    ASSERT ( value <= max_value, ("invalid input value", value) );
-
-    uint8_t const cl = get_control_level(type);
-    // to avoid warning in release
+  uint8_t const cl = get_control_level(type);
+  // to avoid warning in release
 #ifdef RELEASE
-    UNUSED_VALUE(levels_count);
+  UNUSED_VALUE(levels_count);
 #endif
-    ASSERT ( cl < levels_count, (cl) );
+  ASSERT(cl < levels_count, (cl));
 
-    set_value(type, cl, value);
+  set_value(type, cl, value);
 
-    // set control level
-    set_value(type, cl+1, 1);
-  }
+  // set control level
+  set_value(type, cl + 1, 1);
+}
 
-  uint8_t GetValue(uint32_t type, uint8_t level)
+uint8_t GetValue(uint32_t type, uint8_t level)
+{
+  return get_value(type, level);
+}
+
+void PopValue(uint32_t & type)
+{
+  uint8_t const cl = get_control_level(type);
+  ASSERT_GREATER(cl, 0, ());
+
+  // remove control level
+  set_value(type, cl, 0);
+
+  // set control level
+  set_value(type, cl - 1, 1);
+}
+
+void TruncValue(uint32_t & type, uint8_t level)
+{
+  ASSERT_GREATER(level, 0, ());
+  uint8_t cl = get_control_level(type);
+
+  while (cl > level)
   {
-    return get_value(type, level);
-  }
-
-  void PopValue(uint32_t & type)
-  {
-    uint8_t const cl = get_control_level(type);
-    ASSERT_GREATER ( cl, 0, () );
-
     // remove control level
     set_value(type, cl, 0);
 
+    --cl;
+
     // set control level
-    set_value(type, cl-1, 1);
+    set_value(type, cl, 1);
   }
+}
 
-  void TruncValue(uint32_t & type, uint8_t level)
-  {
-    ASSERT_GREATER ( level, 0, () );
-    uint8_t cl = get_control_level(type);
-
-    while (cl > level)
-    {
-      // remove control level
-      set_value(type, cl, 0);
-
-      --cl;
-
-      // set control level
-      set_value(type, cl, 1);
-    }
-  }
-
-  uint8_t GetLevel(uint32_t type)
-  {
-    return get_control_level(type);
-  }
-} // namespace ftype
+uint8_t GetLevel(uint32_t type)
+{
+  return get_control_level(type);
+}
+}  // namespace ftype
 
 namespace
 {
-  class suitable_getter
+class suitable_getter
+{
+  typedef std::vector<drule::Key> vec_t;
+  typedef vec_t::const_iterator iter_t;
+
+  vec_t const & m_rules;
+  drule::KeysT & m_keys;
+
+  void add_rule(int ft, iter_t i)
   {
-    typedef std::vector<drule::Key> vec_t;
-    typedef vec_t::const_iterator iter_t;
-
-    vec_t const & m_rules;
-    drule::KeysT & m_keys;
-
-    void add_rule(int ft, iter_t i)
-    {
-      // Define which drule types are applicable to which feature geom types.
-      static const int visible[3][drule::count_of_rules] = {
+    // Define which drule types are applicable to which feature geom types.
+    static int const visible[3][drule::count_of_rules] = {
         //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }, see drule::Key::rule_type_t
-        { 0, 0, 1, 1, 1, 0, 0, 0 },   // fpoint
-        { 1, 0, 0, 0, 0, 1, 0, 1 },   // fline
-        { 0, 1, 1, 1, 1, 0, 0, 0 }    // farea (!!! different from IsDrawableLike(): here area feature can use point styles)
-      };
+        {0, 0, 1, 1, 1, 0, 0, 0}, // fpoint
+        {1, 0, 0, 0, 0, 1, 0, 1}, // fline
+        {0, 1, 1, 1, 1, 0, 0, 0}  // farea (!!! different from IsDrawableLike(): here area feature can use point styles)
+    };
 
-      if (visible[ft][i->m_type] == 1)
-        m_keys.push_back(*i);
-    }
+    if (visible[ft][i->m_type] == 1)
+      m_keys.push_back(*i);
+  }
 
-  public:
-    suitable_getter(vec_t const & rules, drule::KeysT & keys)
-      : m_rules(rules), m_keys(keys)
-    {
-    }
+public:
+  suitable_getter(vec_t const & rules, drule::KeysT & keys) : m_rules(rules), m_keys(keys) {}
 
-    void find(int ft, int scale)
-    {
-      auto i = std::lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
-      while (i != m_rules.end() && i->m_scale == scale)
-        add_rule(ft, i++);
-    }
-  };
-} // namespace
+  void find(int ft, int scale)
+  {
+    auto i = std::lower_bound(m_rules.begin(), m_rules.end(), scale, less_scales());
+    while (i != m_rules.end() && i->m_scale == scale)
+      add_rule(ft, i++);
+  }
+};
+}  // namespace
 
 void ClassifObject::GetSuitable(int scale, feature::GeomType gt, drule::KeysT & keys) const
 {
@@ -293,11 +289,11 @@ bool ClassifObject::IsDrawableLike(feature::GeomType gt, bool emptyName) const
     return false;
 
   // Define which feature geom types can use which drule types for rendering.
-  static const int visible[3][drule::count_of_rules] = {
-    //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }, see drule::Key::rule_type_t
-    {0, 0, 1, 1, 1, 0, 0, 0},   // fpoint
-    {1, 0, 0, 0, 0, 1, 0, 1},   // fline
-    {0, 1, 0, 0, 0, 0, 0, 0}    // farea (!!! key difference with GetSuitable, see suitable_getter::add_rule())
+  static int const visible[3][drule::count_of_rules] = {
+      //{ line, area, symbol, caption, circle, pathtext, waymarker, shield }, see drule::Key::rule_type_t
+      {0, 0, 1, 1, 1, 0, 0, 0}, // fpoint
+      {1, 0, 0, 0, 0, 1, 0, 1}, // fline
+      {0, 1, 0, 0, 0, 0, 0, 0}  // farea (!!! key difference with GetSuitable, see suitable_getter::add_rule())
   };
 
   for (auto const & k : m_drawRules)
@@ -330,10 +326,10 @@ std::pair<int, int> ClassifObject::GetDrawScaleRange() const
       break;
     }
 
-  ASSERT_NOT_EQUAL ( left, -1, () );
+  ASSERT_NOT_EQUAL(left, -1, ());
 
   int right = left;
-  for (int i = count-1; i > left; --i)
+  for (int i = count - 1; i > left; --i)
     if (m_visibility[i])
     {
       right = i;
@@ -350,8 +346,8 @@ void Classificator::ReadClassificator(std::istream & s)
 
   m_root.Sort();
 
-  m_coastType = GetTypeByPath({ "natural", "coastline" });
-  m_stubType = GetTypeByPath({ "mapswithme" });
+  m_coastType = GetTypeByPath({"natural", "coastline"});
+  m_stubType = GetTypeByPath({"mapswithme"});
 }
 
 template <typename Iter>
@@ -417,7 +413,8 @@ void Classificator::Clear()
   m_mapping.Clear();
 }
 
-template <class ToDo> void Classificator::ForEachPathObject(uint32_t type, ToDo && toDo) const
+template <class ToDo>
+void Classificator::ForEachPathObject(uint32_t type, ToDo && toDo) const
 {
   ClassifObject const * p = &m_root;
   uint8_t const level = ftype::GetLevel(type);
@@ -431,30 +428,21 @@ template <class ToDo> void Classificator::ForEachPathObject(uint32_t type, ToDo 
 ClassifObject const * Classificator::GetObject(uint32_t type) const
 {
   ClassifObject const * res = nullptr;
-  ForEachPathObject(type, [&res](ClassifObject const * p)
-  {
-    res = p;
-  });
+  ForEachPathObject(type, [&res](ClassifObject const * p) { res = p; });
   return res;
 }
 
 std::string Classificator::GetFullObjectName(uint32_t type) const
 {
   std::string res;
-  ForEachPathObject(type, [&res](ClassifObject const * p)
-  {
-    res = res + p->GetName() + '|';
-  });
+  ForEachPathObject(type, [&res](ClassifObject const * p) { res = res + p->GetName() + '|'; });
   return res;
 }
 
 std::vector<std::string> Classificator::GetFullObjectNamePath(uint32_t type) const
 {
   std::vector<std::string> res;
-  ForEachPathObject(type, [&res](ClassifObject const * p)
-  {
-    res.push_back(p->GetName());
-  });
+  ForEachPathObject(type, [&res](ClassifObject const * p) { res.push_back(p->GetName()); });
   return res;
 }
 
@@ -462,7 +450,7 @@ string Classificator::GetReadableObjectName(uint32_t type) const
 {
   string s = GetFullObjectName(type);
   // Remove ending dummy symbol.
-  ASSERT ( !s.empty(), () );
+  ASSERT(!s.empty(), ());
   s.pop_back();
   // Replace separator.
   replace(s.begin(), s.end(), '|', '-');

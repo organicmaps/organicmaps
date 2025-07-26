@@ -26,7 +26,7 @@ public:
     dp::vulkan::VulkanObject m_object;
     uint8_t * m_pointer = nullptr;
     uint32_t m_freeOffset = 0;
-};
+  };
 
   VulkanProgramParamsSetter(ref_ptr<dp::vulkan::VulkanBaseContext> context, ref_ptr<VulkanProgramPool> programPool);
   ~VulkanProgramParamsSetter() override;
@@ -59,17 +59,15 @@ public:
              ImGuiProgramParams const & params) override;
 
 private:
-  template<typename T>
-  void ApplyImpl(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
-                 T const & params)
+  template <typename T>
+  void ApplyImpl(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program, T const & params)
   {
     ASSERT_EQUAL(T::GetName(), ProgramParams::GetBoundParamsName(program),
                  ("Mismatched program and parameters", program->GetName()));
     ApplyBytes(context, reinterpret_cast<void const *>(&params), sizeof(params));
   }
 
-  void ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext> context,
-                  void const * data, uint32_t sizeInBytes);
+  void ApplyBytes(ref_ptr<dp::vulkan::VulkanBaseContext> context, void const * data, uint32_t sizeInBytes);
 
   ref_ptr<dp::vulkan::VulkanObjectManager> m_objectManager;
   std::array<std::vector<UniformBuffer>, dp::vulkan::kMaxInflightFrames> m_uniformBuffers;

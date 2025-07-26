@@ -86,4 +86,4 @@ UNIT_TEST(SimpleDenseCoding_Ratio)
     TEST_GREATER(ratio, 1.8, ());
   }
 }
-} // namespace simple_dense_coding_test
+}  // namespace simple_dense_coding_test

@@ -63,8 +63,7 @@ bool Delimiters::operator()(strings::UniChar c) const
 // DelimitersWithExceptions ------------------------------------------------------------------------
 DelimitersWithExceptions::DelimitersWithExceptions(std::vector<strings::UniChar> const & exceptions)
   : m_exceptions(exceptions)
-{
-}
+{}
 
 bool DelimitersWithExceptions::operator()(strings::UniChar c) const
 {

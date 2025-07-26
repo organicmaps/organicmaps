@@ -10,38 +10,39 @@
 using namespace std;
 
 map<TransitType, string> const kTransitSymbols = {
-    {TransitType::Subway, "transit_subway"},
-    {TransitType::LightRail, "transit_light_rail"},
-    {TransitType::Monorail, "transit_monorail"},
-    {TransitType::Train, "transit_train"},
-    {TransitType::Tram, "transit_tram"},
-    {TransitType::Bus, "transit_bus"},
-    {TransitType::Ferry, "transit_ferry"},
-    {TransitType::CableTram, "transit_cable_tram"},
-    {TransitType::AerialLift, "transit_aerial_lift"},
-    {TransitType::Funicular, "transit_funicular"},
-    {TransitType::Trolleybus, "transit_trolleybus"},
-    {TransitType::AirService, "transit_air_service"},
-    {TransitType::WaterService, "transit_water_service"}};
+    {      TransitType::Subway,        "transit_subway"},
+    {   TransitType::LightRail,    "transit_light_rail"},
+    {    TransitType::Monorail,      "transit_monorail"},
+    {       TransitType::Train,         "transit_train"},
+    {        TransitType::Tram,          "transit_tram"},
+    {         TransitType::Bus,           "transit_bus"},
+    {       TransitType::Ferry,         "transit_ferry"},
+    {   TransitType::CableTram,    "transit_cable_tram"},
+    {  TransitType::AerialLift,   "transit_aerial_lift"},
+    {   TransitType::Funicular,     "transit_funicular"},
+    {  TransitType::Trolleybus,    "transit_trolleybus"},
+    {  TransitType::AirService,   "transit_air_service"},
+    {TransitType::WaterService, "transit_water_service"}
+};
 
 namespace
 {
 float const kStopMarkerScale = 2.2f;
 float const kTransferMarkerScale = 4.0f;
-const float kGateBgScale = 1.2f;
+float const kGateBgScale = 1.2f;
 
-const int kSmallIconZoom = 1;
-const int kMediumIconZoom = 10;
+int const kSmallIconZoom = 1;
+int const kMediumIconZoom = 10;
 
-const int kMinStopTitleZoom = 13;
+int const kMinStopTitleZoom = 13;
 
-const int kTransferTitleOffset = 2;
-const int kStopTitleOffset = 0;
-const int kGateTitleOffset = 0;
+int const kTransferTitleOffset = 2;
+int const kStopTitleOffset = 0;
+int const kGateTitleOffset = 0;
 
 std::string const kZeroIcon = "zero-icon";
 
-TransitType GetTransitType(string const &type)
+TransitType GetTransitType(string const & type)
 {
   if (type == "subway")
     return TransitType::Subway;
@@ -95,8 +96,8 @@ vector<m2::PointF> GetTransitMarkerSizes(float markerScale, float maxRouteWidth)
 }
 }  // namespace
 
-TransitStepInfo::TransitStepInfo(TransitType type, double distance, int time, string const & number,
-                                 uint32_t color, int intermediateIndex)
+TransitStepInfo::TransitStepInfo(TransitType type, double distance, int time, string const & number, uint32_t color,
+                                 int intermediateIndex)
   : m_type(type)
   , m_distanceInMeters(distance)
   , m_timeInSec(time)
@@ -139,13 +140,9 @@ void TransitRouteInfo::UpdateDistanceStrings()
   if (m_steps.empty())
     return;
   for (auto & step : m_steps)
-  {
-    routing::FormatDistance(step.m_distanceInMeters, step.m_distanceStr,
-                            step.m_distanceUnitsSuffix);
-  }
+    routing::FormatDistance(step.m_distanceInMeters, step.m_distanceStr, step.m_distanceUnitsSuffix);
   routing::FormatDistance(m_totalDistInMeters, m_totalDistanceStr, m_totalDistanceUnitsSuffix);
-  routing::FormatDistance(m_totalPedestrianDistInMeters, m_totalPedestrianDistanceStr,
-                          m_totalPedestrianUnitsSuffix);
+  routing::FormatDistance(m_totalPedestrianDistInMeters, m_totalPedestrianDistanceStr, m_totalPedestrianUnitsSuffix);
 }
 
 void AddTransitGateSegment(m2::PointD const & destPoint, df::ColorConstant const & color, df::Subroute & subroute)
@@ -168,9 +165,8 @@ void AddTransitPedestrianSegment(m2::PointD const & destPoint, df::Subroute & su
   subroute.AddStyle(style);
 }
 
-void AddTransitShapes(vector<routing::transit::ShapeId> const & shapeIds,
-                      TransitShapesInfo const & shapes, df::ColorConstant const & color,
-                      bool isInverted, df::Subroute & subroute)
+void AddTransitShapes(vector<routing::transit::ShapeId> const & shapeIds, TransitShapesInfo const & shapes,
+                      df::ColorConstant const & color, bool isInverted, df::Subroute & subroute)
 {
   ASSERT_GREATER(subroute.m_polyline.GetSize(), 0, ());
   df::SubrouteStyle style(color);
@@ -204,8 +200,8 @@ void AddTransitShapes(::transit::ShapeLink shapeLink, TransitShapesInfoPT const 
   size_t const startIdx = isInverted ? shapeLink.m_endIndex : shapeLink.m_startIndex;
   size_t const endIdx = isInverted ? shapeLink.m_startIndex : shapeLink.m_endIndex;
 
-  auto const & edgePolyline = vector<m2::PointD>(it->second.GetPolyline().begin() + startIdx,
-                                                 it->second.GetPolyline().begin() + endIdx + 1);
+  auto const & edgePolyline =
+      vector<m2::PointD>(it->second.GetPolyline().begin() + startIdx, it->second.GetPolyline().begin() + endIdx + 1);
 
   if (isInverted)
     subroute.m_polyline.Append(edgePolyline.crbegin(), edgePolyline.crend());
@@ -216,10 +212,8 @@ void AddTransitShapes(::transit::ShapeLink shapeLink, TransitShapesInfoPT const 
   subroute.AddStyle(style);
 }
 
-TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager,
-                                         GetMwmIdFn const & getMwmIdFn,
-                                         GetStringsBundleFn const & getStringsBundleFn,
-                                         BookmarkManager * bmManager,
+TransitRouteDisplay::TransitRouteDisplay(TransitReadManager & transitReadManager, GetMwmIdFn const & getMwmIdFn,
+                                         GetStringsBundleFn const & getStringsBundleFn, BookmarkManager * bmManager,
                                          map<string, m2::PointF> const & transitSymbolSizes)
   : m_transitReadManager(transitReadManager)
   , m_getMwmIdFn(getMwmIdFn)
@@ -244,9 +238,8 @@ TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
   return m_routeInfo;
 }
 
-void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const & segment,
-                                                   df::Subroute & subroute, SubrouteParams & sp,
-                                                   SubrouteSegmentParams & ssp)
+void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
+                                                   SubrouteParams & sp, SubrouteSegmentParams & ssp)
 {
   CHECK_EQUAL(ssp.m_displayInfo.m_transitVersion, ::transit::TransitVersion::OnlySubway, ());
 
@@ -258,8 +251,8 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   auto const currentColor = df::GetTransitColorName(line.GetColor());
   sp.m_transitType = GetTransitType(line.GetType());
 
-  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time,
-                                      line.GetNumber(), ColorToARGB(currentColor)));
+  m_routeInfo.AddStep(
+      TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, line.GetNumber(), ColorToARGB(currentColor)));
 
   auto const & stop1 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop1Id);
   auto const & stop2 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop2Id);
@@ -295,8 +288,7 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   if (id1 != id2)
   {
     bool const isInverted = id1 > id2;
-    AddTransitShapes(edge.m_shapeIds, ssp.m_displayInfo.m_shapesSubway, currentColor, isInverted,
-                     subroute);
+    AddTransitShapes(edge.m_shapeIds, ssp.m_displayInfo.m_shapesSubway, currentColor, isInverted, subroute);
   }
 
   CHECK_GREATER(subroute.m_polyline.GetSize(), 1, ());
@@ -361,14 +353,12 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
     auto const fid = FeatureID(ssp.m_mwmId, stop2.GetFeatureId());
     sp.m_transitMarkInfo.m_featureId = fid;
     sp.m_transitMarkInfo.m_titles.push_back(
-        TransitTitle(ssp.m_displayInfo.m_features.at(fid).m_title,
-                     df::GetTransitTextColorName(line.GetColor())));
+        TransitTitle(ssp.m_displayInfo.m_features.at(fid).m_title, df::GetTransitTextColorName(line.GetColor())));
   }
 }
 
-void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & segment,
-                                               df::Subroute & subroute, SubrouteParams & sp,
-                                               SubrouteSegmentParams & ssp)
+void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
+                                               SubrouteParams & sp, SubrouteSegmentParams & ssp)
 {
   CHECK_EQUAL(ssp.m_displayInfo.m_transitVersion, ::transit::TransitVersion::AllPublicTransport,
               (segment.GetSegment()));
@@ -385,8 +375,8 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
   auto const currentColor = df::GetTransitColorName(route.GetColor());
   sp.m_transitType = GetTransitType(route.GetType());
 
-  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time,
-                                      route.GetTitle(), ColorToARGB(currentColor)));
+  m_routeInfo.AddStep(
+      TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, route.GetTitle(), ColorToARGB(currentColor)));
 
   auto const & stop1 = ssp.m_displayInfo.m_stopsPT.at(edge.m_stop1Id);
   auto const & stop2 = ssp.m_displayInfo.m_stopsPT.at(edge.m_stop2Id);
@@ -424,9 +414,7 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
   auto const id2 = isTransfer2 ? stop2.GetTransferIds().front() : stop2.GetId();
 
   if (id1 != id2)
-  {
     AddTransitShapes(edge.m_shapeLink, ssp.m_displayInfo.m_shapesPT, currentColor, subroute);
-  }
 
   CHECK_GREATER(subroute.m_polyline.GetSize(), 1, ());
   auto const & p1 = *(subroute.m_polyline.End() - 2);
@@ -495,9 +483,8 @@ void TransitRouteDisplay::AddEdgePTForSubroute(routing::RouteSegment const & seg
   }
 }
 
-void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const & segment,
-                                                   df::Subroute & subroute, SubrouteParams & sp,
-                                                   SubrouteSegmentParams & ssp)
+void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
+                                                   SubrouteParams & sp, SubrouteSegmentParams & ssp)
 {
   auto const & gate = ssp.m_transitInfo.GetGateSubway();
   if (sp.m_lastLineId != routing::transit::kInvalidLineId)
@@ -521,8 +508,7 @@ void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const &
   }
 
   auto gateMarkInfo = TransitMarkInfo();
-  gateMarkInfo.m_point =
-      sp.m_pendingEntrance ? subroute.m_polyline.Back() : segment.GetJunction().GetPoint();
+  gateMarkInfo.m_point = sp.m_pendingEntrance ? subroute.m_polyline.Back() : segment.GetJunction().GetPoint();
   gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
   gateMarkInfo.m_symbolName = kZeroIcon;
   if (gate.m_featureId != kInvalidFeatureId)
@@ -530,26 +516,21 @@ void TransitRouteDisplay::AddGateSubwayForSubroute(routing::RouteSegment const &
     auto const fid = FeatureID(ssp.m_mwmId, gate.m_featureId);
     auto const & featureInfo = ssp.m_displayInfo.m_features.at(fid);
     auto symbolName = featureInfo.m_gateSymbolName;
-    if (symbolName.ends_with("-s") || symbolName.ends_with("-m") ||
-        symbolName.ends_with("-l"))
-    {
+    if (symbolName.ends_with("-s") || symbolName.ends_with("-m") || symbolName.ends_with("-l"))
       symbolName = symbolName.substr(0, symbolName.rfind('-'));
-    }
 
     gateMarkInfo.m_featureId = fid;
     if (!symbolName.empty())
       gateMarkInfo.m_symbolName = symbolName;
-    auto const title =
-        m_getStringsBundleFn().GetString(sp.m_pendingEntrance ? "core_entrance" : "core_exit");
+    auto const title = m_getStringsBundleFn().GetString(sp.m_pendingEntrance ? "core_entrance" : "core_exit");
     gateMarkInfo.m_titles.emplace_back(title, df::GetTransitTextColorName("default"));
   }
 
   m_transitMarks.push_back(gateMarkInfo);
 }
 
-void TransitRouteDisplay::AddGatePTForSubroute(routing::RouteSegment const & segment,
-                                               df::Subroute & subroute, SubrouteParams & sp,
-                                               SubrouteSegmentParams & ssp)
+void TransitRouteDisplay::AddGatePTForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
+                                               SubrouteParams & sp, SubrouteSegmentParams & ssp)
 {
   auto const & gate = ssp.m_transitInfo.GetGatePT();
   if (sp.m_lastLineId != ::transit::kInvalidTransitId)
@@ -573,8 +554,7 @@ void TransitRouteDisplay::AddGatePTForSubroute(routing::RouteSegment const & seg
   }
 
   auto gateMarkInfo = TransitMarkInfo();
-  gateMarkInfo.m_point =
-      sp.m_pendingEntrance ? subroute.m_polyline.Back() : segment.GetJunction().GetPoint();
+  gateMarkInfo.m_point = sp.m_pendingEntrance ? subroute.m_polyline.Back() : segment.GetJunction().GetPoint();
   gateMarkInfo.m_type = TransitMarkInfo::Type::Gate;
   gateMarkInfo.m_symbolName = kZeroIcon;
   if (gate.m_featureId != kInvalidFeatureId)
@@ -582,25 +562,20 @@ void TransitRouteDisplay::AddGatePTForSubroute(routing::RouteSegment const & seg
     auto const fid = FeatureID(ssp.m_mwmId, gate.m_featureId);
     auto const & featureInfo = ssp.m_displayInfo.m_features.at(fid);
     auto symbolName = featureInfo.m_gateSymbolName;
-    if (symbolName.ends_with("-s") || symbolName.ends_with("-m") ||
-        symbolName.ends_with("-l"))
-    {
+    if (symbolName.ends_with("-s") || symbolName.ends_with("-m") || symbolName.ends_with("-l"))
       symbolName = symbolName.substr(0, symbolName.rfind('-'));
-    }
 
     gateMarkInfo.m_featureId = fid;
     if (!symbolName.empty())
       gateMarkInfo.m_symbolName = symbolName;
-    auto const title =
-        m_getStringsBundleFn().GetString(sp.m_pendingEntrance ? "core_entrance" : "core_exit");
+    auto const title = m_getStringsBundleFn().GetString(sp.m_pendingEntrance ? "core_entrance" : "core_exit");
     gateMarkInfo.m_titles.emplace_back(title, df::GetTransitTextColorName("default"));
   }
 
   m_transitMarks.push_back(gateMarkInfo);
 }
 
-bool TransitRouteDisplay::ProcessSubroute(vector<routing::RouteSegment> const & segments,
-                                          df::Subroute & subroute)
+bool TransitRouteDisplay::ProcessSubroute(vector<routing::RouteSegment> const & segments, df::Subroute & subroute)
 {
   if (m_subrouteIndex > 0)
   {
@@ -684,8 +659,8 @@ bool TransitRouteDisplay::ProcessSubroute(vector<routing::RouteSegment> const & 
 }
 
 template <class T>
-void FillMwmTransitSubway(unique_ptr<TransitDisplayInfo> & mwmTransit,
-                          routing::TransitInfo const & transitInfo, T mwmId)
+void FillMwmTransitSubway(unique_ptr<TransitDisplayInfo> & mwmTransit, routing::TransitInfo const & transitInfo,
+                          T mwmId)
 {
   switch (transitInfo.GetType())
   {
@@ -723,8 +698,7 @@ void FillMwmTransitSubway(unique_ptr<TransitDisplayInfo> & mwmTransit,
 }
 
 template <class T>
-void FillMwmTransitPT(unique_ptr<TransitDisplayInfo> & mwmTransit,
-                      routing::TransitInfo const & transitInfo, T mwmId)
+void FillMwmTransitPT(unique_ptr<TransitDisplayInfo> & mwmTransit, routing::TransitInfo const & transitInfo, T mwmId)
 {
   switch (transitInfo.GetType())
   {
@@ -801,10 +775,8 @@ void TransitRouteDisplay::CreateTransitMarks()
   if (m_transitMarks.empty())
     return;
 
-  vector<m2::PointF> const transferMarkerSizes =
-      GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
-  vector<m2::PointF> const stopMarkerSizes =
-      GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
+  vector<m2::PointF> const transferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
+  vector<m2::PointF> const stopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
 
   vector<m2::PointF> transferArrowOffsets;
   transferArrowOffsets.reserve(transferMarkerSizes.size());
@@ -832,9 +804,7 @@ void TransitRouteDisplay::CreateTransitMarks()
       }
 
       auto const GetSymbolName = [](std::string const & name, char const * suffix)
-      {
-        return name != kZeroIcon ? name + suffix : name;
-      };
+      { return name != kZeroIcon ? name + suffix : name; };
       df::UserPointMark::SymbolNameZoomInfo symbolNames;
       symbolNames[kSmallIconZoom] = GetSymbolName(mark.m_symbolName, "-s");
       symbolNames[kMediumIconZoom] = GetSymbolName(mark.m_symbolName, "-m");
@@ -864,7 +834,9 @@ void TransitRouteDisplay::CreateTransitMarks()
         titleTransitMark->AddTitle(titleDecl);
 
         titleTransitMark->SetAnchor(dp::Top);
-        titleTransitMark->SetSymbolNames({{1 /* minZoom */, "transfer_arrow"}});
+        titleTransitMark->SetSymbolNames({
+            {1 /* minZoom */, "transfer_arrow"}
+        });
         titleTransitMark->SetSymbolOffsets(transferArrowOffsets);
         titleTransitMark->SetPriority(UserMark::Priority::TransitTransfer);
       }

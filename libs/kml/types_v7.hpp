@@ -1,8 +1,8 @@
 #pragma once
 
 #include "kml/type_utils.hpp"
-#include "kml/types_v8.hpp"
 #include "kml/types.hpp"
+#include "kml/types_v8.hpp"
 
 #include "base/visitor.hpp"
 
@@ -18,39 +18,25 @@ namespace kml
 // TODO(tomilov): check that BookmarkData changed in V8
 struct BookmarkDataV7
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkDataV7, visitor(m_id, "id"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_featureTypes, "featureTypes"),
-                                  visitor(m_customName, "customName"),
-                                  visitor(m_color, "color"),
-                                  visitor(m_icon, "icon"),
-                                  visitor(m_viewportScale, "viewportScale"),
-                                  visitor(m_timestamp, "timestamp"),
-                                  visitor(m_point, "point"),
-                                  visitor(m_boundTracks, "boundTracks"),
-                                  visitor(m_visible, "visible"),
-                                  visitor(m_nearestToponym, "nearestToponym"),
-                                  visitor(m_properties, "properties"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkDataV7, visitor(m_id, "id"), visitor(m_name, "name"),
+                                  visitor(m_description, "description"), visitor(m_featureTypes, "featureTypes"),
+                                  visitor(m_customName, "customName"), visitor(m_color, "color"),
+                                  visitor(m_icon, "icon"), visitor(m_viewportScale, "viewportScale"),
+                                  visitor(m_timestamp, "timestamp"), visitor(m_point, "point"),
+                                  visitor(m_boundTracks, "boundTracks"), visitor(m_visible, "visible"),
+                                  visitor(m_nearestToponym, "nearestToponym"), visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName,
-                      m_nearestToponym, m_properties)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_customName, m_nearestToponym, m_properties)
 
   bool operator==(BookmarkDataV7 const & data) const
   {
-    return m_id == data.m_id && m_name == data.m_name &&
-           m_description == data.m_description &&
-           m_color == data.m_color && m_icon == data.m_icon &&
-           m_viewportScale == data.m_viewportScale &&
-           IsEqual(m_timestamp, data.m_timestamp) &&
-           m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) &&
-           m_featureTypes == data.m_featureTypes &&
-           m_customName == data.m_customName &&
-           m_boundTracks == data.m_boundTracks &&
-           m_visible == data.m_visible &&
-           m_nearestToponym == data.m_nearestToponym &&
-           m_properties == data.m_properties;
+    return m_id == data.m_id && m_name == data.m_name && m_description == data.m_description &&
+           m_color == data.m_color && m_icon == data.m_icon && m_viewportScale == data.m_viewportScale &&
+           IsEqual(m_timestamp, data.m_timestamp) && m_point.EqualDxDy(data.m_point, kMwmPointAccuracy) &&
+           m_featureTypes == data.m_featureTypes && m_customName == data.m_customName &&
+           m_boundTracks == data.m_boundTracks && m_visible == data.m_visible &&
+           m_nearestToponym == data.m_nearestToponym && m_properties == data.m_properties;
   }
 
   bool operator!=(BookmarkDataV7 const & data) const { return !operator==(data); }
@@ -111,38 +97,28 @@ using TrackDataV7 = TrackDataV8;
 // TODO(tomilov): check that CategoryData changed in V8
 struct CategoryDataV7
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryDataV7, visitor(m_id, "id"),
-                                  visitor(m_name, "name"),
-                                  visitor(m_imageUrl, "imageUrl"),
-                                  visitor(m_annotation, "annotation"),
-                                  visitor(m_description, "description"),
-                                  visitor(m_visible, "visible"),
-                                  visitor(m_authorName, "authorName"),
-                                  visitor(m_authorId, "authorId"),
-                                  visitor(m_rating, "rating"),
-                                  visitor(m_reviewsNumber, "reviewsNumber"),
-                                  visitor(m_lastModified, "lastModified"),
-                                  visitor(m_accessRules, "accessRules"),
-                                  visitor(m_tags, "tags"),
-                                  visitor(m_toponyms, "toponyms"),
-                                  visitor(m_languageCodes, "languageCodes"),
-                                  visitor(m_properties, "properties"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryDataV7, visitor(m_id, "id"), visitor(m_name, "name"),
+                                  visitor(m_imageUrl, "imageUrl"), visitor(m_annotation, "annotation"),
+                                  visitor(m_description, "description"), visitor(m_visible, "visible"),
+                                  visitor(m_authorName, "authorName"), visitor(m_authorId, "authorId"),
+                                  visitor(m_rating, "rating"), visitor(m_reviewsNumber, "reviewsNumber"),
+                                  visitor(m_lastModified, "lastModified"), visitor(m_accessRules, "accessRules"),
+                                  visitor(m_tags, "tags"), visitor(m_toponyms, "toponyms"),
+                                  visitor(m_languageCodes, "languageCodes"), visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_annotation, m_description,
-                      m_imageUrl, m_authorName, m_authorId, m_tags, m_toponyms, m_properties)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_annotation, m_description, m_imageUrl, m_authorName, m_authorId,
+                      m_tags, m_toponyms, m_properties)
 
   bool operator==(CategoryDataV7 const & data) const
   {
     double constexpr kEps = 1e-5;
     return m_id == data.m_id && m_name == data.m_name && m_imageUrl == data.m_imageUrl &&
-           m_annotation == data.m_annotation && m_description == data.m_description &&
-           m_visible == data.m_visible && m_accessRules == data.m_accessRules &&
-           m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
+           m_annotation == data.m_annotation && m_description == data.m_description && m_visible == data.m_visible &&
+           m_accessRules == data.m_accessRules && m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
            fabs(m_rating - data.m_rating) < kEps && m_reviewsNumber == data.m_reviewsNumber &&
-           IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags &&
-           m_toponyms == data.m_toponyms && m_languageCodes == data.m_languageCodes &&
-           m_properties == data.m_properties;
+           IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags && m_toponyms == data.m_toponyms &&
+           m_languageCodes == data.m_languageCodes && m_properties == data.m_properties;
   }
 
   bool operator!=(CategoryDataV7 const & data) const { return !operator==(data); }
@@ -205,10 +181,8 @@ struct CategoryDataV7
 
 struct FileDataV7
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV7, visitor(m_serverId, "serverId"),
-                                  visitor(m_categoryData, "category"),
-                                  visitor(m_bookmarksData, "bookmarks"),
-                                  visitor(m_tracksData, "tracks"))
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FileDataV7, visitor(m_serverId, "serverId"), visitor(m_categoryData, "category"),
+                                  visitor(m_bookmarksData, "bookmarks"), visitor(m_tracksData, "tracks"))
 
   bool operator==(FileDataV7 const & data) const
   {

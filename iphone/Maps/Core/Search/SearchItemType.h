@@ -1,4 +1,1 @@
-typedef NS_ENUM(NSInteger, SearchItemType) {
-  SearchItemTypeRegular,
-  SearchItemTypeSuggestion
-};
+typedef NS_ENUM(NSInteger, SearchItemType) { SearchItemTypeRegular, SearchItemTypeSuggestion };

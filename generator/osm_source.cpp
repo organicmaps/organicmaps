@@ -73,17 +73,12 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement && elem
     {
       switch (member.m_type)
       {
-      case OsmElement::EntityType::Node:
-        relation.m_nodes.emplace_back(member.m_ref, std::move(member.m_role));
-        break;
-      case OsmElement::EntityType::Way:
-        relation.m_ways.emplace_back(member.m_ref, std::move(member.m_role));
-        break;
+      case OsmElement::EntityType::Node: relation.m_nodes.emplace_back(member.m_ref, std::move(member.m_role)); break;
+      case OsmElement::EntityType::Way: relation.m_ways.emplace_back(member.m_ref, std::move(member.m_role)); break;
       case OsmElement::EntityType::Relation:
         relation.m_relations.emplace_back(member.m_ref, std::move(member.m_role));
         break;
-      default:
-        break;
+      default: break;
       }
     }
 
@@ -95,8 +90,7 @@ void AddElementToCache(cache::IntermediateDataWriter & cache, OsmElement && elem
 
     break;
   }
-  default:
-    break;
+  default: break;
   }
 }
 
@@ -126,12 +120,9 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, std::function<void(OsmElem
 
 ProcessorOsmElementsFromO5M::ProcessorOsmElementsFromO5M(SourceReader & stream)
   : m_stream(stream)
-  , m_dataset([&](uint8_t * buffer, size_t size) {
-      return m_stream.Read(reinterpret_cast<char *>(buffer), size);
-  })
+  , m_dataset([&](uint8_t * buffer, size_t size) { return m_stream.Read(reinterpret_cast<char *>(buffer), size); })
   , m_pos(m_dataset.begin())
-{
-}
+{}
 
 bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
 {
@@ -139,7 +130,8 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
     return false;
 
   using Type = osm::O5MSource::EntityType;
-  auto const translate = [](Type t) -> OsmElement::EntityType {
+  auto const translate = [](Type t) -> OsmElement::EntityType
+  {
     switch (t)
     {
     case Type::Node: return OsmElement::EntityType::Node;
@@ -191,13 +183,9 @@ bool ProcessorOsmElementsFromO5M::TryRead(OsmElement & element)
 }
 
 ProcessorOsmElementsFromXml::ProcessorOsmElementsFromXml(SourceReader & stream)
-  : m_xmlSource([&, this](OsmElement && e)
-    {
-      m_queue.emplace(std::move(e));
-    })
+  : m_xmlSource([&, this](OsmElement && e) { m_queue.emplace(std::move(e)); })
   , m_parser(stream, m_xmlSource)
-{
-}
+{}
 
 bool ProcessorOsmElementsFromXml::TryReadFromQueue(OsmElement & element)
 {
@@ -217,7 +205,8 @@ bool ProcessorOsmElementsFromXml::TryRead(OsmElement & element)
   {
     if (TryReadFromQueue(element))
       return true;
-  } while (m_parser.Read());
+  }
+  while (m_parser.Read());
 
   return TryReadFromQueue(element);
 }
@@ -228,8 +217,7 @@ bool ProcessorOsmElementsFromXml::TryRead(OsmElement & element)
 
 bool GenerateIntermediateData(feature::GenerateInfo & info)
 {
-  auto nodes =
-      cache::CreatePointStorageWriter(info.m_nodeStorageType, info.GetCacheFileName(NODES_FILE));
+  auto nodes = cache::CreatePointStorageWriter(info.m_nodeStorageType, info.GetCacheFileName(NODES_FILE));
   cache::IntermediateDataWriter cache(*nodes, info);
   TownsDumper towns;
   SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
@@ -244,12 +232,8 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
 
   switch (info.m_osmFileType)
   {
-  case feature::GenerateInfo::OsmSourceType::XML:
-    ProcessOsmElementsFromXML(reader, processor);
-    break;
-  case feature::GenerateInfo::OsmSourceType::O5M:
-    ProcessOsmElementsFromO5M(reader, processor);
-    break;
+  case feature::GenerateInfo::OsmSourceType::XML: ProcessOsmElementsFromXML(reader, processor); break;
+  case feature::GenerateInfo::OsmSourceType::O5M: ProcessOsmElementsFromO5M(reader, processor); break;
   }
 
   cache.SaveIndex();

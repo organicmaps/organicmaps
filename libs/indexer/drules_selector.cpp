@@ -17,15 +17,9 @@ namespace
 class CompositeSelector : public ISelector
 {
 public:
-  explicit CompositeSelector(size_t capacity)
-  {
-    m_selectors.reserve(capacity);
-  }
+  explicit CompositeSelector(size_t capacity) { m_selectors.reserve(capacity); }
 
-  void Add(unique_ptr<ISelector> && selector)
-  {
-    m_selectors.emplace_back(std::move(selector));
-  }
+  void Add(unique_ptr<ISelector> && selector) { m_selectors.emplace_back(std::move(selector)); }
 
   // ISelector overrides:
   bool Test(FeatureType & ft, int zoom) const override
@@ -49,7 +43,9 @@ public:
   typedef bool (*TGetFeatureTagValueFn)(FeatureType &, int, TType & value);
 
   Selector(TGetFeatureTagValueFn fn, SelectorOperatorType op, TType const & value)
-    : m_getFeatureValueFn(fn), m_evalFn(nullptr), m_value(value)
+    : m_getFeatureValueFn(fn)
+    , m_evalFn(nullptr)
+    , m_value(value)
   {
     ASSERT(fn != nullptr, ());
 
@@ -104,17 +100,15 @@ public:
   typedef bool (*THasFeatureTagValueFn)(FeatureType &, int);
 
   HasSelector(THasFeatureTagValueFn fn, SelectorOperatorType op)
-  : m_hasFeatureValueFn(fn), m_testHas(op == SelectorOperatorIsSet)
+    : m_hasFeatureValueFn(fn)
+    , m_testHas(op == SelectorOperatorIsSet)
   {
     ASSERT(op == SelectorOperatorIsSet || op == SelectorOperatorIsNotSet, ());
     ASSERT(fn != nullptr, ());
   }
 
   // ISelector overrides:
-  bool Test(FeatureType & ft, int zoom) const override
-  {
-    return m_hasFeatureValueFn(ft, zoom) == m_testHas;
-  }
+  bool Test(FeatureType & ft, int zoom) const override { return m_hasFeatureValueFn(ft, zoom) == m_testHas; }
 
 private:
   THasFeatureTagValueFn m_hasFeatureValueFn;
@@ -215,18 +209,18 @@ unique_ptr<ISelector> ParseSelector(string const & str)
     }
     return make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
   }
-//  else if (e.m_tag == "extra_tag")
-//  {
-//    ASSERT(false, ());
-//    uint32_t const type = TagSelectorToType(e.m_value);
-//    if (type == Classificator::INVALID_TYPE)
-//    {
-//      // Type was not found.
-//      LOG(LDEBUG, ("Invalid selector:", str));
-//      return unique_ptr<ISelector>();
-//    }
-//    return make_unique<TypeSelector>(type, e.m_operator);
-//  }
+  //  else if (e.m_tag == "extra_tag")
+  //  {
+  //    ASSERT(false, ());
+  //    uint32_t const type = TagSelectorToType(e.m_value);
+  //    if (type == Classificator::INVALID_TYPE)
+  //    {
+  //      // Type was not found.
+  //      LOG(LDEBUG, ("Invalid selector:", str));
+  //      return unique_ptr<ISelector>();
+  //    }
+  //    return make_unique<TypeSelector>(type, e.m_operator);
+  //  }
 
   LOG(LERROR, ("Unrecognized selector:", str));
   return {};

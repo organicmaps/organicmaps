@@ -22,17 +22,15 @@ std::string Platform::GetMemoryInfo() const
   if (env == nullptr)
     return std::string();
 
-  static std::shared_ptr<jobject> classLogsManager = jni::make_global_ref(env->FindClass("app/organicmaps/sdk/util/log/LogsManager"));
+  static std::shared_ptr<jobject> classLogsManager =
+      jni::make_global_ref(env->FindClass("app/organicmaps/sdk/util/log/LogsManager"));
   ASSERT(classLogsManager, ());
 
   jobject context = android::Platform::Instance().GetContext();
-  static jmethodID const getMemoryInfoId
-    = jni::GetStaticMethodID(env,
-                             static_cast<jclass>(*classLogsManager),
-                             "getMemoryInfo",
-                             "(Landroid/content/Context;)Ljava/lang/String;");
-  jstring const memInfoString = static_cast<jstring>(env->CallStaticObjectMethod(
-    static_cast<jclass>(*classLogsManager), getMemoryInfoId, context));
+  static jmethodID const getMemoryInfoId = jni::GetStaticMethodID(
+      env, static_cast<jclass>(*classLogsManager), "getMemoryInfo", "(Landroid/content/Context;)Ljava/lang/String;");
+  jstring const memInfoString = static_cast<jstring>(
+      env->CallStaticObjectMethod(static_cast<jclass>(*classLogsManager), getMemoryInfoId, context));
   ASSERT(memInfoString, ());
 
   return jni::ToNativeString(env, memInfoString);
@@ -41,20 +39,18 @@ std::string Platform::GetMemoryInfo() const
 std::string Platform::DeviceName() const
 {
   JNIEnv * env = jni::GetEnv();
-  static jmethodID const getDeviceNameId = jni::GetStaticMethodID(env, g_utilsClazz, "getDeviceName",
-                                                                  "()Ljava/lang/String;");
-  auto const deviceName = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz,
-                                                                           getDeviceNameId));
+  static jmethodID const getDeviceNameId =
+      jni::GetStaticMethodID(env, g_utilsClazz, "getDeviceName", "()Ljava/lang/String;");
+  auto const deviceName = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz, getDeviceNameId));
   return jni::ToNativeString(env, deviceName);
 }
 
 std::string Platform::DeviceModel() const
 {
   JNIEnv * env = jni::GetEnv();
-  static jmethodID const getDeviceModelId = jni::GetStaticMethodID(env, g_utilsClazz, "getDeviceModel",
-                                                                  "()Ljava/lang/String;");
-  auto const deviceModel = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz,
-                                                                            getDeviceModelId));
+  static jmethodID const getDeviceModelId =
+      jni::GetStaticMethodID(env, g_utilsClazz, "getDeviceModel", "()Ljava/lang/String;");
+  auto const deviceModel = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz, getDeviceModelId));
   return jni::ToNativeString(env, deviceModel);
 }
 
@@ -79,11 +75,14 @@ Platform::EConnectionType Platform::ConnectionStatus()
   if (env == nullptr)
     return EConnectionType::CONNECTION_NONE;
 
-  static std::shared_ptr<jobject> clazzConnectionState = jni::make_global_ref(env->FindClass("app/organicmaps/sdk/util/ConnectionState"));
+  static std::shared_ptr<jobject> clazzConnectionState =
+      jni::make_global_ref(env->FindClass("app/organicmaps/sdk/util/ConnectionState"));
   ASSERT(clazzConnectionState, ());
 
-  static jmethodID const getConnectionMethodId = jni::GetStaticMethodID(env, static_cast<jclass>(*clazzConnectionState), "getConnectionState", "()B");
-  return static_cast<Platform::EConnectionType>(env->CallStaticByteMethod(static_cast<jclass>(*clazzConnectionState), getConnectionMethodId));
+  static jmethodID const getConnectionMethodId =
+      jni::GetStaticMethodID(env, static_cast<jclass>(*clazzConnectionState), "getConnectionState", "()B");
+  return static_cast<Platform::EConnectionType>(
+      env->CallStaticByteMethod(static_cast<jclass>(*clazzConnectionState), getConnectionMethodId));
 }
 
 Platform::ChargingStatus Platform::GetChargingStatus()
@@ -92,8 +91,7 @@ Platform::ChargingStatus Platform::GetChargingStatus()
   if (env == nullptr)
     return Platform::ChargingStatus::Unknown;
 
-  static jclass const clazzBatteryState =
-      jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/BatteryState");
+  static jclass const clazzBatteryState = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/BatteryState");
   ASSERT(clazzBatteryState, ());
 
   static jmethodID const getChargingMethodId =
@@ -109,8 +107,7 @@ uint8_t Platform::GetBatteryLevel()
   if (env == nullptr)
     return 100;
 
-  static auto const clazzBatteryState =
-      jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/BatteryState");
+  static auto const clazzBatteryState = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/util/BatteryState");
   ASSERT(clazzBatteryState, ());
 
   static auto const getLevelMethodId =
@@ -123,22 +120,21 @@ namespace platform
 {
 platform::NetworkPolicy GetCurrentNetworkPolicy()
 {
-  JNIEnv *env = jni::GetEnv();
+  JNIEnv * env = jni::GetEnv();
   return platform::NetworkPolicy(network_policy::GetCurrentNetworkUsageStatus(env));
 }
-}
+}  // namespace platform
 
 namespace android
 {
 Platform::~Platform()
 {
-  JNIEnv *env = jni::GetEnv();
+  JNIEnv * env = jni::GetEnv();
   env->DeleteGlobalRef(m_context);
 }
 
-void Platform::Initialize(JNIEnv * env, jobject context, jstring apkPath,
-                          jstring writablePath, jstring privatePath, jstring tmpPath,
-                          jstring flavorName, jstring buildType, bool isTablet)
+void Platform::Initialize(JNIEnv * env, jobject context, jstring apkPath, jstring writablePath, jstring privatePath,
+                          jstring tmpPath, jstring flavorName, jstring buildType, bool isTablet)
 {
   m_context = env->NewGlobalRef(context);
   m_guiThread = std::make_unique<GuiThread>();
@@ -156,12 +152,10 @@ void Platform::Initialize(JNIEnv * env, jobject context, jstring apkPath,
   LOG(LINFO, ("Temporary path = ", m_tmpDir));
 
   // IMPORTANT: This method SHOULD be called from UI thread to cache static jni ID-s inside.
-  (void) ConnectionStatus();
+  (void)ConnectionStatus();
 }
 
-void Platform::OnExternalStorageStatusChanged(bool isAvailable)
-{
-}
+void Platform::OnExternalStorageStatusChanged(bool isAvailable) {}
 
 void Platform::SetWritableDir(std::string const & dir)
 {
@@ -173,7 +167,7 @@ void Platform::SetSettingsDir(std::string const & dir)
 {
   m_settingsDir = dir;
   // Logger is not fully initialized here.
-  //LOG(LINFO, ("Settings path = ", m_settingsDir));
+  // LOG(LINFO, ("Settings path = ", m_settingsDir));
 }
 
 bool Platform::HasAvailableSpaceForWriting(uint64_t size) const
@@ -209,13 +203,11 @@ void Platform::AndroidSecureStorage::Save(std::string const & key, std::string c
 
   Init(env);
 
-  static jmethodID const saveMethodId =
-    jni::GetStaticMethodID(env, m_secureStorageClass, "save",
-                           "(Landroid/content/Context;Ljava/lang/String;"
-                           "Ljava/lang/String;)V");
+  static jmethodID const saveMethodId = jni::GetStaticMethodID(env, m_secureStorageClass, "save",
+                                                               "(Landroid/content/Context;Ljava/lang/String;"
+                                                               "Ljava/lang/String;)V");
   jobject context = android::Platform::Instance().GetContext();
-  env->CallStaticVoidMethod(m_secureStorageClass, saveMethodId,
-                            context,
+  env->CallStaticVoidMethod(m_secureStorageClass, saveMethodId, context,
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get(),
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, value)).get());
 }
@@ -228,14 +220,12 @@ bool Platform::AndroidSecureStorage::Load(std::string const & key, std::string &
 
   Init(env);
 
-  static jmethodID const loadMethodId =
-    jni::GetStaticMethodID(env, m_secureStorageClass, "load",
-                           "(Landroid/content/Context;Ljava/lang/String;)"
-                           "Ljava/lang/String;");
+  static jmethodID const loadMethodId = jni::GetStaticMethodID(env, m_secureStorageClass, "load",
+                                                               "(Landroid/content/Context;Ljava/lang/String;)"
+                                                               "Ljava/lang/String;");
   jobject context = android::Platform::Instance().GetContext();
-  auto const resultString = static_cast<jstring>(env->CallStaticObjectMethod(m_secureStorageClass,
-    loadMethodId, context,
-    jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get()));
+  auto const resultString = static_cast<jstring>(env->CallStaticObjectMethod(
+      m_secureStorageClass, loadMethodId, context, jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get()));
   if (resultString == nullptr)
     return false;
 
@@ -252,8 +242,7 @@ void Platform::AndroidSecureStorage::Remove(std::string const & key)
   Init(env);
 
   static jmethodID const removeMethodId =
-    jni::GetStaticMethodID(env, m_secureStorageClass, "remove",
-                           "(Landroid/content/Context;Ljava/lang/String;)V");
+      jni::GetStaticMethodID(env, m_secureStorageClass, "remove", "(Landroid/content/Context;Ljava/lang/String;)V");
   jobject context = android::Platform::Instance().GetContext();
   env->CallStaticVoidMethod(m_secureStorageClass, removeMethodId, context,
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, key)).get());

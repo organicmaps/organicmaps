@@ -12,4 +12,4 @@ bool IsAnimationAllowed(double duration, ScreenBase const & screen)
   return duration > 0.0 && duration <= kMaxAnimationTimeSec;
 }
 
-} // namespace df
+}  // namespace df

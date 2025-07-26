@@ -9,10 +9,10 @@
 #include "base/logging.hpp"
 #include "base/thread_pool_delayed.hpp"
 
-#include <QtCore/QTemporaryFile>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QProcess>
+#include <QtCore/QTemporaryFile>
 #include <QtCore/QTextStream>
 
 #include <atomic>
@@ -35,7 +35,10 @@ std::string const kCompilerMaliOpenGLES3 = kMaliCompilerOpenGLES3Dir + "/malisc"
 std::string const kCompilerOpenGLES = "linux/glslangValidator";
 #endif
 
-std::string DebugPrint(QString const & s) { return s.toStdString(); }
+std::string DebugPrint(QString const & s)
+{
+  return s.toStdString();
+}
 
 namespace
 {
@@ -71,10 +74,10 @@ std::map<std::string, std::string> GetFragmentShaders(dp::ApiVersion apiVersion)
   return shaders;
 }
 
-void RunShaderTest(dp::ApiVersion apiVersion, std::string const & shaderName,
-                   QString const & glslCompiler, QString const & fileName,
-                   PrepareProcessFn const & procPrepare, PrepareArgumentsFn const & argsPrepare,
-                   SuccessChecker const & successChecker, QTextStream & errorLog)
+void RunShaderTest(dp::ApiVersion apiVersion, std::string const & shaderName, QString const & glslCompiler,
+                   QString const & fileName, PrepareProcessFn const & procPrepare,
+                   PrepareArgumentsFn const & argsPrepare, SuccessChecker const & successChecker,
+                   QTextStream & errorLog)
 {
   QProcess p;
   procPrepare(p);
@@ -116,22 +119,18 @@ void TestShaders(dp::ApiVersion apiVersion, std::string const & defines, QString
       // Use desktop shader version for Linux
 #ifdef OMIM_OS_LINUX
       if (glslCompiler.contains(kCompilerOpenGLES.c_str()))
-      {
         fullSrc = std::string(gpu::GL3_SHADER_VERSION) + defines + src.second;
-      }
       else
 #endif
-      {
         fullSrc = std::string(gpu::GLES3_SHADER_VERSION) + defines + src.second;
-      }
     }
     else
     {
       fullSrc = defines + src.second;
     }
     WriteShaderToFile(srcFile, fullSrc);
-    RunShaderTest(apiVersion, src.first, glslCompiler, srcFile.fileName(), procPrepare, argsPrepare,
-                  successChecker, errorLog);
+    RunShaderTest(apiVersion, src.first, glslCompiler, srcFile.fileName(), procPrepare, argsPrepare, successChecker,
+                  errorLog);
   }
 }
 
@@ -152,20 +151,16 @@ struct CompilerData
 
 void CompileShaders(CompilerData const & compiler, std::string const & additionalDefines = {})
 {
-  auto successChecker = [](QString const & output) {
-    return output.isEmpty();
-  };
+  auto successChecker = [](QString const & output) { return output.isEmpty(); };
 
   QString errorLog;
   QTextStream ss(&errorLog);
 
   QString compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  auto argsPrepareFn = [](QStringList & args, QString const & fileName) {
-    args << fileName;
-  };
+  auto argsPrepareFn = [](QStringList & args, QString const & fileName) { args << fileName; };
 
-  TestShaders(compiler.m_apiVersion, additionalDefines, ".vert", GetVertexShaders(compiler.m_apiVersion),
-              compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
+  TestShaders(compiler.m_apiVersion, additionalDefines, ".vert", GetVertexShaders(compiler.m_apiVersion), compilerPath,
+              [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
   TestShaders(compiler.m_apiVersion, additionalDefines, ".frag", GetFragmentShaders(compiler.m_apiVersion),
               compilerPath, [](QProcess const &) {}, argsPrepareFn, successChecker, ss);
 
@@ -176,14 +171,10 @@ UNIT_TEST(MobileCompileShaders_Test)
 {
   base::DelayedThreadPool workerThread(6 /* threadsCount */);
 
-  workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)});
-  });
+  workerThread.Push([] { CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)}); });
 
-  workerThread.Push([] {
-    CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)},
-      "#define ENABLE_VTF\n");
-  });
+  workerThread.Push([]
+  { CompileShaders({dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerOpenGLES)}, "#define ENABLE_VTF\n"); });
 
   workerThread.Shutdown(base::DelayedThreadPool::Exit::ExecPending);
 }
@@ -214,9 +205,7 @@ struct MaliCompilerData
 void MaliCompileShaders(MaliCompilerData const & compiler, MaliDriverSet const & driverSet,
                         MaliReleaseVersion const & version)
 {
-  auto successChecker = [](QString const & output) {
-    return output.indexOf("Compilation succeeded.") != -1;
-  };
+  auto successChecker = [](QString const & output) { return output.indexOf("Compilation succeeded.") != -1; };
 
   QString errorLog;
   QTextStream ss(&errorLog);
@@ -225,19 +214,18 @@ void MaliCompileShaders(MaliCompilerData const & compiler, MaliDriverSet const &
   env.insert("MALICM_LOCATION", QString::fromStdString(compiler.m_compilerAdditionalPath));
   auto procPrepare = [&env](QProcess & p) { p.setProcessEnvironment(env); };
   QString shaderType = "-v";
-  auto argForming = [&](QStringList & args, QString const & fileName) {
-    args << shaderType
-         << "-r" << version.m_version << "-c" << version.m_series << "-d" << driverSet.m_driverName
+  auto argForming = [&](QStringList & args, QString const & fileName)
+  {
+    args << shaderType << "-r" << version.m_version << "-c" << version.m_series << "-d" << driverSet.m_driverName
          << fileName;
   };
   QString const compilerPath = QString::fromStdString(compiler.m_compilerPath);
-  TestShaders(compiler.m_apiVersion, "", {}, GetVertexShaders(compiler.m_apiVersion),
-              compilerPath, procPrepare, argForming, successChecker, ss);
+  TestShaders(compiler.m_apiVersion, "", {}, GetVertexShaders(compiler.m_apiVersion), compilerPath, procPrepare,
+              argForming, successChecker, ss);
   shaderType = "-f";
-  TestShaders(compiler.m_apiVersion, "", {}, GetFragmentShaders(compiler.m_apiVersion),
-              compilerPath, procPrepare, argForming, successChecker, ss);
-  TEST(errorLog.isEmpty(),
-       (shaderType, version.m_series, version.m_version, driverSet.m_driverName, "", errorLog));
+  TestShaders(compiler.m_apiVersion, "", {}, GetFragmentShaders(compiler.m_apiVersion), compilerPath, procPrepare,
+              argForming, successChecker, ss);
+  TEST(errorLog.isEmpty(), (shaderType, version.m_series, version.m_version, driverSet.m_driverName, "", errorLog));
 
   // MALI GPUs do not support ENABLE_VTF. Do not test it here.
 }
@@ -246,226 +234,219 @@ UNIT_TEST(MALI_MobileCompileShaders_Test)
 {
 #if defined(OMIM_OS_MAC)
   std::vector<MaliDriverSet> const driversES2old = {
-     {"Mali-400_r4p0-00rel1",
-      {{"Mali-200", "r0p1", true}, {"Mali-200", "r0p2", true},
-       {"Mali-200", "r0p3", true}, {"Mali-200", "r0p4", true},
-       {"Mali-200", "r0p5", true}, {"Mali-200", "r0p6", true},
-       {"Mali-400", "r0p0", true}, {"Mali-400", "r0p1", true},
-       {"Mali-400", "r1p0", true}, {"Mali-400", "r1p1", true},
-       {"Mali-300", "r0p0", true}, {"Mali-450", "r0p0", true}}},
-     {"Mali-T600_r4p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true}, {"Mali-T620", "r0p1", true},
-       {"Mali-T620", "r1p0", true}, {"Mali-T670", "r1p0", true}}},
-     {"Mali-T600_r4p1-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true}, {"Mali-T620", "r0p1", true},
-       {"Mali-T620", "r1p0", true}, {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true}}}};
+      { "Mali-400_r4p0-00rel1",
+       {{"Mali-200", "r0p1", true},
+       {"Mali-200", "r0p2", true},
+       {"Mali-200", "r0p3", true},
+       {"Mali-200", "r0p4", true},
+       {"Mali-200", "r0p5", true},
+       {"Mali-200", "r0p6", true},
+       {"Mali-400", "r0p0", true},
+       {"Mali-400", "r0p1", true},
+       {"Mali-400", "r1p0", true},
+       {"Mali-400", "r1p1", true},
+       {"Mali-300", "r0p0", true},
+       {"Mali-450", "r0p0", true}} },
+      {"Mali-T600_r4p0-00rel0",
+       {{"Mali-T600", "r0p0", true},
+       {"Mali-T600", "r0p0_15dev0", true},
+       {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true},
+       {"Mali-T620", "r1p0", true},
+       {"Mali-T670", "r1p0", true}}},
+      {"Mali-T600_r4p1-00rel0",
+       {{"Mali-T600", "r0p0", true},
+       {"Mali-T600", "r0p0_15dev0", true},
+       {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true},
+       {"Mali-T620", "r1p0", true},
+       {"Mali-T620", "r1p1", true},
+       {"Mali-T720", "r0p0", true},
+       {"Mali-T720", "r1p0", true},
+       {"Mali-T760", "r0p0", true},
+       {"Mali-T760", "r0p1", true},
+       {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true},
+       {"Mali-T760", "r0p3", true},
+       {"Mali-T760", "r1p0", true}}}
+  };
 #endif
 
   std::vector<MaliDriverSet> const driversES3new = {
-     {"Mali-T600_r3p0-00rel0",
-      {{"Mali-T600", "r0p0", false}, {"Mali-T600", "r0p0_15dev0", false},
+      { "Mali-T600_r3p0-00rel0",
+       {{"Mali-T600", "r0p0", false},
+       {"Mali-T600", "r0p0_15dev0", false},
        {"Mali-T600", "r0p1", false},
-       {"Mali-T620", "r0p0", false}, {"Mali-T620", "r0p1", false},
-       {"Mali-T620", "r1p0", false}}},
-     {"Mali-T600_r4p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true}, {"Mali-T620", "r0p1", true},
-       {"Mali-T620", "r1p0", true}}},
-     {"Mali-T600_r4p1-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true}, {"Mali-T620", "r0p1", true},
-       {"Mali-T620", "r1p0", true}, {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true}}},
-     {"Mali-T600_r5p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true}, {"Mali-T620", "r0p1", true},
-       {"Mali-T620", "r1p0", true}, {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true}}},
-     {"Mali-T600_r5p1-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true}, {"Mali-T620", "r0p1", true},
-       {"Mali-T620", "r1p0", true}, {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true},
-       {"Mali-T860", "r0p2", true}, {"Mali-T880", "r0p0", true},
-       {"Mali-T880", "r0p1", true}, {"Mali-T880", "r0p2", true}}},
-     {"Mali-T600_r6p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true}, {"Mali-T620", "r0p1", true},
-       {"Mali-T620", "r1p0", true}, {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true},
-       {"Mali-T820", "r0p0", true},
-       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},
-       {"Mali-T860", "r0p2", true}, {"Mali-T860", "r1p0", true},
-       {"Mali-T880", "r1p0", true}, {"Mali-T880", "r0p2", true},
-       {"Mali-T880", "r0p1", true}}},
-     {"Mali-T600_r7p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
+       {"Mali-T620", "r0p0", false},
+       {"Mali-T620", "r0p1", false},
+       {"Mali-T620", "r1p0", false}}                                                                 },
+      { "Mali-T600_r4p0-00rel0",
+       {{"Mali-T600", "r0p0", true},
+       {"Mali-T600", "r0p0_15dev0", true},
        {"Mali-T600", "r0p1", true},
-       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},
-       {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true},
-       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},
-       {"Mali-T820", "r1p0", true},
-       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},
-       {"Mali-T860", "r0p2", true}, {"Mali-T860", "r1p0", true},
-       {"Mali-T860", "r2p0", true},
-       {"Mali-T880", "r1p0", true}, {"Mali-T880", "r0p2", true},
-       {"Mali-T880", "r0p1", true}, {"Mali-T880", "r2p0", true}}},
-     {"Mali-T600_r8p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
+       {"Mali-T620", "r0p1", true},
+       {"Mali-T620", "r1p0", true}}                                                                  },
+      { "Mali-T600_r4p1-00rel0",
+       {{"Mali-T600", "r0p0", true},
+       {"Mali-T600", "r0p0_15dev0", true},
        {"Mali-T600", "r0p1", true},
-       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},
+       {"Mali-T620", "r0p1", true},
+       {"Mali-T620", "r1p0", true},
        {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true},
-       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},
-       {"Mali-T820", "r1p0", true},
-       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},
-       {"Mali-T860", "r0p2", true}, {"Mali-T860", "r1p0", true},
-       {"Mali-T860", "r2p0", true},
-       {"Mali-T880", "r1p0", true}, {"Mali-T880", "r0p2", true},
-       {"Mali-T880", "r0p1", true}, {"Mali-T880", "r2p0", true}}},
-     {"Mali-T600_r9p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
+       {"Mali-T720", "r0p0", true},
+       {"Mali-T720", "r1p0", true},
+       {"Mali-T760", "r0p0", true},
+       {"Mali-T760", "r0p1", true},
+       {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true},
+       {"Mali-T760", "r0p3", true},
+       {"Mali-T760", "r1p0", true}}                                                                  },
+      { "Mali-T600_r5p0-00rel0",
+       {{"Mali-T600", "r0p0", true},
+       {"Mali-T600", "r0p0_15dev0", true},
        {"Mali-T600", "r0p1", true},
-       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},
+       {"Mali-T620", "r0p1", true},
+       {"Mali-T620", "r1p0", true},
        {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
+       {"Mali-T720", "r0p0", true},
+       {"Mali-T720", "r1p0", true},
        {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true},
-       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},
-       {"Mali-T820", "r1p0", true},
-       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},
-       {"Mali-T860", "r0p2", true}, {"Mali-T860", "r1p0", true},
-       {"Mali-T860", "r2p0", true},
-       {"Mali-T880", "r1p0", true}, {"Mali-T880", "r0p2", true},
-       {"Mali-T880", "r0p1", true}, {"Mali-T880", "r2p0", true}}},
-     {"Mali-T600_r10p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
+       {"Mali-T760", "r0p0", true},
+       {"Mali-T760", "r0p1", true},
+       {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true},
+       {"Mali-T760", "r0p3", true},
+       {"Mali-T760", "r1p0", true}}                                                                  },
+      { "Mali-T600_r5p1-00rel0",
+       {{"Mali-T600", "r0p0", true},
+       {"Mali-T600", "r0p0_15dev0", true},
        {"Mali-T600", "r0p1", true},
-       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},
+       {"Mali-T620", "r0p1", true},
+       {"Mali-T620", "r1p0", true},
        {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
+       {"Mali-T720", "r0p0", true},
+       {"Mali-T720", "r1p0", true},
        {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true},
-       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},
-       {"Mali-T820", "r1p0", true},
-       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},
-       {"Mali-T860", "r0p2", true}, {"Mali-T860", "r1p0", true},
-       {"Mali-T860", "r2p0", true},
-       {"Mali-T880", "r1p0", true}, {"Mali-T880", "r0p2", true},
-       {"Mali-T880", "r0p1", true}, {"Mali-T880", "r2p0", true}}},
-     {"Mali-T600_r11p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true},
-       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},
-       {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true},
-       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},
-       {"Mali-T820", "r1p0", true},
-       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},
-       {"Mali-T860", "r0p2", true}, {"Mali-T860", "r1p0", true},
-       {"Mali-T860", "r2p0", true},
-       {"Mali-T880", "r1p0", true}, {"Mali-T880", "r0p2", true},
-       {"Mali-T880", "r0p1", true}, {"Mali-T880", "r2p0", true}}},
-     {"Mali-T600_r12p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true},
-       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},
-       {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true},
-       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},
-       {"Mali-T820", "r1p0", true},
-       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},
-       {"Mali-T860", "r0p2", true}, {"Mali-T860", "r1p0", true},
-       {"Mali-T860", "r2p0", true},
-       {"Mali-T880", "r1p0", true}, {"Mali-T880", "r0p2", true},
-       {"Mali-T880", "r0p1", true}, {"Mali-T880", "r2p0", true}}},
-     {"Mali-T600_r13p0-00rel0",
-      {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true},
-       {"Mali-T600", "r0p1", true},
-       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},
-       {"Mali-T620", "r1p1", true},
-       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},
-       {"Mali-T720", "r1p1", true},
-       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},
-       {"Mali-T760", "r0p1_50rel0", true}, {"Mali-T760", "r0p2", true},
-       {"Mali-T760", "r0p3", true}, {"Mali-T760", "r1p0", true},
-       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},
-       {"Mali-T820", "r1p0", true},
-       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},
-       {"Mali-T860", "r0p2", true}, {"Mali-T860", "r1p0", true},
-       {"Mali-T860", "r2p0", true},
-       {"Mali-T880", "r1p0", true}, {"Mali-T880", "r0p2", true},
-       {"Mali-T880", "r0p1", true}, {"Mali-T880", "r2p0", true}}},
-     {"Mali-Gxx_r3p0-00rel0",
-      {{"Mali-G71", "r0p0", false}}}};
+       {"Mali-T760", "r0p0", true},
+       {"Mali-T760", "r0p1", true},
+       {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true},
+       {"Mali-T760", "r0p3", true},
+       {"Mali-T760", "r1p0", true},
+       {"Mali-T860", "r0p2", true},
+       {"Mali-T880", "r0p0", true},
+       {"Mali-T880", "r0p1", true},
+       {"Mali-T880", "r0p2", true}}                                                                  },
+      { "Mali-T600_r6p0-00rel0",
+       {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true}, {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},        {"Mali-T620", "r1p1", true},
+       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},        {"Mali-T720", "r1p1", true},
+       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},        {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true}, {"Mali-T760", "r0p3", true},        {"Mali-T760", "r1p0", true},
+       {"Mali-T820", "r0p0", true}, {"Mali-T830", "r1p0", true},        {"Mali-T830", "r0p1", true},
+       {"Mali-T860", "r0p2", true}, {"Mali-T860", "r1p0", true},        {"Mali-T880", "r1p0", true},
+       {"Mali-T880", "r0p2", true}, {"Mali-T880", "r0p1", true}}                                     },
+      { "Mali-T600_r7p0-00rel0",
+       {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true}, {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},        {"Mali-T620", "r1p1", true},
+       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},        {"Mali-T720", "r1p1", true},
+       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},        {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true}, {"Mali-T760", "r0p3", true},        {"Mali-T760", "r1p0", true},
+       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},        {"Mali-T820", "r1p0", true},
+       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},        {"Mali-T860", "r0p2", true},
+       {"Mali-T860", "r1p0", true}, {"Mali-T860", "r2p0", true},        {"Mali-T880", "r1p0", true},
+       {"Mali-T880", "r0p2", true}, {"Mali-T880", "r0p1", true},        {"Mali-T880", "r2p0", true}} },
+      { "Mali-T600_r8p0-00rel0",
+       {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true}, {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},        {"Mali-T620", "r1p1", true},
+       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},        {"Mali-T720", "r1p1", true},
+       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},        {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true}, {"Mali-T760", "r0p3", true},        {"Mali-T760", "r1p0", true},
+       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},        {"Mali-T820", "r1p0", true},
+       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},        {"Mali-T860", "r0p2", true},
+       {"Mali-T860", "r1p0", true}, {"Mali-T860", "r2p0", true},        {"Mali-T880", "r1p0", true},
+       {"Mali-T880", "r0p2", true}, {"Mali-T880", "r0p1", true},        {"Mali-T880", "r2p0", true}} },
+      { "Mali-T600_r9p0-00rel0",
+       {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true}, {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},        {"Mali-T620", "r1p1", true},
+       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},        {"Mali-T720", "r1p1", true},
+       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},        {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true}, {"Mali-T760", "r0p3", true},        {"Mali-T760", "r1p0", true},
+       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},        {"Mali-T820", "r1p0", true},
+       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},        {"Mali-T860", "r0p2", true},
+       {"Mali-T860", "r1p0", true}, {"Mali-T860", "r2p0", true},        {"Mali-T880", "r1p0", true},
+       {"Mali-T880", "r0p2", true}, {"Mali-T880", "r0p1", true},        {"Mali-T880", "r2p0", true}} },
+      {"Mali-T600_r10p0-00rel0",
+       {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true}, {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},        {"Mali-T620", "r1p1", true},
+       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},        {"Mali-T720", "r1p1", true},
+       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},        {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true}, {"Mali-T760", "r0p3", true},        {"Mali-T760", "r1p0", true},
+       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},        {"Mali-T820", "r1p0", true},
+       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},        {"Mali-T860", "r0p2", true},
+       {"Mali-T860", "r1p0", true}, {"Mali-T860", "r2p0", true},        {"Mali-T880", "r1p0", true},
+       {"Mali-T880", "r0p2", true}, {"Mali-T880", "r0p1", true},        {"Mali-T880", "r2p0", true}} },
+      {"Mali-T600_r11p0-00rel0",
+       {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true}, {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},        {"Mali-T620", "r1p1", true},
+       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},        {"Mali-T720", "r1p1", true},
+       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},        {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true}, {"Mali-T760", "r0p3", true},        {"Mali-T760", "r1p0", true},
+       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},        {"Mali-T820", "r1p0", true},
+       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},        {"Mali-T860", "r0p2", true},
+       {"Mali-T860", "r1p0", true}, {"Mali-T860", "r2p0", true},        {"Mali-T880", "r1p0", true},
+       {"Mali-T880", "r0p2", true}, {"Mali-T880", "r0p1", true},        {"Mali-T880", "r2p0", true}} },
+      {"Mali-T600_r12p0-00rel0",
+       {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true}, {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},        {"Mali-T620", "r1p1", true},
+       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},        {"Mali-T720", "r1p1", true},
+       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},        {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true}, {"Mali-T760", "r0p3", true},        {"Mali-T760", "r1p0", true},
+       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},        {"Mali-T820", "r1p0", true},
+       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},        {"Mali-T860", "r0p2", true},
+       {"Mali-T860", "r1p0", true}, {"Mali-T860", "r2p0", true},        {"Mali-T880", "r1p0", true},
+       {"Mali-T880", "r0p2", true}, {"Mali-T880", "r0p1", true},        {"Mali-T880", "r2p0", true}} },
+      {"Mali-T600_r13p0-00rel0",
+       {{"Mali-T600", "r0p0", true}, {"Mali-T600", "r0p0_15dev0", true}, {"Mali-T600", "r0p1", true},
+       {"Mali-T620", "r0p1", true}, {"Mali-T620", "r1p0", true},        {"Mali-T620", "r1p1", true},
+       {"Mali-T720", "r0p0", true}, {"Mali-T720", "r1p0", true},        {"Mali-T720", "r1p1", true},
+       {"Mali-T760", "r0p0", true}, {"Mali-T760", "r0p1", true},        {"Mali-T760", "r0p1_50rel0", true},
+       {"Mali-T760", "r0p2", true}, {"Mali-T760", "r0p3", true},        {"Mali-T760", "r1p0", true},
+       {"Mali-T820", "r0p0", true}, {"Mali-T820", "r0p1", true},        {"Mali-T820", "r1p0", true},
+       {"Mali-T830", "r1p0", true}, {"Mali-T830", "r0p1", true},        {"Mali-T860", "r0p2", true},
+       {"Mali-T860", "r1p0", true}, {"Mali-T860", "r2p0", true},        {"Mali-T880", "r1p0", true},
+       {"Mali-T880", "r0p2", true}, {"Mali-T880", "r0p1", true},        {"Mali-T880", "r2p0", true}} },
+      {  "Mali-Gxx_r3p0-00rel0",                                        {{"Mali-G71", "r0p0", false}}}
+  };
 
   std::vector<MaliDriverSet> driversES2new = {
-     {"Mali-400_r5p0-01rel0",
-      {{"Mali-300", "r0p0", true},
-       {"Mali-400", "r1p1", true}, {"Mali-400", "r1p0", true},
-       {"Mali-400", "r0p1", true}, {"Mali-400", "r0p0", true},
-       {"Mali-450", "r0p0", true}
-       }},
-     {"Mali-400_r6p1-00rel0",
-      {{"Mali-400", "r1p1", true}, {"Mali-400", "r1p0", true},
-       {"Mali-400", "r0p1", true}, {"Mali-400", "r0p0", true},
+      {"Mali-400_r5p0-01rel0",
+       {{"Mali-300", "r0p0", true},
+       {"Mali-400", "r1p1", true},
+       {"Mali-400", "r1p0", true},
+       {"Mali-400", "r0p1", true},
+       {"Mali-400", "r0p0", true},
+       {"Mali-450", "r0p0", true}}},
+      {"Mali-400_r6p1-00rel0",
+       {{"Mali-400", "r1p1", true},
+       {"Mali-400", "r1p0", true},
+       {"Mali-400", "r0p1", true},
+       {"Mali-400", "r0p0", true},
        {"Mali-450", "r0p0", true},
-       {"Mali-470", "r0p1", true}
-       }},
-     {"Mali-400_r7p0-00rel0",
-      {{"Mali-400", "r1p1", true}, {"Mali-400", "r1p0", true},
-       {"Mali-400", "r0p1", true}, {"Mali-400", "r0p0", true},
+       {"Mali-470", "r0p1", true}}},
+      {"Mali-400_r7p0-00rel0",
+       {{"Mali-400", "r1p1", true},
+       {"Mali-400", "r1p0", true},
+       {"Mali-400", "r0p1", true},
+       {"Mali-400", "r0p0", true},
        {"Mali-450", "r0p0", true},
-       {"Mali-470", "r0p1", true}}}};
+       {"Mali-470", "r0p1", true}}}
+  };
   driversES2new.insert(driversES2new.end(), driversES3new.begin(), driversES3new.end());
 
   std::vector<MaliCompilerData> const compilers = {
-    {dp::ApiVersion::OpenGLES3,
-     GetCompilerPath(kCompilerMaliOpenGLES3),
-     GetCompilerPath(kMaliCompilerOpenGLES3Dir),
-     driversES3new}
+      {dp::ApiVersion::OpenGLES3, GetCompilerPath(kCompilerMaliOpenGLES3), GetCompilerPath(kMaliCompilerOpenGLES3Dir),
+       driversES3new}
   };
 
   base::DelayedThreadPool workerThread(16 /* threadsCount */);
@@ -482,7 +463,8 @@ UNIT_TEST(MALI_MobileCompileShaders_Test)
           continue;
 #endif
         counter++;
-        workerThread.Push([&progressCounter, compiler, set, version] {
+        workerThread.Push([&progressCounter, compiler, set, version]
+        {
           MaliCompileShaders(compiler, set, version);
           progressCounter++;
         });

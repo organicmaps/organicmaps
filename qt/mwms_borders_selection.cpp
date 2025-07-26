@@ -4,13 +4,12 @@
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QRadioButton>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QSplitter>
+#include <QtWidgets/QVBoxLayout>
 
 namespace qt
 {
-MwmsBordersSelection::MwmsBordersSelection(QWidget * parent)
-  : QDialog(parent)
+MwmsBordersSelection::MwmsBordersSelection(QWidget * parent) : QDialog(parent)
 {
   setWindowTitle("Mwms borders selection settings");
 
@@ -26,8 +25,7 @@ QGroupBox * MwmsBordersSelection::CreateButtonBoxGroup()
 {
   auto * groupBox = new QGroupBox();
 
-  auto * buttonBox =
-      new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
+  auto * buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
 
   auto * vbox = new QVBoxLayout;
 

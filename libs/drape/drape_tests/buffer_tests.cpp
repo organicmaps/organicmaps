@@ -26,8 +26,7 @@ UNIT_TEST(CreateDestroyDataBufferTest)
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer,
-    3 * 100 * sizeof(float), nullptr, gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), nullptr, gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
@@ -41,8 +40,8 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLElementArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer,
-    100 * dp::IndexStorage::SizeOfIndex(), nullptr, gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, 100 * dp::IndexStorage::SizeOfIndex(), nullptr,
+                        gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
@@ -62,8 +61,8 @@ UNIT_TEST(UploadDataTest)
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float),
-    buffer->GetBuffer()->Data(), gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetBuffer()->Data(),
+                        gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
@@ -89,8 +88,8 @@ UNIT_TEST(ParticalUploadDataTest)
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float),
-    buffer->GetBuffer()->Data(),gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetBuffer()->Data(),
+                        gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 

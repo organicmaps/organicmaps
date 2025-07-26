@@ -1,6 +1,7 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include <array>
+#include <string>
 
 namespace dp
 {
@@ -22,8 +23,8 @@ static bool gUse32bitDepth8bitStencil = false;
 
 void DebugName::Init(VkInstance instance, VkDevice device)
 {
-  vkSetDebugUtilsObjectNameEXT = 
-    (PFN_vkSetDebugUtilsObjectNameEXT)vkGetInstanceProcAddr(instance, "vkSetDebugUtilsObjectNameEXT");
+  vkSetDebugUtilsObjectNameEXT =
+      (PFN_vkSetDebugUtilsObjectNameEXT)vkGetInstanceProcAddr(instance, "vkSetDebugUtilsObjectNameEXT");
   m_device = device;
 }
 
@@ -32,13 +33,11 @@ void DebugName::Set(VkObjectType type, uint64_t handle, char const * name)
   if (vkSetDebugUtilsObjectNameEXT == nullptr)
     return;
 
-  VkDebugUtilsObjectNameInfoEXT const info = {
-      .sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT,
-      .pNext = nullptr,
-      .objectType = type,
-      .objectHandle = handle,
-      .pObjectName = name
-  };
+  VkDebugUtilsObjectNameInfoEXT const info = {.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT,
+                                              .pNext = nullptr,
+                                              .objectType = type,
+                                              .objectHandle = handle,
+                                              .pObjectName = name};
   CHECK_VK_CALL(vkSetDebugUtilsObjectNameEXT(m_device, &info));
 }
 
@@ -95,6 +94,8 @@ std::string GetVulkanResultString(VkResult result)
   case VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR: return "VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR";
   case VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR: return "VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR";
   case VK_INCOMPATIBLE_SHADER_BINARY_EXT: return "VK_INCOMPATIBLE_SHADER_BINARY_EXT";
+  case VK_PIPELINE_BINARY_MISSING_KHR: return "VK_PIPELINE_BINARY_MISSING_KHR";
+  case VK_ERROR_NOT_ENOUGH_SPACE_KHR: return "VK_ERROR_NOT_ENOUGH_SPACE_KHR";
   }
   UNREACHABLE();
   return "Unknown result";
@@ -106,9 +107,9 @@ VkFormat VulkanFormatUnpacker::m_bestDepthFormat = VK_FORMAT_UNDEFINED;
 // static
 bool VulkanFormatUnpacker::Init(VkPhysicalDevice gpu)
 {
-  std::array<VkFormat, 3> depthFormats = {{VK_FORMAT_D32_SFLOAT,
-                                           VK_FORMAT_X8_D24_UNORM_PACK32,
-                                           VK_FORMAT_D16_UNORM}};
+  std::array<VkFormat, 3> depthFormats = {
+      {VK_FORMAT_D32_SFLOAT, VK_FORMAT_X8_D24_UNORM_PACK32, VK_FORMAT_D16_UNORM}
+  };
   VkFormatProperties formatProperties;
   for (auto depthFormat : depthFormats)
   {
@@ -138,8 +139,9 @@ bool VulkanFormatUnpacker::Init(VkPhysicalDevice gpu)
     }
   }
 
-  std::array<VkFormat, 2> framebufferColorFormats = {{Unpack(TextureFormat::RGBA8),
-                                                      Unpack(TextureFormat::RedGreen)}};
+  std::array<VkFormat, 2> framebufferColorFormats = {
+      {Unpack(TextureFormat::RGBA8), Unpack(TextureFormat::RedGreen)}
+  };
   for (auto colorFormat : framebufferColorFormats)
   {
     vkGetPhysicalDeviceFormatProperties(gpu, colorFormat, &formatProperties);
@@ -164,12 +166,11 @@ VkFormat VulkanFormatUnpacker::Unpack(TextureFormat format)
 #if defined(OMIM_OS_MAC)
   case TextureFormat::DepthStencil: return VK_FORMAT_D32_SFLOAT_S8_UINT;
 #else
-  case TextureFormat::DepthStencil: return gUse32bitDepth8bitStencil ? VK_FORMAT_D32_SFLOAT_S8_UINT : VK_FORMAT_D24_UNORM_S8_UINT;
+  case TextureFormat::DepthStencil:
+    return gUse32bitDepth8bitStencil ? VK_FORMAT_D32_SFLOAT_S8_UINT : VK_FORMAT_D24_UNORM_S8_UINT;
 #endif
   case TextureFormat::Depth: return m_bestDepthFormat;
-  case TextureFormat::Unspecified:
-    CHECK(false, ());
-    return VK_FORMAT_UNDEFINED;
+  case TextureFormat::Unspecified: CHECK(false, ()); return VK_FORMAT_UNDEFINED;
   }
   UNREACHABLE();
 }

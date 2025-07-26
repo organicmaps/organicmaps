@@ -131,8 +131,7 @@ inline std::string DebugPrint(Program p)
   case Program::SmaaFinal: return "SmaaFinal";
   case Program::ImGui: return "ImGui";
 
-  case Program::ProgramsCount:
-    CHECK(false, ("Try to output ProgramsCount"));
+  case Program::ProgramsCount: CHECK(false, ("Try to output ProgramsCount"));
   }
   CHECK(false, ("Unknown program"));
   return {};

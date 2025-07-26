@@ -8,15 +8,16 @@
 {
   objc_setAssociatedObject(self, @selector(mwm_name), mwm_name, OBJC_ASSOCIATION_COPY_NONATOMIC);
   self.image =
-      [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@", mwm_name,
-                                                     [UIColor isNightMode] ? @"dark" : @"light"]];
+      [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@", mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
 }
 
-- (NSString *)mwm_name { return objc_getAssociatedObject(self, @selector(mwm_name)); }
+- (NSString *)mwm_name
+{
+  return objc_getAssociatedObject(self, @selector(mwm_name));
+}
 - (void)setMwm_coloring:(MWMImageColoring)mwm_coloring
 {
-  objc_setAssociatedObject(self, @selector(mwm_coloring), @(mwm_coloring),
-                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(mwm_coloring), @(mwm_coloring), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
   if (mwm_coloring == MWMImageColoringOther)
     return;
   [self applyColoring];
@@ -41,8 +42,7 @@
   {
     if (self.mwm_name)
       self.image = [UIImage
-          imageNamed:[NSString stringWithFormat:@"%@_%@", self.mwm_name,
-                                                [UIColor isNightMode] ? @"dark" : @"light"]];
+          imageNamed:[NSString stringWithFormat:@"%@_%@", self.mwm_name, [UIColor isNightMode] ? @"dark" : @"light"]];
     return;
   }
   [self applyColoring];
@@ -65,9 +65,7 @@
 {
   switch (self.mwm_coloring)
   {
-  case MWMImageColoringWhite:
-    self.tintColor = highlighted ? [UIColor whiteHintText] : [UIColor white];
-    break;
+  case MWMImageColoringWhite: self.tintColor = highlighted ? [UIColor whiteHintText] : [UIColor white]; break;
   case MWMImageColoringBlack:
     self.tintColor = highlighted ? [UIColor blackHintText] : [UIColor blackSecondaryText];
     break;

@@ -30,8 +30,7 @@ public:
   Type operator()(Segment const & current, Segment const & next) const;
 
   static void MergeCrossroads(Type from, CrossroadInfo & to);
-  static void MergeCrossroads(IsCrossroadChecker::CrossroadInfo const & from,
-                              IsCrossroadChecker::CrossroadInfo & to);
+  static void MergeCrossroads(IsCrossroadChecker::CrossroadInfo const & from, IsCrossroadChecker::CrossroadInfo & to);
 
 private:
   IndexGraph & m_indexGraph;

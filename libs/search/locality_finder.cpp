@@ -57,16 +57,14 @@ private:
 class LocalitiesLoader
 {
 public:
-  LocalitiesLoader(MwmContext const & ctx, CitiesBoundariesTable const & boundaries,
-                   Filter const & filter, LocalityFinder::Holder & holder,
-                   map<MwmSet::MwmId, unordered_set<uint32_t>> & loadedIds)
+  LocalitiesLoader(MwmContext const & ctx, CitiesBoundariesTable const & boundaries, Filter const & filter,
+                   LocalityFinder::Holder & holder, map<MwmSet::MwmId, unordered_set<uint32_t>> & loadedIds)
     : m_ctx(ctx)
     , m_boundaries(boundaries)
     , m_filter(filter)
     , m_holder(holder)
     , m_loadedIds(loadedIds[m_ctx.GetId()])
-  {
-  }
+  {}
 
   void operator()(uint32_t id) const
   {
@@ -88,10 +86,8 @@ public:
     {
     case LocalityType::City:
     case LocalityType::Town:
-    case LocalityType::Village:
-      break;
-    default:
-      return;
+    case LocalityType::Village: break;
+    default: return;
     }
 
     auto const population = ftypes::GetPopulation(*ft);
@@ -131,19 +127,21 @@ int GetVillagesScale()
   // Needed for backward compatibility. |kCompatibilityVillagesMinDrawableScale| should be set to
   // maximal value we have in mwms over all data versions.
   int const kCompatibilityVillagesMinDrawableScale = 13;
-  ASSERT_LESS_OR_EQUAL(
-      currentVillagesMinDrawableScale, kCompatibilityVillagesMinDrawableScale,
-      ("Set kCompatibilityVillagesMinDrawableScale to", currentVillagesMinDrawableScale));
+  ASSERT_LESS_OR_EQUAL(currentVillagesMinDrawableScale, kCompatibilityVillagesMinDrawableScale,
+                       ("Set kCompatibilityVillagesMinDrawableScale to", currentVillagesMinDrawableScale));
   return max(currentVillagesMinDrawableScale, kCompatibilityVillagesMinDrawableScale);
 }
 }  // namespace
 
 // LocalityItem ------------------------------------------------------------------------------------
-LocalityItem::LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center,
-                           Boundaries && boundaries, uint64_t population, FeatureID const & id)
-  : m_names(names), m_center(center), m_boundaries(std::move(boundaries)), m_population(population), m_id(id)
-{
-}
+LocalityItem::LocalityItem(StringUtf8Multilang const & names, m2::PointD const & center, Boundaries && boundaries,
+                           uint64_t population, FeatureID const & id)
+  : m_names(names)
+  , m_center(center)
+  , m_boundaries(std::move(boundaries))
+  , m_population(population)
+  , m_id(id)
+{}
 
 string DebugPrint(LocalityItem const & item)
 {
@@ -167,8 +165,7 @@ void LocalitySelector::operator()(LocalityItem const & item)
   double const distance = mercator::DistanceOnEarth(item.m_center, m_p);
 
   // GetPopulationByRadius may return 0.
-  double const score =
-      (ftypes::GetPopulationByRadius(distance) + 1) / static_cast<double>(item.m_population);
+  double const score = (ftypes::GetPopulationByRadius(distance) + 1) / static_cast<double>(item.m_population);
 
   if (!inside && m_inside)
     return;
@@ -203,8 +200,7 @@ void LocalityFinder::Holder::Add(LocalityItem const & item)
   m_localities.Add(item, m2::RectD(item.m_center, item.m_center));
 }
 
-void LocalityFinder::Holder::ForEachInVicinity(m2::RectD const & rect,
-                                               LocalitySelector & selector) const
+void LocalityFinder::Holder::ForEachInVicinity(m2::RectD const & rect, LocalitySelector & selector) const
 {
   m_localities.ForEachInRect(rect, selector);
 }
@@ -226,8 +222,7 @@ void LocalityFinder::Holder::Clear()
 }
 
 // LocalityFinder ----------------------------------------------------------------------------------
-LocalityFinder::LocalityFinder(DataSource const & dataSource,
-                               CitiesBoundariesTable const & boundariesTable,
+LocalityFinder::LocalityFinder(DataSource const & dataSource, CitiesBoundariesTable const & boundariesTable,
                                VillagesCache & villagesCache)
   : m_dataSource(dataSource)
   , m_boundariesTable(boundariesTable)
@@ -235,8 +230,7 @@ LocalityFinder::LocalityFinder(DataSource const & dataSource,
   , m_cities(kMaxCityRadiusMeters)
   , m_villages(kMaxVillageRadiusMeters)
   , m_mapsLoaded(false)
-{
-}
+{}
 
 void LocalityFinder::ClearCache()
 {
@@ -268,8 +262,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
         m_ranks = make_unique<DummyRankTable>();
 
       MwmContext ctx(std::move(handle));
-      ctx.ForEachIndex(crect, LocalitiesLoader(ctx, m_boundariesTable, CityFilter(*m_ranks),
-                                               m_cities, m_loadedIds));
+      ctx.ForEachIndex(crect, LocalitiesLoader(ctx, m_boundariesTable, CityFilter(*m_ranks), m_cities, m_loadedIds));
     }
 
     m_cities.SetCovered(p);
@@ -278,16 +271,17 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
   if (loadVillages)
   {
     m2::RectD const vrect = m_villages.GetDRect(p);
-    m_maps.ForEachInRect(m2::RectD(p, p), [&](MwmSet::MwmId const & id) {
+    m_maps.ForEachInRect(m2::RectD(p, p), [&](MwmSet::MwmId const & id)
+    {
       auto handle = m_dataSource.GetMwmHandleById(id);
       if (!handle.IsAlive())
         return;
 
       static int const scale = GetVillagesScale();
       MwmContext ctx(std::move(handle));
-      ctx.ForEachIndex(vrect, scale,
-                       LocalitiesLoader(ctx, m_boundariesTable, VillageFilter(ctx, m_villagesCache),
-                                        m_villages, m_loadedIds));
+      ctx.ForEachIndex(
+          vrect, scale,
+          LocalitiesLoader(ctx, m_boundariesTable, VillageFilter(ctx, m_villagesCache), m_villages, m_loadedIds));
     });
 
     m_villages.SetCovered(p);

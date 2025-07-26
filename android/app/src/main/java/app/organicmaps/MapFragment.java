@@ -23,7 +23,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class MapFragment extends BaseMwmFragment implements View.OnTouchListener, SurfaceHolder.Callback
 {
   private static final String TAG = MapFragment.class.getSimpleName();
-  private final Map mMap = new Map(DisplayType.Device);
+
+  @SuppressWarnings("NonNullFieldNotInitialized")
+  @NonNull
+  private Map mMap;
 
   public void updateCompassOffset(int offsetX, int offsetY)
   {
@@ -84,6 +87,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   {
     Logger.d(TAG);
     super.onAttach(context);
+    mMap = new Map(DisplayType.Device, MwmApplication.from(requireContext()).getLocationHelper());
     mMap.setMapRenderingListener((MapRenderingListener) context);
     mMap.setCallbackUnsupported(this::reportUnsupported);
   }
@@ -159,24 +163,24 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
     int pointerIndex = event.getActionIndex();
     switch (action)
     {
-      case MotionEvent.ACTION_POINTER_UP -> action = Map.NATIVE_ACTION_UP;
-      case MotionEvent.ACTION_UP ->
-      {
-        action = Map.NATIVE_ACTION_UP;
-        pointerIndex = 0;
-      }
-      case MotionEvent.ACTION_POINTER_DOWN -> action = Map.NATIVE_ACTION_DOWN;
-      case MotionEvent.ACTION_DOWN ->
-      {
-        action = Map.NATIVE_ACTION_DOWN;
-        pointerIndex = 0;
-      }
-      case MotionEvent.ACTION_MOVE ->
-      {
-        action = Map.NATIVE_ACTION_MOVE;
-        pointerIndex = Map.INVALID_POINTER_MASK;
-      }
-      case MotionEvent.ACTION_CANCEL -> action = Map.NATIVE_ACTION_CANCEL;
+    case MotionEvent.ACTION_POINTER_UP -> action = Map.NATIVE_ACTION_UP;
+    case MotionEvent.ACTION_UP ->
+    {
+      action = Map.NATIVE_ACTION_UP;
+      pointerIndex = 0;
+    }
+    case MotionEvent.ACTION_POINTER_DOWN -> action = Map.NATIVE_ACTION_DOWN;
+    case MotionEvent.ACTION_DOWN ->
+    {
+      action = Map.NATIVE_ACTION_DOWN;
+      pointerIndex = 0;
+    }
+    case MotionEvent.ACTION_MOVE ->
+    {
+      action = Map.NATIVE_ACTION_MOVE;
+      pointerIndex = Map.INVALID_POINTER_MASK;
+    }
+    case MotionEvent.ACTION_CANCEL -> action = Map.NATIVE_ACTION_CANCEL;
     }
     Map.onTouch(action, event, pointerIndex);
     return true;

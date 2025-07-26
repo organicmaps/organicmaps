@@ -23,6 +23,7 @@ public:
 };
 
 void RouteSegmentsFrom(std::vector<Segment> const & segments, std::vector<m2::PointD> const & path,
-                       std::vector<turns::TurnItem> const & turns, std::vector<RouteSegment::RoadNameInfo> const & names,
+                       std::vector<turns::TurnItem> const & turns,
+                       std::vector<RouteSegment::RoadNameInfo> const & names,
                        std::vector<RouteSegment> & routeSegments);
 }  // namespace routing

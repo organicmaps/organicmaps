@@ -21,18 +21,15 @@ public:
   /// if there's a good enough.
   /// \returns true if the best path is found and false otherwise.
   bool FindBestPath(std::vector<LocationReferencePoint> const & points,
-                    std::vector<std::vector<ScorePath>> const & lineCandidates,
-                    LinearSegmentSource source,
+                    std::vector<std::vector<ScorePath>> const & lineCandidates, LinearSegmentSource source,
                     std::vector<Graph::EdgeVector> & resultPath);
 
 private:
-  bool FindShortestPath(Graph::Edge const & from, Graph::Edge const & to,
-                        LinearSegmentSource source, FunctionalRoadClass lowestFrcToNextPoint,
-                        uint32_t maxPathLength, Graph::EdgeVector & path);
+  bool FindShortestPath(Graph::Edge const & from, Graph::Edge const & to, LinearSegmentSource source,
+                        FunctionalRoadClass lowestFrcToNextPoint, uint32_t maxPathLength, Graph::EdgeVector & path);
 
   bool ConnectAdjacentCandidateLines(Graph::EdgeVector const & from, Graph::EdgeVector const & to,
-                                     LinearSegmentSource source,
-                                     FunctionalRoadClass lowestFrcToNextPoint,
+                                     LinearSegmentSource source, FunctionalRoadClass lowestFrcToNextPoint,
                                      double distanceToNextPoint, Graph::EdgeVector & resultPath);
 
   Score GetScoreForUniformity(Graph::EdgeVector const & path);

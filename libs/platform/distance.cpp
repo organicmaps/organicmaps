@@ -18,14 +18,10 @@ Distance MetersTo(double distance, Distance::Units units)
 {
   switch (units)
   {
-  case Distance::Units::Meters:
-    return Distance(distance);
-  case Distance::Units::Kilometers:
-    return {distance / 1000, Distance::Units::Kilometers};
-  case Distance::Units::Feet:
-    return {MetersToFeet(distance), Distance::Units::Feet};
-  case Distance::Units::Miles:
-    return {MetersToMiles(distance), Distance::Units::Miles};
+  case Distance::Units::Meters: return Distance(distance);
+  case Distance::Units::Kilometers: return {distance / 1000, Distance::Units::Kilometers};
+  case Distance::Units::Feet: return {MetersToFeet(distance), Distance::Units::Feet};
+  case Distance::Units::Miles: return {MetersToMiles(distance), Distance::Units::Miles};
   default: UNREACHABLE();
   }
 }
@@ -39,12 +35,9 @@ Distance FeetTo(double distance, Distance::Units units)
 {
   switch (units)
   {
-  case Distance::Units::Meters:
-    return {FeetToMeters(distance), Distance::Units::Meters};
-  case Distance::Units::Kilometers:
-    return {FeetToMeters(distance) / 1000, Distance::Units::Kilometers};
-  case Distance::Units::Miles:
-    return {FeetToMiles(distance), Distance::Units::Miles};
+  case Distance::Units::Meters: return {FeetToMeters(distance), Distance::Units::Meters};
+  case Distance::Units::Kilometers: return {FeetToMeters(distance) / 1000, Distance::Units::Kilometers};
+  case Distance::Units::Miles: return {FeetToMiles(distance), Distance::Units::Miles};
   default: UNREACHABLE();
   }
 }
@@ -53,12 +46,9 @@ Distance MilesTo(double distance, Distance::Units units)
 {
   switch (units)
   {
-  case Distance::Units::Meters:
-    return {MilesToMeters(distance), Distance::Units::Meters};
-  case Distance::Units::Kilometers:
-    return {MilesToMeters(distance) / 1000, Distance::Units::Kilometers};
-  case Distance::Units::Feet:
-    return {MilesToFeet(distance), Distance::Units::Feet};
+  case Distance::Units::Meters: return {MilesToMeters(distance), Distance::Units::Meters};
+  case Distance::Units::Kilometers: return {MilesToMeters(distance) / 1000, Distance::Units::Kilometers};
+  case Distance::Units::Feet: return {MilesToFeet(distance), Distance::Units::Feet};
   default: UNREACHABLE();
   }
 }
@@ -86,8 +76,8 @@ Distance Distance::CreateFormatted(double distanceInMeters)
 
 std::string Distance::FormatAltitude(double meters)
 {
-  Distance elevation = Distance(fabs(meters)).To(
-      GetMeasurementUnits() == measurement_utils::Units::Metric ? Units::Meters : Units::Feet);
+  Distance elevation = Distance(fabs(meters))
+                           .To(GetMeasurementUnits() == measurement_utils::Units::Metric ? Units::Meters : Units::Feet);
 
   ASSERT(elevation.IsLowUnits(), ());
   elevation.m_distance = WithPrecision(elevation.m_distance, 0);
@@ -96,11 +86,20 @@ std::string Distance::FormatAltitude(double meters)
   return meters < 0 ? "-" + res : res;
 }
 
-bool Distance::IsValid() const { return m_distance >= 0.0; }
+bool Distance::IsValid() const
+{
+  return m_distance >= 0.0;
+}
 
-bool Distance::IsLowUnits() const { return m_units == Units::Meters || m_units == Units::Feet; }
+bool Distance::IsLowUnits() const
+{
+  return m_units == Units::Meters || m_units == Units::Feet;
+}
 
-bool Distance::IsHighUnits() const { return !IsLowUnits(); }
+bool Distance::IsHighUnits() const
+{
+  return !IsLowUnits();
+}
 
 Distance Distance::To(Units units) const
 {
@@ -129,7 +128,10 @@ double Distance::GetDistance() const
   return m_distance;
 }
 
-Distance::Units Distance::GetUnits() const { return m_units; }
+Distance::Units Distance::GetUnits() const
+{
+  return m_units;
+}
 
 std::string Distance::GetDistanceString() const
 {
@@ -185,7 +187,7 @@ Distance Distance::GetFormattedDistance() const
 
     // For distances of 10.0 high units and over round to a whole number, e.g. 9.98 -> 10, 10.9 -> 11
     uint8_t const precision = (std::round(res.m_distance * 10) / 10 >= 10.0) ? 0 : 1;
-    return { WithPrecision(res.m_distance, precision), res.m_units };
+    return {WithPrecision(res.m_distance, precision), res.m_units};
   }
 
   res.m_distance = lowRound;

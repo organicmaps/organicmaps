@@ -49,7 +49,9 @@ public:
   struct FeatureSpeedMacro
   {
     FeatureSpeedMacro(uint32_t featureID, SpeedMacro forward, SpeedMacro backward = SpeedMacro::Undefined)
-      : m_featureID(featureID), m_forward(forward), m_backward(backward)
+      : m_featureID(featureID)
+      , m_forward(forward)
+      , m_backward(backward)
     {
       // We store bidirectional speeds only if they are not equal,
       // see Maxspeed::IsBidirectional() comments.
@@ -69,14 +71,12 @@ public:
   static int constexpr DEFAULT_SPEEDS_COUNT = Maxspeeds::DEFAULT_SPEEDS_COUNT;
 
   template <class Sink>
-  static void Serialize(std::vector<FeatureSpeedMacro> const & featureSpeeds,
-                        HW2SpeedMap typeSpeeds[], Sink & sink)
+  static void Serialize(std::vector<FeatureSpeedMacro> const & featureSpeeds, HW2SpeedMap typeSpeeds[], Sink & sink)
   {
     CHECK(base::IsSortedAndUnique(featureSpeeds.cbegin(), featureSpeeds.cend(),
                                   [](FeatureSpeedMacro const & l, FeatureSpeedMacro const & r)
-                                  {
-                                    return l.m_featureID < r.m_featureID;
-                                  }), ());
+    { return l.m_featureID < r.m_featureID; }),
+          ());
 
     // Version
     auto const startOffset = sink.Pos();
@@ -98,10 +98,8 @@ public:
     {
       succinct::elias_fano::elias_fano_builder builder(maxFeatureID + 1, forwardCount);
       for (auto const & e : featureSpeeds)
-      {
         if (!e.IsBidirectional())
           builder.push_back(e.m_featureID);
-      }
 
       coding::FreezeVisitor<Writer> visitor(sink);
       succinct::elias_fano(&builder).map(visitor);
@@ -152,11 +150,10 @@ public:
     sink.Seek(endOffset);
 
     // Print statistics.
-    LOG(LINFO, ("Serialized", forwardCount, "forward maxspeeds and",
-                header.m_bidirectionalMaxspeedNumber,
+    LOG(LINFO, ("Serialized", forwardCount, "forward maxspeeds and", header.m_bidirectionalMaxspeedNumber,
                 "bidirectional maxspeeds. Section size:", endOffset - startOffset, "bytes."));
-    LOG(LINFO, ("Succinct EF compression ratio:",
-                forwardCount * (4 + 1) / double(header.m_bidirectionalMaxspeedOffset)));
+    LOG(LINFO,
+        ("Succinct EF compression ratio:", forwardCount * (4 + 1) / double(header.m_bidirectionalMaxspeedOffset)));
   }
 
   template <class Source>
@@ -180,8 +177,8 @@ public:
       std::vector<uint8_t> forwardTableData(header.m_forwardMaxspeedOffset);
       src.Read(forwardTableData.data(), forwardTableData.size());
       maxspeeds.m_forwardMaxspeedTableRegion = std::make_unique<CopiedMemoryRegion>(std::move(forwardTableData));
-      coding::Map(maxspeeds.m_forwardMaxspeedsTable,
-          maxspeeds.m_forwardMaxspeedTableRegion->ImmutableData(), "ForwardMaxspeedsTable");
+      coding::Map(maxspeeds.m_forwardMaxspeedsTable, maxspeeds.m_forwardMaxspeedTableRegion->ImmutableData(),
+                  "ForwardMaxspeedsTable");
 
       std::vector<uint8_t> forwardData(header.m_bidirectionalMaxspeedOffset - header.m_forwardMaxspeedOffset);
       src.Read(forwardData.data(), forwardData.size());
@@ -233,7 +230,7 @@ public:
           auto const type = static_cast<HighwayType>(ReadVarUint<uint32_t>(src));
           auto const speed = converter.MacroToSpeed(static_cast<SpeedMacro>(ReadPrimitiveFromSource<uint8_t>(src)));
           // Constraint should be met, but unit tests use different input Units. No problem here.
-          //ASSERT_EQUAL(speed.GetUnits(), measurement_utils::Units::Metric, ());
+          // ASSERT_EQUAL(speed.GetUnits(), measurement_utils::Units::Metric, ());
           maxspeeds.m_defaultSpeeds[ind][type] = speed.GetSpeed();
         }
       }

@@ -32,13 +32,11 @@ std::string const kRouteFakeOutlineColor = "RouteFakeOutline";
 
 namespace
 {
-std::array<float, 20> const kPreviewPointRadiusInPixel =
-{
-  // 1   2     3     4     5     6     7     8     9     10
-  0.8f, 0.8f, 2.0f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
-  //11   12    13    14    15    16    17    18    19     20
-  2.5f, 2.5f, 2.5f, 2.5f, 3.0f, 4.0f, 4.5f, 4.5f, 5.0f, 5.5f
-};
+std::array<float, 20> const kPreviewPointRadiusInPixel = {
+    // 1   2     3     4     5     6     7     8     9     10
+    0.8f, 0.8f, 2.0f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
+    // 11   12    13    14    15    16    17    18    19     20
+    2.5f, 2.5f, 2.5f, 2.5f, 3.0f, 4.0f, 4.5f, 4.5f, 5.0f, 5.5f};
 
 int const kArrowAppearingZoomLevel = 14;
 int const kInvalidGroup = -1;
@@ -47,8 +45,7 @@ uint32_t const kPreviewPointsCount = 512;
 
 double const kInvalidDistance = -1.0;
 
-void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & screen,
-                       float & halfWidth, double & zoom)
+void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & screen, float & halfWidth, double & zoom)
 {
   int index = 0;
   float lerpCoef = 0.0f;
@@ -66,10 +63,7 @@ void InterpolateByZoom(SubrouteConstPtr const & subroute, ScreenBase const & scr
 
 void ClipBorders(std::vector<ArrowBorders> & borders)
 {
-  auto invalidBorders = [](ArrowBorders const & arrowBorders)
-  {
-    return arrowBorders.m_groupIndex == kInvalidGroup;
-  };
+  auto invalidBorders = [](ArrowBorders const & arrowBorders) { return arrowBorders.m_groupIndex == kInvalidGroup; };
   borders.erase(std::remove_if(borders.begin(), borders.end(), invalidBorders), borders.end());
 }
 
@@ -83,10 +77,8 @@ void MergeAndClipBorders(std::vector<ArrowBorders> & borders)
 
   // Mark groups.
   for (size_t i = 0; i + 1 < borders.size(); i++)
-  {
     if (borders[i].m_endDistance >= borders[i + 1].m_startDistance)
       borders[i + 1].m_groupIndex = borders[i].m_groupIndex;
-  }
 
   // Merge groups.
   int lastGroup = borders.front().m_groupIndex;
@@ -110,17 +102,14 @@ void MergeAndClipBorders(std::vector<ArrowBorders> & borders)
   ClipBorders(borders);
 }
 
-bool AreEqualArrowBorders(std::vector<ArrowBorders> const & borders1,
-                          std::vector<ArrowBorders> const & borders2)
+bool AreEqualArrowBorders(std::vector<ArrowBorders> const & borders1, std::vector<ArrowBorders> const & borders2)
 {
   if (borders1.size() != borders2.size())
     return false;
 
   for (size_t i = 0; i < borders1.size(); i++)
-  {
     if (borders1[i].m_groupIndex != borders2[i].m_groupIndex)
       return false;
-  }
 
   double const kDistanceEps = 1e-5;
   for (size_t i = 0; i < borders1.size(); i++)
@@ -135,9 +124,9 @@ bool AreEqualArrowBorders(std::vector<ArrowBorders> const & borders1,
   return true;
 }
 
-std::vector<ArrowBorders> CalculateArrowBorders(m2::RectD screenRect, double screenScale,
-                                                float currentHalfWidth, SubrouteConstPtr const & subroute,
-                                                double subrouteLength, double distanceFromBegin)
+std::vector<ArrowBorders> CalculateArrowBorders(m2::RectD screenRect, double screenScale, float currentHalfWidth,
+                                                SubrouteConstPtr const & subroute, double subrouteLength,
+                                                double distanceFromBegin)
 {
   auto const & turns = subroute->m_turns;
   if (turns.empty())
@@ -210,14 +199,10 @@ void BuildBuckets(ref_ptr<dp::GraphicsContext> context, RouteRenderProperty cons
     bucket->GetBuffer()->Build(context, mng->GetProgram(renderProperty.m_state.GetProgram<gpu::Program>()));
 }
 
-RouteRenderer::Subroutes::iterator FindSubroute(RouteRenderer::Subroutes & subroutes,
-                                                dp::DrapeID subrouteId)
+RouteRenderer::Subroutes::iterator FindSubroute(RouteRenderer::Subroutes & subroutes, dp::DrapeID subrouteId)
 {
-  return std::find_if(subroutes.begin(), subroutes.end(),
-                      [&subrouteId](RouteRenderer::SubrouteInfo const & info)
-  {
-    return info.m_subrouteId == subrouteId;
-  });
+  return std::find_if(subroutes.begin(), subroutes.end(), [&subrouteId](RouteRenderer::SubrouteInfo const & info)
+  { return info.m_subrouteId == subrouteId; });
 }
 
 float GetCurrentHalfWidth(df::RouteRenderer::SubrouteInfo const & subrouteInfo)
@@ -238,8 +223,7 @@ RouteRenderer::RouteRenderer(PreviewPointsRequestCallback && previewPointsReques
   ASSERT(m_previewPointsRequest != nullptr, ());
 }
 
-void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen,
-                                       PrepareRouteArrowsCallback const & prepareCallback)
+void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen, PrepareRouteArrowsCallback const & prepareCallback)
 {
   for (auto & subrouteInfo : m_subroutes)
   {
@@ -267,13 +251,12 @@ void RouteRenderer::PrepareRouteArrows(ScreenBase const & screen,
     auto const screenScale = screen.GetScale();
     auto const subrouteLength = subrouteInfo.m_length;
     auto subroute = subrouteInfo.m_subroute;
-    dp::DrapeRoutine::RunSequential([subrouteId, screenRect, screenScale, halfWidth,
-                                     subroute = std::move(subroute), subrouteLength,
-                                     dist, prepareCallback]()
+    dp::DrapeRoutine::RunSequential([subrouteId, screenRect, screenScale, halfWidth, subroute = std::move(subroute),
+                                     subrouteLength, dist, prepareCallback]()
     {
       ASSERT(prepareCallback != nullptr, ());
-      prepareCallback(subrouteId, CalculateArrowBorders(screenRect, screenScale, halfWidth,
-                                                        subroute, subrouteLength, dist));
+      prepareCallback(subrouteId,
+                      CalculateArrowBorders(screenRect, screenScale, halfWidth, subroute, subrouteLength, dist));
     });
   }
 }
@@ -342,8 +325,8 @@ void RouteRenderer::UpdatePreview(ScreenBase const & screen)
     for (double d = distDelta * 0.5; d < segmentLen; d += distDelta)
     {
       m2::PointD const pt = polyline.GetPointByDistance(d);
-      m2::RectD const circleRect(pt.x - radiusMercator, pt.y - radiusMercator,
-                                 pt.x + radiusMercator, pt.y + radiusMercator);
+      m2::RectD const circleRect(pt.x - radiusMercator, pt.y - radiusMercator, pt.x + radiusMercator,
+                                 pt.y + radiusMercator);
       if (!screen.ClipRect().IsIntersect(circleRect))
         continue;
 
@@ -463,8 +446,8 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
 
   // Adjust line color depending on route type and subroute distance. After the first stop point
   // route color is adjusted according to RouteMaskCar, RouteMaskBicycle or RouteMaskPedestrian properties.
-  params.m_maskColor = glsl::ToVec4(GetRouteMaskColor(subrouteData->m_subroute->m_routeType,
-                                                      subrouteData->m_subroute->m_baseDistance));
+  params.m_maskColor =
+      glsl::ToVec4(GetRouteMaskColor(subrouteData->m_subroute->m_routeType, subrouteData->m_subroute->m_baseDistance));
   if (style.m_pattern.m_isDashed)
   {
     params.m_pattern = glsl::vec2(static_cast<float>(screenHalfWidth * style.m_pattern.m_dashLength),
@@ -474,34 +457,31 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
   {
     params.m_outlineColor = glsl::ToVec4(df::GetColorConstant(style.m_outlineColor));
   }
-  params.m_fakeBorders = glsl::vec2(subrouteData->m_subroute->m_headFakeDistance,
-                                    subrouteData->m_subroute->m_tailFakeDistance);
+  params.m_fakeBorders =
+      glsl::vec2(subrouteData->m_subroute->m_headFakeDistance, subrouteData->m_subroute->m_tailFakeDistance);
   params.m_fakeColor = glsl::ToVec4(df::GetColorConstant(kRouteFakeColor));
   params.m_fakeOutlineColor = glsl::ToVec4(df::GetColorConstant(kRouteFakeOutlineColor));
 
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(style.m_pattern.m_isDashed ?
-                                                gpu::Program::RouteDash : gpu::Program::Route);
+  ref_ptr<dp::GpuProgram> prg =
+      mng->GetProgram(style.m_pattern.m_isDashed ? gpu::Program::RouteDash : gpu::Program::Route);
   prg->Bind();
   dp::ApplyState(context, prg, state);
   mng->GetParamsSetter()->Apply(context, prg, params);
 
   // Render buckets.
   auto const & clipRect = screen.ClipRect();
-  CHECK_EQUAL(subrouteData->m_renderProperty.m_buckets.size(),
-              subrouteData->m_renderProperty.m_boundingBoxes.size(), ());
+  CHECK_EQUAL(subrouteData->m_renderProperty.m_buckets.size(), subrouteData->m_renderProperty.m_boundingBoxes.size(),
+              ());
   for (size_t i = 0; i < subrouteData->m_renderProperty.m_buckets.size(); ++i)
-  {
     if (subrouteData->m_renderProperty.m_boundingBoxes[i].IsIntersect(clipRect))
       subrouteData->m_renderProperty.m_buckets[i]->Render(context, state.GetDrawAsLine());
-  }
 }
 
 void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                                          SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                                          FrameValues const & frameValues)
 {
-  if (subrouteInfo.m_arrowsData == nullptr ||
-      subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.empty() ||
+  if (subrouteInfo.m_arrowsData == nullptr || subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.empty() ||
       m_hiddenSubroutes.find(subrouteInfo.m_subrouteId) != m_hiddenSubroutes.end())
   {
     return;
@@ -513,15 +493,14 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_arrowsData->m_pivot,
-                                                     kShapeCoordScalar);
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_arrowsData->m_pivot, kShapeCoordScalar);
   params.m_modelView = glsl::make_mat4(mv.m_data);
   auto const arrowHalfWidth = static_cast<float>(currentHalfWidth * kArrowHeightFactor);
   params.m_arrowHalfWidth = arrowHalfWidth;
 
   // Adjust arrow color depending on route type and subroute distance
-  params.m_maskColor = glsl::ToVec4(GetArrowMaskColor(subrouteInfo.m_subroute->m_routeType,
-                                                      subrouteInfo.m_subroute->m_baseDistance));
+  params.m_maskColor =
+      glsl::ToVec4(GetArrowMaskColor(subrouteInfo.m_subroute->m_routeType, subrouteInfo.m_subroute->m_baseDistance));
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteArrow);
   prg->Bind();
@@ -532,18 +511,15 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   CHECK_EQUAL(subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.size(),
               subrouteInfo.m_arrowsData->m_renderProperty.m_boundingBoxes.size(), ());
   for (size_t i = 0; i < subrouteInfo.m_arrowsData->m_renderProperty.m_buckets.size(); ++i)
-  {
     if (subrouteInfo.m_arrowsData->m_renderProperty.m_boundingBoxes[i].IsIntersect(clipRect))
       subrouteInfo.m_arrowsData->m_renderProperty.m_buckets[i]->Render(context, state.GetDrawAsLine());
-  }
 }
 
 void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                                           SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                                           FrameValues const & frameValues)
 {
-  if (subrouteInfo.m_markersData == nullptr ||
-      subrouteInfo.m_markersData->m_renderProperty.m_buckets.empty() ||
+  if (subrouteInfo.m_markersData == nullptr || subrouteInfo.m_markersData->m_renderProperty.m_buckets.empty() ||
       m_hiddenSubroutes.find(subrouteInfo.m_subrouteId) != m_hiddenSubroutes.end())
   {
     return;
@@ -559,17 +535,16 @@ void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, 
   // Set up parameters.
   gpu::RouteProgramParams params;
   frameValues.SetTo(params);
-  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_markersData->m_pivot,
-                                                     kShapeCoordScalar);
+  math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_markersData->m_pivot, kShapeCoordScalar);
   params.m_modelView = glsl::make_mat4(mv.m_data);
   params.m_routeParams = glsl::vec4(currentHalfWidth, dist, 0.0f, 0.0f);
-  params.m_angleCosSin = glsl::vec2(static_cast<float>(cos(screen.GetAngle())),
-                                    static_cast<float>(sin(screen.GetAngle())));
+  params.m_angleCosSin =
+      glsl::vec2(static_cast<float>(cos(screen.GetAngle())), static_cast<float>(sin(screen.GetAngle())));
 
   // Adjust color depending on route type and subroute distance. After the first stop point
   // marker color is adjusted according to RouteMaskCar, RouteMaskBicycle or RouteMaskPedestrian properties.
-  params.m_maskColor = glsl::ToVec4(GetRouteMaskColor(subrouteInfo.m_subroute->m_routeType,
-                                                      subrouteInfo.m_subroute->m_baseDistance));
+  params.m_maskColor =
+      glsl::ToVec4(GetRouteMaskColor(subrouteInfo.m_subroute->m_routeType, subrouteInfo.m_subroute->m_baseDistance));
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteMarker);
   prg->Bind();
@@ -598,10 +573,8 @@ void RouteRenderer::RenderPreviewData(ref_ptr<dp::GraphicsContext> context, ref_
 
   ASSERT_EQUAL(m_previewRenderData.size(), m_previewHandlesCache.size(), ());
   for (size_t i = 0; i < m_previewRenderData.size(); i++)
-  {
     if (m_previewHandlesCache[i].second != 0)
       m_previewRenderData[i]->m_bucket->Render(context, state.GetDrawAsLine());
-  }
 }
 
 void RouteRenderer::RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -624,8 +597,7 @@ void RouteRenderer::RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gp
   RenderPreviewData(context, mng, screen, frameValues);
 }
 
-void RouteRenderer::AddSubrouteData(ref_ptr<dp::GraphicsContext> context,
-                                    drape_ptr<SubrouteData> && subrouteData,
+void RouteRenderer::AddSubrouteData(ref_ptr<dp::GraphicsContext> context, drape_ptr<SubrouteData> && subrouteData,
                                     ref_ptr<gpu::ProgramManager> mng)
 {
   auto const it = FindSubroute(m_subroutes, subrouteData->m_subrouteId);
@@ -666,11 +638,8 @@ void RouteRenderer::AddSubrouteData(ref_ptr<dp::GraphicsContext> context,
     BuildBuckets(context, info.m_subrouteData.back()->m_renderProperty, mng);
     m_subroutes.push_back(std::move(info));
 
-    std::sort(m_subroutes.begin(), m_subroutes.end(),
-              [](SubrouteInfo const & info1, SubrouteInfo const & info2)
-    {
-      return info1.m_subroute->m_baseDistance > info2.m_subroute->m_baseDistance;
-    });
+    std::sort(m_subroutes.begin(), m_subroutes.end(), [](SubrouteInfo const & info1, SubrouteInfo const & info2)
+    { return info1.m_subroute->m_baseDistance > info2.m_subroute->m_baseDistance; });
   }
 }
 
@@ -733,11 +702,9 @@ void RouteRenderer::ClearObsoleteData(int currentRecacheId)
 {
   auto const functor = [&currentRecacheId](SubrouteInfo const & subrouteInfo)
   {
-    return !subrouteInfo.m_subrouteData.empty() &&
-           subrouteInfo.m_subrouteData.front()->m_recacheId < currentRecacheId;
+    return !subrouteInfo.m_subrouteData.empty() && subrouteInfo.m_subrouteData.front()->m_recacheId < currentRecacheId;
   };
-  m_subroutes.erase(std::remove_if(m_subroutes.begin(), m_subroutes.end(), functor),
-                    m_subroutes.end());
+  m_subroutes.erase(std::remove_if(m_subroutes.begin(), m_subroutes.end(), functor), m_subroutes.end());
 }
 
 void RouteRenderer::Clear()

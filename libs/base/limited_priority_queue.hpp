@@ -17,9 +17,9 @@ public:
   typedef typename std::vector<T>::const_iterator const_iterator;
 
   explicit limited_priority_queue(size_t maxSize = 1, CompareT compare = CompareT())
-    : m_maxSize(maxSize == 0 ? 1 : maxSize), m_compare(compare)
-  {
-  }
+    : m_maxSize(maxSize == 0 ? 1 : maxSize)
+    , m_compare(compare)
+  {}
 
   void push(T t)
   {
@@ -39,7 +39,7 @@ public:
 
   void pop()
   {
-    ASSERT ( !empty(), () );
+    ASSERT(!empty(), ());
     pop_heap(m_queue.begin(), m_queue.end(), m_compare);
     m_queue.pop_back();
   }
@@ -57,7 +57,7 @@ public:
   size_t size() const { return m_queue.size(); }
   T const & top() const
   {
-    ASSERT ( !empty(), () );
+    ASSERT(!empty(), ());
     return m_queue.front();
   }
 

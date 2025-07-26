@@ -54,21 +54,19 @@ public:
   // false if table does not have entry for the feature.
   [[nodiscard]] bool Get(uint32_t id, m2::PointD & center);
 
-  uint64_t Count() const { return m_map->Count(); };
+  uint64_t Count() const { return m_map->Count(); }
 
   // Loads CentersTable instance. Note that |reader| must be alive
   // until the destruction of loaded table. Returns nullptr if
   // CentersTable can't be loaded.
-  static std::unique_ptr<CentersTable> LoadV0(Reader & reader,
-                                              serial::GeometryCodingParams const & codingParams);
+  static std::unique_ptr<CentersTable> LoadV0(Reader & reader, serial::GeometryCodingParams const & codingParams);
 
   static std::unique_ptr<CentersTable> LoadV1(Reader & reader);
 
 private:
   using Map = MapUint32ToValue<m2::PointU>;
 
-  bool Init(Reader & reader, serial::GeometryCodingParams const & codingParams,
-            m2::RectD const & limitRect);
+  bool Init(Reader & reader, serial::GeometryCodingParams const & codingParams, m2::RectD const & limitRect);
 
   serial::GeometryCodingParams m_codingParams;
   std::unique_ptr<Map> m_map;

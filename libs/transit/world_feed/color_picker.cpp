@@ -46,10 +46,8 @@ ColorPicker::ColorPicker()
   // We need only colors for route polylines, not for text. So we skip items like
   // 'transit_text_navy' and work only with items like 'transit_navy'.
   for (auto const & [name, color] : df::GetTransitClearColors())
-  {
     if (name.find(df::kTransitTextPrefix) == std::string::npos)
       m_drapeClearColors.emplace(name, color);
-  }
 }
 
 std::string ColorPicker::GetNearestColor(std::string const & rgb)
@@ -82,10 +80,7 @@ std::string ColorPicker::GetNearestColor(std::string const & rgb)
   }
 
   if (nearestColor.find(df::kTransitColorPrefix + df::kTransitLinePrefix) == 0)
-  {
-    nearestColor =
-        nearestColor.substr(df::kTransitColorPrefix.size() + df::kTransitLinePrefix.size());
-  }
+    nearestColor = nearestColor.substr(df::kTransitColorPrefix.size() + df::kTransitLinePrefix.size());
 
   it->second = nearestColor;
   return nearestColor;

@@ -37,8 +37,7 @@ int constexpr kMinSpeedCameraZoom = 13;
 int constexpr kMinSpeedCameraTitleZoom = 13;
 }  // namespace
 
-RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg)
-  : UserMark(ptOrg, Type::ROUTING)
+RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg) : UserMark(ptOrg, Type::ROUTING)
 {
   m_titleDecl.m_anchor = dp::Top;
   m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kRouteMarkPrimaryText);
@@ -111,17 +110,17 @@ uint16_t RouteMarkPoint::GetPriority() const
 {
   switch (m_markData.m_pointType)
   {
-    case RouteMarkType::Start: return static_cast<uint16_t>(Priority::RouteStart);
-    case RouteMarkType::Finish: return static_cast<uint16_t>(Priority::RouteFinish);
-    case RouteMarkType::Intermediate:
+  case RouteMarkType::Start: return static_cast<uint16_t>(Priority::RouteStart);
+  case RouteMarkType::Finish: return static_cast<uint16_t>(Priority::RouteFinish);
+  case RouteMarkType::Intermediate:
+  {
+    switch (m_markData.m_intermediateIndex)
     {
-      switch (m_markData.m_intermediateIndex)
-      {
-        case 0: return static_cast<uint16_t>(Priority::RouteIntermediateA);
-        case 1: return static_cast<uint16_t>(Priority::RouteIntermediateB);
-        default: return static_cast<uint16_t>(Priority::RouteIntermediateC);
-      }
+    case 0: return static_cast<uint16_t>(Priority::RouteIntermediateA);
+    case 1: return static_cast<uint16_t>(Priority::RouteIntermediateB);
+    default: return static_cast<uint16_t>(Priority::RouteIntermediateC);
     }
+  }
   }
   UNREACHABLE();
 }
@@ -130,9 +129,9 @@ uint32_t RouteMarkPoint::GetIndex() const
 {
   switch (m_markData.m_pointType)
   {
-    case RouteMarkType::Start: return 0;
-    case RouteMarkType::Finish: return 1;
-    case RouteMarkType::Intermediate: return static_cast<uint32_t >(m_markData.m_intermediateIndex + 2);
+  case RouteMarkType::Start: return 0;
+  case RouteMarkType::Finish: return 1;
+  case RouteMarkType::Intermediate: return static_cast<uint32_t>(m_markData.m_intermediateIndex + 2);
   }
   UNREACHABLE();
 }
@@ -161,7 +160,6 @@ drape_ptr<df::UserPointMark::TitlesInfo> RouteMarkPoint::GetTitleDecl() const
   return titles;
 }
 
-
 drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> RouteMarkPoint::GetColoredSymbols() const
 {
   auto coloredSymbol = make_unique_dp<ColoredSymbolZoomInfo>();
@@ -183,16 +181,16 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RouteMarkPoint::GetSymbolNames(
   std::string name;
   switch (m_markData.m_pointType)
   {
-    case RouteMarkType::Start: name = "route-point-start";  break;
-    case RouteMarkType::Finish: name = "route-point-finish"; break;
-    case RouteMarkType::Intermediate:
-    {
-      /// @todo Draw RouteMarkPoint icons dynamically like SpeedCameraMark.
-      if (m_markData.m_intermediateIndex < 19)
-        name = "route-point-" + std::to_string(m_markData.m_intermediateIndex + 1);
-      else
-        name = "route-point-20";
-    }
+  case RouteMarkType::Start: name = "route-point-start"; break;
+  case RouteMarkType::Finish: name = "route-point-finish"; break;
+  case RouteMarkType::Intermediate:
+  {
+    /// @todo Draw RouteMarkPoint icons dynamically like SpeedCameraMark.
+    if (m_markData.m_intermediateIndex < 19)
+      name = "route-point-" + std::to_string(m_markData.m_intermediateIndex + 1);
+    else
+      name = "route-point-20";
+  }
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, name));
@@ -313,12 +311,8 @@ void RoutePointsLayout::RemoveRoutePoints()
 
 void RoutePointsLayout::RemoveIntermediateRoutePoints()
 {
-  m_editSession.DeleteUserMarks<RouteMarkPoint>(
-    UserMark::Type::ROUTING,
-    [](RouteMarkPoint const * mark)
-    {
-      return mark->GetRoutePointType() == RouteMarkType::Intermediate;
-    });
+  m_editSession.DeleteUserMarks<RouteMarkPoint>(UserMark::Type::ROUTING, [](RouteMarkPoint const * mark)
+  { return mark->GetRoutePointType() == RouteMarkType::Intermediate; });
 }
 
 bool RoutePointsLayout::MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex,
@@ -399,9 +393,7 @@ std::vector<RouteMarkPoint *> RoutePointsLayout::GetRoutePoints()
       points.push_back(p);
   }
   std::sort(points.begin(), points.end(), [](RouteMarkPoint const * p1, RouteMarkPoint const * p2)
-  {
-    return p1->GetIntermediateIndex() < p2->GetIntermediateIndex();
-  });
+  { return p1->GetIntermediateIndex() < p2->GetIntermediateIndex(); });
   if (startPoint != nullptr)
     points.insert(points.begin(), startPoint);
   if (finishPoint != nullptr)
@@ -424,9 +416,7 @@ void RoutePointsLayout::ForEachIntermediatePoint(TRoutePointCallback const & fn)
   }
 }
 
-TransitMark::TransitMark(m2::PointD const & ptOrg)
-    : UserMark(ptOrg, Type::TRANSIT)
-{}
+TransitMark::TransitMark(m2::PointD const & ptOrg) : UserMark(ptOrg, Type::TRANSIT) {}
 
 void TransitMark::SetFeatureId(FeatureID const & featureId)
 {
@@ -542,8 +532,7 @@ void TransitMark::GetDefaultTransitTitle(dp::TitleDecl & titleDecl)
   titleDecl.m_secondaryTextFont.m_size = kTransitMarkTextSize;
 }
 
-SpeedCameraMark::SpeedCameraMark(m2::PointD const & ptOrg)
-  : UserMark(ptOrg, Type::SPEED_CAM)
+SpeedCameraMark::SpeedCameraMark(m2::PointD const & ptOrg) : UserMark(ptOrg, Type::SPEED_CAM)
 {
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 
@@ -620,9 +609,7 @@ dp::Anchor SpeedCameraMark::GetAnchor() const
   return dp::Center;
 }
 
-RoadWarningMark::RoadWarningMark(m2::PointD const & ptOrg)
-  : UserMark(ptOrg, Type::ROAD_WARNING)
-{}
+RoadWarningMark::RoadWarningMark(m2::PointD const & ptOrg) : UserMark(ptOrg, Type::ROAD_WARNING) {}
 
 uint16_t RoadWarningMark::GetPriority() const
 {
@@ -630,7 +617,7 @@ uint16_t RoadWarningMark::GetPriority() const
   {
     switch (m_type)
     {
-    using enum RoadWarningMarkType;
+      using enum RoadWarningMarkType;
     case Toll: return static_cast<uint16_t>(Priority::RoadWarningFirstToll);
     case Ferry: return static_cast<uint16_t>(Priority::RoadWarningFirstFerry);
     case Dirty: return static_cast<uint16_t>(Priority::RoadWarningFirstDirty);
@@ -669,7 +656,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames
   std::string_view symbolName;
   switch (m_type)
   {
-  using enum RoadWarningMarkType;
+    using enum RoadWarningMarkType;
   case Toll: symbolName = "paid_road"; break;
   case Ferry: symbolName = "ferry"; break;
   case Dirty: symbolName = "unpaved_road"; break;
@@ -685,7 +672,7 @@ std::string RoadWarningMark::GetLocalizedRoadWarningType(RoadWarningMarkType typ
 {
   switch (type)
   {
-  using enum RoadWarningMarkType;
+    using enum RoadWarningMarkType;
   case Toll: return platform::GetLocalizedString("toll_road");
   case Ferry: return platform::GetLocalizedString("ferry_crossing");
   case Dirty: return platform::GetLocalizedString("unpaved_road");
@@ -698,7 +685,7 @@ std::string DebugPrint(RoadWarningMarkType type)
 {
   switch (type)
   {
-  using enum RoadWarningMarkType;
+    using enum RoadWarningMarkType;
   case Toll: return "Toll";
   case Ferry: return "Ferry";
   case Dirty: return "Dirty";

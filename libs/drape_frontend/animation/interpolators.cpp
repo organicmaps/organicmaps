@@ -103,8 +103,8 @@ PositionInterpolator::PositionInterpolator()
   : PositionInterpolator(0.0 /* duration */, 0.0 /* delay */, m2::PointD(), m2::PointD())
 {}
 
-PositionInterpolator::PositionInterpolator(double duration, double delay,
-                                           m2::PointD const & startPosition, m2::PointD const & endPosition)
+PositionInterpolator::PositionInterpolator(double duration, double delay, m2::PointD const & startPosition,
+                                           m2::PointD const & endPosition)
   : Interpolator(duration, delay)
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
@@ -118,9 +118,8 @@ PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2:
   : PositionInterpolator(0.0 /* delay */, startPosition, endPosition, convertor)
 {}
 
-PositionInterpolator::PositionInterpolator(double delay,
-                                           m2::PointD const & startPosition, m2::PointD const & endPosition,
-                                           ScreenBase const & convertor)
+PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & startPosition,
+                                           m2::PointD const & endPosition, ScreenBase const & convertor)
   : Interpolator(PositionInterpolator::GetMoveDuration(startPosition, endPosition, convertor), delay)
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
@@ -134,9 +133,8 @@ PositionInterpolator::PositionInterpolator(m2::PointD const & startPosition, m2:
   : PositionInterpolator(0.0 /* delay */, startPosition, endPosition, viewportRect, scale)
 {}
 
-PositionInterpolator::PositionInterpolator(double delay,
-                                           m2::PointD const & startPosition, m2::PointD const & endPosition,
-                                           m2::RectD const & viewportRect, double scale)
+PositionInterpolator::PositionInterpolator(double delay, m2::PointD const & startPosition,
+                                           m2::PointD const & endPosition, m2::RectD const & viewportRect, double scale)
   : Interpolator(PositionInterpolator::GetMoveDuration(startPosition, endPosition, viewportRect, scale), delay)
   , m_startPosition(startPosition)
   , m_endPosition(endPosition)
@@ -145,7 +143,7 @@ PositionInterpolator::PositionInterpolator(double delay,
   SetActive((GetDuration() > 0.0) && (m_startPosition != m_endPosition));
 }
 
-//static
+// static
 double PositionInterpolator::GetMoveDuration(double globalDistance, m2::RectD const & viewportRect, double scale)
 {
   double constexpr kMinMoveDuration = 0.2;
@@ -166,21 +164,19 @@ double PositionInterpolator::GetMoveDuration(double globalDistance, m2::RectD co
   return CalcAnimSpeedDuration(pixelLength, pixelSpeed);
 }
 
-//static
+// static
 double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition,
-                              m2::RectD const & viewportRect, double scale)
+                                             m2::RectD const & viewportRect, double scale)
 {
   return GetMoveDuration(endPosition.Length(startPosition), viewportRect, scale);
 }
 
-//static
-double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition,
-                                             m2::PointD const & endPosition,
+// static
+double PositionInterpolator::GetMoveDuration(m2::PointD const & startPosition, m2::PointD const & endPosition,
                                              ScreenBase const & convertor)
 {
   return GetMoveDuration(startPosition, endPosition, convertor.PixelRectIn3d(), convertor.GetScale());
 }
-
 
 void PositionInterpolator::Advance(double elapsedSeconds)
 {
@@ -235,9 +231,7 @@ void ScaleInterpolator::Finish()
   m_scale = m_endScale;
 }
 
-AngleInterpolator::AngleInterpolator()
-  : AngleInterpolator(0.0 /* startAngle */, 0.0 /* endAngle */)
-{}
+AngleInterpolator::AngleInterpolator() : AngleInterpolator(0.0 /* startAngle */, 0.0 /* endAngle */) {}
 
 AngleInterpolator::AngleInterpolator(double startAngle, double endAngle)
   : AngleInterpolator(0.0 /* delay */, startAngle, endAngle)
@@ -282,4 +276,4 @@ void AngleInterpolator::Finish()
   m_angle = m_endAngle;
 }
 
-} // namespace df
+}  // namespace df

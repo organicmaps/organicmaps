@@ -1274,6 +1274,8 @@ area|z17-[amenity=language_school]
 node|z17-[leisure=hackerspace],
 area|z17-[leisure=hackerspace]
 {icon-image: hackerspace-m.svg;}
+node|z17-[leisure=escape_game]
+{icon-image: escape_game-m.svg;}
 
 /* 5.3 Sport */
 
@@ -1889,6 +1891,9 @@ area|z18-[amenity=public_bookcase]
 node|z17-[amenity=public_bath],
 area|z17-[amenity=public_bath],
 {icon-image: public_bath-m.svg;font-size: 11;}
+
+node|z17-[amenity=luggage_locker],
+{icon-image: luggage_locker-m.svg;font-size: 11;}
 
 /* 6. SHOP */
 

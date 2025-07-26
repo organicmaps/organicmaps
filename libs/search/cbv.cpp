@@ -21,7 +21,10 @@ CBV const & CBV::GetFull()
 
 CBV::CBV(unique_ptr<coding::CompressedBitVector> p) : m_p(std::move(p)) {}
 
-CBV::CBV(CBV && cbv) : m_p(std::move(cbv.m_p)), m_isFull(cbv.m_isFull) { cbv.m_isFull = false; }
+CBV::CBV(CBV && cbv) : m_p(std::move(cbv.m_p)), m_isFull(cbv.m_isFull)
+{
+  cbv.m_isFull = false;
+}
 
 CBV::CBV(bool full) : m_isFull(full) {}
 

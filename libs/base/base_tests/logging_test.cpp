@@ -5,26 +5,23 @@
 #include <utility>
 #include <vector>
 
-
 namespace
 {
-  void TestLogMessage(base::LogLevel, base::SrcPoint const &, std::string const &)
-  {
-  }
+void TestLogMessage(base::LogLevel, base::SrcPoint const &, std::string const &) {}
 
-  bool g_SomeFunctionCalled;
-  int SomeFunction()
-  {
-    g_SomeFunctionCalled = true;
-    return 3;
-  }
-
-  bool BoolFunction(bool result, bool & called)
-  {
-     called = true;
-     return result;
-  }
+bool g_SomeFunctionCalled;
+int SomeFunction()
+{
+  g_SomeFunctionCalled = true;
+  return 3;
 }
+
+bool BoolFunction(bool result, bool & called)
+{
+  called = true;
+  return result;
+}
+}  // namespace
 
 UNIT_TEST(Logging_Level)
 {

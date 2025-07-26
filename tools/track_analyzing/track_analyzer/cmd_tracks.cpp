@@ -22,7 +22,6 @@
 #include <iostream>
 #include <sstream>
 
-
 namespace track_analyzing
 {
 using namespace routing;
@@ -105,8 +104,7 @@ bool TrackHasTrafficPoints(MatchedTrack const & track)
   return false;
 }
 
-double EstimateDuration(MatchedTrack const & track, shared_ptr<EdgeEstimator> estimator,
-                        Geometry & geometry)
+double EstimateDuration(MatchedTrack const & track, shared_ptr<EdgeEstimator> estimator, Geometry & geometry)
 {
   double result = 0.0;
   Segment segment;
@@ -117,16 +115,15 @@ double EstimateDuration(MatchedTrack const & track, shared_ptr<EdgeEstimator> es
       continue;
 
     segment = point.GetSegment();
-    result += estimator->CalcSegmentWeight(segment, geometry.GetRoad(segment.GetFeatureId()),
-                                           EdgeEstimator::Purpose::ETA);
+    result +=
+        estimator->CalcSegmentWeight(segment, geometry.GetRoad(segment.GetFeatureId()), EdgeEstimator::Purpose::ETA);
   }
 
   return result;
 }
 
-void CmdTracks(string const & filepath, string const & trackExtension, StringFilter mwmFilter,
-               StringFilter userFilter, TrackFilter const & filter, bool noTrackLogs,
-               bool noMwmLogs, bool noWorldLogs)
+void CmdTracks(string const & filepath, string const & trackExtension, StringFilter mwmFilter, StringFilter userFilter,
+               TrackFilter const & filter, bool noTrackLogs, bool noMwmLogs, bool noWorldLogs)
 {
   storage::Storage storage;
   auto numMwmIds = CreateNumMwmIds(storage);
@@ -135,21 +132,19 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
   ErrorStat absoluteError;
   ErrorStat relativeError;
 
-  auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks) {
+  auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks)
+  {
     if (mwmFilter(mwmName))
       return;
 
     TrackStats & mwmStats = mwmToStats[mwmName];
 
-    shared_ptr<VehicleModelInterface> vehicleModel =
-        CarModelFactory({}).GetVehicleModelForCountry(mwmName);
+    shared_ptr<VehicleModelInterface> vehicleModel = CarModelFactory({}).GetVehicleModelForCountry(mwmName);
 
-    Geometry geometry(
-        GeometryLoader::CreateFromFile(GetCurrentVersionMwmFile(storage, mwmName), vehicleModel));
+    Geometry geometry(GeometryLoader::CreateFromFile(GetCurrentVersionMwmFile(storage, mwmName), vehicleModel));
 
-    shared_ptr<EdgeEstimator> estimator =
-        EdgeEstimator::Create(VehicleType::Car, *vehicleModel,
-          nullptr /* trafficStash */, nullptr /* dataSource */, nullptr /* numMwmIds */);
+    shared_ptr<EdgeEstimator> estimator = EdgeEstimator::Create(
+        VehicleType::Car, *vehicleModel, nullptr /* trafficStash */, nullptr /* dataSource */, nullptr /* numMwmIds */);
 
     for (auto const & it : userToMatchedTracks)
     {
@@ -181,13 +176,13 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
         if (!noTrackLogs)
         {
           cout << fixed << setprecision(1) << "  points: " << track.size() << ", length: " << length
-               << ", duration: " << duration << ", estimated duration: " << estimatedDuration
-               << ", speed: " << speed << ", traffic: " << hasTrafficPoints
+               << ", duration: " << duration << ", estimated duration: " << estimatedDuration << ", speed: " << speed
+               << ", traffic: " << hasTrafficPoints
                << ", departure: " << base::SecondsSinceEpochToString(start.m_timestamp)
                << ", arrival: " << base::SecondsSinceEpochToString(finish.m_timestamp)
-               << setprecision(numeric_limits<double>::max_digits10)
-               << ", start: " << start.m_latLon.m_lat << ", " << start.m_latLon.m_lon
-               << ", finish: " << finish.m_latLon.m_lat << ", " << finish.m_latLon.m_lon << endl;
+               << setprecision(numeric_limits<double>::max_digits10) << ", start: " << start.m_latLon.m_lat << ", "
+               << start.m_latLon.m_lon << ", finish: " << finish.m_latLon.m_lat << ", " << finish.m_latLon.m_lon
+               << endl;
         }
 
         mwmStats.AddTracks(1);
@@ -202,7 +197,8 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
     }
   };
 
-  auto processFile = [&](string const & filename, MwmToMatchedTracks const & mwmToMatchedTracks) {
+  auto processFile = [&](string const & filename, MwmToMatchedTracks const & mwmToMatchedTracks)
+  {
     LOG(LINFO, ("Processing", filename));
     ForTracksSortedByMwmName(mwmToMatchedTracks, *numMwmIds, processMwm);
   };
@@ -213,10 +209,8 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
   {
     cout << endl;
     for (auto const & it : mwmToStats)
-    {
       if (!it.second.IsEmpty())
         cout << it.first << ": " << it.second.GetSummary() << endl;
-    }
   }
 
   if (!noWorldLogs)
@@ -226,11 +220,9 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
       worldStats.Add(it.second);
 
     cout << endl << "World: " << worldStats.GetSummary() << endl;
-    cout << fixed << setprecision(1)
-         << "Absolute error: deviation: " << absoluteError.GetStdDevString()
+    cout << fixed << setprecision(1) << "Absolute error: deviation: " << absoluteError.GetStdDevString()
          << ", min: " << absoluteError.GetMin() << ", max: " << absoluteError.GetMax() << endl;
-    cout << fixed << setprecision(3)
-         << "Relative error: deviation: " << relativeError.GetStdDevString()
+    cout << fixed << setprecision(3) << "Relative error: deviation: " << relativeError.GetStdDevString()
          << ", min: " << relativeError.GetMin() << ", max: " << relativeError.GetMax() << endl;
   }
 }

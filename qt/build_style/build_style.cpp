@@ -9,9 +9,9 @@
 #include <future>
 #include <string>
 
-#include <QtCore/QFile>
-#include <QtCore/QDir>
 #include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
 
 namespace
 {
@@ -54,7 +54,7 @@ void BuildAndApply(QString const & mapcssFile)
   {
     auto future = std::async(std::launch::async, BuildSkins, styleDir, outputDir);
     BuildDrawingRules(mapcssFile, outputDir);
-    future.get(); // may rethrow exception from the BuildSkin
+    future.get();  // may rethrow exception from the BuildSkin
 
     ApplyDrawingRules(outputDir);
     ApplySkins(outputDir);
@@ -108,13 +108,13 @@ void RunRecalculationGeometryScript(QString const & mapcssFile)
   CopyFromResources("types.txt", geometryToolResourceDir);
 
   (void)ExecProcess("python", {
-      GetRecalculateGeometryScriptPath(),
-      resourceDir,
-      writableDir,
-      generatorToolPath,
-      appPath,
-      mapcssFile,
-  });
+                                  GetRecalculateGeometryScriptPath(),
+                                  resourceDir,
+                                  writableDir,
+                                  generatorToolPath,
+                                  appPath,
+                                  mapcssFile,
+                              });
 }
 
 bool NeedRecalculate = false;

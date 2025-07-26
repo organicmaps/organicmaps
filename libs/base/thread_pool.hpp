@@ -14,9 +14,9 @@ namespace base
 class ThreadPool
 {
 public:
-  typedef std::function<void (threads::IRoutine *)> TFinishRoutineFn;
+  typedef std::function<void(threads::IRoutine *)> TFinishRoutineFn;
 
-  ThreadPool(size_t size, const TFinishRoutineFn & finishFn);
+  ThreadPool(size_t size, TFinishRoutineFn const & finishFn);
   ~ThreadPool();
 
   // ThreadPool will not delete routine. You can delete it in TFinishRoutineFn.
@@ -33,4 +33,4 @@ private:
   Impl * m_impl;
 };
 
-} // namespace base
+}  // namespace base

@@ -62,9 +62,9 @@ void SplitUniString(strings::UniString const & uniS, Fn && fn, Delims const & de
     strings::UniString str(beg + i, beg + j);
 
     // Transform "xyz's" -> "xyzs".
-    if (j+1 < count && uniS[j] == '\'' && uniS[j+1] == 's' && (j+2 == count || delims(uniS[j+2])))
+    if (j + 1 < count && uniS[j] == '\'' && uniS[j + 1] == 's' && (j + 2 == count || delims(uniS[j + 2])))
     {
-      str.push_back(uniS[j+1]);
+      str.push_back(uniS[j + 1]);
       j += 2;
     }
 
@@ -116,9 +116,9 @@ public:
 
   template <typename C>
   StreetTokensFilter(C && callback, bool withMisprints)
-    : m_callback(std::forward<C>(callback)), m_withMisprints(withMisprints)
-  {
-  }
+    : m_callback(std::forward<C>(callback))
+    , m_withMisprints(withMisprints)
+  {}
 
   // Puts token to the filter. Filter checks following cases:
   // * when |token| is the first street synonym met so far, it's delayed
@@ -136,4 +136,4 @@ private:
 using String2StringMap = std::map<strings::UniString, strings::UniString>;
 String2StringMap const & GetDACHStreets();
 
-} // namespace search
+}  // namespace search

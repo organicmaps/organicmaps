@@ -50,8 +50,8 @@ public:
   FeaturesLayerPathFinder(base::Cancellable const & cancellable) : m_cancellable(cancellable) {}
 
   template <typename TFn>
-  void ForEachReachableVertex(FeaturesLayerMatcher & matcher,
-                              std::vector<FeaturesLayer const *> const & layers, TFn && fn)
+  void ForEachReachableVertex(FeaturesLayerMatcher & matcher, std::vector<FeaturesLayer const *> const & layers,
+                              TFn && fn)
   {
     if (layers.empty())
       return;
@@ -86,22 +86,19 @@ private:
   void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
 
   template <class FnT>
-  void FindReachableVertices(FeaturesLayerMatcher & matcher,
-                             std::vector<FeaturesLayer const *> const & layers,
+  void FindReachableVertices(FeaturesLayerMatcher & matcher, std::vector<FeaturesLayer const *> const & layers,
                              FnT && fn);
 
   // Tries to find all |reachable| features from the lowest layer in a
   // high level -> low level pass.
   template <class FnT>
-  void FindReachableVerticesTopDown(FeaturesLayerMatcher & matcher,
-                                    std::vector<FeaturesLayer const *> const & layers,
+  void FindReachableVerticesTopDown(FeaturesLayerMatcher & matcher, std::vector<FeaturesLayer const *> const & layers,
                                     FnT && fn);
 
   // Tries to find all |reachable| features from the lowest layer in a
   // low level -> high level pass.
   template <class FnT>
-  void FindReachableVerticesBottomUp(FeaturesLayerMatcher & matcher,
-                                     std::vector<FeaturesLayer const *> const & layers,
+  void FindReachableVerticesBottomUp(FeaturesLayerMatcher & matcher, std::vector<FeaturesLayer const *> const & layers,
                                      FnT && fn);
 
   base::Cancellable const & m_cancellable;

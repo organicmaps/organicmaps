@@ -2,7 +2,7 @@
 
 typedef NS_ENUM(NSInteger, MWMOpenGLDriver) {
   MWMOpenGLDriverRegular,
-  MWMOpenGLDriverMetalPre103, // iOS 10..10.3
+  MWMOpenGLDriverMetalPre103,  // iOS 10..10.3
   MWMOpenGLDriverMetal
 };
 

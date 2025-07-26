@@ -2,7 +2,6 @@
 
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
-#include "routing/road_graph.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/segment.hpp"
 #include "routing/turns.hpp"
@@ -26,11 +25,12 @@ using namespace std;
 UNIT_TEST(FillSegmentInfoSmokeTest)
 {
   vector<Segment> const segments = {
-      {0 /* mwmId */, 1 /* featureId */, 0 /* segmentIdx */, true /* forward */}};
-  vector<m2::PointD> const junctions = {
-      m2::PointD(0.0 /* x */, 0.0 /* y */),
-      m2::PointD(0.0 /* x */, 0.0 /* y */)};
-  vector<turns::TurnItem> const & turnDirs = {{1 /* point index */, CarDirection::ReachedYourDestination}};
+      {0 /* mwmId */, 1 /* featureId */, 0 /* segmentIdx */, true /* forward */}
+  };
+  vector<m2::PointD> const junctions = {m2::PointD(0.0 /* x */, 0.0 /* y */), m2::PointD(0.0 /* x */, 0.0 /* y */)};
+  vector<turns::TurnItem> const & turnDirs = {
+      {1 /* point index */, CarDirection::ReachedYourDestination}
+  };
   vector<double> const times = {1.0};
 
   vector<RouteSegment> routeSegments;
@@ -44,23 +44,23 @@ UNIT_TEST(FillSegmentInfoSmokeTest)
 
 UNIT_TEST(FillSegmentInfoTest)
 {
-  vector<Segment> const segments =
-      {{0 /* mwmId */, 1 /* featureId */, 0 /* segmentIdx */, true /* forward */},
-       {0, 2, 0, true},
-       {0, 3, 0, true}};
-  vector<m2::PointD> const junctions =
-      {m2::PointD(0.0 /* x */, 0.0 /* y */),
-       m2::PointD(0.0 /* x */, 0.0 /* y */),
-       m2::PointD(0.1 /* x */, 0.0 /* y */),
-       m2::PointD(0.2 /* x */, 0.0 /* y */)};
-  vector<turns::TurnItem> const & turnDirs =
-      {{1 /* point index */, CarDirection::None},
-       {2 /* point index */, CarDirection::TurnRight},
-       {3 /* point index */, CarDirection::ReachedYourDestination}};
-  vector<RouteSegment::RoadNameInfo> const streets =
-      {{"zero", "", "", "", "", false},
-       {"first", "", "", "", "", false},
-       {"second", "", "", "", "", false}};
+  vector<Segment> const segments = {
+      {0 /* mwmId */, 1 /* featureId */, 0 /* segmentIdx */, true /* forward */},
+      {            0,                 2,                  0,               true},
+      {            0,                 3,                  0,               true}
+  };
+  vector<m2::PointD> const junctions = {m2::PointD(0.0 /* x */, 0.0 /* y */), m2::PointD(0.0 /* x */, 0.0 /* y */),
+                                        m2::PointD(0.1 /* x */, 0.0 /* y */), m2::PointD(0.2 /* x */, 0.0 /* y */)};
+  vector<turns::TurnItem> const & turnDirs = {
+      {1 /* point index */,                   CarDirection::None},
+      {2 /* point index */,              CarDirection::TurnRight},
+      {3 /* point index */, CarDirection::ReachedYourDestination}
+  };
+  vector<RouteSegment::RoadNameInfo> const streets = {
+      {  "zero", "", "", "", "", false},
+      { "first", "", "", "", "", false},
+      {"second", "", "", "", "", false}
+  };
   vector<double> const times = {1.0, 2.0, 3.0};
 
   vector<RouteSegment> segmentInfo;
@@ -85,22 +85,25 @@ UNIT_TEST(PolylineInRectTest)
 
   // One point polyline outside the rect.
   {
-    auto const junctions =
-        IRoadGraph::PointWithAltitudeVec({{m2::PointD(3.0, 3.0), 0 /* altitude */}});
+    auto const junctions = IRoadGraph::PointWithAltitudeVec({
+        {m2::PointD(3.0, 3.0), 0 /* altitude */}
+    });
     TEST(!RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
   }
 
   // One point polyline inside the rect.
   {
-    auto const junctions =
-        IRoadGraph::PointWithAltitudeVec({{m2::PointD(1.0, 1.0), 0 /* altitude */}});
+    auto const junctions = IRoadGraph::PointWithAltitudeVec({
+        {m2::PointD(1.0, 1.0), 0 /* altitude */}
+    });
     TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
   }
 
   // One point polyline on the rect border.
   {
-    auto const junctions =
-        IRoadGraph::PointWithAltitudeVec({{m2::PointD(0.0, 0.0), 0 /* altitude */}});
+    auto const junctions = IRoadGraph::PointWithAltitudeVec({
+        {m2::PointD(0.0, 0.0), 0 /* altitude */}
+    });
     TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
   }
 
@@ -108,7 +111,7 @@ UNIT_TEST(PolylineInRectTest)
   {
     auto const junctions = IRoadGraph::PointWithAltitudeVec({
         {m2::PointD(-1.0, -1.0), 0 /* altitude */},
-        {m2::PointD(0.0, 0.0), 0 /* altitude */},
+        { m2::PointD(0.0,  0.0), 0 /* altitude */},
     });
     TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
   }
@@ -117,14 +120,14 @@ UNIT_TEST(PolylineInRectTest)
   {
     auto const junctions = IRoadGraph::PointWithAltitudeVec({
         {m2::PointD(-1.0, -1.0), 0 /* altitude */},
-        {m2::PointD(5.0, 5.0), 0 /* altitude */},
+        { m2::PointD(5.0,  5.0), 0 /* altitude */},
     });
     TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 2.0, 2.0)), ());
   }
 
   {
     auto const junctions = IRoadGraph::PointWithAltitudeVec({
-        {m2::PointD(0.0, 1.0), 0 /* altitude */},
+        {  m2::PointD(0.0, 1.0), 0 /* altitude */},
         {m2::PointD(100.0, 2.0), 0 /* altitude */},
     });
     TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 100.0, 1.0)), ());
@@ -134,7 +137,7 @@ UNIT_TEST(PolylineInRectTest)
   {
     auto const junctions = IRoadGraph::PointWithAltitudeVec({
         {m2::PointD(-1.0, 0.0), 0 /* altitude */},
-        {m2::PointD(1.0, 1.9), 0 /* altitude */},
+        { m2::PointD(1.0, 1.9), 0 /* altitude */},
     });
     TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 1.0, 1.0)), ());
   }

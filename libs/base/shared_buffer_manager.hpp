@@ -13,8 +13,8 @@ public:
   typedef std::shared_ptr<shared_buffer_t> shared_buffer_ptr_t;
   typedef std::list<shared_buffer_ptr_t> shared_buffer_ptr_list_t;
   typedef std::map<size_t, shared_buffer_ptr_list_t> shared_buffers_t;
-private:
 
+private:
   std::mutex m_mutex;
   shared_buffers_t m_sharedBuffers;
 

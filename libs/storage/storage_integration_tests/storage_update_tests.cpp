@@ -30,24 +30,21 @@ static FrameworkParams const kFrameworkParams(false /* m_enableDiffs */);
 string const kCountriesTxtFile = COUNTRIES_FILE;
 
 string const kMwmVersion1 = "190830";
-//size_t const kCountriesTxtFileSize1 = 420632;
+// size_t const kCountriesTxtFileSize1 = 420632;
 
 string const kMwmVersion2 = "190910";
-//size_t const kCountriesTxtFileSize2 = 420634;
+// size_t const kCountriesTxtFileSize2 = 420634;
 
 string const kGroupCountryId = "Belarus";
 
-bool DownloadFile(string const & url,
-                  string const & filePath,
-                  size_t fileSize)
+bool DownloadFile(string const & url, string const & filePath, size_t fileSize)
 {
   using namespace downloader;
 
   DownloadStatus httpStatus;
   bool finished = false;
 
-  unique_ptr<HttpRequest> request(HttpRequest::GetFile({url}, filePath, fileSize,
-                                  [&](HttpRequest & request)
+  unique_ptr<HttpRequest> request(HttpRequest::GetFile({url}, filePath, fileSize, [&](HttpRequest & request)
   {
     DownloadStatus const s = request.GetStatus();
     if (s != DownloadStatus::InProgress)

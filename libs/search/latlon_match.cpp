@@ -43,7 +43,7 @@ void Skip(Char *& s)
     ++s;
 }
 
-bool MatchDMSArray(char const * & s, char const * arr[], size_t count)
+bool MatchDMSArray(char const *& s, char const * arr[], size_t count)
 {
   for (size_t i = 0; i < count; ++i)
   {
@@ -57,14 +57,14 @@ bool MatchDMSArray(char const * & s, char const * arr[], size_t count)
   return false;
 }
 
-int GetDMSIndex(char const * & s)
+int GetDMSIndex(char const *& s)
 {
-  char const * arrDegree[] = { "*", "°" };
-  char const * arrMinutes[] = { "\'", "’", "′" };
-  char const * arrSeconds[] = { "\"", "”", "″", "\'\'", "’’", "′′" };
+  char const * arrDegree[] = {"*", "°"};
+  char const * arrMinutes[] = {"\'", "’", "′"};
+  char const * arrSeconds[] = {"\"", "”", "″", "\'\'", "’’", "′′"};
 
   if (MatchDMSArray(s, arrDegree, ARRAY_SIZE(arrDegree)))
-      return 0;
+    return 0;
   if (MatchDMSArray(s, arrSeconds, ARRAY_SIZE(arrSeconds)))
     return 2;
   if (MatchDMSArray(s, arrMinutes, ARRAY_SIZE(arrMinutes)))
@@ -73,17 +73,21 @@ int GetDMSIndex(char const * & s)
   return -1;
 }
 
-bool SkipNSEW(char const * & s, char const * (&arrPos) [4])
+bool SkipNSEW(char const *& s, char const * (&arrPos)[4])
 {
   Skip(s);
 
   int ind;
   switch (*s)
   {
-  case 'N': case 'n': ind = 0; break;
-  case 'S': case 's': ind = 1; break;
-  case 'E': case 'e': ind = 2; break;
-  case 'W': case 'w': ind = 3; break;
+  case 'N':
+  case 'n': ind = 0; break;
+  case 'S':
+  case 's': ind = 1; break;
+  case 'E':
+  case 'e': ind = 2; break;
+  case 'W':
+  case 'w': ind = 3; break;
   default: return false;
   }
 
@@ -157,7 +161,7 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
 
   // Positions of N, S, E, W symbols
   char const * arrPos[] = {nullptr, nullptr, nullptr, nullptr};
-  bool arrDegreeSymbol[] = { false, false };
+  bool arrDegreeSymbol[] = {false, false};
 
   char const * const startQuery = query.c_str();
   char const * s = startQuery;
@@ -195,7 +199,7 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
         break;
       }
     }
-    else if (x < 0 && s == s1 && !(s == startQuery || kSpaces.find(*(s-1)) != string::npos))
+    else if (x < 0 && s == s1 && !(s == startQuery || kSpaces.find(*(s - 1)) != string::npos))
     {
       // Skip input like "3-8"
       return false;
@@ -223,7 +227,7 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
       }
     }
 
-    if (i == 0) // degrees
+    if (i == 0)  // degrees
     {
       if (v[base].second)
       {
@@ -239,8 +243,7 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
       }
       arrDegreeSymbol[base / 3] = degreeSymbol;
     }
-    else  // minutes or seconds
-    {
+    else                                    // minutes or seconds
       if (x < 0.0 || x > 60.0 ||            // minutes or seconds should be in [0, 60] range
           v[base + i].second ||             // value already exists
           !v[base].second ||                // no degrees found for value
@@ -248,7 +251,6 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
       {
         return false;
       }
-    }
 
     v[base + i].first = x;
     v[base + i].second = true;
@@ -268,10 +270,12 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
 
   // Calculate Lat, Lon with correct sign.
   lat = fabs(v[0].first) + v[1].first / 60.0 + v[2].first / 3600.0;
-  if (v[0].first < 0.0) lat = -lat;
+  if (v[0].first < 0.0)
+    lat = -lat;
 
   lon = fabs(v[3].first) + v[4].first / 60.0 + v[5].first / 3600.0;
-  if (v[3].first < 0.0) lon = -lon;
+  if (v[3].first < 0.0)
+    lon = -lon;
 
   if (max(arrPos[0], arrPos[1]) > max(arrPos[2], arrPos[3]))
     swap(lat, lon);

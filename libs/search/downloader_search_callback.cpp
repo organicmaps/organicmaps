@@ -19,12 +19,10 @@
 namespace
 {
 /// @todo Can't change on string_view now, because of unordered_map<string> synonyms.
-bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType & ft,
-                                  std::string & name)
+bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType & ft, std::string & name)
 {
   auto const & synonyms = storage.GetCountryNameSynonyms();
-  int8_t const langIndices[] = {StringUtf8Multilang::kEnglishCode,
-                                StringUtf8Multilang::kDefaultCode,
+  int8_t const langIndices[] = {StringUtf8Multilang::kEnglishCode, StringUtf8Multilang::kDefaultCode,
                                 StringUtf8Multilang::kInternationalCode};
 
   for (auto const langIndex : langIndices)
@@ -49,8 +47,7 @@ bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType 
 
 namespace search
 {
-DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate,
-                                                   DataSource const & dataSource,
+DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate, DataSource const & dataSource,
                                                    storage::CountryInfoGetter const & infoGetter,
                                                    storage::Storage const & storage,
                                                    storage::DownloaderSearchParams params)
@@ -59,8 +56,7 @@ DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate,
   , m_infoGetter(infoGetter)
   , m_storage(storage)
   , m_params(std::move(params))
-{
-}
+{}
 
 void DownloaderSearchCallback::operator()(search::Results const & results)
 {
@@ -90,8 +86,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
         std::string groupFeatureName;
         if (GetGroupCountryIdFromFeature(m_storage, *ft, groupFeatureName))
         {
-          storage::DownloaderSearchResult downloaderResult(groupFeatureName,
-                                                           result.GetString() /* m_matchedName */);
+          storage::DownloaderSearchResult downloaderResult(groupFeatureName, result.GetString() /* m_matchedName */);
           if (uniqueResults.find(downloaderResult) == uniqueResults.end())
           {
             uniqueResults.insert(downloaderResult);
@@ -106,8 +101,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
     if (countryId == storage::kInvalidCountryId)
       continue;
 
-    storage::DownloaderSearchResult downloaderResult(countryId,
-                                                     result.GetString() /* m_matchedName */);
+    storage::DownloaderSearchResult downloaderResult(countryId, result.GetString() /* m_matchedName */);
     if (uniqueResults.find(downloaderResult) == uniqueResults.end())
     {
       uniqueResults.insert(downloaderResult);
@@ -119,8 +113,6 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
   downloaderSearchResults.m_endMarker = results.IsEndMarker();
 
   m_delegate.RunUITask([onResults = m_params.m_onResults, results = std::move(downloaderSearchResults)]() mutable
-  {
-    onResults(std::move(results));
-  });
+  { onResults(std::move(results)); });
 }
 }  // namespace search

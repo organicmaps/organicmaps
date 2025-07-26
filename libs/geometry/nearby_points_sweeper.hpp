@@ -55,8 +55,8 @@ public:
           break;
         }
 
-        auto it = line.upper_bound(
-            {event.m_x, std::numeric_limits<size_t>::max(), std::numeric_limits<uint8_t>::max()});
+        auto it =
+            line.upper_bound({event.m_x, std::numeric_limits<size_t>::max(), std::numeric_limits<uint8_t>::max()});
 
         bool add = true;
         while (true)

@@ -24,8 +24,7 @@ using TCountryFileFn = std::function<std::string(m2::PointD const &)>;
 using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
 
 // Guides with integer ids containing multiple tracks. One track consists of its points.
-using GuidesTracks =
-    std::map<kml::MarkGroupId, std::vector<std::vector<geometry::PointWithAltitude>>>;
+using GuidesTracks = std::map<kml::MarkGroupId, std::vector<std::vector<geometry::PointWithAltitude>>>;
 
 class Route;
 
@@ -76,12 +75,11 @@ public:
   /// @param route result route
   /// @return ResultCode error code or NoError if route was initialised
   /// @see Cancellable
-  virtual RouterResultCode CalculateRoute(Checkpoints const & checkpoints,
-                                          m2::PointD const & startDirection, bool adjust,
-                                          RouterDelegate const & delegate, Route & route) = 0;
+  virtual RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                                          bool adjust, RouterDelegate const & delegate, Route & route) = 0;
 
-  virtual bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction,
-                                           double radius, EdgeProj & proj) = 0;
+  virtual bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
+                                           EdgeProj & proj) = 0;
 };
 
 }  // namespace routing

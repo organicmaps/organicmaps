@@ -10,7 +10,7 @@ UNIT_TEST(RoadShields_Smoke)
   TEST_EQUAL(shields.size(), 1, ());
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Orange, ());
 
-  shields = GetRoadShields("Belarus", "M1"); // latin letter M
+  shields = GetRoadShields("Belarus", "M1");  // latin letter M
   TEST_EQUAL(shields.size(), 1, ());
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Red, ());
 

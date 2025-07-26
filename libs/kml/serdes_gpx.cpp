@@ -9,7 +9,6 @@
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
-
 namespace kml
 {
 namespace gpx
@@ -46,9 +45,9 @@ int constexpr kInvalidColor = 0;
 }  // namespace
 
 GpxParser::GpxParser(FileData & data)
-: m_data{data}
-, m_categoryData{&m_data.m_categoryData}
-, m_globalColor{kInvalidColor}
+  : m_data{data}
+  , m_categoryData{&m_data.m_categoryData}
+  , m_globalColor{kInvalidColor}
 {
   ResetPoint();
 }
@@ -112,9 +111,8 @@ bool GpxParser::Push(std::string tag)
 bool GpxParser::IsValidCoordinatesPosition() const
 {
   std::string const & lastTag = GetTagFromEnd(0);
-  return lastTag == gpx::kWpt
-      || (lastTag == gpx::kTrkPt && GetTagFromEnd(1) == gpx::kTrkSeg)
-      || (lastTag == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte);
+  return lastTag == gpx::kWpt || (lastTag == gpx::kTrkPt && GetTagFromEnd(1) == gpx::kTrkSeg) ||
+         (lastTag == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte);
 }
 
 void GpxParser::AddAttr(std::string_view attr, char const * value)
@@ -153,19 +151,18 @@ std::optional<uint32_t> GpxParser::ParseColorFromHexString(std::string_view colo
   {
   case 3: return kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
   case 4: return kml::ToRGBA(colorBytes[1], colorBytes[2], colorBytes[3], colorBytes[0]);
-  default:
-    LOG(LWARNING, ("Invalid color value", colorStr));
-    return {};
+  default: LOG(LWARNING, ("Invalid color value", colorStr)); return {};
   }
 }
 
 void GpxParser::ParseColor(std::string_view colorStr)
 {
-  if (const auto parsed = ParseColorFromHexString(colorStr); parsed)
+  if (auto const parsed = ParseColorFromHexString(colorStr); parsed)
     m_color = parsed.value();
 }
 
-// https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx/. Supported colors: #AARRGGBB/#RRGGBB/AARRGGBB/RRGGBB
+// https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx/. Supported colors:
+// #AARRGGBB/#RRGGBB/AARRGGBB/RRGGBB
 void GpxParser::ParseOsmandColor(std::string const & value)
 {
   auto const color = ParseColorFromHexString(value);
@@ -189,22 +186,22 @@ void GpxParser::ParseOsmandColor(std::string const & value)
 void GpxParser::ParseGarminColor(std::string const & v)
 {
   static std::unordered_map<std::string, std::string> const kGarminToHex = {
-      {"Black", "000000"},
-      {"DarkRed", "8b0000"},
-      {"DarkGreen", "006400"},
-      {"DarkYellow", "b5b820"},
-      {"DarkBlue", "00008b"},
+      {      "Black", "000000"},
+      {    "DarkRed", "8b0000"},
+      {  "DarkGreen", "006400"},
+      { "DarkYellow", "b5b820"},
+      {   "DarkBlue", "00008b"},
       {"DarkMagenta", "8b008b"},
-      {"DarkCyan", "008b8b"},
-      {"LightGray", "cccccc"},
-      {"DarkGray", "444444"},
-      {"Red", "ff0000"},
-      {"Green", "00ff00"},
-      {"Yellow", "ffff00"},
-      {"Blue", "0000ff"},
-      {"Magenta", "ff00ff"},
-      {"Cyan", "00ffff"},
-      {"White", "ffffff"},
+      {   "DarkCyan", "008b8b"},
+      {  "LightGray", "cccccc"},
+      {   "DarkGray", "444444"},
+      {        "Red", "ff0000"},
+      {      "Green", "00ff00"},
+      {     "Yellow", "ffff00"},
+      {       "Blue", "0000ff"},
+      {    "Magenta", "ff00ff"},
+      {       "Cyan", "00ffff"},
+      {      "White", "ffffff"},
       {"Transparent", "ff0000"}
   };
   auto const it = kGarminToHex.find(v);
@@ -250,7 +247,7 @@ void GpxParser::CheckAndCorrectTimestamps()
             else
             {
               // naive interpolation
-              auto const last = m_timestamps[i-1];
+              auto const last = m_timestamps[i - 1];
               auto count = j - i + 1;
               double const delta = (m_timestamps[j] - last) / double(count);
               for (size_t k = 1; k < count; ++k)
@@ -264,7 +261,7 @@ void GpxParser::CheckAndCorrectTimestamps()
         {
           // Ending range assign to the last valid timestamp.
           ASSERT(i > 0, ());
-          auto const last = m_timestamps[i-1];
+          auto const last = m_timestamps[i - 1];
           while (i < j)
             m_timestamps[i++] = last;
         }
@@ -488,30 +485,29 @@ struct RGBAToGarmin
 };
 
 auto constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({
-    {0x000000ff, "Black"},
-    {0x8b0000ff, "DarkRed"},
-    {0x006400ff, "DarkGreen"},
-    {0xb5b820ff, "DarkYellow"},
-    {0x00008bff, "DarkBlue"},
+    {0x000000ff,       "Black"},
+    {0x8b0000ff,     "DarkRed"},
+    {0x006400ff,   "DarkGreen"},
+    {0xb5b820ff,  "DarkYellow"},
+    {0x00008bff,    "DarkBlue"},
     {0x8b008bff, "DarkMagenta"},
-    {0x008b8bff, "DarkCyan"},
-    {0xccccccff, "LightGray"},
-    {0x444444ff, "DarkGray"},
-    {0xff0000ff, "Red"},
-    {0x00ff00ff, "Green"},
-    {0xffff00ff, "Yellow"},
-    {0x0000ffff, "Blue"},
-    {0xff00ffff, "Magenta"},
-    {0x00ffffff, "Cyan"},
-    {0xffffffff, "White"}
+    {0x008b8bff,    "DarkCyan"},
+    {0xccccccff,   "LightGray"},
+    {0x444444ff,    "DarkGray"},
+    {0xff0000ff,         "Red"},
+    {0x00ff00ff,       "Green"},
+    {0xffff00ff,      "Yellow"},
+    {0x0000ffff,        "Blue"},
+    {0xff00ffff,     "Magenta"},
+    {0x00ffffff,        "Cyan"},
+    {0xffffffff,       "White"}
 });
-
 
 std::string_view MapGarminColor(uint32_t rgba)
 {
   std::string_view closestColor = kRGBAToGarmin[0].color;
   auto minDistance = std::numeric_limits<int>::max();
-  for (const auto & [rgbaGarmin, color] : kRGBAToGarmin)
+  for (auto const & [rgbaGarmin, color] : kRGBAToGarmin)
   {
     auto const distance = ColorDistance(rgba, rgbaGarmin);
 
@@ -540,17 +536,14 @@ std::string CoordToString(double c)
 
 void SaveColorToRGB(Writer & writer, uint32_t rgba)
 {
-  writer << NumToHex(static_cast<uint8_t>(rgba >> 24 & 0xFF))
-         << NumToHex(static_cast<uint8_t>((rgba >> 16) & 0xFF))
+  writer << NumToHex(static_cast<uint8_t>(rgba >> 24 & 0xFF)) << NumToHex(static_cast<uint8_t>((rgba >> 16) & 0xFF))
          << NumToHex(static_cast<uint8_t>((rgba >> 8) & 0xFF));
 }
 
 void SaveColorToARGB(Writer & writer, uint32_t rgba)
 {
-  writer << NumToHex(static_cast<uint8_t>(rgba & 0xFF))
-         << NumToHex(static_cast<uint8_t>(rgba >> 24 & 0xFF))
-         << NumToHex(static_cast<uint8_t>((rgba >> 16) & 0xFF))
-         << NumToHex(static_cast<uint8_t>((rgba >> 8) & 0xFF));
+  writer << NumToHex(static_cast<uint8_t>(rgba & 0xFF)) << NumToHex(static_cast<uint8_t>(rgba >> 24 & 0xFF))
+         << NumToHex(static_cast<uint8_t>((rgba >> 16) & 0xFF)) << NumToHex(static_cast<uint8_t>((rgba >> 8) & 0xFF));
 }
 
 void SaveCategoryData(Writer & writer, CategoryData const & categoryData)
@@ -687,8 +680,7 @@ void GpxWriter::Write(FileData const & fileData)
 
 }  // namespace gpx
 
-DeserializerGpx::DeserializerGpx(FileData & fileData)
-: m_fileData(fileData)
+DeserializerGpx::DeserializerGpx(FileData & fileData) : m_fileData(fileData)
 {
   m_fileData = {};
 }

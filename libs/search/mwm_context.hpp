@@ -61,12 +61,12 @@ public:
   void ForEachIndex(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const
   {
     ForEachIndexImpl(intervals, scale, [&](uint32_t index)
-                     {
-                       // TODO: Optimize deleted checks by getting vector of deleted indexes from
-                       // the Editor.
-                       if (GetEditedStatus(index) != FeatureStatus::Deleted)
-                         fn(index);
-                     });
+    {
+      // TODO: Optimize deleted checks by getting vector of deleted indexes from
+      // the Editor.
+      if (GetEditedStatus(index) != FeatureStatus::Deleted)
+        fn(index);
+    });
   }
 
   template <typename Fn>
@@ -91,7 +91,8 @@ public:
     covering::Intervals intervals;
     CoverRect(rect, scale, intervals);
 
-    ForEachIndexImpl(intervals, scale, [&](uint32_t index) {
+    ForEachIndexImpl(intervals, scale, [&](uint32_t index)
+    {
       auto ft = GetFeature(index);
       if (ft)
         fn(*ft);
@@ -101,10 +102,7 @@ public:
   // Returns false if feature was deleted by user.
   std::unique_ptr<FeatureType> GetFeature(uint32_t index) const;
 
-  [[nodiscard]] inline bool GetCenter(uint32_t index, m2::PointD & center)
-  {
-    return m_centers.Get(index, center);
-  }
+  [[nodiscard]] inline bool GetCenter(uint32_t index, m2::PointD & center) { return m_centers.Get(index, center); }
 
   std::optional<uint32_t> GetStreet(uint32_t index) const;
 
@@ -112,22 +110,18 @@ public:
   MwmValue & m_value;
 
 private:
-  FeatureStatus GetEditedStatus(uint32_t index) const
-  {
-    return m_editableSource.GetFeatureStatus(index);
-  }
+  FeatureStatus GetEditedStatus(uint32_t index) const { return m_editableSource.GetFeatureStatus(index); }
 
   template <class Fn>
   void ForEachIndexImpl(covering::Intervals const & intervals, uint32_t scale, Fn && fn) const
   {
     CheckUniqueIndexes checkUnique;
     for (auto const & i : intervals)
-      m_index.ForEachInIntervalAndScale(i.first, i.second, scale,
-          [&](uint64_t /* key */, uint32_t value)
-          {
-            if (checkUnique(value))
-              fn(value);
-          });
+      m_index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value)
+      {
+        if (checkUnique(value))
+          fn(value);
+      });
   }
 
   FeaturesVector m_vector;

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import androidx.annotation.DrawableRes;
 import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.PredefinedColors;
 import app.organicmaps.util.Graphics;
@@ -18,9 +19,13 @@ public class ColorsAdapter extends ArrayAdapter<Integer>
   @PredefinedColors.Color
   private int mCheckedIconColor;
 
-  public ColorsAdapter(Context context, List<Integer> list)
+  @DrawableRes
+  private final int mIconResId;
+
+  public ColorsAdapter(Context context, List<Integer> list, @DrawableRes int iconResId)
   {
     super(context, 0, 0, list);
+    mIconResId = iconResId;
   }
 
   @Override
@@ -44,8 +49,7 @@ public class ColorsAdapter extends ArrayAdapter<Integer>
     if (color == mCheckedIconColor)
     {
       circle = Graphics.drawCircleAndImage(PredefinedColors.getColor(mCheckedIconColor), R.dimen.track_circle_size,
-                                           app.organicmaps.sdk.R.drawable.ic_bookmark_none, R.dimen.bookmark_icon_size,
-                                           getContext());
+                                           mIconResId, R.dimen.bookmark_icon_size, getContext());
     }
     else
     {

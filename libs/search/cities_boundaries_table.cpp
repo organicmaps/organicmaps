@@ -26,8 +26,7 @@ using namespace std;
 // CitiesBoundariesTable::Boundaries ---------------------------------------------------------------
 bool CitiesBoundariesTable::Boundaries::HasPoint(m2::PointD const & p) const
 {
-  return any_of(m_boundaries.begin(), m_boundaries.end(),
-                [&](CityBoundary const & b) { return b.HasPoint(p, m_eps); });
+  return any_of(m_boundaries.begin(), m_boundaries.end(), [&](CityBoundary const & b) { return b.HasPoint(p, m_eps); });
 }
 
 std::string DebugPrint(CitiesBoundariesTable::Boundaries const & boundaries)

@@ -26,9 +26,7 @@ typedef std::set<std::string> StringSet;
 class SdfParsingDispatcher
 {
 public:
-  explicit SdfParsingDispatcher(StringSet & symbols)
-      : m_symbols(symbols)
-  {}
+  explicit SdfParsingDispatcher(StringSet & symbols) : m_symbols(symbols) {}
 
   bool Push(char const *) { return true; }
   void Pop(char const *) {}
@@ -60,7 +58,7 @@ StringSet GetSymbolsSetFromResourcesFile(std::string_view density)
   StringSet symbols;
   SdfParsingDispatcher dispatcher(symbols);
   ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader("symbols.sdf", density);
-  ReaderSource<ReaderPtr<Reader> > source(reader);
+  ReaderSource<ReaderPtr<Reader>> source(reader);
   ParseXML(source, dispatcher);
   return symbols;
 }
@@ -70,7 +68,7 @@ UNIT_TEST(Test_SymbolsConsistency)
 {
   bool res = true;
 
-  std::string_view constexpr densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus" };
+  std::string_view constexpr densities[] = {"mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus"};
 
   styles::RunForEveryMapStyle([&](MapStyle mapStyle)
   {
@@ -81,9 +79,8 @@ UNIT_TEST(Test_SymbolsConsistency)
       StringSet const resourceStyles = GetSymbolsSetFromResourcesFile(density);
 
       std::vector<std::string> missed;
-      std::set_difference(drawingRuleSymbols.begin(), drawingRuleSymbols.end(),
-                     resourceStyles.begin(), resourceStyles.end(),
-                     back_inserter(missed));
+      std::set_difference(drawingRuleSymbols.begin(), drawingRuleSymbols.end(), resourceStyles.begin(),
+                          resourceStyles.end(), back_inserter(missed));
 
       if (!missed.empty())
       {

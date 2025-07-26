@@ -2,9 +2,9 @@
 
 #include "defines.hpp"
 
-#include "indexer/features_vector.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/features_vector.hpp"
 
 #include "base/logging.hpp"
 
@@ -44,4 +44,4 @@ void ReadFeatures(std::string const & fName)
 
   LOG(LINFO, ("OK"));
 }
-} // namespace check_model
+}  // namespace check_model

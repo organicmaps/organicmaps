@@ -50,19 +50,14 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph & gra
 
   try
   {
-    m_reader =
-        std::make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(RESTRICTIONS_FILE_TAG));
+    m_reader = std::make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(RESTRICTIONS_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> src(*m_reader);
     m_header.Deserialize(src);
 
     RestrictionVec restrictionsOnly;
     std::vector<RestrictionUTurn> restrictionsOnlyUTurn;
-    RestrictionSerializer::Deserialize(m_header,
-                                       m_restrictions /* restriction No, without no_u_turn */,
-                                       restrictionsOnly,
-                                       m_noUTurnRestrictions,
-                                       restrictionsOnlyUTurn,
-                                       src);
+    RestrictionSerializer::Deserialize(m_header, m_restrictions /* restriction No, without no_u_turn */,
+                                       restrictionsOnly, m_noUTurnRestrictions, restrictionsOnlyUTurn, src);
 
     ConvertRestrictionsOnlyToNo(graph, restrictionsOnly, m_restrictions);
     ConvertRestrictionsOnlyUTurnToNo(graph, restrictionsOnlyUTurn, m_restrictions);
@@ -70,8 +65,7 @@ RestrictionLoader::RestrictionLoader(MwmValue const & mwmValue, IndexGraph & gra
   catch (Reader::OpenException const & e)
   {
     m_header.Reset();
-    LOG(LERROR,
-        ("File", m_countryFileName, "Error while reading", RESTRICTIONS_FILE_TAG, "section.", e.Msg()));
+    LOG(LERROR, ("File", m_countryFileName, "Error while reading", RESTRICTIONS_FILE_TAG, "section.", e.Msg()));
     throw;
   }
 }
@@ -94,10 +88,8 @@ std::vector<RestrictionUTurn> && RestrictionLoader::StealNoUTurnRestrictions()
 bool IsRestrictionFromRoads(IndexGraph const & graph, std::vector<uint32_t> const & restriction)
 {
   for (auto const & featureId : restriction)
-  {
     if (!graph.IsRoad(featureId))
       return false;
-  }
 
   return true;
 }
@@ -112,8 +104,7 @@ bool IsRestrictionFromRoads(IndexGraph const & graph, std::vector<uint32_t> cons
 /// We create restrictionNo from features:
 /// featureId_1, ... , featureId_(M - 1), featureId_K
 /// where featureId_K - has common joint with featureId_(M - 1) and featureId_M.
-void ConvertRestrictionsOnlyToNo(IndexGraph const & graph,
-                                 RestrictionVec const & restrictionsOnly,
+void ConvertRestrictionsOnlyToNo(IndexGraph const & graph, RestrictionVec const & restrictionsOnly,
                                  RestrictionVec & restrictionsNo)
 {
   for (std::vector<uint32_t> const & restriction : restrictionsOnly)
@@ -129,8 +120,7 @@ void ConvertRestrictionsOnlyToNo(IndexGraph const & graph,
       auto const prevFeatureId = restriction[i - 1];
 
       // Looking for a joint of an intersection of prev and cur features.
-      Joint::Id const common =
-          GetCommonEndJoint(graph.GetRoad(curFeatureId), graph.GetRoad(prevFeatureId));
+      Joint::Id const common = GetCommonEndJoint(graph.GetRoad(curFeatureId), graph.GetRoad(prevFeatureId));
 
       if (common == Joint::kInvalidId)
         break;
@@ -139,21 +129,19 @@ void ConvertRestrictionsOnlyToNo(IndexGraph const & graph,
       commonFeatures.resize(i + 1);
       std::copy(restriction.begin(), restriction.begin() + i, commonFeatures.begin());
 
-      graph.ForEachPoint(common,
-                         [&](RoadPoint const & rp)
-                         {
-                           if (rp.GetFeatureId() != curFeatureId)
-                           {
-                             commonFeatures.back() = rp.GetFeatureId();
-                             restrictionsNo.emplace_back(commonFeatures);
-                           }
-                         });
+      graph.ForEachPoint(common, [&](RoadPoint const & rp)
+      {
+        if (rp.GetFeatureId() != curFeatureId)
+        {
+          commonFeatures.back() = rp.GetFeatureId();
+          restrictionsNo.emplace_back(commonFeatures);
+        }
+      });
     }
   }
 }
 
-void ConvertRestrictionsOnlyUTurnToNo(IndexGraph & graph,
-                                      std::vector<RestrictionUTurn> const & restrictionsOnlyUTurn,
+void ConvertRestrictionsOnlyUTurnToNo(IndexGraph & graph, std::vector<RestrictionUTurn> const & restrictionsOnlyUTurn,
                                       RestrictionVec & restrictionsNo)
 {
   for (auto const & uTurnRestriction : restrictionsOnlyUTurn)
@@ -164,21 +152,19 @@ void ConvertRestrictionsOnlyUTurnToNo(IndexGraph & graph,
 
     uint32_t const n = graph.GetRoadGeometry(featureId).GetPointsCount();
     RoadJointIds const & joints = graph.GetRoad(uTurnRestriction.m_featureId);
-    Joint::Id const joint = uTurnRestriction.m_viaIsFirstPoint ? joints.GetJointId(0)
-                                                               : joints.GetJointId(n - 1);
+    Joint::Id const joint = uTurnRestriction.m_viaIsFirstPoint ? joints.GetJointId(0) : joints.GetJointId(n - 1);
 
     if (joint == Joint::kInvalidId)
       continue;
 
-    graph.ForEachPoint(joint,
-                       [&](RoadPoint const & rp)
-                       {
-                         if (rp.GetFeatureId() != featureId)
-                         {
-                           std::vector<uint32_t> fromToRestriction = {featureId, rp.GetFeatureId()};
-                           restrictionsNo.emplace_back(std::move(fromToRestriction));
-                         }
-                       });
+    graph.ForEachPoint(joint, [&](RoadPoint const & rp)
+    {
+      if (rp.GetFeatureId() != featureId)
+      {
+        std::vector<uint32_t> fromToRestriction = {featureId, rp.GetFeatureId()};
+        restrictionsNo.emplace_back(std::move(fromToRestriction));
+      }
+    });
   }
 }
 }  // namespace routing

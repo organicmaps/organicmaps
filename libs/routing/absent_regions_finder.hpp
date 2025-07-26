@@ -19,8 +19,7 @@ using LocalFileCheckerFn = std::function<bool(std::string const &)>;
 class AbsentRegionsFinder
 {
 public:
-  AbsentRegionsFinder(CountryFileGetterFn const & countryFileGetter,
-                      LocalFileCheckerFn const & localFileChecker,
+  AbsentRegionsFinder(CountryFileGetterFn const & countryFileGetter, LocalFileCheckerFn const & localFileChecker,
                       std::shared_ptr<NumMwmIds> numMwmIds, DataSource & dataSource);
 
   // Creates new thread |m_routerThread| and starts routing in it.

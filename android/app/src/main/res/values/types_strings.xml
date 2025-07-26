@@ -85,6 +85,7 @@
     <string name="type.amenity.kindergarten">Kindergarten</string>
     <string name="type.amenity.library">Library</string>
     <string name="type.amenity.loading_dock">Loading Dock</string>
+    <string name="type.amenity.luggage_locker">Luggage Locker</string>
     <string name="type.amenity.marketplace">Marketplace</string>
     <string name="type.amenity.motorcycle_parking">Motorcycle Parking</string>
     <string name="type.amenity.nightclub">Nightclub</string>
@@ -650,6 +651,7 @@
     <string name="type.leisure">Leisure</string>
     <string name="type.leisure.common">Public Land</string>
     <string name="type.leisure.dog_park">Dog Park</string>
+    <string name="type.leisure.escape_game">Escape Room</string>
     <string name="type.leisure.fitness_centre">Fitness Centre</string>
     <string name="type.leisure.fitness_station">Fitness Station</string>
     <string name="type.leisure.dance">Dance Hall</string>

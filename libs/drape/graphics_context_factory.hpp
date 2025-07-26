@@ -30,7 +30,7 @@ public:
   GraphicsContext * GetDrawContext() override;
   GraphicsContext * GetResourcesUploadContext() override;
 
-  template<typename T>
+  template <typename T>
   T * CastFactory()
   {
     return dynamic_cast<T *>(m_factory);
@@ -40,10 +40,9 @@ public:
   void SetPresentAvailable(bool available) override;
 
 protected:
-  using TCreateCtxFn = std::function<GraphicsContext * ()>;
+  using TCreateCtxFn = std::function<GraphicsContext *()>;
   using TIsSeparateCreatedFn = std::function<bool()>;
-  GraphicsContext * CreateContext(TCreateCtxFn const & createFn,
-                                  TIsSeparateCreatedFn const & checkFn);
+  GraphicsContext * CreateContext(TCreateCtxFn const & createFn, TIsSeparateCreatedFn const & checkFn);
 
 private:
   GraphicsContextFactory * m_factory;

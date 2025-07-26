@@ -23,12 +23,9 @@ std::string DebugPrint(MwmTraits::SearchIndexFormat format)
 {
   switch (format)
   {
-  case MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter:
-    return "FeaturesWithRankAndCenter";
-  case MwmTraits::SearchIndexFormat::CompressedBitVector:
-    return "CompressedBitVector";
-  case MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader:
-    return "CompressedBitVectorWithHeader";
+  case MwmTraits::SearchIndexFormat::FeaturesWithRankAndCenter: return "FeaturesWithRankAndCenter";
+  case MwmTraits::SearchIndexFormat::CompressedBitVector: return "CompressedBitVector";
+  case MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader: return "CompressedBitVectorWithHeader";
   }
   UNREACHABLE();
 }
@@ -37,10 +34,8 @@ std::string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
 {
   switch (format)
   {
-  case MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader:
-    return "HouseToStreetTableWithHeader";
-  case MwmTraits::HouseToStreetTableFormat::Unknown:
-    return "Unknown";
+  case MwmTraits::HouseToStreetTableFormat::HouseToStreetTableWithHeader: return "HouseToStreetTableWithHeader";
+  case MwmTraits::HouseToStreetTableFormat::Unknown: return "Unknown";
   }
   UNREACHABLE();
 }

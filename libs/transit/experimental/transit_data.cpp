@@ -17,8 +17,8 @@ namespace transit
 namespace experimental
 {
 template <class E>
-void ReadItems(uint32_t start, uint32_t end, std::string const & entityName,
-               NonOwningReaderSource & src, std::vector<E> & entities)
+void ReadItems(uint32_t start, uint32_t end, std::string const & entityName, NonOwningReaderSource & src,
+               std::vector<E> & entities)
 {
   routing::transit::Deserializer<NonOwningReaderSource> deserializer(src);
 
@@ -265,8 +265,7 @@ Schedule GetScheduleFromJson(json_t * obj)
       uint32_t rawData = 0;
       FromJSONObject(item, "dates_interval", rawData);
 
-      schedule.AddDatesInterval(DatesInterval(rawData),
-                                GetFrequencyIntervals(item, "time_intervals"));
+      schedule.AddDatesInterval(DatesInterval(rawData), GetFrequencyIntervals(item, "time_intervals"));
     }
   }
 
@@ -278,16 +277,14 @@ Schedule GetScheduleFromJson(json_t * obj)
       uint32_t rawData = 0;
       FromJSONObject(item, "exception", rawData);
 
-      schedule.AddDateException(DateException(rawData),
-                                GetFrequencyIntervals(item, "time_intervals"));
+      schedule.AddDateException(DateException(rawData), GetFrequencyIntervals(item, "time_intervals"));
     }
   }
 
   return schedule;
 }
 
-std::tuple<OsmId, FeatureId, TransitId> CalculateIds(base::Json const & obj,
-                                                     OsmIdToFeatureIdsMap const & mapping)
+std::tuple<OsmId, FeatureId, TransitId> CalculateIds(base::Json const & obj, OsmIdToFeatureIdsMap const & mapping)
 {
   OsmId osmId = kInvalidOsmId;
   FeatureId featureId = kInvalidFeatureId;
@@ -308,14 +305,14 @@ std::tuple<OsmId, FeatureId, TransitId> CalculateIds(base::Json const & obj,
     auto const it = mapping.find(geoId);
     if (it != mapping.cend())
     {
-      CHECK(!it->second.empty(), ("Osm id", osmId, "encoded as", geoId.GetEncodedId(),
-                                  "from transit does not correspond to any feature."));
+      CHECK(!it->second.empty(),
+            ("Osm id", osmId, "encoded as", geoId.GetEncodedId(), "from transit does not correspond to any feature."));
       if (it->second.size() != 1)
       {
         // |osmId| corresponds to several feature ids. It may happen in case of stops,
         // if a stop is present as a relation. It's a rare case.
-        LOG(LWARNING, ("Osm id", osmId, "encoded as", geoId.GetEncodedId(), "corresponds to",
-                       it->second.size(), "feature ids."));
+        LOG(LWARNING,
+            ("Osm id", osmId, "encoded as", geoId.GetEncodedId(), "corresponds to", it->second.size(), "feature ids."));
       }
       featureId = it->second[0];
     }
@@ -396,8 +393,7 @@ void Read(base::Json const & obj, std::vector<Stop> & stops, OsmIdToFeatureIdsMa
   FromJSONObject(obj.get(), "title", title);
   TimeTable const timetable = GetTimeTableFromJson(obj.get());
   m2::PointD const point = GetPointFromJson(base::GetJSONObligatoryField(obj.get(), "point"));
-  IdList const & transferIds =
-      GetVectorFromJson<TransitId>(obj.get(), "transfer_ids", false /* obligatory */);
+  IdList const & transferIds = GetVectorFromJson<TransitId>(obj.get(), "transfer_ids", false /* obligatory */);
 
   stops.emplace_back(id, featureId, osmId, title, timetable, point, transferIds);
 }
@@ -498,8 +494,7 @@ void ReadData(std::string const & path, Args &&... args)
   }
 }
 
-void TransitData::DeserializeFromJson(std::string const & dirWithJsons,
-                                      OsmIdToFeatureIdsMap const & mapping)
+void TransitData::DeserializeFromJson(std::string const & dirWithJsons, OsmIdToFeatureIdsMap const & mapping)
 {
   ReadData(base::JoinPath(dirWithJsons, kNetworksFile), m_networks);
   ReadData(base::JoinPath(dirWithJsons, kRoutesFile), m_routes);
@@ -564,7 +559,8 @@ void TransitData::Serialize(Writer & writer)
 
 void TransitData::Deserialize(Reader & reader)
 {
-  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+  DeserializeWith(reader, [this](NonOwningReaderSource & src)
+  {
     ReadStops(src);
     ReadGates(src);
     ReadEdges(src);
@@ -579,7 +575,8 @@ void TransitData::Deserialize(Reader & reader)
 
 void TransitData::DeserializeForRouting(Reader & reader)
 {
-  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+  DeserializeWith(reader, [this](NonOwningReaderSource & src)
+  {
     ReadStops(src);
     ReadGates(src);
     ReadEdges(src);
@@ -590,7 +587,8 @@ void TransitData::DeserializeForRouting(Reader & reader)
 
 void TransitData::DeserializeForRendering(Reader & reader)
 {
-  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+  DeserializeWith(reader, [this](NonOwningReaderSource & src)
+  {
     ReadStops(src);
     src.Skip(m_header.m_edgesOffset - src.Pos());
     ReadEdges(src);
@@ -605,7 +603,8 @@ void TransitData::DeserializeForRendering(Reader & reader)
 
 void TransitData::DeserializeForCrossMwm(Reader & reader)
 {
-  DeserializeWith(reader, [this](NonOwningReaderSource & src) {
+  DeserializeWith(reader, [this](NonOwningReaderSource & src)
+  {
     ReadStops(src);
     src.Skip(m_header.m_edgesOffset - src.Pos());
     ReadEdges(src);
@@ -639,8 +638,8 @@ void TransitData::CheckUnique() const
 bool TransitData::IsEmpty() const
 {
   // |m_transfers| and |m_gates| may be empty and it is ok.
-  return m_networks.empty() || m_routes.empty() || m_lines.empty() || m_shapes.empty() ||
-         m_stops.empty() || m_edges.empty();
+  return m_networks.empty() || m_routes.empty() || m_lines.empty() || m_shapes.empty() || m_stops.empty() ||
+         m_edges.empty();
 }
 
 void TransitData::Sort()
@@ -649,15 +648,13 @@ void TransitData::Sort()
   Visit(visitor);
 }
 
-void TransitData::SetGatePedestrianSegments(size_t gateIdx,
-                                            std::vector<SingleMwmSegment> const & seg)
+void TransitData::SetGatePedestrianSegments(size_t gateIdx, std::vector<SingleMwmSegment> const & seg)
 {
   CHECK_LESS(gateIdx, m_gates.size(), ());
   m_gates[gateIdx].SetBestPedestrianSegments(seg);
 }
 
-void TransitData::SetStopPedestrianSegments(size_t stopIdx,
-                                            std::vector<SingleMwmSegment> const & seg)
+void TransitData::SetStopPedestrianSegments(size_t stopIdx, std::vector<SingleMwmSegment> const & seg)
 {
   CHECK_LESS(stopIdx, m_stops.size(), ());
   m_stops[stopIdx].SetBestPedestrianSegments(seg);
@@ -698,8 +695,7 @@ void TransitData::ReadLines(NonOwningReaderSource & src)
 
 void TransitData::ReadLinesMetadata(NonOwningReaderSource & src)
 {
-  ReadItems(m_header.m_linesMetadataOffset, m_header.m_shapesOffset, "linesMetadata", src,
-            m_linesMetadata);
+  ReadItems(m_header.m_linesMetadataOffset, m_header.m_shapesOffset, "linesMetadata", src, m_linesMetadata);
 }
 
 void TransitData::ReadShapes(NonOwningReaderSource & src)

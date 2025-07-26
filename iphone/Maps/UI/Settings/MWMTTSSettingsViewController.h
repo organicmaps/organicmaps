@@ -1,8 +1,8 @@
 #import "MWMTableViewController.h"
 
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
 
 @interface MWMTTSSettingsViewController : MWMTableViewController
 

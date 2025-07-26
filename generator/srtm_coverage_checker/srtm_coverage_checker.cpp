@@ -66,7 +66,8 @@ int main(int argc, char * argv[])
 
     size_t all = 0;
     size_t good = 0;
-    feature::ForEachFeature(path, [&](FeatureType & ft, uint32_t fid) {
+    feature::ForEachFeature(path, [&](FeatureType & ft, uint32_t fid)
+    {
       if (!routing::IsRoad(feature::TypesHolder(ft)))
         return;
 
@@ -83,8 +84,8 @@ int main(int argc, char * argv[])
 
     auto const bad = all - good;
     auto const percent = all == 0 ? 0.0 : bad * 100.0 / all;
-    LOG(LINFO, (percent > 10.0 ? "Huge" : "Low", "error rate in:", file.GetCountryName(),
-                "good:", good, "bad:", bad, "all:", all, "%:", percent));
+    LOG(LINFO, (percent > 10.0 ? "Huge" : "Low", "error rate in:", file.GetCountryName(), "good:", good, "bad:", bad,
+                "all:", all, "%:", percent));
   }
 
   return 0;

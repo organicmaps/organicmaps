@@ -29,7 +29,6 @@
 #include "defines.hpp"
 #include "private.h"
 
-
 namespace traffic
 {
 using namespace std;
@@ -80,10 +79,8 @@ char const kETag[] = "etag";
 // TrafficInfo::RoadSegmentId -----------------------------------------------------------------
 TrafficInfo::RoadSegmentId::RoadSegmentId() : m_fid(0), m_idx(0), m_dir(0) {}
 
-TrafficInfo::RoadSegmentId::RoadSegmentId(uint32_t fid, uint16_t idx, uint8_t dir)
-  : m_fid(fid), m_idx(idx), m_dir(dir)
-{
-}
+TrafficInfo::RoadSegmentId::RoadSegmentId(uint32_t fid, uint16_t idx, uint8_t dir) : m_fid(fid), m_idx(idx), m_dir(dir)
+{}
 
 // TrafficInfo --------------------------------------------------------------------------------
 
@@ -117,8 +114,8 @@ TrafficInfo::TrafficInfo(MwmSet::MwmId const & mwmId, int64_t currentDataVersion
       catch (Reader::Exception const & e)
       {
         auto const info = mwmId.GetInfo();
-        LOG(LINFO, ("Could not read traffic keys from section. MWM:", info->GetCountryName(),
-                "Version:", info->GetVersion()));
+        LOG(LINFO,
+            ("Could not read traffic keys from section. MWM:", info->GetCountryName(), "Version:", info->GetVersion()));
       }
     }
     else
@@ -152,13 +149,10 @@ bool TrafficInfo::ReceiveTrafficData(string & etag)
   vector<SpeedGroup> values;
   switch (ReceiveTrafficValues(etag, values))
   {
-  case ServerDataStatus::New:
-    return UpdateTrafficData(values);
-  case ServerDataStatus::NotChanged:
-    return true;
+  case ServerDataStatus::New: return UpdateTrafficData(values);
+  case ServerDataStatus::NotChanged: return true;
   case ServerDataStatus::NotFound:
-  case ServerDataStatus::Error:
-    return false;
+  case ServerDataStatus::Error: return false;
   }
   return false;
 }
@@ -185,10 +179,8 @@ void TrafficInfo::ExtractTrafficKeys(string const & mwmPath, vector<RoadSegmentI
     auto const numPoints = static_cast<uint16_t>(ft.GetPointsCount());
     uint8_t const numDirs = routing::CarModel::AllLimitsInstance().IsOneWay(types) ? 1 : 2;
     for (uint16_t i = 0; i + 1 < numPoints; ++i)
-    {
       for (uint8_t dir = 0; dir < numDirs; ++dir)
         result.emplace_back(fid, i, dir);
-    }
   });
 
   ASSERT(is_sorted(result.begin(), result.end()), ());
@@ -196,8 +188,7 @@ void TrafficInfo::ExtractTrafficKeys(string const & mwmPath, vector<RoadSegmentI
 
 // static
 void TrafficInfo::CombineColorings(vector<TrafficInfo::RoadSegmentId> const & keys,
-                                   TrafficInfo::Coloring const & knownColors,
-                                   TrafficInfo::Coloring & result)
+                                   TrafficInfo::Coloring const & knownColors, TrafficInfo::Coloring & result)
 {
   result.clear();
   size_t numKnown = 0;
@@ -290,8 +281,7 @@ void TrafficInfo::SerializeTrafficKeys(vector<RoadSegmentId> const & keys, vecto
 }
 
 // static
-void TrafficInfo::DeserializeTrafficKeys(vector<uint8_t> const & data,
-                                         vector<TrafficInfo::RoadSegmentId> & result)
+void TrafficInfo::DeserializeTrafficKeys(vector<uint8_t> const & data, vector<TrafficInfo::RoadSegmentId> & result)
 {
   MemReaderWithExceptions memReader(data.data(), data.size());
   ReaderSource<decltype(memReader)> src(memReader);
@@ -338,8 +328,7 @@ void TrafficInfo::DeserializeTrafficKeys(vector<uint8_t> const & data,
 }
 
 // static
-void TrafficInfo::SerializeTrafficValues(vector<SpeedGroup> const & values,
-                                         vector<uint8_t> & result)
+void TrafficInfo::SerializeTrafficValues(vector<SpeedGroup> const & values, vector<uint8_t> & result)
 {
   vector<uint8_t> buf;
   MemWriter<vector<uint8_t>> memWriter(buf);
@@ -364,8 +353,7 @@ void TrafficInfo::SerializeTrafficValues(vector<SpeedGroup> const & values,
 }
 
 // static
-void TrafficInfo::DeserializeTrafficValues(vector<uint8_t> const & data,
-                                           vector<SpeedGroup> & result)
+void TrafficInfo::DeserializeTrafficValues(vector<uint8_t> const & data, vector<SpeedGroup> & result)
 {
   using Inflate = coding::ZLib::Inflate;
 
@@ -461,8 +449,8 @@ TrafficInfo::ServerDataStatus TrafficInfo::ReceiveTrafficValues(string & etag, v
   catch (Reader::Exception const & e)
   {
     m_availability = Availability::NoData;
-    LOG(LWARNING, ("Could not read traffic values received from server. MWM:",
-                   info->GetCountryName(), "Version:", info->GetVersion()));
+    LOG(LWARNING, ("Could not read traffic values received from server. MWM:", info->GetCountryName(),
+                   "Version:", info->GetVersion()));
     return ServerDataStatus::Error;
   }
   // Update ETag for this MWM.
@@ -481,23 +469,21 @@ bool TrafficInfo::UpdateTrafficData(vector<SpeedGroup> const & values)
 
   if (m_keys.size() != values.size())
   {
-    LOG(LWARNING,
-        ("The number of received traffic values does not correspond to the number of keys:",
-         m_keys.size(), "keys", values.size(), "values."));
+    LOG(LWARNING, ("The number of received traffic values does not correspond to the number of keys:", m_keys.size(),
+                   "keys", values.size(), "values."));
     m_availability = Availability::NoData;
     return false;
   }
 
   for (size_t i = 0; i < m_keys.size(); ++i)
-  {
     if (values[i] != SpeedGroup::Unknown)
       m_coloring.emplace(m_keys[i], values[i]);
-  }
 
   return true;
 }
 
-TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient const & request, int64_t const mwmVersion)
+TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient const & request,
+                                                          int64_t const mwmVersion)
 {
   switch (request.ErrorCode())
   {
@@ -528,11 +514,10 @@ TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient c
 
 string DebugPrint(TrafficInfo::RoadSegmentId const & id)
 {
-  string const dir =
-  id.m_dir == TrafficInfo::RoadSegmentId::kForwardDirection ? "Forward" : "Backward";
+  string const dir = id.m_dir == TrafficInfo::RoadSegmentId::kForwardDirection ? "Forward" : "Backward";
   ostringstream oss;
   oss << "RoadSegmentId ["
-  << " fid = " << id.m_fid << " idx = " << id.m_idx << " dir = " << dir << " ]";
+      << " fid = " << id.m_fid << " idx = " << id.m_idx << " dir = " << dir << " ]";
   return oss.str();
 }
 }  // namespace traffic

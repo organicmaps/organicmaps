@@ -13,8 +13,8 @@
 #include "generator/translator.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/map_style.hpp"
+#include "indexer/map_style_reader.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
@@ -24,7 +24,6 @@
 #include "base/macros.hpp"
 
 #include "defines.hpp"
-
 
 namespace routing_builder
 {
@@ -58,10 +57,7 @@ public:
     return {};
   }
 
-  void Merge(TranslatorInterface const &) override
-  {
-    CHECK(false, ());
-  }
+  void Merge(TranslatorInterface const &) override { CHECK(false, ()); }
 
 protected:
   using Translator::Translator;
@@ -105,7 +101,8 @@ public:
     // Test load this data from cached file.
     generator::cache::IntermediateDataObjectsCache objectsCache;
     auto cache = std::make_shared<generator::cache::IntermediateData>(objectsCache, genInfo);
-    auto collector = std::make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), cache->GetCache());
+    auto collector =
+        std::make_shared<CameraCollector>(genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME), cache->GetCache());
     auto processor = CreateProcessor(ProcessorType::Noop);
     auto translator = std::make_shared<TranslatorForTest>(processor, cache);
     translator->SetCollector(collector);
@@ -131,8 +128,8 @@ UNIT_CLASS_TEST(TestCameraCollector, test_1)
 {
   string const osmSourceXML =
       R"(<osm version="0.6" generator="osmconvert 0.8.4" timestamp="2018-07-16T02:00:00Z">
-      <node id="1" lat="55.779384" lon="37.3699375" version="1">)" + kSpeedCameraTag +
-      R"(</node><node id="2" lat="55.779304" lon="37.3699375" version="1">)" + kSpeedCameraTag +
+      <node id="1" lat="55.779384" lon="37.3699375" version="1">)" +
+      kSpeedCameraTag + R"(</node><node id="2" lat="55.779304" lon="37.3699375" version="1">)" + kSpeedCameraTag +
       R"(</node><node id="3" lat="55.773084" lon="37.3699375" version="1">)" + kSpeedCameraTag +
       R"(</node><node id="4" lat="55.773084" lon="37.3699375" version="1">
       </node>
@@ -150,7 +147,10 @@ UNIT_CLASS_TEST(TestCameraCollector, test_1)
       </osm>)";
 
   std::set<pair<uint64_t, uint64_t>> trueAnswers = {
-    {1, 10}, {1, 20}, {2, 20}, {3, 20}
+      {1, 10},
+      {1, 20},
+      {2, 20},
+      {3, 20}
   };
 
   TEST(TestCameraCollector::Test(osmSourceXML, trueAnswers), ());
@@ -160,8 +160,8 @@ UNIT_CLASS_TEST(TestCameraCollector, test_2)
 {
   string const osmSourceXML =
       R"(<osm version="0.6" generator="osmconvert 0.8.4" timestamp="2018-07-16T02:00:00Z">
-      <node id="1" lat="55.779384" lon="37.3699375" version="1">)" + kSpeedCameraTag +
-      R"(</node><node id="2" lat="55.779304" lon="37.3699375" version="1">)" + kSpeedCameraTag +
+      <node id="1" lat="55.779384" lon="37.3699375" version="1">)" +
+      kSpeedCameraTag + R"(</node><node id="2" lat="55.779304" lon="37.3699375" version="1">)" + kSpeedCameraTag +
       R"(</node><node id="3" lat="55.773084" lon="37.3699375" version="1">)" + kSpeedCameraTag +
       R"(</node><node id="4" lat="55.773024" lon="37.3699375" version="1">)" + kSpeedCameraTag +
       R"(</node><node id="5" lat="55.773014" lon="37.3699375" version="1">)" + kSpeedCameraTag +
@@ -186,7 +186,14 @@ UNIT_CLASS_TEST(TestCameraCollector, test_2)
       </osm>)";
 
   std::set<pair<uint64_t, uint64_t>> trueAnswers = {
-    {1, 10}, {2, 10}, {1, 20}, {3, 20}, {1, 30}, {3, 30}, {4, 30}, {5, 30}
+      {1, 10},
+      {2, 10},
+      {1, 20},
+      {3, 20},
+      {1, 30},
+      {3, 30},
+      {4, 30},
+      {5, 30}
   };
 
   TEST(TestCameraCollector::Test(osmSourceXML, trueAnswers), ());
@@ -196,7 +203,8 @@ UNIT_CLASS_TEST(TestCameraCollector, test_3)
 {
   string const osmSourceXML =
       R"(<osm version="0.6" generator="osmconvert 0.8.4" timestamp="2018-07-16T02:00:00Z">
-      <node id="1" lat="55.779384" lon="37.3699375" version="1">)" + kSpeedCameraTag +
+      <node id="1" lat="55.779384" lon="37.3699375" version="1">)" +
+      kSpeedCameraTag +
       R"(</node><node id="2" lat="55.779384" lon="37.3699375" version="1">
       </node>
       <way id="10" version="1">
@@ -212,7 +220,8 @@ UNIT_CLASS_TEST(TestCameraCollector, test_3)
       </osm>)";
 
   std::set<pair<uint64_t, uint64_t>> trueAnswers = {
-    {1, 10}, {1, 20}
+      {1, 10},
+      {1, 20}
   };
 
   TEST(TestCameraCollector::Test(osmSourceXML, trueAnswers), ());
@@ -222,7 +231,8 @@ UNIT_CLASS_TEST(TestCameraCollector, test_4)
 {
   string const osmSourceXML =
       R"(<osm version="0.6" generator="osmconvert 0.8.4" timestamp="2018-07-16T02:00:00Z">
-      <node id="1" lat="55.779384" lon="37.3699375" version="1">)" + kSpeedCameraTag +
+      <node id="1" lat="55.779384" lon="37.3699375" version="1">)" +
+      kSpeedCameraTag +
       R"(</node><way id="10" version="1">
       <tag k="highway" v="unclassified"/>
       </way>
@@ -252,4 +262,4 @@ UNIT_CLASS_TEST(TestCameraCollector, test_5)
   TEST(TestCameraCollector::Test(osmSourceXML, trueAnswers), ());
 }
 
-} // namespace routing_builder
+}  // namespace routing_builder

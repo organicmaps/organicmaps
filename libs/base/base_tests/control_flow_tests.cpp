@@ -44,7 +44,8 @@ UNIT_TEST(ControlFlow_Smoke)
   {
     Repeater repeater(10);
     uint32_t c = 0;
-    repeater.ForEach([&c] {
+    repeater.ForEach([&c]
+    {
       ++c;
       if (c == 5)
         return ControlFlow::Break;

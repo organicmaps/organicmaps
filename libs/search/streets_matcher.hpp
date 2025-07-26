@@ -22,8 +22,7 @@ public:
     // searching for "French 1700", gives 100% probabilty 'street' "Peatonal Juramento 1700".
     bool SameForRelaxedMatch(Prediction const & rhs) const
     {
-      return (m_withMisprints == rhs.m_withMisprints &&
-              GetNumTokens() == rhs.GetNumTokens());
+      return (m_withMisprints == rhs.m_withMisprints && GetNumTokens() == rhs.GetNumTokens());
     }
     bool IsBetter(Prediction const & rhs) const
     {
@@ -48,8 +47,7 @@ public:
                  QueryParams const & params, std::vector<Prediction> & predictions);
 
 private:
-  static void FindStreets(BaseContext const & ctx, CBV const & candidates,
-                          FeaturesFilter const & filter, QueryParams const & params,
-                          std::vector<Prediction> & prediction);
+  static void FindStreets(BaseContext const & ctx, CBV const & candidates, FeaturesFilter const & filter,
+                          QueryParams const & params, std::vector<Prediction> & prediction);
 };
 }  // namespace search

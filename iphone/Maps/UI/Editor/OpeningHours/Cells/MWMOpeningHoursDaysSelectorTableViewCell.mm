@@ -3,11 +3,11 @@
 
 @interface MWMOpeningHoursDaysSelectorTableViewCell ()
 
-@property (nonatomic) IBOutletCollection(UIButton) NSArray * buttons;
-@property (nonatomic) IBOutletCollection(UILabel) NSArray * labels;
-@property (nonatomic) IBOutletCollection(UIImageView) NSArray * images;
+@property(nonatomic) IBOutletCollection(UIButton) NSArray * buttons;
+@property(nonatomic) IBOutletCollection(UILabel) NSArray * labels;
+@property(nonatomic) IBOutletCollection(UIImageView) NSArray * images;
 
-@property (nonatomic) NSUInteger firstWeekday;
+@property(nonatomic) NSUInteger firstWeekday;
 
 @end
 
@@ -28,9 +28,7 @@ using namespace osmoh;
   self.firstWeekday = cal.firstWeekday;
   NSArray<NSString *> * weekdaySymbols = cal.shortStandaloneWeekdaySymbols;
   for (UILabel * label in self.labels)
-  {
     label.text = weekdaySymbols[[self tag2SymbolIndex:label.tag]];
-  }
 }
 
 - (NSUInteger)tag2SymbolIndex:(NSUInteger)tag
@@ -59,21 +57,17 @@ using namespace osmoh;
       [section removeSelectedDay:wd];
   }
   for (UIButton * btn in self.buttons)
-  {
     if (btn.tag == tag)
       btn.selected = selected;
-  }
   for (UILabel * label in self.labels)
-  {
     if (label.tag == tag)
       label.textColor = (selected ? [UIColor blackPrimaryText] : [UIColor blackHintText]);
-  }
   for (UIImageView * image in self.images)
   {
     if (image.tag == tag)
     {
       image.image = [UIImage imageNamed:selected ? @"radioBtnOn" : @"radioBtnOff"];
-      [image setStyleNameAndApply: selected ? @"MWMBlue" : @"MWMGray"];
+      [image setStyleNameAndApply:selected ? @"MWMBlue" : @"MWMGray"];
     }
   }
 }

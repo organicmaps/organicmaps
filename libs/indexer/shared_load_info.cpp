@@ -6,10 +6,8 @@
 
 namespace feature
 {
-SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header)
-  : m_cont(cont), m_header(header)
-{
-}
+SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & header) : m_cont(cont), m_header(header)
+{}
 
 SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const
 {

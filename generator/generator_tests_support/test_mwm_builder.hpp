@@ -15,7 +15,7 @@ namespace feature
 {
 class FeaturesCollector;
 class FeatureBuilder;
-}
+}  // namespace feature
 namespace platform
 {
 class LocalCountryFile;
@@ -42,8 +42,7 @@ public:
   void AddSafe(TestFeature const & feature);
   bool Add(feature::FeatureBuilder & fb);
 
-  void SetPostcodesData(std::string const & postcodesPath,
-                        indexer::PostcodePointsDatasetType postcodesType,
+  void SetPostcodesData(std::string const & postcodesPath, indexer::PostcodePointsDatasetType postcodesType,
                         std::shared_ptr<storage::CountryInfoGetter> const & countryInfoGetter);
 
   void SetMwmLanguages(std::vector<std::string> const & languages);

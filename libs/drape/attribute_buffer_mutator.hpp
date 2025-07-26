@@ -1,7 +1,7 @@
 #pragma once
 
-#include "drape/pointers.hpp"
 #include "drape/binding_info.hpp"
+#include "drape/pointers.hpp"
 
 #include "base/shared_buffer_manager.hpp"
 
@@ -17,8 +17,8 @@ struct MutateRegion
   MutateRegion() : m_offset(0), m_count(0) {}
   MutateRegion(uint32_t offset, uint32_t count) : m_offset(offset), m_count(count) {}
 
-  uint32_t m_offset; // Offset from buffer begin in "Elements" not in bytes.
-  uint32_t m_count;  // Count of "Elements".
+  uint32_t m_offset;  // Offset from buffer begin in "Elements" not in bytes.
+  uint32_t m_count;   // Count of "Elements".
 };
 
 struct MutateNode

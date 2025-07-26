@@ -1,5 +1,5 @@
-#include "platform/locale.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/locale.hpp"
 #include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
@@ -11,7 +11,7 @@
 #include "base/string_utils.hpp"
 
 #include <cmath>
-#include <cstring>    // strstr
+#include <cstring>  // strstr
 #include <iomanip>
 #include <sstream>
 
@@ -124,7 +124,7 @@ std::string FormatLatLonAsDMSImpl(double value, char positive, char negative, in
   sstream << "″";
 
   // This condition is too heavy for production purposes (but more correct).
-  //if (std::round(value * 3600.0 * pow(10, dac)) != 0)
+  // if (std::round(value * 3600.0 * pow(10, dac)) != 0)
   if (!AlmostEqualULPs(value, 0.0))
   {
     char postfix = positive;
@@ -221,7 +221,7 @@ std::string FormatOsmLink(double lat, double lon, int zoom)
 
   for (int i = 0; i < (zoom + 10) / 3; ++i)
   {
-    const uint64_t digit = (code >> (58 - 6 * i)) & 0x3f;
+    uint64_t const digit = (code >> (58 - 6 * i)) & 0x3f;
     ASSERT_LESS(digit, ARRAY_SIZE(chars), ());
     osmUrl += chars[digit];
   }
@@ -252,28 +252,28 @@ bool OSMDistanceToMeters(std::string const & osmRawValue, double & outMeters)
 
   // Feet and probably inches.
   case '\'':
-    {
-      outMeters = FeetToMeters(outMeters);
-      s = stop + 1;
-      double const inches = strtod(s, &stop);
-      if (s != stop && *stop == '"' && math::is_finite(inches))
-        outMeters += InchesToMeters(inches);
+  {
+    outMeters = FeetToMeters(outMeters);
+    s = stop + 1;
+    double const inches = strtod(s, &stop);
+    if (s != stop && *stop == '"' && math::is_finite(inches))
+      outMeters += InchesToMeters(inches);
 
-      return true;
-    }
+    return true;
+  }
 
   // Inches.
   case '"': outMeters = InchesToMeters(outMeters); return true;
 
   // It's probably a range. Use maximum value (if possible) for a range.
   case '-':
-    {
-      s = stop + 1;
-      double const newValue = strtod(s, &stop);
-      if (s != stop && math::is_finite(newValue))
-        outMeters = newValue;
-    }
-    break;
+  {
+    s = stop + 1;
+    double const newValue = strtod(s, &stop);
+    if (s != stop && math::is_finite(newValue))
+      outMeters = newValue;
+  }
+  break;
 
   // It's probably a list. We don't support them.
   case ';': return false;
@@ -299,8 +299,7 @@ bool OSMDistanceToMeters(std::string const & osmRawValue, double & outMeters)
   return true;
 }
 
-std::string OSMDistanceToMetersString(std::string const & osmRawValue,
-                                      bool supportZeroAndNegativeValues,
+std::string OSMDistanceToMetersString(std::string const & osmRawValue, bool supportZeroAndNegativeValues,
                                       int digitsAfterComma)
 {
   double meters;

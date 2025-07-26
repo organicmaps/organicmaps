@@ -27,7 +27,8 @@ UNIT_TEST(IncrementalUpdates_Smoke)
   string const newMwmPath2 = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass-new2.mwm");
   string const diffPath = base::JoinPath(GetPlatform().WritableDir(), "minsk-pass.mwmdiff");
 
-  SCOPE_GUARD(cleanup, [&] {
+  SCOPE_GUARD(cleanup, [&]
+  {
     FileWriter::DeleteFileX(newMwmPath1);
     FileWriter::DeleteFileX(newMwmPath2);
     FileWriter::DeleteFileX(diffPath);
@@ -40,8 +41,7 @@ UNIT_TEST(IncrementalUpdates_Smoke)
 
   base::Cancellable cancellable;
   TEST(MakeDiff(oldMwmPath, newMwmPath1, diffPath), ());
-  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable), DiffApplicationResult::Ok,
-             ());
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable), DiffApplicationResult::Ok, ());
 
   {
     // Alter the old mwm slightly.
@@ -55,14 +55,12 @@ UNIT_TEST(IncrementalUpdates_Smoke)
   }
 
   TEST(MakeDiff(oldMwmPath, newMwmPath1, diffPath), ());
-  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable), DiffApplicationResult::Ok,
-             ());
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable), DiffApplicationResult::Ok, ());
 
   TEST(base::IsEqualFiles(newMwmPath1, newMwmPath2), ());
 
   cancellable.Cancel();
-  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
-             DiffApplicationResult::Cancelled, ());
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable), DiffApplicationResult::Cancelled, ());
   cancellable.Reset();
 
   {
@@ -77,15 +75,13 @@ UNIT_TEST(IncrementalUpdates_Smoke)
     writer.Write(diffContents.data(), diffContents.size());
   }
 
-  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
-             DiffApplicationResult::Failed, ());
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable), DiffApplicationResult::Failed, ());
 
   {
     // Reset the diff file contents.
     FileWriter writer(diffPath);
   }
 
-  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable),
-             DiffApplicationResult::Failed, ());
+  TEST_EQUAL(ApplyDiff(oldMwmPath, newMwmPath2, diffPath, cancellable), DiffApplicationResult::Failed, ());
 }
 }  // namespace generator::diff_tests

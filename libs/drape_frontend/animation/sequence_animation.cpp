@@ -7,10 +7,7 @@
 namespace df
 {
 
-SequenceAnimation::SequenceAnimation()
-  : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */)
-{
-}
+SequenceAnimation::SequenceAnimation() : Animation(true /* couldBeInterrupted */, true /* couldBeBlended */) {}
 
 void SequenceAnimation::Init(ScreenBase const & screen, TPropertyCache const & properties)
 {
@@ -18,9 +15,15 @@ void SequenceAnimation::Init(ScreenBase const & screen, TPropertyCache const & p
     m_animations.front()->Init(screen, properties);
 }
 
-std::string SequenceAnimation::GetCustomType() const { return m_customType; }
+std::string SequenceAnimation::GetCustomType() const
+{
+  return m_customType;
+}
 
-void SequenceAnimation::SetCustomType(std::string const & type) { m_customType = type; }
+void SequenceAnimation::SetCustomType(std::string const & type)
+{
+  m_customType = type;
+}
 
 Animation::TAnimObjects const & SequenceAnimation::GetObjects() const
 {
@@ -51,10 +54,8 @@ bool SequenceAnimation::HasTargetProperty(Object object, ObjectProperty property
 {
   ASSERT(!m_animations.empty(), ());
   for (auto const & anim : m_animations)
-  {
     if (anim->HasTargetProperty(object, property))
       return true;
-  }
   return false;
 }
 
@@ -192,4 +193,4 @@ void SequenceAnimation::ObtainObjectProperties()
   }
 }
 
-} // namespace df
+}  // namespace df

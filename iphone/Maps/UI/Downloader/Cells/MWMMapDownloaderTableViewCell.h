@@ -16,10 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWMMapDownloaderTableViewCell : MWMTableViewCell
 
-@property(nonatomic) MWMCircularProgress *progress;
+@property(nonatomic) MWMCircularProgress * progress;
 @property(weak, nonatomic) id<MWMMapDownloaderTableViewCellDelegate> delegate;
 @property(nonatomic) MWMMapDownloaderMode mode;
-@property(readonly, nonatomic) MWMMapNodeAttributes *nodeAttrs;
+@property(readonly, nonatomic) MWMMapNodeAttributes * nodeAttrs;
 
 - (void)config:(MWMMapNodeAttributes *)nodeAttrs searchQuery:(nullable NSString *)searchQuery;
 - (void)configProgress:(MWMMapNodeAttributes *)nodeAttrs;

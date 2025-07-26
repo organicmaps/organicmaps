@@ -28,8 +28,7 @@ BoundaryPostcodesEnricher::BoundaryPostcodesEnricher(std::string const & boundar
     CHECK(!postcode.empty() && !geometry.empty(), ());
 
     m_boundaryPostcodes.emplace_back(std::move(postcode), std::move(geometry));
-    m_boundariesTree.Add(m_boundaryPostcodes.size() - 1,
-                         m_boundaryPostcodes.back().second.GetRect());
+    m_boundariesTree.Add(m_boundaryPostcodes.size() - 1, m_boundaryPostcodes.back().second.GetRect());
   }
 }
 

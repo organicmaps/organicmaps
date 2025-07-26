@@ -33,10 +33,7 @@ float const kRightSide = -1.0f;
 struct MarkerVertex
 {
   MarkerVertex() = default;
-  MarkerVertex(glsl::vec2 const & normal, glsl::vec2 const & texCoord)
-    : m_normal(normal)
-    , m_texCoord(texCoord)
-  {}
+  MarkerVertex(glsl::vec2 const & normal, glsl::vec2 const & texCoord) : m_normal(normal), m_texCoord(texCoord) {}
 
   glsl::vec2 m_normal;
   glsl::vec2 m_texCoord;
@@ -67,8 +64,8 @@ struct SelectionLineVertex
   using TNormal = glsl::vec3;
 
   SelectionLineVertex() = default;
-  SelectionLineVertex(glsl::vec3 const & position, glsl::vec2 const & normal,
-                      glsl::vec2 const & colorTexCoords, glsl::vec3 const & length)
+  SelectionLineVertex(glsl::vec3 const & position, glsl::vec2 const & normal, glsl::vec2 const & colorTexCoords,
+                      glsl::vec3 const & length)
     : m_position(position)
     , m_normal(normal)
     , m_colorTexCoords(colorTexCoords)
@@ -151,8 +148,8 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionMarker(ref_ptr<d
   {
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
     batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
-    dp::SessionGuard guard(context, batcher, [&renderNode](dp::RenderState const & state,
-                                                           drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher,
+                           [&renderNode](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
@@ -168,8 +165,8 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionMarker(ref_ptr<d
 }
 
 // static
-drape_ptr<RenderNode> SelectionShapeGenerator::GenerateTrackSelectionMarker(
-    ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
+drape_ptr<RenderNode> SelectionShapeGenerator::GenerateTrackSelectionMarker(ref_ptr<dp::GraphicsContext> context,
+                                                                            ref_ptr<dp::TextureManager> mng)
 {
   dp::TextureManager::SymbolRegion region;
   mng->GetSymbolRegion(kTrackSelectedSymbolName, region);
@@ -195,8 +192,8 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateTrackSelectionMarker(
   {
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
     batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
-    dp::SessionGuard guard(context, batcher, [&renderNode](dp::RenderState const & state,
-                                                           drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher,
+                           [&renderNode](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
@@ -262,14 +259,13 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
   float length = 0.0f;
   for (size_t i = 0; i < segsCount; ++i)
   {
-    UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr,
-                  (i < segsCount - 1) ? &segments[i + 1] : nullptr);
+    UpdateNormals(&segments[i], (i > 0) ? &segments[i - 1] : nullptr, (i < segsCount - 1) ? &segments[i + 1] : nullptr);
 
     // Generate main geometry.
-    m2::PointD const startPt = MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[StartPoint]),
-                                                        pivot, kShapeCoordScalar);
-    m2::PointD const endPt = MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[EndPoint]),
-                                                      pivot, kShapeCoordScalar);
+    m2::PointD const startPt =
+        MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[StartPoint]), pivot, kShapeCoordScalar);
+    m2::PointD const endPt =
+        MapShape::ConvertToLocal(glsl::FromVec2(segments[i].m_points[EndPoint]), pivot, kShapeCoordScalar);
 
     glsl::vec3 const startPivot = glsl::vec3(glsl::ToVec2(startPt), 0.0f);
     glsl::vec3 const endPivot = glsl::vec3(glsl::ToVec2(endPt), 0.0f);
@@ -303,38 +299,37 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
     // Generate joins.
     if (segments[i].m_generateJoin && i < segsCount - 1)
     {
-      glsl::vec2 const n1 = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_leftNormals[EndPoint] :
-                                                                  segments[i].m_rightNormals[EndPoint];
-      glsl::vec2 const n2 = segments[i + 1].m_hasLeftJoin[StartPoint] ? segments[i + 1].m_leftNormals[StartPoint] :
-                                                                        segments[i + 1].m_rightNormals[StartPoint];
+      glsl::vec2 const n1 = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_leftNormals[EndPoint]
+                                                                : segments[i].m_rightNormals[EndPoint];
+      glsl::vec2 const n2 = segments[i + 1].m_hasLeftJoin[StartPoint] ? segments[i + 1].m_leftNormals[StartPoint]
+                                                                      : segments[i + 1].m_rightNormals[StartPoint];
 
-      float const widthScalar = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_rightWidthScalar[EndPoint].x :
-                                                                      segments[i].m_leftWidthScalar[EndPoint].x;
+      float const widthScalar = segments[i].m_hasLeftJoin[EndPoint] ? segments[i].m_rightWidthScalar[EndPoint].x
+                                                                    : segments[i].m_leftWidthScalar[EndPoint].x;
 
-      std::vector<glsl::vec2> normals = GenerateJoinNormals(dp::RoundJoin, n1, n2, 1.0f,
-                                                            segments[i].m_hasLeftJoin[EndPoint], widthScalar);
-      GenerateJoinsTriangles(endPivot, normals, colorCoord, glsl::vec2(length, 0),
-                             segments[i].m_hasLeftJoin[EndPoint], geometry);
+      std::vector<glsl::vec2> normals =
+          GenerateJoinNormals(dp::RoundJoin, n1, n2, 1.0f, segments[i].m_hasLeftJoin[EndPoint], widthScalar);
+      GenerateJoinsTriangles(endPivot, normals, colorCoord, glsl::vec2(length, 0), segments[i].m_hasLeftJoin[EndPoint],
+                             geometry);
     }
 
     // Generate caps.
     if (i == 0)
     {
-      std::vector<glsl::vec2> normals = GenerateCapNormals(
-            dp::RoundCap, segments[i].m_leftNormals[StartPoint], segments[i].m_rightNormals[StartPoint],
-            -segments[i].m_tangent, 1.0f, true /* isStart */);
+      std::vector<glsl::vec2> normals =
+          GenerateCapNormals(dp::RoundCap, segments[i].m_leftNormals[StartPoint],
+                             segments[i].m_rightNormals[StartPoint], -segments[i].m_tangent, 1.0f, true /* isStart */);
 
       GenerateJoinsTriangles(startPivot, normals, colorCoord, glsl::vec2(length, 0), true, geometry);
     }
 
     if (i == segsCount - 1)
     {
-      std::vector<glsl::vec2> normals = GenerateCapNormals(
-            dp::RoundCap, segments[i].m_leftNormals[EndPoint], segments[i].m_rightNormals[EndPoint],
-            segments[i].m_tangent, 1.0f, false /* isStart */);
+      std::vector<glsl::vec2> normals =
+          GenerateCapNormals(dp::RoundCap, segments[i].m_leftNormals[EndPoint], segments[i].m_rightNormals[EndPoint],
+                             segments[i].m_tangent, 1.0f, false /* isStart */);
 
-      GenerateJoinsTriangles(endPivot, normals, colorCoord, glsl::vec2(length, 0),
-                             true, geometry);
+      GenerateJoinsTriangles(endPivot, normals, colorCoord, glsl::vec2(length, 0), true, geometry);
     }
 
     length += glsl::length(segments[i].m_points[EndPoint] - segments[i].m_points[StartPoint]);
@@ -348,8 +343,8 @@ drape_ptr<RenderNode> SelectionShapeGenerator::GenerateSelectionGeometry(ref_ptr
   {
     dp::Batcher batcher(static_cast<uint32_t>(geometry.size()), static_cast<uint32_t>(geometry.size()));
     batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
-    dp::SessionGuard guard(context, batcher, [&renderNode, &pivot, &rect](dp::RenderState const & state,
-                                                                          drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher,
+                           [&renderNode, &pivot, &rect](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());

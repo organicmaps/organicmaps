@@ -1,12 +1,14 @@
 #import "UIImage+RGBAData.h"
 
-static void releaseCallback(void *info, const void *data, size_t size) {
+static void releaseCallback(void * info, void const * data, size_t size)
+{
   CFRelease((CFDataRef)info);
 }
 
 @implementation UIImage (RGBAData)
 
-+ (UIImage *)imageWithRGBAData:(NSData *)data width:(size_t)width height:(size_t)height {
++ (UIImage *)imageWithRGBAData:(NSData *)data width:(size_t)width height:(size_t)height
+{
   size_t bytesPerPixel = 4;
   size_t bitsPerComponent = 8;
   size_t bitsPerPixel = bitsPerComponent * bytesPerPixel;
@@ -15,16 +17,13 @@ static void releaseCallback(void *info, const void *data, size_t size) {
 
   CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
   CFDataRef cfData = (__bridge_retained CFDataRef)data;
-  CGDataProviderRef provider = CGDataProviderCreateWithData((void *)cfData,
-                                                            data.bytes,
-                                                            height * bytesPerRow,
-                                                            releaseCallback);
+  CGDataProviderRef provider =
+      CGDataProviderCreateWithData((void *)cfData, data.bytes, height * bytesPerRow, releaseCallback);
 
-  CGImageRef cgImage = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow,
-                                     colorSpace, bitmapInfo, provider,
-                                     NULL, YES, kCGRenderingIntentDefault);
+  CGImageRef cgImage = CGImageCreate(width, height, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpace, bitmapInfo,
+                                     provider, NULL, YES, kCGRenderingIntentDefault);
 
-  UIImage *image = [UIImage imageWithCGImage:cgImage];
+  UIImage * image = [UIImage imageWithCGImage:cgImage];
 
   CGColorSpaceRelease(colorSpace);
   CGDataProviderRelease(provider);

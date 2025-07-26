@@ -6,217 +6,217 @@ using glConst = uint32_t;
 
 namespace gl_const
 {
-extern const glConst GLUnpackAlignment;
+extern glConst const GLUnpackAlignment;
 
-extern const glConst GLRenderer;
-extern const glConst GLVendor;
-extern const glConst GLVersion;
+extern glConst const GLRenderer;
+extern glConst const GLVendor;
+extern glConst const GLVersion;
 
-extern const glConst glContextFlags;
-extern const glConst glContextFlagDebugBit;
+extern glConst const glContextFlags;
+extern glConst const glContextFlagDebugBit;
 
 /// Clear bits
-extern const glConst GLColorBit;
-extern const glConst GLDepthBit;
-extern const glConst GLStencilBit;
+extern glConst const GLColorBit;
+extern glConst const GLDepthBit;
+extern glConst const GLStencilBit;
 
 /// Hardware specific params
-extern const glConst GLMaxFragmentTextures;
-extern const glConst GLMaxVertexTextures;
-extern const glConst GLMaxTextureSize;
+extern glConst const GLMaxFragmentTextures;
+extern glConst const GLMaxVertexTextures;
+extern glConst const GLMaxTextureSize;
 
 /// Buffer targets
-extern const glConst GLArrayBuffer;
-extern const glConst GLElementArrayBuffer;
-extern const glConst GLPixelBufferWrite;
+extern glConst const GLArrayBuffer;
+extern glConst const GLElementArrayBuffer;
+extern glConst const GLPixelBufferWrite;
 
 /// Buffer params
-extern const glConst GLBufferSize;
-extern const glConst GLBufferUsage;
+extern glConst const GLBufferSize;
+extern glConst const GLBufferUsage;
 
 /// VBO Access
-extern const glConst GLWriteOnly;
-extern const glConst GLReadOnly;
+extern glConst const GLWriteOnly;
+extern glConst const GLReadOnly;
 
 /// MapBufferRange
-extern const glConst GLWriteBufferBit;
-extern const glConst GLReadBufferBit;
-extern const glConst GLInvalidateRange;
-extern const glConst GLInvalidateBuffer;
-extern const glConst GLFlushExplicit;
-extern const glConst GLUnsynchronized;
+extern glConst const GLWriteBufferBit;
+extern glConst const GLReadBufferBit;
+extern glConst const GLInvalidateRange;
+extern glConst const GLInvalidateBuffer;
+extern glConst const GLFlushExplicit;
+extern glConst const GLUnsynchronized;
 
 /// BufferUsage
-extern const glConst GLStaticDraw;
-extern const glConst GLStreamDraw;
-extern const glConst GLDynamicDraw;
+extern glConst const GLStaticDraw;
+extern glConst const GLStreamDraw;
+extern glConst const GLDynamicDraw;
 
 /// ShaderType
-extern const glConst GLVertexShader;
-extern const glConst GLFragmentShader;
-extern const glConst GLCurrentProgram;
+extern glConst const GLVertexShader;
+extern glConst const GLFragmentShader;
+extern glConst const GLCurrentProgram;
 
 /// Texture layouts
-extern const glConst GLRGBA;
-extern const glConst GLRGB;
-extern const glConst GLAlpha;
-extern const glConst GLLuminance;
-extern const glConst GLAlphaLuminance;
-extern const glConst GLDepthComponent;
-extern const glConst GLDepthStencil;
+extern glConst const GLRGBA;
+extern glConst const GLRGB;
+extern glConst const GLAlpha;
+extern glConst const GLLuminance;
+extern glConst const GLAlphaLuminance;
+extern glConst const GLDepthComponent;
+extern glConst const GLDepthStencil;
 
 /// Texture layout size
-extern const glConst GLRGBA8;
-extern const glConst GLRGBA4;
-extern const glConst GLAlpha8;
-extern const glConst GLLuminance8;
-extern const glConst GLAlphaLuminance8;
-extern const glConst GLAlphaLuminance4;
-extern const glConst GLRed;
-extern const glConst GLRedGreen;
+extern glConst const GLRGBA8;
+extern glConst const GLRGBA4;
+extern glConst const GLAlpha8;
+extern glConst const GLLuminance8;
+extern glConst const GLAlphaLuminance8;
+extern glConst const GLAlphaLuminance4;
+extern glConst const GLRed;
+extern glConst const GLRedGreen;
 
 /// Pixel type for texture upload
-extern const glConst GL8BitOnChannel;
-extern const glConst GL4BitOnChannel;
+extern glConst const GL8BitOnChannel;
+extern glConst const GL4BitOnChannel;
 
 /// Texture targets
-extern const glConst GLTexture2D;
+extern glConst const GLTexture2D;
 
 /// Texture uniform blocks
-extern const glConst GLTexture0;
+extern glConst const GLTexture0;
 
 /// Texture param names
-extern const glConst GLMinFilter;
-extern const glConst GLMagFilter;
-extern const glConst GLWrapS;
-extern const glConst GLWrapT;
+extern glConst const GLMinFilter;
+extern glConst const GLMagFilter;
+extern glConst const GLWrapS;
+extern glConst const GLWrapT;
 
 /// Texture Wrap Modes
-extern const glConst GLRepeat;
-extern const glConst GLMirroredRepeat;
-extern const glConst GLClampToEdge;
+extern glConst const GLRepeat;
+extern glConst const GLMirroredRepeat;
+extern glConst const GLClampToEdge;
 
 /// Texture Filter Modes
-extern const glConst GLLinear;
-extern const glConst GLNearest;
+extern glConst const GLLinear;
+extern glConst const GLNearest;
 
 /// OpenGL types
-extern const glConst GLByteType;
-extern const glConst GLUnsignedByteType;
-extern const glConst GLShortType;
-extern const glConst GLUnsignedShortType;
-extern const glConst GLIntType;
-extern const glConst GLUnsignedIntType;
-extern const glConst GLFloatType;
-extern const glConst GLUnsignedInt24_8Type;
+extern glConst const GLByteType;
+extern glConst const GLUnsignedByteType;
+extern glConst const GLShortType;
+extern glConst const GLUnsignedShortType;
+extern glConst const GLIntType;
+extern glConst const GLUnsignedIntType;
+extern glConst const GLFloatType;
+extern glConst const GLUnsignedInt24_8Type;
 
-extern const glConst GLFloatVec2;
-extern const glConst GLFloatVec3;
-extern const glConst GLFloatVec4;
+extern glConst const GLFloatVec2;
+extern glConst const GLFloatVec3;
+extern glConst const GLFloatVec4;
 
-extern const glConst GLIntVec2;
-extern const glConst GLIntVec3;
-extern const glConst GLIntVec4;
+extern glConst const GLIntVec2;
+extern glConst const GLIntVec3;
+extern glConst const GLIntVec4;
 
-extern const glConst GLFloatMat4;
+extern glConst const GLFloatMat4;
 
-extern const glConst GLSampler2D;
+extern glConst const GLSampler2D;
 
 /// Blend Functions
-extern const glConst GLAddBlend;
-extern const glConst GLSubstractBlend;
-extern const glConst GLReverseSubstrBlend;
+extern glConst const GLAddBlend;
+extern glConst const GLSubstractBlend;
+extern glConst const GLReverseSubstrBlend;
 
 /// Blend Factors
-extern const glConst GLZero;
-extern const glConst GLOne;
-extern const glConst GLSrcColor;
-extern const glConst GLOneMinusSrcColor;
-extern const glConst GLDstColor;
-extern const glConst GLOneMinusDstColor;
-extern const glConst GLSrcAlpha;
-extern const glConst GLOneMinusSrcAlpha;
-extern const glConst GLDstAlpha;
-extern const glConst GLOneMinusDstAlpha;
+extern glConst const GLZero;
+extern glConst const GLOne;
+extern glConst const GLSrcColor;
+extern glConst const GLOneMinusSrcColor;
+extern glConst const GLDstColor;
+extern glConst const GLOneMinusDstColor;
+extern glConst const GLSrcAlpha;
+extern glConst const GLOneMinusSrcAlpha;
+extern glConst const GLDstAlpha;
+extern glConst const GLOneMinusDstAlpha;
 
 /// OpenGL states
-extern const glConst GLDepthTest;
-extern const glConst GLBlending;
-extern const glConst GLCullFace;
-extern const glConst GLScissorTest;
-extern const glConst GLStencilTest;
-extern const glConst GLDebugOutput;
-extern const glConst GLDebugOutputSynchronous;
+extern glConst const GLDepthTest;
+extern glConst const GLBlending;
+extern glConst const GLCullFace;
+extern glConst const GLScissorTest;
+extern glConst const GLStencilTest;
+extern glConst const GLDebugOutput;
+extern glConst const GLDebugOutputSynchronous;
 
-extern const glConst GLDontCare;
-extern const glConst GLDontCare;
-extern const glConst GLTrue;
-extern const glConst GLFalse;
+extern glConst const GLDontCare;
+extern glConst const GLDontCare;
+extern glConst const GLTrue;
+extern glConst const GLFalse;
 
 // OpenGL source type
-extern const glConst GLDebugSourceApi;
-extern const glConst GLDebugSourceShaderCompiler;
-extern const glConst GLDebugSourceThirdParty;
-extern const glConst GLDebugSourceApplication;
-extern const glConst GLDebugSourceOther;
+extern glConst const GLDebugSourceApi;
+extern glConst const GLDebugSourceShaderCompiler;
+extern glConst const GLDebugSourceThirdParty;
+extern glConst const GLDebugSourceApplication;
+extern glConst const GLDebugSourceOther;
 
 // OpenGL debug type
-extern const glConst GLDebugTypeError;
-extern const glConst GLDebugDeprecatedBehavior;
-extern const glConst GLDebugUndefinedBehavior;
-extern const glConst GLDebugPortability;
-extern const glConst GLDebugPerformance;
-extern const glConst GLDebugOther;
+extern glConst const GLDebugTypeError;
+extern glConst const GLDebugDeprecatedBehavior;
+extern glConst const GLDebugUndefinedBehavior;
+extern glConst const GLDebugPortability;
+extern glConst const GLDebugPerformance;
+extern glConst const GLDebugOther;
 
 // OpenGL debug severity
-extern const glConst GLDebugSeverityLow;
-extern const glConst GLDebugSeverityMedium;
-extern const glConst GLDebugSeverityHigh;
-extern const glConst GLDebugSeverityNotification;
+extern glConst const GLDebugSeverityLow;
+extern glConst const GLDebugSeverityMedium;
+extern glConst const GLDebugSeverityHigh;
+extern glConst const GLDebugSeverityNotification;
 
 /// Triangle faces order
-extern const glConst GLClockwise;
-extern const glConst GLCounterClockwise;
+extern glConst const GLClockwise;
+extern glConst const GLCounterClockwise;
 
 /// Triangle face
-extern const glConst GLFront;
-extern const glConst GLBack;
-extern const glConst GLFrontAndBack;
+extern glConst const GLFront;
+extern glConst const GLBack;
+extern glConst const GLFrontAndBack;
 
 /// OpenGL depth functions
-extern const glConst GLNever;
-extern const glConst GLLess;
-extern const glConst GLEqual;
-extern const glConst GLLessOrEqual;
-extern const glConst GLGreat;
-extern const glConst GLNotEqual;
-extern const glConst GLGreatOrEqual;
-extern const glConst GLAlways;
+extern glConst const GLNever;
+extern glConst const GLLess;
+extern glConst const GLEqual;
+extern glConst const GLLessOrEqual;
+extern glConst const GLGreat;
+extern glConst const GLNotEqual;
+extern glConst const GLGreatOrEqual;
+extern glConst const GLAlways;
 
 /// OpenGL stencil functions
-extern const glConst GLKeep;
-extern const glConst GLIncr;
-extern const glConst GLDecr;
-extern const glConst GLInvert;
-extern const glConst GLReplace;
-extern const glConst GLIncrWrap;
-extern const glConst GLDecrWrap;
+extern glConst const GLKeep;
+extern glConst const GLIncr;
+extern glConst const GLDecr;
+extern glConst const GLInvert;
+extern glConst const GLReplace;
+extern glConst const GLIncrWrap;
+extern glConst const GLDecrWrap;
 
 /// Program object parameter names
-extern const glConst GLActiveUniforms;
+extern glConst const GLActiveUniforms;
 
 /// Draw primitives
-extern const glConst GLLines;
-extern const glConst GLLineStrip;
-extern const glConst GLTriangles;
-extern const glConst GLTriangleStrip;
+extern glConst const GLLines;
+extern glConst const GLLineStrip;
+extern glConst const GLTriangles;
+extern glConst const GLTriangleStrip;
 
 /// Framebuffer attachment points
-extern const glConst GLColorAttachment;
-extern const glConst GLDepthAttachment;
-extern const glConst GLStencilAttachment;
-extern const glConst GLDepthStencilAttachment;
+extern glConst const GLColorAttachment;
+extern glConst const GLDepthAttachment;
+extern glConst const GLStencilAttachment;
+extern glConst const GLDepthStencilAttachment;
 
 /// Framebuffer status
-extern const glConst GLFramebufferComplete;
+extern glConst const GLFramebufferComplete;
 }  // namespace gl_const

@@ -7,28 +7,66 @@
 
 namespace
 {
-int FuncDoesNotThrow() noexcept { return 1; }
-int FuncThrowsRootException() { throw RootException("RootException", "RootException"); }
-int FuncThrowsException() { throw std::exception(); }
-int FuncThrowsRuntimeError() { throw std::runtime_error("runtime_error"); }
-int FuncThrowsNumber() { throw 1; };
+int FuncDoesNotThrow() noexcept
+{
+  return 1;
+}
+int FuncThrowsRootException()
+{
+  throw RootException("RootException", "RootException");
+}
+int FuncThrowsException()
+{
+  throw std::exception();
+}
+int FuncThrowsRuntimeError()
+{
+  throw std::runtime_error("runtime_error");
+}
+int FuncThrowsNumber()
+{
+  throw 1;
+}
 
-int FuncDoesNotThrowArg(int) noexcept { return 1; }
-int FuncThrowsRootExceptionArg(int) { throw RootException("RootException", "RootException"); }
-int FuncThrowsExceptionArg(int) { throw std::exception(); }
-int FuncThrowsNumberArg(int) { throw 1; };
+int FuncDoesNotThrowArg(int) noexcept
+{
+  return 1;
+}
+int FuncThrowsRootExceptionArg(int)
+{
+  throw RootException("RootException", "RootException");
+}
+int FuncThrowsExceptionArg(int)
+{
+  throw std::exception();
+}
+int FuncThrowsNumberArg(int)
+{
+  throw 1;
+}
 
-void FuncDoesNotThrowVoid(int) noexcept { return; }
-void FuncThrowsRootExceptionVoid(int) { throw RootException("RootException", "RootException"); }
-void FuncThrowsExceptionVoid() { throw std::exception(); }
-void FuncThrowsNumberVoid() { throw 1; };
+void FuncDoesNotThrowVoid(int) noexcept
+{
+  return;
+}
+void FuncThrowsRootExceptionVoid(int)
+{
+  throw RootException("RootException", "RootException");
+}
+void FuncThrowsExceptionVoid()
+{
+  throw std::exception();
+}
+void FuncThrowsNumberVoid()
+{
+  throw 1;
+}
 
 std::string const & ReturnsByRef(std::string const & str)
 {
   bool exception = true;
-  return ExceptionCatcher(
-      "ReturnsByRef().", exception,
-      [](std::string const & str) -> std::string const & { return str; }, str);
+  return ExceptionCatcher("ReturnsByRef().", exception,
+                          [](std::string const & str) -> std::string const & { return str; }, str);
 }
 
 UNIT_TEST(ExceptionCatcher_FunctionsWithoutArgs)
@@ -63,43 +101,35 @@ UNIT_TEST(ExceptionCatcher_LambdasReturnInt)
 {
   bool exception = false;
   size_t callCount = 0;
-  ExceptionCatcher(
-      "Lambda", exception,
-      [&callCount](int) {
-        ++callCount;
-        return 1;
-      },
-      7);
+  ExceptionCatcher("Lambda", exception, [&callCount](int)
+  {
+    ++callCount;
+    return 1;
+  }, 7);
   TEST(!exception, ());
   TEST_EQUAL(callCount, 1, ());
 
-  ExceptionCatcher(
-      "Lambda", exception,
-      [&callCount](int) -> int {
-        ++callCount;
-        throw RootException("RootException", "RootException");
-      },
-      7);
+  ExceptionCatcher("Lambda", exception, [&callCount](int) -> int
+  {
+    ++callCount;
+    throw RootException("RootException", "RootException");
+  }, 7);
   TEST(exception, ());
   TEST_EQUAL(callCount, 2, ());
 
-  ExceptionCatcher(
-      "Lambda", exception,
-      [&callCount](int) -> int {
-        ++callCount;
-        throw std::exception();
-      },
-      7);
+  ExceptionCatcher("Lambda", exception, [&callCount](int) -> int
+  {
+    ++callCount;
+    throw std::exception();
+  }, 7);
   TEST(exception, ());
   TEST_EQUAL(callCount, 3, ());
 
-  ExceptionCatcher(
-      "Lambda", exception,
-      [&callCount](int) -> int {
-        ++callCount;
-        throw 1;
-      },
-      7);
+  ExceptionCatcher("Lambda", exception, [&callCount](int) -> int
+  {
+    ++callCount;
+    throw 1;
+  }, 7);
   TEST(exception, ());
   TEST_EQUAL(callCount, 4, ());
 }
@@ -108,42 +138,31 @@ UNIT_TEST(ExceptionCatcher_LambdasReturnVoid)
 {
   bool exception = false;
   size_t callCount = 0;
-  ExceptionCatcher(
-      "Lambda", exception,
-      [&callCount](int) {
-        ++callCount;
-      },
-      7);
+  ExceptionCatcher("Lambda", exception, [&callCount](int) { ++callCount; }, 7);
   TEST(!exception, ());
   TEST_EQUAL(callCount, 1, ());
 
-  ExceptionCatcher(
-      "Lambda", exception,
-      [&callCount](int) {
-        ++callCount;
-        throw RootException("RootException", "RootException");
-      },
-      7);
+  ExceptionCatcher("Lambda", exception, [&callCount](int)
+  {
+    ++callCount;
+    throw RootException("RootException", "RootException");
+  }, 7);
   TEST(exception, ());
   TEST_EQUAL(callCount, 2, ());
 
-  ExceptionCatcher(
-      "Lambda", exception,
-      [&callCount](int) {
-        ++callCount;
-        throw std::exception();
-      },
-      7);
+  ExceptionCatcher("Lambda", exception, [&callCount](int)
+  {
+    ++callCount;
+    throw std::exception();
+  }, 7);
   TEST(exception, ());
   TEST_EQUAL(callCount, 3, ());
 
-  ExceptionCatcher(
-      "Lambda", exception,
-      [&callCount](int) {
-        ++callCount;
-        throw 1;
-      },
-      7);
+  ExceptionCatcher("Lambda", exception, [&callCount](int)
+  {
+    ++callCount;
+    throw 1;
+  }, 7);
   TEST(exception, ());
   TEST_EQUAL(callCount, 4, ());
 }

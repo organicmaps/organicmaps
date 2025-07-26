@@ -14,8 +14,8 @@ using namespace std;
 
 namespace
 {
-void AddAllNonemptySubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie,
-                              std::string const & s, uint32_t value)
+void AddAllNonemptySubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie, std::string const & s,
+                              uint32_t value)
 {
   ASSERT(!s.empty(), ());
   for (size_t i = 0; i < s.length(); ++i)
@@ -32,19 +32,13 @@ void AddAllNonemptySubstrings(base::MemTrie<std::string, base::VectorValues<uint
 template <typename TF>
 void ForEachToken(std::string const & s, TF && fn)
 {
-  search::ForEachNormalizedToken(s, [&fn](strings::UniString const & token)
-  {
-    fn(strings::ToUtf8(token));
-  });
+  search::ForEachNormalizedToken(s, [&fn](strings::UniString const & token) { fn(strings::ToUtf8(token)); });
 }
 
-void TokenizeAndAddAllSubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie,
-                                 std::string const & s, uint32_t value)
+void TokenizeAndAddAllSubstrings(base::MemTrie<std::string, base::VectorValues<uint32_t>> & trie, std::string const & s,
+                                 uint32_t value)
 {
-  auto fn = [&](std::string const & token)
-  {
-    AddAllNonemptySubstrings(trie, token, value);
-  };
+  auto fn = [&](std::string const & token) { AddAllNonemptySubstrings(trie, token, value); };
   ForEachToken(s, fn);
 }
 }  // namespace
@@ -54,10 +48,10 @@ void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
   ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocaleMapping.size(),
          ("Invalid lang code:", lang));
   m_catHolder->ForEachNameByType(type, [&](Category::Name const & name)
-                                 {
-                                   if (name.m_locale == lang)
-                                     TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
-                                 });
+  {
+    if (name.m_locale == lang)
+      TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
+  });
 }
 
 void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
@@ -71,22 +65,20 @@ void CategoriesIndex::AddAllCategoriesInLang(int8_t lang)
   ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocaleMapping.size(),
          ("Invalid lang code:", lang));
   m_catHolder->ForEachTypeAndCategory([&](uint32_t type, Category const & cat)
-                                      {
-                                        for (auto const & name : cat.m_synonyms)
-                                        {
-                                          if (name.m_locale == lang)
-                                            TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
-                                        }
-                                      });
+  {
+    for (auto const & name : cat.m_synonyms)
+      if (name.m_locale == lang)
+        TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
+  });
 }
 
 void CategoriesIndex::AddAllCategoriesInAllLangs()
 {
   m_catHolder->ForEachTypeAndCategory([this](uint32_t type, Category const & cat)
-                                      {
-                                        for (auto const & name : cat.m_synonyms)
-                                          TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
-                                      });
+  {
+    for (auto const & name : cat.m_synonyms)
+      TokenizeAndAddAllSubstrings(m_trie, name.m_name, type);
+  });
 }
 
 void CategoriesIndex::GetCategories(std::string const & query, std::vector<Category> & result) const
@@ -95,10 +87,10 @@ void CategoriesIndex::GetCategories(std::string const & query, std::vector<Categ
   GetAssociatedTypes(query, types);
   base::SortUnique(types);
   m_catHolder->ForEachTypeAndCategory([&](uint32_t type, Category const & cat)
-                                      {
-                                        if (binary_search(types.begin(), types.end(), type))
-                                          result.push_back(cat);
-                                      });
+  {
+    if (binary_search(types.begin(), types.end(), type))
+      result.push_back(cat);
+  });
 }
 
 void CategoriesIndex::GetAssociatedTypes(std::string const & query, std::vector<uint32_t> & result) const
@@ -108,10 +100,7 @@ void CategoriesIndex::GetAssociatedTypes(std::string const & query, std::vector<
   auto processToken = [&](std::string const & token)
   {
     std::set<uint32_t> types;
-    auto fn = [&](std::string const &, uint32_t type)
-    {
-      types.insert(type);
-    };
+    auto fn = [&](std::string const &, uint32_t type) { types.insert(type); };
     m_trie.ForEachInSubtree(token, fn);
 
     if (first)

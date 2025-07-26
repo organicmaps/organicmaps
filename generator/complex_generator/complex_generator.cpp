@@ -45,8 +45,7 @@
 
 #include <gflags/gflags.h>
 
-DEFINE_string(node_storage, "map",
-              "Type of storage for intermediate points representation. Available: raw, map, mem.");
+DEFINE_string(node_storage, "map", "Type of storage for intermediate points representation. Available: raw, map, mem.");
 DEFINE_string(user_resource_path, "", "User defined resource path for classificator.txt and etc.");
 DEFINE_string(maps_build_path, "",
               "Directory of any of the previous map generations. It is assumed that it will "
@@ -56,7 +55,8 @@ DEFINE_bool(popularity, false, "Build complexes for calculation of popularity of
 DEFINE_string(output, "", "Output filename");
 DEFINE_bool(debug, false, "Debug mode.");
 
-MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
+MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
+{
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
   Platform & pl = GetPlatform();
@@ -86,15 +86,9 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
   std::shared_ptr<generator::FilterInterface> filter = std::make_shared<generator::FilterComplex>();
 
   if (FLAGS_debug)
-  {
     print = static_cast<std::string (*)(generator::HierarchyEntry const &)>(generator::DebugPrint);
-  }
   else
-  {
-    print = [](auto const & entry) {
-      return generator::hierarchy::HierarchyEntryToCsvString(entry);
-    };
-  }
+    print = [](auto const & entry) { return generator::hierarchy::HierarchyEntryToCsvString(entry); };
 
   generator::RawGenerator rawGenerator(genInfo, threadsCount);
   auto processor = CreateProcessor(generator::ProcessorType::Complex, rawGenerator.GetQueue(),
@@ -102,15 +96,14 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv) {
   generator::cache::IntermediateDataObjectsCache objectsCache;
   auto const cache = std::make_shared<generator::cache::IntermediateData>(objectsCache, genInfo);
   auto translator = CreateTranslator(generator::TranslatorType::Complex, processor, cache, genInfo);
-  auto finalProcessor = std::make_shared<generator::ComplexFinalProcessor>(
-      genInfo.m_tmpDir, FLAGS_output, threadsCount);
+  auto finalProcessor =
+      std::make_shared<generator::ComplexFinalProcessor>(genInfo.m_tmpDir, FLAGS_output, threadsCount);
 
   finalProcessor->SetPrintFunction(print);
   finalProcessor->SetGetMainTypeFunction(getMainType);
   finalProcessor->SetGetNameFunction(generator::hierarchy::GetName);
   finalProcessor->SetFilter(filter);
-  finalProcessor->UseBuildingPartsInfo(
-      genInfo.GetIntermediateFileName(BUILDING_PARTS_MAPPING_FILE));
+  finalProcessor->UseBuildingPartsInfo(genInfo.GetIntermediateFileName(BUILDING_PARTS_MAPPING_FILE));
 
   if (FLAGS_popularity)
   {

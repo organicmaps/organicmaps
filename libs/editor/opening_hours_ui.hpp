@@ -57,10 +57,7 @@ public:
   class Proxy : public TimeTable
   {
   public:
-    Proxy(TimeTableSet & tts, size_t const index, TimeTable const & tt)
-      : TimeTable(tt), m_index(index), m_tts(tts)
-    {
-    }
+    Proxy(TimeTableSet & tts, size_t const index, TimeTable const & tt) : TimeTable(tt), m_index(index), m_tts(tts) {}
 
     bool Commit() { return m_tts.Replace(*this, m_index); }  // Slice base class on copy.
 
@@ -97,5 +94,5 @@ private:
 
   TimeTableSetImpl m_table;
 };
-} // namespace ui
-} // namespace editor
+}  // namespace ui
+}  // namespace editor

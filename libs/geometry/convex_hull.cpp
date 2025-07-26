@@ -62,8 +62,5 @@ std::vector<PointD> BuildConvexHull(std::vector<PointD> points, double eps)
 }
 }  // namespace
 
-ConvexHull::ConvexHull(std::vector<PointD> const & points, double eps)
-  : m_hull(BuildConvexHull(points, eps))
-{
-}
+ConvexHull::ConvexHull(std::vector<PointD> const & points, double eps) : m_hull(BuildConvexHull(points, eps)) {}
 }  // namespace m2

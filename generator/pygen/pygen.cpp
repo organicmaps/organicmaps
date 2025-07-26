@@ -47,18 +47,18 @@ uint32_t const kInvalidIndex = std::numeric_limits<uint32_t>::max();
 class FeatureTypeWrapper
 {
 public:
-  explicit FeatureTypeWrapper(boost::shared_ptr<Mwm> const & mwm,
-                              boost::shared_ptr<FeatureType> const & feature)
-    : m_mwm(mwm), m_feature(feature)
-  {
-  }
+  explicit FeatureTypeWrapper(boost::shared_ptr<Mwm> const & mwm, boost::shared_ptr<FeatureType> const & feature)
+    : m_mwm(mwm)
+    , m_feature(feature)
+  {}
 
   uint32_t GetIndex() const { return m_feature->GetID().m_index; }
 
   bp::list GetTypes()
   {
     bp::list types;
-    m_feature->ForEachType([&](auto t) {
+    m_feature->ForEachType([&](auto t)
+    {
       // A type can be invalid because the type was marked as deprecated in mapcss file.
       types.append(classif().IsTypeValid(t) ? classif().GetIndexForType(t) : kInvalidIndex);
     });
@@ -79,9 +79,7 @@ public:
   {
     bp::dict mnames;
     auto const & name = m_feature->GetNames();
-    name.ForEach([&](auto code, auto && str) {
-      mnames[StringUtf8Multilang::GetLangByCode(code)] = str;
-    });
+    name.ForEach([&](auto code, auto && str) { mnames[StringUtf8Multilang::GetLangByCode(code)] = str; });
 
     return mnames;
   }
@@ -113,17 +111,13 @@ public:
     case GeomType::Point:
     case GeomType::Line:
     {
-      m_feature->ForEachPoint([&](auto const & p) { geometry.append(p); },
-                              FeatureType::BEST_GEOMETRY);
+      m_feature->ForEachPoint([&](auto const & p) { geometry.append(p); }, FeatureType::BEST_GEOMETRY);
     }
     break;
     case GeomType::Area:
     {
-      m_feature->ForEachTriangle(
-          [&](auto const & p1, auto const & p2, auto const & p3) {
-            geometry.append(m2::TriangleD(p1, p2, p3));
-          },
-          FeatureType::BEST_GEOMETRY);
+      m_feature->ForEachTriangle([&](auto const & p1, auto const & p2, auto const & p3)
+      { geometry.append(m2::TriangleD(p1, p2, p3)); }, FeatureType::BEST_GEOMETRY);
     }
     break;
     case GeomType::Undefined: break;
@@ -207,8 +201,7 @@ private:
     , m_mwmValue(m_ds.GetLocalCountryFile())
     , m_guard(std::make_unique<FeaturesLoaderGuard>(m_ds.GetDataSource(), m_ds.GetMwmId()))
     , m_parse(parse)
-  {
-  }
+  {}
 
   void SetSelfPtr(boost::weak_ptr<Mwm> const & self) { m_self = self; }
 
@@ -219,8 +212,7 @@ private:
   bool m_parse = false;
 };
 
-BOOST_PYTHON_FUNCTION_OVERLOADS(MwmCreateOverloads, Mwm::Create, 1 /* min_args */,
-                                2 /* max_args */);
+BOOST_PYTHON_FUNCTION_OVERLOADS(MwmCreateOverloads, Mwm::Create, 1 /* min_args */, 2 /* max_args */);
 
 class MwmIter
 {
@@ -243,7 +235,10 @@ private:
   uint32_t m_current = 0;
 };
 
-MwmIter Mwm::MakeMwmIter() { return MwmIter(m_self.lock()); }
+MwmIter Mwm::MakeMwmIter()
+{
+  return MwmIter(m_self.lock());
+}
 
 std::string ReadAll(std::string const & filename)
 {
@@ -255,23 +250,18 @@ std::string ReadAll(std::string const & filename)
 
 void InitClassificator(std::string const & resourcePath)
 {
-  classificator::LoadTypes(
-        ReadAll(base::JoinPath(resourcePath, "classificator.txt")),
-        ReadAll(base::JoinPath(resourcePath, "types.txt"))
-  );
+  classificator::LoadTypes(ReadAll(base::JoinPath(resourcePath, "classificator.txt")),
+                           ReadAll(base::JoinPath(resourcePath, "types.txt")));
 }
 
 struct GeometryNamespace
-{
-};
+{};
 
 struct MwmNamespace
-{
-};
+{};
 
 struct ClassifNamespace
-{
-};
+{};
 }  // namespace
 
 BOOST_PYTHON_MODULE(pygen)
@@ -298,19 +288,18 @@ BOOST_PYTHON_MODULE(pygen)
         .add_property("min_y", &m2::RectD::minY, &m2::RectD::setMinY)
         .add_property("max_x", &m2::RectD::maxX, &m2::RectD::setMaxX)
         .add_property("max_y", &m2::RectD::maxY, &m2::RectD::setMaxY)
-        .add_property(
-            "right_top", &m2::RectD::RightTop,
-            +[](m2::RectD & self, m2::RectD const & p) {
-              self.setMaxX(p.maxX());
-              self.setMaxY(p.maxY());
-            })
-        .add_property(
-            "left_bottom", &m2::RectD::LeftBottom,
-            +[](m2::RectD & self, m2::RectD const & p) {
-              self.setMinX(p.minX());
-              self.setMinY(p.minY());
-            })
-        .def("__repr__", static_cast<std::string (*)(m2::RectD const &)>(m2::DebugPrint));
+        .add_property("right_top", &m2::RectD::RightTop,
+                      +[](m2::RectD & self, m2::RectD const & p)
+    {
+      self.setMaxX(p.maxX());
+      self.setMaxY(p.maxY());
+    })
+        .add_property("left_bottom", &m2::RectD::LeftBottom,
+                      +[](m2::RectD & self, m2::RectD const & p)
+    {
+      self.setMinX(p.minX());
+      self.setMinY(p.minY());
+    }).def("__repr__", static_cast<std::string (*)(m2::RectD const &)>(m2::DebugPrint));
   }
   {
     bp::scope mwmNamespace = bp::class_<MwmNamespace>("mwm");
@@ -330,15 +319,13 @@ BOOST_PYTHON_MODULE(pygen)
         .def_readwrite("tag", &FilesContainerR::TagInfo::m_tag)
         .def_readwrite("offset", &FilesContainerR::TagInfo::m_offset)
         .def_readwrite("size", &FilesContainerR::TagInfo::m_size)
-        .def("__repr__",
-             static_cast<std::string (*)(FilesContainerR::TagInfo const &)>(DebugPrint));
+        .def("__repr__", static_cast<std::string (*)(FilesContainerR::TagInfo const &)>(DebugPrint));
 
     bp::class_<version::MwmVersion>("MwmVersion", bp::no_init)
         .def("format", &version::MwmVersion::GetFormat)
         .def("seconds_since_epoch", &version::MwmVersion::GetSecondsSinceEpoch)
         .def("version", &version::MwmVersion::GetVersion)
-        .def("__repr__",
-             static_cast<std::string (*)(version::MwmVersion const &)>(version::DebugPrint));
+        .def("__repr__", static_cast<std::string (*)(version::MwmVersion const &)>(version::DebugPrint));
 
     bp::class_<FeatureTypeWrapper>("FeatureType", bp::no_init)
         .def("index", &FeatureTypeWrapper::GetIndex)
@@ -355,17 +342,14 @@ BOOST_PYTHON_MODULE(pygen)
         .def("center", &FeatureTypeWrapper::GetCenter)
         .def("geometry", &FeatureTypeWrapper::GetGeometry)
         .def("limit_rect", &FeatureTypeWrapper::GetLimitRect)
-        .def(
-            "parse",
-            +[](FeatureTypeWrapper & self) {
-              self.ParseAll();
-              return self;
-            })
-        .def("__repr__", &FeatureTypeWrapper::DebugString);
+        .def("parse", +[](FeatureTypeWrapper & self)
+    {
+      self.ParseAll();
+      return self;
+    }).def("__repr__", &FeatureTypeWrapper::DebugString);
 
     bp::class_<MwmIter>("MwmIter", bp::no_init)
-        .def(
-            "__iter__", +[](MwmIter self) { return self; })
+        .def("__iter__", +[](MwmIter self) { return self; })
         .def("__next__", &MwmIter::Next)
         .def("next", &MwmIter::Next);
 
@@ -384,11 +368,7 @@ BOOST_PYTHON_MODULE(pygen)
 
     bp::def("init_classificator", InitClassificator);
 
-    bp::def(
-        "readable_type", +[](uint32_t index) {
-          return index == kInvalidIndex
-                     ? "unknown"
-                     : classif().GetReadableObjectName(classif().GetTypeForIndex(index));
-        });
+    bp::def("readable_type", +[](uint32_t index)
+    { return index == kInvalidIndex ? "unknown" : classif().GetReadableObjectName(classif().GetTypeForIndex(index)); });
   }
 }

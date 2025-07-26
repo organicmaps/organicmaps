@@ -38,34 +38,30 @@ UNIT_TEST(Navigator_Scale2Points)
   ScreenBase const & screen = navigator.Screen();
   TEST_EQUAL(screen.ClipRect(), m2::RectD(0, 0, 8, 4), ());
 
-  navigator.StartScale(screen.GtoP(m2::PointD(1, 1)),
-                       screen.GtoP(m2::PointD(7, 1)));
-  navigator.StopScale(screen.GtoP(m2::PointD(1, 1)),
-                      screen.GtoP(m2::PointD(4, 1)));
+  navigator.StartScale(screen.GtoP(m2::PointD(1, 1)), screen.GtoP(m2::PointD(7, 1)));
+  navigator.StopScale(screen.GtoP(m2::PointD(1, 1)), screen.GtoP(m2::PointD(4, 1)));
   TEST_EQUAL(screen.ClipRect(), m2::RectD(-1, -1, 15, 7), ());
 }
 
 namespace
 {
-  void CheckNavigator(df::Navigator const & nav)
+void CheckNavigator(df::Navigator const & nav)
+{
+  typedef m2::PointD P;
+  m2::RectD clipR = nav.Screen().ClipRect();
+
+  P arr[] = {clipR.LeftTop(), clipR.RightTop(), clipR.RightBottom(), clipR.LeftBottom(), clipR.Center()};
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
   {
-    typedef m2::PointD P;
-    m2::RectD clipR = nav.Screen().ClipRect();
-
-    P arr[] = { clipR.LeftTop(), clipR.RightTop(),
-                clipR.RightBottom(), clipR.LeftBottom(),
-                clipR.Center() };
-
-    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-    {
-      P const & pxP = arr[i];
-      P const gP = nav.PtoG(pxP);
-      P const pxP2 = nav.GtoP(gP);
-      TEST(AlmostEqualAbs(pxP.x, pxP2.x, 0.00001), (pxP.x, pxP2.x));
-      TEST(AlmostEqualAbs(pxP.y, pxP2.y, 0.00001), (pxP.y, pxP2.y));
-    }
+    P const & pxP = arr[i];
+    P const gP = nav.PtoG(pxP);
+    P const pxP2 = nav.GtoP(gP);
+    TEST(AlmostEqualAbs(pxP.x, pxP2.x, 0.00001), (pxP.x, pxP2.x));
+    TEST(AlmostEqualAbs(pxP.y, pxP2.y, 0.00001), (pxP.y, pxP2.y));
   }
 }
+}  // namespace
 
 UNIT_TEST(Navigator_G2P_P2G)
 {
@@ -83,6 +79,6 @@ UNIT_TEST(Navigator_G2P_P2G)
   navigator.Scale(center, 3.0);
   CheckNavigator(navigator);
 
-  navigator.Scale(center, 1/3.0);
+  navigator.Scale(center, 1 / 3.0);
   CheckNavigator(navigator);
 }

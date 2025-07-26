@@ -16,6 +16,7 @@ class ValueMapping
   using TRangePoint = std::pair<double, TValue>;
   using TRangeVector = buffer_vector<TRangePoint, 8>;
   using TRangeIter = typename TRangeVector::const_iterator;
+
 public:
   ValueMapping() = default;
 
@@ -71,4 +72,4 @@ private:
   TRangeVector m_ranges;
 };
 
-}
+}  // namespace df

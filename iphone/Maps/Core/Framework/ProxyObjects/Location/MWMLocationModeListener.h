@@ -7,4 +7,3 @@ NS_SWIFT_NAME(LocationModeListener)
 @end
 
 NS_ASSUME_NONNULL_END
-

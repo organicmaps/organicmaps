@@ -55,11 +55,12 @@ namespace routes_builder
 // RoutesBuilder::Params ---------------------------------------------------------------------------
 
 RoutesBuilder::Params::Params(VehicleType type, ms::LatLon const & start, ms::LatLon const & finish)
-    : Params(type, {mercator::FromLatLon(start), mercator::FromLatLon(finish)})
+  : Params(type, {mercator::FromLatLon(start), mercator::FromLatLon(finish)})
 {}
 
 RoutesBuilder::Params::Params(VehicleType type, std::vector<m2::PointD> && checkpoints)
-    : m_type(type), m_checkpoints(std::move(checkpoints))
+  : m_type(type)
+  , m_checkpoints(std::move(checkpoints))
 {}
 
 // static
@@ -139,10 +140,8 @@ RoutesBuilder::Result RoutesBuilder::ProcessTask(Params const & params)
 std::future<RoutesBuilder::Result> RoutesBuilder::ProcessTaskAsync(Params const & params)
 {
   // Should be copyable to workaround MSVC bug (https://developercommunity.visualstudio.com/t/108672)
-  auto task = [processor = std::make_shared<Processor>(m_numMwmIds, m_dataSourcesStorage, m_cpg, m_cig)](Params const & params) -> Result
-  {
-      return (*processor)(params);
-  };
+  auto task = [processor = std::make_shared<Processor>(m_numMwmIds, m_dataSourcesStorage, m_cpg, m_cig)](
+                  Params const & params) -> Result { return (*processor)(params); };
   return m_threadPool.Submit(std::move(task), params);
 }
 
@@ -229,19 +228,16 @@ std::vector<ms::LatLon> RoutesBuilder::Route::GetWaypoints() const
 
 // RoutesBuilder::Processor ------------------------------------------------------------------------
 
-RoutesBuilder::Processor::Processor(std::shared_ptr<NumMwmIds> numMwmIds,
-                                    DataSourceStorage & dataSourceStorage,
+RoutesBuilder::Processor::Processor(std::shared_ptr<NumMwmIds> numMwmIds, DataSourceStorage & dataSourceStorage,
                                     std::weak_ptr<storage::CountryParentGetter> cpg,
                                     std::weak_ptr<storage::CountryInfoGetter> cig)
-    : m_numMwmIds(std::move(numMwmIds))
-    , m_dataSourceStorage(dataSourceStorage)
-    , m_cpg(std::move(cpg))
-    , m_cig(std::move(cig))
-{
-}
+  : m_numMwmIds(std::move(numMwmIds))
+  , m_dataSourceStorage(dataSourceStorage)
+  , m_cpg(std::move(cpg))
+  , m_cig(std::move(cig))
+{}
 
-RoutesBuilder::Processor::Processor(Processor && rhs) noexcept
-    : m_dataSourceStorage(rhs.m_dataSourceStorage)
+RoutesBuilder::Processor::Processor(Processor && rhs) noexcept : m_dataSourceStorage(rhs.m_dataSourceStorage)
 {
   m_start = rhs.m_start;
   m_finish = rhs.m_finish;
@@ -261,12 +257,14 @@ void RoutesBuilder::Processor::InitRouter(VehicleType type)
     return;
 
   auto const & cig = m_cig;
-  auto const countryFileGetter = [cig](m2::PointD const & pt) {
+  auto const countryFileGetter = [cig](m2::PointD const & pt)
+  {
     auto const cigSharedPtr = cig.lock();
     return cigSharedPtr->GetRegionCountryId(pt);
   };
 
-  auto const getMwmRectByName = [cig](std::string const & countryId) {
+  auto const getMwmRectByName = [cig](std::string const & countryId)
+  {
     auto const cigSharedPtr = cig.lock();
     return cigSharedPtr->GetLimitRectForLeaf(countryId);
   };
@@ -275,24 +273,15 @@ void RoutesBuilder::Processor::InitRouter(VehicleType type)
   if (!m_dataSource)
     m_dataSource = m_dataSourceStorage.GetDataSource();
 
-  m_router = std::make_unique<IndexRouter>(type,
-                                           loadAltitudes,
-                                           *m_cpg.lock(),
-                                           countryFileGetter,
-                                           getMwmRectByName,
-                                           m_numMwmIds,
-                                           MakeNumMwmTree(*m_numMwmIds, *m_cig.lock()),
-                                           *m_trafficCache,
+  m_router = std::make_unique<IndexRouter>(type, loadAltitudes, *m_cpg.lock(), countryFileGetter, getMwmRectByName,
+                                           m_numMwmIds, MakeNumMwmTree(*m_numMwmIds, *m_cig.lock()), *m_trafficCache,
                                            *m_dataSource);
 }
 
-RoutesBuilder::Result
-RoutesBuilder::Processor::operator()(Params const & params)
+RoutesBuilder::Result RoutesBuilder::Processor::operator()(Params const & params)
 {
   InitRouter(params.m_type);
-  SCOPE_GUARD(returnDataSource, [&]() {
-    m_dataSourceStorage.PushDataSource(std::move(m_dataSource));
-  });
+  SCOPE_GUARD(returnDataSource, [&]() { m_dataSourceStorage.PushDataSource(std::move(m_dataSource)); });
 
   LOG(LINFO, ("Start building route, checkpoints:", params.m_checkpoints));
 
@@ -306,8 +295,8 @@ RoutesBuilder::Processor::operator()(Params const & params)
   {
     m_delegate->SetTimeout(params.m_timeoutSeconds);
     base::Timer timer;
-    resultCode = m_router->CalculateRoute(params.m_checkpoints, m2::PointD::Zero(),
-                                          false /* adjustToPrevRoute */, *m_delegate, route);
+    resultCode = m_router->CalculateRoute(params.m_checkpoints, m2::PointD::Zero(), false /* adjustToPrevRoute */,
+                                          *m_delegate, route);
 
     if (resultCode != RouterResultCode::NoError)
       break;

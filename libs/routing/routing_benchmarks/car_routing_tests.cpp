@@ -21,10 +21,7 @@ std::set<std::string> const kCarMapFiles = {"Russia_Moscow"};
 class CarTest : public RoutingTest
 {
 public:
-  CarTest()
-    : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Car, kCarMapFiles)
-  {
-  }
+  CarTest() : RoutingTest(routing::IRoadGraph::Mode::ObeyOnewayTag, routing::VehicleType::Car, kCarMapFiles) {}
 
   void TestCarRouter(ms::LatLon const & start, ms::LatLon const & final, size_t reiterations)
   {

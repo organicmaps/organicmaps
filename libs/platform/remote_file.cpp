@@ -15,8 +15,7 @@ double constexpr kRequestTimeoutInSec = 5.0;
 }  // namespace
 
 RemoteFile::RemoteFile(std::string url, std::string accessToken /* = {} */,
-                       HttpClient::Headers const & defaultHeaders /* = {} */,
-                       bool allowRedirection /* = true */)
+                       HttpClient::Headers const & defaultHeaders /* = {} */, bool allowRedirection /* = true */)
   : m_url(std::move(url))
   , m_accessToken(std::move(accessToken))
   , m_defaultHeaders(defaultHeaders)
@@ -71,15 +70,13 @@ RemoteFile::Result RemoteFile::Download(std::string const & filePath) const
   return {m_url, Status::NetworkError, "Unspecified network error"};
 }
 
-void RemoteFile::DownloadAsync(std::string const & filePath,
-                               StartDownloadingHandler && startDownloadingHandler,
+void RemoteFile::DownloadAsync(std::string const & filePath, StartDownloadingHandler && startDownloadingHandler,
                                ResultHandler && resultHandler) const
 {
   RemoteFile remoteFile = *this;
-  GetPlatform().RunTask(Platform::Thread::Network,
-                        [filePath, remoteFile = std::move(remoteFile),
-                         startDownloadingHandler = std::move(startDownloadingHandler),
-                         resultHandler = std::move(resultHandler)]
+  GetPlatform().RunTask(Platform::Thread::Network, [filePath, remoteFile = std::move(remoteFile),
+                                                    startDownloadingHandler = std::move(startDownloadingHandler),
+                                                    resultHandler = std::move(resultHandler)]
   {
     if (startDownloadingHandler)
       startDownloadingHandler(filePath);

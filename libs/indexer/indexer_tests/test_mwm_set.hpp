@@ -38,4 +38,4 @@ protected:
   //@}
 };
 
-}  // namespace
+}  // namespace tests

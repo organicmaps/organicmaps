@@ -1,6 +1,7 @@
 #pragma once
 
-namespace location_util {
+namespace location_util
+{
 
 static location::GpsInfo gpsInfoFromLocation(CLLocation * l, location::TLocationSource source)
 {
@@ -38,4 +39,4 @@ static location::CompassInfo compassInfoFromHeading(CLHeading * h)
   return info;
 }
 
-} // namespace location_util
+}  // namespace location_util

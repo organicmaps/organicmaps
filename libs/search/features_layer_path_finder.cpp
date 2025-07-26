@@ -59,8 +59,7 @@ bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, ParentGr
     return false;
 
   size_t level = 0;
-  for (auto parentGraphLayer = parent.crbegin(); parentGraphLayer != parent.crend();
-       ++parentGraphLayer, ++level)
+  for (auto parentGraphLayer = parent.crbegin(); parentGraphLayer != parent.crend(); ++parentGraphLayer, ++level)
   {
     result.Set(layers[level]->m_type, id);
     auto const it = parentGraphLayer->find(id);
@@ -81,8 +80,7 @@ bool MayHaveDelayedFeatures(FeaturesLayer const & layer)
 
 template <class FnT>
 void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & matcher,
-                                                    vector<FeaturesLayer const *> const & layers,
-                                                    FnT && fn)
+                                                    vector<FeaturesLayer const *> const & layers, FnT && fn)
 {
   switch (m_mode)
   {
@@ -103,9 +101,8 @@ void FeaturesLayerPathFinder::FindReachableVertices(FeaturesLayerMatcher & match
 }
 
 template <class FnT>
-void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
-    FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
-    FnT && fn)
+void FeaturesLayerPathFinder::FindReachableVerticesTopDown(FeaturesLayerMatcher & matcher,
+                                                           vector<FeaturesLayer const *> const & layers, FnT && fn)
 {
   ASSERT(!layers.empty(), ());
 
@@ -114,7 +111,8 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
 
   ParentGraph parentGraph;
 
-  auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature) {
+  auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
+  {
     auto & parent = parentGraph.back();
     if (parent.find(childFeature) != parent.end())
       return;
@@ -148,16 +146,13 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
 
   IntersectionResult result;
   for (auto const & id : lowestLevel)
-  {
     if (GetPath(id, layers, parentGraph, result))
       fn(result);
-  }
 }
 
 template <class FnT>
-void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
-    FeaturesLayerMatcher & matcher, vector<FeaturesLayer const *> const & layers,
-    FnT && fn)
+void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(FeaturesLayerMatcher & matcher,
+                                                            vector<FeaturesLayer const *> const & layers, FnT && fn)
 {
   ASSERT(!layers.empty(), ());
 
@@ -176,7 +171,8 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
   // True iff |addEdge| works with the lowest level.
   bool first = true;
 
-  auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature) {
+  auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature)
+  {
     auto & parent = parentGraph.front();
     if (parent.find(childFeature) != parent.end())
       return;
@@ -212,9 +208,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
 
   IntersectionResult result;
   for (auto const & id : lowestLevel)
-  {
     if (GetPath(id, layers, parentGraph, result))
       fn(result);
-  }
 }
 }  // namespace search

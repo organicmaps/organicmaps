@@ -9,13 +9,13 @@
 
 namespace buffer_vector_test
 {
-  template <class TCont>
-  void CheckVector(TCont & cont, size_t count)
-  {
-    TEST_EQUAL ( cont.size(), count, () );
-    for (size_t i = 0; i < count; ++i)
-      TEST_EQUAL ( cont[i], i, () );
-  }
+template <class TCont>
+void CheckVector(TCont & cont, size_t count)
+{
+  TEST_EQUAL(cont.size(), count, ());
+  for (size_t i = 0; i < count; ++i)
+    TEST_EQUAL(cont[i], i, ());
+}
 
 UNIT_TEST(BufferVector_PushBackAndRealloc)
 {
@@ -54,7 +54,7 @@ UNIT_TEST(BufferVector_Bounds)
   for (size_t i = 0; i < 5; ++i)
   {
     v.push_back(i);
-    CheckVector(v, i+1);
+    CheckVector(v, i + 1);
   }
 
   v.resize(2);
@@ -91,8 +91,8 @@ UNIT_TEST(BufferVector_Swap)
   value_t const * d2 = v2.data();
 
   swap(v1, v2);
-  TEST_EQUAL ( d1, v2.data(), () );
-  TEST_EQUAL ( d2, v1.data(), () );
+  TEST_EQUAL(d1, v2.data(), ());
+  TEST_EQUAL(d2, v1.data(), ());
 
   // check swap in resized data
   {
@@ -102,13 +102,13 @@ UNIT_TEST(BufferVector_Swap)
 
     // resize from 5 to 1 => v[0] will stay at the same place
     v1.resize(1);
-    TEST_EQUAL ( v1[0].size(), 1, () );
-    TEST_EQUAL ( v1[0][0], 666, () );
-    TEST_EQUAL ( dd1, v1[0].data(), () );
+    TEST_EQUAL(v1[0].size(), 1, ());
+    TEST_EQUAL(v1[0][0], 666, ());
+    TEST_EQUAL(dd1, v1[0].data(), ());
 
     v1.resize(7);
-    TEST_EQUAL ( v1[0].size(), 1, () );
-    TEST_EQUAL ( v1[0][0], 666, () );
+    TEST_EQUAL(v1[0].size(), 1, ());
+    TEST_EQUAL(v1[0][0], 666, ());
   }
 
   {
@@ -120,12 +120,12 @@ UNIT_TEST(BufferVector_Swap)
     auto const * dd2 = v2[0].data();
 
     v2.resize(1);
-    TEST_EQUAL ( v2[0].size(), 5, () );
-    TEST_EQUAL ( dd2, v2[0].data(), () );
+    TEST_EQUAL(v2[0].size(), 5, ());
+    TEST_EQUAL(dd2, v2[0].data(), ());
 
     v1.resize(7);
-    TEST_EQUAL ( v2[0].size(), 5, () );
-    TEST_EQUAL ( dd2, v2[0].data(), () );
+    TEST_EQUAL(v2[0].size(), 5, ());
+    TEST_EQUAL(dd2, v2[0].data(), ());
   }
 
   // check resize from static to dynamic buffer
@@ -140,8 +140,8 @@ UNIT_TEST(BufferVector_Swap)
 
     // resize from static to dynamic buffer => v3[0] will stay at the same place
     v1.resize(7);
-    TEST_EQUAL ( v3[0].size(), 5, () );
-    TEST_EQUAL ( dd3, v3[0].data(), () );
+    TEST_EQUAL(v3[0].size(), 5, ());
+    TEST_EQUAL(dd3, v3[0].data(), ());
   }
 }
 
@@ -253,9 +253,9 @@ UNIT_TEST(BufferVector_PopBack)
       TEST(!v.empty(), (len, i));
       TEST_EQUAL(v.size(), i, ());
       TEST_EQUAL(v.front(), 0, ());
-      TEST_EQUAL(v.back(), i-1, ());
+      TEST_EQUAL(v.back(), i - 1, ());
       v.pop_back();
-      TEST_EQUAL(v.size(), i-1, ());
+      TEST_EQUAL(v.size(), i - 1, ());
     }
     TEST(v.empty(), ());
   }
@@ -266,16 +266,12 @@ UNIT_TEST(BufferVector_Assign)
   int const arr5[] = {1, 2, 3, 4, 5};
   buffer_vector<int, 5> v(&arr5[0], &arr5[0] + ARRAY_SIZE(arr5));
   for (size_t i = 0; i < ARRAY_SIZE(arr5); ++i)
-  {
     TEST_EQUAL(arr5[i], v[i], ());
-  }
 
-  int const arr10[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+  int const arr10[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   v.assign(&arr10[0], &arr10[0] + ARRAY_SIZE(arr10));
   for (size_t i = 0; i < ARRAY_SIZE(arr10); ++i)
-  {
     TEST_EQUAL(arr10[i], v[i], ());
-  }
 }
 
 UNIT_TEST(BufferVector_Equality)
@@ -337,7 +333,7 @@ void TestVector(VectorT const & v, size_t sz)
     TEST_EQUAL(v[i].m_s, strings::to_string(i), ());
 }
 
-} // namespace
+}  // namespace
 
 UNIT_TEST(BufferVector_Move)
 {
@@ -345,7 +341,7 @@ UNIT_TEST(BufferVector_Move)
   TestVector(v1, 2);
 
   // Make intermediate array to avoid warning (moving to itself).
-  std::array<VectorT *, 2> arr = { &v1, &v1 };
+  std::array<VectorT *, 2> arr = {&v1, &v1};
   *arr[0] = std::move(*arr[1]);
   TestVector(v1, 2);
 
@@ -366,18 +362,18 @@ UNIT_TEST(BufferVector_EraseIf)
   buffer_vector<int, 2> v;
   v.push_back(1);
   v.push_back(2);
-  v.erase_if([] (int x) { return x == 1; });
+  v.erase_if([](int x) { return x == 1; });
   TEST_EQUAL(v.size(), 1, ());
   TEST_EQUAL(v[0], 2, ());
 
   v.push_back(3);
   v.push_back(4);
-  v.erase_if([] (int x) { return x == 3; });
+  v.erase_if([](int x) { return x == 3; });
   TEST_EQUAL(v.size(), 2, ());
   TEST_EQUAL(v[0], 2, ());
   TEST_EQUAL(v[1], 4, ());
 
-  v.erase_if([] (int) { return true; });
+  v.erase_if([](int) { return true; });
   TEST_EQUAL(v.size(), 0, ());
 }
 
@@ -405,8 +401,8 @@ UNIT_TEST(BufferVector_Erase)
 
   while (v1.size() > 1)
   {
-    v1.erase(v1.begin() + v1.size() / 3, v1.begin() + 2 * v1.size () / 3);
-    v2.erase(v2.begin() + v2.size() / 3, v2.begin() + 2 * v2.size () / 3);
+    v1.erase(v1.begin() + v1.size() / 3, v1.begin() + 2 * v1.size() / 3);
+    v2.erase(v2.begin() + v2.size() / 3, v2.begin() + 2 * v2.size() / 3);
 
     TEST_EQUAL(v1.size(), v2.size(), ());
     for (size_t i = 0; i < v1.size(); ++i)

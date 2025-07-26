@@ -13,13 +13,13 @@ class RoutingOptions
 public:
   enum Road : uint8_t
   {
-    Usual    = 1u << 0,
-    Toll     = 1u << 1,
+    Usual = 1u << 0,
+    Toll = 1u << 1,
     Motorway = 1u << 2,
-    Ferry    = 1u << 3,
-    Dirty    = 1u << 4,
+    Ferry = 1u << 3,
+    Dirty = 1u << 4,
 
-    Max      = (1u << 4) + 1
+    Max = (1u << 4) + 1
   };
 
   using RoadType = std::underlying_type_t<Road>;

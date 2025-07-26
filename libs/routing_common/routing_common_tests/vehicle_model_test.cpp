@@ -15,7 +15,6 @@
 
 #include "base/math.hpp"
 
-
 namespace vehicle_model_test
 {
 using namespace routing;
@@ -26,34 +25,32 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayPrimary, InOutCitySpeedKMpH(90.0 /* in city */, 120.0 /* out city */)},
     {HighwayType::HighwaySecondary,
      InOutCitySpeedKMpH(SpeedKMpH(80.0 /* weight */, 70.0 /* eta */) /* in and out city*/)},
-    {HighwayType::HighwayResidential,
-     InOutCitySpeedKMpH(SpeedKMpH(45.0 /* weight */, 55.0 /* eta */) /* in city */,
-                        SpeedKMpH(50.0 /* weight */, 60.0 /* eta */) /* out city */)},
-    {HighwayType::HighwayService,
-     InOutCitySpeedKMpH(SpeedKMpH(47.0 /* weight */, 36.0 /* eta */) /* in city */,
-                        SpeedKMpH(50.0 /* weight */, 40.0 /* eta */) /* out city */)}
+    {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(45.0 /* weight */, 55.0 /* eta */) /* in city */,
+     SpeedKMpH(50.0 /* weight */, 60.0 /* eta */) /* out city */)},
+    {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(47.0 /* weight */, 36.0 /* eta */) /* in city */,
+     SpeedKMpH(50.0 /* weight */, 40.0 /* eta */) /* out city */)}
 };
 
 HighwayBasedFactors const kDefaultFactors = {
-    {HighwayType::HighwayTrunk, InOutCityFactor(1.0)},
-    {HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
-    {HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
+    {      HighwayType::HighwayTrunk, InOutCityFactor(1.0)},
+    {    HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
+    {  HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
     {HighwayType::HighwayResidential, InOutCityFactor(0.5)}
 };
 
 VehicleModel::LimitsInitList const kTestLimits = {
-  {HighwayType::HighwayTrunk, true},
-  {HighwayType::HighwayPrimary, true},
-  {HighwayType::HighwaySecondary, true},
-  {HighwayType::HighwayResidential, true},
-  {HighwayType::HighwayService, false}
+    {      HighwayType::HighwayTrunk,  true},
+    {    HighwayType::HighwayPrimary,  true},
+    {  HighwayType::HighwaySecondary,  true},
+    {HighwayType::HighwayResidential,  true},
+    {    HighwayType::HighwayService, false}
 };
 
 VehicleModel::SurfaceInitList const kCarSurface = {
-    {{"psurface", "paved_good"}, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
-    {{"psurface", "paved_bad"}, {0.4, 0.5}},
-    {{"psurface", "unpaved_good"}, {0.6, 0.8}},
-    {{"psurface", "unpaved_bad"}, {0.2, 0.2}}
+    {  {"psurface", "paved_good"}, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
+    {   {"psurface", "paved_bad"},                                    {0.4, 0.5}},
+    {{"psurface", "unpaved_good"},                                    {0.6, 0.8}},
+    { {"psurface", "unpaved_bad"},                                    {0.2, 0.2}}
 };
 
 class VehicleModelTest
@@ -93,10 +90,7 @@ public:
 class VehicleModelStub : public VehicleModel
 {
 public:
-  VehicleModelStub()
-    : VehicleModel(classif(), kTestLimits, kCarSurface, {kDefaultSpeeds, kDefaultFactors})
-  {
-  }
+  VehicleModelStub() : VehicleModel(classif(), kTestLimits, kCarSurface, {kDefaultSpeeds, kDefaultFactors}) {}
 
   SpeedKMpH GetSpeed(feature::TypesHolder const & types, SpeedParams const & params) const override
   {
@@ -149,7 +143,6 @@ void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expe
 
   TEST_EQUAL(model.IsPassThroughAllowed(h), expectedValue, ());
 }
-
 
 UNIT_CLASS_TEST(VehicleModelStub, MaxSpeed)
 {
@@ -207,9 +200,8 @@ UNIT_CLASS_TEST(VehicleModelTest, PassThroughAllowed)
 
 UNIT_CLASS_TEST(VehicleModelTest, SpeedFactor)
 {
-  CheckSpeed({secondary, pavedGood},
-             {SpeedKMpH(64.0 /* weight */, 63.0 /* eta */) /* in city */,
-              SpeedKMpH(64.0 /* weight */, 63.0 /* eta */) /* out of city */});
+  CheckSpeed({secondary, pavedGood}, {SpeedKMpH(64.0 /* weight */, 63.0 /* eta */) /* in city */,
+                                      SpeedKMpH(64.0 /* weight */, 63.0 /* eta */) /* out of city */});
   CheckSpeed({secondary, pavedBad}, {SpeedKMpH(32.0, 35.0), SpeedKMpH(32.0, 35.0)});
   CheckSpeed({secondary, unpavedGood}, {SpeedKMpH(48.0, 56.0), SpeedKMpH(48.0, 56.0)});
   CheckSpeed({secondary, unpavedBad}, {SpeedKMpH(16.0, 14.0), SpeedKMpH(16.0, 14.0)});
@@ -227,28 +219,22 @@ UNIT_CLASS_TEST(VehicleModelTest, MaxspeedFactor)
   Maxspeed const maxspeed90 = Maxspeed(units, 90, kInvalidSpeed);
 
   // pavedBad == unpavedBad for the roads with explicitly defined speeds.
-  CheckSpeedWithParams({secondary, unpavedBad},
-                       SpeedParams(true /* forward */, false /* in city */, maxspeed90),
+  CheckSpeedWithParams({secondary, unpavedBad}, SpeedParams(true /* forward */, false /* in city */, maxspeed90),
                        SpeedKMpH(36.0, 45.0));
-  CheckSpeedWithParams({secondary, pavedBad},
-                       SpeedParams(true /* forward */, false /* in city */, maxspeed90),
+  CheckSpeedWithParams({secondary, pavedBad}, SpeedParams(true /* forward */, false /* in city */, maxspeed90),
                        SpeedKMpH(36.0, 45.0));
 
-  CheckSpeedWithParams({primary, pavedGood},
-                       SpeedParams(true /* forward */, false /* in city */, maxspeed90),
+  CheckSpeedWithParams({primary, pavedGood}, SpeedParams(true /* forward */, false /* in city */, maxspeed90),
                        SpeedKMpH(72.0, 81.0));
 
   Maxspeed const maxspeed9070 = Maxspeed(units, 90, 70);
-  CheckSpeedWithParams({primary, pavedGood},
-                       SpeedParams(true /* forward */, false /* in city */, maxspeed9070),
+  CheckSpeedWithParams({primary, pavedGood}, SpeedParams(true /* forward */, false /* in city */, maxspeed9070),
                        SpeedKMpH(72.0, 81.0));
-  CheckSpeedWithParams({primary, pavedGood},
-                       SpeedParams(false /* forward */, false /* in city */, maxspeed9070),
+  CheckSpeedWithParams({primary, pavedGood}, SpeedParams(false /* forward */, false /* in city */, maxspeed9070),
                        SpeedKMpH(56.0, 63.0));
 
   Maxspeed const maxspeed60 = Maxspeed(units, 60, kInvalidSpeed);
-  CheckSpeedWithParams({residential, pavedGood},
-                       SpeedParams(true /* forward */, false /* in city */, maxspeed60),
+  CheckSpeedWithParams({residential, pavedGood}, SpeedParams(true /* forward */, false /* in city */, maxspeed60),
                        SpeedKMpH(24.0, 27.0));
 }
 
@@ -270,7 +256,7 @@ bool LessOrEqualSpeed(SpeedKMpH const & l, SpeedKMpH const & r)
 }
 
 #define TEST_LESS_OR_EQUAL_SPEED(l, r) TEST(LessOrEqualSpeed(l, r), (l, r))
-} // namespace
+}  // namespace
 
 UNIT_CLASS_TEST(VehicleModelTest, CarModel_TrackVsGravelTertiary)
 {
@@ -283,7 +269,7 @@ UNIT_CLASS_TEST(VehicleModelTest, CarModel_TrackVsGravelTertiary)
 
   feature::TypesHolder h2;
   h2.Add(c.GetTypeByPath({"highway", "tertiary"}));
-  h2.Add(unpavedBad);   // from OSM surface=gravel
+  h2.Add(unpavedBad);  // from OSM surface=gravel
 
   // https://www.openstreetmap.org/#map=19/45.43640/36.39689
   // Obvious that gravel tertiary (moreover with maxspeed=60kmh) should be better than track.
@@ -354,23 +340,25 @@ UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_Speeds)
   auto const p = DefaultParams();
 
   std::vector<std::vector<uint32_t>> const highways = {
-    {cycleway, pavedGood}, // TODO: should be higher than next, but is equal
-    {cycleway},
-    {cycleway, unpavedGood}, // TODO: should be lower than previous, but is equal
-    {footway, yesBicycle, pavedGood}, // TODO: should be higher than next, but is equal
-    {footway, yesBicycle},
-    {path, yesBicycle}, // TODO: unpaved by default, so should be lower than shared footways or cycleways, but is equal
-    {cycleway, pavedBad},
-    {footway, yesBicycle, pavedBad},
-    {footway}, // If allowed in the region.
-    {cycleway, unpavedBad},
-    {path, unpavedGood}, // Its controversial what is preferrable: a good path or a bad cycleway
-    {path, yesBicycle, unpavedBad},
-    /// @todo(pastk): "nobicycle" is ignored in speed calculation atm, the routing is just forbidden there.
-    /// But "nobicycle" should result in a dismount speed instead, see https://github.com/organicmaps/organicmaps/issues/9784
-    // {footway, c.GetTypeByPath({"hwtag", "nobicycle"})},
-    // {path, c.GetTypeByPath({"hwtag", "nobicycle"})},
-    {path, unpavedBad},
+      {cycleway, pavedGood}, // TODO: should be higher than next, but is equal
+      {cycleway},
+      {cycleway, unpavedGood}, // TODO: should be lower than previous, but is equal
+      {footway, yesBicycle, pavedGood}, // TODO: should be higher than next, but is equal
+      {footway, yesBicycle},
+      {path,
+       yesBicycle}, // TODO: unpaved by default, so should be lower than shared footways or cycleways, but is equal
+      {cycleway, pavedBad},
+      {footway, yesBicycle, pavedBad},
+      {footway}, // If allowed in the region.
+      {cycleway, unpavedBad},
+      {path, unpavedGood}, // Its controversial what is preferrable: a good path or a bad cycleway
+      {path, yesBicycle, unpavedBad},
+      /// @todo(pastk): "nobicycle" is ignored in speed calculation atm, the routing is just forbidden there.
+      /// But "nobicycle" should result in a dismount speed instead, see
+      /// https://github.com/organicmaps/organicmaps/issues/9784
+      // {footway, c.GetTypeByPath({"hwtag", "nobicycle"})},
+      // {path, c.GetTypeByPath({"hwtag", "nobicycle"})},
+      {path, unpavedBad},
   };
 
   feature::TypesHolder hprev;
@@ -415,18 +403,18 @@ UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Speeds)
   auto const p = DefaultParams();
 
   std::vector<std::vector<uint32_t>> const highways = {
-    {footway, pavedGood}, // TODO: should be higher than next, but is equal
-    {footway},
-    {footway, pavedBad}, // TODO: should be lower than previous, but is equal
-    {footway, yesBicycle}, // TODO: should be lower than previous, but is equal
-    {path, yesFoot}, // TODO: should be higher than previous, but is equal
-    {path, unpavedGood}, // TODO: should be lower than previous, but is equal
-    {path, yesBicycle}, // TODO: should be lower than previous, but is equal
-    {cycleway},
-    {path, unpavedBad},
-    {cycleway, unpavedBad},
-    // {path, c.GetTypeByPath({"hwtag", "nofoot"})}, // TODO: should be forbidden, but has no effect ATM
-    // {cycleway, c.GetTypeByPath({"hwtag", "nofoot"})}, // TODO: should be forbidden, but has no effect ATM
+      {footway, pavedGood}, // TODO: should be higher than next, but is equal
+      {footway},
+      {footway, pavedBad}, // TODO: should be lower than previous, but is equal
+      {footway, yesBicycle}, // TODO: should be lower than previous, but is equal
+      {path, yesFoot}, // TODO: should be higher than previous, but is equal
+      {path, unpavedGood}, // TODO: should be lower than previous, but is equal
+      {path, yesBicycle}, // TODO: should be lower than previous, but is equal
+      {cycleway},
+      {path, unpavedBad},
+      {cycleway, unpavedBad},
+      // {path, c.GetTypeByPath({"hwtag", "nofoot"})}, // TODO: should be forbidden, but has no effect ATM
+      // {cycleway, c.GetTypeByPath({"hwtag", "nofoot"})}, // TODO: should be forbidden, but has no effect ATM
   };
 
   feature::TypesHolder hprev;
@@ -460,15 +448,12 @@ UNIT_TEST(VehicleModel_MultiplicationOperatorTest)
 UNIT_TEST(VehicleModel_CarModelValidation)
 {
   HighwayType const carRoadTypes[] = {
-      HighwayType::HighwayLivingStreet,  HighwayType::HighwayMotorway,
-      HighwayType::HighwayMotorwayLink,  HighwayType::HighwayPrimary,
-      HighwayType::HighwayPrimaryLink,   HighwayType::HighwayResidential,
-      HighwayType::HighwayRoad,          HighwayType::HighwaySecondary,
-      HighwayType::HighwaySecondaryLink, HighwayType::HighwayService,
-      HighwayType::HighwayTertiary,      HighwayType::HighwayTertiaryLink,
-      HighwayType::HighwayTrack,         HighwayType::HighwayTrunk,
-      HighwayType::HighwayTrunkLink,     HighwayType::HighwayUnclassified,
-      HighwayType::ManMadePier,          HighwayType::RouteShuttleTrain,
+      HighwayType::HighwayLivingStreet, HighwayType::HighwayMotorway,    HighwayType::HighwayMotorwayLink,
+      HighwayType::HighwayPrimary,      HighwayType::HighwayPrimaryLink, HighwayType::HighwayResidential,
+      HighwayType::HighwayRoad,         HighwayType::HighwaySecondary,   HighwayType::HighwaySecondaryLink,
+      HighwayType::HighwayService,      HighwayType::HighwayTertiary,    HighwayType::HighwayTertiaryLink,
+      HighwayType::HighwayTrack,        HighwayType::HighwayTrunk,       HighwayType::HighwayTrunkLink,
+      HighwayType::HighwayUnclassified, HighwayType::ManMadePier,        HighwayType::RouteShuttleTrain,
       HighwayType::RouteFerry,
   };
 
@@ -490,9 +475,7 @@ UNIT_TEST(VehicleModel_HighwayType_Values)
   auto const & cl = classif();
 
   auto const check = [&cl](HighwayType hwType, base::StringIL clType)
-  {
-    return static_cast<uint16_t>(hwType) == cl.GetIndexForType(cl.GetTypeByPath(clType));
-  };
+  { return static_cast<uint16_t>(hwType) == cl.GetIndexForType(cl.GetTypeByPath(clType)); };
 
   TEST(check(HighwayType::HighwayResidential, {"highway", "residential"}), ());
   TEST(check(HighwayType::HighwayService, {"highway", "service"}), ());

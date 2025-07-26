@@ -32,8 +32,7 @@ UNIT_TEST(RandomRecode)
 
 UNIT_TEST(EncodeNumber)
 {
-  TEST_EQUAL(NumToHex(uint64_t(0x0123456789ABCDEFULL)),
-                                "0123456789ABCDEF", ());
+  TEST_EQUAL(NumToHex(uint64_t(0x0123456789ABCDEFULL)), "0123456789ABCDEF", ());
 }
 
 UNIT_TEST(DecodeLowerCaseHex)

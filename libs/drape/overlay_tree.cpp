@@ -13,7 +13,7 @@ int const kMaxFrameUpdatePeriod = 15;
 uint32_t const kMinHandlesCount = 100;
 uint32_t const kMaxHandlesCount = 1000;
 
-size_t const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
+size_t const kAverageHandlesCount[dp::OverlayRanksCount] = {300, 200, 50};
 int const kInvalidFrame = -1;
 
 namespace
@@ -21,14 +21,9 @@ namespace
 class HandleComparator
 {
 public:
-  explicit HandleComparator(bool enableMask)
-    : m_enableMask(enableMask)
-  {}
+  explicit HandleComparator(bool enableMask) : m_enableMask(enableMask) {}
 
-  bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
-  {
-    return IsGreater(l, r);
-  }
+  bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const { return IsGreater(l, r); }
 
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
@@ -167,7 +162,7 @@ bool OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
 {
   /// @todo Fires when deleting downloaded country ?!
-  //ASSERT(handle->GetOverlayID().IsValid(), ());
+  // ASSERT(handle->GetOverlayID().IsValid(), ());
   ASSERT(IsNeedUpdate(), ());
 
   ScreenBase const & modelView = GetModelView();
@@ -199,8 +194,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   // last time. Also clip all handles in reverse projection.
   m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
   if (modelView.IsReverseProjection3d(pixelRect.Center()) ||
-      (m_displacers.find(handle) == m_displacers.end() &&
-       !m_traits.GetExtendedScreenRect().IsIntersect(pixelRect)))
+      (m_displacers.find(handle) == m_displacers.end() && !m_traits.GetExtendedScreenRect().IsIntersect(pixelRect)))
   {
     handle->SetIsVisible(false);
     return;
@@ -216,7 +210,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
                                ref_ptr<OverlayHandle> const & parentOverlay)
 {
   /// @todo Fires when updating country (delete-add) ?!
-  //ASSERT(handle->GetOverlayID().IsValid(), ());
+  // ASSERT(handle->GetOverlayID().IsValid(), ());
   ASSERT(IsNeedUpdate(), ());
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
@@ -242,11 +236,10 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
 
   // Find elements that already on OverlayTree and it's pixel rect
   // intersect with handle pixel rect ("Intersected elements").
-  ForEachInRect(pixelRect, [&] (ref_ptr<OverlayHandle> const & h)
+  ForEachInRect(pixelRect, [&](ref_ptr<OverlayHandle> const & h)
   {
-    bool const isParent = (h == parentOverlay) ||
-                          (h->GetOverlayID() == handle->GetOverlayID() &&
-                           h->GetOverlayRank() < handle->GetOverlayRank());
+    bool const isParent = (h == parentOverlay) || (h->GetOverlayID() == handle->GetOverlayID() &&
+                                                   h->GetOverlayRank() < handle->GetOverlayRank());
     if (!isParent && handle->IsIntersect(modelView, h))
       rivals.push_back(h);
   });
@@ -257,8 +250,8 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
   if (boundToParent)
     handleToCompare = parentOverlay;
 
-  bool const selected = m_selectedFeatureID.IsValid() &&
-                        handleToCompare->GetOverlayID().m_featureId == m_selectedFeatureID;
+  bool const selected =
+      m_selectedFeatureID.IsValid() && handleToCompare->GetOverlayID().m_featureId == m_selectedFeatureID;
 
   if (!selected)
   {
@@ -455,10 +448,8 @@ bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & 
        it != m_overlayIdCache.end() && it->first.m_featureId == m_selectedFeatureID; ++it)
   {
     for (auto const & handle : it->second)
-    {
       if (handle->IsVisible())
         resultRect.Add(handle->GetPixelRect(screen, screen.isPerspective()));
-    }
   }
 
   if (resultRect.IsValid())
@@ -482,10 +473,8 @@ void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result
   /// @todo Why we can't call Select(rect) here?
   /// Why we don't check handle->IsVisible(), like in Select(rect)?
   for (auto const & handle : m_handlesCache)
-  {
     if (!handle->HasLinearFeatureShape() && rect.IsPointInside(handle->GetPivot(screen, false)))
       result.push_back(handle);
-  }
 }
 
 void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) const
@@ -543,8 +532,8 @@ void OverlayTree::StoreDisplacementInfo(int caseIndex, ref_ptr<OverlayHandle> di
     m_displacers.insert(displacerHandle);
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
-    LOG(LINFO, ("Displace (", caseIndex, "):", displacerHandle->GetOverlayDebugInfo(),
-                "->", displacedHandle->GetOverlayDebugInfo()));
+  LOG(LINFO, ("Displace (", caseIndex, "):", displacerHandle->GetOverlayDebugInfo(), "->",
+              displacedHandle->GetOverlayDebugInfo()));
 #else
   UNUSED_VALUE(caseIndex);
 #endif

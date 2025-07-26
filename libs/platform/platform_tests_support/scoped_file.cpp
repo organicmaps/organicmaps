@@ -20,20 +20,16 @@ namespace platform
 {
 namespace tests_support
 {
-ScopedFile::ScopedFile(std::string const & relativePath, Mode mode)
-  : ScopedFile(relativePath, {} /* contents */, mode)
-{
-}
+ScopedFile::ScopedFile(std::string const & relativePath, Mode mode) : ScopedFile(relativePath, {} /* contents */, mode)
+{}
 
 ScopedFile::ScopedFile(std::string const & relativePath, std::string const & contents)
   : ScopedFile(relativePath, contents, Mode::Create)
-{
-}
+{}
 
 ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile, MapFileType type)
-: ScopedFile(base::JoinPath(dir.GetRelativePath(), countryFile.GetFileName(type)), Mode::Create)
-{
-}
+  : ScopedFile(base::JoinPath(dir.GetRelativePath(), countryFile.GetFileName(type)), Mode::Create)
+{}
 
 ScopedFile::ScopedFile(std::string const & relativePath, std::string const & contents, Mode mode)
   : m_fullPath(base::JoinPath(GetPlatform().WritableDir(), relativePath))

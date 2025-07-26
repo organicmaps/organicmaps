@@ -7,7 +7,6 @@
 
 #include <sstream>
 
-
 namespace
 {
 std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
@@ -52,9 +51,7 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
   case kml::BookmarkIcon::BicycleParkingCovered: return "bicycle_parking_covered";
   case kml::BookmarkIcon::BicycleRental: return "bicycle_rental";
   case kml::BookmarkIcon::FastFood: return "fast_food";
-  case kml::BookmarkIcon::Count:
-    ASSERT(false, ("Invalid bookmark icon type"));
-    return {};
+  case kml::BookmarkIcon::Count: ASSERT(false, ("Invalid bookmark icon type")); return {};
   }
   UNREACHABLE();
 }
@@ -63,9 +60,7 @@ std::string const kCustomImageProperty = "CustomImage";
 std::string const kHasElevationProfileProperty = "has_elevation_profile";
 }  // namespace
 
-Bookmark::Bookmark(m2::PointD const & ptOrg)
-  : Base(ptOrg, UserMark::BOOKMARK)
-  , m_groupId(kml::kInvalidMarkGroupId)
+Bookmark::Bookmark(m2::PointD const & ptOrg) : Base(ptOrg, UserMark::BOOKMARK), m_groupId(kml::kInvalidMarkGroupId)
 {
   m_data.m_point = ptOrg;
   m_data.m_id = GetId();
@@ -154,41 +149,24 @@ df::ColorConstant Bookmark::GetColorConstant() const
 {
   switch (m_data.m_color.m_predefinedColor)
   {
-    case kml::PredefinedColor::Red:
-      return "BookmarkRed";
-    case kml::PredefinedColor::Blue:
-      return "BookmarkBlue";
-    case kml::PredefinedColor::Purple:
-      return "BookmarkPurple";
-    case kml::PredefinedColor::Yellow:
-      return "BookmarkYellow";
-    case kml::PredefinedColor::Pink:
-      return "BookmarkPink";
-    case kml::PredefinedColor::Brown:
-      return "BookmarkBrown";
-    case kml::PredefinedColor::Green:
-      return "BookmarkGreen";
-    case kml::PredefinedColor::Orange:
-      return "BookmarkOrange";
-    case kml::PredefinedColor::DeepPurple:
-      return "BookmarkDeepPurple";
-    case kml::PredefinedColor::LightBlue:
-      return "BookmarkLightBlue";
-    case kml::PredefinedColor::Cyan:
-      return "BookmarkCyan";
-    case kml::PredefinedColor::Teal:
-      return "BookmarkTeal";
-    case kml::PredefinedColor::Lime:
-      return "BookmarkLime";
-    case kml::PredefinedColor::DeepOrange:
-      return "BookmarkDeepOrange";
-    case kml::PredefinedColor::Gray:
-      return "BookmarkGray";
-    case kml::PredefinedColor::BlueGray:
-      return "BookmarkBlueGray";
-    case kml::PredefinedColor::None:
-    case kml::PredefinedColor::Count:
-      return "BookmarkRed";
+  case kml::PredefinedColor::Red: return "BookmarkRed";
+  case kml::PredefinedColor::Blue: return "BookmarkBlue";
+  case kml::PredefinedColor::Purple: return "BookmarkPurple";
+  case kml::PredefinedColor::Yellow: return "BookmarkYellow";
+  case kml::PredefinedColor::Pink: return "BookmarkPink";
+  case kml::PredefinedColor::Brown: return "BookmarkBrown";
+  case kml::PredefinedColor::Green: return "BookmarkGreen";
+  case kml::PredefinedColor::Orange: return "BookmarkOrange";
+  case kml::PredefinedColor::DeepPurple: return "BookmarkDeepPurple";
+  case kml::PredefinedColor::LightBlue: return "BookmarkLightBlue";
+  case kml::PredefinedColor::Cyan: return "BookmarkCyan";
+  case kml::PredefinedColor::Teal: return "BookmarkTeal";
+  case kml::PredefinedColor::Lime: return "BookmarkLime";
+  case kml::PredefinedColor::DeepOrange: return "BookmarkDeepOrange";
+  case kml::PredefinedColor::Gray: return "BookmarkGray";
+  case kml::PredefinedColor::BlueGray: return "BookmarkBlueGray";
+  case kml::PredefinedColor::None:
+  case kml::PredefinedColor::Count: return "BookmarkRed";
   }
   UNREACHABLE();
 }

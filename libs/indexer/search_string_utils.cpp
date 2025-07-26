@@ -22,16 +22,10 @@ using namespace strings;
 namespace
 {
 std::vector<UniString> const kAllowedMisprints = {
-    MakeUniString("ckq"),
-    MakeUniString("eyjiu"),
-    MakeUniString("gh"),
-    MakeUniString("pf"),
-    MakeUniString("vw"),
+    MakeUniString("ckq"), MakeUniString("eyjiu"), MakeUniString("gh"), MakeUniString("pf"), MakeUniString("vw"),
 
     // Russian
-    MakeUniString("ао"),
-    MakeUniString("еиэ"),
-    MakeUniString("шщ"),
+    MakeUniString("ао"), MakeUniString("еиэ"), MakeUniString("шщ"),
 
     // Spanish
     MakeUniString("jh"),  // "Jose" <-> "Hose"
@@ -39,17 +33,16 @@ std::vector<UniString> const kAllowedMisprints = {
 };
 
 std::pair<UniString, UniString> const kPreprocessReplacements[] = {
-    {MakeUniString("пр-т"),  MakeUniString("проспект")},
-    {MakeUniString("пр-д"),  MakeUniString("проезд")},
+    { MakeUniString("пр-т"),   MakeUniString("проспект")},
+    { MakeUniString("пр-д"),     MakeUniString("проезд")},
     {MakeUniString("наб-я"), MakeUniString("набережная")},
-    {MakeUniString("м-н"), MakeUniString("микрорайон")},
+    {  MakeUniString("м-н"), MakeUniString("микрорайон")},
 };
-
 
 void TransliterateHiraganaToKatakana(UniString & s)
 {
   // Transliteration is heavy. Check we have any hiragana symbol before transliteration.
-  if (!base::AnyOf(s, [](UniChar c){ return c >= 0x3041 && c<= 0x309F; }))
+  if (!base::AnyOf(s, [](UniChar c) { return c >= 0x3041 && c <= 0x309F; }))
     return;
 
   InitTransliterationInstanceWithDefaultDirs();
@@ -101,21 +94,15 @@ UniString NormalizeAndSimplifyString(std::string_view s)
     // Replace "d with stroke" to simple d letter. Used in Vietnamese.
     // (unicode-compliant implementation leaves it unchanged)
     case 0x0110:
-    case 0x0111:
-      c = 'd';
-      break;
+    case 0x0111: c = 'd'; break;
     // Replace small turkish dotless 'ı' with dotted 'i'.  Our own
     // invented hack to avoid well-known Turkish I-letter bug.
-    case 0x0131:
-      c = 'i';
-      break;
+    case 0x0131: c = 'i'; break;
     // Replace capital turkish dotted 'İ' with dotted lowercased 'i'.
     // Here we need to handle this case manually too, because default
     // unicode-compliant implementation of MakeLowerCase converts 'İ'
     // to 'i' + 0x0307.
-    case 0x0130:
-      c = 'i';
-      break;
+    case 0x0130: c = 'i'; break;
     // Some Danish-specific hacks.
     case 0x00d8:  // Ø
     case 0x00f8:  // ø
@@ -154,10 +141,7 @@ UniString NormalizeAndSimplifyString(std::string_view s)
   });
 
   // Replace sequence of spaces with single one.
-  base::Unique(uniString, [](UniChar l, UniChar r)
-  {
-    return (l == r && l == ' ');
-  });
+  base::Unique(uniString, [](UniChar l, UniChar r) { return (l == r && l == ' '); });
 
   return uniString;
 
@@ -193,8 +177,7 @@ void PreprocessBeforeTokenization(UniString & query)
   for (auto const & replacement : kPreprocessReplacements)
   {
     auto start = query.begin();
-    while ((start = std::search(start, query.end(), replacement.first.begin(),
-                                replacement.first.end())) != query.end())
+    while ((start = std::search(start, query.end(), replacement.first.begin(), replacement.first.end())) != query.end())
     {
       auto end = start + replacement.first.size();
       if ((start == query.begin() || delims(*(start - 1))) && (end == query.end() || delims(*end)))
@@ -279,7 +262,7 @@ public:
 
   static StreetsSynonymsHolder const & Instance()
   {
-    static const StreetsSynonymsHolder holder;
+    static StreetsSynonymsHolder const holder;
     return holder;
   }
 
@@ -327,72 +310,100 @@ private:
   // Note! If "street" is present here, it should contain all possible synonyms (avenue -> av, ave).
   StreetsSynonymsHolder()
   {
-    char const * affics[] =
-    {
-      // Russian - Русский
-      "улица", "ул", "проспект",
+    char const * affics[] = {
+        // Russian - Русский
+        "улица",
+        "ул",
+        "проспект",
 
-      // English - English
-      "street", "st", "road", "rd", "drive", "dr", "lane", "ln", "avenue", "av", "ave",
+        // English - English
+        "street",
+        "st",
+        "road",
+        "rd",
+        "drive",
+        "dr",
+        "lane",
+        "ln",
+        "avenue",
+        "av",
+        "ave",
 
-      // Belarusian - Беларуская мова
-      "вуліца", "вул", "праспект",
+        // Belarusian - Беларуская мова
+        "вуліца",
+        "вул",
+        "праспект",
 
-      // Arabic
-      "شارع",
+        // Arabic
+        "شارع",
 
-      // Armenian
-      "փողոց",
+        // Armenian
+        "փողոց",
 
-      // Catalan language (Barcelona, Valencia, ...)
-      "carrer", "avinguda",
+        // Catalan language (Barcelona, Valencia, ...)
+        "carrer",
+        "avinguda",
 
-      // Croatian - Hrvatski
-      "ulica",  // Also common used transcription from RU
+        // Croatian - Hrvatski
+        "ulica",  // Also common used transcription from RU
 
-      // French - Français
-      "rue", "avenue",
+        // French - Français
+        "rue",
+        "avenue",
 
-      // Georgia
-      "ქუჩა",
+        // Georgia
+        "ქუჩა",
 
-      // German - Deutsch
-      "straße", "str", "platz", "pl",
+        // German - Deutsch
+        "straße",
+        "str",
+        "platz",
+        "pl",
 
-      // Hungarian - Magyar
-      "utca", "út",
+        // Hungarian - Magyar
+        "utca",
+        "út",
 
-      // Indonesia
-      "jalan",
+        // Indonesia
+        "jalan",
 
-      // Italian - Italiano
-      "via", "viale", "piazza",
+        // Italian - Italiano
+        "via",
+        "viale",
+        "piazza",
 
-      /// @todo Also expect that this synonyms should be in categories.txt list, but we dont support lt, lv langs now.
-      /// @{
-      // Latvian - Latviešu
-      "iela",
-      // Lithuanian - Lietuvių
-      "gatvė", "g.",
-      ///@}
+        /// @todo Also expect that this synonyms should be in categories.txt list, but we dont support lt, lv langs now.
+        /// @{
+        // Latvian - Latviešu
+        "iela",
+        // Lithuanian - Lietuvių
+        "gatvė",
+        "g.",
+        ///@}
 
-      // Portuguese - Português
-      "rua",
+        // Portuguese - Português
+        "rua",
 
-      // Romanian - Română (Moldova)
-      "strada",
+        // Romanian - Română (Moldova)
+        "strada",
 
-      // Spanish - Español
-      "calle", "avenida", "plaza",
+        // Spanish - Español
+        "calle",
+        "avenida",
+        "plaza",
 
-      // Turkish - Türkçe
-      "sokağı", "sokak", "sk",
+        // Turkish - Türkçe
+        "sokağı",
+        "sokak",
+        "sk",
 
-      // Ukrainian - Українська
-      "вулиця", "вул", "проспект",
+        // Ukrainian - Українська
+        "вулиця",
+        "вул",
+        "проспект",
 
-      // Vietnamese - Tiếng Việt
-      "đường",
+        // Vietnamese - Tiếng Việt
+        "đường",
     };
 
     for (auto const * s : affics)
@@ -407,13 +418,11 @@ class SynonymsHolderBase
   std::vector<UniString> m_strings;
 
 protected:
-  void Add(char const * s)
-  {
-    m_strings.emplace_back(NormalizeAndSimplifyString(s));
-  }
+  void Add(char const * s) { m_strings.emplace_back(NormalizeAndSimplifyString(s)); }
 
 public:
-  template <class FnT> bool ApplyIf(UniString const & s, FnT && fn) const
+  template <class FnT>
+  bool ApplyIf(UniString const & s, FnT && fn) const
   {
     for (size_t i = 0; i < m_strings.size(); ++i)
     {
@@ -434,8 +443,8 @@ public:
   StreetsDirectionsHolder()
   {
     // ("short name", "full name")
-    for (auto const * s : {"n", "north", "s", "south", "w", "west", "e", "east",
-                           "ne", "northeast", "nw", "northwest", "se", "southeast", "sw", "southwest" })
+    for (auto const * s : {"n", "north", "s", "south", "w", "west", "e", "east", "ne", "northeast", "nw", "northwest",
+                           "se", "southeast", "sw", "southwest"})
     {
       Add(s);
     }
@@ -448,16 +457,16 @@ public:
   StreetsAbbreviationsHolder()
   {
     // ("short name", "full name")
-    for (auto const * s : {"st", "street", "rd", "road", "dr", "drive", "ln", "lane", "av", "avenue", "ave", "avenue",
-                           "hwy", "highway", "rte", "route", "blvd", "boulevard", "trl", "trail", "pl", "place",
-                           "rdg", "ridge", "spr", "spur", "ter", "terrace", "vw", "view", "cir", "circle", "ct", "court",
-                           "pkwy", "parkway", "lp", "loop", "vis", "vista", "cv", "cove", "trce", "trace", "crst", "crest",
-                           "cres", "crescent", "xing", "crossing", "blf", "bluff",
-                          // Some fancy synonyms:
-                           "co", "county", "mtn", "mountain", "clfs", "cliffs",
-                          // Integers:
-                           "first", "1st", "second", "2nd", "third", "3rd", "fourth", "4th", "fifth", "5th",
-                           "sixth", "6th", "seventh", "7th", "eighth", "8th", "ninth", "9th"})
+    for (auto const * s :
+         {"st", "street", "rd", "road", "dr", "drive", "ln", "lane", "av", "avenue", "ave", "avenue", "hwy", "highway",
+          "rte", "route", "blvd", "boulevard", "trl", "trail", "pl", "place", "rdg", "ridge", "spr", "spur", "ter",
+          "terrace", "vw", "view", "cir", "circle", "ct", "court", "pkwy", "parkway", "lp", "loop", "vis", "vista",
+          "cv", "cove", "trce", "trace", "crst", "crest", "cres", "crescent", "xing", "crossing", "blf", "bluff",
+          // Some fancy synonyms:
+          "co", "county", "mtn", "mountain", "clfs", "cliffs",
+          // Integers:
+          "first", "1st", "second", "2nd", "third", "3rd", "fourth", "4th", "fifth", "5th", "sixth", "6th", "seventh",
+          "7th", "eighth", "8th", "ninth", "9th"})
     {
       Add(s);
     }
@@ -543,7 +552,10 @@ strings::UniString GetNormalizedStreetName(std::string_view name)
   return res;
 }
 
-bool IsStreetSynonym(UniString const & s) { return StreetsSynonymsHolder::Instance().FullMatch(s); }
+bool IsStreetSynonym(UniString const & s)
+{
+  return StreetsSynonymsHolder::Instance().FullMatch(s);
+}
 
 bool IsStreetSynonymPrefix(UniString const & s)
 {
@@ -585,18 +597,15 @@ void StreetTokensFilter::Put(UniString const & token, bool isPrefix, size_t tag)
         return;
     }
   }
+  else if (m_withMisprints)
+  {
+    if (IsStreetSynonymWithMisprints(token))
+      return;
+  }
   else
   {
-    if (m_withMisprints)
-    {
-      if (IsStreetSynonymWithMisprints(token))
-        return;
-    }
-    else
-    {
-      if (IsStreetSynonym(token))
-        return;
-    }
+    if (IsStreetSynonym(token))
+      return;
   }
 
   m_callback(token, tag);
@@ -605,8 +614,8 @@ void StreetTokensFilter::Put(UniString const & token, bool isPrefix, size_t tag)
 String2StringMap const & GetDACHStreets()
 {
   static String2StringMap res = {
-    { MakeUniString("strasse"), MakeUniString("str") },
-    { MakeUniString("platz"), MakeUniString("pl") },
+      {MakeUniString("strasse"), MakeUniString("str")},
+      {  MakeUniString("platz"),  MakeUniString("pl")},
   };
   return res;
 }

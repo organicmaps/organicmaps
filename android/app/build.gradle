@@ -61,7 +61,7 @@ android {
   namespace = 'app.organicmaps'
 
   // TODO: it should not be here, but in sdk/build.gradle. But for some reason it should be specified here as well.
-  ndkVersion = '28.1.13356709'
+  ndkVersion = '28.2.13676358'
 
   buildFeatures {
     dataBinding = true

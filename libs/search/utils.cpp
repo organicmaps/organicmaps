@@ -24,23 +24,23 @@ std::vector<uint32_t> GetCategoryTypes(std::string const & name, std::string con
 
   auto const tokens = NormalizeAndTokenizeString(name);
 
-  FillCategories(QuerySliceOnRawStrings<std::vector<strings::UniString>>(tokens, {} /* prefix */),
-                 locales, categories, types);
+  FillCategories(QuerySliceOnRawStrings<std::vector<strings::UniString>>(tokens, {} /* prefix */), locales, categories,
+                 types);
 
   base::SortUnique(types);
   return types;
 }
 
-void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> const & types,
-                          m2::RectD const & pivot, FeatureIndexCallback const & fn)
+void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> const & types, m2::RectD const & pivot,
+                          FeatureIndexCallback const & fn)
 {
   std::vector<std::shared_ptr<MwmInfo>> infos;
   dataSource.GetMwmsInfo(infos);
 
   base::Cancellable const cancellable;
   CategoriesCache cache(types, cancellable);
-  auto pivotRectsCache = PivotRectsCache(1 /* maxNumEntries */, cancellable,
-                                         std::max(pivot.SizeX(), pivot.SizeY()) /* maxRadiusMeters */);
+  auto pivotRectsCache =
+      PivotRectsCache(1 /* maxNumEntries */, cancellable, std::max(pivot.SizeX(), pivot.SizeY()) /* maxRadiusMeters */);
 
   for (auto const & info : infos)
   {
@@ -59,9 +59,7 @@ void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> c
     ViewportFilter const filter(pivotFeatures, 0 /* threshold */);
     features = filter.Filter(features);
     MwmSet::MwmId mwmId(info);
-    features.ForEach([&fn, &mwmId](uint64_t bit) {
-      fn(FeatureID(mwmId, base::asserted_cast<uint32_t>(bit)));
-    });
+    features.ForEach([&fn, &mwmId](uint64_t bit) { fn(FeatureID(mwmId, base::asserted_cast<uint32_t>(bit))); });
   }
 }
 

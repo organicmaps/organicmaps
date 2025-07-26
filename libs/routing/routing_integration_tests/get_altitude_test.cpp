@@ -30,8 +30,7 @@ using namespace feature;
 using namespace platform;
 using namespace std;
 
-void TestAltitudeOfAllMwmFeatures(string const & countryId,
-                                  geometry::Altitude const altitudeLowerBoundMeters,
+void TestAltitudeOfAllMwmFeatures(string const & countryId, geometry::Altitude const altitudeLowerBoundMeters,
                                   geometry::Altitude const altitudeUpperBoundMeters)
 {
   FrozenDataSource dataSource;
@@ -73,8 +72,7 @@ UNIT_TEST(AllMwmFeaturesGetAltitudeTest)
 {
   classificator::Load();
 
-  TestAltitudeOfAllMwmFeatures("Russia_Moscow", 50 /* altitudeLowerBoundMeters */,
-                               300 /* altitudeUpperBoundMeters */);
+  TestAltitudeOfAllMwmFeatures("Russia_Moscow", 50 /* altitudeLowerBoundMeters */, 300 /* altitudeUpperBoundMeters */);
   TestAltitudeOfAllMwmFeatures("Nepal_Kathmandu", 250 /* altitudeLowerBoundMeters */,
                                6000 /* altitudeUpperBoundMeters */);
   TestAltitudeOfAllMwmFeatures("Netherlands_North Holland_Amsterdam", -25 /* altitudeLowerBoundMeters */,

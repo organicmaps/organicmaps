@@ -42,13 +42,8 @@ inline string GetGpsTrackFilePath()
 class GpsTrackCallback
 {
 public:
-  GpsTrackCallback()
-    : m_toRemove(make_pair(GpsTrack::kInvalidId, GpsTrack::kInvalidId))
-    , m_gotCallback(false)
-  {
-  }
-  void OnUpdate(vector<pair<size_t, location::GpsInfo>> && toAdd,
-                pair<size_t, size_t> const & toRemove)
+  GpsTrackCallback() : m_toRemove(make_pair(GpsTrack::kInvalidId, GpsTrack::kInvalidId)), m_gotCallback(false) {}
+  void OnUpdate(vector<pair<size_t, location::GpsInfo>> && toAdd, pair<size_t, size_t> const & toRemove)
   {
     m_toAdd = std::move(toAdd);
     m_toRemove = toRemove;
@@ -68,7 +63,7 @@ public:
   bool WaitForCallback(seconds t)
   {
     unique_lock<mutex> ul(m_mutex);
-    return m_cv.wait_for(ul, t, [this]()->bool{ return m_gotCallback; });
+    return m_cv.wait_for(ul, t, [this]() -> bool { return m_gotCallback; });
   }
 
   vector<pair<size_t, location::GpsInfo>> m_toAdd;
@@ -107,8 +102,7 @@ UNIT_TEST(GpsTrack_Simple)
 
     GpsTrackCallback callback;
 
-    track.SetCallback(
-        bind(&GpsTrackCallback::OnUpdate, &callback, placeholders::_1, placeholders::_2));
+    track.SetCallback(bind(&GpsTrackCallback::OnUpdate, &callback, placeholders::_1, placeholders::_2));
 
     TEST(callback.WaitForCallback(kWaitForCallbackTimeout), ());
 
@@ -131,8 +125,7 @@ UNIT_TEST(GpsTrack_Simple)
 
     GpsTrackCallback callback;
 
-    track.SetCallback(
-        bind(&GpsTrackCallback::OnUpdate, &callback, placeholders::_1, placeholders::_2));
+    track.SetCallback(bind(&GpsTrackCallback::OnUpdate, &callback, placeholders::_1, placeholders::_2));
 
     TEST(callback.WaitForCallback(kWaitForCallbackTimeout), ());
 
@@ -149,4 +142,4 @@ UNIT_TEST(GpsTrack_Simple)
     }
   }
 }
-} // namespace gps_track_test
+}  // namespace gps_track_test

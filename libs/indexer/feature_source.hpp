@@ -20,10 +20,13 @@ enum class FeatureStatus
   Created     // The feature was created by a user and has been saved in the editor.
   // Note: If a feature was created by a user but hasn't been saved in the editor yet
   // its status is Untouched.
-}; // enum class FeatureStatus
+};  // enum class FeatureStatus
 
 std::string ToString(FeatureStatus fs);
-inline std::string DebugPrint(FeatureStatus fs) { return ToString(fs); }
+inline std::string DebugPrint(FeatureStatus fs)
+{
+  return ToString(fs);
+}
 
 class FeatureSource
 {

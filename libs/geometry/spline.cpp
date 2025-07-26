@@ -4,14 +4,12 @@
 
 namespace m2
 {
-Spline::Spline(std::vector<PointD> const & path)
-  : m_position(path)
+Spline::Spline(std::vector<PointD> const & path) : m_position(path)
 {
   InitDirections();
 }
 
-Spline::Spline(std::vector<PointD> && path)
-  : m_position(std::move(path))
+Spline::Spline(std::vector<PointD> && path) : m_position(std::move(path))
 {
   InitDirections();
 }
@@ -24,10 +22,7 @@ Spline::Spline(size_t reservedSize)
   m_length.reserve(reservedSize - 1);
 }
 
-SplineEx::SplineEx(size_t reservedSize)
-  : Spline(reservedSize)
-{
-}
+SplineEx::SplineEx(size_t reservedSize) : Spline(reservedSize) {}
 
 void Spline::AddPoint(PointD const & pt)
 {
@@ -120,7 +115,7 @@ double Spline::GetLastLength() const
 std::pair<PointD, double> Spline::GetTangentAndLength(size_t i) const
 {
   ASSERT_LESS(i, m_length.size(), ());
-  return { m_direction[i], m_length[i] };
+  return {m_direction[i], m_length[i]};
 }
 
 void Spline::InitDirections()
@@ -142,13 +137,7 @@ void Spline::InitDirections()
   }
 }
 
-Spline::iterator::iterator()
-  : m_checker(false)
-  , m_spl(NULL)
-  , m_index(0)
-  , m_dist(0)
-{
-}
+Spline::iterator::iterator() : m_checker(false), m_spl(NULL), m_index(0), m_dist(0) {}
 
 void Spline::iterator::Attach(Spline const & spl)
 {
@@ -247,15 +236,9 @@ void Spline::iterator::AdvanceForward(double step)
   m_avrDir += m_pos;
 }
 
-SharedSpline::SharedSpline(std::vector<PointD> const & path)
-  : m_spline(std::make_shared<Spline>(path))
-{
-}
+SharedSpline::SharedSpline(std::vector<PointD> const & path) : m_spline(std::make_shared<Spline>(path)) {}
 
-SharedSpline::SharedSpline(std::vector<PointD> && path)
-  : m_spline(std::make_shared<Spline>(std::move(path)))
-{
-}
+SharedSpline::SharedSpline(std::vector<PointD> && path) : m_spline(std::make_shared<Spline>(std::move(path))) {}
 
 bool SharedSpline::IsNull() const
 {
@@ -267,10 +250,10 @@ void SharedSpline::Reset(Spline * spline)
   m_spline.reset(spline);
 }
 
-//void SharedSpline::Reset(std::vector<PointD> const & path)
+// void SharedSpline::Reset(std::vector<PointD> const & path)
 //{
-//  m_spline.reset(new Spline(path));
-//}
+//   m_spline.reset(new Spline(path));
+// }
 
 Spline::iterator SharedSpline::CreateIterator() const
 {
@@ -295,4 +278,4 @@ Spline const * SharedSpline::Get() const
   ASSERT(!IsNull(), ());
   return m_spline.get();
 }
-} // namespace m2
+}  // namespace m2

@@ -5,7 +5,6 @@
 
 #include "geometry/mercator.hpp"
 
-
 namespace routing
 {
 namespace
@@ -15,8 +14,8 @@ using namespace std;
 // gtfs converter step.
 size_t constexpr kDefaultIntervalS = 60 * 60;  // 1 hour.
 
-LatLonWithAltitude const & GetStopJunction(
-    map<transit::StopId, LatLonWithAltitude> const & stopCoords, transit::StopId stopId)
+LatLonWithAltitude const & GetStopJunction(map<transit::StopId, LatLonWithAltitude> const & stopCoords,
+                                           transit::StopId stopId)
 {
   auto const it = stopCoords.find(stopId);
   CHECK(it != stopCoords.cend(), ("Stop", stopId, "does not exist."));
@@ -38,22 +37,24 @@ bool TransitGraph::IsTransitSegment(Segment const & segment)
 
 TransitGraph::TransitGraph(::transit::TransitVersion transitVersion, NumMwmId numMwmId,
                            shared_ptr<EdgeEstimator> estimator)
-  : m_transitVersion(transitVersion), m_mwmId(numMwmId), m_estimator(estimator)
+  : m_transitVersion(transitVersion)
+  , m_mwmId(numMwmId)
+  , m_estimator(estimator)
+{}
+
+::transit::TransitVersion TransitGraph::GetTransitVersion() const
 {
+  return m_transitVersion;
 }
 
-::transit::TransitVersion TransitGraph::GetTransitVersion() const { return m_transitVersion; }
-
-LatLonWithAltitude const & TransitGraph::GetJunction(Segment const & segment,
-                                                              bool front) const
+LatLonWithAltitude const & TransitGraph::GetJunction(Segment const & segment, bool front) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   auto const & vertex = m_fake.GetVertex(segment);
   return front ? vertex.GetJunctionTo() : vertex.GetJunctionFrom();
 }
 
-RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
-                                            EdgeEstimator::Purpose purpose) const
+RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
 
@@ -79,18 +80,16 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
     {
       // TODO (o.khlopkova) Manage different weights for different stops linked to the gate.
       auto const weight = kDefaultIntervalS;
-      return RouteWeight(weight /* weight */, 0 /* numPassThroughChanges */,
-                         0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */,
-                         weight /* transitTime */);
+      return RouteWeight(weight /* weight */, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
+                         0 /* numAccessConditionalPenalties */, weight /* transitTime */);
     }
 
     if (IsEdge(segment))
     {
       auto const weight = GetEdgePT(segment).GetWeight();
       CHECK_NOT_EQUAL(weight, 0, (segment));
-      return RouteWeight(weight /* weight */, 0 /* numPassThroughChanges */,
-                         0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */,
-                         weight /* transitTime */);
+      return RouteWeight(weight /* weight */, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
+                         0 /* numAccessConditionalPenalties */, weight /* transitTime */);
     }
   }
   else
@@ -99,9 +98,8 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment,
     UNREACHABLE();
   }
 
-  return RouteWeight(
-      m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
-                               GetJunction(segment, true /* front */).GetLatLon(), purpose));
+  return RouteWeight(m_estimator->CalcOffroad(GetJunction(segment, false /* front */).GetLatLon(),
+                                              GetJunction(segment, true /* front */).GetLatLon(), purpose));
 }
 
 RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const & to) const
@@ -129,11 +127,9 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
     // 2. |from| is transfer, |to| is edge
     // 3. |from| is edge, |to| is edge from another line directly connected to |from|.
     auto const it = m_transferPenaltiesSubway.find(lineIdTo);
-    CHECK(it != m_transferPenaltiesSubway.cend(),
-          ("Segment", to, "belongs to unknown line:", lineIdTo));
-    return RouteWeight(it->second /* weight */, 0 /* nonPassThrougCross */,
-                       0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */,
-                       it->second /* transitTime */);
+    CHECK(it != m_transferPenaltiesSubway.cend(), ("Segment", to, "belongs to unknown line:", lineIdTo));
+    return RouteWeight(it->second /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
+                       0 /* numAccessConditionalPenalties */, it->second /* transitTime */);
   }
   else if (m_transitVersion == ::transit::TransitVersion::AllPublicTransport)
   {
@@ -164,24 +160,21 @@ RouteWeight TransitGraph::GetTransferPenalty(Segment const & from, Segment const
     size_t const headwayS = it->second.GetFrequency() / 2;
 
     return RouteWeight(static_cast<double>(headwayS) /* weight */, 0 /* nonPassThroughCross */,
-                       0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */,
-                       headwayS /* transitTime */);
+                       0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */, headwayS /* transitTime */);
   }
 
   CHECK(false, (m_transitVersion));
   UNREACHABLE();
 }
 
-void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing,
-                                   EdgeListT & edges) const
+void TransitGraph::GetTransitEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const
 {
   CHECK(IsTransitSegment(segment), ("Nontransit segment passed to TransitGraph."));
   for (auto const & s : m_fake.GetEdges(segment, isOutgoing))
   {
     auto const & from = isOutgoing ? segment : s;
     auto const & to = isOutgoing ? s : segment;
-    edges.emplace_back(
-        s, CalcSegmentWeight(to, EdgeEstimator::Purpose::Weight) + GetTransferPenalty(from, to));
+    edges.emplace_back(s, CalcSegmentWeight(to, EdgeEstimator::Purpose::Weight) + GetTransferPenalty(from, to));
   }
 }
 
@@ -195,8 +188,8 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
   return m_fake.FindReal(fake, real);
 }
 
-void TransitGraph::Fill(::transit::experimental::TransitData const & transitData,
-                        Endings const & stopEndings, Endings const & gateEndings)
+void TransitGraph::Fill(::transit::experimental::TransitData const & transitData, Endings const & stopEndings,
+                        Endings const & gateEndings)
 {
   CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, ());
 
@@ -253,9 +246,7 @@ void TransitGraph::Fill(::transit::experimental::TransitData const & transitData
     // Stop ending may have empty projections vector. It means stop is not connected to roads.
     auto const it = stopEndings.find(stop.GetId());
     if (it != stopEndings.end())
-    {
       AddStop(stop, it->second, stopCoords, stopToBack, stopToFront);
-    }
   }
 
   AddConnections(outgoing, stopToBack, stopToFront, true /* isOutgoing */);
@@ -293,8 +284,7 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
     auto const edgeSegment = AddEdge(edge, stopCoords, stopToBack, stopToFront);
     // Checks fake feature ids have consecutive numeration starting from
     // FakeFeatureIds::kTransitGraphFeaturesStart.
-    CHECK_EQUAL(edgeSegment.GetFeatureId(), i + FakeFeatureIds::kTransitGraphFeaturesStart,
-                (i, edge));
+    CHECK_EQUAL(edgeSegment.GetFeatureId(), i + FakeFeatureIds::kTransitGraphFeaturesStart, (i, edge));
     outgoing[edge.GetStop1Id()].insert(edgeSegment);
     ingoing[edge.GetStop2Id()].insert(edgeSegment);
   }
@@ -389,9 +379,8 @@ Segment TransitGraph::GetNewTransitSegment() const
 }
 
 void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending,
-                           map<transit::StopId, LatLonWithAltitude> const & stopCoords,
-                           bool isEnter, StopToSegmentsMap & stopToBack,
-                           StopToSegmentsMap & stopToFront)
+                           map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
+                           StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
   CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (gate));
 
@@ -400,9 +389,9 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
   {
     // Add projection edges
     auto const projectionSegment = GetNewTransitSegment();
-    FakeVertex projectionVertex(
-        projection.m_segment.GetMwmId(), isEnter ? projection.m_junction : ending.m_originJunction,
-        isEnter ? ending.m_originJunction : projection.m_junction, FakeVertex::Type::PureFake);
+    FakeVertex projectionVertex(projection.m_segment.GetMwmId(),
+                                isEnter ? projection.m_junction : ending.m_originJunction,
+                                isEnter ? ending.m_originJunction : projection.m_junction, FakeVertex::Type::PureFake);
     m_fake.AddStandaloneVertex(projectionSegment, projectionVertex);
 
     // Add fake parts of real
@@ -410,19 +399,17 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
         projection.m_segment.GetMwmId(), isEnter ? projection.m_segmentBack : projection.m_junction,
         isEnter ? projection.m_junction : projection.m_segmentFront, FakeVertex::Type::PartOfReal);
     auto const fakeForwardSegment = GetNewTransitSegment();
-    m_fake.AddVertex(projectionSegment, fakeForwardSegment, forwardPartOfReal,
-                     !isEnter /* isOutgoing */, true /* isPartOfReal */, projection.m_segment);
+    m_fake.AddVertex(projectionSegment, fakeForwardSegment, forwardPartOfReal, !isEnter /* isOutgoing */,
+                     true /* isPartOfReal */, projection.m_segment);
 
     if (!projection.m_isOneWay)
     {
-      FakeVertex backwardPartOfReal(projection.m_segment.GetMwmId(),
-                                    isEnter ? projection.m_segmentFront : projection.m_junction,
-                                    isEnter ? projection.m_junction : projection.m_segmentBack,
-                                    FakeVertex::Type::PartOfReal);
+      FakeVertex backwardPartOfReal(
+          projection.m_segment.GetMwmId(), isEnter ? projection.m_segmentFront : projection.m_junction,
+          isEnter ? projection.m_junction : projection.m_segmentBack, FakeVertex::Type::PartOfReal);
       auto const fakeBackwardSegment = GetNewTransitSegment();
-      m_fake.AddVertex(projectionSegment, fakeBackwardSegment, backwardPartOfReal,
-                       !isEnter /* isOutgoing */, true /* isPartOfReal */,
-                       projection.m_segment.GetReversed());
+      m_fake.AddVertex(projectionSegment, fakeBackwardSegment, backwardPartOfReal, !isEnter /* isOutgoing */,
+                       true /* isPartOfReal */, projection.m_segment.GetReversed());
     }
 
     // Connect gate to stops
@@ -431,11 +418,10 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
       auto const gateSegment = GetNewTransitSegment();
       auto const stopIt = stopCoords.find(stopId);
       CHECK(stopIt != stopCoords.end(), ("Stop", stopId, "does not exist."));
-      FakeVertex gateVertex(
-          projection.m_segment.GetMwmId(), isEnter ? ending.m_originJunction : stopIt->second,
-          isEnter ? stopIt->second : ending.m_originJunction, FakeVertex::Type::PureFake);
-      m_fake.AddVertex(projectionSegment, gateSegment, gateVertex, isEnter /* isOutgoing */,
-                       false /* isPartOfReal */, dummy /* realSegment */);
+      FakeVertex gateVertex(projection.m_segment.GetMwmId(), isEnter ? ending.m_originJunction : stopIt->second,
+                            isEnter ? stopIt->second : ending.m_originJunction, FakeVertex::Type::PureFake);
+      m_fake.AddVertex(projectionSegment, gateSegment, gateVertex, isEnter /* isOutgoing */, false /* isPartOfReal */,
+                       dummy /* realSegment */);
       m_segmentToGateSubway[gateSegment] = gate;
       if (isEnter)
         stopToFront[stopId].insert(gateSegment);
@@ -446,9 +432,8 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
 }
 
 void TransitGraph::AddGate(::transit::experimental::Gate const & gate, FakeEnding const & ending,
-                           std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
-                           bool isEnter, StopToSegmentsMap & stopToBack,
-                           StopToSegmentsMap & stopToFront)
+                           std::map<transit::StopId, LatLonWithAltitude> const & stopCoords, bool isEnter,
+                           StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
   CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::AllPublicTransport, (gate));
 
@@ -457,9 +442,9 @@ void TransitGraph::AddGate(::transit::experimental::Gate const & gate, FakeEndin
   {
     // Add projection edges
     auto const projectionSegment = GetNewTransitSegment();
-    FakeVertex projectionVertex(
-        projection.m_segment.GetMwmId(), isEnter ? projection.m_junction : ending.m_originJunction,
-        isEnter ? ending.m_originJunction : projection.m_junction, FakeVertex::Type::PureFake);
+    FakeVertex projectionVertex(projection.m_segment.GetMwmId(),
+                                isEnter ? projection.m_junction : ending.m_originJunction,
+                                isEnter ? ending.m_originJunction : projection.m_junction, FakeVertex::Type::PureFake);
     m_fake.AddStandaloneVertex(projectionSegment, projectionVertex);
 
     // Add fake parts of real
@@ -467,19 +452,17 @@ void TransitGraph::AddGate(::transit::experimental::Gate const & gate, FakeEndin
         projection.m_segment.GetMwmId(), isEnter ? projection.m_segmentBack : projection.m_junction,
         isEnter ? projection.m_junction : projection.m_segmentFront, FakeVertex::Type::PartOfReal);
     auto const fakeForwardSegment = GetNewTransitSegment();
-    m_fake.AddVertex(projectionSegment, fakeForwardSegment, forwardPartOfReal,
-                     !isEnter /* isOutgoing */, true /* isPartOfReal */, projection.m_segment);
+    m_fake.AddVertex(projectionSegment, fakeForwardSegment, forwardPartOfReal, !isEnter /* isOutgoing */,
+                     true /* isPartOfReal */, projection.m_segment);
 
     if (!projection.m_isOneWay)
     {
-      FakeVertex backwardPartOfReal(projection.m_segment.GetMwmId(),
-                                    isEnter ? projection.m_segmentFront : projection.m_junction,
-                                    isEnter ? projection.m_junction : projection.m_segmentBack,
-                                    FakeVertex::Type::PartOfReal);
+      FakeVertex backwardPartOfReal(
+          projection.m_segment.GetMwmId(), isEnter ? projection.m_segmentFront : projection.m_junction,
+          isEnter ? projection.m_junction : projection.m_segmentBack, FakeVertex::Type::PartOfReal);
       auto const fakeBackwardSegment = GetNewTransitSegment();
-      m_fake.AddVertex(projectionSegment, fakeBackwardSegment, backwardPartOfReal,
-                       !isEnter /* isOutgoing */, true /* isPartOfReal */,
-                       projection.m_segment.GetReversed());
+      m_fake.AddVertex(projectionSegment, fakeBackwardSegment, backwardPartOfReal, !isEnter /* isOutgoing */,
+                       true /* isPartOfReal */, projection.m_segment.GetReversed());
     }
 
     // Connect gate to stops
@@ -489,11 +472,10 @@ void TransitGraph::AddGate(::transit::experimental::Gate const & gate, FakeEndin
       auto const gateSegment = GetNewTransitSegment();
       auto const stopIt = stopCoords.find(stopId);
       CHECK(stopIt != stopCoords.end(), ("Stop", stopId, "does not exist."));
-      FakeVertex gateVertex(
-          projection.m_segment.GetMwmId(), isEnter ? ending.m_originJunction : stopIt->second,
-          isEnter ? stopIt->second : ending.m_originJunction, FakeVertex::Type::PureFake);
-      m_fake.AddVertex(projectionSegment, gateSegment, gateVertex, isEnter /* isOutgoing */,
-                       false /* isPartOfReal */, dummy /* realSegment */);
+      FakeVertex gateVertex(projection.m_segment.GetMwmId(), isEnter ? ending.m_originJunction : stopIt->second,
+                            isEnter ? stopIt->second : ending.m_originJunction, FakeVertex::Type::PureFake);
+      m_fake.AddVertex(projectionSegment, gateSegment, gateVertex, isEnter /* isOutgoing */, false /* isPartOfReal */,
+                       dummy /* realSegment */);
       m_segmentToGatePT[gateSegment] = gate;
       if (isEnter)
         stopToFront[stopId].insert(gateSegment);
@@ -516,31 +498,27 @@ void TransitGraph::AddStop(::transit::experimental::Stop const & stop, FakeEndin
     {
       // Add projection edges
       auto const projectionSegment = GetNewTransitSegment();
-      FakeVertex projectionVertex(projection.m_segment.GetMwmId(),
-                                  isEnter ? projection.m_junction : ending.m_originJunction,
-                                  isEnter ? ending.m_originJunction : projection.m_junction,
-                                  FakeVertex::Type::PureFake);
+      FakeVertex projectionVertex(
+          projection.m_segment.GetMwmId(), isEnter ? projection.m_junction : ending.m_originJunction,
+          isEnter ? ending.m_originJunction : projection.m_junction, FakeVertex::Type::PureFake);
       m_fake.AddStandaloneVertex(projectionSegment, projectionVertex);
 
       // Add fake parts of real
-      FakeVertex forwardPartOfReal(projection.m_segment.GetMwmId(),
-                                   isEnter ? projection.m_segmentBack : projection.m_junction,
-                                   isEnter ? projection.m_junction : projection.m_segmentFront,
-                                   FakeVertex::Type::PartOfReal);
+      FakeVertex forwardPartOfReal(
+          projection.m_segment.GetMwmId(), isEnter ? projection.m_segmentBack : projection.m_junction,
+          isEnter ? projection.m_junction : projection.m_segmentFront, FakeVertex::Type::PartOfReal);
       auto const fakeForwardSegment = GetNewTransitSegment();
-      m_fake.AddVertex(projectionSegment, fakeForwardSegment, forwardPartOfReal,
-                       !isEnter /* isOutgoing */, true /* isPartOfReal */, projection.m_segment);
+      m_fake.AddVertex(projectionSegment, fakeForwardSegment, forwardPartOfReal, !isEnter /* isOutgoing */,
+                       true /* isPartOfReal */, projection.m_segment);
 
       if (!projection.m_isOneWay)
       {
-        FakeVertex backwardPartOfReal(projection.m_segment.GetMwmId(),
-                                      isEnter ? projection.m_segmentFront : projection.m_junction,
-                                      isEnter ? projection.m_junction : projection.m_segmentBack,
-                                      FakeVertex::Type::PartOfReal);
+        FakeVertex backwardPartOfReal(
+            projection.m_segment.GetMwmId(), isEnter ? projection.m_segmentFront : projection.m_junction,
+            isEnter ? projection.m_junction : projection.m_segmentBack, FakeVertex::Type::PartOfReal);
         auto const fakeBackwardSegment = GetNewTransitSegment();
-        m_fake.AddVertex(projectionSegment, fakeBackwardSegment, backwardPartOfReal,
-                         !isEnter /* isOutgoing */, true /* isPartOfReal */,
-                         projection.m_segment.GetReversed());
+        m_fake.AddVertex(projectionSegment, fakeBackwardSegment, backwardPartOfReal, !isEnter /* isOutgoing */,
+                         true /* isPartOfReal */, projection.m_segment.GetReversed());
       }
 
       // Connect stop to graph.
@@ -548,11 +526,10 @@ void TransitGraph::AddStop(::transit::experimental::Stop const & stop, FakeEndin
       auto const stopSegment = GetNewTransitSegment();
       auto const stopIt = stopCoords.find(stopId);
       CHECK(stopIt != stopCoords.end(), ("Stop", stopId, "does not exist."));
-      FakeVertex stopVertex(
-          projection.m_segment.GetMwmId(), isEnter ? ending.m_originJunction : stopIt->second,
-          isEnter ? stopIt->second : ending.m_originJunction, FakeVertex::Type::PureFake);
-      m_fake.AddVertex(projectionSegment, stopSegment, stopVertex, isEnter /* isOutgoing */,
-                       false /* isPartOfReal */, dummy /* realSegment */);
+      FakeVertex stopVertex(projection.m_segment.GetMwmId(), isEnter ? ending.m_originJunction : stopIt->second,
+                            isEnter ? stopIt->second : ending.m_originJunction, FakeVertex::Type::PureFake);
+      m_fake.AddVertex(projectionSegment, stopSegment, stopVertex, isEnter /* isOutgoing */, false /* isPartOfReal */,
+                       dummy /* realSegment */);
       m_segmentToStopPT[stopSegment] = stop;
       if (isEnter)
         stopToFront[stopId].insert(stopSegment);
@@ -562,8 +539,7 @@ void TransitGraph::AddStop(::transit::experimental::Stop const & stop, FakeEndin
   }
 }
 
-Segment TransitGraph::AddEdge(transit::Edge const & edge,
-                              map<transit::StopId, LatLonWithAltitude> const & stopCoords,
+Segment TransitGraph::AddEdge(transit::Edge const & edge, map<transit::StopId, LatLonWithAltitude> const & stopCoords,
                               StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
 {
   CHECK_EQUAL(m_transitVersion, ::transit::TransitVersion::OnlySubway, (edge));
@@ -571,8 +547,8 @@ Segment TransitGraph::AddEdge(transit::Edge const & edge,
   auto const edgeSegment = GetNewTransitSegment();
   auto const stopFromId = edge.GetStop1Id();
   auto const stopToId = edge.GetStop2Id();
-  FakeVertex edgeVertex(m_mwmId, GetStopJunction(stopCoords, stopFromId),
-                        GetStopJunction(stopCoords, stopToId), FakeVertex::Type::PureFake);
+  FakeVertex edgeVertex(m_mwmId, GetStopJunction(stopCoords, stopFromId), GetStopJunction(stopCoords, stopToId),
+                        FakeVertex::Type::PureFake);
   m_fake.AddStandaloneVertex(edgeSegment, edgeVertex);
   m_segmentToEdgeSubway[edgeSegment] = edge;
   stopToBack[stopFromId].insert(edgeSegment);
@@ -589,8 +565,8 @@ Segment TransitGraph::AddEdge(::transit::experimental::Edge const & edge,
   auto const edgeSegment = GetNewTransitSegment();
   auto const stopFromId = edge.GetStop1Id();
   auto const stopToId = edge.GetStop2Id();
-  FakeVertex edgeVertex(m_mwmId, GetStopJunction(stopCoords, stopFromId),
-                        GetStopJunction(stopCoords, stopToId), FakeVertex::Type::PureFake);
+  FakeVertex edgeVertex(m_mwmId, GetStopJunction(stopCoords, stopFromId), GetStopJunction(stopCoords, stopToId),
+                        FakeVertex::Type::PureFake);
   m_fake.AddStandaloneVertex(edgeSegment, edgeVertex);
   m_segmentToEdgePT[edgeSegment] = edge;
   stopToBack[stopFromId].insert(edgeSegment);
@@ -598,8 +574,7 @@ Segment TransitGraph::AddEdge(::transit::experimental::Edge const & edge,
   return edgeSegment;
 }
 
-void TransitGraph::AddConnections(StopToSegmentsMap const & connections,
-                                  StopToSegmentsMap const & stopToBack,
+void TransitGraph::AddConnections(StopToSegmentsMap const & connections, StopToSegmentsMap const & stopToBack,
                                   StopToSegmentsMap const & stopToFront, bool isOutgoing)
 {
   for (auto const & connection : connections)
@@ -611,10 +586,7 @@ void TransitGraph::AddConnections(StopToSegmentsMap const & connections,
       if (segmentsIt == adjacentSegments.cend())
         continue;
       for (auto const & segment : segmentsIt->second)
-      {
-        m_fake.AddConnection(isOutgoing ? segment : connectedSegment,
-                             isOutgoing ? connectedSegment : segment);
-      }
+        m_fake.AddConnection(isOutgoing ? segment : connectedSegment, isOutgoing ? connectedSegment : segment);
     }
   }
 }
@@ -628,35 +600,32 @@ void MakeGateEndings(vector<transit::Gate> const & gates, NumMwmId mwmId, IndexG
     if (!gateSegment.IsValid())
       continue;
 
-    Segment const real(mwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
-                       gateSegment.GetForward());
+    Segment const real(mwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(), gateSegment.GetForward());
     gateEndings.emplace(gate.GetOsmId(), MakeFakeEnding({real}, gate.GetPoint(), indexGraph));
   }
 }
 
-void MakeGateEndings(std::vector<::transit::experimental::Gate> const & gates, NumMwmId mwmId,
-                     IndexGraph & indexGraph, TransitGraph::Endings & gateEndings)
+void MakeGateEndings(std::vector<::transit::experimental::Gate> const & gates, NumMwmId mwmId, IndexGraph & indexGraph,
+                     TransitGraph::Endings & gateEndings)
 {
   for (auto const & gate : gates)
   {
     for (auto const & gateSegment : gate.GetBestPedestrianSegments())
     {
-      Segment const real(mwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
-                         gateSegment.IsForward());
+      Segment const real(mwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(), gateSegment.IsForward());
       gateEndings.emplace(gate.GetOsmId(), MakeFakeEnding(real, gate.GetPoint(), indexGraph));
     }
   }
 }
 
-void MakeStopEndings(std::vector<::transit::experimental::Stop> const & stops, NumMwmId mwmId,
-                     IndexGraph & indexGraph, TransitGraph::Endings & stopEndings)
+void MakeStopEndings(std::vector<::transit::experimental::Stop> const & stops, NumMwmId mwmId, IndexGraph & indexGraph,
+                     TransitGraph::Endings & stopEndings)
 {
   for (auto const & stop : stops)
   {
     for (auto const & stopSegment : stop.GetBestPedestrianSegments())
     {
-      Segment const real(mwmId, stopSegment.GetFeatureId(), stopSegment.GetSegmentIdx(),
-                         stopSegment.IsForward());
+      Segment const real(mwmId, stopSegment.GetFeatureId(), stopSegment.GetSegmentIdx(), stopSegment.IsForward());
       stopEndings.emplace(stop.GetId(), MakeFakeEnding(real, stop.GetPoint(), indexGraph));
     }
   }

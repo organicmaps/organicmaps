@@ -51,7 +51,7 @@ void SweepNearbyResults(m2::PointD const & eps, unordered_set<FeatureID> const &
     uint8_t const exactMatch = results[i].GetInfo().m_exactMatch ? 6 : 0;
 
     // We prefer result which passed the filter even if it has lower rank / popularity / exactMatch.
-    //uint8_t const filterPassed = results[i].GetInfo().m_refusedByFilter ? 0 : 2;
+    // uint8_t const filterPassed = results[i].GetInfo().m_refusedByFilter ? 0 : 2;
     // We prefer result from prevEmit over result with better filterPassed because otherwise we have
     // lots of blinking results.
     uint8_t const prevCount = prevEmit.count(results[i].GetId()) == 0 ? 0 : 3;
@@ -61,20 +61,18 @@ void SweepNearbyResults(m2::PointD const & eps, unordered_set<FeatureID> const &
 
   vector<PreRankerResult> filtered;
   filtered.reserve(results.size());
-  sweeper.Sweep([&filtered, &results](size_t i)
-  {
-    filtered.push_back(std::move(results[i]));
-  });
+  sweeper.Sweep([&filtered, &results](size_t i) { filtered.push_back(std::move(results[i])); });
 
   results.swap(filtered);
 }
 }  // namespace
 
 PreRanker::PreRanker(DataSource const & dataSource, Ranker & ranker)
-: m_dataSource(dataSource), m_ranker(ranker), m_pivotFeatures(dataSource)
-, m_rndSeed(std::random_device()())
-{
-}
+  : m_dataSource(dataSource)
+  , m_ranker(ranker)
+  , m_pivotFeatures(dataSource)
+  , m_rndSeed(std::random_device()())
+{}
 
 void PreRanker::Init(Params const & params)
 {
@@ -160,19 +158,17 @@ void PreRanker::FillMissingFieldsInPreResults()
 
 namespace
 {
-template <class CompT, class ContT> class CompareIndices
+template <class CompT, class ContT>
+class CompareIndices
 {
   CompT m_cmp;
   ContT const & m_cont;
 
 public:
   CompareIndices(CompT const & cmp, ContT const & cont) : m_cmp(cmp), m_cont(cont) {}
-  bool operator()(size_t l, size_t r) const
-  {
-    return m_cmp(m_cont[l], m_cont[r]);
-  }
+  bool operator()(size_t l, size_t r) const { return m_cmp(m_cont[l], m_cont[r]); }
 };
-} // namespace
+}  // namespace
 
 void PreRanker::DbgFindAndLog(std::set<uint32_t> const & ids) const
 {
@@ -206,7 +202,7 @@ void PreRanker::Filter()
     return;
 
   std::vector<size_t> indices(m_results.size());
-  std::generate(indices.begin(), indices.end(), [n = 0] () mutable { return n++; });
+  std::generate(indices.begin(), indices.end(), [n = 0]() mutable { return n++; });
   std::unordered_set<size_t> filtered;
 
   auto const iBeg = indices.begin();
@@ -235,9 +231,9 @@ void PreRanker::Filter()
     PreRankerResult::CategoriesComparator comparator;
     comparator.m_positionIsInsideViewport =
         m_params.m_position && m_params.m_viewport.IsPointInside(*m_params.m_position);
-    comparator.m_detailedScale = mercator::DistanceOnEarth(m_params.m_viewport.LeftTop(),
-                                                           m_params.m_viewport.RightBottom()) <
-                                 2 * kPedestrianRadiusMeters;
+    comparator.m_detailedScale =
+        mercator::DistanceOnEarth(m_params.m_viewport.LeftTop(), m_params.m_viewport.RightBottom()) <
+        2 * kPedestrianRadiusMeters;
     comparator.m_viewport = m_params.m_viewport;
 
     std::nth_element(iBeg, iMiddle, iEnd, CompareIndices(comparator, m_results));
@@ -306,10 +302,7 @@ void PreRanker::FilterRelaxedResults(bool lastUpdate)
   }
   else
   {
-    auto const it = partition(m_results.begin(), iEnd, [](PreRankerResult const & res)
-    {
-      return res.IsNotRelaxed();
-    });
+    auto const it = partition(m_results.begin(), iEnd, [](PreRankerResult const & res) { return res.IsNotRelaxed(); });
 
     m_relaxedResults.insert(m_relaxedResults.end(), make_move_iterator(it), make_move_iterator(iEnd));
     m_results.erase(it, iEnd);

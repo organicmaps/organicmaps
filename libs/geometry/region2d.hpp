@@ -39,8 +39,7 @@ struct DefEqualFloat
   // Determines if value of a val lays between a p1 and a p2 values with some precision.
   bool IsAlmostBetween(double val, double p1, double p2) const
   {
-    return (val >= p1 - kPrecision && val <= p2 + kPrecision) ||
-           (val <= p1 + kPrecision && val >= p2 - kPrecision);
+    return (val >= p1 - kPrecision && val <= p2 + kPrecision) || (val <= p1 + kPrecision && val >= p2 - kPrecision);
   }
 };
 
@@ -101,8 +100,7 @@ public:
 
   Region() = default;
 
-  template <typename Points,
-            typename = std::enable_if_t<std::is_constructible<Container, Points>::value>>
+  template <typename Points, typename = std::enable_if_t<std::is_constructible<Container, Points>::value>>
   explicit Region(Points && points) : m_points(std::forward<Points>(points))
   {
     CalcLimitRect();
@@ -157,9 +155,8 @@ public:
   Container const & Data() const { return m_points; }
 
   template <typename EqualFn>
-  static bool IsIntersect(Coord const & x11, Coord const & y11, Coord const & x12,
-                          Coord const & y12, Coord const & x21, Coord const & y21,
-                          Coord const & x22, Coord const & y22, EqualFn && equalF, Point & pt)
+  static bool IsIntersect(Coord const & x11, Coord const & y11, Coord const & x12, Coord const & y12, Coord const & x21,
+                          Coord const & y21, Coord const & x22, Coord const & y22, EqualFn && equalF, Point & pt)
   {
     double const divider = ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22 - y21));
     if (equalF.EqualZeroSquarePrecision(divider))
@@ -180,11 +177,9 @@ public:
     return true;
   }
 
-  static bool IsIntersect(Point const & p1, Point const & p2, Point const & p3, Point const & p4,
-                          Point & pt)
+  static bool IsIntersect(Point const & p1, Point const & p2, Point const & p3, Point const & p4, Point & pt)
   {
-    return IsIntersect(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, typename Traits::EqualType(),
-                       pt);
+    return IsIntersect(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, typename Traits::EqualType(), pt);
   }
 
   /// Taken from Computational Geometry in C and modified
@@ -274,7 +269,7 @@ public:
     if (!Inflate(m_rect, rectDelta, rectDelta).IsPointInside(pt))
       return false;
 
-    const double squaredDelta = delta * delta;
+    double const squaredDelta = delta * delta;
     size_t const numPoints = m_points.size();
 
     Point prev = m_points[numPoints - 1];
@@ -401,10 +396,8 @@ template <typename Point>
 bool RegionsContain(std::vector<Region<Point>> const & regions, Point const & point)
 {
   for (auto const & region : regions)
-  {
     if (region.Contains(point))
       return true;
-  }
 
   return false;
 }

@@ -18,7 +18,8 @@ bool IsComplex(tree_node::types::Ptr<HierarchyEntry> const & tree)
 {
   size_t constexpr kNumRequiredTypes = 3;
 
-  return tree_node::CountIf(tree, [&](auto const & e) {
+  return tree_node::CountIf(tree, [&](auto const & e)
+  {
     auto const & isAttraction = ftypes::AttractionsChecker::Instance();
     return isAttraction(e.m_type);
   }) >= kNumRequiredTypes;
@@ -32,13 +33,12 @@ storage::CountryId GetCountry(tree_node::types::Ptr<HierarchyEntry> const & tree
 ComplexLoader::ComplexLoader(std::string const & filename)
 {
   auto trees = hierarchy::LoadHierachy(filename);
-  base::EraseIf(trees, [](auto const & e){ return !IsComplex(e); });
+  base::EraseIf(trees, [](auto const & e) { return !IsComplex(e); });
   for (auto const & tree : trees)
     m_forests[GetCountry(tree)].Append(tree);
 }
 
-tree_node::Forest<HierarchyEntry> const & ComplexLoader::GetForest(
-    storage::CountryId const & country) const
+tree_node::Forest<HierarchyEntry> const & ComplexLoader::GetForest(storage::CountryId const & country) const
 {
   static tree_node::Forest<HierarchyEntry> const kEmpty;
   auto const it = m_forests.find(country);
@@ -48,10 +48,10 @@ tree_node::Forest<HierarchyEntry> const & ComplexLoader::GetForest(
 std::unordered_set<CompositeId> ComplexLoader::GetIdsSet() const
 {
   std::unordered_set<CompositeId> set;
-  ForEach([&](auto const &, auto const & forest) {
-    forest.ForEachTree([&](auto const & tree) {
-      tree_node::ForEach(tree, [&](auto const & entry) { set.emplace(entry.m_id); });
-    });
+  ForEach([&](auto const &, auto const & forest)
+  {
+    forest.ForEachTree([&](auto const & tree)
+    { tree_node::ForEach(tree, [&](auto const & entry) { set.emplace(entry.m_id); }); });
   });
   return set;
 }

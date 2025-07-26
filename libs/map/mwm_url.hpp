@@ -1,7 +1,7 @@
 #pragma once
 
-#include "geometry/point2d.hpp"
 #include "geometry/latlon.hpp"
+#include "geometry/point2d.hpp"
 
 #include <string>
 #include <vector>
@@ -66,7 +66,7 @@ public:
   explicit ParsedMapApi(std::string const & url) { SetUrlAndParse(url); }
 
   UrlType SetUrlAndParse(std::string const & url);
-  UrlType GetRequestType() const { return m_requestType; };
+  UrlType GetRequestType() const { return m_requestType; }
   std::string const & GetGlobalBackUrl() const { return m_globalBackUrl; }
   std::string const & GetAppName() const { return m_appName; }
   ms::LatLon GetCenterLatLon() const { return m_centerLatLon; }
@@ -122,10 +122,8 @@ public:
   }
 
 private:
-  void ParseMapParam(std::string const & key, std::string const & value,
-                     bool & correctOrder);
-  void ParseRouteParam(std::string const & key, std::string const & value,
-                       std::vector<std::string_view> & pattern);
+  void ParseMapParam(std::string const & key, std::string const & value, bool & correctOrder);
+  void ParseRouteParam(std::string const & key, std::string const & value, std::vector<std::string_view> & pattern);
   void ParseSearchParam(std::string const & key, std::string const & value);
   void ParseInAppFeatureHighlightParam(std::string const & key, std::string const & value);
   void ParseCommonParam(std::string const & key, std::string const & value);

@@ -18,7 +18,8 @@
 
 @implementation NSError (ToDownloaderError)
 
-- (downloader::DownloadStatus)toDownloaderError {
+- (downloader::DownloadStatus)toDownloaderError
+{
   return self.code == NSURLErrorFileDoesNotExist ? downloader::DownloadStatus::FileNotFound
                                                  : downloader::DownloadStatus::Failed;
 }
@@ -31,7 +32,7 @@ namespace storage
 void BackgroundDownloaderAdapter::Remove(CountryId const & countryId)
 {
   MapFilesDownloader::Remove(countryId);
-  
+
   if (!m_queue.Contains(countryId))
     return;
 
@@ -45,7 +46,7 @@ void BackgroundDownloaderAdapter::Remove(CountryId const & countryId)
 void BackgroundDownloaderAdapter::Clear()
 {
   MapFilesDownloader::Clear();
-  
+
   BackgroundDownloader * downloader = [BackgroundDownloader sharedBackgroundMapDownloader];
   [downloader clear];
   m_queue.Clear();
@@ -55,7 +56,7 @@ QueueInterface const & BackgroundDownloaderAdapter::GetQueue() const
 {
   if (m_queue.IsEmpty())
     return MapFilesDownloader::GetQueue();
-    
+
   return m_queue;
 }
 
@@ -84,8 +85,7 @@ void BackgroundDownloaderAdapter::Download(QueuedCountry && queuedCountry)
   DownloadFromLastUrl(countryId, path, std::move(urls));
 }
 
-void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryId,
-                                                      std::string const & downloadPath,
+void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryId, std::string const & downloadPath,
                                                       std::vector<std::string> && urls)
 {
   if (urls.empty())
@@ -95,7 +95,7 @@ void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryI
   assert(url != nil);
   urls.pop_back();
 
-  auto onFinish = [this, countryId, downloadPath, urls = std::move(urls)](NSError *error) mutable
+  auto onFinish = [this, countryId, downloadPath, urls = std::move(urls)](NSError * error) mutable
   {
     downloader::DownloadStatus status = error ? [error toDownloaderError] : downloader::DownloadStatus::Completed;
 

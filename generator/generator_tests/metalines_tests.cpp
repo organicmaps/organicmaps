@@ -61,7 +61,7 @@ LineStringMerger::InputData MakeInputData(std::vector<OsmElement> const & elemen
     inputData.emplace(MakeKey(element), std::make_shared<LineString>(element));
 
   return inputData;
-};
+}
 
 bool IsEqual(LineStringMerger::LinePtr const & lineString, std::vector<int32_t> const & ways)
 {
@@ -69,20 +69,19 @@ bool IsEqual(LineStringMerger::LinePtr const & lineString, std::vector<int32_t> 
   return w == ways;
 }
 
-auto const w1 = MakeHighway(1/* id */, "w" /* name */, {1, 2, 3} /* nodes */);
-auto const w2 = MakeHighway(2/* id */, "w" /* name */, {3, 4, 5} /* nodes */);
-auto const w3 = MakeHighway(3/* id */, "w" /* name */, {5, 6, 7} /* nodes */);
+auto const w1 = MakeHighway(1 /* id */, "w" /* name */, {1, 2, 3} /* nodes */);
+auto const w2 = MakeHighway(2 /* id */, "w" /* name */, {3, 4, 5} /* nodes */);
+auto const w3 = MakeHighway(3 /* id */, "w" /* name */, {5, 6, 7} /* nodes */);
 
-auto const w4 = MakeHighway(4/* id */, "w" /* name */, {7, 8, 9} /* nodes */);
-auto const w5 = MakeHighway(5/* id */, "w" /* name */, {9, 10, 11} /* nodes */);
+auto const w4 = MakeHighway(4 /* id */, "w" /* name */, {7, 8, 9} /* nodes */);
+auto const w5 = MakeHighway(5 /* id */, "w" /* name */, {9, 10, 11} /* nodes */);
 
-auto const wo6 = MakeHighway(6/* id */, "w" /* name */, {13, 12, 3} /* nodes */, true /* isOneway */);
-auto const wo7 = MakeHighway(7/* id */, "w" /* name */, {15, 14, 13} /* nodes */, true /* isOneway */);
-auto const wo8 = MakeHighway(8/* id */, "w" /* name */, {17, 16, 15} /* nodes */, true /* isOneway */);
+auto const wo6 = MakeHighway(6 /* id */, "w" /* name */, {13, 12, 3} /* nodes */, true /* isOneway */);
+auto const wo7 = MakeHighway(7 /* id */, "w" /* name */, {15, 14, 13} /* nodes */, true /* isOneway */);
+auto const wo8 = MakeHighway(8 /* id */, "w" /* name */, {17, 16, 15} /* nodes */, true /* isOneway */);
 
-auto const b1 = MakeHighway(1/* id */, "b" /* name */, {1, 2, 3} /* nodes */);
-auto const b2 = MakeHighway(2/* id */, "b" /* name */, {3, 4, 5} /* nodes */);
-
+auto const b1 = MakeHighway(1 /* id */, "b" /* name */, {1, 2, 3} /* nodes */);
+auto const b2 = MakeHighway(2 /* id */, "b" /* name */, {3, 4, 5} /* nodes */);
 
 UNIT_TEST(MetalinesTest_Case0)
 {
@@ -118,7 +117,12 @@ UNIT_TEST(MetalinesTest_Case2)
 
 UNIT_TEST(MetalinesTest_Case3)
 {
-  auto const inputData = MakeInputData({w1, w4, w2, w5,});
+  auto const inputData = MakeInputData({
+      w1,
+      w4,
+      w2,
+      w5,
+  });
   auto const outputData = LineStringMerger::Merge(inputData);
 
   auto const key = MakeKey(w1);
@@ -134,7 +138,10 @@ UNIT_TEST(MetalinesTest_Case3)
 
 UNIT_TEST(MetalinesTest_Case4)
 {
-  auto const inputData = MakeInputData({w1, wo6,});
+  auto const inputData = MakeInputData({
+      w1,
+      wo6,
+  });
   auto const outputData = LineStringMerger::Merge(inputData);
 
   auto const key = MakeKey(w1);
@@ -145,7 +152,11 @@ UNIT_TEST(MetalinesTest_Case4)
 
 UNIT_TEST(MetalinesTest_Case5)
 {
-  auto const inputData = MakeInputData({w1, w2, wo6,});
+  auto const inputData = MakeInputData({
+      w1,
+      w2,
+      wo6,
+  });
   auto const outputData = LineStringMerger::Merge(inputData);
 
   auto const key = MakeKey(w1);
@@ -156,7 +167,12 @@ UNIT_TEST(MetalinesTest_Case5)
 
 UNIT_TEST(MetalinesTest_Case6)
 {
-  auto const inputData = MakeInputData({w1, b1, w2, b2,});
+  auto const inputData = MakeInputData({
+      w1,
+      b1,
+      w2,
+      b2,
+  });
   auto const outputData = LineStringMerger::Merge(inputData);
 
   auto const keyW = MakeKey(w1);

@@ -53,7 +53,7 @@ static_assert(std::is_trivially_copyable<LatLonPos>::value, "");
 class PointStorageWriterInterface
 {
 public:
-  virtual ~PointStorageWriterInterface() noexcept(false) {};
+  virtual ~PointStorageWriterInterface() noexcept(false) {}
   virtual void AddPoint(uint64_t id, double lat, double lon) = 0;
   virtual uint64_t GetNumProcessedPoints() const = 0;
 };
@@ -80,10 +80,8 @@ public:
   {
     auto range = std::equal_range(m_elements.begin(), m_elements.end(), k, ElementComparator());
     for (; range.first != range.second; ++range.first)
-    {
       if (toDo((*range.first).second) == base::ControlFlow::Break)
         break;
-    }
   }
 
 private:
@@ -101,7 +99,6 @@ private:
 
   std::vector<Element> m_elements;
 };
-
 
 class IndexFileWriter
 {
@@ -138,9 +135,9 @@ public:
   public:
     AllocatedObjects(feature::GenerateInfo::NodeStorageType type, std::string const & name);
 
-   PointStorageReaderInterface const & GetPointStorageReader() const { return *m_storageReader; }
+    PointStorageReaderInterface const & GetPointStorageReader() const { return *m_storageReader; }
 
-   IndexFileReader const & GetOrCreateIndexReader(std::string const & name);
+    IndexFileReader const & GetOrCreateIndexReader(std::string const & name);
 
   private:
     std::unique_ptr<PointStorageReaderInterface> m_storageReader;
@@ -255,14 +252,10 @@ public:
   // Constructs IntermediateDataReader.
   // objs - intermediate allocated objects. It's used for control allocated objects.
   // info - information about the generation.
-  IntermediateDataReader(IntermediateDataObjectsCache::AllocatedObjects & objs,
-                         feature::GenerateInfo const & info);
+  IntermediateDataReader(IntermediateDataObjectsCache::AllocatedObjects & objs, feature::GenerateInfo const & info);
 
   /// \a x \a y are in mercator projection coordinates. @see IntermediateDataWriter::AddNode.
-  bool GetNode(Key id, double & y, double & x) const override
-  {
-    return m_nodes.GetPoint(id, y, x);
-  }
+  bool GetNode(Key id, double & y, double & x) const override { return m_nodes.GetPoint(id, y, x); }
 
   bool GetWay(Key id, WayElement & e) override { return m_ways.Read(id, e); }
   bool GetRelation(Key id, RelationElement & e) override { return m_relations.Read(id, e); }
@@ -292,11 +285,7 @@ private:
   class ElementProcessorBase
   {
   public:
-    ElementProcessorBase(CacheReader & reader, ToDo & toDo)
-      : m_reader(reader)
-      , m_toDo(toDo)
-    {
-    }
+    ElementProcessorBase(CacheReader & reader, ToDo & toDo) : m_reader(reader), m_toDo(toDo) {}
 
     base::ControlFlow operator()(uint64_t id)
     {
@@ -309,16 +298,12 @@ private:
     ToDo & m_toDo;
   };
 
-
   template <typename ToDo>
   struct CachedRelationProcessor : public ElementProcessorBase<RelationElement, ToDo>
   {
     using Base = ElementProcessorBase<RelationElement, ToDo>;
 
-    CachedRelationProcessor(CacheReader & reader, ToDo & toDo)
-      : Base(reader, toDo)
-    {
-    }
+    CachedRelationProcessor(CacheReader & reader, ToDo & toDo) : Base(reader, toDo) {}
 
     base::ControlFlow operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
   };
@@ -365,17 +350,16 @@ private:
   cache::IndexFileWriter m_relationToRelations;
 };
 
-std::unique_ptr<PointStorageReaderInterface>
-CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type, std::string const & name);
+std::unique_ptr<PointStorageReaderInterface> CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type,
+                                                                      std::string const & name);
 
-std::unique_ptr<PointStorageWriterInterface>
-CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, std::string const & name);
+std::unique_ptr<PointStorageWriterInterface> CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type,
+                                                                      std::string const & name);
 
 class IntermediateData
 {
 public:
-  explicit IntermediateData(IntermediateDataObjectsCache & objectsCache,
-                            feature::GenerateInfo const & info);
+  explicit IntermediateData(IntermediateDataObjectsCache & objectsCache, feature::GenerateInfo const & info);
   std::shared_ptr<IntermediateDataReader> const & GetCache() const;
   std::shared_ptr<IntermediateData> Clone() const;
 

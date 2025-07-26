@@ -18,8 +18,7 @@ namespace
 using SV = gpu::SolidTexturingVertex;
 using MV = gpu::MaskedTexturingVertex;
 
-glsl::vec2 ShiftNormal(glsl::vec2 const & n, df::PoiSymbolViewParams const & params,
-                       m2::PointF const & pixelSize)
+glsl::vec2 ShiftNormal(glsl::vec2 const & n, df::PoiSymbolViewParams const & params, m2::PointF const & pixelSize)
 {
   glsl::vec2 result = n + glsl::vec2(params.m_offset.x, params.m_offset.y);
   m2::PointF const halfPixelSize = pixelSize * 0.5f;
@@ -40,8 +39,7 @@ glsl::vec2 ShiftNormal(glsl::vec2 const & n, df::PoiSymbolViewParams const & par
 template <typename TCreateOverlayHandle>
 void SolidBatch(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
                 TCreateOverlayHandle && createOverlayHandle, glsl::vec4 const & position,
-                df::PoiSymbolViewParams const & params,
-                dp::TextureManager::SymbolRegion const & symbolRegion,
+                df::PoiSymbolViewParams const & params, dp::TextureManager::SymbolRegion const & symbolRegion,
                 dp::TextureManager::ColorRegion const & colorRegion)
 {
   UNUSED_VALUE(colorRegion);
@@ -54,34 +52,26 @@ void SolidBatch(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batch
   m2::RectF const & texRect = symbolRegion.GetTexRect();
 
   buffer_vector<SV, 8> vertexes;
-  vertexes.emplace_back(position,
-                        ShiftNormal(glsl::vec2(-halfSize.x, halfSize.y), params, pixelSize),
+  vertexes.emplace_back(position, ShiftNormal(glsl::vec2(-halfSize.x, halfSize.y), params, pixelSize),
                         glsl::vec2(texRect.minX(), texRect.maxY()));
-  vertexes.emplace_back(position,
-                        ShiftNormal(glsl::vec2(-halfSize.x, -halfSize.y), params, pixelSize),
+  vertexes.emplace_back(position, ShiftNormal(glsl::vec2(-halfSize.x, -halfSize.y), params, pixelSize),
                         glsl::vec2(texRect.minX(), texRect.minY()));
   if (symbolRegionSize.x < params.m_pixelWidth)
   {
     float const stretchHalfWidth = (params.m_pixelWidth - symbolRegionSize.x) * 0.5f;
     float const midTexU = (texRect.minX() + texRect.maxX()) * 0.5f;
-    vertexes.emplace_back(position,
-                          ShiftNormal(glsl::vec2(-stretchHalfWidth, halfSize.y), params, pixelSize),
+    vertexes.emplace_back(position, ShiftNormal(glsl::vec2(-stretchHalfWidth, halfSize.y), params, pixelSize),
                           glsl::vec2(midTexU, texRect.maxY()));
-    vertexes.emplace_back(position,
-                          ShiftNormal(glsl::vec2(-stretchHalfWidth, -halfSize.y), params, pixelSize),
+    vertexes.emplace_back(position, ShiftNormal(glsl::vec2(-stretchHalfWidth, -halfSize.y), params, pixelSize),
                           glsl::vec2(midTexU, texRect.minY()));
-    vertexes.emplace_back(position,
-                          ShiftNormal(glsl::vec2(stretchHalfWidth, halfSize.y), params, pixelSize),
+    vertexes.emplace_back(position, ShiftNormal(glsl::vec2(stretchHalfWidth, halfSize.y), params, pixelSize),
                           glsl::vec2(midTexU, texRect.maxY()));
-    vertexes.emplace_back(position,
-                          ShiftNormal(glsl::vec2(stretchHalfWidth, -halfSize.y), params, pixelSize),
+    vertexes.emplace_back(position, ShiftNormal(glsl::vec2(stretchHalfWidth, -halfSize.y), params, pixelSize),
                           glsl::vec2(midTexU, texRect.minY()));
   }
-  vertexes.emplace_back(position,
-                        ShiftNormal(glsl::vec2(halfSize.x, halfSize.y), params, pixelSize),
+  vertexes.emplace_back(position, ShiftNormal(glsl::vec2(halfSize.x, halfSize.y), params, pixelSize),
                         glsl::vec2(texRect.maxX(), texRect.maxY()));
-  vertexes.emplace_back(position,
-                        ShiftNormal(glsl::vec2(halfSize.x, -halfSize.y), params, pixelSize),
+  vertexes.emplace_back(position, ShiftNormal(glsl::vec2(halfSize.x, -halfSize.y), params, pixelSize),
                         glsl::vec2(texRect.maxX(), texRect.minY()));
 
   auto state = df::CreateRenderState(gpu::Program::Texturing, params.m_depthLayer);
@@ -99,8 +89,7 @@ void SolidBatch(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batch
 template <typename TCreateOverlayHandle>
 void MaskedBatch(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
                  TCreateOverlayHandle && createOverlayHandle, glsl::vec4 const & position,
-                 df::PoiSymbolViewParams const & params,
-                 dp::TextureManager::SymbolRegion const & symbolRegion,
+                 df::PoiSymbolViewParams const & params, dp::TextureManager::SymbolRegion const & symbolRegion,
                  dp::TextureManager::ColorRegion const & colorRegion)
 {
   m2::PointF const symbolRegionSize = symbolRegion.GetPixelSize();
@@ -112,41 +101,33 @@ void MaskedBatch(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batc
   glsl::vec2 const maskColorCoords = glsl::ToVec2(colorRegion.GetTexRect().Center());
 
   buffer_vector<MV, 8> vertexes;
-  vertexes.emplace_back(position,
-                        ShiftNormal(glsl::vec2(-halfSize.x, halfSize.y), params, pixelSize),
+  vertexes.emplace_back(position, ShiftNormal(glsl::vec2(-halfSize.x, halfSize.y), params, pixelSize),
                         glsl::vec2(texRect.minX(), texRect.maxY()), maskColorCoords);
-  vertexes.emplace_back(position,
-                        ShiftNormal(glsl::vec2(-halfSize.x, -halfSize.y), params, pixelSize),
+  vertexes.emplace_back(position, ShiftNormal(glsl::vec2(-halfSize.x, -halfSize.y), params, pixelSize),
                         glsl::vec2(texRect.minX(), texRect.minY()), maskColorCoords);
   if (symbolRegionSize.x < params.m_pixelWidth)
   {
     float const stretchHalfWidth = (params.m_pixelWidth - symbolRegionSize.x) * 0.5f;
     float const midTexU = (texRect.minX() + texRect.maxX()) * 0.5f;
-    vertexes.emplace_back(position,
-                          ShiftNormal(glsl::vec2(-stretchHalfWidth, halfSize.y), params, pixelSize),
+    vertexes.emplace_back(position, ShiftNormal(glsl::vec2(-stretchHalfWidth, halfSize.y), params, pixelSize),
                           glsl::vec2(midTexU, texRect.maxY()), maskColorCoords);
-    vertexes.emplace_back(position,
-                          ShiftNormal(glsl::vec2(-stretchHalfWidth, -halfSize.y), params, pixelSize),
+    vertexes.emplace_back(position, ShiftNormal(glsl::vec2(-stretchHalfWidth, -halfSize.y), params, pixelSize),
                           glsl::vec2(midTexU, texRect.minY()), maskColorCoords);
-    vertexes.emplace_back(position,
-                          ShiftNormal(glsl::vec2(stretchHalfWidth, halfSize.y), params, pixelSize),
+    vertexes.emplace_back(position, ShiftNormal(glsl::vec2(stretchHalfWidth, halfSize.y), params, pixelSize),
                           glsl::vec2(midTexU, texRect.maxY()), maskColorCoords);
-    vertexes.emplace_back(position,
-                          ShiftNormal(glsl::vec2(stretchHalfWidth, -halfSize.y), params, pixelSize),
+    vertexes.emplace_back(position, ShiftNormal(glsl::vec2(stretchHalfWidth, -halfSize.y), params, pixelSize),
                           glsl::vec2(midTexU, texRect.minY()), maskColorCoords);
   }
-  vertexes.emplace_back(position,
-                        ShiftNormal(glsl::vec2(halfSize.x, halfSize.y), params, pixelSize),
+  vertexes.emplace_back(position, ShiftNormal(glsl::vec2(halfSize.x, halfSize.y), params, pixelSize),
                         glsl::vec2(texRect.maxX(), texRect.maxY()), maskColorCoords);
-  vertexes.emplace_back(position,
-                        ShiftNormal(glsl::vec2(halfSize.x, -halfSize.y), params, pixelSize),
+  vertexes.emplace_back(position, ShiftNormal(glsl::vec2(halfSize.x, -halfSize.y), params, pixelSize),
                         glsl::vec2(texRect.maxX(), texRect.minY()), maskColorCoords);
 
   auto state = df::CreateRenderState(gpu::Program::MaskedTexturing, params.m_depthLayer);
   state.SetProgram3d(gpu::Program::MaskedTexturingBillboard);
   state.SetDepthTestEnabled(params.m_depthTestEnabled);
   state.SetColorTexture(symbolRegion.GetTexture());
-  state.SetMaskTexture(colorRegion.GetTexture()); // Here mask is a color.
+  state.SetMaskTexture(colorRegion.GetTexture());  // Here mask is a color.
   state.SetTextureFilter(dp::TextureFilter::Nearest);
   state.SetTextureIndex(symbolRegion.GetTextureIndex());
 
@@ -205,9 +186,8 @@ drape_ptr<dp::OverlayHandle> PoiSymbolShape::CreateOverlayHandle(m2::RectD const
 {
   dp::OverlayID overlayId(m_params.m_featureId, m_params.m_markId, m_tileCoords, m_textIndex);
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(
-      overlayId, m_params.m_anchor, m_pt, pixelRect.RightTop() - pixelRect.LeftBottom(),
-      m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
-      m_params.m_minVisibleScale, true /* isBillboard */);
+      overlayId, m_params.m_anchor, m_pt, pixelRect.RightTop() - pixelRect.LeftBottom(), m2::PointD(m_params.m_offset),
+      GetOverlayPriority(), true /* isBound */, m_params.m_minVisibleScale, true /* isBillboard */);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||
