@@ -33,7 +33,7 @@ all_data = {}
 
 for country_code in holidays.list_supported_countries():
     try:
-        country_holidays = holidays.country_holidays(country_code, years=year)
+        country_holidays = holidays.country_holidays(country_code,  years=range(year, year + 2))
         holiday_list =  {
             
               str(date): holiday_name
