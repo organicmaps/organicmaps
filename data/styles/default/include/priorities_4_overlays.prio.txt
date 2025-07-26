@@ -830,6 +830,7 @@ amenity-public_bath                                 # icon z17- (also has captio
 amenity-vehicle_inspection                          # icon z16- (also has caption(optional) z16-)
 craft-brewery                                       # icon z17- (also has caption(optional) z18-)
 craft-confectionery                                 # icon z17- (also has caption(optional) z18-)
+craft-watch                                         # icon z17- (also has caption(optional) z18-)
 craft-winery                                        # icon z17- (also has caption(optional) z18-)
 shop-alcohol                                        # icon z16- (also has caption(optional) z16-)
 shop-antiques                                       # icon z16- (also has caption(optional) z16-)
