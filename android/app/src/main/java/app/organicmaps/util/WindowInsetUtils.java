@@ -8,7 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.WindowInsetsCompat;
 import app.organicmaps.R;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.sdk.util.Utils;
 
 public final class WindowInsetUtils
 {
@@ -79,7 +79,7 @@ public final class WindowInsetUtils
 
       if (mFloatingActionButton != null)
       {
-        int spacing = UiUtils.dimen(v.getContext(), R.dimen.margin_base);
+        int spacing = Utils.dimen(v.getContext(), R.dimen.margin_base);
         int buttonMarginBottom = insets.bottom + spacing;
 
         ViewGroup.MarginLayoutParams buttonLayoutParams =

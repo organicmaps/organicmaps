@@ -17,7 +17,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ConnectionState;
 import app.organicmaps.sdk.util.StringUtils;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.widget.WheelProgressView;
 import java.util.List;

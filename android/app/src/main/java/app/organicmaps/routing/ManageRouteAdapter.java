@@ -18,7 +18,7 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.util.StringUtils;
-import app.organicmaps.sdk.util.UiUtils;
+import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

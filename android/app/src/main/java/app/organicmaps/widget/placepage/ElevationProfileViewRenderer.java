@@ -12,8 +12,8 @@ import app.organicmaps.ChartController;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
-import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
+import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import java.util.Objects;
 
