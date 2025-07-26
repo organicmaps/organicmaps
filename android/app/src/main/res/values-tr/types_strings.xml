@@ -805,7 +805,7 @@
     <string name="type.railway.funicular">Füniküler</string>
     <string name="type.railway.funicular.bridge">Füniküler Köprüsü</string>
     <string name="type.railway.funicular.tunnel">Füniküler Tüneli</string>
-    <string name="type.railway.halt">Tren İstasyonu</string>
+    <string name="type.railway.halt">Demir Yolu Durağı</string>
     <string name="type.railway.level_crossing">Hemzemin Geçit</string>
     <string name="type.railway.light_rail">Hafif Raylı</string>
     <string name="type.railway.light_rail.bridge">Hafif Raylı Köprüsü</string>

@@ -573,7 +573,7 @@
     <string name="editor_share_to_all_dialog_title">Voleu enviar-ho a tots els usuaris?</string>
     <!-- Dialog before publishing the modifications to the public map. -->
     <string name="editor_share_to_all_dialog_message_1">Assegureu-vos que no heu introduït cap dada personal.</string>
-    <string name="editor_share_to_all_dialog_message_2">Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.</string>
+    <string name="editor_share_to_all_dialog_message_2">Els editors de l’OpenStreetMap comprovaran els canvis i us contactaran si tenen qualsevol dubte.</string>
     <string name="navigation_stop_button">Atura</string>
     <!-- Shown as toast when starting the recent track recording -->
     <string name="track_recording">S’està enregistrant el recorregut</string>
@@ -902,4 +902,6 @@
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="saved">Desat</string>
+    <string name="osm_note_toast">La nota s’enviarà a l’OpenStreetMap</string>
+    <string name="osm_note_hint">O bé, deixeu una nota a la comunitat de l’OpenStreetMap perquè algú altre pugui afegir o arreglar un lloc.</string>
 </resources>

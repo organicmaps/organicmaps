@@ -568,7 +568,7 @@
     <string name="mobile_data_option_never">Non usare mai</string>
     <string name="mobile_data_option_ask">Chiedi sempre</string>
     <string name="traffic_update_maps_text">Per visualizzare i dati sul traffico, le mappe devono essere aggiornate.</string>
-    <string name="big_font">Aumenta dimensione etichete sulla mappa</string>
+    <string name="big_font">Aumenta dimensione etichette sulla mappa</string>
     <string name="traffic_update_app">Aggiorna Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
     <string name="traffic_data_unavailable">Dati sul traffico non disponibili</string>
@@ -886,4 +886,6 @@
     <string name="mb">MB</string>
     <string name="gb">GB</string>
     <string name="saved">Salvato</string>
+    <string name="osm_note_hint">Oppure, in alternativa, lascia un appunto alla community di OpenStreetMap, in modo che un utente possa aggiungere o sistemare il luogo.</string>
+    <string name="osm_note_toast">L\'appunto sarà inviato ad OpenStreetMap</string>
 </resources>

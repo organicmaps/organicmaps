@@ -72,7 +72,7 @@
 "bookmarks" = "Marcadores";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Marcadores y rutas";
+"bookmarks_and_tracks" = "Marcadores y trayectos";
 
 /* Default bookmark list name */
 "core_my_places" = "Mis lugares";
@@ -973,7 +973,7 @@
 "button_layer_outdoor" = "Senderismo";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Exportar todos los marcadores y pistas";
+"bookmarks_export" = "Exportar todos los marcadores y trayectos";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Cambiar color";

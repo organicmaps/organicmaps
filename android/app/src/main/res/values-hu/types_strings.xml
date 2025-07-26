@@ -1400,4 +1400,9 @@
     <string name="type.sport.diving">Búvárkodás</string>
     <string name="type.man_made.crane">Daru</string>
     <string name="type.railway.station.subway.qingdao">Metróállomás</string>
+    <string name="type.amenity.bicycle_parking.covered">Fedett kerékpártároló</string>
+    <string name="type.amenity.ranger_station">Vadőrség</string>
+    <string name="type.post_office.post_partner">Postapartnerpont</string>
+    <string name="type.amenity.luggage_locker">Csomagmegőrző</string>
+    <string name="type.leisure.escape_game">Szabadulószoba</string>
 </resources>

@@ -410,8 +410,8 @@
     <string name="type.highway.primary_link.bridge">Puente</string>
     <string name="type.highway.primary_link.tunnel">Túnel</string>
     <string name="type.highway.raceway">Circuito</string>
-    <string name="type.highway.residential">Cale residencial</string>
-    <string name="type.highway.residential.area">Rúa residencial</string>
+    <string name="type.highway.residential">Rúa urbana</string>
+    <string name="type.highway.residential.area">Rúa urbana</string>
     <string name="type.highway.residential.bridge">Puente</string>
     <string name="type.highway.residential.tunnel">Túnel de rúa residencial</string>
     <string name="type.highway.rest_area">Área de descanso</string>
@@ -428,7 +428,7 @@
     <string name="type.highway.service">Vía de servizo</string>
     <string name="type.highway.service.area">Vía de servizo</string>
     <string name="type.highway.service.bridge">Puente de estrada de servizo</string>
-    <string name="type.highway.service.driveway">Vía de servizo</string>
+    <string name="type.highway.service.driveway">Entrada vehicular</string>
     <string name="type.highway.service.parking_aisle">Corredor de estacionamento</string>
     <string name="type.highway.service.tunnel">Túnel de vía de servizo</string>
     <string name="type.highway.services">Área de servizo</string>
@@ -466,7 +466,7 @@
     <string name="type.area_highway.path">Carreiro</string>
     <string name="type.area_highway.pedestrian">Cale peonil</string>
     <string name="type.area_highway.primary">Estrada principal</string>
-    <string name="type.area_highway.residential">Rúa residencial</string>
+    <string name="type.area_highway.residential">Rúa urbana</string>
     <string name="type.area_highway.secondary">Estrada secundaria</string>
     <string name="type.area_highway.service">Vía de servizo</string>
     <string name="type.area_highway.tertiary">Estrada terciaria</string>
@@ -1309,4 +1309,5 @@
     <string name="type.sport.diving">Mergullo</string>
     <string name="type.man_made.crane">Guindastre</string>
     <string name="type.railway.station.subway.qingdao">Estación de metro</string>
+    <string name="type.amenity.bicycle_parking.covered">Aparcamento de bicicletas teitado</string>
 </resources>

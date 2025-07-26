@@ -483,7 +483,7 @@
 "type.highway.primary_link.tunnel" = "Túnel";
 "type.highway.raceway" = "Circuito";
 "type.highway.residential" = "Calle urbana";
-"type.highway.residential.area" = "Calle residencial";
+"type.highway.residential.area" = "Calle urbana";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Puente";
@@ -520,7 +520,7 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Puente";
-"type.highway.service.driveway" = "Vía de servicio";
+"type.highway.service.driveway" = "Entrada vehicular";
 "type.highway.service.parking_aisle" = "Pasillo de estacionamiento";
 
 /* These translations are used for all type.highway.*.tunnel. */
@@ -588,7 +588,7 @@
 "type.area_highway.path" = "Sendero";
 "type.area_highway.pedestrian" = "Calle peatonal";
 "type.area_highway.primary" = "Carretera principal";
-"type.area_highway.residential" = "Calle residencial";
+"type.area_highway.residential" = "Calle urbana";
 "type.area_highway.secondary" = "Carretera secundaria";
 "type.area_highway.service" = "Vía de servicio";
 "type.area_highway.tertiary" = "Carretera terciaria";
@@ -1484,3 +1484,4 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Pabellón deportivo";
+"type.amenity.bicycle_parking.covered" = "Estacionamiento de bicicletas techado";

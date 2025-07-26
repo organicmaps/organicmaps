@@ -226,4 +226,6 @@
     <string name="dialog_routing_intermediate_not_determined">Ajuste la parada intermedia.</string>
     <string name="stop_track_recording">Detener grabación de trayecto</string>
     <string name="big_font">Aumentar tamaño del texto en el mapa</string>
+    <string name="bookmarks_export">Exportar todos los marcadores y trayectos</string>
+    <string name="bookmarks_and_tracks">Marcadores y trayectos</string>
 </resources>

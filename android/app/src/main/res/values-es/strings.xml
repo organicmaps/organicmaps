@@ -895,4 +895,5 @@
     <string name="level_value_generic">Nivel: %s</string>
     <string name="editor_line_social_network">LINE</string>
     <string name="saved">Guardado</string>
+    <string name="osm_note_toast">La nota se enviará a OpenStreetMap</string>
 </resources>

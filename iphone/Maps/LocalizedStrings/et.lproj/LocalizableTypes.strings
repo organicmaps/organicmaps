@@ -1493,3 +1493,8 @@
 "type.sport.diving" = "Sukeldumine";
 "type.man_made.crane" = "Kraana";
 "type.railway.station.subway.qingdao" = "Metroojaam";
+"type.amenity.bicycle_parking.covered" = "Kaetud rattaparkla";
+"type.post_office.post_partner" = "Postiteenused partneri juures";
+"type.amenity.ranger_station" = "Pargivahi maja";
+"type.amenity.luggage_locker" = "Pagasihoid";
+"type.leisure.escape_game" = "Põgenemistuba";
