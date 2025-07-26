@@ -1,42 +1,12 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-02",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-05-02",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-05-21",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-05-22",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-07-13",
-    "name": "Statehood Day"
-  },
-  {
-    "date": "2025-07-15",
-    "name": "Statehood Day (observed)"
-  },
-  {
-    "date": "2025-07-14",
-    "name": "Statehood Day"
-  },
-  {
-    "date": "2025-11-13",
-    "name": "Njegos Day"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-02": "New Year's Day",
+  "2025-05-01": "Labor Day",
+  "2025-05-02": "Labor Day",
+  "2025-05-21": "Independence Day",
+  "2025-05-22": "Independence Day",
+  "2025-07-13": "Statehood Day",
+  "2025-07-15": "Statehood Day (observed)",
+  "2025-07-14": "Statehood Day",
+  "2025-11-13": "Njegos Day"
+}

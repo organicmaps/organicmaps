@@ -1,54 +1,15 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-21",
-    "name": "Errol Barrow Day"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Easter Monday"
-  },
-  {
-    "date": "2025-04-28",
-    "name": "National Heroes Day"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "May Day"
-  },
-  {
-    "date": "2025-06-09",
-    "name": "Whit Monday"
-  },
-  {
-    "date": "2025-08-01",
-    "name": "Emancipation Day"
-  },
-  {
-    "date": "2025-08-04",
-    "name": "Kadooment Day"
-  },
-  {
-    "date": "2025-11-30",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-12-01",
-    "name": "Independence Day (observed)"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-12-26",
-    "name": "Boxing Day"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-21": "Errol Barrow Day",
+  "2025-04-18": "Good Friday",
+  "2025-04-21": "Easter Monday",
+  "2025-04-28": "National Heroes Day",
+  "2025-05-01": "May Day",
+  "2025-06-09": "Whit Monday",
+  "2025-08-01": "Emancipation Day",
+  "2025-08-04": "Kadooment Day",
+  "2025-11-30": "Independence Day",
+  "2025-12-01": "Independence Day (observed)",
+  "2025-12-25": "Christmas Day",
+  "2025-12-26": "Boxing Day"
+}

@@ -1,78 +1,21 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-02",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-03-14",
-    "name": "Summer Day"
-  },
-  {
-    "date": "2025-03-22",
-    "name": "Nowruz Day"
-  },
-  {
-    "date": "2025-04-20",
-    "name": "Catholic Easter Sunday; Orthodox Easter Sunday"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "International Workers' Day"
-  },
-  {
-    "date": "2025-09-05",
-    "name": "Mother Teresa Canonization Day"
-  },
-  {
-    "date": "2025-11-22",
-    "name": "Alphabet Day"
-  },
-  {
-    "date": "2025-11-28",
-    "name": "Flag and Independence Day"
-  },
-  {
-    "date": "2025-11-29",
-    "name": "Liberation Day"
-  },
-  {
-    "date": "2025-12-08",
-    "name": "National Youth Day"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-03-30",
-    "name": "Eid al-Fitr"
-  },
-  {
-    "date": "2025-06-06",
-    "name": "Eid al-Adha"
-  },
-  {
-    "date": "2025-03-24",
-    "name": "Nowruz Day (observed)"
-  },
-  {
-    "date": "2025-03-31",
-    "name": "Eid al-Fitr (observed)"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Catholic Easter Sunday (observed); Orthodox Easter Sunday (observed)"
-  },
-  {
-    "date": "2025-11-24",
-    "name": "Alphabet Day (observed)"
-  },
-  {
-    "date": "2025-12-01",
-    "name": "Liberation Day (observed)"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-02": "New Year's Day",
+  "2025-03-14": "Summer Day",
+  "2025-03-22": "Nowruz Day",
+  "2025-04-20": "Catholic Easter Sunday; Orthodox Easter Sunday",
+  "2025-05-01": "International Workers' Day",
+  "2025-09-05": "Mother Teresa Canonization Day",
+  "2025-11-22": "Alphabet Day",
+  "2025-11-28": "Flag and Independence Day",
+  "2025-11-29": "Liberation Day",
+  "2025-12-08": "National Youth Day",
+  "2025-12-25": "Christmas Day",
+  "2025-03-30": "Eid al-Fitr",
+  "2025-06-06": "Eid al-Adha",
+  "2025-03-24": "Nowruz Day (observed)",
+  "2025-03-31": "Eid al-Fitr (observed)",
+  "2025-04-21": "Catholic Easter Sunday (observed); Orthodox Easter Sunday (observed)",
+  "2025-11-24": "Alphabet Day (observed)",
+  "2025-12-01": "Liberation Day (observed)"
+}

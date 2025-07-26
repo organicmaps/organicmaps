@@ -1,58 +1,16 @@
-[
-  {
-    "date": "2025-01-29",
-    "name": "Chinese New Year"
-  },
-  {
-    "date": "2025-01-30",
-    "name": "Chinese New Year (Second Day)"
-  },
-  {
-    "date": "2025-05-12",
-    "name": "Vesak Day"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-06-02",
-    "name": "Birthday of HM Yang di-Pertuan Agong"
-  },
-  {
-    "date": "2025-08-31",
-    "name": "National Day"
-  },
-  {
-    "date": "2025-09-16",
-    "name": "Malaysia Day"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-06-27",
-    "name": "Islamic New Year"
-  },
-  {
-    "date": "2025-09-05",
-    "name": "Prophet Muhammad's Birthday"
-  },
-  {
-    "date": "2025-03-31",
-    "name": "Eid al-Fitr"
-  },
-  {
-    "date": "2025-04-01",
-    "name": "Eid al-Fitr (Second Day)"
-  },
-  {
-    "date": "2025-06-07",
-    "name": "Eid al-Adha"
-  },
-  {
-    "date": "2025-09-01",
-    "name": "National Day (observed)"
-  }
-]
+{
+  "2025-01-29": "Chinese New Year",
+  "2025-01-30": "Chinese New Year (Second Day)",
+  "2025-05-12": "Vesak Day",
+  "2025-05-01": "Labor Day",
+  "2025-06-02": "Birthday of HM Yang di-Pertuan Agong",
+  "2025-08-31": "National Day",
+  "2025-09-16": "Malaysia Day",
+  "2025-12-25": "Christmas Day",
+  "2025-06-27": "Islamic New Year",
+  "2025-09-05": "Prophet Muhammad's Birthday",
+  "2025-03-31": "Eid al-Fitr",
+  "2025-04-01": "Eid al-Fitr (Second Day)",
+  "2025-06-07": "Eid al-Adha",
+  "2025-09-01": "National Day (observed)"
+}

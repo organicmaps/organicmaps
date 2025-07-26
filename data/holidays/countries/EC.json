@@ -1,62 +1,17 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-03-03",
-    "name": "Carnival"
-  },
-  {
-    "date": "2025-03-04",
-    "name": "Carnival"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-05-02",
-    "name": "Labor Day (observed)"
-  },
-  {
-    "date": "2025-05-24",
-    "name": "The Battle of Pichincha"
-  },
-  {
-    "date": "2025-05-23",
-    "name": "The Battle of Pichincha (observed)"
-  },
-  {
-    "date": "2025-08-10",
-    "name": "Declaration of Independence of Quito"
-  },
-  {
-    "date": "2025-08-11",
-    "name": "Declaration of Independence of Quito (observed)"
-  },
-  {
-    "date": "2025-10-09",
-    "name": "Independence of Guayaquil"
-  },
-  {
-    "date": "2025-10-10",
-    "name": "Independence of Guayaquil (observed)"
-  },
-  {
-    "date": "2025-11-02",
-    "name": "All Souls' Day"
-  },
-  {
-    "date": "2025-11-03",
-    "name": "Independence of Cuenca"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-03-03": "Carnival",
+  "2025-03-04": "Carnival",
+  "2025-04-18": "Good Friday",
+  "2025-05-01": "Labor Day",
+  "2025-05-02": "Labor Day (observed)",
+  "2025-05-24": "The Battle of Pichincha",
+  "2025-05-23": "The Battle of Pichincha (observed)",
+  "2025-08-10": "Declaration of Independence of Quito",
+  "2025-08-11": "Declaration of Independence of Quito (observed)",
+  "2025-10-09": "Independence of Guayaquil",
+  "2025-10-10": "Independence of Guayaquil (observed)",
+  "2025-11-02": "All Souls' Day",
+  "2025-11-03": "Independence of Cuenca",
+  "2025-12-25": "Christmas Day"
+}

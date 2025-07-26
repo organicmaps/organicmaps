@@ -1,66 +1,18 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-03-08",
-    "name": "International Women's Day"
-  },
-  {
-    "date": "2025-03-12",
-    "name": "Youth Day"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-19",
-    "name": "Holy Saturday"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Easter Monday"
-  },
-  {
-    "date": "2025-04-28",
-    "name": "Kenneth Kaunda Day"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labour Day"
-  },
-  {
-    "date": "2025-05-25",
-    "name": "Africa Freedom Day"
-  },
-  {
-    "date": "2025-05-26",
-    "name": "Africa Freedom Day (observed)"
-  },
-  {
-    "date": "2025-07-07",
-    "name": "Heroes' Day"
-  },
-  {
-    "date": "2025-07-08",
-    "name": "Unity Day"
-  },
-  {
-    "date": "2025-08-04",
-    "name": "Farmers' Day"
-  },
-  {
-    "date": "2025-10-18",
-    "name": "National Prayer Day"
-  },
-  {
-    "date": "2025-10-24",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-03-08": "International Women's Day",
+  "2025-03-12": "Youth Day",
+  "2025-04-18": "Good Friday",
+  "2025-04-19": "Holy Saturday",
+  "2025-04-21": "Easter Monday",
+  "2025-04-28": "Kenneth Kaunda Day",
+  "2025-05-01": "Labour Day",
+  "2025-05-25": "Africa Freedom Day",
+  "2025-05-26": "Africa Freedom Day (observed)",
+  "2025-07-07": "Heroes' Day",
+  "2025-07-08": "Unity Day",
+  "2025-08-04": "Farmers' Day",
+  "2025-10-18": "National Prayer Day",
+  "2025-10-24": "Independence Day",
+  "2025-12-25": "Christmas Day"
+}

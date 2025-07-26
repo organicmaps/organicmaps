@@ -1,70 +1,19 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-02",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-06",
-    "name": "Epiphany"
-  },
-  {
-    "date": "2025-01-07",
-    "name": "Saint John the Baptist"
-  },
-  {
-    "date": "2025-01-24",
-    "name": "Unification of the Romanian Principalities Day"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Easter"
-  },
-  {
-    "date": "2025-04-20",
-    "name": "Easter"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Easter"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-06-01",
-    "name": "Children's Day"
-  },
-  {
-    "date": "2025-06-08",
-    "name": "Pentecost"
-  },
-  {
-    "date": "2025-06-09",
-    "name": "Pentecost"
-  },
-  {
-    "date": "2025-08-15",
-    "name": "Dormition of the Mother of God"
-  },
-  {
-    "date": "2025-11-30",
-    "name": "Saint Andrew's Day"
-  },
-  {
-    "date": "2025-12-01",
-    "name": "National Day"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-12-26",
-    "name": "Christmas Day"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-02": "New Year's Day",
+  "2025-01-06": "Epiphany",
+  "2025-01-07": "Saint John the Baptist",
+  "2025-01-24": "Unification of the Romanian Principalities Day",
+  "2025-04-18": "Easter",
+  "2025-04-20": "Easter",
+  "2025-04-21": "Easter",
+  "2025-05-01": "Labor Day",
+  "2025-06-01": "Children's Day",
+  "2025-06-08": "Pentecost",
+  "2025-06-09": "Pentecost",
+  "2025-08-15": "Dormition of the Mother of God",
+  "2025-11-30": "Saint Andrew's Day",
+  "2025-12-01": "National Day",
+  "2025-12-25": "Christmas Day",
+  "2025-12-26": "Christmas Day"
+}

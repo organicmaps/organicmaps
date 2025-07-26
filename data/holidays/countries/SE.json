@@ -1,266 +1,68 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-06",
-    "name": "Epiphany"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-20",
-    "name": "Easter Sunday; Sunday"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Easter Monday"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "May Day"
-  },
-  {
-    "date": "2025-05-29",
-    "name": "Ascension Day"
-  },
-  {
-    "date": "2025-06-06",
-    "name": "National Day of Sweden"
-  },
-  {
-    "date": "2025-06-08",
-    "name": "Sunday; Whit Sunday"
-  },
-  {
-    "date": "2025-06-20",
-    "name": "Midsummer Eve"
-  },
-  {
-    "date": "2025-06-21",
-    "name": "Midsummer Day"
-  },
-  {
-    "date": "2025-11-01",
-    "name": "All Saints' Day"
-  },
-  {
-    "date": "2025-12-24",
-    "name": "Christmas Eve"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-12-26",
-    "name": "Second Day of Christmas"
-  },
-  {
-    "date": "2025-12-31",
-    "name": "New Year's Eve"
-  },
-  {
-    "date": "2025-01-05",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-01-12",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-01-19",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-01-26",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-02-02",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-02-09",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-02-16",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-02-23",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-03-02",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-03-09",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-03-16",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-03-23",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-03-30",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-04-06",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-04-13",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-04-27",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-05-04",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-05-11",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-05-18",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-05-25",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-06-01",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-06-15",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-06-22",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-06-29",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-07-06",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-07-13",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-07-20",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-07-27",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-08-03",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-08-10",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-08-17",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-08-24",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-08-31",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-09-07",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-09-14",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-09-21",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-09-28",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-10-05",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-10-12",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-10-19",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-10-26",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-11-02",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-11-09",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-11-16",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-11-23",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-11-30",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-12-07",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-12-14",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-12-21",
-    "name": "Sunday"
-  },
-  {
-    "date": "2025-12-28",
-    "name": "Sunday"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-06": "Epiphany",
+  "2025-04-18": "Good Friday",
+  "2025-04-20": "Easter Sunday; Sunday",
+  "2025-04-21": "Easter Monday",
+  "2025-05-01": "May Day",
+  "2025-05-29": "Ascension Day",
+  "2025-06-06": "National Day of Sweden",
+  "2025-06-08": "Sunday; Whit Sunday",
+  "2025-06-20": "Midsummer Eve",
+  "2025-06-21": "Midsummer Day",
+  "2025-11-01": "All Saints' Day",
+  "2025-12-24": "Christmas Eve",
+  "2025-12-25": "Christmas Day",
+  "2025-12-26": "Second Day of Christmas",
+  "2025-12-31": "New Year's Eve",
+  "2025-01-05": "Sunday",
+  "2025-01-12": "Sunday",
+  "2025-01-19": "Sunday",
+  "2025-01-26": "Sunday",
+  "2025-02-02": "Sunday",
+  "2025-02-09": "Sunday",
+  "2025-02-16": "Sunday",
+  "2025-02-23": "Sunday",
+  "2025-03-02": "Sunday",
+  "2025-03-09": "Sunday",
+  "2025-03-16": "Sunday",
+  "2025-03-23": "Sunday",
+  "2025-03-30": "Sunday",
+  "2025-04-06": "Sunday",
+  "2025-04-13": "Sunday",
+  "2025-04-27": "Sunday",
+  "2025-05-04": "Sunday",
+  "2025-05-11": "Sunday",
+  "2025-05-18": "Sunday",
+  "2025-05-25": "Sunday",
+  "2025-06-01": "Sunday",
+  "2025-06-15": "Sunday",
+  "2025-06-22": "Sunday",
+  "2025-06-29": "Sunday",
+  "2025-07-06": "Sunday",
+  "2025-07-13": "Sunday",
+  "2025-07-20": "Sunday",
+  "2025-07-27": "Sunday",
+  "2025-08-03": "Sunday",
+  "2025-08-10": "Sunday",
+  "2025-08-17": "Sunday",
+  "2025-08-24": "Sunday",
+  "2025-08-31": "Sunday",
+  "2025-09-07": "Sunday",
+  "2025-09-14": "Sunday",
+  "2025-09-21": "Sunday",
+  "2025-09-28": "Sunday",
+  "2025-10-05": "Sunday",
+  "2025-10-12": "Sunday",
+  "2025-10-19": "Sunday",
+  "2025-10-26": "Sunday",
+  "2025-11-02": "Sunday",
+  "2025-11-09": "Sunday",
+  "2025-11-16": "Sunday",
+  "2025-11-23": "Sunday",
+  "2025-11-30": "Sunday",
+  "2025-12-07": "Sunday",
+  "2025-12-14": "Sunday",
+  "2025-12-21": "Sunday",
+  "2025-12-28": "Sunday"
+}
