@@ -6,10 +6,10 @@
 
 #include <sstream>
 
-using namespace std;
-
 namespace platform
 {
+using std::string;
+
 HttpClient::HttpClient(string const & url) : m_urlRequested(url) {}
 
 bool HttpClient::RunHttpRequest(string & response, SuccessChecker checker /* = nullptr */)
@@ -164,7 +164,7 @@ HttpClient::Headers const & HttpClient::GetHeaders() const
 // static
 string HttpClient::NormalizeServerCookies(string && cookies)
 {
-  istringstream is(cookies);
+  std::istringstream is(cookies);
   string str, result;
 
   // Split by ", ". Can have invalid tokens here, expires= can also contain a comma.
@@ -195,7 +195,7 @@ string HttpClient::NormalizeServerCookies(string && cookies)
 
 string DebugPrint(HttpClient const & request)
 {
-  ostringstream ostr;
+  std::ostringstream ostr;
   ostr << "HTTP " << request.ErrorCode() << " url [" << request.UrlRequested() << "]";
   if (request.WasRedirected())
     ostr << " was redirected to [" << request.UrlReceived() << "]";

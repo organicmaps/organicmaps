@@ -11,7 +11,7 @@
 
 namespace platform
 {
-using namespace std;
+using std::string;
 
 namespace
 {

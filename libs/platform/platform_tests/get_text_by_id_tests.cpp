@@ -4,12 +4,9 @@
 
 #include <string>
 
-using namespace platform;
-using namespace std;
-
 UNIT_TEST(GetTextByIdEnglishTest)
 {
-  string const shortJson =
+  std::string const shortJson =
       "\
       {\
       \"make_a_slight_right_turn\":\"Make a slight right turn.\",\
@@ -32,7 +29,7 @@ UNIT_TEST(GetTextByIdEnglishTest)
 
 UNIT_TEST(GetTextByIdRussianTest)
 {
-  string const shortJson =
+  std::string const shortJson =
       "\
       {\
       \"in_800_meters\":\"Через восемьсот метров.\",\
@@ -55,7 +52,7 @@ UNIT_TEST(GetTextByIdRussianTest)
 
 UNIT_TEST(GetTextByIdKoreanTest)
 {
-  string const shortJson =
+  std::string const shortJson =
       "\
       {\
       \"in_700_meters\":\"700 미터 앞\",\
@@ -78,7 +75,7 @@ UNIT_TEST(GetTextByIdKoreanTest)
 
 UNIT_TEST(GetTextByIdArabicTest)
 {
-  string const shortJson =
+  std::string const shortJson =
       "\
       {\
       \"in_1_kilometer\":\"بعد كيلو متر واحدٍ\",\
@@ -101,7 +98,7 @@ UNIT_TEST(GetTextByIdArabicTest)
 
 UNIT_TEST(GetTextByIdFrenchTest)
 {
-  string const shortJson =
+  std::string const shortJson =
       "\
       {\
       \"in_1_5_kilometers\":\"Dans un virgule cinq kilomètre.\",\

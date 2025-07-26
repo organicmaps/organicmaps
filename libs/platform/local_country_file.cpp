@@ -16,11 +16,10 @@
 
 namespace platform
 {
-using namespace std;
 
 LocalCountryFile::LocalCountryFile() : m_version(0) {}
 
-LocalCountryFile::LocalCountryFile(string directory, CountryFile countryFile, int64_t version)
+LocalCountryFile::LocalCountryFile(std::string directory, CountryFile countryFile, int64_t version)
   : m_directory(std::move(directory))
   , m_countryFile(std::move(countryFile))
   , m_version(version)
@@ -58,7 +57,7 @@ void LocalCountryFile::DeleteFromDisk(MapFileType type) const
     LOG(LERROR, (type, "from", *this, "wasn't deleted from disk."));
 }
 
-string LocalCountryFile::GetPath(MapFileType type) const
+std::string LocalCountryFile::GetPath(MapFileType type) const
 {
   return base::JoinPath(m_directory, GetFileName(type));
 }
@@ -114,7 +113,7 @@ bool LocalCountryFile::ValidateIntegrity() const
 }
 
 // static
-LocalCountryFile LocalCountryFile::MakeForTesting(string countryFileName, int64_t version)
+LocalCountryFile LocalCountryFile::MakeForTesting(std::string countryFileName, int64_t version)
 {
   LocalCountryFile localFile(GetPlatform().WritableDir(), CountryFile(std::move(countryFileName)), version);
   localFile.SyncWithDisk();
@@ -122,18 +121,18 @@ LocalCountryFile LocalCountryFile::MakeForTesting(string countryFileName, int64_
 }
 
 // static
-LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
+LocalCountryFile LocalCountryFile::MakeTemporary(std::string const & fullPath)
 {
-  string name = fullPath;
+  auto name = fullPath;
   base::GetNameFromFullPath(name);
   base::GetNameWithoutExt(name);
 
   return LocalCountryFile(base::GetDirectory(fullPath), CountryFile(std::move(name)), 0 /* version */);
 }
 
-string DebugPrint(LocalCountryFile const & file)
+std::string DebugPrint(LocalCountryFile const & file)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "LocalCountryFile [" << file.m_directory << ", " << DebugPrint(file.m_countryFile) << ", " << file.m_version
      << ", [";
 

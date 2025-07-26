@@ -8,9 +8,7 @@
 
 namespace platform
 {
-using namespace std;
-
-string GetFileName(string const & countryName, MapFileType type)
+std::string GetFileName(std::string const & countryName, MapFileType type)
 {
   ASSERT(!countryName.empty(), ());
 
@@ -34,9 +32,9 @@ CountryFile::CountryFile(std::string name, MwmSize size, std::string sha1)
   , m_sha1(std::move(sha1))
 {}
 
-string DebugPrint(CountryFile const & file)
+std::string DebugPrint(CountryFile const & file)
 {
-  ostringstream os;
+  std::ostringstream os;
   os << "CountryFile [" << file.m_name << "]";
   return os.str();
 }

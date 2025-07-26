@@ -18,8 +18,6 @@
 #include <sys/stat.h>
 #include <unistd.h>  // for sysconf
 
-using namespace std;
-
 Platform::Platform()
 {
   /// @see initialization routine in android/sdk/src/main/cpp/com/.../Platform.hpp
@@ -31,22 +29,22 @@ namespace
 class DbgLogger
 {
 public:
-  explicit DbgLogger(string const & file) : m_file(file) {}
+  explicit DbgLogger(std::string const & file) : m_file(file) {}
 
   ~DbgLogger() { LOG(LDEBUG, ("Source for file", m_file, "is", m_src)); }
 
   void SetSource(char src) { m_src = src; }
 
 private:
-  string const & m_file;
+  std::string const & m_file;
   char m_src;
 };
 }  // namespace
 #endif
 
-unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchScope) const
+std::unique_ptr<ModelReader> Platform::GetReader(std::string const & file, std::string searchScope) const
 {
-  string ext = base::GetFileExtension(file);
+  std::string ext = base::GetFileExtension(file);
   strings::AsciiToLower(ext);
   ASSERT(!ext.empty(), ());
 
@@ -87,17 +85,17 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
     {
     case 'w':
     {
-      string const path = base::JoinPath(m_writableDir, file);
+      auto const path = base::JoinPath(m_writableDir, file);
       if (IsFileExistsByFullPath(path))
-        return make_unique<FileReader>(path, logPageSize, logPageCount);
+        return std::make_unique<FileReader>(path, logPageSize, logPageCount);
       break;
     }
 
     case 's':
     {
-      string const path = base::JoinPath(m_settingsDir, file);
+      auto const path = base::JoinPath(m_settingsDir, file);
       if (IsFileExistsByFullPath(path))
-        return make_unique<FileReader>(path, logPageSize, logPageCount);
+        return std::make_unique<FileReader>(path, logPageSize, logPageCount);
       break;
     }
 
@@ -107,7 +105,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
       break;
 
     case 'r':
-      ASSERT_EQUAL(file.find("assets/"), string::npos, ());
+      ASSERT_EQUAL(file.find("assets/"), std::string::npos, ());
       try
       {
         return make_unique<ZipFileReader>(m_resourcesDir, "assets/" + file, logPageSize, logPageCount);
@@ -127,7 +125,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string searchSc
   return nullptr;
 }
 
-void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)
+void Platform::GetFilesByRegExp(std::string const & directory, std::string const & regexp, FilesList & res)
 {
   if (ZipFileReader::IsZip(directory))
   {
@@ -136,12 +134,12 @@ void Platform::GetFilesByRegExp(string const & directory, string const & regexp,
     FilesT fList;
     ZipFileReader::FilesList(directory, fList);
 
-    regex exp(regexp);
+    std::regex exp(regexp);
 
     for (FilesT::iterator it = fList.begin(); it != fList.end(); ++it)
     {
-      string & name = it->first;
-      if (regex_search(name.begin(), name.end(), exp))
+      std::string & name = it->first;
+      if (std::regex_search(name.begin(), name.end(), exp))
       {
         // Remove assets/ prefix - clean files are needed for fonts white/blacklisting logic
         size_t const ASSETS_LENGTH = 7;
@@ -166,7 +164,7 @@ int Platform::PreCachingDepth() const
   return 3;
 }
 
-bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
+bool Platform::GetFileSizeByName(std::string const & fileName, uint64_t & size) const
 {
   try
   {
@@ -181,7 +179,7 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 }
 
 // static
-Platform::EError Platform::MkDir(string const & dirName)
+Platform::EError Platform::MkDir(std::string const & dirName)
 {
   if (0 != mkdir(dirName.c_str(), 0755))
     return ErrnoToError();
@@ -202,16 +200,16 @@ void Platform::GetSystemFontNames(FilesList & res) const
 {
   bool wasRoboto = false;
 
-  string const path = "/system/fonts/";
+  std::string const path = "/system/fonts/";
   pl::EnumerateFiles(path, [&](char const * entry)
   {
-    string name(entry);
+    std::string name(entry);
     if (name != "Roboto-Medium.ttf" && name != "Roboto-Regular.ttf")
     {
       if (!name.starts_with("NotoNaskh") && !name.starts_with("NotoSans"))
         return;
 
-      if (name.find("-Regular") == string::npos)
+      if (name.find("-Regular") == std::string::npos)
         return;
     }
     else
@@ -222,7 +220,7 @@ void Platform::GetSystemFontNames(FilesList & res) const
 
   if (!wasRoboto)
   {
-    string droidSans = path + "DroidSans.ttf";
+    std::string droidSans = path + "DroidSans.ttf";
     if (IsFileExistsByFullPath(droidSans))
       res.push_back(std::move(droidSans));
   }

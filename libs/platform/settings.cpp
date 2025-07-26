@@ -18,7 +18,7 @@
 
 namespace settings
 {
-using namespace std;
+using std::string;
 
 std::string_view kMeasurementUnits = "Units";
 std::string_view kMapLanguageCode = "MapLanguageCode";
@@ -54,7 +54,7 @@ namespace impl
 template <class T, size_t N>
 bool FromStringArray(string const & s, T (&arr)[N])
 {
-  istringstream in(s);
+  std::istringstream in(s);
   size_t count = 0;
   while (count < N && in >> arr[count])
   {
@@ -70,7 +70,7 @@ bool FromStringArray(string const & s, T (&arr)[N])
 template <>
 string ToString<m2::AnyRectD>(m2::AnyRectD const & rect)
 {
-  ostringstream out;
+  std::ostringstream out;
   out.precision(12);
   m2::PointD glbZero(rect.GlobalZero());
   out << glbZero.x << " " << glbZero.y << " ";
@@ -99,7 +99,7 @@ bool FromString<m2::AnyRectD>(string const & str, m2::AnyRectD & rect)
 template <>
 string ToString<m2::RectD>(m2::RectD const & rect)
 {
-  ostringstream stream;
+  std::ostringstream stream;
   stream.precision(12);
   stream << rect.minX() << " " << rect.minY() << " " << rect.maxX() << " " << rect.maxY();
   return stream.str();
@@ -139,7 +139,7 @@ namespace impl
 template <typename T>
 string ToStringScalar(T const & v)
 {
-  ostringstream stream;
+  std::ostringstream stream;
   stream.precision(12);
   stream << v;
   return stream.str();
@@ -148,7 +148,7 @@ string ToStringScalar(T const & v)
 template <typename T>
 bool FromStringScalar(string const & str, T & v)
 {
-  istringstream stream(str);
+  std::istringstream stream(str);
   if (stream)
   {
     stream >> v;
@@ -224,7 +224,7 @@ namespace impl
 template <class TPair>
 string ToStringPair(TPair const & value)
 {
-  ostringstream stream;
+  std::ostringstream stream;
   stream.precision(12);
   stream << value.first << " " << value.second;
   return stream.str();
@@ -233,7 +233,7 @@ string ToStringPair(TPair const & value)
 template <class TPair>
 bool FromStringPair(string const & str, TPair & value)
 {
-  istringstream stream(str);
+  std::istringstream stream(str);
   if (stream)
   {
     stream >> value.first;
@@ -247,8 +247,8 @@ bool FromStringPair(string const & str, TPair & value)
 }
 }  // namespace impl
 
-typedef pair<int, int> IPairT;
-typedef pair<double, double> DPairT;
+typedef std::pair<int, int> IPairT;
+typedef std::pair<double, double> DPairT;
 
 template <>
 string ToString<IPairT>(IPairT const & v)
