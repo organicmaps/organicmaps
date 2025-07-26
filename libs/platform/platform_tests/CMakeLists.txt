@@ -7,6 +7,7 @@ set(SRC
   downloader_tests/downloader_test.cpp
   downloader_utils_tests.cpp
   get_text_by_id_tests.cpp
+  glaze_test.cpp
   jansson_test.cpp
   language_test.cpp
   local_country_file_tests.cpp
@@ -24,4 +25,5 @@ target_link_libraries(${PROJECT_NAME}
   platform_tests_support
   platform
   cppjansson
+  glaze::glaze
 )
