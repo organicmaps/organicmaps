@@ -41,7 +41,7 @@ for name, data in meta.items():
 
     # Step 2: Add public holidays if available
     try:
-        country_holidays = holidays.country_holidays(iso_code, years=year)
+        country_holidays = holidays.country_holidays(iso_code, years=range(year, year + 2))
         data["public_holidays"] = {
             
               str(date): holiday_name
