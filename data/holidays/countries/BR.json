@@ -1,42 +1,12 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "Universal Fraternization Day"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Tiradentes' Day"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Worker's Day"
-  },
-  {
-    "date": "2025-09-07",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-10-12",
-    "name": "Our Lady of Aparecida"
-  },
-  {
-    "date": "2025-11-02",
-    "name": "All Souls' Day"
-  },
-  {
-    "date": "2025-11-15",
-    "name": "Republic Proclamation Day"
-  },
-  {
-    "date": "2025-11-20",
-    "name": "National Day of Zumbi and Black Awareness"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  }
-]
+{
+  "2025-01-01": "Universal Fraternization Day",
+  "2025-04-18": "Good Friday",
+  "2025-04-21": "Tiradentes' Day",
+  "2025-05-01": "Worker's Day",
+  "2025-09-07": "Independence Day",
+  "2025-10-12": "Our Lady of Aparecida",
+  "2025-11-02": "All Souls' Day",
+  "2025-11-15": "Republic Proclamation Day",
+  "2025-11-20": "National Day of Zumbi and Black Awareness",
+  "2025-12-25": "Christmas Day"
+}

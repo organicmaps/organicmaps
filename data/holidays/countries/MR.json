@@ -1,42 +1,12 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-05-25",
-    "name": "Africa Day"
-  },
-  {
-    "date": "2025-11-28",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-03-30",
-    "name": "Eid al-Fitr (estimated)"
-  },
-  {
-    "date": "2025-03-31",
-    "name": "Eid al-Fitr (estimated)"
-  },
-  {
-    "date": "2025-06-06",
-    "name": "Eid al-Adha (estimated)"
-  },
-  {
-    "date": "2025-06-07",
-    "name": "Eid al-Adha (estimated)"
-  },
-  {
-    "date": "2025-06-26",
-    "name": "Islamic New Year (estimated)"
-  },
-  {
-    "date": "2025-09-04",
-    "name": "Mawlid al-Nabi (estimated)"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-05-01": "Labor Day",
+  "2025-05-25": "Africa Day",
+  "2025-11-28": "Independence Day",
+  "2025-03-30": "Eid al-Fitr (estimated)",
+  "2025-03-31": "Eid al-Fitr (estimated)",
+  "2025-06-06": "Eid al-Adha (estimated)",
+  "2025-06-07": "Eid al-Adha (estimated)",
+  "2025-06-26": "Islamic New Year (estimated)",
+  "2025-09-04": "Mawlid al-Nabi (estimated)"
+}

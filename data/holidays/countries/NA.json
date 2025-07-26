@@ -1,66 +1,18 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-03-21",
-    "name": "Independence Day"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Easter Monday"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Workers' Day"
-  },
-  {
-    "date": "2025-05-04",
-    "name": "Cassinga Day"
-  },
-  {
-    "date": "2025-05-05",
-    "name": "Cassinga Day (observed)"
-  },
-  {
-    "date": "2025-05-25",
-    "name": "Africa Day"
-  },
-  {
-    "date": "2025-05-26",
-    "name": "Africa Day (observed)"
-  },
-  {
-    "date": "2025-05-28",
-    "name": "Genocide Remembrance Day"
-  },
-  {
-    "date": "2025-05-29",
-    "name": "Ascension Day"
-  },
-  {
-    "date": "2025-08-26",
-    "name": "Heroes' Day"
-  },
-  {
-    "date": "2025-09-10",
-    "name": "Day of the Namibian Women and International Human Rights Day"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-12-26",
-    "name": "Family Day"
-  },
-  {
-    "date": "2025-03-01",
-    "name": "Burial ceremony of Dr. Sam Shafiishuna Nujoma"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-03-21": "Independence Day",
+  "2025-04-18": "Good Friday",
+  "2025-04-21": "Easter Monday",
+  "2025-05-01": "Workers' Day",
+  "2025-05-04": "Cassinga Day",
+  "2025-05-05": "Cassinga Day (observed)",
+  "2025-05-25": "Africa Day",
+  "2025-05-26": "Africa Day (observed)",
+  "2025-05-28": "Genocide Remembrance Day",
+  "2025-05-29": "Ascension Day",
+  "2025-08-26": "Heroes' Day",
+  "2025-09-10": "Day of the Namibian Women and International Human Rights Day",
+  "2025-12-25": "Christmas Day",
+  "2025-12-26": "Family Day",
+  "2025-03-01": "Burial ceremony of Dr. Sam Shafiishuna Nujoma"
+}

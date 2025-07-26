@@ -1,46 +1,13 @@
-[
-  {
-    "date": "2025-01-01",
-    "name": "New Year's Day"
-  },
-  {
-    "date": "2025-01-25",
-    "name": "Betico Day"
-  },
-  {
-    "date": "2025-03-03",
-    "name": "Monday before Ash Wednesday"
-  },
-  {
-    "date": "2025-03-18",
-    "name": "National Anthem and Flag Day"
-  },
-  {
-    "date": "2025-04-18",
-    "name": "Good Friday"
-  },
-  {
-    "date": "2025-04-21",
-    "name": "Easter Monday"
-  },
-  {
-    "date": "2025-05-01",
-    "name": "Labor Day"
-  },
-  {
-    "date": "2025-04-26",
-    "name": "King's Day"
-  },
-  {
-    "date": "2025-05-29",
-    "name": "Ascension Day"
-  },
-  {
-    "date": "2025-12-25",
-    "name": "Christmas Day"
-  },
-  {
-    "date": "2025-12-26",
-    "name": "Second Day of Christmas"
-  }
-]
+{
+  "2025-01-01": "New Year's Day",
+  "2025-01-25": "Betico Day",
+  "2025-03-03": "Monday before Ash Wednesday",
+  "2025-03-18": "National Anthem and Flag Day",
+  "2025-04-18": "Good Friday",
+  "2025-04-21": "Easter Monday",
+  "2025-05-01": "Labor Day",
+  "2025-04-26": "King's Day",
+  "2025-05-29": "Ascension Day",
+  "2025-12-25": "Christmas Day",
+  "2025-12-26": "Second Day of Christmas"
+}
