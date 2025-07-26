@@ -38,14 +38,14 @@ jobs:
         cmake-build-type: [ Debug, Release ]
         environment:
           - os: ubuntu-24.04
-            cc: clang-18
-            cxx: clang++-18
+            cc: clang-19
+            cxx: clang++-19
             unity: OFF
             run-tests: OFF
 
           - os: ubuntu-24.04
-            cc: clang-18
-            cxx: clang++-18
+            cc: clang-19
+            cxx: clang++-19
 
           - os: ubuntu-24.04
             cc: gcc-14
@@ -91,19 +91,18 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt install -y \
-              ninja-build \
+              clang-19 \
               libgl1-mesa-dev \
               libglvnd-dev \
               libharfbuzz-dev \
-              libxrandr-dev \
-              libxinerama-dev \
+              libqt6svg6-dev \
               libxcursor-dev \
               libxi-dev \
+              libxinerama-dev \
+              libxrandr-dev \
+              ninja-build \
               qt6-base-dev \
-              libqt6svg6-dev \
               qt6-positioning-dev \
-              libqt6positioning6-plugins \
-              libqt6positioning6
 
       - name: Install build tools and dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}

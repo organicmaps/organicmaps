@@ -99,7 +99,6 @@ _Ubuntu 24.04 or newer:_
 ```bash
 sudo apt update && sudo apt install -y \
     build-essential \
-    clang \
     cmake \
     ninja-build \
     python3 \
@@ -112,8 +111,6 @@ sudo apt update && sudo apt install -y \
     libharfbuzz-dev \
     libicu-dev \
     libqt6svg6-dev \
-    libqt6positioning6-plugins \
-    libqt6positioning6 \
     libsqlite3-dev \
     libxrandr-dev \
     libxinerama-dev \
@@ -145,8 +142,9 @@ and apply the [Ubuntu workarounds accordingly](#workarounds-for-older-ubuntu-ver
 
 ```bash
 sudo dnf install -y \
-    clang \
     cmake \
+    gcc \
+    gcc-c++ \
     ninja-build \
     freetype-devel \
     libicu-devel \
@@ -240,7 +238,7 @@ tools/unix/build_omim.sh -d help
 #### Build issues
 
 - If you get "not enough memory" errors during builds, you may disable
-  [CMake Unity Builds](https://cmake.org/cmake/help/latest/prop_tgt/UNITY_BUILD.html) by passing 
+  [CMake Unity Builds](https://cmake.org/cmake/help/latest/prop_tgt/UNITY_BUILD.html) by passing
   `-DCMAKE_UNITY_BUILD=OFF` option to `cmake` invocation. Or you can reduce Unity build batch size from
   the default `50` to a lower value (`2`-`16`) by passing `-DCMAKE_UNITY_BUILD_BATCH_SIZE=8`.
   Note that these changes may significantly increase the build time.
