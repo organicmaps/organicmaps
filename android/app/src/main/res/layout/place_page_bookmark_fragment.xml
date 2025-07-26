@@ -18,16 +18,6 @@
     android:textAppearance="?android:attr/textAppearance"
     tools:text="Long, long text Long, long text Long, long text Long, long text Long, long text Long, long text "/>
 
-  <TextView
-      android:id="@+id/tv__bookmark_edit"
-      style="@style/PlacePageMetadataText.Button"
-      android:gravity="center"
-      android:layout_height="@dimen/height_block_base"
-      android:background="?clickableBackground"
-      android:paddingEnd="@dimen/margin_base"
-      android:paddingStart="@dimen/margin_base"
-      android:text="@string/placepage_edit_bookmark_button"/>
-
   <include
     layout="@layout/divider_horizontal"/>
 </LinearLayout>

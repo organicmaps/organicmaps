@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/place_page_track_layout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+  <include layout="@layout/place_page_shadow_gap" />
+  <include
+    android:id="@+id/elevation_profile"
+    layout="@layout/elevation_profile_bottom_sheet" />
+</LinearLayout>
