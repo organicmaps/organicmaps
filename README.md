@@ -186,16 +186,4 @@ The Organic Maps community abides by the CNCF [code of conduct](https://github.c
 
 ## License
 
-Organic Maps is licensed under the [Apache License 2.0](LICENSE).
-
-### Attribution for forks and derivative apps based on Organic Maps
-
-If you use Organic Maps source code or its user interface in your project, please include a visible, human-readable mention of the “Organic Maps Project” and a clickable link to https://organicmaps.app. To respect the work of all project contributors and to comply with license attribution terms, this notice should appear in user-visible locations, such as the product’s “About” and “Main Menu” screens.
-
-### 🤝 White-label
-
-For inquiries about white-labeling or using our servers for your products, please contact us in advance at:
-
-**legal@organicmaps.app**
-
-Thank you!
+Organic Maps is licensed under multiple licenses located at LICENSES directory.

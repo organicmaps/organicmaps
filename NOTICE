@@ -20,11 +20,5 @@ organizations and licensed in different ways:
 
 Please refer to their LICENCE, COPYING or NOTICE files for terms of use.
 Some icons files may be copyrighted by (C) 2020 My.com B.V. (Mail.Ru Group)
-See also the `.reuse/dep5` and `data/copyright.html` file for a full list of copyright notices.
-
-If you use Organic Maps source code or its user interface in your project, please include a visible,
-human-readable mention of the “Organic Maps Project” and a clickable link to https://organicmaps.app.
-To respect the work of all project contributors and to comply with license attribution terms,
-this notice should appear in user-visible locations, such as the product’s “About” and “Main Menu” screens.
-
-For white-label use cases, please contact us at `legal@organicmaps.app`.
+See also the `.reuse/dep5` and `data/copyright.html` file for a full list of
+copyright notices.
