@@ -33,8 +33,6 @@ set(SRC
   xml_feature.cpp
   xml_feature.hpp
   yes_no_unknown.hpp
-  type_to_osm_mapper.cpp
-  type_to_osm_mapper.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})

@@ -5,6 +5,7 @@
 
 #include "base/stl_helpers.hpp"
 
+
 UNIT_TEST(EditorConfig_TypeDescription)
 {
   using EType = feature::Metadata::EType;
@@ -16,7 +17,7 @@ UNIT_TEST(EditorConfig_TypeDescription)
       EType::FMD_CONTACT_TWITTER, EType::FMD_CONTACT_VK,   EType::FMD_CONTACT_LINE,
   };
 
-  pugi::xml_document doc;
+  base::Json doc;
   editor::ConfigLoader::LoadFromLocal(doc);
 
   editor::EditorConfig config;
@@ -67,7 +68,7 @@ UNIT_TEST(EditorConfig_TypeDescription)
 
 UNIT_TEST(EditorConfig_GetTypesThatCanBeAdded)
 {
-  pugi::xml_document doc;
+  base::Json doc;
   editor::ConfigLoader::LoadFromLocal(doc);
 
   editor::EditorConfig config;

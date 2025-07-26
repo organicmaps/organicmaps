@@ -4,7 +4,7 @@
 #include "indexer/editable_map_object.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
-#include "editor/type_to_osm_mapper.hpp"
+#include "editor/editor_config.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
 
@@ -745,8 +745,7 @@ void ApplyPatch(XMLFeature const & xml, osm::EditableMapObject & object)
     (void)object.UpdateMetadataValue(k, std::move(v));
   });
 }
-
-XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
+XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType, editor::EditorConfig const & config)
 {
   bool const isPoint = object.GetGeomType() == feature::GeomType::Point;
   XMLFeature toFeature(isPoint ? XMLFeature::Type::Node : XMLFeature::Type::Way);
@@ -787,32 +786,30 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
       string const strType = classif().GetReadableObjectName(mainType);
 
       // Get the corresponding OSM tags
-      auto const osmTags = editor::TypeToOsmMapper::Instance().GetPrimaryOsmTags(strType);
+      auto const osmTags = config.GetPrimaryTags(strType);
 
       if (!osmTags.empty())
       {
         for (auto const & tag : osmTags)
-        {
           toFeature.SetTagValue(tag.first, tag.second);
-        }
       }
       else
       {
         // Fallback to old logic for types not found
-        LOG(LWARNING, ("No OSM tag mapping found for OM type:", strType, ". Using legacy serialization."));
+        LOG(LWARNING, ("No OSM tag mapping in editor.json for OM type:", strType, ". Using legacy serialization."));
         strings::SimpleTokenizer iter(strType, "-");
         string_view const k = *iter;
         if (++iter)
-        {
+          // First (main) type is always stored as "k=amenity v=restaurant".
+          // Any other "k=amenity v=atm" is replaced by "k=atm v=yes".
           if (toFeature.GetTagValue(k).empty())
             toFeature.SetTagValue(k, *iter);
           else
-            toFeature.SetTagValue(*iter, "yes");
-        }
+            toFeature.SetTagValue(*iter, kYes);
         else
-        {
+          // We're editing building, generic craft, shop, office, amenity etc.
+          // Skip it's serialization.
           LOG(LDEBUG, ("Skipping type serialization:", k));
-        }
       }
     }
   }
@@ -828,23 +825,21 @@ XMLFeature ToXML(osm::EditableMapObject const & object, bool serializeType)
   return toFeature;
 }
 
-XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD mercator)
+XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD mercator,
+                     editor::EditorConfig const & config)
 {
   ASSERT(geomType == feature::GeomType::Point, ("Only point features can be added"));
   XMLFeature toFeature(XMLFeature::Type::Node);
   toFeature.SetCenter(mercator);
 
   string const strType = classif().GetReadableObjectName(type);
-
   // Get the corresponding OSM tags
-  auto const osmTags = editor::TypeToOsmMapper::Instance().GetPrimaryOsmTags(strType);
+  auto const osmTags = config.GetPrimaryTags(strType);
 
   if (!osmTags.empty())
   {
     for (auto const & tag : osmTags)
-    {
       toFeature.SetTagValue(tag.first, tag.second);
-    }
   }
   else
   {
@@ -856,10 +851,11 @@ XMLFeature TypeToXML(uint32_t type, feature::GeomType geomType, m2::PointD merca
     toFeature.SetTagValue(k, *iter);
     ASSERT(!(++iter), ("Can not process 3-arity/complex types: ", strType));
   }
+
   return toFeature;
 }
 
-bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
+bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object, editor::EditorConfig const & config)
 {
   ASSERT_EQUAL(XMLFeature::Type::Node, xml.GetType(), ("At the moment only new nodes (points) can be created."));
   object.SetPointType();
@@ -878,30 +874,29 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
   feature::TypesHolder types = object.GetTypes();
   Classificator const & cl = classif();
 
-  // Exception to avoid false mapping of "amenity=recycling" "recycling_type=container" to legacy OM type: "amenity-recycling_container" instead of "amenity-recycling-container"
+  // Exception to avoid false mapping of "amenity=recycling", "recycling_type=container"
+  // to legacy OM type "amenity-recycling_container" instead of "amenity-recycling-container".
   if (xml.GetTagValue("amenity") == "recycling" && xml.GetTagValue("recycling_type") == "container")
   {
     types.Add(cl.GetTypeByPath({"amenity", "recycling", "container"}));
-    xml.ForEachTag([&](string_view k, string_view v) {
-        object.UpdateMetadataValue(k, string(v));
-    });
+    xml.ForEachTag([&](string_view k, string_view v) { object.UpdateMetadataValue(k, string(v)); });
     object.SetTypes(types);
     return types.Size() > 0;
   }
 
-  TypeToOsmMapper::OsmTags typeDefiningTags;
+  std::vector<std::pair<string, string>> typeDefiningTags;
   xml.ForEachTag([&typeDefiningTags](string_view k, string_view v)
- {
-     feature::Metadata::EType tempMeta;
-     if (k.starts_with("name") || k.starts_with("addr:") || k == "cuisine" ||
-         feature::Metadata::TypeFromString(k, tempMeta))
-     {
-       return;
-     }
-     typeDefiningTags.emplace_back(string(k), string(v));
- });
+  {
+    feature::Metadata::EType tempMeta;
+    if (k.starts_with("name") || k.starts_with("addr:") || k == "cuisine" ||
+        feature::Metadata::TypeFromString(k, tempMeta))
+    {
+      return;
+    }
+    typeDefiningTags.emplace_back(string(k), string(v));
+  });
 
-  std::string omTypeStr = TypeToOsmMapper::Instance().GetOmType(typeDefiningTags);
+  std::string omTypeStr = config.GetOmType(typeDefiningTags);
   if (!omTypeStr.empty())
   {
     uint32_t type = cl.GetTypeByReadableObjectName(omTypeStr);
@@ -916,9 +911,7 @@ bool FromXML(XMLFeature const & xml, osm::EditableMapObject & object)
   }
 
   // Parse metadata attributes
-  xml.ForEachTag([&](string_view k, string_view v) {
-      object.UpdateMetadataValue(k, string(v));
-  });
+  xml.ForEachTag([&](std::string_view k, std::string_view v) { object.UpdateMetadataValue(k, std::string(v)); });
 
   object.SetTypes(types);
   return types.Size() > 0;

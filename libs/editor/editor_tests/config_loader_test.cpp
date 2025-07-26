@@ -1,3 +1,4 @@
+#include <3party/jansson/jansson/src/jansson.h>
 #include "testing/testing.hpp"
 
 #include "editor/config_loader.hpp"
@@ -7,19 +8,20 @@
 
 #include "base/atomic_shared_ptr.hpp"
 
-#include <pugixml.hpp>
+#include "cppjansson/cppjansson.hpp"
 
 namespace
 {
 using namespace editor;
 using platform::tests_support::ScopedFile;
 
-void CheckGeneralTags(pugi::xml_document const & doc)
+void CheckGeneralTags(base::Json const & doc)
 {
-  auto const types = doc.select_nodes("/omaps/editor/types");
-  TEST(!types.empty(), ());
-  auto const fields = doc.select_nodes("/omaps/editor/fields");
-  TEST(!fields.empty(), ());
+  auto const * root = doc.get();
+  TEST(root, ("JSON root is null"));
+  TEST(json_is_object(root), ("JSON root is not an object"));
+  TEST(json_object_get(root, "types"), ("'types' key is missing"));
+  TEST(json_object_get(root, "fields"), ("'fields' key is missing"));
 }
 
 UNIT_TEST(ConfigLoader_Base)
@@ -48,7 +50,7 @@ UNIT_TEST(ConfigLoader_Base)
 
 UNIT_TEST(ConfigLoader_LoadFromLocal)
 {
-  pugi::xml_document doc;
+  base::Json doc;
   ConfigLoader::LoadFromLocal(doc);
   CheckGeneralTags(doc);
 }
