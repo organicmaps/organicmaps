@@ -16,6 +16,38 @@ import argparse
 import datetime
 import re
 
+custom_name_to_iso = {
+    "Saint Barthelemy": "BL",
+    "United States Virgin Islands": "VI",
+    "Brunei": "BN",
+    "Cape Verde": "CV",
+    "Congo-Brazzaville": "CG",
+    "Congo-Kinshasa": "CD",
+    "Czech": "CZ",
+    "Cote dIvoire": "CI",
+    "East Timor": "TL",
+    "Falkland Islands": "FK",
+    "Macedonia": "MK",
+    "Pitcairn Islands": "PN",
+    "Saint Helena Ascension and Tristan da Cunha": "SH",
+    "Republic of Kosovo": "XK",
+    "Russia": "RU",
+    "Palestine": "PS",
+    "Swaziland": "SZ",
+    "The Bahamas": "BS",
+    "The Gambia": "GM",
+    "Turkey": "TR",
+    "UK": "GB",
+    "New Zealand South": "NZ",
+    "New Zealand North": "NZ",
+    "Abkhazia": "GE",
+    "South Ossetia": "GE",
+    "Jerusalem": "IL",
+    "Crimea": "RU",
+    "Campo de Hielo Sur": "AR",
+}
+
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(script_dir, '../..'))
 input_file = os.path.join(project_root, 'data', 'countries_meta.txt')
@@ -59,8 +91,10 @@ for name, data in meta.items():
         iso_code = country.alpha_2
         data["_iso_code"] = iso_code
     except LookupError:
-        print(f"[!] Could not find ISO code for: {base_name}")
-        continue
+        iso_code = custom_name_to_iso.get(base_name)
+        if not iso_code:
+            print(f"[!] Could not find ISO code for: {base_name}")
+            continue
 
     # Step 2: Add public holidays if available
     try:
