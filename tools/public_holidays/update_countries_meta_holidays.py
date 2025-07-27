@@ -1,12 +1,13 @@
 """
-Script to enrich a countries metadata file (e.g., `countries_meta.txt`) with ISO codes and public holidays.
+Script to generate public holidays for each country/region defined in countries_meta.txt.
 
 Usage:
     python3  update_countries_meta_holidays.py            # Uses the current year
     python3  update_countries_meta_holidays.py --year 2025  # Uses the specified year
 
-This script attempts to match country names, fetch holiday data where available, and
-output the result as a structured JSON file.
+This script reads country/region names from countries_meta.txt, and generates separate JSON files containing holidays for each entry.
+For regions that share holidays with their base country, symlinks are created instead of duplicate files.
+Output files are stored in data/countries/public_holidays/{map_name}.json
 """
 import json
 import pycountry
@@ -47,18 +48,22 @@ custom_name_to_iso = {
     "Campo de Hielo Sur": "AR",
 }
 
-
+# Setup paths
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(script_dir, '../..'))
 input_file = os.path.join(project_root, 'data', 'countries_meta.txt')
-output_file = os.path.join(project_root, 'data', 'countries_meta.json')
+output_dir = os.path.join(project_root, 'data', 'countries', 'public_holidays')
 
-parser = argparse.ArgumentParser(description="Update countries_meta.json with ISO codes and public holidays.")
+# Create output directory if it doesn't exist
+os.makedirs(output_dir, exist_ok=True)
+
+# Parse command line arguments
+parser = argparse.ArgumentParser(description="Generate per-country/region public holidays.")
 parser.add_argument('--year', type=int, default=datetime.datetime.now().year, help='Year for holidays (default: current year)')
 args = parser.parse_args()
-
 year = args.year
 
+# Read countries metadata
 with open(input_file, "r", encoding="utf-8") as f:
     meta = json.load(f)
 
@@ -73,7 +78,6 @@ UNWANTED_PHRASES = [
     "substitute day"
 ]
 
-# Clean function
 def clean_holiday_name(name):
     for phrase in UNWANTED_PHRASES:
         name = name.replace(f" ({phrase})", "")
@@ -83,35 +87,49 @@ def clean_holiday_name(name):
     name = re.sub(r"\s*\(substituted from [^)]+\)", "", name, flags=re.IGNORECASE) 
     return name.strip()
 
-for name, data in meta.items():
-    base_name = name.split("_")[0]  # Use only country part, e.g., "Spain" from "Spain_Catalonia"
-    # Step 1: Add ISO code
-    try:
-        country = pycountry.countries.lookup(base_name)
-        iso_code = country.alpha_2
-        data["_iso_code"] = iso_code
-    except LookupError:
-        iso_code = custom_name_to_iso.get(base_name)
-        if not iso_code:
-            print(f"[!] Could not find ISO code for: {base_name}")
-            continue
+# First, process base countries (without underscore)
+base_countries = {}
+for map_name in meta.keys():
+    if '_' not in map_name:  # Process only base countries first
+        try:
+            country = pycountry.countries.lookup(map_name)
+            iso_code = country.alpha_2
+        except LookupError:
+            iso_code = custom_name_to_iso.get(map_name)
+            if not iso_code:
+                print(f"[!] Could not find ISO code for: {map_name}")
+                continue
 
-    # Step 2: Add public holidays if available
-    try:
-        country_holidays = holidays.country_holidays(iso_code, years=range(year, year + 2))
-        data["public_holidays"] = {
-              str(date): clean_holiday_name(holiday_name)
-              for date, holiday_name in country_holidays.items()
-        }
-    except Exception as e:
-        print(f"[!] Holidays not available for {base_name} ({iso_code}): {e}")
-        continue
+        try:
+            country_holidays = holidays.country_holidays(iso_code, years=range(year, year + 2))
+            holidays_dict = {
+                str(date): clean_holiday_name(holiday_name)
+                for date, holiday_name in country_holidays.items()
+            }
+            # Save base country holidays
+            output_file = os.path.join(output_dir, f"{map_name}.json")
+            with open(output_file, "w", encoding="utf-8") as f:
+                json.dump(holidays_dict, f, indent=2, ensure_ascii=False)
+            base_countries[map_name] = output_file
+        except Exception as e:
+            print(f"[!] Holidays not available for {map_name} ({iso_code}): {e}")
+            base_countries[map_name] = None
 
-# Remove iso_code from output
-for data in meta.values():
-    data.pop("_iso_code", None)
-
-# Save the enriched JSON
-with open(output_file, "w", encoding="utf-8") as f:
-    json.dump(meta, f, indent=2, ensure_ascii=False)
+# Then process regions, creating symlinks to their base country's file
+for map_name in meta.keys():
+    if '_' in map_name:  # Process only regions
+        base_name = map_name.split('_')[0]
+        if base_name in base_countries and base_countries[base_name]:
+            # Create symlink to base country's holiday file
+            region_file = os.path.join(output_dir, f"{map_name}.json")
+            base_file = f"{base_name}.json"
+            
+            # Remove existing file/symlink if it exists
+            if os.path.exists(region_file):
+                os.remove(region_file)
+            
+            # Create relative symlink
+            os.symlink(base_file, region_file)
+        else:
+            print(f"[!] Base country {base_name} not available for region {map_name}")
 
