@@ -3,7 +3,6 @@ BasedOnStyle: Google
 
 AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
-AlignArrayOfStructures: Right
 AlignConsecutiveMacros: AcrossEmptyLinesAndComments
 AlignEscapedNewlines: LeftWithLastLine
 AlignOperands: AlignAfterOperator
