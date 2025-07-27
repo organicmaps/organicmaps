@@ -19,7 +19,18 @@ extern "C" {
 #endif
 
 #include "vulkan_wrapper.h"
+
+#if defined(_WIN32)
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
+#else
 #include <dlfcn.h>
+#endif
 
 int InitVulkan(void) {
 #if defined(__APPLE__)
@@ -30,6 +41,9 @@ int InitVulkan(void) {
     if (!libvulkan) {
         libvulkan = dlopen("libMoltenVK.dylib", RTLD_NOW | RTLD_LOCAL);
     }
+#elif defined( _WIN32 )
+    HMODULE libvulkan = LoadLibraryA("vulkan-1.dll");
+    auto dlsym = [](HMODULE h, char const * name) { return GetProcAddress(h, name); };
 #else
     void* libvulkan = dlopen("libvulkan.so.1", RTLD_NOW | RTLD_LOCAL);
     if (!libvulkan) {
