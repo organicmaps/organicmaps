@@ -431,7 +431,7 @@ void VulkanObjectManager::CreateDescriptorPool()
   CHECK_GREATER(m_maxImageSamplers, 0, ());
   std::vector<VkDescriptorPoolSize> poolSizes = {
       {VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, m_maxUniformBuffers * kMaxDescriptorsSetCount},
-      {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,  m_maxImageSamplers * kMaxDescriptorsSetCount},
+      {VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, m_maxImageSamplers * kMaxDescriptorsSetCount},
   };
 
   VkDescriptorPoolCreateInfo descriptorPoolInfo = {};

@@ -64,26 +64,10 @@ struct Point3D
 
 using TPoint3DList = std::vector<Point3D>;
 
-TPoint3DList const kRoad1 = {
-    {0, -1, -1},
-    {0,  0,  0},
-    {0,  1,  1}
-};
-TPoint3DList const kRoad2 = {
-    { 0, 1, 1},
-    { 5, 1, 1},
-    {10, 1, 1}
-};
-TPoint3DList const kRoad3 = {
-    {10,  1,   1},
-    {15,  6, 100},
-    {20, 11, 110}
-};
-TPoint3DList const kRoad4 = {
-    {-10,   1,   -1},
-    {-20,   6, -100},
-    {-20, -11, -110}
-};
+TPoint3DList const kRoad1 = {{0, -1, -1}, {0, 0, 0}, {0, 1, 1}};
+TPoint3DList const kRoad2 = {{0, 1, 1}, {5, 1, 1}, {10, 1, 1}};
+TPoint3DList const kRoad3 = {{10, 1, 1}, {15, 6, 100}, {20, 11, 110}};
+TPoint3DList const kRoad4 = {{-10, 1, -1}, {-20, 6, -100}, {-20, -11, -110}};
 
 class MockAltitudeGetter : public AltitudeGetter
 {

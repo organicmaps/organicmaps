@@ -54,24 +54,18 @@ public:
   {
     {
       RelationElement topRelationElement;
-      topRelationElement.m_tags = {
-          {"type", "building"}
-      };
+      topRelationElement.m_tags = {{"type", "building"}};
       topRelationElement.m_relations = {
           {kOutlineId1, "outline"},
-          {    3271043,    "part"},
-          {    3271041,    "part"},
+          {3271043, "part"},
+          {3271041, "part"},
       };
       for (auto const & p : topRelationElement.m_relations)
         m_relationToRelations[p.first].emplace_back(kTopRelationId1);
 
       topRelationElement.m_ways = {
-          {292789674, "part"},
-          {242078027, "part"},
-          {242078028, "part"},
-          {242077956, "part"},
-          {242077935, "part"},
-          {242077967, "part"},
+          {292789674, "part"}, {242078027, "part"}, {242078028, "part"},
+          {242077956, "part"}, {242077935, "part"}, {242077967, "part"},
       };
       for (auto const & p : topRelationElement.m_ways)
         m_wayToRelations[p.first].emplace_back(kTopRelationId1);
@@ -80,9 +74,7 @@ public:
     }
     {
       RelationElement topRelationElement;
-      topRelationElement.m_tags = {
-          {"type", "building"}
-      };
+      topRelationElement.m_tags = {{"type", "building"}};
       topRelationElement.m_relations = {
           {kOutlineId2, "outline"},
       };
@@ -90,12 +82,8 @@ public:
         m_relationToRelations[p.first].emplace_back(kTopRelationId2);
 
       topRelationElement.m_ways = {
-          {392789674, "part"},
-          {342078027, "part"},
-          {342078028, "part"},
-          {342077956, "part"},
-          {342077935, "part"},
-          {342077967, "part"},
+          {392789674, "part"}, {342078027, "part"}, {342078028, "part"},
+          {342077956, "part"}, {342077935, "part"}, {342077967, "part"},
       };
       for (auto const & p : topRelationElement.m_ways)
         m_wayToRelations[p.first].emplace_back(kTopRelationId2);

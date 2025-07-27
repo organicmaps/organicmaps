@@ -198,12 +198,10 @@ void MyPosition::CacheSymbol(ref_ptr<dp::GraphicsContext> context, dp::TextureMa
   m2::RectF const & texRect = symbol.GetTexRect();
   m2::PointF const halfSize = symbol.GetPixelSize() * 0.5f;
 
-  mp::MarkerVertex data[4] = {
-      {glsl::vec2(-halfSize.x,  halfSize.y),     glsl::ToVec2(texRect.LeftTop())},
-      {glsl::vec2(-halfSize.x, -halfSize.y),  glsl::ToVec2(texRect.LeftBottom())},
-      { glsl::vec2(halfSize.x,  halfSize.y),    glsl::ToVec2(texRect.RightTop())},
-      { glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom())}
-  };
+  mp::MarkerVertex data[4] = {{glsl::vec2(-halfSize.x, halfSize.y), glsl::ToVec2(texRect.LeftTop())},
+                              {glsl::vec2(-halfSize.x, -halfSize.y), glsl::ToVec2(texRect.LeftBottom())},
+                              {glsl::vec2(halfSize.x, halfSize.y), glsl::ToVec2(texRect.RightTop())},
+                              {glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom())}};
 
   dp::AttributeProvider provider(1 /* streamCount */, dp::Batcher::VertexPerQuad);
   provider.InitStream(0 /* streamIndex */, mp::GetMarkerBindingInfo(), make_ref(data));

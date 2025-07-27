@@ -63,12 +63,7 @@ int TrianglesInfo::ListInfo::empty_key = -1;
 
 bool TrianglesInfo::ListInfo::AddNeighbour(int p1, int p2, int trg)
 {
-  return m_neighbors
-      .insert({
-          {p1, p2},
-          trg
-  })
-      .second;
+  return m_neighbors.insert({{p1, p2}, trg}).second;
 }
 
 bool TrianglesInfo::ListInfo::Add(int p0, int p1, int p2)

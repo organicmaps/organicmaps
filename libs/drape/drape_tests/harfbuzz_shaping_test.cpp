@@ -16,11 +16,9 @@ UNIT_TEST(GetTextSegments)
   TEST(text == u"Map data © OpenStreetMap", ());
 
   std::vector<TextSegment> const expected{
-      { 0,  3,  HB_SCRIPT_LATIN, HB_DIRECTION_LTR},
-      { 3,  1, HB_SCRIPT_COMMON, HB_DIRECTION_LTR},
-      { 4,  4,  HB_SCRIPT_LATIN, HB_DIRECTION_LTR},
-      { 8,  3, HB_SCRIPT_COMMON, HB_DIRECTION_LTR},
-      {11, 13,  HB_SCRIPT_LATIN, HB_DIRECTION_LTR},
+      {0, 3, HB_SCRIPT_LATIN, HB_DIRECTION_LTR},   {3, 1, HB_SCRIPT_COMMON, HB_DIRECTION_LTR},
+      {4, 4, HB_SCRIPT_LATIN, HB_DIRECTION_LTR},   {8, 3, HB_SCRIPT_COMMON, HB_DIRECTION_LTR},
+      {11, 13, HB_SCRIPT_LATIN, HB_DIRECTION_LTR},
   };
 
   TEST_EQUAL(segments, expected, ());

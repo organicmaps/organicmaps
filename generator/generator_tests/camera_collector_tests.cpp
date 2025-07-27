@@ -146,12 +146,7 @@ UNIT_CLASS_TEST(TestCameraCollector, test_1)
       </way>
       </osm>)";
 
-  std::set<pair<uint64_t, uint64_t>> trueAnswers = {
-      {1, 10},
-      {1, 20},
-      {2, 20},
-      {3, 20}
-  };
+  std::set<pair<uint64_t, uint64_t>> trueAnswers = {{1, 10}, {1, 20}, {2, 20}, {3, 20}};
 
   TEST(TestCameraCollector::Test(osmSourceXML, trueAnswers), ());
 }
@@ -185,16 +180,8 @@ UNIT_CLASS_TEST(TestCameraCollector, test_2)
       </way>
       </osm>)";
 
-  std::set<pair<uint64_t, uint64_t>> trueAnswers = {
-      {1, 10},
-      {2, 10},
-      {1, 20},
-      {3, 20},
-      {1, 30},
-      {3, 30},
-      {4, 30},
-      {5, 30}
-  };
+  std::set<pair<uint64_t, uint64_t>> trueAnswers = {{1, 10}, {2, 10}, {1, 20}, {3, 20},
+                                                    {1, 30}, {3, 30}, {4, 30}, {5, 30}};
 
   TEST(TestCameraCollector::Test(osmSourceXML, trueAnswers), ());
 }
@@ -219,10 +206,7 @@ UNIT_CLASS_TEST(TestCameraCollector, test_3)
       </way>
       </osm>)";
 
-  std::set<pair<uint64_t, uint64_t>> trueAnswers = {
-      {1, 10},
-      {1, 20}
-  };
+  std::set<pair<uint64_t, uint64_t>> trueAnswers = {{1, 10}, {1, 20}};
 
   TEST(TestCameraCollector::Test(osmSourceXML, trueAnswers), ());
 }

@@ -9,21 +9,19 @@
 
 using namespace std;
 
-map<TransitType, string> const kTransitSymbols = {
-    {      TransitType::Subway,        "transit_subway"},
-    {   TransitType::LightRail,    "transit_light_rail"},
-    {    TransitType::Monorail,      "transit_monorail"},
-    {       TransitType::Train,         "transit_train"},
-    {        TransitType::Tram,          "transit_tram"},
-    {         TransitType::Bus,           "transit_bus"},
-    {       TransitType::Ferry,         "transit_ferry"},
-    {   TransitType::CableTram,    "transit_cable_tram"},
-    {  TransitType::AerialLift,   "transit_aerial_lift"},
-    {   TransitType::Funicular,     "transit_funicular"},
-    {  TransitType::Trolleybus,    "transit_trolleybus"},
-    {  TransitType::AirService,   "transit_air_service"},
-    {TransitType::WaterService, "transit_water_service"}
-};
+map<TransitType, string> const kTransitSymbols = {{TransitType::Subway, "transit_subway"},
+                                                  {TransitType::LightRail, "transit_light_rail"},
+                                                  {TransitType::Monorail, "transit_monorail"},
+                                                  {TransitType::Train, "transit_train"},
+                                                  {TransitType::Tram, "transit_tram"},
+                                                  {TransitType::Bus, "transit_bus"},
+                                                  {TransitType::Ferry, "transit_ferry"},
+                                                  {TransitType::CableTram, "transit_cable_tram"},
+                                                  {TransitType::AerialLift, "transit_aerial_lift"},
+                                                  {TransitType::Funicular, "transit_funicular"},
+                                                  {TransitType::Trolleybus, "transit_trolleybus"},
+                                                  {TransitType::AirService, "transit_air_service"},
+                                                  {TransitType::WaterService, "transit_water_service"}};
 
 namespace
 {
@@ -834,9 +832,7 @@ void TransitRouteDisplay::CreateTransitMarks()
         titleTransitMark->AddTitle(titleDecl);
 
         titleTransitMark->SetAnchor(dp::Top);
-        titleTransitMark->SetSymbolNames({
-            {1 /* minZoom */, "transfer_arrow"}
-        });
+        titleTransitMark->SetSymbolNames({{1 /* minZoom */, "transfer_arrow"}});
         titleTransitMark->SetSymbolOffsets(transferArrowOffsets);
         titleTransitMark->SetPriority(UserMark::Priority::TransitTransfer);
       }

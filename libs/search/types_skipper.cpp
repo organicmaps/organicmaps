@@ -26,9 +26,9 @@ TypesSkipper::TypesSkipper()
     m_skipIfEmptyName[0].push_back(c.GetTypeByPath(e));
 
   StringIL const arrSkipEmptyName2[] = {
-      {"man_made",     "chimney"},
-      {"man_made",    "flagpole"},
-      {"man_made",        "mast"},
+      {"man_made", "chimney"},
+      {"man_made", "flagpole"},
+      {"man_made", "mast"},
       {"man_made", "water_tower"},
   };
   for (auto const & e : arrSkipEmptyName2)

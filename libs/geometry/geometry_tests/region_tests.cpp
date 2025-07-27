@@ -214,15 +214,7 @@ UNIT_TEST(Region_Contains_double)
 
   {
     Region region;
-    Point const data[] = {
-        {0, 7},
-        {4, 4},
-        {3, 6},
-        {8, 6},
-        {8, 5},
-        {6, 3},
-        {2, 2}
-    };
+    Point const data[] = {{0, 7}, {4, 4}, {3, 6}, {8, 6}, {8, 5}, {6, 3}, {2, 2}};
     region.Assign(data, data + ARRAY_SIZE(data));
 
     TEST_EQUAL(region.GetRect(), m2::Rect<Point::value_type>(0, 2, 8, 7), ());

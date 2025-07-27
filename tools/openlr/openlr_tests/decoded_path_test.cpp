@@ -148,12 +148,7 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
 
 UNIT_TEST(MakePath_Test)
 {
-  std::vector<m2::PointD> const points{
-      {0, 0},
-      {0, 1},
-      {1, 0},
-      {1, 1}
-  };
+  std::vector<m2::PointD> const points{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
   WithRoad(points, [&points](DataSource const & dataSource, FeatureType & road)
   {
     auto const & id = road.GetID();
@@ -178,14 +173,7 @@ UNIT_TEST(MakePath_Test)
 
 UNIT_TEST(PathSerializeDeserialize_Test)
 {
-  WithRoad(
-      {
-          {0, 0},
-          {0, 1},
-          {1, 0},
-          {1, 1}
-  },
-      [](DataSource const & dataSource, FeatureType & road)
+  WithRoad({{0, 0}, {0, 1}, {1, 0}, {1, 1}}, [](DataSource const & dataSource, FeatureType & road)
   {
     {
       auto const path = MakePath(road, true /* forward */);
@@ -200,12 +188,7 @@ UNIT_TEST(PathSerializeDeserialize_Test)
 
 UNIT_TEST(GetPoints_Test)
 {
-  vector<m2::PointD> const points{
-      {0, 0},
-      {0, 1},
-      {1, 0},
-      {1, 1}
-  };
+  vector<m2::PointD> const points{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
   WithRoad(points, [&points](DataSource const &, FeatureType & road)
   {
     {

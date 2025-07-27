@@ -51,83 +51,40 @@ std::unique_ptr<IndexGraph> BuildTwoCubeGraph()
   classificator::Load();
   std::unique_ptr<TestGeometryLoader> loader = std::make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 0.0},
-                      {1.0, 0.0}
-  }));
+                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}}));
   loader->AddRoad(1 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0, 0.0},
-                      {2.0, 0.0}
-  }));
+                  RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}}));
   loader->AddRoad(2 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 0.0},
-                      {2.0, 1.0}
-  }));
+                  RoadGeometry::Points({{2.0, 0.0}, {2.0, 1.0}}));
   loader->AddRoad(3 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0, 1.0},
-                      {2.0, 1.0}
-  }));
+                  RoadGeometry::Points({{1.0, 1.0}, {2.0, 1.0}}));
   loader->AddRoad(4 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 2.0},
-                      {1.0, 1.0}
-  }));
+                  RoadGeometry::Points({{0.0, 2.0}, {1.0, 1.0}}));
   loader->AddRoad(5 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {-1.0, 1.0},
-                      { 0.0, 2.0}
-  }));
+                  RoadGeometry::Points({{-1.0, 1.0}, {0.0, 2.0}}));
   loader->AddRoad(6 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      { 0.0, 0.0},
-                      {-1.0, 1.0}
-  }));
+                  RoadGeometry::Points({{0.0, 0.0}, {-1.0, 1.0}}));
   loader->AddRoad(7 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {-1.0, 0.0},
-                      { 0.0, 0.0}
-  }));
+                  RoadGeometry::Points({{-1.0, 0.0}, {0.0, 0.0}}));
   loader->AddRoad(8 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 1.0},
-                      {3.0, 1.0}
-  }));
+                  RoadGeometry::Points({{2.0, 1.0}, {3.0, 1.0}}));
   loader->AddRoad(9 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 0.0},
-                      {3.0, 1.0}
-  }));
+                  RoadGeometry::Points({{2.0, 0.0}, {3.0, 1.0}}));
   loader->AddRoad(10 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {3.0, 1.0},
-                      {4.0, 1.0}
-  }));
+                  RoadGeometry::Points({{3.0, 1.0}, {4.0, 1.0}}));
 
   std::vector<Joint> const joints = {
       // {{/* feature id */, /* point id */}, ... }
-      MakeJoint({{7, 0}}
-      ), /* joint at point (-1, 0) */
-      MakeJoint({{0, 0}, {6, 0}, {7, 1}}
-      ), /* joint at point (0, 0) */
-      MakeJoint({{0, 1}, {1, 0}}
-      ), /* joint at point (1, 0) */
-      MakeJoint({{1, 1}, {2, 0}, {9, 0}}
-      ), /* joint at point (2, 0) */
-      MakeJoint({{2, 1}, {3, 1}, {8, 0}}
-      ), /* joint at point (2, 1) */
-      MakeJoint({{3, 0}, {4, 1}}
-      ), /* joint at point (1, 1) */
-      MakeJoint({{5, 1}, {4, 0}}
-      ), /* joint at point (0, 2) */
-      MakeJoint({{6, 1}, {5, 0}}
-      ), /* joint at point (-1, 1) */
-      MakeJoint({{8, 1}, {9, 1}, {10, 0}}
-      ), /* joint at point (3, 1) */
-      MakeJoint({{10, 1}}
-      )  /* joint at point (4, 1) */
+      MakeJoint({{7, 0}}),                  /* joint at point (-1, 0) */
+      MakeJoint({{0, 0}, {6, 0}, {7, 1}}),  /* joint at point (0, 0) */
+      MakeJoint({{0, 1}, {1, 0}}),          /* joint at point (1, 0) */
+      MakeJoint({{1, 1}, {2, 0}, {9, 0}}),  /* joint at point (2, 0) */
+      MakeJoint({{2, 1}, {3, 1}, {8, 0}}),  /* joint at point (2, 1) */
+      MakeJoint({{3, 0}, {4, 1}}),          /* joint at point (1, 1) */
+      MakeJoint({{5, 1}, {4, 0}}),          /* joint at point (0, 2) */
+      MakeJoint({{6, 1}, {5, 0}}),          /* joint at point (-1, 1) */
+      MakeJoint({{8, 1}, {9, 1}, {10, 0}}), /* joint at point (3, 1) */
+      MakeJoint({{10, 1}})                  /* joint at point (4, 1) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -200,9 +157,9 @@ public:
     base::SortUnique(restrictionCollector.m_restrictions);
 
     std::vector<Restriction> expectedRestrictions = {
-        {  Restriction::Type::No,    {1, 2}},
-        {Restriction::Type::Only,    {2, 3}},
-        {  Restriction::Type::No, {0, 1, 2}},
+        {Restriction::Type::No, {1, 2}},
+        {Restriction::Type::Only, {2, 3}},
+        {Restriction::Type::No, {0, 1, 2}},
     };
 
     std::sort(expectedRestrictions.begin(), expectedRestrictions.end());
@@ -271,26 +228,16 @@ UNIT_TEST(RestrictionWriter_Merge)
 
   auto c1 = std::make_shared<RestrictionWriter>(filename, nullptr /* cache */);
   auto c2 = c1->Clone();
-  std::map<std::string, std::string, std::less<>> const tags = {
-      {       "type",   "restriction"},
-      {"restriction", "no_right_turn"}
-  };
-  c1->CollectRelation(MakeRelationElement(
-      {
-  } /* nodes */,
-      {{1, "via"}, {11, "from"}, {21, "to"}} /* ways */, tags /* tags */));
-  c2->CollectRelation(MakeRelationElement(
-      {
-  } /* nodes */,
-      {{2, "via"}, {12, "from"}, {22, "to"}} /* ways */, tags /* tags */));
-  c1->CollectRelation(MakeRelationElement(
-      {
-  } /* nodes */,
-      {{3, "via"}, {13, "from"}, {23, "to"}} /* ways */, tags /* tags */));
-  c2->CollectRelation(MakeRelationElement(
-      {
-  } /* nodes */,
-      {{4, "via"}, {14, "from"}, {24, "to"}} /* ways */, tags /* tags */));
+  std::map<std::string, std::string, std::less<>> const tags = {{"type", "restriction"},
+                                                                {"restriction", "no_right_turn"}};
+  c1->CollectRelation(
+      MakeRelationElement({} /* nodes */, {{1, "via"}, {11, "from"}, {21, "to"}} /* ways */, tags /* tags */));
+  c2->CollectRelation(
+      MakeRelationElement({} /* nodes */, {{2, "via"}, {12, "from"}, {22, "to"}} /* ways */, tags /* tags */));
+  c1->CollectRelation(
+      MakeRelationElement({} /* nodes */, {{3, "via"}, {13, "from"}, {23, "to"}} /* ways */, tags /* tags */));
+  c2->CollectRelation(
+      MakeRelationElement({} /* nodes */, {{4, "via"}, {14, "from"}, {24, "to"}} /* ways */, tags /* tags */));
   c1->Finish();
   c2->Finish();
   c1->Merge(*c2);

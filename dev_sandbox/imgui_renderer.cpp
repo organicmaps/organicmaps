@@ -190,7 +190,7 @@ void ImguiRenderer::UpdateBuffers()
           .position = {cmdList->VtxBuffer.Data[j].pos.x, cmdList->VtxBuffer.Data[j].pos.y},
           .texCoords = {cmdList->VtxBuffer.Data[j].uv.x, cmdList->VtxBuffer.Data[j].uv.y},
           .color = {color.GetAlphaF(), color.GetBlueF(), color.GetGreenF(),
-                       color.GetRedF()}  // Byte order is reversed in imGui
+                    color.GetRedF()}  // Byte order is reversed in imGui
       };
     }
 
@@ -225,8 +225,7 @@ void ImguiRenderer::UpdateBuffers()
           .indexCount = static_cast<uint32_t>(cmd.ElemCount),
           .startIndex = static_cast<uint32_t>(indexOffset + cmd.IdxOffset),
           .clipRect = {static_cast<uint32_t>(clipMin.x), static_cast<uint32_t>(clipMin.y),
-                       static_cast<uint32_t>(clipMax.x - clipMin.x), static_cast<uint32_t>(clipMax.y - clipMin.y)}
-      });
+                       static_cast<uint32_t>(clipMax.x - clipMin.x), static_cast<uint32_t>(clipMax.y - clipMin.y)}});
     }
 
     vertexOffset += static_cast<uint32_t>(cmdList->VtxBuffer.Size);

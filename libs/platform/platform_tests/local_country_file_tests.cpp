@@ -160,15 +160,13 @@ UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
       {DataFilePath("Netherlands.mwm.routing.downloading2"), ScopedFile::Mode::Create},
       {DataFilePath("Germany.mwm.ready3"), ScopedFile::Mode::Create},
       {DataFilePath("UK_England.mwm.resume4"), ScopedFile::Mode::Create},
-      {base::JoinPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"), ScopedFile::Mode::Create}
-  };
+      {base::JoinPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"), ScopedFile::Mode::Create}};
 
   ScopedFile toBeKept[] = {
       {DataFilePath("Italy.mwm"), ScopedFile::Mode::Create},
       {DataFilePath("Spain.mwm"), ScopedFile::Mode::Create},
       {DataFilePath("Spain.mwm.routing"), ScopedFile::Mode::Create},
-      {base::JoinPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"), ScopedFile::Mode::Create}
-  };
+      {base::JoinPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"), ScopedFile::Mode::Create}};
 
   CleanupMapsDirectory(101010 /* latestVersion */);
 

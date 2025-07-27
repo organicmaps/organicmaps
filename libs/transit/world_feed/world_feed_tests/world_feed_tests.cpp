@@ -120,8 +120,7 @@ UNIT_TEST(Transit_GTFS_ServiceDaysExceptions1)
       {"serviceId1", gtfs::Date(2015, 01, 30), gtfs::CalendarDateException::Removed},
       {"serviceId1", gtfs::Date(2015, 01, 31), gtfs::CalendarDateException::Removed},
       {"serviceId1", gtfs::Date(2015, 02, 01), gtfs::CalendarDateException::Removed},
-      {"serviceId1", gtfs::Date(2015, 04, 03),   gtfs::CalendarDateException::Added}
-  };
+      {"serviceId1", gtfs::Date(2015, 04, 03), gtfs::CalendarDateException::Added}};
   TestExceptionIntervals(exceptionDays, 2 /* intervalsCount */,
                          "2015 Apr 03-2015 Apr 03; 2015 Jan 30-2015 Feb 01 closed" /* resOpeningHoursStr */);
 }
@@ -129,8 +128,7 @@ UNIT_TEST(Transit_GTFS_ServiceDaysExceptions1)
 UNIT_TEST(Transit_GTFS_ServiceDaysExceptions2)
 {
   gtfs::CalendarDates const exceptionDays{
-      {"serviceId2", gtfs::Date(1999, 11, 14), gtfs::CalendarDateException::Removed}
-  };
+      {"serviceId2", gtfs::Date(1999, 11, 14), gtfs::CalendarDateException::Removed}};
   TestExceptionIntervals(exceptionDays, 1 /* intervalsCount */,
                          "1999 Nov 14-1999 Nov 14 closed" /* resOpeningHoursStr */);
 }
@@ -138,13 +136,12 @@ UNIT_TEST(Transit_GTFS_ServiceDaysExceptions2)
 UNIT_TEST(Transit_GTFS_ServiceDaysExceptions3)
 {
   gtfs::CalendarDates const exceptionDays{
-      {"serviceId2", gtfs::Date(2005,  8, 01),   gtfs::CalendarDateException::Added},
-      {"serviceId2", gtfs::Date(2005,  8, 12),   gtfs::CalendarDateException::Added},
+      {"serviceId2", gtfs::Date(2005, 8, 01), gtfs::CalendarDateException::Added},
+      {"serviceId2", gtfs::Date(2005, 8, 12), gtfs::CalendarDateException::Added},
       {"serviceId2", gtfs::Date(2005, 10, 11), gtfs::CalendarDateException::Removed},
       {"serviceId2", gtfs::Date(2005, 10, 12), gtfs::CalendarDateException::Removed},
-      {"serviceId2", gtfs::Date(2005, 10, 13),   gtfs::CalendarDateException::Added},
-      {"serviceId2", gtfs::Date(1999, 10, 14), gtfs::CalendarDateException::Removed}
-  };
+      {"serviceId2", gtfs::Date(2005, 10, 13), gtfs::CalendarDateException::Added},
+      {"serviceId2", gtfs::Date(1999, 10, 14), gtfs::CalendarDateException::Removed}};
   TestExceptionIntervals(exceptionDays, 2 /* intervalsCount */,
                          "2005 Aug 01-2005 Aug 01, 2005 Aug 12-2005 Aug 12, 2005 Oct 13-2005 Oct 13; 2005 Oct 11-2005 "
                          "Oct 12, 1999 Oct 14-1999 Oct 14 closed" /* resOpeningHoursStr */);
@@ -194,12 +191,7 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_Simple)
   using ResT = std::pair<size_t, bool>;
 
   double const y = 0.0002;
-  std::vector<m2::PointD> shape{
-      { 0.001, y},
-      {0.0015, y},
-      { 0.004, y},
-      { 0.005, y}
-  };
+  std::vector<m2::PointD> shape{{0.001, y}, {0.0015, y}, {0.004, y}, {0.005, y}};
 
   m2::PointD const point_A{0.0012, 0.0003};
   m2::PointD const point_B{0.00499, 0.0001};
@@ -258,11 +250,7 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_DifferentStartIndexes)
   // index, was inserted
   using ResT = std::pair<size_t, bool>;
 
-  std::vector<m2::PointD> const referenceShape{
-      {0.001, 0.001},
-      {0.001, 0.002},
-      {0.003, 0.002}
-  };
+  std::vector<m2::PointD> const referenceShape{{0.001, 0.001}, {0.001, 0.002}, {0.003, 0.002}};
   m2::PointD const point_A{0.0015, 0.0015};
 
   // Test for |startIndex| = 0.
@@ -302,14 +290,8 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_MaxDistance)
   // index, was inserted
   using ResT = std::pair<size_t, bool>;
 
-  std::vector<m2::PointD> shape{
-      {0.002,  0.001},
-      {0.003,  0.003},
-      {0.010,  0.003},
-      {0.010, 0.0031},
-      {0.005, 0.0031},
-      {0.001, 0.0031}
-  };
+  std::vector<m2::PointD> shape{{0.002, 0.001},  {0.003, 0.003},  {0.010, 0.003},
+                                {0.010, 0.0031}, {0.005, 0.0031}, {0.001, 0.0031}};
   m2::PointD const point_A{0.0028, 0.0029};
   TEST_EQUAL(ResT(1, true),
              PrepareNearestPointOnTrack(point_A, std::nullopt, 0 /* prevIndex */, Direction::Forward, shape), ());
@@ -340,27 +322,11 @@ UNIT_TEST(Transit_GTFS_ProjectStopToLine_NearCircle)
   using ResT = std::pair<size_t, bool>;
 
   double constexpr kEps = 1e-5;
-  std::vector<m2::PointD> const initialShape{
-      { 0.003,  0.001},
-      { 0.003, 0.0015},
-      {0.0025,  0.002},
-      { 0.002, 0.0025},
-      { 0.001, 0.0025},
-      { 0.001, 0.0035},
-      {0.0015, 0.0045},
-      {0.0025,  0.005},
-      {0.0035, 0.0045},
-      { 0.004, 0.0055},
-      {0.0055, 0.0055},
-      {0.0065, 0.0045},
-      {0.0065, 0.0035},
-      {0.0075, 0.0035},
-      {0.0075, 0.0025},
-      {0.0065, 0.0025},
-      {0.0065, 0.0015},
-      { 0.004, 0.0015},
-      { 0.004,  0.001}
-  };
+  std::vector<m2::PointD> const initialShape{{0.003, 0.001},   {0.003, 0.0015},  {0.0025, 0.002},  {0.002, 0.0025},
+                                             {0.001, 0.0025},  {0.001, 0.0035},  {0.0015, 0.0045}, {0.0025, 0.005},
+                                             {0.0035, 0.0045}, {0.004, 0.0055},  {0.0055, 0.0055}, {0.0065, 0.0045},
+                                             {0.0065, 0.0035}, {0.0075, 0.0035}, {0.0075, 0.0025}, {0.0065, 0.0025},
+                                             {0.0065, 0.0015}, {0.004, 0.0015},  {0.004, 0.001}};
 
   m2::PointD const point_A{0.0024, 0.0018};
   m2::PointD const point_B{0.002499, 0.00199};
@@ -448,13 +414,8 @@ UNIT_TEST(Transit_BuildHash1Arg)
 
 UNIT_TEST(IntersectionSimple)
 {
-  auto const & factRes = FindIntersections(
-      {
-          {1.0, 1.0},
-          {2.0, 2.0},
-          {3.0, 3.0}
-  },
-      {{4.0, 4.0}, {1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}, {4.0, 4.0}});
+  auto const & factRes = FindIntersections({{1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}},
+                                           {{4.0, 4.0}, {1.0, 1.0}, {2.0, 2.0}, {3.0, 3.0}, {4.0, 4.0}});
 
   std::pair<LineSegments, LineSegments> planRes{{LineSegment(0, 2)}, {LineSegment(1, 3)}};
   TEST(factRes == planRes, ());
@@ -495,10 +456,8 @@ UNIT_TEST(IntersectionDouble)
 {
   auto const & factRes = GetIntersections({1, 2, 3, 4, 5, 6, 7, 8}, {3, 4, 5, 100, 7, 8});
 
-  std::pair<LineSegments, LineSegments> planRes{
-      {LineSegment(2, 4), LineSegment(6, 7)},
-      {LineSegment(0, 2), LineSegment(4, 5)}
-  };
+  std::pair<LineSegments, LineSegments> planRes{{LineSegment(2, 4), LineSegment(6, 7)},
+                                                {LineSegment(0, 2), LineSegment(4, 5)}};
   TEST(factRes == planRes, ());
 }
 
@@ -506,10 +465,8 @@ UNIT_TEST(IntersectionTriple)
 {
   auto const & factRes = GetIntersections({1, 2, 3, 6, 6, 6, 7, 8, 6, 6, 9, 10}, {0, 0, 1, 2, 3, 0, 7, 8, 0, 9, 10, 0});
 
-  std::pair<LineSegments, LineSegments> planRes{
-      {LineSegment(0, 2), LineSegment(6, 7), LineSegment(10, 11)},
-      {LineSegment(2, 4), LineSegment(6, 7),  LineSegment(9, 10)}
-  };
+  std::pair<LineSegments, LineSegments> planRes{{LineSegment(0, 2), LineSegment(6, 7), LineSegment(10, 11)},
+                                                {LineSegment(2, 4), LineSegment(6, 7), LineSegment(9, 10)}};
   TEST(factRes == planRes, ());
 }
 

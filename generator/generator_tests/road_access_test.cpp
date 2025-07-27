@@ -271,12 +271,7 @@ public:
 UNIT_CLASS_TEST(TestAccessFixture, CarPermit)
 {
   CreateCollectors();
-  AddWay(MakeOsmElementWithNodes(1 /* id */,
-                                 {
-                                     {      "highway", "motorway"},
-                                     {       "access",       "no"},
-                                     {"motor_vehicle",   "permit"}
-  },
+  AddWay(MakeOsmElementWithNodes(1 /* id */, {{"highway", "motorway"}, {"access", "no"}, {"motor_vehicle", "permit"}},
                                  OsmElement::EntityType::Way, {1, 2}));
   Finish();
 
@@ -293,24 +288,16 @@ UNIT_CLASS_TEST(TestAccessFixture, HgvDesignated)
 {
   CreateCollectors();
   AddWay(MakeOsmElementWithNodes(1 /* id */,
-                                 {
-                                     {      "highway",   "motorway"},
-                                     {       "access",         "no"},
-                                     {    "emergency",        "yes"},
-                                     {          "bus",        "yes"},
-                                     {          "hgv", "designated"},
-                                     {"motor_vehicle",        "yes"}
-  },
+                                 {{"highway", "motorway"},
+                                  {"access", "no"},
+                                  {"emergency", "yes"},
+                                  {"bus", "yes"},
+                                  {"hgv", "designated"},
+                                  {"motor_vehicle", "yes"}},
                                  OsmElement::EntityType::Way, {1, 2}));
   AddWay(MakeOsmElementWithNodes(
       2 /* id */,
-      {
-          {  "highway",   "motorway"},
-          {   "access",         "no"},
-          {"emergency",        "yes"},
-          {      "bus",        "yes"},
-          {      "hgv", "designated"}
-  },
+      {{"highway", "motorway"}, {"access", "no"}, {"emergency", "yes"}, {"bus", "yes"}, {"hgv", "designated"}},
       OsmElement::EntityType::Way, {2, 3}));
   Finish();
 
@@ -328,55 +315,29 @@ UNIT_CLASS_TEST(TestAccessFixture, Merge)
 {
   CreateCollectors(3);
 
-  AddWay(MakeOsmElementWithNodes(1 /* id */,
-                                 {
-                                     {"highway", "service"}
-  } /* tags */,
-                                 OsmElement::EntityType::Way, {10, 11, 12, 13}),
+  AddWay(MakeOsmElementWithNodes(1 /* id */, {{"highway", "service"}} /* tags */, OsmElement::EntityType::Way,
+                                 {10, 11, 12, 13}),
          0);
-  AddWay(MakeOsmElementWithNodes(2 /* id */,
-                                 {
-                                     {"highway", "service"}
-  } /* tags */,
-                                 OsmElement::EntityType::Way, {20, 21, 22, 23}),
+  AddWay(MakeOsmElementWithNodes(2 /* id */, {{"highway", "service"}} /* tags */, OsmElement::EntityType::Way,
+                                 {20, 21, 22, 23}),
          1);
-  AddWay(MakeOsmElementWithNodes(3 /* id */,
-                                 {
-                                     {"highway", "motorway"}
-  } /* tags */,
-                                 OsmElement::EntityType::Way, {30, 31, 32, 33}),
+  AddWay(MakeOsmElementWithNodes(3 /* id */, {{"highway", "motorway"}} /* tags */, OsmElement::EntityType::Way,
+                                 {30, 31, 32, 33}),
          2);
 
-  AddNode(MakeOsmElement(11 /* id */,
-                         {
-                             {      "barrier", "lift_gate"},
-                             {"motor_vehicle",   "private"}
-  },
+  AddNode(MakeOsmElement(11 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}},
                          OsmElement::EntityType::Node),
           0);
 
-  AddNode(MakeOsmElement(22 /* id */,
-                         {
-                             {      "barrier", "lift_gate"},
-                             {"motor_vehicle",   "private"}
-  },
+  AddNode(MakeOsmElement(22 /* id */, {{"barrier", "lift_gate"}, {"motor_vehicle", "private"}},
                          OsmElement::EntityType::Node),
           1);
 
   // We should ignore this barrier because it's without access tag and placed on highway-motorway.
-  AddNode(MakeOsmElement(32 /* id */,
-                         {
-                             {"barrier", "lift_gate"}
-  },
-                         OsmElement::EntityType::Node),
-          2);
+  AddNode(MakeOsmElement(32 /* id */, {{"barrier", "lift_gate"}}, OsmElement::EntityType::Node), 2);
 
   // Ignore all motorway_junction access.
-  AddNode(MakeOsmElement(31 /* id */,
-                         {
-                             {"highway", "motorway_junction"},
-                             { "access",           "private"}
-  },
+  AddNode(MakeOsmElement(31 /* id */, {{"highway", "motorway_junction"}, {"access", "private"}},
                          OsmElement::EntityType::Node),
           0);
 
@@ -398,49 +359,48 @@ UNIT_TEST(RoadAccessCoditional_Parse)
 
   using ConditionalVector = std::vector<AccessConditional>;
   std::vector<std::pair<string, ConditionalVector>> const tests = {
-      {                                                                           "no @ Mo-Su",{{RoadAccess::Type::No, "Mo-Su"}}                                                                                               },
+      {"no @ Mo-Su", {{RoadAccess::Type::No, "Mo-Su"}}},
 
-      {                                                                          "no @ Mo-Su;",                     {{RoadAccess::Type::No, "Mo-Su"}}},
+      {"no @ Mo-Su;", {{RoadAccess::Type::No, "Mo-Su"}}},
 
-      {                                                                "yes @ (10:00 - 20:00)",            {{RoadAccess::Type::Yes, "10:00 - 20:00"}}},
+      {"yes @ (10:00 - 20:00)", {{RoadAccess::Type::Yes, "10:00 - 20:00"}}},
 
-      {                                                          "private @ Mo-Fr 15:00-20:00",    {{RoadAccess::Type::Private, "Mo-Fr 15:00-20:00"}}},
+      {"private @ Mo-Fr 15:00-20:00", {{RoadAccess::Type::Private, "Mo-Fr 15:00-20:00"}}},
 
-      {                                                            "destination @ 10:00-20:00",      {{RoadAccess::Type::Destination, "10:00-20:00"}}},
+      {"destination @ 10:00-20:00", {{RoadAccess::Type::Destination, "10:00-20:00"}}},
 
-      {                                                                  "yes @ Mo-Fr ; Sa-Su",            {{RoadAccess::Type::Yes, "Mo-Fr ; Sa-Su"}}},
+      {"yes @ Mo-Fr ; Sa-Su", {{RoadAccess::Type::Yes, "Mo-Fr ; Sa-Su"}}},
 
-      {                                                         "no @ (Mo-Su) ; yes @ (Fr-Su)",
+      {"no @ (Mo-Su) ; yes @ (Fr-Su)",
        {{RoadAccess::Type::No, "Mo-Su"},
 
-       {RoadAccess::Type::Yes, "Fr-Su"}}                                                                                                             },
-      {                                                     "private @ (18:00-09:00; Oct-Mar)", {{RoadAccess::Type::Private, "18:00-09:00; Oct-Mar"}}},
+        {RoadAccess::Type::Yes, "Fr-Su"}}},
+      {"private @ (18:00-09:00; Oct-Mar)", {{RoadAccess::Type::Private, "18:00-09:00; Oct-Mar"}}},
 
-      {                                                   "no @ (Nov-May); no @ (20:00-07:00)",
-       {{RoadAccess::Type::No, "Nov-May"}, {RoadAccess::Type::No, "20:00-07:00"}}                                                                    },
+      {"no @ (Nov-May); no @ (20:00-07:00)",
+       {{RoadAccess::Type::No, "Nov-May"}, {RoadAccess::Type::No, "20:00-07:00"}}},
 
-      {                                                                     "no @ 22:30-05:00",               {{RoadAccess::Type::No, "22:30-05:00"}}},
+      {"no @ 22:30-05:00", {{RoadAccess::Type::No, "22:30-05:00"}}},
 
       {"destination @ (Mo-Fr 06:00-15:00); yes @ (Mo-Fr 15:00-21:00; Sa,Su,SH,PH 09:00-21:00)",
        {{RoadAccess::Type::Destination, "Mo-Fr 06:00-15:00"},
-       {RoadAccess::Type::Yes, "Mo-Fr 15:00-21:00; Sa,Su,SH,PH 09:00-21:00"}}                                                                        },
+        {RoadAccess::Type::Yes, "Mo-Fr 15:00-21:00; Sa,Su,SH,PH 09:00-21:00"}}},
 
-      {                                           "no @ (Mar 15-Jul 15); private @ (Jan- Dec)",
-       {{RoadAccess::Type::No, "Mar 15-Jul 15"}, {RoadAccess::Type::Private, "Jan- Dec"}}                                                            },
+      {"no @ (Mar 15-Jul 15); private @ (Jan- Dec)",
+       {{RoadAccess::Type::No, "Mar 15-Jul 15"}, {RoadAccess::Type::Private, "Jan- Dec"}}},
 
-      {                      "no @ (06:30-08:30);destination @ (06:30-08:30 AND agricultural)",
-       {{RoadAccess::Type::No, "06:30-08:30"}, {RoadAccess::Type::Destination, "06:30-08:30 AND agricultural"}}                                      },
+      {"no @ (06:30-08:30);destination @ (06:30-08:30 AND agricultural)",
+       {{RoadAccess::Type::No, "06:30-08:30"}, {RoadAccess::Type::Destination, "06:30-08:30 AND agricultural"}}},
 
-      {              "no @ (Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00)",
-       {{RoadAccess::Type::No, "Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00"}}                                                  },
+      {"no @ (Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00)",
+       {{RoadAccess::Type::No, "Mo-Fr 00:00-08:00,20:00-24:00; Sa-Su 00:00-24:00; PH 00:00-24:00"}}},
 
       // Not valid cases
-      {                                                          "trash @ (Mo-Fr 00:00-10:00)",      {{RoadAccess::Type::Count, "Mo-Fr 00:00-10:00"}}},
-      {                                                                            "yes Mo-Fr",                                                    {}},
-      {                                                                          "yes (Mo-Fr)",                                                    {}},
-      {                                                                           "no ; Mo-Fr",                                                    {}},
-      {                                                                         "asdsadasdasd",                                                    {}}
-  };
+      {"trash @ (Mo-Fr 00:00-10:00)", {{RoadAccess::Type::Count, "Mo-Fr 00:00-10:00"}}},
+      {"yes Mo-Fr", {}},
+      {"yes (Mo-Fr)", {}},
+      {"no ; Mo-Fr", {}},
+      {"asdsadasdasd", {}}};
 
   std::vector<string> tags = {"motorcar:conditional", "vehicle:conditional", "motor_vehicle:conditional",
                               "bicycle:conditional", "foot:conditional"};
@@ -459,11 +419,7 @@ UNIT_CLASS_TEST(TestAccessFixture, ExoticConditionals)
 {
   CreateCollectors();
 
-  AddWay(MakeOsmElementWithNodes(1 /* id */,
-                                 {
-                                     {"highway",              "motorway"},
-                                     { "access", "no @ (wind_speed>=65)"}
-  },
+  AddWay(MakeOsmElementWithNodes(1 /* id */, {{"highway", "motorway"}, {"access", "no @ (wind_speed>=65)"}},
                                  OsmElement::EntityType::Way, {10, 11, 12, 13}));
   Finish();
 
@@ -477,29 +433,19 @@ UNIT_CLASS_TEST(TestAccessFixture, ConditionalMerge)
 {
   CreateCollectors(3);
 
-  AddWay(MakeOsmElementWithNodes(1 /* id */,
-                                 {
-                                     {            "highway",      "primary"},
-                                     {"vehicle:conditional", "no @ (Mo-Su)"}
-  } /* tags */,
-                                 OsmElement::EntityType::Way, {10, 11, 12, 13}),
-         0);
+  AddWay(
+      MakeOsmElementWithNodes(1 /* id */, {{"highway", "primary"}, {"vehicle:conditional", "no @ (Mo-Su)"}} /* tags */,
+                              OsmElement::EntityType::Way, {10, 11, 12, 13}),
+      0);
 
   AddWay(MakeOsmElementWithNodes(
-             2 /* id */,
-             {
-                 {            "highway",                 "service"},
-                 {"vehicle:conditional", "private @ (10:00-20:00)"}
-  } /* tags */,
+             2 /* id */, {{"highway", "service"}, {"vehicle:conditional", "private @ (10:00-20:00)"}} /* tags */,
              OsmElement::EntityType::Way, {20, 21, 22, 23}),
          1);
 
   AddWay(MakeOsmElementWithNodes(
              3 /* id */,
-             {
-                 {            "highway",                                "service"},
-                 {"vehicle:conditional", "private @ (12:00-19:00) ; no @ (Mo-Su)"}
-  } /* tags */,
+             {{"highway", "service"}, {"vehicle:conditional", "private @ (12:00-19:00) ; no @ (Mo-Su)"}} /* tags */,
              OsmElement::EntityType::Way, {30, 31, 32, 33}),
          2);
 
@@ -520,18 +466,10 @@ UNIT_CLASS_TEST(TestAccessFixture, WinterRoads)
 {
   CreateCollectors();
 
-  AddWay(MakeOsmElementWithNodes(1 /* id */,
-                                 {
-                                     { "highway", "primary"},
-                                     {"ice_road",     "yes"}
-  } /* tags */,
+  AddWay(MakeOsmElementWithNodes(1 /* id */, {{"highway", "primary"}, {"ice_road", "yes"}} /* tags */,
                                  OsmElement::EntityType::Way, {10, 11, 12, 13}));
 
-  AddWay(MakeOsmElementWithNodes(2 /* id */,
-                                 {
-                                     {    "highway", "service"},
-                                     {"winter_road",     "yes"}
-  } /* tags */,
+  AddWay(MakeOsmElementWithNodes(2 /* id */, {{"highway", "service"}, {"winter_road", "yes"}} /* tags */,
                                  OsmElement::EntityType::Way, {20, 21, 22, 23}));
 
   Finish();
@@ -556,29 +494,13 @@ UNIT_CLASS_TEST(TestAccessFixture, Locked)
 {
   CreateCollectors();
 
-  AddWay(MakeOsmElementWithNodes(1 /* id */,
-                                 {
-                                     {"highway", "service"}
-  } /* tags */,
-                                 OsmElement::EntityType::Way, {10, 11, 12, 13}));
-  AddWay(MakeOsmElementWithNodes(2 /* id */,
-                                 {
-                                     {"highway", "secondary"}
-  } /* tags */,
-                                 OsmElement::EntityType::Way, {20, 21, 22, 23}));
+  AddWay(MakeOsmElementWithNodes(1 /* id */, {{"highway", "service"}} /* tags */, OsmElement::EntityType::Way,
+                                 {10, 11, 12, 13}));
+  AddWay(MakeOsmElementWithNodes(2 /* id */, {{"highway", "secondary"}} /* tags */, OsmElement::EntityType::Way,
+                                 {20, 21, 22, 23}));
 
-  AddNode(MakeOsmElement(11 /* id */,
-                         {
-                             {"barrier", "gate"},
-                             { "locked",  "yes"}
-  },
-                         OsmElement::EntityType::Node));
-  AddNode(MakeOsmElement(21 /* id */,
-                         {
-                             {"barrier",       "gate"},
-                             { "locked",        "yes"},
-                             { "access", "permissive"}
-  },
+  AddNode(MakeOsmElement(11 /* id */, {{"barrier", "gate"}, {"locked", "yes"}}, OsmElement::EntityType::Node));
+  AddNode(MakeOsmElement(21 /* id */, {{"barrier", "gate"}, {"locked", "yes"}, {"access", "permissive"}},
                          OsmElement::EntityType::Node));
 
   Finish();
@@ -598,28 +520,10 @@ UNIT_CLASS_TEST(TestAccessFixture, CycleBarrier)
 {
   CreateCollectors();
 
-  AddWay(MakeOsmElementWithNodes(1,
-                                 {
-                                     {"highway", "track"}
-  },
-                                 OsmElement::EntityType::Way, {10, 11, 12}));
-  AddNode(MakeOsmElement(10,
-                         {
-                             {"barrier", "cycle_barrier"}
-  },
-                         OsmElement::EntityType::Node));
-  AddNode(MakeOsmElement(11,
-                         {
-                             {"barrier", "cycle_barrier"},
-                             {"bicycle",      "dismount"}
-  },
-                         OsmElement::EntityType::Node));
-  AddNode(MakeOsmElement(12,
-                         {
-                             {"barrier", "cycle_barrier"},
-                             {"bicycle",            "no"}
-  },
-                         OsmElement::EntityType::Node));
+  AddWay(MakeOsmElementWithNodes(1, {{"highway", "track"}}, OsmElement::EntityType::Way, {10, 11, 12}));
+  AddNode(MakeOsmElement(10, {{"barrier", "cycle_barrier"}}, OsmElement::EntityType::Node));
+  AddNode(MakeOsmElement(11, {{"barrier", "cycle_barrier"}, {"bicycle", "dismount"}}, OsmElement::EntityType::Node));
+  AddNode(MakeOsmElement(12, {{"barrier", "cycle_barrier"}, {"bicycle", "no"}}, OsmElement::EntityType::Node));
   Finish();
   auto const bicycle = Get(VehicleType::Bicycle);
   TEST_EQUAL(bicycle.GetAccessWithoutConditional({1, 0}),

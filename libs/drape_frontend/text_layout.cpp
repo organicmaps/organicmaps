@@ -134,8 +134,7 @@ buffer_vector<LineMetrics, 2> SplitText(bool forceNoWrap, float textScale, dp::G
 {
   // Add the whole line by default.
   buffer_vector<LineMetrics, 2> lines{
-      {str.m_glyphs.size(), textScale * str.m_lineWidthInPixels, textScale * str.m_maxLineHeightInPixels}
-  };
+      {str.m_glyphs.size(), textScale * str.m_lineWidthInPixels, textScale * str.m_maxLineHeightInPixels}};
 
   size_t const count = str.m_glyphs.size();
   if (forceNoWrap || count <= 15)

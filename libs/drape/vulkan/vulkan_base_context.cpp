@@ -490,8 +490,7 @@ void VulkanBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 
   VkClearValue clearValues[2];
   clearValues[0].color = {
-      {m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(), m_clearColor.GetAlphaF()}
-  };
+      {m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(), m_clearColor.GetAlphaF()}};
   clearValues[1].depthStencil = {1.0f, 0};
 
   VkRenderPassBeginInfo renderPassBeginInfo = {};
@@ -592,8 +591,7 @@ void VulkanBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
         attachment.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
         attachment.colorAttachment = 0;
         attachment.clearValue.color = {
-            {m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(), m_clearColor.GetAlphaF()}
-        };
+            {m_clearColor.GetRedF(), m_clearColor.GetGreenF(), m_clearColor.GetBlueF(), m_clearColor.GetAlphaF()}};
         CHECK_LESS(attachmentsCount, kMaxClearAttachment, ());
         attachments[attachmentsCount++] = std::move(attachment);
       }

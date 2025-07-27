@@ -39,8 +39,7 @@ array<pair<LaneWay, char const *>, static_cast<size_t>(LaneWay::Count) + 1> cons
      {LaneWay::MergeToLeft, "merge_to_left"},
      {LaneWay::SlightRight, "slight_right"},
      {LaneWay::SharpRight, "sharp_right"},
-     {LaneWay::Reverse, "reverse"}}
-};
+     {LaneWay::Reverse, "reverse"}}};
 static_assert(g_laneWayNames.size() == static_cast<size_t>(LaneWay::Count) + 1, "Check the size of g_laneWayNames");
 
 array<pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)> const g_turnNames = {
@@ -60,8 +59,7 @@ array<pair<CarDirection, char const *>, static_cast<size_t>(CarDirection::Count)
      {CarDirection::StartAtEndOfStreet, "StartAtEndOfStreet"},
      {CarDirection::ReachedYourDestination, "ReachedYourDestination"},
      {CarDirection::ExitHighwayToLeft, "ExitHighwayToLeft"},
-     {CarDirection::ExitHighwayToRight, "ExitHighwayToRight"}}
-};
+     {CarDirection::ExitHighwayToRight, "ExitHighwayToRight"}}};
 static_assert(g_turnNames.size() == static_cast<size_t>(CarDirection::Count), "Check the size of g_turnNames");
 }  // namespace
 

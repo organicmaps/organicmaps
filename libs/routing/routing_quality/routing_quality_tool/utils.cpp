@@ -82,9 +82,7 @@ void SaveKmlFileDataTo(RoutesBuilder::Result const & mapsmeResult, AnotherResult
     track.m_geometry.m_lines.push_back(std::move(line));
 
     CHECK_LESS(colorNumber, kColors.size(), ());
-    track.m_layers = {
-        {5.0 /* lineWidth */, {kml::PredefinedColor::None, kColors[colorNumber++]}}
-    };
+    track.m_layers = {{5.0 /* lineWidth */, {kml::PredefinedColor::None, kColors[colorNumber++]}}};
     kml.m_tracksData.emplace_back(std::move(track));
   };
 
@@ -406,14 +404,8 @@ plt.show()
 /// \brief |SimilarityCounter| groups routes that we compare by similarity, here we tune these groups.
 // static
 std::vector<SimilarityCounter::Interval> const SimilarityCounter::kIntervals = {
-    {"[0.0, 0.0]",   0,   0 + 1e-5},
-    {"[0.0, 0.1)",   0,        0.1},
-    {"[0.1, 0.2)", 0.1,        0.2},
-    {"[0.2, 0.3)", 0.2,        0.3},
-    {"[0.3, 0.6)", 0.3,        0.6},
-    {"[0.6, 0.8)", 0.6,        0.8},
-    {"[0.8, 1.0)", 0.8,        1.0},
-    {"[1.0, 1.0]", 1.0, 1.0 + 1e-5},
+    {"[0.0, 0.0]", 0, 0 + 1e-5}, {"[0.0, 0.1)", 0, 0.1},   {"[0.1, 0.2)", 0.1, 0.2}, {"[0.2, 0.3)", 0.2, 0.3},
+    {"[0.3, 0.6)", 0.3, 0.6},    {"[0.6, 0.8)", 0.6, 0.8}, {"[0.8, 1.0)", 0.8, 1.0}, {"[1.0, 1.0]", 1.0, 1.0 + 1e-5},
 };
 
 SimilarityCounter::SimilarityCounter(RoutesSaver & routesSaver) : m_routesSaver(routesSaver)

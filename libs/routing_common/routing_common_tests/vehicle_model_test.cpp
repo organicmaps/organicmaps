@@ -26,32 +26,26 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwaySecondary,
      InOutCitySpeedKMpH(SpeedKMpH(80.0 /* weight */, 70.0 /* eta */) /* in and out city*/)},
     {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(45.0 /* weight */, 55.0 /* eta */) /* in city */,
-     SpeedKMpH(50.0 /* weight */, 60.0 /* eta */) /* out city */)},
+                                                         SpeedKMpH(50.0 /* weight */, 60.0 /* eta */) /* out city */)},
     {HighwayType::HighwayService, InOutCitySpeedKMpH(SpeedKMpH(47.0 /* weight */, 36.0 /* eta */) /* in city */,
-     SpeedKMpH(50.0 /* weight */, 40.0 /* eta */) /* out city */)}
-};
+                                                     SpeedKMpH(50.0 /* weight */, 40.0 /* eta */) /* out city */)}};
 
-HighwayBasedFactors const kDefaultFactors = {
-    {      HighwayType::HighwayTrunk, InOutCityFactor(1.0)},
-    {    HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
-    {  HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
-    {HighwayType::HighwayResidential, InOutCityFactor(0.5)}
-};
+HighwayBasedFactors const kDefaultFactors = {{HighwayType::HighwayTrunk, InOutCityFactor(1.0)},
+                                             {HighwayType::HighwayPrimary, InOutCityFactor(1.0)},
+                                             {HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
+                                             {HighwayType::HighwayResidential, InOutCityFactor(0.5)}};
 
-VehicleModel::LimitsInitList const kTestLimits = {
-    {      HighwayType::HighwayTrunk,  true},
-    {    HighwayType::HighwayPrimary,  true},
-    {  HighwayType::HighwaySecondary,  true},
-    {HighwayType::HighwayResidential,  true},
-    {    HighwayType::HighwayService, false}
-};
+VehicleModel::LimitsInitList const kTestLimits = {{HighwayType::HighwayTrunk, true},
+                                                  {HighwayType::HighwayPrimary, true},
+                                                  {HighwayType::HighwaySecondary, true},
+                                                  {HighwayType::HighwayResidential, true},
+                                                  {HighwayType::HighwayService, false}};
 
 VehicleModel::SurfaceInitList const kCarSurface = {
-    {  {"psurface", "paved_good"}, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
-    {   {"psurface", "paved_bad"},                                    {0.4, 0.5}},
-    {{"psurface", "unpaved_good"},                                    {0.6, 0.8}},
-    { {"psurface", "unpaved_bad"},                                    {0.2, 0.2}}
-};
+    {{"psurface", "paved_good"}, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
+    {{"psurface", "paved_bad"}, {0.4, 0.5}},
+    {{"psurface", "unpaved_good"}, {0.6, 0.8}},
+    {{"psurface", "unpaved_bad"}, {0.2, 0.2}}};
 
 class VehicleModelTest
 {
@@ -340,18 +334,18 @@ UNIT_CLASS_TEST(VehicleModelTest, BicycleModel_Speeds)
   auto const p = DefaultParams();
 
   std::vector<std::vector<uint32_t>> const highways = {
-      {cycleway, pavedGood}, // TODO: should be higher than next, but is equal
+      {cycleway, pavedGood},  // TODO: should be higher than next, but is equal
       {cycleway},
-      {cycleway, unpavedGood}, // TODO: should be lower than previous, but is equal
-      {footway, yesBicycle, pavedGood}, // TODO: should be higher than next, but is equal
+      {cycleway, unpavedGood},           // TODO: should be lower than previous, but is equal
+      {footway, yesBicycle, pavedGood},  // TODO: should be higher than next, but is equal
       {footway, yesBicycle},
       {path,
-       yesBicycle}, // TODO: unpaved by default, so should be lower than shared footways or cycleways, but is equal
+       yesBicycle},  // TODO: unpaved by default, so should be lower than shared footways or cycleways, but is equal
       {cycleway, pavedBad},
       {footway, yesBicycle, pavedBad},
-      {footway}, // If allowed in the region.
+      {footway},  // If allowed in the region.
       {cycleway, unpavedBad},
-      {path, unpavedGood}, // Its controversial what is preferrable: a good path or a bad cycleway
+      {path, unpavedGood},  // Its controversial what is preferrable: a good path or a bad cycleway
       {path, yesBicycle, unpavedBad},
       /// @todo(pastk): "nobicycle" is ignored in speed calculation atm, the routing is just forbidden there.
       /// But "nobicycle" should result in a dismount speed instead, see
@@ -403,13 +397,13 @@ UNIT_CLASS_TEST(VehicleModelTest, PedestrianModel_Speeds)
   auto const p = DefaultParams();
 
   std::vector<std::vector<uint32_t>> const highways = {
-      {footway, pavedGood}, // TODO: should be higher than next, but is equal
+      {footway, pavedGood},  // TODO: should be higher than next, but is equal
       {footway},
-      {footway, pavedBad}, // TODO: should be lower than previous, but is equal
-      {footway, yesBicycle}, // TODO: should be lower than previous, but is equal
-      {path, yesFoot}, // TODO: should be higher than previous, but is equal
-      {path, unpavedGood}, // TODO: should be lower than previous, but is equal
-      {path, yesBicycle}, // TODO: should be lower than previous, but is equal
+      {footway, pavedBad},    // TODO: should be lower than previous, but is equal
+      {footway, yesBicycle},  // TODO: should be lower than previous, but is equal
+      {path, yesFoot},        // TODO: should be higher than previous, but is equal
+      {path, unpavedGood},    // TODO: should be lower than previous, but is equal
+      {path, yesBicycle},     // TODO: should be lower than previous, but is equal
       {cycleway},
       {path, unpavedBad},
       {cycleway, unpavedBad},

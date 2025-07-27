@@ -41,9 +41,7 @@ struct TestCafe : public TestPOI
 public:
   TestCafe(m2::PointD const & center, string const & name, string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({
-        {"amenity", "cafe"}
-    });
+    SetTypes({{"amenity", "cafe"}});
   }
 
   ~TestCafe() override = default;

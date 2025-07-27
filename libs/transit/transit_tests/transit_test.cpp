@@ -190,29 +190,27 @@ UNIT_TEST(Transit_GateSerialization)
 
 UNIT_TEST(Transit_GatesRelational)
 {
-  vector<Gate> const gates = {
-      { 1234567 /* osm id */,
-       123 /* feature id */,
-       true /* entrance */,
-       false /* exit */,
-       1 /* weight */,
-       {1, 2, 3} /* stops ids */,
-       m2::PointD(0.0, 0.0)},
-      {12345678 /* osm id */,
-       1234 /* feature id */,
-       true /* entrance */,
-       false /* exit */,
-       1 /* weight */,
-       {1, 2, 3} /* stops ids */,
-       m2::PointD(0.0, 0.0)},
-      {12345678 /* osm id */,
-       1234 /* feature id */,
-       true /* entrance */,
-       false /* exit */,
-       1 /* weight */,
-       {1, 2, 3, 4} /* stops ids */,
-       m2::PointD(0.0, 0.0)}
-  };
+  vector<Gate> const gates = {{1234567 /* osm id */,
+                               123 /* feature id */,
+                               true /* entrance */,
+                               false /* exit */,
+                               1 /* weight */,
+                               {1, 2, 3} /* stops ids */,
+                               m2::PointD(0.0, 0.0)},
+                              {12345678 /* osm id */,
+                               1234 /* feature id */,
+                               true /* entrance */,
+                               false /* exit */,
+                               1 /* weight */,
+                               {1, 2, 3} /* stops ids */,
+                               m2::PointD(0.0, 0.0)},
+                              {12345678 /* osm id */,
+                               1234 /* feature id */,
+                               true /* entrance */,
+                               false /* exit */,
+                               1 /* weight */,
+                               {1, 2, 3, 4} /* stops ids */,
+                               m2::PointD(0.0, 0.0)}};
   TEST(is_sorted(gates.cbegin(), gates.cend()), ());
 }
 
@@ -268,22 +266,13 @@ UNIT_TEST(Transit_LineSerialization)
   }
   {
     Line line(10 /* line id */, "11" /* number */, "Линия" /* title */, "subway" /* type */, "green" /* color */,
-              12 /* network id */,
-              {
-                  {13, 14, 15}
-    } /* stop ids */,
-              15 /* interval */);
+              12 /* network id */, {{13, 14, 15}} /* stop ids */, 15 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }
   {
     Line line(100 /* line id */, "101" /* number */, "Линия" /* title */, "subway" /* type */, "blue" /* color */,
-              103 /* network id */,
-              {
-                  {1, 2, 3},
-                  {7, 8, 9}
-    } /* stop ids */,
-              15 /* interval */);
+              103 /* network id */, {{1, 2, 3}, {7, 8, 9}} /* stop ids */, 15 /* interval */);
     TestSerialization(line);
     TEST(line.IsValid(), (line));
   }
@@ -306,12 +295,7 @@ UNIT_TEST(Transit_ShapeSerialization)
 
 UNIT_TEST(Transit_ShapeIdRelational)
 {
-  vector<ShapeId> const ids = {
-      {0, 10},
-      {0, 11},
-      {1, 10},
-      {1, 11}
-  };
+  vector<ShapeId> const ids = {{0, 10}, {0, 11}, {1, 10}, {1, 11}};
   TEST(is_sorted(ids.cbegin(), ids.cend()), ());
 }
 

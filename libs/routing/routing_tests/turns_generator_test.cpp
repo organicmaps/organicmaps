@@ -127,20 +127,12 @@ UNIT_TEST(TestParseLanes)
   vector<SingleLaneInfo> result;
   TEST(ParseLanes("through|through|through|through;right", result), ());
   vector<SingleLaneInfo> const expected1 = {
-      {LaneWay::Through},
-      {LaneWay::Through},
-      {LaneWay::Through},
-      {LaneWay::Through, LaneWay::Right}
-  };
+      {LaneWay::Through}, {LaneWay::Through}, {LaneWay::Through}, {LaneWay::Through, LaneWay::Right}};
   TEST_EQUAL(result, expected1, ());
 
   TEST(ParseLanes("left|left;through|through|through", result), ());
   vector<SingleLaneInfo> const expected2 = {
-      {LaneWay::Left},
-      {LaneWay::Left, LaneWay::Through},
-      {LaneWay::Through},
-      {LaneWay::Through}
-  };
+      {LaneWay::Left}, {LaneWay::Left, LaneWay::Through}, {LaneWay::Through}, {LaneWay::Through}};
   TEST_EQUAL(result, expected2, ());
 
   TEST(ParseLanes("left|through|through", result), ());
@@ -158,13 +150,11 @@ UNIT_TEST(TestParseLanes)
   TEST_EQUAL(result, expected5, ());
 
   TEST(ParseLanes("left|Left|through|througH|through;right;sharp_rIght", result), ());
-  vector<SingleLaneInfo> const expected6 = {
-      {LaneWay::Left},
-      {LaneWay::Left},
-      {LaneWay::Through},
-      {LaneWay::Through},
-      {LaneWay::Through, LaneWay::Right, LaneWay::SharpRight}
-  };
+  vector<SingleLaneInfo> const expected6 = {{LaneWay::Left},
+                                            {LaneWay::Left},
+                                            {LaneWay::Through},
+                                            {LaneWay::Through},
+                                            {LaneWay::Through, LaneWay::Right, LaneWay::SharpRight}};
   TEST_EQUAL(result, expected6, ());
 
   TEST(!ParseLanes("left|Leftt|through|througH|right", result), ());
@@ -195,52 +185,36 @@ UNIT_TEST(TestFixupTurns)
       mercator::MetersToXY(kSquareCenterLonLat.x, kSquareCenterLonLat.y, kHalfSquareSideMeters);
   {
     // Removing a turn in case staying on a roundabout.
-    vector<m2::PointD> const pointsMerc1 = {
-        {kSquareNearZero.minX(), kSquareNearZero.minY()},
-        {kSquareNearZero.minX(), kSquareNearZero.minY()},
-        {kSquareNearZero.maxX(), kSquareNearZero.maxY()},
-        {kSquareNearZero.maxX(), kSquareNearZero.minY()}
-    };
+    vector<m2::PointD> const pointsMerc1 = {{kSquareNearZero.minX(), kSquareNearZero.minY()},
+                                            {kSquareNearZero.minX(), kSquareNearZero.minY()},
+                                            {kSquareNearZero.maxX(), kSquareNearZero.maxY()},
+                                            {kSquareNearZero.maxX(), kSquareNearZero.minY()}};
     // The constructor TurnItem(uint32_t idx, CarDirection t, uint32_t exitNum = 0)
     // is used for initialization of vector<TurnItem> below.
     vector<turns::TurnItem> turnsDir1 = {
-        {1,  CarDirection::EnterRoundAbout},
-        {2, CarDirection::StayOnRoundAbout},
-        {3,  CarDirection::LeaveRoundAbout}
-    };
+        {1, CarDirection::EnterRoundAbout}, {2, CarDirection::StayOnRoundAbout}, {3, CarDirection::LeaveRoundAbout}};
     vector<RouteSegment> routeSegments;
     RouteSegmentsFrom({}, pointsMerc1, turnsDir1, {}, routeSegments);
     FixupCarTurns(routeSegments);
     vector<turns::TurnItem> const expectedTurnDir1 = {
-        {1, CarDirection::EnterRoundAbout, 2},
-        {2,            CarDirection::None, 0},
-        {3, CarDirection::LeaveRoundAbout, 2}
-    };
+        {1, CarDirection::EnterRoundAbout, 2}, {2, CarDirection::None, 0}, {3, CarDirection::LeaveRoundAbout, 2}};
     TEST_EQUAL(routeSegments[0].GetTurn(), expectedTurnDir1[0], ());
     TEST_EQUAL(routeSegments[1].GetTurn(), expectedTurnDir1[1], ());
     TEST_EQUAL(routeSegments[2].GetTurn(), expectedTurnDir1[2], ());
   }
   {
     // Merging turns which are close to each other.
-    vector<m2::PointD> const pointsMerc2 = {
-        {kSquareNearZero.minX(), kSquareNearZero.minY()},
-        {kSquareNearZero.minX(), kSquareNearZero.minY()},
-        { kSquareCenterLonLat.x,  kSquareCenterLonLat.y},
-        {kSquareNearZero.maxX(), kSquareNearZero.maxY()}
-    };
+    vector<m2::PointD> const pointsMerc2 = {{kSquareNearZero.minX(), kSquareNearZero.minY()},
+                                            {kSquareNearZero.minX(), kSquareNearZero.minY()},
+                                            {kSquareCenterLonLat.x, kSquareCenterLonLat.y},
+                                            {kSquareNearZero.maxX(), kSquareNearZero.maxY()}};
     vector<turns::TurnItem> turnsDir2 = {
-        {1,       CarDirection::None},
-        {2, CarDirection::GoStraight},
-        {3,   CarDirection::TurnLeft}
-    };
+        {1, CarDirection::None}, {2, CarDirection::GoStraight}, {3, CarDirection::TurnLeft}};
     vector<RouteSegment> routeSegments2;
     RouteSegmentsFrom({}, pointsMerc2, turnsDir2, {}, routeSegments2);
     FixupCarTurns(routeSegments2);
     vector<turns::TurnItem> const expectedTurnDir2 = {
-        {1,     CarDirection::None},
-        {2,     CarDirection::None},
-        {3, CarDirection::TurnLeft}
-    };
+        {1, CarDirection::None}, {2, CarDirection::None}, {3, CarDirection::TurnLeft}};
     TEST_EQUAL(routeSegments2[0].GetTurn(), expectedTurnDir2[0], ());
     TEST_EQUAL(routeSegments2[1].GetTurn(), expectedTurnDir2[1], ());
     TEST_EQUAL(routeSegments2[2].GetTurn(), expectedTurnDir2[2], ());
@@ -252,18 +226,12 @@ UNIT_TEST(TestFixupTurns)
         {kSquareNearZero.minX(), kSquareNearZero.maxY()},
         {kSquareNearZero.maxX(), kSquareNearZero.maxY()},
     };
-    vector<turns::TurnItem> turnsDir3 = {
-        {1,      CarDirection::None},
-        {2, CarDirection::TurnRight}
-    };
+    vector<turns::TurnItem> turnsDir3 = {{1, CarDirection::None}, {2, CarDirection::TurnRight}};
 
     vector<RouteSegment> routeSegments3;
     RouteSegmentsFrom({}, {}, turnsDir3, {}, routeSegments3);
     FixupCarTurns(routeSegments3);
-    vector<turns::TurnItem> const expectedTurnDir3 = {
-        {1,      CarDirection::None},
-        {2, CarDirection::TurnRight}
-    };
+    vector<turns::TurnItem> const expectedTurnDir3 = {{1, CarDirection::None}, {2, CarDirection::TurnRight}};
 
     TEST_EQUAL(routeSegments3[0].GetTurn(), expectedTurnDir3[0], ());
     TEST_EQUAL(routeSegments3[1].GetTurn(), expectedTurnDir3[1], ());
@@ -310,12 +278,10 @@ UNIT_TEST(TestIsLaneWayConformedTurnDirectionApproximately)
 
 UNIT_TEST(TestAddingActiveLaneInformation)
 {
-  vector<turns::TurnItem> turns = {
-      {1,             CarDirection::GoStraight},
-      {2,               CarDirection::TurnLeft},
-      {3,              CarDirection::TurnRight},
-      {4, CarDirection::ReachedYourDestination}
-  };
+  vector<turns::TurnItem> turns = {{1, CarDirection::GoStraight},
+                                   {2, CarDirection::TurnLeft},
+                                   {3, CarDirection::TurnRight},
+                                   {4, CarDirection::ReachedYourDestination}};
 
   turns[0].m_lanes.push_back({LaneWay::Left, LaneWay::Through});
   turns[0].m_lanes.push_back({LaneWay::Right});
@@ -409,10 +375,7 @@ UNIT_TEST(TestCheckUTurnOnRoute)
   pathSegments[0].m_highwayClass = ftypes::HighwayClass::Trunk;
   pathSegments[0].m_onRoundabout = false;
   pathSegments[0].m_isLink = false;
-  pathSegments[0].m_path = {
-      {{0, 0}, 0},
-      {{0, 1}, 0}
-  };
+  pathSegments[0].m_path = {{{0, 0}, 0}, {{0, 1}, 0}};
   pathSegments[0].m_segmentRange =
       SegmentRange(FeatureID(), 0 /* start seg id */, 1 /* end seg id */, true /* forward */,
                    pathSegments[0].m_path.front().GetPoint(), pathSegments[0].m_path.back().GetPoint());
@@ -421,19 +384,13 @@ UNIT_TEST(TestCheckUTurnOnRoute)
   pathSegments[1].m_segmentRange =
       SegmentRange(FeatureID(), 1 /* start seg id */, 2 /* end seg id */, true /* forward */,
                    pathSegments[1].m_path.front().GetPoint(), pathSegments[1].m_path.back().GetPoint());
-  pathSegments[1].m_path = {
-      {{0, 1}, 0},
-      {{0, 0}, 0}
-  };
+  pathSegments[1].m_path = {{{0, 1}, 0}, {{0, 0}, 0}};
 
   pathSegments[2] = pathSegments[0];
   pathSegments[2].m_segmentRange =
       SegmentRange(FeatureID(), 2 /* start seg id */, 3 /* end seg id */, true /* forward */,
                    pathSegments[2].m_path.front().GetPoint(), pathSegments[2].m_path.back().GetPoint());
-  pathSegments[2].m_path = {
-      {{0, 0}, 0},
-      {{0, 1}, 0}
-  };
+  pathSegments[2].m_path = {{{0, 0}, 0}, {{0, 1}, 0}};
 
   pathSegments[3] = pathSegments[0];
   pathSegments[3].m_segmentRange =
@@ -459,15 +416,8 @@ UNIT_TEST(TestCheckUTurnOnRoute)
 UNIT_TEST(GetNextRoutePointIndex)
 {
   TUnpackedPathSegments pathSegments(2, LoadedPathSegment());
-  pathSegments[0].m_path = {
-      {{0, 0}, 0},
-      {{0, 1}, 0},
-      {{0, 2}, 0}
-  };
-  pathSegments[1].m_path = {
-      {{0, 2}, 0},
-      {{1, 2}, 0}
-  };
+  pathSegments[0].m_path = {{{0, 0}, 0}, {{0, 1}, 0}, {{0, 2}, 0}};
+  pathSegments[1].m_path = {{{0, 2}, 0}, {{1, 2}, 0}};
 
   RoutingResultTest resultTest(pathSegments);
   RoutePointIndex nextIndex;

@@ -266,12 +266,10 @@ bool CountryInfoReader::BelongsToRegion(m2::PointD const & pt, size_t id) const
 
 bool CountryInfoReader::IsIntersectedByRegion(m2::RectD const & rect, size_t id) const
 {
-  std::vector<std::pair<m2::PointD, m2::PointD>> const edges = {
-      {    rect.LeftTop(),    rect.RightTop()},
-      {   rect.RightTop(), rect.RightBottom()},
-      {rect.RightBottom(),  rect.LeftBottom()},
-      { rect.LeftBottom(),     rect.LeftTop()}
-  };
+  std::vector<std::pair<m2::PointD, m2::PointD>> const edges = {{rect.LeftTop(), rect.RightTop()},
+                                                                {rect.RightTop(), rect.RightBottom()},
+                                                                {rect.RightBottom(), rect.LeftBottom()},
+                                                                {rect.LeftBottom(), rect.LeftTop()}};
   auto contains = [&edges](std::vector<m2::RegionD> const & regions)
   {
     for (auto const & region : regions)

@@ -32,9 +32,9 @@ UNIT_TEST(Feature_UselessTypes)
   {
     feature::TypesHolder types = MakeTypesHolder(
         {
-            {"wheelchair",           "yes"},
-            {  "building", "train_station"},
-    },
+            {"wheelchair", "yes"},
+            {"building", "train_station"},
+        },
         false /* sortBySpec */);
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"building", "train_station"}), ());
@@ -43,9 +43,9 @@ UNIT_TEST(Feature_UselessTypes)
   {
     feature::TypesHolder types = MakeTypesHolder(
         {
-            {"hwtag",    "lit"},
+            {"hwtag", "lit"},
             {"hwtag", "oneway"},
-    },
+        },
         false /* sortBySpec */);
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"hwtag", "oneway"}), ());
@@ -60,8 +60,8 @@ UNIT_TEST(Feature_TypesPriority)
 
   {
     feature::TypesHolder types = MakeTypesHolder({
-        {"wheelchair",           "yes"},
-        {  "building", "train_station"},
+        {"wheelchair", "yes"},
+        {"building", "train_station"},
     });
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"building", "train_station"}), ());
@@ -79,9 +79,9 @@ UNIT_TEST(Feature_TypesPriority)
 
   {
     feature::TypesHolder types = MakeTypesHolder({
-        {"internet_access",           "wlan"},
-        {        "amenity", "compressed_air"},
-        {        "amenity",           "fuel"},
+        {"internet_access", "wlan"},
+        {"amenity", "compressed_air"},
+        {"amenity", "fuel"},
     });
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"amenity", "fuel"}), ());
@@ -89,8 +89,8 @@ UNIT_TEST(Feature_TypesPriority)
 
   {
     feature::TypesHolder types = MakeTypesHolder({
-        {"leisure",  "pitch"},
-        {  "sport", "soccer"},
+        {"leisure", "pitch"},
+        {"sport", "soccer"},
     });
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"sport", "soccer"}), ());
@@ -98,7 +98,7 @@ UNIT_TEST(Feature_TypesPriority)
 
   {
     feature::TypesHolder types = MakeTypesHolder({
-        {"amenity",  "shelter"},
+        {"amenity", "shelter"},
         {"highway", "bus_stop"},
     });
 
@@ -107,7 +107,7 @@ UNIT_TEST(Feature_TypesPriority)
 
   {
     feature::TypesHolder types = MakeTypesHolder({
-        {"amenity",          "toilets"},
+        {"amenity", "toilets"},
         {"amenity", "community_centre"},
     });
 
@@ -116,9 +116,9 @@ UNIT_TEST(Feature_TypesPriority)
 
   {
     feature::TypesHolder types = MakeTypesHolder({
-        {  "highway",        "elevator"},
-        {"emergency",   "defibrillator"},
-        {  "railway", "subway_entrance"},
+        {"highway", "elevator"},
+        {"emergency", "defibrillator"},
+        {"railway", "subway_entrance"},
     });
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"railway", "subway_entrance"}), ());
@@ -127,10 +127,10 @@ UNIT_TEST(Feature_TypesPriority)
   {
     feature::TypesHolder types = MakeTypesHolder(
         {
-            {  "hwtag",      "lit"},
-            {  "hwtag",   "oneway"},
+            {"hwtag", "lit"},
+            {"hwtag", "oneway"},
             {"highway", "cycleway"},
-    },
+        },
         true /* sortBySpec */, feature::GeomType::Line);
 
     TEST_EQUAL(types.front(), cl.GetTypeByPath({"highway", "cycleway"}), ());

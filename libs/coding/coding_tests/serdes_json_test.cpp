@@ -154,13 +154,11 @@ struct ArrayTypes
 
   ArrayTypes() = default;
   ArrayTypes(uint32_t testCounter)
-    : m_arrayValue({
-          {testCounter, testCounter + 1, testCounter + 2}
-  }),
-    m_dequeValue({testCounter + 2, testCounter + 1, testCounter}),
-    m_vectorValue({testCounter, testCounter + 2, testCounter + 1}),
-    m_mapValue({{testCounter, testCounter}, {testCounter + 1, testCounter + 1}}),
-    m_unorderedSetValue({testCounter + 2, testCounter, testCounter + 1})
+    : m_arrayValue({{testCounter, testCounter + 1, testCounter + 2}})
+    , m_dequeValue({testCounter + 2, testCounter + 1, testCounter})
+    , m_vectorValue({testCounter, testCounter + 2, testCounter + 1})
+    , m_mapValue({{testCounter, testCounter}, {testCounter + 1, testCounter + 1}})
+    , m_unorderedSetValue({testCounter + 2, testCounter, testCounter + 1})
   {}
 
   bool operator==(ArrayTypes const & rhs) const
@@ -204,9 +202,7 @@ UNIT_TEST(SerdesJsonTest)
   }
 
   {
-    pair<string, pair<string, string>> testValue = {
-        "test", {"test1", "test2"}
-    };
+    pair<string, pair<string, string>> testValue = {"test", {"test1", "test2"}};
     TEST(TestSerDes(testValue), ());
   }
 
@@ -216,9 +212,7 @@ UNIT_TEST(SerdesJsonTest)
   }
 
   {
-    array<ObjectTypes, 2> testValue = {
-        {ObjectTypes(0), ObjectTypes(1)}
-    };
+    array<ObjectTypes, 2> testValue = {{ObjectTypes(0), ObjectTypes(1)}};
     TEST(TestSerDes(testValue), ());
   }
 
@@ -230,11 +224,7 @@ UNIT_TEST(SerdesJsonTest)
       hash<string> m_hasher;
     };
 
-    unordered_set<pair<string, string>, Hasher> testValue = {
-        {"ab", "ab"},
-        {"ef", "ef"},
-        {"cd", "cd"}
-    };
+    unordered_set<pair<string, string>, Hasher> testValue = {{"ab", "ab"}, {"ef", "ef"}, {"cd", "cd"}};
     TEST(TestSerDes(testValue), ());
   }
 

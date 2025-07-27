@@ -40,10 +40,7 @@ struct TextMetrics
   void AddGlyphMetrics(int16_t font, uint16_t glyphId, int32_t xOffset, int32_t yOffset, int32_t xAdvance,
                        int32_t height)
   {
-    m_glyphs.push_back({
-        {font, glyphId},
-        xOffset, yOffset, xAdvance
-    });
+    m_glyphs.push_back({{font, glyphId}, xOffset, yOffset, xAdvance});
 
     if (m_glyphs.size() == 1)
       xAdvance -= xOffset;

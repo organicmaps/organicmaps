@@ -69,29 +69,28 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
 // Default, no bridleway.
 VehicleModel::LimitsInitList const kDefaultOptions = {
     // {HighwayType, passThroughAllowed}
-    {        HighwayType::HighwayTrunk, true},
-    {    HighwayType::HighwayTrunkLink, true},
-    {      HighwayType::HighwayPrimary, true},
-    {  HighwayType::HighwayPrimaryLink, true},
-    {    HighwayType::HighwaySecondary, true},
+    {HighwayType::HighwayTrunk, true},
+    {HighwayType::HighwayTrunkLink, true},
+    {HighwayType::HighwayPrimary, true},
+    {HighwayType::HighwayPrimaryLink, true},
+    {HighwayType::HighwaySecondary, true},
     {HighwayType::HighwaySecondaryLink, true},
-    {     HighwayType::HighwayTertiary, true},
-    { HighwayType::HighwayTertiaryLink, true},
-    {      HighwayType::HighwayService, true},
-    { HighwayType::HighwayUnclassified, true},
-    {         HighwayType::HighwayRoad, true},
-    {        HighwayType::HighwayTrack, true},
-    {         HighwayType::HighwayPath, true},
+    {HighwayType::HighwayTertiary, true},
+    {HighwayType::HighwayTertiaryLink, true},
+    {HighwayType::HighwayService, true},
+    {HighwayType::HighwayUnclassified, true},
+    {HighwayType::HighwayRoad, true},
+    {HighwayType::HighwayTrack, true},
+    {HighwayType::HighwayPath, true},
     // HighwayBridleway is missing
-    {     HighwayType::HighwayCycleway, true},
-    {  HighwayType::HighwayResidential, true},
-    { HighwayType::HighwayLivingStreet, true},
-    {        HighwayType::HighwaySteps, true},
-    {   HighwayType::HighwayPedestrian, true},
-    {      HighwayType::HighwayFootway, true},
-    {         HighwayType::ManMadePier, true},
-    {          HighwayType::RouteFerry, true}
-};
+    {HighwayType::HighwayCycleway, true},
+    {HighwayType::HighwayResidential, true},
+    {HighwayType::HighwayLivingStreet, true},
+    {HighwayType::HighwaySteps, true},
+    {HighwayType::HighwayPedestrian, true},
+    {HighwayType::HighwayFootway, true},
+    {HighwayType::ManMadePier, true},
+    {HighwayType::RouteFerry, true}};
 
 // Same as defaults except trunk and trunk_link are not allowed
 VehicleModel::LimitsInitList NoTrunk()
@@ -168,15 +167,15 @@ VehicleModel::LimitsInitList UkraineOptions()
 
 VehicleModel::SurfaceInitList const kBicycleSurface = {
     // {{surfaceType}, {weightFactor, etaFactor}}
-    {  {"psurface", "paved_good"},   {1.0, 1.0}},
-    {   {"psurface", "paved_bad"},   {0.8, 0.8}},
-    {{"psurface", "unpaved_good"},   {0.9, 0.9}},
-    { {"psurface", "unpaved_bad"},   {0.3, 0.3}},
+    {{"psurface", "paved_good"}, {1.0, 1.0}},
+    {{"psurface", "paved_bad"}, {0.8, 0.8}},
+    {{"psurface", "unpaved_good"}, {0.9, 0.9}},
+    {{"psurface", "unpaved_bad"}, {0.3, 0.3}},
     // No dedicated cycleway doesn't mean that bicycle is not allowed, just lower weight.
     // If nocycleway is tagged explicitly then there is no cycling infra for sure.
     // Otherwise there is a small chance cycling infra is present though not mapped?
     /// @todo(pastk): this heuristic is controversial, maybe remove completely?
-    {     {"hwtag", "nocycleway"}, {0.95, 0.95}},
+    {{"hwtag", "nocycleway"}, {0.95, 0.95}},
 };
 }  // namespace bicycle_model
 
@@ -206,9 +205,7 @@ BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & limits, HighwayB
 
   // Assign 90% of max cycleway speed for bicycle=yes to keep choosing most preferred cycleway.
   auto const yesSpeed = kDefaultSpeeds.Get(HighwayType::HighwayCycleway).m_inCity * 0.9;
-  AddAdditionalRoadTypes(cl, {
-                                 {std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed)}
-  });
+  AddAdditionalRoadTypes(cl, {{std::move(hwtagYesBicycle), InOutCitySpeedKMpH(yesSpeed)}});
 
   // Update max speed with possible ferry transfer and bicycle speed downhill.
   // See EdgeEstimator::CalcHeuristic, GetBicycleClimbPenalty.

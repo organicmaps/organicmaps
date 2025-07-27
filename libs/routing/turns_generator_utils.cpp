@@ -61,14 +61,13 @@ CarDirection InvertDirection(CarDirection const dir)
 CarDirection RightmostDirection(double const angle)
 {
   static std::vector<std::pair<double, CarDirection>> const kLowerBounds = {
-      { 145.,  CarDirection::TurnSharpRight},
-      {  50.,       CarDirection::TurnRight},
-      {  10., CarDirection::TurnSlightRight},
+      {145., CarDirection::TurnSharpRight},
+      {50., CarDirection::TurnRight},
+      {10., CarDirection::TurnSlightRight},
       // For sure it's incorrect to give directions TurnLeft or TurnSlighLeft if we need the rightmost turn.
       // So GoStraight direction is given even for needed sharp left turn when other turns on the left and are more
       // sharp. The reason: the rightmost turn is the most straight one here.
-      {-180.,      CarDirection::GoStraight}
-  };
+      {-180., CarDirection::GoStraight}};
 
   return FindDirectionByAngle(kLowerBounds, angle);
 }
@@ -81,14 +80,9 @@ CarDirection LeftmostDirection(double const angle)
 CarDirection IntermediateDirection(double const angle)
 {
   static std::vector<std::pair<double, CarDirection>> const kLowerBounds = {
-      { 145.,  CarDirection::TurnSharpRight},
-      {  50.,       CarDirection::TurnRight},
-      {  10., CarDirection::TurnSlightRight},
-      { -10.,      CarDirection::GoStraight},
-      { -50.,  CarDirection::TurnSlightLeft},
-      {-145.,        CarDirection::TurnLeft},
-      {-180.,   CarDirection::TurnSharpLeft}
-  };
+      {145., CarDirection::TurnSharpRight}, {50., CarDirection::TurnRight},       {10., CarDirection::TurnSlightRight},
+      {-10., CarDirection::GoStraight},     {-50., CarDirection::TurnSlightLeft}, {-145., CarDirection::TurnLeft},
+      {-180., CarDirection::TurnSharpLeft}};
 
   return FindDirectionByAngle(kLowerBounds, angle);
 }
@@ -96,10 +90,9 @@ CarDirection IntermediateDirection(double const angle)
 PedestrianDirection IntermediateDirectionPedestrian(double const angle)
 {
   static std::vector<std::pair<double, PedestrianDirection>> const kLowerBounds = {
-      {  10.0,  PedestrianDirection::TurnRight},
-      { -10.0, PedestrianDirection::GoStraight},
-      {-180.0,   PedestrianDirection::TurnLeft}
-  };
+      {10.0, PedestrianDirection::TurnRight},
+      {-10.0, PedestrianDirection::GoStraight},
+      {-180.0, PedestrianDirection::TurnLeft}};
 
   return FindDirectionByAngle(kLowerBounds, angle);
 }

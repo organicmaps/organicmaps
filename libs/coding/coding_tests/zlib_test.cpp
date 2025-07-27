@@ -19,12 +19,10 @@ using namespace std;
 using Deflate = ZLib::Deflate;
 using Inflate = ZLib::Inflate;
 
-pair<Deflate::Format, Inflate::Format> const g_combinations[] = {
-    {Deflate::Format::ZLib, Inflate::Format::ZLib},
-    {Deflate::Format::ZLib, Inflate::Format::Both},
-    {Deflate::Format::GZip, Inflate::Format::GZip},
-    {Deflate::Format::GZip, Inflate::Format::Both}
-};
+pair<Deflate::Format, Inflate::Format> const g_combinations[] = {{Deflate::Format::ZLib, Inflate::Format::ZLib},
+                                                                 {Deflate::Format::ZLib, Inflate::Format::Both},
+                                                                 {Deflate::Format::GZip, Inflate::Format::GZip},
+                                                                 {Deflate::Format::GZip, Inflate::Format::Both}};
 
 namespace
 {

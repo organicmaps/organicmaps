@@ -209,10 +209,7 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {
-        {"генерала", 1},
-        {"антонова", 2}
-    };
+    List expected = {{"генерала", 1}, {"антонова", 2}};
     List actual;
 
     Utf8StreetTokensFilter filter(actual);
@@ -224,9 +221,7 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {
-        {"набережная", 50}
-    };
+    List expected = {{"набережная", 50}};
     List actual;
 
     Utf8StreetTokensFilter filter(actual);
@@ -237,9 +232,7 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {
-        {"набережная", 1}
-    };
+    List expected = {{"набережная", 1}};
     List actual;
 
     Utf8StreetTokensFilter filter(actual);
@@ -251,13 +244,8 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expectedWithMP = {
-        {"ленинский", 0}
-    };
-    List expectedWithoutMP = {
-        {"ленинский", 0},
-        {  "пропект", 1}
-    };
+    List expectedWithMP = {{"ленинский", 0}};
+    List expectedWithoutMP = {{"ленинский", 0}, {"пропект", 1}};
     List actualWithMisprints;
     List actualWithoutMisprints;
 
@@ -273,9 +261,7 @@ UNIT_TEST(Street_TokensFilter)
   }
 
   {
-    List expected = {
-        {"набрежная", 1}
-    };
+    List expected = {{"набрежная", 1}};
     List actualWithMisprints;
     List actualWithoutMisprints;
 

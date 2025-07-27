@@ -74,8 +74,7 @@ std::array<StringUtf8Multilang::Lang, StringUtf8Multilang::kMaxSupportedLanguage
      {"mn", "Mongolian", {"Mongolian-Latin/BGN"}},
      {"mk", "Македонски", {"Macedonian-Latin/BGN"}},
      {"lv", "Latviešu", {}},
-     {"hi", "हिन्दी", {"Any-Latin"}}}
-};
+     {"hi", "हिन्दी", {"Any-Latin"}}}};
 
 static_assert(kLanguages.size() == StringUtf8Multilang::kMaxSupportedLanguages,
               "With current encoding we are limited to 64 languages max. And we need kLanguages.size()"

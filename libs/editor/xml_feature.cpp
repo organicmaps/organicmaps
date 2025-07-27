@@ -179,12 +179,10 @@ string XMLFeature::ToOSMString() const
 void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
 {
   // TODO(mgsergio): Get these alt tags from the config.
-  base::StringIL const alternativeTags[] = {
-      {"phone", "contact:phone", "contact:mobile", "mobile"},
-      {"website", "contact:website", "url"},
-      {"fax", "contact:fax"},
-      {"email", "contact:email"}
-  };
+  base::StringIL const alternativeTags[] = {{"phone", "contact:phone", "contact:mobile", "mobile"},
+                                            {"website", "contact:website", "url"},
+                                            {"fax", "contact:fax"},
+                                            {"email", "contact:email"}};
 
   featureWithChanges.ForEachTag([&alternativeTags, this](string_view k, string_view v)
   {
@@ -647,12 +645,10 @@ void XMLFeature::UpdateOSMTag(std::string_view key, std::string_view value)
   else
   {
     // TODO(mgsergio): Get these alt tags from the config.
-    base::StringIL const alternativeTags[] = {
-        {"phone", "contact:phone", "contact:mobile", "mobile"},
-        {"website", "contact:website", "url"},
-        {"fax", "contact:fax"},
-        {"email", "contact:email"}
-    };
+    base::StringIL const alternativeTags[] = {{"phone", "contact:phone", "contact:mobile", "mobile"},
+                                              {"website", "contact:website", "url"},
+                                              {"fax", "contact:fax"},
+                                              {"email", "contact:email"}};
 
     // Avoid duplication for similar alternative osm tags.
     for (auto const & alt : alternativeTags)

@@ -64,28 +64,27 @@ SpeedKMpH constexpr kSpeedOffroadKMpH = {0.5 /* weight */, 3.0 /* eta */};
 // Default, no bridleway and cycleway
 VehicleModel::LimitsInitList const kDefaultOptions = {
     // {HighwayType, passThroughAllowed}
-    {        HighwayType::HighwayTrunk, true},
-    {    HighwayType::HighwayTrunkLink, true},
-    {      HighwayType::HighwayPrimary, true},
-    {  HighwayType::HighwayPrimaryLink, true},
-    {    HighwayType::HighwaySecondary, true},
+    {HighwayType::HighwayTrunk, true},
+    {HighwayType::HighwayTrunkLink, true},
+    {HighwayType::HighwayPrimary, true},
+    {HighwayType::HighwayPrimaryLink, true},
+    {HighwayType::HighwaySecondary, true},
     {HighwayType::HighwaySecondaryLink, true},
-    {     HighwayType::HighwayTertiary, true},
-    { HighwayType::HighwayTertiaryLink, true},
-    {      HighwayType::HighwayService, true},
-    { HighwayType::HighwayUnclassified, true},
-    {         HighwayType::HighwayRoad, true},
-    {        HighwayType::HighwayTrack, true},
-    {         HighwayType::HighwayPath, true},
+    {HighwayType::HighwayTertiary, true},
+    {HighwayType::HighwayTertiaryLink, true},
+    {HighwayType::HighwayService, true},
+    {HighwayType::HighwayUnclassified, true},
+    {HighwayType::HighwayRoad, true},
+    {HighwayType::HighwayTrack, true},
+    {HighwayType::HighwayPath, true},
     // HighwayBridleway, HighwayCycleway are missing
-    {  HighwayType::HighwayResidential, true},
-    { HighwayType::HighwayLivingStreet, true},
-    {        HighwayType::HighwaySteps, true},
-    {   HighwayType::HighwayPedestrian, true},
-    {      HighwayType::HighwayFootway, true},
-    {         HighwayType::ManMadePier, true},
-    {          HighwayType::RouteFerry, true}
-};
+    {HighwayType::HighwayResidential, true},
+    {HighwayType::HighwayLivingStreet, true},
+    {HighwayType::HighwaySteps, true},
+    {HighwayType::HighwayPedestrian, true},
+    {HighwayType::HighwayFootway, true},
+    {HighwayType::ManMadePier, true},
+    {HighwayType::RouteFerry, true}};
 
 // Same as defaults except bridleway and cycleway are allowed.
 VehicleModel::LimitsInitList AllAllowed()
@@ -131,12 +130,12 @@ HighwayBasedSpeeds IncreasePrimary()
 
 VehicleModel::SurfaceInitList const kPedestrianSurface = {
     // {{surfaceType}, {weightFactor, etaFactor}}
-    {  {"psurface", "paved_good"}, {1.0, 1.0}},
-    {   {"psurface", "paved_bad"}, {1.0, 1.0}},
+    {{"psurface", "paved_good"}, {1.0, 1.0}},
+    {{"psurface", "paved_bad"}, {1.0, 1.0}},
     {{"psurface", "unpaved_good"}, {1.0, 1.0}},
-    { {"psurface", "unpaved_bad"}, {0.8, 0.8}},
+    {{"psurface", "unpaved_bad"}, {0.8, 0.8}},
     // no dedicated sidewalk, doesn't mean that foot is not allowed, just lower weight
-    {     {"hwtag", "nosidewalk"}, {0.8, 0.8}},
+    {{"hwtag", "nosidewalk"}, {0.8, 0.8}},
 };
 }  // namespace pedestrian_model
 
@@ -162,9 +161,7 @@ PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & limits, Hi
   m_noType = cl.GetTypeByPath({"hwtag", "nofoot"});
   m_yesType = cl.GetTypeByPath(hwtagYesFoot);
 
-  AddAdditionalRoadTypes(cl, {
-                                 {std::move(hwtagYesFoot), kDefaultSpeeds.Get(HighwayType::HighwayLivingStreet)}
-  });
+  AddAdditionalRoadTypes(cl, {{std::move(hwtagYesFoot), kDefaultSpeeds.Get(HighwayType::HighwayLivingStreet)}});
 
   // Update max pedestrian speed with possible ferry transfer. See EdgeEstimator::CalcHeuristic.
   SpeedKMpH constexpr kMaxPedestrianSpeedKMpH(60.0);

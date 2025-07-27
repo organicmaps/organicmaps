@@ -175,11 +175,7 @@ UNIT_TEST(XMLFeature_FromXml)
 )";
 
   std::map<std::string_view, std::string_view> kTestNames{
-      { "default",    "Gorki Park"},
-      {      "en",    "Gorki Park"},
-      {      "ru", "Парк Горького"},
-      {"int_name",    "Gorky Park"}
-  };
+      {"default", "Gorki Park"}, {"en", "Gorki Park"}, {"ru", "Парк Горького"}, {"int_name", "Gorky Park"}};
 
   XMLFeature feature(kTestNode);
 
@@ -263,14 +259,8 @@ UNIT_TEST(XMLFeature_FromXmlNode)
 UNIT_TEST(XMLFeature_Geometry)
 {
   std::vector<m2::PointD> const geometry = {
-      {28.7206411,  3.7182409},
-      {46.7569003, 47.0774689},
-      {22.5909217, 41.6994874},
-      {14.7537008, 17.7788229},
-      {55.1261701, 10.3199476},
-      {28.6519654, 50.0305930},
-      {28.7206411,  3.7182409}
-  };
+      {28.7206411, 3.7182409},  {46.7569003, 47.0774689}, {22.5909217, 41.6994874}, {14.7537008, 17.7788229},
+      {55.1261701, 10.3199476}, {28.6519654, 50.0305930}, {28.7206411, 3.7182409}};
 
   XMLFeature feature(XMLFeature::Type::Way);
   feature.SetGeometry(geometry);

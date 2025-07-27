@@ -160,13 +160,11 @@ UNIT_TEST(ToStringPrecisionLocale)
     std::string d1String;
   };
 
-  TestData testData[] = {
-      // Locale name ,   Decimal
-      {"en_US.UTF-8", "9.8"},
-      {"es_ES.UTF-8", "9,8"},
-      {"fr_FR.UTF-8", "9,8"},
-      {"ru_RU.UTF-8", "9,8"}
-  };
+  TestData testData[] = {// Locale name ,   Decimal
+                         {"en_US.UTF-8", "9.8"},
+                         {"es_ES.UTF-8", "9,8"},
+                         {"fr_FR.UTF-8", "9,8"},
+                         {"ru_RU.UTF-8", "9,8"}};
 
   for (TestData const & data : testData)
   {

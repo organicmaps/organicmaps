@@ -315,10 +315,8 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeUploadChange
   // TODO: Handle upload status in callback
   Editor::Instance().UploadChanges(
       jni::ToNativeString(env, token),
-      {
-          {"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
-          { "bundle_id",                                    jni::ToNativeString(env,      appId)}
-  },
+      {{"created_by", "Organic Maps " OMIM_OS_NAME " " + jni::ToNativeString(env, appVersion)},
+       {"bundle_id", jni::ToNativeString(env, appId)}},
       nullptr);
 }
 

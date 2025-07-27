@@ -54,10 +54,7 @@ UNIT_TEST(Process_route_with_ref)
    */
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {
-      {10, ""},
-      {11, ""}
-  };
+  std::vector<RelationElement::Member> testMembers = {{10, ""}, {11, ""}};
 
   RelationElement e1;
   e1.m_ways = testMembers;
@@ -65,23 +62,12 @@ UNIT_TEST(Process_route_with_ref)
   e1.m_tags.emplace("route", "road");
   e1.m_tags.emplace("ref", "E-99");
 
-  std::unordered_map<Key, RelationElement> m_IdToRelation = {
-      {1, e1}
-  };
+  std::unordered_map<Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create roads.
-  auto road10 = MakeOsmElement(10,
-                               {
-                                   {"highway", "motorway"}
-  },
-                               OsmElement::EntityType::Way);
-  auto road11 = MakeOsmElement(11,
-                               {
-                                   {"highway", "motorway"},
-                                   {    "ref",     "F-16"}
-  },
-                               OsmElement::EntityType::Way);
+  auto road10 = MakeOsmElement(10, {{"highway", "motorway"}}, OsmElement::EntityType::Way);
+  auto road11 = MakeOsmElement(11, {{"highway", "motorway"}, {"ref", "F-16"}}, OsmElement::EntityType::Way);
 
   // Process roads tags using relation tags.
   RelationTagsWay rtw;
@@ -116,10 +102,7 @@ UNIT_TEST(Process_route_with_ref_network)
    */
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {
-      {10, ""},
-      {11, ""}
-  };
+  std::vector<RelationElement::Member> testMembers = {{10, ""}, {11, ""}};
 
   RelationElement e1;
   e1.m_ways = testMembers;
@@ -128,24 +111,12 @@ UNIT_TEST(Process_route_with_ref_network)
   e1.m_tags.emplace("ref", "SP60");
   e1.m_tags.emplace("network", "IT:RA");
 
-  std::unordered_map<Key, RelationElement> m_IdToRelation = {
-      {1, e1}
-  };
+  std::unordered_map<Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create roads.
-  auto road10 = MakeOsmElement(10,
-                               {
-                                   {"highway",    "motorway"},
-                                   {   "name", "Via Corleto"}
-  },
-                               OsmElement::EntityType::Way);
-  auto road11 = MakeOsmElement(11,
-                               {
-                                   {"highway", "motorway"},
-                                   {    "ref",     "SP62"}
-  },
-                               OsmElement::EntityType::Way);
+  auto road10 = MakeOsmElement(10, {{"highway", "motorway"}, {"name", "Via Corleto"}}, OsmElement::EntityType::Way);
+  auto road11 = MakeOsmElement(11, {{"highway", "motorway"}, {"ref", "SP62"}}, OsmElement::EntityType::Way);
 
   // Process roads tags using relation tags.
   RelationTagsWay rtw;
@@ -181,11 +152,7 @@ UNIT_TEST(Process_associatedStreet)
    */
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {
-      {2,  "house"},
-      {3,  "house"},
-      {4, "street"}
-  };
+  std::vector<RelationElement::Member> testMembers = {{2, "house"}, {3, "house"}, {4, "street"}};
 
   RelationElement e1;
   e1.m_ways = testMembers;
@@ -193,31 +160,19 @@ UNIT_TEST(Process_associatedStreet)
   e1.m_tags.emplace("name", "Main Street");
   e1.m_tags.emplace("wikipedia", "en:Main Street");
 
-  std::unordered_map<Key, RelationElement> m_IdToRelation = {
-      {1, e1}
-  };
+  std::unordered_map<Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create buildings polygons.
-  auto buildingWay2 = MakeOsmElement(2,
-                                     {
-                                         {        "building", "yes"},
-                                         {"addr:housenumber", "121"}
-  },
-                                     OsmElement::EntityType::Way);
+  auto buildingWay2 =
+      MakeOsmElement(2, {{"building", "yes"}, {"addr:housenumber", "121"}}, OsmElement::EntityType::Way);
   auto buildingWay3 = MakeOsmElement(3,
-                                     {
-                                         {            "shop",     "convenience"},
-                                         {"addr:housenumber",             "123"},
-                                         {     "addr:street", "The Main Street"},
-                                         {       "wikipedia", "en:Mega Theater"}
-  },
+                                     {{"shop", "convenience"},
+                                      {"addr:housenumber", "123"},
+                                      {"addr:street", "The Main Street"},
+                                      {"wikipedia", "en:Mega Theater"}},
                                      OsmElement::EntityType::Way);
-  auto highway4 = MakeOsmElement(4,
-                                 {
-                                     {"highway", "residential"}
-  },
-                                 OsmElement::EntityType::Way);
+  auto highway4 = MakeOsmElement(4, {{"highway", "residential"}}, OsmElement::EntityType::Way);
 
   // Process buildings tags using relation tags.
   RelationTagsWay rtw;
@@ -246,31 +201,13 @@ UNIT_TEST(RelationTags_GoodBoundary)
   classificator::Load();
 
   // Create relation.
-  std::vector<RelationElement::Member> ways = {
-      {1, "outer"}
-  };
-  std::vector<RelationElement::Member> nodes = {
-      {2, "admin_centre"},
-      {3,        "label"}
-  };
+  std::vector<RelationElement::Member> ways = {{1, "outer"}};
+  std::vector<RelationElement::Member> nodes = {{2, "admin_centre"}, {3, "label"}};
 
-  auto way1 = MakeOsmElement(1,
-                             {
-                                 {"boundary", "administrative"}
-  },
-                             OsmElement::EntityType::Way);
-  auto node2 = MakeOsmElement(2,
-                              {
-                                  {   "place",  "town"},
-                                  {    "name", "Vaduz"},
-                                  {"wikidata", "Q1844"}
-  },
-                              OsmElement::EntityType::Node);
-  auto node3 = MakeOsmElement(3,
-                              {
-                                  {"place", "country"}
-  },
-                              OsmElement::EntityType::Node);
+  auto way1 = MakeOsmElement(1, {{"boundary", "administrative"}}, OsmElement::EntityType::Way);
+  auto node2 =
+      MakeOsmElement(2, {{"place", "town"}, {"name", "Vaduz"}, {"wikidata", "Q1844"}}, OsmElement::EntityType::Node);
+  auto node3 = MakeOsmElement(3, {{"place", "country"}}, OsmElement::EntityType::Node);
 
   RelationElement e1;
   e1.m_ways = ways;
@@ -282,9 +219,7 @@ UNIT_TEST(RelationTags_GoodBoundary)
   e1.m_tags.emplace("name:be", "Лiхтэнштэйн");
   e1.m_tags.emplace("wikidata", "Q347");
 
-  std::unordered_map<Key, RelationElement> m_IdToRelation = {
-      {1, e1}
-  };
+  std::unordered_map<Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Process ways tags using relation tags.
@@ -320,11 +255,7 @@ UNIT_TEST(RelationTags_BadBoundary)
   classificator::Load();
 
   // Create relation.
-  std::vector<RelationElement::Member> testMembers = {
-      {5, "outer"},
-      {6, "outer"},
-      {7, "outer"}
-  };
+  std::vector<RelationElement::Member> testMembers = {{5, "outer"}, {6, "outer"}, {7, "outer"}};
 
   /// @todo Worth to add natural=peninsula Point type.
   RelationElement e1;
@@ -336,28 +267,13 @@ UNIT_TEST(RelationTags_BadBoundary)
   e1.m_tags.emplace("name:en", "Italian Peninsula");
   e1.m_tags.emplace("wikidata", "Q145694");
 
-  std::unordered_map<Key, RelationElement> m_IdToRelation = {
-      {1, e1}
-  };
+  std::unordered_map<Key, RelationElement> m_IdToRelation = {{1, e1}};
   TestOSMElementCacheReader reader(m_IdToRelation);
 
   // Create ways.
-  auto outerWay5 = MakeOsmElement(5,
-                                  {
-                                      {"natural", "coastline"}
-  },
-                                  OsmElement::EntityType::Way);
-  auto outerWay6 = MakeOsmElement(6,
-                                  {
-                                      {"natural",  "coastline"},
-                                      {   "name", "Cala Rossa"}
-  },
-                                  OsmElement::EntityType::Way);
-  auto outerWay7 = MakeOsmElement(7,
-                                  {
-                                      {"place", "locality"}
-  },
-                                  OsmElement::EntityType::Way);
+  auto outerWay5 = MakeOsmElement(5, {{"natural", "coastline"}}, OsmElement::EntityType::Way);
+  auto outerWay6 = MakeOsmElement(6, {{"natural", "coastline"}, {"name", "Cala Rossa"}}, OsmElement::EntityType::Way);
+  auto outerWay7 = MakeOsmElement(7, {{"place", "locality"}}, OsmElement::EntityType::Way);
 
   // Process ways tags using relation tags.
   RelationTagsWay rtw;

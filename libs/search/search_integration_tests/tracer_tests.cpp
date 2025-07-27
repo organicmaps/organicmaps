@@ -56,11 +56,10 @@ UNIT_CLASS_TEST(TracerTest, Smoke)
     auto const actual = tracer->GetUniqueParses();
 
     vector<Tracer::Parse> const expected{
-        Tracer::Parse{                          {{TokenType::TOKEN_TYPE_SUBPOI, TokenRange(0, 2)}},false /* category */                    },
+        Tracer::Parse{{{TokenType::TOKEN_TYPE_SUBPOI, TokenRange(0, 2)}}, false /* category */},
         Tracer::Parse{
-                      {{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)}, {TokenType::TOKEN_TYPE_SUBPOI, TokenRange(1, 2)}},
-                      true /* category */}
-    };
+            {{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)}, {TokenType::TOKEN_TYPE_SUBPOI, TokenRange(1, 2)}},
+            true /* category */}};
 
     TEST_EQUAL(expected, actual, ());
   }
@@ -77,10 +76,10 @@ UNIT_CLASS_TEST(TracerTest, Smoke)
     auto const actual = tracer->GetUniqueParses();
     // Unrecognized tokens are not included into the parses.
     vector<Tracer::Parse> const expected{
-        Tracer::Parse{                          {{TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}},false /* category */                     },
+        Tracer::Parse{{{TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}}, false /* category */},
         Tracer::Parse{
-                      {{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)}, {TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}},
-                      false /* category */},
+            {{TokenType::TOKEN_TYPE_CITY, TokenRange(0, 1)}, {TokenType::TOKEN_TYPE_STREET, TokenRange(1, 2)}},
+            false /* category */},
     };
 
     TEST_EQUAL(expected, actual, ());

@@ -232,14 +232,13 @@ void UpdateRoadShieldTextFont(dp::FontDecl & font, ftypes::RoadShield const & sh
   using ftypes::RoadShieldType;
 
   static base::SmallMapBase<RoadShieldType, df::ColorConstant> kColors = {
-      { RoadShieldType::Generic_Green,    kRoadShieldWhiteTextColor},
-      {  RoadShieldType::Generic_Blue,    kRoadShieldWhiteTextColor},
-      {    RoadShieldType::UK_Highway, kRoadShieldUKYellowTextColor},
-      { RoadShieldType::US_Interstate,    kRoadShieldWhiteTextColor},
-      {    RoadShieldType::US_Highway,    kRoadShieldBlackTextColor},
-      {   RoadShieldType::Generic_Red,    kRoadShieldWhiteTextColor},
-      {RoadShieldType::Generic_Orange,    kRoadShieldBlackTextColor}
-  };
+      {RoadShieldType::Generic_Green, kRoadShieldWhiteTextColor},
+      {RoadShieldType::Generic_Blue, kRoadShieldWhiteTextColor},
+      {RoadShieldType::UK_Highway, kRoadShieldUKYellowTextColor},
+      {RoadShieldType::US_Interstate, kRoadShieldWhiteTextColor},
+      {RoadShieldType::US_Highway, kRoadShieldBlackTextColor},
+      {RoadShieldType::Generic_Red, kRoadShieldWhiteTextColor},
+      {RoadShieldType::Generic_Orange, kRoadShieldBlackTextColor}};
 
   if (auto const * cl = kColors.Find(shield.m_type); cl)
     font.m_color = df::GetColorConstant(*cl);
@@ -250,12 +249,11 @@ dp::Color GetRoadShieldColor(dp::Color const & baseColor, ftypes::RoadShield con
   using ftypes::RoadShieldType;
 
   static base::SmallMapBase<ftypes::RoadShieldType, df::ColorConstant> kColors = {
-      { RoadShieldType::Generic_Green,  kRoadShieldGreenBackgroundColor},
-      {  RoadShieldType::Generic_Blue,   kRoadShieldBlueBackgroundColor},
-      {    RoadShieldType::UK_Highway,  kRoadShieldGreenBackgroundColor},
-      {   RoadShieldType::Generic_Red,    kRoadShieldRedBackgroundColor},
-      {RoadShieldType::Generic_Orange, kRoadShieldOrangeBackgroundColor}
-  };
+      {RoadShieldType::Generic_Green, kRoadShieldGreenBackgroundColor},
+      {RoadShieldType::Generic_Blue, kRoadShieldBlueBackgroundColor},
+      {RoadShieldType::UK_Highway, kRoadShieldGreenBackgroundColor},
+      {RoadShieldType::Generic_Red, kRoadShieldRedBackgroundColor},
+      {RoadShieldType::Generic_Orange, kRoadShieldOrangeBackgroundColor}};
 
   if (auto const * cl = kColors.Find(shield.m_type); cl)
     return df::GetColorConstant(*cl);

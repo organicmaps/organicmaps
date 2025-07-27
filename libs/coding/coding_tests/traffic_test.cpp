@@ -80,7 +80,7 @@ UNIT_TEST(Traffic_Serialization_EmptyPath)
 UNIT_TEST(Traffic_Serialization_StraightLine100m)
 {
   vector<TrafficGPSEncoder::DataPoint> path = {
-      {0, ms::LatLon(0.0,  0.0), 1},
+      {0, ms::LatLon(0.0, 0.0), 1},
       {0, ms::LatLon(0.0, 1e-3), 2},
   };
   Test(path);
@@ -150,7 +150,7 @@ UNIT_TEST(Traffic_Serialization_ExtremeLatLon)
 {
   vector<TrafficGPSEncoder::DataPoint> path = {
       {0, ms::LatLon(-90, -180), 0},
-      {0,  ms::LatLon(90,  180), 0},
+      {0, ms::LatLon(90, 180), 0},
   };
   Test(path);
 }

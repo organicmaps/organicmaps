@@ -78,13 +78,10 @@ std::string const & VisualParams::GetResourcePostfix(double visualScale)
   ASSERT_INITED;
   static VisualScale postfixes[] = {
       /// @todo Not used in mobile because of minimal visual scale (@see visual_scale.hpp)
-      {   "mdpi",    kMdpiScale},
+      {"mdpi", kMdpiScale},
 
-      {   "hdpi",    kHdpiScale},
-      {  "xhdpi",   kXhdpiScale},
-      {  "6plus",   k6plusScale},
-      { "xxhdpi",  kXxhdpiScale},
-      {"xxxhdpi", kXxxhdpiScale},
+      {"hdpi", kHdpiScale},     {"xhdpi", kXhdpiScale},     {"6plus", k6plusScale},
+      {"xxhdpi", kXxhdpiScale}, {"xxxhdpi", kXxxhdpiScale},
   };
 
   // Looking for the nearest available scale.

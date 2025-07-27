@@ -50,11 +50,7 @@ UNIT_TEST(CSVReaderReadLine)
 {
   auto const fileName = "test.csv";
   ScopedFile sf(fileName, kCSV4);
-  Rows const answer = {
-      {"1", "2"},
-      {"3", "4"},
-      {"5", "6"}
-  };
+  Rows const answer = {{"1", "2"}, {"3", "4"}, {"5", "6"}};
   coding::CSVReader reader(sf.GetFullPath());
   size_t index = 0;
   while (auto const optionalRow = reader.ReadRow())
@@ -94,11 +90,7 @@ UNIT_TEST(CSVReaderDifferentReaders)
 {
   auto const fileName = "test.csv";
   ScopedFile sf(fileName, kCSV4);
-  Rows const answer = {
-      {"1", "2"},
-      {"3", "4"},
-      {"5", "6"}
-  };
+  Rows const answer = {{"1", "2"}, {"3", "4"}, {"5", "6"}};
   {
     FileReader fileReader(sf.GetFullPath());
     coding::CSVReader reader(fileReader);
@@ -122,12 +114,7 @@ UNIT_TEST(CSVReaderEmptyLines)
 {
   auto const fileName = "test.csv";
   ScopedFile sf(fileName, kCSV5);
-  Rows const answer = {
-      {"1", "2"},
-      {"3", "4"},
-      {},
-      {"5", "6"}
-  };
+  Rows const answer = {{"1", "2"}, {"3", "4"}, {}, {"5", "6"}};
   {
     FileReader fileReader(sf.GetFullPath());
     coding::CSVReader reader(fileReader);
@@ -151,11 +138,7 @@ UNIT_TEST(CSVReaderForEachRow)
 {
   auto const fileName = "test.csv";
   ScopedFile sf(fileName, kCSV4);
-  Rows const answer = {
-      {"1", "2"},
-      {"3", "4"},
-      {"5", "6"}
-  };
+  Rows const answer = {{"1", "2"}, {"3", "4"}, {"5", "6"}};
   FileReader fileReader(sf.GetFullPath());
   auto reader = coding::CSVReader(fileReader);
   size_t index = 0;
@@ -171,11 +154,7 @@ UNIT_TEST(CSVReaderIterator)
 {
   auto const fileName = "test.csv";
   ScopedFile sf(fileName, kCSV4);
-  Rows const answer = {
-      {"1", "2"},
-      {"3", "4"},
-      {"5", "6"}
-  };
+  Rows const answer = {{"1", "2"}, {"3", "4"}, {"5", "6"}};
   {
     FileReader fileReader(sf.GetFullPath());
     coding::CSVRunner runner((coding::CSVReader(fileReader)));

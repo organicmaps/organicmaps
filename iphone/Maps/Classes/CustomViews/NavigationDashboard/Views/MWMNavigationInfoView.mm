@@ -28,23 +28,21 @@ CGFloat constexpr kShiftedTurnsTopOffset = 8;
 NSTimeInterval constexpr kCollapseSearchTimeout = 5.0;
 
 std::map<NavigationSearchState, NSString *> const kSearchStateButtonImageNames{
-    {       NavigationSearchState::Maximized,      @"ic_routing_search"},
-    { NavigationSearchState::MinimizedNormal,      @"ic_routing_search"},
-    { NavigationSearchState::MinimizedSearch,  @"ic_routing_search_off"},
-    {    NavigationSearchState::MinimizedGas,    @"ic_routing_fuel_off"},
+    {NavigationSearchState::Maximized, @"ic_routing_search"},
+    {NavigationSearchState::MinimizedNormal, @"ic_routing_search"},
+    {NavigationSearchState::MinimizedSearch, @"ic_routing_search_off"},
+    {NavigationSearchState::MinimizedGas, @"ic_routing_fuel_off"},
     {NavigationSearchState::MinimizedParking, @"ic_routing_parking_off"},
-    {    NavigationSearchState::MinimizedEat,     @"ic_routing_eat_off"},
-    {   NavigationSearchState::MinimizedFood,    @"ic_routing_food_off"},
-    {    NavigationSearchState::MinimizedATM,     @"ic_routing_atm_off"}
-};
+    {NavigationSearchState::MinimizedEat, @"ic_routing_eat_off"},
+    {NavigationSearchState::MinimizedFood, @"ic_routing_food_off"},
+    {NavigationSearchState::MinimizedATM, @"ic_routing_atm_off"}};
 
 std::map<NavigationSearchState, NSString *> const kSearchButtonRequest{
-    {    NavigationSearchState::MinimizedGas,    L(@"category_fuel")},
+    {NavigationSearchState::MinimizedGas, L(@"category_fuel")},
     {NavigationSearchState::MinimizedParking, L(@"category_parking")},
-    {    NavigationSearchState::MinimizedEat,     L(@"category_eat")},
-    {   NavigationSearchState::MinimizedFood,    L(@"category_food")},
-    {    NavigationSearchState::MinimizedATM,     L(@"category_atm")}
-};
+    {NavigationSearchState::MinimizedEat, L(@"category_eat")},
+    {NavigationSearchState::MinimizedFood, L(@"category_food")},
+    {NavigationSearchState::MinimizedATM, L(@"category_atm")}};
 
 BOOL defaultOrientation(CGSize const & size)
 {

@@ -29,19 +29,15 @@ osm::EditingLifecycle EditJournal::GetEditingLifecycle() const
 void EditJournal::AddTagChange(std::string key, std::string old_value, std::string new_value)
 {
   LOG(LDEBUG, ("Key ", key, "changed from \"", old_value, "\" to \"", new_value, "\""));
-  AddJournalEntry({
-      JournalEntryType::TagModification, time(nullptr),
-      TagModData{std::move(key), std::move(old_value), std::move(new_value)}
-  });
+  AddJournalEntry({JournalEntryType::TagModification, time(nullptr),
+                   TagModData{std::move(key), std::move(old_value), std::move(new_value)}});
 }
 
 void EditJournal::MarkAsCreated(uint32_t type, feature::GeomType geomType, m2::PointD mercator)
 {
   ASSERT(m_journal.empty(), ("Only empty journals can be marked as created"));
   LOG(LDEBUG, ("Object of type ", classif().GetReadableObjectName(type), " created"));
-  AddJournalEntry({
-      JournalEntryType::ObjectCreated, time(nullptr), osm::ObjCreateData{type, geomType, mercator}
-  });
+  AddJournalEntry({JournalEntryType::ObjectCreated, time(nullptr), osm::ObjCreateData{type, geomType, mercator}});
 }
 
 void EditJournal::AddJournalEntry(JournalEntry entry)

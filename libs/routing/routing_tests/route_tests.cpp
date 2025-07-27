@@ -25,34 +25,20 @@ using namespace routing::turns;
 using namespace std;
 
 // For all test geometry: geometry[0] == geometry[1], since info about 1st point will be lost.
-static vector<m2::PointD> const kTestGeometry = {
-    {0, 0},
-    {0, 0},
-    {1, 1},
-    {1, 2},
-    {1, 3},
-    {1, 4}
-};
+static vector<m2::PointD> const kTestGeometry = {{0, 0}, {0, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4}};
 static vector<Segment> const kTestSegments = {
-    {0, 0, 0, true},
-    {0, 0, 1, true},
-    {0, 0, 2, true},
-    {0, 0, 3, true},
-    {0, 0, 4, true}
-};
+    {0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}, {0, 0, 3, true}, {0, 0, 4, true}};
 static vector<turns::TurnItem> const kTestTurns({turns::TurnItem(1, turns::CarDirection::None),
                                                  turns::TurnItem(2, turns::CarDirection::TurnLeft),
                                                  turns::TurnItem(3, turns::CarDirection::TurnRight),
                                                  turns::TurnItem(4, turns::CarDirection::None),
                                                  turns::TurnItem(5, turns::CarDirection::ReachedYourDestination)});
 static vector<double> const kTestTimes = {0.0, 7.0, 10.0, 19.0, 20.0};
-static vector<RouteSegment::RoadNameInfo> const kTestNames = {
-    {"Street0", "", "", "", "", false},
-    {"Street1", "", "", "", "", false},
-    {"Street2", "", "", "", "", false},
-    {       "", "", "", "", "", false},
-    {"Street3", "", "", "", "", false}
-};
+static vector<RouteSegment::RoadNameInfo> const kTestNames = {{"Street0", "", "", "", "", false},
+                                                              {"Street1", "", "", "", "", false},
+                                                              {"Street2", "", "", "", "", false},
+                                                              {"", "", "", "", "", false},
+                                                              {"Street3", "", "", "", "", false}};
 
 void GetTestRouteSegments(vector<m2::PointD> const & routePoints, vector<turns::TurnItem> const & turns,
                           vector<RouteSegment::RoadNameInfo> const & streets, vector<double> const & times,
@@ -74,20 +60,13 @@ location::GpsInfo GetGps(double x, double y)
 vector<vector<Segment>> const GetSegments()
 {
   auto const segmentsAllReal = kTestSegments;
-  vector<Segment> const segmentsAllFake = {
-      {kFakeNumMwmId, 0, 0, true},
-      {kFakeNumMwmId, 0, 1, true},
-      {kFakeNumMwmId, 0, 2, true},
-      {kFakeNumMwmId, 0, 3, true},
-      {kFakeNumMwmId, 0, 4, true}
-  };
+  vector<Segment> const segmentsAllFake = {{kFakeNumMwmId, 0, 0, true},
+                                           {kFakeNumMwmId, 0, 1, true},
+                                           {kFakeNumMwmId, 0, 2, true},
+                                           {kFakeNumMwmId, 0, 3, true},
+                                           {kFakeNumMwmId, 0, 4, true}};
   vector<Segment> const segmentsFakeHeadAndTail = {
-      {kFakeNumMwmId, 0, 0, true},
-      {            0, 0, 1, true},
-      {            0, 0, 2, true},
-      {            0, 0, 3, true},
-      {kFakeNumMwmId, 0, 4, true}
-  };
+      {kFakeNumMwmId, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}, {0, 0, 3, true}, {kFakeNumMwmId, 0, 4, true}};
   return {segmentsAllReal, segmentsFakeHeadAndTail, segmentsAllFake};
 }
 
@@ -375,14 +354,8 @@ UNIT_TEST(NextTurnsTest)
 //
 UNIT_TEST(SelfIntersectedRouteMatchingTest)
 {
-  vector<m2::PointD> const kRouteGeometry = {
-      {0.0001,    0.0},
-      {0.0001,    0.0},
-      {0.0001, 0.0002},
-      {0.0002, 0.0002},
-      {0.0002, 0.0001},
-      {   0.0, 0.0001}
-  };
+  vector<m2::PointD> const kRouteGeometry = {{0.0001, 0.0},    {0.0001, 0.0},    {0.0001, 0.0002},
+                                             {0.0002, 0.0002}, {0.0002, 0.0001}, {0.0, 0.0001}};
   double constexpr kRoundingErrorMeters = 0.001;
 
   Route route("TestRouter", 0 /* route id */);

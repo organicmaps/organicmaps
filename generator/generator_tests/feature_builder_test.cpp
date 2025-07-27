@@ -65,21 +65,15 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
   FeatureBuilderParams params;
 
   base::StringIL arr[] = {
-      { "railway",       "rail"},
-      { "highway",   "motorway"},
-      {   "hwtag",     "oneway"},
-      {"psurface", "paved_good"},
-      {"junction", "roundabout"},
+      {"railway", "rail"},        {"highway", "motorway"},    {"hwtag", "oneway"},
+      {"psurface", "paved_good"}, {"junction", "roundabout"},
   };
 
   AddTypes(params, arr);
   params.FinishAddingTypes();
   fb1.SetParams(params);
 
-  fb1.AssignPoints({
-      {0, 0},
-      {1, 1}
-  });
+  fb1.AssignPoints({{0, 0}, {1, 1}});
   fb1.SetLinear();
 
   TEST(fb1.RemoveInvalidTypes(), ());
@@ -104,9 +98,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
   FeatureBuilder fb1;
   FeatureBuilderParams params;
 
-  base::StringIL arr[] = {
-      {"waterway", "waterfall"}
-  };
+  base::StringIL arr[] = {{"waterway", "waterfall"}};
   AddTypes(params, arr);
   TEST(params.FinishAddingTypes(), ());
 
@@ -173,10 +165,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
 {
   FeatureBuilderParams params;
 
-  base::StringIL arr[] = {
-      {"boundary", "administrative", "2"},
-      {"barrier", "fence"}
-  };
+  base::StringIL arr[] = {{"boundary", "administrative", "2"}, {"barrier", "fence"}};
   AddTypes(params, arr);
   params.FinishAddingTypes();
 
@@ -186,10 +175,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
   FeatureBuilder fb1;
   fb1.SetParams(params);
 
-  fb1.AssignPoints({
-      {0, 0},
-      {1, 1}
-  });
+  fb1.AssignPoints({{0, 0}, {1, 1}});
   fb1.SetLinear();
 
   TEST(!fb1.GetName(0).empty(), ());
@@ -276,15 +262,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_HouseName)
   params.SetHouseNumberAndHouseName("", "St. Nicholas Lodge");
 
   fb.SetParams(params);
-  fb.AssignArea(
-      {
-          {0, 0},
-          {0, 1},
-          {1, 1},
-          {1, 0},
-          {0, 0}
-  },
-      {});
+  fb.AssignArea({{0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}}, {});
   fb.SetArea();
 
   TEST(fb.RemoveInvalidTypes(), ());
@@ -302,11 +280,8 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_SerializeAccuratelyForIntermedia
   FeatureBuilderParams params;
 
   base::StringIL arr[] = {
-      { "railway",       "rail"},
-      { "highway",   "motorway"},
-      {   "hwtag",     "oneway"},
-      {"psurface", "paved_good"},
-      {"junction",   "circular"},
+      {"railway", "rail"},        {"highway", "motorway"},  {"hwtag", "oneway"},
+      {"psurface", "paved_good"}, {"junction", "circular"},
   };
 
   AddTypes(params, arr);
@@ -402,11 +377,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveInconsistentTypes)
   FeatureBuilderParams params;
 
   base::StringIL arr[] = {
-      {"highway",       "cycleway"},
-      {  "hwtag", "onedir_bicycle"},
-      {  "hwtag",      "nobicycle"},
-      {  "hwtag",     "yesbicycle"}
-  };
+      {"highway", "cycleway"}, {"hwtag", "onedir_bicycle"}, {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}};
   AddTypes(params, arr);
   TEST_EQUAL(params.m_types.size(), 4, ());
 

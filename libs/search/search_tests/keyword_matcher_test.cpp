@@ -113,20 +113,20 @@ UNIT_TEST(KeywordMatcher_Prefix)
 {
   char const query[] = "new";
   KeywordMatcherTestCase const testCases[] = {
-      {NOMATCH, DOES_NOT_MATTER,             ""},
-      {NOMATCH, DOES_NOT_MATTER,          "zzz"},
-      {NOMATCH, DOES_NOT_MATTER,           "ne"},
+      {NOMATCH, DOES_NOT_MATTER, ""},
+      {NOMATCH, DOES_NOT_MATTER, "zzz"},
+      {NOMATCH, DOES_NOT_MATTER, "ne"},
 
-      {MATCHES, STRONGLY_BETTER,   "the newark"},
-      {MATCHES, BETTER_OR_EQUAL,     "york new"},
+      {MATCHES, STRONGLY_BETTER, "the newark"},
+      {MATCHES, BETTER_OR_EQUAL, "york new"},
 
       {MATCHES, STRONGLY_BETTER, "new york gym"},
       {MATCHES, BETTER_OR_EQUAL, "new new york"},
-      {MATCHES, STRONGLY_BETTER,     "new york"},
+      {MATCHES, STRONGLY_BETTER, "new york"},
 
-      {MATCHES, STRONGLY_BETTER,       "newark"},
+      {MATCHES, STRONGLY_BETTER, "newark"},
 
-      {MATCHES, STRONGLY_BETTER,          "new"},
+      {MATCHES, STRONGLY_BETTER, "new"},
   };
   TestKeywordMatcher(query, testCases);
 }
@@ -135,18 +135,18 @@ UNIT_TEST(KeywordMatcher_Keyword)
 {
   char const query[] = "new ";
   KeywordMatcherTestCase const testCases[] = {
-      {NOMATCH, DOES_NOT_MATTER,                ""},
-      {NOMATCH, DOES_NOT_MATTER,             "zzz"},
-      {NOMATCH, DOES_NOT_MATTER,              "ne"},
+      {NOMATCH, DOES_NOT_MATTER, ""},
+      {NOMATCH, DOES_NOT_MATTER, "zzz"},
+      {NOMATCH, DOES_NOT_MATTER, "ne"},
       {NOMATCH, DOES_NOT_MATTER, "the netherlands"},
-      {NOMATCH, DOES_NOT_MATTER,          "newark"},
+      {NOMATCH, DOES_NOT_MATTER, "newark"},
 
-      {MATCHES, STRONGLY_BETTER,        "york new"},
+      {MATCHES, STRONGLY_BETTER, "york new"},
 
-      {MATCHES, STRONGLY_BETTER,    "new york gym"},
-      {MATCHES, BETTER_OR_EQUAL,    "new new york"},
+      {MATCHES, STRONGLY_BETTER, "new york gym"},
+      {MATCHES, BETTER_OR_EQUAL, "new new york"},
 
-      {MATCHES, STRONGLY_BETTER,        "new york"},
+      {MATCHES, STRONGLY_BETTER, "new york"},
   };
   TestKeywordMatcher(query, testCases);
 }
@@ -156,7 +156,7 @@ UNIT_TEST(KeywordMatcher_SanSa_ShouldMatch_SanSalvador_BetterThan_San)
   char const query[] = "San Sa";
 
   KeywordMatcherTestCase const testCases[] = {
-      {NOMATCH, DOES_NOT_MATTER,          "San"},
+      {NOMATCH, DOES_NOT_MATTER, "San"},
       {MATCHES, STRONGLY_BETTER, "San Salvador"},
   };
   TestKeywordMatcher(query, testCases);
@@ -167,23 +167,23 @@ UNIT_TEST(KeywordMatcher_KeywordAndPrefix)
   char const query[] = "new yo";
 
   KeywordMatcherTestCase const testCases[] = {
-      {NOMATCH, DOES_NOT_MATTER,            "new"},
-      {NOMATCH, DOES_NOT_MATTER,        "new old"},
-      {NOMATCH, DOES_NOT_MATTER,       "old york"},
+      {NOMATCH, DOES_NOT_MATTER, "new"},
+      {NOMATCH, DOES_NOT_MATTER, "new old"},
+      {NOMATCH, DOES_NOT_MATTER, "old york"},
 
-      {MATCHES, STRONGLY_BETTER,   "the york new"},
+      {MATCHES, STRONGLY_BETTER, "the york new"},
 
-      {MATCHES, STRONGLY_BETTER,   "the new york"},
-      {MATCHES, BETTER_OR_EQUAL,   "york new the"},
-      {MATCHES, BETTER_OR_EQUAL,       "york new"},
+      {MATCHES, STRONGLY_BETTER, "the new york"},
+      {MATCHES, BETTER_OR_EQUAL, "york new the"},
+      {MATCHES, BETTER_OR_EQUAL, "york new"},
 
-      {MATCHES, STRONGLY_BETTER,         "yo new"},
+      {MATCHES, STRONGLY_BETTER, "yo new"},
 
       {MATCHES, STRONGLY_BETTER, "new york pizza"},
 
-      {MATCHES, STRONGLY_BETTER,       "new york"},
+      {MATCHES, STRONGLY_BETTER, "new york"},
 
-      {MATCHES, STRONGLY_BETTER,         "new yo"},
+      {MATCHES, STRONGLY_BETTER, "new yo"},
   };
   TestKeywordMatcher(query, testCases);
 }
@@ -193,21 +193,21 @@ UNIT_TEST(KeywordMatcher_KeywordAndKeyword)
   char const query[] = "new york ";
 
   KeywordMatcherTestCase const testCases[] = {
-      {NOMATCH, DOES_NOT_MATTER,            "new"},
-      {NOMATCH, DOES_NOT_MATTER,        "new old"},
-      {NOMATCH, DOES_NOT_MATTER,       "old york"},
-      {NOMATCH, DOES_NOT_MATTER,  "new yorkshire"},
+      {NOMATCH, DOES_NOT_MATTER, "new"},
+      {NOMATCH, DOES_NOT_MATTER, "new old"},
+      {NOMATCH, DOES_NOT_MATTER, "old york"},
+      {NOMATCH, DOES_NOT_MATTER, "new yorkshire"},
       {NOMATCH, DOES_NOT_MATTER, "york newcastle"},
 
-      {MATCHES, STRONGLY_BETTER,   "the york new"},
+      {MATCHES, STRONGLY_BETTER, "the york new"},
 
-      {MATCHES, STRONGLY_BETTER,   "the new york"},
-      {MATCHES, BETTER_OR_EQUAL,   "york new the"},
+      {MATCHES, STRONGLY_BETTER, "the new york"},
+      {MATCHES, BETTER_OR_EQUAL, "york new the"},
 
-      {MATCHES, STRONGLY_BETTER,       "york new"},
+      {MATCHES, STRONGLY_BETTER, "york new"},
 
       {MATCHES, STRONGLY_BETTER, "new york pizza"},
-      {MATCHES, STRONGLY_BETTER,       "new york"},
+      {MATCHES, STRONGLY_BETTER, "new york"},
   };
   TestKeywordMatcher(query, testCases);
 }
@@ -232,23 +232,16 @@ UNIT_TEST(KeywordMatcher_QueryTooLong)
     string const queryWithPrefixAndSomethingElse = query + " PrefixAndSomethingElse";
 
     KeywordMatcherTestCase const testCases[] = {
-        {NOMATCH, DOES_NOT_MATTER,                                      ""},
-        {NOMATCH, DOES_NOT_MATTER,                                     "Q"},
-        {NOMATCH, DOES_NOT_MATTER,                                    "Q "},
-        {NOMATCH, DOES_NOT_MATTER,                                    "Q3"},
-        {NOMATCH, DOES_NOT_MATTER,                                   "Q3 "},
-        {NOMATCH, DOES_NOT_MATTER,                                  "Q3 Q"},
-        {NOMATCH, DOES_NOT_MATTER,                                 "Q3 Q4"},
-        {NOMATCH, DOES_NOT_MATTER,                                   "zzz"},
+        {NOMATCH, DOES_NOT_MATTER, ""},      {NOMATCH, DOES_NOT_MATTER, "Q"},
+        {NOMATCH, DOES_NOT_MATTER, "Q "},    {NOMATCH, DOES_NOT_MATTER, "Q3"},
+        {NOMATCH, DOES_NOT_MATTER, "Q3 "},   {NOMATCH, DOES_NOT_MATTER, "Q3 Q"},
+        {NOMATCH, DOES_NOT_MATTER, "Q3 Q4"}, {NOMATCH, DOES_NOT_MATTER, "zzz"},
 
-        {NOMATCH, DOES_NOT_MATTER,                                     "Q"},
-        {ANY_RES, STRONGLY_BETTER,                           query.c_str()},
+        {NOMATCH, DOES_NOT_MATTER, "Q"},     {ANY_RES, STRONGLY_BETTER, query.c_str()},
 
-        {NOMATCH, DOES_NOT_MATTER,                                     "Q"},
-        {ANY_RES, STRONGLY_BETTER,                 queryWithPrefix.c_str()},
+        {NOMATCH, DOES_NOT_MATTER, "Q"},     {ANY_RES, STRONGLY_BETTER, queryWithPrefix.c_str()},
 
-        {NOMATCH, DOES_NOT_MATTER,                                     "Q"},
-        {ANY_RES, STRONGLY_BETTER, queryWithPrefixAndSomethingElse.c_str()},
+        {NOMATCH, DOES_NOT_MATTER, "Q"},     {ANY_RES, STRONGLY_BETTER, queryWithPrefixAndSomethingElse.c_str()},
     };
     TestKeywordMatcher(query.c_str(), testCases);
     TestKeywordMatcher(queryWithPrefix.c_str(), testCases);
@@ -264,7 +257,7 @@ UNIT_TEST(KeywordMatcher_NameTooLong)
   };
 
   KeywordMatcherTestCase const testCases[] = {
-      {NOMATCH, DOES_NOT_MATTER,           "zzz"},
+      {NOMATCH, DOES_NOT_MATTER, "zzz"},
 
       {MATCHES, STRONGLY_BETTER, name[0].c_str()},
       {MATCHES, BETTER_OR_EQUAL, name[1].c_str()},
@@ -283,11 +276,11 @@ UNIT_TEST(KeywordMatcher_ManyTokensInReverseOrder)
   string const reversedName = GetManyTokens("Q", kMaxNumTokens, false);
 
   KeywordMatcherTestCase const testCases[] = {
-      {NOMATCH, DOES_NOT_MATTER,                "zzz"},
+      {NOMATCH, DOES_NOT_MATTER, "zzz"},
 
       {MATCHES, STRONGLY_BETTER, reversedName.c_str()},
 
-      {MATCHES, STRONGLY_BETTER,         name.c_str()},
+      {MATCHES, STRONGLY_BETTER, name.c_str()},
   };
   TestKeywordMatcher(query.c_str(), testCases);
 }

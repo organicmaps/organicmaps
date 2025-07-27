@@ -58,9 +58,7 @@ UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest1)
 // One intermediate point test.
 UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest2)
 {
-  std::vector<m2::PointD> const intermediatePoints = {
-      {2.0, 0.0}
-  };
+  std::vector<m2::PointD> const intermediatePoints = {{2.0, 0.0}};
 
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(-0.5, 0.5)), 0, ());
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(1.5, -0.5)), 0, ());
@@ -71,11 +69,7 @@ UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest2)
 // Three intermediate points test.
 UNIT_CLASS_TEST(CheckpointPredictorTest, PredictPositionTest3)
 {
-  std::vector<m2::PointD> const intermediatePoints = {
-      {1.0, 0.0},
-      {2.0, 0.0},
-      {3.0, 0.0}
-  };
+  std::vector<m2::PointD> const intermediatePoints = {{1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}};
 
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(-0.5, 0.5)), 0, ());
   TEST_EQUAL(PredictPosition(intermediatePoints, m2::PointD(0.5, 0.5)), 0, ());

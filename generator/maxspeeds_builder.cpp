@@ -131,9 +131,7 @@ public:
 
       // Set speed as-is from parent link.
       if (parentHwType == hwType)
-        return {
-            {s.GetForward(), s.GetUnits()}
-        };
+        return {{s.GetForward(), s.GetUnits()}};
 
       using routing::HighwayType;
       if ((*parentHwType == HighwayType::HighwayMotorway && hwType == HighwayType::HighwayMotorwayLink) ||

@@ -125,22 +125,9 @@ UNIT_CLASS_TEST(TestRawGenerator, HighwayLinks)
   using namespace routing;
   MaxspeedType from120 = 104;  // like SpeedMacro::Speed104KmPH
   std::unordered_map<uint64_t, uint16_t> osmID2Speed = {
-      {  23011515, from120},
-      {  23011492, from120},
-      {  10689329, from120},
-      { 371581901, from120},
-      {1017695671, from120},
-      { 577365212, from120},
-      {  23011612, from120},
-      {1017695670, from120},
-      { 304871606, from120},
-      {1017695669, from120},
-      { 577365213, from120},
-      { 369541035, from120},
-      {1014336646, from120},
-      { 466365947, from120},
-      {  23011511, from120}
-  };
+      {23011515, from120},  {23011492, from120},  {10689329, from120},   {371581901, from120}, {1017695671, from120},
+      {577365212, from120}, {23011612, from120},  {1017695670, from120}, {304871606, from120}, {1017695669, from120},
+      {577365213, from120}, {369541035, from120}, {1014336646, from120}, {466365947, from120}, {23011511, from120}};
   /// @todo Actually, better to assign speed for this way too.
   std::unordered_set<uint64_t> osmNoSpeed = {23691193, 1017695668};
 
@@ -601,23 +588,23 @@ UNIT_TEST(Place_CityRelations)
   };
 
   ms::LatLon arrNotInBoundary[] = {
-      {48.2071448,   37.9729054}, // gorlovka
-      {56.9118261,   36.2258988}, // tver
-      {64.0469397,  -21.9772409}, // reykjavik
-      {52.4013879,   13.0601531}, // berlin
-      {26.7481191,  -80.0836532}, // riviera beach
-      {38.7981690, -107.7347750}, // hotchkiss
-      {51.7505379,   39.5894547}, // voronezh
-      {53.9170050,   27.8576710}, // minsk
+      {48.2071448, 37.9729054},    // gorlovka
+      {56.9118261, 36.2258988},    // tver
+      {64.0469397, -21.9772409},   // reykjavik
+      {52.4013879, 13.0601531},    // berlin
+      {26.7481191, -80.0836532},   // riviera beach
+      {38.7981690, -107.7347750},  // hotchkiss
+      {51.7505379, 39.5894547},    // voronezh
+      {53.9170050, 27.8576710},    // minsk
 
-      {41.0150982,   29.0213844}, // kadikoy
-      {53.5086454,   26.6979711}, // stolbtcy
-      {56.3752679,   37.3288391}, // dmitrov
-      {54.0026933,   27.6356912}, // lesnoy
+      {41.0150982, 29.0213844},  // kadikoy
+      {53.5086454, 26.6979711},  // stolbtcy
+      {56.3752679, 37.3288391},  // dmitrov
+      {54.0026933, 27.6356912},  // lesnoy
 
-      {56.0807652,   37.9277319}, // pushkino
-      {43.2347760,   74.7573240}, // korday
-      {50.4006992,   10.2020744}, // bad_neustadt
+      {56.0807652, 37.9277319},  // pushkino
+      {43.2347760, 74.7573240},  // korday
+      {50.4006992, 10.2020744},  // bad_neustadt
 
       //{26.6757006, -80.0547346},  // palm beach
   };
@@ -711,7 +698,7 @@ UNIT_TEST(Place_CityRelations_IncludePoint)
   };
 
   ms::LatLon arrInBoundary[] = {
-      {-34.6699107, -58.4302163}, // valentin_alsina
+      {-34.6699107, -58.4302163},  // valentin_alsina
   };
 
   for (size_t i = 0; i < std::size(arrFiles); ++i)
@@ -787,7 +774,7 @@ UNIT_CLASS_TEST(TestRawGenerator, Place_NoCityBoundaries)
   TestDataSample const arrInput[] = {
       // Check that we have only 2 cities without duplicates (Pargas, Қордай).
       // Boundaries are removed because of "very big".
-      {     "./data/test_data/osm/no_boundary_towns.osm", 2, 2},
+      {"./data/test_data/osm/no_boundary_towns.osm", 2, 2},
       // 3 villages in country and 0 in World.
       {"./data/test_data/osm/us_villages_like_towns.osm", 0, 3},
   };
@@ -1145,10 +1132,10 @@ UNIT_CLASS_TEST(TestRawGenerator, Addr_Street_Place)
     bool m_checkStreet, m_checkPlace;
   };
   TestData const arrFiles[] = {
-      {   "./data/test_data/osm/addr_street_place.osm", 1,  true,  true},
-      {"./data/test_data/osm/addr_street_very_far.osm", 2,  true, false},
-      {          "./data/test_data/osm/zelenograd.osm", 1, false,  true},
-      {    "./data/test_data/osm/addr_area_street.osm", 1,  true, false},
+      {"./data/test_data/osm/addr_street_place.osm", 1, true, true},
+      {"./data/test_data/osm/addr_street_very_far.osm", 2, true, false},
+      {"./data/test_data/osm/zelenograd.osm", 1, false, true},
+      {"./data/test_data/osm/addr_area_street.osm", 1, true, false},
   };
 
   for (auto const & data : arrFiles)

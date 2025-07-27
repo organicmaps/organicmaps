@@ -13,20 +13,9 @@ using namespace platform::tests_support;
 namespace
 {
 auto const kOsmElementEmpty = MakeOsmElement(0, {}, OsmElement::EntityType::Node);
-auto const kOsmElementCity = MakeOsmElement(1,
-                                            {
-                                                {      "place", "city"},
-                                                {"admin_level",    "6"}
-},
-                                            OsmElement::EntityType::Node);
+auto const kOsmElementCity = MakeOsmElement(1, {{"place", "city"}, {"admin_level", "6"}}, OsmElement::EntityType::Node);
 auto const kOsmElementCountry = MakeOsmElement(
-    2,
-    {
-        {      "admin_level",   "2"},
-        { "ISO3166-1:alpha2",  "RU"},
-        { "ISO3166-1:alpha3", "RUS"},
-        {"ISO3166-1:numeric", "643"}
-},
+    2, {{"admin_level", "2"}, {"ISO3166-1:alpha2", "RU"}, {"ISO3166-1:alpha3", "RUS"}, {"ISO3166-1:numeric", "643"}},
     OsmElement::EntityType::Relation);
 }  // namespace
 
@@ -42,9 +31,7 @@ UNIT_TEST(FilterData_Ids)
 UNIT_TEST(FilterData_Tags)
 {
   FilterData fd;
-  FilterData::Tags tags{
-      {"admin_level", "2"}
-  };
+  FilterData::Tags tags{{"admin_level", "2"}};
 
   fd.AddSkippedTags(tags);
   TEST(fd.NeedSkipWithTags(kOsmElementCountry.Tags()), ());

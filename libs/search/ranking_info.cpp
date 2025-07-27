@@ -187,11 +187,8 @@ public:
 
     // Add _attraction_ leisures too!
     base::StringIL const types[] = {
-        {"leisure",   "beach_resort"},
-        {"leisure",         "garden"},
-        {"leisure",         "marina"},
-        {"leisure", "nature_reserve"},
-        {"leisure",           "park"},
+        {"leisure", "beach_resort"},   {"leisure", "garden"}, {"leisure", "marina"},
+        {"leisure", "nature_reserve"}, {"leisure", "park"},
     };
 
     Classificator const & c = classif();
@@ -238,16 +235,16 @@ public:
   IsCarInfra()
   {
     base::StringIL const types[] = {
-        {"amenity",       "car_rental"},
-        {"amenity",      "car_sharing"},
-        {"amenity",         "car_wash"},
+        {"amenity", "car_rental"},
+        {"amenity", "car_sharing"},
+        {"amenity", "car_wash"},
         {"amenity", "charging_station"},
-        {"amenity",             "fuel"},
+        {"amenity", "fuel"},
         // Do not add parking here, no need to rank them by name.
         //{"amenity", "parking"},
 
-        {"highway",        "rest_area"},
-        {"highway",         "services"},
+        {"highway", "rest_area"},
+        {"highway", "services"},
     };
 
     Classificator const & c = classif();

@@ -263,11 +263,9 @@ void MainWindow::CreateNavigationBar()
     m_pDrawWidget->BindHotkeys(*this);
 
     // Add navigation hot keys.
-    qt::common::Hotkey const hotkeys[] = {
-        {     Qt::Key_A,                   SLOT(ShowAll())},
-        // Use CMD+n (New Item hotkey) to activate Create Feature mode.
-        {Qt::Key_Escape, SLOT(ChoosePositionModeDisable())}
-    };
+    qt::common::Hotkey const hotkeys[] = {{Qt::Key_A, SLOT(ShowAll())},
+                                          // Use CMD+n (New Item hotkey) to activate Create Feature mode.
+                                          {Qt::Key_Escape, SLOT(ChoosePositionModeDisable())}};
 
     for (auto const & hotkey : hotkeys)
     {
@@ -638,9 +636,7 @@ void MainWindow::OnUploadEditsMenuItem()
   {
     auto & editor = osm::Editor::Instance();
     if (editor.HaveMapEditsOrNotesToUpload())
-      editor.UploadChanges(token, {
-                                      {"created_by", "Organic Maps " OMIM_OS_NAME}
-      });
+      editor.UploadChanges(token, {{"created_by", "Organic Maps " OMIM_OS_NAME}});
   }
 }
 

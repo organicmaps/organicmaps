@@ -94,15 +94,14 @@ UNIT_TEST(Duration_Localization)
 {
   TestData const testData[] = {
       // en
-      {GetLocale("en"),{{1, 2, 3, 0, "1" + d + kNonBreakingSpace + "2" + h + kNonBreakingSpace + "3" + m}}                       },
+      {GetLocale("en"), {{1, 2, 3, 0, "1" + d + kNonBreakingSpace + "2" + h + kNonBreakingSpace + "3" + m}}},
       // ru (narrow spacing between number and unit)
       {GetLocale("ru"),
        {{1, 2, 3, 0,
-       "1" + kNarrowNonBreakingSpace + d + kNonBreakingSpace + "2" + kNarrowNonBreakingSpace + h + kNonBreakingSpace +
-       "3" + kNarrowNonBreakingSpace + m}}                                                                 },
+         "1" + kNarrowNonBreakingSpace + d + kNonBreakingSpace + "2" + kNarrowNonBreakingSpace + h + kNonBreakingSpace +
+             "3" + kNarrowNonBreakingSpace + m}}},
       // zh (no spacings)
-      {GetLocale("zh"),                                         {{1, 2, 3, 0, "1" + d + "2" + h + "3" + m}}}
-  };
+      {GetLocale("zh"), {{1, 2, 3, 0, "1" + d + "2" + h + "3" + m}}}};
 
   for (auto const & data : testData)
   {

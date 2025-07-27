@@ -65,23 +65,23 @@ MapWidget::~MapWidget()
 void MapWidget::BindHotkeys(QWidget & parent)
 {
   Hotkey const hotkeys[] = {
-      {          Qt::Key_Equal,       SLOT(ScalePlus())},
-      {           Qt::Key_Plus,       SLOT(ScalePlus())},
-      {          Qt::Key_Minus,      SLOT(ScaleMinus())},
-      {          Qt::Key_Right,       SLOT(MoveRight())},
-      {           Qt::Key_Left,        SLOT(MoveLeft())},
-      {             Qt::Key_Up,          SLOT(MoveUp())},
-      {           Qt::Key_Down,        SLOT(MoveDown())},
-      {Qt::ALT | Qt::Key_Equal,  SLOT(ScalePlusLight())},
-      { Qt::ALT | Qt::Key_Plus,  SLOT(ScalePlusLight())},
+      {Qt::Key_Equal, SLOT(ScalePlus())},
+      {Qt::Key_Plus, SLOT(ScalePlus())},
+      {Qt::Key_Minus, SLOT(ScaleMinus())},
+      {Qt::Key_Right, SLOT(MoveRight())},
+      {Qt::Key_Left, SLOT(MoveLeft())},
+      {Qt::Key_Up, SLOT(MoveUp())},
+      {Qt::Key_Down, SLOT(MoveDown())},
+      {Qt::ALT | Qt::Key_Equal, SLOT(ScalePlusLight())},
+      {Qt::ALT | Qt::Key_Plus, SLOT(ScalePlusLight())},
       {Qt::ALT | Qt::Key_Minus, SLOT(ScaleMinusLight())},
       {Qt::ALT | Qt::Key_Right, SLOT(MoveRightSmooth())},
-      { Qt::ALT | Qt::Key_Left,  SLOT(MoveLeftSmooth())},
-      {   Qt::ALT | Qt::Key_Up,    SLOT(MoveUpSmooth())},
-      { Qt::ALT | Qt::Key_Down,  SLOT(MoveDownSmooth())},
+      {Qt::ALT | Qt::Key_Left, SLOT(MoveLeftSmooth())},
+      {Qt::ALT | Qt::Key_Up, SLOT(MoveUpSmooth())},
+      {Qt::ALT | Qt::Key_Down, SLOT(MoveDownSmooth())},
 #ifdef ENABLE_AA_SWITCH
-      {    Qt::ALT | Qt::Key_A,  SLOT(AntialiasingOn())},
-      {    Qt::ALT | Qt::Key_S, SLOT(AntialiasingOff())},
+      {Qt::ALT | Qt::Key_A, SLOT(AntialiasingOn())},
+      {Qt::ALT | Qt::Key_S, SLOT(AntialiasingOff())},
 #endif
   };
 

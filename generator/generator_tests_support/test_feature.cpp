@@ -295,9 +295,7 @@ string TestSquare::ToDebugString() const
 TestPOI::TestPOI(m2::PointD const & center, string const & name, string const & lang)
   : TestFeature(center, MakeName(name, lang))
 {
-  SetTypes({
-      {"railway", "station"}
-  });
+  SetTypes({{"railway", "station"}});
 }
 
 // static

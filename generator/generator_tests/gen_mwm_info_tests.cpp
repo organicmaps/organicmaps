@@ -113,10 +113,7 @@ UNIT_TEST(OsmID2FeatureID_WorkingWithOldFormat)
   using namespace platform::tests_support;
 
   auto const filename = "test.osm2ft";
-  std::vector<std::pair<base::GeoObjectId, uint32_t>> answer{
-      {kCid1.m_mainId, kId1},
-      {kCid2.m_mainId, kId2}
-  };
+  std::vector<std::pair<base::GeoObjectId, uint32_t>> answer{{kCid1.m_mainId, kId1}, {kCid2.m_mainId, kId2}};
   ScopedFile sf(filename, ScopedFile::Mode::DoNotCreate);
   {
     FileWriter writer(sf.GetFullPath());

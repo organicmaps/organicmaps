@@ -223,26 +223,24 @@ void CheckPriority(vector<base::StringIL> const & arrT, vector<size_t> const & a
 UNIT_TEST(Classificator_AreaPriority)
 {
   CheckPriority(
-      {
-          // 0
-          {"natural", "coastline"},
-          // 1
-          {"place", "island"},
-          {"natural", "land"},
-          // 2
-          {"natural", "scrub"},
-          {"natural", "heath"},
-          {"natural", "grassland"},
-          {"landuse", "grass"},
-          {"landuse", "farmland"},
-          {"landuse", "forest"},
-          // ?
-          //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
-          // 3
-          {"natural", "water"},
-          {"natural", "water", "lake"},
-          {"landuse", "basin"}
-  },
+      {// 0
+       {"natural", "coastline"},
+       // 1
+       {"place", "island"},
+       {"natural", "land"},
+       // 2
+       {"natural", "scrub"},
+       {"natural", "heath"},
+       {"natural", "grassland"},
+       {"landuse", "grass"},
+       {"landuse", "farmland"},
+       {"landuse", "forest"},
+       // ?
+       //{"leisure", "park"}, {"leisure", "garden"}, - maybe next time (too tricky to do it now)
+       // 3
+       {"natural", "water"},
+       {"natural", "water", "lake"},
+       {"landuse", "basin"}},
       {1, 2, 6, 3}, drule::area);
 
   CheckPriority(
@@ -260,18 +258,18 @@ UNIT_TEST(Classificator_AreaPriority)
           {"man_made", "pier"},
           {"man_made", "breakwater"},
           {"waterway", "dam"},
-  },
+      },
       {4, 3}, drule::area);
 
   CheckPriority(
       {
           // 0
-          {"leisure",       "park"},
+          {"leisure", "park"},
           // 1
-          {"leisure",      "pitch"},
+          {"leisure", "pitch"},
           {"leisure", "playground"},
-          {  "sport",      "multi"},
-  },
+          {"sport", "multi"},
+      },
       {1, 3}, drule::area);
 }
 
@@ -283,12 +281,12 @@ UNIT_TEST(Classificator_PoiPriority)
             // 1
             {"amenity", "drinking_water"},
             // 2
-            {"tourism",      "camp_site"},
+            {"tourism", "camp_site"},
             // 3
             {"tourism", "wilderness_hut"},
             // 4
-            {"tourism",     "alpine_hut"},
-    },
+            {"tourism", "alpine_hut"},
+        },
         {1, 1, 1, 1}, drule::symbol);
   }
 }
@@ -297,12 +295,10 @@ UNIT_TEST(Classificator_MultipleTypesPoiPriority)
 {
   {
     CheckPriority(
-        {
-            // 1
-            {"amenity",  "atm"},
-            // 2
-            {"amenity", "bank"}
-    },
+        {// 1
+         {"amenity", "atm"},
+         // 2
+         {"amenity", "bank"}},
         {1, 1}, drule::symbol);
   }
 
@@ -310,15 +306,15 @@ UNIT_TEST(Classificator_MultipleTypesPoiPriority)
     CheckPriority(
         {
             // 1
-            {"amenity",       "bench"},
-            {"amenity",     "shelter"},
+            {"amenity", "bench"},
+            {"amenity", "shelter"},
             // 2
-            {"highway",    "bus_stop"},
+            {"highway", "bus_stop"},
             {"amenity", "bus_station"},
-            {"railway",     "station"},
-            {"railway",        "halt"},
-            {"railway",   "tram_stop"},
-    },
+            {"railway", "station"},
+            {"railway", "halt"},
+            {"railway", "tram_stop"},
+        },
         {2, 5}, drule::symbol);
   }
 
@@ -326,34 +322,28 @@ UNIT_TEST(Classificator_MultipleTypesPoiPriority)
 
   {
     CheckPriority(
-        {
-            // 1
-            {"leisure", "pitch"},
-            // 2
-            {  "sport",  "yoga"}
-    },
+        {// 1
+         {"leisure", "pitch"},
+         // 2
+         {"sport", "yoga"}},
         {1, 1}, drule::symbol);
   }
 
   {
     CheckPriority(
-        {
-            // 1
-            {"leisure", "sports_centre"},
-            // 2
-            {  "sport",      "shooting"}
-    },
+        {// 1
+         {"leisure", "sports_centre"},
+         // 2
+         {"sport", "shooting"}},
         {1, 1}, drule::symbol);
   }
 
   {
     CheckPriority(
-        {
-            // 1
-            {"landuse", "recreation_ground"},
-            // 2
-            {  "sport",             "multi"}
-    },
+        {// 1
+         {"landuse", "recreation_ground"},
+         // 2
+         {"sport", "multi"}},
         {1, 1}, drule::symbol);
   }
 }

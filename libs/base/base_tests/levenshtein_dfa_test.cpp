@@ -198,8 +198,7 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
         {"yekaterinburg", Result(Status::Accepts, 0 /* errorsMade */, 0 /* prefixErrorsMade */)},
         {"ekaterinburg", Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */)},
         {"jekaterinburg", Result(Status::Accepts, 1 /* errorsMade */, 1 /* prefixErrorsMade */)},
-        {"iekaterinburg", Result(Status::Rejects)}
-    };
+        {"iekaterinburg", Result(Status::Rejects)}};
 
     for (auto const & q : queries)
     {

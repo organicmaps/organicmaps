@@ -148,16 +148,14 @@ UNIT_TEST(ClusteringMap_ForEach)
 
     {
       vector<Cluster> const expected = {
-          {Cluster{0, "Hello"}, Cluster{1, "World!"}, Cluster{2, "alpha"}, Cluster{3, "beta"}, Cluster{4, "gamma"}}
-      };
+          {Cluster{0, "Hello"}, Cluster{1, "World!"}, Cluster{2, "alpha"}, Cluster{3, "beta"}, Cluster{4, "gamma"}}};
       TEST_EQUAL(expected, m.Clusters(), ());
     }
 
     m.Union(0, 1);
     {
       vector<Cluster> const expected = {
-          {Cluster{{0, 1}, {"Hello", "World!"}}, Cluster{2, "alpha"}, Cluster{3, "beta"}, Cluster{4, "gamma"}}
-      };
+          {Cluster{{0, 1}, {"Hello", "World!"}}, Cluster{2, "alpha"}, Cluster{3, "beta"}, Cluster{4, "gamma"}}};
       TEST_EQUAL(expected, m.Clusters(), ());
     }
 
@@ -165,8 +163,7 @@ UNIT_TEST(ClusteringMap_ForEach)
     m.Union(3, 4);
     {
       vector<Cluster> const expected = {
-          {Cluster{{0, 1}, {"Hello", "World!"}}, Cluster{{2, 3, 4}, {"alpha", "beta", "gamma"}}}
-      };
+          {Cluster{{0, 1}, {"Hello", "World!"}}, Cluster{{2, 3, 4}, {"alpha", "beta", "gamma"}}}};
       TEST_EQUAL(expected, m.Clusters(), ());
     }
 

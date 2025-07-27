@@ -23,11 +23,8 @@ IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
   m_type3end = m_types.size();
 
   base::StringIL const arr2[] = {
-      {"boundary", "aboriginal_lands"},
-      { "leisure",   "nature_reserve"},
-      {"boundary",    "national_park"},
-      { "landuse",         "military"},
-      { "amenity",           "prison"},
+      {"boundary", "aboriginal_lands"}, {"leisure", "nature_reserve"}, {"boundary", "national_park"},
+      {"landuse", "military"},          {"amenity", "prison"},
   };
   for (auto const & sl : arr2)
     m_types.push_back(c.GetTypeByPath(sl));

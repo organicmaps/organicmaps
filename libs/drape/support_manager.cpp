@@ -124,21 +124,21 @@ bool SupportManager::IsVulkanForbidden(std::string const & deviceName, Version a
 
   // On these configurations we've detected fatal driver-specific Vulkan errors.
   static Configuration constexpr kBannedConfigurations[] = {
-      Configuration{"Adreno (TM) 506",  {1, 0, 31}, {42, 264, 975}},
-      Configuration{"Adreno (TM) 506",  {1, 1, 66},  {512, 313, 0}},
+      Configuration{"Adreno (TM) 506", {1, 0, 31}, {42, 264, 975}},
+      Configuration{"Adreno (TM) 506", {1, 1, 66}, {512, 313, 0}},
       // Xiaomi Redmi Note 5
-      Configuration{"Adreno (TM) 506", {1, 1, 128},  {512, 502, 0}},
-      Configuration{"Adreno (TM) 530",  {1, 1, 66},  {512, 313, 0}},
+      Configuration{"Adreno (TM) 506", {1, 1, 128}, {512, 502, 0}},
+      Configuration{"Adreno (TM) 530", {1, 1, 66}, {512, 313, 0}},
 
       /// @todo Route line is flickering in nav mode.
       /// Samsung Galaxy S8 (SM-G950F)
-      Configuration{       "Mali-G71",  {1, 0, 97},     {16, 0, 0}},
+      Configuration{"Mali-G71", {1, 0, 97}, {16, 0, 0}},
 
       /// @todo Dashed lines stopped drawing after updating LineShape::Construct<DashedLineBuilder>.
       /// Huawei P20
-      Configuration{       "Mali-G72",  {1, 1, 97},     {18, 0, 0}},
+      Configuration{"Mali-G72", {1, 1, 97}, {18, 0, 0}},
       /// Samsung SM-A505FN (a50), hangs when showing the subway layer.
-      Configuration{       "Mali-G72", {1, 1, 131},     {26, 0, 0}},
+      Configuration{"Mali-G72", {1, 1, 131}, {26, 0, 0}},
   };
 
   for (auto const & c : kBannedConfigurations)

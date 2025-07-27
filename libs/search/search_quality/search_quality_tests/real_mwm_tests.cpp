@@ -158,10 +158,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, TopPOIs_Smoke)
     TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
     Range const range(results, 0, kPopularPoiResultsCount);
-    EqualClassifType(range, GetClassifTypes({
-                                {"shop"},
-                                {"amenity", "fast_food"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"shop"}, {"amenity", "fast_food"}}));
     TEST_LESS(SortedByDistance(range, center).first, 500, ());
   }
 
@@ -191,18 +188,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, TopPOIs_Smoke)
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
     Range const range(results, 0, 6);
-    EqualClassifType(range, GetClassifTypes({
-                                {"shop"},
-                                {"highway", "bus_stop"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"shop"}, {"highway", "bus_stop"}}));
     // highway=bus_stop is closer, but has less rank compared to the shop.
     TEST_LESS(SortedByDistance(Range(results, 0, 3), center).first, 5000, ());
 
     // parking (< 6km) should be on top.
-    EqualClassifType(Range(results, 6, 8), GetClassifTypes({
-                                               {"leisure", "playground"},
-                                               {"amenity",    "parking"}
-    }));
+    EqualClassifType(Range(results, 6, 8), GetClassifTypes({{"leisure", "playground"}, {"amenity", "parking"}}));
   }
 
   // https://github.com/organicmaps/organicmaps/issues/2470
@@ -246,9 +237,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_Subway)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopResults, ());
 
-    EqualClassifType(Range(results, 0, kTopResults), GetClassifTypes({
-                                                         {"amenity", "fast_food"}
-    }));
+    EqualClassifType(Range(results, 0, kTopResults), GetClassifTypes({{"amenity", "fast_food"}}));
   }
 }
 
@@ -275,10 +264,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Paris_Hotel)
 UNIT_CLASS_TEST(MwmTestsFixture, London_Asda)
 {
   // London
-  ms::LatLon const arrPivots[] = {
-      {51.50295, 0.00325},
-      {51.47890, 0.01062}
-  };
+  ms::LatLon const arrPivots[] = {{51.50295, 0.00325}, {51.47890, 0.01062}};
   for (auto const & center : arrPivots)
   {
     SetViewportAndLoadMaps(center);
@@ -306,9 +292,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Lyon_Aldi)
 
   /// @todo First result is "L'ancre aldine", but maybe it is ok?
   Range const range(results, 1, kPopularPoiResultsCount);
-  EqualClassifType(range, GetClassifTypes({
-                              {"shop", "supermarket"}
-  }));
+  EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
   TEST_LESS(SortedByDistance(range, center).first, 2000, ());
 }
 
@@ -324,9 +308,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, NY_BarnesNoble)
   TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
   Range const range(results);
-  EqualClassifType(range, GetClassifTypes({
-                              {"shop", "books"}
-  }));
+  EqualClassifType(range, GetClassifTypes({{"shop", "books"}}));
   TEST_LESS(SortedByDistance(range, center).first, 1000, ());
 }
 
@@ -344,21 +326,19 @@ UNIT_CLASS_TEST(MwmTestsFixture, Hamburg_Park)
 
   Range const range(results, 0, 3);
   EqualClassifType(range, GetClassifTypes({
-                              {"tourism", "theme_park"},
-                              {"amenity",  "fast_food"},
-                              {   "shop",       "gift"},
+                              {"tourism", "theme_park"}, {"amenity", "fast_food"}, {"shop", "gift"},
                               /// @todo Add _near street_ penalty
                               // {"amenity", "pharmacy"}, // "Heide-Apotheke" near the "Parkstraße" street
-  }));
+                          }));
 
   NameStartsWith(range, {"Heide Park", "Heide-Park"});
   TEST_LESS(SortedByDistance(range, center).first, 100000, ());
 
   EqualClassifType(Range(results, 4, 7), GetClassifTypes({
-                                             {"highway",  "service"},
-                                             {"railway",     "halt"},
+                                             {"highway", "service"},
+                                             {"railway", "halt"},
                                              {"highway", "bus_stop"},
-  }));
+                                         }));
 }
 
 // https://github.com/organicmaps/organicmaps/issues/1560
@@ -442,10 +422,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, IceCream)
   TEST_GREATER(results.size(), kResultsCount, ());
 
   Range const range(results, 0, kResultsCount);
-  EqualClassifType(range, GetClassifTypes({
-                              {"amenity", "ice_cream"},
-                              {"cuisine", "ice_cream"}
-  }));
+  EqualClassifType(range, GetClassifTypes({{"amenity", "ice_cream"}, {"cuisine", "ice_cream"}}));
   TEST_LESS(SortedByDistance(range, center).first, 2000.0, ());
 
   auto request2 = MakeRequest("Ice cream");
@@ -525,9 +502,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, French_StopWord_Category)
   auto const & results = request->Results();
 
   Range const range(results);
-  EqualClassifType(range, GetClassifTypes({
-                              {"emergency", "fire_hydrant"}
-  }));
+  EqualClassifType(range, GetClassifTypes({{"emergency", "fire_hydrant"}}));
   TEST_LESS(SortedByDistance(range, center).first, 1000.0, ());
 }
 
@@ -546,12 +521,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     // Top results are Amenities, Hotels, Shops and Streets.
     // Full Match street (20 km) is better than Full Prefix bus stop (1 km).
     Range const range(results);
-    EqualClassifType(range, GetClassifTypes({
-                                {"tourism", "hotel"},
-                                {"shop"},
-                                {"amenity"},
-                                {"highway", "residential"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"tourism", "hotel"}, {"shop"}, {"amenity"}, {"highway", "residential"}}));
   }
 
   {
@@ -572,9 +542,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
 
     // Top results are bus stops.
     Range const range(results);
-    EqualClassifType(range, GetClassifTypes({
-                                {"highway", "bus_stop"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"highway", "bus_stop"}}));
     TEST_LESS(SortedByDistance(range, center).first, 5000.0, ());
   }
 
@@ -589,10 +557,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     // -3 Railway station, same as (2)
     // -4 Railway station, same as (1)
     Range const range(results, 0, 4);
-    EqualClassifType(range, GetClassifTypes({
-                                { "railway",       "station"},
-                                {"building", "train_station"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"railway", "station"}, {"building", "train_station"}}));
   }
 }
 
@@ -610,10 +575,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
 
     // results[0] is a named POI ~9km (https://www.openstreetmap.org/node/9730886727)
     Range const range(results, 1, kResultsCount);
-    EqualClassifType(range, GetClassifTypes({
-                                {"man_made", "tower", "communication"},
-                                {"man_made", "communications_tower"}
-    }));
+    EqualClassifType(range,
+                     GetClassifTypes({{"man_made", "tower", "communication"}, {"man_made", "communications_tower"}}));
     TEST_LESS(SortedByDistance(range, center).first, 3000.0, ());
   }
 
@@ -623,9 +586,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Generic_Buildings_Rank)
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
     Range const range(results);
-    EqualClassifType(range, GetClassifTypes({
-                                {"shop", "supermarket"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
     TEST_LESS(SortedByDistance(range, center).second, 1000.0, ());
   }
 }
@@ -722,9 +683,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, AddrInterpolation_Rank)
     TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
     // Top first address results.
-    EqualClassifType(Range(results, 0, 4), GetClassifTypes({
-                                               {"building", "address"}
-    }));
+    EqualClassifType(Range(results, 0, 4), GetClassifTypes({{"building", "address"}}));
   }
 }
 
@@ -860,10 +819,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, ToiletAirport)
     TEST_EQUAL(results.size(), kResultsCount, ());
 
     Range const range(results, 0, kResultsCount);
-    EqualClassifType(range, GetClassifTypes({
-                                {"amenity", "toilets"},
-                                {"toilets",     "yes"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"amenity", "toilets"}, {"toilets", "yes"}}));
     TEST_LESS(SortedByDistance(range, center).second, 1000, ());
   }
 }
@@ -884,10 +840,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, WaterTap)
     TEST_GREATER_OR_EQUAL(results.size(), kTopPoiResultsCount, ());
 
     Range const range(results);
-    EqualClassifType(range, GetClassifTypes({
-                                { "amenity", "drinking_water"},
-                                {"man_made",      "water_tap"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"amenity", "drinking_water"}, {"man_made", "water_tap"}}));
     TEST_LESS(SortedByDistance(range, center).second, 3500, ());
   }
 }
@@ -1017,9 +970,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, RelaxedStreets)
     TEST_GREATER(results.size(), 20, ());
 
     Range const range(results, 0, 3);
-    EqualClassifType(range, GetClassifTypes({
-                                {"highway", "residential"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"highway", "residential"}}));
     TEST_LESS(SortedByDistance(range, center).first, 3000, ());
   }
 }
@@ -1075,10 +1026,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
     // - "Béke utca" in Szank
     // - "Szani Gyros" fast food near the "Béke utca"
     // - "Béke utca"
-    EqualClassifType(Range(results, 0, kResultsCount), GetClassifTypes({
-                                                           {"highway"},
-                                                           {"amenity", "fast_food"}
-    }));
+    EqualClassifType(Range(results, 0, kResultsCount), GetClassifTypes({{"highway"}, {"amenity", "fast_food"}}));
   }
 
   {
@@ -1090,9 +1038,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Streets_Rank)
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
     // First result is a viewpoint (attraction).
-    EqualClassifType(Range(results, 0, 1), GetClassifTypes({
-                                               {"tourism", "viewpoint"}
-    }));
+    EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"tourism", "viewpoint"}}));
     // And next are the streets.
     Range const range(results, 1, 4);
     EqualClassifType(range, GetClassifTypes({{"highway"}}));
@@ -1122,9 +1068,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
 
       // alt_name="Malabia"
       // name="Malabia XXX" - should take this name's rank
-      EqualClassifType(Range(results, 0, 1), GetClassifTypes({
-                                                 {"railway", "station", "subway"}
-      }));
+      EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"railway", "station", "subway"}}));
     }
 
     {
@@ -1152,10 +1096,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     TEST_GREATER(results.size(), kResultsCount, ());
 
     Range range(results, 0, 2);
-    EqualClassifType(range, GetClassifTypes({
-                                {"amenity", "post_office"},
-                                {"railway",     "station"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"amenity", "post_office"}, {"railway", "station"}}));
     TEST_LESS(SortedByDistance(range, center).first, 1000, ());
   }
 
@@ -1174,9 +1115,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     // result[0] - 'Rimini' city in Italy
     // First 2 results - nearest supermarkets.
     Range range(results, 1, 3);
-    EqualClassifType(range, GetClassifTypes({
-                                {"shop", "supermarket"}
-    }));
+    EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
     TEST_LESS(SortedByDistance(range, center).second, 1500, ());
   }
 
@@ -1189,9 +1128,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     auto request = MakeRequest("Göztepe 60. Yıl Parkı");
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
-    EqualClassifType(Range(results, 0, 1), GetClassifTypes({
-                                               {"leisure", "park"}
-    }));
+    EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"leisure", "park"}}));
   }
 
   // https://github.com/organicmaps/organicmaps/issues/4291
@@ -1302,11 +1239,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, PostOffice_Viewport)
     Range allRange(results, true /* all */);
 
     /// @todo townhall and office are near the "Poststrasse". Remove after fixing _near the street_ penalty.
-    EqualClassifType(allRange, GetClassifTypes({
-                                   {"amenity", "post_office"},
-                                   {"amenity", "townhall"},
-                                   {"office"}
-    }));
+    EqualClassifType(allRange, GetClassifTypes({{"amenity", "post_office"}, {"amenity", "townhall"}, {"office"}}));
   }
 }
 
@@ -1381,9 +1314,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, CityWithCountry)
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
     // Should be on 1st place.
-    EqualClassifType(Range(results, 0, 1), GetClassifTypes({
-                                               {"place", "city"}
-    }));
+    EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"place", "city"}}));
   }
 }
 
@@ -1472,9 +1403,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, CompleteSearch_DistantMWMs)
     auto request = MakeRequest("гора Эльбрус", "ru");
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
-    EqualClassifType(Range(results, 0, 1), GetClassifTypes({
-                                               {"natural", "volcano"}
-    }));
+    EqualClassifType(Range(results, 0, 1), GetClassifTypes({{"natural", "volcano"}}));
   }
 }
 

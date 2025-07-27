@@ -59,27 +59,23 @@ inline double GetVisualScale()
 double CalculateZoomBySpeed(double speedMpS, bool isPerspectiveAllowed)
 {
   using TSpeedScale = std::pair<double, double>;
-  static std::array<TSpeedScale, 6> const scales3d = {
-      {
-       {20.0, 0.25},
-       {40.0, 0.75},
-       {60.0, 1.50},
-       {75.0, 2.50},
-       {85.0, 3.75},
-       {95.0, 6.00},
-       }
-  };
+  static std::array<TSpeedScale, 6> const scales3d = {{
+      {20.0, 0.25},
+      {40.0, 0.75},
+      {60.0, 1.50},
+      {75.0, 2.50},
+      {85.0, 3.75},
+      {95.0, 6.00},
+  }};
 
-  static std::array<TSpeedScale, 6> const scales2d = {
-      {
-       {20.0, 0.70},
-       {40.0, 1.25},
-       {60.0, 2.25},
-       {75.0, 3.00},
-       {85.0, 3.75},
-       {95.0, 6.00},
-       }
-  };
+  static std::array<TSpeedScale, 6> const scales2d = {{
+      {20.0, 0.70},
+      {40.0, 1.25},
+      {60.0, 2.25},
+      {75.0, 3.00},
+      {85.0, 3.75},
+      {95.0, 6.00},
+  }};
 
   std::array<TSpeedScale, 6> const & scales = isPerspectiveAllowed ? scales3d : scales2d;
 

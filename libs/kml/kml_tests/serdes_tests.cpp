@@ -68,10 +68,7 @@ kml::FileData GenerateKmlFileData()
   result.m_categoryData.m_tags = {"mountains", "ski", "snowboard"};
   result.m_categoryData.m_toponyms = {"12345", "54321"};
   result.m_categoryData.m_languageCodes = {1, 2, 8};
-  result.m_categoryData.m_properties = {
-      {"property1", "value1"},
-      {"property2", "value2"}
-  };
+  result.m_categoryData.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
 
   kml::BookmarkData bookmarkData;
   bookmarkData.m_name[kDefaultLang] = "Test bookmark";
@@ -90,11 +87,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_visible = false;
   bookmarkData.m_nearestToponym = "12345";
   bookmarkData.m_minZoom = 10;
-  bookmarkData.m_properties = {
-      {"bm_property1", "value1"},
-      {"bm_property2", "value2"},
-      {       "score",      "5"}
-  };
+  bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
   bookmarkData.m_compilations = {1, 2, 3, 4, 5};
   result.m_bookmarksData.emplace_back(std::move(bookmarkData));
 
@@ -104,24 +97,15 @@ kml::FileData GenerateKmlFileData()
   trackData.m_name[kRuLang] = "Тестовый трек";
   trackData.m_description[kDefaultLang] = "Test track description";
   trackData.m_description[kRuLang] = "Тестовое описание трека";
-  trackData.m_layers = {
-      {6.0, {kml::PredefinedColor::None, 0xff0000ff}},
-      {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}
-  };
+  trackData.m_layers = {{6.0, {kml::PredefinedColor::None, 0xff0000ff}},
+                        {7.0, {kml::PredefinedColor::None, 0x00ff00ff}}};
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
-  trackData.m_geometry.AddLine({
-      {{45.9242, 56.8679}, 1},
-      {{45.2244, 56.2786}, 2},
-      {{45.1964, 56.9832}, 3}
-  });
+  trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
 
   trackData.m_visible = false;
   trackData.m_nearestToponyms = {"12345", "54321", "98765"};
-  trackData.m_properties = {
-      {"tr_property1", "value1"},
-      {"tr_property2", "value2"}
-  };
+  trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
   result.m_tracksData.emplace_back(std::move(trackData));
 
   kml::CategoryData compilationData1;
@@ -144,10 +128,7 @@ kml::FileData GenerateKmlFileData()
   compilationData1.m_tags = {"mountains", "ski"};
   compilationData1.m_toponyms = {"8", "9"};
   compilationData1.m_languageCodes = {1, 2, 8};
-  compilationData1.m_properties = {
-      {"property1", "value1"},
-      {"property2", "value2"}
-  };
+  compilationData1.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
   result.m_compilationsData.push_back(std::move(compilationData1));
 
   kml::CategoryData compilationData2;
@@ -170,10 +151,7 @@ kml::FileData GenerateKmlFileData()
   compilationData2.m_tags = {"mountains", "bike"};
   compilationData2.m_toponyms = {"10", "11"};
   compilationData2.m_languageCodes = {1, 2, 8};
-  compilationData2.m_properties = {
-      {"property1", "value1"},
-      {"property2", "value2"}
-  };
+  compilationData2.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
   result.m_compilationsData.push_back(std::move(compilationData2));
 
   return result;
@@ -184,11 +162,7 @@ kml::FileData GenerateKmlFileDataForTrackWithoutTimestamps()
   auto data = GenerateKmlFileData();
   auto & trackData = data.m_tracksData[0];
   trackData.m_geometry.Clear();
-  trackData.m_geometry.AddLine({
-      {{45.9242, 56.8679}, 1},
-      {{45.2244, 56.2786}, 2},
-      {{45.1964, 56.9832}, 3}
-  });
+  trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
   trackData.m_geometry.AddTimestamps({});
   return data;
 }
@@ -200,26 +174,15 @@ kml::FileData GenerateKmlFileDataForTrackWithTimestamps()
   trackData.m_geometry.Clear();
 
   // track 1 (without timestamps)
-  trackData.m_geometry.AddLine({
-      {{45.9242, 56.8679}, 1},
-      {{45.2244, 56.2786}, 2},
-      {{45.1964, 56.9832}, 3}
-  });
+  trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
   trackData.m_geometry.AddTimestamps({});
 
   // track 2
-  trackData.m_geometry.AddLine({
-      {{45.9242, 56.8679}, 1},
-      {{45.2244, 56.2786}, 2},
-      {{45.1964, 56.9832}, 3}
-  });
+  trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
   trackData.m_geometry.AddTimestamps({0.0, 1.0, 2.0});
 
   // track 3
-  trackData.m_geometry.AddLine({
-      {{45.9242, 56.8679}, 1},
-      {{45.2244, 56.2786}, 2}
-  });
+  trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}});
   trackData.m_geometry.AddTimestamps({0.0, 1.0});
   return data;
 }

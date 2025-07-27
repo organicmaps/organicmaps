@@ -65,9 +65,7 @@ std::string_view constexpr kHighlight = "highlight";
 }  // namespace highlight_feature
 
 // See also kGe0Prefixes in ge0/parser.hpp
-constexpr std::array<std::string_view, 3> kLegacyMwmPrefixes = {
-    {"mapsme://", "mwm://", "mapswithme://"}
-};
+constexpr std::array<std::string_view, 3> kLegacyMwmPrefixes = {{"mapsme://", "mwm://", "mapswithme://"}};
 
 bool ParseLatLon(std::string const & key, std::string const & value, double & lat, double & lon)
 {

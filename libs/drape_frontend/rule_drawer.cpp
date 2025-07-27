@@ -353,11 +353,11 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
       df::RoadClass m_roadClass;
     };
     static Checker const checkers[] = {
-        {                                   {HighwayClass::Trunk, HighwayClass::Primary},kRoadClass0ZoomLevel, df::RoadClass::Class0                                                                                         },
-        {                              {HighwayClass::Secondary, HighwayClass::Tertiary}, kRoadClass1ZoomLevel, df::RoadClass::Class1},
+        {{HighwayClass::Trunk, HighwayClass::Primary}, kRoadClass0ZoomLevel, df::RoadClass::Class0},
+        {{HighwayClass::Secondary, HighwayClass::Tertiary}, kRoadClass1ZoomLevel, df::RoadClass::Class1},
         {{HighwayClass::LivingStreet, HighwayClass::Service, HighwayClass::ServiceMinor},
-         kRoadClass2ZoomLevel, df::RoadClass::Class2                                                                                 }
-    };
+         kRoadClass2ZoomLevel,
+         df::RoadClass::Class2}};
 
     bool const oneWay = ftypes::IsOneWayChecker::Instance()(f);
     auto const highwayClass = ftypes::GetHighwayClass(feature::TypesHolder(f));

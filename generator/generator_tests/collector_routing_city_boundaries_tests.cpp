@@ -25,38 +25,10 @@ using BoundariesCollector = RoutingCityBoundariesCollector;
 
 std::string const kDumpFileName = "dump.bin";
 
-std::vector<m2::PointD> const kPolygon1 = {
-    {1, 0},
-    {0, 2},
-    {2, 2},
-    {2, 0},
-    {0, 0},
-    {1, 0}
-};
-std::vector<m2::PointD> const kPolygon2 = {
-    {2, 0},
-    {0, 2},
-    {2, 2},
-    {2, 0},
-    {0, 0},
-    {2, 0}
-};
-std::vector<m2::PointD> const kPolygon3 = {
-    {3, 0},
-    {0, 2},
-    {2, 2},
-    {2, 0},
-    {0, 0},
-    {3, 0}
-};
-std::vector<m2::PointD> const kPolygon4 = {
-    {4, 0},
-    {0, 2},
-    {2, 2},
-    {2, 0},
-    {0, 0},
-    {4, 0}
-};
+std::vector<m2::PointD> const kPolygon1 = {{1, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {1, 0}};
+std::vector<m2::PointD> const kPolygon2 = {{2, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {2, 0}};
+std::vector<m2::PointD> const kPolygon3 = {{3, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {3, 0}};
+std::vector<m2::PointD> const kPolygon4 = {{4, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}, {4, 0}};
 
 feature::FeatureBuilder MakeAreaFeatureBuilder(OsmElement element, std::vector<m2::PointD> && geometry)
 {
@@ -82,60 +54,24 @@ feature::FeatureBuilder MakeNodeFeatureBuilder(OsmElement element)
 
 OsmElement MakeAreaWithPlaceNode(uint64_t id, uint64_t placeId, std::string const & role)
 {
-  auto area = MakeOsmElement(id,
-                             {
-                                 {"boundary", "administrative"}
-  },
-                             OsmElement::EntityType::Relation);
+  auto area = MakeOsmElement(id, {{"boundary", "administrative"}}, OsmElement::EntityType::Relation);
   area.m_members.emplace_back(placeId, OsmElement::EntityType::Node, role);
   return area;
 }
 
-auto const placeRelation1 = MakeOsmElement(1 /* id */,
-                                           {
-                                               {"place", "city"}
-},
-                                           OsmElement::EntityType::Relation);
-auto const placeRelation2 = MakeOsmElement(2 /* id */,
-                                           {
-                                               {"place", "town"}
-},
-                                           OsmElement::EntityType::Relation);
-auto const placeRelation3 = MakeOsmElement(3 /* id */,
-                                           {
-                                               {"place", "village"}
-},
-                                           OsmElement::EntityType::Relation);
-auto const placeRelation4 = MakeOsmElement(4 /* id */,
-                                           {
-                                               {"place", "country"}
-},
-                                           OsmElement::EntityType::Relation);
+auto const placeRelation1 = MakeOsmElement(1 /* id */, {{"place", "city"}}, OsmElement::EntityType::Relation);
+auto const placeRelation2 = MakeOsmElement(2 /* id */, {{"place", "town"}}, OsmElement::EntityType::Relation);
+auto const placeRelation3 = MakeOsmElement(3 /* id */, {{"place", "village"}}, OsmElement::EntityType::Relation);
+auto const placeRelation4 = MakeOsmElement(4 /* id */, {{"place", "country"}}, OsmElement::EntityType::Relation);
 
-auto const placeNode1 = MakeOsmElement(9 /* id */,
-                                       {
-                                           {     "place",    "city"},
-                                           {"population", "200.000"}
-},
-                                       OsmElement::EntityType::Node);
-auto const placeNode2 = MakeOsmElement(10 /* id */,
-                                       {
-                                           {     "place",   "town"},
-                                           {"population", "10 000"}
-},
-                                       OsmElement::EntityType::Node);
-auto const placeNode3 = MakeOsmElement(11 /* id */,
-                                       {
-                                           {     "place", "village"},
-                                           {"population",    "1000"}
-},
-                                       OsmElement::EntityType::Node);
-auto const placeNode4 = MakeOsmElement(12 /* id */,
-                                       {
-                                           {     "place",   "country"},
-                                           {"population", "147000000"}
-},
-                                       OsmElement::EntityType::Node);
+auto const placeNode1 =
+    MakeOsmElement(9 /* id */, {{"place", "city"}, {"population", "200.000"}}, OsmElement::EntityType::Node);
+auto const placeNode2 =
+    MakeOsmElement(10 /* id */, {{"place", "town"}, {"population", "10 000"}}, OsmElement::EntityType::Node);
+auto const placeNode3 =
+    MakeOsmElement(11 /* id */, {{"place", "village"}, {"population", "1000"}}, OsmElement::EntityType::Node);
+auto const placeNode4 =
+    MakeOsmElement(12 /* id */, {{"place", "country"}, {"population", "147000000"}}, OsmElement::EntityType::Node);
 
 auto const relationWithLabel1 = MakeAreaWithPlaceNode(5 /* id */, 9 /* placeId */, "label" /* role */);
 auto const relationWithLabel2 = MakeAreaWithPlaceNode(6 /* id */, 10 /* placeId */, "admin_centre" /* role */);
@@ -335,15 +271,9 @@ UNIT_TEST(AreaOnEarth_Convex_Polygon_1)
 UNIT_TEST(AreaOnEarth_Convex_Polygon_2)
 {
   std::vector<ms::LatLon> const latlons = {
-      {55.6348484,  36.025526},
-      {55.0294112, 36.8959709},
-      {54.9262448, 38.3719426},
-      {55.3561515, 39.3275397},
-      {55.7548279, 39.4458067},
-      {56.3020039, 39.3322704},
-      {56.5140099, 38.6368606},
-      { 56.768935, 37.0473526},
-      {56.4330113, 35.6234183},
+      {55.6348484, 36.025526},  {55.0294112, 36.8959709}, {54.9262448, 38.3719426},
+      {55.3561515, 39.3275397}, {55.7548279, 39.4458067}, {56.3020039, 39.3322704},
+      {56.5140099, 38.6368606}, {56.768935, 37.0473526},  {56.4330113, 35.6234183},
   };
 
   std::vector<m2::PointD> const points = FromLatLons(latlons);

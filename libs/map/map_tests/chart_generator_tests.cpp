@@ -167,9 +167,7 @@ UNIT_TEST(GenerateChartByPoints_NoGeometryTest)
 
 UNIT_TEST(GenerateChartByPoints_OnePointTest)
 {
-  vector<m2::PointD> const geometry = {
-      {20.0, 20.0}
-  };
+  vector<m2::PointD> const geometry = {{20.0, 20.0}};
   size_t constexpr width = 40;
   size_t constexpr height = 40;
   vector<uint8_t> frameBuffer;
@@ -181,10 +179,7 @@ UNIT_TEST(GenerateChartByPoints_OnePointTest)
 
 UNIT_TEST(GenerateChartByPoints_Test)
 {
-  vector<m2::PointD> const geometry = {
-      { 0.0,  0.0},
-      {10.0, 10.0}
-  };
+  vector<m2::PointD> const geometry = {{0.0, 0.0}, {10.0, 10.0}};
 
   size_t constexpr width = 40;
   size_t constexpr height = 40;

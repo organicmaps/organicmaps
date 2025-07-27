@@ -101,9 +101,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
     for (int y = -5; y <= 5; ++y)
     {
       pois.emplace_back(m2::PointD(x, y), "cafe", "en");
-      pois.back().SetTypes({
-          {"amenity", "cafe"}
-      });
+      pois.back().SetTypes({{"amenity", "cafe"}});
     }
   }
 

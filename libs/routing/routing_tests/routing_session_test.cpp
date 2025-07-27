@@ -28,17 +28,8 @@ using namespace std;
 using chrono::seconds;
 using chrono::steady_clock;
 
-vector<m2::PointD> kTestRoute = {
-    {0., 1.},
-    {0., 1.},
-    {0., 3.},
-    {0., 4.}
-};
-vector<Segment> const kTestSegments = {
-    {0, 0, 0, true},
-    {0, 0, 1, true},
-    {0, 0, 2, true}
-};
+vector<m2::PointD> kTestRoute = {{0., 1.}, {0., 1.}, {0., 3.}, {0., 4.}};
+vector<Segment> const kTestSegments = {{0, 0, 0, true}, {0, 0, 1, true}, {0, 0, 2, true}};
 vector<turns::TurnItem> const kTestTurnsReachOnly = {turns::TurnItem(1, turns::CarDirection::None),
                                                      turns::TurnItem(2, turns::CarDirection::None),
                                                      turns::TurnItem(3, turns::CarDirection::ReachedYourDestination)};
@@ -543,12 +534,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest
 
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
 {
-  vector<m2::PointD> const kRoute = {
-      {0.0, 0.001},
-      {0.0, 0.002},
-      {0.0, 0.003},
-      {0.0, 0.004}
-  };
+  vector<m2::PointD> const kRoute = {{0.0, 0.001}, {0.0, 0.002}, {0.0, 0.003}, {0.0, 0.004}};
   // Creation RoutingSession.
   TimedSignal createTimedSignal;
   GetPlatform().RunTask(Platform::Thread::Gui, [this, &kRoute, &createTimedSignal]()

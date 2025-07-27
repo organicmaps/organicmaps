@@ -61,29 +61,15 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
     TestMwmBuilder builder(file, DataHeader::MapType::Country);
 
     // Deprecated types.
-    MakeFeature(builder,
-                {
-                    {"leisure", "dog_park"},
-                    {  "sport",   "tennis"}
-    },
-                {0.0, 0.0});
-    MakeFeature(builder,
-                {
-                    {"leisure", "playground"},
-                    {  "sport",     "tennis"}
-    },
-                {1.0, 1.0});
+    MakeFeature(builder, {{"leisure", "dog_park"}, {"sport", "tennis"}}, {0.0, 0.0});
+    MakeFeature(builder, {{"leisure", "playground"}, {"sport", "tennis"}}, {1.0, 1.0});
   }
 
   FrozenDataSource dataSource;
   TEST_EQUAL(dataSource.Register(file).second, MwmSet::RegResult::Success, ());
 
   // New types.
-  base::StringIL arr[] = {
-      {"leisure",   "dog_park"},
-      {"leisure", "playground"},
-      {  "sport",     "tennis"}
-  };
+  base::StringIL arr[] = {{"leisure", "dog_park"}, {"leisure", "playground"}, {"sport", "tennis"}};
 
   Classificator const & cl = classif();
   set<uint32_t> types;

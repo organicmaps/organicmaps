@@ -61,9 +61,7 @@ class AlcoShop : public TestPOI
 public:
   AlcoShop(m2::PointD const & center, string const & name, string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({
-        {"shop", "alcohol"}
-    });
+    SetTypes({{"shop", "alcohol"}});
   }
 };
 
@@ -72,9 +70,7 @@ class SubwayStation : public TestPOI
 public:
   SubwayStation(m2::PointD const & center, string const & name, string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({
-        {"railway", "station", "subway"}
-    });
+    SetTypes({{"railway", "station", "subway"}});
   }
 };
 
@@ -83,9 +79,7 @@ class SubwayStationMoscow : public TestPOI
 public:
   SubwayStationMoscow(m2::PointD const & center, string const & name, string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({
-        {"railway", "station", "subway", "moscow"}
-    });
+    SetTypes({{"railway", "station", "subway", "moscow"}});
   }
 };
 
@@ -195,40 +189,40 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
   /// @todo Should rewrite test
   base::StringIL const arrNotPoint[] = {
       // Area types without suitable point drawing rules.
-      {"area:highway",           "steps"},
-      {     "landuse",           "basin"},
-      {     "natural",         "glacier"},
+      {"area:highway", "steps"},
+      {"landuse", "basin"},
+      {"natural", "glacier"},
 
       // Linear types.
-      {    "waterway",           "canal"},
-      {    "waterway",           "river"},
-      {    "waterway",          "stream"},
-      {     "highway",         "footway"},
-      {     "highway",        "cycleway"},
-      {     "highway",   "living_street"},
-      {     "highway",        "motorway"},
-      {     "highway",   "motorway_link"},
-      {     "highway",            "path"},
-      {     "highway",      "pedestrian"},
-      {     "highway",         "primary"},
-      {     "highway",    "primary_link"},
-      {     "highway",         "raceway"},
-      {     "highway",     "residential"},
-      {     "highway",            "road"},
-      {     "highway",       "secondary"},
-      {     "highway",  "secondary_link"},
-      {     "highway",         "service"},
-      {     "highway",           "steps"},
-      {     "highway",        "tertiary"},
-      {     "highway",   "tertiary_link"},
-      {     "highway",           "track"},
-      {     "highway", "traffic_signals"},
-      {     "highway",           "trunk"},
-      {     "highway",      "trunk_link"},
-      {     "highway",    "unclassified"},
-      {    "historic",       "citywalls"},
-      {  "piste:type",        "downhill"},
-      {  "piste:type",          "nordic"},
+      {"waterway", "canal"},
+      {"waterway", "river"},
+      {"waterway", "stream"},
+      {"highway", "footway"},
+      {"highway", "cycleway"},
+      {"highway", "living_street"},
+      {"highway", "motorway"},
+      {"highway", "motorway_link"},
+      {"highway", "path"},
+      {"highway", "pedestrian"},
+      {"highway", "primary"},
+      {"highway", "primary_link"},
+      {"highway", "raceway"},
+      {"highway", "residential"},
+      {"highway", "road"},
+      {"highway", "secondary"},
+      {"highway", "secondary_link"},
+      {"highway", "service"},
+      {"highway", "steps"},
+      {"highway", "tertiary"},
+      {"highway", "tertiary_link"},
+      {"highway", "track"},
+      {"highway", "traffic_signals"},
+      {"highway", "trunk"},
+      {"highway", "trunk_link"},
+      {"highway", "unclassified"},
+      {"historic", "citywalls"},
+      {"piste:type", "downhill"},
+      {"piste:type", "nordic"},
   };
   set<uint32_t> notPointTypes;
   for (auto const & tags : arrNotPoint)
@@ -237,8 +231,8 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
   // No point drawing rules for country scale range.
   base::StringIL const arrInvisible[] = {
       {"place", "continent"},
-      {"place",    "county"},
-      {"place",    "region"},
+      {"place", "county"},
+      {"place", "region"},
   };
   set<uint32_t> invisibleTypes;
   for (auto const & tags : arrInvisible)
@@ -321,11 +315,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
       builder.AddSafe(withoutName);
     });
 
-    Rules const rules[] = {
-        {ExactMatch(id, withName), ExactMatch(id, withoutName)},
-        {ExactMatch(id, withName)},
-        {}
-    };
+    Rules const rules[] = {{ExactMatch(id, withName), ExactMatch(id, withoutName)}, {ExactMatch(id, withName)}, {}};
     auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode);
 
     // If you have "Unsatisfied rules" error, consider:

@@ -54,10 +54,7 @@ inline EPlaceState PlaceStateCheck(std::string const & openingHours, time_t time
     futureState = oh.IsOpen(std::chrono::system_clock::to_time_t(future)) ? OPEN : CLOSED;
   }
 
-  EPlaceState state[2][2] = {
-      {    EPlaceState::Open, EPlaceState::CloseSoon},
-      {EPlaceState::OpenSoon,    EPlaceState::Closed}
-  };
+  EPlaceState state[2][2] = {{EPlaceState::Open, EPlaceState::CloseSoon}, {EPlaceState::OpenSoon, EPlaceState::Closed}};
 
   return state[nowState][futureState];
 }

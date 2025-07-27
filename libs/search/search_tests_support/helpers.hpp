@@ -80,9 +80,7 @@ class TestCafe : public generator::tests_support::TestPOI
 public:
   TestCafe(m2::PointD const & center, std::string const & name, std::string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({
-        {"amenity", "cafe"}
-    });
+    SetTypes({{"amenity", "cafe"}});
   }
 
   explicit TestCafe(m2::PointD const & center) : TestCafe(center, "cafe", "en") {}
@@ -93,9 +91,7 @@ class TestHotel : public generator::tests_support::TestPOI
 public:
   TestHotel(m2::PointD const & center, std::string const & name, std::string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({
-        {"tourism", "hotel"}
-    });
+    SetTypes({{"tourism", "hotel"}});
   }
 
   explicit TestHotel(m2::PointD const & center) : TestHotel(center, "hotel", "en") {}
