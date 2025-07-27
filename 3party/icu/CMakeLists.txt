@@ -172,6 +172,7 @@ add_library(icuuc
   icu/icu4c/source/common/uvector.cpp
   icu/icu4c/source/common/uvectr32.cpp
   icu/icu4c/source/common/uvectr64.h
+  icu/icu4c/source/common/wintz.cpp
   icu/icu4c/source/common/wintz.h
 )
 
