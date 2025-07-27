@@ -19,7 +19,7 @@ if (MSVC)
       /Zc:threadSafeInit-
   )
 else()
-  # Keep these settigns in sync with xcode/harfbuzz project.
+  # Keep these settings in sync with xcode/harfbuzz project.
   target_compile_options(${PROJECT_NAME}
     PRIVATE
       -fno-rtti
