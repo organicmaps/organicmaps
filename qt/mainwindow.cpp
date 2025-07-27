@@ -46,6 +46,7 @@
 #include <QtWidgets/QToolBar>
 
 #ifdef OMIM_OS_WINDOWS
+#include "std/windows.hpp"
 #define IDM_ABOUT_DIALOG       1001
 #define IDM_PREFERENCES_DIALOG 1002
 #endif
