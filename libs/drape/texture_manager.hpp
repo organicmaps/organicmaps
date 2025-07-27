@@ -206,7 +206,7 @@ private:
   std::vector<drape_ptr<HWTexture>> m_texturesToCleanup;
 
   base::Timer m_uploadTimer;
-  std::atomic_flag m_nothingToUpload{false};
+  std::atomic_flag m_nothingToUpload = ATOMIC_FLAG_INIT;
   std::mutex m_calcGlyphsMutex;
 
   // TODO(AB): Make a more robust use of BreakIterator to split strings and get rid of this space glyph.
