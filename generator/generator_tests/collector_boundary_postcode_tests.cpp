@@ -32,28 +32,19 @@ static string const kDumpFileName = "dump.bin";
 // |  |  |
 // 6--7--8
 unordered_map<uint64_t, m2::PointD> const kNodes = {
-    {0,  m2::PointD{-1.0, 1.0}},
-    {1,   m2::PointD{0.0, 1.0}},
-    {2,   m2::PointD{1.0, 1.0}},
-    {3,  m2::PointD{-1.0, 0.0}},
-    {4,   m2::PointD{0.0, 0.0}},
-    {5,   m2::PointD{1.0, 0.0}},
-    {6, m2::PointD{-1.0, -1.0}},
-    {7,  m2::PointD{0.0, -1.0}},
-    {8,  m2::PointD{1.0, -1.0}}
-};
+    {0, m2::PointD{-1.0, 1.0}},  {1, m2::PointD{0.0, 1.0}},  {2, m2::PointD{1.0, 1.0}},
+    {3, m2::PointD{-1.0, 0.0}},  {4, m2::PointD{0.0, 0.0}},  {5, m2::PointD{1.0, 0.0}},
+    {6, m2::PointD{-1.0, -1.0}}, {7, m2::PointD{0.0, -1.0}}, {8, m2::PointD{1.0, -1.0}}};
 
 vector<uint64_t> const kPolygon1 = {4, 5, 2, 1, 4};
 vector<uint64_t> const kPolygon2 = {6, 3, 4, 7, 6};
 vector<uint64_t> const kPolygon3 = {8, 7, 4, 5, 8};
 vector<uint64_t> const kPolygon4 = {0, 1, 4, 4, 0};
 
-unordered_map<uint64_t, WayElement> const kWays = {
-    {1, WayElement{1, kPolygon1}},
-    {2, WayElement{2, kPolygon2}},
-    {3, WayElement{3, kPolygon3}},
-    {4, WayElement{4, kPolygon4}}
-};
+unordered_map<uint64_t, WayElement> const kWays = {{1, WayElement{1, kPolygon1}},
+                                                   {2, WayElement{2, kPolygon2}},
+                                                   {3, WayElement{3, kPolygon3}},
+                                                   {4, WayElement{4, kPolygon4}}};
 
 class IntermediateDataReaderTest : public generator::cache::IntermediateDataReaderInterface
 {
@@ -79,14 +70,9 @@ class IntermediateDataReaderTest : public generator::cache::IntermediateDataRead
 
 OsmElement MakePostcodeAreaRelation(uint64_t id, string postcode, uint64_t wayId)
 {
-  auto postcodeAreaRelation =
-      generator_tests::MakeOsmElement(id,
-                                      {
-                                          {       "type",    "boundary"},
-                                          {   "boundary", "postal_code"},
-                                          {"postal_code",      postcode}
-  },
-                                      OsmElement::EntityType::Relation);
+  auto postcodeAreaRelation = generator_tests::MakeOsmElement(
+      id, {{"type", "boundary"}, {"boundary", "postal_code"}, {"postal_code", postcode}},
+      OsmElement::EntityType::Relation);
   postcodeAreaRelation.AddMember(wayId, OsmElement::EntityType::Way, "outer");
   return postcodeAreaRelation;
 }

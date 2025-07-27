@@ -55,9 +55,7 @@ class TestCafe : public TestPOI
 public:
   TestCafe(m2::PointD const & center, std::string const & name, std::string const & lang) : TestPOI(center, name, lang)
   {
-    SetTypes({
-        {"amenity", "cafe"}
-    });
+    SetTypes({{"amenity", "cafe"}});
   }
 };
 
@@ -277,13 +275,7 @@ void EditorTest::SetIndexTest()
   auto const gbMwmId = BuildMwm("GB", [](TestMwmBuilder & builder)
   {
     TestCafe cafe({1.0, 1.0}, "London Cafe", "en");
-    TestStreet street(
-        {
-            {0.0, 0.0},
-            {1.0, 1.0},
-            {2.0, 2.0}
-    },
-        "Test street", "en");
+    TestStreet street({{0.0, 0.0}, {1.0, 1.0}, {2.0, 2.0}}, "Test street", "en");
     cafe.SetStreetName(street.GetName("en"));
     builder.Add(street);
     builder.Add(cafe);

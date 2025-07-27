@@ -95,21 +95,9 @@ class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>
 
   Wheelchair()
   {
-    m_matcher.Append<TypesInitializer>(
-        {
-            {"wheelchair", "no"}
-    },
-        WheelchairAvailability::No);
-    m_matcher.Append<TypesInitializer>(
-        {
-            {"wheelchair", "yes"}
-    },
-        WheelchairAvailability::Yes);
-    m_matcher.Append<TypesInitializer>(
-        {
-            {"wheelchair", "limited"}
-    },
-        WheelchairAvailability::Limited);
+    m_matcher.Append<TypesInitializer>({{"wheelchair", "no"}}, WheelchairAvailability::No);
+    m_matcher.Append<TypesInitializer>({{"wheelchair", "yes"}}, WheelchairAvailability::Yes);
+    m_matcher.Append<TypesInitializer>({{"wheelchair", "limited"}}, WheelchairAvailability::Limited);
   }
 };
 
@@ -127,21 +115,9 @@ class DrinkingWater : public TraitsBase<DrinkingWater, DrinkingWaterAvailability
 
   DrinkingWater()
   {
-    m_matcher.Append<TypesInitializer>(
-        {
-            {"drinking_water", "no"}
-    },
-        DrinkingWaterAvailability::No);
-    m_matcher.Append<TypesInitializer>(
-        {
-            {"drinking_water", "yes"}
-    },
-        DrinkingWaterAvailability::Yes);
-    m_matcher.Append<TypesInitializer>(
-        {
-            {"amenity", "drinking_water"}
-    },
-        DrinkingWaterAvailability::Yes);
+    m_matcher.Append<TypesInitializer>({{"drinking_water", "no"}}, DrinkingWaterAvailability::No);
+    m_matcher.Append<TypesInitializer>({{"drinking_water", "yes"}}, DrinkingWaterAvailability::Yes);
+    m_matcher.Append<TypesInitializer>({{"amenity", "drinking_water"}}, DrinkingWaterAvailability::Yes);
   }
 };
 

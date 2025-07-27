@@ -34,10 +34,7 @@ class SkipRegionInfo
 public:
   SkipRegionInfo()
   {
-    base::StringIL arr[] = {
-        {"place", "continent"},
-        {"place",   "country"}
-    };
+    base::StringIL arr[] = {{"place", "continent"}, {"place", "country"}};
     static_assert(kCount == ARRAY_SIZE(arr), "");
 
     Classificator const & c = classif();

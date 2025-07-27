@@ -34,13 +34,7 @@ bool MakeFakeBordersFile(std::string const & intemediatePath, std::string const 
   if (code != Platform::EError::ERR_OK && code != Platform::EError::ERR_FILE_ALREADY_EXISTS)
     return false;
 
-  std::vector<m2::PointD> points = {
-      {-180.0, -90.0},
-      { 180.0, -90.0},
-      { 180.0,  90.0},
-      {-180.0,  90.0},
-      {-180.0, -90.0}
-  };
+  std::vector<m2::PointD> points = {{-180.0, -90.0}, {180.0, -90.0}, {180.0, 90.0}, {-180.0, 90.0}, {-180.0, -90.0}};
   borders::DumpBorderToPolyFile(borderPath, filename, {m2::RegionD{std::move(points)}});
   return true;
 }

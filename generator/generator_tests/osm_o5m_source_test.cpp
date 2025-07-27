@@ -54,11 +54,7 @@ UNIT_TEST(OSM_O5M_Source_Way_read_test)
 
   std::set<int64_t> nodes;
 
-  vector<pair<string, string>> const validTags = {
-      {    "name", "Yukon River"},
-      { "name:ru",        "Юкон"},
-      {"waterway",       "river"}
-  };
+  vector<pair<string, string>> const validTags = {{"name", "Yukon River"}, {"name:ru", "Юкон"}, {"waterway", "river"}};
 
   for (auto const & em : dataset)
   {
@@ -106,22 +102,13 @@ UNIT_TEST(OSM_O5M_Source_Relation_read_test)
   std::set<int64_t> nodes;
   std::set<int64_t> entities;
 
-  vector<pair<string, string>> const validNodeTags = {
-      { "name", "Whitehorse"},
-      {"place",       "town"}
-  };
+  vector<pair<string, string>> const validNodeTags = {{"name", "Whitehorse"}, {"place", "town"}};
 
   vector<pair<string, string>> const validRelationTags = {
-      { "name",   "Whitehorse"},
-      {"place",         "town"},
-      { "type", "multipolygon"}
-  };
+      {"name", "Whitehorse"}, {"place", "town"}, {"type", "multipolygon"}};
 
   using TType = osm::O5MSource::EntityType;
-  vector<pair<TType, string>> const relationMembers = {
-      { TType::Way, "outer"},
-      {TType::Node,      ""}
-  };
+  vector<pair<TType, string>> const relationMembers = {{TType::Way, "outer"}, {TType::Node, ""}};
 
   for (auto const & em : dataset)
   {

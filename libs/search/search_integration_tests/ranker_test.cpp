@@ -59,17 +59,11 @@ UNIT_CLASS_TEST(RankerTest, UniteSameResults)
   m2::PointD eps(1.0E-5, 1.0E-5);
 
   TestPOI bus1(org, "Terminal 1", "de");
-  bus1.SetTypes({
-      {"highway", "bus_stop"}
-  });
+  bus1.SetTypes({{"highway", "bus_stop"}});
   TestPOI bus2(org + eps, "Terminal 1", "de");
-  bus2.SetTypes({
-      {"highway", "bus_stop"}
-  });
+  bus2.SetTypes({{"highway", "bus_stop"}});
   TestPOI bus3(org + eps + eps, "Terminal 1", "de");
-  bus3.SetTypes({
-      {"highway", "bus_stop"}
-  });
+  bus3.SetTypes({{"highway", "bus_stop"}});
 
   TestCafe cafe1({0.5, 0.5}, "И точка", "ru");
   TestCafe cafe2({0.5, 0.5}, "И точка", "ru");
@@ -100,9 +94,7 @@ UNIT_CLASS_TEST(RankerTest, PreferCountry)
   std::string const name = "Wonderland";
   TestCountry wonderland(m2::PointD(9.0, 9.0), name, "en");  // ~1400 km from (0, 0)
   TestPOI cafe(m2::PointD(0.0, 0.0), name, "en");
-  cafe.SetTypes({
-      {"amenity", "cafe"}
-  });
+  cafe.SetTypes({{"amenity", "cafe"}});
 
   auto const worldID = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(wonderland); });
 

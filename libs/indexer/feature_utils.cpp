@@ -88,11 +88,10 @@ bool GetBestName(StrUtf8 const & src, vector<int8_t> const & priorityList, strin
 vector<int8_t> GetSimilarLanguages(int8_t lang)
 {
   static unordered_map<int8_t, vector<int8_t>> const kSimilarLanguages = {
-      {GetIndex("be"),                         {GetIndex("ru")}},
+      {GetIndex("be"), {GetIndex("ru")}},
       {GetIndex("ja"), {GetIndex("ja_kana"), GetIndex("ja_rm")}},
-      {GetIndex("ko"),                      {GetIndex("ko_rm")}},
-      {GetIndex("zh"),                  {GetIndex("zh_pinyin")}}
-  };
+      {GetIndex("ko"), {GetIndex("ko_rm")}},
+      {GetIndex("zh"), {GetIndex("zh_pinyin")}}};
 
   auto const it = kSimilarLanguages.find(lang);
   if (it != kSimilarLanguages.cend())

@@ -59,75 +59,36 @@ unique_ptr<WorldGraph> BuildXXGraph(shared_ptr<EdgeEstimator> estimator)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 0.0},
-                      {1.0, 1.0}
-  }));
+                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 1.0}}));
   loader->AddRoad(1 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 0.0},
-                      {1.0, 1.0}
-  }));
+                  RoadGeometry::Points({{2.0, 0.0}, {1.0, 1.0}}));
   loader->AddRoad(2 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0, 1.0},
-                      {0.0, 2.0}
-  }));
+                  RoadGeometry::Points({{1.0, 1.0}, {0.0, 2.0}}));
   loader->AddRoad(3 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0, 1.0},
-                      {2.0, 2.0}
-  }));
+                  RoadGeometry::Points({{1.0, 1.0}, {2.0, 2.0}}));
   loader->AddRoad(4 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {3.0, 1.0},
-                      {2.0, 2.0}
-  }));
+                  RoadGeometry::Points({{3.0, 1.0}, {2.0, 2.0}}));
   loader->AddRoad(5 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 2.0},
-                      {1.0, 3.0}
-  }));
+                  RoadGeometry::Points({{2.0, 2.0}, {1.0, 3.0}}));
   loader->AddRoad(6 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 2.0},
-                      {3.0, 3.0}
-  }));
+                  RoadGeometry::Points({{2.0, 2.0}, {3.0, 3.0}}));
   loader->AddRoad(7 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 0.0},
-                      {3.0, 0.0}
-  }));
+                  RoadGeometry::Points({{2.0, 0.0}, {3.0, 0.0}}));
   loader->AddRoad(8 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {3.0, 0.0},
-                      {3.0, 1.0}
-  }));
+                  RoadGeometry::Points({{3.0, 0.0}, {3.0, 1.0}}));
   loader->AddRoad(9 /* featureId */, true /* oneWay */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, -1.0},
-                      {2.0,  0.0}
-  }));
+                  RoadGeometry::Points({{2.0, -1.0}, {2.0, 0.0}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{0 /* feature id */, 0 /* point id */}}
-      ), /* joint at point (0, 0) */
-      MakeJoint({{1, 0}, {7, 0}, {9, 1}}
-      ), /* joint at point (2, 0) */
-      MakeJoint({{0, 1}, {1, 1}, {2, 0}, {3, 0}}
-      ), /* joint at point (1, 1) */
-      MakeJoint({{2, 1}}
-      ), /* joint at point (0, 2) */
-      MakeJoint({{3, 1}, {4, 1}, {5, 0}, {6, 0}}
-      ), /* joint at point (2, 2) */
-      MakeJoint({{4, 0}, {8, 1}}
-      ), /* joint at point (3, 1) */
-      MakeJoint({{5, 1}}
-      ), /* joint at point (1, 3) */
-      MakeJoint({{6, 1}}
-      ), /* joint at point (3, 3) */
-      MakeJoint({{7, 1}, {8, 0}}
-      ), /* joint at point (3, 0) */
+      MakeJoint({{0 /* feature id */, 0 /* point id */}}), /* joint at point (0, 0) */
+      MakeJoint({{1, 0}, {7, 0}, {9, 1}}),                 /* joint at point (2, 0) */
+      MakeJoint({{0, 1}, {1, 1}, {2, 0}, {3, 0}}),         /* joint at point (1, 1) */
+      MakeJoint({{2, 1}}),                                 /* joint at point (0, 2) */
+      MakeJoint({{3, 1}, {4, 1}, {5, 0}, {6, 0}}),         /* joint at point (2, 2) */
+      MakeJoint({{4, 0}, {8, 1}}),                         /* joint at point (3, 1) */
+      MakeJoint({{5, 1}}),                                 /* joint at point (1, 3) */
+      MakeJoint({{6, 1}}),                                 /* joint at point (3, 3) */
+      MakeJoint({{7, 1}, {8, 0}}),                         /* joint at point (3, 0) */
   };
 
   return BuildWorldGraph(std::move(loader), estimator, joints);
@@ -170,13 +131,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_EmptyTrafficColoring)
   auto const start = MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
   auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
   auto starter = MakeStarter(start, finish, *graph);
-  vector<m2::PointD> const expectedGeom = {
-      {2 /* x */, -1 /* y */},
-      {        2,          0},
-      {        1,          1},
-      {        2,          2},
-      {        3,          3}
-  };
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
 
@@ -184,22 +139,14 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_EmptyTrafficColoring)
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
 {
   TrafficInfo::Coloring const coloring = {
-      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0}
-  };
+      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0}};
   SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
   auto const start = MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
   auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
   auto starter = MakeStarter(start, finish, *graph);
-  vector<m2::PointD> const expectedGeom = {
-      {2 /* x */, -1 /* y */},
-      {        2,          0},
-      {        3,          0},
-      {        3,          1},
-      {        2,          2},
-      {        3,          3}
-  };
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
 
@@ -207,22 +154,14 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_TempBlockonF3)
 {
   TrafficInfo::Coloring const coloring = {
-      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::TempBlock}
-  };
+      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::TempBlock}};
   SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
   auto const start = MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
   auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
   auto starter = MakeStarter(start, finish, *graph);
-  vector<m2::PointD> const expectedGeom = {
-      {2 /* x */, -1 /* y */},
-      {        2,          0},
-      {        3,          0},
-      {        3,          1},
-      {        2,          2},
-      {        3,          3}
-  };
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
 
@@ -230,21 +169,14 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_TempBlockonF3)
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
 {
   TrafficInfo::Coloring const coloring = {
-      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kReverseDirection}, SpeedGroup::G0}
-  };
+      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kReverseDirection}, SpeedGroup::G0}};
   SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
   auto const start = MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
   auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
   auto starter = MakeStarter(start, finish, *graph);
-  vector<m2::PointD> const expectedGeom = {
-      {2 /* x */, -1 /* y */},
-      {        2,          0},
-      {        1,          1},
-      {        2,          2},
-      {        3,          3}
-  };
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
 
@@ -255,22 +187,14 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0},
       {{6 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0},
       {{8 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G4},
-      {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G4}
-  };
+      {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G4}};
   SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
   auto const start = MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
   auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
   auto starter = MakeStarter(start, finish, *graph);
-  vector<m2::PointD> const expectedGeom = {
-      {2 /* x */, -1 /* y */},
-      {        2,          0},
-      {        3,          0},
-      {        3,          1},
-      {        2,          2},
-      {        3,          3}
-  };
+  vector<m2::PointD> const expectedGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
   TestRouteGeometry(*starter, Algorithm::Result::OK, expectedGeom);
 }
 
@@ -284,31 +208,17 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
   auto const start = MakeFakeEnding(9 /* featureId */, 0 /* segmentIdx */, m2::PointD(2.0, -1.0), *graph);
   auto const finish = MakeFakeEnding(6, 0, m2::PointD(3.0, 3.0), *graph);
   auto starter = MakeStarter(start, finish, *graph);
-  vector<m2::PointD> const noTrafficGeom = {
-      {2 /* x */, -1 /* y */},
-      {        2,          0},
-      {        1,          1},
-      {        2,          2},
-      {        3,          3}
-  };
+  vector<m2::PointD> const noTrafficGeom = {{2 /* x */, -1 /* y */}, {2, 0}, {1, 1}, {2, 2}, {3, 3}};
   {
     TestRouteGeometry(*starter, Algorithm::Result::OK, noTrafficGeom);
   }
 
   // Heavy traffic (SpeedGroup::G0) on F3.
   TrafficInfo::Coloring const coloringHeavyF3 = {
-      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0}
-  };
+      {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G0}};
   SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloringHeavyF3));
   {
-    vector<m2::PointD> const heavyF3Geom = {
-        {2 /* x */, -1 /* y */},
-        {        2,          0},
-        {        3,          0},
-        {        3,          1},
-        {        2,          2},
-        {        3,          3}
-    };
+    vector<m2::PointD> const heavyF3Geom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
     TestRouteGeometry(*starter, Algorithm::Result::OK, heavyF3Geom);
   }
 
@@ -318,8 +228,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G3},
       {{4 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G3},
       {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G3},
-      {{8 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G3}
-  };
+      {{8 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection}, SpeedGroup::G3}};
   SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloringMiddleF1F3F4F7F8));
   {
     TestRouteGeometry(*starter, Algorithm::Result::OK, noTrafficGeom);

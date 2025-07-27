@@ -57,13 +57,7 @@ struct OverlayID
 
   bool IsValid() const { return m_featureId.IsValid() || m_markId != kml::kInvalidMarkId; }
 
-  static OverlayID GetLowerKey(FeatureID const & featureID)
-  {
-    return {
-        featureID, 0, {-1, -1},
-          0
-    };
-  }
+  static OverlayID GetLowerKey(FeatureID const & featureID) { return {featureID, 0, {-1, -1}, 0}; }
 
   auto AsTupleOfRefs() const { return std::tie(m_featureId, m_markId, m_tileCoords, m_index); }
 

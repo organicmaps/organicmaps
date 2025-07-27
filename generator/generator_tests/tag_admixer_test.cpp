@@ -66,21 +66,15 @@ UNIT_TEST(TagsReplacer_Smoke)
   }
   {
     std::string const source = "aerodrome:type=international : aerodrome=international";
-    TestReplacer(source, {
-                             {{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}
-    });
+    TestReplacer(source, {{{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}});
   }
   {
     std::string const source = "  aerodrome:type   =   international   :    aerodrome   =  international   ";
-    TestReplacer(source, {
-                             {{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}
-    });
+    TestReplacer(source, {{{"aerodrome:type", "international"}, {{"aerodrome", "international"}}}});
   }
   {
     std::string const source = "natural=marsh : natural=wetland, wetland=marsh";
-    TestReplacer(source, {
-                             {{"natural", "marsh"}, {{"natural", "wetland"}, {"wetland", "marsh"}}}
-    });
+    TestReplacer(source, {{{"natural", "marsh"}, {{"natural", "wetland"}, {"wetland", "marsh"}}}});
   }
   {
     std::string const source =
@@ -89,10 +83,8 @@ UNIT_TEST(TagsReplacer_Smoke)
         "cliff=yes : natural=cliff | u\n"
         "\n"
         "office=travel_agent : shop=travel_agency";
-    TestReplacer(source, {
-                             {          {"cliff", "yes"},      {{"natural", "cliff"}}},
-                             {     {"natural", "forest"},       {{"natural", "wood"}}},
-                             {{"office", "travel_agent"}, {{"shop", "travel_agency"}}}
-    });
+    TestReplacer(source, {{{"cliff", "yes"}, {{"natural", "cliff"}}},
+                          {{"natural", "forest"}, {{"natural", "wood"}}},
+                          {{"office", "travel_agent"}, {{"shop", "travel_agency"}}}});
   }
 }

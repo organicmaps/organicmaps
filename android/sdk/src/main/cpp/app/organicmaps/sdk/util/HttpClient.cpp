@@ -132,17 +132,15 @@ class Ids
 public:
   explicit Ids(ScopedEnv & env)
   {
-    m_fieldIds = {
-        {"httpMethod", GetHttpParamsFieldId(env, "httpMethod")},
-        {"inputFilePath", GetHttpParamsFieldId(env, "inputFilePath")},
-        {"outputFilePath", GetHttpParamsFieldId(env, "outputFilePath")},
-        {"cookies", GetHttpParamsFieldId(env, "cookies")},
-        {"receivedUrl", GetHttpParamsFieldId(env, "receivedUrl")},
-        {"followRedirects", GetHttpParamsFieldId(env, "followRedirects", "Z")},
-        {"loadHeaders", GetHttpParamsFieldId(env, "loadHeaders", "Z")},
-        {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")},
-        {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")}
-    };
+    m_fieldIds = {{"httpMethod", GetHttpParamsFieldId(env, "httpMethod")},
+                  {"inputFilePath", GetHttpParamsFieldId(env, "inputFilePath")},
+                  {"outputFilePath", GetHttpParamsFieldId(env, "outputFilePath")},
+                  {"cookies", GetHttpParamsFieldId(env, "cookies")},
+                  {"receivedUrl", GetHttpParamsFieldId(env, "receivedUrl")},
+                  {"followRedirects", GetHttpParamsFieldId(env, "followRedirects", "Z")},
+                  {"loadHeaders", GetHttpParamsFieldId(env, "loadHeaders", "Z")},
+                  {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")},
+                  {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")}};
   }
 
   jfieldID GetId(std::string const & fieldName) const

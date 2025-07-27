@@ -53,21 +53,13 @@ UNIT_TEST(PolyBordersPostprocessor_MarkPoints_1)
   m2::PointD a(-1.0, -1.0);
   m2::PointD b(-1.0, 1.0);
 
-  vector<vector<m2::PointD>> polygons1 = {
-      {a, b, {1.0, 1.0}, {1.0, -1.0}}
-  };
+  vector<vector<m2::PointD>> polygons1 = {{a, b, {1.0, 1.0}, {1.0, -1.0}}};
 
-  vector<vector<bool>> markedMask1 = {
-      {true, true, false, false}
-  };
+  vector<vector<bool>> markedMask1 = {{true, true, false, false}};
 
-  vector<vector<m2::PointD>> polygons2 = {
-      {a, b, {2.0, 1.0}, {5.0, -1.0}}
-  };
+  vector<vector<m2::PointD>> polygons2 = {{a, b, {2.0, 1.0}, {5.0, -1.0}}};
 
-  vector<vector<bool>> markedMask2 = {
-      {true, true, false, false}
-  };
+  vector<vector<bool>> markedMask2 = {{true, true, false, false}};
 
   vector<shared_ptr<ScopedFile>> files;
   files.emplace_back(CreatePolyBorderFileByPolygon(kTestDir, "First", polygons1));
@@ -89,21 +81,13 @@ UNIT_TEST(PolyBordersPostprocessor_MarkPoints_2)
   ScopedDir const scopedDir(kTestDir);
   string const & bordersDir = scopedDir.GetFullPath();
 
-  vector<vector<m2::PointD>> polygons1 = {
-      {{-1.0, -1.0}, {-1.0, 1.0}, {1.0, 1.0}, {1.0, -1.0}}
-  };
+  vector<vector<m2::PointD>> polygons1 = {{{-1.0, -1.0}, {-1.0, 1.0}, {1.0, 1.0}, {1.0, -1.0}}};
 
-  vector<vector<bool>> markedMask1 = {
-      {false, false, false, false}
-  };
+  vector<vector<bool>> markedMask1 = {{false, false, false, false}};
 
-  vector<vector<m2::PointD>> polygons2 = {
-      {{-12.0, -1.0}, {-10.0, 1.0}, {2.0, 1.0}, {5.0, -1.0}}
-  };
+  vector<vector<m2::PointD>> polygons2 = {{{-12.0, -1.0}, {-10.0, 1.0}, {2.0, 1.0}, {5.0, -1.0}}};
 
-  vector<vector<bool>> markedMask2 = {
-      {false, false, false, false}
-  };
+  vector<vector<bool>> markedMask2 = {{false, false, false, false}};
 
   vector<shared_ptr<ScopedFile>> files;
   files.emplace_back(CreatePolyBorderFileByPolygon(kTestDir, "First", polygons1));
@@ -132,37 +116,21 @@ UNIT_TEST(PolyBordersPostprocessor_MarkPoints_3)
   m2::PointD e(-4.0, 2.0);
   m2::PointD f(-1.0, 4.0);
 
-  vector<vector<m2::PointD>> polygons1 = {
-      {a, b, c, {1.0, -3.0}, d}
-  };
+  vector<vector<m2::PointD>> polygons1 = {{a, b, c, {1.0, -3.0}, d}};
 
-  vector<vector<bool>> markedMask1 = {
-      {true, true, true, false, true}
-  };
+  vector<vector<bool>> markedMask1 = {{true, true, true, false, true}};
 
-  vector<vector<m2::PointD>> polygons2 = {
-      {b, f, {2.0, 5.0}, {6.0, 3.0}, c}
-  };
+  vector<vector<m2::PointD>> polygons2 = {{b, f, {2.0, 5.0}, {6.0, 3.0}, c}};
 
-  vector<vector<bool>> markedMask2 = {
-      {true, true, false, false, true}
-  };
+  vector<vector<bool>> markedMask2 = {{true, true, false, false, true}};
 
-  vector<vector<m2::PointD>> polygons3 = {
-      {a, b, f, {-3.0, 4.0}, e}
-  };
+  vector<vector<m2::PointD>> polygons3 = {{a, b, f, {-3.0, 4.0}, e}};
 
-  vector<vector<bool>> markedMask3 = {
-      {true, true, true, false, true}
-  };
+  vector<vector<bool>> markedMask3 = {{true, true, true, false, true}};
 
-  vector<vector<m2::PointD>> polygons4 = {
-      {a, e, {-3.0, -1.0}, d}
-  };
+  vector<vector<m2::PointD>> polygons4 = {{a, e, {-3.0, -1.0}, d}};
 
-  vector<vector<bool>> markedMask4 = {
-      {true, true, false, true}
-  };
+  vector<vector<bool>> markedMask4 = {{true, true, false, true}};
 
   vector<shared_ptr<ScopedFile>> files;
   files.emplace_back(CreatePolyBorderFileByPolygon(kTestDir, "First", polygons1));
@@ -195,23 +163,14 @@ UNIT_TEST(PolyBordersPostprocessor_MarkPoints_4)
   m2::PointD a(6.0, 2.0);
   m2::PointD b(6.0, 4.0);
 
-  vector<vector<m2::PointD>> polygons1 = {
-      {{-2.0, -2.0}, {-2.0, 2.0}, {2.0, 2.0}, {2.0, -2.0}},
-      {  {4.0, 2.0},  {4.0, 4.0},          a,           b}
-  };
+  vector<vector<m2::PointD>> polygons1 = {{{-2.0, -2.0}, {-2.0, 2.0}, {2.0, 2.0}, {2.0, -2.0}},
+                                          {{4.0, 2.0}, {4.0, 4.0}, a, b}};
 
-  vector<vector<bool>> markedMask1 = {
-      {false, false, false, false},
-      {false, false,  true,  true}
-  };
+  vector<vector<bool>> markedMask1 = {{false, false, false, false}, {false, false, true, true}};
 
-  vector<vector<m2::PointD>> polygons2 = {
-      {a, b, {8.0, 6.0}, {8.0, 0.0}}
-  };
+  vector<vector<m2::PointD>> polygons2 = {{a, b, {8.0, 6.0}, {8.0, 0.0}}};
 
-  vector<vector<bool>> markedMask2 = {
-      {true, true, false, false}
-  };
+  vector<vector<bool>> markedMask2 = {{true, true, false, false}};
 
   vector<shared_ptr<ScopedFile>> files;
   files.emplace_back(CreatePolyBorderFileByPolygon(kTestDir, "First", polygons1));

@@ -96,10 +96,7 @@ void NoUTurnRestrictionTest::TestRouteGeom(Segment const & start, Segment const 
 void ZeroGeometryLoader::Load(uint32_t /* featureId */, routing::RoadGeometry & road)
 {
   // Any valid road will do.
-  auto const points = routing::RoadGeometry::Points({
-      {0.0, 0.0},
-      {0.0, 1.0}
-  });
+  auto const points = routing::RoadGeometry::Points({{0.0, 0.0}, {0.0, 1.0}});
   road = RoadGeometry(true /* oneWay */, 1.0 /* weightSpeedKMpH */, 1.0 /* etaSpeedKMpH */, points);
 }
 

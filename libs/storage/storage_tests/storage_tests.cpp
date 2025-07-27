@@ -1217,10 +1217,7 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Страна 1", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_localName, "Страна 2", ());
-  vector<CountryIdAndName> const expectedTopmostParentsRu = {
-      {"Country1", "Страна 1"},
-      {"Country2", "Страна 2"}
-  };
+  vector<CountryIdAndName> const expectedTopmostParentsRu = {{"Country1", "Страна 1"}, {"Country2", "Страна 2"}};
   TEST(nodeAttrs.m_topmostParentInfo == expectedTopmostParentsRu, ());
 
   // set french locale
@@ -1272,10 +1269,7 @@ UNIT_TEST(StorageTest_CountriesNamesTest)
   TEST_EQUAL(nodeAttrs.m_parentInfo.size(), 2, ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[0].m_localName, "Pays 1", ());
   TEST_EQUAL(nodeAttrs.m_parentInfo[1].m_localName, "Pays 2", ());
-  vector<CountryIdAndName> const expectedTopmostParentsFr = {
-      {"Country1", "Pays 1"},
-      {"Country2", "Pays 2"}
-  };
+  vector<CountryIdAndName> const expectedTopmostParentsFr = {{"Country1", "Pays 1"}, {"Country2", "Pays 2"}};
   TEST(nodeAttrs.m_topmostParentInfo == expectedTopmostParentsFr, ());
 }
 
@@ -1444,9 +1438,7 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   // network policy sometimes changes, therefore some countries won't
   // be downloaded.
 
-  vector<uint64_t> const failedRequests{
-      {5, 10, 21}
-  };
+  vector<uint64_t> const failedRequests{{5, 10, 21}};
   TEST(is_sorted(failedRequests.begin(), failedRequests.end()), ());
 
   SometimesFailingDownloadingPolicy policy(failedRequests);

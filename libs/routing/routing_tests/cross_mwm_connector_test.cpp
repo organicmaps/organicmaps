@@ -203,17 +203,11 @@ void TestSerialization(CrossMwmConnectorBuilderEx<CrossMwmId> & builder)
   TEST(test.connector.WeightsWereLoaded(), ());
   TEST(test.connector.HasWeights(), ());
 
-  TestOutgoingEdges(
-      test.connector, Segment(kTestMwmId, 10, 1, true /* forward */),
-      {
-          {Segment(kTestMwmId, 20, 2, false /* forward */), RouteWeight::FromCrossMwmWeight(kEdgesWeight)}
-  });
+  TestOutgoingEdges(test.connector, Segment(kTestMwmId, 10, 1, true /* forward */),
+                    {{Segment(kTestMwmId, 20, 2, false /* forward */), RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 
-  TestOutgoingEdges(
-      test.connector, Segment(kTestMwmId, 20, 2, true /* forward */),
-      {
-          {Segment(kTestMwmId, 20, 2, false /* forward */), RouteWeight::FromCrossMwmWeight(kEdgesWeight)}
-  });
+  TestOutgoingEdges(test.connector, Segment(kTestMwmId, 20, 2, true /* forward */),
+                    {{Segment(kTestMwmId, 20, 2, false /* forward */), RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 }
 
 void GetCrossMwmId(uint32_t i, base::GeoObjectId & id)
@@ -252,13 +246,7 @@ void TestWeightsSerialization()
     builder.FillWeights([&](Segment const & enter, Segment const & exit)
     {
       double const w = weights[weightIdx++];
-      TEST(expectedWeights
-               .insert({
-                   {enter, exit},
-                   w
-      })
-               .second,
-           ());
+      TEST(expectedWeights.insert({{enter, exit}, w}).second, ());
       return w;
     });
 

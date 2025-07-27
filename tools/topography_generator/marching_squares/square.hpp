@@ -88,22 +88,22 @@ private:
   {
     // Segment is a vector directed so that higher values is on the right.
     static std::pair<Rib, Rib> const intersectedRibs[] = {
-        {   Rib::None,    Rib::None}, // 0000
-        {   Rib::Left,  Rib::Bottom}, // 0001
-        {    Rib::Top,    Rib::Left}, // 0010
-        {    Rib::Top,  Rib::Bottom}, // 0011
-        {  Rib::Right,     Rib::Top}, // 0100
-        {Rib::Unclear, Rib::Unclear}, // 0101
-        {  Rib::Right,    Rib::Left}, // 0110
-        {  Rib::Right,  Rib::Bottom}, // 0111
-        { Rib::Bottom,   Rib::Right}, // 1000
-        {   Rib::Left,   Rib::Right}, // 1001
-        {Rib::Unclear, Rib::Unclear}, // 1010
-        {    Rib::Top,   Rib::Right}, // 1011
-        { Rib::Bottom,     Rib::Top}, // 1100
-        {   Rib::Left,     Rib::Top}, // 1101
-        { Rib::Bottom,    Rib::Left}, // 1110
-        {   Rib::None,    Rib::None}, // 1111
+        {Rib::None, Rib::None},        // 0000
+        {Rib::Left, Rib::Bottom},      // 0001
+        {Rib::Top, Rib::Left},         // 0010
+        {Rib::Top, Rib::Bottom},       // 0011
+        {Rib::Right, Rib::Top},        // 0100
+        {Rib::Unclear, Rib::Unclear},  // 0101
+        {Rib::Right, Rib::Left},       // 0110
+        {Rib::Right, Rib::Bottom},     // 0111
+        {Rib::Bottom, Rib::Right},     // 1000
+        {Rib::Left, Rib::Right},       // 1001
+        {Rib::Unclear, Rib::Unclear},  // 1010
+        {Rib::Top, Rib::Right},        // 1011
+        {Rib::Bottom, Rib::Top},       // 1100
+        {Rib::Left, Rib::Top},         // 1101
+        {Rib::Bottom, Rib::Left},      // 1110
+        {Rib::None, Rib::None},        // 1111
     };
 
     uint8_t const pattern = (m_valueLB > val ? 1u : 0u) | ((m_valueLT > val ? 1u : 0u) << 1u) |

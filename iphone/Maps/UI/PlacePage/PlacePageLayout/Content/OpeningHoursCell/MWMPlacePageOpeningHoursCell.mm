@@ -180,10 +180,7 @@ WeekDayView getWeekDayView()
 {
   WeekDayView wd = getWeekDayView();
   wd.currentDay = NO;
-  wd.frame = {
-      {                      0, self.weekDaysViewEstimatedHeight},
-      {self.weekDaysView.width,                                0}
-  };
+  wd.frame = {{0, self.weekDaysViewEstimatedHeight}, {self.weekDaysView.width, 0}};
   [wd setLabelText:stringFromOpeningDays(timeTable.GetOpeningDays()) isRed:NO];
   if (timeTable.IsTwentyFourHours())
   {
@@ -208,10 +205,7 @@ WeekDayView getWeekDayView()
     return;
   WeekDayView wd = getWeekDayView();
   wd.currentDay = NO;
-  wd.frame = {
-      {                      0, self.weekDaysViewEstimatedHeight},
-      {self.weekDaysView.width,                                0}
-  };
+  wd.frame = {{0, self.weekDaysViewEstimatedHeight}, {self.weekDaysView.width, 0}};
   [wd setLabelText:stringFromOpeningDays(closedDays) isRed:NO];
   [wd setOpenTimeText:L(@"day_off")];
   [wd setBreaks:@[]];

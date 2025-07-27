@@ -98,28 +98,27 @@ struct GeoModeSettings
 };
 
 std::map<GeoMode, GeoModeSettings> const kGeoSettings{
-    {          GeoMode::Pending,
+    {GeoMode::Pending,
      {.distanceFilter = kCLDistanceFilterNone,
-     .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBestForNavigation}}},
-    {       GeoMode::InPosition,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBestForNavigation}}},
+    {GeoMode::InPosition,
      {.distanceFilter = 2,
-     .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}             },
-    {    GeoMode::NotInPosition,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
+    {GeoMode::NotInPosition,
      {.distanceFilter = 5,
-     .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}             },
-    {  GeoMode::FollowAndRotate,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
+    {GeoMode::FollowAndRotate,
      {.distanceFilter = 2,
-     .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}             },
-    {   GeoMode::VehicleRouting,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
+    {GeoMode::VehicleRouting,
      {.distanceFilter = kCLDistanceFilterNone,
-     .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}             },
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
     {GeoMode::PedestrianRouting,
      {.distanceFilter = 2,
-     .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}             },
-    {   GeoMode::BicycleRouting,
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}},
+    {GeoMode::BicycleRouting,
      {.distanceFilter = 2,
-     .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}             }
-};
+      .accuracy = {.charging = kCLLocationAccuracyBestForNavigation, .battery = kCLLocationAccuracyBest}}}};
 
 BOOL keepRunningInBackground()
 {

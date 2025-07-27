@@ -69,86 +69,50 @@ UNIT_TEST(LruCacheAgeTest)
 
   age.InsertKey(10);
   {
-    std::map<size_t, Key> const expectedAgeToKey({
-        {1 /* age */, 10 /* key */}
-    });
-    std::unordered_map<Key, size_t> const expectedKeyToAge({
-        {10 /* key */, 1 /* age */}
-    });
+    std::map<size_t, Key> const expectedAgeToKey({{1 /* age */, 10 /* key */}});
+    std::unordered_map<Key, size_t> const expectedKeyToAge({{10 /* key */, 1 /* age */}});
     TestAge(age, 1 /* cache age */, expectedAgeToKey, expectedKeyToAge);
   }
 
   age.InsertKey(9);
   {
-    std::map<size_t, Key> const expectedAgeToKey({
-        {1, 10},
-        {2,  9}
-    });
-    std::unordered_map<Key, size_t> const expectedKeyToAge({
-        {10, 1},
-        { 9, 2}
-    });
+    std::map<size_t, Key> const expectedAgeToKey({{1, 10}, {2, 9}});
+    std::unordered_map<Key, size_t> const expectedKeyToAge({{10, 1}, {9, 2}});
     TestAge(age, 2 /* cache age */, expectedAgeToKey, expectedKeyToAge);
   }
 
   age.RemoveLru();
   {
-    std::map<size_t, Key> const expectedAgeToKey({
-        {2, 9}
-    });
-    std::unordered_map<Key, size_t> const expectedKeyToAge({
-        {9, 2}
-    });
+    std::map<size_t, Key> const expectedAgeToKey({{2, 9}});
+    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 2}});
     TestAge(age, 2 /* cache age */, expectedAgeToKey, expectedKeyToAge);
   }
 
   age.InsertKey(11);
   {
-    std::map<size_t, Key> const expectedAgeToKey({
-        {2,  9},
-        {3, 11}
-    });
-    std::unordered_map<Key, size_t> const expectedKeyToAge({
-        { 9, 2},
-        {11, 3}
-    });
+    std::map<size_t, Key> const expectedAgeToKey({{2, 9}, {3, 11}});
+    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 2}, {11, 3}});
     TestAge(age, 3 /* cache age */, expectedAgeToKey, expectedKeyToAge);
   }
 
   age.UpdateAge(9);
   {
-    std::map<size_t, Key> const expectedAgeToKey({
-        {4,  9},
-        {3, 11}
-    });
-    std::unordered_map<Key, size_t> const expectedKeyToAge({
-        { 9, 4},
-        {11, 3}
-    });
+    std::map<size_t, Key> const expectedAgeToKey({{4, 9}, {3, 11}});
+    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 4}, {11, 3}});
     TestAge(age, 4 /* cache age */, expectedAgeToKey, expectedKeyToAge);
   }
 
   age.RemoveLru();
   {
-    std::map<size_t, Key> const expectedAgeToKey({
-        {4, 9}
-    });
-    std::unordered_map<Key, size_t> const expectedKeyToAge({
-        {9, 4}
-    });
+    std::map<size_t, Key> const expectedAgeToKey({{4, 9}});
+    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 4}});
     TestAge(age, 4 /* cache age */, expectedAgeToKey, expectedKeyToAge);
   }
 
   age.InsertKey(12);
   {
-    std::map<size_t, Key> const expectedAgeToKey({
-        {4,  9},
-        {5, 12}
-    });
-    std::unordered_map<Key, size_t> const expectedKeyToAge({
-        { 9, 4},
-        {12, 5}
-    });
+    std::map<size_t, Key> const expectedAgeToKey({{4, 9}, {5, 12}});
+    std::unordered_map<Key, size_t> const expectedKeyToAge({{9, 4}, {12, 5}});
     TestAge(age, 5 /* cache age */, expectedAgeToKey, expectedKeyToAge);
   }
 }

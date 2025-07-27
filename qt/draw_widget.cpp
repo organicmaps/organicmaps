@@ -591,11 +591,9 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
     {
       // Like in guides_tests.cpp, GetTestGuides().
       routing::GuidesTracks guides;
-      guides[10] = {
-          {{mercator::FromLatLon(48.13999, 11.56873), 10},
-           {mercator::FromLatLon(48.14096, 11.57246), 10},
-           {mercator::FromLatLon(48.14487, 11.57259), 10}}
-      };
+      guides[10] = {{{mercator::FromLatLon(48.13999, 11.56873), 10},
+                     {mercator::FromLatLon(48.14096, 11.57246), 10},
+                     {mercator::FromLatLon(48.14487, 11.57259), 10}}};
       routingManager.RoutingSession().SetGuidesForTests(std::move(guides));
     }
     else

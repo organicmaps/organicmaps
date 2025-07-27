@@ -527,13 +527,13 @@ public:
   {
     // Remain first type and erase second in case of conflict.
     base::StringIL arr[][2] = {
-        {       {"hwtag", "yescar"},          {"hwtag", "nocar"}},
-        {      {"hwtag", "yesfoot"},         {"hwtag", "nofoot"}},
-        {   {"hwtag", "yesbicycle"},      {"hwtag", "nobicycle"}},
-        {    {"hwtag", "nobicycle"},  {"hwtag", "bidir_bicycle"}},
-        {    {"hwtag", "nobicycle"}, {"hwtag", "onedir_bicycle"}},
+        {{"hwtag", "yescar"}, {"hwtag", "nocar"}},
+        {{"hwtag", "yesfoot"}, {"hwtag", "nofoot"}},
+        {{"hwtag", "yesbicycle"}, {"hwtag", "nobicycle"}},
+        {{"hwtag", "nobicycle"}, {"hwtag", "bidir_bicycle"}},
+        {{"hwtag", "nobicycle"}, {"hwtag", "onedir_bicycle"}},
         {{"hwtag", "bidir_bicycle"}, {"hwtag", "onedir_bicycle"}},
-        {     {"wheelchair", "yes"},        {"wheelchair", "no"}},
+        {{"wheelchair", "yes"}, {"wheelchair", "no"}},
     };
 
     auto const & cl = classif();

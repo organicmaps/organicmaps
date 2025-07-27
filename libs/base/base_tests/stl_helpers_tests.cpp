@@ -34,17 +34,7 @@ void TestSortUnique()
   {
     using Value = int;
     using Pair = std::pair<Value, int>;
-    Cont<Pair> d = {
-        {1, 22},
-        {2, 33},
-        {1, 23},
-        {4, 54},
-        {3, 34},
-        {5, 23},
-        {2, 23},
-        {7, 32},
-        {1, 12}
-    };
+    Cont<Pair> d = {{1, 22}, {2, 33}, {1, 23}, {4, 54}, {3, 34}, {5, 23}, {2, 23}, {7, 32}, {1, 12}};
 
     SortUnique(d, LessBy(&Pair::first), EqualsBy(&Pair::first));
 
@@ -56,13 +46,7 @@ void TestSortUnique()
   {
     using Value = double;
     using Pair = std::pair<Value, int>;
-    Cont<Pair> d = {
-        {       0.5,  11},
-        {   1000.99, 234},
-        {       0.5,  23},
-        {1234.56789,  54},
-        {   1000.99,  34}
-    };
+    Cont<Pair> d = {{0.5, 11}, {1000.99, 234}, {0.5, 23}, {1234.56789, 54}, {1000.99, 34}};
 
     SortUnique(d, LessBy(&Pair::first), EqualsBy(&Pair::first));
 
@@ -78,19 +62,10 @@ void TestEqualsBy()
 {
   {
     using Value = std::pair<int, int>;
-    Cont<Value> actual = {
-        {1,   2},
-        {1,   3},
-        {2, 100},
-        {3,   7},
-        {3,   8},
-        {2, 500}
-    };
+    Cont<Value> actual = {{1, 2}, {1, 3}, {2, 100}, {3, 7}, {3, 8}, {2, 500}};
     actual.erase(std::unique(actual.begin(), actual.end(), EqualsBy(&Value::first)), actual.end());
 
-    Cont<int> const expected = {
-        {1, 2, 3, 2}
-    };
+    Cont<int> const expected = {{1, 2, 3, 2}};
     TEST_EQUAL(expected.size(), actual.size(), ());
     for (size_t i = 0; i < actual.size(); ++i)
       TEST_EQUAL(expected[i], actual[i].first, ());
@@ -102,9 +77,7 @@ void TestEqualsBy()
       actual.emplace_back(v);
     actual.erase(std::unique(actual.begin(), actual.end(), EqualsBy(&Int::Get)), actual.end());
 
-    Cont<int> const expected = {
-        {0, 1, 2, 0}
-    };
+    Cont<int> const expected = {{0, 1, 2, 0}};
     TEST_EQUAL(expected.size(), actual.size(), ());
     for (size_t i = 0; i < actual.size(); ++i)
       TEST_EQUAL(expected[i], actual[i].Get(), ());
@@ -116,13 +89,7 @@ UNIT_TEST(LessBy)
   {
     using Value = std::pair<int, int>;
 
-    std::vector<Value> v = {
-        {2, 2},
-        {0, 4},
-        {3, 1},
-        {4, 0},
-        {1, 3}
-    };
+    std::vector<Value> v = {{2, 2}, {0, 4}, {3, 1}, {4, 0}, {1, 3}};
     std::sort(v.begin(), v.end(), LessBy(&Value::first));
     for (size_t i = 0; i < v.size(); ++i)
       TEST_EQUAL(i, static_cast<size_t>(v[i].first), ());

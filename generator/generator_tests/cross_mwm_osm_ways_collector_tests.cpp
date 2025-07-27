@@ -31,9 +31,7 @@ using namespace generator_tests;
 std::string const kTmpDirName = "cross_mwm_ways";
 
 std::vector<std::string> const kHighwayUnclassifiedPath = {"highway", "unclassified"};
-std::vector<std::pair<std::string, std::string>> const kHighwayUnclassified = {
-    {"highway", "unclassified"}
-};
+std::vector<std::pair<std::string, std::string>> const kHighwayUnclassified = {{"highway", "unclassified"}};
 
 std::string const kOsmWayId_1 = std::to_string(base::MakeOsmWay(1).GetEncodedId());
 std::string const kOsmWayId_2 = std::to_string(base::MakeOsmWay(2).GetEncodedId());
@@ -208,15 +206,13 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Lithuania_Belarus_Kamenny_Log)
 
   // https://www.openstreetmap.org/way/614091318 should present in Lithuania and Belarus
   AddOsmWayByPoints(1,
-                    {
-                        {54.5460103, 25.6945156},
-                        {54.5454276, 25.6952895},
-                        {54.5453567, 25.6953987},
-                        {54.5453056, 25.6955672},
-                        {54.5443252, 25.6994996},
-                        {54.5443107, 25.6995562}, // 5 segId starts here
-                        connected
-  },
+                    {{54.5460103, 25.6945156},
+                     {54.5454276, 25.6952895},
+                     {54.5453567, 25.6953987},
+                     {54.5453056, 25.6955672},
+                     {54.5443252, 25.6994996},
+                     {54.5443107, 25.6995562},  // 5 segId starts here
+                     connected},
                     collection);
 
   collection->Finalize();
@@ -239,7 +235,7 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Belarus_Lithuania_Kamenny_Log)
                         {54.5442277, 25.7001698},
                         {54.5442419, 25.7001125},
                         connected,
-  },
+                    },
                     collection);
 
   // https://www.openstreetmap.org/way/489294139
@@ -248,7 +244,7 @@ UNIT_CLASS_TEST(CrossMwmWayCollectorTest, Belarus_Lithuania_Kamenny_Log)
                         connected,
                         {54.5443587, 25.6996293},
                         {54.5443765, 25.6995660},
-  },
+                    },
                     collection);
 
   collection->Finalize();

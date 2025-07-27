@@ -28,11 +28,7 @@ UNIT_TEST(MatchInTrieTest)
 {
   Trie trie;
 
-  vector<pair<string, uint32_t>> const data = {
-      {"hotel", 1},
-      {"homel", 2},
-      {"hotel", 3}
-  };
+  vector<pair<string, uint32_t>> const data = {{"hotel", 1}, {"homel", 2}, {"hotel", 3}};
 
   for (auto const & kv : data)
     trie.Add(MakeUniString(kv.first), kv.second);
@@ -65,10 +61,7 @@ UNIT_TEST(MatchPrefixInTrieTest)
 {
   Trie trie;
 
-  vector<pair<string, uint32_t>> const data = {
-      {"лермонтовъ", 1},
-      {"лермонтово", 2}
-  };
+  vector<pair<string, uint32_t>> const data = {{"лермонтовъ", 1}, {"лермонтово", 2}};
 
   for (auto const & kv : data)
     trie.Add(MakeUniString(kv.first), kv.second);

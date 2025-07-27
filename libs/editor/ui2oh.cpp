@@ -157,9 +157,7 @@ osmoh::TTimespans MakeTimespans(editor::ui::TimeTable const & tt)
   if (excludeTime.empty())
     return {tt.GetOpeningTime()};
 
-  osmoh::TTimespans spans{
-      {tt.GetOpeningTime().GetStart(), excludeTime[0].GetStart()}
-  };
+  osmoh::TTimespans spans{{tt.GetOpeningTime().GetStart(), excludeTime[0].GetStart()}};
 
   for (size_t i = 0; i + 1 < excludeTime.size(); ++i)
     spans.emplace_back(excludeTime[i].GetEnd(), excludeTime[i + 1].GetStart());

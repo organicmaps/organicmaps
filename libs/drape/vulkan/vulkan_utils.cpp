@@ -107,9 +107,7 @@ VkFormat VulkanFormatUnpacker::m_bestDepthFormat = VK_FORMAT_UNDEFINED;
 // static
 bool VulkanFormatUnpacker::Init(VkPhysicalDevice gpu)
 {
-  std::array<VkFormat, 3> depthFormats = {
-      {VK_FORMAT_D32_SFLOAT, VK_FORMAT_X8_D24_UNORM_PACK32, VK_FORMAT_D16_UNORM}
-  };
+  std::array<VkFormat, 3> depthFormats = {{VK_FORMAT_D32_SFLOAT, VK_FORMAT_X8_D24_UNORM_PACK32, VK_FORMAT_D16_UNORM}};
   VkFormatProperties formatProperties;
   for (auto depthFormat : depthFormats)
   {
@@ -139,9 +137,7 @@ bool VulkanFormatUnpacker::Init(VkPhysicalDevice gpu)
     }
   }
 
-  std::array<VkFormat, 2> framebufferColorFormats = {
-      {Unpack(TextureFormat::RGBA8), Unpack(TextureFormat::RedGreen)}
-  };
+  std::array<VkFormat, 2> framebufferColorFormats = {{Unpack(TextureFormat::RGBA8), Unpack(TextureFormat::RedGreen)}};
   for (auto colorFormat : framebufferColorFormats)
   {
     vkGetPhysicalDeviceFormatProperties(gpu, colorFormat, &formatProperties);

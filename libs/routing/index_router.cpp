@@ -1360,10 +1360,7 @@ IndexRouter::RoutingResultT const * IndexRouter::RoutesCalculator::Calc(Segment 
                                                                         ProgressPtrT const & progress,
                                                                         double progressCoef)
 {
-  auto itCache = m_cache.insert({
-      {beg, end},
-      {}
-  });
+  auto itCache = m_cache.insert({{beg, end}, {}});
   auto * res = &itCache.first->second;
 
   // Actually, we can (should?) append/push-drop progress even if the route is already in cache,

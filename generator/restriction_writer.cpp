@@ -27,17 +27,11 @@ namespace routing_builder
 using namespace routing;
 
 std::vector<std::pair<std::string, Restriction::Type>> const kRestrictionTypes = {
-    {        "no_entry",        Restriction::Type::No},
-    {         "no_exit",        Restriction::Type::No},
-    {    "no_left_turn",        Restriction::Type::No},
-    {   "no_right_turn",        Restriction::Type::No},
-    {  "no_straight_on",        Restriction::Type::No},
-    {       "no_u_turn",   Restriction::Type::NoUTurn},
-    {  "only_left_turn",      Restriction::Type::Only},
-    { "only_right_turn",      Restriction::Type::Only},
-    {"only_straight_on",      Restriction::Type::Only},
-    {     "only_u_turn", Restriction::Type::OnlyUTurn}
-};
+    {"no_entry", Restriction::Type::No},           {"no_exit", Restriction::Type::No},
+    {"no_left_turn", Restriction::Type::No},       {"no_right_turn", Restriction::Type::No},
+    {"no_straight_on", Restriction::Type::No},     {"no_u_turn", Restriction::Type::NoUTurn},
+    {"only_left_turn", Restriction::Type::Only},   {"only_right_turn", Restriction::Type::Only},
+    {"only_straight_on", Restriction::Type::Only}, {"only_u_turn", Restriction::Type::OnlyUTurn}};
 
 /// \brief Converts restriction type form string to RestrictionCollector::Type.
 /// \returns true if conversion was successful and false otherwise.

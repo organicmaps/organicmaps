@@ -129,8 +129,7 @@ std::pair<SegmentCoord, RouteSegment::SpeedCamera> DeserializeSpeedCamera(Reader
   CHECK_EQUAL(conditionsNumber, 0, ("Number of conditions should be 0, non zero number is not implemented now"));
 
   return {
-      {featureId, segmentId}  /* SegmentCoord */,
-      {     coef,     speed}  /* RouteSegment::SpeedCamera */
+      {featureId, segmentId} /* SegmentCoord */, {coef, speed} /* RouteSegment::SpeedCamera */
   };
 }
 

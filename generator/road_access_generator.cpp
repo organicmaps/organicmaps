@@ -51,47 +51,46 @@ vector<string> const kBycicleAccessConditionalTags = {"bicycle:conditional"};
 // for routing it is like: "access:conditional = no @ (Feb - Dec)"
 std::map<OsmElement::Tag, string> kTagToAccessConditional = {
     {OsmElement::Tag("winter_road", "yes"), "no @ (Mar - Nov)"},
-    {   OsmElement::Tag("ice_road", "yes"), "no @ (Mar - Nov)"}
-};
+    {OsmElement::Tag("ice_road", "yes"), "no @ (Mar - Nov)"}};
 
 TagMapping const kMotorCarTagMapping = {
-    {OsmElement::Tag("motorcar",         "yes"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("motorcar",  "designated"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("motorcar",  "permissive"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("motorcar",          "no"),          RoadAccess::Type::No},
-    {OsmElement::Tag("motorcar",     "private"),     RoadAccess::Type::Private},
+    {OsmElement::Tag("motorcar", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motorcar", "designated"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motorcar", "permissive"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motorcar", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("motorcar", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("motorcar", "destination"), RoadAccess::Type::Destination},
-    {OsmElement::Tag("motorcar",      "permit"),      RoadAccess::Type::Permit},
+    {OsmElement::Tag("motorcar", "permit"), RoadAccess::Type::Permit},
 };
 
 TagMapping const kMotorVehicleTagMapping = {
-    {OsmElement::Tag("motor_vehicle",         "yes"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("motor_vehicle",  "designated"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("motor_vehicle",  "permissive"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("motor_vehicle",          "no"),          RoadAccess::Type::No},
-    {OsmElement::Tag("motor_vehicle",     "private"),     RoadAccess::Type::Private},
+    {OsmElement::Tag("motor_vehicle", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motor_vehicle", "designated"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motor_vehicle", "permissive"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motor_vehicle", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("motor_vehicle", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("motor_vehicle", "destination"), RoadAccess::Type::Destination},
-    {OsmElement::Tag("motor_vehicle",      "permit"),      RoadAccess::Type::Permit},
+    {OsmElement::Tag("motor_vehicle", "permit"), RoadAccess::Type::Permit},
 };
 
 TagMapping const kVehicleTagMapping = {
-    {OsmElement::Tag("vehicle",         "yes"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("vehicle",  "designated"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("vehicle",  "permissive"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("vehicle",          "no"),          RoadAccess::Type::No},
-    {OsmElement::Tag("vehicle",     "private"),     RoadAccess::Type::Private},
+    {OsmElement::Tag("vehicle", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("vehicle", "designated"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("vehicle", "permissive"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("vehicle", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("vehicle", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("vehicle", "destination"), RoadAccess::Type::Destination},
-    {OsmElement::Tag("vehicle",      "permit"),      RoadAccess::Type::Permit},
+    {OsmElement::Tag("vehicle", "permit"), RoadAccess::Type::Permit},
 };
 
 TagMapping const kCarBarriersTagMapping = {
-    {OsmElement::Tag("barrier",         "block"),      RoadAccess::Type::No},
-    {OsmElement::Tag("barrier",       "bollard"),      RoadAccess::Type::No},
-    {OsmElement::Tag("barrier", "cycle_barrier"),      RoadAccess::Type::No},
-    {OsmElement::Tag("barrier",         "chain"), RoadAccess::Type::Private},
-    {OsmElement::Tag("barrier",          "gate"), RoadAccess::Type::Private},
-    {OsmElement::Tag("barrier",     "lift_gate"), RoadAccess::Type::Private},
-    {OsmElement::Tag("barrier",    "swing_gate"), RoadAccess::Type::Private},
+    {OsmElement::Tag("barrier", "block"), RoadAccess::Type::No},
+    {OsmElement::Tag("barrier", "bollard"), RoadAccess::Type::No},
+    {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
+    {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::Private},
+    {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
+    {OsmElement::Tag("barrier", "lift_gate"), RoadAccess::Type::Private},
+    {OsmElement::Tag("barrier", "swing_gate"), RoadAccess::Type::Private},
 
     // TODO (@gmoryes) The types below should be added.
     //  {OsmElement::Tag("barrier", "log"), RoadAccess::Type::No},
@@ -99,20 +98,20 @@ TagMapping const kCarBarriersTagMapping = {
 };
 
 TagMapping const kPedestrianTagMapping = {
-    {OsmElement::Tag("foot",         "yes"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("foot",  "designated"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("foot",  "permissive"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("foot",          "no"),          RoadAccess::Type::No},
-    {OsmElement::Tag("foot",     "private"),     RoadAccess::Type::Private},
+    {OsmElement::Tag("foot", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("foot", "designated"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("foot", "permissive"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("foot", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("foot", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("foot", "destination"), RoadAccess::Type::Destination},
 };
 
 TagMapping const kBicycleTagMapping = {
-    {OsmElement::Tag("bicycle",         "yes"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("bicycle",  "designated"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("bicycle",  "permissive"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("bicycle",          "no"),          RoadAccess::Type::No},
-    {OsmElement::Tag("bicycle",     "private"),     RoadAccess::Type::Private},
+    {OsmElement::Tag("bicycle", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("bicycle", "designated"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("bicycle", "permissive"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("bicycle", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("bicycle", "destination"), RoadAccess::Type::Destination},
 };
 
@@ -128,58 +127,48 @@ TagMapping const kBicycleBarriersTagMapping = {
 TagMapping const kTransitTagMapping = {};
 
 TagMapping const kDefaultTagMapping = {
-    {OsmElement::Tag("access",          "yes"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("access",   "permissive"),         RoadAccess::Type::Yes},
-    {OsmElement::Tag("access",           "no"),          RoadAccess::Type::No},
-    {OsmElement::Tag("access",      "private"),     RoadAccess::Type::Private},
-    {OsmElement::Tag("access",  "destination"), RoadAccess::Type::Destination},
-    {OsmElement::Tag("access",    "emergency"),          RoadAccess::Type::No},
-    {OsmElement::Tag("access",     "military"),          RoadAccess::Type::No},
-    {OsmElement::Tag("access", "agricultural"),     RoadAccess::Type::Private},
-    {OsmElement::Tag("access",     "forestry"),     RoadAccess::Type::Private},
-    {OsmElement::Tag("locked",          "yes"),      RoadAccess::Type::Locked},
+    {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("access", "permissive"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
+    {OsmElement::Tag("access", "private"), RoadAccess::Type::Private},
+    {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
+    {OsmElement::Tag("access", "emergency"), RoadAccess::Type::No},
+    {OsmElement::Tag("access", "military"), RoadAccess::Type::No},
+    {OsmElement::Tag("access", "agricultural"), RoadAccess::Type::Private},
+    {OsmElement::Tag("access", "forestry"), RoadAccess::Type::Private},
+    {OsmElement::Tag("locked", "yes"), RoadAccess::Type::Locked},
 };
 
 // Removed secondary, tertiary from car list. Example https://www.openstreetmap.org/node/8169922700
 std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccessCar = {
-    {"highway",      "motorway"},
-    {"highway", "motorway_link"},
-    {"highway",         "trunk"},
-    {"highway",    "trunk_link"},
-    {"highway",       "primary"},
-    {"highway",  "primary_link"},
+    {"highway", "motorway"},   {"highway", "motorway_link"}, {"highway", "trunk"},
+    {"highway", "trunk_link"}, {"highway", "primary"},       {"highway", "primary_link"},
 };
 
 /// @todo Looks controversial for secondary/tertiary, but leave as-is for bicycle.
 std::set<OsmElement::Tag> const kHighwaysWhereIgnoreBarriersWithoutAccessBicycle = {
-    {"highway",       "motorway"},
-    {"highway",  "motorway_link"},
-    {"highway",          "trunk"},
-    {"highway",     "trunk_link"},
-    {"highway",        "primary"},
-    {"highway",   "primary_link"},
-    {"highway",      "secondary"},
+    {"highway", "motorway"},
+    {"highway", "motorway_link"},
+    {"highway", "trunk"},
+    {"highway", "trunk_link"},
+    {"highway", "primary"},
+    {"highway", "primary_link"},
+    {"highway", "secondary"},
     {"highway", "secondary_link"},
-    {"highway",       "tertiary"},
-    {"highway",  "tertiary_link"},
+    {"highway", "tertiary"},
+    {"highway", "tertiary_link"},
     // Bicycle barriers without access on cycleway are ignored :)
-    {"highway",       "cycleway"},
+    {"highway", "cycleway"},
 };
 
 // motorway_junction blocks not only highway link, but main road also.
 // Actually, tagging motorway_junction with access is not used, see https://overpass-turbo.eu/s/1d1t
 // https://github.com/organicmaps/organicmaps/issues/1389
-std::set<OsmElement::Tag> const kIgnoreAccess = {
-    {"highway", "motorway_junction"}
-};
+std::set<OsmElement::Tag> const kIgnoreAccess = {{"highway", "motorway_junction"}};
 
 std::set<OsmElement::Tag> const kHighwaysWhereIgnoreAccessDestination = {
-    {"highway",      "motorway"},
-    {"highway", "motorway_link"},
-    {"highway",         "trunk"},
-    {"highway",    "trunk_link"},
-    {"highway",       "primary"},
-    {"highway",  "primary_link"},
+    {"highway", "motorway"},   {"highway", "motorway_link"}, {"highway", "trunk"},
+    {"highway", "trunk_link"}, {"highway", "primary"},       {"highway", "primary_link"},
 };
 
 auto const kEmptyAccess = RoadAccess::Type::Count;
@@ -574,10 +563,7 @@ void ReadRoadAccess(string const & roadAccessPath, routing::OsmWay2FeaturePoint 
 
     way2feature.ForEachNodeIdx(wayID, candidateIdx, entry.m_coord, [&](uint32_t featureID, uint32_t nodeIdx)
     {
-      auto const res = pointAccess[vehicleType].insert({
-          {featureID, nodeIdx},
-          entry.m_t
-      });
+      auto const res = pointAccess[vehicleType].insert({{featureID, nodeIdx}, entry.m_t});
       if (!res.second && res.first->second != entry.m_t)
       {
         LOG(LWARNING, ("Duplicate road access info for OSM way", wayID, "vehicle:", vehicleType,

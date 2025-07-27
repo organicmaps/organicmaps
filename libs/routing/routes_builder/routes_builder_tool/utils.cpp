@@ -155,9 +155,7 @@ std::optional<std::tuple<ms::LatLon, ms::LatLon, int32_t>> ParseApiLine(std::ifs
   if (!(ss >> utcOffset))
     utcOffset = 0;
 
-  return {
-      {start, finish, utcOffset}
-  };
+  return {{start, finish, utcOffset}};
 }
 
 void BuildRoutesWithApi(std::unique_ptr<api::RoutingApi> routingApi, std::string const & routesPath,

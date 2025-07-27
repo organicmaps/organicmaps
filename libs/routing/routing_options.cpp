@@ -56,17 +56,16 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
   Classificator const & c = classif();
 
   pair<vector<string>, RoutingOptions::Road> const types[] = {
-      {     {"highway", "motorway"}, RoutingOptions::Road::Motorway},
+      {{"highway", "motorway"}, RoutingOptions::Road::Motorway},
 
-      {           {"hwtag", "toll"},     RoutingOptions::Road::Toll},
+      {{"hwtag", "toll"}, RoutingOptions::Road::Toll},
 
-      {          {"route", "ferry"},    RoutingOptions::Road::Ferry},
+      {{"route", "ferry"}, RoutingOptions::Road::Ferry},
 
-      {        {"highway", "track"},    RoutingOptions::Road::Dirty},
-      {         {"highway", "road"},    RoutingOptions::Road::Dirty},
-      { {"psurface", "unpaved_bad"},    RoutingOptions::Road::Dirty},
-      {{"psurface", "unpaved_good"},    RoutingOptions::Road::Dirty}
-  };
+      {{"highway", "track"}, RoutingOptions::Road::Dirty},
+      {{"highway", "road"}, RoutingOptions::Road::Dirty},
+      {{"psurface", "unpaved_bad"}, RoutingOptions::Road::Dirty},
+      {{"psurface", "unpaved_good"}, RoutingOptions::Road::Dirty}};
 
   m_data.Reserve(std::size(types));
   for (auto const & data : types)

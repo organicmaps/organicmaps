@@ -28,31 +28,27 @@ namespace df
 namespace
 {
 // Values of the following arrays are based on traffic-arrow texture.
-static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffsets = {
-    {
-     0.75f,  // G0
-        0.75f,  // G1
-        0.75f,  // G2
-        0.5f,   // G3
-        0.25f,  // G4
-        0.25f,  // G5
-        0.75f,  // TempBlock
-        0.0f,   // Unknown
-    }
-};
+static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffsets = {{
+    0.75f,  // G0
+    0.75f,  // G1
+    0.75f,  // G2
+    0.5f,   // G3
+    0.25f,  // G4
+    0.25f,  // G5
+    0.75f,  // TempBlock
+    0.0f,   // Unknown
+}};
 
-static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kMinCoordU = {
-    {
-     0.15f,  // G0
-        0.15f,  // G1
-        0.15f,  // G2
-        0.33f,  // G3
-        0.5f,   // G4
-        0.0f,   // G5
-        0.15f,  // TempBlock
-        0.0f,   // Unknown
-    }
-};
+static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kMinCoordU = {{
+    0.15f,  // G0
+    0.15f,  // G1
+    0.15f,  // G2
+    0.33f,  // G3
+    0.5f,   // G4
+    0.0f,   // G5
+    0.15f,  // TempBlock
+    0.0f,   // Unknown
+}};
 
 dp::BindingInfo const & GetTrafficStaticBindingInfo()
 {
@@ -401,23 +397,27 @@ traffic::SpeedGroup TrafficGenerator::CheckColorsSimplification(traffic::SpeedGr
 df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup speedGroup, bool route)
 {
   auto constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
-  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMap{
-      {
-       "TrafficG0", "TrafficG1",
-       "TrafficG2", "TrafficG3",
-       "TrafficG4", "TrafficG5",
-       "TrafficTempBlock", "TrafficUnknown",
-       }
-  };
+  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMap{{
+      "TrafficG0",
+      "TrafficG1",
+      "TrafficG2",
+      "TrafficG3",
+      "TrafficG4",
+      "TrafficG5",
+      "TrafficTempBlock",
+      "TrafficUnknown",
+  }};
 
-  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMapRoute{
-      {
-       "RouteTrafficG0", "RouteTrafficG1",
-       "RouteTrafficG2", "RouteTrafficG3",
-       "TrafficG4", "TrafficG5",
-       "TrafficTempBlock", "TrafficUnknown",
-       }
-  };
+  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMapRoute{{
+      "RouteTrafficG0",
+      "RouteTrafficG1",
+      "RouteTrafficG2",
+      "RouteTrafficG3",
+      "TrafficG4",
+      "TrafficG5",
+      "TrafficTempBlock",
+      "TrafficUnknown",
+  }};
 
   auto const index = static_cast<size_t>(CheckColorsSimplification(speedGroup));
   ASSERT_LESS(index, kSpeedGroupsCount, ());

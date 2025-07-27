@@ -67,11 +67,7 @@ UNIT_TEST(FifoCache)
   TEST_EQUAL(cache.GetValue(2), 2, ());
   TEST(cache.IsValid(), ());
   {
-    unordered_map<Key, Value> expectedMap({
-        {1 /* key */, 1 /* value */},
-        {          2,             2},
-        {          3,             3}
-    });
+    unordered_map<Key, Value> expectedMap({{1 /* key */, 1 /* value */}, {2, 2}, {3, 3}});
     TEST_EQUAL(cache.GetMap(), expectedMap, ());
     list<Key> expectedList({2, 3, 1});
     boost::circular_buffer<Key> expectedCB(expectedList.cbegin(), expectedList.cend());
@@ -81,11 +77,7 @@ UNIT_TEST(FifoCache)
   TEST_EQUAL(cache.GetValue(7), 7, ());
   TEST(cache.IsValid(), ());
   {
-    unordered_map<Key, Value> expectedMap({
-        {7 /* key */, 7 /* value */},
-        {          2,             2},
-        {          3,             3}
-    });
+    unordered_map<Key, Value> expectedMap({{7 /* key */, 7 /* value */}, {2, 2}, {3, 3}});
     TEST_EQUAL(cache.GetMap(), expectedMap, ());
     list<Key> expectedList({7, 2, 3});
     boost::circular_buffer<Key> expectedCB(expectedList.cbegin(), expectedList.cend());

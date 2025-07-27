@@ -91,8 +91,7 @@ UNIT_TEST(TrackStatistics_WithGpsPoints)
   std::vector<std::vector<GpsInfo>> const pointsData = {
       {BuildGpsInfo(0.0, 0.0, 0, 0), BuildGpsInfo(1.0, 1.0, 50, 1), BuildGpsInfo(2.0, 2.0, 100, 2)},
       {BuildGpsInfo(3.0, 3.0, -50, 5)},
-      {BuildGpsInfo(4.0, 4.0, 0, 10)}
-  };
+      {BuildGpsInfo(4.0, 4.0, 0, 10)}};
   TrackStatistics ts;
   for (auto const & pointsList : pointsData)
     for (auto const & point : pointsList)

@@ -56,9 +56,9 @@ UNIT_TEST(EditableMapObject_SetWebsite)
 {
   pair<char const *, char const *> arr[] = {
       {"https://some.thing.org", "https://some.thing.org"},
-      { "http://some.thing.org",  "http://some.thing.org"},
-      {        "some.thing.org",  "http://some.thing.org"},
-      {                      "",                       ""},
+      {"http://some.thing.org", "http://some.thing.org"},
+      {"some.thing.org", "http://some.thing.org"},
+      {"", ""},
   };
 
   EditableMapObject emo;
@@ -356,9 +356,7 @@ UNIT_TEST(EditableMapObject_SetInternet)
   setInternetAndCheck(emo, feature::Internet::Terminal, false);
 
   EditableMapObject bunkerEmo;
-  SetTypes(bunkerEmo, {
-                          {"military", "bunker"}
-  });
+  SetTypes(bunkerEmo, {{"military", "bunker"}});
   types = bunkerEmo.GetTypes();
   TEST(!types.Has(wifiType), ());
 
@@ -440,9 +438,7 @@ UNIT_TEST(EditableMapObject_FromFeatureType)
   classificator::Load();
 
   EditableMapObject emo;
-  SetTypes(emo, {
-                    {"amenity", "cafe"}
-  });
+  SetTypes(emo, {{"amenity", "cafe"}});
 
   emo.SetHouseNumber("1");
 
@@ -479,80 +475,56 @@ UNIT_TEST(EditableMapObject_GetLocalizedAllTypes)
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {
-                      {"amenity", "fuel"},
-                      {"shop"},
-                      {"building"},
-                      {"toilets", "yes"}
-    });
+    SetTypes(emo, {{"amenity", "fuel"}, {"shop"}, {"building"}, {"toilets", "yes"}});
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "amenity-fuel • shop", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "shop", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {
-                      {"amenity",  "shelter"},
-                      {"amenity",    "bench"},
-                      {"highway", "bus_stop"}
-    });
+    SetTypes(emo, {{"amenity", "shelter"}, {"amenity", "bench"}, {"highway", "bus_stop"}});
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "highway-bus_stop • amenity-shelter • amenity-bench", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "amenity-shelter • amenity-bench", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {
-                      {"leisure",  "pitch"},
-                      {  "sport", "soccer"}
-    });
+    SetTypes(emo, {{"leisure", "pitch"}, {"sport", "soccer"}});
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "sport-soccer • leisure-pitch", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "leisure-pitch", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {
-                      {"craft", "key_cutter"}
-    });
+    SetTypes(emo, {{"craft", "key_cutter"}});
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "craft-key_cutter", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {
-                      {"amenity", "parking_entrance"},
-                      {"barrier",             "gate"}
-    });
+    SetTypes(emo, {{"amenity", "parking_entrance"}, {"barrier", "gate"}});
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "barrier-gate • amenity-parking_entrance", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "amenity-parking_entrance", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {
-                      {"barrier", "gate"}
-    });
+    SetTypes(emo, {{"barrier", "gate"}});
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "barrier-gate", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {
-                      {"entrance", "main"}
-    });
+    SetTypes(emo, {{"entrance", "main"}});
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "entrance-main", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {
-                      {"entrance", "main"},
-                      { "barrier", "gate"}
-    });
+    SetTypes(emo, {{"entrance", "main"}, {"barrier", "gate"}});
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "barrier-gate", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }
@@ -573,10 +545,7 @@ UNIT_TEST(EditableMapObject_GetLocalizedAllTypes)
 
   {
     EditableMapObject emo;
-    SetTypes(emo, {
-                      {"tourism", "artwork"},
-                      {"amenity"}
-    });
+    SetTypes(emo, {{"tourism", "artwork"}, {"amenity"}});
     TEST_EQUAL(emo.GetLocalizedAllTypes(true), "tourism-artwork", ());
     TEST_EQUAL(emo.GetLocalizedAllTypes(false), "", ());
   }

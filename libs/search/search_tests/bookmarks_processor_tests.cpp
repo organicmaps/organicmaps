@@ -79,15 +79,9 @@ kml::BookmarkData MakeBookmarkData(string const & name, string const & customNam
                                    vector<string> const & types)
 {
   kml::BookmarkData b;
-  b.m_name = {
-      {kml::kDefaultLangCode, name}
-  };
-  b.m_customName = {
-      {kml::kDefaultLangCode, customName}
-  };
-  b.m_description = {
-      {kml::kDefaultLangCode, description}
-  };
+  b.m_name = {{kml::kDefaultLangCode, name}};
+  b.m_customName = {{kml::kDefaultLangCode, customName}};
+  b.m_description = {{kml::kDefaultLangCode, description}};
   b.m_featureTypes.reserve(types.size());
 
   auto const & c = classif();

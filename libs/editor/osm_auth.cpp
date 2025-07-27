@@ -171,13 +171,11 @@ void OsmOAuth::LogoutUser(SessionID const & sid) const
 
 bool OsmOAuth::LoginUserPassword(string const & login, string const & password, SessionID const & sid) const
 {
-  auto params = BuildPostRequest({
-      {          "username",                   login},
-      {          "password",                password},
-      {           "referer",                     "/"},
-      {            "commit",                 "Login"},
-      {"authenticity_token", sid.m_authenticityToken}
-  });
+  auto params = BuildPostRequest({{"username", login},
+                                  {"password", password},
+                                  {"referer", "/"},
+                                  {"commit", "Login"},
+                                  {"authenticity_token", sid.m_authenticityToken}});
   HttpClient request(m_baseUrl + "/login");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
       .SetCookies(sid.m_cookies)
@@ -227,13 +225,11 @@ bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialTok
 // Fakes a buttons press to automatically accept requested permissions.
 string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const & lastSid) const
 {
-  auto params = BuildPostRequest({
-      {"authenticity_token",              requestTokenKey},
-      {         "client_id",    m_oauth2params.m_clientId},
-      {      "redirect_uri", m_oauth2params.m_redirectUri},
-      {             "scope",       m_oauth2params.m_scope},
-      {     "response_type",                       "code"}
-  });
+  auto params = BuildPostRequest({{"authenticity_token", requestTokenKey},
+                                  {"client_id", m_oauth2params.m_clientId},
+                                  {"redirect_uri", m_oauth2params.m_redirectUri},
+                                  {"scope", m_oauth2params.m_scope},
+                                  {"response_type", "code"}});
   HttpClient request(m_baseUrl + "/oauth2/authorize");
   request.SetBodyData(std::move(params), "application/x-www-form-urlencoded")
       .SetCookies(lastSid.m_cookies)
@@ -288,24 +284,22 @@ string OsmOAuth::FetchRequestToken(SessionID const & sid) const
 string OsmOAuth::BuildOAuth2Url() const
 {
   auto requestTokenUrl = m_baseUrl + "/oauth2/authorize";
-  auto const requestTokenQuery = BuildPostRequest({
-      {    "client_id",    m_oauth2params.m_clientId},
-      { "redirect_uri", m_oauth2params.m_redirectUri},
-      {        "scope",       m_oauth2params.m_scope},
-      {"response_type",                       "code"}
-  });
+  auto const requestTokenQuery = BuildPostRequest({{"client_id", m_oauth2params.m_clientId},
+                                                   {"redirect_uri", m_oauth2params.m_redirectUri},
+                                                   {"scope", m_oauth2params.m_scope},
+                                                   {"response_type", "code"}});
   return requestTokenUrl.append("?").append(requestTokenQuery);
 }
 
 string OsmOAuth::FinishAuthorization(string const & oauth2code) const
 {
   auto params = BuildPostRequest({
-      {   "grant_type",          "authorization_code"},
-      {         "code",                    oauth2code},
-      {    "client_id",     m_oauth2params.m_clientId},
+      {"grant_type", "authorization_code"},
+      {"code", oauth2code},
+      {"client_id", m_oauth2params.m_clientId},
       {"client_secret", m_oauth2params.m_clientSecret},
-      { "redirect_uri",  m_oauth2params.m_redirectUri},
-      {        "scope",        m_oauth2params.m_scope},
+      {"redirect_uri", m_oauth2params.m_redirectUri},
+      {"scope", m_oauth2params.m_scope},
   });
 
   HttpClient request(m_baseUrl + "/oauth2/token");

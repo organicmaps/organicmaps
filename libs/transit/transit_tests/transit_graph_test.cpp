@@ -284,200 +284,55 @@ unique_ptr<GraphData> CreateGraphFromJson()
 unique_ptr<Graph> MakeFullGraph()
 {
   auto graph = make_unique<Graph>();
-  graph->m_stops = {
-      {0 /* stop id */,
-       100 /* osm id */,
-       10 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(-2.0,  1.0),
-       {}},
-      {1 /* stop id */,
-       101 /* osm id */,
-       11 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(0.0,  1.0),
-       {}},
-      {2 /* stop id */,
-       102 /* osm id */,
-       12 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(2.0,  1.0),
-       {}},
-      {3 /* stop id */,
-       103 /* osm id */,
-       13 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(4.0,  1.0),
-       {}},
-      {4 /* stop id */,
-       104 /* osm id */,
-       14 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(5.0,  1.0),
-       {}},
-      {5 /* stop id */,
-       105 /* osm id */,
-       15 /* feature id */,
-       kInvalidTransferId, {2} /* line ids */,
-       m2::PointD(-1.0, -1.0),
-       {}},
-      {6 /* stop id */,
-       106 /* osm id */,
-       16 /* feature id */,
-       kInvalidTransferId, {2} /* line ids */,
-       m2::PointD(1.0, -1.0),
-       {}}
-  };
-
-  graph->m_gates = {
-      {100 /* osm id */,
-       10 /* feature id */,
-       true /* entrance */,
-       true /* exit */,
-       0 /* weight */,
-       {0} /* stop ids */,
-       m2::PointD(-2.0,  1.0)},
-      {101 /* osm id */,
-       11 /* feature id */,
-       true /* entrance */,
-       true /* exit */,
-       0 /* weight */,
-       {1} /* stop ids */,
-       m2::PointD(0.0,  1.0) },
-      {102 /* osm id */,
-       12 /* feature id */,
-       true /* entrance */,
-       true /* exit */,
-       0 /* weight */,
-       {2} /* stop ids */,
-       m2::PointD(2.0,  1.0) },
-      {103 /* osm id */,
-       13 /* feature id */,
-       true /* entrance */,
-       true /* exit */,
-       0 /* weight */,
-       {3} /* stop ids */,
-       m2::PointD(4.0,  1.0) },
-      {104 /* osm id */,
-       14 /* feature id */,
-       true /* entrance */,
-       true /* exit */,
-       0 /* weight */,
-       {4} /* stop ids */,
-       m2::PointD(5.0,  1.0) },
-      {105 /* osm id */,
-       15 /* feature id */,
-       true /* entrance */,
-       true /* exit */,
-       0 /* weight */,
-       {5} /* stop ids */,
-       m2::PointD(-1.0, -1.0)},
-      {106 /* osm id */,
-       16 /* feature id */,
-       true /* entrance */,
-       true /* exit */,
-       0 /* weight */,
-       {6} /* stop ids */,
-       m2::PointD(1.0, -1.0) },
-  };
-
-  graph->m_edges = {
-      {0 /* stop 1 id */,
-       1 /* stop 2 id */,
-       20 /* weight */,
-       1 /* line id */,
-       false /* transfer */,
-       {{0, 1}} /* shape ids */},
-      {1 /* stop 1 id */,
-       2 /* stop 2 id */,
-       20 /* weight */,
-       1 /* line id */,
-       false /* transfer */,
-       {{1, 2}} /* shape ids */},
-      {2 /* stop 1 id */,
-       3 /* stop 2 id */,
-       20 /* weight */,
-       1 /* line id */,
-       false /* transfer */,
-       {{2, 3}} /* shape ids */},
-      {3 /* stop 1 id */,
-       4 /* stop 2 id */,
-       10 /* weight */,
-       1 /* line id */,
-       false /* transfer */,
-       {{3, 4}} /* shape ids */},
-      {5 /* stop 1 id */,
-       6 /* stop 2 id */,
-       20 /* weight */,
-       2 /* line id */,
-       false /* transfer */,
-       {{5, 6}} /* shape ids */}
-  };
-
-  // |graph.m_transfers| should be empty.
-
-  graph->m_lines = {
-      {1 /* line id */,
-       "1" /* number */,
-       "Московская линия" /* title */,
-       "subway" /* type */,
-       "green", 2 /* network id */,
-       {{0, 1, 2, 3, 4}} /* stop id */,
-       150 /* interval */},
-      {2 /* line id */,
-       "2" /* number */,
-       "Варшавская линия" /* title */,
-       "subway" /* type */,
-       "red", 2 /* network id */,
-       {{5, 6}} /* stop id */,
-       150 /* interval */}
-  };
-
-  graph->m_shapes = {
-      {{0, 1} /* shape id */,   {{-2.0, 1.0}, {0.0, 1.0}} /* polyline */},
-      {{1, 2} /* shape id */,    {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
-      {{2, 3} /* shape id */,    {{2.0, 1.0}, {4.0, 1.0}} /* polyline */},
-      {{3, 4} /* shape id */,    {{4.0, 1.0}, {5.0, 1.0}} /* polyline */},
-      {{5, 6} /* shape id */, {{-1.0, -1.0}, {1.0, -1.0}} /* polyline */}
-  };
-
-  graph->m_networks = {
-      {2 /* network id */, "Минский метрополитен" /* title */}
-  };
-
-  return graph;
-}
-
-unique_ptr<Graph> MakeOneLineGraph()
-{
-  auto graph = make_unique<Graph>();
-
-  graph->m_stops = {
-      {0 /* stop id */,
-       100 /* osm id */,
-       10 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(-2.0, 1.0),
-       {}},
-      {1 /* stop id */,
-       101 /* osm id */,
-       11 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(0.0, 1.0),
-       {}},
-      {2 /* stop id */,
-       102 /* osm id */,
-       12 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(2.0, 1.0),
-       {}},
-      {3 /* stop id */,
-       103 /* osm id */,
-       13 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(4.0, 1.0),
-       {}}
-  };
+  graph->m_stops = {{0 /* stop id */,
+                     100 /* osm id */,
+                     10 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(-2.0, 1.0),
+                     {}},
+                    {1 /* stop id */,
+                     101 /* osm id */,
+                     11 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(0.0, 1.0),
+                     {}},
+                    {2 /* stop id */,
+                     102 /* osm id */,
+                     12 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(2.0, 1.0),
+                     {}},
+                    {3 /* stop id */,
+                     103 /* osm id */,
+                     13 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(4.0, 1.0),
+                     {}},
+                    {4 /* stop id */,
+                     104 /* osm id */,
+                     14 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(5.0, 1.0),
+                     {}},
+                    {5 /* stop id */,
+                     105 /* osm id */,
+                     15 /* feature id */,
+                     kInvalidTransferId,
+                     {2} /* line ids */,
+                     m2::PointD(-1.0, -1.0),
+                     {}},
+                    {6 /* stop id */,
+                     106 /* osm id */,
+                     16 /* feature id */,
+                     kInvalidTransferId,
+                     {2} /* line ids */,
+                     m2::PointD(1.0, -1.0),
+                     {}}};
 
   graph->m_gates = {
       {100 /* osm id */,
@@ -493,128 +348,28 @@ unique_ptr<Graph> MakeOneLineGraph()
        true /* exit */,
        0 /* weight */,
        {1} /* stop ids */,
-       m2::PointD(0.0, 1.0) },
+       m2::PointD(0.0, 1.0)},
       {102 /* osm id */,
        12 /* feature id */,
        true /* entrance */,
        true /* exit */,
        0 /* weight */,
        {2} /* stop ids */,
-       m2::PointD(2.0, 1.0) },
+       m2::PointD(2.0, 1.0)},
       {103 /* osm id */,
        13 /* feature id */,
        true /* entrance */,
        true /* exit */,
        0 /* weight */,
        {3} /* stop ids */,
-       m2::PointD(4.0, 1.0) }
-  };
-
-  graph->m_edges = {
-      {0 /* stop 1 id */,
-       1 /* stop 2 id */,
-       20 /* weight */,
-       1 /* line id */,
-       false /* transfer */,
-       {{0, 1}} /* shape ids */},
-      {1 /* stop 1 id */,
-       2 /* stop 2 id */,
-       20 /* weight */,
-       1 /* line id */,
-       false /* transfer */,
-       {{1, 2}} /* shape ids */},
-      {2 /* stop 1 id */,
-       3 /* stop 2 id */,
-       20 /* weight */,
-       1 /* line id */,
-       false /* transfer */,
-       {{2, 3}} /* shape ids */}
-  };
-
-  // |graph.m_transfers| should be empty.
-
-  graph->m_lines = {
-      {1 /* line id */,
-       "1" /* number */,
-       "Московская линия" /* title */,
-       "subway" /* type */,
-       "green", 2 /* network id */,
-       {{0, 1, 2, 3}} /* stop id */,
-       150 /* interval */}
-  };
-
-  graph->m_shapes = {
-      {{0, 1} /* shape id */, {{-2.0, 1.0}, {0.0, 1.0}} /* polyline */},
-      {{1, 2} /* shape id */,  {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
-      {{2, 3} /* shape id */,  {{2.0, 1.0}, {4.0, 1.0}} /* polyline */}
-  };
-
-  graph->m_networks = {
-      {2 /* network id */, "Минский метрополитен" /* title */}
-  };
-
-  return graph;
-}
-
-unique_ptr<Graph> MakeTwoLinesGraph()
-{
-  auto graph = make_unique<Graph>();
-
-  graph->m_stops = {
-      {1 /* stop id */,
-       101 /* osm id */,
-       11 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(0.0,  1.0),
-       {}},
-      {2 /* stop id */,
-       102 /* osm id */,
-       12 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(2.0,  1.0),
-       {}},
-      {3 /* stop id */,
-       103 /* osm id */,
-       13 /* feature id */,
-       kInvalidTransferId, {1} /* line ids */,
-       m2::PointD(4.0,  1.0),
-       {}},
-      {5 /* stop id */,
-       105 /* osm id */,
-       15 /* feature id */,
-       kInvalidTransferId, {2} /* line ids */,
-       m2::PointD(-1.0, -1.0),
-       {}},
-      {6 /* stop id */,
-       106 /* osm id */,
-       16 /* feature id */,
-       kInvalidTransferId, {2} /* line ids */,
-       m2::PointD(1.0, -1.0),
-       {}}
-  };
-
-  graph->m_gates = {
-      {101 /* osm id */,
-       11 /* feature id */,
+       m2::PointD(4.0, 1.0)},
+      {104 /* osm id */,
+       14 /* feature id */,
        true /* entrance */,
        true /* exit */,
        0 /* weight */,
-       {1} /* stop ids */,
-       m2::PointD(0.0,  1.0) },
-      {102 /* osm id */,
-       12 /* feature id */,
-       true /* entrance */,
-       true /* exit */,
-       0 /* weight */,
-       {2} /* stop ids */,
-       m2::PointD(2.0,  1.0) },
-      {103 /* osm id */,
-       13 /* feature id */,
-       true /* entrance */,
-       true /* exit */,
-       0 /* weight */,
-       {3} /* stop ids */,
-       m2::PointD(4.0,  1.0) },
+       {4} /* stop ids */,
+       m2::PointD(5.0, 1.0)},
       {105 /* osm id */,
        15 /* feature id */,
        true /* entrance */,
@@ -628,58 +383,292 @@ unique_ptr<Graph> MakeTwoLinesGraph()
        true /* exit */,
        0 /* weight */,
        {6} /* stop ids */,
-       m2::PointD(1.0, -1.0) },
+       m2::PointD(1.0, -1.0)},
   };
 
-  graph->m_edges = {
-      {1 /* stop 1 id */,
-       2 /* stop 2 id */,
-       20 /* weight */,
-       1 /* line id */,
-       false /* transfer */,
-       {{1, 2}} /* shape ids */},
-      {2 /* stop 1 id */,
-       3 /* stop 2 id */,
-       20 /* weight */,
-       1 /* line id */,
-       false /* transfer */,
-       {{2, 3}} /* shape ids */},
-      {5 /* stop 1 id */,
-       6 /* stop 2 id */,
-       20 /* weight */,
-       2 /* line id */,
-       false /* transfer */,
-       {{5, 6}} /* shape ids */}
-  };
+  graph->m_edges = {{0 /* stop 1 id */,
+                     1 /* stop 2 id */,
+                     20 /* weight */,
+                     1 /* line id */,
+                     false /* transfer */,
+                     {{0, 1}} /* shape ids */},
+                    {1 /* stop 1 id */,
+                     2 /* stop 2 id */,
+                     20 /* weight */,
+                     1 /* line id */,
+                     false /* transfer */,
+                     {{1, 2}} /* shape ids */},
+                    {2 /* stop 1 id */,
+                     3 /* stop 2 id */,
+                     20 /* weight */,
+                     1 /* line id */,
+                     false /* transfer */,
+                     {{2, 3}} /* shape ids */},
+                    {3 /* stop 1 id */,
+                     4 /* stop 2 id */,
+                     10 /* weight */,
+                     1 /* line id */,
+                     false /* transfer */,
+                     {{3, 4}} /* shape ids */},
+                    {5 /* stop 1 id */,
+                     6 /* stop 2 id */,
+                     20 /* weight */,
+                     2 /* line id */,
+                     false /* transfer */,
+                     {{5, 6}} /* shape ids */}};
 
   // |graph.m_transfers| should be empty.
 
-  graph->m_lines = {
-      {1 /* line id */,
-       "1" /* number */,
-       "Московская линия" /* title */,
-       "subway" /* type */,
-       "green", 2 /* network id */,
-       {{1, 2, 3}} /* stop id */,
-       150 /* interval */},
-      {2 /* line id */,
-       "2" /* number */,
-       "Варшавская линия" /* title */,
-       "subway" /* type */,
-       "red", 2 /* network id */,
-       {{5, 6}} /* stop id */,
-       150 /* interval */}
+  graph->m_lines = {{1 /* line id */,
+                     "1" /* number */,
+                     "Московская линия" /* title */,
+                     "subway" /* type */,
+                     "green",
+                     2 /* network id */,
+                     {{0, 1, 2, 3, 4}} /* stop id */,
+                     150 /* interval */},
+                    {2 /* line id */,
+                     "2" /* number */,
+                     "Варшавская линия" /* title */,
+                     "subway" /* type */,
+                     "red",
+                     2 /* network id */,
+                     {{5, 6}} /* stop id */,
+                     150 /* interval */}};
+
+  graph->m_shapes = {{{0, 1} /* shape id */, {{-2.0, 1.0}, {0.0, 1.0}} /* polyline */},
+                     {{1, 2} /* shape id */, {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
+                     {{2, 3} /* shape id */, {{2.0, 1.0}, {4.0, 1.0}} /* polyline */},
+                     {{3, 4} /* shape id */, {{4.0, 1.0}, {5.0, 1.0}} /* polyline */},
+                     {{5, 6} /* shape id */, {{-1.0, -1.0}, {1.0, -1.0}} /* polyline */}};
+
+  graph->m_networks = {{2 /* network id */, "Минский метрополитен" /* title */}};
+
+  return graph;
+}
+
+unique_ptr<Graph> MakeOneLineGraph()
+{
+  auto graph = make_unique<Graph>();
+
+  graph->m_stops = {{0 /* stop id */,
+                     100 /* osm id */,
+                     10 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(-2.0, 1.0),
+                     {}},
+                    {1 /* stop id */,
+                     101 /* osm id */,
+                     11 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(0.0, 1.0),
+                     {}},
+                    {2 /* stop id */,
+                     102 /* osm id */,
+                     12 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(2.0, 1.0),
+                     {}},
+                    {3 /* stop id */,
+                     103 /* osm id */,
+                     13 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(4.0, 1.0),
+                     {}}};
+
+  graph->m_gates = {{100 /* osm id */,
+                     10 /* feature id */,
+                     true /* entrance */,
+                     true /* exit */,
+                     0 /* weight */,
+                     {0} /* stop ids */,
+                     m2::PointD(-2.0, 1.0)},
+                    {101 /* osm id */,
+                     11 /* feature id */,
+                     true /* entrance */,
+                     true /* exit */,
+                     0 /* weight */,
+                     {1} /* stop ids */,
+                     m2::PointD(0.0, 1.0)},
+                    {102 /* osm id */,
+                     12 /* feature id */,
+                     true /* entrance */,
+                     true /* exit */,
+                     0 /* weight */,
+                     {2} /* stop ids */,
+                     m2::PointD(2.0, 1.0)},
+                    {103 /* osm id */,
+                     13 /* feature id */,
+                     true /* entrance */,
+                     true /* exit */,
+                     0 /* weight */,
+                     {3} /* stop ids */,
+                     m2::PointD(4.0, 1.0)}};
+
+  graph->m_edges = {{0 /* stop 1 id */,
+                     1 /* stop 2 id */,
+                     20 /* weight */,
+                     1 /* line id */,
+                     false /* transfer */,
+                     {{0, 1}} /* shape ids */},
+                    {1 /* stop 1 id */,
+                     2 /* stop 2 id */,
+                     20 /* weight */,
+                     1 /* line id */,
+                     false /* transfer */,
+                     {{1, 2}} /* shape ids */},
+                    {2 /* stop 1 id */,
+                     3 /* stop 2 id */,
+                     20 /* weight */,
+                     1 /* line id */,
+                     false /* transfer */,
+                     {{2, 3}} /* shape ids */}};
+
+  // |graph.m_transfers| should be empty.
+
+  graph->m_lines = {{1 /* line id */,
+                     "1" /* number */,
+                     "Московская линия" /* title */,
+                     "subway" /* type */,
+                     "green",
+                     2 /* network id */,
+                     {{0, 1, 2, 3}} /* stop id */,
+                     150 /* interval */}};
+
+  graph->m_shapes = {{{0, 1} /* shape id */, {{-2.0, 1.0}, {0.0, 1.0}} /* polyline */},
+                     {{1, 2} /* shape id */, {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
+                     {{2, 3} /* shape id */, {{2.0, 1.0}, {4.0, 1.0}} /* polyline */}};
+
+  graph->m_networks = {{2 /* network id */, "Минский метрополитен" /* title */}};
+
+  return graph;
+}
+
+unique_ptr<Graph> MakeTwoLinesGraph()
+{
+  auto graph = make_unique<Graph>();
+
+  graph->m_stops = {{1 /* stop id */,
+                     101 /* osm id */,
+                     11 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(0.0, 1.0),
+                     {}},
+                    {2 /* stop id */,
+                     102 /* osm id */,
+                     12 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(2.0, 1.0),
+                     {}},
+                    {3 /* stop id */,
+                     103 /* osm id */,
+                     13 /* feature id */,
+                     kInvalidTransferId,
+                     {1} /* line ids */,
+                     m2::PointD(4.0, 1.0),
+                     {}},
+                    {5 /* stop id */,
+                     105 /* osm id */,
+                     15 /* feature id */,
+                     kInvalidTransferId,
+                     {2} /* line ids */,
+                     m2::PointD(-1.0, -1.0),
+                     {}},
+                    {6 /* stop id */,
+                     106 /* osm id */,
+                     16 /* feature id */,
+                     kInvalidTransferId,
+                     {2} /* line ids */,
+                     m2::PointD(1.0, -1.0),
+                     {}}};
+
+  graph->m_gates = {
+      {101 /* osm id */,
+       11 /* feature id */,
+       true /* entrance */,
+       true /* exit */,
+       0 /* weight */,
+       {1} /* stop ids */,
+       m2::PointD(0.0, 1.0)},
+      {102 /* osm id */,
+       12 /* feature id */,
+       true /* entrance */,
+       true /* exit */,
+       0 /* weight */,
+       {2} /* stop ids */,
+       m2::PointD(2.0, 1.0)},
+      {103 /* osm id */,
+       13 /* feature id */,
+       true /* entrance */,
+       true /* exit */,
+       0 /* weight */,
+       {3} /* stop ids */,
+       m2::PointD(4.0, 1.0)},
+      {105 /* osm id */,
+       15 /* feature id */,
+       true /* entrance */,
+       true /* exit */,
+       0 /* weight */,
+       {5} /* stop ids */,
+       m2::PointD(-1.0, -1.0)},
+      {106 /* osm id */,
+       16 /* feature id */,
+       true /* entrance */,
+       true /* exit */,
+       0 /* weight */,
+       {6} /* stop ids */,
+       m2::PointD(1.0, -1.0)},
   };
 
-  graph->m_shapes = {
-      {{1, 2} /* shape id */,    {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
-      {{2, 3} /* shape id */,    {{2.0, 1.0}, {4.0, 1.0}} /* polyline */},
-      {{5, 6} /* shape id */, {{-1.0, -1.0}, {1.0, -1.0}} /* polyline */}
-  };
+  graph->m_edges = {{1 /* stop 1 id */,
+                     2 /* stop 2 id */,
+                     20 /* weight */,
+                     1 /* line id */,
+                     false /* transfer */,
+                     {{1, 2}} /* shape ids */},
+                    {2 /* stop 1 id */,
+                     3 /* stop 2 id */,
+                     20 /* weight */,
+                     1 /* line id */,
+                     false /* transfer */,
+                     {{2, 3}} /* shape ids */},
+                    {5 /* stop 1 id */,
+                     6 /* stop 2 id */,
+                     20 /* weight */,
+                     2 /* line id */,
+                     false /* transfer */,
+                     {{5, 6}} /* shape ids */}};
 
-  graph->m_networks = {
-      {2 /* network id */, "Минский метрополитен" /* title */}
-  };
+  // |graph.m_transfers| should be empty.
+
+  graph->m_lines = {{1 /* line id */,
+                     "1" /* number */,
+                     "Московская линия" /* title */,
+                     "subway" /* type */,
+                     "green",
+                     2 /* network id */,
+                     {{1, 2, 3}} /* stop id */,
+                     150 /* interval */},
+                    {2 /* line id */,
+                     "2" /* number */,
+                     "Варшавская линия" /* title */,
+                     "subway" /* type */,
+                     "red",
+                     2 /* network id */,
+                     {{5, 6}} /* stop id */,
+                     150 /* interval */}};
+
+  graph->m_shapes = {{{1, 2} /* shape id */, {{0.0, 1.0}, {2.0, 1.0}} /* polyline */},
+                     {{2, 3} /* shape id */, {{2.0, 1.0}, {4.0, 1.0}} /* polyline */},
+                     {{5, 6} /* shape id */, {{-1.0, -1.0}, {1.0, -1.0}} /* polyline */}};
+
+  graph->m_networks = {{2 /* network id */, "Минский метрополитен" /* title */}};
 
   return graph;
 }
@@ -746,13 +735,7 @@ UNIT_TEST(ClipGraph_SmokeTest)
 UNIT_TEST(ClipGraph_OneLineTest)
 {
   auto graph = CreateGraphFromJson();
-  vector<m2::PointD> points = {
-      { 3.0, 3.0},
-      { 3.0, 0.0},
-      {-3.0, 0.0},
-      {-3.0, 3.0},
-      { 3.0, 3.0}
-  };
+  vector<m2::PointD> points = {{3.0, 3.0}, {3.0, 0.0}, {-3.0, 0.0}, {-3.0, 3.0}, {3.0, 3.0}};
   graph->ClipGraph({m2::RegionD(points)});
   auto expectedGraph = MakeOneLineGraph();
   TestGraph(*graph, *expectedGraph);
@@ -779,13 +762,7 @@ UNIT_TEST(ClipGraph_OneLineTest)
 UNIT_TEST(ClipGraph_TwoLinesTest)
 {
   auto graph = CreateGraphFromJson();
-  vector<m2::PointD> points = {
-      {2.5,  2.0},
-      {2.5, -2.0},
-      {0.5, -2.0},
-      {0.5,  2.0},
-      {2.5,  2.0}
-  };
+  vector<m2::PointD> points = {{2.5, 2.0}, {2.5, -2.0}, {0.5, -2.0}, {0.5, 2.0}, {2.5, 2.0}};
   graph->ClipGraph({m2::RegionD(points)});
 
   auto expectedGraph = MakeTwoLinesGraph();

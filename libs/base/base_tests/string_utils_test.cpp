@@ -949,27 +949,15 @@ UNIT_TEST(EatPrefix_EatSuffix)
 {
   // <original string, prefix/suffix to cut, success, string after cutting>
   std::vector<std::tuple<std::string, std::string, bool, std::string>> kPrefixTestcases = {
-      {   "abc",     "a",  true,   "bc"},
-      {   "abc",     "b", false,  "abc"},
-      {   "abc",      "",  true,  "abc"},
-      {   "abc",   "abc",  true,     ""},
-      {   "abc", "abc00", false,  "abc"},
-      {      "",      "",  true,     ""},
-      {   "абв",     "а",  true,   "бв"},
-      {   "абв",     "б", false,  "абв"},
-      {"字符串",    "字",  true, "符串"},
+      {"abc", "a", true, "bc"}, {"abc", "b", false, "abc"},     {"abc", "", true, "abc"},
+      {"abc", "abc", true, ""}, {"abc", "abc00", false, "abc"}, {"", "", true, ""},
+      {"абв", "а", true, "бв"}, {"абв", "б", false, "абв"},     {"字符串", "字", true, "符串"},
   };
 
   std::vector<std::tuple<std::string, std::string, bool, std::string>> kSuffixTestcases = {
-      {   "abc",     "c",  true,   "ab"},
-      {   "abc",     "b", false,  "abc"},
-      {   "abc",      "",  true,  "abc"},
-      {   "abc",   "abc",  true,     ""},
-      {   "abc", "00abc", false,  "abc"},
-      {      "",      "",  true,     ""},
-      {   "абв",     "в",  true,   "аб"},
-      {   "абв",     "б", false,  "абв"},
-      {"字符串",    "串",  true, "字符"},
+      {"abc", "c", true, "ab"}, {"abc", "b", false, "abc"},     {"abc", "", true, "abc"},
+      {"abc", "abc", true, ""}, {"abc", "00abc", false, "abc"}, {"", "", true, ""},
+      {"абв", "в", true, "аб"}, {"абв", "б", false, "абв"},     {"字符串", "串", true, "字符"},
   };
 
   for (auto const & [original, toCut, success, afterCutting] : kPrefixTestcases)
@@ -1204,13 +1192,8 @@ UNIT_TEST(UniString_Replace)
                                                 "sometext длинная строка sometext к с такая же строка sometext"};
 
   std::vector<std::pair<std::string, std::string>> const replacements = {
-      {       "longlong",              "ll"},
-      {             "ss",      "shortshort"},
-      {       "samesize",        "sizesame"},
-      { "длинная строка",             "д с"},
-      {            "к с", "короткая строка"},
-      {"такая же строка", "строка такая же"}
-  };
+      {"longlong", "ll"},        {"ss", "shortshort"},       {"samesize", "sizesame"},
+      {"длинная строка", "д с"}, {"к с", "короткая строка"}, {"такая же строка", "строка такая же"}};
 
   for (auto testString : testStrings)
   {

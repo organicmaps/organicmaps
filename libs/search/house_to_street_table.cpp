@@ -55,9 +55,7 @@ public:
     uint32_t fID;
     if (!m_map->Get(houseId, fID))
       return {};
-    return {
-        {fID, StreetIdType::FeatureId}
-    };
+    return {{fID, StreetIdType::FeatureId}};
   }
 
 private:

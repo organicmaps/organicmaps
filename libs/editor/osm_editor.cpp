@@ -60,12 +60,10 @@ struct XmlSection
   char const * m_sectionName;
 };
 
-std::array<XmlSection, 4> constexpr kXmlSections = {
-    {{FeatureStatus::Deleted, kDeleteSection},
-     {FeatureStatus::Modified, kModifySection},
-     {FeatureStatus::Obsolete, kObsoleteSection},
-     {FeatureStatus::Created, kCreateSection}}
-};
+std::array<XmlSection, 4> constexpr kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
+                                                     {FeatureStatus::Modified, kModifySection},
+                                                     {FeatureStatus::Obsolete, kObsoleteSection},
+                                                     {FeatureStatus::Created, kCreateSection}}};
 
 struct LogHelper
 {

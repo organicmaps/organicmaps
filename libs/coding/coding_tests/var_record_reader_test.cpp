@@ -64,10 +64,6 @@ UNIT_TEST(VarRecordReader_Simple)
 
   vector<pair<uint64_t, string>> forEachCalls;
   recordReader.ForEachRecord(SaveForEachParams(forEachCalls));
-  vector<pair<uint64_t, string>> expectedForEachCalls = {
-      {                 0,      "abc"},
-      {                 4, longString},
-      {6 + longStringSize,     "defg"}
-  };
+  vector<pair<uint64_t, string>> expectedForEachCalls = {{0, "abc"}, {4, longString}, {6 + longStringSize, "defg"}};
   TEST_EQUAL(forEachCalls, expectedForEachCalls, ());
 }

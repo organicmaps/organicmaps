@@ -130,128 +130,49 @@ UNIT_TEST(EdgesTest)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 0.0},
-                      {1.0, 0.0},
-                      {2.0, 0.0},
-                      {3.0, 0.0},
-                      {4.0, 0.0}
-  }));
-  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0, -1.0},
-                      {3.0, -1.0}
-  }));
-  loader->AddRoad(2 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0, -1.0},
-                      {3.0, -1.0}
-  }));
+                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}, {3.0, 0.0}, {4.0, 0.0}}));
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */, RoadGeometry::Points({{1.0, -1.0}, {3.0, -1.0}}));
+  loader->AddRoad(2 /* featureId */, false, 1.0 /* speed */, RoadGeometry::Points({{1.0, -1.0}, {3.0, -1.0}}));
   loader->AddRoad(3 /* featureId */, true, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0,  1.0},
-                      {1.0,  0.0},
-                      {1.0, -1.0}
-  }));
+                  RoadGeometry::Points({{1.0, 1.0}, {1.0, 0.0}, {1.0, -1.0}}));
   loader->AddRoad(4 /* featureId */, true, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {3.0, -1.0},
-                      {3.0,  0.0},
-                      {3.0,  1.0}
-  }));
+                  RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
   traffic::TrafficCache const trafficCache;
   IndexGraph graph(make_shared<Geometry>(std::move(loader)), CreateEstimatorForCar(trafficCache));
 
   vector<Joint> joints;
-  joints.emplace_back(MakeJoint({
-      {0, 1},
-      {3, 1}
-  }));  // J0
-  joints.emplace_back(MakeJoint({
-      {0, 3},
-      {4, 1}
-  }));  // J1
-  joints.emplace_back(MakeJoint({
-      {1, 0},
-      {3, 2}
-  }));  // J2
-  joints.emplace_back(MakeJoint({
-      {1, 1},
-      {4, 0}
-  }));  // J3
-  joints.emplace_back(MakeJoint({
-      {2, 0},
-      {3, 0}
-  }));  // J4
-  joints.emplace_back(MakeJoint({
-      {2, 1},
-      {4, 2}
-  }));  // J5
+  joints.emplace_back(MakeJoint({{0, 1}, {3, 1}}));  // J0
+  joints.emplace_back(MakeJoint({{0, 3}, {4, 1}}));  // J1
+  joints.emplace_back(MakeJoint({{1, 0}, {3, 2}}));  // J2
+  joints.emplace_back(MakeJoint({{1, 1}, {4, 0}}));  // J3
+  joints.emplace_back(MakeJoint({{2, 0}, {3, 0}}));  // J4
+  joints.emplace_back(MakeJoint({{2, 1}, {4, 2}}));  // J5
   graph.Import(joints);
 
   TestOutgoingEdges(graph,
                     {
-                        kTestNumMwmId, 0  /* featureId */, 0  /* segmentIdx */, true  /* forward */
-  },
+                        kTestNumMwmId, 0 /* featureId */, 0 /* segmentIdx */, true /* forward */
+                    },
                     {{kTestNumMwmId, 0, 0, false}, {kTestNumMwmId, 0, 1, true}, {kTestNumMwmId, 3, 1, true}});
-  TestIngoingEdges(graph,
-                   {
-                       kTestNumMwmId, 0, 0, true
-  },
-                   {{kTestNumMwmId, 0, 0, false}});
-  TestOutgoingEdges(graph,
-                    {
-                        kTestNumMwmId, 0, 0, false
-  },
-                    {{kTestNumMwmId, 0, 0, true}});
-  TestIngoingEdges(graph,
-                   {
-                       kTestNumMwmId, 0, 0, false
-  },
+  TestIngoingEdges(graph, {kTestNumMwmId, 0, 0, true}, {{kTestNumMwmId, 0, 0, false}});
+  TestOutgoingEdges(graph, {kTestNumMwmId, 0, 0, false}, {{kTestNumMwmId, 0, 0, true}});
+  TestIngoingEdges(graph, {kTestNumMwmId, 0, 0, false},
                    {{kTestNumMwmId, 0, 0, true}, {kTestNumMwmId, 0, 1, false}, {kTestNumMwmId, 3, 0, true}});
 
-  TestOutgoingEdges(graph,
-                    {
-                        kTestNumMwmId, 0, 2, true
-  },
+  TestOutgoingEdges(graph, {kTestNumMwmId, 0, 2, true},
                     {{kTestNumMwmId, 0, 2, false}, {kTestNumMwmId, 0, 3, true}, {kTestNumMwmId, 4, 1, true}});
-  TestIngoingEdges(graph,
-                   {
-                       kTestNumMwmId, 0, 2, true
-  },
-                   {{kTestNumMwmId, 0, 1, true}});
-  TestOutgoingEdges(graph,
-                    {
-                        kTestNumMwmId, 0, 2, false
-  },
-                    {{kTestNumMwmId, 0, 1, false}});
-  TestIngoingEdges(graph,
-                   {
-                       kTestNumMwmId, 0, 2, false
-  },
+  TestIngoingEdges(graph, {kTestNumMwmId, 0, 2, true}, {{kTestNumMwmId, 0, 1, true}});
+  TestOutgoingEdges(graph, {kTestNumMwmId, 0, 2, false}, {{kTestNumMwmId, 0, 1, false}});
+  TestIngoingEdges(graph, {kTestNumMwmId, 0, 2, false},
                    {{kTestNumMwmId, 0, 2, true}, {kTestNumMwmId, 0, 3, false}, {kTestNumMwmId, 4, 0, true}});
 
-  TestOutgoingEdges(graph,
-                    {
-                        kTestNumMwmId, 3, 0, true
-  },
+  TestOutgoingEdges(graph, {kTestNumMwmId, 3, 0, true},
                     {{kTestNumMwmId, 3, 1, true}, {kTestNumMwmId, 0, 0, false}, {kTestNumMwmId, 0, 1, true}});
-  TestIngoingEdges(graph,
-                   {
-                       kTestNumMwmId, 3, 0, true
-  },
-                   {{kTestNumMwmId, 2, 0, false}});
+  TestIngoingEdges(graph, {kTestNumMwmId, 3, 0, true}, {{kTestNumMwmId, 2, 0, false}});
 
-  TestOutgoingEdges(graph,
-                    {
-                        kTestNumMwmId, 4, 1, true
-  },
-                    {{kTestNumMwmId, 2, 0, false}});
-  TestIngoingEdges(graph,
-                   {
-                       kTestNumMwmId, 4, 1, true
-  },
+  TestOutgoingEdges(graph, {kTestNumMwmId, 4, 1, true}, {{kTestNumMwmId, 2, 0, false}});
+  TestIngoingEdges(graph, {kTestNumMwmId, 4, 1, true},
                    {{kTestNumMwmId, 4, 0, true}, {kTestNumMwmId, 0, 2, true}, {kTestNumMwmId, 0, 3, false}});
 }
 
@@ -267,29 +188,13 @@ UNIT_TEST(FindPathCross)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {-2.0, 0.0},
-                      {-1.0, 0.0},
-                      { 0.0, 0.0},
-                      { 1.0, 0.0},
-                      { 2.0, 0.0}
-  }));
+                  RoadGeometry::Points({{-2.0, 0.0}, {-1.0, 0.0}, {0.0, 0.0}, {1.0, 0.0}, {2.0, 0.0}}));
   loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, -2.0},
-                      {0.0, -1.0},
-                      {0.0,  0.0},
-                      {0.0,  1.0},
-                      {0.0,  2.0}
-  }));
+                  RoadGeometry::Points({{0.0, -2.0}, {0.0, -1.0}, {0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}}));
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
-  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator,
-                                                      {
-                                                          MakeJoint({{0, 2}, {1, 2}}
-                                                          )
-  });
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, {MakeJoint({{0, 2}, {1, 2}})});
 
   vector<FakeEnding> endPoints;
   for (uint32_t i = 0; i < 4; ++i)
@@ -359,10 +264,7 @@ UNIT_TEST(FindPathManhattan)
   vector<Joint> joints;
   for (uint32_t i = 0; i < kCitySize; ++i)
     for (uint32_t j = 0; j < kCitySize; ++j)
-      joints.emplace_back(MakeJoint({
-          {            i, j},
-          {j + kCitySize, i}
-      }));
+      joints.emplace_back(MakeJoint({{i, j}, {j + kCitySize, i}}));
 
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, joints);
 
@@ -433,49 +335,29 @@ UNIT_TEST(RoadSpeed)
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
 
   loader->AddRoad(0 /* featureId */, false, 10.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0,  0.0},
-                      {2.0, -1.0},
-                      {3.0, -1.0},
-                      {4.0, -1.0},
-                      {5.0,  0.0}
-  }));
+                  RoadGeometry::Points({{1.0, 0.0}, {2.0, -1.0}, {3.0, -1.0}, {4.0, -1.0}, {5.0, 0.0}}));
 
   loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 0.0},
-                      {1.0, 0.0},
-                      {3.0, 0.0},
-                      {5.0, 0.0},
-                      {6.0, 0.0}
-  }));
+                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}, {6.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
 
   vector<Joint> joints;
-  joints.emplace_back(MakeJoint({
-      {0, 0},
-      {1, 1}
-  }));  // J0
-  joints.emplace_back(MakeJoint({
-      {0, 4},
-      {1, 3}
-  }));  // J1
+  joints.emplace_back(MakeJoint({{0, 0}, {1, 1}}));  // J0
+  joints.emplace_back(MakeJoint({{0, 4}, {1, 3}}));  // J1
 
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, joints);
 
   auto const start = MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(0.5, 0), *worldGraph);
   auto const finish = MakeFakeEnding(1, 3, m2::PointD(5.5, 0), *worldGraph);
 
-  vector<Segment> const expectedRoute({
-      {kTestNumMwmId, 1, 0, true},
-      {kTestNumMwmId, 0, 0, true},
-      {kTestNumMwmId, 0, 1, true},
-      {kTestNumMwmId, 0, 2, true},
-      {kTestNumMwmId, 0, 3, true},
-      {kTestNumMwmId, 1, 3, true}
-  });
+  vector<Segment> const expectedRoute({{kTestNumMwmId, 1, 0, true},
+                                       {kTestNumMwmId, 0, 0, true},
+                                       {kTestNumMwmId, 0, 1, true},
+                                       {kTestNumMwmId, 0, 2, true},
+                                       {kTestNumMwmId, 0, 3, true},
+                                       {kTestNumMwmId, 1, 3, true}});
   double const expectedWeight = mercator::DistanceOnEarth({0.5, 0.0}, {1.0, 0.0}) / KmphToMps(1.0) +
                                 mercator::DistanceOnEarth({1.0, 0.0}, {2.0, -1.0}) / KmphToMps(10.0) +
                                 mercator::DistanceOnEarth({2.0, -1.0}, {4.0, -1.0}) / KmphToMps(10.0) +
@@ -496,23 +378,15 @@ UNIT_TEST(OneSegmentWay)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
 
-  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 0.0},
-                      {3.0, 0.0}
-  }));
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */, RoadGeometry::Points({{0.0, 0.0}, {3.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, vector<Joint>());
-  vector<Segment> const expectedRoute({
-      {kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}
-  });
+  vector<Segment> const expectedRoute({{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
 
   // Starter must match any combination of start and finish directions.
-  vector<bool> const tf = {
-      {true, false}
-  };
+  vector<bool> const tf = {{true, false}};
   for (auto const startIsForward : tf)
   {
     for (auto const finishIsForward : tf)
@@ -542,10 +416,7 @@ UNIT_TEST(OneSegmentWayBackward)
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
 
   loader->AddRoad(0 /* featureId */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 0.0},
-                      {3.0, 0.0}
-  }));
+                  RoadGeometry::Points({{0.0, 0.0}, {3.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
@@ -573,36 +444,19 @@ UNIT_TEST(FakeSegmentCoordinates)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
 
-  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 0.0},
-                      {2.0, 0.0}
-  }));
-  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 0.0},
-                      {4.0, 0.0}
-  }));
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */, RoadGeometry::Points({{0.0, 0.0}, {2.0, 0.0}}));
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */, RoadGeometry::Points({{2.0, 0.0}, {4.0, 0.0}}));
 
   vector<Joint> joints;
-  joints.emplace_back(MakeJoint({
-      {0 /* featureId */, 1 /* pointId */},
-      {                1,               0}
-  }));
+  joints.emplace_back(MakeJoint({{0 /* featureId */, 1 /* pointId */}, {1, 0}}));
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, joints);
-  vector<m2::PointD> const expectedGeom = {
-      {1.0 /* x */, 0.0 /* y */},
-      {        2.0,         0.0},
-      {        3.0,         0.0}
-  };
+  vector<m2::PointD> const expectedGeom = {{1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {3.0, 0.0}};
 
   // Test fake segments have valid coordinates for any combination of start and finish directions
-  vector<bool> const tf = {
-      {true, false}
-  };
+  vector<bool> const tf = {{true, false}};
   for (auto const startIsForward : tf)
   {
     for (auto const finishIsForward : tf)
@@ -630,29 +484,16 @@ UNIT_TEST(FakeEndingAStarInvariant)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
 
-  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 0.0},
-                      {8.0, 0.0}
-  }));
-  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {8.0,          0.0},
-                      {8.0, 1.0 / 1000.0}
-  }));
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */, RoadGeometry::Points({{0.0, 0.0}, {8.0, 0.0}}));
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */, RoadGeometry::Points({{8.0, 0.0}, {8.0, 1.0 / 1000.0}}));
 
   vector<Joint> joints;
-  joints.emplace_back(MakeJoint({
-      {0 /* featureId */, 1 /* pointId */},
-      {                1,               0}
-  }));
+  joints.emplace_back(MakeJoint({{0 /* featureId */, 1 /* pointId */}, {1, 0}}));
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(std::move(loader), estimator, joints);
-  vector<Segment> const expectedRoute({
-      {kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}
-  });
+  vector<Segment> const expectedRoute({{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
 
   auto const start = MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(1.0, 1.0), *worldGraph);
   auto const finish = MakeFakeEnding(0, 0, m2::PointD(2.0, 1.0), *worldGraph);
@@ -674,10 +515,8 @@ UNIT_TEST(SerializeSimpleGraph)
   {
     IndexGraph graph;
     vector<Joint> joints = {
-        MakeJoint({{0, 1}, {1, 0}}
-        ),
-        MakeJoint({{1, 1}, {2, 0}}
-        ),
+        MakeJoint({{0, 1}, {1, 0}}),
+        MakeJoint({{1, 1}, {2, 0}}),
     };
     graph.Import(joints);
     unordered_map<uint32_t, VehicleMask> masks;
@@ -758,38 +597,26 @@ unique_ptr<SingleVehicleWorldGraph> BuildLoopGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* one way */, 100.0 /* speed */,
-                  RoadGeometry::Points({
-                      { 0.0002,  0.0001},
-                      {0.00015,  0.0001},
-                      { 0.0001,  0.0001},
-                      {0.00015, 0.00015},
-                      {0.00015,  0.0002},
-                      {0.00015,  0.0003},
-                      {0.00005,  0.0003},
-                      {0.00005,  0.0002},
-                      {0.00005, 0.00015},
-                      { 0.0001,  0.0001}
-  }));
+                  RoadGeometry::Points({{0.0002, 0.0001},
+                                        {0.00015, 0.0001},
+                                        {0.0001, 0.0001},
+                                        {0.00015, 0.00015},
+                                        {0.00015, 0.0002},
+                                        {0.00015, 0.0003},
+                                        {0.00005, 0.0003},
+                                        {0.00005, 0.0002},
+                                        {0.00005, 0.00015},
+                                        {0.0001, 0.0001}}));
   loader->AddRoad(1 /* feature id */, true /* one way */, 100.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0002,    0.0},
-                      {0.0002, 0.0001}
-  }));
+                  RoadGeometry::Points({{0.0002, 0.0}, {0.0002, 0.0001}}));
   loader->AddRoad(2 /* feature id */, true /* one way */, 100.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.00005, 0.0003},
-                      {0.00005, 0.0004}
-  }));
+                  RoadGeometry::Points({{0.00005, 0.0003}, {0.00005, 0.0004}}));
 
   vector<Joint> const joints = {
-      MakeJoint({{0 /* feature id */, 2 /* point id */}, {0, 9}}
-      ), /* joint at point (0.0002, 0) */
-      MakeJoint({{1, 1}, {0, 0}}
-      ), /* joint at point (0.0002, 0.0001) */
-      MakeJoint({{0, 6}, {2, 0}}
-      ), /* joint at point (0.00005, 0.0003) */
-      MakeJoint({{2, 1}}
-      ), /* joint at point (0.00005, 0.0004) */
+      MakeJoint({{0 /* feature id */, 2 /* point id */}, {0, 9}}), /* joint at point (0.0002, 0) */
+      MakeJoint({{1, 1}, {0, 0}}),                                 /* joint at point (0.0002, 0.0001) */
+      MakeJoint({{0, 6}, {2, 0}}),                                 /* joint at point (0.00005, 0.0003) */
+      MakeJoint({{2, 1}}),                                         /* joint at point (0.00005, 0.0004) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -805,15 +632,10 @@ UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
   auto start = MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(0.0002, 0), *m_graph);
   auto finish = MakeFakeEnding(2, 0, m2::PointD(0.00005, 0.0004), *m_graph);
 
-  vector<Segment> const expectedRoute = {
-      {kTestNumMwmId, 1, 0,  true},
-      {kTestNumMwmId, 0, 0,  true},
-      {kTestNumMwmId, 0, 1,  true},
-      {kTestNumMwmId, 0, 8, false},
-      {kTestNumMwmId, 0, 7, false},
-      {kTestNumMwmId, 0, 6, false},
-      {kTestNumMwmId, 2, 0,  true}
-  };
+  vector<Segment> const expectedRoute = {{kTestNumMwmId, 1, 0, true},  {kTestNumMwmId, 0, 0, true},
+                                         {kTestNumMwmId, 0, 1, true},  {kTestNumMwmId, 0, 8, false},
+                                         {kTestNumMwmId, 0, 7, false}, {kTestNumMwmId, 0, 6, false},
+                                         {kTestNumMwmId, 2, 0, true}};
 
   auto const expectedWeight = mercator::DistanceOnEarth({0.0002, 0.0}, {0.0002, 0.0001}) / KmphToMps(100.0) +
                               mercator::DistanceOnEarth({0.0002, 0.0001}, {0.00015, 0.0001}) / KmphToMps(100.0) +
@@ -837,10 +659,7 @@ UNIT_TEST(IndexGraph_OnlyTopology_1)
   graph.AddDirectedEdge(2, 3, 2.0);
 
   double const expectedWeight = 2.0;
-  vector<TestEdge> const expectedEdges = {
-      {0, 1},
-      {1, 3}
-  };
+  vector<TestEdge> const expectedEdges = {{0, 1}, {1, 3}};
 
   TestTopologyGraph(graph, 0, 3, true /* pathFound */, expectedWeight, expectedEdges);
   TestTopologyGraph(graph, 0, 4, false /* pathFound */, 0.0, {});
@@ -866,9 +685,7 @@ UNIT_TEST(IndexGraph_OnlyTopology_3)
   graph.AddDirectedEdge(0, 1, 1.0);
   graph.AddDirectedEdge(1, 0, 1.0);
   double const expectedWeight = 1.0;
-  vector<TestEdge> const expectedEdges = {
-      {0, 1}
-  };
+  vector<TestEdge> const expectedEdges = {{0, 1}};
 
   TestTopologyGraph(graph, 0, 1, true /* pathFound */, expectedWeight, expectedEdges);
 }
@@ -967,22 +784,11 @@ UNIT_TEST(FinishNearZeroEdge)
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
 
-  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 0.0},
-                      {4.0, 0.0}
-  }));
-  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {4.0, 0.0},
-                      {4.0, 0.0}
-  }));
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */, RoadGeometry::Points({{2.0, 0.0}, {4.0, 0.0}}));
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */, RoadGeometry::Points({{4.0, 0.0}, {4.0, 0.0}}));
 
   vector<Joint> joints;
-  joints.emplace_back(MakeJoint({
-      {0 /* featureId */, 1 /* pointId */},
-      {                1,               0}
-  }));
+  joints.emplace_back(MakeJoint({{0 /* featureId */, 1 /* pointId */}, {1, 0}}));
 
   traffic::TrafficCache const trafficCache;
   shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
@@ -993,12 +799,7 @@ UNIT_TEST(FinishNearZeroEdge)
       MakeFakeEnding({Segment(kTestNumMwmId, 1, 0, false /* forward */)}, m2::PointD(5.0, 0.0), *worldGraph);
   auto starter = MakeStarter(start, finish, *worldGraph);
 
-  vector<m2::PointD> const expectedGeom = {
-      {1.0 /* x */, 0.0 /* y */},
-      {        2.0,         0.0},
-      {        4.0,         0.0},
-      {        5.0,         0.0}
-  };
+  vector<m2::PointD> const expectedGeom = {{1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {4.0, 0.0}, {5.0, 0.0}};
   TestRouteGeometry(*starter, AlgorithmForIndexGraphStarter::Result::OK, expectedGeom);
 }
 }  // namespace index_graph_test

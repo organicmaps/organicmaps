@@ -58,11 +58,9 @@ UNIT_TEST(LocalitySelector_Test1)
 {
   MwmSet::MwmId mwmId;
   auto const city = GetMatchedCity(m2::PointD(-97.56345, 26.79672),
-                                   {
-                                       {  "Matamoros", m2::PointD(-97.50665, 26.79718), 918536, {mwmId, 0}},
+                                   {{"Matamoros", m2::PointD(-97.50665, 26.79718), 918536, {mwmId, 0}},
 
-                                       {"Brownsville", m2::PointD(-97.48910, 26.84558), 180663, {mwmId, 1}}
-  });
+                                    {"Brownsville", m2::PointD(-97.48910, 26.84558), 180663, {mwmId, 1}}});
   TEST_EQUAL(city.m_name, "Matamoros", ());
   TEST_EQUAL(city.m_id.m_index, 0, ());
 }
@@ -70,13 +68,11 @@ UNIT_TEST(LocalitySelector_Test1)
 UNIT_TEST(LocalitySelector_Test2)
 {
   MwmSet::MwmId mwmId;
-  vector<City> const cities = {
-      {     "Moscow", m2::PointD(37.61751, 67.45398), 11971516, {mwmId, 0}},
-      {"Krasnogorsk", m2::PointD(37.34040, 67.58036),   135735, {mwmId, 1}},
-      {     "Khimki", m2::PointD(37.44499, 67.70070),   240463, {mwmId, 2}},
-      {  "Mytishchi", m2::PointD(37.73394, 67.73675),   180663, {mwmId, 3}},
-      {"Dolgoprudny", m2::PointD(37.51425, 67.78073),   101979, {mwmId, 4}}
-  };
+  vector<City> const cities = {{"Moscow", m2::PointD(37.61751, 67.45398), 11971516, {mwmId, 0}},
+                               {"Krasnogorsk", m2::PointD(37.34040, 67.58036), 135735, {mwmId, 1}},
+                               {"Khimki", m2::PointD(37.44499, 67.70070), 240463, {mwmId, 2}},
+                               {"Mytishchi", m2::PointD(37.73394, 67.73675), 180663, {mwmId, 3}},
+                               {"Dolgoprudny", m2::PointD(37.51425, 67.78073), 101979, {mwmId, 4}}};
 
   {
     auto const city = GetMatchedCity(m2::PointD(37.53826, 67.53554), cities);

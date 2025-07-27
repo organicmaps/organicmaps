@@ -58,20 +58,19 @@ std::vector<MWMEditorCellID> const kSectionNoteCellTypes{MWMEditorCellTypeNote};
 std::vector<MWMEditorCellID> const kSectionButtonCellTypes{MWMEditorCellTypeReportButton};
 
 std::map<MWMEditorCellID, Class> const kCellType2Class{
-    {                    MWMEditorCellTypeCategory,                           [MWMEditorCategoryCell class]},
-    {              MWMEditorCellTypeAdditionalName,            [MWMEditorAdditionalNameTableViewCell class]},
-    {           MWMEditorCellTypeAddAdditionalName,         [MWMEditorAddAdditionalNameTableViewCell class]},
+    {MWMEditorCellTypeCategory, [MWMEditorCategoryCell class]},
+    {MWMEditorCellTypeAdditionalName, [MWMEditorAdditionalNameTableViewCell class]},
+    {MWMEditorCellTypeAddAdditionalName, [MWMEditorAddAdditionalNameTableViewCell class]},
     {MWMEditorCellTypeAddAdditionalNamePlaceholder, [MWMEditorAdditionalNamePlaceholderTableViewCell class]},
-    {                      MWMEditorCellTypeStreet,                    [MWMEditorSelectTableViewCell class]},
-    {                   MetadataID::FMD_OPEN_HOURS,                    [MWMPlacePageOpeningHoursCell class]},
-    {                      MetadataID::FMD_CUISINE,                    [MWMEditorSelectTableViewCell class]},
-    {                     MetadataID::FMD_INTERNET,                    [MWMEditorSwitchTableViewCell class]},
-    {                MetadataID::FMD_DRIVE_THROUGH,                 [MWMEditorSegmentedTableViewCell class]},
-    {                 MetadataID::FMD_SELF_SERVICE,                 [MWMEditorSegmentedTableViewCell class]},
-    {              MetadataID::FMD_OUTDOOR_SEATING,                 [MWMEditorSegmentedTableViewCell class]},
-    {                        MWMEditorCellTypeNote,                                     [MWMNoteCell class]},
-    {                MWMEditorCellTypeReportButton,                                   [MWMButtonCell class]}
-};
+    {MWMEditorCellTypeStreet, [MWMEditorSelectTableViewCell class]},
+    {MetadataID::FMD_OPEN_HOURS, [MWMPlacePageOpeningHoursCell class]},
+    {MetadataID::FMD_CUISINE, [MWMEditorSelectTableViewCell class]},
+    {MetadataID::FMD_INTERNET, [MWMEditorSwitchTableViewCell class]},
+    {MetadataID::FMD_DRIVE_THROUGH, [MWMEditorSegmentedTableViewCell class]},
+    {MetadataID::FMD_SELF_SERVICE, [MWMEditorSegmentedTableViewCell class]},
+    {MetadataID::FMD_OUTDOOR_SEATING, [MWMEditorSegmentedTableViewCell class]},
+    {MWMEditorCellTypeNote, [MWMNoteCell class]},
+    {MWMEditorCellTypeReportButton, [MWMButtonCell class]}};
 // Default class, if no entry in kCellType2Class.
 Class kDefaultCellTypeClass = [MWMEditorTextTableViewCell class];
 /// @return kDefaultCellTypeClass if cellType not specified in kCellType2Class.
@@ -763,10 +762,7 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
   {
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
-    cell.bounds = {
-        {},
-        {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}
-    };
+    cell.bounds = {{}, {CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds)}};
     [cell setNeedsLayout];
     [cell layoutIfNeeded];
     CGSize const size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];

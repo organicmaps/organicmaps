@@ -33,10 +33,10 @@ std::vector<UniString> const kAllowedMisprints = {
 };
 
 std::pair<UniString, UniString> const kPreprocessReplacements[] = {
-    { MakeUniString("пр-т"),   MakeUniString("проспект")},
-    { MakeUniString("пр-д"),     MakeUniString("проезд")},
+    {MakeUniString("пр-т"), MakeUniString("проспект")},
+    {MakeUniString("пр-д"), MakeUniString("проезд")},
     {MakeUniString("наб-я"), MakeUniString("набережная")},
-    {  MakeUniString("м-н"), MakeUniString("микрорайон")},
+    {MakeUniString("м-н"), MakeUniString("микрорайон")},
 };
 
 void TransliterateHiraganaToKatakana(UniString & s)
@@ -615,7 +615,7 @@ String2StringMap const & GetDACHStreets()
 {
   static String2StringMap res = {
       {MakeUniString("strasse"), MakeUniString("str")},
-      {  MakeUniString("platz"),  MakeUniString("pl")},
+      {MakeUniString("platz"), MakeUniString("pl")},
   };
   return res;
 }

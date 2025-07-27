@@ -115,9 +115,7 @@ UNIT_TEST(ClustersFinder_TwoElements)
 {
   std::vector<NamedPoint> in{NamedPoint({0.0, 0.0}, Type::T1, "name"), NamedPoint({0.0001, 0.0001}, Type::T1, "name")};
 
-  std::vector<ClusterT> expected{
-      {&in[0], &in[1]}
-  };
+  std::vector<ClusterT> expected{{&in[0], &in[1]}};
   Test(in, expected);
 }
 
@@ -149,11 +147,7 @@ UNIT_TEST(ClustersFinder_ThreeClusters)
 
       NamedPoint({0.0, 0.0}, Type::T1, "name21")};
 
-  std::vector<ClusterT> expected{
-      {&in[1], &in[0], &in[2]},
-      {&in[3], &in[5], &in[4]},
-      {&in[6]}
-  };
+  std::vector<ClusterT> expected{{&in[1], &in[0], &in[2]}, {&in[3], &in[5], &in[4]}, {&in[6]}};
   Test(in, expected);
 }
 }  // namespace cluster_finder_tests

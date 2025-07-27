@@ -72,15 +72,15 @@ UNIT_TEST(TrafficInfo_RemoteFile)
 UNIT_TEST(TrafficInfo_Serialization)
 {
   TrafficInfo::Coloring coloring = {
-      {         TrafficInfo::RoadSegmentId(0, 0, 0),        SpeedGroup::G0},
+      {TrafficInfo::RoadSegmentId(0, 0, 0), SpeedGroup::G0},
 
-      {         TrafficInfo::RoadSegmentId(1, 0, 0),        SpeedGroup::G1},
-      {         TrafficInfo::RoadSegmentId(1, 0, 1),        SpeedGroup::G3},
+      {TrafficInfo::RoadSegmentId(1, 0, 0), SpeedGroup::G1},
+      {TrafficInfo::RoadSegmentId(1, 0, 1), SpeedGroup::G3},
 
-      {         TrafficInfo::RoadSegmentId(5, 0, 0),        SpeedGroup::G2},
-      {         TrafficInfo::RoadSegmentId(5, 0, 1),        SpeedGroup::G2},
-      {         TrafficInfo::RoadSegmentId(5, 1, 0),        SpeedGroup::G2},
-      {         TrafficInfo::RoadSegmentId(5, 1, 1),        SpeedGroup::G5},
+      {TrafficInfo::RoadSegmentId(5, 0, 0), SpeedGroup::G2},
+      {TrafficInfo::RoadSegmentId(5, 0, 1), SpeedGroup::G2},
+      {TrafficInfo::RoadSegmentId(5, 1, 0), SpeedGroup::G2},
+      {TrafficInfo::RoadSegmentId(5, 1, 1), SpeedGroup::G5},
 
       {TrafficInfo::RoadSegmentId(4294967295, 0, 0), SpeedGroup::TempBlock},
   };

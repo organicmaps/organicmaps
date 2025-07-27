@@ -15,16 +15,14 @@ using namespace std;
 using feature::Metadata;
 using EType = Metadata::EType;
 
-map<EType, string> const kKeyValues = {
-    {    EType::FMD_ELE,"12345"                        },
-    {  EType::FMD_EMAIL,              "cool@email.at"},
-    // This string is longer than 255 bytes.
-    {EType::FMD_WEBSITE,
-     "http://rskxmkjwnikfnjqhyvkpjgaghhyhukjyenduiuanxgbmndtlpfphdgaizfcpzuiuspcp"
-     "umeojwvekvjprlutwjmxudyzrlwwsepewevsuqelobqcfdzsoqozkesghojribepbaitivmaqep"
-     "hheckitonddqhbapdybhetvnwvlchjafepdjaeoaapysdvculxuwjbgdddryodiihvnpvmkgqvs"
-     "mawbdsrbmnndcozmrgeoahbkhcevxkmtdqnxpxlsju.org"}
-};
+map<EType, string> const kKeyValues = {{EType::FMD_ELE, "12345"},
+                                       {EType::FMD_EMAIL, "cool@email.at"},
+                                       // This string is longer than 255 bytes.
+                                       {EType::FMD_WEBSITE,
+                                        "http://rskxmkjwnikfnjqhyvkpjgaghhyhukjyenduiuanxgbmndtlpfphdgaizfcpzuiuspcp"
+                                        "umeojwvekvjprlutwjmxudyzrlwwsepewevsuqelobqcfdzsoqozkesghojribepbaitivmaqep"
+                                        "hheckitonddqhbapdybhetvnwvlchjafepdjaeoaapysdvculxuwjbgdddryodiihvnpvmkgqvs"
+                                        "mawbdsrbmnndcozmrgeoahbkhcevxkmtdqnxpxlsju.org"}};
 
 UNIT_TEST(Feature_Metadata_GetSet)
 {

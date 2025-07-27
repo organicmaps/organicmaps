@@ -20,12 +20,10 @@ struct lang_string
   char const * m_str;
 };
 
-lang_string gArr[] = {
-    {"default",                                  "default"},
-    {     "en",                                     "abcd"},
-    {     "ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
-    {     "be",             "\xE2\x82\xAC\xF0\xA4\xAD\xA2"}
-};
+lang_string gArr[] = {{"default", "default"},
+                      {"en", "abcd"},
+                      {"ru", "\xD0\xA0\xD0\xB0\xD1\x88\xD0\xBA\xD0\xB0"},
+                      {"be", "\xE2\x82\xAC\xF0\xA4\xAD\xA2"}};
 
 void TestMultilangString(lang_string const * arr, size_t count)
 {
@@ -240,15 +238,8 @@ UNIT_TEST(MultilangString_RemoveString)
     });
   };
 
-  vector<pair<uint8_t, string>> strings = {
-      { 0, "aaa"},
-      { 1, "bbb"},
-      { 2, "ccc"},
-      { 9, "ddd"},
-      {17, "eee"},
-      {27, "fff"},
-      {37, "ggg"}
-  };
+  vector<pair<uint8_t, string>> strings = {{0, "aaa"},  {1, "bbb"},  {2, "ccc"}, {9, "ddd"},
+                                           {17, "eee"}, {27, "fff"}, {37, "ggg"}};
 
   testRemove(strings, {0});
   testRemove(strings, {1});

@@ -31,11 +31,7 @@ bool InsideTriangle(P const & p, P const ps[])
 
 UNIT_TEST(OrientedS_Smoke)
 {
-  P arr[] = {
-      {-1, -1},
-      { 0,  0},
-      { 1, -1}
-  };
+  P arr[] = {{-1, -1}, {0, 0}, {1, -1}};
   TEST(OrientedS(arr[0], arr[2], arr[1]) > 0, ());
   TEST(OrientedS(arr[2], arr[0], arr[1]) < 0, ());
 }
@@ -44,10 +40,7 @@ UNIT_TEST(Segment_Smoke)
 {
   double constexpr eps = 1.0E-10;
   {
-    P ps[] = {
-        {0, 0},
-        {1, 0}
-    };
+    P ps[] = {{0, 0}, {1, 0}};
     TEST(OnSegment(ps[0], ps), ());
     TEST(OnSegment(ps[1], ps), ());
     TEST(OnSegment(P(0.5, 0), ps), ());
@@ -62,10 +55,7 @@ UNIT_TEST(Segment_Smoke)
   }
 
   {
-    P ps[] = {
-        {10, 10},
-        {10, 10}
-    };
+    P ps[] = {{10, 10}, {10, 10}};
     TEST(OnSegment(ps[0], ps), ());
     TEST(OnSegment(ps[1], ps), ());
     TEST(!OnSegment(P(10 - eps, 10), ps), ());
@@ -75,10 +65,7 @@ UNIT_TEST(Segment_Smoke)
 
   // Paranoid tests.
   {
-    P ps[] = {
-        {    0,     0},
-        {1e100, 1e100}
-    };
+    P ps[] = {{0, 0}, {1e100, 1e100}};
     TEST(OnSegment(ps[0], ps), ());
     TEST(OnSegment(ps[1], ps), ());
 #if defined(DEBUG) || __apple_build_version__ < 15000000  // True if __apple_build_version__ is not defined (e.g. Linux)
@@ -97,30 +84,20 @@ UNIT_TEST(Segment_Smoke)
 #if defined(DEBUG) || __apple_build_version__ < 15000000
   // TODO(AB): Fails on Mac's clang with any optimization enabled and -fassociative-math
   {
-    P ps[] = {
-        {    0,     0},
-        {2e100, 1e100}
-    };
+    P ps[] = {{0, 0}, {2e100, 1e100}};
     TEST(OnSegment(P(2.0 / 3.0, 1.0 / 3.0), ps), ());
   }
 #endif
 
   {
-    P ps[] = {
-        {    0,     0},
-        {1e-15, 1e-15}
-    };
+    P ps[] = {{0, 0}, {1e-15, 1e-15}};
     TEST(!OnSegment(P(1e-16, 2.0 * 1e-16), ps), ());
   }
 }
 
 UNIT_TEST(Triangle_Smoke)
 {
-  P arr[] = {
-      {0, 0},
-      {0, 3},
-      {3, 0}
-  };
+  P arr[] = {{0, 0}, {0, 3}, {3, 0}};
 
   TEST(IsPointInsideTriangle(arr[0], arr[0], arr[1], arr[2]), ());
   TEST(IsPointInsideTriangle(arr[1], arr[0], arr[1], arr[2]), ());
@@ -139,11 +116,7 @@ UNIT_TEST(Triangle_PointInsideSegment)
 {
   double constexpr eps = 1.0E-10;
 
-  P ps[] = {
-      {0, 0},
-      {0, 1},
-      {0, 1}
-  };
+  P ps[] = {{0, 0}, {0, 1}, {0, 1}};
   TEST(InsideTriangle(ps[0], ps), ());
   TEST(InsideTriangle(ps[1], ps), ());
   TEST(InsideTriangle(ps[2], ps), ());
@@ -160,11 +133,7 @@ UNIT_TEST(Triangle_PointInsidePoint)
 {
   double constexpr eps = 1.0E-10;
 
-  P ps[] = {
-      {0, 0},
-      {0, 0},
-      {0, 0}
-  };
+  P ps[] = {{0, 0}, {0, 0}, {0, 0}};
   TEST(InsideTriangle(ps[0], ps), ());
   TEST(InsideTriangle(ps[1], ps), ());
   TEST(InsideTriangle(ps[2], ps), ());

@@ -110,19 +110,13 @@ UNIT_CLASS_TEST(CentersTableTest, SmokeV0)
 UNIT_CLASS_TEST(CentersTableTest, Subset)
 {
   vector<pair<uint32_t, m2::PointD>> const features = {
-      { 1, m2::PointD(0.0, 0.0)},
-      { 5, m2::PointD(1.0, 1.0)},
-      {10, m2::PointD(2.0, 2.0)}
-  };
+      {1, m2::PointD(0.0, 0.0)}, {5, m2::PointD(1.0, 1.0)}, {10, m2::PointD(2.0, 2.0)}};
 
   TBuffer buffer;
   {
     CentersTableBuilder builder;
 
-    builder.SetGeometryParams({
-        {0.0, 0.0},
-        {2.0, 2.0}
-    });
+    builder.SetGeometryParams({{0.0, 0.0}, {2.0, 2.0}});
     for (auto const & feature : features)
       builder.Put(feature.first, feature.second);
 

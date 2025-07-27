@@ -36,10 +36,7 @@ CGFloat const kButtonsBottomOffset = 6;
   spacing = math::Clamp(spacing, kLocationButtonSpacingMin, kLocationButtonSpacingMax);
 
   self.location.minY = self.zoomOut.maxY + spacing;
-  self.bounds = {
-      {},
-      {self.zoomOut.width, self.location.maxY}
-  };
+  self.bounds = {{}, {self.zoomOut.width, self.location.maxY}};
   if (self.zoomHidden)
     self.height = self.location.height;
   self.location.maxY = self.height;

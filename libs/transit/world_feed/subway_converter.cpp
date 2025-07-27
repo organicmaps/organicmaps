@@ -658,9 +658,7 @@ void SubwayConverter::CalculateLinePriorities(std::vector<LineSchemeData> const 
       TransitId const routeId = m_feed.m_lines.m_data.at(lineId).m_routeId;
       std::string color = m_feed.m_routes.m_data.at(routeId).m_color;
 
-      std::map<std::string, bool> colors{
-          {color, true /* codirectional */}
-      };
+      std::map<std::string, bool> colors{{color, true /* codirectional */}};
       bool colorCopy = false;
 
       for (auto const & [id, codirectional] : parallelLines)

@@ -26,12 +26,12 @@ using TestEdge = TestIndexGraphTopology::Edge;
 void FillRoadAccessBySample_1(RoadAccess & roadAccess)
 {
   RoadAccess::WayToAccess wayToAccess = {
-      {1 /* featureId */,      RoadAccess::Type::No},
+      {1 /* featureId */, RoadAccess::Type::No},
       {2 /* featureId */, RoadAccess::Type::Private},
   };
 
   RoadAccess::PointToAccess pointToAccess = {
-      {RoadPoint(3 /* featureId */, 0 /* pointId */),      RoadAccess::Type::No},
+      {RoadPoint(3 /* featureId */, 0 /* pointId */), RoadAccess::Type::No},
       {RoadPoint(4 /* featureId */, 7 /* pointId */), RoadAccess::Type::Private},
   };
 
@@ -41,13 +41,13 @@ void FillRoadAccessBySample_1(RoadAccess & roadAccess)
 void FillRoadAccessBySample_2(RoadAccess & roadAccess)
 {
   RoadAccess::WayToAccess wayToAccess = {
-      {1 /* featureId */,     RoadAccess::Type::Private},
+      {1 /* featureId */, RoadAccess::Type::Private},
       {2 /* featureId */, RoadAccess::Type::Destination},
   };
 
   RoadAccess::PointToAccess pointToAccess = {
       {RoadPoint(3 /* featureId */, 10 /* pointId */), RoadAccess::Type::Destination},
-      {RoadPoint(4 /* featureId */,  0 /* pointId */),          RoadAccess::Type::No},
+      {RoadPoint(4 /* featureId */, 0 /* pointId */), RoadAccess::Type::No},
   };
 
   roadAccess.SetAccess(std::move(wayToAccess), std::move(pointToAccess));
@@ -259,21 +259,13 @@ UNIT_TEST(RoadAccess_WayBlocking)
   vector<TestEdge> expectedEdges;
 
   expectedWeight = 3.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 5}
-  };
+  expectedEdges = {{0, 1}, {1, 2}, {2, 5}};
   TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
 
   // Test avoid access=private while we have route with RoadAccess::Type::Yes.
   graph.SetEdgeAccess(1, 2, RoadAccess::Type::Private);
   expectedWeight = 4.0;
-  expectedEdges = {
-      {0, 3},
-      {3, 4},
-      {4, 5}
-  };
+  expectedEdges = {{0, 3}, {3, 4}, {4, 5}};
   TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
 
   // Test avoid access=destination while we have route with RoadAccess::Type::Yes.
@@ -315,21 +307,13 @@ UNIT_TEST(RoadAccess_BarrierBypassing)
   vector<TestEdge> expectedEdges;
 
   expectedWeight = 3.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 5}
-  };
+  expectedEdges = {{0, 1}, {1, 2}, {2, 5}};
   TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
 
   // Test avoid access=private while we have route with RoadAccess::Type::Yes.
   graph.SetVertexAccess(1, RoadAccess::Type::Private);
   expectedWeight = 4.0;
-  expectedEdges = {
-      {0, 3},
-      {3, 4},
-      {4, 5}
-  };
+  expectedEdges = {{0, 3}, {3, 4}, {4, 5}};
   TestTopologyGraph(graph, 0, 5, true /* pathFound */, expectedWeight, expectedEdges);
 
   // Test avoid access=destination while we have route with RoadAccess::Type::Yes.
@@ -365,11 +349,7 @@ UNIT_TEST(RoadAccess_WayBlockedConditional)
   graph.AddDirectedEdge(2, 3, 1.0);
 
   double expectedWeight = 3.0;
-  vector<TestEdge> expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3}
-  };
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   graph.SetEdgeAccessConditional(1, 2, RoadAccess::Type::No, "Jan - Jul");
@@ -385,11 +365,7 @@ UNIT_TEST(RoadAccess_WayBlockedConditional)
 
   graph.SetCurrentTimeGetter(november);
   expectedWeight = 3.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3}
-  };
+  expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 }
 
@@ -441,10 +417,7 @@ UNIT_TEST(RoadAccess_WayBlockedAvoidConditional)
   graph.AddDirectedEdge(2, 3, 10.0);
 
   double expectedWeight = 2.0;
-  vector<TestEdge> expectedEdges = {
-      {0, 1},
-      {1, 3}
-  };
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   graph.SetEdgeAccessConditional(0, 1, RoadAccess::Type::No, "Mo-Fr 10:00 - 19:00");
@@ -456,10 +429,7 @@ UNIT_TEST(RoadAccess_WayBlockedAvoidConditional)
   // such edges.
   graph.SetCurrentTimeGetter(mondayAlmostTenHours);
   expectedWeight = 20.0;
-  expectedEdges = {
-      {0, 2},
-      {2, 3}
-  };
+  expectedEdges = {{0, 2}, {2, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   graph.SetEdgeAccess(0, 2, RoadAccess::Type::No);
@@ -467,10 +437,7 @@ UNIT_TEST(RoadAccess_WayBlockedAvoidConditional)
   // But if this is the only path (we blocked 0->2 above), we should pass edge 0->1 anyway.
   graph.SetCurrentTimeGetter(mondayAlmostTenHours);
   expectedWeight = 2.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 3}
-  };
+  expectedEdges = {{0, 1}, {1, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   auto const mondayTwelveHours = []()
@@ -545,11 +512,7 @@ UNIT_TEST(RoadAccess_WayBlockedConditional_Yes_No)
   graph.AddDirectedEdge(2, 3, 1.0);
 
   double expectedWeight = 3.0;
-  vector<TestEdge> expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3}
-  };
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   graph.SetEdgeAccessConditional(1, 2, RoadAccess::Type::No, "Mo-Fr");
@@ -569,11 +532,7 @@ UNIT_TEST(RoadAccess_WayBlockedConditional_Yes_No)
   // And open from Saturday to Sunday
   graph.SetCurrentTimeGetter(saturday);
   expectedWeight = 3.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3}
-  };
+  expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 }
 
@@ -628,10 +587,7 @@ UNIT_TEST(RoadAccess_WayBlockedAvoidPrivateConditional)
   graph.AddDirectedEdge(2, 3, 10.0);
 
   double expectedWeight = 2.0;
-  vector<TestEdge> expectedEdges = {
-      {0, 1},
-      {1, 3}
-  };
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   graph.SetEdgeAccessConditional(0, 1, RoadAccess::Type::Private, "Mo-Fr 19:00 - 23:00");
@@ -643,10 +599,7 @@ UNIT_TEST(RoadAccess_WayBlockedAvoidPrivateConditional)
   // thus the answer is: 0->2->3.
   graph.SetCurrentTimeGetter(mondayAlmostTwentyHalfHours);
   expectedWeight = 20.0;
-  expectedEdges = {
-      {0, 2},
-      {2, 3}
-  };
+  expectedEdges = {{0, 2}, {2, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   graph.SetEdgeAccess(0, 2, RoadAccess::Type::No);
@@ -654,10 +607,7 @@ UNIT_TEST(RoadAccess_WayBlockedAvoidPrivateConditional)
   // But if this is the only path (we blocked 0->2 above), we should pass through edge: 0->1 anyway.
   graph.SetCurrentTimeGetter(mondayAlmostTwentyHalfHours);
   expectedWeight = 2.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 3}
-  };
+  expectedEdges = {{0, 1}, {1, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 }
 
@@ -671,11 +621,7 @@ UNIT_TEST(RoadAccess_WayBlockedAlwaysNoExceptMonday)
   graph.AddDirectedEdge(2, 3, 1.0);
 
   double expectedWeight = 3.0;
-  vector<TestEdge> expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3}
-  };
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   // Always access no for edge: 1->2.
@@ -691,11 +637,7 @@ UNIT_TEST(RoadAccess_WayBlockedAlwaysNoExceptMonday)
 
   graph.SetCurrentTimeGetter(monday);
   expectedWeight = 3.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3}
-  };
+  expectedEdges = {{0, 1}, {1, 2}, {2, 3}};
   TestTopologyGraph(graph, 0 /* from */, 3 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 }
 
@@ -715,13 +657,7 @@ UNIT_TEST(RoadAccess_WayBlockedWhenStartButOpenWhenReach)
   graph.AddDirectedEdge(6, 5, 1000.0);
 
   double expectedWeight = 10804.0;
-  vector<TestEdge> expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3},
-      {3, 4},
-      {4, 5}
-  };
+  vector<TestEdge> expectedEdges = {{0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}};
   TestTopologyGraph(graph, 0 /* from */, 5 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   auto const startAt_11_50 = []()
@@ -733,13 +669,7 @@ UNIT_TEST(RoadAccess_WayBlockedWhenStartButOpenWhenReach)
   // access: (3, 4).
   graph.SetEdgeAccessConditional(3, 4, RoadAccess::Type::No, "10:00 - 13:00");
   expectedWeight = 10804.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3},
-      {3, 4},
-      {4, 5}
-  };
+  expectedEdges = {{0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}};
   TestTopologyGraph(graph, 0 /* from */, 5 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   auto const startAt_10_50 = []()
@@ -750,13 +680,7 @@ UNIT_TEST(RoadAccess_WayBlockedWhenStartButOpenWhenReach)
   // 11:50:00 + (0, 1) weight + (1, 2) weight + (2, 3) weight == 12:50:01. This time places in
   // dangerous zone, but we are not sure, so we should chose alternative way.
   expectedWeight = 12802.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3},
-      {3, 6},
-      {6, 5}
-  };
+  expectedEdges = {{0, 1}, {1, 2}, {2, 3}, {3, 6}, {6, 5}};
   TestTopologyGraph(graph, 0 /* from */, 5 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   // Block alternative way.
@@ -764,13 +688,7 @@ UNIT_TEST(RoadAccess_WayBlockedWhenStartButOpenWhenReach)
   // We are still in dangerous zone, but alternative way is blocked, so we should chose dangerous
   // way.
   expectedWeight = 10804.0;
-  expectedEdges = {
-      {0, 1},
-      {1, 2},
-      {2, 3},
-      {3, 4},
-      {4, 5}
-  };
+  expectedEdges = {{0, 1}, {1, 2}, {2, 3}, {3, 4}, {4, 5}};
   TestTopologyGraph(graph, 0 /* from */, 5 /* to */, true /* pathFound */, expectedWeight, expectedEdges);
 
   auto const startAt_9_00 = []()

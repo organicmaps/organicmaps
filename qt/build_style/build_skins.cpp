@@ -37,13 +37,14 @@ SkinInfo const g_skinInfo[SkinCount] = {
     std::make_tuple("6plus", 43, false), std::make_tuple("xxhdpi", 54, false), std::make_tuple("xxxhdpi", 64, false),
 };
 
-std::array<SkinType, SkinCount> const g_skinTypes = {
-    {
-     SkinMDPI, SkinHDPI,
-     SkinXHDPI, Skin6Plus,
-     SkinXXHDPI, SkinXXXHDPI,
-     }
-};
+std::array<SkinType, SkinCount> const g_skinTypes = {{
+    SkinMDPI,
+    SkinHDPI,
+    SkinXHDPI,
+    Skin6Plus,
+    SkinXXHDPI,
+    SkinXXXHDPI,
+}};
 
 inline char const * SkinSuffix(SkinType s)
 {

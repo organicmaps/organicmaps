@@ -35,19 +35,13 @@ UNIT_CLASS_TEST(SearchUtilsTest, Utils)
   auto file = platform::LocalCountryFile::MakeForTesting(kCountryName);
 
   TestPOI cafe(m2::PointD(0.0, 0.0), "cafe", "en");
-  cafe.SetTypes({
-      {"amenity", "cafe"}
-  });
+  cafe.SetTypes({{"amenity", "cafe"}});
 
   TestPOI restaurant(m2::PointD(0.0, 0.0), "restaurant", "en");
-  restaurant.SetTypes({
-      {"amenity", "restaurant"}
-  });
+  restaurant.SetTypes({{"amenity", "restaurant"}});
 
   TestPOI bar(m2::PointD(0.0, 0.0), "bar", "en");
-  bar.SetTypes({
-      {"amenity", "bar"}
-  });
+  bar.SetTypes({{"amenity", "bar"}});
 
   auto id = BuildCountry(kCountryName, [&](TestMwmBuilder & builder)
   {

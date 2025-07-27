@@ -14,44 +14,40 @@ using EType = feature::Metadata::EType;
 
 // TODO(mgsergio): It would be nice to have this map generated from editor.config.
 static std::unordered_map<std::string, EType> const kNamesToFMD = {
-    {    "opening_hours",        EType::FMD_OPEN_HOURS},
-    {            "phone",      EType::FMD_PHONE_NUMBER},
-    {              "fax",        EType::FMD_FAX_NUMBER},
-    {            "stars",             EType::FMD_STARS},
-    {         "operator",          EType::FMD_OPERATOR},
-    {          "website",           EType::FMD_WEBSITE},
-    { "contact_facebook",  EType::FMD_CONTACT_FACEBOOK},
+    {"opening_hours", EType::FMD_OPEN_HOURS},
+    {"phone", EType::FMD_PHONE_NUMBER},
+    {"fax", EType::FMD_FAX_NUMBER},
+    {"stars", EType::FMD_STARS},
+    {"operator", EType::FMD_OPERATOR},
+    {"website", EType::FMD_WEBSITE},
+    {"contact_facebook", EType::FMD_CONTACT_FACEBOOK},
     {"contact_instagram", EType::FMD_CONTACT_INSTAGRAM},
-    {  "contact_twitter",   EType::FMD_CONTACT_TWITTER},
-    {       "contact_vk",        EType::FMD_CONTACT_VK},
-    {     "contact_line",      EType::FMD_CONTACT_LINE},
-    {         "internet",          EType::FMD_INTERNET},
-    {              "ele",               EType::FMD_ELE},
+    {"contact_twitter", EType::FMD_CONTACT_TWITTER},
+    {"contact_vk", EType::FMD_CONTACT_VK},
+    {"contact_line", EType::FMD_CONTACT_LINE},
+    {"internet", EType::FMD_INTERNET},
+    {"ele", EType::FMD_ELE},
     // {"", EType::FMD_TURN_LANES},
     // {"", EType::FMD_TURN_LANES_FORWARD},
     // {"", EType::FMD_TURN_LANES_BACKWARD},
-    {            "email",             EType::FMD_EMAIL},
-    {         "postcode",          EType::FMD_POSTCODE},
-    {        "wikipedia",         EType::FMD_WIKIPEDIA},
+    {"email", EType::FMD_EMAIL},
+    {"postcode", EType::FMD_POSTCODE},
+    {"wikipedia", EType::FMD_WIKIPEDIA},
     // {"", EType::FMD_MAXSPEED},
-    {            "flats",             EType::FMD_FLATS},
-    {           "height",            EType::FMD_HEIGHT},
+    {"flats", EType::FMD_FLATS},
+    {"height", EType::FMD_HEIGHT},
     // {"", EType::FMD_MIN_HEIGHT},
-    {     "denomination",      EType::FMD_DENOMINATION},
-    {  "building:levels",   EType::FMD_BUILDING_LEVELS},
-    {            "level",             EType::FMD_LEVEL},
-    {    "drive_through",     EType::FMD_DRIVE_THROUGH},
-    {     "website_menu",      EType::FMD_WEBSITE_MENU},
-    {     "self_service",      EType::FMD_SELF_SERVICE},
-    {  "outdoor_seating",   EType::FMD_OUTDOOR_SEATING}
+    {"denomination", EType::FMD_DENOMINATION},
+    {"building:levels", EType::FMD_BUILDING_LEVELS},
+    {"level", EType::FMD_LEVEL},
+    {"drive_through", EType::FMD_DRIVE_THROUGH},
+    {"website_menu", EType::FMD_WEBSITE_MENU},
+    {"self_service", EType::FMD_SELF_SERVICE},
+    {"outdoor_seating", EType::FMD_OUTDOOR_SEATING}
     /// @todo Add description?
 };
 
-std::unordered_map<std::string, int> const kPriorityWeights = {
-    {"high", 0},
-    {    "", 1},
-    { "low", 2}
-};
+std::unordered_map<std::string, int> const kPriorityWeights = {{"high", 0}, {"", 1}, {"low", 2}};
 
 bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & node,
                             editor::TypeAggregatedDescription & outDesc)

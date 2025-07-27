@@ -109,10 +109,7 @@ public:
     // Do not strip last types for given tags,
     // for example, do not cut 'admin_level' in  'boundary-administrative-XXX'.
     char const * arr1[][3] = {
-        {"boundary", "administrative", "2"},
-        {"boundary", "administrative", "3"},
-        {"boundary", "administrative", "4"}
-    };
+        {"boundary", "administrative", "2"}, {"boundary", "administrative", "3"}, {"boundary", "administrative", "4"}};
 
     for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
       m_typesCorrector.SetDontNormalizeType(arr1[i]);

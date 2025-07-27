@@ -18,11 +18,9 @@ GuidesTracks GetTestGuides()
 {
   // Guide with single track.
   GuidesTracks guides;
-  guides[10] = {
-      {{mercator::FromLatLon(48.13999, 11.56873), 10},
-       {mercator::FromLatLon(48.14096, 11.57246), 10},
-       {mercator::FromLatLon(48.14487, 11.57259), 10}}
-  };
+  guides[10] = {{{mercator::FromLatLon(48.13999, 11.56873), 10},
+                 {mercator::FromLatLon(48.14096, 11.57246), 10},
+                 {mercator::FromLatLon(48.14487, 11.57259), 10}}};
   return guides;
 }
 

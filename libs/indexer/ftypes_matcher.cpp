@@ -270,11 +270,7 @@ IsSuburbChecker::IsSuburbChecker()
 {
   Classificator const & c = classif();
   base::StringIL const types[] = {
-      {"landuse",   "residential"},
-      {  "place", "neighbourhood"},
-      {  "place",       "quarter"},
-      {  "place",        "suburb"}
-  };
+      {"landuse", "residential"}, {"place", "neighbourhood"}, {"place", "quarter"}, {"place", "suburb"}};
   for (auto const & e : types)
     m_types.push_back(c.GetTypeByPath(e));
 
@@ -317,27 +313,27 @@ IsWayChecker::IsWayChecker()
   Classificator const & c = classif();
   std::pair<char const *, SearchRank> const types[] = {
       // type           rank
-      {      "cycleway",    Cycleway},
-      {       "footway",  Pedestrian},
-      { "living_street", Residential},
-      {      "motorway",    Motorway},
-      { "motorway_link",    Motorway},
-      {          "path",     Outdoor},
-      {    "pedestrian",  Pedestrian},
-      {       "primary",     Regular},
-      {  "primary_link",     Regular},
-      {   "residential", Residential},
-      {          "road",      Minors},
-      {     "secondary",     Regular},
-      {"secondary_link",     Regular},
-      {       "service",      Minors},
-      {         "steps",  Pedestrian},
-      {      "tertiary",     Regular},
-      { "tertiary_link",     Regular},
-      {         "track",     Outdoor},
-      {         "trunk",    Motorway},
-      {    "trunk_link",    Motorway},
-      {  "unclassified",      Minors},
+      {"cycleway", Cycleway},
+      {"footway", Pedestrian},
+      {"living_street", Residential},
+      {"motorway", Motorway},
+      {"motorway_link", Motorway},
+      {"path", Outdoor},
+      {"pedestrian", Pedestrian},
+      {"primary", Regular},
+      {"primary_link", Regular},
+      {"residential", Residential},
+      {"road", Minors},
+      {"secondary", Regular},
+      {"secondary_link", Regular},
+      {"service", Minors},
+      {"steps", Pedestrian},
+      {"tertiary", Regular},
+      {"tertiary_link", Regular},
+      {"track", Outdoor},
+      {"trunk", Motorway},
+      {"trunk_link", Motorway},
+      {"unclassified", Minors},
   };
 
   m_ranks.Reserve(std::size(types));
@@ -412,13 +408,11 @@ IsRoundAboutChecker::IsRoundAboutChecker()
 IsLinkChecker::IsLinkChecker()
 {
   Classificator const & c = classif();
-  base::StringIL const types[] = {
-      {"highway",  "motorway_link"},
-      {"highway",     "trunk_link"},
-      {"highway",   "primary_link"},
-      {"highway", "secondary_link"},
-      {"highway",  "tertiary_link"}
-  };
+  base::StringIL const types[] = {{"highway", "motorway_link"},
+                                  {"highway", "trunk_link"},
+                                  {"highway", "primary_link"},
+                                  {"highway", "secondary_link"},
+                                  {"highway", "tertiary_link"}};
 
   for (auto const & e : types)
     m_types.push_back(c.GetTypeByPath(e));
@@ -463,34 +457,19 @@ OneLevelPOIChecker::OneLevelPOIChecker() : ftypes::BaseChecker(1 /* level */)
 TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
-  base::StringIL arr[] = {
-      {  "aeroway",      "terminal"},
-      {  "aeroway",          "gate"},
-      { "building", "train_station"},
-      {"emergency", "defibrillator"},
-      {"emergency",  "fire_hydrant"},
-      {"emergency",         "phone"},
-      {  "highway",      "bus_stop"},
-      {  "highway",      "elevator"},
-      {  "highway",          "ford"},
-      {  "highway",       "raceway"},
-      {  "highway",     "rest_area"},
-      {  "highway",      "services"},
-      {  "highway",  "speed_camera"},
-      { "man_made",         "cross"},
-      { "man_made",    "lighthouse"},
-      { "man_made",     "water_tap"},
-      { "man_made",    "water_well"},
-      {  "natural",         "beach"},
-      {  "natural", "cave_entrance"},
-      {  "natural",        "geyser"},
-      {  "natural",    "hot_spring"},
-      {  "natural",          "peak"},
-      {  "natural",        "saddle"},
-      {  "natural",        "spring"},
-      {  "natural",       "volcano"},
-      { "waterway",     "waterfall"}
-  };
+  base::StringIL arr[] = {{"aeroway", "terminal"},       {"aeroway", "gate"},
+                          {"building", "train_station"}, {"emergency", "defibrillator"},
+                          {"emergency", "fire_hydrant"}, {"emergency", "phone"},
+                          {"highway", "bus_stop"},       {"highway", "elevator"},
+                          {"highway", "ford"},           {"highway", "raceway"},
+                          {"highway", "rest_area"},      {"highway", "services"},
+                          {"highway", "speed_camera"},   {"man_made", "cross"},
+                          {"man_made", "lighthouse"},    {"man_made", "water_tap"},
+                          {"man_made", "water_well"},    {"natural", "beach"},
+                          {"natural", "cave_entrance"},  {"natural", "geyser"},
+                          {"natural", "hot_spring"},     {"natural", "peak"},
+                          {"natural", "saddle"},         {"natural", "spring"},
+                          {"natural", "volcano"},        {"waterway", "waterfall"}};
 
   for (auto const & path : arr)
     m_types.push_back(c.GetTypeByPath(path));
@@ -504,58 +483,58 @@ IsAmenityChecker::IsAmenityChecker() : BaseChecker(1 /* level */)
 AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 {
   base::StringIL const primaryAttractionTypes[] = {
-      { "amenity",         "arts_centre"},
-      { "amenity",          "grave_yard"},
-      { "amenity",            "fountain"},
-      { "amenity",    "place_of_worship"},
-      { "amenity",             "theatre"},
-      { "amenity",            "townhall"},
-      { "amenity",          "university"},
-      {"boundary",       "national_park"},
-      {"building",       "train_station"},
-      { "highway",          "pedestrian"},
+      {"amenity", "arts_centre"},
+      {"amenity", "grave_yard"},
+      {"amenity", "fountain"},
+      {"amenity", "place_of_worship"},
+      {"amenity", "theatre"},
+      {"amenity", "townhall"},
+      {"amenity", "university"},
+      {"boundary", "national_park"},
+      {"building", "train_station"},
+      {"highway", "pedestrian"},
       {"historic", "archaeological_site"},
-      {"historic",      "boundary_stone"},
-      {"historic",              "castle"},
-      {"historic",           "city_gate"},
-      {"historic",           "citywalls"},
-      {"historic",                "fort"},
-      {"historic",             "gallows"},
-      {"historic",            "memorial"},
-      {"historic",            "monument"},
-      {"historic",          "locomotive"},
-      {"historic",                "tank"},
-      {"historic",            "aircraft"},
-      {"historic",             "pillory"},
-      {"historic",               "ruins"},
-      {"historic",                "ship"},
-      {"historic",                "tomb"},
-      {"historic",       "wayside_cross"},
-      {"historic",      "wayside_shrine"},
-      { "landuse",            "cemetery"},
-      { "leisure",        "beach_resort"},
-      { "leisure",              "garden"},
-      { "leisure",              "marina"},
-      { "leisure",      "nature_reserve"},
-      { "leisure",                "park"},
-      { "leisure",          "water_park"},
-      {"man_made",          "lighthouse"},
-      {"man_made",            "windmill"},
-      { "natural",               "beach"},
-      { "natural",       "cave_entrance"},
-      { "natural",              "geyser"},
-      { "natural",             "glacier"},
-      { "natural",          "hot_spring"},
-      { "natural",                "peak"},
-      { "natural",             "volcano"},
-      {   "place",              "square"},
-      { "tourism",            "aquarium"},
-      { "tourism",             "artwork"},
-      { "tourism",              "museum"},
-      { "tourism",             "gallery"},
-      { "tourism",                 "zoo"},
-      { "tourism",          "theme_park"},
-      {"waterway",           "waterfall"},
+      {"historic", "boundary_stone"},
+      {"historic", "castle"},
+      {"historic", "city_gate"},
+      {"historic", "citywalls"},
+      {"historic", "fort"},
+      {"historic", "gallows"},
+      {"historic", "memorial"},
+      {"historic", "monument"},
+      {"historic", "locomotive"},
+      {"historic", "tank"},
+      {"historic", "aircraft"},
+      {"historic", "pillory"},
+      {"historic", "ruins"},
+      {"historic", "ship"},
+      {"historic", "tomb"},
+      {"historic", "wayside_cross"},
+      {"historic", "wayside_shrine"},
+      {"landuse", "cemetery"},
+      {"leisure", "beach_resort"},
+      {"leisure", "garden"},
+      {"leisure", "marina"},
+      {"leisure", "nature_reserve"},
+      {"leisure", "park"},
+      {"leisure", "water_park"},
+      {"man_made", "lighthouse"},
+      {"man_made", "windmill"},
+      {"natural", "beach"},
+      {"natural", "cave_entrance"},
+      {"natural", "geyser"},
+      {"natural", "glacier"},
+      {"natural", "hot_spring"},
+      {"natural", "peak"},
+      {"natural", "volcano"},
+      {"place", "square"},
+      {"tourism", "aquarium"},
+      {"tourism", "artwork"},
+      {"tourism", "museum"},
+      {"tourism", "gallery"},
+      {"tourism", "zoo"},
+      {"tourism", "theme_park"},
+      {"waterway", "waterfall"},
   };
 
   Classificator const & c = classif();
@@ -567,7 +546,7 @@ AttractionsChecker::AttractionsChecker() : BaseChecker(2 /* level */)
 
   // Additional types are worse in "hierarchy" priority.
   base::StringIL const additionalAttractionTypes[] = {
-      {"tourism",  "viewpoint"},
+      {"tourism", "viewpoint"},
       {"tourism", "attraction"},
   };
 
@@ -618,17 +597,11 @@ bool IsBridgeOrTunnelChecker::IsMatched(uint32_t type) const
 IsHotelChecker::IsHotelChecker()
 {
   base::StringIL const types[] = {
-      {"tourism",     "alpine_hut"},
-      {"tourism",      "apartment"},
-      {"tourism",      "camp_site"},
-      {"tourism",   "caravan_site"}, /// @todo Sure here?
-      {"tourism",         "chalet"},
-      {"tourism",    "guest_house"},
-      {"tourism",         "hostel"},
-      {"tourism",          "hotel"},
-      {"tourism",          "motel"},
-      {"tourism", "wilderness_hut"},
-      {"leisure",         "resort"},
+      {"tourism", "alpine_hut"},   {"tourism", "apartment"},   {"tourism", "camp_site"},
+      {"tourism", "caravan_site"},  /// @todo Sure here?
+      {"tourism", "chalet"},       {"tourism", "guest_house"}, {"tourism", "hostel"},
+      {"tourism", "hotel"},        {"tourism", "motel"},       {"tourism", "wilderness_hut"},
+      {"leisure", "resort"},
   };
 
   Classificator const & c = classif();
@@ -677,13 +650,8 @@ IsEatChecker::IsEatChecker()
   // The order should be the same as in "enum class Type" declaration.
   /// @todo amenity=ice_cream if we already have biergarten :)
   base::StringIL const types[] = {
-      {"amenity",       "cafe"},
-      {"amenity",  "fast_food"},
-      {"amenity", "restaurant"},
-      {"amenity",        "bar"},
-      {"amenity",        "pub"},
-      {"amenity", "biergarten"},
-      {"amenity", "food_court"},
+      {"amenity", "cafe"}, {"amenity", "fast_food"},  {"amenity", "restaurant"}, {"amenity", "bar"},
+      {"amenity", "pub"},  {"amenity", "biergarten"}, {"amenity", "food_court"},
   };
 
   Classificator const & c = classif();
@@ -786,14 +754,8 @@ IsLocalityChecker::IsLocalityChecker()
   Classificator const & c = classif();
 
   // Note! The order should be equal with constants in Type enum (add other villages to the end).
-  base::StringIL const types[] = {
-      {"place", "country"},
-      {"place",   "state"},
-      {"place",    "city"},
-      {"place",    "town"},
-      {"place", "village"},
-      {"place",  "hamlet"}
-  };
+  base::StringIL const types[] = {{"place", "country"}, {"place", "state"},   {"place", "city"},
+                                  {"place", "town"},    {"place", "village"}, {"place", "hamlet"}};
 
   for (auto const & e : types)
     m_types.push_back(c.GetTypeByPath(e));
@@ -835,12 +797,7 @@ IsStateChecker::IsStateChecker()
 
 IsCityTownOrVillageChecker::IsCityTownOrVillageChecker()
 {
-  base::StringIL const types[] = {
-      {"place",    "city"},
-      {"place",    "town"},
-      {"place", "village"},
-      {"place",  "hamlet"}
-  };
+  base::StringIL const types[] = {{"place", "city"}, {"place", "town"}, {"place", "village"}, {"place", "hamlet"}};
 
   Classificator const & c = classif();
   for (auto const & e : types)

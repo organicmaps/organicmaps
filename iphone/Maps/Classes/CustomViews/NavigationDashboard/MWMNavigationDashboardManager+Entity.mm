@@ -166,10 +166,7 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
     auto const height = font.lineHeight;
     auto const y = height - image.size.height;
     auto const width = image.size.width * height / image.size.height;
-    textAttachment.bounds = CGRectIntegral({
-        {    0,      y},
-        {width, height}
-    });
+    textAttachment.bounds = CGRectIntegral({{0, y}, {width, height}});
 
     NSMutableAttributedString * attrStringWithImage =
         [NSAttributedString attributedStringWithAttachment:textAttachment].mutableCopy;

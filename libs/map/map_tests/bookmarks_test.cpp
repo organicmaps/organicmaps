@@ -645,39 +645,34 @@ UNIT_TEST(Bookmarks_Sorting)
       {12, mercator::GetSmPoint(myPos, kNearR * 1.04, 0.0), kDay + std::chrono::hours(2), {"shop-music"}},
   };
 
-  std::vector<TestTrackData> const testTracksData = {
-      {0, "Z Last Track",   kDay + std::chrono::hours(1)},
-      {1, "Middle Track",                   kUnknownTime},
-      {2,  "First Track", kMonth + std::chrono::hours(1)}
-  };
+  std::vector<TestTrackData> const testTracksData = {{0, "Z Last Track", kDay + std::chrono::hours(1)},
+                                                     {1, "Middle Track", kUnknownTime},
+                                                     {2, "First Track", kMonth + std::chrono::hours(1)}};
 
   BookmarkManager::SortedBlocksCollection const expectedSortedByDistance = {
-      {BookmarkManager::GetTracksSortedBlockName(),                   {}, {0, 1, 2}},
-      {BookmarkManager::GetNearMeSortedBlockName(),   {8, 6, 4, 2, 1, 0},        {}},
-      {                                 addrMoscow, {3, 5, 10, 12, 7, 9},        {}},
-      {BookmarkManager::GetOthersSortedBlockName(),                 {11},        {}}
-  };
+      {BookmarkManager::GetTracksSortedBlockName(), {}, {0, 1, 2}},
+      {BookmarkManager::GetNearMeSortedBlockName(), {8, 6, 4, 2, 1, 0}, {}},
+      {addrMoscow, {3, 5, 10, 12, 7, 9}, {}},
+      {BookmarkManager::GetOthersSortedBlockName(), {11}, {}}};
 
   BookmarkManager::SortedBlocksCollection const expectedSortedByTime = {
-      {                                                        BookmarkManager::GetTracksSortedBlockName(),            {}, {0, 2, 1}},
-      {         BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::WeekAgo), {8, 0, 12, 9},        {}},
-      {        BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MonthAgo),    {11, 3, 4},        {}},
-      {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MoreThanMonthAgo),        {5, 6},        {}},
-      { BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MoreThanYearAgo),          {10},        {}},
-      {          BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::Others),     {7, 2, 1},        {}}
-  };
+      {BookmarkManager::GetTracksSortedBlockName(), {}, {0, 2, 1}},
+      {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::WeekAgo), {8, 0, 12, 9}, {}},
+      {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MonthAgo), {11, 3, 4}, {}},
+      {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MoreThanMonthAgo), {5, 6}, {}},
+      {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::MoreThanYearAgo), {10}, {}},
+      {BookmarkManager::GetSortedByTimeBlockName(BookmarkManager::SortedByTimeBlockType::Others), {7, 2, 1}, {}}};
 
   BookmarkManager::SortedBlocksCollection const expectedSortedByType = {
-      {           BookmarkManager::GetTracksSortedBlockName(),            {}, {0, 1, 2}},
-      {GetLocalizedBookmarkBaseType(BookmarkBaseType::Sights), {0, 3, 5, 10},        {}},
-      {  GetLocalizedBookmarkBaseType(BookmarkBaseType::Food),     {9, 4, 1},        {}},
-      {  GetLocalizedBookmarkBaseType(BookmarkBaseType::Shop),    {12, 6, 2},        {}},
-      {           BookmarkManager::GetOthersSortedBlockName(),    {8, 11, 7},        {}}
-  };
+      {BookmarkManager::GetTracksSortedBlockName(), {}, {0, 1, 2}},
+      {GetLocalizedBookmarkBaseType(BookmarkBaseType::Sights), {0, 3, 5, 10}, {}},
+      {GetLocalizedBookmarkBaseType(BookmarkBaseType::Food), {9, 4, 1}, {}},
+      {GetLocalizedBookmarkBaseType(BookmarkBaseType::Shop), {12, 6, 2}, {}},
+      {BookmarkManager::GetOthersSortedBlockName(), {8, 11, 7}, {}}};
 
   BookmarkManager::SortedBlocksCollection const expectedSortedByName = {
-      {   BookmarkManager::GetTracksSortedBlockName(),                                         {}, {2, 1, 0}},
-      {BookmarkManager::GetBookmarksSortedBlockName(), {11, 9, 7, 4, 1, 10, 3, 5, 0, 8, 12, 6, 2},        {}},
+      {BookmarkManager::GetTracksSortedBlockName(), {}, {2, 1, 0}},
+      {BookmarkManager::GetBookmarksSortedBlockName(), {11, 9, 7, 4, 1, 10, 3, 5, 0, 8, 12, 6, 2}, {}},
   };
 
   auto const kBerlin1 = mercator::FromLatLon(52.5038994, 13.3982282);
@@ -695,19 +690,19 @@ UNIT_TEST(Bookmarks_Sorting)
   auto const kBermuda = mercator::FromLatLon(32.2946391, -64.7820014);
 
   std::vector<TestMarkData> const testMarksData2 = {
-      {100,    kBerlin1, kUnknownTime, {"amenity", "building", "wheelchair-yes", "tourism-museum"}},
-      {101,  kGreenland, kUnknownTime,                                                          {}},
-      {102,   kVladimir, kUnknownTime,                                         {"tourism-artwork"}},
-      {103,  kKathmandu, kUnknownTime,   {"internet_access-wlan", "wheelchair-no", "amenity-cafe"}},
-      {104,     kMinsk1, kUnknownTime,                                {"amenity-place_of_worship"}},
-      {105,    kBerlin2, kUnknownTime,          {"building", "amenity-place_of_worship-christian"}},
-      {106,    kMoscow2, kUnknownTime,                                          {"tourism-museum"}},
-      {107,     kMinsk2, kUnknownTime,                                      {"amenity-restaurant"}},
-      {108,     kMinsk3, kUnknownTime,                         {"amenity-place_of_worship-jewish"}},
-      {109, kWashington, kUnknownTime,                                      {"amenity-restaurant"}},
-      {110,    kBerlin3, kUnknownTime,                                          {"tourism-museum"}},
-      {111,    kBermuda, kUnknownTime,                                            {"amenity-cafe"}},
-      {112,    kMoscow1, kUnknownTime,                                            {"leisure-park"}},
+      {100, kBerlin1, kUnknownTime, {"amenity", "building", "wheelchair-yes", "tourism-museum"}},
+      {101, kGreenland, kUnknownTime, {}},
+      {102, kVladimir, kUnknownTime, {"tourism-artwork"}},
+      {103, kKathmandu, kUnknownTime, {"internet_access-wlan", "wheelchair-no", "amenity-cafe"}},
+      {104, kMinsk1, kUnknownTime, {"amenity-place_of_worship"}},
+      {105, kBerlin2, kUnknownTime, {"building", "amenity-place_of_worship-christian"}},
+      {106, kMoscow2, kUnknownTime, {"tourism-museum"}},
+      {107, kMinsk2, kUnknownTime, {"amenity-restaurant"}},
+      {108, kMinsk3, kUnknownTime, {"amenity-place_of_worship-jewish"}},
+      {109, kWashington, kUnknownTime, {"amenity-restaurant"}},
+      {110, kBerlin3, kUnknownTime, {"tourism-museum"}},
+      {111, kBermuda, kUnknownTime, {"amenity-cafe"}},
+      {112, kMoscow1, kUnknownTime, {"leisure-park"}},
   };
 
   m2::PointD const myPos2 = mercator::GetSmPoint(kVladimir, 2.0 * kNearR, 2.0 * kNearR);
@@ -721,62 +716,44 @@ UNIT_TEST(Bookmarks_Sorting)
   auto const addrBermuda = fm.GetBookmarkManager().GetLocalizedRegionAddress(kBermuda);
 
   BookmarkManager::SortedBlocksCollection const expectedSortedByDistance2 = {
-      {  addrVladimir,           {102}, {}},
-      {    addrMoscow,      {106, 112}, {}},
-      {     addrMinsk, {107, 104, 108}, {}},
-      {    addrBerlin, {100, 105, 110}, {}},
-      { addrGreenland,           {101}, {}},
-      { addrKathmandu,           {103}, {}},
-      {addrWashington,           {109}, {}},
-      {   addrBermuda,           {111}, {}},
+      {addrVladimir, {102}, {}},         {addrMoscow, {106, 112}, {}}, {addrMinsk, {107, 104, 108}, {}},
+      {addrBerlin, {100, 105, 110}, {}}, {addrGreenland, {101}, {}},   {addrKathmandu, {103}, {}},
+      {addrWashington, {109}, {}},       {addrBermuda, {111}, {}},
   };
 
   BookmarkManager::SortedBlocksCollection const expectedSortedByType2 = {
-      {          GetLocalizedBookmarkBaseType(BookmarkBaseType::Food), {111, 109, 107, 103}, {}},
-      {        GetLocalizedBookmarkBaseType(BookmarkBaseType::Museum),      {110, 106, 100}, {}},
-      {GetLocalizedBookmarkBaseType(BookmarkBaseType::ReligiousPlace),      {108, 105, 104}, {}},
-      {                   BookmarkManager::GetOthersSortedBlockName(),      {112, 102, 101}, {}}
-  };
+      {GetLocalizedBookmarkBaseType(BookmarkBaseType::Food), {111, 109, 107, 103}, {}},
+      {GetLocalizedBookmarkBaseType(BookmarkBaseType::Museum), {110, 106, 100}, {}},
+      {GetLocalizedBookmarkBaseType(BookmarkBaseType::ReligiousPlace), {108, 105, 104}, {}},
+      {BookmarkManager::GetOthersSortedBlockName(), {112, 102, 101}, {}}};
 
   std::vector<TestMarkData> const testMarksData3 = {
-      {200, {0.0, 0.0}, kUnknownTime,                     {"tourism-museum"}},
-      {201, {0.0, 0.0}, kUnknownTime,                       {"leisure-park"}},
-      {202, {0.0, 0.0}, kUnknownTime,                    {"tourism-artwork"}},
-      {203, {0.0, 0.0}, kUnknownTime,                       {"amenity-cafe"}},
-      {204, {0.0, 0.0}, kUnknownTime,           {"amenity-place_of_worship"}},
+      {200, {0.0, 0.0}, kUnknownTime, {"tourism-museum"}},
+      {201, {0.0, 0.0}, kUnknownTime, {"leisure-park"}},
+      {202, {0.0, 0.0}, kUnknownTime, {"tourism-artwork"}},
+      {203, {0.0, 0.0}, kUnknownTime, {"amenity-cafe"}},
+      {204, {0.0, 0.0}, kUnknownTime, {"amenity-place_of_worship"}},
       {205, {0.0, 0.0}, kUnknownTime, {"amenity-place_of_worship-christian"}},
   };
 
   std::vector<TestMarkData> const testMarksData4 = {
-      {300, {0.0, 0.0}, kUnknownTime,           {"tourism-museum"}},
-      {301, {0.0, 0.0}, kUnknownTime,             {"leisure-park"}},
-      {302, {0.0, 0.0}, kUnknownTime,          {"tourism-artwork"}},
-      {303, {0.0, 0.0}, kUnknownTime,             {"amenity-cafe"}},
-      {304, {0.0, 0.0}, kUnknownTime, {"amenity-place_of_worship"}},
-      {305, {0.0, 0.0}, kUnknownTime,            {"tourism-hotel"}},
+      {300, {0.0, 0.0}, kUnknownTime, {"tourism-museum"}},           {301, {0.0, 0.0}, kUnknownTime, {"leisure-park"}},
+      {302, {0.0, 0.0}, kUnknownTime, {"tourism-artwork"}},          {303, {0.0, 0.0}, kUnknownTime, {"amenity-cafe"}},
+      {304, {0.0, 0.0}, kUnknownTime, {"amenity-place_of_worship"}}, {305, {0.0, 0.0}, kUnknownTime, {"tourism-hotel"}},
   };
 
   BookmarkManager::SortedBlocksCollection expectedSortedByType4 = {
-      {GetLocalizedBookmarkBaseType(BookmarkBaseType::Hotel),                     {305}, {}},
-      {          BookmarkManager::GetOthersSortedBlockName(), {304, 303, 302, 301, 300}, {}}
-  };
+      {GetLocalizedBookmarkBaseType(BookmarkBaseType::Hotel), {305}, {}},
+      {BookmarkManager::GetOthersSortedBlockName(), {304, 303, 302, 301, 300}, {}}};
 
   std::vector<TestTrackData> const testTracksData5 = {
-      {40, "t",          kUnknownTime},
-      {41, "a",          kUnknownTime},
-      {42, "u", std::chrono::hours(1)},
-      {43, "a",          kUnknownTime}
-  };
+      {40, "t", kUnknownTime}, {41, "a", kUnknownTime}, {42, "u", std::chrono::hours(1)}, {43, "a", kUnknownTime}};
 
   BookmarkManager::SortedBlocksCollection const expectedSortedByTime5 = {
-      {BookmarkManager::GetTracksSortedBlockName(), {}, {42, 40, 41, 43}}
-  };
+      {BookmarkManager::GetTracksSortedBlockName(), {}, {42, 40, 41, 43}}};
 
   std::vector<TestTrackData> const testTracksData6 = {
-      {50, "-11", kUnknownTime},
-      {51,  "41", kUnknownTime},
-      {52,    "", kUnknownTime}
-  };
+      {50, "-11", kUnknownTime}, {51, "41", kUnknownTime}, {52, "", kUnknownTime}};
 
   auto const fillCategory = [&](kml::MarkGroupId cat, std::vector<TestMarkData> const & marksData,
                                 std::vector<TestTrackData> const & tracksData)
@@ -788,8 +765,7 @@ UNIT_TEST(Bookmarks_Sorting)
       bmData.m_id = id;
       bmData.m_name = kml::LocalizableString{
           {kml::kDefaultLangCode, std::reduce(types.begin(), types.end(), std::string{},
-           [](auto const & sum, auto const & type) { return sum + type + " "; })}
-      };
+                                              [](auto const & sum, auto const & type) { return sum + type + " "; })}};
       bmData.m_point = position;
       if (hours != kUnknownTime)
         bmData.m_timestamp = currentTime - hours;
@@ -801,13 +777,8 @@ UNIT_TEST(Bookmarks_Sorting)
     {
       kml::TrackData trackData;
       trackData.m_id = id;
-      trackData.m_name = kml::LocalizableString{
-          {kml::kDefaultLangCode, name}
-      };
-      trackData.m_geometry.AddLine({
-          {{0.0, 0.0}, 1},
-          {{1.0, 0.0}, 2}
-      });
+      trackData.m_name = kml::LocalizableString{{kml::kDefaultLangCode, name}};
+      trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
       trackData.m_geometry.AddTimestamps({});
       if (hours != kUnknownTime)
         trackData.m_timestamp = currentTime - hours;
@@ -1131,19 +1102,11 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
   auto catId = bmManager.GetUnsortedBmGroupsIdList().front();
   TEST_EQUAL(bmManager.GetTrackIds(catId).size(), 4, ());
 
-  array<string, 4> const names = {
-      {"Option1", "Pakkred1", "Pakkred2", "Pakkred3"}
-  };
-  array<dp::Color, 4> constexpr col = {
-      {dp::Color(230, 0, 0, 255), dp::Color(171, 230, 0, 255), dp::Color(0, 230, 117, 255),
-       dp::Color(0, 59, 230, 255)}
-  };
-  array<double, 4> constexpr length = {
-      {3525.46839061, 27172.44338132, 27046.0456586, 23967.35765800}
-  };
-  array<geometry::Altitude, 4> constexpr altitudes = {
-      {0, 27, -3, -2}
-  };
+  array<string, 4> const names = {{"Option1", "Pakkred1", "Pakkred2", "Pakkred3"}};
+  array<dp::Color, 4> constexpr col = {{dp::Color(230, 0, 0, 255), dp::Color(171, 230, 0, 255),
+                                        dp::Color(0, 230, 117, 255), dp::Color(0, 59, 230, 255)}};
+  array<double, 4> constexpr length = {{3525.46839061, 27172.44338132, 27046.0456586, 23967.35765800}};
+  array<geometry::Altitude, 4> constexpr altitudes = {{0, 27, -3, -2}};
   size_t i = 0;
   for (auto const trackId : bmManager.GetTrackIds(catId))
   {
@@ -1639,10 +1602,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
   auto const * track = bmManager.GetTrack(trackId);
   TEST_EQUAL(track->GetName(), "London - Paris", ());
   auto const line = track->GetData().m_geometry.m_lines[0];
-  std::vector const expectedLine = {
-      {geometry::PointWithAltitude(m2::PointD(0.0, 0.0), 0.0),
-       geometry::PointWithAltitude(m2::PointD(0.001, 0.001), 0)}
-  };
+  std::vector const expectedLine = {{geometry::PointWithAltitude(m2::PointD(0.0, 0.0), 0.0),
+                                     geometry::PointWithAltitude(m2::PointD(0.001, 0.001), 0)}};
   TEST_EQUAL(line, expectedLine, ());
 }
 

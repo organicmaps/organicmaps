@@ -168,9 +168,7 @@ MapcssRules ParseMapCSS(std::unique_ptr<Reader> reader)
     auto typeTokens = strings::Tokenize<std::string>(typeString, "|");
     CHECK(typeTokens.size() == 2, (typeString));
     MapcssRule rule;
-    rule.m_tags = {
-        {typeTokens[0], typeTokens[1]}
-    };
+    rule.m_tags = {{typeTokens[0], typeTokens[1]}};
     rules.emplace_back(std::move(typeTokens), std::move(rule));
   };
 

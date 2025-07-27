@@ -186,24 +186,11 @@ void GpxParser::ParseOsmandColor(std::string const & value)
 void GpxParser::ParseGarminColor(std::string const & v)
 {
   static std::unordered_map<std::string, std::string> const kGarminToHex = {
-      {      "Black", "000000"},
-      {    "DarkRed", "8b0000"},
-      {  "DarkGreen", "006400"},
-      { "DarkYellow", "b5b820"},
-      {   "DarkBlue", "00008b"},
-      {"DarkMagenta", "8b008b"},
-      {   "DarkCyan", "008b8b"},
-      {  "LightGray", "cccccc"},
-      {   "DarkGray", "444444"},
-      {        "Red", "ff0000"},
-      {      "Green", "00ff00"},
-      {     "Yellow", "ffff00"},
-      {       "Blue", "0000ff"},
-      {    "Magenta", "ff00ff"},
-      {       "Cyan", "00ffff"},
-      {      "White", "ffffff"},
-      {"Transparent", "ff0000"}
-  };
+      {"Black", "000000"},      {"DarkRed", "8b0000"},     {"DarkGreen", "006400"}, {"DarkYellow", "b5b820"},
+      {"DarkBlue", "00008b"},   {"DarkMagenta", "8b008b"}, {"DarkCyan", "008b8b"},  {"LightGray", "cccccc"},
+      {"DarkGray", "444444"},   {"Red", "ff0000"},         {"Green", "00ff00"},     {"Yellow", "ffff00"},
+      {"Blue", "0000ff"},       {"Magenta", "ff00ff"},     {"Cyan", "00ffff"},      {"White", "ffffff"},
+      {"Transparent", "ff0000"}};
   auto const it = kGarminToHex.find(v);
   if (it != kGarminToHex.end())
   {
@@ -484,24 +471,22 @@ struct RGBAToGarmin
   std::string_view color;
 };
 
-auto constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({
-    {0x000000ff,       "Black"},
-    {0x8b0000ff,     "DarkRed"},
-    {0x006400ff,   "DarkGreen"},
-    {0xb5b820ff,  "DarkYellow"},
-    {0x00008bff,    "DarkBlue"},
-    {0x8b008bff, "DarkMagenta"},
-    {0x008b8bff,    "DarkCyan"},
-    {0xccccccff,   "LightGray"},
-    {0x444444ff,    "DarkGray"},
-    {0xff0000ff,         "Red"},
-    {0x00ff00ff,       "Green"},
-    {0xffff00ff,      "Yellow"},
-    {0x0000ffff,        "Blue"},
-    {0xff00ffff,     "Magenta"},
-    {0x00ffffff,        "Cyan"},
-    {0xffffffff,       "White"}
-});
+auto constexpr kRGBAToGarmin = std::to_array<RGBAToGarmin>({{0x000000ff, "Black"},
+                                                            {0x8b0000ff, "DarkRed"},
+                                                            {0x006400ff, "DarkGreen"},
+                                                            {0xb5b820ff, "DarkYellow"},
+                                                            {0x00008bff, "DarkBlue"},
+                                                            {0x8b008bff, "DarkMagenta"},
+                                                            {0x008b8bff, "DarkCyan"},
+                                                            {0xccccccff, "LightGray"},
+                                                            {0x444444ff, "DarkGray"},
+                                                            {0xff0000ff, "Red"},
+                                                            {0x00ff00ff, "Green"},
+                                                            {0xffff00ff, "Yellow"},
+                                                            {0x0000ffff, "Blue"},
+                                                            {0xff00ffff, "Magenta"},
+                                                            {0x00ffffff, "Cyan"},
+                                                            {0xffffffff, "White"}});
 
 std::string_view MapGarminColor(uint32_t rgba)
 {

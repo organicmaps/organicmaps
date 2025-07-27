@@ -156,9 +156,7 @@ m2::PointI CellsMerger::FindBigSquare(m2::PointI const & xy, m2::PointI const & 
 std::optional<m2::PointI> CellsMerger::FindDirection(m2::PointI const & startXy) const
 {
   std::array<std::pair<size_t, m2::PointI>, 4> directionsWithWeight;
-  std::array<m2::PointI, 4> const directions{
-      {{1, 1}, {-1, 1}, {1, -1}, {-1, -1}}
-  };
+  std::array<m2::PointI, 4> const directions{{{1, 1}, {-1, 1}, {1, -1}, {-1, -1}}};
   base::Transform(directions, std::begin(directionsWithWeight), [&](auto const & direction)
   {
     return std::make_pair(TryGet(startXy.x + direction.x, startXy.y).GetSum() +
@@ -237,10 +235,7 @@ std::vector<m2::RectD> MakeNet(double step, double minX, double minY, double max
     while (ymin < maxY)
     {
       y += step;
-      net.emplace_back(m2::RectD{
-          {xmin, ymin},
-          {   x,    y}
-      });
+      net.emplace_back(m2::RectD{{xmin, ymin}, {x, y}});
       ymin = y;
     }
     ymin = minY;

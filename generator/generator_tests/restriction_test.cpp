@@ -202,83 +202,40 @@ std::pair<unique_ptr<IndexGraph>, string> BuildTwoCubeGraph()
   classificator::Load();
   auto loader = std::make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 0.0},
-                      {1.0, 0.0}
-  }));
+                  RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}}));
   loader->AddRoad(1 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0, 0.0},
-                      {2.0, 0.0}
-  }));
+                  RoadGeometry::Points({{1.0, 0.0}, {2.0, 0.0}}));
   loader->AddRoad(2 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 0.0},
-                      {2.0, 1.0}
-  }));
+                  RoadGeometry::Points({{2.0, 0.0}, {2.0, 1.0}}));
   loader->AddRoad(3 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {1.0, 1.0},
-                      {2.0, 1.0}
-  }));
+                  RoadGeometry::Points({{1.0, 1.0}, {2.0, 1.0}}));
   loader->AddRoad(4 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {0.0, 2.0},
-                      {1.0, 1.0}
-  }));
+                  RoadGeometry::Points({{0.0, 2.0}, {1.0, 1.0}}));
   loader->AddRoad(5 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {-1.0, 1.0},
-                      { 0.0, 2.0}
-  }));
+                  RoadGeometry::Points({{-1.0, 1.0}, {0.0, 2.0}}));
   loader->AddRoad(6 /* feature id */, false /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      { 0.0, 0.0},
-                      {-1.0, 1.0}
-  }));
+                  RoadGeometry::Points({{0.0, 0.0}, {-1.0, 1.0}}));
   loader->AddRoad(7 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {-1.0, 0.0},
-                      { 0.0, 0.0}
-  }));
+                  RoadGeometry::Points({{-1.0, 0.0}, {0.0, 0.0}}));
   loader->AddRoad(8 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 1.0},
-                      {3.0, 1.0}
-  }));
+                  RoadGeometry::Points({{2.0, 1.0}, {3.0, 1.0}}));
   loader->AddRoad(9 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {2.0, 0.0},
-                      {3.0, 1.0}
-  }));
+                  RoadGeometry::Points({{2.0, 0.0}, {3.0, 1.0}}));
   loader->AddRoad(10 /* feature id */, true /* one way */, 1.0 /* speed */,
-                  RoadGeometry::Points({
-                      {3.0, 1.0},
-                      {4.0, 1.0}
-  }));
+                  RoadGeometry::Points({{3.0, 1.0}, {4.0, 1.0}}));
 
   vector<Joint> const joints = {
       // {{/* feature id */, /* point id */}, ... }
-      MakeJoint({{7, 0}}
-      ), /* joint at point (-1, 0) */
-      MakeJoint({{0, 0}, {6, 0}, {7, 1}}
-      ), /* joint at point (0, 0) */
-      MakeJoint({{0, 1}, {1, 0}}
-      ), /* joint at point (1, 0) */
-      MakeJoint({{1, 1}, {2, 0}, {9, 0}}
-      ), /* joint at point (2, 0) */
-      MakeJoint({{2, 1}, {3, 1}, {8, 0}}
-      ), /* joint at point (2, 1) */
-      MakeJoint({{3, 0}, {4, 1}}
-      ), /* joint at point (1, 1) */
-      MakeJoint({{5, 1}, {4, 0}}
-      ), /* joint at point (0, 2) */
-      MakeJoint({{6, 1}, {5, 0}}
-      ), /* joint at point (-1, 1) */
-      MakeJoint({{8, 1}, {9, 1}, {10, 0}}
-      ), /* joint at point (3, 1) */
-      MakeJoint({{10, 1}}
-      )  /* joint at point (4, 1) */
+      MakeJoint({{7, 0}}),                  /* joint at point (-1, 0) */
+      MakeJoint({{0, 0}, {6, 0}, {7, 1}}),  /* joint at point (0, 0) */
+      MakeJoint({{0, 1}, {1, 0}}),          /* joint at point (1, 0) */
+      MakeJoint({{1, 1}, {2, 0}, {9, 0}}),  /* joint at point (2, 0) */
+      MakeJoint({{2, 1}, {3, 1}, {8, 0}}),  /* joint at point (2, 1) */
+      MakeJoint({{3, 0}, {4, 1}}),          /* joint at point (1, 1) */
+      MakeJoint({{5, 1}, {4, 0}}),          /* joint at point (0, 2) */
+      MakeJoint({{6, 1}, {5, 0}}),          /* joint at point (-1, 1) */
+      MakeJoint({{8, 1}, {9, 1}, {10, 0}}), /* joint at point (3, 1) */
+      MakeJoint({{10, 1}})                  /* joint at point (4, 1) */
   };
 
   traffic::TrafficCache const trafficCache;
@@ -309,9 +266,7 @@ UNIT_TEST(RestrictionGenerationTest_1)
       /* Type  ViaType  ViaNodeCoords: x    y   from  to */
       R"(Only, node,                   1.0, 0.0,  0,  1)";
 
-  vector<Restriction> expectedNotUTurn = {
-      {Restriction::Type::Only, {0, 1}}
-  };
+  vector<Restriction> expectedNotUTurn = {{Restriction::Type::Only, {0, 1}}};
   vector<RestrictionUTurnForTests> expectedUTurn;
 
   TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph), expectedNotUTurn,
@@ -328,9 +283,7 @@ UNIT_TEST(RestrictionGenerationTest_2)
       /* Type  ViaType from  ViaWayId to */
       R"(Only, way,      0,     1     2)";
 
-  vector<Restriction> expectedNotUTurn = {
-      {Restriction::Type::Only, {0, 1, 2}}
-  };
+  vector<Restriction> expectedNotUTurn = {{Restriction::Type::Only, {0, 1, 2}}};
   vector<RestrictionUTurnForTests> expectedUTurn;
 
   TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph), expectedNotUTurn,
@@ -348,10 +301,7 @@ UNIT_TEST(RestrictionGenerationTest_3)
       R"(Only, node,                  0.0, 0.0,  7,      6
          No,   way,                              2,   8, 10)";
 
-  vector<Restriction> expectedNotUTurn = {
-      {Restriction::Type::Only,     {7, 6}},
-      {  Restriction::Type::No, {2, 8, 10}}
-  };
+  vector<Restriction> expectedNotUTurn = {{Restriction::Type::Only, {7, 6}}, {Restriction::Type::No, {2, 8, 10}}};
   vector<RestrictionUTurnForTests> expectedUTurn;
 
   TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph), expectedNotUTurn,
@@ -371,9 +321,7 @@ UNIT_TEST(RestrictionGenerationTest_BadConnection_1)
          No,   way,                              2,   8, 10)";
 
   // So we don't expect first restriction here.
-  vector<Restriction> expectedNotUTurn = {
-      {Restriction::Type::No, {2, 8, 10}}
-  };
+  vector<Restriction> expectedNotUTurn = {{Restriction::Type::No, {2, 8, 10}}};
   vector<RestrictionUTurnForTests> expectedUTurn;
 
   TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph), expectedNotUTurn,
@@ -393,9 +341,7 @@ UNIT_TEST(RestrictionGenerationTest_BadConnection_2)
          No,   way,                              0,   1, 3)";
 
   // So we don't expect second restriction here.
-  vector<Restriction> expectedNotUTurn = {
-      {Restriction::Type::Only, {7, 6}}
-  };
+  vector<Restriction> expectedNotUTurn = {{Restriction::Type::Only, {7, 6}}};
   vector<RestrictionUTurnForTests> expectedUTurn;
 
   TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph), expectedNotUTurn,
@@ -416,9 +362,8 @@ UNIT_TEST(RestrictionGenerationTest_WithUTurn_1)
   // So we don't expect second restriction here.
   vector<Restriction> expectedNotUTurn;
   vector<RestrictionUTurnForTests> expectedUTurn = {
-      {  Restriction::Type::NoUTurn, 3 /* featureId */, false /* viaIsFirstPoint */},
-      {Restriction::Type::OnlyUTurn, 6 /* featureId */,  true /* viaIsFirstPoint */}
-  };
+      {Restriction::Type::NoUTurn, 3 /* featureId */, false /* viaIsFirstPoint */},
+      {Restriction::Type::OnlyUTurn, 6 /* featureId */, true /* viaIsFirstPoint */}};
 
   TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph), expectedNotUTurn,
                           expectedUTurn);
@@ -441,14 +386,10 @@ UNIT_TEST(RestrictionGenerationTest_WithUTurn_2)
 
   // So we don't expect second restriction here.
   vector<Restriction> expectedNotUTurn = {
-      {  Restriction::Type::No,     {2, 8}},
-      {  Restriction::Type::No, {2, 8, 10}},
-      {Restriction::Type::Only,  {6, 5, 4}}
-  };
+      {Restriction::Type::No, {2, 8}}, {Restriction::Type::No, {2, 8, 10}}, {Restriction::Type::Only, {6, 5, 4}}};
 
   vector<RestrictionUTurnForTests> expectedUTurn = {
-      {Restriction::Type::OnlyUTurn, 6 /* featureId */, false /* viaIsFirstPoint */}
-  };
+      {Restriction::Type::OnlyUTurn, 6 /* featureId */, false /* viaIsFirstPoint */}};
 
   TestRestrictionBuilding(restrictionPath, osmIdsToFeatureIdsContent, std::move(indexGraph), expectedNotUTurn,
                           expectedUTurn);

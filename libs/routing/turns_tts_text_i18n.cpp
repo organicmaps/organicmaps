@@ -15,12 +15,7 @@ void HungarianBaseWordTransform(std::string & hungarianString)
 
   strings::UniString myUniStr = strings::MakeUniString(hungarianString);
 
-  std::pair<char32_t, char32_t> constexpr kToReplace[] = {
-      {U'e', U'é'},
-      {U'a', U'á'},
-      {U'ö', U'ő'},
-      {U'ü', U'ű'}
-  };
+  std::pair<char32_t, char32_t> constexpr kToReplace[] = {{U'e', U'é'}, {U'a', U'á'}, {U'ö', U'ő'}, {U'ü', U'ű'}};
   auto & lastChar = myUniStr.back();
   for (auto [base, harmonized] : kToReplace)
   {

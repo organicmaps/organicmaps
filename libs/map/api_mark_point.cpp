@@ -6,24 +6,22 @@
 
 namespace style
 {
-std::map<std::string, std::string> kStyleToColor = {
-    {       "placemark-red",        "BookmarkRed"},
-    {      "placemark-blue",       "BookmarkBlue"},
-    {    "placemark-purple",     "BookmarkPurple"},
-    {    "placemark-yellow",     "BookmarkYellow"},
-    {      "placemark-pink",       "BookmarkPink"},
-    {     "placemark-brown",      "BookmarkBrown"},
-    {     "placemark-green",      "BookmarkGreen"},
-    {    "placemark-orange",     "BookmarkOrange"},
-    {"placemark-deeppurple", "BookmarkDeepPurple"},
-    { "placemark-lightblue",  "BookmarkLightBlue"},
-    {      "placemark-cyan",       "BookmarkCyan"},
-    {      "placemark-teal",       "BookmarkTeal"},
-    {      "placemark-lime",       "BookmarkLime"},
-    {"placemark-deeporange", "BookmarkDeepOrange"},
-    {      "placemark-gray",       "BookmarkGray"},
-    {  "placemark-bluegray",   "BookmarkBlueGray"}
-};
+std::map<std::string, std::string> kStyleToColor = {{"placemark-red", "BookmarkRed"},
+                                                    {"placemark-blue", "BookmarkBlue"},
+                                                    {"placemark-purple", "BookmarkPurple"},
+                                                    {"placemark-yellow", "BookmarkYellow"},
+                                                    {"placemark-pink", "BookmarkPink"},
+                                                    {"placemark-brown", "BookmarkBrown"},
+                                                    {"placemark-green", "BookmarkGreen"},
+                                                    {"placemark-orange", "BookmarkOrange"},
+                                                    {"placemark-deeppurple", "BookmarkDeepPurple"},
+                                                    {"placemark-lightblue", "BookmarkLightBlue"},
+                                                    {"placemark-cyan", "BookmarkCyan"},
+                                                    {"placemark-teal", "BookmarkTeal"},
+                                                    {"placemark-lime", "BookmarkLime"},
+                                                    {"placemark-deeporange", "BookmarkDeepOrange"},
+                                                    {"placemark-gray", "BookmarkGray"},
+                                                    {"placemark-bluegray", "BookmarkBlueGray"}};
 
 std::string GetSupportedStyle(std::string const & style)
 {
