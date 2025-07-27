@@ -54,7 +54,7 @@ bool ParseEmoji(CategoriesHolder::Category::Name & name)
 
 void FillPrefixLengthToSuggest(CategoriesHolder::Category::Name & name)
 {
-  if (std::isdigit(name.m_name.front()) && name.m_name.front() != '0')
+  if (std::isdigit(static_cast<unsigned char>(name.m_name.front())) && name.m_name.front() != '0')
   {
     name.m_prefixLengthToSuggest = name.m_name[0] - '0';
     name.m_name = name.m_name.substr(1);
