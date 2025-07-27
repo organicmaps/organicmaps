@@ -148,25 +148,30 @@ inline std::string DebugPrint(UniString const & s)
   return ToUtf8(s);
 }
 
-template <typename DelimFn, typename Iter>
 class TokenizeIteratorBase
 {
+  template <typename...>
+  static constexpr bool is_utf8cpp_iterator = false;
+
+  template <typename... Args>
+  static constexpr bool is_utf8cpp_iterator<utf8::unchecked::iterator<Args...>> = true;
+
 public:
   using difference_type = std::ptrdiff_t;
   using iterator_category = std::input_iterator_tag;
 
-  // Hack to get buffer pointer from any iterator.
-  // Deliberately made non-static to simplify the call like this->ToCharPtr.
-  char const * ToCharPtr(char const * p) const { return p; }
   template <class T>
-  auto ToCharPtr(T const & i) const
+  static std::string_view ToStringView(T first, T last)
   {
-    return ToCharPtr(i.base());
+    if constexpr (is_utf8cpp_iterator<T>)
+      return TokenizeIteratorBase::ToStringView(first.base(), last.base());
+    else
+      return std::string_view(first, last);
   }
 };
 
 template <typename DelimFn, typename Iter, bool KeepEmptyTokens = false>
-class TokenizeIterator : public TokenizeIteratorBase<DelimFn, Iter>
+class TokenizeIterator : public TokenizeIteratorBase
 {
 public:
   template <class InIterT>
@@ -183,8 +188,7 @@ public:
   {
     ASSERT(m_start != m_finish, ("Dereferencing of empty iterator."));
 
-    auto const baseI = this->ToCharPtr(m_start);
-    return std::string_view(baseI, std::distance(baseI, this->ToCharPtr(m_end)));
+    return this->ToStringView(m_start, m_end);
   }
 
   UniString GetUniString() const
@@ -244,7 +248,7 @@ private:
 
 /// Used in ParseCSVRow for the generator routine.
 template <typename DelimFn, typename Iter>
-class TokenizeIterator<DelimFn, Iter, true /* KeepEmptyTokens */> : public TokenizeIteratorBase<DelimFn, Iter>
+class TokenizeIterator<DelimFn, Iter, true /* KeepEmptyTokens */> : public TokenizeIteratorBase
 {
 public:
   template <class InIterT>
@@ -263,8 +267,7 @@ public:
   {
     ASSERT(!m_finished, ("Dereferencing of empty iterator."));
 
-    auto const baseI = this->ToCharPtr(m_start);
-    return std::string_view(baseI, std::distance(baseI, this->ToCharPtr(m_end)));
+    return this->ToStringView(m_start, m_end);
   }
 
   explicit operator bool() const { return !m_finished; }
