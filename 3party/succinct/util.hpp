@@ -8,7 +8,6 @@
 #include <stdint.h>
 
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/iostreams/device/mapped_file.hpp>
 
 namespace succinct { namespace util {
 
@@ -203,29 +202,6 @@ namespace succinct { namespace util {
         const char* m_end;
         const char* m_cur_pos;
         std::string m_cur_value;
-    };
-
-    struct mmap_lines
-    {
-        typedef buffer_line_iterator iterator;
-        typedef buffer_line_iterator const_iterator;
-
-        mmap_lines(std::string filename)
-            : m_map(filename)
-        {}
-
-        const_iterator begin() const
-        {
-            return const_iterator(m_map.data(), m_map.size());
-        }
-
-        const_iterator end() const
-        {
-            return const_iterator();
-        }
-
-    private:
-        boost::iostreams::mapped_file_source m_map;
     };
 
     struct input_error : std::invalid_argument
