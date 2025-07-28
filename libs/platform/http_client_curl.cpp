@@ -186,7 +186,7 @@ bool HttpClient::RunHttpRequest()
   ScopedRemoveFile body_deleter;
   ScopedRemoveFile received_file_deleter;
 
-  std::string cmd = "curl -s -w '%{http_code}' -D '" + headers_deleter.m_fileName + "' ";
+  std::string cmd = "curl -s -w \"%{http_code}\" -D \"" + headers_deleter.m_fileName + "\" ";
   // From curl manual:
   // This  option [-X] only changes the actual word used in the HTTP request, it does not alter
   // the way curl behaves. So for example if you want to make a proper
@@ -197,12 +197,12 @@ bool HttpClient::RunHttpRequest()
     cmd += "-X " + m_httpMethod + " ";
 
   for (auto const & header : m_headers)
-    cmd += "-H '" + header.first + ": " + header.second + "' ";
+    cmd += "-H \"" + header.first + ": " + header.second + "\" ";
 
   if (!m_cookies.empty())
-    cmd += "-b '" + m_cookies + "' ";
+    cmd += "-b \"" + m_cookies + "\" ";
 
-  cmd += "-m '" + strings::to_string(m_timeoutSec) + "' ";
+  cmd += "-m \"" + strings::to_string(m_timeoutSec) + "\" ";
 
   if (!m_bodyData.empty())
   {
@@ -216,7 +216,7 @@ bool HttpClient::RunHttpRequest()
   }
   // Content-Length is added automatically by curl.
   if (!m_inputFile.empty())
-    cmd += "--data-binary '@" + m_inputFile + "' ";
+    cmd += "--data-binary \"@" + m_inputFile + "\" ";
 
   // Use temporary file to receive data from server.
   // If user has specified file name to save data, it is not temporary and is not deleted automatically.
@@ -227,7 +227,7 @@ bool HttpClient::RunHttpRequest()
     received_file_deleter.m_fileName = rfile;
   }
 
-  cmd += "-o " + rfile + strings::to_string(" ") + "'" + m_urlRequested + "'";
+  cmd += "-o " + rfile + strings::to_string(" ") + "\"" + m_urlRequested + "\"";
 
   LOG(LDEBUG, ("Executing", cmd));
 
