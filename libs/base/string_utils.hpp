@@ -150,11 +150,17 @@ inline std::string DebugPrint(UniString const & s)
 
 class TokenizeIteratorBase
 {
-  template <typename...>
-  static constexpr bool is_utf8cpp_iterator = false;
+  template <typename T>
+  struct is_utf8cpp_iterator
+  {
+    static bool constexpr value = false;
+  };
 
-  template <typename... Args>
-  static constexpr bool is_utf8cpp_iterator<utf8::unchecked::iterator<Args...>> = true;
+  template <typename T>
+  struct is_utf8cpp_iterator<utf8::unchecked::iterator<T>>
+  {
+    static bool constexpr value = true;
+  };
 
 public:
   using difference_type = std::ptrdiff_t;
@@ -163,7 +169,7 @@ public:
   template <class T>
   static std::string_view ToStringView(T first, T last)
   {
-    if constexpr (is_utf8cpp_iterator<T>)
+    if constexpr (is_utf8cpp_iterator<T>::value)
       return TokenizeIteratorBase::ToStringView(first.base(), last.base());
     else
       return std::string_view(first, last);
