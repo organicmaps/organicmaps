@@ -51,6 +51,10 @@ jobs:
             cc: gcc-14
             cxx: g++-14
 
+          - os: ubuntu-24.04
+            cc: gcc-13
+            cxx: g++-13
+
           - os: macos-15
             cc: clang
             cxx: clang++
