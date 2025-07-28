@@ -63,7 +63,7 @@ UNWANTED_PHRASES = [
 # Setup paths
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(script_dir, '../..'))
-input_file = os.path.join(project_root, 'data', 'countries_meta.txt')
+input_file = os.path.join(project_root, 'data', 'countries', 'metadata.json')
 output_dir = os.path.join(project_root, 'data', 'countries', 'public_holidays')
 
 # Create output directory if it doesn't exist
@@ -91,14 +91,14 @@ def clean_holiday_name(name):
     name = re.sub(r"\s*\(substituted from [^)]+\)", "", name, flags=re.IGNORECASE) 
     return name.strip()
 
-if country and country not in meta:
-    print(f"Error: {country} not found in countries_meta.txt")
+if args.country and args.country not in meta:
+    print(f"Error: {args.country} not found in countries_meta.txt")
     sys.exit(1)
 
 # Process each country/region from the metadata
 for map_name in meta.keys():
 
-    if country and map_name != country:
+    if args.country and map_name != country:
         continue
 
     # Get base country name (before underscore if it's a region)
