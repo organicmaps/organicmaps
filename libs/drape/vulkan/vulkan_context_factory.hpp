@@ -6,8 +6,6 @@
 #include "drape/vulkan/vulkan_layers.hpp"
 #include "drape/vulkan/vulkan_object_manager.hpp"
 
-#include <vulkan/vulkan_android.h>
-
 namespace dp
 {
 namespace vulkan
