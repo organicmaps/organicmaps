@@ -238,7 +238,7 @@ UNIT_TEST(CountryInfoGetter_RegionRects)
   }
 }
 
-// This is a test for consistency between data/countries.txt and data/packed_polygons.bin.
+// This is a test for consistency between data/countries/countries.json and data/packed_polygons.bin.
 UNIT_TEST(CountryInfoGetter_Countries_And_Polygons)
 {
   auto reader = CountryInfoReader::CreateCountryInfoReader(GetPlatform());

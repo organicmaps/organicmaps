@@ -134,7 +134,7 @@
 		56F0D73A1D896A5300045886 /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675343F81A3F640D00A0A8C3 /* librouting.a */; };
 		56F0D74D1D896A5300045886 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 67BD36001C69F513003AA26F /* World.mwm */; };
 		56F0D74E1D896A5300045886 /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 67BD36021C69F513003AA26F /* WorldCoasts.mwm */; };
-		56F0D74F1D896A5300045886 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35FD1C69F4AC003AA26F /* countries.txt */; };
+		56F0D74F1D896A5300045886 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35FD1C69F4AC003AA26F /* countries.json */; };
 		56F0D7501D896A5300045886 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35F91C69F474003AA26F /* packed_polygons.bin */; };
 		56F0D7521D896A5300045886 /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */; };
 		56F0D7531D896A5300045886 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */; };
@@ -205,7 +205,7 @@
 		67BD35F61C69F447003AA26F /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD531C68BB14009CB89E /* classificator.txt */; };
 		67BD35F71C69F447003AA26F /* sound-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6742AD611C68F747009CB89E /* sound-strings */; };
 		67BD35FB1C69F49A003AA26F /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35F91C69F474003AA26F /* packed_polygons.bin */; };
-		67BD35FF1C69F4BC003AA26F /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35FD1C69F4AC003AA26F /* countries.txt */; };
+		67BD35FF1C69F4BC003AA26F /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 67BD35FD1C69F4AC003AA26F /* countries.json */; };
 		67BD36031C69F51C003AA26F /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 67BD36001C69F513003AA26F /* World.mwm */; };
 		67BD36051C69F51C003AA26F /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 67BD36021C69F513003AA26F /* WorldCoasts.mwm */; };
 		67C79BA11E2CEE1400C40034 /* restriction_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67C79B9F1E2CEE1400C40034 /* restriction_loader.cpp */; };
@@ -491,7 +491,7 @@
 		67BD35B11C69F086003AA26F /* routing_test_tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_test_tools.cpp; sourceTree = "<group>"; };
 		67BD35B21C69F086003AA26F /* routing_test_tools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_test_tools.hpp; sourceTree = "<group>"; };
 		67BD35F91C69F474003AA26F /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons.bin; sourceTree = "<group>"; };
-		67BD35FD1C69F4AC003AA26F /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries.txt; sourceTree = "<group>"; };
+		67BD35FD1C69F4AC003AA26F /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries.json; sourceTree = "<group>"; };
 		67BD36001C69F513003AA26F /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = World.mwm; sourceTree = "<group>"; };
 		67BD36021C69F513003AA26F /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts.mwm; sourceTree = "<group>"; };
 		67C79B9F1E2CEE1400C40034 /* restriction_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = restriction_loader.cpp; sourceTree = "<group>"; };
@@ -643,7 +643,7 @@
 			children = (
 				67BD36001C69F513003AA26F /* World.mwm */,
 				67BD36021C69F513003AA26F /* WorldCoasts.mwm */,
-				67BD35FD1C69F4AC003AA26F /* countries.txt */,
+				67BD35FD1C69F4AC003AA26F /* countries.json */,
 				67BD35F91C69F474003AA26F /* packed_polygons.bin */,
 				6742AD571C68C7F6009CB89E /* drules_proto_clear.bin */,
 				6742AD581C68C7F6009CB89E /* drules_proto_dark.bin */,
@@ -1114,7 +1114,7 @@
 			files = (
 				56F0D74D1D896A5300045886 /* World.mwm in Resources */,
 				56F0D74E1D896A5300045886 /* WorldCoasts.mwm in Resources */,
-				56F0D74F1D896A5300045886 /* countries.txt in Resources */,
+				56F0D74F1D896A5300045886 /* countries.json in Resources */,
 				56F0D7501D896A5300045886 /* packed_polygons.bin in Resources */,
 				56F0D7521D896A5300045886 /* drules_proto_clear.bin in Resources */,
 				56F0D7531D896A5300045886 /* drules_proto_dark.bin in Resources */,
@@ -1144,7 +1144,7 @@
 			files = (
 				67BD36031C69F51C003AA26F /* World.mwm in Resources */,
 				67BD36051C69F51C003AA26F /* WorldCoasts.mwm in Resources */,
-				67BD35FF1C69F4BC003AA26F /* countries.txt in Resources */,
+				67BD35FF1C69F4BC003AA26F /* countries.json in Resources */,
 				67BD35FB1C69F49A003AA26F /* packed_polygons.bin in Resources */,
 				67BD35F01C69F447003AA26F /* drules_proto_clear.bin in Resources */,
 				67BD35F11C69F447003AA26F /* drules_proto_dark.bin in Resources */,

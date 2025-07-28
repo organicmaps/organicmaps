@@ -1,4 +1,4 @@
-# Produces countries.txt from hierarchy.txt
+# Produces countries.json from hierarchy.txt
 #
 # Hierarchy.txt format:
 #

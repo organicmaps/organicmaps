@@ -17,15 +17,15 @@ namespace storage
 /// ability
 /// of access to its nodes in expected constant time with the help of hash table.
 /// It should be filled with AddAtDepth method.
-/// This class is used in Storage and filled based on countries.txt (countries_migrate.txt).
-/// While filling CountryTree nodes in countries.txt should be visited in DFS order.
+/// This class is used in Storage and filled based on countries.json (countries_migrate.txt).
+/// While filling CountryTree nodes in countries.json should be visited in DFS order.
 class CountryTree
 {
 public:
   /// This class is developed for using in CountryTree. It's a implementation of a tree.
   /// It should be filled with AddAtDepth method.
-  /// This class is used in filled based on countries.txt (countries_migrate.txt).
-  /// While filling Node nodes in countries.txt should be visited in DFS order.
+  /// This class is used in filled based on countries.json (countries_migrate.txt).
+  /// While filling Node nodes in countries.json should be visited in DFS order.
   class Node
   {
   public:
@@ -107,10 +107,10 @@ public:
   Node const * FindFirst(CountryId const & key) const;
 
   /// \brief Find only leaves.
-  /// \note It's a termprary fucntion for compatablity with old countries.txt.
-  /// When new countries.txt with unique ids will be added FindLeaf will be removed
+  /// \note It's a termprary fucntion for compatablity with old countries.json.
+  /// When new countries.json with unique ids will be added FindLeaf will be removed
   /// and Find will be used intead.
-  /// @TODO(bykoianko) Remove this method on countries.txt update.
+  /// @TODO(bykoianko) Remove this method on countries.json update.
   Node const * FindFirstLeaf(CountryId const & key) const;
 
 private:
