@@ -1,4 +1,13 @@
 {
+  "2025-09-23": "Rosh Hashanah",
+  "2025-09-24": "Rosh Hashanah",
+  "2025-10-02": "Yom Kippur",
+  "2025-10-07": "Sukkot",
+  "2025-10-14": "Simchat Torah / Shemini Atzeret",
+  "2025-04-13": "Pesach",
+  "2025-04-19": "Seventh day of Pesach",
+  "2025-05-01": "Independence Day",
+  "2025-06-02": "Shavuot",
   "2026-09-12": "Rosh Hashanah",
   "2026-09-13": "Rosh Hashanah",
   "2026-09-21": "Yom Kippur",
@@ -7,14 +16,5 @@
   "2026-04-02": "Pesach",
   "2026-04-08": "Seventh day of Pesach",
   "2026-04-22": "Independence Day",
-  "2026-05-22": "Shavuot",
-  "2027-10-02": "Rosh Hashanah",
-  "2027-10-03": "Rosh Hashanah",
-  "2027-10-11": "Yom Kippur",
-  "2027-10-16": "Sukkot",
-  "2027-10-23": "Simchat Torah / Shemini Atzeret",
-  "2027-04-22": "Pesach",
-  "2027-04-28": "Seventh day of Pesach",
-  "2027-05-12": "Independence Day",
-  "2027-06-11": "Shavuot"
+  "2026-05-22": "Shavuot"
 }

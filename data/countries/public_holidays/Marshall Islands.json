@@ -1,4 +1,14 @@
 {
+  "2025-01-01": "New Year's Day",
+  "2025-03-01": "Nuclear Victims Remembrance Day",
+  "2025-04-18": "Good Friday",
+  "2025-05-01": "Constitution Day",
+  "2025-07-04": "Fisherman's Day",
+  "2025-09-05": "Dri-jerbal Day",
+  "2025-09-26": "Manit Day",
+  "2025-11-17": "President's Day",
+  "2025-12-05": "Gospel Day",
+  "2025-12-25": "Christmas Day",
   "2026-01-01": "New Year's Day",
   "2026-03-01": "Nuclear Victims Remembrance Day",
   "2026-03-02": "Nuclear Victims Remembrance Day Holiday",
@@ -9,15 +19,5 @@
   "2026-09-25": "Manit Day",
   "2026-11-17": "President's Day",
   "2026-12-04": "Gospel Day",
-  "2026-12-25": "Christmas Day",
-  "2027-01-01": "New Year's Day",
-  "2027-03-01": "Nuclear Victims Remembrance Day",
-  "2027-03-26": "Good Friday",
-  "2027-05-01": "Constitution Day",
-  "2027-07-02": "Fisherman's Day",
-  "2027-09-03": "Dri-jerbal Day",
-  "2027-09-24": "Manit Day",
-  "2027-11-17": "President's Day",
-  "2027-12-03": "Gospel Day",
-  "2027-12-25": "Christmas Day"
+  "2026-12-25": "Christmas Day"
 }
