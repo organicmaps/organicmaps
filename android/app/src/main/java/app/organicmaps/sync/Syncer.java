@@ -107,14 +107,28 @@ public class Syncer
               }
               else
               {
-                // The bookmark was edited on this device, and also edited in the cloud.
-                // Both copies must be kept.
-                // So we add a suffix to the local file/category name.
-                // This makes room for the remote copy to be downloaded as-is.
-                SyncManager.addSuffixToCategory(locallyChangedFile);
-                mLocalState.eraseCachedChecksum(locallyChangedFile);
-                // Notify other syncers that this file is now gone.
-                SyncManager.INSTANCE.notifyOtherSyncers(mAccountId, locallyChangedFile);
+                String localFileChecksum = null;
+                if (lastSyncedChecksum == null && cloudSideChecksum != null)
+                  localFileChecksum = mSyncClient.computeLocalFileChecksum(locallyChangedFile);
+
+                if (localFileChecksum != null && localFileChecksum.equals(cloudSideChecksum))
+                  // This account is connected to this device for the first time, but the files are
+                  // in sync with the server already.
+                  // This might happen when, say, another account on this device synced to another
+                  // device and that device already has this new account logged in so the files
+                  // are already in sync.
+                  mLocalState.setCachedChecksum(locallyChangedFile, cloudSideChecksum);
+                else
+                {
+                  // The bookmark was edited on this device, and also edited in the cloud.
+                  // Both copies must be kept.
+                  // So we add a suffix to the local file/category name.
+                  // This makes room for the remote copy to be downloaded as-is.
+                  SyncManager.addSuffixToCategory(locallyChangedFile);
+                  mLocalState.eraseCachedChecksum(locallyChangedFile);
+                  // Notify other syncers that this file is now gone.
+                  SyncManager.INSTANCE.notifyOtherSyncers(mAccountId, locallyChangedFile);
+                }
               }
             }
             case OnlyLocal ->
