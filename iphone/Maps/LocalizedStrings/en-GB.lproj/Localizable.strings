@@ -523,7 +523,7 @@
 /* Information text: "Last upload 11.01.2016" */
 "last_upload" = "Last upload";
 "thank_you" = "Thank You";
-"edit_place" = "Edit Place";
+"edit_place" = "Edit OpenStreetMap Place";
 "place_name" = "Place Name";
 "add_language" = "Add a language";
 

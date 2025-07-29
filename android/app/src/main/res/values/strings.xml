@@ -489,7 +489,7 @@
     <string name="password">Password</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="logout">Log Out</string>
-    <string name="edit_place">Edit Place</string>
+    <string name="edit_place">Edit OpenStreetMap Place</string>
     <string name="add_language">Add a language</string>
     <string name="street">Street</string>
     <!-- Editable House Number text field (in address block). -->
