@@ -26,13 +26,14 @@ set(SRC
   app/organicmaps/sdk/search/SearchEngine.cpp
   app/organicmaps/sdk/search/SearchRecents.cpp
   app/organicmaps/sdk/routing/JunctionInfo.hpp
+  app/organicmaps/sdk/routing/LaneInfo.cpp
+  app/organicmaps/sdk/routing/LaneInfo.hpp
   app/organicmaps/sdk/routing/RouteMarkData.hpp
   app/organicmaps/sdk/routing/RouteMarkType.hpp
   app/organicmaps/sdk/routing/RoutePointInfo.hpp
   app/organicmaps/sdk/routing/RouteRecommendationType.hpp
   app/organicmaps/sdk/routing/RoutingInfo.hpp
   app/organicmaps/sdk/routing/RoutingOptions.cpp
-  app/organicmaps/sdk/routing/SingleLaneInfo.hpp
   app/organicmaps/sdk/routing/TransitRouteInfo.hpp
   app/organicmaps/sdk/routing/TransitStepInfo.hpp
   app/organicmaps/sdk/ChoosePositionMode.cpp

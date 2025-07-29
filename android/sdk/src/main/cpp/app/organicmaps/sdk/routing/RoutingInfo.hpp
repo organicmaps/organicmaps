@@ -1,7 +1,7 @@
 #pragma once
 
 #include "app/organicmaps/sdk/core/jni_helper.hpp"
-#include "app/organicmaps/sdk/routing/SingleLaneInfo.hpp"
+#include "app/organicmaps/sdk/routing/LaneInfo.hpp"
 
 #include "map/routing_manager.hpp"
 
@@ -12,12 +12,13 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
   //                              String currentStreet, String nextStreet, String nextNextStreet,
   //                              double completionPercent, int vehicleTurnOrdinal, int
   //                              vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum,
-  //                              int totalTime, SingleLaneInfo[] lanes)
+  //                              int totalTime, LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
+  //                              boolean shouldPlayWarningSignal)
   static jmethodID const ctorRouteInfoID =
       jni::GetConstructorID(env, klass,
                             "(Lapp/organicmaps/sdk/util/Distance;Lapp/organicmaps/sdk/util/Distance;"
                             "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DIIIII"
-                            "[Lapp/organicmaps/sdk/routing/SingleLaneInfo;DZZ)V");
+                            "[Lapp/organicmaps/sdk/routing/LaneInfo;DZZ)V");
 
   jobjectArray jLanes = CreateLanesInfo(env, info.m_lanes);
 
