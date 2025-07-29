@@ -5,7 +5,6 @@
 #include "routing/route.hpp"
 #include "routing_common/num_mwm_id.hpp"
 
-#include <map>
 #include <memory>
 #include <vector>
 
@@ -23,11 +22,6 @@ protected:
                                   turns::TurnItem & turn);
   virtual void FixupTurns(std::vector<RouteSegment> & routeSegments);
 };
-
-/*!
- * \brief Selects lanes which are recommended for an end user.
- */
-void SelectRecommendedLanes(std::vector<RouteSegment> & routeSegments);
 
 void FixupCarTurns(std::vector<RouteSegment> & routeSegments);
 
