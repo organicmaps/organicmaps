@@ -8,12 +8,14 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.R;
-import app.organicmaps.sdk.routing.SingleLaneInfo;
+import app.organicmaps.sdk.routing.LaneInfo;
+import app.organicmaps.sdk.routing.LaneWay;
 import java.util.Objects;
 
 public class LanesDrawable extends Drawable
@@ -41,16 +43,19 @@ public class LanesDrawable extends Drawable
   {
     private final Drawable mDrawable;
 
-    private LaneDrawable(@NonNull final Context context, @NonNull SingleLaneInfo laneInfo, int horizontalOffset,
+    private LaneDrawable(@NonNull final Context context, @NonNull LaneInfo laneInfo, int horizontalOffset,
                          TintColorInfo colorInfo)
     {
-      mDrawable = Objects.requireNonNull(AppCompatResources.getDrawable(context, laneInfo.mLane[0].mTurnRes));
+      final boolean isActive = laneInfo.mActiveLaneWay != LaneWay.None;
+      @DrawableRes
+      final int turnRes = isActive ? laneInfo.mActiveLaneWay.mTurnRes : laneInfo.mLaneWays[0].mTurnRes;
+      mDrawable = Objects.requireNonNull(AppCompatResources.getDrawable(context, turnRes));
 
       final int width = mDrawable.getIntrinsicWidth();
       final int height = mDrawable.getIntrinsicHeight();
 
       mDrawable.setBounds(horizontalOffset, 0, horizontalOffset + width, height);
-      mDrawable.setTint(laneInfo.mIsActive ? colorInfo.mActiveLaneTint : colorInfo.mInactiveLaneTint);
+      mDrawable.setTint(isActive ? colorInfo.mActiveLaneTint : colorInfo.mInactiveLaneTint);
     }
 
     private void draw(@NonNull final Canvas canvas)
@@ -65,14 +70,14 @@ public class LanesDrawable extends Drawable
   private int mWidth;
   private int mHeight;
 
-  public LanesDrawable(@NonNull final Context context, @NonNull SingleLaneInfo[] lanes)
+  public LanesDrawable(@NonNull final Context context, @NonNull LaneInfo[] lanes)
   {
     final TintColorInfo tintColorInfo = new TintColorInfo(ContextCompat.getColor(context, ACTIVE_LANE_TINT_RES),
                                                           ContextCompat.getColor(context, INACTIVE_LANE_TINT_RES));
     mLanes = createLaneDrawables(context, lanes, tintColorInfo);
   }
 
-  public LanesDrawable(@NonNull final Context context, @NonNull SingleLaneInfo[] lanes, @ColorInt int activeLaneTint,
+  public LanesDrawable(@NonNull final Context context, @NonNull LaneInfo[] lanes, @ColorInt int activeLaneTint,
                        @ColorInt int inactiveLaneTint)
   {
     final TintColorInfo tintColorInfo = new TintColorInfo(activeLaneTint, inactiveLaneTint);
@@ -143,7 +148,7 @@ public class LanesDrawable extends Drawable
   }
 
   @NonNull
-  private LaneDrawable[] createLaneDrawables(@NonNull Context context, @NonNull SingleLaneInfo[] lanes,
+  private LaneDrawable[] createLaneDrawables(@NonNull Context context, @NonNull LaneInfo[] lanes,
                                              @NonNull TintColorInfo tintColorInfo)
   {
     assert lanes.length > 0;
