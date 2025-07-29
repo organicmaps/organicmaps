@@ -244,10 +244,10 @@ public class ChartView: UIView {
     let lower = max(pinchStartLower + dx, 0)
     let upper = min(pinchStartUpper - dx, chartData.labels.count - 1)
 
-    if upper - lower < chartData.labels.count / 10 {
+    guard upper - lower > max(1, chartData.labels.count / 10) else {
       return
     }
-    
+
     chartPreviewView.setX(min: lower, max: upper)
     xAxisView.setBounds(lower: lower, upper: upper)
     updateCharts(animationStyle: .none)
