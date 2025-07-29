@@ -919,7 +919,7 @@
 "type.railway.funicular" = "Füniküler";
 "type.railway.funicular.bridge" = "Füniküler Köprüsü";
 "type.railway.funicular.tunnel" = "Füniküler Tüneli";
-"type.railway.halt" = "Tren İstasyonu";
+"type.railway.halt" = "Demir Yolu Durağı";
 "type.railway.level_crossing" = "Hemzemin Geçit";
 "type.railway.light_rail" = "Hafif Raylı";
 "type.railway.light_rail.bridge" = "Hafif Raylı Köprüsü";

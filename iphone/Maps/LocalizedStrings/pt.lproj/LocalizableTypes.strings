@@ -704,7 +704,7 @@
 "type.landuse.vineyard" = "Vinha";
 "type.leisure" = "Lazer";
 "type.leisure.common" = "Terreno baldio";
-"type.leisure.dog_park" = "Parque para câes";
+"type.leisure.dog_park" = "Parque para cães";
 "type.leisure.fitness_centre" = "Academia de fitness";
 "type.leisure.fitness_station" = "Dispositivo público de exercícios";
 "type.leisure.dance" = "Salão de dança";
@@ -717,10 +717,10 @@
 "type.leisure.marina" = "Marina";
 "type.leisure.nature_reserve" = "Reserva natural";
 "type.leisure.outdoor_seating" = "Assentos ao ar livre";
-"type.leisure.park" = "Parque urbano";
-"type.leisure.park.no.access" = "Parque urbano";
-"type.leisure.park.permissive" = "Parque urbano";
-"type.leisure.park.private" = "Parque urbano";
+"type.leisure.park" = "Parque";
+"type.leisure.park.no.access" = "Parque privativo";
+"type.leisure.park.permissive" = "Parque";
+"type.leisure.park.private" = "Parque privativo";
 "type.leisure.picnic_table" = "Mesa de piqueniques";
 "type.leisure.pitch" = "Campo de desportos";
 "type.leisure.playground" = "Parque infantil";
@@ -733,51 +733,51 @@
 "type.leisure.stadium" = "Estádio";
 "type.leisure.swimming_pool" = "Piscina";
 "type.leisure.swimming_pool.private" = "Piscina";
-"type.leisure.track" = "Pista para desportos não motorizados";
-"type.leisure.track.area" = "Pista para desportos não motorizados";
+"type.leisure.track" = "Trilha";
+"type.leisure.track.area" = "Área de trilha";
 "type.leisure.water_park" = "Parque aquático";
-"type.leisure.beach_resort" = "Beach Resort";
+"type.leisure.beach_resort" = "Resort à beira mar";
 "type.man_made" = "Construção humana";
-"type.man_made.breakwater" = "Molhe";
-"type.man_made.cairn" = "Moledro ou mariola";
+"type.man_made.breakwater" = "Quebra-mar";
+"type.man_made.cairn" = "Monumento de pedras";
 "type.man_made.chimney" = "Chaminé de fábrica";
-"type.man_made.cutline" = "Atalhada";
-"type.man_made.survey_point" = "Survey Point";
-"type.man_made.flagpole" = "Flagpole";
+"type.man_made.cutline" = "Linha de corte";
+"type.man_made.survey_point" = "Ponto de Levantamento";
+"type.man_made.flagpole" = "Mastro de bandeira";
 "type.man_made.lighthouse" = "Farol";
-"type.man_made.mast" = "Mast";
-"type.man_made.pier" = "Pontão";
-"type.man_made.pipeline" = "Pipeline";
-"type.man_made.pipeline.overground" = "Pipeline aéreo";
+"type.man_made.mast" = "Mastro";
+"type.man_made.pier" = "Píer";
+"type.man_made.pipeline" = "Gasoduto";
+"type.man_made.pipeline.overground" = "Gasoduto aéreo";
 "type.man_made.silo" = "Silo";
-"type.man_made.storage_tank" = "Storage Tank";
+"type.man_made.storage_tank" = "Tanque de armazenamento";
 "type.man_made.surveillance" = "Câmara de vigilância";
 "type.man_made.tower" = "Torre";
 
 /* A huge telecommunications tower. Often a local monument or a landmark. */
-"type.man_made.communications_tower" = "Torre de comunicação";
+"type.man_made.communications_tower" = "Torre de comunicação/Muito Alta";
 
 /* A regular telecommunications tower / mast. */
-"type.man_made.tower.communication" = "Torre de comunicação";
+"type.man_made.tower.communication" = "Torre de comunicação/Poste";
 
 /* A deep hole drilled into the earth to extract oil or gas. */
 "type.man_made.petroleum_well" = "Poço de petróleo ou gás";
 
 /* A tower/mast constructed to burn off excess gas. */
-"type.man_made.flare" = "Tocha de gás";
+"type.man_made.flare" = "Torre de tocha de gás";
 "type.man_made.wastewater_plant" = "Estação de tratamento de águas residuais";
 "type.man_made.water_tap" = "Torneira de água";
-"type.man_made.water_tap.drinking_water_no" = "Torneira de água";
+"type.man_made.water_tap.drinking_water_no" = "Torneira de água não potável";
 "type.man_made.water_tower" = "Torre de água";
 "type.man_made.water_well" = "Poço de água";
-"type.man_made.water_well.drinking_water_no" = "Poço de água";
+"type.man_made.water_well.drinking_water_no" = "Poço de água não potável";
 "type.man_made.windmill" = "Moinho de vento";
 "type.man_made.works" = "Fábrica";
-"type.mapswithme" = "mapswithme";
-"type.mapswithme.grid" = "mapswithme-grid";
+"type.mapswithme" = "maps.me";
+"type.mapswithme.grid" = "maps.me-grade";
 "type.military" = "Militar";
 "type.military.bunker" = "Búnquer";
-"type.mountain_pass" = "Mountain Pass";
+"type.mountain_pass" = "Passo de montanha";
 "type.natural" = "Natureza";
 
 /* A rocky land cover. */
@@ -793,14 +793,14 @@
 "type.natural.beach.sand" = "Praia de areia";
 "type.natural.beach.gravel" = "Praia de Cascalho";
 "type.natural.cape" = "Cabo";
-"type.natural.cave_entrance" = "Caverna";
-"type.natural.cliff" = "Falésia";
-"type.natural.earth_bank" = "Penhasco";
+"type.natural.cave_entrance" = "Entrada de Caverna";
+"type.natural.cliff" = "Penhasco";
+"type.natural.earth_bank" = "Barranco";
 "type.man_made.embankment" = "Aterro";
 "type.natural.coastline" = "Linha costeira";
 "type.natural.desert" = "Deserto";
 "type.natural.geyser" = "Géiser";
-"type.natural.glacier" = "Glaciar";
+"type.natural.glacier" = "Geleira";
 "type.natural.grassland" = "Campo";
 "type.natural.heath" = "Charneca";
 "type.natural.hot_spring" = "Nascente de água quente";
@@ -808,9 +808,9 @@
 "type.natural.water.lock" = "Câmara de Eclusa";
 "type.natural.water.pond" = "Lagoa";
 "type.natural.water.reservoir" = "Reservatório";
-"type.natural.water.basin" = "Reservatório";
+"type.natural.water.basin" = "Bacia";
 "type.natural.water.river" = "Rio";
-"type.natural.land" = "Campo";
+"type.natural.land" = "Terra";
 "type.natural.meadow" = "Pradaria";
 "type.natural.orchard" = "Pomar";
 "type.natural.peak" = "Pico";
@@ -818,15 +818,15 @@
 "type.natural.rock" = "Rochedo";
 "type.natural.scrub" = "Matagal";
 "type.natural.spring" = "Nascente";
-"type.natural.spring.drinking_water_no" = "Nascente";
+"type.natural.spring.drinking_water_no" = "Nascente não potável";
 "type.natural.strait" = "Estreito";
 "type.natural.tree_row" = "Linha de árvores";
-"type.natural.vineyard" = "Vinha";
+"type.natural.vineyard" = "Vinhedo";
 "type.natural.volcano" = "Vulcão";
 "type.natural.water" = "Corpo de água";
 "type.natural.wetland" = "Zona úmida";
-"type.natural.wetland.bog" = "Zona úmida";
-"type.natural.wetland.marsh" = "Zona úmida";
+"type.natural.wetland.bog" = "Pântano";
+"type.natural.wetland.marsh" = "Brejo";
 "type.noexit" = "Via sem saída";
 "type.office" = "Escritório";
 "type.office.company" = "Empresa";
@@ -853,7 +853,7 @@
 "type.place.continent" = "Continente";
 "type.place.country" = "País";
 "type.place.county" = "Condado";
-"type.place.farm" = "Quinta";
+"type.place.farm" = "Fazenda";
 "type.place.hamlet" = "Aldeia";
 "type.place.island" = "Ilha";
 "type.place.islet" = "Ilhéu";
@@ -861,10 +861,10 @@
 "type.place.locality" = "Localidade";
 
 /* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
-"type.place.quarter" = "Bairro";
+"type.place.quarter" = "Quarteirão";
 
 /* Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) */
-"type.place.neighbourhood" = "Bairro";
+"type.place.neighbourhood" = "Vizinhança";
 "type.place.ocean" = "Oceano";
 "type.place.region" = "Região";
 "type.place.sea" = "Mar";
@@ -873,7 +873,7 @@
 "type.place.state.USA" = "Estado";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
-"type.place.suburb" = "Subúrbio";
+"type.place.suburb" = "Bairro";
 "type.place.town" = "Cidade";
 "type.place.village" = "Vila";
 "type.power" = "Energia";
@@ -898,42 +898,42 @@
 "type.power.tower" = "Torre de eletricidade";
 
 /* A single pole supporting minor power lines. */
-"type.power.pole" = "Power Pole";
+"type.power.pole" = "Poste de energia";
 
 /* A single pole supporting various public utilities, such as lighting or telephony. */
-"type.man_made.utility_pole" = "Utility Pole";
+"type.man_made.utility_pole" = "Poste público";
 "type.psurface" = "psurface";
-"type.psurface.paved_bad" = "psurface-paved_bad";
-"type.psurface.paved_good" = "psurface-paved_good";
-"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
-"type.psurface.unpaved_good" = "psurface-unpaved_good";
+"type.psurface.paved_bad" = "superfície pavimentada ruim";
+"type.psurface.paved_good" = "superfície pavimentada boa";
+"type.psurface.unpaved_bad" = "Superfície não pavimentada ruim";
+"type.psurface.unpaved_good" = "Superfície não pavimentada boa";
 "type.public_transport" = "Transporte público";
 "type.public_transport.platform" = "Plataforma de transporte público";
 "type.railway" = "Ferrovia";
 "type.railway.abandoned" = "Ferrovia abandonada";
-"type.railway.abandoned.bridge" = "Ferrovia abandonada";
-"type.railway.abandoned.tunnel" = "Ferrovia abandonada";
+"type.railway.abandoned.bridge" = "Ponte de Ferrovia abandonada";
+"type.railway.abandoned.tunnel" = "Túnel de Ferrovia abandonada";
 "type.railway.construction" = "Ferrovia em construção";
-"type.railway.crossing" = "Passagem pedestre";
+"type.railway.crossing" = "Passagem de pedestre";
 "type.railway.disused" = "Ferrovia em desuso";
 "type.railway.funicular" = "Funicular";
-"type.railway.funicular.bridge" = "Funicular";
-"type.railway.funicular.tunnel" = "Funicular";
-"type.railway.halt" = "Apeadeiro";
+"type.railway.funicular.bridge" = "Ponte Funicular";
+"type.railway.funicular.tunnel" = "Túnel Funicular";
+"type.railway.halt" = "Parada ferroviária";
 "type.railway.level_crossing" = "Passagem de nível";
 "type.railway.light_rail" = "Metropolitano de superfície";
-"type.railway.light_rail.bridge" = "Metropolitano de superfície";
-"type.railway.light_rail.tunnel" = "Metropolitano de superfície";
-"type.railway.monorail" = "Monocarril";
-"type.railway.monorail.bridge" = "Monocarril";
-"type.railway.monorail.tunnel" = "Monocarril";
-"type.railway.narrow_gauge" = "Caminho de ferro de via estreita";
-"type.railway.narrow_gauge.bridge" = "Caminho de ferro de via estreita";
-"type.railway.narrow_gauge.tunnel" = "Caminho de ferro de via estreita";
+"type.railway.light_rail.bridge" = "Ponte do metropolitano de superfície";
+"type.railway.light_rail.tunnel" = "Túnel do metropolitano de superfície";
+"type.railway.monorail" = "Monotrilho";
+"type.railway.monorail.bridge" = "Ponte Monotrilho";
+"type.railway.monorail.tunnel" = "Túnel Monotrilho";
+"type.railway.narrow_gauge" = "Trilho de bitola estreita";
+"type.railway.narrow_gauge.bridge" = "Ponte ferroviária de bitola estreita";
+"type.railway.narrow_gauge.tunnel" = "Túnel ferroviário de bitola estreita";
 "type.railway.platform" = "Plataforma ferroviária";
 "type.railway.preserved" = "Ferrovia preservada";
-"type.railway.preserved.bridge" = "Ferrovia preservada";
-"type.railway.preserved.tunnel" = "Ferrovia preservada";
+"type.railway.preserved.bridge" = "Ponte de Ferrovia preservada";
+"type.railway.preserved.tunnel" = "Túnel de Ferrovia preservada";
 "type.railway.rail" = "Ferrovia";
 "type.railway.rail.highspeed" = "Ferrovia de alta velocidade";
 "type.railway.rail.tourism" = "Ferrovia turística";
@@ -949,31 +949,31 @@
 /* Short service tracks: siding, yard, crossover. */
 "type.railway.rail.service" = "Linha de serviço";
 "type.railway.rail.bridge" = "Ponte ferroviária";
-"type.railway.rail.highspeed.bridge" = "Ponte ferroviária";
-"type.railway.rail.tourism.bridge" = "Ponte ferroviária";
-"type.railway.rail.main.bridge" = "Ponte ferroviária";
-"type.railway.rail.branch.bridge" = "Ponte ferroviária";
-"type.railway.rail.utility.bridge" = "Ponte ferroviária";
-"type.railway.rail.spur.bridge" = "Ponte ferroviária";
-"type.railway.rail.service.bridge" = "Ponte ferroviária";
+"type.railway.rail.highspeed.bridge" = "Ponte ferroviária de alta velocidade";
+"type.railway.rail.tourism.bridge" = "Ponte ferroviária turística";
+"type.railway.rail.main.bridge" = "Ponte ferroviária principal";
+"type.railway.rail.branch.bridge" = "Ponte ramal ferroviário";
+"type.railway.rail.utility.bridge" = "Ponte ferrovia de serviço";
+"type.railway.rail.spur.bridge" = "Ponte ferrovia de inserção";
+"type.railway.rail.service.bridge" = "Ponte ferrovia de serviço";
 "type.railway.rail.tunnel" = "Túnel ferroviário";
-"type.railway.rail.highspeed.tunnel" = "Túnel ferroviário";
-"type.railway.rail.tourism.tunnel" = "Túnel ferroviário";
-"type.railway.rail.main.tunnel" = "Túnel ferroviário";
-"type.railway.rail.branch.tunnel" = "Túnel ferroviário";
-"type.railway.rail.utility.tunnel" = "Túnel ferroviário";
-"type.railway.rail.spur.tunnel" = "Túnel ferroviário";
-"type.railway.rail.service.tunnel" = "Túnel ferroviário";
-"type.railway.station" = "Estação de comboios";
-"type.railway.station.funicular" = "Funicular";
-"type.railway.station.light_rail" = "Estação de comboios";
-"type.railway.station.light_rail.berlin" = "Estação de comboios";
-"type.railway.station.light_rail.london" = "Estação de comboios";
-"type.railway.station.light_rail.porto" = "Estação de comboios";
-"type.railway.station.monorail" = "Estação de comboios";
-"type.railway.station.subway" = "Estação de metro";
-"type.railway.station.subway.adana" = "Estação de metro";
-"type.railway.station.subway.algiers" = "Estação de metro";
+"type.railway.rail.highspeed.tunnel" = "Túnel ferroviário de alta velocidade";
+"type.railway.rail.tourism.tunnel" = "Túnel ferroviário de turismo";
+"type.railway.rail.main.tunnel" = "Túnel ferroviário principal";
+"type.railway.rail.branch.tunnel" = "Túnel de ramal ferroviário";
+"type.railway.rail.utility.tunnel" = "Túnel ferroviário de serviço";
+"type.railway.rail.spur.tunnel" = "Túnel ferroviário inserção";
+"type.railway.rail.service.tunnel" = "Túnel ferroviário serviço";
+"type.railway.station" = "Estação de trem";
+"type.railway.station.funicular" = "Estação de bonde";
+"type.railway.station.light_rail" = "Estação de VLT";
+"type.railway.station.light_rail.berlin" = "Estação de Berlim";
+"type.railway.station.light_rail.london" = "Estação de Londres";
+"type.railway.station.light_rail.porto" = "Estação de Metro de Porto";
+"type.railway.station.monorail" = "Estação de Monotrilho";
+"type.railway.station.subway" = "Estação de metrô";
+"type.railway.station.subway.adana" = "Estação de metrô de Adana";
+"type.railway.station.subway.algiers" = "Estação de metrô de Argel";
 "type.railway.station.subway.almaty" = "Estação de metro";
 "type.railway.station.subway.amsterdam" = "Estação de metro";
 "type.railway.station.subway.ankara" = "Estação de metro";
@@ -1485,3 +1485,6 @@
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Pavilhão desportivo";
 "type.amenity.studio" = "Estúdio";
+"type.landuse.plant_nursery" = "Viveiro de plantas";
+"type.leisure.escape_game" = "Sala de fuga";
+"type.leisure.firepit" = "Lugar para Fogueira";

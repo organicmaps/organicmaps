@@ -1492,3 +1492,9 @@
 "type.landuse.plant_nursery" = "Plantenkwekerij";
 "type.leisure.firepit" = "Vuurplaats";
 "type.amenity.studio" = "Studio";
+"type.amenity.bicycle_parking.covered" = "Overdekte Fietsen Stalling";
+"type.amenity.luggage_locker" = "Baggage Kluis";
+"type.post_office.post_partner" = "Post Agentschap";
+"type.leisure.escape_game" = "Ontsnapkamer";
+"type.railway.station.subway.qingdao" = "Metro Station";
+"type.amenity.ranger_station" = "Boswachtershuis";

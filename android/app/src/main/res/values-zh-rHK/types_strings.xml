@@ -129,7 +129,6 @@
     <string name="type.amenity.prison">監獄</string>
     <string name="type.amenity.pub">酒館</string>
     <string name="type.amenity.public_bookcase">書架</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">回收中心</string>
     <string name="type.amenity.recycling">回收箱</string>
@@ -367,7 +366,6 @@
     <string name="type.healthcare.psychotherapist">心理治療</string>
     <string name="type.healthcare.sample_collection">採樣</string>
     <string name="type.healthcare.speech_therapist">言語治療</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">道路</string>
     <string name="type.highway.bridleway">馬道</string>
@@ -533,7 +531,6 @@
     <string name="type.area_highway.track">土路</string>
     <string name="type.area_highway.trunk">主幹道</string>
     <string name="type.area_highway.unclassified">道路</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">歷史地點</string>
     <string name="type.historic.aircraft">歷史悠久的飛機</string>

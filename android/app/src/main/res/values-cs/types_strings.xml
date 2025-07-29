@@ -1400,4 +1400,9 @@
     <string name="type.sport.diving">Potápění</string>
     <string name="type.man_made.crane">Jeřáb</string>
     <string name="type.railway.station.subway.qingdao">Stanice metra</string>
+    <string name="type.amenity.bicycle_parking.covered">Kryté parkování kol</string>
+    <string name="type.post_office.post_partner">Poštovní partner</string>
+    <string name="type.amenity.ranger_station">Správci parku</string>
+    <string name="type.amenity.luggage_locker">Úschovná skříňka</string>
+    <string name="type.leisure.escape_game">Úniková hra</string>
 </resources>

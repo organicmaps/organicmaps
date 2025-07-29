@@ -69,7 +69,7 @@
     <string name="type.amenity.ferry_terminal">Transbordador</string>
     <string name="type.amenity.fire_station">Parc de bombers</string>
     <string name="type.amenity.food_court">Zona de restaurants</string>
-    <string name="type.amenity.fountain">Brollador</string>
+    <string name="type.amenity.fountain">Font</string>
     <string name="type.amenity.fuel">Benzinera</string>
     <!-- In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. -->
     <string name="type.amenity.grave_yard">Cementiri</string>
@@ -1072,13 +1072,13 @@
     <string name="type.highway.motorway.tunnel">Túnel de l’autopista</string>
     <string name="type.highway.motorway_junction">Sortida de la carretera</string>
     <string name="type.highway.residential">Carrer urbà</string>
-    <string name="type.highway.residential.area">Àrea residencial</string>
+    <string name="type.highway.residential.area">Carrer urbà</string>
     <string name="type.highway.rest_area">Àrea de descans</string>
     <string name="type.highway.service">Via de servei</string>
     <string name="type.highway.service.area">Via de servei</string>
-    <string name="type.highway.service.driveway">Pas de vehicles</string>
+    <string name="type.highway.service.driveway">Entrada de vehicles</string>
     <string name="type.highway.service.parking_aisle">Passadís d’aparcament</string>
-    <string name="type.highway.services">Servei Àrea</string>
+    <string name="type.highway.services">Àrea de serveis</string>
     <string name="type.highway.tertiary">Carretera terciària</string>
     <string name="type.highway.unclassified">Carretera sense classificar</string>
     <string name="type.highway.unclassified.area">Àrea sense classificar</string>
@@ -1182,7 +1182,7 @@
     <string name="type.office.insurance">Oficina d’assegurances</string>
     <string name="type.office.lawyer">Advocat</string>
     <string name="type.place.farm">Granja</string>
-    <string name="type.place.isolated_dwelling">Aïllat Habitatge</string>
+    <string name="type.place.isolated_dwelling">Habitatge aïllat</string>
     <string name="type.place.locality">Localitat</string>
     <string name="type.place.quarter">Zona / Sector</string>
     <string name="type.place.town">Poble gran</string>
@@ -1287,7 +1287,7 @@
     <string name="type.shop.cheese">Botiga de formatges</string>
     <string name="type.shop.craft">Botiga de materials d’artesania</string>
     <string name="type.shop.dairy">Botiga de productes làctics</string>
-    <string name="type.shop.electrical">Electrodomèstics Botiga de subministraments</string>
+    <string name="type.shop.electrical">Botiga de subministraments elèctrics</string>
     <string name="type.shop.fishing">Botiga de pesca</string>
     <string name="type.shop.interior_decoration">Botiga de decoració d’interiors</string>
     <string name="type.shop.lottery">Bitllets de loteria</string>
@@ -1297,7 +1297,7 @@
     <string name="type.shop.perfumery">Perfumeria</string>
     <string name="type.shop.sewing">Botiga de subministraments de costura</string>
     <string name="type.shop.storage_rental">Lloguer d’emmagatzematge</string>
-    <string name="type.shop.tobacco">Botiga de tabac</string>
+    <string name="type.shop.tobacco">Tabaqueria</string>
     <string name="type.shop.trade">Subministraments comercials</string>
     <string name="type.shop.watches">Botiga de rellotges</string>
     <string name="type.shop.wholesale">Botiga a l’engròs</string>
@@ -1316,7 +1316,7 @@
     <string name="type.sport.field_hockey">Hoquei sobre herba</string>
     <string name="type.tourism">Turisme</string>
     <string name="type.attraction.bumper_car">Cotxe de xoc</string>
-    <string name="type.attraction.big_wheel">Roda gran</string>
+    <string name="type.attraction.big_wheel">Roda de fira</string>
     <string name="type.tourism.hostel">Alberg</string>
     <string name="type.tourism.hotel">Hotel</string>
     <string name="type.tourism.information.guidepost">Pal d’orientació</string>
@@ -1344,4 +1344,6 @@
     <string name="type.piste_type.downhill.novice">Pista d’esquí alpí per a principiants</string>
     <string name="type.piste_type.downhill.novice.area">Pista d’esquí alpí per a principiants</string>
     <string name="type.railway.station.subway.qingdao">Estació del metro</string>
+    <string name="type.amenity.bicycle_parking.covered">Aparcament de bicicletes ensostrat</string>
+    <string name="type.leisure.escape_game">Joc d’escapada</string>
 </resources>

@@ -1259,7 +1259,7 @@
     <string name="type.tourism.artwork.painting">Витвір мистецтва</string>
     <string name="type.tourism.artwork.sculpture">Витвір мистецтва</string>
     <string name="type.tourism.artwork.statue">Витвір мистецтва</string>
-    <string name="type.tourism.attraction">Пам’ятне місце</string>
+    <string name="type.tourism.attraction">Пам’ятка</string>
     <string name="type.attraction.amusement_ride">Атракціон</string>
     <string name="type.attraction.animal">Вольєр для тварин</string>
     <string name="type.attraction.carousel">Карусель</string>
@@ -1404,4 +1404,9 @@
     <string name="type.sport.diving">Дайвінг</string>
     <string name="type.man_made.crane">Кран</string>
     <string name="type.railway.station.subway.qingdao">Станція метро</string>
+    <string name="type.amenity.bicycle_parking.covered">Критий велосипедний паркінг</string>
+    <string name="type.post_office.post_partner">Поштовий партнер</string>
+    <string name="type.amenity.ranger_station">Лісництво</string>
+    <string name="type.amenity.luggage_locker">Камера схову</string>
+    <string name="type.leisure.escape_game">Кімната втечі</string>
 </resources>

@@ -602,4 +602,6 @@
     <string name="enable_logging_warning_message">Virkjaðu þennan valkost tímabundið til að skrá og senda síðan handvirkt nákvæma greiningarskrá um vandamálið þitt með því að nota \"Tilkynna um villu\" í hjálparglugganum. Slíkar atvikaskrár geta innihaldið upplýsingar um staðsetningu.</string>
     <string name="error_no_file_manager_app">Mistókst að birta val á möppum þar sem ekkert hentugt forrit er uppsett á tækinu þínu. Settu upp skráastjóra og prófaðu svo aftur.</string>
     <string name="saved">Vistað</string>
+    <string name="osm_note_hint">Eða til dæmis skilja eftir athugasemd til þátttakenda í OpenStreetMap svo einhver annar geti bætt við stað hér eða lagfært.</string>
+    <string name="osm_note_toast">Athugasemd verður send til OpenStreetMap</string>
 </resources>

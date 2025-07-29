@@ -66,7 +66,7 @@
 "type.amenity.ferry_terminal" = "Transbordador";
 "type.amenity.fire_station" = "Parc de bombers";
 "type.amenity.food_court" = "Zona de restaurants";
-"type.amenity.fountain" = "Brollador";
+"type.amenity.fountain" = "Font";
 "type.amenity.fuel" = "Benzinera";
 
 /* In most (European) countries, сemeteries are usually independent of places of worship (e.g. military cemeteries), while grave yards are usually the yard of a place of worship. */
@@ -483,7 +483,7 @@
 "type.highway.primary_link.tunnel" = "Túnel";
 "type.highway.raceway" = "Circuit";
 "type.highway.residential" = "Carrer urbà";
-"type.highway.residential.area" = "Àrea residencial";
+"type.highway.residential.area" = "Carrer urbà";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Pont";
@@ -520,12 +520,12 @@
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.service.bridge" = "Pont";
-"type.highway.service.driveway" = "Pas de vehicles";
+"type.highway.service.driveway" = "Entrada de vehicles";
 "type.highway.service.parking_aisle" = "Passadís d’aparcament";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Túnel";
-"type.highway.services" = "Servei Àrea";
+"type.highway.services" = "Àrea de serveis";
 "type.highway.speed_camera" = "Càmera de trànsit";
 "type.highway.steps" = "Escales";
 
@@ -857,7 +857,7 @@
 "type.place.hamlet" = "Vilatge";
 "type.place.island" = "Illa";
 "type.place.islet" = "Illot";
-"type.place.isolated_dwelling" = "Aïllat Habitatge";
+"type.place.isolated_dwelling" = "Habitatge aïllat";
 "type.place.locality" = "Localitat";
 
 /* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
@@ -1314,7 +1314,7 @@
 "type.shop.cheese" = "Botiga de formatges";
 "type.shop.craft" = "Botiga de materials d’artesania";
 "type.shop.dairy" = "Botiga de productes làctics";
-"type.shop.electrical" = "Electrodomèstics Botiga de subministraments";
+"type.shop.electrical" = "Botiga de subministraments elèctrics";
 "type.shop.fishing" = "Botiga de pesca";
 "type.shop.interior_decoration" = "Botiga de decoració d’interiors";
 "type.shop.lottery" = "Bitllets de loteria";
@@ -1324,7 +1324,7 @@
 "type.shop.perfumery" = "Perfumeria";
 "type.shop.sewing" = "Botiga de subministraments de costura";
 "type.shop.storage_rental" = "Lloguer d’emmagatzematge";
-"type.shop.tobacco" = "Botiga de tabac";
+"type.shop.tobacco" = "Tabaqueria";
 "type.shop.trade" = "Subministraments comercials";
 "type.shop.watches" = "Botiga de rellotges";
 "type.shop.wholesale" = "Botiga a l’engròs";
@@ -1379,7 +1379,7 @@
 "type.attraction.amusement_ride" = "Passeig de diversió";
 "type.attraction.animal" = "Recinte d’animals";
 "type.attraction.bumper_car" = "Cotxe de xoc";
-"type.attraction.big_wheel" = "Roda gran";
+"type.attraction.big_wheel" = "Roda de fira";
 "type.attraction.carousel" = "Carrusel";
 "type.attraction.historic" = "Atracció històrica";
 "type.attraction.maze" = "Laberint";
@@ -1493,3 +1493,5 @@
 "type.man_made.crane" = "Grua";
 "type.leisure.firepit" = "Braser";
 "type.railway.station.subway.qingdao" = "Estació del metro";
+"type.amenity.bicycle_parking.covered" = "Aparcament de bicicletes ensostrat";
+"type.leisure.escape_game" = "Joc d’escapada";

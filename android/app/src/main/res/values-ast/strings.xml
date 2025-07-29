@@ -227,4 +227,27 @@
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
     <string name="elevation_profile_max_elevation">Elevación máx.</string>
     <string name="core_exit">Salida</string>
+    <string name="mobile_data_option_today">Namás güei</string>
+    <string name="placepage_add_place_button">Amestar llugar a OpenStreetMap</string>
+    <string name="food_places">Comida</string>
+    <string name="core_entrance">Entrada</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="accept">Aceutar</string>
+    <string name="decline">Refugar</string>
+    <string name="routing_not_enough_space">Nun hai espaciu bastante</string>
+    <string name="try_again">Tentar de nueves</string>
+    <string name="p2p_start">Entamar</string>
+    <string name="osm_note_toast">La nota va unviase a OpenStreetMap</string>
+    <string name="editor_add_phone">Amestar teléfonu</string>
+    <string name="level_value_generic">Nivel: %s</string>
+    <string name="editor_remove_place_message">¿Quies desaniciar el llugar amestáu?</string>
+    <string name="email_or_username">Señes o nome d’usuariu</string>
+    <string name="profile">Perfil d’OpenStreetMap</string>
+    <string name="twentyfour_seven">24/7</string>
+    <string name="isolines_location_error_dialog">Les curves de nivel entá nun tán disponibles nesta rexón</string>
+    <string name="button_layer_isolines">Curves de nivel</string>
+    <string name="editor_time_simple">Mou simplificáu</string>
+    <string name="dialog_routing_location_turn_wifi">Comprueba la to señal GPS. Activar la wifi va ameyorar la exautitú del allugamientu.</string>
+    <string name="fuel_places">Gasolineres</string>
+    <string name="share_bookmarks_email_body">¡Hola!\n\nLos mios marcadores tán axuntos; ábrilos n’Organic Maps. Si nun lu tienes instaláu, te lu puedes baxar equí: https://omaps.app/get?kmz\n\n¡Gocia viaxar con Organic Maps!</string>
 </resources>

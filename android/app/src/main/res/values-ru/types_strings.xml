@@ -315,7 +315,7 @@
     <string name="type.cuisine.lebanese">Ливанская кухня</string>
     <string name="type.cuisine.local">Местная кухня</string>
     <string name="type.cuisine.malagasy">Мадагаскарская кухня</string>
-    <string name="type.cuisine.malaysian">Малазийская кухня</string>
+    <string name="type.cuisine.malaysian">Малайзийская кухня</string>
     <string name="type.cuisine.mediterranean">Средиземноморская кухня</string>
     <string name="type.cuisine.mexican">Мексиканская кухня</string>
     <string name="type.cuisine.moroccan">Марокканская кухня</string>
@@ -739,7 +739,7 @@
     <string name="type.natural.water">Водоём</string>
     <string name="type.natural.wetland">Болотистая местность</string>
     <string name="type.natural.wetland.bog">Торфяное болото</string>
-    <string name="type.natural.wetland.marsh">Болотистая местность</string>
+    <string name="type.natural.wetland.marsh">Болото</string>
     <string name="type.noexit">Тупик</string>
     <string name="type.office">Офис</string>
     <string name="type.office.company">Организация</string>
@@ -1244,7 +1244,7 @@
     <string name="type.sport.handball">Гандбол</string>
     <string name="type.sport.multi">Различные виды спорта</string>
     <!-- Used to tag a scuba diving site. -->
-    <string name="type.sport.scuba_diving">Место для дайвинга</string>
+    <string name="type.sport.scuba_diving">Место для ныряния с аквалангом</string>
     <string name="type.sport.shooting">Стрельба</string>
     <string name="type.sport.skateboard">Скейтбординг</string>
     <string name="type.sport.skiing">Лыжи</string>
@@ -1387,5 +1387,24 @@
     <string name="type.hwtag.private">Частная</string>
     <string name="type.fee.yes">$</string>
     <string name="type.man_made.crane">Кран</string>
-    <string name="type.highway.ladder">Лестница</string>
+    <string name="type.highway.ladder">Лестница-лаз</string>
+    <string name="type.railway.station.subway.qingdao">Станция метро</string>
+    <string name="type.amenity.bicycle_parking.covered">Крытая велопарковка</string>
+    <string name="type.amenity.love_hotel">Любовный отель</string>
+    <string name="type.amenity.studio">Студия</string>
+    <string name="type.barrier.guard_rail">Дорожное ограждение (отбойник)</string>
+    <string name="type.landuse.plant_nursery">Садовый питомник</string>
+    <string name="type.leisure.firepit">Кострище</string>
+    <string name="type.sport.diving">Высотные прыжки в воду</string>
+    <string name="type.post_office.post_partner">Почтовый посредник</string>
+    <string name="type.hwtag">Дорожный знак</string>
+    <string name="type.hwtag.nocar">Не для машин</string>
+    <string name="type.hwtag.nofoot">Не пешая</string>
+    <string name="type.hwtag.yesbicycle">Велосипедам можно</string>
+    <string name="type.hwtag.yescar">Машинам можно</string>
+    <string name="type.hwtag.yesfoot">Пешком можно</string>
+    <string name="type.mapswithme">MapsWithMe</string>
+    <string name="type.mapswithme.grid">mapswithme-сетка</string>
+    <string name="type.route.shuttle_train">Челночный поезд</string>
+    <string name="type.amenity.ranger_station">Пост лесников</string>
 </resources>

@@ -483,13 +483,13 @@
 "type.highway.primary_link.tunnel" = "Túnel";
 "type.highway.raceway" = "Circuito";
 "type.highway.residential" = "Calle urbana";
-"type.highway.residential.area" = "Calle residencial";
+"type.highway.residential.area" = "Calle urbana";
 
 /* These translations are used for all type.highway.*.bridge. */
 "type.highway.residential.bridge" = "Puente";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.residential.tunnel" = "Túnel de calle residencial";
+"type.highway.residential.tunnel" = "Túnel";
 "type.highway.rest_area" = "Área de descanso";
 "type.highway.road" = "Carretera";
 
@@ -507,7 +507,7 @@
 "type.highway.secondary.bridge" = "Puente";
 
 /* These translations are used for all type.highway.*.tunnel. */
-"type.highway.secondary.tunnel" = "Túnel de carretera secundaria";
+"type.highway.secondary.tunnel" = "Túnel";
 "type.highway.secondary_link" = "Enlace de carretera secundaria";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -519,14 +519,14 @@
 "type.highway.service.area" = "Vía de servicio";
 
 /* These translations are used for all type.highway.*.bridge. */
-"type.highway.service.bridge" = "Puente de carretera de servicio";
-"type.highway.service.driveway" = "Paso vehicular";
+"type.highway.service.bridge" = "Puente";
+"type.highway.service.driveway" = "Entrada vehicular";
 "type.highway.service.parking_aisle" = "Pasillo de aparcamiento";
 
 /* These translations are used for all type.highway.*.tunnel. */
 "type.highway.service.tunnel" = "Túnel de vía de servicio";
-"type.highway.services" = "Área de servicio";
-"type.highway.speed_camera" = "Radar de velocidad";
+"type.highway.services" = "Área de servicios";
+"type.highway.speed_camera" = "Fotorradar";
 "type.highway.steps" = "Escaleras";
 
 /* These translations are used for all type.highway.*.bridge. */
@@ -588,7 +588,7 @@
 "type.area_highway.path" = "Sendero";
 "type.area_highway.pedestrian" = "Calle peatonal";
 "type.area_highway.primary" = "Carretera principal";
-"type.area_highway.residential" = "Calle residencial";
+"type.area_highway.residential" = "Calle urbana";
 "type.area_highway.secondary" = "Carretera secundaria";
 "type.area_highway.service" = "Vía de servicio";
 "type.area_highway.tertiary" = "Carretera terciaria";
@@ -713,7 +713,7 @@
 "type.leisure.golf_course" = "Campo de golf";
 "type.leisure.miniature_golf" = "Minigolf";
 "type.leisure.hackerspace" = "Espacio para hackers";
-"type.leisure.ice_rink" = "Pisa de patinaje";
+"type.leisure.ice_rink" = "Pista de hielo";
 "type.leisure.marina" = "Puerto o amarradero";
 "type.leisure.nature_reserve" = "Reserva natural";
 "type.leisure.outdoor_seating" = "Asientos al aire libre";
@@ -970,7 +970,7 @@
 "type.railway.station.light_rail.berlin" = "Estación de tren";
 "type.railway.station.light_rail.london" = "Estación de tren";
 "type.railway.station.light_rail.porto" = "Estación de tren";
-"type.railway.station.monorail" = "Estación de tren";
+"type.railway.station.monorail" = "Estación de monorraíl";
 "type.railway.station.subway" = "Estación de metro";
 "type.railway.station.subway.adana" = "Estación de metro";
 "type.railway.station.subway.algiers" = "Estación de metro";
@@ -1324,13 +1324,13 @@
 "type.shop.perfumery" = "Perfumería";
 "type.shop.sewing" = "Materiales de costura";
 "type.shop.storage_rental" = "Alquiler de almacenamiento";
-"type.shop.tobacco" = "Tabaco";
+"type.shop.tobacco" = "Tabaquería";
 "type.shop.trade" = "Suministros comerciales";
 "type.shop.watches" = "Relojes";
 "type.shop.wholesale" = "Almacén al por mayor";
 "type.sport" = "Deporte";
 "type.sport.american_football" = "Fútbol americano";
-"type.sport.archery" = "Tiro al arco";
+"type.sport.archery" = "Tiro con arco";
 "type.sport.athletics" = "Atletismo";
 "type.sport.australian_football" = "Fútbol australiano";
 "type.sport.baseball" = "Béisbol";
@@ -1376,7 +1376,7 @@
 "type.tourism.artwork.sculpture" = "Escultura";
 "type.tourism.artwork.statue" = "Estatua";
 "type.tourism.attraction" = "Atracción turística";
-"type.attraction.amusement_ride" = "Atracción";
+"type.attraction.amusement_ride" = "Juego mecánico";
 "type.attraction.animal" = "Recinto de animales";
 "type.attraction.bumper_car" = "Coches de choque";
 "type.attraction.big_wheel" = "Noria";
@@ -1404,7 +1404,7 @@
 "type.tourism.motel" = "Motel";
 "type.tourism.museum" = "Museo";
 "type.tourism.picnic_site" = "Zona de picnic";
-"type.leisure.resort" = "Resort turístico";
+"type.leisure.resort" = "Resort";
 "type.tourism.theme_park" = "Parque temático";
 "type.tourism.viewpoint" = "Mirador";
 
@@ -1493,3 +1493,8 @@
 "type.leisure.firepit" = "Fogón";
 "type.man_made.crane" = "Grúa";
 "type.railway.station.subway.qingdao" = "Estación de metro";
+"type.amenity.bicycle_parking.covered" = "Aparcamiento de bicicletas techado";
+"type.amenity.ranger_station" = "Estación de guardabosques";
+"type.leisure.escape_game" = "Sala de escape";
+"type.amenity.luggage_locker" = "Guardaequipaje";
+"type.post_office.post_partner" = "Proveedor de servicios postales";

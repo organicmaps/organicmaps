@@ -896,4 +896,6 @@
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="gb">GB</string>
     <string name="saved">Kaydedildi</string>
+    <string name="osm_note_hint">Ya da OpenStreetMap topluluğuna not bırakabilirsiniz, böylece biri burayı düzeltebilir ya da yenisini ekleyebilir.</string>
+    <string name="osm_note_toast">Not OpenStreetMap\'e gönderilecek</string>
 </resources>

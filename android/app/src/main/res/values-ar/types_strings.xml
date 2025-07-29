@@ -128,7 +128,6 @@
     <string name="type.amenity.prison">سجن</string>
     <string name="type.amenity.pub">حانة</string>
     <string name="type.amenity.public_bookcase">مكتبة، تبادل كتب</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">مركز إعادة تدوير</string>
     <string name="type.amenity.recycling">حاوية لإعادة التدوير</string>
@@ -368,7 +367,6 @@
     <string name="type.healthcare.psychotherapist">العلاج النفسي</string>
     <string name="type.healthcare.sample_collection">أخذ العينات</string>
     <string name="type.healthcare.speech_therapist">علاج النطق</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">طريق السريع</string>
     <string name="type.highway.bridleway">طريق خيول</string>
@@ -534,7 +532,6 @@
     <string name="type.area_highway.track">شارع</string>
     <string name="type.area_highway.trunk">شارع وطني</string>
     <string name="type.area_highway.unclassified">شارع صغير</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">مكان تاريخي</string>
     <string name="type.historic.aircraft">الطائرات التاريخية</string>

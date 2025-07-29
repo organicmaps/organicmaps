@@ -322,7 +322,7 @@
 "type.cuisine.lebanese" = "Ливанская кухня";
 "type.cuisine.local" = "Местная кухня";
 "type.cuisine.malagasy" = "Мадагаскарская кухня";
-"type.cuisine.malaysian" = "Малазийская кухня";
+"type.cuisine.malaysian" = "Малайзийская кухня";
 "type.cuisine.mediterranean" = "Средиземноморская кухня";
 "type.cuisine.mexican" = "Мексиканская кухня";
 "type.cuisine.moroccan" = "Марокканская кухня";
@@ -644,19 +644,19 @@
 "type.historic.wayside_cross" = "Христианский крест";
 "type.historic.wayside_shrine" = "Святыня";
 "type.historic.wreck" = "Кораблекрушение";
-"type.hwtag" = "hwtag";
+"type.hwtag" = "Дорожный знак";
 "type.hwtag.bidir_bicycle" = "Велосипедная двухсторонняя";
 "type.hwtag.onedir_bicycle" = "Велосипедная односторонняя";
 "type.hwtag.lit" = "Освещённая";
 "type.hwtag.nobicycle" = "Без мотоциклов";
-"type.hwtag.nocar" = "hwtag-nocar";
-"type.hwtag.nofoot" = "hwtag-nofoot";
+"type.hwtag.nocar" = "Не для машин";
+"type.hwtag.nofoot" = "Не пешая";
 "type.hwtag.oneway" = "Одностороннее движение";
 "type.hwtag.private" = "Частная";
 "type.hwtag.toll" = "Платная";
-"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
-"type.hwtag.yescar" = "hwtag-yescar";
-"type.hwtag.yesfoot" = "hwtag-yesfoot";
+"type.hwtag.yesbicycle" = "Велосипедам можно";
+"type.hwtag.yescar" = "Машинам можно";
+"type.hwtag.yesfoot" = "Пешком можно";
 "type.internet_access" = "Интернет";
 "type.internet_access.wlan" = "Интернет";
 "type.junction" = "Перекрёсток";
@@ -773,8 +773,8 @@
 "type.man_made.water_well.drinking_water_no" = "Колодец";
 "type.man_made.windmill" = "Ветряная мельница";
 "type.man_made.works" = "Промышленное производство";
-"type.mapswithme" = "mapswithme";
-"type.mapswithme.grid" = "mapswithme-grid";
+"type.mapswithme" = "MapsWithMe";
+"type.mapswithme.grid" = "mapswithme-сетка";
 "type.military" = "Военные объекты";
 "type.military.bunker" = "Бункер";
 "type.mountain_pass" = "Перевал";
@@ -826,7 +826,7 @@
 "type.natural.water" = "Водоём";
 "type.natural.wetland" = "Болотистая местность";
 "type.natural.wetland.bog" = "Торфяное болото";
-"type.natural.wetland.marsh" = "Болотистая местность";
+"type.natural.wetland.marsh" = "Болото";
 "type.noexit" = "Тупик";
 "type.office" = "Офис";
 "type.office.company" = "Организация";
@@ -1208,7 +1208,7 @@
 "type.railway.tram_stop" = "Остановка трамвая";
 "type.route" = "Маршрут";
 "type.route.ferry" = "Паромная переправа";
-"type.route.shuttle_train" = "route-shuttle_train";
+"type.route.shuttle_train" = "Челночный поезд";
 "type.shop" = "Магазин";
 "type.shop.alcohol" = "Магазин алкоголя";
 "type.shop.bakery" = "Булочная";
@@ -1347,7 +1347,7 @@
 "type.sport.multi" = "Различные виды спорта";
 
 /* Used to tag a scuba diving site. */
-"type.sport.scuba_diving" = "Место для дайвинга";
+"type.sport.scuba_diving" = "Место для ныряния с аквалангом";
 "type.sport.shooting" = "Стрельба";
 "type.sport.skateboard" = "Скейтбординг";
 "type.sport.skiing" = "Лыжи";
@@ -1485,4 +1485,14 @@
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Спортивный зал";
 "type.man_made.crane" = "Кран";
-"type.highway.ladder" = "Лестница";
+"type.highway.ladder" = "Лестница-лаз";
+"type.railway.station.subway.qingdao" = "Станция метро";
+"type.amenity.bicycle_parking.covered" = "Крытая велопарковка";
+"type.amenity.love_hotel" = "Любовный отель";
+"type.amenity.studio" = "Студия";
+"type.barrier.guard_rail" = "Дорожное ограждение (отбойник)";
+"type.landuse.plant_nursery" = "Садовый питомник";
+"type.leisure.firepit" = "Кострище";
+"type.sport.diving" = "Высотные прыжки в воду";
+"type.post_office.post_partner" = "Почтовый посредник";
+"type.amenity.ranger_station" = "Пост лесников";

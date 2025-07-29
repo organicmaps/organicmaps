@@ -123,7 +123,6 @@
     <string name="type.amenity.prison">Väznica</string>
     <string name="type.amenity.pub">Pohostinstvo</string>
     <string name="type.amenity.public_bookcase">Knižná búdka</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">Zberné suroviny</string>
     <string name="type.amenity.recycling">Recyklačný kontajner</string>
@@ -362,7 +361,6 @@
     <string name="type.healthcare.psychotherapist">Psychoterapia</string>
     <string name="type.healthcare.sample_collection">Odber vzoriek</string>
     <string name="type.healthcare.speech_therapist">Logopédia</string>
-
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Cesta</string>
     <string name="type.highway.bridleway">Cesta pre jazdca na zvierati</string>
@@ -528,7 +526,6 @@
     <string name="type.area_highway.track">Poľná cesta</string>
     <string name="type.area_highway.trunk">Cesta</string>
     <string name="type.area_highway.unclassified">Cesta bez administratívneho zaradenia</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">Historický objekt</string>
     <string name="type.historic.aircraft">Historické lietadlo</string>

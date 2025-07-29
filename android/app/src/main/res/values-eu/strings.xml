@@ -360,7 +360,7 @@
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">Arrastoa jarraitzean, kontuan izan:</string>
     <string name="dialog_routing_disclaimer_priority">— Bidearen egoera, zirkulazio arauek eta bide seinaleek lehentasuna dute beti nabigazio-iradokizunen gainetik;</string>
-    <string name="dialog_routing_disclaimer_precision">— Mapa zehazgabea izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;</string>
+    <string name="dialog_routing_disclaimer_precision">— Zehaztasunik gabeko mapa izan daiteke eta helmugara iristeko biderik onena ez den ibilbide bat iradoki dezake;</string>
     <string name="dialog_routing_disclaimer_recommendations">— Iradokitako ibilbideak gomendio gisa soilik hartu behar dira;</string>
     <string name="dialog_routing_disclaimer_borders">— Kontuz ibili muga-eremuak dituzten ibilbideetan: gure aplikazioak sortutako ibilbideek batzuetan herrialdeen mugak zeharkatu ditzakete baimendu gabeko tokietan.</string>
     <string name="dialog_routing_disclaimer_beware">Egon adi eta seguru errepideetan!</string>
@@ -375,7 +375,7 @@
     <string name="dialog_routing_change_start">Ezarri abiapuntua</string>
     <string name="dialog_routing_start_not_determined">Ibilbidea ez da sortu. Abiapuntua ezin izan da aurkitu.</string>
     <string name="dialog_routing_select_closer_start">Hautatu errepide batetik gertuko abiapuntua.</string>
-    <string name="dialog_routing_change_end">Zehaztu helmuga</string>
+    <string name="dialog_routing_change_end">Zehaztu norakoa</string>
     <string name="dialog_routing_end_not_determined">Ibilbidea ez da sortu. Ezin izan da helmuga aurkitu.</string>
     <string name="dialog_routing_select_closer_end">Hautatu helmuga puntu bat errepide batetik gertu.</string>
     <string name="dialog_routing_change_intermediate">Ezin izan da tarteko puntua kokatu.</string>
@@ -403,8 +403,8 @@
     <string name="clear_search">Garbitu bilaketa historia</string>
     <string name="p2p_your_location">Zure kokapena</string>
     <string name="p2p_start">Hasi</string>
-    <string name="p2p_from_here">Hemendik</string>
-    <string name="p2p_to_here">Bidea hona</string>
+    <string name="p2p_from_here">Abiapuntua</string>
+    <string name="p2p_to_here">Helmuga</string>
     <string name="p2p_only_from_current">Nabigazioa zure uneko kokapenetik soilik dago erabilgarri.</string>
     <string name="p2p_reroute_from_current">Zure uneko kokapenetik ibilbide bat antolatzea nahi duzu?</string>
     <!-- Edit open hours/set time and minutes dialog -->
