@@ -27,11 +27,11 @@ size_t FindAllLocalMapsInDirectoryAndCleanup(std::string const & directory, int6
 // Android, checks /Android/obb directory.  Subdirectories in the
 // writable directory should have the following structure:
 //
-// dir/*.mwm            -- map files, base name should correspond to countries.txt,
+// dir/*.mwm            -- map files, base name should correspond to countries.json,
 //                      -- version is assumed to be zero (unknown).
 // dir/*.mwm.routing    -- routing files for corresponding map files,
 //                      -- version is assumed to be zero (unknown).
-// dir/[0-9]+/*.mwm     -- map files, base name should correspond to countries.txt,
+// dir/[0-9]+/*.mwm     -- map files, base name should correspond to countries.json,
 //                      -- version is assumed to be the name of a directory.
 // dir/[0-9]{1,18}/*.mwm.routing  -- routing file for corresponding map files,
 //                                -- version is assumed to be the name of a directory.

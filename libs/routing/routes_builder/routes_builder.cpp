@@ -110,7 +110,7 @@ RoutesBuilder::RoutesBuilder(size_t threadsNumber) : m_threadPool(threadsNumber)
   for (auto const & localFile : localFiles)
   {
     auto const & countryFile = localFile.GetCountryFile();
-    // Only maps from countries.txt should be used.
+    // Only maps from countries.json should be used.
     if (!m_cpg->GetStorageForTesting().IsLeaf(countryFile.GetName()))
       continue;
 

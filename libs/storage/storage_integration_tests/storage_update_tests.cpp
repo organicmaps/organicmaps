@@ -86,7 +86,7 @@ UNIT_TEST(SmallMwms_Update_Test)
 
   auto onProgressFn = [&](CountryId const &, downloader::Progress const &) {};
 
-  // Download countries.txt for version 1
+  // Download countries.json for version 1
   TEST(DownloadFile(GetCountriesTxtWebUrl(kMwmVersion1), GetCountriesTxtFilePath(), kCountriesTxtFileSize1), ());
 
   {
@@ -121,7 +121,7 @@ UNIT_TEST(SmallMwms_Update_Test)
     }
   }
 
-  // Replace countries.txt by version 2
+  // Replace countries.json by version 2
   TEST(base::DeleteFileX(GetCountriesTxtFilePath()), ());
   TEST(DownloadFile(GetCountriesTxtWebUrl(kMwmVersion2), GetCountriesTxtFilePath(), kCountriesTxtFileSize2), ());
 

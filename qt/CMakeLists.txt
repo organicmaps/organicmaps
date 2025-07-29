@@ -116,7 +116,7 @@ copy_resources(
   classificator.txt
   colors.txt
   copyright.html
-  countries.txt
+  countries.json
   drules_proto_default_light.bin
   drules_proto_default_dark.bin
   drules_proto_outdoors_light.bin
