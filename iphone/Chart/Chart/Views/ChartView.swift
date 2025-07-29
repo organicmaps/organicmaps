@@ -87,8 +87,9 @@ public class ChartView: UIView {
     }
   }
 
-  public var chartData: ChartPresentationData! {
+  public var chartData: ChartPresentationData? {
     didSet {
+      guard let chartData else { return }
       lineViews.forEach { $0.removeFromSuperview() }
       lineViews.removeAll()
       for i in (0..<chartData.linesCount).reversed() {
@@ -168,6 +169,7 @@ public class ChartView: UIView {
   }
 
   public func setSelectedPoint(_ x: Double) {
+    guard let chartData else { return }
     let routeLength = chartData.xAxisValueAt(CGFloat(chartData.pointsCount - 1))
     let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     var lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
@@ -192,6 +194,7 @@ public class ChartView: UIView {
   }
 
   fileprivate func setMyPosition(_ x: Double) {
+    guard let chartData else { return }
     let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     let lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
     let rangeLength = upper - lower
@@ -230,6 +233,7 @@ public class ChartView: UIView {
   }
 
   @objc func onPinch(_ sender: UIPinchGestureRecognizer) {
+    guard let chartData else { return }
     if sender.state == .began {
       pinchStartLower = xAxisView.lowerBound
       pinchStartUpper = xAxisView.upperBound
@@ -255,6 +259,7 @@ public class ChartView: UIView {
   }
 
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
+    guard let chartData else { return }
     let t = sender.translation(in: chartsContainerView)
     if sender.state == .began {
       panStartPoint = xAxisView.lowerBound
@@ -278,6 +283,7 @@ public class ChartView: UIView {
   }
 
   func updateCharts(animationStyle: ChartAnimation = .none) {
+    guard let chartData else { return }
     var lower = CGFloat(Int.max)
     var upper = CGFloat(Int.min)
 
@@ -339,6 +345,7 @@ extension ChartView: ChartInfoViewDelegate {
   }
 
   func chartInfoView(_ view: ChartInfoView, infoAtPointX pointX: CGFloat) -> (String, [ChartLineInfo])? {
+    guard let chartData else { return nil }
     let p = convert(CGPoint(x: pointX, y: .zero), from: view)
     let x = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
     let x1 = floor(x)
