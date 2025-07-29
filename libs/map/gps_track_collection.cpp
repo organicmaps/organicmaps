@@ -33,6 +33,8 @@ GpsTrackCollection::GpsTrackCollection() : m_lastId(0), m_elevationInfoDirty(tru
 
 std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & items)
 {
+  std::lock_guard lock(m_guard);
+
   size_t startId = m_lastId;
   size_t added = 0;
 
@@ -67,6 +69,8 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
 
 std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
 {
+  std::lock_guard lock(m_guard);
+
   if (m_items.empty())
   {
     if (resetIds)
@@ -93,11 +97,14 @@ std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
 
 size_t GpsTrackCollection::GetSize() const
 {
+  std::lock_guard lock(m_guard);
   return m_items.size();
 }
 
 ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
 {
+  std::lock_guard lock(m_guard);
+
   if (!m_elevationInfoDirty)
     return m_elevationInfo;
 
@@ -113,5 +120,6 @@ ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
 
 bool GpsTrackCollection::IsEmpty() const
 {
+  std::lock_guard lock(m_guard);
   return m_items.empty();
 }

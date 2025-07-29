@@ -7,6 +7,7 @@
 
 #include <deque>
 #include <limits>
+#include <mutex>
 #include <utility>
 #include <vector>
 
@@ -65,7 +66,8 @@ public:
   }
 
 private:
-  std::deque<TItem> m_items;  // asc. sorted by timestamp
+  std::deque<TItem> m_items;   // asc. sorted by timestamp
+  mutable std::mutex m_guard;  // protects mutable shared state
 
   size_t m_lastId;
   TrackStatistics m_statistics;
