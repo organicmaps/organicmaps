@@ -116,6 +116,12 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
 - (void)routeRemoveStop:(PlacePageData *)data
 {
   MWMRoutePoint * point = nil;
+  auto & f = GetFramework();
+  if (!f.HasPlacePageInfo())
+  {
+    LOG(LERROR, ("Failed to remove stop: no place page info available."));
+    return;
+  }
   auto const intermediateIndex = GetFramework().GetCurrentPlacePageInfo().GetIntermediateIndex();
   switch (GetFramework().GetCurrentPlacePageInfo().GetRouteMarkType())
   {
@@ -212,6 +218,11 @@ std::optional<place_page::BuildInfo> placePageBuildInfoToRecover;
 - (void)addBookmark:(PlacePageData *)data
 {
   auto & f = GetFramework();
+  if (!f.HasPlacePageInfo())
+  {
+    LOG(LERROR, ("Failed to add bookmark: no place page info available."));
+    return;
+  }
   auto & bmManager = f.GetBookmarkManager();
   auto & info = f.GetCurrentPlacePageInfo();
   auto const categoryId = f.LastEditedBMCategory();
