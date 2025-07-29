@@ -1309,4 +1309,9 @@
     <string name="type.sport.diving">Köfun</string>
     <string name="type.man_made.crane">Krani</string>
     <string name="type.railway.station.subway.qingdao">Neðanjarðarlestarstöð</string>
+    <string name="type.amenity.bicycle_parking.covered">Hjólastæði undir þaki</string>
+    <string name="type.post_office.post_partner">Póstsamstarfsaðili</string>
+    <string name="type.amenity.ranger_station">Landvarðastöð</string>
+    <string name="type.amenity.luggage_locker">Læstur farangursskápur</string>
+    <string name="type.leisure.escape_game">Flóttarými</string>
 </resources>

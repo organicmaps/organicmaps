@@ -865,4 +865,6 @@
     <string name="error_enter_correct_twitter_page">Insira um nome de usuário ou endereço web válido do Twitter/X</string>
     <string name="error_enter_correct_vk_page">Insira um nome de usuário ou endereço web VK válido</string>
     <string name="error_enter_correct_instagram_page">Insira um nome de usuário ou endereço web válido do Instagram</string>
+    <string name="osm_note_hint">Ou então escreva uma nota para a comunidade OpenStreetMap para que outra pessoa possa adicionar ou corrigir um lugar aqui.</string>
+    <string name="osm_note_toast">A nota será enviada para o OpenStreetMap</string>
 </resources>

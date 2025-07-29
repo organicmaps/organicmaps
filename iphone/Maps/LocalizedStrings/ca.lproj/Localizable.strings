@@ -154,10 +154,10 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Caravanes";
-"share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors de l'aplicació Organic Maps. Obriu-los si teniu l'Organic Maps instal·lat. O, si no teniu l'aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l'Organic Maps!";
+"share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors de l’Organic Maps. Obriu-los si teniu l’Organic Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://omaps.app/get?kmz\n\nGaudiu viatjant amb l’Organic Maps!";
 
 /* message title of loading file */
-"load_kmz_title" = "S'estan carregant els marcadors";
+"load_kmz_title" = "S’estan carregant els marcadors";
 
 /* Kmz file successful loading */
 "load_kmz_successful" = "Els marcadors s’han carregat correctament. Els trobareu al mapa i a la pantalla de gestió de marcadors.";
@@ -418,7 +418,7 @@
 "dialog_routing_disclaimer_beware" = "Estigueu alerta i segur a la carretera!";
 "dialog_routing_check_gps" = "Comprova el senyal GPS";
 "dialog_routing_error_location_not_found" = "No s'ha pogut crear la ruta. No s'ha pogut identificar les coordenades GPS atuals.";
-"dialog_routing_location_turn_wifi" = "Comproveu el senya GPS. L'activació del senya Wi-Fi millorarà la precisió de la ubicació.";
+"dialog_routing_location_turn_wifi" = "Comproveu el senyal GPS. L’activació del Wi-Fi millorarà la precisió de la ubicació.";
 "dialog_routing_location_turn_on" = "Activa els serveis de geolocalització";
 "dialog_routing_location_unknown_turn_on" = "No s'han pogut trobar les coordenaes GPS actuals. Activeu els serveis de geolocalització per a calcular la ruta.";
 "dialog_routing_download_files" = "Baixa els fitxers necessaris";
@@ -482,11 +482,11 @@
 "editor_time_open" = "Obert";
 "editor_time_close" = "Tancat";
 "editor_time_add_closed" = "Afegeix les hores de tancament";
-"editor_time_title" = "Horari d'obertura";
+"editor_time_title" = "Horari d’obertura";
 "editor_time_advanced" = "Mode avançat";
 "editor_time_simple" = "Mode senzill";
 "editor_hours_closed" = "Horari de tancament";
-"editor_example_values" = "Valors d'exemple";
+"editor_example_values" = "Valors d’exemple";
 "editor_add_select_location" = "Seleccioneu Ubicació";
 "editor_done_dialog_1" = "Heu canviat el mapa mundial. No ho guardeu en secret! Expliqueu-ho als amics, i editeu-lo junts.";
 "share_with_friends" = "Comparteix amb amics";
@@ -663,7 +663,7 @@
 
 /* Dialog before publishing the modifications to the public map. */
 "editor_share_to_all_dialog_message_1" = "Assegureu-vos que no heu introduït cap dada personal.";
-"editor_share_to_all_dialog_message_2" = "Revisarem els canvis. Si tenim cap pregunta contactem amb vós via correu electrònic.";
+"editor_share_to_all_dialog_message_2" = "Els editors de l’OpenStreetMap comprovaran els canvis i us contactaran si tenen qualsevol dubte.";
 "navigation_stop_button" = "Atura";
 
 /* iOS dialog for the case when recent track recording is on and the app comes back from background */

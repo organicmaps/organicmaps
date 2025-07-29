@@ -1403,4 +1403,9 @@
     <string name="type.sport.diving">Sukeldumine</string>
     <string name="type.man_made.crane">Kraana</string>
     <string name="type.railway.station.subway.qingdao">Metroojaam</string>
+    <string name="type.amenity.bicycle_parking.covered">Kaetud rattaparkla</string>
+    <string name="type.post_office.post_partner">Postiteenused partneri juures</string>
+    <string name="type.amenity.ranger_station">Pargivahi maja</string>
+    <string name="type.amenity.luggage_locker">Pagasihoid</string>
+    <string name="type.leisure.escape_game">Põgenemistuba</string>
 </resources>

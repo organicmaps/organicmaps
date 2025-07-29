@@ -1307,3 +1307,8 @@
 "type.sport.diving" = "Köfun";
 "type.man_made.crane" = "Krani";
 "type.railway.station.subway.qingdao" = "Neðanjarðarlestarstöð";
+"type.amenity.bicycle_parking.covered" = "Hjólastæði undir þaki";
+"type.post_office.post_partner" = "Póstsamstarfsaðili";
+"type.amenity.ranger_station" = "Landvarðastöð";
+"type.amenity.luggage_locker" = "Læstur farangursskápur";
+"type.leisure.escape_game" = "Flóttarými";

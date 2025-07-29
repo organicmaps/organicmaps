@@ -1493,3 +1493,8 @@
 "type.sport.diving" = "Potápění";
 "type.man_made.crane" = "Jeřáb";
 "type.railway.station.subway.qingdao" = "Stanice metra";
+"type.amenity.bicycle_parking.covered" = "Kryté parkování kol";
+"type.post_office.post_partner" = "Poštovní partner";
+"type.amenity.ranger_station" = "Správci parku";
+"type.amenity.luggage_locker" = "Úschovná skříňka";
+"type.leisure.escape_game" = "Úniková hra";

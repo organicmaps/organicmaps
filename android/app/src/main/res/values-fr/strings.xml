@@ -899,4 +899,6 @@
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="navigation_stop_button">Stop</string>
     <string name="saved">Sauvé</string>
+    <string name="osm_note_hint">Ou alors laissez une note à la communauté OpenStreetMap pour que quelqu\'un d\'autre puisse ajouter ou réparer un endroit ici.</string>
+    <string name="osm_note_toast">Votre note sera envoyée à OpenStreetMap</string>
 </resources>

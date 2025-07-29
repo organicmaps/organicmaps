@@ -883,4 +883,6 @@
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="about_developed_by_enthusiasts">Huviliste ja vabatahtlike poolt loodud avatud lähtekoodil põhinev rakendus.</string>
     <string name="saved">Salvestatud</string>
+    <string name="osm_note_hint">Või alternatiivina lisa märkus OpenStreetMapi kogukonna liikmetele, mis võimaldaks teistel kaardistajatel selle koha lisada või tema andmeid parandada.</string>
+    <string name="osm_note_toast">Märkus lisatakse OpenStreetMapi andmebaasi</string>
 </resources>

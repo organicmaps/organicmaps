@@ -364,7 +364,7 @@
     <string name="dialog_routing_disclaimer_beware">¡Manténgase alerta y a salvo durante el viaje!</string>
     <string name="dialog_routing_check_gps">Verificar la señal del GPS</string>
     <string name="dialog_routing_error_location_not_found">No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.</string>
-    <string name="dialog_routing_location_turn_wifi">Verifique la señal del GPS. Activar la Wi-Fi mejorará la precisión de su ubicación.</string>
+    <string name="dialog_routing_location_turn_wifi">Verifique la señal del GPS. Activar la wifi mejorará la precisión de su ubicación.</string>
     <string name="dialog_routing_location_turn_on">Activar servicios de ubicación</string>
     <string name="dialog_routing_location_unknown_turn_on">No se pueden encontrar las coordenadas del GPS. Active los servicios de ubicación para calcular la ruta.</string>
     <string name="dialog_routing_unable_locate_route">Imposible de encontrar una ruta</string>
@@ -895,4 +895,6 @@
     <string name="level_value_generic">Nivel: %s</string>
     <string name="editor_line_social_network">LINE</string>
     <string name="saved">Guardado</string>
+    <string name="osm_note_toast">La nota se enviará a OpenStreetMap</string>
+    <string name="osm_note_hint">O bien, deje una nota a la comunidad de OpenStreetMap para que otra persona pueda añadir o corregir un lugar.</string>
 </resources>

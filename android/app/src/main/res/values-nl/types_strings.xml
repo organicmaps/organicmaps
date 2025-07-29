@@ -1402,4 +1402,10 @@
     <string name="type.leisure.firepit">Vuurplaats</string>
     <string name="type.highway.ladder">Ladder</string>
     <string name="type.amenity.love_hotel">Ontmoetingshotel</string>
+    <string name="type.amenity.bicycle_parking.covered">Overdekte Fietsen Stalling</string>
+    <string name="type.amenity.luggage_locker">Baggage Kluis</string>
+    <string name="type.post_office.post_partner">Post Agentschap</string>
+    <string name="type.leisure.escape_game">Ontsnapkamer</string>
+    <string name="type.railway.station.subway.qingdao">Metro Station</string>
+    <string name="type.amenity.ranger_station">Boswachtershuis</string>
 </resources>

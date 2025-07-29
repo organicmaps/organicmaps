@@ -115,7 +115,6 @@
     <string name="type.amenity.prison">감옥</string>
     <string name="type.amenity.pub">술집</string>
     <string name="type.amenity.public_bookcase">도서 교환</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">재활용센터</string>
     <string name="type.amenity.recycling">재활용 쓰레기통</string>
@@ -322,7 +321,6 @@
     <string name="type.healthcare.psychotherapist">심리치료</string>
     <string name="type.healthcare.sample_collection">견본 추출</string>
     <string name="type.healthcare.speech_therapist">대화 요법</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">다리</string>
@@ -479,7 +477,6 @@
     <string name="type.area_highway.track">거리</string>
     <string name="type.area_highway.trunk">거리</string>
     <string name="type.area_highway.unclassified">거리</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">역사적 물건</string>
     <string name="type.historic.aircraft">\"역사적인 항공기\"</string>

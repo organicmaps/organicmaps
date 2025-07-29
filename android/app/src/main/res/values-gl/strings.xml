@@ -602,4 +602,5 @@
         <item quantity="other">%d marcadores</item>
     </plurals>
     <string name="saved">Gardado</string>
+    <string name="osm_note_toast">A nota enviarase a OpenStreetMap</string>
 </resources>

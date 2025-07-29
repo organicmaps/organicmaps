@@ -898,4 +898,5 @@
     <string name="mb">MB</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="saved">Opgeslagen</string>
+    <string name="osm_note_hint">Of, als alternatief, laat een opmerking achter voor de OpenStreetMap gemeenschap zodat iemand anders een plaats kan toevoegen of verbeteren.</string>
 </resources>

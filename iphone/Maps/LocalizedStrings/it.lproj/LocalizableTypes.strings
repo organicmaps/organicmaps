@@ -1493,3 +1493,5 @@
 "type.highway.world_level" = "highway-world_level";
 "type.sport.diving" = "Tuffi";
 "type.man_made.crane" = "Gru";
+"type.amenity.bicycle_parking.covered" = "Parcheggio biciclette coperto";
+"type.amenity.ranger_station" = "Stazione forestale";

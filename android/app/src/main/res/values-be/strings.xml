@@ -246,9 +246,9 @@
     <!-- Settings «Route» category: «Test Voice Directions» title -->
     <string name="pref_tts_test_voice_title">Тэставыя галасавыя ўказанні (TTS, Text-To-Speech)</string>
     <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
-    <string name="pref_tts_playing_test_voice">Праверце гучнасць або сістэмныя налады пераўтварэння тэксту ў маўленне, калі вы зараз не чуеце голас.</string>
+    <string name="pref_tts_playing_test_voice">Калі вы зараз не чуеце голас, праверце гучнасць або налады сістэмнага сінтэзатара маўлення.</string>
     <!-- Settings «Route» category: «Tts unavailable» subtitle -->
-    <string name="pref_tts_unavailable">Не даступны</string>
+    <string name="pref_tts_unavailable">Недаступны</string>
     <string name="pref_map_auto_zoom">Аўтаматычны маштаб</string>
     <string name="placepage_distance">Адлегласць</string>
     <string name="search_show_on_map">Паглядзець на карце</string>
@@ -761,7 +761,7 @@
     <string name="disconnect_usb_cable_title">Адлучыце кабель USB</string>
     <string name="enable_keep_screen_on">Трымаць экран уключаным</string>
     <!-- Description in preferences -->
-    <string name="enable_keep_screen_on_description">Калі ўключана, экран будзе ўключаны ўвесь час пакуль паказваецца карта.</string>
+    <string name="enable_keep_screen_on_description">Калі ўключана, экран не будзе гаснуць пакуль паказваецца карта.</string>
     <!-- A preference title; keep short! -->
     <string name="enable_show_on_lock_screen">Паказваць на экране блакіроўкі</string>
     <!-- Description in preferences -->
@@ -892,4 +892,6 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="saved">Захавана</string>
+    <string name="osm_note_toast">Заўвага будзе адпраўлена на OpenStreetMap</string>
+    <string name="osm_note_hint">Або пакіньце заўвагу для супольнасці OpenStreetMap, каб нехта іншы мог дадаць або выправіць месца.</string>
 </resources>

@@ -154,7 +154,7 @@
 
 /* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
 "category_rv" = "Caravanas";
-"share_bookmarks_email_body" = "¡Hola!\n\nAdjunto mis marcadores; ábrelos en Organic Maps. Si no lo tienes instalado, puedes descargarlo aquí: https://omaps.app/get?kmz\n\n¡Disfruta viajando con Organic Maps!";
+"share_bookmarks_email_body" = "¡Hola!\n\nAdjunto mis marcadores; ábralos en Organic Maps. Si no lo ha instalado, puede descargarlo aquí: https://omaps.app/get?kmz\n\n¡Disfrute viajando con Organic Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Cargando marcadores";
@@ -418,7 +418,7 @@
 "dialog_routing_disclaimer_beware" = "¡Manténgase alerta y a salvo durante el viaje!";
 "dialog_routing_check_gps" = "Verificar la señal del GPS";
 "dialog_routing_error_location_not_found" = "No se puede crear la ruta. No se pudieron identificar las coordenadas actuales del GPS.";
-"dialog_routing_location_turn_wifi" = "Verifique la señal del GPS. Activar la Wi-Fi mejorará la precisión de su ubicación.";
+"dialog_routing_location_turn_wifi" = "Verifique la señal del GPS. Activar la wifi mejorará la precisión de su ubicación.";
 "dialog_routing_location_turn_on" = "Activar servicios de ubicación";
 "dialog_routing_location_unknown_turn_on" = "No se pueden encontrar las coordenadas del GPS. Active los servicios de ubicación para calcular la ruta.";
 "dialog_routing_download_files" = "Descargar archivos requeridos";

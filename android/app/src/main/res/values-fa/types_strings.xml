@@ -1246,4 +1246,5 @@
     <string name="type.railway.subway.tunnel">تونل خط مترو</string>
     <string name="type.aeroway">زیرساخت‌های حریم هوایی</string>
     <string name="type.cuisine.lebanese">لبنانی</string>
+    <string name="type.landuse.salt_pond">نمک‌زار</string>
 </resources>

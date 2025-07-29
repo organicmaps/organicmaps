@@ -22,7 +22,7 @@
 "miles" = "Mérföld";
 
 /* A text for current gps location point/arrow selected on the map */
-"core_my_position" = "Saját helyzet";
+"core_my_position" = "Saját tartózkodási helyszín";
 
 /* Update maps later button text */
 "later" = "Később";
@@ -175,7 +175,7 @@
 "bookmark_share_email_subject" = "Tekintse meg a térképjelzőmet az Organic Maps alkalmazásban!";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Tekintse meg a helyzetemet az Organic Maps alkalmazásban!";
+"my_position_share_email_subject" = "Tekintse meg a tartózkodási helyszínemet az Organic Maps alkalmazásban!";
 
 /* Share by email button text, also used in editor and About. */
 "email" = "E-mail-cím";
@@ -197,7 +197,7 @@
 
 /* Length of track in cell that describes route */
 "length" = "Hossz";
-"share_my_location" = "Saját helyzet megosztása";
+"share_my_location" = "Saját tartózkodási helyszín megosztása";
 "prefs_group_route" = "Navigáció";
 "pref_zoom_title" = "Nagyítás/kicsinyítés gombok";
 
@@ -603,7 +603,7 @@
 "editor_category_unsuitable_text" = "Az Organic Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">útmutatónkat</a>.";
 "downloader_no_downloaded_maps_title" = "Még nem töltött le térképet";
 "downloader_no_downloaded_maps_message" = "Térképek letöltése az offline kereséshez és navigáláshoz.";
-"current_location_unknown_error_title" = "A jelenlegi helyzet ismeretlen.";
+"current_location_unknown_error_title" = "A jelenlegi tartózkodási helyszín ismeretlen.";
 "current_location_unknown_error_message" = "Hiba történt tartózkodási helye keresésekor. Ellenőrizze készüléke működését és próbálkozzon újra.";
 "location_services_disabled_header" = "Helymeghatározás kikapcsolva";
 "location_services_disabled_message" = "Engedélyezze a hozzáférést a földrajzi helymeghatározáshoz a készülék beállításaiban";
@@ -778,7 +778,7 @@
 "power_managment_setting_never" = "Soha";
 "power_managment_setting_auto" = "Amikor az akkumulátor lemerül";
 "power_managment_setting_manual_max" = "Mindig";
-"enable_logging_warning_message" = "Ha ideiglenesen engedélyezi ezt az opciót, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.";
+"enable_logging_warning_message" = "Ha ideiglenesen engedélyezi ezt a beállítást, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.";
 "driving_options_title" = "Útvonaltervezési beállítások";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
@@ -1055,9 +1055,9 @@
 "continue_recording" = "Rögzítés folytatása";
 
 /* Title for the alert when saving a track recording. */
-"track_recording_alert_title" = "Elmenti a könyvjelzők és nyomvonalakba?";
+"track_recording_alert_title" = "Menti a könyvjelzők és nyomvonalakba?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "A nyomvonal üres – nincs mit menteni";
 "edit_track" = "Nyomvonal szerkesztése";
-"saved" = "Elmentve";
+"saved" = "Mentve";

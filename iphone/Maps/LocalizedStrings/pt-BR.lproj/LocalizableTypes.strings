@@ -803,19 +803,19 @@
 "type.natural.glacier" = "Geleira";
 "type.natural.grassland" = "Pastagem";
 "type.natural.heath" = "Charneca";
-"type.natural.hot_spring" = "Nascente de água quente";
+"type.natural.hot_spring" = "Fonte de água quente";
 "type.natural.water.lake" = "Lago";
-"type.natural.water.lock" = "Câmara de Eclusa";
+"type.natural.water.lock" = "Eclusa";
 "type.natural.water.pond" = "Lagoa";
 "type.natural.water.reservoir" = "Reservatório";
 "type.natural.water.basin" = "Reservatório";
 "type.natural.water.river" = "Rio";
-"type.natural.land" = "Campo";
+"type.natural.land" = "Terra";
 "type.natural.meadow" = "Pradaria";
 "type.natural.orchard" = "Pomar";
 "type.natural.peak" = "Pico";
-"type.natural.saddle" = "Sela da Montanha";
-"type.natural.rock" = "Rochedo";
+"type.natural.saddle" = "Sela de montanha";
+"type.natural.rock" = "Rocha";
 "type.natural.scrub" = "Matagal";
 "type.natural.spring" = "Nascente";
 "type.natural.spring.drinking_water_no" = "Nascente";
@@ -823,10 +823,10 @@
 "type.natural.tree_row" = "Linha de árvores";
 "type.natural.vineyard" = "Vinha";
 "type.natural.volcano" = "Vulcão";
-"type.natural.water" = "Corpo de água";
-"type.natural.wetland" = "Zona úmida";
-"type.natural.wetland.bog" = "Zona úmida";
-"type.natural.wetland.marsh" = "Zona úmida";
+"type.natural.water" = "Água";
+"type.natural.wetland" = "Pantanal";
+"type.natural.wetland.bog" = "Pântano";
+"type.natural.wetland.marsh" = "Pântano";
 "type.noexit" = "Via sem saída";
 "type.office" = "Escritório";
 "type.office.company" = "Escritório de empresa";
@@ -857,7 +857,7 @@
 "type.place.hamlet" = "Lugarejo";
 "type.place.island" = "Ilha";
 "type.place.islet" = "Ilhéu";
-"type.place.isolated_dwelling" = "Habitação isolada";
+"type.place.isolated_dwelling" = "Moradia isolada";
 "type.place.locality" = "Localidade";
 
 /* Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) */
@@ -868,14 +868,14 @@
 "type.place.ocean" = "Oceano";
 "type.place.region" = "Região";
 "type.place.sea" = "Mar";
-"type.place.square" = "Praça ou largo";
+"type.place.square" = "Praça";
 "type.place.state" = "Estado";
 "type.place.state.USA" = "Estado";
 
 /* Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) */
 "type.place.suburb" = "Bairro";
 "type.place.town" = "Cidade";
-"type.place.village" = "Vila";
+"type.place.village" = "Vilarejo";
 "type.power" = "Energia";
 "type.power.generator" = "Gerador de energia";
 "type.power.generator.solar" = "Gerador solar";
@@ -1490,3 +1490,7 @@
 "type.amenity.love_hotel" = "Hotel";
 "type.barrier.guard_rail" = "Guard Rail";
 "type.leisure.firepit" = "Pira";
+"type.amenity.bicycle_parking.covered" = "Estacionamento de bicicletas coberto";
+"type.post_office.post_partner" = "Parceiro dos Correios";
+"type.amenity.luggage_locker" = "Armário para bagagem";
+"type.leisure.escape_game" = "Sala de escape";

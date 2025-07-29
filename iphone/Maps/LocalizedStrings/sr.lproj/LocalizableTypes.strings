@@ -1484,3 +1484,4 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Спортска хала";
+"type.amenity.bicycle_parking.covered" = "Pokriveni parking za bicikle";

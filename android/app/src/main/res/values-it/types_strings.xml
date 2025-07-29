@@ -1403,4 +1403,6 @@
     <string name="type.hwtag.yesfoot">hwtag-yesfoot</string>
     <string name="type.sport.diving">Tuffi</string>
     <string name="type.man_made.crane">Gru</string>
+    <string name="type.amenity.bicycle_parking.covered">Parcheggio biciclette coperto</string>
+    <string name="type.amenity.ranger_station">Stazione forestale</string>
 </resources>

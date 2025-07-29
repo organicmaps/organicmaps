@@ -1394,4 +1394,5 @@
     <string name="type.shop.hearing_aids">Продавница слушног апарата</string>
     <string name="type.railway.funicular.tunnel">Тунел успињаче</string>
     <string name="type.railway.narrow_gauge.tunnel">Тунел уског колосека</string>
+    <string name="type.amenity.bicycle_parking.covered">Pokriveni parking za bicikle</string>
 </resources>

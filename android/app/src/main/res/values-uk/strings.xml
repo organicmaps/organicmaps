@@ -906,4 +906,6 @@
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="saved">Збережено</string>
+    <string name="osm_note_hint">Або ж залиште повідомлення спільноті OpenStreetMap, щоби хтось інший міг додати або виправити місце тут.</string>
+    <string name="osm_note_toast">Примітка буде надіслана до OpenStreetMap</string>
 </resources>

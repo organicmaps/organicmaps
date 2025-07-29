@@ -448,11 +448,11 @@
     <string name="type.highway.primary_link.tunnel">Túnel</string>
     <string name="type.highway.raceway">Circuito</string>
     <string name="type.highway.residential">Calle urbana</string>
-    <string name="type.highway.residential.area">Calle residencial</string>
+    <string name="type.highway.residential.area">Calle urbana</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.residential.bridge">Puente</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.residential.tunnel">Túnel de calle residencial</string>
+    <string name="type.highway.residential.tunnel">Túnel</string>
     <string name="type.highway.rest_area">Área de descanso</string>
     <string name="type.highway.road">Carretera</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
@@ -465,7 +465,7 @@
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary.bridge">Puente</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
-    <string name="type.highway.secondary.tunnel">Túnel de carretera secundaria</string>
+    <string name="type.highway.secondary.tunnel">Túnel</string>
     <string name="type.highway.secondary_link">Enlace de carretera secundaria</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.secondary_link.bridge">Puente</string>
@@ -474,13 +474,13 @@
     <string name="type.highway.service">Vía de servicio</string>
     <string name="type.highway.service.area">Vía de servicio</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
-    <string name="type.highway.service.bridge">Puente de carretera de servicio</string>
-    <string name="type.highway.service.driveway">Paso vehicular</string>
+    <string name="type.highway.service.bridge">Puente</string>
+    <string name="type.highway.service.driveway">Entrada vehicular</string>
     <string name="type.highway.service.parking_aisle">Pasillo de aparcamiento</string>
     <!-- These translations are used for all type.highway.*.tunnel. -->
     <string name="type.highway.service.tunnel">Túnel de vía de servicio</string>
-    <string name="type.highway.services">Área de servicio</string>
-    <string name="type.highway.speed_camera">Radar de velocidad</string>
+    <string name="type.highway.services">Área de servicios</string>
+    <string name="type.highway.speed_camera">Fotorradar</string>
     <string name="type.highway.steps">Escaleras</string>
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.steps.bridge">Puente</string>
@@ -528,7 +528,7 @@
     <string name="type.area_highway.path">Sendero</string>
     <string name="type.area_highway.pedestrian">Calle peatonal</string>
     <string name="type.area_highway.primary">Carretera principal</string>
-    <string name="type.area_highway.residential">Calle residencial</string>
+    <string name="type.area_highway.residential">Calle urbana</string>
     <string name="type.area_highway.secondary">Carretera secundaria</string>
     <string name="type.area_highway.service">Vía de servicio</string>
     <string name="type.area_highway.tertiary">Carretera terciaria</string>
@@ -635,7 +635,7 @@
     <string name="type.leisure.golf_course">Campo de golf</string>
     <string name="type.leisure.miniature_golf">Minigolf</string>
     <string name="type.leisure.hackerspace">Espacio para hackers</string>
-    <string name="type.leisure.ice_rink">Pisa de patinaje</string>
+    <string name="type.leisure.ice_rink">Pista de hielo</string>
     <string name="type.leisure.marina">Puerto o amarradero</string>
     <string name="type.leisure.nature_reserve">Reserva natural</string>
     <string name="type.leisure.outdoor_seating">Asientos al aire libre</string>
@@ -852,7 +852,7 @@
     <string name="type.railway.station.light_rail.berlin">Estación de tren</string>
     <string name="type.railway.station.light_rail.london">Estación de tren</string>
     <string name="type.railway.station.light_rail.porto">Estación de tren</string>
-    <string name="type.railway.station.monorail">Estación de tren</string>
+    <string name="type.railway.station.monorail">Estación de monorraíl</string>
     <string name="type.railway.station.subway">Estación de metro</string>
     <string name="type.railway.station.subway.adana">Estación de metro</string>
     <string name="type.railway.station.subway.algiers">Estación de metro</string>
@@ -1204,13 +1204,13 @@
     <string name="type.shop.perfumery">Perfumería</string>
     <string name="type.shop.sewing">Materiales de costura</string>
     <string name="type.shop.storage_rental">Alquiler de almacenamiento</string>
-    <string name="type.shop.tobacco">Tabaco</string>
+    <string name="type.shop.tobacco">Tabaquería</string>
     <string name="type.shop.trade">Suministros comerciales</string>
     <string name="type.shop.watches">Relojes</string>
     <string name="type.shop.wholesale">Almacén al por mayor</string>
     <string name="type.sport">Deporte</string>
     <string name="type.sport.american_football">Fútbol americano</string>
-    <string name="type.sport.archery">Tiro al arco</string>
+    <string name="type.sport.archery">Tiro con arco</string>
     <string name="type.sport.athletics">Atletismo</string>
     <string name="type.sport.australian_football">Fútbol australiano</string>
     <string name="type.sport.baseball">Béisbol</string>
@@ -1254,7 +1254,7 @@
     <string name="type.tourism.artwork.sculpture">Escultura</string>
     <string name="type.tourism.artwork.statue">Estatua</string>
     <string name="type.tourism.attraction">Atracción turística</string>
-    <string name="type.attraction.amusement_ride">Atracción</string>
+    <string name="type.attraction.amusement_ride">Juego mecánico</string>
     <string name="type.attraction.animal">Recinto de animales</string>
     <string name="type.attraction.bumper_car">Coches de choque</string>
     <string name="type.attraction.big_wheel">Noria</string>
@@ -1281,7 +1281,7 @@
     <string name="type.tourism.motel">Motel</string>
     <string name="type.tourism.museum">Museo</string>
     <string name="type.tourism.picnic_site">Zona de picnic</string>
-    <string name="type.leisure.resort">Resort turístico</string>
+    <string name="type.leisure.resort">Resort</string>
     <string name="type.tourism.theme_park">Parque temático</string>
     <string name="type.tourism.viewpoint">Mirador</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
@@ -1404,4 +1404,9 @@
     <string name="type.leisure.firepit">Fogón</string>
     <string name="type.man_made.crane">Grúa</string>
     <string name="type.railway.station.subway.qingdao">Estación de metro</string>
+    <string name="type.amenity.bicycle_parking.covered">Aparcamiento de bicicletas techado</string>
+    <string name="type.amenity.ranger_station">Estación de guardabosques</string>
+    <string name="type.leisure.escape_game">Sala de escape</string>
+    <string name="type.amenity.luggage_locker">Guardaequipaje</string>
+    <string name="type.post_office.post_partner">Proveedor de servicios postales</string>
 </resources>

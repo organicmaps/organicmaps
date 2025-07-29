@@ -116,7 +116,6 @@
     <string name="type.amenity.prison">คุก</string>
     <string name="type.amenity.pub">ผับ</string>
     <string name="type.amenity.public_bookcase">ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ</string>
-
     <!-- SECTION: Types: Recycling -->
     <string name="type.amenity.recycling.centre">ศูนย์รีไซเคิล</string>
     <string name="type.amenity.recycling">บรรจุภัณฑ์รีไซเคิล</string>
@@ -323,7 +322,6 @@
     <string name="type.healthcare.psychotherapist">จิตบำบัด</string>
     <string name="type.healthcare.sample_collection">การสุ่มตัวอย่าง</string>
     <string name="type.healthcare.speech_therapist">การบำบัดด้วยการพูด</string>
-
     <!-- SECTION: Types: Roads -->
     <!-- These translations are used for all type.highway.*.bridge. -->
     <string name="type.highway.bridleway.bridge">สะพาน</string>
@@ -481,7 +479,6 @@
     <string name="type.area_highway.track">ถนน</string>
     <string name="type.area_highway.trunk">ถนน</string>
     <string name="type.area_highway.unclassified">ถนน</string>
-
     <!-- SECTION: Types: Historic -->
     <string name="type.historic">วัตถุประวัติศาสตร์</string>
     <string name="type.historic.aircraft">เครื่องบินประวัติศาสตร์</string>
