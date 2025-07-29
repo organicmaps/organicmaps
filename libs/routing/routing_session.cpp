@@ -422,15 +422,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   // Lane information
   info.m_lanes.clear();
   if (distanceToTurnMeters < kShowLanesMinDistInMeters || m_route->GetCurrentTimeToNearestTurnSec() < 60.0)
-  {
-    // There are two nested loops below. Outer one is for lanes and inner one (ctor of
-    // SingleLaneInfo) is
-    // for each lane's directions. The size of turn.m_lanes is relatively small. Less than 10 in
-    // most cases.
-    info.m_lanes.reserve(turn.m_lanes.size());
-    for (size_t j = 0; j < turn.m_lanes.size(); ++j)
-      info.m_lanes.emplace_back(turn.m_lanes[j]);
-  }
+    info.m_lanes = turn.m_lanes;
 
   // Pedestrian info.
   info.m_pedestrianTurn =
