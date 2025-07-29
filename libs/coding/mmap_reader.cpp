@@ -7,7 +7,7 @@
 #include <cstring>
 
 #ifdef OMIM_OS_WINDOWS
-#include <windows.h>
+#include "std/windows.hpp"
 #else
 #include <fcntl.h>
 #include <sys/mman.h>
