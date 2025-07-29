@@ -8,18 +8,13 @@
 #include <cstring>
 #include <sstream>
 
-#ifndef OMIM_OS_WINDOWS
-#include <stdio.h>
+#ifdef OMIM_OS_WINDOWS
+#include "std/windows.hpp"
+#else
+#include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <unistd.h>  // _SC_PAGESIZE
-#ifdef OMIM_OS_ANDROID
-#include <fcntl.h>
-#else
-#include <sys/fcntl.h>
-#endif
-#else
-#include <windows.h>
 #endif
 
 #include <errno.h>

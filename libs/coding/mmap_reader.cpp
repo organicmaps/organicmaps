@@ -7,16 +7,12 @@
 #include <cstring>
 
 #ifdef OMIM_OS_WINDOWS
-#include <windows.h>
+#include "std/windows.hpp"
 #else
+#include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#ifdef OMIM_OS_ANDROID
-#include <fcntl.h>
-#else
-#include <sys/fcntl.h>
-#endif
 #endif
 
 class MmapReader::MmapData
