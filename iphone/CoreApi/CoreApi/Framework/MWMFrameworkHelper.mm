@@ -215,6 +215,11 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
 + (void)updateAfterDeleteBookmark
 {
   auto & frm = GetFramework();
+  if (!frm.HasPlacePageInfo())
+  {
+    LOG(LERROR, ("Failed update update the bookmark after deletion: no place page info available."));
+    return;
+  }
   auto buildInfo = frm.GetCurrentPlacePageInfo().GetBuildInfo();
   buildInfo.m_match = place_page::BuildInfo::Match::FeatureOnly;
   buildInfo.m_userMarkId = kml::kInvalidMarkId;
