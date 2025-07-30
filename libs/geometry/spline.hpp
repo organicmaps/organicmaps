@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include <memory>
 #include <vector>
@@ -51,6 +52,7 @@ public:
   void ReplacePoint(PointD const & pt);
   bool IsProlonging(PointD const & pt) const;
 
+  m2::RectD GetRect() const;
   size_t GetSize() const;
   std::vector<PointD> const & GetPath() const { return m_position; }
   void Clear();
@@ -79,8 +81,13 @@ public:
   /// @return for (i) -> (i + 1) section.
   std::pair<PointD, double> GetTangentAndLength(size_t i) const;
 
+  void Equidistant(double dist, Spline & res) const;
+
+  friend std::string DebugPrint(Spline const & s);
+
 protected:
   void InitDirections();
+  void Reserve(size_t sz);
 
   std::vector<PointD> m_position;
   std::vector<PointD> m_direction;
@@ -111,10 +118,13 @@ public:
 
   Spline * operator->();
   Spline const * operator->() const;
-
   Spline const * Get() const;
+
+  SharedSpline Equidistant(double dist) const;
 
 private:
   std::shared_ptr<Spline> m_spline;
 };
+
+bool AlmostEqualAbs(Spline const & s1, Spline const & s2, double eps);
 }  // namespace m2
