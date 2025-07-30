@@ -81,10 +81,10 @@ public:
     // Rect around region border. Features which cross region border may cross this rect.
     std::pair<int64_t, int64_t> m_bounds;
 
-    buffer_vector<uint8_t, kMaxScalesCount> m_scales;
-    // Is not used now (see data/countries/metadata.json). Can be reused for something else.
-    buffer_vector<uint8_t, 2> m_langs;
-  };
+  buffer_vector<uint8_t, kMaxScalesCount> m_scales;
+  // Is not used now (see data/countries/metadata.json). Can be reused for something else.
+  buffer_vector<uint8_t, 2> m_langs;
+};
 
   /// Max possible geometry scales. @see arrays in feature_impl.hpp
   static constexpr size_t kMaxScalesCount = 4;

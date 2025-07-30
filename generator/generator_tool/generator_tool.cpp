@@ -180,7 +180,8 @@ DEFINE_uint64(threads_count, 0,
               "threads is set automatically.");
 DEFINE_bool(verbose, false, "Provide more detailed output.");
 
-MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
+MAIN_WITH_ERROR_HANDLING(
+    [](int argc, char ** argv)
 {
   using namespace generator;
   using std::string;
@@ -450,9 +451,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (!countryParentGetter)
       {
         // All the mwms should use proper VehicleModels.
-        LOG(LCRITICAL,
-            ("Countries file is needed. Please set countries file name (countries.json). "
-             "File must be located in data/countries directory."));
+        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.json). "
+                        "File must be located in data/countries directory."));
         return EXIT_FAILURE;
       }
 
@@ -494,9 +494,8 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       if (!countryParentGetter)
       {
         // All the mwms should use proper VehicleModels.
-        LOG(LCRITICAL,
-            ("Countries file is needed. Please set countries file name (countries.json). "
-             "File must be located in data/countries directory."));
+        LOG(LCRITICAL, ("Countries file is needed. Please set countries file name (countries.json). "
+                        "File must be located in data/countries directory."));
         return EXIT_FAILURE;
       }
 
