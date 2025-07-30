@@ -31,8 +31,8 @@ public:
   void AddPoints(std::vector<location::GpsInfo> const & points);
 
   /// Returns track statistics
-  TrackStatistics GetTrackStatistics() const;
-  ElevationInfo const & GetElevationInfo() const;
+  TrackStatistics GetTrackStatistics();
+  ElevationInfo const & GetElevationInfo();
 
   /// Clears any previous tracking info
   /// @note Callback is called with 'toRemove' points, if some points were removed.

@@ -50,15 +50,20 @@ void GpsTrack::AddPoints(vector<location::GpsInfo> const & points)
   ScheduleTask();
 }
 
-TrackStatistics GpsTrack::GetTrackStatistics() const
+/// @note These functions are called during recording, so should be synchronized with Collection writer thread.
+/// @{
+TrackStatistics GpsTrack::GetTrackStatistics()
 {
+  lock_guard<mutex> lg(m_threadGuard);
   return m_collection ? m_collection->GetTrackStatistics() : TrackStatistics();
 }
 
-ElevationInfo const & GpsTrack::GetElevationInfo() const
+ElevationInfo const & GpsTrack::GetElevationInfo()
 {
+  lock_guard<mutex> lg(m_threadGuard);
   return m_collection->UpdateAndGetElevationInfo();
 }
+/// @}
 
 void GpsTrack::Clear()
 {
