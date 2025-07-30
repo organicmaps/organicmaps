@@ -233,7 +233,7 @@ using namespace storage;
 {
   if (data.objectType != PlacePageObjectTypeTrack)
   {
-    ASSERT_FAIL("editTrack called for non-track object");
+    LOG(LERROR, ("editTrack called for non-track object"));
     return;
   }
   EditTrackViewController * editTrackController =
