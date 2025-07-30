@@ -24,7 +24,6 @@
 #include "drape/color.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture_manager.hpp"
-#include "drape/utils/projection.hpp"
 
 #include "base/logging.hpp"
 #include "base/small_map.hpp"
@@ -754,14 +753,19 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
 }
 
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape,
-                                                   FeatureType & f, double currentScaleGtoP)
+                                                   FeatureType & f, double currentScaleGtoP,
+                                                   RelationsDrawSettings const & relsSettings)
   : TBase(tileKey, insertShape, f, CaptionDescription())
+  , m_relsInfo(relsSettings)
   , m_currentScaleGtoP(currentScaleGtoP)
   // TODO(pastk) : calculate just once in the RuleDrawer.
   , m_minSegmentSqrLength(math::Pow2(4.0 * df::VisualParams::Instance().GetVisualScale() / currentScaleGtoP))
   , m_simplify(tileKey.m_zoomLevel >= 10 && tileKey.m_zoomLevel <= 12)
 {
   m_spline.Reset(new m2::Spline(f.GetPointsCount()));
+
+  if (tileKey.m_zoomLevel >= 12)
+    m_relsInfo.Init(f);
 }
 
 void ApplyLineFeatureGeometry::operator()(m2::PointD const & point)
@@ -832,6 +836,7 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
 
 void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
 {
+  double const visScale = df::VisualParams::Instance().GetVisualScale();
   double const depth = PriorityToDepth(lineRule.priority(), drule::line, 0);
 
   if (lineRule.has_pathsym())
@@ -842,9 +847,8 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
     params.m_depth = depth;
     params.m_rank = m_f.GetRank();
     params.m_symbolName = symRule.name();
-    double const mainScale = df::VisualParams::Instance().GetVisualScale();
-    params.m_offset = static_cast<float>(symRule.offset() * mainScale);
-    params.m_step = static_cast<float>(symRule.step() * mainScale);
+    params.m_offset = static_cast<float>(symRule.offset() * visScale);
+    params.m_step = static_cast<float>(symRule.step() * visScale);
     params.m_baseGtoPScale = m_currentScaleGtoP;
 
     for (auto const & spline : m_clippedSplines)
@@ -862,6 +866,18 @@ void ApplyLineFeatureGeometry::ProcessRule(LineRuleProto const & lineRule)
 
     for (auto const & spline : m_clippedSplines)
       m_insertShape(make_unique_dp<LineShape>(spline, params));
+
+    // Place multiple color lines with offset.
+    params.m_width = 3 * visScale;  // std::max(4.0f, params.m_width / 2);
+    params.m_depth += 10;
+
+    m_relsInfo.ForEachColorWithOffset(params.m_width, [&params, this](double pxOffset, dp::Color color)
+    {
+      params.m_color = color;
+
+      for (auto const & spline : m_clippedSplines)
+        m_insertShape(make_unique_dp<LineShape>(spline.Equidistant(pxOffset / m_currentScaleGtoP), params));
+    });
   }
 }
 
@@ -1044,6 +1060,27 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(PathTextRuleProto co
 
       m_insertShape(std::move(shape));
       textIndex++;
+
+      /// @todo It is not correct to draw overlay text for GetMetaline(f),
+      /// because metalines were merged by street names, which is not always equal to overlay text (PT).
+      /*
+      if (!m_relsInfo.m_text.empty())
+      {
+        PathTextViewParams p = params;
+        p.m_depth += 10;
+        p.m_mainText = m_relsInfo.m_text;
+        p.m_auxText.clear();
+        p.m_textFont.m_color = m_relsInfo.GetTextColor();
+
+        double const offset = p.m_textFont.m_size / m_currentScaleGtoP;
+        auto shape = make_unique_dp<PathTextShape>(spline.Equidistant(offset), p, m_tileKey, textIndex);
+        if (shape->CalculateLayout(texMng))
+        {
+          m_insertShape(std::move(shape));
+          textIndex++;
+        }
+      }
+      */
     }
   }
   else if (m_shieldRule)

@@ -188,6 +188,8 @@
 		67E91C7C1BDFC85E005CEE88 /* selection_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947701BDF9BE0005014C0 /* selection_shape.cpp */; };
 		67E91C7D1BDFC85E005CEE88 /* user_marks_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709478B1BDF9BE0005014C0 /* user_marks_provider.cpp */; };
 		67E91C7E1BDFC85E005CEE88 /* visual_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6709478F1BDF9BE1005014C0 /* visual_params.cpp */; };
+		AC6DD3652E3ABE9E00197E8B /* relations_draw_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC6DD3642E3ABE9E00197E8B /* relations_draw_info.cpp */; };
+		AC6DD3662E3ABE9E00197E8B /* relations_draw_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC6DD3632E3ABE9E00197E8B /* relations_draw_info.hpp */; };
 		BB035F6F1E3A2AAE00519962 /* drape_measurer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */; };
 		BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */; };
 		BB59CED520BF6E46008A9ADF /* transit_scheme_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB59CED120BF6E46008A9ADF /* transit_scheme_builder.cpp */; };
@@ -399,6 +401,8 @@
 		6743D3681C3A9F090095054B /* arrow3d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = arrow3d.hpp; sourceTree = "<group>"; };
 		677A2DE31C0DD55D00635A00 /* requested_tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = requested_tiles.cpp; sourceTree = "<group>"; };
 		677A2DE41C0DD55D00635A00 /* requested_tiles.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = requested_tiles.hpp; sourceTree = "<group>"; };
+		AC6DD3632E3ABE9E00197E8B /* relations_draw_info.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = relations_draw_info.hpp; sourceTree = "<group>"; };
+		AC6DD3642E3ABE9E00197E8B /* relations_draw_info.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = relations_draw_info.cpp; sourceTree = "<group>"; };
 		BB035F6D1E3A2AAE00519962 /* drape_measurer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_measurer.cpp; sourceTree = "<group>"; };
 		BB035F6E1E3A2AAE00519962 /* drape_measurer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_measurer.hpp; sourceTree = "<group>"; };
 		BB59CED120BF6E46008A9ADF /* transit_scheme_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_scheme_builder.cpp; sourceTree = "<group>"; };
@@ -551,6 +555,8 @@
 				EB2B78021EEDD439002697B6 /* read_metaline_task.hpp */,
 				670947621BDF9BE0005014C0 /* read_mwm_task.cpp */,
 				670947631BDF9BE0005014C0 /* read_mwm_task.hpp */,
+				AC6DD3632E3ABE9E00197E8B /* relations_draw_info.hpp */,
+				AC6DD3642E3ABE9E00197E8B /* relations_draw_info.cpp */,
 				670947641BDF9BE0005014C0 /* render_group.cpp */,
 				670947651BDF9BE0005014C0 /* render_group.hpp */,
 				670947671BDF9BE0005014C0 /* render_node.hpp */,
@@ -759,6 +765,7 @@
 				BB59CED820BF6E46008A9ADF /* transit_scheme_builder.hpp in Headers */,
 				453D67D82273225B00072ADB /* batcher_bucket.hpp in Headers */,
 				670947D51BDF9BE1005014C0 /* tile_utils.hpp in Headers */,
+				AC6DD3662E3ABE9E00197E8B /* relations_draw_info.hpp in Headers */,
 				670947D91BDF9BE1005014C0 /* user_mark_shapes.hpp in Headers */,
 				452C9EDD1CEDCF3200A55E57 /* linear_animation.hpp in Headers */,
 				454C19BB1CCE3EC0002A2C86 /* animation_constants.hpp in Headers */,
@@ -940,6 +947,7 @@
 				670947CA1BDF9BE1005014C0 /* threads_commutator.cpp in Sources */,
 				670947981BDF9BE1005014C0 /* map_data_provider.cpp in Sources */,
 				45A3781F20B324E6005FBDBB /* debug_label.cpp in Sources */,
+				AC6DD3652E3ABE9E00197E8B /* relations_draw_info.cpp in Sources */,
 				670948181BDF9C39005014C0 /* interpolations.cpp in Sources */,
 				670948021BDF9BF5005014C0 /* drape_engine.cpp in Sources */,
 				56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */,
