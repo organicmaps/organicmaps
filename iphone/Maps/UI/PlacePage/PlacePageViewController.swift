@@ -332,6 +332,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
 
   @objc
   func closeAnimated(completion: (() -> Void)? = nil) {
+    view.isUserInteractionEnabled = false
     alternativeSizeClass(iPhone: {
       self.scrollTo(CGPoint(x: 0, y: -self.scrollView.height + 1),
                     forced: true) {
@@ -361,7 +362,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
 extension PlacePageViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView.contentOffset.y < -scrollView.height + 1 && beginDragging {
-      rootViewController.dismissPlacePage()
+      closeAnimated()
     }
     onOffsetChanged(scrollView.contentOffset.y)
 
