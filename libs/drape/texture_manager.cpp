@@ -305,6 +305,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   m_trafficArrowTexture = make_unique_dp<StaticTexture>(context, "traffic-arrow.png", m_resPostfix,
                                                         dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
 
+  /// @todo Introduce array of keys and use them as mask file name prefix.
   m_hatchingTextures[k45dHatching] = make_unique_dp<StaticTexture>(
       context, "area-hatching.png", m_resPostfix, dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
   m_hatchingTextures[kDashHatching] =

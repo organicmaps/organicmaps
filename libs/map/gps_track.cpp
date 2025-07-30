@@ -212,6 +212,7 @@ void GpsTrack::ProcessPoints()
   if (!m_collection)
     return;
 
+  /// @todo Clear filter if needClear == true.
   vector<location::GpsInfo> points;
   m_filter->Process(originPoints, points);
 
@@ -227,12 +228,14 @@ size_t GpsTrack::Finalize()
   {
     {
       lock_guard<mutex> lg(m_threadGuard);
-      m_threadWakeup = true;
-      m_threadExit = true;
+      m_threadWakeup = m_threadExit = true;
       m_cv.notify_one();
     }
     m_thread.join();
+
+    // Initialize from scratch.
     m_thread = {};
+    m_threadWakeup = m_threadExit = false;
   }
 
   vector<location::GpsInfo> points;

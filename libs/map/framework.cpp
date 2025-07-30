@@ -3351,7 +3351,7 @@ std::optional<products::ProductsConfig> Framework::GetProductsConfiguration() co
 void Framework::DidCloseProductsPopup(ProductsPopupCloseReason reason) const
 {
   settings::Set(kPlacePageProductsPopupCloseTime, base::SecondsSinceEpoch());
-  settings::Set(kPlacePageProductsPopupCloseReason, std::string(ToString(reason)));
+  settings::Set(kPlacePageProductsPopupCloseReason, ToString(reason));
 }
 
 void Framework::DidSelectProduct(products::ProductsConfig::Product const & product) const
@@ -3359,7 +3359,7 @@ void Framework::DidSelectProduct(products::ProductsConfig::Product const & produ
   settings::Set(kPlacePageSelectedProduct, product.GetTitle());
 }
 
-uint32_t Framework::GetTimeoutForReason(ProductsPopupCloseReason reason) const
+uint32_t Framework::GetTimeoutForReason(ProductsPopupCloseReason reason)
 {
 #ifdef DEBUG
   uint32_t constexpr kPopupCloseTimeout = 10;
@@ -3381,7 +3381,7 @@ uint32_t Framework::GetTimeoutForReason(ProductsPopupCloseReason reason) const
   return kPopupCloseTimeout;
 }
 
-std::string_view Framework::ToString(ProductsPopupCloseReason reason) const
+std::string_view Framework::ToString(ProductsPopupCloseReason reason)
 {
   switch (reason)
   {
@@ -3394,7 +3394,7 @@ std::string_view Framework::ToString(ProductsPopupCloseReason reason) const
   return kProductsPopupCloseReasonCloseStr;
 }
 
-Framework::ProductsPopupCloseReason Framework::FromString(std::string const & str) const
+Framework::ProductsPopupCloseReason Framework::FromString(std::string_view str)
 {
   if (str == kProductsPopupCloseReasonCloseStr)
     return ProductsPopupCloseReason::Close;
