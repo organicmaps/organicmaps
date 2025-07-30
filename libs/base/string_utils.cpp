@@ -227,15 +227,15 @@ void AsciiToUpper(std::string & s)
 
 void Trim(std::string & s)
 {
-  boost::trim_if(s, ::isspace);
+  boost::trim_if(s, [](unsigned char c) { return std::isspace(c); });
 }
 
 void Trim(std::string_view & sv)
 {
-  auto const beg = std::find_if(sv.cbegin(), sv.cend(), [](auto c) { return !std::isspace(c); });
+  auto const beg = std::find_if(sv.cbegin(), sv.cend(), [](unsigned char c) { return !std::isspace(c); });
   if (beg != sv.end())
   {
-    auto const end = std::find_if(sv.crbegin(), sv.crend(), [](auto c) { return !std::isspace(c); }).base();
+    auto const end = std::find_if(sv.crbegin(), sv.crend(), [](unsigned char c) { return !std::isspace(c); }).base();
     sv = std::string_view(sv.data() + std::distance(sv.begin(), beg), std::distance(beg, end));
   }
   else
