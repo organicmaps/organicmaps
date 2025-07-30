@@ -783,7 +783,6 @@ public:
   void OnPowerSchemeChanged(power_management::Scheme const actualScheme) override;
 
 public:
-  bool ShouldShowProducts() const;
   std::optional<products::ProductsConfig> GetProductsConfiguration() const;
 
   enum class ProductsPopupCloseReason
@@ -794,12 +793,13 @@ public:
     RemindLater
   };
 
-  ProductsPopupCloseReason FromString(std::string const & str) const;
-
   void DidCloseProductsPopup(ProductsPopupCloseReason reason) const;
   void DidSelectProduct(products::ProductsConfig::Product const & product) const;
 
+  bool ShouldShowProducts() const;
+  static ProductsPopupCloseReason FromString(std::string_view str);
+
 private:
-  uint32_t GetTimeoutForReason(ProductsPopupCloseReason reason) const;
-  std::string_view ToString(ProductsPopupCloseReason reason) const;
+  static uint32_t GetTimeoutForReason(ProductsPopupCloseReason reason);
+  static std::string_view ToString(ProductsPopupCloseReason reason);
 };

@@ -43,6 +43,12 @@ string ToString<string>(string const & str)
 }
 
 template <>
+string ToString<std::string_view>(std::string_view const & str)
+{
+  return string(str);
+}
+
+template <>
 bool FromString<string>(string const & strIn, string & strOut)
 {
   strOut = strIn;

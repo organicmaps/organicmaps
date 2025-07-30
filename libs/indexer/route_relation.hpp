@@ -141,12 +141,12 @@ public:
     RouteRelationBase::Read(src);
 
     uint32_t const sz = ReadVarUint<uint32_t>(src);
-    m_ftMembers.reserve(sz);
+    m_ftMembers.resize(sz);
     uint32_t prev = 0;
     for (size_t i = 0; i < sz; ++i)
     {
-      m_ftMembers.push_back(prev + ReadVarUint<uint32_t>(src));
-      prev = m_ftMembers.back();
+      prev += ReadVarUint<uint32_t>(src);
+      m_ftMembers[i] = prev;
     }
 
     uint8_t const flags = ReadPrimitiveFromSource<uint8_t>(src);
