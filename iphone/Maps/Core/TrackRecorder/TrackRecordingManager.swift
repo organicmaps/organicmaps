@@ -57,7 +57,7 @@ final class TrackRecordingManager: NSObject {
     let locationManager = LocationManager.self
     var activityManager: TrackRecordingActivityManager? = nil
     #if canImport(ActivityKit)
-    if #available(iOS 16.2, *) {
+    if #available(iOS 16.2, *), !ProcessInfo.processInfo.isiOSAppOnMac {
       activityManager = TrackRecordingLiveActivityManager.shared
     }
     #endif
