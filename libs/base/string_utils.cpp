@@ -9,55 +9,10 @@
 #include <iomanip>
 #include <iterator>
 
-#include <fast_double_parser.h>
 #include <boost/algorithm/string/trim.hpp>
 
 namespace strings
 {
-namespace
-{
-template <typename T>
-T RealConverter(char const * start, char ** stop);
-
-template <>
-float RealConverter<float>(char const * start, char ** stop)
-{
-  // . or , parsing depends on locale!
-  return std::strtof(start, stop);
-}
-
-template <>
-double RealConverter<double>(char const * start, char ** stop)
-{
-  // . or , parsing depends on locale!
-  return std::strtod(start, stop);
-}
-
-template <typename T>
-bool ToReal(char const * start, T & result)
-{
-  // Try faster implementation first.
-  double d;
-  // TODO(AB): replace with more robust dependency that doesn't use std::is_finite in the implementation.
-  char const * endptr = fast_double_parser::parse_number(start, &d);
-  if (endptr == nullptr)
-  {
-    // Fallback to our implementation, it supports numbers like "1."
-    char * stop;
-    result = RealConverter<T>(start, &stop);
-    if (*stop == 0 && start != stop && math::is_finite(result))
-      return true;
-  }
-  else if (*endptr == 0 && math::is_finite(d))
-  {
-    result = static_cast<T>(d);
-    return true;
-  }
-  // Do not parse strings that contain additional non-number characters.
-  return false;
-}
-
-}  // namespace
 
 UniString UniString::kSpace = MakeUniString(" ");
 
@@ -91,26 +46,6 @@ UniChar LastUniChar(std::string const & s)
   utf8::unchecked::iterator iter(s.end());
   --iter;
   return *iter;
-}
-
-bool to_size_t(char const * start, size_t & i, int base)
-{
-  uint64_t num = 0;
-  if (!to_uint64(start, num, base))
-    return false;
-
-  i = static_cast<size_t>(num);
-  return true;
-}
-
-bool to_float(char const * start, float & f)
-{
-  return ToReal(start, f);
-}
-
-bool to_double(char const * start, double & d)
-{
-  return ToReal(start, d);
 }
 
 UniString MakeLowerCase(UniString s)

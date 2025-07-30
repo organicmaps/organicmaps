@@ -115,8 +115,4 @@ find_package(Threads REQUIRED)
 target_link_libraries(${PROJECT_NAME} INTERFACE Threads::Threads)
 target_link_libraries(${PROJECT_NAME} PUBLIC utf8cpp::utf8cpp)
 
-if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
-  target_include_directories(${PROJECT_NAME} PRIVATE "${OMIM_ROOT}/3party/fast_double_parser/include")
-endif()
-
 omim_add_test_subdirectory(base_tests)

@@ -388,68 +388,35 @@ UniChar LastUniChar(std::string const & s);
 
 /// @name From string to numeric.
 //@{
-namespace internal
+
+namespace impl
 {
-template <typename T, typename = std::enable_if_t<std::is_signed<T>::value && sizeof(T) < sizeof(long long)>>
-long IntConverter(char const * start, char ** stop, int base)
+template<std::integral T>
+bool from_sv(std::string_view sv, T & t, int base = 10)
 {
-  return std::strtol(start, stop, base);
+  char const * end = sv.data() + sv.size();
+  auto [last, ec] = std::from_chars(sv.data(), sv.data() + sv.size(), t, base);
+  return ec == std::errc() && last == end;
+}
+template<std::floating_point T>
+bool from_sv(std::string_view sv, T & t)
+{
+  char const * end = sv.data() + sv.size();
+  auto [last, ec] = std::from_chars(sv.data(), sv.data() + sv.size(), t);
+  return ec == std::errc() && last == end;
+}
 }
 
-template <typename T, typename = std::enable_if_t<std::is_unsigned<T>::value && sizeof(T) < sizeof(unsigned long long)>>
-unsigned long IntConverter(char const * start, char ** stop, int base)
+template<std::signed_integral T>
+[[nodiscard]] bool to_int(std::string_view s, T & i, int base = 10)
 {
-  return std::strtoul(start, stop, base);
+  return impl::from_sv(s, i, base);
 }
 
-template <typename T, typename = std::enable_if_t<std::is_signed<T>::value && sizeof(T) == sizeof(long long)>>
-long long IntConverter(char const * start, char ** stop, int base)
+template<std::unsigned_integral T>
+[[nodiscard]] bool to_uint(std::string_view s, T & i, int base = 10)
 {
-#ifdef OMIM_OS_WINDOWS_NATIVE
-  return _strtoi64(start, &stop, base);
-#else
-  return std::strtoll(start, stop, base);
-#endif
-}
-
-template <typename T,
-          typename = std::enable_if_t<std::is_unsigned<T>::value && sizeof(T) == sizeof(unsigned long long)>>
-unsigned long long IntConverter(char const * start, char ** stop, int base)
-{
-#ifdef OMIM_OS_WINDOWS_NATIVE
-  return _strtoui64(start, &stop, base);
-#else
-  return std::strtoull(start, stop, base);
-#endif
-}
-
-template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
-bool ToInteger(char const * start, T & result, int base = 10)
-{
-  char * stop;
-  errno = 0;  // Library functions do not reset it.
-
-  auto const v = IntConverter<T>(start, &stop, base);
-
-  if (errno == EINVAL || errno == ERANGE || *stop != 0 || start == stop || !base::IsCastValid<T>(v))
-  {
-    errno = 0;
-    return false;
-  }
-
-  result = static_cast<T>(v);
-  return true;
-}
-}  // namespace internal
-
-[[nodiscard]] inline bool to_int(char const * s, int & i, int base = 10)
-{
-  return internal::ToInteger(s, i, base);
-}
-
-[[nodiscard]] inline bool to_uint(char const * s, unsigned int & i, int base = 10)
-{
-  return internal::ToInteger(s, i, base);
+  return impl::from_sv(s, i, base);
 }
 
 // Note: negative values will be converted too.
@@ -461,14 +428,14 @@ bool ToInteger(char const * start, T & result, int base = 10)
 // negative std::numeric_limits<uint64_t>::max() converts to 1.
 // Values lower than negative std::numeric_limits<uint64_t>::max()
 // are not convertible (method returns false).
-[[nodiscard]] inline bool to_uint64(char const * s, uint64_t & i, int base = 10)
+[[nodiscard]] inline bool to_uint64(std::string_view s, uint64_t & i, int base = 10)
 {
-  return internal::ToInteger(s, i, base);
+  return impl::from_sv(s, i, base);
 }
 
-[[nodiscard]] inline bool to_int64(char const * s, int64_t & i)
+[[nodiscard]] inline bool to_int64(std::string_view s, int64_t & i, int base = 10)
 {
-  return internal::ToInteger(s, i);
+  return impl::from_sv(s, i, base);
 }
 
 // Unlike the 64-bit version, to_uint32 is not guaranteed to convert negative values.
@@ -477,84 +444,34 @@ bool ToInteger(char const * start, T & result, int base = 10)
 // conversions may differ between platforms.
 // Converting strings representing negative numbers to unsigned integers looks like a bad
 // idea anyway and it's not worth changing the implementation solely for this reason.
-[[nodiscard]] inline bool to_uint32(char const * s, uint32_t & i, int base = 10)
+[[nodiscard]] inline bool to_uint32(std::string_view s, uint32_t & i, int base = 10)
 {
-  return internal::ToInteger(s, i, base);
+  return impl::from_sv(s, i, base);
 }
 
-[[nodiscard]] inline bool to_int32(char const * s, int32_t & i)
+[[nodiscard]] inline bool to_int32(std::string_view s, int32_t & i, int base = 10)
 {
-  return internal::ToInteger(s, i);
+  return impl::from_sv(s, i, base);
 }
 
-[[nodiscard]] bool to_size_t(char const * s, size_t & i, int base = 10);
-// Both functions return false for INF, NAN, numbers like "1." and "0.4 ".
-[[nodiscard]] bool to_float(char const * s, float & f);
-[[nodiscard]] bool to_double(char const * s, double & d);
-[[nodiscard]] bool is_finite(double d);
+[[nodiscard]] inline bool to_size_t(std::string_view sv, size_t & i, int base = 10)
+{
+  uint64_t num = 0;
+  if (!to_uint64(sv, num, base))
+    return false;
 
-[[nodiscard]] inline bool to_int(std::string const & s, int & i, int base = 10)
-{
-  return to_int(s.c_str(), i, base);
-}
-[[nodiscard]] inline bool to_uint(std::string const & s, unsigned int & i, int base = 10)
-{
-  return to_uint(s.c_str(), i, base);
+  i = static_cast<size_t>(num);
+  return true;
 }
 
-// Note: negative values will be converted too.
-// For ex. "-1" converts to uint64_t max value.
-[[nodiscard]] inline bool to_uint64(std::string const & s, uint64_t & i, int base = 10)
+[[nodiscard]] inline bool to_float(std::string_view sv, float & f)
 {
-  return to_uint64(s.c_str(), i, base);
-}
-[[nodiscard]] inline bool to_int64(std::string const & s, int64_t & i)
-{
-  return to_int64(s.c_str(), i);
-}
-[[nodiscard]] inline bool to_uint32(std::string const & s, uint32_t & i, int base = 10)
-{
-  return to_uint32(s.c_str(), i, base);
-}
-[[nodiscard]] inline bool to_int32(std::string const & s, int32_t & i)
-{
-  return to_int32(s.c_str(), i);
-}
-[[nodiscard]] inline bool to_size_t(std::string const & s, size_t & i)
-{
-  return to_size_t(s.c_str(), i);
-}
-[[nodiscard]] inline bool to_float(std::string const & s, float & f)
-{
-  return to_float(s.c_str(), f);
-}
-[[nodiscard]] inline bool to_double(std::string const & s, double & d)
-{
-  return to_double(s.c_str(), d);
+  return impl::from_sv(sv, f);
 }
 
-namespace impl
+[[nodiscard]] inline bool to_double(std::string_view sv, double & d)
 {
-template <typename T>
-bool from_sv(std::string_view sv, T & t)
-{
-  auto const end = sv.data() + sv.size();
-  auto const res = std::from_chars(sv.data(), end, t);
-  return (res.ec != std::errc::invalid_argument && res.ec != std::errc::result_out_of_range && res.ptr == end);
-}
-}  // namespace impl
-
-template <class T>
-inline bool to_uint(std::string_view sv, T & i)
-{
-  static_assert(std::is_unsigned<T>::value, "");
-  return impl::from_sv(sv, i);
-}
-
-inline bool to_double(std::string_view sv, double & d)
-{
-  /// @todo std::from_chars still not implemented?
-  return to_double(std::string(sv), d);
+  return impl::from_sv(sv, d);
 }
 //@}
 
@@ -576,17 +493,17 @@ std::string to_string(T t)
   return ss.str();
 }
 
-template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
-[[nodiscard]] inline bool to_any(std::string const & s, T & i)
+template <std::integral T>
+[[nodiscard]] bool to_any(std::string_view s, T & i)
 {
-  return internal::ToInteger(s.c_str(), i);
+  return impl::from_sv(s, i);
 }
 
-[[nodiscard]] inline bool to_any(std::string const & s, float & f)
+[[nodiscard]] inline bool to_any(std::string_view const & s, float & f)
 {
   return to_float(s, f);
 }
-[[nodiscard]] inline bool to_any(std::string const & s, double & d)
+[[nodiscard]] inline bool to_any(std::string_view const & s, double & d)
 {
   return to_double(s, d);
 }
@@ -614,7 +531,7 @@ std::string to_string_dac(double d, int dac);
 //@}
 
 // Get string with fixed width. Extra '0' are added at the begining to fit size.
-template <typename T, typename = std::enable_if_t<std::is_integral<T>::value>>
+template <std::integral T>
 std::string to_string_width(T l, int width)
 {
   std::ostringstream ss;

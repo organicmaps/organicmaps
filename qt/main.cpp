@@ -23,8 +23,6 @@
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 
-#include <sstream>
-
 #include <gflags/gflags.h>
 
 DEFINE_string(data_path, "", "Path to data directory.");
@@ -107,12 +105,6 @@ typedef FinalizeBase InitializeFinalize;
 
 int main(int argc, char * argv[])
 {
-  // Our double parsing code (base/string_utils.hpp) needs dots as a floating point delimiters, not commas.
-  // TODO: Refactor our doubles parsing code to use locale-independent delimiters.
-  // For example, https://github.com/google/double-conversion can be used.
-  // See http://dbaron.org/log/20121222-locale for more details.
-  (void)::setenv("LC_NUMERIC", "C", 1);
-
   Platform & platform = GetPlatform();
 
   LOG(LINFO, ("Organic Maps", platform.Version(), "built with QT:", QT_VERSION_STR, "runtime QT:", qVersion(),
