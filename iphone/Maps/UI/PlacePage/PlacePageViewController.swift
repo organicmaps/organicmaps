@@ -332,6 +332,7 @@ extension PlacePageViewController: PlacePageViewProtocol {
 
   @objc
   func closeAnimated(completion: (() -> Void)? = nil) {
+    view.isUserInteractionEnabled = false
     alternativeSizeClass(iPhone: {
       self.scrollTo(CGPoint(x: 0, y: -self.scrollView.height + 1),
                     forced: true) {
