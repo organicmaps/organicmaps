@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/relations_draw_info.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/tile_key.hpp"
@@ -142,17 +143,18 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 
 public:
   ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                           double currentScaleGtoP);
+                           double currentScaleGtoP, RelationsDrawSettings const & relsSettings);
 
   void operator()(m2::PointD const & point);
   bool HasGeometry() const { return m_spline->IsValid(); }
   void ProcessLineRules(Stylist::LineRulesT const & lineRules);
 
-  std::vector<m2::SharedSpline> const & GetClippedSplines() const { return m_clippedSplines; }
+  std::vector<m2::SharedSpline> MoveClippedSplines() const { return std::move(m_clippedSplines); }
 
 private:
   void ProcessRule(LineRuleProto const & lineRule);
 
+  RelationsDrawInfo m_relsInfo;
   m2::SharedSpline m_spline;
   std::vector<m2::SharedSpline> m_clippedSplines;
   double const m_currentScaleGtoP;

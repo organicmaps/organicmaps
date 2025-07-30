@@ -2,8 +2,7 @@
 
 #include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/map_shape.hpp"
-#include "drape_frontend/metaline_manager.hpp"
-#include "drape_frontend/tile_key.hpp"
+#include "drape_frontend/relations_draw_info.hpp"
 #include "drape_frontend/traffic_generator.hpp"
 
 #include "drape/pointers.hpp"
@@ -11,12 +10,10 @@
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/rect2d.hpp"
-#include "geometry/screenbase.hpp"
+#include "geometry/spline.hpp"
 
 #include <array>
 #include <functional>
-#include <map>
-#include <string>
 #include <unordered_set>
 
 class FeatureType;
@@ -82,5 +79,7 @@ private:
 
   uint8_t m_zoomLevel = 0;
   bool m_wasCancelled = false;
+
+  RelationsDrawSettings m_relsSettings;
 };
 }  // namespace df

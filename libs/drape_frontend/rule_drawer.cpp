@@ -2,6 +2,7 @@
 
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -12,6 +13,8 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
+
+#include "platform/settings.hpp"
 
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
@@ -185,6 +188,11 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
 
   int const kAverageOverlaysCount = 200;
   m_mapShapes[df::OverlayType].reserve(kAverageOverlaysCount);
+
+  /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
+  /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)
+  m_relsSettings.hiking = settings::IsEnabled(kHikingEnabledKey);
+  m_relsSettings.cycling = settings::IsEnabled(kCyclingEnabledKey);
 }
 
 RuleDrawer::~RuleDrawer()
@@ -318,7 +326,7 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
 
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
 {
-  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP);
+  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP, m_relsSettings);
   f.ForEachPoint(applyGeom, m_zoomLevel);
 
   if (applyGeom.HasGeometry())
@@ -332,7 +340,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
     if (metalineSpline.IsNull())
     {
       // There is no metaline for this feature.
-      clippedSplines = applyGeom.GetClippedSplines();
+      clippedSplines = applyGeom.MoveClippedSplines();
     }
     else if (m_usedMetalines.insert(metalineSpline.Get()).second)
     {
