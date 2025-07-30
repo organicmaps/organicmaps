@@ -1,6 +1,5 @@
 #include "testing/testing.hpp"
 
-#include "geometry/geometry_tests/equality.hpp"
 #include "geometry/spline.hpp"
 
 #include <vector>
@@ -222,4 +221,78 @@ UNIT_TEST(Length)
   double len2 = l1 + l2 + l3 + l4;
   TEST_ALMOST_EQUAL_ULPS(len1, len2, ());
 }
+
+UNIT_TEST(Spline_Equidistant)
+{
+  double constexpr eps = 1.0E-9;
+
+  {
+    Spline s({
+        {0, 0},
+        {1, 0}
+    });
+    Spline equidistant;
+    s.Equidistant(1, equidistant);
+
+    Spline expected({
+        {0, -1},
+        {1, -1}
+    });
+    TEST_ALMOST_EQUAL_ABS(equidistant, expected, eps, ());
+  }
+  {
+    Spline s({
+        {0, 0},
+        {1, 0},
+        {2, 0}
+    });
+    Spline equidistant;
+    s.Equidistant(-1, equidistant);
+
+    Spline expected({
+        {0, 1},
+        {1, 1},
+        {2, 1}
+    });
+    TEST_ALMOST_EQUAL_ABS(equidistant, expected, eps, ());
+  }
+
+  {
+    Spline s({
+        {0, 0},
+        {2, 2},
+        {4, 0},
+        {6, 2}
+    });
+    Spline equidistant;
+    s.Equidistant(-sqrt(2), equidistant);
+
+    Spline expected({
+        {-1, 1},
+        { 2, 4},
+        { 4, 2},
+        { 5, 3}
+    });
+    TEST_ALMOST_EQUAL_ABS(equidistant, expected, eps, ());
+  }
+  {
+    Spline s({
+        {0, 0},
+        {2, 2},
+        {4, 0},
+        {6, 2}
+    });
+    Spline equidistant;
+    s.Equidistant(sqrt(2), equidistant);
+
+    Spline expected({
+        {1, -1},
+        {2,  0},
+        {4, -2},
+        {7,  1}
+    });
+    TEST_ALMOST_EQUAL_ABS(equidistant, expected, eps, ());
+  }
+}
+
 }  // namespace spline_test

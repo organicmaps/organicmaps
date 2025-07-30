@@ -79,8 +79,13 @@ public:
   /// @return for (i) -> (i + 1) section.
   std::pair<PointD, double> GetTangentAndLength(size_t i) const;
 
+  void Equidistant(double dist, Spline & res) const;
+
+  friend std::string DebugPrint(Spline const & s);
+
 protected:
   void InitDirections();
+  void Reserve(size_t sz);
 
   std::vector<PointD> m_position;
   std::vector<PointD> m_direction;
@@ -111,10 +116,13 @@ public:
 
   Spline * operator->();
   Spline const * operator->() const;
-
   Spline const * Get() const;
+
+  SharedSpline Equidistant(double dist) const;
 
 private:
   std::shared_ptr<Spline> m_spline;
 };
+
+bool AlmostEqualAbs(Spline const & s1, Spline const & s2, double eps);
 }  // namespace m2
