@@ -1,0 +1,22 @@
+Organic Maps Binary Data License
+
+The Organic Maps project provides compiled binary data files (including but not limited to `.mwm` map files) under a separate license from the source code.
+
+You may use these files in your applications (open-source or commercial) under the following conditions:
+
+1. **Attribution Required**
+   You must clearly and visibly credit the "Organic Maps Project" in your application:
+   - In user-visible areas such as the **About screen** and **Main Menu**.
+   - Include a **clickable link** to https://organicmaps.app
+
+2. **No Redistribution Without Attribution**
+   You may not distribute or embed the binary files (e.g., `.mwm` maps) in your software without providing the above attribution.
+
+3. **No White-Labeling or Branding Removal**
+   Any white-labeling or rebranding use requires **explicit written permission** from the Organic Maps team. Contact: legal@organicmaps.app
+
+---
+
+By using the binary data files, you agree to these terms. If you do not agree, do not use or redistribute the data files.
+
+For questions or licensing inquiries: legal@organicmaps.app
