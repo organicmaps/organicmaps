@@ -82,8 +82,6 @@ jobs:
           key: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}-${{ github.sha }}
           restore-keys: xcode-cache-deriveddata-${{ github.workflow }}-${{ matrix.buildType }}
           delete-used-deriveddata-cache: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Run Tests (Debug)
         if: matrix.buildType == 'Debug'
