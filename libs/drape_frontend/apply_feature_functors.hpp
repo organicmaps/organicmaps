@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/relations_draw_info.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/tile_key.hpp"
@@ -142,13 +143,15 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 
 public:
   ApplyLineFeatureGeometry(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
-                           double currentScaleGtoP);
+                           double currentScaleGtoP, MapStyle style);
 
   void operator()(m2::PointD const & point);
   bool HasGeometry() const { return m_spline->IsValid(); }
   void ProcessLineRules(Stylist::LineRulesT const & lineRules);
 
-  std::vector<m2::SharedSpline> const & GetClippedSplines() const { return m_clippedSplines; }
+  std::vector<m2::SharedSpline> MoveClippedSplines() const { return std::move(m_clippedSplines); }
+
+  RelationsDrawInfo m_relsInfo;
 
 private:
   void ProcessRule(LineRuleProto const & lineRule);
@@ -173,7 +176,8 @@ class ApplyLineFeatureAdditional : public BaseApplyFeature
 public:
   ApplyLineFeatureAdditional(TileKey const & tileKey, TInsertShapeFn const & insertShape, FeatureType & f,
                              double currentScaleGtoP, CaptionDescription const & captions,
-                             std::vector<m2::SharedSpline> && clippedSplines);
+                             std::vector<m2::SharedSpline> && clippedSplines,
+                             RelationsDrawInfo const & relsInfo);
 
   void ProcessAdditionalLineRules(PathTextRuleProto const * pathtextRule, ShieldRuleProto const * shieldRule,
                                   ref_ptr<dp::TextureManager> texMng, ftypes::RoadShieldsSetT const & roadShields,
@@ -192,6 +196,7 @@ private:
   float m_captionDepth = 0.0f, m_shieldDepth = 0.0f;
   CaptionDefProto const * m_captionRule = nullptr;
   ShieldRuleProto const * m_shieldRule = nullptr;
+  RelationsDrawInfo const & m_relsInfo;
 };
 
 extern dp::Color ToDrapeColor(uint32_t src);

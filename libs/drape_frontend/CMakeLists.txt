@@ -144,6 +144,8 @@ set(SRC
   read_metaline_task.hpp
   read_mwm_task.cpp
   read_mwm_task.hpp
+  relations_draw_info.cpp
+  relations_draw_info.hpp
   render_group.cpp
   render_group.hpp
   render_node.hpp

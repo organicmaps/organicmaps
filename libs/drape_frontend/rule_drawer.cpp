@@ -2,6 +2,7 @@
 
 #include "drape_frontend/apply_feature_functors.hpp"
 #include "drape_frontend/engine_context.hpp"
+#include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -11,6 +12,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/clipping.hpp"
@@ -185,6 +187,8 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
 
   int const kAverageOverlaysCount = 200;
   m_mapShapes[df::OverlayType].reserve(kAverageOverlaysCount);
+
+  m_style = GetStyleReader().GetCurrentStyle();
 }
 
 RuleDrawer::~RuleDrawer()
@@ -312,7 +316,7 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
 
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertShapeFn const & insertShape)
 {
-  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP);
+  ApplyLineFeatureGeometry applyGeom(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP, m_style);
   f.ForEachPoint(applyGeom, m_zoomLevel);
 
   if (applyGeom.HasGeometry())
@@ -326,7 +330,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
     if (metalineSpline.IsNull())
     {
       // There is no metaline for this feature.
-      clippedSplines = applyGeom.GetClippedSplines();
+      clippedSplines = applyGeom.MoveClippedSplines();
     }
     else if (m_usedMetalines.insert(metalineSpline.Get()).second)
     {
@@ -337,7 +341,8 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
     if (!clippedSplines.empty())
     {
       ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP,
-                                                 s.GetCaptionDescription(), std::move(clippedSplines));
+                                                 s.GetCaptionDescription(), std::move(clippedSplines),
+                                                 applyGeom.m_relsInfo);
       applyAdditional.ProcessAdditionalLineRules(s.m_pathtextRule, s.m_shieldRule, m_context->GetTextureManager(),
                                                  s.m_roadShields, m_generatedRoadShields);
     }
