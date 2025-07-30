@@ -2657,7 +2657,7 @@ pl:Sklep rowerowy|4rower
 pt:Loja de bicicletas|4bicicleta
 pt-BR:Loja de bicicletas|4bicicletaria|4bicicleta|bike
 ro:3Bicicletă|Magazin biciclete
-es:Tienda de bicicletas|4bicicleta|bici
+es:Tienda de bicicletas|4bicicleta|Tienda de bicis
 et:3Jalgrattapood
 eu:4Bizikleta-denda|4bizikleta
 sr:Бицикли|Bicikli
@@ -4995,7 +4995,7 @@ pl:4Wynajem rowerów|4rower|3Wynajem
 pt:Aluguer de bicicletas|4bicicleta|3aluguar
 pt-BR:Aluguel de bicicletas|4bicicleta|3aluguel
 ro:Închiriere de biciclete|Bicicletă
-es:Alquiler de bicicletas|4bicicleta|3alquiler
+es:3Alquiler de bicicletas|4bicicleta|alquiler|Alquiler de bicis
 et:Jalgrataste laenutus
 eu:Bizikleta alokairua|4bizikleta|3alokairua
 sr:Изнајмљивање бицикала|Iznajmljivanje bicikala
@@ -5017,7 +5017,7 @@ ar:تصليح الدراجات
 cs:Oprava jízdních kol|4jízdní kolo|3kolo|Oprava
 da:4Cykel reparation
 de:4Fahrradreparatur|Radservicestation|Radreparatur
-es:Reparación de bicicletas|4bicicleta
+es:Reparación de bicicletas|4bicicleta|Reparación de bicis
 et:Jalgrataste remondipunkt
 fa:تعمیر دوچرخه
 fi:Polkupyörän korjaus
@@ -5100,7 +5100,7 @@ pl:Wynajem samochodów|samochód|auto|Wynajem
 pt:Aluguer de automóveis|3carro|3automóvel|3aluguer|3rent-a-car
 pt-BR:Aluguel de automóveis|carro|aluguel
 ro:Închiriere mașini
-es:3Coche de alquiler|alquiler|rentadora|alquiladora|alquiler de coches|alquiler de autos|alquiler de carros
+es:3Coche de alquiler|alquiler|rentadora|alquiladora|3alquiler de coches|alquiler de autos|alquiler de carros
 et:4Autorent
 eu:3Autoa alokairua|alokairua
 sv:3Biluthyrning|bilpool|bil|uthyrning|delning
@@ -5126,7 +5126,7 @@ cs:Půjčovna motocyklů
 da:Udlejning af motorcykler
 de:Motorradvermietung
 el:Ενοικίαση μοτοσικλέτας
-es:Alquiler de motos
+es:3Alquiler de motos
 et:Mootorratta rentimine
 eu:Motorren alokairua
 fa:اجاره موتور سیکلت
@@ -12975,7 +12975,7 @@ cs:Nabíjení jízdních kol
 da:Opladning af cykler
 de:Fahrrad aufladen
 el:Φόρτιση ποδηλάτων
-es:Carga de bicicletas
+es:Carga de bicicletas|4bicicleta|Carga de bicis
 et:Jalgratta laadimine
 eu:Bizikleta kargatzea
 fa:شارژ دوچرخه
@@ -13076,7 +13076,7 @@ pl:Parking dla rowerów
 pt:Estacionamento de bicicletas
 pt-BR:Bicicletário|estacionamento de bicicletas
 ro:Parcare biciclete
-es:5Aparcamiento de bicicletas|5Estacionamiento de bicicletas|4Parking de bicicletas|Aparcamiento de bicis|Estacionamiento de bicis|Parking de bicis
+es:5Aparcamiento de bicicletas|5Estacionamiento de bicicletas|4Parking de bicicletas|Aparcamiento de bicis|Estacionamiento de bicis|Parking de bicis|4bicicleta
 et:4Jalgrattaparkla
 eu:Bizikleta aparkalekua
 sr:Паркинг за бицикле|Parking za bicikle
@@ -18959,7 +18959,7 @@ cs:Úniková místnost
 da:Escape room
 de:Escape room
 el:Δωμάτιο απόδρασης
-es:Escape room
+es:Escape room|Sala de escape|Cuarto de escape
 et:Põgenemistuba
 eu:Ihes gela
 fa:اتاق فرار
@@ -19001,7 +19001,7 @@ cs:Skříňka na zavazadla
 da:Bagageskab
 de:Gepäckschließfach
 el:Θυρίδα αποσκευών
-es:Consigna de equipajes
+es:Consigna de equipajes|Guardaequipaje
 et:Pagasiruum
 eu:Ekipajearen aldagela
 fa:قفل چمدان
