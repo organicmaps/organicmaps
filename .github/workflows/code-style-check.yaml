@@ -1,9 +1,11 @@
 name: Code style check
 
 on:
-  pull_request:
+  # pull_request_target is required because pull_request does not provide
+  # sufficient permissions for reviewdog
+  pull_request_target:
     branches: [ master ]
-    paths:  # Should stay in sync with tools/unix/clang-format.sh
+    paths: # Should stay in sync with tools/unix/clang-format.sh
       - '.github/workflows/code-style-check.yaml'
       - 'android/app/src/**.java'
       - 'android/sdk/src/**.java'
