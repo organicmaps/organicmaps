@@ -154,6 +154,19 @@ public:
                 kml::SetDefaultStr(name, feature.m_properties["name"]);
                 bookmark.m_name = name;
             }
+            if (feature.m_properties.contains("description")) {
+                auto descr = kml::LocalizableString();
+                kml::SetDefaultStr(descr, feature.m_properties["description"]);
+                bookmark.m_description = descr;
+            }
+            if (feature.m_properties.contains("marker-color")) {
+                //auto const markerColor = feature.m_properties["marker-color"];
+                //bookmark.m_color = TODO;
+            }
+            if (feature.m_properties.contains("marker-symbol")) {
+                //auto const markerSymbol = feature.m_properties["marker-symbol"];
+                //bookmark.m_color = TODO;
+            }
             bookmark.m_point = point;
             m_fileData.m_bookmarksData.push_back(bookmark);
         }
