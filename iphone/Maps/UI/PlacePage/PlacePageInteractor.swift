@@ -203,7 +203,7 @@ extension PlacePageInteractor: PlacePageEditBookmarkOrTrackViewControllerDelegat
     case .bookmark(let bookmarkData):
       let bookmarkColor = BookmarkColor.bookmarkColor(from: color) ?? bookmarkData.color
       MWMPlacePageManagerHelper.updateBookmark(placePageData, color: bookmarkColor, category: category)
-    case .track(let trackData):
+    case .track:
       MWMPlacePageManagerHelper.updateTrack(placePageData, color: color, category: category)
     }
   }
