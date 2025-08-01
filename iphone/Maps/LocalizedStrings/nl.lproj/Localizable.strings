@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "Route is leeg - niets om op te slaan";
 "edit_track" = "Route bewerken";
 "saved" = "Opgeslagen";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

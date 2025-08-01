@@ -661,6 +661,8 @@
     <string name="privacy_policy">Política de privadesa</string>
     <string name="terms_of_use">Condicions del servei</string>
     <string name="button_layer_traffic">Trànsit</string>
+    <string name="button_layer_hiking">Pujada</string>
+    <string name="button_layer_cycling">Ciclisme</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estils i capes del mapa</string>
     <string name="subway_data_unavailable">El mapa del metro no està disponible</string>

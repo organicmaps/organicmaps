@@ -565,3 +565,5 @@
 "editor_category_unsuitable_text" = "Organic Maps permite engadir unicamente categorías de puntos sinxelos, é dicir, non cidades, estradas, lagos, contornos de edificios, etc. Por favor, anada ditas categorías directamente <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulte nosa <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guía</a> para obter instrucións detalladas paso a paso.";
 "bugreport_alert_message" = "Quere enviar un informe de erro aos desenvolvedores?\nDependemos dos nosos usuarios, xa que Organic Maps non recolle ningunha información sobre erros de forma automática. Grazas de antemán por apoiar a Organic Maps!";
 "saved" = "Gardado";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

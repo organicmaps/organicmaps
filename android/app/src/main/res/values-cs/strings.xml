@@ -630,6 +630,8 @@
     <string name="privacy_policy">Zásady ochrany osobních údajů</string>
     <string name="terms_of_use">Podmínky užívání</string>
     <string name="button_layer_traffic">Zácpy</string>
+    <string name="button_layer_hiking">Turistika</string>
+    <string name="button_layer_cycling">Cyklistika</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Styly a vrstvy mapy</string>
     <string name="subway_data_unavailable">Mapa metra není dostupná</string>

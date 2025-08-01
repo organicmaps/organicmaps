@@ -671,6 +671,8 @@
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="terms_of_use">Условия использования</string>
     <string name="button_layer_traffic">Пробки</string>
+    <string name="button_layer_hiking">Пешие маршруты</string>
+    <string name="button_layer_cycling">Веломаршруты</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стили и слои карты</string>
     <string name="subway_data_unavailable">Карта метро недоступна</string>

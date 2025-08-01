@@ -565,3 +565,5 @@
 "delete_all" = "Delete All";
 "recover" = "Recover";
 "recover_all" = "Recover All";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

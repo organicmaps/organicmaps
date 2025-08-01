@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก";
 "edit_track" = "แก้ไขเส้นทาง";
 "saved" = "Saved";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

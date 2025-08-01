@@ -604,6 +604,8 @@
     <string name="privacy_policy">Политика за поверителност</string>
     <string name="terms_of_use">Условия за ползване</string>
     <string name="button_layer_traffic">Трафик</string>
+    <string name="button_layer_hiking">Пешеходен туризъм</string>
+    <string name="button_layer_cycling">Велосипеден туризъм</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стилове и слоеве на картата</string>
     <string name="subway_data_unavailable">Картата на метрото не е налична</string>

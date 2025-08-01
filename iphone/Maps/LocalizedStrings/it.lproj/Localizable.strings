@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "La traccia è vuota - non c'è nulla da salvare";
 "edit_track" = "Modifica traccia";
 "saved" = "Salvato";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

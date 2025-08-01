@@ -656,6 +656,8 @@
     <string name="terms_of_use">Kullanım koşulları</string>
     <string name="button_layer_traffic">Trafik</string>
     <string name="button_layer_subway">Metro</string>
+    <string name="button_layer_hiking">Dağ Yürüyüşü</string>
+    <string name="button_layer_cycling">Bisiklet</string>
     <string name="layers_title">Harita Stilleri ve Katmanlar</string>
     <string name="subway_data_unavailable">Metro haritası yok</string>
     <string name="bookmarks_empty_list_title">Bu liste boş</string>
