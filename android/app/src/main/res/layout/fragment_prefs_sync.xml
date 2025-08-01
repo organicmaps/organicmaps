@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?android:attr/colorBackground"
+  android:orientation="vertical">
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_base"
+    android:text="@string/cloud_sync_accounts"
+    android:textColor="?android:attr/colorAccent"
+    android:textSize="@dimen/text_size_body_3" />
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_sync_accounts"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginHorizontal="@dimen/margin_half"
+    android:layout_weight="1"
+    tools:itemCount="2"
+    tools:listitem="@layout/item_sync_account" />
+
+  <TextView
+    android:id="@+id/tv_add_sync_account_hint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_weight="100"
+    android:padding="@dimen/margin_base"
+    android:text="@string/add_sync_account_hint"
+    android:textSize="@dimen/text_size_body_3"
+    android:visibility="gone"
+    android:textAlignment="center" />
+
+  <Button
+    style="@style/MwmWidget.Button.Primary"
+    android:id="@+id/btn_add_sync_account"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:text="@string/add_sync_account" />
+
+</LinearLayout>
