@@ -661,6 +661,8 @@
     <string name="privacy_policy">Polityka prywatności</string>
     <string name="terms_of_use">Warunki użytkowania</string>
     <string name="button_layer_traffic">Ruch drogowy</string>
+    <string name="button_layer_hiking">Wędrówki</string>
+    <string name="button_layer_cycling">Kolarstwo</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Style i warstwy mapy</string>
     <string name="subway_data_unavailable">Mapa metra jest niedostępna</string>

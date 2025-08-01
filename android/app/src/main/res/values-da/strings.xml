@@ -616,6 +616,8 @@
     <string name="privacy_policy">Privatlivspolitik</string>
     <string name="terms_of_use">Vilkår for bruger</string>
     <string name="button_layer_traffic">Trafik</string>
+    <string name="button_layer_hiking">Vandring</string>
+    <string name="button_layer_cycling">Cykling</string>
     <string name="button_layer_subway">Undergrundsbane</string>
     <string name="layers_title">Kortstile og -lag</string>
     <string name="subway_data_unavailable">Kort over undergrundsbaner er ikke tilgængeligt</string>

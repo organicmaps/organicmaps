@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "Η διαδρομή είναι άδεια - δεν υπάρχει τίποτα να αποθηκεύσετε";
 "edit_track" = "Επεξεργασία διαδρομής";
 "saved" = "Αποθηκεύτηκε";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

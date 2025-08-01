@@ -622,6 +622,8 @@
     <string name="privacy_policy">Privatumo politika</string>
     <string name="terms_of_use">Naudojimo sąlygos</string>
     <string name="button_layer_traffic">Eismas</string>
+    <string name="button_layer_hiking">Žygiai</string>
+    <string name="button_layer_cycling">Dviračių takai</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Žemėlapio stiliai ir sluoksniai</string>
     <string name="subway_data_unavailable">Metro žemėlapis neprieinamas</string>

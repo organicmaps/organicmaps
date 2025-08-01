@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "Sporet er tomt - der er ikke noget at gemme";
 "edit_track" = "Rediger spor";
 "saved" = "Gemt";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

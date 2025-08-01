@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
 "edit_track" = "Muuda rada";
 "saved" = "Salvestatud";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

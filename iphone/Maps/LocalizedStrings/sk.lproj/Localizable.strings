@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "Trasa je prázdna - nie je čo ukladať";
 "edit_track" = "Upraviť trasu";
 "saved" = "Saved";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

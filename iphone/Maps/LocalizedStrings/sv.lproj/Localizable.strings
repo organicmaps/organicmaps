@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "Routen är tom - inget att spara";
 "edit_track" = "Redigera spår";
 "saved" = "Saved";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

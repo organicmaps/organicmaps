@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "Jalur kosong - tidak ada yang bisa disimpan";
 "edit_track" = "Edit Jalur";
 "saved" = "Saved";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

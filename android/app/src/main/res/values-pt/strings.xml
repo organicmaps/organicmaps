@@ -635,6 +635,8 @@
     <string name="privacy_policy">Política de privacidade</string>
     <string name="terms_of_use">Termos de utilização</string>
     <string name="button_layer_traffic">Tráfego</string>
+    <string name="button_layer_hiking">Caminhadas</string>
+    <string name="button_layer_cycling">Ciclismo</string>
     <string name="button_layer_subway">Metropolitano</string>
     <string name="layers_title">Estilos e camadas de mapas</string>
     <string name="subway_data_unavailable">O mapa de metropolitano não está disponível</string>

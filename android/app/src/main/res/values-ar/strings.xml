@@ -681,6 +681,8 @@
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="terms_of_use">شروط الاستخدام</string>
     <string name="button_layer_traffic">حركة مرور</string>
+    <string name="button_layer_hiking">تضاريس</string>
+    <string name="button_layer_cycling">ركوب الدراجات</string>
     <string name="button_layer_subway">مترو الانفاق</string>
     <string name="layers_title">أنماط الخريطة وطبقاتها</string>
     <string name="subway_data_unavailable">خريطة مترو الانفاق غير متوفرة</string>

@@ -668,6 +668,8 @@
     <string name="privacy_policy">隐私政策</string>
     <string name="terms_of_use">使用条款</string>
     <string name="button_layer_traffic">路况</string>
+    <string name="button_layer_hiking">徒步</string>
+    <string name="button_layer_cycling">骑行</string>
     <string name="button_layer_subway">地铁</string>
     <string name="layers_title">地图样式和图层</string>
     <string name="subway_data_unavailable">地铁地图不可用</string>

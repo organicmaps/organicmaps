@@ -1061,3 +1061,5 @@
 "track_recording_toast_nothing_to_save" = "Путања је празна, нема шта да се сачува";
 "edit_track" = "Измените путању";
 "saved" = "Saved";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";

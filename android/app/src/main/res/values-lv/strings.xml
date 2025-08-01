@@ -651,6 +651,8 @@
     <string name="privacy_policy">Privātuma politika</string>
     <string name="terms_of_use">Lietošanas noteikumi</string>
     <string name="button_layer_traffic">Satiksme</string>
+    <string name="button_layer_hiking">Pārgājieni</string>
+    <string name="button_layer_cycling">Riteņbraukšana</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Kartes stili un slāņi</string>
     <string name="subway_data_unavailable">Metro karte nav pieejama</string>
