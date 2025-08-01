@@ -142,15 +142,15 @@ void VulkanBaseContext::SetRenderingQueue(VkQueue queue)
   m_queue = queue;
 }
 
-void VulkanBaseContext::Resize(int w, int h)
+void VulkanBaseContext::Resize(uint32_t w, uint32_t h)
 {
-  if (m_swapchain != VK_NULL_HANDLE && m_surfaceCapabilities.currentExtent.width == static_cast<uint32_t>(w) &&
-      m_surfaceCapabilities.currentExtent.height == static_cast<uint32_t>(h))
+  if (m_swapchain != VK_NULL_HANDLE && m_surfaceCapabilities.currentExtent.width == w &&
+      m_surfaceCapabilities.currentExtent.height == h)
   {
     return;
   }
-  m_surfaceCapabilities.currentExtent.width = static_cast<uint32_t>(w);
-  m_surfaceCapabilities.currentExtent.height = static_cast<uint32_t>(h);
+  m_surfaceCapabilities.currentExtent.width = w;
+  m_surfaceCapabilities.currentExtent.height = h;
   RecreateSwapchainAndDependencies();
 }
 

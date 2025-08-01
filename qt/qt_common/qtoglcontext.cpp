@@ -53,17 +53,15 @@ void QtRenderOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer
     m_backFrame->bind();
 }
 
-void QtRenderOGLContext::Resize(int w, int h)
+void QtRenderOGLContext::Resize(uint32_t w, uint32_t h)
 {
   CHECK(m_isContextAvailable, ());
-  CHECK_GREATER_OR_EQUAL(w, 0, ());
-  CHECK_GREATER_OR_EQUAL(h, 0, ());
 
   // This function can't be called inside BeginRendering - EndRendering.
-  std::lock_guard<std::mutex> lock(m_frameMutex);
+  std::lock_guard lock(m_frameMutex);
 
-  auto const nw = static_cast<int>(math::NextPowOf2(static_cast<uint32_t>(w)));
-  auto const nh = static_cast<int>(math::NextPowOf2(static_cast<uint32_t>(h)));
+  auto const nw = static_cast<int>(math::NextPowOf2(w));
+  auto const nh = static_cast<int>(math::NextPowOf2(h));
 
   if (nw <= m_width && nh <= m_height && m_backFrame != nullptr)
   {
@@ -86,7 +84,7 @@ bool QtRenderOGLContext::AcquireFrame()
   if (!m_isContextAvailable)
     return false;
 
-  std::lock_guard<std::mutex> lock(m_frameMutex);
+  std::lock_guard lock(m_frameMutex);
   // Render current acquired frame.
   if (!m_frameUpdated)
     return true;

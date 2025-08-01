@@ -61,7 +61,7 @@ public:
   virtual void ForgetFramebuffer(ref_ptr<BaseFramebuffer> framebuffer) = 0;
   virtual void ApplyFramebuffer(std::string const & framebufferLabel) = 0;
   // w, h - pixel size of render target (logical size * visual scale).
-  virtual void Resize(int /* w */, int /* h */) {}
+  virtual void Resize(uint32_t /* w */, uint32_t /* h */) {}
   virtual void SetRenderingEnabled(bool /* enabled */) {}
   virtual void SetPresentAvailable(bool /* available */) {}
   virtual bool Validate() { return true; }

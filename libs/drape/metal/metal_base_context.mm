@@ -129,12 +129,12 @@ void MetalBaseContext::PopDebugLabel()
   [m_currentCommandEncoder popDebugGroup];
 }
 
-void MetalBaseContext::Resize(int w, int h)
+void MetalBaseContext::Resize(uint32_t w, uint32_t h)
 {
   if (m_depthTexture && m_depthTexture->GetWidth() == w && m_depthTexture->GetHeight() == h)
     return;
 
-  RecreateDepthTexture(m2::PointU(w, h));
+  RecreateDepthTexture({w, h});
 }
 
 void MetalBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)

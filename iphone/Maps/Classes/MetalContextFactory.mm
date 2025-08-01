@@ -12,7 +12,7 @@ public:
     , m_metalLayer(metalLayer)
   {}
 
-  void Resize(int w, int h) override
+  void Resize(uint32_t w, uint32_t h) override
   {
     m_metalLayer.drawableSize = CGSize{static_cast<float>(w), static_cast<float>(h)};
     ResetFrameDrawable();
@@ -30,7 +30,7 @@ public:
 
   void Present() override {}
   void MakeCurrent() override {}
-  void Resize(int w, int h) override {}
+  void Resize(uint32_t w, uint32_t h) override {}
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override {}
   void Init(dp::ApiVersion apiVersion) override { CHECK_EQUAL(apiVersion, dp::ApiVersion::Metal, ()); }
 
