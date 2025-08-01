@@ -261,8 +261,7 @@ void MetalBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
 void MetalBaseContext::SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
   id<MTLRenderCommandEncoder> encoder = GetCommandEncoder();
-  [encoder setViewport:{static_cast<double>(x), static_cast<double>(y), static_cast<double>(w), static_cast<double>(h),
-                        0.0, 1.0}];
+  [encoder setViewport:MTLViewport(x, y, w, h, 0.0, 1.0)];
   [encoder setScissorRect:{x, y, w, h}];
 }
 
@@ -271,8 +270,8 @@ void MetalBaseContext::SetScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h
   id<MTLRenderCommandEncoder> encoder = GetCommandEncoder();
   if (m_renderPassDescriptor.colorAttachments[0].texture != nil)
   {
-    uint32_t const rpWidth = m_renderPassDescriptor.colorAttachments[0].texture.width;
-    uint32_t const rpHeight = m_renderPassDescriptor.colorAttachments[0].texture.height;
+    auto const rpWidth = static_cast<uint32_t>(m_renderPassDescriptor.colorAttachments[0].texture.width);
+    auto const rpHeight = static_cast<uint32_t>(m_renderPassDescriptor.colorAttachments[0].texture.height);
     if (x < 0)
       x = 0;
     if (y < 0)
