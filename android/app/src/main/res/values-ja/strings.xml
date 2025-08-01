@@ -659,6 +659,8 @@
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="terms_of_use">利用規約</string>
     <string name="button_layer_traffic">交通状況</string>
+    <string name="button_layer_hiking">ハイキング</string>
+    <string name="button_layer_cycling">サイクリング</string>
     <string name="button_layer_subway">地下鉄</string>
     <string name="layers_title">マップのスタイルとレイヤー</string>
     <string name="subway_data_unavailable">地下鉄路線図はご利用いただけません</string>

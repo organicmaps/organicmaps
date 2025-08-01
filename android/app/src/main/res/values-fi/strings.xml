@@ -655,6 +655,8 @@
     <string name="privacy_policy">Yksityisyyskäytäntö</string>
     <string name="terms_of_use">Käyttöehdot</string>
     <string name="button_layer_traffic">Liikenne</string>
+    <string name="button_layer_hiking">Vaellus</string>
+    <string name="button_layer_cycling">Pyöräily</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Karttatyylit ja tasot</string>
     <string name="subway_data_unavailable">Metrokartta ei ole saatavilla</string>

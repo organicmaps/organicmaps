@@ -972,6 +972,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Wandern";
 
+/* Hiking routes layer name in the Styles and Layers dialog */
+"button_layer_hiking" = "Wanderrouten";
+
+/* Cycling routes layer name in the Styles and Layers dialog */
+"button_layer_cycling" = "Fahrradrouten";
+
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Alle Lesezeichen und Tracks exportieren";
 

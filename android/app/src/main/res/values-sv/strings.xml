@@ -620,6 +620,8 @@
     <string name="privacy_policy">Integritetspolicy</string>
     <string name="terms_of_use">Allmänna villkor</string>
     <string name="button_layer_traffic">Trafik</string>
+    <string name="button_layer_hiking">Vandring</string>
+    <string name="button_layer_cycling">Cykling</string>
     <string name="button_layer_subway">Tunnelbana</string>
     <string name="layers_title">Kartstilar och lager</string>
     <string name="subway_data_unavailable">Tunnelbanekartan är otillgänglig</string>

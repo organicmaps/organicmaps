@@ -663,6 +663,8 @@
     <string name="privacy_policy">Gizlilik Siyasəti</string>
     <string name="terms_of_use">İstifadə qaydaları</string>
     <string name="button_layer_traffic">Nəqliyyat</string>
+    <string name="button_layer_hiking">Piyada gəzinti</string>
+    <string name="button_layer_cycling">Velosiped gəzintisi</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Xəritə Üslubları və Qatları</string>
     <string name="subway_data_unavailable">Metro xəritəsi mövcud deyil</string>
