@@ -29,11 +29,6 @@ double constexpr kCategoriesFalseCats = -1.0000000;
 double constexpr kDistanceToPivot = -0.48;
 double constexpr kWalkingDistanceM = 5000.0;
 
-double constexpr AbsPenaltyPerKm()
-{
-  return -kDistanceToPivot * 1000.0 / RankingInfo::kMaxDistMeters;
-}
-
 // These constants are very important and checked in Famous_Cities_Rank test.
 double constexpr kRank = 0.23;
 double constexpr kPopularity = 0.42;
