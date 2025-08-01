@@ -52,7 +52,8 @@ public:
       {
         m_indexBuffer = GLFunctions::glGenBuffer();
         GLFunctions::glBindBuffer(m_indexBuffer, gl_const::GLElementArrayBuffer);
-        GLFunctions::glBufferData(gl_const::GLElementArrayBuffer, m_mesh->m_indices.size() * sizeof(uint16_t),
+        GLFunctions::glBufferData(gl_const::GLElementArrayBuffer,
+                                  static_cast<uint32_t>(m_mesh->m_indices.size() * sizeof(uint16_t)),
                                   m_mesh->m_indices.data(), gl_const::GLStaticDraw);
       }
 
@@ -113,7 +114,8 @@ public:
     CHECK(!m_mesh->m_indices.empty(), ());
     CHECK(m_indexBuffer, ("Index buffer was not created"));
     GLFunctions::glBindBuffer(m_indexBuffer, gl_const::GLElementArrayBuffer);
-    GLFunctions::glBufferData(gl_const::GLElementArrayBuffer, m_mesh->m_indices.size() * sizeof(uint16_t),
+    GLFunctions::glBufferData(gl_const::GLElementArrayBuffer,
+                              static_cast<uint32_t>(m_mesh->m_indices.size() * sizeof(uint16_t)),
                               m_mesh->m_indices.data(), gl_const::GLStaticDraw);
     GLFunctions::glBindBuffer(0, gl_const::GLElementArrayBuffer);
   }

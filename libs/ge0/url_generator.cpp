@@ -158,7 +158,7 @@ int LatToInt(double lat, int maxValue)
   //       000111111222222...LLLLLMMMM
 
   double const x = (lat + 90.0) / 180.0 * maxValue;
-  return x < 0 ? 0 : (x > maxValue ? maxValue : std::lround(x));
+  return x < 0 ? 0 : (x > maxValue ? maxValue : static_cast<int>(std::lround(x)));
 }
 
 // Make lon in [-180, 180)

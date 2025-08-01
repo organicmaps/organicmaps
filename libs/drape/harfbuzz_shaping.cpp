@@ -25,8 +25,8 @@ size_t GetScriptExtensions(char32_t codepoint, TScriptsArray & scripts)
 {
   // Fill scripts with the script extensions.
   UErrorCode icu_error = U_ZERO_ERROR;
-  size_t const count =
-      uscript_getScriptExtensions(static_cast<UChar32>(codepoint), scripts.data(), scripts.max_size(), &icu_error);
+  size_t const count = uscript_getScriptExtensions(static_cast<UChar32>(codepoint), scripts.data(),
+                                                   static_cast<int32_t>(scripts.max_size()), &icu_error);
   if (U_FAILURE(icu_error))
   {
     LOG(LWARNING, ("uscript_getScriptExtensions failed with error", icu_error));
