@@ -115,7 +115,7 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end)
       continue;
     TrieChar const * const keyData = entry.GetKeyData();
     TTrieString key(keyData, keyData + entry.GetKeySize());
-    using namespace std::rel_ops;  // ">=" for keys.
+
     CHECK_GREATER_OR_EQUAL(key, prevKey, (key, prevKey));
     entries.push_back(entry);
     entryStrings.push_back(strings::UniString(keyData, keyData + entry.GetKeySize()));

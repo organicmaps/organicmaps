@@ -23,9 +23,7 @@ struct Uint64IndexValue
 
   explicit Uint64IndexValue(uint64_t featureId) : m_featureId(featureId) {}
 
-  bool operator<(Uint64IndexValue const & o) const { return m_featureId < o.m_featureId; }
-
-  bool operator==(Uint64IndexValue const & o) const { return m_featureId == o.m_featureId; }
+  auto operator<=>(Uint64IndexValue const &) const = default;
 
   void Swap(Uint64IndexValue & o) { std::swap(m_featureId, o.m_featureId); }
 
