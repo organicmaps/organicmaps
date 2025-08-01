@@ -126,9 +126,9 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().Move(offset.horizontal, offset.vertical, true);
 }
 
-+ (void)scrollMap:(double)distanceX:(double)distanceY
++ (void)scrollMapToDistanceX:(double)x andY:(double)y
 {
-  GetFramework().Scroll(distanceX, distanceY);
+  GetFramework().Scroll(x, y);
 }
 
 + (void)deactivateMapSelection

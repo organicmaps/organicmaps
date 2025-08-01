@@ -423,7 +423,7 @@ extension CarPlayService: CPMapTemplateDelegate {
 
   func mapTemplate(_ mapTemplate: CPMapTemplate, didUpdatePanGestureWithTranslation translation: CGPoint, velocity: CGPoint) {
     let scaleFactor = self.carplayVC?.mapView?.contentScaleFactor ?? 1
-    FrameworkHelper.scrollMap(-scaleFactor * translation.x, -scaleFactor * translation.y);
+    FrameworkHelper.scrollMap(toDistanceX:-scaleFactor * translation.x, andY:-scaleFactor * translation.y);
   }
 
   func mapTemplate(_ mapTemplate: CPMapTemplate, startedTrip trip: CPTrip, using routeChoice: CPRouteChoice) {
