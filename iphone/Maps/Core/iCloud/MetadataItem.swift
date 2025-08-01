@@ -68,7 +68,8 @@ extension CloudMetadataItem {
                                                          .ubiquitousItemDownloadingErrorKey,
                                                          .ubiquitousItemUploadingErrorKey])
     guard let downloadStatus = resources.ubiquitousItemDownloadingStatus,
-          let percentDownloaded = resources.ubiquitousItemDownloadingStatus,
+          // Not used.
+          // let percentDownloaded = resources.ubiquitousItemDownloadingStatus,
           let lastModificationDate = resources.contentModificationDate?.roundedTime,
           let hasUnresolvedConflicts = resources.ubiquitousItemHasUnresolvedConflicts else {
       LOG(.error, "Failed to initialize CloudMetadataItem from \(fileUrl) resources: \(resources.allValues)")
