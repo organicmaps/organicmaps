@@ -40,7 +40,7 @@ public:
   void CollectMemory() override;
   void DoneCurrent() override {}
   bool Validate() override { return true; }
-  void Resize(int w, int h) override;
+  void Resize(uint32_t w, uint32_t h) override;
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
   void ForgetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
   void ApplyFramebuffer(std::string const & framebufferLabel) override;
