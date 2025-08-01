@@ -1,5 +1,7 @@
 {
 "exit": "Exit.",
 "you_have_reached_the_destination": "You have arrived.",
-"then": "Then"
+"then": "Then",
+"make_a_slight_right_turn": "Keep right.",
+"make_a_slight_right_turn_street": "NULL"
 }

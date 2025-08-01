@@ -411,7 +411,7 @@
 /* blue gray color */
 "blue_gray" = "כחול אפרפר";
 "dialog_routing_disclaimer_title" = "בעת נסיעה לאורך המסלול, שים לב לדברים הבאים:";
-"dialog_routing_disclaimer_priority" = "— תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות הניווט;";
+"dialog_routing_disclaimer_priority" = "— תנאי הכביש, חוקי התנועה והתמרורים תמיד מקבלים עדיפות על פני הנחיות ניווט;";
 "dialog_routing_disclaimer_precision" = "— ייתכנו אי-דיוקים במפה, וייתכן כי המסלול המוצע אינו תמיד הדרך המיטבית להגעה אל היעד;";
 "dialog_routing_disclaimer_recommendations" = "— יש לראות במסלולים המוצעים המלצה בלבד;";
 "dialog_routing_disclaimer_borders" = "— יש להיות זהירים בשימוש במסלולים סביב גבולות: המסלולים המוצעים באפליקציה עשויים לחצות גבולות מדינה במקומות אסורים.";
