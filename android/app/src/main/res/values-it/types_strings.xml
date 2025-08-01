@@ -1226,7 +1226,7 @@
     <string name="type.tourism.artwork.painting">Dipinto</string>
     <string name="type.tourism.artwork.sculpture">Scultura</string>
     <string name="type.tourism.artwork.statue">Statua</string>
-    <string name="type.tourism.attraction">Attrattiva</string>
+    <string name="type.tourism.attraction">Attrazione</string>
     <string name="type.attraction.amusement_ride">Giostra di divertimento</string>
     <string name="type.attraction.animal">Recinto per animali</string>
     <string name="type.attraction.carousel">Carosello</string>
@@ -1405,4 +1405,5 @@
     <string name="type.man_made.crane">Gru</string>
     <string name="type.amenity.bicycle_parking.covered">Parcheggio biciclette coperto</string>
     <string name="type.amenity.ranger_station">Stazione forestale</string>
+    <string name="type.amenity.luggage_locker">Deposito bagagli</string>
 </resources>

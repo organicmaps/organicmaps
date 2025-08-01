@@ -1493,8 +1493,8 @@
 "type.leisure.firepit" = "Fogón";
 "type.man_made.crane" = "Grúa";
 "type.railway.station.subway.qingdao" = "Estación de metro";
-"type.amenity.bicycle_parking.covered" = "Aparcamiento de bicicletas techado";
+"type.amenity.bicycle_parking.covered" = "Aparcamiento de bicicletas cubierto";
 "type.amenity.ranger_station" = "Estación de guardabosques";
-"type.leisure.escape_game" = "Sala de escape";
+"type.leisure.escape_game" = "Escape Room";
 "type.amenity.luggage_locker" = "Guardaequipaje";
 "type.post_office.post_partner" = "Proveedor de servicios postales";

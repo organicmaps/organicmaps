@@ -1372,7 +1372,7 @@
 "type.tourism.artwork.painting" = "Dipinto";
 "type.tourism.artwork.sculpture" = "Scultura";
 "type.tourism.artwork.statue" = "Statua";
-"type.tourism.attraction" = "Attrattiva";
+"type.tourism.attraction" = "Attrazione";
 "type.attraction.amusement_ride" = "Giostra di divertimento";
 "type.attraction.animal" = "Recinto per animali";
 "type.attraction.bumper_car" = "Autoscontro";
@@ -1495,3 +1495,4 @@
 "type.man_made.crane" = "Gru";
 "type.amenity.bicycle_parking.covered" = "Parcheggio biciclette coperto";
 "type.amenity.ranger_station" = "Stazione forestale";
+"type.amenity.luggage_locker" = "Deposito bagagli";
