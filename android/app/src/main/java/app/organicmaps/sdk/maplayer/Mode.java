@@ -22,6 +22,7 @@ public enum Mode
       TrafficManager.INSTANCE.setEnabled(isEnabled);
     }
   },
+
   SUBWAY {
     @Override
     public boolean isEnabled(@NonNull Context context)
@@ -49,6 +50,7 @@ public enum Mode
       IsolinesManager.setEnabled(isEnabled);
     }
   },
+
   OUTDOORS {
     @Override
     public boolean isEnabled(@NonNull Context context)
@@ -62,6 +64,34 @@ public enum Mode
       Framework.nativeSetOutdoorsLayerEnabled(isEnabled);
       // TODO: ThemeSwitcher is outside sdk package. Properly fix dependencies
       // ThemeSwitcher.INSTANCE.restart(true);
+    }
+  },
+
+  HIKING {
+    @Override
+    public boolean isEnabled(@NonNull Context context)
+    {
+      return Framework.nativeIsHikingLayerEnabled();
+    }
+
+    @Override
+    public void setEnabled(@NonNull Context context, boolean isEnabled)
+    {
+      Framework.nativeSetHikingLayerEnabled(isEnabled);
+    }
+  },
+
+  CYCLING {
+    @Override
+    public boolean isEnabled(@NonNull Context context)
+    {
+      return Framework.nativeIsCyclingLayerEnabled();
+    }
+
+    @Override
+    public void setEnabled(@NonNull Context context, boolean isEnabled)
+    {
+      Framework.nativeSetCyclingLayerEnabled(isEnabled);
     }
   };
 

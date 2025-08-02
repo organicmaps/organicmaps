@@ -272,26 +272,26 @@ public class Framework
   public static native boolean nativeIsDayTime(long utcTimeSeconds, double lat, double lon);
 
   public static native void nativeGet3dMode(Params3dMode result);
-
   public static native void nativeSet3dMode(boolean allow3d, boolean allow3dBuildings);
 
   public static native boolean nativeGetAutoZoomEnabled();
-
   public static native void nativeSetAutoZoomEnabled(boolean enabled);
 
   public static native void nativeSetTransitSchemeEnabled(boolean enabled);
-
   public static native void nativeSaveSettingSchemeEnabled(boolean enabled);
-
   public static native boolean nativeIsTransitSchemeEnabled();
 
   public static native void nativeSetIsolinesLayerEnabled(boolean enabled);
-
   public static native boolean nativeIsIsolinesLayerEnabled();
 
   public static native void nativeSetOutdoorsLayerEnabled(boolean enabled);
-
   public static native boolean nativeIsOutdoorsLayerEnabled();
+
+  public static native void nativeSetHikingLayerEnabled(boolean enabled);
+  public static native boolean nativeIsHikingLayerEnabled();
+
+  public static native void nativeSetCyclingLayerEnabled(boolean enabled);
+  public static native boolean nativeIsCyclingLayerEnabled();
 
   @NonNull
   public static native MapObject nativeDeleteBookmarkFromMapObject();

@@ -18,6 +18,7 @@
 #include "map/bookmark_helpers.hpp"
 #include "map/chart_generator.hpp"
 #include "map/everywhere_search_params.hpp"
+#include "map/framework.hpp"
 #include "map/user_mark.hpp"
 
 #include "storage/storage_defines.hpp"
@@ -1523,23 +1524,45 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetIsolinesLayer
 {
   auto const isolinesEnabled = static_cast<bool>(enabled);
   frm()->GetIsolinesManager().SetEnabled(isolinesEnabled);
-  frm()->SaveIsolinesEnabled(isolinesEnabled);
+  Framework::SaveIsolinesEnabled(isolinesEnabled);
 }
 
 JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsIsolinesLayerEnabled(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(frm()->LoadIsolinesEnabled());
+  return static_cast<jboolean>(Framework::LoadIsolinesEnabled());
 }
 
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetOutdoorsLayerEnabled(JNIEnv * env, jclass,
                                                                                         jboolean enabled)
 {
-  frm()->SaveOutdoorsEnabled(enabled);
+  Framework::SaveOutdoorsEnabled(enabled);
 }
 
 JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsOutdoorsLayerEnabled(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(frm()->LoadOutdoorsEnabled());
+  return static_cast<jboolean>(Framework::LoadOutdoorsEnabled());
+}
+
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetHikingLayerEnabled(JNIEnv *, jclass,
+                                                                                      jboolean enabled)
+{
+  frm()->SetHikingEnabled(enabled);
+}
+
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsHikingLayerEnabled(JNIEnv *, jclass)
+{
+  return static_cast<jboolean>(frm()->IsHikingEnabled());
+}
+
+JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSetCyclingLayerEnabled(JNIEnv *, jclass,
+                                                                                       jboolean enabled)
+{
+  frm()->SetCyclingEnabled(enabled);
+}
+
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsCyclingLayerEnabled(JNIEnv *, jclass)
+{
+  return static_cast<jboolean>(frm()->IsCyclingEnabled());
 }
 
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSaveSettingSchemeEnabled(JNIEnv * env, jclass,
