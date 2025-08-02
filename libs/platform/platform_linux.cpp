@@ -260,16 +260,30 @@ void Platform::GetSystemFontNames(FilesList & res) const
 // static
 time_t Platform::GetFileCreationTime(std::string const & path)
 {
-// In older Linux versions there is no reliable way to get file creation time.
-#if __GLIBC__ >= 2 && __GLIBC_MINOR__ >= 28
+  // In older Linux versions there is no reliable way to get file creation time with GLIBC.
+  // Musl supports statx since 2018.
+#if !defined(__GLIBC__) || (__GLIBC__ >= 2 && __GLIBC_MINOR__ >= 28)
   struct statx st;
   if (0 == statx(AT_FDCWD, path.c_str(), 0, STATX_BTIME, &st))
-    return st.stx_btime.tv_sec;
+  {
+    // Orbstack on MacOS returns zero birth time, see https://github.com/orbstack/orbstack/issues/2064
+    if (st.stx_btime.tv_sec != 0)
+      return st.stx_btime.tv_sec;
+
+    LOG(LWARNING, ("statx returned zero birth time for", path,
+                   ", using the earliest time from access, modification or status change instead."));
+    return std::min(st.stx_atime.tv_sec, std::min(st.stx_mtime.tv_sec, st.stx_ctime.tv_sec));
+  }
+
+  LOG(LERROR, ("GetFileCreationTime statx failed for", path, "with error", strerror(errno)));
 #else
   struct stat st;
   if (0 == stat(path.c_str(), &st))
     return std::min(st.st_atim.tv_sec, st.st_mtim.tv_sec);
+
+  LOG(LERROR, ("GetFileCreationTime stat failed for", path, "with error", strerror(errno)));
 #endif
+  // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
 }
 
@@ -279,5 +293,8 @@ time_t Platform::GetFileModificationTime(std::string const & path)
   struct stat st;
   if (0 == stat(path.c_str(), &st))
     return st.st_mtim.tv_sec;
+
+  LOG(LERROR, ("GetFileModificationTime stat failed for", path, "with error", strerror(errno)));
+  // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
 }

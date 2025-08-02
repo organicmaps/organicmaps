@@ -232,6 +232,9 @@ time_t Platform::GetFileCreationTime(std::string const & path)
   struct stat st;
   if (0 == stat(path.c_str(), &st))
     return st.st_atim.tv_sec;
+
+  LOG(LERROR, ("GetFileCreationTime stat failed for", path, "with error", strerror(errno)));
+  // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
 }
 
@@ -241,5 +244,8 @@ time_t Platform::GetFileModificationTime(std::string const & path)
   struct stat st;
   if (0 == stat(path.c_str(), &st))
     return st.st_mtim.tv_sec;
+
+  LOG(LERROR, ("GetFileModificationTime stat failed for", path, "with error", strerror(errno)));
+  // TODO(AB): Refactor to return std::optional<time_t>.
   return 0;
 }

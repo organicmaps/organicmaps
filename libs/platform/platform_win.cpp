@@ -220,7 +220,10 @@ time_t GetFileTime(std::string const & path, FileTimeType fileTimeType)
 {
   HANDLE hFile = CreateFileA(path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
   if (hFile == INVALID_HANDLE_VALUE)
-    return 0;
+  {
+    LOG(LERROR, ("GetFileTime CreateFileA failed for", path, "with error", strerror(errno)));
+    return 0;  // TODO(AB): Refactor to return std::optional<time_t>.
+  }
 
   SCOPE_GUARD(autoClose, bind(&CloseHandle, hFile));
 
@@ -234,8 +237,11 @@ time_t GetFileTime(std::string const & path, FileTimeType fileTimeType)
   case FileTimeType::Modification: ftLastWrite = &ft; break;
   }
 
-  if (!GetFileTime(hFile, ftCreate, nullptr, ftLastWrite))
-    return 0;
+  if (!::GetFileTime(hFile, ftCreate, nullptr, ftLastWrite))
+  {
+    LOG(LERROR, ("GetFileTime ::GetFileTime failed for", path, "with error", strerror(errno)));
+    return 0;  // TODO(AB): Refactor to return std::optional<time_t>.
+  }
 
   ULARGE_INTEGER ull;
   ull.LowPart = ft.dwLowDateTime;
@@ -247,12 +253,14 @@ time_t GetFileTime(std::string const & path, FileTimeType fileTimeType)
 // static
 time_t Platform::GetFileCreationTime(std::string const & path)
 {
+  // TODO(AB): Refactor to return std::optional<time_t>.
   return GetFileTime(path, FileTimeType::Creation);
 }
 
 // static
 time_t Platform::GetFileModificationTime(std::string const & path)
 {
+  // TODO(AB): Refactor to return std::optional<time_t>.
   return GetFileTime(path, FileTimeType::Modification);
 }
 
