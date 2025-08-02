@@ -253,6 +253,7 @@ public:
   bool IsCountryLoadedByName(std::string_view name) const;
 
   void InvalidateRect(m2::RectD const & rect);
+  void Invalidate() { InvalidateRect(GetCurrentViewport()); }
 
   std::string GetCountryName(m2::PointD const & pt) const;
 
@@ -616,7 +617,7 @@ private:
   /// This function can be used for enabling some experimental features for routing.
   bool ParseRoutingDebugCommand(search::SearchParams const & params);
 
-  bool ParseAllTypesDebugCommand(search::SearchParams const & params);
+  static bool ParseAllTypesDebugCommand(search::SearchParams const & params);
 
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
   /// @param customTitle, if not empty, overrides any other calculated name.
@@ -690,12 +691,12 @@ public:
 
 public:
   void AllowTransliteration(bool allowTranslit);
-  bool LoadTransliteration();
-  void SaveTransliteration(bool allowTranslit);
+  static bool LoadTransliteration();
+  static void SaveTransliteration(bool allowTranslit);
 
   void Allow3dMode(bool allow3d, bool allow3dBuildings);
-  void Save3dMode(bool allow3d, bool allow3dBuildings);
-  void Load3dMode(bool & allow3d, bool & allow3dBuildings);
+  static void Save3dMode(bool allow3d, bool allow3dBuildings);
+  static void Load3dMode(bool & allow3d, bool & allow3dBuildings);
 
 private:
   void ApplyMapLanguageCode(std::string const & langCode);
@@ -718,23 +719,29 @@ public:
   IsolinesManager & GetIsolinesManager();
   IsolinesManager const & GetIsolinesManager() const;
 
-  bool LoadTrafficEnabled();
-  void SaveTrafficEnabled(bool trafficEnabled);
+  static bool LoadTrafficEnabled();
+  static void SaveTrafficEnabled(bool trafficEnabled);
 
-  bool LoadTrafficSimplifiedColors();
-  void SaveTrafficSimplifiedColors(bool simplified);
+  static bool LoadTrafficSimplifiedColors();
+  static void SaveTrafficSimplifiedColors(bool simplified);
 
-  bool LoadTransitSchemeEnabled();
-  void SaveTransitSchemeEnabled(bool enabled);
+  static bool LoadTransitSchemeEnabled();
+  static void SaveTransitSchemeEnabled(bool enabled);
 
-  bool LoadIsolinesEnabled();
-  void SaveIsolinesEnabled(bool enabled);
+  static bool LoadIsolinesEnabled();
+  static void SaveIsolinesEnabled(bool enabled);
 
-  bool LoadOutdoorsEnabled();
-  void SaveOutdoorsEnabled(bool enabled);
+  static bool LoadOutdoorsEnabled();
+  static void SaveOutdoorsEnabled(bool enabled);
 
-  dp::ApiVersion LoadPreferredGraphicsAPI();
-  void SavePreferredGraphicsAPI(dp::ApiVersion apiVersion);
+  static bool IsHikingEnabled();
+  void SetHikingEnabled(bool enabled);
+
+  static bool IsCyclingEnabled();
+  void SetCyclingEnabled(bool enabled);
+
+  static dp::ApiVersion LoadPreferredGraphicsAPI();
+  static void SavePreferredGraphicsAPI(dp::ApiVersion apiVersion);
 
 public:
   /// Routing Manager

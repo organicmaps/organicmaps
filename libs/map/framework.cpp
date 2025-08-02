@@ -21,6 +21,7 @@
 #include "storage/storage_helpers.hpp"
 
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -354,7 +355,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 
   editor.SetDelegate(make_unique<search::EditorDelegate>(m_featuresFetcher.GetDataSource()));
-  editor.SetInvalidateFn([this]() { InvalidateRect(GetCurrentViewport()); });
+  editor.SetInvalidateFn([this]() { Invalidate(); });
 
   /// @todo Uncomment when we will integrate a traffic provider.
   // m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
@@ -2374,7 +2375,7 @@ void Framework::SavePreferredGraphicsAPI(dp::ApiVersion apiVersion)
 void Framework::AllowTransliteration(bool allowTranslit)
 {
   Transliteration::Instance().SetMode(allowTranslit ? Transliteration::Mode::Enabled : Transliteration::Mode::Disabled);
-  InvalidateRect(GetCurrentViewport());
+  Invalidate();
 }
 
 bool Framework::LoadTransliteration()
@@ -2447,9 +2448,7 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 bool Framework::LoadLargeFontsSize()
 {
   bool isLargeSize;
-  if (!settings::Get(kLargeFontsSize, isLargeSize))
-    isLargeSize = false;
-  return isLargeSize;
+  return settings::Get(kLargeFontsSize, isLargeSize) && isLargeSize;
 }
 
 void Framework::SetLargeFontsSize(bool isLargeSize)
@@ -2461,15 +2460,13 @@ void Framework::SetLargeFontsSize(bool isLargeSize)
   ASSERT(m_drapeEngine.get() != nullptr, ());
   m_drapeEngine->SetFontScaleFactor(scaleFactor);
 
-  InvalidateRect(GetCurrentViewport());
+  Invalidate();
 }
 
 bool Framework::LoadTrafficEnabled()
 {
   bool enabled;
-  if (!settings::Get(kTrafficEnabledKey, enabled))
-    enabled = false;
-  return enabled;
+  return settings::Get(kTrafficEnabledKey, enabled) && enabled;
 }
 
 void Framework::SaveTrafficEnabled(bool trafficEnabled)
@@ -2515,9 +2512,7 @@ void Framework::SaveAutoZoom(bool allowAutoZoom)
 bool Framework::LoadTransitSchemeEnabled()
 {
   bool enabled;
-  if (!settings::Get(kTransitSchemeEnabledKey, enabled))
-    enabled = false;
-  return enabled;
+  return settings::Get(kTransitSchemeEnabledKey, enabled) && enabled;
 }
 
 void Framework::SaveTransitSchemeEnabled(bool enabled)
@@ -2528,9 +2523,7 @@ void Framework::SaveTransitSchemeEnabled(bool enabled)
 bool Framework::LoadIsolinesEnabled()
 {
   bool enabled;
-  if (!settings::Get(kIsolinesEnabledKey, enabled))
-    enabled = false;
-  return enabled;
+  return settings::Get(kIsolinesEnabledKey, enabled) && enabled;
 }
 
 void Framework::SaveIsolinesEnabled(bool enabled)
@@ -2541,14 +2534,36 @@ void Framework::SaveIsolinesEnabled(bool enabled)
 bool Framework::LoadOutdoorsEnabled()
 {
   bool enabled;
-  if (!settings::Get(kOutdoorsEnabledKey, enabled))
-    enabled = false;
-  return enabled;
+  return settings::Get(kOutdoorsEnabledKey, enabled) && enabled;
 }
 
 void Framework::SaveOutdoorsEnabled(bool enabled)
 {
   settings::Set(kOutdoorsEnabledKey, enabled);
+}
+
+bool Framework::IsHikingEnabled()
+{
+  bool enabled;
+  return settings::Get(kHikingEnabledKey, enabled) && enabled;
+}
+
+void Framework::SetHikingEnabled(bool enabled)
+{
+  settings::Set(kHikingEnabledKey, enabled);
+  Invalidate();
+}
+
+bool Framework::IsCyclingEnabled()
+{
+  bool enabled;
+  return settings::Get(kCyclingEnabledKey, enabled) && enabled;
+}
+
+void Framework::SetCyclingEnabled(bool enabled)
+{
+  settings::Set(kCyclingEnabledKey, enabled);
+  Invalidate();
 }
 
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition)
