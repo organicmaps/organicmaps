@@ -37,38 +37,6 @@ public class PlacePageViewModel extends ViewModel
     mMapObject.setValue(mapObject);
   }
 
-  // These silent method are used to update data of map object silently without triggering
-  // the observer which refreshes everything and puts extra load  on device in calculation
-  // which is not required
-  public void modifyMapObjectPointSilently(ElevationInfo.Point point)
-  {
-    if (mMapObject.getValue() == null)
-      return;
-    mMapObject.getValue().setLat(point.getLatitude());
-    mMapObject.getValue().setLon(point.getLongitude());
-  }
-
-  public void modifyMapObjectCategoryIdSilently(long categoryId)
-  {
-    if (mMapObject.getValue() == null)
-      return;
-    switch (PlacePageView.MapObjectType.getMapObjectType(mMapObject.getValue()))
-    {
-    case TRACK -> ((Track) mMapObject.getValue()).setCategoryId(categoryId);
-    case BOOKMARK -> ((Bookmark) mMapObject.getValue()).setCategoryId(categoryId);
-    }
-  }
-
-  public void modifyMapObjectColorSilently(int color)
-  {
-    if (mMapObject.getValue() == null)
-      return;
-    switch (PlacePageView.MapObjectType.getMapObjectType(mMapObject.getValue()))
-    {
-    case TRACK -> ((Track) mMapObject.getValue()).setColor(color);
-    case BOOKMARK -> ((Bookmark) mMapObject.getValue()).setIconColor(color);
-    }
-  }
   public MutableLiveData<Integer> getPlacePageWidth()
   {
     return mPlacePageWidth;

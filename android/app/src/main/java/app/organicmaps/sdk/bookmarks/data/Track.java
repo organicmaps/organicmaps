@@ -25,8 +25,8 @@ public class Track extends MapObject
 
   Track(long trackId, long categoryId, String name, Distance length, int color)
   {
-    super(FeatureId.fromFeatureIdString("1:2:3"), TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS,
-          null, "", RoadWarningMarkType.UNKNOWN.ordinal(), null);
+    super(FeatureId.EMPTY, TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, null, "",
+          RoadWarningMarkType.UNKNOWN.ordinal(), null);
     mTrackId = trackId;
     mCategoryId = categoryId;
     mName = name;
@@ -49,8 +49,7 @@ public class Track extends MapObject
     mLength = length;
   }
 
-  // modifying this categoryId will not change the core data
-  // its just for temporary changes
+  // Change of the category in the core is done in PlacePageView::onCategoryChanged().
   public void setCategoryId(@NonNull long categoryId)
   {
     mCategoryId = categoryId;
@@ -94,22 +93,15 @@ public class Track extends MapObject
 
   public ElevationInfo getElevationInfo()
   {
-    if (mElevationInfo != null)
-      return mElevationInfo;
-    mElevationInfo = BookmarkManager.nativeGetTrackElevationInfo(mTrackId);
+    if (mElevationInfo == null)
+      mElevationInfo = BookmarkManager.nativeGetTrackElevationInfo(mTrackId);
     return mElevationInfo;
-  }
-
-  public boolean isElevationInfoHasValue()
-  {
-    return BookmarkManager.nativeIsElevationInfoHasValue(mTrackId);
   }
 
   public TrackStatistics getTrackStatistics()
   {
-    if (mTrackStatistics != null)
-      return mTrackStatistics;
-    mTrackStatistics = BookmarkManager.nativeGetTrackStatistics(mTrackId);
+    if (mTrackStatistics == null)
+      mTrackStatistics = BookmarkManager.nativeGetTrackStatistics(mTrackId);
     return mTrackStatistics;
   }
 }

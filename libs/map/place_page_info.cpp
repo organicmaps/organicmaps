@@ -31,7 +31,7 @@ bool Info::IsBookmark() const
 bool Info::ShouldShowAddPlace() const
 {
   auto const isPointOrBuilding = IsPointType() || IsBuilding();
-  return !(IsFeature() && isPointOrBuilding);
+  return !IsTrack() && !(IsFeature() && isPointOrBuilding);
 }
 
 void Info::SetFromFeatureType(FeatureType & ft)

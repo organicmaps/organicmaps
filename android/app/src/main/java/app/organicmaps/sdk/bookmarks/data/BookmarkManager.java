@@ -264,9 +264,9 @@ public enum BookmarkManager {
   }
 
   @Nullable
-  public void updateTrackPlacePage(long trackId)
+  public void updateTrackPlacePage()
   {
-    nativeUpdateTrackPlacePage(trackId);
+    nativeUpdateTrackPlacePage();
   }
 
   @Nullable
@@ -751,7 +751,7 @@ public enum BookmarkManager {
   private native Bookmark nativeUpdateBookmarkPlacePage(long bmkId);
 
   @Nullable
-  private native void nativeUpdateTrackPlacePage(long trackId);
+  private native void nativeUpdateTrackPlacePage();
 
   @Nullable
   private native BookmarkInfo nativeGetBookmarkInfo(long bmkId);
@@ -918,8 +918,6 @@ public enum BookmarkManager {
   public static native void nativeRemoveElevationActiveChangedListener();
 
   public static native ElevationInfo nativeGetTrackElevationInfo(long trackId);
-
-  public static native boolean nativeIsElevationInfoHasValue(long trackId);
 
   public static native TrackStatistics nativeGetTrackStatistics(long trackId);
   public interface BookmarksLoadingListener
