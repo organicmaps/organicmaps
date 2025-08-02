@@ -913,4 +913,6 @@
     <string name="editor_line_social_network">لاين</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="saved">حُفظت</string>
+    <string name="osm_note_hint">أو، بدلاً من ذلك، اترك ملاحظة لمجتمع OpenStreetMap حتى يتمكن شخص آخر من إضافة أو إصلاح مكان هنا.</string>
+    <string name="osm_note_toast">سيتم إرسال ملاحظتك إلى OpenStreetMap</string>
 </resources>

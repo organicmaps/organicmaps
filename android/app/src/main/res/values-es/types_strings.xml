@@ -1404,9 +1404,9 @@
     <string name="type.leisure.firepit">Fogón</string>
     <string name="type.man_made.crane">Grúa</string>
     <string name="type.railway.station.subway.qingdao">Estación de metro</string>
-    <string name="type.amenity.bicycle_parking.covered">Aparcamiento de bicicletas techado</string>
+    <string name="type.amenity.bicycle_parking.covered">Aparcamiento de bicicletas cubierto</string>
     <string name="type.amenity.ranger_station">Estación de guardabosques</string>
-    <string name="type.leisure.escape_game">Sala de escape</string>
+    <string name="type.leisure.escape_game">Escape Room</string>
     <string name="type.amenity.luggage_locker">Guardaequipaje</string>
     <string name="type.post_office.post_partner">Proveedor de servicios postales</string>
 </resources>
