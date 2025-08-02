@@ -568,3 +568,7 @@
 "saved" = "Saved";
 "button_layer_hiking" = "Hiking";
 "button_layer_cycling" = "Cycling";
+"bookmarks_text_placement_title" = "Bookmark names on the map";
+"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
+"show_to_the_right" = "Show to the right";
+"show_at_the_bottom" = "Show at the bottom";

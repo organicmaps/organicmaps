@@ -152,8 +152,8 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   {
     using settings::Placement;
   case Placement::None: textPlacementValue = L(@"hide"); break;
-  case Placement::Right: textPlacementValue = L(@"show_to_the_right"); break;
-  case Placement::Bottom: textPlacementValue = L(@"show_at_the_bottom"); break;
+  case Placement::Right: textPlacementValue = L(@"right"); break;
+  case Placement::Bottom: textPlacementValue = L(@"bottom"); break;
   case Placement::Count: UNREACHABLE();
   }
   [self.bookmarksTextPlacementCell configWithTitle:L(@"bookmarks_text_placement_title") info:textPlacementValue];

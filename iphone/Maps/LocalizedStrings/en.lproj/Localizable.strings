@@ -798,6 +798,15 @@
 "power_managment_setting_never" = "Never";
 "power_managment_setting_auto" = "When battery is low";
 "power_managment_setting_manual_max" = "Always";
+
+/* Settings/Bookmark Text Placement */
+"bookmarks_text_placement_title" = "Bookmark names on the map";
+"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
+"show_to_the_right" = "Show to the right";
+"right" = "Right";
+"show_at_the_bottom" = "Show at the bottom";
+"bottom" = "Bottom";
+
 "enable_logging_warning_message" = "Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.";
 "driving_options_title" = "Routing options";
 
