@@ -119,6 +119,16 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
   }
 }
 
++ (MWMMapOverlayHikingState)hikingState
+{
+  return Framework::IsHikingEnabled() ? MWMMapOverlayHikingStateEnabled : MWMMapOverlayHikingStateDisabled;
+}
+
++ (MWMMapOverlayCyclingState)cyclingState
+{
+  return Framework::IsCyclingEnabled() ? MWMMapOverlayCyclingStateEnabled : MWMMapOverlayCyclingStateDisabled;
+}
+
 + (BOOL)trafficEnabled
 {
   return self.trafficState != MWMMapOverlayTrafficStateDisabled;
@@ -144,14 +154,18 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
   return self.outdoorState != MWMMapOverlayOutdoorStateDisabled;
 }
 
++ (BOOL)hikingEnabled
+{
+  return self.hikingState != MWMMapOverlayHikingStateDisabled;
+}
+
++ (BOOL)cyclingEnabled
+{
+  return self.cyclingState != MWMMapOverlayCyclingStateDisabled;
+}
+
 + (void)setTrafficEnabled:(BOOL)enable
 {
-  if (enable)
-  {
-    [self setTransitEnabled:false];
-    [self setIsoLinesEnabled:false];
-  }
-
   auto & f = GetFramework();
   f.GetTrafficManager().SetEnabled(enable);
   f.SaveTrafficEnabled(enable);
@@ -159,13 +173,6 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
 
 + (void)setTransitEnabled:(BOOL)enable
 {
-  if (enable)
-  {
-    [self setTrafficEnabled:!enable];
-    [self setIsoLinesEnabled:false];
-    [self setOutdoorEnabled:false];
-  }
-
   auto & f = GetFramework();
   f.GetTransitManager().EnableTransitSchemeMode(enable);
   f.SaveTransitSchemeEnabled(enable);
@@ -173,12 +180,6 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
 
 + (void)setIsoLinesEnabled:(BOOL)enable
 {
-  if (enable)
-  {
-    [self setTrafficEnabled:false];
-    [self setTransitEnabled:false];
-  }
-
   auto & f = GetFramework();
   f.GetIsolinesManager().SetEnabled(enable);
   f.SaveIsolinesEnabled(enable);
@@ -186,12 +187,6 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
 
 + (void)setOutdoorEnabled:(BOOL)enable
 {
-  if (enable)
-  {
-    [self setTransitEnabled:false];
-    [self setTrafficEnabled:false];
-  }
-
   auto & f = GetFramework();
   switch (f.GetMapStyle())
   {
@@ -207,6 +202,16 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
   // TODO: - Observing for the selected/deselected state of the Outdoor style should be implemented not by
   // NSNotificationCenter but the same way as for IsoLines with 'GetFramework().GetIsolinesManager().SetStateListener'.
   [NSNotificationCenter.defaultCenter postNotificationName:didChangeOutdoorMapStyle object:nil];
+}
+
++ (void)setHikingEnabled:(BOOL)enable
+{
+  GetFramework().SetHikingEnabled(enable);
+}
+
++ (void)setCyclingEnabled:(BOOL)enable
+{
+  GetFramework().SetCyclingEnabled(enable);
 }
 
 @end
