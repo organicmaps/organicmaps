@@ -85,7 +85,7 @@ public:
 
   void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   bool HasGeometry() const { return !m_triangles.empty(); }
-  void ProcessAreaRules(AreaRuleProto const * areaRule, AreaRuleProto const * hatchingRule);
+  void ProcessAreaRules(AreaRuleProto const * areaRule, AreaRuleProto const * hatchingRule, std::string_view hatchKey);
 
   struct Edge
   {
@@ -119,7 +119,7 @@ public:
 private:
   bool HasArea() const override { return true; }
 
-  void ProcessRule(AreaRuleProto const & areaRule, double areaDepth, bool isHatching);
+  void ProcessRule(AreaRuleProto const & areaRule, double areaDepth, std::string_view hatchKey);
   void ProcessBuildingPolygon(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   void CalculateBuildingOutline(bool calculateNormals, BuildingOutline & outline);
   int GetIndex(m2::PointD const & pt);

@@ -15,7 +15,6 @@
 
 #include "indexer/drules_include.hpp"
 #include "indexer/feature_source.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/clipping.hpp"
@@ -33,9 +32,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <limits>
-#include <map>
-#include <mutex>
 
 namespace df
 {
@@ -699,7 +695,8 @@ void ApplyAreaFeature::CalculateBuildingOutline(bool calculateNormals, BuildingO
   }
 }
 
-void ApplyAreaFeature::ProcessAreaRules(AreaRuleProto const * areaRule, AreaRuleProto const * hatchingRule)
+void ApplyAreaFeature::ProcessAreaRules(AreaRuleProto const * areaRule, AreaRuleProto const * hatchingRule,
+                                        std::string_view hatchKey)
 {
   ASSERT(areaRule || hatchingRule, ());
   ASSERT(HasGeometry(), ());
@@ -709,7 +706,7 @@ void ApplyAreaFeature::ProcessAreaRules(AreaRuleProto const * areaRule, AreaRule
   if (hatchingRule)
   {
     ASSERT_GREATER_OR_EQUAL(hatchingRule->priority(), drule::kBasePriorityFg, (m_f.DebugString()));
-    ProcessRule(*hatchingRule, areaDepth, true /* isHatching */);
+    ProcessRule(*hatchingRule, areaDepth, hatchKey);
   }
 
   if (areaRule)
@@ -717,12 +714,14 @@ void ApplyAreaFeature::ProcessAreaRules(AreaRuleProto const * areaRule, AreaRule
     // Calculate areaDepth for BG-by-size areas only.
     if (areaRule->priority() < drule::kBasePriorityBgTop)
       areaDepth = drule::CalcAreaBySizeDepth(m_f);
-    ProcessRule(*areaRule, areaDepth, false /* isHatching */);
+    ProcessRule(*areaRule, areaDepth, {});
   }
 }
 
-void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDepth, bool isHatching)
+void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDepth, std::string_view hatchKey)
 {
+  bool const isHatching = !hatchKey.empty();
+
   AreaViewParams params;
   params.m_tileCenter = m_tileRect.Center();
   params.m_depth = PriorityToDepth(areaRule.priority(), drule::area, areaDepth);
@@ -730,7 +729,7 @@ void ApplyAreaFeature::ProcessRule(AreaRuleProto const & areaRule, double areaDe
   params.m_rank = m_f.GetRank();
   params.m_minPosZ = m_minPosZ;
   params.m_posZ = m_posZ;
-  params.m_hatching = isHatching;
+  params.m_hatching = hatchKey;
   params.m_baseGtoPScale = m_currentScaleGtoP;
 
   BuildingOutline outline;

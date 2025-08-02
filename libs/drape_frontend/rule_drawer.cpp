@@ -240,9 +240,10 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
   bool isBuilding = false;
   bool is3dBuilding = false;
   bool isBuildingOutline = false;
-  if (f.GetLayer() >= 0)
+
+  feature::TypesHolder const types(f);
+  if (f.GetLayer() >= 0)  // 90% true
   {
-    feature::TypesHolder const types(f);
     using namespace ftypes;
 
     bool const hasParts =
@@ -299,7 +300,12 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
   {
     f.ForEachTriangle(apply, m_zoomLevel);
     if (apply.HasGeometry())
-      apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule);
+    {
+      std::string_view hatchKey;
+      if (s.m_hatchingRule)
+        hatchKey = IsHatchingTerritoryChecker::Instance().GetHatch(types);
+      apply.ProcessAreaRules(s.m_areaRule, s.m_hatchingRule, hatchKey);
+    }
   }
 
   /// @todo Can we put this check in the beginning of this function?

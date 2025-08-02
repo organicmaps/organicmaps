@@ -73,7 +73,7 @@ struct AreaViewParams : CommonViewParams
   float m_minPosZ = 0.0f;
   float m_posZ = 0.0f;
   bool m_is3D = false;
-  bool m_hatching = false;
+  std::string_view m_hatching;
   double m_baseGtoPScale = 1.0;
 };
 

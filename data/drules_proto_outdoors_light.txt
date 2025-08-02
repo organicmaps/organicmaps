@@ -66294,43 +66294,43 @@ cont {
   element {
     scale: 11
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 12
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 13
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 14
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 15
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 16
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66343,8 +66343,8 @@ cont {
   element {
     scale: 17
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66357,8 +66357,8 @@ cont {
   element {
     scale: 18
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66371,8 +66371,8 @@ cont {
   element {
     scale: 19
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66385,8 +66385,8 @@ cont {
   element {
     scale: 20
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66402,43 +66402,43 @@ cont {
   element {
     scale: 11
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 12
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 13
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 14
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 15
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 16
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66451,8 +66451,8 @@ cont {
   element {
     scale: 17
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66465,8 +66465,8 @@ cont {
   element {
     scale: 18
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66479,8 +66479,8 @@ cont {
   element {
     scale: 19
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66493,8 +66493,8 @@ cont {
   element {
     scale: 20
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66510,43 +66510,43 @@ cont {
   element {
     scale: 11
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 12
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 13
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 14
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 15
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
   }
   element {
     scale: 16
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66559,8 +66559,8 @@ cont {
   element {
     scale: 17
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66573,8 +66573,8 @@ cont {
   element {
     scale: 18
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66587,8 +66587,8 @@ cont {
   element {
     scale: 19
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {
@@ -66601,8 +66601,8 @@ cont {
   element {
     scale: 20
     area {
-      color: 13229526
-      priority: -1910
+      color: 7377829
+      priority: 40
     }
     caption {
       primary {

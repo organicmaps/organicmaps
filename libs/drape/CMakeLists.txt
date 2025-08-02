@@ -49,6 +49,7 @@ set(DRAPE_TESTABLE_SRC
   graphics_context.hpp
   graphics_context_factory.cpp
   graphics_context_factory.hpp
+  hatching_decl.hpp
   hw_texture.cpp
   hw_texture.hpp
   index_buffer.cpp

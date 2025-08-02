@@ -103,11 +103,6 @@ amenity-parking-street_side-fee                     # area z17- (also has icon z
 amenity-parking-street_side-private                 # area z17- (also has icon z18-, caption(optional) z18-)
 === 100
 
-natural-wetland                                     # area z11- (also has caption z16-)
-natural-wetland-bog                                 # area z11- (also has caption z16-)
-natural-wetland-marsh                               # area z11- (also has caption z16-)
-=== 90
-
 landuse-farmyard                                    # area z10- (also has caption z15-)
 === 81
 
