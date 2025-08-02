@@ -135,6 +135,7 @@
 		FAA8389726BB4906002E54C6 /* minizip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389626BB4906002E54C6 /* minizip.framework */; };
 		FAA8389A26BB4931002E54C6 /* libplatform_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675340E91C58C496002CF0D9 /* libplatform_tests_support.a */; };
 		FAA8389C26BB4948002E54C6 /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA8389B26BB4948002E54C6 /* libgeometry.a */; };
+		FAB7A8902E3E635C009D238F /* placement_settings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FAB7A88F2E3E635C009D238F /* placement_settings.hpp */; };
 		FADA4B2626F529BD000FF3CA /* languages.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FADA4B2426F529B5000FF3CA /* languages.hpp */; };
 		FADA4B2726F529BD000FF3CA /* locale.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FADA4B2526F529B9000FF3CA /* locale.hpp */; };
 /* End PBXBuildFile section */
@@ -271,6 +272,7 @@
 		FAA8389426BB48F4002E54C6 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389626BB4906002E54C6 /* minizip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = minizip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8389B26BB4948002E54C6 /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAB7A88F2E3E635C009D238F /* placement_settings.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = placement_settings.hpp; sourceTree = "<group>"; };
 		FADA4B2426F529B5000FF3CA /* languages.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = languages.hpp; sourceTree = "<group>"; };
 		FADA4B2526F529B9000FF3CA /* locale.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locale.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -451,6 +453,7 @@
 				3DE8B98E1DEC3115000E6083 /* network_policy.hpp */,
 				EB60B4DD204C175700E4953B /* network_policy_ios.h */,
 				EB60B4DB204C130300E4953B /* network_policy_ios.mm */,
+				FAB7A88F2E3E635C009D238F /* placement_settings.hpp */,
 				675343A21A3F5D5A00A0A8C3 /* platform.hpp */,
 				675343A11A3F5D5A00A0A8C3 /* platform.cpp */,
 				675343981A3F5D5A00A0A8C3 /* platform_android.cpp */,
@@ -558,6 +561,7 @@
 				3DE8B98F1DEC3115000E6083 /* network_policy.hpp in Headers */,
 				675343CF1A3F5D5A00A0A8C3 /* preferred_languages.hpp in Headers */,
 				3D30587D1D8320E4004AC712 /* http_client.hpp in Headers */,
+				FAB7A8902E3E635C009D238F /* placement_settings.hpp in Headers */,
 				333A417021C3E13B00AF26F6 /* http_session_manager.h in Headers */,
 				F6DF735B1EC9EAE700D8BA0B /* string_storage_base.hpp in Headers */,
 				3D318A072021DD8B007B2607 /* http_uploader.hpp in Headers */,

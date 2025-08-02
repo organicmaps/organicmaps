@@ -675,6 +675,7 @@
 		FA85D43D27958BF500B858E9 /* FaqController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D43C27958BF500B858E9 /* FaqController.swift */; };
 		FA85D44E279B738F00B858E9 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA85D44D279B738F00B858E9 /* CopyableLabel.swift */; };
 		FA8E808925F412E2002A1434 /* FirstSession.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA8E808825F412E2002A1434 /* FirstSession.mm */; };
+		FAB7A8932E3E9BFA009D238F /* BookmarksTextPlacementController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAB7A8922E3E9BFA009D238F /* BookmarksTextPlacementController.mm */; };
 		FAF9DDA32A86DC54000D7037 /* libharfbuzz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */; };
 /* End PBXBuildFile section */
 
@@ -1793,6 +1794,8 @@
 		FAA886A0292409F7004FA014 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = et; path = et.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		FAAEA7D0161BD26600CCD661 /* synonyms.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synonyms.txt; path = ../../data/synonyms.txt; sourceTree = "<group>"; };
 		FAAFD696139D9BE2000AE70C /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = SOURCE_ROOT; };
+		FAB7A8912E3E9BFA009D238F /* BookmarksTextPlacementController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookmarksTextPlacementController.h; sourceTree = "<group>"; };
+		FAB7A8922E3E9BFA009D238F /* BookmarksTextPlacementController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BookmarksTextPlacementController.mm; sourceTree = "<group>"; };
 		FABF2FF02B55F6780006F787 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FABF2FF12B55F6780006F787 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FABF2FF22B55F6780006F787 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = hi; path = hi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -3951,11 +3954,17 @@
 		F6E2FD361E097BA00083EBEC /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				FAB7A8912E3E9BFA009D238F /* BookmarksTextPlacementController.h */,
+				FAB7A8922E3E9BFA009D238F /* BookmarksTextPlacementController.mm */,
 				F6E2FD371E097BA00083EBEC /* Cells */,
+				47DF72BA225356BF0004AB10 /* DrivingOptions.storyboard */,
+				477219042243E79500E5B227 /* DrivingOptionsViewController.swift */,
 				F6E2FD401E097BA00083EBEC /* MWMMobileInternetViewController.h */,
 				F6E2FD411E097BA00083EBEC /* MWMMobileInternetViewController.m */,
 				F6E2FD421E097BA00083EBEC /* MWMNightModeController.h */,
 				F6E2FD431E097BA00083EBEC /* MWMNightModeController.m */,
+				3DEE1AE921F72CD300054A91 /* MWMPowerManagmentViewController.h */,
+				3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */,
 				F6E2FD461E097BA00083EBEC /* MWMSettingsViewController.h */,
 				F6E2FD471E097BA00083EBEC /* MWMSettingsViewController.mm */,
 				F6E2FD481E097BA00083EBEC /* MWMTTSLanguageViewController.h */,
@@ -3964,10 +3973,6 @@
 				F6E2FD4B1E097BA00083EBEC /* MWMTTSSettingsViewController.mm */,
 				F6E2FD4C1E097BA00083EBEC /* MWMUnitsController.h */,
 				F6E2FD4D1E097BA00083EBEC /* MWMUnitsController.mm */,
-				3DEE1AE921F72CD300054A91 /* MWMPowerManagmentViewController.h */,
-				3DEE1AEA21F72CD300054A91 /* MWMPowerManagmentViewController.mm */,
-				477219042243E79500E5B227 /* DrivingOptionsViewController.swift */,
-				47DF72BA225356BF0004AB10 /* DrivingOptions.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -4728,6 +4733,7 @@
 				993DF12023F6BDB100AC231A /* TabViewRenderer.swift in Sources */,
 				F6E2FE131E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.m in Sources */,
+				FAB7A8932E3E9BFA009D238F /* BookmarksTextPlacementController.mm in Sources */,
 				34AB66591FC5AA330078E451 /* TransportTransitFlowLayout.swift in Sources */,
 				EDBD680B2B62572E005DD151 /* LocationServicesDisabledAlert.swift in Sources */,
 				ED914AB82D351DF000973C45 /* StyleApplicable.swift in Sources */,
