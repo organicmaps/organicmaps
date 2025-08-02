@@ -26,6 +26,7 @@ static constexpr int kApiPoint = 1;
 static constexpr int kBookmark = 2;
 static constexpr int kMyPosition = 3;
 static constexpr int kSearch = 4;
+static constexpr int kTrack = 5;
 
 static constexpr int kPriceRateUndefined = -1;
 
@@ -33,6 +34,9 @@ static constexpr int kPriceRateUndefined = -1;
 void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
 
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info);
+
+jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLocalObjectArrayRef const & jrawTypes,
+                    jni::TScopedLocalRef const & routingPointInfo, jobject const & popularity);
 
 jobject CreateElevationInfo(JNIEnv * env, ElevationInfo const & info);
 

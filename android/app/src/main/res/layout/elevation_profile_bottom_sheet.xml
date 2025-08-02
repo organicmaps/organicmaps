@@ -1,37 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/elevation_profile"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:paddingTop="@dimen/margin_half_plus"
-  android:paddingBottom="@dimen/margin_base"
   android:background="?cardBackground"
   android:clickable="true"
-  android:focusable="true"
   android:fillViewport="true"
+  android:focusable="true"
   app:behavior_peekHeight="@dimen/elevation_profile_peek_height"
   app:layout_behavior="@string/placepage_behavior">
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <LinearLayout
-      android:id="@+id/pull_icon_container"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/margin_half"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginStart="@dimen/margin_base"
-      android:layout_marginEnd="@dimen/margin_base"
-      android:layout_marginBottom="@dimen/margin_eighth"
-      android:gravity="center"
-      android:orientation="vertical">
-      <ImageView
-        android:id="@+id/pull_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    </LinearLayout>
     <include layout="@layout/elevation_profile_internal" />
   </LinearLayout>
 </androidx.core.widget.NestedScrollView>

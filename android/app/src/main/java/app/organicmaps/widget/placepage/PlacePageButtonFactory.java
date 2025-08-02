@@ -34,6 +34,11 @@ public class PlacePageButtonFactory
         titleId = R.string.delete;
         yield R.drawable.ic_bookmarks_on;
       }
+      case TRACK_DELETE ->
+      {
+        titleId = R.string.delete;
+        yield R.drawable.ic_delete;
+      }
       case ROUTE_FROM ->
       {
         titleId = R.string.p2p_from_here;
