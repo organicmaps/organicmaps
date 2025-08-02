@@ -119,6 +119,16 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
   }
 }
 
++ (MWMMapOverlayHikingState)hikingState
+{
+  return Framework::LoadHikingEnabled() ? MWMMapOverlayHikingStateEnabled : MWMMapOverlayHikingStateDisabled;
+}
+
++ (MWMMapOverlayCyclingState)cyclingState
+{
+  return Framework::LoadCyclingEnabled() ? MWMMapOverlayCyclingStateEnabled : MWMMapOverlayCyclingStateDisabled;
+}
+
 + (BOOL)trafficEnabled
 {
   return self.trafficState != MWMMapOverlayTrafficStateDisabled;
@@ -142,6 +152,16 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
 + (BOOL)outdoorEnabled
 {
   return self.outdoorState != MWMMapOverlayOutdoorStateDisabled;
+}
+
++ (BOOL)hikingEnabled
+{
+  return self.hikingState != MWMMapOverlayHikingStateDisabled;
+}
+
++ (BOOL)cyclingEnabled
+{
+  return self.cyclingState != MWMMapOverlayCyclingStateDisabled;
 }
 
 + (void)setTrafficEnabled:(BOOL)enable
@@ -207,6 +227,32 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
   // TODO: - Observing for the selected/deselected state of the Outdoor style should be implemented not by
   // NSNotificationCenter but the same way as for IsoLines with 'GetFramework().GetIsolinesManager().SetStateListener'.
   [NSNotificationCenter.defaultCenter postNotificationName:didChangeOutdoorMapStyle object:nil];
+}
+
++ (void)setHikingEnabled:(BOOL)enable
+{
+  if (enable)
+  {
+    [self setCyclingEnabled:false];
+    [self setTrafficEnabled:false];
+    [self setTransitEnabled:false];
+  }
+
+  // TODO(AB): Enable/disable hiking layer. Should it be done together with saving in the framework method?
+  Framework::SaveHikingEnabled(enable);
+}
+
++ (void)setCyclingEnabled:(BOOL)enable
+{
+  if (enable)
+  {
+    [self setHikingEnabled:false];
+    [self setTrafficEnabled:false];
+    [self setTransitEnabled:false];
+  }
+
+  // TODO(AB): Enable/disable hiking layer. Should it be done together with saving in the framework method?
+  Framework::SaveCyclingEnabled(enable);
 }
 
 @end

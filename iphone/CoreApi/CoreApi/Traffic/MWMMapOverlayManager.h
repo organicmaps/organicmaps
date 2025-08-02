@@ -22,12 +22,22 @@ typedef NS_ENUM(NSUInteger, MWMMapOverlayIsolinesState) {
   MWMMapOverlayIsolinesStateEnabled,
   MWMMapOverlayIsolinesStateExpiredData,
   MWMMapOverlayIsolinesStateNoData,
-} NS_SWIFT_NAME(MapOverlayTransitState);
+} NS_SWIFT_NAME(MapOverlayIsolinesState);
 
 typedef NS_ENUM(NSUInteger, MWMMapOverlayOutdoorState) {
   MWMMapOverlayOutdoorStateDisabled,
   MWMMapOverlayOutdoorStateEnabled,
 } NS_SWIFT_NAME(MapOverlayOutdoorState);
+
+typedef NS_ENUM(NSUInteger, MWMMapOverlayHikingState) {
+  MWMMapOverlayHikingStateDisabled,
+  MWMMapOverlayHikingStateEnabled,
+} NS_SWIFT_NAME(MapOverlayHikingState);
+
+typedef NS_ENUM(NSUInteger, MWMMapOverlayCyclingState) {
+  MWMMapOverlayCyclingStateDisabled,
+  MWMMapOverlayCyclingStateEnabled,
+} NS_SWIFT_NAME(MapOverlayCyclingState);
 
 NS_SWIFT_NAME(MapOverlayManagerObserver)
 @protocol MWMMapOverlayManagerObserver <NSObject>
@@ -50,16 +60,22 @@ NS_SWIFT_NAME(MapOverlayManager)
 + (MWMMapOverlayTransitState)transitState;
 + (MWMMapOverlayIsolinesState)isolinesState;
 + (MWMMapOverlayOutdoorState)outdoorState;
++ (MWMMapOverlayHikingState)hikingState;
++ (MWMMapOverlayCyclingState)cyclingState;
 
 + (BOOL)trafficEnabled;
 + (BOOL)transitEnabled;
 + (BOOL)isoLinesEnabled;
 + (BOOL)isolinesVisible;
 + (BOOL)outdoorEnabled;
++ (BOOL)hikingEnabled;
++ (BOOL)cyclingEnabled;
 
 + (void)setTrafficEnabled:(BOOL)enable;
 + (void)setTransitEnabled:(BOOL)enable;
 + (void)setIsoLinesEnabled:(BOOL)enable;
 + (void)setOutdoorEnabled:(BOOL)enable;
++ (void)setHikingEnabled:(BOOL)enable;
++ (void)setCyclingEnabled:(BOOL)enable;
 
 @end
