@@ -287,7 +287,8 @@ public class MapButtonsController extends Fragment
     if (mToggleMapLayerButton == null)
       return;
     final boolean buttonSelected = TrafficManager.INSTANCE.isEnabled() || IsolinesManager.isEnabled()
-                                || SubwayManager.isEnabled() || Framework.nativeIsOutdoorsLayerEnabled();
+                                || SubwayManager.isEnabled() || Framework.nativeIsOutdoorsLayerEnabled()
+                                || Framework.nativeIsHikingLayerEnabled() || Framework.nativeIsCyclingLayerEnabled();
     mToggleMapLayerButton.setHasActiveLayers(buttonSelected);
   }
 
