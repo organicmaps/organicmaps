@@ -137,7 +137,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
   QLabel * bookmarksPlacementLabel = new QLabel("Bookmark's text placement");
   QComboBox * bookmarksPlacementCB = new QComboBox();
   {
-    using namespace settings;
+    using settings::Placement;
 
     QStringList lst;
     for (int i = 0; i < static_cast<int>(Placement::Count); ++i)
@@ -145,17 +145,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
 
     bookmarksPlacementCB->addItems(lst);
 
-    Placement s;
-    if (Get(kBookmarksTextPlacement, s))
-      bookmarksPlacementCB->setCurrentText(QString::fromStdString(ToString(s)));
-    else
-      bookmarksPlacementCB->setCurrentIndex(0);
+    bookmarksPlacementCB->setCurrentText(QString::fromStdString(ToString(Framework::GetBookmarksTextPlacement())));
 
-    connect(bookmarksPlacementCB, &QComboBox::activated, [&framework](int index)
-    {
-      settings::Set(kBookmarksTextPlacement, static_cast<Placement>(index));
-      framework.UpdateBookmarksTextPlacement();
-    });
+    connect(bookmarksPlacementCB, &QComboBox::activated,
+            [&framework](int index) { framework.SetBookmarksTextPlacement(static_cast<Placement>(index)); });
   }
 
   QButtonGroup * nightModeGroup = new QButtonGroup(this);

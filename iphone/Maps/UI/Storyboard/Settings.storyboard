@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -174,6 +174,67 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill"
+                                        selectionStyle="default" accessoryType="disclosureIndicator"
+                                        hidesAccessoryWhenEditing="NO" indentationLevel="1"
+                                        indentationWidth="0.0"
+                                        reuseIdentifier="SettingsTableViewLinkCell"
+                                        textLabel="wQh-64-GxF" detailTextLabel="GJd-fC-bGC"
+                                        style="IBUITableViewCellStyleValue1" id="Plu-Oj-igD"
+                                        userLabel="Bookmarks Text Placement"
+                                        customClass="SettingsTableViewLinkCell"
+                                        customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="366" width="414" height="44" />
+                                        <autoresizingMask key="autoresizingMask" />
+                                        <tableViewCellContentView key="contentView" opaque="NO"
+                                            clipsSubviews="YES" multipleTouchEnabled="YES"
+                                            contentMode="center" tableViewCell="Plu-Oj-igD"
+                                            id="CC8-ZP-HYG">
+                                            <rect key="frame" x="0.0" y="0.0" width="383.5"
+                                                height="44" />
+                                            <autoresizingMask key="autoresizingMask" />
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES"
+                                                    contentMode="left"
+                                                    insetsLayoutMarginsFromSafeArea="NO"
+                                                    text="Bookmarks text placement"
+                                                    textAlignment="natural"
+                                                    lineBreakMode="tailTruncation"
+                                                    baselineAdjustment="alignBaselines"
+                                                    adjustsFontSizeToFit="NO" id="wQh-64-GxF"
+                                                    userLabel="Bookmarks Text Placement">
+                                                    <rect key="frame" x="20" y="15" width="150.5"
+                                                        height="14.5" />
+                                                    <autoresizingMask key="autoresizingMask" />
+                                                    <color key="backgroundColor" white="0.0"
+                                                        alpha="0.0" colorSpace="custom"
+                                                        customColorSpace="genericGamma22GrayColorSpace" />
+                                                    <fontDescription key="fontDescription"
+                                                        type="system" pointSize="0.0" />
+                                                    <nil key="textColor" />
+                                                    <nil key="highlightedColor" />
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES"
+                                                    contentMode="left"
+                                                    insetsLayoutMarginsFromSafeArea="NO"
+                                                    text="Detail" textAlignment="right"
+                                                    lineBreakMode="tailTruncation"
+                                                    baselineAdjustment="alignBaselines"
+                                                    adjustsFontSizeToFit="NO" id="GJd-fC-bGC">
+                                                    <rect key="frame" x="342.5" y="15" width="33"
+                                                        height="14.5" />
+                                                    <autoresizingMask key="autoresizingMask" />
+                                                    <color key="backgroundColor" white="0.0"
+                                                        alpha="0.0" colorSpace="custom"
+                                                        customColorSpace="genericGamma22GrayColorSpace" />
+                                                    <fontDescription key="fontDescription"
+                                                        type="system" pointSize="0.0" />
+                                                    <nil key="textColor" />
+                                                    <nil key="highlightedColor" />
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -413,6 +474,7 @@
                     <connections>
                         <outlet property="autoDownloadCell" destination="eE4-OC-9uX" id="c2A-dX-VMy"/>
                         <outlet property="autoZoomCell" destination="veW-Fm-2Hl" id="zbI-m2-mDP"/>
+                        <outlet property="bookmarksTextPlacementCell" destination="Plu-Oj-igD" id="amX-fx-AMS"/>
                         <outlet property="compassCalibrationCell" destination="P5e-67-f4k" id="KcB-EC-S2y"/>
                         <outlet property="drivingOptionsCell" destination="KrE-Sc-fI1" id="XOl-eI-xJX"/>
                         <outlet property="enableLoggingCell" destination="uxV-uf-u44" id="NcJ-C7-eff"/>
@@ -428,6 +490,7 @@
                         <outlet property="unitsCell" destination="Igk-BI-aHN" id="wc7-AI-ZlZ"/>
                         <outlet property="voiceInstructionsCell" destination="nED-2n-gN6" id="AOZ-0Q-2TH"/>
                         <outlet property="zoomButtonsCell" destination="LYi-oF-eGj" id="FHr-5G-l4F"/>
+                        <segue destination="fup-XH-LfC" kind="custom" identifier="SettingsToBookmarksTextPlacementSegue" customClass="MWMSegue" id="uRp-mX-HL1"/>
                         <segue destination="XDU-iY-yV9" kind="custom" identifier="SettingsToTTSSegue" customClass="MWMSegue" id="3NT-hq-Oex"/>
                         <segue destination="kBJ-ZO-Mca" kind="custom" identifier="SettingsToNightMode" customClass="MWMSegue" id="dd2-uc-aSe"/>
                         <segue destination="fxB-8Y-C2b" kind="custom" identifier="SettingsToProfileSegue" customClass="MWMSegue" id="p4d-e8-VbB"/>
@@ -931,6 +994,98 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2aI-lu-EnD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1881" y="1173"/>
+        </scene>
+        <!--Bookmarks Text Placement Controller-->
+        <scene sceneID="sQW-Ya-K5O">
+            <objects>
+                <tableViewController id="fup-XH-LfC" customClass="BookmarksTextPlacementController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="axs-gc-3bP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <sections>
+                            <tableViewSection id="UHC-eB-sAO">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" textLabel="8xJ-6W-kUD" style="IBUITableViewCellStyleDefault" id="Wvf-s9-Fux" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="18" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wvf-s9-Fux" id="HGG-sf-ikD">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Hide" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8xJ-6W-kUD" userLabel="Hide">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="hide"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" textLabel="ZOs-B4-ijC" style="IBUITableViewCellStyleDefault" id="uXB-sq-RRg" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="62" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uXB-sq-RRg" id="o7o-rS-V9E">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Show to the right" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZOs-B4-ijC" userLabel="Show to the right">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="show_to_the_right"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" textLabel="QZd-9J-9TL" style="IBUITableViewCellStyleDefault" id="gKh-LJ-2ZX" customClass="SettingsTableViewSelectableCell" customModule="Organic_Maps" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="106" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gKh-LJ-2ZX" id="gXa-q1-GqA">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Show at the bottom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QZd-9J-9TL">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="show_at_the_bottom"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="fup-XH-LfC" id="fjB-73-8kE"/>
+                            <outlet property="delegate" destination="fup-XH-LfC" id="pY2-T4-skI"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="hide" destination="Wvf-s9-Fux" id="jhp-Tt-IRH"/>
+                        <outlet property="showAtTheBottom" destination="gKh-LJ-2ZX" id="PWB-Hw-MZF"/>
+                        <outlet property="showOnTheRight" destination="uXB-sq-RRg" id="K0j-TZ-l9J"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y8h-gD-ifZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="480" y="-1430"/>
         </scene>
     </scenes>
 </document>

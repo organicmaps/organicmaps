@@ -10,6 +10,9 @@ NS_SWIFT_NAME(Settings)
 + (BOOL)zoomButtonsEnabled;
 + (void)setZoomButtonsEnabled:(BOOL)zoomButtonsEnabled;
 
++ (MWMPlacement)bookmarksTextPlacement;
++ (void)setBookmarksTextPlacement:(MWMPlacement)placement;
+
 + (BOOL)compassCalibrationEnabled;
 + (void)setCompassCalibrationEnabled:(BOOL)compassCalibrationEnabled;
 

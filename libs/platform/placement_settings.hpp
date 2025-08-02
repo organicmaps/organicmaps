@@ -14,6 +14,8 @@ enum class Placement
   Count
 };
 
+auto constexpr kDefaultBookmarksTextPlacement{Placement::None};
+
 inline bool FromString(std::string const & str, Placement & v)
 {
   if (str == "None")

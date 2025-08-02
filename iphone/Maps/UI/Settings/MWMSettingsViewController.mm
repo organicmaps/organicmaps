@@ -22,6 +22,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoDownloadCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * mobileInternetCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * powerManagementCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * bookmarksTextPlacementCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * fontScaleCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * transliterationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * compassCalibrationCell;
@@ -92,6 +93,8 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
 
 - (void)configCommonSection
 {
+  auto & frm = GetFramework();
+
   NSString * units = nil;
   switch ([MWMSettings measurementUnits])
   {
@@ -103,8 +106,8 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   [self.zoomButtonsCell configWithDelegate:self title:L(@"pref_zoom_title") isOn:[MWMSettings zoomButtonsEnabled]];
 
   bool on = true, _ = true;
-  GetFramework().Load3dMode(_, on);
-  if (GetFramework().GetPowerManager().GetScheme() == Scheme::EconomyMaximum)
+  frm.Load3dMode(_, on);
+  if (frm.GetPowerManager().GetScheme() == Scheme::EconomyMaximum)
   {
     self.is3dCell.isEnabled = false;
     [self.is3dCell configWithDelegate:self title:L(@"pref_map_3d_buildings_title") isOn:false];
@@ -134,7 +137,7 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   [self.mobileInternetCell configWithTitle:L(@"mobile_data") info:mobileInternet];
 
   NSString * powerManagement = nil;
-  switch (GetFramework().GetPowerManager().GetScheme())
+  switch (frm.GetPowerManager().GetScheme())
   {
   case Scheme::None: break;
   case Scheme::Normal: powerManagement = L(@"power_managment_setting_never"); break;
@@ -143,6 +146,17 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
   case Scheme::Auto: powerManagement = L(@"power_managment_setting_auto"); break;
   }
   [self.powerManagementCell configWithTitle:L(@"power_managment_title") info:powerManagement];
+
+  NSString * textPlacementValue = nil;
+  switch (Framework::GetBookmarksTextPlacement())
+  {
+    using settings::Placement;
+  case Placement::None: textPlacementValue = L(@"hide"); break;
+  case Placement::Right: textPlacementValue = L(@"show_to_the_right"); break;
+  case Placement::Bottom: textPlacementValue = L(@"show_at_the_bottom"); break;
+  case Placement::Count: UNREACHABLE();
+  }
+  [self.bookmarksTextPlacementCell configWithTitle:L(@"bookmarks_text_placement_title") info:textPlacementValue];
 
   [self.fontScaleCell configWithDelegate:self title:L(@"big_font") isOn:[MWMSettings largeFontSize]];
 
@@ -367,6 +381,8 @@ static NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidS
     [self performSegueWithIdentifier:@"SettingsToMobileInternetSegue" sender:nil];
   else if (cell == self.powerManagementCell)
     [self performSegueWithIdentifier:@"SettingsToPowerManagementSegue" sender:nil];
+  else if (cell == self.bookmarksTextPlacementCell)
+    [self performSegueWithIdentifier:@"SettingsToBookmarksTextPlacementSegue" sender:nil];
   else if (cell == self.nightModeCell)
     [self performSegueWithIdentifier:@"SettingsToNightMode" sender:nil];
   else if (cell == self.voiceInstructionsCell)

@@ -62,6 +62,32 @@ NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
   [MWMMapViewControlsManager manager].zoomHidden = !zoomButtonsEnabled;
 }
 
++ (MWMPlacement)bookmarksTextPlacement
+{
+  switch (GetFramework().GetBookmarksTextPlacement())
+  {
+    using settings::Placement;
+  case Placement::None: return MWMPlacementNone;
+  case Placement::Right: return MWMPlacementRight;
+  case Placement::Bottom: return MWMPlacementBottom;
+  default: UNREACHABLE();
+  }
+}
+
++ (void)setBookmarksTextPlacement:(MWMPlacement)placement
+{
+  using settings::Placement;
+  Placement setting;
+  switch (placement)
+  {
+  case MWMPlacementNone: setting = Placement::None; break;
+  case MWMPlacementRight: setting = Placement::Right; break;
+  case MWMPlacementBottom: setting = Placement::Bottom; break;
+  default: UNREACHABLE();
+  }
+  GetFramework().SetBookmarksTextPlacement(setting);
+}
+
 + (BOOL)compassCalibrationEnabled
 {
   bool enabled = true;

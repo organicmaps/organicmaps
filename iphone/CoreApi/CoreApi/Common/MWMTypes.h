@@ -12,6 +12,12 @@ typedef NS_ENUM(NSUInteger, MWMDayTime) { MWMDayTimeDay, MWMDayTimeNight } NS_SW
 
 typedef NS_ENUM(NSUInteger, MWMUnits) { MWMUnitsMetric, MWMUnitsImperial } NS_SWIFT_NAME(Units);
 
+typedef NS_ENUM(NSUInteger, MWMPlacement) {
+  MWMPlacementNone,
+  MWMPlacementRight,
+  MWMPlacementBottom
+} NS_SWIFT_NAME(Placement);
+
 typedef NS_ENUM(NSUInteger, MWMTheme) {
   MWMThemeDay,
   MWMThemeNight,
