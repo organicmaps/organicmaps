@@ -18,6 +18,16 @@ class BottomMenuLayersCell: UITableViewCell {
       updateOutdoorButton()
     }
   }
+  @IBOutlet private var hikingButton: BottomMenuLayerButton! {
+    didSet {
+      updateHikingButton()
+    }
+  }
+  @IBOutlet private var cyclingButton: BottomMenuLayerButton! {
+    didSet {
+      updateCyclingButton()
+    }
+  }
 
   var onClose: (()->())?
   
@@ -31,6 +41,8 @@ class BottomMenuLayersCell: UITableViewCell {
   private func setupButtons() {
     outdoorButton.setupWith(image: UIImage(resource: .btnMenuOutdoors), text: L("button_layer_outdoor"))
     isoLinesButton.setupWith(image: UIImage(resource: .btnMenuIsomaps), text: L("button_layer_isolines"))
+    hikingButton.setupWith(image: UIImage(resource: .btnMenuIsomaps), text: L("button_layer_hiking"))
+    cyclingButton.setupWith(image: UIImage(resource: .btnMenuIsomaps), text: L("button_layer_cycling"))
     subwayButton.setupWith(image: UIImage(resource: .btnMenuSubway), text: L("button_layer_subway"))
   }
 
@@ -56,6 +68,16 @@ class BottomMenuLayersCell: UITableViewCell {
     let enabled = MapOverlayManager.outdoorEnabled()
     outdoorButton.setStyleAndApply(styleFor(enabled))
   }
+
+  private func updateHikingButton() {
+    let enabled = MapOverlayManager.hikingEnabled()
+    hikingButton.setStyleAndApply(styleFor(enabled))
+  }
+
+  private func updateCyclingButton() {
+    let enabled = MapOverlayManager.cyclingEnabled()
+    cyclingButton.setStyleAndApply(styleFor(enabled))
+  }
   
   @IBAction func onCloseButtonPressed(_ sender: Any) {
     onClose?()
@@ -74,6 +96,22 @@ class BottomMenuLayersCell: UITableViewCell {
   @IBAction func onOutdoorButton(_ sender: Any) {
     let enable = !MapOverlayManager.outdoorEnabled()
     MapOverlayManager.setOutdoorEnabled(enable)
+  }
+
+  @IBAction func onHikingButton(_ sender: Any) {
+    let enable = !MapOverlayManager.hikingEnabled()
+    MapOverlayManager.setHikingEnabled(enable)
+
+    updateHikingButton()
+    /// @todo Call MWMTrafficButtonViewController applyTheme ?
+  }
+
+  @IBAction func onCyclingButton(_ sender: Any) {
+    let enable = !MapOverlayManager.cyclingEnabled()
+    MapOverlayManager.setCyclingEnabled(enable)
+
+    updateCyclingButton()
+    /// @todo Call MWMTrafficButtonViewController applyTheme ?
   }
 }
 

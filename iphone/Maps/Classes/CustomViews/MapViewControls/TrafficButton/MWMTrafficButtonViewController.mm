@@ -183,7 +183,8 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     btn.imageName = @"btn_isoMap_on";
     [self handleIsolinesState:[MWMMapOverlayManager isolinesState]];
   }
-  else if ([MWMMapOverlayManager outdoorEnabled])
+  else if ([MWMMapOverlayManager outdoorEnabled] || [MWMMapOverlayManager hikingEnabled] ||
+           [MWMMapOverlayManager cyclingEnabled])
   {
     btn.imageName = @"btn_isoMap_on";
   }
@@ -196,7 +197,8 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 - (IBAction)buttonTouchUpInside
 {
   BOOL needsToDisableMapLayer = [MWMMapOverlayManager trafficEnabled] || [MWMMapOverlayManager transitEnabled] ||
-                                [MWMMapOverlayManager isoLinesEnabled] || [MWMMapOverlayManager outdoorEnabled];
+                                [MWMMapOverlayManager isoLinesEnabled] || [MWMMapOverlayManager outdoorEnabled] ||
+                                [MWMMapOverlayManager hikingEnabled] || [MWMMapOverlayManager cyclingEnabled];
 
   if (needsToDisableMapLayer)
   {
@@ -204,6 +206,8 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     [MWMMapOverlayManager setTransitEnabled:NO];
     [MWMMapOverlayManager setIsoLinesEnabled:NO];
     [MWMMapOverlayManager setOutdoorEnabled:NO];
+    [MWMMapOverlayManager setHikingEnabled:NO];
+    [MWMMapOverlayManager setCyclingEnabled:NO];
   }
   else
   {
