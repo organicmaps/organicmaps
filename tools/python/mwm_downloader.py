@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent.absolute()
 OMIM_ROOT = ROOT / '..' / '..'
 DEFAULT_DOWNLOAD_DIRECTORY = OMIM_ROOT / 'data'
-COUNTRIES_TXT = OMIM_ROOT / 'data' / 'countries.txt'
+COUNTRIES_JSON = OMIM_ROOT / 'data' / 'countries' / 'countries.json'
 TIMEOUT = 3
 
 URL_PATTERN = 'http://{prefix}.mapswithme.com/maps/{version}/{name}.mwm'
@@ -34,7 +34,8 @@ logger = logging.getLogger(__name__)
 
 def country_names_generator(country_obj):
     """
-    See more info about 'countries.txt' file format in 'omim/storage/country.cpp'.
+    Generates country names from the countries.json file.
+    See more info about the countries data format in 'omim/storage/country.cpp'.
     """
     if 'g' in country_obj:
         yield from country_names_generator(country_obj['g'])
@@ -114,7 +115,7 @@ def progress_bar(total, progress):
     sys.stderr.flush()
 
 
-def download_mwm_list(version=None, threads=8, folder=None, countries_path=COUNTRIES_TXT, mwm_prefix_list=None, quiet=True):
+def download_mwm_list(version=None, threads=8, folder=None, countries_path=COUNTRIES_JSON, mwm_prefix_list=None, quiet=True):
     try:
         countries = json.load(open(str(countries_path), 'r'))
     except (OSError, json.decoder.JSONDecodeError) as e:
@@ -160,7 +161,7 @@ if __name__ == '__main__':
     parser.add_argument('-v', '--version', help='Map version number e.g. 180126', type=int, default=None)
     parser.add_argument('-t', '--threads', help='Threads count', type=int, default=8)
     parser.add_argument('-f', '--folder', help='Directory to save maps', type=str, default=None)
-    parser.add_argument('-c', '--countries_path', help='Path to countries.txt', type=str, default=COUNTRIES_TXT)
+    parser.add_argument('-c', '--countries_path', help='Path to countries.json', type=str, default=COUNTRIES_JSON)
     parser.add_argument('-m', '--mwm_prefix_list', help='Mwm prefix list (exmp. \'Russia\', \'Russia_Moscow.mwm\')',
                         type=str, default=None, nargs='+')
     parser.add_argument('-q', '--quiet', help='Prevent progress bar showing', action='store_true', default=False)

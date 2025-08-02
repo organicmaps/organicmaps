@@ -92,7 +92,7 @@ copy_resources(
   categories_cuisines.txt
   classificator.txt
   colors.txt
-  countries.txt
+  countries/countries.json
   drules_proto_default_light.bin
   drules_proto_default_dark.bin
   drules_proto_vehicle_light.bin

@@ -17,8 +17,8 @@ class PostGeneration:
             usage="""post_generation <command> [<args>]
 The post_generation commands are:
     localads_mwm_to_csv    Prepares CSV files for uploading to localads database from mwm files.
-    hierarchy_to_countries Produces countries.txt from hierarchy.txt.
-    inject_promo_ids       Injects promo osm ids into countries.txt
+    hierarchy_to_countries Produces countries.json from hierarchy.txt.
+    inject_promo_ids       Injects promo osm ids into countries.json
     """,
         )
         parser.add_argument("command", help="Subcommand to run")
@@ -69,7 +69,7 @@ The post_generation commands are:
     @staticmethod
     def hierarchy_to_countries():
         parser = argparse.ArgumentParser(
-            description="Produces countries.txt from hierarchy.txt."
+            description="Produces countries.json from hierarchy.txt."
         )
         parser.add_argument("--target", required=True, help="Path to mwm files")
         parser.add_argument(
@@ -87,7 +87,7 @@ The post_generation commands are:
             "-o",
             "--output",
             required=True,
-            help="Output countries.txt file (default is stdout)",
+            help="Output countries.json file (default is stdout)",
         )
         args = parser.parse_args(sys.argv[2:])
         countries = hierarchy_to_countries_(
@@ -107,7 +107,7 @@ The post_generation commands are:
     @staticmethod
     def inject_promo_ids():
         parser = argparse.ArgumentParser(
-            description="Injects promo cities osm ids into countries.txt"
+            description="Injects promo cities osm ids into countries.json"
         )
         parser.add_argument("--mwm", required=True, help="path to mwm files")
         parser.add_argument(
@@ -124,20 +124,20 @@ The post_generation commands are:
         )
         parser.add_argument(
             "--countries",
-            help="path to countries.txt file (default is countries.txt file into mwm directory)",
+            help="path to countries.json file (default is countries.json file into mwm directory)",
         )
         parser.add_argument(
             "--output",
-            help="Output countries.txt file (default is countries.txt file into mwm directory)",
+            help="Output countries.json file (default is countries.json file into mwm directory)",
         )
         args = parser.parse_args(sys.argv[2:])
 
         if not args.osm2ft:
             args.osm2ft = args.mwm
         if not args.countries:
-            args.countries = os.path.join(args.mwm, "countries.txt")
+            args.countries = os.path.join(args.mwm, "countries", "countries.json")
         if not args.output:
-            args.output = os.path.join(args.mwm, "countries.txt")
+            args.output = os.path.join(args.mwm, "countries", "countries.json")
 
         with open(args.countries) as f:
             countries = json.load(f)

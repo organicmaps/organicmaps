@@ -72,7 +72,7 @@ private:
   std::pair<int64_t, int64_t> m_bounds;
 
   buffer_vector<uint8_t, kMaxScalesCount> m_scales;
-  // Is not used now (see data/countries_meta.txt). Can be reused for something else.
+  // Is not used now (see data/countries/metadata.json). Can be reused for something else.
   buffer_vector<uint8_t, 2> m_langs;
 };
 

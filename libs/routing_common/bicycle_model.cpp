@@ -266,7 +266,7 @@ BicycleModelFactory::BicycleModelFactory(CountryParentNameGetterFn const & count
   using namespace bicycle_model;
   using std::make_shared;
 
-  // Names must be the same with country names from countries.txt
+  // Names must be the same with country names from countries.json
   m_models[""] = make_shared<BicycleModel>(kDefaultOptions);
 
   m_models["Australia"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianAndFootwaySpeed());

@@ -132,7 +132,7 @@ protected:
 class CountryInfoReader : public CountryInfoGetter
 {
 public:
-  /// \returns CountryInfoReader/CountryInfoGetter based on countries.txt and packed_polygons.bin.
+  /// \returns CountryInfoReader/CountryInfoGetter based on countries.json and packed_polygons.bin.
   static std::unique_ptr<CountryInfoReader> CreateCountryInfoReader(Platform const & platform);
   static std::unique_ptr<CountryInfoGetter> CreateCountryInfoGetter(Platform const & platform);
 
