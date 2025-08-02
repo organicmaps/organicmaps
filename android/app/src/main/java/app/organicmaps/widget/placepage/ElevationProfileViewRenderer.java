@@ -58,12 +58,6 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
   private View mTimeContainer;
   private View mTitleContainer;
 
-  @NonNull
-  private static String formatDistance(final Context context, int distance)
-  {
-    return Framework.nativeFormatAltitude(distance);
-  }
-
   public void render(@NonNull Track track)
   {
     final Context context = mAscent.getContext();
@@ -80,6 +74,12 @@ public class ElevationProfileViewRenderer implements PlacePageStateListener
     mMinAltitude.setText(formatDistance(context, stats.getMinElevation()));
     UiUtils.hide(mTimeContainer);
     mTime.setText(Utils.formatRoutingTime(mAscent.getContext(), (int) stats.getDuration(), R.dimen.text_size_body_2));
+  }
+
+  @NonNull
+  private static String formatDistance(final Context context, int distance)
+  {
+    return Framework.nativeFormatAltitude(distance);
   }
 
   public void initialize(@Nullable View view)

@@ -102,11 +102,7 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
 
   auto const trackId = info.GetTrackId();
   auto const track = frm()->GetBookmarkManager().GetTrack(trackId);
-  dp::Color nColor = track->GetColor(0);
-
-  jint androidColor =
-      shift(nColor.GetAlpha(), 24) + shift(nColor.GetRed(), 16) + shift(nColor.GetGreen(), 8) + nColor.GetBlue();
-
+  jint androidColor = track->GetColor(0).GetARGB();
   auto const categoryId = track->GetGroupId();
   ms::LatLon const ll = info.GetLatLon();
   jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, info.GetID().GetMwmName()));

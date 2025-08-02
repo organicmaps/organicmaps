@@ -63,14 +63,14 @@ public class PlacePageTrackFragment extends Fragment
   public void onStop()
   {
     super.onStop();
+    BookmarkManager.INSTANCE.setElevationActivePointChangedListener(null);
+    BookmarkManager.INSTANCE.setElevationCurrentPositionChangedListener(null);
     mViewModel.getMapObject().removeObserver(this);
   }
 
   @Override
   public void onDestroy()
   {
-    BookmarkManager.INSTANCE.setElevationActivePointChangedListener(null);
-    BookmarkManager.INSTANCE.setElevationCurrentPositionChangedListener(null);
     super.onDestroy();
   }
 
@@ -80,21 +80,21 @@ public class PlacePageTrackFragment extends Fragment
     // MapObject could be something else than a Track if the user already has the place page
     // opened and clicks on a non-Track POI.
     // This callback would be called before the fragment had time to be destroyed
-    if (mapObject != null && mapObject.isTrack())
+    if (mapObject == null || !mapObject.isTrack())
+      return;
+
+    Track track = (Track) mapObject;
+    if (track.getElevationInfo() != null)
     {
-      Track track = (Track) mapObject;
-      if (track.isElevationInfoHasValue())
+      if (mTrack == null || mTrack.getTrackId() != track.getTrackId())
       {
-        if (mTrack == null || mTrack.getTrackId() != track.getTrackId())
-        {
-          mElevationProfileViewRenderer.render(track);
-          UiUtils.show(mElevationProfileView);
-        }
+        mElevationProfileViewRenderer.render(track);
+        UiUtils.show(mElevationProfileView);
       }
-      else
-        UiUtils.hide(mElevationProfileView);
-      mTrack = track;
     }
+    else
+      UiUtils.hide(mElevationProfileView);
+    mTrack = track;
   }
 
   @Override
@@ -104,7 +104,8 @@ public class PlacePageTrackFragment extends Fragment
       return;
     mElevationProfileViewRenderer.onChartElevationActivePointChanged();
     ElevationInfo.Point point = BookmarkManager.INSTANCE.getElevationActivePointCoordinates(mTrack.getTrackId());
-    mViewModel.modifyMapObjectPointSilently(point);
+    mTrack.setLat(point.getLatitude());
+    mTrack.setLon(point.getLongitude());
   }
 
   @Override

@@ -124,6 +124,7 @@ public class PlacePageController
       bg.setCornerSize(mPlacePageCornerRadius);
     }
   };
+
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
         @Override
@@ -147,18 +148,6 @@ public class PlacePageController
           mViewModel.setPlacePageDistanceToTop(mDistanceToTop);
         }
       };
-
-  @NonNull
-  private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
-  {
-    return switch (type)
-    {
-      case DIRTY -> PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
-      case FERRY -> PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
-      case TOLL -> PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
-      default -> throw new AssertionError("Unsupported road warning type: " + type);
-    };
-  }
 
   @Nullable
   @Override
@@ -215,6 +204,18 @@ public class PlacePageController
     });
 
     ViewCompat.requestApplyInsets(mPlacePage);
+  }
+
+  @NonNull
+  private static PlacePageButtons.ButtonType toPlacePageButton(@NonNull RoadWarningMarkType type)
+  {
+    return switch (type)
+    {
+      case DIRTY -> PlacePageButtons.ButtonType.ROUTE_AVOID_UNPAVED;
+      case FERRY -> PlacePageButtons.ButtonType.ROUTE_AVOID_FERRY;
+      case TOLL -> PlacePageButtons.ButtonType.ROUTE_AVOID_TOLL;
+      default -> throw new AssertionError("Unsupported road warning type: " + type);
+    };
   }
 
   private void stopCustomPeekHeightAnimation()
@@ -456,19 +457,18 @@ public class PlacePageController
   {
     if (mMapObject == null)
       return;
+    dismissAlertDialog();
+    mViewModel.isAlertDialogShowing = true;
     if (mAlertDialog != null)
     {
-      mAlertDialog.dismiss();
       mAlertDialog.show();
-      mViewModel.isAlertDialogShowing = true;
       return;
     }
-    mViewModel.isAlertDialogShowing = true;
     mAlertDialog = new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
-                       .setTitle("Would you like to delete " + mMapObject.getTitle() + "?")
+                       .setTitle(requireContext().getString(R.string.delete_track_dialog_title, mMapObject.getTitle()))
                        .setCancelable(true)
                        .setNegativeButton(R.string.cancel, null)
-                       .setPositiveButton("delete",
+                       .setPositiveButton(R.string.delete,
                                           (dialog, which) -> {
                                             BookmarkManager.INSTANCE.deleteTrack(((Track) mMapObject).getTrackId());
                                             close();
@@ -660,6 +660,7 @@ public class PlacePageController
       // Place page will automatically open when the bottom sheet content is loaded so we can compute the peek height
       createPlacePageFragments();
       updateButtons(mapObject, showBackButton, !mMapObject.isMyPosition());
+      mAlertDialog = null;
       if (mViewModel.isAlertDialogShowing)
         showTrackDeleteAlertDialog();
     }

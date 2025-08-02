@@ -930,5 +930,7 @@
     <string name="uri_open_location_failed">No app installed that can open the location</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto in navigation</string>
-    <string name="PP_track_bottom_sheet_title">Save Track As</string>
+    <!-- Title of the bottom sheet when sharing the track -->
+    <string name="share_track">Share Track</string>
+    <string name="delete_track_dialog_title">Delete %s?</string>
 </resources>

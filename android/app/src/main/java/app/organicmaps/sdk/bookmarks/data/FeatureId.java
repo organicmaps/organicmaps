@@ -27,7 +27,7 @@ public class FeatureId implements Parcelable
   };
 
   @NonNull
-  public static final FeatureId EMPTY = new FeatureId("", 0L, 0);
+  public static final FeatureId EMPTY = new FeatureId("", -1L, 0);
 
   @NonNull
   private final String mMwmName;

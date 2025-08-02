@@ -37,7 +37,7 @@ public class ChartController implements OnChartValueSelectedListener
 {
   private static final int CHART_Y_LABEL_COUNT = 3;
   private static final int CHART_X_LABEL_COUNT = 6;
-  private static final int CHART_ANIMATION_DURATION = 1500;
+  private static final int CHART_ANIMATION_DURATION = 0;
   private static final int CHART_FILL_ALPHA = (int) (0.12 * 255);
   private static final int CHART_AXIS_GRANULARITY = 100;
   private static final float CUBIC_INTENSITY = 0.2f;

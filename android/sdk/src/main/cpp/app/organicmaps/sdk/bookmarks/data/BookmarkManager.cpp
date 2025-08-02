@@ -448,8 +448,7 @@ JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManage
 }
 
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeUpdateTrackPlacePage(JNIEnv * env,
-                                                                                                          jobject,
-                                                                                                          jlong trackId)
+                                                                                                          jobject)
 {
   if (!frm()->HasPlacePageInfo())
     return;
@@ -837,8 +836,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_n
     JNIEnv *, jclass, jlong trackId, jdouble distanceInMeters, jdouble latitude, jdouble longitude)
 {
   auto & bm = frm()->GetBookmarkManager();
-  bm.SetElevationActivePoint(static_cast<kml::TrackId>(trackId),
-                             m2::PointD(static_cast<double>(latitude), static_cast<double>(longitude)),
+  bm.SetElevationActivePoint(static_cast<kml::TrackId>(trackId), {latitude, longitude},
                              static_cast<double>(distanceInMeters));
 }
 
@@ -872,22 +870,17 @@ JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManage
 {
   auto const & track = frm()->GetBookmarkManager().GetTrack(track_id);
   auto const & elevationInfo = track->GetElevationInfo();
-  return usermark_helper::CreateElevationInfo(env, elevationInfo.value());
+  return track->GetElevationInfo().has_value() ? usermark_helper::CreateElevationInfo(env, elevationInfo.value())
+                                               : nullptr;
 }
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeIsElevationInfoHasValue(
-    JNIEnv * env, jclass clazz, jlong track_id)
-{
-  return static_cast<jboolean>(frm()->GetBookmarkManager().GetTrack(track_id)->GetElevationInfo().has_value());
-}
+
 JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetTrackStatistics(
     JNIEnv * env, jclass clazz, jlong track_id)
 {
   static jmethodID const cId = jni::GetConstructorID(env, g_trackStatisticsClazz, "(DDDDII)V");
   auto const trackStats = frm()->GetBookmarkManager().GetTrack(track_id)->GetStatistics();
-  return env->NewObject(g_trackStatisticsClazz, cId, static_cast<jdouble>(trackStats.m_length),
-                        static_cast<jdouble>(trackStats.m_duration), static_cast<jdouble>(trackStats.m_ascent),
-                        static_cast<jdouble>(trackStats.m_descent), static_cast<jint>(trackStats.m_minElevation),
-                        static_cast<jint>(trackStats.m_maxElevation));
+  return env->NewObject(g_trackStatisticsClazz, cId, trackStats.m_length, trackStats.m_duration, trackStats.m_ascent,
+                        trackStats.m_descent, trackStats.m_minElevation, static_cast<jint>(trackStats.m_maxElevation));
 }
 
 JNIEXPORT jobject JNICALL
@@ -900,7 +893,6 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetElevationActive
   static jmethodID const pointCtorId = jni::GetConstructorID(env, pointClass, "(DIDD)V");
   auto const & trackInfo = frm()->GetBookmarkManager().GetTrackSelectionInfo(track_id);
   auto const latlon = mercator::ToLatLon(trackInfo.m_trackPoint);
-  return env->NewObject(pointClass, pointCtorId, 0.0, 0, static_cast<jdouble>(latlon.m_lat),
-                        static_cast<jdouble>(latlon.m_lon));
+  return env->NewObject(pointClass, pointCtorId, 0.0, 0, latlon.m_lat, latlon.m_lon);
 }
 }  // extern "C"

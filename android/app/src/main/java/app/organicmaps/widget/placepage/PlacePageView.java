@@ -362,9 +362,12 @@ public class PlacePageView extends Fragment
     else
       refreshDistanceToObject(loc);
     UiUtils.hideIf(mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_latlon),
-                   mFrame.findViewById(R.id.ll__place_open_in), mFrame.findViewById(R.id.ll__place_add), mEditTopSpace,
-                   mTvAzimuth, mTvDistance, mAvDirection);
-    UiUtils.hideIf(MapObjectType.getMapObjectType(mMapObject) != MapObjectType.OTHER, mTvSubtitle);
+                   mFrame.findViewById(R.id.ll__place_open_in));
+    if (mMapObject.isTrack() || mMapObject.isBookmark())
+    {
+      UiUtils.hide(mTvSubtitle);
+      UiUtils.hide(mTvAzimuth, mAvDirection, mTvDistance);
+    }
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag,
@@ -470,9 +473,7 @@ public class PlacePageView extends Fragment
   void refreshCategoryPreview()
   {
     View categoryContainer = mFrame.findViewById(R.id.category_container);
-    switch (MapObjectType.getMapObjectType(mMapObject))
-    {
-    case TRACK ->
+    if (mMapObject.isTrack())
     {
       Track track = (Track) mMapObject;
       Drawable circle =
@@ -481,7 +482,7 @@ public class PlacePageView extends Fragment
       mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
       UiUtils.show(mColorIcon, mTvCategory, categoryContainer);
     }
-    case BOOKMARK ->
+    else if (mMapObject.isBookmark())
     {
       Bookmark bookmark = (Bookmark) mMapObject;
       Icon icon = bookmark.getIcon();
@@ -495,8 +496,7 @@ public class PlacePageView extends Fragment
         UiUtils.show(mColorIcon, mTvCategory, categoryContainer);
       }
     }
-    case OTHER -> UiUtils.hide(mColorIcon, mTvCategory, categoryContainer);
-    }
+
     mColorIcon.setOnClickListener(this::onClick);
     mTvCategory.setOnClickListener(this::onClick);
     mEditBookmark.setOnClickListener(this::onClick);
@@ -512,25 +512,23 @@ public class PlacePageView extends Fragment
         (BookmarkColorDialogFragment) factory.instantiate(getContext().getClassLoader(), className);
     dialogFragment.setArguments(args);
 
-    switch (MapObjectType.getMapObjectType(mMapObject))
+    if (mMapObject.isTrack())
     {
-    case TRACK ->
-    {
-      final Track mTrack = (Track) mMapObject;
-      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(mTrack.getColor()));
+      final Track track = (Track) mMapObject;
+      args.putInt(BookmarkColorDialogFragment.ICON_COLOR, PredefinedColors.getPredefinedColorIndex(track.getColor()));
       dialogFragment.setOnColorSetListener((colorPos) -> {
-        int from = mTrack.getColor();
+        int from = track.getColor();
         int to = PredefinedColors.getColor(colorPos);
         if (from == to)
           return;
-        mViewModel.modifyMapObjectColorSilently(to);
+        track.setColor(to);
         Drawable circle = Graphics.drawCircle(to, R.dimen.place_page_icon_size, requireContext().getResources());
         mColorIcon.setImageDrawable(circle);
       });
-      dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
     }
-    case BOOKMARK ->
+    else if (mMapObject.isBookmark())
     {
+      dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
       final Bookmark bookmark = (Bookmark) mMapObject;
       args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
       args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
@@ -539,14 +537,13 @@ public class PlacePageView extends Fragment
         int to = PredefinedColors.getColor(colorPos);
         if (from == to)
           return;
-        mViewModel.modifyMapObjectColorSilently(to);
+        bookmark.setIconColor(to);
         Drawable circle = Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_size,
                                                       app.organicmaps.sdk.R.drawable.ic_bookmark_none,
                                                       R.dimen.place_page_icon_mark_size, requireContext());
         mColorIcon.setImageDrawable(circle);
       });
       dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
-    }
     }
   }
 
@@ -559,9 +556,7 @@ public class PlacePageView extends Fragment
     final FragmentFactory factory = manager.getFragmentFactory();
     final ChooseBookmarkCategoryFragment frag =
         (ChooseBookmarkCategoryFragment) factory.instantiate(getContext().getClassLoader(), className);
-    switch (MapObjectType.getMapObjectType(mMapObject))
-    {
-    case TRACK ->
+    if (mMapObject.isTrack())
     {
       Track track = (Track) mMapObject;
       BookmarkCategory currentCategory = BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId());
@@ -570,7 +565,7 @@ public class PlacePageView extends Fragment
       frag.setArguments(args);
       frag.show(manager, null);
     }
-    case BOOKMARK ->
+    else if (mMapObject.isBookmark())
     {
       Bookmark bookmark = (Bookmark) mMapObject;
       BookmarkCategory currentCategory = BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId());
@@ -579,15 +574,12 @@ public class PlacePageView extends Fragment
       frag.setArguments(args);
       frag.show(manager, null);
     }
-    }
   }
 
   @Override
   public void onCategoryChanged(@NonNull BookmarkCategory newCategory)
   {
-    switch (MapObjectType.getMapObjectType(mMapObject))
-    {
-    case TRACK ->
+    if (mMapObject.isTrack())
     {
       Track track = (Track) mMapObject;
       BookmarkCategory previousCategory = BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId());
@@ -595,49 +587,44 @@ public class PlacePageView extends Fragment
         return;
       BookmarkManager.INSTANCE.notifyCategoryChanging(track, newCategory.getId());
       mTvCategory.setText(newCategory.getName());
-      mViewModel.modifyMapObjectCategoryIdSilently(newCategory.getId());
+      track.setCategoryId(newCategory.getId());
     }
-    case BOOKMARK ->
+    else if (mMapObject.isBookmark())
     {
       Bookmark bookmark = (Bookmark) mMapObject;
       BookmarkCategory previousCategory = BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId());
       if (previousCategory == newCategory)
         return;
       mTvCategory.setText(newCategory.getName());
-      mViewModel.modifyMapObjectCategoryIdSilently(newCategory.getId());
-    }
+      bookmark.setCategoryId(newCategory.getId());
     }
   }
 
   void showBookmarkEditFragment()
   {
-    switch (MapObjectType.getMapObjectType(mMapObject))
-    {
-    case TRACK ->
+    if (mMapObject.isTrack())
     {
       Track track = (Track) mMapObject;
       final FragmentActivity activity = requireActivity();
       EditBookmarkFragment.editTrack(track.getCategoryId(), track.getTrackId(), activity, getChildFragmentManager(),
                                      PlacePageView.this);
     }
-    case BOOKMARK ->
+    else if (mMapObject.isBookmark())
     {
       Bookmark bookmark = (Bookmark) mMapObject;
       final FragmentActivity activity = requireActivity();
       EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(), activity,
                                         getChildFragmentManager(), PlacePageView.this);
     }
-    }
   }
 
   @Override
   public void onBookmarkSaved(long bookmarkId, boolean movedFromCategory)
   {
-    switch (MapObjectType.getMapObjectType(mMapObject))
-    {
-    case TRACK -> BookmarkManager.INSTANCE.updateTrackPlacePage(bookmarkId);
-    case BOOKMARK -> BookmarkManager.INSTANCE.updateBookmarkPlacePage(bookmarkId);
-    }
+    if (mMapObject.isTrack())
+      BookmarkManager.INSTANCE.updateTrackPlacePage();
+    else if (mMapObject.isBookmark())
+      BookmarkManager.INSTANCE.updateBookmarkPlacePage(bookmarkId);
   }
 
   private void refreshDetails()
@@ -1019,7 +1006,7 @@ public class PlacePageView extends Fragment
   {
     if (mMapObject.isTrack())
     {
-      MenuBottomSheetFragment.newInstance(TRACK_SHARE_MENU_ID, getString(R.string.PP_track_bottom_sheet_title))
+      MenuBottomSheetFragment.newInstance(TRACK_SHARE_MENU_ID, getString(R.string.share_track))
           .show(getChildFragmentManager(), TRACK_SHARE_MENU_ID);
     }
     else
@@ -1066,22 +1053,5 @@ public class PlacePageView extends Fragment
 
     void onPlacePageRequestToggleState();
     void onPlacePageRequestClose();
-  }
-
-  public enum MapObjectType
-  {
-    TRACK,
-    BOOKMARK,
-    OTHER;
-
-    public static MapObjectType getMapObjectType(MapObject mapObject)
-    {
-      if (mapObject.isTrack())
-        return TRACK;
-      else if (mapObject.isBookmark())
-        return BOOKMARK;
-      else
-        return OTHER;
-    }
   }
 }
