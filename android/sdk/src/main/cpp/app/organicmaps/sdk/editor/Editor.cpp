@@ -64,7 +64,7 @@ extern "C"
 {
 using osm::Editor;
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeInit(JNIEnv * env, jclass)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeInit(JNIEnv * env, jclass)
 {
   g_localNameClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/editor/data/LocalizedName");
   // LocalizedName(int code, @NonNull String name, @NonNull String lang, @NonNull String langName)
@@ -84,17 +84,17 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeInit(JNIEnv 
       jni::GetConstructorID(env, g_namesDataSourceClassID, "([Lapp/organicmaps/sdk/editor/data/LocalizedName;I)V");
 }
 
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetOpeningHours(JNIEnv * env, jclass)
+JNIEXPORT jstring Java_app_organicmaps_sdk_editor_Editor_nativeGetOpeningHours(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, g_editableMapObject.GetOpeningHours());
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSetOpeningHours(JNIEnv * env, jclass, jstring value)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeSetOpeningHours(JNIEnv * env, jclass, jstring value)
 {
   g_editableMapObject.SetOpeningHours(jni::ToNativeString(env, value));
 }
 
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetMetadata(JNIEnv * env, jclass, jint id)
+JNIEXPORT jstring Java_app_organicmaps_sdk_editor_Editor_nativeGetMetadata(JNIEnv * env, jclass, jint id)
 {
   auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
   ASSERT_LESS(metaID, osm::MapObject::MetadataID::FMD_COUNT, ());
@@ -109,44 +109,43 @@ JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetMetada
   return jni::ToJavaString(env, g_editableMapObject.GetMetadata(metaID));
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeIsMetadataValid(JNIEnv * env, jclass, jint id,
-                                                                                        jstring value)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeIsMetadataValid(JNIEnv * env, jclass, jint id,
+                                                                                jstring value)
 {
   auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
   ASSERT_LESS(metaID, osm::MapObject::MetadataID::FMD_COUNT, ());
   return osm::EditableMapObject::IsValidMetadata(metaID, jni::ToNativeString(env, value));
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSetMetadata(JNIEnv * env, jclass, jint id,
-                                                                                jstring value)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeSetMetadata(JNIEnv * env, jclass, jint id, jstring value)
 {
   auto const metaID = static_cast<osm::MapObject::MetadataID>(id);
   ASSERT_LESS(metaID, osm::MapObject::MetadataID::FMD_COUNT, ());
   g_editableMapObject.SetMetadata(metaID, jni::ToNativeString(env, value));
 }
 
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetStars(JNIEnv * env, jclass)
+JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeGetStars(JNIEnv * env, jclass)
 {
   return g_editableMapObject.GetStars();
 }
 
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetMaxEditableBuildingLevels(JNIEnv *, jclass)
+JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeGetMaxEditableBuildingLevels(JNIEnv *, jclass)
 {
   return osm::EditableMapObject::kMaximumLevelsEditableByUsers;
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeHasWifi(JNIEnv *, jclass)
 {
   return g_editableMapObject.GetInternet() == feature::Internet::Wlan;
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSetHasWifi(JNIEnv *, jclass, jboolean hasWifi)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeSetHasWifi(JNIEnv *, jclass, jboolean hasWifi)
 {
   if (hasWifi != (g_editableMapObject.GetInternet() == feature::Internet::Wlan))
     g_editableMapObject.SetInternet(hasWifi ? feature::Internet::Wlan : feature::Internet::Unknown);
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSaveEditedFeature(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeSaveEditedFeature(JNIEnv *, jclass)
 {
   switch (g_framework->NativeFramework()->SaveEditedMapObject(g_editableMapObject))
   {
@@ -158,7 +157,7 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSaveEdit
   }
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowEditPlace(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowEditPlace(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   if (!frm->HasPlacePageInfo())
@@ -167,7 +166,7 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldSh
   return g_framework->GetPlacePageInfo().ShouldShowEditPlace();
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddBusiness(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddBusiness(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   if (!frm->HasPlacePageInfo())
@@ -176,7 +175,7 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldSh
   return g_framework->GetPlacePageInfo().ShouldShowAddBusiness();
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddPlace(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldShowAddPlace(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   if (!frm->HasPlacePageInfo())
@@ -185,7 +184,7 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldSh
   return g_framework->GetPlacePageInfo().ShouldShowAddPlace();
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldEnableEditPlace(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldEnableEditPlace(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   if (!frm->HasPlacePageInfo())
@@ -194,7 +193,7 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldEn
   return g_framework->GetPlacePageInfo().ShouldEnableEditPlace();
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldEnableAddPlace(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeShouldEnableAddPlace(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   if (!frm->HasPlacePageInfo())
@@ -203,8 +202,7 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeShouldEn
   return g_framework->GetPlacePageInfo().ShouldEnableAddPlace();
 }
 
-JNIEXPORT jintArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetEditableProperties(JNIEnv * env,
-                                                                                               jclass clazz)
+JNIEXPORT jintArray Java_app_organicmaps_sdk_editor_Editor_nativeGetEditableProperties(JNIEnv * env, jclass clazz)
 {
   auto const & editable = g_editableMapObject.GetEditableProperties();
   size_t const size = editable.size();
@@ -217,27 +215,27 @@ JNIEXPORT jintArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetEdit
   return jEditableFields;
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeIsAddressEditable(JNIEnv * env, jclass clazz)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeIsAddressEditable(JNIEnv * env, jclass clazz)
 {
   return g_editableMapObject.IsAddressEditable();
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeIsNameEditable(JNIEnv * env, jclass clazz)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeIsNameEditable(JNIEnv * env, jclass clazz)
 {
   return g_editableMapObject.IsNameEditable();
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeIsPointType(JNIEnv * env, jclass clazz)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeIsPointType(JNIEnv * env, jclass clazz)
 {
   return g_editableMapObject.IsPointType();
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass clazz)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeIsBuilding(JNIEnv * env, jclass clazz)
 {
   return g_editableMapObject.IsBuilding();
 }
 
-JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jclass)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_Editor_nativeGetNamesDataSource(JNIEnv * env, jclass)
 {
   auto const namesDataSource = g_editableMapObject.GetNamesDataSource();
 
@@ -247,7 +245,7 @@ JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetNamesD
   return env->NewObject(g_namesDataSourceClassID, g_namesDataSourceConstructorID, names, mandatoryNamesCount);
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSetNames(JNIEnv * env, jclass, jobjectArray names)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeSetNames(JNIEnv * env, jclass, jobjectArray names)
 {
   int const length = env->GetArrayLength(names);
   for (int i = 0; i < length; i++)
@@ -259,24 +257,24 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSetNames(JNI
   }
 }
 
-JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetStreet(JNIEnv * env, jclass)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_Editor_nativeGetStreet(JNIEnv * env, jclass)
 {
   return ToJavaStreet(env, g_editableMapObject.GetStreet());
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSetStreet(JNIEnv * env, jclass, jobject street)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeSetStreet(JNIEnv * env, jclass, jobject street)
 {
   g_editableMapObject.SetStreet(
       {jni::ToNativeString(env, (jstring)env->GetObjectField(street, g_localStreetFieldDef)),
        jni::ToNativeString(env, (jstring)env->GetObjectField(street, g_localStreetFieldLoc))});
 }
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetNearbyStreets(JNIEnv * env, jclass clazz)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetNearbyStreets(JNIEnv * env, jclass clazz)
 {
   return jni::ToJavaArray(env, g_localStreetClazz, g_editableMapObject.GetNearbyStreets(), ToJavaStreet);
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetSupportedLanguages(
-    JNIEnv * env, jclass clazz, jboolean includeServiceLangs)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetSupportedLanguages(JNIEnv * env, jclass clazz,
+                                                                                          jboolean includeServiceLangs)
 {
   using TLang = StringUtf8Multilang::Lang;
   // public Language(@NonNull String code, @NonNull String name)
@@ -292,25 +290,23 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetS
   });
 }
 
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetHouseNumber(JNIEnv * env, jclass)
+JNIEXPORT jstring Java_app_organicmaps_sdk_editor_Editor_nativeGetHouseNumber(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, g_editableMapObject.GetHouseNumber());
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSetHouseNumber(JNIEnv * env, jclass,
-                                                                                   jstring houseNumber)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeSetHouseNumber(JNIEnv * env, jclass, jstring houseNumber)
 {
   g_editableMapObject.SetHouseNumber(jni::ToNativeString(env, houseNumber));
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeHasSomethingToUpload(JNIEnv * env, jclass clazz)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeHasSomethingToUpload(JNIEnv * env, jclass clazz)
 {
   return Editor::Instance().HaveMapEditsOrNotesToUpload();
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz,
-                                                                                  jstring token, jstring appVersion,
-                                                                                  jstring appId)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeUploadChanges(JNIEnv * env, jclass clazz, jstring token,
+                                                                          jstring appVersion, jstring appId)
 {
   // TODO: Handle upload status in callback
   Editor::Instance().UploadChanges(
@@ -320,7 +316,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeUploadChange
       nullptr);
 }
 
-JNIEXPORT jlongArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetStats(JNIEnv * env, jclass clazz)
+JNIEXPORT jlongArray Java_app_organicmaps_sdk_editor_Editor_nativeGetStats(JNIEnv * env, jclass clazz)
 {
   auto const stats = Editor::Instance().GetStats();
   jlongArray result = env->NewLongArray(3);
@@ -330,12 +326,12 @@ JNIEXPORT jlongArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetSta
   return result;
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeClearLocalEdits(JNIEnv * env, jclass clazz)
 {
   Editor::Instance().ClearAllLocalEdits();
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
 {
   ::Framework * frm = g_framework->NativeFramework();
   if (!frm->HasPlacePageInfo())
@@ -349,8 +345,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeStartEdit(JN
   CHECK(frm->GetEditableMapObject(info.GetID(), g_editableMapObject), ("Invalid feature in the place page."));
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass,
-                                                                                    jstring featureType)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass, jstring featureType)
 {
   ::Framework * frm = g_framework->NativeFramework();
   auto const type = classif().GetTypeByReadableObjectName(jni::ToNativeString(env, featureType));
@@ -359,35 +354,34 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeCreateMapObj
 }
 
 // static void nativeCreateNote(String text);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jstring text)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateNote(JNIEnv * env, jclass clazz, jstring text)
 {
   g_framework->NativeFramework()->CreateNote(g_editableMapObject, osm::Editor::NoteProblemType::General,
                                              jni::ToNativeString(env, text));
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeCreateStandaloneNote(JNIEnv * env, jclass clazz,
-                                                                                         jdouble lat, jdouble lon,
-                                                                                         jstring text)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeCreateStandaloneNote(JNIEnv * env, jclass clazz,
+                                                                                 jdouble lat, jdouble lon, jstring text)
 {
   osm::Editor::Instance().CreateStandaloneNote(ms::LatLon(lat, lon), jni::ToNativeString(env, text));
 }
 
 // static void nativePlaceDoesNotExist(String comment);
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz,
-                                                                                      jstring comment)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativePlaceDoesNotExist(JNIEnv * env, jclass clazz,
+                                                                              jstring comment)
 {
   g_framework->NativeFramework()->CreateNote(g_editableMapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
                                              jni::ToNativeString(env, comment));
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeRollbackMapObject(JNIEnv * env, jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeRollbackMapObject(JNIEnv * env, jclass clazz)
 {
   g_framework->NativeFramework()->RollBackChanges(g_editableMapObject.GetID());
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv * env,
-                                                                                                        jclass clazz,
-                                                                                                        jstring jLang)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv * env,
+                                                                                                jclass clazz,
+                                                                                                jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
   auto & categories = GetFeatureCategories();
@@ -396,10 +390,10 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetA
   return jni::ToJavaStringArray(env, categories.GetAllCreatableTypeNames());
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSearchCreatableFeatureTypes(JNIEnv * env,
-                                                                                                        jclass clazz,
-                                                                                                        jstring query,
-                                                                                                        jstring jLang)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeSearchCreatableFeatureTypes(JNIEnv * env,
+                                                                                                jclass clazz,
+                                                                                                jstring query,
+                                                                                                jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
   auto & categories = GetFeatureCategories();
@@ -408,7 +402,7 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSear
   return jni::ToJavaStringArray(env, categories.Search(jni::ToNativeString(env, query)));
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetCuisines(JNIEnv * env, jclass clazz)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetCuisines(JNIEnv * env, jclass clazz)
 {
   osm::AllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
   std::vector<std::string> keys;
@@ -418,15 +412,13 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetC
   return jni::ToJavaStringArray(env, keys);
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetSelectedCuisines(JNIEnv * env,
-                                                                                                jclass clazz)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeGetSelectedCuisines(JNIEnv * env, jclass clazz)
 {
   return jni::ToJavaStringArray(env, g_editableMapObject.GetCuisines());
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeFilterCuisinesKeys(JNIEnv * env,
-                                                                                               jclass thiz,
-                                                                                               jstring jSubstr)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeFilterCuisinesKeys(JNIEnv * env, jclass thiz,
+                                                                                       jstring jSubstr)
 {
   std::string const substr = jni::ToNativeString(env, jSubstr);
   bool const noFilter = substr.length() == 0;
@@ -445,9 +437,8 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeFilt
   return jni::ToJavaStringArray(env, keys);
 }
 
-JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeTranslateCuisines(JNIEnv * env,
-                                                                                              jclass clazz,
-                                                                                              jobjectArray jKeys)
+JNIEXPORT jobjectArray Java_app_organicmaps_sdk_editor_Editor_nativeTranslateCuisines(JNIEnv * env, jclass clazz,
+                                                                                      jobjectArray jKeys)
 {
   int const length = env->GetArrayLength(jKeys);
   auto const & cuisines = osm::Cuisines::Instance();
@@ -461,8 +452,8 @@ JNIEXPORT jobjectArray JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeTran
   return jni::ToJavaStringArray(env, translations);
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSetSelectedCuisines(JNIEnv * env, jclass clazz,
-                                                                                        jobjectArray jKeys)
+JNIEXPORT void Java_app_organicmaps_sdk_editor_Editor_nativeSetSelectedCuisines(JNIEnv * env, jclass clazz,
+                                                                                jobjectArray jKeys)
 {
   int const length = env->GetArrayLength(jKeys);
   std::vector<std::string> cuisines;
@@ -472,35 +463,34 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeSetSelectedC
   g_editableMapObject.SetCuisines(cuisines);
 }
 
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetFormattedCuisine(JNIEnv * env, jclass clazz)
+JNIEXPORT jstring Java_app_organicmaps_sdk_editor_Editor_nativeGetFormattedCuisine(JNIEnv * env, jclass clazz)
 {
   return jni::ToJavaString(env, g_editableMapObject.FormatCuisines());
 }
 
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetMwmName(JNIEnv * env, jclass clazz)
+JNIEXPORT jstring Java_app_organicmaps_sdk_editor_Editor_nativeGetMwmName(JNIEnv * env, jclass clazz)
 {
   return jni::ToJavaString(env, g_editableMapObject.GetID().GetMwmName());
 }
 
-JNIEXPORT jlong JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetMwmVersion(JNIEnv * env, jclass clazz)
+JNIEXPORT jlong Java_app_organicmaps_sdk_editor_Editor_nativeGetMwmVersion(JNIEnv * env, jclass clazz)
 {
   return g_editableMapObject.GetID().GetMwmVersion();
 }
 
 // static boolean nativeIsHouseValid(String houseNumber);
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeIsHouseValid(JNIEnv * env, jclass clazz,
-                                                                                     jstring houseNumber)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeIsHouseValid(JNIEnv * env, jclass clazz,
+                                                                             jstring houseNumber)
 {
   return osm::EditableMapObject::ValidateHouseNumber(jni::ToNativeString(env, houseNumber));
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeIsNameValid(JNIEnv * env, jclass clazz,
-                                                                                    jstring name)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeIsNameValid(JNIEnv * env, jclass clazz, jstring name)
 {
   return osm::EditableMapObject::ValidateName(jni::ToNativeString(env, name));
 }
 
-JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetCategory(JNIEnv * env, jclass clazz)
+JNIEXPORT jstring Java_app_organicmaps_sdk_editor_Editor_nativeGetCategory(JNIEnv * env, jclass clazz)
 {
   auto types = g_editableMapObject.GetTypes();
   types.SortBySpec();
@@ -509,20 +499,20 @@ JNIEXPORT jstring JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetCatego
 
 // @FeatureStatus
 // static native int nativeGetMapObjectStatus();
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeGetMapObjectStatus(JNIEnv * env, jclass clazz)
+JNIEXPORT jint Java_app_organicmaps_sdk_editor_Editor_nativeGetMapObjectStatus(JNIEnv * env, jclass clazz)
 {
   return static_cast<jint>(osm::Editor::Instance().GetFeatureStatus(g_editableMapObject.GetID()));
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeIsMapObjectUploaded(JNIEnv * env, jclass clazz)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_Editor_nativeIsMapObjectUploaded(JNIEnv * env, jclass clazz)
 {
   return osm::Editor::Instance().IsFeatureUploaded(g_editableMapObject.GetID().m_mwmId,
                                                    g_editableMapObject.GetID().m_index);
 }
 
 // static nativeMakeLocalizedName(String langCode, String name);
-JNIEXPORT jobject JNICALL Java_app_organicmaps_sdk_editor_Editor_nativeMakeLocalizedName(JNIEnv * env, jclass clazz,
-                                                                                         jstring code, jstring name)
+JNIEXPORT jobject Java_app_organicmaps_sdk_editor_Editor_nativeMakeLocalizedName(JNIEnv * env, jclass clazz,
+                                                                                 jstring code, jstring name)
 {
   osm::LocalizedName localizedName(jni::ToNativeString(env, code), jni::ToNativeString(env, name));
   return ToJavaName(env, localizedName);
