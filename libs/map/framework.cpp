@@ -96,6 +96,8 @@ std::string_view constexpr kTrafficEnabledKey = "TrafficEnabled";
 std::string_view constexpr kTransitSchemeEnabledKey = "TransitSchemeEnabled";
 std::string_view constexpr kIsolinesEnabledKey = "IsolinesEnabled";
 std::string_view constexpr kOutdoorsEnabledKey = "OutdoorsEnabled";
+std::string_view constexpr kHikingEnabledKey = "HikingEnabled";
+std::string_view constexpr kCyclingEnabledKey = "CyclingEnabled";
 std::string_view constexpr kTrafficSimplifiedColorsKey = "TrafficSimplifiedColors";
 std::string_view constexpr kLargeFontsSize = "LargeFontsSize";
 std::string_view constexpr kTranslitMode = "TransliterationMode";
@@ -2447,9 +2449,7 @@ void Framework::Load3dMode(bool & allow3d, bool & allow3dBuildings)
 bool Framework::LoadLargeFontsSize()
 {
   bool isLargeSize;
-  if (!settings::Get(kLargeFontsSize, isLargeSize))
-    isLargeSize = false;
-  return isLargeSize;
+  return settings::Get(kLargeFontsSize, isLargeSize) && isLargeSize;
 }
 
 void Framework::SetLargeFontsSize(bool isLargeSize)
@@ -2467,9 +2467,7 @@ void Framework::SetLargeFontsSize(bool isLargeSize)
 bool Framework::LoadTrafficEnabled()
 {
   bool enabled;
-  if (!settings::Get(kTrafficEnabledKey, enabled))
-    enabled = false;
-  return enabled;
+  return settings::Get(kTrafficEnabledKey, enabled) && enabled;
 }
 
 void Framework::SaveTrafficEnabled(bool trafficEnabled)
@@ -2515,9 +2513,7 @@ void Framework::SaveAutoZoom(bool allowAutoZoom)
 bool Framework::LoadTransitSchemeEnabled()
 {
   bool enabled;
-  if (!settings::Get(kTransitSchemeEnabledKey, enabled))
-    enabled = false;
-  return enabled;
+  return settings::Get(kTransitSchemeEnabledKey, enabled) && enabled;
 }
 
 void Framework::SaveTransitSchemeEnabled(bool enabled)
@@ -2528,9 +2524,7 @@ void Framework::SaveTransitSchemeEnabled(bool enabled)
 bool Framework::LoadIsolinesEnabled()
 {
   bool enabled;
-  if (!settings::Get(kIsolinesEnabledKey, enabled))
-    enabled = false;
-  return enabled;
+  return settings::Get(kIsolinesEnabledKey, enabled) && enabled;
 }
 
 void Framework::SaveIsolinesEnabled(bool enabled)
@@ -2541,14 +2535,34 @@ void Framework::SaveIsolinesEnabled(bool enabled)
 bool Framework::LoadOutdoorsEnabled()
 {
   bool enabled;
-  if (!settings::Get(kOutdoorsEnabledKey, enabled))
-    enabled = false;
-  return enabled;
+  return settings::Get(kOutdoorsEnabledKey, enabled) && enabled;
 }
 
 void Framework::SaveOutdoorsEnabled(bool enabled)
 {
   settings::Set(kOutdoorsEnabledKey, enabled);
+}
+
+bool Framework::LoadHikingEnabled()
+{
+  bool enabled;
+  return settings::Get(kHikingEnabledKey, enabled) && enabled;
+}
+
+void Framework::SaveHikingEnabled(bool enabled)
+{
+  settings::Set(kHikingEnabledKey, enabled);
+}
+
+bool Framework::LoadCyclingEnabled()
+{
+  bool enabled;
+  return settings::Get(kCyclingEnabledKey, enabled) && enabled;
+}
+
+void Framework::SaveCyclingEnabled(bool enabled)
+{
+  settings::Set(kCyclingEnabledKey, enabled);
 }
 
 void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition)
