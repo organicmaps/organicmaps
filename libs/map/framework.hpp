@@ -316,6 +316,8 @@ public:
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   m2::PointD GetMinDistanceBetweenResults() const override;
 
+  void UpdateBookmarksTextPlacement();
+
 private:
   void ActivateMapSelection();
   void InvalidateUserMarks();

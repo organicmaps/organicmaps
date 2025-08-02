@@ -31,7 +31,6 @@ public:
   m2::PointD GetPixelOffset() const override;
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   df::ColorConstant GetColorConstant() const override;
-  drape_ptr<TitlesInfo> GetTitleDecl() const override;
   int GetMinTitleZoom() const override;
   df::DepthLayer GetDepthLayer() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
