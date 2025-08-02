@@ -33,12 +33,12 @@ double GetScaleLevelD(m2::RectD const & r)
 
 int GetScaleLevel(double ratio)
 {
-  return std::lround(GetScaleLevelD(ratio));
+  return static_cast<int>(std::lround(GetScaleLevelD(ratio)));
 }
 
 int GetScaleLevel(m2::RectD const & r)
 {
-  return std::lround(GetScaleLevelD(r));
+  return static_cast<int>(std::lround(GetScaleLevelD(r)));
 }
 
 namespace

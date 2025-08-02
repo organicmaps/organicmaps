@@ -70,7 +70,7 @@ double ToSpeedKmPH(double speed, Units units);
 double MpsToUnits(double metersPerSecond, Units units);
 
 /// @return Speed value in km/h for Metric and in mph for Imperial.
-int FormatSpeed(double metersPerSecond, Units units);
+long FormatSpeed(double metersPerSecond, Units units);
 /// @return Speed value string (without suffix) in km/h for Metric and in mph for Imperial.
 std::string FormatSpeedNumeric(double metersPerSecond, Units units);
 

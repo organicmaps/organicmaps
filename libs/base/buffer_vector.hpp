@@ -451,6 +451,12 @@ bool operator>(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
 {
   return v2 < v1;
 }
+// TODO(AB): Use <=> operator.
+template <typename T, size_t N1, size_t N2>
+bool operator>=(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
+{
+  return !(v1 < v2);
+}
 
 namespace std
 {

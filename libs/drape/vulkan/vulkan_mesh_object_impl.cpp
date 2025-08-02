@@ -169,7 +169,8 @@ private:
       buffers.emplace_back(m_geometryBuffers[i].m_buffer);
       offsets.emplace_back(0);
     }
-    vkCmdBindVertexBuffers(commandBuffer, 0, m_geometryBuffers.size(), buffers.data(), offsets.data());
+    vkCmdBindVertexBuffers(commandBuffer, 0, static_cast<uint32_t>(m_geometryBuffers.size()), buffers.data(),
+                           offsets.data());
   }
 
   void UpdateBufferInternal(ref_ptr<dp::GraphicsContext> context, VkBuffer buffer, VkAccessFlagBits bufferAccessMask,

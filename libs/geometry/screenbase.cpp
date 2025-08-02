@@ -230,12 +230,12 @@ void ScreenBase::SetAngle(double angle)
 
 int ScreenBase::GetWidth() const
 {
-  return std::lround(m_PixelRect.SizeX());
+  return static_cast<int>(std::lround(m_PixelRect.SizeX()));
 }
 
 int ScreenBase::GetHeight() const
 {
-  return std::lround(m_PixelRect.SizeY());
+  return static_cast<int>(std::lround(m_PixelRect.SizeY()));
 }
 
 ScreenBase::MatrixT ScreenBase::CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,

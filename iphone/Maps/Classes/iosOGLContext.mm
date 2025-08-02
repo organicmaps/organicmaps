@@ -81,7 +81,7 @@ void iosOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
   }
 }
 
-void iosOGLContext::Resize(int w, int h)
+void iosOGLContext::Resize(uint32_t w, uint32_t h)
 {
   if (m_needBuffers && m_hasBuffers)
   {
@@ -89,7 +89,7 @@ void iosOGLContext::Resize(int w, int h)
     GLint height = 0;
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &width);
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &height);
-    if (width == w && height == h)
+    if (width == static_cast<GLint>(w) && height == static_cast<GLint>(h))
       return;
 
     DestroyBuffers();

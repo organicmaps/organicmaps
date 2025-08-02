@@ -306,7 +306,7 @@ bool TrafficRenderer::CanBeRenderedAsLine(RoadClass const & roadClass, int zoomL
   if (it == lineDrawerEnd)
     return false;
 
-  width = std::max(1l, std::lround(TrafficRenderer::GetPixelWidthInternal(roadClass, zoomLevel)));
+  width = std::max(1, static_cast<int>(std::lround(TrafficRenderer::GetPixelWidthInternal(roadClass, zoomLevel))));
   return width <= dp::SupportManager::Instance().GetMaxLineWidth();
 }
 }  // namespace df
