@@ -3,13 +3,12 @@
 #include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/threads_commutator.hpp"
-#include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
 
-#include "drape/constants.hpp"
 #include "drape/pointers.hpp"
 
-#include <functional>
+std::string_view constexpr kHikingEnabledKey = "HikingEnabled";
+std::string_view constexpr kCyclingEnabledKey = "CyclingEnabled";
 
 namespace dp
 {

@@ -1,23 +1,13 @@
 #include "drape_frontend/tile_info.hpp"
-#include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/engine_context.hpp"
 #include "drape_frontend/map_data_provider.hpp"
 #include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/rule_drawer.hpp"
-#include "drape_frontend/stylist.hpp"
+#include "drape_frontend/tile_utils.hpp"
 
-#include "indexer/scales.hpp"
-
-#include "platform/preferred_languages.hpp"
-#include "platform/settings.hpp"
-
-#include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
 #include <algorithm>
-#include <functional>
-
-using namespace std::placeholders;
 
 namespace df
 {
@@ -73,7 +63,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
 
     RuleDrawer drawer(std::bind(&TileInfo::IsCancelled, this), model.m_isCountryLoadedByName, make_ref(m_context),
                       m_context->GetMapLangIndex());
-    model.ReadFeatures(std::bind<void>(std::ref(drawer), _1), m_featureInfo);
+    model.ReadFeatures([&drawer](FeatureType & ft) { drawer(ft); }, m_featureInfo);
 #ifdef DRAW_TILE_NET
     drawer.DrawTileNet();
 #endif

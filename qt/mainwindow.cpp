@@ -17,8 +17,6 @@
 
 #include "base/assert.hpp"
 
-#include "defines.hpp"
-
 #include <functional>
 #include <sstream>
 
@@ -32,15 +30,16 @@
 #include "build_style/run_tests.h"
 
 #include "drape_frontend/debug_rect_renderer.hpp"
+
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMessageBox>
 #endif  // BUILD_DESIGNER
 
 #include <QtGui/QCloseEvent>
 #include <QtWidgets/QDockWidget>
-#include <QtWidgets/QFileDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -62,8 +61,8 @@ namespace
 {
 void FormatMapSize(uint64_t sizeInBytes, std::string & units, size_t & sizeToDownload)
 {
-  int const mbInBytes = 1024 * 1024;
-  int const kbInBytes = 1024;
+  int constexpr mbInBytes = 1024 * 1024;
+  int constexpr kbInBytes = 1024;
   if (sizeInBytes > mbInBytes)
   {
     sizeToDownload = (sizeInBytes + mbInBytes - 1) / mbInBytes;
@@ -277,26 +276,32 @@ void MainWindow::CreateNavigationBar()
   }
 
   {
-    using namespace std::placeholders;
-
     m_layers = new PopupMenuHolder(this);
 
     /// @todo Uncomment when we will integrate a traffic provider.
     // m_layers->addAction(QIcon(":/navig64/traffic.png"), tr("Traffic"),
-    //                     std::bind(&MainWindow::OnLayerEnabled, this, LayerType::TRAFFIC), true);
-    // m_layers->setChecked(LayerType::TRAFFIC, m_pDrawWidget->GetFramework().LoadTrafficEnabled());
+    //                     std::bind(&MainWindow::OnLayerEnabled, this, TRAFFIC), true);
+    // m_layers->setChecked(TRAFFIC, Framework::LoadTrafficEnabled());
 
     m_layers->addAction(QIcon(":/navig64/subway.png"), tr("Public transport"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, LayerType::TRANSIT), true);
-    m_layers->setChecked(LayerType::TRANSIT, m_pDrawWidget->GetFramework().LoadTransitSchemeEnabled());
+                        std::bind(&MainWindow::OnLayerEnabled, this, TRANSIT), true);
+    m_layers->setChecked(TRANSIT, Framework::LoadTransitSchemeEnabled());
 
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Isolines"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, LayerType::ISOLINES), true);
-    m_layers->setChecked(LayerType::ISOLINES, m_pDrawWidget->GetFramework().LoadIsolinesEnabled());
-
+                        std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
+    m_layers->setChecked(ISOLINES, Framework::LoadIsolinesEnabled());
+    // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Outdoors"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, LayerType::OUTDOORS), true);
-    m_layers->setChecked(LayerType::OUTDOORS, m_pDrawWidget->GetFramework().LoadOutdoorsEnabled());
+                        std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
+    m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
+
+    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Hiking"),
+                        std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
+    m_layers->setChecked(HIKING, Framework::IsHikingEnabled());
+
+    m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Cycling"),
+                        std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
+    m_layers->setChecked(CYCLING, Framework::IsCyclingEnabled());
 
     pToolBar->addWidget(m_layers->create());
     m_layers->setMainIcon(QIcon(":/navig64/layers.png"));
@@ -813,10 +818,9 @@ void MainWindow::ShowUpdateDialog()
 
 void MainWindow::CreateSearchBarAndPanel()
 {
-  CreatePanelImpl(0, Qt::RightDockWidgetArea, tr("Search"), QKeySequence(), 0);
+  CreatePanelImpl(0, Qt::RightDockWidgetArea, tr("Search"), QKeySequence(), nullptr);
 
-  SearchPanel * panel = new SearchPanel(m_pDrawWidget, m_Docks[0]);
-  m_Docks[0]->setWidget(panel);
+  m_Docks[0]->setWidget(new SearchPanel(m_pDrawWidget, m_Docks[0]));
 }
 
 void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name, QKeySequence const & hotkey,
@@ -862,25 +866,27 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
   switch (type)
   {
   // @todo Uncomment when we will integrate a traffic provider.
-  // case LayerType::TRAFFIC:
+  // case TRAFFIC:
   //   frm.GetTrafficManager().SetEnabled(enable);
   //   frm.SaveTrafficEnabled(enable);
   //   break;
-  case LayerType::TRANSIT:
+  case TRANSIT:
     frm.GetTransitManager().EnableTransitSchemeMode(enable);
     frm.SaveTransitSchemeEnabled(enable);
     break;
-  case LayerType::ISOLINES:
+  case ISOLINES:
     frm.GetIsolinesManager().SetEnabled(enable);
     frm.SaveIsolinesEnabled(enable);
     break;
-  case LayerType::OUTDOORS:
+  case OUTDOORS:
     frm.SaveOutdoorsEnabled(enable);
     if (enable)
       m_pDrawWidget->SetMapStyleToOutdoors();
     else
       m_pDrawWidget->SetMapStyleToDefault();
     break;
+  case HIKING: frm.SetHikingEnabled(enable); break;
+  case CYCLING: frm.SetCyclingEnabled(enable); break;
   }
 }
 
