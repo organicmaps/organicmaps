@@ -700,6 +700,10 @@
     <string name="power_managment_setting_never">Никогда</string>
     <string name="power_managment_setting_auto">Авто</string>
     <string name="power_managment_setting_manual_max">Максимальное энергосбережение</string>
+    <string name="bookmarks_text_placement_title">Названия меток на карте</string>
+    <string name="bookmarks_text_placement_description">Если меток слишком много, отображение их названий на карте может замедлить работу приложения.</string>
+    <string name="show_to_the_right">Справа от метки</string>
+    <string name="show_at_the_bottom">Под меткой</string>
     <string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".</string>
     <string name="access_rules_author_only">Редактируется онлайн</string>
     <string name="driving_options_title">Настройки объезда</string>

@@ -723,6 +723,10 @@
     <string name="power_managment_setting_never">Never</string>
     <string name="power_managment_setting_auto">When battery is low</string>
     <string name="power_managment_setting_manual_max">Always</string>
+    <string name="bookmarks_text_placement_title">Bookmark names on the map</string>
+    <string name="bookmarks_text_placement_description">If there are too many bookmarks, displaying their names on the map may slow down the app.</string>
+    <string name="show_to_the_right">Show to the right</string>
+    <string name="show_at_the_bottom">Show at the bottom</string>
     <string name="enable_logging_warning_message">Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.</string>
     <string name="access_rules_author_only">Online editing</string>
     <string name="driving_options_title">Routing options</string>

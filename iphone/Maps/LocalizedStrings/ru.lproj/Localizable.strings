@@ -778,6 +778,15 @@
 "power_managment_setting_never" = "Никогда";
 "power_managment_setting_auto" = "Авто";
 "power_managment_setting_manual_max" = "Максимальное энергосбережение";
+
+/* Settings/Bookmark Text Placement */
+"bookmarks_text_placement_title" = "Названия меток на карте";
+"bookmarks_text_placement_description" = "Если меток очень много, отображение их названий на карте может замедлить работу приложения.";
+"show_to_the_right" = "Справа";
+"right" = "Справа";
+"show_at_the_bottom" = "Под меткой";
+"bottom" = "Снизу";
+
 "enable_logging_warning_message" = "Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".";
 "driving_options_title" = "Настройки объезда";
 
