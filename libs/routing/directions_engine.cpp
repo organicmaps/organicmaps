@@ -2,6 +2,7 @@
 
 #include "routing/data_source.hpp"
 #include "routing/fake_feature_ids.hpp"
+#include "routing/lanes/lanes_parser.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/turns.hpp"
 
@@ -36,7 +37,7 @@ feature::Metadata::EType GetLanesMetadataTag(FeatureType & ft, bool isForward)
 void LoadLanes(LoadedPathSegment & pathSegment, FeatureType & ft, bool isForward)
 {
   auto tag = GetLanesMetadataTag(ft, isForward);
-  ParseLanes(std::string(ft.GetMetadata(tag)), pathSegment.m_lanes);
+  pathSegment.m_lanes = lanes::ParseLanes(ft.GetMetadata(tag));
 }
 }  // namespace
 
