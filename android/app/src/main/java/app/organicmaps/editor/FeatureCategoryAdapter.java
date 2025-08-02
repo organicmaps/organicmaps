@@ -56,14 +56,23 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    @LayoutRes
-    final int layoutId = switch (viewType)
+    final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+    switch (viewType)
     {
-      case TYPE_CATEGORY -> R.layout.item_feature_category;
-      case TYPE_FOOTER -> R.layout.item_feature_category_footer;
-      default -> throw new IllegalArgumentException("Unsupported");
-    };
-    return new FeatureViewHolder(LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false));
+    case TYPE_CATEGORY ->
+    {
+      return new FeatureViewHolder(inflater.inflate(R.layout.item_feature_category, parent, false));
+    }
+    case TYPE_FOOTER ->
+    {
+      return new FooterViewHolder(inflater.inflate(R.layout.item_feature_category_footer, parent, false),
+                                  (FooterListener) mFragment);
+    }
+    default ->
+    {
+      throw new IllegalArgumentException("Unsupported viewType: " + viewType);
+    }
+    }
   }
 
   @Override
