@@ -101,6 +101,8 @@
     <string name="privacy_policy">Política de Privacidad</string>
     <string name="terms_of_use">Términos de uso</string>
     <string name="button_layer_traffic">Tráfico</string>
+    <string name="button_layer_hiking">Senderismo</string>
+    <string name="button_layer_cycling">Ciclismo</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estilos y capas del mapa</string>
     <string name="subway_data_unavailable">El mapa del metro no está disponible</string>

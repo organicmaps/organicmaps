@@ -673,6 +673,8 @@
     <string name="terms_of_use">使用條款</string>
     <string name="button_layer_traffic">路況</string>
     <string name="button_layer_subway">捷運</string>
+    <string name="button_layer_hiking">登山健行</string>
+    <string name="button_layer_cycling">自行車</string>
     <string name="layers_title">地圖樣式和圖層</string>
     <string name="subway_data_unavailable">捷運圖層不可用</string>
     <string name="bookmarks_empty_list_title">該列表為空</string>

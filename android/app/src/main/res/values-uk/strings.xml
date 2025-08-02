@@ -667,6 +667,8 @@
     <string name="privacy_policy">Політика конфіденційності</string>
     <string name="terms_of_use">Умови використання</string>
     <string name="button_layer_traffic">Затор</string>
+    <string name="button_layer_hiking">Пішохідний туризм</string>
+    <string name="button_layer_cycling">Велосипед</string>
     <string name="button_layer_subway">Метрополітен</string>
     <string name="layers_title">Стилі та шари мапи</string>
     <string name="subway_data_unavailable">Мапа метрополітену недоступна</string>

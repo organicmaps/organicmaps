@@ -694,6 +694,8 @@
     <string name="privacy_policy">Privacy policy</string>
     <string name="terms_of_use">Terms of use</string>
     <string name="button_layer_traffic">Traffic</string>
+    <string name="button_layer_hiking">Hiking</string>
+    <string name="button_layer_cycling">Cycling</string>
     <string name="button_layer_subway">Subway</string>
     <string name="layers_title">Map Styles and Layers</string>
     <string name="subway_data_unavailable">Subway map is unavailable</string>

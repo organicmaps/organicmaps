@@ -163,6 +163,8 @@
     <string name="hour">h</string>
     <string name="editor_share_to_all_dialog_title">¿Quies unvialu a tolos usuarios?</string>
     <string name="button_layer_traffic">Tráficu</string>
+    <string name="button_layer_hiking">Senderismu</string>
+    <string name="button_layer_cycling">Ciclismu</string>
     <string name="volume">Volume</string>
     <string name="phone_number">Númberu telefónicu</string>
     <string name="matrix">[Matrix]</string>

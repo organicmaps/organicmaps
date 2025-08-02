@@ -972,6 +972,12 @@
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
 "button_layer_outdoor" = "Актыўны адпачынак";
 
+/* Hiking routes layer name in the Styles and Layers dialog */
+"button_layer_hiking" = "Пешыя маршруты";
+
+/* Cycling routes layer name in the Styles and Layers dialog */
+"button_layer_cycling" = "Пакатушкі";
+
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Экспартаваць усе закладкі і маршруты";
 

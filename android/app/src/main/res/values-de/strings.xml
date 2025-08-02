@@ -656,6 +656,8 @@
     <string name="privacy_policy">Datenschutzerklärung</string>
     <string name="terms_of_use">Nutzungsbedingungen</string>
     <string name="button_layer_traffic">Verkehr</string>
+    <string name="button_layer_hiking">Wandern</string>
+    <string name="button_layer_cycling">Radfahren</string>
     <string name="button_layer_subway">U-Bahn</string>
     <string name="layers_title">Kartenstile und Ebenen</string>
     <string name="subway_data_unavailable">Die U-Bahnkarte steht nicht zur Verfügung</string>

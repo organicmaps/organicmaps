@@ -638,6 +638,8 @@
     <string name="privacy_policy">Politica sulla privacy</string>
     <string name="terms_of_use">Termini di utilizzo</string>
     <string name="button_layer_traffic">Traffico</string>
+    <string name="button_layer_hiking">Escursionismo</string>
+    <string name="button_layer_cycling">Ciclismo</string>
     <string name="button_layer_subway">Metropolitana</string>
     <string name="layers_title">Stili e livelli della mappa</string>
     <string name="subway_data_unavailable">La mappa della metropolitana non è disponibile</string>
