@@ -24,9 +24,8 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
 {
   private static final String TAG = MapFragment.class.getSimpleName();
 
-  @SuppressWarnings("NonNullFieldNotInitialized")
   @NonNull
-  private Map mMap;
+  private final Map mMap = new Map(DisplayType.Device);
 
   public void updateCompassOffset(int offsetX, int offsetY)
   {
@@ -87,7 +86,8 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
   {
     Logger.d(TAG);
     super.onAttach(context);
-    mMap = new Map(DisplayType.Device, MwmApplication.from(requireContext()).getLocationHelper());
+
+    mMap.setLocationHelper(MwmApplication.from(requireContext()).getLocationHelper());
     mMap.setMapRenderingListener((MapRenderingListener) context);
     mMap.setCallbackUnsupported(this::reportUnsupported);
   }
