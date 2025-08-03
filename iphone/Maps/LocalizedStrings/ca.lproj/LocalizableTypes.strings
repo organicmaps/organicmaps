@@ -1495,3 +1495,6 @@
 "type.railway.station.subway.qingdao" = "Estació del metro";
 "type.amenity.bicycle_parking.covered" = "Aparcament de bicicletes ensostrat";
 "type.leisure.escape_game" = "Joc d’escapada";
+"type.amenity.luggage_locker" = "Luggage Locker";
+"type.post_office.post_partner" = "Post Partner";
+"type.amenity.ranger_station" = "Ranger Station";

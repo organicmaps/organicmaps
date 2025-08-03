@@ -1496,3 +1496,5 @@
 "type.amenity.bicycle_parking.covered" = "Parcheggio biciclette coperto";
 "type.amenity.ranger_station" = "Stazione forestale";
 "type.amenity.luggage_locker" = "Deposito bagagli";
+"type.post_office.post_partner" = "Post Partner";
+"type.leisure.escape_game" = "Escape Room";

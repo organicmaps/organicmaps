@@ -1060,3 +1060,4 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Il-Korsija hija vojta - xejn x’ tissejvja";
 "edit_track" = "Editja l-Korsija";
+"saved" = "Saved";

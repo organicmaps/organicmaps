@@ -1494,3 +1494,7 @@
 "type.post_office.post_partner" = "Parceiro dos Correios";
 "type.amenity.luggage_locker" = "Armário para bagagem";
 "type.leisure.escape_game" = "Sala de escape";
+"type.railway.station.subway.qingdao" = "Subway Station";
+"type.amenity.ranger_station" = "Ranger Station";
+"type.sport.diving" = "Diving";
+"type.man_made.crane" = "Crane";

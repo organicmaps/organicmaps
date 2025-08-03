@@ -1484,3 +1484,17 @@
 
 /* https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall */
 "type.leisure.sports_hall" = "Idrettshall";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
+"type.amenity.love_hotel" = "Love Hotel";
+"type.amenity.studio" = "Studio";
+"type.amenity.luggage_locker" = "Luggage Locker";
+"type.post_office.post_partner" = "Post Partner";
+"type.barrier.guard_rail" = "Guard Rail";
+"type.highway.ladder" = "Ladder";
+"type.landuse.plant_nursery" = "Plant Nursery";
+"type.leisure.escape_game" = "Escape Room";
+"type.leisure.firepit" = "Firepit";
+"type.railway.station.subway.qingdao" = "Subway Station";
+"type.amenity.ranger_station" = "Ranger Station";
+"type.sport.diving" = "Diving";
+"type.man_made.crane" = "Crane";

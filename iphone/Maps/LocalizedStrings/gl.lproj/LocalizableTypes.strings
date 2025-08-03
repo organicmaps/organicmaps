@@ -1308,3 +1308,7 @@
 "type.man_made.crane" = "Guindastre";
 "type.railway.station.subway.qingdao" = "Estación de metro";
 "type.amenity.bicycle_parking.covered" = "Aparcamento de bicicletas teitado";
+"type.amenity.luggage_locker" = "Luggage Locker";
+"type.post_office.post_partner" = "Post Partner";
+"type.leisure.escape_game" = "Escape Room";
+"type.amenity.ranger_station" = "Ranger Station";
