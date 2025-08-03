@@ -1493,3 +1493,8 @@
 "type.railway.station.subway.qingdao" = "Stacja metra";
 "type.sport.diving" = "Nurkowanie";
 "type.man_made.crane" = "Dźwig";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
+"type.amenity.luggage_locker" = "Luggage Locker";
+"type.post_office.post_partner" = "Post Partner";
+"type.leisure.escape_game" = "Escape Room";
+"type.amenity.ranger_station" = "Ranger Station";

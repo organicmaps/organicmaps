@@ -1490,3 +1490,11 @@
 "type.highway.ladder" = "Stige";
 "type.landuse.plant_nursery" = "Planteskole";
 "type.leisure.firepit" = "Bålsted";
+"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
+"type.amenity.luggage_locker" = "Luggage Locker";
+"type.post_office.post_partner" = "Post Partner";
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+"type.hwtag.onedir_bicycle" = "hwtag-onedir_bicycle";
+"type.leisure.escape_game" = "Escape Room";
+"type.railway.station.subway.qingdao" = "Subway Station";
+"type.amenity.ranger_station" = "Ranger Station";
