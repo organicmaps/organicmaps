@@ -31,7 +31,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   private final CarContext mCarContext;
 
   @NonNull
-  private final Map mMap;
+  private final Map mMap = new Map(Car);
 
   @NonNull
   private Rect mVisibleArea = new Rect();
@@ -45,7 +45,6 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   {
     Logger.d(TAG, "SurfaceRenderer()");
     mCarContext = carContext;
-    mMap = new Map(Car, MwmApplication.from(mCarContext).getLocationHelper());
     mIsRunning = true;
     lifecycle.addObserver(this);
     mMap.setMapRenderingListener(this);
@@ -60,6 +59,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
       mSurface.release();
     mSurface = surfaceContainer.getSurface();
 
+    mMap.setLocationHelper(MwmApplication.from(mCarContext).getLocationHelper());
     mMap.onSurfaceCreated(mCarContext, mSurface,
                           new Rect(0, 0, surfaceContainer.getWidth(), surfaceContainer.getHeight()),
                           surfaceContainer.getDpi());

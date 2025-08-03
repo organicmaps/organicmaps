@@ -56,8 +56,8 @@ public final class Map
   @NonNull
   private final DisplayType mDisplayType;
 
-  @NonNull
-  private final LocationHelper mLocationHelper;
+  @Nullable
+  private LocationHelper mLocationHelper;
 
   private int mCurrentCompassOffsetX;
   private int mCurrentCompassOffsetY;
@@ -79,11 +79,15 @@ public final class Map
 
   private static int sCurrentDpi = 0;
 
-  public Map(@NonNull DisplayType mapType, @NonNull LocationHelper locationHelper)
+  public Map(@NonNull DisplayType mapType)
   {
     mDisplayType = mapType;
-    mLocationHelper = locationHelper;
     onCreate(false);
+  }
+
+  public void setLocationHelper(@NonNull LocationHelper locationHelper)
+  {
+    mLocationHelper = locationHelper;
   }
 
   /**
@@ -142,6 +146,8 @@ public final class Map
 
   public void onSurfaceCreated(final Context context, final Surface surface, Rect surfaceFrame, int surfaceDpi)
   {
+    assert mLocationHelper != null : "LocationHelper must be initialized before calling onSurfaceCreated";
+
     if (isThemeChangingProcess(context))
     {
       Logger.d(TAG, "Theme changing process, skip 'onSurfaceCreated' callback");
