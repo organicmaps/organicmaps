@@ -1311,4 +1311,11 @@
     <string name="type.shop.car_repair.tyres">Рамонт шын</string>
     <string name="type.shop.clothes">Крама адзення</string>
     <string name="type.shop.computer">Камп\'ютэрная крама</string>
+    <string name="type.man_made.cutline">Прасека</string>
+    <string name="type.shop.department_store">Універсальная крама</string>
+    <string name="type.shop.dry_cleaning">Хімічная чыстка</string>
+    <string name="type.shop.electronics">Крама электронікі</string>
+    <string name="type.shop.fabric">Крама тканіны</string>
+    <string name="type.shop.furniture">Мэблевая крама</string>
+    <string name="type.shop.greengrocer">Крама гародніны і садавіны</string>
 </resources>

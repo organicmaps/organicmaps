@@ -467,7 +467,7 @@
 "read_in_wikipedia" = "Вікіпедія";
 
 /* Place Page link to Wikimedia Commons. */
-"wikimedia_commons" = "Wikimedia Commons";
+"wikimedia_commons" = "Вікісховище";
 "p2p_your_location" = "Ваше місцезнаходження";
 "p2p_start" = "Почати рух";
 "p2p_from_here" = "Звідси";
@@ -1061,8 +1061,8 @@
 "track_recording_toast_nothing_to_save" = "Маршрут порожній - нічого зберігати";
 "edit_track" = "Редагувати маршрут";
 "saved" = "Збережено";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"button_layer_hiking" = "Піші прогулянки";
+"button_layer_cycling" = "Велоспорт";
 
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Bookmark names on the map";
