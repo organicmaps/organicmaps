@@ -1763,6 +1763,7 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   if (m_drapeEngine != nullptr)
     m_drapeEngine->UpdateMapStyle();
   InvalidateUserMarks();
+  UpdateBookmarksTextPlacement();
   UpdateMinBuildingsTapZoom();
 }
 

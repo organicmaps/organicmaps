@@ -100,7 +100,7 @@ void Bookmark::SetIsVisible(bool isVisible)
   m_isVisible = isVisible;
 }
 
-drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Placement p) const
+drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Placement p, dp::Color outlineColor) const
 {
   if (p == settings::Placement::None)
     return nullptr;
@@ -114,7 +114,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Plac
   }
 
   title.m_primaryTextFont.m_color = df::GetColorConstant(GetColorConstant());
-  title.m_primaryTextFont.m_outlineColor = dp::Color::White();
+  title.m_primaryTextFont.m_outlineColor = outlineColor;
   title.m_primaryTextFont.m_size = 11;  // most frequent font size in styles
   title.m_primaryText = GetPreferredName();
   title.m_primaryOffset.x = 1;
