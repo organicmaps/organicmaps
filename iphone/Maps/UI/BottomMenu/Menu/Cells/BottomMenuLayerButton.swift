@@ -3,7 +3,7 @@ final class BottomMenuLayerButton: VerticallyAlignedButton {
   private let badgeSize = CGSize(width: 12, height: 12)
   private let badgeOffset = CGPoint(x: -3, y: 3)
 
-  var isBadgeHidden: Bool = true{
+  var isBadgeHidden: Bool = true {
     didSet {
       if oldValue != isBadgeHidden {
         updateBadge()
@@ -15,6 +15,10 @@ final class BottomMenuLayerButton: VerticallyAlignedButton {
     super.layoutSubviews()
     imageView.layer.masksToBounds = true
     updateBadge()
+  }
+
+  func setLayerEnabled(_ enabled: Bool) {
+    setStyleAndApply(enabled ? .mapMenuButtonEnabled : .mapMenuButtonDisabled)
   }
 
   private func updateBadge() {

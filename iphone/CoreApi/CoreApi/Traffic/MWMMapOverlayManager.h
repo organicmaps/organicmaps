@@ -43,10 +43,7 @@ NS_SWIFT_NAME(MapOverlayManagerObserver)
 @protocol MWMMapOverlayManagerObserver <NSObject>
 
 @optional
-- (void)onTrafficStateUpdated;
-- (void)onTransitStateUpdated;
-- (void)onIsoLinesStateUpdated;
-- (void)onOutdoorStateUpdated;
+- (void)onMapOverlayUpdated;
 
 @end
 

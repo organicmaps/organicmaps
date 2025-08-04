@@ -226,19 +226,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
 #pragma mark - MWMMapOverlayManagerObserver
 
-- (void)onTrafficStateUpdated
-{
-  [self applyTheme];
-}
-- (void)onTransitStateUpdated
-{
-  [self applyTheme];
-}
-- (void)onIsoLinesStateUpdated
-{
-  [self applyTheme];
-}
-- (void)onOutdoorStateUpdated
+- (void)onMapOverlayUpdated
 {
   [self applyTheme];
 }

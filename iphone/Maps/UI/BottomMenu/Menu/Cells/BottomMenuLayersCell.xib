@@ -77,7 +77,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-zd-xSl">
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-zd-xSl">
                         <rect key="frame" x="16" y="58" width="308" height="64"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g13-pK-Eig" userLabel="Outdoor Button" customClass="BottomMenuLayerButton" customModule="Organic_Maps" customModuleProvider="target">
