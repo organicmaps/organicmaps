@@ -257,7 +257,7 @@ private:
 
   dp::DrapeID GenerateDrapeID();
 
-  drape_ptr<UserMarkRenderParams> GenerateMarkRenderInfo(UserPointMark const * mark) const;
+  drape_ptr<UserMarkRenderParams> GenerateMarkRenderInfo(UserPointMark const * mark, dp::Color outlineColor) const;
   static drape_ptr<UserLineRenderParams> GenerateLineRenderInfo(UserLineMark const * mark);
 
   drape_ptr<FrontendRenderer> m_frontend;
