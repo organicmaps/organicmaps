@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "btn_menu_cycling.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

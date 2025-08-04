@@ -3,7 +3,7 @@
 #include "Framework.h"
 
 static NSString * kGuidesWasShown = @"guidesWasShown";
-static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
+static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 
 @interface MWMMapOverlayManager ()
 
@@ -32,28 +32,28 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
     GetFramework().GetTrafficManager().SetStateListener([self](TrafficManager::TrafficState state)
     {
       for (id<MWMMapOverlayManagerObserver> observer in self.observers)
-        if ([observer respondsToSelector:@selector(onTrafficStateUpdated)])
-          [observer onTrafficStateUpdated];
+        if ([observer respondsToSelector:@selector(onMapOverlayUpdated)])
+          [observer onMapOverlayUpdated];
     });
     GetFramework().GetTransitManager().SetStateListener([self](TransitReadManager::TransitSchemeState state)
     {
       for (id<MWMMapOverlayManagerObserver> observer in self.observers)
-        if ([observer respondsToSelector:@selector(onTransitStateUpdated)])
-          [observer onTransitStateUpdated];
+        if ([observer respondsToSelector:@selector(onMapOverlayUpdated)])
+          [observer onMapOverlayUpdated];
     });
     GetFramework().GetIsolinesManager().SetStateListener([self](IsolinesManager::IsolinesState state)
     {
       for (id<MWMMapOverlayManagerObserver> observer in self.observers)
-        if ([observer respondsToSelector:@selector(onIsoLinesStateUpdated)])
-          [observer onIsoLinesStateUpdated];
+        if ([observer respondsToSelector:@selector(onMapOverlayUpdated)])
+          [observer onMapOverlayUpdated];
     });
-    [NSNotificationCenter.defaultCenter addObserverForName:didChangeOutdoorMapStyle
+    [NSNotificationCenter.defaultCenter addObserverForName:didChangeMapOverlay
                                                     object:nil
                                                      queue:nil
                                                 usingBlock:^(NSNotification * _Nonnull notification) {
                                                   for (id<MWMMapOverlayManagerObserver> observer in self.observers)
-                                                    if ([observer respondsToSelector:@selector(onOutdoorStateUpdated)])
-                                                      [observer onOutdoorStateUpdated];
+                                                    if ([observer respondsToSelector:@selector(onMapOverlayUpdated)])
+                                                      [observer onMapOverlayUpdated];
                                                 }];
   }
   return self;
@@ -201,17 +201,19 @@ static NSString * didChangeOutdoorMapStyle = @"didChangeOutdoorMapStyle";
 
   // TODO: - Observing for the selected/deselected state of the Outdoor style should be implemented not by
   // NSNotificationCenter but the same way as for IsoLines with 'GetFramework().GetIsolinesManager().SetStateListener'.
-  [NSNotificationCenter.defaultCenter postNotificationName:didChangeOutdoorMapStyle object:nil];
+  [NSNotificationCenter.defaultCenter postNotificationName:didChangeMapOverlay object:nil];
 }
 
 + (void)setHikingEnabled:(BOOL)enable
 {
   GetFramework().SetHikingEnabled(enable);
+  [NSNotificationCenter.defaultCenter postNotificationName:didChangeMapOverlay object:nil];
 }
 
 + (void)setCyclingEnabled:(BOOL)enable
 {
   GetFramework().SetCyclingEnabled(enable);
+  [NSNotificationCenter.defaultCenter postNotificationName:didChangeMapOverlay object:nil];
 }
 
 @end

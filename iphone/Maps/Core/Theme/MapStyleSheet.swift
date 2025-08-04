@@ -28,7 +28,7 @@ extension MapStyleSheet: IStyleSheet {
         s.backgroundColor = colors.clear
         s.borderColor = colors.clear
         s.borderWidth = 0
-        s.cornerRadius = .buttonDefaultSmall
+        s.cornerRadius = .buttonDefault
       }
     case .mapMenuButtonEnabled:
       return .add { s in
@@ -36,8 +36,8 @@ extension MapStyleSheet: IStyleSheet {
         s.font = fonts.regular10
         s.backgroundColor = colors.linkBlue
         s.borderColor = colors.linkBlue
-        s.borderWidth = 2
-        s.cornerRadius = .buttonDefaultSmall
+        s.borderWidth = 3
+        s.cornerRadius = .buttonDefault
       }
     case .mapStreetNameBackgroundView:
       return .add { s in
