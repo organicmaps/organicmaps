@@ -74,4 +74,19 @@
     <item>3</item>
     <item>4</item>
   </string-array>
+
+  <!-- Should match settings::Placement -->
+  <string-array name="bookmarks_text_placement_options">
+    <item>@string/hide</item>
+    <item>@string/show_to_the_right</item>
+    <item>@string/show_at_the_bottom</item>
+  </string-array>
+
+  <!-- Should match settings::Placement -->
+  <string-array name="bookmarks_text_placement_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
+
 </resources>
