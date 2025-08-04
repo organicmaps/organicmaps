@@ -65,6 +65,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initEmulationBadStorage();
     initUseMobileDataPrefsCallbacks();
     initPowerManagementPrefsCallbacks();
+    initBookmarksTextPlacementPrefsCallbacks();
     initPlayServicesPrefsCallbacks();
     initSearchPrivacyPrefsCallbacks();
     initScreenSleepEnabledPrefsCallbacks();
@@ -477,6 +478,21 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         Config.setShowOnLockScreenEnabled(newVal);
         Utils.showOnLockScreen(newVal, requireActivity());
       }
+      return true;
+    });
+  }
+
+  private void initBookmarksTextPlacementPrefsCallbacks()
+  {
+    final ListPreference bookmarksTextPlacementPref = getPreference(getString(R.string.pref_bookmarks_text_placement));
+
+    @PowerManagment.SchemeType
+    final int currentPlacement = Framework.nativeGetBookmarksTextPlacement();
+    bookmarksTextPlacementPref.setValue(String.valueOf(currentPlacement));
+
+    bookmarksTextPlacementPref.setOnPreferenceChangeListener((preference, newValue) -> {
+      final int placement = Integer.parseInt((String) newValue);
+      Framework.nativeSetBookmarksTextPlacement(placement);
       return true;
     });
   }

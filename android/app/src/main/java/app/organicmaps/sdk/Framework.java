@@ -329,6 +329,10 @@ public class Framework
   public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);
   public static native int nativeGetPowerManagerScheme();
   public static native void nativeSetPowerManagerScheme(int schemeType);
+
+  public static native int nativeGetBookmarksTextPlacement();
+  public static native void nativeSetBookmarksTextPlacement(int enumIndex);
+
   public static native void nativeSetViewportCenter(double lat, double lon, int zoom);
   public static native void nativeStopLocationFollow();
 

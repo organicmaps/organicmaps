@@ -37,6 +37,7 @@
   <string name="pref_information" translatable="false">Information</string>
   <string name="pref_transliteration" translatable="false">Transliteration</string>
   <string name="pref_power_management" translatable="false">PowerManagment</string>
+  <string name="pref_bookmarks_text_placement" translatable="false">BookmarksTextPlacement</string>
   <string name="pref_keep_screen_on" translatable="false">KeepScreenOn</string>
   <string name="pref_show_on_lock_screen" translatable="false">ShowOnLockScreen</string>
   <string name="pref_map_locale" translatable="false">MapLanguage</string>

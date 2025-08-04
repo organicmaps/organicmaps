@@ -86,26 +86,34 @@
       android:entries="@array/power_management_scheme"
       android:entryValues="@array/power_management_scheme_values"
       android:order="15"/>
+    <ListPreference
+        android:key="@string/pref_bookmarks_text_placement"
+        android:title="@string/bookmarks_text_placement_title"
+        app:singleLineTitle="false"
+        android:summary="@string/bookmarks_text_placement_description"
+        android:entries="@array/bookmarks_text_placement_options"
+        android:entryValues="@array/bookmarks_text_placement_values"
+        android:order="16"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_keep_screen_on"
       android:title="@string/enable_keep_screen_on"
       app:singleLineTitle="false"
       android:summary="@string/enable_keep_screen_on_description"
       android:defaultValue="false"
-      android:order="16"/>
+      android:order="17"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_show_on_lock_screen"
       android:title="@string/enable_show_on_lock_screen"
       app:singleLineTitle="false"
       android:summary="@string/enable_show_on_lock_screen_description"
       android:defaultValue="true"
-      android:order="17"/>
+      android:order="18"/>
     <Preference
         android:key="@string/pref_map_locale"
         android:title="@string/change_map_locale"
         app:singleLineTitle="false"
         android:persistent="false"
-        android:order="18"/>
+        android:order="19"/>
   </androidx.preference.PreferenceCategory>
 
   <androidx.preference.PreferenceCategory
