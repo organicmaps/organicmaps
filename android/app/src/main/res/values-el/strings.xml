@@ -900,4 +900,6 @@
     <string name="saved">Αποθηκεύτηκε</string>
     <string name="osm_note_hint">Ή, εναλλακτικά, αφήστε μια σημείωση προς την κοινότητα του OpenStreetMap ώστε κάποιος άλλος να μπορεί να προσθέσει ή να διορθώσει ένα μέρος εδώ.</string>
     <string name="osm_note_toast">Η σημείωση θα αποσταλεί στο OpenStreetMap</string>
+    <string name="button_layer_hiking">Πεζοπορία</string>
+    <string name="button_layer_cycling">Ποδηλασία</string>
 </resources>

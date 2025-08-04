@@ -892,4 +892,6 @@
     <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
     <string name="tts_info_link">https://organicmaps.app/faq/voice/text-to-speech-android-tts/</string>
     <string name="saved">Gordeta</string>
+    <string name="osm_note_hint">Edo, bestela, utzi ohar bat OpenStreetMap komunitateari, beste norbaitek hemen leku bat gehitu edo konpon dezan.</string>
+    <string name="osm_note_toast">Oharra OpenStreetMap-era bidaliko da</string>
 </resources>

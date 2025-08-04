@@ -904,4 +904,6 @@
     <string name="editor_line_social_network">LINE</string>
     <string name="comma_separated_pair">%1$s，%2$s</string>
     <string name="saved">已保存</string>
+    <string name="osm_note_hint">或者，也可以给 OpenStreetMap 社区留言，以便其他人可以在此添加或修复地点。</string>
+    <string name="osm_note_toast">注释将发送至 OpenStreetMap</string>
 </resources>
