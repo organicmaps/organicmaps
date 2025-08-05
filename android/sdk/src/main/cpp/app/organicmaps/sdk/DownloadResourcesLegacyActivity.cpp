@@ -66,8 +66,8 @@ static int HasSpaceForFiles(Platform & pl, std::string const & sdcardPath, size_
   }
 }
 
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeGetBytesToDownload(JNIEnv * env,
-                                                                                                         jclass clazz)
+JNIEXPORT jint Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeGetBytesToDownload(JNIEnv * env,
+                                                                                                 jclass clazz)
 {
   // clear all
   g_filesToDownload.clear();
@@ -145,8 +145,9 @@ static void DownloadFileProgress(std::shared_ptr<jobject> listener, HttpRequest 
                       static_cast<jint>(g_totalDownloadedBytes + req.GetProgress().m_bytesDownloaded));
 }
 
-JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeStartNextFileDownload(
-    JNIEnv * env, jclass clazz, jobject listener)
+JNIEXPORT jint Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeStartNextFileDownload(JNIEnv * env,
+                                                                                                    jclass clazz,
+                                                                                                    jobject listener)
 {
   if (g_filesToDownload.empty())
     return ERR_NO_MORE_FILES;
@@ -171,8 +172,8 @@ JNIEXPORT jint JNICALL Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_
   return ERR_FILE_IN_PROGRESS;
 }
 
-JNIEXPORT void JNICALL Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeCancelCurrentFile(JNIEnv * env,
-                                                                                                        jclass clazz)
+JNIEXPORT void Java_app_organicmaps_sdk_DownloadResourcesLegacyActivity_nativeCancelCurrentFile(JNIEnv * env,
+                                                                                                jclass clazz)
 {
   LOG(LDEBUG, ("cancelCurrentFile, currentRequest=", g_currentRequest));
   g_currentRequest.reset();

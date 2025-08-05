@@ -47,7 +47,7 @@ static bool IsAndroidApiLowerThan(int apiLevel)
 static bool const g_isAndroidLowerThan12 = IsAndroidApiLowerThan(30);
 static bool const g_isAndroidLowerThan7 = g_isAndroidLowerThan12 && IsAndroidApiLowerThan(24);
 
-JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM * jvm, void *)
+JNIEXPORT jint JNI_OnLoad(JavaVM * jvm, void *)
 {
   g_jvm = jvm;
   jni::InitSystemLog();
@@ -77,7 +77,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM * jvm, void *)
   return JNI_VERSION_1_6;
 }
 
-JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *, void *)
+JNIEXPORT void JNI_OnUnload(JavaVM *, void *)
 {
   g_jvm = 0;
   JNIEnv * env = jni::GetEnv();
