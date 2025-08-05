@@ -43,6 +43,20 @@ public enum SyncManager
   private SyncScheduler mSyncScheduler;
   private final Map<SyncAccount, Syncer> mSyncers = new ConcurrentHashMap<>();
 
+  private DefaultLifecycleObserver mLifecycleObserver = new DefaultLifecycleObserver() {
+    @Override
+    public void onStart(@NonNull LifecycleOwner owner)
+    {
+      mSyncScheduler.onForeground();
+    }
+
+    @Override
+    public void onStop(@NonNull LifecycleOwner owner)
+    {
+      mSyncScheduler.onBackground();
+    }
+  };
+
   @MainThread
   private static native void nativeReloadBookmark(@NonNull String filePath);
 
@@ -102,6 +116,11 @@ public enum SyncManager
       public void onAccountEnabled(SyncAccount account)
       {
         mSyncers.put(account, new Syncer(appContext, account));
+        if (countActiveAccounts() == 1)
+        {
+          mSyncScheduler.onForeground();
+          ProcessLifecycleOwner.get().getLifecycle().addObserver(mLifecycleObserver);
+        }
       }
 
       @Override
@@ -112,24 +131,16 @@ public enum SyncManager
         {
           syncer.onSyncDisabled();
           mSyncers.remove(account);
+          if (countActiveAccounts() == 0)
+            ProcessLifecycleOwner.get().getLifecycle().removeObserver(mLifecycleObserver);
         }
       }
     });
 
     mSyncScheduler = new SyncScheduler(mSyncPrefs, WorkManager.getInstance(context));
-    ProcessLifecycleOwner.get().getLifecycle().addObserver(new DefaultLifecycleObserver() {
-      @Override
-      public void onStart(@NonNull LifecycleOwner owner)
-      {
-        mSyncScheduler.onForeground();
-      }
 
-      @Override
-      public void onStop(@NonNull LifecycleOwner owner)
-      {
-        mSyncScheduler.onBackground();
-      }
-    });
+    if (countActiveAccounts() > 0)
+      ProcessLifecycleOwner.get().getLifecycle().addObserver(mLifecycleObserver);
   }
 
   private void syncAllAccounts()
@@ -347,6 +358,12 @@ public enum SyncManager
       {
         workerRunning = true;
         SyncManager.INSTANCE.syncAllAccounts();
+
+        if (SyncManager.INSTANCE.countActiveAccounts() < 1)
+        {
+          backgroundMode = true;
+          return Result.success();
+        }
 
         final long interval;
         if (appInForeground || syncIntervalMs >= MINIMUM_BACKGROUND_INTERVAL)
