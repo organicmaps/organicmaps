@@ -7,6 +7,36 @@
   android:background="?android:attr/colorBackground"
   android:orientation="vertical">
 
+  <LinearLayout
+      android:id="@+id/option_set_interval"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_base"
+      android:background="?android:attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_sync_interval"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="@dimen/text_size_body_1" />
+
+    <TextView
+        android:id="@+id/tv_summary_interval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        tools:text="1 day"
+        android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="@dimen/text_size_body_3" />
+
+  </LinearLayout>
+
   <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

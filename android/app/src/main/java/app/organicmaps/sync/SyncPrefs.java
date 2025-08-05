@@ -24,9 +24,12 @@ public class SyncPrefs
 
   private static final String PREF_KEY_ACCOUNTS = "ac";
   private static final String PREF_KEY_LAST_ACCOUNT_ID = "lastId";
+  private static final String PREF_KEY_SYNC_INTERVAL = "interval";
+  private static final String PREF_KEY_LAST_RUN = "lastRun";
   private static final String PREF_KEY_NC_POLL = "ncPollParams";
   private static final String PREF_KEY_PREFIX_ENABLED = "enabled-";
   private static final String PREF_KEY_PREFIX_LAST_SYNCED = "lastSynced-";
+  private static final long DEFAULT_SYNC_INTERVAL_MS = 24 * 3600_000;
   @Nullable
   private static SyncPrefs instance;
   @NonNull
@@ -36,6 +39,7 @@ public class SyncPrefs
   private final Set<LastSyncCallback> mLastSyncCallbacks = new HashSet<>();
   private final Set<AccountsChangedCallback> mAccountsChangedCallbacks = new HashSet<>();
   private final Set<AccountToggledCallback> mAccountToggledCallbacks = new HashSet<>();
+  private final Set<FrequencyChangeCallback> mFrequencyChangeCallbacks = new HashSet<>();
 
   private SyncPrefs(Application context)
   {
@@ -136,6 +140,29 @@ public class SyncPrefs
     }
   }
 
+  /**
+   * @see #setLastRun(long)
+   * @return Time elapsed in ms.
+   */
+  public long getTimeSinceLastRun()
+  {
+    long timeElapsed = System.currentTimeMillis() - prefsAccounts.getLong(PREF_KEY_LAST_RUN, 0L);
+    if (timeElapsed < 0) // The user's system date is in the past for some reason
+      return Long.MAX_VALUE / 4;
+    return timeElapsed;
+  }
+
+  /**
+   * Unlike {@link #setLastSynced(long, long)}, this is not account-specific.
+   * It stores only the time when the sync routine was last run, regardless
+   * of whether it succeeded or not.
+   * @param timestamp in milliseconds
+   */
+  public void setLastRun(long timestamp)
+  {
+    prefsAccounts.edit().putLong(PREF_KEY_LAST_RUN, timestamp).apply();
+  }
+
   public AddAccountResult addAccount(BackendType backendType, AuthState authState)
   {
     try
@@ -171,6 +198,25 @@ public class SyncPrefs
     }
   }
 
+  public void setSyncFrequency(long syncIntervalMs)
+  {
+    prefsAccounts.edit().putLong(PREF_KEY_SYNC_INTERVAL, syncIntervalMs).apply();
+    for (FrequencyChangeCallback callback : mFrequencyChangeCallbacks)
+    {
+      try
+      {
+        callback.onFrequencyChange(syncIntervalMs);
+      }
+      catch (Exception ignored)
+      {}
+    }
+  }
+
+  public long getSyncIntervalMs()
+  {
+    return prefsAccounts.getLong(PREF_KEY_SYNC_INTERVAL, DEFAULT_SYNC_INTERVAL_MS);
+  }
+
   private long generateNextAccountId()
   {
     long nextAccountId = prefsAccounts.getLong(PREF_KEY_LAST_ACCOUNT_ID, 0L);
@@ -203,6 +249,16 @@ public class SyncPrefs
     mAccountToggledCallbacks.add(callback);
   }
 
+  public void registerFrequencyChangeCallback(FrequencyChangeCallback callback)
+  {
+    mFrequencyChangeCallbacks.add(callback);
+  }
+
+  public void unregisterFrequencyChangeCallback(FrequencyChangeCallback callback)
+  {
+    mFrequencyChangeCallbacks.remove(callback);
+  }
+
   public void setNextcloudPollParams(@Nullable String params)
   {
     prefsAccounts.edit().putString(PREF_KEY_NC_POLL, params).apply();
@@ -228,6 +284,11 @@ public class SyncPrefs
     void onAccountEnabled(SyncAccount account);
 
     void onAccountDisabled(SyncAccount account);
+  }
+
+  public interface FrequencyChangeCallback
+  {
+    void onFrequencyChange(long syncIntervalMs);
   }
 
   public enum AddAccountResult

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +31,7 @@ import app.organicmaps.sdk.util.UiUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.InsecureHttpsHelper;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.BufferedReader;
@@ -49,7 +52,9 @@ public class NextcloudLoginHelper
   public static void login(Context context)
   {
     final AlertDialog dialog =
-        new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog_Transparent)
+        new MaterialAlertDialogBuilder(context, ThemeUtils.isNightTheme(context)
+                                                    ? R.style.MwmTheme_Night_AlertDialog_Wide
+                                                    : R.style.MwmTheme_AlertDialog_Wide)
             .setTitle(context.getString(R.string.enter_nextcloud_url))
             .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
             .setPositiveButton(R.string.next_button, null)

@@ -108,7 +108,8 @@ public class Syncer
               else
               {
                 String localFileChecksum = null;
-                if (lastSyncedChecksum == null && cloudSideChecksum != null)
+                if (cloudSideChecksum != null // The cloud-side file is OM-uploaded
+                    && (lastSyncedChecksum == null || SyncManager.INSTANCE.countActiveAccounts() > 1)) // multi-account
                   localFileChecksum = mSyncClient.computeLocalFileChecksum(locallyChangedFile);
 
                 if (localFileChecksum != null && localFileChecksum.equals(cloudSideChecksum))
