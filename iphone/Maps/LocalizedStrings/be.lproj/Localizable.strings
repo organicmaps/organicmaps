@@ -1075,3 +1075,6 @@
 "right" = "Right";
 "show_at_the_bottom" = "Show at the bottom";
 "bottom" = "Bottom";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
+"routes_update_maps_text" = "Aднaвіце карты, каб убачыць маршруты";
