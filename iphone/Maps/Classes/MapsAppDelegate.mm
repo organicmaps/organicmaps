@@ -64,7 +64,7 @@ using namespace osm_auth_ios;
 @interface MapsAppDelegate () <MWMStorageObserver, CPApplicationDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
-@property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
+@property(nonatomic) BackgroundFetchScheduler * backgroundFetchScheduler;
 
 @end
 
@@ -128,6 +128,9 @@ using namespace osm_auth_ios;
   if (![MapsAppDelegate isTestsEnvironment])
     [[iCloudSynchronizaionManager shared] start];
 
+  if (@available(iOS 13.0, *))
+    [BackgroundFetchScheduler registerTasks];
+
   [[DeepLinkHandler shared] applicationDidFinishLaunching:launchOptions];
   // application:openUrl:options is called later for deep links if YES is returned.
   return YES;
@@ -141,14 +144,9 @@ using namespace osm_auth_ios;
   completionHandler(YES);
 }
 
-- (void)runBackgroundTasks:(NSArray<BackgroundFetchTask *> * _Nonnull)tasks
-         completionHandler:(void (^_Nullable)(UIBackgroundFetchResult))completionHandler
+- (void)runBackgroundTasks:(NSArray<BackgroundFetchTask> * _Nonnull)tasks
 {
-  self.backgroundFetchScheduler = [[MWMBackgroundFetchScheduler alloc] initWithTasks:tasks
-                                                                   completionHandler:^(UIBackgroundFetchResult result) {
-                                                                     if (completionHandler)
-                                                                       completionHandler(result);
-                                                                   }];
+  self.backgroundFetchScheduler = [[BackgroundFetchScheduler alloc] initWithTasks:tasks];
   [self.backgroundFetchScheduler run];
 }
 
@@ -171,8 +169,12 @@ using namespace osm_auth_ios;
     }];
   }
 
-  auto tasks = @[[[MWMBackgroundEditsUpload alloc] init]];
-  [self runBackgroundTasks:tasks completionHandler:nil];
+  auto tasks = [NSMutableArray<BackgroundFetchTask> array];
+  if (@available(iOS 13.0, *))
+    [tasks addObject:[[ScheduledBackgroundEditsUploadingTask alloc] init]];
+  else
+    [tasks addObject:[[ExtendedBackgroundEditsUploadingTask alloc] init]];
+  [self runBackgroundTasks:tasks];
 
   [MWMRouter saveRouteIfNeeded];
   LOG(LINFO, ("applicationDidEnterBackground - end"));

@@ -73,8 +73,7 @@
 		3467CEB7202C6FA900D3C670 /* BMCNotificationsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3467CEB5202C6FA900D3C670 /* BMCNotificationsCell.xib */; };
 		347040301EA6470700038379 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3470402E1EA6470700038379 /* BorderedButton.swift */; };
 		3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */; };
-		3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */; };
-		3472B5D3200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */; };
+		3472B5CF200F4A2B00DC6CD5 /* ExtendedBackgroundFetchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5CD200F4A2B00DC6CD5 /* ExtendedBackgroundFetchTask.swift */; };
 		3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */; };
 		34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34763EE51F2F392300F4D2D3 /* MWMTextToSpeech.mm */; };
 		34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34845DAD1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift */; };
@@ -495,6 +494,7 @@
 		ED8270F02C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8270EF2C2071A3005966DA /* SettingsTableViewDetailedSwitchCell.swift */; };
 		ED83880F2D54DEB3002A0536 /* UIImage+FilledWithColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED83880E2D54DEA4002A0536 /* UIImage+FilledWithColor.swift */; };
 		ED8A91E02D759B50009E063B /* LocalizableTypes.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED8A91DE2D759B50009E063B /* LocalizableTypes.strings */; };
+		ED91218D2E425058009741DE /* ScheduledBackgroundEditsUploadingTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91218C2E425058009741DE /* ScheduledBackgroundEditsUploadingTask.swift */; };
 		ED914AB22D35063A00973C45 /* TextColorStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */; };
 		ED914AB82D351DF000973C45 /* StyleApplicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914AB72D351DF000973C45 /* StyleApplicable.swift */; };
 		ED914ABE2D351FF800973C45 /* UILabel+SetFontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */; };
@@ -880,8 +880,7 @@
 		346B42AD1DD5E5450094EBEE /* MWMDefaultAlert_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMDefaultAlert_Protected.h; sourceTree = "<group>"; };
 		3470402E1EA6470700038379 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 		3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchScheduler.swift; sourceTree = "<group>"; };
-		3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTask.swift; sourceTree = "<group>"; };
-		3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundFetchTaskFrameworkType.swift; sourceTree = "<group>"; };
+		3472B5CD200F4A2B00DC6CD5 /* ExtendedBackgroundFetchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedBackgroundFetchTask.swift; sourceTree = "<group>"; };
 		3472B5DE200F86C800DC6CD5 /* MWMEditorHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEditorHelper.h; sourceTree = "<group>"; };
 		3472B5DF200F86C800DC6CD5 /* MWMEditorHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorHelper.mm; sourceTree = "<group>"; };
 		347526FA1DC0B00F00918CF5 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../../xcode/common-debug.xcconfig"; sourceTree = "<group>"; };
@@ -1502,6 +1501,7 @@
 		ED8A920B2D759BA9009E063B /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A920C2D759BA9009E063B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
 		ED8A920D2D759BAA009E063B /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LocalizableTypes.strings; sourceTree = "<group>"; };
+		ED91218C2E425058009741DE /* ScheduledBackgroundEditsUploadingTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledBackgroundEditsUploadingTask.swift; sourceTree = "<group>"; };
 		ED914AB12D35063A00973C45 /* TextColorStyleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextColorStyleSheet.swift; sourceTree = "<group>"; };
 		ED914AB72D351DF000973C45 /* StyleApplicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleApplicable.swift; sourceTree = "<group>"; };
 		ED914ABD2D351FF800973C45 /* UILabel+SetFontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+SetFontStyle.swift"; sourceTree = "<group>"; };
@@ -2376,7 +2376,6 @@
 			children = (
 				3472B5E6200F8CAB00DC6CD5 /* BackgroundFetchTask */,
 				3472B5C9200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift */,
-				3472B5D1200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift */,
 			);
 			path = BackgroundFetchScheduler;
 			sourceTree = "<group>";
@@ -2393,7 +2392,8 @@
 		3472B5E6200F8CAB00DC6CD5 /* BackgroundFetchTask */ = {
 			isa = PBXGroup;
 			children = (
-				3472B5CD200F4A2B00DC6CD5 /* BackgroundFetchTask.swift */,
+				3472B5CD200F4A2B00DC6CD5 /* ExtendedBackgroundFetchTask.swift */,
+				ED91218C2E425058009741DE /* ScheduledBackgroundEditsUploadingTask.swift */,
 			);
 			path = BackgroundFetchTask;
 			sourceTree = "<group>";
@@ -4687,7 +4687,7 @@
 				462452E92BD052C0004C85E1 /* MWMEditorSegmentedTableViewCell.mm in Sources */,
 				993DF12D23F6BDB100AC231A /* GlobalStyleSheet.swift in Sources */,
 				F6E2FF361E097BA00083EBEC /* MWMSearchSuggestionCell.mm in Sources */,
-				3472B5CF200F4A2B00DC6CD5 /* BackgroundFetchTask.swift in Sources */,
+				3472B5CF200F4A2B00DC6CD5 /* ExtendedBackgroundFetchTask.swift in Sources */,
 				477219052243E79500E5B227 /* DrivingOptionsViewController.swift in Sources */,
 				CDB4D4E4222E8FF600104869 /* CarPlayService.swift in Sources */,
 				F6E2FF661E097BA00083EBEC /* MWMTTSSettingsViewController.mm in Sources */,
@@ -4769,7 +4769,6 @@
 				ED1263AB2B6F99F900AD99F3 /* UIView+AddSeparator.swift in Sources */,
 				CD4A1F132305872700F2A6B6 /* PromoBookingPresentationController.swift in Sources */,
 				EDB71E042D8B0943004A6A7F /* SearchOnMapAreaView.swift in Sources */,
-				3472B5D3200F501500DC6CD5 /* BackgroundFetchTaskFrameworkType.swift in Sources */,
 				47E460AD240D737D00385B45 /* OpeinigHoursLocalization.swift in Sources */,
 				99F9A0E52462CA0E00AE21E0 /* DownloadAllView.swift in Sources */,
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
@@ -4862,6 +4861,7 @@
 				993DF11323F6BDB100AC231A /* UITableViewRenderer.swift in Sources */,
 				34AB66261FC5AA330078E451 /* RouteManagerDimView.swift in Sources */,
 				EDFDFB4A2B722A310013A44C /* SocialMediaCollectionViewCell.swift in Sources */,
+				ED91218D2E425058009741DE /* ScheduledBackgroundEditsUploadingTask.swift in Sources */,
 				6741AA2B1BF340DE002C974C /* CircleView.m in Sources */,
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				EDFDFB462B7139490013A44C /* AboutInfo.swift in Sources */,
@@ -5168,6 +5168,15 @@
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 9Z6432XD7L;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_KEY_CFBundleDisplayName = "${PRODUCT_NAME}";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Determining your location is necessary for navigation and for saving your recently travelled track.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5190,6 +5199,15 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 9Z6432XD7L;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_KEY_CFBundleDisplayName = "${PRODUCT_NAME}";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Determining your location is necessary for navigation and for saving your recently travelled track.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
