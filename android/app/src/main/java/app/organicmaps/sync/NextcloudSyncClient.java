@@ -354,7 +354,7 @@ public class NextcloudSyncClient extends SyncClient
         throw new Syncer.LockAlreadyHeldException(LOCKFILE_VALIDITY_DURATION_MS - lastLocked);
 
       touchLockfile();
-      mHandler.postDelayed(this, LOCKFILE_REFRESH_INTERVAL_MS);
+      mHandler.postDelayed(this, LOCKFILE_REFRESH_INTERVAL_MS); // TODO(savsch) Does this even fire at all?
     }
 
     @Override
