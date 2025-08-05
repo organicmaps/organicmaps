@@ -204,6 +204,14 @@ bool MwmSet::IsLoaded(CountryFile const & countryFile) const
   return id.IsAlive() && id.GetInfo()->IsRegistered();
 }
 
+int64_t MwmSet::GetMwmVersion(CountryFile const & countryFile) const
+{
+  lock_guard<mutex> lock(m_lock);
+
+  MwmId const id = GetMwmIdByCountryFileImpl(countryFile);
+  return id.IsAlive() ? id.GetInfo()->GetVersion() : 0;
+}
+
 void MwmSet::GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const
 {
   lock_guard<mutex> lock(m_lock);

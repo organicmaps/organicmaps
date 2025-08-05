@@ -626,6 +626,7 @@
     <string name="mobile_data_option_never">Never Use</string>
     <string name="mobile_data_option_ask">Always Ask</string>
     <string name="traffic_update_maps_text">To display traffic data, maps must be updated.</string>
+    <string name="routes_update_maps_text">To display routes, maps must be updated.</string>
     <string name="big_font">Increase size for map labels</string>
     <string name="traffic_update_app">Please update Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->

@@ -43,6 +43,11 @@ public:
     return m_dataSource.IsLoaded(platform::CountryFile(std::string(countryFileName)));
   }
 
+  int64_t GetMwmVersion(std::string countryFileName) const
+  {
+    return m_dataSource.GetMwmVersion(platform::CountryFile(std::move(countryFileName)));
+  }
+
   void ForEachFeature(m2::RectD const & rect, std::function<void(FeatureType &)> const & fn, int scale) const
   {
     m_dataSource.ForEachInRect(fn, rect, scale);

@@ -291,4 +291,9 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().DidSelectProduct({product.title.UTF8String, product.link.UTF8String});
 }
 
++ (BOOL)needUpdateForRoutes
+{
+  return GetFramework().NeedUpdateForRoutes();
+}
+
 @end

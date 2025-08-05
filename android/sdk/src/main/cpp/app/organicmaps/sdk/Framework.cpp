@@ -1555,6 +1555,11 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeIsCyclingLay
   return static_cast<jboolean>(frm()->IsCyclingEnabled());
 }
 
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_Framework_nativeNeedUpdateForRoutes(JNIEnv *, jclass)
+{
+  return frm()->NeedUpdateForRoutes();
+}
+
 JNIEXPORT void JNICALL Java_app_organicmaps_sdk_Framework_nativeSaveSettingSchemeEnabled(JNIEnv * env, jclass,
                                                                                          jboolean enabled)
 {
