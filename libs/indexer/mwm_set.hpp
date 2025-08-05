@@ -290,8 +290,11 @@ public:
 
   bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
-  /// Returns true when country is registered and can be used.
+  /// @return true when country is registered and can be used.
   bool IsLoaded(platform::CountryFile const & countryFile) const;
+
+  /// @return 0 if country is not loaded.
+  int64_t GetMwmVersion(platform::CountryFile const & countryFile) const;
 
   /// Get ids of all mwms. Some of them may be with not active status.
   /// In that case, LockValue returns NULL.

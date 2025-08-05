@@ -1250,6 +1250,18 @@ string Framework::GetCountryName(m2::PointD const & pt) const
   return info.m_name;
 }
 
+int64_t Framework::GetMwmVersion(m2::PointD const & pt) const
+{
+  auto name = m_infoGetter->GetRegionCountryId(pt);
+  return (name != storage::kInvalidCountryId) ? m_featuresFetcher.GetMwmVersion(std::move(name)) : 0;
+}
+
+bool Framework::NeedUpdateForRoutes() const
+{
+  auto const version = GetMwmVersion(GetViewportCenter());
+  return version > 0 && version < 250801;
+}
+
 /*
 Framework::DoAfterUpdate Framework::ToDoAfterUpdate() const
 {

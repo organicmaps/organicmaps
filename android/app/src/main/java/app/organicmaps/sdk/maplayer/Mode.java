@@ -1,7 +1,9 @@
 package app.organicmaps.sdk.maplayer;
 
 import android.content.Context;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
+import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
@@ -78,6 +80,8 @@ public enum Mode
     public void setEnabled(@NonNull Context context, boolean isEnabled)
     {
       Framework.nativeSetHikingLayerEnabled(isEnabled);
+      if (isEnabled)
+        showUpdateToastIfNeeded(context);
     }
   },
 
@@ -92,10 +96,18 @@ public enum Mode
     public void setEnabled(@NonNull Context context, boolean isEnabled)
     {
       Framework.nativeSetCyclingLayerEnabled(isEnabled);
+      if (isEnabled)
+        showUpdateToastIfNeeded(context);
     }
   };
 
   public abstract boolean isEnabled(@NonNull Context context);
 
   public abstract void setEnabled(@NonNull Context context, boolean isEnabled);
+
+  public void showUpdateToastIfNeeded(@NonNull Context context)
+  {
+    if (Framework.nativeNeedUpdateForRoutes())
+      Toast.makeText(context, R.string.routes_update_maps_text, Toast.LENGTH_SHORT).show();
+  }
 }

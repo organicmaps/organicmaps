@@ -101,11 +101,23 @@ class BottomMenuLayersCell: UITableViewCell {
   @IBAction func onHikingButton(_ sender: Any) {
     let enable = !MapOverlayManager.hikingEnabled()
     MapOverlayManager.setHikingEnabled(enable)
+    if enable {
+      showUpdateToastIfNeeded()
+    }
   }
 
   @IBAction func onCyclingButton(_ sender: Any) {
     let enable = !MapOverlayManager.cyclingEnabled()
     MapOverlayManager.setCyclingEnabled(enable)
+    if enable {
+      showUpdateToastIfNeeded()
+    }
+  }
+
+  private func showUpdateToastIfNeeded() {
+    if FrameworkHelper.needUpdateForRoutes() {
+      Toast.show(withText: L("routes_update_maps_text"), alignment: .top)
+    }
   }
 }
 
