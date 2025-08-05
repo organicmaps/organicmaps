@@ -1100,3 +1100,6 @@
 "track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 "edit_track" = "Edit Track";
 "saved" = "Saved";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
+"routes_update_maps_text" = "To display routes, maps must be updated.";

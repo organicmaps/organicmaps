@@ -1076,3 +1076,6 @@
 "track_recording_toast_nothing_to_save" = "Трек пуст - нечего сохранять";
 "edit_track" = "Редактировать маршрут";
 "saved" = "Saved";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
+"routes_update_maps_text" = "Обновите карты, чтобы увидеть маршруты";
