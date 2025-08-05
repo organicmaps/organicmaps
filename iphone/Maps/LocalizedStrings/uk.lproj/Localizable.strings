@@ -1065,12 +1065,12 @@
 "button_layer_cycling" = "Велоспорт";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
+"bookmarks_text_placement_title" = "Додавання назв до закладок на карті";
+"bookmarks_text_placement_description" = "Якщо закладок забагато, відображення їхніх назв на карті може уповільнити роботу програми.";
+"show_to_the_right" = "Показати праворуч";
+"right" = "Праворуч";
+"show_at_the_bottom" = "Показати внизу";
+"bottom" = "Вниз";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";

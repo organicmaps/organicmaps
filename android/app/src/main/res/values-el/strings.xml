@@ -902,4 +902,10 @@
     <string name="osm_note_toast">Η σημείωση θα αποσταλεί στο OpenStreetMap</string>
     <string name="button_layer_hiking">Πεζοπορία</string>
     <string name="button_layer_cycling">Ποδηλασία</string>
+    <string name="bookmarks_text_placement_title">Ονόματα σελιδοδεικτών στο χάρτη</string>
+    <string name="bookmarks_text_placement_description">Εάν έχετε πάρα πολλούς σελιδοδείκτες, η προβολή των ονομάτων τους στο χάρτη θα κάνει αργή την εφαρμογή.</string>
+    <string name="show_to_the_right">Εμφάνισε στα δεξιά</string>
+    <string name="show_at_the_bottom">Εμφάνισε στο κάτω μέρος</string>
+    <string name="share_track">Κοινοποίηση ίχνους</string>
+    <string name="delete_track_dialog_title">Διαγραφή %s;</string>
 </resources>

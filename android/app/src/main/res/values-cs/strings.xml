@@ -889,4 +889,10 @@
     <string name="saved">Uloženo</string>
     <string name="osm_note_toast">Poznámka bude odeslána do OpenStreetMap</string>
     <string name="osm_note_hint">Nebo můžete zanechat zprávu komunitě OpenStreetMap, aby někdo jiný mohl místo přidat nebo opravit.</string>
+    <string name="bookmarks_text_placement_title">Názvy záložek na mapě</string>
+    <string name="bookmarks_text_placement_description">Pokud máte příliš mnoho záložek, může zobrazení jejich názvů na mapě zpomalit aplikaci.</string>
+    <string name="show_to_the_right">Zobrazit napravo</string>
+    <string name="show_at_the_bottom">Zobrazit dole</string>
+    <string name="share_track">Sdílet trasu</string>
+    <string name="delete_track_dialog_title">Smazat %s?</string>
 </resources>

@@ -604,4 +604,10 @@
     <string name="saved">Vistað</string>
     <string name="osm_note_hint">Eða til dæmis skilja eftir athugasemd til þátttakenda í OpenStreetMap svo einhver annar geti bætt við stað hér eða lagfært.</string>
     <string name="osm_note_toast">Athugasemd verður send til OpenStreetMap</string>
+    <string name="button_layer_hiking">Gönguleiðir</string>
+    <string name="button_layer_cycling">Hjólreiðar</string>
+    <string name="bookmarks_text_placement_title">Nöfn bókamerkja á kortinu</string>
+    <string name="bookmarks_text_placement_description">Ef það eru of mörg bókamerki, getur hægt á forritinu að birta nöfn þeirra á kortinu.</string>
+    <string name="show_to_the_right">Birta hægra megin</string>
+    <string name="show_at_the_bottom">Birta neðst</string>
 </resources>

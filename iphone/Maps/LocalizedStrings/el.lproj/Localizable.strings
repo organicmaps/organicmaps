@@ -1065,12 +1065,12 @@
 "button_layer_cycling" = "Ποδηλασία";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
+"bookmarks_text_placement_title" = "Ονόματα σελιδοδεικτών στο χάρτη";
+"bookmarks_text_placement_description" = "Εάν έχετε πάρα πολλούς σελιδοδείκτες, η προβολή των ονομάτων τους στο χάρτη θα κάνει αργή την εφαρμογή.";
+"show_to_the_right" = "Εμφάνισε στα δεξιά";
+"right" = "Δεξιά";
+"show_at_the_bottom" = "Εμφάνισε στο κάτω μέρος";
+"bottom" = "Κάτω μέρος";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";

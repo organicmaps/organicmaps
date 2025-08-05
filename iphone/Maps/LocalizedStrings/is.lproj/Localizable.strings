@@ -157,7 +157,7 @@
 "dialog_routing_check_gps" = "Check GPS signal";
 "dialog_routing_error_location_not_found" = "Unable to create route. Current GPS coordinates could not be identified.";
 "dialog_routing_location_turn_wifi" = "Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.";
-"dialog_routing_location_turn_on" = "Enable location services";
+"dialog_routing_location_turn_on" = "Virkjaðu staðsetningarþjónustur";
 "dialog_routing_location_unknown_turn_on" = "Unable to locate current GPS coordinates. Enable location services to calculate route.";
 "dialog_routing_download_files" = "Download required files";
 "dialog_routing_download_and_update_all" = "Download or update all maps along the projected path to calculate a route.";
@@ -231,7 +231,7 @@
 "password_8_chars_min" = "Password (8 characters minimum)";
 "invalid_username_or_password" = "Invalid username or password.";
 "login" = "Login";
-"login_osm" = "Login to OpenStreetMap";
+"login_osm" = "Skrá inn á OpenStreetMap";
 "forgot_password" = "Forgot your password?";
 "osm_account" = "OSM Account";
 "logout" = "Log Out";
@@ -258,7 +258,7 @@
 "migration_download_error_dialog" = "Download error";
 "common_check_internet_connection_dialog" = "Please make sure your device is connected to the Internet.";
 "downloader_no_space_title" = "Not enough space";
-"downloader_no_space_message" = "Please delete any unnecessary data";
+"downloader_no_space_message" = "Eyddu öllum ónauðsynlegum gögnum";
 "editor_profile_changes" = "Verified Changes";
 "editor_focus_map_on_location" = "Drag the map to place the cross at the location of the place or business.";
 "editor_add_select_category" = "Select category";
@@ -292,7 +292,7 @@
 "editor_operator" = "Operator";
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Can't find a suitable category?";
-"editor_category_unsuitable_text" = "Organic Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Check our <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detailed step by step instructions.";
+"editor_category_unsuitable_text" = "Organic Maps leyfir aðeins að bæta við flokkum eins-punkts staða, sem þýðir engin sveitarfélagamörk, vegir, vötn, útlínur bygginga o.s.frv. Bættu slíkum atriðum beint inn í <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Skoðaðu <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">leiðbeiningarnar</a> okkar til að sjá hvernig það er gert, skref-fyrir-skref.";
 "downloader_no_downloaded_maps_title" = "You haven't downloaded any maps";
 "downloader_no_downloaded_maps_message" = "Download maps to search and navigate offline.";
 "current_location_unknown_error_title" = "Current location is unknown.";
@@ -565,9 +565,9 @@
 "track_recording_toast_nothing_to_save" = "Track is empty - nothing to save";
 "edit_track" = "Edit Track";
 "saved" = "Saved";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"show_at_the_bottom" = "Show at the bottom";
+"button_layer_hiking" = "Gönguleiðir";
+"button_layer_cycling" = "Hjólreiðar";
+"bookmarks_text_placement_title" = "Nöfn bókamerkja á kortinu";
+"bookmarks_text_placement_description" = "Ef það eru of mörg bókamerki, getur hægt á forritinu að birta nöfn þeirra á kortinu.";
+"show_to_the_right" = "Birta hægra megin";
+"show_at_the_bottom" = "Birta neðst";

@@ -1400,4 +1400,10 @@
     <string name="type.amenity.studio">Studio</string>
     <string name="type.sport.diving">Tauchen</string>
     <string name="type.man_made.crane">Kran</string>
+    <string name="type.amenity.bicycle_parking.covered">Überdachter Fahrradparkplatz</string>
+    <string name="type.amenity.luggage_locker">Gepäckaufbewahrung</string>
+    <string name="type.post_office.post_partner">Post Partner</string>
+    <string name="type.leisure.escape_game">Escape Room</string>
+    <string name="type.railway.station.subway.qingdao">U-Bahn-Station</string>
+    <string name="type.amenity.ranger_station">Rangerstation</string>
 </resources>
