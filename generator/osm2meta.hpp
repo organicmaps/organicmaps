@@ -40,6 +40,7 @@ struct MetadataTagProcessorImpl
   static std::string ValidateAndFormat_drive_through(std::string v);
   static std::string ValidateAndFormat_self_service(std::string v);
   static std::string ValidateAndFormat_outdoor_seating(std::string v);
+  static std::string ValidateAndFormat_route_ref(std::string const & v);
 
 protected:
   FeatureBuilderParams & m_params;

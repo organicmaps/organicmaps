@@ -228,6 +228,15 @@ string MapObject::FormatRoadShields() const
   return strings::JoinStrings(m_roadShields, feature::kFieldsSeparator);
 }
 
+string MapObject::FormatRouteRefs() const
+{
+  auto const routeRef = m_metadata.Get(MetadataID::FMD_ROUTE_REF);
+  auto tokens = strings::Tokenize(routeRef, ";");
+  // Tokenize returns string_view, so we convert it to string using vector constructor
+  vector<string> stringTokens(tokens.begin(), tokens.end());
+  return strings::JoinStrings(stringTokens, feature::kFieldsSeparator);
+}
+
 int MapObject::GetStars() const
 {
   uint8_t count = 0;

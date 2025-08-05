@@ -551,4 +551,49 @@ UNIT_TEST(EditableMapObject_GetLocalizedAllTypes)
   }
 }
 
+UNIT_TEST(EditableMapObject_ValidateRouteRef)
+{
+  // Valid cases
+  TEST(EditableMapObject::ValidateRouteRef("530;123;203"), ());
+  TEST(EditableMapObject::ValidateRouteRef("A1;B2;C3"), ());
+  TEST(EditableMapObject::ValidateRouteRef("M1/A1"), ());
+  TEST(EditableMapObject::ValidateRouteRef("(A1)"), ());
+  TEST(EditableMapObject::ValidateRouteRef(""), ());
+
+  // Invalid cases
+  TEST(!EditableMapObject::ValidateRouteRef("530;;123"), ());   // Empty token
+  TEST(!EditableMapObject::ValidateRouteRef("530; ;123"), ());  // Space-only token
+  TEST(!EditableMapObject::ValidateRouteRef("530#123"), ());    // Invalid character
+  TEST(!EditableMapObject::ValidateRouteRef("530;123;"), ());   // Trailing semicolon
+  TEST(!EditableMapObject::ValidateRouteRef(";530;123"), ());   // Leading semicolon
+}
+
+UNIT_TEST(EditableMapObject_RouteRefJournal)
+{
+  EditableMapObject emo;
+
+  emo.SetMetadata(MetadataID::FMD_ROUTE_REF, "A1;B2");
+  TEST_EQUAL(emo.GetMetadata(MetadataID::FMD_ROUTE_REF), "A1;B2", ());
+
+  emo.SetMetadata(MetadataID::FMD_ROUTE_REF, "C3;D4");
+  TEST_EQUAL(emo.GetMetadata(MetadataID::FMD_ROUTE_REF), "C3;D4", ());
+
+  emo.SetMetadata(MetadataID::FMD_ROUTE_REF, "");
+  TEST_EQUAL(emo.GetMetadata(MetadataID::FMD_ROUTE_REF), "", ());
+}
+
+UNIT_TEST(EditableMapObject_RouteRefFormatting)
+{
+  EditableMapObject emo;
+
+  emo.SetMetadata(MetadataID::FMD_ROUTE_REF, "A1;B2;C3");
+  TEST_EQUAL(emo.FormatRouteRefs(), "A1, B2, C3", ());
+
+  emo.SetMetadata(MetadataID::FMD_ROUTE_REF, "A1");
+  TEST_EQUAL(emo.FormatRouteRefs(), "A1", ());
+
+  emo.SetMetadata(MetadataID::FMD_ROUTE_REF, "");
+  TEST_EQUAL(emo.FormatRouteRefs(), "", ());
+}
+
 }  // namespace editable_map_object_test

@@ -663,3 +663,24 @@ UNIT_TEST(Metadata_ValidateAndFormat_url)
   for (auto const & [input, output] : kTests)
     TEST_EQUAL(tp.ValidateAndFormat_url(input), output, ());
 }
+
+UNIT_TEST(Metadata_ValidateAndFormat_route_ref)
+{
+  FeatureBuilderParams params;
+  MetadataTagProcessorImpl tp(params);
+  Metadata & md = params.GetMetadata();
+
+  // Should accept a typical value
+  tp("route_ref", "530;123;203");
+  TEST_EQUAL(md.Get(Metadata::FMD_ROUTE_REF), "530;123;203", ());
+  md.Drop(Metadata::FMD_ROUTE_REF);
+
+  // Should accept a single value
+  tp("route_ref", "702");
+  TEST_EQUAL(md.Get(Metadata::FMD_ROUTE_REF), "702", ());
+  md.Drop(Metadata::FMD_ROUTE_REF);
+
+  // Should ignore empty value
+  tp("route_ref", "");
+  TEST(md.Empty(), ());
+}

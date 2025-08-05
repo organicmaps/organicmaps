@@ -284,6 +284,7 @@ bool EditableMapObject::IsValidMetadata(MetadataID type, std::string const & val
   case MetadataID::FMD_POSTCODE: return ValidatePostCode(value);
   case MetadataID::FMD_PHONE_NUMBER: return ValidatePhoneList(value);
   case MetadataID::FMD_EMAIL: return ValidateEmail(value);
+  case MetadataID::FMD_ROUTE_REF: return ValidateRouteRef(value);
 
   default: return true;
   }
@@ -590,6 +591,39 @@ bool EditableMapObject::ValidateName(string const & name)
     if (excludedSymbols.find(ch) != std::u32string_view::npos)
       return false;
   }
+  return true;
+}
+
+bool EditableMapObject::ValidateRouteRef(string const & routeRef)
+{
+  if (routeRef.empty())
+    return true;
+
+  auto const tokens = strings::Tokenize(routeRef, ";");
+  if (tokens.empty())
+    return false;
+
+  for (auto const & token : tokens)
+  {
+    string_view trimmed = token;
+    strings::Trim(trimmed);
+    if (trimmed.empty())
+      return false;
+
+    for (char c : trimmed)
+    {
+      if (std::isalnum(c))
+        continue;
+
+      // Allow common route reference symbols
+      if (c == '/' || c == '-' || c == ' ' || c == '.' || c == '(' || c == ')' || c == '[' || c == ']' || c == ':' ||
+          c == '+' || c == '&')
+        continue;
+
+      return false;
+    }
+  }
+
   return true;
 }
 
