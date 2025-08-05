@@ -166,6 +166,7 @@
 		<string>audio</string>
 		<string>fetch</string>
 		<string>location</string>
+		<string>processing</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
@@ -280,5 +281,9 @@
 	</dict>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
+  <key>BGTaskSchedulerPermittedIdentifiers</key>
+  <array>
+    <string>app.organicmaps.backgroundProcessingTask.uploadEdits</string>
+  </array>
 </dict>
 </plist>
