@@ -910,4 +910,10 @@
     <string name="saved">Збережено</string>
     <string name="osm_note_hint">Або ж залиште повідомлення спільноті OpenStreetMap, щоби хтось інший міг додати або виправити місце тут.</string>
     <string name="osm_note_toast">Примітка буде надіслана до OpenStreetMap</string>
+    <string name="bookmarks_text_placement_title">Додавання назв до закладок на карті</string>
+    <string name="bookmarks_text_placement_description">Якщо закладок забагато, відображення їхніх назв на карті може уповільнити роботу програми.</string>
+    <string name="show_to_the_right">Показати праворуч</string>
+    <string name="show_at_the_bottom">Показати внизу</string>
+    <string name="share_track">Поділитися треком</string>
+    <string name="delete_track_dialog_title">Видалити %s?</string>
 </resources>

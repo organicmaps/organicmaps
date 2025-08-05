@@ -876,4 +876,12 @@
     <string name="saved">Mentve</string>
     <string name="osm_note_hint">Vagy írjon egy jegyzetet az OpenStreetMap közösségnek, hogy valaki más hozzáadhassa vagy kijavíthassa ezt a helyet.</string>
     <string name="osm_note_toast">A jegyzet fel lesz töltve az OpenStreetMapre</string>
+    <string name="button_layer_hiking">Túrázás</string>
+    <string name="button_layer_cycling">Kerékpározás</string>
+    <string name="bookmarks_text_placement_title">Nevek könyvjelzőzése a térképen</string>
+    <string name="bookmarks_text_placement_description">Ha túl sok könyvjelző van, azok neveinek megjelenítése a térképen lelassíthatja az alkalmazást.</string>
+    <string name="show_to_the_right">Megjelenítés jobb oldalon</string>
+    <string name="show_at_the_bottom">Megjelenítés alul</string>
+    <string name="share_track">Nyomvonal megosztása</string>
+    <string name="delete_track_dialog_title">Törli a következőt: %s?</string>
 </resources>

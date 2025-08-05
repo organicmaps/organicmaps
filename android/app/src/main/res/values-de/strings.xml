@@ -899,4 +899,12 @@
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="facebook">Facebook</string>
     <string name="saved">Gespeichert</string>
+    <string name="osm_note_hint">Oder hinterlass einfach eine Nachricht an die OpenStreetMap-Community, damit jemand anderes den Ort hier hinzufügen oder korrigieren kann.</string>
+    <string name="osm_note_toast">Eine Notiz wird an OpenStreetMap geschickt</string>
+    <string name="bookmarks_text_placement_title">Markiere Namen auf der Karte</string>
+    <string name="bookmarks_text_placement_description">Wenn du zu viele Lesezeichen hast, kann es sein, dass die App langsamer wird, wenn die Namen auf der Karte angezeigt werden.</string>
+    <string name="show_to_the_right">Rechts anzeigen</string>
+    <string name="show_at_the_bottom">Unten anzeigen</string>
+    <string name="share_track">Track teilen</string>
+    <string name="delete_track_dialog_title">%s löschen?</string>
 </resources>
