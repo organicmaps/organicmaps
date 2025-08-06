@@ -54,7 +54,10 @@ public class SyncSettingsFragment
   private View mSetIntervalOption;
 
   private final SyncPrefs.LastSyncCallback mLastSyncCallback = (accountId, timestamp)
-      -> new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateSyncStatusText(accountId, true, timestamp));
+      -> new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateLastSynced(accountId, timestamp));
+
+  private final SyncPrefs.ErrorInfoCallback mErrorInfoCallback = (accountId, exception)
+      -> new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateErrorInfo(accountId, exception));
 
   private final SyncPrefs.AccountsChangedCallback mAccountsChangedCallback =
       newAccounts -> new Handler(Looper.getMainLooper()).post(() -> refreshState(newAccounts));
@@ -91,6 +94,7 @@ public class SyncSettingsFragment
     prefs.registerAccountsChangedCallback(mAccountsChangedCallback);
     prefs.registerLastSyncedCallback(mLastSyncCallback);
     prefs.registerFrequencyChangeCallback(mFrequencyChangeCallback);
+    prefs.registerErrorInfoCallback(mErrorInfoCallback);
     pollNextcloudAuth();
   }
 
@@ -99,6 +103,7 @@ public class SyncSettingsFragment
   {
     super.onStop();
     SyncPrefs prefs = SyncPrefs.getInstance(getContext());
+    prefs.unregisterErrorInfoCallback(mErrorInfoCallback);
     prefs.unregisterFrequencyChangeCallback(mFrequencyChangeCallback);
     prefs.unregisterLastSyncedCallback(mLastSyncCallback);
     prefs.unregisterAccountsChangedCallback(mAccountsChangedCallback);
@@ -181,7 +186,7 @@ public class SyncSettingsFragment
   {
     SyncPrefs prefs = SyncPrefs.getInstance(getContext());
     prefs.setEnabled(account, isChecked);
-    mAdapter.updateSyncStatusText(account.getAccountId(), isChecked, prefs.getLastSynced(account.getAccountId()));
+    mAdapter.updateEnabled(account.getAccountId(), isChecked);
   }
 
   @Override

@@ -13,7 +13,12 @@ public sealed abstract class SyncOpException extends Exception permits SyncOpExc
   private static final String JSON_KEY_TIMESTAMP = "tim";
   private static final String JSON_KEY_MESSAGE = "msg";
 
-  private final long timestamp; // milliseconds
+  private final long mTimestamp; // milliseconds
+
+  public long getTimestampMs()
+  {
+    return mTimestamp;
+  }
 
   protected SyncOpException()
   {
@@ -28,21 +33,23 @@ public sealed abstract class SyncOpException extends Exception permits SyncOpExc
   protected SyncOpException(long timestamp)
   {
     super();
-    this.timestamp = timestamp;
+    mTimestamp = timestamp;
   }
 
   protected SyncOpException(String message, long timestamp)
   {
     super(truncateIfNeeded(message));
-    this.timestamp = timestamp;
+    mTimestamp = timestamp;
   }
+
+  protected abstract int getTypeId();
 
   /// Serialize to JSON
   public JSONObject toJson() throws JSONException
   {
     JSONObject json = new JSONObject();
-    json.put(JSON_KEY_TYPE, getClass().getSimpleName());
-    json.put(JSON_KEY_TIMESTAMP, timestamp);
+    json.put(JSON_KEY_TYPE, getTypeId());
+    json.put(JSON_KEY_TIMESTAMP, mTimestamp);
     json.put(JSON_KEY_MESSAGE, getMessage());
     return json;
   }
@@ -68,25 +75,35 @@ public sealed abstract class SyncOpException extends Exception permits SyncOpExc
     }
   }
 
-  static final class NetworkException extends SyncOpException
+  public static final class NetworkException extends SyncOpException
   {
     public NetworkException() {}
     private NetworkException(long timestamp)
     {
       super(timestamp);
     }
+    @Override
+    protected int getTypeId()
+    {
+      return Types.NETWORK.typeId;
+    }
   }
 
-  static final class AuthExpiredException extends SyncOpException
+  public static final class AuthExpiredException extends SyncOpException
   {
     public AuthExpiredException() {}
     private AuthExpiredException(long timestamp)
     {
       super(timestamp);
     }
+    @Override
+    protected int getTypeId()
+    {
+      return Types.AUTH_EXPIRED.typeId;
+    }
   }
 
-  static final class UnexpectedException extends SyncOpException
+  public static final class UnexpectedException extends SyncOpException
   {
     public UnexpectedException(String message)
     {
@@ -100,6 +117,11 @@ public sealed abstract class SyncOpException extends Exception permits SyncOpExc
     private UnexpectedException(long timestamp)
     {
       super(timestamp);
+    }
+    @Override
+    protected int getTypeId()
+    {
+      return Types.UNEXPECTED.typeId;
     }
   }
 

@@ -156,11 +156,13 @@ public enum SyncManager
       }
       catch (SyncOpException e)
       {
-        Logger.e(TAG, "sus", e); // TODO more robust handling
+        mSyncPrefs.setErrorInfo(entry.getKey().getAccountId(), e);
+        Logger.e(TAG, "Error syncing " + entry.getKey().getAuthState().getClass().getSimpleName(), e);
       }
       catch (Syncer.LockAlreadyHeldException e)
       {
-        Logger.e(TAG, "sus", e); // TODO more robust handling
+        Logger.e(TAG, "Lock held by another device", e);
+        // TODO(savsch) implement retry policy (low priority as this clause should execute rarely)
       }
     }
   }
@@ -270,7 +272,7 @@ public enum SyncManager
         if (supportedPaths.contains(new File(path).getCanonicalPath()))
           localFilePaths.add(
               path); // It's necessary to use the same representation (path) as the one used by cpp core. For instance,
-                     // the canonical path may
+                     //   the canonical path may
                      //   be of the form "/data/data/..." when `path` is "/data/user/0/...". It is required so that
                      //   methods like BookmarkManager::ReloadBookmark work as expected when provided with the path.
         else

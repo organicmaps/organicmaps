@@ -12,8 +12,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sync.SyncAccount;
+import app.organicmaps.sync.SyncOpException;
 import app.organicmaps.sync.SyncPrefs;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -63,10 +66,9 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
     holder.backendIcon.setImageDrawable(account.getBackendType().getIcon(context));
     holder.usernameText.setText(account.getAuthState().getUsername());
     holder.backendServerText.setText(account.getAuthState().getBackendInfo(context));
-    holder.setSyncStatus(syncEnabled, lastSynced);
+    holder.setState(syncEnabled, lastSynced, syncPrefs.getErrorInfo(account.getAccountId()));
     holder.accountEnabledSwitch.setOnCheckedChangeListener(null);
     holder.accountEnabledSwitch.setChecked(syncEnabled);
-    holder.errorStatusText.setVisibility(View.GONE); // TODO decide when to show this
 
     // Set switch listener
     holder.accountEnabledSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -97,19 +99,41 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
     notifyDataSetChanged();
   }
 
-  public void updateSyncStatusText(long accountId, boolean syncEnabled, @Nullable Long lastSynced)
+  public void updateEnabled(long accountId, boolean enabled)
+  {
+    AccountViewHolder holder = getViewHolderForAccount(accountId);
+    if (holder != null)
+      holder.setEnabled(enabled);
+  }
+
+  public void updateLastSynced(long accountId, long timestamp)
+  {
+    AccountViewHolder holder = getViewHolderForAccount(accountId);
+    if (holder != null)
+      holder.setLastSynced(timestamp);
+  }
+
+  public void updateErrorInfo(long accountId, @Nullable SyncOpException exception)
+  {
+    AccountViewHolder holder = getViewHolderForAccount(accountId);
+    if (holder != null)
+      holder.setErrorInfo(exception);
+  }
+
+  private @Nullable AccountViewHolder getViewHolderForAccount(long accountId)
   {
     if (mRecyclerView == null)
-      return;
+      return null;
     for (int i = 0; i < mAccountList.size(); ++i)
     {
       if (mAccountList.get(i).getAccountId() == accountId)
       {
         RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(i);
         if (holder instanceof AccountViewHolder)
-          ((AccountViewHolder) holder).setSyncStatus(syncEnabled, lastSynced);
+          return (AccountViewHolder) holder;
       }
     }
+    return null;
   }
 
   public interface OnAccountInteractionListener
@@ -121,12 +145,19 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
 
   public static class AccountViewHolder extends RecyclerView.ViewHolder
   {
+    private static final String TAG = AccountViewHolder.class.getSimpleName();
     ImageView backendIcon;
     TextView usernameText;
     TextView backendServerText;
     SwitchCompat accountEnabledSwitch;
     TextView syncStatusText;
     TextView errorStatusText;
+
+    boolean mSyncEnabled;
+    @Nullable
+    Long mLastSynced = null; // milliseconds, null if never synced
+    @Nullable
+    SyncOpException mErrorInfo = null;
 
     public AccountViewHolder(@NonNull View itemView)
     {
@@ -140,32 +171,106 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
       errorStatusText = itemView.findViewById(R.id.tv_error_status);
     }
 
-    public void setSyncStatus(boolean syncEnabled, @Nullable Long lastSynced)
+    public void refreshViews()
     {
-      if (syncEnabled)
+      if (mSyncEnabled)
       {
         String lastSyncedStr;
-        if (lastSynced == null)
+        if (mLastSynced == null)
+        {
           lastSyncedStr = syncStatusText.getContext().getString(R.string.power_managment_setting_never);
+          if (mErrorInfo != null)
+            showErrorInfo();
+          else
+            hideErrorInfo();
+        }
         else
         {
           // To avoid having to periodically refresh the relative time in case of recent sync,
           //   show relative time only if last sync occurred more than an hour ago,
           //   else show the absolute time
           long currentTime = System.currentTimeMillis();
-          if (currentTime - lastSynced >= DateUtils.HOUR_IN_MILLIS)
+          if (currentTime - mLastSynced >= DateUtils.HOUR_IN_MILLIS)
             lastSyncedStr = DateUtils
-                                .getRelativeTimeSpanString(lastSynced, currentTime, DateUtils.MINUTE_IN_MILLIS,
+                                .getRelativeTimeSpanString(mLastSynced, currentTime, DateUtils.MINUTE_IN_MILLIS,
                                                            DateUtils.FORMAT_ABBREV_RELATIVE)
                                 .toString();
           else
-            lastSyncedStr = app.organicmaps.sdk.util.DateUtils.getMediumTimeFormatter().format(new Date(lastSynced));
+            lastSyncedStr = app.organicmaps.sdk.util.DateUtils.getMediumTimeFormatter().format(new Date(mLastSynced));
+
+          if (mErrorInfo != null && mErrorInfo.getTimestampMs() > mLastSynced)
+            showErrorInfo();
+          else
+            hideErrorInfo();
         }
-        syncStatusText.setText(
-            syncStatusText.getContext().getString(R.string.last_synced_relative_time, lastSyncedStr));
+        syncStatusText.setText(syncStatusText.getContext().getString(R.string.last_synced_time, lastSyncedStr));
       }
       else
+      {
         syncStatusText.setText(R.string.sync_disabled);
+        hideErrorInfo();
+      }
+    }
+
+    private void showErrorInfo()
+    {
+      if (mErrorInfo == null)
+      {
+        hideErrorInfo();
+        return;
+      }
+
+      Context context = errorStatusText.getContext();
+      String errorMessage = DateFormat.getDateTimeInstance().format(new Date(mErrorInfo.getTimestampMs())) + " : ";
+
+      if (mErrorInfo instanceof SyncOpException.NetworkException)
+        errorMessage += context.getString(R.string.error_connecting_to_server);
+      else if (mErrorInfo instanceof SyncOpException.AuthExpiredException)
+        errorMessage += context.getString(R.string.authorization_expired);
+      else if (mErrorInfo instanceof SyncOpException.UnexpectedException)
+      {
+        errorMessage += context.getString(R.string.unexpected_error);
+        if (mErrorInfo.getMessage() != null)
+          errorMessage += " – " + mErrorInfo.getMessage();
+      }
+      else
+      {
+        errorMessage += context.getString(R.string.unexpected_error);
+        Logger.e(TAG, "Error type formatting unimplemented for " + mErrorInfo.getClass().getSimpleName());
+      }
+      errorStatusText.setText(errorMessage);
+      errorStatusText.setVisibility(View.VISIBLE);
+    }
+
+    private void hideErrorInfo()
+    {
+      errorStatusText.setVisibility(View.GONE);
+    }
+
+    public void setState(boolean syncEnabled, Long lastSynced, SyncOpException errorInfo)
+    {
+      mErrorInfo = errorInfo;
+      mSyncEnabled = syncEnabled;
+      mLastSynced = lastSynced;
+      refreshViews();
+    }
+
+    public void setErrorInfo(@Nullable SyncOpException exception)
+    {
+      mErrorInfo = exception;
+      refreshViews();
+    }
+
+    public void setEnabled(boolean enabled)
+    {
+      mSyncEnabled = enabled;
+      refreshViews();
+    }
+
+    public void setLastSynced(long timestamp)
+    {
+      mLastSynced = timestamp;
+      refreshViews();
     }
   }
 }
