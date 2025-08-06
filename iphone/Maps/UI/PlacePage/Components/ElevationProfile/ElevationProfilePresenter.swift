@@ -94,13 +94,13 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
     view?.setChartData(ChartPresentationData(chartData, formatter: formatter))
     view?.reloadDescription()
-    view?.userInteractionEnabled = true
 
     guard !profileData.isTrackRecording else {
       view?.isChartViewInfoHidden = true
       return
     }
 
+    view?.userInteractionEnabled = true
     view?.setActivePointDistance(trackData.activePointDistance)
     view?.setMyPositionDistance(trackData.myPositionDistance)
   }
