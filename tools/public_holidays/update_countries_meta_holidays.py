@@ -63,17 +63,26 @@ UNWANTED_PHRASES = [
 # Setup paths
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(script_dir, '../..'))
-input_file = os.path.join(project_root, 'data', 'countries', 'metadata.json')
+input_file = os.path.join(project_root, 'data', 'countries_meta.txt')
 output_dir = os.path.join(project_root, 'data', 'countries', 'public_holidays')
 
 # Create output directory if it doesn't exist
 os.makedirs(output_dir, exist_ok=True)
 
 # Parse command line arguments
-parser = argparse.ArgumentParser(description="Generate per-country/region public holidays.")
-parser.add_argument('--year', type=int, default=datetime.datetime.now().year, help='Year for holidays (default: current year)')
-parser.add_argument('--country', type=str, default=None, 
-    help='Update only this country/region (e.g., "Spain", "Spain_Catalonia"). Names must match countries_meta.txt')
+parser = argparse.ArgumentParser(
+    description="Generate public holidays for each country/region defined in countries_meta.txt. Output files are stored in data/public_holidays/{map_name}.json",
+    epilog="""
+Examples:
+  python3 %(prog)s                    # Uses the current year
+  python3 %(prog)s --year 2025        # Uses the specified year
+  python3 %(prog)s --country Spain    # Update only Spain
+    """,
+    formatter_class=argparse.RawDescriptionHelpFormatter
+)
+
+parser.add_argument('--year', type=int, default=datetime.datetime.now().year)
+parser.add_argument('--country', type=str, default=None)
 args = parser.parse_args()
 year = args.year
 country = args.country
@@ -129,4 +138,5 @@ for map_name in meta.keys():
     output_file = os.path.join(output_dir, f"{map_name}.json")
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(holidays_dict, f, indent=2, ensure_ascii=False)
+        f.write("\n")
 
