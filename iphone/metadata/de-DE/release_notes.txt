@@ -1,25 +1,30 @@
-We're getting back on track! Now you can save planned routes as tracks and see details about the currently recorded track.
-There is fresh OpenStreetMap data as of June 8, 2025, and also many other improvements:
+# Versionshinweise
+• NEU! Anzeige von Wander- und Fahrradrouten aus OpenStreetMap (siehe „Ebenen“-Schaltfläche)
+• NEU! Anzeige von Lesezeichen-Namen auf der Karte (siehe „App-Einstellungen“)
+• Aktualisierte OpenStreetMap-Daten vom 4. August
+• Fehler mit fehlenden Start-/Endpunkten bei der Streckenaufzeichnung behoben
+• Landwirtschafts- und Forststraßen sind von der Routenführung ausgeschlossen
 
-• Fixed route planning error when the current location was unknown
-• Prevent iCloud sync from failing when the cloud file doesn't exist
-• Fix counter in special "?edits" search command
-• Fix Wikipedia section visibility on the Place page
-• Fully expand the track information page when opened
-• Increased the search screen top inset from the safe area
-• Smoother modal screen and side buttons animation
-• Save planned route as a track
-• Show detailed information about the recording track
-• App translations updates from the Weblate community
+## iOS
+• Mehrere Abstürze und iCloud-Synchronisierungsfehler behoben
+• Mehrzeilige Titel in der Lesezeichenliste eingeführt
+• Zoom-Problem beim Abwählen einer Strecke behoben
+• Fehlende Übersetzungen für Geldautomaten korrigiert
+• Probleme beim Öffnen von Webseiten mit Prozentkodierung behoben
+• Fehlende Übersetzungen durch englische Begriffe ersetzt
 
-Map:
-• Less annoying icons for car charging stations
-• Display plant nurseries, crash/traffic barriers, radio/tv/music studios, firepits, ladders, cranes, and love hotels
-• Qingdao metro icons
+## Verbesserungen bei Stil & Symbolen
+• Feuchtgebiete mit horizontaler Schraffur markiert
+• Gabel-und-Messer-Symbol für Food Courts
+• Symbole für Fast Food und Fahrräder in Suchergebnissen und Lesezeichen
+• Überdachte Fahrradparkplätze, Gepäckschließfächer und Escape Games
+• Rangerstationen und Partner der Post
+• Anzeige von Marktplätzen, Rastplätzen, Servicestandorten, Einzelhandelsflächen und Wasserparks
+• Farbkorrekturen für Wälder, Buschland und Wiesen in allen Zoomstufen
+• Korrekte Priorisierung von diplomatischen Einrichtungen
 
-Search:
-• Updated sewing/tailor synonyms
-• Fixed category search for Lithuanian and other languages
-• Fixed search on the map and in the list
-• Fixed search suggestions
-• Search history is not duplicated anymore
+## Verschiedene Verbesserungen
+• Die Eingabe von „Polizei“ findet Polizeistationen, „Film“ oder „Kino“ findet Kinos
+• „In anderer App öffnen“ zeigt den gewählten Punkt nun in Google Maps
+• Spanische Übersetzungen für weitere Suchkategorien
+• Verschiedene Übersetzungen aktualisiert
