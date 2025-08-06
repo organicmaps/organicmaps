@@ -27,8 +27,11 @@ public class SyncPrefs
   private static final String PREF_KEY_SYNC_INTERVAL = "interval";
   private static final String PREF_KEY_LAST_RUN = "lastRun";
   private static final String PREF_KEY_NC_POLL = "ncPollParams";
+
   private static final String PREF_KEY_PREFIX_ENABLED = "enabled-";
   private static final String PREF_KEY_PREFIX_LAST_SYNCED = "lastSynced-";
+  private static final String PREF_KEY_PREFIX_ERROR_INFO = "syncError-";
+
   private static final long DEFAULT_SYNC_INTERVAL_MS = 24 * 3600_000;
   @Nullable
   private static SyncPrefs instance;
@@ -37,6 +40,7 @@ public class SyncPrefs
 
   private final CopyOnWriteArrayList<SyncAccount> mAccounts;
   private final Set<LastSyncCallback> mLastSyncCallbacks = new HashSet<>();
+  private final Set<ErrorInfoCallback> mErrorInfoCallbacks = new HashSet<>();
   private final Set<AccountsChangedCallback> mAccountsChangedCallbacks = new HashSet<>();
   private final Set<AccountToggledCallback> mAccountToggledCallbacks = new HashSet<>();
   private final Set<FrequencyChangeCallback> mFrequencyChangeCallbacks = new HashSet<>();
@@ -76,6 +80,11 @@ public class SyncPrefs
   private String getPrefKeyLastSynced(long accountId)
   {
     return PREF_KEY_PREFIX_LAST_SYNCED + accountId;
+  }
+
+  private String getPrefKeyErrorInfo(long accountId)
+  {
+    return PREF_KEY_PREFIX_ERROR_INFO + accountId;
   }
 
   public boolean isEnabled(long accountId)
@@ -134,6 +143,49 @@ public class SyncPrefs
       try
       {
         callback.onLastSyncChanged(accountId, timestamp);
+      }
+      catch (Exception ignored)
+      {}
+    }
+  }
+
+  public @Nullable SyncOpException getErrorInfo(long accountId)
+  {
+    String errorString = prefsAccounts.getString(getPrefKeyErrorInfo(accountId), null);
+    if (errorString == null)
+      return null;
+    try
+    {
+      return SyncOpException.fromJson(new JSONObject(errorString));
+    }
+    catch (JSONException e)
+    {
+      // Should be impossible
+      Logger.e(TAG, "Error deserializing stored SyncOpException json string: " + errorString, e);
+      return new SyncOpException.UnexpectedException();
+    }
+  }
+
+  public void setErrorInfo(long accountId, SyncOpException exception)
+  {
+    try
+    {
+      String jsonStr = exception.toJson().toString();
+      prefsAccounts.edit().putString(getPrefKeyErrorInfo(accountId), jsonStr).apply();
+    }
+    catch (JSONException e)
+    {
+      // Should be impossible
+      Logger.e(TAG,
+               "Error serializing stored SyncOpException " + exception.getClass().getSimpleName() + ", "
+                   + exception.getMessage(),
+               e);
+    }
+    for (ErrorInfoCallback callback : mErrorInfoCallbacks)
+    {
+      try
+      {
+        callback.onSyncException(accountId, exception);
       }
       catch (Exception ignored)
       {}
@@ -234,6 +286,16 @@ public class SyncPrefs
     mLastSyncCallbacks.remove(callback);
   }
 
+  public void registerErrorInfoCallback(ErrorInfoCallback callback)
+  {
+    mErrorInfoCallbacks.add(callback);
+  }
+
+  public void unregisterErrorInfoCallback(ErrorInfoCallback callback)
+  {
+    mErrorInfoCallbacks.remove(callback);
+  }
+
   public void registerAccountsChangedCallback(AccountsChangedCallback callback)
   {
     mAccountsChangedCallbacks.add(callback);
@@ -272,6 +334,11 @@ public class SyncPrefs
   public interface LastSyncCallback
   {
     void onLastSyncChanged(long accountId, long timestamp);
+  }
+
+  public interface ErrorInfoCallback
+  {
+    void onSyncException(long accountId, SyncOpException exception);
   }
 
   public interface AccountsChangedCallback

@@ -937,9 +937,11 @@
     <!-- Header of the settings fragment where user configures cloud sync  -->
     <string name="sync_setting">Configure Bookmarks Sync</string>
     <string name="sync_setting_summary">Manage cloud storage accounts</string>
-    <!-- Last synced, %s is relative time. e.g. "yesterday" -->
-    <string name="last_synced_relative_time">Last synced: %s</string>
+    <!-- Last synced, %s can be relative or absolute time. e.g. "yesterday" or "6 AM" -->
+    <string name="last_synced_time">Last synced: %s</string>
     <string name="sync_disabled">Sync disabled</string>
+    <string name="unexpected_error">Unexpected Error</string>
+    <string name="authorization_expired">Login session expired. Please login again.</string>
     <!-- SECTION: Login options for adding sync account -->
     <string name="nextcloud">Nextcloud</string>
     <string name="cloud_sync_accounts">Cloud Sync Accounts</string>
