@@ -7,7 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
+import androidx.work.Constraints;
 import androidx.work.ExistingWorkPolicy;
+import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
@@ -43,7 +45,7 @@ public enum SyncManager
   private SyncScheduler mSyncScheduler;
   private final Map<SyncAccount, Syncer> mSyncers = new ConcurrentHashMap<>();
 
-  private DefaultLifecycleObserver mLifecycleObserver = new DefaultLifecycleObserver() {
+  private final DefaultLifecycleObserver mLifecycleObserver = new DefaultLifecycleObserver() {
     @Override
     public void onStart(@NonNull LifecycleOwner owner)
     {
@@ -290,6 +292,10 @@ public enum SyncManager
   {
     private static final long MINIMUM_BACKGROUND_INTERVAL = 24 * 3600 * 1000L;
     private static final String SYNC_WORKER_NAME = "BookmarksSync";
+    private static final Constraints constraints =
+        new Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build(); // TODO make it so as to respect the mobile data setting
 
     private final SyncPrefs mSyncPrefs;
     private final WorkManager mWorkManager;
@@ -333,7 +339,8 @@ public enum SyncManager
     private void scheduleForegroundSync(ExistingWorkPolicy existingWorkPolicy)
     {
       long initialDelay = syncIntervalMs - mSyncPrefs.getTimeSinceLastRun();
-      OneTimeWorkRequest.Builder requestBuilder = new OneTimeWorkRequest.Builder(SyncWorker.class);
+      OneTimeWorkRequest.Builder requestBuilder =
+          new OneTimeWorkRequest.Builder(SyncWorker.class).setConstraints(constraints);
       if (initialDelay > 0)
         requestBuilder.setInitialDelay(initialDelay, TimeUnit.MILLISECONDS).build();
       OneTimeWorkRequest request = requestBuilder.build();
@@ -341,8 +348,9 @@ public enum SyncManager
       if (workerRunning)
         return;
 
-      backgroundMode = false;
-      mWorkManager.enqueueUniqueWork(SYNC_WORKER_NAME, existingWorkPolicy, request);
+      mWorkManager.enqueueUniqueWork(SYNC_WORKER_NAME, existingWorkPolicy, request)
+          .getResult()
+          .addListener(() -> backgroundMode = false, ThreadPool.getWorker());
     }
 
     public static class SyncWorker extends Worker
@@ -358,6 +366,7 @@ public enum SyncManager
       {
         workerRunning = true;
         SyncManager.INSTANCE.syncAllAccounts();
+        SyncPrefs.getInstance(MwmApplication.sInstance).setLastRun(System.currentTimeMillis());
 
         if (SyncManager.INSTANCE.countActiveAccounts() < 1)
         {
@@ -377,8 +386,10 @@ public enum SyncManager
           interval = MINIMUM_BACKGROUND_INTERVAL;
         }
 
-        OneTimeWorkRequest request =
-            new OneTimeWorkRequest.Builder(SyncWorker.class).setInitialDelay(interval, TimeUnit.MILLISECONDS).build();
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SyncWorker.class)
+                                         .setConstraints(constraints)
+                                         .setInitialDelay(interval, TimeUnit.MILLISECONDS)
+                                         .build();
         try
         {
           WorkManager.getInstance(MwmApplication.sInstance)
