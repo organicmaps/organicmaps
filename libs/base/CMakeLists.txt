@@ -108,7 +108,9 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 
 # Exception for some of our math to work reliably.
 # Ubuntu x86_64 gcc 14.2.0 ignores -fno-finite-math-only in debug builds without -O1
-set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only;$<$<CONFIG:DEBUG>:-O1>")
+if (NOT MSVC)
+  set_source_files_properties(fast_math.cpp PROPERTIES COMPILE_OPTIONS "-fno-finite-math-only;$<$<CONFIG:DEBUG>:-O1>")
+endif()
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
