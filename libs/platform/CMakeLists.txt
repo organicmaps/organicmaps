@@ -181,6 +181,7 @@ target_link_libraries(${PROJECT_NAME}
   $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
   $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
   $<$<BOOL:${PLATFORM_WIN}>:Qt6::Network>
+  $<$<BOOL:${PLATFORM_WIN}>:shlwapi>  # PathIsDirectoryEmptyA
   $<$<BOOL:${PLATFORM_MAC}>:
     -framework\ Foundation
     -framework\ SystemConfiguration
