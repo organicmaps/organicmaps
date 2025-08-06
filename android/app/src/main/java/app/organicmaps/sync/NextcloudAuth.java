@@ -57,13 +57,6 @@ public class NextcloudAuth extends AuthState
     return mServer;
   }
 
-  @Nullable
-  @Override
-  public Long getExpiryTimestamp()
-  {
-    return null;
-  }
-
   String getLoginName()
   {
     return mLoginName;

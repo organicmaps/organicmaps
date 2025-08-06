@@ -1,7 +1,6 @@
 package app.organicmaps.sync;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,9 +25,4 @@ public abstract class AuthState
    * @return a user-facing String to describe the backend type
    */
   public abstract String getBackendInfo(Context context);
-
-  /**
-   * @return Auth expiry timestamp in seconds; null if not applicable.
-   */
-  public abstract @Nullable Long getExpiryTimestamp();
 }

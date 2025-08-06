@@ -78,12 +78,13 @@
             tools:text="Last synced: 2 hours ago" />
 
         <TextView
-            android:id="@+id/tv_auth_status"
+            android:id="@+id/tv_error_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
+            android:textColor="@color/base_red"
             android:visibility="visible"
-            tools:text="Session expires in 2 days" />
+            tools:text="Some Date: Error connecting to the server" />
       </LinearLayout>
     </LinearLayout>
   </LinearLayout>

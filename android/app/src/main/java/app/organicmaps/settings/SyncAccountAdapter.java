@@ -66,7 +66,7 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
     holder.setSyncStatus(syncEnabled, lastSynced);
     holder.accountEnabledSwitch.setOnCheckedChangeListener(null);
     holder.accountEnabledSwitch.setChecked(syncEnabled);
-    holder.authExpiryStatusText.setVisibility(View.GONE); // TODO decide when to show this
+    holder.errorStatusText.setVisibility(View.GONE); // TODO decide when to show this
 
     // Set switch listener
     holder.accountEnabledSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -126,7 +126,7 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
     TextView backendServerText;
     SwitchCompat accountEnabledSwitch;
     TextView syncStatusText;
-    TextView authExpiryStatusText;
+    TextView errorStatusText;
 
     public AccountViewHolder(@NonNull View itemView)
     {
@@ -137,7 +137,7 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
       backendServerText = itemView.findViewById(R.id.tv_backend);
       accountEnabledSwitch = itemView.findViewById(R.id.switch_enable_sync);
       syncStatusText = itemView.findViewById(R.id.tv_sync_status);
-      authExpiryStatusText = itemView.findViewById(R.id.tv_auth_status);
+      errorStatusText = itemView.findViewById(R.id.tv_error_status);
     }
 
     public void setSyncStatus(boolean syncEnabled, @Nullable Long lastSynced)
