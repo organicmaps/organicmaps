@@ -6,6 +6,7 @@ final class ScheduledBackgroundEditsUploadingTask: NSObject, BackgroundFetchTask
 
   static func register() {
     BGTaskScheduler.shared.register(forTaskWithIdentifier: identifier, using: nil) { task in
+      LOG(.info, "Background edits upload task is triggered.")
       task.expirationHandler = {
         LOG(.error, "Scheduled background edits upload task is expired.")
       }
