@@ -11,6 +11,7 @@ set(SRC
   protobuf/src/google/protobuf/message_lite.cc
   protobuf/src/google/protobuf/repeated_field.cc
   protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
+  protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc
   protobuf/src/google/protobuf/stubs/bytestream.cc
   protobuf/src/google/protobuf/stubs/common.cc
   protobuf/src/google/protobuf/stubs/int128.cc
