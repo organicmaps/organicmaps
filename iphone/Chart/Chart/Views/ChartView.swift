@@ -142,6 +142,8 @@ public class ChartView: UIView {
   }
 
   private func setup() {
+    isUserInteractionEnabled = false
+
     xAxisView.font = font
     xAxisView.textColor = textColor
     yAxisView.font = font
