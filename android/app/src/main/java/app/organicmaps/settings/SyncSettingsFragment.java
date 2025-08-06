@@ -53,11 +53,13 @@ public class SyncSettingsFragment
   private View mAddAccountHint;
   private View mSetIntervalOption;
 
-  private final SyncPrefs.LastSyncCallback mLastSyncCallback = (accountId, timestamp)
-      -> new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateLastSynced(accountId, timestamp));
+  private final SyncPrefs.LastSyncCallback mLastSyncCallback =
+      (accountId,
+       timestamp) -> new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateLastSynced(accountId, timestamp));
 
-  private final SyncPrefs.ErrorInfoCallback mErrorInfoCallback = (accountId, exception)
-      -> new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateErrorInfo(accountId, exception));
+  private final SyncPrefs.ErrorInfoCallback mErrorInfoCallback =
+      (accountId,
+       exception) -> new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateErrorInfo(accountId, exception));
 
   private final SyncPrefs.AccountsChangedCallback mAccountsChangedCallback =
       newAccounts -> new Handler(Looper.getMainLooper()).post(() -> refreshState(newAccounts));

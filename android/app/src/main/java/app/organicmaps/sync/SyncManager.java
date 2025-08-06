@@ -1,6 +1,9 @@
 package app.organicmaps.sync;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -11,6 +14,7 @@ import androidx.work.Constraints;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.Operation;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
@@ -20,6 +24,8 @@ import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.FileUtils;
 import app.organicmaps.util.InsecureHttpsHelper;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -119,10 +125,8 @@ public enum SyncManager
       {
         mSyncers.put(account, new Syncer(appContext, account));
         if (countActiveAccounts() == 1)
-        {
-          mSyncScheduler.onForeground();
+          // addObserver automatically emits onStart event, so no need to fire it manually.
           ProcessLifecycleOwner.get().getLifecycle().addObserver(mLifecycleObserver);
-        }
       }
 
       @Override
@@ -350,9 +354,19 @@ public enum SyncManager
       if (workerRunning)
         return;
 
-      mWorkManager.enqueueUniqueWork(SYNC_WORKER_NAME, existingWorkPolicy, request)
-          .getResult()
-          .addListener(() -> backgroundMode = false, ThreadPool.getWorker());
+      backgroundMode = false;
+      var future = mWorkManager.enqueueUniqueWork(SYNC_WORKER_NAME, existingWorkPolicy, request).getResult();
+      Futures.addCallback(future, new FutureCallback<Operation.State.SUCCESS>() {
+        @Override
+        public void onSuccess(Operation.State.SUCCESS result)
+        {}
+        @Override
+        public void onFailure(@NonNull Throwable t)
+        {
+          backgroundMode = true;
+          Logger.e(TAG, "Unable to schedule sync work request", t);
+        }
+      }, ThreadPool.getWorker());
     }
 
     public static class SyncWorker extends Worker
@@ -366,46 +380,73 @@ public enum SyncManager
       @Override
       public Result doWork()
       {
-        workerRunning = true;
-        SyncManager.INSTANCE.syncAllAccounts();
-        SyncPrefs.getInstance(MwmApplication.sInstance).setLastRun(System.currentTimeMillis());
-
-        if (SyncManager.INSTANCE.countActiveAccounts() < 1)
-        {
-          backgroundMode = true;
+        if (workerRunning)
           return Result.success();
-        }
 
-        final long interval;
-        if (appInForeground || syncIntervalMs >= MINIMUM_BACKGROUND_INTERVAL)
-        {
-          backgroundMode = false;
-          interval = syncIntervalMs;
-        }
-        else
-        {
-          backgroundMode = true;
-          interval = MINIMUM_BACKGROUND_INTERVAL;
-        }
-
-        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SyncWorker.class)
-                                         .setConstraints(constraints)
-                                         .setInitialDelay(interval, TimeUnit.MILLISECONDS)
-                                         .build();
+        workerRunning = true;
         try
         {
-          WorkManager.getInstance(MwmApplication.sInstance)
-              .enqueueUniqueWork(SYNC_WORKER_NAME, ExistingWorkPolicy.REPLACE, request)
-              .getResult()
-              .get();
+          HandlerThread handlerThread = new HandlerThread("SyncThread");
+          handlerThread.start();
+          Handler handler = new Handler(handlerThread.getLooper());
+          handler.post(() -> {
+            Logger.i(TAG, "Started syncAllAccounts");
+            SyncManager.INSTANCE.syncAllAccounts();
+            Objects.requireNonNull(Looper.myLooper()).quit();
+          });
+          try
+          {
+            handlerThread.join();
+          }
+          catch (InterruptedException e)
+          {
+            throw new RuntimeException(e);
+          }
+
+          SyncPrefs.getInstance(MwmApplication.sInstance).setLastRun(System.currentTimeMillis());
+
+          if (SyncManager.INSTANCE.countActiveAccounts() < 1)
+          {
+            backgroundMode = true;
+            return Result.success();
+          }
+
+          final long interval;
+          if (appInForeground || syncIntervalMs >= MINIMUM_BACKGROUND_INTERVAL)
+          {
+            backgroundMode = false;
+            interval = syncIntervalMs;
+          }
+          else
+          {
+            backgroundMode = true;
+            interval = MINIMUM_BACKGROUND_INTERVAL;
+          }
+
+          OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SyncWorker.class)
+                                           .setConstraints(constraints)
+                                           .setInitialDelay(interval, TimeUnit.MILLISECONDS)
+                                           .build();
+          try
+          {
+            WorkManager.getInstance(MwmApplication.sInstance)
+                .enqueueUniqueWork(SYNC_WORKER_NAME, ExistingWorkPolicy.REPLACE, request)
+                .getResult()
+                .get();
+            // A log line saying "Work [ id=..., tags={ ...$SyncWorker } ] was cancelled" is intended here,
+            // because of ExistingWorkPolicy.REPLACE.
+          }
+          catch (ExecutionException | InterruptedException e)
+          {
+            backgroundMode = true; // so that the work is re-enqueued once the app comes in foreground again.
+            Logger.e(TAG, "Unable to make sure that the next sync task got enqueued", e);
+          }
+          return Result.success();
         }
-        catch (ExecutionException | InterruptedException e)
+        finally
         {
-          backgroundMode = true; // so that the work is re-enqueued once the app comes in foreground again.
-          Logger.e(TAG, "Unable to make sure that the next sync task got enqueued", e);
+          workerRunning = false;
         }
-        workerRunning = false;
-        return Result.success();
       }
     }
   }
