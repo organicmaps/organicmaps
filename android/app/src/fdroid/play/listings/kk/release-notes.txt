@@ -1,12 +1,9 @@
-• New OSM data as of June 8
-• Save planned routes as tracks
-• Display plant nurseries, traffic barriers, studios, firepits, ladders, cranes, and love hotels
-• Qingdao metro icons
-• Show azimuth when tapping on a small arrow with distance
-• Fixed crashes and white-on-white text on Android 5&6
-• Fixed search for Lithuanian and other languages
-• Fix location arrow jumps when navigation is active
-• Fixed Cancel Download button
-• Improved translations from Weblate
+• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
+• NEW! Added track elevation graph and track selection on the map
+• NEW! Display bookmark names on the map (check app's Settings)
+• New OpenStreetMap data as of August 4
+• Fixed issues with missing start/end points when recording a track
+• Agricultural and forestry roads are excluded from routing
+• Leave an OSM note if a newly added POI is not yet supported
 
 …more at omaps.org/news
