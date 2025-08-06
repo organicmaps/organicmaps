@@ -109,5 +109,5 @@ ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
 
 bool GpsTrackCollection::IsEmpty() const
 {
-  return m_items.empty();
+  return m_items.size() < 2;
 }
