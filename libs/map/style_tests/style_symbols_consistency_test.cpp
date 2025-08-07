@@ -2,12 +2,9 @@
 
 #include "map/style_tests/helpers.hpp"
 
-#include "indexer/classificator_loader.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/map_style_reader.hpp"
-
-#include "platform/platform.hpp"
 
 #include "base/logging.hpp"
 
@@ -44,7 +41,7 @@ private:
 StringSet GetSymbolsSetFromDrawingRule()
 {
   StringSet symbols;
-  drule::rules().ForEachRule([&symbols](drule::BaseRule const * rule)
+  drule::GetCurrentRules().ForEachRule([&symbols](drule::BaseRule const * rule)
   {
     SymbolRuleProto const * symbol = rule->GetSymbol();
     if (symbol && !symbol->name().empty())

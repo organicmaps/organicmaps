@@ -764,7 +764,7 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey, TIns
 {
   m_spline.Reset(new m2::Spline(f.GetPointsCount()));
 
-  if (tileKey.m_zoomLevel >= 12)
+  if (tileKey.m_zoomLevel >= kRelationRoutesScale)
     m_relsInfo.Init(f);
 }
 

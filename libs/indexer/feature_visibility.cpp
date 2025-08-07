@@ -11,7 +11,6 @@
 #include "base/checked_cast.hpp"
 
 #include <algorithm>
-#include <array>
 
 namespace feature
 {
@@ -47,11 +46,12 @@ void GetDrawRule(vector<uint32_t> const & types, int level, GeomType geomType, d
     c.GetObject(t)->GetSuitable(level, geomType, keys);
 }
 
-void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::KeysT & keys)
+void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::RulesHolder const & rulesHolder,
+                                  drule::KeysT & keys)
 {
-  keys.erase_if([&f, zoomLevel](drule::Key const & key)
+  keys.erase_if([&](drule::Key const & key)
   {
-    drule::BaseRule const * const rule = drule::rules().Find(key);
+    drule::BaseRule const * const rule = rulesHolder.Find(key);
     if (rule == nullptr)
       return true;
     return !rule->TestFeature(f, zoomLevel);

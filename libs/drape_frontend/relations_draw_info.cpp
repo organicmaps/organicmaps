@@ -8,6 +8,20 @@ namespace df
 dp::Color constexpr kDefaultTextColor = dp::Color::Blue();
 dp::Color constexpr kDefaultRouteColor{128, 0, 128};  // purple
 
+bool RelationsDrawInfo::HasHikingOrCycling(FeatureType & ft) const
+{
+  using RR = feature::RouteRelationBase;
+
+  for (uint32_t relID : ft.GetRelations())
+  {
+    auto const rel = ft.ReadRelation(relID);
+    if ((m_sett.hiking && (rel.GetType() == RR::Type::Foot || rel.GetType() == RR::Type::Hiking)) ||
+        (m_sett.cycling && (rel.GetType() == RR::Type::Bicycle || rel.GetType() == RR::Type::MTB)))
+      return true;
+  }
+  return false;
+}
+
 void RelationsDrawInfo::Init(FeatureType & ft)
 {
   using RR = feature::RouteRelationBase;
@@ -53,6 +67,9 @@ void RelationsDrawInfo::Init(FeatureType & ft)
       }
     }
   }
+
+  if (m_colors.empty())
+    return;
 
   // Most used color first.
   std::sort(m_colors.begin(), m_colors.end(), [](auto const & r1, auto const & r2) { return r1.second > r2.second; });

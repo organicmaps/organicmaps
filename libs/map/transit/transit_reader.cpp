@@ -163,7 +163,7 @@ void ReadTransitTask::Do()
     if (featureInfo.m_isGate)
     {
       // TODO(pastk): there should be a simpler way to just get a symbol name.
-      df::Stylist stylist(ft, 19, 0);
+      df::Stylist stylist(ft, 19, 0, false /* forceOutdoorStyle */);
       if (stylist.m_symbolRule != nullptr)
         featureInfo.m_gateSymbolName = stylist.m_symbolRule->name();
     }

@@ -12,6 +12,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/settings.hpp"
@@ -189,10 +190,13 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
   int const kAverageOverlaysCount = 200;
   m_mapShapes[df::OverlayType].reserve(kAverageOverlaysCount);
 
-  /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
-  /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)
-  m_relsSettings.hiking = settings::IsEnabled(kHikingEnabledKey);
-  m_relsSettings.cycling = settings::IsEnabled(kCyclingEnabledKey);
+  if (!GetStyleReader().IsCarNavigationStyle())
+  {
+    /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
+    /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)
+    m_relsSettings.hiking = settings::IsEnabled(kHikingEnabledKey);
+    m_relsSettings.cycling = settings::IsEnabled(kCyclingEnabledKey);
+  }
 }
 
 RuleDrawer::~RuleDrawer()
@@ -302,7 +306,7 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s, TI
     isBuilding = false;
 
   ApplyAreaFeature apply(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP, isBuilding,
-                         areaMinHeight /* minPosZ */, areaHeight /* posZ */, s.GetCaptionDescription());
+                         areaMinHeight /* minPosZ */, areaHeight /* posZ */, s.m_captionDescriptor);
 
   if (!skipTriangles && (s.m_areaRule || s.m_hatchingRule))
   {
@@ -351,7 +355,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s, TInsertSha
     if (!clippedSplines.empty())
     {
       ApplyLineFeatureAdditional applyAdditional(m_context->GetTileKey(), insertShape, f, m_currentScaleGtoP,
-                                                 s.GetCaptionDescription(), std::move(clippedSplines));
+                                                 s.m_captionDescriptor, std::move(clippedSplines));
       applyAdditional.ProcessAdditionalLineRules(s.m_pathtextRule, s.m_shieldRule, m_context->GetTextureManager(),
                                                  s.m_roadShields, m_generatedRoadShields);
     }
@@ -398,7 +402,7 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s, TInsertSh
   if (IsDiscardCustomFeature(f.GetID()))
     return;
 
-  ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f, s.GetCaptionDescription());
+  ApplyPointFeature apply(m_context->GetTileKey(), insertShape, f, s.m_captionDescriptor);
   apply.ProcessPointRules(s.m_symbolRule, s.m_captionRule, s.m_houseNumberRule, f.GetCenter(),
                           m_context->GetTextureManager());
 }
@@ -417,7 +421,21 @@ void RuleDrawer::operator()(FeatureType & f)
   if (ftypes::IsCoastlineChecker::Instance()(types) && !CheckCoastlines(f))
     return;
 
-  Stylist const s(f, m_zoomLevel, m_deviceLang);
+  feature::GeomType const geomType = f.GetGeomType();
+
+  // Force use Outdoor style (mainly because of visibility), for the hiking/cycling related Features
+  // (has correspondent Relation references). Otherwise, we get routes torn to separate pieces
+  // (e.g. highway=path is visible from z15, but highway=secondary from z13 in a regular Map style).
+  bool forceOutdoorStyle = false;
+  if (m_zoomLevel >= ApplyLineFeatureGeometry::kRelationRoutesScale && geomType == feature::GeomType::Line &&
+      (m_relsSettings.hiking || m_relsSettings.cycling))
+  {
+    RelationsDrawInfo drawInfo(m_relsSettings);
+    if (drawInfo.HasHikingOrCycling(f))
+      forceOutdoorStyle = true;
+  }
+
+  Stylist const s(f, m_zoomLevel, m_deviceLang, forceOutdoorStyle);
 
   // No drawing rules.
   if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && s.m_lineRules.empty() && !s.m_areaRule &&
@@ -453,7 +471,6 @@ void RuleDrawer::operator()(FeatureType & f)
     m_mapShapes[index].push_back(std::move(shape));
   };
 
-  feature::GeomType const geomType = f.GetGeomType();
   if (geomType == feature::GeomType::Area)
   {
     ProcessAreaAndPointStyle(f, s, insertShape);

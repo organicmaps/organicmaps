@@ -151,6 +151,8 @@ public:
 
   std::vector<m2::SharedSpline> MoveClippedSplines() const { return std::move(m_clippedSplines); }
 
+  static uint8_t constexpr kRelationRoutesScale = 12;
+
 private:
   void ProcessRule(LineRuleProto const & lineRule);
 
