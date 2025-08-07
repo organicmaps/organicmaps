@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "OpenStreetMap में योगदान करें";
+"contribute_to_osm_add_place" = "स्थान जोड़ें";
+"contribute_to_osm_update_map" = "योगदान करने के लिए मानचित्र अपडेट करें";
+"contribute_to_osm_update_map_description" = "आपको OpenStreetMap डेटा में योगदान करने से पहले %@ मानचित्र को नवीनतम संस्करण में अपडेट करना होगा";

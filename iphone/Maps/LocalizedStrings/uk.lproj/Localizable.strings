@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Для відображення маршрутів карти необхідно оновити.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Долучитися до OpenStreetMap";
+"contribute_to_osm_add_place" = "Додати місце";
+"contribute_to_osm_update_map" = "Оновіть карту, щоб долучитися";
+"contribute_to_osm_update_map_description" = "Ви повинні оновити карту %@ до останньої версії, перш ніж зможете долучитися до даних OpenStreetMap";

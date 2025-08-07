@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Arrastoak ikusteko mapak eguneratu behar dira.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Lagundu OpenStreetMap-en";
+"contribute_to_osm_add_place" = "Gehitu lekua";
+"contribute_to_osm_update_map" = "Eguneratu mapa laguntzeko";
+"contribute_to_osm_update_map_description" = "OpenStreetMap datuetan lagundu ahal izateko, %@ mapa azken bertsiora eguneratu behar duzu";

@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Допринос OpenStreetMap-у";
+"contribute_to_osm_add_place" = "Додај место";
+"contribute_to_osm_update_map" = "Ажурирајте мапу да бисте допринели";
+"contribute_to_osm_update_map_description" = "Морате ажурирати %@ мапу на најновију верзију пре него што можете да допринесете OpenStreetMap подацима";

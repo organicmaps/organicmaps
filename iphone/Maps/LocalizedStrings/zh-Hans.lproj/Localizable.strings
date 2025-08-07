@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "要显示路线，必须更新地图。";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "贡献至 OpenStreetMap";
+"contribute_to_osm_add_place" = "添加地点";
+"contribute_to_osm_update_map" = "更新地图以贡献";
+"contribute_to_osm_update_map_description" = "您需要将 %@ 地图更新到最新版本后才能贡献 OpenStreetMap 数据";

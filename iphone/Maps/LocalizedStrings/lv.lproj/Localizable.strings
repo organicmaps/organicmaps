@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Piedalīties OpenStreetMap";
+"contribute_to_osm_add_place" = "Pievienot vietu";
+"contribute_to_osm_update_map" = "Atjauniniet karti, lai piedalītos";
+"contribute_to_osm_update_map_description" = "Jums ir jāatjaunina %@ karte uz jaunāko versiju, pirms varat piedalīties OpenStreetMap datos";

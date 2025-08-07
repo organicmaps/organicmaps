@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Ikontribwixxi għal OpenStreetMap";
+"contribute_to_osm_add_place" = "Żid Post";
+"contribute_to_osm_update_map" = "Aġġorna l-mappa biex tikkontribwixxi";
+"contribute_to_osm_update_map_description" = "Trid taġġorna l-mappa %@ għall-aħħar verżjoni qabel ma tkun tista' tikkontribwixxi għad-data ta' OpenStreetMap";
