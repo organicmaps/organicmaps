@@ -64,11 +64,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return ProductsViewController(viewModel: viewModel)
   }
 
-  private lazy var buttonsViewController: PlacePageButtonsViewController = {
-    let vc = storyboard.instantiateViewController(ofType: PlacePageButtonsViewController.self)
-    vc.buttonsData = placePageData.buttonsData!
-    vc.delegate = interactor
-    return vc
+  private lazy var buttonsViewController: PlacePageOSMContributionViewController = {
+    PlacePageOSMContributionViewController(data: placePageData.osmContributionData!, delegate: interactor)
   }()
 
   private lazy var actionBarViewController: ActionBarViewController = {
@@ -113,7 +110,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       viewControllers.append(productsViewController)
     }
 
-    if placePageData.buttonsData != nil {
+    if placePageData.osmContributionData != nil {
       viewControllers.append(buttonsViewController)
     }
 
@@ -136,12 +133,12 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     placePageData.onMapNodeStatusUpdate = { [weak self] in
       guard let self = self else { return }
       self.actionBarViewController.updateDownloadButtonState(self.placePageData.mapNodeAttributes!.nodeStatus)
+      if let buttonsData = self.placePageData.osmContributionData {
+        self.buttonsViewController.buttonsData = buttonsData
+      }
       switch self.placePageData.mapNodeAttributes!.nodeStatus {
       case .onDisk, .onDiskOutOfDate, .undefined:
         self.actionBarViewController.resetButtons()
-        if self.placePageData.buttonsData != nil {
-          self.buttonsViewController.buttonsEnabled = true
-        }
       default:
         break
       }
