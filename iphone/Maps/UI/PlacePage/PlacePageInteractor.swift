@@ -181,11 +181,7 @@ extension PlacePageInteractor: WikiDescriptionViewControllerDelegate {
 
 // MARK: - PlacePageButtonsViewControllerDelegate
 
-extension PlacePageInteractor: PlacePageButtonsViewControllerDelegate {
-  func didPressHotels() {
-    MWMPlacePageManagerHelper.openDescriptionUrl(placePageData)
-  }
-
+extension PlacePageInteractor: PlacePageOSMContributionViewControllerDelegate {
   func didPressAddPlace() {
     MWMPlacePageManagerHelper.addPlace(placePageData.locationCoordinate)
   }
@@ -194,8 +190,12 @@ extension PlacePageInteractor: PlacePageButtonsViewControllerDelegate {
     MWMPlacePageManagerHelper.editPlace()
   }
 
-  func didPressAddBusiness() {
-    MWMPlacePageManagerHelper.addBusiness()
+  func didPressUpdateMap() {
+    startDownloading()
+  }
+
+  func didPressOSMInfo() {
+    viewController?.openUrl("https://welcome.openstreetmap.org", externally: true)
   }
 }
 
@@ -248,19 +248,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
         showPhoneNumberPicker(phones, handler: MWMPlacePageManagerHelper.call)
       }
     case .download:
-      guard let mapNodeAttributes = placePageData.mapNodeAttributes else {
-        fatalError("Download button can't be displayed if mapNodeAttributes is empty")
-      }
-      switch mapNodeAttributes.nodeStatus {
-      case .downloading, .inQueue, .applying:
-        Storage.shared().cancelDownloadNode(mapNodeAttributes.countryId)
-      case .notDownloaded, .partly, .error:
-        Storage.shared().downloadNode(mapNodeAttributes.countryId)
-      case .undefined, .onDiskOutOfDate, .onDisk:
-        fatalError("Download button shouldn't be displayed when node is in these states")
-      @unknown default:
-        fatalError()
-      }
+      startDownloading()
     case .opentable:
       fatalError("Opentable is not supported and will be deleted")
     case .routeAddStop:
@@ -294,6 +282,22 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
           self?.presenter?.closeAnimated()
         }
       }
+    @unknown default:
+      fatalError()
+    }
+  }
+
+  private func startDownloading() {
+    guard let mapNodeAttributes = placePageData.mapNodeAttributes else {
+      fatalError("Download button can't be displayed if mapNodeAttributes is empty")
+    }
+    switch mapNodeAttributes.nodeStatus {
+    case .downloading, .inQueue, .applying:
+      Storage.shared().cancelDownloadNode(mapNodeAttributes.countryId)
+    case .notDownloaded, .partly, .onDiskOutOfDate, .error:
+      Storage.shared().downloadNode(mapNodeAttributes.countryId)
+    case .undefined, .onDisk:
+      fatalError("Download button shouldn't be displayed when node is in these states")
     @unknown default:
       fatalError()
     }
