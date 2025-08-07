@@ -386,7 +386,7 @@
 		999FC12B23ABB4B800B0E6F9 /* FontStyleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999FC12A23ABB4B800B0E6F9 /* FontStyleSheet.swift */; };
 		99A614E423CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */; };
 		99A906DE23F6F7030005872B /* PlacePageEditBookmarkOrTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906CD23F6F7010005872B /* PlacePageEditBookmarkOrTrackViewController.swift */; };
-		99A906E123F6F7030005872B /* PlacePageButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906D023F6F7020005872B /* PlacePageButtonsViewController.swift */; };
+		99A906E123F6F7030005872B /* PlacePageOSMContributionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906D023F6F7020005872B /* PlacePageOSMContributionViewController.swift */; };
 		99A906E523F6F7030005872B /* ActionBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906D423F6F7020005872B /* ActionBarViewController.swift */; };
 		99A906E623F6F7030005872B /* OpeningHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906D523F6F7020005872B /* OpeningHoursViewController.swift */; };
 		99A906E923F6F7030005872B /* WikiDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A906D823F6F7030005872B /* WikiDescriptionViewController.swift */; };
@@ -1299,7 +1299,7 @@
 		99A614E223CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+RuntimeAttributes.h"; sourceTree = "<group>"; };
 		99A614E323CDD1D900D8D8D0 /* UIButton+RuntimeAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+RuntimeAttributes.m"; sourceTree = "<group>"; };
 		99A906CD23F6F7010005872B /* PlacePageEditBookmarkOrTrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageEditBookmarkOrTrackViewController.swift; sourceTree = "<group>"; };
-		99A906D023F6F7020005872B /* PlacePageButtonsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageButtonsViewController.swift; sourceTree = "<group>"; };
+		99A906D023F6F7020005872B /* PlacePageOSMContributionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageOSMContributionViewController.swift; sourceTree = "<group>"; };
 		99A906D423F6F7020005872B /* ActionBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionBarViewController.swift; sourceTree = "<group>"; };
 		99A906D523F6F7020005872B /* OpeningHoursViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpeningHoursViewController.swift; sourceTree = "<group>"; };
 		99A906D823F6F7030005872B /* WikiDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WikiDescriptionViewController.swift; sourceTree = "<group>"; };
@@ -3029,7 +3029,7 @@
 				99A906D423F6F7020005872B /* ActionBarViewController.swift */,
 				99A906D523F6F7020005872B /* OpeningHoursViewController.swift */,
 				99A906CD23F6F7010005872B /* PlacePageEditBookmarkOrTrackViewController.swift */,
-				99A906D023F6F7020005872B /* PlacePageButtonsViewController.swift */,
+				99A906D023F6F7020005872B /* PlacePageOSMContributionViewController.swift */,
 				99A906D923F6F7030005872B /* PlacePageInfoViewController.swift */,
 				99A906DC23F6F7030005872B /* PlacePagePreviewViewController.swift */,
 				99A906D823F6F7030005872B /* WikiDescriptionViewController.swift */,
@@ -4711,7 +4711,7 @@
 				EDA1EAA42CC7ECAD00DBDCAA /* ElevationProfileFormatter.swift in Sources */,
 				996D108A24E3DBF2002DD0E2 /* BookmarksCoordinator.swift in Sources */,
 				3454D7CE1E07F045004AF2AD /* UIFont+MapsMeFonts.m in Sources */,
-				99A906E123F6F7030005872B /* PlacePageButtonsViewController.swift in Sources */,
+				99A906E123F6F7030005872B /* PlacePageOSMContributionViewController.swift in Sources */,
 				998927382449E60200260CE2 /* BottomMenuPresenter.swift in Sources */,
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.m in Sources */,
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.m in Sources */,
