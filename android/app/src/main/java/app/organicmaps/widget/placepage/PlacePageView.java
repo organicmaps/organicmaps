@@ -488,8 +488,7 @@ public class PlacePageView extends Fragment
       Icon icon = bookmark.getIcon();
       if (icon != null)
       {
-        Drawable circle = Graphics.drawCircleAndImage(icon.argb(), R.dimen.place_page_icon_size,
-                                                      app.organicmaps.sdk.R.drawable.ic_bookmark_none,
+        Drawable circle = Graphics.drawCircleAndImage(icon.argb(), R.dimen.place_page_icon_size, icon.getResId(),
                                                       R.dimen.place_page_icon_mark_size, requireContext());
         mColorIcon.setImageDrawable(circle);
         mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId()).getName());
@@ -525,10 +524,10 @@ public class PlacePageView extends Fragment
         Drawable circle = Graphics.drawCircle(to, R.dimen.place_page_icon_size, requireContext().getResources());
         mColorIcon.setImageDrawable(circle);
       });
+      dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
     }
     else if (mMapObject.isBookmark())
     {
-      dialogFragment.show(requireActivity().getSupportFragmentManager(), null);
       final Bookmark bookmark = (Bookmark) mMapObject;
       args.putInt(BookmarkColorDialogFragment.ICON_COLOR, bookmark.getIcon().getColor());
       args.putInt(BookmarkColorDialogFragment.ICON_RES, bookmark.getIcon().getResId());
@@ -538,8 +537,7 @@ public class PlacePageView extends Fragment
         if (from == to)
           return;
         bookmark.setIconColor(to);
-        Drawable circle = Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_size,
-                                                      app.organicmaps.sdk.R.drawable.ic_bookmark_none,
+        Drawable circle = Graphics.drawCircleAndImage(to, R.dimen.place_page_icon_size, bookmark.getIcon().getResId(),
                                                       R.dimen.place_page_icon_mark_size, requireContext());
         mColorIcon.setImageDrawable(circle);
       });
