@@ -3,7 +3,7 @@
 
 #include "drape/stipple_pen_resource.hpp"
 #include "drape_frontend/visual_params.hpp"
-#include "indexer/classificator_loader.hpp"
+
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 
@@ -11,7 +11,7 @@ UNIT_TEST(Test_Dashes)
 {
   styles::RunForEveryMapStyle([](MapStyle)
   {
-    drule::rules().ForEachRule([](drule::BaseRule const * rule)
+    drule::GetCurrentRules().ForEachRule([](drule::BaseRule const * rule)
     {
       LineRuleProto const * const line = rule->GetLine();
       if (nullptr == line || !line->has_dashdot())

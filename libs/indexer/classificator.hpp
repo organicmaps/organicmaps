@@ -261,3 +261,4 @@ private:
 };
 
 Classificator & classif();
+Classificator & GetOutdoorClassif();

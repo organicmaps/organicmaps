@@ -1,19 +1,15 @@
 #pragma once
 
-#include "indexer/cell_id.hpp"
 #include "indexer/cell_value_pair.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/drawing_rule_def.hpp"
+#include "indexer/drawing_rules.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
-#include "geometry/screenbase.hpp"
 #include "geometry/tree4d.hpp"
-
-#include "std/target_os.hpp"
 
 #include <algorithm>
 #include <functional>
@@ -161,7 +157,7 @@ private:
       feature::GetDrawRule(types, zoomLevel, keys);
 
       // While the function has "runtime" in its name, it merely filters by metadata-based rules.
-      feature::FilterRulesByRuntimeSelector(ft, zoomLevel, keys);
+      feature::FilterRulesByRuntimeSelector(ft, zoomLevel, drule::GetCurrentRules(), keys);
       drule::MakeUnique(keys);
 
       float depth = 0;
