@@ -35,6 +35,7 @@ public final class Map
   public static final int WIDGET_COMPASS = 0x02;
   public static final int WIDGET_COPYRIGHT = 0x04;
   public static final int WIDGET_SCALE_FPS_LABEL = 0x08;
+  public static final int WIDGET_SPEED_LIMIT = 0x10;
 
   // Should correspond to dp::Anchor from drape_global.hpp
   public static final int ANCHOR_CENTER = 0x00;
@@ -350,6 +351,8 @@ public final class Map
                         Utils.dimen(context, R.dimen.margin_base), ANCHOR_LEFT_TOP);
       updateCompassOffset(context, mWidth, mCurrentCompassOffsetY, true);
     }
+
+    nativeSetupWidget(WIDGET_SPEED_LIMIT, 0, 0, ANCHOR_CENTER);
   }
 
   private void updateRulerOffset(final Context context, int offsetX, int offsetY)
