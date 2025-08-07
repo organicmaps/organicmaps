@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "برای نمایش مسیرها، نقشه‌ها باید به‌روزرسانی شوند.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "مشارکت در OpenStreetMap";
+"contribute_to_osm_add_place" = "افزودن مکان";
+"contribute_to_osm_update_map" = "برای مشارکت نقشه را به‌روزرسانی کنید";
+"contribute_to_osm_update_map_description" = "برای مشارکت در داده‌های OpenStreetMap باید نقشه %@ را به آخرین نسخه به‌روزرسانی کنید";

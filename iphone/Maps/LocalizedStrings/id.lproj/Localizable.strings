@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Berkontribusi ke OpenStreetMap";
+"contribute_to_osm_add_place" = "Tambahkan Tempat";
+"contribute_to_osm_update_map" = "Perbarui Peta untuk Berkontribusi";
+"contribute_to_osm_update_map_description" = "Anda harus memperbarui peta %@ ke versi terbaru sebelum dapat berkontribusi pada data OpenStreetMap";

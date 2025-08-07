@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Bidra till OpenStreetMap";
+"contribute_to_osm_add_place" = "Lägg till plats";
+"contribute_to_osm_update_map" = "Uppdatera kartan för att bidra";
+"contribute_to_osm_update_map_description" = "Du måste uppdatera %@-kartan till den senaste versionen innan du kan bidra till OpenStreetMap-data";

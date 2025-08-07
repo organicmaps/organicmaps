@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Aby wyświetlić trasy, należy zaktualizować mapy.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Współtwórz OpenStreetMap";
+"contribute_to_osm_add_place" = "Dodaj miejsce";
+"contribute_to_osm_update_map" = "Zaktualizuj mapę, aby współtworzyć";
+"contribute_to_osm_update_map_description" = "Musisz zaktualizować mapę %@ do najnowszej wersji, zanim będziesz mógł współtworzyć dane OpenStreetMap";

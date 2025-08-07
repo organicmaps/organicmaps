@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Contribueix a OpenStreetMap";
+"contribute_to_osm_add_place" = "Afegeix un lloc";
+"contribute_to_osm_update_map" = "Actualitza el mapa per contribuir";
+"contribute_to_osm_update_map_description" = "Heu d’actualitzar el mapa de %@ a l’última versió abans de poder contribuir a les dades d’OpenStreetMap";

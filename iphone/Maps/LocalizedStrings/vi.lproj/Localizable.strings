@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Đóng góp cho OpenStreetMap";
+"contribute_to_osm_add_place" = "Thêm địa điểm";
+"contribute_to_osm_update_map" = "Cập nhật bản đồ để đóng góp";
+"contribute_to_osm_update_map_description" = "Bạn cần cập nhật bản đồ %@ lên phiên bản mới nhất trước khi có thể đóng góp cho dữ liệu OpenStreetMap";

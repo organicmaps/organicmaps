@@ -1074,3 +1074,9 @@
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "To display routes, maps must be updated.";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "มีส่วนร่วมกับ OpenStreetMap";
+"contribute_to_osm_add_place" = "เพิ่มสถานที่";
+"contribute_to_osm_update_map" = "อัปเดตแผนที่เพื่อมีส่วนร่วม";
+"contribute_to_osm_update_map_description" = "คุณต้องอัปเดตแผนที่ %@ เป็นเวอร์ชันล่าสุดก่อนจึงจะสามารถมีส่วนร่วมกับข้อมูล OpenStreetMap ได้";
