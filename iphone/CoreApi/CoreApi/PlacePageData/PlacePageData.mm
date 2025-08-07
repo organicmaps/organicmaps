@@ -3,8 +3,8 @@
 #import "ElevationProfileData+Core.h"
 #import "MWMMapNodeAttributes.h"
 #import "PlacePageBookmarkData+Core.h"
-#import "PlacePageButtonsData+Core.h"
 #import "PlacePageInfoData+Core.h"
+#import "PlacePageOSMContributionData+Core.h"
 #import "PlacePagePreviewData+Core.h"
 #import "PlacePageTrackData+Core.h"
 
@@ -48,7 +48,6 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
   self = [super init];
   if (self)
   {
-    _buttonsData = [[PlacePageButtonsData alloc] initWithRawData:rawData()];
     _infoData = [[PlacePageInfoData alloc] initWithRawData:rawData() ohLocalization:localization];
 
     if (rawData().IsBookmark())
@@ -83,6 +82,8 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
     {
       _mapNodeAttributes = [[MWMStorage sharedStorage] attributesForCountry:@(rawData().GetCountryId().c_str())];
       [[MWMStorage sharedStorage] addObserver:self];
+      _osmContributionData = [[PlacePageOSMContributionData alloc] initWithRawData:rawData()
+                                                                     mapAttributes:_mapNodeAttributes];
     }
 
     _objectType = [self objectTypeFromRawData];
@@ -189,6 +190,8 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
   if ([countryId isEqualToString:self.mapNodeAttributes.countryId])
   {
     _mapNodeAttributes = [[MWMStorage sharedStorage] attributesForCountry:countryId];
+    _osmContributionData = [[PlacePageOSMContributionData alloc] initWithRawData:rawData()
+                                                                   mapAttributes:_mapNodeAttributes];
     if (self.onMapNodeStatusUpdate != nil)
       self.onMapNodeStatusUpdate();
   }
