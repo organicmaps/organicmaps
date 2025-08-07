@@ -49,6 +49,8 @@ set(shader_files
     GL/screen_quad.vsh.glsl
     GL/selection_line.fsh.glsl
     GL/selection_line.vsh.glsl
+    GL/gui_round_rect.fsh.glsl
+    GL/gui_round_rect.vsh.glsl
     GL/shaders_lib.glsl
     GL/smaa_blending_weight.fsh.glsl
     GL/smaa_blending_weight.vsh.glsl

@@ -31,6 +31,7 @@ enum class Program
   CapJoin,
   HatchingArea,
   TexturingGui,
+  GuiRoundRect,
   Ruler,
   Accuracy,
   MyPosition,
@@ -95,6 +96,7 @@ inline std::string DebugPrint(Program p)
   case Program::TransparentArea: return "TransparentArea";
   case Program::HatchingArea: return "HatchingArea";
   case Program::TexturingGui: return "TexturingGui";
+  case Program::GuiRoundRect: return "GuiRoundRect";
   case Program::Ruler: return "Ruler";
   case Program::Accuracy: return "Accuracy";
   case Program::MyPosition: return "MyPosition";

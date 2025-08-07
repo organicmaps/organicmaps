@@ -77,6 +77,15 @@ set(SRC
   gps_track_point.hpp
   gps_track_renderer.cpp
   gps_track_renderer.hpp
+  gui/speed_limit/renderer/background_renderer.cpp
+  gui/speed_limit/renderer/background_renderer.hpp
+  gui/speed_limit/renderer/rendering_helper.cpp
+  gui/speed_limit/renderer/rendering_helper.hpp
+  gui/speed_limit/renderer/speed_limit_renderer.cpp
+  gui/speed_limit/renderer/speed_limit_renderer.hpp
+  gui/speed_limit/renderer/text_renderer.cpp
+  gui/speed_limit/renderer/text_renderer.hpp
+  gui/speed_limit/speed_limit.hpp
   gui/choose_position_mark.cpp
   gui/choose_position_mark.hpp
   gui/compass.cpp

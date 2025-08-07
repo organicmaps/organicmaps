@@ -19,6 +19,7 @@ enum EWidget
   WIDGET_COMPASS = 0x2,
   WIDGET_COPYRIGHT = 0x4,
   WIDGET_SCALE_FPS_LABEL = 0x8,
+  WIDGET_SPEED_LIMIT = 0x10,
   // The following widgets are controlled by the engine. Don't use them in platform code.
   WIDGET_CHOOSE_POSITION_MARK = 0x8000,
 #ifdef RENDER_DEBUG_INFO_LABELS
@@ -26,6 +27,7 @@ enum EWidget
 #endif
 };
 
+// TODO: remove this
 enum EGuiHandle
 {
   GuiHandleScaleLabel,
@@ -34,7 +36,6 @@ enum EGuiHandle
   GuiHandleRuler,
   GuiHandleRulerLabel,
   GuiHandleChoosePositionMark,
-  GuiHandleWatermark,
 #ifdef RENDER_DEBUG_INFO_LABELS
   GuiHandleDebugLabel = 100
 #endif

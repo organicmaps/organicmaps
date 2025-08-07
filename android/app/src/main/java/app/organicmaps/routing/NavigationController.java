@@ -24,6 +24,7 @@ import app.organicmaps.sdk.routing.CarDirection;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.widget.gui.SpeedLimit;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
@@ -262,13 +263,20 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
   private void updateSpeedLimit(@NonNull final RoutingInfo info)
   {
-    final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
-    if (location == null)
-    {
-      mSpeedLimit.setSpeedLimit(0, false);
-      return;
-    }
-    final boolean speedLimitExceeded = info.speedLimitMps < location.getSpeed();
-    mSpeedLimit.setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
+    //    final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
+    //    if (location == null)
+    //    {
+    //      mSpeedLimit.setSpeedLimit(0, false);
+    //      return;
+    //    }
+    //    final boolean speedLimitExceeded = info.speedLimitMps < location.getSpeed();
+    mSpeedLimit.setSpeedLimit(120, false);
+    SpeedLimit.setRadius(mFrame.getContext(), mSpeedLimit.getHeight() / 2.f);
+
+    int[] location = new int[2];
+    mSpeedLimit.getLocationOnScreen(location);
+    location[0] += mSpeedLimit.getWidth() / 2;
+    location[1] += mSpeedLimit.getHeight() / 2;
+    SpeedLimit.setPosition(location[0] + 200, location[1]);
   }
 }

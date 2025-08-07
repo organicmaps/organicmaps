@@ -25,6 +25,9 @@
 #include <QtGui/QOpenGLFunctions>
 #include <QtWidgets/QMenu>
 
+#include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/gui/speed_limit/speed_limit.hpp"
+
 // Fraction of the viewport for a move event
 static constexpr float kViewportFractionRoughMove = 0.2;
 
@@ -119,6 +122,7 @@ void MapWidget::CreateEngine()
   m_skin->ForEach([&p](gui::EWidget widget, gui::Position const & pos) { p.m_widgetsInitInfo[widget] = pos; });
 
   p.m_widgetsInitInfo[gui::WIDGET_SCALE_FPS_LABEL] = gui::Position(dp::LeftTop);
+  p.m_widgetsInitInfo[gui::WIDGET_SPEED_LIMIT] = gui::Position(m2::PointF(100, 100), dp::Center);
 
   m_framework.CreateDrapeEngine(make_ref(m_contextFactory), std::move(p));
   m_framework.SetViewportListener(std::bind(&MapWidget::OnViewportChanged, this, std::placeholders::_1));
@@ -126,7 +130,17 @@ void MapWidget::CreateEngine()
 
 void MapWidget::ScalePlus()
 {
-  m_framework.Scale(Framework::SCALE_MAG, true);
+  auto pos = gui::DrapeGui::GetSpeedLimit().GetPosition();
+  pos.x += 1;
+  gui::DrapeGui::GetSpeedLimit().SetPosition(pos);
+  gui::DrapeGui::GetSpeedLimit().SetSize(gui::DrapeGui::GetSpeedLimit().GetSize() + 1.0f);
+
+  if (gui::DrapeGui::GetSpeedLimit().GetStyle() == gui::speed_limit::SpeedLimit::Style::Vienna)
+    gui::DrapeGui::GetSpeedLimit().SetStyle(gui::speed_limit::SpeedLimit::Style::Mutcd);
+  else
+    gui::DrapeGui::GetSpeedLimit().SetStyle(gui::speed_limit::SpeedLimit::Style::Vienna);
+
+  // m_framework.Scale(Framework::SCALE_MAG, true);
 }
 
 void MapWidget::ScaleMinus()
