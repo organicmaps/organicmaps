@@ -25,6 +25,9 @@ class BottomMenuPresenter: NSObject {
   private let menuCells: [CellType]
   private let trackRecorder = TrackRecordingManager.shared
   private var cellToHighlight: CellType?
+  private let mapsStorage: Storage
+  private let countryId: String?
+  private let shouldUpdateMapToContribute: Bool
 
   init(view: BottomMenuViewProtocol,
        interactor: BottomMenuInteractorProtocol,
@@ -35,6 +38,13 @@ class BottomMenuPresenter: NSObject {
     let disableDonate = Settings.donateUrl() == nil
     self.menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
     self.cellToHighlight = Self.getCellToHighlight()
+    let mapsStorage = Storage.shared()
+    self.mapsStorage = mapsStorage
+    self.countryId = mapsStorage.countryForViewportCenter()
+    self.shouldUpdateMapToContribute =
+      !(MWMNavigationDashboardManager.shared().state == .hidden &&
+      FrameworkHelper.canEditMapAtViewportCenter() &&
+      self.countryId != nil)
     super.init()
   }
 
@@ -95,10 +105,9 @@ extension BottomMenuPresenter {
       let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
       switch menuCells[indexPath.row] {
       case .addPlace:
-        let enabled = MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMapAtViewportCenter()
         cell.configure(imageName: "ic_add_place",
                        title: L("placepage_add_place_button"),
-                       enabled: enabled)
+                       enabled: countryId != nil)
       case .recordTrack:
         switch trackRecorder.recordingState {
         case .inactive:
@@ -144,7 +153,22 @@ extension BottomMenuPresenter {
     case .items:
       switch menuCells[indexPath.row] {
       case .addPlace:
-        interactor.addPlace()
+        if shouldUpdateMapToContribute {
+          guard let countryId else {
+            fatalError("Add place button should be disabled when there is no country")
+          }
+          let countryName = mapsStorage.name(forCountry: countryId)
+          MWMAlertViewController.activeAlert().presentDefaultAlert(
+            withTitle: L("contribute_to_osm_update_map"),
+            message: String(format: L("contribute_to_osm_update_map_description"), countryName),
+            rightButtonTitle: L("download_button"),
+            leftButtonTitle: L("cancel")
+          ) { [weak self] in
+            self?.interactor.startDownloadingMapForCountry(countryId)
+          }
+        } else {
+          interactor.addPlace()
+        }
       case .recordTrack:
         interactor.toggleTrackRecording()
       case .downloadMaps:
