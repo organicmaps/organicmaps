@@ -2,6 +2,7 @@ protocol BottomMenuInteractorProtocol: AnyObject {
   func close()
   func addPlace()
   func downloadMaps()
+  func startDownloadingMapForCountry(_ countryId: String)
   func donate()
   func openSettings()
   func shareLocation(cell: BottomMenuItemCell)
@@ -21,6 +22,7 @@ class BottomMenuInteractor {
   private weak var delegate: BottomMenuDelegate?
   private weak var controlsManager: MWMMapViewControlsManager?
 
+  private let mapsStorage = Storage.shared()
   private let trackRecorder: TrackRecordingManager = .shared
 
   init(viewController: UIViewController,
@@ -63,6 +65,21 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
   func openSettings() {
     close()
     mapViewController?.openSettings()
+  }
+
+  func startDownloadingMapForCountry(_ countryId: String) {
+    let mapNodeAttributes = mapsStorage.attributes(forCountry: countryId)
+    switch mapNodeAttributes.nodeStatus {
+    case .downloading, .inQueue, .applying:
+      break
+    case .notDownloaded, .partly, .onDiskOutOfDate, .error:
+      mapsStorage.downloadNode(countryId)
+    case .undefined, .onDisk:
+      fatalError("Download button shouldn't be displayed when node is in these states")
+    @unknown default:
+      fatalError()
+    }
+    downloadMaps()
   }
 
   func shareLocation(cell: BottomMenuItemCell) {
