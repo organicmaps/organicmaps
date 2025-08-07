@@ -4,10 +4,6 @@
 #include "drape_frontend/gui/scale_fps_helper.hpp"
 #include "drape_frontend/gui/skin.hpp"
 
-#include "storage/storage_defines.hpp"
-
-#include "drape/pointers.hpp"
-
 #include <functional>
 #include <memory>
 #include <mutex>
@@ -18,11 +14,17 @@ namespace gui
 {
 class RulerHelper;
 
+namespace speed_limit
+{
+class SpeedLimit;
+}  // namespace speed_limit
+
 class DrapeGui
 {
 public:
   static DrapeGui & Instance();
   static RulerHelper & GetRulerHelper();
+  static speed_limit::SpeedLimit & GetSpeedLimit();
 
   static dp::FontDecl GetGuiTextFont();
 
@@ -44,7 +46,8 @@ public:
 
 private:
   DrapeGui();
-  RulerHelper & GetRulerHelperImpl();
+  RulerHelper & GetRulerHelperImpl() const;
+  speed_limit::SpeedLimit & GetSpeedLimitImpl() const;
 
   struct Impl;
   std::unique_ptr<Impl> m_impl;

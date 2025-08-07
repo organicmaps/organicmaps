@@ -19,6 +19,7 @@ TransparentArea area.vsh.glsl solid_color.fsh.glsl
 CapJoin circle.vsh.glsl circle.fsh.glsl
 HatchingArea hatching_area.vsh.glsl hatching_area.fsh.glsl
 TexturingGui texturing_gui.vsh.glsl texturing_gui.fsh.glsl
+GuiRoundRect gui_round_rect.vsh.glsl gui_round_rect.fsh.glsl
 Ruler ruler.vsh.glsl ruler.fsh.glsl
 Accuracy position_accuracy3d.vsh.glsl texturing_position.fsh.glsl
 MyPosition my_position.vsh.glsl texturing_position.fsh.glsl

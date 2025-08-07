@@ -153,12 +153,21 @@ struct ALIGNMENT GuiProgramParams
   glsl::mat4 m_projection;
   glsl::vec2 m_contrastGamma;
   glsl::vec2 m_position;
+
+  glsl::vec2 m_colorTexCoords;
+  glsl::vec2 m_outlineColorTexCoords;
+  glsl::vec2 m_edgeColorTexCoords;
+
   float m_isOutlinePass = 1.0f;
   float m_opacity = 1.0f;
   float m_length = 0.0f;
+  float m_radius = 1.0f;
+
+  float m_outlineWidthRatio;
+  float m_edgeWidthRatio;
 
   BIND_PROGRAMS(GuiProgramParams, Program::TextStaticOutlinedGui, Program::TextOutlinedGui, Program::TexturingGui,
-                Program::Ruler)
+                Program::Ruler, Program::GuiRoundRect)
 };
 
 struct ALIGNMENT ShapesProgramParams
