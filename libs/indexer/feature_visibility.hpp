@@ -9,6 +9,11 @@
 
 class FeatureType;
 
+namespace drule
+{
+class RulesHolder;
+}  // namespace drule
+
 namespace feature
 {
 class TypesHolder;
@@ -65,7 +70,8 @@ std::pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int
 
 void GetDrawRule(TypesHolder const & types, int level, drule::KeysT & keys);
 void GetDrawRule(std::vector<uint32_t> const & types, int level, GeomType geomType, drule::KeysT & keys);
-void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::KeysT & keys);
+void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::RulesHolder const & rulesHolder,
+                                  drule::KeysT & keys);
 
 /// Used to check whether user types belong to particular classificator set.
 class TypeSetChecker

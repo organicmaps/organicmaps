@@ -115,7 +115,7 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
 
 void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
 {
-  drule::BaseRule const * const dRule = drule::rules().Find(key);
+  drule::BaseRule const * const dRule = m_rulesHolder.Find(key);
 #ifdef DEBUG
   using feature::GeomType;
   auto const geomType = f.GetGeomType();
@@ -167,10 +167,11 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   }
 }
 
-Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
+Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle)
+  : m_rulesHolder(forceOutdoorStyle ? drule::GetOutdoorRules() : drule::GetCurrentRules())
 {
   feature::TypesHolder const types(f);
-  Classificator const & cl = classif();
+  Classificator const & cl = forceOutdoorStyle ? GetOutdoorClassif() : classif();
 
   uint32_t mainOverlayType = 0;
   if (types.Size() == 1)
@@ -214,7 +215,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
     }
   }
 
-  feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
+  feature::FilterRulesByRuntimeSelector(f, zoomLevel, m_rulesHolder, keys);
 
   if (keys.empty())
     return;
@@ -266,7 +267,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang)
             ASSERT(addressKeys.size() == 1 && addressKeys[0].m_type == drule::caption,
                    ("building-address should contain a caption drule only"));
             ASSERT(m_houseNumberRule == nullptr, ());
-            m_houseNumberRule = drule::rules().Find(addressKeys[0])->GetCaption();
+            m_houseNumberRule = m_rulesHolder.Find(addressKeys[0])->GetCaption();
           }
         }
       }
