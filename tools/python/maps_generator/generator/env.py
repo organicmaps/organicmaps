@@ -333,7 +333,7 @@ class PathProvider:
 
     @property
     def counties_txt_path(self) -> AnyStr:
-        return os.path.join(self.mwm_path, "countries.txt")
+        return os.path.join(self.mwm_path, "countries", "countries.json")
 
     @property
     def user_resource_path(self) -> AnyStr:

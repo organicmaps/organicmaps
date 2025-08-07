@@ -16,7 +16,7 @@ namespace storage
 {
 using namespace std;
 
-// Mwm subtree attributes. They can be calculated based on information contained in countries.txt.
+// Mwm subtree attributes. They can be calculated based on information contained in countries.json.
 // The first in the pair is number of mwms in a subtree. The second is sum of sizes of
 // all mwms in a subtree.
 using MwmSubtreeAttrs = pair<MwmCounter, MwmSize>;

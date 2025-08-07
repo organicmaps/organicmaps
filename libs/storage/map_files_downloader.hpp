@@ -53,7 +53,7 @@ public:
    * @brief Async file download as string buffer (for small files only).
    * Request can be skipped if current servers list is empty.
    * Callback will be skipped on download error.
-   * @param[in]  url        Final url part like "index.json" or "maps/210415/countries.txt".
+   * @param[in]  url        Final url part like "index.json" or "maps/210415/countries.json".
    * @param[in]  forceReset True - force reset current request, if any.
    */
   void DownloadAsString(std::string url, std::function<bool(std::string const &)> && callback, bool forceReset = false);

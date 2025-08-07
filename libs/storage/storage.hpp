@@ -72,9 +72,9 @@ struct NodeAttrs
   /// plus which are staying in queue.
   MwmCounter m_downloadingMwmCounter;
 
-  /// If it's not an expandable node, |m_mwmSize| is size of one mwm according to countries.txt.
+  /// If it's not an expandable node, |m_mwmSize| is size of one mwm according to countries.json.
   /// Otherwise |m_mwmSize| is the sum of all mwm file sizes which belong to the group
-  /// according to countries.txt.
+  /// according to countries.json.
   MwmSize m_mwmSize;
 
   /// If it's not an expandable node, |m_localMwmSize| is size of one downloaded mwm.
@@ -85,7 +85,7 @@ struct NodeAttrs
   /// Size of leaves of the node which have been downloaded
   /// plus which is in progress of downloading (zero or one)
   /// plus which are staying in queue.
-  /// \note The size of leaves is the size is written in countries.txt.
+  /// \note The size of leaves is the size is written in countries.json.
   MwmSize m_downloadingMwmSize;
 
   /// The name of the node in a local language. That means the language dependent on
@@ -244,7 +244,7 @@ private:
    * @brief Mapping from countryId to the list of names of
    * geographical objects (such as countries) that encompass this countryId.
    * @note Affiliations are inherited from ancestors of the countryId in country tree.
-   * Initialized with data of countries.txt (field "affiliations").
+   * Initialized with data of countries.json (field "affiliations").
    * Once filled, they are not changed.
    */
   Affiliations m_affiliations;
@@ -292,12 +292,12 @@ public:
 
   /// \brief Storage will create its directories in Writable Directory
   /// (gotten with platform::WritableDir) by default.
-  /// \param pathToCountriesFile is a name of countries.txt file.
+  /// \param pathToCountriesFile is a name of countries.json file.
   /// \param dataDir If |dataDir| is not empty Storage will create its directory in WritableDir/|dataDir|.
   /// \note if |dataDir| is not empty the instance of Storage can be used only for downloading map files
   /// but not for continue working with them.
   /// If |dataDir| is not empty the work flow is
-  /// * create a instance of Storage with a special countries.txt and |dataDir|
+  /// * create a instance of Storage with a special countries.json and |dataDir|
   /// * download some maps to WritableDir/|dataDir|
   /// * destroy the instance of Storage and move the downloaded maps to proper place
   Storage(std::string const & pathToCountriesFile = COUNTRIES_FILE, std::string const & dataDir = std::string());
@@ -331,7 +331,7 @@ public:
   /// If a direct child of |parent| contains at least one downloaded mwm
   /// the mwm id of the child will be added to |downloadedChildren|.
   /// If not, the mwm id the child will not be added to |availChildren|.
-  /// \param parent is a parent acoording to countries.txt or cournties_migrate.txt.
+  /// \param parent is a parent acoording to countries.json or cournties_migrate.txt.
   /// \param downloadedChildren children partly or fully downloaded.
   /// \param availChildren fully available children. None of its files have been downloaded.
   /// \param keepAvailableChildren keeps all children in |availChildren| otherwise downloaded
@@ -468,7 +468,7 @@ public:
   void DoClickOnDownloadMap(CountryId const & countryId);
   //@}
 
-  /// \returns real (not fake) local maps contained in countries.txt.
+  /// \returns real (not fake) local maps contained in countries.json.
   /// So this method does not return custom user local maps and World and WorldCoasts country id.
   // void GetLocalRealMaps(CountriesVec & localMaps) const;
 
@@ -601,13 +601,13 @@ private:
   // version.
   LocalFilePtr GetLocalFile(CountryId const & countryId, int64_t version) const;
 
-  // Tries to register disk files for a real (listed in countries.txt)
+  // Tries to register disk files for a real (listed in countries.json)
   // country. If map files of the same version were already
   // registered, does nothing.
   void RegisterCountryFiles(LocalFilePtr localFile);
 
   // Registers disk files for a country. This method must be used only
-  // for real (listed in countries.txt) countries.
+  // for real (listed in countries.json) countries.
   void RegisterLocalFile(platform::LocalCountryFile const & localFile);
 
   // Removes disk files for all versions of a country.

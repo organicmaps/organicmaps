@@ -58,7 +58,7 @@
 		678338D81C72460700FD6263 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C84151C63888200DC9603 /* packed_polygons.bin */; };
 		678338D91C72460700FD6263 /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83F91C63884300DC9603 /* categories.txt */; };
 		678338DA1C72460700FD6263 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FA1C63884300DC9603 /* classificator.txt */; };
-		678338DC1C72460700FD6263 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FC1C63884300DC9603 /* countries.txt */; };
+		678338DC1C72460700FD6263 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FC1C63884300DC9603 /* countries.json */; };
 		678338DD1C72460700FD6263 /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FD1C63884300DC9603 /* drules_proto_clear.bin */; };
 		678338DE1C72460700FD6263 /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FE1C63884300DC9603 /* drules_proto_dark.bin */; };
 		678338E11C72460700FD6263 /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C84011C63884300DC9603 /* drules_proto.bin */; };
@@ -87,7 +87,7 @@
 		67F90BF41C6A2B3100CD458E /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C84151C63888200DC9603 /* packed_polygons.bin */; };
 		67F90BF51C6A2B3100CD458E /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83F91C63884300DC9603 /* categories.txt */; };
 		67F90BF61C6A2B3100CD458E /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FA1C63884300DC9603 /* classificator.txt */; };
-		67F90BF81C6A2B3100CD458E /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FC1C63884300DC9603 /* countries.txt */; };
+		67F90BF81C6A2B3100CD458E /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FC1C63884300DC9603 /* countries.json */; };
 		67F90BF91C6A2B3100CD458E /* drules_proto_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FD1C63884300DC9603 /* drules_proto_clear.bin */; };
 		67F90BFA1C6A2B3100CD458E /* drules_proto_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C83FE1C63884300DC9603 /* drules_proto_dark.bin */; };
 		67F90BFD1C6A2B3100CD458E /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 676C84011C63884300DC9603 /* drules_proto.bin */; };
@@ -99,7 +99,7 @@
 		F66D569E1EAE37160081E883 /* drules_proto_vehicle_clear.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D569C1EAE37160081E883 /* drules_proto_vehicle_clear.txt */; };
 		F66D56A11EAE374B0081E883 /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569F1EAE374B0081E883 /* drules_proto_vehicle_dark.bin */; };
 		F66D56A21EAE374B0081E883 /* drules_proto_vehicle_dark.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56A01EAE374B0081E883 /* drules_proto_vehicle_dark.txt */; };
-		F66D56A41EAE37B90081E883 /* countries_meta.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56A31EAE37B90081E883 /* countries_meta.txt */; };
+		F66D56A41EAE37B90081E883 /* metadata.json in Resources */ = {isa = PBXBuildFile; fileRef = F66D56A31EAE37B90081E883 /* metadata.json */; };
 		F66D56AD1EAE383E0081E883 /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569F1EAE374B0081E883 /* drules_proto_vehicle_dark.bin */; };
 		F66D56AE1EAE383E0081E883 /* drules_proto_vehicle_dark.txt in Resources */ = {isa = PBXBuildFile; fileRef = F66D56A01EAE374B0081E883 /* drules_proto_vehicle_dark.txt */; };
 		F66D56AF1EAE383E0081E883 /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = F66D569B1EAE37160081E883 /* drules_proto_vehicle_clear.bin */; };
@@ -203,7 +203,7 @@
 		676C83C11C637FAE00DC9603 /* storage_update_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_update_tests.cpp; sourceTree = "<group>"; };
 		676C83F91C63884300DC9603 /* categories.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = categories.txt; sourceTree = "<group>"; };
 		676C83FA1C63884300DC9603 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = classificator.txt; sourceTree = "<group>"; };
-		676C83FC1C63884300DC9603 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries.txt; sourceTree = "<group>"; };
+		676C83FC1C63884300DC9603 /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries.json; sourceTree = "<group>"; };
 		676C83FD1C63884300DC9603 /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_clear.bin; sourceTree = "<group>"; };
 		676C83FE1C63884300DC9603 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_dark.bin; sourceTree = "<group>"; };
 		676C84011C63884300DC9603 /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto.bin; sourceTree = "<group>"; };
@@ -225,7 +225,7 @@
 		F66D569C1EAE37160081E883 /* drules_proto_vehicle_clear.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = drules_proto_vehicle_clear.txt; sourceTree = "<group>"; };
 		F66D569F1EAE374B0081E883 /* drules_proto_vehicle_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = drules_proto_vehicle_dark.bin; sourceTree = "<group>"; };
 		F66D56A01EAE374B0081E883 /* drules_proto_vehicle_dark.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = drules_proto_vehicle_dark.txt; sourceTree = "<group>"; };
-		F66D56A31EAE37B90081E883 /* countries_meta.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = countries_meta.txt; sourceTree = "<group>"; };
+		F66D56A31EAE37B90081E883 /* metadata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = metadata.json; sourceTree = "<group>"; };
 		F68CC5BD1F38B967007527C7 /* diff_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = diff_types.hpp; path = diff_scheme/diff_types.hpp; sourceTree = "<group>"; };
 		F6BC31292034366100F677FE /* pinger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pinger.hpp; sourceTree = "<group>"; };
 		F6BC312A2034366100F677FE /* pinger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pinger.cpp; sourceTree = "<group>"; };
@@ -396,12 +396,12 @@
 			children = (
 				678CB37F1CA5881B00E9118D /* editor.config */,
 				676109C81C99A941007C4E67 /* countries-strings */,
-				F66D56A31EAE37B90081E883 /* countries_meta.txt */,
+				F66D56A31EAE37B90081E883 /* metadata.json */,
 				676C84151C63888200DC9603 /* packed_polygons.bin */,
 				676C83F91C63884300DC9603 /* categories.txt */,
 				4069AD9F21495A5A005EB75C /* categories_cuisines.txt */,
 				676C83FA1C63884300DC9603 /* classificator.txt */,
-				676C83FC1C63884300DC9603 /* countries.txt */,
+				676C83FC1C63884300DC9603 /* countries.json */,
 				676C83FD1C63884300DC9603 /* drules_proto_clear.bin */,
 				676C83FE1C63884300DC9603 /* drules_proto_dark.bin */,
 				676C84011C63884300DC9603 /* drules_proto.bin */,
@@ -557,7 +557,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F66D56A41EAE37B90081E883 /* countries_meta.txt in Resources */,
+				F66D56A41EAE37B90081E883 /* metadata.json in Resources */,
 				F66D56A11EAE374B0081E883 /* drules_proto_vehicle_dark.bin in Resources */,
 				F66D56A21EAE374B0081E883 /* drules_proto_vehicle_dark.txt in Resources */,
 				F66D569D1EAE37160081E883 /* drules_proto_vehicle_clear.bin in Resources */,
@@ -567,7 +567,7 @@
 				678338E31C72460700FD6263 /* types.txt in Resources */,
 				678338E61C72460700FD6263 /* WorldCoasts.mwm in Resources */,
 				678338DA1C72460700FD6263 /* classificator.txt in Resources */,
-				678338DC1C72460700FD6263 /* countries.txt in Resources */,
+				678338DC1C72460700FD6263 /* countries.json in Resources */,
 				678338D91C72460700FD6263 /* categories.txt in Resources */,
 				678338E21C72460700FD6263 /* patterns.txt in Resources */,
 				678338E11C72460700FD6263 /* drules_proto.bin in Resources */,
@@ -590,7 +590,7 @@
 				67F90BF41C6A2B3100CD458E /* packed_polygons.bin in Resources */,
 				67F90BF51C6A2B3100CD458E /* categories.txt in Resources */,
 				67F90BF61C6A2B3100CD458E /* classificator.txt in Resources */,
-				67F90BF81C6A2B3100CD458E /* countries.txt in Resources */,
+				67F90BF81C6A2B3100CD458E /* countries.json in Resources */,
 				67F90BF91C6A2B3100CD458E /* drules_proto_clear.bin in Resources */,
 				67F90BFA1C6A2B3100CD458E /* drules_proto_dark.bin in Resources */,
 				67F90BFD1C6A2B3100CD458E /* drules_proto.bin in Resources */,

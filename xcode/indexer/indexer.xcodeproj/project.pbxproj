@@ -32,9 +32,9 @@
 		3496ABA11DC1FA5200C5DDBA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = 3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */; };
 		3496ABA31DC1FA7200C5DDBA /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA21DC1FA7200C5DDBA /* editor.config */; };
 		3496ABA91DC1FA9E00C5DDBA /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA41DC1FA9E00C5DDBA /* categories.txt */; };
-		3496ABAA1DC1FA9E00C5DDBA /* countries_meta.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */; };
+		3496ABAA1DC1FA9E00C5DDBA /* metadata.json in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA51DC1FA9E00C5DDBA /* metadata.json */; };
 		3496ABAB1DC1FA9E00C5DDBA /* countries_names.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */; };
-		3496ABAD1DC1FA9E00C5DDBA /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA81DC1FA9E00C5DDBA /* countries.txt */; };
+		3496ABAD1DC1FA9E00C5DDBA /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABA81DC1FA9E00C5DDBA /* countries.json */; };
 		3496ABAF1DC1FAC900C5DDBA /* minsk-pass.mwm in Resources */ = {isa = PBXBuildFile; fileRef = 3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */; };
 		391C0C8322BD2551003DC252 /* feature_to_osm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 391C0C8122BD2551003DC252 /* feature_to_osm.cpp */; };
 		391C0C8422BD2551003DC252 /* feature_to_osm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 391C0C8222BD2551003DC252 /* feature_to_osm.hpp */; };
@@ -252,9 +252,9 @@
 		3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto.bin; path = ../../data/drules_proto.bin; sourceTree = "<group>"; };
 		3496ABA21DC1FA7200C5DDBA /* editor.config */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = editor.config; path = ../../data/editor.config; sourceTree = "<group>"; };
 		3496ABA41DC1FA9E00C5DDBA /* categories.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = categories.txt; path = ../../data/categories.txt; sourceTree = "<group>"; };
-		3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries_meta.txt; path = ../../data/countries_meta.txt; sourceTree = "<group>"; };
+		3496ABA51DC1FA9E00C5DDBA /* metadata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = metadata.json; path = ../../data/countries/metadata.json; sourceTree = "<group>"; };
 		3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries_names.txt; path = ../../data/countries_names.txt; sourceTree = "<group>"; };
-		3496ABA81DC1FA9E00C5DDBA /* countries.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = "<group>"; };
+		3496ABA81DC1FA9E00C5DDBA /* countries.json */ = {isa = PBXFileReference; lastKnownFileType = text; name = countries.json; path = ../../data/countries/countries.json; sourceTree = "<group>"; };
 		3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = "minsk-pass.mwm"; path = "../../data/minsk-pass.mwm"; sourceTree = "<group>"; };
 		34AF87D11DBE540700E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34AF87D21DBE540700E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
@@ -485,9 +485,9 @@
 				4052928E21496D2B00D821F1 /* categories_cuisines.txt */,
 				3496ABA41DC1FA9E00C5DDBA /* categories.txt */,
 				3496AB941DC1F9FA00C5DDBA /* classificator.txt */,
-				3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */,
+				3496ABA51DC1FA9E00C5DDBA /* metadata.json */,
 				3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */,
-				3496ABA81DC1FA9E00C5DDBA /* countries.txt */,
+				3496ABA81DC1FA9E00C5DDBA /* countries.json */,
 				3496AB981DC1FA5200C5DDBA /* drules_proto_clear.bin */,
 				3496AB991DC1FA5200C5DDBA /* drules_proto_dark.bin */,
 				3496AB9C1DC1FA5200C5DDBA /* drules_proto.bin */,
@@ -917,9 +917,9 @@
 			files = (
 				3496ABAF1DC1FAC900C5DDBA /* minsk-pass.mwm in Resources */,
 				3496ABA91DC1FA9E00C5DDBA /* categories.txt in Resources */,
-				3496ABAA1DC1FA9E00C5DDBA /* countries_meta.txt in Resources */,
+				3496ABAA1DC1FA9E00C5DDBA /* metadata.json in Resources */,
 				3496ABAB1DC1FA9E00C5DDBA /* countries_names.txt in Resources */,
-				3496ABAD1DC1FA9E00C5DDBA /* countries.txt in Resources */,
+				3496ABAD1DC1FA9E00C5DDBA /* countries.json in Resources */,
 				3496ABA31DC1FA7200C5DDBA /* editor.config in Resources */,
 				3496AB9D1DC1FA5200C5DDBA /* drules_proto_clear.bin in Resources */,
 				3496AB9E1DC1FA5200C5DDBA /* drules_proto_dark.bin in Resources */,

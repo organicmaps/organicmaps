@@ -194,7 +194,7 @@ PedestrianModelFactory::PedestrianModelFactory(CountryParentNameGetterFn const &
   using namespace pedestrian_model;
   using std::make_shared;
 
-  // Names must be the same with country names from countries.txt
+  // Names must be the same with country names from countries.json
   m_models[""] = make_shared<PedestrianModel>(kDefaultOptions);
 
   m_models["Australia"] = make_shared<PedestrianModel>(AllAllowed());
