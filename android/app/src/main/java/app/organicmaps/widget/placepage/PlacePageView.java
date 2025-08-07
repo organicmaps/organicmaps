@@ -257,6 +257,9 @@ public class PlacePageView extends Fragment
     mColorIcon = mFrame.findViewById(R.id.item_icon);
     mTvCategory = mFrame.findViewById(R.id.tv__category);
     mEditBookmark = mFrame.findViewById(R.id.edit_Bookmark);
+    mColorIcon.setOnClickListener(this);
+    mTvCategory.setOnClickListener(this);
+    mEditBookmark.setOnClickListener(this);
 
     MaterialButton shareButton = mPreview.findViewById(R.id.share_button);
     shareButton.setOnClickListener(this::shareClickListener);
@@ -480,7 +483,6 @@ public class PlacePageView extends Fragment
           Graphics.drawCircle(track.getColor(), R.dimen.place_page_icon_size, requireContext().getResources());
       mColorIcon.setImageDrawable(circle);
       mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(track.getCategoryId()).getName());
-      UiUtils.show(mColorIcon, mTvCategory, categoryContainer);
     }
     else if (mMapObject.isBookmark())
     {
@@ -492,13 +494,9 @@ public class PlacePageView extends Fragment
                                                       R.dimen.place_page_icon_mark_size, requireContext());
         mColorIcon.setImageDrawable(circle);
         mTvCategory.setText(BookmarkManager.INSTANCE.getCategoryById(bookmark.getCategoryId()).getName());
-        UiUtils.show(mColorIcon, mTvCategory, categoryContainer);
       }
     }
-
-    mColorIcon.setOnClickListener(this::onClick);
-    mTvCategory.setOnClickListener(this::onClick);
-    mEditBookmark.setOnClickListener(this::onClick);
+    UiUtils.showIf(mMapObject.isTrack() || mMapObject.isBookmark(), categoryContainer);
   }
 
   void showColorDialog()
