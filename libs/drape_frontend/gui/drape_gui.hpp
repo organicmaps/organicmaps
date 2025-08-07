@@ -17,12 +17,17 @@ class ScreenBase;
 namespace gui
 {
 class RulerHelper;
+namespace speed_limit
+{
+class SpeedLimit;
+}
 
 class DrapeGui
 {
 public:
   static DrapeGui & Instance();
   static RulerHelper & GetRulerHelper();
+  static speed_limit::SpeedLimit & GetSpeedLimitHelper();
 
   static dp::FontDecl GetGuiTextFont();
 
@@ -45,6 +50,7 @@ public:
 private:
   DrapeGui();
   RulerHelper & GetRulerHelperImpl();
+  speed_limit::SpeedLimit & GetSpeedLimitHelperImpl();
 
   struct Impl;
   std::unique_ptr<Impl> m_impl;

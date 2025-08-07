@@ -50,7 +50,7 @@ class GLTypeWrapper;
 
 BIND_GL_TYPE(float, gl_const::GLFloatType)
 BIND_GL_TYPE(glsl::vec2, gl_const::GLFloatVec2)
-BIND_GL_TYPE(glsl::vec3, gl_const::GLFloatVec4)
+BIND_GL_TYPE(glsl::vec3, gl_const::GLFloatVec3)
 BIND_GL_TYPE(glsl::vec4, gl_const::GLFloatVec4)
 BIND_GL_TYPE(glsl::mat4, gl_const::GLFloatMat4)
 BIND_GL_TYPE(int, gl_const::GLIntType)
@@ -162,9 +162,17 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   Parameter::CheckApply(guard, "u_projection", params.m_projection);
   Parameter::CheckApply(guard, "u_contrastGamma", params.m_contrastGamma);
   Parameter::CheckApply(guard, "u_position", params.m_position);
+
+  Parameter::CheckApply(guard, "u_color", params.m_color);
+  Parameter::CheckApply(guard, "u_outlineColor", params.m_outlineColor);
+  Parameter::CheckApply(guard, "u_edgeColor", params.m_edgeColor);
+
   Parameter::CheckApply(guard, "u_isOutlinePass", params.m_isOutlinePass);
   Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
   Parameter::CheckApply(guard, "u_length", params.m_length);
+
+  Parameter::CheckApply(guard, "u_outlineWidthRatio", params.m_outlineWidthRatio);
+  Parameter::CheckApply(guard, "u_edgeWidthRatio", params.m_edgeWidthRatio);
 }
 
 void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
