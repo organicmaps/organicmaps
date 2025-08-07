@@ -2,15 +2,9 @@
 
 #include "indexer/drawing_rule_def.hpp"
 #include "indexer/drules_selector.hpp"
-#include "indexer/map_style.hpp"
-
-#include "base/base.hpp"
-#include "base/buffer_vector.hpp"
 
 #include "std/target_os.hpp"
 
-#include <array>
-#include <iostream>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -89,7 +83,8 @@ private:
   std::vector<BaseRule *> m_dRules;
 };
 
-RulesHolder & rules();
+RulesHolder & GetCurrentRules();
+RulesHolder & GetOutdoorRules();
 
 void LoadRules();
 }  // namespace drule

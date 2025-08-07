@@ -114,12 +114,24 @@ ClassifObject const * ClassifObject::GetObject(size_t i) const
 /////////////////////////////////////////////////////////////////////////////////////////
 // Classificator implementation
 /////////////////////////////////////////////////////////////////////////////////////////
+namespace
+{
+Classificator & GetClassifImpl(MapStyle mapStyle)
+{
+  static Classificator c[MapStyleCount];
+  return c[mapStyle];
+}
+}  // namespace
 
 Classificator & classif()
 {
-  static Classificator c[MapStyleCount];
-  MapStyle const mapStyle = GetStyleReader().GetCurrentStyle();
-  return c[mapStyle];
+  return GetClassifImpl(GetStyleReader().GetCurrentStyle());
+}
+
+Classificator & GetOutdoorClassif()
+{
+  auto const style = GetStyleReader().GetCurrentStyle();
+  return GetClassifImpl(MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight);
 }
 
 namespace ftype

@@ -13,8 +13,6 @@
 
 #include "cppjansson/cppjansson.hpp"
 
-#include <fstream>
-
 namespace
 {
 std::string const kTransitColorFileName = "transit_colors.txt";
@@ -124,7 +122,7 @@ dp::Color GetColorConstant(ColorConstant const & constant)
 {
   if (IsTransitColor(constant))
     return TransitColors().GetColor(constant);
-  uint32_t const color = drule::rules().GetColor(constant);
+  uint32_t const color = drule::GetCurrentRules().GetColor(constant);
   return ToDrapeColor(color);
 }
 

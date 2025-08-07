@@ -1,6 +1,5 @@
 #pragma once
 
-#include "indexer/drawing_rule_def.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
@@ -10,11 +9,6 @@
 #include <string>
 
 class FeatureType;
-
-namespace drule
-{
-class BaseRule;
-}
 
 namespace df
 {
@@ -71,14 +65,14 @@ public:
 
   ftypes::RoadShieldsSetT m_roadShields;
 
-  Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang);
+  CaptionDescription m_captionDescriptor;
 
-  CaptionDescription const & GetCaptionDescription() const { return m_captionDescriptor; }
+  Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle);
 
 private:
   void ProcessKey(FeatureType & f, drule::Key const & key);
 
-  CaptionDescription m_captionDescriptor;
+  drule::RulesHolder const & m_rulesHolder;
 };
 
 }  // namespace df

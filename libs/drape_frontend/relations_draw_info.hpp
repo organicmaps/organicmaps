@@ -31,6 +31,7 @@ public:
 
   explicit RelationsDrawInfo(RelationsDrawSettings const & sett) : m_sett(sett) {}
 
+  bool HasHikingOrCycling(FeatureType & ft) const;
   void Init(FeatureType & ft);
 
   template <class FnT>

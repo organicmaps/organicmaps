@@ -4,10 +4,6 @@
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
-#include "defines.hpp"
-
-#include "platform/platform.hpp"
-
 #include "base/logging.hpp"
 
 #include <functional>
@@ -129,9 +125,15 @@ RulesHolder & rules(MapStyle mapStyle)
 }
 }  // namespace
 
-RulesHolder & rules()
+RulesHolder & GetCurrentRules()
 {
   return rules(GetStyleReader().GetCurrentStyle());
+}
+
+RulesHolder & GetOutdoorRules()
+{
+  auto const style = GetStyleReader().GetCurrentStyle();
+  return rules(MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight);
 }
 
 namespace
@@ -413,7 +415,7 @@ void LoadRules()
 {
   string buffer;
   GetStyleReader().GetDrawingRulesReader().ReadAsString(buffer);
-  rules().LoadFromBinaryProto(buffer);
+  GetCurrentRules().LoadFromBinaryProto(buffer);
 }
 
 }  // namespace drule
