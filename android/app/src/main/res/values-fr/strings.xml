@@ -904,4 +904,11 @@
     <string name="saved">Sauvé</string>
     <string name="osm_note_hint">Ou alors laissez une note à la communauté OpenStreetMap pour que quelqu\'un d\'autre puisse ajouter ou réparer un endroit ici.</string>
     <string name="osm_note_toast">Votre note sera envoyée à OpenStreetMap</string>
+    <string name="routes_update_maps_text">Pour afficher les itinéraires, les cartes doivent être mises à jour.</string>
+    <string name="bookmarks_text_placement_title">Marquer les noms sur la carte</string>
+    <string name="bookmarks_text_placement_description">S\'il y a trop de signets, l\'affichage de leurs noms sur la carte peut ralentir l\'application.</string>
+    <string name="show_to_the_right">Afficher à droite</string>
+    <string name="show_at_the_bottom">Afficher en bas</string>
+    <string name="share_track">Partager la piste</string>
+    <string name="delete_track_dialog_title">Supprimer %s ?</string>
 </resources>

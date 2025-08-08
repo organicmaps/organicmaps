@@ -884,4 +884,5 @@
     <string name="show_at_the_bottom">Megjelenítés alul</string>
     <string name="share_track">Nyomvonal megosztása</string>
     <string name="delete_track_dialog_title">Törli a következőt: %s?</string>
+    <string name="routes_update_maps_text">Az útvonalak megjelenítéséhez frissíteni kell a térképeket.</string>
 </resources>
