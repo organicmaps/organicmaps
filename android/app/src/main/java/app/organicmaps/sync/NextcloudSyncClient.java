@@ -2,7 +2,7 @@ package app.organicmaps.sync;
 
 import android.net.Uri;
 import android.os.Handler;
-import android.os.Looper;
+import android.os.HandlerThread;
 import android.util.Base64;
 import android.util.Xml;
 import androidx.annotation.Nullable;
@@ -326,6 +326,7 @@ public class NextcloudSyncClient extends SyncClient
     private static final int LOCKFILE_REFRESH_INTERVAL_MS = 15_000;
 
     private boolean mStopped = false;
+    private final HandlerThread mHandlerThread;
     private final Handler mHandler;
 
     ///  Lockfile renewal runnable.
@@ -348,13 +349,15 @@ public class NextcloudSyncClient extends SyncClient
 
     private NcEditSession() throws Syncer.LockAlreadyHeldException, SyncOpException
     {
-      mHandler = new Handler(Objects.requireNonNull(Looper.myLooper()));
+      mHandlerThread = new HandlerThread("NcSync"); // used only for renewing lockfile
+      mHandlerThread.start();
+      mHandler = new Handler(mHandlerThread.getLooper());
       long lastLocked = msSinceLastLocked();
       if (lastLocked < LOCKFILE_VALIDITY_DURATION_MS)
         throw new Syncer.LockAlreadyHeldException(LOCKFILE_VALIDITY_DURATION_MS - lastLocked);
 
       touchLockfile();
-      mHandler.postDelayed(this, LOCKFILE_REFRESH_INTERVAL_MS); // TODO(savsch) Does this even fire at all?
+      mHandler.postDelayed(this, LOCKFILE_REFRESH_INTERVAL_MS);
     }
 
     @Override
@@ -399,6 +402,13 @@ public class NextcloudSyncClient extends SyncClient
     {
       mStopped = true;
       mHandler.removeCallbacks(this);
+      mHandlerThread.quit();
+      try
+      {
+        mHandlerThread.join();
+      }
+      catch (InterruptedException ignored)
+      {}
       deleteLockFile();
     }
 

@@ -151,6 +151,7 @@ public enum SyncManager
 
   private void syncAllAccounts()
   {
+    Logger.i(TAG, "Started syncAllAccounts");
     for (Map.Entry<SyncAccount, Syncer> entry : mSyncers.entrySet())
     {
       try
@@ -386,23 +387,7 @@ public enum SyncManager
         workerRunning = true;
         try
         {
-          HandlerThread handlerThread = new HandlerThread("SyncThread");
-          handlerThread.start();
-          Handler handler = new Handler(handlerThread.getLooper());
-          handler.post(() -> {
-            Logger.i(TAG, "Started syncAllAccounts");
-            SyncManager.INSTANCE.syncAllAccounts();
-            Objects.requireNonNull(Looper.myLooper()).quit();
-          });
-          try
-          {
-            handlerThread.join();
-          }
-          catch (InterruptedException e)
-          {
-            throw new RuntimeException(e);
-          }
-
+          SyncManager.INSTANCE.syncAllAccounts();
           SyncPrefs.getInstance(MwmApplication.sInstance).setLastRun(System.currentTimeMillis());
 
           if (SyncManager.INSTANCE.countActiveAccounts() < 1)
