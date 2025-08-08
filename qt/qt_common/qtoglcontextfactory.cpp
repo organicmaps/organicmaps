@@ -51,7 +51,10 @@ GLuint QtOGLContextFactory::GetTextureHandle() const
 dp::GraphicsContext * QtOGLContextFactory::GetDrawContext()
 {
   if (!m_drawContext)
+  {
+    m_mainThreadReady.wait();
     m_drawContext = std::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get());
+  }
 
   return m_drawContext.get();
 }
@@ -59,9 +62,23 @@ dp::GraphicsContext * QtOGLContextFactory::GetDrawContext()
 dp::GraphicsContext * QtOGLContextFactory::GetResourcesUploadContext()
 {
   if (!m_uploadContext)
+  {
+    m_mainThreadReady.wait();
     m_uploadContext = std::make_unique<QtUploadOGLContext>(m_rootContext, m_uploadSurface.get());
+  }
 
   return m_uploadContext.get();
+}
+
+void QtOGLContextFactory::WaitForInitialization(dp::GraphicsContext * context)
+{
+  if (context == nullptr)
+  {
+    m_mainThreadReady.count_down();
+    m_contextsCreated.wait();
+  }
+  else
+    m_contextsCreated.count_down();
 }
 
 std::unique_ptr<QOffscreenSurface> QtOGLContextFactory::CreateSurface()

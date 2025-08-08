@@ -80,6 +80,9 @@ void SetDefaultSurfaceFormat(QString const & platformName)
 #if defined(OMIM_OS_LINUX)
     LOG(LINFO, ("Set default OpenGL version to ES 3.0"));
     fmt.setVersion(3, 0);
+#elif defined(OMIM_OS_WINDOWS)
+    fmt.setProfile(QSurfaceFormat::CompatibilityProfile);
+    fmt.setVersion(3, 2);
 #else
     LOG(LINFO, ("Set default OGL version to 3.2"));
     fmt.setProfile(QSurfaceFormat::CoreProfile);
@@ -87,7 +90,7 @@ void SetDefaultSurfaceFormat(QString const & platformName)
 #endif
   }
 
-#ifdef ENABLE_OPENGL_DIAGNOSTICS
+#if defined(ENABLE_OPENGL_DIAGNOSTICS)
   fmt.setOption(QSurfaceFormat::DebugContext);
 #endif
   QSurfaceFormat::setDefaultFormat(fmt);
