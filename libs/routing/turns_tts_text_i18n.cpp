@@ -35,7 +35,7 @@ bool EndsInAcronymOrNum(strings::UniString const & myUniStr)
 
   bool allUppercaseNum = true;
   strings::UniString lowerStr = strings::MakeLowerCase(myUniStr);
-  for (int i = myUniStr.size() - 1; i > 0; i--)
+  for (long i = myUniStr.size() - 1; i > 0; i--)
   {
     // if we've reached a space, we're done here
     if (myUniStr[i] == ' ')

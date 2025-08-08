@@ -24,7 +24,7 @@ public:
   void MakeCurrent() override;
   void DoneCurrent() override;
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
-  void Resize(int w, int h) override;
+  void Resize(uint32_t w, uint32_t h) override;
 
   bool AcquireFrame();
   GLuint GetTextureHandle() const;

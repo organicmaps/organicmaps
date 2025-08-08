@@ -214,7 +214,6 @@ void AppendValue(NodeInfo & node, Value const & value)
   // order so the values are supposed to be accumulated in the
   // sorted order and we can avoid sorting them before doing
   // further operations such as ValueList construction.
-  using namespace std::rel_ops;
   ASSERT(node.m_temporaryValueList.empty() || node.m_temporaryValueList.back() <= value,
          (node.m_temporaryValueList.size()));
   if (!node.m_temporaryValueList.empty() && node.m_temporaryValueList.back() == value)

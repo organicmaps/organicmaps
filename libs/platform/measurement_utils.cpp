@@ -198,7 +198,7 @@ double MpsToUnits(double metersPerSecond, Units units)
   UNREACHABLE();
 }
 
-int FormatSpeed(double metersPerSecond, Units units)
+long FormatSpeed(double metersPerSecond, Units units)
 {
   return std::lround(MpsToUnits(metersPerSecond, units));
 }
@@ -214,8 +214,8 @@ std::string FormatOsmLink(double lat, double lon, int zoom)
 
   // Same as (lon + 180) / 360 * 1UL << 32, but without warnings.
   double constexpr factor = (1 << 30) / 90.0;
-  uint32_t const x = std::lround((lon + 180.0) * factor);
-  uint32_t const y = std::lround((lat + 90.0) * factor * 2.0);
+  auto const x = static_cast<uint32_t>(std::lround((lon + 180.0) * factor));
+  auto const y = static_cast<uint32_t>(std::lround((lat + 90.0) * factor * 2.0));
   uint64_t const code = bits::BitwiseMerge(y, x);
   std::string osmUrl = "https://osm.org/go/";
 

@@ -244,9 +244,9 @@ FreetypeError constexpr g_FT_Errors[] =
         auto const & currPos = glyphPos[i];
 
         auto const & metrics = m_fontFace->glyph->metrics;
-        auto const xOffset = (currPos.x_offset + static_cast<int32_t>(metrics.horiBearingX)) >> 6;
+        auto const xOffset = static_cast<int32_t>((currPos.x_offset + metrics.horiBearingX) >> 6);
         // The original Drape code expects a bottom, not a top offset in its calculations.
-        auto const yOffset = (currPos.y_offset + static_cast<int32_t>(metrics.horiBearingY) - metrics.height) >> 6;
+        auto const yOffset = static_cast<int32_t>((currPos.y_offset + metrics.horiBearingY - metrics.height) >> 6);
         int32_t const xAdvance = currPos.x_advance >> 6;
         // yAdvance is always zero for horizontal text layouts.
 
