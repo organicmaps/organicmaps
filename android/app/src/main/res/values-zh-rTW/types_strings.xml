@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="type.amenity.parking.lane.private">私人車道停車</string>
+    <string name="type.craft.photographer">攝影師</string>
+    <string name="type.cuisine.noodles">麵食</string>
+    <string name="type.healthcare.laboratory">醫學實驗室</string>
+    <string name="type.man_made.silo">筒倉</string>
+    <string name="type.power.plant.gas">燃氣輪機發電廠</string>
+    <string name="type.railway.narrow_gauge.bridge">窄軌鐵路橋樑</string>
+    <string name="type.shop.chemist">藥妝店</string>
+    <string name="type.tourism.information.visitor_centre">遊客中心</string>
+    <string name="type.tourism.viewpoint">觀景點</string>
+</resources>

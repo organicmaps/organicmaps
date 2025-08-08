@@ -908,4 +908,5 @@
     <string name="show_at_the_bottom">Εμφάνισε στο κάτω μέρος</string>
     <string name="share_track">Κοινοποίηση ίχνους</string>
     <string name="delete_track_dialog_title">Διαγραφή %s;</string>
+    <string name="routes_update_maps_text">Για την προβολή των διαδρομών, οι χάρτες πρέπει να είναι ενημερωμένοι.</string>
 </resources>

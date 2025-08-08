@@ -9,7 +9,7 @@
     <string name="delete">刪除</string>
     <string name="download_maps">下載地圖</string>
     <!-- Settings/Downloader - info for country when download fails -->
-    <string name="download_has_failed">下載失敗，點擊後再試一次</string>
+    <string name="download_has_failed">下載失敗，點擊後再試一次。</string>
     <!-- Settings/Downloader - info for country which started downloading -->
     <string name="downloading">下載中…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
@@ -47,7 +47,7 @@
     <!-- Text in About screen -->
     <string name="about_proposition_2">• 無需耗費太多電量，可離線工作</string>
     <!-- Text in About screen -->
-    <string name="about_proposition_3">• 快速且簡約，由社區開發</string>
+    <string name="about_proposition_3">• 快速且簡約，由社群開發</string>
     <!-- Text in About screen -->
     <string name="about_developed_by_enthusiasts">由愛好者和志願者開發的開源應用程式。</string>
     <!-- The button that opens system location settings -->
@@ -58,9 +58,8 @@
     <!-- Used in DownloadResources startup screen -->
     <string name="disconnect_usb_cable">請拔除 USB 線或插入 SD 卡以使用 Organic Maps</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="not_enough_free_space_on_sdcard">請先釋放一些 SD 卡 / USB 儲存空間以使用 Organic Maps。</string>
-    <string name="download_resources">在您開始使用此應用程式之前，請下載全球地圖到您的裝置。
-\n它將使用 %s 的儲存空間。</string>
+    <string name="not_enough_free_space_on_sdcard">請先釋放一些 SD 卡 / USB 儲存空間以使用 Organic Maps</string>
+    <string name="download_resources">在您開始使用此應用程式之前，請下載全球地圖到您的裝置。\n它將使用 %s 的儲存空間。</string>
     <string name="download_resources_continue">前往地圖</string>
     <string name="downloading_country_can_proceed">正在下載%s。您現在可以
 \n繼續查看地圖。</string>
@@ -117,7 +116,6 @@
     <string name="measurement_units">測量單位</string>
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">選擇公里或英哩</string>
-
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
     <string name="category_eat">在哪裡吃</string>
@@ -165,7 +163,6 @@
     <string name="category_water">水</string>
     <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
     <string name="category_rv">露營車設施</string>
-
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">註釋</string>
@@ -177,7 +174,7 @@
 \n
 \n祝您使用 Organic Maps 旅行愉快！</string>
     <!-- message title of loading file -->
-    <string name="load_kmz_title">正在載入書籤…</string>
+    <string name="load_kmz_title">正在載入書籤</string>
     <!-- Kmz file successful loading -->
     <string name="load_kmz_successful">書籤載入成功！ 您可以在地圖或書籤管理畫面中找到它們。</string>
     <!-- Kml file loading failed -->
@@ -370,13 +367,12 @@
     <string name="gray">灰色</string>
     <!-- blue gray color -->
     <string name="blue_gray">藍灰色</string>
-
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_title">依照路線行進時，請牢記：</string>
     <string name="dialog_routing_disclaimer_priority">— 路況、交通法規和路標始終優先於導航建議；</string>
     <string name="dialog_routing_disclaimer_precision">— 地圖可能不準確，建議的路線可能並非總是前往目的地的最佳路線；</string>
     <string name="dialog_routing_disclaimer_recommendations">— 建議的路線僅作為推薦路線供您參考；</string>
-    <string name="dialog_routing_disclaimer_borders">— 小心對待國界區的路線：我們的應用程式建立的路線有時會在未經授權的地方跨越國界；</string>
+    <string name="dialog_routing_disclaimer_borders">— 小心評估經過國界的路線：我們的應用程式建立的路線有時會在未經授權的地方跨越國界。</string>
     <string name="dialog_routing_disclaimer_beware">上路時請當心，祝您一路平安！</string>
     <string name="dialog_routing_check_gps">檢查 GPS 訊號</string>
     <string name="dialog_routing_error_location_not_found">無法規劃路線。無法識別目前 GPS 座標。</string>
@@ -400,7 +396,6 @@
     <string name="not_now">以後再說</string>
     <string name="dialog_routing_download_and_build_cross_route">您是否要下載地圖，以規劃跨越邊界的更佳路線？</string>
     <string name="dialog_routing_download_cross_route">下載地圖，以規劃一條跨越邊界的更佳路線。</string>
-
     <!-- SECTION: Strings for downloading map from search -->
     <string name="search_without_internet_advertisement">要開始搜索和規劃路線，請下載地圖，然後您就不再需要網絡連接了。</string>
     <string name="search_select_map">選擇地圖</string>
@@ -471,7 +466,7 @@
     <string name="not_signed_in">未登入</string>
     <string name="login_osm">登錄 OpenStreetMap</string>
     <string name="password">密碼</string>
-    <string name="forgot_password">忘記密碼</string>
+    <string name="forgot_password">忘記密碼嗎？</string>
     <string name="logout">登出</string>
     <string name="edit_place">編輯地點</string>
     <string name="add_language">新增語言</string>
@@ -517,9 +512,9 @@
     <string name="placepage_add_business_button">將地點添加到</string>
     <string name="message_invalid_feature_position">地點無法放置在這裡</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
-    <string name="osm_presentation">截至 %s 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多資訊。</string>
+    <string name="osm_presentation">截至 %s 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多資訊</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) 是一個建立免費開放地圖的社群專案。它是有機地圖中地圖數據的主要來源，其工作方式類似於維基百科。您可以新增或編輯地點，全世界數百萬用戶都可以使用它們。</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) 是一個建立免費開放地圖的社群專案。它是Organic Maps中地圖資料的主要來源，其工作方式類似於維基百科。您可以新增或編輯地點，全世界數百萬用戶都可以使用它們。\n加入社群來幫忙大家建造更好的地圖！</string>
     <string name="login_to_make_edits_visible">建立 OpenStreetMap 帳戶或登入以向全世界發布您的地圖編輯。</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d / %2$d</string>
@@ -614,7 +609,7 @@
     <string name="enable_logging">啟用日誌記錄</string>
     <!-- Settings: "Send general feedback" button -->
     <string name="feedback_general">一般反應</string>
-    <string name="prefs_languages_information">我們的語音導航使用“文字轉語音”系統。許多 Android 裝置使用 Google 的文字轉語音系統，您可以從 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下載或更新這一功能。</string>
+    <string name="prefs_languages_information">我們的語音導航使用“文字轉語音”系統。許多 Android 裝置使用 Google 的文字轉語音系統，您可以從 Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts) 下載或更新這一功能</string>
     <string name="prefs_languages_information_off">對於某些語言，您需要從應用商店（例如 Google Play Store、Galaxy Store）中安裝其他語音合成器或語言套件。
 \n打開您的裝置的設定 → 語言和輸入法 → 語音 → 文字轉語音 (TTS) 輸出。
 \n您可以在這裡管理語音合成的設定（例如，下載語言包供離線使用）和選擇其他文字轉語音引擎。</string>
@@ -634,7 +629,7 @@
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">請登入 OpenStreetMap 以自動上傳您的所有地圖編輯。若要了解更多資訊請點擊<a href="https://github.com/organicmaps/organicmaps/issues/6144">這裡</a>。</string>
     <string name="dialog_error_storage_title">儲存空間存儲問題</string>
-    <string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後透過 support\@organicmaps.app 聯絡我們。</string>
+    <string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後透過 support@organicmaps.app 聯絡我們</string>
     <string name="setting_emulate_bad_storage">模擬不良儲存空間</string>
     <string name="core_entrance">入口</string>
     <string name="error_enter_correct_name">請輸入正確的名稱</string>
@@ -673,8 +668,8 @@
     <string name="terms_of_use">使用條款</string>
     <string name="button_layer_traffic">路況</string>
     <string name="button_layer_subway">捷運</string>
-    <string name="button_layer_hiking">登山健行</string>
-    <string name="button_layer_cycling">自行車</string>
+    <string name="button_layer_hiking">登山</string>
+    <string name="button_layer_cycling">單車</string>
     <string name="layers_title">地圖樣式和圖層</string>
     <string name="subway_data_unavailable">捷運圖層不可用</string>
     <string name="bookmarks_empty_list_title">該列表為空</string>
@@ -697,7 +692,7 @@
     <!-- Speed camera settings menu option - Never warn (about speedcams) -->
     <string name="pref_tts_speedcams_never">永遠不會對測速照相機發出警告</string>
     <string name="power_managment_title">省電模式</string>
-    <string name="power_managment_description">如果開啟省電模式，應用程序將根據手機的當前電量關閉耗電功能</string>
+    <string name="power_managment_description">如果開啟省電模式，應用程序將根據手機的當前電量關閉耗電功能。</string>
     <string name="power_managment_setting_never">從不</string>
     <string name="power_managment_setting_auto">當電量低時</string>
     <string name="power_managment_setting_manual_max">最大程度省電</string>
@@ -712,7 +707,7 @@
     <string name="avoid_ferry">避開渡輪</string>
     <string name="avoid_motorways">避開高速公路</string>
     <string name="unable_to_calc_alert_title">無法規劃路線</string>
-    <string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試</string>
+    <string name="unable_to_calc_alert_subtitle">很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試。</string>
     <string name="define_to_avoid_btn">選擇要避開的道路</string>
     <string name="change_driving_options_btn">繞行設定已開啟</string>
     <string name="toll_road">收費公路</string>
@@ -752,7 +747,6 @@
     <string name="moreyear_ago_sorttype">一年多以前</string>
     <string name="near_me_sorttype">在我附近</string>
     <string name="others_sorttype">其他</string>
-
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="food_places">食物</string>
     <string name="tourist_places">旅遊景點</string>
@@ -772,7 +766,7 @@
     <string name="religious_places">宗教場所</string>
     <string name="select_list">選擇列表</string>
     <string name="transit_not_found">本區域的捷運導航目前不可用</string>
-    <string name="dialog_pedestrian_route_is_long_header">未找到捷運路線圖</string>
+    <string name="dialog_pedestrian_route_is_long_header">未找到捷運路線</string>
     <string name="dialog_pedestrian_route_is_long_message">選擇捷運站附近的起點和終點</string>
     <string name="button_layer_isolines">等高線</string>
     <string name="isolines_activation_error_dialog">如需使用等高線，請更新或下載所需區域的地圖</string>
@@ -786,7 +780,7 @@
     <string name="elevation_profile_time">時間：</string>
     <string name="isolines_toast_zooms_1_10">放大地圖以查看等高線</string>
     <string name="downloader_loading_ios">正在下載</string>
-    <string name="download_map_title">下載世界地圖</string>
+    <string name="download_map_title">下載世界總覽地圖</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="disk_error">無法在內部儲存或 SD 卡上建立資料夾和移動檔案</string>
     <!-- Used in DownloadResources startup screen -->
@@ -845,7 +839,7 @@
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">此應用程式需要您的許可</string>
     <!-- The text in the activity for location permission request. -->
-    <string name="aa_request_permission_activity_text">Android Auto 中的有機地圖需要位置權限才能有效運作</string>
+    <string name="aa_request_permission_activity_text">Android Auto 中的 Organic Maps 需要位置權限才能有效運作</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">授予權限</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
@@ -869,7 +863,7 @@
     <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
     <string name="view_menu">查看選單</string>
     <!-- Title for the "Open in Another App" button on the PlacePage. -->
-    <string name="open_in_app">在另一個應用程式中打開</string>
+    <string name="open_in_app">在另一個應用程式中開啟</string>
     <!-- To indicate if the place proposed self service... -->
     <string name="self_service">自助服務</string>
     <string name="select_option">選擇選項</string>
@@ -890,10 +884,32 @@
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">軌跡為空 - 沒有可保存的內容</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
-    <string name="error_no_file_manager_app">無法顯示資料夾選擇對話框，因為您的裝置上沒有安裝合適的應用程式。請安裝檔案總管應用程式並重試</string>
+    <string name="error_no_file_manager_app">無法顯示資料夾選擇對話框，因為您的裝置上沒有安裝合適的應用程式。請安裝檔案總管應用程式並重試。</string>
     <string name="choose_color">選擇顏色</string>
     <string name="edit_track">編輯軌跡</string>
     <string name="uri_open_location_failed">沒有安裝可以打開該位置的應用程式</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">自動導航</string>
+    <string name="bookmarks_text_placement_title">將地圖上的名稱加入書籤</string>
+    <string name="bookmarks_text_placement_description">如果有太多書籤，將這些名稱顯示在地圖上將拖慢 app 的速度。</string>
+    <string name="show_to_the_right">顯示在右側</string>
+    <string name="show_at_the_bottom">顯示在底部</string>
+    <string name="routes_update_maps_text">要顯示路線，必須先更新地圖。</string>
+    <string name="saved">已經儲存</string>
+    <string name="github">GitHub</string>
+    <string name="telegram">Telegram</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="instagram">Instagram</string>
+    <string name="vk">VK</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="openstreetmap">開放街圖</string>
+    <string name="osm_note_hint">或是，替代的方式是在開放街圖留下註記，由社群成員來新增或是修正這裡的錯誤。</string>
+    <string name="osm_note_toast">註解會被傳送至開放街圖</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="share_track">分享軌跡</string>
+    <string name="delete_track_dialog_title">刪除 %s？</string>
 </resources>

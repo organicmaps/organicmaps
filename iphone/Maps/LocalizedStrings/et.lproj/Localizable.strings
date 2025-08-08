@@ -970,7 +970,7 @@
 "car_continue_in_the_car" = "Auto ekraanile";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Matkamine";
+"button_layer_outdoor" = "Matkamine ja seiklemine";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Ekspordi kõik järjehoidjad ja rajad";
@@ -1061,16 +1061,16 @@
 "track_recording_toast_nothing_to_save" = "Rada on tühi - ei ole midagi salvestada";
 "edit_track" = "Muuda rada";
 "saved" = "Salvestatud";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"button_layer_hiking" = "Matkamine";
+"button_layer_cycling" = "Jalgrattasõit";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
+"bookmarks_text_placement_title" = "Kaardil leiduvate järjehoidjate nimed";
+"bookmarks_text_placement_description" = "Kui kaardil on palu järjehoidjaid, siis nende nimede kuvamine aeglustab kaardi joonistamist.";
+"show_to_the_right" = "Näita paremale";
+"right" = "Paremal";
+"show_at_the_bottom" = "Näita alla";
+"bottom" = "All";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Teekondade kuvamiseks peavad kaardid olema uuendatud.";

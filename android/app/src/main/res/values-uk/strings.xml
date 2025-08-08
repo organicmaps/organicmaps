@@ -916,4 +916,5 @@
     <string name="show_at_the_bottom">Показати внизу</string>
     <string name="share_track">Поділитися треком</string>
     <string name="delete_track_dialog_title">Видалити %s?</string>
+    <string name="routes_update_maps_text">Для відображення маршрутів карти необхідно оновити.</string>
 </resources>

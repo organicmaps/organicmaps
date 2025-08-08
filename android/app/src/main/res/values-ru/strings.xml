@@ -917,4 +917,8 @@
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="saved">Сохранено</string>
+    <string name="osm_note_hint">Или, в качестве альтернативы, оставьте заметку для сообщества OpenStreetMap, чтобы кто-то другой мог добавить или исправить место здесь.</string>
+    <string name="osm_note_toast">Ваша заметка будет отправлена в OpenStreetMap</string>
+    <string name="share_track">Поделиться треком</string>
+    <string name="delete_track_dialog_title">Удалить %s?</string>
 </resources>

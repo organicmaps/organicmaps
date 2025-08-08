@@ -811,7 +811,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Anna luba</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Matkamine</string>
+    <string name="button_layer_outdoor">Matkamine ja seiklemine</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Veebibrauser ei ole saadaval</string>
     <string name="volume">Helivaljus</string>
@@ -885,4 +885,13 @@
     <string name="saved">Salvestatud</string>
     <string name="osm_note_hint">Või alternatiivina lisa märkus OpenStreetMapi kogukonna liikmetele, mis võimaldaks teistel kaardistajatel selle koha lisada või tema andmeid parandada.</string>
     <string name="osm_note_toast">Märkus lisatakse OpenStreetMapi andmebaasi</string>
+    <string name="routes_update_maps_text">Teekondade kuvamiseks peavad kaardid olema uuendatud.</string>
+    <string name="bookmarks_text_placement_title">Kaardil leiduvate järjehoidjate nimed</string>
+    <string name="bookmarks_text_placement_description">Kui kaardil on palu järjehoidjaid, siis nende nimede kuvamine aeglustab kaardi joonistamist.</string>
+    <string name="show_to_the_right">Näita paremale</string>
+    <string name="show_at_the_bottom">Näita alla</string>
+    <string name="delete_track_dialog_title">Kas kustutame %s?</string>
+    <string name="share_track">Jaga rada</string>
+    <string name="button_layer_hiking">Matkamine</string>
+    <string name="button_layer_cycling">Jalgrattasõit</string>
 </resources>

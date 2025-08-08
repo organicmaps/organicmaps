@@ -543,7 +543,7 @@
     <string name="type.aeroway.runway">Писта</string>
     <string name="type.aeroway.taxiway">Място за таксита</string>
     <string name="type.aeroway.terminal">Терминал</string>
-    <string name="type.amenity">Развлечение</string>
+    <string name="type.amenity">Услуга</string>
     <string name="type.amenity.arts_centre">Средище за изкуство</string>
     <string name="type.amenity.atm">Банкомат</string>
     <string name="type.amenity.bank">Банка</string>

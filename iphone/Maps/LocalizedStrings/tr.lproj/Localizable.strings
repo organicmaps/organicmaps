@@ -72,7 +72,7 @@
 "bookmarks" = "Yer İmleri";
 
 /* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
-"bookmarks_and_tracks" = "Yer İmleri ve Kayıtlı Rotalar";
+"bookmarks_and_tracks" = "Yer İmleri ve İzler";
 
 /* Default bookmark list name */
 "core_my_places" = "Yerlerim";
@@ -193,7 +193,7 @@
 "version" = "Organic Maps sürümü: %@";
 
 /* Title for tracks category in bookmarks manager */
-"tracks_title" = "GPS Kayıtları";
+"tracks_title" = "İzler";
 
 /* Length of track in cell that describes route */
 "length" = "Uzunluk";
@@ -732,7 +732,7 @@
 "bookmarks_create_new_group" = "Yeni liste oluştur";
 
 /* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
-"bookmarks_import" = "Yer İmlerini ve Rotaları İçe Aktar";
+"bookmarks_import" = "Yer İmlerini ve İzleri İçe Aktar";
 "downloader_hide_screen" = "Ekranı Gizle";
 "downloader_percent" = "%@ (%@ / %@)";
 "downloader_process" = "%@ indiriliyor…";
@@ -901,19 +901,19 @@
 "whats_new_auto_update_button_later" = "Daha sonra elle güncelle";
 
 /* Delete track button on track edit screen */
-"placepage_delete_track_button" = "Kaydı Sil";
+"placepage_delete_track_button" = "İzi Sil";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "Bu GPS izi kaydını silmek istediğinizden emin misiniz?";
+"placepage_delete_track_confirmation_alert_message" = "Bu izi silmek istediğinizden emin misiniz?";
 
 /* Placeholder for track name input on track edit screen */
-"placepage_track_name_hint" = "GPS İzi Kaydı Adı";
+"placepage_track_name_hint" = "İz Adı";
 
 /* move track or bookmark from the list button text */
 "move" = "Taşı";
 
 /* edit track screen title */
-"track_title" = "GPS İzi Kaydı";
+"track_title" = "İz";
 
 /* Telegram group url for the "?" About page */
 "telegram_url" = "https://t.me/OrganicMapsTR";
@@ -970,10 +970,10 @@
 "car_continue_in_the_car" = "Arabada göster";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "Yürüyüş";
+"button_layer_outdoor" = "Açık Hava";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
-"bookmarks_export" = "Tüm Yer İmlerini ve Kayıtları Dışa Aktar";
+"bookmarks_export" = "Tüm Yer İmlerini ve İzleri Dışa Aktar";
 
 /* Text for the editing the Track's color button. */
 "change_color" = "Renk değiştir";
@@ -992,7 +992,7 @@
 "enable_icloud_synchronization_title" = "iCloud Senkronizasyonunu Etkinleştir";
 
 /* Message for the "Enable iCloud Syncronization" alert. */
-"enable_icloud_synchronization_message" = "iCloud senkronizasyonu geliştirme aşamasında olan deneysel bir özelliktir. Tüm yer imlerinizin ve kayıtlı rotalarınızın yedeğini aldığınızdan emin olun.";
+"enable_icloud_synchronization_message" = "iCloud eşzamanlaması geliştirme aşamasındaki deneysel bir özelliktir. Tüm yer imleri ve izlerinizi yedeklediğinizden emin olun.";
 
 /* Title for the "iCloud Is Disabled" alert. */
 "icloud_disabled_title" = "iCloud Devre Dışı";
@@ -1058,19 +1058,19 @@
 "track_recording_alert_title" = "Yer İmleri ve İzlere kaydedilsin mi?";
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
-"track_recording_toast_nothing_to_save" = "Kaydınız boş - kaydedilecek bir şey yok";
-"edit_track" = "Kaydı Düzenle";
+"track_recording_toast_nothing_to_save" = "İz boş - kaydedilecek bir şey yok";
+"edit_track" = "İzi Düzenle";
 "saved" = "Kaydedildi";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"button_layer_hiking" = "Yürüyüş";
+"button_layer_cycling" = "Bisiklet";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
+"bookmarks_text_placement_title" = "Haritadaki yer imi adları";
+"bookmarks_text_placement_description" = "Eğer çok yer imi varsa, adlarını haritada göstermek uygulamayı yavaşlatabilir.";
+"show_to_the_right" = "Sağa doğru göster";
+"right" = "Sağ";
+"show_at_the_bottom" = "Altta göster";
+"bottom" = "Alt";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Rotaları görüntülemek için haritalar güncellenmelidir.";
