@@ -77,7 +77,7 @@
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Yer İmleri</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
-    <string name="bookmarks_and_tracks">Yer İmleri ve Kayıtlı Rotalar</string>
+    <string name="bookmarks_and_tracks">Yer İmleri ve İzler</string>
     <!-- Default bookmark list name -->
     <string name="core_my_places">Yerlerim</string>
     <!-- Add bookmark dialog - bookmark name -->
@@ -214,7 +214,7 @@
     <!-- Confirmation for OpenStreetMap log out. -->
     <string name="osm_log_out_confirmation">OpenStreetMap hesabınızdan çıkış yapmak istediğinizden emin misiniz?</string>
     <!-- Title for tracks category in bookmarks manager -->
-    <string name="tracks_title">GPS Kayıtları</string>
+    <string name="tracks_title">İzler</string>
     <!-- Length of track in cell that describes route -->
     <string name="length">Uzunluk</string>
     <string name="share_my_location">Konumumu Paylaş</string>
@@ -575,7 +575,7 @@
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap editörleri değişikliklerinizi denetleyecek ve bir soruları olursa sizinle iletişime geçecek.</string>
     <string name="navigation_stop_button">Dur</string>
     <!-- Shown as toast when starting the recent track recording -->
-    <string name="track_recording">GPS iziniz kaydediliyor</string>
+    <string name="track_recording">İz kaydediliyor</string>
     <!-- For the first routing -->
     <string name="accept">Kabul Et</string>
     <!-- For the first routing -->
@@ -629,7 +629,7 @@
     </plurals>
     <string name="bookmarks_create_new_group">Yeni liste oluştur</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
-    <string name="bookmarks_import">Yer İmlerini ve Rotaları İçe Aktar</string>
+    <string name="bookmarks_import">Yer İmlerini ve İzleri İçe Aktar</string>
     <string name="bookmarks_error_message_share_general">Bir uygulama hatasından dolayı paylaşılamıyor</string>
     <string name="bookmarks_error_title_share_empty">Paylaşma hatası</string>
     <string name="bookmarks_error_message_share_empty">Boş bir liste paylaşılamaz</string>
@@ -647,8 +647,8 @@
     </plurals>
     <string name="restore">Geri al</string>
     <plurals name="tracks">
-        <item quantity="one">%d rota</item>
-        <item quantity="other">%d rota</item>
+        <item quantity="one">%d iz</item>
+        <item quantity="other">%d iz</item>
     </plurals>
     <!-- Settings privacy group in settings screen -->
     <string name="privacy">Gizlilik</string>
@@ -656,7 +656,7 @@
     <string name="terms_of_use">Kullanım koşulları</string>
     <string name="button_layer_traffic">Trafik</string>
     <string name="button_layer_subway">Metro</string>
-    <string name="button_layer_hiking">Dağ Yürüyüşü</string>
+    <string name="button_layer_hiking">Yürüyüş</string>
     <string name="button_layer_cycling">Bisiklet</string>
     <string name="layers_title">Harita Stilleri ve Katmanlar</string>
     <string name="subway_data_unavailable">Metro haritası yok</string>
@@ -835,12 +835,12 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">İzinleri Verin</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Yürüyüş</string>
+    <string name="button_layer_outdoor">Açık Hava</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Web tarayıcısı yok</string>
     <string name="volume">Ses</string>
     <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
-    <string name="bookmarks_export">Tüm Yer İmlerini ve Kayıtları Dışa Aktar</string>
+    <string name="bookmarks_export">Tüm Yer İmlerini ve İzleri Dışa Aktar</string>
     <!-- button in (app) TTS settings, to open the system TTS settings. -->
     <string name="pref_tts_open_system_settings">Konuşma sentezleme ile ilgili sistem ayarları</string>
     <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
@@ -874,11 +874,11 @@
     <!-- Title for the alert when saving a track recording. -->
     <string name="track_recording_alert_title">Yer İmleri ve İzlere kaydedilsin mi?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
-    <string name="track_recording_toast_nothing_to_save">Kaydınız boş - kaydedilecek bir şey yok</string>
+    <string name="track_recording_toast_nothing_to_save">İz boş - kaydedilecek bir şey yok</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
     <string name="error_no_file_manager_app">Aygıtınızda gerekli uygulama kurulmadığından klasör seçim menüsü görüntülenemiyor. Lütfen dosya yönetici uygulaması kurun ve yeniden deneyin.</string>
     <string name="choose_color">Renk Seç</string>
-    <string name="edit_track">Kaydı Düzenle</string>
+    <string name="edit_track">İzi Düzenle</string>
     <string name="uri_open_location_failed">Konumu açabilecek kurulu uygulama yok</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Navigasyonda kendiliğinden</string>
@@ -900,4 +900,11 @@
     <string name="saved">Kaydedildi</string>
     <string name="osm_note_hint">Ya da OpenStreetMap topluluğuna not bırakabilirsiniz, böylece biri burayı düzeltebilir ya da yenisini ekleyebilir.</string>
     <string name="osm_note_toast">Not OpenStreetMap\'e gönderilecek</string>
+    <string name="routes_update_maps_text">Rotaları görüntülemek için haritalar güncellenmelidir.</string>
+    <string name="bookmarks_text_placement_title">Haritadaki yer imi adları</string>
+    <string name="bookmarks_text_placement_description">Eğer çok yer imi varsa, adlarını haritada göstermek uygulamayı yavaşlatabilir.</string>
+    <string name="show_to_the_right">Sağa doğru göster</string>
+    <string name="show_at_the_bottom">Altta göster</string>
+    <string name="delete_track_dialog_title">%s Silinsin Mi?</string>
+    <string name="share_track">İz Paylaş</string>
 </resources>

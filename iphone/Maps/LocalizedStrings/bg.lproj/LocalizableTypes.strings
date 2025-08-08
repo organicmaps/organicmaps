@@ -17,7 +17,7 @@
 "type.aeroway.runway" = "Писта";
 "type.aeroway.taxiway" = "Място за таксита";
 "type.aeroway.terminal" = "Терминал";
-"type.amenity" = "Развлечение";
+"type.amenity" = "Услуга";
 "type.amenity.arts_centre" = "Средище за изкуство";
 "type.amenity.atm" = "Банкомат";
 "type.amenity.bank" = "Банка";

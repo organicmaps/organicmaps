@@ -1060,12 +1060,12 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "مسیر خالی است - چیزی برای ذخیره کردن وجود ندارد";
 "edit_track" = "ویرایش مسیر";
-"saved" = "Saved";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"saved" = "ذخیره شد";
+"button_layer_hiking" = "پیاده‌گردی";
+"button_layer_cycling" = "دوچرخه‌سواری";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
+"bookmarks_text_placement_title" = "نام‌ها را روی نقشه نشانه‌گذاری کنید";
 "bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
 "show_to_the_right" = "Show to the right";
 "right" = "Right";
@@ -1073,4 +1073,4 @@
 "bottom" = "Bottom";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "برای نمایش مسیرها، نقشه‌ها باید به‌روزرسانی شوند.";

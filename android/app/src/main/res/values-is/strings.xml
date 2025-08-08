@@ -610,4 +610,7 @@
     <string name="bookmarks_text_placement_description">Ef það eru of mörg bókamerki, getur hægt á forritinu að birta nöfn þeirra á kortinu.</string>
     <string name="show_to_the_right">Birta hægra megin</string>
     <string name="show_at_the_bottom">Birta neðst</string>
+    <string name="delete_track_dialog_title">Eyða %s?</string>
+    <string name="routes_update_maps_text">Til að birta leiðir þarf að uppfæra landakort.</string>
+    <string name="share_track">Deila ferli</string>
 </resources>
