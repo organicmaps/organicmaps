@@ -47,7 +47,7 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
     super.onViewCreated(view, savedInstanceState);
 
     int color;
-    if (ThemeUtils.isDefaultTheme(requireContext()))
+    if (ThemeUtils.isDefaultTheme())
       color = ContextCompat.getColor(requireContext(), R.color.bg_cards);
     else
       color = ContextCompat.getColor(requireContext(), R.color.bg_cards_night);

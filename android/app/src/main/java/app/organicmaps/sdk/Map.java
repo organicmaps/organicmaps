@@ -148,7 +148,7 @@ public final class Map
   {
     assert mLocationHelper != null : "LocationHelper must be initialized before calling onSurfaceCreated";
 
-    if (isThemeChangingProcess(context))
+    if (isThemeChangingProcess())
     {
       Logger.d(TAG, "Theme changing process, skip 'onSurfaceCreated' callback");
       return;
@@ -203,7 +203,7 @@ public final class Map
   public void onSurfaceChanged(final Context context, final Surface surface, Rect surfaceFrame,
                                boolean isSurfaceCreating)
   {
-    if (isThemeChangingProcess(context))
+    if (isThemeChangingProcess())
     {
       Logger.d(TAG, "Theme changing process, skip 'onSurfaceChanged' callback");
       return;
@@ -265,7 +265,7 @@ public final class Map
 
   public void onPause(final Context context)
   {
-    mUiThemeOnPause = Config.getCurrentUiTheme(context);
+    mUiThemeOnPause = Config.UiTheme.getCurrent();
 
     // Pause/Resume can be called without surface creation/destroy.
     if (mSurfaceAttached)
@@ -370,9 +370,9 @@ public final class Map
       nativeApplyWidgets();
   }
 
-  private boolean isThemeChangingProcess(final Context context)
+  private boolean isThemeChangingProcess()
   {
-    return mUiThemeOnPause != null && !mUiThemeOnPause.equals(Config.getCurrentUiTheme(context));
+    return mUiThemeOnPause != null && !mUiThemeOnPause.equals(Config.UiTheme.getCurrent());
   }
 
   // Engine

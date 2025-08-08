@@ -10,19 +10,20 @@ import androidx.car.app.CarContext;
 import app.organicmaps.R;
 import app.organicmaps.sdk.MapStyle;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.util.Config;
 
 public final class ThemeUtils
 {
   public enum ThemeMode
   {
-    AUTO(R.string.auto, R.string.theme_auto),
-    LIGHT(R.string.off, R.string.theme_default),
-    NIGHT(R.string.on, R.string.theme_night);
+    AUTO(R.string.auto, Config.UiTheme.AUTO),
+    LIGHT(R.string.off, Config.UiTheme.DEFAULT),
+    NIGHT(R.string.on, Config.UiTheme.NIGHT);
 
-    ThemeMode(@StringRes int titleId, @StringRes int prefsKeyId)
+    ThemeMode(@StringRes int titleId, @NonNull String config)
     {
       mTitleId = titleId;
-      mPrefsKeyId = prefsKeyId;
+      mConfig = config;
     }
 
     @StringRes
@@ -31,16 +32,16 @@ public final class ThemeUtils
       return mTitleId;
     }
 
-    @StringRes
-    public int getPrefsKeyId()
+    @NonNull
+    public String getConfig()
     {
-      return mPrefsKeyId;
+      return mConfig;
     }
 
     @StringRes
     private final int mTitleId;
-    @StringRes
-    private final int mPrefsKeyId;
+    @NonNull
+    private final String mConfig;
   }
 
   private static final String ANDROID_AUTO_PREFERENCES_FILE_KEY = "ANDROID_AUTO_PREFERENCES_FILE_KEY";
@@ -79,23 +80,20 @@ public final class ThemeUtils
   @UiThread
   public static void setThemeMode(@NonNull CarContext context, @NonNull ThemeMode themeMode)
   {
-    getSharedPreferences(context).edit().putString(THEME_KEY, context.getString(themeMode.getPrefsKeyId())).commit();
+    getSharedPreferences(context).edit().putString(THEME_KEY, themeMode.getConfig()).commit();
     update(context, themeMode);
   }
 
   @NonNull
   public static ThemeMode getThemeMode(@NonNull CarContext context)
   {
-    final String autoTheme = context.getString(R.string.theme_auto);
-    final String lightTheme = context.getString(R.string.theme_default);
-    final String nightTheme = context.getString(R.string.theme_night);
-    final String themeMode = getSharedPreferences(context).getString(THEME_KEY, autoTheme);
+    final String themeMode = getSharedPreferences(context).getString(THEME_KEY, ThemeMode.AUTO.getConfig());
 
-    if (themeMode.equals(autoTheme))
+    if (themeMode.equals(ThemeMode.AUTO.getConfig()))
       return ThemeMode.AUTO;
-    else if (themeMode.equals(lightTheme))
+    else if (themeMode.equals(ThemeMode.LIGHT.getConfig()))
       return ThemeMode.LIGHT;
-    else if (themeMode.equals(nightTheme))
+    else if (themeMode.equals(ThemeMode.NIGHT.getConfig()))
       return ThemeMode.NIGHT;
     else
       throw new IllegalArgumentException("Unsupported value");
