@@ -571,3 +571,4 @@
 "bookmarks_text_placement_description" = "Ef það eru of mörg bókamerki, getur hægt á forritinu að birta nöfn þeirra á kortinu.";
 "show_to_the_right" = "Birta hægra megin";
 "show_at_the_bottom" = "Birta neðst";
+"routes_update_maps_text" = "Til að birta leiðir þarf að uppfæra landakort.";

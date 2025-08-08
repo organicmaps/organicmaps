@@ -866,4 +866,11 @@
     <string name="error_enter_correct_vk_page">یک نام کاربری معتبر VK یا نشانی وب وارد کنید</string>
     <string name="change_map_locale">زبان نقشه</string>
     <string name="maps_storage_free_size">%1$s خالی از %2$s</string>
+    <string name="osm_note_toast">یادداشت به OpenStreetMap ارسال خواهد شد</string>
+    <string name="routes_update_maps_text">برای نمایش مسیرها، نقشه‌ها باید به‌روزرسانی شوند.</string>
+    <string name="saved">ذخیره شد</string>
+    <string name="button_layer_hiking">پیاده‌گردی</string>
+    <string name="button_layer_cycling">دوچرخه‌سواری</string>
+    <string name="bookmarks_text_placement_title">نام‌ها را روی نقشه نشانه‌گذاری کنید</string>
+    <string name="osm_note_hint">یا، به عنوان یک راه حل جایگزین، برای انجمن OpenStreetMap یادداشت بگذارید تا شخص دیگری بتواند مکانی را به اینجا اضافه یا اصلاح کند.</string>
 </resources>

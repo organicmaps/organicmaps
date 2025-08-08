@@ -52,7 +52,7 @@
 "about_proposition_2" = "• 無需耗費太多電量，可離線工作";
 
 /* Text in About screen */
-"about_proposition_3" = "• 快速且簡約，由社區開發";
+"about_proposition_3" = "• 快速且簡約，由社群開發";
 "close" = "關閉";
 "download" = "下載";
 
@@ -157,7 +157,7 @@
 "share_bookmarks_email_body" = "您好！\n\n附件是我的書籤，請在 Organic Maps 中打開。如果您沒有安裝 Organic Maps，可以在這裡下載: https://omaps.app/get?kmz\n\n祝您使用 Organic Maps 旅行愉快！";
 
 /* message title of loading file */
-"load_kmz_title" = "正在載入書籤…";
+"load_kmz_title" = "正在載入書籤";
 
 /* Kmz file successful loading */
 "load_kmz_successful" = "書籤載入成功！ 您可以在地圖或書籤管理畫面中找到它們。";
@@ -301,7 +301,7 @@
 "follow_us" = "追蹤並聯絡我們：";
 
 /* Alert text */
-"email_error_body" = "電子郵件客戶端未設定。請配置電子郵件客戶端或通過 %@ 聯絡我們。";
+"email_error_body" = "電子郵件客戶端未設定。請配置電子郵件客戶端或通過 %@ 聯絡我們";
 
 /* Alert title */
 "email_error_title" = "電子郵件發送失敗";
@@ -414,7 +414,7 @@
 "dialog_routing_disclaimer_priority" = "— 路況、交通法規和路標始終優先於導航建議；";
 "dialog_routing_disclaimer_precision" = "— 地圖可能不準確，建議的路線可能並非總是前往目的地的最佳路線；";
 "dialog_routing_disclaimer_recommendations" = "— 建議的路線僅作為推薦路線供您參考；";
-"dialog_routing_disclaimer_borders" = "— 小心對待國界區的路線：我們的應用程式建立的路線有時會在未經授權的地方跨越國界；";
+"dialog_routing_disclaimer_borders" = "— 小心評估經過國界的路線：我們的應用程式建立的路線有時會在未經授權的地方跨越國界。";
 "dialog_routing_disclaimer_beware" = "上路時請當心，祝您一路平安！";
 "dialog_routing_check_gps" = "檢查 GPS 訊號";
 "dialog_routing_error_location_not_found" = "無法規劃路線。無法識別目前 GPS 座標。";
@@ -502,11 +502,11 @@
 "day_off_today" = "今天不營業";
 "day_off" = "不營業";
 "today" = "今天";
-"opens_tomorrow_at" = "Opens tomorrow at %@";
-"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
-"opens_at" = "Opens at %@";
+"opens_tomorrow_at" = "明天 %@ 營業";
+"opens_dayoftheweek_at" = "%1$@ %2$@ 營業";
+"opens_at" = "%@ 營業";
 "opens_in" = "將於 %@ 後開業";
-"closes_at" = "Closes at %@";
+"closes_at" = "%@ 關門";
 "closes_in" = "將於 %@ 後歇業";
 "closed" = "已停止營業";
 "add_opening_hours" = "新增營業時間";
@@ -516,7 +516,7 @@
 "invalid_username_or_password" = "無效的使用者名稱或密碼。";
 "login" = "登入";
 "login_osm" = "登錄 OpenStreetMap";
-"forgot_password" = "忘記密碼";
+"forgot_password" = "忘記密碼嗎？";
 "osm_account" = "OSM 帳號";
 "logout" = "登出";
 
@@ -568,7 +568,7 @@
 "message_invalid_feature_position" = "地點無法放置在這裡";
 
 /* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
-"osm_presentation" = "截至 %@ 的社群創建的 OpenStreetMap 資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多資訊。";
+"osm_presentation" = "截至 %@ 的社群創建的開放街圖資料。請訪問 OpenStreetMap.org 以了解有關如何編輯和更新地圖的更多資訊";
 "login_to_make_edits_visible" = "建立 OpenStreetMap 帳戶或登入以向全世界發布您的地圖編輯。";
 
 /* Error dialog no space */
@@ -615,7 +615,7 @@
 "location_services_disabled_on_device_2" = "2. 點擊“隱私權”";
 "location_services_disabled_on_device_3" = "3. 選擇“定位服務”";
 "location_services_disabled_on_device_4" = "4. 開啟“定位服務”";
-"location_services_disabled_on_device_additional_message" = "或繼續使用 Organic Maps，但無法定位到您目前所在的位置。";
+"location_services_disabled_on_device_additional_message" = "或繼續使用 Organic Maps，但無法定位到您目前所在的位置";
 
 /* abbreviation for meters */
 "m" = "公尺";
@@ -774,7 +774,7 @@
 /* Speed camera settings menu option - Never warn (about speedcams) */
 "pref_tts_speedcams_never" = "永遠不會對測速照相機發出警告";
 "power_managment_title" = "省電模式";
-"power_managment_description" = "如果開啟省電模式，應用程序將根據手機的當前電量關閉耗電功能";
+"power_managment_description" = "如果開啟省電模式，應用程序將根據手機的當前電量關閉耗電功能。";
 "power_managment_setting_never" = "從不";
 "power_managment_setting_auto" = "當電量低時";
 "power_managment_setting_manual_max" = "最大程度省電";
@@ -791,7 +791,7 @@
 "avoid_ferry" = "避開渡輪";
 "avoid_motorways" = "避開高速公路";
 "unable_to_calc_alert_title" = "無法規劃路線";
-"unable_to_calc_alert_subtitle" = "很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試";
+"unable_to_calc_alert_subtitle" = "很遺憾，我們無法使用所選的繞行設定規劃路線。請更改設定，然後重試。";
 "define_to_avoid_btn" = "選擇要避開的道路";
 "change_driving_options_btn" = "繞行設定已開啟";
 "toll_road" = "收費公路";
@@ -871,7 +871,7 @@
 "search_in_the_list" = "在列表中搜尋";
 "religious_places" = "宗教場所";
 "transit_not_found" = "本區域的捷運導航目前不可用";
-"dialog_pedestrian_route_is_long_header" = "未找到捷運路線圖";
+"dialog_pedestrian_route_is_long_header" = "未找到捷運路線";
 "dialog_pedestrian_route_is_long_message" = "選擇捷運站附近的起點和終點";
 "button_layer_isolines" = "等高線";
 "isolines_activation_error_dialog" = "如需使用等高線，請更新或下載所需區域的地圖";
@@ -995,7 +995,7 @@
 "enable_icloud_synchronization_message" = "iCloud 同步是一項正在開發中的實驗性功能。確保您已備份所有書籤和軌跡。";
 
 /* Title for the "iCloud Is Disabled" alert. */
-"icloud_disabled_title" = "iCloud 已停用";
+"icloud_disabled_title" = "已停用 iCloud";
 
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "請在您的裝置設定中啟用 iCloud 以使用此功能。";
@@ -1019,7 +1019,7 @@
 "icloud_synchronization_error_cloud_is_unavailable" = "錯誤：iCloud 不可用";
 
 /* Title for the "Open in Another App" button on the PlacePage. */
-"open_in_app" = "在另一個應用程式中打開";
+"open_in_app" = "在另一個應用程式中開啟";
 
 /* To indicate if the place proposed self service... */
 "self_service" = "自助服務";
@@ -1060,17 +1060,17 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "軌跡為空 - 沒有可保存的內容";
 "edit_track" = "編輯軌跡";
-"saved" = "Saved";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"saved" = "已經儲存";
+"button_layer_hiking" = "登山";
+"button_layer_cycling" = "單車";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
-"right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
-"bottom" = "Bottom";
+"bookmarks_text_placement_title" = "將地圖上的名稱加入書籤";
+"bookmarks_text_placement_description" = "如果有太多書籤，將這些名稱顯示在地圖上將拖慢 app 的速度。";
+"show_to_the_right" = "顯示在右側";
+"right" = "右側";
+"show_at_the_bottom" = "顯示在底部";
+"bottom" = "底部";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "要顯示路線，必須先更新地圖。";

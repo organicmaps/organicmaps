@@ -894,4 +894,13 @@
     <string name="saved">Gordeta</string>
     <string name="osm_note_hint">Edo, bestela, utzi ohar bat OpenStreetMap komunitateari, beste norbaitek hemen leku bat gehitu edo konpon dezan.</string>
     <string name="osm_note_toast">Oharra OpenStreetMap-era bidaliko da</string>
+    <string name="routes_update_maps_text">Arrastoak ikusteko mapak eguneratu behar dira.</string>
+    <string name="button_layer_hiking">Mendi-ibilaldiak</string>
+    <string name="button_layer_cycling">Txirrindularitza</string>
+    <string name="bookmarks_text_placement_title">Laster-markak mapan</string>
+    <string name="bookmarks_text_placement_description">Laster-marka gehiegi badaude, mapan laster-markak bistaratzeak aplikazioa moteldu dezake.</string>
+    <string name="show_to_the_right">Erakutsi eskuinean</string>
+    <string name="show_at_the_bottom">Erakutsi behean</string>
+    <string name="share_track">Partekatu arrastoa</string>
+    <string name="delete_track_dialog_title">Ezabatu %s?</string>
 </resources>
