@@ -48,12 +48,6 @@
   <!-- "Report a problem" predefined texts -->
   <string name="problem_does_not_exist" translatable="false">The amenity has gone or never existed. This is an auto-generated note from Organic Maps application: a user reports a POI that is visible on a map (which can be a month old), but cannot be found on the ground.</string>
 
-  <!-- UI themes -->
-  <string name="theme_default" translatable="false">default</string>
-  <string name="theme_night" translatable="false">night</string>
-  <string name="theme_auto" translatable="false">auto</string>
-  <string name="theme_nav_auto" translatable="false">nav-auto</string>
-
   <!-- Tags -->
   <string name="tag_menu_collapse" translatable="false">collapse</string>
   <string name="tag_height_limited" translatable="false">height limited</string>
