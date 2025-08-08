@@ -68,6 +68,8 @@ bool HandleJavaException(JNIEnv * env);
 base::LogLevel GetLogLevelForException(JNIEnv * env, jthrowable const & e);
 
 std::shared_ptr<jobject> make_global_ref(jobject obj);
+std::shared_ptr<jobject> make_global_ref_safe(jobject obj);
+
 using TScopedLocalRef = ScopedLocalRef<jobject>;
 using TScopedLocalClassRef = ScopedLocalRef<jclass>;
 using TScopedLocalObjectArrayRef = ScopedLocalRef<jobjectArray>;
