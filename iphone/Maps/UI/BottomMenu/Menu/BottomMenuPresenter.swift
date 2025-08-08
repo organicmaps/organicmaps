@@ -25,6 +25,9 @@ class BottomMenuPresenter: NSObject {
   private let menuCells: [CellType]
   private let trackRecorder = TrackRecordingManager.shared
   private var cellToHighlight: CellType?
+  private var canAddPlaceToOSM: Bool {
+    MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMapAtViewportCenter()
+  }
 
   init(view: BottomMenuViewProtocol,
        interactor: BottomMenuInteractorProtocol,
@@ -95,10 +98,8 @@ extension BottomMenuPresenter {
       let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
       switch menuCells[indexPath.row] {
       case .addPlace:
-        let enabled = MWMNavigationDashboardManager.shared().state == .hidden && FrameworkHelper.canEditMapAtViewportCenter()
-        cell.configure(imageName: "ic_add_place",
-                       title: L("placepage_add_place_button"),
-                       enabled: enabled)
+        cell.configure(imageName: "osm_logo",
+                       title: canAddPlaceToOSM ? L("placepage_add_place_button") : L("contribute_to_osm_update_map"))
       case .recordTrack:
         switch trackRecorder.recordingState {
         case .inactive:
@@ -129,13 +130,6 @@ extension BottomMenuPresenter {
 //MARK: -- UITableViewDelegate
 
 extension BottomMenuPresenter {
-  func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-    if let cell = tableView.cellForRow(at: indexPath) as? BottomMenuItemCell {
-      return cell.isEnabled ? indexPath : nil
-    }
-    return indexPath
-  }
-
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     switch sections[indexPath.section] {
@@ -144,7 +138,7 @@ extension BottomMenuPresenter {
     case .items:
       switch menuCells[indexPath.row] {
       case .addPlace:
-        interactor.addPlace()
+        canAddPlaceToOSM ? interactor.addPlace() : interactor.downloadMaps()
       case .recordTrack:
         interactor.toggleTrackRecording()
       case .downloadMaps:
