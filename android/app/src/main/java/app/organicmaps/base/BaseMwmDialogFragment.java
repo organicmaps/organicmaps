@@ -15,7 +15,7 @@ public class BaseMwmDialogFragment extends DialogFragment
   @StyleRes
   protected final int getFullscreenTheme()
   {
-    return ThemeUtils.isNightTheme(requireContext()) ? getFullscreenDarkTheme() : getFullscreenLightTheme();
+    return ThemeUtils.isNightTheme() ? getFullscreenDarkTheme() : getFullscreenLightTheme();
   }
 
   protected int getStyle()

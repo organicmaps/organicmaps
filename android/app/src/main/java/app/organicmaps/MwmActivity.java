@@ -471,12 +471,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @StyleRes
   protected int getThemeResourceId(@NonNull String theme)
   {
-    Context context = getApplicationContext();
-
-    if (ThemeUtils.isDefaultTheme(context, theme))
+    if (Config.UiTheme.isDefault(theme))
       return R.style.MwmTheme_MainActivity;
 
-    if (ThemeUtils.isNightTheme(context, theme))
+    if (Config.UiTheme.isNight(theme))
       return R.style.MwmTheme_Night_MainActivity;
 
     return super.getThemeResourceId(theme);
@@ -576,7 +574,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void refreshLightStatusBar()
   {
-    UiUtils.setLightStatusBar(this, !(ThemeUtils.isNightTheme(this) || RoutingController.get().isPlanning()
+    UiUtils.setLightStatusBar(this, !(ThemeUtils.isNightTheme() || RoutingController.get().isPlanning()
                                       || ChoosePositionMode.get() != ChoosePositionMode.None));
   }
 
