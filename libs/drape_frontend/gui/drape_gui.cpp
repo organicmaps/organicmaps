@@ -2,6 +2,7 @@
 #include "ruler_helper.hpp"
 
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/gui/speed_limit/speed_limit.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "base/assert.hpp"
@@ -13,6 +14,7 @@ df::ColorConstant const kGuiTextColor = "GuiText";
 struct DrapeGui::Impl
 {
   RulerHelper m_rulerHelper;
+  speed_limit::SpeedLimit m_speedLimitHelper;
 };
 
 DrapeGui::DrapeGui() : m_impl(new Impl()) {}
@@ -29,6 +31,11 @@ DrapeGui & DrapeGui::Instance()
 RulerHelper & DrapeGui::GetRulerHelper()
 {
   return Instance().GetRulerHelperImpl();
+}
+
+speed_limit::SpeedLimit & DrapeGui::GetSpeedLimitHelper()
+{
+  return Instance().GetSpeedLimitHelperImpl();
 }
 
 dp::FontDecl DrapeGui::GetGuiTextFont()
@@ -58,6 +65,12 @@ RulerHelper & DrapeGui::GetRulerHelperImpl()
 {
   ASSERT(m_impl != nullptr, ());
   return m_impl->m_rulerHelper;
+}
+
+speed_limit::SpeedLimit & DrapeGui::GetSpeedLimitHelperImpl()
+{
+  ASSERT(m_impl != nullptr, ());
+  return m_impl->m_speedLimitHelper;
 }
 
 void DrapeGui::ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler)
