@@ -1,4 +1,5 @@
 #include "kml/serdes_gpx.hpp"
+#include "kml/color_parser.hpp"
 #include "kml/serdes_common.hpp"
 
 #include "coding/hex.hpp"
@@ -134,31 +135,16 @@ std::string const & GpxParser::GetTagFromEnd(size_t n) const
 
 std::optional<uint32_t> GpxParser::ParseColorFromHexString(std::string_view colorStr)
 {
-  if (colorStr.empty())
-  {
+  auto const res = ParseHexColor(colorStr);
+  if (!res)
     LOG(LWARNING, ("Invalid color value", colorStr));
-    return {};
-  }
-  if (colorStr.front() == '#')
-    colorStr.remove_prefix(1);
-  if (colorStr.size() != 6 && colorStr.size() != 8)
-  {
-    LOG(LWARNING, ("Invalid color value", colorStr));
-    return {};
-  }
-  auto const colorBytes = FromHex(colorStr);
-  switch (colorBytes.size())
-  {
-  case 3: return kml::ToRGBA(colorBytes[0], colorBytes[1], colorBytes[2], (char)255);
-  case 4: return kml::ToRGBA(colorBytes[1], colorBytes[2], colorBytes[3], colorBytes[0]);
-  default: LOG(LWARNING, ("Invalid color value", colorStr)); return {};
-  }
+  return res;
 }
 
 void GpxParser::ParseColor(std::string_view colorStr)
 {
-  if (auto const parsed = ParseColorFromHexString(colorStr); parsed)
-    m_color = parsed.value();
+  if (auto const parsed = ParseColorFromHexString(colorStr))
+    m_color = *parsed;
 }
 
 // https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx/. Supported colors:
@@ -168,6 +154,7 @@ void GpxParser::ParseOsmandColor(std::string const & value)
   auto const color = ParseColorFromHexString(value);
   if (!color)
     return;
+
   if (m_tags.size() > 2 && GetTagFromEnd(2) == gpx::kGpx)
   {
     m_globalColor = *color;
@@ -176,31 +163,19 @@ void GpxParser::ParseOsmandColor(std::string const & value)
         layer.m_color.m_rgba = m_globalColor;
   }
   else
-  {
     m_color = *color;
-  }
 }
 
-// Garmin extensions spec: https://www8.garmin.com/xmlschemas/GpxExtensionsv3.xsd
-// Color mapping: https://help.locusmap.eu/topic/extend-garmin-gpx-compatibilty
 void GpxParser::ParseGarminColor(std::string const & v)
 {
-  static std::unordered_map<std::string, std::string> const kGarminToHex = {
-      {"Black", "000000"},      {"DarkRed", "8b0000"},     {"DarkGreen", "006400"}, {"DarkYellow", "b5b820"},
-      {"DarkBlue", "00008b"},   {"DarkMagenta", "8b008b"}, {"DarkCyan", "008b8b"},  {"LightGray", "cccccc"},
-      {"DarkGray", "444444"},   {"Red", "ff0000"},         {"Green", "00ff00"},     {"Yellow", "ffff00"},
-      {"Blue", "0000ff"},       {"Magenta", "ff00ff"},     {"Cyan", "00ffff"},      {"White", "ffffff"},
-      {"Transparent", "ff0000"}};
-  auto const it = kGarminToHex.find(v);
-  if (it != kGarminToHex.end())
-  {
-    return ParseColor(it->second);
-  }
-  else
+  auto const res = kml::ParseGarminColor(v);
+  if (!res)
   {
     LOG(LWARNING, ("Unsupported color value", v));
-    return ParseColor("ff0000");  // default to red
+    m_color = ToRGBA(255, 0, 0);  // default to red
   }
+  else
+    m_color = *res;
 }
 
 void GpxParser::CheckAndCorrectTimestamps()
