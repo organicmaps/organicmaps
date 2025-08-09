@@ -1,6 +1,8 @@
 project(kml)
 
 set(SRC
+  color_parser.cpp
+  color_parser.hpp
   header_binary.hpp
   minzoom_quadtree.hpp
   serdes_common.cpp
