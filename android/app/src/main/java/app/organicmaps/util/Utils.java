@@ -228,7 +228,7 @@ public class Utils
    * @param uri the URI to open.
    * @param failMessage string id: message to show in a toast when the system can't find an app to open with.
    */
-  public static void openUri(@NonNull Context context, @NonNull Uri uri, Integer failMessage)
+  public static void openUri(@NonNull Context context, @NonNull Uri uri, @Nullable Integer failMessage)
   {
     final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(uri);
@@ -241,7 +241,8 @@ public class Utils
     }
     catch (ActivityNotFoundException e)
     {
-      Toast.makeText(context, context.getString(failMessage), Toast.LENGTH_LONG).show();
+      if (failMessage != null)
+        Toast.makeText(context, context.getString(failMessage), Toast.LENGTH_LONG).show();
       Logger.e(TAG, "ActivityNotFoundException", e);
     }
     catch (AndroidRuntimeException e)
