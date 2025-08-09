@@ -63,6 +63,10 @@
       <category android:name="android.intent.category.BROWSABLE" />
       <data android:scheme="https" />
     </intent>
+    <intent>
+      <!-- To check presence of Custom Tabs support, see https://developer.chrome.com/docs/android/custom-tabs/howto-custom-tab-check -->
+      <action android:name="android.support.customtabs.action.CustomTabsService" />
+    </intent>
   </queries>
 
   <supports-screens
