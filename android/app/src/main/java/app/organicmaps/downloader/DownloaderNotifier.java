@@ -20,6 +20,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.Objects;
 
 public class DownloaderNotifier
 {
@@ -29,7 +30,8 @@ public class DownloaderNotifier
   public static final int NOTIFICATION_ID = 1;
 
   private final Context mContext;
-  private NotificationCompat.Builder mProgressNotificationBuilder;
+  private NotificationCompat.Builder mProgressNotificationBuilder = null;
+  private String mNotificationCountryId = null;
 
   public DownloaderNotifier(Context context)
   {
@@ -45,6 +47,7 @@ public class DownloaderNotifier
             .setShowBadge(true)
             .setVibrationEnabled(false)
             .setLightsEnabled(false)
+            .setSound(null, null)
             .build();
     notificationManager.createNotificationChannel(channel);
   }
@@ -62,8 +65,6 @@ public class DownloaderNotifier
     final String countryName = MapManager.nativeGetName(countryId);
     final String content = mContext.getString(R.string.download_country_failed, countryName);
 
-    var contentPendingIntent = getNotificationPendingIntent(countryId);
-
     final Notification notification = new NotificationCompat.Builder(mContext, CHANNEL_ID)
                                           .setAutoCancel(true)
                                           .setCategory(NotificationCompat.CATEGORY_ERROR)
@@ -74,7 +75,7 @@ public class DownloaderNotifier
                                           .setContentText(content)
                                           .setShowWhen(true)
                                           .setTicker(getTicker(mContext, title, content))
-                                          .setContentIntent(contentPendingIntent)
+                                          .setContentIntent(getNotificationPendingIntent(countryId))
                                           .setOnlyAlertOnce(true)
                                           .build();
 
@@ -110,32 +111,41 @@ public class DownloaderNotifier
   @NonNull
   public Notification buildProgressNotification(@Nullable String countryId, int maxProgress, int progress)
   {
-    var builder = startNotification(countryId);
-
-    builder.setProgress(maxProgress, progress, maxProgress == 0);
-    builder.setContentText("Download in progress");
-
+    var builder = getNotificationBuilder(countryId);
+    ///  @todo Doesn't work properly .. Bad input sizes?
+    // builder.setProgress(maxProgress, progress, maxProgress == 0);
+    builder.setProgress(maxProgress, progress, true);
     return builder.build();
   }
 
   @NonNull
-  private NotificationCompat.Builder startNotification(@Nullable String countryId)
+  private NotificationCompat.Builder getNotificationBuilder(@Nullable String countryId)
   {
-    final String title = mContext.getString(R.string.app_name);
+    if (mProgressNotificationBuilder == null || !Objects.equals(countryId, mNotificationCountryId))
+    {
+      mNotificationCountryId = countryId;
+      final String countryName = countryId != null ? MapManager.nativeGetName(countryId) : "";
 
-    return new NotificationCompat.Builder(mContext, CHANNEL_ID)
-        .setAutoCancel(true)
-        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-        .setSmallIcon(R.drawable.ic_splash)
-        .setColor(ContextCompat.getColor(mContext, R.color.notification))
-        .setShowWhen(true)
-        .setContentTitle(title)
-        .setContentIntent(getNotificationPendingIntent(countryId));
+      mProgressNotificationBuilder =
+          new NotificationCompat.Builder(mContext, CHANNEL_ID)
+              .setAutoCancel(true)
+              .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+              .setSmallIcon(R.drawable.ic_splash)
+              .setColor(ContextCompat.getColor(mContext, R.color.notification))
+              .setShowWhen(true)
+              .setContentTitle(mContext.getString(R.string.app_name))
+              .setContentIntent(getNotificationPendingIntent(countryId))
+              .setContentText(mContext.getString(R.string.downloader_downloading) + " " + countryName)
+              .setSound(null);
+    }
+    return mProgressNotificationBuilder;
   }
 
   @NonNull
   private PendingIntent getNotificationPendingIntent(@Nullable String countryId)
   {
+    /// @todo Zooming to the countryId when tapping on the notification?
+    /// Shows very low zoom level, need z=9/10, I suppose ...
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = MwmActivity.createShowMapIntent(mContext, countryId);
     contentIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
