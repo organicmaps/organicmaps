@@ -43,6 +43,18 @@
     tools:background="#300000FF">
 
     <ImageView
+      android:id="@+id/route_simulation"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/nav_icon_size"
+      android:layout_weight="0.2"
+      android:background="?selectableItemBackgroundBorderless"
+      android:scaleType="center"
+      app:srcCompat="@drawable/ic_car"
+      app:tint="@color/base_red"
+      android:visibility="gone"
+      tools:visibility="visible"/>
+
+    <ImageView
       android:id="@+id/tts_volume"
       android:layout_width="0dp"
       android:layout_height="@dimen/nav_icon_size"
