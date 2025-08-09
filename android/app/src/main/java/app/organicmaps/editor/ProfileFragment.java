@@ -13,19 +13,40 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.editor.OsmOAuth;
+import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
+import app.organicmaps.widget.StackedButtonDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.text.NumberFormat;
 
 public class ProfileFragment extends BaseMwmToolbarFragment
 {
+  @NonNull
+  private static final NetworkPolicy.DialogPresenter mDialogPresenter = new NetworkPolicy.DialogPresenter() {
+    @Override
+    public void showDialogIfNeeded(@NonNull FragmentManager fragmentManager,
+                                   @NonNull NetworkPolicy.NetworkPolicyListener listener, @NonNull NetworkPolicy policy,
+                                   boolean isToday)
+    {
+      StackedButtonDialogFragment.showDialogIfNeeded(fragmentManager, listener, policy, isToday);
+    }
+
+    @Override
+    public void showDialog(@NonNull FragmentManager fragmentManager,
+                           @NonNull NetworkPolicy.NetworkPolicyListener listener)
+    {
+      StackedButtonDialogFragment.showDialog(fragmentManager, listener);
+    }
+  };
+
   private View mUserInfoBlock;
   private TextView mEditsSent;
   private TextView mProfileName;
@@ -84,7 +105,7 @@ public class ProfileFragment extends BaseMwmToolbarFragment
           UiUtils.show(mProfileInfoLoading);
           UiUtils.hide(mUserInfoBlock);
         }
-        final int profileEditCount = OsmOAuth.getOsmChangesetsCount(getParentFragmentManager());
+        final int profileEditCount = OsmOAuth.getOsmChangesetsCount(mDialogPresenter, getParentFragmentManager());
         final String profileUsername = OsmOAuth.getUsername();
         final Bitmap profilePicture = OsmOAuth.getProfilePicture();
 

@@ -107,7 +107,7 @@ public class MapButtonsController extends Fragment
       else
         helpButton.setImageResource(R.drawable.logo);
       // Keep this button colorful in normal theme.
-      if (!ThemeUtils.isNightTheme(requireContext()))
+      if (!ThemeUtils.isNightTheme())
         helpButton.getDrawable().setTintList(null);
     }
 

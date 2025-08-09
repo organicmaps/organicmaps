@@ -125,7 +125,6 @@
       android:title="@string/pref_map_style_title"
       app:singleLineTitle="false"
       android:entries="@array/map_style"
-      android:entryValues="@array/map_style_values"
       android:order="1"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_3d"

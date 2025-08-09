@@ -90,7 +90,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   @DrawableRes
   private static int getDrawableResIdByKey(@NonNull Context context, @NonNull String packageName, @NonNull String key)
   {
-    final boolean isNightTheme = ThemeUtils.isNightTheme(context);
+    final boolean isNightTheme = ThemeUtils.isNightTheme();
     String iconId = "ic_" + key;
     if (isNightTheme)
       iconId = iconId + "_night";

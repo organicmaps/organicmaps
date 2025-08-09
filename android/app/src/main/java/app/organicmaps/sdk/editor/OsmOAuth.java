@@ -145,10 +145,11 @@ public final class OsmOAuth
   private static native int nativeGetOsmChangesetsCount(String oauthToken);
 
   @WorkerThread
-  public static int getOsmChangesetsCount(@NonNull FragmentManager fm)
+  public static int getOsmChangesetsCount(@NonNull NetworkPolicy.DialogPresenter dialogPresenter,
+                                          @NonNull FragmentManager fm)
   {
     final int[] editsCount = {-1};
-    NetworkPolicy.checkNetworkPolicy(fm, policy -> {
+    NetworkPolicy.checkNetworkPolicy(dialogPresenter, fm, policy -> {
       if (!policy.canUseNetwork())
         return;
 

@@ -1,7 +1,6 @@
 package app.organicmaps.base;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
@@ -25,7 +24,6 @@ import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.RtlUtils;
-import app.organicmaps.util.ThemeUtils;
 import java.util.Objects;
 
 public abstract class BaseMwmFragmentActivity extends AppCompatActivity
@@ -40,12 +38,10 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @StyleRes
   protected int getThemeResourceId(@NonNull String theme)
   {
-    Context context = getApplicationContext();
-
-    if (ThemeUtils.isDefaultTheme(context, theme))
+    if (Config.UiTheme.isDefault(theme))
       return R.style.MwmTheme;
 
-    if (ThemeUtils.isNightTheme(context, theme))
+    if (Config.UiTheme.isNight(theme))
       return R.style.MwmTheme_Night;
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
@@ -62,7 +58,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mThemeName = Config.getCurrentUiTheme(getApplicationContext());
+    mThemeName = Config.UiTheme.getCurrent();
     setTheme(getThemeResourceId(mThemeName));
     EdgeToEdge.enable(this, SystemBarStyle.dark(Color.TRANSPARENT));
     RtlUtils.manageRtl(this);
@@ -122,7 +118,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   public void onPostResume()
   {
     super.onPostResume();
-    if (!mThemeName.equals(Config.getCurrentUiTheme(getApplicationContext())))
+    if (!mThemeName.equals(Config.UiTheme.getCurrent()))
     {
       // Workaround described in https://code.google.com/p/android/issues/detail?id=93731
       UiThread.runLater(this::recreate);

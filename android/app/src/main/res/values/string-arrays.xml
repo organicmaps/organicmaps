@@ -31,14 +31,6 @@
     <item>@string/nav_auto</item>
   </string-array>
 
-  <string-array name="map_style_values"
-                translatable="false">
-    <item>@string/theme_default</item>
-    <item>@string/theme_night</item>
-    <item>@string/theme_auto</item>
-    <item>@string/theme_nav_auto</item>
-  </string-array>
-
   <string-array name="speed_cameras">
     <item>@string/pref_tts_speedcams_auto</item>
     <item>@string/pref_tts_speedcams_always</item>
