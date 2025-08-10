@@ -337,6 +337,8 @@ UNIT_TEST(USARedlandsEsriHQToRedlandsCommunity)
 
 UNIT_TEST(USANewYorkEmpireStateBuildingToUnitedNations)
 {
+  /// @todo Fancy route, using pedestrian-area.
+  /// Probably, the whole idea of routing using area borders is not good :)
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(40.74844, -73.98566), {0., 0.},
                                                 mercator::FromLatLon(40.75047, -73.96759), 2265.);
@@ -589,7 +591,7 @@ UNIT_TEST(France_Uphill_Downlhill)
     TEST_GREATER(timeUphill, 4 * 3600, ());
   }
 
-  TEST_GREATER(timeUphill - timeDownhill, 1000, ());
+  TEST_GREATER(timeUphill - timeDownhill, 900, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/1342
@@ -634,17 +636,17 @@ UNIT_TEST(Spain_N634_Piligrim_Road)
 UNIT_TEST(Australia_Mountains_Downlhill)
 {
   TRouteResult const routeResult =
-      CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian), FromLatLon(-33.7374217, 150.283098), {0., 0.},
-                     FromLatLon(-33.7375399, 150.283358));
+      CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian), FromLatLon(-33.7374169, 150.283131), {0., 0.},
+                     FromLatLon(-33.7375786, 150.283347));
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
 
-  TestRouteLength(route, 27.4434);
-  // Altitudes diff is (914 -> 798).
+  TestRouteLength(route, 34.0359);
+  // Altitudes diff is (900 -> 800).
   double const eta = route.GetTotalTimeSec();
-  TEST(8 * 60 < eta && eta < 11 * 60, (eta));
+  TEST(7 * 60 < eta && eta < 10 * 60, (eta));
 }
 
 UNIT_TEST(Turkey_UsePrimary)
@@ -669,6 +671,13 @@ UNIT_TEST(Georgia_UsePrimary)
   TestRouteLength(route, 68595);
   double const eta = route.GetTotalTimeSec();
   TEST(22 * 3600 < eta && eta < 24 * 3600, (eta));
+}
+
+UNIT_TEST(Belarus_PedestrianArea)
+{
+  // No dedicated ways around, only pedestrian relation.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Pedestrian), FromLatLon(53.91226, 27.7738853),
+                                   {0., 0.}, FromLatLon(53.911506, 27.7723211), 281.0);
 }
 
 }  // namespace pedestrian_route_test

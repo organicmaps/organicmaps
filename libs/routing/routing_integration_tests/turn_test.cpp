@@ -217,11 +217,9 @@ UNIT_TEST(Russia_Moscow_PankratevskiPerBolshaySuharedskazPloschad_TurnTest)
   std::vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
 
-  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  /// @todo UTurnLeft
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSharpLeft);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::UTurnLeft);
 }
 
 UNIT_TEST(Russia_Moscow_MKADPutilkovskeShosse_TurnTest)
@@ -722,7 +720,7 @@ UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 6 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
 }
 
 // Test on the route from TTK (primary) to a link.
