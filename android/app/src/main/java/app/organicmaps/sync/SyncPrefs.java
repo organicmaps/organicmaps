@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -39,11 +40,11 @@ public class SyncPrefs
   private final SharedPreferences prefsAccounts;
 
   private final CopyOnWriteArrayList<SyncAccount> mAccounts;
-  private final Set<LastSyncCallback> mLastSyncCallbacks = new HashSet<>();
-  private final Set<ErrorInfoCallback> mErrorInfoCallbacks = new HashSet<>();
-  private final Set<AccountsChangedCallback> mAccountsChangedCallbacks = new HashSet<>();
-  private final Set<AccountToggledCallback> mAccountToggledCallbacks = new HashSet<>();
-  private final Set<FrequencyChangeCallback> mFrequencyChangeCallbacks = new HashSet<>();
+  private final List<LastSyncCallback> mLastSyncCallbacks = new ArrayList<>(2);
+  private final List<ErrorInfoCallback> mErrorInfoCallbacks = new ArrayList<>(2);
+  private final List<AccountsChangedCallback> mAccountsChangedCallbacks = new ArrayList<>(2);
+  private final List<AccountToggledCallback> mAccountToggledCallbacks = new ArrayList<>(2);
+  private final List<FrequencyChangeCallback> mFrequencyChangeCallbacks = new ArrayList<>(2);
 
   private SyncPrefs(Application context)
   {
@@ -94,9 +95,7 @@ public class SyncPrefs
 
   public void setEnabled(SyncAccount account, boolean enabled)
   {
-    prefsAccounts.edit()
-        .putBoolean(getPrefKeyEnabled(account.getAccountId()), enabled)
-        .apply(); // TODO add auth expiry checks if needed
+    prefsAccounts.edit().putBoolean(getPrefKeyEnabled(account.getAccountId()), enabled).apply();
     for (AccountToggledCallback callback : mAccountToggledCallbacks)
     {
       try
@@ -222,7 +221,8 @@ public class SyncPrefs
       for (SyncAccount account : mAccounts)
       {
         if (account.getAuthState().equals(authState))
-          return AddAccountResult.AlreadyExists; // TODO consider updating tokens to reset session expiry
+          // TODO consider updating tokens to reset session expiry. Not needed for nextcloud.
+          return AddAccountResult.AlreadyExists;
       }
 
       long accountId = generateNextAccountId();
@@ -248,6 +248,46 @@ public class SyncPrefs
       Logger.e(TAG, "Unexpected error adding a sync account to shared preferences", e);
       return AddAccountResult.UnexpectedError;
     }
+  }
+
+  public void removeAccount(SyncAccount account)
+  {
+    setEnabled(account, false); // Must be called explicitly
+    Set<String> prefsSet = new HashSet<>(prefsAccounts.getStringSet(PREF_KEY_ACCOUNTS, Collections.emptySet()));
+    for (String accountStr : prefsSet)
+    {
+      SyncAccount storedAccount = null;
+      try
+      {
+        storedAccount = SyncAccount.fromJson(new JSONObject(accountStr));
+      }
+      catch (JSONException e)
+      {
+        Logger.e(TAG, "Unable to deserialize an existing account from json string " + accountStr, e);
+      }
+      if (account.equals(storedAccount))
+      {
+        prefsSet.remove(accountStr);
+        break;
+      }
+    }
+    prefsAccounts.edit().putStringSet(PREF_KEY_ACCOUNTS, prefsSet).apply();
+    mAccounts.remove(account);
+
+    for (AccountsChangedCallback callback : mAccountsChangedCallbacks)
+    {
+      try
+      {
+        callback.onAccountsChanged(Collections.unmodifiableList(mAccounts));
+      }
+      catch (Exception ignored)
+      {}
+    }
+
+    // SyncState for this accountId should also be removed, but it could possibly
+    // be in use by some ongoing sync operation.
+    // That is low priority because it'd require adding quite a bit of code
+    // only to save a few KBs on disk for every deleted account. TODO(savsch)
   }
 
   public void setSyncFrequency(long syncIntervalMs)

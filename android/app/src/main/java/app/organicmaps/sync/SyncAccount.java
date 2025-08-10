@@ -30,7 +30,7 @@ public class SyncAccount
   @NonNull
   public BackendType getBackendType()
   {
-    return BackendType.idToBackendType.get(mBackendTypeId);
+    return Objects.requireNonNull(BackendType.idToBackendType.get(mBackendTypeId));
   }
 
   public AuthState getAuthState()
@@ -63,5 +63,21 @@ public class SyncAccount
     json.put(KEY_BACKEND_ID, mBackendTypeId);
     json.put(KEY_AUTH_STATE, mAuthState.toJson());
     return json;
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (this == obj)
+      return true;
+    if (obj == null || getClass() != obj.getClass())
+      return false;
+    return getAccountId() == ((SyncAccount) obj).getAccountId();
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash(getAccountId());
   }
 }

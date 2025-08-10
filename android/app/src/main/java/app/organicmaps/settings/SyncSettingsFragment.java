@@ -192,9 +192,23 @@ public class SyncSettingsFragment
   }
 
   @Override
-  public void onAccountClicked(long accountId)
+  public void onAccountClicked(SyncAccount account)
   {
-    // TODO
+    // Does nothing as of now.
+    // Can be used to show relogin ui in cases relogin is needed (not needed for nextcloud).
+  }
+
+  @Override
+  public boolean onAccountLongClicked(SyncAccount account)
+  {
+    new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.logout)
+        .setMessage(
+            getString(R.string.sync_log_out_confirmation, account.getBackendType().getDisplayName(requireContext())))
+        .setPositiveButton(R.string.logout, (d, i) -> SyncPrefs.getInstance(requireContext()).removeAccount(account))
+        .setNegativeButton(R.string.cancel, null)
+        .show();
+    return true;
   }
 
   private void showIntervalDialog(View view)

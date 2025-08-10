@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:focusable="true"
+    android:clickable="true"
+    android:longClickable="true"
     android:layout_margin="@dimen/margin_half"
     app:cardCornerRadius="@dimen/cardview_default_radius"
     app:cardElevation="@dimen/cardview_default_elevation">
@@ -15,6 +18,10 @@
       android:padding="@dimen/margin_base">
 
     <LinearLayout
+        android:id="@+id/account_info"
+        android:focusable="true"
+        android:clickable="true"
+        android:longClickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -88,5 +95,4 @@
       </LinearLayout>
     </LinearLayout>
   </LinearLayout>
-<!--  TODO add a remove account option -->
 </androidx.cardview.widget.CardView>

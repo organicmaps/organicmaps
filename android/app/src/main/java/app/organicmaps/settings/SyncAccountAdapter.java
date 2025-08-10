@@ -73,18 +73,25 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
     // Set switch listener
     holder.accountEnabledSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
       if (mListener != null)
-      {
         mListener.onSwitchToggled(mAccountList.get(holder.getBindingAdapterPosition()), isChecked);
-      }
     });
+    holder.accountInfo.setOnClickListener(v -> holder.accountEnabledSwitch.performClick());
 
-    // Set click listener for the entire item
+    // Set click listener for the entire card
     holder.itemView.setOnClickListener(v -> {
       if (mListener != null)
-      {
-        mListener.onAccountClicked(mAccountList.get(holder.getBindingAdapterPosition()).getAccountId());
-      }
+        mListener.onAccountClicked(mAccountList.get(holder.getBindingAdapterPosition()));
     });
+
+    // Set long click listener for the entire card
+    View.OnLongClickListener longClickListener = v ->
+    {
+      if (mListener != null)
+        return mListener.onAccountLongClicked(mAccountList.get(holder.getBindingAdapterPosition()));
+      return false;
+    };
+    holder.accountInfo.setOnLongClickListener(longClickListener);
+    holder.itemView.setOnLongClickListener(longClickListener);
   }
 
   @Override
@@ -140,7 +147,9 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
   {
     void onSwitchToggled(SyncAccount account, boolean isChecked);
 
-    void onAccountClicked(long accountId);
+    void onAccountClicked(SyncAccount account);
+
+    boolean onAccountLongClicked(SyncAccount account);
   }
 
   public static class AccountViewHolder extends RecyclerView.ViewHolder
@@ -150,6 +159,7 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
     TextView usernameText;
     TextView backendServerText;
     SwitchCompat accountEnabledSwitch;
+    View accountInfo;
     TextView syncStatusText;
     TextView errorStatusText;
 
@@ -169,6 +179,7 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
       accountEnabledSwitch = itemView.findViewById(R.id.switch_enable_sync);
       syncStatusText = itemView.findViewById(R.id.tv_sync_status);
       errorStatusText = itemView.findViewById(R.id.tv_error_status);
+      accountInfo = itemView.findViewById(R.id.account_info);
     }
 
     public void refreshViews()
