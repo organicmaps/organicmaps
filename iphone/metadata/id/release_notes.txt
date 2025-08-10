@@ -1,31 +1,31 @@
-# Release Notes
+# Catatan Rilis
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• BARU! Tampilkan rute hiking dan bersepeda dari OpenStreetMap (periksa tombol Lapisan)
+• BARU! Tampilkan nama bookmark di peta (periksa pengaturan aplikasi)
+• Data OpenStreetMap diperbarui hingga 8 Agustus
+• Diperbaiki titik awal/akhir yang hilang saat merekam trek
+• Jalan pertanian dan kehutanan dikecualikan dari perutean
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• Mengatasi beberapa crash dan error sinkronisasi iCloud
+• Memperkenalkan judul multi-baris dalam daftar bookmark
+• Memperbaiki masalah zoom saat membatalkan pilihan trek
+• Memperbaiki terjemahan ATM yang hilang
+• Memperbaiki masalah membuka situs web dengan karakter yang dikodekan persen
+• Mengganti terjemahan yang hilang dengan alternatif bahasa Inggris
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## Peningkatan Gaya & Ikon
+• Menandai lahan basah dengan garis horizontal
+• Ikon garpu dan pisau untuk food court
+• Ikon untuk makanan cepat saji dan sepeda dalam hasil pencarian dan bookmark
+• Parkir sepeda tertutup, loker bagasi, dan permainan escape
+• Stasiun penjaga hutan dan mitra pos
+• Menampilkan pasar, area istirahat, lokasi layanan, area ritel, dan taman air
+• Memperbaiki representasi warna untuk hutan, semak belukar, dan padang rumput di semua level zoom
+• Memperbaiki pengaturan prioritas untuk kantor diplomatik
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## Peningkatan Lain-lain
+• Mengetik "cop" dalam pencarian menemukan kantor polisi, sementara "film" atau "movie theater" melokalisir bioskop
+• Buka di aplikasi lain sekarang menampilkan titik yang dipilih di Google Maps
+• Terjemahan Spanyol untuk lebih banyak kategori pencarian
+• Memperbarui berbagai terjemahan

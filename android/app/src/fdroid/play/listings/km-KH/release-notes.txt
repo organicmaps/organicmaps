@@ -1,9 +1,8 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• ថ្មី! បង្ហាញផ្លូវដើរឡើងភ្នំនិងជិះកង់ពី OpenStreetMap (មើលប៊ូតុង Layers)
+• ថ្មី! បានបន្ថែមក្រាហ្វកម្ពស់ផ្លូវនិងការជ្រើសរើសផ្លូវលើផែនទី
+• ថ្មី! បង្ហាញឈ្មោះ bookmark លើផែនទី (មើលការកំណត់កម្មវិធី)
+• ទិន្នន័យ OpenStreetMap ថ្មីគិតត្រឹមថ្ងៃទី ៨ សីហា
+• ជួសជុលបញ្ហាចំណុចចាប់ផ្តើម/បញ្ចប់ដែលបាត់នៅពេលកត់ត្រាផ្លូវ
+• ទុកចំណាំ OSM ប្រសិនបើ POI ដែលទើបបន្ថែមនៅមិនទាន់ត្រូវបានគាំទ្រ
 
-…more at omaps.org/news
+…បន្ថែមនៅ omaps.org/news

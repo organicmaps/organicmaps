@@ -1,31 +1,31 @@
-# Release Notes
+# Poznámky k vydaniu
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• NOVÉ! Zobrazenie turistických a cyklistických trás z OpenStreetMap (skontrolujte tlačidlo Vrstvy)
+• NOVÉ! Zobrazenie názvov záložiek na mape (skontrolujte nastavenia aplikácie)
+• Aktualizované dáta OpenStreetMap k 8. augustu
+• Opravené chýbajúce počiatočné/koncové body pri nahrávaní stopy
+• Poľnohospodárske a lesné cesty sú vylúčené zo smerovania
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• Vyriešených niekoľko pádov a chýb synchronizácie iCloud
+• Zavedené viacriadkové názvy v zoznamoch záložiek
+• Opravený problém s priblížením pri zrušení výberu stopy
+• Opravené chýbajúce preklady bankomatov
+• Opravené problémy s otváraním webových stránok s percentuálne kódovanými znakmi
+• Chýbajúce preklady nahradené anglickými alternatívami
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## Vylepšenia štýlov a ikon
+• Označené mokrade vodorovným šrafovaním
+• Ikona vidličky a noža pre food courty
+• Ikony pre rýchle občerstvenie a bicykle vo výsledkoch vyhľadávania a záložkách
+• Kryté parkoviská pre bicykle, skrinky na batožinu a únikové hry
+• Stanice strážcov a partneri pošty
+• Zobrazenie trhových miest, odpočívadiel, servisných miest, maloobchodných oblastí a aquaparkov
+• Opravené farebné zobrazenie lesov, krovín a lúk na všetkých úrovniach priblíženia
+• Opravené nastavenia priorít pre diplomatické úrady
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## Rôzne vylepšenia
+• Zadanie "cop" vo vyhľadávaní nájde policajné stanice, zatiaľ čo "film" alebo "movie theater" lokalizuje kiná
+• Otvoriť v inej aplikácii teraz zobrazuje vybraný bod v Google Maps
+• Španielsky preklad pre viac kategórií vyhľadávania
+• Aktualizované rôzne preklady

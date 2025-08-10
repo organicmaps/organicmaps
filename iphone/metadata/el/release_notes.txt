@@ -1,31 +1,31 @@
-# Release Notes
+# Σημειώσεις έκδοσης
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• ΝΕΟ! Εμφάνιση διαδρομών πεζοπορίας και ποδηλασίας από το OpenStreetMap (ελέγξτε το κουμπί Επίπεδα)
+• ΝΕΟ! Εμφάνιση ονομάτων σελιδοδεικτών στον χάρτη (ελέγξτε τις ρυθμίσεις της εφαρμογής)
+• Ενημερωμένα δεδομένα OpenStreetMap από 8 Αυγούστου
+• Διορθώθηκαν τα σημεία έναρξης/τέλους που έλειπαν κατά την εγγραφή διαδρομής
+• Οι αγροτικοί και δασικοί δρόμοι εξαιρούνται από τη δρομολόγηση
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• Επιλύθηκαν πολλαπλές διακοπές λειτουργίας και σφάλματα συγχρονισμού iCloud
+• Εισήχθησαν πολυγραμμικοί τίτλοι σε λίστες σελιδοδεικτών
+• Διορθώθηκε το πρόβλημα εστίασης κατά την αποεπιλογή διαδρομής
+• Διορθώθηκαν οι μεταφράσεις ΑΤΜ που έλειπαν
+• Διορθώθηκαν προβλήματα με το άνοιγμα ιστοσελίδων με χαρακτήρες κωδικοποιημένους σε ποσοστό
+• Οι μεταφράσεις που έλειπαν αντικαταστάθηκαν με αγγλικές εναλλακτικές
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## Βελτιώσεις στυλ και εικονιδίων
+• Σημειώθηκαν υγρότοποι με οριζόντια γραμμοσκίαση
+• Εικονίδιο πιρουνιού και μαχαιριού για food courts
+• Εικονίδια για φαστ φουντ και ποδήλατα στα αποτελέσματα αναζήτησης και σελιδοδείκτες
+• Στεγασμένα πάρκινγκ ποδηλάτων, ντουλάπια αποσκευών και escape games
+• Σταθμοί δασοφυλάκων και συνεργάτες ταχυδρομείου
+• Εμφάνιση αγορών, χώρων ανάπαυσης, σημείων service, εμπορικών περιοχών και υδάτινων πάρκων
+• Διορθώθηκε η αναπαράσταση χρωμάτων για δάση, θαμνότοπους και λιβάδια σε όλα τα επίπεδα εστίασης
+• Διορθώθηκαν οι ρυθμίσεις προτεραιότητας για διπλωματικά γραφεία
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## Διάφορες βελτιώσεις
+• Η πληκτρολόγηση "cop" στην αναζήτηση βρίσκει αστυνομικά τμήματα, ενώ "film" ή "movie theater" εντοπίζει κινηματογράφους
+• Το άνοιγμα σε άλλη εφαρμογή τώρα εμφανίζει το επιλεγμένο σημείο στους Google Maps
+• Ισπανική μετάφραση για περισσότερες κατηγορίες αναζήτησης
+• Ενημερώθηκαν διάφορες μεταφράσεις

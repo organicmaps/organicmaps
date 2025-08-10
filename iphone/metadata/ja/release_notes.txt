@@ -1,31 +1,31 @@
-# Release Notes
+# リリースノート
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• 新機能！OpenStreetMapからハイキングとサイクリングルートを表示（レイヤーボタンをチェック）
+• 新機能！マップ上にブックマーク名を表示（アプリ設定をチェック）
+• 月8日時点のOpenStreetMapデータを更新
+• トラック記録時の開始/終了ポイントの欠落を修正
+• 農業道路と林道をルーティングから除外
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• いくつかのクラッシュとiCloud同期エラーを解決
+• ブックマークリストに複数行タイトルを導入
+• トラックの選択解除時のズーム問題を修正
+• ATMの翻訳の欠落を修正
+• パーセントエンコードされた文字を含むウェブサイトを開く際の問題を修正
+• 欠落した翻訳を英語の代替案に置き換え
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## スタイルとアイコンの強化
+• 湿地を水平ハッチングでマーク
+• フードコート用のフォークとナイフのアイコン
+• 検索結果とブックマークでのファストフードと自転車のアイコン
+• 屋根付き自転車駐車場、荷物ロッカー、エスケープゲーム
+• レンジャーステーションと郵便局パートナー
+• マーケットプレイス、休憩エリア、サービス拠点、小売エリア、ウォーターパークを表示
+• すべてのズームレベルで森林、低木地、草地の色表現を修正
+• 外交機関の優先度設定を修正
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## その他の改善
+• 検索で「cop」と入力すると警察署が見つかり、「film」や「movie theater」と入力すると映画館が見つかります
+• 他のアプリで開くがGoogle Mapsで選択したポイントを表示するようになりました
+• より多くの検索カテゴリのスペイン語翻訳
+• 様々な翻訳を更新

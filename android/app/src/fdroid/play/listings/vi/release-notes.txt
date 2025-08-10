@@ -1,9 +1,9 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• MỚI! Hiển thị tuyến đường đi bộ và đạp xe từ OpenStreetMap (xem nút Lớp)
+• MỚI! Thêm biểu đồ độ cao và lựa chọn tuyến đường trên bản đồ
+• MỚI! Hiển thị tên dấu trang trên bản đồ (xem Cài đặt ứng dụng)
+• Dữ liệu OpenStreetMap mới tính đến ngày 8 tháng 8
+• Sửa lỗi thiếu điểm bắt đầu/kết thúc khi ghi tuyến đường
+• Loại trừ đường nông nghiệp và lâm nghiệp khỏi định tuyến
+• Để lại ghi chú OSM nếu POI mới thêm chưa được hỗ trợ
 
-…more at omaps.org/news
+…thêm tại omaps.org/news

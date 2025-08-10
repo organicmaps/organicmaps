@@ -1,9 +1,8 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• NAUJIENA! Rodyti pėsčiųjų ir dviračių maršrutus iš OpenStreetMap (žr. Sluoksnių mygtuką)
+• NAUJIENA! Pridėtas tako aukščio grafikas ir tako pasirinkimas žemėlapyje
+• NAUJIENA! Rodyti žymeklių pavadinimus žemėlapyje (žr. programėlės Nustatymus)
+• Nauji OpenStreetMap duomenys iki rugpjūčio 8 d.
+• Ištaisytos problemos su trūkstamais pradžios/pabaigos taškais įrašant taką
+• Palikite OSM pastabą, jei naujai pridėtas POI dar nepalaikomas
 
-…more at omaps.org/news
+…daugiau omaps.org/news

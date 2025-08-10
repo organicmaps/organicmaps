@@ -1,9 +1,9 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• 새로운 기능! OpenStreetMap의 하이킹 및 사이클링 경로 표시 (레이어 버튼 확인)
+• 새로운 기능! 트랙 고도 그래프 및 지도상 트랙 선택 추가
+• 새로운 기능! 지도에 북마크 이름 표시 (앱 설정 확인)
+• 8월 8일 기준 새로운 OpenStreetMap 데이터
+• 트랙 기록 시 시작/끝점 누락 문제 수정
+• 농업 및 임업 도로를 라우팅에서 제외
+• 새로 추가된 POI가 아직 지원되지 않으면 OSM 메모를 남겨주세요
 
-…more at omaps.org/news
+…자세한 내용은 omaps.org/news 에서

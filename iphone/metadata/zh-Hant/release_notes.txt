@@ -1,31 +1,31 @@
-# Release Notes
+# 發行說明
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• 新功能！顯示來自OpenStreetMap的健行和騎行路線（查看圖層按鈕）
+• 新功能！在地圖上顯示書籤名稱（查看應用程式設定）
+• 更新至8月4日的OpenStreetMap資料
+• 修復錄製軌跡時缺失起點/終點的問題
+• 農業和林業道路已從路線規劃中排除
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• 解決了幾個當機和iCloud同步錯誤
+• 在書籤清單中引入多行標題
+• 修復取消選擇軌跡時的縮放問題
+• 修正缺失的ATM翻譯
+• 修復開啟包含百分號編碼字元的網站的問題
+• 將缺失的翻譯替換為英語替代方案
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## 樣式和圖示增強
+• 用水平陰影線標記濕地
+• 為美食廣場添加刀叉圖示
+• 在搜尋結果和書籤中為速食和自行車添加圖示
+• 有蓋自行車停車場、行李寄存櫃和密室逃脫
+• 護林員站和郵局合作夥伴
+• 顯示市場、休息區、服務地點、零售區和水上樂園
+• 修復了所有縮放級別下森林、灌木叢和草地的顏色表現
+• 修正了外交辦公室的優先級設定
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## 其他改進
+• 在搜尋中輸入"cop"可找到警察局，而"film"或"movie theater"可定位電影院
+• "在其他應用程式中開啟"現在會在Google Maps中顯示所選點
+• 為更多搜尋類別提供西班牙語翻譯
+• 更新了各種翻譯

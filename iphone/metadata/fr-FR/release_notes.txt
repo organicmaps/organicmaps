@@ -1,31 +1,31 @@
-# Release Notes
+# Notes de version
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• NOUVEAU ! Affichage des itinéraires de randonnée et de cyclisme d'OpenStreetMap (vérifiez le bouton Couches)
+• NOUVEAU ! Affichage des noms de favoris sur la carte (vérifiez les paramètres de l'application)
+• Données OpenStreetMap mises à jour au 8 août
+• Correction des points de départ/fin manquants lors de l'enregistrement d'une piste
+• Les routes agricoles et forestières sont exclues du routage
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• Résolution de plusieurs plantages et erreurs de synchronisation iCloud
+• Introduction de titres multi-lignes dans les listes de favoris
+• Correction du problème de zoom lors de la désélection d'une piste
+• Correction des traductions DAB manquantes
+• Correction des problèmes d'ouverture de sites web avec des caractères encodés en pourcentage
+• Remplacement des traductions manquantes par des alternatives en anglais
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## Améliorations des styles et icônes
+• Marquage des zones humides avec des hachures horizontales
+• Icône fourchette et couteau pour les aires de restauration
+• Icônes pour la restauration rapide et les vélos dans les résultats de recherche et les favoris
+• Parkings à vélos couverts, consignes à bagages et jeux d'évasion
+• Postes de garde forestier et partenaires de la poste
+• Affichage des marchés, aires de repos, centres de service, zones commerciales et parcs aquatiques
+• Correction de la représentation des couleurs pour les forêts, broussailles et prairies à tous les niveaux de zoom
+• Correction des paramètres de priorité pour les bureaux diplomatiques
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## Améliorations diverses
+• Taper "cop" dans la recherche trouve les postes de police, tandis que "film" ou "movie theater" localise les cinémas
+• Ouvrir dans une autre application affiche maintenant le point sélectionné dans Google Maps
+• Traduction espagnole pour plus de catégories de recherche
+• Mise à jour de diverses traductions

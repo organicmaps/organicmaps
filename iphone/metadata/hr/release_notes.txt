@@ -1,31 +1,31 @@
-# Release Notes
+# Napomene o izdanju
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• NOVO! Prikaz pješačkih i biciklističkih ruta iz OpenStreetMap-a (provjerite gumb Slojevi)
+• NOVO! Prikaz naziva knjižnih oznaka na karti (provjerite postavke aplikacije)
+• Ažurirani OpenStreetMap podaci od 8. kolovoza
+• Ispravne nedostajuće početne/završne točke pri snimanju staze
+• Poljoprivredne i šumske ceste isključene su iz rutiranja
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• Riješeno nekoliko rušenja i greški sinkronizacije iCloud-a
+• Uvedeni višelinijski naslovi u listama knjižnih oznaka
+• Ispravljen problem zumiranja pri poništavanju odabira staze
+• Ispravni nedostajući prijevodi za bankomat
+• Ispravni problemi s otvaranjem web stranica s postotno kodiranim znakovima
+• Nedostajući prijevodi zamijenjeni engleskim alternativama
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## Poboljšanja stilova i ikona
+• Označena močvarna područja vodoravnim šrafiranjem
+• Ikona vilice i noža za food courtove
+• Ikone za brzu hranu i bicikle u rezultatima pretrage i knjižnim oznakama
+• Natkriveni biciklistički parkovi, ormarići za prtljagu i escape igre
+• Stanice čuvara šume i partneri pošte
+• Prikaz tržnica, područja za odmor, servisnih lokacija, maloprodajnih područja i vodenih parkova
+• Ispravno prikazivanje boja za šume, grmlje i livade na svim razinama zumiranja
+• Ispravne postavke prioriteta za diplomatske urede
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## Razna poboljšanja
+• Tipkanje "cop" u pretraživanju pronalazi policijske postaje, dok "film" ili "movie theater" locira kinematografe
+• Otvori u drugoj aplikaciji sada prikazuje odabranu točku u Google Maps-u
+• Španjolski prijevod za više kategorija pretrage
+• Ažurirani različiti prijevodi
