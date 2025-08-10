@@ -844,7 +844,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">授予权限</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">徒步旅行</string>
+    <string name="button_layer_outdoor">户外</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">网络浏览器不可用</string>
     <string name="volume">音量</string>
@@ -906,4 +906,11 @@
     <string name="saved">已保存</string>
     <string name="osm_note_hint">或者，也可以给 OpenStreetMap 社区留言，以便其他人可以在此添加或修复地点。</string>
     <string name="osm_note_toast">注释将发送至 OpenStreetMap</string>
+    <string name="routes_update_maps_text">要显示路线，必须更新地图。</string>
+    <string name="bookmarks_text_placement_title">地图上的书签名称</string>
+    <string name="bookmarks_text_placement_description">如果书签太多，在地图上显示其名称可能会降低应用的速度。</string>
+    <string name="show_to_the_right">右侧显示</string>
+    <string name="show_at_the_bottom">底部显示</string>
+    <string name="share_track">分享轨迹</string>
+    <string name="delete_track_dialog_title">删除 %s？</string>
 </resources>

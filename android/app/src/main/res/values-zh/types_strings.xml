@@ -1403,4 +1403,10 @@
     <string name="type.highway.ladder">梯子</string>
     <string name="type.landuse.plant_nursery">苗圃</string>
     <string name="type.leisure.firepit">火坑</string>
+    <string name="type.amenity.bicycle_parking.covered">有棚自行车停放处</string>
+    <string name="type.amenity.luggage_locker">行李寄存处</string>
+    <string name="type.post_office.post_partner">邮政合作点</string>
+    <string name="type.leisure.escape_game">密室逃脱</string>
+    <string name="type.railway.station.subway.qingdao">地铁站</string>
+    <string name="type.amenity.ranger_station">护林站</string>
 </resources>

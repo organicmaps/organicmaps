@@ -850,4 +850,5 @@
     <string name="trip_finished">Пристигнахте!</string>
     <string name="instagram">Instagram</string>
     <string name="downloader_loading_ios">Изтегляне</string>
+    <string name="saved">Запазено</string>
 </resources>
