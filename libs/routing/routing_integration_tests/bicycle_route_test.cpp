@@ -376,12 +376,12 @@ UNIT_TEST(Finland_Use_Tertiary_LowTraffic)
 
 UNIT_TEST(Belarus_Stolbcy_Use_Unpaved)
 {
-  // Goes by a track, unpaved and paved streets and an unpaved_bad track in the end.
-  // Closer as GraphHopper. Valhalla detours the unpaved street.
+  // Goes by a paved streets and an compacted track in the end.
+  // Same as GraphHopper and Valhalla detours the unpaved paths.
   // OSRM shortcuts through paths and a ford.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Bicycle),
                                    mercator::FromLatLon(53.471389, 26.7422186), {0.0, 0.0},
-                                   mercator::FromLatLon(53.454082, 26.7560061), 4620.81 /* expectedRouteMeters */);
+                                   mercator::FromLatLon(53.454082, 26.7560061), 5233.27 /* expectedRouteMeters */);
 }
 
 UNIT_TEST(Russia_UseTrunk_Long)
