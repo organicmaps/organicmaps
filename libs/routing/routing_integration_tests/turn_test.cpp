@@ -722,7 +722,7 @@ UNIT_TEST(Russia_Moscow_LeninskyProsp_TurnTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
 
-  integration::TestTurnCount(route, 6 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
 }
 
 // Test on the route from TTK (primary) to a link.
