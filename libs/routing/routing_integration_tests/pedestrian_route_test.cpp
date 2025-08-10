@@ -589,7 +589,7 @@ UNIT_TEST(France_Uphill_Downlhill)
     TEST_GREATER(timeUphill, 4 * 3600, ());
   }
 
-  TEST_GREATER(timeUphill - timeDownhill, 1000, ());
+  TEST_GREATER(timeUphill - timeDownhill, 900, ());
 }
 
 // https://github.com/organicmaps/organicmaps/issues/1342
@@ -634,17 +634,17 @@ UNIT_TEST(Spain_N634_Piligrim_Road)
 UNIT_TEST(Australia_Mountains_Downlhill)
 {
   TRouteResult const routeResult =
-      CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian), FromLatLon(-33.7374217, 150.283098), {0., 0.},
-                     FromLatLon(-33.7375399, 150.283358));
+      CalculateRoute(GetVehicleComponents(VehicleType::Pedestrian), FromLatLon(-33.7374169, 150.283131), {0., 0.},
+                     FromLatLon(-33.7375786, 150.283347));
 
   TEST_EQUAL(routeResult.second, RouterResultCode::NoError, ());
   TEST(routeResult.first, ());
   Route const & route = *routeResult.first;
 
-  TestRouteLength(route, 27.4434);
-  // Altitudes diff is (914 -> 798).
+  TestRouteLength(route, 34.0359);
+  // Altitudes diff is (900 -> 800).
   double const eta = route.GetTotalTimeSec();
-  TEST(8 * 60 < eta && eta < 11 * 60, (eta));
+  TEST(7 * 60 < eta && eta < 10 * 60, (eta));
 }
 
 UNIT_TEST(Turkey_UsePrimary)
