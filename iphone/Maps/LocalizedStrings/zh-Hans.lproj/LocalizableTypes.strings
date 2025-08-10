@@ -1492,9 +1492,9 @@
 "type.highway.ladder" = "梯子";
 "type.landuse.plant_nursery" = "苗圃";
 "type.leisure.firepit" = "火坑";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.leisure.escape_game" = "Escape Room";
-"type.railway.station.subway.qingdao" = "Subway Station";
-"type.amenity.ranger_station" = "Ranger Station";
+"type.amenity.bicycle_parking.covered" = "有棚自行车停放处";
+"type.amenity.luggage_locker" = "行李寄存处";
+"type.post_office.post_partner" = "邮政合作点";
+"type.leisure.escape_game" = "密室逃脱";
+"type.railway.station.subway.qingdao" = "地铁站";
+"type.amenity.ranger_station" = "护林站";
