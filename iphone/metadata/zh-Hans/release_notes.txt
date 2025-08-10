@@ -1,31 +1,31 @@
-# Release Notes
+# 发行说明
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• 新功能！显示来自OpenStreetMap的徒步和骑行路线（查看图层按钮）
+• 新功能！在地图上显示书签名称（查看应用设置）
+• 更新至8月4日的OpenStreetMap数据
+• 修复录制轨迹时缺失起点/终点的问题
+• 农业和林业道路已从路线规划中排除
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• 解决了几个崩溃和iCloud同步错误
+• 在书签列表中引入多行标题
+• 修复取消选择轨迹时的缩放问题
+• 修正缺失的ATM翻译
+• 修复打开包含百分号编码字符的网站的问题
+• 将缺失的翻译替换为英语替代方案
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## 样式和图标增强
+• 用水平阴影线标记湿地
+• 为美食广场添加刀叉图标
+• 在搜索结果和书签中为快餐和自行车添加图标
+• 有盖自行车停车场、行李寄存柜和密室逃脱
+• 护林员站和邮局合作伙伴
+• 显示市场、休息区、服务地点、零售区和水上乐园
+• 修复了所有缩放级别下森林、灌木丛和草地的颜色表现
+• 修正了外交办公室的优先级设置
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## 其他改进
+• 在搜索中输入"cop"可找到警察局，而"film"或"movie theater"可定位电影院
+• "在其他应用中打开"现在会在Google Maps中显示所选点
+• 为更多搜索类别提供西班牙语翻译
+• 更新了各种翻译

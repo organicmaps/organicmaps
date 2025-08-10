@@ -1,31 +1,31 @@
-# Release Notes
+# Notas de la versión
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• ¡NUEVO! Muestra rutas de senderismo y ciclismo de OpenStreetMap (consulta el botón Capas)
+• ¡NUEVO! Muestra nombres de marcadores en el mapa (consulta la configuración de la aplicación)
+• Datos de OpenStreetMap actualizados al 8 de agosto
+• Corregidos puntos de inicio/final faltantes al grabar una pista
+• Las carreteras agrícolas y forestales están excluidas del enrutamiento
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• Resueltos varios fallos y errores de sincronización de iCloud
+• Introducidos títulos multilínea en listas de marcadores
+• Corregido el problema de zoom al deseleccionar una pista
+• Corregidas traducciones faltantes de cajeros automáticos
+• Corregidos problemas al abrir sitios web con caracteres codificados en porcentaje
+• Traducciones faltantes reemplazadas con alternativas en inglés
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## Mejoras de estilos e iconos
+• Marcados humedales con sombreado horizontal
+• Icono de tenedor y cuchillo para patios de comida
+• Iconos para comida rápida y bicicletas en resultados de búsqueda y marcadores
+• Aparcamientos cubiertos para bicicletas, casilleros de equipaje y juegos de escape
+• Estaciones de guardabosques y socios de correos
+• Mostrar mercados, áreas de descanso, centros de servicio, áreas comerciales y parques acuáticos
+• Corregida representación de color para bosques, matorrales y prados en todos los niveles de zoom
+• Corregidas configuraciones de prioridad para oficinas diplomáticas
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## Mejoras diversas
+• Escribir "cop" en la búsqueda encuentra estaciones de policía, mientras que "film" o "movie theater" localiza cines
+• Abrir en otra aplicación ahora muestra el punto seleccionado en Google Maps
+• Traducción al español para más categorías de búsqueda
+• Actualizadas varias traducciones

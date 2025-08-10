@@ -1,9 +1,8 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• НОВО! Показване на пешеходни и велосипедни маршрути от OpenStreetMap (вижте бутон Слоеве)
+• НОВО! Добавена диаграма на височината и избор на маршрут на картата
+• НОВО! Показване на имена на отметки на картата (вижте Настройки на приложението)
+• Нови данни от OpenStreetMap към 8 август
+• Поправени проблеми с липсващи начални/крайни точки при записване на маршрут
+• Оставете OSM бележка, ако новодобавен POI все още не се поддържа
 
-…more at omaps.org/news
+…повече на omaps.org/news

@@ -1,31 +1,31 @@
-# Release Notes
+# Poznámky k vydání
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• NOVÉ! Zobrazení turistických a cyklistických tras z OpenStreetMap (zkontrolujte tlačítko Vrstvy)
+• NOVÉ! Zobrazení názvů záložek na mapě (zkontrolujte nastavení aplikace)
+• Aktualizovaná data OpenStreetMap k 8. srpnu
+• Opraveny chybějící počáteční/koncové body při nahrávání trasy
+• Zemědělské a lesní cesty jsou vyloučeny ze směrování
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• Vyřešeno několik pádů a chyb synchronizace iCloud
+• Zavedeny víceřádkové názvy v seznamech záložek
+• Opraven problém s přibližováním při zrušení výběru trasy
+• Opraveny chybějící překlady bankomatu
+• Opraveny problémy s otevíráním webových stránek s procenty kódovanými znaky
+• Chybějící překlady nahrazeny anglickými alternativami
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## Vylepšení stylů a ikon
+• Označeny mokřady horizontálním šrafováním
+• Ikona vidličky a nože pro food courty
+• Ikony pro fast food a jízdní kola ve výsledcích vyhledávání a záložkách
+• Krytá parkoviště pro jízdní kola, úschovny zavazadel a únikové hry
+• Strážní stanice a partneři pošty
+• Zobrazení tržišť, odpočívadel, servisních míst, maloobchodních oblastí a aquaparků
+• Opraveno barevné znázornění lesů, křovin a luk ve všech úrovních přiblížení
+• Opraveno nastavení priorit pro diplomatické úřady
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## Různá vylepšení
+• Zadáním "cop" ve vyhledávání najdete policejní stanice, zatímco "film" nebo "movie theater" najde kina
+• Otevřít v jiné aplikaci nyní zobrazuje vybraný bod v Google Maps
+• Španělský překlad pro více kategorií vyhledávání
+• Aktualizovány různé překlady

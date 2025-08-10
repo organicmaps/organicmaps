@@ -1,31 +1,31 @@
-# Release Notes
+# Utgivelsesnotater
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• NYTT! Vis turdis- og sykkelruter fra OpenStreetMap (sjekk Lag-knappen)
+• NYTT! Vis bokmerkenavn på kartet (sjekk app-innstillinger)
+• Oppdaterte OpenStreetMap-data per 8. august
+• Fikset manglende start-/sluttpunkter ved opptak av spor
+• Landbruks- og skogveier er ekskludert fra ruting
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• Løst flere krasj og iCloud-synkroniseringsfeil
+• Introdusert flerlinjetitler i bokmerkelister
+• Fikset zoomproblemet ved fravalg av spor
+• Korrigert manglende minibank-oversettelser
+• Fikset problemer med å åpne nettsteder med prosentkodede tegn
+• Erstattet manglende oversettelser med engelske alternativer
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## Stil- og ikonforbedringer
+• Markerte våtmark med horisontal skravering
+• Gaffel og kniv-ikon for matplasser
+• Ikoner for hurtigmat og sykler i søkeresultater og bokmerker
+• Dekket sykkelparker, bagasjebokser og escape games
+• Skogvakterstasironer og postkontor-partnere
+• Vis markedsplasser, hvileplasser, serviceområder, handelsområder og vannparker
+• Fikset fargerepresentasjon for skoger, kratt og enger på alle zoomnivåer
+• Korrigert prioritetsinnstillinger for diplomatiske kontorer
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## Diverse forbedringer
+• Å skrive "cop" i søket finner politistasjoner, mens "film" eller "movie theater" lokaliserer kinoer
+• Åpne i annen app viser nå det valgte punktet i Google Maps
+• Spansk oversettelse for flere søkekategorier
+• Oppdaterte forskjellige oversettelser

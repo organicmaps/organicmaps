@@ -1,9 +1,9 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• NIEUW! Toon wandel- en fietsroutes van OpenStreetMap (zie Lagen knop)
+• NIEUW! Hoogtegrafieken en routeselectie op kaart toegevoegd
+• NIEUW! Toon bladwijzernamen op kaart (zie app Instellingen)
+• Nieuwe OpenStreetMap data van 8 augustus
+• Problemen opgelost met ontbrekende start/eindpunten bij opnemen route
+• Landbouw- en boswegen uitgesloten van routering
+• Laat een OSM notitie achter als nieuw toegevoegde POI nog niet ondersteund wordt
 
-…more at omaps.org/news
+…meer op omaps.org/news

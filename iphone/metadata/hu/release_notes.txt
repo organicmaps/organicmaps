@@ -1,31 +1,31 @@
-# Release Notes
+# Kiadási megjegyzések
 
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Display bookmark names on the map (check app's Settings)
-• Updated OpenStreetMap data as of August 4
-• Fixed missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
+• ÚJ! Túra- és kerékpáros útvonalak megjelenítése az OpenStreetMapról (ellenőrizd a Rétegek gombot)
+• ÚJ! Könyvjelző nevek megjelenítése a térképen (ellenőrizd az alkalmazás beállításait)
+• Frissített OpenStreetMap adatok augusztus 8-ig
+• Kijavítva a hiányzó kezdő/záró pontok a nyomvonal rögzítésekor
+• A mezőgazdasági és erdészeti utak ki vannak zárva az útvonaltervezésből
 
 ## iOS
-• Resolved several crashes and iCloud synchronization errors
-• Introduced multi-line titles in bookmark lists
-• Fixed the zooming issue when deselecting a track
-• Corrected missing ATM translations
-• Fixed issues with opening websites with percent-encoded characters
-• Replaced missing translations with English alternatives
+• Megoldva több összeomlás és iCloud szinkronizálási hiba
+• Bevezetve a többsoros címek a könyvjelző listákban
+• Kijavítva a nagyítási probléma a nyomvonal kijelölésének törlésekor
+• Kijavítva a hiányzó ATM fordítások
+• Kijavítva a százalékos kódolású karaktereket tartalmazó weboldalak megnyitásának problémái
+• A hiányzó fordításokat angol alternatívákkal helyettesítettük
 
-## Styles & Icons Enhancements
-• Marked wetlands with horizontal hatching
-• Fork and knife icon for food courts
-• Icons for fast food and bicycles in search results and bookmarks
-• Covered bicycle parking, luggage lockers, and escape games
-• Ranger stations and post office partners
-• Show marketplaces, rest areas, service locations, retail areas, and water parks
-• Fixed color representation for forests, scrublands, and meadows across all zoom levels
-• Corrected priority settings for diplomatic offices
+## Stílus és ikon fejlesztések
+• Vizes élőhelyek jelölése vízszintes vonalkázással
+• Villa és kés ikon az ételudvarok számára
+• Ikonok a gyorsétteremhez és kerékpárokhoz a keresési eredményekben és könyvjelzőkben
+• Fedett kerékpár parkolók, poggyász szekrények és szabadulószobák
+• Erdész állomások és posta partnerek
+• Piacok, pihenőhelyek, szervizhelyek, kiskereskedelmi területek és aquaparkok megjelenítése
+• Kijavítva a színreprezentáció erdők, cserjések és rétek számára minden nagyítási szinten
+• Kijavítva a prioritási beállítások diplomáciai irodák számára
 
-## Miscellaneous Improvements
-• Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas
-• Open in another app now displays the selected point in Google Maps
-• Spanish translation for more search categories
-• Updated various translations
+## Egyéb fejlesztések
+• A "cop" beírása a keresésben rendőrőrsöket talál, míg a "film" vagy "movie theater" mozikat lokalizál
+• A megnyitás másik alkalmazásban most a kiválasztott pontot jeleníti meg a Google Mapsben
+• Spanyol fordítás több keresési kategóriához
+• Frissítve különböző fordítások

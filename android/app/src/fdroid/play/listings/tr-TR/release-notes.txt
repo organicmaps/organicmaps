@@ -1,9 +1,8 @@
-• NEW! Display hiking and cycling routes from OpenStreetMap (check Layers button)
-• NEW! Added track elevation graph and track selection on the map
-• NEW! Display bookmark names on the map (check app's Settings)
-• New OpenStreetMap data as of August 4
-• Fixed issues with missing start/end points when recording a track
-• Agricultural and forestry roads are excluded from routing
-• Leave an OSM note if a newly added POI is not yet supported
+• YENİ! OpenStreetMap'ten yürüyüş ve bisiklet rotalarını göster (Katmanlar düğmesine bakın)
+• YENİ! İz yükseklik grafiği ve harita üzerinde iz seçimi eklendi
+• YENİ! Harita üzerinde yer imi isimlerini göster (uygulama Ayarlarına bakın)
+• 8 Ağustos itibariyle yeni OpenStreetMap verileri
+• İz kaydederken eksik başlangıç/bitiş noktaları sorunları düzeltildi
+• Tarım ve orman yolları yönlendirmeden hariç tutuldu
 
-…more at omaps.org/news
+…daha fazlası omaps.org/news adresinde
