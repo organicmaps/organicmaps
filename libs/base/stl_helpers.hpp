@@ -1,10 +1,11 @@
 #pragma once
 
 #include <algorithm>
+#include <concepts>
 #include <functional>
 #include <initializer_list>
 #include <iterator>
-#include <memory>
+#include <ranges>
 #include <tuple>
 #include <type_traits>
 #include <vector>
@@ -475,4 +476,12 @@ struct RetrieveSecond
     return pair.second;
   }
 };
+
+template <std::ranges::random_access_range Container>
+  requires std::totally_ordered<std::ranges::range_value_t<Container>>
+consteval bool HasUniqueElements(Container container)
+{
+  std::sort(container.begin(), container.end());
+  return std::adjacent_find(container.begin(), container.end()) == container.end();
+}
 }  // namespace base

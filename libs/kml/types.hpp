@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 #include "base/internal/message.hpp"  // DebugPrint(Timestamp)
+#include "base/stl_helpers.hpp"
 #include "base/visitor.hpp"
 
 #include "drape/color.hpp"
@@ -39,6 +40,31 @@ enum class PredefinedColor : uint8_t
 
   Count
 };
+
+std::array constexpr kOrderedPredefinedColors = {
+    // clang-format off
+    PredefinedColor::None,
+    PredefinedColor::Red,
+    PredefinedColor::Pink,
+    PredefinedColor::Purple,
+    PredefinedColor::DeepPurple,
+    PredefinedColor::Blue,
+    PredefinedColor::LightBlue,
+    PredefinedColor::Cyan,
+    PredefinedColor::Teal,
+    PredefinedColor::Green,
+    PredefinedColor::Lime,
+    PredefinedColor::Yellow,
+    PredefinedColor::Orange,
+    PredefinedColor::DeepOrange,
+    PredefinedColor::Brown,
+    PredefinedColor::Gray,
+    PredefinedColor::BlueGray
+    // clang-format on
+};
+static_assert(kOrderedPredefinedColors.size() == static_cast<size_t>(PredefinedColor::Count),
+              "kOrderedPredefinedColors size must match PredefinedColor::Count");
+static_assert(base::HasUniqueElements(kOrderedPredefinedColors), "All values must be unique");
 
 inline std::string DebugPrint(PredefinedColor color)
 {
