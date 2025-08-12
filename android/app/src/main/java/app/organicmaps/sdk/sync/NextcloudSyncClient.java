@@ -1,4 +1,4 @@
-package app.organicmaps.sync;
+package app.organicmaps.sdk.sync;
 
 import android.net.Uri;
 import android.os.Handler;
@@ -6,9 +6,9 @@ import android.os.HandlerThread;
 import android.util.Base64;
 import android.util.Xml;
 import androidx.annotation.Nullable;
+import app.organicmaps.sdk.util.FileUtils;
+import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.util.FileUtils;
-import app.organicmaps.util.Utils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -18,13 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
+import app.organicmaps.sdk.sync.BackendType;
+import app.organicmaps.sdk.sync.NextcloudLoginHelper;
+import app.organicmaps.sdk.sync.SyncAccount;
+import app.organicmaps.sdk.sync.SyncPrefs;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.sync.BackendType;
-import app.organicmaps.sync.NextcloudLoginHelper;
-import app.organicmaps.sync.SyncAccount;
-import app.organicmaps.sync.SyncPrefs;
-import app.organicmaps.util.ThemeUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.slider.Slider;
 import com.google.common.primitives.Longs;
@@ -231,8 +230,7 @@ public class SyncSettingsFragment
       --currentIndex;
     slider.setValue(currentIndex);
 
-    new MaterialAlertDialogBuilder(context, ThemeUtils.isNightTheme(context) ? R.style.MwmTheme_Night_AlertDialog_Wide
-                                                                             : R.style.MwmTheme_AlertDialog_Wide)
+    new MaterialAlertDialogBuilder(context, R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.set_sync_interval)
         .setView(sliderView)
         .setCancelable(false)

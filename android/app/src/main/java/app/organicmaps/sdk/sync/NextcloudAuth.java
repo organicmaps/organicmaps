@@ -1,7 +1,6 @@
-package app.organicmaps.sync;
+package app.organicmaps.sdk.sync;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import java.util.Objects;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package app.organicmaps.sync;
+package app.organicmaps.sdk.sync;
 
 import androidx.annotation.NonNull;
 import java.util.Objects;

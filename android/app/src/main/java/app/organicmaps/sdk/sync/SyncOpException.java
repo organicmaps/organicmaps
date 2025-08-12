@@ -1,4 +1,4 @@
-package app.organicmaps.sync;
+package app.organicmaps.sdk.sync;
 
 import app.organicmaps.sdk.util.log.Logger;
 import org.json.JSONException;

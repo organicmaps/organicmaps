@@ -1,4 +1,4 @@
-package app.organicmaps.sync;
+package app.organicmaps.sdk.sync;
 
 import android.content.Context;
 import org.json.JSONException;

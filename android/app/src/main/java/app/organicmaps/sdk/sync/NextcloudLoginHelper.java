@@ -1,4 +1,4 @@
-package app.organicmaps.sync;
+package app.organicmaps.sdk.sync;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,12 +26,10 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.browser.customtabs.CustomTabsServiceConnection;
 import androidx.browser.customtabs.CustomTabsSession;
 import app.organicmaps.R;
+import app.organicmaps.sdk.util.InsecureHttpsHelper;
+import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.util.InsecureHttpsHelper;
-import app.organicmaps.util.ThemeUtils;
-import app.organicmaps.util.UiUtils;
-import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -46,13 +45,22 @@ public class NextcloudLoginHelper
 {
   public static final String TAG = NextcloudLoginHelper.class.getSimpleName();
 
+  /// @param context must be an Activity context.
   @MainThread
   public static void login(Context context)
   {
+    if (!(context instanceof Activity))
+      throw new IllegalArgumentException("context argument must be an Activity context");
+
+    // This theme is needed because using R.style.MwmTheme_AlertDialog causes a blank
+    // underlay to appear below the copy/paste/select menu on the EditText, probably due to having
+    // a background defined.
+    TypedValue resolvedId = new TypedValue();
+    boolean foundTheme = context.getTheme().resolveAttribute(R.attr.alertDialogThemeWide, resolvedId, true);
+    int themeResId = foundTheme ? resolvedId.data : R.style.MwmTheme_AlertDialog;
+
     final AlertDialog dialog =
-        new MaterialAlertDialogBuilder(context, ThemeUtils.isNightTheme(context)
-                                                    ? R.style.MwmTheme_Night_AlertDialog_Wide
-                                                    : R.style.MwmTheme_AlertDialog_Wide)
+        new MaterialAlertDialogBuilder(context, themeResId)
             .setTitle(context.getString(R.string.enter_nextcloud_url))
             .setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss())
             .setPositiveButton(R.string.next_button, null)
@@ -203,7 +211,7 @@ public class NextcloudLoginHelper
                   .Builder(session)
                   // Set initial custom tabs height to 90% of total display height
                   // Certain browsers like Firefox don't respect this though
-                  .setInitialActivityHeightPx(UiUtils.getDisplayTotalHeight(context) * 9 / 10)
+                  .setInitialActivityHeightPx(((Activity) context).getWindow().getDecorView().getHeight() * 9 / 10)
                   .build();
 
           customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

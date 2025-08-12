@@ -20,12 +20,12 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.settings.StoragePathManager;
 import app.organicmaps.sdk.sound.TtsPlayer;
+import app.organicmaps.sdk.sync.SyncManager;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
-import app.organicmaps.sync.SyncManager;
 import java.io.IOException;
 
 public final class OrganicMaps implements DefaultLifecycleObserver

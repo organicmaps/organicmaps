@@ -1,8 +1,7 @@
-package app.organicmaps.sync;
+package app.organicmaps.sdk.sync;
 
 import androidx.annotation.Nullable;
 import java.io.File;
-import java.util.HashMap;
 
 public abstract class SyncClient
 {

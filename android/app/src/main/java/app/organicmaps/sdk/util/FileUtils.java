@@ -1,4 +1,4 @@
-package app.organicmaps.util;
+package app.organicmaps.sdk.util;
 
 import androidx.annotation.Nullable;
 import java.security.MessageDigest;

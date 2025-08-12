@@ -1,9 +1,6 @@
-package app.organicmaps.sync;
+package app.organicmaps.sdk.sync;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -18,12 +15,12 @@ import androidx.work.Operation;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-import app.organicmaps.MwmApplication;
+import app.organicmaps.sdk.util.FileUtils;
+import app.organicmaps.sdk.util.InsecureHttpsHelper;
+import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.util.FileUtils;
-import app.organicmaps.util.InsecureHttpsHelper;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import java.io.File;
@@ -49,6 +46,7 @@ public enum SyncManager
   private SyncPrefs mSyncPrefs;
   private OkHttpClient mInsecureOkHttpClient;
   private SyncScheduler mSyncScheduler;
+  private File mTempDir;
   private final Map<SyncAccount, Syncer> mSyncers = new ConcurrentHashMap<>();
 
   private final DefaultLifecycleObserver mLifecycleObserver = new DefaultLifecycleObserver() {
@@ -114,6 +112,7 @@ public enum SyncManager
   {
     nativeInit();
 
+    mTempDir = new File(StorageUtils.getTempPath(context));
     mSyncPrefs = SyncPrefs.getInstance(context);
     for (SyncAccount account : mSyncPrefs.getEnabledAccounts())
       mSyncers.put(account, new Syncer(context, account));
@@ -156,7 +155,7 @@ public enum SyncManager
     {
       try
       {
-        entry.getValue().performSync();
+        entry.getValue().performSync(mTempDir);
         mSyncPrefs.setLastSynced(entry.getKey().getAccountId(), System.currentTimeMillis());
       }
       catch (SyncOpException e)
@@ -170,6 +169,11 @@ public enum SyncManager
         // TODO(savsch) implement retry policy (low priority as this clause should execute rarely)
       }
     }
+  }
+
+  private SyncPrefs getSyncPrefs()
+  {
+    return mSyncPrefs;
   }
 
   public File getBookmarksDir()
@@ -388,7 +392,7 @@ public enum SyncManager
         try
         {
           SyncManager.INSTANCE.syncAllAccounts();
-          SyncPrefs.getInstance(MwmApplication.sInstance).setLastRun(System.currentTimeMillis());
+          SyncManager.INSTANCE.getSyncPrefs().setLastRun(System.currentTimeMillis());
 
           if (SyncManager.INSTANCE.countActiveAccounts() < 1)
           {
@@ -414,7 +418,7 @@ public enum SyncManager
                                            .build();
           try
           {
-            WorkManager.getInstance(MwmApplication.sInstance)
+            WorkManager.getInstance()
                 .enqueueUniqueWork(SYNC_WORKER_NAME, ExistingWorkPolicy.REPLACE, request)
                 .getResult()
                 .get();

@@ -1,12 +1,10 @@
-package app.organicmaps.sync;
+package app.organicmaps.sdk.sync;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
-import app.organicmaps.sdk.util.StorageUtils;
+import app.organicmaps.sdk.util.FileUtils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-import app.organicmaps.util.FileUtils;
 import java.io.File;
 import java.util.Map;
 import java.util.Objects;
@@ -44,7 +42,7 @@ public class Syncer
       mLocalState.setChangedFiles(mChangedFiles);
   }
 
-  public void performSync() throws SyncOpException, LockAlreadyHeldException
+  public void performSync(File tempDir) throws SyncOpException, LockAlreadyHeldException
   {
     final String cloudDirState = mSyncClient.fetchBookmarksDirState();
     if (cloudDirState == null)
@@ -213,7 +211,6 @@ public class Syncer
 
         // Step 1 of 2. Iterate through OM-uploaded files and download any checksum-mismatch files, overwriting locals.
         File bmDir = SyncManager.INSTANCE.getBookmarksDir();
-        File tempDir = new File(StorageUtils.getTempPath(MwmApplication.sInstance));
         for (Map.Entry<String, String> cloudFileEntry : cloudFilesState.omBookmarkFiles().entrySet())
         {
           final String cloudFileName = cloudFileEntry.getKey();

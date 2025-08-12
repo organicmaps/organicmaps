@@ -1,4 +1,4 @@
-package app.organicmaps.util;
+package app.organicmaps.sdk.util;
 
 import android.annotation.SuppressLint;
 import app.organicmaps.sdk.util.log.Logger;
@@ -48,8 +48,6 @@ private static SSLContext createInsecureSSLContext() throws NoSuchAlgorithmExcep
  * @param urlString URL to connect to
  * @return HttpURLConnection with disabled SSL certificate verification
  * @throws IOException              if connection fails
- * @throws NoSuchAlgorithmException if the TLS algorithm is not available
- * @throws KeyManagementException   if initialization fails
  */
 public static HttpURLConnection openInsecureConnection(String urlString) throws IOException
 {

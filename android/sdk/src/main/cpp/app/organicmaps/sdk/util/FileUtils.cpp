@@ -11,8 +11,8 @@
 
 extern "C"
 {
-JNIEXPORT jbyteArray JNICALL Java_app_organicmaps_util_FileUtils_nativeReadFileSafe(JNIEnv * env, jclass clazz,
-                                                                                    jstring jFilePath)
+JNIEXPORT jbyteArray JNICALL Java_app_organicmaps_sdk_util_FileUtils_nativeReadFileSafe(JNIEnv * env, jclass clazz,
+                                                                                        jstring jFilePath)
 {
   std::string filePath = jni::ToNativeString(env, jFilePath);
 
@@ -50,8 +50,8 @@ JNIEXPORT jbyteArray JNICALL Java_app_organicmaps_util_FileUtils_nativeReadFileS
   }
 }
 
-JNIEXPORT jbyteArray JNICALL Java_app_organicmaps_util_FileUtils_nativeCalculateFileSha1(JNIEnv * env, jclass clazz,
-                                                                                         jstring jFilePath)
+JNIEXPORT jbyteArray JNICALL Java_app_organicmaps_sdk_util_FileUtils_nativeCalculateFileSha1(JNIEnv * env, jclass clazz,
+                                                                                             jstring jFilePath)
 {
   std::string filePath = jni::ToNativeString(env, jFilePath);
 
@@ -76,8 +76,8 @@ JNIEXPORT jbyteArray JNICALL Java_app_organicmaps_util_FileUtils_nativeCalculate
   return result;
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_util_FileUtils_nativeDeleteFileSafe(JNIEnv * env, jclass,
-                                                                                    jstring jFilePath)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_util_FileUtils_nativeDeleteFileSafe(JNIEnv * env, jclass,
+                                                                                        jstring jFilePath)
 {
   std::string filePath = jni::ToNativeString(env, jFilePath);
   auto const promise = std::make_shared<std::promise<bool>>();
@@ -96,8 +96,8 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_util_FileUtils_nativeDeleteFileS
   }
 }
 
-JNIEXPORT jboolean JNICALL Java_app_organicmaps_util_FileUtils_nativeMoveFileSafe(JNIEnv * env, jclass, jstring src,
-                                                                                  jstring dest)
+JNIEXPORT jboolean JNICALL Java_app_organicmaps_sdk_util_FileUtils_nativeMoveFileSafe(JNIEnv * env, jclass, jstring src,
+                                                                                      jstring dest)
 {
   std::string srcPath = jni::ToNativeString(env, src);
   std::string destPath = jni::ToNativeString(env, dest);
@@ -118,8 +118,8 @@ JNIEXPORT jboolean JNICALL Java_app_organicmaps_util_FileUtils_nativeMoveFileSaf
   }
 }
 
-JNIEXPORT jbyteArray JNICALL Java_app_organicmaps_util_FileUtils_nativeCalculateSha1(JNIEnv * env, jclass,
-                                                                                     jbyteArray jBytes)
+JNIEXPORT jbyteArray JNICALL Java_app_organicmaps_sdk_util_FileUtils_nativeCalculateSha1(JNIEnv * env, jclass,
+                                                                                         jbyteArray jBytes)
 {
   jsize const bytesSize = env->GetArrayLength(jBytes);
   jbyte * bytesPtr = env->GetByteArrayElements(jBytes, nullptr);
