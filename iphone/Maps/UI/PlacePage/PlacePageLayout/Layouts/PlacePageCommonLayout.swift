@@ -137,7 +137,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
         self.buttonsViewController.buttonsData = buttonsData
       }
       switch self.placePageData.mapNodeAttributes!.nodeStatus {
-      case .onDisk, .onDiskOutOfDate, .undefined:
+      case .onDisk, .onDiskOutOfDate, .undefined, .inQueue:
         self.actionBarViewController.resetButtons()
       default:
         break
