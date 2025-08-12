@@ -1,6 +1,7 @@
-package app.organicmaps.sdk.sync;
+package app.organicmaps.sdk.sync.nextcloud;
 
 import android.content.Context;
+import app.organicmaps.sdk.sync.AuthState;
 import java.util.Objects;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,17 +57,17 @@ public class NextcloudAuth extends AuthState
     return mServer;
   }
 
-  String getLoginName()
+  public String getLoginName()
   {
     return mLoginName;
   }
 
-  String getAppPassword()
+  public String getAppPassword()
   {
     return mAppPassword;
   }
 
-  String getServer()
+  public String getServer()
   {
     return mServer;
   }

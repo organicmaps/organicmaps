@@ -356,7 +356,8 @@ public class Utils
    * @return The package name of a browser that supports Custom Tabs, prioritizing the default browser.
    *   Returns null if Custom Tabs isn't supported by any installed browser.
    */
-  public static @Nullable String getCustomTabsPackage(Context context)
+  @Nullable
+  public static String getCustomTabsPackage(Context context)
   {
     String packageName = CustomTabsClient.getPackageName(context, Collections.emptyList());
     if (packageName != null) // The default browser supports Custom Tabs

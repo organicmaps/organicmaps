@@ -11,9 +11,10 @@ public class FileUtils
    * Blocks until complete.
    * @return null if read error
    */
-  public static @Nullable byte[] readFileSafe(String filePath)
+  @Nullable
+  public static byte[] readFile(String filePath)
   {
-    return nativeReadFileSafe(filePath);
+    return nativeReadFile(filePath);
   }
 
   /**
@@ -21,9 +22,9 @@ public class FileUtils
    * Blocks until complete.
    * @return true if deletion succeeds, false otherwise
    */
-  public static boolean deleteFileSafe(String filePath)
+  public static boolean deleteFile(String filePath)
   {
-    return nativeDeleteFileSafe(filePath);
+    return nativeDeleteFile(filePath);
   }
 
   /**
@@ -31,9 +32,9 @@ public class FileUtils
    * Blocks until complete.
    * @return true if move succeeds, false otherwise
    */
-  public static boolean moveFileSafe(String srcPath, String destPath)
+  public static boolean moveFile(String srcPath, String destPath)
   {
-    return nativeMoveFileSafe(srcPath, destPath);
+    return nativeMoveFile(srcPath, destPath);
   }
 
   /**
@@ -59,11 +60,11 @@ public class FileUtils
     }
   }
 
-  private static native byte[] nativeReadFileSafe(String filePath);
+  private static native byte[] nativeReadFile(String filePath);
 
-  private static native boolean nativeDeleteFileSafe(String filePath);
+  private static native boolean nativeDeleteFile(String filePath);
 
-  private static native boolean nativeMoveFileSafe(String src, String dest);
+  private static native boolean nativeMoveFile(String src, String dest);
 
   private static native byte[] nativeCalculateFileSha1(String filePath);
 

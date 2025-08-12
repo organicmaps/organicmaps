@@ -9,13 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.sync.SyncAccount;
+import app.organicmaps.sdk.sync.SyncManager;
 import app.organicmaps.sdk.sync.SyncOpException;
-import app.organicmaps.sdk.sync.SyncPrefs;
+import app.organicmaps.sdk.sync.preferences.SyncPrefs;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.sync.BackendUtils;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -59,11 +62,12 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
   {
     SyncAccount account = mAccountList.get(position);
     Context context = holder.itemView.getContext();
-    SyncPrefs syncPrefs = SyncPrefs.getInstance(context);
+    SyncPrefs syncPrefs = SyncManager.INSTANCE.getPrefs();
     Long lastSynced = syncPrefs.getLastSynced(account.getAccountId());
     boolean syncEnabled = syncPrefs.isEnabled(account.getAccountId());
 
-    holder.backendIcon.setImageDrawable(account.getBackendType().getIcon(context));
+    holder.backendIcon.setImageDrawable(
+        AppCompatResources.getDrawable(context, BackendUtils.getIcon(account.getBackendType())));
     holder.usernameText.setText(account.getAuthState().getUsername());
     holder.backendServerText.setText(account.getAuthState().getBackendInfo(context));
     holder.setState(syncEnabled, lastSynced, syncPrefs.getErrorInfo(account.getAccountId()));
@@ -106,28 +110,29 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
     notifyDataSetChanged();
   }
 
-  public void updateEnabled(long accountId, boolean enabled)
+  public void updateEnabled(int accountId, boolean enabled)
   {
     AccountViewHolder holder = getViewHolderForAccount(accountId);
     if (holder != null)
       holder.setEnabled(enabled);
   }
 
-  public void updateLastSynced(long accountId, long timestamp)
+  public void updateLastSynced(int accountId, long timestamp)
   {
     AccountViewHolder holder = getViewHolderForAccount(accountId);
     if (holder != null)
       holder.setLastSynced(timestamp);
   }
 
-  public void updateErrorInfo(long accountId, @Nullable SyncOpException exception)
+  public void updateErrorInfo(int accountId, @Nullable SyncOpException exception)
   {
     AccountViewHolder holder = getViewHolderForAccount(accountId);
     if (holder != null)
       holder.setErrorInfo(exception);
   }
 
-  private @Nullable AccountViewHolder getViewHolderForAccount(long accountId)
+  @Nullable
+  private AccountViewHolder getViewHolderForAccount(int accountId)
   {
     if (mRecyclerView == null)
       return null;
@@ -155,13 +160,13 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
   public static class AccountViewHolder extends RecyclerView.ViewHolder
   {
     private static final String TAG = AccountViewHolder.class.getSimpleName();
-    ImageView backendIcon;
-    TextView usernameText;
-    TextView backendServerText;
-    SwitchCompat accountEnabledSwitch;
-    View accountInfo;
-    TextView syncStatusText;
-    TextView errorStatusText;
+    final ImageView backendIcon;
+    final TextView usernameText;
+    final TextView backendServerText;
+    final SwitchCompat accountEnabledSwitch;
+    final View accountInfo;
+    final TextView syncStatusText;
+    final TextView errorStatusText;
 
     boolean mSyncEnabled;
     @Nullable
@@ -242,7 +247,7 @@ public class SyncAccountAdapter extends RecyclerView.Adapter<SyncAccountAdapter.
       {
         errorMessage += context.getString(R.string.unexpected_error);
         if (mErrorInfo.getMessage() != null)
-          errorMessage += " – " + mErrorInfo.getMessage();
+          errorMessage += " – " + mErrorInfo.getMessage(); // Such exceptions are supposed to be rare
       }
       else
       {

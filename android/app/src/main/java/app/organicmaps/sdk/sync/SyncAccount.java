@@ -1,6 +1,9 @@
 package app.organicmaps.sdk.sync;
 
 import androidx.annotation.NonNull;
+import app.organicmaps.sdk.sync.engine.SyncClient;
+import app.organicmaps.sdk.sync.nextcloud.NextcloudAuth;
+import app.organicmaps.sdk.sync.nextcloud.NextcloudClient;
 import java.util.Objects;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,18 +14,18 @@ public class SyncAccount
   private static final String KEY_BACKEND_ID = "back";
   private static final String KEY_AUTH_STATE = "auth";
 
-  private final long mAccountId;
+  private final int mAccountId;
   private final int mBackendTypeId;
   private final AuthState mAuthState;
 
-  public SyncAccount(long accountId, int backendTypeId, AuthState authState)
+  public SyncAccount(int accountId, int backendTypeId, AuthState authState)
   {
     mAccountId = accountId;
     mBackendTypeId = backendTypeId;
     mAuthState = authState;
   }
 
-  public long getAccountId()
+  public int getAccountId()
   {
     return mAccountId;
   }
@@ -42,7 +45,7 @@ public class SyncAccount
   {
     return switch (Objects.requireNonNull(BackendType.idToBackendType.get(mBackendTypeId)))
     {
-      case Nextcloud -> new NextcloudSyncClient((NextcloudAuth) mAuthState);
+      case Nextcloud -> new NextcloudClient((NextcloudAuth) mAuthState);
     };
   }
 
@@ -53,7 +56,7 @@ public class SyncAccount
     {
       case Nextcloud -> new NextcloudAuth(json.getJSONObject(KEY_AUTH_STATE));
     };
-    return new SyncAccount(json.getLong(KEY_ACCOUNT_ID), backendType, authState);
+    return new SyncAccount(json.getInt(KEY_ACCOUNT_ID), backendType, authState);
   }
 
   public JSONObject toJson() throws JSONException

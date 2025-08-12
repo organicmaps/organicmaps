@@ -138,9 +138,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         langFragment.setListener(this);
       }
       else if (key.equals(getString(R.string.pref_cloud_sync)))
-      {
         getSettingsActivity().stackFragment(SyncSettingsFragment.class, getString(R.string.sync_setting), null);
-      }
     }
     return super.onPreferenceTreeClick(preference);
   }

@@ -1,12 +1,14 @@
-package app.organicmaps.sdk.sync;
+package app.organicmaps.sdk.sync.preferences;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import app.organicmaps.sdk.sync.AuthState;
+import app.organicmaps.sdk.sync.BackendType;
+import app.organicmaps.sdk.sync.SyncAccount;
+import app.organicmaps.sdk.sync.SyncOpException;
 import app.organicmaps.sdk.util.log.Logger;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -17,9 +19,9 @@ import java.util.stream.Collectors;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class SyncPrefs
+public class SyncPrefsImpl implements SyncPrefs
 {
-  private static final String TAG = SyncPrefs.class.getSimpleName();
+  private static final String TAG = SyncPrefsImpl.class.getSimpleName();
 
   private static final String PREF_NAME_ACCOUNTS = "SyncAccounts";
 
@@ -33,20 +35,18 @@ public class SyncPrefs
   private static final String PREF_KEY_PREFIX_LAST_SYNCED = "lastSynced-";
   private static final String PREF_KEY_PREFIX_ERROR_INFO = "syncError-";
 
-  private static final long DEFAULT_SYNC_INTERVAL_MS = 24 * 3600_000;
-  @Nullable
-  private static SyncPrefs instance;
+  private static final long DEFAULT_SYNC_INTERVAL_MS = 24 * 3600_000; // 1 day
   @NonNull
   private final SharedPreferences prefsAccounts;
 
   private final CopyOnWriteArrayList<SyncAccount> mAccounts;
-  private final List<LastSyncCallback> mLastSyncCallbacks = new ArrayList<>(2);
-  private final List<ErrorInfoCallback> mErrorInfoCallbacks = new ArrayList<>(2);
-  private final List<AccountsChangedCallback> mAccountsChangedCallbacks = new ArrayList<>(2);
-  private final List<AccountToggledCallback> mAccountToggledCallbacks = new ArrayList<>(2);
-  private final List<FrequencyChangeCallback> mFrequencyChangeCallbacks = new ArrayList<>(2);
+  private final CallbackCollection<SyncCallback.LastSync> mLastSyncCallbacks = new CallbackCollection<>();
+  private final CallbackCollection<SyncCallback.ErrorInfo> mErrorInfoCallbacks = new CallbackCollection<>();
+  private final CallbackCollection<SyncCallback.AccountsChanged> mAccountsChangedCallbacks = new CallbackCollection<>();
+  private final CallbackCollection<SyncCallback.AccountToggled> mAccountToggledCallbacks = new CallbackCollection<>();
+  private final CallbackCollection<SyncCallback.FrequencyChange> mFrequencyChangeCallbacks = new CallbackCollection<>();
 
-  private SyncPrefs(Application context)
+  public SyncPrefsImpl(Context context)
   {
     prefsAccounts = context.getSharedPreferences(PREF_NAME_ACCOUNTS, Context.MODE_PRIVATE);
     Set<String> storedAccounts = prefsAccounts.getStringSet(PREF_KEY_ACCOUNTS, Collections.emptySet());
@@ -66,55 +66,46 @@ public class SyncPrefs
                                                .collect(Collectors.toList()));
   }
 
-  public static SyncPrefs getInstance(Context context)
-  {
-    if (instance == null)
-      instance = new SyncPrefs((Application) context.getApplicationContext());
-    return instance;
-  }
-
-  private String getPrefKeyEnabled(long accountId)
+  private String getPrefKeyEnabled(int accountId)
   {
     return PREF_KEY_PREFIX_ENABLED + accountId;
   }
 
-  private String getPrefKeyLastSynced(long accountId)
+  private String getPrefKeyLastSynced(int accountId)
   {
     return PREF_KEY_PREFIX_LAST_SYNCED + accountId;
   }
 
-  private String getPrefKeyErrorInfo(long accountId)
+  private String getPrefKeyErrorInfo(int accountId)
   {
     return PREF_KEY_PREFIX_ERROR_INFO + accountId;
   }
 
-  public boolean isEnabled(long accountId)
+  @Override
+  public boolean isEnabled(int accountId)
   {
     return prefsAccounts.getBoolean(getPrefKeyEnabled(accountId), false);
   }
 
+  @Override
   public void setEnabled(SyncAccount account, boolean enabled)
   {
     prefsAccounts.edit().putBoolean(getPrefKeyEnabled(account.getAccountId()), enabled).apply();
-    for (AccountToggledCallback callback : mAccountToggledCallbacks)
-    {
-      try
-      {
-        if (enabled)
-          callback.onAccountEnabled(account);
-        else
-          callback.onAccountDisabled(account);
-      }
-      catch (Exception ignored)
-      {}
-    }
+    mAccountToggledCallbacks.notifyAll(cb -> {
+      if (enabled)
+        cb.onAccountEnabled(account);
+      else
+        cb.onAccountDisabled(account);
+    });
   }
 
+  @Override
   public List<SyncAccount> getAccounts()
   {
     return Collections.unmodifiableList(mAccounts);
   }
 
+  @Override
   public List<SyncAccount> getEnabledAccounts()
   {
     return mAccounts.stream()
@@ -122,33 +113,24 @@ public class SyncPrefs
         .collect(Collectors.toUnmodifiableList());
   }
 
-  /**
-   * @return timestamp in milliseconds
-   */
-  public @Nullable Long getLastSynced(long accountId)
+  @Nullable
+  @Override
+  public Long getLastSynced(int accountId)
   {
     long lastSynced = prefsAccounts.getLong(getPrefKeyLastSynced(accountId), 0);
     return lastSynced != 0 ? lastSynced : null;
   }
 
-  /**
-   * @param timestamp milliseconds
-   */
-  public void setLastSynced(long accountId, long timestamp)
+  @Override
+  public void setLastSynced(int accountId, long timestamp)
   {
     prefsAccounts.edit().putLong(getPrefKeyLastSynced(accountId), timestamp).apply();
-    for (LastSyncCallback callback : mLastSyncCallbacks)
-    {
-      try
-      {
-        callback.onLastSyncChanged(accountId, timestamp);
-      }
-      catch (Exception ignored)
-      {}
-    }
+    mLastSyncCallbacks.notifyAll(cb -> cb.onLastSyncChanged(accountId, timestamp));
   }
 
-  public @Nullable SyncOpException getErrorInfo(long accountId)
+  @Nullable
+  @Override
+  public SyncOpException getErrorInfo(int accountId)
   {
     String errorString = prefsAccounts.getString(getPrefKeyErrorInfo(accountId), null);
     if (errorString == null)
@@ -165,7 +147,8 @@ public class SyncPrefs
     }
   }
 
-  public void setErrorInfo(long accountId, SyncOpException exception)
+  @Override
+  public void setErrorInfo(int accountId, SyncOpException exception)
   {
     try
     {
@@ -180,21 +163,10 @@ public class SyncPrefs
                    + exception.getMessage(),
                e);
     }
-    for (ErrorInfoCallback callback : mErrorInfoCallbacks)
-    {
-      try
-      {
-        callback.onSyncException(accountId, exception);
-      }
-      catch (Exception ignored)
-      {}
-    }
+    mErrorInfoCallbacks.notifyAll(cb -> cb.onSyncException(accountId, exception));
   }
 
-  /**
-   * @see #setLastRun(long)
-   * @return Time elapsed in ms.
-   */
+  @Override
   public long getTimeSinceLastRun()
   {
     long timeElapsed = System.currentTimeMillis() - prefsAccounts.getLong(PREF_KEY_LAST_RUN, 0L);
@@ -203,17 +175,13 @@ public class SyncPrefs
     return timeElapsed;
   }
 
-  /**
-   * Unlike {@link #setLastSynced(long, long)}, this is not account-specific.
-   * It stores only the time when the sync routine was last run, regardless
-   * of whether it succeeded or not.
-   * @param timestamp in milliseconds
-   */
+  @Override
   public void setLastRun(long timestamp)
   {
     prefsAccounts.edit().putLong(PREF_KEY_LAST_RUN, timestamp).apply();
   }
 
+  @Override
   public AddAccountResult addAccount(BackendType backendType, AuthState authState)
   {
     try
@@ -225,22 +193,15 @@ public class SyncPrefs
           return AddAccountResult.AlreadyExists;
       }
 
-      long accountId = generateNextAccountId();
+      int accountId = generateNextAccountId();
       SyncAccount newAccount = new SyncAccount(accountId, backendType.getId(), authState);
       mAccounts.add(newAccount);
       Set<String> prefsSet = new HashSet<>(prefsAccounts.getStringSet(PREF_KEY_ACCOUNTS, Collections.emptySet()));
       prefsSet.add(newAccount.toJson().toString());
       prefsAccounts.edit().putStringSet(PREF_KEY_ACCOUNTS, prefsSet).apply();
       setEnabled(newAccount, false); // Newly added accounts are disabled by default.
-      for (AccountsChangedCallback callback : mAccountsChangedCallbacks)
-      {
-        try
-        {
-          callback.onAccountsChanged(Collections.unmodifiableList(mAccounts));
-        }
-        catch (Exception ignored)
-        {}
-      }
+
+      mAccountsChangedCallbacks.notifyAll(cb -> cb.onAccountsChanged(Collections.unmodifiableList(mAccounts)));
       return AddAccountResult.Success;
     }
     catch (JSONException e)
@@ -250,6 +211,7 @@ public class SyncPrefs
     }
   }
 
+  @Override
   public void removeAccount(SyncAccount account)
   {
     setEnabled(account, false); // Must be called explicitly
@@ -274,134 +236,98 @@ public class SyncPrefs
     prefsAccounts.edit().putStringSet(PREF_KEY_ACCOUNTS, prefsSet).apply();
     mAccounts.remove(account);
 
-    for (AccountsChangedCallback callback : mAccountsChangedCallbacks)
-    {
-      try
-      {
-        callback.onAccountsChanged(Collections.unmodifiableList(mAccounts));
-      }
-      catch (Exception ignored)
-      {}
-    }
+    mAccountsChangedCallbacks.notifyAll(cb -> cb.onAccountsChanged(Collections.unmodifiableList(mAccounts)));
 
     // SyncState for this accountId should also be removed, but it could possibly
     // be in use by some ongoing sync operation.
     // That is low priority because it'd require adding quite a bit of code
-    // only to save a few KBs on disk for every deleted account. TODO(savsch)
+    // only to save a couple of KBs on disk for every removed account. TODO(savsch)
   }
 
+  @Override
   public void setSyncFrequency(long syncIntervalMs)
   {
     prefsAccounts.edit().putLong(PREF_KEY_SYNC_INTERVAL, syncIntervalMs).apply();
-    for (FrequencyChangeCallback callback : mFrequencyChangeCallbacks)
-    {
-      try
-      {
-        callback.onFrequencyChange(syncIntervalMs);
-      }
-      catch (Exception ignored)
-      {}
-    }
+    mFrequencyChangeCallbacks.notifyAll(cb -> cb.onFrequencyChange(syncIntervalMs));
   }
 
+  @Override
   public long getSyncIntervalMs()
   {
     return prefsAccounts.getLong(PREF_KEY_SYNC_INTERVAL, DEFAULT_SYNC_INTERVAL_MS);
   }
 
-  private long generateNextAccountId()
+  private int generateNextAccountId()
   {
-    long nextAccountId = prefsAccounts.getLong(PREF_KEY_LAST_ACCOUNT_ID, 0L);
-    prefsAccounts.edit().putLong(PREF_KEY_LAST_ACCOUNT_ID, nextAccountId + 1).apply();
+    int nextAccountId = prefsAccounts.getInt(PREF_KEY_LAST_ACCOUNT_ID, 0);
+    prefsAccounts.edit().putInt(PREF_KEY_LAST_ACCOUNT_ID, nextAccountId + 1).apply();
     return nextAccountId;
   }
 
-  public void registerLastSyncedCallback(LastSyncCallback callback)
+  @Override
+  public void registerLastSyncedCallback(SyncCallback.LastSync callback)
   {
-    mLastSyncCallbacks.add(callback);
+    mLastSyncCallbacks.register(callback);
   }
 
-  public void unregisterLastSyncedCallback(LastSyncCallback callback)
+  @Override
+  public void unregisterLastSyncedCallback(SyncCallback.LastSync callback)
   {
-    mLastSyncCallbacks.remove(callback);
+    mLastSyncCallbacks.unregister(callback);
   }
 
-  public void registerErrorInfoCallback(ErrorInfoCallback callback)
+  @Override
+  public void registerErrorInfoCallback(SyncCallback.ErrorInfo callback)
   {
-    mErrorInfoCallbacks.add(callback);
+    mErrorInfoCallbacks.register(callback);
   }
 
-  public void unregisterErrorInfoCallback(ErrorInfoCallback callback)
+  @Override
+  public void unregisterErrorInfoCallback(SyncCallback.ErrorInfo callback)
   {
-    mErrorInfoCallbacks.remove(callback);
+    mErrorInfoCallbacks.unregister(callback);
   }
 
-  public void registerAccountsChangedCallback(AccountsChangedCallback callback)
+  @Override
+  public void registerAccountsChangedCallback(SyncCallback.AccountsChanged callback)
   {
-    mAccountsChangedCallbacks.add(callback);
+    mAccountsChangedCallbacks.register(callback);
   }
 
-  public void unregisterAccountsChangedCallback(AccountsChangedCallback callback)
+  @Override
+  public void unregisterAccountsChangedCallback(SyncCallback.AccountsChanged callback)
   {
-    mAccountsChangedCallbacks.remove(callback);
+    mAccountsChangedCallbacks.unregister(callback);
   }
 
-  public void registerAccountToggledCallback(AccountToggledCallback callback)
+  @Override
+  public void registerAccountToggledCallback(SyncCallback.AccountToggled callback)
   {
-    mAccountToggledCallbacks.add(callback);
+    mAccountToggledCallbacks.register(callback);
   }
 
-  public void registerFrequencyChangeCallback(FrequencyChangeCallback callback)
+  @Override
+  public void registerFrequencyChangeCallback(SyncCallback.FrequencyChange callback)
   {
-    mFrequencyChangeCallbacks.add(callback);
+    mFrequencyChangeCallbacks.register(callback);
   }
 
-  public void unregisterFrequencyChangeCallback(FrequencyChangeCallback callback)
+  @Override
+  public void unregisterFrequencyChangeCallback(SyncCallback.FrequencyChange callback)
   {
-    mFrequencyChangeCallbacks.remove(callback);
+    mFrequencyChangeCallbacks.unregister(callback);
   }
 
+  @Override
   public void setNextcloudPollParams(@Nullable String params)
   {
     prefsAccounts.edit().putString(PREF_KEY_NC_POLL, params).apply();
   }
 
-  public @Nullable String getNextcloudPollParams()
+  @Nullable
+  @Override
+  public String getNextcloudPollParams()
   {
     return prefsAccounts.getString(PREF_KEY_NC_POLL, null);
-  }
-
-  public interface LastSyncCallback
-  {
-    void onLastSyncChanged(long accountId, long timestamp);
-  }
-
-  public interface ErrorInfoCallback
-  {
-    void onSyncException(long accountId, SyncOpException exception);
-  }
-
-  public interface AccountsChangedCallback
-  {
-    void onAccountsChanged(List<SyncAccount> newAccounts);
-  }
-
-  public interface AccountToggledCallback
-  {
-    void onAccountEnabled(SyncAccount account);
-
-    void onAccountDisabled(SyncAccount account);
-  }
-
-  public interface FrequencyChangeCallback
-  {
-    void onFrequencyChange(long syncIntervalMs);
-  }
-
-  public enum AddAccountResult
-  {
-    Success,
-    AlreadyExists,
-    UnexpectedError
   }
 }

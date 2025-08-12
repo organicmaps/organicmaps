@@ -7,22 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
-import androidx.work.Constraints;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.Operation;
 import androidx.work.WorkManager;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
+import app.organicmaps.sdk.sync.engine.LockAlreadyHeldException;
+import app.organicmaps.sdk.sync.engine.Syncer;
+import app.organicmaps.sdk.sync.preferences.SyncCallback;
+import app.organicmaps.sdk.sync.preferences.SyncPrefs;
+import app.organicmaps.sdk.sync.preferences.SyncPrefsImpl;
 import app.organicmaps.sdk.util.FileUtils;
 import app.organicmaps.sdk.util.InsecureHttpsHelper;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -33,7 +29,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import okhttp3.OkHttpClient;
 
@@ -103,6 +98,11 @@ public enum SyncManager
     return mInsecureOkHttpClient;
   }
 
+  public SyncPrefs getPrefs()
+  {
+    return mSyncPrefs;
+  }
+
   public int countActiveAccounts()
   {
     return mSyncers.size();
@@ -112,13 +112,13 @@ public enum SyncManager
   {
     nativeInit();
 
+    mSyncPrefs = new SyncPrefsImpl(context);
     mTempDir = new File(StorageUtils.getTempPath(context));
-    mSyncPrefs = SyncPrefs.getInstance(context);
     for (SyncAccount account : mSyncPrefs.getEnabledAccounts())
       mSyncers.put(account, new Syncer(context, account));
 
     final Context appContext = context.getApplicationContext();
-    mSyncPrefs.registerAccountToggledCallback(new SyncPrefs.AccountToggledCallback() {
+    mSyncPrefs.registerAccountToggledCallback(new SyncCallback.AccountToggled() {
       @Override
       public void onAccountEnabled(SyncAccount account)
       {
@@ -148,7 +148,7 @@ public enum SyncManager
       ProcessLifecycleOwner.get().getLifecycle().addObserver(mLifecycleObserver);
   }
 
-  private void syncAllAccounts()
+  void syncAllAccounts()
   {
     Logger.i(TAG, "Started syncAllAccounts");
     for (Map.Entry<SyncAccount, Syncer> entry : mSyncers.entrySet())
@@ -163,17 +163,13 @@ public enum SyncManager
         mSyncPrefs.setErrorInfo(entry.getKey().getAccountId(), e);
         Logger.e(TAG, "Error syncing " + entry.getKey().getAuthState().getClass().getSimpleName(), e);
       }
-      catch (Syncer.LockAlreadyHeldException e)
+      catch (LockAlreadyHeldException e)
       {
         Logger.e(TAG, "Lock held by another device", e);
         // TODO(savsch) implement retry policy (low priority as this clause should execute rarely)
       }
     }
-  }
-
-  private SyncPrefs getSyncPrefs()
-  {
-    return mSyncPrefs;
+    mSyncPrefs.setLastRun(System.currentTimeMillis());
   }
 
   public File getBookmarksDir()
@@ -203,7 +199,7 @@ public enum SyncManager
   /**
    * @param accountId The account id managed by the calling syncer.
    */
-  public void notifyOtherSyncers(long accountId, String filePath)
+  public void notifyOtherSyncers(int accountId, String filePath)
   {
     for (Map.Entry<SyncAccount, Syncer> entry : mSyncers.entrySet())
     {
@@ -221,7 +217,7 @@ public enum SyncManager
    */
   public static boolean deleteCategorySilent(String filePath)
   {
-    if (FileUtils.deleteFileSafe(filePath))
+    if (FileUtils.deleteFile(filePath))
     {
       UiThread.run(() -> nativeDeleteBmCategory(filePath));
       return true;
@@ -297,146 +293,4 @@ public enum SyncManager
   }
 
   private native void nativeInit();
-
-  // singleton
-  private static class SyncScheduler
-  {
-    private static final long MINIMUM_BACKGROUND_INTERVAL = 24 * 3600 * 1000L;
-    private static final String SYNC_WORKER_NAME = "BookmarksSync";
-    private static final Constraints constraints =
-        new Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build(); // TODO make it so as to respect the mobile data setting
-
-    private final SyncPrefs mSyncPrefs;
-    private final WorkManager mWorkManager;
-    private static volatile long syncIntervalMs;
-    private static volatile boolean backgroundMode = true;
-    private static volatile boolean appInForeground = false;
-    private static volatile boolean workerRunning = false;
-
-    private SyncScheduler(SyncPrefs syncPrefs, WorkManager workManager)
-    {
-      mSyncPrefs = syncPrefs;
-      mWorkManager = workManager;
-      syncIntervalMs = syncPrefs.getSyncIntervalMs();
-      syncPrefs.registerFrequencyChangeCallback(this::onIntervalChanged);
-    }
-
-    private void onForeground()
-    {
-      appInForeground = true;
-      if (backgroundMode)
-      {
-        ExistingWorkPolicy existingWorkPolicy =
-            syncIntervalMs >= MINIMUM_BACKGROUND_INTERVAL
-                ? ExistingWorkPolicy.KEEP // Foreground and Background modes are the same if the condition is met
-                : ExistingWorkPolicy.REPLACE;
-        scheduleForegroundSync(existingWorkPolicy);
-      }
-    }
-
-    private void onBackground()
-    {
-      appInForeground = false;
-    }
-
-    private void onIntervalChanged(long newInterval)
-    {
-      syncIntervalMs = newInterval;
-      scheduleForegroundSync(ExistingWorkPolicy.REPLACE);
-    }
-
-    private void scheduleForegroundSync(ExistingWorkPolicy existingWorkPolicy)
-    {
-      long initialDelay = syncIntervalMs - mSyncPrefs.getTimeSinceLastRun();
-      OneTimeWorkRequest.Builder requestBuilder =
-          new OneTimeWorkRequest.Builder(SyncWorker.class).setConstraints(constraints);
-      if (initialDelay > 0)
-        requestBuilder.setInitialDelay(initialDelay, TimeUnit.MILLISECONDS).build();
-      OneTimeWorkRequest request = requestBuilder.build();
-
-      if (workerRunning)
-        return;
-
-      backgroundMode = false;
-      var future = mWorkManager.enqueueUniqueWork(SYNC_WORKER_NAME, existingWorkPolicy, request).getResult();
-      Futures.addCallback(future, new FutureCallback<Operation.State.SUCCESS>() {
-        @Override
-        public void onSuccess(Operation.State.SUCCESS result)
-        {}
-        @Override
-        public void onFailure(@NonNull Throwable t)
-        {
-          backgroundMode = true;
-          Logger.e(TAG, "Unable to schedule sync work request", t);
-        }
-      }, ThreadPool.getWorker());
-    }
-
-    public static class SyncWorker extends Worker
-    {
-      public SyncWorker(@NonNull Context context, @NonNull WorkerParameters workerParams)
-      {
-        super(context, workerParams);
-      }
-
-      @NonNull
-      @Override
-      public Result doWork()
-      {
-        if (workerRunning)
-          return Result.success();
-
-        workerRunning = true;
-        try
-        {
-          SyncManager.INSTANCE.syncAllAccounts();
-          SyncManager.INSTANCE.getSyncPrefs().setLastRun(System.currentTimeMillis());
-
-          if (SyncManager.INSTANCE.countActiveAccounts() < 1)
-          {
-            backgroundMode = true;
-            return Result.success();
-          }
-
-          final long interval;
-          if (appInForeground || syncIntervalMs >= MINIMUM_BACKGROUND_INTERVAL)
-          {
-            backgroundMode = false;
-            interval = syncIntervalMs;
-          }
-          else
-          {
-            backgroundMode = true;
-            interval = MINIMUM_BACKGROUND_INTERVAL;
-          }
-
-          OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(SyncWorker.class)
-                                           .setConstraints(constraints)
-                                           .setInitialDelay(interval, TimeUnit.MILLISECONDS)
-                                           .build();
-          try
-          {
-            WorkManager.getInstance()
-                .enqueueUniqueWork(SYNC_WORKER_NAME, ExistingWorkPolicy.REPLACE, request)
-                .getResult()
-                .get();
-            // A log line saying "Work [ id=..., tags={ ...$SyncWorker } ] was cancelled" is intended here,
-            // because of ExistingWorkPolicy.REPLACE.
-          }
-          catch (ExecutionException | InterruptedException e)
-          {
-            backgroundMode = true; // so that the work is re-enqueued once the app comes in foreground again.
-            Logger.e(TAG, "Unable to make sure that the next sync task got enqueued", e);
-          }
-          return Result.success();
-        }
-        finally
-        {
-          workerRunning = false;
-        }
-      }
-    }
-  }
 }

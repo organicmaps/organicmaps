@@ -14,16 +14,21 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.sdk.sync.BackendType;
-import app.organicmaps.sdk.sync.NextcloudLoginHelper;
 import app.organicmaps.sdk.sync.SyncAccount;
-import app.organicmaps.sdk.sync.SyncPrefs;
+import app.organicmaps.sdk.sync.SyncManager;
+import app.organicmaps.sdk.sync.preferences.SyncCallback;
+import app.organicmaps.sdk.sync.preferences.SyncPrefs;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.sync.BackendUtils;
+import app.organicmaps.sync.nextcloud.NextcloudLoginFlow;
+import app.organicmaps.sync.nextcloud.PollParams;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.slider.Slider;
 import com.google.common.primitives.Longs;
@@ -52,18 +57,18 @@ public class SyncSettingsFragment
   private View mAddAccountHint;
   private View mSetIntervalOption;
 
-  private final SyncPrefs.LastSyncCallback mLastSyncCallback =
+  private final SyncCallback.LastSync mLastSyncCallback =
       (accountId,
        timestamp) -> new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateLastSynced(accountId, timestamp));
 
-  private final SyncPrefs.ErrorInfoCallback mErrorInfoCallback =
+  private final SyncCallback.ErrorInfo mErrorInfoCallback =
       (accountId,
        exception) -> new Handler(Looper.getMainLooper()).post(() -> mAdapter.updateErrorInfo(accountId, exception));
 
-  private final SyncPrefs.AccountsChangedCallback mAccountsChangedCallback =
+  private final SyncCallback.AccountsChanged mAccountsChangedCallback =
       newAccounts -> new Handler(Looper.getMainLooper()).post(() -> refreshState(newAccounts));
 
-  private final SyncPrefs.FrequencyChangeCallback mFrequencyChangeCallback =
+  private final SyncCallback.FrequencyChange mFrequencyChangeCallback =
       syncIntervalMs -> mSyncIntervalTv.setText(formatDuration(syncIntervalMs, mSyncIntervalTv.getContext()));
 
   @Override
@@ -78,7 +83,7 @@ public class SyncSettingsFragment
     view.findViewById(R.id.btn_add_sync_account).setOnClickListener(this::onAddAccountClick);
     mAddAccountHint.setOnClickListener(this::onAddAccountClick);
     mSetIntervalOption.setOnClickListener(this::showIntervalDialog);
-    mSyncIntervalTv.setText(formatDuration(SyncPrefs.getInstance(context).getSyncIntervalMs(), context));
+    mSyncIntervalTv.setText(formatDuration(SyncManager.INSTANCE.getPrefs().getSyncIntervalMs(), context));
 
     RecyclerView mRecyclerView = view.findViewById(R.id.rv_sync_accounts);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -90,7 +95,7 @@ public class SyncSettingsFragment
   public void onStart()
   {
     super.onStart();
-    SyncPrefs prefs = SyncPrefs.getInstance(getContext());
+    SyncPrefs prefs = SyncManager.INSTANCE.getPrefs();
     refreshState(prefs.getAccounts());
     prefs.registerAccountsChangedCallback(mAccountsChangedCallback);
     prefs.registerLastSyncedCallback(mLastSyncCallback);
@@ -103,7 +108,7 @@ public class SyncSettingsFragment
   public void onStop()
   {
     super.onStop();
-    SyncPrefs prefs = SyncPrefs.getInstance(getContext());
+    SyncPrefs prefs = SyncManager.INSTANCE.getPrefs();
     prefs.unregisterErrorInfoCallback(mErrorInfoCallback);
     prefs.unregisterFrequencyChangeCallback(mFrequencyChangeCallback);
     prefs.unregisterLastSyncedCallback(mLastSyncCallback);
@@ -163,8 +168,8 @@ public class SyncSettingsFragment
           view = convertView;
           holder = (ViewHolder) view.getTag();
         }
-        holder.label.setText(getItem(i).getDisplayName(context));
-        holder.icon.setImageDrawable(getItem(i).getIcon(context));
+        holder.label.setText(BackendUtils.getDisplayName(getItem(i)));
+        holder.icon.setImageDrawable(AppCompatResources.getDrawable(context, BackendUtils.getIcon(getItem(i))));
         return view;
       }
 
@@ -177,7 +182,7 @@ public class SyncSettingsFragment
     AlertDialog dialog = builder.setView(listView).create();
     listView.setOnItemClickListener((parent, clickedView, position, id) -> {
       dialog.dismiss();
-      backendTypes[position].login(context);
+      BackendUtils.login(context, backendTypes[position]);
     });
     dialog.show();
   }
@@ -185,7 +190,7 @@ public class SyncSettingsFragment
   @Override
   public void onSwitchToggled(SyncAccount account, boolean isChecked)
   {
-    SyncPrefs prefs = SyncPrefs.getInstance(getContext());
+    SyncPrefs prefs = SyncManager.INSTANCE.getPrefs();
     prefs.setEnabled(account, isChecked);
     mAdapter.updateEnabled(account.getAccountId(), isChecked);
   }
@@ -202,9 +207,9 @@ public class SyncSettingsFragment
   {
     new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.logout)
-        .setMessage(
-            getString(R.string.sync_log_out_confirmation, account.getBackendType().getDisplayName(requireContext())))
-        .setPositiveButton(R.string.logout, (d, i) -> SyncPrefs.getInstance(requireContext()).removeAccount(account))
+        .setMessage(getString(R.string.sync_log_out_confirmation,
+                              requireContext().getString(BackendUtils.getDisplayName(account.getBackendType()))))
+        .setPositiveButton(R.string.logout, (d, i) -> SyncManager.INSTANCE.getPrefs().removeAccount(account))
         .setNegativeButton(R.string.cancel, null)
         .show();
     return true;
@@ -218,7 +223,7 @@ public class SyncSettingsFragment
 
     final long[] intervals =
         BuildConfig.DEBUG ? Longs.concat(new long[] {5_000}, SYNC_INTERVALS_MS) : SYNC_INTERVALS_MS;
-    final SyncPrefs prefs = SyncPrefs.getInstance(context);
+    final SyncPrefs prefs = SyncManager.INSTANCE.getPrefs();
     final Slider slider = sliderView.findViewById(R.id.slider);
     slider.setValueFrom(0f);
     slider.setValueTo(intervals.length - 1);
@@ -253,15 +258,15 @@ public class SyncSettingsFragment
   private void pollNextcloudAuth()
   {
     final Context context = getContext();
-    SyncPrefs syncPrefs = SyncPrefs.getInstance(context);
+    SyncPrefs syncPrefs = SyncManager.INSTANCE.getPrefs();
     String pollParamsStr = syncPrefs.getNextcloudPollParams();
     if (pollParamsStr == null)
       return;
     try
     {
-      NextcloudLoginHelper.PollParams pollParams = NextcloudLoginHelper.PollParams.fromString(pollParamsStr);
+      PollParams pollParams = PollParams.fromString(pollParamsStr);
       ThreadPool.getWorker().execute(() -> {
-        if (!NextcloudLoginHelper.storeAuthStateIfAvailable(context, pollParams))
+        if (!NextcloudLoginFlow.storeAuthStateIfAvailable(context, pollParams))
           syncPrefs.setNextcloudPollParams(null);
       });
     }

@@ -1,6 +1,9 @@
-package app.organicmaps.sdk.sync;
+package app.organicmaps.sdk.sync.engine;
 
 import androidx.annotation.Nullable;
+import app.organicmaps.sdk.sync.AuthState;
+import app.organicmaps.sdk.sync.CloudFilesState;
+import app.organicmaps.sdk.sync.SyncOpException;
 import java.io.File;
 
 public abstract class SyncClient
@@ -39,7 +42,7 @@ public abstract class SyncClient
    */
   public abstract void downloadBookmarkFile(String fileName, File destinationFile) throws SyncOpException;
 
-  public abstract EditSession getEditSession() throws Syncer.LockAlreadyHeldException, SyncOpException;
+  public abstract EditSession getEditSession() throws LockAlreadyHeldException, SyncOpException;
 
   /**
    * The inner class to perform write operations in the cloud directory.

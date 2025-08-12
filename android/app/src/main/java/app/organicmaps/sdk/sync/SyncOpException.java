@@ -3,6 +3,7 @@ package app.organicmaps.sdk.sync;
 import app.organicmaps.sdk.util.log.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 public sealed abstract class SyncOpException extends Exception permits SyncOpException.NetworkException,
                                                      SyncOpException.AuthExpiredException,
                                                      // TODO(savsch) add storage quota exceeded UI and exception type
