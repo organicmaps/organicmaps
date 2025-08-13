@@ -22,8 +22,12 @@ class BottomMenuItemCell: UITableViewCell {
 
   private(set) var isEnabled: Bool = true
 
-  func configure(imageName: String, title: String, badgeCount: UInt = .zero, enabled: Bool = true) {
-    icon.image = UIImage(named: imageName)
+  func configure(image: UIImage,
+                 title: String,
+                 badgeCount: UInt = .zero,
+                 imageStyle: GlobalStyleSheet = .black,
+                 enabled: Bool = true) {
+    icon.image = image
     label.text = title
     badgeBackground.isHidden = badgeCount == 0
     badgeCountLabel.text = "\(badgeCount)"
@@ -35,7 +39,7 @@ class BottomMenuItemCell: UITableViewCell {
       badgeBackgroundWidthConstraint.constant = Constants.badgeBackgroundWidth
     }
     isEnabled = enabled
-    icon.setStyleAndApply(isEnabled ? .black : .gray)
+    icon.setStyleAndApply(isEnabled ? imageStyle : .gray)
     label.setFontStyleAndApply(isEnabled ? .blackPrimary : .blackHint)
   }
 }

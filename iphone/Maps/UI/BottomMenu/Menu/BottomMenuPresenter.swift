@@ -105,29 +105,29 @@ extension BottomMenuPresenter {
       let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
       switch menuCells[indexPath.row] {
       case .addPlace:
-        cell.configure(imageName: "ic_add_place",
+        cell.configure(image: shouldUpdateMapToContribute ? UIImage(resource: .icMenuAddPlaceExclamation) : UIImage(resource: .icMenuAddPlace),
                        title: L("placepage_add_place_button"),
                        enabled: countryId != nil)
       case .recordTrack:
         switch trackRecorder.recordingState {
         case .inactive:
-          cell.configure(imageName: "track_recorder_inactive", title: L("start_track_recording"))
+          cell.configure(image: UIImage(resource: .icMenuTrackRecording), title: L("start_track_recording"))
         case .active:
-          cell.configure(imageName: "track_recorder_active", title: L("stop_track_recording"))
+          cell.configure(image: UIImage(resource: .icMenuTrackRecording), title: L("stop_track_recording"), imageStyle: .red)
         }
         return cell
       case .downloadMaps:
-        cell.configure(imageName: "ic_menu_download",
+        cell.configure(image: UIImage(resource: .icMenuDownload),
                        title: L("download_maps"),
                        badgeCount: MapsAppDelegate.theApp().badgeNumber())
       case .donate:
-        cell.configure(imageName: Settings.isNY() ? "ic_christmas_tree" : "ic_menu_donate",
+        cell.configure(image: Settings.isNY() ? UIImage(resource: .icChristmasTree) : UIImage(resource: .icMenuDonate),
                        title: L("donate"))
       case .settings:
-        cell.configure(imageName: "ic_menu_settings",
+        cell.configure(image: UIImage(resource: .icMenuSettings),
                        title: L("settings"))
       case .share:
-        cell.configure(imageName: "ic_menu_share",
+        cell.configure(image: UIImage(resource: .icMenuShare),
                        title: L("share_my_location"))
       }
       return cell
