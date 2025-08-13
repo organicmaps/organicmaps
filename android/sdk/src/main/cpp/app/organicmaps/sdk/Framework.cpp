@@ -1762,7 +1762,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeShouldShowProducts(J
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetProductsConfiguration(JNIEnv * env, jclass)
 {
-  auto config = frm()->GetProductsConfiguration();
+  auto const config = frm()->GetProductsConfiguration();
   if (!config)
     return nullptr;
 
@@ -1770,11 +1770,11 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetProductsConfigurat
   static jmethodID const productConstructor =
       jni::GetConstructorID(env, productClass, "(Ljava/lang/String;Ljava/lang/String;)V");
 
-  jobjectArray products = jni::ToJavaArray(env, productClass, config->GetProducts(),
+  jobjectArray products = jni::ToJavaArray(env, productClass, config->products,
                                            [](JNIEnv * env, products::ProductsConfig::Product const & product)
   {
-    jni::TScopedLocalRef const title(env, jni::ToJavaString(env, product.GetTitle()));
-    jni::TScopedLocalRef const link(env, jni::ToJavaString(env, product.GetLink()));
+    jni::TScopedLocalRef const title(env, jni::ToJavaString(env, product.title));
+    jni::TScopedLocalRef const link(env, jni::ToJavaString(env, product.link));
 
     return env->NewObject(productClass, productConstructor, title.get(), link.get());
   });
@@ -1783,7 +1783,8 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetProductsConfigurat
   static jmethodID const productsConfigConstructor =
       jni::GetConstructorID(env, productsConfigClass, "(Ljava/lang/String;[Lapp/organicmaps/sdk/products/Product;)V");
 
-  jni::TScopedLocalRef const placePagePrompt(env, jni::ToJavaString(env, config->GetPlacePagePrompt()));
+  jni::TScopedLocalRef const placePagePrompt(
+      env, jni::ToJavaString(env, config->placePagePrompt ? *config->placePagePrompt : ""));
   return env->NewObject(productsConfigClass, productsConfigConstructor, placePagePrompt.get(), products);
 }
 

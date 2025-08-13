@@ -22,12 +22,10 @@ UNIT_TEST(GetMetaConfig)
   base::ScopedLogLevelChanger logLevel(base::LDEBUG);
   Platform::ThreadRunner runner;
 
-  DownloaderStub().GetMetaConfig([](downloader::MetaConfig const & metaConfig)
-  {
-    TEST_GREATER(metaConfig.m_serversList.size(), 0, ());
-    for (auto const & s : metaConfig.m_serversList)
-      LOG(LINFO, (s));
-  });
+  auto const metaConfig = DownloaderStub().GetMetaConfig();
+  TEST_GREATER(metaConfig.servers.size(), 0, ());
+  for (auto const & s : metaConfig.servers)
+    LOG(LINFO, (s));
 }
 
 }  // namespace downloader_tests
