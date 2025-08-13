@@ -54,6 +54,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case badge = "Badge"
   case blue = "MWMBlue"
   case black = "MWMBlack"
+  case red
   case other = "MWMOther"
   case gray = "MWMGray"
   case separator = "MWMSeparator"
@@ -419,6 +420,11 @@ extension GlobalStyleSheet: IStyleSheet {
       return .add { s in
         s.tintColor = colors.blackSecondaryText
         s.coloring = MWMButtonColoring.black
+      }
+    case .red:
+      return .add { s in
+        s.tintColor = colors.red
+        s.coloring = MWMButtonColoring.red
       }
     case .other:
       return .add { s in
