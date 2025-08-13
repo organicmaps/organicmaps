@@ -23,6 +23,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OMIM_ROOT}/cmake")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
+# clangd uses compile_commands.json to provide code completion and clang-tidy checks in VSCode.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 include(OmimPlatform)
 include(OmimOptions)
 include(OmimConfig)
