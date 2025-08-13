@@ -279,7 +279,7 @@ bool OSMDistanceToMeters(std::string const & osmRawValue, double & outMeters)
   case ';': return false;
   }
 
-  while (*stop && isspace(*stop))
+  while (*stop && strings::IsASCIISpace(*stop))
     ++stop;
 
   // Default units - meters.

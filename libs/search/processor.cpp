@@ -86,7 +86,7 @@ void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
 
 void TrimLeadingSpaces(string & s)
 {
-  while (!s.empty() && isspace(s.front()))
+  while (!s.empty() && strings::IsASCIISpace(s.front()))
     s = s.substr(1);
 }
 

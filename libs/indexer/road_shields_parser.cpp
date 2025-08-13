@@ -240,7 +240,7 @@ public:
   {
     std::string shieldText(rawText);
 
-    std::erase_if(shieldText, [](char c) { return c == '-' || ::isspace(c); });
+    std::erase_if(shieldText, [](char c) { return c == '-' || strings::IsASCIISpace(c); });
 
     if (shieldText.size() <= 2)
       return RoadShield(RoadShieldType::Default, rawText);
