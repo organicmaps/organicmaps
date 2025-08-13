@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.routing;
 
 import androidx.annotation.Keep;
+import androidx.annotation.Nullable;
 import app.organicmaps.sdk.util.Distance;
 
 // Called from JNI.
@@ -25,7 +26,8 @@ public final class RoutingInfo
   public final CarDirection carDirection;
   public final CarDirection nextCarDirection;
   public final int exitNum;
-  public final SingleLaneInfo[] lanes;
+  @Nullable
+  public final LaneInfo[] lanes;
   // For pedestrian routing.
   public final PedestrianTurnDirection pedestrianTurnDirection;
   // Current speed limit in meters per second.
@@ -37,7 +39,7 @@ public final class RoutingInfo
   private RoutingInfo(Distance distToTarget, Distance distToTurn, String currentStreet, String nextStreet,
                       String nextNextStreet, double completionPercent, int vehicleTurnOrdinal,
                       int vehicleNextTurnOrdinal, int pedestrianTurnOrdinal, int exitNum, int totalTime,
-                      SingleLaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
+                      @Nullable LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
                       boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;

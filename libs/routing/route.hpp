@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/lanes/lane_info.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/routing_settings.hpp"
 #include "routing/segment.hpp"
@@ -139,7 +140,7 @@ public:
 
   void SetTurnExits(uint32_t exitNum) { m_turn.m_exitNum = exitNum; }
 
-  std::vector<turns::SingleLaneInfo> & GetTurnLanes() { return m_turn.m_lanes; }
+  turns::lanes::LanesInfo & GetTurnLanes() { return m_turn.m_lanes; }
 
   void SetDistancesAndTime(double distFromBeginningMeters, double distFromBeginningMerc, double timeFromBeginningS)
   {
