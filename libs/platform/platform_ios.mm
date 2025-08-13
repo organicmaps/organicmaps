@@ -79,7 +79,7 @@ void Platform::DisableBackupForFile(std::string const & filePath)
   BOOL valueRaw = YES;
   CFNumberRef value = CFNumberCreate(kCFAllocatorDefault, kCFNumberCharType, &valueRaw);
   if (!CFURLSetResourcePropertyForKey(url, kCFURLIsExcludedFromBackupKey, value, &err))
-    NSLog(@"Error while disabling iCloud backup for file: %s", filePath.c_str());
+    LOG(LERROR, ("Error:", err, "while disabling iCloud backup for file:", filePath.c_str()));
 
   CFRelease(value);
   CFRelease(url);
