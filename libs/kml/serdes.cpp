@@ -1,4 +1,5 @@
 #include "kml/serdes.hpp"
+#include "kml/color_parser.hpp"
 
 #include "indexer/classificator.hpp"
 

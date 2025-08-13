@@ -370,7 +370,10 @@ void MutableLabel::SetText(LabelResult & result, std::string text, ref_ptr<dp::T
   // float length = m_shapedText.m_lineWidthInPixels;
 
   float maxHeight = 0.0f;
-  float length = 0.0f;
+
+  std::pair minMaxXPos = {std::numeric_limits<float>::max(), std::numeric_limits<float>::lowest()};
+  float offsetLeft = 0;
+
   glsl::vec2 pen = glsl::vec2(0.0, 0.0);
 
   ASSERT_EQUAL(m_glyphRegions.size(), m_shapedText.m_glyphs.size(), ());
@@ -384,17 +387,30 @@ void MutableLabel::SetText(LabelResult & result, std::string text, ref_ptr<dp::T
 
     ASSERT_EQUAL(normals.size(), maskTex.size(), ());
 
-    for (size_t i = 0; i < normals.size(); ++i)
-      result.m_buffer.emplace_back(pen + normals[i], maskTex[i]);
+    for (size_t j = 0; j < normals.size(); ++j)
+    {
+      result.m_buffer.emplace_back(pen + normals[j], maskTex[j]);
+      auto const & back = result.m_buffer.back();
+      if (back.m_normal.x < minMaxXPos.first)
+      {
+        minMaxXPos.first = back.m_normal.x;
+        offsetLeft = offsets.x;
+      }
+      minMaxXPos.second = std::max(minMaxXPos.second, back.m_normal.x);
+    }
 
-    float const advance = metrics.m_xAdvance * m_textRatio;
-    length += advance + offsets.x;
     // TODO(AB): yAdvance is always zero for horizontal layouts.
-    pen += glsl::vec2(advance, metrics.m_yAdvance * m_textRatio);
+    pen += glsl::vec2(metrics.m_xAdvance * m_textRatio, metrics.m_yAdvance * m_textRatio);
     maxHeight = std::max(maxHeight, offsets.y + glyph.GetPixelHeight() * m_textRatio);
   }
 
-  glsl::vec2 anchorModifier = glsl::vec2(-length / 2.0f, maxHeight / 2.0f);
+  float const length = minMaxXPos.second - minMaxXPos.first;
+  // "- offset_left" is an approximation
+  // A correct version should be
+  // "- (offset_first_symbol_from_left + offset_last_symbol_from_right) / 2"
+  // But there is no possibility to determine the offset of the last symbol from the right.
+  // We only have x_offset which is "offset from left"
+  glsl::vec2 anchorModifier = glsl::vec2(-length / 2.0f - offsetLeft, maxHeight / 2.0f);
   if (m_anchor & dp::Right)
     anchorModifier.x = -length;
   else if (m_anchor & dp::Left)
@@ -421,12 +437,10 @@ MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::Point
 
 MutableLabelHandle::MutableLabelHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
                                        ref_ptr<dp::TextureManager> textures)
-  : TBase(id, anchor, pivot)
-  , m_textView(make_unique_dp<MutableLabel>(anchor))
-  , m_isContentDirty(true)
-  , m_textureManager(std::move(textures))
-  , m_glyphsReady(false)
-{}
+  : MutableLabelHandle(id, anchor, pivot)
+{
+  m_textureManager = std::move(textures);
+}
 
 void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const
 {

@@ -1060,7 +1060,7 @@
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Маршрутът е празен - няма какво да запазвате";
 "edit_track" = "Редактиране на маршрут";
-"saved" = "Saved";
+"saved" = "Запазено";
 "button_layer_hiking" = "Hiking";
 "button_layer_cycling" = "Cycling";
 

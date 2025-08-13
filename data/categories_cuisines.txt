@@ -1344,7 +1344,7 @@ sr:Веганска|Вегетаријанска|Вегетаријанци|Ве
 # nl:Barbecue
 # fi:Grilli
 # fr:Barbecue
-# de:Grill
+# de:Barbecue
 # hu:Grill
 # id:Barbekyu
 # it:Barbecue

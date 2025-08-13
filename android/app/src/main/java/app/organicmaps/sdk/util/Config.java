@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
-import app.organicmaps.util.ThemeUtils;
 
 public final class Config
 {
@@ -25,8 +24,6 @@ public final class Config
   private static final String KEY_MISC_DISCLAIMER_ACCEPTED = "IsDisclaimerApproved";
 
   private static final String KEY_MISC_LOCATION_REQUESTED = "LocationRequested";
-  private static final String KEY_MISC_UI_THEME = "UiTheme";
-  private static final String KEY_MISC_UI_THEME_SETTINGS = "UiThemeSettings";
   private static final String KEY_MISC_USE_MOBILE_DATA = "UseMobileData";
   private static final String KEY_MISC_USE_MOBILE_DATA_TIMESTAMP = "UseMobileDataTimestamp";
   private static final String KEY_MISC_USE_MOBILE_DATA_ROAMING = "UseMobileDataRoaming";
@@ -232,45 +229,77 @@ public final class Config
     setBool(KEY_MISC_LOCATION_REQUESTED);
   }
 
-  @NonNull
-  public static String getCurrentUiTheme(@NonNull Context context)
+  public static class UiTheme
   {
-    final String defaultTheme = context.getString(R.string.theme_default);
-    final String res = getString(KEY_MISC_UI_THEME, defaultTheme);
+    private static final String KEY_UI_THEME = "UiTheme";
+    private static final String KEY_UI_THEME_SETTINGS = "UiThemeSettings";
 
-    if (ThemeUtils.isValidTheme(context, res))
-      return res;
+    public static final String AUTO = "auto";
+    public static final String NIGHT = "night";
+    public static final String NAV_AUTO = "nav_auto";
+    public static final String DEFAULT = "default";
 
-    return defaultTheme;
-  }
+    public static boolean isAuto(@NonNull String theme)
+    {
+      return AUTO.equals(theme);
+    }
 
-  public static void setCurrentUiTheme(@NonNull Context context, @NonNull String theme)
-  {
-    if (getCurrentUiTheme(context).equals(theme))
-      return;
+    public static boolean isNavAuto(@NonNull String theme)
+    {
+      return NAV_AUTO.equals(theme);
+    }
 
-    setString(KEY_MISC_UI_THEME, theme);
-  }
+    public static boolean isNight(@NonNull String theme)
+    {
+      return NIGHT.equals(theme);
+    }
 
-  @NonNull
-  public static String getUiThemeSettings(@NonNull Context context)
-  {
-    final String defaultTheme = context.getString(R.string.theme_nav_auto);
-    final String res = getString(KEY_MISC_UI_THEME_SETTINGS, defaultTheme);
-    if (ThemeUtils.isValidTheme(context, res) || ThemeUtils.isAutoTheme(context, res)
-        || ThemeUtils.isNavAutoTheme(context, res))
-      return res;
+    public static boolean isDefault(@NonNull String theme)
+    {
+      return DEFAULT.equals(theme);
+    }
 
-    return defaultTheme;
-  }
+    @NonNull
+    public static String getCurrent()
+    {
+      final String res = getString(KEY_UI_THEME, DEFAULT);
+      if (isValid(res))
+        return res;
 
-  public static boolean setUiThemeSettings(@NonNull Context context, String theme)
-  {
-    if (getUiThemeSettings(context).equals(theme))
-      return false;
+      return DEFAULT;
+    }
 
-    setString(KEY_MISC_UI_THEME_SETTINGS, theme);
-    return true;
+    public static void setCurrent(@NonNull String theme)
+    {
+      if (getCurrent().equals(theme))
+        return;
+
+      setString(KEY_UI_THEME, theme);
+    }
+
+    @NonNull
+    public static String getUiThemeSettings()
+    {
+      final String res = getString(KEY_UI_THEME_SETTINGS, DEFAULT);
+      if (isValid(res) || isAuto(res) || isNavAuto(res))
+        return res;
+
+      return DEFAULT;
+    }
+
+    public static boolean setUiThemeSettings(String theme)
+    {
+      if (getUiThemeSettings().equals(theme))
+        return false;
+
+      setString(KEY_UI_THEME_SETTINGS, theme);
+      return true;
+    }
+
+    private static boolean isValid(@NonNull String theme)
+    {
+      return DEFAULT.equals(theme) || NIGHT.equals(theme);
+    }
   }
 
   public static boolean isLargeFontsSize()

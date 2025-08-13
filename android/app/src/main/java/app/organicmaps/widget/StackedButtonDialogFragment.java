@@ -13,6 +13,8 @@ import app.organicmaps.sdk.util.NetworkPolicy;
 
 public class StackedButtonDialogFragment extends DialogFragment
 {
+  private static final String TAG_NETWORK_POLICY = "network_policy";
+
   @Nullable
   private NetworkPolicy.NetworkPolicyListener mListener;
 
@@ -43,7 +45,7 @@ public class StackedButtonDialogFragment extends DialogFragment
   {
     Config.setUseMobileDataSettings(type);
     if (mListener != null)
-      mListener.onResult(NetworkPolicy.newInstance(canUse));
+      mListener.onResult(new NetworkPolicy(canUse));
   }
 
   @Override
@@ -57,5 +59,30 @@ public class StackedButtonDialogFragment extends DialogFragment
   public void setListener(@Nullable NetworkPolicy.NetworkPolicyListener listener)
   {
     mListener = listener;
+  }
+
+  public static void showDialogIfNeeded(@NonNull FragmentManager fragmentManager,
+                                        @NonNull NetworkPolicy.NetworkPolicyListener listener,
+                                        @NonNull NetworkPolicy policy, boolean isToday)
+  {
+    if (isToday)
+    {
+      listener.onResult(policy);
+      return;
+    }
+    showDialog(fragmentManager, listener);
+  }
+
+  public static void showDialog(@NonNull FragmentManager fragmentManager,
+                                @NonNull NetworkPolicy.NetworkPolicyListener listener)
+  {
+    StackedButtonDialogFragment dialog =
+        (StackedButtonDialogFragment) fragmentManager.findFragmentByTag(TAG_NETWORK_POLICY);
+    if (dialog != null)
+      dialog.dismiss();
+
+    dialog = new StackedButtonDialogFragment();
+    dialog.setListener(listener);
+    dialog.show(fragmentManager, TAG_NETWORK_POLICY);
   }
 }
