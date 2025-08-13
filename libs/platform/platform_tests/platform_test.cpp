@@ -2,7 +2,6 @@
 
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"

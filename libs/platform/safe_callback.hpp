@@ -24,12 +24,16 @@ public:
   SafeCallback(Fn const & fn) : m_fn(fn)
   {}
 
+  template <typename Fn>
+  SafeCallback(Fn && fn) : m_fn(std::move(fn))
+  {}
+
   operator bool() const noexcept { return static_cast<bool>(m_fn); }
 
   void operator()(Args... args) const
   {
     if (m_fn)
-      GetPlatform().RunTask(Platform::Thread::Gui, std::bind(m_fn, std::move(args)...));
+      GetPlatform().RunTask(Platform::Thread::Gui, std::bind(m_fn, std::forward<Args>(args)...));
   }
 
 private:
