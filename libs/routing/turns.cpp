@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <array>
 #include <sstream>
+#include <string>
 #include <utility>
 
 namespace routing
@@ -312,7 +313,7 @@ bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes)
     return false;
   lanes.clear();
   strings::AsciiToLower(lanesString);
-  base::EraseIf(lanesString, [](char c) { return isspace(c); });
+  base::EraseIf(lanesString, strings::IsASCIISpace<std::string::value_type>);
 
   vector<string> SplitLanesStrings;
   SingleLaneInfo lane;
