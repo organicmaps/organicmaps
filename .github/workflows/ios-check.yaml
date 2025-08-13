@@ -92,7 +92,6 @@ jobs:
             -configuration Debug \
             -sdk iphonesimulator \
             -destination "platform=iOS Simulator,name=${{ env.SIMULATOR_DEVICE }},OS=latest" \
-            -quiet \
             -resultBundlePath ${{ env.TEST_RESULTS_BUNDLE_NAME }}.xcresult \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
