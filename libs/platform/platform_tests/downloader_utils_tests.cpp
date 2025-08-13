@@ -88,14 +88,14 @@ UNIT_TEST(Downloader_IsUrlSupported)
 
 UNIT_TEST(Downloader_ParseMetaConfig)
 {
-  std::optional<downloader::MetaConfig> cfg;
+  auto cfg = downloader::ParseMetaConfig(R"({"servers":[ "https://url1/", "https://url2/" ]})");
 
-  TEST((cfg = downloader::ParseMetaConfig(R"([ "https://url1/", "https://url2/" ])")), ());
-  TEST_EQUAL(cfg->m_serversList.size(), 2, ());
-  TEST_EQUAL(cfg->m_serversList[0], "https://url1/", ());
-  TEST_EQUAL(cfg->m_serversList[1], "https://url2/", ());
+  TEST(cfg, ());
+  TEST_EQUAL(cfg->servers.size(), 2, ());
+  TEST_EQUAL(cfg->servers[0], "https://url1/", ());
+  TEST_EQUAL(cfg->servers[1], "https://url2/", ());
 
-  TEST((cfg = downloader::ParseMetaConfig(R"(
+  cfg = downloader::ParseMetaConfig(R"(
     {
       "servers": [ "https://url1/", "https://url2/" ],
       "settings": {
@@ -104,20 +104,21 @@ UNIT_TEST(Downloader_ParseMetaConfig)
         "key3": "value3"
       }
     }
-  )")),
-       ());
-  TEST_EQUAL(cfg->m_serversList.size(), 2, ());
-  TEST_EQUAL(cfg->m_serversList[0], "https://url1/", ());
-  TEST_EQUAL(cfg->m_serversList[1], "https://url2/", ());
-  TEST_EQUAL(cfg->m_settings.size(), 2, ());  // "key3" is ignored
-  TEST_EQUAL(cfg->m_settings["DonateUrl"], "value1", ());
-  TEST_EQUAL(cfg->m_settings["NY"], "value2", ());
+  )");
+  TEST(cfg, ());
+  TEST_EQUAL(cfg->servers.size(), 2, ());
+  TEST_EQUAL(cfg->servers[0], "https://url1/", ());
+  TEST_EQUAL(cfg->servers[1], "https://url2/", ());
+  TEST_EQUAL(cfg->settings.size(), 3, ());
+  TEST_EQUAL(cfg->settings["DonateUrl"], "value1", ());
+  TEST_EQUAL(cfg->settings["NY"], "value2", ());
+  TEST_EQUAL(cfg->settings["key3"], "value3", ());
 
-  TEST(!downloader::ParseMetaConfig(R"(broken json)"), ());
+  TEST(!downloader::ParseMetaConfig("Broken JSON"), ());
 
-  TEST(!downloader::ParseMetaConfig(R"([])"), ());
+  TEST(!downloader::ParseMetaConfig("[]"), ("Empty array"));
 
-  TEST(!downloader::ParseMetaConfig(R"({})"), ());
+  TEST(!downloader::ParseMetaConfig("{}"), ("Empty object"));
 
   TEST(!downloader::ParseMetaConfig(R"({"no_servers": "invalid"})"), ());
 

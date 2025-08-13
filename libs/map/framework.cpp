@@ -3377,7 +3377,7 @@ std::optional<products::ProductsConfig> Framework::GetProductsConfiguration() co
 {
   if (!ShouldShowProducts())
     return nullopt;
-  return products::GetProductsConfiguration();
+  return products::ProductsSettings::Instance().Get();
 }
 
 void Framework::DidCloseProductsPopup(ProductsPopupCloseReason reason) const
@@ -3388,7 +3388,7 @@ void Framework::DidCloseProductsPopup(ProductsPopupCloseReason reason) const
 
 void Framework::DidSelectProduct(products::ProductsConfig::Product const & product) const
 {
-  settings::Set(kPlacePageSelectedProduct, product.GetTitle());
+  settings::Set(kPlacePageSelectedProduct, product.title);
 }
 
 uint32_t Framework::GetTimeoutForReason(ProductsPopupCloseReason reason)

@@ -11,8 +11,6 @@
 #include <algorithm>
 #include <functional>
 
-using namespace std::placeholders;
-
 namespace
 {
 class ErrorHttpRequest : public downloader::HttpRequest
@@ -63,6 +61,7 @@ void HttpMapFilesDownloader::Download()
   {
     queuedCountry.OnStartDownloading();
 
+    using namespace std::placeholders;
     m_request.reset(downloader::HttpRequest::GetFile(
         urls, path, size, std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
         std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1)));

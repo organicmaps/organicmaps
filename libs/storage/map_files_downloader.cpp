@@ -43,11 +43,16 @@ void MapFilesDownloader::RunMetaConfigAsync(std::function<void()> && callback)
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, callback = std::move(callback)]()
   {
-    GetMetaConfig([this, callback = std::move(callback)](MetaConfig const & metaConfig)
+    auto metaConfig = GetMetaConfig();
+
+    // Thread-safe.
+    settings::Update(metaConfig.settings);
+    products::ProductsSettings::Instance().Update(std::move(metaConfig.productsConfig));
+
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, servers = metaConfig.servers, callback = std::move(callback)]()
     {
-      m_serversList = metaConfig.m_serversList;
-      settings::Update(metaConfig.m_settings);
-      products::Update(metaConfig.m_productsConfig);
+      m_serversList = std::move(servers);
+
       callback();
 
       // Reset flag to invoke servers list downloading next time if current request has failed.
@@ -153,13 +158,12 @@ std::string GetAcceptLanguage()
   return locale.m_language + "-" + locale.m_country;
 }
 
-// static
-MetaConfig MapFilesDownloader::LoadMetaConfig()
+downloader::MetaConfig MapFilesDownloader::LoadMetaConfig() const
 {
   Platform & pl = GetPlatform();
   std::string const metaServerUrl = pl.MetaServerUrl();
-  std::string httpResult;
 
+  std::optional<downloader::MetaConfig> metaConfig;
   if (!metaServerUrl.empty())
   {
     platform::HttpClient request(metaServerUrl);
@@ -173,23 +177,25 @@ MetaConfig MapFilesDownloader::LoadMetaConfig()
     // request.SetRawHeader("Accept-Language", "de-DE");
 
     request.SetTimeout(10.0);  // timeout in seconds
+
+    std::string httpResult;
     request.RunHttpRequest(httpResult);
+    metaConfig = downloader::ParseMetaConfig(httpResult);
   }
 
-  std::optional<MetaConfig> metaConfig = downloader::ParseMetaConfig(httpResult);
   if (!metaConfig)
   {
     metaConfig = downloader::ParseMetaConfig(pl.DefaultUrlsJSON());
     CHECK(metaConfig, ());
-    LOG(LWARNING, ("Can't get meta configuration from request, using default servers:", metaConfig->m_serversList));
+    LOG(LWARNING, ("Can't get meta configuration from request, using default servers:", metaConfig->servers));
   }
-  CHECK(!metaConfig->m_serversList.empty(), ());
+
   return *metaConfig;
 }
 
-void MapFilesDownloader::GetMetaConfig(MetaConfigCallback const & callback)
+downloader::MetaConfig MapFilesDownloader::GetMetaConfig()
 {
-  callback(LoadMetaConfig());
+  return LoadMetaConfig();
 }
 
 }  // namespace storage

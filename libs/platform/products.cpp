@@ -3,46 +3,81 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/string_utils.hpp"
 
 #include "defines.hpp"
 
 #include "coding/file_writer.hpp"
 
-#include "cppjansson/cppjansson.hpp"
+#include "glaze/core/opts.hpp"
+#include "glaze/json.hpp"
 
 namespace products
 {
-
-char const kPlacePagePrompt[] = "placePagePrompt";
-char const kProducts[] = "products";
-char const kProductTitle[] = "title";
-char const kProductLink[] = "link";
 
 std::string GetProductsFilePath()
 {
   return GetPlatform().SettingsPathForFile(PRODUCTS_SETTINGS_FILE_NAME);
 }
 
+static bool IsProductsConfigValid(ProductsConfig const & config)
+{
+  return config.HasProducts() && std::ranges::all_of(config.products, [](auto const & product)
+  { return !product.link.empty() && !product.title.empty(); });
+}
+
+static std::string DebugPrint(ProductsConfig const & config)
+{
+  std::string buffer;
+  auto const error = glz::write_json(config, buffer);
+  CHECK(!error, ("Struct should always be serializable"));
+  return buffer;
+}
+
+std::optional<ProductsConfig> ProductsConfig::LoadFromFile(std::string const & jsonFilePath)
+{
+  std::string jsonString;
+  try
+  {
+    // Do not use glaze file reader because it uses std::filesystem which works only on iOS 13+.
+    GetPlatform().GetReader(jsonFilePath)->ReadAsString(jsonString);
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LERROR, ("Failed to load data from JSON file", jsonFilePath, "with error:", ex.Msg()));
+    return {};
+  }
+
+  return LoadFromString(jsonString);
+}
+
+std::optional<ProductsConfig> ProductsConfig::LoadFromString(std::string const & jsonString)
+{
+  ProductsConfig config;
+  glz::context ctx;
+  auto const error = read<glz::opts{.error_on_missing_keys = true}>(config, jsonString, ctx);
+  if (error)
+  {
+    LOG(LWARNING, ("Error", glz::format_error(error), "when decoding ProductsConfig from JSON", jsonString));
+    return {};
+  }
+
+  if (!IsProductsConfigValid(config))
+  {
+    LOG(LWARNING, ("Invalid ProductsConfig in JSON", jsonString));
+    return {};
+  }
+
+  return config;
+}
+
 ProductsSettings::ProductsSettings()
 {
-  std::lock_guard guard(m_mutex);
   auto const path = GetProductsFilePath();
+  std::lock_guard guard(m_mutex);
   if (Platform::IsFileExistsByFullPath(path))
-  {
-    try
-    {
-      std::string outValue;
-      auto dataReader = GetPlatform().GetReader(path);
-      dataReader->ReadAsString(outValue);
-      m_productsConfig = ProductsConfig::Parse(outValue);
-    }
-    catch (std::exception const & ex)
-    {
-      LOG(LERROR, ("Error reading ProductsConfig file.", ex.what()));
-    }
-  }
-  LOG(LWARNING, ("ProductsConfig file not found."));
+    m_productsConfig = ProductsConfig::LoadFromFile(path);
+  else
+    LOG(LINFO, ("ProductsConfig file not found."));
 }
 
 ProductsSettings & ProductsSettings::Instance()
@@ -51,69 +86,27 @@ ProductsSettings & ProductsSettings::Instance()
   return instance;
 }
 
-std::optional<ProductsConfig> ProductsSettings::Get()
+std::optional<ProductsConfig> ProductsSettings::Get() const
 {
   std::lock_guard guard(m_mutex);
   return m_productsConfig;
 }
 
-void ProductsSettings::Update(std::string const & jsonStr)
+void ProductsSettings::Update(std::optional<ProductsConfig> && productsConfig)
 {
+  auto const outFilePath = GetProductsFilePath();
   std::lock_guard guard(m_mutex);
-  if (jsonStr.empty())
-    FileWriter::DeleteFileX(GetProductsFilePath());
+  if (!productsConfig)
+  {
+    m_productsConfig.reset();
+    FileWriter::DeleteFileX(outFilePath);
+  }
   else
   {
-    try
-    {
-      FileWriter file(GetProductsFilePath());
-      file.Write(jsonStr.data(), jsonStr.size());
-      m_productsConfig = ProductsConfig::Parse(jsonStr);
-    }
-    catch (std::exception const & ex)
-    {
-      LOG(LERROR, ("Error writing ProductsConfig file.", ex.what()));
-    }
+    m_productsConfig = std::move(productsConfig);
+    if (auto const error = glz::write_file_json(productsConfig, outFilePath, std::string{}); error)
+      LOG(LERROR, ("Error writing ProductsConfig file", outFilePath, glz::format_error(error)));
   }
-}
-
-std::optional<ProductsConfig> ProductsConfig::Parse(std::string const & jsonStr)
-{
-  base::Json const root(jsonStr.c_str());
-  auto const json = root.get();
-  auto const productsObj = json_object_get(json, kProducts);
-  if (!json_is_object(json) || !productsObj || !json_is_array(productsObj))
-  {
-    LOG(LWARNING, ("Failed to parse ProductsConfig:", jsonStr));
-    return std::nullopt;
-  }
-
-  ProductsConfig config;
-  auto const placePagePrompt = json_object_get(json, kPlacePagePrompt);
-  if (placePagePrompt && json_is_string(placePagePrompt))
-    config.m_placePagePrompt = json_string_value(placePagePrompt);
-
-  for (size_t i = 0; i < json_array_size(productsObj); ++i)
-  {
-    json_t * product = json_array_get(productsObj, i);
-    if (!product || !json_is_object(product))
-    {
-      LOG(LWARNING, ("Failed to parse Product:", jsonStr));
-      continue;
-    }
-    json_t * title = json_object_get(product, kProductTitle);
-    json_t * link = json_object_get(product, kProductLink);
-    if (title && link && json_is_string(title) && json_is_string(link))
-      config.m_products.push_back({json_string_value(title), json_string_value(link)});
-    else
-      LOG(LWARNING, ("Failed to parse Product:", jsonStr));
-  }
-  if (config.m_products.empty())
-  {
-    LOG(LWARNING, ("Products list is empty"));
-    return std::nullopt;
-  }
-  return config;
 }
 
 }  // namespace products

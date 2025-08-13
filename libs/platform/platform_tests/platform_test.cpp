@@ -1,8 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
-#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
@@ -31,8 +29,8 @@ void CheckFilesPresence(std::string const & baseDir, unsigned typeMask,
   Platform::GetFilesByType(baseDir, typeMask, fwts);
 
   std::multiset<std::string> filesSet;
-  for (auto const & fwt : fwts)
-    filesSet.insert(fwt.first);
+  for (auto const & key : fwts | std::views::keys)
+    filesSet.insert(key);
 
   for (auto const & file : files)
     TEST_EQUAL(filesSet.count(file.first), file.second, (file.first, file.second));
@@ -165,8 +163,8 @@ UNIT_TEST(GetFileSize)
   TEST(!pl.GetFileSizeByName("adsmngfuwrbfyfwe", size), ());
   TEST(!pl.IsFileExistsByFullPath("adsmngfuwrbfyfwe"), ());
 
-  char const kContent[] = "HOHOHO";
-  size_t const kSize = ARRAY_SIZE(kContent);
+  char constexpr kContent[] = "HOHOHO";
+  size_t constexpr kSize = ARRAY_SIZE(kContent);
   std::string const fileName = pl.WritablePathForFile(TEST_FILE_NAME);
   {
     FileWriter testFile(fileName);
@@ -239,7 +237,6 @@ UNIT_TEST(RmDirRecursively)
 
 UNIT_TEST(MkDirRecursively)
 {
-  using namespace platform::tests_support;
   auto const writablePath = GetPlatform().WritableDir();
   auto const workPath = base::JoinPath(writablePath, "MkDirRecursively");
   auto const resetDir = [](std::string const & path)
