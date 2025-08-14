@@ -105,9 +105,7 @@ size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
 void AsciiToLower(std::string & s);
 void AsciiToUpper(std::string & s);
 
-// All triming functions return a reference on an input string.
-// They do in-place trimming. In general, it does not work for any unicode whitespace except
-// ASCII U+0020 one.
+// All trimming functions do in-place trimming. Only ASCII whitespaces are trimmed.
 void Trim(std::string & s);
 void Trim(std::string_view & sv);
 /// Remove any characters that contain in "anyOf" on left and right side of string s
@@ -140,7 +138,23 @@ inline bool IsASCIINumeric(char const * s)
 {
   return IsASCIINumeric(std::string_view(s));
 }
-bool IsASCIISpace(UniChar c);
+
+// std::isspace is locale-dependent and fails for trailing UTF-8 characters.
+template <std::integral T>
+inline constexpr bool IsASCIISpace(T c)
+{
+  switch (c)
+  {
+  case ' ':
+  case '\f':
+  case '\n':
+  case '\r':
+  case '\t':
+  case '\v': return true;
+  default: return false;
+  }
+}
+
 bool IsASCIILatin(UniChar c);
 
 inline std::string DebugPrint(UniString const & s)
