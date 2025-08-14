@@ -1,11 +1,9 @@
 #include "geometry/geometry_tests/equality.hpp"
 
+#include "base/math.hpp"
 #include "geometry/screenbase.hpp"
 #include "geometry/transformations.hpp"
-
 #include "testing/testing.hpp"
-
-#include <cmath>
 
 namespace screen_test
 {
@@ -23,10 +21,10 @@ static void check_set_from_rect(ScreenBase & screen, int width, int height)
   b2 = screen.GtoP(b2);
 
   // check that we are in boundaries.
-  TEST(math::Between(0, width, static_cast<int>(std::lround(b1.x))), ());
-  TEST(math::Between(0, width, static_cast<int>(std::lround(b2.x))), ());
-  TEST(math::Between(0, height, static_cast<int>(std::lround(b1.y))), ());
-  TEST(math::Between(0, height, static_cast<int>(std::lround(b2.y))), ());
+  TEST(math::Between(0, width, math::iround(b1.x)), ());
+  TEST(math::Between(0, width, math::iround(b2.x)), ());
+  TEST(math::Between(0, height, math::iround(b1.y)), ());
+  TEST(math::Between(0, height, math::iround(b2.y)), ());
 }
 
 UNIT_TEST(ScreenBase_P2G2P)

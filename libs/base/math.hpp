@@ -1,9 +1,11 @@
 #pragma once
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 
 #include <algorithm>  // std::max
 #include <cmath>
+#include <concepts>
 #include <functional>  // std::hash
 #include <type_traits>
 
@@ -17,6 +19,12 @@ double constexpr pi4 = pi / 4.0;
 double Nan();
 double Infinity();
 bool is_finite(double d);
+
+template <std::floating_point T>
+int iround(T x)
+{
+  return base::checked_cast<int>(std::lround(x));
+}
 
 template <typename T>
 T Abs(T x)

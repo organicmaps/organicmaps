@@ -180,7 +180,7 @@ int GetTileScaleBase(m2::RectD const & r)
 {
   double const sz = std::max(r.SizeX(), r.SizeY());
   ASSERT_GREATER(sz, 0., ("Rect should not be a point:", r));
-  return std::max(1, static_cast<int>(std::lround(std::log2(mercator::Bounds::kRangeX / sz))));
+  return std::max(1, math::iround(std::log2(mercator::Bounds::kRangeX / sz)));
 }
 
 double GetTileScaleBase(double drawScale)
@@ -218,12 +218,12 @@ m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center)
 
 m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center, uint32_t tileSize, double visualScale)
 {
-  return GetRectForDrawScale(static_cast<int>(std::lround(drawScale)), center, tileSize, visualScale);
+  return GetRectForDrawScale(math::iround(drawScale), center, tileSize, visualScale);
 }
 
 m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center)
 {
-  return GetRectForDrawScale(static_cast<int>(std::lround(drawScale)), center);
+  return GetRectForDrawScale(math::iround(drawScale), center);
 }
 
 uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)

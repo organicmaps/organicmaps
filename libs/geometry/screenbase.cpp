@@ -3,8 +3,7 @@
 #include "geometry/transformations.hpp"
 
 #include "base/assert.hpp"
-
-#include <cmath>
+#include "base/math.hpp"
 
 double constexpr kPerspectiveAngleFOV = math::pi / 3.0;
 double constexpr kMaxPerspectiveAngle1 = math::pi4;
@@ -230,12 +229,12 @@ void ScreenBase::SetAngle(double angle)
 
 int ScreenBase::GetWidth() const
 {
-  return static_cast<int>(std::lround(m_PixelRect.SizeX()));
+  return math::iround(m_PixelRect.SizeX());
 }
 
 int ScreenBase::GetHeight() const
 {
-  return static_cast<int>(std::lround(m_PixelRect.SizeY()));
+  return math::iround(m_PixelRect.SizeY());
 }
 
 ScreenBase::MatrixT ScreenBase::CalcTransform(m2::PointD const & oldPt1, m2::PointD const & oldPt2,
