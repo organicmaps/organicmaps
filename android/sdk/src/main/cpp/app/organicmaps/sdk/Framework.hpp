@@ -161,7 +161,7 @@ public:
 
   void ExecuteMapApiRequest();
 
-  void DeactivatePopup();
+  void DeactivatePopup(bool notifyListeners);
   void DeactivateMapSelectionCircle(bool restoreViewport);
 
   //    std::string GetOutdatedCountriesString();

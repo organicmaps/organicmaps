@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
-import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.Utils;
@@ -135,13 +134,10 @@ public class ChartController implements OnChartValueSelectedListener
     mChart.getAxisRight().setEnabled(false);
   }
 
-  public void setData(Track track)
+  public void setData(ElevationInfo info, TrackStatistics stats, long trackId)
   {
-    mTrackId = track.getTrackId();
-    ElevationInfo info = track.getElevationInfo();
-    TrackStatistics stats = track.getTrackStatistics();
+    mTrackId = trackId;
     List<Entry> values = new ArrayList<>();
-
     for (ElevationInfo.Point point : info.getPoints())
       values.add(new Entry((float) point.getDistance(), point.getAltitude(), point));
 
@@ -171,7 +167,9 @@ public class ChartController implements OnChartValueSelectedListener
     mMinAltitude.setText(Framework.nativeFormatAltitude(stats.getMinElevation()));
     mMaxAltitude.setText(Framework.nativeFormatAltitude(stats.getMaxElevation()));
 
-    highlightActivePointManually();
+    if (trackId != Utils.INVALID_ID)
+      highlightActivePointManually();
+    mChart.setTouchEnabled(trackId != Utils.INVALID_ID);
   }
 
   @Override
@@ -238,11 +236,5 @@ public class ChartController implements OnChartValueSelectedListener
   {
     double activeX = BookmarkManager.INSTANCE.getElevationActivePointDistance(mTrackId);
     return new Highlight((float) activeX, 0f, 0);
-  }
-
-  public void onHide()
-  {
-    mChart.fitScreen();
-    mTrackId = Utils.INVALID_ID;
   }
 }
