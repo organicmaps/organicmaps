@@ -57,7 +57,6 @@ final class ActionBarViewController: UIViewController {
         break
       case .downloading, .applying, .inQueue, .error, .notDownloaded, .partly:
         visibleButtons.append(.download)
-        return
       @unknown default:
         fatalError()
       }

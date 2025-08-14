@@ -2,13 +2,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PlacePageButtonsData : NSObject
+@interface PlacePageOSMContributionData : NSObject
 
 @property(nonatomic, readonly) BOOL showAddPlace;
 @property(nonatomic, readonly) BOOL showEditPlace;
+@property(nonatomic, readonly) BOOL showUpdateMap;
 
 @property(nonatomic, readonly) BOOL enableAddPlace;
 @property(nonatomic, readonly) BOOL enableEditPlace;
+@property(nonatomic, readonly) BOOL enableUpdateMap;
 
 @end
 
