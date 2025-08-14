@@ -201,4 +201,20 @@ UNIT_TEST(is_finite)
   TEST(is_finite(DBL_MIN / 2.0), ("As in cppreference example"));
 }
 
+UNIT_TEST(iround)
+{
+  TEST_EQUAL(iround(0.0), 0, ());
+  TEST_EQUAL(iround(1.0), 1, ());
+  TEST_EQUAL(iround(1.5), 2, ());
+  TEST_EQUAL(iround(-1.5), -2, ());
+  TEST_EQUAL(iround(2.5), 3, ());
+  TEST_EQUAL(iround(-2.5), -3, ());
+
+  TEST_EQUAL(iround(2.5f), 3, ());
+  TEST_EQUAL(iround(-2.5f), -3, ());
+
+  TEST_EQUAL(iround(double(std::numeric_limits<int>::max()) - 0.5), std::numeric_limits<int>::max(), ());
+  TEST_EQUAL(iround(double(std::numeric_limits<int>::min()) + 0.5), std::numeric_limits<int>::min(), ());
+}
+
 }  // namespace math_test
