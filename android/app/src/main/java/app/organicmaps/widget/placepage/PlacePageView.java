@@ -74,6 +74,7 @@ import app.organicmaps.widget.placepage.sections.PlacePageOpeningHoursFragment;
 import app.organicmaps.widget.placepage.sections.PlacePagePhoneFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageProductsFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageTrackFragment;
+import app.organicmaps.widget.placepage.sections.PlacePageTrackRecordingFragment;
 import app.organicmaps.widget.placepage.sections.PlacePageWikipediaFragment;
 import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
@@ -89,6 +90,7 @@ public class PlacePageView extends Fragment
   private static final String PREF_COORDINATES_FORMAT = "coordinates_format";
   private static final String BOOKMARK_FRAGMENT_TAG = "BOOKMARK_FRAGMENT_TAG";
   private static final String TRACK_FRAGMENT_TAG = "TRACK_FRAGMENT_TAG";
+  private static final String TRACK_RECORDING_FRAGMENT_TAG = "TRACK_RECORDING_FRAGMENT_TAG";
   private static final String PRODUCTS_FRAGMENT_TAG = "PRODUCTS_FRAGMENT_TAG";
   private static final String WIKIPEDIA_FRAGMENT_TAG = "WIKIPEDIA_FRAGMENT_TAG";
   private static final String PHONE_FRAGMENT_TAG = "PHONE_FRAGMENT_TAG";
@@ -145,6 +147,7 @@ public class PlacePageView extends Fragment
   private ImageView mColorIcon;
   private TextView mTvCategory;
   private ImageView mEditBookmark;
+  private MaterialButton mShareButton;
 
   // Data
   private CoordinatesFormat mCoordsFormat = CoordinatesFormat.LatLonDecimal;
@@ -264,8 +267,8 @@ public class PlacePageView extends Fragment
     mTvCategory.setOnClickListener(this);
     mEditBookmark.setOnClickListener(this);
 
-    MaterialButton shareButton = mPreview.findViewById(R.id.share_button);
-    shareButton.setOnClickListener(this::shareClickListener);
+    mShareButton = mPreview.findViewById(R.id.share_button);
+    mShareButton.setOnClickListener(this::shareClickListener);
 
     final MaterialButton closeButton = mPreview.findViewById(R.id.close_button);
     closeButton.setOnClickListener((v) -> mPlacePageViewListener.onPlacePageRequestClose());
@@ -377,6 +380,18 @@ public class PlacePageView extends Fragment
       UiUtils.hide(mTvSubtitle);
       UiUtils.hide(mTvAzimuth, mAvDirection, mTvDistance);
     }
+    UiUtils.hideIf(mMapObject.isTrackRecording(), mShareButton, mFrame.findViewById(R.id.ll__place_latlon),
+                   mFrame.findViewById(R.id.ll__place_open_in));
+    mViewModel.getTrackRecordingPPDescription().observe(requireActivity(), new Observer<String>() {
+      @Override
+      public void onChanged(String s)
+      {
+        if (mMapObject.isTrackRecording() && mViewModel.getTrackRecordingPPDescription().getValue() != null)
+        {
+          UiUtils.setTextAndHideIfEmpty(mTvSubtitle, mViewModel.getTrackRecordingPPDescription().getValue());
+        }
+      }
+    });
   }
 
   private <T extends Fragment> void updateViewFragment(Class<T> controllerClass, String fragmentTag,
@@ -422,6 +437,12 @@ public class PlacePageView extends Fragment
   {
     updateViewFragment(PlacePageTrackFragment.class, TRACK_FRAGMENT_TAG, R.id.place_page_track_fragment,
                        mMapObject.isTrack());
+  }
+
+  private void updateTrackRecordingView()
+  {
+    updateViewFragment(PlacePageTrackRecordingFragment.class, TRACK_RECORDING_FRAGMENT_TAG,
+                       R.id.place_page_track_fragment, mMapObject.isTrackRecording());
   }
 
   private boolean hasWikipediaEntry()
@@ -708,6 +729,7 @@ public class PlacePageView extends Fragment
     updateBookmarkView();
     updatePhoneView();
     updateTrackView();
+    updateTrackRecordingView();
   }
 
   private void refreshWiFi()
@@ -747,7 +769,7 @@ public class PlacePageView extends Fragment
 
   private void refreshDistanceToObject(Location l)
   {
-    if (mMapObject.isTrack())
+    if (mMapObject.isTrack() || mMapObject.isTrackRecording())
       return;
     UiUtils.showIf(l != null, mTvDistance);
     UiUtils.showIf(l != null, mTvAzimuth);
@@ -967,7 +989,7 @@ public class PlacePageView extends Fragment
     // In case the place page has already some data, make sure to call the onPlacePageContentChanged callback
     // to catch cases where the new data has the exact same height as the previous one (eg 2 address nodes)
     if (mFrame.getHeight() > 0)
-      mPlacePageViewListener.onPlacePageContentChanged(mPreview.getHeight(), mFrame.getHeight());
+      mPlacePageViewListener.onPlacePageContentChanged(mPreview.getMeasuredHeight(), mFrame.getHeight());
   }
 
   @Override
@@ -984,7 +1006,7 @@ public class PlacePageView extends Fragment
   @Override
   public void onCompassUpdated(double north)
   {
-    if (mMapObject == null || mMapObject.isMyPosition() || mMapObject.isTrack())
+    if (mMapObject == null || mMapObject.isMyPosition() || mMapObject.isTrack() || mMapObject.isTrackRecording())
       return;
 
     final Location location = MwmApplication.from(requireContext()).getLocationHelper().getSavedLocation();

@@ -88,7 +88,7 @@ public class PlacePageTrackFragment extends Fragment
     {
       if (mTrack == null || mTrack.getTrackId() != track.getTrackId())
       {
-        mElevationProfileViewRenderer.render(track);
+        mElevationProfileViewRenderer.render(track.getElevationInfo(), track.getTrackStatistics(), track.getTrackId());
         UiUtils.show(mElevationProfileView);
       }
     }

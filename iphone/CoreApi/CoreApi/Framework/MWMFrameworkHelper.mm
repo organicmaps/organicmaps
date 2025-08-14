@@ -131,9 +131,9 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   GetFramework().Scroll(x, y);
 }
 
-+ (void)deactivateMapSelection
++ (void)deactivateMapSelection:
 {
-  GetFramework().DeactivateMapSelection();
+  GetFramework().DeactivateMapSelection(true);
 }
 
 + (void)switchMyPositionMode
