@@ -24,7 +24,7 @@ import java.util.Objects;
 public class MapObject implements PlacePageData
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH, TRACK})
+  @IntDef({POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH, TRACK, TRACK_RECORDING})
   public @interface MapObjectType
   {}
 
@@ -34,6 +34,7 @@ public class MapObject implements PlacePageData
   public static final int MY_POSITION = 3;
   public static final int SEARCH = 4;
   public static final int TRACK = 5;
+  public static final int TRACK_RECORDING = 6;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({OPENING_MODE_PREVIEW, OPENING_MODE_PREVIEW_PLUS, OPENING_MODE_DETAILS, OPENING_MODE_FULL})
@@ -312,6 +313,11 @@ public class MapObject implements PlacePageData
   public final boolean isTrack()
   {
     return mMapObjectType == TRACK;
+  }
+
+  public final boolean isTrackRecording()
+  {
+    return mMapObjectType == TRACK_RECORDING;
   }
 
   @Nullable

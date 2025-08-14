@@ -14,9 +14,9 @@ import app.organicmaps.sdk.util.Distance;
 public class Track extends MapObject
 {
   private final long mTrackId;
-  private long mCategoryId;
   private final String mName;
   private final Distance mLength;
+  private long mCategoryId;
   private int mColor;
   @Nullable
   private ElevationInfo mElevationInfo;
@@ -25,7 +25,7 @@ public class Track extends MapObject
 
   Track(long trackId, long categoryId, String name, Distance length, int color)
   {
-    super(FeatureId.EMPTY, TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW_PLUS, null, "",
+    super(FeatureId.EMPTY, TRACK, name, "", "", "", 0, 0, "", null, OPENING_MODE_PREVIEW, null, "",
           RoadWarningMarkType.UNKNOWN.ordinal(), null);
     mTrackId = trackId;
     mCategoryId = categoryId;
@@ -49,18 +49,6 @@ public class Track extends MapObject
     mLength = length;
   }
 
-  // Change of the category in the core is done in PlacePageView::onCategoryChanged().
-  public void setCategoryId(@NonNull long categoryId)
-  {
-    mCategoryId = categoryId;
-  }
-
-  public void setColor(@NonNull int color)
-  {
-    mColor = color;
-    BookmarkManager.INSTANCE.changeTrackColor(getTrackId(), color);
-  }
-
   public String getName()
   {
     return mName;
@@ -76,6 +64,12 @@ public class Track extends MapObject
     return mColor;
   }
 
+  public void setColor(@NonNull int color)
+  {
+    mColor = color;
+    BookmarkManager.INSTANCE.changeTrackColor(getTrackId(), color);
+  }
+
   public long getTrackId()
   {
     return mTrackId;
@@ -84,6 +78,12 @@ public class Track extends MapObject
   public long getCategoryId()
   {
     return mCategoryId;
+  }
+
+  // Change of the category in the core is done in PlacePageView::onCategoryChanged().
+  public void setCategoryId(@NonNull long categoryId)
+  {
+    mCategoryId = categoryId;
   }
 
   public String getTrackDescription()

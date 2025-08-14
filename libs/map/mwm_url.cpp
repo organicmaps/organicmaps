@@ -464,7 +464,7 @@ void ParsedMapApi::ExecuteMapApiRequest(Framework & fm) const
     zoomLevel = df::GetDrawTileScale(viewport);
 
   // Always hide current map selection.
-  fm.DeactivateMapSelection();
+  fm.DeactivateMapSelection(true);
 
   // Set viewport and stop follow mode.
   fm.StopLocationFollow();

@@ -1471,7 +1471,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     {
       // Deactivate selection (and hide place page) if we return to routing in F&R mode.
       if (routingActive && mode == location::FollowAndRotate)
-        DeactivateMapSelection();
+        DeactivateMapSelection(true);
 
       if (m_myPositionListener != nullptr)
         m_myPositionListener(mode, routingActive);
@@ -1982,9 +1982,9 @@ void Framework::ActivateMapSelection()
     m_onPlacePageOpen();
 }
 
-void Framework::DeactivateMapSelection()
+void Framework::DeactivateMapSelection(bool notifyListeners)
 {
-  if (m_onPlacePageClose)
+  if (m_onPlacePageClose && notifyListeners)
     m_onPlacePageClose();
 
   if (m_currentPlacePageInfo)
@@ -2048,7 +2048,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   if (m_routingManager.IsRoutingActive() && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler &&
       !buildInfo.m_isLongTap && !isRoutePoint)
   {
-    DeactivateMapSelection();
+    DeactivateMapSelection(true);
 
     // Continue route to the point
     RouteMarkData data;
@@ -3115,7 +3115,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
 
   // Automatically select newly created and edited objects.
   if (m_currentPlacePageInfo)
-    DeactivateMapSelection();
+    DeactivateMapSelection(true);
 
   place_page::BuildInfo info;
   info.m_mercator = emo.GetMercator();
@@ -3145,7 +3145,7 @@ bool Framework::RollBackChanges(FeatureID const & fid)
   if (rolledBack)
   {
     if (status == FeatureStatus::Created)
-      DeactivateMapSelection();
+      DeactivateMapSelection(true);
     else
       UpdatePlacePageInfoForCurrentSelection();
   }
@@ -3158,7 +3158,7 @@ void Framework::CreateNote(osm::MapObject const & mapObject, osm::Editor::NotePr
   osm::Editor::Instance().CreateNote(mapObject.GetLatLon(), mapObject.GetID(), mapObject.GetTypes(),
                                      mapObject.GetDefaultName(), type, note);
   if (type == osm::Editor::NoteProblemType::PlaceDoesNotExist)
-    DeactivateMapSelection();
+    DeactivateMapSelection(true);
 }
 
 void Framework::RunUITask(function<void()> fn)
