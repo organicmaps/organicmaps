@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import androidx.annotation.NonNull;
-import androidx.preference.PreferenceManager;
 import app.organicmaps.sdk.R;
 
 public final class Config
@@ -423,8 +422,6 @@ public final class Config
                           @NonNull String applicationId, int versionCode, @NonNull String versionName,
                           @NonNull String fileProviderAuthority)
   {
-    PreferenceManager.setDefaultValues(context, R.xml.prefs_main, false);
-
     mPrefs = prefs;
     mFlavor = flavor;
     mApplicationId = applicationId;
