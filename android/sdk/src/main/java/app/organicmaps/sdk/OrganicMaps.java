@@ -32,6 +32,9 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   private static final String TAG = OrganicMaps.class.getSimpleName();
 
   @NonNull
+  private final String mFlavor;
+
+  @NonNull
   private final Context mContext;
 
   @NonNull
@@ -74,8 +77,10 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     return mIsolinesManager;
   }
 
-  public OrganicMaps(@NonNull Context context)
+  public OrganicMaps(@NonNull Context context, @NonNull String flavor, @NonNull String applicationId, int versionCode,
+                     @NonNull String versionName, @NonNull String fileProviderAuthority)
   {
+    mFlavor = flavor;
     mContext = context.getApplicationContext();
     mPreferences = mContext.getSharedPreferences(context.getString(app.organicmaps.sdk.R.string.pref_file_name),
                                                  Context.MODE_PRIVATE);
@@ -88,7 +93,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     Logger.d(TAG, "Settings path = " + settingsPath);
     nativeSetSettingsDir(settingsPath);
 
-    Config.init(mContext, mPreferences);
+    Config.init(mContext, mPreferences, flavor, applicationId, versionCode, versionName, fileProviderAuthority);
     OsmOAuth.init(mPreferences);
     SharedPropertiesUtils.init(mPreferences);
     LogsManager.INSTANCE.initFileLogging(mContext, mPreferences);
@@ -158,8 +163,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     // external storage is damaged or not available (read-only).
     createPlatformDirectories(writablePath, privatePath, tempPath);
 
-    nativeInitPlatform(mContext, apkPath, writablePath, privatePath, tempPath, app.organicmaps.BuildConfig.FLAVOR,
-                       app.organicmaps.BuildConfig.BUILD_TYPE,
+    nativeInitPlatform(mContext, apkPath, writablePath, privatePath, tempPath, mFlavor, BuildConfig.BUILD_TYPE,
                        /* isTablet */ false);
     Config.setStoragePath(writablePath);
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled());

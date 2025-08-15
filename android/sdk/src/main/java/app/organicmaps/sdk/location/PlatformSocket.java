@@ -6,7 +6,7 @@ import android.os.SystemClock;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.BuildConfig;
+import app.organicmaps.sdk.BuildConfig;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.IOException;
 import java.io.InputStream;

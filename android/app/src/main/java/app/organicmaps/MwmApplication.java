@@ -119,7 +119,9 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     sInstance = this;
 
-    mOrganicMaps = new OrganicMaps(getApplicationContext());
+    mOrganicMaps =
+        new OrganicMaps(getApplicationContext(), BuildConfig.FLAVOR, BuildConfig.APPLICATION_ID,
+                        BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME, BuildConfig.FILE_PROVIDER_AUTHORITY);
 
     ConnectionState.INSTANCE.initialize(this);
 

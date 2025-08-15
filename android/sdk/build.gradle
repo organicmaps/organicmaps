@@ -8,8 +8,11 @@ android {
 
   ndkVersion = '28.2.13676358'
 
-  defaultConfig {
+  buildFeatures {
+    buildConfig = true
+  }
 
+  defaultConfig {
     minSdk = propMinSdkVersion.toInteger()
     targetSdk = propTargetSdkVersion.toInteger()
 

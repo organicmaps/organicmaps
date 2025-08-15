@@ -16,8 +16,9 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
+import app.organicmaps.sdk.BuildConfig;
+import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ROMUtils;
 import app.organicmaps.sdk.util.StringUtils;
 import java.io.File;
@@ -246,9 +247,9 @@ public final class LogsManager
     for (String abi : Build.SUPPORTED_ABIS)
       sb.append(' ').append(abi);
     sb.append("\nApp version: ")
-        .append(BuildConfig.APPLICATION_ID)
+        .append(Config.getApplicationId())
         .append(' ')
-        .append(BuildConfig.VERSION_NAME)
+        .append(Config.getVersionName())
         .append("\nLocale: ")
         .append(Locale.getDefault())
         .append("\nNetworks: ");

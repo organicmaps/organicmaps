@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
-import app.organicmaps.BuildConfig;
+import app.organicmaps.sdk.BuildConfig;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import dalvik.annotation.optimization.FastNative;
