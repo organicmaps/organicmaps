@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
-import com.google.common.base.Objects;
 import dalvik.annotation.optimization.FastNative;
+import java.util.Arrays;
 
 public class Icon implements Parcelable
 {
@@ -86,7 +86,7 @@ public class Icon implements Parcelable
   @Override
   public int hashCode()
   {
-    return Objects.hashCode(mColor, mType);
+    return Arrays.hashCode(new int[] {mColor, mType});
   }
 
   public static final Parcelable.Creator<Icon> CREATOR = new Parcelable.Creator<>() {

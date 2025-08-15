@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import app.organicmaps.BuildConfig;
-import app.organicmaps.R;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.Closeable;
 import java.io.IOException;
