@@ -96,7 +96,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
   };
 
-  public LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper, @NonNull LocationProviderFactory locationProviderFactory)
+  public LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper,
+                        @NonNull LocationProviderFactory locationProviderFactory)
   {
     mContext = context;
     mSensorHelper = sensorHelper;
