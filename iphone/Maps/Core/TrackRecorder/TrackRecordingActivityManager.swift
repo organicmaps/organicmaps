@@ -2,6 +2,8 @@ import ActivityKit
 
 #if canImport(ActivityKit)
 
+private let kCurrentTrackRecordingLiveActivityIDKey = "kCurrentTrackRecordingLiveActivityIDKey"
+
 protocol TrackRecordingActivityManager {
   func start(with info: TrackInfo) throws
   func update(_ info: TrackInfo)
@@ -22,25 +24,39 @@ final class TrackRecordingLiveActivityManager {
 
 @available(iOS 16.2, *)
 extension TrackRecordingLiveActivityManager: TrackRecordingActivityManager {
+
   func start(with info: TrackInfo) throws {
-    guard activity == nil else { return }
+    stop()
     let state = TrackRecordingLiveActivityAttributes.ContentState(trackInfo: info)
     let content = ActivityContent<TrackRecordingLiveActivityAttributes.ContentState>(state: state, staleDate: nil)
     let attributes = TrackRecordingLiveActivityAttributes()
-    activity = try LiveActivityManager.startActivity(attributes, content: content)
+    let activity = try LiveActivityManager.startActivity(attributes, content: content)
+    self.activity = activity
+    UserDefaults.standard.set(activity.id, forKey: kCurrentTrackRecordingLiveActivityIDKey)
   }
 
   func update(_ info: TrackInfo) {
-    guard let activity else { return }
+    guard let activity = activity ?? fetchCurrentActivity() else {
+      LOG(.warning, "No active TrackRecordingLiveActivity found to update.")
+      return
+    }
     let state = TrackRecordingLiveActivityAttributes.ContentState(trackInfo: info)
     let content = ActivityContent<TrackRecordingLiveActivityAttributes.ContentState>(state: state, staleDate: nil)
+    self.activity = activity
     LiveActivityManager.update(activity, content: content)
   }
 
   func stop() {
-    guard let activity else { return }
-    LiveActivityManager.stop(activity)
-    self.activity = nil
+    let activities = Activity<TrackRecordingLiveActivityAttributes>.activities
+    activities.forEach(LiveActivityManager.stop)
+    activity = nil
+    UserDefaults.standard.removeObject(forKey: kCurrentTrackRecordingLiveActivityIDKey)
+  }
+
+  private func fetchCurrentActivity() -> Activity<TrackRecordingLiveActivityAttributes>? {
+    guard let id = UserDefaults.standard.string(forKey: kCurrentTrackRecordingLiveActivityIDKey) else { return nil }
+    let activities = Activity<TrackRecordingLiveActivityAttributes>.activities
+    return activities.first(where: { $0.id == id })
   }
 }
 
