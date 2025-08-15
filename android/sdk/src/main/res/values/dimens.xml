@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="margin_base">16dp</dimen>
+  <dimen name="margin_half">8dp</dimen>
+  <dimen name="nav_frame_padding">@dimen/margin_half</dimen>
+
+  <!-- map widgets -->
+  <dimen name="margin_compass">24dp</dimen>
+  <dimen name="margin_compass_top">26dp</dimen>
+  <dimen name="margin_ruler">10dp</dimen>
+</resources>

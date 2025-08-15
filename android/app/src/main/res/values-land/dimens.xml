@@ -3,7 +3,6 @@
   <dimen name="tabs_height">48dp</dimen>
 
   <dimen name="map_buttons_bottom_margin">100dp</dimen>
-  <dimen name="margin_compass_top">20dp</dimen>
 
   <!-- Nav menu -->
   <dimen name="nav_menu_content_height">48dp</dimen>
