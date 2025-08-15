@@ -120,8 +120,8 @@
 "type.amenity.place_of_worship.hindu" = "Temple Hindou";
 "type.amenity.place_of_worship.jewish" = "Synagogue";
 "type.amenity.place_of_worship.muslim" = "Mosquée";
-"type.amenity.place_of_worship.shinto" = "Sanctuaire Shinto";
-"type.amenity.place_of_worship.taoist" = "Temple Taoïste";
+"type.amenity.place_of_worship.shinto" = "Sanctuaire shinto";
+"type.amenity.place_of_worship.taoist" = "Temple taoïste";
 "type.amenity.police" = "Police";
 "type.amenity.post_box" = "Boîte aux lettres";
 "type.amenity.post_office" = "Bureau de poste";
@@ -133,19 +133,19 @@
 "type.amenity.recycling.container" = "Conteneur de recyclage";
 "type.recycling.batteries" = "Batteries";
 "type.recycling.clothes" = "Vêtements usagés";
-"type.recycling.glass_bottles" = "Verre";
-"type.recycling.paper" = "Papier usagé";
+"type.recycling.glass_bottles" = "Bouteilles en verre";
+"type.recycling.paper" = "Papier";
 "type.recycling.plastic" = "Déchets plastiques";
 "type.recycling.plastic_bottles" = "Bouteilles en plastique";
 "type.recycling.scrap_metal" = "Ferraille";
-"type.recycling.small_appliances" = "Déchets d'équipements électriques";
+"type.recycling.small_appliances" = "Déchets d'équipements électroniques";
 "type.recycling.cardboard" = "Carton";
 "type.recycling.cans" = "Emballages métalliques";
 "type.recycling.shoes" = "Chaussures";
-"type.recycling.green_waste" = "Déchets organiques";
+"type.recycling.green_waste" = "Déchets organiques/végétaux";
 "type.recycling.cartons" = "Briques alimentaires";
 "type.amenity.restaurant" = "Restaurant";
-"type.amenity.sanitary_dump_station" = "Station de vidange";
+"type.amenity.sanitary_dump_station" = "Borne de service de vidange";
 "type.amenity.school" = "École";
 
 /* Weather shelter (including sun shelters and natural rock shelters). */
@@ -1494,7 +1494,7 @@
 "type.man_made.crane" = "Grue";
 "type.railway.station.subway.qingdao" = "Station de métro";
 "type.amenity.bicycle_parking.covered" = "Parking à vélos couvert";
-"type.post_office.post_partner" = "Partenaire de publication";
+"type.post_office.post_partner" = "Relais postal";
 "type.amenity.ranger_station" = "Poste de garde forestier";
 "type.amenity.luggage_locker" = "Casier à bagages";
 "type.leisure.escape_game" = "Jeu d’évasion";

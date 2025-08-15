@@ -110,7 +110,7 @@ public:
   void UpdateIndexBuffer(ref_ptr<dp::GraphicsContext> context) override
   {
     CHECK(!m_mesh->m_indices.empty(), ());
-    auto const sizeInBytes = m_mesh->m_indices.size() * sizeof(uint16_t);
+    auto const sizeInBytes = static_cast<uint32_t>(m_mesh->m_indices.size() * sizeof(uint16_t));
     CHECK(m_indexBuffer.m_buffer != VK_NULL_HANDLE, ());
 
     UpdateBufferInternal(context, m_indexBuffer.m_buffer, VK_ACCESS_INDEX_READ_BIT, m_mesh->m_indices.data(),
@@ -169,7 +169,8 @@ private:
       buffers.emplace_back(m_geometryBuffers[i].m_buffer);
       offsets.emplace_back(0);
     }
-    vkCmdBindVertexBuffers(commandBuffer, 0, m_geometryBuffers.size(), buffers.data(), offsets.data());
+    vkCmdBindVertexBuffers(commandBuffer, 0, static_cast<uint32_t>(m_geometryBuffers.size()), buffers.data(),
+                           offsets.data());
   }
 
   void UpdateBufferInternal(ref_ptr<dp::GraphicsContext> context, VkBuffer buffer, VkAccessFlagBits bufferAccessMask,

@@ -18,7 +18,7 @@ public:
   void MakeCurrent() override;
   void Present() override;
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
-  void Resize(int w, int h) override;
+  void Resize(uint32_t w, uint32_t h) override;
   void SetPresentAvailable(bool available) override;
 
 private:

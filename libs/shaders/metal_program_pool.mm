@@ -9,6 +9,9 @@
 #include <utility>
 #include <vector>
 
+// TODO(AB): Remove after min supported iOS version is 16+ and replace deprecated declarations.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 namespace gpu
 {
 namespace metal
@@ -307,3 +310,4 @@ id<MTLFunction> MetalProgramPool::GetFunction(std::string const & name)
 }
 }  // namespace metal
 }  // namespace gpu
+#pragma clang diagnostic pop

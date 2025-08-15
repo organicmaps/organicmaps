@@ -68,6 +68,9 @@ std::string MetalBaseContext::GetRendererName() const
   return std::string([m_device.name UTF8String]);
 }
 
+// TODO(AB): Remove after min supported iOS version is 13+ and replace deprecated MTLFeatureSet with MTLGPUFamily.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 std::string MetalBaseContext::GetRendererVersion() const
 {
   static std::vector<std::pair<MTLFeatureSet, std::string>> features;
@@ -110,6 +113,7 @@ std::string MetalBaseContext::GetRendererVersion() const
       return featureSet.second;
   return "Unknown";
 }
+#pragma clang diagnostic pop
 
 void MetalBaseContext::PushDebugLabel(std::string const & label)
 {
@@ -125,12 +129,12 @@ void MetalBaseContext::PopDebugLabel()
   [m_currentCommandEncoder popDebugGroup];
 }
 
-void MetalBaseContext::Resize(int w, int h)
+void MetalBaseContext::Resize(uint32_t w, uint32_t h)
 {
   if (m_depthTexture && m_depthTexture->GetWidth() == w && m_depthTexture->GetHeight() == h)
     return;
 
-  RecreateDepthTexture(m2::PointU(w, h));
+  RecreateDepthTexture({w, h});
 }
 
 void MetalBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
@@ -257,9 +261,8 @@ void MetalBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
 void MetalBaseContext::SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
   id<MTLRenderCommandEncoder> encoder = GetCommandEncoder();
-  [encoder setViewport:(MTLViewport){static_cast<double>(x), static_cast<double>(y), static_cast<double>(w),
-                                     static_cast<double>(h), 0.0, 1.0}];
-  [encoder setScissorRect:(MTLScissorRect){x, y, w, h}];
+  [encoder setViewport:MTLViewport(x, y, w, h, 0.0, 1.0)];
+  [encoder setScissorRect:{x, y, w, h}];
 }
 
 void MetalBaseContext::SetScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
@@ -267,8 +270,8 @@ void MetalBaseContext::SetScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h
   id<MTLRenderCommandEncoder> encoder = GetCommandEncoder();
   if (m_renderPassDescriptor.colorAttachments[0].texture != nil)
   {
-    uint32_t const rpWidth = m_renderPassDescriptor.colorAttachments[0].texture.width;
-    uint32_t const rpHeight = m_renderPassDescriptor.colorAttachments[0].texture.height;
+    auto const rpWidth = static_cast<uint32_t>(m_renderPassDescriptor.colorAttachments[0].texture.width);
+    auto const rpHeight = static_cast<uint32_t>(m_renderPassDescriptor.colorAttachments[0].texture.height);
     if (x < 0)
       x = 0;
     if (y < 0)
@@ -278,7 +281,7 @@ void MetalBaseContext::SetScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h
     if (y + h > rpHeight)
       h = rpHeight - y;
 
-    [encoder setScissorRect:(MTLScissorRect){x, y, w, h}];
+    [encoder setScissorRect:{x, y, w, h}];
   }
 }
 

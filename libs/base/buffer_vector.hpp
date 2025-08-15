@@ -451,6 +451,17 @@ bool operator>(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
 {
   return v2 < v1;
 }
+// TODO(AB): Use <=> operator.
+// Used in:
+// TrieChar const * const keyData = entry.GetKeyData();
+// TTrieString key(keyData, keyData + entry.GetKeySize());
+// using namespace std::rel_ops;  // ">=" for keys.
+// CHECK_GREATER_OR_EQUAL(key, prevKey, (key, prevKey));
+template <typename T, size_t N1, size_t N2>
+bool operator>=(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
+{
+  return !(v1 < v2);
+}
 
 namespace std
 {
