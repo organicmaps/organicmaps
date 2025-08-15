@@ -115,6 +115,26 @@
   </screenshots>
 
   <releases>
+   <release version="2025.08.10-20" date="2025-08-10">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>Display hiking and cycling routes from OpenStreetMap</li>
+           <li>Display bookmark names on the map</li>
+           <li>Updated OpenStreetMap data as of August 8</li>
+           <li>Agricultural and forestry roads are now excluded from routing</li>
+           <li>Fork and knife icon for food courts</li>
+           <li>Marked wetlands with horizontal hatching</li>
+           <li>Icons for fast food and bicycles in search results and bookmarks</li>
+           <li>Covered bicycle parking, luggage lockers, and escape games</li>
+           <li>Ranger stations and post office partners</li>
+           <li>Show marketplaces, rest areas, service locations, retail areas, and water parks</li>
+           <li>Fixed color representation for forests, scrublands, and meadows across all zoom levels</li>
+           <li>Corrected priority settings for diplomatic offices</li>
+           <li>Typing "cop" in the search finds police stations, while "film" or "movie theater" locates cinemas</li>
+        </ul>
+     </description>
+   </release>
    <release version="2025.07.13-9" date="2025-07-13">
      <description>
        <p>Highlights:</p>
