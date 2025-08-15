@@ -7,7 +7,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -18,16 +17,12 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.browser.customtabs.CustomTabsClient;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.Closeable;
 import java.io.IOException;
 import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Currency;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -350,35 +345,6 @@ public class Utils
   public static int dimen(@NonNull Context context, @DimenRes int id)
   {
     return context.getResources().getDimensionPixelSize(id);
-  }
-
-  /**
-   * @return The package name of a browser that supports Custom Tabs, prioritizing the default browser.
-   *   Returns null if Custom Tabs isn't supported by any installed browser.
-   */
-  @Nullable
-  public static String getCustomTabsPackage(Context context)
-  {
-    String packageName = CustomTabsClient.getPackageName(context, Collections.emptyList());
-    if (packageName != null) // The default browser supports Custom Tabs
-      return packageName;
-
-    // Get all apps that can handle VIEW intents and Custom Tab service connections.
-    Intent activityIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"));
-    PackageManager packageManager = context.getPackageManager();
-    List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(
-        activityIntent, Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                            ? PackageManager.MATCH_ALL
-                            : PackageManager.GET_ACTIVITIES | PackageManager.GET_INTENT_FILTERS);
-
-    // Extract package names from ResolveInfo objects
-    List<String> packageNames = new ArrayList<>();
-    for (ResolveInfo info : resolveInfos)
-      packageNames.add(info.activityInfo.packageName);
-
-    // Get a package that supports Custom Tabs
-    packageName = CustomTabsClient.getPackageName(context, packageNames, true /* ignore default */);
-    return packageName;
   }
 
   public static String bytesToHex(byte[] bytes, boolean lowercase)
