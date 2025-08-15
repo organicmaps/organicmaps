@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentFactory;
 import app.organicmaps.R;
+import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -40,7 +41,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
       mMapsArray[i] = item.id;
     }
 
-    MapManager.startDownload(mMapsArray);
+    MapManagerHelper.startDownload(mMapsArray);
   }
 
   private View setupFrame(View frame)

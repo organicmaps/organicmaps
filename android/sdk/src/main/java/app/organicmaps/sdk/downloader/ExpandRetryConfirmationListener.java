@@ -3,12 +3,12 @@ package app.organicmaps.sdk.downloader;
 import androidx.annotation.Nullable;
 import androidx.core.util.Consumer;
 
-class ExpandRetryConfirmationListener implements Runnable
+public class ExpandRetryConfirmationListener implements Runnable
 {
   @Nullable
   private final Consumer<Boolean> mDialogClickListener;
 
-  ExpandRetryConfirmationListener(@Nullable Consumer<Boolean> dialogClickListener)
+  public ExpandRetryConfirmationListener(@Nullable Consumer<Boolean> dialogClickListener)
   {
     mDialogClickListener = dialogClickListener;
   }

@@ -198,7 +198,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     final int id = v.getId();
     if (id == R.id.btn__download_map)
     {
-      MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, () -> mDownloadingCountry = mCurrentCountry);
+      MapManagerHelper.warn3gAndDownload(requireActivity(), mCurrentCountry.id,
+                                         () -> mDownloadingCountry = mCurrentCountry);
     }
     else if (id == R.id.btn__select_map)
     {

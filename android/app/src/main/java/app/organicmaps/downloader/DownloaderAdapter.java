@@ -93,7 +93,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private void onDownloadActionSelected(final CountryItem item, DownloaderAdapter adapter)
   {
-    MapManager.warn3gAndDownload(adapter.mActivity, item.id, null);
+    MapManagerHelper.warn3gAndDownload(adapter.mActivity, item.id, null);
   }
 
   private void onUpdateActionSelected(final CountryItem item, DownloaderAdapter adapter)
@@ -101,7 +101,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     item.update();
     if (item.status != CountryItem.STATUS_UPDATABLE)
       return;
-    MapManager.warnOn3gUpdate(adapter.mActivity, item.id, () -> MapManager.startUpdate(item.id));
+    MapManagerHelper.warnOn3gUpdate(adapter.mActivity, item.id, () -> MapManagerHelper.startUpdate(item.id));
   }
 
   private void onExploreActionSelected(CountryItem item, DownloaderAdapter adapter)
@@ -206,7 +206,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
         {
-          MapManager.showError(mActivity, item, null);
+          MapManagerHelper.showError(mActivity, item, null);
           break;
         }
       }
@@ -384,10 +384,10 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
       case CountryItem.STATUS_FAILED ->
       {
-        MapManager.warn3gAndRetry(mActivity, mItem.id, null);
+        MapManagerHelper.warn3gAndRetry(mActivity, mItem.id, null);
       }
       case CountryItem.STATUS_UPDATABLE ->
-        MapManager.warnOn3gUpdate(mActivity, mItem.id, () -> MapManager.startUpdate(mItem.id));
+        MapManagerHelper.warnOn3gUpdate(mActivity, mItem.id, () -> MapManagerHelper.startUpdate(mItem.id));
       default -> throw new IllegalArgumentException("Inappropriate item status: " + mItem.status);
       }
     }
