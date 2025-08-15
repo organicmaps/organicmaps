@@ -9498,6 +9498,45 @@ cont {
   }
 }
 cont {
+  name: "highway-ladder"
+  element {
+    scale: 18
+    lines {
+      width: 1.5
+      color: 1308425468
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 270
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 1.5
+      color: 1308425468
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 270
+    }
+  }
+  element {
+    scale: 20
+    lines {
+      width: 1.5
+      color: 1308425468
+      dashdot {
+        dd: 5.0
+        dd: 2.0
+      }
+      priority: 270
+    }
+  }
+}
+cont {
   name: "highway-living_street"
   element {
     scale: 12
