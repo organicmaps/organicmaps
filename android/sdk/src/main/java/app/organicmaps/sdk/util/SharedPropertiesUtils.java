@@ -5,7 +5,7 @@ import static app.organicmaps.sdk.util.Config.KEY_PREF_STATISTICS;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 import app.organicmaps.sdk.maplayer.Mode;
 import java.io.IOException;
 import java.util.Locale;

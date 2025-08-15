@@ -3,7 +3,7 @@ package app.organicmaps.sdk.maplayer.subway;
 import android.content.Context;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 
 enum TransitSchemeState
 {

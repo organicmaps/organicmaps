@@ -3,7 +3,7 @@ package app.organicmaps.sdk.maplayer;
 import android.content.Context;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;

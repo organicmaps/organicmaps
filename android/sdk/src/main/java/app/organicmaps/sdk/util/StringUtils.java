@@ -5,7 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
 import androidx.annotation.NonNull;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 import java.text.NumberFormat;
 import java.util.Locale;
 

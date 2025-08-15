@@ -162,10 +162,10 @@ public class BookmarkCategory implements Parcelable
 
   public enum AccessRules
   {
-    ACCESS_RULES_LOCAL(app.organicmaps.R.string.not_shared, R.drawable.ic_lock),
-    ACCESS_RULES_PUBLIC(app.organicmaps.R.string.public_access, R.drawable.ic_public_inline),
-    ACCESS_RULES_DIRECT_LINK(app.organicmaps.R.string.limited_access, R.drawable.ic_link_inline),
-    ACCESS_RULES_AUTHOR_ONLY(app.organicmaps.R.string.access_rules_author_only, R.drawable.ic_lock);
+    ACCESS_RULES_LOCAL(R.string.not_shared, R.drawable.ic_lock),
+    ACCESS_RULES_PUBLIC(R.string.public_access, R.drawable.ic_public_inline),
+    ACCESS_RULES_DIRECT_LINK(R.string.limited_access, R.drawable.ic_link_inline),
+    ACCESS_RULES_AUTHOR_ONLY(R.string.access_rules_author_only, R.drawable.ic_lock);
 
     private final int mResId;
     private final int mDrawableResId;
