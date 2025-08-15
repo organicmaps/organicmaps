@@ -41,6 +41,7 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
     {HighwayType::HighwayResidential, InOutCitySpeedKMpH(SpeedKMpH(4.5, 5.0))},
 
     {HighwayType::HighwayBridleway, InOutCitySpeedKMpH(SpeedKMpH(1.0, 5.0))},
+    {HighwayType::HighwayLadder, InOutCitySpeedKMpH(SpeedKMpH(1.0))},
     {HighwayType::HighwaySteps, InOutCitySpeedKMpH(SpeedKMpH(3.0))},
     {HighwayType::HighwayCycleway, InOutCitySpeedKMpH(SpeedKMpH(4.0, 5.0))},
 
@@ -80,6 +81,7 @@ VehicleModel::LimitsInitList const kDefaultOptions = {
     // HighwayBridleway, HighwayCycleway are missing
     {HighwayType::HighwayResidential, true},
     {HighwayType::HighwayLivingStreet, true},
+    {HighwayType::HighwayLadder, true},
     {HighwayType::HighwaySteps, true},
     {HighwayType::HighwayPedestrian, true},
     {HighwayType::HighwayFootway, true},

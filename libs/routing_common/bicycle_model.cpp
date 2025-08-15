@@ -86,6 +86,7 @@ VehicleModel::LimitsInitList const kDefaultOptions = {
     {HighwayType::HighwayCycleway, true},
     {HighwayType::HighwayResidential, true},
     {HighwayType::HighwayLivingStreet, true},
+    // HighwayLadder is missing
     {HighwayType::HighwaySteps, true},
     {HighwayType::HighwayPedestrian, true},
     {HighwayType::HighwayFootway, true},

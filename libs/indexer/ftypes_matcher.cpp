@@ -61,6 +61,7 @@ public:
     m_map[c.GetTypeByPath({"highway", "pedestrian"})] = HighwayClass::Pedestrian;
     m_map[c.GetTypeByPath({"highway", "footway"})] = HighwayClass::Pedestrian;
     m_map[c.GetTypeByPath({"highway", "bridleway"})] = HighwayClass::Pedestrian;
+    m_map[c.GetTypeByPath({"highway", "ladder"})] = HighwayClass::Pedestrian;
     m_map[c.GetTypeByPath({"highway", "steps"})] = HighwayClass::Pedestrian;
     m_map[c.GetTypeByPath({"highway", "cycleway"})] = HighwayClass::Pedestrian;
     m_map[c.GetTypeByPath({"highway", "path"})] = HighwayClass::Pedestrian;
@@ -327,6 +328,7 @@ IsWayChecker::IsWayChecker()
       {"secondary", Regular},
       {"secondary_link", Regular},
       {"service", Minors},
+      {"ladder", Pedestrian},
       {"steps", Pedestrian},
       {"tertiary", Regular},
       {"tertiary_link", Regular},
