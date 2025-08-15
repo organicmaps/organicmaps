@@ -680,6 +680,7 @@ line|z14-[highway=bridleway]
 {color: @bridleway;opacity: 0.6;}
 line|z15-[highway=footway],
 {color: @footway;opacity: 0.75;}
+line|z15-[highway=ladder],
 line|z15-[highway=steps],
 {color: @footway;opacity: 0.85;}
 line|z14-[highway=path],
@@ -991,15 +992,20 @@ line|z17-[highway=footway][bridge?]::bridgeblack
 
 /* 8.8 Steps 15-22 ZOOM */
 
-line|z15[highway=steps]
+line|z15[highway=ladder],
+line|z15[highway=steps],
 {width: 2.4; dashes: 1.5,1.3;}
-line|z16[highway=steps]
+line|z16[highway=ladder],
+line|z16[highway=steps],
 {width: 4; dashes: 1.8,1.6;}
-line|z17-[highway=steps]
+line|z17-[highway=ladder],
+line|z17-[highway=steps],
 {width: 6; dashes: 2.5,2.2; opacity: 1;}
-line|z18[highway=steps]
+line|z18[highway=ladder],
+line|z18[highway=steps],
 {width: 8; dashes: 3.2,2.8;}
-line|z19-[highway=steps]
+line|z19-[highway=ladder],
+line|z19-[highway=steps],
 {width: 10; dashes: 4,3.5;}
 
 line|z17-[highway=steps][tunnel?]::tunnelBackground

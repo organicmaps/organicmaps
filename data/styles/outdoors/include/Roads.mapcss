@@ -87,6 +87,7 @@ line|z11-[highway=track],
 
 /* Its not unusual for trails to be tagged as footways, e.g. in UK */
 line|z11-[highway=footway],
+line|z12-[highway=ladder],
 line|z12-[highway=steps],
 {color: @footway; opacity: 1;}
 
@@ -131,6 +132,7 @@ line|z11[highway=path],
 {width: 1; dashes: 3.5,2; opacity: 0.6;}
 line|z12[highway=footway],
 /* Make steps on z12-14 look same as footways, z15- follows main style */
+line|z12[highway=ladder],
 line|z12[highway=steps],
 {width: 1.1; dashes: 3.5,2;}
 line|z12[highway=path],
@@ -139,13 +141,18 @@ line|z12[piste:type=hike],
 line|z13[highway=path],
 line|z13[piste:type=hike],
 line|z13[highway=footway],
+line|z13[highway=ladder],
 line|z13[highway=steps],
 {width: 1.3; dashes: 4,2.5;}
 line|z14[highway=path],
 line|z14[piste:type=hike],
 line|z14[highway=footway],
+line|z14[highway=ladder],
 line|z14[highway=steps],
 {width: 1.6; dashes: 4,2.5;}
+
+/* steps and ladder from z15 are set in default style */
+
 line|z15[highway=path],
 line|z15[piste:type=hike],
 line|z15[highway=footway],
