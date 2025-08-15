@@ -408,14 +408,9 @@ public final class Config
   }
 
   @NonNull
-  public static String getDonateUrl(@NonNull Context context)
+  public static String getDonateUrl()
   {
-    final String url = getString(KEY_DONATE_URL);
-    // Enable donations by default if not Google or Huawei. Replace organicmaps.app/donate/ with localized page.
-    if ((url.isEmpty() && !mFlavor.equals("google") && !mFlavor.equals("huawei"))
-        || url.endsWith("organicmaps.app/donate/"))
-      return context.getString(R.string.translated_om_site_url) + "donate/";
-    return url;
+    return getString(KEY_DONATE_URL);
   }
 
   public static void init(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull String flavor,
