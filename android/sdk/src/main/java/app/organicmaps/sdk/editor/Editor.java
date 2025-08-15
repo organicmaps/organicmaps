@@ -4,7 +4,6 @@ import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
 import androidx.annotation.WorkerThread;
-import app.organicmaps.BuildConfig;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.Metadata;
 import app.organicmaps.sdk.editor.data.FeatureCategory;
@@ -12,6 +11,7 @@ import app.organicmaps.sdk.editor.data.Language;
 import app.organicmaps.sdk.editor.data.LocalizedName;
 import app.organicmaps.sdk.editor.data.LocalizedStreet;
 import app.organicmaps.sdk.editor.data.NamesDataSource;
+import app.organicmaps.sdk.util.Config;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -45,7 +45,7 @@ public final class Editor
   public static void uploadChanges()
   {
     if (nativeHasSomethingToUpload() && OsmOAuth.isAuthorized())
-      nativeUploadChanges(OsmOAuth.getAuthToken(), BuildConfig.VERSION_NAME, BuildConfig.APPLICATION_ID);
+      nativeUploadChanges(OsmOAuth.getAuthToken(), Config.getVersionName(), Config.getApplicationId());
   }
 
   public static native boolean nativeShouldShowEditPlace();

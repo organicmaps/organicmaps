@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
-import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 
 public final class Config
@@ -13,6 +12,24 @@ public final class Config
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private static SharedPreferences mPrefs;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private static String mFlavor;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private static String mApplicationId;
+
+  private static int mVersionCode;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private static String mVersionName;
+
+  @SuppressWarnings("NotNullFieldNotInitialized")
+  @NonNull
+  private static String mFileProviderAuthority;
 
   private static final String KEY_APP_STORAGE = "StoragePath";
 
@@ -59,10 +76,9 @@ public final class Config
 
   private Config() {}
 
-  @SuppressWarnings("ConstantConditions") // BuildConfig
   private static boolean isFdroid()
   {
-    return BuildConfig.FLAVOR.equals("fdroid");
+    return mFlavor.equals("fdroid");
   }
 
   private static int getInt(String key, int def)
@@ -130,6 +146,29 @@ public final class Config
   private static void setBool(String key, boolean value)
   {
     nativeSetBoolean(key, value);
+  }
+
+  @NonNull
+  public static String getApplicationId()
+  {
+    return mApplicationId;
+  }
+
+  public static int getVersionCode()
+  {
+    return mVersionCode;
+  }
+
+  @NonNull
+  public static String getVersionName()
+  {
+    return mVersionName;
+  }
+
+  @NonNull
+  public static String getFileProviderAuthority()
+  {
+    return mFileProviderAuthority;
   }
 
   public static String getStoragePath()
@@ -370,31 +409,37 @@ public final class Config
   }
 
   @NonNull
-  @SuppressWarnings("ConstantConditions") // BuildConfig
   public static String getDonateUrl(@NonNull Context context)
   {
     final String url = getString(KEY_DONATE_URL);
     // Enable donations by default if not Google or Huawei. Replace organicmaps.app/donate/ with localized page.
-    if ((url.isEmpty() && !BuildConfig.FLAVOR.equals("google") && !BuildConfig.FLAVOR.equals("huawei"))
+    if ((url.isEmpty() && !mFlavor.equals("google") && !mFlavor.equals("huawei"))
         || url.endsWith("organicmaps.app/donate/"))
       return context.getString(R.string.translated_om_site_url) + "donate/";
     return url;
   }
 
-  public static void init(@NonNull Context context, @NonNull SharedPreferences prefs)
+  public static void init(@NonNull Context context, @NonNull SharedPreferences prefs, @NonNull String flavor,
+                          @NonNull String applicationId, int versionCode, @NonNull String versionName,
+                          @NonNull String fileProviderAuthority)
   {
     PreferenceManager.setDefaultValues(context, R.xml.prefs_main, false);
 
     mPrefs = prefs;
+    mFlavor = flavor;
+    mApplicationId = applicationId;
+    mVersionCode = versionCode;
+    mVersionName = versionName;
+    mFileProviderAuthority = fileProviderAuthority;
     final SharedPreferences.Editor editor = mPrefs.edit();
 
     // Update counters.
     final int launchNumber = mPrefs.getInt(KEY_APP_LAUNCH_NUMBER, 0);
     editor.putInt(KEY_APP_LAUNCH_NUMBER, launchNumber + 1);
     editor.putLong(KEY_APP_LAST_SESSION_TIMESTAMP, System.currentTimeMillis());
-    editor.putInt(KEY_APP_LAST_INSTALL_VERSION_CODE, BuildConfig.VERSION_CODE);
+    editor.putInt(KEY_APP_LAST_INSTALL_VERSION_CODE, mVersionCode);
     if (launchNumber == 0 || mPrefs.getInt(KEY_APP_FIRST_INSTALL_VERSION_CODE, 0) == 0)
-      editor.putInt(KEY_APP_FIRST_INSTALL_VERSION_CODE, BuildConfig.VERSION_CODE);
+      editor.putInt(KEY_APP_FIRST_INSTALL_VERSION_CODE, mVersionCode);
 
     // Clean up legacy counters.
     editor.remove("FirstInstallFlavor");

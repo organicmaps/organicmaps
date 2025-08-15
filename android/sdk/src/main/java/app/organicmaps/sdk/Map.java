@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 import android.view.Surface;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.location.LocationHelper;
@@ -181,7 +180,7 @@ public final class Map
     setupWidgets(context, surfaceFrame.width(), surfaceFrame.height());
 
     final boolean firstStart = mLocationHelper.isInFirstRun();
-    if (!nativeCreateEngine(surface, surfaceDpi, firstStart, mLaunchByDeepLink, BuildConfig.VERSION_CODE,
+    if (!nativeCreateEngine(surface, surfaceDpi, firstStart, mLaunchByDeepLink, Config.getVersionCode(),
                             ROMUtils.isCustomROM()))
     {
       if (mCallbackUnsupported != null)

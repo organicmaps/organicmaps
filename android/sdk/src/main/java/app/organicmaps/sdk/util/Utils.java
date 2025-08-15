@@ -17,7 +17,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import app.organicmaps.BuildConfig;
+import app.organicmaps.sdk.BuildConfig;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.Closeable;
 import java.io.IOException;
@@ -211,7 +211,7 @@ public class Utils
   @SuppressWarnings("unused")
   public static String getVersion()
   {
-    return BuildConfig.VERSION_NAME;
+    return Config.getVersionName();
   }
 
   // Called from JNI.
@@ -222,7 +222,7 @@ public class Utils
     // Please sync with getVersion() in build.gradle
     // - % 100000000 removes prefix for special markets, e.g Huawei.
     // - / 100 removes the number of commits in the current day.
-    return (BuildConfig.VERSION_CODE % 1_00_00_00_00) / 100;
+    return (Config.getVersionCode() % 1_00_00_00_00) / 100;
   }
 
   @NonNull

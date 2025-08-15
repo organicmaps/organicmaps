@@ -4,7 +4,7 @@ import android.util.Log;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.BuildConfig;
+import app.organicmaps.sdk.BuildConfig;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
