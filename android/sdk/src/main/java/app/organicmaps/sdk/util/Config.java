@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 
 public final class Config
 {

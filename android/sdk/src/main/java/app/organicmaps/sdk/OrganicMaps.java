@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
-import app.organicmaps.R;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.downloader.Android7RootCertificateWorkaround;
@@ -82,7 +81,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   {
     mFlavor = flavor;
     mContext = context.getApplicationContext();
-    mPreferences = mContext.getSharedPreferences(context.getString(app.organicmaps.sdk.R.string.pref_file_name),
+    mPreferences = mContext.getSharedPreferences(context.getString(R.string.pref_file_name),
                                                  Context.MODE_PRIVATE);
 
     // Set configuration directory as early as possible.

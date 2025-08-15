@@ -16,7 +16,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 import app.organicmaps.sdk.BuildConfig;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ROMUtils;

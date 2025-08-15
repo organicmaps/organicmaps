@@ -7,6 +7,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.BuildConfig;
+import app.organicmaps.sdk.R;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import dalvik.annotation.optimization.FastNative;
@@ -115,7 +116,7 @@ public class Icon implements Parcelable
         // Force devs to add an icon for each bookmark type.
         if (BuildConfig.DEBUG)
           throw new RuntimeException("Error getting icon for " + name);
-        icons[i] = app.organicmaps.sdk.R.drawable.ic_bookmark_none; // Fallback icon
+        icons[i] = R.drawable.ic_bookmark_none; // Fallback icon
       }
     }
 

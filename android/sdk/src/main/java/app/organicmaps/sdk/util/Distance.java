@@ -4,7 +4,7 @@ import android.content.Context;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import app.organicmaps.R;
+import app.organicmaps.sdk.R;
 
 // Used by JNI.
 @Keep

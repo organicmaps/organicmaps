@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 import android.view.Surface;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import app.organicmaps.R;
 import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.Config;
