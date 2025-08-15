@@ -115,8 +115,8 @@
     <string name="type.amenity.place_of_worship.christian.mormon">Église de Jésus-Christ des Saints des Derniers Jours</string>
     <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Salle du Royaume des Témoins de Jéhovah</string>
     <string name="type.amenity.place_of_worship.muslim">Mosquée</string>
-    <string name="type.amenity.place_of_worship.shinto">Sanctuaire Shinto</string>
-    <string name="type.amenity.place_of_worship.taoist">Temple Taoïste</string>
+    <string name="type.amenity.place_of_worship.shinto">Sanctuaire shinto</string>
+    <string name="type.amenity.place_of_worship.taoist">Temple taoïste</string>
     <string name="type.amenity.post_box">Boîte aux lettres</string>
     <string name="type.amenity.post_office">Bureau de poste</string>
     <string name="type.amenity.prison">Prison</string>
@@ -128,18 +128,18 @@
     <string name="type.amenity.recycling.container">Conteneur de recyclage</string>
     <string name="type.recycling.batteries">Batteries</string>
     <string name="type.recycling.clothes">Vêtements usagés</string>
-    <string name="type.recycling.glass_bottles">Verre</string>
-    <string name="type.recycling.paper">Papier usagé</string>
+    <string name="type.recycling.glass_bottles">Bouteilles en verre</string>
+    <string name="type.recycling.paper">Papier</string>
     <string name="type.recycling.plastic">Déchets plastiques</string>
     <string name="type.recycling.plastic_bottles">Bouteilles en plastique</string>
     <string name="type.recycling.scrap_metal">Ferraille</string>
-    <string name="type.recycling.small_appliances">Déchets d\'équipements électriques</string>
+    <string name="type.recycling.small_appliances">Déchets d\'équipements électroniques</string>
     <string name="type.recycling.cardboard">Carton</string>
     <string name="type.recycling.cans">Emballages métalliques</string>
     <string name="type.recycling.shoes">Chaussures</string>
-    <string name="type.recycling.green_waste">Déchets organiques</string>
+    <string name="type.recycling.green_waste">Déchets organiques/végétaux</string>
     <string name="type.recycling.cartons">Briques alimentaires</string>
-    <string name="type.amenity.sanitary_dump_station">Station de vidange</string>
+    <string name="type.amenity.sanitary_dump_station">Borne de service de vidange</string>
     <string name="type.amenity.school">École</string>
     <!-- Weather shelter (including sun shelters and natural rock shelters). -->
     <string name="type.amenity.shelter">Abri</string>
@@ -1404,7 +1404,7 @@
     <string name="type.wheelchair">Fauteuil roulant</string>
     <string name="type.railway.station.subway.qingdao">Station de métro</string>
     <string name="type.amenity.bicycle_parking.covered">Parking à vélos couvert</string>
-    <string name="type.post_office.post_partner">Partenaire de publication</string>
+    <string name="type.post_office.post_partner">Relais postal</string>
     <string name="type.amenity.ranger_station">Poste de garde forestier</string>
     <string name="type.amenity.luggage_locker">Casier à bagages</string>
     <string name="type.leisure.escape_game">Jeu d’évasion</string>

@@ -1458,7 +1458,7 @@
 "type.piste_type.downhill.intermediate.area" = "Średniozaawansowana narciarska trasa zjazdowa";
 "type.piste_type.downhill.novice" = "Narciarska trasa zjazdowa dla nowicjuszy";
 "type.piste_type.downhill.novice.area" = "Narciarska trasa zjazdowa dla nowicjuszy";
-"type.piste_type.nordic" = "Nordic Ski Trail";
+"type.piste_type.nordic" = "Trasa narciarstwa biegowego";
 "type.piste_type.sled" = "Stok saneczkowy";
 "type.piste_type.sled.area" = "Stok saneczkowy";
 "type.piste_type.snow_park" = "Snow Park";
@@ -1493,8 +1493,8 @@
 "type.railway.station.subway.qingdao" = "Stacja metra";
 "type.sport.diving" = "Nurkowanie";
 "type.man_made.crane" = "Dźwig";
-"type.amenity.bicycle_parking.covered" = "Covered Bicycle Parking";
-"type.amenity.luggage_locker" = "Luggage Locker";
-"type.post_office.post_partner" = "Post Partner";
-"type.leisure.escape_game" = "Escape Room";
-"type.amenity.ranger_station" = "Ranger Station";
+"type.amenity.bicycle_parking.covered" = "Zadaszony parking rowerowy";
+"type.amenity.luggage_locker" = "Przechowalnia bagażu";
+"type.post_office.post_partner" = "Partner pocztowy";
+"type.leisure.escape_game" = "Pokój zagadek";
+"type.amenity.ranger_station" = "Stacja Straży Leśnej";

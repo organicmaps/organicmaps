@@ -700,7 +700,7 @@
 "traffic_data_unavailable" = "Les données de circulation ne sont pas disponibles";
 "enable_logging" = "Activer le journal";
 "log_file_size" = "Taille du fichier journal : %@";
-"transliteration_title" = "Translittératisé en alphabet latin";
+"transliteration_title" = "Translittéré en alphabet latin";
 
 /* Subway exits for public transport marks on the map */
 "core_exit" = "Sortie";

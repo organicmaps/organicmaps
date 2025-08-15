@@ -896,4 +896,11 @@
     <string name="saved">Захавана</string>
     <string name="osm_note_toast">Заўвага будзе адпраўлена на OpenStreetMap</string>
     <string name="osm_note_hint">Або пакіньце заўвагу для супольнасці OpenStreetMap, каб нехта іншы мог дадаць або выправіць месца.</string>
+    <string name="routes_update_maps_text">Aднaвіце карты, каб убачыць маршруты.</string>
+    <string name="bookmarks_text_placement_title">Назвы закладак на мапе</string>
+    <string name="bookmarks_text_placement_description">Паказ назваў вялікай колькасці закладак на мапе можа замарудзіць працу праграмы.</string>
+    <string name="show_to_the_right">Паказваць справа</string>
+    <string name="show_at_the_bottom">Паказваць знізу</string>
+    <string name="share_track">Падзяліцца маршрутам</string>
+    <string name="delete_track_dialog_title">Выдаліць %s?</string>
 </resources>

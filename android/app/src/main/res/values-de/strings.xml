@@ -907,4 +907,5 @@
     <string name="show_at_the_bottom">Unten anzeigen</string>
     <string name="share_track">Track teilen</string>
     <string name="delete_track_dialog_title">%s löschen?</string>
+    <string name="routes_update_maps_text">Um Routen anzuzeigen, muss die Karte aktualisiert werden.</string>
 </resources>
