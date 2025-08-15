@@ -901,4 +901,12 @@
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="saved">Opgeslagen</string>
     <string name="osm_note_hint">Of, als alternatief, laat een opmerking achter voor de OpenStreetMap gemeenschap zodat iemand anders een plaats kan toevoegen of verbeteren.</string>
+    <string name="bookmarks_text_placement_title">Markeer namen op de map</string>
+    <string name="bookmarks_text_placement_description">Wanneer er teveel markeringen zijn, kan weergave van de namen op de map vertragen.</string>
+    <string name="show_to_the_right">Rechts weergeven</string>
+    <string name="show_at_the_bottom">Onderaan weergeven</string>
+    <string name="share_track">Titel van het onderste blad bij delen van het spoor</string>
+    <string name="delete_track_dialog_title">Verwijder %s?</string>
+    <string name="osm_note_toast">Opmerking wordt verzonden naar OpenStreetMap</string>
+    <string name="routes_update_maps_text">Om routes weer te geven moeten de kaarten bijgewerkt worden.</string>
 </resources>

@@ -1077,4 +1077,4 @@
 "bottom" = "Unten";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Um Routen anzuzeigen, muss die Karte aktualisiert werden.";

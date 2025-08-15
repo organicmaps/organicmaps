@@ -1065,12 +1065,12 @@
 "button_layer_cycling" = "Cycling";
 
 /* Settings/Bookmark Text Placement */
-"bookmarks_text_placement_title" = "Bookmark names on the map";
-"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
-"show_to_the_right" = "Show to the right";
+"bookmarks_text_placement_title" = "Markeer namen op de map";
+"bookmarks_text_placement_description" = "Wanneer er teveel markeringen zijn, kan weergave van de namen op de map vertragen.";
+"show_to_the_right" = "Rechts weergeven";
 "right" = "Right";
-"show_at_the_bottom" = "Show at the bottom";
+"show_at_the_bottom" = "Onderaan weergeven";
 "bottom" = "Bottom";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "To display routes, maps must be updated.";
+"routes_update_maps_text" = "Om routes weer te geven moeten de kaarten bijgewerkt worden.";

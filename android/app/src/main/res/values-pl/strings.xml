@@ -904,4 +904,13 @@
     <string name="twitter">X (Twitter)</string>
     <string name="navigation_stop_button">Stop</string>
     <string name="saved">Zapisano</string>
+    <string name="osm_note_toast">Uwaga zostanie wysłana do OpenStreetMap</string>
+    <string name="delete_track_dialog_title">Usunąć %s?</string>
+    <string name="osm_note_hint">Możesz też zostawić uwagę dla społeczności OpenStreetMap, aby ktoś inny mógł dodać lub poprawić to miejsce.</string>
+    <string name="routes_update_maps_text">Aby wyświetlić trasy, należy zaktualizować mapy.</string>
+    <string name="bookmarks_text_placement_title">Nazwy zakładek na mapie</string>
+    <string name="bookmarks_text_placement_description">Jeśli zakładek jest zbyt wiele, wyświetlanie ich nazw na mapie może spowolnić działanie aplikacji.</string>
+    <string name="show_to_the_right">Pokaż po prawej stronie</string>
+    <string name="show_at_the_bottom">Pokaż na środku</string>
+    <string name="share_track">Udostępnij trasę</string>
 </resources>

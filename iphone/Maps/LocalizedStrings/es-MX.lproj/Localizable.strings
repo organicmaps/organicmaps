@@ -904,7 +904,7 @@
 "placepage_delete_track_button" = "Borrar ruta";
 
 /* The track deletion confirmaion alert message. */
-"placepage_delete_track_confirmation_alert_message" = "¿Está seguro de que desea borrar esta pista?";
+"placepage_delete_track_confirmation_alert_message" = "¿Confirma que quiere eliminar este trayecto?";
 
 /* Placeholder for track name input on track edit screen */
 "placepage_track_name_hint" = "Nombre de la ruta";
