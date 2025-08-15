@@ -29,7 +29,6 @@
     <string name="red">Vermello</string>
     <string name="editor_time_close">Pechado</string>
     <string name="purple">Morado</string>
-    <string name="core_exit">Saída</string>
     <string name="cyan">Cian</string>
     <string name="minute">min</string>
     <string name="editor_time_from">De</string>
@@ -41,7 +40,6 @@
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="select_cuisine">Seleccionar cociña</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
-    <string name="maps_storage_internal">Almacenamento interno privado</string>
     <string name="menu">Menú</string>
     <string name="editor_time_open">Aberto</string>
     <string name="category_hospital">Hospital</string>
@@ -52,10 +50,8 @@
     <string name="buildings">Edificios</string>
     <string name="mountains">Montañas</string>
     <string name="back">Atrás</string>
-    <string name="km">km</string>
     <string name="location_settings">Axustes de localización</string>
     <string name="close">Pechar</string>
-    <string name="core_my_places">Os meus lugares</string>
     <string name="category_food">Tendas de comestibles</string>
     <string name="load_kmz_title">Cargando marcadores</string>
     <string name="email">Correo electrónico</string>
@@ -72,20 +68,15 @@
     <string name="big_font">Aumentar tamaño do texto no mapa</string>
     <string name="traffic_update_app">Por favor, actualice Organic Maps</string>
     <string name="prefs_languages_information_off_link">Para obter máis información, consulte esta guía.</string>
-    <string name="core_entrance">Entrada</string>
     <string name="privacy">Privacidade</string>
     <string name="privacy_policy">Normativa de privacidade</string>
     <string name="terms_of_use">Condiciones de uso</string>
     <string name="button_layer_traffic">Tráfico</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estilos e capas do mapa</string>
-    <string name="subway_data_unavailable">O mapa do metro non está dispoñible</string>
     <string name="export_file">Exportar KMZ</string>
     <string name="export_file_gpx">Exportar GPX</string>
     <string name="delete_list">Eliminar lista</string>
-    <string name="public_access">Acceso público</string>
-    <string name="limited_access">Acceso limitado</string>
-    <string name="not_shared">Privado</string>
     <string name="speedcams_alert_title">Cámaras de velocidade</string>
     <string name="sort">Ordenar…</string>
     <string name="sort_bookmarks">Ordenar marcadores</string>
@@ -135,7 +126,6 @@
     <string name="kilometres">Quilómetros</string>
     <string name="save">Gardar</string>
     <string name="search">Buscar</string>
-    <string name="gb">GB</string>
     <string name="list">Lista</string>
     <string name="category_recycling">Reciclaxe</string>
     <string name="blue">Azul</string>
@@ -150,7 +140,6 @@
     <string name="try_again">Tentar de novo</string>
     <string name="history">Historial</string>
     <string name="dialog_routing_location_turn_on">Activar servizos de localización</string>
-    <string name="m">m</string>
     <string name="prefs_group_information">Información</string>
     <string name="password">Contrasinal</string>
     <string name="placepage_add_business_button">Engadir organización</string>
@@ -164,7 +153,6 @@
     <string name="show">Amosar</string>
     <string name="download_maps">Descargar mapas</string>
     <string name="download_has_failed">Erro durante a descarga. Toque para tentalo de novo.</string>
-    <string name="core_my_position">A miña posición</string>
     <string name="search_map">Buscar no mapa</string>
     <string name="location_is_disabled_long_text">Non se pode acceder aos servizos de localización neste dispositivo ou aplicación. Actíveos na configuración.</string>
     <string name="precise_location_is_disabled_long_text">Para garantir unha navegación máis exacta, active a Precisión da localización nos axustes.</string>
@@ -192,8 +180,6 @@
     <string name="maps_storage_summary">Seleccione o cartafol onde deben descargarse os mapas.</string>
     <string name="maps_storage_downloaded">Mapas descargados</string>
     <string name="maps_storage">Gardar mapas en</string>
-    <string name="maps_storage_shared">Almacenamento interno compartido</string>
-    <string name="maps_storage_external">Almacenamento externo compartido</string>
     <string name="maps_storage_free_size">%1$s libres de %2$s</string>
     <string name="move_maps_error">Erro ao mover os arquivos de mapas</string>
     <string name="wait_several_minutes">Isto podería tardar varios minutos. \nAgarde un momento…</string>
@@ -330,7 +316,6 @@
     <string name="street">Rúa</string>
     <string name="empty_street_name_error">Por favor, introduza un nome de rúa</string>
     <string name="choose_language">Elixir un idioma</string>
-    <string name="postal_code">Código postal</string>
     <string name="email_or_username">Correo electrónico ou usuario</string>
     <string name="level_value_generic">Nivel: %s</string>
     <string name="downloader_delete_map_dialog">Todas as edicións feitas ao mapa eliminaranse xunto con leste.</string>
@@ -369,7 +354,6 @@
     <string name="downloader_no_downloaded_maps_message">Descargue mapas para atopar a localización e navegar sen conexión.</string>
     <string name="current_location_unknown_error_title">Descoñécese a localización actual.</string>
     <string name="miles_per_hour">mph</string>
-    <string name="ft">pé</string>
     <string name="placepage_more_button">Más</string>
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Notas persoais (texto ou html)</string>
@@ -430,7 +414,6 @@
     <string name="power_managment_description">Tratarase de reducir o consumo de enerxía a expensas de certas funcionalidades.</string>
     <string name="power_managment_setting_auto">Cando queda pouca enerxía</string>
     <string name="enable_logging_warning_message">Active esta opción temporalmente para gravar e enviar de forma manual rexistros para diagnosticar defectos enviados mediante a opción «Informar dun fallo» no diálogo Axuda. Os rexistros poden incluír localizacións.</string>
-    <string name="access_rules_author_only">Edición en liña</string>
     <string name="driving_options_title">Opcións de encamiñamento</string>
     <string name="avoid_unpaved">Evitar camiños sen pavimentar</string>
     <string name="avoid_motorways">Evitar autoestradas</string>
@@ -499,16 +482,13 @@
     <string name="cancel">Cancelar</string>
     <string name="downloader_retry">Reintentar</string>
     <string name="delete">Eliminar</string>
-    <string name="mi">o meu</string>
     <string name="downloading">A descargar…</string>
     <string name="read_in_wikipedia">Wikipedia</string>
     <string name="limited_accuracy">Precisión limitada</string>
     <string name="dialog_routing_change_end">Axustar destino</string>
     <string name="bookmarks_new_list_hint">Lista nova</string>
-    <string name="mb">MB</string>
     <string name="edit">Editar</string>
     <string name="settings">Configuración</string>
-    <string name="category_wifi">Wifi</string>
     <string name="next_button">Seguinte</string>
     <string name="editor_report_problem_send_button">Enviar</string>
     <string name="translated_om_site_url">https://organicmaps.app/gl/</string>
@@ -552,9 +532,7 @@
     <string name="view_menu">Ver menú</string>
     <string name="volume">Volume</string>
     <string name="self_service">Autoservizo</string>
-    <string name="maps_storage_removable">Tarxeta SD</string>
     <string name="downloader_delete_map">Eliminar mapa</string>
-    <string name="core_placepage_unknown_place">Punto do mapa</string>
     <string name="bookmarks_error_title_share_empty">Erro ao compartir</string>
     <string name="pref_tts_speedcams_never">Non alertar nunca</string>
     <string name="avoid_ferry">Evitar ferris</string>

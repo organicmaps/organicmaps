@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">המיקום שלי</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">המקומות שלי</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">אחסון פנימי פרטי</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">אחסון פנימי משותף</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">כרטיס זיכרון</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">אחסון חיצוני משותף</string>
+    <string name="postal_code">מיקוד</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">נקודת מפה</string>
+    <!-- abbreviation for meters -->
+    <string name="m">מ׳</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">ק״מ</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">מייל</string>
+    <!-- A unit of measure -->
+    <string name="ft">רגל</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">יציאה</string>
+    <string name="core_entrance">כניסה</string>
+    <string name="subway_data_unavailable">מפת רכבת תחתית לא זמינה</string>
+    <string name="public_access">גישה ציבורית</string>
+    <string name="limited_access">גישה מוגבלת</string>
+    <string name="not_shared">פרטי</string>
+    <string name="access_rules_author_only">עריכה אונליין</string>
+</resources>

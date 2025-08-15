@@ -16,8 +16,6 @@
     <string name="kilometres">Kilomeetrid</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Miilid</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Minu asukoht</string>
     <!-- Update maps later button text -->
     <string name="later">Hiljem</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -69,8 +67,6 @@
     <string name="bookmarks">Järjehoidjad</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Järjehoidjad ja rajad</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Minu kohad</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nimi</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -85,14 +81,6 @@
     <string name="maps_storage_summary">Vali asukoht, kuhu laadime kaardid.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Allalaaditud kaardid</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Sisemine privaatne andmeruum</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Sisemine jagatud andmeruum</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">SD-kaart</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">Väline jagatud andmeruum</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%1$s vaba ruumist %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -145,8 +133,6 @@
     <string name="category_post">Post</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Politsei</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Jäätmekäitlus</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -458,7 +444,6 @@
     <string name="empty_street_name_error">Palun sisesta tänava nimi</string>
     <string name="choose_language">Vali keel</string>
     <string name="choose_street">Vali tänav</string>
-    <string name="postal_code">Postiindeks</string>
     <string name="cuisine">Köök</string>
     <string name="select_cuisine">Vali köök</string>
     <!-- login text field -->
@@ -500,8 +485,6 @@
     <string name="error_enter_correct_storey_number">Korruste arv ei või olla üle %d</string>
     <string name="editor_zip_code">Postiindeks</string>
     <string name="error_enter_correct_zip_code">Sisesta korrektne postiindeks</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Kaardipunkt</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Märkus OpenStreetMapi vabatahtlikele (valikuline)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -519,16 +502,8 @@
     <string name="downloader_no_downloaded_maps_title">Sa ei ole kaarte alla laadinud</string>
     <string name="downloader_no_downloaded_maps_message">Laadi alla kaardid asukoha otsimiseks ja võrguühenduseta tee juhatamiseks.</string>
     <string name="current_location_unknown_error_title">Hetkeasukoht on teadmata.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mi</string>
-    <!-- A unit of measure -->
-    <string name="ft">jalga</string>
     <string name="miles_per_hour">mph</string>
     <string name="hour">h</string>
     <string name="minute">min</string>
@@ -588,8 +563,6 @@
     <string name="prefs_languages_information_off_link">Lisainfo saamiseks palun vaata seda juhist.</string>
     <string name="transliteration_title">Transliteratsioon ladina tähestikku</string>
     <string name="learn_more">Lisateave</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Välju</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Teekonna alguspunkti lisamiseks kasuta otsingut või puuduta soovitud kohta kaardil</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -603,7 +576,6 @@
     <string name="dialog_error_storage_title">Andmeruumi ligipääsu probleem</string>
     <string name="dialog_error_storage_message">Väline andmeruum pole juurdepääsetav. SD-kaart võib olla eemaldatud, kahjustatud või failisüsteem on kirjutuskaitstud. Palun kontrolli oma SD-kaarti või võta meiega ühendust aadressil support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Imiteeri vigast andmeruumi</string>
-    <string name="core_entrance">Sissepääs</string>
     <string name="error_enter_correct_name">Palun sisesta korrektne nimi</string>
     <string name="bookmark_lists">Loendid</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -643,16 +615,12 @@
     <string name="button_layer_traffic">Liiklus</string>
     <string name="button_layer_subway">Metroo</string>
     <string name="layers_title">Kaardi stiilid ja kihid</string>
-    <string name="subway_data_unavailable">Metrookaart ei ole saadaval</string>
     <string name="bookmarks_empty_list_title">See loend on tühi</string>
     <string name="bookmarks_empty_list_message">Järjehoidja lisamiseks puuduta kohta kaardil ja seejärel puuduta tähekese ikooni</string>
     <string name="category_desc_more">…veel</string>
     <string name="export_file">Ekspordi KMZ-failina</string>
     <string name="export_file_gpx">Ekspordi GPX-failina</string>
     <string name="delete_list">Kustuta loend</string>
-    <string name="public_access">Avalik ligipääs</string>
-    <string name="limited_access">Piiratud ligipääs</string>
-    <string name="not_shared">Privaatne</string>
     <string name="speedcams_alert_title">Kiiruskaamerad</string>
     <string name="place_description_title">Koha kirjeldus</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -669,7 +637,6 @@
     <string name="power_managment_setting_auto">Madala akutäituvuse korral</string>
     <string name="power_managment_setting_manual_max">Alati</string>
     <string name="enable_logging_warning_message">Kasuta seda võimalust üksikasjaliku logi ajutiseks salvestamiseks ja meile käsitsi saatmiseks Abiteabe „Teata veast“ vaatest. Andmed võivad sisaldada sinu asukoha teavet.</string>
-    <string name="access_rules_author_only">Võrgupõhine muutmine</string>
     <string name="driving_options_title">Tee juhatamise valikud</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Väldi tasulisi teid</string>
@@ -860,8 +827,6 @@
     <string name="nav_auto">Automaatne tee juhatamine</string>
     <string name="about_headline">Tasuta ja vaba kõigi jaoks, tehtud armastusega</string>
     <string name="about_proposition_1">• Pole reklaame, jälitamist ega andmekogumist</string>
-    <string name="mb">MB</string>
-    <string name="gb">GB</string>
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="matrix">[Matrix]</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>
@@ -885,7 +850,6 @@
     <string name="saved">Salvestatud</string>
     <string name="osm_note_hint">Või alternatiivina lisa märkus OpenStreetMapi kogukonna liikmetele, mis võimaldaks teistel kaardistajatel selle koha lisada või tema andmeid parandada.</string>
     <string name="osm_note_toast">Märkus lisatakse OpenStreetMapi andmebaasi</string>
-    <string name="routes_update_maps_text">Teekondade kuvamiseks peavad kaardid olema uuendatud.</string>
     <string name="bookmarks_text_placement_title">Kaardil leiduvate järjehoidjate nimed</string>
     <string name="bookmarks_text_placement_description">Kui kaardil on palu järjehoidjaid, siis nende nimede kuvamine aeglustab kaardi joonistamist.</string>
     <string name="show_to_the_right">Näita paremale</string>

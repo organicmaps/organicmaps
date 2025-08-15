@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gb">GB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Η θέση μου</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Οι τοποθεσίες μου</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Εσωτερικός κρυφός αποθηκευτικός χώρος</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Εσωτερικός κοινός αποθηκευτικός χώρος</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Κάρτα SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Εξωτερικός κοινός αποθηκευτικός χώρος</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Ταχυδρομικός Κώδικας</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Σημείο χάρτη</string>
+    <!-- abbreviation for meters -->
+    <string name="m">μ</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">χμ</string>
+    <!-- A unit of measure -->
+    <string name="ft">πόδια</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Έξοδος</string>
+    <string name="core_entrance">Είσοδος</string>
+    <string name="subway_data_unavailable">Ο χάρτης μετρό δεν είναι διαθέσιμος</string>
+    <string name="public_access">Δημόσια πρόσβαση</string>
+    <string name="limited_access">Περιορισμένη πρόσβαση</string>
+    <string name="not_shared">Ιδιωτικό</string>
+    <string name="access_rules_author_only">Online επεξεργασία</string>
+    <string name="mb">MB</string>
+    <string name="mi">μι</string>
+    <string name="routes_update_maps_text">Για την προβολή των διαδρομών, οι χάρτες πρέπει να είναι ενημερωμένοι.</string>
+</resources>

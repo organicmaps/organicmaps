@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_entrance">Entrada</string>
+    <string name="subway_data_unavailable">El mapa del metro no está disponible</string>
+    <string name="public_access">Acceso público</string>
+    <string name="limited_access">Acceso limitado</string>
+    <string name="not_shared">Privado</string>
+    <string name="access_rules_author_only">Se edita en línea</string>
+</resources>

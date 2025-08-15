@@ -16,8 +16,6 @@
     <string name="kilometres">Колиметри</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Миље</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Моја позиција</string>
     <!-- Update maps later button text -->
     <string name="later">Касније</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -73,8 +71,6 @@
     <string name="bookmarks">Маркери</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Маркери и путање</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Моја места</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Назив</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -89,14 +85,6 @@
     <string name="maps_storage_summary">Изаберите фолдер у ком се чувају мапе.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Преузете мапе</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Интерна приватна меморија</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Интерна дељена меморија</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">SD картица</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">Екстерна дељена меморија</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">слободно %1$s од %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -149,8 +137,6 @@
     <string name="category_post">Пошта</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Полиција</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Рециклажа</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -464,7 +450,6 @@
     <string name="empty_street_name_error">Молим Вас, унесите назив улице</string>
     <string name="choose_language">Изаберите језик</string>
     <string name="choose_street">Изаберите улицу</string>
-    <string name="postal_code">Поштански број</string>
     <string name="cuisine">Кухиња</string>
     <string name="select_cuisine">Изаберите кухињу</string>
     <!-- login text field -->
@@ -523,16 +508,8 @@
     <string name="downloader_no_downloaded_maps_title">Нисте преузели ни једну мапу</string>
     <string name="downloader_no_downloaded_maps_message">Преузмите мапе да бисте претраживали и користили навигацију без интернета.</string>
     <string name="current_location_unknown_error_title">Тренутна локација није позната.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">м</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">км</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">км/ч</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">ми</string>
-    <!-- A unit of measure -->
-    <string name="ft">стопа</string>
     <string name="miles_per_hour">ми/ч</string>
     <string name="hour">ч</string>
     <string name="minute">мин</string>
@@ -593,8 +570,6 @@
     <string name="prefs_languages_information_off_link">За више информација погледајте ово упутство.</string>
     <string name="transliteration_title">Транслитерација у латиницу</string>
     <string name="learn_more">Сазнај више</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Излаз</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Користите претрагу или кратко додирните мапу да бисте додали почетну тачку руте</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -608,7 +583,6 @@
     <string name="dialog_error_storage_title">Проблем са приступом меморији</string>
     <string name="dialog_error_storage_message">Екстерна меморија није доступна. SD картица је можда уклоњена, оштећена, или је фајл систем само за читање. Молим Вас, проверите Вашу SD картицу или нас контактирајте на support\\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Симулирај неисправну меморију</string>
-    <string name="core_entrance">Улаз</string>
     <string name="error_enter_correct_name">Молим Вас да унесете исправан назив</string>
     <string name="bookmark_lists">Листе</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -651,16 +625,12 @@
     <string name="button_layer_traffic">Саобраћај</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стилови мапе и слојеви</string>
-    <string name="subway_data_unavailable">Мапа метроа не постоји</string>
     <string name="bookmarks_empty_list_title">Ова листа је празна</string>
     <string name="bookmarks_empty_list_message">Да бисте додали маркер, кратко додирните место на мапи, а онда додирните иконицу са звездом</string>
     <string name="category_desc_more">…више</string>
     <string name="export_file">Експортуј KMZ</string>
     <string name="export_file_gpx">Експортуј GPX</string>
     <string name="delete_list">Обриши листу</string>
-    <string name="public_access">Јавни приступ</string>
-    <string name="limited_access">Ограничен приступ</string>
-    <string name="not_shared">Приватно</string>
     <string name="speedcams_alert_title">Прекршајне камере</string>
     <string name="place_description_title">Опис места</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -677,7 +647,6 @@
     <string name="power_managment_setting_auto">Када је батерија при крају</string>
     <string name="power_managment_setting_manual_max">Увек</string>
     <string name="enable_logging_warning_message">Привремено укључите ову опцију да бисте сачували детаљне дијагностичке логове уколико имате неки проблем. Логове можете да нам пошаљете коришћењем опције \"Пријавите проблем\" у прозору Помоћ. Напомена: Логови могу да садрже информације о вашој локацији.</string>
-    <string name="access_rules_author_only">Online измене</string>
     <string name="driving_options_title">Опције рутирања</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Избегавај путарине</string>
@@ -858,7 +827,6 @@
     <string name="uri_open_location_failed">Нема инсталираних апликација које могу да отворе локацију.</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Аутоматски у навигацији</string>
-    <string name="gb">ГБ</string>
     <string name="telegram">Telegram</string>
     <string name="matrix">[Matrix]</string>
     <string name="mastodon">Mastodon</string>
@@ -880,7 +848,6 @@
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="editor_focus_map_on_location">Превуците мапу да поставите крст на локацију места или посла.</string>
     <string name="precise_location_is_disabled_long_text">Да би се осигурала тачна навигација омогућите прецизну локацију у подешавањима.</string>
-    <string name="mb">МБ</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="translated_om_site_url">https://organicmaps.app/</string>
     <string name="already_donated">Већ је донирано</string>
@@ -894,5 +861,4 @@
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="social_media">Друштвени медији</string>
     <string name="building">Зграда</string>
-    <string name="core_placepage_unknown_place">Тачка на мапи</string>
 </resources>

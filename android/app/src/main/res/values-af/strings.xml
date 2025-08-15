@@ -14,13 +14,8 @@
     <string name="downloading">Laai tans af…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometers</string>
-    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
-    <string name="mb">MB</string>
-    <string name="gb">GB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Myle</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">My posisie</string>
     <!-- Update maps later button text -->
     <string name="later">Later</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -78,8 +73,6 @@
     <string name="bookmarks">Boekmerke</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Boekmerke en paaie</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">My plekke</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Adres</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -94,14 +87,6 @@
     <string name="maps_storage_summary">Kies die vouer om kaarte na af te laai.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Afgelaaide kaarte</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Interne privaat berging</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Interne gedeelde berging</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">SD-kaart</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">Eksterne gedeelde berging</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%1$s van %2$s beskikbaar</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -153,8 +138,6 @@
     <string name="category_post">Pos</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Polisie</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">Wi-Fi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Herwinning</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -466,7 +449,6 @@
     <string name="empty_street_name_error">Voer asb. ’n straatnaam in</string>
     <string name="choose_language">Kies ’n taal</string>
     <string name="choose_street">Kies ’n straat</string>
-    <string name="postal_code">Poskode</string>
     <string name="cuisine">Kookkuns</string>
     <string name="select_cuisine">Kies kookkuns</string>
     <!-- login text field -->
@@ -509,8 +491,6 @@
     <string name="error_enter_correct_storey_number">Die aantal verdiepings mag nie %d oorskry nie</string>
     <string name="editor_zip_code">Poskode</string>
     <string name="error_enter_correct_zip_code">Voer ’n geldige poskode in</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Kaartpunt</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota aan OpenStreetMap-vrywilligers (opsioneel)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -528,16 +508,8 @@
     <string name="downloader_no_downloaded_maps_title">U het geen kaarte afgelaai nie</string>
     <string name="downloader_no_downloaded_maps_message">Laai kaarte af om die ligging te soek en vanlyn te navigeer.</string>
     <string name="current_location_unknown_error_title">Huidige ligging is onbekend.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">myl</string>
-    <!-- A unit of measure -->
-    <string name="ft">vt.</string>
     <string name="miles_per_hour">mph</string>
     <string name="hour">h</string>
     <string name="minute">min</string>
@@ -599,8 +571,6 @@
     <string name="prefs_languages_information_off_link">Sien hierdie gids vir meer inligting</string>
     <string name="transliteration_title">Transliterasie in Latynse alfabet</string>
     <string name="learn_more">Meer inligting</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Uitgang</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Gebruik soek of tik op die kaart om \'n roetebeginpunt by te voeg</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -614,7 +584,6 @@
     <string name="dialog_error_storage_title">Bergtoegangprobleem</string>
     <string name="dialog_error_storage_message">Eksterne bergspasie is nie toeganklik nie. Die SD-kaart is dalk verwyder, beskadig, of die lêerstelsel is leesalleen. Gaan u SD-kaart na of kontak ons by support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emuleer slegte bergspasie</string>
-    <string name="core_entrance">Ingang</string>
     <string name="error_enter_correct_name">Voer asb. ’n korrekte naam in</string>
     <string name="bookmark_lists">Lyste</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -644,16 +613,12 @@
     <string name="button_layer_cycling">Fietsroetes</string>
     <string name="button_layer_subway">Moltrein</string>
     <string name="layers_title">Kaartstyle en -lae</string>
-    <string name="subway_data_unavailable">Moltreinkaart is onbeskikbaar</string>
     <string name="bookmarks_empty_list_title">Hierdie lys is leeg</string>
     <string name="bookmarks_empty_list_message">Tik op ’n plek op die kaart en dan op die sterikoon om ’n boekmerk toe te voeg</string>
     <string name="category_desc_more">…nog</string>
     <string name="export_file">Voer KMZ uit</string>
     <string name="export_file_gpx">Voer GPX uit</string>
     <string name="delete_list">Skrap lys</string>
-    <string name="public_access">Openbare toegang</string>
-    <string name="limited_access">Beperkte toegang</string>
-    <string name="not_shared">Privaat</string>
     <string name="speedcams_alert_title">Spoedkameras</string>
     <string name="place_description_title">Plekbeskrywing</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -670,7 +635,6 @@
     <string name="power_managment_setting_auto">Wanneer battery laag as</string>
     <string name="power_managment_setting_manual_max">Altyd</string>
     <string name="enable_logging_warning_message">Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.</string>
-    <string name="access_rules_author_only">Aanlyn wysiging</string>
     <string name="driving_options_title">Ompadopsies</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_unpaved">Vermy grondpaaie</string>

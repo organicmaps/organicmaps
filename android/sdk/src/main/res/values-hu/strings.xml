@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Saját tartózkodási helyszín</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Saját helyek</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Belső privát tárhely</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Belső közös tárhely</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD-kártya</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Külső közös tárhely</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">Wi-Fi</string>
+    <string name="postal_code">Irányítószám</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Térképpont</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mf</string>
+    <!-- A unit of measure -->
+    <string name="ft">láb</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Kijárat</string>
+    <string name="core_entrance">Bejárat</string>
+    <string name="subway_data_unavailable">A metrótérkép nem érhető el</string>
+    <string name="public_access">Nyilvános hozzáférés</string>
+    <string name="limited_access">Korlátozott hozzáférés</string>
+    <string name="not_shared">Privát</string>
+    <string name="access_rules_author_only">Szerkesztés online</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <string name="routes_update_maps_text">Az útvonalak megjelenítéséhez frissíteni kell a térképeket.</string>
+</resources>

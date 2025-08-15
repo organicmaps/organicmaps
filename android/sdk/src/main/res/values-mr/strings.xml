@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">माझे स्थान</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">माझी ठिकाणे</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">वायफाय इंटरनेट</string>
+    <string name="postal_code">पिनकोड</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">नकाशा बिंदू</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">किमी</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">फूट</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">बाहेर पडा</string>
+    <string name="core_entrance">प्रवेशद्वार</string>
+    <string name="subway_data_unavailable">मेट्रो नकाशा अनुपलब्ध आहे</string>
+    <string name="public_access">सार्वजनिक प्रवेश</string>
+    <string name="limited_access">मर्यादित प्रवेश</string>
+    <string name="not_shared">खाजगी</string>
+    <string name="access_rules_author_only">ऑनलाइन संपादन</string>
+</resources>

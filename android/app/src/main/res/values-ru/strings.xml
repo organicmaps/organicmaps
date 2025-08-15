@@ -14,13 +14,8 @@
     <string name="downloading">Загружается…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Километры</string>
-    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
-    <string name="mb">МБ</string>
-    <string name="gb">ГБ</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Мили</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Мое местоположение</string>
     <!-- Update maps later button text -->
     <string name="later">Не сейчас</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -80,8 +75,6 @@
     <string name="bookmarks">Метки</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Метки и треки</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Мои Метки</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Название</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -96,14 +89,6 @@
     <string name="maps_storage_summary">Выберите папку куда загружать карты.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Загруженные карты</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Внутренний скрытый накопитель</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Внутренний общий накопитель</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">SD-карта</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">Внешний общий накопитель</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%1$s свободно из %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -156,8 +141,6 @@
     <string name="category_post">Почта</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Полиция</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Переработка</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -477,7 +460,6 @@
     <string name="empty_street_name_error">Введите название улицы</string>
     <string name="choose_language">Выбрать язык</string>
     <string name="choose_street">Выбрать улицу</string>
-    <string name="postal_code">Почтовый индекс</string>
     <string name="cuisine">Кухня</string>
     <string name="select_cuisine">Выбрать кухню</string>
     <!-- login text field -->
@@ -522,8 +504,6 @@
     <string name="error_enter_correct_storey_number">Количество этажей не должно превышать %d</string>
     <string name="editor_zip_code">Почтовый индекс</string>
     <string name="error_enter_correct_zip_code">Введите корректный почтовый индекс</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Точка на карте</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Примечание для волонтеров OpenStreetMap (необязательно)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -541,16 +521,8 @@
     <string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
     <string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
     <string name="current_location_unknown_error_title">Местоположение не найдено.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">м</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">км</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">км/ч</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">ми</string>
-    <!-- A unit of measure -->
-    <string name="ft">фут</string>
     <string name="miles_per_hour">ми/ч</string>
     <string name="hour">ч</string>
     <string name="minute">мин</string>
@@ -598,7 +570,6 @@
     <string name="mobile_data_option_never">Никогда не использовать</string>
     <string name="mobile_data_option_ask">Всегда спрашивать</string>
     <string name="traffic_update_maps_text">Для отображения пробок необходимо обновить карты.</string>
-    <string name="routes_update_maps_text">Обновите карты, чтобы увидеть маршруты.</string>
     <string name="big_font">Увеличить шрифт на карте</string>
     <string name="traffic_update_app">Обновите Organic Maps</string>
     <!-- "traffic" as in "road congestion" -->
@@ -613,8 +584,6 @@
     <string name="prefs_languages_information_off_link">Более подробная информация — в этом руководстве.</string>
     <string name="transliteration_title">Транслитерировать в Латинский алфавит</string>
     <string name="learn_more">Узнать больше</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Выход</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Используйте поиск или коснитесь карты, чтобы добавить начальную точку маршрута</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -628,7 +597,6 @@
     <string name="dialog_error_storage_title">Проблема с доступом к хранилищу</string>
     <string name="dialog_error_storage_message">Внешнее хранилище устройства недоступно. Возможно SD карта была удалена, повреждена или файловая система в режиме только для чтения. Проверьте вашу SD карту или свяжитесь с нами через support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Эмуляция ошибки с внешней памятью</string>
-    <string name="core_entrance">Вход</string>
     <string name="error_enter_correct_name">Пожалуйста, введите название правильно</string>
     <string name="bookmark_lists">Списки</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -676,16 +644,12 @@
     <string name="button_layer_cycling">Веломаршруты</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стили и слои карты</string>
-    <string name="subway_data_unavailable">Карта метро недоступна</string>
     <string name="bookmarks_empty_list_title">Список пустой</string>
     <string name="bookmarks_empty_list_message">Чтобы добавить метку, нажмите на место на карте, а затем на иконку звёздочки</string>
     <string name="category_desc_more">…ещё</string>
     <string name="export_file">Экспорт KMZ</string>
     <string name="export_file_gpx">Экспорт GPX</string>
     <string name="delete_list">Удалить список</string>
-    <string name="public_access">Публичный доступ</string>
-    <string name="limited_access">Ограниченный доступ</string>
-    <string name="not_shared">Личный</string>
     <string name="speedcams_alert_title">Камеры скорости</string>
     <string name="place_description_title">Описание места</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -706,7 +670,6 @@
     <string name="show_to_the_right">Справа от метки</string>
     <string name="show_at_the_bottom">Под меткой</string>
     <string name="enable_logging_warning_message">Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку \"Сообщить о проблеме\".</string>
-    <string name="access_rules_author_only">Редактируется онлайн</string>
     <string name="driving_options_title">Настройки объезда</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Избегать платных дорог</string>

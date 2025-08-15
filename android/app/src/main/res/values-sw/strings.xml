@@ -150,8 +150,6 @@
     <string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
     <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
     <string name="learn_more">Jua mengi zaidi</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Toka</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Tumia utafutaji au uguse kwenye ramani ili kuongeza mahali pa kuanzia</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -165,7 +163,6 @@
     <string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>
     <string name="dialog_error_storage_message">Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Onyeshana hifadhi mbaya</string>
-    <string name="core_entrance">Kiingilio</string>
     <string name="error_enter_correct_name">Tafadhali, weka jina sahihi</string>
     <string name="bookmark_lists">Orodha</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -203,16 +200,12 @@
     <string name="button_layer_traffic">Trafiki</string>
     <string name="button_layer_subway">Njia ya chini</string>
     <string name="layers_title">Mitindo ya Ramani na Tabaka</string>
-    <string name="subway_data_unavailable">Ramani ya njia ya chini haipatikani</string>
     <string name="bookmarks_empty_list_title">Orodha hii ni tupu</string>
     <string name="bookmarks_empty_list_message">Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota</string>
     <string name="category_desc_more">…zaidi</string>
     <string name="export_file">Hamisha KMZ</string>
     <string name="export_file_gpx">Hamisha GPX</string>
     <string name="delete_list">Futa Orodha</string>
-    <string name="public_access">Matumizi ya umma</string>
-    <string name="limited_access">Matumizi yenye ukomo</string>
-    <string name="not_shared">Faragha</string>
     <string name="speedcams_alert_title">Kamera za mwendo-kasi</string>
     <string name="place_description_title">Maelezo ya Eneo</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -229,7 +222,6 @@
     <string name="power_managment_setting_auto">Kiotomatiki</string>
     <string name="power_managment_setting_manual_max">Upeo wa kuhifadhi nishati</string>
     <string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
-    <string name="access_rules_author_only">Uhariri mtandaoni</string>
     <string name="driving_options_title">Machaguo ya njia</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Epuka barabara za ushuru</string>

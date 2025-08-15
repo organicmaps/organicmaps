@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Min position</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Mina Platser</string>
+    <string name="postal_code">Postkod</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Kartpunkt</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mile</string>
+    <!-- A unit of measure -->
+    <string name="ft">fot</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Avsluta</string>
+    <string name="core_entrance">Ingång</string>
+    <string name="subway_data_unavailable">Tunnelbanekartan är otillgänglig</string>
+    <string name="public_access">Allmän åtkomst</string>
+    <string name="limited_access">Privat åtkomst</string>
+    <string name="not_shared">Privat</string>
+    <string name="access_rules_author_only">Redigeras online</string>
+    <string name="category_wifi">WiFi</string>
+    <string name="maps_storage_shared">Internt, delat lagringsutrymme</string>
+    <string name="maps_storage_removable">SD-kort</string>
+    <string name="maps_storage_external">Externt, delat lagringsutrymme</string>
+    <string name="maps_storage_internal">Internt, privat lagringsutrymme</string>
+    <string name="gb">GB</string>
+    <string name="mb">MB</string>
+</resources>

@@ -16,8 +16,6 @@
     <string name="kilometres">Kilometer</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mile</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Min position</string>
     <!-- Update maps later button text -->
     <string name="later">Senare</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -76,8 +74,6 @@
     <string name="bookmarks">Bokmärken</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Bokmärken och rutter</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Mina Platser</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Namn</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -442,7 +438,6 @@
     <string name="add_street">Lägg till en gata</string>
     <string name="choose_language">Välj ett språk</string>
     <string name="choose_street">Välj en gata</string>
-    <string name="postal_code">Postkod</string>
     <string name="cuisine">Mat</string>
     <string name="select_cuisine">Välj mat</string>
     <!-- login text field -->
@@ -484,8 +479,6 @@
     <string name="error_enter_correct_storey_number">Redigera byggnaden med max %d våningar</string>
     <string name="editor_zip_code">Postnr</string>
     <string name="error_enter_correct_zip_code">Ange korrekt postnr</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Kartpunkt</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Meddelande till OpenStreetMap-volontärer (valfritt)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -503,16 +496,8 @@
     <string name="downloader_no_downloaded_maps_title">Du har inte laddat ner några kartor</string>
     <string name="downloader_no_downloaded_maps_message">Ladda ner kartor för att hitta platsen och navigera offline.</string>
     <string name="current_location_unknown_error_title">Den nuvarande platsen är okänd.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/tim</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mile</string>
-    <!-- A unit of measure -->
-    <string name="ft">fot</string>
     <string name="miles_per_hour">mi/tim</string>
     <string name="hour">tim</string>
     <string name="minute">min</string>
@@ -567,8 +552,6 @@
     <string name="prefs_languages_information_off_link">Kolla in den här guiden för mer information.</string>
     <string name="transliteration_title">Translitterera till latinska alfabetet</string>
     <string name="learn_more">Läs mer</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Avsluta</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Använd sökfunktionen eller tryck på kartan för att lägga till en startpunkt för rutten</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -582,7 +565,6 @@
     <string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
     <string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet kan vara borttaget, skadat eller så är filsystemet skrivskyddat. Kontrollera det och kontakta oss på support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emulera dålig lagring</string>
-    <string name="core_entrance">Ingång</string>
     <string name="error_enter_correct_name">Ange ett korrekt namn</string>
     <string name="bookmark_lists">Listor</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -624,16 +606,12 @@
     <string name="button_layer_cycling">Cykling</string>
     <string name="button_layer_subway">Tunnelbana</string>
     <string name="layers_title">Kartstilar och lager</string>
-    <string name="subway_data_unavailable">Tunnelbanekartan är otillgänglig</string>
     <string name="bookmarks_empty_list_title">Listan är tom</string>
     <string name="bookmarks_empty_list_message">För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen</string>
     <string name="category_desc_more">…mer</string>
     <string name="export_file">Exportera KMZ</string>
     <string name="export_file_gpx">Exportera GPX</string>
     <string name="delete_list">Radera listan</string>
-    <string name="public_access">Allmän åtkomst</string>
-    <string name="limited_access">Privat åtkomst</string>
-    <string name="not_shared">Privat</string>
     <string name="speedcams_alert_title">Hastighetskameror</string>
     <string name="place_description_title">Beskrivning av platsen</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -650,7 +628,6 @@
     <string name="power_managment_setting_auto">Vid lågt batteri</string>
     <string name="power_managment_setting_manual_max">Alltid</string>
     <string name="enable_logging_warning_message">Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.</string>
-    <string name="access_rules_author_only">Redigeras online</string>
     <string name="driving_options_title">Ruttinställningar</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Undvik avgiftsbelagda vägar</string>
@@ -829,7 +806,6 @@
     <string name="vk">VK</string>
     <string name="prefs_group_general">Allmänna inställningar</string>
     <string name="telegram">Telegram</string>
-    <string name="category_wifi">WiFi</string>
     <string name="prefs_group_information">Information</string>
     <string name="menu">Meny</string>
     <string name="github">GitHub</string>
@@ -839,15 +815,9 @@
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="opens_in">Öppnar om %s</string>
     <string name="twitter">X (Twitter)</string>
-    <string name="maps_storage_shared">Internt, delat lagringsutrymme</string>
-    <string name="maps_storage_removable">SD-kort</string>
-    <string name="maps_storage_external">Externt, delat lagringsutrymme</string>
     <string name="maps_storage_free_size">%1$s av %2$s ledigt</string>
     <string name="read_in_wikipedia">Wikipedia</string>
-    <string name="maps_storage_internal">Internt, privat lagringsutrymme</string>
     <string name="matrix">[Matrix]</string>
-    <string name="gb">GB</string>
-    <string name="mb">MB</string>
     <string name="closes_in">Stänger om %s</string>
     <string name="mastodon">Mastodon</string>
     <string name="editor_line_social_network">RAD</string>

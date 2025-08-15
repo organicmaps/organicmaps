@@ -43,7 +43,6 @@
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="edit">Editar</string>
     <string name="vk">VK</string>
-    <string name="postal_code">Códigu postal</string>
     <string name="downloader_update_map">Anovar mapa</string>
     <string name="editor_zip_code">Códigu postal</string>
     <string name="editor_line_social_network">LINE</string>
@@ -52,7 +51,6 @@
     <string name="elevation_profile_difficulty">Dificultá</string>
     <string name="delete">Desaniciar</string>
     <string name="kilometres">Quilómetros</string>
-    <string name="core_my_position">La mio posición</string>
     <string name="search">Guetar</string>
     <string name="search_map">Guetar nel mapa</string>
     <string name="zoom_to_country">Amosar nel mapa</string>
@@ -70,7 +68,6 @@
     <string name="editor_report_problem_no_place_title">Esti llugar nun esiste</string>
     <string name="next_button">Siguiente</string>
     <string name="self_service">Autoserviciu</string>
-    <string name="core_my_places">Los mios llugares</string>
     <string name="parkings">Aparcaderu</string>
     <string name="later">Más sero</string>
     <string name="museums">Museos</string>
@@ -85,10 +82,8 @@
     <string name="placepage_remove_stop">Desaniciar parada</string>
     <string name="privacy">Privacidá</string>
     <string name="layers_title">Estilos y capes del mapa</string>
-    <string name="subway_data_unavailable">El mapa del metro nun ta disponible</string>
     <string name="button_layer_subway">Metro</string>
     <string name="delete_list">Desaniciar llista</string>
-    <string name="public_access">Accesu públicu</string>
     <string name="bookmarks_empty_list_title">Esta llista ta balera</string>
     <string name="place_description_title">Descripción del llugar</string>
     <string name="power_managment_title">Mou d’aforru d’enerxía</string>
@@ -122,7 +117,6 @@
     <string name="placepage_personal_notes_hint">Notes personales (testu o HTML)</string>
     <string name="download_maps">Baxar mapes</string>
     <string name="downloading">Baxando…</string>
-    <string name="mb">MB</string>
     <string name="download">Baxar</string>
     <string name="category_transport">Tresporte</string>
     <string name="category_atm">Caxeru automáticu</string>
@@ -132,9 +126,7 @@
     <string name="website">Sitiu web</string>
     <string name="faq">Entrugues frecuentes</string>
     <string name="hide">Anubrir</string>
-    <string name="km">km</string>
     <string name="kilometers_per_hour">km/h</string>
-    <string name="gb">GB</string>
     <string name="continue_button">Siguir</string>
     <string name="maps_storage_downloaded">Mapes baxaos</string>
     <string name="copied_to_clipboard">Copióse nel cartafueyu: %s</string>
@@ -146,7 +138,6 @@
     <string name="stop_track_recording">Parar grabación del trayeutu</string>
     <string name="downloader_no_space_message">Desanicia los datos imprecisos</string>
     <string name="editor_osm_history">El to historial d’ediciones</string>
-    <string name="m">m</string>
     <string name="download_resources_continue">Dir al mapa</string>
     <string name="maps_storage_summary">Esbilla la carpeta onde tienen de baxase los mapes.</string>
     <string name="download_country_ask">¿Quies baxar %s?</string>
@@ -190,7 +181,6 @@
     <string name="category_hotel">Hotel</string>
     <string name="category_recycling">Reciclaxe</string>
     <string name="category_police">Policía</string>
-    <string name="core_placepage_unknown_place">Puntu nel mapa</string>
     <string name="choose_language">Escueyi una llingua</string>
     <string name="compass_calibration_recommended">Ameyora la direición de la flecha moviendo’l teléfonu en forma d’ocho pa calibrar la brúxula.</string>
     <string name="share_my_location">Compartir el mio allugamientu</string>
@@ -215,7 +205,6 @@
     <string name="driving_options_title">Opciones d’encaminamientu</string>
     <string name="track_recording_toast_nothing_to_save">El trayeutu ta baleru; nun hai nada pa guardar</string>
     <string name="add_new_set">Amestar llista nueva</string>
-    <string name="maps_storage_removable">Tarxeta SD</string>
     <string name="learn_more">Deprende más</string>
     <string name="mountains">Montes</string>
     <string name="animals">Animales</string>
@@ -223,16 +212,13 @@
     <string name="pref_tts_test_voice_title">Probar indicaciones de voz (TTS, Text-To-Speech)</string>
     <string name="car_used_on_the_phone_screen">Agora tas utilizando Organic Maps na pantalla del teléfonu</string>
     <string name="car_used_on_the_car_screen">Agora tas utilizando Organic Maps na pantalla del coche</string>
-    <string name="not_shared">Priváu</string>
     <string name="translated_om_site_url">https://organicmaps.app/ast</string>
     <string name="transit_not_found">La navegación per metro nesta rexón tovía nun ta disponible</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
     <string name="elevation_profile_max_elevation">Elevación máx.</string>
-    <string name="core_exit">Salida</string>
     <string name="mobile_data_option_today">Namás güei</string>
     <string name="placepage_add_place_button">Amestar llugar a OpenStreetMap</string>
     <string name="food_places">Comida</string>
-    <string name="core_entrance">Entrada</string>
     <string name="miles_per_hour">mph</string>
     <string name="accept">Aceutar</string>
     <string name="decline">Refugar</string>

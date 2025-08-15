@@ -16,8 +16,6 @@
     <string name="kilometres">Kilômét</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Dặm</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Vị trí của Tôi</string>
     <!-- Update maps later button text -->
     <string name="later">Để sau</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -77,8 +75,6 @@
     <string name="bookmarks">Đánh dấu</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Đánh dấu và dấu vết</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Các Địa chỉ của Tôi</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Tên</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -142,8 +138,6 @@
     <string name="category_post">Bưu điện</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Cảnh sát</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Tái chế rác thải</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -449,7 +443,6 @@
     <string name="add_street">Thêm con đường</string>
     <string name="choose_language">Đã chọn ngôn ngữ</string>
     <string name="choose_street">Đã chọn con đường</string>
-    <string name="postal_code">Mã bưu chính</string>
     <string name="cuisine">Ẩm thực</string>
     <string name="select_cuisine">Chọn Ẩm thực</string>
     <!-- login text field -->
@@ -491,8 +484,6 @@
     <string name="error_enter_correct_storey_number">Sửa tòa nhà có tối đa %d tầng</string>
     <string name="editor_zip_code">Mã ZIP</string>
     <string name="error_enter_correct_zip_code">Nhập Mã ZIP chính xác</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Điểm bản đồ</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Lưu ý dành cho tình nguyện viên OpenStreetMap (tùy chọn)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -510,16 +501,8 @@
     <string name="downloader_no_downloaded_maps_title">Bạn chưa tải về bất kỳ bản đồ nào</string>
     <string name="downloader_no_downloaded_maps_message">Tải về bản đồ để tìm địa điểm và định hướng ngoại tuyến.</string>
     <string name="current_location_unknown_error_title">Chưa biết địa điểm hiện tại.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/giờ</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">dặm</string>
-    <!-- A unit of measure -->
-    <string name="ft">ft</string>
     <string name="miles_per_hour">mph</string>
     <string name="hour">giờ</string>
     <string name="minute">phút</string>
@@ -574,8 +557,6 @@
     <string name="prefs_languages_information_off_link">Để biết thêm thông tin, vui lòng kiểm tra bài hướng dẫn này.</string>
     <string name="transliteration_title">Chuyển ngữ sang chữ Latinh</string>
     <string name="learn_more">Tìm hiểu thêm</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Lối ra</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Sử dụng tìm kiếm hoặc nhấn vào bản đồ để thêm điểm bắt đầu tuyến đường</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -589,7 +570,6 @@
     <string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
     <string name="dialog_error_storage_message">Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Giả lập ổ lưu trữ hỏng</string>
-    <string name="core_entrance">Lối vào</string>
     <string name="error_enter_correct_name">Vui lòng nhập một tên chính xác</string>
     <string name="bookmark_lists">Danh sách</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -624,16 +604,12 @@
     <string name="button_layer_traffic">Giao thông</string>
     <string name="button_layer_subway">Xe điện ngầm</string>
     <string name="layers_title">Kiểu và lớp bản đồ</string>
-    <string name="subway_data_unavailable">Bản đồ tàu điện ngầm không khả dụng</string>
     <string name="bookmarks_empty_list_title">Danh sách trống</string>
     <string name="bookmarks_empty_list_message">Để thêm dấu trang, hãy nhấn vào một địa điểm trên bản đồ và sau đó nhấn vào biểu tượng dấu sao</string>
     <string name="category_desc_more">…thêm</string>
     <string name="export_file">Xuất KMZ</string>
     <string name="export_file_gpx">Xuất GPX</string>
     <string name="delete_list">Xóa danh sách</string>
-    <string name="public_access">Truy cập công khai</string>
-    <string name="limited_access">Truy cập hạn chế</string>
-    <string name="not_shared">Riêng tư</string>
     <string name="speedcams_alert_title">Tăn tốc độ máy ảnh</string>
     <string name="place_description_title">Mô tả Địa điểm</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -650,7 +626,6 @@
     <string name="power_managment_setting_auto">Tự động</string>
     <string name="power_managment_setting_manual_max">Tiết kiệm năng lượng tối đa</string>
     <string name="enable_logging_warning_message">Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.</string>
-    <string name="access_rules_author_only">Chỉnh sửa trực tuyến</string>
     <string name="driving_options_title">Thiết lập đi vòng</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Tránh đường thu phí</string>

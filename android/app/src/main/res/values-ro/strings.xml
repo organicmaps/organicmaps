@@ -16,8 +16,6 @@
     <string name="kilometres">Kilometri</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mile</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Poziția mea</string>
     <!-- Update maps later button text -->
     <string name="later">Mai târziu</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -77,8 +75,6 @@
     <string name="bookmarks">Locuri preferate</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Locuri preferate și trasee</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Locurile mele</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Denumire</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -141,8 +137,6 @@
     <string name="category_post">Poștă</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Poliția</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">Wi-Fi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Reciclare</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -458,7 +452,6 @@
     <string name="empty_street_name_error">Introdu numele străzii</string>
     <string name="choose_language">Alege o limbă</string>
     <string name="choose_street">Alege o stradă</string>
-    <string name="postal_code">Cod poștal</string>
     <string name="cuisine">Bucătărie</string>
     <string name="select_cuisine">Alege bucătăria</string>
     <!-- login text field -->
@@ -501,8 +494,6 @@
     <string name="error_enter_correct_storey_number">Numărul de etaje nu trebuie să depășească %d</string>
     <string name="editor_zip_code">Cod poștal</string>
     <string name="error_enter_correct_zip_code">Introdu codul poștal corect</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Punct Hartă</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Notă pentru voluntarii OpenStreetMap (opțional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -520,14 +511,8 @@
     <string name="downloader_no_downloaded_maps_title">Nu ai descărcat nicio hartă</string>
     <string name="downloader_no_downloaded_maps_message">Descarcă hărți pentru a căuta un loc și a naviga fără conectare la internet.</string>
     <string name="current_location_unknown_error_title">Poziția actuală este necunoscută.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mi</string>
     <string name="miles_per_hour">mph</string>
     <string name="hour">h</string>
     <string name="minute">min</string>
@@ -589,8 +574,6 @@
     <string name="prefs_languages_information_off_link">Consultă acest ghid pentru informații suplimentare.</string>
     <string name="transliteration_title">Transcrie în alfabet latin</string>
     <string name="learn_more">Mai multe</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Ieșire</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Utilizați funcția de căutare sau atingeți ușor pe hartă pentru a adăuga un punct de plecare</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -604,7 +587,6 @@
     <string name="dialog_error_storage_title">Problemă de acces la spațiul de stocare</string>
     <string name="dialog_error_storage_message">Spațiul de stocare extern nu este disponibil. Probabil cardul SD nu este introdus, este deteriorat sau sistemul de fișiere este doar pentru citire. Verifică sau contactează-ne la support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Simulare arhivă deteriorată</string>
-    <string name="core_entrance">Intrare</string>
     <string name="error_enter_correct_name">Introdu un nume corect</string>
     <string name="bookmark_lists">Liste</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -644,16 +626,12 @@
     <string name="button_layer_traffic">Trafic</string>
     <string name="button_layer_subway">Metrou</string>
     <string name="layers_title">Stiluri și straturi de hartă</string>
-    <string name="subway_data_unavailable">Harta de metrou nu este disponibilă</string>
     <string name="bookmarks_empty_list_title">Lista este goală</string>
     <string name="bookmarks_empty_list_message">Pentru a adăuga un loc preferat, ține apăsat un loc pe hartă și după aceea atinge simbolul în formă de stea</string>
     <string name="category_desc_more">…mai mult</string>
     <string name="export_file">Export KMZ</string>
     <string name="export_file_gpx">Exportați GPX</string>
     <string name="delete_list">Șterge lista</string>
-    <string name="public_access">Acces public</string>
-    <string name="limited_access">Acces privat</string>
-    <string name="not_shared">Personal</string>
     <string name="speedcams_alert_title">Radare</string>
     <string name="place_description_title">Descrierea locului</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -670,7 +648,6 @@
     <string name="power_managment_setting_auto">Automat</string>
     <string name="power_managment_setting_manual_max">Economisire maximă a energiei</string>
     <string name="enable_logging_warning_message">Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.</string>
-    <string name="access_rules_author_only">Modifică online</string>
     <string name="driving_options_title">Opțiuni de ocolire</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evitați drumurile cu taxă</string>
@@ -855,6 +832,4 @@
     <string name="uri_open_location_failed">Nu există nicio aplicație instalată care să poată deschide locația</string>
     <!-- preference string for using auto theme only in navigation mode -->
     <string name="nav_auto">Auto în navigație</string>
-    <string name="gb">GB</string>
-    <string name="mb">MB</string>
 </resources>

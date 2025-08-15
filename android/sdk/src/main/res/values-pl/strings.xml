@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Moje położenie</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Moje miejsca</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Wewnętrzna pamięć prywatna</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Wewnętrzna pamięć współdzielona</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Karta SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Zewnętrzna pamięć współdzielona</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Kod pocztowy</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Punkt mapy</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Wyjście</string>
+    <string name="core_entrance">Wejście</string>
+    <string name="subway_data_unavailable">Mapa metra jest niedostępna</string>
+    <string name="public_access">Dostęp publiczny</string>
+    <string name="limited_access">Dostęp prywatny</string>
+    <string name="not_shared">Osobisty</string>
+    <string name="access_rules_author_only">Edytowane online</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <string name="routes_update_maps_text">Aby wyświetlić trasy, należy zaktualizować mapy.</string>
+</resources>

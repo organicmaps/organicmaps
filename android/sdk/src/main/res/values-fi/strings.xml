@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">Mt</string>
+    <string name="gb">Gt</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Sijaintini</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Paikkani</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Sisäinen yksityinen tallennustila</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Sisäinen jaettu tallennustila</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD-kortti</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Ulkoinen jaettu tallennustila</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Postinumero</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Karttapiste</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Poistu</string>
+    <string name="core_entrance">Sisäänkäynti</string>
+    <string name="subway_data_unavailable">Metrokartta ei ole saatavilla</string>
+    <string name="public_access">Julkinen pääsy</string>
+    <string name="limited_access">Rajoitettu pääsy</string>
+    <string name="not_shared">Yksityinen</string>
+    <string name="access_rules_author_only">Nettimuokkaus</string>
+</resources>

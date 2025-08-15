@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">La meva posició</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Els meus llocs</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Emmagatzematge privat intern</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Emmagatzematge compartit intern</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Targeta SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Emmagatzematge compartit extern</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Codi postal</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Punt del mapa</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Sortida</string>
+    <string name="core_entrance">Entrada</string>
+    <string name="subway_data_unavailable">El mapa del metro no està disponible</string>
+    <string name="public_access">Accés públic</string>
+    <string name="limited_access">Accés limitat</string>
+    <string name="not_shared">Privat</string>
+    <string name="access_rules_author_only">Edició en línia</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+</resources>

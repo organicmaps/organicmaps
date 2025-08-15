@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">La mia posizione</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">I miei luoghi</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Codice postale</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Punto della mappa</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Uscita</string>
+    <string name="core_entrance">Ingresso</string>
+    <string name="subway_data_unavailable">La mappa della metropolitana non è disponibile</string>
+    <string name="public_access">Accesso pubblico</string>
+    <string name="limited_access">Accesso limitato</string>
+    <string name="not_shared">Privato</string>
+    <string name="access_rules_author_only">Modifica online</string>
+    <string name="ft">ft</string>
+    <string name="maps_storage_external">Memoria esterna condivisa</string>
+    <string name="maps_storage_internal">Memoria interna privata</string>
+    <string name="maps_storage_shared">Memoria interna condivisa</string>
+    <string name="maps_storage_removable">Scheda SD</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+</resources>

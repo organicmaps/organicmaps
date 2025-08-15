@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">ميغابايت</string>
+    <string name="gb">غيغابايت</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">موقعي</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">أماكني</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">وحدة التخزين الداخلية الخاصة</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">وحدة التخزين الداخلية المشتركة</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">بطاقة الذاكرة</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">وحدة تخزين خارجية مشتركة</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">إنترنت لا سلكي</string>
+    <string name="postal_code">الرمز البريدي</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">نقطة الخريطة</string>
+    <!-- abbreviation for meters -->
+    <string name="m">متر</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">كم</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ميل</string>
+    <!-- A unit of measure -->
+    <string name="ft">قدم</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">خروج</string>
+    <string name="core_entrance">المدخل</string>
+    <string name="subway_data_unavailable">خريطة مترو الانفاق غير متوفرة</string>
+    <string name="public_access">مسموح الوصول لعامة الشعب</string>
+    <string name="limited_access">مسموح الوصول بشكل محدود</string>
+    <string name="not_shared">خاص</string>
+    <string name="access_rules_author_only">التعديل باستخدام الإنترنت</string>
+</resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Mijn locatie</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Mijn plaatsen</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Intern persoonlijk geheugen</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Intern gedeeld geheugen</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD-kaart</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Extern gedeeld geheugen</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Postcode</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Kaartpunt</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mijl</string>
+    <!-- A unit of measure -->
+    <string name="ft">voet</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Uitgang</string>
+    <string name="core_entrance">Ingang</string>
+    <string name="subway_data_unavailable">Metrokaart is niet beschikbaar</string>
+    <string name="public_access">Publieke toegang</string>
+    <string name="limited_access">Beperkte toegang</string>
+    <string name="not_shared">Privé</string>
+    <string name="access_rules_author_only">Wordt online bewerkt</string>
+    <string name="gb">GB</string>
+    <string name="mb">MB</string>
+    <string name="routes_update_maps_text">Om routes weer te geven moeten de kaarten bijgewerkt worden.</string>
+</resources>

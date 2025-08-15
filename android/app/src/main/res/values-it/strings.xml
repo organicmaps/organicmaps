@@ -16,8 +16,6 @@
     <string name="kilometres">Chilometri</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Miglia</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">La mia posizione</string>
     <!-- Update maps later button text -->
     <string name="later">Più tardi</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -76,8 +74,6 @@
     <string name="bookmarks">Preferiti</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Preferiti e tracce</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">I miei luoghi</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nome</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -139,8 +135,6 @@
     <string name="category_post">Posta</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Polizia</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Riciclo</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -453,7 +447,6 @@
     <string name="empty_street_name_error">Inserisci il nome della via</string>
     <string name="choose_language">Scegli una lingua</string>
     <string name="choose_street">Scegli una via</string>
-    <string name="postal_code">Codice postale</string>
     <string name="cuisine">Cucina</string>
     <string name="select_cuisine">Seleziona la cucina</string>
     <!-- login text field -->
@@ -495,8 +488,6 @@
     <string name="error_enter_correct_storey_number">Il numero di piani non deve superare %d</string>
     <string name="editor_zip_code">Codice postale</string>
     <string name="error_enter_correct_zip_code">Inserire un codice postale valido</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Punto della mappa</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota per i volontari di OpenStreetMap (opzionale)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -514,14 +505,8 @@
     <string name="downloader_no_downloaded_maps_title">Non hai scaricato mappe</string>
     <string name="downloader_no_downloaded_maps_message">Scarica mappe per trovare luoghi e navigare offline.</string>
     <string name="current_location_unknown_error_title">Posizione attuale sconosciuta.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mi</string>
     <string name="miles_per_hour">mph</string>
     <string name="minute">min</string>
     <string name="day">g</string>
@@ -582,8 +567,6 @@
     <string name="prefs_languages_information_off_link">Per maggiori informazioni, consulta questa guida.</string>
     <string name="transliteration_title">Traslittera in caratteri latini</string>
     <string name="learn_more">Scopri di più</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Uscita</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Utilizza \"Cerca\" oppure tocca un punto sulla mappa per aggiungere un punto di partenza del percorso</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -597,7 +580,6 @@
     <string name="dialog_error_storage_title">Problema di accesso alla memoria</string>
     <string name="dialog_error_storage_message">Memoria esterna non disponibile. Probabilmente la scheda SD è stata rimossa, danneggiata o il file system è di sola lettura. Controlla la tua scheda SD o contattaci a support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Simula memoria danneggiata</string>
-    <string name="core_entrance">Ingresso</string>
     <string name="error_enter_correct_name">Inserire un nome corretto</string>
     <string name="bookmark_lists">Liste</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -642,16 +624,12 @@
     <string name="button_layer_cycling">Ciclismo</string>
     <string name="button_layer_subway">Metropolitana</string>
     <string name="layers_title">Stili e livelli della mappa</string>
-    <string name="subway_data_unavailable">La mappa della metropolitana non è disponibile</string>
     <string name="bookmarks_empty_list_title">Questa lista è vuota</string>
     <string name="bookmarks_empty_list_message">Per aggiungere un preferito, tocca un punto sulla mappa e poi tocca l\'icona a forma di stella</string>
     <string name="category_desc_more">…altro</string>
     <string name="export_file">Esporta KMZ</string>
     <string name="export_file_gpx">Esporta GPX</string>
     <string name="delete_list">Elimina lista</string>
-    <string name="public_access">Accesso pubblico</string>
-    <string name="limited_access">Accesso limitato</string>
-    <string name="not_shared">Privato</string>
     <string name="speedcams_alert_title">Autovelox</string>
     <string name="place_description_title">Descrizione luogo</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -668,7 +646,6 @@
     <string name="power_managment_setting_auto">Con poca batteria</string>
     <string name="power_managment_setting_manual_max">Sempre</string>
     <string name="enable_logging_warning_message">Attiva questa opzione temporaneamente per registrare e inviarci manualmente dei log diagnostici riguardo al tuo problema usando \"Segnala un bug\" nella sezione Aiuto. I log potrebbero contenere informazioni sulla posizione.</string>
-    <string name="access_rules_author_only">Modifica online</string>
     <string name="driving_options_title">Impostazioni del percorso</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evita le strade a pedaggio</string>
@@ -862,9 +839,7 @@
     <string name="disk_error_title">Errore di memoria</string>
     <string name="mastodon">Mastodon</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>
-    <string name="ft">ft</string>
     <string name="openstreetmap">OpenStreetMap</string>
-    <string name="maps_storage_external">Memoria esterna condivisa</string>
     <string name="maps_storage_free_size">%1$s liberi su %2$s</string>
     <string name="disk_error">Impossibile creare la cartella e spostare i file nella memoria interna del dispositivo o sulla scheda SD</string>
     <string name="menu">Menu</string>
@@ -875,9 +850,6 @@
     <string name="editor_line_social_network">LINE</string>
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="level_value_generic">Piano: %s</string>
-    <string name="maps_storage_internal">Memoria interna privata</string>
-    <string name="maps_storage_shared">Memoria interna condivisa</string>
-    <string name="maps_storage_removable">Scheda SD</string>
     <string name="move_maps_error">Errore durante lo spostamento delle mappe</string>
     <string name="matrix">[Matrix]</string>
     <string name="github">GitHub</string>
@@ -885,8 +857,6 @@
     <string name="vk">VK</string>
     <string name="comma_separated_pair">%1$s, %2$s</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
-    <string name="mb">MB</string>
-    <string name="gb">GB</string>
     <string name="saved">Salvato</string>
     <string name="osm_note_hint">Oppure, in alternativa, lascia un appunto alla community di OpenStreetMap, in modo che un utente possa aggiungere o sistemare il luogo.</string>
     <string name="osm_note_toast">L\'appunto sarà inviato ad OpenStreetMap</string>

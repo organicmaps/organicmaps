@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+    <string name="core_my_position">ਮੇਰੀ ਸਥਿਤੀ</string>
+    <string name="core_my_places">ਮੇਰੀਆਂ ਥਾਵਾਂ</string>
+    <string name="maps_storage_internal">ਅੰਦਰੂਨੀ ਨਿੱਜੀ ਸਟੋਰੇਜ</string>
+</resources>

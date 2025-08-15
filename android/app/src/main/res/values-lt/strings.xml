@@ -14,13 +14,8 @@
     <string name="downloading">Atsiunčiama…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometrai</string>
-    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
-    <string name="mb">MB</string>
-    <string name="gb">GB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mylios</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Mano vieta</string>
     <!-- Update maps later button text -->
     <string name="later">Vėliau</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -74,8 +69,6 @@
     <string name="bookmark_set_name">Žymių sąrašo pavadinimas</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">Žymės</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Mano vietos</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Pavadinimas</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -88,14 +81,6 @@
     <string name="maps_storage">Žemėlapius saugyklos vieta</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Atsiųsti žemėlapiai</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Vidinė privati saugykla</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Vidinė bendroji saugykla</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">SD kortelė</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">Išorinė bendroji saugykla</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">Laisva %1$s iš %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -146,8 +131,6 @@
     <string name="category_post">Paštas</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Policija</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">Belaidis ryšys</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Antrinės žaliavos</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -450,7 +433,6 @@
     <string name="empty_street_name_error">Įveskite gatvės pavadinimą</string>
     <string name="choose_language">Pasirinkite kalbą</string>
     <string name="choose_street">Pasirinkite gatvę</string>
-    <string name="postal_code">Pašto kodas</string>
     <string name="cuisine">Virtuvė</string>
     <string name="select_cuisine">Pasirinkite virtuvę</string>
     <!-- login text field -->
@@ -492,8 +474,6 @@
     <string name="error_enter_correct_storey_number">Aukštų skaičius negali viršyti %d</string>
     <string name="editor_zip_code">Pašto kodas</string>
     <string name="error_enter_correct_zip_code">Įveskite galiojantį pašto kodą</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Žemėlapio taškas</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Pastaba „OpenStreetMap“ talkininkams (neprivaloma)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -511,16 +491,8 @@
     <string name="downloader_no_downloaded_maps_title">Nesate atsiuntę jokių žemėlapių</string>
     <string name="downloader_no_downloaded_maps_message">Atsiųskite žemėlapius, kad galėtumėte ieškoti vietų ir keliauti neprisijungę prie tinklo.</string>
     <string name="current_location_unknown_error_title">Dabartinė vieta nežinoma.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">myl.</string>
-    <!-- A unit of measure -->
-    <string name="ft">pėd.</string>
     <string name="miles_per_hour">myl./h</string>
     <string name="hour">h</string>
     <string name="minute">min</string>
@@ -581,8 +553,6 @@
     <string name="prefs_languages_information_off_link">Jei norite išsamesnės informacijos, žvilgtelėkite į šią instrukciją.</string>
     <string name="transliteration_title">Transliteruoti užrašus lotyniškais rašmenimis</string>
     <string name="learn_more">Išsamesnė informacija</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Išėjimas</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Pasinaudokite paieška arba bakstelėkite žemėlapyje, kad pridėtumėte maršruto pradžios tašką</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -596,7 +566,6 @@
     <string name="dialog_error_storage_title">Prieigos prie saugyklos problema</string>
     <string name="dialog_error_storage_message">Išorinė saugykla yra nepasiekiama. SD kortelė galimai yra pašalinta, pažeista, arba failų sistema joje yra nustatyta tik skaitymui. Patikrinkite SD kortelę arba susisiekite su mumis adresu support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emuliuoti blogą saugyklą</string>
-    <string name="core_entrance">Įėjimas</string>
     <string name="error_enter_correct_name">Įveskite teisingą pavadinimą</string>
     <string name="bookmark_lists">Sąrašai</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -626,16 +595,12 @@
     <string name="button_layer_cycling">Dviračių takai</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Žemėlapio stiliai ir sluoksniai</string>
-    <string name="subway_data_unavailable">Metro žemėlapis neprieinamas</string>
     <string name="bookmarks_empty_list_title">Sąrašas tuščias</string>
     <string name="bookmarks_empty_list_message">Jeigu norite pridėti žymę, bakstelėkite vietą žemėlapyje, o tada – žvaigždutės piktogramą</string>
     <string name="category_desc_more">…daugiau</string>
     <string name="export_file">Eksportuoti KMZ</string>
     <string name="export_file_gpx">Eksportuoti GPX</string>
     <string name="delete_list">Šalinti sąrašą</string>
-    <string name="public_access">Vieša prieiga</string>
-    <string name="limited_access">Ribota prieiga</string>
-    <string name="not_shared">Privatus</string>
     <string name="speedcams_alert_title">Greičio matuokliai</string>
     <string name="place_description_title">Vietos aprašymas</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -652,7 +617,6 @@
     <string name="power_managment_setting_auto">Esant žemai įkrovai</string>
     <string name="power_managment_setting_manual_max">Visada</string>
     <string name="enable_logging_warning_message">Įjunkite šią parinktį, jei norite kurį laiką rašyti derinimo žurnalą. Pasinaudodami mygtuku „Pranešti apie klaidą“, esančiu žinyno dialogo lange, galėsite pranešti apie problemą, pridėdami sukauptą žurnalą. Žurnaluose gali būti vietos duomenų.</string>
-    <string name="access_rules_author_only">Taisymas internete</string>
     <string name="driving_options_title">Maršruto apskaičiavimo parinktys</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_unpaved">Vengti negrįstų kelių</string>
