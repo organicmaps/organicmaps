@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">МБ</string>
+    <string name="gb">ГБ</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Мое местоположение</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Мои места</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Пощенски код</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Точка на картата</string>
+    <!-- abbreviation for meters -->
+    <string name="m">м</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">км</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ми</string>
+    <!-- A unit of measure -->
+    <string name="ft">фут</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Изход</string>
+    <string name="core_entrance">Вход</string>
+    <string name="subway_data_unavailable">Картата на метрото не е налична</string>
+    <string name="public_access">Публичен достъп</string>
+    <string name="limited_access">Ограничен достъп</string>
+    <string name="not_shared">Лично</string>
+    <string name="access_rules_author_only">Онлайн редактиране</string>
+    <string name="maps_storage_removable">Карта памет</string>
+    <string name="maps_storage_external">Външно споделено хранилище</string>
+    <string name="maps_storage_shared">Вътрешно споделено хранилище</string>
+</resources>

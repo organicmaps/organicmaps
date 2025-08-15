@@ -14,13 +14,8 @@
     <string name="downloading">Теглене…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Километри</string>
-    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
-    <string name="mb">МБ</string>
-    <string name="gb">ГБ</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Мили</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Мое местоположение</string>
     <!-- Update maps later button text -->
     <string name="later">По-късно</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -78,8 +73,6 @@
     <string name="bookmarks">Отметки</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Отметки и пътеки</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Мои места</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Име</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -142,8 +135,6 @@
     <string name="category_post">Поща</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Полиция</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Рециклиране</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -435,7 +426,6 @@
     <string name="empty_street_name_error">Въведете име на улица</string>
     <string name="choose_language">Избор на език</string>
     <string name="choose_street">Избор на улица</string>
-    <string name="postal_code">Пощенски код</string>
     <string name="cuisine">Кухня</string>
     <string name="select_cuisine">Избор на кухня</string>
     <!-- login text field -->
@@ -477,8 +467,6 @@
     <string name="error_enter_correct_storey_number">Броят на етажите не трябва да надвишава %d</string>
     <string name="editor_zip_code">Пощенски код</string>
     <string name="error_enter_correct_zip_code">Въведете валиден пощенски код</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Точка на картата</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Забележка към доброволците на OpenStreetMap (по избор)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -496,14 +484,6 @@
     <string name="downloader_no_downloaded_maps_title">Не сте изтеглили никакви карти</string>
     <string name="downloader_no_downloaded_maps_message">Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.</string>
     <string name="current_location_unknown_error_title">Настоящото местоположение е неизвестно.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">м</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">км</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">ми</string>
-    <!-- A unit of measure -->
-    <string name="ft">фут</string>
     <string name="hour">ч</string>
     <string name="minute">мин</string>
     <string name="day">д</string>
@@ -556,8 +536,6 @@
     <string name="prefs_languages_information_off_link">За повече информация вижте това ръководство.</string>
     <string name="transliteration_title">Изпиши на латиница</string>
     <string name="learn_more">Научете повече</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Изход</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Използвайте търсене или докоснете картата, за да добавите начална точка на маршрута</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -571,7 +549,6 @@
     <string name="dialog_error_storage_title">Проблем с достъпа до хранилището</string>
     <string name="dialog_error_storage_message">Външната памет на устройството не е налична, SD картата може да е била извадена, повредена или файловата система е само за четене. Проверете това и се свържете с нас support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Емулация на грешки с външна памет</string>
-    <string name="core_entrance">Вход</string>
     <string name="error_enter_correct_name">Моля, въведете правилно име</string>
     <string name="bookmark_lists">Списъци</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -608,16 +585,12 @@
     <string name="button_layer_cycling">Велосипеден туризъм</string>
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стилове и слоеве на картата</string>
-    <string name="subway_data_unavailable">Картата на метрото не е налична</string>
     <string name="bookmarks_empty_list_title">Този списък е празен</string>
     <string name="bookmarks_empty_list_message">За да добавите отметка, докоснете място на картата, след което докоснете звездообразната икона.</string>
     <string name="category_desc_more">…още</string>
     <string name="export_file">Експорт на KMZ</string>
     <string name="export_file_gpx">Експортиране на GPX</string>
     <string name="delete_list">Изтриване на списък</string>
-    <string name="public_access">Публичен достъп</string>
-    <string name="limited_access">Ограничен достъп</string>
-    <string name="not_shared">Лично</string>
     <string name="speedcams_alert_title">Камери за скорост</string>
     <string name="place_description_title">Описание на мястото</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -634,7 +607,6 @@
     <string name="power_managment_setting_auto">Автоматично</string>
     <string name="power_managment_setting_manual_max">Максимално пестене на енергия</string>
     <string name="enable_logging_warning_message">Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.</string>
-    <string name="access_rules_author_only">Онлайн редактиране</string>
     <string name="driving_options_title">Опции за маршрутизация</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Избягвайте платените пътища</string>
@@ -792,7 +764,6 @@
     <string name="parks">Паркове</string>
     <string name="deep_purple">Тъмно Лилаво</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
-    <string name="maps_storage_removable">Карта памет</string>
     <string name="placepage_distance">Разстояние</string>
     <string name="menu">Меню</string>
     <string name="github">GitHub</string>
@@ -814,9 +785,7 @@
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <string name="moreyear_ago_sorttype">Преди повече от година</string>
-    <string name="maps_storage_external">Външно споделено хранилище</string>
     <string name="deep_orange">Тъмно Оранжево</string>
-    <string name="maps_storage_shared">Вътрешно споделено хранилище</string>
     <string name="maps_storage_free_size">%1$s свободни от %2$s</string>
     <string name="telegram">Telegram</string>
     <string name="shops">Магазини</string>

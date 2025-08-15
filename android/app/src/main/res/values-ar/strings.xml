@@ -14,13 +14,8 @@
     <string name="downloading">جاري التنزيل…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">الكيلومترات</string>
-    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
-    <string name="mb">ميغابايت</string>
-    <string name="gb">غيغابايت</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">الأميال</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">موقعي</string>
     <!-- Update maps later button text -->
     <string name="later">ًلاحقا</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -79,8 +74,6 @@
     <string name="bookmarks">الإشارات المرجعية</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">الإشارات المرجعية والمسارات</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">أماكني</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">الاسم</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -95,14 +88,6 @@
     <string name="maps_storage_summary">اختر المكان الذي ينبغي تنزيل الخرائط إليه.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">الخرائط المنزلة</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">وحدة التخزين الداخلية الخاصة</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">وحدة التخزين الداخلية المشتركة</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">بطاقة الذاكرة</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">وحدة تخزين خارجية مشتركة</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%1$s فارغ من %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -155,8 +140,6 @@
     <string name="category_post">بريد</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">شرطة</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">إنترنت لا سلكي</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">إعادة تدوير</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -486,7 +469,6 @@
     <string name="empty_street_name_error">الرجاء إدخال اسم الشارع</string>
     <string name="choose_language">اختر اللغة</string>
     <string name="choose_street">اختر الشارع</string>
-    <string name="postal_code">الرمز البريدي</string>
     <string name="cuisine">المطبخ</string>
     <string name="select_cuisine">اختر المطبخ</string>
     <!-- login text field -->
@@ -528,8 +510,6 @@
     <string name="error_enter_correct_storey_number">يجب ألا يتجاوز عدد طوابق المبنى %d</string>
     <string name="editor_zip_code">الرمز البريدي</string>
     <string name="error_enter_correct_zip_code">أدخل الرمز البريدي صالح</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">نقطة الخريطة</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">ملاحظة لمتطوعي OpenStreetMap (اختياري)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -547,16 +527,8 @@
     <string name="downloader_no_downloaded_maps_title">لم تقم بتنزيل أية خرائط</string>
     <string name="downloader_no_downloaded_maps_message">قم بتنزيل خرائط للبحث عن مكان واستخدام الملاحة بدون اتصال بالإنترنت.</string>
     <string name="current_location_unknown_error_title">الموقع الحالي غير معروف.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">متر</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">كم</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">كم/ساعة</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">ميل</string>
-    <!-- A unit of measure -->
-    <string name="ft">قدم</string>
     <string name="miles_per_hour">ميل/ساعة</string>
     <string name="hour">س</string>
     <string name="minute">د</string>
@@ -616,8 +588,6 @@
     <string name="prefs_languages_information_off_link">لمزيد من المعلومات الرجاء مراجعة هذا الدليل.</string>
     <string name="transliteration_title">ترجمة حرفية إلى الأبجدية اللاتينية</string>
     <string name="learn_more">معرفة المزيد</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">خروج</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">استخدام البحث أو النقر على الخريطة لإضافة نقطة بداية الطريق</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -631,7 +601,6 @@
     <string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
     <string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو نظام الملفات للقراءة فقط. افحصه أو راسلنا على support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">محاكاة التخزين السيء</string>
-    <string name="core_entrance">المدخل</string>
     <string name="error_enter_correct_name">الرجاء إدخال اسم صحيح</string>
     <string name="bookmark_lists">قوائم</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -685,16 +654,12 @@
     <string name="button_layer_cycling">ركوب الدراجات</string>
     <string name="button_layer_subway">مترو الانفاق</string>
     <string name="layers_title">أنماط الخريطة وطبقاتها</string>
-    <string name="subway_data_unavailable">خريطة مترو الانفاق غير متوفرة</string>
     <string name="bookmarks_empty_list_title">هذه اللائحة فارغة</string>
     <string name="bookmarks_empty_list_message">لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر على رمز النجمة</string>
     <string name="category_desc_more">…المزيد</string>
     <string name="export_file">تصدير KMZ</string>
     <string name="export_file_gpx">تصدير GPX</string>
     <string name="delete_list">حذف القائمة</string>
-    <string name="public_access">مسموح الوصول لعامة الشعب</string>
-    <string name="limited_access">مسموح الوصول بشكل محدود</string>
-    <string name="not_shared">خاص</string>
     <string name="speedcams_alert_title">تحذيرات كاميرات السرعة</string>
     <string name="place_description_title">وصف المكان</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -711,7 +676,6 @@
     <string name="power_managment_setting_auto">تلقائي</string>
     <string name="power_managment_setting_manual_max">توفير الطاقة الأقصى</string>
     <string name="enable_logging_warning_message">هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.</string>
-    <string name="access_rules_author_only">التعديل باستخدام الإنترنت</string>
     <string name="driving_options_title">خيارات رسم المسار</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">تجنب الطرق ذات الرسوم</string>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">나의 위치</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">내 장소</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi 인터넷</string>
+    <string name="postal_code">우편 번호</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">지도 지점</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">풋</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">끝내기</string>
+    <string name="core_entrance">입구</string>
+    <string name="subway_data_unavailable">지하철 지도가 가용하지 않습니다.</string>
+    <string name="public_access">일반 접근</string>
+    <string name="limited_access">제한 접근</string>
+    <string name="not_shared">개인</string>
+    <string name="access_rules_author_only">온라인 수정</string>
+</resources>

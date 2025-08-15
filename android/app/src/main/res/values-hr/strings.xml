@@ -8,7 +8,6 @@
     <string name="downloading">Preuzimanje…</string>
     <string name="download_maps">Preuzmi Karte</string>
     <string name="miles">Milje</string>
-    <string name="core_my_position">Moja lokacija</string>
     <string name="later">Kasnije</string>
     <string name="search">Traži</string>
     <string name="search_map">Pretraži kartu</string>
@@ -26,7 +25,6 @@
     <string name="saved">Spremljeno</string>
     <string name="location_settings">Postavke lokacije</string>
     <string name="pause">Pauza</string>
-    <string name="core_my_places">Moja mjesta</string>
     <string name="name">Naziv</string>
     <string name="address">Adresa</string>
     <string name="list">Lista</string>
@@ -34,7 +32,5 @@
     <string name="edit">Uredi</string>
     <string name="share">Podijeli</string>
     <string name="elevation_profile_descent">Silazak</string>
-    <string name="mb">MB</string>
-    <string name="gb">GB</string>
     <string name="elevation_profile_ascent">Uspon</string>
 </resources>

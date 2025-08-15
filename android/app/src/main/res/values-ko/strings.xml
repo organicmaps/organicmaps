@@ -16,8 +16,6 @@
     <string name="kilometres">킬로미터</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">마일</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">나의 위치</string>
     <!-- Update maps later button text -->
     <string name="later">나중에</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -76,8 +74,6 @@
     <string name="bookmarks">북마크</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">북마크 및 트랙</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">내 장소</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">이름</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -140,8 +136,6 @@
     <string name="category_post">우편</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">치안대</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi 인터넷</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">재활용</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -444,7 +438,6 @@
     <string name="add_street">거리 추가</string>
     <string name="choose_language">언어 선택</string>
     <string name="choose_street">거리 선택</string>
-    <string name="postal_code">우편 번호</string>
     <string name="cuisine">요리</string>
     <string name="select_cuisine">요리 선택</string>
     <!-- login text field -->
@@ -486,8 +479,6 @@
     <string name="error_enter_correct_storey_number">최대 %d층까지 입력하세요</string>
     <string name="editor_zip_code">우편번호</string>
     <string name="error_enter_correct_zip_code">올바른 우편번호를 입력하세요</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">지도 지점</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">오픈스트리트맵 자원 봉사자 참고 사항(선택 사항)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -505,16 +496,8 @@
     <string name="downloader_no_downloaded_maps_title">지도를 다운로드하지 않았습니다</string>
     <string name="downloader_no_downloaded_maps_message">오프라인으로 위치를 검색하려면 지도를 다운로드하세요.</string>
     <string name="current_location_unknown_error_title">현재 위치를 알 수 없습니다.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/시</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mi</string>
-    <!-- A unit of measure -->
-    <string name="ft">풋</string>
     <string name="miles_per_hour">mph</string>
     <string name="hour">t</string>
     <string name="minute">min</string>
@@ -569,8 +552,6 @@
     <string name="prefs_languages_information_off_link">자세한 내용을 보려면 이 가이드를 확인하세요.</string>
     <string name="transliteration_title">라틴어로 음역</string>
     <string name="learn_more">자세히 알아보기</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">끝내기</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">검색을 사용하거나 지도를 탭하여 경로 시작점을 추가합니다</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -584,7 +565,6 @@
     <string name="dialog_error_storage_title">저장소 액세스 문제</string>
     <string name="dialog_error_storage_message">외부 저장소를 사용할 수 없습니다. SD 카드가 제거되었거나 손상되었거나 파일 시스템이 읽기 전용일 수 있습니다. 확인 후 support\@organicmaps.app로 문의하세요.</string>
     <string name="setting_emulate_bad_storage">불량 저장소 에뮬레이션</string>
-    <string name="core_entrance">입구</string>
     <string name="error_enter_correct_name">올바른 이름을 입력하세요.</string>
     <string name="bookmark_lists">목록</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -624,16 +604,12 @@
     <string name="button_layer_cycling">사이클링</string>
     <string name="button_layer_subway">지하철</string>
     <string name="layers_title">맵 스타일 및 레이어</string>
-    <string name="subway_data_unavailable">지하철 지도가 가용하지 않습니다.</string>
     <string name="bookmarks_empty_list_title">이 목록은 비어있습니다.</string>
     <string name="bookmarks_empty_list_message">북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.</string>
     <string name="category_desc_more">…기타 정보</string>
     <string name="export_file">KMZ 내보내기</string>
     <string name="export_file_gpx">GPX 내보내기</string>
     <string name="delete_list">리스트 삭제</string>
-    <string name="public_access">일반 접근</string>
-    <string name="limited_access">제한 접근</string>
-    <string name="not_shared">개인</string>
     <string name="speedcams_alert_title">속도 감시 카메라</string>
     <string name="place_description_title">장소 묘사</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -650,7 +626,6 @@
     <string name="power_managment_setting_auto">자동</string>
     <string name="power_managment_setting_manual_max">최대 전력 절약</string>
     <string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.</string>
-    <string name="access_rules_author_only">온라인 수정</string>
     <string name="driving_options_title">운전 옵션</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">유료 도로 피하기</string>

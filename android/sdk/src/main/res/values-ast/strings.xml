@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="postal_code">Códigu postal</string>
+    <string name="core_my_position">La mio posición</string>
+    <string name="core_my_places">Los mios llugares</string>
+    <string name="subway_data_unavailable">El mapa del metro nun ta disponible</string>
+    <string name="public_access">Accesu públicu</string>
+    <string name="mb">MB</string>
+    <string name="km">km</string>
+    <string name="gb">GB</string>
+    <string name="m">m</string>
+    <string name="core_placepage_unknown_place">Puntu nel mapa</string>
+    <string name="maps_storage_removable">Tarxeta SD</string>
+    <string name="not_shared">Priváu</string>
+    <string name="core_exit">Salida</string>
+    <string name="core_entrance">Entrada</string>
+</resources>

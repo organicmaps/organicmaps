@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">مگابایت</string>
+    <string name="gb">گیگابایت</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">مکان من</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">مکان من</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">وای فای</string>
+    <string name="postal_code">کد پستی</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">نقطه نقشه</string>
+    <!-- abbreviation for meters -->
+    <string name="m">متر</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">کیلومتر</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">مایل</string>
+    <!-- A unit of measure -->
+    <string name="ft">فوت</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">خروج</string>
+    <string name="core_entrance">ورودی</string>
+    <string name="subway_data_unavailable">نقشه مترو موجود نیست</string>
+    <string name="public_access">دسترسی عمومی</string>
+    <string name="limited_access">دسترسی محدود</string>
+    <string name="not_shared">خصوصی</string>
+    <string name="access_rules_author_only">ویرایش آنلاین</string>
+    <string name="maps_storage_external">ذخیره‌سازی اشتراکی خارجی</string>
+    <string name="maps_storage_removable">کارت حافظه</string>
+    <string name="maps_storage_internal">ذخیره‌سازی خصوصی داخلی</string>
+    <string name="maps_storage_shared">ذخیره‌سازی اشتراکی داخلی</string>
+    <string name="routes_update_maps_text">برای نمایش مسیرها، نقشه‌ها باید به‌روزرسانی شوند.</string>
+</resources>

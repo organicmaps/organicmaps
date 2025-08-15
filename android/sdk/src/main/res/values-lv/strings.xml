@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Mana atrašanās vieta</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Manas vietas</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Iekšējā privātā krātuve</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Iekšējā kopīgā krātuve</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Atmiņas karte</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Ārējā kopīgā krātuve</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Pasta indekss</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Izeja</string>
+    <string name="core_entrance">Ieeja</string>
+    <string name="subway_data_unavailable">Metro karte nav pieejama</string>
+    <string name="public_access">Publiska pieeja</string>
+    <string name="limited_access">Ierobežota pieeja</string>
+    <string name="not_shared">Privāts</string>
+    <string name="access_rules_author_only">Tiešsaistes rediģēšana</string>
+    <string name="core_placepage_unknown_place">Punkts kartē</string>
+    <string name="gb">GB</string>
+    <string name="mb">MB</string>
+</resources>

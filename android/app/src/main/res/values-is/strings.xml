@@ -9,7 +9,6 @@
     <string name="category_pharmacy">Lyfjabúð</string>
     <string name="category_hospital">Sjúkrahús</string>
     <string name="category_police">Lögreglustöð</string>
-    <string name="category_wifi">WiFi</string>
     <string name="category_recycling">Endurvinnsla</string>
     <string name="category_water">Vatn</string>
     <string name="edit">Breyta</string>
@@ -60,11 +59,7 @@
     <string name="editor_edit_place_category_title">Flokkur</string>
     <string name="downloader_of">%1$d af %2$d</string>
     <string name="editor_operator">Rekstraraðili</string>
-    <string name="m">m</string>
-    <string name="km">km</string>
     <string name="kilometers_per_hour">km/klst</string>
-    <string name="mi">míl</string>
-    <string name="ft">ft</string>
     <string name="miles_per_hour">mi/klst</string>
     <string name="hour">klst</string>
     <string name="minute">mín</string>
@@ -95,19 +90,15 @@
     <string name="elevation_profile_time">Tími:</string>
     <string name="change_map_locale">Tungumál korts</string>
     <string name="outdoor_seating">Sæti utandyra</string>
-    <string name="gb">GB</string>
     <string name="miles">Mílur</string>
-    <string name="core_my_position">Staðsetning mín</string>
     <string name="delete">Eyða</string>
     <string name="later">Seinna</string>
     <string name="downloading">Sæki…</string>
     <string name="kilometres">Kílómetrar</string>
-    <string name="mb">MB</string>
     <string name="close">Loka</string>
     <string name="download">Sækja</string>
     <string name="pause">Bið</string>
     <string name="continue_button">Halda áfram</string>
-    <string name="core_my_places">Staðirnir mínir</string>
     <string name="back">Til baka</string>
     <string name="cancel">Hætta við</string>
     <string name="search">Leita</string>
@@ -132,13 +123,10 @@
     <string name="brown">Brúnt</string>
     <string name="show">Sýna</string>
     <string name="day">d</string>
-    <string name="core_exit">Útgangur</string>
-    <string name="core_entrance">Inngangur</string>
     <string name="bookmark_lists_hide_all">Fela allt</string>
     <string name="bookmark_lists_show_all">Sýna allt</string>
     <string name="button_layer_traffic">Umferð</string>
     <string name="button_layer_subway">Neðanjarðarlest</string>
-    <string name="not_shared">Einka</string>
     <string name="yes_available">Já</string>
     <string name="by_type">Eftir gerð</string>
     <string name="by_date">Eftir dagsetningu</string>
@@ -194,7 +182,6 @@
     <string name="forgot_password">Gleymdirðu lykilorðinu?</string>
     <string name="logout">Skrá út</string>
     <string name="edit_place">Breyta stað</string>
-    <string name="postal_code">Póstnúmer</string>
     <string name="email_or_username">Tölvupóstur eða notandanafn</string>
     <string name="editor_add_phone">Bæta við símanúmeri</string>
     <string name="level">Hæð</string>
@@ -248,8 +235,6 @@
     <string name="please_wait">Bíddu aðeins…</string>
     <string name="category_desc_more">…meira</string>
     <string name="delete_list">Eyða lista</string>
-    <string name="public_access">Opinber aðgangur</string>
-    <string name="limited_access">Takmarkaður aðgangur</string>
     <string name="place_description_title">Lýsing á stað</string>
     <string name="unable_to_calc_alert_title">Tókst ekki að reikna leið</string>
     <string name="near_me_sorttype">Nálægt mér</string>
@@ -360,8 +345,6 @@
     <string name="move_maps">Færa landakort?</string>
     <string name="category_shopping">Verslun</string>
     <string name="maps_storage_downloaded">Sótt kort</string>
-    <string name="maps_storage_internal">Innbyggð einkageymsla</string>
-    <string name="maps_storage_external">Ytri sameiginleg geymsla</string>
     <string name="move_maps_error">Villa kom upp við flutning á landakortaskrám</string>
     <string name="error_enter_correct_phone">Settu inn gilt símanúmer</string>
     <string name="error_enter_correct_web">Settu inn gilt veffang</string>
@@ -370,8 +353,6 @@
     <string name="download_country_failed">Mistókst að sækja %s</string>
     <string name="bookmarks_and_tracks">Bókamerki og ferlar</string>
     <string name="maps_storage_summary">Veldu möppu til að vista kort inn í.</string>
-    <string name="maps_storage_shared">Innbyggð sameiginleg geymsla</string>
-    <string name="maps_storage_removable">SD-minniskort</string>
     <string name="maps_storage_free_size">%1$s laust af %2$s</string>
     <string name="wait_several_minutes">Þetta gæti tekið nokkrar mínútur.\nHinkraðu við.…</string>
     <string name="measurement_units_summary">Veldu á milli kílómetra og mílna</string>
@@ -389,7 +370,6 @@
     <string name="downloader_no_space_title">Ekki nægilegt pláss</string>
     <string name="downloader_search_field_hint">Finna kort</string>
     <string name="editor_edit_place_title">Breytingar</string>
-    <string name="core_placepage_unknown_place">Punktur á korti</string>
     <string name="editor_more_about_osm">Meira um OpenStreetMap</string>
     <string name="editor_osm_history">Breytingaferillinn þinn</string>
     <string name="placepage_edit_bookmark_button">Breyta bókamerki</string>
@@ -499,7 +479,6 @@
     <string name="bookmarks_error_title_empty_list_name">Heitið má ekki vera autt</string>
     <string name="bookmarks_error_message_empty_list_name">Settu inn heiti listans</string>
     <string name="profile">OpenStreetMap-notandasnið</string>
-    <string name="subway_data_unavailable">Kort fyrir neðanjarðarlest er ekki tiltækt</string>
     <string name="notification_channel_downloader">Niðurhal landakorta</string>
     <string name="isolines_location_error_dialog">Hæðarlínur eru ennþá ekki tiltækar á þessu svæði</string>
     <string name="app_tip_03">Ef þú þekkir einhvern hforritara/ugbúnaðarhönnuð, þá geturðu beðið hana/hann um að búa til einhvern eiginleika sem þér finnst vanta.</string>
@@ -563,7 +542,6 @@
         <item quantity="other">%d skrár fundust. Þú getur skoðað þær eftir umbreytingu.</item>
     </plurals>
     <string name="bookmarks_empty_list_message">Til að bæta við bókamerki, skaltu ýta á stað á kortinu og ýta síðan á stjörnutáknið</string>
-    <string name="access_rules_author_only">Breytingar á netinu</string>
     <string name="power_managment_description">Prófaðu að minnka orkunotkun á kostnað einhverra eiginleika.</string>
     <string name="unable_to_calc_alert_subtitle">Leið fannst ekki. Það gæti stafað af stillingum þínum fyrir leiðagerð eða ófullkomnum gögnum í OpenStreetMap. Breyttu stillingum þínum fyrir leiðagerð og prófaðu aftur.</string>
     <string name="dialog_pedestrian_route_is_long_header">Engin neðanjarðarlestarleið fannst</string>
@@ -611,6 +589,5 @@
     <string name="show_to_the_right">Birta hægra megin</string>
     <string name="show_at_the_bottom">Birta neðst</string>
     <string name="delete_track_dialog_title">Eyða %s?</string>
-    <string name="routes_update_maps_text">Til að birta leiðir þarf að uppfæra landakort.</string>
     <string name="share_track">Deila ferli</string>
 </resources>

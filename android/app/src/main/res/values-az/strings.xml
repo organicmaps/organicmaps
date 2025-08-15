@@ -14,12 +14,8 @@
     <string name="downloading">Endirilir…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometr</string>
-    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
-    <string name="mb">MB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mil</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Ünvanım</string>
     <!-- Update maps later button text -->
     <string name="later">Daha sonra</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -78,8 +74,6 @@
     <string name="bookmarks">Əlfəcinlər</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Əlfəcinlər və Qeydlər</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Yerlərim</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Ad</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -94,14 +88,6 @@
     <string name="maps_storage_summary">Xəritələrin yüklənəcəyi qovluğu seçin</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Xəritələr</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Daxili xüsusi saxlama</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Daxili paylaşılan yaddaş</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">SD kart</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">Xarici paylaşılan yaddaş</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%2$s-nin %1$s-i boşdur</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -155,8 +141,6 @@
     <string name="category_post">Poçt</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Polis</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Təkrar emal</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -477,7 +461,6 @@
     <string name="empty_street_name_error">Küçə adını daxil edin</string>
     <string name="choose_language">Dil seçin</string>
     <string name="choose_street">Küçə seçin</string>
-    <string name="postal_code">Poçt kodu</string>
     <string name="cuisine">Mətbəx</string>
     <string name="select_cuisine">Mətbəx seçin</string>
     <!-- login text field -->
@@ -520,8 +503,6 @@
     <string name="error_enter_correct_storey_number">Mərtəbələrin sayı %d-dən çox olmamalıdır</string>
     <string name="editor_zip_code">Poçt kodu</string>
     <string name="error_enter_correct_zip_code">Etibarlı poçt kodu daxil edin</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Xəritə Nöqtəsi</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMap könüllüləri üçün qeyd (isteğe bağlı)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -539,16 +520,8 @@
     <string name="downloader_no_downloaded_maps_title">Siz heç bir xəritə endirməmisiniz</string>
     <string name="downloader_no_downloaded_maps_message">Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.</string>
     <string name="current_location_unknown_error_title">Cari yer məlum deyil.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/saat</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mil</string>
-    <!-- A unit of measure -->
-    <string name="ft">Addım</string>
     <string name="miles_per_hour">mil/saat</string>
     <string name="hour">saat</string>
     <string name="minute">dəq</string>
@@ -610,8 +583,6 @@
     <string name="prefs_languages_information_off_link">Əlavə məlumat üçün bu təlimatı nəzərdən keçirin.</string>
     <string name="transliteration_title">Latın transliterasiyası</string>
     <string name="learn_more">Daha ətraflı</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Çıx</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Marşrutun başlanğıc nöqtəsi əlavə etmək üçün axtarışdan istifadə edin və ya xəritədə klikləyin</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -625,7 +596,6 @@
     <string name="dialog_error_storage_title">Yaddaş giriş problemi</string>
     <string name="dialog_error_storage_message">Xarici yaddaş mövcud deyil, ola bilsin ki, SD Kart çıxarılıb, zədələnib və ya fayl sistemi yalnız oxunur. Zəhmət olmasa yoxlayın və ya support\@organicmaps.app ünvanında bizimlə əlaqə saxlayın</string>
     <string name="setting_emulate_bad_storage">Zədələnmiş yaddaşı təqlid edin</string>
-    <string name="core_entrance">Giriş</string>
     <string name="error_enter_correct_name">Düzgün ad daxil edin</string>
     <string name="bookmark_lists">Siyahılar</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -667,16 +637,12 @@
     <string name="button_layer_cycling">Velosiped gəzintisi</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Xəritə Üslubları və Qatları</string>
-    <string name="subway_data_unavailable">Metro xəritəsi mövcud deyil</string>
     <string name="bookmarks_empty_list_title">Bu siyahı boşdur</string>
     <string name="bookmarks_empty_list_message">Əlfəcin əlavə etmək üçün xəritədə yerə və sonra ulduz işarəsinə toxunun</string>
     <string name="category_desc_more">…daha çox</string>
     <string name="export_file">KMZ ixrac edin</string>
     <string name="export_file_gpx">GPX ixrac edin</string>
     <string name="delete_list">Siyahını silin</string>
-    <string name="public_access">Ictimai çıxış</string>
-    <string name="limited_access">Məhdud giriş</string>
-    <string name="not_shared">Gizli</string>
     <string name="speedcams_alert_title">Sürət kameraları</string>
     <string name="place_description_title">Məkan Təsviri</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -693,7 +659,6 @@
     <string name="power_managment_setting_auto">Avtomatik</string>
     <string name="power_managment_setting_manual_max">Maksimum enerji qənaəti</string>
     <string name="enable_logging_warning_message">Yardım dialoq qutusunda “Problemi bildir” istifadə etməklə probleminizlə bağlı ətraflı diaqnostik jurnalları qeyd etmək və bizə göndərmək üçün bu seçimi müvəqqəti aktivləşdirin. Qeydlərə məkan məlumatı daxil ola bilər</string>
-    <string name="access_rules_author_only">Onlayn redaktə</string>
     <string name="driving_options_title">Marşrutlaşdırma seçimləri</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Rüsumlardan çəkinin</string>

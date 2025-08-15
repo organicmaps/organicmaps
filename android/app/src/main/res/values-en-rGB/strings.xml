@@ -15,8 +15,6 @@
     <string name="blue_gray">Blue Grey</string>
     <!-- SECTION: Routing dialogs strings -->
     <string name="dialog_routing_disclaimer_borders">— Exercise caution with routes in border zones: the routes created by our app may sometimes cross country borders in unauthorised places.</string>
-    <!-- SECTION: Strings for downloading map from search -->
-    <string name="postal_code">Postcode</string>
     <string name="editor_zip_code">Postcode</string>
     <string name="error_enter_correct_zip_code">Enter a valid postcode</string>
     <plurals name="bookmarks_places">
@@ -32,7 +30,6 @@
         <item quantity="other">%d tracks</item>
     </plurals>
     <string name="button_layer_subway">Metro</string>
-    <string name="subway_data_unavailable">Metro map is unavailable</string>
     <string name="avoid_motorways">Avoid motorways</string>
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="fuel_places">Petrol Stations</string>
