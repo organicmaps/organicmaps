@@ -640,6 +640,7 @@ line|z19-[highway=construction],
 /* 8.7 Footway & Steps 18-22 ZOOM */
 
 line|z18-[highway=footway],
+line|z18-[highway=ladder],
 line|z18-[highway=steps],
 {color: @footway; opacity: 0.7; width: 1.5; dashes: 5,2;}
 
