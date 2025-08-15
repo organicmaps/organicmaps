@@ -11,6 +11,7 @@ import app.organicmaps.sdk.bookmarks.data.Icon;
 import app.organicmaps.sdk.downloader.Android7RootCertificateWorkaround;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.location.LocationProviderFactory;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
@@ -77,12 +78,12 @@ public final class OrganicMaps implements DefaultLifecycleObserver
   }
 
   public OrganicMaps(@NonNull Context context, @NonNull String flavor, @NonNull String applicationId, int versionCode,
-                     @NonNull String versionName, @NonNull String fileProviderAuthority)
+                     @NonNull String versionName, @NonNull String fileProviderAuthority,
+                     @NonNull LocationProviderFactory locationProviderFactory)
   {
     mFlavor = flavor;
     mContext = context.getApplicationContext();
-    mPreferences = mContext.getSharedPreferences(context.getString(R.string.pref_file_name),
-                                                 Context.MODE_PRIVATE);
+    mPreferences = mContext.getSharedPreferences(context.getString(R.string.pref_file_name), Context.MODE_PRIVATE);
 
     // Set configuration directory as early as possible.
     // Other methods may explicitly use Config, which requires settingsDir to be set.
@@ -102,7 +103,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     Icon.loadDefaultIcons(mContext.getResources(), mContext.getPackageName());
 
     mSensorHelper = new SensorHelper(mContext);
-    mLocationHelper = new LocationHelper(mContext, mSensorHelper);
+    mLocationHelper = new LocationHelper(mContext, mSensorHelper, locationProviderFactory);
     mIsolinesManager = new IsolinesManager();
     mSubwayManager = new SubwayManager(mContext);
   }

@@ -96,11 +96,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
   };
 
-  public LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper)
+  public LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper, @NonNull LocationProviderFactory locationProviderFactory)
   {
     mContext = context;
     mSensorHelper = sensorHelper;
-    mLocationProvider = LocationProviderFactory.getProvider(mContext, this);
+    mLocationProvider = locationProviderFactory.getProvider(mContext, this);
     mHandler = new Handler();
   }
 

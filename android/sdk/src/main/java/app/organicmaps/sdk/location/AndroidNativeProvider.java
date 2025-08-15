@@ -18,7 +18,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import java.util.HashSet;
 import java.util.Set;
 
-class AndroidNativeProvider extends BaseLocationProvider
+public class AndroidNativeProvider extends BaseLocationProvider
 {
   private static final String TAG = AndroidNativeProvider.class.getSimpleName();
 
@@ -60,7 +60,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   @NonNull
   final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();
 
-  AndroidNativeProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
+  public AndroidNativeProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
   {
     super(listener);
     mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
