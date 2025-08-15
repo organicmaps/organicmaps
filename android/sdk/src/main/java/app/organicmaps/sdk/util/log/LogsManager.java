@@ -27,16 +27,16 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import net.jcip.annotations.ThreadSafe;
 
 /**
+ * Thread-safe
+ * <p>
  * By default uses Android's system logger.
  * After an initFileLogging() call can use a custom file logging implementation.
  * <p>
  * Its important to have only system logging here to avoid infinite loop
  * (Logger calls getEnabledLogsFolder() in preparation to write).
  */
-@ThreadSafe
 public final class LogsManager
 {
   public interface OnZipCompletedListener

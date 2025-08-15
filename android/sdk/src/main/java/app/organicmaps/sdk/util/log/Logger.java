@@ -12,9 +12,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import net.jcip.annotations.ThreadSafe;
 
-@ThreadSafe
+/// Thread-safe
 public final class Logger
 {
   private static final String TAG = Logger.class.getSimpleName();
