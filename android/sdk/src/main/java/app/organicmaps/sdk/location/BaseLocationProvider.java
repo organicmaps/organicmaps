@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
 
-abstract class BaseLocationProvider
+public abstract class BaseLocationProvider
 {
-  interface Listener
+  public interface Listener
   {
     @UiThread
     void onLocationChanged(@NonNull Location location);

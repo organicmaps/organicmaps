@@ -1,4 +1,4 @@
-package app.organicmaps.sdk.location;
+package app.organicmaps.location;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -10,6 +10,7 @@ import android.location.Location;
 import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresPermission;
+import app.organicmaps.sdk.location.BaseLocationProvider;
 import app.organicmaps.sdk.util.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import com.google.android.gms.common.api.ApiException;

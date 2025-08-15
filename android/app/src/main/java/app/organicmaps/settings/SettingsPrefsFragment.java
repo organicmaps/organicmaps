@@ -21,7 +21,6 @@ import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.editor.data.Language;
 import app.organicmaps.sdk.location.LocationHelper;
-import app.organicmaps.sdk.location.LocationProviderFactory;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.search.SearchRecents;
 import app.organicmaps.sdk.settings.MapLanguageCode;
@@ -253,7 +252,9 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     if (pref == null)
       return;
 
-    if (!LocationProviderFactory.isGoogleLocationAvailable(requireActivity().getApplicationContext()))
+    if (!MwmApplication.from(requireContext())
+             .getLocationProviderFactory()
+             .isGoogleLocationAvailable(requireActivity().getApplicationContext()))
       removePreference(getString(R.string.pref_privacy), pref);
     else
     {
