@@ -29,7 +29,7 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-      MapManager.warn3gAndDownload(mFragment.requireActivity(), mFragment.getCurrentRoot(), null);
+      MapManagerHelper.warn3gAndDownload(mFragment.requireActivity(), mFragment.getCurrentRoot(), null);
     }
   };
 
@@ -38,7 +38,10 @@ class BottomPanel
     public void onClick(View v)
     {
       final String country = mFragment.getCurrentRoot();
-      MapManager.warnOn3gUpdate(mFragment.requireActivity(), country, () -> MapManager.startUpdate(country));
+      MapManagerHelper.warnOn3gUpdate(mFragment.requireActivity(), country, () -> {
+        DownloaderService.startForegroundService();
+        MapManagerHelper.startUpdate(country);
+      });
     }
   };
 
@@ -55,7 +58,7 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-      MapManager.warn3gAndRetry(mFragment.requireActivity(), mFragment.getCurrentRoot(), null);
+      MapManagerHelper.warn3gAndRetry(mFragment.requireActivity(), mFragment.getCurrentRoot(), null);
     }
   };
 
