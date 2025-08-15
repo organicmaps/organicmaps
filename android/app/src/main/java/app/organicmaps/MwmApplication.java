@@ -14,6 +14,7 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
+import androidx.preference.PreferenceManager;
 import app.organicmaps.background.OsmUploadWork;
 import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.location.TrackRecordingService;
@@ -119,6 +120,7 @@ public class MwmApplication extends Application implements Application.ActivityL
 
     sInstance = this;
 
+    PreferenceManager.setDefaultValues(this, R.xml.prefs_main, false);
     mOrganicMaps =
         new OrganicMaps(getApplicationContext(), BuildConfig.FLAVOR, BuildConfig.APPLICATION_ID,
                         BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME, BuildConfig.FILE_PROVIDER_AUTHORITY);
