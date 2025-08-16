@@ -94,10 +94,8 @@ set(BUNDLE_FOLDER ${CMAKE_BINARY_DIR}/${BUNDLE_NAME}.app)
 set(RESOURCES_FOLDER ${BUNDLE_FOLDER}/Contents/Resources)
 set(DATA_DIR ${OMIM_ROOT}/data)
 
-execute_process(
-    COMMAND mkdir -p ${RESOURCES_FOLDER}/shaders_compiler
-)
 function(copy_resources)
+  execute_process(COMMAND mkdir -p ${RESOURCES_FOLDER})
   foreach(file ${ARGN})
     execute_process(
       COMMAND cp -r ${DATA_DIR}/${file} ${RESOURCES_FOLDER}
@@ -147,9 +145,6 @@ if (NOT PLATFORM_LINUX)
 endif()
 
 if (PLATFORM_MAC)
-  execute_process(
-    COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler/macos ${RESOURCES_FOLDER}/shaders_compiler
-  )
   if (BUILD_DESIGNER)
     execute_process(
         COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/designer.icns ${RESOURCES_FOLDER}
@@ -159,10 +154,6 @@ if (PLATFORM_MAC)
         COMMAND cp ${PROJECT_SOURCE_DIR}/res/mac/mac.icns ${RESOURCES_FOLDER}
     )
   endif ()
-elseif (PLATFORM_LINUX)
-  execute_process(
-    COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler/linux ${RESOURCES_FOLDER}/shaders_compiler
-  )
 endif()
 
 if (PLATFORM_MAC)
