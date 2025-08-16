@@ -20,5 +20,9 @@ std::unordered_map<std::string, std::string> LoadCountryHolidays(std::string con
 //check if the date is a public holiday if not found should return false (nothing in the ui)
 bool GetHolidayName(std::string const & countryName,  time_t const dateTime, std::string & holidayName);
 
+// Debug functions to help verify path construction
+std::string GetHolidayFilePath(std::string const & countryName);
+bool DebugHolidayFileExists(std::string const & countryName);
+
 }//namespace ph
 

@@ -22,18 +22,25 @@ std::string TimeTToISODate(time_t const dateTime)
 //check if the country has holidays
 bool HasHolidays(std::string const & countryName)
 {
-    std::string const holidayFilePath = base::JoinPath("data", "countries", "public_holidays", countryName + ".json");
-    return Platform::FileExists(holidayFilePath);
-
+    std::string const holidayFilePath = base::JoinPath("countries", "public_holidays", countryName + ".json");
+    
+    try
+    {
+        std::string const fullPath = GetPlatform().ReadPathForFile(holidayFilePath);
+        return Platform::IsFileExistsByFullPath(fullPath);
+    }
+    catch (FileAbsentException const &)
+    {
+        return false;
+    }
 }
-
 
 //load the holidays for a country
 std::unordered_map<std::string, std::string> LoadCountryHolidays(std::string const & countryName)
 {
    std::unordered_map<std::string, std::string> holidays;
 
-   std::string const holidayFilePath = base::JoinPath("data", "countries", "public_holidays", countryName + ".json");
+   std::string const holidayFilePath = base::JoinPath("countries", "public_holidays", countryName + ".json");
    
    try 
    {
@@ -42,7 +49,7 @@ std::unordered_map<std::string, std::string> LoadCountryHolidays(std::string con
     auto ec =glz::read_json(holidays,jsonContent);
     if (ec)
     {
-        LOG(LWARNING,("Failed to parse holiday json for", countryName,":",glz::format_error(ec,jsonContent) ))
+        LOG(LWARNING,("Failed to parse holiday json for", countryName,":",glz::format_error(ec,jsonContent) ));
         return {};
     }
     return holidays;
@@ -55,7 +62,7 @@ std::unordered_map<std::string, std::string> LoadCountryHolidays(std::string con
     }  
 }
 
-//check if the date is a public holiday if not found should return false (no thing in the ui)
+//check if the date is a public holiday if not found should return false 
 bool GetHolidayName(std::string const & countryName, time_t const dateTime, std::string & holidayName)
 {
     std::string isoDateString = TimeTToISODate(dateTime);
@@ -77,6 +84,43 @@ bool GetHolidayName(std::string const & countryName, time_t const dateTime, std:
         return false;
 }
 
+// Debug function to help verify path construction
+std::string GetHolidayFilePath(std::string const & countryName)
+{
+    return base::JoinPath("countries", "public_holidays", countryName + ".json");
+}
 
+// Debug function to check if a holiday file exists and log the full path
+bool DebugHolidayFileExists(std::string const & countryName)
+{
+    std::string const holidayFilePath = GetHolidayFilePath(countryName);
+    
+    try
+    {
+        std::string const fullPath = GetPlatform().ReadPathForFile(holidayFilePath);
+        bool exists = Platform::IsFileExistsByFullPath(fullPath);
+        
+        if (exists)
+        {
+            LOG(LINFO, ("Holiday file found for", countryName, "at:", fullPath));
+        }
+        else
+        {
+            LOG(LWARNING, ("Holiday file not found for", countryName, "at:", fullPath));
+        }
+        
+        return exists;
+    }
+    catch (FileAbsentException const & ex)
+    {
+        LOG(LWARNING, ("FileAbsentException for", countryName, ":", ex.what()));
+        return false;
+    }
+    catch (std::exception const & ex)
+    {
+        LOG(LWARNING, ("Exception checking holiday file for", countryName, ":", ex.what()));
+        return false;
+    }
+}
 
 }//namespace ph
