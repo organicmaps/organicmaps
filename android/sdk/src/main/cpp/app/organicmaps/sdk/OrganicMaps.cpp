@@ -29,7 +29,7 @@ JNIEXPORT void JNICALL Java_app_organicmaps_sdk_OrganicMaps_nativeInitFramework(
 {
   if (!g_framework)
   {
-    g_framework = std::make_unique<android::Framework>([onComplete = jni::make_global_ref(onComplete)]()
+    g_framework = std::make_unique<android::Framework>([onComplete = jni::make_global_ref_safe(onComplete)]()
     {
       JNIEnv * env = jni::GetEnv();
       jmethodID const methodId = jni::GetMethodID(env, *onComplete, "run", "()V");
