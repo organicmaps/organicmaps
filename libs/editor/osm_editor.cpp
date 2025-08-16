@@ -218,7 +218,8 @@ bool Editor::Save(FeaturesContainer const & features) const
       FeatureTypeInfo const & fti = index.second;
       // TODO: Do we really need to serialize deleted features in full details? Looks like mwm ID
       // and meta fields are enough.
-      XMLFeature xf = editor::ToXML(fti.m_object, true /* type serializing helps during migration */);
+      XMLFeature xf =
+          editor::ToXML(fti.m_object, true /* type serializing helps during migration */, *(m_config.Get()));
       xf.SetEditJournal(fti.m_object.GetJournal());
       xf.SetMWMFeatureIndex(index.first);
       if (!fti.m_street.empty())
@@ -640,7 +641,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
                        ("First item should have type ObjectCreated"));
                 ObjCreateData const & objCreateData = std::get<ObjCreateData>(createEntry.data);
                 XMLFeature feature =
-                    editor::TypeToXML(objCreateData.type, objCreateData.geomType, objCreateData.mercator);
+                    editor::TypeToXML(objCreateData.type, objCreateData.geomType, objCreateData.mercator, *(m_config.Get()));
 
                 // Check if place already exists
                 bool mergeSameLocation = false;
@@ -721,7 +722,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
             case FeatureStatus::Obsolete: continue;  // Obsolete features will be deleted by OSMers.
             case FeatureStatus::Created:
             {
-              XMLFeature feature = editor::ToXML(fti.m_object, true);
+              XMLFeature feature = editor::ToXML(fti.m_object, true, *(m_config.Get()));
               if (!fti.m_street.empty())
                 feature.SetTagValue(kAddrStreetTag, fti.m_street);
 
@@ -776,7 +777,7 @@ void Editor::UploadChanges(string const & oauthToken, ChangesetTags tags, Finish
             {
               // Do not serialize feature's type to avoid breaking OSM data.
               // TODO: Implement correct types matching when we support modifying existing feature types.
-              XMLFeature feature = editor::ToXML(fti.m_object, false);
+              XMLFeature feature = editor::ToXML(fti.m_object, false, *(m_config.Get()));
               if (!fti.m_street.empty())
                 feature.SetTagValue(kAddrStreetTag, fti.m_street);
 
@@ -912,8 +913,8 @@ void Editor::SaveUploadedInformation(FeatureID const & fid, UploadInfo const & u
   SaveTransaction(editableFeatures);
 }
 
-bool Editor::FillFeatureInfo(FeatureStatus status, XMLFeature const & xml, FeatureID const & fid,
-                             FeatureTypeInfo & fti) const
+bool Editor::FillFeatureInfo(FeatureStatus status, XMLFeature const & xml, FeatureID const & fid, FeatureTypeInfo & fti,
+                             editor::EditorConfig const & config) const
 {
   EditJournal journal = xml.GetEditJournal();
 
@@ -929,7 +930,7 @@ bool Editor::FillFeatureInfo(FeatureStatus status, XMLFeature const & xml, Featu
     if (loadFromJournal)
       fti.m_object.ApplyEditsFromJournal(journal);
     else
-      editor::FromXML(xml, fti.m_object);
+      editor::FromXML(xml, fti.m_object, config);
   }
   else
   {
@@ -1261,7 +1262,7 @@ void Editor::LoadMwmEdits(FeaturesContainer & loadedFeatures, xml_node const & m
           continue;
 
         FeatureTypeInfo fti;
-        if (!FillFeatureInfo(section.m_status, xml, fid, fti))
+        if (!FillFeatureInfo(section.m_status, xml, fid, fti, *(m_config.Get())))
           continue;
 
         logHelper.OnStatus(section.m_status);
