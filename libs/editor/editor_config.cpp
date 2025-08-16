@@ -83,86 +83,6 @@ void HandleField(std::string const & fieldName, editor::TypeAggregatedDescriptio
   ASSERT(it != kNamesToFMD.end(), ("Unknown field in editor config:", fieldName));
   outDesc.m_editableFields.push_back(it->second);
 }
-
-bool TypeDescriptionFromJson(json_t const * rootDoc, json_t const * typeObject,
-                             editor::TypeAggregatedDescription & outDesc)
-{
-  if (!typeObject)
-    return false;
-
-  // Check if marked as non-editable.
-  auto const * editableNode = json_object_get(typeObject, "editable");
-  if (editableNode && json_is_false(editableNode))
-    return false;
-
-  // Using set to avoid duplicate fields.
-  std::set<std::string> fields;
-
-  // Include fields directly listed
-  auto const * includeNode = json_object_get(typeObject, "include");
-  if (includeNode && json_is_array(includeNode))
-  {
-    for (size_t i = 0; i < json_array_size(includeNode); ++i)
-    {
-      auto const * fieldNode = json_array_get(includeNode, i);
-      if (fieldNode && json_is_string(fieldNode))
-        fields.insert(json_string_value(fieldNode));
-    }
-  }
-
-  // "include_groups" fields
-  auto const * groupsNode = json_object_get(rootDoc, "groups");
-  auto const * includeGroupsNode = json_object_get(typeObject, "include_groups");
-
-  if (groupsNode && json_is_object(groupsNode) && includeGroupsNode && json_is_array(includeGroupsNode))
-  {
-    for (size_t i = 0; i < json_array_size(includeGroupsNode); ++i)
-    {
-      auto const * groupNameNode = json_array_get(includeGroupsNode, i);
-      if (groupNameNode && json_is_string(groupNameNode))
-      {
-        auto const * groupObj = json_object_get(groupsNode, json_string_value(groupNameNode));
-        if (groupObj && json_is_object(groupObj))
-        {
-          auto const * groupFieldsNode = json_object_get(groupObj, "fields");
-          if (groupFieldsNode && json_is_array(groupFieldsNode))
-          {
-            for (size_t j = 0; j < json_array_size(groupFieldsNode); ++j)
-            {
-              auto const * fieldNode = json_array_get(groupFieldsNode, j);
-              if (fieldNode && json_is_string(fieldNode))
-                fields.insert(json_string_value(fieldNode));
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // Process all collected fields.
-  for (auto const & field : fields)
-    HandleField(field, outDesc);
-
-  base::SortUnique(outDesc.m_editableFields);
-  return true;
-}
-
-json_t const * GetObject(json_t const * parent, char const * key)
-{
-  if (!parent || !json_is_object(parent))
-    return nullptr;
-  auto const * obj = json_object_get(parent, key);
-  return (obj && json_is_object(obj)) ? obj : nullptr;
-}
-
-std::string GetString(json_t const * parent, char const * key, std::string const & defaultValue = "")
-{
-  if (!parent || !json_is_object(parent))
-    return defaultValue;
-  auto const * node = json_object_get(parent, key);
-  return (node && json_is_string(node)) ? json_string_value(node) : defaultValue;
-}
-
 }  // namespace
 
 std::string EditorConfig::GetOsmTagsKey(std::vector<std::pair<std::string, std::string>> tags) const
@@ -178,13 +98,6 @@ std::string EditorConfig::GetOsmTagsKey(std::vector<std::pair<std::string, std::
 bool EditorConfig::GetTypeDescription(std::vector<std::string> classificatorTypes,
                                       TypeAggregatedDescription & outDesc) const
 {
-  if (!m_document.get())
-    return false;
-
-  auto const * typesConfig = json_object_get(m_document.get(), "types");
-  if (!typesConfig || !json_is_array(typesConfig))
-    return false;
-
   bool isBuilding = false;
   base::EraseIf(classificatorTypes, [&isBuilding, &outDesc](std::string const & type)
   {
@@ -211,64 +124,60 @@ bool EditorConfig::GetTypeDescription(std::vector<std::string> classificatorType
   }
   classificatorTypes.insert(classificatorTypes.end(), addTypes.begin(), addTypes.end());
 
-  std::vector<std::pair<json_t const *, size_t>> matches;
-  for (size_t i = 0; i < json_array_size(typesConfig); ++i)
-  {
-    auto const * typeObject = json_array_get(typesConfig, i);
-    std::string const id = GetString(typeObject, "id");
-    if (base::IsExist(classificatorTypes, id))
-      matches.emplace_back(typeObject, i);
-  }
+  std::vector<std::pair<config::Type const *, size_t>> matches;
+  for (size_t i = 0; i < m_root.types.size(); ++i)
+    if (base::IsExist(classificatorTypes, m_root.types[i].id))
+      matches.emplace_back(&m_root.types[i], i);
 
   if (matches.empty())
     return isBuilding;
 
   // Sorting multiple matches by priority, with the criteria: first by explicit priority tag,then by original file order
-  std::sort(matches.begin(), matches.end(),
-            [](std::pair<json_t const *, size_t> const & a, std::pair<json_t const *, size_t> const & b)
+  std::sort(matches.begin(), matches.end(), [](auto const & a, auto const & b)
   {
-    auto const priorityA = GetString(a.first, "priority", "");
-    auto const priorityB = GetString(b.first, "priority", "");
-    int const weightA = kPriorityWeights.count(priorityA) ? kPriorityWeights.at(priorityA) : 1;
-    int const weightB = kPriorityWeights.count(priorityB) ? kPriorityWeights.at(priorityB) : 1;
+    int const weightA = kPriorityWeights.count(a.first->priority.value_or(""))
+                          ? kPriorityWeights.at(a.first->priority.value_or(""))
+                          : 1;
+    int const weightB = kPriorityWeights.count(b.first->priority.value_or(""))
+                          ? kPriorityWeights.at(b.first->priority.value_or(""))
+                          : 1;
     if (weightA != weightB)
       return weightA < weightB;
     return a.second < b.second;
   });
 
-  auto const * bestTypeObject = matches.front().first;
-  return TypeDescriptionFromJson(m_document.get(), bestTypeObject, outDesc);
+  auto const * bestMatch = matches.front().first;
+  if (bestMatch->editable.value_or(true) == false)
+    return isBuilding;
+
+  // Using set to avoid duplicate fields.
+  std::set<std::string> fields;
+  if (bestMatch->include)
+    fields.insert(bestMatch->include->begin(), bestMatch->include->end());
+  if (bestMatch->include_groups)
+  {
+    for (auto const & groupName : *bestMatch->include_groups)
+    {
+      auto const it = m_root.groups.find(groupName);
+      if (it != m_root.groups.end())
+        fields.insert(it->second.fields.begin(), it->second.fields.end());
+    }
+  }
+
+  for (auto const & fieldName : fields)
+    HandleField(fieldName, outDesc);
+
+  base::SortUnique(outDesc.m_editableFields);
+  return true;
 }
 
+// REPLACE the existing GetTypesThatCanBeAdded method with this:
 std::vector<std::string> EditorConfig::GetTypesThatCanBeAdded() const
 {
   std::vector<std::string> result;
-  if (!m_document.get())
-    return result;
-
-  auto const * typesConfig = json_object_get(m_document.get(), "types");
-  if (!typesConfig || !json_is_array(typesConfig))
-    return result;
-
-  for (size_t i = 0; i < json_array_size(typesConfig); ++i)
-  {
-    auto const * typeObject = json_array_get(typesConfig, i);
-    if (!typeObject || !json_is_object(typeObject))
-      continue;
-
-    bool canAdd = true;
-    auto const * canAddNode = json_object_get(typeObject, "can_add");
-    if (canAddNode && json_is_false(canAddNode))
-      canAdd = false;
-
-    bool editable = true;
-    auto const * editableNode = json_object_get(typeObject, "editable");
-    if (editableNode && json_is_false(editableNode))
-      editable = false;
-
-    if (canAdd && editable)
-      result.push_back(GetString(typeObject, "id"));
-  }
+  for (auto const & preset : m_root.types)
+    if (preset.can_add.value_or(true) && preset.editable.value_or(true))
+      result.push_back(preset.id);
   return result;
 }
 
@@ -276,34 +185,14 @@ std::vector<std::pair<std::string, std::string>> EditorConfig::GetPrimaryTags(
     std::string const & classificatorType) const
 {
   std::vector<std::pair<std::string, std::string>> result;
-  if (!m_document.get() || classificatorType.empty())
-    return result;
+  auto const it = std::find_if(m_root.types.begin(), m_root.types.end(),
+                               [&classificatorType](config::Type const & p) { return p.id == classificatorType; });
 
-  auto const * types = json_object_get(m_document.get(), "types");
-  if (!types || !json_is_array(types))
-    return result;
-
-  for (size_t i = 0; i < json_array_size(types); ++i)
+  if (it != m_root.types.end() && it->tags)
   {
-    auto const * typeObject = json_array_get(types, i);
-    if (GetString(typeObject, "id") == classificatorType)
-    {
-      auto const * tagsObject = GetObject(typeObject, "tags");
-      if (tagsObject)
-      {
-        void * iter = json_object_iter(const_cast<json_t *>(tagsObject));
-        while (iter)
-        {
-          std::string const key = json_object_iter_key(iter);
-          json_t * valueNode = json_object_iter_value(iter);
-          if (json_is_string(valueNode))
-            result.emplace_back(key, json_string_value(valueNode));
-
-          iter = json_object_iter_next(const_cast<json_t *>(tagsObject), iter);
-        }
-      }
-      break;
-    }
+    result.reserve(it->tags->size());
+    for (auto const & [key, value] : *it->tags)
+      result.emplace_back(key, value);
   }
   return result;
 }
@@ -323,26 +212,31 @@ std::string EditorConfig::GetOmType(std::vector<std::pair<std::string, std::stri
 void EditorConfig::BuildReverseMapping()
 {
   m_osmTagsToOmType.clear();
-  if (!m_document.get())
-    return;
-
-  auto const * types = json_object_get(m_document.get(), "types");
-  if (!types || !json_is_array(types))
-    return;
-
-  for (size_t i = 0; i < json_array_size(types); ++i)
+  for (auto const & preset : m_root.types)
   {
-    auto const * typeObject = json_array_get(types, i);
-    std::string const omType = GetString(typeObject, "id");
-    auto const tags = GetPrimaryTags(omType);
-    if (!tags.empty())
-      m_osmTagsToOmType[GetOsmTagsKey(tags)] = omType;
+    if (preset.tags && !preset.tags->empty())
+    {
+      std::vector<std::pair<std::string, std::string>> tagsVector;
+      tagsVector.reserve(preset.tags->size());
+      for (auto const & [key, val] : *preset.tags)
+        tagsVector.emplace_back(key, val);
+
+      m_osmTagsToOmType[GetOsmTagsKey(std::move(tagsVector))] = preset.id;
+    }
   }
 }
 
-void EditorConfig::SetConfig(base::Json const & doc)
+void EditorConfig::SetConfig(std::string_view jsonBuffer)
 {
-  m_document = doc;
-  BuildReverseMapping();
+  auto editorJson = glz::read_json<config::Root>(jsonBuffer);
+  if (editorJson)
+  {
+    m_root = std::move(editorJson.value());
+    BuildReverseMapping();
+  }
+  else
+  {
+    LOG(LERROR, ("Failed to parse editor.json with glaze:", glz::format_error(editorJson.error(), jsonBuffer)));
+  }
 }
 }  // namespace editor

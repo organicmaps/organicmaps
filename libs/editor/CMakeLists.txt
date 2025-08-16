@@ -42,6 +42,7 @@ target_link_libraries(${PROJECT_NAME}
   opening_hours
   pugixml
   jansson
+  glaze::glaze
 )
 
 omim_add_test_subdirectory(editor_tests)

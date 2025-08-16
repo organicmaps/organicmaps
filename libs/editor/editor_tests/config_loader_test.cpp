@@ -1,4 +1,3 @@
-#include <3party/jansson/jansson/src/jansson.h>
 #include "testing/testing.hpp"
 
 #include "editor/config_loader.hpp"
@@ -8,20 +7,17 @@
 
 #include "base/atomic_shared_ptr.hpp"
 
-#include "cppjansson/cppjansson.hpp"
 
 namespace
 {
 using namespace editor;
 using platform::tests_support::ScopedFile;
 
-void CheckGeneralTags(base::Json const & doc)
+void CheckGeneralTags(std::string const & jsonContent)
 {
-  auto const * root = doc.get();
-  TEST(root, ("JSON root is null"));
-  TEST(json_is_object(root), ("JSON root is not an object"));
-  TEST(json_object_get(root, "types"), ("'types' key is missing"));
-  TEST(json_object_get(root, "fields"), ("'fields' key is missing"));
+  TEST(!jsonContent.empty(), ("JSON content is empty"));
+  TEST(jsonContent.find("\"fields\"") != std::string::npos, ("'fields' key is missing"));
+  TEST(jsonContent.find("\"types\"") != std::string::npos, ("'types' key is missing"));
 }
 
 UNIT_TEST(ConfigLoader_Base)
@@ -50,8 +46,7 @@ UNIT_TEST(ConfigLoader_Base)
 
 UNIT_TEST(ConfigLoader_LoadFromLocal)
 {
-  base::Json doc;
-  ConfigLoader::LoadFromLocal(doc);
-  CheckGeneralTags(doc);
+  auto const content = ConfigLoader::LoadFromLocal();
+  CheckGeneralTags(content);
 }
 }  // namespace

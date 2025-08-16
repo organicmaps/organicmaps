@@ -4,7 +4,6 @@
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
-#include "cppjansson/cppjansson.hpp"
 
 #include <condition_variable>
 #include <memory>
@@ -49,10 +48,10 @@ public:
   ~ConfigLoader();
 
   // Static method to load the config from the JSON file(editor.json)
-  static void LoadFromLocal(base::Json & doc);
+  static std::string LoadFromLocal();
 
 private:
-  void ResetConfig(base::Json const & doc);
+  void ResetConfig(std::string_view buffer);
 
   base::AtomicSharedPtr<EditorConfig> & m_config;
   

@@ -9,7 +9,6 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/reader.hpp"
 
-#include "cppjansson/cppjansson.hpp"
 
 namespace editor
 {
@@ -33,9 +32,7 @@ void Waiter::Interrupt()
 
 ConfigLoader::ConfigLoader(base::AtomicSharedPtr<EditorConfig> & config) : m_config(config)
 {
-  base::Json doc;
-  LoadFromLocal(doc);
-  ResetConfig(doc);
+  ResetConfig(LoadFromLocal());
 }
 
 ConfigLoader::~ConfigLoader()
@@ -43,15 +40,15 @@ ConfigLoader::~ConfigLoader()
   m_waiter.Interrupt();
 }
 
-void ConfigLoader::ResetConfig(base::Json const & doc)
+void ConfigLoader::ResetConfig(std::string_view buffer)
 {
   auto config = std::make_shared<EditorConfig>();
-  config->SetConfig(doc);
+  config->SetConfig(buffer);
   m_config.Set(config);
 }
 
 // static
-void ConfigLoader::LoadFromLocal(base::Json & doc)
+std::string ConfigLoader::LoadFromLocal()
 {
   string content;
   std::unique_ptr<ModelReader> reader;
@@ -63,24 +60,12 @@ void ConfigLoader::LoadFromLocal(base::Json & doc)
   }
   catch (RootException const & ex)
   {
-    LOG(LERROR, (ex.Msg()));
-    return;
+    LOG(LERROR, ("Failed to read editor config:", ex.Msg()));
   }
 
   if (reader)
     reader->ReadAsString(content);
-
-  base::Json parsedDoc(content.c_str());
-
-  if (!parsedDoc.get())
-  {
-    LOG(LERROR, (kConfigFileName, "can not be parsed as a valid JSON."));
-    doc = base::Json();
-  }
-  else
-  {
-    // move the parsed data into the output param
-    doc = std::move(parsedDoc);
-  }
+  
+  return content;
 }
 }  // namespace editor

@@ -1,10 +1,78 @@
 #pragma once
 
-#include "cppjansson/cppjansson.hpp"
+#include <map>
+#include <optional>
+#include "3party/glaze/include/glaze/glaze.hpp"
 #include "indexer/feature_meta.hpp"
 
 #include <string>
 #include <vector>
+
+namespace editor::config
+{
+struct Field
+{
+  std::optional<bool> editable;
+  std::optional<bool> multilanguage;
+  std::optional<std::vector<std::string>> tags;
+  std::optional<std::string> value_type;
+  std::optional<bool> allow_multiple;
+  std::optional<std::vector<std::string>> options;
+};
+
+struct Group
+{
+  std::vector<std::string> fields;
+};
+
+struct Type
+{
+  std::string id;
+  std::optional<bool> can_add;
+  std::optional<bool> editable;
+  std::optional<std::string> group;
+  std::optional<std::string> priority;
+  std::optional<std::vector<std::string>> include;
+  std::optional<std::vector<std::string>> include_groups;
+  std::optional<std::map<std::string, std::string>> tags;
+};
+
+struct Root
+{
+  std::map<std::string, Field> fields;
+  std::map<std::string, Group> groups;
+  std::vector<Type> types;
+};
+}  // namespace editor::config
+
+template <>
+struct glz::meta<editor::config::Field>
+{
+  using T = editor::config::Field;
+  static constexpr auto value =
+      object("editable", &T::editable, "multilanguage", &T::multilanguage, "tags", &T::tags, "value_type",
+             &T::value_type, "allow_multiple", &T::allow_multiple, "options", &T::options);
+};
+template <>
+struct glz::meta<editor::config::Group>
+{
+  using T = editor::config::Group;
+  static constexpr auto value = object("fields", &T::fields);
+};
+template <>
+struct glz::meta<editor::config::Type>
+{
+  using T = editor::config::Type;
+  static constexpr auto value =
+      object("id", &T::id, "can_add", &T::can_add, "editable", &T::editable, "group", &T::group, "priority",
+             &T::priority, "include", &T::include, "include_groups", &T::include_groups, "tags", &T::tags);
+};
+template <>
+struct glz::meta<editor::config::Root>
+{
+  using T = editor::config::Root;
+  static constexpr auto value = object("fields", &T::fields, "groups", &T::groups, "types", &T::types);
+};
 
 namespace editor
 {
@@ -40,7 +108,7 @@ public:
   bool GetTypeDescription(std::vector<std::string> classificatorTypes, TypeAggregatedDescription & outDesc) const;
   std::vector<std::string> GetTypesThatCanBeAdded() const;
 
-  void SetConfig(base::Json const & doc);
+  void SetConfig(std::string_view jsonBuffer);
 
   // TODO(mgsergio): Implement this getter to avoid hard-code in XMLFeature::ApplyPatch.
   // It should return [[phone, contact:phone, contact:mobile], [website, contact:website, url], ...].
@@ -52,7 +120,7 @@ private:
   std::string GetOsmTagsKey(std::vector<std::pair<std::string, std::string>> tags) const;
   void BuildReverseMapping();
 
-  base::Json m_document;
+  config::Root m_root;
   std::map<std::string, std::string> m_osmTagsToOmType;
 };
 }  // namespace editor
