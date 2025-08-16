@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import app.organicmaps.BuildConfig;
-import app.organicmaps.R;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.Closeable;
 import java.io.IOException;
@@ -346,5 +345,18 @@ public class Utils
   public static int dimen(@NonNull Context context, @DimenRes int id)
   {
     return context.getResources().getDimensionPixelSize(id);
+  }
+
+  public static String bytesToHex(byte[] bytes, boolean lowercase)
+  {
+    String hexArray = lowercase ? "0123456789abcdef" : "0123456789ABCDEF";
+    char[] hexChars = new char[bytes.length * 2];
+    for (int j = 0; j < bytes.length; j++)
+    {
+      int v = bytes[j] & 0xFF;
+      hexChars[j * 2] = hexArray.charAt(v >>> 4);
+      hexChars[j * 2 + 1] = hexArray.charAt(v & 0x0F);
+    }
+    return new String(hexChars);
   }
 }

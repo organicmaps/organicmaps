@@ -77,4 +77,5 @@
   <attr name="bookmarkSubscriptionCardBg" format="color"/>
   <attr name="bookmarkSubscriptionCardTextColor" format="color"/>
   <attr name="imgPromoBookingTitle" format="reference"/>
+  <attr name="alertDialogThemeWide" format="reference"/>
 </resources>

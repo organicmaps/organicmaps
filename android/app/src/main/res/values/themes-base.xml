@@ -21,6 +21,7 @@
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor">?colorPrimary</item>
     <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
+    <item name="alertDialogThemeWide">@style/MwmTheme.AlertDialog.Wide</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="cardBackground">@color/bg_cards</item>
     <item name="titleDialogTheme">@color/black_primary</item>
@@ -163,6 +164,7 @@
     <item name="android:windowTranslucentNavigation">false</item>
 
     <item name="alertDialogTheme">@style/MwmTheme.Night.AlertDialog</item>
+    <item name="alertDialogThemeWide">@style/MwmTheme.Night.AlertDialog.Wide</item>
     <item name="windowBackgroundForced">@color/bg_window_night</item>
     <item name="cardBackground">@color/bg_cards_night</item>
     <item name="titleDialogTheme">@color/white_primary</item>
