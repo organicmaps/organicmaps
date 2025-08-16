@@ -12,6 +12,7 @@ import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.R;
 import app.organicmaps.car.screens.ErrorScreen;
 import app.organicmaps.car.screens.base.BaseScreen;
+import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.StringUtils;
@@ -169,7 +170,7 @@ class DownloaderScreen extends BaseScreen
     mIsDownloadFailed = true;
     final ErrorScreen.Builder builder = new ErrorScreen.Builder(getCarContext())
                                             .setTitle(R.string.country_status_download_failed)
-                                            .setErrorMessage(MapManager.getErrorCodeStrRes(data.errorCode))
+                                            .setErrorMessage(MapManagerHelper.getErrorCodeStrRes(data.errorCode))
                                             .setPositiveButton(R.string.downloader_retry, null);
     if (!mIsCancelActionDisabled)
       builder.setNegativeButton(R.string.cancel, this::finish);

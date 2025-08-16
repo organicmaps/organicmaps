@@ -30,6 +30,7 @@ import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.view.ViewCompat;
 import app.organicmaps.base.BaseMwmFragmentActivity;
+import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.downloader.CountryItem;
@@ -155,7 +156,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
           showMap();
           return;
 
-        case CountryItem.STATUS_FAILED: MapManager.showError(DownloadResourcesLegacyActivity.this, item, null); return;
+        case CountryItem.STATUS_FAILED:
+          MapManagerHelper.showError(DownloadResourcesLegacyActivity.this, item, null);
+          return;
         }
       }
     }
@@ -370,7 +373,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         mProgress.setProgressCompat(0, true);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);
-        MapManager.startDownload(mCurrentCountry);
+        MapManagerHelper.startDownload(mCurrentCountry);
         setAction(PROCEED_TO_MAP);
       }
       else

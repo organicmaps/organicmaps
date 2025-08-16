@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Moje poloha</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Moje místa</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">PSČ</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Bod na mapě</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mil</string>
+    <!-- A unit of measure -->
+    <string name="ft">stopa</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Ukončit</string>
+    <string name="core_entrance">Vstup</string>
+    <string name="subway_data_unavailable">Mapa metra není dostupná</string>
+    <string name="public_access">Veřejně přístupné</string>
+    <string name="limited_access">Soukromé</string>
+    <string name="not_shared">Osobní účet</string>
+    <string name="access_rules_author_only">Upravujte on-line</string>
+    <string name="maps_storage_removable">SD karta</string>
+    <string name="gb">GB</string>
+    <string name="mb">MB</string>
+    <string name="maps_storage_shared">Interní sdílené úložiště</string>
+    <string name="maps_storage_internal">Interní soukromé úložiště</string>
+    <string name="maps_storage_external">Externí sdílené úložiště</string>
+    <string name="routes_update_maps_text">Pro zobrazení tras je nutné aktualizovat mapy.</string>
+</resources>

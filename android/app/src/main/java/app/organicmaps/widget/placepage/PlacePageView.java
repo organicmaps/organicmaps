@@ -39,6 +39,7 @@ import app.organicmaps.R;
 import app.organicmaps.bookmarks.BookmarksSharingHelper;
 import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
 import app.organicmaps.downloader.DownloaderStatusIcon;
+import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.Bookmark;
 import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
@@ -646,7 +647,8 @@ public class PlacePageView extends Fragment
     final String cap = mMapObject.getMetadata(Metadata.MetadataType.FMD_CAPACITY);
     refreshMetadataOrHide(!TextUtils.isEmpty(cap) ? getString(R.string.capacity, cap) : "", mCapacity, mTvCapacity);
 
-    refreshMetadataOrHide(mMapObject.hasAtm() ? getString(R.string.type_amenity_atm) : "", mAtm, mTvAtm);
+    refreshMetadataOrHide(mMapObject.hasAtm() ? getString(app.organicmaps.sdk.R.string.type_amenity_atm) : "", mAtm,
+                          mTvAtm);
 
     final String wheelchair =
         getLocalizedFeatureType(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WHEELCHAIR));
@@ -922,7 +924,7 @@ public class PlacePageView extends Fragment
       mStorageCallbackSlot = MapManager.nativeSubscribe(mStorageCallback);
 
     mDownloaderIcon
-        .setOnIconClickListener((v) -> MapManager.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
+        .setOnIconClickListener((v) -> MapManagerHelper.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
         .setOnCancelClickListener((v) -> MapManager.nativeCancel(mCurrentCountry.id));
     mDownloaderIcon.show(true);
     UiUtils.show(mDownloaderInfo);

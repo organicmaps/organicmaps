@@ -16,8 +16,6 @@
     <string name="kilometres">Kilometer</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mil</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Min position</string>
     <!-- Update maps later button text -->
     <string name="later">Senere</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -75,8 +73,6 @@
     <string name="bookmarks">Bogmærker</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Bogmærker og spor</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Mine steder</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Navn</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -139,8 +135,6 @@
     <string name="category_post">Post</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Politi</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Recirkulering</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -441,7 +435,6 @@
     <string name="empty_street_name_error">Indtast et gadenavn</string>
     <string name="choose_language">Vælg et sprog</string>
     <string name="choose_street">Vælg en gade</string>
-    <string name="postal_code">Postnummer</string>
     <string name="cuisine">Køkken</string>
     <string name="select_cuisine">Vælg køkken</string>
     <!-- login text field -->
@@ -483,8 +476,6 @@
     <string name="error_enter_correct_storey_number">Antallet af etager må ikke overstige %d etager</string>
     <string name="editor_zip_code">Postnummer</string>
     <string name="error_enter_correct_zip_code">Indtast et gyldigt postnummer</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Kortpunkt</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Note til OpenStreetMap-frivillige (valgfrit)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -502,16 +493,8 @@
     <string name="downloader_no_downloaded_maps_title">Du har ikke downloadet nogen kort</string>
     <string name="downloader_no_downloaded_maps_message">Download kort for at søge og navigere offline.</string>
     <string name="current_location_unknown_error_title">Aktuel placering er ukendt.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/t</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mil</string>
-    <!-- A unit of measure -->
-    <string name="ft">fod</string>
     <string name="miles_per_hour">mph</string>
     <string name="hour">time</string>
     <string name="minute">min</string>
@@ -563,8 +546,6 @@
     <string name="prefs_languages_information_off_link">Se denne vejledning for flere oplysninger.</string>
     <string name="transliteration_title">Translitterer til det latinske alfabet</string>
     <string name="learn_more">Flere oplysninger</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Udgang</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Brug søgning eller tryk på kortet for at tilføje et startpunkt for en rute</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -578,7 +559,6 @@
     <string name="dialog_error_storage_title">Problem med lageradgang</string>
     <string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt. SD-kortet kan være blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller dit SD-kort eller kontakt os på support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emulér beskadiget lager</string>
-    <string name="core_entrance">Indgang</string>
     <string name="error_enter_correct_name">Angiv et korrekt navn</string>
     <string name="bookmark_lists">Lister</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -620,16 +600,12 @@
     <string name="button_layer_cycling">Cykling</string>
     <string name="button_layer_subway">Undergrundsbane</string>
     <string name="layers_title">Kortstile og -lag</string>
-    <string name="subway_data_unavailable">Kort over undergrundsbaner er ikke tilgængeligt</string>
     <string name="bookmarks_empty_list_title">Listen er tom</string>
     <string name="bookmarks_empty_list_message">For at tilføje et bogmærke, så tryk et sted på kort og så på stjerneikonet</string>
     <string name="category_desc_more">…mere</string>
     <string name="export_file">Eksporter KMZ</string>
     <string name="export_file_gpx">Eksporter GPX</string>
     <string name="delete_list">Slet liste</string>
-    <string name="public_access">Offentlig adgang</string>
-    <string name="limited_access">Begrænset adgang</string>
-    <string name="not_shared">Privat</string>
     <string name="speedcams_alert_title">Fartkameraer</string>
     <string name="place_description_title">Beskrivelse af sted</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -646,7 +622,6 @@
     <string name="power_managment_setting_auto">Når batteriniveauet er lavt</string>
     <string name="power_managment_setting_manual_max">Altid</string>
     <string name="enable_logging_warning_message">Aktivér denne mulighed midlertidigt for at registrere og manuelt sende detaljerede diagnostiske logfiler om dit problem til os ved hjælp af \"Rapportér en fejl\" i Hjælp-dialogen. Logfiler kan indeholde placeringsoplysninger.</string>
-    <string name="access_rules_author_only">Online redigering</string>
     <string name="driving_options_title">Indstillinger for ruteberegning</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Undgå betalingsveje</string>
@@ -831,7 +806,6 @@
     <string name="facebook">Facebook</string>
     <string name="error_enter_correct_facebook_page">Indtast en gyldig Facebook-webadresse, -konto eller -sidenavn</string>
     <string name="connection_failure">Forbindelsesfejl</string>
-    <string name="mb">MB</string>
     <string name="twitter">X (Twitter)</string>
     <string name="error_enter_correct_twitter_page">Indtast et gyldigt Twitter-brugernavn eller en webadresse</string>
     <string name="share_bookmarks_email_body">Hej! \n \nVedhæftet er mine bogmærker; åbn dem venligst i Organic Maps. Hvis du ikke har den installeret, kan du downloade den her: https://omaps.app/get?kmz\n \nGod rejse med Organic Maps!</string>
@@ -841,12 +815,7 @@
     <string name="translated_om_site_url">https://organicmaps.app/</string>
     <string name="navigation_stop_button">Stop</string>
     <string name="error_enter_correct_vk_page">Indtast et gyldigt VK-brugernavn eller en webadresse</string>
-    <string name="gb">GB</string>
     <string name="error_enter_correct_line_page">Indtast et gyldigt LINE ID eller en webadresse</string>
-    <string name="maps_storage_internal">Intern privat lagerplads</string>
-    <string name="maps_storage_shared">Intern delt lagerplads</string>
-    <string name="maps_storage_removable">SD-kort</string>
-    <string name="maps_storage_external">Ekstern delt lagerplads</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="level_value_generic">Etage: %s</string>
     <string name="closes_in">Lukker om %s</string>

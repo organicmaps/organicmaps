@@ -16,8 +16,6 @@
     <string name="kilometres">Quilòmetres</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Milles</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">La meva posició</string>
     <!-- Update maps later button text -->
     <string name="later">Més tard</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -76,8 +74,6 @@
     <string name="bookmarks">Marcadors</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Marcadors i recorreguts</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Els meus llocs</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nom</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -92,14 +88,6 @@
     <string name="maps_storage_summary">Indiqueu la carpeta on s’han de baixar els mapes.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapes baixats</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Emmagatzematge privat intern</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Emmagatzematge compartit intern</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">Targeta SD</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">Emmagatzematge compartit extern</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%1$s lliures de %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -152,8 +140,6 @@
     <string name="category_post">Oficina postal</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Policia</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Reciclatge</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -472,7 +458,6 @@
     <string name="empty_street_name_error">Introduïu un nom de carrer</string>
     <string name="choose_language">Trieu una llengua</string>
     <string name="choose_street">Trieu un carrer</string>
-    <string name="postal_code">Codi postal</string>
     <string name="cuisine">Cuina</string>
     <string name="select_cuisine">Trieu una cuina</string>
     <!-- login text field -->
@@ -515,8 +500,6 @@
     <string name="error_enter_correct_storey_number">El nombre de plantes no pot excedir de %d</string>
     <string name="editor_zip_code">Codi postal</string>
     <string name="error_enter_correct_zip_code">Introduïu un codi postal vàlid</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Punt del mapa</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota per als voluntaris d\'OpenStreetMap (opcional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -534,16 +517,8 @@
     <string name="downloader_no_downloaded_maps_title">No heu baixat cap mapa</string>
     <string name="downloader_no_downloaded_maps_message">Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.</string>
     <string name="current_location_unknown_error_title">Es desconeix la ubicació actual.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mi</string>
-    <!-- A unit of measure -->
-    <string name="ft">ft</string>
     <string name="miles_per_hour">mph</string>
     <string name="hour">h</string>
     <string name="minute">min</string>
@@ -605,8 +580,6 @@
     <string name="prefs_languages_information_off_link">Per a més informació, vegeu aquesta guia.</string>
     <string name="transliteration_title">Transliteració a l’alfabet llatí</string>
     <string name="learn_more">Més informació</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Sortida</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Utilitzeu la cerca o toqueu el mapa per afegir un punt de partida de la ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -620,7 +593,6 @@
     <string name="dialog_error_storage_title">Hi ha un problema d’accés a l’emmagatzematge</string>
     <string name="dialog_error_storage_message">L\'emmagatzematge extern no és accessible. La targeta SD pot haver estat eliminada, danyada o sigui només de lectura. Si us plau, reviseu la targeta SD o contacta amb nosaltres a support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emula un emmagatzematge malmès</string>
-    <string name="core_entrance">Entrada</string>
     <string name="error_enter_correct_name">Introduïu un nom correcte</string>
     <string name="bookmark_lists">Llistes</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -665,16 +637,12 @@
     <string name="button_layer_cycling">Ciclisme</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estils i capes del mapa</string>
-    <string name="subway_data_unavailable">El mapa del metro no està disponible</string>
     <string name="bookmarks_empty_list_title">Aquesta llista és buida</string>
     <string name="bookmarks_empty_list_message">Per a afegir un marcador, toqueu un lloc en el mapa i després toqueu la icona d\'estrella</string>
     <string name="category_desc_more">…més</string>
     <string name="export_file">Exporta KMZ</string>
     <string name="export_file_gpx">Exporta GPX</string>
     <string name="delete_list">Suprimeix la llista</string>
-    <string name="public_access">Accés públic</string>
-    <string name="limited_access">Accés limitat</string>
-    <string name="not_shared">Privat</string>
     <string name="speedcams_alert_title">Radars</string>
     <string name="place_description_title">Descripció del lloc</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -691,7 +659,6 @@
     <string name="power_managment_setting_auto">Automàtic</string>
     <string name="power_managment_setting_manual_max">Sempre</string>
     <string name="enable_logging_warning_message">Activeu aquesta opció temporalment per a registrar i enviar manualment registres de diagnòstic detallats sobre el vostre problema utilitzant «Informeu d’un error» al diàleg Ajuda. Els registres poden incloure informació d’ubicació.</string>
-    <string name="access_rules_author_only">Edició en línia</string>
     <string name="driving_options_title">Opcions d’encaminament</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evita peatges</string>
@@ -893,8 +860,6 @@
     <string name="github">GitHub</string>
     <string name="level_value_generic">Nivell: %s</string>
     <string name="instagram">Instagram</string>
-    <string name="mb">MB</string>
-    <string name="gb">GB</string>
     <string name="login_osm">Inicia sessió a l’OpenStreetMap</string>
     <string name="twitter">X (Twitter)</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>

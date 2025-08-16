@@ -16,8 +16,6 @@
     <string name="kilometres">Kilómetros</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Millas</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Mi posición</string>
     <!-- Update maps later button text -->
     <string name="later">Luego</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -76,8 +74,6 @@
     <string name="bookmarks">Marcadores</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Marcadores y trayectos</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Mis lugares</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nombre</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -92,14 +88,6 @@
     <string name="maps_storage_summary">Seleccione la carpeta donde deben descargarse los mapas.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Mapas descargados</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Almacenamiento interno privado</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Almacenamiento interno compartido</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">Tarjeta SD</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">Almacenamiento externo compartido</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%1$s libres de %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -151,8 +139,6 @@
     <string name="category_post">Oficina de correos</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Policía</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Reciclaje</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -468,7 +454,6 @@
     <string name="empty_street_name_error">Ingrese un nombre de calle</string>
     <string name="choose_language">Elegir un idioma</string>
     <string name="choose_street">Elija una calle</string>
-    <string name="postal_code">Código postal</string>
     <string name="cuisine">Cocina</string>
     <string name="select_cuisine">Seleccionar cocina</string>
     <!-- login text field -->
@@ -510,8 +495,6 @@
     <string name="error_enter_correct_storey_number">El número de plantas no debe superar %d</string>
     <string name="editor_zip_code">Código postal</string>
     <string name="error_enter_correct_zip_code">Introduzca un código postal válido</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Punto del mapa</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota para los voluntarios de OpenStreetMap (opcional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -529,16 +512,8 @@
     <string name="downloader_no_downloaded_maps_title">No ha descargado ningún mapa</string>
     <string name="downloader_no_downloaded_maps_message">Descargue mapas para encontrar la ubicación y navegar sin conexión.</string>
     <string name="current_location_unknown_error_title">Se desconoce la ubicación actual.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mi</string>
-    <!-- A unit of measure -->
-    <string name="ft">pie</string>
     <string name="miles_per_hour">mph</string>
     <string name="hour">h</string>
     <string name="minute">min</string>
@@ -598,8 +573,6 @@
     <string name="prefs_languages_information_off_link">Para obtener más información, consulte esta guía.</string>
     <string name="transliteration_title">Transliteración al alfabeto latino</string>
     <string name="learn_more">Conocer más</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Salida</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Busque o toque en el mapa para añadir el origen de la ruta</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -613,7 +586,6 @@
     <string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
     <string name="dialog_error_storage_message">El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Compruébelo o escríbanos a support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emular almacenamiento dañado</string>
-    <string name="core_entrance">Entrada</string>
     <string name="error_enter_correct_name">Introduzca el nombre correcto</string>
     <string name="bookmark_lists">Listas</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -658,16 +630,12 @@
     <string name="button_layer_cycling">Ciclismo</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estilos y capas del mapa</string>
-    <string name="subway_data_unavailable">El mapa del metro no está disponible</string>
     <string name="bookmarks_empty_list_title">Esta lista está vacía</string>
     <string name="bookmarks_empty_list_message">Para agregar un marcador, toque un lugar en el mapa y después toque el icono de la estrella</string>
     <string name="category_desc_more">…más</string>
     <string name="export_file">Exportar KMZ</string>
     <string name="export_file_gpx">Exportar GPX</string>
     <string name="delete_list">Eliminar lista</string>
-    <string name="public_access">Acceso público</string>
-    <string name="limited_access">Acceso limitado</string>
-    <string name="not_shared">Privado</string>
     <string name="speedcams_alert_title">Cámaras de velocidad</string>
     <string name="place_description_title">Descripción del lugar</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -684,7 +652,6 @@
     <string name="power_managment_setting_auto">Cuando queda poca energía</string>
     <string name="power_managment_setting_manual_max">Siempre</string>
     <string name="enable_logging_warning_message">Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.</string>
-    <string name="access_rules_author_only">Edición en línea</string>
     <string name="driving_options_title">Opciones de enrutamiento</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evitar peajes</string>
@@ -887,8 +854,6 @@
     <string name="github">GitHub</string>
     <string name="twitter">X (Twitter)</string>
     <string name="facebook">Facebook</string>
-    <string name="mb">MB</string>
-    <string name="gb">GB</string>
     <string name="vk">VK</string>
     <string name="wikimedia_commons">Wikimedia Commons</string>
     <string name="telegram_url">https://t.me/OrganicMapsApp</string>

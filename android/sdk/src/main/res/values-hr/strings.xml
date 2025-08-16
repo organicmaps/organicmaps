@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_my_position">Moja lokacija</string>
+    <string name="core_my_places">Moja mjesta</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+</resources>

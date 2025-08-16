@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
 import app.organicmaps.R;
+import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.util.UiUtils;
@@ -106,7 +107,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
       }
     }
 
-    MapManager.warnOn3g(requireActivity(), size, () -> {
+    MapManagerHelper.warnOn3g(requireActivity(), size, () -> {
       final FragmentManager manager = requireActivity().getSupportFragmentManager();
       RoutingMapsDownloadFragment downloader =
           RoutingMapsDownloadFragment.create(manager.getFragmentFactory(), getAppContextOrThrow(), mMapsArray);

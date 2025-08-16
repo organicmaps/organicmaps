@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">ตำแหน่งของฉัน</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">สถานที่ของฉัน</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">รหัสไปรษณีย์</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">จุดแผนที่</string>
+    <!-- abbreviation for meters -->
+    <string name="m">ม.</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">กม.</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ไมล์</string>
+    <!-- A unit of measure -->
+    <string name="ft">ฟุต</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">ออก</string>
+    <string name="core_entrance">ทางเข้า</string>
+    <string name="subway_data_unavailable">แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน</string>
+    <string name="public_access">เข้าถึงได้โดยสาธารณะ</string>
+    <string name="limited_access">จำกัดการเข้าถึง</string>
+    <string name="not_shared">ส่วนตัว</string>
+    <string name="access_rules_author_only">การแก้ไขทางออนไลน์</string>
+</resources>

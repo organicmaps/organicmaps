@@ -14,12 +14,8 @@
     <string name="downloading">กำลังดาวน์โหลด…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">กิโลเมตร</string>
-    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
-    <string name="mb">MB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">ไมล์</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">ตำแหน่งของฉัน</string>
     <!-- Update maps later button text -->
     <string name="later">ภายหลัง</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -79,8 +75,6 @@
     <string name="bookmarks">บุ๊กมาร์ก</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">บุ๊กมาร์กและการติดตาม</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">สถานที่ของฉัน</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">ชื่อ</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -144,8 +138,6 @@
     <string name="category_post">ไปรษณีย์</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">ตำรวจ</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">การรีไซเคิล</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -451,7 +443,6 @@
     <string name="add_street">เพิ่มถนน</string>
     <string name="choose_language">เลือกภาษา</string>
     <string name="choose_street">เลือกถนน</string>
-    <string name="postal_code">รหัสไปรษณีย์</string>
     <string name="cuisine">ประเภทอาหาร</string>
     <string name="select_cuisine">เลือกประเภทอาหาร</string>
     <!-- login text field -->
@@ -493,8 +484,6 @@
     <string name="error_enter_correct_storey_number">แก้ไขอาคารที่มีจำนวนชั้นมากกว่า %d</string>
     <string name="editor_zip_code">รหัสไปรษณีย์</string>
     <string name="error_enter_correct_zip_code">กรุณาใส่รหัสไปรษณีย์ที่ถูกต้อง</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">จุดแผนที่</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">หมายเหตุถึงอาสาสมัคร OpenStreetMap (ไม่บังคับ)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -512,16 +501,8 @@
     <string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
     <string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
     <string name="current_location_unknown_error_title">ไม่ทราบชื่อของที่ตั้งปัจจุบัน</string>
-    <!-- abbreviation for meters -->
-    <string name="m">ม.</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">กม.</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">กม./ชม.</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">ไมล์</string>
-    <!-- A unit of measure -->
-    <string name="ft">ฟุต</string>
     <string name="miles_per_hour">ไมล์/ชม.</string>
     <string name="hour">ชม.</string>
     <string name="minute">น.</string>
@@ -576,8 +557,6 @@
     <string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
     <string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
     <string name="learn_more">ศึกษาเพิ่มเติม</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">ออก</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">ใช้การค้นหาหรือแตะบนแผนที่เพื่อเพิ่มจุดเริ่มต้นเส้นทาง</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -591,7 +570,6 @@
     <string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
     <string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">จำลองแบบที่เก็บข้อมูลที่ไม่ดี</string>
-    <string name="core_entrance">ทางเข้า</string>
     <string name="error_enter_correct_name">กรุณาใส่ชื่อที่ถูกต้อง</string>
     <string name="bookmark_lists">รายการ</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -630,16 +608,12 @@
     <string name="button_layer_traffic">การจราจร</string>
     <string name="button_layer_subway">รถไฟใต้ดิน</string>
     <string name="layers_title">รูปแบบและเลเยอร์ของแผนที่</string>
-    <string name="subway_data_unavailable">แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน</string>
     <string name="bookmarks_empty_list_title">รายการนี้ว่างเปล่า</string>
     <string name="bookmarks_empty_list_message">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
     <string name="category_desc_more">…เพิ่มเติม</string>
     <string name="export_file">ส่งออก KMZ</string>
     <string name="export_file_gpx">ส่งออก GPX</string>
     <string name="delete_list">ลบรายการ</string>
-    <string name="public_access">เข้าถึงได้โดยสาธารณะ</string>
-    <string name="limited_access">จำกัดการเข้าถึง</string>
-    <string name="not_shared">ส่วนตัว</string>
     <string name="speedcams_alert_title">กล้องตรวจจับความเร็ว</string>
     <string name="place_description_title">รายละเอียดของสถานที่</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -656,7 +630,6 @@
     <string name="power_managment_setting_auto">อัตโนมัติ</string>
     <string name="power_managment_setting_manual_max">ประหยัดพลังงานสูงสุด</string>
     <string name="enable_logging_warning_message">ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น</string>
-    <string name="access_rules_author_only">การแก้ไขทางออนไลน์</string>
     <string name="driving_options_title">ทางเลือกเส้นทางขับขี่</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง</string>

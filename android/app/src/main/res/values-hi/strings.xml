@@ -14,13 +14,8 @@
     <string name="downloading">डाउनलोड हो रहा है…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">किलोमीटर</string>
-    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
-    <string name="mb">मेगाबाइट</string>
-    <string name="gb">गीगाबाइट</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">मील</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">मेरा स्थान</string>
     <!-- Update maps later button text -->
     <string name="later">बाद में</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -80,8 +75,6 @@
     <string name="bookmarks">बुकमार्क</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">बुकमार्क और ट्रैक</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">मेरे स्थान</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">नाम</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -96,14 +89,6 @@
     <string name="maps_storage_summary">मानचित्र डाउनलोड करने के लिए फ़ोल्डर का चयन करें.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">मानचित्र डाउनलोड किए गए</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">आंतरिक निजी भंडारण</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">आंतरिक साझा भंडारण</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">एसडी कार्ड</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">बाह्य साझा भंडारण</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%2$s में से %1$s मुफ्त</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -157,8 +142,6 @@
     <string name="category_post">डाकघर</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">थाना</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">वाईफ़ाई</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">पुनर्चक्रण</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -396,8 +379,6 @@
     <string name="login_to_make_edits_visible">अपने मानचित्र संपादनों को दुनिया भर में प्रकाशित करने के लिए एक OpenStreetMap खाता बनाएं या लॉग इन करें।</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%2$d में से %1$d</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">मानचित्र बिंदु</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMap स्वयंसेवकों के लिए नोट (वैकल्पिक)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -412,10 +393,6 @@
     <string name="operator">ऑपरेटर: %s</string>
     <string name="editor_category_unsuitable_title">कोई उपयुक्त श्रेणी नहीं मिल रही?</string>
     <string name="editor_category_unsuitable_text">ऑर्गेनिक मैप्स केवल सरल बिंदु श्रेणियां जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, भवन की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियां सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें।. विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शिका</a> देखें।</string>
-    <!-- abbreviation for meters -->
-    <string name="m">मी</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">किमी</string>
     <string name="hour">घंटे</string>
     <string name="minute">मिनट</string>
     <string name="day">दिन</string>

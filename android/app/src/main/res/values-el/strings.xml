@@ -14,11 +14,8 @@
     <string name="downloading">Λήψη…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Χιλιόμετρα</string>
-    <string name="gb">GB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Μίλια</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Η θέση μου</string>
     <!-- Update maps later button text -->
     <string name="later">Αργότερα</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -78,8 +75,6 @@
     <string name="bookmarks">Αγαπημένα</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Αγαπημένα και διαδρομές</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Οι τοποθεσίες μου</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Όνομα</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -94,14 +89,6 @@
     <string name="maps_storage_summary">Επιλέξτε την τοποθεσία λήψης των χαρτών.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">Κατεβασμένοι Χάρτες</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">Εσωτερικός κρυφός αποθηκευτικός χώρος</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">Εσωτερικός κοινός αποθηκευτικός χώρος</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">Κάρτα SD</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">Εξωτερικός κοινός αποθηκευτικός χώρος</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%1$s ελεύθερα από τα %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -154,8 +141,6 @@
     <string name="category_post">Ταχυδρομείο</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Αστυνομία</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Ανακύκλωση</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -475,7 +460,6 @@
     <string name="empty_street_name_error">Εισαγάγετε όνομα οδού</string>
     <string name="choose_language">Επιλέξτε μια γλώσσα</string>
     <string name="choose_street">Επιλέξτε μια οδό</string>
-    <string name="postal_code">Ταχυδρομικός Κώδικας</string>
     <string name="cuisine">Κουζίνα</string>
     <string name="select_cuisine">Επιλέξτε κουζίνα</string>
     <!-- login text field -->
@@ -518,8 +502,6 @@
     <string name="error_enter_correct_storey_number">Ο αριθμός των ορόφων δεν πρέπει να υπερβαίνει τους %d</string>
     <string name="editor_zip_code">Ταχυδρομικός κώδικας</string>
     <string name="error_enter_correct_zip_code">Εισάγετε έναν έγκυρο ταχυδρομικό κώδικα</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Σημείο χάρτη</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Σημείωση για τους εθελοντές του OpenStreetMap (προαιρετική)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -537,14 +519,8 @@
     <string name="downloader_no_downloaded_maps_title">Δεν έχετε κατεβάσει χάρτες</string>
     <string name="downloader_no_downloaded_maps_message">Κατεβάστε χάρτες για να αναζητήσετε μια τοποθεσία και να χρησιμοποιήσετε την πλοήγησης χωρίς σύνδεση.</string>
     <string name="current_location_unknown_error_title">Η τρέχουσα τοποθεσία είναι άγνωστη.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">μ</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">χμ</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">χμ/ω</string>
-    <!-- A unit of measure -->
-    <string name="ft">πόδια</string>
     <string name="placepage_more_button">Περισσότερα</string>
     <string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
     <string name="placepage_personal_notes_hint">Προσωπικές σημειώσεις (κείμενο ή html)</string>
@@ -602,8 +578,6 @@
     <string name="prefs_languages_information_off_link">Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.</string>
     <string name="transliteration_title">Μεταγραφή στο λατινικό αλφάβητο</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Έξοδος</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Χρησιμοποιήστε την αναζήτηση ή πατήστε στο χάρτη για να προσθέσετε ένα σημείο εκκίνησης της διαδρομής</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -617,7 +591,6 @@
     <string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
     <string name="dialog_error_storage_message">Η εξωτερική αποθήκευση δεν είναι προσβάσιμη. Η κάρτα SD μπορεί να έχει αφαιρεθεί, να έχει υποστεί ζημιά ή το σύστημα αρχείων να είναι μόνο για ανάγνωση. Ελέγξτε την κάρτα SD ή επικοινωνήστε μαζί μας στο support@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Εξομείωση κακού αποθηκευτικού χώρου</string>
-    <string name="core_entrance">Είσοδος</string>
     <string name="error_enter_correct_name">Εισάγετε ένα σωστό όνομα</string>
     <string name="bookmark_lists">Λίστες</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -657,16 +630,12 @@
     <string name="button_layer_traffic">Κίνηση</string>
     <string name="button_layer_subway">Μετρό</string>
     <string name="layers_title">Στυλ χάρτη και επίπεδα</string>
-    <string name="subway_data_unavailable">Ο χάρτης μετρό δεν είναι διαθέσιμος</string>
     <string name="bookmarks_empty_list_title">Η λίστα είναι άδεια</string>
     <string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
     <string name="category_desc_more">…περισσότερα</string>
     <string name="export_file">Εξαγωγή KMZ</string>
     <string name="export_file_gpx">Εξαγωγή GPX</string>
     <string name="delete_list">Διαγραφή λίστας</string>
-    <string name="public_access">Δημόσια πρόσβαση</string>
-    <string name="limited_access">Περιορισμένη πρόσβαση</string>
-    <string name="not_shared">Ιδιωτικό</string>
     <string name="speedcams_alert_title">Κάμερες Ταχύτητας</string>
     <string name="place_description_title">Περιγραφή μέρους</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -683,7 +652,6 @@
     <string name="power_managment_setting_auto">Αυτόματα</string>
     <string name="power_managment_setting_manual_max">Πάντα</string>
     <string name="enable_logging_warning_message">Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.</string>
-    <string name="access_rules_author_only">Online επεξεργασία</string>
     <string name="driving_options_title">Ρυθμίσεις δρομολόγησης</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Αποφυγή διοδίων</string>
@@ -887,8 +855,6 @@
     <string name="editor_line_social_network">LINE</string>
     <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
     <string name="level_value_generic">Όροφος: %s</string>
-    <string name="mb">MB</string>
-    <string name="mi">μι</string>
     <string name="miles_per_hour">mph</string>
     <string name="openstreetmap">OpenStreetMap</string>
     <string name="minute">λπτ</string>
@@ -908,5 +874,4 @@
     <string name="show_at_the_bottom">Εμφάνισε στο κάτω μέρος</string>
     <string name="share_track">Κοινοποίηση ίχνους</string>
     <string name="delete_track_dialog_title">Διαγραφή %s;</string>
-    <string name="routes_update_maps_text">Για την προβολή των διαδρομών, οι χάρτες πρέπει να είναι ενημερωμένοι.</string>
 </resources>

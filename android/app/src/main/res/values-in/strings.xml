@@ -14,12 +14,8 @@
     <string name="downloading">Sedang mengunduh…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometer</string>
-    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
-    <string name="mb">MB</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">Mil</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">Posisi Saya</string>
     <!-- Update maps later button text -->
     <string name="later">Nanti</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -78,8 +74,6 @@
     <string name="bookmarks">Penanda</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">Penanda dan jalur</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">Tempat-tempat Saya</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">Nama</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -143,8 +137,6 @@
     <string name="category_post">Pos</string>
     <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
     <string name="category_police">Polisi</string>
-    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
     <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
     <string name="category_recycling">Mendaur ulang</string>
     <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
@@ -450,7 +442,6 @@
     <string name="add_street">Tambahkan jalan</string>
     <string name="choose_language">Pilih bahasa</string>
     <string name="choose_street">Pilih jalan</string>
-    <string name="postal_code">Kode Pos</string>
     <string name="cuisine">Masakan</string>
     <string name="select_cuisine">Pilih Masakan</string>
     <!-- login text field -->
@@ -492,8 +483,6 @@
     <string name="error_enter_correct_storey_number">Edit bangunan dengan maksimum %d lantai</string>
     <string name="editor_zip_code">Kode Pos</string>
     <string name="error_enter_correct_zip_code">Masukkan Kode Pos yang benar</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">Titik Peta</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Catatan untuk relawan OpenStreetMap (opsional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -511,16 +500,8 @@
     <string name="downloader_no_downloaded_maps_title">Tidak ada peta apa pun yang diunduh</string>
     <string name="downloader_no_downloaded_maps_message">Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.</string>
     <string name="current_location_unknown_error_title">Lokasi saat ini tidak diketahui.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">m</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">km</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/j</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">mil</string>
-    <!-- A unit of measure -->
-    <string name="ft">kaki</string>
     <string name="miles_per_hour">mpj</string>
     <string name="hour">j</string>
     <string name="minute">mnt</string>
@@ -575,8 +556,6 @@
     <string name="prefs_languages_information_off_link">Untuk informasi selengkapnya, bacalah panduan ini.</string>
     <string name="transliteration_title">Transliterasi ke dalam bahasa Latin</string>
     <string name="learn_more">Pelajari selengkapnya</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">Keluar</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">Gunakan pencarian atau ketuk pada peta untuk menambahkan titik awal rute</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -590,7 +569,6 @@
     <string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
     <string name="dialog_error_storage_message">Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support\@ maps.me</string>
     <string name="setting_emulate_bad_storage">Emulasi penyimpanan yang buruk</string>
-    <string name="core_entrance">Tempat masuk</string>
     <string name="error_enter_correct_name">Harap masukkan nama yang benar</string>
     <string name="bookmark_lists">Daftar</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -628,16 +606,12 @@
     <string name="button_layer_traffic">Lalu lintas</string>
     <string name="button_layer_subway">Kereta bawah tanah</string>
     <string name="layers_title">Gaya dan Lapisan Peta</string>
-    <string name="subway_data_unavailable">Peta bawah tanah tidak tersedia</string>
     <string name="bookmarks_empty_list_title">Daftar ini kosong</string>
     <string name="bookmarks_empty_list_message">Untuk menambahkan bookmark, ketuk satu tempat di peta lalu ketuk ikon bintang</string>
     <string name="category_desc_more">…selengkapnya</string>
     <string name="export_file">Ekspor KMZ</string>
     <string name="export_file_gpx">Ekspor GPX</string>
     <string name="delete_list">Hapus Daftar</string>
-    <string name="public_access">Akses umum</string>
-    <string name="limited_access">Akses terbatas</string>
-    <string name="not_shared">Pribadi</string>
     <string name="speedcams_alert_title">Kamera cepat</string>
     <string name="place_description_title">Deskripsi Tempat</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -654,7 +628,6 @@
     <string name="power_managment_setting_auto">Otomatis</string>
     <string name="power_managment_setting_manual_max">Hemat daya maksimum</string>
     <string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.</string>
-    <string name="access_rules_author_only">Pengeditan online</string>
     <string name="driving_options_title">Pilihan berkendara</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Hindari jalan tol</string>

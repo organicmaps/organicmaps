@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Toka</string>
+    <string name="core_entrance">Kiingilio</string>
+    <string name="subway_data_unavailable">Ramani ya njia ya chini haipatikani</string>
+    <string name="public_access">Matumizi ya umma</string>
+    <string name="limited_access">Matumizi yenye ukomo</string>
+    <string name="not_shared">Faragha</string>
+    <string name="access_rules_author_only">Uhariri mtandaoni</string>
+</resources>

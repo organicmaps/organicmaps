@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_exit">Saída</string>
+    <string name="maps_storage_internal">Almacenamento interno privado</string>
+    <string name="km">km</string>
+    <string name="core_my_places">Os meus lugares</string>
+    <string name="core_entrance">Entrada</string>
+    <string name="subway_data_unavailable">O mapa do metro non está dispoñible</string>
+    <string name="public_access">Acceso público</string>
+    <string name="limited_access">Acceso limitado</string>
+    <string name="not_shared">Privado</string>
+    <string name="gb">GB</string>
+    <string name="m">m</string>
+    <string name="core_my_position">A miña posición</string>
+    <string name="maps_storage_shared">Almacenamento interno compartido</string>
+    <string name="maps_storage_external">Almacenamento externo compartido</string>
+    <string name="postal_code">Código postal</string>
+    <string name="ft">pé</string>
+    <string name="access_rules_author_only">Edición en liña</string>
+    <string name="mi">o meu</string>
+    <string name="mb">MB</string>
+    <string name="category_wifi">Wifi</string>
+    <string name="maps_storage_removable">Tarxeta SD</string>
+    <string name="core_placepage_unknown_place">Punto do mapa</string>
+</resources>

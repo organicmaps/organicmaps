@@ -67,7 +67,6 @@
     <string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
     <string name="dialog_error_storage_message">El almacenamiento externo no está disponible. Es posible que se haya quitado o dañado la tarjeta SD, o que el sistema de archivos solo permita la lectura. Revíselo y escríbanos a support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">Emular el almacenamiento dañado</string>
-    <string name="core_entrance">Entrada</string>
     <string name="error_enter_correct_name">Introduzca el nombre correcto</string>
     <string name="bookmark_lists">Listas</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -105,14 +104,10 @@
     <string name="button_layer_cycling">Ciclismo</string>
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estilos y capas del mapa</string>
-    <string name="subway_data_unavailable">El mapa del metro no está disponible</string>
     <string name="bookmarks_empty_list_title">Esta lista está vacía</string>
     <string name="bookmarks_empty_list_message">Para añadir un marcador, toque un lugar en el mapa y después toque el ícono de estrella</string>
     <string name="category_desc_more">…más</string>
     <string name="delete_list">Eliminar lista</string>
-    <string name="public_access">Acceso público</string>
-    <string name="limited_access">Acceso limitado</string>
-    <string name="not_shared">Privado</string>
     <string name="speedcams_alert_title">Cámaras de velocidad</string>
     <string name="place_description_title">Descripción de lugares</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -129,7 +124,6 @@
     <string name="power_managment_setting_auto">Automático</string>
     <string name="power_managment_setting_manual_max">Siempre</string>
     <string name="enable_logging_warning_message">Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.</string>
-    <string name="access_rules_author_only">Se edita en línea</string>
     <string name="driving_options_title">Opciones de enrutamiento</string>
     <string name="unable_to_calc_alert_title">No se puede construir una ruta</string>
     <string name="unable_to_calc_alert_subtitle">No se pudo encontrar una ruta. Quizá se deba a las opciones de enrutamiento o a datos faltantes en OpenStreetMap. Revise sus opciones de enrutamiento y vuelva a intentarlo.</string>

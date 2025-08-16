@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="category_wifi">WiFi</string>
+    <string name="m">m</string>
+    <string name="km">km</string>
+    <string name="mi">míl</string>
+    <string name="ft">ft</string>
+    <string name="gb">GB</string>
+    <string name="core_my_position">Staðsetning mín</string>
+    <string name="mb">MB</string>
+    <string name="core_my_places">Staðirnir mínir</string>
+    <string name="core_exit">Útgangur</string>
+    <string name="core_entrance">Inngangur</string>
+    <string name="not_shared">Einka</string>
+    <string name="postal_code">Póstnúmer</string>
+    <string name="public_access">Opinber aðgangur</string>
+    <string name="limited_access">Takmarkaður aðgangur</string>
+    <string name="maps_storage_internal">Innbyggð einkageymsla</string>
+    <string name="maps_storage_external">Ytri sameiginleg geymsla</string>
+    <string name="maps_storage_shared">Innbyggð sameiginleg geymsla</string>
+    <string name="maps_storage_removable">SD-minniskort</string>
+    <string name="core_placepage_unknown_place">Punktur á korti</string>
+    <string name="subway_data_unavailable">Kort fyrir neðanjarðarlest er ekki tiltækt</string>
+    <string name="access_rules_author_only">Breytingar á netinu</string>
+    <string name="routes_update_maps_text">Til að birta leiðir þarf að uppfæra landakort.</string>
+</resources>

@@ -8,8 +8,11 @@ android {
 
   ndkVersion = '28.2.13676358'
 
-  defaultConfig {
+  buildFeatures {
+    buildConfig = true
+  }
 
+  defaultConfig {
     minSdk = propMinSdkVersion.toInteger()
     targetSdk = propTargetSdkVersion.toInteger()
 
@@ -73,12 +76,12 @@ android {
       jniDebuggable true // Enable jni debug build
     }
     release {
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//      minifyEnabled true
+//      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
     beta {
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//      minifyEnabled true
+//      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
       matchingFallbacks = ['debug', 'release']
     }
   }
@@ -92,13 +95,36 @@ android {
   }
 
   compileOptions {
+    coreLibraryDesugaringEnabled true
+
     sourceCompatibility JavaVersion.VERSION_17
     targetCompatibility JavaVersion.VERSION_17
+  }
+
+  lint {
+    disable 'MissingTranslation'
+    // https://github.com/organicmaps/organicmaps/issues/3551
+    disable 'MissingQuantity', 'UnusedQuantity'
+    // https://github.com/organicmaps/organicmaps/issues/3550
+    disable 'ByteOrderMark'
+    // https://github.com/organicmaps/organicmaps/issues/1077
+    disable 'CustomSplashScreen'
+    // https://github.com/organicmaps/organicmaps/issues/3610
+    disable 'InsecureBaseConfiguration'
+    abortOnError = true
   }
 }
 
 dependencies {
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 
+  implementation 'androidx.annotation:annotation:1.9.1'
+  implementation 'androidx.core:core:1.17.0'
+  implementation 'androidx.recyclerview:recyclerview:1.4.0'
+  implementation 'androidx.fragment:fragment:1.8.9'
+  implementation 'androidx.lifecycle:lifecycle-process:2.9.2'
+
+  testImplementation 'junit:junit:4.13.2'
 }
 
 // TODO: Running lint task triggers native build. Find a better solution.

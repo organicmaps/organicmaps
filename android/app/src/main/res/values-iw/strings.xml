@@ -16,8 +16,6 @@
     <string name="kilometres">ק\"מ</string>
     <!-- Choose measurement on first launch alert - choose imperial system button -->
     <string name="miles">מייל</string>
-    <!-- A text for current gps location point/arrow selected on the map -->
-    <string name="core_my_position">המיקום שלי</string>
     <!-- Update maps later button text -->
     <string name="later">מאוחר יותר</string>
     <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
@@ -77,8 +75,6 @@
     <string name="bookmarks">סימניות</string>
     <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
     <string name="bookmarks_and_tracks">סימניות ומסלולים</string>
-    <!-- Default bookmark list name -->
-    <string name="core_my_places">המקומות שלי</string>
     <!-- Add bookmark dialog - bookmark name -->
     <string name="name">שם</string>
     <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
@@ -93,14 +89,6 @@
     <string name="maps_storage_summary">בחר מיקום במחשבך לשמירת המפות שתוריד.</string>
     <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
     <string name="maps_storage_downloaded">מפות שהורדו</string>
-    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
-    <string name="maps_storage_internal">אחסון פנימי פרטי</string>
-    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
-    <string name="maps_storage_shared">אחסון פנימי משותף</string>
-    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
-    <string name="maps_storage_removable">כרטיס זיכרון</string>
-    <!-- Generic external storage type in Maps Storage settings -->
-    <string name="maps_storage_external">אחסון חיצוני משותף</string>
     <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
     <string name="maps_storage_free_size">%1$s פנוי מתוך %2$s</string>
     <!-- Question dialog for transferring maps from one storage to another -->
@@ -468,7 +456,6 @@
     <string name="empty_street_name_error">יש להזין שם רחוב</string>
     <string name="choose_language">בחר שפה</string>
     <string name="choose_street">בחר רחוב</string>
-    <string name="postal_code">מיקוד</string>
     <string name="cuisine">סגנון בישול</string>
     <string name="select_cuisine">בחר סיגנון בישול</string>
     <!-- login text field -->
@@ -511,8 +498,6 @@
     <string name="error_enter_correct_storey_number">מספר הקומות לא יכול להיות גבוה מ-%d</string>
     <string name="editor_zip_code">מיקוד</string>
     <string name="error_enter_correct_zip_code">יש להזין מיקוד תקין</string>
-    <!-- Place Page title for long tap -->
-    <string name="core_placepage_unknown_place">נקודת מפה</string>
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">הערה למתנדבי OpenStreetMap (אופציונלי)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
@@ -530,16 +515,8 @@
     <string name="downloader_no_downloaded_maps_title">לא הורדת אף מפה</string>
     <string name="downloader_no_downloaded_maps_message">הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.</string>
     <string name="current_location_unknown_error_title">המיקום הנוכחי לא ידוע.</string>
-    <!-- abbreviation for meters -->
-    <string name="m">מ׳</string>
-    <!-- abbreviation for kilometers -->
-    <string name="km">ק״מ</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">קמ״ש</string>
-    <!-- abbreviation for mile(s) -->
-    <string name="mi">מייל</string>
-    <!-- A unit of measure -->
-    <string name="ft">רגל</string>
     <string name="miles_per_hour">מייל לשעה</string>
     <string name="hour">ש׳</string>
     <string name="minute">ד׳</string>
@@ -598,8 +575,6 @@
     <string name="prefs_languages_information_off_link">למידע נוסף ניתן לקרוא את המדריך הזה.</string>
     <string name="transliteration_title">תעתיק לאותיות לטיניות</string>
     <string name="learn_more">למידע נוסף</string>
-    <!-- Subway exits for public transport marks on the map -->
-    <string name="core_exit">יציאה</string>
     <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
     <string name="routing_add_start_point">יש להוסיף נקודת התחלה למסלול באמצעות חיפוש או בלחיצה על המפה</string>
     <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
@@ -613,7 +588,6 @@
     <string name="dialog_error_storage_title">בעיית גישה לאחסון</string>
     <string name="dialog_error_storage_message">לא ניתן לגשת לאחסון החיצוני. ייתכן כי כרטיס הזיכרון הוסר, נפגם, או שמערכת הקבצים היא לקריאה בלבד. נא לבדוק את כרטיס הזיכרון או ליצור איתנו קשר בכתובת support\@organicmaps.app</string>
     <string name="setting_emulate_bad_storage">בצע אמולציה לאחסון רע</string>
-    <string name="core_entrance">כניסה</string>
     <string name="error_enter_correct_name">נא להזין שם תקין</string>
     <string name="bookmark_lists">רשימות</string>
     <!-- Do not display all bookmark lists on the map -->
@@ -653,16 +627,12 @@
     <string name="button_layer_traffic">תעבורה</string>
     <string name="button_layer_subway">רכבת תחתית</string>
     <string name="layers_title">סגנונות ושכבות מפה</string>
-    <string name="subway_data_unavailable">מפת רכבת תחתית לא זמינה</string>
     <string name="bookmarks_empty_list_title">רשימה זו ריקה</string>
     <string name="bookmarks_empty_list_message">כדי להוסיף סימניה, לחץ על מקום במפה ואז לחץ על סימן הכוכב</string>
     <string name="category_desc_more">…עוד</string>
     <string name="export_file">ייצא KMZ</string>
     <string name="export_file_gpx">ייצוא GPX</string>
     <string name="delete_list">מחק רשימה</string>
-    <string name="public_access">גישה ציבורית</string>
-    <string name="limited_access">גישה מוגבלת</string>
-    <string name="not_shared">פרטי</string>
     <string name="speedcams_alert_title">מצלמות מהירות</string>
     <string name="place_description_title">תיאור מיקום</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
@@ -679,7 +649,6 @@
     <string name="power_managment_setting_auto">כשהסוללה חלשה</string>
     <string name="power_managment_setting_manual_max">תמיד</string>
     <string name="enable_logging_warning_message">הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור \"דווח על באג\" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.</string>
-    <string name="access_rules_author_only">עריכה אונליין</string>
     <string name="driving_options_title">אפשרויות מסלול</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">הימנע מכבישי אגרה</string>
