@@ -406,7 +406,7 @@ void MutableLabel::SetText(LabelResult & result, std::string text, ref_ptr<dp::T
 
   float const length = minMaxXPos.second - minMaxXPos.first;
   // "- offset_left" is an approximation
-  // A correct version should be
+  // Correct version should be
   // "- (offset_first_symbol_from_left + offset_last_symbol_from_right) / 2"
   // But there is no possibility to determine the offset of the last symbol from the right.
   // We only have x_offset which is "offset from left"

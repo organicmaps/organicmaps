@@ -34,6 +34,9 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
   private final Map mMap = new Map(Car);
 
   @NonNull
+  private final SpeedLimit mSpeedLimit;
+
+  @NonNull
   private Rect mVisibleArea = new Rect();
 
   @Nullable
@@ -48,6 +51,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mIsRunning = true;
     lifecycle.addObserver(this);
     mMap.setMapRenderingListener(this);
+    mSpeedLimit = new SpeedLimit();
   }
 
   @Override
@@ -64,6 +68,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
                           new Rect(0, 0, surfaceContainer.getWidth(), surfaceContainer.getHeight()),
                           surfaceContainer.getDpi());
     mMap.updateBottomWidgetsOffset(mCarContext, -1, -1);
+    mSpeedLimit.setEnabled(mCarContext, true);
   }
 
   @Override
@@ -73,7 +78,10 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
     mVisibleArea = visibleArea;
 
     if (!mVisibleArea.isEmpty())
+    {
       Framework.nativeSetVisibleRect(mVisibleArea.left, mVisibleArea.top, mVisibleArea.right, mVisibleArea.bottom);
+      mSpeedLimit.updatePosition(mVisibleArea);
+    }
   }
 
   @Override
@@ -96,6 +104,7 @@ public class SurfaceRenderer implements DefaultLifecycleObserver, SurfaceCallbac
       mSurface.release();
       mSurface = null;
     }
+    mSpeedLimit.setEnabled(mCarContext, false);
     mMap.onSurfaceDestroyed(false, true);
   }
 
