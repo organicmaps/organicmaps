@@ -26,6 +26,8 @@ set(shader_files
     GL/debug_rect.vsh.glsl
     GL/hatching_area.fsh.glsl
     GL/hatching_area.vsh.glsl
+    GL/imgui.fsh.glsl
+    GL/imgui.vsh.glsl
     GL/line.fsh.glsl
     GL/line.vsh.glsl
     GL/masked_texturing.fsh.glsl
@@ -41,7 +43,9 @@ set(shader_files
     GL/route_dash.fsh.glsl
     GL/route_marker.fsh.glsl
     GL/route_marker.vsh.glsl
+    GL/ruler.fsh.glsl
     GL/ruler.vsh.glsl
+    GL/screen_quad.fsh.glsl
     GL/screen_quad.vsh.glsl
     GL/selection_line.fsh.glsl
     GL/selection_line.vsh.glsl
@@ -58,12 +62,15 @@ set(shader_files
     GL/text_billboard.vsh.glsl
     GL/text_outlined.vsh.glsl
     GL/text_outlined_billboard.vsh.glsl
+    GL/text_outlined_gui.fsh.glsl
     GL/text_outlined_gui.vsh.glsl
     GL/texturing.fsh.glsl
     GL/texturing.vsh.glsl
     GL/texturing3d.fsh.glsl
     GL/texturing_billboard.vsh.glsl
+    GL/texturing_gui.fsh.glsl
     GL/texturing_gui.vsh.glsl
+    GL/texturing_position.fsh.glsl
     GL/traffic.fsh.glsl
     GL/traffic.vsh.glsl
     GL/traffic_circle.fsh.glsl
