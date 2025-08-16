@@ -2312,6 +2312,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"highway", "cycleway"},
       {"highway", "footway"},
       {"highway", "ford"},
+      {"highway", "ladder"},
       {"highway", "living_street"},
       {"highway", "motorway"},
       {"highway", "motorway_junction"},

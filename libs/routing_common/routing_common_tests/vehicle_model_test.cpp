@@ -485,6 +485,7 @@ UNIT_TEST(VehicleModel_HighwayType_Values)
   TEST(check(HighwayType::HighwayMotorwayLink, {"highway", "motorway_link"}), ());
   TEST(check(HighwayType::HighwayLivingStreet, {"highway", "living_street"}), ());
   TEST(check(HighwayType::HighwayMotorway, {"highway", "motorway"}), ());
+  TEST(check(HighwayType::HighwayLadder, {"highway", "ladder"}), ());
   TEST(check(HighwayType::HighwaySteps, {"highway", "steps"}), ());
   TEST(check(HighwayType::HighwayTrunk, {"highway", "trunk"}), ());
   TEST(check(HighwayType::HighwayPedestrian, {"highway", "pedestrian"}), ());
@@ -495,6 +496,7 @@ UNIT_TEST(VehicleModel_HighwayType_Values)
   TEST(check(HighwayType::HighwaySecondaryLink, {"highway", "secondary_link"}), ());
   TEST(check(HighwayType::RouteFerry, {"route", "ferry"}), ());
   TEST(check(HighwayType::HighwayTertiaryLink, {"highway", "tertiary_link"}), ());
+  TEST(check(HighwayType::HighwayLadder, {"highway", "ladder"}), ());
   TEST(check(HighwayType::HighwayBusway, {"highway", "busway"}), ());
   TEST(check(HighwayType::RouteShuttleTrain, {"route", "shuttle_train"}), ());
 }

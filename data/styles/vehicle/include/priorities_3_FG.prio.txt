@@ -15,6 +15,7 @@
 historic-citywalls                                  # line z15-
 === 280
 
+highway-ladder                                      # line z18-
 highway-steps                                       # line z18-
 highway-steps-bridge                                # line z18-
 hwtag-oneway::arrows                                # line::arrows z15-
