@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+  <issue id="MissingTranslation" severity="ignore" />
+
+  <!-- https://github.com/organicmaps/organicmaps/issues/3551 -->
+  <issue id="MissingQuantity" severity="ignore" />
+  <issue id="UnusedQuantity" severity="ignore" />
+
+  <!-- https://github.com/organicmaps/organicmaps/issues/3550 -->
+  <issue id="ByteOrderMark" severity="ignore" />
+
+  <!-- https://github.com/organicmaps/organicmaps/issues/1077 -->
+  <issue id="CustomSplashScreen" severity="ignore" />
+
+  <!-- https://github.com/organicmaps/organicmaps/issues/3610 -->
+  <issue id="InsecureBaseConfiguration" severity="ignore" />
+</lint>
