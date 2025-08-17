@@ -75,12 +75,15 @@ std::string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_
 {
   auto const lengthUnits = m_settings.GetLengthUnits();
 
-  if (turn.m_turn != CarDirection::None)
-    return m_getTtsText.GetTurnNotification(
-        {distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_turn, lengthUnits, nextStreetInfo});
+  Notification notif{distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_turn, lengthUnits};
+  if (turn.m_turn == CarDirection::None)
+    notif.m_turnDirPedestrian = turn.m_pedestrianTurn;
 
-  return m_getTtsText.GetTurnNotification(
-      {distanceUnits, exitNum, useThenInsteadOfDistance, turn.m_pedestrianTurn, lengthUnits, nextStreetInfo});
+  // https://github.com/organicmaps/organicmaps/issues/6146
+  if (turn.m_turn != CarDirection::EnterRoundAbout)
+    notif.m_nextStreetInfo = nextStreetInfo;
+
+  return m_getTtsText.GetTurnNotification(notif);
 }
 
 std::string NotificationManager::GenerateRecalculatingText() const
@@ -126,12 +129,14 @@ void NotificationManager::GenerateTurnNotifications(std::vector<TurnItemDist> co
 
   double distBetweenTurnsMeters = secondTurn.m_distMeters - firstTurn.m_distMeters;
   ASSERT_GREATER_OR_EQUAL(distBetweenTurnsMeters, 0, ());
-  if (distBetweenTurnsMeters > kSecondTurnThresholdDistM && !IsClassicEntranceToRoundabout(firstTurn, secondTurn))
+  bool const isRoundabout = IsClassicEntranceToRoundabout(firstTurn, secondTurn);
+  if (!isRoundabout && distBetweenTurnsMeters > kSecondTurnThresholdDistM)
     return;
 
-  if (distBetweenTurnsMeters < kDistanceNotifyThresholdM)
+  if (distBetweenTurnsMeters < kDistanceNotifyThresholdM ||
+      (isRoundabout && distBetweenTurnsMeters < kSecondTurnThresholdDistM))
   {
-    // distanceUnits is not used because of "Then" is used
+    // Don't pronounce distance because of immediate "Then".
     distBetweenTurnsMeters = 0;
   }
 

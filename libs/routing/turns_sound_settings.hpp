@@ -167,26 +167,6 @@ struct Notification
     , m_lengthUnits(lengthUnits)
   {}
 
-  Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-               PedestrianDirection turnDirPedestrian, measurement_utils::Units lengthUnits,
-               RouteSegment::RoadNameInfo const & nextStreetInfo)
-    : m_distanceUnits(distanceUnits)
-    , m_exitNum(exitNum)
-    , m_useThenInsteadOfDistance(useThenInsteadOfDistance)
-    , m_turnDirPedestrian(turnDirPedestrian)
-    , m_lengthUnits(lengthUnits)
-    , m_nextStreetInfo(nextStreetInfo)
-  {}
-
-  Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-               PedestrianDirection turnDirPedestrian, measurement_utils::Units lengthUnits)
-    : m_distanceUnits(distanceUnits)
-    , m_exitNum(exitNum)
-    , m_useThenInsteadOfDistance(useThenInsteadOfDistance)
-    , m_turnDirPedestrian(turnDirPedestrian)
-    , m_lengthUnits(lengthUnits)
-  {}
-
   bool operator==(Notification const & rhv) const
   {
     return m_distanceUnits == rhv.m_distanceUnits && m_exitNum == rhv.m_exitNum &&
