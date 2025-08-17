@@ -45,19 +45,20 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v4
 
-      - name: Install reviewdog
-        uses: reviewdog/action-setup@v1
-
       - name: Lint
         shell: bash
         working-directory: android
-        run: ./gradlew lint
+        run: ./gradlew lintAllModules
+
+      # Reviewdog is needed for the action below to report issues in the PR.
+      - name: Install reviewdog
+        uses: reviewdog/action-setup@v1
 
       - name: Report Android Lint Results
         uses: ilyagulya/android-lint-action@v0.12.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          lint_xml_file: android/app/build/reports/lint-results-fdroidDebug.xml
+          lint_xml_file: android/build/reports/lint/lint.xml
           reporter: github-pr-review
           level: warning
 
