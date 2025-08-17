@@ -26,3 +26,43 @@ rootProject.ext {
     versionCode = ver.V1
     versionName = ver.V2
 }
+
+tasks.register("lintAllModules") {
+    group = "verification"
+    description = "Run lint on all modules and produce a merged report"
+
+    // Run all submodules' lint tasks
+    dependsOn(subprojects.collect { p ->
+        p.tasks.named("lint")
+    })
+
+    doLast {
+        def reportsDir = file("$rootDir/build/reports/lint")
+        reportsDir.mkdirs()
+
+        def mergedReport = new File(reportsDir, "lint.xml")
+        // start of merged XML
+        mergedReport.text = '<?xml version="1.0" encoding="UTF-8"?>\n<lint-report>\n<issues>'
+
+        subprojects.each { p ->
+            // Find any lint-results*.xml in this module
+            def reportFiles = p.layout.buildDirectory.dir("reports").get().asFileTree.matching {
+                include "**/lint-results*.xml"
+            }
+
+            reportFiles.each { reportFile ->
+                println "Merging report from: ${reportFile}"
+                def content = reportFile.getText("UTF-8")
+                // strip XML prolog and root tags
+                content = content
+                    .replaceFirst(/<\?xml.*?\?>/, "")
+                    .replaceAll("<issues.*>", "")
+                    .replaceAll("</issues>", "")
+                mergedReport.append(content)
+            }
+        }
+
+        mergedReport.append("</issues></lint-report>")
+        println "✅ Merged lint report written to: $mergedReport"
+    }
+}
