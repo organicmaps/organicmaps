@@ -94,7 +94,7 @@ final class ChartPointInfoView: UIView {
   func update(x: CGFloat, label: String, points: [ChartLineInfo]) {
     distanceLabel.text = label
     altitudeLabel.text = altitudeText(points[0])
-    layoutIfNeeded()
+    setNeedsLayout()
   }
 
   private func altitudeText(_ point: ChartLineInfo) -> String {
