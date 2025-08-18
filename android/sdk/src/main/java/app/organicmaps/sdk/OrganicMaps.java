@@ -183,7 +183,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     initNativeStrings();
     SearchEngine.INSTANCE.initialize();
     BookmarkManager.loadBookmarks();
-    SyncManager.INSTANCE.initialize();
+    SyncManager.INSTANCE.initialize(mContext);
     TtsPlayer.INSTANCE.initialize(mContext);
     RoutingController.get().initialize(mLocationHelper);
     TrafficManager.INSTANCE.initialize();
