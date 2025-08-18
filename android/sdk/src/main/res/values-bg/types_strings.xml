@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Types -->
+    <string name="type.addr_interpolation">Адрес/Блок</string>
+    <string name="type.addr_interpolation.even">Адрес/Блок</string>
+    <string name="type.addr_interpolation.odd">Адрес/Блок</string>
+    <string name="type.amenity.bbq">Грил барбекю</string>
+    <string name="type.amenity.motorcycle_rental">Мотоциклети под наем</string>
+    <string name="type.amenity.gambling">Хазарт</string>
+    <string name="type.leisure.adult_gaming_centre">Център за игри за възрастни</string>
+    <string name="type.leisure.amusement_arcade">Аркада</string>
+    <string name="type.amenity.charging_station.bicycle">Станция за зареждане на велосипеди</string>
+    <string name="type.amenity.charging_station.motorcar">Станция за зареждане на автомобили</string>
+    <string name="type.leisure.bowling_alley">Боулинг писта</string>
+    <string name="type.amenity.compressed_air">Сгъстен въздух</string>
+    <string name="type.amenity.conference_centre">Конферентен център</string>
+    <string name="type.amenity.driving_school">Автошкола</string>
+    <string name="type.amenity.exhibition_centre">Изложбен център</string>
+    <string name="type.amenity.money_transfer">Паричен превод</string>
+    <string name="type.amenity.music_school">Музикално училище</string>
+    <string name="type.amenity.language_school">Езиково училище</string>
+    <string name="type.amenity.loading_dock">Товарен док</string>
+    <string name="type.amenity.parking">Паркинг</string>
+    <string name="type.amenity.parking.fee">Паркинг</string>
+    <string name="type.amenity.parking.multi.storey">Многоетажен паркинг</string>
+    <string name="type.amenity.parking.multi.storey.fee">Многоетажен паркинг</string>
+    <string name="type.amenity.parking.no.access">Частен паркинг</string>
+    <string name="type.amenity.parking.permissive">Частен паркинг</string>
+    <string name="type.amenity.parking.private">Частен паркинг</string>
+    <string name="type.amenity.parking.underground">Подземен паркинг</string>
+    <string name="type.amenity.parking.underground.fee">Подземен паркинг</string>
+    <string name="type.amenity.parking.underground.private">Частен подземен паркинг</string>
+    <string name="type.amenity.parking.street_side">Паркинг от страната на улицата</string>
+    <string name="type.amenity.parking.street_side.fee">Паркинг от страната на улицата</string>
+    <string name="type.amenity.parking.street_side.private">Частна улица страничен паркинг</string>
+    <string name="type.amenity.parking.lane">Паркинг на платното</string>
+    <string name="type.amenity.parking.lane.fee">Паркинг на платното</string>
+    <string name="type.amenity.parking.lane.private">Частна лента за паркиране</string>
+    <string name="type.amenity.parking_entrance">Вход за паркинг</string>
+    <string name="type.amenity.parking_entrance.private">Частен вход за паркинг</string>
+    <string name="type.amenity.parking_entrance.permissive">Вход за паркинг</string>
+    <string name="type.amenity.parking_space.disabled">Паркомясто за инвалиди</string>
+    <string name="type.amenity.place_of_worship.christian.mormon">Църквата на Исус Христос на светиите от последните дни</string>
+    <string name="type.amenity.place_of_worship.christian.jehovahs_witness">Зала на царството на Свидетелите на Йехова</string>
+    <string name="type.amenity.prison">Затвор</string>
+    <!-- SECTION: Types: Recycling -->
+    <string name="type.recycling.batteries">Батерии</string>
+    <!-- Weather shelter (including sun shelters and natural rock shelters). -->
+    <string name="type.amenity.shelter">Подслон</string>
+    <!-- A weather shelter by the public transport stop. -->
+    <string name="type.amenity.shelter.public_transport">Подслон</string>
+    <!-- Compared to wilderness_hut its smaller and simpler, without a fireplace. -->
+    <string name="type.amenity.shelter.basic_hut">Колибка за бивак</string>
+    <!-- A traditional 3-walled shelter (one side open), suitable for overnight camping. -->
+    <string name="type.amenity.shelter.lean_to">Подслон за бивак</string>
+    <string name="type.amenity.public_bath">Обществена баня</string>
+    <string name="type.amenity.stripclub">Стриптийз клуб</string>
+    <string name="type.amenity.vehicle_inspection">Проверка на автомобила</string>
+    <string name="type.barrier.city_wall">Градска стена</string>
+    <string name="type.waterway.ditch">Отводнителна канавка</string>
+    <string name="type.natural.water.moat">Ров</string>
+    <string name="type.natural.water.wastewater">Отпадъчни води</string>
+    <string name="type.barrier.turnstile">Турникет</string>
+    <string name="type.boundary.aboriginal_lands">Земи на коренното население</string>
+    <string name="type.boundary.protected_area">Защитена местност</string>
+    <string name="type.boundary.protected_area.1">Защитена местност</string>
+    <string name="type.boundary.protected_area.2">Защитена местност</string>
+    <string name="type.boundary.protected_area.3">Защитена местност</string>
+    <string name="type.boundary.protected_area.4">Защитена местност</string>
+    <string name="type.boundary.protected_area.5">Защитена местност</string>
+    <string name="type.boundary.protected_area.6">Защитена местност</string>
+    <!-- Duplicates [address] in strings.txt -->
+    <string name="type.building.address">Адрес</string>
+    <string name="type.building.train_station">Сграда на гарата</string>
+    <string name="type.cemetery.grave">Гроб</string>
+    <string name="type.craft">Занаяти</string>
+    <string name="type.craft.beekeeper">Пчелар</string>
+    <string name="type.craft.blacksmith">Ковачница</string>
+    <string name="type.craft.brewery">Пивоварна</string>
+    <string name="type.craft.caterer">Кетъринг</string>
+    <string name="type.craft.carpenter">Марангоз</string>
+    <string name="type.craft.confectionery">Сладкарски изделия</string>
+    <string name="type.craft.electrician">Електротехник</string>
+    <string name="type.craft.electronics_repair">Ремонт на електроника</string>
+    <string name="type.craft.gardener">Градинар</string>
+    <string name="type.craft.grinding_mill">Мелница за смилане</string>
+    <string name="type.craft.handicraft">Занаят</string>
+    <!-- Heating, Ventilation, and Air Conditioning -->
+    <string name="type.craft.hvac">Отопление, вентилация и климатизация</string>
+    <string name="type.craft.key_cutter">Рязане на ключове</string>
+    <string name="type.craft.locksmith">Ключар</string>
+    <string name="type.craft.metal_construction">Метални конструкции</string>
+    <string name="type.craft.painter">Бояджия</string>
+    <string name="type.craft.photographer">Фотограф</string>
+    <string name="type.shop.camera">Магазин за фотоапарати</string>
+    <string name="type.craft.plumber">Водопроводчик</string>
+    <string name="type.craft.sawmill">Дъскорезница</string>
+    <string name="type.craft.shoemaker">Обущар</string>
+    <string name="type.craft.winery">Винарна</string>
+    <string name="type.craft.tailor">Шивач</string>
+    <string name="type.cuisine.deli">Деликатеси</string>
+    <string name="type.emergency.assembly_point">Авариен сборен пункт</string>
+    <!-- A place where a lifeguard is on duty. -->
+    <string name="type.emergency.lifeguard">Спасител</string>
+    <!-- A mountain rescue base for search and rescue activities. -->
+    <string name="type.emergency.mountain_rescue">Планинска спасителна станция</string>
+    <!-- This is for main/primary entrances, for secondary entrances see type.entrance -->
+    <string name="type.entrance.main">Главния вход</string>
+    <string name="type.entrance.exit">Изход</string>
+    <string name="type.fee.no">Безплатно</string>
+    <string name="type.healthcare.laboratory">Медицинска лаборатория</string>
+    <string name="type.healthcare.physiotherapist">Физиотерапевт</string>
+    <string name="type.healthcare.alternative">Алтернативна медицина</string>
+    <string name="type.healthcare.audiologist">Аудиология</string>
+    <string name="type.healthcare.blood_donation">Център за кръводаряване</string>
+    <string name="type.healthcare.optometrist">Оптометрия</string>
+    <string name="type.healthcare.podiatrist">Подиология</string>
+    <string name="type.healthcare.psychotherapist">Психотерапия</string>
+    <string name="type.healthcare.sample_collection">Вземане на проби</string>
+    <string name="type.healthcare.speech_therapist">Логопедия</string>
+    <!-- SECTION: Types: Roads -->
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.bridleway.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.bridleway.tunnel">Тунел</string>
+    <string name="type.highway.busway">Обособен автобусен път</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.busway.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.busway.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.cycleway.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.cycleway.tunnel">Тунел</string>
+    <string name="type.highway.footway.sidewalk">Тротоар</string>
+    <string name="type.highway.footway.crossing">Пешеходно пресичане</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.footway.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.footway.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.living_street.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.living_street.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.motorway.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.motorway.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.motorway_link.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.motorway_link.tunnel">Тунел</string>
+    <string name="type.highway.path">Път</string>
+    <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
+    <string name="type.highway.path.difficult">Трудна или слабо видима пътека</string>
+    <!-- Hiking trail tagged as sac_scale=alpine_hiking (4+ of 6) or trail_visibility=horrible or more extreme. -->
+    <string name="type.highway.path.expert">Много трудна или неразличима пътека</string>
+    <string name="type.highway.path.bicycle">Пътека за колела и пешеходци</string>
+    <string name="type.highway.footway.bicycle">Път за колела и пешеходци</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.path.bridge">Мост</string>
+    <string name="type.highway.path.horse">Конен път</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.path.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.pedestrian.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.pedestrian.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.primary.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.primary.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.primary_link.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.primary_link.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.residential.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.residential.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.road.bridge">Мост</string>
+    <!-- A bridge structure outline. -->
+    <string name="type.man_made.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.road.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.secondary.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.secondary.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.secondary_link.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.secondary_link.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.service.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.service.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.steps.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.steps.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.tertiary.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.tertiary.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.tertiary_link.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.tertiary_link.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.track.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.track.tunnel">Тунел</string>
+    <string name="type.highway.trunk">Автомагистрала</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.trunk.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.trunk.tunnel">Тунел</string>
+    <string name="type.highway.trunk_link">Изход от магистрала</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.trunk_link.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.trunk_link.tunnel">Тунел</string>
+    <!-- These translations are used for all type.highway.*.bridge. -->
+    <string name="type.highway.unclassified.bridge">Мост</string>
+    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <string name="type.highway.unclassified.tunnel">Тунел</string>
+    <string name="type.area_highway.path">Път</string>
+    <string name="type.area_highway.trunk">Автомагистрала</string>
+    <!-- SECTION: Types: Historic -->
+    <string name="type.historic">Исторически обект</string>
+    <string name="type.historic.aircraft">Исторически самолет</string>
+    <string name="type.historic.anchor">Историческа котва</string>
+    <string name="type.historic.archaeological_site">Археологически сайт</string>
+    <string name="type.historic.battlefield">Бойно поле</string>
+    <string name="type.historic.boundary_stone">Граничен камък</string>
+    <string name="type.historic.cannon">Оръдие</string>
+    <string name="type.historic.castle">Замък</string>
+    <string name="type.historic.castle.castrum">Каструм</string>
+    <string name="type.historic.castle.defensive">Замък</string>
+    <string name="type.historic.castle.fortified_church">Укрепена църква</string>
+    <string name="type.historic.castle.fortress">Крепост</string>
+    <string name="type.historic.castle.hillfort">Градище</string>
+    <string name="type.historic.castle.kremlin">Кремъл</string>
+    <string name="type.historic.castle.manor">Усадба</string>
+    <string name="type.historic.castle.palace">Дворец</string>
+    <string name="type.historic.castle.shiro">Японски замък</string>
+    <string name="type.historic.castle.stately">Замък</string>
+    <string name="type.historic.city_gate">Градска порта</string>
+    <string name="type.historic.citywalls">Градска стена</string>
+    <string name="type.historic.fort">Форт</string>
+    <string name="type.historic.gallows">Бесилка</string>
+    <string name="type.historic.locomotive">Исторически Локомотив</string>
+    <string name="type.historic.memorial">Мемориал</string>
+    <string name="type.historic.memorial.cross">Мемориален кръст</string>
+    <string name="type.historic.memorial.plaque">Паметна плоча</string>
+    <string name="type.historic.memorial.sculpture">Скулптура</string>
+    <string name="type.historic.memorial.statue">Статуя</string>
+    <string name="type.historic.memorial.stolperstein">Cпънка</string>
+    <string name="type.historic.stone">Исторически камък</string>
+    <string name="type.historic.memorial.war_memorial">Военен паметник</string>
+    <string name="type.historic.mine">Историческа мина</string>
+    <string name="type.historic.monument">Паметник</string>
+    <string name="type.historic.pillory">Позорен стълб</string>
+    <string name="type.historic.ruins">Развалина</string>
+    <string name="type.historic.ship">Кораб</string>
+    <string name="type.historic.tank">Исторически танк</string>
+    <string name="type.historic.tomb">Гробница</string>
+    <!-- Usually has no historic and sometimes no religious context. E.g. a mountain summit cross. -->
+    <string name="type.man_made.cross">Кръст</string>
+    <!-- Usually a Christian historical cross placed along a road. -->
+    <string name="type.historic.wayside_cross">Крайпътен кръст</string>
+    <string name="type.historic.wayside_shrine">Крайпътно светилище</string>
+    <string name="type.historic.wreck">корабокрушение</string>
+    <string name="type.landuse.basin">Езерце</string>
+    <string name="type.landuse.flowerbed">Цветна леха</string>
+    <string name="type.leisure.dance">Зала за танци</string>
+    <string name="type.leisure.miniature_golf">Миниголф</string>
+    <string name="type.leisure.outdoor_seating">Места за сядане на открито</string>
+    <string name="type.leisure.picnic_table">Маса за пикник</string>
+    <string name="type.sport.climbing">Катерене</string>
+    <string name="type.sport.yoga">Йога</string>
+    <string name="type.leisure.swimming_pool">Басейн</string>
+    <string name="type.leisure.swimming_pool.private">Басейн</string>
+    <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
+    <string name="type.man_made.communications_tower">Комуникационна кула</string>
+    <!-- A regular telecommunications tower / mast. -->
+    <string name="type.man_made.tower.communication">Комуникационна кула</string>
+    <!-- A deep hole drilled into the earth to extract oil or gas. -->
+    <string name="type.man_made.petroleum_well">Нефтена или газова кладенец</string>
+    <!-- A tower/mast constructed to burn off excess gas. -->
+    <string name="type.man_made.flare">Газова факла</string>
+    <string name="type.natural">Природа</string>
+    <!-- A rocky land cover. -->
+    <string name="type.natural.bare_rock">Рок</string>
+    <!-- A land cover consisting of rounded rock fragments (pebbles) on a beach or riverbed. -->
+    <string name="type.natural.shingle">Камъчета</string>
+    <!-- A loose surface consisting of angular, sharp stones. Usually on a mountain slope and prone to landslides. -->
+    <string name="type.natural.scree">Сипеи</string>
+    <string name="type.natural.bay">Залив</string>
+    <string name="type.natural.beach">Плаж</string>
+    <string name="type.natural.beach.sand">Пясъчен плаж</string>
+    <string name="type.natural.beach.gravel">Чакълест плаж</string>
+    <string name="type.natural.cape">Нос</string>
+    <string name="type.natural.cave_entrance">Пещера</string>
+    <string name="type.natural.cliff">Клиф</string>
+    <string name="type.natural.earth_bank">Скала</string>
+    <string name="type.man_made.embankment">Насип</string>
+    <string name="type.natural.coastline">Крайбрежие</string>
+    <string name="type.natural.desert">Пустинен</string>
+    <string name="type.natural.geyser">Гейзер</string>
+    <string name="type.natural.glacier">Ледник</string>
+    <string name="type.natural.grassland">Пасища</string>
+    <string name="type.natural.heath">Пустош</string>
+    <string name="type.natural.hot_spring">Геотермален извор</string>
+    <string name="type.natural.water.lake">Езеро</string>
+    <string name="type.natural.water.lock">Заключваща камера</string>
+    <string name="type.natural.water.pond">Езерце</string>
+    <string name="type.natural.water.reservoir">Резервоар</string>
+    <string name="type.natural.water.basin">Резервоар</string>
+    <string name="type.natural.water.river">Река</string>
+    <string name="type.natural.land">Суша</string>
+    <string name="type.natural.meadow">Ливада</string>
+    <string name="type.natural.orchard">Овощна градина</string>
+    <string name="type.natural.peak">Връх</string>
+    <string name="type.natural.saddle">Седло</string>
+    <string name="type.natural.rock">Камък</string>
+    <string name="type.natural.scrub">Гъсталаци</string>
+    <string name="type.natural.spring">Извор</string>
+    <string name="type.natural.spring.drinking_water_no">Извор</string>
+    <string name="type.natural.strait">Проток</string>
+    <string name="type.natural.tree_row">Ред дървета</string>
+    <string name="type.natural.vineyard">Лозе</string>
+    <string name="type.natural.volcano">Вулкан</string>
+    <string name="type.natural.water">Воден басейн</string>
+    <string name="type.natural.wetland">Влажна зона</string>
+    <string name="type.natural.wetland.bog">Торфено блато</string>
+    <string name="type.natural.wetland.marsh">Блато</string>
+    <string name="type.office.telecommunication">Телекомуникационна компания</string>
+    <string name="type.place.city">Град</string>
+    <string name="type.place.city.capital">Столица</string>
+    <string name="type.place.city.capital.10">Град</string>
+    <string name="type.place.city.capital.11">Град</string>
+    <string name="type.place.city.capital.2">Столица</string>
+    <string name="type.place.city.capital.3">Град</string>
+    <string name="type.place.city.capital.4">Град</string>
+    <string name="type.place.city.capital.5">Град</string>
+    <string name="type.place.city.capital.6">Град</string>
+    <string name="type.place.city.capital.7">Град</string>
+    <string name="type.place.city.capital.8">Град</string>
+    <string name="type.place.city.capital.9">Град</string>
+    <string name="type.place.continent">Континент</string>
+    <string name="type.place.country">Страна</string>
+    <string name="type.place.county">Графство</string>
+    <string name="type.place.farm">Ферма</string>
+    <string name="type.place.hamlet">Cело</string>
+    <string name="type.place.island">Остров</string>
+    <string name="type.place.islet">Острови</string>
+    <string name="type.place.isolated_dwelling">Изолирано жилище</string>
+    <string name="type.place.locality">Място</string>
+    <!-- Named part of a city or town, bigger than place=neighbourhood and smaller than place=suburb (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dquarter) -->
+    <string name="type.place.quarter">Съседство</string>
+    <!-- Named part of a city, town or suburb, smaller than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Neighbourhood) -->
+    <string name="type.place.neighbourhood">Съседство</string>
+    <string name="type.place.ocean">Океан</string>
+    <string name="type.place.region">Регион</string>
+    <string name="type.place.sea">Море</string>
+    <string name="type.place.square">Площад</string>
+    <string name="type.place.state">Федерален щат</string>
+    <string name="type.place.state.USA">Държава</string>
+    <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
+    <string name="type.place.suburb">Предградие</string>
+    <string name="type.place.town">Градче</string>
+    <string name="type.place.village">Село</string>
+    <string name="type.power.generator.solar">Слънчев генератор</string>
+    <string name="type.power.generator.wind">Вятърен генератор</string>
+    <string name="type.power.generator.gas">Газотурбинна електроцентрала</string>
+    <string name="type.power.generator.hydro">Водноелектрическа централа</string>
+    <string name="type.power.plant">Електроцентрала</string>
+    <string name="type.power.plant.coal">Въглищна централа</string>
+    <string name="type.power.plant.gas">Газотурбинна електроцентрала</string>
+    <string name="type.power.plant.hydro">Водноелектрическа централа</string>
+    <string name="type.power.plant.solar">Слънчева електроцентрала</string>
+    <string name="type.power.plant.wind">Вятърна електроцентрала</string>
+    <string name="type.railway.funicular">Фуникуляр</string>
+    <string name="type.railway.rail.highspeed">Високоскоростна железница</string>
+    <string name="type.railway.rail.tourism">Туристическа железница</string>
+    <string name="type.railway.rail.main">Железопътна линия</string>
+    <!-- Includes ordinary railway=rail w/o more specific usage= and service= tags. -->
+    <string name="type.railway.rail.branch">Вторична железница</string>
+    <!-- Non-passenger utility tracks: industrial, military, test. -->
+    <string name="type.railway.rail.utility">Сервизна железница</string>
+    <string name="type.railway.rail.spur">Железопътна отбивка</string>
+    <!-- Short service tracks: siding, yard, crossover. -->
+    <string name="type.railway.rail.service">Спомагателен релсов път</string>
+    <string name="type.railway.rail.bridge">Железопътен мост</string>
+    <string name="type.railway.rail.highspeed.bridge">Железопътен мост</string>
+    <string name="type.railway.rail.tourism.bridge">Железопътен мост</string>
+    <string name="type.railway.rail.main.bridge">Железопътен мост</string>
+    <string name="type.railway.rail.branch.bridge">Железопътен мост</string>
+    <string name="type.railway.rail.utility.bridge">Железопътен мост</string>
+    <string name="type.railway.rail.spur.bridge">Железопътен мост</string>
+    <string name="type.railway.rail.service.bridge">Железопътен мост</string>
+    <string name="type.railway.rail.tunnel">Железопътен тунел</string>
+    <string name="type.railway.rail.highspeed.tunnel">Железопътен тунел</string>
+    <string name="type.railway.rail.tourism.tunnel">Железопътен тунел</string>
+    <string name="type.railway.rail.main.tunnel">Железопътен тунел</string>
+    <string name="type.railway.rail.branch.tunnel">Железопътен тунел</string>
+    <string name="type.railway.rail.utility.tunnel">Железопътен тунел</string>
+    <string name="type.railway.rail.spur.tunnel">Железопътен тунел</string>
+    <string name="type.railway.rail.service.tunnel">Железопътен тунел</string>
+    <string name="type.railway.station.funicular">Фуникуляр</string>
+    <string name="type.shop.bathroom_furnishing">Обзавеждане за баня</string>
+    <string name="type.shop.cannabis">Магазин за канабис</string>
+    <string name="type.shop.carpet">Килими</string>
+    <string name="type.shop.curtain">Пердета</string>
+    <string name="type.shop.deli">Магазин за деликатеси</string>
+    <string name="type.shop.doityourself">Строителен маркет</string>
+    <string name="type.shop.farm">Магазин за селскостопански храни</string>
+    <string name="type.shop.fashion_accessories">Модни аксесоари</string>
+    <string name="type.shop.gas">Магазин за газ</string>
+    <string name="type.shop.grocery">Хранителни стоки</string>
+    <string name="type.shop.hardware">Железария</string>
+    <string name="type.shop.health_food">Магазин за здравословни храни</string>
+    <string name="type.shop.hearing_aids">Магазин за слухови апарати</string>
+    <string name="type.shop.herbalist">Магазин за билки</string>
+    <string name="type.shop.hifi">HiFi аудио</string>
+    <string name="type.shop.houseware">Магазин за домакински принадлежности</string>
+    <string name="type.shop.kitchen">Магазин за кухня</string>
+    <string name="type.shop.motorcycle_repair">Ремонт на мотоциклети</string>
+    <string name="type.shop.outpost">Точка на вземане</string>
+    <string name="type.shop.pasta">Магазин за паста</string>
+    <string name="type.shop.pastry">Тестени изделия</string>
+    <string name="type.shop.pet_grooming">Грижа за домашни любимци</string>
+    <string name="type.shop.rental">Магазин под наем</string>
+    <string name="type.shop.rental.bicycle">Магазин за велосипеди под наем</string>
+    <string name="type.shop.second_hand">Магазин втора употреба</string>
+    <string name="type.shop.agrarian">Селскостопански магазин</string>
+    <string name="type.shop.antiques">Антики</string>
+    <string name="type.shop.appliance">Магазин за техника</string>
+    <!-- maybe change to Art Gallery for en-US when supported -->
+    <string name="type.shop.art">Магазин за изкуства</string>
+    <string name="type.shop.baby_goods">Детски магазин</string>
+    <string name="type.shop.bag">Магазин за чанти</string>
+    <string name="type.shop.bed">Магазин за легла</string>
+    <string name="type.shop.boutique">Бутик</string>
+    <string name="type.shop.charity">Благотворителен магазин</string>
+    <string name="type.shop.cheese">Магазин за сирене</string>
+    <string name="type.shop.craft">Изкуства и занаяти</string>
+    <string name="type.shop.dairy">Млечни продукти</string>
+    <string name="type.shop.electrical">Електрически магазин</string>
+    <string name="type.shop.fishing">Риболовен магазин</string>
+    <string name="type.shop.interior_decoration">Вътрешни декорации</string>
+    <string name="type.shop.lottery">Лотарийни билети</string>
+    <string name="type.shop.medical_supply">Медицински изделия</string>
+    <string name="type.shop.nutrition_supplements">Хранителни добавки</string>
+    <string name="type.shop.paint">Бои</string>
+    <string name="type.shop.perfumery">Парфюмерия</string>
+    <string name="type.shop.sewing">Шивашки консумативи</string>
+    <string name="type.shop.storage_rental">Склад под наем</string>
+    <string name="type.shop.tobacco">Тютюн</string>
+    <string name="type.shop.trade">Търговия с консумативи</string>
+    <string name="type.shop.watches">Часовници</string>
+    <string name="type.shop.wholesale">Магазин на едро</string>
+    <string name="type.sport">Спорт</string>
+    <string name="type.sport.american_football">Американски футбол</string>
+    <string name="type.sport.archery">Стрелба с лък</string>
+    <string name="type.sport.australian_football">Австралийски футбол</string>
+    <string name="type.sport.beachvolleyball">Плажен волейбол</string>
+    <string name="type.sport.chess">Шахмат</string>
+    <string name="type.sport.equestrian">Конен спорт</string>
+    <string name="type.sport.multi">Различни спортове</string>
+    <string name="type.sport.skateboard">Скейтбординг</string>
+    <string name="type.sport.swimming">Плуване</string>
+    <string name="type.sport.table_tennis">Тенис на маса</string>
+    <string name="type.sport.tennis">Тенис корт</string>
+    <string name="type.sport.volleyball">Волейбол</string>
+    <string name="type.sport.10pin">Боулинг</string>
+    <string name="type.sport.9pin">Боулинг</string>
+    <string name="type.sport.padel">Падел</string>
+    <string name="type.sport.futsal">Футзал</string>
+    <string name="type.sport.ice_hockey">Хокей на лед</string>
+    <string name="type.sport.field_hockey">Хокей на трева</string>
+    <string name="type.sport.badminton">Бадминтон</string>
+    <string name="type.sport.pelota">Баска пелота</string>
+    <string name="type.tourism.aquarium">Аквариум</string>
+    <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
+    <string name="type.tourism.alpine_hut">Планинска хижа</string>
+    <string name="type.tourism.apartment">Ваканционен апартамент</string>
+    <string name="type.attraction.amusement_ride">Развлекателна атракция</string>
+    <string name="type.attraction.animal">Заграждение за животни</string>
+    <string name="type.attraction.carousel">Въртележка</string>
+    <string name="type.attraction.historic">Историческа атракция</string>
+    <string name="type.attraction.maze">Лабиринт</string>
+    <string name="type.attraction.roller_coaster">Въртележка</string>
+    <string name="type.attraction.water_slide">Водна пързалка</string>
+    <!-- A rentable countryside vacation house. -->
+    <string name="type.tourism.chalet">Ваканционна вила</string>
+    <string name="type.tourism.information">Туринформация</string>
+    <string name="type.tourism.information.board">Информационен щит</string>
+    <string name="type.tourism.information.guidepost">Пътеводител</string>
+    <string name="type.tourism.information.map">Карта</string>
+    <string name="type.tourism.information.office">Туристически офис</string>
+    <string name="type.tourism.information.visitor_centre">Център за посетители</string>
+    <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
+    <string name="type.tourism.wilderness_hut">Хижа-заслон</string>
+    <string name="type.tourism.zoo.petting">Зоопарк за домашни любимци</string>
+    <string name="type.waterway.fish_pass">Стълба за риба</string>
+    <string name="type.natural.water.ditch">Отводнителна канавка</string>
+    <string name="type.waterway.ditch.tunnel">водосток</string>
+    <string name="type.waterway.drain.tunnel">водосток</string>
+    <string name="type.piste_type.snow_park">Снежен парк</string>
+    <string name="type.piste_type.hike">Зимна пътека</string>
+    <string name="type.piste_type.connection">Свързване на пистите</string>
+    <string name="type.piste_type.skitour">Маршрут за скитуринг</string>
+    <string name="type.amenity.events_venue">Място за провеждане на събития</string>
+    <string name="type.shop.auction">Търг</string>
+    <string name="type.shop.collector">Колекционерски стоки</string>
+    <string name="type.self_service.yes">Налично е самообслужване</string>
+    <string name="type.self_service.only">Само на самообслужване</string>
+    <string name="type.self_service.partially">Частично самообслужване</string>
+    <string name="type.self_service.no">Няма самообслужване</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Key:social_facility -->
+    <string name="type.amenity.social_facility">Социално съоръжение</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Tag:emergency=emergency_ward_entrance -->
+    <string name="type.emergency.emergency_ward_entrance">Вход на спешното отделение</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Tag:amenity=dojo -->
+    <string name="type.amenity.dojo">Доджо</string>
+    <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
+    <string name="type.leisure.sports_hall">Спортна зала</string>
+    <string name="type.drinking_water.yes">Питейна вода</string>
+    <string name="type.amenity.grave_yard.christian">Християнски гробове</string>
+    <string name="type.aerialway">Самолетна писта</string>
+    <string name="type.aerialway.station">Аерогара</string>
+    <string name="type.aerialway.chair_lift">Седалков лифт</string>
+    <string name="type.aerialway.drag_lift">Влек</string>
+    <string name="type.aeroway.aerodrome">Летище</string>
+    <string name="type.aeroway.apron">Завеса</string>
+    <string name="type.aeroway.aerodrome.international">Международно летище</string>
+    <string name="type.aeroway.gate">Врата</string>
+    <string name="type.aeroway.helipad">Въртолетна площадка</string>
+    <string name="type.aeroway.runway">Писта</string>
+    <string name="type.aeroway.taxiway">Място за таксита</string>
+    <string name="type.aeroway.terminal">Терминал</string>
+    <string name="type.amenity">Услуга</string>
+    <string name="type.amenity.arts_centre">Средище за изкуство</string>
+    <string name="type.amenity.atm">Банкомат</string>
+    <string name="type.amenity.bank">Банка</string>
+    <string name="type.amenity.bar">Бар</string>
+    <string name="type.amenity.bench">Пейка</string>
+    <string name="type.amenity.bicycle_parking">Паркинг за колела</string>
+    <string name="type.amenity.brothel">Бардак</string>
+    <string name="type.amenity.bureau_de_change">Валутен обмен</string>
+    <string name="type.amenity.bus_station">Автобусна гара</string>
+    <string name="type.amenity.car_wash">Автомивка</string>
+    <string name="type.amenity.casino">Казино</string>
+    <string name="type.amenity.charging_station">Зарядна остановка</string>
+    <string name="type.amenity.childcare">Ясла</string>
+    <string name="type.amenity.cinema">Кино</string>
+    <string name="type.amenity.clinic">Клиника</string>
+    <string name="type.amenity.community_centre">Обществено средище</string>
+    <string name="type.amenity.courthouse">Съд</string>
+    <string name="type.amenity.dentist">Зъболекар</string>
+    <string name="type.amenity.doctors">Лекар</string>
+    <string name="type.amenity.drinking_water">Питейна вода</string>
+    <string name="type.office.diplomatic">Посолство</string>
+    <string name="type.amenity.fast_food">Бързо хранене</string>
+    <string name="type.amenity.ferry_terminal">Ферибот</string>
+    <string name="type.amenity.fire_station">Пожарна</string>
+    <string name="type.amenity.fountain">Фонтан</string>
+    <string name="type.amenity.fuel">Бензиностанция</string>
+    <string name="type.amenity.grave_yard">Гробове</string>
+    <string name="type.amenity.hospital">Болница</string>
+    <string name="type.amenity.hunting_stand">Ловджийска пусия</string>
+    <string name="type.amenity.ice_cream">Сладолед</string>
+    <string name="type.amenity.internet_cafe">Кафене с интернет</string>
+    <string name="type.amenity.kindergarten">Детска градина</string>
+    <string name="type.amenity.library">Библиотека</string>
+    <string name="type.amenity.parking_space">Място за спиране</string>
+    <string name="type.amenity.parking_space.underground">Подземно място за спиране</string>
+    <string name="type.amenity.pharmacy">Аптека</string>
+    <string name="type.amenity.place_of_worship.buddhist">Будистки храм</string>
+    <string name="type.amenity.place_of_worship">Светилище</string>
+    <string name="type.amenity.place_of_worship.jewish">Синагога</string>
+    <string name="type.amenity.police">Полиция</string>
+    <string name="type.amenity.pub">Кръчма</string>
+    <string name="type.amenity.public_bookcase">Книжен обмен</string>
+    <string name="type.amenity.recycling">Кофи за преработваем отпадък</string>
+    <string name="type.amenity.recycling.container">Кофи за преработваем отпадък</string>
+    <string name="type.recycling.clothes">Дрехи</string>
+    <string name="type.recycling.glass_bottles">Стъклени бутилки</string>
+    <string name="type.recycling.paper">Хартия</string>
+    <string name="type.recycling.plastic">Пластмаса</string>
+    <string name="type.recycling.plastic_bottles">Пластмасови бутилки</string>
+    <string name="type.recycling.cardboard">Картон</string>
+    <string name="type.recycling.shoes">Обувки</string>
+    <string name="type.amenity.restaurant">Заведение</string>
+    <string name="type.amenity.school">Училище</string>
+    <string name="type.amenity.shower">Душ</string>
+    <string name="type.amenity.telephone">Телефон</string>
+    <string name="type.toilets.yes">Тоалетна</string>
+    <string name="type.amenity.waste_disposal">Кофа</string>
+    <string name="type.amenity.waste_basket">Кошче за отпадък</string>
+    <string name="type.barrier">Бариера</string>
+    <string name="type.barrier.chain">Верига</string>
+    <string name="type.amenity.place_of_worship.muslim">Джамия</string>
+    <string name="type.amenity.post_box">Пощенска кутия</string>
+    <string name="type.amenity.toilets">Тоалетна</string>
+    <string name="type.amenity.cafe">Кафене</string>
+    <string name="type.amenity.post_office">Поща</string>
+    <string name="type.amenity.theatre">Театър</string>
+    <string name="type.amenity.place_of_worship.christian">Църква</string>
+    <string name="type.amenity.recycling.centre">Преработвателно средище</string>
+    <string name="type.amenity.parking_space.private">Частно място за спиране</string>
+    <string name="type.amenity.parking_space.permissive">Място за спиране</string>
+    <string name="type.amenity.marketplace">Пазар</string>
+    <string name="type.amenity.nursing_home">Старчески дом</string>
+    <string name="type.tourism.attraction">Забележителност</string>
+    <string name="type.shop.beverages">Напитки</string>
+    <string name="type.highway.elevator">Асансьор</string>
+    <string name="type.amenity.car_sharing">Споделяне на коли</string>
+    <string name="type.waterway.river.tunnel">Река</string>
+    <string name="type.railway.subway_entrance.london">Вход на метростанция</string>
+    <string name="type.shop.wine">Вино</string>
+    <string name="type.aerialway.mixed_lift">Смесен влек</string>
+    <string name="type.aerialway.cable_car">Кабинков влек</string>
+    <string name="type.aeroway">Летателно съоръжение</string>
+    <string name="type.amenity.bicycle_repair_station">Сервиз на колела</string>
+    <string name="type.amenity.bicycle_rental">Колела под наем</string>
+    <string name="type.amenity.car_rental">Коли под наем</string>
+    <string name="type.amenity.motorcycle_parking">Паркинг за мотори</string>
+    <string name="type.amenity.payment_terminal">Разплащателна остановка</string>
+    <string name="type.recycling.cans">Консерви</string>
+    <string name="type.amenity.townhall">Община</string>
+    <string name="type.barrier.border_control">Гранична остановка</string>
+    <string name="type.barrier.entrance">Вход</string>
+    <string name="type.barrier.fence">Ограда</string>
+    <string name="type.barrier.wall">Стена</string>
+    <string name="type.boundary">Преграда</string>
+    <string name="type.boundary.administrative.2">Държавна граница</string>
+    <string name="type.boundary.administrative.4">Областна граница</string>
+    <string name="type.building">Сграда</string>
+    <string name="type.building.has_parts">Сграда</string>
+    <string name="type.building_part">Сграда</string>
+    <string name="type.building.garage">Гараж</string>
+    <string name="type.building.warehouse">Склад</string>
+    <string name="type.emergency.fire_hydrant">Пожарен кран</string>
+    <string name="type.entrance">Вход</string>
+    <string name="type.highway">Магистрала</string>
+    <string name="type.highway.footway">Пътека</string>
+    <string name="type.railway.subway_entrance.kolkata">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.mecca">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.panama">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.philadelphia">Вход ма метро</string>
+    <string name="type.shop.beauty">Магазин за красота</string>
+    <string name="type.shop.bicycle">Магазин за колела</string>
+    <string name="type.shop.butcher">Месар</string>
+    <string name="type.shop.car_parts">Магазин за авточасти</string>
+    <string name="type.shop.car_repair">Сервиз за коли</string>
+    <string name="type.shop.car_repair.tyres">Гумаджия</string>
+    <string name="type.shop.chemist">Химик</string>
+    <string name="type.shop.pet">Магазин за животни</string>
+    <string name="type.shop.seafood">Риба</string>
+    <string name="type.shop.shoes">Магазин за обувки</string>
+    <string name="type.shop.sports">Спортни стоки</string>
+    <string name="type.shop.supermarket">Супермаркет</string>
+    <string name="type.shop.tea">Магазин за чай</string>
+    <string name="type.shop.toys">Играчки</string>
+    <string name="type.shop.tyres">Гуми</string>
+    <string name="type.tourism.artwork.statue">Статуя</string>
+    <string name="type.tourism.attraction.specified">Забележителност</string>
+    <string name="type.tourism.guest_house">Къща за гости</string>
+    <string name="type.tourism.hostel">Гостилница</string>
+    <string name="type.tourism.viewpoint">Гледка</string>
+    <string name="type.waterway.dam">Язовир</string>
+    <string name="type.waterway.river">Река</string>
+    <string name="type.waterway.stream">Поток</string>
+    <string name="type.wheelchair.limited">Ограничен достъп за колички</string>
+    <string name="type.highway.cycleway">Пътека за колела</string>
+    <string name="type.cuisine.african">Африканска</string>
+    <string name="type.railway.subway_entrance.maracaibo">Вход ма метро</string>
+    <string name="type.highway.cycleway.permissive">Пътека за колела</string>
+    <string name="type.railway.subway_entrance.kazan">Вход ма метро</string>
+    <string name="type.boundary.administrative.3">Областна граница</string>
+    <string name="type.railway.subway_entrance.glasgow">Вход на метро</string>
+    <string name="type.railway.subway_entrance.minsk">Вход ма метро</string>
+    <string name="type.highway.bus_stop">Спирка</string>
+    <string name="type.highway.footway.area">Пешеходно поле</string>
+    <string name="type.highway.ford">Брод</string>
+    <string name="type.railway.subway_entrance.guangzhou">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.helsinki">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.hongkong">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.oslo">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.istanbul">Вход ма метро</string>
+    <string name="type.waterway.waterfall">Водопад</string>
+    <string name="type.wheelchair">Инвалидна количка</string>
+    <string name="type.wheelchair.no">Без достъп за колички</string>
+    <string name="type.railway.subway_entrance.hiroshima">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.isfahan">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.kyoto">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.munchen">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.hamburg">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.kharkiv">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.moscow">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.kiev">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.lausanne">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.lisboa">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.lyon">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.novosibirsk">Вход ма метро</string>
+    <string name="type.waterway.stream.tunnel">Поток</string>
+    <string name="type.railway.subway_entrance.newyork">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.lima">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.malaga">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.medellin">Вход ма метро</string>
+    <string name="type.railway.subway_entrance.mexico">Вход ма метро</string>
+    <string name="type.cuisine.pasta">Паста</string>
+    <string name="type.highway.pedestrian">Пешеходна улица</string>
+    <string name="type.amenity.biergarten">Бирария</string>
+    <string name="type.amenity.food_court">Двор за хранене</string>
+    <string name="type.recycling.scrap_metal">Желязо за преработване</string>
+    <string name="type.recycling.green_waste">Растителен/органичен отпадък</string>
+    <string name="type.recycling.cartons">Кашони</string>
+    <string name="type.amenity.taxi">Място за такси</string>
+    <string name="type.amenity.university">Висше учебно заведение</string>
+    <string name="type.amenity.vending_machine.public_transport_tickets">Машина за билети</string>
+    <string name="type.amenity.vending_machine.sweets">Разпределител на сладки</string>
+    <string name="type.amenity.parcel_locker">Заключващо се шкафче</string>
+    <string name="type.amenity.vending_machine.fuel">Горивна помпа</string>
+    <string name="type.amenity.veterinary">Ветеринар</string>
+    <string name="type.amenity.waste_transfer_station">Средище за извозване на отпадък</string>
+    <string name="type.amenity.water_point">Остановка за пълнене на водни хранилища</string>
+    <string name="type.amenity.water_point.drinking_water_no">Остановка за пълнене на водни хранилища</string>
+    <string name="type.barrier.block">Блокова преграда</string>
+    <string name="type.barrier.bollard">Колчета</string>
+    <string name="type.barrier.cycle_barrier">Преграда за колела</string>
+    <string name="type.barrier.gate">Врата</string>
+    <string name="type.barrier.hedge">Плет</string>
+    <string name="type.barrier.lift_gate">Вдигаща се преграда</string>
+    <string name="type.barrier.toll_booth">Плащане на винетка</string>
+    <string name="type.cuisine.noodles">Азиатски спагети</string>
+    <string name="type.highway.motorway">Магистрала</string>
+    <string name="type.highway.motorway_junction">Разклонение</string>
+    <string name="type.highway.primary">Главен път</string>
+    <string name="type.highway.raceway">Състезателен път</string>
+    <string name="type.highway.speed_camera">Радар</string>
+    <string name="type.highway.steps">Стълби</string>
+    <string name="type.highway.traffic_signals">Светофар</string>
+    <string name="type.area_highway.footway">Пешеходен път</string>
+    <string name="type.area_highway.residential">Жилищна улица</string>
+    <string name="type.area_highway.unclassified">Малък път</string>
+    <string name="type.junction.circular">Кръгово</string>
+    <string name="type.junction.roundabout">Кръгово</string>
+    <string name="type.landuse.religious">Църковен двор</string>
+    <string name="type.man_made.silo">Складова кула</string>
+    <string name="type.area_highway.primary">Главен път</string>
+    <string name="type.highway.service">Обслужващ път</string>
+    <string name="type.highway.unclassified.area">Малък път</string>
+    <string name="type.highway.service.driveway">Отбивка</string>
+    <string name="type.area_highway.cycleway">Пътека за колела</string>
+    <string name="type.highway.unclassified">Малък път</string>
+    <string name="type.area_highway.service">Обслужващ път</string>
+    <string name="type.barrier.kissing_gate">Преграда за добитък</string>
+    <string name="type.area_highway.tertiary">Третостепенен път</string>
+    <string name="type.area_highway.motorway">Магистрала</string>
+    <string name="type.highway.rest_area">Място за отдих</string>
+    <string name="type.landuse.cemetery.christian">Християнско гробище</string>
+    <string name="type.boundary.administrative">Административна граница</string>
+    <string name="type.highway.residential.area">Жилищна улица</string>
+    <string name="type.highway.service.area">Обслужващ път</string>
+    <string name="type.area_highway.secondary">Второстепенен път</string>
+    <string name="type.highway.secondary">Второстепенен пър</string>
+    <string name="type.area_highway.pedestrian">Пешеходна улица</string>
+    <string name="type.highway.residential">Жилищна улица</string>
+    <string name="type.highway.road">Път</string>
+    <string name="type.highway.tertiary">Третостепенен път</string>
+    <string name="type.landuse.cemetery">Гробище</string>
+    <string name="type.amenity.vending_machine.newspapers">Машина за вестници</string>
+    <string name="type.cuisine.cake">Торта</string>
+    <string name="type.cuisine.chicken">Пилешко</string>
+    <string name="type.highway.track.area">Пътека</string>
+    <string name="type.barrier.retaining_wall">Подпорна стена</string>
+    <string name="type.highway.track">Пътека</string>
+    <string name="type.highway.track.grade1">Пътека</string>
+    <string name="type.area_highway.steps">Стълби</string>
+    <string name="type.junction">Разклонение</string>
+    <string name="type.amenity.vending_machine.parking_tickets">Паркометър</string>
+</resources>

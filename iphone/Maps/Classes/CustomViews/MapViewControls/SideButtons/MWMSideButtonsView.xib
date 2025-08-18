@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSideButtons">
+            <connections>
+                <outlet property="locationButton" destination="fUK-2V-4ya" id="CBK-kp-DFE"/>
+                <outlet property="sideView" destination="ek2-ZW-pCm" id="sbV-Vv-Wrp"/>
+                <outlet property="zoomInButton" destination="NO3-Xl-Oka" id="ePH-BR-gfW"/>
+                <outlet property="zoomOutButton" destination="hwn-8L-cFX" id="fYk-mf-gUY"/>
+            </connections>
+        </placeholder>
+        <view contentMode="scaleToFill" id="ek2-ZW-pCm" customClass="MWMSideButtonsView" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="56" height="228"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NO3-Xl-Oka" userLabel="ZoomIn" customClass="MWMButton">
+                    <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="btn_zoom_in_light">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="ButtonZoomIn"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="zoomTouchDown:" destination="-1" eventType="touchDown" id="5VF-m8-Lwc"/>
+                        <action selector="zoomTouchUpInside:" destination="-1" eventType="touchUpInside" id="wbL-zf-fH8"/>
+                        <action selector="zoomTouchUpOutside:" destination="-1" eventType="touchUpOutside" id="w6V-A2-cZM"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwn-8L-cFX" userLabel="ZoomOut" customClass="MWMButton">
+                    <rect key="frame" x="0.0" y="64" width="56" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="btn_zoom_out_light">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="ButtonZoomOut"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="zoomTouchDown:" destination="-1" eventType="touchDown" id="o4X-Kp-9ka"/>
+                        <action selector="zoomTouchUpInside:" destination="-1" eventType="touchUpInside" id="Gcq-hm-Nk8"/>
+                        <action selector="zoomTouchUpOutside:" destination="-1" eventType="touchUpOutside" id="cX7-sp-3L3"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fUK-2V-4ya" userLabel="Location" customClass="MWMButton">
+                    <rect key="frame" x="0.0" y="172" width="56" height="56"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="btn_get_position_light">
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="locationTouchUpInside" destination="-1" eventType="touchUpInside" id="CMC-xb-Dpk"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="rMs-pl-xhs"/>
+            <connections>
+                <outlet property="location" destination="fUK-2V-4ya" id="lgn-MB-VVy"/>
+                <outlet property="zoomIn" destination="NO3-Xl-Oka" id="1sc-ei-oRj"/>
+                <outlet property="zoomOut" destination="hwn-8L-cFX" id="htY-bc-Ugh"/>
+                <outletCollection property="gestureRecognizers" destination="6qU-Ff-Ae5" appends="YES" id="jeT-Jr-P7T"/>
+            </connections>
+            <point key="canvasLocation" x="165" y="-6"/>
+        </view>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="6qU-Ff-Ae5">
+            <connections>
+                <action selector="zoomSwipe:" destination="-1" id="jq1-Qs-vUJ"/>
+            </connections>
+        </panGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="btn_get_position_light" width="56" height="56"/>
+        <image name="btn_zoom_in_light" width="56" height="56"/>
+        <image name="btn_zoom_out_light" width="56" height="56"/>
+    </resources>
+</document>

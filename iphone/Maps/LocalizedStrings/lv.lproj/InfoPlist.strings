@@ -1,0 +1,15 @@
+
+/* Used in home screen quick actions. */
+"search" = "Meklēt";
+
+/* Used in home screen quick actions. */
+"bookmarks_and_tracks" = "Grāmatzīmes un pēdojumi";
+
+/* Used in home screen quick actions. */
+"route" = "Maršruts";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "Detecting location in the background is necessary to fully enjoy the functionality of the app. It is used for navigation and saving your recently traveled track.";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "Determining your location is necessary for navigation and for saving your recently traveled track.";

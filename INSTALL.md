@@ -1,0 +1,1 @@
+See [docs/INSTALL.md](docs/INSTALL.md)

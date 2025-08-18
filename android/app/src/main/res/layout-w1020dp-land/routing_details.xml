@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/numbers"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+  <TextView
+    android:id="@+id/time"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:singleLine="true"
+    android:ellipsize="end"
+    android:layout_marginBottom="4dp"
+    tools:text="5 h 55 min • 1555km"/>
+  <TextView
+    android:id="@+id/arrival"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/time"
+    android:layout_alignStart="@id/time"
+    android:layout_marginBottom="10dp"
+    tools:text="Arrival 13:03"
+    style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
+    android:textSize="@dimen/text_size_routing_plan_detail_arrival"/>
+  <TextView
+    android:id="@+id/altitude_difference"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:fontFamily="@string/robotoMedium"
+    android:textColor="?colorAccent"
+    android:visibility="gone"
+    tools:text="43 m"
+    tools:visibility="visible"/>
+</RelativeLayout>

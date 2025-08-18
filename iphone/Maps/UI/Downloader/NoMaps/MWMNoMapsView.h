@@ -1,0 +1,3 @@
+@interface MWMNoMapsView : SolidTouchView
+
+@end

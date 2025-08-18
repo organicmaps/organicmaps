@@ -1,0 +1,4 @@
+[PATHS]
+OmimPath = /omim
+DataPath = /omim/data
+BuildDir = /omim/cmake-build-release/

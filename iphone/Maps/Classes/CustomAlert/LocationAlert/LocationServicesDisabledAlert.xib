@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="WR7-Hs-CVJ" customClass="LocationServicesDisabledAlert" customModule="Organic_Maps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="539" height="770"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9l-ze-azg" userLabel="ContainerView">
+                    <rect key="frame" x="30" y="255" width="479" height="285"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMb-vR-q3Y" userLabel="Title">
+                            <rect key="frame" x="20" y="15" width="439" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="MGn-Ke-8G8"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium18:blackPrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="location_services_disabled_header"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fz4-9d-5tq" userLabel="Message">
+                            <rect key="frame" x="20" y="47" width="439" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="jCV-Ko-ByO"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="location_services_disabled_message"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PjR-yG-eRZ">
+                            <rect key="frame" x="20" y="77" width="439" height="127"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vWN-wX-veH" userLabel="OpenSettings">
+                                    <rect key="frame" x="0.0" y="0.0" width="439" height="28"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_settings" translatesAutoresizingMaskIntoConstraints="NO" id="Ya1-ek-kDX" userLabel="settings">
+                                            <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="28" id="LKZ-GV-grJ"/>
+                                                <constraint firstAttribute="width" constant="28" id="t73-v6-puf"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. Open Settings" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBp-x6-g2s" userLabel="openSettings">
+                                            <rect key="frame" x="38" y="5.6666666666666856" width="401" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="location_services_disabled_1"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="q6r-CN-tgz" userLabel="SelectPrivacy">
+                                    <rect key="frame" x="0.0" y="33" width="439" height="28"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_privacy" translatesAutoresizingMaskIntoConstraints="NO" id="7fg-Gm-P0f" userLabel="settings">
+                                            <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="tintColor" systemColor="systemBlueColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="28" id="guV-Tr-7TT"/>
+                                                <constraint firstAttribute="height" constant="28" id="srW-6x-82R"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. Select Privacy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="973-fi-RfE" userLabel="openSettings">
+                                            <rect key="frame" x="38" y="5.6666666666666856" width="401" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="location_services_disabled_on_device_2"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="W0F-rf-Edh" userLabel="SelectLocationServices">
+                                    <rect key="frame" x="0.0" y="66" width="439" height="28"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_geoposition" translatesAutoresizingMaskIntoConstraints="NO" id="jzE-sK-mEB" userLabel="geoposition">
+                                            <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="28" id="HQ9-9t-v50"/>
+                                                <constraint firstAttribute="height" constant="28" id="dY9-Jf-hIB"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. Select Location Services" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhw-jx-9Fe" userLabel="geoposition">
+                                            <rect key="frame" x="38" y="5.6666666666666856" width="401" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="location_services_disabled_on_device_3"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pf7-7u-B0E" userLabel="TurnOnLocationServices">
+                                    <rect key="frame" x="0.0" y="99" width="439" height="28"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_swither" translatesAutoresizingMaskIntoConstraints="NO" id="UcF-g2-Faq" userLabel="turnon">
+                                            <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="28" id="GKu-yv-3JW"/>
+                                                <constraint firstAttribute="height" constant="28" id="lNW-jN-VJf"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4. Turn On Location Services" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1u-dB-Esr" userLabel="select &quot;Always&quot;">
+                                            <rect key="frame" x="38" y="5.6666666666666856" width="401" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="location_services_disabled_on_device_4"/>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Additional message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fc4-12-xx4" userLabel="Additional message">
+                            <rect key="frame" x="20" y="214" width="439" height="17"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular14:blackSecondaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="location_services_disabled_on_device_additional_message"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3eJ-wI-Y11" userLabel="hDivider">
+                            <rect key="frame" x="0.0" y="241" width="479" height="1"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="wiR-YE-iVH"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVU-qc-efT" userLabel="okButton">
+                            <rect key="frame" x="0.0" y="241" width="479" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="0vj-j6-oga"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="ok">
+                                <color key="titleColor" red="0.090196078430000007" green="0.61960784310000006" blue="0.30196078430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <state key="highlighted" backgroundImage="dialog_btn_press"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="ok"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium17:linkBlueText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="okButtonDidTap:" destination="WR7-Hs-CVJ" eventType="touchUpInside" id="2Th-Md-oau"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.88" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="450" id="2jy-XF-Yc6"/>
+                        <constraint firstItem="PjR-yG-eRZ" firstAttribute="bottom" secondItem="fc4-12-xx4" secondAttribute="top" constant="-10" id="Bda-Vu-S3B"/>
+                        <constraint firstItem="3eJ-wI-Y11" firstAttribute="top" secondItem="WVU-qc-efT" secondAttribute="top" id="DWH-KY-Gih"/>
+                        <constraint firstAttribute="width" secondItem="3eJ-wI-Y11" secondAttribute="width" id="Dqh-aw-vv1"/>
+                        <constraint firstAttribute="bottom" secondItem="WVU-qc-efT" secondAttribute="bottom" id="Hbe-e3-xsI"/>
+                        <constraint firstItem="lMb-vR-q3Y" firstAttribute="leading" secondItem="W9l-ze-azg" secondAttribute="leading" constant="20" id="KLk-P2-6HX"/>
+                        <constraint firstItem="fc4-12-xx4" firstAttribute="bottom" secondItem="WVU-qc-efT" secondAttribute="top" constant="-10" id="MTa-xK-xfb"/>
+                        <constraint firstItem="lMb-vR-q3Y" firstAttribute="top" secondItem="W9l-ze-azg" secondAttribute="top" constant="15" id="NWh-CB-SSg"/>
+                        <constraint firstAttribute="trailing" secondItem="fc4-12-xx4" secondAttribute="trailing" constant="20" id="Noy-do-AD5"/>
+                        <constraint firstItem="WVU-qc-efT" firstAttribute="leading" secondItem="W9l-ze-azg" secondAttribute="leading" id="P4b-ex-cIo"/>
+                        <constraint firstItem="fc4-12-xx4" firstAttribute="leading" secondItem="W9l-ze-azg" secondAttribute="leading" constant="20" id="UWg-4r-gTh"/>
+                        <constraint firstItem="PjR-yG-eRZ" firstAttribute="leading" secondItem="W9l-ze-azg" secondAttribute="leading" constant="20" id="Xig-e5-dMF"/>
+                        <constraint firstAttribute="trailing" secondItem="lMb-vR-q3Y" secondAttribute="trailing" constant="20" id="ZjY-OS-5Ar"/>
+                        <constraint firstItem="fz4-9d-5tq" firstAttribute="top" secondItem="lMb-vR-q3Y" secondAttribute="bottom" constant="10" id="alo-B9-UKo"/>
+                        <constraint firstItem="PjR-yG-eRZ" firstAttribute="top" secondItem="fz4-9d-5tq" secondAttribute="bottom" constant="10" id="ceU-Nn-UvW"/>
+                        <constraint firstAttribute="trailing" secondItem="PjR-yG-eRZ" secondAttribute="trailing" constant="20" id="rb5-li-7z9"/>
+                        <constraint firstAttribute="centerX" secondItem="fz4-9d-5tq" secondAttribute="centerX" id="t2L-hx-Wvu"/>
+                        <constraint firstAttribute="trailing" secondItem="WVU-qc-efT" secondAttribute="trailing" id="uf8-cg-WgD"/>
+                        <constraint firstItem="fz4-9d-5tq" firstAttribute="leading" secondItem="W9l-ze-azg" secondAttribute="leading" constant="20" id="v2M-33-BDA"/>
+                        <constraint firstAttribute="centerX" secondItem="3eJ-wI-Y11" secondAttribute="centerX" id="wRK-vV-cs9"/>
+                        <constraint firstAttribute="trailing" secondItem="fz4-9d-5tq" secondAttribute="trailing" constant="20" id="wz1-Ok-gIi"/>
+                        <constraint firstAttribute="centerX" secondItem="lMb-vR-q3Y" secondAttribute="centerX" id="yjM-dk-hoP"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="AlertView"/>
+                    </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="2jy-XF-Yc6"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <mask key="constraints">
+                            <include reference="2jy-XF-Yc6"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="nuQ-1f-mMT"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="W9l-ze-azg" firstAttribute="centerY" secondItem="nuQ-1f-mMT" secondAttribute="centerY" id="1Le-Bj-m03"/>
+                <constraint firstItem="nuQ-1f-mMT" firstAttribute="trailing" secondItem="W9l-ze-azg" secondAttribute="trailing" constant="30" id="1wd-E9-kcQ"/>
+                <constraint firstItem="nuQ-1f-mMT" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="W9l-ze-azg" secondAttribute="bottom" constant="30" id="9vB-UV-vTP"/>
+                <constraint firstItem="W9l-ze-azg" firstAttribute="leading" secondItem="nuQ-1f-mMT" secondAttribute="leading" constant="30" id="Bvm-sK-Baz"/>
+                <constraint firstItem="W9l-ze-azg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nuQ-1f-mMT" secondAttribute="top" constant="30" id="Eg7-7g-IAE"/>
+                <constraint firstItem="nuQ-1f-mMT" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="W9l-ze-azg" secondAttribute="bottom" constant="30" id="qIv-d3-sJM"/>
+                <constraint firstItem="W9l-ze-azg" firstAttribute="top" relation="lessThanOrEqual" secondItem="nuQ-1f-mMT" secondAttribute="top" constant="30" id="zs3-3Q-gZU"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="1wd-E9-kcQ"/>
+                    <exclude reference="9vB-UV-vTP"/>
+                    <exclude reference="Bvm-sK-Baz"/>
+                    <exclude reference="zs3-3Q-gZU"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="constraints">
+                    <include reference="1wd-E9-kcQ"/>
+                    <include reference="Bvm-sK-Baz"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=regular">
+                <mask key="constraints">
+                    <include reference="9vB-UV-vTP"/>
+                    <include reference="zs3-3Q-gZU"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="115.26717557251908" y="-30.281690140845072"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="dialog_btn_press" width="280" height="44"/>
+        <image name="ic_geoposition" width="28" height="28"/>
+        <image name="ic_privacy" width="17" height="17"/>
+        <image name="ic_settings" width="28" height="28"/>
+        <image name="ic_swither" width="30" height="29"/>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

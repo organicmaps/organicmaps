@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='VNG'>
+  <bounds minlat='0' minlon='0' maxlat='1' maxlon='1' />
+
+  <node id='0' lat='51' lon='0' >
+    <tag k='highway' v='mini_roundabout' />
+  </node>
+  <node id='1' lat='51.1' lon='0.1' >
+    <tag k='highway' v='speed_camera' />
+  </node>
+  <node id='2' lat='51.2' lon='0.2' >
+    <tag k='barrier' v='lift_gate' />
+    <tag k='access' v='destination' />
+  </node>
+  <node id='3' lat='51.3' lon='0.3' >
+    <tag k='highway' v='mini_roundabout' />
+  </node>
+  <node id='4' lat='51.4' lon='0.4' >
+    <tag k='highway' v='speed_camera' />
+  </node>
+  <node id='5' lat='51.5' lon='0.5' >
+    <tag k='barrier' v='bollard' />
+    <tag k='access' v='private' />
+  </node>
+  <node id='6' lat='51.6' lon='0.6' >
+    <tag k='highway' v='speed_camera' />
+  </node>
+  <node id='7' lat='51.7' lon='0.7' >
+    <tag k='highway' v='mini_roundabout' />
+  </node>
+  <node id='8' lat='51.8' lon='0.8' >
+    <tag k='barrier' v='lift_gate' />
+    <tag k='access' v='destination' />
+  </node>
+  <node id='9' lat='51.9' lon='0.9' >
+    <tag k='highway' v='speed_camera' />
+  </node>
+  <node id='10' lat='52' lon='1' >
+    <tag k='highway' v='mini_roundabout' />
+  </node>
+
+  <way id='1' >
+    <nd ref='0' />
+    <nd ref='1' />
+    <nd ref='2' />
+    <nd ref='3' />
+    <nd ref='4' />
+    <nd ref='5' />
+    <nd ref='6' />
+    <nd ref='7' />
+    <nd ref='8' />
+    <nd ref='9' />
+    <nd ref='10' />
+    <tag k='highway' v='secondary' />
+    <tag k='maxspeed' v='50' />
+    <tag k='name' v='Road1' />
+    <tag k='oneway' v='no' />
+    <tag k='surface' v='asphalt' />
+  </way>
+
+</osm>

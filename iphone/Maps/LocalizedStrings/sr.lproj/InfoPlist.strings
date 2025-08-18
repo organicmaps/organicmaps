@@ -1,0 +1,15 @@
+
+/* Used in home screen quick actions. */
+"search" = "Претрага";
+
+/* Used in home screen quick actions. */
+"bookmarks_and_tracks" = "Маркери и путање";
+
+/* Used in home screen quick actions. */
+"route" = "Путања";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "Откривање локације у позадини је неопходно да у потпуности уживате у функционалности апликације. Користи се за навигацију и чување недавно путовао стазу.";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "Одређивање ваше локације је неопходно за навигацију и за чување недавног путовања.";

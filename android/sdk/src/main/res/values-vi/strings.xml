@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Vị trí của Tôi</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Các Địa chỉ của Tôi</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Mã bưu chính</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Điểm bản đồ</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">dặm</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Lối ra</string>
+    <string name="core_entrance">Lối vào</string>
+    <string name="subway_data_unavailable">Bản đồ tàu điện ngầm không khả dụng</string>
+    <string name="public_access">Truy cập công khai</string>
+    <string name="limited_access">Truy cập hạn chế</string>
+    <string name="not_shared">Riêng tư</string>
+    <string name="access_rules_author_only">Chỉnh sửa trực tuyến</string>
+</resources>

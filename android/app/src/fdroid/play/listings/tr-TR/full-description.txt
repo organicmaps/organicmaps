@@ -1,0 +1,52 @@
+‣ Ücretsiz uygulamamız sizi takip etmez, reklam içermez ve desteğinizle geliştirilir.
+‣ Küçük ekibimiz ve katkıda bulunanlar tarafından, boş zamanlarımızda sürekli olarak geliştirilmektedir.
+‣ Haritada yanlış veya eksik bir şey varsa, lütfen <b>OpenStreetMap'te</b> düzeltin ve gelecekteki harita güncellemelerinde değişikliklerinizi görün.
+‣ Navigasyon veya arama çalışmazsa, lütfen önce osm.org'da kontrol edin ve ardından bize e-posta gönderin. <i>HER</i> e-postaya cevap veriyoruz ve en kısa sürede düzelteceğiz!
+
+<b>Geri bildiriminiz ve 5 yıldızlı yorumlarınız bizim için en iyi motivasyon kaynağı!</b>
+
+Öne Çıkan Özellikler:
+• Ücretsiz, açık kaynaklı, reklam ve izleyici içermez
+• <b>OpenStreetMap</b> topluluğu sayesinde, Google haritalarda bulunmayan yerleri içeren ayrıntılı çevrimdışı haritalar
+• Bisiklet yolları, yürüyüş parkurları ve yürüyüş yolları
+• Eş yükselti çizgileri, yükseklik profilleri, tepeler ve eğimler
+• Sesli yönergelerle ayrıntılı yürüyüş, bisiklet ve Android Auto desteğine sahip araç navigasyonu
+• Hızlı çevrimdışı arama
+• Yer imlerini KML, KMZ ve GPX dosyalarını dışa ve içe aktarma
+• Gözlerinizi korumak için karanlık mod
+
+Organic Maps'te <i>henüz</i> toplu taşıma, uydu haritaları ve diğer harika özellikler yok. Ancak <i>sizin yardımınız ve desteğinizle</i> bu dünyayı adım adım daha iyi hale getirebiliriz.
+
+Organic Maps; sevgiyle yapılmış, saf ve organiktir:
+
+• Göz alıcı derecede hızlı çevrimdışı deneyim
+• Gizliliğinize saygı duyar
+• Pilinizi korur
+• Beklenmeyen mobil veri ücretleri olmaz
+• Yalnızca en önemli özellikleri içerir, kullanımı basittir
+
+İzleyicilerden ve diğer kötü şeylerden arınmıştır:
+
+• Reklam yok
+• İzleyiciler yok
+• Veri toplama yok
+• Evi aramak yok
+• Rahatsız edici kayıt yok
+• Zorunlu öğretici yok
+• Sürekli e-posta spamı yok
+• Push bildirimleri yok
+• Zararlı yazılım yok
+• Böcek ilacı yok. Tamamen organik!
+
+Organic Maps'te <b>gizliliğin temel bir insan hakkı olduğuna</b> inanıyoruz:
+
+• Organic Maps, bağımsız bir topluluk tarafından yürütülen açık kaynaklı bir projedir
+• Gizliliğinizi büyük teknoloji şirketlerinin meraklı gözlerinden koruyoruz
+• Nerede olursanız olun güvende kalın
+
+Exodus Gizlilik Raporuna göre hiç izleyici içermez ve yalnızca minimum düzeyde izinler gerekir.
+
+Ek ayrıntılar ve SSS için lütfen <b><i>organicmaps.app/tr</i></b> adresini ziyaret edin. Ayrıca Telegram'daki @OrganicMapsTR adresinden bizimle doğrudan iletişime geçin.
+
+Gözetlemeyi reddedin - özgürlüğünüzü kucaklayın.
+<b>Organic Maps'i deneyin!</b>

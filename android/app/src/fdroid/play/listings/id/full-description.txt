@@ -1,0 +1,10 @@
+Organic Maps adalah aplikasi navigasi GPS dengan privasi, untuk pengemudi, pejalan kaki, dan pengendara sepeda. Aplikasi ini memiliki fitur navigasi dengan privasi — tidak ada pelacakan lokasi, tidak ada pengumpulan data, dan tidak ada iklan. Pencarian, perutean, dan navigasi beroperasi tanpa sinyal ponsel, ideal untuk perjalanan di jalur pendakian yang jauh atau lokasi dengan koneksi yang buruk. Organic Maps menggunakan data OpenStreetMap yang bersumber dari kerumunan dengan kontributor dari seluruh dunia. Proyek ini digerakkan oleh komunitas, kodenya bersifat bersumber terbuka, dan memprioritaskan pengembangan dan kolaborasi komunitas.
+
+- Tidak Memerlukan Sinyal Seluler - Pencarian & Rute tanpa sinyal
+- Penggunaan Baterai yang Efisien - Mengurangi pengurasan baterai
+- Pencarian Cepat - Temukan lokasi dengan cepat
+
+Di Organic Maps, kami menghargai privasi:
+- Tidak Ada Pelacakan Lokasi
+- Tidak Ada Pengumpulan Data
+- Tanpa Iklan

@@ -1,0 +1,15 @@
+framework module CoreApi {
+  header "AppInfo.h"
+  header "MWMBookmarkColor.h"
+  header "MWMCommon.h"
+  header "MWMTypes.h"
+  header "MWMBookmarksObserver.h"
+  header "MWMBookmarksManager.h"
+  header "MWMBookmarkGroup.h"
+  header "MWMFrameworkHelper.h"
+  header "MWMCarPlayBookmarkObject.h"
+  header "MWMMapOverlayManager.h"
+  header "MWMSearchFrameworkHelper.h"
+  header "MWMNetworkPolicy.h"
+  header "PlacePageBookmarkData.h"
+}

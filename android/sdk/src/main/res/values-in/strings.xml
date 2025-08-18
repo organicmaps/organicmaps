@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">MB</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Posisi Saya</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Tempat-tempat Saya</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Kode Pos</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Titik Peta</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mil</string>
+    <!-- A unit of measure -->
+    <string name="ft">kaki</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Keluar</string>
+    <string name="core_entrance">Tempat masuk</string>
+    <string name="subway_data_unavailable">Peta bawah tanah tidak tersedia</string>
+    <string name="public_access">Akses umum</string>
+    <string name="limited_access">Akses terbatas</string>
+    <string name="not_shared">Pribadi</string>
+    <string name="access_rules_author_only">Pengeditan online</string>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingBottom="@dimen/margin_half"
+  android:background="?cardBackground">
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/margin_base_plus"
+    android:paddingStart="@dimen/margin_base_plus"
+    android:paddingEnd="@dimen/margin_base_plus">
+    <TextView
+      android:id="@+id/tv__title"
+      style="@style/MwmWidget.StackedButtonsDialogTitle"
+      tools:text="Use mobile internet to show detailed information?"/>
+
+    <TextView
+      android:id="@+id/tv__message"
+      style="@style/MwmWidget.StackedButtonsDialogMessage"
+      tools:text="Mobile internet is required for displaying detailed information about places, such as photographs, prices and reviews."/>
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/btn__positive"
+    style="@style/MwmWidget.Button.StackedButtonsDialog"
+    tools:text="Use Always"/>
+
+  <TextView
+    android:id="@+id/btn__neutral"
+    style="@style/MwmWidget.Button.StackedButtonsDialog"
+    tools:text="Only Today"/>
+
+  <TextView
+    android:id="@+id/btn__negative"
+    style="@style/MwmWidget.Button.StackedButtonsDialog"
+    tools:text="Do not Use Today"/>
+</LinearLayout>

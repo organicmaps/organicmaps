@@ -1,0 +1,15 @@
+
+/* Used in home screen quick actions. */
+"search" = "Axtar";
+
+/* Used in home screen quick actions. */
+"bookmarks_and_tracks" = "Əlfəcinlər və qeydlər";
+
+/* Used in home screen quick actions. */
+"route" = "Marşrut";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "Tətbiqin xüsusiyyətlərini tam çıxarmaq üçün fonda cari yeri müəyyən etmək lazımdır. O, marşrutu izləmək və son səyahət edilmiş yolları saxlamaq seçimi üçün istifadə olunur.";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "Cari yerinizin müəyyən edilməsi marşrutun izlənməsi və son səyahət edilmiş yol seçimlərinin saxlanmasında istifadə olunur.";

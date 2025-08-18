@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = 'https://www.jitpack.io' } // MPAndroidChart
+    }
+}
+rootProject.name = 'Organic Maps'
+include ':app'
+include ':sdk'

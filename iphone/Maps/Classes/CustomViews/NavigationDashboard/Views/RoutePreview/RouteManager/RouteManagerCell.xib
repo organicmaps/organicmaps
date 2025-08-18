@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="RouteManagerCell" customModule="OMaps" customModuleProvider="target" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="We3-dE-JYe">
+                        <rect key="frame" x="16" y="21" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="We3-dE-JYe" secondAttribute="height" multiplier="1:1" id="LD8-kb-Haz"/>
+                            <constraint firstAttribute="width" constant="24" id="jtH-Dc-l1B"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8T-WR-b4P">
+                        <rect key="frame" x="60" y="12" width="212" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ec0-Sc-NrV">
+                        <rect key="frame" x="60" y="36.5" width="212" height="17.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a6S-xz-wDs">
+                        <rect key="frame" x="280" y="21" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="4YZ-4p-E4H"/>
+                            <constraint firstAttribute="width" secondItem="a6S-xz-wDs" secondAttribute="height" multiplier="1:1" id="QCB-eE-cuO"/>
+                        </constraints>
+                    </imageView>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4S-qN-tx8">
+                        <rect key="frame" x="26" y="62" width="4" height="4"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="e4S-qN-tx8" secondAttribute="height" multiplier="1:1" id="Fec-Pg-5YG"/>
+                            <constraint firstAttribute="width" constant="4" id="bHk-pR-fsG"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E4r-3f-9l2">
+                        <rect key="frame" x="60" y="65" width="260" height="1"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="iTg-i0-sIJ"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="a6S-xz-wDs" secondAttribute="trailing" constant="16" id="2b1-Ud-Ffh"/>
+                    <constraint firstItem="ec0-Sc-NrV" firstAttribute="leading" secondItem="E8T-WR-b4P" secondAttribute="leading" id="Bqj-Da-466"/>
+                    <constraint firstItem="E8T-WR-b4P" firstAttribute="leading" secondItem="We3-dE-JYe" secondAttribute="trailing" constant="20" id="Ezt-Qw-m9Q"/>
+                    <constraint firstAttribute="bottom" secondItem="ec0-Sc-NrV" secondAttribute="bottom" constant="12" id="OFV-X4-OWD"/>
+                    <constraint firstItem="E4r-3f-9l2" firstAttribute="leading" secondItem="E8T-WR-b4P" secondAttribute="leading" id="S3g-BB-Afo"/>
+                    <constraint firstItem="We3-dE-JYe" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="V68-v7-Y2a"/>
+                    <constraint firstAttribute="bottom" secondItem="e4S-qN-tx8" secondAttribute="bottom" id="Yah-Vt-8Jb"/>
+                    <constraint firstItem="ec0-Sc-NrV" firstAttribute="top" secondItem="E8T-WR-b4P" secondAttribute="bottom" constant="4" id="cbi-Y9-8Be"/>
+                    <constraint firstAttribute="bottom" secondItem="E4r-3f-9l2" secondAttribute="bottom" id="gFy-Bp-fJL"/>
+                    <constraint firstItem="ec0-Sc-NrV" firstAttribute="trailing" secondItem="E8T-WR-b4P" secondAttribute="trailing" id="jGc-UQ-TLl"/>
+                    <constraint firstItem="We3-dE-JYe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="m1w-0i-ELt"/>
+                    <constraint firstItem="e4S-qN-tx8" firstAttribute="centerX" secondItem="We3-dE-JYe" secondAttribute="centerX" id="neB-SX-zce"/>
+                    <constraint firstItem="a6S-xz-wDs" firstAttribute="leading" secondItem="E8T-WR-b4P" secondAttribute="trailing" constant="8" id="q6T-54-sGO"/>
+                    <constraint firstAttribute="trailing" secondItem="E4r-3f-9l2" secondAttribute="trailing" id="s0v-JX-fRN"/>
+                    <constraint firstAttribute="bottom" secondItem="E8T-WR-b4P" secondAttribute="bottom" priority="500" constant="14" id="s4P-2g-gnj"/>
+                    <constraint firstItem="E8T-WR-b4P" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" priority="500" constant="14" id="uVb-l1-ce1"/>
+                    <constraint firstItem="E8T-WR-b4P" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="vdO-bJ-CRg"/>
+                    <constraint firstItem="a6S-xz-wDs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="w85-cS-Uky"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="Kac-Pe-J2L"/>
+            <connections>
+                <outlet property="dragImage" destination="a6S-xz-wDs" id="zxX-KV-uIQ"/>
+                <outlet property="separator1" destination="e4S-qN-tx8" id="tXc-oD-GpR"/>
+                <outlet property="separator2" destination="E4r-3f-9l2" id="dVo-Qx-Nf1"/>
+                <outlet property="subtitleLabel" destination="ec0-Sc-NrV" id="XfG-GI-QSP"/>
+                <outlet property="titleLabel" destination="E8T-WR-b4P" id="hNR-bg-Aik"/>
+                <outlet property="typeImage" destination="We3-dE-JYe" id="yzw-GT-nXU"/>
+                <outletCollection property="subtitleConstraints" destination="vdO-bJ-CRg" collectionClass="NSMutableArray" id="YBl-7I-Qow"/>
+                <outletCollection property="subtitleConstraints" destination="OFV-X4-OWD" collectionClass="NSMutableArray" id="0A7-Qz-hws"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="154"/>
+        </tableViewCell>
+    </objects>
+</document>

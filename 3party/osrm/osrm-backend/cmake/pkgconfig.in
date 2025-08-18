@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+includedir=${prefix}/include/osrm
+libdir=${prefix}/lib
+
+Name: libOSRM
+Description: Project OSRM library
+Version: @GIT_DESCRIPTION@
+Requires:
+Libs: -L${libdir} -lOSRM
+Libs.private: @BOOST_LIBRARY_LISTING@
+Cflags: -I${includedir}

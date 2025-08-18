@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_add"
+  style="@style/PlacePageItemFrame"
+  tools:visibility="visible">
+
+  <TextView
+    android:id="@+id/tv__editor"
+    style="@style/PlacePageMetadataText.Button"
+    android:text="@string/placepage_add_place_button"
+    android:gravity="center"/>
+</LinearLayout>

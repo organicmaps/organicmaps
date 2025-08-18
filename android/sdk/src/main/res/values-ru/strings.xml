@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">МБ</string>
+    <string name="gb">ГБ</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Мое местоположение</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Мои Метки</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Внутренний скрытый накопитель</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Внутренний общий накопитель</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SD-карта</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Внешний общий накопитель</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="postal_code">Почтовый индекс</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">Точка на карте</string>
+    <!-- abbreviation for meters -->
+    <string name="m">м</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">км</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ми</string>
+    <!-- A unit of measure -->
+    <string name="ft">фут</string>
+    <string name="routes_update_maps_text">Обновите карты, чтобы увидеть маршруты.</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">Выход</string>
+    <string name="core_entrance">Вход</string>
+    <string name="subway_data_unavailable">Карта метро недоступна</string>
+    <string name="public_access">Публичный доступ</string>
+    <string name="limited_access">Ограниченный доступ</string>
+    <string name="not_shared">Личный</string>
+    <string name="access_rules_author_only">Редактируется онлайн</string>
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bookmarks_places</key>
+	<dict>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d marcadores</string>
+			<key>one</key>
+			<string>%d marcador</string>
+			<key>other</key>
+			<string>%d marcadores</string>
+		</dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+	</dict>
+	<key>tracks</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d traxectos</string>
+			<key>one</key>
+			<string>%d traxecto</string>
+			<key>other</key>
+			<string>%d traxectos</string>
+		</dict>
+	</dict>
+	<key>bookmarks_detect_message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>Atopáronse %d arquivos. Veraos despois da conversión.</string>
+			<key>one</key>
+			<string>Atopouse %d arquivo. Verao despois da conversión.</string>
+			<key>other</key>
+			<string>Atopáronse %d arquivos. Veraos despois da conversión.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

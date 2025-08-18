@@ -1,0 +1,113 @@
+name: Android Beta
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - .gitignore
+      - .github/**
+      - '!.github/workflows/android-beta.yaml'  # Run check on self change
+      - '**/*_tests/**'
+      - '**/CMakeLists.txt'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - README.md
+      - iphone/**
+      - data/strings/**
+      - docs/**
+      - generator/**
+      - packaging/**
+      - platform/*apple*
+      - platform/*_ios*
+      - platform/*_linux*
+      - platform/*_mac*
+      - platform/*qt*
+      - platform/*_win*
+      - pyhelpers/**
+      - qt*/**
+      - skin_generator/**
+      - tools/**
+      - track_generator/**
+      - xcode/**
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
+jobs:
+  android-google-beta:
+    name: Android Google Beta
+    runs-on: ubuntu-latest
+    environment: beta
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
+
+      - name: Restore Boost submodule from cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Restore beta keys
+        shell: bash
+        run: |
+          echo "$PRIVATE_H" | base64 -d > private.h
+          echo "$FIREBASE_APP_DISTRIBUTION_JSON" | base64 -d > android/app/firebase-app-distribution.json
+          echo "$GOOGLE_SERVICES_JSON" | base64 -d > android/app/google-services.json
+          echo "$SECURE_PROPERTIES" | base64 -d > android/app/secure.properties
+          echo "$RELEASE_KEYSTORE" | base64 -d > android/app/release.keystore
+        env:
+          PRIVATE_H: ${{ secrets.PRIVATE_H }}
+          FIREBASE_APP_DISTRIBUTION_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_JSON }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+          SECURE_PROPERTIES: ${{ secrets.SECURE_PROPERTIES }}
+          RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+
+      - name: Configure repository
+        shell: bash
+        run: ./configure.sh
+
+      - name: Compile
+        shell: bash
+        working-directory: android
+        run: |
+          cmake --version
+          ninja --version
+          echo "ANDROID_CODE=$(../tools/unix/version.sh android_code)" >> "$GITHUB_ENV"
+          ./gradlew -Pfirebase assembleGoogleBeta uploadCrashlyticsSymbolFileGoogleBeta uploadCrashlyticsMappingFileGoogleBeta
+
+      - name: Upload beta apk to App Distribution
+        shell: bash
+        working-directory: android
+        run: |
+          ./gradlew appDistributionUploadGoogleBeta
+
+      - name: Upload beta apk to GitHub artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OrganicMaps-${{ env.ANDROID_CODE }}-google-beta.apk
+          path: android/app/build/outputs/apk/google/beta/OrganicMaps-${{ env.ANDROID_CODE }}-google-beta.apk
+          if-no-files-found: error
+
+      - name: Upload beta debug symbols to GitHub artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-debug-symbols.zip
+          path: android/app/build/outputs/native-debug-symbols/googleBeta/native-debug-symbols.zip
+          if-no-files-found: error

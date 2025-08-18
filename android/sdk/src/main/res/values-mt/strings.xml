@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">Il-Pożizzjoni Kurrenti</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">Il-Postijiet Tiegħi</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">Ħażna internali privata</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">Ħażna internali maqsuma</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">Karta SD</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">Ħażna esterna maqsuma</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">WiFi</string>
+    <string name="core_placepage_unknown_place">Il-Punt tal-Mappa</string>
+    <string name="core_exit">Oħroġ</string>
+    <string name="core_entrance">Daħla</string>
+    <string name="subway_data_unavailable">Il-mappa tas-subway mhix disponibbli</string>
+    <string name="postal_code">Kodiċi Postali</string>
+    <string name="limited_access">Aċċess limitat</string>
+    <string name="not_shared">Privat</string>
+    <string name="access_rules_author_only">Editjar onlajn</string>
+    <string name="public_access">Aċċess pubbliku</string>
+</resources>

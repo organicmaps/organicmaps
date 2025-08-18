@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BMCViewController" customModule="OMaps" customModuleProvider="target">
+            <connections>
+                <outlet property="actionsHeader" destination="DhR-7O-ccQ" id="PPD-Ov-b69"/>
+                <outlet property="notificationsHeader" destination="G0o-Op-zPp" id="PUK-3H-1q3"/>
+                <outlet property="tableView" destination="2ia-hi-UhQ" id="qJG-eV-PoF"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" canCancelContentTouches="NO" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" estimatedSectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="2ia-hi-UhQ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView:PressBackground"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="P7h-mr-lVO"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2ia-hi-UhQ" secondAttribute="bottom" id="3LS-kF-koO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2ia-hi-UhQ" secondAttribute="trailing" id="Xvt-xX-QwP"/>
+                <constraint firstItem="2ia-hi-UhQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="fEc-XL-6gs"/>
+                <constraint firstItem="2ia-hi-UhQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="zOH-o1-384"/>
+            </constraints>
+            <point key="canvasLocation" x="10" y="54"/>
+        </view>
+        <view contentMode="scaleToFill" id="DhR-7O-ccQ">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <viewLayoutGuide key="safeArea" id="Iuf-Mb-Pmk"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="483" y="-50"/>
+        </view>
+        <view contentMode="scaleToFill" id="G0o-Op-zPp" customClass="BMCNotificationsHeader" customModule="OMaps" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYb-xC-cJR">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BbP-rE-XH6">
+                            <rect key="frame" x="16" y="13.5" width="343" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="medium14:blackSecondaryText"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="BbP-rE-XH6" secondAttribute="trailing" constant="16" id="0y9-8D-etT"/>
+                        <constraint firstItem="BbP-rE-XH6" firstAttribute="centerY" secondItem="WYb-xC-cJR" secondAttribute="centerY" id="E2o-Zj-Sfl"/>
+                        <constraint firstItem="BbP-rE-XH6" firstAttribute="leading" secondItem="WYb-xC-cJR" secondAttribute="leading" constant="16" id="NL9-Mg-ULl"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Gks-qZ-sxu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="WYb-xC-cJR" firstAttribute="top" secondItem="G0o-Op-zPp" secondAttribute="top" id="HYA-0D-zWS"/>
+                <constraint firstItem="WYb-xC-cJR" firstAttribute="leading" secondItem="Gks-qZ-sxu" secondAttribute="leading" id="KA1-YB-hBF"/>
+                <constraint firstItem="WYb-xC-cJR" firstAttribute="trailing" secondItem="Gks-qZ-sxu" secondAttribute="trailing" id="hne-ZG-GAn"/>
+                <constraint firstAttribute="bottom" secondItem="WYb-xC-cJR" secondAttribute="bottom" id="vwe-2c-cjW"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="label" destination="BbP-rE-XH6" id="UTL-17-qdv"/>
+            </connections>
+            <point key="canvasLocation" x="483" y="35"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

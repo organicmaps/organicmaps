@@ -1,0 +1,162 @@
+opt_out_usage
+default_platform(:ios)
+
+platform :ios do
+  private_lane :prepare do
+    if is_ci
+      setup_ci # creates MATCH_KEYCHAIN_NAME on CI
+      ensure_env_vars(
+        env_vars: ['APPSTORE_CERTIFICATE_PASSWORD']
+      )
+      # Fixes random Fastlane failures by manually importing Apple certificates.
+      # See https://github.com/fastlane/fastlane/issues/20960#issuecomment-1621931850
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG2.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG3.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG4.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG5.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG6.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG7.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/Apple/AppleWWDRCAG8.cer',
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      # Organic Maps certificates.
+      import_certificate(
+        certificate_path: 'keys/CertificatesDev.p12',
+        certificate_password: ENV['APPSTORE_CERTIFICATE_PASSWORD'],
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      import_certificate(
+        certificate_path: 'keys/CertificatesDistr.p12',
+        certificate_password: ENV['APPSTORE_CERTIFICATE_PASSWORD'],
+        keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+        keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD']
+      )
+      get_provisioning_profile(
+        api_key_path: 'keys/appstore.json',
+        app_identifier: 'app.organicmaps',
+        provisioning_name: 'App Development (Fastlane)',
+        ignore_profiles_with_different_name: true,
+        readonly: true,
+        development: true,
+        skip_install: false,
+        filename: 'keys/App_Development.mobileprovision'
+      )
+      get_provisioning_profile(
+        api_key_path: 'keys/appstore.json',
+        app_identifier: 'app.organicmaps',
+        provisioning_name: 'App Distribution (Fastlane)',
+        ignore_profiles_with_different_name: true,
+        adhoc: false,
+        readonly: true,
+        skip_install: false,
+        filename: 'keys/App_Distribution.mobileprovision'
+      )
+      get_provisioning_profile(
+        api_key_path: 'keys/appstore.json',
+        app_identifier: 'app.organicmaps.widgetextension',
+        provisioning_name: 'WidgetExtension Development (Fastlane)',
+        ignore_profiles_with_different_name: true,
+        readonly: true,
+        development: true,
+        skip_install: false,
+        filename: 'keys/WidgetExtension_Development.mobileprovision'
+      )
+      get_provisioning_profile(
+        api_key_path: 'keys/appstore.json',
+        app_identifier: 'app.organicmaps.widgetextension',
+        provisioning_name: 'WidgetExtension Distribution (Fastlane)',
+        ignore_profiles_with_different_name: true,
+        adhoc: false,
+        readonly: true,
+        skip_install: false,
+        filename: 'keys/WidgetExtension_Distribution.mobileprovision'
+      )
+    end
+  end
+
+  private_lane :generate_version do
+    lane_context[SharedValues::VERSION_NUMBER] = sh('../../tools/unix/version.sh ios_version').strip
+    lane_context[SharedValues::BUILD_NUMBER] = sh('../../tools/unix/version.sh ios_build').strip
+  end
+
+  private_lane :generate_testflight_changelog do
+    changelog = sh('git --no-pager show -s --format=%s%n%n%b HEAD|tr -dc \'\0-\177\'')
+    lane_context[SharedValues::FL_CHANGELOG] = changelog
+  end
+
+  lane :upload_testflight do
+    prepare
+    generate_version
+    generate_testflight_changelog
+    update_code_signing_settings(
+      path: "../iphone/Maps/Maps.xcodeproj",
+      targets: ["OMaps"],
+      build_configurations: "Release",
+      use_automatic_signing: false,
+      code_sign_identity: "Apple Distribution",
+      team_id: "9Z6432XD7L",
+      profile_name: "App Distribution (Fastlane)",
+    )
+    update_code_signing_settings(
+      path: "../iphone/Maps/Maps.xcodeproj",
+      targets: ["OMapsWidgetExtension"],
+      build_configurations: "Release",
+      use_automatic_signing: false,
+      code_sign_identity: "Apple Distribution",
+      team_id: "9Z6432XD7L",
+      profile_name: "WidgetExtension Distribution (Fastlane)",
+    )
+    build_ios_app(
+      workspace: 'omim.xcworkspace',
+      scheme: 'OMaps',
+      configuration: 'Release',
+      destination: 'generic/platform=iOS',
+      silent: false,
+      clean: false,
+      include_symbols: true,
+      export_method: 'app-store',
+      export_options: {
+        provisioningProfiles: {
+          'app.organicmaps' => 'App Distribution (Fastlane)',
+          'app.organicmaps.widgetextension' => 'WidgetExtension Distribution (Fastlane)',
+        }
+      },
+      skip_profile_detection: false,
+      output_directory: 'build',
+      xcargs: 'MARKETING_VERSION=' + lane_context[SharedValues::VERSION_NUMBER] + ' ' +
+              'CURRENT_PROJECT_VERSION=' + lane_context[SharedValues::BUILD_NUMBER] + ' '
+    )
+    upload_to_testflight(
+      beta_app_feedback_email: 'testflight@organicmaps.app',
+      notify_external_testers: false,
+      changelog: lane_context[SharedValues::FL_CHANGELOG]
+    )
+  end
+end

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='154534375' timestamp='2017-12-03T20:04:54Z' uid='7130254' user='Astromath' visible='true' version='4' changeset='54307990' lat='39.4634749' lon='-77.9682012' />
+  <node id='154534377' timestamp='2013-09-26T04:03:01Z' uid='1323363' user='kriscarle' visible='true' version='3' changeset='18038568' lat='39.4635802' lon='-77.9684454' />
+  <node id='154534381' timestamp='2017-12-03T20:04:54Z' uid='7130254' user='Astromath' visible='true' version='4' changeset='54307990' lat='39.4637826' lon='-77.9688373' />
+  <node id='154534383' timestamp='2013-09-26T04:03:01Z' uid='1323363' user='kriscarle' visible='true' version='3' changeset='18038568' lat='39.4640626' lon='-77.9694995' />
+  <node id='154534387' timestamp='2021-05-28T12:11:50Z' uid='10145710' user='limmmoh' visible='true' version='3' changeset='105490954' lat='39.4645548' lon='-77.9705817' />
+  <node id='4222270696' timestamp='2016-06-02T18:13:39Z' uid='164670' user='ys52' visible='true' version='1' changeset='39760690' lat='39.4643888' lon='-77.9702085' />
+  <way id='15500124' timestamp='2021-05-28T12:11:50Z' uid='10145710' user='limmmoh' visible='true' version='7' changeset='105490954'>
+    <nd ref='154534375' />
+    <nd ref='154534377' />
+    <nd ref='154534381' />
+    <nd ref='154534383' />
+    <nd ref='4222270696' />
+    <nd ref='154534387' />
+    <tag k='highway' v='residential' />
+    <tag k='name' v='Boston Street' />
+    <tag k='tiger:cfcc' v='A41' />
+    <tag k='tiger:county' v='Berkeley, WV' />
+    <tag k='tiger:name_base' v='Boston' />
+    <tag k='tiger:name_type' v='St' />
+    <tag k='tiger:reviewed' v='no' />
+  </way>
+</osm>

@@ -1,0 +1,53 @@
+‣ Nuestra aplicación gratuita no te rastrea, no tiene anuncios y necesita tu apoyo.
+‣ Está siendo mejorado constantemente por los colaboradores y nuestro pequeño equipo, en nuestro tiempo libre.
+‣ Si algo está mal o falta en el mapa, corríjalo en <b>OpenStreetMap</b> y vea sus cambios en la futura actualización de mapas.
+‣ Si la navegación o la búsqueda no funcionan, compruébelo primero en osm.org y luego envíenos un correo electrónico. ¡Respondemos a <i>TODOS los</i> correos electrónicos y lo solucionaremos lo antes posible!
+
+<b>¡Sus comentarios y reseñas de 5 estrellas son los mejores motivadores para nosotros!</b>
+
+Características principales:
+
+• Gratis, de código abierto, sin anuncios, sin seguimiento
+• Mapas detallados sin conexión con lugares que no existen en Google Maps, gracias a la comunidad <b>OpenStreetMap</b>
+• Rutas en bicicleta, rutas de senderismo y senderos
+• Curvas de nivel, perfiles de elevación, picos y pendientes
+• Navegación paso a paso a pie, en bicicleta y en coche con guía de voz y Android Auto
+• Búsqueda rápida sin conexión
+• Exportación e importación de marcadores y pistas en formatos KML, KMZ, GPX
+• Modo oscuro para proteger tus ojos
+
+<i>Todavía</i> no hay transporte público, mapas satelitales y otras características interesantes en Organic Maps. Pero con <i>su ayuda y apoyo</i>, podemos hacer mejores mapas paso a paso.
+
+Organic Maps es <b>puro y orgánico, hecho con amor</b>:
+
+• Experiencia offline ultrarrápida
+• Respeta tu privacidad
+• Ahorra batería
+• Sin cargos inesperados por datos móviles
+• Fácil de usar, con sólo las características más importantes incluidas
+
+Libre de rastreadores y otras cosas malas:
+
+• Sin anuncios
+• Sin seguimiento
+• Ausencia de recopilación de datos
+• No hay llamadas a casa
+• Sin registro molesto
+• No hay tutoriales obligatorios
+• No hay spam de correo electrónico ruidoso
+• No hay notificaciones push
+• Sin crapware
+• N̶o̶p̶e̶s̶t̶i̶i̶i̶i̶e̶s̶s̶ puramente orgánico
+
+En Organic Maps, creemos que <b>la privacidad es un derecho humano fundamental</b>:
+
+• Organic Maps es un proyecto independiente de código abierto impulsado por la comunidad
+• Protegemos la privacidad de las miradas indiscretas de las grandes tecnológicas
+• Mantente seguro estés donde estés
+
+De acuerdo con el Informe de privacidad de Exodus, no se encuentran rastreadores y solo se requieren permisos mínimos.
+
+Visite <b><i>organicmaps.app</i></b> sitio web para obtener más detalles y preguntas frecuentes, y contáctenos directamente en @OrganicMapsApp en Telegram.
+
+Rechaza la vigilancia, abraza tu libertad.
+<b>¡Dale una oportunidad a Organic Maps!</b>

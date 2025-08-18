@@ -1,0 +1,53 @@
+‣ Naše bezplatná aplikace vás nesleduje, neobsahuje reklamy a potřebuje vaši podporu.
+‣ Je neustále vylepšována přispěvateli a naším malým týmem v našem volném čase.
+‣ Pokud je na mapě něco špatně nebo na ní něco chybí, opravte to prosím na <b>OpenStreetMap</b>. Své změny uvidíte v pozdějších aktualizacích map.
+‣ Pokud nefunguje navigace nebo vyhledávání, zkontrolujte to prosím nejprve na osm.org a až poté nám napište e-mail. Odpovídáme na <i>KAŽDÝ</i> e-mail a problémy opravujeme jak nejdříve můžeme.
+
+<b>Vaše zpětná vazba a 5-hvězdičková hodnocení jsou pro nás nejlepší motivací!</b>
+
+Klíčové funkce:
+
+• Bezplatné, open-source, bez reklam, bez sledování
+• Podrobné offline mapy s místy, které neexistují v Mapách Google, díky komunitě <b>OpenStreetMap</b>
+• Cyklotrasy, turistické trasy a pěší stezky
+• Vrstevnice, výškové profily, vrcholy a svahy
+• Pěší, cyklistická a automobilová navigace krok po kroku s hlasovými pokyny a Android Auto
+• Rychlý offline vyhledávač
+• Export a import záložek a tras ve formátech KML, KMZ a GPX
+• Tmavý režim pro ochranu vašich očí
+
+Organic Maps <i>zatím</i> neobsahují cool vychytávky jako veřejnou dopravu nebo satelitní mapy, <i>s vaší pomocí a podporou</i> ale můžeme postupně mapy vylepšovat.
+
+Aplikace Organic Maps je <b>čistá a organická, vytvořená s láskou</b>:
+
+• Neskutečně rychlý offline zážitek
+• Respektuje vaše soukromí
+• Šetří vaší baterii
+• Žádné neočekávané poplatky za mobilní data
+• Je jednoduchá na používání, obsahuje pouze nejdůležitější funkce
+
+Neobsahuje sledovací prvky a další špatnosti:
+
+• Žádné reklamy
+• Žádné sledování
+• Žádné sbírání dat
+• Žádné volání domů
+• Žádná otravná registrace
+• Žádné povinné tutoriály
+• Žádný e-mailový spam
+• Žádná vyskakovací oznámení
+• Žádný crapware
+• Ž̶á̶d̶n̶é̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶y̶ Plně organické
+
+V Organic Maps věříme, že <b>soukromí je základní lidské právo</b>:
+
+• Organic Maps jsou nezávislý komunitní open-source projekt
+• Chráníme vaše soukromí před zvědavýma očima Big Tech firem
+• Nezávisle na vašem umístění jste v bezpečí
+
+Podle hlášení Exodus Privacy neobsahuje aplikace žádné sledovací prvky a vyžaduje pouze minimální množství oprávnění.
+
+Pro další podrobnosti a často kladené dotazy prosím navštivte webové stránky <b><i>organicmaps.app</i></b>. Kontaktovat nás můžete přes @OrganicMapsApp na Telegramu.
+
+Odmítněte sledování - přijměte svou svobodu.
+<b>Vyzkoušejte Organic Maps!</b>

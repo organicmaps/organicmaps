@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Disabled tablet UI while there is no final product/design decision about it. -->
+  <bool name="tabletLayout">false</bool>
+</resources>

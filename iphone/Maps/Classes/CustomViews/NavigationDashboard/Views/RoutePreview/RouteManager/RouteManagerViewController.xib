@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMRouteManagerViewController">
+            <connections>
+                <outlet property="dimView" destination="3y4-jh-JUF" id="Eto-KX-XRu"/>
+                <outlet property="footerView" destination="mqc-M4-MPb" id="8im-uy-Rgm"/>
+                <outlet property="footerViewHeight" destination="1qG-Md-L9w" id="ffF-cw-Lp0"/>
+                <outlet property="headerView" destination="s0L-ul-gog" id="X5t-Xe-g5Y"/>
+                <outlet property="headerViewHeight" destination="e4y-UI-hxr" id="ERb-fS-AcU"/>
+                <outlet property="managerView" destination="i5M-Pr-FkT" id="zz4-k2-Tf1"/>
+                <outlet property="managerWidth" destination="6Nm-Md-fZo" id="7X5-IX-4cy"/>
+                <outlet property="minManagerTopOffset" destination="sYB-lu-PhM" id="C8h-tU-enB"/>
+                <outlet property="tableView" destination="Zqd-YQ-ksD" id="ROT-An-z3D"/>
+                <outlet property="view" destination="TKX-qe-h4F" id="ORc-Ju-S5N"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3y4-jh-JUF" customClass="RouteManagerDimView" customModule="OMaps" customModuleProvider="target" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <subviews>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TC7-xW-EwE">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTd-fr-ia7">
+                            <rect key="frame" x="186" y="380" width="42" height="136.5"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_route_manager_trash" translatesAutoresizingMaskIntoConstraints="NO" id="ZEN-kK-2CA">
+                                    <rect key="frame" x="-3" y="40" width="48" height="48"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="48" id="QJJ-DB-WF7"/>
+                                        <constraint firstAttribute="width" secondItem="ZEN-kK-2CA" secondAttribute="height" multiplier="1:1" id="YdZ-dM-iEr"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ks-iR-Wia">
+                                    <rect key="frame" x="0.0" y="96" width="42" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular18:whiteText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="planning_route_remove_title"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration" identifier="MessageView"/>
+                            <constraints>
+                                <constraint firstItem="1ks-iR-Wia" firstAttribute="leading" secondItem="kTd-fr-ia7" secondAttribute="leading" id="OZ4-Jc-PiA"/>
+                                <constraint firstAttribute="bottom" secondItem="1ks-iR-Wia" secondAttribute="bottom" constant="20" id="PXJ-Xl-pHA"/>
+                                <constraint firstItem="1ks-iR-Wia" firstAttribute="top" secondItem="ZEN-kK-2CA" secondAttribute="bottom" constant="8" id="iOV-1C-4Ak"/>
+                                <constraint firstItem="ZEN-kK-2CA" firstAttribute="top" secondItem="kTd-fr-ia7" secondAttribute="top" constant="40" id="jma-ai-kFd"/>
+                                <constraint firstItem="ZEN-kK-2CA" firstAttribute="centerX" secondItem="kTd-fr-ia7" secondAttribute="centerX" id="kue-ke-ivS"/>
+                                <constraint firstAttribute="trailing" secondItem="1ks-iR-Wia" secondAttribute="trailing" id="oTF-hI-m7B"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration" identifier="MessageContainerView"/>
+                    <constraints>
+                        <constraint firstItem="kTd-fr-ia7" firstAttribute="centerX" secondItem="TC7-xW-EwE" secondAttribute="centerX" id="3Xc-xT-Z2O"/>
+                        <constraint firstItem="kTd-fr-ia7" firstAttribute="centerY" secondItem="TC7-xW-EwE" secondAttribute="centerY" priority="700" id="EcF-uM-iaP"/>
+                        <constraint firstItem="1ks-iR-Wia" firstAttribute="centerY" secondItem="TC7-xW-EwE" secondAttribute="centerY" priority="600" id="F2s-Or-gaN"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="72" id="niX-df-uVo"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <accessibility key="accessibilityConfiguration" identifier="DimView"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="TC7-xW-EwE" secondAttribute="bottom" placeholder="YES" id="2x4-NF-KU5"/>
+                <constraint firstItem="TC7-xW-EwE" firstAttribute="leading" secondItem="3y4-jh-JUF" secondAttribute="leading" placeholder="YES" id="D86-wV-E74"/>
+                <constraint firstAttribute="trailing" secondItem="TC7-xW-EwE" secondAttribute="trailing" id="kvp-My-OQZ"/>
+                <constraint firstItem="TC7-xW-EwE" firstAttribute="top" secondItem="3y4-jh-JUF" secondAttribute="top" id="lfE-MZ-Cvp"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="aNC-Xj-cAv"/>
+            <connections>
+                <outlet property="image" destination="ZEN-kK-2CA" id="zkv-Ag-qOp"/>
+                <outlet property="label" destination="1ks-iR-Wia" id="jsa-mi-iZ2"/>
+                <outlet property="labelVerticalCenter" destination="F2s-Or-gaN" id="Ztj-AC-Re4"/>
+                <outlet property="messageView" destination="kTd-fr-ia7" id="dq4-iL-VA4"/>
+                <outlet property="messageViewContainer" destination="TC7-xW-EwE" id="gfd-5J-Tc3"/>
+                <outlet property="messageViewVerticalCenter" destination="EcF-uM-iaP" id="zyb-VY-6pA"/>
+                <outletCollection property="gestureRecognizers" destination="deN-Z9-rbS" appends="YES" id="Mcr-eR-ObL"/>
+            </connections>
+            <point key="canvasLocation" x="288" y="-49"/>
+        </view>
+        <view contentMode="scaleToFill" id="TKX-qe-h4F" propertyAccessControl="none">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
+                    <rect key="frame" x="0.0" y="758" width="414" height="138"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-ul-gog" customClass="RouteManagerHeaderView" customModule="OMaps" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQh-uc-65J">
+                                    <rect key="frame" x="16" y="14" width="42" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="bold22:blackPrimaryText"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="planning_route_manage_route"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Fo-Ae-QrQ">
+                                    <rect key="frame" x="370" y="0.0" width="28" height="48"/>
+                                    <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" image="ic_get_position"/>
+                                    <connections>
+                                        <action selector="onAdd" destination="-1" eventType="touchUpInside" id="zGx-NU-Hzq"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJB-bK-y5c">
+                                    <rect key="frame" x="16" y="47" width="398" height="1"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="aOa-8P-yGw"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="MJB-bK-y5c" firstAttribute="leading" secondItem="s0L-ul-gog" secondAttribute="leading" constant="16" id="0en-v6-Ij2"/>
+                                <constraint firstItem="0Fo-Ae-QrQ" firstAttribute="top" secondItem="s0L-ul-gog" secondAttribute="top" id="8Bf-WP-AF2"/>
+                                <constraint firstAttribute="bottom" secondItem="0Fo-Ae-QrQ" secondAttribute="bottom" id="BjQ-l3-bKd"/>
+                                <constraint firstAttribute="trailing" secondItem="MJB-bK-y5c" secondAttribute="trailing" id="F3U-0x-OCM"/>
+                                <constraint firstItem="dQh-uc-65J" firstAttribute="centerY" secondItem="s0L-ul-gog" secondAttribute="centerY" id="GNV-n4-tfI"/>
+                                <constraint firstItem="0Fo-Ae-QrQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dQh-uc-65J" secondAttribute="trailing" constant="8" id="Zke-bf-VcT"/>
+                                <constraint firstAttribute="height" constant="48" id="e4y-UI-hxr"/>
+                                <constraint firstAttribute="bottom" secondItem="MJB-bK-y5c" secondAttribute="bottom" id="qQD-HE-tWa"/>
+                                <constraint firstItem="dQh-uc-65J" firstAttribute="leading" secondItem="s0L-ul-gog" secondAttribute="leading" constant="16" id="qSi-Cf-iFz"/>
+                                <constraint firstAttribute="trailing" secondItem="0Fo-Ae-QrQ" secondAttribute="trailing" constant="16" id="zfn-hK-yiy"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="addLocationButton" destination="0Fo-Ae-QrQ" id="svZ-xA-Txe"/>
+                                <outlet property="separator" destination="MJB-bK-y5c" id="xZC-xh-fJh"/>
+                                <outlet property="titleLabel" destination="dQh-uc-65J" id="xKP-bY-mQP"/>
+                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqc-M4-MPb" customClass="RouteManagerFooterView" customModule="OMaps" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="48" width="414" height="48"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="or0-Gy-0su">
+                                    <rect key="frame" x="-100" y="0.0" width="614" height="148"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="BlackOpaqueBackground"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pjx-6o-NWS">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="jFT-3E-Yrc"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Divider"/>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WE-hS-hzl">
+                                    <rect key="frame" x="16" y="0.0" width="46" height="48"/>
+                                    <state key="normal" title="Button"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButton"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cancel"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onCancel" destination="-1" eventType="touchUpInside" id="Lzk-mL-6Jg"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u3h-0s-UBo">
+                                    <rect key="frame" x="352" y="0.0" width="46" height="48"/>
+                                    <state key="normal" title="Button"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="FlatNormalTransButton"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_plan"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onPlan" destination="-1" eventType="touchUpInside" id="M1B-dr-vZS"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="1qG-Md-L9w"/>
+                                <constraint firstAttribute="trailing" secondItem="pjx-6o-NWS" secondAttribute="trailing" id="2pz-i3-nqy"/>
+                                <constraint firstItem="2WE-hS-hzl" firstAttribute="leading" secondItem="mqc-M4-MPb" secondAttribute="leading" constant="16" id="5pP-TA-d4M"/>
+                                <constraint firstItem="2WE-hS-hzl" firstAttribute="top" secondItem="mqc-M4-MPb" secondAttribute="top" id="CmY-Dg-Oyj"/>
+                                <constraint firstAttribute="bottom" secondItem="or0-Gy-0su" secondAttribute="bottom" constant="-100" id="Df9-Xs-6pB"/>
+                                <constraint firstAttribute="bottom" secondItem="u3h-0s-UBo" secondAttribute="bottom" id="GPn-YG-Q3q"/>
+                                <constraint firstItem="pjx-6o-NWS" firstAttribute="top" secondItem="mqc-M4-MPb" secondAttribute="top" id="JBh-gl-9Zv"/>
+                                <constraint firstItem="or0-Gy-0su" firstAttribute="leading" secondItem="mqc-M4-MPb" secondAttribute="leading" constant="-100" id="Nrk-kP-4Bh"/>
+                                <constraint firstAttribute="trailing" secondItem="u3h-0s-UBo" secondAttribute="trailing" constant="16" id="QGG-zB-H6Q"/>
+                                <constraint firstAttribute="bottom" secondItem="2WE-hS-hzl" secondAttribute="bottom" id="TJH-n6-XZn"/>
+                                <constraint firstItem="pjx-6o-NWS" firstAttribute="leading" secondItem="mqc-M4-MPb" secondAttribute="leading" id="isd-2j-Shn"/>
+                                <constraint firstItem="u3h-0s-UBo" firstAttribute="top" secondItem="mqc-M4-MPb" secondAttribute="top" id="jC7-jG-YeX"/>
+                                <constraint firstAttribute="trailing" secondItem="or0-Gy-0su" secondAttribute="trailing" constant="-100" id="zfL-pn-451"/>
+                                <constraint firstItem="or0-Gy-0su" firstAttribute="top" secondItem="mqc-M4-MPb" secondAttribute="top" id="ztB-hC-yRP"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="background" destination="or0-Gy-0su" id="aFx-YJ-deT"/>
+                                <outlet property="cancelButton" destination="2WE-hS-hzl" id="8op-cA-N4M"/>
+                                <outlet property="planButton" destination="u3h-0s-UBo" id="Fb9-pg-kh9"/>
+                                <outlet property="separator" destination="pjx-6o-NWS" id="EKT-Ba-Lcy"/>
+                            </connections>
+                        </view>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-YQ-ksD" customClass="RouteManagerTableView" customModule="OMaps" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="48" width="414" height="0.0"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="750" id="69R-bB-eQ7"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="TableView"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="RZu-Qk-qvN"/>
+                                <outlet property="delegate" destination="-1" id="QdP-tL-Afh"/>
+                                <outlet property="tableViewHeight" destination="69R-bB-eQ7" id="iLN-YX-m5u"/>
+                                <outletCollection property="gestureRecognizers" destination="iVR-Au-pTp" appends="YES" id="abb-Ql-z0p"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration" identifier="ManagerView"/>
+                    <constraints>
+                        <constraint firstAttribute="width" priority="750" constant="375" id="6Nm-Md-fZo"/>
+                        <constraint firstItem="Zqd-YQ-ksD" firstAttribute="top" secondItem="s0L-ul-gog" secondAttribute="bottom" id="9N3-Ti-W95"/>
+                        <constraint firstItem="mqc-M4-MPb" firstAttribute="top" secondItem="Zqd-YQ-ksD" secondAttribute="bottom" id="A2s-eg-1CW"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="mqc-M4-MPb" secondAttribute="bottom" id="JoD-oZ-xgY"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="s0L-ul-gog" secondAttribute="trailing" constant="-8" id="Ndx-K2-qQ5"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="mqc-M4-MPb" secondAttribute="trailing" constant="-8" id="WgX-mu-BCG"/>
+                        <constraint firstAttribute="trailing" secondItem="Zqd-YQ-ksD" secondAttribute="trailing" id="XkJ-fe-lyj"/>
+                        <constraint firstItem="s0L-ul-gog" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" constant="-8" id="aDI-kT-6Ao"/>
+                        <constraint firstItem="Zqd-YQ-ksD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cgy-zG-Qpu"/>
+                        <constraint firstItem="mqc-M4-MPb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" constant="-8" id="gvJ-kF-Ylk"/>
+                        <constraint firstItem="s0L-ul-gog" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ub9-gl-pdn"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="Background"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <accessibility key="accessibilityConfiguration" identifier="ControllerView"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="Bnz-SA-yXA"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="leading" secondItem="TKX-qe-h4F" secondAttribute="leading" id="Pui-FF-qOT"/>
+                <constraint firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="qXL-Hf-8X6"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TKX-qe-h4F" secondAttribute="top" constant="72" id="sYB-lu-PhM"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="hNI-dt-MwJ"/>
+            <point key="canvasLocation" x="-239.5" y="-48.5"/>
+        </view>
+        <tapGestureRecognizer id="deN-Z9-rbS" userLabel="Cancel Tap Gesture Recognizer">
+            <connections>
+                <action selector="onCancel" destination="-1" id="QyM-e1-7JM"/>
+            </connections>
+        </tapGestureRecognizer>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.10000000000000001" id="iVR-Au-pTp">
+            <connections>
+                <action selector="gestureRecognized:" destination="-1" id="osy-Ks-njV"/>
+            </connections>
+        </pongPressGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="ic_get_position" width="20" height="20"/>
+        <image name="ic_route_manager_trash" width="24" height="24"/>
+    </resources>
+</document>

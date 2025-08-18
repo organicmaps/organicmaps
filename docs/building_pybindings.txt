@@ -1,0 +1,114 @@
+Some of the project's librariers (traffic, search, kml and others) come
+with python bindings, i.e. have some of their functions exposed to be
+callable from the python programming language. The version of python
+is not enforced, so some libraries may be using python 2 and some may
+be using python 3.
+
+This document describes how to build these python bindings.
+
+
+Preparing source tree
+---------------------
+The Organic Maps project comes with its own version of Boost (https://www.boost.org/)
+in a submodule. You have to recursively update submodules before you start
+building anything.
+
+Ensure you have ran:
+
+  $ git submodule update --init --recursive
+
+
+
+Building single pybinding module
+--------------------------------
+Find a correspoding module's setup.py.
+Currently available modules and setup's:
+| module      | path to setup.py                       |
+|-------------|----------------------------------------|
+| pygen       | generator/pygen/setup.py               |
+| pykmlib     | kml/pykmlib/setup.py                   |
+| pymvm_diff  | generator/mwm_diff/pymwm_diff/setup.py |
+| pysearch    | search/pysearch/setup.py               |
+| pytracking  | tracking/pytracking/setup.py           |
+| pytraffic   | traffic/pytraffic/setup.py             |
+
+Run the chosen setup.py with Python you want to build binding for.
+Examples:
+
+  $ python kml/pykmlib/setup.py build install --user
+  $ python3.6 generator/mwm_diff/pymwm_diff/setup.py bdist_wheel 
+
+During build, our setup.py will configure and build boost_python library for
+needed Python version, configure omim, and build needed binding.
+
+
+Building all pybindings modules
+-------------------------------
+Run generic pyhelpers/setup.py with needed Python. This will invoke build (or
+other actions) for all pybindings.
+
+
+Supported actions and options
+-----------------------------
+Please refer to setuptools/distutils documentation for description of all
+available commands.
+Main commands are:
+ build
+ install
+ bdist_wheel
+
+Notable option for build command:
+
+  --omim-builddir [path to omim builddir]
+
+It should be used to store build dir somewhere outside source tree. If not
+specified, everything will be build in directory `build` from current
+directory.
+
+Complete wheels generation example:
+  $ python3.7 pyhelpers/setup.py build --omim-builddir ../omim-build/ bdist_wheel
+
+This will create wheels for all pybindings in `../omim-build/pybindings-dist/`.
+
+
+Pip installation
+----------------
+One can install pybinding straight from source:
+
+  $ pip install git+https://github.com/organicmaps/organicmaps.git@master#egg=pykmlib&subdirectory=kml/pykmlib
+
+But this can be a long wait, it is better to use already compiled .whl
+distribution.
+
+
+Running and testing a pybinding
+-------------------------------
+Install your freshly built pybinding either with `setup.py install`, or by
+installing .whl with `pip install`.
+
+Run tests:
+
+  MWM_RESOURCES_DIR=data \
+  MWM_WRITABLE_DIR=data \
+  search/pysearch/run_search_engine.py
+
+Problems and solutions
+----------------------
+1. Building bindings on MacOS Catalina 10.15.5.
+   If you try to build one of the bindings on MacOS Catalina with Apple clang
+   version 11.0.3 you'll see the error that the flag fcoalesce-templates is not
+   supported. The workaround is to remove this flag from
+   3party/boost/tools/build/src/tools/darwin.jam and
+   3party/boost/tools/build/src/tools/darwin.py
+
+2. You may get build errors that standard C++ headers can't be found while
+   building of Boost.Python. For example, fatal error: 'cstddef' file not found.
+   In that case the following flags should be set to correct values:
+   MACOSX_DEPLOYMENT_TARGET, CC, CXX, CFLAGS. For example, instead of launching:
+
+    $ python3.7 kml/pykmlib/setup.py build --omim-builddir=kml/pykmlib/cmake-build-release
+
+   should be launched:
+
+    $ MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ CFLAGS='-stdlib=libc++'
+      python3.7 kml/pykmlib/setup.py build --omim-builddir=kml/pykmlib/cmake-build-release

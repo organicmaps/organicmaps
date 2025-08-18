@@ -1,0 +1,53 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_item_oneline"
+    android:background="?clickableBackground"
+    android:paddingStart="@dimen/margin_half_plus"
+    android:paddingEnd="@dimen/margin_half">
+
+    <ImageView
+        android:id="@+id/phone_icon"
+        style="@style/MwmWidget.Editor.MetadataIcon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/phone_input"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_phone"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phone_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_toStartOf="@id/delete_icon"
+        android:textColorHint="?android:textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete_icon"
+        app:layout_constraintStart_toEndOf="@+id/phone_icon"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input"
+            style="@style/MwmWidget.Editor.FieldLayout.EditText"
+            tools:hint="Hint"
+            tools:text="Input"
+            android:inputType="phone"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+      android:id="@+id/delete_icon"
+      style="@style/MwmWidget.Editor.MetadataIcon"
+      android:layout_marginStart="@dimen/margin_half"
+      android:layout_marginTop="@dimen/margin_half"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/margin_half"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="ContentDescription"
+      tools:src="@drawable/ic_delete" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

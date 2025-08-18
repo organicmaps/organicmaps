@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="oz5-CE-QZ8" customClass="BookmarkTitleCell" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oz5-CE-QZ8" id="v5X-p8-TtT">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ykx-ep-qjo">
+                        <rect key="frame" x="20" y="12" width="280" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular17:blackPrimaryText"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedPlaceholder" value="placepage_bookmark_name_hint"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="delegate" destination="oz5-CE-QZ8" id="d6l-ER-j3P"/>
+                        </connections>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Ykx-ep-qjo" secondAttribute="bottom" constant="12" id="cfm-oE-z2I"/>
+                    <constraint firstAttribute="trailing" secondItem="Ykx-ep-qjo" secondAttribute="trailing" constant="20" id="dyn-Ae-apB"/>
+                    <constraint firstItem="Ykx-ep-qjo" firstAttribute="top" secondItem="v5X-p8-TtT" secondAttribute="top" constant="12" id="e37-GE-Eth"/>
+                    <constraint firstItem="Ykx-ep-qjo" firstAttribute="leading" secondItem="v5X-p8-TtT" secondAttribute="leading" constant="20" id="gXL-r9-dr7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="textField" destination="Ykx-ep-qjo" id="Vsa-Aq-FNB"/>
+            </connections>
+            <point key="canvasLocation" x="234" y="339"/>
+        </tableViewCell>
+    </objects>
+</document>

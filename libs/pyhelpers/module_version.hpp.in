@@ -1,0 +1,2 @@
+// Bindings build for Python version @PYTHON_VERSION@
+#define PYBINDINGS_VERSION "@PYBINDINGS_VERSION@"

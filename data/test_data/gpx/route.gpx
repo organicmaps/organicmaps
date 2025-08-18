@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1">
+<metadata>
+	<desc>Welcome to my route</desc>
+</metadata>
+<rte>
+<name>Some random route</name>
+<rtept lat="48.20984622935899" lon="16.376023292541507">
+<ele>184.4</ele>
+<name>Point 1</name>
+</rtept>
+<rtept lat="48.209503040543545" lon="16.381065845489506">
+<ele>186.9</ele>
+<name>Point 2</name>
+</rtept>
+</rte>

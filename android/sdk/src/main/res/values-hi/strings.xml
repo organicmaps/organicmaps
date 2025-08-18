@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings/Downloader - size string, only strings different from English should be translated -->
+    <string name="mb">मेगाबाइट</string>
+    <string name="gb">गीगाबाइट</string>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">मेरा स्थान</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">मेरे स्थान</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">आंतरिक निजी भंडारण</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">आंतरिक साझा भंडारण</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">एसडी कार्ड</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">बाह्य साझा भंडारण</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">वाईफ़ाई</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">मानचित्र बिंदु</string>
+    <!-- abbreviation for meters -->
+    <string name="m">मी</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">किमी</string>
+</resources>

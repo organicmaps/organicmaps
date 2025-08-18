@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/ll__place_outdoor_seating"
+  style="@style/PlacePageItemFrame"
+  tools:background="#40FF0000"
+  tools:visibility="visible">
+
+  <ImageView
+    android:id="@+id/iv__place_outdoor_seating"
+    style="@style/PlacePageMetadataIcon"
+    app:srcCompat="@drawable/ic_outdoor_seating"/>
+
+  <TextView
+    android:id="@+id/tv__place_outdoor_seating"
+    android:textAlignment="viewStart"
+    style="@style/PlacePageMetadataText"
+    android:text="@string/outdoor_seating"/>
+</LinearLayout>

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='797547458' timestamp='2010-06-30T20:24:18Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175354' lon='3.0623717' />
+  <node id='797547592' timestamp='2010-06-30T20:24:20Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175521' lon='3.0619804' />
+  <node id='797547593' timestamp='2010-06-30T20:24:20Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175549' lon='3.0619993' />
+  <node id='797548001' timestamp='2010-06-30T20:24:25Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6176744' lon='3.0622421' />
+  <node id='797548029' timestamp='2010-06-30T20:24:25Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175335' lon='3.0620679' />
+  <node id='797548137' timestamp='2010-06-30T20:24:27Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.617659' lon='3.0623877' />
+  <node id='797548524' timestamp='2010-06-30T20:24:32Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6176613' lon='3.0626451' />
+  <node id='797548584' timestamp='2010-06-30T20:24:33Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6176567' lon='3.0621767' />
+  <node id='797548596' timestamp='2010-06-30T20:24:33Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6176772' lon='3.0622421' />
+  <node id='797548726' timestamp='2010-06-30T20:24:34Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6176792' lon='3.0623867' />
+  <node id='797548926' timestamp='2010-06-30T20:24:37Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175454' lon='3.0624403' />
+  <node id='797548937' timestamp='2010-06-30T20:24:37Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175342' lon='3.0622451' />
+  <node id='797549072' timestamp='2010-06-30T20:24:40Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175642' lon='3.062012' />
+  <node id='797549735' timestamp='2010-06-30T20:25:00Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175521' lon='3.061992' />
+  <node id='797550027' timestamp='2010-06-30T20:25:05Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.617674' lon='3.0621999' />
+  <node id='797550105' timestamp='2010-06-30T20:25:07Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175563' lon='3.0624403' />
+  <node id='797550128' timestamp='2010-06-30T20:25:08Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175354' lon='3.0622451' />
+  <node id='797550247' timestamp='2010-06-30T20:25:10Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6176065' lon='3.0619847' />
+  <node id='797550315' timestamp='2010-06-30T20:25:11Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.617565' lon='3.0619857' />
+  <node id='797550514' timestamp='2010-06-30T20:25:14Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6176455' lon='3.0620638' />
+  <node id='797550683' timestamp='2010-06-30T20:25:17Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6176556' lon='3.0620638' />
+  <node id='797550812' timestamp='2010-06-30T20:25:19Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.617563' lon='3.0619804' />
+  <node id='797550953' timestamp='2010-06-30T20:25:21Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175582' lon='3.0626481' />
+  <node id='797551062' timestamp='2010-06-30T20:25:22Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6176065' lon='3.0620142' />
+  <node id='797551266' timestamp='2010-06-30T20:25:25Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175638' lon='3.0619994' />
+  <node id='797551311' timestamp='2010-06-30T20:25:26Z' uid='190479' user='Gnuyo' visible='true' version='1' changeset='5116411' lat='50.6175446' lon='3.0623707' />
+  <way id='65203864' timestamp='2020-08-09T03:46:42Z' uid='10104660' user='nairo5913' visible='true' version='12' changeset='89142882'>
+    <nd ref='797548524' />
+    <nd ref='797548137' />
+    <nd ref='797548726' />
+    <nd ref='797548596' />
+    <nd ref='797548001' />
+    <nd ref='797550027' />
+    <nd ref='797548584' />
+    <nd ref='797550683' />
+    <nd ref='797550514' />
+    <nd ref='797551062' />
+    <nd ref='797550247' />
+    <nd ref='797550315' />
+    <nd ref='797550812' />
+    <nd ref='797547592' />
+    <nd ref='797549735' />
+    <nd ref='797547593' />
+    <nd ref='797551266' />
+    <nd ref='797549072' />
+    <nd ref='797548029' />
+    <nd ref='797550128' />
+    <nd ref='797548937' />
+    <nd ref='797547458' />
+    <nd ref='797551311' />
+    <nd ref='797548926' />
+    <nd ref='797550105' />
+    <nd ref='797550953' />
+    <nd ref='797548524' />
+    <tag k='air_conditioning' v='no' />
+    <tag k='building' v='yes' />
+    <tag k='name' v='Porte d&apos;Arras' />
+    <tag k='network' v='Ilévia' />
+    <tag k='nohousenumber' v='yes' />
+    <tag k='operator' v='Keolis Lille Métropole' />
+    <tag k='public_transport' v='station' />
+    <tag k='railway' v='station' />
+    <tag k='source' v='cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2010' />
+    <tag k='station' v='subway' />
+    <tag k='subway' v='yes' />
+    <tag k='website' v='https://www.ilevia.fr/' />
+    <tag k='wheelchair' v='yes' />
+    <tag k='wikidata' v='Q1865573' />
+    <tag k='wikipedia' v='fr:Porte d&apos;Arras (métro de Lille Métropole)' />
+  </way>
+</osm>

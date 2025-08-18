@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SECTION: Strings -->
+    <!-- Button text (should be short) -->
+    <string name="back">Takaisin</string>
+    <!-- Button text (should be short) -->
+    <string name="cancel">Peruuta</string>
+    <!-- Button which deletes downloaded country -->
+    <string name="delete">Poista</string>
+    <string name="download_maps">Lataa karttoja</string>
+    <!-- Settings/Downloader - info for country when download fails -->
+    <string name="download_has_failed">Lataus epäonnistui. Napauta yrittääksesi uudelleen.</string>
+    <!-- Settings/Downloader - info for country which started downloading -->
+    <string name="downloading">Ladataan…</string>
+    <!-- Choose measurement on first launch alert - choose metric system button -->
+    <string name="kilometres">Kilometrit</string>
+    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <string name="miles">Mailit</string>
+    <!-- Update maps later button text -->
+    <string name="later">Myöhemmin</string>
+    <!-- View and button titles for accessibility, please also edit it in iphone/plist.txt -->
+    <string name="search">Haku</string>
+    <!-- Search box placeholder text; Used when searching on the map itself, not when searching for a map -->
+    <string name="search_map">Hae kartalta</string>
+    <!-- Location services are disabled by user alert - message -->
+    <string name="location_is_disabled_long_text">Laitteen tai sovelluksen kaikki sijaintipalvelut ovat tällä hetkellä poissa käytöstä. Ota ne käyttöön Asetukset-valikossa.</string>
+    <!-- A dialog title, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="limited_accuracy">Rajoitettu tarkkuus</string>
+    <!-- A dialog text, that warns a user that Precise Location is disabled and suggests to turn it on -->
+    <string name="precise_location_is_disabled_long_text">Tarkan navigoinnin varmistamiseksi ota Tarkka sijainti käyttöön asetuksissa.</string>
+    <!-- View and button titles for accessibility -->
+    <string name="zoom_to_country">Näytä kartalla</string>
+    <!-- Message to display at the center of the screen when the country download has failed -->
+    <string name="country_status_download_failed">Lataus epäonnistui</string>
+    <!-- Button text for the button under the country_status_download_failed message -->
+    <string name="try_again">Yritä uudelleen</string>
+    <string name="about_menu_title">Tietoa Organic Maps:stä</string>
+    <!-- Text in About screen -->
+    <string name="about_headline">Ilmainen kaikille, tehty rakkaudella</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_1">• Ei mainoksia, ei seurantaa, ei tiedonkeruuta</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_2">• Ei akun tyhjenemistä, toimii offline-tilassa</string>
+    <!-- Text in About screen -->
+    <string name="about_proposition_3">• Nopea, minimalistinen, yhteisön kehittämä</string>
+    <!-- Text in About screen -->
+    <string name="about_developed_by_enthusiasts">Harrastajien ja vapaaehtoisten luoma avoimen lähdekoodin sovellus.</string>
+    <!-- The button that opens system location settings -->
+    <string name="location_settings">Sijaintiasetukset</string>
+    <string name="close">Sulje</string>
+    <string name="unsupported_phone">Laitteistokiihdytetty OpenGL vaaditaan. Valitettavasti laitteesi ei ole tuettu.</string>
+    <string name="download">Lataa</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable">Irrota USB-kaapeli tai syötä muistikortti käyttääksesi Organic Maps -sovellusta</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="not_enough_free_space_on_sdcard">Vapauta ensin tilaa SD-kortilta/USB-massamuistilta käyttääksesi sovellusta</string>
+    <string name="download_resources">Ennen aloitusta laitteelle tulee ladata yleinen maailmankartta.
+\nSe tarvitsee yhteensä %s tilaa.</string>
+    <string name="download_resources_continue">Siirry karttaan</string>
+    <string name="downloading_country_can_proceed">Ladataan %s. Voit nyt jatkaa \nkartalle.</string>
+    <string name="download_country_ask">Ladataanko %s?</string>
+    <string name="update_country_ask">Päivitetäänkö %s?</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="pause">Pysäytä</string>
+    <!-- REMOVE THIS STRING AFTER REFACTORING -->
+    <string name="continue_button">Jatka</string>
+    <!-- Show popup notification on top of the map when country download has failed. -->
+    <string name="download_country_failed">%s lataus epäonnistui</string>
+    <!-- "Add new bookmark list" dialog title -->
+    <string name="add_new_set">Lisää uusi valikoima</string>
+    <!-- Add Bookmark list dialog - hint when the list name is empty -->
+    <string name="bookmark_set_name">Kirjanmerkkivalikoiman nimi</string>
+    <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
+    <string name="bookmarks">Kirjanmerkit</string>
+    <!-- "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt -->
+    <string name="bookmarks_and_tracks">Kirjanmerkit ja reitit</string>
+    <!-- Add bookmark dialog - bookmark name -->
+    <string name="name">Nimi</string>
+    <!-- Editor title above street and house number, duplicates [type.building.address] in types_strings.txt -->
+    <string name="address">Osoite</string>
+    <!-- Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell. -->
+    <string name="list">Luettelo</string>
+    <!-- Settings button in system menu -->
+    <string name="settings">Asetukset</string>
+    <!-- Header of settings activity where user defines storage path -->
+    <string name="maps_storage">Tallenna kartat kohteeseen</string>
+    <!-- Detailed description of Maps Storage settings button -->
+    <string name="maps_storage_summary">Valitse karttojen latauskohde.</string>
+    <!-- E.g. "Downloaded maps: 500Mb" in Maps Storage settings -->
+    <string name="maps_storage_downloaded">Ladatut kartat</string>
+    <!-- Free space out of total storage size in Maps Storage settings, e.g. "300 MB free of 2 GB" -->
+    <string name="maps_storage_free_size">%1$s/%2$s vapaana</string>
+    <!-- Question dialog for transferring maps from one storage to another -->
+    <string name="move_maps">Siirrä karttoja?</string>
+    <!-- Error moving map files from one storage to another -->
+    <string name="move_maps_error">Karttatiedostojen siirtovirhe</string>
+    <!-- Ask user to wait several minutes (some long process in modal dialog). -->
+    <string name="wait_several_minutes">Tämä voi kestää useita minuutteja.
+\nOdota hetki…</string>
+    <!-- Measurement units title in settings activity -->
+    <string name="measurement_units">Mittayksiköt</string>
+    <!-- Detailed description of Measurement Units settings button -->
+    <string name="measurement_units_summary">Valitse mailit tai kilometrit</string>
+    <!-- SECTION: Search categories -->
+    <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
+    <string name="category_eat">Missä syödä</string>
+    <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
+    <string name="category_food">Elintarvikkeet</string>
+    <!-- Search category for public transport; any changes should be duplicated in categories.txt @category_transport! -->
+    <string name="category_transport">Liikenne</string>
+    <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
+    <string name="category_fuel">Huoltoasema</string>
+    <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
+    <string name="category_parking">Parkkipaikka</string>
+    <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
+    <string name="category_shopping">Ostokset</string>
+    <!-- Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! -->
+    <string name="category_secondhand">Käytetyt tavarat</string>
+    <!-- Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! -->
+    <string name="category_hotel">Hotelli</string>
+    <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
+    <string name="category_tourism">Nähtävyydet</string>
+    <!-- Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! -->
+    <string name="category_entertainment">Viihde</string>
+    <!-- Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! -->
+    <string name="category_atm">Pankkiautomaatti</string>
+    <!-- Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! -->
+    <string name="category_nightlife">Yöelämä</string>
+    <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->
+    <string name="category_children">Vapaa-aikaa lasten kanssa</string>
+    <!-- Search category for banks; any changes should be duplicated in categories.txt @category_bank! -->
+    <string name="category_bank">Pankki</string>
+    <!-- Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! -->
+    <string name="category_pharmacy">Apteekki</string>
+    <!-- Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! -->
+    <string name="category_hospital">Sairaala</string>
+    <!-- Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! -->
+    <string name="category_toilet">WC</string>
+    <!-- Search category for post offices; any changes should be duplicated in categories.txt @category_post! -->
+    <string name="category_post">Posti</string>
+    <!-- Search category for police; any changes should be duplicated in categories.txt @category_police! -->
+    <string name="category_police">Poliisi</string>
+    <!-- Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! -->
+    <string name="category_recycling">Jätteiden kierrätys</string>
+    <!-- Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type -->
+    <string name="category_water">Vesi</string>
+    <!-- Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! -->
+    <string name="category_rv">Karavaanaritilat</string>
+    <!-- SECTION: Other translations -->
+    <!-- Notes field in Bookmarks view -->
+    <string name="description">Muistiinpanot</string>
+    <!-- Email Subject when sharing bookmark list -->
+    <string name="share_bookmarks_email_subject">Jaetut Organic Maps-kirjanmerkit</string>
+    <!-- message title of loading file -->
+    <string name="load_kmz_title">Ladataan kirjanmerkkejä</string>
+    <!-- Kmz file successful loading -->
+    <string name="load_kmz_successful">Kirjanmerkkien lataaminen onnistui! Löydät ne joko kartalta tai kirjanmerkkien hallinnasta.</string>
+    <!-- Kml file loading failed -->
+    <string name="load_kmz_failed">Kirjanmerkkien lataus epäonnistui. Tiedosto saattaa olla vioittunut.</string>
+    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
+    <string name="unknown_file_type">Sovellus ei tunnista tiedostotyyppiä:
+\n%1$s</string>
+    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
+    <string name="failed_to_open_file">Tiedostoa ei onnistuttu avaamaan %1$s
+\n
+\n%2$s</string>
+    <!-- resource for context menu -->
+    <string name="edit">Muokkaa</string>
+    <!-- Warning message when doing search around current position -->
+    <string name="unknown_current_position">Sijaintiasi ei ole vielä määritetty</string>
+    <!-- Alert message that we can't run Map Storage settings due to some reasons. -->
+    <string name="cant_change_this_setting">Valitettavasti karttatallennusasetukset ovat pois päältä.</string>
+    <!-- Alert message that downloading is in progress. -->
+    <string name="downloading_is_active">Karttaa ladataan parhaillaan.</string>
+    <!-- Share my position using SMS, %1$@ contains om:// and %2$@ https://omaps.app link WITHOUT NAME. @NOTE non-ascii symbols in the link will result in max 70 characters SMS instead of 140. -->
+    <string name="my_position_share_sms">Hei, katso sijaintini Organic Maps-sovelluksessa! %1$s tai %2$s Eikö sinulla ole vielä offline-karttoja? Lataa ne täältä: https://omaps.app/get</string>
+    <!-- Subject for emailed bookmark -->
+    <string name="bookmark_share_email_subject">Hei, katso merkintäni Organic Maps-kartalla!</string>
+    <!-- Subject for emailed position -->
+    <string name="my_position_share_email_subject">Hei, kurkkaa tämänhetkinen sijaintini Organic Maps:n kartalla!</string>
+    <!-- Share my position using EMail, %1$@ is om:// and %2$@ is https://omaps.app link WITHOUT NAME -->
+    <string name="my_position_share_email">Hei,
+\n
+\nOlen nyt täällä: %1$s. Klikkaa linkkiä %2$s tai %3$s nähdäksesi paikan kartalla.
+\n
+\nKiitos.</string>
+    <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+    <string name="share">Jaa</string>
+    <!-- Share by email button text, also used in editor and About. -->
+    <string name="email">Sähköposti</string>
+    <!-- Text for message when used successfully copied something -->
+    <string name="copied_to_clipboard">Kopioitu leikepöydälle: %s</string>
+    <!-- Used for bookmark editing -->
+    <string name="done">Valmis</string>
+    <!-- Data version in «About» screen, %@ is replaced by a local, human readable date. -->
+    <string name="data_version">OpenStreetMap-tiedot: %s</string>
+    <!-- Confirmation for OpenStreetMap log out. -->
+    <string name="osm_log_out_confirmation">Haluatko varmasti kirjautua ulos OpenStreetMap-tililtäsi?</string>
+    <!-- Title for tracks category in bookmarks manager -->
+    <string name="tracks_title">Reitit</string>
+    <!-- Length of track in cell that describes route -->
+    <string name="length">Pituus</string>
+    <string name="share_my_location">Jaa sijaintini</string>
+    <!-- Settings general group in settings screen -->
+    <string name="prefs_group_general">Yleiset asetukset</string>
+    <!-- Settings information group in settings screen -->
+    <string name="prefs_group_information">Tietoja</string>
+    <string name="prefs_group_route">Navigointi</string>
+    <string name="pref_zoom_title">Zoomauspainikkeet</string>
+    <string name="pref_zoom_summary">Näytä kartalla</string>
+    <!-- Settings «Map» category: «Night style» title -->
+    <string name="pref_map_style_title">Yötila</string>
+    <!-- Generic «Off» string -->
+    <string name="off">Pois päältä</string>
+    <!-- Generic «On» string -->
+    <string name="on">Päällä</string>
+    <!-- Generic «Auto» string -->
+    <string name="auto">Automaattinen</string>
+    <!-- Settings «Map» category: «Perspective view» title -->
+    <string name="pref_map_3d_title">Perspektiivinäkymä</string>
+    <!-- Settings «Map» category: «3D buildings» title -->
+    <string name="pref_map_3d_buildings_title">3D-rakennukset</string>
+    <!-- A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled -->
+    <string name="pref_map_3d_buildings_disabled_summary">3D-rakennukset ovat poissa päältä virransäästötilassa</string>
+    <!-- Settings «Route» category: «Tts enabled» title -->
+    <string name="pref_tts_enable_title">Ääniohjeistukset</string>
+    <!-- Settings «Route» category: «Tts announce street names» title -->
+    <string name="pref_tts_street_names_title">Ilmoita kadunnimet</string>
+    <!-- Settings «Route» category: «Tts announce street names» description -->
+    <string name="pref_tts_street_names_description">Kun tämä on käytössä, sen kadun tai liittymän nimi, jolle käännytään, puhutaan ääneen.</string>
+    <!-- Settings «Route» category: «Tts language» title -->
+    <string name="pref_tts_language_title">Äänen kieli</string>
+    <!-- Settings «Route» category: «Test Voice Directions» title -->
+    <string name="pref_tts_test_voice_title">Testaa puheohjeita (TTS, Text-To-Speech)</string>
+    <!-- Settings «Route» category: Pop-up message when clicking «Test Voice Directions» -->
+    <string name="pref_tts_playing_test_voice">Tarkista äänenvoimakkuus tai järjestelmän tekstistä puheeksi -asetukset, jos ääni ei kuulu nyt.</string>
+    <!-- Settings «Route» category: «Tts unavailable» subtitle -->
+    <string name="pref_tts_unavailable">Ei saatavilla</string>
+    <string name="pref_map_auto_zoom">Automaattinen zoomaus</string>
+    <string name="placepage_distance">Etäisyys</string>
+    <string name="search_show_on_map">Näytä kartalla</string>
+    <!-- Menu button -->
+    <string name="menu">Menu</string>
+    <!-- Text in menu -->
+    <string name="website">Kotisivut</string>
+    <!-- Text in About menu, opens Organic Maps news website -->
+    <string name="news">Uutiset</string>
+    <!-- Settings: Send feedback button and dialog title -->
+    <string name="feedback">Palaute</string>
+    <!-- Text in menu -->
+    <string name="rate_the_app">Arvioi sovellus</string>
+    <!-- Text in menu -->
+    <string name="help">Ohje</string>
+    <!-- Button in the main Help dialog -->
+    <string name="faq">Usein kysytyt kysymykset</string>
+    <!-- Button in the main menu -->
+    <string name="donate">Lahjoita</string>
+    <string name="already_donated">Jo lahjoitettu</string>
+    <string name="remind_me_later">Muistuta myöhemmin</string>
+    <string name="support_organic_maps">Tukea Organic Maps</string>
+    <!-- Button in the main Help dialog -->
+    <string name="how_to_support_us">Tue projektia</string>
+    <!-- Button in the main Help dialog -->
+    <string name="copyright">Tekijänoikeudet</string>
+    <!-- Text in menu + Button in the main Help dialog -->
+    <string name="report_a_bug">Ilmoita virheestä</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_recommended">Paranna nuolien suuntaa liikuttamalla puhelinta kahdeksikon suuntaisesti kompassin kalibroimiseksi.</string>
+    <!-- Toast text when compass calibration may improve the correctness of the current position arrow -->
+    <string name="compass_calibration_required">Liikuta puhelinta kahdeksikon suuntaisella liikkeellä kompassin kalibroimiseksi ja nuolen suunnan määrittämiseksi kartalla.</string>
+    <!-- Toast text when user hides UI with a long tap anywhere on the map -->
+    <string name="long_tap_toast">Paina karttaa pitkään uudelleen nähdäksesi käyttöliittymän</string>
+    <!-- Update all button text -->
+    <string name="downloader_update_all_button">Päivitä kaikki</string>
+    <!-- Cancel all button text -->
+    <string name="downloader_cancel_all">Peruuta kaikki</string>
+    <!-- Downloaded maps list header -->
+    <string name="downloader_downloaded_subtitle">Ladatut</string>
+    <!-- Country queued for download -->
+    <string name="downloader_queued">Jonossa</string>
+    <string name="downloader_near_me_subtitle">Lähelläni</string>
+    <!-- In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" -->
+    <string name="downloader_status_maps">Kartat</string>
+    <string name="downloader_download_all_button">Lataa kaikki</string>
+    <string name="downloader_downloading">Ladataan:</string>
+    <!-- Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode -->
+    <string name="downloader_delete_map_while_routing_dialog">Pysäytä navigointi poistaaksesi kartan.</string>
+    <!-- PointsInDifferentMWM -->
+    <string name="routing_failed_cross_mwm_building">Vain kokonaisuudessaan yhdelle kartalle mahtuvia reittejä voidaan luoda.</string>
+    <!-- Context menu item for downloader. -->
+    <string name="downloader_download_map">Lataa kartta</string>
+    <!-- Item status in downloader. -->
+    <string name="downloader_retry">Yritä uudelleen</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_delete_map">Poista kartta</string>
+    <!-- Item in context menu. -->
+    <string name="downloader_update_map">Päivitä kartta</string>
+    <!-- Preference title -->
+    <string name="google_play_services">Google Play Sijaintipalvelut</string>
+    <!-- Preference text -->
+    <string name="pref_use_google_play">Määritä nopeasti likimääräinen sijaintisi Bluetoothin, WiFin tai matkapuhelinverkon kautta</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_download_maps_along">Lataa karttoja matkalla</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_requires_all_map">Reitin luominen vaatii karttojen lataamisen ja päivityksen oman sijaintisi ja kohteeen väliltä.</string>
+    <!-- Text for routing error dialog -->
+    <string name="routing_not_enough_space">Ei tarpeeksi tilaa</string>
+    <!-- location service disabled -->
+    <string name="enable_location_services">Ota sijaintipalvelut käyttöön</string>
+    <string name="save">Tallenna</string>
+    <string name="create">luo</string>
+    <!-- red color -->
+    <string name="red">Punainen</string>
+    <!-- yellow color -->
+    <string name="yellow">Keltainen</string>
+    <!-- blue color -->
+    <string name="blue">Sininen</string>
+    <!-- green color -->
+    <string name="green">Vihreä</string>
+    <!-- purple color -->
+    <string name="purple">Violetti</string>
+    <!-- orange color -->
+    <string name="orange">Oranssi</string>
+    <!-- brown color -->
+    <string name="brown">Ruskea</string>
+    <!-- pink color -->
+    <string name="pink">Pinkki</string>
+    <!-- deep purple color -->
+    <string name="deep_purple">Tumman purppuranpunainen</string>
+    <!-- light blue color -->
+    <string name="light_blue">Vaaleansininen</string>
+    <!-- cyan color -->
+    <string name="cyan">Sinivihreä</string>
+    <!-- teal color -->
+    <string name="teal">Smaragdinvihreä</string>
+    <!-- lime color -->
+    <string name="lime">Limen värinen</string>
+    <!-- deep orange color -->
+    <string name="deep_orange">Tumman oranssi</string>
+    <!-- gray color -->
+    <string name="gray">Harmaa</string>
+    <!-- blue gray color -->
+    <string name="blue_gray">Siniharmaa</string>
+    <!-- SECTION: Routing dialogs strings -->
+    <string name="dialog_routing_disclaimer_title">Muista seuraavat asiat seuratessasi reittiä:</string>
+    <string name="dialog_routing_disclaimer_priority">— Tien kunnon, liikennesääntöjen ja tiekylttien noudattaminen on aina ensisijaista verrattuna navigointisovelluksen ohjeisiin;</string>
+    <string name="dialog_routing_disclaimer_precision">— Kartta saattaa olla epätarkka, joten ehdotettu reitti ei välttämättä ole paras mahdollinen tapa päästä määränpäähän;</string>
+    <string name="dialog_routing_disclaimer_recommendations">— Ehdotettuja reittejä tulee pitää vain suosituksina;</string>
+    <string name="dialog_routing_disclaimer_borders">— Ole varovainen reittien kanssa raja-alueilla: sovelluksemme luomat reitit voivat joskus ylittää maiden rajoja luvattomissa paikoissa.</string>
+    <string name="dialog_routing_disclaimer_beware">Pysy tarkkana ja liiku turvallisesti!</string>
+    <string name="dialog_routing_check_gps">Tarkista GPS-signaali</string>
+    <string name="dialog_routing_error_location_not_found">Reittiä ei voi luoda. Tämänhetkisiä GPS-koordinaatteja ei löydy.</string>
+    <string name="dialog_routing_location_turn_wifi">Tarkista GPS-signaali. Wi-Fi-signaalin käyttöönotto parantaa sijainnin tarkkuutta.</string>
+    <string name="dialog_routing_location_turn_on">Ota sijaintipalvelut käyttöön</string>
+    <string name="dialog_routing_location_unknown_turn_on">Tämänhetkisiä GPS-koordinaatteja ei löydy. Ota sijaintipalvelut käyttöön reitin laskemista varten.</string>
+    <string name="dialog_routing_unable_locate_route">Reitin paikannus ei onnistu</string>
+    <string name="dialog_routing_cant_build_route">Reitin luonti ei onnistu.</string>
+    <string name="dialog_routing_change_start_or_end">Muuta aloituskohtaa tai määränpäätä.</string>
+    <string name="dialog_routing_change_start">Muuta aloituskohtaa</string>
+    <string name="dialog_routing_start_not_determined">Reittiä ei luotu. Aloituskohdan paikannus ei onnistu.</string>
+    <string name="dialog_routing_select_closer_start">Valitse lähempänä tietä oleva aloituskohta.</string>
+    <string name="dialog_routing_change_end">Muuta määränpäätä</string>
+    <string name="dialog_routing_end_not_determined">Reittiä ei luotu. Määränpään paikannus ei onnistu.</string>
+    <string name="dialog_routing_select_closer_end">Valitse lähempänä tietä oleva määränpää.</string>
+    <string name="dialog_routing_change_intermediate">Välipisteen paikallistaminen ei onnistunut.</string>
+    <string name="dialog_routing_intermediate_not_determined">Siirrä välipistettä.</string>
+    <string name="dialog_routing_system_error">Järjestelmävirhe</string>
+    <string name="dialog_routing_application_error">Reittiä ei voi luoda sovellusvirheen vuoksi.</string>
+    <string name="dialog_routing_try_again">Yritä uudelleen</string>
+    <string name="not_now">Ei nyt</string>
+    <string name="dialog_routing_download_and_build_cross_route">Haluatko ladata kartan ja luoda paremman reitin, joka ulottuu usealle kartalle?</string>
+    <string name="dialog_routing_download_cross_route">Lataa kartta ja luo parempi reitti, joka ylittää tämän kartan reunan.</string>
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="search_without_internet_advertisement">Lataa kartta jotta voit käyttää hakua ja luoda reittejä. Tämän jälkeen et tarvitse enää Internet-yhteyttä.</string>
+    <string name="search_select_map">Valitse kartta</string>
+    <!-- «Show» context menu -->
+    <string name="show">Näytä</string>
+    <!-- «Hide» context menu -->
+    <string name="hide">Piilota</string>
+    <string name="categories">Luokat</string>
+    <string name="history">Historia</string>
+    <string name="search_not_found">Pahoittelut, hakutuloksia ei ole.</string>
+    <!-- The message when user did not find anything in the search. -->
+    <string name="search_not_found_query">Lataa alue, jolta etsit, tai yritä lisätä läheisen kaupungin tai kylän nimi.</string>
+    <string name="search_history_title">Hakuhistoria</string>
+    <string name="search_history_text">Näytä viimeaikaiset hakusi.</string>
+    <string name="clear_search">Poista hakuhistoria</string>
+    <!-- Place Page link to Wikipedia article (if map object has it). -->
+    <string name="read_in_wikipedia">Wikipedia</string>
+    <string name="p2p_your_location">Sijaintisi</string>
+    <string name="p2p_start">Aloita</string>
+    <string name="p2p_from_here">Lähtöpaikka</string>
+    <string name="p2p_to_here">Reitin loppupiste</string>
+    <string name="p2p_only_from_current">Navigointi onnistuu vain nykyisestä sijainnistasi.</string>
+    <string name="p2p_reroute_from_current">Haluatko valita vaihtoehtoisen reitin?</string>
+    <!-- Edit open hours/set time and minutes dialog -->
+    <string name="next_button">Seuraava</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_from">Alkaen</string>
+    <!-- Tab title in the Edit Opening Hours time picker -->
+    <string name="editor_time_to">Asti</string>
+    <string name="editor_time_add">Lisää aikataulu</string>
+    <string name="editor_time_delete">Poista aikataulu</string>
+    <!-- Text for allday switch. -->
+    <string name="editor_time_allday">Koko päivän (24 tuntia)</string>
+    <string name="editor_time_open">Avoinna</string>
+    <string name="editor_time_close">Suljettu</string>
+    <string name="editor_time_add_closed">Lisää suljettuna tunnit</string>
+    <string name="editor_time_title">Aukioloajat</string>
+    <string name="editor_time_advanced">Edistynyt tila</string>
+    <string name="editor_time_simple">Yksinkertainen tila</string>
+    <string name="editor_hours_closed">Suljettuna tunnit</string>
+    <string name="editor_example_values">Esimerkkiarvot</string>
+    <string name="editor_correct_mistake">Korjaa virhe</string>
+    <string name="editor_add_select_location">Valitse sijainti</string>
+    <string name="editor_report_problem_desription_1">Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.</string>
+    <string name="editor_report_problem_desription_2">Tai tee se itse osoitteessa https://www.openstreetmap.org/</string>
+    <string name="editor_report_problem_send_button">Lähetä</string>
+    <string name="editor_report_problem_title">Ongelma</string>
+    <string name="editor_report_problem_no_place_title">Paikkaa ei ole olemassa</string>
+    <string name="editor_report_problem_under_construction_title">Suljettu huoltoa varten</string>
+    <string name="editor_report_problem_duplicate_place_title">Paikan kaksoiskappale</string>
+    <string name="autodownload">Lataa kartat automaattisesti</string>
+    <!-- Place Page opening hours text -->
+    <string name="daily">Päivittäin</string>
+    <string name="twentyfour_seven">Päivin ja öin</string>
+    <string name="day_off_today">Suljettu tänään</string>
+    <string name="day_off">Suljettu</string>
+    <string name="today">Tänään</string>
+    <string name="opens_in">Avautuu %s kuluttua</string>
+    <string name="closes_in">Sulkeutuu %s kuluttua</string>
+    <string name="closed">Suljettu</string>
+    <string name="edit_opening_hours">Muokkaa aukioloaikoja</string>
+    <string name="no_osm_account">Eikö sinulla ole OpenStreetMap-tiliä?</string>
+    <string name="register_at_openstreetmap">Rekisteröidy</string>
+    <string name="login">Kirjaudu sisään</string>
+    <!-- Status message indicating that user did not login to OSM profile yet. -->
+    <string name="not_signed_in">Et ole kirjautunut sisään</string>
+    <string name="login_osm">Kirjaudu OpenStreetMapiin</string>
+    <string name="password">Salasana</string>
+    <string name="forgot_password">Unohtuiko salasana?</string>
+    <string name="logout">Kirjaudu ulos</string>
+    <string name="edit_place">Muokkaa kohdetta</string>
+    <string name="add_language">Lisää kieli</string>
+    <string name="street">Katu</string>
+    <!-- Editable House Number text field (in address block). -->
+    <string name="house_number">Talon numero</string>
+    <string name="details">Lisätiedot</string>
+    <string name="social_media">Sosiaalinen media</string>
+    <string name="building">Rakennus</string>
+    <!-- Text field to enter non-existing street name, below list of known streets around -->
+    <string name="add_street">Lisää katu</string>
+    <!-- Error to display when a new street name is not entered in the New street dialog -->
+    <string name="empty_street_name_error">Lisää kadun nimi</string>
+    <string name="choose_language">Valitse kieli</string>
+    <string name="choose_street">Valitse katu</string>
+    <string name="cuisine">Ruokalaji</string>
+    <string name="select_cuisine">Valitse ruokalaji</string>
+    <!-- login text field -->
+    <string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
+    <string name="editor_add_phone">Lisää puhelinnumero</string>
+    <string name="level">Kerros</string>
+    <string name="downloader_delete_map_dialog">Kaikki karttaan tehdyt muutokset poistetaan kartan mukana.</string>
+    <string name="downloader_update_maps">Päivitä kartat</string>
+    <string name="downloader_mwm_migration_dialog">Sinun täytyy päivittää kaikki kartat ja suunnitella reitti uudelleen luodaksesi uuden reitin.</string>
+    <string name="downloader_search_field_hint">Etsi kartta</string>
+    <string name="common_check_internet_connection_dialog">Varmista, että laitteesi on yhteydessä Internetiin.</string>
+    <string name="downloader_no_space_title">Ei tarpeeksi tilaa</string>
+    <string name="downloader_no_space_message">Poista tarpeeton data</string>
+    <string name="editor_login_error_dialog">Kirjautumisvirhe.</string>
+    <string name="editor_profile_changes">Vahvistetut karttamuutokset</string>
+    <string name="editor_focus_map_on_location">Aseta risti paikan tai yrityksen sijaintiin vetämällä karttaa.</string>
+    <string name="editor_edit_place_title">Muokkaus</string>
+    <string name="editor_add_place_title">Lisääminen</string>
+    <string name="editor_edit_place_name_hint">Paikan nimi</string>
+    <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
+    <string name="editor_default_language_hint">Paikallisella kielellä kirjoitettuna</string>
+    <string name="editor_edit_place_category_title">Kategoria</string>
+    <string name="detailed_problem_description">Ongelman tarkka kuvaus</string>
+    <string name="editor_report_problem_other_title">Eri ongelma</string>
+    <string name="placepage_add_business_button">Lisää organisaatio</string>
+    <string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
+    <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
+    <string name="osm_presentation">Yhteisön luomat OpenStreetMap-tiedot %s:sta alkaen. Lisätietoja kartan muokkaamisesta ja päivittämisestä osoitteessa OpenStreetMap.org.</string>
+    <!-- OSM explanation on Android login screen -->
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) on yhteisöprojekti, jonka tarkoituksena on rakentaa ilmainen ja avoin kartta. Se on Organic Mapsin tärkein karttatietojen lähde ja toimii samalla tavalla kuin Wikipedia. Voit lisätä tai muokata paikkoja, ja ne tulevat miljoonien käyttäjien saataville kaikkialla maailmassa.
+\nLiity yhteisöön ja auta tekemään parempi kartta kaikille!</string>
+    <string name="login_to_make_edits_visible">Luo OpenStreetMap-tili tai kirjaudu sisään, jotta voit julkaista karttamuokkauksesi maailmalle.</string>
+    <!-- Downloaded 10 **of** 20 <- it is that "of" -->
+    <string name="downloader_of">%1$d/%2$d</string>
+    <string name="download_over_mobile_header">Lataa käyttämällä puhelinverkkoyhteyttä?</string>
+    <string name="download_over_mobile_message">Tämä vaihtoehto saattaa olla huomattavasti kalliimpi tietyillä sopimuksilla tai roaming-yhteydellä.</string>
+    <string name="error_enter_correct_house_number">Syötä oikea talon numero</string>
+    <string name="editor_storey_number">Kerrosten määrä (maks. %d)</string>
+    <!-- Error message in Editor when a user tries to set the number of floors for a building higher than %d floors -->
+    <string name="error_enter_correct_storey_number">Kerrosten määrä saa olla korkeintaan %d</string>
+    <string name="editor_zip_code">Postinumero</string>
+    <string name="error_enter_correct_zip_code">Anna kelvollinen postinumero</string>
+    <!-- Title for OSM note section in the editor -->
+    <string name="editor_other_info">Huomautus OpenStreetMapin vapaaehtoisille (valinnainen)</string>
+    <!-- Hint of the input field in the OSM note section of the editor -->
+    <string name="editor_note_hint">Kuvaile kartassa olevia virheitä tai asioita, joita ei voi muokata Organic Mapsilla.</string>
+    <!-- Information about OSM at the top of the editing page -->
+    <string name="editor_about_osm">Muokkauksesi ladataan julkiseen <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>-tietokantaan. Älä lisää henkilökohtaisia tai tekijänoikeudella suojattuja tietoja.</string>
+    <string name="editor_more_about_osm">Lisätietoja OpenStreetMap:sta</string>
+    <string name="editor_osm_history">Muokkaushistoriasi</string>
+    <string name="editor_osm_notes">Karttatietosi muistiinpanot</string>
+    <string name="editor_operator">Operaattori</string>
+    <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="operator">Operaattori: %s</string>
+    <string name="editor_category_unsuitable_title">Etkö löydä sopivaa luokkaa?</string>
+    <string name="editor_category_unsuitable_text">Organic Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Tarkista <a href="https://organicmaps.app/faq/editing/advanced-map-editing">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.</string>
+    <string name="downloader_no_downloaded_maps_title">Et ole ladannut yhtään karttaa</string>
+    <string name="downloader_no_downloaded_maps_message">Lataa karttoja löytääksesi paikkoja ja navigoidaksesi offline-tilassa.</string>
+    <string name="current_location_unknown_error_title">Nykyinen sijainti on tuntematon.</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
+    <string name="hour">t</string>
+    <string name="minute">min</string>
+    <string name="day">pv</string>
+    <string name="placepage_more_button">Lisää</string>
+    <string name="placepage_edit_bookmark_button">Muokkaa kirjanmerkkiä</string>
+    <string name="placepage_personal_notes_hint">Henkilökohtaiset merkinnät (teksti tai html)</string>
+    <string name="editor_comment_hint">Kommentti…</string>
+    <string name="editor_reset_edits_message">Nollataanko kaikki paikalliset muutokset?</string>
+    <string name="editor_reset_edits_button">Nollaa</string>
+    <string name="editor_remove_place_message">Poistetaanko lisätty paikka?</string>
+    <string name="editor_remove_place_button">Poista</string>
+    <string name="editor_place_doesnt_exist">Paikkaa ei ole olemassa</string>
+    <!-- Error message for "Place doesn't exist" dialog when comment is empty -->
+    <string name="delete_place_empty_comment_error">Anna syy paikan poistamiselle</string>
+    <!-- Phone number error message -->
+    <string name="error_enter_correct_phone">Syötä kelvollinen puhelinnumero</string>
+    <string name="error_enter_correct_web">Syötä kelvollinen verkko-osoite</string>
+    <string name="error_enter_correct_email">Syötä kelvollinen sähköpostiosoite</string>
+    <string name="error_enter_correct_facebook_page">Syötä kelvollinen Facebook verkko-osoite, tili, tai sivun nimi</string>
+    <string name="error_enter_correct_instagram_page">Syötä kelvollinen Instagram-käyttäjätunnus tai verkko-osoite</string>
+    <string name="error_enter_correct_twitter_page">Syötä kelvollinen Twitter-käyttäjätunnus tai verkko-osoite</string>
+    <string name="error_enter_correct_vk_page">Syötä kelvollinen VK-käyttäjätunnus tai verkko-osoite</string>
+    <string name="error_enter_correct_line_page">Syötä kelvollinen LINE ID tai verkko-osoite</string>
+    <string name="placepage_add_place_button">Lisää paikka OpenStreetMapiin</string>
+    <!-- Displayed when saving some edits to the map to warn against publishing personal data -->
+    <string name="editor_share_to_all_dialog_title">Haluatko lähettää sen kaikille käyttäjille?</string>
+    <!-- Dialog before publishing the modifications to the public map. -->
+    <string name="editor_share_to_all_dialog_message_1">Varmista, ettet syöttänyt henkilökohtaisia tietojasi.</string>
+    <string name="editor_share_to_all_dialog_message_2">OpenStreetMap-editorit tarkistavat muutokset ja ottavat sinuun yhteyttä, jos heillä on kysyttävää.</string>
+    <string name="navigation_stop_button">Lopeta</string>
+    <!-- Shown as toast when starting the recent track recording -->
+    <string name="track_recording">Reitin kirjaaminen</string>
+    <!-- For the first routing -->
+    <string name="accept">Hyväksy</string>
+    <!-- For the first routing -->
+    <string name="decline">Hylkää</string>
+    <string name="mobile_data_dialog">Näytetäänkö lisätiedot mobiili-internetillä?</string>
+    <string name="mobile_data_option_always">Käytä aina</string>
+    <string name="mobile_data_option_today">Vain tänään</string>
+    <string name="mobile_data_option_not_today">Älä käytä tänään</string>
+    <string name="mobile_data">Mobiili-internet</string>
+    <!-- NOTE to translators: please synchronize your translation with the English one. -->
+    <string name="mobile_data_description">Mobiili-internet vaaditaan paikkojen lisätietojen, kuten valokuvien, hintojen ja arvioiden näyttämiseen.</string>
+    <string name="mobile_data_option_never">Älä käytä koskaan</string>
+    <string name="mobile_data_option_ask">Kysy aina</string>
+    <string name="traffic_update_maps_text">Liikennetietojen näyttämiseksi kartat on päivitettävä.</string>
+    <string name="big_font">Suurenna fonttikokoa kartalla</string>
+    <string name="traffic_update_app">Päivitä Organic Maps</string>
+    <!-- "traffic" as in "road congestion" -->
+    <string name="traffic_data_unavailable">Liikennetietoja ei ole saatavilla</string>
+    <string name="enable_logging">Ota loki käyttöön</string>
+    <!-- Settings: "Send general feedback" button -->
+    <string name="feedback_general">Yleinen palaute</string>
+    <string name="prefs_languages_information">Käytämme ääniohjeisiin tekstistä puheeksi -järjestelmää. Monet Android-laitteet käyttävät Googlen tekstistä puheeksi -sovellusta, jonka voit ladata tai päivittää Google Playssä (https://play.google.com/store/apps/details?id=com.google.android.tts)</string>
+    <string name="prefs_languages_information_off">Joidenkin kielien osalta sinun täytyy asentaa toinen puhesyntetisaattori tai lisäkielipaketti sovelluskaupasta (Google Play, Galaxy Store, App Gallery, FDroid).\nAvaa laitteen asetukset → Kieli ja syöttötapa → Puhe → Teksistä puheeksi -toisto. \nTäällä voit hallita puhesynteesin asetuksia (esimerkiksi ladata offline-tilassa käytettävän kielipaketin) ja valita toisen tekstistä puheeksi -moottorin.</string>
+    <string name="prefs_languages_information_off_link">Lisätietoja saat tästä oppaasta.</string>
+    <string name="transliteration_title">Translitterointi latinalaisiksi aakkosiksi</string>
+    <string name="learn_more">Lisätietoja</string>
+    <!-- User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". -->
+    <string name="routing_add_start_point">Käytä hakua tai napauta karttaa lisätäksesi reitin lähtöpisteen</string>
+    <!-- User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". -->
+    <string name="routing_add_finish_point">Käytä hakua tai napauta karttaa lisätäksesi kohdepisteen</string>
+    <string name="planning_route_manage_route">Hallitse reittiä</string>
+    <string name="button_plan">Suunnittele</string>
+    <string name="placepage_remove_stop">Poista pysähdys</string>
+    <string name="placepage_add_stop">Lisää pysähdys</string>
+    <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
+    <string name="alert_reauth_message">Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja <a href="https://github.com/organicmaps/organicmaps/issues/6144">täältä</a>.</string>
+    <string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
+    <string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista SD-kortin toiminta tai ota yhteyttä osoitteeseen support@organicmaps.app</string>
+    <string name="setting_emulate_bad_storage">Jäljittele virheellistä tallennustilaa</string>
+    <string name="error_enter_correct_name">Anna oikea nimi</string>
+    <string name="bookmark_lists">Luettelot</string>
+    <!-- Do not display all bookmark lists on the map -->
+    <string name="bookmark_lists_hide_all">Piilota kaikki</string>
+    <string name="bookmark_lists_show_all">Näytä kaikki</string>
+    <plurals name="bookmarks_places">
+        <item quantity="one">%d kirjanmerkki</item>
+        <item quantity="other">%d kirjanmerkkiä</item>
+    </plurals>
+    <string name="bookmarks_create_new_group">Luo uusi luettelo</string>
+    <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_import">Kirjanmerkkien ja reittien tuominen</string>
+    <string name="bookmarks_error_message_share_general">Ei voitu jakaa sovellusvirheen vuoksi</string>
+    <string name="bookmarks_error_title_share_empty">Jakamisvirhe</string>
+    <string name="bookmarks_error_message_share_empty">Tyhjää luetteloa ei voi jakaa</string>
+    <string name="bookmarks_error_title_empty_list_name">Nimi ei voi olla tyhjä</string>
+    <string name="bookmarks_error_message_empty_list_name">Anna luettelon nimi</string>
+    <string name="bookmarks_new_list_hint">Uusi luettelo</string>
+    <string name="bookmarks_error_title_list_name_already_taken">Nimi on jo käytössä</string>
+    <string name="bookmarks_error_message_list_name_already_taken">Valitse toinen nimi</string>
+    <string name="please_wait">Odota…</string>
+    <string name="phone_number">Puhelinnumero</string>
+    <string name="profile">OpenStreetMap-profiili</string>
+    <plurals name="bookmarks_detect_message">
+        <item quantity="one">%d tiedosto löydettiin. Näet sen muunnoksen jälkeen.</item>
+        <item quantity="other">%d tiedostoa löydettiin. Näet ne muunnoksen jälkeen.</item>
+    </plurals>
+    <string name="restore">Palauta</string>
+    <plurals name="tracks">
+        <item quantity="one">%d reitti</item>
+        <item quantity="other">%d reittiä</item>
+    </plurals>
+    <!-- Settings privacy group in settings screen -->
+    <string name="privacy">Yksityisyys</string>
+    <string name="privacy_policy">Yksityisyyskäytäntö</string>
+    <string name="terms_of_use">Käyttöehdot</string>
+    <string name="button_layer_traffic">Liikenne</string>
+    <string name="button_layer_hiking">Vaellus</string>
+    <string name="button_layer_cycling">Pyöräily</string>
+    <string name="button_layer_subway">Metro</string>
+    <string name="layers_title">Karttatyylit ja tasot</string>
+    <string name="bookmarks_empty_list_title">Luettelo on tyhjä</string>
+    <string name="bookmarks_empty_list_message">Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa</string>
+    <string name="category_desc_more">…lisää</string>
+    <string name="export_file">Vie KMZ</string>
+    <string name="export_file_gpx">Vie GPX</string>
+    <string name="delete_list">Poista luettelo</string>
+    <string name="speedcams_alert_title">Nopeuskamerat</string>
+    <string name="place_description_title">Paikan kuvaus</string>
+    <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+    <string name="notification_channel_downloader">Karttojen lataaminen</string>
+    <!-- "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit -->
+    <string name="pref_tts_speedcams_auto">Varoittaa sinua ylinopeudesta</string>
+    <!-- Speed camera settings menu option - Always warn (about speedcams) -->
+    <string name="pref_tts_speedcams_always">Varoita aina</string>
+    <!-- Speed camera settings menu option - Never warn (about speedcams) -->
+    <string name="pref_tts_speedcams_never">Älä koskaan varoita</string>
+    <string name="power_managment_title">Virransäästötila</string>
+    <string name="power_managment_description">Kun olet valinnut automaattisen tilan, sovellus alkaa sammuttamaan virtaa vieviä ominaisuuksia riippuen kulloisestakin akun latauksesta.</string>
+    <string name="power_managment_setting_never">Ei koskaan</string>
+    <string name="power_managment_setting_auto">Automaattinen</string>
+    <string name="power_managment_setting_manual_max">Täysi virransäästö</string>
+    <string name="enable_logging_warning_message">Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.</string>
+    <string name="driving_options_title">Reititysvalinnat</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_tolls">Vältä maksullisia teitä</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_unpaved">Vältä päällystämättömiä teitä</string>
+    <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
+    <string name="avoid_ferry">Vältä lautan käyttöä</string>
+    <string name="avoid_motorways">Vältä moottoritietä</string>
+    <string name="unable_to_calc_alert_title">Reittiä ei voi luoda</string>
+    <string name="unable_to_calc_alert_subtitle">Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen</string>
+    <string name="define_to_avoid_btn">Määritä vältettävät tiet</string>
+    <string name="change_driving_options_btn">Reititysvalinnat ovat päällä</string>
+    <string name="toll_road">Maksullinen tie</string>
+    <string name="unpaved_road">Päällystämätön tie</string>
+    <string name="ferry_crossing">Lauttaliikenne</string>
+    <!-- A generic "Yes" button in dialogs -->
+    <string name="yes">Kyllä</string>
+    <!-- A generic "No" button in dialogs -->
+    <string name="no">Ei</string>
+    <!-- E.g. "WiFi:Yes" -->
+    <string name="yes_available">Kyllä</string>
+    <!-- E.g. "WiFi:No" -->
+    <string name="no_available">Ei</string>
+    <!-- To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... -->
+    <string name="capacity">Kapasiteetti: %s</string>
+    <!-- To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... -->
+    <string name="network">Verkko: %s</string>
+    <string name="trip_finished">Olet perillä!</string>
+    <string name="ok">Ok</string>
+    <!-- max. 10 symbols, both iOS and Android -->
+    <string name="sort">Järjestä…</string>
+    <!-- Android, title, max 20-22 symbols -->
+    <string name="sort_bookmarks">Järjestä kirjanmerkit</string>
+    <!-- Android -->
+    <string name="by_default">Oletuksena</string>
+    <!-- Android -->
+    <string name="by_type">Tyyppi</string>
+    <!-- Android -->
+    <string name="by_distance">Etäisyys</string>
+    <!-- Android -->
+    <string name="by_date">Päivämäärä</string>
+    <!-- Android -->
+    <string name="by_name">Nimen mukaan</string>
+    <string name="week_ago_sorttype">Viikko sitten</string>
+    <string name="month_ago_sorttype">Kuukausi sitten</string>
+    <string name="moremonth_ago_sorttype">Yli kuukausi sitten</string>
+    <string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
+    <string name="near_me_sorttype">Lähelläni</string>
+    <string name="others_sorttype">Muut</string>
+    <!-- SECTION: Bookmark types used for sorting -->
+    <string name="food_places">Ruoka</string>
+    <string name="tourist_places">Nähtävyydet</string>
+    <string name="museums">Museot</string>
+    <string name="parks">Puistot</string>
+    <string name="swim_places">Uimapaikat</string>
+    <string name="mountains">Vuoret</string>
+    <string name="animals">Eläimet</string>
+    <string name="hotels">Hotellit</string>
+    <string name="buildings">Rakennukset</string>
+    <string name="money">Raha</string>
+    <string name="shops">Kaupat</string>
+    <string name="parkings">Pysäköinti</string>
+    <string name="fuel_places">Huoltoasemat</string>
+    <string name="medicine">Apteekki</string>
+    <string name="search_in_the_list">Etsi luettelosta</string>
+    <string name="religious_places">Uskonnolliset paikat</string>
+    <string name="select_list">Valitse luettelo</string>
+    <string name="transit_not_found">Metron reittiohjeet eivät ole vielä saatavilla tällä alueella</string>
+    <string name="dialog_pedestrian_route_is_long_header">Metroreittiä ei löytynyt</string>
+    <string name="dialog_pedestrian_route_is_long_message">Valitse reitin aloitus- tai loppupiste lähemmäksi metroasemaa</string>
+    <string name="button_layer_isolines">Maasto</string>
+    <string name="isolines_activation_error_dialog">Päivitä tai lataa haluamasi alueen kartta käyttääksesi korkeuskäyriä</string>
+    <string name="isolines_location_error_dialog">Korkeuskäyrät eivät ole vielä saatavilla tällä alueella</string>
+    <string name="elevation_profile_ascent">Nousua</string>
+    <string name="elevation_profile_descent">Laskua</string>
+    <string name="elevation_profile_min_elevation">Min. korkeus</string>
+    <string name="elevation_profile_max_elevation">Max. korkeus</string>
+    <string name="elevation_profile_difficulty">Vaikeus</string>
+    <string name="elevation_profile_distance">Etäisyys:</string>
+    <string name="elevation_profile_time">Aika:</string>
+    <string name="isolines_toast_zooms_1_10">Suurenna kartta nähdäksesi korkeuskäyrät</string>
+    <string name="downloader_loading_ios">Ladataan</string>
+    <string name="download_map_title">Lataa maailmankartta</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error">Kansion luonti ja tiedoston siirto ei onnistu laitteen muistissa tai SD-koritlla</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disk_error_title">Tallennusvirhe</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="connection_failure">Yhteysvirhe</string>
+    <!-- Used in DownloadResources startup screen -->
+    <string name="disconnect_usb_cable_title">Irrota USB-kaapeli</string>
+    <string name="enable_keep_screen_on">Pidä näyttö päällä</string>
+    <!-- Description in preferences -->
+    <string name="enable_keep_screen_on_description">Kun tämä on käytössä, näyttö on aina päällä, kun kartta näytetään.</string>
+    <!-- A preference title; keep short! -->
+    <string name="enable_show_on_lock_screen">Näytä lukitusnäytöllä</string>
+    <!-- Description in preferences -->
+    <string name="enable_show_on_lock_screen_description">Kun käytössä, sovellus toimii lukitusnäytöllä vaikka laite olisi lukittuna.</string>
+    <!-- Current language of the map! -->
+    <string name="change_map_locale">Karttakieli</string>
+    <!-- OpenStreetMap text on splash screen -->
+    <string name="splash_subtitle">OpenStreetMapin karttatiedot</string>
+    <!-- App Tip #00 -->
+    <string name="app_tip_00">Kiitos, että käytät yhteisön laatimia karttojamme!</string>
+    <!-- App tip #01 -->
+    <string name="app_tip_01">Lahjoituksellasi ja tuellasi voimme luoda maailman parhaat kartat!</string>
+    <!-- App tip #02 -->
+    <string name="app_tip_02">Pidätkö sovelluksestamme? Lahjoita tukemaan kehitystä! Etkö pidä siitä vielä? Kerro meille, niin korjaamme asian!</string>
+    <!-- App tip #03 -->
+    <string name="app_tip_03">Jos tunnet ohjelmistokehittäjän, voit pyytää häntä ottamaan käyttöön tarvitsemasi ominaisuuden.</string>
+    <!-- App tip #04 -->
+    <string name="app_tip_04">Voit valita mitä tahansa napauttamalla mitä tahansa kohtaa kartalla. Piilota ja näytä käyttöliittymä takaisin pitkällä napautuksella.</string>
+    <!-- App tip #05 -->
+    <string name="app_tip_05">Tiesitkö, että voit valita nykyisen sijaintisi kartalta?</string>
+    <!-- App tip #06 -->
+    <string name="app_tip_06">Voit auttaa kääntämään sovelluksemme kielellesi.</string>
+    <!-- App tip #07 -->
+    <string name="app_tip_07">Sovelluksemme on muutaman harrastajan ja yhteisön kehittämä.</string>
+    <!-- App tip #08 -->
+    <string name="app_tip_08">Voit helposti korjata ja parantaa karttatietoja.</string>
+    <!-- App tip #09 -->
+    <string name="app_tip_09">Päätavoitteemme on rakentaa nopeita, yksityisyyteen keskittyviä, helppokäyttöisiä karttoja, joista pidät.</string>
+    <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
+    <string name="car_used_on_the_phone_screen">Käytät nyt puhelimen näytöllä Organic Maps -palvelua.</string>
+    <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
+    <string name="car_used_on_the_car_screen">Käytät nyt Organic Maps auton näytöllä</string>
+    <!-- Displayed on the phone screen. Android Auto connected -->
+    <string name="aa_connected_title">Olet yhteydessä Android Autoon</string>
+    <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
+    <string name="car_continue_on_the_phone">Jatka puhelimessa</string>
+    <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
+    <string name="car_continue_in_the_car">Auton näyttöön</string>
+    <!-- Ask user to grant location permissions -->
+    <string name="aa_location_permissions_request">Organic Maps tarvitsee sijaintitietoja. Kun se on turvallista, tarkista puhelimesi ilmoitus.</string>
+    <!-- Notification title for permission request from AA. -->
+    <string name="aa_request_permission_notification">Tämä sovellus tarvitsee lupasi</string>
+    <!-- The text in the activity for location permission request. -->
+    <string name="aa_request_permission_activity_text">Organic Maps tarvitsee luvan käyttää sijantia toimiakseen tehokkaasti Android Autossa</string>
+    <!-- Grant Permissions button. -->
+    <string name="aa_grant_permissions">Lupien myöntäminen</string>
+    <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_outdoor">Vaellus</string>
+    <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
+    <string name="browser_not_available">Verkkoselain ei ole käytettävissä</string>
+    <string name="volume">Äänenvoimakkuus</string>
+    <!-- Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks -->
+    <string name="bookmarks_export">Vie kaikki kirjanmerkit ja kappaleet</string>
+    <!-- button in (app) TTS settings, to open the system TTS settings. -->
+    <string name="pref_tts_open_system_settings">Puhesynteesijärjestelmän asetukset</string>
+    <!-- toast displayed when pressing the "Speech synthesis system settings" button, and the system settings aren't found. -->
+    <string name="pref_tts_no_system_tts">Puhesynteesin asetuksia ei löytynyt, oletko varma, että laitteesi tukee sitä?</string>
+    <string name="drive_through">Ajaa läpi</string>
+    <string name="clear_the_search">Tyhjennä haku</string>
+    <string name="zoom_in">Suurenna</string>
+    <!-- Accessibility text for the zoom-out button on the map -->
+    <string name="zoom_out">Pienennä</string>
+    <!-- Restaurant or other food place's menu URL field in the Editor -->
+    <string name="website_menu">Valikkolinkki</string>
+    <!-- Button in the Place Page which opens a restaurant or other food place's menu in a browser -->
+    <string name="view_menu">Näytä valikko</string>
+    <!-- Title for the "Open in Another App" button on the PlacePage. -->
+    <string name="open_in_app">Avaa toisessa sovelluksessa</string>
+    <!-- To indicate if the place proposed self service... -->
+    <string name="self_service">Itsepalvelu</string>
+    <string name="select_option">Valitse vaihtoehto</string>
+    <!-- To indicate if restaurant or other place has outdoor seating -->
+    <string name="outdoor_seating">Ulkona istuminen</string>
+    <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
+    <string name="power_save_dialog_summary">Jotta navigointi olisi mahdollisimman tarkkaa, suosittelemme virransäästötilan poistamista käytöstä puhelimen akkuasetuksista.</string>
+    <!-- Prompt to start recording a track. -->
+    <string name="start_track_recording">Reitin tallennus</string>
+    <!-- Prompt for stopping a track recording. -->
+    <string name="stop_track_recording">Lopeta reitin tallennus</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="stop_without_saving">Lopeta tallentamatta</string>
+    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <string name="continue_recording">Jatka tallennusta</string>
+    <!-- Title for the alert when saving a track recording. -->
+    <string name="track_recording_alert_title">Tallenna kirjanmerkkeihin ja reitteihin?</string>
+    <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
+    <string name="track_recording_toast_nothing_to_save">Reitti on tyhjä - ei mitään tallennettavaa</string>
+    <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
+    <string name="error_no_file_manager_app">Kansiovalintaikkunaa ei voida näyttää, koska laitteeseen ei ole asennettu sopivaa sovellusta. Asenna tiedostonhallintasovellus ja yritä uudelleen</string>
+    <string name="choose_color">Valitse väri</string>
+    <string name="edit_track">Muokkaa reittiä</string>
+    <string name="uri_open_location_failed">Ei asennettua sovellusta, joka voi avata sijainnin</string>
+    <!-- preference string for using auto theme only in navigation mode -->
+    <string name="nav_auto">Automaattinen navigointi</string>
+    <string name="facebook">Facebook</string>
+    <string name="editor_line_social_network">LINE</string>
+    <string name="vk">VK</string>
+    <string name="openstreetmap">OpenStreetMap</string>
+    <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
+    <string name="level_value_generic">Kerros: %s</string>
+    <string name="share_bookmarks_email_body">Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne Organic Maps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://omaps.app/get?kmz \n\nNauti matkustamisesta Organic Maps:n kanssa!</string>
+    <string name="tts_info_link">https://organicmaps.app/faq/text-to-speech-android-tts/</string>
+    <string name="translated_om_site_url">https://organicmaps.app/</string>
+    <string name="telegram">Telegram</string>
+    <string name="twitter">X (Twitter)</string>
+    <string name="mastodon">Mastodon</string>
+    <string name="matrix">[Matrix]</string>
+    <string name="osm_wiki_about_url">https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</string>
+    <string name="github">Github</string>
+    <string name="comma_separated_pair">%1$s, %2$s</string>
+    <string name="instagram">Instagram</string>
+    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="wikimedia_commons">Wikimedia Commons</string>
+</resources>

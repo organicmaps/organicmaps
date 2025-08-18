@@ -1,0 +1,110 @@
+name: Android Monkey
+on:
+  workflow_dispatch: # Manual trigger
+  schedule:
+    - cron:  '0 5 * * 0' # Once per week at 05:00 UTC
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64  # Java 17 is required for Android Gradle 8 plugin
+
+jobs:
+  precondition:
+    runs-on: ubuntu-latest
+    name: Check preconditions
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1000 # fetch month or so
+
+      - name: Check that Android was updated
+        id: check
+        shell: bash
+        run: |
+          DIRS="android base drape drape_frontend editor ge0 map platform routing search shaders storage traffic transit"
+          if [ '${{ github.event_name }}' != 'schedule' ] || 
+             [ $(git rev-list --count --since="24 hours" HEAD $DIRS) -gt 0 ]; then
+            echo "updated=true" >> $GITHUB_OUTPUT
+          else
+            echo "updated=" >> $GITHUB_OUTPUT
+          fi
+    outputs:
+      updated: ${{ steps.check.outputs.updated }}
+
+  android-google-beta:
+    name: Android Google Beta
+    runs-on: ubuntu-latest
+    needs: precondition
+    if: ${{ needs.precondition.outputs.updated != '' }}
+    environment: beta
+    steps:
+      - name: Install build tools and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
+      - name: Install Google SDK
+        uses: google-github-actions/setup-gcloud@v0
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 100 # enough to get all commits for the current day
+
+      - name: Restore Boost submodule from cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            3party/boost
+            .git/modules/3party/boost
+          key: boost-submodule
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Restore beta keys
+        shell: bash
+        run: |
+          echo "$PRIVATE_H" | base64 -d > private.h
+          echo "$FIREBASE_TEST_LAB_JSON" | base64 -d > android/app/firebase-test-lab.json
+          echo "$FIREBASE_APP_DISTRIBUTION_JSON" | base64 -d > android/app/firebase-app-distribution.json
+          echo "$GOOGLE_SERVICES_JSON" | base64 -d > android/app/google-services.json
+          echo "$SECURE_PROPERTIES" | base64 -d > android/app/secure.properties
+          echo "$RELEASE_KEYSTORE" | base64 -d > android/app/release.keystore
+        env:
+          PRIVATE_H: ${{ secrets.PRIVATE_H }}
+          FIREBASE_TEST_LAB_JSON: ${{ secrets.FIREBASE_TEST_LAB_JSON }}
+          FIREBASE_APP_DISTRIBUTION_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_JSON }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+          SECURE_PROPERTIES: ${{ secrets.SECURE_PROPERTIES }}
+          RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
+
+      - name: Configure repository
+        shell: bash
+        run: ./configure.sh
+
+      - name: Compile
+        shell: bash
+        working-directory: android
+        run: |
+          cmake --version
+          ninja --version
+          ./gradlew -Pfirebase -Parm64 -Parmeabi-v7a assembleGoogleBeta uploadCrashlyticsSymbolFileGoogleBeta uploadCrashlyticsMappingFileGoogleBeta
+
+      - name: Run monkey
+        run: |
+          gcloud auth activate-service-account --key-file android/app/firebase-test-lab.json
+          gcloud config set project omapsapp
+          gcloud firebase test android run --app ./android/app/build/outputs/apk/google/beta/OrganicMaps-*-google-beta.apk \
+            --device model=husky,version=34 \
+            --device model=tangorpro,version=33,orientation=landscape \
+            --device model=bluejay,version=32 \
+            --device model=a51,version=31 \
+            --device model=f2q,version=30,orientation=landscape \
+            --device model=a10,version=29,orientation=landscape \
+            --device model=cactus,version=27 \
+            --device model=sailfish,version=25 \
+            --device model=harpia,version=23 \
+            --timeout 15m

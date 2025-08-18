@@ -1,0 +1,61 @@
+# Configuration file for clang-format, based on docs/CPP_STYLE.md.
+BasedOnStyle: Google
+
+AccessModifierOffset: -2
+AlignAfterOpenBracket: Align
+AlignConsecutiveMacros: AcrossEmptyLinesAndComments
+AlignEscapedNewlines: LeftWithLastLine
+AlignOperands: AlignAfterOperator
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: Always
+  AfterEnum: true
+  AfterExternBlock: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterObjCDeclaration: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: true
+  BeforeWhile: true
+  SplitEmptyFunction: false
+  SplitEmptyNamespace: false
+  SplitEmptyRecord: false
+BinPackArguments: true
+BinPackParameters: true
+BreakAfterJavaFieldAnnotations: true
+BreakBeforeBraces: Custom
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
+ColumnLimit: 120
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 4
+DerivePointerAlignment: false
+EmptyLineBeforeAccessModifier: Always
+IncludeBlocks: Preserve
+IndentAccessModifiers: false
+IndentCaseLabels: false
+IndentExternBlock: NoIndent
+InsertBraces: false
+InsertNewlineAtEOF: true
+LambdaBodyIndentation: OuterScope
+PackConstructorInitializers: CurrentLine
+PointerAlignment: Middle
+RemoveBracesLLVM: true
+RemoveSemicolon: true
+QualifierAlignment: Right
+SpacesInContainerLiterals: false
+Standard: Latest
+TabWidth: 2
+
+---
+Language: Java
+AllowShortFunctionsOnASingleLine: Empty

@@ -1,0 +1,77 @@
+#-----------------------------------------------------------------------------
+#
+#  Configuration for continuous integration service at appveyor.com
+#
+#-----------------------------------------------------------------------------
+
+environment:
+  matrix:
+  - config: Dev
+  - config: RelWithDebInfo
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - master
+
+# Operating system (build VM template)
+os: Visual Studio 2014 CTP4
+
+# scripts that are called at very beginning, before repo cloning
+init:
+
+# clone directory
+clone_folder: c:\projects\libosmium
+
+platform: x64
+
+install:
+  # show all availble env vars
+  - set
+  - echo cmake on AppVeyor
+  - cmake -version
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+  - set PATH=c:\projects\libosmium\cmake-3.1.0-win32-x86\bin;%PATH%
+  - set LODEPSDIR=c:\projects\libosmium\libosmium-deps
+  - set PROJ_LIB=%LODEPSDIR%\proj\share
+  - set GDAL_DATA=%LODEPSDIR%\gdal\data
+  #geos.dll
+  - set PATH=%LODEPSDIR%\geos\lib;%PATH%
+  #gdal.dll
+  - set PATH=%LODEPSDIR%\gdal\lib;%PATH%
+  #libexpat.dll
+  - set PATH=%LODEPSDIR%\expat\lib;%PATH%
+  #libtiff.dll
+  - set PATH=%LODEPSDIR%\libtiff\lib;%PATH%
+  #zlibwapi.dll
+  - set PATH=%LODEPSDIR%\zlib\lib;%PATH%
+  #convert backslashes in bzip2 path to forward slashes
+  #cmake cannot find it otherwise
+  - set LIBBZIP2=%LODEPSDIR%\bzip2\lib\libbz2.lib
+  - set LIBBZIP2=%LIBBZIP2:\=/%
+  - ps: Start-FileDownload https://mapnik.s3.amazonaws.com/deps/cmake-3.1.0-win32-x86.7z -FileName cm.7z
+  - ps: Start-FileDownload https://mapnik.s3.amazonaws.com/dist/dev/libosmium-deps-win-14.0-x64.7z -FileName lodeps.7z
+  - 7z x cm.7z | %windir%\system32\find "ing archive"
+  - 7z x lodeps.7z | %windir%\system32\find "ing archive"
+  - echo %LODEPSDIR%
+  - dir %LODEPSDIR%
+  - echo our own cmake
+  - cmake -version
+  - cd c:\projects
+  - git clone https://github.com/osmcode/osm-testdata.git
+
+build_script:
+  - cd c:\projects\libosmium
+  - mkdir build
+  - cd build
+  - echo %config%
+  - cmake .. -LA -G "Visual Studio 14 Win64" -DOsmium_DEBUG=TRUE -DCMAKE_BUILD_TYPE=%config% -DBUILD_BENCHMARKS=OFF -DBOOST_ROOT=%LODEPSDIR%\boost -DBoost_PROGRAM_OPTIONS_LIBRARY=%LODEPSDIR%\boost\lib\libboost_program_options-vc140-mt-1_57.lib -DOSMPBF_LIBRARY=%LODEPSDIR%\osmpbf\lib\osmpbf.lib -DOSMPBF_INCLUDE_DIR=%LODEPSDIR%\osmpbf\include -DPROTOBUF_LIBRARY=%LODEPSDIR%\protobuf\lib\libprotobuf.lib -DPROTOBUF_LITE_LIBRARY=%LODEPSDIR%\protobuf\lib\libprotobuf-lite.lib -DPROTOBUF_INCLUDE_DIR=%LODEPSDIR%\protobuf\include -DZLIB_LIBRARY=%LODEPSDIR%\zlib\lib\zlibwapi.lib -DZLIB_INCLUDE_DIR=%LODEPSDIR%\zlib\include -DEXPAT_LIBRARY=%LODEPSDIR%\expat\lib\libexpat.lib -DEXPAT_INCLUDE_DIR=%LODEPSDIR%\expat\include -DBZIP2_LIBRARIES=%LIBBZIP2% -DBZIP2_INCLUDE_DIR=%LODEPSDIR%\bzip2\include -DGDAL_LIBRARY=%LODEPSDIR%\gdal\lib\gdal_i.lib -DGDAL_INCLUDE_DIR=%LODEPSDIR%\gdal\include -DGEOS_LIBRARY=%LODEPSDIR%\geos\lib\geos.lib -DGEOS_INCLUDE_DIR=%LODEPSDIR%\geos\include -DPROJ_LIBRARY=%LODEPSDIR%\proj\lib\proj.lib -DPROJ_INCLUDE_DIR=%LODEPSDIR%\proj\include -DSPARSEHASH_INCLUDE_DIR=%LODEPSDIR%\sparsehash\include -DGETOPT_LIBRARY=%LODEPSDIR%\wingetopt\lib\wingetopt.lib -DGETOPT_INCLUDE_DIR=%LODEPSDIR%\wingetopt\include
+  - msbuild libosmium.sln /p:Configuration=%config% /toolsversion:14.0 /p:Platform=x64 /p:PlatformToolset=v140
+  #- cmake .. -LA -G "NMake Makefiles" -DOsmium_DEBUG=TRUE -DCMAKE_BUILD_TYPE=%config% -DBOOST_ROOT=%LODEPSDIR%\boost -DBoost_PROGRAM_OPTIONS_LIBRARY=%LODEPSDIR%\boost\lib\libboost_program_options-vc140-mt-1_57.lib -DOSMPBF_LIBRARY=%LODEPSDIR%\osmpbf\lib\osmpbf.lib -DOSMPBF_INCLUDE_DIR=%LODEPSDIR%\osmpbf\include -DPROTOBUF_LIBRARY=%LODEPSDIR%\protobuf\lib\libprotobuf.lib -DPROTOBUF_LITE_LIBRARY=%LODEPSDIR%\protobuf\lib\libprotobuf-lite.lib -DPROTOBUF_INCLUDE_DIR=%LODEPSDIR%\protobuf\include -DZLIB_LIBRARY=%LODEPSDIR%\zlib\lib\zlibwapi.lib -DZLIB_INCLUDE_DIR=%LODEPSDIR%\zlib\include -DEXPAT_LIBRARY=%LODEPSDIR%\expat\lib\libexpat.lib -DEXPAT_INCLUDE_DIR=%LODEPSDIR%\expat\include -DBZIP2_LIBRARIES=%LIBBZIP2% -DBZIP2_INCLUDE_DIR=%LODEPSDIR%\bzip2\include -DGDAL_LIBRARY=%LODEPSDIR%\gdal\lib\gdal_i.lib -DGDAL_INCLUDE_DIR=%LODEPSDIR%\gdal\include -DGEOS_LIBRARY=%LODEPSDIR%\geos\lib\geos.lib -DGEOS_INCLUDE_DIR=%LODEPSDIR%\geos\include -DPROJ_LIBRARY=%LODEPSDIR%\proj\lib\proj.lib -DPROJ_INCLUDE_DIR=%LODEPSDIR%\proj\include -DSPARSEHASH_INCLUDE_DIR=%LODEPSDIR%\sparsehash\include -DGETOPT_LIBRARY=%LODEPSDIR%\wingetopt\lib\wingetopt.lib -DGETOPT_INCLUDE_DIR=%LODEPSDIR%\wingetopt\include
+  #- nmake
+
+test_script:
+  # -LE fails_on_windows exempts tests we know will fail
+  - ctest --output-on-failure -C %config% -LE fails_on_windows
+

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>
+      This XML Schema document defines validation rules for editor.xml and other OMaps configurations XMLs.
+      Run it with:
+      xmllint --noout --schema config.xsd editor.xml
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="omaps">
+    <xs:annotation>
+      <xs:documentation>
+        The root element, "omaps", for now contains only one entry, "editor".
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="editor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="editorType">
+    <xs:annotation>
+      <xs:documentation>
+        The "editor" section contains settings for fields and types in the following order:
+        * disable (see disableType)
+        * fields -> field+ (see fieldType), field_group* (see fieldGroupType)
+        * types -> type+ (see typeType)
+        * preferred_types? (see preferredType)
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence>
+      <xs:element name="disable" type="disableType" minOccurs="1" maxOccurs="1" />
+      <xs:element name="fields" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="field" type="fieldType" minOccurs="1" maxOccurs="unbounded" />
+            <xs:element name="field_group" type="fieldGroupType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="types" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="type" type="typeType" minOccurs="1" maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="preferred_types" type="preferredType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="editor" type="editorType">
+    <xs:annotation>
+      <xs:documentation>
+        Fields and types have unique identifiers, which are referenced
+        from types and preferred types respectively.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:key name="fieldKey">
+      <xs:selector xpath="fields/field" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <xs:key name="fieldGroupKey">
+      <xs:selector xpath="fields/field_group" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <xs:key name="typeKey">
+      <xs:selector xpath="types/type" />
+      <xs:field xpath="@id" />
+    </xs:key>
+    <xs:keyref name="fieldRef" refer="fieldKey">
+      <xs:selector xpath="types/type/include" />
+      <xs:field xpath="@field" />
+    </xs:keyref>
+    <xs:keyref name="fieldGroupRef" refer="fieldGroupKey">
+      <xs:selector xpath="types/type/include" />
+      <xs:field xpath="@group" />
+    </xs:keyref>
+    <xs:keyref name="typeRef" refer="typeKey">
+      <xs:selector xpath="preferred_types/type" />
+      <xs:field xpath="@id" />
+    </xs:keyref>
+  </xs:element>
+
+  <xs:simpleType name="yesno">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="no" />
+      <xs:enumeration value="yes" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="latlon">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="-180" />
+      <xs:maxInclusive value="180" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="disableType">
+    <xs:sequence>
+      <xs:element name="bbox" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="minlon" type="latlon" use="required" />
+          <xs:attribute name="minlat" type="latlon" use="required" />
+          <xs:attribute name="maxlon" type="latlon" use="required" />
+          <xs:attribute name="maxlat" type="latlon" use="required" />
+          <xs:attribute name="can_add" type="yesno" default="yes" use="optional" />
+          <xs:attribute name="editable" type="yesno" default="yes" use="optional" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="type" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="id" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="everywhere" type="yesno" default="no" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="fieldType">
+    <xs:sequence>
+      <xs:element name="tag" minOccurs="1" maxOccurs="2">
+        <xs:complexType>
+          <xs:attribute name="k" type="xs:string" use="required"/>
+          <xs:attribute name="v" type="xs:string" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="alt" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="k" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="value" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:attribute name="value" type="xs:string" use="required" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="type" type="xs:string" use="required"/>
+          <xs:attribute name="many" type="yesno" default="no" use="optional" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ctype" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="id" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="multilanguage" type="yesno" default="no" use="optional" />
+    <xs:attribute name="editable" type="yesno" default="yes" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="fieldGroupType">
+    <xs:sequence>
+      <xs:element name="field_ref" minOccurs="1" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="typeType">
+    <xs:sequence>
+      <xs:element name="include" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="field" type="xs:string" />
+          <xs:attribute name="group" type="xs:string" />
+          <xs:attribute name="editable" type="yesno" default="yes" use="optional" />
+          <xs:attribute name="can_modify" type="yesno" default="yes" use="optional" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required" />
+    <xs:attribute name="group" type="xs:string" use="optional" />
+    <xs:attribute name="priority" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="low" />
+          <xs:enumeration value="high" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="can_add" type="yesno" default="yes" use="optional" />
+    <xs:attribute name="editable" type="yesno" default="yes" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="preferredType">
+    <xs:sequence>
+      <xs:element name="type" minOccurs="0" maxOccurs="10">
+        <xs:complexType>
+          <xs:attribute name="id" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

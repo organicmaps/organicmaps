@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="pref_file_name" translatable="false">OrganicMapsPrefs</string>
+  <string name="pref_enable_logging" translatable="false">EnableLogging</string>
+  <string name="pref_emulate_bad_external_storage" translatable="false">EmulateBadExternalStorage</string>
+</resources>

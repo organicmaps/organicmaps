@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/coordinator"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <RelativeLayout
+    android:id="@+id/map_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+      android:id="@+id/map_fragment_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+    <include
+      android:id="@+id/onmap_downloader"
+      layout="@layout/onmap_downloader"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true" />
+    <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/map_buttons"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+    <include
+      android:id="@+id/position_chooser"
+      layout="@layout/position_chooser" />
+    <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar_with_search"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:visibility="gone"
+      tools:visibility="visible" />
+    <include
+      layout="@layout/routing_plan"
+      android:visibility="invisible" />
+    <include
+      layout="@layout/menu"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true" />
+    <include
+      layout="@layout/layout_nav"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:paddingBottom="@dimen/margin_base"
+      android:visibility="invisible" />
+  </RelativeLayout>
+  <androidx.fragment.app.FragmentContainerView
+    android:id="@+id/place_page_container_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="app.organicmaps.widget.placepage.PlacePageController" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

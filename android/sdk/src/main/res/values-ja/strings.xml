@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A text for current gps location point/arrow selected on the map -->
+    <string name="core_my_position">現在地</string>
+    <!-- Default bookmark list name -->
+    <string name="core_my_places">マイロケーション</string>
+    <!-- Internal storage type in Maps Storage settings (not accessible by the user) -->
+    <string name="maps_storage_internal">アプリ固有のストレージ</string>
+    <!-- Shared storage type in Maps Storage settings (a primary storage usually) -->
+    <string name="maps_storage_shared">共有ストレージ</string>
+    <!-- Removable external storage type in Maps Storage settings, e.g. an SD card -->
+    <string name="maps_storage_removable">SDカード</string>
+    <!-- Generic external storage type in Maps Storage settings -->
+    <string name="maps_storage_external">外部ストレージ</string>
+    <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
+    <string name="category_wifi">無線LAN</string>
+    <string name="postal_code">郵便番号</string>
+    <!-- Place Page title for long tap -->
+    <string name="core_placepage_unknown_place">マップポイント</string>
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">mi</string>
+    <!-- A unit of measure -->
+    <string name="ft">ft</string>
+    <!-- Subway exits for public transport marks on the map -->
+    <string name="core_exit">出口</string>
+    <string name="core_entrance">入口</string>
+    <string name="subway_data_unavailable">地下鉄路線図はご利用いただけません</string>
+    <string name="public_access">パブリック・アクセス</string>
+    <string name="limited_access">制限されたアクセス</string>
+    <string name="not_shared">非公開</string>
+    <string name="access_rules_author_only">オンライン編集</string>
+    <string name="mb">MB</string>
+    <string name="gb">GB</string>
+</resources>

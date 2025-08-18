@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bookmarks_places</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d záložek</string>
+			<key>one</key>
+			<string>%d záložka</string>
+			<key>few</key>
+			<string>%d záložky</string>
+			<key>other</key>
+			<string>%d záložek</string>
+		</dict>
+	</dict>
+	<key>bookmarks_detect_message</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>Bylo nalezeno %d souborů. Uvidíte je po konverzi.</string>
+			<key>one</key>
+			<string>Byl nalezen %d soubor. Uvidíte jej po konverzi.</string>
+			<key>few</key>
+			<string>Byly nalezeny %d soubory. Uvidíte je po konverzi.</string>
+			<key>other</key>
+			<string>Bylo nalezeno %d souborů. Uvidíte je po konverzi.</string>
+		</dict>
+	</dict>
+	<key>tracks</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d stop</string>
+			<key>one</key>
+			<string>%d stopa</string>
+			<key>few</key>
+			<string>%d stopy</string>
+			<key>other</key>
+			<string>%d stop</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

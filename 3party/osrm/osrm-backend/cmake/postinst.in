@@ -1,0 +1,2 @@
+#/usr/bin/env bash
+ln -s /usr/share/doc/@CMAKE_PROJECT_NAME@/profiles/car.lua @CMAKE_INSTALL_PREFIX@/profile.lua

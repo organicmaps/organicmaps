@@ -1,0 +1,43 @@
+/* Keep here changes of the base map style file only. */
+@import("../../default/include/Roads_label.mapcss");
+
+
+line|z13-[highway=track],
+line|z13-[highway=path],
+line|z13-[highway=footway],
+line|z13-[highway=steps],
+line|z13-[highway=bridleway],
+line|z13-[highway=cycleway],
+{text: name; font-size: 10; text-color: @label_light; text-halo-opacity: 0.8; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+
+/* Don't display names of sidewalks and pedestrian crossings. */
+line|z13-[highway=footway][footway=sidewalk],
+line|z13-[highway=footway][footway=crossing],
+{text: none;}
+
+line|z14-15[highway=path],
+line|z14-15[highway=track],
+line|z14-15[highway=footway],
+line|z14-15[highway=steps],
+line|z14-15[highway=bridleway],
+line|z14-15[highway=cycleway],
+{font-size: 11;}
+
+line|z16-[highway=path],
+line|z16-[highway=track],
+line|z16-[highway=footway],
+line|z16-[highway=steps],
+line|z16-[highway=bridleway],
+line|z16-[highway=cycleway],
+{font-size: 12; text-color: @label_medium; text-halo-color: @label_halo_light;}
+
+
+line|z13-[piste:type=nordic],
+line|z13-[piste:type=hike],
+line|z13-[piste:type=skitour],
+{text: name; text-position: line; text-color: @label_light; text-halo-opacity: 0.8; text-halo-radius: 1; text-halo-color: @label_halo_medium;}
+
+line|z13-14[piste:type=nordic],
+line|z13-14[piste:type=hike],
+line|z13-14[piste:type=skitour],
+{font-size: 9;}

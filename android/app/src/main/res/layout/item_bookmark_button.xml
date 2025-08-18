@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="horizontal"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@drawable/bg_clickable_card"
+  android:paddingStart="@dimen/margin_quarter"
+  android:paddingEnd="@dimen/dp_0"
+  android:paddingVertical="@dimen/margin_half_plus">
+  <ImageView
+    android:id="@+id/image"
+    android:layout_width="@dimen/nav_icon_size"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    app:tint="?colorAccent"
+    tools:srcCompat="@drawable/ic_import" />
+  <TextView
+    android:id="@+id/text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:fontFamily="@string/robotoMedium"
+    tools:text="Some text should go here"
+    android:textAllCaps="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:textColor="?colorAccent"/>
+</LinearLayout>

@@ -1,0 +1,1076 @@
+
+/* Button text (should be short) */
+"cancel" = "Avbryt";
+
+/* Button which interrupts country download */
+"cancel_download" = "Avbryt nedladdning";
+
+/* Button which deletes downloaded country */
+"delete" = "Ta bort";
+"download_maps" = "Ladda ner kartor";
+
+/* Settings/Downloader - info for country which started downloading */
+"downloading" = "Laddar ner…";
+
+/* Choose measurement on first launch alert - choose metric system button */
+"kilometres" = "Kilometer";
+
+/* Leave Review dialog - Review button */
+"leave_a_review" = "Skriv en recension";
+
+/* Choose measurement on first launch alert - choose imperial system button */
+"miles" = "Mile";
+
+/* A text for current gps location point/arrow selected on the map */
+"core_my_position" = "Min position";
+
+/* Update maps later button text */
+"later" = "Senare";
+
+/* View and button titles for accessibility, please also edit it in iphone/plist.txt */
+"search" = "Sök";
+
+/* Settings/Downloader - 3G download warning dialog confirm button */
+"use_cellular_data" = "Ja";
+
+/* View and button titles for accessibility */
+"zoom_to_country" = "Visa på kartan";
+
+/* Button text for the button at the center of the screen when the country is not downloaded and the size should not be shown */
+"country_status_download_without_size" = "Ladda ner karta";
+
+/* Message to display at the center of the screen when the country download has failed */
+"country_status_download_failed" = "Nedladdningen misslyckades";
+
+/* Text in About screen */
+"about_headline" = "Gratis för alla, skapad med kärlek";
+
+/* Text in About screen */
+"about_proposition_1" = "• Inga annonser, ingen spårning, ingen datainsamling";
+
+/* Text in About screen */
+"about_proposition_2" = "• Låg batteriförbrukning, fungerar utan uppkoppling";
+
+/* Text in About screen */
+"about_proposition_3" = "• Snabb, minimalistisk, utvecklad av gemenskapen";
+"close" = "Stäng";
+"download" = "Ladda ner";
+
+/* REMOVE THIS STRING AFTER REFACTORING */
+"continue_button" = "Fortsätt";
+
+/* "Add new bookmark list" dialog title */
+"add_new_set" = "Lägg till ny samling";
+
+/* Add Bookmark list dialog - hint when the list name is empty */
+"bookmark_set_name" = "Bokmärkessamlingens namn";
+
+/* "Bookmark Lists" dialog title */
+"bookmark_sets" = "Bokmärkessamlingar";
+
+/* Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. */
+"bookmarks" = "Bokmärken";
+
+/* "Bookmarks and Tracks" dialog title, also sync it with iphone/plist.txt */
+"bookmarks_and_tracks" = "Bokmärken och rutter";
+
+/* Default bookmark list name */
+"core_my_places" = "Mina Platser";
+
+/* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
+"address" = "Adress";
+
+/* Settings button in system menu */
+"settings" = "Inställningar";
+
+/* Measurement units title in settings activity */
+"measurement_units" = "Längdenheter";
+
+/* Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! */
+"category_eat" = "Matmöjligheter";
+
+/* Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! */
+"category_food" = "Matvaror";
+
+/* Search category for public transport; any changes should be duplicated in categories.txt @category_transport! */
+"category_transport" = "Transport";
+
+/* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
+"category_fuel" = "Bensin";
+
+/* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
+"category_parking" = "Parkering";
+
+/* Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! */
+"category_shopping" = "Handel";
+
+/* Search category for second_hand/charity/antique/auction shops; any changes should be duplicated in categories.txt @category_secondhand! */
+"category_secondhand" = "Begagnat";
+
+/* Search category for places to stay; any changes should be duplicated in categories.txt @category_hotel! */
+"category_hotel" = "Hotell";
+
+/* Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! */
+"category_tourism" = "Sevärdheter";
+
+/* Search category for entertainment; any changes should be duplicated in categories.txt @category_entertainment! */
+"category_entertainment" = "Underhållning";
+
+/* Search category for ATMs; any changes should be duplicated in categories.txt @category_atm! */
+"category_atm" = "Bankomat";
+
+/* Search category for nightclubs/bars; any changes should be duplicated in categories.txt @category_nightlife! */
+"category_nightlife" = "Nöjesliv";
+
+/* Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! */
+"category_children" = "Familjesemester";
+
+/* Search category for banks; any changes should be duplicated in categories.txt @category_bank! */
+"category_bank" = "Bank";
+
+/* Search category for pharmacies; any changes should be duplicated in categories.txt @category_pharmacy! */
+"category_pharmacy" = "Apotek";
+
+/* Search category for hospitals; any changes should be duplicated in categories.txt @category_hospital! */
+"category_hospital" = "Sjukhus";
+
+/* Search category for toilets; any changes should be duplicated in categories.txt @category_toilet! */
+"category_toilet" = "Toalett";
+
+/* Search category for post offices; any changes should be duplicated in categories.txt @category_post! */
+"category_post" = "Post";
+
+/* Search category for police; any changes should be duplicated in categories.txt @category_police! */
+"category_police" = "Polis";
+
+/* Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! */
+"category_wifi" = "WiFi";
+
+/* Search category for recycling; any changes should be duplicated in categories.txt @category_recycling! */
+"category_recycling" = "Återvinning";
+
+/* Search category for water; any changes should be duplicated in categories.txt @category_water! also used to sort bookmarks by type */
+"category_water" = "Vatten";
+
+/* Search category for RV facilities; any changes should be duplicated in categories.txt @category_rv! */
+"category_rv" = "För husbil";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks; please open them in Organic Maps. If you don't have it installed you can download it here: https://omaps.app/get?kmz\n\nEnjoy travelling with Organic Maps!";
+
+/* message title of loading file */
+"load_kmz_title" = "Läser in bokmärken";
+
+/* Kmz file successful loading */
+"load_kmz_successful" = "Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.";
+
+/* Kml file loading failed */
+"load_kmz_failed" = "Inläsningen av bokmärkena misslyckades. Filen kan vara skadad eller defekt.";
+
+/* resource for context menu */
+"edit" = "Redigera";
+
+/* Warning message when doing search around current position */
+"unknown_current_position" = "Din position har inte fastslagits ännu";
+
+/* Subject for emailed bookmark */
+"bookmark_share_email_subject" = "Hej, kolla min kartnål på Organic Maps!";
+
+/* Subject for emailed position */
+"my_position_share_email_subject" = "Hej, kolla på min nuvarande position på Organic Maps kartan!";
+
+/* Share by email button text, also used in editor and About. */
+"email" = "E-post";
+
+/* Text for message when used successfully copied something */
+"copied_to_clipboard" = "Kopierat till urklipp: %@";
+
+/* place preview title */
+"info" = "Info";
+
+/* Used for bookmark editing */
+"done" = "Klar";
+
+/* Prints version number in About dialog */
+"version" = "Organic Maps-version: %@";
+
+/* Title for tracks category in bookmarks manager */
+"tracks_title" = "Rutter";
+
+/* Length of track in cell that describes route */
+"length" = "Längd";
+"share_my_location" = "Dela min plats";
+"prefs_group_route" = "Navigering";
+"pref_zoom_title" = "Zoom-knappar";
+
+/* Settings «Map» category: «Appearance» title */
+"pref_appearance_title" = "Utseende";
+
+/* Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_light" = "Ljust";
+
+/* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
+"pref_appearance_dark" = "Mörkt";
+
+/* Generic «Off» string */
+"off" = "Av";
+
+/* Generic «On» string */
+"on" = "På";
+
+/* Generic «Auto» string */
+"auto" = "Auto";
+
+/* Settings «Map» category: «Perspective view» title */
+"pref_map_3d_title" = "Perspektivvy";
+
+/* Settings «Map» category: «3D buildings» title */
+"pref_map_3d_buildings_title" = "3D-byggnader";
+
+/* A message in Settings/Preferences explaining why is it not possible to enable 3D buildings when max power saving mode is enabled */
+"pref_map_3d_buildings_disabled_summary" = "3D-byggnader är avstängda i energisparläge";
+
+/* Settings «Route» category: «Tts enabled» title */
+"pref_tts_enable_title" = "Röstinstruktioner";
+
+/* Settings «Route» category: «Tts announce street names» title */
+"pref_tts_street_names_title" = "Läs upp gatunamn";
+
+/* Settings «Route» category: «Tts announce street names» description */
+"pref_tts_street_names_description" = "När det är aktiverat kommer namnet på gatan eller avfarten att svänga in på att läsas upp.";
+
+/* Settings «Route» category: «Tts language» title */
+"pref_tts_language_title" = "Röstspråk";
+
+/* Settings «Route» category: «Test Voice Directions» title */
+"pref_tts_test_voice_title" = "Testa röstinstruktioner (TTS, Text-To-Speech)";
+
+/* Title for "Other" section in TTS settings. */
+"pref_tts_other_section_title" = "Övrigt";
+"pref_map_auto_zoom" = "Automatisk zoom";
+"placepage_distance" = "Avstånd";
+"search_show_on_map" = "Visa på kartan";
+
+/* Text in menu */
+"website" = "Webbplats";
+
+/* Text in About menu, opens Organic Maps news website */
+"news" = "Nyheter";
+
+/* Text in menu */
+"facebook" = "Facebook";
+
+/* Text in menu */
+"twitter" = "X (Twitter)";
+
+/* Text in menu */
+"instagram" = "Instagram";
+
+/* Text in the editor */
+"vk" = "VK";
+
+/* Text in menu */
+"rate_the_app" = "Betygsätt appen";
+
+/* Text in menu */
+"help" = "Hjälp";
+
+/* Button in the main Help dialog */
+"faq" = "Frågor och svar";
+
+/* Button in the main menu */
+"donate" = "Donera";
+
+/* Tex label above the Donate button */
+"donate_description" = "Donera för att bygga de bästa kartorna tillsammans!";
+"already_donated" = "Redan donerat";
+"remind_me_later" = "Påminn senare";
+"support_organic_maps" = "Stödja Organic Maps";
+
+/* Button in the main Help dialog */
+"copyright" = "Upphovsrätt";
+
+/* Text in menu + Button in the main Help dialog */
+"report_a_bug" = "Rapportera en bugg";
+
+/* Button in the About screen */
+"report_incorrect_map_bug" = "Rapportera eller korrigera felaktiga kartdata";
+
+/* Button in the About screen */
+"volunteer" = "Bli volontär";
+
+/* "Social media" section header in the About screen */
+"follow_us" = "Följ och kontakta oss:";
+
+/* Alert text */
+"email_error_body" = "Emailklienten har inte konfigurerats. Ställ in den eller använd ett annat sätt att kontakta oss på %@";
+
+/* Alert title */
+"email_error_title" = "Fel när mailet skulle skickas";
+
+/* Settings item title */
+"pref_calibration_title" = "Kompasskalibrering";
+
+/* Toast text when user hides UI with a long tap anywhere on the map */
+"long_tap_toast" = "Tryck länge på kartan för att se gränssnittet";
+
+/* Update all button text */
+"downloader_update_all_button" = "Uppdatera alla";
+
+/* Downloaded maps list header */
+"downloader_downloaded_subtitle" = "Nedladdade";
+
+/* Downloaded maps category */
+"downloader_available_maps" = "Tillgänglig";
+
+/* Country queued for download */
+"downloader_queued" = "Köade";
+"downloader_near_me_subtitle" = "Nära mig";
+
+/* In maps downloader and country place page shows how many maps are downloaded / to download, e.g. "Maps: 3 of 10" */
+"downloader_status_maps" = "Kartor";
+"downloader_download_all_button" = "Ladda ned alla";
+"downloader_downloading" = "Ladda ner:";
+"downloader_search_results" = "Hittat";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "Uppdatera";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "Misslyckades";
+
+/* Displayed in a dialog that appears when a user tries to delete a map while the app is in the follow route mode */
+"downloader_delete_map_while_routing_dialog" = "Avsluta navigering för att radera kartan.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Rutter kan endast skapas om de finns inom en enda kart-region.";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Ladda ner kartan";
+
+/* Item status in downloader. */
+"downloader_retry" = "Försök igen";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Radera karta";
+
+/* Text for routing error dialog */
+"routing_download_maps_along" = "Ladda ned kartor längs vägen";
+
+/* Text for routing error dialog */
+"routing_requires_all_map" = "Navigering kräver att alla kartor från din position till destinationen är nerladdade och uppdaterade.";
+
+/* bookmark button text */
+"bookmark" = "bokmärke";
+"save" = "Spara";
+"create" = "skapa";
+
+/* red color */
+"red" = "Röd";
+
+/* yellow color */
+"yellow" = "Gul";
+
+/* blue color */
+"blue" = "Blå";
+
+/* green color */
+"green" = "Grön";
+
+/* purple color */
+"purple" = "Lila";
+
+/* orange color */
+"orange" = "Orange";
+
+/* brown color */
+"brown" = "Brun";
+
+/* pink color */
+"pink" = "Rosa";
+
+/* deep purple color */
+"deep_purple" = "Mörklila";
+
+/* light blue color */
+"light_blue" = "Ljusblå";
+
+/* cyan color */
+"cyan" = "Blågrön";
+
+/* teal color */
+"teal" = "Smaragdgrön";
+
+/* lime color */
+"lime" = "Limefärg";
+
+/* deep orange color */
+"deep_orange" = "Mörkorange";
+
+/* gray color */
+"gray" = "Grå";
+
+/* blue gray color */
+"blue_gray" = "Ljusblå grå";
+"dialog_routing_disclaimer_title" = "När du följer vägen, kom ihåg att:";
+"dialog_routing_disclaimer_priority" = "– Vägförhållanden, trafikregler och vägskyltar alltid ska prioriteras över navigeringsråden;";
+"dialog_routing_disclaimer_precision" = "– Kartan kan vara felaktig och den föreslagna vägen inte alltid är det optimala sättet att ta sig till destinationen på;";
+"dialog_routing_disclaimer_recommendations" = "– Föreslagna vägar endast är rekommendationer;";
+"dialog_routing_disclaimer_borders" = "– Iakttag försiktighet med rutter i gränszoner: rutterna som vår app skapat kan ibland korsa landsgränser på otillåtna platser.";
+"dialog_routing_disclaimer_beware" = "Var uppmärksam och kör säkert på vägarna!";
+"dialog_routing_check_gps" = "Kontrollera GPS-signal";
+"dialog_routing_error_location_not_found" = "Kan inte skapa rutt. Nuvarande GPS-koordinater går inte att läsa.";
+"dialog_routing_location_turn_wifi" = "Kontrollera din GPS-signal. Aktivera Wi-Fi-anslutning för att förbättra platsprecisionen.";
+"dialog_routing_location_turn_on" = "Aktivera platstjänster";
+"dialog_routing_location_unknown_turn_on" = "Kan inte läsa nuvarande GPS-koordinater. Aktivera platstjänster för att hitta en rutt.";
+"dialog_routing_download_files" = "Ladda ned nödvändiga filer";
+"dialog_routing_download_and_update_all" = "Ladda ned och uppdatera all kart- och väginformation längs den beräknade sträckan för att hitta en rutt.";
+"dialog_routing_unable_locate_route" = "Kan inte hitta rutt";
+"dialog_routing_change_start_or_end" = "Justera din startpunkt eller destination.";
+"dialog_routing_change_start" = "Justera startpunkt";
+"dialog_routing_start_not_determined" = "Ingen rutt hittades. Hittar inte startpunkt.";
+"dialog_routing_select_closer_start" = "Välj en startpunkt närmare en väg.";
+"dialog_routing_change_end" = "Justera destination";
+"dialog_routing_end_not_determined" = "Ingen rutt hittades. Kan inte hitta destinationen.";
+"dialog_routing_select_closer_end" = "Välj en destination närmare en väg.";
+"dialog_routing_change_intermediate" = "Det går inte att hitta mellanliggande punkt.";
+"dialog_routing_intermediate_not_determined" = "Justera din mellanliggande punkt.";
+"dialog_routing_system_error" = "Systemfel";
+"dialog_routing_application_error" = "Kan inte hitta rutt pga ett programfel.";
+"dialog_routing_try_again" = "Försök igen";
+"dialog_routing_download_and_build_cross_route" = "Vill du ladda ned kartan och hitta en bättre sträcka via fler än en karta?";
+"dialog_routing_download_cross_route" = "Ladda ned kartan för att skapa en bättre sträcka utanför den här kartan.";
+
+/* «Show» context menu */
+"show" = "Visa";
+
+/* «Hide» context menu */
+"hide" = "Dölj";
+
+/* Failed planning route message in navigation view */
+"routing_planning_error" = "Ruttplaneringen misslyckades";
+
+/* Arrive routing message in navigation view */
+"routing_arrive" = "Ankomst: %@";
+
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
+"dialog_routing_download_and_update_maps" = "För att skapa en rutt, ladda ner och uppdatera alla kartor längs rutten.";
+"categories" = "Kategorier";
+"history" = "Historik";
+"search_not_found" = "Ledsen, jag hittade ingenting.";
+
+/* The message when user did not find anything in the search. */
+"search_not_found_query" = "Ladda ner den region där du söker eller försök att lägga till ett närliggande stads- eller bynamn.";
+"search_history_title" = "Sökhistorik";
+"search_history_text" = "Se senaste sökningar.";
+"clear_search" = "Rensa sökhistorik";
+
+/* Place Page link to Wikipedia article (if map object has it). */
+"read_in_wikipedia" = "Wikipedia";
+
+/* Place Page link to Wikimedia Commons. */
+"wikimedia_commons" = "Wikimedia Commons";
+"p2p_your_location" = "Din plats";
+"p2p_start" = "Start";
+"p2p_from_here" = "Rutt från";
+"p2p_to_here" = "Rutt till";
+"p2p_only_from_current" = "Navigering är enbart möjlig från din nuvarande plats.";
+"p2p_reroute_from_current" = "Vill du att vi planerar en färdväg från din nuvarande plats?";
+"editor_time_add" = "Lägg till schema";
+"editor_time_delete" = "Ta bort schema";
+
+/* Text for allday switch. */
+"editor_time_allday" = "Hela dagen (24 timmar)";
+"editor_time_open" = "Öppet";
+"editor_time_close" = "Stängt";
+"editor_time_add_closed" = "Lägg till stängda tider";
+"editor_time_title" = "Öppettider";
+"editor_time_advanced" = "Avancerat läge";
+"editor_time_simple" = "Enkelt läge";
+"editor_hours_closed" = "Stängda timmar";
+"editor_example_values" = "Exempelvärden";
+"editor_add_select_location" = "Välj plats";
+"editor_done_dialog_1" = "Du har ändrat världskartan. Dela det med dina vänner och redigera den tillsammans.";
+"share_with_friends" = "Dela med vänner";
+"editor_report_problem_send_button" = "Skicka";
+"autodownload" = "Automatisk nedladdning";
+
+/* Place Page opening hours text */
+"closed_now" = "Stängt just nu";
+
+/* Place Page opening hours text */
+"daily" = "Dagligen";
+"twentyfour_seven" = "Dygnet runt";
+"day_off_today" = "Stängt idag";
+"day_off" = "Stängt";
+"today" = "Idag";
+"opens_tomorrow_at" = "Opens tomorrow at %@";
+"opens_dayoftheweek_at" = "Opens %1$@ at %2$@";
+"opens_at" = "Opens at %@";
+"opens_in" = "Opens in %@";
+"closes_at" = "Closes at %@";
+"closes_in" = "Closes in %@";
+"closed" = "Stängt";
+"add_opening_hours" = "Lägg till öppettider";
+"no_osm_account" = "Inget konto hos OpenStreetMap?";
+"register_at_openstreetmap" = "Registrera";
+"password_8_chars_min" = "Lösenord (minst 8 tecken)";
+"invalid_username_or_password" = "Fel användarnamn eller lösenord.";
+"login" = "Logga in";
+"login_osm" = "Logga in på OpenStreetMap";
+"forgot_password" = "Glömt lösenord?";
+"osm_account" = "OSM-konto";
+"logout" = "Logga ut";
+
+/* Information text: "Last upload 11.01.2016" */
+"last_upload" = "Senaste uppladdning";
+"thank_you" = "Tack";
+"edit_place" = "Ändra platsen";
+"place_name" = "Platsens namn";
+"add_language" = "Lägg till ett språk";
+
+/* Editable House Number text field (in address block). */
+"house_number" = "Husnummer";
+"details" = "Detaljer";
+
+/* Text field to enter non-existing street name, below list of known streets around */
+"add_street" = "Lägg till en gata";
+"choose_language" = "Välj ett språk";
+"choose_street" = "Välj en gata";
+"postal_code" = "Postkod";
+"cuisine" = "Mat";
+"select_cuisine" = "Välj mat";
+
+/* login text field */
+"email_or_username" = "E-postadress eller användarnamn";
+"phone" = "Telefon";
+"level" = "Våningsplan";
+"please_note" = "Observera";
+"downloader_delete_map_dialog" = "Alla kartändringar kommer att raderas tillsammans med kartan.";
+"downloader_update_maps" = "Uppdatera kartor";
+"downloader_search_field_hint" = "Hitta kartan";
+"migration_download_error_dialog" = "Nedladdningsfel";
+"common_check_internet_connection_dialog" = "Kontrollera dina inställningar och se till att din enhet är ansluten till internet.";
+"downloader_no_space_title" = "Otillräckligt minne";
+"downloader_no_space_message" = "Ta bort onödig data";
+"editor_profile_changes" = "Verifierade ändringar";
+"editor_focus_map_on_location" = "Dra kartan för att placera korset på platsen för platsen eller företaget.";
+"editor_add_select_category" = "Välj kategori";
+"editor_add_select_category_popular_subtitle" = "Populärt";
+"editor_add_select_category_all_subtitle" = "Alla kategorier";
+"editor_edit_place_title" = "Redigerar";
+"editor_add_place_title" = "Lägger till";
+"editor_edit_place_name_hint" = "Platsens namn";
+
+/* The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name */
+"editor_default_language_hint" = "Som det står skrivet på det lokala språket";
+"editor_edit_place_category_title" = "Kategori";
+"whatsnew_editor_message_1" = "Lägg till nya platser på kartan och redigera de befintliga direkt i appen.";
+"dialog_incorrect_feature_position" = "Ändra plats";
+"message_invalid_feature_position" = "Ett objekt kan inte placeras här";
+
+/* Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. */
+"osm_presentation" = "Community-skapade OpenStreetMap-data från och med %@. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org";
+"login_to_make_edits_visible" = "Skapa ett OpenStreetMap-konto eller logga in för att publicera dina kartredigeringar till hela världen.";
+
+/* Error dialog no space */
+"migration_no_space_message" = "Du behöver mer utrymme för att ladda ned. Radera onödig data.";
+"editor_sharing_title" = "Jag förbättrade kartorna åt Organic Maps";
+
+/* Downloaded 10 **of** 20 <- it is that "of" */
+"downloader_of" = "%1$d av %2$d";
+"download_over_mobile_header" = "Ladda ned med mobildata?";
+"download_over_mobile_message" = "Detta kan vara mycket dyrt med vissa abonnemang och vid roaming.";
+"error_enter_correct_house_number" = "Ange giltigt husnummer";
+"editor_storey_number" = "Antal våningar (max %d)";
+
+/* Error message in Editor when a user tries to set the number of floors for a building higher than %d floors */
+"error_enter_correct_storey_number" = "Redigera byggnaden med max %d våningar";
+"editor_zip_code" = "Postnr";
+"error_enter_correct_zip_code" = "Ange korrekt postnr";
+
+/* Place Page title for long tap */
+"core_placepage_unknown_place" = "Kartpunkt";
+
+/* Title for OSM note section in the editor */
+"editor_other_info" = "Meddelande till OpenStreetMap-volontärer (valfritt)";
+"editor_detailed_description_hint" = "Detaljerad kommentar";
+"editor_detailed_description" = "Dina föreslagna ändringar kommer att skickas till OpenStreetMap-communityt. Beskriv detaljerna som inte kan redigeras i Organic Maps.";
+"editor_more_about_osm" = "Mer om OpenStreetMap";
+"editor_operator" = "Operatör";
+
+/* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations... */
+"operator" = "Operatör: %@";
+"editor_category_unsuitable_title" = "Hittar du ingen lämplig kategori?";
+"editor_category_unsuitable_text" = "Organic Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Kontrollera vår <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> för detaljerade steg-för-steg-instruktioner.";
+"downloader_no_downloaded_maps_title" = "Du har inte laddat ner några kartor";
+"downloader_no_downloaded_maps_message" = "Ladda ner kartor för att hitta platsen och navigera offline.";
+"current_location_unknown_error_title" = "Den nuvarande platsen är okänd.";
+"current_location_unknown_error_message" = "Ett fel inträffade när din plats försökte hittas. Kontrollera att din enhet fungerar och försök igen senare.";
+"location_services_disabled_header" = "Platsidentifiering avaktiverad";
+"location_services_disabled_message" = "Aktivera tillgång till geografisk plats i enhetens inställningar";
+"location_services_disabled_1" = "1. Öppna inställningar";
+"location_services_disabled_2" = "2. Tryck på Plats";
+
+/* iOS Dialog for the case when the location permission is not granted; you might find the exact wording for your language here: https://support.apple.com/en-us/102647 (replace 'en-us' in URL with your language/region) */
+"location_services_disabled_3" = "3. Välj Medan appen används";
+"location_services_disabled_on_device_2" = "2. Välj Sekretess";
+"location_services_disabled_on_device_3" = "3. Välj Platstjänster";
+"location_services_disabled_on_device_4" = "4. Aktivera platstjänster";
+"location_services_disabled_on_device_additional_message" = "Eller fortsätt använda Organic Maps utan Plats";
+
+/* abbreviation for meters */
+"m" = "m";
+
+/* abbreviation for kilometers */
+"km" = "km";
+
+/* abbreviation for kilometers per hour */
+"kilometers_per_hour" = "km/tim";
+
+/* abbreviation for mile(s) */
+"mi" = "mile";
+
+/* A unit of measure */
+"ft" = "fot";
+"miles_per_hour" = "mi/tim";
+"hour" = "tim";
+"minute" = "min";
+"day" = "d";
+"placepage_more_button" = "Mer";
+"book_button" = "Boka";
+"placepage_call_button" = "Ring";
+"placepage_edit_bookmark_button" = "Redigera bokmärke";
+"placepage_bookmark_name_hint" = "Bokmärkesnamn";
+"placepage_personal_notes_hint" = "Personlig anteckning (text eller html)";
+"placepage_delete_bookmark_button" = "Radera bokmärke";
+"editor_edits_sent_message" = "Din anteckning kommer att skickas till OpenStreetMap";
+"editor_comment_hint" = "kommentar…";
+"editor_reset_edits_message" = "Återställ alla lokala ändringar?";
+"editor_reset_edits_button" = "Återställ";
+"editor_remove_place_message" = "Ta bort en tillagd plats?";
+"editor_remove_place_button" = "Ta bort";
+"editor_place_doesnt_exist" = "Platsen finns inte";
+"text_more_button" = "…mer";
+
+/* Phone number error message */
+"error_enter_correct_phone" = "Ange korrekt telefonnummer";
+"error_enter_correct_web" = "Ange en giltig webbadress";
+"error_enter_correct_email" = "Ange en giltig e-postadress";
+"refresh" = "Uppdatera";
+"placepage_add_place_button" = "Lägg till plats i OpenStreetMap";
+
+/* Displayed when saving some edits to the map to warn against publishing personal data */
+"editor_share_to_all_dialog_title" = "Vill du skicka det till alla användare?";
+
+/* Dialog before publishing the modifications to the public map. */
+"editor_share_to_all_dialog_message_1" = "Var noga med att inte ange privata eller personliga uppgifter.";
+"editor_share_to_all_dialog_message_2" = "OpenStreetMap-redigerare kommer att kontrollera ändringarna och kontakta dig om de har några frågor.";
+"navigation_stop_button" = "Stopp";
+
+/* iOS dialog for the case when recent track recording is on and the app comes back from background */
+"recent_track_background_dialog_title" = "Stäng av inspelningen av din senaste rutt?";
+"off_recent_track_background_button" = "Avaktivera";
+
+/* For sharing via SMS and so on */
+"sharing_call_action_look" = "Kolla in";
+"recent_track_background_dialog_message" = "Organic Maps använder din geografiska position i bakgrunden för att spela in din senaste resta rutt.";
+"general_settings" = "Allmänna inställningar";
+
+/* For the first routing */
+"accept" = "Acceptera";
+
+/* For the first routing */
+"decline" = "Neka";
+"mobile_data_dialog" = "Använd mobilt nätverk för att visa detaljerad information?";
+"mobile_data_option_always" = "Använd alltid";
+"mobile_data_option_today" = "Endast idag";
+"mobile_data_option_not_today" = "Använd inte idag";
+"mobile_data" = "Mobilt internet";
+
+/* NOTE to translators: please synchronize your translation with the English one. */
+"mobile_data_description" = "Mobilt internet krävs för att visa detaljerad information om platser, som t. ex. fotografier, priser och omdömen.";
+"mobile_data_option_never" = "Använd aldrig";
+"mobile_data_option_ask" = "Fråga alltid";
+"traffic_update_maps_text" = "Kartor måste uppdateras för att visa trafikdata.";
+"big_font" = "Öka teckenstorlek på kartan";
+
+/* "traffic" as in road congestion */
+"traffic_update_app_message" = "Applikationen måste uppdateras för att trafikdata ska kunna visas.";
+
+/* "traffic" as in "road congestion" */
+"traffic_data_unavailable" = "Trafikdata är inte tillgänglig";
+"enable_logging" = "Aktivera loggning";
+"log_file_size" = "Loggfilens storlek: %@";
+"transliteration_title" = "Translitterera till latinska alfabetet";
+
+/* Subway exits for public transport marks on the map */
+"core_exit" = "Avsluta";
+
+/* User selected the destination by pressing Route To, but the current position is unknown. User needs to select a starting point of a route using search or by tapping on the map and then pressing "Route From". */
+"routing_add_start_point" = "Använd sökfunktionen eller tryck på kartan för att lägga till en startpunkt för rutten";
+
+/* User selected the start of a route by pressing Route From. Now the destination of a route should be selected using search or by tapping on the map and then pressing "Route To". */
+"routing_add_finish_point" = "Använd sökfunktionen eller tryck på kartan för att lägga till en destinationspunkt";
+"planning_route_manage_route" = "Hantera rutt";
+"button_plan" = "Planera";
+"placepage_remove_stop" = "Ta bort stoppet";
+"planning_route_remove_title" = "Dra hit för att ta bort";
+"placepage_add_stop" = "Lägg till stopp";
+"start_from_my_position" = "Starta från";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
+"alert_reauth_message_ios" = "Logga in på OpenStreetMap för att automatiskt ladda upp alla dina kartredigeringar. Läs mer";
+
+/* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's link part */
+"alert_reauth_link_text_ios" = "här";
+"core_entrance" = "Ingång";
+"error_enter_correct_name" = "Ange ett korrekt namn";
+"bookmark_lists" = "Listor";
+
+/* Do not display all bookmark lists on the map */
+"bookmark_lists_hide_all" = "Dölj alla";
+"bookmark_lists_show_all" = "Visa alla";
+"bookmarks_create_new_group" = "Skapa ny lista";
+
+/* Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files */
+"bookmarks_import" = "Importera bokmärken och spår";
+"downloader_hide_screen" = "Dölj skärm";
+"downloader_percent" = "%@ (%@ av %@)";
+"downloader_process" = "Ladda ned %@…";
+"downloader_applying" = "Tillämpar %@…";
+"bookmarks_error_message_share_general" = "Kunde inte delas på grund av ett applikationsfel";
+"bookmarks_error_title_share_empty" = "Delningsfel";
+"bookmarks_error_message_share_empty" = "Kan inte dela en tom lista";
+"bookmarks_error_message_empty_list_name" = "Vänligen ange listnamnet";
+"bookmarks_error_title_list_name_already_taken" = "Det här namnet är redan taget";
+"bookmarks_error_title_list_name_too_long" = "Det här namnet är för långt";
+"profile" = "OpenStreetMap profil";
+"bookmarks_detect_title" = "Nya filer upptäcktes";
+"button_convert" = "Konvertera";
+"bookmarks_convert_error_title" = "Fel";
+"bookmarks_convert_error_message" = "Vissa filer konverterades inte.";
+"restore" = "Återställa";
+"privacy_policy" = "Integritetspolicy";
+"terms_of_use" = "Allmänna villkor";
+"button_layer_subway" = "Tunnelbana";
+"layers_title" = "Kartstilar och lager";
+"subway_data_unavailable" = "Tunnelbanekartan är otillgänglig";
+"title_error_downloading_bookmarks" = "Ett fel har uppstått";
+"popular_place" = "Popular";
+"export_file" = "Exportera KMZ";
+"export_file_gpx" = "Exportera GPX";
+"delete_list" = "Radera listan";
+"hide_from_map" = "Dölj från karta";
+"tags_loading_error_subtitle" = "Ett fel uppstod när taggarna laddades, försök igen";
+"download_button" = "Nedladdning";
+"speedcams_alert_title" = "Hastighetskameror";
+"place_description_title" = "Beskrivning av platsen";
+
+/* "Speed cameras" settings menu option (should be short! no more than 47-50 chars) to warn a driver if there is a risk of exceeding the speed limit */
+"pref_tts_speedcams_auto" = "Varna vid fortkörning";
+
+/* Speed camera settings menu option - Always warn (about speedcams) */
+"pref_tts_speedcams_always" = "Varna alltid";
+
+/* Speed camera settings menu option - Never warn (about speedcams) */
+"pref_tts_speedcams_never" = "Varna aldrig";
+"power_managment_title" = "Energisparläge";
+"power_managment_description" = "Försök att begränsa strömförbrukningen på bekostnad av vissa funktioner.";
+"power_managment_setting_never" = "Aldrig";
+"power_managment_setting_auto" = "Vid lågt batteri";
+"power_managment_setting_manual_max" = "Alltid";
+"enable_logging_warning_message" = "Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.";
+"driving_options_title" = "Ruttinställningar";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_tolls" = "Undvik avgiftsbelagda vägar";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_unpaved" = "Undvik oasfalterade vägar";
+
+/* Recommended length for CarPlay and Android Auto is around 25-27 characters */
+"avoid_ferry" = "Undvik färjetrafik";
+"avoid_motorways" = "Undvik motorvägen";
+"unable_to_calc_alert_title" = "Det går inte att hitta rutt";
+"unable_to_calc_alert_subtitle" = "Tyvärr kunde vi inte hitta en rutt. Detta kan bero på dina ruttpreferenser eller ofullständigt kartunderlag i OpenStreetMap. Ändra gärna dina val och försök igen.";
+"define_to_avoid_btn" = "Definiera oönskade vägar";
+"change_driving_options_btn" = "Ruttinställningar aktiverade";
+"toll_road" = "Betalväg";
+"unpaved_road" = "Oasfalterad väg";
+"ferry_crossing" = "Färjetrafik";
+"trip_start" = "Nu åker vi";
+"pick_destination" = "Destination";
+"follow_my_position" = "Placera i mitten";
+"search_results" = "Sökresultat";
+"then_turn" = "Sedan";
+"redirect_route_alert" = "Vill du räkna om rutten?";
+
+/* A generic "Yes" button in dialogs */
+"yes" = "Ja";
+
+/* A generic "No" button in dialogs */
+"no" = "Nej";
+
+/* E.g. "WiFi:Yes" */
+"yes_available" = "Ja";
+
+/* E.g. "WiFi:No" */
+"no_available" = "Nej";
+
+/* To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations... */
+"capacity" = "Kapacitet: %@";
+
+/* To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations... */
+"network" = "Nätverk: %@";
+"trip_finished" = "Du är framme!";
+"keyboard_availability_alert" = "Tangentbordet är inte tillgängligt vid körning";
+"dialog_routing_change_start_carplay" = "Det gick inte att hitta en rutt från nuvarande plats";
+"dialog_routing_change_end_carplay" = "Det går inte att hitta en rutt till målet. Välj en annan";
+"dialog_routing_check_gps_carplay" = "Ingen GPS-signal. Flytta dig till ett öppet område";
+"dialog_routing_unable_locate_route_carplay" = "Det går inte att hitta en rutt. Välj andra punkter";
+"dialog_routing_download_files_carplay" = "För att hitta en rutt, ladda ner saknade kartor på din enhet";
+"dialog_routing_system_error_carplay" = "Ett fel uppstod. Starta om appen";
+"dialog_routing_rebuild_from_current_location_carplay" = "Rutten kommer att räknas om från din nuvarande plats";
+"dialog_routing_rebuild_for_vehicle_carplay" = "Rutten kommer att ändras till bil";
+"not_all_shown_bookmarks_carplay" = "Alla bokmärken visas inte";
+"switch_to_phone_bookmarks_carplay" = "Växla till telefonen för att se alla bokmärken";
+"ok" = "Ok";
+"speedcams_alert_title_carplay_1" = "Fartkameror";
+"speedcams_alert_title_carplay_2" = "Info om fartkameror";
+"download_map_carplay" = "Ladda ner kartor i appen på din enhet";
+"carplay_roundabout_exit" = "%@ utgången";
+
+/* max. 10 symbols, both iOS and Android */
+"sort" = "Sortera…";
+
+/* iOS */
+"sort_default" = "Sortera efter förvald ordning";
+"sort_type" = "Sortera efter typ";
+"sort_distance" = "Sortera efter avstånd";
+"sort_date" = "Sortera efter datum";
+"sort_name" = "Sortera efter namn";
+"week_ago_sorttype" = "En vecka sedan";
+"month_ago_sorttype" = "En månad sedan";
+"moremonth_ago_sorttype" = "Över en månad sedan";
+"moreyear_ago_sorttype" = "Över ett år sedan";
+"near_me_sorttype" = "Nära mig";
+"others_sorttype" = "Andra";
+"food_places" = "Mat";
+"tourist_places" = "Sevärdheter";
+"museums" = "Museer";
+"parks" = "Parker";
+"swim_places" = "Simning";
+"mountains" = "Berg";
+"animals" = "Djur";
+"hotels" = "Hotell";
+"buildings" = "Byggnader";
+"money" = "Pengar";
+"shops" = "Butiker";
+"parkings" = "Parkeringsplatser";
+"fuel_places" = "Bensinstationer";
+"medicine" = "Medicin";
+"search_in_the_list" = "Sök i listan";
+"religious_places" = "Heliga platser";
+"transit_not_found" = "Tunnelbanenavigering är ännu inte tillgängligt i denna region";
+"dialog_pedestrian_route_is_long_header" = "Tunnelbanerutt hittades inte";
+"dialog_pedestrian_route_is_long_message" = "Välj ruttens start- eller mål närmare en tunnelbanestation";
+"button_layer_isolines" = "Terräng";
+"isolines_activation_error_dialog" = "Om du vill använda höjdlinjer, uppdatera eller ladda ner en karta över önskat område";
+"isolines_location_error_dialog" = "Höjningslinjer är ännu inte tillgängligt i den här regionen";
+"elevation_profile_diff_level" = "Svårighetsgrad";
+"elevation_profile_diff_level_easy" = "Lätt";
+"elevation_profile_diff_level_moderate" = "Måttlig";
+"elevation_profile_diff_level_hard" = "Svår";
+"elevation_profile_ascent" = "Stigning";
+"elevation_profile_descent" = "Backe";
+"elevation_profile_min_elevation" = "Min. höjd";
+"elevation_profile_max_elevation" = "Max. höjd";
+"isolines_toast_zooms_1_10" = "Förstora kartan för att se höjdlinjer";
+"downloader_updating_ios" = "Uppdaterar";
+"downloader_loading_ios" = "Nedladdning";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_title" = "Uppdatera dina nedladdade kartor";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_message" = "Kartuppdatering håller informationen om objekt aktuell";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_size" = "Uppdatera (%@)";
+
+/* Autoupdate dialog on start */
+"whats_new_auto_update_button_later" = "Uppdatera senare manuellt";
+
+/* Delete track button on track edit screen */
+"placepage_delete_track_button" = "Delete Track";
+
+/* The track deletion confirmaion alert message. */
+"placepage_delete_track_confirmation_alert_message" = "Är du säker på att du vill radera det här spåret?";
+
+/* Placeholder for track name input on track edit screen */
+"placepage_track_name_hint" = "Track Name";
+
+/* move track or bookmark from the list button text */
+"move" = "Move";
+
+/* edit track screen title */
+"track_title" = "Rutt";
+
+/* Telegram group url for the "?" About page */
+"telegram_url" = "https://t.me/OrganicMapsApp";
+
+/* Instagram account url for the "?" About page */
+"instagram_url" = "https://www.instagram.com/organicmaps.app";
+
+/* Translated Organic Maps site, add new translations here: https://github.com/organicmaps/organicmaps.github.io/tree/master/content */
+"translated_om_site_url" = "https://organicmaps.app/sv/";
+
+/* Link to OSM wiki for Editor, Profile and About pages */
+"osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
+
+/* App Tip #00 */
+"app_tip_00" = "Tack för att du använder våra community-byggda kartor!";
+
+/* App tip #01 */
+"app_tip_01" = "Med dina donationer och stöd kan vi skapa de bästa kartorna i världen!";
+
+/* App tip #02 */
+"app_tip_02" = "Gillar du vår app? Vänligen donera för att stödja utvecklingen! Gillar du den inte ännu? Meddela oss, så fixar vi det!";
+
+/* App tip #03 */
+"app_tip_03" = "Om du känner en mjukvaruutvecklare kan du be honom eller henne att implementera en funktion som du behöver.";
+
+/* App tip #04 */
+"app_tip_04" = "Tryck var som helst på kartan för att välja något. Tryck länge för att dölja och visa gränssnittet igen.";
+
+/* App tip #05 */
+"app_tip_05" = "Vet du att du kan välja din nuvarande plats på kartan?";
+
+/* App tip #06 */
+"app_tip_06" = "Du kan hjälpa till att översätta vår app till ditt språk.";
+
+/* App tip #07 */
+"app_tip_07" = "Vår app är utvecklad av ett fåtal entusiaster och communityn.";
+
+/* App tip #08 */
+"app_tip_08" = "Du kan enkelt fixa och förbättra kartdata.";
+
+/* App tip #09 */
+"app_tip_09" = "Vårt huvudmål är att bygga snabba, integritetsfokuserade, lättanvända kartor som du kommer att älska.";
+
+/* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
+"car_used_on_the_phone_screen" = "Du använder nu Organic Maps på telefonens skärm";
+
+/* Text on the phone placeholder screen that maps are displayed on the car screen */
+"car_used_on_the_car_screen" = "Du använder nu Organic Maps på bilskärmen";
+
+/* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
+"car_continue_on_the_phone" = "Fortsätt i telefonen";
+
+/* Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! */
+"car_continue_in_the_car" = "Till bilens skärm";
+
+/* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
+"button_layer_outdoor" = "Vandring";
+
+/* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
+"bookmarks_export" = "Exportera alla bokmärken och spår";
+
+/* Text for the editing the Track's color button. */
+"change_color" = "Ändra färg";
+
+/* Main screen title "Map" displayed in the navigation back button's menu. */
+"map" = "Karta";
+"drive_through" = "Drive-thru";
+
+/* Restaurant or other food place's menu URL field in the Editor */
+"website_menu" = "Länk till meny";
+
+/* Message for the bug report alert. */
+"bugreport_alert_message" = "Vill du skicka en felrapport till utvecklarna?\nVi förlitar oss på våra användare eftersom organiska kartor inte samlar in någon felinformation automatiskt. Tack på förhand för att du stöder Organic Maps!";
+
+/* Title for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_title" = "Aktivera iCloud-synkronisering";
+
+/* Message for the "Enable iCloud Syncronization" alert. */
+"enable_icloud_synchronization_message" = "iCloud-synkronisering är en experimentell funktion under utveckling. Se till att du har gjort en säkerhetskopia av alla dina bokmärken och spår.";
+
+/* Title for the "iCloud Is Disabled" alert. */
+"icloud_disabled_title" = "iCloud är inaktiverat";
+
+/* Message for the "iCloud is Disabled" alert. */
+"icloud_disabled_message" = "Aktivera iCloud i enhetens inställningar för att kunna använda denna funktion.";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+"enable" = "Aktivera";
+
+/* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
+"backup" = "Säkerhetskopiering";
+
+/* Title for the "iCloud synchronization failure" alert. */
+"icloud_synchronization_error_alert_title" = "fel i iCloud-synkroniseringen";
+
+/* iCloud error message: Failed to synchronize due to connection error */
+"icloud_synchronization_error_connection_error" = "Fel: Synkronisering misslyckades på grund av anslutningsfel";
+
+/* iCloud error message: Failed to synchronize due to iCloud quota exceeded */
+"icloud_synchronization_error_quota_exceeded" = "Fel: Synkronisering misslyckades på grund av att iCloud-kvoten överskreds";
+
+/* iCloud error message: iCloud is not available */
+"icloud_synchronization_error_cloud_is_unavailable" = "Fel: iCloud är inte tillgängligt";
+
+/* Title for the "Open in Another App" button on the PlacePage. */
+"open_in_app" = "Öppna i en annan app";
+
+/* To indicate if the place proposed self service... */
+"self_service" = "Självbetjäning";
+
+/* To indicate if restaurant or other place has outdoor seating */
+"outdoor_seating" = "Sittplatser utomhus";
+
+/* Title for the "Recently Deleted Lists" button on the Bookmarks and Lists screen. */
+"bookmarks_recently_deleted" = "Nyligen borttagna listor";
+
+/* Title for the "Clear" button on the Recently Deleted Lists screen. */
+"clear" = "Rensa";
+
+/* Title for the "Delete All" button on the Recently Deleted Lists screen. */
+"delete_all" = "Radera alla";
+
+/* Title for the "Recover" button on the Recently Deleted Lists screen. */
+"recover" = "Återställ";
+
+/* Title for the "Recover All" button on the Recently Deleted Lists screen. */
+"recover_all" = "Återställ allt";
+
+/* Prompt to start recording a track. */
+"start_track_recording" = "Spela in spår";
+
+/* Prompt for stopping a track recording. */
+"stop_track_recording" = "Stoppa inspelning av spår";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"stop_without_saving" = "Stoppa utan att spara";
+
+/* Title for the "Stop Without Saving" action for the alert when saving a track recording. */
+"continue_recording" = "Fortsätt spela in";
+
+/* Title for the alert when saving a track recording. */
+"track_recording_alert_title" = "Spara inspelning i bokmärken och rutter?";
+
+/* Message for the toast when saving the track recording is finished but nothing to save. */
+"track_recording_toast_nothing_to_save" = "Routen är tom - inget att spara";
+"edit_track" = "Redigera spår";
+"saved" = "Saved";
+"button_layer_hiking" = "Hiking";
+"button_layer_cycling" = "Cycling";
+
+/* Settings/Bookmark Text Placement */
+"bookmarks_text_placement_title" = "Bookmark names on the map";
+"bookmarks_text_placement_description" = "If there are too many bookmarks, displaying their names on the map may slow down the app.";
+"show_to_the_right" = "Show to the right";
+"right" = "Right";
+"show_at_the_bottom" = "Show at the bottom";
+"bottom" = "Bottom";
+
+/* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
+"routes_update_maps_text" = "To display routes, maps must be updated.";

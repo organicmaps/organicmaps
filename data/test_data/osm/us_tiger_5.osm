@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='187426861' timestamp='2019-09-24T21:36:20Z' uid='7141863' user='Scottahemi' visible='true' version='4' changeset='74878329' lat='48.4514829' lon='-96.8804115' />
+  <node id='187427294' timestamp='2012-08-13T17:01:03Z' uid='502142' user='Mulad' visible='true' version='3' changeset='12716549' lat='48.4522524' lon='-96.874941' />
+  <node id='187433471' timestamp='2019-09-24T21:36:20Z' uid='7141863' user='Scottahemi' visible='true' version='4' changeset='74878329' lat='48.4517733' lon='-96.878378' />
+  <node id='187433473' timestamp='2019-09-24T21:36:20Z' uid='7141863' user='Scottahemi' visible='true' version='4' changeset='74878329' lat='48.4519835' lon='-96.876879' />
+  <node id='187433475' timestamp='2012-08-13T17:01:06Z' uid='502142' user='Mulad' visible='true' version='3' changeset='12716549' lat='48.452149' lon='-96.8756915' />
+  <node id='6821298715' timestamp='2019-09-24T21:55:01Z' uid='7141863' user='Scottahemi' visible='true' version='1' changeset='74878690' lat='48.4522395' lon='-96.8750348' />
+  <node id='6821298783' timestamp='2019-09-24T21:55:01Z' uid='7141863' user='Scottahemi' visible='true' version='1' changeset='74878690' lat='48.4520009' lon='-96.8767543' />
+  <node id='6821298816' timestamp='2019-09-24T21:55:01Z' uid='7141863' user='Scottahemi' visible='true' version='1' changeset='74878690' lat='48.4519653' lon='-96.8770089' />
+  <way id='18150856' timestamp='2019-09-24T21:55:01Z' uid='7141863' user='Scottahemi' visible='true' version='4' changeset='74878690'>
+    <nd ref='187426861' />
+    <nd ref='187433471' />
+    <nd ref='6821298816' />
+    <nd ref='187433473' />
+    <nd ref='6821298783' />
+    <nd ref='187433475' />
+    <nd ref='6821298715' />
+    <nd ref='187427294' />
+    <tag k='highway' v='residential' />
+    <tag k='name' v='7th Street' />
+    <tag k='tiger:cfcc' v='A41' />
+    <tag k='tiger:county' v='Marshall, MN' />
+    <tag k='tiger:name_base' v='7th' />
+    <tag k='tiger:name_type' v='St' />
+    <tag k='tiger:reviewed' v='no' />
+  </way>
+</osm>

@@ -1,0 +1,8 @@
+If you youse luabind library with a version lesser than 0.9.2,
+you may have troubles compiling OSRM code with a boost >=1.57
+(more details here: https://github.com/luabind/luabind/issues/27 ).
+
+You can fix it either by using latest luabind from source https://github.com/rpavlik/luabind
+or https://github.com/DennisOSRM/luabind, or by applying the following patch
+to /usr/include/luabind/object.hpp:
+https://github.com/alex85k/luabind/commit/2340928e00f4d606255dd5d570e1e142353a5fdd

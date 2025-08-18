@@ -1,0 +1,28 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '8.11.0' apply false
+    id 'com.android.library' version '8.11.0' apply false
+}
+
+def run(cmd) {
+    def output = providers.exec {
+       commandLine = cmd
+    }
+    return output.standardOutput.asText.get().trim()
+}
+
+def getVersion() {
+    def isWindows = DefaultNativePlatform.getCurrentOperatingSystem().isWindows()
+    def bash = isWindows ? 'C:\\Program Files\\Git\\bin\\bash.exe' : 'bash'
+    def versionCode = Integer.parseInt(run([bash, '../tools/unix/version.sh', 'android_code']))
+    def versionName = run([bash, '../tools/unix/version.sh', 'android_name'])
+    return new Tuple2(versionCode, versionName)
+}
+
+rootProject.ext {
+    def ver = getVersion()
+    versionCode = ver.V1
+    versionName = ver.V2
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/nav_bottom_frame"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  tools:showIn="@layout/layout_nav">
+
+  <LinearLayout
+    android:id="@+id/line_frame"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true">
+
+    <include layout="@layout/bottom_sheet_handle" />
+    <include layout="@layout/layout_nav_bottom_numbers" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+      android:id="@+id/navigation_progress"
+      style="@style/Widget.MaterialComponents.LinearProgressIndicator"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:indicatorColor="?colorAccent"
+      app:trackCornerRadius="@dimen/nav_progress_head"
+      app:trackThickness="@dimen/nav_progress"
+      app:trackColor="@color/bg_routing_progress" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/content_frame"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_menu_content_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/nav_bottom_gap"
+    android:paddingEnd="@dimen/nav_bottom_gap"
+    tools:background="#300000FF">
+
+    <ImageView
+      android:id="@+id/tts_volume"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/nav_icon_size"
+      android:layout_weight="0.2"
+      android:background="?selectableItemBackgroundBorderless"
+      android:scaleType="center"
+      app:srcCompat="@drawable/ic_voice_on" />
+
+    <ImageView
+      android:id="@+id/settings"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/nav_icon_size"
+      android:layout_marginEnd="@dimen/nav_bottom_gap"
+      android:layout_weight="0.2"
+      android:background="?selectableItemBackgroundBorderless"
+      android:scaleType="center"
+      app:srcCompat="@drawable/ic_menu_settings"
+      app:tint="?iconTint" />
+
+    <Button
+      android:id="@+id/stop"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/nav_button_height"
+      android:layout_weight="0.4"
+      android:background="?redButtonBackground"
+      android:fontFamily="@string/robotoMedium"
+      android:minWidth="@dimen/start_button_width"
+      android:text="@string/navigation_stop_button"
+      android:textAppearance="@style/MwmTextAppearance.Button.Red"
+      tools:ignore="UnusedAttribute" />
+  </LinearLayout>
+</LinearLayout>

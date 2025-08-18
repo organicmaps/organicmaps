@@ -1,0 +1,386 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='309617636' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='6' changeset='107491001' lat='51.0797227' lon='81.1396709'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1225' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='309617639' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='6' changeset='107491001' lat='51.0645496' lon='81.1156028'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1226' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='309617640' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='6' changeset='107491001' lat='51.0665346' lon='81.1058149'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1227' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='309617641' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='6' changeset='107491001' lat='51.0610057' lon='81.1016041'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1228' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='309617643' timestamp='2018-01-31T09:11:09Z' uid='248768' user='chnav' visible='true' version='6' changeset='55924855' lat='50.9479034' lon='81.0597635'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1233' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='309617648' timestamp='2014-07-09T13:53:18Z' uid='248768' user='chnav' visible='true' version='4' changeset='24046395' lat='50.9510644' lon='81.1575453'>
+    <tag k='note' v='not described in reference document; adjusted by landuse' />
+  </node>
+  <node id='309617649' timestamp='2018-01-31T09:11:09Z' uid='248768' user='chnav' visible='true' version='5' changeset='55924855' lat='50.9575994' lon='81.1791762'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1235' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='309617651' timestamp='2018-01-31T09:11:09Z' uid='248768' user='chnav' visible='true' version='5' changeset='55924855' lat='50.9510667' lon='81.1909179'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1236' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='309617652' timestamp='2018-01-31T09:11:10Z' uid='248768' user='chnav' visible='true' version='6' changeset='55924855' lat='50.963261' lon='81.2322287'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1238' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='309617653' timestamp='2018-01-31T09:11:10Z' uid='248768' user='chnav' visible='true' version='5' changeset='55924855' lat='50.9617624' lon='81.2664113'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1239' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='309617654' timestamp='2018-01-31T09:11:10Z' uid='248768' user='chnav' visible='true' version='5' changeset='55924855' lat='50.9739698' lon='81.2890667'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1240' />
+    <tag k='source' v='bing + reference document' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='519849009' timestamp='2022-06-20T01:29:25Z' uid='11725140' user='jmaspons' visible='true' version='11' changeset='122597499' lat='51.0525688' lon='81.1520242'>
+    <tag k='addr:country' v='RU' />
+    <tag k='addr:district' v='Локтевский район' />
+    <tag k='addr:region' v='Алтайский край' />
+    <tag k='name' v='Новенькое' />
+    <tag k='name:ca' v='Nóvenkoie' />
+    <tag k='place' v='village' />
+    <tag k='population' v='412' />
+    <tag k='population:date' v='2016-01-01' />
+    <tag k='wikidata' v='Q24728641' />
+    <tag k='wikipedia' v='ru:Новенькое (Локтевский район)' />
+  </node>
+  <node id='2615290764' timestamp='2014-11-26T11:13:07Z' uid='481934' user='iWowik' visible='true' version='3' changeset='27040022' lat='50.9756831' lon='81.3099342' />
+  <node id='2615291124' timestamp='2014-11-26T11:13:08Z' uid='481934' user='iWowik' visible='true' version='2' changeset='27040022' lat='51.0027717' lon='81.3117313' />
+  <node id='2615291138' timestamp='2014-11-26T11:13:08Z' uid='481934' user='iWowik' visible='true' version='2' changeset='27040022' lat='51.0031995' lon='81.2542206' />
+  <node id='2615291234' timestamp='2014-11-26T11:27:55Z' uid='481934' user='iWowik' visible='true' version='3' changeset='27040022' lat='51.0303072' lon='81.3106719' />
+  <node id='2615291236' timestamp='2014-11-26T11:13:09Z' uid='481934' user='iWowik' visible='true' version='2' changeset='27040022' lat='51.0301973' lon='81.2539069' />
+  <node id='2615291258' timestamp='2014-11-26T11:13:09Z' uid='481934' user='iWowik' visible='true' version='2' changeset='27040022' lat='51.0481347' lon='81.3097038' />
+  <node id='2615291259' timestamp='2014-11-26T11:27:55Z' uid='481934' user='iWowik' visible='true' version='3' changeset='27040022' lat='51.0485158' lon='81.2964752' />
+  <node id='2615291831' timestamp='2014-11-26T11:13:10Z' uid='481934' user='iWowik' visible='true' version='3' changeset='27040022' lat='51.0666627' lon='81.2965938' />
+  <node id='2615291893' timestamp='2014-11-26T11:13:10Z' uid='481934' user='iWowik' visible='true' version='2' changeset='27040022' lat='51.093519' lon='81.2961433' />
+  <node id='2615291897' timestamp='2014-11-26T11:13:10Z' uid='481934' user='iWowik' visible='true' version='2' changeset='27040022' lat='51.0943361' lon='81.2246586' />
+  <node id='2615291951' timestamp='2014-11-26T11:13:10Z' uid='481934' user='iWowik' visible='true' version='3' changeset='27040022' lat='51.1117542' lon='81.2244285' />
+  <node id='2615291957' timestamp='2014-11-26T11:13:10Z' uid='481934' user='iWowik' visible='true' version='3' changeset='27040022' lat='51.1116515' lon='81.1595173' />
+  <node id='2955701906' timestamp='2018-01-31T09:12:20Z' uid='248768' user='chnav' visible='true' version='2' changeset='55924855' lat='50.950916' lon='81.1542035'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1234' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='2955701910' timestamp='2018-01-31T09:12:20Z' uid='248768' user='chnav' visible='true' version='2' changeset='55924855' lat='50.9586138' lon='81.2199145'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1237' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='2955701914' timestamp='2018-01-31T09:12:20Z' uid='248768' user='chnav' visible='true' version='2' changeset='55924855' lat='50.9671807' lon='81.0659731'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1232' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='2955701920' timestamp='2014-07-09T13:53:16Z' uid='248768' user='chnav' visible='true' version='2' changeset='24046395' lat='50.9745733' lon='81.2929587'>
+    <tag k='source' v='bing' />
+  </node>
+  <node id='2955701925' timestamp='2018-01-31T09:12:20Z' uid='248768' user='chnav' visible='true' version='2' changeset='55924855' lat='50.9977659' lon='81.0822184'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1231' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='2955701926' timestamp='2018-01-31T09:12:20Z' uid='248768' user='chnav' visible='true' version='2' changeset='55924855' lat='51.0215933' lon='81.0896229'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1230' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='2955701927' timestamp='2018-01-31T09:12:20Z' uid='248768' user='chnav' visible='true' version='2' changeset='55924855' lat='51.0314374' lon='81.0958765'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1229' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='2955701934' timestamp='2018-01-31T09:12:20Z' uid='248768' user='chnav' visible='true' version='2' changeset='55924855' lat='51.0999063' lon='81.1543917'>
+    <tag k='description' v='turn point' />
+    <tag k='note:warning' v='DO NOT MOVE. Turn point has been verified relative survey points and reference document.' />
+    <tag k='ref' v='1224' />
+    <tag k='source' v='position within 100m' />
+    <tag k='source:ref' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </node>
+  <node id='2955701935' timestamp='2014-07-09T12:30:56Z' uid='248768' user='chnav' visible='true' version='1' changeset='24044845' lat='51.1014323' lon='81.1553834' />
+  <node id='2955701936' timestamp='2014-07-09T12:30:56Z' uid='248768' user='chnav' visible='true' version='1' changeset='24044845' lat='51.1047984' lon='81.1561988' />
+  <node id='8897811002' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0708504' lon='81.1242485' />
+  <node id='8897811003' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0945207' lon='81.150341' />
+  <node id='8897811004' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0882673' lon='81.1474657' />
+  <node id='8897811005' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0694482' lon='81.1678934' />
+  <node id='8897811006' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0693942' lon='81.1600399' />
+  <node id='8897811007' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0625441' lon='81.1566925' />
+  <node id='8897811008' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0645938' lon='81.1472511' />
+  <node id='8897811009' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0629217' lon='81.1456632' />
+  <node id='8897811010' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0579588' lon='81.1449337' />
+  <node id='8897811011' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0560166' lon='81.1430454' />
+  <node id='8897811012' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0517814' lon='81.1415004' />
+  <node id='8897811013' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0480853' lon='81.1302995' />
+  <node id='8897811014' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.042932' lon='81.1282396' />
+  <node id='8897811015' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0422844' lon='81.1333894' />
+  <node id='8897811016' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0364557' lon='81.129055' />
+  <node id='8897840117' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0350524' lon='81.133604' />
+  <node id='8897840118' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0357271' lon='81.1339473' />
+  <node id='8897840119' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0356191' lon='81.1353206' />
+  <node id='8897840120' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0374002' lon='81.136651' />
+  <node id='8897840121' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0357271' lon='81.1465644' />
+  <node id='8897840122' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0362128' lon='81.1499118' />
+  <node id='8897840123' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0446048' lon='81.1501693' />
+  <node id='8897840124' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0455492' lon='81.1533021' />
+  <node id='8897840125' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0515116' lon='81.1566066' />
+  <node id='8897840126' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0537507' lon='81.1595678' />
+  <node id='8897840127' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0527795' lon='81.1639881' />
+  <node id='8897840128' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0568259' lon='81.1658334' />
+  <node id='8897840129' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0576081' lon='81.16961' />
+  <node id='8897840130' timestamp='2021-07-06T10:43:55Z' uid='481934' user='iWowik' visible='true' version='1' changeset='107491001' lat='51.0679649' lon='81.1751461' />
+  <node id='9226572236' timestamp='2021-11-05T08:36:19Z' uid='13052051' user='Ivan Barsukov' visible='true' version='1' changeset='113398539' lat='51.0573993' lon='81.1684998' />
+  <way id='255830562' timestamp='2022-07-02T05:01:40Z' uid='3318452' user='Kuritsyn Roman' visible='true' version='7' changeset='123106735'>
+    <nd ref='2615291957' />
+    <nd ref='2955701936' />
+    <nd ref='2955701935' />
+    <nd ref='2955701934' />
+    <nd ref='8897811003' />
+    <nd ref='8897811004' />
+    <nd ref='309617636' />
+    <nd ref='8897811002' />
+    <nd ref='309617639' />
+    <nd ref='309617640' />
+    <nd ref='309617641' />
+    <nd ref='2955701927' />
+    <nd ref='2955701926' />
+    <nd ref='2955701925' />
+    <nd ref='2955701914' />
+    <nd ref='309617643' />
+    <tag k='admin_level' v='2' />
+    <tag k='boundary' v='administrative' />
+    <tag k='name' v='Border Kazakhstan - Russia' />
+    <tag k='name:kk' v='Қазақстан - Ресей шекарасы' />
+    <tag k='name:ru' v='Граница России и Казахстана' />
+    <tag k='source' v='bing + reference document' />
+    <tag k='source:boundary' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </way>
+  <way id='255830573' timestamp='2021-12-08T11:31:38Z' uid='260756' user='Felis Pimeja' visible='true' version='3' changeset='114698857'>
+    <nd ref='2615291234' />
+    <nd ref='2615291236' />
+    <nd ref='2615291138' />
+    <nd ref='2615291124' />
+    <nd ref='2615290764' />
+    <tag k='admin_level' v='8' />
+    <tag k='boundary' v='administrative' />
+  </way>
+  <way id='255830663' timestamp='2021-12-08T11:31:38Z' uid='260756' user='Felis Pimeja' visible='true' version='3' changeset='114698857'>
+    <nd ref='2615291831' />
+    <nd ref='2615291893' />
+    <nd ref='2615291897' />
+    <nd ref='2615291951' />
+    <nd ref='2615291957' />
+    <tag k='admin_level' v='8' />
+    <tag k='boundary' v='administrative' />
+  </way>
+  <way id='255830685' timestamp='2021-12-08T11:31:38Z' uid='260756' user='Felis Pimeja' visible='true' version='4' changeset='114698857'>
+    <nd ref='2615291234' />
+    <nd ref='2615291258' />
+    <nd ref='2615291259' />
+    <nd ref='2615291831' />
+    <tag k='admin_level' v='8' />
+    <tag k='boundary' v='administrative' />
+  </way>
+  <way id='961902412' timestamp='2021-11-05T08:36:19Z' uid='13052051' user='Ivan Barsukov' visible='true' version='2' changeset='113398539'>
+    <nd ref='8897840130' />
+    <nd ref='8897840129' />
+    <nd ref='9226572236' />
+    <nd ref='8897840128' />
+    <nd ref='8897840127' />
+    <nd ref='8897840126' />
+    <nd ref='8897840125' />
+    <nd ref='8897840124' />
+    <nd ref='8897840123' />
+    <nd ref='8897840122' />
+    <nd ref='8897840121' />
+    <nd ref='8897840120' />
+    <nd ref='8897840119' />
+    <nd ref='8897840118' />
+    <nd ref='8897840117' />
+    <nd ref='8897811016' />
+    <nd ref='8897811015' />
+    <nd ref='8897811014' />
+    <nd ref='8897811013' />
+    <nd ref='8897811012' />
+    <nd ref='8897811011' />
+    <nd ref='8897811010' />
+    <nd ref='8897811009' />
+    <nd ref='8897811008' />
+    <nd ref='8897811007' />
+    <nd ref='8897811006' />
+    <nd ref='8897811005' />
+    <nd ref='8897840130' />
+    <tag k='boundary' v='place' />
+    <tag k='name' v='Новенькое' />
+    <tag k='place' v='village' />
+  </way>
+  <way id='1075257752' timestamp='2022-07-02T05:01:39Z' uid='3318452' user='Kuritsyn Roman' visible='true' version='1' changeset='123106735'>
+    <nd ref='2955701910' />
+    <nd ref='309617652' />
+    <nd ref='309617653' />
+    <nd ref='309617654' />
+    <nd ref='2955701920' />
+    <nd ref='2615290764' />
+    <tag k='admin_level' v='2' />
+    <tag k='boundary' v='administrative' />
+    <tag k='name' v='Border Kazakhstan - Russia' />
+    <tag k='name:kk' v='Қазақстан - Ресей шекарасы' />
+    <tag k='name:ru' v='Граница России и Казахстана' />
+    <tag k='source' v='bing + reference document' />
+    <tag k='source:boundary' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </way>
+  <way id='1075257753' timestamp='2022-07-02T05:01:39Z' uid='3318452' user='Kuritsyn Roman' visible='true' version='1' changeset='123106735'>
+    <nd ref='309617643' />
+    <nd ref='2955701906' />
+    <nd ref='309617648' />
+    <nd ref='309617649' />
+    <nd ref='309617651' />
+    <nd ref='2955701910' />
+    <tag k='admin_level' v='2' />
+    <tag k='boundary' v='administrative' />
+    <tag k='name' v='Border Kazakhstan - Russia' />
+    <tag k='name:kk' v='Қазақстан - Ресей шекарасы' />
+    <tag k='name:ru' v='Граница России и Казахстана' />
+    <tag k='source' v='bing + reference document' />
+    <tag k='source:boundary' v='Договор между РК и РФ от 18 января 2005 г.' />
+  </way>
+  <relation id='1083301' timestamp='2022-09-08T10:01:22Z' uid='289224' user='Moreorless' visible='true' version='23' changeset='125935442'>
+    <member type='way' ref='1075257760' role='outer' />
+    <member type='way' ref='255830556' role='outer' />
+    <member type='way' ref='39520200' role='outer' />
+    <member type='way' ref='571683041' role='outer' />
+    <member type='way' ref='255830569' role='outer' />
+    <member type='way' ref='68256493' role='outer' />
+    <member type='way' ref='255830605' role='outer' />
+    <member type='way' ref='255830582' role='outer' />
+    <member type='way' ref='904965836' role='outer' />
+    <member type='way' ref='255950477' role='outer' />
+    <member type='way' ref='255950463' role='outer' />
+    <member type='way' ref='68256488' role='outer' />
+    <member type='way' ref='255950469' role='outer' />
+    <member type='way' ref='255950490' role='outer' />
+    <member type='way' ref='255950484' role='outer' />
+    <member type='way' ref='255946095' role='outer' />
+    <member type='way' ref='255946086' role='outer' />
+    <member type='way' ref='255946064' role='outer' />
+    <member type='way' ref='255946087' role='outer' />
+    <member type='way' ref='255946077' role='outer' />
+    <member type='way' ref='255830614' role='outer' />
+    <member type='way' ref='1092846101' role='outer' />
+    <member type='way' ref='1092846102' role='outer' />
+    <member type='way' ref='1092846099' role='outer' />
+    <member type='way' ref='1092846105' role='outer' />
+    <member type='way' ref='1092846104' role='outer' />
+    <member type='way' ref='1092846106' role='outer' />
+    <member type='way' ref='1092846107' role='outer' />
+    <member type='way' ref='1092846111' role='outer' />
+    <member type='way' ref='1092846110' role='outer' />
+    <member type='way' ref='68256464' role='outer' />
+    <member type='way' ref='68256494' role='outer' />
+    <member type='way' ref='255830562' role='outer' />
+    <member type='way' ref='1075257753' role='outer' />
+    <member type='way' ref='1075257752' role='outer' />
+    <member type='way' ref='255830564' role='outer' />
+    <member type='way' ref='255830565' role='outer' />
+    <member type='way' ref='255830558' role='outer' />
+    <member type='way' ref='255830547' role='outer' />
+    <member type='node' ref='1515028708' role='admin_centre' />
+    <member type='relation' ref='3428625' role='subarea' />
+    <member type='relation' ref='3428626' role='subarea' />
+    <member type='relation' ref='3428627' role='subarea' />
+    <member type='relation' ref='3428628' role='subarea' />
+    <member type='relation' ref='3426091' role='subarea' />
+    <member type='relation' ref='3426092' role='subarea' />
+    <member type='relation' ref='3428629' role='subarea' />
+    <member type='relation' ref='3428630' role='subarea' />
+    <member type='relation' ref='3428631' role='subarea' />
+    <member type='relation' ref='3428632' role='subarea' />
+    <member type='relation' ref='3426099' role='subarea' />
+    <member type='relation' ref='3426101' role='subarea' />
+    <member type='relation' ref='3428633' role='subarea' />
+    <member type='relation' ref='3426107' role='subarea' />
+    <member type='relation' ref='3426108' role='subarea' />
+    <member type='relation' ref='3426113' role='subarea' />
+    <member type='relation' ref='3428634' role='subarea' />
+    <member type='relation' ref='3426089' role='subarea' />
+    <tag k='addr:country' v='RU' />
+    <tag k='addr:region' v='Алтайский край' />
+    <tag k='admin_level' v='6' />
+    <tag k='boundary' v='administrative' />
+    <tag k='name' v='Локтевский район' />
+    <tag k='name:en' v='Loktevsky District' />
+    <tag k='name:ja' v='ロクテフスキー地区' />
+    <tag k='name:ru' v='Локтевский район' />
+    <tag k='official_status' v='ru:муниципальный район' />
+    <tag k='type' v='boundary' />
+    <tag k='wikidata' v='Q1654185' />
+    <tag k='wikipedia' v='ru:Локтевский район' />
+  </relation>
+  <relation id='3426099' timestamp='2022-07-26T11:04:12Z' uid='87318' user='Petja' visible='true' version='6' changeset='124089235'>
+    <member type='way' ref='1075257753' role='outer' />
+    <member type='way' ref='255830562' role='outer' />
+    <member type='way' ref='255830663' role='outer' />
+    <member type='way' ref='255830685' role='outer' />
+    <member type='way' ref='255830573' role='outer' />
+    <member type='way' ref='1075257752' role='outer' />
+    <member type='node' ref='519849009' role='admin_centre' />
+    <tag k='admin_level' v='8' />
+    <tag k='boundary' v='administrative' />
+    <tag k='name' v='Новенский сельсовет' />
+    <tag k='official_status' v='ru:сельское поселение' />
+    <tag k='type' v='boundary' />
+    <tag k='wikidata' v='Q4322568' />
+    <tag k='wikipedia' v='ru:Новенский сельсовет' />
+  </relation>
+</osm>

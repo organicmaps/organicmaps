@@ -1,0 +1,75 @@
+environment:
+  matrix:
+  - configuration: Debug
+  - configuration: Release
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - develop
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - git config --global core.autocrlf input
+
+# clone directory
+clone_folder: c:\projects\osrm
+
+platform: x64
+
+install:
+  # by default, all script lines are interpreted as batch
+  - nuget install protobuf
+  - cd c:\projects\osrm
+  - curl -O http://build.project-osrm.org/libs_osrm_%Configuration%.7z
+  - 7z x libs_osrm_%Configuration%.7z | find ":"
+
+build_script:
+  - cd c:/projects/osrm
+  - mkdir build
+  - cd build
+  - echo Running cmake...
+  - call "%VS120COMNTOOLS%\..\..\VC\vcvarsall.bat" x86_amd64
+  - SET PATH=C:\Program Files (x86)\MSBuild\12.0\bin\;%PATH%
+  - SET P=c:/projects/osrm
+  - set TBB_INSTALL_DIR=%P%/tbb
+  - set TBB_ARCH_PLATFORM=intel64/vc12
+  - cmake .. -G "Visual Studio 12 Win64" -DCMAKE_BUILD_TYPE=%Configuration% -DCMAKE_INSTALL_PREFIX=%P%/libs -DBOOST_ROOT=%P%/boost_min -DBoost_ADDITIONAL_VERSIONS=1.57 -DBoost_USE_STATIC_LIBS=ON -T CTP_Nov2013
+  - msbuild /clp:Verbosity=minimal /nologo OSRM.sln
+  - msbuild /clp:Verbosity=minimal /nologo tests.vcxproj
+  - cd %Configuration%
+  - if "%APPVEYOR_REPO_BRANCH%"=="develop" (7z a %P%/osrm_%Configuration%.zip *.exe *.pdb %P%/libs/bin/*.dll -tzip)
+  - cd ..\..\profiles
+  - echo disk=c:\temp\stxxl,10000,wincall > .stxxl.txt
+  - if "%APPVEYOR_REPO_BRANCH%"=="develop" (7z a %P%/osrm_%Configuration%.zip * -tzip)
+  - set PATH=%PATH%;c:/projects/osrm/libs/bin
+  - cd c:/projects/osrm/build/%Configuration%
+  - datastructure-tests.exe
+  - algorithm-tests.exe
+
+test: off
+
+artifacts:
+  - path: osrm_Debug.zip
+    name: osrm_Debug.zip
+  - path: osrm_Release.zip
+    name: osrm_Release.zip
+
+deploy:
+  provider: FTP
+  server:
+    secure: ef7oiQTTXFGt8NdNiOHm/uRFVrUttzyFbIlnaeHhQvw=
+  username:
+    secure: Bw+Se2GTJxA6+GtRkEc//tQSBHOuFIuJHBjFwR9cD+8=
+  password:
+    secure: eqwESZqxMXC/j5mOCpaXuw==
+  folder: /
+  enable_ssl: true
+  active_mode: false
+
+# notifications:
+#   - provider: HipChat
+#     auth_token:
+#       secure: boLE7BjcahdIUxv9jkN7U3F8iOASF+MkhtctlVoWJoo=
+#     room: Directions

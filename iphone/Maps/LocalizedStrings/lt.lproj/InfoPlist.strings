@@ -1,0 +1,15 @@
+
+/* Used in home screen quick actions. */
+"search" = "Ieškoti";
+
+/* Used in home screen quick actions. */
+"bookmarks_and_tracks" = "Žymės ir trasos";
+
+/* Used in home screen quick actions. */
+"route" = "Maršrutas";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysUsageDescription" = "Vietos aptikimas foninėje veiksenoje yra būtinas, norint, kad programėlė veiktų visapusiškai. Jis naudojamas navigacijai ir naujų trasų įrašymui.";
+
+/* Needed to explain why we require access to GPS coordinates when the app is active. */
+"NSLocationWhenInUseUsageDescription" = "Vietos aptikimas yra būtinas navigacijai ir naujų trasų įrašymui.";
