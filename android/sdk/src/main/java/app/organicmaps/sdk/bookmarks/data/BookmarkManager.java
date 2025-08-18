@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.sync.SyncManager;
 import app.organicmaps.sdk.util.KeyValue;
 import app.organicmaps.sdk.util.StorageUtils;
+import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.File;
@@ -137,7 +139,7 @@ public enum BookmarkManager {
   @MainThread
   public void onFileChanged(String filePath)
   {
-    // TODO (PR #10651)
+    ThreadPool.getWorker().execute(() -> SyncManager.INSTANCE.onFileChanged(filePath));
   }
 
   // Called from JNI.
@@ -317,8 +319,8 @@ public enum BookmarkManager {
    * <p>
    * {@link #onFileChanged(String)} is not triggered for the original filename, it's triggered only for
    * the new filename.
-   * Blocks until complete. Must not be called from the main thread.
    */
+  @WorkerThread
   public static void addSuffixToCategory(@NonNull String filePath)
   {
     nativeAddSuffixToCategory(filePath);
@@ -352,6 +354,11 @@ public enum BookmarkManager {
   public void deleteCategory(long catId)
   {
     nativeDeleteCategory(catId);
+  }
+
+  public void deleteCategoryByFilename(String fileName)
+  {
+    nativeDeleteCategoryByFilename(fileName);
   }
 
   public void deleteTrack(long trackId)
