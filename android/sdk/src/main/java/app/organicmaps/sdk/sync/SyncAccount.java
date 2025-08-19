@@ -2,6 +2,8 @@ package app.organicmaps.sdk.sync;
 
 import androidx.annotation.NonNull;
 import app.organicmaps.sdk.sync.engine.SyncClient;
+import app.organicmaps.sdk.sync.nextcloud.NextcloudAuth;
+import app.organicmaps.sdk.sync.nextcloud.NextcloudClient;
 import java.util.Objects;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,8 +45,7 @@ public class SyncAccount
   {
     return switch (Objects.requireNonNull(BackendType.idToBackendType.get(mBackendTypeId)))
     {
-      // TODO (PR #10651)
-      default -> null;
+      case Nextcloud -> new NextcloudClient((NextcloudAuth) mAuthState);
     };
   }
 
@@ -53,8 +54,7 @@ public class SyncAccount
     int backendType = json.getInt(KEY_BACKEND_ID);
     AuthState authState = switch (Objects.requireNonNull(BackendType.idToBackendType.get(backendType)))
     {
-      // TODO (PR #10651)
-      default -> null;
+      case Nextcloud -> new NextcloudAuth(json.getJSONObject(KEY_AUTH_STATE));
     };
     return new SyncAccount(json.getInt(KEY_ACCOUNT_ID), backendType, authState);
   }

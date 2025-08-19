@@ -906,6 +906,7 @@
     <string name="unexpected_error">Unexpected Error</string>
     <string name="authorization_expired">Login session expired. Please login again.</string>
     <!-- SECTION: Sync account settings -->
+    <string name="nextcloud">Nextcloud</string>
     <string name="cloud_sync_accounts">Cloud Sync Accounts</string>
     <string name="add_sync_account_hint">No cloud storage account linked yet. Add an account to get started.</string>
     <!-- Button to add Sync Account -->
@@ -913,8 +914,13 @@
     <string name="account_connection_success">Account connected successfully.</string>
     <string name="error_adding_account">Error adding account</string>
     <string name="relogin_message">Updated existing account.</string>
+    <string name="enter_nextcloud_url">Enter your Nextcloud server URL</string>
+    <string name="hint_enter_valid_url">Please enter a valid URL.</string>
+    <string name="unrecognized_server_response">"Unrecognized server response: "</string>
     <!-- Error shown when sync server could not be reached (backend agnostic) -->
     <string name="error_connecting_to_server">Error connecting to the server.</string>
+    <!-- Error message shown during nextcloud login when user enters a url that results in 404 not found -->
+    <string name="make_sure_url_is_nextcloud">Make sure the entered URL points to a valid Nextcloud instance.</string>
     <!-- Sync account logout confirmation e.g. "Are you sure you want to log out of your Nextcloud account?" -->
     <string name="sync_log_out_confirmation">Are you sure you want to log out of your %s account?</string>
     <!-- Sync Duration Settings -->

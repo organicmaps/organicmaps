@@ -14,6 +14,7 @@ import app.organicmaps.sdk.sync.preferences.SyncCallback;
 import app.organicmaps.sdk.sync.preferences.SyncPrefs;
 import app.organicmaps.sdk.sync.preferences.SyncPrefsImpl;
 import app.organicmaps.sdk.util.FileUtils;
+import app.organicmaps.sdk.util.InsecureHttpsHelper;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
@@ -29,14 +30,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.stream.Collectors;
+import okhttp3.OkHttpClient;
 
 public enum SyncManager
 {
   INSTANCE;
   public static final String TAG = SyncManager.class.getSimpleName();
   public static final String KML_EXTENSION = ".kml";
+  public static final String KML_MIME_TYPE = "application/vnd.google-earth.kml+xml";
+  public static final String FILENAME_REGEX = "(?i).*\\.(kml|gpx|kmb|kmz)$"; // import supported filenames
 
   private SyncPrefs mSyncPrefs;
+  private OkHttpClient mInsecureOkHttpClient;
   private SyncScheduler mSyncScheduler;
   private File mTempDir;
   private final Map<SyncAccount, Syncer> mSyncers = new ConcurrentHashMap<>();
@@ -86,6 +91,13 @@ public enum SyncManager
         return new String[0];
       }
     }
+  }
+
+  public OkHttpClient getInsecureOkHttpClient()
+  {
+    if (mInsecureOkHttpClient == null)
+      mInsecureOkHttpClient = InsecureHttpsHelper.createInsecureOkHttpClient();
+    return mInsecureOkHttpClient;
   }
 
   public SyncPrefs getPrefs()
@@ -275,9 +287,9 @@ public enum SyncManager
         if (supportedPaths.contains(new File(path).getCanonicalPath()))
           localFilePaths.add(
               path); // It's necessary to use the same representation (path) as the one used by cpp core. For instance,
-        //   the canonical path may
-        //   be of the form "/data/data/..." when `path` is "/data/user/0/...". It is required so that
-        //   methods like BookmarkManager::ReloadBookmark work as expected when provided with the path.
+                     //   the canonical path may
+                     //   be of the form "/data/data/..." when `path` is "/data/user/0/...". It is required so that
+                     //   methods like BookmarkManager::ReloadBookmark work as expected when provided with the path.
         else
           Logger.w(TAG, "A loaded category (" + path
                             + ") has a path/extension that's unsupported for sync."); // This should be impossible
