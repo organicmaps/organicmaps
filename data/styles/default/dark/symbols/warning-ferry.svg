@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26" height="33" version="1.1" viewBox="0 0 26 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="linearGradient1" x1="13" x2="13" y1="1" y2="30" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#e8514e" offset="0"/>
+    <stop stop-color="#cc3633" offset="1"/>
+  </linearGradient>
+  <filter id="filter1" x="-.0882" y="-.441" width="1.1764" height="1.882" color-interpolation-filters="sRGB">
+    <feGaussianBlur stdDeviation="0.55125"/>
+  </filter>
+</defs>
+ <ellipse cx="13" cy="30.177" rx="7.5" ry="1.5" filter="url(#filter1)" opacity=".1" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="m13 1c-6.3513 0-11.5 5.1487-11.5 11.5 2.4e-4 4.6124 2.7473 8.7238 6.8871 10.534 0.76685 0.33537 1.7261 1.1233 2.097 1.8742l2.5159 5.0935 2.5159-5.0935c0.37091-0.75091 1.3301-1.5388 2.0969-1.8742 4.1398-1.8104 6.8869-5.9219 6.8871-10.534 0-6.3513-5.1487-11.5-11.5-11.5z" fill="url(#linearGradient1)" stroke="#fff" stroke-linejoin="round" stroke-width="2"/>
+ <path d="m7.678 7.9092h3.3009v1.4338h-3.3009zm-1.827 3.3765v-1.2257h7.5392l0.85568 1.2257zm-0.99443 0.90193h16.073l-1.457 4.6253h-13.043z" fill="#fff"/>
+</svg>
