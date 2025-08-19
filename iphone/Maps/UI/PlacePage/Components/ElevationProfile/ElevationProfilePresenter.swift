@@ -72,12 +72,12 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
   }
 
   func updateActivePointDistance(_ distance: Double) {
-    guard let view, !view.isChartViewInfoHidden else { return }
+    guard let view, view.canReceiveUpdates else { return }
     view.setActivePointDistance(distance)
   }
 
   func updateMyPositionDistance(_ distance: Double) {
-    guard let view, !view.isChartViewInfoHidden else { return }
+    guard let view, view.canReceiveUpdates else { return }
     view.setMyPositionDistance(distance)
   }
 

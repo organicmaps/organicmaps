@@ -79,6 +79,11 @@ final class PlacePageScrollView: UIScrollView {
     updatePreviewOffset()
   }
 
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    interactor?.viewWillDisappear()
+  }
+
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     // Update layout when the device was rotated but skip when the appearance was changed.

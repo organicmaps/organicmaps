@@ -229,8 +229,6 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
     // trim leading spaces
     strings::Trim(cleanOut);
 
-    LOG(LINFO, ("TTSn", thenStr + cleanOut));
-
     return thenStr + cleanOut;
   }
 
@@ -247,7 +245,7 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
   {
     out = thenStr + dirStr;
   }
-  LOG(LINFO, ("TTS", out));
+
   return out;
 }
 

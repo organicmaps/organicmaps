@@ -487,10 +487,11 @@ UNIT_TEST(TurnsSound_RoundaboutTurnTest)
   // 620 meters till the 4th turn.
   vector<TurnItemDist> const turns9 = {
       {{25 /* idx */, CarDirection::EnterRoundAbout, 4 /* m_exitNum */}, 620. /* m_distMeters */},
-      {{30 /* idx */, CarDirection::LeaveRoundAbout, 4 /* m_exitNum */}, 665. /* m_distMeters */}};
+      {{30 /* idx */, CarDirection::LeaveRoundAbout, 4 /* m_exitNum */}, 1000. /* m_distMeters */}};
   vector<string> const expectedNotification9 = {{"In 600 meters. Enter the roundabout."},
                                                 {"Then. Take the fourth exit."}};
-  notificationManager.GenerateTurnNotifications(turns9, turnNotifications);
+  notificationManager.GenerateTurnNotifications(turns9, turnNotifications,
+                                                routing::RouteSegment::RoadNameInfo("Main street"));
   TEST_EQUAL(turnNotifications, expectedNotification9, ());
   TEST_EQUAL(notificationManager.GetSecondTurnNotification(), CarDirection::LeaveRoundAbout, ());
 }
