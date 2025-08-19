@@ -26,7 +26,11 @@ import app.organicmaps.sdk.sync.SyncManager;
 import app.organicmaps.sdk.sync.SyncOpException;
 import app.organicmaps.sdk.sync.preferences.SyncCallback;
 import app.organicmaps.sdk.sync.preferences.SyncPrefs;
+import app.organicmaps.sdk.util.concurrency.ThreadPool;
+import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sync.BackendUtils;
+import app.organicmaps.sync.nextcloud.NextcloudLoginFlow;
+import app.organicmaps.sync.nextcloud.PollParams;
 import app.organicmaps.util.WindowInsetUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.slider.Slider;
@@ -37,6 +41,8 @@ import java.util.List;
 public class SyncSettingsFragment
     extends BaseSettingsFragment implements SyncAccountAdapter.OnAccountInteractionListener
 {
+  private static final String TAG = SyncSettingsFragment.class.getSimpleName();
+
   private static final long[] SYNC_INTERVALS_MS = {
       60 * 1000L, // 1 minute
       15 * 60 * 1000L, // 15 minutes
@@ -101,6 +107,7 @@ public class SyncSettingsFragment
     prefs.registerLastSyncedCallback(mLastSyncCallback);
     prefs.registerFrequencyChangeCallback(mFrequencyChangeCallback);
     prefs.registerErrorInfoCallback(mErrorInfoCallback);
+    pollNextcloudAuth();
   }
 
   @Override
@@ -254,6 +261,27 @@ public class SyncSettingsFragment
   protected int getLayoutRes()
   {
     return R.layout.fragment_prefs_sync;
+  }
+
+  private void pollNextcloudAuth()
+  {
+    final Context context = getContext();
+    SyncPrefs syncPrefs = SyncManager.INSTANCE.getPrefs();
+    String pollParamsStr = syncPrefs.getNextcloudPollParams();
+    if (pollParamsStr == null)
+      return;
+    try
+    {
+      PollParams pollParams = PollParams.fromString(pollParamsStr);
+      ThreadPool.getWorker().execute(() -> {
+        if (!NextcloudLoginFlow.storeAuthStateIfAvailable(context, pollParams))
+          syncPrefs.setNextcloudPollParams(null);
+      });
+    }
+    catch (Exception e)
+    {
+      Logger.e(TAG, "Error trying to parse stored Nextcloud auth poll parameters", e);
+    }
   }
 
   private static String formatDuration(long millis, Context context)
