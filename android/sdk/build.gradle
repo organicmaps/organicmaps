@@ -124,6 +124,7 @@ dependencies {
   implementation 'androidx.fragment:fragment:1.8.9'
   implementation 'androidx.lifecycle:lifecycle-process:2.9.2'
   implementation 'androidx.work:work-runtime:2.10.2'
+  implementation 'com.squareup.okhttp3:okhttp:5.1.0'
 
   testImplementation 'junit:junit:4.13.2'
 }

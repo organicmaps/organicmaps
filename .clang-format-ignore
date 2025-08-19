@@ -6,3 +6,5 @@
 ./libs/indexer/drules_struct.pb.cc
 # No need to format this 3party tool.
 tools/osmctools/*.c
+# It gets formatted incorrectly and becomes hard to read.
+./android/sdk/src/main/java/app/organicmaps/sdk/util/InsecureHttpsHelper.java

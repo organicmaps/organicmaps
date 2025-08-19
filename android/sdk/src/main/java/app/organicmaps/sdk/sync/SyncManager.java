@@ -14,6 +14,7 @@ import app.organicmaps.sdk.sync.preferences.SyncCallback;
 import app.organicmaps.sdk.sync.preferences.SyncPrefs;
 import app.organicmaps.sdk.sync.preferences.SyncPrefsImpl;
 import app.organicmaps.sdk.util.FileUtils;
+import app.organicmaps.sdk.util.InsecureHttpsHelper;
 import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
@@ -29,6 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.stream.Collectors;
+import okhttp3.OkHttpClient;
 
 public enum SyncManager
 {
@@ -37,6 +39,7 @@ public enum SyncManager
   public static final String KML_EXTENSION = ".kml";
 
   private SyncPrefs mSyncPrefs;
+  private OkHttpClient mInsecureOkHttpClient;
   private SyncScheduler mSyncScheduler;
   private File mTempDir;
   private final Map<SyncAccount, Syncer> mSyncers = new ConcurrentHashMap<>();
@@ -86,6 +89,13 @@ public enum SyncManager
         return new String[0];
       }
     }
+  }
+
+  public OkHttpClient getInsecureOkHttpClient()
+  {
+    if (mInsecureOkHttpClient == null)
+      mInsecureOkHttpClient = InsecureHttpsHelper.createInsecureOkHttpClient();
+    return mInsecureOkHttpClient;
   }
 
   public SyncPrefs getPrefs()
