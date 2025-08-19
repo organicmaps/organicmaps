@@ -6,6 +6,7 @@ protocol ElevationProfileViewProtocol: AnyObject {
   var userInteractionEnabled: Bool { get set }
   var isChartViewHidden: Bool { get set }
   var isChartViewInfoHidden: Bool { get set }
+  var canReceiveUpdates: Bool { get }
 
   func setChartData(_ data: ChartPresentationData)
   func setActivePointDistance(_ distance: Double)
@@ -137,6 +138,10 @@ extension ElevationProfileViewController: ElevationProfileViewProtocol {
   var isChartViewInfoHidden: Bool {
     get { chartView.isChartViewInfoHidden }
     set { chartView.isChartViewInfoHidden = newValue }
+  }
+
+  var canReceiveUpdates: Bool {
+    chartView.chartData != nil
   }
 
   func setChartData(_ data: ChartPresentationData) {
