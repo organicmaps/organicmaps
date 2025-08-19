@@ -66,9 +66,9 @@
   <symbol maxX="560" maxY="128" minX="520" minY="88" name="search-result-apartment"/>
   <symbol maxX="602" maxY="128" minX="560" minY="88" name="shield-us-hw-wide-scaled"/>
   <symbol maxX="638" maxY="126" minX="602" minY="88" name="shield-us-hw-thin-scaled"/>
-  <symbol maxX="668" maxY="125" minX="638" minY="88" name="unpaved_road"/>
-  <symbol maxX="698" maxY="125" minX="668" minY="88" name="paid_road"/>
-  <symbol maxX="728" maxY="125" minX="698" minY="88" name="ferry"/>
+  <symbol maxX="668" maxY="125" minX="638" minY="88" name="warning-unpaved_road"/>
+  <symbol maxX="698" maxY="125" minX="668" minY="88" name="warning-paid_road"/>
+  <symbol maxX="728" maxY="125" minX="698" minY="88" name="warning-ferry"/>
   <symbol maxX="764" maxY="124" minX="728" minY="88" name="track_marker_selected"/>
   <symbol maxX="800" maxY="124" minX="764" minY="88" name="infosign"/>
   <symbol maxX="825" maxY="122" minX="800" minY="88" name="bookmark-water-m"/>
