@@ -1,5 +1,5 @@
 protocol PlacePageViewProtocol: AnyObject {
-  var interactor: PlacePageInteractorProtocol! { get set }
+  var interactor: PlacePageInteractorProtocol? { get set }
 
   func setLayout(_ layout: IPlacePageLayout)
   func closeAnimated(completion: (() -> Void)?)
@@ -35,7 +35,7 @@ final class PlacePageScrollView: UIScrollView {
     stackView.distribution = .fill
     return stackView
   }()
-  var interactor: PlacePageInteractorProtocol!
+  var interactor: PlacePageInteractorProtocol?
   var beginDragging = false
   var rootViewController: MapViewController {
     MapViewController.shared()!
@@ -220,8 +220,13 @@ final class PlacePageScrollView: UIScrollView {
   }
 
   private func cleanupLayout() {
-    layout?.actionBar?.view.removeFromSuperview()
-    layout?.navigationBar?.view.removeFromSuperview()
+    guard let layout else { return }
+    let childViewControllers = [layout.actionBar, layout.navigationBar] + layout.headerViewControllers + layout.bodyViewControllers
+    childViewControllers.forEach {
+      $0?.willMove(toParent: nil)
+      $0?.view.removeFromSuperview()
+      $0?.removeFromParent()
+    }
     headerStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
     stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
   }
@@ -293,7 +298,7 @@ final class PlacePageScrollView: UIScrollView {
 
   private func updateTopBound(_ bound: CGFloat, duration: TimeInterval) {
     alternativeSizeClass(iPhone: {
-      interactor.updateTopBound(bound, duration: duration)
+      interactor?.updateTopBound(bound, duration: duration)
     }, iPad: {})
   }
 }

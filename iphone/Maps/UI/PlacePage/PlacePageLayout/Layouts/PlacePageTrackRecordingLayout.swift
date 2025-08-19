@@ -5,7 +5,7 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
   weak var presenter: PlacePagePresenterProtocol?
 
   lazy var bodyViewControllers: [UIViewController] = {
-    return configureViewControllers()
+    configureViewControllers()
   }()
 
   var actionBar: ActionBarViewController? {
@@ -16,19 +16,19 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
     placePageNavigationViewController
   }
 
-  lazy var headerViewControllers: [UIViewController] = {
+  var headerViewControllers: [UIViewController] {
     [headerViewController]
-  }()
+  }
 
   lazy var headerViewController: PlacePageHeaderViewController = {
-    return PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
+    PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .flexible)
   }()
 
-  lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
-    return PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
+  private lazy var placePageNavigationViewController: PlacePageHeaderViewController = {
+    PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
   }()
 
-  lazy var elevationProfileViewController: ElevationProfileViewController? = {
+  private lazy var elevationProfileViewController: ElevationProfileViewController? = {
     guard let trackData = placePageData.trackData else {
       return nil
     }
@@ -36,7 +36,7 @@ final class PlacePageTrackRecordingLayout: IPlacePageLayout {
                                          delegate: interactor)
   }()
 
-  lazy var actionBarViewController: ActionBarViewController = {
+  private lazy var actionBarViewController: ActionBarViewController = {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)
     vc.placePageData = placePageData
     vc.canAddStop = MWMRouter.canAddIntermediatePoint()
