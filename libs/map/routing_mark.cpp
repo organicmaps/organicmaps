@@ -657,9 +657,9 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> RoadWarningMark::GetSymbolNames
   switch (m_type)
   {
     using enum RoadWarningMarkType;
-  case Toll: symbolName = "paid_road"; break;
-  case Ferry: symbolName = "ferry"; break;
-  case Dirty: symbolName = "unpaved_road"; break;
+  case Toll: symbolName = "warning-paid_road"; break;
+  case Ferry: symbolName = "warning-ferry"; break;
+  case Dirty: symbolName = "warning-unpaved_road"; break;
   case Count: CHECK(false, ()); break;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
