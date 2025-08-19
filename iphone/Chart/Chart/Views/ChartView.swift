@@ -323,6 +323,7 @@ public class ChartView: UIView {
 
 extension ChartView: ChartPreviewViewDelegate {
   func chartPreviewView(_ view: ChartPreviewView, didChangeMinX minX: Int, maxX: Int) {
+    guard chartData != nil else { return }
     xAxisView.setBounds(lower: minX, upper: maxX)
     updateCharts(animationStyle: .none)
     chartInfoView.update()

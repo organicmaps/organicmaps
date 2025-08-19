@@ -1,5 +1,5 @@
 @objc(MWMSearchTabViewControllerDelegate)
-protocol SearchTabViewControllerDelegate: SearchOnMapScrollViewDelegate {
+protocol SearchTabViewControllerDelegate: UIScrollViewDelegate {
   func searchTabController(_ viewController: SearchTabViewController, didSearch: SearchQuery)
 }
 
@@ -57,13 +57,13 @@ extension SearchTabViewController: ModallyPresentedViewController {
   }
 }
 
-extension SearchTabViewController: SearchOnMapScrollViewDelegate {
+extension SearchTabViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    delegate?.scrollViewDidScroll(scrollView)
+    delegate?.scrollViewDidScroll?(scrollView)
   }
 
   func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    delegate?.scrollViewWillEndDragging(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    delegate?.scrollViewWillEndDragging?(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
   }
 }
 
