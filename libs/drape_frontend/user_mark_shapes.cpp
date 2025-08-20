@@ -266,13 +266,13 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Textur
     params.m_depth = renderInfo.m_depth;
     params.m_depthLayer = renderInfo.m_depthLayer;
     params.m_minVisibleScale = renderInfo.m_minZoom;
+    params.m_startOverlayRank = dp::OverlayRank0;
 
     uint32_t const overlayIndex = kStartUserMarkOverlayIndex + renderInfo.m_index;
     if (renderInfo.m_hasTitlePriority)
     {
       params.m_specialDisplacement = renderInfo.m_displacement;
       params.m_specialPriority = renderInfo.m_priority;
-      params.m_startOverlayRank = dp::OverlayRank0;
 
       if (renderInfo.m_symbolNames != nullptr && renderInfo.m_symbolIsPOI)
         params.m_startOverlayRank++;
@@ -334,7 +334,7 @@ std::string GetBackgroundSymbolName(std::string const & symbolName)
 drape_ptr<dp::OverlayHandle> CreateSymbolOverlayHandle(UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
                                                        m2::PointF const & symbolOffset, m2::RectD const & pixelRect)
 {
-  if (!renderInfo.m_isSymbolSelectable || !renderInfo.m_isNonDisplaceable)
+  if (!renderInfo.m_isSymbolSelectable)
     return nullptr;
 
   dp::OverlayID overlayId(renderInfo.m_featureId, renderInfo.m_markId, tileKey.GetTileCoords(),

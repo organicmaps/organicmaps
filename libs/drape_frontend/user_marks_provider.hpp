@@ -80,6 +80,7 @@ public:
   virtual df::SpecialDisplacement GetDisplacement() const = 0;
   virtual uint32_t GetIndex() const = 0;
   virtual bool SymbolIsPOI() const = 0;
+  /// @return true  Then GetPriority() and GetDisplacement() are also assigned to TextShape's from GetTitleDecl().
   virtual bool HasTitlePriority() const = 0;
   virtual int GetMinZoom() const = 0;
   virtual int GetMinTitleZoom() const = 0;
@@ -88,8 +89,9 @@ public:
   virtual df::ColorConstant GetColorConstant() const = 0;
   virtual bool IsMarkAboveText() const = 0;
   virtual float GetSymbolOpacity() const = 0;
+
+  /// Used in CreateSymbolOverlayHandle only.
   virtual bool IsSymbolSelectable() const = 0;
-  virtual bool IsNonDisplaceable() const = 0;
 
 private:
   kml::MarkId m_id;

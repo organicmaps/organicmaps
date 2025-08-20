@@ -23,18 +23,18 @@ namespace
 class HandleComparator
 {
 public:
-  explicit HandleComparator(bool enableMask) : m_enableMask(enableMask) {}
+  explicit HandleComparator(bool enableMask) /* : m_enableMask(enableMask) */ {}
 
   bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const { return IsGreater(l, r); }
 
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
-    bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
-    bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
-    if (displayFlagLeft > displayFlagRight)
-      return true;
+    // bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
+    // bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
+    // if (displayFlagLeft > displayFlagRight)
+    //   return true;
 
-    if (displayFlagLeft == displayFlagRight)
+    // if (displayFlagLeft == displayFlagRight)
     {
       uint64_t const priorityLeft = l->GetPriority();
       uint64_t const priorityRight = r->GetPriority();
@@ -58,17 +58,18 @@ public:
 
   bool IsEqual(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
-    bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
-    bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
+    // bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
+    // bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
 
-    if (displayFlagLeft == displayFlagRight)
-      return l->GetPriority() == r->GetPriority();
+    // if (displayFlagLeft == displayFlagRight)
+    //   return l->GetPriority() == r->GetPriority();
+    // return false;
 
-    return false;
+    return l->GetPriority() == r->GetPriority();
   }
 
-private:
-  bool m_enableMask;
+  // private:
+  //   bool m_enableMask;
 };
 }  // namespace
 

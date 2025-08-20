@@ -26,7 +26,7 @@ OverlayHandle::OverlayHandle(OverlayID const & id, dp::Anchor anchor, uint64_t p
   , m_extendedRectDirty(true)
   , m_isReady(false)
   , m_isSpecialLayerOverlay(false)
-  , m_displayFlag(false)
+// , m_displayFlag(false)
 {}
 
 void OverlayHandle::EnableCaching(bool enable)
