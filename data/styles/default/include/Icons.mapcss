@@ -1096,8 +1096,8 @@ area|z18-[amenity=stripclub],
 node|z18-[amenity=love_hotel],
 node|z18-[amenity=public_bookcase],
 area|z18-[amenity=public_bookcase],
-node|z19-[power=substation],
-area|z19-[power=substation],
+node|z17-[power=substation],
+area|z17-[power=substation],
 node|z18-[man_made=survey_point],
 node|z18-[man_made=petroleum_well],
 node|z18-[man_made=flare],
@@ -1766,8 +1766,8 @@ area|z17-[power=plant],
 /* Skip individual solar generators, because there are a lot of mapped panels */
 node|z17-[power=generator][generator:source!=solar],
 area|z17-[power=generator][generator:source!=solar],
-node|z19-[power=substation],
-area|z19-[power=substation],
+node|z17-[power=substation],
+area|z17-[power=substation],
 {icon-image: power-m.svg;font-size: 11;}
 
 
