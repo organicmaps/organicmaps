@@ -1218,7 +1218,7 @@ power-plant-gas                                     # icon z17-
 power-plant-hydro                                   # icon z17-
 power-plant-solar                                   # icon z17-
 power-plant-wind                                    # icon z15- (also has caption(optional) z16-)
-power-station                                       # icon z17- (also has caption(optional) z17-)
+power-station                                       # icon z17- (also has caption(optional) z17-, area z15-)
 === 230
 
 barrier-entrance                                    # icon z16- (also has caption(optional) z16-)
@@ -2143,7 +2143,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # === -9750
 
 # power-plant-wind                                  # caption(optional) z16- (also has icon z15-)
-# power-station                                     # caption(optional) z17- (also has icon z17-)
+# power-station                                     # caption(optional) z17- (also has icon z17-, area z15-)
 # === -9770
 
 # barrier-entrance                                  # caption(optional) z16- (also has icon z16-)
@@ -2224,7 +2224,7 @@ emergency-phone                                     # icon z17-
 
 amenity-waste_basket                                # icon z18- (also has caption(optional) z19-)
 emergency-fire_hydrant                              # icon z19- (also has caption(optional) z19-)
-power-substation                                    # icon z19- (also has caption(optional) z19-)
+power-substation                                    # icon z17- (also has caption(optional) z17-, area z15-)
 === -9990
 
 # amenity-bench                                     # caption(optional) z19- (also has icon z18-)
@@ -2251,7 +2251,7 @@ entrance-exit                                       # icon z19- (also has captio
 # entrance-exit                                     # caption(optional) z19- (also has icon z19-)
 # man_made-cairn                                    # caption(optional) z19- (also has icon z19-)
 # man_made-survey_point                             # caption(optional) z18- (also has icon z18-)
-# power-substation                                  # caption(optional) z19- (also has icon z19-)
+# power-substation                                  # caption(optional) z17- (also has icon z17-, area z15-)
 # tourism-information                               # caption(optional) z16- (also has icon z16-)
 # tourism-information-board                         # caption(optional) z16- (also has icon z16-)
 # tourism-information-guidepost                     # caption(optional) z16- (also has icon z16-)
