@@ -727,8 +727,8 @@ building-address                                    # caption z18-
 landuse-landfill                                    # caption z15- (also has area z15-)
 landuse-quarry                                      # caption z15- (also has area z15-)
 landuse-railway                                     # caption z15- (also has area z15-)
-power-station
-power-substation
+power-station                                       # caption z15- (also has area z15-)
+power-substation                                    # caption z15- (also has area z15-)
 === 150
 
 leisure-park-no-access                              # icon z14- (also has caption(optional) z14-, area z10-)

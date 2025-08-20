@@ -93,8 +93,8 @@ landuse-landfill                                    # area z15- (also has captio
 landuse-quarry                                      # area z15- (also has caption z15-)
 landuse-railway                                     # area z15- (also has caption z15-)
 landuse-religious                                   # area z15-
-power-station
-power-substation
+power-station                                       # area z15- (also has caption z15-)
+power-substation                                    # area z15- (also has caption z15-)
 === 40
 
 aeroway-aerodrome                                   # area z10- (also has icon z14-, caption(optional) z14-)

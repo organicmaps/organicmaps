@@ -71046,7 +71046,25 @@ cont {
 cont {
   name: "power-station"
   element {
+    scale: 15
+    area {
+      color: 1643545
+      priority: -1950
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 1643545
+      priority: -1950
+    }
+  }
+  element {
     scale: 17
+    area {
+      color: 1643545
+      priority: -1950
+    }
     symbol {
       name: "power-m"
       priority: 230
@@ -71063,6 +71081,10 @@ cont {
   }
   element {
     scale: 18
+    area {
+      color: 1643545
+      priority: -1950
+    }
     symbol {
       name: "power-m"
       priority: 230
@@ -71079,6 +71101,10 @@ cont {
   }
   element {
     scale: 19
+    area {
+      color: 1643545
+      priority: -1950
+    }
     symbol {
       name: "power-m"
       priority: 230
@@ -71095,6 +71121,10 @@ cont {
   }
   element {
     scale: 20
+    area {
+      color: 1643545
+      priority: -1950
+    }
     symbol {
       name: "power-m"
       priority: 230
@@ -71113,7 +71143,65 @@ cont {
 cont {
   name: "power-substation"
   element {
+    scale: 15
+    area {
+      color: 1643545
+      priority: -1950
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 1643545
+      priority: -1950
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 1643545
+      priority: -1950
+    }
+    symbol {
+      name: "power-m"
+      priority: -9990
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 1643545
+      priority: -1950
+    }
+    symbol {
+      name: "power-m"
+      priority: -9990
+    }
+    caption {
+      primary {
+        height: 11
+        color: 9211020
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -10000
+    }
+  }
+  element {
     scale: 19
+    area {
+      color: 1643545
+      priority: -1950
+    }
     symbol {
       name: "power-m"
       priority: -9990
@@ -71130,6 +71218,10 @@ cont {
   }
   element {
     scale: 20
+    area {
+      color: 1643545
+      priority: -1950
+    }
     symbol {
       name: "power-m"
       priority: -9990

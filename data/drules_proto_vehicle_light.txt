@@ -42846,6 +42846,180 @@ cont {
   }
 }
 cont {
+  name: "power-station"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+}
+cont {
+  name: "power-substation"
+  element {
+    scale: 15
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 14802147
+      priority: -1960
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+      }
+      priority: 150
+    }
+  }
+}
+cont {
   name: "railway-abandoned"
   element {
     scale: 16

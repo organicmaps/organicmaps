@@ -141,8 +141,8 @@ landuse-industrial-mine                             # area z14- (also has icon z
 landuse-quarry                                      # area z14- (also has icon z15-, caption(optional) z15-)
 landuse-railway                                     # area z14- (also has caption z15-)
 landuse-religious                                   # area z15-
-power-station
-power-substation
+power-station                                       # area z15- (also has icon z17-, caption(optional) z17-)
+power-substation                                    # area z15- (also has icon z17-, caption(optional) z17-)
 === 50
 
 amenity-college                                     # area z15- (also has icon z16-, caption(optional) z16-)
