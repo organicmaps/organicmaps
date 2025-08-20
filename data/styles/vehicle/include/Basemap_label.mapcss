@@ -462,6 +462,8 @@ area|z15-[landuse=quarry],
 node|z15-[landuse=landfill],
 node|z15-[landuse=railway],
 node|z15-[landuse=quarry],
+node|z15-[power=station],
+node|z15-[power=substation],
 {text: name;font-size: 10;text-color: @city_label;text-position: center;}
 
 /* 	7.4 Cemetery */
