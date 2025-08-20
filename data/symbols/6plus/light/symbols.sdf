@@ -4,69 +4,69 @@
   <symbol maxX="182" maxY="110" minX="0" minY="0" name="route-arrow"/>
   <symbol maxX="282" maxY="100" minX="182" minY="0" name="compass-image"/>
   <symbol maxX="377" maxY="95" minX="282" minY="0" name="shield-us-i-wide-scaled"/>
-  <symbol maxX="458" maxY="95" minX="377" minY="0" name="shield-us-i-thin-scaled"/>
-  <symbol maxX="558" maxY="95" minX="458" minY="0" name="route-point-finish"/>
-  <symbol maxX="653" maxY="95" minX="558" minY="0" name="cross_geoposition"/>
-  <symbol maxX="743" maxY="90" minX="653" minY="0" name="search-result-zoo"/>
-  <symbol maxX="833" maxY="90" minX="743" minY="0" name="search-result-viewpoint"/>
-  <symbol maxX="923" maxY="90" minX="833" minY="0" name="search-result-theme-park"/>
-  <symbol maxX="1013" maxY="90" minX="923" minY="0" name="search-result-theatre"/>
-  <symbol maxX="1103" maxY="90" minX="1013" minY="0" name="search-result-swimming"/>
-  <symbol maxX="1193" maxY="90" minX="1103" minY="0" name="search-result-stadium"/>
-  <symbol maxX="1283" maxY="90" minX="1193" minY="0" name="search-result-shop-toys"/>
-  <symbol maxX="1373" maxY="90" minX="1283" minY="0" name="search-result-shop-supermarket"/>
-  <symbol maxX="1463" maxY="90" minX="1373" minY="0" name="search-result-shop-sports"/>
-  <symbol maxX="1553" maxY="90" minX="1463" minY="0" name="search-result-shop-shoes"/>
-  <symbol maxX="1643" maxY="90" minX="1553" minY="0" name="search-result-shop-seafood"/>
-  <symbol maxX="1733" maxY="90" minX="1643" minY="0" name="search-result-shop-jewelry"/>
-  <symbol maxX="1823" maxY="90" minX="1733" minY="0" name="search-result-shop-greengrocer"/>
-  <symbol maxX="1913" maxY="90" minX="1823" minY="0" name="search-result-shop-gift"/>
-  <symbol maxX="2003" maxY="90" minX="1913" minY="0" name="search-result-shop-department_store"/>
-  <symbol maxX="90" maxY="200" minX="0" minY="110" name="search-result-shop-convenience"/>
-  <symbol maxX="180" maxY="200" minX="90" minY="110" name="search-result-shop-confectionery"/>
-  <symbol maxX="270" maxY="200" minX="180" minY="110" name="search-result-shop-clothes"/>
-  <symbol maxX="360" maxY="200" minX="270" minY="110" name="search-result-shop-butcher"/>
-  <symbol maxX="450" maxY="200" minX="360" minY="110" name="search-result-shop-beauty"/>
-  <symbol maxX="540" maxY="200" minX="450" minY="110" name="search-result-shop-alcohol"/>
-  <symbol maxX="630" maxY="200" minX="540" minY="110" name="search-result-restaurant"/>
-  <symbol maxX="720" maxY="200" minX="630" minY="110" name="search-result-remains"/>
-  <symbol maxX="810" maxY="200" minX="720" minY="110" name="search-result-pub"/>
-  <symbol maxX="900" maxY="200" minX="810" minY="110" name="search-result-playground"/>
-  <symbol maxX="990" maxY="200" minX="900" minY="110" name="search-result-pitch"/>
-  <symbol maxX="1080" maxY="200" minX="990" minY="110" name="search-result-pharmacy"/>
-  <symbol maxX="1170" maxY="200" minX="1080" minY="110" name="search-result-nightclub"/>
-  <symbol maxX="1260" maxY="200" minX="1170" minY="110" name="search-result-museum"/>
-  <symbol maxX="1350" maxY="200" minX="1260" minY="110" name="search-result-marketplace"/>
-  <symbol maxX="1440" maxY="200" minX="1350" minY="110" name="search-result-lottery"/>
-  <symbol maxX="1530" maxY="200" minX="1440" minY="110" name="search-result-information"/>
-  <symbol maxX="1620" maxY="200" minX="1530" minY="110" name="search-result-hotel"/>
-  <symbol maxX="1710" maxY="200" minX="1620" minY="110" name="search-result-hostel"/>
-  <symbol maxX="1800" maxY="200" minX="1710" minY="110" name="search-result-hospital"/>
-  <symbol maxX="1890" maxY="200" minX="1800" minY="110" name="search-result-fuel"/>
-  <symbol maxX="1980" maxY="200" minX="1890" minY="110" name="search-result-fastfood"/>
-  <symbol maxX="90" maxY="290" minX="0" minY="200" name="search-result-drinking-water-no"/>
-  <symbol maxX="180" maxY="290" minX="90" minY="200" name="search-result-drinking-water"/>
-  <symbol maxX="270" maxY="290" minX="180" minY="200" name="search-result-clinic"/>
-  <symbol maxX="360" maxY="290" minX="270" minY="200" name="search-result-cinema"/>
-  <symbol maxX="450" maxY="290" minX="360" minY="200" name="search-result-charging_station"/>
-  <symbol maxX="540" maxY="290" minX="450" minY="200" name="search-result-chalet"/>
-  <symbol maxX="630" maxY="290" minX="540" minY="200" name="search-result-casino"/>
-  <symbol maxX="720" maxY="290" minX="630" minY="200" name="search-result-caravan-site"/>
-  <symbol maxX="810" maxY="290" minX="720" minY="200" name="search-result-campsite"/>
-  <symbol maxX="900" maxY="290" minX="810" minY="200" name="search-result-cafe"/>
-  <symbol maxX="990" maxY="290" minX="900" minY="200" name="search-result-bicycle_rental"/>
-  <symbol maxX="1080" maxY="290" minX="990" minY="200" name="search-result-bicycle_parking-covered"/>
-  <symbol maxX="1170" maxY="290" minX="1080" minY="200" name="search-result-bicycle_parking"/>
-  <symbol maxX="1260" maxY="290" minX="1170" minY="200" name="search-result-bar"/>
-  <symbol maxX="1350" maxY="290" minX="1260" minY="200" name="search-result-bank"/>
-  <symbol maxX="1440" maxY="290" minX="1350" minY="200" name="search-result-bakery"/>
-  <symbol maxX="1530" maxY="290" minX="1440" minY="200" name="search-result-attraction"/>
-  <symbol maxX="1620" maxY="290" minX="1530" minY="200" name="search-result-art"/>
-  <symbol maxX="1710" maxY="290" minX="1620" minY="200" name="search-result-archaeological-site"/>
-  <symbol maxX="1800" maxY="290" minX="1710" minY="200" name="search-result-apartment"/>
-  <symbol maxX="1895" maxY="290" minX="1800" minY="200" name="shield-us-hw-wide-scaled"/>
-  <symbol maxX="1976" maxY="286" minX="1895" minY="200" name="shield-us-hw-thin-scaled"/>
-  <symbol maxX="2042" maxY="283" minX="1976" minY="200" name="warning-unpaved_road"/>
+  <symbol maxX="457" maxY="95" minX="377" minY="0" name="shield-us-i-thin-scaled"/>
+  <symbol maxX="557" maxY="95" minX="457" minY="0" name="route-point-finish"/>
+  <symbol maxX="652" maxY="95" minX="557" minY="0" name="cross_geoposition"/>
+  <symbol maxX="747" maxY="90" minX="652" minY="0" name="shield-us-hw-wide-scaled"/>
+  <symbol maxX="837" maxY="90" minX="747" minY="0" name="search-result-zoo"/>
+  <symbol maxX="927" maxY="90" minX="837" minY="0" name="search-result-viewpoint"/>
+  <symbol maxX="1017" maxY="90" minX="927" minY="0" name="search-result-theme-park"/>
+  <symbol maxX="1107" maxY="90" minX="1017" minY="0" name="search-result-theatre"/>
+  <symbol maxX="1197" maxY="90" minX="1107" minY="0" name="search-result-swimming"/>
+  <symbol maxX="1287" maxY="90" minX="1197" minY="0" name="search-result-stadium"/>
+  <symbol maxX="1377" maxY="90" minX="1287" minY="0" name="search-result-shop-toys"/>
+  <symbol maxX="1467" maxY="90" minX="1377" minY="0" name="search-result-shop-supermarket"/>
+  <symbol maxX="1557" maxY="90" minX="1467" minY="0" name="search-result-shop-sports"/>
+  <symbol maxX="1647" maxY="90" minX="1557" minY="0" name="search-result-shop-shoes"/>
+  <symbol maxX="1737" maxY="90" minX="1647" minY="0" name="search-result-shop-seafood"/>
+  <symbol maxX="1827" maxY="90" minX="1737" minY="0" name="search-result-shop-jewelry"/>
+  <symbol maxX="1917" maxY="90" minX="1827" minY="0" name="search-result-shop-greengrocer"/>
+  <symbol maxX="2007" maxY="90" minX="1917" minY="0" name="search-result-shop-gift"/>
+  <symbol maxX="90" maxY="200" minX="0" minY="110" name="search-result-shop-department_store"/>
+  <symbol maxX="180" maxY="200" minX="90" minY="110" name="search-result-shop-convenience"/>
+  <symbol maxX="270" maxY="200" minX="180" minY="110" name="search-result-shop-confectionery"/>
+  <symbol maxX="360" maxY="200" minX="270" minY="110" name="search-result-shop-clothes"/>
+  <symbol maxX="450" maxY="200" minX="360" minY="110" name="search-result-shop-butcher"/>
+  <symbol maxX="540" maxY="200" minX="450" minY="110" name="search-result-shop-beauty"/>
+  <symbol maxX="630" maxY="200" minX="540" minY="110" name="search-result-shop-alcohol"/>
+  <symbol maxX="720" maxY="200" minX="630" minY="110" name="search-result-restaurant"/>
+  <symbol maxX="810" maxY="200" minX="720" minY="110" name="search-result-remains"/>
+  <symbol maxX="900" maxY="200" minX="810" minY="110" name="search-result-pub"/>
+  <symbol maxX="990" maxY="200" minX="900" minY="110" name="search-result-playground"/>
+  <symbol maxX="1080" maxY="200" minX="990" minY="110" name="search-result-pitch"/>
+  <symbol maxX="1170" maxY="200" minX="1080" minY="110" name="search-result-pharmacy"/>
+  <symbol maxX="1260" maxY="200" minX="1170" minY="110" name="search-result-nightclub"/>
+  <symbol maxX="1350" maxY="200" minX="1260" minY="110" name="search-result-museum"/>
+  <symbol maxX="1440" maxY="200" minX="1350" minY="110" name="search-result-marketplace"/>
+  <symbol maxX="1530" maxY="200" minX="1440" minY="110" name="search-result-lottery"/>
+  <symbol maxX="1620" maxY="200" minX="1530" minY="110" name="search-result-information"/>
+  <symbol maxX="1710" maxY="200" minX="1620" minY="110" name="search-result-hotel"/>
+  <symbol maxX="1800" maxY="200" minX="1710" minY="110" name="search-result-hostel"/>
+  <symbol maxX="1890" maxY="200" minX="1800" minY="110" name="search-result-hospital"/>
+  <symbol maxX="1980" maxY="200" minX="1890" minY="110" name="search-result-fuel"/>
+  <symbol maxX="90" maxY="290" minX="0" minY="200" name="search-result-fastfood"/>
+  <symbol maxX="180" maxY="290" minX="90" minY="200" name="search-result-drinking-water-no"/>
+  <symbol maxX="270" maxY="290" minX="180" minY="200" name="search-result-drinking-water"/>
+  <symbol maxX="360" maxY="290" minX="270" minY="200" name="search-result-clinic"/>
+  <symbol maxX="450" maxY="290" minX="360" minY="200" name="search-result-cinema"/>
+  <symbol maxX="540" maxY="290" minX="450" minY="200" name="search-result-charging_station"/>
+  <symbol maxX="630" maxY="290" minX="540" minY="200" name="search-result-chalet"/>
+  <symbol maxX="720" maxY="290" minX="630" minY="200" name="search-result-casino"/>
+  <symbol maxX="810" maxY="290" minX="720" minY="200" name="search-result-caravan-site"/>
+  <symbol maxX="900" maxY="290" minX="810" minY="200" name="search-result-campsite"/>
+  <symbol maxX="990" maxY="290" minX="900" minY="200" name="search-result-cafe"/>
+  <symbol maxX="1080" maxY="290" minX="990" minY="200" name="search-result-bicycle_rental"/>
+  <symbol maxX="1170" maxY="290" minX="1080" minY="200" name="search-result-bicycle_parking-covered"/>
+  <symbol maxX="1260" maxY="290" minX="1170" minY="200" name="search-result-bicycle_parking"/>
+  <symbol maxX="1350" maxY="290" minX="1260" minY="200" name="search-result-bar"/>
+  <symbol maxX="1440" maxY="290" minX="1350" minY="200" name="search-result-bank"/>
+  <symbol maxX="1530" maxY="290" minX="1440" minY="200" name="search-result-bakery"/>
+  <symbol maxX="1620" maxY="290" minX="1530" minY="200" name="search-result-attraction"/>
+  <symbol maxX="1710" maxY="290" minX="1620" minY="200" name="search-result-art"/>
+  <symbol maxX="1800" maxY="290" minX="1710" minY="200" name="search-result-archaeological-site"/>
+  <symbol maxX="1890" maxY="290" minX="1800" minY="200" name="search-result-apartment"/>
+  <symbol maxX="1970" maxY="285" minX="1890" minY="200" name="shield-us-hw-thin-scaled"/>
+  <symbol maxX="2036" maxY="283" minX="1970" minY="200" name="warning-unpaved_road"/>
   <symbol maxX="66" maxY="373" minX="0" minY="290" name="warning-paid_road"/>
   <symbol maxX="132" maxY="373" minX="66" minY="290" name="warning-ferry"/>
   <symbol maxX="213" maxY="371" minX="132" minY="290" name="track_marker_selected"/>
@@ -133,9 +133,9 @@
   <symbol maxX="1869" maxY="444" minX="1798" minY="373" name="route-point-start"/>
   <symbol maxX="1969" maxY="444" minX="1869" minY="373" name="coloredmark-default-l"/>
   <symbol maxX="100" maxY="520" minX="0" minY="449" name="coloredmark-bg-l"/>
-  <symbol maxX="166" maxY="511" minX="100" minY="449" name="shield-us-i-wide"/>
-  <symbol maxX="218" maxY="511" minX="166" minY="449" name="shield-us-i-thin"/>
-  <symbol maxX="279" maxY="510" minX="218" minY="449" name="speedcam-alert-l"/>
+  <symbol maxX="161" maxY="510" minX="100" minY="449" name="speedcam-alert-l"/>
+  <symbol maxX="227" maxY="510" minX="161" minY="449" name="shield-us-i-wide"/>
+  <symbol maxX="279" maxY="510" minX="227" minY="449" name="shield-us-i-thin"/>
   <symbol maxX="345" maxY="506" minX="279" minY="449" name="shield-us-hw-wide"/>
   <symbol maxX="402" maxY="506" minX="345" minY="449" name="shield-us-hw-thin"/>
   <symbol maxX="454" maxY="501" minX="402" minY="449" name="track_marker_deselected"/>
