@@ -229,8 +229,12 @@ line|z17[highway=path][_path_grade=expert],
 line|z18-[highway=path][_path_grade=expert],
 {width: 4; dashes: 3.5,11;}
 
-/* Don't display sidewalks and pedestrian crossings till z16. */
-line|z11-15[highway=footway][footway=sidewalk],
+/*
+Don't display sidewalks till z13 (like highway=service).
+"Rožňava" foot routes are very common with highway-footway-sidewalk
+*/
+line|z11-12[highway=footway][footway=sidewalk],
+/* Don't display pedestrian crossings till z16. */
 line|z11-15[highway=footway][footway=crossing],
 {width: 0;}
 
