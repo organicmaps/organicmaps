@@ -16,6 +16,7 @@ namespace df
 {
 using MarksIDGroups = std::map<kml::MarkGroupId, drape_ptr<IDCollections>>;
 
+/// Created and initialize in DrapeEngine::GenerateMarkRenderInfo only.
 struct UserMarkRenderParams
 {
   kml::MarkId m_markId = kml::kInvalidMarkId;
@@ -46,7 +47,6 @@ struct UserMarkRenderParams
   bool m_isMarkAboveText = false;
   float m_symbolOpacity = 1.0f;
   bool m_isSymbolSelectable = true;
-  bool m_isNonDisplaceable = false;
 };
 
 struct LineLayer

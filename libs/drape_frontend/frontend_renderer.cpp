@@ -1689,7 +1689,7 @@ void FrontendRenderer::RenderMwmBorderLayer(ScreenBase const & modelView)
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
 {
   TRACE_SECTION("[drape] RenderUserMarksLayer");
-  auto & renderGroups = m_layers[static_cast<size_t>(layerId)].m_renderGroups;
+  auto const & renderGroups = m_layers[static_cast<size_t>(layerId)].m_renderGroups;
   if (renderGroups.empty())
     return;
 
@@ -1697,7 +1697,7 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
   DEBUG_LABEL(m_context, "User Marks: " + DebugPrint(layerId));
   m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
-  for (drape_ptr<RenderGroup> & group : renderGroups)
+  for (drape_ptr<RenderGroup> const & group : renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
 }
 

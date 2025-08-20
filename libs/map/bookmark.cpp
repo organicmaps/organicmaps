@@ -131,6 +131,7 @@ df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
   if (p == settings::Placement::None)
     return df::DepthLayer::UserMarkLayer;
 
+  /// @see FrontendRenderer::RenderScene
   // Texts:
   // - UserMarkLayer, aren't visible at all
   // - RoutingMarkLayer, displaced by Feature's texts

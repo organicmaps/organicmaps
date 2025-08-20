@@ -121,7 +121,7 @@ public:
   void AddDynamicAttribute(BindingInfo const & binding, uint32_t offset, uint32_t count);
 
   OverlayID const & GetOverlayID() const { return m_id; }
-  uint64_t const & GetPriority() const { return m_priority; }
+  uint64_t GetPriority() const { return m_priority; }
 
   virtual bool IsBound() const { return false; }
   virtual bool HasLinearFeatureShape() const { return false; }
@@ -138,7 +138,7 @@ public:
   void SetReady(bool isReady) { m_isReady = isReady; }
   bool IsReady() const { return m_isReady; }
 
-  void SetDisplayFlag(bool display) { m_displayFlag = display; }
+  void SetDisplayFlag(bool /* display */) { /* m_displayFlag = display; */ }
   /// @todo displayFlag logic is effectively turned off now,
   /// remove all the associated code from drape later if its not needed anymore.
   // The displayFlag displacement logic supposedly should stabilize displacement
@@ -148,8 +148,9 @@ public:
   //  - minor POIs may displace major ones just because they were displayed previously;
   //  - testing priority changes and debugging displacement becomes very hard as map browsing history
   //    prevails over priorities, so displacement results are unpredictable.
-  bool GetDisplayFlag() const { return true; /* m_displayFlag; */ }
+  // bool GetDisplayFlag() const { return m_displayFlag; }
 
+  // Used in modelView.isPerspective() only, after GetDisplayFlag() == true.
   void SetSpecialLayerOverlay(bool isSpecialLayerOverlay) { m_isSpecialLayerOverlay = isSpecialLayerOverlay; }
   bool IsSpecialLayerOverlay() const { return m_isSpecialLayerOverlay; }
 
@@ -202,7 +203,7 @@ private:
 
   bool m_isReady : 1;
   bool m_isSpecialLayerOverlay : 1;
-  bool m_displayFlag : 1;
+  // bool m_displayFlag : 1;
 };
 
 class SquareHandle : public OverlayHandle
