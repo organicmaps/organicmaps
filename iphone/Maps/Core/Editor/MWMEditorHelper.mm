@@ -2,9 +2,15 @@
 #import <CoreApi/AppInfo.h>
 #import "MWMAuthorizationCommon.h"
 
+#include "editor/osm_auth.hpp"
 #include "editor/osm_editor.hpp"
 
 @implementation MWMEditorHelper
+
++ (BOOL)hasMapEditsOrNotesToUpload
+{
+  return osm::Editor::Instance().HaveMapEditsOrNotesToUpload();
+}
 
 + (void)uploadEdits:(void (^)(UIBackgroundFetchResult))completionHandler
 {

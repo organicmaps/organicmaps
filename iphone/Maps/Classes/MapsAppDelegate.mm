@@ -106,7 +106,57 @@ using namespace osm_auth_ios;
   [UIApplication.sharedApplication setMinimumBackgroundFetchInterval:minimumBackgroundFetchIntervalInSeconds];
   [self updateApplicationIconBadgeNumber];
   [TrackRecordingManager.shared setup];
+
+  if (@available(iOS 13.0, *))
+  {
+    [ScheduledBackgroundEditsUploadingTask registerWithCompletion:^(NSError * _Nullable error) {
+      if (error)
+        LOG(LERROR,
+            ("Failed to register background task for edits uploading: ", error.localizedDescription.UTF8String));
+    }];
+  }
 }
+
+- (void)runBackgroundTasks:(NSArray<BackgroundFetchTask *> * _Nonnull)tasks
+         completionHandler:(void (^_Nullable)(UIBackgroundFetchResult))completionHandler
+{
+  self.backgroundFetchScheduler = [[MWMBackgroundFetchScheduler alloc] initWithTasks:tasks
+                                                                   completionHandler:^(UIBackgroundFetchResult result) {
+                                                                     if (completionHandler)
+                                                                       completionHandler(result);
+                                                                   }];
+  [self.backgroundFetchScheduler run];
+}
+
+- (void)scheduleOSMEditsUploadingIfNeeded
+{
+  if (![MWMEditorHelper hasMapEditsOrNotesToUpload])
+  {
+    LOG(LINFO, ("No OSM edits or notes to upload, skipping background task scheduling."));
+    return;
+  }
+
+  if (@available(iOS 13.0, *))
+  {
+    [ScheduledBackgroundEditsUploadingTask scheduleWithCompletion:^(NSError * _Nullable error) {
+      if (error)
+      {
+        LOG(LWARNING, ("Failed to schedule BGTask for edits uploading:", error.localizedDescription.UTF8String));
+        [self runExtendedOSMEditsUploadingBackgroundTask];  // fallback to the old method
+      }
+    }];
+  }
+  else
+    [self runExtendedOSMEditsUploadingBackgroundTask];
+}
+
+- (void)runExtendedOSMEditsUploadingBackgroundTask
+{
+  auto tasks = @[[[MWMBackgroundEditsUpload alloc] init]];
+  [self runBackgroundTasks:tasks completionHandler:nil];
+}
+
+// MARK: - UIApplication Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -141,17 +191,6 @@ using namespace osm_auth_ios;
   completionHandler(YES);
 }
 
-- (void)runBackgroundTasks:(NSArray<BackgroundFetchTask *> * _Nonnull)tasks
-         completionHandler:(void (^_Nullable)(UIBackgroundFetchResult))completionHandler
-{
-  self.backgroundFetchScheduler = [[MWMBackgroundFetchScheduler alloc] initWithTasks:tasks
-                                                                   completionHandler:^(UIBackgroundFetchResult result) {
-                                                                     if (completionHandler)
-                                                                       completionHandler(result);
-                                                                   }];
-  [self.backgroundFetchScheduler run];
-}
-
 - (void)applicationWillTerminate:(UIApplication *)application
 {
   [self.mapViewController onTerminate];
@@ -171,8 +210,7 @@ using namespace osm_auth_ios;
     }];
   }
 
-  auto tasks = @[[[MWMBackgroundEditsUpload alloc] init]];
-  [self runBackgroundTasks:tasks completionHandler:nil];
+  [self scheduleOSMEditsUploadingIfNeeded];
 
   [MWMRouter saveRouteIfNeeded];
   LOG(LINFO, ("applicationDidEnterBackground - end"));

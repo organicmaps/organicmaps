@@ -19,9 +19,10 @@
   }
 
   fileprivate func finish(_ result: UIBackgroundFetchResult) {
-    guard backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid else { return }
-    UIApplication.shared.endBackgroundTask(UIBackgroundTaskIdentifier(rawValue: backgroundTaskIdentifier.rawValue))
-    backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+    if backgroundTaskIdentifier != UIBackgroundTaskIdentifier.invalid {
+      UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+      backgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
+    }
     completionHandler?(result)
   }
 }
@@ -29,6 +30,7 @@
 @objc(MWMBackgroundEditsUpload)
 final class BackgroundEditsUpload: BackgroundFetchTask {
   override fileprivate func fire() {
+    LOG(.info, "Run extended background task for edits uploading...")
     MWMEditorHelper.uploadEdits(self.finish)
   }
 
