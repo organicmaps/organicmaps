@@ -10,10 +10,9 @@
 
 namespace pinger
 {
-auto constexpr kTimeoutInSeconds = 4.0;
 int64_t constexpr kInvalidPing = -1;
 
-int64_t DoPing(std::string const & url)
+int64_t DoPing(std::string const & url, int64_t const timeoutInSeconds)
 {
   using namespace std::chrono;
 
@@ -25,7 +24,7 @@ int64_t DoPing(std::string const & url)
 
   platform::HttpClient request(url);
   request.SetHttpMethod("HEAD");
-  request.SetTimeout(kTimeoutInSeconds);
+  request.SetTimeout(timeoutInSeconds);
   auto const begin = high_resolution_clock::now();
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {
@@ -44,7 +43,7 @@ int64_t DoPing(std::string const & url)
 namespace storage
 {
 // static
-Pinger::Endpoints Pinger::ExcludeUnavailableAndSortEndpoints(Endpoints const & urls)
+Pinger::Endpoints Pinger::ExcludeUnavailableAndSortEndpoints(Endpoints const & urls, int64_t const timeoutInSeconds)
 {
   auto const size = urls.size();
   CHECK_GREATER(size, 0, ());
@@ -54,7 +53,8 @@ Pinger::Endpoints Pinger::ExcludeUnavailableAndSortEndpoints(Endpoints const & u
   {
     base::DelayedThreadPool pool(size, base::DelayedThreadPool::Exit::ExecPending);
     for (size_t i = 0; i < size; ++i)
-      pool.Push([&urls, &timeUrls, i] { timeUrls[i] = {pinger::DoPing(urls[i]), i}; });
+      pool.Push([&urls, &timeUrls, i, timeoutInSeconds]
+      { timeUrls[i] = {pinger::DoPing(urls[i], timeoutInSeconds), i}; });
   }
 
   std::sort(timeUrls.begin(), timeUrls.end(), [](EntryT const & e1, EntryT const & e2) { return e1.first < e2.first; });
