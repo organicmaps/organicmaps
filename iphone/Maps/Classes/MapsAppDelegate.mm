@@ -152,6 +152,11 @@ using namespace osm_auth_ios;
 
 - (void)runExtendedOSMEditsUploadingBackgroundTask
 {
+  if (![MWMEditorHelper isOSMServerReachable])
+  {
+    LOG(LINFO, ("OSM server is not reachable, skipping edits upload."));
+    return;
+  }
   auto tasks = @[[[MWMBackgroundEditsUpload alloc] init]];
   [self runBackgroundTasks:tasks completionHandler:nil];
 }
