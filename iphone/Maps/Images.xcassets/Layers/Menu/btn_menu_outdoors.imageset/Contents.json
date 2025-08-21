@@ -1,12 +1,25 @@
 {
   "images" : [
     {
-      "filename" : "ic_layer_outdoor_lake.svg",
+      "filename" : "btn_menu_outdoors_light.svg",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "btn_menu_outdoors_dark.svg",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "original"
   }
 }
