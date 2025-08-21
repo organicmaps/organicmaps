@@ -20,7 +20,8 @@
       android:background="@null"
       android:minWidth="@dimen/margin_double_plus"
       android:minHeight="@dimen/margin_double_plus"
-      tools:background="?attr/subwayMenuDisabled" />
+      android:src="@drawable/ic_layers_outline_selector"
+      tools:background="?attr/subwayMenuIcon" />
 
     <View
       android:id="@+id/marker"

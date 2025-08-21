@@ -88,18 +88,12 @@
     <item name="transitPedestrianBackground">@color/black_4</item>
     <item name="transitRulerBackground">@color/black_4</item>
     <item name="transitStepDivider">@drawable/dot_divider</item>
-    <item name="outdoorsMenuEnabled">@drawable/ic_layers_outdoors_active</item>
-    <item name="trafficMenuEnabled">@drawable/ic_layers_traffic_active</item>
-    <item name="subwayMenuEnabled">@drawable/ic_layers_subway_active</item>
-    <item name="isoLinesMenuEnabled">@drawable/ic_layers_isoline_active</item>
-    <item name="hikingMenuEnabled">@drawable/ic_layers_hiking_active</item>
-    <item name="cyclingMenuEnabled">@drawable/ic_layers_cycling_active</item>
-    <item name="outdoorsMenuDisabled">@drawable/ic_layers_outdoors_inactive</item>
-    <item name="trafficMenuDisabled">@drawable/ic_layers_traffic_inactive</item>
-    <item name="subwayMenuDisabled">@drawable/ic_layers_subway_inactive</item>
-    <item name="isoLinesMenuDisabled">@drawable/ic_layers_isoline_inactive</item>
-    <item name="hikingMenuDisabled">@drawable/ic_layers_hiking_inactive</item>
-    <item name="cyclingMenuDisabled">@drawable/ic_layers_cycling_inactive</item>
+    <item name="outdoorsMenuIcon">@drawable/ic_layers_outdoors_light</item>
+    <item name="isolinesMenuIcon">@drawable/ic_layers_isoline_light</item>
+    <item name="hikingMenuIcon">@drawable/ic_layers_hiking_light</item>
+    <item name="cyclingMenuIcon">@drawable/ic_layers_cycling_light</item>
+    <item name="subwayMenuIcon">@drawable/ic_layers_subway_light</item>
+    <item name="trafficMenuIcon">@drawable/ic_layers_traffic_inactive</item>
     <item name="accentColorSelector">@color/accent_color_selector</item>
     <item name="android:textAppearance">@style/TextAppearance</item>
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
@@ -260,5 +254,12 @@
 
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
     <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
+
+    <item name="outdoorsMenuIcon">@drawable/ic_layers_outdoors_dark</item>
+    <item name="isolinesMenuIcon">@drawable/ic_layers_isoline_dark</item>
+    <item name="hikingMenuIcon">@drawable/ic_layers_hiking_dark</item>
+    <item name="cyclingMenuIcon">@drawable/ic_layers_cycling_dark</item>
+    <item name="subwayMenuIcon">@drawable/ic_layers_subway_dark</item>
+    <item name="trafficMenuIcon">@drawable/ic_layers_traffic_inactive</item>
   </style>
 </resources>
