@@ -1,12 +1,25 @@
 {
   "images" : [
     {
-      "filename" : "btn_menu_hiking.png",
+      "filename" : "btn_menu_hiking_light.svg",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "btn_menu_hiking_dark.svg",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "original"
   }
 }
