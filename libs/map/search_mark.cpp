@@ -147,7 +147,7 @@ std::array<std::string, SearchMarkType::Count> const kSymbols = {
     "search-result-bicycle_parking-covered",  // BicycleParkingCovered.
     "search-result-bicycle_rental",           // BicycleRental.
 
-    "non-found-search-result",  // NotFound.
+    "search-result-non-found",  // NotFound.
 };
 
 std::string const & GetSymbol(SearchMarkType searchMarkType)

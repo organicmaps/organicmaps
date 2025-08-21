@@ -92,7 +92,7 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context, ref
                                        TTapHandler const & tapHandler) const
 {
   dp::TextureManager::SymbolRegion region;
-  tex->GetSymbolRegion("compass-image", region);
+  tex->GetSymbolRegion("compass", region);
   auto const halfSize = glsl::ToVec2(region.GetPixelSize() * 0.5f);
   auto const texRect = region.GetTexRect();
 
