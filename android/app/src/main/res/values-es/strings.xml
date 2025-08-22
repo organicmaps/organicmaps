@@ -799,7 +799,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Conceder permisos</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">Senderismo</string>
+    <string name="button_layer_outdoor">Al aire libre</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">El navegador web no está disponible</string>
     <string name="volume">Volumen</string>
@@ -864,4 +864,10 @@
     <string name="saved">Guardado</string>
     <string name="osm_note_toast">La nota se enviará a OpenStreetMap</string>
     <string name="osm_note_hint">O bien, deje una nota a la comunidad de OpenStreetMap para que otra persona pueda añadir o corregir un lugar.</string>
+    <string name="bookmarks_text_placement_title">Nombres de marcadores en el mapa</string>
+    <string name="bookmarks_text_placement_description">Si hay demasiados marcadores, mostrar sus nombres en el mapa puede ralentizar la aplicación.</string>
+    <string name="show_to_the_right">Mostrar a la derecha</string>
+    <string name="show_at_the_bottom">Mostrar en el fondo</string>
+    <string name="share_track">Compartir recorrido</string>
+    <string name="delete_track_dialog_title">¿Borrar %s?</string>
 </resources>

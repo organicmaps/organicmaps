@@ -5,8 +5,8 @@
     <string name="type.addr_interpolation.even">Cím/blokk</string>
     <string name="type.addr_interpolation.odd">Cím/blokk</string>
     <string name="type.aerialway.station">Felvonóállomás</string>
-    <string name="type.aeroway.aerodrome">Kis repülőtér</string>
-    <string name="type.aeroway.aerodrome.international">Repülőtér</string>
+    <string name="type.aeroway.aerodrome">Repülőtér</string>
+    <string name="type.aeroway.aerodrome.international">Nemzetközi repülőtér</string>
     <string name="type.aeroway.helipad">Helikopterleszálló</string>
     <string name="type.amenity">Létesítmény</string>
     <string name="type.amenity.arts_centre">Művészeti központ</string>

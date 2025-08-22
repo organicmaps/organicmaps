@@ -5,7 +5,7 @@
     <!-- Default bookmark list name -->
     <string name="core_my_places">Moje místa</string>
     <!-- Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi! -->
-    <string name="category_wifi">WiFi</string>
+    <string name="category_wifi">Wi-Fi</string>
     <string name="postal_code">PSČ</string>
     <!-- Place Page title for long tap -->
     <string name="core_placepage_unknown_place">Bod na mapě</string>

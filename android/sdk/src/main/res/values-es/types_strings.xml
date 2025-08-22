@@ -30,7 +30,7 @@
     <string name="type.amenity.bicycle_parking">Aparcamiento de bicicletas</string>
     <string name="type.amenity.bicycle_rental">Alquiler de bicicletas</string>
     <string name="type.amenity.bicycle_repair_station">Estación de reparación de bicicletas</string>
-    <string name="type.amenity.biergarten">Biergarten</string>
+    <string name="type.amenity.biergarten">Patio cervecero</string>
     <string name="type.amenity.brothel">Burdel</string>
     <string name="type.amenity.bureau_de_change">Casa de cambio</string>
     <string name="type.amenity.bus_station">Estación de autobuses</string>
@@ -328,14 +328,14 @@
     <string name="type.cuisine.pizza">Pizzas</string>
     <string name="type.cuisine.polish">Polaca</string>
     <string name="type.cuisine.portuguese">Portuguesa</string>
-    <string name="type.cuisine.ramen">Ramen</string>
+    <string name="type.cuisine.ramen">Ramen (sopa de fideos)</string>
     <string name="type.cuisine.regional">Cocina regional</string>
     <string name="type.cuisine.russian">Rusa</string>
     <string name="type.cuisine.sandwich">Sándwiches</string>
     <string name="type.cuisine.sausage">Salchichas</string>
     <string name="type.cuisine.savory_pancakes">Tortitas saladas</string>
     <string name="type.cuisine.seafood">Mariscos</string>
-    <string name="type.cuisine.soba">Soba</string>
+    <string name="type.cuisine.soba">Soba (fideos japoneses)</string>
     <string name="type.cuisine.spanish">Española</string>
     <string name="type.cuisine.steak_house">Asador</string>
     <string name="type.cuisine.sushi">Sushi</string>
@@ -1281,7 +1281,7 @@
     <string name="type.tourism.motel">Motel</string>
     <string name="type.tourism.museum">Museo</string>
     <string name="type.tourism.picnic_site">Zona de picnic</string>
-    <string name="type.leisure.resort">Resort</string>
+    <string name="type.leisure.resort">Complejo turístico</string>
     <string name="type.tourism.theme_park">Parque temático</string>
     <string name="type.tourism.viewpoint">Mirador</string>
     <!-- Typically more basic, not staffed and free (compared to alpine_hut). -->
@@ -1406,7 +1406,7 @@
     <string name="type.railway.station.subway.qingdao">Estación de metro</string>
     <string name="type.amenity.bicycle_parking.covered">Aparcamiento de bicicletas cubierto</string>
     <string name="type.amenity.ranger_station">Estación de guardabosques</string>
-    <string name="type.leisure.escape_game">Escape Room</string>
+    <string name="type.leisure.escape_game">Sala de escape</string>
     <string name="type.amenity.luggage_locker">Guardaequipaje</string>
     <string name="type.post_office.post_partner">Proveedor de servicios postales</string>
 </resources>

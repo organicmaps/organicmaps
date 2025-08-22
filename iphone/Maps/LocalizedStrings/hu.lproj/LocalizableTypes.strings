@@ -7,8 +7,8 @@
 "type.aerialway.gondola" = "Gondolakabinos felvonó";
 "type.aerialway.station" = "Felvonóállomás";
 "type.aeroway" = "Légi közlekedési infrastruktúra";
-"type.aeroway.aerodrome" = "Kis repülőtér";
-"type.aeroway.aerodrome.international" = "Repülőtér";
+"type.aeroway.aerodrome" = "Repülőtér";
+"type.aeroway.aerodrome.international" = "Nemzetközi repülőtér";
 "type.aeroway.apron" = "Forgalmi előtér";
 "type.aeroway.gate" = "Beszállókapu";
 "type.aeroway.helipad" = "Helikopterleszálló";

@@ -75,7 +75,7 @@
 "bookmarks_and_tracks" = "Signets et parcours";
 
 /* Default bookmark list name */
-"core_my_places" = "Mes endroits";
+"core_my_places" = "Mes lieux";
 
 /* Editor title above street and house number, duplicates [type.building.address] in types_strings.txt */
 "address" = "Adresse";
@@ -753,7 +753,7 @@
 "terms_of_use" = "Conditions d'utilisation";
 "button_layer_subway" = "Métro";
 "layers_title" = "Styles et couches de cartes";
-"subway_data_unavailable" = "La carte du métro n'est pas disponible";
+"subway_data_unavailable" = "Le plan du métro n'est pas disponible";
 "title_error_downloading_bookmarks" = "Une erreur est survenue";
 "popular_place" = "Populaire";
 "export_file" = "Exporter KMZ";
