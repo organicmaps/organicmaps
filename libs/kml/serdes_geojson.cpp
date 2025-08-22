@@ -1,15 +1,15 @@
 #include "kml/serdes_geojson.hpp"
 
-#include "coding/serdes_json.hpp"
+//#include "coding/serdes_json.hpp"
 
-#include "base/visitor.hpp"
+//#include "base/visitor.hpp"
 
-#include "coding/file_reader.hpp"
-#include "coding/file_writer.hpp"
+//#include "coding/file_reader.hpp"
+//#include "coding/file_writer.hpp"
 
 #include <map>
 #include <string>
-#include <unordered_set>
+//#include <unordered_set>
 
 namespace kml
 {
@@ -25,11 +25,11 @@ namespace geojson
 }*/
 
 bool GeoJsonFeature::isPoint() {
-    return this->m_geometry.m_type == "Point";
+    return this->geometry.type == "Point";
 }
 
 bool GeoJsonFeature::isLine() {
-    return this->m_geometry.m_type == "LineString";
+    return this->geometry.type == "LineString";
 }
 
 
@@ -51,18 +51,22 @@ void GeojsonParser::Parse(ReaderType const & reader)
 bool GeojsonParser::Parse(std::string_view & json_content) {
     geojson::GeoJsonData geoJsonData;
 
-    auto error = glz::read_jsonc(geoJsonData, json_content);
-    if (!error) {
-        //TODO!
+    constexpr glz::opts opts { .error_on_missing_keys = false };
+    auto ec = glz::read<opts>(geoJsonData, json_content);
+
+    if (ec) {
+        std::string err = glz::format_error(ec, json_content);
+        //std::cerr << "Parse error: " << err << "\n";
+        LOG(LWARNING, ("Error parsing JSON:", err));
         return false;
     }
 
     // Copy bookmarks from parsed geoJsonData into m_fileData.
-    for(auto feature : geoJsonData.m_features) {
+    for(auto feature : geoJsonData.features) {
         if (feature.isPoint())
         {
-            auto const point = feature.m_geometry.m_coordinates[0];
-            glz::json_t *props_json = &feature.m_properties;
+            auto const point = feature.geometry.coordinates[0];
+            glz::json_t *props_json = &feature.properties;
             BookmarkData bookmark;
 
             // Parse label
@@ -118,11 +122,11 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
     }
 
     // Copy tracks from parsed geoJsonData into m_fileData.
-    for(auto feature : geoJsonData.m_features) {
+    for(auto feature : geoJsonData.features) {
         if (feature.isLine())
         {
-            auto const points = feature.m_geometry.m_coordinates;
-            glz::json_t *props_json = &feature.m_properties;
+            auto const points = feature.geometry.coordinates;
+            glz::json_t *props_json = &feature.properties;
             TrackData track;
 
             // Parse label
