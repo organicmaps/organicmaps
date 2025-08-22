@@ -2,15 +2,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
   <style name="MwmTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
     <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
-    <item name="materialCalendarFullscreenTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen</item>
-    <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+    <item name="materialCalendarFullscreenTheme">@style/MwmWidget.MaterialCalendar.Theme.FullScreen.Dark</item>
+    <item name="materialCalendarTheme">@style/MwmWidget.MaterialCalendar.Theme.Dark</item>
     <item name="android:listViewStyle">@style/MwmWidget.ListView</item>
     <item name="android:textViewStyle">@style/MwmWidget.TextView</item>
     <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
 
-    <item name="android:textColorPrimary">@color/text_dark</item>
-    <item name="android:textColorPrimaryInverse">@color/text_light</item>
-    <item name="android:textColorSecondary">@color/text_dark_subtitle</item>
+    <item name="android:textColorPrimary">@color/text_light</item>
+    <item name="android:textColorPrimaryInverse">@color/text_dark</item>
+    <item name="android:textColorSecondary">@color/text_light_subtitle</item>
     <item name="android:windowBackground">?windowBackgroundForced</item>
     <item name="android:colorPrimaryDark">@color/bg_primary_dark</item>
     <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
@@ -19,30 +19,32 @@
     <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor">?colorPrimary</item>
+    <item name="android:windowTranslucentNavigation">false</item>
+
     <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="cardBackground">@color/bg_cards</item>
-    <item name="titleDialogTheme">@color/black_primary</item>
-    <item name="textDialogTheme">@color/black_secondary</item>
+    <item name="titleDialogTheme">@color/white_primary</item>
+    <item name="textDialogTheme">@color/white_secondary</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
     <item name="colorPrimary">@color/bg_primary</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent</item>
     <item name="colorAccentTransparent">@color/base_accent_transparent</item>
-    <item name="colorBtnHighlight">@color/white_38</item>
+    <item name="colorBtnHighlight">@color/white_24</item>
     <item name="panel">@color/bg_panel</item>
-    <item name="colorLogo">@color/bg_primary</item>
-    <item name="iconTint">@color/black_54</item>
-    <item name="iconTintDisabled">@color/black_12</item>
+    <item name="colorLogo">@color/white_primary</item>
+    <item name="iconTint">@color/white_secondary</item>
+    <item name="iconTintDisabled">@color/white_12</item>
     <item name="iconTintActive">@color/yellow</item>
     <item name="iconTintLight">@color/icon_tint_light</item>
 
-    <item name="secondary">@color/text_dark_hint</item>
+    <item name="secondary">@color/text_light_hint</item>
     <item name="dividerHorizontal">@color/divider</item>
 
     <item name="ppBackground">@color/bg_cards</item>
-    <item name="ppButtonsBackground">?panel</item>
-    <item name="ppFloatingMarkerIconColor">@color/black_54</item>
+    <item name="ppButtonsBackground">@color/bg_window</item>
+    <item name="ppFloatingMarkerIconColor">@color/white_54</item>
 
     <item name="navNextTurnFrame">@drawable/bg_nav_next_turn</item>
     <item name="navNextNextTurnFrame">@drawable/bg_nav_next_next_turn</item>
@@ -56,7 +58,7 @@
     <item name="buttonDialogTextColor">@color/base_accent</item>
 
     <item name="accentButtonBackground">@drawable/button_accent</item>
-    <item name="accentButtonTextColor">@color/button_text_accent</item>
+    <item name="accentButtonTextColor">@color/button_accent_text</item>
     <!-- TODO: remove accentButtonTextColorDisabled attribute and use everywhere
                accentButtonTextColor selector -->
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled</item>
@@ -82,18 +84,14 @@
 
     <item name="android:listDivider">@drawable/list_divider</item>
 
-    <item name="transitPedestrianBackground">@color/black_4</item>
-    <item name="transitRulerBackground">@color/black_4</item>
+    <item name="transitPedestrianBackground">@color/white_4</item>
+    <item name="transitRulerBackground">@color/white_4</item>
     <item name="transitStepDivider">@drawable/dot_divider</item>
     <item name="accentColorSelector">@color/accent_color_selector</item>
     <item name="android:textAppearance">@style/TextAppearance</item>
     <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
     <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
     <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
-    <item name="android:textAppearanceInverse">@style/TextAppearance.Inverse</item>
-    <item name="android:textAppearanceSmallInverse">@style/TextAppearance.Small.Inverse</item>
-    <item name="android:textAppearanceMediumInverse">@style/TextAppearance.Medium.Inverse</item>
-    <item name="android:textAppearanceLargeInverse">@style/TextAppearance.Large.Inverse</item>
     <item name="fontHeadline1">@style/TextAppearance.MdcTypographyStyles.Headline1</item>
     <item name="fontHeadline2">@style/TextAppearance.MdcTypographyStyles.Headline2</item>
     <item name="fontHeadline3">@style/TextAppearance.MdcTypographyStyles.Headline3</item>
@@ -107,11 +105,11 @@
     <item name="fontButton">@style/TextAppearance.MdcTypographyStyles.Button</item>
     <item name="fontCaption">@style/TextAppearance.MdcTypographyStyles.Caption</item>
     <item name="fontOverline">@style/TextAppearance.MdcTypographyStyles.Overline</item>
-    <item name="drivingOptionsViewBg">@color/light_green</item>
+    <item name="drivingOptionsViewBg">@color/driving_options_bg_black</item>
     <item name="elevationProfilePropertyBg">@drawable/bg_rounded_rect</item>
-    <item name="elevationProfilePropIconTint">@color/black_secondary</item>
+    <item name="elevationProfilePropIconTint">@color/white_secondary</item>
     <item name="altitudeBg">@drawable/bg_altitude</item>
-    <item name="elevationProfileAxisLabelColor">@color/black_54</item>
+    <item name="elevationProfileAxisLabelColor">@color/white_54</item>
     <item name="elevationProfileYourLocationPinBg">@drawable/bg_your_location_pin</item>
     <item name="elevationProfileSelectedPointBg">@drawable/bg_point_desc</item>
     <item name="elevationProfileSelectedPointTriangle">@drawable/ic_triangle</item>
@@ -119,9 +117,7 @@
     <item name="elevationProfileColor">@color/elevation_profile</item>
     <item name="android:popupMenuStyle">@style/PopupMenu</item>
 
-    <!-- Style used for bottom sheet behavior components -->
     <item name="bottomSheetStyle">@style/MwmWidget.BottomSheet</item>
-    <!-- Theme used for bottom sheet dialog components -->
     <item name="bottomSheetDialogTheme">@style/MwmTheme.BottomSheetDialog</item>
   </style>
 </resources>

@@ -468,19 +468,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  @StyleRes
-  protected int getThemeResourceId(@NonNull String theme)
-  {
-    if (Config.UiTheme.isDefault(theme))
-      return R.style.MwmTheme_MainActivity;
-
-    if (Config.UiTheme.isNight(theme))
-      return R.style.MwmTheme_Night_MainActivity;
-
-    return super.getThemeResourceId(theme);
-  }
-
-  @Override
   public void onDisplayChangedToCar(@NonNull Runnable onTaskFinishedCallback)
   {
     mRemoveDisplayListener = false;

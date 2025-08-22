@@ -18,23 +18,22 @@ import app.organicmaps.R;
 import app.organicmaps.car.SurfaceRenderer;
 import app.organicmaps.car.screens.base.BaseMapScreen;
 import app.organicmaps.car.screens.search.SearchOnMapScreen;
-import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.car.util.UiHelpers;
 import java.util.Arrays;
 import java.util.List;
 
 public class CategoriesScreen extends BaseMapScreen
 {
-  private record CategoryData(@StringRes int nameResId, @DrawableRes int iconResId, @DrawableRes int iconNightResId) {}
+  private record CategoryData(@StringRes int nameResId, @DrawableRes int iconResId) {}
 
-  private static final List<CategoryData> CATEGORIES = Arrays.asList(
-      new CategoryData(R.string.category_fuel, R.drawable.ic_category_fuel, R.drawable.ic_category_fuel_night),
-      new CategoryData(R.string.category_parking, R.drawable.ic_category_parking, R.drawable.ic_category_parking_night),
-      new CategoryData(R.string.category_eat, R.drawable.ic_category_eat, R.drawable.ic_category_eat_night),
-      new CategoryData(R.string.category_food, R.drawable.ic_category_food, R.drawable.ic_category_food_night),
-      new CategoryData(R.string.category_hotel, R.drawable.ic_category_hotel, R.drawable.ic_category_hotel_night),
-      new CategoryData(R.string.category_toilet, R.drawable.ic_category_toilet, R.drawable.ic_category_toilet_night),
-      new CategoryData(R.string.category_rv, R.drawable.ic_category_rv, R.drawable.ic_category_rv_night));
+  private static final List<CategoryData> CATEGORIES =
+      Arrays.asList(new CategoryData(R.string.category_fuel, R.drawable.ic_category_fuel),
+                    new CategoryData(R.string.category_parking, R.drawable.ic_category_parking),
+                    new CategoryData(R.string.category_eat, R.drawable.ic_category_eat),
+                    new CategoryData(R.string.category_food, R.drawable.ic_category_food),
+                    new CategoryData(R.string.category_hotel, R.drawable.ic_category_hotel),
+                    new CategoryData(R.string.category_toilet, R.drawable.ic_category_toilet),
+                    new CategoryData(R.string.category_rv, R.drawable.ic_category_rv));
 
   private final int MAX_CATEGORIES_SIZE;
 
@@ -67,7 +66,6 @@ public class CategoriesScreen extends BaseMapScreen
   @NonNull
   private GridTemplate createCategoriesListTemplate()
   {
-    final boolean isNightMode = ThemeUtils.isNightMode(getCarContext());
     final ItemList.Builder builder = new ItemList.Builder();
     final int categoriesSize = Math.min(CATEGORIES.size(), MAX_CATEGORIES_SIZE);
     for (int i = 0; i < categoriesSize; ++i)
@@ -75,7 +73,7 @@ public class CategoriesScreen extends BaseMapScreen
       final GridItem.Builder itemBuilder = new GridItem.Builder();
       final String title = getCarContext().getString(CATEGORIES.get(i).nameResId);
       @DrawableRes
-      final int iconResId = isNightMode ? CATEGORIES.get(i).iconNightResId : CATEGORIES.get(i).iconResId;
+      final int iconResId = CATEGORIES.get(i).iconResId;
 
       itemBuilder.setTitle(title);
       itemBuilder.setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), iconResId)).build());
