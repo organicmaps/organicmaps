@@ -1061,16 +1061,16 @@
 "track_recording_toast_nothing_to_save" = "Trasa jest pusta - nic do zapisania";
 "edit_track" = "Edytuj trasę";
 "saved" = "Zapisano";
-"button_layer_hiking" = "Hiking";
-"button_layer_cycling" = "Cycling";
+"button_layer_hiking" = "Turystyka piesza";
+"button_layer_cycling" = "Jazda rowerem";
 
 /* Settings/Bookmark Text Placement */
 "bookmarks_text_placement_title" = "Nazwy zakładek na mapie";
 "bookmarks_text_placement_description" = "Jeśli zakładek jest zbyt wiele, wyświetlanie ich nazw na mapie może spowolnić działanie aplikacji.";
 "show_to_the_right" = "Pokaż po prawej stronie";
-"right" = "Right";
+"right" = "Prawo";
 "show_at_the_bottom" = "Pokaż na środku";
-"bottom" = "Bottom";
+"bottom" = "Przycisk";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Aby wyświetlić trasy, należy zaktualizować mapy.";

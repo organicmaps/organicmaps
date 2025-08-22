@@ -1289,4 +1289,5 @@
     <string name="type.amenity.dojo">Dojo</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Urheiluhalli</string>
+    <string name="type.amenity.studio">Studio</string>
 </resources>
