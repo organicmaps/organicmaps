@@ -40,6 +40,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case flatNormalButtonBig = "FlatNormalButtonBig"
   case flatNormalTransButton = "FlatNormalTransButton"
   case flatNormalTransButtonBig = "FlatNormalTransButtonBig"
+  case flatNormalGrayButtonBig
   case flatGrayTransButton = "FlatGrayTransButton"
   case flatPrimaryTransButton = "FlatPrimaryTransButton"
   case flatRedTransButton = "FlatRedTransButton"
@@ -53,6 +54,7 @@ enum GlobalStyleSheet: String, CaseIterable {
   case badge = "Badge"
   case blue = "MWMBlue"
   case black = "MWMBlack"
+  case red
   case other = "MWMOther"
   case gray = "MWMGray"
   case separator = "MWMSeparator"
@@ -312,6 +314,19 @@ extension GlobalStyleSheet: IStyleSheet {
       return .addFrom(Self.flatNormalTransButton) { s in
         s.font = fonts.regular17
       }
+    case .flatNormalGrayButtonBig:
+      return .add { s in
+        s.font = fonts.medium15
+        s.cornerRadius = .buttonDefaultBig
+        s.clip = true
+        s.fontColor = colors.linkBlue
+        s.tintColor = colors.linkBlue
+        s.backgroundColor = colors.pressBackground
+        s.fontColorHighlighted = colors.linkBlueHighlighted
+        s.fontColorDisabled = colors.blackSecondaryText
+        s.tintColorDisabled = colors.blackSecondaryText
+        s.backgroundColorHighlighted = colors.blackDividers
+      }
     case .flatGrayTransButton:
       return .add { s in
         s.font = fonts.medium14
@@ -405,6 +420,11 @@ extension GlobalStyleSheet: IStyleSheet {
       return .add { s in
         s.tintColor = colors.blackSecondaryText
         s.coloring = MWMButtonColoring.black
+      }
+    case .red:
+      return .add { s in
+        s.tintColor = colors.red
+        s.coloring = MWMButtonColoring.red
       }
     case .other:
       return .add { s in

@@ -1,6 +1,12 @@
 import UIKit
 
 class BottomMenuItemCell: UITableViewCell {
+
+  private enum Constants {
+    static let badgeSpacing: CGFloat = 8
+    static let badgeBackgroundWidth: CGFloat = 32
+  }
+
   @IBOutlet private var label: UILabel!
   @IBOutlet private var badgeBackground: UIView!
   @IBOutlet private var badgeCountLabel: UILabel!
@@ -13,11 +19,15 @@ class BottomMenuItemCell: UITableViewCell {
       return icon
     }
   }
-  
+
   private(set) var isEnabled: Bool = true
 
-  func configure(imageName: String, title: String, badgeCount: UInt = .zero, enabled: Bool = true) {
-    icon.image = UIImage(named: imageName)
+  func configure(image: UIImage,
+                 title: String,
+                 badgeCount: UInt = .zero,
+                 imageStyle: GlobalStyleSheet = .black,
+                 enabled: Bool = true) {
+    icon.image = image
     label.text = title
     badgeBackground.isHidden = badgeCount == 0
     badgeCountLabel.text = "\(badgeCount)"
@@ -25,11 +35,11 @@ class BottomMenuItemCell: UITableViewCell {
       badgeSpacingConstraint.constant = 0
       badgeBackgroundWidthConstraint.constant = 0
     } else {
-      badgeSpacingConstraint.constant = 8
-      badgeBackgroundWidthConstraint.constant = 32
+      badgeSpacingConstraint.constant = Constants.badgeSpacing
+      badgeBackgroundWidthConstraint.constant = Constants.badgeBackgroundWidth
     }
     isEnabled = enabled
-    icon.setStyleAndApply(isEnabled ? .black : .gray)
+    icon.setStyleAndApply(isEnabled ? imageStyle : .gray)
     label.setFontStyleAndApply(isEnabled ? .blackPrimary : .blackHint)
   }
 }

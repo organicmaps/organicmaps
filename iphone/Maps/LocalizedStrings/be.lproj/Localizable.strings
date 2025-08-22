@@ -1077,4 +1077,11 @@
 "bottom" = "Знізу";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
-"routes_update_maps_text" = "Aднaвіце карты, каб убачыць маршруты.";
+"routes_update_maps_text" = "Aднaвіце карты, каб убачыць маршруты";
+
+/* OpenStreetMap contribution section on the PlacePage. */
+"contribute_to_osm" = "Унесці ўклад у OpenStreetMap";
+"contribute_to_osm_wrong_info" = "Няправільная інфармацыя?";
+"contribute_to_osm_add_place" = "Дадаць месца";
+"contribute_to_osm_update_map" = "Абнавіце карту, каб унесці ўклад";
+"contribute_to_osm_update_map_description" = "Каб унесці змены ў даныя OpenStreetMap, неабходна спачатку абнавіць карту %@ да апошняй версіі";

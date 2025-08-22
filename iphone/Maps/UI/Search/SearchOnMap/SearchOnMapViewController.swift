@@ -287,7 +287,7 @@ final class SearchOnMapViewController: UIViewController {
     let isCloseToTop = currentTop - maxTop < Constants.dimViewThreshold
     let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
     let shouldDim = isCloseToTop && isPortrait
-    UIView.animate(withDuration: kDefaultAnimationDuration / 2) {
+    UIView.animate(withDuration: kFastAnimationDuration) {
       dimView.alpha = shouldDim ? alpha : 0
       dimView.isHidden = !shouldDim
     }
@@ -331,7 +331,7 @@ final class SearchOnMapViewController: UIViewController {
                                  historyAndCategoryTabViewController.view,
                                  searchNoResultsView,
                                  searchingActivityView].filter { $0 != view }
-    UIView.animate(withDuration: kDefaultAnimationDuration / 2,
+    UIView.animate(withDuration: kFastAnimationDuration,
                    delay: 0,
                    options: .curveEaseInOut,
                    animations: {
