@@ -71,9 +71,6 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string c
     QDir dir(QString(svgDataDir.c_str()));
     QStringList fileNames = dir.entryList(QDir::Files);
 
-    QDir pngDir(dir.absolutePath() + "/png");
-    fileNames += pngDir.entryList(QDir::Files);
-
     // Separate page for symbols.
     m_pages.emplace_back(SkinPageInfo());
     SkinPageInfo & page = m_pages.back();
@@ -86,25 +83,15 @@ void SkinGenerator::ProcessSymbols(std::string const & svgDataDir, std::string c
     {
       QString const & fileName = fileNames.at(i);
       QString symbolID = fileName.left(fileName.lastIndexOf("."));
-      if (fileName.endsWith(".svg"))
+      QString fullFileName = QString(dir.absolutePath()) + "/" + fileName;
+      if (m_svgRenderer.load(fullFileName))
       {
-        QString fullFileName = QString(dir.absolutePath()) + "/" + fileName;
-        if (m_svgRenderer.load(fullFileName))
-        {
-          QSize svgSize = m_svgRenderer.defaultSize();  // Size of the SVG file
+        QSize svgSize = m_svgRenderer.defaultSize();  // Size of the SVG file
 
-          // Scale symbol to required size
-          QSize size = svgSize * (symbolSizes[j].width() / kMediumIconSize);
+        // Scale symbol to required size
+        QSize size = svgSize * (symbolSizes[j].width() / kMediumIconSize);
 
-          page.m_symbols.emplace_back(size + QSize(4, 4), fullFileName, symbolID);
-        }
-      }
-      else if (fileName.toLower().endsWith(".png"))
-      {
-        QString fullFileName = QString(pngDir.absolutePath()) + "/" + fileName;
-        QPixmap pix(fullFileName);
-        QSize s = pix.size();
-        page.m_symbols.emplace_back(s + QSize(4, 4), fullFileName, symbolID);
+        page.m_symbols.emplace_back(size + QSize(4, 4), fullFileName, symbolID);
       }
     }
   }
@@ -174,17 +161,8 @@ bool SkinGenerator::RenderPages(uint32_t maxSize)
       painter.setClipRect(dstRect.minX() + 2, dstRect.minY() + 2, dstRect.SizeX() - 4, dstRect.SizeY() - 4);
       QRect renderRect(dstRect.minX() + 2, dstRect.minY() + 2, dstRect.SizeX() - 4, dstRect.SizeY() - 4);
 
-      QString fullLowerCaseName = s.m_fullFileName.toLower();
-      if (fullLowerCaseName.endsWith(".svg"))
-      {
-        m_svgRenderer.load(s.m_fullFileName);
-        m_svgRenderer.render(&painter, renderRect);
-      }
-      else if (fullLowerCaseName.endsWith(".png"))
-      {
-        QPixmap pix(s.m_fullFileName);
-        painter.drawPixmap(renderRect, pix);
-      }
+      m_svgRenderer.load(s.m_fullFileName);
+      m_svgRenderer.render(&painter, renderRect);
     }
 
     std::string s = page.m_fileName + ".png";
