@@ -61,6 +61,18 @@
     <item name="android:windowTitleStyle">@style/MwmTheme.DialogTitleStyle.Light</item>
   </style>
 
+  <style name="MwmTheme.AlertDialog.Wide" parent="MwmTheme.AlertDialog">
+    <!-- Unless background is set to transparent, a weird underlay appears beneath select-all/copy/paste menu -->
+    <item name="android:background">#00000000</item>
+    <item name="android:windowMinWidthMinor">100%</item>
+  </style>
+
+  <style name="MwmTheme.Night.AlertDialog.Wide" parent="MwmTheme.Night.AlertDialog">
+    <!-- Unless background is set to transparent, a weird underlay appears beneath select-all/copy/paste menu -->
+    <item name="android:background">#00000000</item>
+    <item name="android:windowMinWidthMinor">100%</item>
+  </style>
+
   <style name="MwmTheme.DialogTitleBase">
     <item name="android:textSize">@dimen/text_size_alert_dialog_title</item>
     <item name="android:fontFamily">@string/robotoMedium</item>

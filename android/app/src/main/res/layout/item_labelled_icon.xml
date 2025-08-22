@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_base">
+
+  <ImageView
+      android:id="@+id/iv_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:src="@drawable/ic_nextcloud"
+      android:paddingHorizontal="@dimen/margin_half"
+      android:layout_gravity="center_vertical" />
+
+  <TextView
+      android:id="@+id/tv_label"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginStart="@dimen/margin_base"
+      android:layout_weight="1"
+      android:textColor="?android:attr/textColorPrimary"
+      tools:text="Nextcloud"
+      android:textSize="@dimen/text_size_button" />
+
+</LinearLayout>
