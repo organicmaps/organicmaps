@@ -179,3 +179,11 @@ private:
 
 
 }  // namespace kml
+
+template <>
+struct glz::meta<kml::geojson::GeoJsonGeometry>
+{
+    using T = kml::geojson::GeoJsonGeometry;
+    static constexpr auto value = object("type", custom<&T::m_type, &T::m_type>,
+                                         "coordinates", custom<&T::read_coordinates, &T::m_coordinates>);
+};
