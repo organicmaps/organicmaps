@@ -58,8 +58,6 @@ function BuildSkin() {
   rm -r "$PNG_PATH" || true
 }
 
-symbols_name=(6plus mdpi hdpi xhdpi xxhdpi xxxhdpi)
-
 # Cleanup
 rm -rf "$DATA_PATH"/symbols/*/*/symbols.*
 
@@ -78,6 +76,8 @@ BuildSkin default light xhdpi   36 light symbols
 BuildSkin default light 6plus   43 light symbols
 BuildSkin default light xxhdpi  54 light symbols
 BuildSkin default light xxxhdpi 64 light symbols
+
+symbols_name=(6plus mdpi hdpi xhdpi xxhdpi xxxhdpi)
 
 for i in ${symbols_name[*]}; do
   optipng -zc9 -zm8 -zs0 -f0 "$DATA_PATH"/symbols/"${i}"/light/symbols.png
