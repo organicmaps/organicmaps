@@ -190,6 +190,18 @@ public:
     (*this)(opt, name);
   }
 
+  void operator()(json_t const & val, char const * name = nullptr)
+  {
+    if (name != nullptr) {
+      json_t copy(val);
+      json_object_set_new(m_json.get(), name, &copy);
+    }
+    else if (json_is_array(m_json)) {
+      json_t copy(val);
+      json_array_append_new(m_json.get(), &copy);
+    }
+  }
+
 protected:
   template <typename Fn>
   void NewScopeWith(base::JSONPtr json_object, char const * name, Fn && fn)
@@ -349,33 +361,10 @@ public:
     RestoreContext(outerContext);
   }
 
-  void operator()(std::map<std::string, std::string> & dst, char const * name = nullptr)
+  void operator()(json_t & dst, char const * name = nullptr)
   {
       json_t * outerContext = SaveContext(name);
-
-      if (!json_is_object(m_json))
-      {
-          MYTHROW(base::Json::Exception,
-                  ("The field", name, "must contain a json object.", json_dumps(m_json, 0)));
-      }
-
-      void* iter = json_object_iter(m_json);
-      while (iter) {
-          const char *key;
-          json_t *value;
-
-          key = json_object_iter_key(iter);
-          value = json_object_iter_value(iter);
-          if (json_is_string(value)) {
-              dst[key] = json_string_value(value);
-          }
-          else {
-              MYTHROW(base::Json::Exception,
-                      ("Value for key", key, "must be a string.", json_dumps(value, 0)));
-          }
-
-          iter = json_object_iter_next(m_json, iter);
-      }
+      dst = *json_deep_copy(m_json);
       RestoreContext(outerContext);
   }
 

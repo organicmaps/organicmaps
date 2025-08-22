@@ -3,9 +3,7 @@
 #include "kml/types.hpp"
 #include "kml/color_parser.hpp"
 
-#include "coding/writer.hpp"
-#include "coding/reader.hpp"
-#include "coding/serdes_json.hpp"
+#include "glaze/json.hpp"
 
 #include "base/exception.hpp"
 #include "geometry/mercator.hpp"
@@ -21,7 +19,7 @@ struct GeoJsonGeometry {
   std::string m_type;
   std::vector<m2::PointD> m_coordinates;
 
-  template <typename Visitor>
+  /*template <typename Visitor>
   void Visit(Visitor & visitor)
   {
     visitor(m_type, "type");
@@ -48,14 +46,14 @@ struct GeoJsonGeometry {
     else {
       throw RootException("Unknown GeoJson geometry type", m_type);
     }
-  }
+  }*/
 
-  template <typename Visitor>
+  /*template <typename Visitor>
   void Visit(Visitor & visitor) const
   {
     visitor(m_type, "type");
     visitor(m_coordinates, "coordinates");
-  }
+  }*/
 
   bool operator==(GeoJsonGeometry const & data) const
   {
@@ -70,22 +68,23 @@ struct GeoJsonGeometry {
 
   friend std::string DebugPrint(GeoJsonGeometry const & c)
   {
-    DebugPrintVisitor visitor("GeoJsonGeometry");
-    c.Visit(visitor);
-    return visitor.ToString();
+    //DebugPrintVisitor visitor("GeoJsonGeometry");
+    //c.Visit(visitor);
+    //return visitor.ToString();
+    return "GeoJsonGeometry [" + c.m_type + "]";
   }
 };
 
 struct GeoJsonFeature
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(GeoJsonFeature,
-                                  visitor(m_type, "type"),
-                                  visitor(m_geometry, "geometry"),
-                                  visitor(m_properties, std::map<std::string, std::string>(), "properties"))
+  /*DECLARE_VISITOR(visitor(m_type, "type"),
+                  visitor(m_geometry, "geometry"),
+                  visitor(m_properties, *json_object(), "properties"))
+  */
 
   bool operator==(GeoJsonFeature const & data) const
   {
-    return m_type == data.m_type && m_properties == data.m_properties;
+    return m_type == data.m_type; //&& m_properties == data.m_properties;
   }
 
   bool operator!=(GeoJsonFeature const & data) const
@@ -95,13 +94,21 @@ struct GeoJsonFeature
 
   std::string m_type = "Feature";
   GeoJsonGeometry m_geometry;
-  std::map<std::string, std::string> m_properties;
+  glz::json_t m_properties;
 
   // Returns 'true' if geometry type is 'Point'.
   bool isPoint();
 
   // Returns 'true' if geometry type is 'LineString'.
   bool isLine();
+
+  friend std::string DebugPrint(GeoJsonFeature const & c)
+  {
+      std::ostringstream out;
+      out << "[type = " << c.m_type << ", geometry = " << DebugPrint(c.m_geometry)
+          << ", properties = " /*<< json_dumps(&c.m_properties, JSON_COMPACT)*/ << "]";
+      return out.str();
+  }
 };
 
 
@@ -132,7 +139,7 @@ struct GeoJsonData
 class GeojsonWriter
 {
 public:
-  DECLARE_EXCEPTION(WriteGeojsonException, RootException);
+  /*DECLARE_EXCEPTION(WriteGeojsonException, RootException);
 
   explicit GeojsonWriter(Writer & writer)
     : m_writer(writer)
@@ -141,7 +148,7 @@ public:
   void Write(FileData const & fileData);
 
 private:
-  Writer & m_writer;
+  Writer & m_writer;*/
 };
 
 class GeojsonParser
@@ -149,93 +156,7 @@ class GeojsonParser
 public:
   explicit GeojsonParser(FileData & data): m_fileData(data) {};
 
-  template <typename ReaderType>
-  bool Parse(ReaderType const & reader)
-  {
-    geojson::GeoJsonData geoJsonData;
-    NonOwningReaderSource source(reader);
-    coding::DeserializerJson des(source);
-    des(geoJsonData);
-
-    // Copy bookmarks from parsed geoJsonData into m_fileData.
-    for(auto feature : geoJsonData.m_features) {
-        if (feature.isPoint())
-        {
-            auto const point = feature.m_geometry.m_coordinates[0];
-            BookmarkData bookmark;
-            // Parse label
-            if (feature.m_properties.contains("name")) {
-                auto name = kml::LocalizableString();
-                kml::SetDefaultStr(name, feature.m_properties["name"]);
-                bookmark.m_name = name;
-            }
-            else if (feature.m_properties.contains("label")) {
-                auto name = kml::LocalizableString();
-                kml::SetDefaultStr(name, feature.m_properties["label"]);
-                bookmark.m_name = name;
-            }
-
-            // Parse description
-            if (feature.m_properties.contains("description")) {
-                auto descr = kml::LocalizableString();
-                kml::SetDefaultStr(descr, feature.m_properties["description"]);
-                bookmark.m_description = descr;
-            }
-
-            // Parse color
-            if (feature.m_properties.contains("marker-color")) {
-                auto const markerColor = feature.m_properties["marker-color"];
-                auto colorRGBA = ParseColor(markerColor);
-                if (colorRGBA) {
-                    bookmark.m_color = ColorData{.m_rgba = *colorRGBA};
-                }
-            }
-
-            // Parse icon
-            //if (feature.m_properties.contains("marker-symbol")) {
-                //auto const markerSymbol = feature.m_properties["marker-symbol"];
-                //bookmark.m_icon = TODO;
-            //}
-
-            bookmark.m_point = point;
-            m_fileData.m_bookmarksData.push_back(bookmark);
-        }
-    }
-
-    // Copy tracks from parsed geoJsonData into m_fileData.
-    for(auto feature : geoJsonData.m_features) {
-        if (feature.isLine())
-        {
-            auto const points = feature.m_geometry.m_coordinates;
-            TrackData track;
-            // Parse label
-            if (feature.m_properties.contains("name")) {
-                auto name = kml::LocalizableString();
-                kml::SetDefaultStr(name, feature.m_properties["name"]);
-                track.m_name = name;
-            }
-            else if (feature.m_properties.contains("label")) {
-                auto name = kml::LocalizableString();
-                kml::SetDefaultStr(name, feature.m_properties["label"]);
-                track.m_name = name;
-            }
-
-            // Parse color
-            if (feature.m_properties.contains("stroke")) {
-                auto const markerColor = feature.m_properties["stroke"];
-                auto colorRGBA = ParseColor(markerColor);
-                if (colorRGBA) {
-                    track.m_layers.push_back(TrackLayer{.m_color = ColorData{.m_rgba = *colorRGBA}});
-                }
-            }
-
-            track.m_geometry.AddLine(points);
-            m_fileData.m_tracksData.push_back(track);
-        }
-    }
-
-    return true;
-  }
+  bool Parse(std::string_view & json_content);
 
 private:
   FileData & m_fileData;
@@ -250,22 +171,7 @@ public:
 
     explicit DeserializerGeoJson(FileData & fileData): m_fileData(fileData) {};
 
-    template <typename ReaderType>
-    void Deserialize(ReaderType const & reader)
-    {
-        NonOwningReaderSource src(reader);
-
-        geojson::GeojsonParser parser(m_fileData);
-        if (!parser.Parse(reader))
-        {
-            // Print corrupted GeoJson file for debug and restore purposes.
-            std::string jsonText;
-            reader.ReadAsString(jsonText);
-            if (!jsonText.empty() && jsonText[0] == '{')
-                LOG(LWARNING, (jsonText));
-            MYTHROW(DeserializeException, ("Could not parse GeoJson."));
-        }
-    }
+    void Deserialize(std::string_view & content);
 
 private:
     FileData & m_fileData;

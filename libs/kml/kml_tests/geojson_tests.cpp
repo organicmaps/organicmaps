@@ -22,7 +22,7 @@ static kml::FileData LoadGeojsonFromString2(std::string_view content)
   {
     kml::FileData dataFromText;
     kml::DeserializerGeoJson des(dataFromText);
-    des.Deserialize(MemReader(content));
+    des.Deserialize(content);
     return dataFromText;
   }, ());
 }
