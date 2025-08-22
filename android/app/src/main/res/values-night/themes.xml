@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="MwmTheme.DialogFragment.Fullscreen" parent="Theme.AppCompat.DayNight">
+    <item name="colorControlNormal">@color/text_dark_hint</item>
+    <item name="android:textColorHint">@color/text_light_hint</item>
+  </style>
+
+  <style name="MwmTheme.Navigation">
+    <item name="iconTint">@color/black_primary</item>
+  </style>
+</resources>

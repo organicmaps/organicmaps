@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:color="@color/button_accent_normal_night"
-        android:state_enabled="true"/>
-
-  <item android:color="@color/button_accent_disabled_night"/>
-</selector>
