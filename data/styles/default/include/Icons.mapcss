@@ -955,6 +955,8 @@ node|z16-[amenity=events_venue],
 area|z16-[amenity=events_venue],
 node|z16-[amenity=exhibition_centre],
 area|z16-[amenity=exhibition_centre],
+node|z16-[amenity=library],
+area|z16-[amenity=library],
 node|z16-[emergency=mountain_rescue],
 node|z17-[amenity=pharmacy],
 area|z17-[amenity=pharmacy],
@@ -1068,8 +1070,6 @@ node|z18-[amenity=bureau_de_change],
 area|z18-[amenity=bureau_de_change],
 node|z18-[amenity=money_transfer],
 area|z18-[amenity=money_transfer],
-node|z18-[amenity=library],
-area|z18-[amenity=library],
 node|z18-[amenity=waste_disposal],
 area|z18-[amenity=waste_disposal],
 node|z18-[amenity=hunting_stand],
@@ -1837,8 +1837,9 @@ node|z18-[amenity=bench]
 node|z18-[amenity=waste_basket]
 {icon-image: waste-basket-s.svg;}
 
-node|z18-[amenity=library]
+node|z16-[amenity=library]
 {icon-image: library-m.svg;font-size: 11;}
+
 node|z18-[amenity=waste_disposal],
 area|z18-[amenity=waste_disposal]
 {icon-image: waste-basket-m.svg;font-size: 11;}

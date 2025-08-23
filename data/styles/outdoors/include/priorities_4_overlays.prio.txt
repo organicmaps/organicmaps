@@ -755,7 +755,7 @@ tourism-hotel                                       # icon z16- (also has captio
 
 amenity-arts_centre                                 # icon z17- (also has caption(optional) z17-)
 amenity-bank                                        # icon z16- (also has caption(optional) z16-)
-amenity-library                                     # icon z18- (also has caption(optional) z18-)
+amenity-library                                     # icon z16- (also has caption(optional) z16-)
 amenity-marketplace                                 # icon z16- (also has caption(optional) z16-, area z16-)
 amenity-pharmacy                                    # icon z16- (also has caption(optional) z17-)
 shop-convenience                                    # icon z16- (also has caption(optional) z16-)
@@ -1734,7 +1734,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 
 # amenity-arts_centre                               # caption(optional) z17- (also has icon z17-)
 # amenity-bank                                      # caption(optional) z16- (also has icon z16-)
-# amenity-library                                   # caption(optional) z18- (also has icon z18-)
+# amenity-library                                   # caption(optional) z16- (also has icon z16-)
 # amenity-marketplace                               # caption(optional) z16- (also has icon z16-, area z16-)
 # amenity-pharmacy                                  # caption(optional) z17- (also has icon z16-)
 # shop-convenience                                  # caption(optional) z16- (also has icon z16-)
