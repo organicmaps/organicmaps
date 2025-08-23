@@ -7287,6 +7287,38 @@ cont {
 cont {
   name: "amenity-library"
   element {
+    scale: 16
+    symbol {
+      name: "library-m"
+      priority: 2700
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7300
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "library-m"
+      priority: 2700
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -7300
+    }
+  }
+  element {
     scale: 18
     symbol {
       name: "library-m"
