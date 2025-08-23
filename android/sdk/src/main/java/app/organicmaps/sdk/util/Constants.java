@@ -31,6 +31,8 @@ public final class Constants
 
     public static final String OSM_REGISTER = "https://www.openstreetmap.org/user/new";
     public static final String OSM_RECOVER_PASSWORD = "https://www.openstreetmap.org/user/forgot-password";
+    public static final String OSM_LOGIN = "https://www.openstreetmap.org/login";
+
 
     private Url() {}
   }

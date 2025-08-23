@@ -48,6 +48,7 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.login);
+
     mLoginInput = view.findViewById(R.id.osm_username);
     mPasswordInput = view.findViewById(R.id.osm_password);
     mLoginButton = view.findViewById(R.id.login);
@@ -55,13 +56,12 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     Button registerButton = view.findViewById(R.id.register);
     registerButton.setOnClickListener((v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_REGISTER));
     mProgress = view.findViewById(R.id.osm_login_progress);
-    final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
 
     if (BuildConfig.FLAVOR.equals("google") && Utils.isBrowserAvailable(requireContext()))
     {
-      // Hide login and password inputs and Forgot password button
-      UiUtils.hide(view.findViewById(R.id.osm_username_container), view.findViewById(R.id.osm_password_container),
-                   mLostPasswordButton);
+      UiUtils.hide(view.findViewById(R.id.osm_username_container),
+              view.findViewById(R.id.osm_password_container),
+              mLostPasswordButton);
 
       mLoginButton.setOnClickListener((v) -> loginWithBrowser());
     }
@@ -69,8 +69,18 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     {
       mLoginButton.setOnClickListener((v) -> login());
       mLostPasswordButton.setOnClickListener(
-          (v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_RECOVER_PASSWORD));
+              (v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_RECOVER_PASSWORD));
     }
+
+    // Add 3rd-party login icon handlers
+    View googleBtn = view.findViewById(R.id.login_google);
+    View appleBtn = view.findViewById(R.id.login_apple);
+    View fbBtn = view.findViewById(R.id.login_facebook);
+
+    // handling the OnClick Event
+    if (googleBtn != null) googleBtn.setOnClickListener(v -> loginWithBrowser());
+    if (appleBtn != null) appleBtn.setOnClickListener(v -> loginWithBrowser());
+    if (fbBtn != null) fbBtn.setOnClickListener(v -> loginWithBrowser());
 
     String code = readOAuth2CodeFromArguments();
     if (code != null && !code.isEmpty())
@@ -79,7 +89,6 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     ScrollView scrollView = view.findViewById(R.id.scrollView);
     ViewCompat.setOnApplyWindowInsetsListener(scrollView, new ScrollableContentInsetsListener(scrollView));
   }
-
   private String readOAuth2CodeFromArguments()
   {
     final Bundle arguments = getArguments();
@@ -105,10 +114,18 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     });
   }
 
+  //Login via Browser
   private void loginWithBrowser()
   {
-    Utils.openUri(requireContext(), Uri.parse(OsmOAuth.nativeGetOAuth2Url()), R.string.browser_not_available);
+    final String authorizeUrl = OsmOAuth.nativeGetOAuth2Url();
+    final Uri loginUri = Uri.parse(Constants.Url.OSM_LOGIN)
+            .buildUpon()
+            .appendQueryParameter("referer", authorizeUrl)
+            .build();
+
+    Utils.openUri(requireContext(), loginUri, R.string.browser_not_available);
   }
+
 
   private void enableInput(boolean enable)
   {
