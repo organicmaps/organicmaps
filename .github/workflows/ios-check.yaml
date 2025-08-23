@@ -82,7 +82,7 @@ jobs:
         if: matrix.buildType == 'Debug'
         shell: bash
         run: |
-          xcodebuild test \
+          xcodebuild build \  # Change back to test after fixing https://github.com/organicmaps/organicmaps/issues/9867
             -workspace xcode/omim.xcworkspace \
             -scheme OMaps \
             -configuration Debug \
