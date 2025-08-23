@@ -47,15 +47,16 @@
     android:minWidth="@dimen/search_progress_size"/>
 
   <ImageView
-    android:id="@+id/clear"
-    android:layout_width="?actionBarSize"
-    android:layout_height="?actionBarSize"
-    android:layout_gravity="center_vertical"
-    android:layout_weight="0"
-    android:background="?attr/selectableItemBackgroundBorderless"
-    android:contentDescription="@string/clear_the_search"
-    android:scaleType="center"
-    app:srcCompat="@drawable/ic_cancel"/>
+      android:id="@+id/clear"
+      android:layout_width="?actionBarSize"
+      android:layout_height="?actionBarSize"
+      android:layout_gravity="center_vertical"
+      android:layout_weight="0"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:contentDescription="@string/clear_the_search"
+      android:scaleType="center"
+      app:srcCompat="@drawable/ic_cancel"
+      android:layout_marginEnd="15dp"/>
 
   <ImageView
     android:id="@+id/voice_input"
