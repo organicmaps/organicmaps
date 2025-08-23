@@ -50,6 +50,9 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ matrix.buildType }}-${{ github.event.pull_request.number || github.ref }}
       cancel-in-progress: true
+    permissions:
+      contents: read
+      actions: write  # To delete unnecessary cache.
 
     steps:
       - name: Checkout sources
@@ -82,7 +85,8 @@ jobs:
         if: matrix.buildType == 'Debug'
         shell: bash
         run: |
-          xcodebuild test \
+          # Change back "build" to "test" after fixing https://github.com/organicmaps/organicmaps/issues/9867
+          xcodebuild build \
             -workspace xcode/omim.xcworkspace \
             -scheme OMaps \
             -configuration Debug \
