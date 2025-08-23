@@ -16,8 +16,11 @@ namespace geojson
 // Data structures
 
 struct GeoJsonGeometry {
-  std::string m_type;
-  std::vector<m2::PointD> m_coordinates;
+  using Coordinates = std::variant<std::vector<double>,
+                                   std::vector<std::vector<double>>>;
+
+  std::string type;
+  Coordinates coordinates;
 
   /*template <typename Visitor>
   void Visit(Visitor & visitor)
@@ -48,6 +51,18 @@ struct GeoJsonGeometry {
     }
   }*/
 
+  /*
+  void read_coordinates(const glz::json_t& json) {
+    if(json.is_array()) {
+          if (type == "Point") {
+            if (json.get_array().size() != 2) {
+                  LOG(LERROR, ("coordinates array has invalid size", json.get_array().size()));
+            }
+          }
+    }
+    //TODO
+  }*/
+
   /*template <typename Visitor>
   void Visit(Visitor & visitor) const
   {
@@ -57,7 +72,7 @@ struct GeoJsonGeometry {
 
   bool operator==(GeoJsonGeometry const & data) const
   {
-      return m_type == data.m_type && m_coordinates == data.m_coordinates;
+      return type == data.type && coordinates == data.coordinates;
   }
 
   bool operator!=(GeoJsonGeometry const & data) const
@@ -71,7 +86,7 @@ struct GeoJsonGeometry {
     //DebugPrintVisitor visitor("GeoJsonGeometry");
     //c.Visit(visitor);
     //return visitor.ToString();
-    return "GeoJsonGeometry [" + c.m_type + "]";
+    return "GeoJsonGeometry [" + c.type + "]";
   }
 };
 
@@ -84,7 +99,7 @@ struct GeoJsonFeature
 
   bool operator==(GeoJsonFeature const & data) const
   {
-    return m_type == data.m_type; //&& m_properties == data.m_properties;
+    return type == data.type; //&& m_properties == data.m_properties;
   }
 
   bool operator!=(GeoJsonFeature const & data) const
@@ -92,9 +107,9 @@ struct GeoJsonFeature
     return !operator==(data);
   }
 
-  std::string m_type = "Feature";
-  GeoJsonGeometry m_geometry;
-  glz::json_t m_properties;
+  std::string type = "Feature";
+  GeoJsonGeometry geometry;
+  glz::json_t properties;
 
   // Returns 'true' if geometry type is 'Point'.
   bool isPoint();
@@ -105,7 +120,7 @@ struct GeoJsonFeature
   friend std::string DebugPrint(GeoJsonFeature const & c)
   {
       std::ostringstream out;
-      out << "[type = " << c.m_type << ", geometry = " << DebugPrint(c.m_geometry)
+      out << "[type = " << c.type << ", geometry = " << DebugPrint(c.geometry)
           << ", properties = " /*<< json_dumps(&c.m_properties, JSON_COMPACT)*/ << "]";
       return out.str();
   }
@@ -114,14 +129,14 @@ struct GeoJsonFeature
 
 struct GeoJsonData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(GeoJsonData,
+  /*DECLARE_VISITOR_AND_DEBUG_PRINT(GeoJsonData,
                                   visitor(m_type, "type"),
                                   visitor(m_features, "features"),
-                                  visitor(m_properties, std::map<std::string, std::string>(), "properties"))
+                                  visitor(m_properties, std::map<std::string, std::string>(), "properties"))*/
 
   bool operator==(GeoJsonData const & data) const
   {
-    return m_type == data.m_type && m_features == data.m_features && m_properties == data.m_properties;
+    return type == data.type && features == data.features && properties == data.properties;
   }
 
   bool operator!=(GeoJsonData const & data) const
@@ -129,9 +144,9 @@ struct GeoJsonData
     return !operator==(data);
   }
 
-  std::string m_type = "FeatureCollection";
-  std::vector<GeoJsonFeature> m_features;
-  std::map<std::string, std::string> m_properties;
+  std::string type = "FeatureCollection";
+  std::vector<GeoJsonFeature> features;
+  std::map<std::string, std::string> properties;
 };
 
 
@@ -180,10 +195,47 @@ private:
 
 }  // namespace kml
 
+
+/*
+namespace glz
+{
+
+using G = kml::geojson::GeoJsonGeometry;
+
+template <>
+struct from<JSON, G>
+{
+    template <auto Opts>
+    static void op(G& geometry, is_context auto&& ctx, auto&& it, auto&& end)
+    {
+        glz::json_t::object_t obj;
+        parse<JSON>::op<Opts>(obj, ctx, it, end);
+
+        //uuid = uuid_lib::uuid_from_string_view(str);
+        //geometry.type =
+    }
+};
+
+template <>
+struct to<JSON, G>
+{
+    template <auto Opts>
+    static void op(const G& uuid, is_context auto&& ctx, auto&& b, auto&& ix) noexcept
+    {
+        std::string str = uuid_lib::uuid_to_string(uuid);
+        serialize<JSON>::op<Opts>(str, ctx, b, ix);
+    }
+};
+}
+*/
+
+/*
 template <>
 struct glz::meta<kml::geojson::GeoJsonGeometry>
 {
     using T = kml::geojson::GeoJsonGeometry;
-    static constexpr auto value = object("type", custom<&T::m_type, &T::m_type>,
-                                         "coordinates", custom<&T::read_coordinates, &T::m_coordinates>);
+    static constexpr auto value = object("type", custom<&T::type, &T::type>,
+                                         "coordinates", custom<&T::read_coordinates, &T::coordinates>);
 };
+*/
+

@@ -65,7 +65,7 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
     for(auto feature : geoJsonData.features) {
         if (feature.isPoint())
         {
-            auto const point = feature.geometry.coordinates[0];
+            std::vector<double> latLon = std::get<std::vector<double>>(feature.geometry.coordinates);
             glz::json_t *props_json = &feature.properties;
             BookmarkData bookmark;
 
@@ -116,7 +116,7 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
                 // TODO: Store 'umap_options' as a JSON string in some bookmark field.
             }
 
-            bookmark.m_point = point;
+            bookmark.m_point = mercator::FromLatLon(latLon[1], latLon[0]);
             m_fileData.m_bookmarksData.push_back(bookmark);
         }
     }
@@ -125,7 +125,7 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
     for(auto feature : geoJsonData.features) {
         if (feature.isLine())
         {
-            auto const points = feature.geometry.coordinates;
+            std::vector<std::vector<double>> lineCoords = std::get<std::vector<std::vector<double>>>(feature.geometry.coordinates);
             glz::json_t *props_json = &feature.properties;
             TrackData track;
 
@@ -147,6 +147,14 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
                 if (colorRGBA) {
                     track.m_layers.push_back(TrackLayer{.m_color = ColorData{.m_rgba = *colorRGBA}});
                 }
+            }
+
+            // Copy coordinates
+            std::vector<m2::PointD> points;
+            points.resize(lineCoords.size());
+            for(size_t i=0; i<lineCoords.size(); i++) {
+                auto pairCoords = lineCoords[i];
+                points.at(i) = mercator::FromLatLon(pairCoords[1], pairCoords[0]);
             }
 
             track.m_geometry.AddLine(points);
