@@ -596,6 +596,22 @@ bool IsBridgeOrTunnelChecker::IsMatched(uint32_t type) const
   return (p->GetName() == "bridge" || p->GetName() == "tunnel");
 }
 
+IsTunnelChecker::IsTunnelChecker() : BaseChecker(3 /* level */) {}
+
+bool IsTunnelChecker::IsMatched(uint32_t const type) const
+{
+  if (ftype::GetLevel(type) != 3)
+    return false;
+
+  ClassifObject const * p = classif().GetRoot()->GetObject(ftype::GetValue(type, 0));
+  if (p->GetName() != "highway")
+    return false;
+
+  p = p->GetObject(ftype::GetValue(type, 1));
+  p = p->GetObject(ftype::GetValue(type, 2));
+  return (p->GetName() == "tunnel");
+}
+
 IsHotelChecker::IsHotelChecker()
 {
   base::StringIL const types[] = {

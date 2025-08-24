@@ -67,6 +67,7 @@ public:
   virtual LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) = 0;
   virtual ms::LatLon const & GetPoint(Segment const & segment, bool front) = 0;
   virtual bool IsOneWay(NumMwmId mwmId, uint32_t featureId) = 0;
+  virtual bool IsTunnel(Segment const & segment) = 0;
 
   // Checks whether feature is allowed for through passage.
   virtual bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) = 0;
