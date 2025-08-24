@@ -1586,6 +1586,7 @@ node|z14-[man_made=communications_tower],
 node|z17-[man_made=communications_tower],
 {font-size: 11;}
 
+node|z19-[power=portal],
 node|z19-[power=tower],
 node|z15-[man_made=flagpole],
 node|z16-[man_made=mast],

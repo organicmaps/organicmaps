@@ -377,8 +377,10 @@ area|z16-[highway=elevator],
 node|z16-[highway=ladder],
 {icon-image: ladder-s.svg;}
 
+node|z13-[power=portal],
 node|z13[power=tower],
 {icon-image: mast-m.svg;}
+node|z14-[power=portal],
 node|z14-[power=tower],
 {icon-image: power-tower-m.svg;}
 node|z15-[power=pole],
