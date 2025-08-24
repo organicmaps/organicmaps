@@ -201,7 +201,7 @@ landuse|forest|deciduous
 *amenity|charging_station|motorcar
 *leisure|golf_course
 *highway|service|bridge
-mapswithme
+*power|portal
 *natural|wetland|marsh
 *leisure|stadium
 *amenity|doctors
@@ -750,8 +750,8 @@ boundary|administrative|4
 *barrier|turnstile
 *landuse|industrial|mine
 *landuse|flowerbed
-mapswithme
-mapswithme
+*barrier|yes
+*barrier|wicket_gate
 mapswithme
 mapswithme
 mapswithme
@@ -1627,3 +1627,5 @@ amenity|recycling|container
 *amenity|ranger_station
 *leisure|escape_game
 *amenity|luggage_locker
+*building|guardhouse
+*office|security
