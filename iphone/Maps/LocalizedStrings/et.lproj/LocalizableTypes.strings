@@ -1498,3 +1498,8 @@
 "type.amenity.ranger_station" = "Pargivahi maja";
 "type.amenity.luggage_locker" = "Pagasihoid";
 "type.leisure.escape_game" = "Põgenemistuba";
+"type.barrier.wicket_gate" = "Wicket Gate";
+"type.barrier.yes" = "Barrier";
+"type.building.guardhouse" = "Guard";
+"type.office.security" = "Security Office";
+"type.power.portal" = "Power Tower (Portal)";

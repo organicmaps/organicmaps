@@ -1498,3 +1498,9 @@
 "type.amenity.ranger_station" = "Пост лесников";
 "type.amenity.luggage_locker" = "Камера хранения";
 "type.leisure.escape_game" = "Игра Escape Room";
+
+"type.barrier.wicket_gate" = "Калитка";
+"type.barrier.yes" = "Барьер";
+"type.building.guardhouse" = "Сторож";
+"type.office.security" = "Охрана";
+"type.power.portal" = "Опора (Портал)";

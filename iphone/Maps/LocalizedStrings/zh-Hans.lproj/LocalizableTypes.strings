@@ -1498,3 +1498,8 @@
 "type.leisure.escape_game" = "密室逃脱";
 "type.railway.station.subway.qingdao" = "地铁站";
 "type.amenity.ranger_station" = "护林站";
+"type.barrier.wicket_gate" = "Wicket Gate";
+"type.barrier.yes" = "Barrier";
+"type.building.guardhouse" = "Guard";
+"type.office.security" = "Security Office";
+"type.power.portal" = "Power Tower (Portal)";
