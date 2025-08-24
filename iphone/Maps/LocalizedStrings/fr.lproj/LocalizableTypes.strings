@@ -1498,3 +1498,8 @@
 "type.amenity.ranger_station" = "Poste de garde forestier";
 "type.amenity.luggage_locker" = "Casier à bagages";
 "type.leisure.escape_game" = "Jeu d’évasion";
+"type.barrier.wicket_gate" = "Wicket Gate";
+"type.barrier.yes" = "Barrier";
+"type.building.guardhouse" = "Guard";
+"type.office.security" = "Security Office";
+"type.power.portal" = "Power Tower (Portal)";

@@ -243,6 +243,8 @@ world  +
         toll_booth  -
         turnstile  -
         wall  -
+        wicket_gate  -
+        yes  -
         {}
     boundary  +
         aboriginal_lands  -
@@ -264,6 +266,7 @@ world  +
     building  +
         address  -
         garage  -
+        guardhouse  -
         has_parts  -
         train_station  -
         {}
@@ -808,6 +811,7 @@ world  +
         insurance  -
         lawyer  -
         ngo  -
+        security  -
         telecommunication  -
         {}
     organic  +
@@ -900,6 +904,7 @@ world  +
             wind  -
             {}
         pole  -
+        portal  -
         station  -
         substation  -
         tower  -

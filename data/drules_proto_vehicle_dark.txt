@@ -8501,6 +8501,136 @@ cont {
   }
 }
 cont {
+  name: "building-guardhouse"
+  element {
+    scale: 15
+    area {
+      color: 1511594265
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 50
+    }
+  }
+  element {
+    scale: 16
+    area {
+      color: 1931024665
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 50
+    }
+  }
+  element {
+    scale: 17
+    area {
+      color: 1931024665
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 50
+    }
+    symbol {
+      name: "security-m"
+      priority: 30
+    }
+  }
+  element {
+    scale: 18
+    area {
+      color: 1931024665
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 50
+    }
+    symbol {
+      name: "security-m"
+      priority: 30
+    }
+    caption {
+      primary {
+        height: 13
+        color: 7566195
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 12
+        color: 7566195
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9970
+    }
+  }
+  element {
+    scale: 19
+    area {
+      color: 1931024665
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 50
+    }
+    symbol {
+      name: "security-m"
+      priority: 30
+    }
+    caption {
+      primary {
+        height: 14
+        color: 7566195
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 13
+        color: 7566195
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9970
+    }
+  }
+  element {
+    scale: 20
+    area {
+      color: 1931024665
+      border {
+        width: 1.0
+        color: 1842204
+      }
+      priority: 50
+    }
+    symbol {
+      name: "security-m"
+      priority: 30
+    }
+    caption {
+      primary {
+        height: 14
+        color: 7566195
+        offset_y: 1
+        is_optional: true
+      }
+      secondary {
+        height: 13
+        color: 7566195
+        offset_y: 1
+        is_optional: true
+      }
+      priority: -9970
+    }
+  }
+}
+cont {
   name: "building-has_parts"
   element {
     scale: 15
@@ -37702,6 +37832,37 @@ cont {
         color: 19033
       }
       priority: 450
+    }
+  }
+}
+cont {
+  name: "office-security"
+  element {
+    scale: 17
+    symbol {
+      name: "security-m"
+      priority: 200
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "security-m"
+      priority: 200
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "security-m"
+      priority: 200
+    }
+  }
+  element {
+    scale: 20
+    symbol {
+      name: "security-m"
+      priority: 200
     }
   }
 }
