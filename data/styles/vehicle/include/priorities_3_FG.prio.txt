@@ -352,6 +352,7 @@ man_made-cutline                                    # line z15-
 barrier-ditch                                       # line z17-
 building                                            # area z15- (also has caption z18-)
 building-garage                                     # area z15- (also has caption z18-)
+building-guardhouse
 building-has_parts                                  # area z15- (also has caption z18-)
 building-train_station                              # area z15- (also has caption z18-)
 === 50

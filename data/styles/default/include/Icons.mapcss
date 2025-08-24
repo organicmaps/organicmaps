@@ -1014,6 +1014,8 @@ node|z17-[leisure=bowling_alley],
 area|z17-[leisure=bowling_alley],
 node|z17-[amenity=police],
 area|z17-[amenity=police],
+node|z17-[building=guardhouse],
+node|z17-[office=security],
 node|z17-[amenity=prison],
 area|z17-[amenity=prison],
 node|z17-[office=diplomatic],
@@ -1671,11 +1673,16 @@ node|z18-[leisure=bowling_alley],
 area|z18-[leisure=bowling_alley],
 {font-size: 11;}
 
+node|z17-[building=guardhouse],
+node|z17-[office=security],
+{icon-image: security-m.svg;}
 node|z17-[amenity=police],
-area|z17-[amenity=police]
+area|z17-[amenity=police],
 {icon-image: police-m.svg;}
+node|z18-[building=guardhouse],
+node|z18-[office=security],
 node|z18-[amenity=police],
-area|z18-[amenity=police]
+area|z18-[amenity=police],
 {font-size: 11;}
 
 node|z17-[amenity=prison],
