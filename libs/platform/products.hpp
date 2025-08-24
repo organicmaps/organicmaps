@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <mutex>
 #include <optional>
 #include <string>
@@ -7,32 +8,25 @@
 
 namespace products
 {
-
 struct ProductsConfig
 {
   struct Product
   {
-  private:
-    std::string m_title;
-    std::string m_link;
-
-  public:
-    Product(std::string const & title, std::string const & link) : m_title(title), m_link(link) {}
-
-    std::string const & GetTitle() const { return m_title; }
-    std::string const & GetLink() const { return m_link; }
+    std::string title;
+    std::string link;
   };
+  std::optional<std::string> placePagePrompt;
+  std::vector<Product> products;
 
-private:
-  std::string m_placePagePrompt;
-  std::vector<Product> m_products;
+  bool HasProducts() const { return !products.empty(); }
+  bool IsValid() const
+  {
+    return std::ranges::all_of(products,
+                               [](auto const & product) { return !product.title.empty() && !product.link.empty(); });
+  }
 
-public:
-  std::string const GetPlacePagePrompt() const { return m_placePagePrompt; }
-  std::vector<Product> const & GetProducts() const { return m_products; }
-  bool HasProducts() const { return !m_products.empty(); }
-
-  static std::optional<ProductsConfig> Parse(std::string const & jsonStr);
+  static std::optional<ProductsConfig> LoadFromString(std::string const & jsonString);
+  static std::optional<ProductsConfig> LoadFromFile(std::string const & jsonFilePath);
 };
 
 class ProductsSettings
@@ -46,18 +40,8 @@ private:
 public:
   static ProductsSettings & Instance();
 
-  void Update(std::string const & jsonStr);
-  std::optional<ProductsConfig> Get();
+  void Update(std::optional<ProductsConfig> && productsConfig);
+  std::optional<ProductsConfig> Get() const;
 };
-
-inline void Update(std::string const & jsonStr)
-{
-  ProductsSettings::Instance().Update(jsonStr);
-}
-
-inline std::optional<ProductsConfig> GetProductsConfiguration()
-{
-  return ProductsSettings::Instance().Get();
-}
 
 }  // namespace products
