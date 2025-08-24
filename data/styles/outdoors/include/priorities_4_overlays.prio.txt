@@ -1189,6 +1189,7 @@ man_made-mast                                       # icon z13- (also has captio
 man_made-silo                                       # icon z13- (also has caption(optional) z14-)
 man_made-storage_tank                               # icon z13- (also has caption(optional) z14-)
 man_made-water_tower                                # icon z13- (also has caption(optional) z14-)
+power-portal                                        # icon z13-
 power-tower                                         # icon z13-
 === 450
 
