@@ -1174,6 +1174,7 @@ amenity-shower                                      # icon z17- (also has captio
 amenity-toilets                                     # icon z18- (also has caption(optional) z18-)
 man_made-embankment                                 # pathtext z18- (also has line z16-)
 office                                              # icon z18- (also has caption(optional) z18-)
+office-security
 post_office-post_partner                            # icon z18- (also has caption(optional) z18-)
 shop                                                # icon z18- (also has caption(optional) z18-)
 === 470
@@ -1212,6 +1213,7 @@ emergency-emergency_ward_entrance                   # icon z18- (also has captio
 
 building                                            # caption z16- (also has area z14-)
 building-garage                                     # caption z16- (also has area z14-)
+building-guardhouse
 building-has_parts                                  # caption z16- (also has area z14-)
 power-plant                                         # icon z17-
 power-plant-coal                                    # icon z17-

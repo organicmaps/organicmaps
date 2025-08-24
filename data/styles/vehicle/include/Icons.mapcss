@@ -630,12 +630,19 @@ node|z18-[amenity=bank],
 area|z18-[amenity=bank]
 {icon-image: bank-m.svg;font-size: 14.5; icon-min-distance: 10;}
 
+node|z17-[building=guardhouse],
+node|z17-[office=security],
+{icon-image: security-m.svg;}
+node|z17-[amenity=police],
+area|z17-[amenity=police],
+{icon-image: police-m.svg;}
+
 node|z17[amenity=police],
-area|z17[amenity=police]
-{icon-image: police-m.svg; font-size: 13.75; icon-min-distance: 15;}
+area|z17[amenity=police],
+{font-size: 13.75; icon-min-distance: 15;}
 node|z18-[amenity=police],
-area|z18-[amenity=police]
-{icon-image: police-m.svg; font-size: 14.5; icon-min-distance: 10;}
+area|z18-[amenity=police],
+{font-size: 14.5; icon-min-distance: 10;}
 
 node|z12[barrier=toll_booth],
 area|z12[barrier=toll_booth],
