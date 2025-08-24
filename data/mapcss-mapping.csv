@@ -303,7 +303,8 @@ waterway|dam;200;
 amenity|charging_station|motorcar;[amenity=charging_station][motorcar?];;name;int_name;201;
 leisure|golf_course;202;
 highway|service|bridge;[highway=service][bridge?];;name;int_name;203;
-deprecated:power|minor_line:01.2017;204;x
+# ~250K usages.
+power|portal;204;
 natural|wetland|marsh;[natural=wetland][wetland=marsh],[natural=marsh];;name;int_name;205;
 leisure|stadium;206;
 amenity|doctors;207;

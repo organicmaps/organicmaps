@@ -1188,6 +1188,7 @@ man_made-mast                                       # icon z16-
 man_made-silo                                       # icon z16- (also has caption(optional) z18-)
 man_made-storage_tank                               # icon z16- (also has caption(optional) z18-)
 man_made-water_tower                                # icon z16- (also has caption(optional) z18-)
+power-portal                                        # icon z19-
 power-tower                                         # icon z19-
 === 450
 
