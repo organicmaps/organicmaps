@@ -870,8 +870,8 @@ barrier|kissing_gate;749;
 barrier|turnstile;750;
 landuse|industrial|mine;[landuse=industrial][industrial=mine];;name;int_name;751;
 landuse|flowerbed;752;
-deprecated|deprecated;753;x
-deprecated|deprecated;754;x
+barrier|yes;753;
+barrier|wicket_gate;754;
 deprecated|deprecated;755;x
 deprecated|deprecated;756;x
 deprecated|deprecated;757;x
