@@ -572,3 +572,5 @@
 "show_to_the_right" = "Birta hægra megin";
 "show_at_the_bottom" = "Birta neðst";
 "routes_update_maps_text" = "Til að birta leiðir þarf að uppfæra landakort.";
+"right" = "Right";
+"bottom" = "Bottom";

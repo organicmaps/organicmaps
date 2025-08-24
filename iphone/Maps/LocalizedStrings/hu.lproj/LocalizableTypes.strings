@@ -1494,3 +1494,8 @@
 "type.post_office.post_partner" = "Postapartnerpont";
 "type.amenity.luggage_locker" = "Csomagmegőrző";
 "type.leisure.escape_game" = "Szabadulószoba";
+"type.barrier.wicket_gate" = "Wicket Gate";
+"type.barrier.yes" = "Barrier";
+"type.building.guardhouse" = "Guard";
+"type.office.security" = "Security Office";
+"type.power.portal" = "Power Tower (Portal)";
