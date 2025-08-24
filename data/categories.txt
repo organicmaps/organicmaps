@@ -19032,3 +19032,11 @@ uk:5Камера схову|4багаж
 vi:Tủ khóa hành lý
 zh-Hans:行李寄存柜
 zh-Hant:行李寄存櫃
+
+office-security
+en:4Security Office
+ru:ЧОП|4Охрана
+
+building-guardhouse
+en:4Guard
+ru:4Сторож|4Охрана
