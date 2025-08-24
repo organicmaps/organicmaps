@@ -398,6 +398,7 @@ railway-subway-bridge::bridgeblack                  # line::bridgeblack z16- (al
 
 building                                            # area z14- (also has caption z16-)
 building-garage                                     # area z14- (also has caption z16-)
+building-guardhouse
 building-has_parts                                  # area z14- (also has caption z16-)
 building-train_station                              # area z14- (also has caption z16-)
 === 130

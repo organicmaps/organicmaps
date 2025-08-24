@@ -539,6 +539,14 @@ area|z19-[building]::int_name,
 node|z19-[building]::int_name,
 {font-size: 13;}
 
+/* ToDo text: none; doesn't work here ..  */
+node|z18-[building=guardhouse],
+area|z18-[building=guardhouse],
+node|z18-[building=guardhouse]::int_name,
+area|z18-[building=guardhouse]::int_name,
+{text-offset: 1;}
+
+
 node|z18[addr:housenumber][addr:street],
 {font-size: 13;}
 node|z19-[addr:housenumber][addr:street],

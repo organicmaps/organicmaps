@@ -716,6 +716,7 @@ amenity-parcel_locker                               # icon z17- (also has captio
 amenity-police                                      # icon z17-
 amenity-post_office                                 # icon z17- (also has caption(optional) z17-)
 amenity-toilets                                     # icon z17- (also has caption(optional) z17-)
+office-security
 post_office-post_partner                            # icon z18- (also has caption(optional) z18-)
 shop-motorcycle                                     # icon z17-
 === 200
@@ -740,6 +741,7 @@ building-has_parts                                  # caption z18- (also has are
 === 50
 
 building-garage                                     # caption z18- (also has area z15-)
+building-guardhouse
 === 30
 
 entrance-main                                       # icon z18- (also has caption(optional) z18-)
