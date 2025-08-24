@@ -716,7 +716,7 @@ amenity-parcel_locker                               # icon z17- (also has captio
 amenity-police                                      # icon z17-
 amenity-post_office                                 # icon z17- (also has caption(optional) z17-)
 amenity-toilets                                     # icon z17- (also has caption(optional) z17-)
-office-security
+office-security                                     # icon z17-
 post_office-post_partner                            # icon z18- (also has caption(optional) z18-)
 shop-motorcycle                                     # icon z17-
 === 200
@@ -725,17 +725,17 @@ highway-traffic_signals                             # icon z15-
 === 175
 
 building-address                                    # caption z18-
-landuse-landfill                                    # caption z15- (also has area z15-)
-landuse-quarry                                      # caption z15- (also has area z15-)
-landuse-railway                                     # caption z15- (also has area z15-)
-power-plant
-power-plant-coal
-power-plant-gas
-power-plant-hydro
-power-plant-solar
-power-plant-wind
-power-station                                       # caption z15- (also has area z15-)
-power-substation                                    # caption z15- (also has area z15-)
+landuse-landfill                                    # caption z17- (also has area z15-)
+landuse-quarry                                      # caption z17- (also has area z15-)
+landuse-railway                                     # caption z17- (also has area z15-)
+power-plant                                         # icon z16- (also has caption(optional) z17-, area z15-)
+power-plant-coal                                    # icon z16- (also has caption(optional) z17-, area z15-)
+power-plant-gas                                     # icon z16- (also has caption(optional) z17-, area z15-)
+power-plant-hydro                                   # icon z16- (also has caption(optional) z17-, area z15-)
+power-plant-solar                                   # icon z16- (also has caption(optional) z17-, area z15-)
+power-plant-wind                                    # icon z16- (also has caption(optional) z17-, area z15-)
+power-station                                       # icon z16- (also has caption(optional) z17-, area z15-)
+power-substation                                    # icon z16- (also has caption(optional) z17-, area z15-)
 === 150
 
 leisure-park-no-access                              # icon z14- (also has caption(optional) z14-, area z10-)
@@ -747,7 +747,7 @@ building-has_parts                                  # caption z18- (also has are
 === 50
 
 building-garage                                     # caption z18- (also has area z15-)
-building-guardhouse
+building-guardhouse                                 # icon z17- (also has caption(optional) z18-, area z15-)
 === 30
 
 entrance-main                                       # icon z18- (also has caption(optional) z18-)
@@ -1211,9 +1211,22 @@ entrance-main                                       # icon z18- (also has captio
 # post_office-post_partner                          # caption(optional) z18- (also has icon z18-)
 # === -9800
 
+# power-plant                                       # caption(optional) z17- (also has icon z16-, area z15-)
+# power-plant-coal                                  # caption(optional) z17- (also has icon z16-, area z15-)
+# power-plant-gas                                   # caption(optional) z17- (also has icon z16-, area z15-)
+# power-plant-hydro                                 # caption(optional) z17- (also has icon z16-, area z15-)
+# power-plant-solar                                 # caption(optional) z17- (also has icon z16-, area z15-)
+# power-plant-wind                                  # caption(optional) z17- (also has icon z16-, area z15-)
+# power-station                                     # caption(optional) z17- (also has icon z16-, area z15-)
+# power-substation                                  # caption(optional) z17- (also has icon z16-, area z15-)
+# === -9850
+
 # leisure-park-no-access                            # caption(optional) z14- (also has icon z14-, area z10-)
 # leisure-park-private                              # caption(optional) z14- (also has icon z14-, area z10-)
 # === -9900
+
+# building-guardhouse                               # caption(optional) z18- (also has icon z17-, area z15-)
+# === -9970
 
 # entrance-main                                     # caption(optional) z18- (also has icon z18-)
 # === -9980
