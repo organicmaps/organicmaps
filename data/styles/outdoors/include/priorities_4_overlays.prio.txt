@@ -876,6 +876,8 @@ barrier-lift_gate                                   # icon z16- (also has captio
 barrier-stile                                       # icon z16- (also has caption(optional) z16-)
 barrier-swing_gate                                  # icon z16- (also has caption(optional) z16-)
 barrier-turnstile                                   # icon z16- (also has caption(optional) z16-)
+barrier-wicket_gate                                 # icon z16- (also has caption(optional) z16-)
+barrier-yes
 leisure-dog_park                                    # icon z16- (also has caption(optional) z16-)
 === 2300
 

@@ -16,11 +16,7 @@
 
 #include "defines.hpp"
 
-#include <algorithm>
 #include <initializer_list>
-#include <limits>
-#include <unordered_map>
-#include <utility>
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -87,6 +83,7 @@ TagMapping const kCarBarriersTagMapping = {
     {OsmElement::Tag("barrier", "block"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "bollard"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "cycle_barrier"), RoadAccess::Type::No},
+    {OsmElement::Tag("barrier", "yes"), RoadAccess::Type::No},
     {OsmElement::Tag("barrier", "chain"), RoadAccess::Type::Private},
     {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
     {OsmElement::Tag("barrier", "lift_gate"), RoadAccess::Type::Private},
@@ -115,10 +112,10 @@ TagMapping const kBicycleTagMapping = {
     {OsmElement::Tag("bicycle", "destination"), RoadAccess::Type::Destination},
 };
 
+/// @todo Still controversial?
+/// https://github.com/organicmaps/organicmaps/issues/713
 TagMapping const kBicycleBarriersTagMapping = {
     {OsmElement::Tag("barrier", "gate"), RoadAccess::Type::Private},
-    // TODO (@gmoryes) The types below should be added.
-    //  {OsmElement::Tag("barrier", "kissing_gate"), RoadAccess::Type::Private},
 };
 
 // Allow everything to keep transit section empty. We'll use pedestrian section for
