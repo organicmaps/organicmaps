@@ -158,10 +158,8 @@ public class SyncPrefsImpl implements SyncPrefs
     catch (JSONException e)
     {
       // Should be impossible
-      Logger.e(TAG,
-               "Error serializing stored SyncOpException " + exception.getClass().getSimpleName() + ", "
-                   + exception.getMessage(),
-               e);
+      String description = exception.getClass().getSimpleName() + ", " + exception.getMessage();
+      Logger.e(TAG, "Error serializing stored SyncOpException: " + description, e);
     }
     mErrorInfoCallbacks.notifyAll(cb -> cb.onSyncException(accountId, exception));
   }
@@ -184,13 +182,29 @@ public class SyncPrefsImpl implements SyncPrefs
   @Override
   public AddAccountResult addAccount(BackendType backendType, AuthState authState)
   {
+    return addAccount(backendType, authState, false);
+  }
+
+  private AddAccountResult addAccount(BackendType backendType, AuthState authState, boolean beingReplaced)
+  {
     try
     {
       for (SyncAccount account : mAccounts)
       {
         if (account.getAuthState().equals(authState))
-          // TODO consider updating tokens to reset session expiry. Not needed for nextcloud.
-          return AddAccountResult.AlreadyExists;
+        {
+          if (beingReplaced)
+          {
+            // should be impossible
+            Logger.e(TAG, "Account remains after deletion: Type " + account.getBackendType());
+            return AddAccountResult.UnexpectedError;
+          }
+          removeAccount(account);
+          AddAccountResult replaceResult = addAccount(backendType, authState, true);
+          if (replaceResult == AddAccountResult.Success)
+            return AddAccountResult.ReplacedExisting;
+          return replaceResult;
+        }
       }
 
       int accountId = generateNextAccountId();
