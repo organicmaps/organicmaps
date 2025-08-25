@@ -217,7 +217,7 @@ private:
   EditableProperties GetEditablePropertiesForTypes(feature::TypesHolder const & types) const;
 
   bool FillFeatureInfo(FeatureStatus status, editor::XMLFeature const & xml, FeatureID const & fid,
-                       FeatureTypeInfo & fti) const;
+                       FeatureTypeInfo & fti, editor::EditorConfig const & config) const;
   /// @returns pointer to m_features[id][index] if exists, nullptr otherwise.
   static FeatureTypeInfo const * GetFeatureTypeInfo(FeaturesContainer const & features, MwmId const & mwmId,
                                                     uint32_t index);

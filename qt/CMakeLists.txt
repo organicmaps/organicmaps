@@ -123,7 +123,7 @@ copy_resources(
   drules_proto_outdoors_dark.bin
   drules_proto_vehicle_light.bin
   drules_proto_vehicle_dark.bin
-  editor.config
+  editor.json
   packed_polygons.bin
   patterns.txt
   transit_colors.txt

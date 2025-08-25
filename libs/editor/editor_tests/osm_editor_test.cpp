@@ -156,7 +156,13 @@ void GenerateUploadedFeature(MwmSet::MwmId const & mwmId, osm::EditableMapObject
   mwmNode.append_attribute("version") = static_cast<long long>(mwmId.GetInfo()->GetVersion());
   pugi::xml_node created = mwmNode.append_child("create");
 
-  editor::XMLFeature xf = editor::ToXML(emo, true);
+  editor::EditorConfig config;
+  base::Json doc;
+  editor::ConfigLoader::LoadFromLocal(doc);
+  config.SetConfig(doc);
+
+  editor::XMLFeature xf = editor::ToXML(emo, true, config);
+
   xf.SetMWMFeatureIndex(emo.GetID().m_index);
   xf.SetModificationTime(time(nullptr));
   xf.SetUploadTime(time(nullptr));
