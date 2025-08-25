@@ -85,6 +85,7 @@ import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.bookmarks.data.TrackRecording;
 import app.organicmaps.sdk.display.DisplayChangedListener;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.display.DisplayType;
@@ -121,7 +122,6 @@ import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
-import app.organicmaps.widget.StackedButtonsDialog;
 import app.organicmaps.widget.menu.MainMenu;
 import app.organicmaps.widget.placepage.PlacePageController;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
@@ -134,9 +134,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                LocationListener, SensorListener, LocationState.ModeChangeListener,
                RoutingPlanInplaceController.RoutingPlanListener, RoutingBottomMenuListener,
                BookmarkManager.BookmarksLoadingListener, FloatingSearchToolbarController.SearchToolbarListener,
-               MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader,
-               PlacePageController.PlacePageRouteSettingsListener, MapButtonsController.MapButtonClickListener,
-               DisplayChangedListener
+               MenuBottomSheetFragment.MenuBottomSheetInterfaceWithHeader, PlacePageController.PlacePageListener,
+               MapButtonsController.MapButtonClickListener, DisplayChangedListener
 {
   private static final String TAG = MwmActivity.class.getSimpleName();
 
@@ -744,7 +743,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ChoosePositionMode mode = ChoosePositionMode.get();
     ChoosePositionMode.set(ChoosePositionMode.None, false, false);
     mMapButtonsViewModel.setButtonsHidden(false);
-    Framework.nativeDeactivatePopup();
+    Framework.nativeDeactivatePopup(true);
     refreshLightStatusBar();
     if (mode == ChoosePositionMode.Api)
       finish();
@@ -818,7 +817,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       showBottomSheet(MAIN_MENU_ID);
     }
     case help -> showHelp();
-    case trackRecordingStatus -> showTrackSaveDialog();
+    case trackRecordingStatus -> toggleTrackRecordingPP();
     }
   }
 
@@ -1081,7 +1080,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       // closes the bottom sheet in case it is opened to deal with updation of track recording status in bottom sheet.
       closeBottomSheet(MAIN_MENU_ID);
-      showTrackSaveDialog();
+      toggleTrackRecordingPP();
     }
   }
 
@@ -2335,10 +2334,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     TrackRecordingService.stopService(getApplicationContext());
     mMapButtonsViewModel.setTrackRecorderState(false);
+    if (mPlacePageViewModel.getMapObject().getValue() != null
+        && mPlacePageViewModel.getMapObject().getValue().isTrackRecording())
+      closePlacePage();
   }
 
   private void saveAndStopTrackRecording()
   {
+    closePlacePage();
     if (!TrackRecorder.nativeIsTrackRecordingEmpty())
       TrackRecorder.nativeSaveTrackRecordingWithName("");
     TrackRecorder.nativeStopTrackRecording();
@@ -2348,38 +2351,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void onTrackRecordingOptionSelected()
   {
     if (TrackRecorder.nativeIsTrackRecordingEnabled())
-      showTrackSaveDialog();
+      toggleTrackRecordingPP();
     else
       startTrackRecording();
   }
 
-  private void showTrackSaveDialog()
+  private void toggleTrackRecordingPP()
   {
-    if (TrackRecorder.nativeIsTrackRecordingEmpty())
-    {
-      Toast.makeText(this, R.string.track_recording_toast_nothing_to_save, Toast.LENGTH_SHORT).show();
-      stopTrackRecording();
-      return;
-    }
-
-    dismissAlertDialog();
-    mAlertDialog = new StackedButtonsDialog.Builder(this)
-                       .setTitle(R.string.track_recording_alert_title)
-                       .setCancelable(false)
-                       // Negative/Positive/Neutral do not have their usual meaning here.
-                       .setNegativeButton(R.string.continue_recording, (dialog, which) -> { mAlertDialog = null; })
-                       .setNeutralButton(R.string.stop_without_saving,
-                                         (dialog, which) -> {
-                                           stopTrackRecording();
-                                           mAlertDialog = null;
-                                         })
-                       .setPositiveButton(R.string.save,
-                                          (dialog, which) -> {
-                                            saveAndStopTrackRecording();
-                                            mAlertDialog = null;
-                                          })
-                       .build();
-    mAlertDialog.show();
+    if (mPlacePageViewModel.getMapObject().getValue() != null
+        && mPlacePageViewModel.getMapObject().getValue().isTrackRecording())
+      mPlacePageViewModel.setMapObject(null);
+    else
+      mPlacePageViewModel.setMapObject(new TrackRecording());
   }
 
   public void onShareLocationOptionSelected()
@@ -2427,6 +2410,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closePlacePage();
     RoutingOptions.addOption(roadType);
     rebuildLastRouteInternal();
+  }
+
+  @Override
+  public void onTrackRecordingSaved()
+  {
+    saveAndStopTrackRecording();
+  }
+
+  public void onTrackRecordingCancelled()
+  {
+    stopTrackRecording();
   }
 
   @Override

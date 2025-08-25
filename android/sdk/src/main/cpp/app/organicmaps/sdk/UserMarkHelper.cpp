@@ -175,7 +175,6 @@ jobject CreateElevationPoint(JNIEnv * env, ElevationInfo::Point const & point)
 
 jobjectArray ToElevationPointArray(JNIEnv * env, ElevationInfo::Points const & points)
 {
-  CHECK(!points.empty(), ("Elevation points must be non empty!"));
   static jclass const pointClass =
       jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/ElevationInfo$Point");
   return jni::ToJavaArray(env, pointClass, points, [](JNIEnv * env, ElevationInfo::Point const & item)
