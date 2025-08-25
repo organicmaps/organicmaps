@@ -16,11 +16,8 @@ namespace geojson
 // Data structures
 
 struct GeoJsonGeometry {
-  using Coordinates = std::variant<std::vector<double>,
-                                   std::vector<std::vector<double>>>;
-
   std::string type;
-  Coordinates coordinates;
+  std::vector<glz::json_t> coordinates;
 
   /*template <typename Visitor>
   void Visit(Visitor & visitor)
@@ -72,7 +69,7 @@ struct GeoJsonGeometry {
 
   bool operator==(GeoJsonGeometry const & data) const
   {
-      return type == data.type && coordinates == data.coordinates;
+      return type == data.type; // && coordinates == data.coordinates;
   }
 
   bool operator!=(GeoJsonGeometry const & data) const

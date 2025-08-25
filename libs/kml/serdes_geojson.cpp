@@ -51,7 +51,7 @@ void GeojsonParser::Parse(ReaderType const & reader)
 bool GeojsonParser::Parse(std::string_view & json_content) {
     geojson::GeoJsonData geoJsonData;
 
-    constexpr glz::opts opts { .error_on_missing_keys = false };
+    constexpr glz::opts opts { .error_on_missing_keys = false, .error_on_unknown_keys=false };
     auto ec = glz::read<opts>(geoJsonData, json_content);
 
     if (ec) {
@@ -65,7 +65,9 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
     for(auto feature : geoJsonData.features) {
         if (feature.isPoint())
         {
-            std::vector<double> latLon = std::get<std::vector<double>>(feature.geometry.coordinates);
+            double longitude = feature.geometry.coordinates.at(0).get_number();
+            double latitude  = feature.geometry.coordinates.at(1).get_number();
+
             glz::json_t *props_json = &feature.properties;
             BookmarkData bookmark;
 
@@ -116,7 +118,7 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
                 // TODO: Store 'umap_options' as a JSON string in some bookmark field.
             }
 
-            bookmark.m_point = mercator::FromLatLon(latLon[1], latLon[0]);
+            bookmark.m_point = mercator::FromLatLon(longitude, latitude);
             m_fileData.m_bookmarksData.push_back(bookmark);
         }
     }
@@ -125,7 +127,27 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
     for(auto feature : geoJsonData.features) {
         if (feature.isLine())
         {
-            std::vector<std::vector<double>> lineCoords = std::get<std::vector<std::vector<double>>>(feature.geometry.coordinates);
+            auto rawCoordinates = feature.geometry.coordinates;
+            std::vector<std::vector<double>> lineCoords;
+
+            lineCoords.resize(rawCoordinates.size());
+
+            // Convert 'rawCoordinates' from json_t to vector<double> with type checks
+            std::transform(rawCoordinates.begin(), rawCoordinates.end(), lineCoords.begin(),
+                           [](const glz::json_t& json)
+            {
+                std::vector<double> result;
+                if (json.is_array()) {
+                    for(glz::json_t json_element: json.get_array()) {
+                        if (json_element.is_number())
+                            result.push_back(json_element.get_number());
+                    }
+                }
+
+                return result;
+            });
+
+
             glz::json_t *props_json = &feature.properties;
             TrackData track;
 
