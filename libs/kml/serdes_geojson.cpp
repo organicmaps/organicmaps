@@ -1,28 +1,15 @@
 #include "kml/serdes_geojson.hpp"
+#include "kml/color_parser.hpp"
 
-//#include "coding/serdes_json.hpp"
-
-//#include "base/visitor.hpp"
-
-//#include "coding/file_reader.hpp"
-//#include "coding/file_writer.hpp"
+#include "geometry/mercator.hpp"
 
 #include <map>
 #include <string>
-//#include <unordered_set>
 
 namespace kml
 {
 namespace geojson
 {
-
-
-/*void GeojsonWriter::Write(FileData const & fileData)
-{
-  GeoJsonData data;
-  coding::SerializerJson<Writer> ser(m_writer);
-  ser(data);
-}*/
 
 bool GeoJsonFeature::isPoint() {
     return this->geometry.type == "Point";
@@ -32,31 +19,18 @@ bool GeoJsonFeature::isLine() {
     return this->geometry.type == "LineString";
 }
 
-
-/*template <typename ReaderType>
-void GeojsonParser::Parse(ReaderType const & reader)
-{
-  geojson::GeoJsonData data;
-  NonOwningReaderSource source(reader);
-  coding::DeserializerJson des(source);
-  des(data);
-
-  // Copy bookmarks from parsed 'data' into m_fileData.
-  //TODO
-
-  // Copy tracks from parsed 'data' into m_fileData.
-  //TODO
-}*/
-
 bool GeojsonParser::Parse(std::string_view & json_content) {
     geojson::GeoJsonData geoJsonData;
 
-    constexpr glz::opts opts { .error_on_missing_keys = false, .error_on_unknown_keys=false };
+    constexpr glz::opts opts {
+      .comments = true,
+      .error_on_unknown_keys = false,
+      .error_on_missing_keys = false
+    };
     auto ec = glz::read<opts>(geoJsonData, json_content);
 
     if (ec) {
         std::string err = glz::format_error(ec, json_content);
-        //std::cerr << "Parse error: " << err << "\n";
         LOG(LWARNING, ("Error parsing JSON:", err));
         return false;
     }
@@ -68,7 +42,7 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
             double longitude = feature.geometry.coordinates.at(0).get_number();
             double latitude  = feature.geometry.coordinates.at(1).get_number();
 
-            glz::json_t *props_json = &feature.properties;
+            std::map<std::string, glz::json_t> *props_json = &feature.properties;
             BookmarkData bookmark;
 
             // Parse label
@@ -92,7 +66,7 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
 
             // Parse color
             if (props_json->contains("marker-color") && (*props_json)["marker-color"].is_string()) {
-                auto colorRGBA = ParseColor((*props_json)["description"].get_string());
+                auto colorRGBA = ParseColor((*props_json)["marker-color"].get_string());
                 if (colorRGBA) {
                     bookmark.m_color = ColorData{.m_rgba = *colorRGBA};
                 }
@@ -147,8 +121,8 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
                 return result;
             });
 
-
-            glz::json_t *props_json = &feature.properties;
+            // Convert GeoJson properties to KML properties
+            std::map<std::string, glz::json_t> *props_json = &feature.properties;
             TrackData track;
 
             // Parse label
@@ -164,8 +138,8 @@ bool GeojsonParser::Parse(std::string_view & json_content) {
             }
 
             // Parse color
-            if (props_json->contains("marker-color") && (*props_json)["marker-color"].is_string()) {
-                auto colorRGBA = ParseColor((*props_json)["description"].get_string());
+            if (props_json->contains("stroke") && (*props_json)["stroke"].is_string()) {
+                auto colorRGBA = ParseColor((*props_json)["stroke"].get_string());
                 if (colorRGBA) {
                     track.m_layers.push_back(TrackLayer{.m_color = ColorData{.m_rgba = *colorRGBA}});
                 }

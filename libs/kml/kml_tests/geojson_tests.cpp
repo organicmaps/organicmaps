@@ -1,7 +1,8 @@
 #include "testing/testing.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "kml/serdes_geojson.hpp"
-#include "coding/file_reader.hpp"
 
 namespace geojson_tests
 {
@@ -25,7 +26,7 @@ UNIT_TEST(GeoJson_Parse_Basic)
     {
       "type": "Feature",
       "properties": {
-        "color": "red"
+        "stroke": "blue" /* Line color */
       },
       "geometry": {
         "coordinates": [
@@ -53,6 +54,11 @@ UNIT_TEST(GeoJson_Parse_Basic)
           29.8310316130992
         ],
         "type": "Point"
+      },
+      "properties": {
+        "name": "Bookmark 1",
+        /* Bookmark color */
+        "marker-color": "red"
       }
     }
   ]
@@ -61,7 +67,16 @@ UNIT_TEST(GeoJson_Parse_Basic)
   kml::FileData const dataFromText = LoadGeojsonFromString(input);
 
   TEST_EQUAL(dataFromText.m_bookmarksData.size(), 1, ());
+  auto bookmark = dataFromText.m_bookmarksData.front();
+  TEST_EQUAL(bookmark.m_color, kml::ColorData{.m_rgba = 0xFF0000FF}, ());
+  TEST_EQUAL(kml::GetDefaultStr(bookmark.m_name), "Bookmark 1", ());
+  TEST_EQUAL(bookmark.m_point, mercator::FromLatLon(31.02177966625902, 29.8310316130992), ());
+
   TEST_EQUAL(dataFromText.m_tracksData.size(), 1, ());
+  auto track = dataFromText.m_tracksData.front();
+  TEST_EQUAL(track.m_layers.front().m_color, kml::ColorData{.m_rgba = 0x0000FFFF}, ());
+  TEST_EQUAL(track.m_geometry.m_lines.empty(), false, ());
+  TEST_EQUAL(track.m_geometry.m_lines.front().size(), 3, ());
 }
 
 UNIT_TEST(GeoJson_Parse_basic_2)
